@@ -15,3 +15,4 @@ for file in files:
 (root/'reports/suite-results.json').write_text(json.dumps({'scope':'Bounded regression suites. Includes current policy/rules/Andrius regressions. Full Mond route completion and real offline browser restart remain unverified.','results':results},ensure_ascii=False,indent=2))
 sys.exit(any(r['exitCode'] for r in results))
 files.append('tools/test_liyue_mora_step2.cjs')
+files.append('tools/test_liyue_loot_step3.cjs')
