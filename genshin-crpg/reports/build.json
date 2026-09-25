@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-24-d0605b219738-4e8fd965a715",
+  "version": "2026-09-24-d0605b219738-ea03eaea33a5",
   "sourceTabs": 64,
   "excludedSaveTables": [
     "15_INVENTORY_STATE",
@@ -16,7 +16,7 @@
   ],
   "assets": 245,
   "fileCount": 778,
-  "bytes": 83431566,
+  "bytes": 83434413,
   "contentSha256": "d0605b21973841338f16be6eb45537e0c121cc8c31a9ac540465650d74191131",
-  "repackNote": "v0.13.20 selective repack: verified v0.13.19 images/audio retained unchanged after full image build exceeded execution limit; runtime/economy code and offline hashes updated."
+  "repackNote": "v0.13.21 selective repack: unchanged verified images/audio/data retained; staged recruitment runtime files and offline metadata updated."
 }

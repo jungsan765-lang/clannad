@@ -129,7 +129,7 @@ if(old.storyArrivalGate)P.storyArrivalGate=function(r){
  }
  return old.storyArrivalGate?.call(this,r)||false;
 };
-P.storyEntryReason=function(d){if(d?.REGION==='리월'||String(d?.CHAR_ID).startsWith('LIYUE_')){if(!this.liyuePersonalReady())return '리월 본편을 끝내고 자유롭게 만날 수 있을 때 시작합니다.';}return old.storyEntryReason.call(this,d);};
+P.storyEntryReason=function(d){if(d?.REGION==='리월'||String(d?.CHAR_ID).startsWith('LIYUE_')){if(d?.kind==='LEGEND'&&d.CHAR_ID!=='LIYUE_ZHONGLI'&&this.liyueLegendProgress){const gate=this.liyueLegendProgress(d);if(gate&&!gate.ready)return gate.label+' 후 시작할 수 있습니다.';return old.storyEntryReason.call(this,d);}if(!this.liyuePersonalReady())return '리월 본편을 끝내고 자유롭게 만날 수 있을 때 시작합니다.';}return old.storyEntryReason.call(this,d);};
 P.actionReason=function(type,a={}){
  const l=this.s.liyue,g=this.s.global,j=this.s.storyJourney;
  if(type==='STORY_SCRIPTED_TRAVEL'){if(!j?.scripted||this.s.runtime||this.s.placeVisit||this.s.lifeJob||this.s.worldJob)return '현재 이야기의 이동을 선택해 주세요.';try{if(j.traveler){if(g.STORY_ROUTE_ID!=='ROUTE_TRAVELER'||this.storyActiveNodeId()!==j.node||!this.s.liyue?.accepts.Q_TRV_LIYUE_04)fail('LIYUE_TRAVEL','현재 여행자 본편의 이동이 아닙니다.');if(j.node==='TRV_LY4_S04'&&!Object.values(this.s.combatReceipts||{}).some(r=>r.saveId===g.SAVE_ID&&r.group==='EG_BOSS_OSIAL'&&r.victory))fail('LIYUE_TRAVEL','해역 방어를 먼저 마쳐 주세요.');}else this.liyueEventGuard(this.liyueDefinitions().get(j.event),{travel:true});}catch(e){return e.message;}return g.CURRENT_MAP_ID===j.from?'':'이야기의 출발 위치를 확인해 주세요.';}
@@ -137,7 +137,8 @@ P.actionReason=function(type,a={}){
  if(g.STORY_ROUTE_ID==='ROUTE_ISEKAI'&&l?.activeQuest&&!l.regionReceipt){
   const chapter=l.chapters[l.activeQuest];if(chapter?.gate&&!chapter.handedOffTo&&['STORY_NEXT','STORY_CHOICE'].includes(type))return '다음 장을 선택해서 현재 이야기의 갈래를 이어가세요.';
   if(type==='MOVE'){const e=this.tables['47_MAP_EDGE_DB'].get(a.edge);if(e?.[2]==='MAP_LIYUE_HARBOR'&&!this.liyueReturnAllowed?.(e[2]))return '지금은 도시 출입이 제한됩니다. 본편의 안내에 따라 이동하세요.';}
-  if(['PLACE_ENTER','NPC','BUY','SELL','CRAFT','COMMISSION_ACCEPT','LEGEND_REGISTER'].includes(type)&&g.CURRENT_MAP_ID==='MAP_LIYUE_HARBOR')return '현재는 허가된 본편 구역에서만 활동할 수 있습니다.';
+  const betweenChapters=this.storyDone(l.activeQuest),stagedSidePass=betweenChapters&&(type==='LEGEND_REGISTER'||type==='PLACE_ENTER'&&a.place==='EVT_CRPG_LIYUE_GUILD');
+  if(!stagedSidePass&&['PLACE_ENTER','NPC','BUY','SELL','CRAFT','COMMISSION_ACCEPT','LEGEND_REGISTER'].includes(type)&&g.CURRENT_MAP_ID==='MAP_LIYUE_HARBOR')return '현재는 허가된 본편 구역에서만 활동할 수 있습니다.';
  }
  return old.actionReason.call(this,type,a);
 };

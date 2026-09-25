@@ -3,12 +3,35 @@
 'use strict';const api=root.CRPGRuntime,P=api.Runtime.prototype;
 const json=x=>{try{return JSON.parse(x||'{}');}catch{return {};}};
 const yes=x=>x===true||x==='TRUE'||x==='Y';
-const oldReason=P.actionReason;
+const oldReason=P.actionReason,baseStoryIndex=P.storyIndex;
+const liyueRecruitStages={
+ LIYUE_XIANGLING:1,LIYUE_XINGQIU:1,LIYUE_CHONGYUN:1,LIYUE_YAOYAO:1,LIYUE_GAMING:1,LIYUE_XINYAN:1,LIYUE_YANFEI:1,LIYUE_YUNJIN:1,LIYUE_LANYAN:1,LIYUE_XIAO:1,LIYUE_BEIDOU:1,LIYUE_HUTAO:1,
+ LIYUE_KEQING:2,LIYUE_QIQI:2,LIYUE_YELAN:2,LIYUE_GANYU:2,
+ LIYUE_TARTAGLIA:3,
+ LIYUE_NINGGUANG:4,LIYUE_BAIZHU:4,LIYUE_SHENHE:4,LIYUE_XIANYUN:4,LIYUE_ZIBAI:4
+};
+const liyueStageQuest=(route,stage)=>(route==='ROUTE_ISEKAI'?'Q_ISK_LIYUE_0':'Q_TRV_LIYUE_0')+stage;
+P.storyIndex=function(){
+ const ix=baseStoryIndex.call(this);if(ix.liyueRecruitmentStageVersion===1)return ix;
+ for(const d of ix.legends.values()){
+  if(d.REGION!=='리월'||d.CHAR_ID==='LIYUE_ZHONGLI')continue;
+  const stage=liyueRecruitStages[d.CHAR_ID]||4,quest=liyueStageQuest(d.ROUTE_SCOPE,stage),extra=d.CHAR_ID==='LIYUE_ZIBAI'?' && FLAG_WORLD_ZIBAI_RETURNED=TRUE':'';
+  d.LIYUE_RECRUIT_STAGE=stage;d.MAIN_FLAG_GATE='';d.START_CONDITION='ROUTE_ID='+d.ROUTE_SCOPE+' && DONE('+quest+')=TRUE && '+d.COMPLETE_FLAG_ID+'=FALSE'+extra+' && CURRENT_MAP_ID='+d.MAP_ID;
+  const row=ix.nodes.get(d.ROUTE_SCOPE+':'+d.ENTRY_NODE_ID);if(row)row[11]=d.START_CONDITION;
+ }
+ Object.defineProperty(ix,'liyueRecruitmentStageVersion',{value:1});return ix;
+};
+P.liyueLegendProgress=function(d){
+ if(!d||d.REGION!=='리월'||d.CHAR_ID==='LIYUE_ZHONGLI')return null;
+ const stage=Number(d.LIYUE_RECRUIT_STAGE||liyueRecruitStages[d.CHAR_ID]||4),quest=liyueStageQuest(d.ROUTE_SCOPE,stage),ready=this.storyDone(quest);
+ return {stage,quest,ready,label:'리월 본편 '+stage+'장 완료'};
+};
 const flagNames={FLAG_TRV_MON_PROLOGUE_CLEAR:'몬드 도입부 완료',FLAG_ISK_MON_PROLOGUE_CLEAR:'몬드 도입부 완료',FLAG_ISK_MAIN_UNLOCKED:'도입부 마무리 및 메인 화면 개방',FLAG_TRV_MON_CH2_CLEAR:'몬드 본편 완료',FLAG_ISK_M05_CLEAR:'몬드 본편 완료',FLAG_TRV_LIYUE_CLEAR:'리월 본편 완료',FLAG_ISK_L04_REGION_CLEAR:'리월 본편 완료',FLAG_MOND_MIKA_RETURNED:'첫 만남 임무에서 귀환 확인',FLAG_MOND_MONA_PRESENT:'첫 만남 임무에서 만남 확인',FLAG_WORLD_ZIBAI_RETURNED:'귀환 임무 완료'};
 P.legendRequirements=function(d,{cost=true,location=true,introduction=true}={}){
  if(!d)return [];
  const out=[],g=this.s.global,add=(label,met,kind)=>out.push({label,met:!!met,kind});
  if(d.STATUS!=='ACTIVE')add('이 루트의 개인 임무 연결 준비 중',false,'content');
+ const liyueGate=this.liyueLegendProgress?.(d);if(liyueGate)add(liyueGate.label,liyueGate.ready,'story');
  const flags=new Set([d.MAIN_FLAG_GATE,...[...String(d.START_CONDITION||'').matchAll(/(FLAG_[A-Z0-9_]+)\s*=\s*TRUE/g)].map(m=>m[1])].filter(Boolean));
  for(const flag of flags){if(flag===d.COMPLETE_FLAG_ID)continue;const name=flagNames[flag]||this.tables['23_FLAG_DB'].get(flag)?.[1]||'선행 이야기 진행';add(name,yes(this.s.flags[flag]),'story');}
  if(location&&d.MAP_ID)add((this.tables['32_MAP_DB'].get(d.MAP_ID)?.[2]||'지정 장소')+'에서 만나기',g.CURRENT_MAP_ID===d.MAP_ID,'map');
@@ -60,7 +83,7 @@ P.recruitmentRejoinEntry=function(d){
  else if(!this.storyDone(d.id))reason='개인 임무를 먼저 마쳐 주세요.';
  else if(owned[d.CHAR_ID]?.state==='JOINED')reason='이미 동행하는 인물입니다.';
  else if(this.playPhase()!=='FREE'||this.s.storyContext||this.s.worldJob||this.s.lifeJob)reason='현재 진행 중인 장면을 먼저 마쳐 주세요.';
- else if(d.REGION==='리월'&&!this.liyuePersonalReady())reason='리월 본편을 먼저 마쳐 주세요.';
+ else if(d.REGION==='리월'&&d.CHAR_ID!=='LIYUE_ZHONGLI'){const gate=this.liyueLegendProgress?.(d);if(gate&&!gate.ready)reason=gate.label+' 후 다시 만날 수 있습니다.';}
  else if(this.s.global.CURRENT_MAP_ID!==row[8])reason=(this.tables['32_MAP_DB'].get(row[8])?.[2]||'지정 장소')+'에서 다시 만날 수 있습니다.';
  else {try{if(!this.storyCondition(row[11],d))reason='재회 조건을 먼저 확인해 주세요.';}catch{reason='재회 조건을 확인할 수 없습니다.';}}
  return {id:row[4],map:row[8],reason};
@@ -69,7 +92,6 @@ P.storyCompleteLegend=function(id){const out=old.storyCompleteLegend.call(this,i
 P.actionReason=function(type,a={}){
  if(type==='RECRUIT_REJOIN')return this.recruitmentRejoinEntry(this.storyDefinition(a.quest))?.reason??'다시 제안할 개인 임무가 없습니다.';
  if(type==='ZIBAI_RETURN_CHECK')return this.playPhase()!=='FREE'?'현재 장면을 먼저 마쳐 주세요.':!this.liyuePersonalReady()?'리월 본편을 먼저 마쳐 주세요.':this.s.flags.FLAG_WORLD_ZIBAI_RETURNED?'이미 귀환을 확인했습니다.':this.s.global.CURRENT_MAP_ID!=='MAP_LIYUE_MOUNTAINS'?'리월 산지의 귀환 흔적을 찾아가세요.':'';
- if(type==='LEGEND_REGISTER'&&this.s.global.STORY_ROUTE_ID==='ROUTE_ISEKAI'&&this.s.liyue?.activeQuest&&!this.s.liyue.regionReceipt)return '리월 본편을 끝낸 뒤 개인 임무를 소개받을 수 있습니다.';
  return old.actionReason.call(this,type,a);
 };
 P.apply=function(a){

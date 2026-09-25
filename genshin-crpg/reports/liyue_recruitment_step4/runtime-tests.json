@@ -1,0 +1,35 @@
+{
+  "version": "0.13.21",
+  "scope": "priority 4 staged Liyue recruitment",
+  "total": 10,
+  "passed": 10,
+  "stages": {
+    "ROUTE_TRAVELER": {
+      "1": 12,
+      "2": 4,
+      "3": 1,
+      "4": 5
+    },
+    "ROUTE_ISEKAI": {
+      "1": 12,
+      "2": 4,
+      "3": 1,
+      "4": 5
+    }
+  },
+  "regression": {
+    "integration": "18/18",
+    "selectedLegends": "8/8",
+    "representativeLiyueRoutes": [
+      "K1",
+      "B2",
+      "TRV_A"
+    ],
+    "dist": "10/10"
+  },
+  "notes": [
+    "Zhongli remains on Geo-oculus/final-offering rule.",
+    "Zibai still requires FLAG_WORLD_ZIBAI_RETURNED.",
+    "Known full-suite NAV_LIYUE_VISITED fixture mismatch is not attributed to this change."
+  ]
+}

@@ -16,3 +16,4 @@ for file in files:
 sys.exit(any(r['exitCode'] for r in results))
 files.append('tools/test_liyue_mora_step2.cjs')
 files.append('tools/test_liyue_loot_step3.cjs')
+files.append('tools/test_liyue_recruitment_step4.cjs')

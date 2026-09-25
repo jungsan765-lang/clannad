@@ -21,6 +21,12 @@ append('51_EVENT_DB',raw['51_EVENT_DB'][1:])
 def addflag(id,label):
  if not any(r and r[0]==id for r in db['23_FLAG_DB']):db['23_FLAG_DB'].append([id,label,'FALSE','','리월','','V013_LOCAL_EXECUTION'])
 legends={d['LEGEND_ID']:d for d in objects('59_LIYUE_LEGEND_DB')}
+LIYUE_RECRUIT_STAGE={
+ 'LIYUE_XIANGLING':1,'LIYUE_XINGQIU':1,'LIYUE_CHONGYUN':1,'LIYUE_YAOYAO':1,'LIYUE_GAMING':1,'LIYUE_XINYAN':1,'LIYUE_YANFEI':1,'LIYUE_YUNJIN':1,'LIYUE_LANYAN':1,'LIYUE_XIAO':1,'LIYUE_BEIDOU':1,'LIYUE_HUTAO':1,
+ 'LIYUE_KEQING':2,'LIYUE_QIQI':2,'LIYUE_YELAN':2,'LIYUE_GANYU':2,
+ 'LIYUE_TARTAGLIA':3,
+ 'LIYUE_NINGGUANG':4,'LIYUE_BAIZHU':4,'LIYUE_SHENHE':4,'LIYUE_XIANYUN':4,'LIYUE_ZIBAI':4
+}
 affections={d['EVENT_ID']:d for d in objects('61_LIYUE_AFFECTION_DB') if re.search(r'_H0[1-5]$',d['EVENT_ID'])}
 for d in legends.values():
  isk=d['ROUTE_SCOPE']=='ROUTE_ISEKAI';id=d['LEGEND_ID'];char=d['CHAR_ID']
@@ -33,6 +39,13 @@ for d in legends.values():
   if not d.get('MAP_ID'):d['MAP_ID']='MAP_LIYUE_HARBOR'
   d['START_CONDITION']+=' && CURRENT_MAP_ID='+d['MAP_ID']
   d['REWARD_JSON']=json.dumps({'card_on_accept_only':char!='LIYUE_ZHONGLI','recruit_flag_if_accepted':d['RECRUIT_FLAG_ID'],'duplicate_card_policy':'SKIP','bond_delta':10})
+ # Non-Archon recruitment opens in chapter-sized waves instead of waiting for the region finale.
+ # Zhongli keeps the separate Geo-oculus/final-offering rule.
+ if char!='LIYUE_ZHONGLI':
+  stage=LIYUE_RECRUIT_STAGE.get(char,4);prefix='Q_ISK_LIYUE_' if isk else 'Q_TRV_LIYUE_'
+  d['MAIN_FLAG_GATE']='';d['START_CONDITION']='ROUTE_ID='+d['ROUTE_SCOPE']+' && DONE('+prefix+str(stage).zfill(2)+')=TRUE && '+d['COMPLETE_FLAG_ID']+'=FALSE'
+  if char=='LIYUE_ZIBAI':d['START_CONDITION']+=' && FLAG_WORLD_ZIBAI_RETURNED=TRUE'
+  d['START_CONDITION']+=' && CURRENT_MAP_ID='+d['MAP_ID']
  for key in ['COMPLETE_FLAG_ID','RECRUIT_FLAG_ID']:
   if d.get(key):addflag(d[key],d['DISPLAY_NAME']+(' 개인 임무 완료' if key=='COMPLETE_FLAG_ID' else ' 동행 수락'))
  if not any(r and r[0]==d['QUEST_ID'] for r in db['22_QUEST_DB']):
