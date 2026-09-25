@@ -1,0 +1,75 @@
+{
+  "sourceHash": "6635799372356c8796db89b80f78cede1c0ea17845d1af2e4acf89d533fbe039",
+  "afterHash": "6635799372356c8796db89b80f78cede1c0ea17845d1af2e4acf89d533fbe039",
+  "total": 11,
+  "passed": 11,
+  "tests": [
+    {
+      "id": "charge_100_minus70_plus35_is65_once_same_round",
+      "ok": true,
+      "evidence": {
+        "light": 65,
+        "uses": 1,
+        "moonLevel": 2
+      }
+    },
+    {
+      "id": "lunar_counter_survives_validated_save_and_constructor_restore",
+      "ok": true,
+      "evidence": {
+        "chargeSaved": 65,
+        "afterQ": 65,
+        "afterBasic": 80,
+        "lunarRound": 1
+      }
+    },
+    {
+      "id": "next_round_has_one_new35_and_turn_start25_is_idempotent",
+      "ok": true,
+      "evidence": {
+        "light": 100,
+        "used": {
+          "MOON:1": true,
+          "MOON:2": true
+        }
+      }
+    },
+    {
+      "id": "enemy_lunar_packet_does_not_grant_ally_time_light",
+      "ok": true
+    },
+    {
+      "id": "dead_zibai_does_not_enable_hydro_conversion",
+      "ok": true
+    },
+    {
+      "id": "pyro_crystallize_stays_ordinary",
+      "ok": true
+    },
+    {
+      "id": "fresh_breakthrough_from_second_yelan_e_is_retained",
+      "ok": true
+    },
+    {
+      "id": "jade_screen_reduces_entire_first_ranged_attack_action",
+      "ok": true
+    },
+    {
+      "id": "yanfei_q_gains_new_three_seals_after_spending_old_ones",
+      "ok": true
+    },
+    {
+      "id": "boss_petrify_next_action_multihit_is_reduced_once_as_an_action",
+      "ok": true,
+      "evidence": [
+        20,
+        23,
+        29
+      ]
+    },
+    {
+      "id": "pending_opening_preserves_exact_prepared_order",
+      "ok": true
+    }
+  ]
+}

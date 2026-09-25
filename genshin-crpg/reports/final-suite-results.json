@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-09-24",
+  "source": "data-latest/db_latest.json",
+  "passed": true,
+  "results": [
+    {
+      "test": "test_combat.cjs",
+      "status": "fulfilled",
+      "exit_code": 0,
+      "output": "[\n  {\n    \"name\": \"public quest starts, legal targets shown, invalid target atomic rollback\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"same seed, completed public actions and serialization resume stay identical\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"legacy active battle is rejected without mutating the original save\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"duplicate action receipt does not repeat inventory/cost/turn\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"enemy dedicated axe/mage cards execute from public boss route\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"Dvalin airborne denies ordinary melee; guard consumes action and never grounds boss\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"prepared levitator uses one shared charge and makes melee targets legal\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"combat potion consumes one item once, lock survives resume\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"CE159 requires explicit preparation and never writes guest ownership\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"cooldowns decrease exactly once at each owner turn and use DB duration\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"terrain destruction defeats at fourth destruction independent of shield/HP\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"orb action remains manual at subdued HP0 and crosses both interludes\",\n    \"ok\": true\n  }\n]\n"
+    },
+    {
+      "test": "test_extra_cards.cjs",
+      "status": "fulfilled",
+      "exit_code": 0,
+      "output": "[\n  {\n    \"name\": \"Bennett Q buffs only pyro allies and suppresses enemy light tags\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"Dahlia shared two hymn regenerations preserve original shield magnitude\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"Klee Q distributes exactly four attacks at round end and preserves aura limit\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"Jean source skills are available against movement-immune boss and heal field executes\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"party slot gap preserves slot3 maxHP bonus rather than compressing to slot2 crit\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"Mona bubble and omen run against boss; unknown weak-target classification disables other cases\",\n    \"ok\": true\n  }\n]\n"
+    },
+    {
+      "test": "test_mond_cards.cjs",
+      "status": "fulfilled",
+      "exit_code": 0,
+      "output": "PASS Eula and Rosaria supported scripts match latest source exactly; Rosaria E remains blocked\nPASS Eula taps build capped DEF stacks; AI holds at two and consumes exact coefficients\nPASS Eula sword caps direct-hit stacks and follows CE049 creation remainder plus two full rounds\nPASS Eula misses and reaction/followup damage do not add sword stacks\nPASS Eula death detonates immediately; an explicit leave detonates without recursion\nPASS Rosaria Q follows CE049: creation END plus two subsequent END ticks and matching critical share\nPASS Rosaria night is [20:00,06:00), boosts one damage, expires at dawn, and is save-stable\nPASS night and Eula vulnerability multipliers occur before the single final damage rounding\n{\"passed\":8,\"data\":\"data-latest/db_latest.json\"}\n"
+    },
+    {
+      "test": "test_economy.cjs",
+      "status": "fulfilled",
+      "exit_code": 0,
+      "output": "PASS single meal consumes one serving, heals capped HP, and costs exactly ten minutes\nPASS multi-person meal has independent last-food locks and one shared time cost\nPASS invalid, repeated, locked and unavailable meal attempts spend no inventory or time\nPASS life bond absorbs healing before HP and survives partial removal\nPASS buff food refreshes a per-owner pending status without stacking the same ID\nPASS party removal preserves ownership, HP and equipment and replacement is atomic\nPASS tool preparation enforces possession, no duplicates and field-pack capacity\nPASS six audited column-shift recipes are adapted without mutating the DB\nPASS batch crafting multiplies ingredient quantity and time, without auto eating\nPASS recipe facility and location requirements are enforced before costs\nPASS boss route next stage persists, blocks recovery when forbidden, and supports explicit leave\n{\"passed\":11,\"data\":\"data-latest/db_latest.json\"}\n"
+    },
+    {
+      "test": "test_passives.cjs",
+      "status": "fulfilled",
+      "exit_code": 0,
+      "output": "PASS Barbara creates exactly the produced quantity as special lots, never heals while cooking\nPASS isolated shop fixture: purchased food remains normal alongside crafted special food\nPASS AUTO selects normal first, explicit special heals ×1.1 and keeps ordinary servings\nPASS batch meals reserve lots independently and consume normal then special per recipient\nPASS explicit unavailable lots and late healing restrictions roll back all recipients, food and time\nPASS special lot benefit survives owner leaving party and round-trip save, without boosting purchases\nPASS generic ingredient/spend path drains normal lots first and cannot leave ghost special counts\nPASS special lot save validation rejects forged unknown variants and impossible quantities\nPASS Albedo reduces common material once per craft, preserving minimum one for batched processing\nPASS Albedo equipment crafting saves one common material type and cannot reduce rare/quest/boss material\nPASS region and active-party requirements prevent discounts, and failed discounted craft is atomic\nPASS Lisa potion discount and Mona exclusions do not stack; mundane medical recipe stays unchanged\nPASS live source reports no material conversion recipe and absent gather/scout lifecycles\nPASS isolated conversion fixture verifies Mona highest-quantity common choice, rare exclusion and minimum\nPASS source drift fails closed before spending and special effect never appears without owner\n{\"passed\":15}\n"
+    },
+    {
+      "test": "test_dvalin_story.cjs",
+      "status": "fulfilled",
+      "exit_code": 0,
+      "output": "{\n  \"ok\": true,\n  \"cutinActions\": 11,\n  \"scenes\": [\n    \"ISK_M04_BATTLE_AB_70\",\n    \"ISK_M04_BATTLE_AB_35\"\n  ],\n  \"result\": {\n    \"id\": \"DVALIN-STORY-TEST:B2\",\n    \"battleId\": \"DVALIN-STORY-TEST:B2\",\n    \"saveId\": \"DVALIN-STORY-TEST\",\n    \"group\": \"EG_ISK_M04_AB_DVALIN\",\n    \"origin\": \"STORY:ISK_M04_AB_COMBAT\",\n    \"gate\": \"ISK_M04_AB_COMBAT\",\n    \"branch\": \"AB\",\n    \"victory\": true,\n    \"xp\": 3060,\n    \"loot\": {},\n    \"rounds\": 2,\n    \"result\": \"ALIVE_PURIFIED\",\n    \"unsupportedEffects\": []\n  },\n  \"receipt\": {\n    \"resolvedNode\": \"ISK_M04_AB_COMBAT\",\n    \"saveId\": \"DVALIN-STORY-TEST\",\n    \"branch\": \"AB\",\n    \"gate\": \"ISK_M04_AB_COMBAT\",\n    \"victory\": true,\n    \"turn\": 16,\n    \"day\": 1,\n    \"group\": \"EG_ISK_M04_AB_DVALIN\",\n    \"result\": \"ALIVE_PURIFIED\",\n    \"battleId\": \"DVALIN-STORY-TEST:B2\"\n  },\n  \"node\": \"ISK_M04_AB_096\"\n}\n"
+    },
+    {
+      "test": "test_integrated_cards.cjs",
+      "status": "fulfilled",
+      "exit_code": 0,
+      "output": "{\n  \"ok\": true,\n  \"publicActions\": [\n    \"PARTY\",\n    \"TOOL_PREPARE\",\n    \"BOSS_ROUTE\",\n    \"COMBAT\"\n  ],\n  \"aiCards\": [\n    \"MOND_EULA_Q\",\n    \"MOND_ROSARIA_Q\"\n  ],\n  \"identicalResume\": true,\n  \"loadOrder\": \"all nine modules\"\n}\n"
+    }
+  ]
+}

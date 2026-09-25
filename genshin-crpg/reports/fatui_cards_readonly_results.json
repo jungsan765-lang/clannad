@@ -1,0 +1,292 @@
+{
+  "sourceHash": "bbe3cc869b38c3134d4c66aa7fd04a81fd6874dc101f4332dd745368e6f4057e",
+  "relatedHashes": {
+    "runtime_liyue_combat.js": "bbe3cc869b38c3134d4c66aa7fd04a81fd6874dc101f4332dd745368e6f4057e",
+    "runtime_liyue_cards.js": "6635799372356c8796db89b80f78cede1c0ea17845d1af2e4acf89d533fbe039",
+    "runtime_combat.js": "24c0afed27b2b2a22a09eac6e6efa744024177b82e15efdfd4b4d3f3078196ed"
+  },
+  "total": 30,
+  "passed": 30,
+  "tests": [
+    {
+      "id": "all_four_cards_supported",
+      "ok": true,
+      "evidence": [
+        {
+          "id": "ECARD_FATUI_CRYO_SPRAY",
+          "reason": ""
+        },
+        {
+          "id": "ECARD_FATUI_CRYO_ARMOR",
+          "reason": ""
+        },
+        {
+          "id": "ECARD_FATUI_PYRO_AIM",
+          "reason": ""
+        },
+        {
+          "id": "ECARD_FATUI_ANEMO_GUARD",
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "id": "public_patrol_start_is_not_blocked_and_armor_is_visible_before_begin",
+      "ok": true,
+      "evidence": {
+        "opening": "PENDING",
+        "actors": [
+          "PLAYER_CUSTOM",
+          "MON_FATUI_CRYO",
+          "MON_FATUI_PYRO",
+          "MON_FATUI_ANEMO"
+        ],
+        "armor": [
+          {
+            "source": "ECARD_FATUI_CRYO_ARMOR",
+            "value": 1189,
+            "rounds": null,
+            "createdRound": 1,
+            "element": "얼음",
+            "damageMultipliers": {
+              "불": 2
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cryo_spray_three_hits_slow_and_single_aura_application",
+      "ok": true,
+      "evidence": {
+        "damage": [
+          30,
+          30,
+          30
+        ],
+        "auraCalls": 1,
+        "slow": [
+          {
+            "id": "STATUS_SLOW",
+            "rounds": 1,
+            "createdRound": 1,
+            "value": -10
+          }
+        ]
+      }
+    },
+    {
+      "id": "cryo_spray_first_miss_preserves_one_later_aura_and_no_slow",
+      "ok": true,
+      "evidence": {
+        "damage": [
+          30,
+          30
+        ],
+        "auraCalls": 1
+      }
+    },
+    {
+      "id": "cryo_spray_existing_hydro_reacts_once",
+      "ok": true,
+      "evidence": [
+        {
+          "actor": "우인단 선발대·얼음 총잡이",
+          "target": "ALLY_1",
+          "reaction": "RX_FROZEN",
+          "reactionName": "빙결",
+          "text": "빙결 반응"
+        }
+      ]
+    },
+    {
+      "id": "cryo_armor30percent_and_pyro2x_only_consumes_shield",
+      "ok": true,
+      "evidence": {
+        "hpAfterTwo100Pyro": 950,
+        "shields": []
+      }
+    },
+    {
+      "id": "cryo_armor_nonpyro_consumes_normally",
+      "ok": true
+    },
+    {
+      "id": "pyro_aim_damage_and_single15_hit_bonus",
+      "ok": true,
+      "evidence": [
+        {
+          "k": 1.35,
+          "e": "PYRO",
+          "range": "원거리",
+          "hitBonus": 15
+        }
+      ]
+    },
+    {
+      "id": "anemo_guard_low_hp_same_side_uses_caster18percent",
+      "ok": true,
+      "evidence": [
+        {
+          "source": "ECARD_FATUI_ANEMO_GUARD",
+          "value": 180,
+          "rounds": 1,
+          "createdRound": 1,
+          "element": "바람",
+          "actor": "MON_FATUI_ANEMO#TEST",
+          "counterBeforeTurn": 1
+        }
+      ]
+    },
+    {
+      "id": "anemo_guard_self_target_allowed",
+      "ok": true
+    },
+    {
+      "id": "anemo_guard_direct_depletion_counters_once",
+      "ok": true,
+      "evidence": [
+        {
+          "actor": "우인단 선발대·바람 권총병",
+          "target": "ALLY_1",
+          "damage": 55,
+          "absorbed": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "ECARD_FATUI_ANEMO_GUARD",
+          "sourceKind": "COUNTER"
+        }
+      ]
+    },
+    {
+      "id": "anemo_guard_partial_hit_does_not_counter",
+      "ok": true
+    },
+    {
+      "id": "anemo_guard_reaction_depletion_does_not_counter",
+      "ok": true
+    },
+    {
+      "id": "anemo_guard_next_caster_turn_disarms_counter",
+      "ok": true
+    },
+    {
+      "id": "anemo_guard_cannot_select_a_side_where_all_living_units_shielded",
+      "ok": true
+    },
+    {
+      "id": "osial_wave_one_cryo_has_armor_and_dedicated_spray",
+      "ok": true,
+      "evidence": {
+        "hp": 432,
+        "armor": [
+          {
+            "source": "ECARD_FATUI_CRYO_ARMOR",
+            "value": 130,
+            "rounds": null,
+            "createdRound": 1,
+            "element": "얼음",
+            "damageMultipliers": {
+              "불": 2
+            }
+          }
+        ],
+        "spawned": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "spray_three_hits_still_obeys_status_resistance_roll",
+      "ok": true
+    },
+    {
+      "id": "anemo_guard_has_authored_one_round_duration",
+      "ok": true
+    },
+    {
+      "id": "anemo_guard_nested_bubble_depletion_is_not_direct_break",
+      "ok": true
+    },
+    {
+      "id": "all_osial_wave_cards_supported_and_spawn_once",
+      "ok": true,
+      "evidence": {
+        "spawned": [
+          1,
+          3,
+          5,
+          7
+        ],
+        "checked": [
+          "ECARD_FATUI_CRYO_SPRAY",
+          "ECARD_FATUI_CRYO_ARMOR",
+          "ECARD_FATUI_PYRO_RIFLE",
+          "ECARD_FATUI_PYRO_AIM",
+          "ECARD_FATUI_ELECTRO_HAMMER",
+          "ECARD_FATUI_ELECTRO_ARMOR",
+          "ECARD_FATUI_HYDRO_SHOT",
+          "ECARD_FATUI_HYDRO_HEAL",
+          "ECARD_FATUI_GEO_SHOT",
+          "ECARD_FATUI_GEO_BARRIER",
+          "ECARD_FATUI_ANEMO_FIST",
+          "ECARD_FATUI_ANEMO_GUARD",
+          "ECARD_FATUI_AGENT_STEALTH",
+          "ECARD_FATUI_AGENT_BLADE"
+        ]
+      }
+    },
+    {
+      "id": "electro_armor30percent_cryo2x_and_no_regeneration",
+      "ok": true
+    },
+    {
+      "id": "hydro_heal_uses_target_hp_lowest_ratio_and70percent_gate",
+      "ok": true
+    },
+    {
+      "id": "geo_barrier_uses_caster20percent_and_self_allowed",
+      "ok": true
+    },
+    {
+      "id": "agent_stealth_single_target_evades_aoe_does_not",
+      "ok": true
+    },
+    {
+      "id": "agent_blade_stealth_bonus_once_and_removed_after_miss",
+      "ok": true
+    },
+    {
+      "id": "agent_stealth_hit_bonus_ten_and_followup_not_consuming",
+      "ok": true
+    },
+    {
+      "id": "agent_stealth_does_not_amplify_secondary_reaction_packet",
+      "ok": true,
+      "evidence": [
+        {
+          "actor": "우인단·화염 채무 처리인",
+          "target": "ALLY_1",
+          "damage": 170,
+          "absorbed": 0,
+          "element": "불",
+          "reaction": "RX_OVERLOADED",
+          "sourceKind": "REACTION"
+        }
+      ]
+    },
+    {
+      "id": "sky_ladder_aoe_followup_bypasses_stealth_evasion",
+      "ok": true
+    },
+    {
+      "id": "agent_stealth_formation_attack_consumes_and_applies_hit_damage_bonus",
+      "ok": true
+    },
+    {
+      "id": "agent_stealth_missed_formation_attack_still_consumes",
+      "ok": true
+    }
+  ]
+}

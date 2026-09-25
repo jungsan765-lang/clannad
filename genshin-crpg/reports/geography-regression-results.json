@@ -1,0 +1,41 @@
+{
+  "scope": "Bounded migration/arrival/legacy combat fixtures; not full-route completion",
+  "results": [
+    {
+      "name": "legacy aggregate map retains a physical exit without direct plains bypass",
+      "pass": true
+    },
+    {
+      "name": "pending travel refreshes old target while preserving cost and cursor",
+      "pass": true
+    },
+    {
+      "name": "old acknowledged travel is not accepted at the wrong detailed map",
+      "pass": true
+    },
+    {
+      "name": "choice-group cursor and all peers remain together at camp",
+      "pass": true
+    },
+    {
+      "name": "K completed chapter gate migrates without a policy deadlock or replay",
+      "pass": true
+    },
+    {
+      "name": "B completed chapter gate migrates without a policy deadlock or replay",
+      "pass": true
+    },
+    {
+      "name": "K active legacy boss loads intact and a defeat remains recoverable",
+      "pass": true
+    },
+    {
+      "name": "B active legacy boss loads intact and a defeat remains recoverable",
+      "pass": true
+    },
+    {
+      "name": "legacy preparation becomes a same-node return goal instead of map-source failure",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "total": 14,
+  "passed": 14,
+  "results": [
+    {
+      "name": "ordinary defeat blocks world actions and survives load before explicit recovery",
+      "ok": true
+    },
+    {
+      "name": "legacy HP zero save and protagonist down after victory cannot roam",
+      "ok": true
+    },
+    {
+      "name": "story defeat keeps checkpoint retry instead of permitting recovery bypass",
+      "ok": true
+    },
+    {
+      "name": "rest requires a paid lodging facility in safe areas too",
+      "ok": true
+    },
+    {
+      "name": "10 second work timer rejects early completion and navigation without consuming resources",
+      "ok": true
+    },
+    {
+      "name": "saved work resumes once and cancelling grants no item or extra use",
+      "ok": true
+    },
+    {
+      "name": "daily quotas are local and reset on next game day, including loading after midnight",
+      "ok": true
+    },
+    {
+      "name": "ore intervals are exactly iron65 white30 crystal5 with one unit per successful work",
+      "ok": true
+    },
+    {
+      "name": "unsupported/safe zones deny mining; daily save records reject tampering",
+      "ok": true
+    },
+    {
+      "name": "waiting rolls once in hostile zones and never in safe zones, respects cooldown",
+      "ok": true
+    },
+    {
+      "name": "low waiting roll creates an opening, high roll and cooldown do not autoattack",
+      "ok": true
+    },
+    {
+      "name": "commissions require actual guild acceptance then persist across remote objectives",
+      "ok": true
+    },
+    {
+      "name": "already active legacy commissions retain progress without repeated guild acceptance",
+      "ok": true
+    },
+    {
+      "name": "imported life work cannot bypass story locks, and downed read menus respect them",
+      "ok": true
+    }
+  ]
+}

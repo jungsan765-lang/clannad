@@ -1,0 +1,4308 @@
+{
+  "sources": [
+    "https://github.com/theBowja/genshin-db",
+    "https://github.com/theBowja/genshin-db-dist",
+    "https://github.com/ylyking/GenshinTextures-full"
+  ],
+  "items": [
+    {
+      "id": "CUR_MORA",
+      "name": "모라",
+      "type": "재화",
+      "sourceName": "모라",
+      "sourceKey": "mora",
+      "filename": "UI_ItemIcon_202",
+      "assetId": 202,
+      "images": {
+        "filename_icon": "UI_ItemIcon_202"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_202.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_202.png",
+      "source_sha256": "1b87d13a96775dc8c334912716c092958a9686cca8ad53cf41d136d668c2cc30",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "path": "assets/icons/UI_ItemIcon_202.webp",
+      "bytes": 2368,
+      "sha256": "73a7f8cf05ace53411619751601a5817489f9af753bf9521cb6d6621518aae33",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_SLIME_CONDENSATE",
+      "name": "슬라임 응축액",
+      "type": "제작 재료",
+      "sourceName": "슬라임 응축액",
+      "sourceKey": "slimecondensate",
+      "filename": "UI_ItemIcon_112002",
+      "assetId": 112002,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112002"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112002.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112002.png",
+      "source_sha256": "5b835e8fc4e7cd9050760aa55b4e025cd9a7003d4b571f559c6bc3260a738989",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112002.webp",
+      "bytes": 4078,
+      "sha256": "fe449d9be7fd4030c86430f0106d08d0089dd54d715a229c3700301a82a9080c",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_DAMAGED_MASK",
+      "name": "부서진 가면",
+      "type": "제작 재료",
+      "sourceName": "부서진 가면",
+      "sourceKey": "damagedmask",
+      "filename": "UI_ItemIcon_112005",
+      "assetId": 112005,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112005"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112005.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112005.png",
+      "source_sha256": "c62e4260839d37a839e97beaae95aa0fe6118e0e4afec0a1f1e97da2f8bdebec",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112005.webp",
+      "bytes": 9094,
+      "sha256": "fb5cef34dc1cb40f078e4f490919659702f1aa130770313391668483cda6dc8a",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_WHOPPER_NECTAR",
+      "name": "구라구라 꽃꿀",
+      "type": "제작 재료",
+      "sourceName": "구라구라 꽃꿀",
+      "sourceKey": "whopperflowernectar",
+      "filename": "UI_ItemIcon_112038",
+      "assetId": 112038,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112038"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112038.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112038.png",
+      "source_sha256": "f29a806563cb33523b2f7bf47972f78e14bcf944448fc00d53bb451c142cd31d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112038.webp",
+      "bytes": 14448,
+      "sha256": "ab5976f8dd26b8a135197f5c7f6f7cb76c7ba1fdc824b238f0c4f54fad2a9d08",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_FUNGAL_SPORE",
+      "name": "버섯몬 포자",
+      "type": "제작 재료",
+      "sourceName": "버섯몬 포자",
+      "sourceKey": "fungalspores",
+      "filename": "UI_ItemIcon_112059",
+      "assetId": 112059,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112059"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112059.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112059.png",
+      "source_sha256": "9bf48c6a53d801727eaceca7a1d5a14d1f02787f79dac316de1842c10828078c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112059.webp",
+      "bytes": 9952,
+      "sha256": "19861dac5d02b19e5f29f869c2306d6c33f1b0906c59bdd9d336711d19c4b208",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_SLIME_SECRETIONS",
+      "name": "슬라임청",
+      "type": "몬스터 재료",
+      "sourceName": "슬라임청",
+      "sourceKey": "slimesecretions",
+      "filename": "UI_ItemIcon_112003",
+      "assetId": 112003,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112003"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112003.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112003.png",
+      "source_sha256": "fb1880fe2c6216c60f705fda71547aded0946c8032a4cdbb97e840196b9d31e3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112003.webp",
+      "bytes": 5644,
+      "sha256": "20e71940caa73c24572e6da95a9564e0c4735577fa07c8292eacd5346e0c48f3",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_SLIME_CONCENTRATE",
+      "name": "슬라임 원액",
+      "type": "몬스터 재료",
+      "sourceName": "슬라임 원액",
+      "sourceKey": "slimeconcentrate",
+      "filename": "UI_ItemIcon_112004",
+      "assetId": 112004,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112004"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112004.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112004.png",
+      "source_sha256": "aa4698c73aa2390c41a1b8b24ec7e0f3c4733f086bef69c6bb405805ed1bfd78",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112004.webp",
+      "bytes": 9124,
+      "sha256": "ea06f284e2d4d7c263921937f28eafa99ad4a0c8361ab989cf75cf5fe08f981a",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_STAINED_MASK",
+      "name": "오염된 가면",
+      "type": "몬스터 재료",
+      "sourceName": "오염된 가면",
+      "sourceKey": "stainedmask",
+      "filename": "UI_ItemIcon_112006",
+      "assetId": 112006,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112006"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112006.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112006.png",
+      "source_sha256": "87a908e583229706bb119ab243c8786c926653701c04480e66a20cdb4b3268f5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112006.webp",
+      "bytes": 10256,
+      "sha256": "6cea730ffa3e2cf2fd33aeeaa3c4654ed14bd0c619f99100b49b002dc33c369d",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_OMINOUS_MASK",
+      "name": "불길한 가면",
+      "type": "몬스터 재료",
+      "sourceName": "불길한 가면",
+      "sourceKey": "ominousmask",
+      "filename": "UI_ItemIcon_112007",
+      "assetId": 112007,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112007"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112007.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112007.png",
+      "source_sha256": "151b0563a6964eb0f59ddf8c28b918c0cb2b87269d6c70a4b74f3e1c6c1d59cc",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112007.webp",
+      "bytes": 12914,
+      "sha256": "b6d06c73da17b2b39cc68dee1e9fc48319f8f070e587f3ead13b68acd9b64a6d",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_SHIMMERING_NECTAR",
+      "name": "반짝반짝 꽃꿀",
+      "type": "몬스터 재료",
+      "sourceName": "반짝반짝 꽃꿀",
+      "sourceKey": "shimmeringnectar",
+      "filename": "UI_ItemIcon_112039",
+      "assetId": 112039,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112039"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112039.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112039.png",
+      "source_sha256": "9be534b220180a000f0d5864a4f52cd54824a7b221fba9e3949279200045d1de",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112039.webp",
+      "bytes": 16412,
+      "sha256": "6ad17a0e739088e4cec78c6d9b6bf8f800852d1e446e9f3fcf5080d0c0134258",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_ENERGY_NECTAR",
+      "name": "원소 꽃꿀",
+      "type": "몬스터 재료",
+      "sourceName": "원소 꽃꿀",
+      "sourceKey": "energynectar",
+      "filename": "UI_ItemIcon_112040",
+      "assetId": 112040,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112040"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112040.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112040.png",
+      "error": null,
+      "source_sha256": "fc6418713144c00f6021ec49f0b01b791cfb72d7bd7d59758606c938bf637e17",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112040.webp",
+      "bytes": 17856,
+      "sha256": "8faf9d45c1371a12e30dfa3850fd6116c1ff313275c0077494905697d6caf3b4",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_LUMINESCENT_POLLEN",
+      "name": "형광 포자 분말",
+      "type": "몬스터 재료",
+      "sourceName": "형광 포자 분말",
+      "sourceKey": "luminescentpollen",
+      "filename": "UI_ItemIcon_112060",
+      "assetId": 112060,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112060"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112060.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112060.png",
+      "error": null,
+      "source_sha256": "98066fe28e6f4668a6ef7b1199adaff5e5cbd4d26403a7b2c82fe157969f170b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112060.webp",
+      "bytes": 12796,
+      "sha256": "43a5dadfebe9c9861e8fce5f99a439f59c9573b95508f37ad199296e9a6954a3",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_CRYSTALLINE_CYST_DUST",
+      "name": "포낭 결정 가루",
+      "type": "몬스터 재료",
+      "sourceName": "포낭 결정 가루",
+      "sourceKey": "crystallinecystdust",
+      "filename": "UI_ItemIcon_112061",
+      "assetId": 112061,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112061"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112061.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112061.png",
+      "error": null,
+      "source_sha256": "6eb92cc4a1dd8db1813155e3fa65ee1d0d10c760b400cfeb7fad2f8c06d68f7c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112061.webp",
+      "bytes": 15932,
+      "sha256": "5261f84ad01506c6c8655a5af7020dad7e0715f17c0c4cbd2fc5ee7deb4d6e7a",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_TREASURE_INSIGNIA",
+      "name": "보물찾기 까마귀 휘장",
+      "type": "몬스터 재료",
+      "sourceName": "보물찾기 까마귀 휘장",
+      "sourceKey": "treasurehoarderinsignia",
+      "filename": "UI_ItemIcon_112035",
+      "assetId": 112035,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112035"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112035.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112035.png",
+      "error": null,
+      "source_sha256": "22cfe5885407efa6828b7b7ffdc9db8dfb3d4d044b14122577266945de5f2c86",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112035.webp",
+      "bytes": 7956,
+      "sha256": "17c93af0635437d01aa2a7d63e7e075276868b926ad16a5bf38fce2673479f9c",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_SILVER_INSIGNIA",
+      "name": "실버 까마귀 휘장",
+      "type": "몬스터 재료",
+      "sourceName": "실버 까마귀 휘장",
+      "sourceKey": "silverraveninsignia",
+      "filename": "UI_ItemIcon_112036",
+      "assetId": 112036,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112036"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112036.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112036.png",
+      "error": null,
+      "source_sha256": "6fda53e9b244e1ad35c0961c2d7770874672660e86c0ff33de0761a3a42135e5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112036.webp",
+      "bytes": 9160,
+      "sha256": "4ba3c5df7d1c343173da6ab02457630d3f19c0f4d63317161fa8042fc3b548d2",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_GOLDEN_INSIGNIA",
+      "name": "골드 까마귀 휘장",
+      "type": "몬스터 재료",
+      "sourceName": "골드 까마귀 휘장",
+      "sourceKey": "goldenraveninsignia",
+      "filename": "UI_ItemIcon_112037",
+      "assetId": 112037,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112037"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112037.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112037.png",
+      "error": null,
+      "source_sha256": "8d7f137087071463f87e770161cbd696767291c674827b563276d2e2255d3103",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112037.webp",
+      "bytes": 10232,
+      "sha256": "73a5d856cf243adf6af2a15739afa92b16ad901e821ee1acae13e3dbf9f8836c",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_OLD_HANDGUARD",
+      "name": "오래된 코등이",
+      "type": "몬스터 재료",
+      "sourceName": "오래된 코등이",
+      "sourceKey": "oldhandguard",
+      "filename": "UI_ItemIcon_112044",
+      "assetId": 112044,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112044"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112044.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112044.png",
+      "error": null,
+      "source_sha256": "7757dc45f45a096f6a90964cd4831793810481c8dda0c28fb48e4ad2d9bfb274",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112044.webp",
+      "bytes": 13472,
+      "sha256": "d8e7f4d1ba0a0c61996b011ec123b25f616225a60f6cd0f00b3e60e8a8741e32",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_KAGEUCHI_HANDGUARD",
+      "name": "카게우치 코등이",
+      "type": "몬스터 재료",
+      "sourceName": "카게우치 코등이",
+      "sourceKey": "kageuchihandguard",
+      "filename": "UI_ItemIcon_112045",
+      "assetId": 112045,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112045"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112045.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112045.png",
+      "error": null,
+      "source_sha256": "28f46459baa5145f5b6ef2f2ce13af90e27cc2e5738d38c2bd39c26a4b19643e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112045.webp",
+      "bytes": 14280,
+      "sha256": "b3ca3e0fd9eee48c9f741dcc1d842cea0aac5b404d4b7e7157494d0bea6cf91f",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_FAMED_HANDGUARD",
+      "name": "명검 코등이",
+      "type": "몬스터 재료",
+      "sourceName": "명검 코등이",
+      "sourceKey": "famedhandguard",
+      "filename": "UI_ItemIcon_112046",
+      "assetId": 112046,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112046"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112046.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112046.png",
+      "error": null,
+      "source_sha256": "9e08bdfc9e226e2e6085344143735c57793050b897ea0b84a50691bf03ea800e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112046.webp",
+      "bytes": 16708,
+      "sha256": "93a510a56fcb51b23fdb149f28149f059522720c002ea798597bb4385f0c13dc",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_RECRUIT_INSIGNIA",
+      "name": "신병의 휘장",
+      "type": "몬스터 재료",
+      "sourceName": "신병의 휘장",
+      "sourceKey": "recruitsinsignia",
+      "filename": "UI_ItemIcon_112032",
+      "assetId": 112032,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112032"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112032.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112032.png",
+      "error": null,
+      "source_sha256": "929cb77df360676bf49d389d30e3198f72ff4e53f0273b7065f078764324bb93",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112032.webp",
+      "bytes": 9750,
+      "sha256": "1792c5931338d93c7951429d38805fbb07c430623f6090689c6b60c975bdc715",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_SERGEANT_INSIGNIA",
+      "name": "사관의 휘장",
+      "type": "몬스터 재료",
+      "sourceName": "사관의 휘장",
+      "sourceKey": "sergeantsinsignia",
+      "filename": "UI_ItemIcon_112033",
+      "assetId": 112033,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112033"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112033.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112033.png",
+      "error": null,
+      "source_sha256": "c90c888133595a57ec635cfe0cfbc5985de9640b6e7580c19d211faf334f19f0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112033.webp",
+      "bytes": 11730,
+      "sha256": "a04d0287d523c39b79429cd6f366b7dbdcd3d9ebe7705d7ae95e1c9702110965",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_LIEUTENANT_INSIGNIA",
+      "name": "위관의 휘장",
+      "type": "몬스터 재료",
+      "sourceName": "위관의 휘장",
+      "sourceKey": "lieutenantsinsignia",
+      "filename": "UI_ItemIcon_112034",
+      "assetId": 112034,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112034"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112034.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112034.png",
+      "error": null,
+      "source_sha256": "0bd05e1f99ca3240503e84e23ca8466e837ea7277e64ec9699faff3d228da1a5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112034.webp",
+      "bytes": 11978,
+      "sha256": "9afe0cfd43f427d0f4fe86a30110c4662d20fdc51749d1f4c402c6052bb0f62f",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_MIST_GRASS_POLLEN",
+      "name": "안개꽃 가루",
+      "type": "몬스터 재료",
+      "sourceName": "안개꽃 가루",
+      "sourceKey": "mistgrasspollen",
+      "filename": "UI_ItemIcon_112026",
+      "assetId": 112026,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112026"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112026.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112026.png",
+      "error": null,
+      "source_sha256": "8e3cee47a6e541aac6915ff269301bb128e0a869e7fa7f8ce8c23b43bad57c24",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112026.webp",
+      "bytes": 7826,
+      "sha256": "f5d3f3ac996c37deaced5f21628de7778ed2903bc41c66be70c89eee8a5dd154",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_CHAOS_DEVICE",
+      "name": "혼돈의 장치",
+      "type": "몬스터 재료",
+      "sourceName": "혼돈의 장치",
+      "sourceKey": "chaosdevice",
+      "filename": "UI_ItemIcon_112023",
+      "assetId": 112023,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112023"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112023.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112023.png",
+      "error": null,
+      "source_sha256": "217f3a17c51d208d6dbc46e797932797e3869eb61fe2c9a34f9f1dd1e92865be",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112023.webp",
+      "bytes": 9364,
+      "sha256": "e0fb975eca0c815e7a9c791aa1a9bb23126ae9ccb2631374d16130546a8e304e",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_CHAOS_CIRCUIT",
+      "name": "혼돈의 회로",
+      "type": "몬스터 재료",
+      "sourceName": "혼돈의 회로",
+      "sourceKey": "chaoscircuit",
+      "filename": "UI_ItemIcon_112024",
+      "assetId": 112024,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112024"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112024.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112024.png",
+      "error": null,
+      "source_sha256": "b3450d3999c422b5d087db1c357402112b3bbd9fc8344a85b3734c75e4e3d6dd",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112024.webp",
+      "bytes": 11576,
+      "sha256": "9fa9c69878ca428cccaddf95edd0da4ac33c8d6d3e000c1d2560e6a99f39fdd3",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_CHAOS_CORE",
+      "name": "혼돈의 노심",
+      "type": "몬스터 재료",
+      "sourceName": "혼돈의 노심",
+      "sourceKey": "chaoscore",
+      "filename": "UI_ItemIcon_112025",
+      "assetId": 112025,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112025"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112025.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112025.png",
+      "error": null,
+      "source_sha256": "21c81071250292b28b7981b4fe5ccdf56ad0af9fecfc0d693b3e4e06ba3025cc",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112025.webp",
+      "bytes": 14312,
+      "sha256": "8facebfff5b88cf7d88df04b15a4ec4eb676bb8be9497b5a7403ba4584dfc199",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_FADED_RED_SATIN",
+      "name": "빛바랜 붉은 비단",
+      "type": "몬스터 재료",
+      "sourceName": "빛바랜 붉은 비단",
+      "sourceKey": "fadedredsatin",
+      "filename": "UI_ItemIcon_112065",
+      "assetId": 112065,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112065"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112065.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112065.png",
+      "error": null,
+      "source_sha256": "f9bbc3df94936887e6586a7eb849df46240db33c7a6069672de94ddd3a2686ff",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112065.webp",
+      "bytes": 7258,
+      "sha256": "db70810bd725b8b3396be12364db2b0b87ca14960b4908bedc9200bd7194a531",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_TRIMMED_RED_SILK",
+      "name": "장식된 붉은 비단",
+      "type": "몬스터 재료",
+      "sourceName": "장식된 붉은 비단",
+      "sourceKey": "trimmedredsilk",
+      "filename": "UI_ItemIcon_112066",
+      "assetId": 112066,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112066"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112066.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112066.png",
+      "error": null,
+      "source_sha256": "8f5c36524c14073ae0202f4c4ca0b8841abfe63b09ec5a89378e76c9bf1ed21d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112066.webp",
+      "bytes": 9170,
+      "sha256": "b2e43dcae95f564360b917ed592f8077d293c73a9bbfc6dc15328261de0c54fb",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_RICH_RED_BROCADE",
+      "name": "금자수 붉은 비단",
+      "type": "몬스터 재료",
+      "sourceName": "금자수 붉은 비단",
+      "sourceKey": "richredbrocade",
+      "filename": "UI_ItemIcon_112067",
+      "assetId": 112067,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112067"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112067.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112067.png",
+      "error": null,
+      "source_sha256": "2bf464babc0e1ac7cf01104e10e75d3d244f3eed445b75b10dadcec446da57e2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112067.webp",
+      "bytes": 13556,
+      "sha256": "eb1525aff977cc2bdc6d23d5c151bdae8670d4ed7f69763daf1f3bcd44e31418",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_DEAD_LEY_LINE_BRANCH",
+      "name": "지맥의 낡은 가지",
+      "type": "몬스터 재료",
+      "sourceName": "지맥의 낡은 가지",
+      "sourceKey": "deadleylinebranch",
+      "filename": "UI_ItemIcon_112020",
+      "assetId": 112020,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112020"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112020.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112020.png",
+      "error": null,
+      "source_sha256": "0dcd3b0e71c848d3cbaa63fc23ac2557591fa62fda8e9c3b4ae2efff7b03c345",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112020.webp",
+      "bytes": 7232,
+      "sha256": "c962a0719c450b85048e2a83e7997d087975b27cf77a46639642bd36fc73dd05",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_DEAD_LEY_LINE_LEAVES",
+      "name": "지맥의 마른 잎",
+      "type": "몬스터 재료",
+      "sourceName": "지맥의 마른 잎",
+      "sourceKey": "deadleylineleaves",
+      "filename": "UI_ItemIcon_112021",
+      "assetId": 112021,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112021"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112021.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112021.png",
+      "error": null,
+      "source_sha256": "d368a9d91640d59c11eb0d5c9b8b87ca5a3ec3fd9f4930b24780385a5fdbb3a8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112021.webp",
+      "bytes": 11482,
+      "sha256": "eee05ce8021bf3b73daea6b469c52704c93aa13076d534f412324df453ca74cc",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_LEY_LINE_SPROUT",
+      "name": "지맥의 새싹",
+      "type": "몬스터 재료",
+      "sourceName": "지맥의 새싹",
+      "sourceKey": "leylinesprout",
+      "filename": "UI_ItemIcon_112022",
+      "assetId": 112022,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112022"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112022.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112022.png",
+      "error": null,
+      "source_sha256": "81d0a4e6b464f07abec4e3539ead7dab657d65dbd19e26d3944af1244e44a775",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112022.webp",
+      "bytes": 14070,
+      "sha256": "15492a557001329be2303659bb9b3928774d998d0bfd5380b2fb37d02b376f1b",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ORE_IRON",
+      "name": "철광",
+      "type": "광물",
+      "sourceName": "철광",
+      "sourceKey": "ironchunk",
+      "filename": "UI_ItemIcon_101001",
+      "assetId": 101001,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101001"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101001.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101001.png",
+      "error": null,
+      "source_sha256": "012f1ebd88e1a5d4fe716eba6fd4726197588b3c140db0cb8943c5f2c498fbf8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_101001.webp",
+      "bytes": 8092,
+      "sha256": "6b679c935a4a2038bcc5d55762982dee89224bae8aa62f0f7ce85df1b29c0bc5",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ORE_WHITE_IRON",
+      "name": "백철",
+      "type": "광물",
+      "sourceName": "백철",
+      "sourceKey": "whiteironchunk",
+      "filename": "UI_ItemIcon_101002",
+      "assetId": 101002,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101002"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101002.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101002.png",
+      "error": null,
+      "source_sha256": "d8ba16da52d89f4a6102b16c85e2402418923ca412221c039c1bc92a38ce1f2f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_101002.webp",
+      "bytes": 13272,
+      "sha256": "70b2df89aa2268b10b88347dcc0a96ea7180577195e198a3b8f8d0278aa1a1e1",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ORE_CRYSTAL",
+      "name": "수정덩이",
+      "type": "광물",
+      "sourceName": "수정덩이",
+      "sourceKey": "crystalchunk",
+      "filename": "UI_ItemIcon_101003",
+      "assetId": 101003,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101003"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101003.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101003.png",
+      "error": null,
+      "source_sha256": "c4658c494b6c4166750bd2ad220a17b49241d9b5cc8f591f59401edd8c32f0a5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_101003.webp",
+      "bytes": 9448,
+      "sha256": "b7fc6cd73da3ea0167b2634b99d6c115ac87a2029eeaebdc367e92d04a530478",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ORE_AMETHYST",
+      "name": "자수정 덩이",
+      "type": "광물",
+      "sourceName": "자수정 덩이",
+      "sourceKey": "amethystlump",
+      "filename": "UI_ItemIcon_101008",
+      "assetId": 101008,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101008"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101008.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101008.png",
+      "error": null,
+      "source_sha256": "d2fd1f7145afbcf6e3d36fe61991ab026b26da8a6b820f1b53a34027e2b276a9",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_101008.webp",
+      "bytes": 9750,
+      "sha256": "f89819a9322ba56a705fb8bbbfd405bc7ce038e4718f72777df34eaedb0c3c43",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ORE_CONDESSENCE",
+      "name": "응축 결정",
+      "type": "광물",
+      "sourceName": "응축 결정",
+      "sourceKey": "condessencecrystal",
+      "filename": "UI_ItemIcon_101009",
+      "assetId": 101009,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101009"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "ORE_STARSILVER",
+      "name": "성은 광석",
+      "type": "광물",
+      "sourceName": "성은 광석",
+      "sourceKey": "starsilver",
+      "filename": "UI_ItemIcon_101006",
+      "assetId": 101006,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101006"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101006.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101006.png",
+      "error": null,
+      "source_sha256": "7413de3f5f5e4f76421ea7a34aca52b775aaff7bf89ede0f8f0a0c3070f3cb28",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_101006.webp",
+      "bytes": 8932,
+      "sha256": "d3b0889f440a44498700dbb99ddccdd9617f39961b430f0d7baf2c45cd6f371c",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ORE_CRYSTAL_MARROW",
+      "name": "수정 골수",
+      "type": "광물",
+      "sourceName": "수정 골수",
+      "sourceKey": "crystalmarrow",
+      "filename": "UI_ItemIcon_101203",
+      "assetId": 101203,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101203"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101203.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101203.png",
+      "error": null,
+      "source_sha256": "9aeaad8c936f17a4d60e520447763bf16084400bc7a4aa4d6caa56dca933ba1b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_101203.webp",
+      "bytes": 11280,
+      "sha256": "e24a43b31aaeb5ddee8f4ba592489eb366c4e8858e4ef81b88c66b99ec5f3ef9",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_APPLE",
+      "name": "사과",
+      "type": "식재료",
+      "sourceName": "사과",
+      "sourceKey": "apple",
+      "filename": "UI_ItemIcon_100001",
+      "assetId": 100001,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100001"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100001.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100001.png",
+      "error": null,
+      "source_sha256": "19aa82c4a8d5b3ce8c5f1101c118207589d6a6bf065cde408b60a9caab935186",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100001.webp",
+      "bytes": 7408,
+      "sha256": "f5d97f2ca224993d40fbf2b0eb1263350b7655932354a2e5459a6edd1805cd91",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_SUNSETTIA",
+      "name": "일몰 열매",
+      "type": "식재료",
+      "sourceName": "일몰 열매",
+      "sourceKey": "sunsettia",
+      "filename": "UI_ItemIcon_100002",
+      "assetId": 100002,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100002"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100002.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100002.png",
+      "error": null,
+      "source_sha256": "6aa4d69b7c9a86a2bad648a04768bdd1bd81e7f686b426e46c60f22aaa128df3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100002.webp",
+      "bytes": 9066,
+      "sha256": "8babca48c74df691fb77cedeea1336f556ea7a0d3511a19e3ea3e3fe73f79e96",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_SWEET_FLOWER",
+      "name": "달콤달콤꽃",
+      "type": "식재료",
+      "sourceName": "달콤달콤꽃",
+      "sourceKey": "sweetflower",
+      "filename": "UI_ItemIcon_100012",
+      "assetId": 100012,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100012"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100012.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100012.png",
+      "error": null,
+      "source_sha256": "41ae05fa16e3fdf634cf69f9882c8784da650e1d2f9849f0f149bf223915289d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100012.webp",
+      "bytes": 12948,
+      "sha256": "ba554cbe3bcc0b89444d40dca4467c37727ab0ce180e272ac32731a76a8f2f35",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_MUSHROOM",
+      "name": "버섯",
+      "type": "식재료",
+      "sourceName": "버섯",
+      "sourceKey": "mushroom",
+      "filename": "UI_ItemIcon_100011",
+      "assetId": 100011,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100011"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100011.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100011.png",
+      "error": null,
+      "source_sha256": "7f8c5df798cb6b27b21f5bf963b368298e9193cd56171289891f4b2d838cd8f3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100011.webp",
+      "bytes": 11768,
+      "sha256": "7e7b0cf2768f25903d747ec86e01f81423fac464e0f59affcb38f378a9c8290a",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_CARROT",
+      "name": "당근",
+      "type": "식재료",
+      "sourceName": "당근",
+      "sourceKey": "carrot",
+      "filename": "UI_ItemIcon_100013",
+      "assetId": 100013,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100013"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100013.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100013.png",
+      "error": null,
+      "source_sha256": "50c3adb7dbdbaefb3c1d5981b5f9290bf907fe35b6286aa532bc7af36203ccea",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100013.webp",
+      "bytes": 7310,
+      "sha256": "3a190f4d96127e885a6705c919ae5a32cc0ef3ab0d60bacff1f632034a1367e2",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_FOWL",
+      "name": "새고기",
+      "type": "식재료",
+      "sourceName": "새고기",
+      "sourceKey": "fowl",
+      "filename": "UI_ItemIcon_100064",
+      "assetId": 100064,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100064"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100064.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100064.png",
+      "error": null,
+      "source_sha256": "91d3d0128c931bcc1125f192f1b5b302dde8e4ef3c6a243b3be02c18f0a36cf8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100064.webp",
+      "bytes": 7548,
+      "sha256": "dae41278309c573949a3e56eea615bef86181b280925eef33f330e07ea031460",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_RAW_MEAT",
+      "name": "짐승고기",
+      "type": "식재료",
+      "sourceName": "짐승고기",
+      "sourceKey": "rawmeat",
+      "filename": "UI_ItemIcon_100061",
+      "assetId": 100061,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100061"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100061.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100061.png",
+      "error": null,
+      "source_sha256": "0609aa970ab1d3c65c0f34f997db76c04c5200a1be86b73774b7891ea050384d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100061.webp",
+      "bytes": 6562,
+      "sha256": "06a2e0b2180a4fa51b867369e6b99b237d0532312ade740b03773fc87117cb24",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_FISH",
+      "name": "생선 살코기",
+      "type": "식재료",
+      "sourceName": "생선 살코기",
+      "sourceKey": "fish",
+      "filename": "UI_ItemIcon_100084",
+      "assetId": 100084,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100084"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100084.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100084.png",
+      "error": null,
+      "source_sha256": "6df83852494bf807e3092182a08d3452af0034a57e2c0a51c722f350f81a9a07",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100084.webp",
+      "bytes": 10226,
+      "sha256": "5b5d9207effb2e1084ad7f8cffa25c8b463d678856cfaf75d7ac09cc92d319d9",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_CRAB",
+      "name": "꽃게",
+      "type": "식재료",
+      "sourceName": "꽃게",
+      "sourceKey": "crab",
+      "filename": "UI_ItemIcon_100073",
+      "assetId": 100073,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100073"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100073.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100073.png",
+      "error": null,
+      "source_sha256": "a9f39216348726d2952a69d4e7beaeacec05410510af6798e8ecdb45593890ae",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100073.webp",
+      "bytes": 15644,
+      "sha256": "8c5206b9e473d02ec065a93ef64cf502cbd39b9e3459d4ac28965d1342c045a8",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_MILK",
+      "name": "우유",
+      "type": "식재료",
+      "sourceName": "우유",
+      "sourceKey": "milk",
+      "filename": "UI_ItemIcon_100078",
+      "assetId": 100078,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100078"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100078.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100078.png",
+      "error": null,
+      "source_sha256": "76857830e43a38e1fb7be37c43f8cd44a8ba2d370fd2681f6d44d2f376d49a53",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100078.webp",
+      "bytes": 11288,
+      "sha256": "316f01a4ea99961a544de771e908376f02139657dea45e6f6cf14e18a27ce017",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_FLOUR",
+      "name": "밀가루",
+      "type": "가공 식재료",
+      "sourceName": "밀가루",
+      "sourceKey": "flour",
+      "filename": "UI_ItemIcon_110001",
+      "assetId": 110001,
+      "images": {
+        "filename_icon": "UI_ItemIcon_110001"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110001.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110001.png",
+      "error": null,
+      "source_sha256": "da57f7ebb1fc5b52229b7e446b7a615add86bba6e4214daee82fc4f32a358ce2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_110001.webp",
+      "bytes": 12862,
+      "sha256": "5ad4ca15892365eaa5c8f86c234f7057c02f2def08eafc3256ceb94020b1c146",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_RICE",
+      "name": "쌀",
+      "type": "식재료",
+      "sourceName": "쌀",
+      "sourceKey": "rice",
+      "filename": "UI_ItemIcon_100092",
+      "assetId": 100092,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100092"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100092.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100092.png",
+      "error": null,
+      "source_sha256": "d39547d377845e9397fb6e59154be07275e17bd31c8180068869de2f4f55c24d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100092.webp",
+      "bytes": 12736,
+      "sha256": "aba181288ba97b1225990af812d622d1f38690d1cc68f0a77cbca22e33e0f11e",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_SALT",
+      "name": "소금",
+      "type": "식재료",
+      "sourceName": "소금",
+      "sourceKey": "salt",
+      "filename": "UI_ItemIcon_100075",
+      "assetId": 100075,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100075"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100075.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100075.png",
+      "error": null,
+      "source_sha256": "b66453262802801cc422ee398533e2ca6c6cd9180b1da1f37df7466deb9f6b8c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100075.webp",
+      "bytes": 8696,
+      "sha256": "2c353b4623999dec50296b80111bda374785a826d02582f964048ca8e415df16",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_PEPPER",
+      "name": "후추",
+      "type": "식재료",
+      "sourceName": "후추",
+      "sourceKey": "pepper",
+      "filename": "UI_ItemIcon_100077",
+      "assetId": 100077,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100077"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100077.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100077.png",
+      "error": null,
+      "source_sha256": "1d792358f69470c965d57f9f8f2176e16d2199794c5d9d0e69d7afeea294cf4f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100077.webp",
+      "bytes": 9002,
+      "sha256": "3c7843703186057eb8e50aca04e0357e3675b762f0c6e4790a4ff1b4268de09b",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_ONION",
+      "name": "양파",
+      "type": "식재료",
+      "sourceName": "양파",
+      "sourceKey": "onion",
+      "filename": "UI_ItemIcon_100076",
+      "assetId": 100076,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100076"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100076.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100076.png",
+      "error": null,
+      "source_sha256": "3a37dbb74b4dd9c3403f07a2267d374ab62de33dd2fb99b5011e6a36d8aefdc1",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100076.webp",
+      "bytes": 7468,
+      "sha256": "b520e096feff84a5964c183669c92168bc4d7098cfa4e55a77a3a2726bc06541",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_TOMATO",
+      "name": "토마토",
+      "type": "식재료",
+      "sourceName": "토마토",
+      "sourceKey": "tomato",
+      "filename": "UI_ItemIcon_100079",
+      "assetId": 100079,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100079"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100079.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100079.png",
+      "error": null,
+      "source_sha256": "058d0c2b9d478da97cf1c2cc265f11cf89a55dddde0db4831987227878211954",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100079.webp",
+      "bytes": 8256,
+      "sha256": "a49e9bab8e63ee337afad320c89d6029fe902ccc5b86968ebf798d06aa4b600d",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_POTATO",
+      "name": "감자",
+      "type": "식재료",
+      "sourceName": "감자",
+      "sourceKey": "potato",
+      "filename": "UI_ItemIcon_100080",
+      "assetId": 100080,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100080"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100080.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100080.png",
+      "error": null,
+      "source_sha256": "68b5c4d0886af55cdb3fafd7347fba119b845084b5793e7c82f677bca2f7bb04",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100080.webp",
+      "bytes": 7068,
+      "sha256": "c78b1efa927f60cb3fb2ca9a2906db677b9c104724576d34251b40de4b698c1f",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_CABBAGE",
+      "name": "양배추",
+      "type": "식재료",
+      "sourceName": "양배추",
+      "sourceKey": "cabbage",
+      "filename": "UI_ItemIcon_100018",
+      "assetId": 100018,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100018"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100018.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100018.png",
+      "error": null,
+      "source_sha256": "f36cd7301025fa25c5c1621c08984c52ed77957e4fb15df70b7fc57859d604da",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100018.webp",
+      "bytes": 10432,
+      "sha256": "7a5bc94b493b508797beb258c1a786875b823104a4af7dcb5fa5ccd18640ea4a",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_BUTTER",
+      "name": "버터",
+      "type": "가공 식재료",
+      "sourceName": "버터",
+      "sourceKey": "butter",
+      "filename": "UI_ItemIcon_110004",
+      "assetId": 110004,
+      "images": {
+        "filename_icon": "UI_ItemIcon_110004"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110004.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110004.png",
+      "error": null,
+      "source_sha256": "d7548ccd3b62d8805c4d702df1cff6d26474513d73a562e881fb93a4a4db37b8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_110004.webp",
+      "bytes": 10348,
+      "sha256": "726d5aef421b1779070f2bca41ff46b1cf5814d7985405925c405c19fd012274",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_CHEESE",
+      "name": "치즈",
+      "type": "가공 식재료",
+      "sourceName": "치즈",
+      "sourceKey": "cheese",
+      "filename": "UI_ItemIcon_110009",
+      "assetId": 110009,
+      "images": {
+        "filename_icon": "UI_ItemIcon_110009"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110009.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110009.png",
+      "error": null,
+      "source_sha256": "72b893e9067221f0109a16a6108230ce1a962ba7d85e2a76d4c3f0a593be9dc1",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_110009.webp",
+      "bytes": 7688,
+      "sha256": "ab8cf7c6d23384207bf16f58e7cfd7a8be69cafa84ccb18888cb3ad0613bbca4",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_HAM",
+      "name": "햄",
+      "type": "가공 식재료",
+      "sourceName": "햄",
+      "sourceKey": "ham",
+      "filename": "UI_ItemIcon_110005",
+      "assetId": 110005,
+      "images": {
+        "filename_icon": "UI_ItemIcon_110005"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110005.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110005.png",
+      "error": null,
+      "source_sha256": "2fefc52bbbebe93b8a5cfb3fb1d877b95d7759ece30af72cf6540c5c19d324d0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_110005.webp",
+      "bytes": 12334,
+      "sha256": "eb019247ccb5dffbf8b0bf503d03e3bed64b73d779ef172b66fc8263bc700ea7",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_SAUSAGE",
+      "name": "소시지",
+      "type": "가공 식재료",
+      "sourceName": "소시지",
+      "sourceKey": "sausage",
+      "filename": "UI_ItemIcon_110011",
+      "assetId": 110011,
+      "images": {
+        "filename_icon": "UI_ItemIcon_110011"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110011.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110011.png",
+      "error": null,
+      "source_sha256": "2916e7081df183fe88c1ac4119e89ced436d118d817635b2e64cb945f3b4616c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_110011.webp",
+      "bytes": 8064,
+      "sha256": "b5a96e6f72bf73c2705fe5de742427a4b988bf76364a435ce18c6c625fb21fa6",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "FOOD_TEA_BREAK_PANCAKE",
+      "name": "티바트 달걀 프라이",
+      "type": "음식",
+      "sourceName": "티바트 달걀 프라이",
+      "sourceKey": "teyvatfriedegg",
+      "filename": "UI_ItemIcon_Recipe_2001",
+      "assetId": 1003,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_Revive",
+        "filename_icon": "UI_ItemIcon_Recipe_2001"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_2001.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_2001.png",
+      "error": null,
+      "source_sha256": "3bf7f4010f1193e1417976197c2388cfc02a3876c2c5dc0819667eb17139fa49",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_Recipe_2001.webp",
+      "bytes": 8512,
+      "sha256": "d7fca97336903f5dcbfa89ee2ac326e44d7b07cd89d4cffd3ea61ab86d849d75",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "FOOD_SWEET_MADAME",
+      "name": "달콤달콤 닭고기 스튜",
+      "type": "음식",
+      "sourceName": "달콤달콤 닭고기 스튜",
+      "sourceKey": "sweetmadame",
+      "filename": "UI_ItemIcon_Recipe_1004",
+      "assetId": 2002,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_HpAdd",
+        "filename_icon": "UI_ItemIcon_Recipe_1004"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1004.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1004.png",
+      "error": null,
+      "source_sha256": "4d9ba27851674d623ef674dbd7b483f1cb4b6796c1b1f9fba404dee8df9923e7",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_Recipe_1004.webp",
+      "bytes": 15922,
+      "sha256": "eb5e3c039361e34a0ffc7fe28840e66716caf9620d7fde840664709661470d04",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "FOOD_HASH_BROWN",
+      "name": "몬드 감자전",
+      "type": "음식",
+      "sourceName": "몬드 감자전",
+      "sourceKey": "mondstadthashbrown",
+      "filename": "UI_ItemIcon_Recipe_3003",
+      "assetId": 3007,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_HpAdd",
+        "filename_icon": "UI_ItemIcon_Recipe_3003"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_3003.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_3003.png",
+      "error": null,
+      "source_sha256": "34b4676a31cda75f5806889b2287baad33bf1ac5b5e7d655967bc9521d99b506",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_Recipe_3003.webp",
+      "bytes": 15048,
+      "sha256": "a8d9c26ed7fda025f810d78f21abbcc10bb602c442d840ddbf74ae4fbbaaebc1",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "FOOD_UNIVERSAL_PEACE",
+      "name": "세계 평화",
+      "type": "음식",
+      "sourceName": "세계 평화",
+      "sourceKey": "universalpeace",
+      "filename": "UI_ItemIcon_108202",
+      "assetId": 3109,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_HpAdd",
+        "filename_icon": "UI_ItemIcon_108202"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108202.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108202.png",
+      "error": null,
+      "source_sha256": "3c2a8aea3d8662b6ac95ab944d1fd9794d9ffaae593e5d28cde1547427d2cd9a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_108202.webp",
+      "bytes": 15262,
+      "sha256": "7f4ba82c297ee1ff9fb3ec1855046412da1fb31adc11f190ecfb13df779130af",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "FOOD_JADE_PARCELS",
+      "name": "비옥야채쌈",
+      "type": "음식",
+      "sourceName": "비옥야채쌈",
+      "sourceKey": "jadeparcels",
+      "filename": "UI_ItemIcon_Recipe_4004",
+      "assetId": 4101,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Atk_Add",
+        "filename_icon": "UI_ItemIcon_Recipe_4004"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_4004.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_4004.png",
+      "error": null,
+      "source_sha256": "4da469b274992aae83b6a595ce68a47f5c782b30fdfdc2c96c3962291c96aecf",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_Recipe_4004.webp",
+      "bytes": 16814,
+      "sha256": "46f3f5b2df4139da430f64789b8a7b7c98ca6e818b0afcdba05ab0d0084780ce",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "FOOD_ADEPTUS_TEMPTATION",
+      "name": "선도장",
+      "type": "음식",
+      "sourceName": "선도장",
+      "sourceKey": "adeptustemptation",
+      "filename": "UI_ItemIcon_108123",
+      "assetId": 5101,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Atk_Add",
+        "filename_icon": "UI_ItemIcon_108123"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108123.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108123.png",
+      "error": null,
+      "source_sha256": "bc7de8effb9b3d60b7864d548fcb623ecd367ae7fc81234ec320840b63e5bb7f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_108123.webp",
+      "bytes": 17616,
+      "sha256": "c46a8157e27601397b0664dfb7cf2c8cb4f2b2dc0165142b1142447755de2953",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "FOOD_PIZZA",
+      "name": "버섯 피자",
+      "type": "음식",
+      "sourceName": "버섯피자",
+      "sourceKey": "mushroompizza",
+      "filename": "UI_ItemIcon_Recipe_1005",
+      "assetId": 3006,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_HpAddAll",
+        "filename_icon": "UI_ItemIcon_Recipe_1005"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1005.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1005.png",
+      "error": null,
+      "source_sha256": "0c7b701b739829753c980ceb59b24455e2f702d171ce66d42c023702e75585b2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_Recipe_1005.webp",
+      "bytes": 15432,
+      "sha256": "526118f438e5f464360c20dd12ef1057924f3f3a6b4542af4a971926c8f38ad5",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "FOOD_SAKURA_MOCHI",
+      "name": "벚꽃 모찌",
+      "type": "음식",
+      "sourceName": "벚꽃 모찌",
+      "sourceKey": "sakuramochi",
+      "filename": "UI_ItemIcon_108283",
+      "assetId": 3205,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_Revive",
+        "filename_icon": "UI_ItemIcon_108283"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108283.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108283.png",
+      "error": null,
+      "source_sha256": "46c53767241cbb45a92249f2cf5b10d6ec4b64eda175b770b4d77c64a085e04b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_108283.webp",
+      "bytes": 11592,
+      "sha256": "1471730c26cb6e3077af904675155108d510862a86d55129cf3581b491c78e2a",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "FOOD_TAHCHIN",
+      "name": "타친",
+      "type": "음식",
+      "sourceName": "타친",
+      "sourceKey": "tahchin",
+      "filename": "UI_ItemIcon_108419",
+      "assetId": 3303,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_HpAddAll",
+        "filename_icon": "UI_ItemIcon_108419"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108419.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108419.png",
+      "error": null,
+      "source_sha256": "b04d2551044fe89e0317a7f29e3565a15e408cbfd90e8535e9bef093f8ae4334",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_108419.webp",
+      "bytes": 17732,
+      "sha256": "1904fcc2a8500e68ac232415939dd6f00915005ae5b529c1bf17ad59ec205c18",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_CHAR_EXP_WANDERER",
+      "name": "방랑자의 경험",
+      "type": "캐릭터 경험치 소재",
+      "sourceName": "방랑자의 경험",
+      "sourceKey": "wanderersadvice",
+      "filename": "UI_ItemIcon_104001",
+      "assetId": 104001,
+      "images": {
+        "filename_icon": "UI_ItemIcon_104001"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_104001.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_104001.png",
+      "error": null,
+      "source_sha256": "b36be411c812eab179ea5ea5cc632ff47097b69ac5a93fc017906bc5cdd6aaa4",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_104001.webp",
+      "bytes": 10050,
+      "sha256": "87364d07183f59de1b00af6fb6badd6a7eca7abfb82790f95519c04479b8796a",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_CHAR_EXP_ADVENTURER",
+      "name": "모험가의 경험",
+      "type": "캐릭터 경험치 소재",
+      "sourceName": "모험가의 경험",
+      "sourceKey": "adventurersexperience",
+      "filename": "UI_ItemIcon_104002",
+      "assetId": 104002,
+      "images": {
+        "filename_icon": "UI_ItemIcon_104002"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_104002.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_104002.png",
+      "error": null,
+      "source_sha256": "391edca8866217e0aea6cb2d7964b857eb07d889f361d8199e712ebe06c11843",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_104002.webp",
+      "bytes": 12278,
+      "sha256": "d16f8fdd2308a8d64c634df8a1bed9bdfd1c7918edf3375d1a34aba74597a516",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "MAT_CHAR_EXP_HERO",
+      "name": "영웅의 경험",
+      "type": "캐릭터 경험치 소재",
+      "sourceName": "영웅의 경험",
+      "sourceKey": "heroswit",
+      "filename": "UI_ItemIcon_104003",
+      "assetId": 104003,
+      "images": {
+        "filename_icon": "UI_ItemIcon_104003"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_104003.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_104003.png",
+      "error": null,
+      "source_sha256": "b8c6ec4f98a31400ccfbb7f10f7109cca8caf94f070ce31f5e1619e23dd48dd2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_104003.webp",
+      "bytes": 15794,
+      "sha256": "6d9240f431cd99556eaba3b2973956fc079aa558d5b72eec341c7b6362c928a4",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ING_BIRD_EGG",
+      "name": "새알",
+      "type": "식재료",
+      "sourceName": "새알",
+      "sourceKey": "birdegg",
+      "filename": "UI_ItemIcon_100062",
+      "assetId": 100062,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100062"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100062.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100062.png",
+      "error": null,
+      "source_sha256": "c8d99ee017c3f649b3581c436836891a07394d818ab104e45df79629ab073862",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100062.webp",
+      "bytes": 8858,
+      "sha256": "647471ca08c9f12bb5b605d120b69a4dcc8916f5ffea38ed76a1c7c5a1c023fd",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "ORE_SNEZ_RAINBOW_BUBBLE_CRYSTAL",
+      "name": "무지개 방울 수정",
+      "type": "광물",
+      "sourceName": "무지개 방울 수정",
+      "sourceKey": "rainbowdropcrystal",
+      "filename": "UI_ItemIcon_101258",
+      "assetId": 101010,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101258"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "MAT_BORDERLAND_SWORD_BILLET",
+      "name": "가장자리 땅의 한손검 원형",
+      "type": "무기 원형",
+      "sourceName": "가장자리 땅의 한손검 원형",
+      "sourceKey": "borderlandswordbillet",
+      "filename": "UI_ItemIcon_101116",
+      "assetId": 101116,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101116"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "MAT_BORDERLAND_CLAYMORE_BILLET",
+      "name": "가장자리 땅의 양손검 원형",
+      "type": "무기 원형",
+      "sourceName": "가장자리 땅의 양손검 원형",
+      "sourceKey": "borderlandclaymorebillet",
+      "filename": "UI_ItemIcon_101118",
+      "assetId": 101118,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101118"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "MAT_BORDERLAND_POLEARM_BILLET",
+      "name": "가장자리 땅의 장병기 원형",
+      "type": "무기 원형",
+      "sourceName": "가장자리 땅의 장병기 원형",
+      "sourceKey": "borderlandpolearmbillet",
+      "filename": "UI_ItemIcon_101120",
+      "assetId": 101120,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101120"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "MAT_BORDERLAND_CATALYST_BILLET",
+      "name": "가장자리 땅의 법구 원형",
+      "type": "무기 원형",
+      "sourceName": "가장자리 땅의 법구 원형",
+      "sourceKey": "borderlandcatalystbillet",
+      "filename": "UI_ItemIcon_101119",
+      "assetId": 101119,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101119"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "MAT_BORDERLAND_BOW_BILLET",
+      "name": "가장자리 땅의 활 원형",
+      "type": "무기 원형",
+      "sourceName": "가장자리 땅의 활 원형",
+      "sourceKey": "borderlandbowbillet",
+      "filename": "UI_ItemIcon_101117",
+      "assetId": 101117,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101117"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+      "name": "글루포프 호밀빵",
+      "type": "음식",
+      "sourceName": "글루포프 호밀빵",
+      "sourceKey": "glupovryebread",
+      "filename": "UI_ItemIcon_108891",
+      "assetId": 2702,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_HpAddAll",
+        "filename_icon": "UI_ItemIcon_108891"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "FOOD_SNEZ_SLICED_SASHIMI",
+      "name": "대패 생선회",
+      "type": "음식",
+      "sourceName": "대패 생선회",
+      "sourceKey": "stroganina",
+      "filename": "UI_ItemIcon_108887",
+      "assetId": 2701,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Atk_Add",
+        "filename_icon": "UI_ItemIcon_108887"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "FOOD_SNEZ_BERRY_ICE_CREAM",
+      "name": "베리 아이스크림",
+      "type": "음식",
+      "sourceName": "베리 아이스크림",
+      "sourceKey": "rimecurranticecream",
+      "filename": "UI_ItemIcon_108890",
+      "assetId": 3703,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_Revive",
+        "filename_icon": "UI_ItemIcon_108890"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "FOOD_SNEZ_SNOWBALL_FLOWER",
+      "name": "설원 위 눈덩이꽃",
+      "type": "음식",
+      "sourceName": "설원 위 눈덩이꽃",
+      "sourceKey": "snowballbloomsatopsnowfields",
+      "filename": "UI_ItemIcon_108894",
+      "assetId": 3706,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Atk_Add",
+        "filename_icon": "UI_ItemIcon_108894"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "FOOD_SNEZ_COLD_SOUP",
+      "name": "설국 냉수프",
+      "type": "음식",
+      "sourceName": "설국 냉수프",
+      "sourceKey": "snowrealmokroshkas",
+      "filename": "UI_ItemIcon_108888",
+      "assetId": 3702,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Def_Add",
+        "filename_icon": "UI_ItemIcon_108888"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "ING_RYE",
+      "name": "호밀",
+      "type": "식재료",
+      "sourceName": "호밀",
+      "sourceKey": "rye",
+      "filename": "UI_ItemIcon_101268",
+      "assetId": 100100,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101268"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "ING_RYE_FLOUR",
+      "name": "호밀 가루",
+      "type": "가공 식재료",
+      "sourceName": "호밀 가루",
+      "sourceKey": "ryeflour",
+      "filename": "UI_ItemIcon_110016",
+      "assetId": 110016,
+      "images": {
+        "filename_icon": "UI_ItemIcon_110016"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "ING_SOUR_CREAM",
+      "name": "사워크림",
+      "type": "가공 식재료",
+      "sourceName": "사워크림",
+      "sourceKey": "smetana",
+      "filename": "UI_ItemIcon_110015",
+      "assetId": 110015,
+      "images": {
+        "filename_icon": "UI_ItemIcon_110015"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "ING_RED_BEET",
+      "name": "붉은 사탕무",
+      "type": "식재료",
+      "sourceName": "붉은 사탕무",
+      "sourceKey": "redbeet",
+      "filename": "UI_ItemIcon_101278",
+      "assetId": 101278,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101278"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "ING_SNOWBALL_FLOWER",
+      "name": "눈덩이꽃",
+      "type": "식재료",
+      "sourceName": "눈덩이꽃",
+      "sourceKey": "snowballflower",
+      "filename": "UI_ItemIcon_101280",
+      "assetId": 101280,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101280"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "ING_ICE_STAR_FRUIT",
+      "name": "얼음별 열매",
+      "type": "식재료",
+      "sourceName": "얼음별 열매",
+      "sourceKey": "glaciafruit",
+      "filename": "UI_ItemIcon_101279",
+      "assetId": 101279,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101279"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "ING_CREAM",
+      "name": "크림",
+      "type": "가공 식재료",
+      "sourceName": "크림",
+      "sourceKey": "cream",
+      "filename": "UI_ItemIcon_110002",
+      "assetId": 110002,
+      "images": {
+        "filename_icon": "UI_ItemIcon_110002"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110002.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110002.png",
+      "error": null,
+      "source_sha256": "708ce57561fbbe528ae4a7ff8a3ea0a809c0b57eb00da7831918abd3201da7fa",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_110002.webp",
+      "bytes": 6848,
+      "sha256": "e50c09fb884f2534dc32778a73477eda7a6467e48de87ef2a1c130bb49845d16",
+      "provenance": "original_game_texture_archive",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+      "name": "옛뜰 훈제 소시지",
+      "type": "음식",
+      "sourceName": "옛뜰 훈제 소시지",
+      "sourceKey": "podvoryesmokedsausage",
+      "filename": "UI_ItemIcon_108886",
+      "assetId": 1701,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_HpAdd",
+        "filename_icon": "UI_ItemIcon_108886"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "FOOD_SNEZ_BORSCHT",
+      "name": "보르시",
+      "type": "음식",
+      "sourceName": "보르시",
+      "sourceKey": "borscht",
+      "filename": "UI_ItemIcon_108889",
+      "assetId": 2703,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Climate_Heat",
+        "filename_icon": "UI_ItemIcon_108889"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "FOOD_SNEZ_MEDOVIK",
+      "name": "메도빅",
+      "type": "음식",
+      "sourceName": "메도빅",
+      "sourceKey": "medovik",
+      "filename": "UI_ItemIcon_108892",
+      "assetId": 3704,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_HpAddAll",
+        "filename_icon": "UI_ItemIcon_108892"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "FOOD_SNEZ_ZHARKOYE",
+      "name": "자르코예",
+      "type": "음식",
+      "sourceName": "자르코예",
+      "sourceKey": "zharkoye",
+      "filename": "UI_ItemIcon_108885",
+      "assetId": 3701,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_HpAdd",
+        "filename_icon": "UI_ItemIcon_108885"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "FOOD_SNEZ_SKEWER",
+      "name": "스네즈나야 꼬치구이",
+      "type": "음식",
+      "sourceName": "스네즈나야 꼬치구이",
+      "sourceKey": "snezhnayashashliks",
+      "filename": "UI_ItemIcon_108893",
+      "assetId": 3705,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Other_SPReduceConsume",
+        "filename_icon": "UI_ItemIcon_108893"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_SWORD_COOL_STEEL",
+      "name": "차가운 칼날",
+      "type": "한손검",
+      "sourceName": "차가운 칼날",
+      "sourceKey": "coolsteel",
+      "filename": "UI_EquipIcon_Sword_Steel",
+      "assetId": 11301,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Steel.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Steel_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Sword_Steel",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Steel_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Steel",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Steel.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Steel_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Steel.png",
+      "source_sha256": "24ef8089736c68189d3db7cddf13fd727d409f9762684b498ee1a1685eadecad",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Sword_Steel.webp",
+      "bytes": 12756,
+      "sha256": "660f15b86277f8e6645a0bddd7c85bbfa0b1404771d9c35fbd2e01ba7f036b64",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_SWORD_HARBINGER",
+      "name": "여명신검",
+      "type": "한손검",
+      "sourceName": "여명신검",
+      "sourceKey": "harbingerofdawn",
+      "filename": "UI_EquipIcon_Sword_Dawn",
+      "assetId": 11302,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Dawn.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Dawn_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Sword_Dawn",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Dawn_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Dawn",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Dawn.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Dawn_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Dawn.png",
+      "source_sha256": "97121da495e74dc535040aa1e1c752802ff1cd2fcec48368f76e0a230a19b541",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Sword_Dawn.webp",
+      "bytes": 12626,
+      "sha256": "ff2d84da681b50a3702dc0008fd34dff4bf5c405e0fdce65c41e9c02ab9750a3",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_SWORD_TRAVELER",
+      "name": "여행자의 검",
+      "type": "한손검",
+      "sourceName": "여행자의 검",
+      "sourceKey": "travelershandysword",
+      "filename": "UI_EquipIcon_Sword_Traveler",
+      "assetId": 11303,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Traveler.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Traveler_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Sword_Traveler",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Traveler_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Traveler",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Traveler.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Traveler_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Traveler.png",
+      "source_sha256": "7d7f089895a5b7bba6d4c112c8c92a4eb6f84c4570eea1718d51056278b1edf7",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Sword_Traveler.webp",
+      "bytes": 11578,
+      "sha256": "cfd91cef4664672fd0fab5696dfacfb036346dbfb90bcdd0592bef881df92b39",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_SWORD_RANCOUR",
+      "name": "참암 프로토타입",
+      "type": "한손검",
+      "sourceName": "참암 프로토타입",
+      "sourceKey": "prototyperancour",
+      "filename": "UI_EquipIcon_Sword_Proto",
+      "assetId": 11406,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Proto.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Proto_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Sword_Proto",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Proto_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Proto",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Proto.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Proto_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Proto.png",
+      "source_sha256": "865a3a69e269ade6f7fc9ed59878b8e83d5b74ba780493d78c446283326b98b9",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Sword_Proto.webp",
+      "bytes": 13002,
+      "sha256": "42d75885956072d414fc185adeb138aa00921656c869bbc718d770eeddd046af",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_SWORD_FAVONIUS",
+      "name": "페보니우스 검",
+      "type": "한손검",
+      "sourceName": "페보니우스 검",
+      "sourceKey": "favoniussword",
+      "filename": "UI_EquipIcon_Sword_Zephyrus",
+      "assetId": 11401,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Zephyrus.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Zephyrus_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Sword_Zephyrus",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Zephyrus_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Zephyrus",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Zephyrus.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Zephyrus_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Zephyrus.png",
+      "source_sha256": "f9a46e31a23d46d088d6c55aa1b337115d97b0f2330955bcdd85b1b2614f2d13",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Sword_Zephyrus.webp",
+      "bytes": 12476,
+      "sha256": "7c64b96a401eb6d89ae3a5d3f181df845870982d3cfa58125704e8690cefb759",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_SWORD_SACRIFICIAL",
+      "name": "제례검",
+      "type": "한손검",
+      "sourceName": "제례검",
+      "sourceKey": "sacrificialsword",
+      "filename": "UI_EquipIcon_Sword_Fossil",
+      "assetId": 11403,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Fossil.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Fossil_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Sword_Fossil",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Fossil_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Fossil",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Fossil.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Fossil_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Fossil.png",
+      "source_sha256": "58500877eb0e1c465d871062d14e430a00318d15c5fa029df70b72c202d86099",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Sword_Fossil.webp",
+      "bytes": 12566,
+      "sha256": "39e2110b17ed8388aaa25a0850959e022791d2421c3478cf23d70b4213c176db",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_SWORD_IRON_STING",
+      "name": "강철 벌침",
+      "type": "한손검",
+      "sourceName": "강철 벌침",
+      "sourceKey": "ironsting",
+      "filename": "UI_EquipIcon_Sword_Exotic",
+      "assetId": 11407,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Exotic.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Exotic_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Sword_Exotic",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Exotic_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Exotic",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Exotic.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Exotic_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Exotic.png",
+      "source_sha256": "6f5e0de449912e8ef73acb56a4bde61ed3a324c91471cf6f3fe63240f5e3d9a2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Sword_Exotic.webp",
+      "bytes": 12162,
+      "sha256": "3e5292b015035092747000452a237f35a0dca56a3e3503e406a40605d02476eb",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_SWORD_AMENOMA",
+      "name": "아메노마 카게우치가타나",
+      "type": "한손검",
+      "sourceName": "아메노마 카게우치가타나",
+      "sourceKey": "amenomakageuchi",
+      "filename": "UI_EquipIcon_Sword_Bakufu",
+      "assetId": 11414,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Bakufu.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Bakufu_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Sword_Bakufu",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Bakufu_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Bakufu",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Bakufu.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Bakufu_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Bakufu.png",
+      "source_sha256": "c0e0fd8ccb7aa5c81658c434ded7c27ff3724f8a65f7563b8176aed69c58ba62",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Sword_Bakufu.webp",
+      "bytes": 8554,
+      "sha256": "5082310e11c2b98df226c2282a1026be2ff5f363b36982f5a519ac3b338c80bb",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_SWORD_SAPWOOD",
+      "name": "원목 검",
+      "type": "한손검",
+      "sourceName": "원목 검",
+      "sourceKey": "sapwoodblade",
+      "filename": "UI_EquipIcon_Sword_Arakalari",
+      "assetId": 11417,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Arakalari.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Arakalari_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Sword_Arakalari",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Arakalari_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Arakalari",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Arakalari.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Arakalari_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Arakalari.png",
+      "source_sha256": "d8f973d320ec2922637b0b11a52c395152ecef08759ea735650e206d9f5d0ecb",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Sword_Arakalari.webp",
+      "bytes": 12512,
+      "sha256": "4fee249c77ff7f12c77f1adc75e5179474bdef3e67838851a4e6fd30c3d12253",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_SWORD_FINALE",
+      "name": "해연의 피날레",
+      "type": "한손검",
+      "sourceName": "해연의 피날레",
+      "sourceKey": "finaleofthedeep",
+      "filename": "UI_EquipIcon_Sword_Vorpal",
+      "assetId": 11425,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Vorpal.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Vorpal_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Sword_Vorpal",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Vorpal_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Vorpal",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Vorpal.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Vorpal_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_CLAYMORE_DEBATE",
+      "name": "훌륭한 대화수단",
+      "type": "양손검",
+      "sourceName": "훌륭한 대화수단",
+      "sourceKey": "debateclub",
+      "filename": "UI_EquipIcon_Claymore_Reasoning",
+      "assetId": 12305,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Reasoning.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Reasoning_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Claymore_Reasoning",
+        "filename_awakenIcon": "UI_EquipIcon_Claymore_Reasoning_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Claymore_Reasoning",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Reasoning.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Reasoning_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Reasoning.png",
+      "source_sha256": "93de3b69c6156138df0fa7dfb65dc1b8d982c44896c2196f572d4a1d0ac9c26a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Claymore_Reasoning.webp",
+      "bytes": 12744,
+      "sha256": "57cf96e248feb2c42cfd239b39506795429dea2689258865fdf1ad6104601224",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CLAYMORE_SKYRIDER",
+      "name": "비천대어검",
+      "type": "양손검",
+      "sourceName": "비천대어검",
+      "sourceKey": "skyridergreatsword",
+      "filename": "UI_EquipIcon_Claymore_Mitsurugi",
+      "assetId": 12306,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Mitsurugi.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Mitsurugi_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Claymore_Mitsurugi",
+        "filename_awakenIcon": "UI_EquipIcon_Claymore_Mitsurugi_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Claymore_Mitsurugi",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Mitsurugi.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Mitsurugi_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Mitsurugi.png",
+      "source_sha256": "913c57d01ff38742f817494d62300e9e881f1b942c9ecec84b66b8e5954b06db",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Claymore_Mitsurugi.webp",
+      "bytes": 15424,
+      "sha256": "37fe2fe046e606f21d9dd3d5d72ef6fb2025366042abcc0c34d3d509c053a41a",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CLAYMORE_WHITEBLIND",
+      "name": "백영검",
+      "type": "양손검",
+      "sourceName": "백영검",
+      "sourceKey": "whiteblind",
+      "filename": "UI_EquipIcon_Claymore_Exotic",
+      "assetId": 12407,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Exotic.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Exotic_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Claymore_Exotic",
+        "filename_awakenIcon": "UI_EquipIcon_Claymore_Exotic_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Claymore_Exotic",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Exotic.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Exotic_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Exotic.png",
+      "source_sha256": "d0d78f201dfa93de51185928fdb39a8e2b431651037136e6c68d8ea35c452936",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Claymore_Exotic.webp",
+      "bytes": 16910,
+      "sha256": "280621f3f5e140e89c9a647467cd8bbe1c58d49194e68ce44f5750bca6933c13",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CLAYMORE_ARCHAIC",
+      "name": "고화 프로토타입",
+      "type": "양손검",
+      "sourceName": "고화 프로토타입",
+      "sourceKey": "prototypearchaic",
+      "filename": "UI_EquipIcon_Claymore_Proto",
+      "assetId": 12406,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Proto.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Proto_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Claymore_Proto",
+        "filename_awakenIcon": "UI_EquipIcon_Claymore_Proto_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Claymore_Proto",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Proto.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Proto_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Proto.png",
+      "source_sha256": "a71fec79fdbfae0f51317edaee0e2aa9b1c3dc07b6726b67e3900ee27777bd5f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Claymore_Proto.webp",
+      "bytes": 13452,
+      "sha256": "cfc1631f8c124ff02184b58b5fd4f8561b903f33c64359ce7bd56eb7c0a46412",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CLAYMORE_FAVONIUS",
+      "name": "페보니우스 대검",
+      "type": "양손검",
+      "sourceName": "페보니우스 대검",
+      "sourceKey": "favoniusgreatsword",
+      "filename": "UI_EquipIcon_Claymore_Zephyrus",
+      "assetId": 12401,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Zephyrus.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Zephyrus_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Claymore_Zephyrus",
+        "filename_awakenIcon": "UI_EquipIcon_Claymore_Zephyrus_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Claymore_Zephyrus",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Zephyrus.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Zephyrus_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Zephyrus.png",
+      "source_sha256": "1e4471652d5c7ebef4e11c41460ebe80bec001094ca7d16437b195248f13ea5f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Claymore_Zephyrus.webp",
+      "bytes": 15922,
+      "sha256": "a165c46470a5abda6d31434b11cae2374acb957aa3cd2d0ed49effccfbda893d",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CLAYMORE_SACRIFICIAL",
+      "name": "제례 대검",
+      "type": "양손검",
+      "sourceName": "제례 대검",
+      "sourceKey": "sacrificialgreatsword",
+      "filename": "UI_EquipIcon_Claymore_Fossil",
+      "assetId": 12403,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Fossil.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Fossil_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Claymore_Fossil",
+        "filename_awakenIcon": "UI_EquipIcon_Claymore_Fossil_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Claymore_Fossil",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Fossil.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Fossil_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Fossil.png",
+      "source_sha256": "8560e1d4b95e78e1b4ab2af4ae4bf961dca546b480ff2fb9bb3896bc730eb3e2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Claymore_Fossil.webp",
+      "bytes": 16880,
+      "sha256": "4386ea6cb1d9dcb3fe9c854b5a1c45ee821b378fa7c3f385d40e498ed738dd00",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CLAYMORE_KATSURAGI",
+      "name": "카츠라기를 벤 나가마사",
+      "type": "양손검",
+      "sourceName": "카츠라기를 벤 나가마사",
+      "sourceKey": "katsuragikirinagamasa",
+      "filename": "UI_EquipIcon_Claymore_Bakufu",
+      "assetId": 12414,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Bakufu.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Bakufu_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Claymore_Bakufu",
+        "filename_awakenIcon": "UI_EquipIcon_Claymore_Bakufu_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Claymore_Bakufu",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Bakufu.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Bakufu_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Bakufu.png",
+      "source_sha256": "6e02cc3cc0bf434413256f638024a0533ec06e316226284d7a65c4717697e818",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Claymore_Bakufu.webp",
+      "bytes": 14026,
+      "sha256": "5e48e16bc0bf6051a19c9c3303309fc4d25f1b272de27cbdb118585590a3132b",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CLAYMORE_MAKHAIRA",
+      "name": "물빛 마카이라",
+      "type": "양손검",
+      "sourceName": "물빛 마카이라",
+      "sourceKey": "makhairaaquamarine",
+      "filename": "UI_EquipIcon_Claymore_Pleroma",
+      "assetId": 12415,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Pleroma.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Pleroma_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Claymore_Pleroma",
+        "filename_awakenIcon": "UI_EquipIcon_Claymore_Pleroma_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Claymore_Pleroma",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Pleroma.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Pleroma_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Pleroma.png",
+      "source_sha256": "00d5e6e01b5887fd6e7814bce542c545703cb2667f30f356c29d9fb662ad5cc6",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Claymore_Pleroma.webp",
+      "bytes": 13940,
+      "sha256": "518c8a1666688f54882d4513307eee966df86d51630b478aab9342ebda98ebd8",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_POLEARM_WHITE_TASSEL",
+      "name": "백술창",
+      "type": "장병기",
+      "sourceName": "백술창",
+      "sourceKey": "whitetassel",
+      "filename": "UI_EquipIcon_Pole_Ruby",
+      "assetId": 13301,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Ruby.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Ruby_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Pole_Ruby",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_Ruby_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_Ruby",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Ruby.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Ruby_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Ruby.png",
+      "source_sha256": "f345db004a37ad1e3df2acb82e95a387133ad61f0258fe28157cd81f61059a98",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Pole_Ruby.webp",
+      "bytes": 11576,
+      "sha256": "deae6dce9644082a9bc9328841bf4738397e40ea7c3a4e5362fdf627cf2efe75",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_POLEARM_BLACK_TASSEL",
+      "name": "흑술창",
+      "type": "장병기",
+      "sourceName": "흑술창",
+      "sourceKey": "blacktassel",
+      "filename": "UI_EquipIcon_Pole_Noire",
+      "assetId": 13303,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Noire.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Noire_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Pole_Noire",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_Noire_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_Noire",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Noire.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Noire_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Noire.png",
+      "source_sha256": "adc13e2a53e7b9aa9b494ab384d333957f4a1f381549d81443f637b8dced2fd3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Pole_Noire.webp",
+      "bytes": 11398,
+      "sha256": "baa4b3b89109ae94b30c24b49ed53798dcffacf90d74a4344ca8900b14f3069f",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_POLEARM_HALBERD",
+      "name": "미늘창",
+      "type": "장병기",
+      "sourceName": "미늘창",
+      "sourceKey": "halberd",
+      "filename": "UI_EquipIcon_Pole_Halberd",
+      "assetId": 13302,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Halberd.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Halberd_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Pole_Halberd",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_Halberd_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_Halberd",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Halberd.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Halberd_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Halberd.png",
+      "source_sha256": "ec2b26229066437a14d10d492090ba72e31e1304c3e28a2b5578c2b85ee94ac3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Pole_Halberd.webp",
+      "bytes": 13494,
+      "sha256": "739bded8ce2535b11be4996e694ac13b16e66d91d85eeb13481511e112df03a0",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_POLEARM_FAVONIUS",
+      "name": "페보니우스 장창",
+      "type": "장병기",
+      "sourceName": "페보니우스 장창",
+      "sourceKey": "favoniuslance",
+      "filename": "UI_EquipIcon_Pole_Zephyrus",
+      "assetId": 13407,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Zephyrus.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Zephyrus_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Pole_Zephyrus",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_Zephyrus_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_Zephyrus",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Zephyrus.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Zephyrus_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Zephyrus.png",
+      "source_sha256": "3197122ace1c8f594c6088a40940ff7528f6fb9283ffaf86c6fc998c1bcf1f34",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Pole_Zephyrus.webp",
+      "bytes": 12520,
+      "sha256": "ef9c2e73bab4cdde219574dd0414b4d3cb60c052455e6d10b4cdc9ce446fefa9",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_POLEARM_DRAGONBANE",
+      "name": "용학살창",
+      "type": "장병기",
+      "sourceName": "용학살창",
+      "sourceKey": "dragonsbane",
+      "filename": "UI_EquipIcon_Pole_Stardust",
+      "assetId": 13401,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Stardust.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Stardust_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Pole_Stardust",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_Stardust_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_Stardust",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Stardust.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Stardust_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Stardust.png",
+      "source_sha256": "1373a916c9215fba1c6ecc7989c284a5b40c4d00379552f65e47bf0350bcabc2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Pole_Stardust.webp",
+      "bytes": 11908,
+      "sha256": "d0d0d4d2c21a929f4e385b7fccc25a7f4b92403ad57e7aee7da4894f56465001",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_POLEARM_STARGITTER",
+      "name": "별의 낫 프로토타입",
+      "type": "장병기",
+      "sourceName": "별의 낫 프로토타입",
+      "sourceKey": "prototypestarglitter",
+      "filename": "UI_EquipIcon_Pole_Proto",
+      "assetId": 13402,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Proto.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Proto_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Pole_Proto",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_Proto_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_Proto",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Proto.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Proto_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Proto.png",
+      "source_sha256": "a50aefc09a0b60b1a652821251f81e529d1b487f0f43b31f73e27e0aaad14541",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Pole_Proto.webp",
+      "bytes": 10234,
+      "sha256": "5e4011668ba85198c99844c0fb7af84310f01daa7cd9e56eb9604fa2f2eba96e",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_POLEARM_CRESCENT",
+      "name": "유월창",
+      "type": "장병기",
+      "sourceName": "유월창",
+      "sourceKey": "crescentpike",
+      "filename": "UI_EquipIcon_Pole_Exotic",
+      "assetId": 13403,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Exotic.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Exotic_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Pole_Exotic",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_Exotic_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_Exotic",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Exotic.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Exotic_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Exotic.png",
+      "source_sha256": "705a00d00eb9ce148b49ca5e8332cdb5172fc625b93adb03e416e64a5a9e66e0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Pole_Exotic.webp",
+      "bytes": 10786,
+      "sha256": "60e0ba0733c7b01b03b2092049d639f02105591bb64c58ca7baeddc888faa93c",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_POLEARM_KITAIN",
+      "name": "키타인 십자창",
+      "type": "장병기",
+      "sourceName": "키타인 십자창",
+      "sourceKey": "kitaincrossspear",
+      "filename": "UI_EquipIcon_Pole_Bakufu",
+      "assetId": 13414,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Bakufu.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Bakufu_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Pole_Bakufu",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_Bakufu_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_Bakufu",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Bakufu.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Bakufu_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Bakufu.png",
+      "source_sha256": "37ecb546794610ecb499241381464dcd01755896b339403261cafc1f55e49139",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Pole_Bakufu.webp",
+      "bytes": 11322,
+      "sha256": "02a8357dcc1252acf826bb72446bf7bb62a17ab698f8215dc5e61810cd810dea",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_POLEARM_CATCH",
+      "name": "어획",
+      "type": "장병기",
+      "sourceName": "「어획」",
+      "sourceKey": "thecatch",
+      "filename": "UI_EquipIcon_Pole_Mori",
+      "assetId": 13415,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Mori.png",
+        "filename_icon": "UI_EquipIcon_Pole_Mori",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_Mori_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_Mori",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Mori.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Mori_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Mori.png",
+      "source_sha256": "6f784d7a1804d12a04385be7b45a69811c2e5f53d0aa43a44f6a0fdc8a488640",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Pole_Mori.webp",
+      "bytes": 11224,
+      "sha256": "eb501c252eff9e483ee23d7891e9d77724dd3b1889cf0eb93cfbf8519ed75204",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_BOW_SLINGSHOT",
+      "name": "탄궁",
+      "type": "활",
+      "sourceName": "탄궁",
+      "sourceKey": "slingshot",
+      "filename": "UI_EquipIcon_Bow_Sling",
+      "assetId": 15304,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Sling.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Sling_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Bow_Sling",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_Sling_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_Sling",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Sling.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Sling_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Sling.png",
+      "source_sha256": "122f3011498c7ae67c93a685f360364895318a8a9c9a361876a43b4d7474303d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Bow_Sling.webp",
+      "bytes": 13934,
+      "sha256": "76f953ab2bf5edc89c13ce473460ad8c6d6f746fc5f0002dea80de52eb4c0a48",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_BOW_SHARPSHOOTER",
+      "name": "신궁의 서약",
+      "type": "활",
+      "sourceName": "신궁의 서약",
+      "sourceKey": "sharpshootersoath",
+      "filename": "UI_EquipIcon_Bow_Arjuna",
+      "assetId": 15302,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Arjuna.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Arjuna_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Bow_Arjuna",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_Arjuna_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_Arjuna",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Arjuna.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Arjuna_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Arjuna.png",
+      "source_sha256": "f248b97101b65fd60d44329c39e5f6ea83864f203303d69bc680377c28522fe0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Bow_Arjuna.webp",
+      "bytes": 17416,
+      "sha256": "5e594511778e4c290a59d017bd7df57fee319b900e95b1de4eef61371fffe5c6",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_BOW_FAVONIUS",
+      "name": "페보니우스 활",
+      "type": "활",
+      "sourceName": "페보니우스 활",
+      "sourceKey": "favoniuswarbow",
+      "filename": "UI_EquipIcon_Bow_Zephyrus",
+      "assetId": 15401,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Zephyrus.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Zephyrus_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Bow_Zephyrus",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_Zephyrus_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_Zephyrus",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Zephyrus.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Zephyrus_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Zephyrus.png",
+      "source_sha256": "b88d5cb93244aeb462d6b828098f30835bc4fc011fc97b7e4508a0811dca12c6",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Bow_Zephyrus.webp",
+      "bytes": 18430,
+      "sha256": "c053c32df9a8d83cb12f6bf49b3a4d6cfe5456342583a4e055ddbe5399300396",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_BOW_SACRIFICIAL",
+      "name": "제례활",
+      "type": "활",
+      "sourceName": "제례활",
+      "sourceKey": "sacrificialbow",
+      "filename": "UI_EquipIcon_Bow_Fossil",
+      "assetId": 15403,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Fossil.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Fossil_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Bow_Fossil",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_Fossil_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_Fossil",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Fossil.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Fossil_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Fossil.png",
+      "source_sha256": "6c2eccfea71721e9bc141865d9f67b3263f3bdaf5d1f3bb3fcf26de11293fd79",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Bow_Fossil.webp",
+      "bytes": 14508,
+      "sha256": "b105a6d30dcb09f209bdaf1b0c9e6789ef9d1fbd440c8f41a866616e269e5130",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_BOW_STRINGLESS",
+      "name": "절현",
+      "type": "활",
+      "sourceName": "절현",
+      "sourceKey": "thestringless",
+      "filename": "UI_EquipIcon_Bow_Troupe",
+      "assetId": 15402,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Troupe.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Troupe_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Bow_Troupe",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_Troupe_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_Troupe",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Troupe.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Troupe_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Troupe.png",
+      "source_sha256": "e8736759acc25640ec048b944ad662bf5d9ab50ba50f34322c1bcbee6c016a88",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Bow_Troupe.webp",
+      "bytes": 23028,
+      "sha256": "40824f678a409ed1164adcc57309d63676ac5290c0669f92b13bab1c5d3c754f",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_BOW_RUST",
+      "name": "녹슨 활",
+      "type": "활",
+      "sourceName": "녹슨 활",
+      "sourceKey": "rust",
+      "filename": "UI_EquipIcon_Bow_Recluse",
+      "assetId": 15405,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Recluse.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Recluse_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Bow_Recluse",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_Recluse_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_Recluse",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Recluse.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Recluse_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Recluse.png",
+      "source_sha256": "699ebb5751e7ab70e07d693f453feef9c6b30256645d8f69fd52f21ea987fe71",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Bow_Recluse.webp",
+      "bytes": 21330,
+      "sha256": "9bb68650219efe02f7abe4bc0b7425054fb928b0ec718117c5aafbb9c4c1316d",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_BOW_CRESCENT",
+      "name": "담월 프로토타입",
+      "type": "활",
+      "sourceName": "담월 프로토타입",
+      "sourceKey": "prototypecrescent",
+      "filename": "UI_EquipIcon_Bow_Proto",
+      "assetId": 15406,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Proto.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Proto_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Bow_Proto",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_Proto_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_Proto",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Proto.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Proto_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Proto.png",
+      "source_sha256": "8c258b4437563191fb06656ea16340163a80bca83a138cba492ced38083bd6ab",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Bow_Proto.webp",
+      "bytes": 14766,
+      "sha256": "982763ae526857f42bca5f116bf3871325d930bd4ec66a300b91c0bb9b8d184c",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_BOW_HAMAYUMI",
+      "name": "파마궁",
+      "type": "활",
+      "sourceName": "파마궁",
+      "sourceKey": "hamayumi",
+      "filename": "UI_EquipIcon_Bow_Bakufu",
+      "assetId": 15414,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Bakufu.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Bakufu_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Bow_Bakufu",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_Bakufu_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_Bakufu",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Bakufu.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Bakufu_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Bakufu.png",
+      "source_sha256": "14fa64032224aa9e98790e76dd8070bd4517e0da2d016dc7795385279522d92a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Bow_Bakufu.webp",
+      "bytes": 14950,
+      "sha256": "126b1a427952f24e25ae54115e21096c32a4ed17d777c4a62a6b945f8435026a",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CATALYST_TTDS",
+      "name": "드래곤 슬레이어 영웅담",
+      "type": "법구",
+      "sourceName": "드래곤 슬레이어 영웅담",
+      "sourceKey": "thrillingtalesofdragonslayers",
+      "filename": "UI_EquipIcon_Catalyst_Pulpfic",
+      "assetId": 14302,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Pulpfic.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Pulpfic_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Catalyst_Pulpfic",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_Pulpfic_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_Pulpfic",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Pulpfic.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Pulpfic_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Pulpfic.png",
+      "source_sha256": "ff2e7d9418b6ada238371dc342a74759f4029eaa06323bfe5cf3b55a664ad0f9",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Pulpfic.webp",
+      "bytes": 14448,
+      "sha256": "2a3415d23ef0eb64fac269b9311f781f004fb2f06108ad6ef55935cc48b98089",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CATALYST_MAGIC_GUIDE",
+      "name": "마도 서론",
+      "type": "법구",
+      "sourceName": "마도 서론",
+      "sourceKey": "magicguide",
+      "filename": "UI_EquipIcon_Catalyst_Intro",
+      "assetId": 14301,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Intro.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Intro_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Catalyst_Intro",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_Intro_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_Intro",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Intro.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Intro_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Intro.png",
+      "source_sha256": "1c5bf055ded3c79f7bcc897b590c24c30a891ce9e31a0f03024acfd94c5638e8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Intro.webp",
+      "bytes": 11924,
+      "sha256": "2f8f8519e9ae615eaa4d65be90fde3b8b0db994522e6c5c3c0fdb3a6ea2a0c81",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CATALYST_MAPPA",
+      "name": "만국 항해용해도",
+      "type": "법구",
+      "sourceName": "만국 항해용해도",
+      "sourceKey": "mappamare",
+      "filename": "UI_EquipIcon_Catalyst_Exotic",
+      "assetId": 14407,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Exotic.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Exotic_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Catalyst_Exotic",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_Exotic_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_Exotic",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Exotic.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Exotic_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Exotic.png",
+      "source_sha256": "c47614f7fe8647b8d8904e6edb987e6a6953c5869d4354a24601a23a3e9fd846",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Exotic.webp",
+      "bytes": 18072,
+      "sha256": "8d99ed0a7da724eca08ebedd7b4aafff013cc0f40a376edd77b117d17aab6e04",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CATALYST_FAVONIUS",
+      "name": "페보니우스 비전",
+      "type": "법구",
+      "sourceName": "페보니우스 비전",
+      "sourceKey": "favoniuscodex",
+      "filename": "UI_EquipIcon_Catalyst_Zephyrus",
+      "assetId": 14401,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Zephyrus.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Zephyrus_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Catalyst_Zephyrus",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_Zephyrus_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_Zephyrus",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Zephyrus.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Zephyrus_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Zephyrus.png",
+      "source_sha256": "a5b2ab819753beaf8d0919d947ecc9f1a2c45471f7e6a3f8f03ccc9ba307deee",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Zephyrus.webp",
+      "bytes": 15404,
+      "sha256": "75ab23ce843cc5276d58beaa12c71a2fe0829fd64466269f4e2af7c80940ccfd",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CATALYST_SACRIFICIAL",
+      "name": "제례의 악장",
+      "type": "법구",
+      "sourceName": "제례의 악장",
+      "sourceKey": "sacrificialfragments",
+      "filename": "UI_EquipIcon_Catalyst_Fossil",
+      "assetId": 14403,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Fossil.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Fossil_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Catalyst_Fossil",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_Fossil_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_Fossil",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Fossil.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Fossil_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Fossil.png",
+      "source_sha256": "fc6aa174fc7bbc7c051be08e1c0a1db90f0f3d9486d9507033b5b394a3395146",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Fossil.webp",
+      "bytes": 18568,
+      "sha256": "4474b5e30cbe4d7dd5642d63af13ff6a25d8a5d8fc9ead2bfee33d04bd74a476",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CATALYST_WIDSITH",
+      "name": "음유시인의 악장",
+      "type": "법구",
+      "sourceName": "음유시인의 악장",
+      "sourceKey": "thewidsith",
+      "filename": "UI_EquipIcon_Catalyst_Troupe",
+      "assetId": 14402,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Troupe.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Troupe_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Catalyst_Troupe",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_Troupe_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_Troupe",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Troupe.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Troupe_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Troupe.png",
+      "source_sha256": "d630830cbf8ade06e35d64775e882620f2ba23d00799d7cab560ff9cd4986e2a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Troupe.webp",
+      "bytes": 13836,
+      "sha256": "a5cbdd45545e07ec91c5a052194264817f51c700082adc7ce788bdf20e3fa3ab",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CATALYST_AMBER",
+      "name": "황금 호박 프로토타입",
+      "type": "법구",
+      "sourceName": "황금 호박 프로토타입",
+      "sourceKey": "prototypeamber",
+      "filename": "UI_EquipIcon_Catalyst_Proto",
+      "assetId": 14406,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Proto.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Proto_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Catalyst_Proto",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_Proto_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_Proto",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Proto.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Proto_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Proto.png",
+      "source_sha256": "53977ee5961d1cae4dcd3401d2cdc48ff0d77af5a44cc1b2539dca7a222d350c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Proto.webp",
+      "bytes": 14610,
+      "sha256": "d6a4a8ee4ed720b598126c6f2c5c98afbf89ba5f1845a2c4cf7f87f980da1a3f",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_CATALYST_HAKUSHIN",
+      "name": "하쿠신의 고리",
+      "type": "법구",
+      "sourceName": "하쿠신의 고리",
+      "sourceKey": "hakushinring",
+      "filename": "UI_EquipIcon_Catalyst_Bakufu",
+      "assetId": 14414,
+      "images": {
+        "icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Bakufu.png",
+        "awakenicon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Bakufu_Awaken.png",
+        "filename_icon": "UI_EquipIcon_Catalyst_Bakufu",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_Bakufu_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_Bakufu",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Bakufu.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Bakufu_Awaken.png"
+      },
+      "status": "available",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Bakufu.png",
+      "source_sha256": "3b0bb9c461b0775519a739455379c1f26d0defa1ee6b9b88dec31ebe7926f70a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Bakufu.webp",
+      "bytes": 17516,
+      "sha256": "6abd254aba4045ea1db82c7fc059b571a7b23d0ffbd5c13b5093168c730b86f6",
+      "provenance": "official_hoyo_cdn",
+      "matchType": "exact_name"
+    },
+    {
+      "id": "EQ_SWORD_SWAN_LAKE",
+      "name": "백조의 호수",
+      "type": "한손검",
+      "sourceName": "백조의 호수",
+      "sourceKey": "whitelakefrostfeather",
+      "filename": "UI_EquipIcon_Sword_Swanlake",
+      "assetId": 11520,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Sword_Swanlake",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Swanlake_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Swanlake",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Swanlake.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Swanlake_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_SWORD_BP_HERETIC_FLAME",
+      "name": "이단을 가르는 불꽃",
+      "type": "한손검",
+      "sourceName": "이단을 가르는 불꽃",
+      "sourceKey": "hereticsmoltenblade",
+      "filename": "UI_EquipIcon_Sword_SerpentTooth",
+      "assetId": 11435,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Sword_SerpentTooth",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_SerpentTooth_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_SerpentTooth",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_SerpentTooth.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_SerpentTooth_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_CLAYMORE_BP_GOLDEN_MELODY",
+      "name": "황금빛 선율",
+      "type": "양손검",
+      "sourceName": "황금빛 선율",
+      "sourceKey": "forgedbythegoldenmelody",
+      "filename": "UI_EquipIcon_Claymore_EscapeWheel",
+      "assetId": 12435,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Claymore_EscapeWheel",
+        "filename_awakenIcon": "UI_EquipIcon_Claymore_EscapeWheel_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Claymore_EscapeWheel",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_EscapeWheel.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_EscapeWheel_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_POLEARM_BP_FROST_BREATH",
+      "name": "서리 숨결",
+      "type": "장병기",
+      "sourceName": "서리 숨결",
+      "sourceKey": "frostbreath",
+      "filename": "UI_EquipIcon_Pole_FaesCrystalle",
+      "assetId": 13435,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Pole_FaesCrystalle",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_FaesCrystalle_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_FaesCrystalle",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_FaesCrystalle.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_FaesCrystalle_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_CATALYST_BP_KINGS_GAME",
+      "name": "왕들의 대국",
+      "type": "법구",
+      "sourceName": "왕들의 대국",
+      "sourceKey": "clashofkings",
+      "filename": "UI_EquipIcon_Catalyst_SandMemoria",
+      "assetId": 14435,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Catalyst_SandMemoria",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_SandMemoria_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_SandMemoria",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_SandMemoria.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_SandMemoria_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_BOW_BP_JADE_LONGBOW",
+      "name": "옥빛 장궁",
+      "type": "활",
+      "sourceName": "옥빛 장궁",
+      "sourceKey": "jadevista",
+      "filename": "UI_EquipIcon_Bow_ShatteredMirror",
+      "assetId": 15435,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Bow_ShatteredMirror",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_ShatteredMirror_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_ShatteredMirror",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_ShatteredMirror.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_ShatteredMirror_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_SWORD_BUTTERFLY_FABLE",
+      "name": "나비의 우화",
+      "type": "한손검",
+      "sourceName": "나비의 우화",
+      "sourceKey": "beyondthechrysalis",
+      "filename": "UI_EquipIcon_Sword_Samosvist",
+      "assetId": 11522,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Sword_Samosvist",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Samosvist_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Samosvist",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Samosvist.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Samosvist_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_CATALYST_WAVE_HYMN",
+      "name": "파도의 찬송가",
+      "type": "법구",
+      "sourceName": "파도의 찬송가",
+      "sourceKey": "hymnofthemaelstrom",
+      "filename": "UI_EquipIcon_Catalyst_Bludnye",
+      "assetId": 14524,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Catalyst_Bludnye",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_Bludnye_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_Bludnye",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Bludnye.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Bludnye_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_SWORD_SPROUT",
+      "name": "새순",
+      "type": "한손검",
+      "sourceName": "새순",
+      "sourceKey": "newbough",
+      "filename": "UI_EquipIcon_Sword_SpikedStake",
+      "assetId": 11437,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Sword_SpikedStake",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_SpikedStake_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_SpikedStake",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_SpikedStake.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_SpikedStake_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_CATALYST_FROZEN_HEART",
+      "name": "얼어붙은 심장",
+      "type": "법구",
+      "sourceName": "얼어붙은 심장",
+      "sourceKey": "wintersheavyheart",
+      "filename": "UI_EquipIcon_Catalyst_FrostScepter",
+      "assetId": 14437,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Catalyst_FrostScepter",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_FrostScepter_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_FrostScepter",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_FrostScepter.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_FrostScepter_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_BOW_BREEZE",
+      "name": "산들바람 활",
+      "type": "활",
+      "sourceName": "산들바람 활",
+      "sourceKey": "breezebornerefrain",
+      "filename": "UI_EquipIcon_Bow_Windtalker",
+      "assetId": 15437,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Bow_Windtalker",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_Windtalker_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_Windtalker",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Windtalker.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Windtalker_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_SWORD_SILVERSTEEL",
+      "name": "은강검",
+      "type": "한손검",
+      "sourceName": "은강검",
+      "sourceKey": "silverlight",
+      "filename": "UI_EquipIcon_Sword_Fajian",
+      "assetId": 11438,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Sword_Fajian",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_Fajian_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_Fajian",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Fajian.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Fajian_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_SWORD_EMBER_GUIDE",
+      "name": "불꽃의 인도자",
+      "type": "한손검",
+      "sourceName": "불꽃의 인도자",
+      "sourceKey": "emberwell",
+      "filename": "UI_EquipIcon_Sword_GlintstoneSword",
+      "assetId": 11436,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Sword_GlintstoneSword",
+        "filename_awakenIcon": "UI_EquipIcon_Sword_GlintstoneSword_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Sword_GlintstoneSword",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_GlintstoneSword.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_GlintstoneSword_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_CLAYMORE_SALVATION",
+      "name": "구원의 대검",
+      "type": "양손검",
+      "sourceName": "구원의 대검",
+      "sourceKey": "bladeofatonement",
+      "filename": "UI_EquipIcon_Claymore_GlintstoneClaymore",
+      "assetId": 12436,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Claymore_GlintstoneClaymore",
+        "filename_awakenIcon": "UI_EquipIcon_Claymore_GlintstoneClaymore_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Claymore_GlintstoneClaymore",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_GlintstoneClaymore.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_GlintstoneClaymore_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_POLEARM_GUARDIAN_SONG",
+      "name": "수호의 노래",
+      "type": "장병기",
+      "sourceName": "수호의 노래",
+      "sourceKey": "songofthevigil",
+      "filename": "UI_EquipIcon_Pole_GlintstonePolearm",
+      "assetId": 13436,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Pole_GlintstonePolearm",
+        "filename_awakenIcon": "UI_EquipIcon_Pole_GlintstonePolearm_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Pole_GlintstonePolearm",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_GlintstonePolearm.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_GlintstonePolearm_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_CATALYST_LOYALTY_ECHO",
+      "name": "충성의 메아리",
+      "type": "법구",
+      "sourceName": "충성의 메아리",
+      "sourceKey": "echoesoftheheart",
+      "filename": "UI_EquipIcon_Catalyst_GlintstoneCatalyst",
+      "assetId": 14436,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Catalyst_GlintstoneCatalyst",
+        "filename_awakenIcon": "UI_EquipIcon_Catalyst_GlintstoneCatalyst_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Catalyst_GlintstoneCatalyst",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_GlintstoneCatalyst.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_GlintstoneCatalyst_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "EQ_BOW_FROST_OATH",
+      "name": "서리의 서약",
+      "type": "활",
+      "sourceName": "서리의 서약",
+      "sourceKey": "covenantoffrostandsnow",
+      "filename": "UI_EquipIcon_Bow_GlintstoneBow",
+      "assetId": 15436,
+      "images": {
+        "filename_icon": "UI_EquipIcon_Bow_GlintstoneBow",
+        "filename_awakenIcon": "UI_EquipIcon_Bow_GlintstoneBow_Awaken",
+        "filename_gacha": "UI_Gacha_EquipIcon_Bow_GlintstoneBow",
+        "mihoyo_icon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_GlintstoneBow.png",
+        "mihoyo_awakenIcon": "https://upload-os-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_GlintstoneBow_Awaken.png"
+      },
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "MAT_MIST_GRASS",
+      "name": "안개풀",
+      "type": "몬스터 재료",
+      "sourceName": "안개풀 주머니",
+      "sourceKey": "mistgrass",
+      "filename": "UI_ItemIcon_112027",
+      "assetId": 112027,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112027"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112027.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112027.png",
+      "error": null,
+      "source_sha256": "35c7bba99659c07884485e0a2e50f2ca06c859b518903c3283e3d721c4270459",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112027.webp",
+      "bytes": 8116,
+      "sha256": "698189d976636038c9118943ae58cfee96bdca11a69c43503ce06e60274bbc93",
+      "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "MAT_MIST_GRASS_WICK",
+      "name": "안개 등심지",
+      "type": "몬스터 재료",
+      "sourceName": "안개 등심",
+      "sourceKey": "mistgrasswick",
+      "filename": "UI_ItemIcon_112028",
+      "assetId": 112028,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112028"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112028.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112028.png",
+      "error": null,
+      "source_sha256": "752b1a181a52598da8971b8c2e5e6ea28c049e9e408ba0ce4530f5a070583571",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112028.webp",
+      "bytes": 11552,
+      "sha256": "ca01548553454615108f7712790c882b62db17c012a54ada5654f9c15c536e01",
+      "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "MAT_CONCEALED_CLAW",
+      "name": "숨겨진 발톱",
+      "type": "몬스터 재료",
+      "sourceName": "맹수 발톱",
+      "sourceKey": "concealedclaw",
+      "filename": "UI_ItemIcon_112056",
+      "assetId": 112056,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112056"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112056.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112056.png",
+      "error": null,
+      "source_sha256": "80c469a51611f7ea1f3c729f4e05cfd002f3f3cbb8efe11d2d0bc3562a5ac54e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112056.webp",
+      "bytes": 7692,
+      "sha256": "dc2a4fd8acc6c9c93c8329c4ad506021ab5170de4e0035a8663782f9cccd3875",
+      "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "MAT_CONCEALED_UNGUIS",
+      "name": "숨겨진 날카로운 발톱",
+      "type": "몬스터 재료",
+      "sourceName": "맹수의 날카로운 발톱",
+      "sourceKey": "concealedunguis",
+      "filename": "UI_ItemIcon_112057",
+      "assetId": 112057,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112057"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112057.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112057.png",
+      "error": null,
+      "source_sha256": "af8a9b84a1898b3dd0e4b5cede026adc6ffad45678197ff2d6187ca9a8fcdf7f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112057.webp",
+      "bytes": 10278,
+      "sha256": "8c8135536536aeeb6d9d9afa3a82739999a5f1544757148b4424402a8f717eb1",
+      "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "MAT_CONCEALED_TALON",
+      "name": "숨겨진 귀신 발톱",
+      "type": "몬스터 재료",
+      "sourceName": "맹수의 귀신 발톱",
+      "sourceKey": "concealedtalon",
+      "filename": "UI_ItemIcon_112058",
+      "assetId": 112058,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112058"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112058.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112058.png",
+      "error": null,
+      "source_sha256": "e3dab9c024a60ce0fa1abcd8ea86ba3ebb901f8ba59fbc471a5a7b0d04c60379",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_112058.webp",
+      "bytes": 13464,
+      "sha256": "1039c1900715d7629812e296ad8f313111087370796db52ec4fb454781ffda06",
+      "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "MAT_TRANSOCEANIC_PEARL",
+      "name": "이색 결정석",
+      "type": "몬스터 재료",
+      "sourceName": "기이한 바다의 방울",
+      "sourceKey": "transoceanicpearl",
+      "filename": "UI_ItemIcon_112080",
+      "assetId": 112080,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112080"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "MAT_TRANSOCEANIC_CHUNK",
+      "name": "이색 결정 조각",
+      "type": "몬스터 재료",
+      "sourceName": "기이한 바다의 결정",
+      "sourceKey": "transoceanicchunk",
+      "filename": "UI_ItemIcon_112081",
+      "assetId": 112081,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112081"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "MAT_XENOCHROMATIC_CRYSTAL",
+      "name": "이색 결정석 결정체",
+      "type": "몬스터 재료",
+      "sourceName": "이색 결정석",
+      "sourceKey": "xenochromaticcrystal",
+      "filename": "UI_ItemIcon_112082",
+      "assetId": 112082,
+      "images": {
+        "filename_icon": "UI_ItemIcon_112082"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": null,
+      "status": "unavailable",
+      "reason": "No validated original asset in reachable sources"
+    },
+    {
+      "id": "ORE_MAGIC_CRYSTAL",
+      "name": "마법 수정덩이",
+      "type": "광물",
+      "sourceName": "마법 수정석 조각",
+      "sourceKey": "magicalcrystalchunk",
+      "filename": "UI_ItemIcon_101004",
+      "assetId": 101004,
+      "images": {
+        "filename_icon": "UI_ItemIcon_101004"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101004.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101004.png",
+      "error": null,
+      "source_sha256": "9318c8a48fdb01c538070975711c249718c0fa8840745198d93b829e9bd649f0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_101004.webp",
+      "bytes": 12898,
+      "sha256": "508e493321c66a5ebed0c58f6fcc43d35e1a9e8c48a9147fed4366c0ca9315c5",
+      "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "ING_MINT",
+      "name": "허브",
+      "type": "식재료",
+      "sourceName": "민트",
+      "sourceKey": "mint",
+      "filename": "UI_ItemIcon_100016",
+      "assetId": 100016,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100016"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100016.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100016.png",
+      "error": null,
+      "source_sha256": "53c9688690ecb8ffbe3d872f36bbb5fd341f2d1323122e1423e0b8dac9029d72",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100016.webp",
+      "bytes": 11436,
+      "sha256": "97a32dc0aa12a45057ee79f3fef677eb6f733dd593a8628969d26990054533ec",
+      "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "ING_RADISH",
+      "name": "무",
+      "type": "식재료",
+      "sourceName": "흰 무",
+      "sourceKey": "radish",
+      "filename": "UI_ItemIcon_100014",
+      "assetId": 100014,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100014"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100014.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100014.png",
+      "error": null,
+      "source_sha256": "5c8928347dd6d3ca41917980c77cdf4984c180011388b77005f2ce7df0d5daee",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100014.webp",
+      "bytes": 6784,
+      "sha256": "de1b476b78a22e0efc0b6c31d48d7619d68d6ae40a491bd7772b3d58c0e7f370",
+      "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "ING_SHRIMP",
+      "name": "새우살",
+      "type": "식재료",
+      "sourceName": "생새우살",
+      "sourceKey": "shrimpmeat",
+      "filename": "UI_ItemIcon_100093",
+      "assetId": 100093,
+      "images": {
+        "filename_icon": "UI_ItemIcon_100093"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100093.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100093.png",
+      "error": null,
+      "source_sha256": "eefbe7b2dc43b0a4a78e38b5bd57a5ac22c9eeae743706679b50e7bdda7c6d51",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_100093.webp",
+      "bytes": 10024,
+      "sha256": "bfbcd2824f07ca94b441bd46eef305bba3ce6b1e0efc122f5d74f40189972d99",
+      "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "FOOD_MATSUTAKE_ROLL",
+      "name": "송이버섯 고기말이",
+      "type": "음식",
+      "sourceName": "버섯고기말이",
+      "sourceKey": "matsutakemeatrolls",
+      "filename": "UI_ItemIcon_108090",
+      "assetId": 2104,
+      "images": {
+        "filename_buff": "UI_Buff_Item_Recovery_HpAdd",
+        "filename_icon": "UI_ItemIcon_108090"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108090.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108090.png",
+      "error": null,
+      "source_sha256": "31442b3a6294e3bdb1d25c5da00d8ea56174d1cfb082a49b084bf21529e28373",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_108090.webp",
+      "bytes": 18842,
+      "sha256": "94c140c94047c4f08410a37fe2daca69733ce2ecde86feab2f8051562aea37cb",
+      "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "KEY_CRPG_ANEMOCULUS",
+      "name": "바람 신의 눈동자",
+      "type": "퀘스트 아이템",
+      "sourceName": "잃어버린 바람 신의 눈동자",
+      "sourceKey": "anemoculus",
+      "filename": "UI_ItemIcon_107001",
+      "assetId": 107001,
+      "images": {
+        "filename_icon": "UI_ItemIcon_107001"
+      },
+      "matchType": "verified_id_alias",
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_107001.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_107001.png",
+      "error": null,
+      "source_sha256": "a742c7d32e77aac1b5d1f1c63651ce3e052795026973f6fd0e3b7e2eda4fa9ff",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/UI_ItemIcon_107001.webp",
+      "bytes": 18946,
+      "sha256": "15afc554144f75b05a2af6c63fa718064c0734b8321db23320183afef5851ac9",
+      "provenance": "original_game_texture_archive"
+    }
+  ],
+  "categories": {
+    "CATEGORY_FOOD": {
+      "path": "assets/icons/category_food.webp",
+      "label": "음식 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Icon/Intee/Cooking/UI_Icon_Intee_Cooking.png",
+      "source_sha256": "b25570c2943148df0b2d5fa1fb121157943ba43ffd8b06ea8caa1750d6780c63",
+      "sha256": "aa56757b5ec07d9dfc49d7a609a181d2446183d0491ed8fa511919634e693772"
+    },
+    "CATEGORY_MATERIAL": {
+      "path": "assets/icons/category_material.webp",
+      "label": "재료·제작 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Icon/Intee/Forging/UI_Icon_Intee_Forging_0.png",
+      "source_sha256": "2268f0f44bf52785e603c8c418d3b1ee8a826d31784f46c7539216693e1eabd0",
+      "sha256": "af0917d16708e60423c96e4410069d7ce142237804d16976a372ed67cd608d78"
+    },
+    "CATEGORY_MEDICINE": {
+      "path": "assets/icons/category_medicine.webp",
+      "label": "치료품 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Icon/Activity/Potion/UI_Icon_Activity_Potion.png",
+      "source_sha256": "65a16fed5c4bbf63ff50b57e919046712dd18f55c244def6f485aaac12160ab4",
+      "sha256": "d1ea090168a920791e2c01cc7f7c7214bed5bbe798399a8dd3686cb11488bf34"
+    },
+    "CATEGORY_QUEST": {
+      "path": "assets/icons/category_quest.webp",
+      "label": "임무 물품 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Icon/Quest/UI_Icon_Quest.png",
+      "source_sha256": "c15b9808e80cce00806de13e6ee3f91c7122ec97f7ea1e858e70e8a87f34e64a",
+      "sha256": "065630cc4d54139292f75c413bc7e741389944c12cf8636737acb2ec171fb4b9"
+    },
+    "CATEGORY_EQUIPMENT": {
+      "path": "assets/icons/category_equipment.webp",
+      "label": "장비 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Package/Common/UI_Package_Common_001.png",
+      "source_sha256": "fe48de98ddf491d4fd919f8042f40be457c4d8c52de0dcb032dd2dc7c4c63bd7",
+      "sha256": "5ff1b33580dffc165c895f4de35c8df6ae5366cf1217de0336580faf705d5d15"
+    },
+    "CATEGORY_GADGET": {
+      "path": "assets/icons/category_gadget.webp",
+      "label": "탐험 도구 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Icon/Intee/ActivityProps/UI_Icon_Intee_ActivityProps.png",
+      "source_sha256": "c46ea0afb1d8776c2f99ed0155d1477bf5bf788b6764fb73e290770124d8cef8",
+      "sha256": "9408a85db56e93314c880ab0bc0329a5397a1c1d0a6038257416285a75171c77"
+    }
+  },
+  "font": {
+    "family": "HoyoDamageNumbers",
+    "originalFamily": "Default_SC-85W",
+    "path": "assets/fonts/hoyo-damage-numbers.woff",
+    "bytes": 2356,
+    "sha256": "72e7686790d7fda705d7ae974a0d373f04e72033ec3dcbe71db2dd8d1ddc8655",
+    "sourcePage": "https://act.hoyoverse.com/ys/event/e20240316discovery/index.html",
+    "sourceScript": "https://act.hoyoverse.com/ys/event/e20240316discovery/index_685315df193551087307.js",
+    "provenance": "Official web event Default_SC-85W glyph subsets; outlines preserved and merged into one WOFF",
+    "codepoints": [
+      37,
+      43,
+      44,
+      45,
+      46,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57
+    ]
+  }
+}

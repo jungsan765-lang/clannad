@@ -1,0 +1,116 @@
+{
+  "candidate": "runtime_party.js",
+  "loaded": [
+    "runtime.js",
+    "runtime_extensions.js",
+    "runtime_story.js",
+    "runtime_nodes.js",
+    "runtime_events.js",
+    "runtime_relationships.js",
+    "runtime_combat.js",
+    "runtime_mond_cards.js",
+    "runtime_economy.js",
+    "runtime_passives.js",
+    "runtime_rules.js",
+    "runtime_andrius.js",
+    "runtime_flow.js",
+    "runtime_party.js",
+    "runtime_opening.js",
+    "runtime_places.js",
+    "runtime_places_joint.js",
+    "runtime_adventure.js",
+    "runtime_exploration.js",
+    "runtime_life.js",
+    "runtime_world.js",
+    "runtime_journey.js",
+    "runtime_market.js",
+    "runtime_geography.js",
+    "runtime_liyue.js",
+    "runtime_liyue_card_content.js",
+    "runtime_liyue_cards.js",
+    "runtime_liyue_combat.js",
+    "runtime_geo_oculi.js",
+    "runtime_encounter.js",
+    "runtime_recruitment.js"
+  ],
+  "total": 19,
+  "passed": 19,
+  "results": [
+    {
+      "name": "ownership and active targeting remain distinct; unowned and inactive targets cannot equip",
+      "ok": true
+    },
+    {
+      "name": "growth books reject inactive owners without consumption, XP, HP, clock or revision changes",
+      "ok": true
+    },
+    {
+      "name": "inactive food and mixed batch reject atomically while active party meals work",
+      "ok": true
+    },
+    {
+      "name": "internal story/combat XP rewards are not restricted by consumable target policy",
+      "ok": true
+    },
+    {
+      "name": "removal returns every equipment category and preserves instance identity/enhancement with no healing",
+      "ok": true
+    },
+    {
+      "name": "successful replacement releases only the departing member; failed replacement rolls back gear and HP",
+      "ok": true
+    },
+    {
+      "name": "same-member replacement and active slot swaps retain all gear, tactics and wounded HP",
+      "ok": true
+    },
+    {
+      "name": "direct removeParty applies the same departure rule",
+      "ok": true
+    },
+    {
+      "name": "authored story separation retains ownership and returns deselected equipment",
+      "ok": true
+    },
+    {
+      "name": "temporary eligibility cannot grant a party slot",
+      "ok": true
+    },
+    {
+      "name": "general battle selection returns deselected gear before saving retry checkpoint",
+      "ok": true
+    },
+    {
+      "name": "legacy inactive-owner gear migrates to shared inventory; original save, XP and RNG remain intact",
+      "ok": true
+    },
+    {
+      "name": "equipped player transfer and pure preview update both owners without healing",
+      "ok": true
+    },
+    {
+      "name": "level and weapon category restrictions remain enforced for active companions",
+      "ok": true
+    },
+    {
+      "name": "story locks remain and preparation permits only actual active targets",
+      "ok": true
+    },
+    {
+      "name": "authored guest selection requires permanent ownership",
+      "ok": true
+    },
+    {
+      "name": "active category replacement and unequip preserve wounded HP and instance enhancement",
+      "ok": true
+    },
+    {
+      "name": "active equipment secondary modifiers still reach displayed actor stats",
+      "ok": true
+    },
+    {
+      "name": "legacy running battle loads without rerolling or rewriting its actor snapshot",
+      "ok": true
+    }
+  ]
+}

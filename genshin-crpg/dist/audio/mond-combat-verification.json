@@ -1,0 +1,26 @@
+{
+  "verified_on": "2026-09-24",
+  "tracks": [
+    {
+      "title": "Photon of Fluctuation",
+      "file": "mond_photon.mp3",
+      "reference": "apple-photon.m4a",
+      "comparison": "60-second mono PCM cross-correlation at 8 kHz against Apple Music preview, excluding first 5 preview seconds",
+      "correlation": 0.9998137962393412,
+      "fullTrackMatchOffsetSeconds": 5.0,
+      "previewMatchOffsetSeconds": 5,
+      "matchedSeconds": 60
+    },
+    {
+      "title": "His Resolution",
+      "file": "mond_resolution.mp3",
+      "reference": "apple-resolution.m4a",
+      "comparison": "60-second mono PCM cross-correlation at 8 kHz against Apple Music preview, excluding first 5 preview seconds",
+      "correlation": 0.9997652596171004,
+      "fullTrackMatchOffsetSeconds": 5.0,
+      "previewMatchOffsetSeconds": 5,
+      "matchedSeconds": 60
+    }
+  ],
+  "preview_files_packaged": false
+}

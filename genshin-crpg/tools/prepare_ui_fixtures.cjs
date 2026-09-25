@@ -1,0 +1,19 @@
+/* Generates an isolated, disposable preview page; never part of the published pack. */
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),src=path.join(root,'source'),db=JSON.parse(fs.readFileSync(path.join(root,'content/db.json'))),ctx=vm.createContext({console});
+const modules=[...fs.readFileSync(path.join(src,'index.html'),'utf8').matchAll(/<script src="([^"]+)"/g)].map(x=>x[1]).filter(x=>x.startsWith('runtime')||x==='presentation.js'||x==='save_adapter.js');
+for(const f of modules)vm.runInContext(fs.readFileSync(path.join(src,f),'utf8'),ctx,{filename:f});
+ctx.CRPGRelationships.install(ctx.CRPGRuntime,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db)});
+const r=new ctx.CRPGRuntime.Runtime(db);r.newGame({name:'연출·편성 검증',route:'ROUTE_TRAVELER',seed:83116,saveId:'UI-AV-TEST'});
+Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'TRV_M02_MENU_003',STORY_CURSOR_NODE_ID:'TRV_M02_MENU_003',SCREEN_MODE:'PARTY',CURRENT_MAP_ID:'MAP_MOND_CITY',STORY_WAITING:false,PENDING_CHOICE_GROUP_ID:'',STORY_MENU_POLICY:'',COMPANION_ELIGIBILITY_JSON:JSON.stringify({MOND_AMBER:{state:'JOINED'},MOND_KAEYA:{state:'JOINED'},MOND_LISA:{state:'JOINED'}})});
+r.prepareStory();r.action('MENU',{screen:'PARTY'});for(const [char,slot]of [['MOND_AMBER',2],['MOND_KAEYA',3]])r.action('PARTY',{char,slot});for(const id of ['EQ_ARMOR_TRAVEL_COAT','EQ_ARMOR_TRAVEL_COAT','EQ_SWORD_HARBINGER','EQ_BOW_SLINGSHOT'])r.giveEquipment(id);r.giveItem('FOOD_HASH_BROWN',3);r.giveItem('ORE_IRON',3);
+const fixtureParty=JSON.parse(r.serialize());
+const craft=new ctx.CRPGRuntime.Runtime(db,fixtureParty);craft.addXp('PLAYER_CUSTOM',4000);const recipe='REC_CATALYST_MAPPA',cost=craft.recipeCost(craft.recipeDefinition(recipe),1);craft.s.global.MORA=cost.mora;for(const[id,n]of Object.entries(cost.items))craft.giveItem(id,n);craft.action('PLACE_ENTER',{place:craft.placeEntries().find(e=>e.merchant==='MRC_MOND_EQUIP').id,mode:'CRAFT'});const fixtureCraft=JSON.parse(craft.serialize());Object.assign(r.s.global,{PLAYER_BASE_HP:12000,PLAYER_BASE_ATK:600});r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;r.startBattle('EG_MOND_SLIME_SMALL','EXPLICIT');
+const fixtureBattle=JSON.parse(r.serialize());
+const page=`<!doctype html><meta charset="utf-8"><title>격리된 UI 검증</title><link rel="stylesheet" href="style.css"><main style="display:block"><h1>격리된 UI 검증</h1><p>개발 검증용 합성 저장입니다. 실제 사용자 슬롯은 변경하지 않습니다.</p><button id="party">편성 검증 저장 추가</button><button id="battle">전투 검증 저장 추가</button><button id="craft">공동 제작 검증 저장 추가</button><p id="status" role="status"></p><a href="./">게임에서 저장한 여정 열기</a></main><script src="data.js"></script><script src="assets.js"></script>${modules.map(f=>'<script src="'+f+'"></script>').join('')}<script>
+const fixtures=${JSON.stringify({party:fixtureParty,battle:fixtureBattle,craft:fixtureCraft}).replace(/</g,'\\u003c')};
+CRPGRelationships.install(CRPGRuntime,{events:CRPGRelationships.catalogFromDB(CRPG_DATA),activities:CRPGRelationships.activitiesFromDB(CRPG_DATA)});
+for(const key of ['party','battle','craft'])document.getElementById(key).onclick=async()=>{try{const store=new CRPGSave.SaveAdapter({contentVersion:CRPG_MANIFEST.saveCompatibilityVersion,validate:s=>new CRPGRuntime.Runtime(CRPG_DATA,s).s});await store.open();await store.save('qa-av-'+key+'-'+Date.now(),fixtures[key],{expectedSlotRevision:0,name:key==='party'?'QA 편성·장비':key==='craft'?'QA 공동 제작':'QA 전투 연출'});document.getElementById('status').textContent='저장 완료 · '+key;}catch(e){document.getElementById('status').textContent=e.message;}};
+</script>`;
+fs.writeFileSync(process.argv[2]||'/workspace/scratch/adc1ed75baeb/qa-fixtures.html',page);console.log('Prepared isolated UI fixture page');

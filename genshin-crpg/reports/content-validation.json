@@ -1,0 +1,733 @@
+{
+  "sourceSha256": "24445a681274643ffabe9cb914f78be1e8464c654c2c83513971e2628ee965fd",
+  "tableCount": 61,
+  "rowCounts": {
+    "55_MAIN_STORY_DB": 3218,
+    "56_MOND_LEGEND_DB": 24,
+    "57_MOND_STORY_SCENE_DB": 3207,
+    "58_MOND_AFFECTION_DB": 148,
+    "32_MAP_DB": 98,
+    "03_IMAGE": 1513,
+    "00_CORE": 47,
+    "01_WORLD": 15,
+    "02_NODKRAI": 23,
+    "04_CHAR_DB": 134,
+    "05_HUD": 51,
+    "06_TEMPLATES": 38,
+    "07_CHAR_DB": 119,
+    "08_SKILL_CARD_DB": 316,
+    "09_MONSTER_DB": 200,
+    "10_WEATHER_LOCATION": 21,
+    "11_POWER_TAGS": 50,
+    "12_ENEMY_CARD_DB": 348,
+    "13_STATUS_EFFECT_DB": 30,
+    "14_ITEM_DB": 176,
+    "15_INVENTORY_TEMPLATE": 9,
+    "15_INVENTORY_STATE": 1,
+    "16_EQUIP_DB": 95,
+    "17_RECIPE_DB": 90,
+    "18_MERCHANT_DB": 28,
+    "19_SHOP_STOCK_DB": 134,
+    "20_LOOT_TABLE": 107,
+    "21_LIFE_ACTION_DB": 15,
+    "22_QUEST_DB": 84,
+    "23_FLAG_DB": 282,
+    "24_CURRENT_STATE": 253,
+    "25_CURRENT_ROSTER": 12,
+    "26_LEVEL_RULES": 20,
+    "27_COMBAT_ENGINE": 155,
+    "28_CANON_AUDIT": 35,
+    "29_NARRATIVE_STYLE": 31,
+    "31_DB_INDEX": 61,
+    "30_OUTPUT_FORMAT": 30,
+    "98_BACKUP_CHAR_STATS_20260917": 112,
+    "33_ENCOUNTER_GROUP_DB": 73,
+    "34_MAP_ENCOUNTER_POOL": 166,
+    "35_BOSS_ROUTE_DB": 16,
+    "36_ENCOUNTER_RULES": 42,
+    "37_ELEMENTAL_REACTION_DB": 22,
+    "38_ELEMENTAL_RUNTIME": 1,
+    "39_CARD_RUNTIME": 1,
+    "40_CRPG_MIGRATION_PLAN": 30,
+    "41_SAVE_CHAR_STATE": 119,
+    "42_SAVE_QUEST_STATE": 39,
+    "43_SAVE_FLAG_STATE": 171,
+    "44_SAVE_PARTY_STATE": 4,
+    "45_CHAR_DIALOGUE_DB": 134,
+    "46_CHAR_RELATION_DB": 971,
+    "47_MAP_EDGE_DB": 150,
+    "48_RECIPE_INGREDIENT_DB": 212,
+    "49_ENCOUNTER_MEMBER_DB": 150,
+    "50_BOSS_ROUTE_STEP_DB": 43,
+    "51_EVENT_DB": 242,
+    "52_COMBAT_VAR_RUNTIME": 0,
+    "53_COMBAT_VAR_INIT_DB": 104,
+    "54_SAVE_RELATION_STATE": 19
+  },
+  "jsonFieldsChecked": 826,
+  "referencesChecked": 14806,
+  "issues": [
+    {
+      "code": "DUPLICATE_PRIMARY_KEY",
+      "tab": "40_CRPG_MIGRATION_PLAN",
+      "row": 8,
+      "id": 4,
+      "field": "PHASE_ID",
+      "value": "4A",
+      "detail": {
+        "rows": [
+          8,
+          9
+        ]
+      }
+    }
+  ],
+  "issueCounts": {
+    "DUPLICATE_PRIMARY_KEY": 1
+  },
+  "affectionStageCounts": {
+    "H01": 24,
+    "H03": 24,
+    "H05": 24,
+    "H02": 24,
+    "H04": 24
+  },
+  "affectionProfileRoutes": 24,
+  "legacyHeartSixConditions": [
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1122,
+      "id": "AFF_MOND_SUCROSE_B110_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_SUCROSE_CLEAR=TRUE && HEART(PROFILE_MOND_SUCROSE)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_SUCROSE)>=120 && DONE(AFF_MOND_SUCROSE_H05)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1138,
+      "id": "AFF_MOND_SUCROSE_B120_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_SUCROSE_CLEAR=TRUE && HEART(PROFILE_MOND_SUCROSE)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_SUCROSE)>=120 && DONE(AFF_MOND_SUCROSE_B110) && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_MOND_SUCROSE_B110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1153,
+      "id": "AFF_MOND_LISA_B110_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_LISA_CLEAR=TRUE && HEART(PROFILE_MOND_LISA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_LISA)>=120 && DONE(AFF_MOND_LISA_H05)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1168,
+      "id": "AFF_MOND_LISA_B120_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_LISA_CLEAR=TRUE && HEART(PROFILE_MOND_LISA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_LISA)>=120 && DONE(AFF_MOND_LISA_B110) && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_MOND_LISA_B110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1183,
+      "id": "AFF_MOND_ROSARIA_B110_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_ROSARIA_CLEAR=TRUE && HEART(PROFILE_MOND_ROSARIA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_ROSARIA)>=120 && DONE(AFF_MOND_ROSARIA_H05)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1198,
+      "id": "AFF_MOND_ROSARIA_B120_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_ROSARIA_CLEAR=TRUE && HEART(PROFILE_MOND_ROSARIA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_ROSARIA)>=120 && DONE(AFF_MOND_ROSARIA_B110) && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_MOND_ROSARIA_B110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1213,
+      "id": "AFF_MOND_FISCHL_B110_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_FISCHL_CLEAR=TRUE && HEART(PROFILE_MOND_FISCHL)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_FISCHL)>=120 && DONE(AFF_MOND_FISCHL_H05)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1228,
+      "id": "AFF_MOND_FISCHL_B120_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_FISCHL_CLEAR=TRUE && HEART(PROFILE_MOND_FISCHL)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_FISCHL)>=120 && DONE(AFF_MOND_FISCHL_B110) && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_MOND_FISCHL_B110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1243,
+      "id": "AFF_MOND_NOELLE_B110_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_NOELLE_CLEAR=TRUE && HEART(PROFILE_MOND_NOELLE)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_NOELLE)>=120 && DONE(AFF_MOND_NOELLE_H05)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1258,
+      "id": "AFF_MOND_NOELLE_B120_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_NOELLE_CLEAR=TRUE && HEART(PROFILE_MOND_NOELLE)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_NOELLE)>=120 && DONE(AFF_MOND_NOELLE_B110) && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_MOND_NOELLE_B110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1273,
+      "id": "AFF_MOND_MONA_B110_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_MONA_CLEAR=TRUE && FLAG_MOND_MONA_PRESENT=TRUE && HEART(PROFILE_MOND_MONA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_MONA)>=120 && DONE(AFF_MOND_MONA_H05)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1288,
+      "id": "AFF_MOND_MONA_B120_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_MONA_CLEAR=TRUE && FLAG_MOND_MONA_PRESENT=TRUE && HEART(PROFILE_MOND_MONA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_MONA)>=120 && DONE(AFF_MOND_MONA_B110) && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_MOND_MONA_B110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1303,
+      "id": "AFF_MOND_AMBER_B110_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_AMBER_CLEAR=TRUE && HEART(PROFILE_MOND_AMBER)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_AMBER)>=120 && DONE(AFF_MOND_AMBER_H05)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1318,
+      "id": "AFF_MOND_AMBER_B120_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_AMBER_CLEAR=TRUE && HEART(PROFILE_MOND_AMBER)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_AMBER)>=120 && DONE(AFF_MOND_AMBER_B110) && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_MOND_AMBER_B110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1333,
+      "id": "AFF_MOND_BARBARA_B110_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_BARBARA_CLEAR=TRUE && HEART(PROFILE_MOND_BARBARA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_BARBARA)>=120 && DONE(AFF_MOND_BARBARA_H05)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1348,
+      "id": "AFF_MOND_BARBARA_B120_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG_LEG_MOND_BARBARA_CLEAR=TRUE && HEART(PROFILE_MOND_BARBARA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_BARBARA)>=120 && DONE(AFF_MOND_BARBARA_B110) && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_MOND_BARBARA_B110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1363,
+      "id": "AFF_MOND_JEAN_H110_START",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG(FLAG_LEG_MOND_JEAN_CLEAR)=TRUE && HEART(PROFILE_MOND_JEAN)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_JEAN)>=120 && CE_155_PLAYER_ADULT_APPEARANCE_GATE=PASS && CE_155_BOTH_CLEAR_MINDED=PASS && DONE(AFF_MOND_JEAN_H05) && PROJECT_AGE_CLASS(PROFILE_MOND_JEAN)=ADULT_18_PLUS && ADULT_CONTENT_ELIGIBLE(PROFILE_MOND_JEAN)=TRUE && ADULT_ROUTE_ENABLED(PROFILE_MOND_JEAN)=TRUE"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1384,
+      "id": "AFF_MOND_JEAN_H120_START",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG(FLAG_LEG_MOND_JEAN_CLEAR)=TRUE && HEART(PROFILE_MOND_JEAN)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_JEAN)>=120 && CE_155_PLAYER_ADULT_APPEARANCE_GATE=PASS && CE_155_BOTH_CLEAR_MINDED=PASS && DONE(AFF_MOND_JEAN_H110) && PROJECT_AGE_CLASS(PROFILE_MOND_JEAN)=ADULT_18_PLUS && ADULT_CONTENT_ELIGIBLE(PROFILE_MOND_JEAN)=TRUE && ADULT_ROUTE_ENABLED(PROFILE_MOND_JEAN)=TRUE && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_MOND_JEAN_H110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1408,
+      "id": "AFF_MOND_EULA_H110_START",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG(FLAG_LEG_MOND_EULA_CLEAR)=TRUE && HEART(PROFILE_MOND_EULA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_EULA)>=120 && CE_155_PLAYER_ADULT_APPEARANCE_GATE=PASS && CE_155_BOTH_CLEAR_MINDED=PASS && DONE(AFF_MOND_EULA_H05) && PROJECT_AGE_CLASS(PROFILE_MOND_EULA)=ADULT_18_PLUS && ADULT_CONTENT_ELIGIBLE(PROFILE_MOND_EULA)=TRUE && ADULT_ROUTE_ENABLED(PROFILE_MOND_EULA)=TRUE"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1429,
+      "id": "AFF_MOND_EULA_H120_START",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && FLAG(FLAG_LEG_MOND_EULA_CLEAR)=TRUE && HEART(PROFILE_MOND_EULA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_EULA)>=120 && CE_155_PLAYER_ADULT_APPEARANCE_GATE=PASS && CE_155_BOTH_CLEAR_MINDED=PASS && DONE(AFF_MOND_EULA_H110) && PROJECT_AGE_CLASS(PROFILE_MOND_EULA)=ADULT_18_PLUS && ADULT_CONTENT_ELIGIBLE(PROFILE_MOND_EULA)=TRUE && ADULT_ROUTE_ENABLED(PROFILE_MOND_EULA)=TRUE && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_MOND_EULA_H110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1557,
+      "id": "AFF_ISK_MOND_AMBER_H110_START",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_ISEKAI && FLAG(FLAG_ISK_LEG_AMBER_CLEAR)=TRUE && HEART(PROFILE_MOND_AMBER)>=6 && DONE(AFF_ISK_MOND_AMBER_H05) && BOND_SCORE(ROUTE_ISEKAI,PROFILE_MOND_AMBER)>=120 && !DONE(AFF_ISK_MOND_AMBER_H110) && MENU_ACCESS=CRPG_MAIN"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1570,
+      "id": "AFF_ISK_MOND_AMBER_H120_START",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_ISEKAI && FLAG(FLAG_ISK_LEG_AMBER_CLEAR)=TRUE && HEART(PROFILE_MOND_AMBER)>=6 && DONE(AFF_ISK_MOND_AMBER_H110) && BOND_SCORE(ROUTE_ISEKAI,PROFILE_MOND_AMBER)>=120 && !DONE(AFF_ISK_MOND_AMBER_H120) && MENU_ACCESS=CRPG_MAIN && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_ISK_MOND_AMBER_H110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1695,
+      "id": "AFF_MOND_LISA_ADULT_FIRST_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && PROJECT_AGE_CLASS(PROFILE_MOND_LISA)=ADULT_18_PLUS && ADULT_CONTENT_ELIGIBLE(PROFILE_MOND_LISA)=TRUE && ADULT_ROUTE_ENABLED(PROFILE_MOND_LISA)=TRUE && CE_155_PLAYER_ADULT_APPEARANCE_GATE=PASS && HEART(PROFILE_MOND_LISA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_LISA)>=120 && DONE(AFF_MOND_LISA_B120) && FLAG_LEG_MOND_LISA_CLEAR=TRUE && CE_155_BOTH_CLEAR_MINDED=PASS"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 1725,
+      "id": "AFF_MOND_ROSARIA_ADULT_FIRST_N01",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_TRAVELER && PROJECT_AGE_CLASS(PROFILE_MOND_ROSARIA)=ADULT_18_PLUS && ADULT_CONTENT_ELIGIBLE(PROFILE_MOND_ROSARIA)=TRUE && ADULT_ROUTE_ENABLED(PROFILE_MOND_ROSARIA)=TRUE && CE_155_PLAYER_ADULT_APPEARANCE_GATE=PASS && HEART(PROFILE_MOND_ROSARIA)>=6 && BOND_SCORE(ROUTE_TRAVELER,PROFILE_MOND_ROSARIA)>=120 && DONE(AFF_MOND_ROSARIA_B120) && FLAG_LEG_MOND_ROSARIA_CLEAR=TRUE && CE_155_BOTH_CLEAR_MINDED=PASS"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 2268,
+      "id": "AFF_ISK_MOND_JEAN_H110_START",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_ISEKAI && FLAG(FLAG_ISK_M05_CLEAR)=TRUE && DONE(AFF_ISK_MOND_JEAN_H05)=TRUE && HEART(PROFILE_MOND_JEAN)>=6 && BOND_SCORE(ROUTE_ISEKAI,PROFILE_MOND_JEAN)>=120 && PROJECT_AGE_CLASS(PROFILE_MOND_JEAN)=ADULT_18_PLUS && ADULT_CONTENT_ELIGIBLE(PROFILE_MOND_JEAN)=TRUE && ADULT_ROUTE_ENABLED(PROFILE_MOND_JEAN)=TRUE && CURRENT_PLAYER_AGE_CONFIRMED_18_PLUS=TRUE && CE_155_ISEKAI_PLAYER_ADULT_APPEARANCE_GATE=PASS && CE_155_BOTH_CLEAR_MINDED=PASS"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 2363,
+      "id": "AFF_ISK_MOND_JEAN_H120_START",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_ISEKAI && FLAG(FLAG_ISK_M05_CLEAR)=TRUE && DONE(AFF_ISK_MOND_JEAN_H110)=TRUE && DONE(AFF_ISK_MOND_JEAN_H05)=TRUE && HEART(PROFILE_MOND_JEAN)>=6 && BOND_SCORE(ROUTE_ISEKAI,PROFILE_MOND_JEAN)>=120 && PROJECT_AGE_CLASS(PROFILE_MOND_JEAN)=ADULT_18_PLUS && ADULT_CONTENT_ELIGIBLE(PROFILE_MOND_JEAN)=TRUE && ADULT_ROUTE_ENABLED(PROFILE_MOND_JEAN)=TRUE && CURRENT_PLAYER_AGE_CONFIRMED_18_PLUS=TRUE && CE_155_ISEKAI_PLAYER_ADULT_APPEARANCE_GATE=PASS && CE_155_BOTH_CLEAR_MINDED=PASS && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_ISK_MOND_JEAN_H110)"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 2571,
+      "id": "AFF_ISK_MOND_EULA_H110_START",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_ISEKAI && FLAG_ISK_M05_CLEAR=TRUE && DONE(AFF_ISK_MOND_EULA_H05) && HEART(PROFILE_MOND_EULA)>=6 && BOND_SCORE(ROUTE_ISEKAI,PROFILE_MOND_EULA)>=120 && CURRENT_PLAYER_AGE_CONFIRMED_18_PLUS=TRUE && CE_155_ISEKAI_PLAYER_ADULT_APPEARANCE_GATE=PASS && PROJECT_AGE_CLASS(PROFILE_MOND_EULA)=ADULT_18_PLUS && ADULT_CONTENT_ELIGIBLE(PROFILE_MOND_EULA)=TRUE && ADULT_ROUTE_ENABLED(PROFILE_MOND_EULA)=TRUE && CE_155_BOTH_CLEAR_MINDED=PASS"
+    },
+    {
+      "tab": "57_MOND_STORY_SCENE_DB",
+      "row": 2662,
+      "id": "AFF_ISK_MOND_EULA_H120_START",
+      "HEART_MIN": null,
+      "PRECONDITION": "ROUTE_ID=ROUTE_ISEKAI && FLAG_ISK_M05_CLEAR=TRUE && DONE(AFF_ISK_MOND_EULA_H05) && HEART(PROFILE_MOND_EULA)>=6 && BOND_SCORE(ROUTE_ISEKAI,PROFILE_MOND_EULA)>=120 && CURRENT_PLAYER_AGE_CONFIRMED_18_PLUS=TRUE && CE_155_ISEKAI_PLAYER_ADULT_APPEARANCE_GATE=PASS && PROJECT_AGE_CLASS(PROFILE_MOND_EULA)=ADULT_18_PLUS && ADULT_CONTENT_ELIGIBLE(PROFILE_MOND_EULA)=TRUE && ADULT_ROUTE_ENABLED(PROFILE_MOND_EULA)=TRUE && CE_155_BOTH_CLEAR_MINDED=PASS && DONE(AFF_ISK_MOND_EULA_H110) && WORLD_DAY_AFTER_PREV_UPPER_EVENT_END(AFF_ISK_MOND_EULA_H110)"
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 62,
+      "id": "AFF_MOND_SUCROSE_B110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 63,
+      "id": "AFF_MOND_SUCROSE_B120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 64,
+      "id": "AFF_MOND_LISA_B110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 65,
+      "id": "AFF_MOND_LISA_B120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 66,
+      "id": "AFF_MOND_ROSARIA_B110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 67,
+      "id": "AFF_MOND_ROSARIA_B120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 68,
+      "id": "AFF_MOND_FISCHL_B110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 69,
+      "id": "AFF_MOND_FISCHL_B120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 70,
+      "id": "AFF_MOND_NOELLE_B110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 71,
+      "id": "AFF_MOND_NOELLE_B120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 72,
+      "id": "AFF_MOND_MONA_B110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 73,
+      "id": "AFF_MOND_MONA_B120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 74,
+      "id": "AFF_MOND_AMBER_B110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 75,
+      "id": "AFF_MOND_AMBER_B120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 76,
+      "id": "AFF_MOND_BARBARA_B110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 77,
+      "id": "AFF_MOND_BARBARA_B120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 78,
+      "id": "AFF_MOND_JEAN_H110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 79,
+      "id": "AFF_MOND_JEAN_H120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 80,
+      "id": "AFF_MOND_EULA_H110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 81,
+      "id": "AFF_MOND_EULA_H120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 85,
+      "id": "AFF_ISK_MOND_AMBER_H110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 86,
+      "id": "AFF_ISK_MOND_AMBER_H120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 90,
+      "id": "AFF_MOND_LISA_ADULT_FIRST",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 91,
+      "id": "AFF_MOND_ROSARIA_ADULT_FIRST",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 95,
+      "id": "AFF_ISK_MOND_JEAN_H110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 96,
+      "id": "AFF_ISK_MOND_JEAN_H120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 100,
+      "id": "AFF_ISK_MOND_EULA_H110",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    },
+    {
+      "tab": "58_MOND_AFFECTION_DB",
+      "row": 101,
+      "id": "AFF_ISK_MOND_EULA_H120",
+      "HEART_MIN": "6",
+      "PRECONDITION": null
+    }
+  ],
+  "authoredBoundaries": [
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 169,
+      "ROUTE_ID": "ROUTE_TRAVELER",
+      "NODE_ID": "TRV_M01_Z003",
+      "NODE_TYPE": "CHAPTER_END",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "COMPLETE_QUEST:Q_TRV_MOND_01;FLAG:FLAG_TRV_MON_PROLOGUE_CLEAR=TRUE",
+      "NEXT_NODE_ID": "END",
+      "TEXT_KO": "바람이 묻는 이름 — 제1장 완료.",
+      "NOTE": "현재 챕터 완료; 풍마룡 처치·명예기사 임명·벤티 신분 공개·쌍둥이 발견은 발생하지 않음. 다른 출신 루트에 플래그 이월 금지."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 661,
+      "ROUTE_ID": "ROUTE_TRAVELER",
+      "NODE_ID": "TRV_M02_N311",
+      "NODE_TYPE": "MENU_GATE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": null,
+      "NEXT_NODE_ID": "TRV_M02_N312",
+      "TEXT_KO": "지도에는 동풍의 용이 사라진 방향과 몬드로 돌아가는 길이 함께 남는다. 드발린과의 첫 재회는 실패했고 천공의 하프는 깨졌다. 그러나 용이 벤티의 노래를 들었다는 사실, 심연이 그 순간에 끼어들었다는 사실, 바람 드래곤의 폐허에 닿아야 한다는 다음 목표도 남았다. 메인 화면으로 돌아가면 파티와 서브임무를 정리할 수 있다. 메인 임무를 다시 선택하면 심연 교단의 흔적을 쫓는 조사부터 이어진다.",
+      "NOTE": "절벽 실패 뒤 메인 화면 재정비 지점. 계속하기를 누르면 N312 심연 추적. Q_TRV_MOND_02 완료·보상은 N422 실제 플레이 성공 후만."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 664,
+      "ROUTE_ID": "ROUTE_TRAVELER",
+      "NODE_ID": "TRV_M02_MENU_003",
+      "NODE_TYPE": "MENU_GATE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": null,
+      "NEXT_NODE_ID": "TRV_M02_N055",
+      "TEXT_KO": "[메인 화면 — 몬드성] 메인 임무 계속하기: 기사단 본부로 이동하여 진·리사·케이아의 보고를 듣는다. 서브임무: 현재 조건을 만족하고 사용자가 수락한 임무만 진행. 파티: 해금된 카드로 4개 슬롯을 편성. 카드 목록·소지품·지도·저장: 각각 실제 SAVE와 해금 조건을 조회. 돌아오기: 이 메뉴로 복귀. 메인 임무 외 행동은 다음 스토리 노드를 진행시키지 않는다.",
+      "NOTE": "CHOICE가 아닌 UI 모드 게이트. 메인 임무 계속하기를 선택해야 NEXT로 진행; 반복 개방은 부작용 없음."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 785,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M01_T_END",
+      "NODE_TYPE": "CHAPTER_END",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_TUTORIAL_COMPLETE",
+      "NEXT_NODE_ID": "SCREEN:CRPG_MAIN",
+      "TEXT_KO": "튜토리얼 완료 — 낯선 하늘 아래\n모험가 등록을 마쳤습니다. 엠버 카드가 해금되었습니다.\n메인 화면에서 다음 행동을 고를 수 있습니다.",
+      "NOTE": "CE_133의 완료 검증·원자적 저장 성공 후만 문구 출력/메인 화면. Q_ISK_MOND_01만 완료; 드발린 사태 해결/보스 격파/원작 마신 임무 완료/다음 메인 퀘스트 시작 아님. MAIN_LOCATION은 KNOWN=몬드성·캣테일 술집, UNKNOWN=몬드성·장비 상점 앞. 24는 실제 플레이 시에만 갱신."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 896,
+      "ROUTE_ID": "ROUTE_TRAVELER",
+      "NODE_ID": "TRV_M02_N422",
+      "NODE_TYPE": "CHAPTER_END",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "FLAG_TRV_MON_CH2_CLEAR=TRUE; FLAG_TRV_MOND_RELEASED=TRUE; COMPLETE_QUEST:Q_TRV_MOND_02",
+      "NEXT_NODE_ID": "SCREEN:CRPG_MAIN",
+      "TEXT_KO": "[몬드 본편 완료] 드발린의 오염을 정화하고 자유롭게 떠나보냈다. 벤티의 신분과 신의 심장 탈취를 확인했다. 여행자는 몬드의 남은 의뢰를 살피며 다음 여정을 준비할 수 있다. 리월 이야기는 추후 업데이트에서 열린다.",
+      "NOTE": "여행자 루트 한정. 완료/보상 중복 금지. MOND_VENTI 카드 지급 없음. 후속 리월 퀘스트는 별도 작성·연결 전에는 생성하지 않음."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 1178,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M02_K_GATE",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M02_GATE_KNOWN",
+      "NEXT_NODE_ID": "ISK_M03_K_001",
+      "TEXT_KO": "기사단의 다음 연락을 기다린다. 다음 장면을 이어갈 수 있다.",
+      "NOTE": "2026-09-24 후속 원고 연결. 기존 게이트에서 명시 재개하면 NEXT부터 이어간다. 앞 장면/선택/시간/효과 재실행 금지. CE_152의 기존 진입검증 유지, 후속은 CE_153. 다른 분기로 이동 금지."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 1235,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M02_U_GATE_EXPEDITION",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M02_GATE_EXPEDITION",
+      "NEXT_NODE_ID": "ISK_M03_A_061",
+      "TEXT_KO": "토벌대의 출정 준비를 마쳤다. 다음 장면을 이어갈 수 있다.",
+      "NOTE": "2026-09-24 후속 원고 연결. 기존 게이트에서 명시 재개하면 NEXT부터 이어간다. 앞 장면/선택/시간/효과 재실행 금지. CE_152의 기존 진입검증 유지, 후속은 CE_153. 다른 분기로 이동 금지."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 1242,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M02_U_GATE_GUILD",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M02_GATE_GUILD",
+      "NEXT_NODE_ID": "ISK_M03_B_207",
+      "TEXT_KO": "길드에서 새로운 의뢰를 알아본다. 다음 장면을 이어갈 수 있다.",
+      "NOTE": "2026-09-24 후속 원고 연결. 기존 게이트에서 명시 재개하면 NEXT부터 이어간다. 앞 장면/선택/시간/효과 재실행 금지. CE_152의 기존 진입검증 유지, 후속은 CE_153. 다른 분기로 이동 금지."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 1302,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M03_K_060",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M03_K_CURTAIN",
+      "NEXT_NODE_ID": "ISK_M04_K_001",
+      "TEXT_KO": "화면이 어두워진다.",
+      "NOTE": "사용자 지정 CRPG 분기 창작. 정경 사건 주장 아님. 04/45 말투 우선; 주인공 대사는 선택으로만 발화. 다른 가지의 정보·물건·친분 상속 금지. NOTE는 화면 비출력. 다음 내용은 사용자 지정 대기. 임무 완료·보상·범인·정화법·후속 결말 자동 생성 금지. 2026-09-24 후속 ARC_ISK_MOND_04 연결. CE_158에 따라 명시 재개. 이전 대기 사유는 그 시점의 과거 상태. NEXT=ISK_M04_K_001"
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 1420,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M03_AA_178",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M03_AA_PURIFICATION_QUESTION",
+      "NEXT_NODE_ID": "ISK_M04_AA_001",
+      "TEXT_KO": "정화 방법을 찾아야 한다.",
+      "NOTE": "사용자 지정 CRPG 분기 창작. 정경 사건 주장 아님. 04/45 말투 우선; 주인공 대사는 선택으로만 발화. 다른 가지의 정보·물건·친분 상속 금지. NOTE는 화면 비출력. 다음 내용은 사용자 지정 대기. 임무 완료·보상·범인·정화법·후속 결말 자동 생성 금지. 2026-09-24 후속 ARC_ISK_MOND_04 연결. CE_158에 따라 명시 재개. 이전 대기 사유는 그 시점의 과거 상태. NEXT=ISK_M04_AA_001"
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 1448,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M03_AB_206",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M03_AB_WAIT_CITY",
+      "NEXT_NODE_ID": "ISK_M04_AB_001",
+      "TEXT_KO": "몬드에서 토벌대의 소식을 기다린다. 다이루크의 개인 임무를 시작할 수 있다.",
+      "NOTE": "사용자 지정 CRPG 분기 창작. 정경 사건 주장 아님. 04/45 말투 우선; 주인공 대사는 선택으로만 발화. 다른 가지의 정보·물건·친분 상속 금지. NOTE는 화면 비출력. 다음 내용은 사용자 지정 대기. 임무 완료·보상·범인·정화법·후속 결말 자동 생성 금지. 2026-09-24 후속 ARC_ISK_MOND_04 연결. CE_158에 따라 명시 재개. 이전 대기 사유는 그 시점의 과거 상태. NEXT=ISK_M04_AB_001"
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 1511,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M03_B_269",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M03_B_ORB_FOUND",
+      "NEXT_NODE_ID": "ISK_M04_B_001",
+      "TEXT_KO": "한천의 못의 잔해 가운데 작은 수정구슬을 발견했다.",
+      "NOTE": "사용자 지정 CRPG 분기 창작. 정경 사건 주장 아님. 04/45 말투 우선; 주인공 대사는 선택으로만 발화. 다른 가지의 정보·물건·친분 상속 금지. NOTE는 화면 비출력. 다음 내용은 사용자 지정 대기. 임무 완료·보상·범인·정화법·후속 결말 자동 생성 금지. 2026-09-24 후속 ARC_ISK_MOND_04 연결. CE_158에 따라 명시 재개. 이전 대기 사유는 그 시점의 과거 상태. NEXT=ISK_M04_B_001"
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 2061,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M04_K_END",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M04_K_K_BATTLE_RESULT_WAIT",
+      "NEXT_NODE_ID": "ISK_M05_K_001",
+      "TEXT_KO": "다음 장면을 기다린다.",
+      "NOTE": "사용자 지정 후속 창작. 원작 사건 주장 아님. 04/45/46 말투·관계 참조. 주인공 대사는 선택으로 발화. 분기 밖 정보·소유·사망·정화 이월 금지. NOTE 비출력. M05 몬드 종결 후속이 ACTIVE로 연결됨. CE_161에 따라 명시 재개하며 이전 정지 효과/보상은 반복하지 않는다."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 2157,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M04_AA_END",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M04_AA_AA_PURIFIED_ORB_END",
+      "NEXT_NODE_ID": "ISK_M05_AA_001",
+      "TEXT_KO": "드발린은 완전히 정화되어 바르바토스와 떠났다. 수정구슬을 소지한 채 일행과 귀환을 준비한다.",
+      "NOTE": "사용자 지정 후속 창작. 원작 사건 주장 아님. 04/45/46 말투·관계 참조. 주인공 대사는 선택으로 발화. 분기 밖 정보·소유·사망·정화 이월 금지. NOTE 비출력. M05 몬드 종결 후속이 ACTIVE로 연결됨. CE_161에 따라 명시 재개하며 이전 정지 효과/보상은 반복하지 않는다."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 2294,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M04_AB_END",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M04_AB_AB_PURIFIED_CITY_END",
+      "NEXT_NODE_ID": "ISK_M05_AB_001",
+      "TEXT_KO": "구슬의 힘으로 드발린을 정화하고 몬드로 돌아왔다. 사당 사건은 미해결로 남고, 구슬은 주인공이 보관한다.",
+      "NOTE": "사용자 지정 후속 창작. 원작 사건 주장 아님. 04/45/46 말투·관계 참조. 주인공 대사는 선택으로 발화. 분기 밖 정보·소유·사망·정화 이월 금지. NOTE 비출력. M05 몬드 종결 후속이 ACTIVE로 연결됨. CE_161에 따라 명시 재개하며 이전 정지 효과/보상은 반복하지 않는다."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 2421,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M04_B_END",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": null,
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M04_B_B_PURIFIED_CAMP_END",
+      "NEXT_NODE_ID": "ISK_M05_B_001",
+      "TEXT_KO": "살아 있던 드발린을 구슬의 힘으로 정화했다. 벤티는 소식을 전하러 떠났고, 주인공과 알베도는 거점에서 오늘의 일을 기록한다. 구슬은 주인공이 보관한다.",
+      "NOTE": "사용자 지정 후속 창작. 원작 사건 주장 아님. 04/45/46 말투·관계 참조. 주인공 대사는 선택으로 발화. 분기 밖 정보·소유·사망·정화 이월 금지. NOTE 비출력. M05 몬드 종결 후속이 ACTIVE로 연결됨. CE_161에 따라 명시 재개하며 이전 정지 효과/보상은 반복하지 않는다."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 2618,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M05_K_END",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": "FLAG_ISK_META_KNOWLEDGE=KNOWN",
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M05_K_END",
+      "NEXT_NODE_ID": "SCREEN:CRPG_MAIN",
+      "TEXT_KO": "몬드 장 완료. 리월 본편은 다음 이야기 입력을 기다립니다.",
+      "NOTE": "사용자 지정 몬드 종결 창작. 주인공 발화는 선택으로 확인. 다른 갈래의 경험·인물 영입·정보는 상속하지 않음. META/NOTE 비출력."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 2852,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M05_AA_END",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": "FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=EXPEDITION AND FLAG_ISK_EXPEDITION_FORK=RIDE",
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M05_AA_END",
+      "NEXT_NODE_ID": "SCREEN:CRPG_MAIN",
+      "TEXT_KO": "몬드 장 완료. 리월 본편은 다음 이야기 입력을 기다립니다.",
+      "NOTE": "사용자 지정 몬드 종결 창작. 주인공 발화는 선택으로 확인. 다른 갈래의 경험·인물 영입·정보는 상속하지 않음. META/NOTE 비출력."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 3040,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M05_AB_END",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": "FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=EXPEDITION AND FLAG_ISK_EXPEDITION_FORK=RETURN",
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M05_AB_END",
+      "NEXT_NODE_ID": "SCREEN:CRPG_MAIN",
+      "TEXT_KO": "몬드 장 완료. 리월 본편은 다음 이야기 입력을 기다립니다.",
+      "NOTE": "사용자 지정 몬드 종결 창작. 주인공 발화는 선택으로 확인. 다른 갈래의 경험·인물 영입·정보는 상속하지 않음. META/NOTE 비출력."
+    },
+    {
+      "tab": "55_MAIN_STORY_DB",
+      "_row": 3205,
+      "ROUTE_ID": "ROUTE_ISEKAI",
+      "NODE_ID": "ISK_M05_B_END",
+      "NODE_TYPE": "STORY_PAUSE",
+      "PRECONDITION": "FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=GUILD",
+      "EFFECT_ON_RESOLVE": "EVENT:EVT_ISK_M05_B_END",
+      "NEXT_NODE_ID": "SCREEN:CRPG_MAIN",
+      "TEXT_KO": "몬드 장 완료. 다음 목적지는 아직 정하지 않았습니다.",
+      "NOTE": "사용자 지정 몬드 종결 창작. 주인공 발화는 선택으로 확인. 다른 갈래의 경험·인물 영입·정보는 상속하지 않음. META/NOTE 비출력."
+    }
+  ],
+  "validationScope": "Structural snapshot checks; not proof of story semantics, command runtime support, balance, or asset media contents."
+}

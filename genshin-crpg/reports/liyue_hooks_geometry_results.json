@@ -1,0 +1,118 @@
+{
+  "xiao": {
+    "distance": 5,
+    "packets": [
+      {
+        "actor": "소",
+        "target": "적0",
+        "damage": 92,
+        "absorbed": 0,
+        "element": "물리",
+        "critical": false,
+        "reaction": null,
+        "card": null,
+        "sourceKind": null
+      }
+    ],
+    "farTargetHit": false
+  },
+  "tartaglia": {
+    "distance": 5,
+    "packets": [
+      {
+        "actor": "타르탈리아",
+        "target": "적0",
+        "damage": 78,
+        "absorbed": 0,
+        "element": "물",
+        "critical": false,
+        "reaction": null,
+        "card": "PLAYER_BASIC_ATTACK",
+        "sourceKind": null
+      },
+      {
+        "actor": "타르탈리아",
+        "target": "적0",
+        "damage": 36,
+        "absorbed": 0,
+        "element": "물",
+        "critical": false,
+        "reaction": null,
+        "card": null,
+        "sourceKind": "FOLLOWUP"
+      }
+    ],
+    "farTargetHit": false
+  },
+  "xianyun": {
+    "distance": 5,
+    "packets": [
+      {
+        "actor": "ALLY_1",
+        "target": "적0",
+        "damage": 78,
+        "absorbed": 0,
+        "element": "물리",
+        "critical": false,
+        "reaction": null,
+        "card": null,
+        "sourceKind": null
+      },
+      {
+        "actor": "한운",
+        "target": "적0",
+        "damage": 105,
+        "absorbed": 0,
+        "element": "바람",
+        "critical": false,
+        "reaction": null,
+        "card": null,
+        "sourceKind": "FOLLOWUP"
+      }
+    ],
+    "farTargetHit": false
+  },
+  "yelan_followup_doubles_aoe": {
+    "packets": [
+      {
+        "actor": "야란",
+        "target": "적0",
+        "damage": 216,
+        "absorbed": 0,
+        "element": "물",
+        "critical": false,
+        "reaction": null,
+        "card": "LIYUE_YELAN_E",
+        "sourceKind": null
+      },
+      {
+        "actor": "야란",
+        "target": "적1",
+        "damage": 216,
+        "absorbed": 0,
+        "element": "물",
+        "critical": false,
+        "reaction": null,
+        "card": "LIYUE_YELAN_E",
+        "sourceKind": null
+      },
+      {
+        "actor": "야란",
+        "target": "적2",
+        "damage": 216,
+        "absorbed": 0,
+        "element": "물",
+        "critical": false,
+        "reaction": null,
+        "card": "LIYUE_YELAN_E",
+        "sourceKind": null
+      }
+    ],
+    "counts": {
+      "E0": 1,
+      "E1": 1,
+      "E2": 1,
+      "E3": 0
+    }
+  }
+}

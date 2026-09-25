@@ -1,0 +1,237 @@
+{
+  "provenance": "Read-only checkout. Synthetic source-grounded M05 boundary; test-only level20/baseHP100000/baseATK10000 fixture. All Liyue advancement/COMBAT_BEGIN/COMBAT real public actions, no forced finishBattle. This is FLOW QA, NOT difficulty validation.",
+  "started": "2026-09-24T21:36:53.755Z",
+  "runs": [
+    {
+      "leaf": "TRV_A",
+      "actions": 79,
+      "restores": [
+        {
+          "why": "start",
+          "node": "TRV_LY4_FATUI_COMBAT"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_FATUI_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY4_D07"
+        },
+        {
+          "why": "dialogue",
+          "node": "TRV_LY4_D08"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_OSIAL_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY4_O04"
+        },
+        {
+          "why": "region terminal",
+          "node": "TRV_LY4_END"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-1:B423",
+          "battleId": "V011-1:B423",
+          "saveId": "V011-1",
+          "group": "EG_BOSS_TARTAGLIA",
+          "origin": "STORY:TRV_LY3_A_COMBAT",
+          "gate": "TRV_LY3_A_COMBAT",
+          "branch": "A",
+          "victory": true,
+          "xp": 2520,
+          "loot": {},
+          "rounds": 1,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "bond": null,
+          "id": "V011-1:B527",
+          "battleId": "V011-1:B527",
+          "saveId": "V011-1",
+          "group": "EG_FATUI_PATROL",
+          "origin": "STORY:TRV_LY4_FATUI_COMBAT",
+          "gate": "TRV_LY4_FATUI_COMBAT",
+          "branch": "A",
+          "victory": true,
+          "xp": 1440,
+          "loot": {},
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "bond": null,
+          "id": "V011-1:B539",
+          "battleId": "V011-1:B539",
+          "saveId": "V011-1",
+          "group": "EG_BOSS_OSIAL",
+          "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+          "gate": "TRV_LY4_OSIAL_COMBAT",
+          "branch": "A",
+          "victory": true,
+          "xp": 6030,
+          "loot": {},
+          "rounds": 10,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [],
+      "choices": [
+        "TRV_LY4_SAC_SUPPORT",
+        "TRV_LY4_AFT_A",
+        "TRV_LY4_BANK_ASK_CONTRACT",
+        "LX_TRV_LY4_R02_A",
+        "TRV_LY4_RW_POSTER_CITY",
+        "TRV_LY4_R07A"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "TRV_LY4_END",
+        "type": "CHAPTER_END",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/qa-liyue-final-TRV_A.json",
+      "terminal": "TRV_LY4_END",
+      "eventCount": 0,
+      "moraDelta": 0
+    },
+    {
+      "leaf": "TRV_B",
+      "actions": 77,
+      "restores": [
+        {
+          "why": "start",
+          "node": "TRV_LY4_FATUI_COMBAT"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_FATUI_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY4_D07"
+        },
+        {
+          "why": "dialogue",
+          "node": "TRV_LY4_D08"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_OSIAL_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY4_O04"
+        },
+        {
+          "why": "region terminal",
+          "node": "TRV_LY4_END"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-2:B513",
+          "battleId": "V011-2:B513",
+          "saveId": "V011-2",
+          "group": "EG_FATUI_PATROL",
+          "origin": "STORY:TRV_LY4_FATUI_COMBAT",
+          "gate": "TRV_LY4_FATUI_COMBAT",
+          "branch": "B",
+          "victory": true,
+          "xp": 2160,
+          "loot": {},
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "bond": null,
+          "id": "V011-2:B525",
+          "battleId": "V011-2:B525",
+          "saveId": "V011-2",
+          "group": "EG_BOSS_OSIAL",
+          "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+          "gate": "TRV_LY4_OSIAL_COMBAT",
+          "branch": "B",
+          "victory": true,
+          "xp": 6030,
+          "loot": {},
+          "rounds": 10,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [],
+      "choices": [
+        "TRV_LY4_SAC_SUPPORT",
+        "TRV_LY4_AFT_B",
+        "TRV_LY4_BANK_ASK_CONTRACT",
+        "LX_TRV_LY4_R02_A",
+        "TRV_LY4_RW_POSTER_CITY",
+        "TRV_LY4_R07A"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "TRV_LY4_END",
+        "type": "CHAPTER_END",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/qa-liyue-final-TRV_B.json",
+      "terminal": "TRV_LY4_END",
+      "eventCount": 0,
+      "moraDelta": 0
+    }
+  ],
+  "finished": "2026-09-24T21:37:02.970Z"
+}

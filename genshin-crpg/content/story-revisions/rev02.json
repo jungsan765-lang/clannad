@@ -1,0 +1,1194 @@
+{
+  "revision": "rev02",
+  "version": "0.13.17",
+  "baseVersion": "0.13.16",
+  "scope": "리월 메인 스토리 10개 루트: 이세계인 8, 여행자 2",
+  "protagonistStyle": "이세계인: 교주를 참고한 생활형 불평·딴죽·허술함·도움 요청·사람을 외면하지 못하는 행동. 원작 교주의 능력/지위/설정을 복사하지 않는다. 여행자와 별도.",
+  "baseDbSha256": "ffec90c9c27b682e97d66788be6dde3c6415344ce211a10cb73baecaa4a9e796",
+  "scenes": [
+    {
+      "key": "K_LIFT",
+      "anchor": "ISK_L01_K_016",
+      "entry": "REV02_K_LIFT_N1",
+      "resume": "ISK_L01_K_021",
+      "originalNext": "CHOICE_GROUP:G_ISK_L01_K_017",
+      "flag": "FLAG_REV02_K_LIFT",
+      "choices": [
+        {
+          "id": "REV02_K_LIFT_C1",
+          "value": "BRAKE"
+        },
+        {
+          "id": "REV02_K_LIFT_C2",
+          "value": "NET"
+        },
+        {
+          "id": "REV02_K_LIFT_C3",
+          "value": "HELPED"
+        }
+      ],
+      "audience": [
+        "K1",
+        "K2"
+      ],
+      "purpose": "망서 객잔 승강기 사고: 제동·낙하물 처리·무리한 도움의 서로 다른 수습",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=KNOWN AND FLAG_ISK_L01_STARTED=TRUE",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "AB_LEDGE",
+      "anchor": "ISK_L01_AB_019",
+      "entry": "REV02_AB_LEDGE_N1",
+      "resume": "CHOICE_GROUP:G_ISK_L01_AB_020",
+      "originalNext": "CHOICE_GROUP:G_ISK_L01_AB_020",
+      "flag": "FLAG_REV02_AB_LEDGE",
+      "choices": [
+        {
+          "id": "REV02_AB_LEDGE_C1",
+          "value": "STEPS"
+        },
+        {
+          "id": "REV02_AB_LEDGE_C2",
+          "value": "ROPE"
+        },
+        {
+          "id": "REV02_AB_LEDGE_C3",
+          "value": "WRONG_PATH"
+        }
+      ],
+      "audience": [
+        "AB1",
+        "AB2"
+      ],
+      "purpose": "각청 동행 산길 구조: 관찰·불완전한 도움·실수를 수습하는 관계",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=EXPEDITION AND FLAG_ISK_EXPEDITION_FORK=RETURN AND FLAG_ISK_L01_STARTED=TRUE",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "B_AMBUSH",
+      "anchor": "ISK_L01_B_042",
+      "entry": "REV02_B_AMBUSH_N1",
+      "resume": "ISK_L01_B_043",
+      "originalNext": "ISK_L01_B_043",
+      "flag": "FLAG_REV02_B_AMBUSH",
+      "choices": [
+        {
+          "id": "REV02_B_AMBUSH_C1",
+          "value": "UNTIE"
+        },
+        {
+          "id": "REV02_B_AMBUSH_C2",
+          "value": "DISTRACT"
+        },
+        {
+          "id": "REV02_B_AMBUSH_C3",
+          "value": "HIDE_TOGETHER"
+        }
+      ],
+      "audience": [
+        "B1",
+        "B2"
+      ],
+      "purpose": "육로 매복: 북두의 전투력과 보호 행동, 약한 주인공의 구조 역할",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=GUILD AND FLAG_ISK_L01_STARTED=TRUE",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "TRV_BRIDGE",
+      "anchor": "TRV_LY1_N012",
+      "entry": "REV02_TRV_BRIDGE_N1",
+      "resume": "TRV_LY1_N014",
+      "originalNext": "TRV_LY1_N013",
+      "flag": "FLAG_REV02_TRV_BRIDGE",
+      "choices": [
+        {
+          "id": "REV02_TRV_BRIDGE_C1",
+          "value": "SIDE_LEDGE"
+        },
+        {
+          "id": "REV02_TRV_BRIDGE_C2",
+          "value": "SECURE_CART"
+        },
+        {
+          "id": "REV02_TRV_BRIDGE_C3",
+          "value": "HEAVY_CARGO"
+        }
+      ],
+      "audience": [
+        "TRV_A",
+        "TRV_B"
+      ],
+      "purpose": "여행자 공통 초반: 다리 구조와 청신의례로 이어지는 긴급한 만남",
+      "condition": "ROUTE_ID=ROUTE_TRAVELER",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_TRV_LIYUE_01"
+    },
+    {
+      "key": "K1_REPEAT",
+      "anchor": "ISK_L01_K_125",
+      "entry": "REV02_K1_REPEAT_N1",
+      "resume": "CHOICE_GROUP:G_ISK_L01_K_126",
+      "originalNext": "CHOICE_GROUP:G_ISK_L01_K_126",
+      "flag": "FLAG_REV02_K1_REPEAT",
+      "choices": [
+        {
+          "id": "REV02_K1_REPEAT_C1",
+          "value": "VOICE"
+        },
+        {
+          "id": "REV02_K1_REPEAT_C2",
+          "value": "WITNESS"
+        },
+        {
+          "id": "REV02_K1_REPEAT_C3",
+          "value": "PANIC"
+        }
+      ],
+      "audience": [
+        "K1"
+      ],
+      "purpose": "K1: 반복된 통과 지시가 실제 사고로 이어지는 현장 재발",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=KNOWN AND FLAG_ISK_L01_STARTED=TRUE AND FLAG_ISK_L01_LEAF=K1",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "K2_BRAKE",
+      "anchor": "ISK_L01_K_143",
+      "entry": "REV02_K2_BRAKE_N1",
+      "resume": "ISK_L01_K_144",
+      "originalNext": "ISK_L01_K_144",
+      "flag": "FLAG_REV02_K2_BRAKE",
+      "choices": [
+        {
+          "id": "REV02_K2_BRAKE_C1",
+          "value": "LOCK_FIRST"
+        },
+        {
+          "id": "REV02_K2_BRAKE_C2",
+          "value": "ASK_HELP"
+        },
+        {
+          "id": "REV02_K2_BRAKE_C3",
+          "value": "WRONG_ROPE"
+        }
+      ],
+      "audience": [
+        "K2"
+      ],
+      "purpose": "K2: 짐끈과 제동장치의 구별, 선행 단서가 있는 구조 퍼즐",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=KNOWN AND FLAG_ISK_L01_STARTED=TRUE AND FLAG_ISK_L01_LEAF=K2",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "AA1_SCREEN",
+      "anchor": "ISK_L01_AA_086",
+      "entry": "REV02_AA1_SCREEN_N1",
+      "resume": "CHOICE_GROUP:G_L01_AA_026",
+      "originalNext": "CHOICE_GROUP:G_L01_AA_026",
+      "flag": "FLAG_REV02_AA1_SCREEN",
+      "choices": [
+        {
+          "id": "REV02_AA1_SCREEN_C1",
+          "value": "KNOT"
+        },
+        {
+          "id": "REV02_AA1_SCREEN_C2",
+          "value": "AIR"
+        },
+        {
+          "id": "REV02_AA1_SCREEN_C3",
+          "value": "CALL"
+        }
+      ],
+      "audience": [
+        "AA1"
+      ],
+      "purpose": "AA1: 유해를 본 직후의 공포와 실제 생존자 구조, 호두의 온도 변화",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=EXPEDITION AND FLAG_ISK_EXPEDITION_FORK=RIDE AND FLAG_ISK_L01_STARTED=TRUE AND FLAG_ISK_L01_LEAF=AA1",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "AA2_COURIER",
+      "anchor": "ISK_L01_AA_148",
+      "entry": "REV02_AA2_COURIER_N1",
+      "resume": "ISK_L01_AA_158",
+      "originalNext": "ISK_L01_AA_149",
+      "flag": "FLAG_REV02_AA2_COURIER",
+      "choices": [
+        {
+          "id": "REV02_AA2_COURIER_C1",
+          "value": "RECEIPT"
+        },
+        {
+          "id": "REV02_AA2_COURIER_C2",
+          "value": "BAIT"
+        },
+        {
+          "id": "REV02_AA2_COURIER_C3",
+          "value": "GUARDS"
+        }
+      ],
+      "audience": [
+        "AA2"
+      ],
+      "purpose": "AA2: 실물을 공개하지 않는 원래 선택을 지키는 가짜 인계자 사건",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=EXPEDITION AND FLAG_ISK_EXPEDITION_FORK=RIDE AND FLAG_ISK_L01_STARTED=TRUE AND FLAG_ISK_L01_LEAF=AA2",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "AB1_WARNING",
+      "anchor": "ISK_L01_AB_095",
+      "entry": "REV02_AB1_WARNING_N1",
+      "resume": "CHOICE_GROUP:G_ISK_L01_AB_096",
+      "originalNext": "CHOICE_GROUP:G_ISK_L01_AB_096",
+      "flag": "FLAG_REV02_AB1_WARNING",
+      "choices": [
+        {
+          "id": "REV02_AB1_WARNING_C1",
+          "value": "FETCH"
+        },
+        {
+          "id": "REV02_AB1_WARNING_C2",
+          "value": "SIGNAL"
+        },
+        {
+          "id": "REV02_AB1_WARNING_C3",
+          "value": "STUCK"
+        }
+      ],
+      "audience": [
+        "AB1"
+      ],
+      "purpose": "AB1: 잃어버린 동작과 실제 구조가 겹치는 사고, 이후의 기억 불일치에 대한 체험",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=EXPEDITION AND FLAG_ISK_EXPEDITION_FORK=RETURN AND FLAG_ISK_L01_STARTED=TRUE AND FLAG_ISK_L01_LEAF=AB1",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "AB2_HATCH",
+      "anchor": "ISK_L01_AB_180",
+      "entry": "REV02_AB2_HATCH_N1",
+      "resume": "ISK_L01_AB_196",
+      "originalNext": "CHOICE_GROUP:G_ISK_L01_AB_181",
+      "flag": "FLAG_REV02_AB2_HATCH",
+      "choices": [
+        {
+          "id": "REV02_AB2_HATCH_C1",
+          "value": "LATCH"
+        },
+        {
+          "id": "REV02_AB2_HATCH_C2",
+          "value": "VENT"
+        },
+        {
+          "id": "REV02_AB2_HATCH_C3",
+          "value": "FORCE"
+        }
+      ],
+      "audience": [
+        "AB2"
+      ],
+      "purpose": "AB2: 외곽 적치칸 감금과 두 줄·걸쇠 퍼즐; 화물 증거를 행동으로 확보",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=EXPEDITION AND FLAG_ISK_EXPEDITION_FORK=RETURN AND FLAG_ISK_L01_STARTED=TRUE AND FLAG_ISK_L01_LEAF=AB2",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "B1_FIRE",
+      "anchor": "ISK_L01_B_120",
+      "entry": "REV02_B1_FIRE_N1",
+      "resume": "ISK_L01_B_121",
+      "originalNext": "ISK_L01_B_121",
+      "flag": "FLAG_REV02_B1_FIRE",
+      "choices": [
+        {
+          "id": "REV02_B1_FIRE_C1",
+          "value": "WATER"
+        },
+        {
+          "id": "REV02_B1_FIRE_C2",
+          "value": "ESCORT"
+        },
+        {
+          "id": "REV02_B1_FIRE_C3",
+          "value": "SAND"
+        }
+      ],
+      "audience": [
+        "B1"
+      ],
+      "purpose": "B1: 초소 화재와 구조; 병사가 도움을 받기만 하는 인물이 아니게 함",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=GUILD AND FLAG_ISK_L01_STARTED=TRUE AND FLAG_ISK_L01_LEAF=B1",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "B2_LASHING",
+      "anchor": "ISK_L01_B_149",
+      "entry": "REV02_B2_LASHING_N1",
+      "resume": "ISK_L01_B_164",
+      "originalNext": "ISK_L01_B_150",
+      "flag": "FLAG_REV02_B2_LASHING",
+      "choices": [
+        {
+          "id": "REV02_B2_LASHING_C1",
+          "value": "SUPPORT"
+        },
+        {
+          "id": "REV02_B2_LASHING_C2",
+          "value": "DELEGATE"
+        },
+        {
+          "id": "REV02_B2_LASHING_C3",
+          "value": "WRONG_KNOT"
+        }
+      ],
+      "audience": [
+        "B2"
+      ],
+      "purpose": "B2: 두 포장의 교차 결박 해제와 협동 운반, 내용·수량 유지",
+      "condition": "ROUTE_ID=ROUTE_ISEKAI AND FLAG_ISK_META_KNOWLEDGE=UNKNOWN AND FLAG_ISK_MOND_BRANCH=GUILD AND FLAG_ISK_L01_STARTED=TRUE AND FLAG_ISK_L01_LEAF=B2",
+      "map": "MAP_LIYUE_PLAINS",
+      "quest": "Q_ISK_LIYUE_01"
+    },
+    {
+      "key": "TRVA_POSITION",
+      "anchor": "TRV_LY3_A01",
+      "entry": "REV02_TRVA_POSITION_N1",
+      "resume": "TRV_LY3_N024",
+      "originalNext": "TRV_LY3_N024",
+      "flag": "FLAG_REV02_TRVA_POSITION",
+      "choices": [
+        {
+          "id": "REV02_TRVA_POSITION_C1",
+          "value": "OPEN_FLOOR"
+        },
+        {
+          "id": "REV02_TRVA_POSITION_C2",
+          "value": "GUARD_RECORDS"
+        },
+        {
+          "id": "REV02_TRVA_POSITION_C3",
+          "value": "KEEP_DISTANCE"
+        }
+      ],
+      "audience": [
+        "TRV_A"
+      ],
+      "purpose": "여행자 A: 실제 정면 대결 직전의 보호 대상·전장 선택",
+      "condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_LY_GOLDEN_ROUTE=A",
+      "map": "MAP_LIYUE_GOLDEN_HOUSE",
+      "quest": "Q_TRV_LIYUE_03"
+    },
+    {
+      "key": "TRVB_ESCAPE",
+      "anchor": "TRV_LY3_N089",
+      "entry": "REV02_TRVB_ESCAPE_N1",
+      "resume": "TRV_LY3_N090",
+      "originalNext": "TRV_LY3_N090",
+      "flag": "FLAG_REV02_TRVB_ESCAPE",
+      "choices": [
+        {
+          "id": "REV02_TRVB_ESCAPE_C1",
+          "value": "LIFT_DOOR"
+        },
+        {
+          "id": "REV02_TRVB_ESCAPE_C2",
+          "value": "SIGNAL"
+        },
+        {
+          "id": "REV02_TRVB_ESCAPE_C3",
+          "value": "PULL_FAILED"
+        }
+      ],
+      "audience": [
+        "TRV_B"
+      ],
+      "purpose": "여행자 B: 오셀 해방 뒤 무너진 출입구의 대체 탈출로를 찾아 경비와 증거를 지킴",
+      "condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_LY_GOLDEN_ROUTE=B",
+      "map": "MAP_LIYUE_GOLDEN_HOUSE",
+      "quest": "Q_TRV_LIYUE_03"
+    }
+  ],
+  "callbacks": [
+    {
+      "key": "K1_REPEAT",
+      "anchor": "ISK_L02_K1_002",
+      "resume": "ISK_L02_K1_003",
+      "nodes": [
+        "REV02_K1_REPEAT_CALLBACK_1",
+        "REV02_K1_REPEAT_CALLBACK_2",
+        "REV02_K1_REPEAT_CALLBACK_3"
+      ],
+      "flag": "FLAG_REV02_K1_REPEAT"
+    },
+    {
+      "key": "K2_BRAKE",
+      "anchor": "ISK_L02_K2_002",
+      "resume": "CHOICE_GROUP:G_ISK_L02_K2_003",
+      "nodes": [
+        "REV02_K2_BRAKE_CALLBACK_1",
+        "REV02_K2_BRAKE_CALLBACK_2",
+        "REV02_K2_BRAKE_CALLBACK_3"
+      ],
+      "flag": "FLAG_REV02_K2_BRAKE"
+    },
+    {
+      "key": "AA1_SCREEN",
+      "anchor": "ISK_L02_AA1_002",
+      "resume": "CHOICE_GROUP:G_ISK_L02_AA1_003",
+      "nodes": [
+        "REV02_AA1_SCREEN_CALLBACK_1",
+        "REV02_AA1_SCREEN_CALLBACK_2",
+        "REV02_AA1_SCREEN_CALLBACK_3"
+      ],
+      "flag": "FLAG_REV02_AA1_SCREEN"
+    },
+    {
+      "key": "AA2_COURIER",
+      "anchor": "ISK_L02_AA2_002",
+      "resume": "CHOICE_GROUP:G_ISK_L02_AA2_003",
+      "nodes": [
+        "REV02_AA2_COURIER_CALLBACK_1",
+        "REV02_AA2_COURIER_CALLBACK_2",
+        "REV02_AA2_COURIER_CALLBACK_3"
+      ],
+      "flag": "FLAG_REV02_AA2_COURIER"
+    },
+    {
+      "key": "AB1_WARNING",
+      "anchor": "ISK_L02_AB1_002",
+      "resume": "CHOICE_GROUP:G_ISK_L02_AB1_003",
+      "nodes": [
+        "REV02_AB1_WARNING_CALLBACK_1",
+        "REV02_AB1_WARNING_CALLBACK_2",
+        "REV02_AB1_WARNING_CALLBACK_3"
+      ],
+      "flag": "FLAG_REV02_AB1_WARNING"
+    },
+    {
+      "key": "AB2_HATCH",
+      "anchor": "ISK_L02_AB2_003",
+      "resume": "ISK_L02_AB2_004",
+      "nodes": [
+        "REV02_AB2_HATCH_CALLBACK_1",
+        "REV02_AB2_HATCH_CALLBACK_2",
+        "REV02_AB2_HATCH_CALLBACK_3"
+      ],
+      "flag": "FLAG_REV02_AB2_HATCH"
+    },
+    {
+      "key": "B1_FIRE",
+      "anchor": "ISK_L02_B1_002",
+      "resume": "CHOICE_GROUP:G_ISK_L02_B1_003",
+      "nodes": [
+        "REV02_B1_FIRE_CALLBACK_1",
+        "REV02_B1_FIRE_CALLBACK_2",
+        "REV02_B1_FIRE_CALLBACK_3"
+      ],
+      "flag": "FLAG_REV02_B1_FIRE"
+    },
+    {
+      "key": "B2_LASHING",
+      "anchor": "ISK_L02_B2_002",
+      "resume": "CHOICE_GROUP:G_ISK_L02_B2_003",
+      "nodes": [
+        "REV02_B2_LASHING_CALLBACK_1",
+        "REV02_B2_LASHING_CALLBACK_2",
+        "REV02_B2_LASHING_CALLBACK_3"
+      ],
+      "flag": "FLAG_REV02_B2_LASHING"
+    },
+    {
+      "key": "TRVA_POSITION",
+      "anchor": "TRV_LY4_A01",
+      "resume": "TRV_LY4_A02",
+      "nodes": [
+        "REV02_TRVA_POSITION_CALLBACK_1",
+        "REV02_TRVA_POSITION_CALLBACK_2",
+        "REV02_TRVA_POSITION_CALLBACK_3"
+      ],
+      "flag": "FLAG_REV02_TRVA_POSITION"
+    },
+    {
+      "key": "TRVB_ESCAPE",
+      "anchor": "TRV_LY4_B01",
+      "resume": "TRV_LY4_B02",
+      "nodes": [
+        "REV02_TRVB_ESCAPE_CALLBACK_1",
+        "REV02_TRVB_ESCAPE_CALLBACK_2",
+        "REV02_TRVB_ESCAPE_CALLBACK_3"
+      ],
+      "flag": "FLAG_REV02_TRVB_ESCAPE"
+    }
+  ],
+  "changes": [
+    {
+      "node": "TRV_LY1_N012",
+      "column": "TEXT_KO",
+      "before": "남쪽 길은 점점 돌이 많아지고 공기에 섞인 바다 냄새도 옅어진다. 몬드에서는 바람이 다음 길을 열어 주는 것 같았지만 이곳에서는 바닥에 남은 수레 자국이 어느 길이 쓰이는지 먼저 말해 준다. 여행자는 낯선 행상들이 서로의 짐을 점검하는 모습을 본다.",
+      "after": "리월로 이어지는 남쪽 길에서 수레가 급히 멈춰 선다. 바위 사이의 작은 다리에 실린 화물이 쏠리며 난간을 들이받은 것이다. 아래로 떨어진 상자 하나를 따라 주인도 몸을 내밀고, 그의 발밑에서 금 간 널판이 꺾인다. 페이몬이 여행자의 어깨를 두드린다. 길 안내를 물을 때가 아니었다."
+    },
+    {
+      "node": "TRV_LY1_N012",
+      "column": "NEXT_NODE_ID",
+      "before": "TRV_LY1_N013",
+      "after": "REV02_TRV_BRIDGE_N1"
+    },
+    {
+      "node": "TRV_LY3_A01",
+      "column": "NEXT_NODE_ID",
+      "before": "TRV_LY3_N024",
+      "after": "REV02_TRVA_POSITION_N1"
+    },
+    {
+      "node": "TRV_LY3_N070",
+      "column": "TEXT_KO",
+      "before": "좋아, 싸우지 않을 거면 더 빨리 움직이자. 저 사람에게 등을 보이라는 말이 아니라, 출구를 막히지 않게 고르라는 뜻이야. 비록 문서가 잘 들어갔는지 페이몬이 확인할게. 경비가 깨어났을 때 입구에 피가 흥건하면 뛰지도 못하니까 사람도 먼저 살펴야 해.",
+      "after": "좋아, 그럼 문서함부터 확인하고 경비들을 데리고 나가자. 싸우지 않는다고 아무 일도 안 하는 건 아니잖아! 저 사람은 계속 보고 있어. 출구까지 막히면 곤란해."
+    },
+    {
+      "node": "TRV_LY3_N071",
+      "column": "TEXT_KO",
+      "before": "나를 보고도 칼을 들지 않는 건 예상 밖인데. 내 싸움이 싫어서 도망친다고 생각하진 않겠어. 여행자가 뭘 우선하는지 보면 알 수 있거든. 내가 목적을 손에 넣기 전에 항구에 알리겠다는 거지? 나로서는 기분 좋은 소식은 아니지만, 그 결정을 뽑아 든 검만큼 진지하게 봐야겠군.",
+      "after": "친구, 이번에는 검보다 전갈이 빠르다는 거야? 먼저 항구에 알리겠다, 이거군. 성가신 선택이네. 그래도 네가 뭘 노리는지는 알겠어. 난 내 볼일을 마쳐야겠고."
+    },
+    {
+      "node": "TRV_LY3_N077",
+      "column": "TEXT_KO",
+      "before": "대화가 길어지는 동안에도 내가 할 일은 남아 있어. 내 손을 억지로 잡으러 오지 않는다면, 지금은 서로 지나갈 수 있겠지. 다만 여행자가 경보를 울려도 이것이 끝날 거라고 기대하진 않아. 오히려 내 답을 찾기 전에 도시가 움직일 가능성까지 계산해야겠군.",
+      "after": "그 경보가 내 일을 대신 끝내 주지는 않아. 경비들은 데리고 가도 좋아. 하지만 날 막으러 돌아온다면, 그때는 말로만 보내 주지 않을 거야."
+    },
+    {
+      "node": "TRV_LY3_N079",
+      "column": "TEXT_KO",
+      "before": "없군. 이건 무슨 착오지? 여행자는 여기 들어온 뒤 내 눈앞에 있었으니, 여기서 가져간 게 아니야. 벌써 다른 곳으로 옮겨졌거나, 애초에 선조의 허물 안에 놓이지 않았던 거겠지. 나는 조금 전까지만 해도 그 둘을 구별할 필요가 없다고 생각했어.",
+      "after": "없어? …이건 예상 밖인데. 넌 들어온 뒤로 계속 내 눈앞에 있었지. 그럼 누가 먼저 손을 썼거나, 처음부터 여기 없었다는 건가. 누군가 날 아주 바쁘게 만들어 놨군."
+    },
+    {
+      "node": "TRV_LY3_N080",
+      "column": "TEXT_KO",
+      "before": "우리가 싸우지 않았다고 네 말을 믿으라는 뜻은 아니야. 그래도 방금 네가 직접 확인한 건 봤어. 여행자에게 뒤집어씌울 수 없다는 것도 네 입으로 말했고. 여기서 멈추면 빈 허물만 확인하고 돌아갈 수 있어. 이미 항구에 알렸으니까, 더 큰 일을 저지르기도 어려워졌을 거야.",
+      "after": "없다는 건 네가 직접 확인했어! 이제 우리한테 뒤집어씌우지 마. 경비들까지 다쳤는데 또 뭘 하려고 그래? 여기서 멈춰!"
+    },
+    {
+      "node": "TRV_LY3_N081",
+      "column": "TEXT_KO",
+      "before": "경보는 경보야. 이미 세워 둔 다른 준비를 모두 지울 수는 없어. 신의 심장이 없다면 숨긴 이가 직접 나올 만한 사건을 만들 수밖에. 여행자가 그걸 알아차렸다는 건 인정하지. 그러니 나를 따라오지 말고, 방금 시작한 경보가 제대로 도착했는지 확인하는 편이 낫겠어.",
+      "after": "빈손으로 돌아갈 수는 없지. 숨어 있는 당사자가 직접 나올 만한 일이 필요해. 경보를 보냈다고 했지? 그럼 이제 그 경보가 사람들을 얼마나 빨리 움직이는지 보게 될 거야."
+    },
+    {
+      "node": "TRV_LY3_N084",
+      "column": "TEXT_KO",
+      "before": "그런 뜻으로 받아들이지 않아. 내가 선택하는 일이 부드럽게 끝나지 않을 것도 알아. 그러나 지금 내 손에 있는 답은 이것뿐이고, 숨어 있는 누군가가 이 도시를 정말 아낀다면 끝내 모습을 드러내겠지. 여행자는 그 대답을 내가 받기 전에 항구를 지킬 시간을 벌었어. 그건 네 선택이야.",
+      "after": "무슨 뜻인지 알아. 그래도 할 거야. 이 도시가 그에게 그토록 소중하다면, 이번에는 숨어서 보고만 있지는 못하겠지. 넌 네가 구하려던 사람들을 구해. 난 내 답을 받겠어."
+    },
+    {
+      "node": "TRV_LY3_N088",
+      "column": "TEXT_KO",
+      "before": "여기서 내 길을 막지 않은 일을 나중에 후회할 수도 있겠지. 하지만 여행자가 경보를 택한 덕분에 마신이 항구로 다가오기 전부터 사람들이 움직이기 시작했어. 오늘 나와 싸웠다면 얻지 못했을 시간이다. 그렇다고 내 일을 좋은 일로 만들지는 않아. 나중에 그 값을 물으러 온다면 피하지 않겠어.",
+      "after": "나를 쫓을 거야? 그러기엔 종이 너무 요란한데. 네가 벌어 놓은 시간을 그냥 버리지는 마. 오늘 일의 값을 물으러 오는 거라면… 그래, 다음에 제대로 상대해 주지."
+    },
+    {
+      "node": "TRV_LY3_N089",
+      "column": "NEXT_NODE_ID",
+      "before": "TRV_LY3_N090",
+      "after": "REV02_TRVB_ESCAPE_N1"
+    },
+    {
+      "node": "TRV_LY3_N095",
+      "column": "TEXT_KO",
+      "before": "황금옥에서 전투를 피하고 증거를 먼저 보내셨군요. 그 덕분에 문서가 바닷물이 들이치기 전에 제 손에 도착했습니다. 타르탈리아가 계속 움직일 수 있게 둔 위험도 압니다. 다만 항구의 대피선을 앞당긴 효과 역시 기록하겠습니다. 이 두 결과를 서로 지우지 않고 다음 판단에 써야 합니다.",
+      "after": "증거는 받았어. 경보 덕에 낮은 부두부터 비우기 시작했지. 타르탈리아가 움직일 위험은 남았지만, 네가 가져온 시간도 헛되게 쓰지는 않을 거야. 그가 본 것과 실제로 한 일을 순서대로 말해 봐."
+    },
+    {
+      "node": "TRV_LY3_N097",
+      "column": "TEXT_KO",
+      "before": "좋습니다. 여행자는 경보가 닿지 않은 외곽 선착장을 맡아 주세요. 감우에게는 복제 문양의 순서와 경비 기록을 보냈습니다. 타르탈리아의 전투력은 직접 확인하지 못했으니 추격대에는 무리하게 접근하지 말라고 지시하겠습니다. 그 대신 마신의 봉인이 움직인 위치는 일찍 특정할 수 있겠군요.",
+      "after": "좋아. 경보가 늦은 외곽 선착장을 부탁해. 문양과 경비 기록은 감우에게 넘겼어. 추격대에는 집행관과 함부로 맞붙지 말라고 할게. 지금은 쫓아갈 사람보다 데리고 나올 사람이 많으니까."
+    },
+    {
+      "node": "TRV_LY3_N102",
+      "column": "TEXT_KO",
+      "before": "부두 한쪽의 대피가 먼저 끝난 건 여행자가 보낸 경보 때문입니다. 그 사실로 타르탈리아의 책임이 줄어들지는 않지요. 지금 선인들이 도착하면 황금옥의 자세한 내막보다 더 급한 것이 있습니다. 바다를 돌려세울 때 어느 곳을 먼저 지킬지, 현장에서 본 지도를 가지고 의견을 보태 주세요.",
+      "after": "한쪽 부두는 비었어. 네 경보가 제때 닿은 덕분이야. 선인들이 도착하면 방어선부터 맞춰야겠지. 현장에서 본 통로를 짚어 줘. 장부의 빈칸보다 지도에서 막힌 길이 더 급해."
+    },
+    {
+      "node": "TRV_LY4_A01",
+      "column": "NEXT_NODE_ID",
+      "before": "TRV_LY4_A02",
+      "after": "REV02_TRVA_POSITION_CALLBACK_1"
+    },
+    {
+      "node": "TRV_LY4_B01",
+      "column": "NEXT_NODE_ID",
+      "before": "TRV_LY4_B02",
+      "after": "REV02_TRVB_ESCAPE_CALLBACK_1"
+    },
+    {
+      "node": "ISK_L01_K_016",
+      "column": "TEXT_KO",
+      "before": "국경으로 이어진 길을 건너 남쪽으로 내려가자 바람에 섞인 냄새가 달라졌다. 풀 냄새 사이에 젖은 나무와 물가의 흙이 끼었고, 수레마다 매달린 작은 표찰이 서로 다른 소리를 냈다. 길을 한참 이어 간 끝에, 거대한 돌기둥 위에 얹힌 객잔이 보였다. 망서 객잔이었다. 화면에서는 풍경의 일부였던 높이가, 오늘은 저녁을 먹기 전에 올라가야 하는 실제 높이가 되어 있었다.",
+      "after": "국경을 넘어 남쪽 길을 오래 걸은 끝에 망서 객잔이 보였다. 저 높이까지 올라가 밥을 먹을 생각에 조금 들떴을 때, 승강기에서 짐 하나가 떨어졌다. 쌀이 터져 발등을 덮었다. 고개를 들자 바닥이 기울어진 승강기 안에서 짐꾼 둘이 난간을 붙들고 있었다. 위쪽에서 줄이 갈리는 소리가 났다. 내려다보는 경치보다, 내려오는 사람이 먼저였다."
+    },
+    {
+      "node": "ISK_L01_K_016",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L01_K_017",
+      "after": "REV02_K_LIFT_N1"
+    },
+    {
+      "node": "ISK_L01_K_021",
+      "column": "TEXT_KO",
+      "before": "그 정도면 아주 좋은 서비스라고 생각하며 고개를 끄덕였다. 잠시 뒤 손과 얼굴을 씻고 나오니, 수건을 쥐었던 손바닥에 눌린 자국이 남아 있었다. 식당 쪽에서 그릇 부딪치는 소리가 들렸다. 그 소리를 따라가다가 난간 너머의 풍경에 발이 멈췄다. 아래로 내려다보는 길은 넓고 조용했다. 조금 전 그 길에서 허덕인 사람이 자신이었다는 사실이 우스울 정도였다.",
+      "after": "쌀과 흙을 씻어 내고 식당으로 향했다. 수건을 쥔 손은 아직 조금 떨렸지만 그릇 부딪치는 소리를 들으니 살 것 같았다. 복도 끝에서 멀쩡해진 승강기를 내려다보다가 걸음을 멈췄다. 난간 곁에 누군가 서 있었다."
+    },
+    {
+      "node": "ISK_L01_K_121",
+      "column": "CHOICE_LABEL",
+      "before": "이걸 적었다고 제가 통제선 옆에 묶이는 겁니까? 미리 물어봅니다. 저는 아직 뭘 잘못했는지도 모르는데 도망갈 생각 없다는 약속부터 하고 싶지는 않아요.",
+      "after": "이제 저 천막에 묶어 두는 건 아니죠? 아직 제가 뭘 잘못했는지도 모르는데 얌전히 있겠다는 약속부터 하면 좀 억울해요."
+    },
+    {
+      "node": "ISK_L01_K_123",
+      "column": "CHOICE_LABEL",
+      "before": "천막 입구를 막지 않는 거면요. 물 마시러 가는 것까지 허락받는 처지가 되는 건 싫습니다. 상태를 보자고 했으면, 누가 언제 볼지도 알려 주시고요.",
+      "after": "입구는 열어 둬요. 물 한 잔 마시러 가는데 허락까지 받으면 저부터 이상해질 것 같으니까. 언제 다시 볼지도 알려 주고요."
+    },
+    {
+      "node": "ISK_L01_K_125",
+      "column": "TEXT_KO",
+      "before": "각청은 짧게 적은 내용을 내 쪽으로 돌려 보여 주었다. 죽음이라는 단어 다음에 붙은 설명을 손가락으로 짚었다. 그것이 현재 내 상태라고 적혀 있지 않다는 것을 확인한 뒤에야 종이를 밀어 돌려주었다.",
+      "after": "각청이 기록을 접는 순간 차단봉이 길을 가로질러 내려왔다. 아직 수레 한 대가 절반밖에 지나가지 못했다. 봉을 내린 병사는 수레를 보면서도 조금 전과 똑같은 목소리로 다음 사람을 불렀다. 수레꾼이 고함을 지르자 그제야 자기 손에 들린 손잡이를 내려다봤다. 이번에는 남의 증언을 듣고 있는 게 아니었다."
+    },
+    {
+      "node": "ISK_L01_K_125",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L01_K_126",
+      "after": "REV02_K1_REPEAT_N1"
+    },
+    {
+      "node": "ISK_L01_K_126",
+      "column": "CHOICE_LABEL",
+      "before": "좋습니다. 제가 제 상태를 보겠다고 신청한 거예요. 다른 사람들한테는 위험한 사람이 잡혔다고 말하지 말아 주세요. 줄에 서 있던 사람들, 이유가 뒤로 갈수록 커진답니다.",
+      "after": "저도 제 상태는 확인할게요. 다만 저쪽 줄에 위험한 사람 잡았다고는 말하지 말아 줘요. 소문까지 봉처럼 쏟아지면 그건 못 받쳐요."
+    },
+    {
+      "node": "ISK_L01_K_143",
+      "column": "TEXT_KO",
+      "before": "각청은 무작정 포대 전체를 다시 열지 않았다. 먼저 표가 놓여 있던 자리와 끈을 묶은 방향을 병사와 짐꾼에게 각각 물었다. 병사는 자신이 쓴 글씨를 알아보았다. 다만 그 글씨를 쓰기 직전의 장면을 설명하지 못했다. 소리와 얼굴을 기억하려고 눈을 감았다가, 더는 모르겠다는 듯 다시 떴다.",
+      "after": "확인표를 받으려던 순간 짐꾼의 어깨 너머로 포대가 미끄러졌다. 받침 수레의 한쪽 바퀴가 홈에 빠져 있었다. 짐꾼이 포대를 받치자 그 아래에서 어린 견습의 발이 보였다. 놀라 소리를 지른 내 쪽으로 각청이 손을 내밀었다. 앞으로 뛰어나가지 말라는 손이었다."
+    },
+    {
+      "node": "ISK_L01_K_143",
+      "column": "NEXT_NODE_ID",
+      "before": "ISK_L01_K_144",
+      "after": "REV02_K2_BRAKE_N1"
+    },
+    {
+      "node": "ISK_L01_K_146",
+      "column": "NEXT_NODE_ID",
+      "before": "ISK_L01_K_147",
+      "after": "ISK_L01_K_153"
+    },
+    {
+      "node": "ISK_L01_AA_004",
+      "column": "TEXT_KO",
+      "before": "길을 오래 걸은 뒤에는 주변의 돌빛과 사람들의 옷차림이 달라졌다. 리월 쪽 길목에는 짐수레들이 평소보다 길게 늘어서 있었다. 앞쪽으로 간 상인이 빈손으로 돌아와 뒤의 사람과 말을 나누었고, 깃발 아래 천암군 병사가 수레의 덮개를 하나씩 확인하고 있었다. 내가 줄 끝을 찾으려는 순간, 길옆에서 검은 모자를 쓴 소녀가 접이식 나무틀 하나를 붙들고 손을 흔들었다.",
+      "after": "리월의 길목에 들어서자 먼저 보인 것은 길게 늘어선 수레가 아니라, 길 아래로 미끄러지는 작은 손수레였다. 바퀴에 옷자락이 걸린 수레꾼이 끌려가고 있었다. 검은 모자를 쓴 소녀가 뛰어들어 수레 앞을 틀어막았다. 그녀가 붙잡은 가림틀에서 큰 천이 풀려 내 쪽으로 날아왔다."
+    },
+    {
+      "node": "ISK_L01_AA_005",
+      "column": "TEXT_KO",
+      "before": "거기, 길 찾는 얼굴! 한 발만 오른쪽으로 와 줄래? 그래, 더 말고 딱 거기. 그 천이 네 얼굴을 덮기 전에 모서리 좀 잡아 줘!",
+      "after": "거기, 천 모서리 잡아! 얼굴로 받지 말고 손으로! 좋아, 기둥 쪽으로 돌아서 버텨 줘. 이 사람 옷부터 빼야 해!"
+    },
+    {
+      "node": "ISK_L01_AA_006",
+      "column": "TEXT_KO",
+      "before": "바람이 큰 가림천을 뒤집었다. 날아오는 천 끝을 붙잡았다. 소녀는 반대쪽 끈을 틀에 감고 재빨리 매듭을 지었다. 둘이 잡은 천이 길 위에서 잠깐 팽팽해졌다가, 바람이 빠져나가며 얌전히 내려앉았다. 덮개 안쪽에는 접어 싣던 빈 나무틀만 있었다.",
+      "after": "천을 붙잡았다가 어깨가 딸려 나갔다. 옆의 말뚝을 한 바퀴 돌아서야 겨우 멈출 수 있었다. 소녀가 바퀴 틈에 걸린 옷을 찢어 내고 수레꾼을 끌어냈다. 힘이 풀리는 바람에 나는 천 안으로 반쯤 굴러 들어갔다. 가림천 너머로 괜찮다는 대답이 들린 뒤에야 고개를 내밀었다. 수레에 실린 것은 접어 싣던 빈 나무틀이었다."
+    },
+    {
+      "node": "ISK_L01_AA_007",
+      "column": "CHOICE_LABEL",
+      "before": "리월에서는 길을 물으려면 먼저 바람을 잡아야 해? 입구부터 손이 바쁜 곳이네. 다음에는 어느 모서리인지 손부터 들어 줘. 방금 얼굴로 받는 줄 알았어.",
+      "after": "나도 좀 꺼내 줘. 사람 구하고 내가 포장됐잖아. 리월은 인사부터 이렇게 격한 곳이야?"
+    },
+    {
+      "node": "ISK_L01_AA_008",
+      "column": "TEXT_KO",
+      "before": "호오, 손보다 말이 더 빠르네. 그래도 놓치지는 않았잖아? 합격! 나는 왕생당의 일흔일곱 번째 당주, 호두야. 이쪽은 바람에 약한 가림틀. 네가 없었으면 내가 저 모퉁이까지 쫓아가야 했겠지.",
+      "after": "아하하, 포장 완료라고 도장 찍으면 안 되겠네. 다친 데는 없어? 나는 왕생당의 일흔일곱 번째 당주, 호두야. 저 사람은 살아서 저녁 먹으러 가게 됐고, 너는 천에서 꺼내 드릴 손님!"
+    },
+    {
+      "node": "ISK_L01_AA_010",
+      "column": "TEXT_KO",
+      "before": "걱정 마. 가림천 붙잡기 시험은 방금 끝났어. 유니폼도 없고, 두 번째 시험도 없어. 당주가 직접 봤으니 믿어도 돼.",
+      "after": "도와주는 일은 끝났어. 정말이야. 우선 손 펴 봐. 천에 쓸린 데 없지? 농담은 웃을 수 있을 때 해야 하는 거니까."
+    },
+    {
+      "node": "ISK_L01_AA_086",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_L01_AA_026",
+      "after": "REV02_AA1_SCREEN_N1"
+    },
+    {
+      "node": "ISK_L01_AA_087",
+      "column": "CHOICE_LABEL",
+      "before": "이렇게 적고 나니까 신기한 물건을 감정받았다는 느낌은 안 드네. 누가 와서 봐 줬다는 느낌은 들어. 그건 좀 낫다.",
+      "after": "아까 사람은 정말 괜찮은 거지? 다행이다. …가방 안은 달라진 게 없는데, 같이 봐 준 사람이 있으니까 그건 좀 낫네."
+    },
+    {
+      "node": "ISK_L01_AA_148",
+      "column": "NEXT_NODE_ID",
+      "before": "ISK_L01_AA_149",
+      "after": "REV02_AA2_COURIER_N1"
+    },
+    {
+      "node": "ISK_L01_AB_019",
+      "column": "TEXT_KO",
+      "before": "길에서는 설명보다 걷는 시간이 길었다. 몬드의 완만한 언덕을 지나자 바위가 길의 방향을 정했다. 각청은 앞서가다가도 갈림길에서는 내가 따라올 때까지 멈췄다. 처음에는 쉬는 줄 알고 반가워했는데, 세 번째부터는 지도를 펴는 손부터 보게 됐다.",
+      "after": "몬드를 떠나 각청과 함께 남쪽 길을 걸었다. 그녀가 갈림길에서 멈출 때마다 쉬는 줄 알고 반가워했지만, 이번에는 지도를 펴지 않았다. 앞서가던 약초꾼이 비탈 아래로 미끄러졌다. 그가 붙잡은 마른 뿌리에서 흙이 우수수 떨어졌다. 각청은 짐을 벗어 내게 던지고 곧장 비탈 끝에 무릎을 꿇었다."
+    },
+    {
+      "node": "ISK_L01_AB_019",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L01_AB_020",
+      "after": "REV02_AB_LEDGE_N1"
+    },
+    {
+      "node": "ISK_L01_AB_095",
+      "column": "TEXT_KO",
+      "before": "병사는 손바닥을 폈다. 붉게 눌린 곳은 옅어졌지만 손가락 사이에는 줄의 결을 따라 난 자국이 있었다. 그는 자국을 아픈 곳처럼 문지르지 않았다. 자신이 하지 않았다고 느끼는 일을 손이 계속 했다고 말하는 것처럼 보였다.",
+      "after": "병사의 손목에 난 짐끈 자국을 보던 중, 그가 갑자기 의자에서 일어나 내 어깨를 잡았다. 말보다 먼저 몸을 끌어당겼다. 내가 앉았던 자리로 천막의 가로대가 떨어졌다. 그제야 위에서 못 빠지는 소리가 났다. 그는 나를 붙잡은 채, 왜 일어났는지 모르겠다는 얼굴로 바닥을 내려다봤다."
+    },
+    {
+      "node": "ISK_L01_AB_095",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L01_AB_096",
+      "after": "REV02_AB1_WARNING_N1"
+    },
+    {
+      "node": "ISK_L01_AB_096",
+      "column": "CHOICE_LABEL",
+      "before": "눈 감았다 뜬 것처럼 갑자기 바뀌었어? 아니면 다른 생각 하다가 늦게 알아챈 쪽에 가까워?",
+      "after": "방금 날 잡아 준 건 고마워요. 그 일은 억지로 떠올리지 말고… 처음 검사하던 때는 어땠어요? 눈 감았다 뜬 것처럼 갑자기 바뀐 거예요?"
+    },
+    {
+      "node": "ISK_L01_AB_180",
+      "column": "TEXT_KO",
+      "before": "빈 상자 안에는 쇠고리가 눌렀던 짚의 홈이 남아 있었다. 모서리 한쪽이 최근에 깨진 듯 밝은 나뭇결을 드러냈다. 내가 그 부분을 가리키자 운송인이 수레에서 내릴 때 땅에 부딪히는 소리를 들었다고 했다. 소리는 기억했지만, 누가 상자를 다시 올려놓았는지는 보지 못했다.",
+      "after": "빈 상자에는 쇠고리가 눌렀던 짚의 홈과 새로 깨진 모서리가 남아 있었다. 밝은 나뭇조각 하나가 천막 뒤의 낮은 적치칸으로 이어져 있었다. 운송인을 따라 몸을 숙여 들어간 순간, 위에 고정해 놓은 나무 덧문이 떨어졌다. 각청의 멈추라는 소리가 바깥에서 끊겼다. 좁은 틈으로 빛이 들어왔지만 어깨를 뺄 수는 없었다."
+    },
+    {
+      "node": "ISK_L01_AB_180",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L01_AB_181",
+      "after": "REV02_AB2_HATCH_N1"
+    },
+    {
+      "node": "ISK_L01_AB_197",
+      "column": "TEXT_KO",
+      "before": "수량이 맞아진 뒤에는 서류의 말이 걸렸다. 상인은 인수증을 원했고 서기는 아직 완료라는 말을 쓸 수 없었다. 각청은 둘 사이에서 같은 문장을 반복시키지 않고, 표를 둘로 나누어 펼쳤다. 하나는 지금 물건이 어디에 있는지, 다른 하나는 계약에 따른 인수가 끝났는지를 확인하는 칸이었다.",
+      "after": "상인은 찾은 물건의 수를 확인한 뒤 임시 보관에 동의했다. 각청은 소유자와 수량을 적고 정산 담당자를 따로 불렀다. 대금 문제는 아직 남았지만, 없는 물건을 다시 내라는 말은 더 나오지 않았다. 나는 바깥의 넓은 길을 보며 오늘은 천장 낮은 곳에 들어갈 일이 더 없기를 바랐다."
+    },
+    {
+      "node": "ISK_L01_B_042",
+      "column": "TEXT_KO",
+      "before": "붉은 옷의 여자가 기울어진 수레 쪽으로 걸어왔다. 그녀가 손을 들자 한 사람은 뒷바퀴를 받치고 다른 사람은 상자 아래에서 손을 뺐다. 목소리가 커서만 일이 빨리 끝나는 게 아니었다. 누구에게 무엇을 시키는지 분명했다.",
+      "after": "붉은 옷의 여자가 기울어진 수레 쪽으로 걸어왔다. 그녀가 멈추라는 손짓을 하는 순간, 갈대밭에서 날아온 돌이 수레 덮개를 찢었다. 길 안내를 하던 낯선 사내가 칼을 꺼냈다. 뒤에서도 둘이 길을 막았다. 행렬 담당자가 내 등을 떠밀어 수레 안쪽에 숨겼다."
+    },
+    {
+      "node": "ISK_L01_B_042",
+      "column": "NEXT_NODE_ID",
+      "before": "ISK_L01_B_043",
+      "after": "REV02_B_AMBUSH_N1"
+    },
+    {
+      "node": "ISK_L01_B_043",
+      "column": "TEXT_KO",
+      "before": "바퀴가 자리 잡은 다음에 끈 풀어. 손부터 넣으면 짐보다 네 손이 먼저 눌린다. 그래, 나머지는 넓은 곳에서 보자. 이쪽은 처음 보는 얼굴인데, 새 확인 담당인가?",
+      "after": "짐보다 사람부터 세어. 다들 있지? 바퀴는 받쳐 두고, 끊어진 끈은 새로 묶어. 이쪽은 처음 보는 얼굴인데, 우리 행렬하고 같이 온 거야?"
+    },
+    {
+      "node": "ISK_L01_B_044",
+      "column": "CHOICE_LABEL",
+      "before": "옆에서 떨어지는 게 있나 보고 있었어요. 아직 담당이라고 할 만큼 합의한 건 없고요. 자꾸 부르면 진짜 그 일이 내 일이 되길래 미리 말씀드려요.",
+      "after": "네. 도착하면 일자리부터 찾으려고 했는데 방금 목숨부터 찾았네요. 고마워요. 가방 들고 싸우려던 건 못 본 걸로 해 줘요."
+    },
+    {
+      "node": "ISK_L01_B_045",
+      "column": "TEXT_KO",
+      "before": "하하, 그건 잘 짚었네. 난 북두, 남십자 함대의 선장이야. 이름 한번 들었다고 일을 떠넘길 만큼 궁하진 않으니 편하게 인사해.",
+      "after": "하하, 가방은 죄가 없지! 난 북두, 남십자 함대의 선장이야. 우리 사람들 놓고 혼자 튀지는 않더라. 이름은 천천히 말해도 되니까 숨부터 골라."
+    },
+    {
+      "node": "ISK_L01_B_120",
+      "column": "TEXT_KO",
+      "before": "돌아온 북두는 상인을 쫓아가 사과를 받아내지 않았다. 멈춰 선 사람들이 흩어질 만큼만 길을 내고 병사 옆에 앉았다. 선장은 자기 선원에게 누구를 보관 담당으로 남겼는지 손가락으로 짚어 확인한 뒤에야 두 팔을 편하게 내려놓았다.",
+      "after": "돌아온 북두가 병사 곁에 앉으려던 순간 초소 뒤에서 연기가 났다. 바람에 기울어진 화로가 대기 천막의 아랫단을 그슬리고 있었다. 줄에 선 사람들이 한꺼번에 몸을 돌리면서 출입구가 막혔다. 병사는 벌떡 일어나려고 했지만 무릎이 풀렸다. 대신 그늘 뒤에 물독이 있다고 손으로 짚었다."
+    },
+    {
+      "node": "ISK_L01_B_120",
+      "column": "NEXT_NODE_ID",
+      "before": "ISK_L01_B_121",
+      "after": "REV02_B1_FIRE_N1"
+    },
+    {
+      "node": "ISK_L01_B_149",
+      "column": "TEXT_KO",
+      "before": "북두는 선원 둘에게 받침 옆에서 기다리라고 했다. 그사이 나는 교대 병사와 포장 둘을 확인했다. 한쪽은 매듭이 옆으로 몰려 있었고 다른 쪽은 천 끝이 조금 길었다. 처음부터 누가 언제 만졌는지 모두 안다는 뜻은 아니었다. 지금 함께 보고 되옮길 물건은 같은 두 개라는 데서 시작할 수 있었다.",
+      "after": "옮길 포장은 둘이었다. 하나는 매듭이 가운데에서 비켜나 있었고, 다른 하나는 접힌 천 끝이 길게 나왔다. 받침을 바꾸려고 조금 움직이자 둘 사이에 끼인 짐끈이 팽팽해졌다. 첫 포장만 밀었는데 둘째까지 기울었다. 담당자가 뒤로 물러나다 수레의 퇴로를 막았다. 내 쪽으로 넘어오는 모서리가 생각보다 컸다."
+    },
+    {
+      "node": "ISK_L01_B_149",
+      "column": "NEXT_NODE_ID",
+      "before": "ISK_L01_B_150",
+      "after": "REV02_B2_LASHING_N1"
+    },
+    {
+      "node": "ISK_L02_K1_002",
+      "column": "NEXT_NODE_ID",
+      "before": "ISK_L02_K1_003",
+      "after": "REV02_K1_REPEAT_CALLBACK_1"
+    },
+    {
+      "node": "ISK_L02_K2_001",
+      "column": "TEXT_KO",
+      "before": "물자 대기 구역에 남기로 한 뒤에도 내 일이 거창해지지는 않았다. 자신이 본 포대의 끈, 병사가 다시 물어본 말, 그때 짐이 있던 위치를 한 번 더 설명하는 일이 전부였다. 그런데 그 설명이 끝나지 않는 동안 짐꾼의 하루도 끝나지 않았다. 그는 내 옆에 쪼그려 앉아 손바닥의 굳은살을 문질렀다.",
+      "after": "다음 날에도 짐은 봉쇄선 밖에 남아 있었다. 받침 수레의 손잡이는 새로 묶였고 견습의 신발에는 헝겊이 덧대어져 있었다. 나는 눈앞에서 본 사고를 다시 설명해야 했다. 한 번 이야기하면 집에 갈 수 있을 줄 알았던 짐꾼은 내 옆에 쪼그려 앉아 손바닥의 굳은살을 문질렀다. 같은 아침을 또 시작한 것 같았다."
+    },
+    {
+      "node": "ISK_L02_K2_002",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L02_K2_003",
+      "after": "REV02_K2_BRAKE_CALLBACK_1"
+    },
+    {
+      "node": "ISK_L02_AA1_002",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L02_AA1_003",
+      "after": "REV02_AA1_SCREEN_CALLBACK_1"
+    },
+    {
+      "node": "ISK_L02_AA2_001",
+      "column": "TEXT_KO",
+      "before": "접수처 앞 그늘은 오전과 오후에 서로 다른 사람의 차지가 되었다. 햇빛이 움직일 때마다 짐을 조금씩 옮기며 연락을 기다렸다. 몬드에서 자신과 같은 일을 본 사람들의 이름은 남겨 두었지만, 그 이름에 대한 답은 아직 오지 않았다. 구슬은 처음 리월에 도착했을 때처럼 천에 감긴 채 가방 안에 있었다. 호두에게 사정을 말한 것과 안에 든 유해를 보여 준 것은 달랐다. 이 갈래에서 호두는 아직 그것을 직접 보지 않았다.",
+      "after": "접수처 앞 그늘은 해가 움직일 때마다 자리를 바꿨다. 몬드에서 함께 일을 겪은 사람들의 이름을 남겼지만 답은 아직 오지 않았다. 누군가 다가올 때마다 가방끈부터 잡는 내 손이 조금 우스웠다. 구슬은 리월에 왔을 때처럼 천에 감겨 있었다. 호두에게 사정을 이야기했어도 유해를 직접 보여 주지는 않았다. 기다리는 동안 그 선택까지 저절로 바뀌지는 않았다."
+    },
+    {
+      "node": "ISK_L02_AA2_002",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L02_AA2_003",
+      "after": "REV02_AA2_COURIER_CALLBACK_1"
+    },
+    {
+      "node": "ISK_L02_AB1_002",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L02_AB1_003",
+      "after": "REV02_AB1_WARNING_CALLBACK_1"
+    },
+    {
+      "node": "ISK_L02_AB2_003",
+      "column": "NEXT_NODE_ID",
+      "before": "ISK_L02_AB2_004",
+      "after": "REV02_AB2_HATCH_CALLBACK_1"
+    },
+    {
+      "node": "ISK_L02_B1_002",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L02_B1_003",
+      "after": "REV02_B1_FIRE_CALLBACK_1"
+    },
+    {
+      "node": "ISK_L02_B2_001",
+      "column": "TEXT_KO",
+      "before": "항구로 들어가지 못한 포장 둘은 여전히 행렬 쪽 보관 자리에 놓여 있었다. 전날 정한 도움의 범위를 마음속으로 다시 확인했다. 물건이 제자리에 있는지 살피는 일과 그것을 자신의 책임으로 인수하는 일은 달랐다. 북두의 배에 오른 적도, 정식 선원이 된 적도 없었다. 그렇다고 옆에서 비 맞는 사람을 보며 자신은 아무 관계가 없다고 말하기도 어려웠다. 머무를 자리가 생긴 만큼 눈에 들어오는 일이 늘었다.",
+      "after": "항구에 들어가지 못한 포장 둘은 여전히 행렬 쪽 보관 자리에 있었다. 비를 맞은 받침을 보고 선원 하나가 먼저 한숨을 쉬었다. 나는 배에 오른 적도 없는데 벌써 남십자 함대의 짐 걱정을 하고 있었다. 그렇다고 옆에서 비 맞는 사람을 두고 가방끈만 매고 가기에는, 어제 같이 땀 흘린 얼굴들이 너무 잘 보였다."
+    },
+    {
+      "node": "ISK_L02_B2_002",
+      "column": "NEXT_NODE_ID",
+      "before": "CHOICE_GROUP:G_ISK_L02_B2_003",
+      "after": "REV02_B2_LASHING_CALLBACK_1"
+    },
+    {
+      "node": "ISK_L03_K1_108",
+      "column": "TEXT_KO",
+      "before": "긴 공방 끝에 타르탈리아의 발이 처음으로 뒤로 밀렸다. 손에 모이던 힘이 흐트러졌고 한쪽 무릎이 낮아졌다. 나도 곧장 달려들 힘은 남아 있지 않았다. 거친 숨 사이로 무기를 붙드는 손가락을 고쳐 걸었다. 상대가 다시 자세를 세우기 전에 닿을 수 있는 틈이 보였다. 그 틈을 놓치면 밖으로 이어질 위험을 다시 막아야 할 것 같았다.",
+      "after": "공격을 피하려 기둥 뒤로 물러났을 때 발밑의 돌판이 내려앉았다. 타르탈리아가 따라 들어오다 자세를 낮췄다. 내가 힘으로 밀어붙인 것이 아니었다. 그가 다시 발을 딛을 곳을 고르는 동안 겨우 숨을 삼켰다. 손아귀가 풀려 무기를 놓칠 뻔했다. 보이는 틈이 마지막 기회인지, 다가가면 죽는 거리인지도 자신할 수 없었다. 그래도 밖으로 이어지는 길을 그냥 내줄 수는 없었다."
+    },
+    {
+      "node": "ISK_L03_K2_111",
+      "column": "TEXT_KO",
+      "before": "몇 번의 위기를 넘긴 끝에 타르탈리아가 뒤로 물러났다. 이어지는 공격이 끊겼고, 몸을 돌려 세우는 움직임에 빈틈이 생겼다. 그 틈을 놓치지 않으려고 앞으로 나섰다. 싸움이 끝날 수 있다고 생각하자 손끝의 통증이 뒤늦게 밀려왔다. 그래도 무기는 놓지 않았다. 바깥에서 자신이 나오기를 기다리는 길이 있었다.",
+      "after": "몇 번이나 넘어질 뻔하며 뒤로 물러났다. 내가 디딘 금 간 돌판을 타르탈리아도 피하려 몸을 틀었다. 공격이 끊긴 것은 잠깐이었다. 그 짧은 틈을 내 실력으로 착각할 여유는 없었다. 무기를 고쳐 쥐자 손끝이 아팠고, 다시 뻗기 전에 손을 숨기고 싶었다. 바깥의 사람들을 떠올리고서야 한 걸음 움직였다. 멋있는 싸움은 아니었다. 아직 여기서 끝낼 수 없다는 고집만 남아 있었다."
+    }
+  ],
+  "addedNodeIds": [
+    "REV02_K_LIFT_N1",
+    "REV02_K_LIFT_N2",
+    "REV02_K_LIFT_C1",
+    "REV02_K_LIFT_R1_1",
+    "REV02_K_LIFT_R1_2",
+    "REV02_K_LIFT_C2",
+    "REV02_K_LIFT_R2_1",
+    "REV02_K_LIFT_R2_2",
+    "REV02_K_LIFT_C3",
+    "REV02_K_LIFT_R3_1",
+    "REV02_K_LIFT_R3_2",
+    "REV02_K_LIFT_M1",
+    "REV02_AB_LEDGE_N1",
+    "REV02_AB_LEDGE_N2",
+    "REV02_AB_LEDGE_C1",
+    "REV02_AB_LEDGE_R1_1",
+    "REV02_AB_LEDGE_R1_2",
+    "REV02_AB_LEDGE_C2",
+    "REV02_AB_LEDGE_R2_1",
+    "REV02_AB_LEDGE_R2_2",
+    "REV02_AB_LEDGE_C3",
+    "REV02_AB_LEDGE_R3_1",
+    "REV02_AB_LEDGE_R3_2",
+    "REV02_AB_LEDGE_M1",
+    "REV02_B_AMBUSH_N1",
+    "REV02_B_AMBUSH_N2",
+    "REV02_B_AMBUSH_C1",
+    "REV02_B_AMBUSH_R1_1",
+    "REV02_B_AMBUSH_R1_2",
+    "REV02_B_AMBUSH_C2",
+    "REV02_B_AMBUSH_R2_1",
+    "REV02_B_AMBUSH_R2_2",
+    "REV02_B_AMBUSH_C3",
+    "REV02_B_AMBUSH_R3_1",
+    "REV02_B_AMBUSH_R3_2",
+    "REV02_B_AMBUSH_M1",
+    "REV02_TRV_BRIDGE_N1",
+    "REV02_TRV_BRIDGE_N2",
+    "REV02_TRV_BRIDGE_C1",
+    "REV02_TRV_BRIDGE_R1_1",
+    "REV02_TRV_BRIDGE_R1_2",
+    "REV02_TRV_BRIDGE_C2",
+    "REV02_TRV_BRIDGE_R2_1",
+    "REV02_TRV_BRIDGE_R2_2",
+    "REV02_TRV_BRIDGE_C3",
+    "REV02_TRV_BRIDGE_R3_1",
+    "REV02_TRV_BRIDGE_R3_2",
+    "REV02_TRV_BRIDGE_M1",
+    "REV02_K1_REPEAT_N1",
+    "REV02_K1_REPEAT_N2",
+    "REV02_K1_REPEAT_C1",
+    "REV02_K1_REPEAT_R1_1",
+    "REV02_K1_REPEAT_R1_2",
+    "REV02_K1_REPEAT_C2",
+    "REV02_K1_REPEAT_R2_1",
+    "REV02_K1_REPEAT_R2_2",
+    "REV02_K1_REPEAT_C3",
+    "REV02_K1_REPEAT_R3_1",
+    "REV02_K1_REPEAT_R3_2",
+    "REV02_K1_REPEAT_M1",
+    "REV02_K1_REPEAT_CALLBACK_1",
+    "REV02_K1_REPEAT_CALLBACK_2",
+    "REV02_K1_REPEAT_CALLBACK_3",
+    "REV02_K2_BRAKE_N1",
+    "REV02_K2_BRAKE_N2",
+    "REV02_K2_BRAKE_N3",
+    "REV02_K2_BRAKE_C1",
+    "REV02_K2_BRAKE_R1_1",
+    "REV02_K2_BRAKE_R1_2",
+    "REV02_K2_BRAKE_C2",
+    "REV02_K2_BRAKE_R2_1",
+    "REV02_K2_BRAKE_R2_2",
+    "REV02_K2_BRAKE_C3",
+    "REV02_K2_BRAKE_R3_1",
+    "REV02_K2_BRAKE_R3_2",
+    "REV02_K2_BRAKE_M1",
+    "REV02_K2_BRAKE_CALLBACK_1",
+    "REV02_K2_BRAKE_CALLBACK_2",
+    "REV02_K2_BRAKE_CALLBACK_3",
+    "REV02_AA1_SCREEN_N1",
+    "REV02_AA1_SCREEN_N2",
+    "REV02_AA1_SCREEN_N3",
+    "REV02_AA1_SCREEN_C1",
+    "REV02_AA1_SCREEN_R1_1",
+    "REV02_AA1_SCREEN_R1_2",
+    "REV02_AA1_SCREEN_C2",
+    "REV02_AA1_SCREEN_R2_1",
+    "REV02_AA1_SCREEN_R2_2",
+    "REV02_AA1_SCREEN_C3",
+    "REV02_AA1_SCREEN_R3_1",
+    "REV02_AA1_SCREEN_R3_2",
+    "REV02_AA1_SCREEN_M1",
+    "REV02_AA1_SCREEN_M2",
+    "REV02_AA1_SCREEN_CALLBACK_1",
+    "REV02_AA1_SCREEN_CALLBACK_2",
+    "REV02_AA1_SCREEN_CALLBACK_3",
+    "REV02_AA2_COURIER_N1",
+    "REV02_AA2_COURIER_N2",
+    "REV02_AA2_COURIER_N3",
+    "REV02_AA2_COURIER_N4",
+    "REV02_AA2_COURIER_C1",
+    "REV02_AA2_COURIER_R1_1",
+    "REV02_AA2_COURIER_R1_2",
+    "REV02_AA2_COURIER_C2",
+    "REV02_AA2_COURIER_R2_1",
+    "REV02_AA2_COURIER_R2_2",
+    "REV02_AA2_COURIER_C3",
+    "REV02_AA2_COURIER_R3_1",
+    "REV02_AA2_COURIER_R3_2",
+    "REV02_AA2_COURIER_M1",
+    "REV02_AA2_COURIER_CALLBACK_1",
+    "REV02_AA2_COURIER_CALLBACK_2",
+    "REV02_AA2_COURIER_CALLBACK_3",
+    "REV02_AB1_WARNING_N1",
+    "REV02_AB1_WARNING_N2",
+    "REV02_AB1_WARNING_C1",
+    "REV02_AB1_WARNING_R1_1",
+    "REV02_AB1_WARNING_R1_2",
+    "REV02_AB1_WARNING_C2",
+    "REV02_AB1_WARNING_R2_1",
+    "REV02_AB1_WARNING_R2_2",
+    "REV02_AB1_WARNING_C3",
+    "REV02_AB1_WARNING_R3_1",
+    "REV02_AB1_WARNING_R3_2",
+    "REV02_AB1_WARNING_M1",
+    "REV02_AB1_WARNING_CALLBACK_1",
+    "REV02_AB1_WARNING_CALLBACK_2",
+    "REV02_AB1_WARNING_CALLBACK_3",
+    "REV02_AB2_HATCH_N1",
+    "REV02_AB2_HATCH_N2",
+    "REV02_AB2_HATCH_N3",
+    "REV02_AB2_HATCH_C1",
+    "REV02_AB2_HATCH_R1_1",
+    "REV02_AB2_HATCH_R1_2",
+    "REV02_AB2_HATCH_C2",
+    "REV02_AB2_HATCH_R2_1",
+    "REV02_AB2_HATCH_R2_2",
+    "REV02_AB2_HATCH_C3",
+    "REV02_AB2_HATCH_R3_1",
+    "REV02_AB2_HATCH_R3_2",
+    "REV02_AB2_HATCH_M1",
+    "REV02_AB2_HATCH_M2",
+    "REV02_AB2_HATCH_CALLBACK_1",
+    "REV02_AB2_HATCH_CALLBACK_2",
+    "REV02_AB2_HATCH_CALLBACK_3",
+    "REV02_B1_FIRE_N1",
+    "REV02_B1_FIRE_N2",
+    "REV02_B1_FIRE_N3",
+    "REV02_B1_FIRE_C1",
+    "REV02_B1_FIRE_R1_1",
+    "REV02_B1_FIRE_R1_2",
+    "REV02_B1_FIRE_C2",
+    "REV02_B1_FIRE_R2_1",
+    "REV02_B1_FIRE_R2_2",
+    "REV02_B1_FIRE_C3",
+    "REV02_B1_FIRE_R3_1",
+    "REV02_B1_FIRE_R3_2",
+    "REV02_B1_FIRE_M1",
+    "REV02_B1_FIRE_CALLBACK_1",
+    "REV02_B1_FIRE_CALLBACK_2",
+    "REV02_B1_FIRE_CALLBACK_3",
+    "REV02_B2_LASHING_N1",
+    "REV02_B2_LASHING_N2",
+    "REV02_B2_LASHING_N3",
+    "REV02_B2_LASHING_C1",
+    "REV02_B2_LASHING_R1_1",
+    "REV02_B2_LASHING_R1_2",
+    "REV02_B2_LASHING_C2",
+    "REV02_B2_LASHING_R2_1",
+    "REV02_B2_LASHING_R2_2",
+    "REV02_B2_LASHING_C3",
+    "REV02_B2_LASHING_R3_1",
+    "REV02_B2_LASHING_R3_2",
+    "REV02_B2_LASHING_M1",
+    "REV02_B2_LASHING_CALLBACK_1",
+    "REV02_B2_LASHING_CALLBACK_2",
+    "REV02_B2_LASHING_CALLBACK_3",
+    "REV02_TRVA_POSITION_N1",
+    "REV02_TRVA_POSITION_N2",
+    "REV02_TRVA_POSITION_C1",
+    "REV02_TRVA_POSITION_R1_1",
+    "REV02_TRVA_POSITION_R1_2",
+    "REV02_TRVA_POSITION_C2",
+    "REV02_TRVA_POSITION_R2_1",
+    "REV02_TRVA_POSITION_R2_2",
+    "REV02_TRVA_POSITION_C3",
+    "REV02_TRVA_POSITION_R3_1",
+    "REV02_TRVA_POSITION_R3_2",
+    "REV02_TRVA_POSITION_M1",
+    "REV02_TRVA_POSITION_CALLBACK_1",
+    "REV02_TRVA_POSITION_CALLBACK_2",
+    "REV02_TRVA_POSITION_CALLBACK_3",
+    "REV02_TRVB_ESCAPE_N1",
+    "REV02_TRVB_ESCAPE_N2",
+    "REV02_TRVB_ESCAPE_C1",
+    "REV02_TRVB_ESCAPE_R1_1",
+    "REV02_TRVB_ESCAPE_R1_2",
+    "REV02_TRVB_ESCAPE_C2",
+    "REV02_TRVB_ESCAPE_R2_1",
+    "REV02_TRVB_ESCAPE_R2_2",
+    "REV02_TRVB_ESCAPE_C3",
+    "REV02_TRVB_ESCAPE_R3_1",
+    "REV02_TRVB_ESCAPE_R3_2",
+    "REV02_TRVB_ESCAPE_M1",
+    "REV02_TRVB_ESCAPE_CALLBACK_1",
+    "REV02_TRVB_ESCAPE_CALLBACK_2",
+    "REV02_TRVB_ESCAPE_CALLBACK_3"
+  ],
+  "newFlags": [
+    "FLAG_REV02_K_LIFT",
+    "FLAG_REV02_AB_LEDGE",
+    "FLAG_REV02_B_AMBUSH",
+    "FLAG_REV02_TRV_BRIDGE",
+    "FLAG_REV02_K1_REPEAT",
+    "FLAG_REV02_K2_BRAKE",
+    "FLAG_REV02_AA1_SCREEN",
+    "FLAG_REV02_AA2_COURIER",
+    "FLAG_REV02_AB1_WARNING",
+    "FLAG_REV02_AB2_HATCH",
+    "FLAG_REV02_B1_FIRE",
+    "FLAG_REV02_B2_LASHING",
+    "FLAG_REV02_TRVA_POSITION",
+    "FLAG_REV02_TRVB_ESCAPE"
+  ],
+  "references": {
+    "spreadsheetId": "1mpixlPo_5ccd6-Z5bdb5pxfAMND7_C9i1crgALx3R7U",
+    "readOnly": true,
+    "characterSheet": "45_CHAR_DIALOGUE_DB",
+    "characterRows": [
+      50,
+      52,
+      53,
+      55,
+      57,
+      59,
+      61,
+      64,
+      203,
+      212,
+      261,
+      264
+    ],
+    "localReferenceTables": [
+      "45_CHAR_DIALOGUE_DB",
+      "46_CHAR_RELATION_DB"
+    ],
+    "sourcePriority": "기존 진행·루트 조건과 사용자 지정을 유지. 최신 성격 시트의 후대 사건·관계 지식을 과거 시점에 자동 이식하지 않음."
+  },
+  "boundaries": [
+    "기존 노드 ID·대분기·전투 수치·보상·영입 조건 유지.",
+    "새 사건은 CRPG 창작이며 원작 공식 사건으로 주장하지 않음.",
+    "신규 사건은 선택형 구조·퍼즐·추격·전투 연출. 별도 턴제 전투를 추가한 것은 아님.",
+    "층암거연으로 이동시키지 않고 기존 외곽 검수·운송 구역에서 감금 사건 구현.",
+    "운영 사이트·Google Sheets·개인 세이브·이미지 미변경."
+  ],
+  "manualReview": "10개 갈래의 4장까지 장면 배치·도입/중간/끝과 편집 연결부를 검토. 모든 원문의 문장별 교열이나 전 루트 수동 완주를 뜻하지 않음.",
+  "newDbSha256": "a39d094c46701c6e08acfcd9a48b6312da4a3edd55f1c4ffc76bc4639c2d734d"
+}

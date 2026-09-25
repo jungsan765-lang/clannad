@@ -1,0 +1,150 @@
+{
+  "checks": [
+    {
+      "name": "temple branch COUNTERWEIGHT reaches original merge and persists exactly its choice",
+      "passed": true
+    },
+    {
+      "name": "temple branch SIGNAL reaches original merge and persists exactly its choice",
+      "passed": true
+    },
+    {
+      "name": "temple branch FORCE_RESCUED reaches original merge and persists exactly its choice",
+      "passed": true
+    },
+    {
+      "name": "identity ISK_M02_K_IDENTITY_C1 existing reply",
+      "passed": true
+    },
+    {
+      "name": "identity ISK_M02_K_IDENTITY_C1 new reply",
+      "passed": true
+    },
+    {
+      "name": "identity ISK_M02_K_IDENTITY_C2 existing reply",
+      "passed": true
+    },
+    {
+      "name": "identity ISK_M02_K_IDENTITY_C2 new reply",
+      "passed": true
+    },
+    {
+      "name": "old save with undefined skips all new flashbacks",
+      "passed": true
+    },
+    {
+      "name": "old save with UNSET skips all new flashbacks",
+      "passed": true
+    },
+    {
+      "name": "new choices hidden for ROUTE_ISEKAI/UNKNOWN",
+      "passed": true
+    },
+    {
+      "name": "new choices hidden for ROUTE_TRAVELER/KNOWN",
+      "passed": true
+    },
+    {
+      "name": "save at pending new choice roundtrips and resolves without duplicating selection",
+      "passed": true
+    },
+    {
+      "name": "every new next reference exists in same route and maximum three new choices",
+      "passed": true
+    },
+    {
+      "name": "old v0.13.15 save-version and its supported ancestors retained",
+      "passed": true
+    },
+    {
+      "name": "v0.13.15-format save imports through actual SaveAdapter and retains story cursor",
+      "passed": true
+    }
+  ],
+  "traces": {
+    "COUNTERWEIGHT": {
+      "temple": [
+        "ISK_M02_K_SEARCH_01",
+        "REV01_ISK_K_GATE_01",
+        "REV01_ISK_K_GATE_02",
+        "REV01_ISK_K_GATE_03",
+        "REV01_ISK_K_GATE_04",
+        "REV01_ISK_K_GATE_C1",
+        "REV01_ISK_K_GATE_R1",
+        "REV01_ISK_K_GATE_R1B",
+        "REV01_ISK_K_GATE_MERGE"
+      ],
+      "return": [
+        "ISK_M02_K_CITY_END_02",
+        "REV01_ISK_K_CALLBACK_OBSERVE"
+      ]
+    },
+    "SIGNAL": {
+      "temple": [
+        "ISK_M02_K_SEARCH_01",
+        "REV01_ISK_K_GATE_01",
+        "REV01_ISK_K_GATE_02",
+        "REV01_ISK_K_GATE_03",
+        "REV01_ISK_K_GATE_04",
+        "REV01_ISK_K_GATE_C2",
+        "REV01_ISK_K_GATE_R2",
+        "REV01_ISK_K_GATE_R2B",
+        "REV01_ISK_K_GATE_MERGE"
+      ],
+      "return": [
+        "ISK_M02_K_CITY_END_02",
+        "REV01_ISK_K_CALLBACK_SIGNAL"
+      ]
+    },
+    "FORCE_RESCUED": {
+      "temple": [
+        "ISK_M02_K_SEARCH_01",
+        "REV01_ISK_K_GATE_01",
+        "REV01_ISK_K_GATE_02",
+        "REV01_ISK_K_GATE_03",
+        "REV01_ISK_K_GATE_04",
+        "REV01_ISK_K_GATE_C3",
+        "REV01_ISK_K_GATE_R3",
+        "REV01_ISK_K_GATE_R3B",
+        "REV01_ISK_K_GATE_R3C",
+        "REV01_ISK_K_GATE_MERGE"
+      ],
+      "return": [
+        "ISK_M02_K_CITY_END_02",
+        "REV01_ISK_K_CALLBACK_FORCE"
+      ]
+    },
+    "ISK_M02_K_IDENTITY_C1-false": [
+      "ISK_M02_K_IDENTITY_C1",
+      "REV01_ISK_K_SECRET_PLAIN",
+      "ISK_M02_K_IDENTITY_R1",
+      "ISK_M02_K_IDENTITY_N1",
+      "ISK_M02_K_IDENTITY_N1_SAY"
+    ],
+    "ISK_M02_K_IDENTITY_C1-true": [
+      "ISK_M02_K_IDENTITY_C1",
+      "REV01_ISK_K_SECRET_PLAIN",
+      "ISK_M02_K_IDENTITY_R1",
+      "ISK_M02_K_IDENTITY_N1",
+      "REV01_ISK_K_SECRET_PLAIN_ALT",
+      "REV01_ISK_K_SECRET_PLAIN_REPLY"
+    ],
+    "ISK_M02_K_IDENTITY_C2-false": [
+      "ISK_M02_K_IDENTITY_C2",
+      "REV01_ISK_K_SECRET_CAREFUL",
+      "ISK_M02_K_IDENTITY_R2",
+      "ISK_M02_K_IDENTITY_N2",
+      "ISK_M02_K_IDENTITY_N2_SAY"
+    ],
+    "ISK_M02_K_IDENTITY_C2-true": [
+      "ISK_M02_K_IDENTITY_C2",
+      "REV01_ISK_K_SECRET_CAREFUL",
+      "ISK_M02_K_IDENTITY_R2",
+      "ISK_M02_K_IDENTITY_N2",
+      "REV01_ISK_K_SECRET_CAREFUL_ALT",
+      "REV01_ISK_K_SECRET_CAREFUL_REPLY"
+    ]
+  },
+  "total": 15,
+  "passed": 15
+}

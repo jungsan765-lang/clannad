@@ -1,0 +1,13 @@
+{
+  "name": "mond-crpg-adventure",
+  "version": "0.13.18",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "python3 tools/build.py",
+    "test": "node tools/test_integration.js"
+  },
+  "devDependencies": {
+    "vite": "7.1.9"
+  }
+}

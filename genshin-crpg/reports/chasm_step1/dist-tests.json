@@ -1,0 +1,32 @@
+{
+  "version": "0.13.18",
+  "total": 6,
+  "passed": 6,
+  "checkedFiles": 778,
+  "checks": [
+    {
+      "name": "compiled distribution starts and roundtrips a battle: EG_CHASM_HUSK",
+      "passed": true
+    },
+    {
+      "name": "compiled distribution starts and roundtrips a battle: EG_CHASM_SERPENT",
+      "passed": true
+    },
+    {
+      "name": "0.13.17 export accepted, saved state preserved",
+      "passed": true
+    },
+    {
+      "name": "new compatibility tag prevents old app from interpreting new save",
+      "passed": true
+    },
+    {
+      "name": "source and compiled combat handlers match byte-for-byte",
+      "passed": true
+    },
+    {
+      "name": "every offline package hash matches delivered bytes, new module included",
+      "passed": true
+    }
+  ]
+}

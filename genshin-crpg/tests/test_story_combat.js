@@ -1,0 +1,19 @@
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict'),path=require('path');
+const root=process.env.CRPG_ROOT||path.resolve(__dirname,'..'),ctx=vm.createContext({console});
+for(const f of ['source/runtime.js','source/runtime_extensions.js','source/runtime_story.js','source/runtime_nodes.js','source/runtime_events.js','source/runtime_combat.js','source/runtime_economy.js']){const p=process.env.CRPG_SOURCE?path.join(process.env.CRPG_SOURCE,path.basename(f)):path.join(root,f);vm.runInContext(fs.readFileSync(p,'utf8'),ctx,{filename:f});}
+const {Runtime}=ctx.CRPGRuntime,db=JSON.parse(fs.readFileSync(process.env.CRPG_DB||root+'/content/db.json','utf8'));
+function fresh(route){const r=new Runtime(db);r.newGame({name:'통합검증',route,saveId:'STORY-COMBAT-INTEGRATION',seed:993823});return r;}
+const r=fresh('ROUTE_TRAVELER');r.s.global.PLAYER_LEVEL_STATE=20;r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;
+for(const item of ['FOOD_HASH_BROWN','FOOD_MATSUTAKE_ROLL','TRPG_HEALING_POTION','TRPG_MEDKIT'])r.giveItem(item,99);
+const battles=[],seen=[],history=[];
+for(let tick=0;tick<1500;tick++){
+  if(r.s.runtime){const b=r.s.runtime;if(!battles.includes(b.id))battles.push(b.id);const available=r.combatCards().filter(c=>!c.reason),attack=available.find(c=>c.id==='PLAYER_BASIC_ATTACK'),player=b.actors.find(x=>x.id==='PLAYER_CUSTOM'),potion=available.find(c=>c.id==='ITEM:TRPG_HEALING_POTION'),card=player.hp<player.maxHp*.6&&potion?potion:attack||available[0];assert.ok(card,'available action');const targets=card.targets||[];r.action('COMBAT',{card:card.id,target:targets[0]?.id});if(!r.s.runtime){const result=JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON);assert.equal(result.victory,true,'actual combat lost at '+result.gate);}continue;}
+  const owned=JSON.parse(r.s.global.COMPANION_ELIGIBILITY_JSON||'{}');for(const [id,entry]of Object.entries(owned)){if(['MOND_AMBER','MOND_KAEYA','MOND_DILUC'].includes(id)&&entry.state==='JOINED'&&!r.s.party.some(p=>p.active&&p.source===id)){const slot=r.s.party.findIndex(p=>!p.active);if(slot>=0){r.s.chars[id].level=20;r.s.chars[id].hp=r.character(id).maxHp;r.action('PARTY',{char:id,slot:slot+1});}}}
+  if(r.s.global.STORY_WAITING){const entry=r.storyChapterEntries().find(x=>x.id==='TRV_M02_N001');if(entry){r.action('STORY_CHAPTER',{node:entry.id});continue;}break;}
+  const choices=r.storyChoices();if(choices.length){const choice=choices.find(n=>String(n[12]).includes('JOIN_ACCEPTED:'))||choices[0];r.action('STORY_CHOICE',{node:choice[4]});continue;}
+  const node=r.storyNode();assert.ok(node,'node at '+r.storyActiveNodeId());seen.push(node[4]);history.push({node:node[4],hp:r.s.global.PLAYER_HP_CURRENT});try{if(node[5]==='COMBAT_GATE'){for(const party of r.s.party.filter(p=>p.active)){const owner=party.source;for(let meal=0;meal<10;meal++){const a=r.economyOwner(owner);if(a.hp<=0||a.hp>=a.maxHp)break;r.action('USE_ITEM',{item:a.lastMeal==='FOOD_HASH_BROWN'?'FOOD_MATSUTAKE_ROLL':'FOOD_HASH_BROWN',owner});}}}r.action('STORY_NEXT',{node:node[4]});}catch(e){console.error({last:history.slice(-5),battleCount:battles.length});throw e;}
+}
+assert.equal(r.s.flags.FLAG_TRV_MON_CH2_CLEAR,true);
+assert.equal(r.s.quests.Q_TRV_MOND_02.state,'완료');assert.equal(battles.length,11);assert.ok(seen.includes('TRV_M02_N422'));assert.equal(r.s.global.STORY_CURSOR_NODE_ID,r.s.global.CURRENT_STORY_NODE_ID);r.serialize();
+console.log(JSON.stringify({route:'ROUTE_TRAVELER',fixture:'Lv20 actual actor stats; 99 each valid meals/medicines supplied before traversal; story accepted companions; public combat+food actions',seenNodes:seen.length,battles:battles.length,complete:true}));

@@ -1,0 +1,66 @@
+{
+  "total": 15,
+  "passed": 15,
+  "results": [
+    {
+      "name": "all maps expose at most one kind and new dedicated sites have return routes",
+      "ok": true
+    },
+    {
+      "name": "gathering no longer permits mining; quarry permits only mining",
+      "ok": true
+    },
+    {
+      "name": "old in-flight mining save migrates safely with its spent quotas carried to quarry",
+      "ok": true
+    },
+    {
+      "name": "gathering supplies two bundles, eggs are obtainable and high encounter roll stays peaceful",
+      "ok": true
+    },
+    {
+      "name": "hunt and gather encounter chance is one exact 5% roll and opens before any attack",
+      "ok": true
+    },
+    {
+      "name": "mining and fishing never trigger additional life encounters",
+      "ok": true
+    },
+    {
+      "name": "regional mining retains Starsilver and standard Mond ore intervals",
+      "ok": true
+    },
+    {
+      "name": "rod and bait enforced, bait spent exactly once, cancelling keeps rod and grants no fish",
+      "ok": true
+    },
+    {
+      "name": "fishing timing, future inputs, dishonest success flags and repeated completions cannot grant fish",
+      "ok": true
+    },
+    {
+      "name": "actual tension controls catch fish, persist save and do not consume extra bait",
+      "ok": true
+    },
+    {
+      "name": "level increases fully heal protagonist and companion, non-level XP does not",
+      "ok": true
+    },
+    {
+      "name": "XP book action levels and heals its active owner",
+      "ok": true
+    },
+    {
+      "name": "Sara offers authored gated legends without accepting general commissions or other routes",
+      "ok": true
+    },
+    {
+      "name": "Angel Share is a new scoped facility and keeps old smith identity for saves",
+      "ok": true
+    },
+    {
+      "name": "contact registration obeys story/combat locks",
+      "ok": true
+    }
+  ]
+}

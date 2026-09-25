@@ -1,0 +1,198 @@
+{
+  "generatedAt": "2026-09-24T21:40:34.237Z",
+  "productEdited": false,
+  "modules": [
+    "runtime.js",
+    "runtime_extensions.js",
+    "runtime_story.js",
+    "runtime_nodes.js",
+    "runtime_events.js",
+    "runtime_relationships.js",
+    "runtime_combat.js",
+    "runtime_mond_cards.js",
+    "runtime_economy.js",
+    "runtime_passives.js",
+    "runtime_rules.js",
+    "runtime_andrius.js",
+    "runtime_flow.js",
+    "runtime_party.js",
+    "runtime_opening.js",
+    "runtime_places.js",
+    "runtime_places_joint.js",
+    "runtime_adventure.js",
+    "runtime_exploration.js",
+    "runtime_life.js",
+    "runtime_world.js",
+    "runtime_journey.js",
+    "runtime_market.js",
+    "runtime_geography.js",
+    "runtime_liyue.js",
+    "runtime_liyue_card_content.js",
+    "runtime_liyue_cards.js",
+    "runtime_liyue_combat.js",
+    "runtime_geo_oculi.js",
+    "runtime_encounter.js",
+    "runtime_recruitment.js",
+    "save_adapter.js",
+    "presentation.js"
+  ],
+  "candidateSHA256": "fe8ef06ede2ce3648e0efea50822fb6dd1abf0282c6927bf78a86f36ccbd5274",
+  "results": [
+    {
+      "name": "public story preparation commits actual order without any automatic turn or HP loss",
+      "ok": true,
+      "evidence": {
+        "battle": "OPENING-STORY:B2",
+        "hp": 600,
+        "order": [
+          {
+            "index": 0,
+            "id": "BOSS_DVALIN#1",
+            "source": "BOSS_DVALIN",
+            "name": "드발린",
+            "side": "ENEMY",
+            "control": "AI",
+            "score": 67,
+            "first": false,
+            "alive": true,
+            "hp": 2600,
+            "maxHp": 2600,
+            "current": false,
+            "acted": false
+          },
+          {
+            "index": 1,
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "name": "시작 순서 검증",
+            "side": "ALLY",
+            "control": "PLAYER",
+            "score": 67,
+            "first": false,
+            "alive": true,
+            "hp": 600,
+            "maxHp": 600,
+            "current": false,
+            "acted": false
+          }
+        ],
+        "logs": []
+      }
+    },
+    {
+      "name": "opening previews, menus and internal auto/newRound calls never advance or reroll",
+      "ok": true,
+      "evidence": {
+        "prng": 1427919106,
+        "round": 1,
+        "logCount": 1
+      }
+    },
+    {
+      "name": "SaveAdapter and Runtime round-trip opening without auto execution",
+      "ok": true,
+      "evidence": {
+        "round": 1,
+        "phase": "COMBAT",
+        "prng": 3326130349
+      }
+    },
+    {
+      "name": "begin consumes already-rolled initiative and equals legacy combat outcome / PRNG",
+      "ok": true,
+      "evidence": {
+        "entries": [
+          "DIRECT",
+          "GAUNTLET"
+        ],
+        "comparison": "all runtime battle state except opening metadata + exact PRNG state"
+      }
+    },
+    {
+      "name": "duplicate explicit COMBAT_BEGIN returns receipt; new duplicate action rejects atomically",
+      "ok": true,
+      "evidence": {
+        "action": "OPENING-TEST:3",
+        "events": 2
+      }
+    },
+    {
+      "name": "after beginning, normal combat reaches next rounds and stays deterministic after save",
+      "ok": true,
+      "evidence": {
+        "round": 5,
+        "prng": 3699178910
+      }
+    },
+    {
+      "name": "story defeat and public retry recreate opening with same order and no automatic damage",
+      "ok": true,
+      "evidence": {
+        "firstBattle": "OPENING-STORY:B2",
+        "retryBattle": "OPENING-STORY:B5",
+        "order": [
+          {
+            "index": 0,
+            "id": "BOSS_DVALIN#1",
+            "source": "BOSS_DVALIN",
+            "name": "드발린",
+            "side": "ENEMY",
+            "control": "AI",
+            "score": 67,
+            "first": false,
+            "alive": true,
+            "hp": 2600,
+            "maxHp": 2600,
+            "current": false,
+            "acted": false
+          },
+          {
+            "index": 1,
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "name": "시작 순서 검증",
+            "side": "ALLY",
+            "control": "PLAYER",
+            "score": 67,
+            "first": false,
+            "alive": true,
+            "hp": 1,
+            "maxHp": 600,
+            "current": false,
+            "acted": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "Dvalin cutins and subdued final action retain existing continuation and save behavior",
+      "ok": true,
+      "evidence": {
+        "lines": 11,
+        "result": "ALIVE_PURIFIED"
+      }
+    },
+    {
+      "name": "legacy active battle without opening metadata remains playable",
+      "ok": true,
+      "evidence": {
+        "phase": "COMBAT",
+        "round": 2
+      }
+    },
+    {
+      "name": "corrupt pending initiative or turn state rejects at load",
+      "ok": true,
+      "evidence": {
+        "mutations": 4
+      }
+    },
+    {
+      "name": "duplicate addon installation does not wrap or reroll a second time",
+      "ok": true,
+      "evidence": {
+        "orderCount": 2
+      }
+    }
+  ]
+}

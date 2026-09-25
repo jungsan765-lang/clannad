@@ -1,0 +1,2680 @@
+{
+  "schemaVersion": 1,
+  "icons": {
+    "CUR_MORA": {
+      "id": "CUR_MORA",
+      "name": "모라",
+      "path": "assets/icons/UI_ItemIcon_202.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_202.png",
+      "sourceName": "모라",
+      "sourceKey": "mora",
+      "assetId": 202,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "73a7f8cf05ace53411619751601a5817489f9af753bf9521cb6d6621518aae33",
+      "source_sha256": "1b87d13a96775dc8c334912716c092958a9686cca8ad53cf41d136d668c2cc30",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "bytes": 2368
+    },
+    "MAT_SLIME_CONDENSATE": {
+      "id": "MAT_SLIME_CONDENSATE",
+      "name": "슬라임 응축액",
+      "path": "assets/icons/UI_ItemIcon_112002.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112002.png",
+      "sourceName": "슬라임 응축액",
+      "sourceKey": "slimecondensate",
+      "assetId": 112002,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "fe449d9be7fd4030c86430f0106d08d0089dd54d715a229c3700301a82a9080c",
+      "source_sha256": "5b835e8fc4e7cd9050760aa55b4e025cd9a7003d4b571f559c6bc3260a738989",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 4078
+    },
+    "MAT_DAMAGED_MASK": {
+      "id": "MAT_DAMAGED_MASK",
+      "name": "부서진 가면",
+      "path": "assets/icons/UI_ItemIcon_112005.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112005.png",
+      "sourceName": "부서진 가면",
+      "sourceKey": "damagedmask",
+      "assetId": 112005,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "fb5cef34dc1cb40f078e4f490919659702f1aa130770313391668483cda6dc8a",
+      "source_sha256": "c62e4260839d37a839e97beaae95aa0fe6118e0e4afec0a1f1e97da2f8bdebec",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9094
+    },
+    "MAT_WHOPPER_NECTAR": {
+      "id": "MAT_WHOPPER_NECTAR",
+      "name": "구라구라 꽃꿀",
+      "path": "assets/icons/UI_ItemIcon_112038.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112038.png",
+      "sourceName": "구라구라 꽃꿀",
+      "sourceKey": "whopperflowernectar",
+      "assetId": 112038,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "ab5976f8dd26b8a135197f5c7f6f7cb76c7ba1fdc824b238f0c4f54fad2a9d08",
+      "source_sha256": "f29a806563cb33523b2f7bf47972f78e14bcf944448fc00d53bb451c142cd31d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14448
+    },
+    "MAT_FUNGAL_SPORE": {
+      "id": "MAT_FUNGAL_SPORE",
+      "name": "버섯몬 포자",
+      "path": "assets/icons/UI_ItemIcon_112059.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112059.png",
+      "sourceName": "버섯몬 포자",
+      "sourceKey": "fungalspores",
+      "assetId": 112059,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "19861dac5d02b19e5f29f869c2306d6c33f1b0906c59bdd9d336711d19c4b208",
+      "source_sha256": "9bf48c6a53d801727eaceca7a1d5a14d1f02787f79dac316de1842c10828078c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9952
+    },
+    "MAT_SLIME_SECRETIONS": {
+      "id": "MAT_SLIME_SECRETIONS",
+      "name": "슬라임청",
+      "path": "assets/icons/UI_ItemIcon_112003.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112003.png",
+      "sourceName": "슬라임청",
+      "sourceKey": "slimesecretions",
+      "assetId": 112003,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "20e71940caa73c24572e6da95a9564e0c4735577fa07c8292eacd5346e0c48f3",
+      "source_sha256": "fb1880fe2c6216c60f705fda71547aded0946c8032a4cdbb97e840196b9d31e3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 5644
+    },
+    "MAT_SLIME_CONCENTRATE": {
+      "id": "MAT_SLIME_CONCENTRATE",
+      "name": "슬라임 원액",
+      "path": "assets/icons/UI_ItemIcon_112004.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112004.png",
+      "sourceName": "슬라임 원액",
+      "sourceKey": "slimeconcentrate",
+      "assetId": 112004,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "ea06f284e2d4d7c263921937f28eafa99ad4a0c8361ab989cf75cf5fe08f981a",
+      "source_sha256": "aa4698c73aa2390c41a1b8b24ec7e0f3c4733f086bef69c6bb405805ed1bfd78",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9124
+    },
+    "MAT_STAINED_MASK": {
+      "id": "MAT_STAINED_MASK",
+      "name": "오염된 가면",
+      "path": "assets/icons/UI_ItemIcon_112006.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112006.png",
+      "sourceName": "오염된 가면",
+      "sourceKey": "stainedmask",
+      "assetId": 112006,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "6cea730ffa3e2cf2fd33aeeaa3c4654ed14bd0c619f99100b49b002dc33c369d",
+      "source_sha256": "87a908e583229706bb119ab243c8786c926653701c04480e66a20cdb4b3268f5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10256
+    },
+    "MAT_OMINOUS_MASK": {
+      "id": "MAT_OMINOUS_MASK",
+      "name": "불길한 가면",
+      "path": "assets/icons/UI_ItemIcon_112007.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112007.png",
+      "sourceName": "불길한 가면",
+      "sourceKey": "ominousmask",
+      "assetId": 112007,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "b6d06c73da17b2b39cc68dee1e9fc48319f8f070e587f3ead13b68acd9b64a6d",
+      "source_sha256": "151b0563a6964eb0f59ddf8c28b918c0cb2b87269d6c70a4b74f3e1c6c1d59cc",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12914
+    },
+    "MAT_SHIMMERING_NECTAR": {
+      "id": "MAT_SHIMMERING_NECTAR",
+      "name": "반짝반짝 꽃꿀",
+      "path": "assets/icons/UI_ItemIcon_112039.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112039.png",
+      "sourceName": "반짝반짝 꽃꿀",
+      "sourceKey": "shimmeringnectar",
+      "assetId": 112039,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "6ad17a0e739088e4cec78c6d9b6bf8f800852d1e446e9f3fcf5080d0c0134258",
+      "source_sha256": "9be534b220180a000f0d5864a4f52cd54824a7b221fba9e3949279200045d1de",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16412
+    },
+    "MAT_ENERGY_NECTAR": {
+      "id": "MAT_ENERGY_NECTAR",
+      "name": "원소 꽃꿀",
+      "path": "assets/icons/UI_ItemIcon_112040.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112040.png",
+      "sourceName": "원소 꽃꿀",
+      "sourceKey": "energynectar",
+      "assetId": 112040,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "8faf9d45c1371a12e30dfa3850fd6116c1ff313275c0077494905697d6caf3b4",
+      "source_sha256": "fc6418713144c00f6021ec49f0b01b791cfb72d7bd7d59758606c938bf637e17",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17856
+    },
+    "MAT_LUMINESCENT_POLLEN": {
+      "id": "MAT_LUMINESCENT_POLLEN",
+      "name": "형광 포자 분말",
+      "path": "assets/icons/UI_ItemIcon_112060.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112060.png",
+      "sourceName": "형광 포자 분말",
+      "sourceKey": "luminescentpollen",
+      "assetId": 112060,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "43a5dadfebe9c9861e8fce5f99a439f59c9573b95508f37ad199296e9a6954a3",
+      "source_sha256": "98066fe28e6f4668a6ef7b1199adaff5e5cbd4d26403a7b2c82fe157969f170b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12796
+    },
+    "MAT_CRYSTALLINE_CYST_DUST": {
+      "id": "MAT_CRYSTALLINE_CYST_DUST",
+      "name": "포낭 결정 가루",
+      "path": "assets/icons/UI_ItemIcon_112061.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112061.png",
+      "sourceName": "포낭 결정 가루",
+      "sourceKey": "crystallinecystdust",
+      "assetId": 112061,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "5261f84ad01506c6c8655a5af7020dad7e0715f17c0c4cbd2fc5ee7deb4d6e7a",
+      "source_sha256": "6eb92cc4a1dd8db1813155e3fa65ee1d0d10c760b400cfeb7fad2f8c06d68f7c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15932
+    },
+    "MAT_TREASURE_INSIGNIA": {
+      "id": "MAT_TREASURE_INSIGNIA",
+      "name": "보물찾기 까마귀 휘장",
+      "path": "assets/icons/UI_ItemIcon_112035.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112035.png",
+      "sourceName": "보물찾기 까마귀 휘장",
+      "sourceKey": "treasurehoarderinsignia",
+      "assetId": 112035,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "17c93af0635437d01aa2a7d63e7e075276868b926ad16a5bf38fce2673479f9c",
+      "source_sha256": "22cfe5885407efa6828b7b7ffdc9db8dfb3d4d044b14122577266945de5f2c86",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7956
+    },
+    "MAT_SILVER_INSIGNIA": {
+      "id": "MAT_SILVER_INSIGNIA",
+      "name": "실버 까마귀 휘장",
+      "path": "assets/icons/UI_ItemIcon_112036.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112036.png",
+      "sourceName": "실버 까마귀 휘장",
+      "sourceKey": "silverraveninsignia",
+      "assetId": 112036,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "4ba3c5df7d1c343173da6ab02457630d3f19c0f4d63317161fa8042fc3b548d2",
+      "source_sha256": "6fda53e9b244e1ad35c0961c2d7770874672660e86c0ff33de0761a3a42135e5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9160
+    },
+    "MAT_GOLDEN_INSIGNIA": {
+      "id": "MAT_GOLDEN_INSIGNIA",
+      "name": "골드 까마귀 휘장",
+      "path": "assets/icons/UI_ItemIcon_112037.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112037.png",
+      "sourceName": "골드 까마귀 휘장",
+      "sourceKey": "goldenraveninsignia",
+      "assetId": 112037,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "73a5d856cf243adf6af2a15739afa92b16ad901e821ee1acae13e3dbf9f8836c",
+      "source_sha256": "8d7f137087071463f87e770161cbd696767291c674827b563276d2e2255d3103",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10232
+    },
+    "MAT_OLD_HANDGUARD": {
+      "id": "MAT_OLD_HANDGUARD",
+      "name": "오래된 코등이",
+      "path": "assets/icons/UI_ItemIcon_112044.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112044.png",
+      "sourceName": "오래된 코등이",
+      "sourceKey": "oldhandguard",
+      "assetId": 112044,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "d8e7f4d1ba0a0c61996b011ec123b25f616225a60f6cd0f00b3e60e8a8741e32",
+      "source_sha256": "7757dc45f45a096f6a90964cd4831793810481c8dda0c28fb48e4ad2d9bfb274",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13472
+    },
+    "MAT_KAGEUCHI_HANDGUARD": {
+      "id": "MAT_KAGEUCHI_HANDGUARD",
+      "name": "카게우치 코등이",
+      "path": "assets/icons/UI_ItemIcon_112045.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112045.png",
+      "sourceName": "카게우치 코등이",
+      "sourceKey": "kageuchihandguard",
+      "assetId": 112045,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "b3ca3e0fd9eee48c9f741dcc1d842cea0aac5b404d4b7e7157494d0bea6cf91f",
+      "source_sha256": "28f46459baa5145f5b6ef2f2ce13af90e27cc2e5738d38c2bd39c26a4b19643e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14280
+    },
+    "MAT_FAMED_HANDGUARD": {
+      "id": "MAT_FAMED_HANDGUARD",
+      "name": "명검 코등이",
+      "path": "assets/icons/UI_ItemIcon_112046.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112046.png",
+      "sourceName": "명검 코등이",
+      "sourceKey": "famedhandguard",
+      "assetId": 112046,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "93a510a56fcb51b23fdb149f28149f059522720c002ea798597bb4385f0c13dc",
+      "source_sha256": "9e08bdfc9e226e2e6085344143735c57793050b897ea0b84a50691bf03ea800e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16708
+    },
+    "MAT_RECRUIT_INSIGNIA": {
+      "id": "MAT_RECRUIT_INSIGNIA",
+      "name": "신병의 휘장",
+      "path": "assets/icons/UI_ItemIcon_112032.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112032.png",
+      "sourceName": "신병의 휘장",
+      "sourceKey": "recruitsinsignia",
+      "assetId": 112032,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "1792c5931338d93c7951429d38805fbb07c430623f6090689c6b60c975bdc715",
+      "source_sha256": "929cb77df360676bf49d389d30e3198f72ff4e53f0273b7065f078764324bb93",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9750
+    },
+    "MAT_SERGEANT_INSIGNIA": {
+      "id": "MAT_SERGEANT_INSIGNIA",
+      "name": "사관의 휘장",
+      "path": "assets/icons/UI_ItemIcon_112033.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112033.png",
+      "sourceName": "사관의 휘장",
+      "sourceKey": "sergeantsinsignia",
+      "assetId": 112033,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "a04d0287d523c39b79429cd6f366b7dbdcd3d9ebe7705d7ae95e1c9702110965",
+      "source_sha256": "c90c888133595a57ec635cfe0cfbc5985de9640b6e7580c19d211faf334f19f0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11730
+    },
+    "MAT_LIEUTENANT_INSIGNIA": {
+      "id": "MAT_LIEUTENANT_INSIGNIA",
+      "name": "위관의 휘장",
+      "path": "assets/icons/UI_ItemIcon_112034.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112034.png",
+      "sourceName": "위관의 휘장",
+      "sourceKey": "lieutenantsinsignia",
+      "assetId": 112034,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "9afe0cfd43f427d0f4fe86a30110c4662d20fdc51749d1f4c402c6052bb0f62f",
+      "source_sha256": "0bd05e1f99ca3240503e84e23ca8466e837ea7277e64ec9699faff3d228da1a5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11978
+    },
+    "MAT_MIST_GRASS_POLLEN": {
+      "id": "MAT_MIST_GRASS_POLLEN",
+      "name": "안개꽃 가루",
+      "path": "assets/icons/UI_ItemIcon_112026.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112026.png",
+      "sourceName": "안개꽃 가루",
+      "sourceKey": "mistgrasspollen",
+      "assetId": 112026,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "f5d3f3ac996c37deaced5f21628de7778ed2903bc41c66be70c89eee8a5dd154",
+      "source_sha256": "8e3cee47a6e541aac6915ff269301bb128e0a869e7fa7f8ce8c23b43bad57c24",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7826
+    },
+    "MAT_CHAOS_DEVICE": {
+      "id": "MAT_CHAOS_DEVICE",
+      "name": "혼돈의 장치",
+      "path": "assets/icons/UI_ItemIcon_112023.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112023.png",
+      "sourceName": "혼돈의 장치",
+      "sourceKey": "chaosdevice",
+      "assetId": 112023,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "e0fb975eca0c815e7a9c791aa1a9bb23126ae9ccb2631374d16130546a8e304e",
+      "source_sha256": "217f3a17c51d208d6dbc46e797932797e3869eb61fe2c9a34f9f1dd1e92865be",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9364
+    },
+    "MAT_CHAOS_CIRCUIT": {
+      "id": "MAT_CHAOS_CIRCUIT",
+      "name": "혼돈의 회로",
+      "path": "assets/icons/UI_ItemIcon_112024.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112024.png",
+      "sourceName": "혼돈의 회로",
+      "sourceKey": "chaoscircuit",
+      "assetId": 112024,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "9fa9c69878ca428cccaddf95edd0da4ac33c8d6d3e000c1d2560e6a99f39fdd3",
+      "source_sha256": "b3450d3999c422b5d087db1c357402112b3bbd9fc8344a85b3734c75e4e3d6dd",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11576
+    },
+    "MAT_CHAOS_CORE": {
+      "id": "MAT_CHAOS_CORE",
+      "name": "혼돈의 노심",
+      "path": "assets/icons/UI_ItemIcon_112025.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112025.png",
+      "sourceName": "혼돈의 노심",
+      "sourceKey": "chaoscore",
+      "assetId": 112025,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "8facebfff5b88cf7d88df04b15a4ec4eb676bb8be9497b5a7403ba4584dfc199",
+      "source_sha256": "21c81071250292b28b7981b4fe5ccdf56ad0af9fecfc0d693b3e4e06ba3025cc",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14312
+    },
+    "MAT_FADED_RED_SATIN": {
+      "id": "MAT_FADED_RED_SATIN",
+      "name": "빛바랜 붉은 비단",
+      "path": "assets/icons/UI_ItemIcon_112065.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112065.png",
+      "sourceName": "빛바랜 붉은 비단",
+      "sourceKey": "fadedredsatin",
+      "assetId": 112065,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "db70810bd725b8b3396be12364db2b0b87ca14960b4908bedc9200bd7194a531",
+      "source_sha256": "f9bbc3df94936887e6586a7eb849df46240db33c7a6069672de94ddd3a2686ff",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7258
+    },
+    "MAT_TRIMMED_RED_SILK": {
+      "id": "MAT_TRIMMED_RED_SILK",
+      "name": "장식된 붉은 비단",
+      "path": "assets/icons/UI_ItemIcon_112066.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112066.png",
+      "sourceName": "장식된 붉은 비단",
+      "sourceKey": "trimmedredsilk",
+      "assetId": 112066,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "b2e43dcae95f564360b917ed592f8077d293c73a9bbfc6dc15328261de0c54fb",
+      "source_sha256": "8f5c36524c14073ae0202f4c4ca0b8841abfe63b09ec5a89378e76c9bf1ed21d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9170
+    },
+    "MAT_RICH_RED_BROCADE": {
+      "id": "MAT_RICH_RED_BROCADE",
+      "name": "금자수 붉은 비단",
+      "path": "assets/icons/UI_ItemIcon_112067.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112067.png",
+      "sourceName": "금자수 붉은 비단",
+      "sourceKey": "richredbrocade",
+      "assetId": 112067,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "eb1525aff977cc2bdc6d23d5c151bdae8670d4ed7f69763daf1f3bcd44e31418",
+      "source_sha256": "2bf464babc0e1ac7cf01104e10e75d3d244f3eed445b75b10dadcec446da57e2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13556
+    },
+    "MAT_DEAD_LEY_LINE_BRANCH": {
+      "id": "MAT_DEAD_LEY_LINE_BRANCH",
+      "name": "지맥의 낡은 가지",
+      "path": "assets/icons/UI_ItemIcon_112020.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112020.png",
+      "sourceName": "지맥의 낡은 가지",
+      "sourceKey": "deadleylinebranch",
+      "assetId": 112020,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "c962a0719c450b85048e2a83e7997d087975b27cf77a46639642bd36fc73dd05",
+      "source_sha256": "0dcd3b0e71c848d3cbaa63fc23ac2557591fa62fda8e9c3b4ae2efff7b03c345",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7232
+    },
+    "MAT_DEAD_LEY_LINE_LEAVES": {
+      "id": "MAT_DEAD_LEY_LINE_LEAVES",
+      "name": "지맥의 마른 잎",
+      "path": "assets/icons/UI_ItemIcon_112021.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112021.png",
+      "sourceName": "지맥의 마른 잎",
+      "sourceKey": "deadleylineleaves",
+      "assetId": 112021,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "eee05ce8021bf3b73daea6b469c52704c93aa13076d534f412324df453ca74cc",
+      "source_sha256": "d368a9d91640d59c11eb0d5c9b8b87ca5a3ec3fd9f4930b24780385a5fdbb3a8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11482
+    },
+    "MAT_LEY_LINE_SPROUT": {
+      "id": "MAT_LEY_LINE_SPROUT",
+      "name": "지맥의 새싹",
+      "path": "assets/icons/UI_ItemIcon_112022.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112022.png",
+      "sourceName": "지맥의 새싹",
+      "sourceKey": "leylinesprout",
+      "assetId": 112022,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "15492a557001329be2303659bb9b3928774d998d0bfd5380b2fb37d02b376f1b",
+      "source_sha256": "81d0a4e6b464f07abec4e3539ead7dab657d65dbd19e26d3944af1244e44a775",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14070
+    },
+    "ORE_IRON": {
+      "id": "ORE_IRON",
+      "name": "철광",
+      "path": "assets/icons/UI_ItemIcon_101001.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101001.png",
+      "sourceName": "철광",
+      "sourceKey": "ironchunk",
+      "assetId": 101001,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "6b679c935a4a2038bcc5d55762982dee89224bae8aa62f0f7ce85df1b29c0bc5",
+      "source_sha256": "012f1ebd88e1a5d4fe716eba6fd4726197588b3c140db0cb8943c5f2c498fbf8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8092
+    },
+    "ORE_WHITE_IRON": {
+      "id": "ORE_WHITE_IRON",
+      "name": "백철",
+      "path": "assets/icons/UI_ItemIcon_101002.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101002.png",
+      "sourceName": "백철",
+      "sourceKey": "whiteironchunk",
+      "assetId": 101002,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "70b2df89aa2268b10b88347dcc0a96ea7180577195e198a3b8f8d0278aa1a1e1",
+      "source_sha256": "d8ba16da52d89f4a6102b16c85e2402418923ca412221c039c1bc92a38ce1f2f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13272
+    },
+    "ORE_CRYSTAL": {
+      "id": "ORE_CRYSTAL",
+      "name": "수정덩이",
+      "path": "assets/icons/UI_ItemIcon_101003.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101003.png",
+      "sourceName": "수정덩이",
+      "sourceKey": "crystalchunk",
+      "assetId": 101003,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "b7fc6cd73da3ea0167b2634b99d6c115ac87a2029eeaebdc367e92d04a530478",
+      "source_sha256": "c4658c494b6c4166750bd2ad220a17b49241d9b5cc8f591f59401edd8c32f0a5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9448
+    },
+    "ORE_AMETHYST": {
+      "id": "ORE_AMETHYST",
+      "name": "자수정 덩이",
+      "path": "assets/icons/UI_ItemIcon_101008.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101008.png",
+      "sourceName": "자수정 덩이",
+      "sourceKey": "amethystlump",
+      "assetId": 101008,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "f89819a9322ba56a705fb8bbbfd405bc7ce038e4718f72777df34eaedb0c3c43",
+      "source_sha256": "d2fd1f7145afbcf6e3d36fe61991ab026b26da8a6b820f1b53a34027e2b276a9",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9750
+    },
+    "ORE_STARSILVER": {
+      "id": "ORE_STARSILVER",
+      "name": "성은 광석",
+      "path": "assets/icons/UI_ItemIcon_101006.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101006.png",
+      "sourceName": "성은 광석",
+      "sourceKey": "starsilver",
+      "assetId": 101006,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "d3b0889f440a44498700dbb99ddccdd9617f39961b430f0d7baf2c45cd6f371c",
+      "source_sha256": "7413de3f5f5e4f76421ea7a34aca52b775aaff7bf89ede0f8f0a0c3070f3cb28",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8932
+    },
+    "ORE_CRYSTAL_MARROW": {
+      "id": "ORE_CRYSTAL_MARROW",
+      "name": "수정 골수",
+      "path": "assets/icons/UI_ItemIcon_101203.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101203.png",
+      "sourceName": "수정 골수",
+      "sourceKey": "crystalmarrow",
+      "assetId": 101203,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "e24a43b31aaeb5ddee8f4ba592489eb366c4e8858e4ef81b88c66b99ec5f3ef9",
+      "source_sha256": "9aeaad8c936f17a4d60e520447763bf16084400bc7a4aa4d6caa56dca933ba1b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11280
+    },
+    "ING_APPLE": {
+      "id": "ING_APPLE",
+      "name": "사과",
+      "path": "assets/icons/UI_ItemIcon_100001.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100001.png",
+      "sourceName": "사과",
+      "sourceKey": "apple",
+      "assetId": 100001,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "f5d97f2ca224993d40fbf2b0eb1263350b7655932354a2e5459a6edd1805cd91",
+      "source_sha256": "19aa82c4a8d5b3ce8c5f1101c118207589d6a6bf065cde408b60a9caab935186",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7408
+    },
+    "ING_SUNSETTIA": {
+      "id": "ING_SUNSETTIA",
+      "name": "일몰 열매",
+      "path": "assets/icons/UI_ItemIcon_100002.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100002.png",
+      "sourceName": "일몰 열매",
+      "sourceKey": "sunsettia",
+      "assetId": 100002,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "8babca48c74df691fb77cedeea1336f556ea7a0d3511a19e3ea3e3fe73f79e96",
+      "source_sha256": "6aa4d69b7c9a86a2bad648a04768bdd1bd81e7f686b426e46c60f22aaa128df3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9066
+    },
+    "ING_SWEET_FLOWER": {
+      "id": "ING_SWEET_FLOWER",
+      "name": "달콤달콤꽃",
+      "path": "assets/icons/UI_ItemIcon_100012.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100012.png",
+      "sourceName": "달콤달콤꽃",
+      "sourceKey": "sweetflower",
+      "assetId": 100012,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "ba554cbe3bcc0b89444d40dca4467c37727ab0ce180e272ac32731a76a8f2f35",
+      "source_sha256": "41ae05fa16e3fdf634cf69f9882c8784da650e1d2f9849f0f149bf223915289d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12948
+    },
+    "ING_MUSHROOM": {
+      "id": "ING_MUSHROOM",
+      "name": "버섯",
+      "path": "assets/icons/UI_ItemIcon_100011.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100011.png",
+      "sourceName": "버섯",
+      "sourceKey": "mushroom",
+      "assetId": 100011,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "7e7b0cf2768f25903d747ec86e01f81423fac464e0f59affcb38f378a9c8290a",
+      "source_sha256": "7f8c5df798cb6b27b21f5bf963b368298e9193cd56171289891f4b2d838cd8f3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11768
+    },
+    "ING_CARROT": {
+      "id": "ING_CARROT",
+      "name": "당근",
+      "path": "assets/icons/UI_ItemIcon_100013.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100013.png",
+      "sourceName": "당근",
+      "sourceKey": "carrot",
+      "assetId": 100013,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "3a190f4d96127e885a6705c919ae5a32cc0ef3ab0d60bacff1f632034a1367e2",
+      "source_sha256": "50c3adb7dbdbaefb3c1d5981b5f9290bf907fe35b6286aa532bc7af36203ccea",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7310
+    },
+    "ING_FOWL": {
+      "id": "ING_FOWL",
+      "name": "새고기",
+      "path": "assets/icons/UI_ItemIcon_100064.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100064.png",
+      "sourceName": "새고기",
+      "sourceKey": "fowl",
+      "assetId": 100064,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "dae41278309c573949a3e56eea615bef86181b280925eef33f330e07ea031460",
+      "source_sha256": "91d3d0128c931bcc1125f192f1b5b302dde8e4ef3c6a243b3be02c18f0a36cf8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7548
+    },
+    "ING_RAW_MEAT": {
+      "id": "ING_RAW_MEAT",
+      "name": "짐승고기",
+      "path": "assets/icons/UI_ItemIcon_100061.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100061.png",
+      "sourceName": "짐승고기",
+      "sourceKey": "rawmeat",
+      "assetId": 100061,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "06a2e0b2180a4fa51b867369e6b99b237d0532312ade740b03773fc87117cb24",
+      "source_sha256": "0609aa970ab1d3c65c0f34f997db76c04c5200a1be86b73774b7891ea050384d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 6562
+    },
+    "ING_FISH": {
+      "id": "ING_FISH",
+      "name": "생선 살코기",
+      "path": "assets/icons/UI_ItemIcon_100084.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100084.png",
+      "sourceName": "생선 살코기",
+      "sourceKey": "fish",
+      "assetId": 100084,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "5b5d9207effb2e1084ad7f8cffa25c8b463d678856cfaf75d7ac09cc92d319d9",
+      "source_sha256": "6df83852494bf807e3092182a08d3452af0034a57e2c0a51c722f350f81a9a07",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10226
+    },
+    "ING_CRAB": {
+      "id": "ING_CRAB",
+      "name": "꽃게",
+      "path": "assets/icons/UI_ItemIcon_100073.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100073.png",
+      "sourceName": "꽃게",
+      "sourceKey": "crab",
+      "assetId": 100073,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "8c5206b9e473d02ec065a93ef64cf502cbd39b9e3459d4ac28965d1342c045a8",
+      "source_sha256": "a9f39216348726d2952a69d4e7beaeacec05410510af6798e8ecdb45593890ae",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15644
+    },
+    "ING_MILK": {
+      "id": "ING_MILK",
+      "name": "우유",
+      "path": "assets/icons/UI_ItemIcon_100078.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100078.png",
+      "sourceName": "우유",
+      "sourceKey": "milk",
+      "assetId": 100078,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "316f01a4ea99961a544de771e908376f02139657dea45e6f6cf14e18a27ce017",
+      "source_sha256": "76857830e43a38e1fb7be37c43f8cd44a8ba2d370fd2681f6d44d2f376d49a53",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11288
+    },
+    "ING_FLOUR": {
+      "id": "ING_FLOUR",
+      "name": "밀가루",
+      "path": "assets/icons/UI_ItemIcon_110001.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110001.png",
+      "sourceName": "밀가루",
+      "sourceKey": "flour",
+      "assetId": 110001,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "5ad4ca15892365eaa5c8f86c234f7057c02f2def08eafc3256ceb94020b1c146",
+      "source_sha256": "da57f7ebb1fc5b52229b7e446b7a615add86bba6e4214daee82fc4f32a358ce2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12862
+    },
+    "ING_RICE": {
+      "id": "ING_RICE",
+      "name": "쌀",
+      "path": "assets/icons/UI_ItemIcon_100092.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100092.png",
+      "sourceName": "쌀",
+      "sourceKey": "rice",
+      "assetId": 100092,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "aba181288ba97b1225990af812d622d1f38690d1cc68f0a77cbca22e33e0f11e",
+      "source_sha256": "d39547d377845e9397fb6e59154be07275e17bd31c8180068869de2f4f55c24d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12736
+    },
+    "ING_SALT": {
+      "id": "ING_SALT",
+      "name": "소금",
+      "path": "assets/icons/UI_ItemIcon_100075.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100075.png",
+      "sourceName": "소금",
+      "sourceKey": "salt",
+      "assetId": 100075,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "2c353b4623999dec50296b80111bda374785a826d02582f964048ca8e415df16",
+      "source_sha256": "b66453262802801cc422ee398533e2ca6c6cd9180b1da1f37df7466deb9f6b8c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8696
+    },
+    "ING_PEPPER": {
+      "id": "ING_PEPPER",
+      "name": "후추",
+      "path": "assets/icons/UI_ItemIcon_100077.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100077.png",
+      "sourceName": "후추",
+      "sourceKey": "pepper",
+      "assetId": 100077,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "3c7843703186057eb8e50aca04e0357e3675b762f0c6e4790a4ff1b4268de09b",
+      "source_sha256": "1d792358f69470c965d57f9f8f2176e16d2199794c5d9d0e69d7afeea294cf4f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9002
+    },
+    "ING_ONION": {
+      "id": "ING_ONION",
+      "name": "양파",
+      "path": "assets/icons/UI_ItemIcon_100076.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100076.png",
+      "sourceName": "양파",
+      "sourceKey": "onion",
+      "assetId": 100076,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "b520e096feff84a5964c183669c92168bc4d7098cfa4e55a77a3a2726bc06541",
+      "source_sha256": "3a37dbb74b4dd9c3403f07a2267d374ab62de33dd2fb99b5011e6a36d8aefdc1",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7468
+    },
+    "ING_TOMATO": {
+      "id": "ING_TOMATO",
+      "name": "토마토",
+      "path": "assets/icons/UI_ItemIcon_100079.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100079.png",
+      "sourceName": "토마토",
+      "sourceKey": "tomato",
+      "assetId": 100079,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "a49e9bab8e63ee337afad320c89d6029fe902ccc5b86968ebf798d06aa4b600d",
+      "source_sha256": "058d0c2b9d478da97cf1c2cc265f11cf89a55dddde0db4831987227878211954",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8256
+    },
+    "ING_POTATO": {
+      "id": "ING_POTATO",
+      "name": "감자",
+      "path": "assets/icons/UI_ItemIcon_100080.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100080.png",
+      "sourceName": "감자",
+      "sourceKey": "potato",
+      "assetId": 100080,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "c78b1efa927f60cb3fb2ca9a2906db677b9c104724576d34251b40de4b698c1f",
+      "source_sha256": "68b5c4d0886af55cdb3fafd7347fba119b845084b5793e7c82f677bca2f7bb04",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7068
+    },
+    "ING_CABBAGE": {
+      "id": "ING_CABBAGE",
+      "name": "양배추",
+      "path": "assets/icons/UI_ItemIcon_100018.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100018.png",
+      "sourceName": "양배추",
+      "sourceKey": "cabbage",
+      "assetId": 100018,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "7a5bc94b493b508797beb258c1a786875b823104a4af7dcb5fa5ccd18640ea4a",
+      "source_sha256": "f36cd7301025fa25c5c1621c08984c52ed77957e4fb15df70b7fc57859d604da",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10432
+    },
+    "ING_BUTTER": {
+      "id": "ING_BUTTER",
+      "name": "버터",
+      "path": "assets/icons/UI_ItemIcon_110004.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110004.png",
+      "sourceName": "버터",
+      "sourceKey": "butter",
+      "assetId": 110004,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "726d5aef421b1779070f2bca41ff46b1cf5814d7985405925c405c19fd012274",
+      "source_sha256": "d7548ccd3b62d8805c4d702df1cff6d26474513d73a562e881fb93a4a4db37b8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10348
+    },
+    "ING_CHEESE": {
+      "id": "ING_CHEESE",
+      "name": "치즈",
+      "path": "assets/icons/UI_ItemIcon_110009.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110009.png",
+      "sourceName": "치즈",
+      "sourceKey": "cheese",
+      "assetId": 110009,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "ab8cf7c6d23384207bf16f58e7cfd7a8be69cafa84ccb18888cb3ad0613bbca4",
+      "source_sha256": "72b893e9067221f0109a16a6108230ce1a962ba7d85e2a76d4c3f0a593be9dc1",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7688
+    },
+    "ING_HAM": {
+      "id": "ING_HAM",
+      "name": "햄",
+      "path": "assets/icons/UI_ItemIcon_110005.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110005.png",
+      "sourceName": "햄",
+      "sourceKey": "ham",
+      "assetId": 110005,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "eb019247ccb5dffbf8b0bf503d03e3bed64b73d779ef172b66fc8263bc700ea7",
+      "source_sha256": "2fefc52bbbebe93b8a5cfb3fb1d877b95d7759ece30af72cf6540c5c19d324d0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12334
+    },
+    "ING_SAUSAGE": {
+      "id": "ING_SAUSAGE",
+      "name": "소시지",
+      "path": "assets/icons/UI_ItemIcon_110011.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110011.png",
+      "sourceName": "소시지",
+      "sourceKey": "sausage",
+      "assetId": 110011,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "b5a96e6f72bf73c2705fe5de742427a4b988bf76364a435ce18c6c625fb21fa6",
+      "source_sha256": "2916e7081df183fe88c1ac4119e89ced436d118d817635b2e64cb945f3b4616c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8064
+    },
+    "FOOD_TEA_BREAK_PANCAKE": {
+      "id": "FOOD_TEA_BREAK_PANCAKE",
+      "name": "티바트 달걀 프라이",
+      "path": "assets/icons/UI_ItemIcon_Recipe_2001.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_2001.png",
+      "sourceName": "티바트 달걀 프라이",
+      "sourceKey": "teyvatfriedegg",
+      "assetId": 1003,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "d7fca97336903f5dcbfa89ee2ac326e44d7b07cd89d4cffd3ea61ab86d849d75",
+      "source_sha256": "3bf7f4010f1193e1417976197c2388cfc02a3876c2c5dc0819667eb17139fa49",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8512
+    },
+    "FOOD_SWEET_MADAME": {
+      "id": "FOOD_SWEET_MADAME",
+      "name": "달콤달콤 닭고기 스튜",
+      "path": "assets/icons/UI_ItemIcon_Recipe_1004.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1004.png",
+      "sourceName": "달콤달콤 닭고기 스튜",
+      "sourceKey": "sweetmadame",
+      "assetId": 2002,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "eb5e3c039361e34a0ffc7fe28840e66716caf9620d7fde840664709661470d04",
+      "source_sha256": "4d9ba27851674d623ef674dbd7b483f1cb4b6796c1b1f9fba404dee8df9923e7",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15922
+    },
+    "FOOD_HASH_BROWN": {
+      "id": "FOOD_HASH_BROWN",
+      "name": "몬드 감자전",
+      "path": "assets/icons/UI_ItemIcon_Recipe_3003.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_3003.png",
+      "sourceName": "몬드 감자전",
+      "sourceKey": "mondstadthashbrown",
+      "assetId": 3007,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "a8d9c26ed7fda025f810d78f21abbcc10bb602c442d840ddbf74ae4fbbaaebc1",
+      "source_sha256": "34b4676a31cda75f5806889b2287baad33bf1ac5b5e7d655967bc9521d99b506",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15048
+    },
+    "FOOD_UNIVERSAL_PEACE": {
+      "id": "FOOD_UNIVERSAL_PEACE",
+      "name": "세계 평화",
+      "path": "assets/icons/UI_ItemIcon_108202.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108202.png",
+      "sourceName": "세계 평화",
+      "sourceKey": "universalpeace",
+      "assetId": 3109,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "7f4ba82c297ee1ff9fb3ec1855046412da1fb31adc11f190ecfb13df779130af",
+      "source_sha256": "3c2a8aea3d8662b6ac95ab944d1fd9794d9ffaae593e5d28cde1547427d2cd9a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15262
+    },
+    "FOOD_JADE_PARCELS": {
+      "id": "FOOD_JADE_PARCELS",
+      "name": "비옥야채쌈",
+      "path": "assets/icons/UI_ItemIcon_Recipe_4004.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_4004.png",
+      "sourceName": "비옥야채쌈",
+      "sourceKey": "jadeparcels",
+      "assetId": 4101,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "46f3f5b2df4139da430f64789b8a7b7c98ca6e818b0afcdba05ab0d0084780ce",
+      "source_sha256": "4da469b274992aae83b6a595ce68a47f5c782b30fdfdc2c96c3962291c96aecf",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16814
+    },
+    "FOOD_ADEPTUS_TEMPTATION": {
+      "id": "FOOD_ADEPTUS_TEMPTATION",
+      "name": "선도장",
+      "path": "assets/icons/UI_ItemIcon_108123.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108123.png",
+      "sourceName": "선도장",
+      "sourceKey": "adeptustemptation",
+      "assetId": 5101,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "c46a8157e27601397b0664dfb7cf2c8cb4f2b2dc0165142b1142447755de2953",
+      "source_sha256": "bc7de8effb9b3d60b7864d548fcb623ecd367ae7fc81234ec320840b63e5bb7f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17616
+    },
+    "FOOD_PIZZA": {
+      "id": "FOOD_PIZZA",
+      "name": "버섯 피자",
+      "path": "assets/icons/UI_ItemIcon_Recipe_1005.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1005.png",
+      "sourceName": "버섯피자",
+      "sourceKey": "mushroompizza",
+      "assetId": 3006,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "526118f438e5f464360c20dd12ef1057924f3f3a6b4542af4a971926c8f38ad5",
+      "source_sha256": "0c7b701b739829753c980ceb59b24455e2f702d171ce66d42c023702e75585b2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15432
+    },
+    "FOOD_SAKURA_MOCHI": {
+      "id": "FOOD_SAKURA_MOCHI",
+      "name": "벚꽃 모찌",
+      "path": "assets/icons/UI_ItemIcon_108283.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108283.png",
+      "sourceName": "벚꽃 모찌",
+      "sourceKey": "sakuramochi",
+      "assetId": 3205,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "1471730c26cb6e3077af904675155108d510862a86d55129cf3581b491c78e2a",
+      "source_sha256": "46c53767241cbb45a92249f2cf5b10d6ec4b64eda175b770b4d77c64a085e04b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11592
+    },
+    "FOOD_TAHCHIN": {
+      "id": "FOOD_TAHCHIN",
+      "name": "타친",
+      "path": "assets/icons/UI_ItemIcon_108419.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108419.png",
+      "sourceName": "타친",
+      "sourceKey": "tahchin",
+      "assetId": 3303,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "1904fcc2a8500e68ac232415939dd6f00915005ae5b529c1bf17ad59ec205c18",
+      "source_sha256": "b04d2551044fe89e0317a7f29e3565a15e408cbfd90e8535e9bef093f8ae4334",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17732
+    },
+    "MAT_CHAR_EXP_WANDERER": {
+      "id": "MAT_CHAR_EXP_WANDERER",
+      "name": "방랑자의 경험",
+      "path": "assets/icons/UI_ItemIcon_104001.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_104001.png",
+      "sourceName": "방랑자의 경험",
+      "sourceKey": "wanderersadvice",
+      "assetId": 104001,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "87364d07183f59de1b00af6fb6badd6a7eca7abfb82790f95519c04479b8796a",
+      "source_sha256": "b36be411c812eab179ea5ea5cc632ff47097b69ac5a93fc017906bc5cdd6aaa4",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10050
+    },
+    "MAT_CHAR_EXP_ADVENTURER": {
+      "id": "MAT_CHAR_EXP_ADVENTURER",
+      "name": "모험가의 경험",
+      "path": "assets/icons/UI_ItemIcon_104002.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_104002.png",
+      "sourceName": "모험가의 경험",
+      "sourceKey": "adventurersexperience",
+      "assetId": 104002,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "d16f8fdd2308a8d64c634df8a1bed9bdfd1c7918edf3375d1a34aba74597a516",
+      "source_sha256": "391edca8866217e0aea6cb2d7964b857eb07d889f361d8199e712ebe06c11843",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12278
+    },
+    "MAT_CHAR_EXP_HERO": {
+      "id": "MAT_CHAR_EXP_HERO",
+      "name": "영웅의 경험",
+      "path": "assets/icons/UI_ItemIcon_104003.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_104003.png",
+      "sourceName": "영웅의 경험",
+      "sourceKey": "heroswit",
+      "assetId": 104003,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "6d9240f431cd99556eaba3b2973956fc079aa558d5b72eec341c7b6362c928a4",
+      "source_sha256": "b8c6ec4f98a31400ccfbb7f10f7109cca8caf94f070ce31f5e1619e23dd48dd2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15794
+    },
+    "ING_BIRD_EGG": {
+      "id": "ING_BIRD_EGG",
+      "name": "새알",
+      "path": "assets/icons/UI_ItemIcon_100062.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100062.png",
+      "sourceName": "새알",
+      "sourceKey": "birdegg",
+      "assetId": 100062,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "647471ca08c9f12bb5b605d120b69a4dcc8916f5ffea38ed76a1c7c5a1c023fd",
+      "source_sha256": "c8d99ee017c3f649b3581c436836891a07394d818ab104e45df79629ab073862",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8858
+    },
+    "ING_CREAM": {
+      "id": "ING_CREAM",
+      "name": "크림",
+      "path": "assets/icons/UI_ItemIcon_110002.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110002.png",
+      "sourceName": "크림",
+      "sourceKey": "cream",
+      "assetId": 110002,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "e50c09fb884f2534dc32778a73477eda7a6467e48de87ef2a1c130bb49845d16",
+      "source_sha256": "708ce57561fbbe528ae4a7ff8a3ea0a809c0b57eb00da7831918abd3201da7fa",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 6848
+    },
+    "EQ_SWORD_COOL_STEEL": {
+      "id": "EQ_SWORD_COOL_STEEL",
+      "name": "차가운 칼날",
+      "path": "assets/icons/UI_EquipIcon_Sword_Steel.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Steel.png",
+      "sourceName": "차가운 칼날",
+      "sourceKey": "coolsteel",
+      "assetId": 11301,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "660f15b86277f8e6645a0bddd7c85bbfa0b1404771d9c35fbd2e01ba7f036b64",
+      "source_sha256": "24ef8089736c68189d3db7cddf13fd727d409f9762684b498ee1a1685eadecad",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12756
+    },
+    "EQ_SWORD_HARBINGER": {
+      "id": "EQ_SWORD_HARBINGER",
+      "name": "여명신검",
+      "path": "assets/icons/UI_EquipIcon_Sword_Dawn.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Dawn.png",
+      "sourceName": "여명신검",
+      "sourceKey": "harbingerofdawn",
+      "assetId": 11302,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "ff2d84da681b50a3702dc0008fd34dff4bf5c405e0fdce65c41e9c02ab9750a3",
+      "source_sha256": "97121da495e74dc535040aa1e1c752802ff1cd2fcec48368f76e0a230a19b541",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12626
+    },
+    "EQ_SWORD_TRAVELER": {
+      "id": "EQ_SWORD_TRAVELER",
+      "name": "여행자의 검",
+      "path": "assets/icons/UI_EquipIcon_Sword_Traveler.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Traveler.png",
+      "sourceName": "여행자의 검",
+      "sourceKey": "travelershandysword",
+      "assetId": 11303,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "cfd91cef4664672fd0fab5696dfacfb036346dbfb90bcdd0592bef881df92b39",
+      "source_sha256": "7d7f089895a5b7bba6d4c112c8c92a4eb6f84c4570eea1718d51056278b1edf7",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11578
+    },
+    "EQ_SWORD_RANCOUR": {
+      "id": "EQ_SWORD_RANCOUR",
+      "name": "참암 프로토타입",
+      "path": "assets/icons/UI_EquipIcon_Sword_Proto.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Proto.png",
+      "sourceName": "참암 프로토타입",
+      "sourceKey": "prototyperancour",
+      "assetId": 11406,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "42d75885956072d414fc185adeb138aa00921656c869bbc718d770eeddd046af",
+      "source_sha256": "865a3a69e269ade6f7fc9ed59878b8e83d5b74ba780493d78c446283326b98b9",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13002
+    },
+    "EQ_SWORD_FAVONIUS": {
+      "id": "EQ_SWORD_FAVONIUS",
+      "name": "페보니우스 검",
+      "path": "assets/icons/UI_EquipIcon_Sword_Zephyrus.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Zephyrus.png",
+      "sourceName": "페보니우스 검",
+      "sourceKey": "favoniussword",
+      "assetId": 11401,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "7c64b96a401eb6d89ae3a5d3f181df845870982d3cfa58125704e8690cefb759",
+      "source_sha256": "f9a46e31a23d46d088d6c55aa1b337115d97b0f2330955bcdd85b1b2614f2d13",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12476
+    },
+    "EQ_SWORD_SACRIFICIAL": {
+      "id": "EQ_SWORD_SACRIFICIAL",
+      "name": "제례검",
+      "path": "assets/icons/UI_EquipIcon_Sword_Fossil.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Fossil.png",
+      "sourceName": "제례검",
+      "sourceKey": "sacrificialsword",
+      "assetId": 11403,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "39e2110b17ed8388aaa25a0850959e022791d2421c3478cf23d70b4213c176db",
+      "source_sha256": "58500877eb0e1c465d871062d14e430a00318d15c5fa029df70b72c202d86099",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12566
+    },
+    "EQ_SWORD_IRON_STING": {
+      "id": "EQ_SWORD_IRON_STING",
+      "name": "강철 벌침",
+      "path": "assets/icons/UI_EquipIcon_Sword_Exotic.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Exotic.png",
+      "sourceName": "강철 벌침",
+      "sourceKey": "ironsting",
+      "assetId": 11407,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "3e5292b015035092747000452a237f35a0dca56a3e3503e406a40605d02476eb",
+      "source_sha256": "6f5e0de449912e8ef73acb56a4bde61ed3a324c91471cf6f3fe63240f5e3d9a2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12162
+    },
+    "EQ_SWORD_AMENOMA": {
+      "id": "EQ_SWORD_AMENOMA",
+      "name": "아메노마 카게우치가타나",
+      "path": "assets/icons/UI_EquipIcon_Sword_Bakufu.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Bakufu.png",
+      "sourceName": "아메노마 카게우치가타나",
+      "sourceKey": "amenomakageuchi",
+      "assetId": 11414,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "5082310e11c2b98df226c2282a1026be2ff5f363b36982f5a519ac3b338c80bb",
+      "source_sha256": "c0e0fd8ccb7aa5c81658c434ded7c27ff3724f8a65f7563b8176aed69c58ba62",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8554
+    },
+    "EQ_SWORD_SAPWOOD": {
+      "id": "EQ_SWORD_SAPWOOD",
+      "name": "원목 검",
+      "path": "assets/icons/UI_EquipIcon_Sword_Arakalari.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Arakalari.png",
+      "sourceName": "원목 검",
+      "sourceKey": "sapwoodblade",
+      "assetId": 11417,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "4fee249c77ff7f12c77f1adc75e5179474bdef3e67838851a4e6fd30c3d12253",
+      "source_sha256": "d8f973d320ec2922637b0b11a52c395152ecef08759ea735650e206d9f5d0ecb",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12512
+    },
+    "EQ_CLAYMORE_DEBATE": {
+      "id": "EQ_CLAYMORE_DEBATE",
+      "name": "훌륭한 대화수단",
+      "path": "assets/icons/UI_EquipIcon_Claymore_Reasoning.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Reasoning.png",
+      "sourceName": "훌륭한 대화수단",
+      "sourceKey": "debateclub",
+      "assetId": 12305,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "57cf96e248feb2c42cfd239b39506795429dea2689258865fdf1ad6104601224",
+      "source_sha256": "93de3b69c6156138df0fa7dfb65dc1b8d982c44896c2196f572d4a1d0ac9c26a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12744
+    },
+    "EQ_CLAYMORE_SKYRIDER": {
+      "id": "EQ_CLAYMORE_SKYRIDER",
+      "name": "비천대어검",
+      "path": "assets/icons/UI_EquipIcon_Claymore_Mitsurugi.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Mitsurugi.png",
+      "sourceName": "비천대어검",
+      "sourceKey": "skyridergreatsword",
+      "assetId": 12306,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "37fe2fe046e606f21d9dd3d5d72ef6fb2025366042abcc0c34d3d509c053a41a",
+      "source_sha256": "913c57d01ff38742f817494d62300e9e881f1b942c9ecec84b66b8e5954b06db",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15424
+    },
+    "EQ_CLAYMORE_WHITEBLIND": {
+      "id": "EQ_CLAYMORE_WHITEBLIND",
+      "name": "백영검",
+      "path": "assets/icons/UI_EquipIcon_Claymore_Exotic.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Exotic.png",
+      "sourceName": "백영검",
+      "sourceKey": "whiteblind",
+      "assetId": 12407,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "280621f3f5e140e89c9a647467cd8bbe1c58d49194e68ce44f5750bca6933c13",
+      "source_sha256": "d0d78f201dfa93de51185928fdb39a8e2b431651037136e6c68d8ea35c452936",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16910
+    },
+    "EQ_CLAYMORE_ARCHAIC": {
+      "id": "EQ_CLAYMORE_ARCHAIC",
+      "name": "고화 프로토타입",
+      "path": "assets/icons/UI_EquipIcon_Claymore_Proto.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Proto.png",
+      "sourceName": "고화 프로토타입",
+      "sourceKey": "prototypearchaic",
+      "assetId": 12406,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "cfc1631f8c124ff02184b58b5fd4f8561b903f33c64359ce7bd56eb7c0a46412",
+      "source_sha256": "a71fec79fdbfae0f51317edaee0e2aa9b1c3dc07b6726b67e3900ee27777bd5f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13452
+    },
+    "EQ_CLAYMORE_FAVONIUS": {
+      "id": "EQ_CLAYMORE_FAVONIUS",
+      "name": "페보니우스 대검",
+      "path": "assets/icons/UI_EquipIcon_Claymore_Zephyrus.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Zephyrus.png",
+      "sourceName": "페보니우스 대검",
+      "sourceKey": "favoniusgreatsword",
+      "assetId": 12401,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "a165c46470a5abda6d31434b11cae2374acb957aa3cd2d0ed49effccfbda893d",
+      "source_sha256": "1e4471652d5c7ebef4e11c41460ebe80bec001094ca7d16437b195248f13ea5f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15922
+    },
+    "EQ_CLAYMORE_SACRIFICIAL": {
+      "id": "EQ_CLAYMORE_SACRIFICIAL",
+      "name": "제례 대검",
+      "path": "assets/icons/UI_EquipIcon_Claymore_Fossil.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Fossil.png",
+      "sourceName": "제례 대검",
+      "sourceKey": "sacrificialgreatsword",
+      "assetId": 12403,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "4386ea6cb1d9dcb3fe9c854b5a1c45ee821b378fa7c3f385d40e498ed738dd00",
+      "source_sha256": "8560e1d4b95e78e1b4ab2af4ae4bf961dca546b480ff2fb9bb3896bc730eb3e2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16880
+    },
+    "EQ_CLAYMORE_KATSURAGI": {
+      "id": "EQ_CLAYMORE_KATSURAGI",
+      "name": "카츠라기를 벤 나가마사",
+      "path": "assets/icons/UI_EquipIcon_Claymore_Bakufu.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Bakufu.png",
+      "sourceName": "카츠라기를 벤 나가마사",
+      "sourceKey": "katsuragikirinagamasa",
+      "assetId": 12414,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "5e48e16bc0bf6051a19c9c3303309fc4d25f1b272de27cbdb118585590a3132b",
+      "source_sha256": "6e02cc3cc0bf434413256f638024a0533ec06e316226284d7a65c4717697e818",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14026
+    },
+    "EQ_CLAYMORE_MAKHAIRA": {
+      "id": "EQ_CLAYMORE_MAKHAIRA",
+      "name": "물빛 마카이라",
+      "path": "assets/icons/UI_EquipIcon_Claymore_Pleroma.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Pleroma.png",
+      "sourceName": "물빛 마카이라",
+      "sourceKey": "makhairaaquamarine",
+      "assetId": 12415,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "518c8a1666688f54882d4513307eee966df86d51630b478aab9342ebda98ebd8",
+      "source_sha256": "00d5e6e01b5887fd6e7814bce542c545703cb2667f30f356c29d9fb662ad5cc6",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13940
+    },
+    "EQ_POLEARM_WHITE_TASSEL": {
+      "id": "EQ_POLEARM_WHITE_TASSEL",
+      "name": "백술창",
+      "path": "assets/icons/UI_EquipIcon_Pole_Ruby.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Ruby.png",
+      "sourceName": "백술창",
+      "sourceKey": "whitetassel",
+      "assetId": 13301,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "deae6dce9644082a9bc9328841bf4738397e40ea7c3a4e5362fdf627cf2efe75",
+      "source_sha256": "f345db004a37ad1e3df2acb82e95a387133ad61f0258fe28157cd81f61059a98",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11576
+    },
+    "EQ_POLEARM_BLACK_TASSEL": {
+      "id": "EQ_POLEARM_BLACK_TASSEL",
+      "name": "흑술창",
+      "path": "assets/icons/UI_EquipIcon_Pole_Noire.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Noire.png",
+      "sourceName": "흑술창",
+      "sourceKey": "blacktassel",
+      "assetId": 13303,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "baa4b3b89109ae94b30c24b49ed53798dcffacf90d74a4344ca8900b14f3069f",
+      "source_sha256": "adc13e2a53e7b9aa9b494ab384d333957f4a1f381549d81443f637b8dced2fd3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11398
+    },
+    "EQ_POLEARM_HALBERD": {
+      "id": "EQ_POLEARM_HALBERD",
+      "name": "미늘창",
+      "path": "assets/icons/UI_EquipIcon_Pole_Halberd.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Halberd.png",
+      "sourceName": "미늘창",
+      "sourceKey": "halberd",
+      "assetId": 13302,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "739bded8ce2535b11be4996e694ac13b16e66d91d85eeb13481511e112df03a0",
+      "source_sha256": "ec2b26229066437a14d10d492090ba72e31e1304c3e28a2b5578c2b85ee94ac3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13494
+    },
+    "EQ_POLEARM_FAVONIUS": {
+      "id": "EQ_POLEARM_FAVONIUS",
+      "name": "페보니우스 장창",
+      "path": "assets/icons/UI_EquipIcon_Pole_Zephyrus.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Zephyrus.png",
+      "sourceName": "페보니우스 장창",
+      "sourceKey": "favoniuslance",
+      "assetId": 13407,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "ef9c2e73bab4cdde219574dd0414b4d3cb60c052455e6d10b4cdc9ce446fefa9",
+      "source_sha256": "3197122ace1c8f594c6088a40940ff7528f6fb9283ffaf86c6fc998c1bcf1f34",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12520
+    },
+    "EQ_POLEARM_DRAGONBANE": {
+      "id": "EQ_POLEARM_DRAGONBANE",
+      "name": "용학살창",
+      "path": "assets/icons/UI_EquipIcon_Pole_Stardust.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Stardust.png",
+      "sourceName": "용학살창",
+      "sourceKey": "dragonsbane",
+      "assetId": 13401,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "d0d0d4d2c21a929f4e385b7fccc25a7f4b92403ad57e7aee7da4894f56465001",
+      "source_sha256": "1373a916c9215fba1c6ecc7989c284a5b40c4d00379552f65e47bf0350bcabc2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11908
+    },
+    "EQ_POLEARM_STARGITTER": {
+      "id": "EQ_POLEARM_STARGITTER",
+      "name": "별의 낫 프로토타입",
+      "path": "assets/icons/UI_EquipIcon_Pole_Proto.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Proto.png",
+      "sourceName": "별의 낫 프로토타입",
+      "sourceKey": "prototypestarglitter",
+      "assetId": 13402,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "5e4011668ba85198c99844c0fb7af84310f01daa7cd9e56eb9604fa2f2eba96e",
+      "source_sha256": "a50aefc09a0b60b1a652821251f81e529d1b487f0f43b31f73e27e0aaad14541",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10234
+    },
+    "EQ_POLEARM_CRESCENT": {
+      "id": "EQ_POLEARM_CRESCENT",
+      "name": "유월창",
+      "path": "assets/icons/UI_EquipIcon_Pole_Exotic.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Exotic.png",
+      "sourceName": "유월창",
+      "sourceKey": "crescentpike",
+      "assetId": 13403,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "60e0ba0733c7b01b03b2092049d639f02105591bb64c58ca7baeddc888faa93c",
+      "source_sha256": "705a00d00eb9ce148b49ca5e8332cdb5172fc625b93adb03e416e64a5a9e66e0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10786
+    },
+    "EQ_POLEARM_KITAIN": {
+      "id": "EQ_POLEARM_KITAIN",
+      "name": "키타인 십자창",
+      "path": "assets/icons/UI_EquipIcon_Pole_Bakufu.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Bakufu.png",
+      "sourceName": "키타인 십자창",
+      "sourceKey": "kitaincrossspear",
+      "assetId": 13414,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "02a8357dcc1252acf826bb72446bf7bb62a17ab698f8215dc5e61810cd810dea",
+      "source_sha256": "37ecb546794610ecb499241381464dcd01755896b339403261cafc1f55e49139",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11322
+    },
+    "EQ_POLEARM_CATCH": {
+      "id": "EQ_POLEARM_CATCH",
+      "name": "어획",
+      "path": "assets/icons/UI_EquipIcon_Pole_Mori.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Mori.png",
+      "sourceName": "「어획」",
+      "sourceKey": "thecatch",
+      "assetId": 13415,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "eb501c252eff9e483ee23d7891e9d77724dd3b1889cf0eb93cfbf8519ed75204",
+      "source_sha256": "6f784d7a1804d12a04385be7b45a69811c2e5f53d0aa43a44f6a0fdc8a488640",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11224
+    },
+    "EQ_BOW_SLINGSHOT": {
+      "id": "EQ_BOW_SLINGSHOT",
+      "name": "탄궁",
+      "path": "assets/icons/UI_EquipIcon_Bow_Sling.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Sling.png",
+      "sourceName": "탄궁",
+      "sourceKey": "slingshot",
+      "assetId": 15304,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "76f953ab2bf5edc89c13ce473460ad8c6d6f746fc5f0002dea80de52eb4c0a48",
+      "source_sha256": "122f3011498c7ae67c93a685f360364895318a8a9c9a361876a43b4d7474303d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13934
+    },
+    "EQ_BOW_SHARPSHOOTER": {
+      "id": "EQ_BOW_SHARPSHOOTER",
+      "name": "신궁의 서약",
+      "path": "assets/icons/UI_EquipIcon_Bow_Arjuna.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Arjuna.png",
+      "sourceName": "신궁의 서약",
+      "sourceKey": "sharpshootersoath",
+      "assetId": 15302,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "5e594511778e4c290a59d017bd7df57fee319b900e95b1de4eef61371fffe5c6",
+      "source_sha256": "f248b97101b65fd60d44329c39e5f6ea83864f203303d69bc680377c28522fe0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17416
+    },
+    "EQ_BOW_FAVONIUS": {
+      "id": "EQ_BOW_FAVONIUS",
+      "name": "페보니우스 활",
+      "path": "assets/icons/UI_EquipIcon_Bow_Zephyrus.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Zephyrus.png",
+      "sourceName": "페보니우스 활",
+      "sourceKey": "favoniuswarbow",
+      "assetId": 15401,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "c053c32df9a8d83cb12f6bf49b3a4d6cfe5456342583a4e055ddbe5399300396",
+      "source_sha256": "b88d5cb93244aeb462d6b828098f30835bc4fc011fc97b7e4508a0811dca12c6",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18430
+    },
+    "EQ_BOW_SACRIFICIAL": {
+      "id": "EQ_BOW_SACRIFICIAL",
+      "name": "제례활",
+      "path": "assets/icons/UI_EquipIcon_Bow_Fossil.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Fossil.png",
+      "sourceName": "제례활",
+      "sourceKey": "sacrificialbow",
+      "assetId": 15403,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "b105a6d30dcb09f209bdaf1b0c9e6789ef9d1fbd440c8f41a866616e269e5130",
+      "source_sha256": "6c2eccfea71721e9bc141865d9f67b3263f3bdaf5d1f3bb3fcf26de11293fd79",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14508
+    },
+    "EQ_BOW_STRINGLESS": {
+      "id": "EQ_BOW_STRINGLESS",
+      "name": "절현",
+      "path": "assets/icons/UI_EquipIcon_Bow_Troupe.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Troupe.png",
+      "sourceName": "절현",
+      "sourceKey": "thestringless",
+      "assetId": 15402,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "40824f678a409ed1164adcc57309d63676ac5290c0669f92b13bab1c5d3c754f",
+      "source_sha256": "e8736759acc25640ec048b944ad662bf5d9ab50ba50f34322c1bcbee6c016a88",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 23028
+    },
+    "EQ_BOW_RUST": {
+      "id": "EQ_BOW_RUST",
+      "name": "녹슨 활",
+      "path": "assets/icons/UI_EquipIcon_Bow_Recluse.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Recluse.png",
+      "sourceName": "녹슨 활",
+      "sourceKey": "rust",
+      "assetId": 15405,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "9bb68650219efe02f7abe4bc0b7425054fb928b0ec718117c5aafbb9c4c1316d",
+      "source_sha256": "699ebb5751e7ab70e07d693f453feef9c6b30256645d8f69fd52f21ea987fe71",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 21330
+    },
+    "EQ_BOW_CRESCENT": {
+      "id": "EQ_BOW_CRESCENT",
+      "name": "담월 프로토타입",
+      "path": "assets/icons/UI_EquipIcon_Bow_Proto.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Proto.png",
+      "sourceName": "담월 프로토타입",
+      "sourceKey": "prototypecrescent",
+      "assetId": 15406,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "982763ae526857f42bca5f116bf3871325d930bd4ec66a300b91c0bb9b8d184c",
+      "source_sha256": "8c258b4437563191fb06656ea16340163a80bca83a138cba492ced38083bd6ab",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14766
+    },
+    "EQ_BOW_HAMAYUMI": {
+      "id": "EQ_BOW_HAMAYUMI",
+      "name": "파마궁",
+      "path": "assets/icons/UI_EquipIcon_Bow_Bakufu.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Bakufu.png",
+      "sourceName": "파마궁",
+      "sourceKey": "hamayumi",
+      "assetId": 15414,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "126b1a427952f24e25ae54115e21096c32a4ed17d777c4a62a6b945f8435026a",
+      "source_sha256": "14fa64032224aa9e98790e76dd8070bd4517e0da2d016dc7795385279522d92a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14950
+    },
+    "EQ_CATALYST_TTDS": {
+      "id": "EQ_CATALYST_TTDS",
+      "name": "드래곤 슬레이어 영웅담",
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Pulpfic.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Pulpfic.png",
+      "sourceName": "드래곤 슬레이어 영웅담",
+      "sourceKey": "thrillingtalesofdragonslayers",
+      "assetId": 14302,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "2a3415d23ef0eb64fac269b9311f781f004fb2f06108ad6ef55935cc48b98089",
+      "source_sha256": "ff2e7d9418b6ada238371dc342a74759f4029eaa06323bfe5cf3b55a664ad0f9",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14448
+    },
+    "EQ_CATALYST_MAGIC_GUIDE": {
+      "id": "EQ_CATALYST_MAGIC_GUIDE",
+      "name": "마도 서론",
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Intro.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Intro.png",
+      "sourceName": "마도 서론",
+      "sourceKey": "magicguide",
+      "assetId": 14301,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "2f8f8519e9ae615eaa4d65be90fde3b8b0db994522e6c5c3c0fdb3a6ea2a0c81",
+      "source_sha256": "1c5bf055ded3c79f7bcc897b590c24c30a891ce9e31a0f03024acfd94c5638e8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11924
+    },
+    "EQ_CATALYST_MAPPA": {
+      "id": "EQ_CATALYST_MAPPA",
+      "name": "만국 항해용해도",
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Exotic.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Exotic.png",
+      "sourceName": "만국 항해용해도",
+      "sourceKey": "mappamare",
+      "assetId": 14407,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "8d99ed0a7da724eca08ebedd7b4aafff013cc0f40a376edd77b117d17aab6e04",
+      "source_sha256": "c47614f7fe8647b8d8904e6edb987e6a6953c5869d4354a24601a23a3e9fd846",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18072
+    },
+    "EQ_CATALYST_FAVONIUS": {
+      "id": "EQ_CATALYST_FAVONIUS",
+      "name": "페보니우스 비전",
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Zephyrus.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Zephyrus.png",
+      "sourceName": "페보니우스 비전",
+      "sourceKey": "favoniuscodex",
+      "assetId": 14401,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "75ab23ce843cc5276d58beaa12c71a2fe0829fd64466269f4e2af7c80940ccfd",
+      "source_sha256": "a5b2ab819753beaf8d0919d947ecc9f1a2c45471f7e6a3f8f03ccc9ba307deee",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15404
+    },
+    "EQ_CATALYST_SACRIFICIAL": {
+      "id": "EQ_CATALYST_SACRIFICIAL",
+      "name": "제례의 악장",
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Fossil.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Fossil.png",
+      "sourceName": "제례의 악장",
+      "sourceKey": "sacrificialfragments",
+      "assetId": 14403,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "4474b5e30cbe4d7dd5642d63af13ff6a25d8a5d8fc9ead2bfee33d04bd74a476",
+      "source_sha256": "fc6aa174fc7bbc7c051be08e1c0a1db90f0f3d9486d9507033b5b394a3395146",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18568
+    },
+    "EQ_CATALYST_WIDSITH": {
+      "id": "EQ_CATALYST_WIDSITH",
+      "name": "음유시인의 악장",
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Troupe.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Troupe.png",
+      "sourceName": "음유시인의 악장",
+      "sourceKey": "thewidsith",
+      "assetId": 14402,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "a5cbdd45545e07ec91c5a052194264817f51c700082adc7ce788bdf20e3fa3ab",
+      "source_sha256": "d630830cbf8ade06e35d64775e882620f2ba23d00799d7cab560ff9cd4986e2a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13836
+    },
+    "EQ_CATALYST_AMBER": {
+      "id": "EQ_CATALYST_AMBER",
+      "name": "황금 호박 프로토타입",
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Proto.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Proto.png",
+      "sourceName": "황금 호박 프로토타입",
+      "sourceKey": "prototypeamber",
+      "assetId": 14406,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "d6a4a8ee4ed720b598126c6f2c5c98afbf89ba5f1845a2c4cf7f87f980da1a3f",
+      "source_sha256": "53977ee5961d1cae4dcd3401d2cdc48ff0d77af5a44cc1b2539dca7a222d350c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14610
+    },
+    "EQ_CATALYST_HAKUSHIN": {
+      "id": "EQ_CATALYST_HAKUSHIN",
+      "name": "하쿠신의 고리",
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Bakufu.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Bakufu.png",
+      "sourceName": "하쿠신의 고리",
+      "sourceKey": "hakushinring",
+      "assetId": 14414,
+      "matchType": "exact_name",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "6abd254aba4045ea1db82c7fc059b571a7b23d0ffbd5c13b5093168c730b86f6",
+      "source_sha256": "3b0bb9c461b0775519a739455379c1f26d0defa1ee6b9b88dec31ebe7926f70a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17516
+    },
+    "MAT_MIST_GRASS": {
+      "id": "MAT_MIST_GRASS",
+      "name": "안개풀",
+      "path": "assets/icons/UI_ItemIcon_112027.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112027.png",
+      "sourceName": "안개풀 주머니",
+      "sourceKey": "mistgrass",
+      "assetId": 112027,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "698189d976636038c9118943ae58cfee96bdca11a69c43503ce06e60274bbc93",
+      "source_sha256": "35c7bba99659c07884485e0a2e50f2ca06c859b518903c3283e3d721c4270459",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8116
+    },
+    "MAT_MIST_GRASS_WICK": {
+      "id": "MAT_MIST_GRASS_WICK",
+      "name": "안개 등심지",
+      "path": "assets/icons/UI_ItemIcon_112028.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112028.png",
+      "sourceName": "안개 등심",
+      "sourceKey": "mistgrasswick",
+      "assetId": 112028,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "ca01548553454615108f7712790c882b62db17c012a54ada5654f9c15c536e01",
+      "source_sha256": "752b1a181a52598da8971b8c2e5e6ea28c049e9e408ba0ce4530f5a070583571",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11552
+    },
+    "MAT_CONCEALED_CLAW": {
+      "id": "MAT_CONCEALED_CLAW",
+      "name": "숨겨진 발톱",
+      "path": "assets/icons/UI_ItemIcon_112056.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112056.png",
+      "sourceName": "맹수 발톱",
+      "sourceKey": "concealedclaw",
+      "assetId": 112056,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "dc2a4fd8acc6c9c93c8329c4ad506021ab5170de4e0035a8663782f9cccd3875",
+      "source_sha256": "80c469a51611f7ea1f3c729f4e05cfd002f3f3cbb8efe11d2d0bc3562a5ac54e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7692
+    },
+    "MAT_CONCEALED_UNGUIS": {
+      "id": "MAT_CONCEALED_UNGUIS",
+      "name": "숨겨진 날카로운 발톱",
+      "path": "assets/icons/UI_ItemIcon_112057.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112057.png",
+      "sourceName": "맹수의 날카로운 발톱",
+      "sourceKey": "concealedunguis",
+      "assetId": 112057,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "8c8135536536aeeb6d9d9afa3a82739999a5f1544757148b4424402a8f717eb1",
+      "source_sha256": "af8a9b84a1898b3dd0e4b5cede026adc6ffad45678197ff2d6187ca9a8fcdf7f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10278
+    },
+    "MAT_CONCEALED_TALON": {
+      "id": "MAT_CONCEALED_TALON",
+      "name": "숨겨진 귀신 발톱",
+      "path": "assets/icons/UI_ItemIcon_112058.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_112058.png",
+      "sourceName": "맹수의 귀신 발톱",
+      "sourceKey": "concealedtalon",
+      "assetId": 112058,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "1039c1900715d7629812e296ad8f313111087370796db52ec4fb454781ffda06",
+      "source_sha256": "e3dab9c024a60ce0fa1abcd8ea86ba3ebb901f8ba59fbc471a5a7b0d04c60379",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13464
+    },
+    "ORE_MAGIC_CRYSTAL": {
+      "id": "ORE_MAGIC_CRYSTAL",
+      "name": "마법 수정덩이",
+      "path": "assets/icons/UI_ItemIcon_101004.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_101004.png",
+      "sourceName": "마법 수정석 조각",
+      "sourceKey": "magicalcrystalchunk",
+      "assetId": 101004,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "508e493321c66a5ebed0c58f6fcc43d35e1a9e8c48a9147fed4366c0ca9315c5",
+      "source_sha256": "9318c8a48fdb01c538070975711c249718c0fa8840745198d93b829e9bd649f0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12898
+    },
+    "ING_MINT": {
+      "id": "ING_MINT",
+      "name": "허브",
+      "path": "assets/icons/UI_ItemIcon_100016.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100016.png",
+      "sourceName": "민트",
+      "sourceKey": "mint",
+      "assetId": 100016,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "97a32dc0aa12a45057ee79f3fef677eb6f733dd593a8628969d26990054533ec",
+      "source_sha256": "53c9688690ecb8ffbe3d872f36bbb5fd341f2d1323122e1423e0b8dac9029d72",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11436
+    },
+    "ING_RADISH": {
+      "id": "ING_RADISH",
+      "name": "무",
+      "path": "assets/icons/UI_ItemIcon_100014.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100014.png",
+      "sourceName": "흰 무",
+      "sourceKey": "radish",
+      "assetId": 100014,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "de1b476b78a22e0efc0b6c31d48d7619d68d6ae40a491bd7772b3d58c0e7f370",
+      "source_sha256": "5c8928347dd6d3ca41917980c77cdf4984c180011388b77005f2ce7df0d5daee",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 6784
+    },
+    "ING_SHRIMP": {
+      "id": "ING_SHRIMP",
+      "name": "새우살",
+      "path": "assets/icons/UI_ItemIcon_100093.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100093.png",
+      "sourceName": "생새우살",
+      "sourceKey": "shrimpmeat",
+      "assetId": 100093,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "bfbcd2824f07ca94b441bd46eef305bba3ce6b1e0efc122f5d74f40189972d99",
+      "source_sha256": "eefbe7b2dc43b0a4a78e38b5bd57a5ac22c9eeae743706679b50e7bdda7c6d51",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10024
+    },
+    "FOOD_MATSUTAKE_ROLL": {
+      "id": "FOOD_MATSUTAKE_ROLL",
+      "name": "송이버섯 고기말이",
+      "path": "assets/icons/UI_ItemIcon_108090.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108090.png",
+      "sourceName": "버섯고기말이",
+      "sourceKey": "matsutakemeatrolls",
+      "assetId": 2104,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "94c140c94047c4f08410a37fe2daca69733ce2ecde86feab2f8051562aea37cb",
+      "source_sha256": "31442b3a6294e3bdb1d25c5da00d8ea56174d1cfb082a49b084bf21529e28373",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18842
+    },
+    "KEY_CRPG_ANEMOCULUS": {
+      "id": "KEY_CRPG_ANEMOCULUS",
+      "name": "바람 신의 눈동자",
+      "path": "assets/icons/UI_ItemIcon_107001.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_107001.png",
+      "sourceName": "잃어버린 바람 신의 눈동자",
+      "sourceKey": "anemoculus",
+      "assetId": 107001,
+      "matchType": "verified_id_alias",
+      "provenance": "original_game_texture_archive",
+      "sha256": "15afc554144f75b05a2af6c63fa718064c0734b8321db23320183afef5851ac9",
+      "source_sha256": "a742c7d32e77aac1b5d1f1c63651ce3e052795026973f6fd0e3b7e2eda4fa9ff",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18946
+    }
+  },
+  "categories": {
+    "CATEGORY_FOOD": {
+      "path": "assets/icons/category_food.webp",
+      "label": "음식 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Icon/Intee/Cooking/UI_Icon_Intee_Cooking.png",
+      "source_sha256": "b25570c2943148df0b2d5fa1fb121157943ba43ffd8b06ea8caa1750d6780c63",
+      "sha256": "aa56757b5ec07d9dfc49d7a609a181d2446183d0491ed8fa511919634e693772"
+    },
+    "CATEGORY_MATERIAL": {
+      "path": "assets/icons/category_material.webp",
+      "label": "재료·제작 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Icon/Intee/Forging/UI_Icon_Intee_Forging_0.png",
+      "source_sha256": "2268f0f44bf52785e603c8c418d3b1ee8a826d31784f46c7539216693e1eabd0",
+      "sha256": "af0917d16708e60423c96e4410069d7ce142237804d16976a372ed67cd608d78"
+    },
+    "CATEGORY_MEDICINE": {
+      "path": "assets/icons/category_medicine.webp",
+      "label": "치료품 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Icon/Activity/Potion/UI_Icon_Activity_Potion.png",
+      "source_sha256": "65a16fed5c4bbf63ff50b57e919046712dd18f55c244def6f485aaac12160ab4",
+      "sha256": "d1ea090168a920791e2c01cc7f7c7214bed5bbe798399a8dd3686cb11488bf34"
+    },
+    "CATEGORY_QUEST": {
+      "path": "assets/icons/category_quest.webp",
+      "label": "임무 물품 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Icon/Quest/UI_Icon_Quest.png",
+      "source_sha256": "c15b9808e80cce00806de13e6ee3f91c7122ec97f7ea1e858e70e8a87f34e64a",
+      "sha256": "065630cc4d54139292f75c413bc7e741389944c12cf8636737acb2ec171fb4b9"
+    },
+    "CATEGORY_EQUIPMENT": {
+      "path": "assets/icons/category_equipment.webp",
+      "label": "장비 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Package/Common/UI_Package_Common_001.png",
+      "source_sha256": "fe48de98ddf491d4fd919f8042f40be457c4d8c52de0dcb032dd2dc7c4c63bd7",
+      "sha256": "5ff1b33580dffc165c895f4de35c8df6ae5366cf1217de0336580faf705d5d15"
+    },
+    "CATEGORY_GADGET": {
+      "path": "assets/icons/category_gadget.webp",
+      "label": "탐험 도구 분류 아이콘",
+      "matchType": "category_fallback",
+      "provenance": "original_game_texture_archive",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/Icon/Intee/ActivityProps/UI_Icon_Intee_ActivityProps.png",
+      "source_sha256": "c46ea0afb1d8776c2f99ed0155d1477bf5bf788b6764fb73e290770124d8cef8",
+      "sha256": "9408a85db56e93314c880ab0bc0329a5397a1c1d0a6038257416285a75171c77"
+    }
+  },
+  "categoryByLabel": {
+    "음식": "CATEGORY_FOOD",
+    "재료": "CATEGORY_MATERIAL",
+    "전투 치료품": "CATEGORY_MEDICINE",
+    "소모품": "CATEGORY_MEDICINE",
+    "전술 도구": "CATEGORY_GADGET",
+    "탐험 도구": "CATEGORY_GADGET",
+    "생활 도구": "CATEGORY_GADGET",
+    "탐험 장치": "CATEGORY_GADGET",
+    "퀘스트/핵심": "CATEGORY_QUEST",
+    "퀘스트 아이템": "CATEGORY_QUEST",
+    "장비": "CATEGORY_EQUIPMENT",
+    "방어구": "CATEGORY_EQUIPMENT",
+    "장신구": "CATEGORY_EQUIPMENT",
+    "특수": "CATEGORY_GADGET",
+    "한손검": "CATEGORY_EQUIPMENT",
+    "양손검": "CATEGORY_EQUIPMENT",
+    "장병기": "CATEGORY_EQUIPMENT",
+    "법구": "CATEGORY_EQUIPMENT",
+    "활": "CATEGORY_EQUIPMENT",
+    "기타": "CATEGORY_GADGET"
+  },
+  "unavailable": [
+    {
+      "id": "ORE_CONDESSENCE",
+      "name": "응축 결정",
+      "sourceName": "응축 결정",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "ORE_SNEZ_RAINBOW_BUBBLE_CRYSTAL",
+      "name": "무지개 방울 수정",
+      "sourceName": "무지개 방울 수정",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "MAT_BORDERLAND_SWORD_BILLET",
+      "name": "가장자리 땅의 한손검 원형",
+      "sourceName": "가장자리 땅의 한손검 원형",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "MAT_BORDERLAND_CLAYMORE_BILLET",
+      "name": "가장자리 땅의 양손검 원형",
+      "sourceName": "가장자리 땅의 양손검 원형",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "MAT_BORDERLAND_POLEARM_BILLET",
+      "name": "가장자리 땅의 장병기 원형",
+      "sourceName": "가장자리 땅의 장병기 원형",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "MAT_BORDERLAND_CATALYST_BILLET",
+      "name": "가장자리 땅의 법구 원형",
+      "sourceName": "가장자리 땅의 법구 원형",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "MAT_BORDERLAND_BOW_BILLET",
+      "name": "가장자리 땅의 활 원형",
+      "sourceName": "가장자리 땅의 활 원형",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+      "name": "글루포프 호밀빵",
+      "sourceName": "글루포프 호밀빵",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "FOOD_SNEZ_SLICED_SASHIMI",
+      "name": "대패 생선회",
+      "sourceName": "대패 생선회",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "FOOD_SNEZ_BERRY_ICE_CREAM",
+      "name": "베리 아이스크림",
+      "sourceName": "베리 아이스크림",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "FOOD_SNEZ_SNOWBALL_FLOWER",
+      "name": "설원 위 눈덩이꽃",
+      "sourceName": "설원 위 눈덩이꽃",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "FOOD_SNEZ_COLD_SOUP",
+      "name": "설국 냉수프",
+      "sourceName": "설국 냉수프",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "ING_RYE",
+      "name": "호밀",
+      "sourceName": "호밀",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "ING_RYE_FLOUR",
+      "name": "호밀 가루",
+      "sourceName": "호밀 가루",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "ING_SOUR_CREAM",
+      "name": "사워크림",
+      "sourceName": "사워크림",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "ING_RED_BEET",
+      "name": "붉은 사탕무",
+      "sourceName": "붉은 사탕무",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "ING_SNOWBALL_FLOWER",
+      "name": "눈덩이꽃",
+      "sourceName": "눈덩이꽃",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "ING_ICE_STAR_FRUIT",
+      "name": "얼음별 열매",
+      "sourceName": "얼음별 열매",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+      "name": "옛뜰 훈제 소시지",
+      "sourceName": "옛뜰 훈제 소시지",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "FOOD_SNEZ_BORSCHT",
+      "name": "보르시",
+      "sourceName": "보르시",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "FOOD_SNEZ_MEDOVIK",
+      "name": "메도빅",
+      "sourceName": "메도빅",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "FOOD_SNEZ_ZHARKOYE",
+      "name": "자르코예",
+      "sourceName": "자르코예",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "FOOD_SNEZ_SKEWER",
+      "name": "스네즈나야 꼬치구이",
+      "sourceName": "스네즈나야 꼬치구이",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_SWORD_FINALE",
+      "name": "해연의 피날레",
+      "sourceName": "해연의 피날레",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_SWORD_SWAN_LAKE",
+      "name": "백조의 호수",
+      "sourceName": "백조의 호수",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_SWORD_BP_HERETIC_FLAME",
+      "name": "이단을 가르는 불꽃",
+      "sourceName": "이단을 가르는 불꽃",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_CLAYMORE_BP_GOLDEN_MELODY",
+      "name": "황금빛 선율",
+      "sourceName": "황금빛 선율",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_POLEARM_BP_FROST_BREATH",
+      "name": "서리 숨결",
+      "sourceName": "서리 숨결",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_CATALYST_BP_KINGS_GAME",
+      "name": "왕들의 대국",
+      "sourceName": "왕들의 대국",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_BOW_BP_JADE_LONGBOW",
+      "name": "옥빛 장궁",
+      "sourceName": "옥빛 장궁",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_SWORD_BUTTERFLY_FABLE",
+      "name": "나비의 우화",
+      "sourceName": "나비의 우화",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_CATALYST_WAVE_HYMN",
+      "name": "파도의 찬송가",
+      "sourceName": "파도의 찬송가",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_SWORD_SPROUT",
+      "name": "새순",
+      "sourceName": "새순",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_CATALYST_FROZEN_HEART",
+      "name": "얼어붙은 심장",
+      "sourceName": "얼어붙은 심장",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_BOW_BREEZE",
+      "name": "산들바람 활",
+      "sourceName": "산들바람 활",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_SWORD_SILVERSTEEL",
+      "name": "은강검",
+      "sourceName": "은강검",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_SWORD_EMBER_GUIDE",
+      "name": "불꽃의 인도자",
+      "sourceName": "불꽃의 인도자",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_CLAYMORE_SALVATION",
+      "name": "구원의 대검",
+      "sourceName": "구원의 대검",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_POLEARM_GUARDIAN_SONG",
+      "name": "수호의 노래",
+      "sourceName": "수호의 노래",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_CATALYST_LOYALTY_ECHO",
+      "name": "충성의 메아리",
+      "sourceName": "충성의 메아리",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "EQ_BOW_FROST_OATH",
+      "name": "서리의 서약",
+      "sourceName": "서리의 서약",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "MAT_TRANSOCEANIC_PEARL",
+      "name": "이색 결정석",
+      "sourceName": "기이한 바다의 방울",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "MAT_TRANSOCEANIC_CHUNK",
+      "name": "이색 결정 조각",
+      "sourceName": "기이한 바다의 결정",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    },
+    {
+      "id": "MAT_XENOCHROMATIC_CRYSTAL",
+      "name": "이색 결정석 결정체",
+      "sourceName": "이색 결정석",
+      "reason": "No validated original asset in reachable sources",
+      "error": null
+    }
+  ],
+  "policy": "Use icons[id] for exact game assets. Otherwise use an explicitly labeled category fallback; never describe the category image as the exact official icon of a custom CRPG item."
+}

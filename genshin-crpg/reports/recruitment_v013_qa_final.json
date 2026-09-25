@@ -1,0 +1,1116 @@
+{
+  "scope": "All 85 authored legend definitions. Main completion/branch prerequisites and initial provisioning are synthetic fixtures. All tested legend/rejoin transitions use runtime actions. Random field encounters suppressed; actual MOVE edges still used. No source writes.",
+  "source": "/workspace/scratch/adc1ed75baeb/game",
+  "dbSha256": "fab2ee28dacde30ae0c80407fa42bab6ba5f23c6b7c9dc31d69a30547a3440d6",
+  "results": [
+    {
+      "id": "LEG_MOND_ALBEDO",
+      "quest": "Q_LEG_MOND_ALBEDO",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_ALBEDO",
+      "actions": 31,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_ALBEDO_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_BARBARA",
+      "quest": "Q_LEG_MOND_BARBARA",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_BARBARA",
+      "actions": 25,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_BARBARA_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_BENNETT",
+      "quest": "Q_LEG_MOND_BENNETT",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_BENNETT",
+      "actions": 31,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_BENNETT_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_VENTI",
+      "quest": "Q_LEG_MOND_VENTI",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_VENTI",
+      "actions": 26,
+      "reloads": 4,
+      "declines": [],
+      "passed": true,
+      "duplicateReceipts": 2,
+      "rejoin": "not_applicable"
+    },
+    {
+      "id": "LEG_MOND_DIONA",
+      "quest": "Q_LEG_MOND_DIONA",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_DIONA",
+      "actions": 25,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_DIONA_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_DAHLIA",
+      "quest": "Q_LEG_MOND_DAHLIA",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_DAHLIA",
+      "actions": 25,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_DAHLIA_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_DILUC",
+      "quest": "Q_LEG_MOND_DILUC",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_DILUC",
+      "actions": 32,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_DILUC_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_AMBER",
+      "quest": "Q_LEG_MOND_AMBER",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_AMBER",
+      "actions": 29,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_AMBER_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_JEAN",
+      "quest": "Q_LEG_MOND_JEAN",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_JEAN",
+      "actions": 25,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_JEAN_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_KAEYA",
+      "quest": "Q_LEG_MOND_KAEYA",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_KAEYA",
+      "actions": 29,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_KAEYA_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_KLEE",
+      "quest": "Q_LEG_MOND_KLEE",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_KLEE",
+      "actions": 29,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_KLEE_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_MIKA",
+      "quest": "Q_LEG_MOND_MIKA",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_MIKA",
+      "actions": 29,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_MIKA_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_MONA",
+      "quest": "Q_LEG_MOND_MONA",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_MONA",
+      "actions": 29,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_MONA_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_NOELLE",
+      "quest": "Q_LEG_MOND_NOELLE",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_NOELLE",
+      "actions": 25,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_NOELLE_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_FISCHL",
+      "quest": "Q_LEG_MOND_FISCHL",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_FISCHL",
+      "actions": 29,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_FISCHL_N030"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_LISA",
+      "quest": "Q_LEG_MOND_LISA",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_LISA",
+      "actions": 26,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_LISA_N027"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_RAZOR",
+      "quest": "Q_LEG_MOND_RAZOR",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_RAZOR",
+      "actions": 31,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_RAZOR_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_ROSARIA",
+      "quest": "Q_LEG_MOND_ROSARIA",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_ROSARIA",
+      "actions": 26,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_ROSARIA_N027"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_SUCROSE",
+      "quest": "Q_LEG_MOND_SUCROSE",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_SUCROSE",
+      "actions": 25,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_SUCROSE_N026"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_MOND_EULA",
+      "quest": "Q_LEG_MOND_EULA",
+      "route": "ROUTE_TRAVELER",
+      "character": "MOND_EULA",
+      "actions": 37,
+      "reloads": 6,
+      "declines": [
+        "LEG_MOND_EULA_N028"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_DILUC",
+      "quest": "Q_LEG_ISK_MOND_DILUC",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_DILUC",
+      "actions": 50,
+      "reloads": 4,
+      "declines": [],
+      "passed": true,
+      "initialOwned": "JOINED",
+      "duplicateReceipts": 2,
+      "rejoin": "not_applicable"
+    },
+    {
+      "id": "LEG_ISK_MOND_AMBER",
+      "quest": "Q_LEG_ISK_MOND_AMBER",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_AMBER",
+      "actions": 52,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_AMBER_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_JEAN",
+      "quest": "Q_LEG_ISK_MOND_JEAN",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_JEAN",
+      "actions": 23,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_JEAN_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_EULA",
+      "quest": "Q_LEG_ISK_MOND_EULA",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_EULA",
+      "actions": 41,
+      "reloads": 6,
+      "declines": [],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_ZHONGLI",
+      "quest": "Q_LEG_LIYUE_ZHONGLI",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_ZHONGLI",
+      "actions": 31,
+      "reloads": 4,
+      "declines": [],
+      "passed": true,
+      "rejoin": "not_applicable"
+    },
+    {
+      "id": "LEG_LIYUE_NINGGUANG",
+      "quest": "Q_LEG_LIYUE_NINGGUANG",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_NINGGUANG",
+      "actions": 35,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_NINGGUANG_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_BEIDOU",
+      "quest": "Q_LEG_LIYUE_BEIDOU",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_BEIDOU",
+      "actions": 36,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_BEIDOU_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_YELAN",
+      "quest": "Q_LEG_LIYUE_YELAN",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_YELAN",
+      "actions": 36,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_YELAN_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_KEQING",
+      "quest": "Q_LEG_LIYUE_KEQING",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_KEQING",
+      "actions": 62,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_KEQING_N065"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_BAIZHU",
+      "quest": "Q_LEG_LIYUE_BAIZHU",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_BAIZHU",
+      "actions": 39,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_BAIZHU_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_QIQI",
+      "quest": "Q_LEG_LIYUE_QIQI",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_QIQI",
+      "actions": 35,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_QIQI_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_GAMING",
+      "quest": "Q_LEG_LIYUE_GAMING",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_GAMING",
+      "actions": 35,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_GAMING_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_GANYU",
+      "quest": "Q_LEG_LIYUE_GANYU",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_GANYU",
+      "actions": 35,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_GANYU_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_XINGQIU",
+      "quest": "Q_LEG_LIYUE_XINGQIU",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_XINGQIU",
+      "actions": 53,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_XINGQIU_N055"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_HUTAO",
+      "quest": "Q_LEG_LIYUE_HUTAO",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_HUTAO",
+      "actions": 49,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_HUTAO_N055"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_XIANGLING",
+      "quest": "Q_LEG_LIYUE_XIANGLING",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_XIANGLING",
+      "actions": 49,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_XIANGLING_N055"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_XIANYUN",
+      "quest": "Q_LEG_LIYUE_XIANYUN",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_XIANYUN",
+      "actions": 49,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_XIANYUN_N055"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_LANYAN",
+      "quest": "Q_LEG_LIYUE_LANYAN",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_LANYAN",
+      "actions": 41,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_LANYAN_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_XIAO",
+      "quest": "Q_LEG_LIYUE_XIAO",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_XIAO",
+      "actions": 41,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_XIAO_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_SHENHE",
+      "quest": "Q_LEG_LIYUE_SHENHE",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_SHENHE",
+      "actions": 41,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_SHENHE_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_XINYAN",
+      "quest": "Q_LEG_LIYUE_XINYAN",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_XINYAN",
+      "actions": 41,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_XINYAN_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_TARTAGLIA",
+      "quest": "Q_LEG_LIYUE_TARTAGLIA",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_TARTAGLIA",
+      "actions": 41,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_TARTAGLIA_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_YANFEI",
+      "quest": "Q_LEG_LIYUE_YANFEI",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_YANFEI",
+      "actions": 38,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_YANFEI_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_YUNJIN",
+      "quest": "Q_LEG_LIYUE_YUNJIN",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_YUNJIN",
+      "actions": 38,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_YUNJIN_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_YAOYAO",
+      "quest": "Q_LEG_LIYUE_YAOYAO",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_YAOYAO",
+      "actions": 41,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_YAOYAO_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_CHONGYUN",
+      "quest": "Q_LEG_LIYUE_CHONGYUN",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_CHONGYUN",
+      "actions": 39,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_CHONGYUN_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_LIYUE_ZIBAI",
+      "quest": "Q_LEG_LIYUE_ZIBAI",
+      "route": "ROUTE_TRAVELER",
+      "character": "LIYUE_ZIBAI",
+      "actions": 39,
+      "reloads": 6,
+      "declines": [
+        "LEG_LIYUE_ZIBAI_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_ZHONGLI",
+      "quest": "Q_LEG_ISK_LIYUE_ZHONGLI",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_ZHONGLI",
+      "actions": 57,
+      "reloads": 4,
+      "declines": [],
+      "passed": true,
+      "rejoin": "not_applicable"
+    },
+    {
+      "id": "LEG_ISK_LIYUE_NINGGUANG",
+      "quest": "Q_LEG_ISK_LIYUE_NINGGUANG",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_NINGGUANG",
+      "actions": 61,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_NINGGUANG_CARD_OPT_2"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_BEIDOU",
+      "quest": "Q_LEG_ISK_LIYUE_BEIDOU",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_BEIDOU",
+      "actions": 61,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_BEIDOU_CARD_OPT_2"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_YELAN",
+      "quest": "Q_LEG_ISK_LIYUE_YELAN",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_YELAN",
+      "actions": 61,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_YELAN_CARD_OPT_2"
+      ],
+      "passed": true,
+      "duplicateReceipts": 3,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_KEQING",
+      "quest": "Q_LEG_ISK_LIYUE_KEQING",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_KEQING",
+      "actions": 61,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_KEQING_CARD_OPT_2"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_BAIZHU",
+      "quest": "Q_LEG_ISK_LIYUE_BAIZHU",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_BAIZHU",
+      "actions": 62,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_BAIZHU_N072"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_QIQI",
+      "quest": "Q_LEG_ISK_LIYUE_QIQI",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_QIQI",
+      "actions": 72,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_QIQI_N086"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_GAMING",
+      "quest": "Q_LEG_ISK_LIYUE_GAMING",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_GAMING",
+      "actions": 60,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_GAMING_N072"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_GANYU",
+      "quest": "Q_LEG_ISK_LIYUE_GANYU",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_GANYU",
+      "actions": 60,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_GANYU_N072"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_XINGQIU",
+      "quest": "Q_LEG_ISK_LIYUE_XINGQIU",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_XINGQIU",
+      "actions": 48,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_XINGQIU_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_XIANYUN",
+      "quest": "Q_LEG_ISK_LIYUE_XIANYUN",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_XIANYUN",
+      "actions": 48,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_XIANYUN_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_XIANGLING",
+      "quest": "Q_LEG_ISK_LIYUE_XIANGLING",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_XIANGLING",
+      "actions": 48,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_XIANGLING_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_HUTAO",
+      "quest": "Q_LEG_ISK_LIYUE_HUTAO",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_HUTAO",
+      "actions": 48,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_HUTAO_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_LANYAN",
+      "quest": "Q_LEG_ISK_LIYUE_LANYAN",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_LANYAN",
+      "actions": 22,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_LANYAN_RECRUIT_NO"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_XIAO",
+      "quest": "Q_LEG_ISK_LIYUE_XIAO",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_XIAO",
+      "actions": 22,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_XIAO_RECRUIT_NO"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_SHENHE",
+      "quest": "Q_LEG_ISK_LIYUE_SHENHE",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_SHENHE",
+      "actions": 22,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_SHENHE_RECRUIT_NO"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_XINYAN",
+      "quest": "Q_LEG_ISK_LIYUE_XINYAN",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_XINYAN",
+      "actions": 22,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_XINYAN_RECRUIT_NO"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_TARTAGLIA",
+      "quest": "Q_LEG_ISK_LIYUE_TARTAGLIA",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_TARTAGLIA",
+      "actions": 22,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_TARTAGLIA_RECRUIT_NO"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_YANFEI",
+      "quest": "Q_LEG_ISK_LIYUE_YANFEI",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_YANFEI",
+      "actions": 38,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_YANFEI_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_YUNJIN",
+      "quest": "Q_LEG_ISK_LIYUE_YUNJIN",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_YUNJIN",
+      "actions": 38,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_YUNJIN_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_YAOYAO",
+      "quest": "Q_LEG_ISK_LIYUE_YAOYAO",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_YAOYAO",
+      "actions": 39,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_YAOYAO_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_CHONGYUN",
+      "quest": "Q_LEG_ISK_LIYUE_CHONGYUN",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_CHONGYUN",
+      "actions": 39,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_CHONGYUN_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_LIYUE_ZIBAI",
+      "quest": "Q_LEG_ISK_LIYUE_ZIBAI",
+      "route": "ROUTE_ISEKAI",
+      "character": "LIYUE_ZIBAI",
+      "actions": 39,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_LIYUE_ZIBAI_JOIN_DEFER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_ALBEDO",
+      "quest": "Q_LEG_ISK_MOND_ALBEDO",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_ALBEDO",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_ALBEDO_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_BARBARA",
+      "quest": "Q_LEG_ISK_MOND_BARBARA",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_BARBARA",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_BARBARA_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_BENNETT",
+      "quest": "Q_LEG_ISK_MOND_BENNETT",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_BENNETT",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_BENNETT_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_DIONA",
+      "quest": "Q_LEG_ISK_MOND_DIONA",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_DIONA",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_DIONA_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_DAHLIA",
+      "quest": "Q_LEG_ISK_MOND_DAHLIA",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_DAHLIA",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_DAHLIA_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_KAEYA",
+      "quest": "Q_LEG_ISK_MOND_KAEYA",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_KAEYA",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_KAEYA_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_KLEE",
+      "quest": "Q_LEG_ISK_MOND_KLEE",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_KLEE",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_KLEE_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_MIKA",
+      "quest": "Q_LEG_ISK_MOND_MIKA",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_MIKA",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_MIKA_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_MONA",
+      "quest": "Q_LEG_ISK_MOND_MONA",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_MONA",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_MONA_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_NOELLE",
+      "quest": "Q_LEG_ISK_MOND_NOELLE",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_NOELLE",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_NOELLE_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_FISCHL",
+      "quest": "Q_LEG_ISK_MOND_FISCHL",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_FISCHL",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_FISCHL_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_LISA",
+      "quest": "Q_LEG_ISK_MOND_LISA",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_LISA",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_LISA_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_RAZOR",
+      "quest": "Q_LEG_ISK_MOND_RAZOR",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_RAZOR",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_RAZOR_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_ROSARIA",
+      "quest": "Q_LEG_ISK_MOND_ROSARIA",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_ROSARIA",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_ROSARIA_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    },
+    {
+      "id": "LEG_ISK_MOND_SUCROSE",
+      "quest": "Q_LEG_ISK_MOND_SUCROSE",
+      "route": "ROUTE_ISEKAI",
+      "character": "MOND_SUCROSE",
+      "actions": 10,
+      "reloads": 6,
+      "declines": [
+        "LEG_ISK_MOND_SUCROSE_JOIN_LATER"
+      ],
+      "passed": true,
+      "rejoin": true
+    }
+  ],
+  "summary": {
+    "total": 85,
+    "passed": 85,
+    "failed": 0,
+    "rejoins": 81,
+    "actions": 2874,
+    "reloads": 502,
+    "explicit_same_transaction_replays": 7
+  },
+  "provenance": "Combined full run with same-DB corrective rerun of 3 selector-only failures; source compiler/runtime unchanged between these runs. All85 check same costs after rejoin, rejected repeated entry/rejoin, and save/reload. 3 additionally replay exact action envelope at cost/completion/join."
+}

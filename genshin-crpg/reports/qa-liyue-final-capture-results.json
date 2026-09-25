@@ -1,0 +1,435 @@
+{
+  "provenance": "Read-only checkout. Synthetic source-grounded M05 boundary; test-only level20/baseHP100000/baseATK10000 fixture. All Liyue advancement/COMBAT_BEGIN/COMBAT real public actions, no forced finishBattle. This is FLOW QA, NOT difficulty validation.",
+  "started": "2026-09-24T21:32:25.443Z",
+  "runs": [
+    {
+      "leaf": "K1",
+      "actions": 105,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_L04_K1_041"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_K1_042"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_K1_END"
+        }
+      ],
+      "battles": [],
+      "chapters": [],
+      "choices": [
+        "ISK_L04_K1_043",
+        "ISK_L04_K1_047",
+        "ISK_L04_K1_052",
+        "ISK_L04_K1_061",
+        "ISK_L04_K1_066",
+        "ISK_L04_K1_071",
+        "ISK_L04_K1_078",
+        "ISK_L04_K1_081",
+        "ISK_L04_K1_085",
+        "ISK_L04_K1_093",
+        "ISK_L04_K1_095",
+        "ISK_L04_K1_098",
+        "ISK_L04_K1_103",
+        "ISK_L04_K1_110",
+        "ISK_L04_K1_112",
+        "ISK_L04_K1_115",
+        "ISK_L04_K1_122",
+        "ISK_L04_K1_125",
+        "ISK_L04_K1_127",
+        "ISK_L04_K1_130",
+        "ISK_L04_K1_132",
+        "ISK_L04_K1_135",
+        "ISK_L04_K1_139",
+        "ISK_L04_K1_143",
+        "ISK_L04_K1_144",
+        "ISK_L04_K1_146",
+        "ISK_L04_K1_149"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "ISK_L04_K1_END",
+        "type": "STORY_PAUSE",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/qa-liyue-final-K1.json",
+      "terminal": "ISK_L04_K1_END",
+      "eventCount": 58,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "K2",
+      "actions": 128,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_L04_K2_048"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_K2_049"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_K2_END"
+        }
+      ],
+      "battles": [],
+      "chapters": [],
+      "choices": [
+        "ISK_L04_K2_051",
+        "ISK_L04_K2_054",
+        "ISK_L04_K2_058",
+        "ISK_L04_K2_067",
+        "ISK_L04_K2_070",
+        "ISK_L04_K2_073",
+        "ISK_L04_K2_076",
+        "ISK_L04_K2_080",
+        "ISK_L04_K2_086",
+        "ISK_L04_K2_090",
+        "ISK_L04_K2_094",
+        "ISK_L04_K2_098",
+        "ISK_L04_K2_101",
+        "ISK_L04_K2_106",
+        "ISK_L04_K2_109",
+        "ISK_L04_K2_113",
+        "ISK_L04_K2_115",
+        "ISK_L04_K2_117",
+        "ISK_L04_K2_119",
+        "ISK_L04_K2_122",
+        "ISK_L04_K2_125",
+        "ISK_L04_K2_132",
+        "ISK_L04_K2_139",
+        "ISK_L04_K2_141",
+        "ISK_L04_K2_144",
+        "ISK_L04_K2_146",
+        "ISK_L04_K2_149",
+        "ISK_L04_K2_151",
+        "ISK_L04_K2_154",
+        "ISK_L04_K2_156",
+        "ISK_L04_K2_159",
+        "ISK_L04_K2_161",
+        "ISK_L04_K2_164",
+        "ISK_L04_K2_167",
+        "ISK_L04_K2_170",
+        "ISK_L04_K2_172",
+        "ISK_L04_K2_176"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "ISK_L04_K2_END",
+        "type": "STORY_PAUSE",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/qa-liyue-final-K2.json",
+      "terminal": "ISK_L04_K2_END",
+      "eventCount": 64,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "AA1",
+      "actions": 73,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_L04_AA1_059"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AA1_061"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_AA1_END"
+        }
+      ],
+      "battles": [],
+      "chapters": [],
+      "choices": [
+        "ISK_L04_AA1_060",
+        "ISK_L04_AA1_066",
+        "ISK_L04_AA1_072",
+        "ISK_L04_AA1_076",
+        "ISK_L04_AA1_084",
+        "ISK_L04_AA1_086",
+        "ISK_L04_AA1_092",
+        "ISK_L04_AA1_094",
+        "ISK_L04_AA1_097",
+        "ISK_L04_AA1_101",
+        "ISK_L04_AA1_104",
+        "ISK_L04_AA1_108",
+        "ISK_L04_AA1_113",
+        "ISK_L04_AA1_116",
+        "ISK_L04_AA1_122",
+        "ISK_L04_AA1_128",
+        "ISK_L04_AA1_130",
+        "ISK_L04_AA1_133"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "ISK_L04_AA1_END",
+        "type": "STORY_PAUSE",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/qa-liyue-final-AA1.json",
+      "terminal": "ISK_L04_AA1_END",
+      "eventCount": 46,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "AA2",
+      "actions": 76,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_L04_AA2_058"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AA2_060"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_AA2_END"
+        }
+      ],
+      "battles": [],
+      "chapters": [],
+      "choices": [
+        "ISK_L04_AA2_059",
+        "ISK_L04_AA2_065",
+        "ISK_L04_AA2_070",
+        "ISK_L04_AA2_075",
+        "ISK_L04_AA2_078",
+        "ISK_L04_AA2_083",
+        "ISK_L04_AA2_090",
+        "ISK_L04_AA2_094",
+        "ISK_L04_AA2_096",
+        "ISK_L04_AA2_102",
+        "ISK_L04_AA2_105",
+        "ISK_L04_AA2_108",
+        "ISK_L04_AA2_112",
+        "ISK_L04_AA2_121",
+        "ISK_L04_AA2_123",
+        "ISK_L04_AA2_127",
+        "ISK_L04_AA2_130",
+        "ISK_L04_AA2_136",
+        "ISK_L04_AA2_140"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "ISK_L04_AA2_END",
+        "type": "STORY_PAUSE",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/qa-liyue-final-AA2.json",
+      "terminal": "ISK_L04_AA2_END",
+      "eventCount": 54,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "AB1",
+      "actions": 77,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_L04_AB1_067"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AB1_069"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_AB1_END"
+        }
+      ],
+      "battles": [],
+      "chapters": [],
+      "choices": [
+        "ISK_L04_AB1_068",
+        "ISK_L04_AB1_073",
+        "ISK_L04_AB1_076",
+        "ISK_L04_AB1_080",
+        "ISK_L04_AB1_083",
+        "ISK_L04_AB1_089",
+        "ISK_L04_AB1_092",
+        "ISK_L04_AB1_096",
+        "ISK_L04_AB1_102",
+        "ISK_L04_AB1_107",
+        "ISK_L04_AB1_112",
+        "ISK_L04_AB1_114",
+        "ISK_L04_AB1_118",
+        "ISK_L04_AB1_125",
+        "ISK_L04_AB1_129",
+        "ISK_L04_AB1_133",
+        "ISK_L04_AB1_140",
+        "ISK_L04_AB1_142",
+        "ISK_L04_AB1_147"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "ISK_L04_AB1_END",
+        "type": "STORY_PAUSE",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/qa-liyue-final-AB1.json",
+      "terminal": "ISK_L04_AB1_END",
+      "eventCount": 46,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "AB2",
+      "actions": 71,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_L04_AB2_066"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AB2_067"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_AB2_END"
+        }
+      ],
+      "battles": [],
+      "chapters": [],
+      "choices": [
+        "ISK_L04_AB2_068",
+        "ISK_L04_AB2_072",
+        "ISK_L04_AB2_076",
+        "ISK_L04_AB2_080",
+        "ISK_L04_AB2_083",
+        "ISK_L04_AB2_089",
+        "ISK_L04_AB2_093",
+        "ISK_L04_AB2_096",
+        "ISK_L04_AB2_099",
+        "ISK_L04_AB2_102",
+        "ISK_L04_AB2_108",
+        "ISK_L04_AB2_110",
+        "ISK_L04_AB2_114",
+        "ISK_L04_AB2_119",
+        "ISK_L04_AB2_122",
+        "ISK_L04_AB2_125",
+        "ISK_L04_AB2_132",
+        "ISK_L04_AB2_134",
+        "ISK_L04_AB2_140"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "ISK_L04_AB2_END",
+        "type": "STORY_PAUSE",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/qa-liyue-final-AB2.json",
+      "terminal": "ISK_L04_AB2_END",
+      "eventCount": 47,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "B1",
+      "actions": 62,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_L04_B1_052"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_B1_054"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_B1_END"
+        }
+      ],
+      "battles": [],
+      "chapters": [],
+      "choices": [
+        "ISK_L04_B1_053",
+        "ISK_L04_B1_061",
+        "ISK_L04_B1_063",
+        "ISK_L04_B1_066",
+        "ISK_L04_B1_073",
+        "ISK_L04_B1_079",
+        "ISK_L04_B1_083",
+        "ISK_L04_B1_087",
+        "ISK_L04_B1_091",
+        "ISK_L04_B1_100",
+        "ISK_L04_B1_103",
+        "ISK_L04_B1_105",
+        "ISK_L04_B1_107",
+        "ISK_L04_B1_110",
+        "ISK_L04_B1_117",
+        "ISK_L04_B1_119",
+        "ISK_L04_B1_123"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "ISK_L04_B1_END",
+        "type": "STORY_PAUSE",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/qa-liyue-final-B1.json",
+      "terminal": "ISK_L04_B1_END",
+      "eventCount": 58,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "B2",
+      "actions": 58,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_L04_B2_048"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_B2_051"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_B2_END"
+        }
+      ],
+      "battles": [],
+      "chapters": [],
+      "choices": [
+        "ISK_L04_B2_050",
+        "ISK_L04_B2_054",
+        "ISK_L04_B2_059",
+        "ISK_L04_B2_064",
+        "ISK_L04_B2_069",
+        "ISK_L04_B2_072",
+        "ISK_L04_B2_077",
+        "ISK_L04_B2_080",
+        "ISK_L04_B2_083",
+        "ISK_L04_B2_086",
+        "ISK_L04_B2_092",
+        "ISK_L04_B2_094",
+        "ISK_L04_B2_098",
+        "ISK_L04_B2_100",
+        "ISK_L04_B2_103",
+        "ISK_L04_B2_106"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "ISK_L04_B2_END",
+        "type": "STORY_PAUSE",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "/tmp/qa-liyue-final-B2.json",
+      "terminal": "ISK_L04_B2_END",
+      "eventCount": 56,
+      "moraDelta": 1800
+    }
+  ],
+  "finished": "2026-09-24T21:32:44.744Z"
+}

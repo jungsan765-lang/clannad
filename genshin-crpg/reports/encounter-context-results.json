@@ -1,0 +1,67 @@
+{
+  "total": 5,
+  "passed": 5,
+  "comparison": "current full runtime with and without runtime_encounter.js; saved states equal except runtime.encounter",
+  "results": [
+    {
+      "name": "explicit field opening has zero extra RNG, HP or turn effects",
+      "ok": true,
+      "context": {
+        "version": 1,
+        "kind": "FIELD",
+        "label": "주변의 적과 조우",
+        "text": "몬드 외곽 초원에서 활동하던 중 적 무리와 마주쳤습니다.",
+        "map": "MAP_MOND_PLAINS",
+        "from": null
+      }
+    },
+    {
+      "name": "waiting encounter carries context without extra RNG, HP or turn effects",
+      "ok": true,
+      "context": {
+        "version": 1,
+        "kind": "FIELD",
+        "label": "주변의 적과 조우",
+        "text": "몬드 외곽 초원에서 활동하던 중 적 무리와 마주쳤습니다.",
+        "map": "MAP_MOND_PLAINS",
+        "from": "MAP_MOND_PLAINS"
+      }
+    },
+    {
+      "name": "movement encounter describes arrival without extra RNG, HP or turn effects",
+      "ok": true,
+      "context": {
+        "version": 1,
+        "kind": "FIELD",
+        "label": "이동 중 조우",
+        "text": "이동 도중 몬드 외곽 초원에서 적 무리와 마주쳤습니다.",
+        "map": "MAP_MOND_PLAINS",
+        "from": "MAP_MOND_CITY"
+      }
+    },
+    {
+      "name": "hunting encounter preserves earned materials and pre-start HP",
+      "ok": true,
+      "context": {
+        "version": 1,
+        "kind": "FIELD",
+        "label": "탐색 중 조우",
+        "text": "사냥을 마치던 중 속삭임의 숲 사냥터의 적 무리와 마주쳤습니다.",
+        "map": "MAP_CRPG_WHISPER_HUNT",
+        "from": "MAP_CRPG_WHISPER_HUNT"
+      }
+    },
+    {
+      "name": "story temple explanation preserves original opening state",
+      "ok": true,
+      "context": {
+        "version": 1,
+        "kind": "STORY",
+        "label": "이야기 속 전투",
+        "text": "사당 안의 바람이 갑자기 거칠어진다. 물 슬라임이 바닥을 가로막고 츄츄족 전사가 부서진 기둥 뒤에서 뛰쳐나온다. 일행은 봉인 장치에 다가가기 전에 이곳을 지켜야 한다.",
+        "map": "MAP_MOND_TEMPLE_FALCON",
+        "from": "MAP_MOND_TEMPLE_FALCON"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+PASS Barbara creates exactly the produced quantity as special lots, never heals while cooking
+PASS isolated shop fixture: purchased food remains normal alongside crafted special food
+PASS AUTO selects normal first, explicit special heals ×1.1 and keeps ordinary servings
+PASS batch meals reserve lots independently and consume normal then special per recipient
+PASS explicit unavailable lots and late healing restrictions roll back all recipients, food and time
+PASS special lot benefit survives owner leaving party and round-trip save, without boosting purchases
+PASS generic ingredient/spend path drains normal lots first and cannot leave ghost special counts
+PASS special lot save validation rejects forged unknown variants and impossible quantities
+PASS Albedo reduces common material once per craft, preserving minimum one for batched processing
+PASS Albedo equipment crafting saves one common material type and cannot reduce rare/quest/boss material
+PASS region and active-party requirements prevent discounts, and failed discounted craft is atomic
+PASS Lisa potion discount and Mona exclusions do not stack; mundane medical recipe stays unchanged
+PASS live source reports no material conversion recipe and absent gather/scout lifecycles
+PASS isolated conversion fixture verifies Mona highest-quantity common choice, rare exclusion and minimum
+PASS source drift fails closed before spending and special effect never appears without owner
+{"passed":15}

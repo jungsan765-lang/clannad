@@ -1,0 +1,364 @@
+{
+  "readOnlyProduct": true,
+  "source": "/workspace/scratch/adc1ed75baeb/game/source",
+  "dbPath": "/workspace/scratch/adc1ed75baeb/game/content/db.json",
+  "dbSHA256": "554cd42bbdce2afecf0c260dccb4534273ea6677d413289ae4932fd1665ede56",
+  "presentationSHA256": "2b043f82ed01fff5592079a3ff85c966b6eff6eb960c70b33a3da69c82da1066",
+  "runtimeSHA256": {
+    "runtime.js": "1144e588e75ddc6d4ab752b8b7642986f12981d5761ce19fdd0283c370f740ae",
+    "runtime_extensions.js": "086c6f82f81014f78db7ec78bdece4b58677f842b2950025ecc3656c579802e4",
+    "runtime_story.js": "623b79570ef7dbe4efc082f85ebdd8439e0e1347d1586fa5210f1ec09a506280",
+    "runtime_nodes.js": "471c4a7383859511dca2cfafaec79272f7daeb681287ad60867a8b6959f130ee",
+    "runtime_events.js": "1b413d229608a5cf8fb0743656c40b1ef083e79917bd4c16d7f6f4eb9bb2964f",
+    "runtime_relationships.js": "b1ff6ddec57a0f5c1a124a004c3e5ace7062b6759fd912b80b79ad5872fb35f2",
+    "runtime_combat.js": "24c0afed27b2b2a22a09eac6e6efa744024177b82e15efdfd4b4d3f3078196ed",
+    "runtime_mond_cards.js": "a92c805db4c09fe1a6d0583a53e837a46980778dc522fa472edff0c3c585a74f",
+    "runtime_economy.js": "07af9f56003ad98a4c7434d86a5817f684c99a4c800141443be6a5b1e76efe1d",
+    "runtime_passives.js": "00f852ca3df3a48571c5ff2c247f1343ad5bf37252d1584a98e78734a2261bd7",
+    "runtime_rules.js": "25ab8cd60d422cb756b3461ddfcd0e7944596f28df30a1b007cdc0a5938a57f5",
+    "runtime_andrius.js": "649a294105ad1bab5d1a3c9cc7be5eb5645a3c3f66ceda78cea056e10fa13587",
+    "runtime_flow.js": "14734107ecb055edf93815c3fc4bb49a7cc20e4e7f9ac73a10ff1d3265bb02e6",
+    "runtime_party.js": "c1f0088b409c334cbb8bfe26dca98b566a7bd57079a373c168e9d0b96feeb08d",
+    "runtime_opening.js": "fe8ef06ede2ce3648e0efea50822fb6dd1abf0282c6927bf78a86f36ccbd5274",
+    "runtime_places.js": "c2b81428fbe0e8200c373a1ed312ae94236b88e74b50902c8696c76917742d0f",
+    "runtime_places_joint.js": "79ab52fa26c88100a0d6cd1b46714f49b2816f0c88591fe656e751173acfa91f",
+    "runtime_adventure.js": "5177935a062cd90dceef1d998ed707ab2db82583d06c6468914819ce68edcb90",
+    "runtime_exploration.js": "c4f13fe1de93df4c83880d98e6e8034f510284d0e6a13f787d21cc7d80164d24",
+    "runtime_life.js": "6695a5e5590b39bce97535409d805f8b0ec464b6d3f24cbf780cdb36fcf6d836",
+    "runtime_world.js": "7618bb546c8c46aeb9336b5b5adcddbf3dd6753787900bd777f02c2f9cadef91",
+    "runtime_journey.js": "1253a4c30796188d871eaf1fb9dab7d7138fd5a53385e80fffa9be3190993144",
+    "runtime_market.js": "ec5030bb5d2dc20bb38b7f52128117f6e46c3ec612a4e2a8694f166acf599d05",
+    "runtime_geography.js": "e46d9f78a7e52cfd9066b99b639dd7557e4498289cba8b2f0a77d874e56b17b7",
+    "runtime_liyue.js": "d4a8df7682025bbe20fd78756a4bc622f3e8d94261933bb985ca40866c055277",
+    "runtime_liyue_card_content.js": "d1ce3973380c6a27eda671cfefaaa79b219930c757999b5820cc83eb174312e0",
+    "runtime_liyue_cards.js": "6635799372356c8796db89b80f78cede1c0ea17845d1af2e4acf89d533fbe039",
+    "runtime_liyue_combat.js": "bbe3cc869b38c3134d4c66aa7fd04a81fd6874dc101f4332dd745368e6f4057e",
+    "runtime_geo_oculi.js": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb",
+    "runtime_encounter.js": "c5819933e2eeb3ac5c4e76ff9e3d08614a04205c68b7086807a84c1e6fc3a831",
+    "runtime_recruitment.js": "2d9614493c0ca75eff04f699a247bb9f33748c500e75919f858f0c3d12be678e",
+    "save_adapter.js": "40f001e09cbd67b4a5f8f57d5f4b0ab0fed2a8a2d16a8a82ab094f1c58aadfb9"
+  },
+  "modules": [
+    "runtime.js",
+    "runtime_extensions.js",
+    "runtime_story.js",
+    "runtime_nodes.js",
+    "runtime_events.js",
+    "runtime_relationships.js",
+    "runtime_combat.js",
+    "runtime_mond_cards.js",
+    "runtime_economy.js",
+    "runtime_passives.js",
+    "runtime_rules.js",
+    "runtime_andrius.js",
+    "runtime_flow.js",
+    "runtime_party.js",
+    "runtime_opening.js",
+    "runtime_places.js",
+    "runtime_places_joint.js",
+    "runtime_adventure.js",
+    "runtime_exploration.js",
+    "runtime_life.js",
+    "runtime_world.js",
+    "runtime_journey.js",
+    "runtime_market.js",
+    "runtime_geography.js",
+    "runtime_liyue.js",
+    "runtime_liyue_card_content.js",
+    "runtime_liyue_cards.js",
+    "runtime_liyue_combat.js",
+    "runtime_geo_oculi.js",
+    "runtime_encounter.js",
+    "runtime_recruitment.js",
+    "save_adapter.js"
+  ],
+  "total": 11,
+  "passed": 11,
+  "failed": 0,
+  "results": [
+    {
+      "name": "comparison excludes only newly added fields in exact combat-log locations",
+      "ok": true,
+      "evidence": {
+        "negativeControls": 9,
+        "ignoredMetadata": [
+          "actorId",
+          "targetId",
+          "hpBefore",
+          "hpAfter",
+          "maxHp",
+          "round",
+          "actionSequence",
+          "cardName",
+          "presentationCardId",
+          "presentationSourceKind"
+        ]
+      }
+    },
+    {
+      "name": "five public combat actions preserve full state, receipts and RNG",
+      "ok": true,
+      "evidence": {
+        "rngCalls": 90,
+        "prngState": 2992481934,
+        "round": 6
+      }
+    },
+    {
+      "name": "Andrius threshold interrupts and phase-three multi-actions preserve full state and RNG",
+      "ok": true,
+      "evidence": {
+        "rngCalls": 55,
+        "prngState": 996994122,
+        "phase": 3
+      }
+    },
+    {
+      "name": "settlement preserves rewards, inventory, lastCombatLog and RNG",
+      "ok": true,
+      "evidence": {
+        "result": {
+          "bond": null,
+          "id": "AV-SETTLE:B2",
+          "battleId": "AV-SETTLE:B2",
+          "saveId": "AV-SETTLE",
+          "group": "EG_MOND_SLIME_SMALL",
+          "origin": "BOSS:BRT_ANDRIUS",
+          "gate": "BOSS:BRT_ANDRIUS",
+          "branch": null,
+          "victory": true,
+          "xp": 135,
+          "loot": {},
+          "rounds": 2,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        "rngCalls": 32
+      }
+    },
+    {
+      "name": "nested Mona bubble uses primary then nested HP boundaries and correct packet attackers",
+      "ok": true,
+      "evidence": {
+        "packets": [
+          {
+            "actor": "메타데이터 검증",
+            "target": "츄츄족 전사",
+            "damage": 130,
+            "absorbed": 0,
+            "element": "물리",
+            "sourceKind": "REACTION",
+            "targetId": "MON_HILI_FIGHTER#2",
+            "actorId": "PLAYER_CUSTOM",
+            "round": 1,
+            "actionSequence": 4,
+            "hpBefore": 10000,
+            "hpAfter": 9870,
+            "maxHp": 10000
+          },
+          {
+            "actor": "모나",
+            "target": "츄츄족 전사",
+            "damage": 56,
+            "absorbed": 0,
+            "element": "물",
+            "critical": false,
+            "reaction": null,
+            "card": "MOND_MONA_Q",
+            "sourceKind": "BUBBLE",
+            "targetId": "MON_HILI_FIGHTER#2",
+            "actorId": "MOND_MONA",
+            "round": 1,
+            "actionSequence": 4,
+            "hpBefore": 9870,
+            "hpAfter": 9814,
+            "maxHp": 10000
+          }
+        ],
+        "rngCalls": 19
+      }
+    },
+    {
+      "name": "duplicate authored monster IDs and lethal/clamped HP boundaries are exact",
+      "ok": true,
+      "evidence": {
+        "ids": [
+          "MON_HILI_FIGHTER#1",
+          "MON_HILI_FIGHTER#2",
+          "MON_HILI_FIGHTER#3"
+        ],
+        "events": [
+          {
+            "key": "AV-DUPLICATE:AV-DUPLICATE:B1:0:AV-DUPLICATE:1",
+            "targetId": "MON_HILI_FIGHTER#2",
+            "actorId": "PLAYER_CUSTOM",
+            "side": "ENEMY",
+            "target": "츄츄족 전사 2",
+            "actor": "메타데이터 검증",
+            "element": "hit",
+            "hpBefore": 10000,
+            "hpAfter": 9960,
+            "maxHp": 10000,
+            "round": 1,
+            "action": 4,
+            "cardName": "",
+            "cardId": null,
+            "sourceKind": null,
+            "absorbed": 0,
+            "reactionId": null,
+            "kind": "damage",
+            "label": "40",
+            "amount": 40,
+            "critical": false,
+            "cue": "hit"
+          },
+          {
+            "key": "AV-DUPLICATE:AV-DUPLICATE:B1:1:AV-DUPLICATE:1",
+            "targetId": "MON_HILI_FIGHTER#1",
+            "actorId": "PLAYER_CUSTOM",
+            "side": "ENEMY",
+            "target": "츄츄족 전사 1",
+            "actor": "메타데이터 검증",
+            "element": "hit",
+            "hpBefore": 10000,
+            "hpAfter": 0,
+            "maxHp": 10000,
+            "round": 1,
+            "action": 4,
+            "cardName": "",
+            "cardId": null,
+            "sourceKind": null,
+            "absorbed": 0,
+            "reactionId": null,
+            "kind": "damage",
+            "label": "10050",
+            "amount": 10050,
+            "critical": false,
+            "cue": "hit"
+          },
+          {
+            "key": "AV-DUPLICATE:AV-DUPLICATE:B1:2:AV-DUPLICATE:1",
+            "targetId": "MON_HILI_FIGHTER#2",
+            "actorId": "PLAYER_CUSTOM",
+            "side": "ENEMY",
+            "target": "츄츄족 전사 2",
+            "actor": "메타데이터 검증",
+            "element": "heal",
+            "hpBefore": 9960,
+            "hpAfter": 9980,
+            "maxHp": 10000,
+            "round": 1,
+            "action": 4,
+            "cardName": "",
+            "cardId": null,
+            "sourceKind": null,
+            "absorbed": 0,
+            "reactionId": null,
+            "kind": "heal",
+            "label": "+20",
+            "amount": 20,
+            "cue": "heal"
+          }
+        ]
+      }
+    },
+    {
+      "name": "full shield absorption preserves HP and logs exact absorbed packet",
+      "ok": true,
+      "evidence": {
+        "actor": "메타데이터 검증",
+        "target": "츄츄족 전사",
+        "damage": 0,
+        "absorbed": 75,
+        "element": "물리",
+        "targetId": "MON_HILI_FIGHTER#2",
+        "actorId": "PLAYER_CUSTOM",
+        "round": 1,
+        "actionSequence": 4,
+        "hpBefore": 10000,
+        "hpAfter": 10000,
+        "maxHp": 10000
+      }
+    },
+    {
+      "name": "duplicate-name miss is attached to actual target without RNG changes",
+      "ok": true,
+      "evidence": {
+        "actor": "메타데이터 검증",
+        "target": "츄츄족 전사",
+        "miss": true,
+        "reason": "부양",
+        "targetId": "MON_HILI_FIGHTER#2",
+        "actorId": "PLAYER_CUSTOM",
+        "round": 1,
+        "actionSequence": 4
+      }
+    },
+    {
+      "name": "duplicate transaction and presentation planner consume no RNG or state changes",
+      "ok": true,
+      "evidence": {
+        "events": 3,
+        "rngCalls": 26
+      }
+    },
+    {
+      "name": "recursive swirl reactions retain actual duplicate target IDs",
+      "ok": true,
+      "evidence": {
+        "ids": [
+          "MON_HILI_FIGHTER#1",
+          "MON_HILI_FIGHTER#2",
+          "MON_HILI_FIGHTER#3"
+        ],
+        "reactions": [
+          {
+            "actor": "메타데이터 검증",
+            "target": "츄츄족 전사",
+            "reaction": "RX_SWIRL",
+            "reactionName": "확산",
+            "text": "확산 반응",
+            "targetId": "MON_HILI_FIGHTER#1",
+            "actorId": "PLAYER_CUSTOM",
+            "round": 1,
+            "actionSequence": 4
+          },
+          {
+            "actor": "메타데이터 검증",
+            "target": "츄츄족 전사",
+            "reaction": "RX_OVERLOADED",
+            "reactionName": "과부하",
+            "text": "과부하 반응",
+            "targetId": "MON_HILI_FIGHTER#2",
+            "actorId": "PLAYER_CUSTOM",
+            "round": 1,
+            "actionSequence": 4
+          }
+        ]
+      }
+    },
+    {
+      "name": "nested bubble damage card name describes its own card",
+      "ok": true,
+      "evidence": {
+        "actor": "모나",
+        "target": "츄츄족 전사",
+        "damage": 56,
+        "absorbed": 0,
+        "element": "물",
+        "critical": false,
+        "reaction": null,
+        "card": "MOND_MONA_Q",
+        "sourceKind": "BUBBLE",
+        "targetId": "MON_HILI_FIGHTER#2",
+        "actorId": "MOND_MONA",
+        "round": 1,
+        "actionSequence": 4,
+        "hpBefore": 9947,
+        "hpAfter": 9891,
+        "maxHp": 10000,
+        "cardName": "별의 운명"
+      }
+    }
+  ]
+}

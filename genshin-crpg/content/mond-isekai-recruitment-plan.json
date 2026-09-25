@@ -1,0 +1,938 @@
+{
+  "schema": 1,
+  "created_utc": "2026-09-24T20:53:45.503516+00:00",
+  "source": "/workspace/scratch/adc1ed75baeb/game/content/db.json",
+  "source_mode": "read-only checkout audit; this file contains implementation proposals, not registered content",
+  "route": "ROUTE_ISEKAI",
+  "count": 15,
+  "scope_exclusions": {
+    "MOND_VENTI": "existing oculi acquisition",
+    "MOND_AMBER": "existing tutorial and personal legend",
+    "MOND_DILUC": "existing AB story recruit/personal legend",
+    "MOND_JEAN": "existing K story recruit + personal no-card legend; alternate route join needed separately",
+    "MOND_EULA": "existing personal no-card legend; join needed separately"
+  },
+  "entries": [
+    {
+      "char_id": "MOND_ALBEDO",
+      "profile_id": "PROFILE_MOND_ALBEDO",
+      "display_name": "알베도",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 2,
+        "legend_id": "LEG_MOND_ALBEDO",
+        "quest_id": "Q_LEG_MOND_ALBEDO",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_ALBEDO_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_ALBEDO",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "몬드성 메인 화면 개방 후 연금술 공방의 별도 의뢰. 연구 자료와 귀환 경로가 확보되어야 출발 가능. 재료는 실험에서 소모되고 인물 구매 대금이 아니다. 임무 말미 본인이 현장 동행에 동의할 때 한 번만 카드 해금. 원작의 설산 중대사를 선행 스포일러로 확정하지 않는 CRPG 신규 이야기. 전설 완료 시 카드 1회 지급. 관계 장면은 친밀감이지 성인 이벤트 자동 해금이 아님. 본편 초반에 연구실 원격 동행을 허용하되 아이 클레 관련 위험 실험 없음. 공통 HEART: 전설 완료 +1→HEART1, HEART1 장면 완료 +1→HEART2, 하루에 한 번 성공적인 일반 교류 +1→HEART3, HEART3 완료 +1→HEART4, 다음 날 성공적인 일반 교류 +1→HEART5. 선택지는 반응만 바꾸고 획득 비용·호감 보상·다음 장면은 동일; 거절/보류는 자원 소비 없이 재시도 가능."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_ALBEDO",
+        "quest_id": "Q_LEG_ISK_MOND_ALBEDO",
+        "entry_node": "LEG_ISK_MOND_ALBEDO_START",
+        "cost_node": "LEG_ISK_MOND_ALBEDO_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_ALBEDO_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_ALBEDO",
+        "join_accept_node": "LEG_ISK_MOND_ALBEDO_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_ALBEDO_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 0,
+        "items": {
+          "ORE_CRYSTAL": 1,
+          "MAT_SLIME_CONDENSATE": 2
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "표본 기록 정리",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party."
+      ]
+    },
+    {
+      "char_id": "MOND_BARBARA",
+      "profile_id": "PROFILE_MOND_BARBARA",
+      "display_name": "바바라",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 3,
+        "legend_id": "LEG_MOND_BARBARA",
+        "quest_id": "Q_LEG_MOND_BARBARA",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_BARBARA_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_BARBARA",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "몬드성 메인 화면과 성당 진료 봉사 개방. 치료 봉사용 실비와 붕대를 현장 공동 준비 물자로 한 번 소비. 본인의 예배·진료 일정이 조정된 뒤 동행 승낙 시 카드 지급. 04_CHAR_DB의 바바라 ADULT_CONTENT_ELIGIBLE 현재 FALSE이므로 이 호감도 장면은 일상·신뢰로만 작성; 별도 성인 상태를 바꾸거나 자동 성인 루트 생성 금지. 본편 공개 환자 개인정보 누설 금지. 공통 HEART: 전설 완료 +1→HEART1, HEART1 장면 완료 +1→HEART2, 하루에 한 번 성공적인 일반 교류 +1→HEART3, HEART3 완료 +1→HEART4, 다음 날 성공적인 일반 교류 +1→HEART5. 선택지는 반응만 바꾸고 획득 비용·호감 보상·다음 장면은 동일; 거절/보류는 자원 소비 없이 재시도 가능."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_BARBARA",
+        "quest_id": "Q_LEG_ISK_MOND_BARBARA",
+        "entry_node": "LEG_ISK_MOND_BARBARA_START",
+        "cost_node": "LEG_ISK_MOND_BARBARA_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_BARBARA_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_BARBARA",
+        "join_accept_node": "LEG_ISK_MOND_BARBARA_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_BARBARA_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 120,
+        "items": {
+          "TRPG_BANDAGE": 1
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "성당 물품 분류",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party."
+      ]
+    },
+    {
+      "char_id": "MOND_BENNETT",
+      "profile_id": "PROFILE_MOND_BENNETT",
+      "display_name": "베넷",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 4,
+        "legend_id": "LEG_MOND_BENNETT",
+        "quest_id": "Q_LEG_MOND_BENNETT",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_BENNETT_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_BENNETT",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "몬드성 메뉴와 모험가 길드 의뢰 개방 후. 철광과 식량을 수색 장비·비상식으로 소모; 선납은 준비이지 영입비가 아니다. 임무 완료 후 베넷이 베니 모험단 공동 탐험을 제안하면 카드 1회 지급. 원작 베넷의 베니 모험단과 복수의 길드 아버지 설정만 참고한 신규 사건. 사고 원인을 초자연적 불운으로 확정하거나 어린 외형 관련 묘사 추가 금지. 공통 HEART: 전설 완료 +1→HEART1, HEART1 장면 완료 +1→HEART2, 하루에 한 번 성공적인 일반 교류 +1→HEART3, HEART3 완료 +1→HEART4, 다음 날 성공적인 일반 교류 +1→HEART5. 선택지는 반응만 바꾸고 획득 비용·호감 보상·다음 장면은 동일; 거절/보류는 자원 소비 없이 재시도 가능."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_BENNETT",
+        "quest_id": "Q_LEG_ISK_MOND_BENNETT",
+        "entry_node": "LEG_ISK_MOND_BENNETT_START",
+        "cost_node": "LEG_ISK_MOND_BENNETT_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_BENNETT_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_BENNETT",
+        "join_accept_node": "LEG_ISK_MOND_BENNETT_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_BENNETT_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 90,
+        "items": {
+          "ING_RAW_MEAT": 1
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "안전 표식 점검",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party."
+      ]
+    },
+    {
+      "char_id": "MOND_DIONA",
+      "profile_id": "PROFILE_MOND_DIONA",
+      "display_name": "디오나",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 6,
+        "legend_id": "LEG_MOND_DIONA",
+        "quest_id": "Q_LEG_MOND_DIONA",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_DIONA_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_DIONA",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "CHILD",
+        "affection_kind": "FRIENDSHIP_CHILD_SAFE",
+        "profile_age_class": "CHILD",
+        "note": "몬드성 메뉴와 캣테일 주점 공개 영업 시간 개방. 성인 관리자가 동의한 낮 시간의 고양이 돌봄 의뢰. 아이템은 길고양이 먹이로 소모; 안전한 조사와 보호자 동의 뒤 카드 1회 지급. 카드 개방은 시스템 동행 권한이며 아동과의 연애·성인 경로는 영구 금지. CHILD, ADULT_CONTENT_ELIGIBLE=FALSE, ADULT_ROUTE_ENABLED=FALSE 고정. 호감도는 안전·우정·돌봄만 뜻한다. 성적·로맨틱 문구, 성인 루트, 음주 강요 전면 금지. 04의 외형 분류 우선. 공통 HEART: 전설 완료 +1→HEART1, HEART1 장면 완료 +1→HEART2, 하루에 한 번 성공적인 일반 교류 +1→HEART3, HEART3 완료 +1→HEART4, 다음 날 성공적인 일반 교류 +1→HEART5. 선택지는 반응만 바꾸고 획득 비용·호감 보상·다음 장면은 동일; 거절/보류는 자원 소비 없이 재시도 가능."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_DIONA",
+        "quest_id": "Q_LEG_ISK_MOND_DIONA",
+        "entry_node": "LEG_ISK_MOND_DIONA_START",
+        "cost_node": "LEG_ISK_MOND_DIONA_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_DIONA_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_DIONA",
+        "join_accept_node": "LEG_ISK_MOND_DIONA_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_DIONA_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 0,
+        "items": {
+          "ING_RAW_MEAT": 1,
+          "ING_MILK": 1
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "무알코올 음료 재료 고르기",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party.",
+        "Adult supervisor approval for daytime safe request is required by existing NOTE. Keep child friendship scope."
+      ]
+    },
+    {
+      "char_id": "MOND_DAHLIA",
+      "profile_id": "PROFILE_MOND_DAHLIA",
+      "display_name": "달리아",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 7,
+        "legend_id": "LEG_MOND_DAHLIA",
+        "quest_id": "Q_LEG_MOND_DAHLIA",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_DAHLIA_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_DAHLIA",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "몬드성 메뉴와 성당 봉사 임무 개방. 모라는 자재 상인에게 장부상 지급하고 버섯은 성당 봉사자 식탁에 소모된다. 개인에게 카드 대금을 지불하는 구조가 아니다. 임무 완료와 성당의 외부 지원 승인 뒤 카드 해금. 달리아 공식 자기소개는 성당 부제·바르바토스 전도자. 이 장부 사건은 신규 CRPG 창작이며 교리·성격을 게임 공식 장면으로 주장하지 않음. 공통 HEART: 전설 완료 +1→HEART1, HEART1 장면 완료 +1→HEART2, 하루에 한 번 성공적인 일반 교류 +1→HEART3, HEART3 완료 +1→HEART4, 다음 날 성공적인 일반 교류 +1→HEART5. 선택지는 반응만 바꾸고 획득 비용·호감 보상·다음 장면은 동일; 거절/보류는 자원 소비 없이 재시도 가능."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_DAHLIA",
+        "quest_id": "Q_LEG_ISK_MOND_DAHLIA",
+        "entry_node": "LEG_ISK_MOND_DAHLIA_START",
+        "cost_node": "LEG_ISK_MOND_DAHLIA_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_DAHLIA_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_DAHLIA",
+        "join_accept_node": "LEG_ISK_MOND_DAHLIA_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_DAHLIA_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 240,
+        "items": {
+          "ING_MUSHROOM": 2
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "성당 안내문 정리",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party."
+      ]
+    },
+    {
+      "char_id": "MOND_KAEYA",
+      "profile_id": "PROFILE_MOND_KAEYA",
+      "display_name": "케이아",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 11,
+        "legend_id": "LEG_MOND_KAEYA",
+        "quest_id": "Q_LEG_MOND_KAEYA",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_KAEYA_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_KAEYA",
+        "recruit_mode": "STORY_OR_LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "ROUTE_TRAVELER의 북풍 늑대의 사당 CARD_JOIN 및 FLAG_TRV_CARD_KAEYA=TRUE는 무료 선지급으로 보존. 기타 루트는 기사단 허가·조사 참여 제안 수락 후 카드 지급 가능. 전설임무는 몬드성의 기사단 업무 공개 시점부터 수락하되, 다른 경로 주인공에게 여행자와의 사당 기억을 주입하지 않는다. CRPG 창작. MAT_DAMAGED_MASK는 14에 실제 존재. 기존 여행자 카드에 비용 소급 적용 금지. 케이아/다이루크는 절연이나 즉각 화해로 확정하지 않고 복합 관계 보존. 켄리아 출신 비밀·안대 사연은 여기서 공개하지 않음."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_KAEYA",
+        "quest_id": "Q_LEG_ISK_MOND_KAEYA",
+        "entry_node": "LEG_ISK_MOND_KAEYA_START",
+        "cost_node": "LEG_ISK_MOND_KAEYA_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_KAEYA_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_KAEYA",
+        "join_accept_node": "LEG_ISK_MOND_KAEYA_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_KAEYA_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 0,
+        "items": {
+          "MAT_DAMAGED_MASK": 2
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "경비 흔적 대조",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party.",
+        "Traveler source has STORY_OR_LEGEND_OPT_IN due traveler main-story card; isekai common quest must not assume prior ownership."
+      ]
+    },
+    {
+      "char_id": "MOND_KLEE",
+      "profile_id": "PROFILE_MOND_KLEE",
+      "display_name": "클레",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 12,
+        "legend_id": "LEG_MOND_KLEE",
+        "quest_id": "Q_LEG_MOND_KLEE",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_KLEE_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_KLEE",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "CHILD",
+        "affection_kind": "FRIENDSHIP_CHILD_SAFE",
+        "profile_age_class": "CHILD",
+        "note": "몬드성·기사단 본부의 보호자 진과 알베도가 실제로 등장 가능한 시점이어야 하며, 반드시 보호자 승인을 받는다. ROUTE_TRAVELER와 ROUTE_ISEKAI 모두 본편에서 클레 카드 자동 지급 없음. 카드 보상은 감독 아래 안전한 짧은 탐험을 마친 뒤 클레가 먼저 함께하고 싶다고 제안하고 보호자가 허가했을 때만 제공된다. CHILD이므로 모든 호감도 이벤트는 우정·안전·놀이로 한정한다. CHILD 강제 차단: 04의 PROJECT_AGE_CLASS=CHILD, ADULT_CONTENT_ELIGIBLE=FALSE, ADULT_ROUTE_ENABLED=FALSE와 호환. 모든 에피소드는 비연애 우정이며 성인 장면·복장·이미지·동의 관련 키 미생성. TRPG_STURDY_CLOTH 2개는 14 실제 아이템, 19 STK_MOND_MAT_002에서 각 75모라로 구매 가능. 비용은 안전 표식에 소비; 카드 구매가 아님."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_KLEE",
+        "quest_id": "Q_LEG_ISK_MOND_KLEE",
+        "entry_node": "LEG_ISK_MOND_KLEE_START",
+        "cost_node": "LEG_ISK_MOND_KLEE_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_KLEE_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_KLEE",
+        "join_accept_node": "LEG_ISK_MOND_KLEE_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_KLEE_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 0,
+        "items": {
+          "TRPG_STURDY_CLOTH": 2
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "보호자 동행 안전 훈련",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party.",
+        "Guardian Jean/Albedo approval and child assent are required by existing NOTE. Keep FRIENDSHIP_CHILD_SAFE and no romantic branch."
+      ]
+    },
+    {
+      "char_id": "MOND_MIKA",
+      "profile_id": "PROFILE_MOND_MIKA",
+      "display_name": "미카",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 13,
+        "legend_id": "LEG_MOND_MIKA",
+        "quest_id": "Q_LEG_MOND_MIKA",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_MIKA_CLEAR=FALSE && FLAG_MOND_MIKA_RETURNED=TRUE",
+        "recruit_flag": "FLAG_TRV_CARD_MIKA",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "ROUTE_TRAVELER 및 FLAG_TRV_MON_CH2_CLEAR=TRUE 후 몬드성 기사단 지도 게시판에서 별도 CRPG 창작 미카 귀환 첫 조우 EVT_MOND_MIKA_RETURN을 실제 실행하여 FLAG_MOND_MIKA_RETURNED=TRUE로 연다. 본편 기사단 첫 만남에는 미카 출연 없음. 이후 지도 의뢰·현장 완료·명시적 제안 수락 후 카드 지급. 다른 루트는 여행자 플래그가 적용되지 않으므로 해당 루트의 독립 귀환 사건이 작성되기 전 자동 출연 금지. CRPG 창작. 미카의 귀환은 메인 완료 후 별도 첫 조우로 명시; 원작 마신 임무의 해당 시점에 이미 돌아왔다고 소급하지 않음. TRPG_BANDAGE는 14 아이템이며 19 STK_ALCH_MED_002에서 45모라에 판매, 17 REC_MEDICAL_BANDAGE로 제작 가능; 없으면 조건 미충족 보류. 미카는 친밀해도 존댓말 유지."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_MIKA",
+        "quest_id": "Q_LEG_ISK_MOND_MIKA",
+        "entry_node": "LEG_ISK_MOND_MIKA_START",
+        "cost_node": "LEG_ISK_MOND_MIKA_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_MIKA_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_MIKA",
+        "join_accept_node": "LEG_ISK_MOND_MIKA_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_MIKA_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [
+          "FLAG_MOND_MIKA_RETURNED"
+        ],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 0,
+        "items": {
+          "TRPG_BANDAGE": 1
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "지도 표식 정리",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party.",
+        "Source first-contact event contains Paimon/traveler dialogue; create isekai-specific first-contact equivalent before setting special gate."
+      ]
+    },
+    {
+      "char_id": "MOND_MONA",
+      "profile_id": "PROFILE_MOND_MONA",
+      "display_name": "모나",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 14,
+        "legend_id": "LEG_MOND_MONA",
+        "quest_id": "Q_LEG_MOND_MONA",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_MONA_CLEAR=FALSE && FLAG_MOND_MONA_PRESENT=TRUE",
+        "recruit_flag": "FLAG_TRV_CARD_MONA",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "ROUTE_TRAVELER 및 FLAG_TRV_MON_CH2_CLEAR=TRUE 후 몬드성 관측 게시판에서 CRPG 창작 첫 조우 EVT_MOND_MONA_INTRO를 실제 실행해 FLAG_MOND_MONA_PRESENT=TRUE로 연다. 모나가 그 이전 기사단 초면에 있었다고 소급하지 않는다. 공용 관측 의뢰·본 임무 완료 후 협력 제안을 실제 수락해야 카드 획득. 다른 루트는 여행자 고유 점술/운명 언급 및 페이몬 존재를 전이하지 않고 독립 첫 조우 전 자동 출연 금지. CRPG 창작. CUR_MORA 300은 잘못된 산길 안내문 재인쇄 비용으로 작업 단계에서 1회 소비; 모나는 수점술을 판매하지 않으며 카드 구매로 연결하지 않음. 04/45의 과장·빈곤 밈 금지 준수. 모나의 원작 여행자와의 만남·운명 지식은 다른 주인공에게 자동 전이하지 않는다."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_MONA",
+        "quest_id": "Q_LEG_ISK_MOND_MONA",
+        "entry_node": "LEG_ISK_MOND_MONA_START",
+        "cost_node": "LEG_ISK_MOND_MONA_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_MONA_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_MONA",
+        "join_accept_node": "LEG_ISK_MOND_MONA_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_MONA_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [
+          "FLAG_MOND_MONA_PRESENT"
+        ],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 300,
+        "items": {},
+        "source": "CUR_MORA or NONE"
+      },
+      "daily_activity": "관측표 대조",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party.",
+        "Source first-contact event contains Paimon/traveler dialogue; create isekai-specific first-contact equivalent before setting special gate."
+      ]
+    },
+    {
+      "char_id": "MOND_NOELLE",
+      "profile_id": "PROFILE_MOND_NOELLE",
+      "display_name": "노엘",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 15,
+        "legend_id": "LEG_MOND_NOELLE",
+        "quest_id": "Q_LEG_MOND_NOELLE",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_NOELLE_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_NOELLE",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "몬드성 자유행동 해금 후 기사단 보급소의 정리 의뢰. 여행자 루트에서는 풍마룡 사건 정리 뒤, 이세계인 루트에서는 별도의 성내 출입 허가 뒤에 발생. 기사단 정식 임명은 보상으로 처리하지 않는다. 가격은 수정덩이 2개를 수리 현장에 쓰는 재료 제출이다. 존댓말과 기사 지망 유지. 정식 기사로 승격시키지 않고, 선행의 대가로 연애/복종을 요구하지 않는다."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_NOELLE",
+        "quest_id": "Q_LEG_ISK_MOND_NOELLE",
+        "entry_node": "LEG_ISK_MOND_NOELLE_START",
+        "cost_node": "LEG_ISK_MOND_NOELLE_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_NOELLE_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_NOELLE",
+        "join_accept_node": "LEG_ISK_MOND_NOELLE_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_NOELLE_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 0,
+        "items": {
+          "ORE_CRYSTAL": 2
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "보급 역할 나누기",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party."
+      ]
+    },
+    {
+      "char_id": "MOND_FISCHL",
+      "profile_id": "PROFILE_MOND_FISCHL",
+      "display_name": "피슬",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 16,
+        "legend_id": "LEG_MOND_FISCHL",
+        "quest_id": "Q_LEG_MOND_FISCHL",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_FISCHL_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_FISCHL",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "몬드성 자유행동 + 모험가 길드 게시판 개방 + 피슬 카드 미보유. 오즈와 처음 보는 주인공 사이에 특별한 이세계인 유대는 없다. 250모라는 길드 예치/조사 비용. 오즈의 판단을 실제 단서에 활용하고, 본명과 내면 상처는 H5에서 본인 의사로만 공개한다. 피슬의 젊은 외형/나이 불확정에 따른 성인 관계 자동 연결 금지."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_FISCHL",
+        "quest_id": "Q_LEG_ISK_MOND_FISCHL",
+        "entry_node": "LEG_ISK_MOND_FISCHL_START",
+        "cost_node": "LEG_ISK_MOND_FISCHL_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_FISCHL_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_FISCHL",
+        "join_accept_node": "LEG_ISK_MOND_FISCHL_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_FISCHL_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 250,
+        "items": {},
+        "source": "CUR_MORA or NONE"
+      },
+      "daily_activity": "길드 정보 분류",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party."
+      ]
+    },
+    {
+      "char_id": "MOND_LISA",
+      "profile_id": "PROFILE_MOND_LISA",
+      "display_name": "리사",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 17,
+        "legend_id": "LEG_MOND_LISA",
+        "quest_id": "Q_LEG_MOND_LISA",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_LISA_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_LISA",
+        "recruit_mode": "STORY_OR_LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "기사단 도서관 출입 후 개방. 여행자 본편에서 리사 카드가 이미 합류했으면 카드 보상 및 모집 재화 제출을 생략하고 전설 임무를 진행한다. 이세계인 루트의 기존 소유 여부는 별도 검사. 기존 본편 카드 선지급 여부를 먼저 검사. 재료는 기록 복원 소모재. 리사는 '귀염둥이'를 자연스레 쓸 수 있지만 싫다고 하면 중단. 미확정 수명 저주·마녀회 소속 창작 금지."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_LISA",
+        "quest_id": "Q_LEG_ISK_MOND_LISA",
+        "entry_node": "LEG_ISK_MOND_LISA_START",
+        "cost_node": "LEG_ISK_MOND_LISA_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_LISA_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_LISA",
+        "join_accept_node": "LEG_ISK_MOND_LISA_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_LISA_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 0,
+        "items": {
+          "MAT_SLIME_CONDENSATE": 2
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "도서관 반납 표 확인",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party.",
+        "Traveler source has STORY_OR_LEGEND_OPT_IN due traveler main-story card; isekai common quest must not assume prior ownership."
+      ]
+    },
+    {
+      "char_id": "MOND_RAZOR",
+      "profile_id": "PROFILE_MOND_RAZOR",
+      "display_name": "레이저",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 18,
+        "legend_id": "LEG_MOND_RAZOR",
+        "quest_id": "Q_LEG_MOND_RAZOR",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_RAZOR_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_RAZOR",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "울프 영지 접근 + 몬드 자유행동. 늑대와 사람 사이 충돌 조사를 위해 진입한다. 붕대는 실종/부상 인간에 쓰는 응급 소모품. 레이저를 지능 낮거나 아기처럼 만들지 말고, 리사와의 사제 관계는 필요할 때만 연결한다."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_RAZOR",
+        "quest_id": "Q_LEG_ISK_MOND_RAZOR",
+        "entry_node": "LEG_ISK_MOND_RAZOR_START",
+        "cost_node": "LEG_ISK_MOND_RAZOR_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_RAZOR_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_RAZOR",
+        "join_accept_node": "LEG_ISK_MOND_RAZOR_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_RAZOR_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_WOLVENDOM",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 0,
+        "items": {
+          "TRPG_BANDAGE": 1
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "숲의 발자국 확인",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party."
+      ]
+    },
+    {
+      "char_id": "MOND_ROSARIA",
+      "profile_id": "PROFILE_MOND_ROSARIA",
+      "display_name": "로자리아",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 19,
+        "legend_id": "LEG_MOND_ROSARIA",
+        "quest_id": "Q_LEG_MOND_ROSARIA",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_ROSARIA_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_ROSARIA",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "몬드 자유행동 + 성당 야간 의뢰 공고. 풍마룡 사건 공적 후속과 분리된 CRPG 고유 일화. 400모라는 인부·등유 조달 비용. 로자리아의 신앙 회의는 성당 구성원 적대가 아니다. 그녀의 과거는 H5에서도 구체 범죄 피해 전부를 자동 고백하지 않는다."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_ROSARIA",
+        "quest_id": "Q_LEG_ISK_MOND_ROSARIA",
+        "entry_node": "LEG_ISK_MOND_ROSARIA_START",
+        "cost_node": "LEG_ISK_MOND_ROSARIA_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_ROSARIA_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_ROSARIA",
+        "join_accept_node": "LEG_ISK_MOND_ROSARIA_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_ROSARIA_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 400,
+        "items": {},
+        "source": "CUR_MORA or NONE"
+      },
+      "daily_activity": "야간 등불 점검",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party."
+      ]
+    },
+    {
+      "char_id": "MOND_SUCROSE",
+      "profile_id": "PROFILE_MOND_SUCROSE",
+      "display_name": "설탕",
+      "source": {
+        "table": "56_MOND_LEGEND_DB",
+        "row": 20,
+        "legend_id": "LEG_MOND_SUCROSE",
+        "quest_id": "Q_LEG_MOND_SUCROSE",
+        "start_condition": "ROUTE_ID=ROUTE_TRAVELER && FLAG_TRV_MON_CH2_CLEAR=TRUE && FLAG_LEG_MOND_SUCROSE_CLEAR=FALSE",
+        "recruit_flag": "FLAG_TRV_CARD_SUCROSE",
+        "recruit_mode": "LEGEND_OPT_IN",
+        "age_class": "ADULT_18_PLUS",
+        "affection_kind": "PERSONAL_BOND",
+        "profile_age_class": "ADULT_18_PLUS",
+        "note": "몬드 합성대 접근 + 야외 실험 허가. 알베도의 조수이지만 이 임무의 가설·판정 주체는 설탕이다. 기존 재료 ID를 사용하며 H5의 선경 공개는 임무 완료와 신뢰 조건 이후만. 소심함이 실험 안전 능력을 지우지 않도록 한다."
+      },
+      "proposed_ids": {
+        "legend_id": "LEG_ISK_MOND_SUCROSE",
+        "quest_id": "Q_LEG_ISK_MOND_SUCROSE",
+        "entry_node": "LEG_ISK_MOND_SUCROSE_START",
+        "cost_node": "LEG_ISK_MOND_SUCROSE_PREP_ACCEPT",
+        "complete_flag": "FLAG_LEG_ISK_MOND_SUCROSE_CLEAR",
+        "recruit_flag": "FLAG_ISK_RECRUIT_SUCROSE",
+        "join_accept_node": "LEG_ISK_MOND_SUCROSE_JOIN_ACCEPT",
+        "rejoin_entry_node": "LEG_ISK_MOND_SUCROSE_REJOIN_START"
+      },
+      "registration_required": {
+        "legend": true,
+        "quest": true,
+        "complete_flag": true,
+        "recruit_flag": true
+      },
+      "start_requirements": {
+        "route": "ROUTE_ISEKAI",
+        "main_quest": "Q_ISK_MOND_03",
+        "quest_must_be_actually_complete": true,
+        "flags_true": [
+          "FLAG_ISK_M05_CLEAR"
+        ],
+        "map_id": "MAP_MOND_CITY",
+        "must_be_free_play": true,
+        "require_explicit_introduction": true,
+        "special_source_flags": [],
+        "min_bond": null,
+        "min_level": null
+      },
+      "cost": {
+        "mora": 0,
+        "items": {
+          "MAT_SLIME_CONDENSATE": 2
+        },
+        "source": "14_ITEM_DB/19_SHOP_STOCK_DB/20_LOOT_TABLE/21_LIFE_ACTION_DB"
+      },
+      "daily_activity": "표본 변화 기록",
+      "notes": [
+        "Source traveler story/flags/memories must not be executed as isekai. Keep per-save route scope.",
+        "Costs are one-time quest preparations, not character purchase.",
+        "Complete quest and award existing runtime bond once; join only after explicit choice; free rejoin without repeating cost/reward; no auto-party."
+      ]
+    }
+  ]
+}

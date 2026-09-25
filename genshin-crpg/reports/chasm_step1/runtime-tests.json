@@ -1,0 +1,230 @@
+{
+  "version": "0.13.18",
+  "scope": "gameplay priority 1 only",
+  "fixture": "actual full runtime stack; synthetic starting states, not balance or full game playthroughs",
+  "checks": [
+    {
+      "name": "baseline reproduces UNSUPPORTED_ENEMY: EG_CHASM_HUSK",
+      "passed": true
+    },
+    {
+      "name": "baseline reproduces UNSUPPORTED_ENEMY: EG_CHASM_SERPENT",
+      "passed": true
+    },
+    {
+      "name": "four exact source scripts supported; READY/script/owner/target/trigger drift rejected",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_HUSK ROUTE_ISEKAI 1 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_HUSK ROUTE_ISEKAI 2 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_HUSK ROUTE_ISEKAI 3 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_HUSK ROUTE_ISEKAI 4 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_HUSK ROUTE_TRAVELER 1 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_HUSK ROUTE_TRAVELER 2 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_HUSK ROUTE_TRAVELER 3 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_HUSK ROUTE_TRAVELER 4 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_SERPENT ROUTE_ISEKAI 1 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_SERPENT ROUTE_ISEKAI 2 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_SERPENT ROUTE_ISEKAI 3 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_SERPENT ROUTE_ISEKAI 4 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_SERPENT ROUTE_TRAVELER 1 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_SERPENT ROUTE_TRAVELER 2 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_SERPENT ROUTE_TRAVELER 3 members",
+      "passed": true
+    },
+    {
+      "name": "start + save/reload EG_CHASM_SERPENT ROUTE_TRAVELER 4 members",
+      "passed": true
+    },
+    {
+      "name": "authored minimum level preserved and low-level actors have a working fallback",
+      "passed": true
+    },
+    {
+      "name": "banner affects own side including caster, max3, +10%, not player party",
+      "passed": true
+    },
+    {
+      "name": "banner requires two living unbuffed friendly actors; repeat denied without mutations",
+      "passed": true
+    },
+    {
+      "name": "banner refreshes same named buff instead of stacking; expires on normal round schedule",
+      "passed": true
+    },
+    {
+      "name": "volley damages at most2 and uses resist-based 1-round slow after landed hits",
+      "passed": true
+    },
+    {
+      "name": "volley unavailable with one target or during cooldown, freeze; no invalid cast spending",
+      "passed": true
+    },
+    {
+      "name": "volley misses do not apply slow; successful damage can still fail resistance roll",
+      "passed": true
+    },
+    {
+      "name": "combo 0.48 twice; delay only when both hits land; existing larger penalty retained",
+      "passed": true
+    },
+    {
+      "name": "combo stops on lethal first hit; never hits or retargets a corpse",
+      "passed": true
+    },
+    {
+      "name": "breaker only has shielded legal targets; invalid target gives no cooldown or damage",
+      "passed": true
+    },
+    {
+      "name": "breaker +50% only to shields; surviving shield does not grant ATK buff",
+      "passed": true
+    },
+    {
+      "name": "breaker break grants exactly one2R +10% and uses normal HP spillover",
+      "passed": true
+    },
+    {
+      "name": "shield multiplier composes with element weakness, never leaks into normal packets",
+      "passed": true
+    },
+    {
+      "name": "breaker miss and other attacks breaking a shield never grant its buff",
+      "passed": true
+    },
+    {
+      "name": "knight AI picks a shielded enemy even when an unshielded enemy has less HP",
+      "passed": true
+    },
+    {
+      "name": "archer AI prioritizes high-speed targets; banner AI never strengthens the player",
+      "passed": true
+    },
+    {
+      "name": "read-only enemy intel labels, availability, cooldown and buff values preserve state/RNG",
+      "passed": true
+    },
+    {
+      "name": "save midfight and advance identical commands/PRNG: EG_CHASM_HUSK",
+      "passed": true
+    },
+    {
+      "name": "save midfight and advance identical commands/PRNG: EG_CHASM_SERPENT",
+      "passed": true
+    },
+    {
+      "name": "saved buff/penalty/cooldown restored; damaged version/ATK modifiers rejected",
+      "passed": true
+    },
+    {
+      "name": "unchanged-region regression: identical start/actions/save EG_MOND_LOCAL_MOND_PLAINS_1",
+      "passed": true
+    },
+    {
+      "name": "unchanged-region regression: identical start/actions/save EG_TREASURE_PATROL",
+      "passed": true
+    },
+    {
+      "name": "unchanged-region regression: identical start/actions/save EG_LIYUE_RUIN",
+      "passed": true
+    },
+    {
+      "name": "real action loop completes, settles once, clears transient effects: EG_CHASM_HUSK",
+      "passed": true
+    },
+    {
+      "name": "real action loop completes, settles once, clears transient effects: EG_CHASM_SERPENT",
+      "passed": true
+    },
+    {
+      "name": "defeat also exits safely and records no victory",
+      "passed": true
+    }
+  ],
+  "traces": [
+    {
+      "group": "EG_CHASM_HUSK",
+      "manualActions": 8,
+      "result": "VICTORY",
+      "rounds": 8,
+      "skills": [
+        "MOND_AMBER_Q",
+        "ECARD_HUSK_BOW_VOLLEY",
+        "MOND_BARBARA_Q",
+        "MOND_NOELLE_Q",
+        "PLAYER_BASIC_ATTACK",
+        "ECARD_HUSK_STANDARD_BANNER",
+        "MOND_AMBER_E",
+        "ENEMY_BASIC",
+        "MOND_BARBARA_E",
+        "MOND_NOELLE_E",
+        "ECARD_HUSK_STANDARD_STRIKE"
+      ]
+    },
+    {
+      "group": "EG_CHASM_SERPENT",
+      "manualActions": 8,
+      "result": "VICTORY",
+      "rounds": 8,
+      "skills": [
+        "MOND_AMBER_Q",
+        "ECARD_HUSK_BOW_VOLLEY",
+        "ECARD_BLACK_SWORD_COMBO",
+        "MOND_BARBARA_Q",
+        "MOND_NOELLE_Q",
+        "PLAYER_BASIC_ATTACK",
+        "ECARD_HUSK_BOW_SHOT",
+        "MOND_AMBER_E",
+        "ENEMY_BASIC",
+        "MOND_BARBARA_E",
+        "MOND_NOELLE_E",
+        "ECARD_BLACK_SWORD_BREAKER"
+      ]
+    }
+  ],
+  "total": 45,
+  "passed": 45
+}

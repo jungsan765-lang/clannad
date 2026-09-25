@@ -1,0 +1,48 @@
+{
+  "total": 7,
+  "passed": 7,
+  "scope": "full source/index.html world_content + runtime modules, current db.json",
+  "results": [
+    {
+      "name": "personal legend travel life work reloads, completes once, and preserves return context",
+      "ok": true,
+      "job": "life",
+      "legend": "LEG_MOND_AMBER",
+      "phaseAfterResume": "STORY"
+    },
+    {
+      "name": "personal legend travel world work reloads, completes once, and preserves return context",
+      "ok": true,
+      "job": "world",
+      "legend": "LEG_MOND_AMBER",
+      "phaseAfterResume": "STORY"
+    },
+    {
+      "name": "life work still rejects injection into unpaused personal dialogue or locked story",
+      "ok": true,
+      "storyMessage": "진행 중인 생활 작업을 확인할 수 없습니다.",
+      "lockedMessage": "진행 중인 생활 작업을 확인할 수 없습니다."
+    },
+    {
+      "name": "world work still rejects injection into unpaused personal dialogue or locked story",
+      "ok": true,
+      "storyMessage": "진행 중인 작업 기록을 확인해 주세요.",
+      "lockedMessage": "진행 중인 작업 기록을 확인해 주세요."
+    },
+    {
+      "name": "life work injection cannot coexist with pending combat",
+      "ok": true,
+      "message": "진행 중인 생활 작업을 확인할 수 없습니다."
+    },
+    {
+      "name": "world work injection cannot coexist with pending combat",
+      "ok": true,
+      "message": "진행 중인 작업 기록을 확인해 주세요."
+    },
+    {
+      "name": "main-story pause keeps life and world work available, and jobs stay mutually exclusive",
+      "ok": true,
+      "pausedAt": "TRV_M02_N169"
+    }
+  ]
+}

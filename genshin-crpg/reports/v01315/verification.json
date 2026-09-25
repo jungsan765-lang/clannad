@@ -1,0 +1,1101 @@
+{
+  "checks": [
+    {
+      "name": "All 26 IDs and gameplay fields preserved",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "All 39 route pairs, travel times and modes preserved",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "Only coordinate catalog, area UI and stylesheet changed in source",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "Approved terrain image unchanged in source and build",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "All selected pixel coordinates are within the original canvas",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "26 area entries and 78 directed edges installed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "All 26 anchors align at desktop/mobile and 1x/2x/4x",
+      "passed": true,
+      "evidence": {
+        "samples": 156,
+        "max_error_css_px": 0.02090406250222579
+      }
+    },
+    {
+      "name": "Map selection and zoom preserve full serialized game state",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "Mobile has no horizontal page overflow",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "Unpictured regions have no invented anchors",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "3 confirmed real MOVE routes keep original travel costs",
+      "passed": true,
+      "evidence": [
+        {
+          "from": "MAP_LIYUE_HARBOR",
+          "to": "MAP_LY_DETAIL_FEIYUN",
+          "before": {
+            "edge": [
+              "EDGE_LY_DETAIL_002_A",
+              "MAP_LIYUE_HARBOR",
+              "MAP_LY_DETAIL_FEIYUN",
+              "WORLD_MOVE",
+              1,
+              5,
+              "",
+              "",
+              "Y",
+              "비운 언덕 · 상업 거리로 이동",
+              "EDGE_LY_DETAIL_002_B",
+              "ACTIVE",
+              "CRPG_LIYUE_DETAIL_V1",
+              "세부 여행 경로. 실제 도로/선박 시간의 환산값이 아님."
+            ],
+            "button": "비운 언덕 · 상업 거리으로 이동 · 5분",
+            "disabled": false
+          },
+          "after": {
+            "map": "MAP_LY_DETAIL_FEIYUN",
+            "cost": 5,
+            "time": "12:05"
+          }
+        },
+        {
+          "from": "MAP_LY_DETAIL_FEIYUN",
+          "to": "MAP_LY_DETAIL_YUJING",
+          "before": {
+            "edge": [
+              "EDGE_LY_DETAIL_003_A",
+              "MAP_LY_DETAIL_FEIYUN",
+              "MAP_LY_DETAIL_YUJING",
+              "WORLD_MOVE",
+              1,
+              5,
+              "",
+              "",
+              "Y",
+              "옥경대 · 전망 구역로 이동",
+              "EDGE_LY_DETAIL_003_B",
+              "ACTIVE",
+              "CRPG_LIYUE_DETAIL_V1",
+              "세부 여행 경로. 실제 도로/선박 시간의 환산값이 아님."
+            ],
+            "button": "옥경대 · 전망 구역으로 이동 · 5분",
+            "disabled": false
+          },
+          "after": {
+            "map": "MAP_LY_DETAIL_YUJING",
+            "cost": 5,
+            "time": "12:05"
+          }
+        },
+        {
+          "from": "MAP_LY_DETAIL_WHARF",
+          "to": "MAP_LY_DETAIL_GUYUN",
+          "before": {
+            "edge": [
+              "EDGE_LY_DETAIL_039_A",
+              "MAP_LY_DETAIL_WHARF",
+              "MAP_LY_DETAIL_GUYUN",
+              "SEA_TRANSIT",
+              1,
+              60,
+              "",
+              "",
+              "Y",
+              "배편 · 고운각 · 서북쪽 섬로 이동",
+              "EDGE_LY_DETAIL_039_B",
+              "ACTIVE",
+              "CRPG_LIYUE_DETAIL_V1",
+              "세부 여행 경로. 실제 도로/선박 시간의 환산값이 아님."
+            ],
+            "button": "고운각 · 서북쪽 섬으로 이동 · 60분",
+            "disabled": false
+          },
+          "after": {
+            "map": "MAP_LY_DETAIL_GUYUN",
+            "cost": 60,
+            "time": "13:00"
+          }
+        }
+      ]
+    },
+    {
+      "name": "No uncaught browser errors",
+      "passed": true,
+      "evidence": []
+    }
+  ],
+  "passed": 12,
+  "total": 12,
+  "errors": [],
+  "pixel_samples": [
+    {
+      "id": "MAP_LY_DETAIL_NORTH_GATE",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.0133919264185639
+    },
+    {
+      "id": "MAP_LY_DETAIL_FEIYUN",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.009723030478100652
+    },
+    {
+      "id": "MAP_LY_DETAIL_YUJING",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.009028487247876856
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHIHU",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.017841791022513865
+    },
+    {
+      "id": "MAP_LY_DETAIL_WHARF",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.007455913464620878
+    },
+    {
+      "id": "MAP_LY_DETAIL_SHIMEN",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.008768796905996067
+    },
+    {
+      "id": "MAP_LY_DETAIL_DIHUA",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.01636138021446649
+    },
+    {
+      "id": "MAP_LY_DETAIL_WANGSHU",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.010333034735596158
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGCE_FIELDS",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.010084745899919971
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUILI",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.011197922924540948
+    },
+    {
+      "id": "MAP_LY_DETAIL_MINGYUN",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.002667028167297637
+    },
+    {
+      "id": "MAP_LY_DETAIL_YAOGUANG",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.004570787348710154
+    },
+    {
+      "id": "MAP_LY_DETAIL_LUHUA",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.005170907019294567
+    },
+    {
+      "id": "MAP_LY_DETAIL_AOCANG",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.013596621835037586
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGYUN",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.014792238908207711
+    },
+    {
+      "id": "MAP_LY_DETAIL_HULAO",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.006683986603557103
+    },
+    {
+      "id": "MAP_LY_DETAIL_HUAGUANG",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.012211961684743521
+    },
+    {
+      "id": "MAP_LY_DETAIL_NANTIANMEN",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.014882573398686528
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANQIU",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.012551926179764007
+    },
+    {
+      "id": "MAP_LY_DETAIL_DUNYU",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.01336447064681563
+    },
+    {
+      "id": "MAP_LY_DETAIL_LINGJU",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.016026415366560767
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGXU",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.014409642170080571
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANHENG",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.004559517007905542
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUYUN",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.011509932997544717
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_GATE",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.01185550224516464
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_RIM",
+      "width": 1440,
+      "zoom": 1,
+      "error_css_px": 0.011188584475844553
+    },
+    {
+      "id": "MAP_LY_DETAIL_NORTH_GATE",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.014494946886088388
+    },
+    {
+      "id": "MAP_LY_DETAIL_FEIYUN",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.012976521811511281
+    },
+    {
+      "id": "MAP_LY_DETAIL_YUJING",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.015098694633454942
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHIHU",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.009470358607290176
+    },
+    {
+      "id": "MAP_LY_DETAIL_WHARF",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.01212730359945162
+    },
+    {
+      "id": "MAP_LY_DETAIL_SHIMEN",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.011145342490876078
+    },
+    {
+      "id": "MAP_LY_DETAIL_DIHUA",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.0056337307338483
+    },
+    {
+      "id": "MAP_LY_DETAIL_WANGSHU",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.016713318204924495
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGCE_FIELDS",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.015422665470375848
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUILI",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.016646077707528222
+    },
+    {
+      "id": "MAP_LY_DETAIL_MINGYUN",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.013512687518421232
+    },
+    {
+      "id": "MAP_LY_DETAIL_YAOGUANG",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.01745287889622519
+    },
+    {
+      "id": "MAP_LY_DETAIL_LUHUA",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.016319829782297762
+    },
+    {
+      "id": "MAP_LY_DETAIL_AOCANG",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.016783629787265105
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGYUN",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.010473162211683283
+    },
+    {
+      "id": "MAP_LY_DETAIL_HULAO",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.01514483363357394
+    },
+    {
+      "id": "MAP_LY_DETAIL_HUAGUANG",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.011466369578204816
+    },
+    {
+      "id": "MAP_LY_DETAIL_NANTIANMEN",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.014822627850768471
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANQIU",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.012290594494448623
+    },
+    {
+      "id": "MAP_LY_DETAIL_DUNYU",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.010876118953478436
+    },
+    {
+      "id": "MAP_LY_DETAIL_LINGJU",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.013896451297106526
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGXU",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.010066154165958175
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANHENG",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.0015905484585597754
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUYUN",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.016470752111941794
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_GATE",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.01322176386592364
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_RIM",
+      "width": 1440,
+      "zoom": 2,
+      "error_css_px": 0.012986487285788564
+    },
+    {
+      "id": "MAP_LY_DETAIL_NORTH_GATE",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.006864577438035203
+    },
+    {
+      "id": "MAP_LY_DETAIL_FEIYUN",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.005608070313947344
+    },
+    {
+      "id": "MAP_LY_DETAIL_YUJING",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.013650442265767226
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHIHU",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.013056799400823558
+    },
+    {
+      "id": "MAP_LY_DETAIL_WHARF",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.007671631307306922
+    },
+    {
+      "id": "MAP_LY_DETAIL_SHIMEN",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.0020735967094417645
+    },
+    {
+      "id": "MAP_LY_DETAIL_DIHUA",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.004251183740080274
+    },
+    {
+      "id": "MAP_LY_DETAIL_WANGSHU",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.016701062048749923
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGCE_FIELDS",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.013307093214701296
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUILI",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.015442362832456608
+    },
+    {
+      "id": "MAP_LY_DETAIL_MINGYUN",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.011213094919786015
+    },
+    {
+      "id": "MAP_LY_DETAIL_YAOGUANG",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.010852290792197229
+    },
+    {
+      "id": "MAP_LY_DETAIL_LUHUA",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.016218476701822245
+    },
+    {
+      "id": "MAP_LY_DETAIL_AOCANG",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.01565079029265743
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGYUN",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.012136009597865292
+    },
+    {
+      "id": "MAP_LY_DETAIL_HULAO",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.010752673264558645
+    },
+    {
+      "id": "MAP_LY_DETAIL_HUAGUANG",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.00336397408870711
+    },
+    {
+      "id": "MAP_LY_DETAIL_NANTIANMEN",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.017638749422538326
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANQIU",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.0057405365828474
+    },
+    {
+      "id": "MAP_LY_DETAIL_DUNYU",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.013182619874783221
+    },
+    {
+      "id": "MAP_LY_DETAIL_LINGJU",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.010588449616494243
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGXU",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.01387371603847994
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANHENG",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.010889924332842813
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUYUN",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.0187415081528226
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_GATE",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.01765965641485713
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_RIM",
+      "width": 1440,
+      "zoom": 4,
+      "error_css_px": 0.015812307243361596
+    },
+    {
+      "id": "MAP_LY_DETAIL_NORTH_GATE",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.0184629131292007
+    },
+    {
+      "id": "MAP_LY_DETAIL_FEIYUN",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.014469504966410597
+    },
+    {
+      "id": "MAP_LY_DETAIL_YUJING",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.015536463378019996
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHIHU",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.017666451982114254
+    },
+    {
+      "id": "MAP_LY_DETAIL_WHARF",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.008677339771412109
+    },
+    {
+      "id": "MAP_LY_DETAIL_SHIMEN",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.005828714391627992
+    },
+    {
+      "id": "MAP_LY_DETAIL_DIHUA",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.018725009956113845
+    },
+    {
+      "id": "MAP_LY_DETAIL_WANGSHU",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.014769491956160697
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGCE_FIELDS",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.007671623077958336
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUILI",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.014520023361005795
+    },
+    {
+      "id": "MAP_LY_DETAIL_MINGYUN",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.011611323070383778
+    },
+    {
+      "id": "MAP_LY_DETAIL_YAOGUANG",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.014164743118540152
+    },
+    {
+      "id": "MAP_LY_DETAIL_LUHUA",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.018645446187115774
+    },
+    {
+      "id": "MAP_LY_DETAIL_AOCANG",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.012430531295472804
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGYUN",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.0120117647378697
+    },
+    {
+      "id": "MAP_LY_DETAIL_HULAO",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.0145395540735663
+    },
+    {
+      "id": "MAP_LY_DETAIL_HUAGUANG",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.0007419260476002886
+    },
+    {
+      "id": "MAP_LY_DETAIL_NANTIANMEN",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.008238307836885984
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANQIU",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.0044422072079952956
+    },
+    {
+      "id": "MAP_LY_DETAIL_DUNYU",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.015535342874204482
+    },
+    {
+      "id": "MAP_LY_DETAIL_LINGJU",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.01342935440615726
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGXU",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.010720855337369266
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANHENG",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.006108475699619803
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUYUN",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.005397427977423167
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_GATE",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.007106277774818264
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_RIM",
+      "width": 390,
+      "zoom": 1,
+      "error_css_px": 0.004261363636359761
+    },
+    {
+      "id": "MAP_LY_DETAIL_NORTH_GATE",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.011704536847800434
+    },
+    {
+      "id": "MAP_LY_DETAIL_FEIYUN",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.015140895928158402
+    },
+    {
+      "id": "MAP_LY_DETAIL_YUJING",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.014927776823515836
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHIHU",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.012217885717293604
+    },
+    {
+      "id": "MAP_LY_DETAIL_WHARF",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.01589668564429629
+    },
+    {
+      "id": "MAP_LY_DETAIL_SHIMEN",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.01412974311535895
+    },
+    {
+      "id": "MAP_LY_DETAIL_DIHUA",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.018471882332037757
+    },
+    {
+      "id": "MAP_LY_DETAIL_WANGSHU",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.004581919878485257
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGCE_FIELDS",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.015633209807468757
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUILI",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.016657543722363916
+    },
+    {
+      "id": "MAP_LY_DETAIL_MINGYUN",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.012739219089103391
+    },
+    {
+      "id": "MAP_LY_DETAIL_YAOGUANG",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.01065635666885161
+    },
+    {
+      "id": "MAP_LY_DETAIL_LUHUA",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.012358003294305447
+    },
+    {
+      "id": "MAP_LY_DETAIL_AOCANG",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.01482365912468273
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGYUN",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.014105055310348705
+    },
+    {
+      "id": "MAP_LY_DETAIL_HULAO",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.006229866718372248
+    },
+    {
+      "id": "MAP_LY_DETAIL_HUAGUANG",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.006383761952944222
+    },
+    {
+      "id": "MAP_LY_DETAIL_NANTIANMEN",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.014207271618816507
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANQIU",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.004611098113133425
+    },
+    {
+      "id": "MAP_LY_DETAIL_DUNYU",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.014680889178312713
+    },
+    {
+      "id": "MAP_LY_DETAIL_LINGJU",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.013004476669578165
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGXU",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.01036269740643933
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANHENG",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.018910333221764525
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUYUN",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.007749893813970512
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_GATE",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.01963610998095023
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_RIM",
+      "width": 390,
+      "zoom": 2,
+      "error_css_px": 0.015562100785581245
+    },
+    {
+      "id": "MAP_LY_DETAIL_NORTH_GATE",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.02024991374588666
+    },
+    {
+      "id": "MAP_LY_DETAIL_FEIYUN",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.015247902504918462
+    },
+    {
+      "id": "MAP_LY_DETAIL_YUJING",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.005838089145796774
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHIHU",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.007543903727982872
+    },
+    {
+      "id": "MAP_LY_DETAIL_WHARF",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.018040353427144648
+    },
+    {
+      "id": "MAP_LY_DETAIL_SHIMEN",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.01650543635463295
+    },
+    {
+      "id": "MAP_LY_DETAIL_DIHUA",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.00885213454435585
+    },
+    {
+      "id": "MAP_LY_DETAIL_WANGSHU",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.013020461961629162
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGCE_FIELDS",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.011632763390415836
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUILI",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.016587764735881725
+    },
+    {
+      "id": "MAP_LY_DETAIL_MINGYUN",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.01817039059770949
+    },
+    {
+      "id": "MAP_LY_DETAIL_YAOGUANG",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.005081523363965962
+    },
+    {
+      "id": "MAP_LY_DETAIL_LUHUA",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.014922612706601984
+    },
+    {
+      "id": "MAP_LY_DETAIL_AOCANG",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.012256766492280075
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGYUN",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.0060130039962098284
+    },
+    {
+      "id": "MAP_LY_DETAIL_HULAO",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.016776896753119244
+    },
+    {
+      "id": "MAP_LY_DETAIL_HUAGUANG",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.0032095246645506854
+    },
+    {
+      "id": "MAP_LY_DETAIL_NANTIANMEN",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.01513988851856536
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANQIU",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.013751025737322975
+    },
+    {
+      "id": "MAP_LY_DETAIL_DUNYU",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.013157569063220699
+    },
+    {
+      "id": "MAP_LY_DETAIL_LINGJU",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.014467028704751991
+    },
+    {
+      "id": "MAP_LY_DETAIL_QINGXU",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.005150288081224817
+    },
+    {
+      "id": "MAP_LY_DETAIL_TIANHENG",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.013063745552266305
+    },
+    {
+      "id": "MAP_LY_DETAIL_GUYUN",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.02090406250222579
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_GATE",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.015603106451408265
+    },
+    {
+      "id": "MAP_LY_DETAIL_CHASM_RIM",
+      "width": 390,
+      "zoom": 4,
+      "error_css_px": 0.007940582306459549
+    }
+  ],
+  "limitations": [
+    "Screenshot/coordinate alignment is not proof of exact official world entrances.",
+    "Random encounters disabled only during deterministic MOVE examples.",
+    "No production deployment, live account state or full-story playthrough."
+  ]
+}

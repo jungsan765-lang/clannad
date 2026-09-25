@@ -1,0 +1,7 @@
+{
+  "method": "Chromium with HTTPS requests fulfilled from local dist; synthetic scene fixture; service worker blocked",
+  "checks": [],
+  "errors": [],
+  "passed": false,
+  "failure": "Error('Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at https://crpg-test.local/\\nCall log:\\n  - navigating to \"https://crpg-test.local/\", waiting until \"load\"\\n')"
+}

@@ -1,0 +1,121 @@
+{
+  "total": 14,
+  "passed": 14,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Mondstadt has one entered smith with all 15 canonical stock IDs; other cities retain common smith",
+      "ok": true,
+      "evidence": [
+        "STK_SMITH_001",
+        "STK_MOND_EQ_001",
+        "STK_MOND_EQ_002",
+        "STK_MOND_EQ_003",
+        "STK_MOND_EQ_004",
+        "STK_MOND_EQ_005",
+        "STK_MOND_EQ_006",
+        "STK_MOND_EQ_007",
+        "STK_MOND_EQ_008",
+        "STK_MOND_EQ_009",
+        "STK_SMITH_002",
+        "STK_SMITH_003",
+        "STK_SMITH_004",
+        "STK_SMITH_005",
+        "STK_CRPG_MOND_WORN_SWORD"
+      ]
+    },
+    {
+      "name": "hidden generic Mond entrance rejects direct action without mutation",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Wagner merged ore uses original receipt, level, affordability, quantity and stock rules",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "merged stock authorization never leaks into other shops, CRAFT, or after leaving",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Wagner keeps 06:00–22:00 hours even for merged ore",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "bulk equipment makes separate instances and exact charge",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Wagner inherits exact common recipe facilities and joint stages without bypassing unlocks",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "old smith visits migrate while legacy joint preparation remains loadable",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Sara is a food-only restaurant with valid named items, existing prices and matching hours",
+      "ok": true,
+      "evidence": [
+        [
+          "STK_MOND_SARA_CHICKEN",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_SWEET_MADAME",
+          "달콤달콤 닭고기 스튜",
+          135,
+          5
+        ],
+        [
+          "STK_MOND_SARA_EGG",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_TEA_BREAK_PANCAKE",
+          "티바트 달걀 프라이",
+          60,
+          5
+        ],
+        [
+          "STK_MOND_SARA_POTATO",
+          "MRC_MOND_RESTAURANT",
+          "ITEM",
+          "FOOD_HASH_BROWN",
+          "몬드 감자전",
+          165,
+          5
+        ]
+      ]
+    },
+    {
+      "name": "legacy Sara TALK visit migrates to the same restaurant safely",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "all four quest items expose exact existing quest titles without altering names",
+      "ok": true,
+      "evidence": "바람이 지우지 못한 것 · 몬드에 남긴 이름"
+    },
+    {
+      "name": "shop renders separately named one/bulk actions, stats and meaningful groups",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "bulk dialog validates total, available funds, stock and selected quantity",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "successful BUY yields named quantity/cost receipt and modal; nonpurchase actions do not",
+      "ok": true,
+      "evidence": null
+    }
+  ]
+}

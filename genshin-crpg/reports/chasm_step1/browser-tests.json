@@ -1,0 +1,6 @@
+{
+  "errors": [],
+  "failedRequests": [],
+  "mode": "Chromium + intercepted local HTTP origin; unmodified compiled distribution",
+  "failure": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://localhost:8769/\nCall log:\n  - navigating to \"http://localhost:8769/\", waiting until \"load\"\n"
+}

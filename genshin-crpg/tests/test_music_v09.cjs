@@ -1,0 +1,24 @@
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),ctx=vm.createContext({});
+vm.runInContext(fs.readFileSync(path.join(root,'source/audio_playlists.js'),'utf8'),ctx);
+const catalog={tracks:{a:{file:'a.mp3',title:'A'},b:{file:'b.mp3',title:'B'},c:{file:'c.mp3',title:'C'},d:{file:'d.mp3',title:'D'}},playlists:{mond_city:['a','b'],mond_field:['b','a'],mond_battle:['c'],liyue_city:['d'],liyue_field:['d'],battle:['c']},regions:{'몬드':'mond','리월':'liyue'},maps:{MAP_MOND_CITY:'mond_city'}};
+const q=new ctx.CRPGMusicQueue(catalog),city={map:'MAP_MOND_CITY',region:'몬드'},first=q.select(city);q.remember(31.5);
+assert.equal(q.select(city).time,31.5,'render preserves the current position');
+const battle=q.select({...city,battle:true});assert.equal(battle.id,'c');assert.equal(battle.time,0);
+assert.equal(q.select(city).id,first.id);assert.equal(q.current().time,31.5,'return from battle resumes exploration');
+const next=q.next();assert.notEqual(next.id,first.id,'completed track advances to another song');assert.equal(next.time,0);assert.equal(q.select(city).id,next.id,'render does not rewind the playlist');
+assert.equal(q.select({map:'MAP_LIYUE_HARBOR',region:'리월'}).id,'d');
+assert.equal(q.select({...city,battle:true,boss:true}).id,'c','missing boss music falls back to regional combat');
+assert.equal(new ctx.CRPGMusicQueue({}).select(city),null);
+const partial=new ctx.CRPGMusicQueue({...catalog,playlists:{mond_city:['missing','a'],mond_field:['a']}});assert.equal(partial.select(city).id,'a');assert.equal(partial.next().id,'a');
+if(fs.existsSync(path.join(root,'assets/audio/music-catalog.json'))){const actual=JSON.parse(fs.readFileSync(path.join(root,'assets/audio/music-catalog.json')));for(const [id,t] of Object.entries(actual.tracks)){assert(fs.existsSync(path.join(root,'assets/audio',t.file)),id+' music file');assert(t.source?.startsWith('https://'),id+' source provenance');assert(!/preview|trailer|synth/i.test(t.file),id+' is not trailer/synth music');}for(const [key,ids]of Object.entries(actual.playlists)){assert(ids.length,key);for(const id of ids)assert(actual.tracks[id],key+' '+id);}assert(actual.playlists.mond_city.length>=2,'varied Mondstadt music');assert.deepEqual(actual.playlists.mond_battle,['mond_photon','mond_resolution'],'Mondstadt battles use only the two requested Disc 3 tracks');for(const [i,id]of actual.playlists.mond_battle.entries()){const t=actual.tracks[id];assert.equal(t.disc,3);assert.equal(t.trackNumber,i+1);assert(t.identityVerification?.correlation>.9997,'official preview identity verification');assert(t.duration>190,'full OST recording');}}
+const rolls=[0,.99,.25],randomCatalog={...catalog,playlists:{...catalog.playlists,mond_battle:['c','d']}},randomQueue=new ctx.CRPGMusicQueue(randomCatalog,()=>rolls.shift());
+assert.equal(randomQueue.select({...city,battle:true,battleId:'first'}).id,'c');randomQueue.remember(12.25);
+assert.equal(randomQueue.select({...city,battle:true,battleId:'first'}).time,12.25,'same battle renders retain playback position');
+assert.equal(rolls.length,2,'same battle does not roll again');
+assert.equal(randomQueue.select({...city,battle:true,battleId:'second'}).id,'d','a new battle randomly selects among the regional tracks');
+assert.equal(randomQueue.current().time,0,'a new battle begins at the selected track start');
+randomQueue.select(city);assert.equal(randomQueue.select({...city,battle:true}).id,'c','callers without battleId select anew after exploration');
+assert.equal(rolls.length,0);
+console.log('PASS music queues: rotation, region, battle, resume, missing tracks, packaged provenance');

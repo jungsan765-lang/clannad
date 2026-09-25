@@ -1,0 +1,52 @@
+{
+  "date": "2026-09-24",
+  "production_save_touched": false,
+  "checks": 536,
+  "tests": [
+    {
+      "name": "두 시작 루트 · 선택 대기 · 동일 상태 재개",
+      "status": "PASS"
+    },
+    {
+      "name": "거점 NPC → 구매·장착 → 이동 → 의뢰 전투 → 결과 → 재개",
+      "status": "PASS"
+    },
+    {
+      "name": "거절·첫 만남·정보 해금·임시 동료 독립 저장",
+      "status": "PASS"
+    },
+    {
+      "name": "거래 실패 무변경 · 폐점 · 소지품별 강화 단계",
+      "status": "PASS"
+    },
+    {
+      "name": "36개 기존 의뢰 · 미선택·실패·반복 보상 경계",
+      "status": "PASS"
+    },
+    {
+      "name": "7장 수치 · 불발 · 대상 수 · 중복·종료 · 레벨 변화",
+      "status": "PASS"
+    },
+    {
+      "name": "이동 경로·귀환·잠금 이유 · 참조 무결성",
+      "status": "PASS"
+    },
+    {
+      "name": "보스 공중 대상 제한 · 8라운드 강제 패배 · 지형 복원",
+      "status": "PASS"
+    },
+    {
+      "name": "동일 POOL/LOOT/ROUTE 키의 복수 행 보존",
+      "status": "PASS"
+    },
+    {
+      "name": "알고 있는 이세계인 분기 · 지원금 미지급 · 저장 무결성",
+      "status": "PASS"
+    },
+    {
+      "name": "빠른 조사 실패·재시도와 Unicode 이름 경계",
+      "status": "PASS"
+    }
+  ],
+  "scope": "실제 DB 스냅샷·별도 SAVE. 단위시험은 정경 재검증이나 전체 카드 실행 검증을 뜻하지 않음."
+}

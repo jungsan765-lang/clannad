@@ -1,0 +1,88 @@
+{
+  "source": "/workspace/scratch/adc1ed75baeb/game/source",
+  "sourceHashes": {
+    "app_version.js": "985f4447da519770c14270ffca79b0e9e715c9163fb8e46d4fbd2ca2115323e0",
+    "sw.js": "ce0b29cde2368fc9a1ba7ef9ebc1ffe9b68011e6a7b7e495e3f09e5dccc3c3cd"
+  },
+  "total": 19,
+  "passed": 19,
+  "failed": 0,
+  "results": [
+    {
+      "name": "loaded badge comes from MANIFEST, independently of newer release metadata",
+      "ok": true
+    },
+    {
+      "name": "release check uses no-store and does not activate/reload automatically",
+      "ok": true
+    },
+    {
+      "name": "without a service worker update navigates to the requested release URL after saving",
+      "ok": true
+    },
+    {
+      "name": "paused autosave blocks update before any save, activation or reload",
+      "ok": true
+    },
+    {
+      "name": "save failure blocks update and preserves current game and save records",
+      "ok": true
+    },
+    {
+      "name": "apply drains queued writes and saves current progress before activating",
+      "ok": true
+    },
+    {
+      "name": "duplicate apply clicks perform one save, one activation and one reload",
+      "ok": true
+    },
+    {
+      "name": "activation timeout blocks reload and releases busy state",
+      "ok": true
+    },
+    {
+      "name": "redundant installing worker blocks reload",
+      "ok": true
+    },
+    {
+      "name": "installation timeout without waiting worker blocks reload",
+      "ok": true
+    },
+    {
+      "name": "old active worker without update blocks a misleading same-version reload",
+      "ok": true
+    },
+    {
+      "name": "already active matching pack allows saved reload without skipWaiting",
+      "ok": true
+    },
+    {
+      "name": "controllerchange alone cannot approve a worker from a different pack",
+      "ok": true
+    },
+    {
+      "name": "actual workerVersion helper uses a request port and returns its version",
+      "ok": true
+    },
+    {
+      "name": "actual workerVersion helper times out cleanly for older workers without GET_VERSION",
+      "ok": true
+    },
+    {
+      "name": "recovery worker activates after validated core; pack/status messages never activate it",
+      "ok": true
+    },
+    {
+      "name": "worker release fetch bypasses caches and uses no-store",
+      "ok": true
+    },
+    {
+      "name": "worker activation claims clients without deleting cached packs or user saves",
+      "ok": true
+    },
+    {
+      "name": "worker GET_VERSION reports the loaded pack through the requesting port",
+      "ok": true
+    }
+  ]
+}

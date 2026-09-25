@@ -1,0 +1,444 @@
+[
+  {
+    "id": "MAP_LY_DETAIL_NORTH_GATE",
+    "name": "리월항 · 북쪽 진입로",
+    "zone": "운래해",
+    "before": [
+      500,
+      574
+    ],
+    "after": [
+      505,
+      576
+    ],
+    "moved": true,
+    "anchorKind": "PATH",
+    "feature": "북쪽 돌다리의 북단 접속부",
+    "note": "북쪽 돌다리로 들어가는 육상 접속부. 문지기 NPC나 문턱의 좌표는 아님."
+  },
+  {
+    "id": "MAP_LY_DETAIL_FEIYUN",
+    "name": "비운 언덕 · 상업 거리",
+    "zone": "운래해",
+    "before": [
+      512,
+      619
+    ],
+    "after": [
+      512,
+      619
+    ],
+    "moved": false,
+    "anchorKind": "FEATURE",
+    "feature": "비운 언덕 중앙 상업 거리",
+    "note": "북쪽 건물군 사이의 넓은 거리. 건물 지붕과 구분하며 기존 기준점을 유지."
+  },
+  {
+    "id": "MAP_LY_DETAIL_YUJING",
+    "name": "옥경대 · 전망 구역",
+    "zone": "운래해",
+    "before": [
+      482,
+      594
+    ],
+    "after": [
+      494,
+      643
+    ],
+    "moved": true,
+    "anchorKind": "FEATURE",
+    "feature": "옥경대 남쪽 네모난 광장",
+    "note": "도시 서쪽 높은 대의 남쪽 광장 돌바닥. 북쪽 건물군·비운 언덕 부두가 아님."
+  },
+  {
+    "id": "MAP_LY_DETAIL_CHIHU",
+    "name": "흘호암 · 골목",
+    "zone": "운래해",
+    "before": [
+      494,
+      643
+    ],
+    "after": [
+      536,
+      649
+    ],
+    "moved": true,
+    "anchorKind": "FEATURE",
+    "feature": "흘호암 남쪽 생활 거리",
+    "note": "비운 언덕 남동쪽 다리를 건넌 반도의 생활 거리. 서쪽 옥경대 광장과 구분."
+  },
+  {
+    "id": "MAP_LY_DETAIL_WHARF",
+    "name": "리월항 · 부두",
+    "zone": "운래해",
+    "before": [
+      565,
+      663
+    ],
+    "after": [
+      567,
+      657
+    ],
+    "moved": true,
+    "anchorKind": "FEATURE",
+    "feature": "남쪽 부두의 육상 잔교 접속부",
+    "note": "흘호암 동쪽의 잔교가 만나는 부두. 바다 위 빈 수면이 아니라 지도에 그려진 구조물."
+  },
+  {
+    "id": "MAP_LY_DETAIL_SHIMEN",
+    "name": "석문 · 통행로",
+    "zone": "벽수원",
+    "before": [
+      551,
+      114
+    ],
+    "after": [
+      519,
+      133
+    ],
+    "moved": true,
+    "anchorKind": "PATH",
+    "feature": "석문 남쪽 통행로",
+    "note": "북쪽에서 내려온 길이 적화주 방향으로 이어지는 도로 구간. 좁은 바위문 입구 자체는 별도 확인 필요."
+  },
+  {
+    "id": "MAP_LY_DETAIL_DIHUA",
+    "name": "적화주 · 갈대 물가",
+    "zone": "벽수원",
+    "before": [
+      499,
+      211
+    ],
+    "after": [
+      477,
+      223
+    ],
+    "moved": true,
+    "anchorKind": "SHORE",
+    "feature": "적화주 서쪽 물가의 육지",
+    "note": "망서 객잔 북쪽, 본길 서편의 물가 육지. 특정 갈대나 채집물의 생성 좌표는 아님."
+  },
+  {
+    "id": "MAP_LY_DETAIL_WANGSHU",
+    "name": "망서 객잔 · 아래 광장",
+    "zone": "벽수원",
+    "before": [
+      507,
+      258
+    ],
+    "after": [
+      513,
+      250
+    ],
+    "moved": true,
+    "anchorKind": "FEATURE",
+    "feature": "망서 객잔 북동쪽 지상 마당",
+    "note": "큰 원형 건물 북동쪽의 밝은 마당. 객잔 지붕이나 서쪽 수면이 아님. 수직 층은 표현하지 않음."
+  },
+  {
+    "id": "MAP_LY_DETAIL_QINGCE_FIELDS",
+    "name": "경책 산장 · 남쪽 밭길",
+    "zone": "벽수원",
+    "before": [
+      435,
+      120
+    ],
+    "after": [
+      427,
+      17
+    ],
+    "moved": true,
+    "anchorKind": "PATH",
+    "feature": "경책 산장 남쪽 계단식 밭의 둑길",
+    "note": "지도 상단에서 식별되는 계단식 밭의 둑길. 남쪽 산기슭 도로와 구분하며 집이나 NPC 위치는 아님."
+  },
+  {
+    "id": "MAP_LY_DETAIL_GUILI",
+    "name": "귀리 평원 · 옛 유적",
+    "zone": "경기 들판",
+    "before": [
+      538,
+      401
+    ],
+    "after": [
+      538,
+      405
+    ],
+    "moved": true,
+    "anchorKind": "FEATURE",
+    "feature": "귀리 평원 네모난 옛 유적",
+    "note": "귀리 평원 중앙의 사각 유적 터 안 돌바닥. 평원 전체를 가리키는 상위 거점과 구분."
+  },
+  {
+    "id": "MAP_LY_DETAIL_MINGYUN",
+    "name": "명온 마을 · 폐광 주변",
+    "zone": "경기 들판",
+    "before": [
+      609,
+      279
+    ],
+    "after": [
+      615,
+      292
+    ],
+    "moved": true,
+    "anchorKind": "AREA",
+    "feature": "명온 마을 서쪽 암벽 주변",
+    "note": "마을 서쪽 암벽과 폐광 주변의 지상 활동 기준점. 개별 갱도 입구는 이 지도만으로 확정하지 않음."
+  },
+  {
+    "id": "MAP_LY_DETAIL_YAOGUANG",
+    "name": "요광 해안 · 모래톱",
+    "zone": "경기 들판",
+    "before": [
+      621,
+      358
+    ],
+    "after": [
+      621,
+      358
+    ],
+    "moved": false,
+    "anchorKind": "SHORE",
+    "feature": "요광 해안 서쪽 모래톱",
+    "note": "해안 서쪽의 연결된 모래톱 위. 물속 또는 바다 위 도보 지점이 아님."
+  },
+  {
+    "id": "MAP_LY_DETAIL_LUHUA",
+    "name": "녹화 연못 · 물가",
+    "zone": "경기 들판",
+    "before": [
+      433,
+      449
+    ],
+    "after": [
+      422,
+      418
+    ],
+    "moved": true,
+    "anchorKind": "SHORE",
+    "feature": "녹화 연못 북쪽 본토 기슭",
+    "note": "큰 연못 북쪽의 연결된 육지 가장자리. 연못 수면·작은 섬·원형 비경 구조물 위가 아님."
+  },
+  {
+    "id": "MAP_LY_DETAIL_AOCANG",
+    "name": "오장산 · 정상 호숫가",
+    "zone": "민림",
+    "before": [
+      213,
+      211
+    ],
+    "after": [
+      213,
+      211
+    ],
+    "moved": false,
+    "anchorKind": "SHORE",
+    "feature": "오장산 정상 호수 남동쪽 돌기슭",
+    "note": "정상 호수의 남동쪽 돌기슭. 호수 한가운데가 아니라 바깥 가장자리."
+  },
+  {
+    "id": "MAP_LY_DETAIL_QINGYUN",
+    "name": "경운봉 · 산길",
+    "zone": "민림",
+    "before": [
+      228,
+      284
+    ],
+    "after": [
+      235,
+      281
+    ],
+    "moved": true,
+    "anchorKind": "PATH",
+    "feature": "경운봉 정상부 능선길",
+    "note": "경운봉 정상부의 밝은 능선길. 공중 정자나 수직 높이의 좌표가 아님."
+  },
+  {
+    "id": "MAP_LY_DETAIL_HULAO",
+    "name": "호로산 · 호박 바위길",
+    "zone": "민림",
+    "before": [
+      140,
+      298
+    ],
+    "after": [
+      137,
+      311
+    ],
+    "moved": true,
+    "anchorKind": "AREA",
+    "feature": "호로산 정상 동쪽 바위 구역",
+    "note": "정상 연못 동쪽의 바위 지형. 개별 호박·광맥은 원본에서 식별되지 않아 위치를 확정하지 않음."
+  },
+  {
+    "id": "MAP_LY_DETAIL_HUAGUANG",
+    "name": "화광림 · 계곡길",
+    "zone": "민림",
+    "before": [
+      177,
+      265
+    ],
+    "after": [
+      171,
+      268
+    ],
+    "moved": true,
+    "anchorKind": "FEATURE",
+    "feature": "화광림 계곡 다리 동쪽 발판",
+    "note": "계곡을 가로지르는 가느다란 다리의 동쪽 육상 발판. 계곡 물속에 표시하지 않음."
+  },
+  {
+    "id": "MAP_LY_DETAIL_NANTIANMEN",
+    "name": "남천문 · 고목 주변",
+    "zone": "민림",
+    "before": [
+      218,
+      418
+    ],
+    "after": [
+      185,
+      380
+    ],
+    "moved": true,
+    "anchorKind": "AREA",
+    "feature": "남천문 북쪽 지상 접근 지역",
+    "note": "남천문 북쪽 강변 동편의 지상 접근 지역. 고목 줄기와 비경 입구는 원본에서 확정하지 못해 접근 지역 대표점으로 표시."
+  },
+  {
+    "id": "MAP_LY_DETAIL_TIANQIU",
+    "name": "천주 골짜기 · 유적길",
+    "zone": "민림",
+    "before": [
+      236,
+      435
+    ],
+    "after": [
+      244,
+      441
+    ],
+    "moved": true,
+    "anchorKind": "FEATURE",
+    "feature": "천주 골짜기 연못 서쪽 석조 유적",
+    "note": "연못 서쪽의 밝은 석조 유적 바닥. 수면 및 남쪽의 작은 연못과 구분."
+  },
+  {
+    "id": "MAP_LY_DETAIL_DUNYU",
+    "name": "둔옥릉 · 유적 가장자리",
+    "zone": "리사교",
+    "before": [
+      373,
+      529
+    ],
+    "after": [
+      373,
+      529
+    ],
+    "moved": false,
+    "anchorKind": "FEATURE",
+    "feature": "둔옥릉 동쪽 네모난 석조 유적",
+    "note": "연못 동쪽의 네모난 유적 구조물. 주변의 푸른 수면과 구분."
+  },
+  {
+    "id": "MAP_LY_DETAIL_LINGJU",
+    "name": "성법 관문 · 바깥길",
+    "zone": "리사교",
+    "before": [
+      291,
+      596
+    ],
+    "after": [
+      340,
+      614
+    ],
+    "moved": true,
+    "anchorKind": "PATH",
+    "feature": "성법 관문 동쪽 바깥길",
+    "note": "유적 연못 동쪽을 도는 밝은 지상 길. 기존 연못 안 위치에서 육지로 교정."
+  },
+  {
+    "id": "MAP_LY_DETAIL_QINGXU",
+    "name": "청허포 · 석조 유적",
+    "zone": "리사교",
+    "before": [
+      262,
+      710
+    ],
+    "after": [
+      274,
+      708
+    ],
+    "moved": true,
+    "anchorKind": "FEATURE",
+    "feature": "청허포 중앙 석조 유적",
+    "note": "주변 연못에 둘러싸인 중앙 석조 유적의 지상부. 북쪽 수면이나 지하 공간이 아님."
+  },
+  {
+    "id": "MAP_LY_DETAIL_TIANHENG",
+    "name": "천형산 · 항구 전망길",
+    "zone": "운래해",
+    "before": [
+      448,
+      600
+    ],
+    "after": [
+      448,
+      606
+    ],
+    "moved": true,
+    "anchorKind": "AREA",
+    "feature": "천형산 동쪽 전망 능선",
+    "note": "항구 서쪽의 밝은 능선 지형. 지도에 나타나지 않는 동굴·광맥 입구는 표시하지 않음."
+  },
+  {
+    "id": "MAP_LY_DETAIL_GUYUN",
+    "name": "고운각 · 서북쪽 섬",
+    "zone": "운래해",
+    "before": [
+      757,
+      513
+    ],
+    "after": [
+      754,
+      508
+    ],
+    "moved": true,
+    "anchorKind": "AREA",
+    "feature": "고운각 서북쪽 섬 중앙 육지",
+    "note": "선택한 서북쪽 섬의 넓은 육지. 배편 경로와 섬을 구분하며 별도 선착장 좌표는 아님."
+  },
+  {
+    "id": "MAP_LY_DETAIL_CHASM_GATE",
+    "name": "층암거연 · 동쪽 진입로",
+    "zone": "층암거연",
+    "before": [
+      233,
+      596
+    ],
+    "after": [
+      240,
+      658
+    ],
+    "moved": true,
+    "anchorKind": "PATH",
+    "feature": "층암거연 동쪽 외곽 접근길",
+    "note": "동쪽 외곽에서 광구로 이어지는 밝은 길의 서쪽 구간. 특정 관문 문턱의 정밀 위치는 미확정."
+  },
+  {
+    "id": "MAP_LY_DETAIL_CHASM_RIM",
+    "name": "층암거연 · 동쪽 광구길",
+    "zone": "층암거연",
+    "before": [
+      201,
+      627
+    ],
+    "after": [
+      210,
+      655
+    ],
+    "moved": true,
+    "anchorKind": "PATH",
+    "feature": "층암거연 동쪽 지상 광구길",
+    "note": "동쪽 광구 가장자리를 따라 서쪽으로 이어지는 밝은 작업로. 지하 갱도·승강기·높이 좌표가 아님."
+  }
+]

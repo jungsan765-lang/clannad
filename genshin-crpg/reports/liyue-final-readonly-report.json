@@ -1,0 +1,332 @@
+{
+  "scope": "READ_ONLY_FINAL_REGRESSION",
+  "sourceHash": "659dc566e44aac256bf39e1f676ddf381091fd545efa28d5550e69e40732985d",
+  "sourceUnchangedDuringSemanticRun": true,
+  "uiSourceHashesStillCurrent": true,
+  "counts": {
+    "cardsSupported": 57,
+    "activeExecutions": 47,
+    "activePass": 47,
+    "targetedSemanticGeometry": 29,
+    "targetedSemanticGeometryPass": 29,
+    "ui": 14,
+    "uiPass": 14
+  },
+  "failures": [],
+  "regressions": [
+    {
+      "id": "qiqi_talisman_one_heal_per_ally_per_round",
+      "ok": true,
+      "evidence": [
+        {
+          "actor": "치치",
+          "target": "ALLY_1",
+          "heal": 45
+        }
+      ]
+    },
+    {
+      "id": "zhongli_petrify_locks_normal_enemy",
+      "ok": true
+    },
+    {
+      "id": "zibai_recast_while_age_gap_should_be_denied",
+      "ok": true
+    },
+    {
+      "id": "chongyun_retains_diluc_pyro_infusion",
+      "ok": true
+    },
+    {
+      "id": "icy_quill_not_consumed_on_miss",
+      "ok": true
+    },
+    {
+      "id": "yunjin_flag_not_consumed_on_miss",
+      "ok": true
+    },
+    {
+      "id": "lunar_conversion_must_replace_ordinary_shield",
+      "ok": true
+    },
+    {
+      "id": "dedicated_lunar_damage_triggers_full_moon_resource",
+      "ok": true
+    },
+    {
+      "id": "jade_screen_uses_card_range",
+      "ok": true
+    },
+    {
+      "id": "zibai_charge_no_resource_underflow",
+      "ok": true
+    },
+    {
+      "id": "baizhu_two_enemies_three_hits",
+      "ok": true
+    },
+    {
+      "id": "yelan_breakthrough_does_not_add_targets_beyond_three",
+      "ok": true
+    },
+    {
+      "id": "sky_ladder_whole_attack_multiplier",
+      "ok": true
+    },
+    {
+      "id": "zhongli_shield_prevents_forced_move",
+      "ok": true
+    },
+    {
+      "id": "charge_100_minus70_plus35_is65_once_same_round",
+      "ok": true,
+      "evidence": {
+        "light": 65,
+        "uses": 1,
+        "moonLevel": 2
+      }
+    },
+    {
+      "id": "lunar_counter_survives_validated_save_and_constructor_restore",
+      "ok": true,
+      "evidence": {
+        "chargeSaved": 65,
+        "afterQ": 65,
+        "afterBasic": 80,
+        "lunarRound": 1
+      }
+    },
+    {
+      "id": "next_round_has_one_new35_and_turn_start25_is_idempotent",
+      "ok": true,
+      "evidence": {
+        "light": 100,
+        "used": {
+          "MOON:1": true,
+          "MOON:2": true
+        }
+      }
+    },
+    {
+      "id": "enemy_lunar_packet_does_not_grant_ally_time_light",
+      "ok": true
+    },
+    {
+      "id": "dead_zibai_does_not_enable_hydro_conversion",
+      "ok": true
+    },
+    {
+      "id": "pyro_crystallize_stays_ordinary",
+      "ok": true
+    },
+    {
+      "id": "fresh_breakthrough_from_second_yelan_e_is_retained",
+      "ok": true
+    },
+    {
+      "id": "jade_screen_reduces_entire_first_ranged_attack_action",
+      "ok": true
+    },
+    {
+      "id": "yanfei_q_gains_new_three_seals_after_spending_old_ones",
+      "ok": true
+    },
+    {
+      "id": "boss_petrify_next_action_multihit_is_reduced_once_as_an_action",
+      "ok": true,
+      "evidence": [
+        20,
+        23,
+        29
+      ]
+    },
+    {
+      "id": "pending_opening_preserves_exact_prepared_order",
+      "ok": true
+    },
+    {
+      "id": "xiao_splash_only_adjacent",
+      "ok": true,
+      "evidence": {
+        "distance": 5,
+        "packets": [
+          {
+            "actor": "소",
+            "target": "적0",
+            "damage": 92,
+            "absorbed": 0,
+            "element": "물리",
+            "critical": false,
+            "reaction": null,
+            "card": null,
+            "sourceKind": null
+          }
+        ],
+        "farTargetHit": false
+      }
+    },
+    {
+      "id": "tartaglia_splash_only_adjacent",
+      "ok": true,
+      "evidence": {
+        "distance": 5,
+        "packets": [
+          {
+            "actor": "타르탈리아",
+            "target": "적0",
+            "damage": 78,
+            "absorbed": 0,
+            "element": "물",
+            "critical": false,
+            "reaction": null,
+            "card": "PLAYER_BASIC_ATTACK",
+            "sourceKind": null
+          },
+          {
+            "actor": "타르탈리아",
+            "target": "적0",
+            "damage": 36,
+            "absorbed": 0,
+            "element": "물",
+            "critical": false,
+            "reaction": null,
+            "card": null,
+            "sourceKind": "FOLLOWUP"
+          }
+        ],
+        "farTargetHit": false
+      }
+    },
+    {
+      "id": "xianyun_splash_only_adjacent",
+      "ok": true,
+      "evidence": {
+        "distance": 5,
+        "packets": [
+          {
+            "actor": "ALLY_1",
+            "target": "적0",
+            "damage": 78,
+            "absorbed": 0,
+            "element": "물리",
+            "critical": false,
+            "reaction": null,
+            "card": null,
+            "sourceKind": null
+          },
+          {
+            "actor": "한운",
+            "target": "적0",
+            "damage": 105,
+            "absorbed": 0,
+            "element": "바람",
+            "critical": false,
+            "reaction": null,
+            "card": null,
+            "sourceKind": "FOLLOWUP"
+          }
+        ],
+        "farTargetHit": false
+      }
+    },
+    {
+      "id": "yelan_breakthrough_three_equal_skill_packets",
+      "ok": true,
+      "evidence": {
+        "packets": [
+          {
+            "actor": "야란",
+            "target": "적0",
+            "damage": 216,
+            "absorbed": 0,
+            "element": "물",
+            "critical": false,
+            "reaction": null,
+            "card": "LIYUE_YELAN_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "야란",
+            "target": "적1",
+            "damage": 216,
+            "absorbed": 0,
+            "element": "물",
+            "critical": false,
+            "reaction": null,
+            "card": "LIYUE_YELAN_E",
+            "sourceKind": null
+          },
+          {
+            "actor": "야란",
+            "target": "적2",
+            "damage": 216,
+            "absorbed": 0,
+            "element": "물",
+            "critical": false,
+            "reaction": null,
+            "card": "LIYUE_YELAN_E",
+            "sourceKind": null
+          }
+        ],
+        "counts": {
+          "E0": 1,
+          "E1": 1,
+          "E2": 1,
+          "E3": 0
+        }
+      }
+    }
+  ],
+  "uiSummary": {
+    "catalogCount": 43,
+    "mond": 20,
+    "liyue": 23,
+    "unmetColor": "#ff9b9b",
+    "actualIndexRuntimeAndAllAppScriptsLoaded": true,
+    "screens": [
+      "QUEST",
+      "PARTY",
+      "LOCATION",
+      "SYSTEM"
+    ],
+    "routeStates": [
+      "TRAVELER before/after story",
+      "ISEKAI before/after story"
+    ],
+    "errors": []
+  },
+  "limitations": [
+    "DOM mock verifies execution/text/control construction; no real-browser layout or media playback validation. Browser ERR_BLOCKED_BY_CLIENT restriction reported by owner; no browser retry performed.",
+    "Card fixtures use deterministic rolls and independent serialized battle states; they do not establish encounter balance."
+  ],
+  "portableTests": {
+    "projectRootEnv": "CRPG_PROJECT_ROOT",
+    "files": [
+      "audit_liyue_cards.cjs",
+      "audit_liyue_targeted.cjs",
+      "audit_liyue_targeted_extra.cjs",
+      "liyue_final_semantic.cjs",
+      "liyue_hooks_repro.cjs",
+      "liyue_hooks_geometry_repro.cjs",
+      "test_recruitment_ui_readonly.cjs"
+    ]
+  },
+  "reports": [
+    "/tmp/audit_liyue_cards_results.json",
+    "/tmp/audit_liyue_targeted_results.json",
+    "/tmp/audit_liyue_targeted_extra_results.json",
+    "/tmp/liyue_final_semantic_results.json",
+    "/tmp/liyue_hooks_geometry_results.json",
+    "/tmp/recruitment_ui_readonly_results.json"
+  ],
+  "uiSourceHashes": {
+    "source/app_recruitment.js": "78729b1f7d2a3c18455530550878309cb14552a38635c37fb5f7e72911aade76",
+    "source/runtime_recruitment.js": "2d9614493c0ca75eff04f699a247bb9f33748c500e75919f858f0c3d12be678e",
+    "source/app_adventure.js": "072e3f26f1afc8c5891bf545daa1746fdea17a7f6fd226b8796634f1a33d987b",
+    "source/runtime_liyue.js": "d4a8df7682025bbe20fd78756a4bc622f3e8d94261933bb985ca40866c055277",
+    "source/runtime_geo_oculi.js": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb",
+    "source/style.css": "ab12b3c050a97e36c853e0c72904fba0acf29854a9ae48f991fdf02f7d4e2f9a",
+    "content/db.json": "fab2ee28dacde30ae0c80407fa42bab6ba5f23c6b7c9dc31d69a30547a3440d6"
+  },
+  "uiCreatedAt": "2026-09-24T21:31:47.967Z"
+}

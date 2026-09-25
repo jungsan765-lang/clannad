@@ -1,0 +1,36 @@
+/* Expanded local supplies and exact-instance, atomic selling. */
+(function(root){'use strict';if(!root.CRPGWorldContent)return;
+const api=root.CRPGRuntime,P=api.Runtime.prototype,E=root.CRPGWorldContent.economy;
+const old=Object.fromEntries(['newGame','validateSave','apply','actionReason'].map(k=>[k,P[k]])),copy=x=>JSON.parse(JSON.stringify(x)),fail=(c,m)=>{throw new api.RuleError(c,m);};
+P.installMarketContent=function(){if(this._marketInstalled)return;this.installJourneyContent();this.db={...this.db};
+ const table=(key,edit)=>{const rows=this.db[key].map(r=>r.slice());edit(rows);this.db[key]=rows;this.tables[key]=new Map(rows.slice(1).filter(r=>r[0]).map(r=>[r[0],r]));};
+ table('16_EQUIP_DB',rows=>{for(const row of E.newEquipmentRows)if(!rows.some(r=>r[0]===row[0]))rows.push(copy(row));for(const p of E.equipmentPatches){const row=rows.find(r=>r[0]===p.id);if(row)row[19]=p.minimumLevel;}for(const row of rows)if(E.sellEquipmentPrices[row[0]]!==undefined)row[17]=E.sellEquipmentPrices[row[0]];});
+ table('19_SHOP_STOCK_DB',rows=>{for(const row of E.newStockRows)if(!rows.some(r=>r[0]===row[0]))rows.push(copy(row));for(const p of E.stockPatches){const row=rows.find(r=>r[0]===p.id);if(row){row[5]=p.price;if(p.stock!==undefined)row[6]=p.stock;if(p.condition!==undefined)row[8]=p.condition;}}});
+ table('14_ITEM_DB',rows=>{for(const row of rows){if(E.sellItemPrices[row[0]]!==undefined)row[14]=E.sellItemPrices[row[0]];const prices=this.rows('19_SHOP_STOCK_DB').filter(r=>r[2]==='ITEM'&&r[3]===row[0]&&Number(r[5])>0).map(r=>Number(r[5]));if(prices.length)row[15]=Math.min(...prices);}});
+ table('17_RECIPE_DB',rows=>{for(const p of E.optionalRecipePatches){const row=rows.find(r=>r[0]===p.id);if(!row)continue;for(let i=5;i<15;i++)row[i]=i%2? '':0;for(const [[id,n],i]of Object.entries(p.ingredients).map((v,i)=>[v,i])){row[5+i*2]=id;row[6+i*2]=n;}row[15]=p.mora;row[18]=p.condition;}});
+ table('48_RECIPE_INGREDIENT_DB',rows=>{for(const p of E.optionalRecipePatches){for(let i=rows.length-1;i>0;i--)if(rows[i][1]===p.id)rows.splice(i,1);Object.entries(p.ingredients).forEach(([id,n],i)=>rows.push(['RI_CRPG_MARKET_'+p.id+'_'+i,p.id,i+1,id,n,'','','CRPG_LOCAL_V011']));}});
+ this._marketInstalled=true;
+};
+P.saleUnitPrice=function(inv){const row=this.tables[inv.equip?'16_EQUIP_DB':'14_ITEM_DB']?.get(inv.equip||inv.item);if(!row)return 0;let price=Number(row[inv.equip?17:14]);if(!Number.isSafeInteger(price)||price<=0)return 0;const retail=this.rows('19_SHOP_STOCK_DB').filter(r=>r[3]===(inv.equip||inv.item)&&Number(r[5])>0&&!/SYSTEM_DISABLED|레거시|사용 금지/.test(r[8]||'')).map(r=>Number(r[5]));if(retail.length)price=Math.min(price,Math.floor(Math.min(...retail)/4));return Math.max(0,price);};
+P.saleEntry=function(a){
+ const reason=this.placeVisitReason('SHOP');if(reason)fail('SHOP',reason);const place=this.currentPlace();if(this.placeStocks().some(s=>s.row[3]==='SERVICE_INN_REST_8H'))fail('SHOP','숙박시설에서는 물건을 판매할 수 없습니다.');
+ const inv=a.slot?this.s.inventory.find(i=>i.slot===a.slot):this.s.inventory.find(i=>i.item===a.item&&!i.equip);if(!inv)fail('ITEM','판매할 소지품을 확인해 주세요.');
+ const id=inv.equip||inv.item,row=this.row(inv.equip?'16_EQUIP_DB':'14_ITEM_DB',id),quantity=a.quantity??1;
+ if(inv.locked||/^(KEY_|CUR_|SYS_)/.test(id)||!inv.equip&&[true,'Y','TRUE'].includes(row[19])||inv.equip&&/EX|스토리 전용|퀘스트/.test(String(row[27])+' '+String(row[26])))fail('SELL_PROTECTED','임무·핵심 물품은 판매할 수 없습니다.');
+ if(inv.equipped||inv.equip&&inv.owner&&inv.owner!=='공용')fail('SELL_EQUIPPED','장착한 장비는 편성에서 먼저 해제해 주세요.');
+ if(this.s.preparedTools?.includes(id))fail('SELL_PREPARED','전투 도구 준비에서 먼저 해제해 주세요.');
+ if(!Number.isSafeInteger(quantity)||quantity<1||quantity>999||inv.equip&&quantity!==1||!inv.equip&&quantity>this.itemCount(id))fail('QUANTITY','판매할 수량을 확인해 주세요.');
+ if(inv.equip&&a.instanceRevision!==undefined&&a.instanceRevision!==(inv.instanceRevision||0))fail('INSTANCE','장비 상태가 변경되었습니다. 다시 선택해 주세요.');
+ const special=this.s.specialFoodLots?.[id]?.BARBARA_SPECIAL||0,variant=a.variant||'NORMAL',available=inv.equip?1:variant==='BARBARA_SPECIAL'?special:this.itemCount(id)-special;
+ if(!['NORMAL','BARBARA_SPECIAL'].includes(variant)||quantity>available)fail('FOOD_LOT','선택한 종류의 보유 수량이 부족합니다.');
+ const price=this.saleUnitPrice(inv);if(!price)fail('SELL_PRICE','이 물품은 판매 대상이 아닙니다.');if(!Number.isSafeInteger(price*quantity+this.s.global.MORA))fail('MORA','거래 금액 범위를 확인해 주세요.');
+ return {inv,id,quantity,price,total:price*quantity,variant,name:row[1]};
+};
+P.sell=function(a){const e=this.saleEntry(a);if(e.inv.equip)this.s.inventory=this.s.inventory.filter(i=>i.slot!==e.inv.slot);else{this._foodSpendLots={[e.id]:{NORMAL:e.variant==='NORMAL'?e.quantity:0,BARBARA_SPECIAL:e.variant==='BARBARA_SPECIAL'?e.quantity:0}};try{this.pay({items:{[e.id]:e.quantity}});}finally{delete this._foodSpendLots;}}this.s.global.MORA+=e.total;return {sold:e.id,name:e.name,quantity:e.quantity,mora:e.total};};
+P.shopEquipmentPreview=function(id,owner='PLAYER_CUSTOM'){const r=new api.Runtime(this.db,copy(this.s)),slot=r.giveEquipment(id);return r.equipmentPreview(slot,owner);};
+P.actionReason=function(type,a={}){const reason=old.actionReason.call(this,type,a);if(reason)return reason;if(type==='SELL')try{this.saleEntry(a);}catch(e){return e.message;}return '';};
+P.apply=function(a){if(a.type==='SELL')return this.sell(a);return old.apply.call(this,a);};
+P.newGame=function(o){this.installMarketContent();old.newGame.call(this,o);this.s.marketVersion=1;return copy(this.s);};
+P.validateSave=function(s){this.installMarketContent();if(s.marketVersion!==1){const g=s.global,progress=JSON.parse(g.EVENT_PROGRESS_JSON||'{}'),input=JSON.parse(g.PENDING_INPUT_JSON||'{}'),facade=Object.create(this);facade.s=s;const oldQuote=progress.starterQuote||input.quote;if(oldQuote&&!s.flags.FLAG_ISK_STARTER_KIT_BOUGHT&&JSON.stringify(oldQuote)!==JSON.stringify(facade.quote())&&['ISK_M01_UT_KIT','CHOICE_GROUP:ISK_M01_G_U_KIT'].includes(g.STORY_CURSOR_NODE_ID||g.CURRENT_STORY_NODE_ID)){g.STORY_CURSOR_NODE_ID=g.CURRENT_STORY_NODE_ID='CHOICE_GROUP:ISK_M01_G_U_KIT';g.PENDING_CHOICE_GROUP_ID='ISK_M01_G_U_KIT';g.PENDING_INPUT_JSON=JSON.stringify({group:g.PENDING_CHOICE_GROUP_ID,node:g.STORY_CURSOR_NODE_ID,quote:facade.quote()});delete progress.starterQuote;g.EVENT_PROGRESS_JSON=JSON.stringify(progress);g.SCREEN_MODE='STORY';s.migrationNotice='초기 장비 가격이 조정되었습니다. 새 견적을 확인하고 다시 선택해 주세요.';}s.marketVersion=1;}return old.validateSave.call(this,s);};
+api.marketVersion=1;
+})(globalThis);

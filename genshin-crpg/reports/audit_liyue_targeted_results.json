@@ -1,0 +1,52 @@
+{
+  "sourceHash": "6635799372356c8796db89b80f78cede1c0ea17845d1af2e4acf89d533fbe039",
+  "tests": [
+    {
+      "id": "qiqi_talisman_one_heal_per_ally_per_round",
+      "ok": true,
+      "evidence": [
+        {
+          "actor": "치치",
+          "target": "ALLY_1",
+          "heal": 45
+        }
+      ]
+    },
+    {
+      "id": "zhongli_petrify_locks_normal_enemy",
+      "ok": true
+    },
+    {
+      "id": "zibai_recast_while_age_gap_should_be_denied",
+      "ok": true
+    },
+    {
+      "id": "chongyun_retains_diluc_pyro_infusion",
+      "ok": true
+    },
+    {
+      "id": "icy_quill_not_consumed_on_miss",
+      "ok": true
+    },
+    {
+      "id": "yunjin_flag_not_consumed_on_miss",
+      "ok": true
+    },
+    {
+      "id": "lunar_conversion_must_replace_ordinary_shield",
+      "ok": true
+    },
+    {
+      "id": "dedicated_lunar_damage_triggers_full_moon_resource",
+      "ok": true
+    },
+    {
+      "id": "jade_screen_uses_card_range",
+      "ok": true
+    },
+    {
+      "id": "zibai_charge_no_resource_underflow",
+      "ok": true
+    }
+  ]
+}

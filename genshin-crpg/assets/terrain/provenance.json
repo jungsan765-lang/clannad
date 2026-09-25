@@ -1,0 +1,21 @@
+{
+  "version": "0.13.12",
+  "source": "User-approved original-preserving raster edits; no AI map generation used",
+  "dimensions": [
+    880,
+    786
+  ],
+  "treatment": "Byte-for-byte copy, no crop/resize/recompression; UI camera scaling only",
+  "assets": {
+    "mond": {
+      "file": "assets/terrain/mond.png",
+      "sha256": "4c91882cca57f2379951eb87a08d364b8be6d6c1d240f6692a34c0b07fe0f55a",
+      "bytes": 515908
+    },
+    "liyue": {
+      "file": "assets/terrain/liyue.png",
+      "sha256": "84f54d5a8bd58f098985f1135c553b028bbe9268dae5ba2c1c4096f38a283c35",
+      "bytes": 711569
+    }
+  }
+}

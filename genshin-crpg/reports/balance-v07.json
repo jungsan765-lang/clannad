@@ -1,0 +1,3028 @@
+{
+  "generatedAt": "2026-09-24T14:58:40.130Z",
+  "sourceSHA256": {
+    "runtime.js": "f844d91681d01c2efb841bab694305237c8acbc5f556af5bc282e6f9193a90a1",
+    "runtime_extensions.js": "819e5fc7ea4ffe601e3c4379ffa215e270e0ae85cf40aa950fca68f2e49b3e92",
+    "runtime_story.js": "623b79570ef7dbe4efc082f85ebdd8439e0e1347d1586fa5210f1ec09a506280",
+    "runtime_nodes.js": "a56d698474b55d764b53663b6b6d51ba44d3810a1619a4f86098d407768ca425",
+    "runtime_events.js": "fd5a9236188863d0e209fb620e1850b2a605b714afd392c6b31076c035c9ffd4",
+    "runtime_relationships.js": "6a9c0727067cfd3a17de78ffc90c4875bf840769016d01253fefebfc82e242c4",
+    "runtime_combat.js": "02cc5bf62be1a795753d78f2150bebdd7f34d57cc7d16d85d4adc4776d6aec8e",
+    "runtime_mond_cards.js": "a92c805db4c09fe1a6d0583a53e837a46980778dc522fa472edff0c3c585a74f",
+    "runtime_economy.js": "07af9f56003ad98a4c7434d86a5817f684c99a4c800141443be6a5b1e76efe1d",
+    "runtime_passives.js": "00f852ca3df3a48571c5ff2c247f1343ad5bf37252d1584a98e78734a2261bd7",
+    "runtime_rules.js": "25ab8cd60d422cb756b3461ddfcd0e7944596f28df30a1b007cdc0a5938a57f5",
+    "runtime_andrius.js": "649a294105ad1bab5d1a3c9cc7be5eb5645a3c3f66ceda78cea056e10fa13587",
+    "runtime_flow.js": "297b38cda0eb993d2cfdc7b06106d4a3595b1e7df378e427686fb438e22abda5",
+    "runtime_party.js": "66fed6281b852a8d1363eec6d7093d7dd9dc3c7950622701f6d450a17f29771d",
+    "runtime_opening.js": "fe8ef06ede2ce3648e0efea50822fb6dd1abf0282c6927bf78a86f36ccbd5274",
+    "runtime_places.js": "9e90842fd292a2fed8d4feaed0e1bc66694e379235983d68a47016691d12a6e0",
+    "runtime_places_joint.js": "72709c80f1714f7debd194687eb27b0189a7866eb2b82b2e96b03609b23a492e",
+    "runtime_adventure.js": "f029dba046bb50cbbc1b871be13ea8cd05f8862b1b0ea3d6cdd9b723f902bba9",
+    "presentation.js": "a8eea22066615d102233f7a68d6693a630875bfbee796f6672e7ad9143855fb3"
+  },
+  "databaseSHA256": "24445a681274643ffabe9cb914f78be1e8464c654c2c83513971e2628ee965fd",
+  "fixtureDisclosure": "Normal stats/no gear/no meals/no inventory boosts. Explicit ownership/free-map/level fixtures. Actual product modules only; legacy comparison excludes runtime_adventure.js in isolated VM. startBattle selects the group for sampling; every combat turn uses public COMBAT_BEGIN/COMBAT.",
+  "invariantsPassed": 34,
+  "balance": [
+    {
+      "level": 1,
+      "size": 1,
+      "group": "EG_MOND_SLIME_SMALL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 3.625,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 567,
+          "actions": 3
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 546,
+          "actions": 4
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 543,
+          "actions": 4
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 547,
+          "actions": 4
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 562,
+          "actions": 3
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 526,
+          "actions": 4
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 526,
+          "actions": 4
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 584,
+          "actions": 4
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 546,
+          "actions": 3
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 561,
+          "actions": 3
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 554,
+          "actions": 3
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 532,
+          "actions": 4
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 542,
+          "actions": 4
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 526,
+          "actions": 4
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 547,
+          "actions": 4
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 562,
+          "actions": 3
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "size": 1,
+      "group": "EG_MOND_HILI_PATROL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 4.5,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 492,
+          "actions": 4
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 554,
+          "actions": 4
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 533,
+          "actions": 6
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 455,
+          "actions": 6
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 557,
+          "actions": 4
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 536,
+          "actions": 4
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 555,
+          "actions": 4
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 492,
+          "actions": 6
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 515,
+          "actions": 4
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 503,
+          "actions": 4
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 517,
+          "actions": 4
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 541,
+          "actions": 4
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 539,
+          "actions": 5
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 537,
+          "actions": 4
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 496,
+          "actions": 5
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 533,
+          "actions": 4
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "size": 1,
+      "group": "EG_MOND_HILI_ELITE",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 11.0625,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 293,
+          "actions": 10
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 16,
+          "playerRemaining": 72,
+          "actions": 16
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 165,
+          "actions": 13
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 167,
+          "actions": 11
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 118,
+          "actions": 12
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 272,
+          "actions": 10
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 244,
+          "actions": 11
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 280,
+          "actions": 11
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 286,
+          "actions": 10
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 158,
+          "actions": 10
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 280,
+          "actions": 10
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 246,
+          "actions": 10
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 108,
+          "actions": 12
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 270,
+          "actions": 11
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 325,
+          "actions": 9
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 245,
+          "actions": 11
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "size": 1,
+      "group": "EG_MOND_ABYSS_MAGE",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 13.375,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 407,
+          "actions": 12
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 16,
+          "playerRemaining": 373,
+          "actions": 16
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 16,
+          "playerRemaining": 385,
+          "actions": 16
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 16,
+          "playerRemaining": 315,
+          "actions": 16
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 405,
+          "actions": 12
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 328,
+          "actions": 13
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 14,
+          "playerRemaining": 304,
+          "actions": 14
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 446,
+          "actions": 12
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 423,
+          "actions": 12
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 371,
+          "actions": 13
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 417,
+          "actions": 12
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 14,
+          "playerRemaining": 380,
+          "actions": 14
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 356,
+          "actions": 13
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 375,
+          "actions": 12
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 14,
+          "playerRemaining": 324,
+          "actions": 14
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 314,
+          "actions": 13
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "size": 1,
+      "group": "EG_TREASURE_PATROL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 4.4375,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 537,
+          "actions": 4
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 554,
+          "actions": 4
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 557,
+          "actions": 5
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 511,
+          "actions": 4
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 477,
+          "actions": 5
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 512,
+          "actions": 5
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 555,
+          "actions": 4
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 492,
+          "actions": 6
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 516,
+          "actions": 5
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 500,
+          "actions": 4
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 512,
+          "actions": 4
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 507,
+          "actions": 5
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 530,
+          "actions": 4
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 511,
+          "actions": 4
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 529,
+          "actions": 4
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 536,
+          "actions": 4
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "size": 2,
+      "group": "EG_MOND_SLIME_SMALL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 3.1875,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 542,
+          "actions": 3
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 491,
+          "actions": 3
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 540,
+          "actions": 3
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 543,
+          "actions": 2
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 537,
+          "actions": 2
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 571,
+          "actions": 2
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 568,
+          "actions": 2
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 539,
+          "actions": 2
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 539,
+          "actions": 3
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 570,
+          "actions": 2
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 503,
+          "actions": 2
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 513,
+          "actions": 3
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 517,
+          "actions": 2
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 501,
+          "actions": 3
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 543,
+          "actions": 2
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 518,
+          "actions": 2
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "size": 2,
+      "group": "EG_MOND_HILI_PATROL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 4,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 442,
+          "actions": 4
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 440,
+          "actions": 3
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 495,
+          "actions": 5
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 492,
+          "actions": 3
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 489,
+          "actions": 3
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 531,
+          "actions": 3
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 427,
+          "actions": 4
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 427,
+          "actions": 3
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 492,
+          "actions": 3
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 457,
+          "actions": 3
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 460,
+          "actions": 3
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 441,
+          "actions": 3
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 490,
+          "actions": 3
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 563,
+          "actions": 3
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 531,
+          "actions": 3
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 566,
+          "actions": 3
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "size": 2,
+      "group": "EG_MOND_HILI_ELITE",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 8.3125,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 85,
+          "actions": 8
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 110,
+          "actions": 11
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 279,
+          "actions": 8
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 351,
+          "actions": 6
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 7,
+          "playerRemaining": 246,
+          "actions": 6
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 8,
+          "playerRemaining": 146,
+          "actions": 8
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 279,
+          "actions": 6
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 135,
+          "actions": 8
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 8,
+          "playerRemaining": 158,
+          "actions": 8
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 188,
+          "actions": 8
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 203,
+          "actions": 8
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 179,
+          "actions": 8
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 134,
+          "actions": 8
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 279,
+          "actions": 9
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 8,
+          "playerRemaining": 185,
+          "actions": 8
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 7,
+          "playerRemaining": 336,
+          "actions": 7
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "size": 2,
+      "group": "EG_MOND_ABYSS_MAGE",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 9.8125,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 326,
+          "actions": 9
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 313,
+          "actions": 11
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 358,
+          "actions": 9
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 344,
+          "actions": 9
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 424,
+          "actions": 8
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 330,
+          "actions": 9
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 250,
+          "actions": 9
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 309,
+          "actions": 9
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 343,
+          "actions": 9
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 389,
+          "actions": 9
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 365,
+          "actions": 9
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 434,
+          "actions": 9
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 316,
+          "actions": 11
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 381,
+          "actions": 9
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 364,
+          "actions": 8
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 416,
+          "actions": 9
+        }
+      ]
+    },
+    {
+      "level": 1,
+      "size": 2,
+      "group": "EG_TREASURE_PATROL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 3.9375,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 297,
+          "actions": 3
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 397,
+          "actions": 3
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 332,
+          "actions": 5
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 367,
+          "actions": 3
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 398,
+          "actions": 3
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 293,
+          "actions": 3
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 432,
+          "actions": 3
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 315,
+          "actions": 3
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 428,
+          "actions": 3
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 320,
+          "actions": 3
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 445,
+          "actions": 3
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 340,
+          "actions": 3
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 444,
+          "actions": 2
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 310,
+          "actions": 5
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 310,
+          "actions": 3
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 360,
+          "actions": 3
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 1,
+      "group": "EG_MOND_SLIME_SMALL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 3.625,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 639,
+          "actions": 3
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 618,
+          "actions": 4
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 613,
+          "actions": 4
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 618,
+          "actions": 4
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 634,
+          "actions": 3
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 596,
+          "actions": 4
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 597,
+          "actions": 4
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 655,
+          "actions": 4
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 617,
+          "actions": 3
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 633,
+          "actions": 3
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 626,
+          "actions": 3
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 603,
+          "actions": 4
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 614,
+          "actions": 4
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 596,
+          "actions": 4
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 618,
+          "actions": 4
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 633,
+          "actions": 3
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 1,
+      "group": "EG_MOND_HILI_PATROL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 4.5,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 560,
+          "actions": 4
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 624,
+          "actions": 4
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 600,
+          "actions": 6
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 521,
+          "actions": 6
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 627,
+          "actions": 4
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 604,
+          "actions": 4
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 625,
+          "actions": 4
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 559,
+          "actions": 6
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 583,
+          "actions": 4
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 571,
+          "actions": 4
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 582,
+          "actions": 4
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 610,
+          "actions": 4
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 607,
+          "actions": 5
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 605,
+          "actions": 4
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 561,
+          "actions": 5
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 602,
+          "actions": 4
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 1,
+      "group": "EG_MOND_HILI_ELITE",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 11.125,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 365,
+          "actions": 10
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 17,
+          "playerRemaining": 121,
+          "actions": 17
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 14,
+          "playerRemaining": 177,
+          "actions": 14
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 239,
+          "actions": 10
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 169,
+          "actions": 12
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 339,
+          "actions": 10
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 217,
+          "actions": 12
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 260,
+          "actions": 11
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 434,
+          "actions": 9
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 230,
+          "actions": 10
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 346,
+          "actions": 10
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 318,
+          "actions": 10
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 167,
+          "actions": 12
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 334,
+          "actions": 11
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 392,
+          "actions": 9
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 316,
+          "actions": 11
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 1,
+      "group": "EG_MOND_ABYSS_MAGE",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 12.75,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 482,
+          "actions": 12
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 16,
+          "playerRemaining": 436,
+          "actions": 16
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 16,
+          "playerRemaining": 457,
+          "actions": 16
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 14,
+          "playerRemaining": 409,
+          "actions": 14
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 413,
+          "actions": 13
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 417,
+          "actions": 12
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 15,
+          "playerRemaining": 363,
+          "actions": 15
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 513,
+          "actions": 12
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 498,
+          "actions": 11
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 467,
+          "actions": 12
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 488,
+          "actions": 11
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 513,
+          "actions": 12
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 426,
+          "actions": 13
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 485,
+          "actions": 11
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 416,
+          "actions": 12
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 410,
+          "actions": 12
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 1,
+      "group": "EG_TREASURE_PATROL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 4.1875,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 634,
+          "actions": 3
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 624,
+          "actions": 4
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 628,
+          "actions": 5
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 610,
+          "actions": 3
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 544,
+          "actions": 5
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 583,
+          "actions": 5
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 625,
+          "actions": 4
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 559,
+          "actions": 6
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 590,
+          "actions": 5
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 599,
+          "actions": 3
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 584,
+          "actions": 4
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 579,
+          "actions": 5
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 602,
+          "actions": 4
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 582,
+          "actions": 4
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 601,
+          "actions": 4
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 633,
+          "actions": 3
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 2,
+      "group": "EG_MOND_SLIME_SMALL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 3.25,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 612,
+          "actions": 3
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 563,
+          "actions": 3
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 610,
+          "actions": 3
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 612,
+          "actions": 2
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 609,
+          "actions": 2
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 642,
+          "actions": 2
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 640,
+          "actions": 2
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 611,
+          "actions": 2
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 569,
+          "actions": 5
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 641,
+          "actions": 2
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 571,
+          "actions": 2
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 580,
+          "actions": 3
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 572,
+          "actions": 2
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 569,
+          "actions": 3
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 612,
+          "actions": 2
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 573,
+          "actions": 2
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 2,
+      "group": "EG_MOND_HILI_PATROL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 4.125,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 509,
+          "actions": 4
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 462,
+          "actions": 5
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 563,
+          "actions": 5
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 560,
+          "actions": 3
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 559,
+          "actions": 3
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 601,
+          "actions": 3
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 497,
+          "actions": 4
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 498,
+          "actions": 3
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 561,
+          "actions": 3
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 525,
+          "actions": 3
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 498,
+          "actions": 3
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 508,
+          "actions": 3
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 560,
+          "actions": 3
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 584,
+          "actions": 4
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 523,
+          "actions": 4
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 637,
+          "actions": 3
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 2,
+      "group": "EG_MOND_HILI_ELITE",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 8.5625,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 155,
+          "actions": 8
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 157,
+          "actions": 11
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 343,
+          "actions": 8
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 423,
+          "actions": 6
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 240,
+          "actions": 8
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 8,
+          "playerRemaining": 206,
+          "actions": 8
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 7,
+          "playerRemaining": 190,
+          "actions": 6
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 181,
+          "actions": 9
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 8,
+          "playerRemaining": 228,
+          "actions": 8
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 8,
+          "playerRemaining": 260,
+          "actions": 8
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 265,
+          "actions": 8
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 249,
+          "actions": 8
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 195,
+          "actions": 8
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 255,
+          "actions": 9
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 8,
+          "playerRemaining": 247,
+          "actions": 8
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 7,
+          "playerRemaining": 409,
+          "actions": 7
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 2,
+      "group": "EG_MOND_ABYSS_MAGE",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 9.375,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 437,
+          "actions": 8
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 341,
+          "actions": 9
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 405,
+          "actions": 9
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 432,
+          "actions": 8
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 467,
+          "actions": 8
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 377,
+          "actions": 9
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 285,
+          "actions": 9
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 375,
+          "actions": 9
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 421,
+          "actions": 9
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 463,
+          "actions": 9
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 413,
+          "actions": 9
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 529,
+          "actions": 8
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 364,
+          "actions": 10
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 524,
+          "actions": 8
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 412,
+          "actions": 8
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 9,
+          "playerRemaining": 468,
+          "actions": 8
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 2,
+      "group": "EG_TREASURE_PATROL",
+      "samples": 16,
+      "wins": 16,
+      "protagonistSurvivals": 16,
+      "meanRounds": 3.6875,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 419,
+          "actions": 3
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 467,
+          "actions": 3
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 454,
+          "actions": 5
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 491,
+          "actions": 3
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 417,
+          "actions": 3
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 365,
+          "actions": 3
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 448,
+          "actions": 3
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 549,
+          "actions": 2
+        },
+        {
+          "seed": 4164646392,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 504,
+          "actions": 3
+        },
+        {
+          "seed": 1584656299,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 398,
+          "actions": 3
+        },
+        {
+          "seed": 1068000794,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 518,
+          "actions": 3
+        },
+        {
+          "seed": 2648742101,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 462,
+          "actions": 3
+        },
+        {
+          "seed": 1943605892,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 516,
+          "actions": 2
+        },
+        {
+          "seed": 3507590519,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 382,
+          "actions": 5
+        },
+        {
+          "seed": 3075346214,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 431,
+          "actions": 3
+        },
+        {
+          "seed": 344359313,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 515,
+          "actions": 2
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 1,
+      "group": "EG_DRAGON_CRYO",
+      "samples": 8,
+      "wins": 8,
+      "protagonistSurvivals": 8,
+      "meanRounds": 3.875,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 574,
+          "actions": 4
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 631,
+          "actions": 4
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 610,
+          "actions": 5
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 614,
+          "actions": 3
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 634,
+          "actions": 3
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 614,
+          "actions": 3
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 632,
+          "actions": 3
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 576,
+          "actions": 6
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 1,
+      "group": "EG_DRAGON_MITA",
+      "samples": 8,
+      "wins": 8,
+      "protagonistSurvivals": 8,
+      "meanRounds": 17.625,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 18,
+          "playerRemaining": 288,
+          "actions": 18
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 18,
+          "playerRemaining": 311,
+          "actions": 18
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 21,
+          "playerRemaining": 249,
+          "actions": 21
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 18,
+          "playerRemaining": 263,
+          "actions": 18
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 16,
+          "playerRemaining": 329,
+          "actions": 16
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 15,
+          "playerRemaining": 321,
+          "actions": 15
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 18,
+          "playerRemaining": 270,
+          "actions": 18
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 17,
+          "playerRemaining": 344,
+          "actions": 17
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 2,
+      "group": "EG_DRAGON_CRYO",
+      "samples": 8,
+      "wins": 8,
+      "protagonistSurvivals": 8,
+      "meanRounds": 3.375,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 524,
+          "actions": 4
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 497,
+          "actions": 3
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 597,
+          "actions": 4
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 575,
+          "actions": 3
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 573,
+          "actions": 2
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 610,
+          "actions": 3
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 576,
+          "actions": 3
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 531,
+          "actions": 3
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "size": 2,
+      "group": "EG_DRAGON_MITA",
+      "samples": 8,
+      "wins": 8,
+      "protagonistSurvivals": 8,
+      "meanRounds": 11.875,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 201,
+          "actions": 12
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 280,
+          "actions": 11
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 186,
+          "actions": 13
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 333,
+          "actions": 11
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 313,
+          "actions": 12
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 210,
+          "actions": 11
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 10,
+          "playerRemaining": 294,
+          "actions": 10
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 295,
+          "actions": 11
+        }
+      ]
+    },
+    {
+      "level": 8,
+      "size": 1,
+      "group": "EG_DRAGON_CRYO",
+      "samples": 8,
+      "wins": 8,
+      "protagonistSurvivals": 8,
+      "meanRounds": 4.375,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 666,
+          "actions": 4
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 726,
+          "actions": 4
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 5,
+          "playerRemaining": 705,
+          "actions": 5
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 645,
+          "actions": 6
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 728,
+          "actions": 3
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 707,
+          "actions": 4
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 727,
+          "actions": 3
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 6,
+          "playerRemaining": 668,
+          "actions": 6
+        }
+      ]
+    },
+    {
+      "level": 8,
+      "size": 1,
+      "group": "EG_DRAGON_MITA",
+      "samples": 8,
+      "wins": 8,
+      "protagonistSurvivals": 8,
+      "meanRounds": 18.5,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 18,
+          "playerRemaining": 383,
+          "actions": 18
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 19,
+          "playerRemaining": 377,
+          "actions": 19
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 24,
+          "playerRemaining": 293,
+          "actions": 24
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 18,
+          "playerRemaining": 356,
+          "actions": 18
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 16,
+          "playerRemaining": 417,
+          "actions": 16
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 16,
+          "playerRemaining": 407,
+          "actions": 16
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 19,
+          "playerRemaining": 332,
+          "actions": 19
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 18,
+          "playerRemaining": 411,
+          "actions": 18
+        }
+      ]
+    },
+    {
+      "level": 8,
+      "size": 2,
+      "group": "EG_DRAGON_CRYO",
+      "samples": 8,
+      "wins": 8,
+      "protagonistSurvivals": 8,
+      "meanRounds": 3.375,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 614,
+          "actions": 4
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 653,
+          "actions": 3
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 4,
+          "playerRemaining": 691,
+          "actions": 4
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 667,
+          "actions": 3
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 667,
+          "actions": 3
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 702,
+          "actions": 3
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 704,
+          "actions": 2
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 3,
+          "playerRemaining": 648,
+          "actions": 2
+        }
+      ]
+    },
+    {
+      "level": 8,
+      "size": 2,
+      "group": "EG_DRAGON_MITA",
+      "samples": 8,
+      "wins": 8,
+      "protagonistSurvivals": 8,
+      "meanRounds": 12.375,
+      "rows": [
+        {
+          "seed": 3460736880,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 405,
+          "actions": 12
+        },
+        {
+          "seed": 2948585763,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 362,
+          "actions": 12
+        },
+        {
+          "seed": 234115986,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 269,
+          "actions": 13
+        },
+        {
+          "seed": 3811363405,
+          "victory": true,
+          "rounds": 11,
+          "playerRemaining": 402,
+          "actions": 11
+        },
+        {
+          "seed": 1097157692,
+          "victory": true,
+          "rounds": 13,
+          "playerRemaining": 331,
+          "actions": 13
+        },
+        {
+          "seed": 660457199,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 252,
+          "actions": 12
+        },
+        {
+          "seed": 2223667550,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 340,
+          "actions": 11
+        },
+        {
+          "seed": 448983817,
+          "victory": true,
+          "rounds": 12,
+          "playerRemaining": 357,
+          "actions": 11
+        }
+      ]
+    }
+  ],
+  "samples": 384,
+  "wins": 384,
+  "protagonistSurvivals": 384
+}

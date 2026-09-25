@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "cutinActions": 11,
+  "scenes": [
+    "ISK_M04_BATTLE_AB_70",
+    "ISK_M04_BATTLE_AB_35"
+  ],
+  "result": {
+    "id": "DVALIN-STORY-TEST:B2",
+    "battleId": "DVALIN-STORY-TEST:B2",
+    "saveId": "DVALIN-STORY-TEST",
+    "group": "EG_ISK_M04_AB_DVALIN",
+    "origin": "STORY:ISK_M04_AB_COMBAT",
+    "gate": "ISK_M04_AB_COMBAT",
+    "branch": "AB",
+    "victory": true,
+    "xp": 3060,
+    "loot": {},
+    "rounds": 2,
+    "result": "ALIVE_PURIFIED",
+    "unsupportedEffects": []
+  },
+  "receipt": {
+    "resolvedNode": "ISK_M04_AB_COMBAT",
+    "saveId": "DVALIN-STORY-TEST",
+    "branch": "AB",
+    "gate": "ISK_M04_AB_COMBAT",
+    "victory": true,
+    "turn": 16,
+    "day": 1,
+    "group": "EG_ISK_M04_AB_DVALIN",
+    "result": "ALIVE_PURIFIED",
+    "battleId": "DVALIN-STORY-TEST:B2"
+  },
+  "node": "ISK_M04_AB_096"
+}

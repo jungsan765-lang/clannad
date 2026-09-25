@@ -1,0 +1,9 @@
+PASS Eula and Rosaria supported scripts match latest source exactly; Rosaria E remains blocked
+PASS Eula taps build capped DEF stacks; AI holds at two and consumes exact coefficients
+PASS Eula sword caps direct-hit stacks and follows CE049 creation remainder plus two full rounds
+PASS Eula misses and reaction/followup damage do not add sword stacks
+PASS Eula death detonates immediately; an explicit leave detonates without recursion
+PASS Rosaria Q follows CE049: creation END plus two subsequent END ticks and matching critical share
+PASS Rosaria night is [20:00,06:00), boosts one damage, expires at dawn, and is save-stable
+PASS night and Eula vulnerability multipliers occur before the single final damage rounding
+{"passed":8,"data":"content/db.json"}

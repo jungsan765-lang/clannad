@@ -1,0 +1,75 @@
+{
+  "date": "2026-09-24",
+  "method": "Authored disposable QA saves and pages; supported cloud browser interactions; no real player save modifications",
+  "checks": {
+    "katheryne": {
+      "loaded": true,
+      "naturalWidth": 720,
+      "url": "assets/mond_kth_1.webp"
+    },
+    "inventory": {
+      "desktopSquarePx": 118,
+      "overflow": false,
+      "foodTargets": [
+        "player",
+        "MOND_AMBER",
+        "MOND_KAEYA"
+      ],
+      "inactiveLisaExcluded": true,
+      "tooltipsBound": true
+    },
+    "menus": {
+      "separate": [
+        "PARTY",
+        "INVENTORY",
+        "QUEST",
+        "RELATIONS"
+      ],
+      "globalServiceLinksAbsent": true
+    },
+    "combat": {
+      "enemyIllustrations": 1,
+      "individuallyTargetableActors": 6,
+      "firstOrderBeforeAttacks": true,
+      "firstAutomaticEffectsObserved": true,
+      "desktopAttackTopPx": 345.90625,
+      "mobileViewport": 390,
+      "mobileDocumentWidth": 375,
+      "mobileAttackTopPx": 560.609375,
+      "mobileAttackBottomPx": 609.796875
+    },
+    "delete": {
+      "cancelPreservedSlot": true,
+      "confirmedCurrentSlotRemoved": true,
+      "autosavePausedAfterDelete": true,
+      "menuNavigationDidNotRecreate": true,
+      "newBranchResumeWorked": true
+    },
+    "storage": {
+      "isolatedIndexedDBChecksPassed": 6
+    },
+    "jointCraft": {
+      "facilitiesVisited": [
+        "대장장이",
+        "연금·약제 보급처"
+      ],
+      "result": "만국 항해용해도",
+      "quantity": 1,
+      "moraConsumed": 220,
+      "elapsedMinutes": 120,
+      "materialsConsumedOnce": true
+    },
+    "enhancement": {
+      "item": "여행자 외투",
+      "from": 0,
+      "to": 3,
+      "moraConsumed": 120,
+      "ironConsumed": 3,
+      "elapsedMinutes": 30
+    }
+  },
+  "limits": [
+    "Synthetic QA states test interfaces and edge behavior, not a full normally leveled Mond completion.",
+    "Actual PWA installation and network-disconnected restart not exercised."
+  ]
+}

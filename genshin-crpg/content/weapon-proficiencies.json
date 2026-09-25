@@ -1,0 +1,171 @@
+{
+  "scope": "All 20 MOND_* characters in current 07_CHAR_DB. The other 99 character rows are not covered by this verification.",
+  "playerPolicy": "Keep PLAYER_CUSTOM proficiency from the saved WEAPON_PROFICIENCIES_JSON; do not copy Traveler canon into the custom protagonist.",
+  "notes": [
+    "Official HoYoWiki is publisher-hosted and contains community-maintained entries. It is distinguished below from an authored official announcement.",
+    "Catalyst translates to 법구; Sword to 한손검; Claymore to 양손검; Polearm to 장병기; Bow to 활.",
+    "Razor is grounded directly in the project's MOND_RAZOR_Q description, which explicitly calls his weapon a 대검. No weapon is inferred from range or element."
+  ],
+  "characters": [
+    {
+      "id": "MOND_ALBEDO",
+      "weapon": "한손검",
+      "verified": true,
+      "sourceKind": "official-announcement",
+      "source": "https://www.hoyolab.com/article/111065",
+      "evidence": "Albedo character section: Weapon: Sword"
+    },
+    {
+      "id": "MOND_BARBARA",
+      "weapon": "법구",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-TCG",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/3180?lang=de-de",
+      "evidence": "Barbara weapon: Catalyst / Katalysator"
+    },
+    {
+      "id": "MOND_BENNETT",
+      "weapon": "한손검",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-TCG",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/3184?crawler=Googlebot",
+      "evidence": "Bennett weapon: Sword"
+    },
+    {
+      "id": "MOND_VENTI",
+      "weapon": "활",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-TCG",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/3838?crawler=Googlebot&lang=",
+      "evidence": "Venti weapon: Bow"
+    },
+    {
+      "id": "MOND_DIONA",
+      "weapon": "활",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-TCG",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/3174?crawler=Googlebot",
+      "evidence": "Diona weapon: Bow"
+    },
+    {
+      "id": "MOND_DAHLIA",
+      "weapon": "한손검",
+      "verified": true,
+      "sourceKind": "official-announcement",
+      "source": "https://www.hoyolab.com/article/39384127",
+      "evidence": "Version 5.7 Dahlia character section: Weapon: Sword"
+    },
+    {
+      "id": "MOND_DILUC",
+      "weapon": "양손검",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-TCG",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/3181?lang=en-us",
+      "evidence": "Diluc: Weapon Claymore. Retrieved by system1 search 2026-09-24."
+    },
+    {
+      "id": "MOND_AMBER",
+      "weapon": "활",
+      "verified": true,
+      "sourceKind": "existing-project-runtime-policy",
+      "source": "game/source/runtime_extensions.js:13",
+      "evidence": "Existing explicit MOND_AMBER: ['활'] proficiency mapping"
+    },
+    {
+      "id": "MOND_JEAN",
+      "weapon": "한손검",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-character",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/27?crawler=Googlebot&lang=",
+      "evidence": "Jean character attributes: Sword"
+    },
+    {
+      "id": "MOND_KAEYA",
+      "weapon": "한손검",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-character-and-existing-policy",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/9?bbs_presentation_style=&crawler=Googlebot",
+      "evidence": "Kaeya character attributes: Sword; matches existing runtime mapping"
+    },
+    {
+      "id": "MOND_KLEE",
+      "weapon": "법구",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-TCG",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/3457?crawler=Googlebot",
+      "evidence": "Klee weapon: Catalyst"
+    },
+    {
+      "id": "MOND_MIKA",
+      "weapon": "장병기",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-character",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/3462?crawler=Googlebot&lang=",
+      "evidence": "Mika character attributes: Polearm"
+    },
+    {
+      "id": "MOND_MONA",
+      "weapon": "법구",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-character",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/37/?crawler=Googlebot&lang=",
+      "evidence": "Mona character attributes: Catalyst"
+    },
+    {
+      "id": "MOND_NOELLE",
+      "weapon": "양손검",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-TCG",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/3190?crawler=Googlebot",
+      "evidence": "Noelle weapon: Claymore"
+    },
+    {
+      "id": "MOND_FISCHL",
+      "weapon": "활",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-character",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/38?crawler=Googlebot&lang=",
+      "evidence": "Fischl character attributes: Bow"
+    },
+    {
+      "id": "MOND_LISA",
+      "weapon": "법구",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-character-and-existing-policy",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/02?crawler=bingbot",
+      "evidence": "Lisa character attributes: Catalyst; matches existing runtime mapping"
+    },
+    {
+      "id": "MOND_RAZOR",
+      "weapon": "양손검",
+      "verified": true,
+      "sourceKind": "project-authored-description",
+      "source": "game/content/db.json#08_SKILL_CARD_DB/MOND_RAZOR_Q/설명",
+      "evidence": "물리 대검 연타에 번개 늑대의 추가타를 겹치는 근접 지속 강화기."
+    },
+    {
+      "id": "MOND_ROSARIA",
+      "weapon": "장병기",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-character",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/33/?crawler=Googlebot&lang=",
+      "evidence": "Rosaria character attributes: Polearm"
+    },
+    {
+      "id": "MOND_SUCROSE",
+      "weapon": "법구",
+      "verified": true,
+      "sourceKind": "official-hosted-wiki-character",
+      "source": "https://wiki.hoyolab.com/pc/genshin/entry/30?crawler=bingbot",
+      "evidence": "Sucrose character attributes: Catalyst"
+    },
+    {
+      "id": "MOND_EULA",
+      "weapon": "양손검",
+      "verified": true,
+      "sourceKind": "official-announcement",
+      "source": "https://genshin.hoyoverse.com/en/news/detail/103914",
+      "evidence": "Version 1.5 Eula character section: Weapon: Claymore"
+    }
+  ]
+}

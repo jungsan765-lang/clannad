@@ -1,0 +1,12 @@
+PASS single meal consumes one serving, heals capped HP, and costs exactly ten minutes
+PASS multi-person meal has independent last-food locks and one shared time cost
+PASS invalid, repeated, locked and unavailable meal attempts spend no inventory or time
+PASS life bond absorbs healing before HP and survives partial removal
+PASS buff food refreshes a per-owner pending status without stacking the same ID
+PASS party removal preserves ownership, HP and equipment and replacement is atomic
+PASS tool preparation enforces possession, no duplicates and field-pack capacity
+PASS six audited column-shift recipes are adapted without mutating the DB
+PASS batch crafting multiplies ingredient quantity and time, without auto eating
+PASS recipe facility and location requirements are enforced before costs
+PASS boss route next stage persists, blocks recovery when forbidden, and supports explicit leave
+{"passed":11,"data":"content/db.json"}

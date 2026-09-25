@@ -1,0 +1,518 @@
+{
+  "createdAt": "2026-09-24T21:42:59.485Z",
+  "scope": "All current index source scripts loaded in order into mock DOM; DB actual content; browser/media/network APIs mocked; no files or saves in checkout touched",
+  "limitations": [
+    "DOM mock assertions validate actual app functions, generated structure, condition labels, and absence of runtime exceptions.",
+    "No real browser, visual layout, computed style, media loading, IndexedDB persistence, accessibility-tree, or animation-timing validation.",
+    "Red requirement styling was checked from actual CSS selector/value; pixel appearance was not assessed.",
+    "Main-completion prerequisites are synthetic but satisfy actual runtime receipt validation. Guild entry and ordinary battle creation use actual runtime actions."
+  ],
+  "sourceHashes": {
+    "source/app_recruitment.js": "78729b1f7d2a3c18455530550878309cb14552a38635c37fb5f7e72911aade76",
+    "source/runtime_recruitment.js": "2d9614493c0ca75eff04f699a247bb9f33748c500e75919f858f0c3d12be678e",
+    "source/app_adventure.js": "072e3f26f1afc8c5891bf545daa1746fdea17a7f6fd226b8796634f1a33d987b",
+    "source/runtime_liyue.js": "d4a8df7682025bbe20fd78756a4bc622f3e8d94261933bb985ca40866c055277",
+    "source/runtime_geo_oculi.js": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb",
+    "source/style.css": "ab12b3c050a97e36c853e0c72904fba0acf29854a9ae48f991fdf02f7d4e2f9a",
+    "content/db.json": "554cd42bbdce2afecf0c260dccb4534273ea6677d413289ae4932fd1665ede56"
+  },
+  "loaded": [
+    "world_content.js",
+    "runtime.js",
+    "runtime_extensions.js",
+    "runtime_story.js",
+    "runtime_nodes.js",
+    "runtime_events.js",
+    "runtime_relationships.js",
+    "runtime_combat.js",
+    "runtime_mond_cards.js",
+    "runtime_economy.js",
+    "runtime_passives.js",
+    "runtime_rules.js",
+    "runtime_andrius.js",
+    "runtime_flow.js",
+    "runtime_party.js",
+    "runtime_opening.js",
+    "runtime_places.js",
+    "runtime_places_joint.js",
+    "runtime_adventure.js",
+    "runtime_exploration.js",
+    "runtime_life.js",
+    "runtime_world.js",
+    "runtime_journey.js",
+    "runtime_market.js",
+    "runtime_geography.js",
+    "runtime_liyue.js",
+    "runtime_liyue_card_content.js",
+    "runtime_liyue_cards.js",
+    "runtime_liyue_combat.js",
+    "runtime_geo_oculi.js",
+    "runtime_encounter.js",
+    "runtime_recruitment.js",
+    "save_adapter.js",
+    "app_legacy.js",
+    "app.js",
+    "app_revision.js",
+    "app_party.js",
+    "inventory_presenter.js",
+    "app_experience.js",
+    "app_adventure.js",
+    "app_exploration.js",
+    "app_life.js",
+    "app_journey.js",
+    "app_market.js",
+    "app_tutorial.js",
+    "presentation.js",
+    "app_version.js",
+    "audio_playlists.js",
+    "app_discovery.js",
+    "app_combat_fx.js",
+    "app_recruitment.js",
+    "app_av.js"
+  ],
+  "errors": [],
+  "total": 14,
+  "passed": 14,
+  "results": [
+    {
+      "name": "ROUTE_TRAVELER pre recruitment catalog/red requirements",
+      "ok": true,
+      "details": {
+        "cards": 43,
+        "mond": 20,
+        "liyue": 23,
+        "redNodes": 242,
+        "headers": [
+          "임무",
+          "다음 여정",
+          "동료 획득",
+          "리월의 바위 눈동자"
+        ],
+        "liyueReady": false,
+        "sampleRequirements": [
+          {
+            "id": "MOND_VENTI",
+            "requirements": [
+              {
+                "label": "지역 눈동자 수집 0 / 12",
+                "met": false,
+                "kind": "oculi"
+              },
+              {
+                "label": "본편 완료 후 최종 공양에서 동행 약속",
+                "met": false,
+                "kind": "story"
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_ZHONGLI",
+            "requirements": [
+              {
+                "label": "지역 눈동자 수집 0 / 16",
+                "met": false,
+                "kind": "oculi"
+              },
+              {
+                "label": "본편 완료 후 최종 공양에서 동행 약속",
+                "met": false,
+                "kind": "story"
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_ZIBAI",
+            "requirements": [
+              {
+                "label": "리월 본편 완료",
+                "met": false,
+                "kind": "story"
+              },
+              {
+                "label": "귀환 임무 완료",
+                "met": false,
+                "kind": "story"
+              },
+              {
+                "label": "리월 산악지대에서 만나기",
+                "met": false,
+                "kind": "map"
+              },
+              {
+                "label": "모험가 길드 또는 소개 인물에게 개인 임무 소개받기",
+                "met": false,
+                "kind": "introduction"
+              },
+              {
+                "label": "준비 비용 700 모라 · 보유 150",
+                "met": false,
+                "kind": "cost"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "ROUTE_TRAVELER post recruitment catalog/red requirements",
+      "ok": true,
+      "details": {
+        "cards": 43,
+        "mond": 20,
+        "liyue": 23,
+        "redNodes": 201,
+        "headers": [
+          "임무",
+          "다음 여정",
+          "동료 획득",
+          "리월의 바위 눈동자"
+        ],
+        "liyueReady": true,
+        "sampleRequirements": [
+          {
+            "id": "MOND_VENTI",
+            "requirements": [
+              {
+                "label": "지역 눈동자 수집 0 / 12",
+                "met": false,
+                "kind": "oculi"
+              },
+              {
+                "label": "본편 완료 후 최종 공양에서 동행 약속",
+                "met": false,
+                "kind": "story"
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_ZHONGLI",
+            "requirements": [
+              {
+                "label": "지역 눈동자 수집 0 / 16",
+                "met": false,
+                "kind": "oculi"
+              },
+              {
+                "label": "본편 완료 후 최종 공양에서 동행 약속",
+                "met": false,
+                "kind": "story"
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_ZIBAI",
+            "requirements": [
+              {
+                "label": "리월 본편 완료",
+                "met": true,
+                "kind": "story"
+              },
+              {
+                "label": "귀환 임무 완료",
+                "met": false,
+                "kind": "story"
+              },
+              {
+                "label": "리월 산악지대에서 만나기",
+                "met": false,
+                "kind": "map"
+              },
+              {
+                "label": "모험가 길드 또는 소개 인물에게 개인 임무 소개받기",
+                "met": false,
+                "kind": "introduction"
+              },
+              {
+                "label": "준비 비용 700 모라 · 보유 150",
+                "met": false,
+                "kind": "cost"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "ROUTE_ISEKAI pre recruitment catalog/red requirements",
+      "ok": true,
+      "details": {
+        "cards": 43,
+        "mond": 20,
+        "liyue": 23,
+        "redNodes": 239,
+        "headers": [
+          "임무",
+          "다음 여정",
+          "동료 획득",
+          "리월의 바위 눈동자"
+        ],
+        "liyueReady": false,
+        "sampleRequirements": [
+          {
+            "id": "MOND_VENTI",
+            "requirements": [
+              {
+                "label": "지역 눈동자 수집 0 / 12",
+                "met": false,
+                "kind": "oculi"
+              },
+              {
+                "label": "본편 완료 후 최종 공양에서 동행 약속",
+                "met": false,
+                "kind": "story"
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_ZHONGLI",
+            "requirements": [
+              {
+                "label": "지역 눈동자 수집 0 / 16",
+                "met": false,
+                "kind": "oculi"
+              },
+              {
+                "label": "본편 완료 후 최종 공양에서 동행 약속",
+                "met": false,
+                "kind": "story"
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_ZIBAI",
+            "requirements": [
+              {
+                "label": "리월 본편 완료",
+                "met": false,
+                "kind": "story"
+              },
+              {
+                "label": "귀환 임무 완료",
+                "met": false,
+                "kind": "story"
+              },
+              {
+                "label": "리월 산악지대에서 만나기",
+                "met": false,
+                "kind": "map"
+              },
+              {
+                "label": "모험가 길드 또는 소개 인물에게 개인 임무 소개받기",
+                "met": false,
+                "kind": "introduction"
+              },
+              {
+                "label": "준비 비용 680 모라 · 보유 150",
+                "met": false,
+                "kind": "cost"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "ROUTE_ISEKAI post recruitment catalog/red requirements",
+      "ok": true,
+      "details": {
+        "cards": 43,
+        "mond": 20,
+        "liyue": 23,
+        "redNodes": 198,
+        "headers": [
+          "임무",
+          "다음 여정",
+          "동료 획득",
+          "리월의 바위 눈동자"
+        ],
+        "liyueReady": true,
+        "sampleRequirements": [
+          {
+            "id": "MOND_VENTI",
+            "requirements": [
+              {
+                "label": "지역 눈동자 수집 0 / 12",
+                "met": false,
+                "kind": "oculi"
+              },
+              {
+                "label": "본편 완료 후 최종 공양에서 동행 약속",
+                "met": false,
+                "kind": "story"
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_ZHONGLI",
+            "requirements": [
+              {
+                "label": "지역 눈동자 수집 0 / 16",
+                "met": false,
+                "kind": "oculi"
+              },
+              {
+                "label": "본편 완료 후 최종 공양에서 동행 약속",
+                "met": false,
+                "kind": "story"
+              }
+            ]
+          },
+          {
+            "id": "LIYUE_ZIBAI",
+            "requirements": [
+              {
+                "label": "리월 본편 완료",
+                "met": true,
+                "kind": "story"
+              },
+              {
+                "label": "귀환 임무 완료",
+                "met": false,
+                "kind": "story"
+              },
+              {
+                "label": "리월 산악지대에서 만나기",
+                "met": false,
+                "kind": "map"
+              },
+              {
+                "label": "모험가 길드 또는 소개 인물에게 개인 임무 소개받기",
+                "met": false,
+                "kind": "introduction"
+              },
+              {
+                "label": "준비 비용 680 모라 · 보유 150",
+                "met": false,
+                "kind": "cost"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "catalog filters/collapsed conditions/owned visibility",
+      "ok": true,
+      "details": {
+        "liyue": 23,
+        "missing": 22,
+        "collapsedRedRequirements": true
+      }
+    },
+    {
+      "name": "unmet condition CSS is visibly red",
+      "ok": true,
+      "details": {
+        "color": "#ff9b9b",
+        "important": true
+      }
+    },
+    {
+      "name": "ROUTE_TRAVELER Liyue guild dialogue + journal entries",
+      "ok": true,
+      "details": {
+        "guildId": "EVT_CRPG_LIYUE_GUILD",
+        "dialogueText": "리월항 / 모험가 길드 · 캐서린밖으로 나가기모험가 길드 · 캐서린모험가 길드임무 확인호감도 확인의뢰 접수몬드 의뢰 · 3수락 Lv. 1미수락초원의 버려진 보급 수레수레 주변 흔적을 조사하고 남은 보급품을 회수한다. 조사 결과에 따라 짧은 탐색 판정 또는 주변 위협 1회 가능.진행 장소 · 몬드 외곽 초원 · 권장 Lv. 1–4몬드성 방향으로 이동◈ 80 모라방랑자의 경험 ×2의뢰 수락수락 Lv. 1미수락첫 현장 점검바람 슬라임 1체를 상대하고 결과 확인진행 장소 · 몬드 외곽 초원 · 권장 Lv. 1–4몬드성 방향으로 이동◈ 60 모라의뢰 수락수락 Lv. 1미수락성문 앞 흩어진 우편물성문을 오가는 사람들의 발에 밟히기 전에 흩어진 편지를 모으자.진행 장소 · 몬드성 · 권장 Lv. 1–20몬드성 방향으로 이동◈ 60 모라✦ 경험치 50방랑자의 경험 ×1의뢰 수락개인 임무 소개✓ 몬드 본편 완료필요 · 몬드성에서 만나기필요 · 모험가 길드 또는 소개 인물에게 개인 임무 소개받기필요 · 수정덩이 0 / 1개필요 · 슬라임 응축액 0 / 2개알베도 전설 임무 · 종이 위에 남지 않는 색소개받은 뒤 임무 → 개인 임무에서 준비물과 진행 장소를 확인할 수 있습니다.개인 임무 소개받기✓ 몬드 본편 완료필요 · 몬드성에서 만나기필요 · 모험가 길드 또는 소개 인물에게 개인 임무 소개받기✓ 준비 비용 120 모라 · 보유 150필요 · 응급 붕대 0 / 1개바바라 전설 임무 · 노래가 닿지 않는 자리소개받은 뒤 임무 → 개인 임무에서 준비물과 진행 장소를 확인할 수 있습니다.개인 임무 소개받기✓ 몬드 본편 완료필요 · 몬드성에서 만나기필요 · 모험가 길드 또는 소개 인물에게 개인 임무 소개받기✓ 준비 비용 90 모라 · 보유 150필요 · 짐승고기 0 / 1개베넷 전설 임무 · 길을 잃지 않는 깃발소개받은 뒤 임무 → 개인 임무에서 준비물과 진행 장소를 확인할 수 있습니다.개인 임무 소개받기✓ 몬드 본편 완료필요 · 몬드성에서 만나기필요 · 모험가 길드 또는 소개 인물에게",
+        "journalCards": 43,
+        "unmet": 115
+      }
+    },
+    {
+      "name": "ROUTE_ISEKAI Liyue guild dialogue + journal entries",
+      "ok": true,
+      "details": {
+        "guildId": "EVT_CRPG_LIYUE_GUILD",
+        "dialogueText": "리월항 / 모험가 길드 · 캐서린밖으로 나가기모험가 길드 · 캐서린모험가 길드임무 확인호감도 확인의뢰 접수몬드 의뢰 · 3수락 Lv. 1미수락초원의 버려진 보급 수레수레 주변 흔적을 조사하고 남은 보급품을 회수한다. 조사 결과에 따라 짧은 탐색 판정 또는 주변 위협 1회 가능.진행 장소 · 몬드 외곽 초원 · 권장 Lv. 1–4몬드성 방향으로 이동◈ 80 모라방랑자의 경험 ×2의뢰 수락수락 Lv. 1미수락첫 현장 점검바람 슬라임 1체를 상대하고 결과 확인진행 장소 · 몬드 외곽 초원 · 권장 Lv. 1–4몬드성 방향으로 이동◈ 60 모라의뢰 수락수락 Lv. 1미수락성문 앞 흩어진 우편물성문을 오가는 사람들의 발에 밟히기 전에 흩어진 편지를 모으자.진행 장소 · 몬드성 · 권장 Lv. 1–20몬드성 방향으로 이동◈ 60 모라✦ 경험치 50방랑자의 경험 ×1의뢰 수락개인 임무 소개필요 · 2AB 다이루크 전설임무 무료 해금; 완료와 별개필요 · 2AB 합류 수락 후 다이루크 카드 소유필요 · 다운 와이너리에서 만나기필요 · 모험가 길드 또는 소개 인물에게 개인 임무 소개받기다이루크 전설 임무 · 포도밭 너머의 불빛 (이세계인)소개받은 뒤 임무 → 개인 임무에서 준비물과 진행 장소를 확인할 수 있습니다.개인 임무 소개받기✓ 이세계인 몬드 도입부 전체 완료 여부✓ 이세계인 튜토리얼 후 메인 화면 개방필요 · 몬드성에서 만나기필요 · 모험가 길드 또는 소개 인물에게 개인 임무 소개받기필요 · 질긴 직물 0 / 1개엠버 전설 임무 · 세 번 울린 초소 (이세계인)소개받은 뒤 임무 → 개인 임무에서 준비물과 진행 장소를 확인할 수 있습니다.개인 임무 소개받기✓ 몬드 본편 완료필요 · 몬드성에서 만나기필요 · 모험가 길드 또는 소개 인물에게 개인 임무 소개받기필요 · 여행자 응급치료 세트 0 / 1개진 전설 임무 · 교대가 끝난 뒤의 기록 (이세계인)소개받은 뒤 임무 → 개인 임무에서 준비물과 진행 장소를 확인할 수 있습니다.개인 임무 소개받기✓ 몬드 본편 완료필요 · 몬드",
+        "journalCards": 42,
+        "unmet": 110
+      }
+    },
+    {
+      "name": "all mission tabs and party acquisition entry render",
+      "ok": true,
+      "details": {
+        "진행 중": {
+          "length": 243,
+          "cards": 1
+        },
+        "동료 획득": {
+          "length": 7214,
+          "cards": 44
+        },
+        "개인 임무": {
+          "length": 11165,
+          "cards": 44
+        },
+        "완료": {
+          "length": 191,
+          "cards": 1
+        }
+      }
+    },
+    {
+      "name": "location MAP_LIYUE_JUEYUN",
+      "ok": true,
+      "details": {
+        "text": "메인 화면절운간권장 Lv. 5–9 · 야외 구역메인 임무다음 여정현재 공개된 본편 구간을 마쳤습니다. 의뢰와 개인 임무를 확인해 주세요.주변 시설이곳에는 이용할 시설이 없습니다.다른 구역으로 이동리월 산악지대 · 권장 Lv. 4–8 · 30분이 구역의 생활 행동채집 전용 구역오늘 남은 자원 4 / 4 · 다음 날 다시 생성작업 10초 · 게임 시간 10분 · 적 조우 5%청심 3–5개 / 유리주머니 3–5개 / 허브 3–5개한 번에 두 묶음을 모읍니다.채집 시작 · 10초1시간 기다리기기다리는 동안 34% 확률로 적과 조우합니다. 전투 직후에는 한 번 보호됩니다.주변의 작은 단서돌계단 아래의 어두운 틈휴대용 등불로 계단 안쪽을 비춘다.Lv. 5부터 조사할 수 있습니다.휴대용 등불로 계단 안쪽을 비춘다 · 5초유적 기계가 지키는 석단석단을 지키는 기계를 상대한다.Lv. 6부터 조사할 수 있습니다.석단을 지키는 기계를 상대한다여행한 풍경을 잇는 표식지나온 네 장소의 표식을 대조한다.Lv. 6부터 조사할 수 있습니다.지나온 네 장소의 표식을 대조한다 · 6초바위 눈동자 공양발견 0 / 16 · 보유 0개바위 눈동자 전량 수집 필요 · 0 / 16◈ 400 모라모험가의 경험 ×2눈동자 4개 공양"
+      }
+    },
+    {
+      "name": "location MAP_LIYUE_MOUNTAINS",
+      "ok": true,
+      "details": {
+        "text": "메인 화면리월 산악지대권장 Lv. 4–8 · 야외 구역메인 임무다음 여정현재 공개된 본편 구간을 마쳤습니다. 의뢰와 개인 임무를 확인해 주세요.주변 시설이곳에는 이용할 시설이 없습니다.다른 구역으로 이동리월항 · 권장 Lv. 1–20 · 30분절운간 · 권장 Lv. 5–9 · 30분교영 마을 · 권장 Lv. 4–20 · 30분유롱항 · 권장 Lv. 4–20 · 30분이 구역의 생활 행동사냥 전용 구역오늘 남은 자원 4 / 4 · 다음 날 다시 생성작업 10초 · 게임 시간 10분 · 적 조우 5%짐승고기 3–5개 / 새고기 3–5개사냥 시작 · 10초1시간 기다리기기다리는 동안 34% 확률로 적과 조우합니다. 전투 직후에는 한 번 보호됩니다.주변의 작은 단서절벽 아래의 오래된 고리튼튼한 밧줄을 바위에 고정한다.Lv. 5부터 조사할 수 있습니다.튼튼한 밧줄을 바위에 고정한다 · 6초수정맥 사이의 공명수정의 울림으로 빈 공간을 찾는다.Lv. 6부터 조사할 수 있습니다.수정의 울림으로 빈 공간을 찾는다 · 6초지역 이야기 · 귀환 확인 1 / 3산길에 남은 흔적산길의 오래된 이정표 옆에 누군가 돌아온 흔적이 있다. 표식과 이어지는 발자국을 확인해 보자.이정표와 발자국을 살핀다"
+      }
+    },
+    {
+      "name": "location MAP_LIYUE_GOLDEN_HOUSE",
+      "ok": true,
+      "details": {
+        "text": "메인 화면황금옥권장 Lv. 10–14 · 야외 구역메인 임무다음 여정현재 공개된 본편 구간을 마쳤습니다. 의뢰와 개인 임무를 확인해 주세요.주변 시설이곳에는 이용할 시설이 없습니다.다른 구역으로 이동리월항 · 권장 Lv. 1–20 · 0분이동 자격을 얻는 스토리 진행이 필요합니다.1시간 기다리기기다리는 동안 0% 확률로 적과 조우합니다. 전투 직후에는 한 번 보호됩니다."
+      }
+    },
+    {
+      "name": "real normal battle + Liyue objective/interlude/evacuation rendering",
+      "ok": true,
+      "details": {
+        "ordinary": {
+          "text": "전투 시작 전몬드 슬라임 무리적과 마주쳤습니다 · 리월 평야·도로리월 평야·도로에서 적 무리를 마주쳤습니다. 아래의 적과 행동 순서를 확인하고 전투를 시작하세요.바람 슬라임 × 1불 슬라임 × 21바람 슬라임2불 슬라임 13UI 읽기 전용 검증4불 슬라임 2준비되면 전투를 시작하세요아직 누구도 공격하지 않았습니다. 시작하면 위 순서대로 행동합니다. 주인공의 차례에는 행동 → 대상 → 실행을 선택하세요.전투 시작전투 속도1.0×우리 파티✦UI 읽기 전용 검증HP  100000 / 100000적바람 슬라임HP  769 / 769불 슬라임 1HP  769 / 769불 슬라임 2HP  769 / 769전투 기록 · 0건",
+          "nodes": 65
+        },
+        "objective": {
+          "text": "선인 진법을 지켜라진법 HP 2300 / 3000 · 충전 3 / 8본체는 무적입니다. 증원 병력을 막으며 8라운드 충전을 지키세요. 3라운드마다 아군 전체를 공격합니다.전투 시작 전몬드 슬라임 무리적과 마주쳤습니다 · 리월 평야·도로리월 평야·도로에서 적 무리를 마주쳤습니다. 아래의 적과 행동 순서를 확인하고 전투를 시작하세요.바람 슬라임 × 1불 슬라임 × 21바람 슬라임2불 슬라임 13UI 읽기 전용 검증4불 슬라임 2준비되면 전투를 시작하세요아직 누구도 공격하지 않았습니다. 시작하면 위 순서대로 행동합니다. 주인공의 차례에는 행동 → 대상 → 실행을 선택하세요.전투 시작전투 속도1.0×우리 파티✦UI 읽기 전용 검증HP  100000 / 100000적바람 슬라임HP  769 / 769불 슬라임 1HP  769 / 769불 슬라임 2HP  769 / 769전투 기록 · 0건",
+          "nodes": 69
+        },
+        "interlude": {
+          "text": "전투 중 · 변한 태세페이몬적의 태세가 변했어!대화를 확인하고 전투 계속",
+          "nodes": 5
+        },
+        "evacuation": {
+          "text": "대피가 끝날 때까지 지켜라완료 라운드 2 / 4적을 제압한 뒤에도 4라운드가 끝날 때까지 방어하며 대피로를 지켜 주세요.전투 시작 전몬드 슬라임 무리적과 마주쳤습니다 · 리월 평야·도로리월 평야·도로에서 적 무리를 마주쳤습니다. 아래의 적과 행동 순서를 확인하고 전투를 시작하세요.바람 슬라임 × 1불 슬라임 × 21바람 슬라임2불 슬라임 13UI 읽기 전용 검증4불 슬라임 2준비되면 전투를 시작하세요아직 누구도 공격하지 않았습니다. 시작하면 위 순서대로 행동합니다. 주인공의 차례에는 행동 → 대상 → 실행을 선택하세요.전투 시작전투 속도1.0×우리 파티✦UI 읽기 전용 검증HP  100000 / 100000적바람 슬라임HP  769 / 769불 슬라임 1HP  769 / 769불 슬라임 2HP  769 / 769전투 기록 · 0건",
+          "nodes": 69
+        }
+      }
+    },
+    {
+      "name": "full production render across four main screens",
+      "ok": true,
+      "details": {
+        "QUEST": {
+          "characters": 7323,
+          "nodes": 649
+        },
+        "PARTY": {
+          "characters": 557,
+          "nodes": 112
+        },
+        "LOCATION": {
+          "characters": 763,
+          "nodes": 138
+        },
+        "SYSTEM": {
+          "characters": 809,
+          "nodes": 103
+        }
+      }
+    }
+  ]
+}

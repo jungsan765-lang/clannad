@@ -1,0 +1,120 @@
+{
+  "passed": 15,
+  "source": "content/db.json",
+  "fixtureTests": 3,
+  "report": [
+    {
+      "id": "MOND_BARBARA_PASSIVE_DISH",
+      "owner": "MOND_BARBARA",
+      "supported": true,
+      "reason": "",
+      "matchingRecipes": [
+        "REC_FOOD_EGG_FRY",
+        "REC_FOOD_SWEET_MADAME",
+        "REC_FOOD_HASH_BROWN",
+        "REC_FOOD_MATSUTAKE_ROLL",
+        "REC_FOOD_UNIVERSAL_PEACE",
+        "REC_FOOD_PIZZA",
+        "REC_FOOD_SAKURA_MOCHI",
+        "REC_FOOD_TAHCHIN",
+        "REC_FOOD_FONT_CAKE",
+        "REC_FOOD_SNEZ_GLUPOV_RYE_BREAD",
+        "REC_FOOD_SNEZ_BERRY_ICE_CREAM",
+        "REC_FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+        "REC_FOOD_SNEZ_MEDOVIK",
+        "REC_FOOD_SNEZ_ZHARKOYE"
+      ]
+    },
+    {
+      "id": "MOND_ALBEDO_PASSIVE_CRAFT",
+      "owner": "MOND_ALBEDO",
+      "supported": true,
+      "reason": "",
+      "matchingRecipes": [
+        "REC_ARMOR_TRAVEL",
+        "REC_ARMOR_LEATHER",
+        "REC_ARMOR_IRON",
+        "REC_ARMOR_FROST",
+        "REC_ARMOR_FLAME",
+        "REC_ARMOR_DIVER",
+        "REC_ARMOR_MEKA",
+        "REC_ARMOR_DRAGON",
+        "REC_ARMOR_ABYSS",
+        "REC_ARMOR_NATLAN",
+        "REC_ACC_VITAL",
+        "REC_ACC_SHARP",
+        "REC_ACC_EAGLE",
+        "REC_ACC_SWIFT",
+        "REC_ACC_STEADFAST",
+        "REC_ACC_PRISM",
+        "REC_ACC_HEALER",
+        "REC_ACC_GUARDIAN",
+        "REC_ACC_RESONANCE",
+        "REC_SPECIAL_PACK",
+        "REC_SPECIAL_GRAPPLE",
+        "REC_SPECIAL_DIVE",
+        "REC_SPECIAL_MEKA",
+        "REC_SPECIAL_LENS",
+        "REC_SPECIAL_DRONE",
+        "REC_SPECIAL_ABYSS",
+        "REC_SPECIAL_DRAGON",
+        "REC_SPECIAL_SCOUT",
+        "REC_SPECIAL_CORE",
+        "REC_SWORD_RANCOUR",
+        "REC_SWORD_IRON_STING",
+        "REC_SWORD_AMENOMA",
+        "REC_SWORD_SAPWOOD",
+        "REC_SWORD_FINALE",
+        "REC_CLAYMORE_WHITEBLIND",
+        "REC_CLAYMORE_ARCHAIC",
+        "REC_CLAYMORE_KATSURAGI",
+        "REC_POLEARM_STARGITTER",
+        "REC_POLEARM_CRESCENT",
+        "REC_POLEARM_KITAIN",
+        "REC_BOW_CRESCENT",
+        "REC_BOW_HAMAYUMI",
+        "REC_CATALYST_MAPPA",
+        "REC_CATALYST_AMBER",
+        "REC_CATALYST_HAKUSHIN",
+        "REC_PROCESS_BUTTER",
+        "REC_PROCESS_CHEESE",
+        "REC_PROCESS_HAM",
+        "REC_PROCESS_SAUSAGE",
+        "REC_SNEZ_SWORD_EMBER_GUIDE",
+        "REC_SNEZ_CLAYMORE_SALVATION",
+        "REC_SNEZ_POLEARM_GUARDIAN_SONG",
+        "REC_SNEZ_CATALYST_LOYALTY_ECHO",
+        "REC_SNEZ_BOW_FROST_OATH",
+        "REC_PROCESS_SOUR_CREAM",
+        "REC_PROCESS_RYE_FLOUR",
+        "REC_PROCESS_CREAM"
+      ]
+    },
+    {
+      "id": "MOND_MONA_PASSIVE_ALCHEMY",
+      "owner": "MOND_MONA",
+      "supported": true,
+      "reason": "",
+      "matchingRecipes": []
+    },
+    {
+      "id": "MOND_LISA_PASSIVE_BREW",
+      "owner": "MOND_LISA",
+      "supported": true,
+      "reason": "",
+      "matchingRecipes": [
+        "REC_ALCH_HEALING_POTION"
+      ]
+    },
+    {
+      "id": "MOND_KLEE_PASSIVE_SPECIALTY",
+      "supported": false,
+      "reason": "LIFE_GATHER/LIFE_FORAGE 실행 수명주기와 지역 특산물 분류가 연결되지 않았습니다."
+    },
+    {
+      "id": "MOND_MIKA_PASSIVE_SCOUT_GATHER",
+      "supported": false,
+      "reason": "LIFE_SCOUT 성공 및 LIFE_GATHER 실행 수명주기가 연결되지 않았습니다."
+    }
+  ]
+}

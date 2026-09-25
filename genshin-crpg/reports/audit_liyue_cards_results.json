@@ -1,0 +1,861 @@
+{
+  "sourceHash": "6635799372356c8796db89b80f78cede1c0ea17845d1af2e4acf89d533fbe039",
+  "loaded": [
+    "world_content.js",
+    "runtime.js",
+    "runtime_extensions.js",
+    "runtime_story.js",
+    "runtime_nodes.js",
+    "runtime_events.js",
+    "runtime_relationships.js",
+    "runtime_combat.js",
+    "runtime_mond_cards.js",
+    "runtime_economy.js",
+    "runtime_passives.js",
+    "runtime_rules.js",
+    "runtime_andrius.js",
+    "runtime_flow.js",
+    "runtime_party.js",
+    "runtime_opening.js",
+    "runtime_places.js",
+    "runtime_places_joint.js",
+    "runtime_adventure.js",
+    "runtime_exploration.js",
+    "runtime_life.js",
+    "runtime_world.js",
+    "runtime_journey.js",
+    "runtime_market.js",
+    "runtime_geography.js",
+    "runtime_liyue.js",
+    "runtime_liyue_card_content.js",
+    "runtime_liyue_cards.js",
+    "runtime_liyue_combat.js",
+    "runtime_geo_oculi.js",
+    "runtime_encounter.js",
+    "runtime_recruitment.js"
+  ],
+  "counts": {
+    "cards": 57,
+    "active": 47,
+    "supported": 57
+  },
+  "tests": [
+    {
+      "name": "execute LIYUE_BAIZHU_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 9,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9895,
+          9960,
+          9960,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_BAIZHU_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 3,
+        "fields": [
+          "BAIZHU_SEAMLESS_SHIELD"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9935,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_BEIDOU_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 3,
+        "fields": [],
+        "statuses": [
+          "LIYUE_COUNTER"
+        ],
+        "enemyHp": [
+          9935,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_BEIDOU_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 5,
+        "fields": [
+          "STORMBREAKER"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9890,
+          9955,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_QIQI_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 5,
+        "fields": [
+          "HERALD_OF_FROST"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9890,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_QIQI_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 8,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9855,
+          9920,
+          9920,
+          9920
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_NINGGUANG_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 6,
+        "fields": [
+          "JADE_SCREEN"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9855,
+          9920,
+          9920,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_NINGGUANG_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 9,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9767,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_KEQING_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 5,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9780,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_KEQING_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 11,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9755,
+          9920,
+          9920,
+          9920
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_GAMING_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 6,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9775,
+          9840,
+          9840,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_GAMING_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 7,
+        "fields": [
+          "MAN_CHAI"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9835,
+          9900,
+          9900,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_GANYU_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 3,
+        "fields": [
+          "ICE_LOTUS"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9932,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_GANYU_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 6,
+        "fields": [
+          "CELESTIAL_SHOWER"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9890,
+          9958,
+          9958,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_XINGQIU_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 4,
+        "fields": [
+          "RAIN_SWORDS"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9845,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_XINGQIU_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 4,
+        "fields": [
+          "RAINCUTTER"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9890,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_HUTAO_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 3,
+        "fields": [],
+        "statuses": [
+          "PARAMITA_PAPILIO"
+        ],
+        "enemyHp": [
+          9919,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_HUTAO_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 8,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9795,
+          9860,
+          9860,
+          9860
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_XIANGLING_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 5,
+        "fields": [
+          "GOU_BA"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9890,
+          9955,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_XIANGLING_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 7,
+        "fields": [
+          "PYRONADO"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9880,
+          9945,
+          9945,
+          9945
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_XIANYUN_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 3,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9932,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_XIANYUN_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 10,
+        "fields": [
+          "BAMBOO_STAR"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9885,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_LANYAN_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 4,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9855,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_LANYAN_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 11,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9825,
+          9890,
+          9890,
+          9890
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_XIAO_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 6,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9811,
+          9879,
+          9879,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_XIAO_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 4,
+        "fields": [],
+        "statuses": [
+          "BANE_OF_ALL_EVIL"
+        ],
+        "enemyHp": [
+          9908,
+          9968,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_SHENHE_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 6,
+        "fields": [
+          "ICY_QUILL"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9865,
+          9930,
+          9930,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_SHENHE_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 7,
+        "fields": [
+          "DIVINE_MAIDEN"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9873,
+          9948,
+          9948,
+          9948
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_XINYAN_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 6,
+        "fields": [
+          "XINYAN_SHIELD_FLAME"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9865,
+          9930,
+          9930,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_XINYAN_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 7,
+        "fields": [
+          "FIRE_STAGE"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9795,
+          9860,
+          9860,
+          9860
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_TARTAGLIA_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 7,
+        "fields": [],
+        "statuses": [
+          "MELEE_FORM"
+        ],
+        "enemyHp": [
+          9836,
+          9914,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_TARTAGLIA_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 7,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9815,
+          9880,
+          9880,
+          9880
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_YANFEI_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 6,
+        "fields": [],
+        "statuses": [
+          "SCARLET_SEAL"
+        ],
+        "enemyHp": [
+          9827,
+          9895,
+          9895,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_YANFEI_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 7,
+        "fields": [],
+        "statuses": [
+          "SCARLET_SEAL",
+          "BRILLIANCE"
+        ],
+        "enemyHp": [
+          9816,
+          9884,
+          9884,
+          9884
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_YELAN_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 8,
+        "fields": [],
+        "statuses": [
+          "BREAKTHROUGH"
+        ],
+        "enemyHp": [
+          9755,
+          9755,
+          9755,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_YELAN_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 4,
+        "fields": [
+          "EXQUISITE_THROW"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9840,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_YUNJIN_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 3,
+        "fields": [],
+        "statuses": [
+          "LIYUE_COUNTER"
+        ],
+        "enemyHp": [
+          9935,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_YUNJIN_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 3,
+        "fields": [
+          "FLYING_CLOUD_FLAG"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9900,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_YAOYAO_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 5,
+        "fields": [
+          "YUEGUI_THROWING"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9900,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_YAOYAO_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 12,
+        "fields": [
+          "YUEGUI_THROWING"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9820,
+          9920,
+          9920,
+          9920
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_ZHONGLI_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 6,
+        "fields": [
+          "STONE_STELE"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9895,
+          9963,
+          9963,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_ZHONGLI_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 7,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9585,
+          9653,
+          9653,
+          9653
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_CHONGYUN_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 6,
+        "fields": [
+          "CHONGYUN_FROST"
+        ],
+        "statuses": [],
+        "enemyHp": [
+          9855,
+          9920,
+          9920,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_CHONGYUN_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 6,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9880,
+          9945,
+          9945,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_ZIBAI_E",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 3,
+        "fields": [],
+        "statuses": [
+          "AGE_GAP"
+        ],
+        "enemyHp": [
+          9910,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_ZIBAI_E_CHARGE",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 5,
+        "fields": [],
+        "statuses": [
+          "AGE_GAP"
+        ],
+        "enemyHp": [
+          9594,
+          10000,
+          10000,
+          10000
+        ]
+      }
+    },
+    {
+      "name": "execute LIYUE_ZIBAI_Q",
+      "ok": true,
+      "details": {
+        "reason": "",
+        "logPackets": 9,
+        "fields": [],
+        "statuses": [],
+        "enemyHp": [
+          9681,
+          9746,
+          9746,
+          10000
+        ]
+      }
+    }
+  ]
+}

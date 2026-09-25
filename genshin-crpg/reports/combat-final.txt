@@ -1,0 +1,50 @@
+[
+  {
+    "name": "public quest starts, legal targets shown, invalid target atomic rollback",
+    "ok": true
+  },
+  {
+    "name": "same seed, completed public actions and serialization resume stay identical",
+    "ok": true
+  },
+  {
+    "name": "legacy active battle is rejected without mutating the original save",
+    "ok": true
+  },
+  {
+    "name": "duplicate action receipt does not repeat inventory/cost/turn",
+    "ok": true
+  },
+  {
+    "name": "enemy dedicated axe/mage cards execute from public boss route",
+    "ok": true
+  },
+  {
+    "name": "Dvalin airborne denies ordinary melee; guard consumes action and never grounds boss",
+    "ok": true
+  },
+  {
+    "name": "prepared levitator uses one shared charge and makes melee targets legal",
+    "ok": true
+  },
+  {
+    "name": "combat potion consumes one item once, lock survives resume",
+    "ok": true
+  },
+  {
+    "name": "CE159 requires explicit preparation and never writes guest ownership",
+    "ok": true
+  },
+  {
+    "name": "cooldowns decrease exactly once at each owner turn and use DB duration",
+    "ok": true
+  },
+  {
+    "name": "terrain destruction defeats at fourth destruction independent of shield/HP",
+    "ok": true
+  },
+  {
+    "name": "orb action remains manual at subdued HP0 and crosses both interludes",
+    "ok": true
+  }
+]

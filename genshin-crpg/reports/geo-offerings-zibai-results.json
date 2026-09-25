@@ -1,0 +1,186 @@
+{
+  "root": "/workspace/scratch/adc1ed75baeb/game",
+  "input": "/workspace/scratch/adc1ed75baeb/game/tests/fixtures/geo-collected-v013.json",
+  "prerequisites": [
+    "Input fixture is a previously executed 16-source Geo collection run, with no offerings.",
+    "Traveler Liyue main completion is explicitly injected only before final offering and Zibai checks: FLAG_TRV_LIYUE_CLEAR=true plus Q_TRV_LIYUE_04 claimed=true.",
+    "No runtime methods are modified. Movement encounter roll is suppressed on the test instance while using public MOVE actions.",
+    "Two Anemo points are collected through actual WORLD_WORK_START/FINISH actions to test currency separation."
+  ],
+  "total": 12,
+  "passed": 12,
+  "results": [
+    {
+      "name": "actual Geo collection fixture loads with all 16 sources and independent empty Anemo ledger",
+      "ok": true,
+      "summary": {
+        "collected": 16,
+        "total": 16,
+        "balance": 16,
+        "offerings": 0
+      }
+    },
+    {
+      "name": "two real Anemo collections leave Geo currency and receipts unchanged",
+      "ok": true,
+      "anemo": 2,
+      "geo": 16
+    },
+    {
+      "name": "GEO_TIER_1 consumes exact cost, grants exact reward, rejects duplicate and restores save",
+      "ok": true,
+      "cost": 4,
+      "remaining": 12
+    },
+    {
+      "name": "GEO_TIER_2 consumes exact cost, grants exact reward, rejects duplicate and restores save",
+      "ok": true,
+      "cost": 5,
+      "remaining": 7
+    },
+    {
+      "name": "final 7-token offering is gated by main completion then joins Zhongli without auto-party",
+      "ok": true,
+      "geoBalance": 0,
+      "anemoBalance": 2,
+      "owned": "JOINED",
+      "autoParty": false
+    },
+    {
+      "name": "Anemo offering consumes only Anemo tokens after all Geo offerings",
+      "ok": true,
+      "anemoOffering": "TIER_1",
+      "geoOfferings": 3
+    },
+    {
+      "name": "Zibai return requires main completion, correct location and a free phase",
+      "ok": true,
+      "location": "MAP_LIYUE_MOUNTAINS",
+      "combatOpeningBlocked": true
+    },
+    {
+      "name": "Zibai return step 0 rejects out-of-order input and resumes exactly after reload",
+      "ok": true,
+      "nextStep": 1,
+      "completed": false
+    },
+    {
+      "name": "Zibai return step 1 rejects out-of-order input and resumes exactly after reload",
+      "ok": true,
+      "nextStep": 2,
+      "completed": false
+    },
+    {
+      "name": "Zibai return step 2 rejects out-of-order input and resumes exactly after reload",
+      "ok": true,
+      "nextStep": 3,
+      "completed": true
+    },
+    {
+      "name": "Zibai completed return cannot replay; full save restores contacts and both oculus ledgers",
+      "ok": true,
+      "visitedSteps": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "name": "Zibai provenance and malformed progression imports reject with SIDE_STORY_SAVE",
+      "ok": true,
+      "rejected": 18,
+      "cases": [
+        {
+          "name": "route",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "saveId",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "negative step",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "step above limit",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "fractional step",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "visited null",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "visited missing record",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "visited null record",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "visited step order",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "visited wrong map",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "visited day below zero",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "visited future day",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "visited negative turn",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "visited future turn",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "visited fractional turn",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "completion route",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "completion saveId",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        },
+        {
+          "name": "completion flag missing",
+          "code": "SIDE_STORY_SAVE",
+          "message": "귀환 확인의 단계와 저장 출처가 일치하지 않습니다."
+        }
+      ]
+    }
+  ]
+}

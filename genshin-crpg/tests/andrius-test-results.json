@@ -1,0 +1,77 @@
+{
+  "modules": [
+    "runtime.js",
+    "runtime_extensions.js",
+    "runtime_story.js",
+    "runtime_nodes.js",
+    "runtime_events.js",
+    "runtime_relationships.js",
+    "runtime_combat.js",
+    "runtime_mond_cards.js",
+    "runtime_economy.js",
+    "runtime_passives.js",
+    "runtime_rules.js"
+  ],
+  "tests": [
+    {
+      "name": "all ten exact READY source scripts are supported; drift is rejected",
+      "ok": true
+    },
+    {
+      "name": "public boss entry initializes authored Andrius passive and ordinary Dragonspine group initializes ice shield",
+      "ok": true
+    },
+    {
+      "name": "ice charge uses source1.10 and CE020 slow, then rejects broken shield",
+      "ok": true
+    },
+    {
+      "name": "Cryo/Anemo direct, reaction, aura and control immunity spend no hit RNG",
+      "ok": true
+    },
+    {
+      "name": "round4 START rage precedes forced charge and repeated newRound does not stack rage again",
+      "ok": true
+    },
+    {
+      "name": "claw splash is60percent of final pre-shield primary, without double outgoing modifier",
+      "ok": true
+    },
+    {
+      "name": "nested Mona bubble damage does not overwrite claw primary capture",
+      "ok": true
+    },
+    {
+      "name": "sweep preserves1.05, pre-existing slow1.20 and applies new slow only through status roll",
+      "ok": true
+    },
+    {
+      "name": "leap chooses at most two controlled targets and preserves final1.25 modifier",
+      "ok": true
+    },
+    {
+      "name": "one threshold crossing executes phase2 then3 once and restores their saved state",
+      "ok": true
+    },
+    {
+      "name": "wind blade fires3 packets with max2per target and EVA debuff only next round",
+      "ok": true
+    },
+    {
+      "name": "roar creates2R wolves; existing field refresh has immediate proc and END proc once",
+      "ok": true
+    },
+    {
+      "name": "run phase50percent reduction applies once to direct and independent reaction packets",
+      "ok": true
+    },
+    {
+      "name": "public COMBAT phase3 executes two AI cards but advances owner turn and cooldown only once",
+      "ok": true
+    },
+    {
+      "name": "public actions and phase3 fields are identical after serialized resume",
+      "ok": true
+    }
+  ]
+}

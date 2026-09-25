@@ -1,0 +1,1075 @@
+{
+  "scope": "FLOW_QA_NOT_DIFFICULTY",
+  "provenance": "Synthetic M05 boundary + test-only high level/HP/ATK. Every Liyue story/travel/choice/entry and battle used public actions; actual COMBAT_BEGIN/COMBAT attack/guard generated victory. No forced finishBattle. No source changes or in-memory gameplay bypass in this full run.",
+  "harnessCorrection": "Initial harness incorrectly inspected pre-action battle object after atomic action cloned state. Objective assertions corrected to actual persisted victory receipt + charge logs. Continued exact postbattle saves through final chapter; all 8 succeeded. This split checkpoint is explicit; initial FAIL labels are test-harness errors, not counted as product failures.",
+  "runs": [
+    {
+      "leaf": "K1",
+      "status": "PASS",
+      "terminal": "ISK_L04_K1_END",
+      "publicActions": 500,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_K_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_K_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L01_K_1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_K1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_K1_003"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L02_K1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_K1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_K1_003"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L03_K1_107"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L03_K1_107",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L03_K1_108"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L03_K1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_K1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_K1_004"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_K1_040"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_K1_040",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_K1_040",
+          "round": 2
+        },
+        {
+          "why": "start",
+          "node": "ISK_L04_K1_041"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_K1_042"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_K1_END"
+        }
+      ],
+      "battleReceipts": [
+        {
+          "bond": null,
+          "id": "V011-2:B336",
+          "battleId": "V011-2:B336",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L03_GOLDEN",
+          "origin": "STORY:ISK_L03_K1_107",
+          "gate": "ISK_L03_K1_107",
+          "branch": "K1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 1,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "bond": null,
+          "id": "V011-2:B387",
+          "battleId": "V011-2:B387",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L04_OSIAL",
+          "origin": "STORY:ISK_L04_K1_040",
+          "gate": "ISK_L04_K1_040",
+          "branch": "K1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 9,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "regionRewardMora": 1800,
+      "regionRewardItemsVerified": {
+        "MAT_CHAR_EXP_HERO": 2,
+        "MAT_CHAR_EXP_ADVENTURER": 3
+      },
+      "quests1Through4VerifiedComplete": true,
+      "postClearPersonalReadyVerified": true,
+      "actualFormationChargeEvents": [
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 1,
+          "target": 8,
+          "round": 1
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 2,
+          "target": 8,
+          "round": 2
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 3,
+          "target": 8,
+          "round": 3
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 4,
+          "target": 8,
+          "round": 4
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 5,
+          "target": 8,
+          "round": 5
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 6,
+          "target": 8,
+          "round": 6
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 7,
+          "target": 8,
+          "round": 7
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 8,
+          "target": 8,
+          "round": 8
+        }
+      ]
+    },
+    {
+      "leaf": "K2",
+      "status": "PASS",
+      "terminal": "ISK_L04_K2_END",
+      "publicActions": 551,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_K_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_K_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L01_K_2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_K2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_K2_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L02_K2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_K2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_K2_003"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L03_K2_110"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L03_K2_110",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L03_K2_111"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L03_K2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_K2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_K2_003"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_K2_047"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_K2_047",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_K2_047",
+          "round": 2
+        },
+        {
+          "why": "start",
+          "node": "ISK_L04_K2_048"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_K2_049"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_K2_END"
+        }
+      ],
+      "battleReceipts": [
+        {
+          "bond": null,
+          "id": "V011-2:B357",
+          "battleId": "V011-2:B357",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L03_GOLDEN",
+          "origin": "STORY:ISK_L03_K2_110",
+          "gate": "ISK_L03_K2_110",
+          "branch": "K2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 1,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "bond": null,
+          "id": "V011-2:B415",
+          "battleId": "V011-2:B415",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L04_OSIAL",
+          "origin": "STORY:ISK_L04_K2_047",
+          "gate": "ISK_L04_K2_047",
+          "branch": "K2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 9,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "regionRewardMora": 1800,
+      "regionRewardItemsVerified": {
+        "MAT_CHAR_EXP_HERO": 2,
+        "MAT_CHAR_EXP_ADVENTURER": 3
+      },
+      "quests1Through4VerifiedComplete": true,
+      "postClearPersonalReadyVerified": true,
+      "actualFormationChargeEvents": [
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 1,
+          "target": 8,
+          "round": 1
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 2,
+          "target": 8,
+          "round": 2
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 3,
+          "target": 8,
+          "round": 3
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 4,
+          "target": 8,
+          "round": 4
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 5,
+          "target": 8,
+          "round": 5
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 6,
+          "target": 8,
+          "round": 6
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 7,
+          "target": 8,
+          "round": 7
+        },
+        {
+          "objective": "FORMATION_CHARGE",
+          "charge": 8,
+          "target": 8,
+          "round": 8
+        }
+      ]
+    },
+    {
+      "leaf": "AA1",
+      "status": "PASS",
+      "terminal": "ISK_L04_AA1_END",
+      "publicActions": 460,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AA_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_AA_005"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L01_AA_1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AA1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_AA1_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L02_AA1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AA1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_AA1_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L03_AA1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AA1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AA1_002"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AA1_058"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AA1_058",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AA1_058",
+          "round": 2
+        },
+        {
+          "why": "start",
+          "node": "ISK_L04_AA1_059"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AA1_061"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_AA1_END"
+        }
+      ],
+      "battleReceipts": [
+        {
+          "bond": null,
+          "id": "V011-4:B383",
+          "battleId": "V011-4:B383",
+          "saveId": "V011-4",
+          "group": "EG_ISK_L04_AA1_EVAC",
+          "origin": "STORY:ISK_L04_AA1_058",
+          "gate": "ISK_L04_AA1_058",
+          "branch": "AA1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "regionRewardMora": 1800,
+      "regionRewardItemsVerified": {
+        "MAT_CHAR_EXP_HERO": 2,
+        "MAT_CHAR_EXP_ADVENTURER": 3
+      },
+      "quests1Through4VerifiedComplete": true,
+      "postClearPersonalReadyVerified": true,
+      "actualFormationChargeEvents": []
+    },
+    {
+      "leaf": "AA2",
+      "status": "PASS",
+      "terminal": "ISK_L04_AA2_END",
+      "publicActions": 496,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AA_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_AA_005"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L01_AA_2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AA2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_AA2_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L02_AA2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AA2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_AA2_003"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L03_AA2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AA2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AA2_002"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AA2_057"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AA2_057",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AA2_057",
+          "round": 2
+        },
+        {
+          "why": "start",
+          "node": "ISK_L04_AA2_058"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AA2_060"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_AA2_END"
+        }
+      ],
+      "battleReceipts": [
+        {
+          "bond": null,
+          "id": "V011-4:B416",
+          "battleId": "V011-4:B416",
+          "saveId": "V011-4",
+          "group": "EG_ISK_L04_AA2_CART",
+          "origin": "STORY:ISK_L04_AA2_057",
+          "gate": "ISK_L04_AA2_057",
+          "branch": "AA2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "regionRewardMora": 1800,
+      "regionRewardItemsVerified": {
+        "MAT_CHAR_EXP_HERO": 2,
+        "MAT_CHAR_EXP_ADVENTURER": 3
+      },
+      "quests1Through4VerifiedComplete": true,
+      "postClearPersonalReadyVerified": true,
+      "actualFormationChargeEvents": []
+    },
+    {
+      "leaf": "AB1",
+      "status": "PASS",
+      "terminal": "ISK_L04_AB1_END",
+      "publicActions": 508,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AB_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_AB_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L01_AB_1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AB1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_AB1_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L02_AB1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AB1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_AB1_003"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L03_AB1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AB1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AB1_003"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AB1_066"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AB1_066",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AB1_066",
+          "round": 2
+        },
+        {
+          "why": "start",
+          "node": "ISK_L04_AB1_067"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AB1_069"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_AB1_END"
+        }
+      ],
+      "battleReceipts": [
+        {
+          "bond": null,
+          "id": "V011-6:B427",
+          "battleId": "V011-6:B427",
+          "saveId": "V011-6",
+          "group": "EG_ISK_L04_AB1_STREET",
+          "origin": "STORY:ISK_L04_AB1_066",
+          "gate": "ISK_L04_AB1_066",
+          "branch": "AB1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "regionRewardMora": 1800,
+      "regionRewardItemsVerified": {
+        "MAT_CHAR_EXP_HERO": 2,
+        "MAT_CHAR_EXP_ADVENTURER": 3
+      },
+      "quests1Through4VerifiedComplete": true,
+      "postClearPersonalReadyVerified": true,
+      "actualFormationChargeEvents": []
+    },
+    {
+      "leaf": "AB2",
+      "status": "PASS",
+      "terminal": "ISK_L04_AB2_END",
+      "publicActions": 509,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AB_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_AB_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L01_AB_2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AB2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_AB2_003"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L02_AB2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AB2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_AB2_003"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L03_AB2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AB2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AB2_005"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AB2_065"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AB2_065",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AB2_065",
+          "round": 2
+        },
+        {
+          "why": "start",
+          "node": "ISK_L04_AB2_066"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_AB2_067"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_AB2_END"
+        }
+      ],
+      "battleReceipts": [
+        {
+          "bond": null,
+          "id": "V011-6:B434",
+          "battleId": "V011-6:B434",
+          "saveId": "V011-6",
+          "group": "EG_ISK_L04_AB2_STORE",
+          "origin": "STORY:ISK_L04_AB2_065",
+          "gate": "ISK_L04_AB2_065",
+          "branch": "AB2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "regionRewardMora": 1800,
+      "regionRewardItemsVerified": {
+        "MAT_CHAR_EXP_HERO": 2,
+        "MAT_CHAR_EXP_ADVENTURER": 3
+      },
+      "quests1Through4VerifiedComplete": true,
+      "postClearPersonalReadyVerified": true,
+      "actualFormationChargeEvents": []
+    },
+    {
+      "leaf": "B1",
+      "status": "PASS",
+      "terminal": "ISK_L04_B1_END",
+      "publicActions": 429,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_B_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_B_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L01_B_1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_B1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_B1_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L02_B1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_B1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_B1_003"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L03_B1_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_B1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_B1_003"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_B1_051"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_B1_051",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_B1_051",
+          "round": 2
+        },
+        {
+          "why": "start",
+          "node": "ISK_L04_B1_052"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_B1_054"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_B1_END"
+        }
+      ],
+      "battleReceipts": [
+        {
+          "bond": null,
+          "id": "V011-8:B363",
+          "battleId": "V011-8:B363",
+          "saveId": "V011-8",
+          "group": "EG_ISK_L04_B1_ROAD",
+          "origin": "STORY:ISK_L04_B1_051",
+          "gate": "ISK_L04_B1_051",
+          "branch": "B1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "regionRewardMora": 1800,
+      "regionRewardItemsVerified": {
+        "MAT_CHAR_EXP_HERO": 2,
+        "MAT_CHAR_EXP_ADVENTURER": 3
+      },
+      "quests1Through4VerifiedComplete": true,
+      "postClearPersonalReadyVerified": true,
+      "actualFormationChargeEvents": []
+    },
+    {
+      "leaf": "B2",
+      "status": "PASS",
+      "terminal": "ISK_L04_B2_END",
+      "publicActions": 429,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_B_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_B_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L01_B_2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_B2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_B2_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L02_B2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_B2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_B2_003"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_L03_B2_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_B2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_B2_003"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_B2_047"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_B2_047",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_B2_047",
+          "round": 2
+        },
+        {
+          "why": "start",
+          "node": "ISK_L04_B2_048"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_B2_051"
+        },
+        {
+          "why": "region terminal",
+          "node": "ISK_L04_B2_END"
+        }
+      ],
+      "battleReceipts": [
+        {
+          "bond": null,
+          "id": "V011-8:B367",
+          "battleId": "V011-8:B367",
+          "saveId": "V011-8",
+          "group": "EG_ISK_L04_B2_BOAT",
+          "origin": "STORY:ISK_L04_B2_047",
+          "gate": "ISK_L04_B2_047",
+          "branch": "B2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "regionRewardMora": 1800,
+      "regionRewardItemsVerified": {
+        "MAT_CHAR_EXP_HERO": 2,
+        "MAT_CHAR_EXP_ADVENTURER": 3
+      },
+      "quests1Through4VerifiedComplete": true,
+      "postClearPersonalReadyVerified": true,
+      "actualFormationChargeEvents": []
+    }
+  ],
+  "summary": {
+    "leavesPassed": 8,
+    "realStoryBattles": 10,
+    "restores": 158,
+    "travelerBlocker": "Both A and B at TRV_LY4_D01 need MAP_LIYUE_HARBOR -> MAP_OSIAL_BATTLE travel; no47 edge."
+  },
+  "files": {
+    "initial": "/tmp/qa-liyue-complete-results.json",
+    "continuation": "/tmp/qa-liyue-completion-resume-results.json",
+    "continuationB2": "/tmp/qa-liyue-completion-B2-results.json"
+  },
+  "reviewedCurrentSourceSha": {
+    "runtime_liyue.js": "5b49ad80ee5697b0256596f05ebfa18d0aac1dc75dd1d42ba027bac3f68b2cd4",
+    "runtime_liyue_combat.js": "c388910cc089ab66ee9497b4b4b5a5a1110e22a36a7e25e3ff7e60a27ca14c32",
+    "runtime_combat.js": "dfbe3fb42fb5d8d62509a7b388c3c9dba71b69c7afb241fb13f28fdab12f3d25"
+  }
+}
