@@ -33,7 +33,7 @@ P.edgeReason=function(row){
  }
  const reason=old.edgeReason.call(this,r);if(reason)return reason;
  const s=this.s,l=s.liyue;
- if(s.global.STORY_ROUTE_ID==='ROUTE_ISEKAI'&&l?.activeQuest&&!l.regionReceipt&&row[2]==='MAP_LIYUE_HARBOR'&&!this.liyueReturnAllowed(row[2]))return '리월항 출입 통제 중 · 본편의 안내 이동을 이용하세요.';
+ if(s.global.STORY_ROUTE_ID==='ROUTE_ISEKAI'&&l?.activeQuest&&!l.regionReceipt&&!this.liyueHarborFacilitiesOpen?.()&&row[2]==='MAP_LIYUE_HARBOR'&&!this.liyueReturnAllowed(row[2]))return '리월항 출입 통제 중 · 본편의 안내 이동을 이용하세요.';
  return '';
 };
 P.navigationGoal=function(){const s=this.s,j=s.storyJourney,b=s.storyBreak;if(j)return j.scripted&&s.global.CURRENT_MAP_ID!==j.from?j.from:j.target;if(b)return b.map;const n=this.storyNode();if(n&&!this.isStoryWaiting())return n[8];return this.mainStoryEntries().find(x=>x.map)?.map||null;};

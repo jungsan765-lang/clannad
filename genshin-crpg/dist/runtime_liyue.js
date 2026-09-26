@@ -6,6 +6,8 @@ const copy=x=>JSON.parse(JSON.stringify(x)),json=x=>{try{return JSON.parse(x||'{
 const fail=(c,m)=>{throw new api.RuleError(c,m);},yes=x=>x===true||x==='TRUE'||x==='Y';
 const leafPattern=/^(K|AA|AB|B)[12]$/;
 P.ensureLiyue=function(s=this.s){return s.liyue??={version:1,route:s.global.STORY_ROUTE_ID,activeQuest:null,accepts:{},events:{},chapters:{},travels:{},battles:{},access:{phase:'OUTSIDE'},regionReceipt:null};};
+P.liyueHarborFacilitiesOpen=function(s=this.s){const r=s?.liyue?.harborAccessReceipt,g=s?.global;return !!(r&&g&&r.saveId===g.SAVE_ID&&r.route===g.STORY_ROUTE_ID);};
+P.noteLiyueHarborAccess=function(source='STORY_ARRIVAL',s=this.s){const g=s?.global,l=this.ensureLiyue(s);if(!g||g.CURRENT_MAP_ID!=='MAP_LIYUE_HARBOR')return null;if(!this.liyueHarborFacilitiesOpen(s))l.harborAccessReceipt={saveId:g.SAVE_ID,route:g.STORY_ROUTE_ID,day:g.WORLD_DAY,turn:g.TURN,source};return copy(l.harborAccessReceipt);};
 P.liyueParent=function(){const f=this.s.flags;return f.FLAG_ISK_META_KNOWLEDGE==='KNOWN'?'K':f.FLAG_ISK_MOND_BRANCH==='GUILD'?'B':f.FLAG_ISK_MOND_BRANCH==='EXPEDITION'?(f.FLAG_ISK_EXPEDITION_FORK==='RIDE'?'AA':f.FLAG_ISK_EXPEDITION_FORK==='RETURN'?'AB':null):null;};
 P.liyueLeaf=function(){return this.s.flags.FLAG_ISK_L01_LEAF||'NONE';};
 P.liyueDefinitions=function(){return this._liyueEvents??=new Map(this.storyEventDefinitions().filter(e=>/^isk_l0[1-4]$/.test(json(e.EXEC_PAYLOAD_JSON).handler)).map(e=>[e.EVENT_ID,{...e,p:json(e.EXEC_PAYLOAD_JSON)}]));};
@@ -94,7 +96,7 @@ P.storyEvent=function(id){
  }else if(p.kind==='travel'){
   if(g.CURRENT_MAP_ID!==p.from_map)fail('LIYUE_TRAVEL','이 장면의 출발 위치를 확인해 주세요.');
   if(p.movement_mode!=='STORY_SCRIPTED'||(p.from_map!==p.to_map&&!p.cross_map_authorization))fail('LIYUE_TRAVEL','장면 이동의 허가가 없습니다.');
-  this.storyElapsedMinutes(Number(p.minutes||0));const m=this.row('32_MAP_DB',p.to_map);Object.assign(g,{CURRENT_MAP_ID:p.to_map,LOCATION:p.location||m[2],LOCATION_PROFILE:m[5]});this.ensureExplorationState();
+  this.storyElapsedMinutes(Number(p.minutes||0));const m=this.row('32_MAP_DB',p.to_map);Object.assign(g,{CURRENT_MAP_ID:p.to_map,LOCATION:p.location||m[2],LOCATION_PROFILE:m[5]});this.ensureExplorationState();if(p.to_map==='MAP_LIYUE_HARBOR')this.noteLiyueHarborAccess('STORY_SCRIPTED_TRAVEL');
  }else if(p.kind==='overnight'||p.kind==='day_skip'){
   const [h,m]=String(g.WORLD_TIME).split(':').map(Number),now=(g.WORLD_DAY-1)*1440+h*60+m;
   const targetTime=p.kind==='overnight'?'07:00':p.target_time||'08:00',[th,tm]=targetTime.split(':').map(Number),day=p.kind==='overnight'?g.WORLD_DAY+1:q.entryDay+Number(p.days||5),elapsed=(day-1)*1440+th*60+tm-now;
@@ -136,16 +138,20 @@ P.actionReason=function(type,a={}){
  if(type==='MAIN_STORY_ACCEPT'&&String(a.quest).includes('_LIYUE_'))return this.liyueChapterOffers().find(o=>o.quest===a.quest)?.reason||(!this.liyueChapterOffers().some(o=>o.quest===a.quest)?'현재 시작할 수 없는 장입니다.':'');
  if(g.STORY_ROUTE_ID==='ROUTE_ISEKAI'&&l?.activeQuest&&!l.regionReceipt){
   const chapter=l.chapters[l.activeQuest];if(chapter?.gate&&!chapter.handedOffTo&&['STORY_NEXT','STORY_CHOICE'].includes(type))return '다음 장을 선택해서 현재 이야기의 갈래를 이어가세요.';
-  if(type==='MOVE'){const e=this.tables['47_MAP_EDGE_DB'].get(a.edge);if(e?.[2]==='MAP_LIYUE_HARBOR'&&!this.liyueReturnAllowed?.(e[2]))return '지금은 도시 출입이 제한됩니다. 본편의 안내에 따라 이동하세요.';}
-  const betweenChapters=this.storyDone(l.activeQuest),stagedSidePass=betweenChapters&&(type==='LEGEND_REGISTER'||type==='PLACE_ENTER'&&this.liyueRecruitContactPlace?.(a.place));
-  if(!stagedSidePass&&['PLACE_ENTER','NPC','BUY','SELL','CRAFT','COMMISSION_ACCEPT','LEGEND_REGISTER'].includes(type)&&g.CURRENT_MAP_ID==='MAP_LIYUE_HARBOR')return '현재는 허가된 본편 구역에서만 활동할 수 있습니다.';
+  if(type==='MOVE'){const e=this.tables['47_MAP_EDGE_DB'].get(a.edge);if(e?.[2]==='MAP_LIYUE_HARBOR'&&!this.liyueHarborFacilitiesOpen()&&!this.liyueReturnAllowed?.(e[2]))return '지금은 도시 출입이 제한됩니다. 본편의 안내에 따라 이동하세요.';}
+  const betweenChapters=this.storyDone(l.activeQuest),stagedSidePass=betweenChapters&&(type==='LEGEND_REGISTER'||type==='PLACE_ENTER'&&this.liyueRecruitContactPlace?.(a.place)),harborOpen=this.liyueHarborFacilitiesOpen();
+  const harborFacilityAction=['PLACE_ENTER','NPC','BUY','SELL','CRAFT','COMMISSION_ACCEPT'].includes(type),storySideAction=type==='LEGEND_REGISTER';
+  if(!stagedSidePass&&g.CURRENT_MAP_ID==='MAP_LIYUE_HARBOR'&&((harborFacilityAction&&!harborOpen)||storySideAction))return '현재는 허가된 본편 구역에서만 활동할 수 있습니다.';
  }
  return old.actionReason.call(this,type,a);
 };
-P.apply=function(a){if(a.type==='STORY_SCRIPTED_TRAVEL'){const j=copy(this.s.storyJourney);let result;if(j.traveler){const g=this.s.global,m=this.row('32_MAP_DB',j.target);this.ensureLiyue().travelerTravels??={};this.s.liyue.travelerTravels[j.node]={saveId:g.SAVE_ID,route:g.STORY_ROUTE_ID,from:j.from,target:j.target,day:g.WORLD_DAY,turn:g.TURN};Object.assign(g,{CURRENT_MAP_ID:j.target,LOCATION:m[2],LOCATION_PROFILE:m[5]});this.ensureExplorationState();result={traveler:true};}else result=this.storyEvent(j.event);this.s.storyArrival={...j,target:this.s.global.CURRENT_MAP_ID};delete this.s.storyJourney;this.s.global.STORY_WAITING=false;this.s.global.STORY_MENU_POLICY=j.policy||'';this.storySetCursor(j.choiceGroup||j.node);this.prepareStory();return {...result,travel:true};}return old.apply.call(this,a);};
+P.apply=function(a){if(a.type==='STORY_SCRIPTED_TRAVEL'){const j=copy(this.s.storyJourney);let result;if(j.traveler){const g=this.s.global,m=this.row('32_MAP_DB',j.target);this.ensureLiyue().travelerTravels??={};this.s.liyue.travelerTravels[j.node]={saveId:g.SAVE_ID,route:g.STORY_ROUTE_ID,from:j.from,target:j.target,day:g.WORLD_DAY,turn:g.TURN};Object.assign(g,{CURRENT_MAP_ID:j.target,LOCATION:m[2],LOCATION_PROFILE:m[5]});this.ensureExplorationState();if(j.target==='MAP_LIYUE_HARBOR')this.noteLiyueHarborAccess('TRAVELER_STORY_TRAVEL');result={traveler:true};}else result=this.storyEvent(j.event);this.s.storyArrival={...j,target:this.s.global.CURRENT_MAP_ID};delete this.s.storyJourney;this.s.global.STORY_WAITING=false;this.s.global.STORY_MENU_POLICY=j.policy||'';this.storySetCursor(j.choiceGroup||j.node);this.prepareStory();return {...result,travel:true};}return old.apply.call(this,a);};
 P.newGame=function(o){old.newGame.call(this,o);this.ensureLiyue();return copy(this.s);};
 P.validateSave=function(s){
  const l=this.ensureLiyue(s);if(l.version!==1||l.route!==s.global.STORY_ROUTE_ID||!l.events||!l.chapters||!l.accepts||!l.access)fail('LIYUE_SAVE','리월 진행 기록을 확인해 주세요.');
+ const reachedHarbor=s.global.CURRENT_MAP_ID==='MAP_LIYUE_HARBOR'||Object.keys(l.travels||{}).some(id=>this.liyueDefinitions().get(id)?.p?.to_map==='MAP_LIYUE_HARBOR')||Object.values(l.travelerTravels||{}).some(x=>x?.target==='MAP_LIYUE_HARBOR');
+ if(reachedHarbor&&!this.liyueHarborFacilitiesOpen(s))l.harborAccessReceipt={saveId:s.global.SAVE_ID,route:s.global.STORY_ROUTE_ID,day:s.global.WORLD_DAY,turn:s.global.TURN,source:'SAVE_MIGRATION'};
+ if(l.harborAccessReceipt&&!this.liyueHarborFacilitiesOpen(s))delete l.harborAccessReceipt;
  for(const [id,r]of Object.entries(l.events)){const e=this.liyueDefinitions().get(id);if(!e||r.saveId!==s.global.SAVE_ID||r.route!==s.global.STORY_ROUTE_ID||r.resolvedNode!==e.SOURCE_ID_OR_FILTER||r.quest!==e.p.quest_id||r.leaf!=='NONE'&&!leafPattern.test(r.leaf))fail('LIYUE_SAVE','리월 사건의 출처가 일치하지 않습니다.');}
  if(l.regionReceipt){const r=l.regionReceipt;if(!l.events[r.event]||r.leaf!==s.flags.FLAG_ISK_L01_LEAF||!yes(s.flags.FLAG_ISK_L04_REGION_CLEAR))fail('LIYUE_SAVE','리월 종결 기록이 일치하지 않습니다.');}
  return old.validateSave.call(this,s);
