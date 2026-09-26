@@ -1,8 +1,8 @@
 {
   "scope": "Handoff regression: combat UI, shops/smith, facility assets, geo quest visibility, Chasm, Liyue prior steps, Azhdaha, regional enhancement, build/offline cache.",
   "scripts": 20,
-  "passed": 17,
-  "failed": 3,
+  "passed": 19,
+  "failed": 1,
   "results": [
     {
       "script": "tests/test_combat.cjs",
@@ -38,7 +38,7 @@
       "script": "tests/test_shops_v09.cjs",
       "exitCode": 1,
       "stdout": "{\"total\":14,\"passed\":13,\"failed\":1}\n",
-      "stderr": "shop renders separately named one/bulk actions, stats and meaningful groups AssertionError [ERR_ASSERTION]: 양손검\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:28:405\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:9:64)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:28:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49\n"
+      "stderr": "shop renders separately named one/bulk actions, stats and meaningful groups ReferenceError: appendItemUses is not defined\n    at marketDetail (app_market.js:38:112)\n    at Object.shop (app_market.js:54:70)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:28:280\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:9:64)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:28:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n"
     },
     {
       "script": "tests/test_save_revision.cjs",
@@ -102,9 +102,9 @@
     },
     {
       "script": "tools/test_gameplay_step6_plus.cjs",
-      "exitCode": 1,
-      "stdout": "PASS hatchling inherits common vishap skills\nPASS ruin variant spin is available in Liyue field\nPASS Mond monster resale is bounded\nPASS Liyue gains ten local commissions through Lv13\nPASS delivery commission consumes materials once\nPASS three patrol requirement counts post-accept Liyue wins\nPASS destination cards travel immediately, pins remain preview\n{\"total\":8,\"passed\":7}\n",
-      "stderr": "FAIL facility UI uses bundled icon set and removes duplicate edge list\nAssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(app.includes('assets/icons/facility/'+n))\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step6_plus.cjs:12:436\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step6_plus.cjs:4:62)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step6_plus.cjs:12:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49\n"
+      "exitCode": 0,
+      "stdout": "PASS hatchling inherits common vishap skills\nPASS ruin variant spin is available in Liyue field\nPASS Mond monster resale is bounded\nPASS Liyue gains ten local commissions through Lv13\nPASS delivery commission consumes materials once\nPASS three patrol requirement counts post-accept Liyue wins\nPASS facility UI uses bundled official icon set and removes duplicate edge list\nPASS destination cards travel immediately, pins remain preview\n{\"total\":8,\"passed\":8}\n",
+      "stderr": ""
     },
     {
       "script": "tools/test_gameplay_step7_ui.cjs",
@@ -120,9 +120,9 @@
     },
     {
       "script": "tools/test_gameplay_step9_hotfix.cjs",
-      "exitCode": 1,
-      "stdout": "PASS enemy skill install no longer blocks smith purchase\nPASS Mond smith exposes exact nonempty equipment categories\nPASS Liyue smith uses new regional enhancement\nPASS Liyue smith completes +10 ascend +11 +12 and survives travel/save\nPASS Azhdaha authored repeat Y stays enterable after clear flag\nPASS Azhdaha phases immunity converter and save state execute at runtime\nPASS Azhdaha Zhongli contract keeps debuff after Zhongli KO while releasing center lock\nPASS Azhdaha v0.13.25 remains executable\nPASS combat UI source has only per-enemy info buttons\nPASS market filter source supports broad and exact equipment views\nPASS craft results use item icons\n{\"total\":12,\"passed\":11}\n",
-      "stderr": "FAIL smith purchase equip unequip and sell roundtrip stays in equipment domain\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step9_hotfix.cjs:8:521\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step9_hotfix.cjs:4:64)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step9_hotfix.cjs:8:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49\n"
+      "exitCode": 0,
+      "stdout": "PASS enemy skill install no longer blocks smith purchase\nPASS Mond smith exposes exact nonempty equipment categories\nPASS smith purchase equip unequip and sell roundtrip stays in equipment domain\nPASS Liyue smith uses new regional enhancement\nPASS Liyue smith completes +10 ascend +11 +12 and survives travel/save\nPASS Azhdaha authored repeat Y stays enterable after clear flag\nPASS Azhdaha phases immunity converter and save state execute at runtime\nPASS Azhdaha Zhongli contract keeps debuff after Zhongli KO while releasing center lock\nPASS Azhdaha v0.13.25 remains executable\nPASS combat UI source has only per-enemy info buttons\nPASS market filter source supports broad and exact equipment views\nPASS craft results use item icons\n{\"total\":12,\"passed\":12}\n",
+      "stderr": ""
     }
   ]
 }
