@@ -1,0 +1,41 @@
+name: CRPG v0.13.26 baseline validation
+
+on:
+  push:
+    branches:
+      - qa/crpg-v01326-baseline
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: genshin-crpg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow
+      - name: Build current baseline
+        run: python3 tools/build.py
+      - name: Existing bounded suite
+        id: bounded
+        continue-on-error: true
+        run: python3 tools/test_all.py
+      - name: Print bounded suite evidence
+        if: always()
+        run: cat reports/suite-results.json
+      - name: Gameplay step 2-9 direct suites
+        if: always()
+        run: |
+          status=0
+          for f in             tools/test_liyue_mora_step2.cjs             tools/test_liyue_loot_step3.cjs             tools/test_liyue_recruitment_step4.cjs             tools/test_gameplay_step5.cjs             tools/test_gameplay_step6_plus.cjs             tools/test_gameplay_step7_ui.cjs             tools/test_gameplay_step8_ui_assets.cjs             tools/test_gameplay_step9_hotfix.cjs
+          do
+            echo "===== $f ====="
+            node "$f" || status=1
+          done
+          exit $status
