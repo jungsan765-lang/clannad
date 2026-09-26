@@ -187,3 +187,112 @@ playTravel=async function(before,type,params={}){
 };
 
 })();
+
+/* v0.13.36 UI: pin one objective, Razor in Wolvendom, deliberate regional transit. */
+(function(){
+'use strict';
+const RAZOR_PLACE='EVT_QUALITY_RAZOR_WOLVENDOM';
+
+function pinButton(kind,id){
+ const current=game.s.pinnedObjective,active=current?.kind===kind&&current?.id===id;
+ return actionButton(active?'고정 해제':'이 임무 고정',active?'OBJECTIVE_CLEAR':'OBJECTIVE_PIN',active?{}:{kind,objective:id},true);
+}
+function appendPin(card,kind,id){
+ if(!card||!id)return;const box=el('div','objective-pin-actions');box.append(pinButton(kind,id));card.append(box);
+}
+function guildPlaceFor(region){return game.commissionGuildPlace?.(region);}
+function pinnedCommissionActions(card,info){
+ const row=game.tables['22_QUEST_DB'].get(info.id),q=game.commissionEntries().find(x=>x.row[0]===info.id);
+ if(!row||!q)return;
+ if(info.ready){
+  const place=guildPlaceFor(row[2]);
+  if(game.atCommissionGuild?.(row[2])){
+   if(q.reward?.equipment_choice){
+    for(const id of q.reward.equipment_choice)card.append(actionButton(safeName('16_EQUIP_DB',id)+' 수령','CLAIM_QUEST',{quest:info.id,equipment:id},true));
+   }else card.append(actionButton('캐서린에게 보고 · 보상 수령','CLAIM_QUEST',{quest:info.id},true));
+  }else if(place?.maps?.includes(game.s.global.CURRENT_MAP_ID)){
+   card.append(actionButton('캐서린에게 보고하러 가기','PLACE_ENTER',{place:place.id,mode:'TALK'},true));
+  }else if(info.target)travelGuide(card,info.target);
+  return;
+ }
+ if(info.target&&info.target!==game.s.global.CURRENT_MAP_ID)travelGuide(card,info.target);
+ else card.append(el('p','mission-ready','목적지에 도착했습니다. 아래 「현재 장소의 의뢰」에서 조사·퍼즐·전투를 진행하세요.'));
+}
+function pinnedStoryActions(card,info){
+ const pin=game.s.pinnedObjective;
+ if(info.active){
+  const j=game.s.storyJourney,b=game.s.storyBreak,target=j?.target||b?.map;
+  if(target&&target!==game.s.global.CURRENT_MAP_ID)travelGuide(card,target);
+  else if((j&&target===game.s.global.CURRENT_MAP_ID)||b&&b.map===game.s.global.CURRENT_MAP_ID)card.append(actionButton('도착 · 이야기 계속','JOURNEY_RESUME',{},true));
+  else card.append(actionButton('진행 중인 이야기 계속','MENU',{screen:'STORY'},true));
+  return;
+ }
+ if(info.reason)card.append(el('p','choice-note',info.reason));
+ if(info.target&&info.target!==game.s.global.CURRENT_MAP_ID){travelGuide(card,info.target);return;}
+ if(info.ready){
+  if(pin.kind==='LEGEND')card.append(actionButton('개인 이야기 시작','LEGEND_ENTER',{quest:pin.id},true));
+  else card.append(actionButton('호감도 이야기 시작','AFFECTION_ENTER',{event:pin.id},true));
+ }
+}
+const pinnedBaseMainObjective=mainObjective;
+mainObjective=function(parent){
+ const pin=game.s.pinnedObjective,info=game.objectiveInfo?.(pin);
+ if(!pin||!info){pinnedBaseMainObjective(parent);return;}
+ const box=el('section','main-objective pinned-objective');
+ box.append(
+  el('small','eyebrow','고정 임무 · '+(pin.kind==='COMMISSION'?'의뢰':pin.kind==='LEGEND'?'동료 획득':'호감도')),
+  el('h2','',info.title),
+  el('p','muted','메인 임무 대신 이 목표의 목적지와 다음 행동을 표시합니다.')
+ );
+ if(pin.kind==='COMMISSION')pinnedCommissionActions(box,info);else pinnedStoryActions(box,info);
+ box.append(pinButton(pin.kind,pin.id));
+ parent.append(box);
+};
+
+const pinnedCommissionCard=commissionCard;
+commissionCard=function(parent,q,guild=false){
+ pinnedCommissionCard(parent,q,guild);const card=parent.lastElementChild;
+ if(q.accepted&&!q.state?.claimed)appendPin(card,'COMMISSION',q.row[0]);
+};
+const pinnedLegendCard=legendProgressCard;
+legendProgressCard=function(parent,m){pinnedLegendCard(parent,m);appendPin(parent.lastElementChild,'LEGEND',m.id);};
+const pinnedAffectionRow=affectionProgressRow;
+affectionProgressRow=function(parent,m){
+ pinnedAffectionRow(parent,m);const row=parent.lastElementChild,actions=row?.querySelector('.journal-row-actions')||row;
+ if(actions&&m.next?.id)actions.append(pinButton('AFFECTION',m.next.id));
+};
+
+const razorDialogue=dialogue;
+dialogue=function(p,v){
+ razorDialogue(p,v);
+ const place=game.currentPlace?.();if(!place?.valid||place.place!==RAZOR_PLACE)return;
+ const entry=game.storyEntries().find(e=>e.id==='LEG_MOND_RAZOR');if(!entry)return;
+ const d=entry.definition,card=el('section','card razor-contact');
+ card.append(el('small','eyebrow','울프 영지'),el('h2','','레이저'),el('p','story','숲길의 냄새와 발자국을 확인하던 레이저가 멈춰 선다. 몬드성의 소개처가 아니라 울프 영지에서 직접 그의 부탁을 듣는다.'));
+ if(game.storyDone(entry.id))card.append(el('p','muted','이미 함께 해결한 이야기입니다.'));
+ else if(!game.legendRegistered(entry.id)){
+  if(typeof requirementList==='function')requirementList(card,game.legendRequirements(d,{cost:false,location:false}));
+  card.append(actionButton('레이저의 부탁을 듣고 임무 소개받기','LEGEND_REGISTER',{quest:entry.id},true));
+ }else{
+  const why=game.actionReason('LEGEND_ENTER',{quest:entry.id});if(why)card.append(el('p','choice-note',why));
+  card.append(actionButton('레이저 개인 이야기 시작','LEGEND_ENTER',{quest:entry.id},true),pinButton('LEGEND',entry.id));
+ }
+ p.append(card);
+};
+
+const transitPlayTravel=playTravel;
+playTravel=async function(before,type,params={}){
+ if(type==='MOVE'&&lastResult?.ok!==false&&lastResult?.result?.regionTransit){
+  const duration=30000,overlay=el('div','travel-overlay task-progress-overlay region-transit-progress');
+  overlay.setAttribute('role','status');
+  overlay.append(el('span','travel-mark','✧'),el('strong','','지역 직행 이동 중'),el('span','','실제 대기 30초 · 게임 시간 '+Number(lastResult.result.minutes||0)+'분'));
+  const bar=el('progress'),remaining=el('small','');
+  bar.max=duration;bar.value=0;bar.setAttribute('aria-label','몬드·리월 지역 직행 이동');
+  overlay.append(bar,remaining);document.body.append(overlay);
+  const start=performance.now();
+  await new Promise(resolve=>{const tick=()=>{const elapsed=performance.now()-start;bar.value=Math.min(duration,elapsed);remaining.textContent=Math.max(0,Math.ceil((duration-elapsed)/1000))+'초 남음';if(elapsed>=duration){overlay.remove();resolve();}else setTimeout(tick,100);};tick();});
+  return;
+ }
+ return transitPlayTravel(before,type,params);
+};
+})();
