@@ -1,0 +1,309 @@
+{
+  "scope": "305 ordinary H01-H05 scenes: 230 Liyue across both routes,75 new Mond Isekai. Synthetic already-joined, bond, main completion and prior affection prerequisites; actual runtime AFFECTION_ENTER/STORY_NEXT/STORY_CHOICE entry/completion. First and second choice paths where present. Entry/choice/completion save reload and exact last-action replay. No H110/H120 and no checkout writes.",
+  "source": "/workspace/scratch/49fd38014e3c/clannad/genshin-crpg",
+  "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+  "sourceSha256": {
+    "runtime_relationships.js": "b1ff6ddec57a0f5c1a124a004c3e5ace7062b6759fd912b80b79ad5872fb35f2",
+    "runtime_nodes.js": "471c4a7383859511dca2cfafaec79272f7daeb681287ad60867a8b6959f130ee",
+    "runtime_recruitment.js": "a730b0c35475b51e0e28b019d003612fd9981984a9ff3e4f434b72aa6f9a6a28"
+  },
+  "results": [
+    {
+      "id": "AFF_LIYUE_ZHONGLI_H01",
+      "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+      "route": "ROUTE_TRAVELER",
+      "category": "GENERAL",
+      "paths": [
+        {
+          "variant": 0,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_LIYUE_ZHONGLI_H01_CH_A"
+          ],
+          "passed": true
+        },
+        {
+          "variant": 1,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_LIYUE_ZHONGLI_H01_CH_B"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "AFF_LIYUE_ZHONGLI_H02",
+      "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+      "route": "ROUTE_TRAVELER",
+      "category": "GENERAL",
+      "paths": [
+        {
+          "variant": 0,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_LIYUE_ZHONGLI_H02_CH_A"
+          ],
+          "passed": true
+        },
+        {
+          "variant": 1,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_LIYUE_ZHONGLI_H02_CH_B"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "AFF_LIYUE_ZHONGLI_H03",
+      "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+      "route": "ROUTE_TRAVELER",
+      "category": "GENERAL",
+      "paths": [
+        {
+          "variant": 0,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_LIYUE_ZHONGLI_H03_CH_A"
+          ],
+          "passed": true
+        },
+        {
+          "variant": 1,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_LIYUE_ZHONGLI_H03_CH_B"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "AFF_LIYUE_ZHONGLI_H04",
+      "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+      "route": "ROUTE_TRAVELER",
+      "category": "GENERAL",
+      "paths": [
+        {
+          "variant": 0,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_LIYUE_ZHONGLI_H04_CH_A"
+          ],
+          "passed": true
+        },
+        {
+          "variant": 1,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_LIYUE_ZHONGLI_H04_CH_B"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "AFF_LIYUE_ZHONGLI_H05",
+      "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+      "route": "ROUTE_TRAVELER",
+      "category": "GENERAL",
+      "paths": [
+        {
+          "variant": 0,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_LIYUE_ZHONGLI_H05_CH_A"
+          ],
+          "passed": true
+        },
+        {
+          "variant": 1,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_LIYUE_ZHONGLI_H05_CH_B"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "AFF_ISK_LIYUE_ZHONGLI_H01",
+      "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+      "route": "ROUTE_ISEKAI",
+      "category": "GENERAL",
+      "paths": [
+        {
+          "variant": 0,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_ISK_LIYUE_ZHONGLI_H01_G_DECIDE_OPT_01"
+          ],
+          "passed": true
+        },
+        {
+          "variant": 1,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_ISK_LIYUE_ZHONGLI_H01_G_DECIDE_OPT_02"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "AFF_ISK_LIYUE_ZHONGLI_H02",
+      "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+      "route": "ROUTE_ISEKAI",
+      "category": "GENERAL",
+      "paths": [
+        {
+          "variant": 0,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_ISK_LIYUE_ZHONGLI_H02_G_DECIDE_OPT_01"
+          ],
+          "passed": true
+        },
+        {
+          "variant": 1,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_ISK_LIYUE_ZHONGLI_H02_G_DECIDE_OPT_02"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "AFF_ISK_LIYUE_ZHONGLI_H03",
+      "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+      "route": "ROUTE_ISEKAI",
+      "category": "GENERAL",
+      "paths": [
+        {
+          "variant": 0,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_ISK_LIYUE_ZHONGLI_H03_G_DECIDE_OPT_01"
+          ],
+          "passed": true
+        },
+        {
+          "variant": 1,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_ISK_LIYUE_ZHONGLI_H03_G_DECIDE_OPT_02"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "AFF_ISK_LIYUE_ZHONGLI_H04",
+      "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+      "route": "ROUTE_ISEKAI",
+      "category": "GENERAL",
+      "paths": [
+        {
+          "variant": 0,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_ISK_LIYUE_ZHONGLI_H04_G_DECIDE_OPT_01"
+          ],
+          "passed": true
+        },
+        {
+          "variant": 1,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_ISK_LIYUE_ZHONGLI_H04_G_DECIDE_OPT_02"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "id": "AFF_ISK_LIYUE_ZHONGLI_H05",
+      "dbSha256": "8715a9b569d8b9e7d1788e58933f80511aa85199a970673fab533896f9a1de18",
+      "route": "ROUTE_ISEKAI",
+      "category": "GENERAL",
+      "paths": [
+        {
+          "variant": 0,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_ISK_LIYUE_ZHONGLI_H05_G_DECIDE_OPT_01"
+          ],
+          "passed": true
+        },
+        {
+          "variant": 1,
+          "actions": 14,
+          "reloads": 4,
+          "duplicateReplays": 3,
+          "choices": [
+            "AFF_ISK_LIYUE_ZHONGLI_H05_G_DECIDE_OPT_02"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "paths": 20,
+    "unverified": 0
+  }
+}

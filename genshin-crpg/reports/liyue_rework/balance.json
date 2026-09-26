@@ -1,0 +1,779 @@
+{
+  "provenance": "Synthetic post-Dvalin party levels 6/8 with native stats, no boosted ATK/HP, no gear, public PARTY/COMBAT actions, basic player attacks + ordinary ally AI; deterministic seeds. Not an exhaustive difficulty study.",
+  "runs": [
+    {
+      "level": 6,
+      "team": "SOLO",
+      "mission": "reed",
+      "seed": 12,
+      "win": false,
+      "rounds": 7,
+      "hp": 18,
+      "maxHp": 576,
+      "allyHp": []
+    },
+    {
+      "level": 6,
+      "team": "SOLO",
+      "mission": "reed",
+      "seed": 441,
+      "win": false,
+      "rounds": 6,
+      "hp": 0,
+      "maxHp": 576,
+      "allyHp": []
+    },
+    {
+      "level": 6,
+      "team": "SOLO",
+      "mission": "reed",
+      "seed": 1987,
+      "win": false,
+      "rounds": 6,
+      "hp": 0,
+      "maxHp": 576,
+      "allyHp": []
+    },
+    {
+      "level": 6,
+      "team": "SOLO",
+      "mission": "guyun",
+      "seed": 12,
+      "win": false,
+      "rounds": 4,
+      "hp": 0,
+      "maxHp": 576,
+      "allyHp": []
+    },
+    {
+      "level": 6,
+      "team": "SOLO",
+      "mission": "guyun",
+      "seed": 441,
+      "win": false,
+      "rounds": 4,
+      "hp": 0,
+      "maxHp": 576,
+      "allyHp": []
+    },
+    {
+      "level": 6,
+      "team": "SOLO",
+      "mission": "guyun",
+      "seed": 1987,
+      "win": false,
+      "rounds": 4,
+      "hp": 0,
+      "maxHp": 576,
+      "allyHp": []
+    },
+    {
+      "level": 6,
+      "team": "SOLO",
+      "mission": "experiment",
+      "seed": 12,
+      "win": false,
+      "rounds": 3,
+      "hp": 0,
+      "maxHp": 576,
+      "allyHp": []
+    },
+    {
+      "level": 6,
+      "team": "SOLO",
+      "mission": "experiment",
+      "seed": 441,
+      "win": false,
+      "rounds": 3,
+      "hp": 0,
+      "maxHp": 576,
+      "allyHp": []
+    },
+    {
+      "level": 6,
+      "team": "SOLO",
+      "mission": "experiment",
+      "seed": 1987,
+      "win": false,
+      "rounds": 4,
+      "hp": 0,
+      "maxHp": 576,
+      "allyHp": []
+    },
+    {
+      "level": 6,
+      "team": "MOND_AMBER",
+      "mission": "reed",
+      "seed": 12,
+      "win": true,
+      "rounds": 6,
+      "integrity": 48,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_AMBER",
+      "mission": "reed",
+      "seed": 441,
+      "win": true,
+      "rounds": 6,
+      "integrity": 48,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_AMBER",
+      "mission": "reed",
+      "seed": 1987,
+      "win": true,
+      "rounds": 6,
+      "integrity": 48,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_AMBER",
+      "mission": "guyun",
+      "seed": 12,
+      "win": true,
+      "rounds": 6,
+      "integrity": 22,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_AMBER",
+      "mission": "guyun",
+      "seed": 441,
+      "win": true,
+      "rounds": 6,
+      "integrity": 22,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_AMBER",
+      "mission": "guyun",
+      "seed": 1987,
+      "win": true,
+      "rounds": 6,
+      "integrity": 22,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_AMBER",
+      "mission": "experiment",
+      "seed": 12,
+      "win": true,
+      "rounds": 7,
+      "integrity": 100,
+      "hp": 458,
+      "maxHp": 576,
+      "allyHp": [
+        94,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_AMBER",
+      "mission": "experiment",
+      "seed": 441,
+      "win": true,
+      "rounds": 6,
+      "integrity": 100,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        87,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_AMBER",
+      "mission": "experiment",
+      "seed": 1987,
+      "win": true,
+      "rounds": 6,
+      "integrity": 100,
+      "hp": 460,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_DILUC",
+      "mission": "reed",
+      "seed": 12,
+      "win": true,
+      "rounds": 4,
+      "integrity": 74,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_DILUC",
+      "mission": "reed",
+      "seed": 441,
+      "win": true,
+      "rounds": 4,
+      "integrity": 74,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_DILUC",
+      "mission": "reed",
+      "seed": 1987,
+      "win": true,
+      "rounds": 4,
+      "integrity": 74,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_DILUC",
+      "mission": "guyun",
+      "seed": 12,
+      "win": true,
+      "rounds": 4,
+      "integrity": 61,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_DILUC",
+      "mission": "guyun",
+      "seed": 441,
+      "win": true,
+      "rounds": 4,
+      "integrity": 61,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_DILUC",
+      "mission": "guyun",
+      "seed": 1987,
+      "win": true,
+      "rounds": 4,
+      "integrity": 61,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_DILUC",
+      "mission": "experiment",
+      "seed": 12,
+      "win": true,
+      "rounds": 3,
+      "integrity": 100,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        96
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_DILUC",
+      "mission": "experiment",
+      "seed": 441,
+      "win": true,
+      "rounds": 2,
+      "integrity": 100,
+      "hp": 528,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        99
+      ]
+    },
+    {
+      "level": 6,
+      "team": "MOND_DILUC",
+      "mission": "experiment",
+      "seed": 1987,
+      "win": true,
+      "rounds": 3,
+      "integrity": 100,
+      "hp": 576,
+      "maxHp": 576,
+      "allyHp": [
+        100,
+        100,
+        97
+      ]
+    },
+    {
+      "level": 8,
+      "team": "SOLO",
+      "mission": "reed",
+      "seed": 12,
+      "win": false,
+      "rounds": 6,
+      "hp": 0,
+      "maxHp": 614,
+      "allyHp": []
+    },
+    {
+      "level": 8,
+      "team": "SOLO",
+      "mission": "reed",
+      "seed": 441,
+      "win": false,
+      "rounds": 6,
+      "hp": 0,
+      "maxHp": 614,
+      "allyHp": []
+    },
+    {
+      "level": 8,
+      "team": "SOLO",
+      "mission": "reed",
+      "seed": 1987,
+      "win": false,
+      "rounds": 6,
+      "hp": 0,
+      "maxHp": 614,
+      "allyHp": []
+    },
+    {
+      "level": 8,
+      "team": "SOLO",
+      "mission": "guyun",
+      "seed": 12,
+      "win": false,
+      "rounds": 4,
+      "hp": 0,
+      "maxHp": 614,
+      "allyHp": []
+    },
+    {
+      "level": 8,
+      "team": "SOLO",
+      "mission": "guyun",
+      "seed": 441,
+      "win": false,
+      "rounds": 4,
+      "hp": 0,
+      "maxHp": 614,
+      "allyHp": []
+    },
+    {
+      "level": 8,
+      "team": "SOLO",
+      "mission": "guyun",
+      "seed": 1987,
+      "win": false,
+      "rounds": 4,
+      "hp": 0,
+      "maxHp": 614,
+      "allyHp": []
+    },
+    {
+      "level": 8,
+      "team": "SOLO",
+      "mission": "experiment",
+      "seed": 12,
+      "win": false,
+      "rounds": 3,
+      "hp": 0,
+      "maxHp": 614,
+      "allyHp": []
+    },
+    {
+      "level": 8,
+      "team": "SOLO",
+      "mission": "experiment",
+      "seed": 441,
+      "win": false,
+      "rounds": 3,
+      "hp": 0,
+      "maxHp": 614,
+      "allyHp": []
+    },
+    {
+      "level": 8,
+      "team": "SOLO",
+      "mission": "experiment",
+      "seed": 1987,
+      "win": false,
+      "rounds": 4,
+      "hp": 0,
+      "maxHp": 614,
+      "allyHp": []
+    },
+    {
+      "level": 8,
+      "team": "MOND_AMBER",
+      "mission": "reed",
+      "seed": 12,
+      "win": true,
+      "rounds": 6,
+      "integrity": 35,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_AMBER",
+      "mission": "reed",
+      "seed": 441,
+      "win": true,
+      "rounds": 6,
+      "integrity": 35,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_AMBER",
+      "mission": "reed",
+      "seed": 1987,
+      "win": true,
+      "rounds": 6,
+      "integrity": 35,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_AMBER",
+      "mission": "guyun",
+      "seed": 12,
+      "win": true,
+      "rounds": 7,
+      "integrity": 22,
+      "hp": 490,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_AMBER",
+      "mission": "guyun",
+      "seed": 441,
+      "win": true,
+      "rounds": 7,
+      "integrity": 22,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        90
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_AMBER",
+      "mission": "guyun",
+      "seed": 1987,
+      "win": true,
+      "rounds": 7,
+      "integrity": 22,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_AMBER",
+      "mission": "experiment",
+      "seed": 12,
+      "win": true,
+      "rounds": 7,
+      "integrity": 100,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        86
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_AMBER",
+      "mission": "experiment",
+      "seed": 441,
+      "win": true,
+      "rounds": 7,
+      "integrity": 100,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        81,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_AMBER",
+      "mission": "experiment",
+      "seed": 1987,
+      "win": true,
+      "rounds": 6,
+      "integrity": 100,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        87,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_DILUC",
+      "mission": "reed",
+      "seed": 12,
+      "win": true,
+      "rounds": 4,
+      "integrity": 61,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_DILUC",
+      "mission": "reed",
+      "seed": 441,
+      "win": true,
+      "rounds": 4,
+      "integrity": 74,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_DILUC",
+      "mission": "reed",
+      "seed": 1987,
+      "win": true,
+      "rounds": 4,
+      "integrity": 74,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_DILUC",
+      "mission": "guyun",
+      "seed": 12,
+      "win": true,
+      "rounds": 4,
+      "integrity": 61,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_DILUC",
+      "mission": "guyun",
+      "seed": 441,
+      "win": true,
+      "rounds": 4,
+      "integrity": 61,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_DILUC",
+      "mission": "guyun",
+      "seed": 1987,
+      "win": true,
+      "rounds": 4,
+      "integrity": 61,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        100
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_DILUC",
+      "mission": "experiment",
+      "seed": 12,
+      "win": true,
+      "rounds": 3,
+      "integrity": 100,
+      "hp": 608,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        96
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_DILUC",
+      "mission": "experiment",
+      "seed": 441,
+      "win": true,
+      "rounds": 2,
+      "integrity": 100,
+      "hp": 557,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        99
+      ]
+    },
+    {
+      "level": 8,
+      "team": "MOND_DILUC",
+      "mission": "experiment",
+      "seed": 1987,
+      "win": true,
+      "rounds": 3,
+      "integrity": 100,
+      "hp": 614,
+      "maxHp": 614,
+      "allyHp": [
+        100,
+        100,
+        97
+      ]
+    }
+  ]
+}

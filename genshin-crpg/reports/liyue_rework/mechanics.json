@@ -1,0 +1,30 @@
+{
+  "tests": [
+    {
+      "name": "all companions gain exactly 1% ATK/DEF per heart, capped at 5%, no HP or persistent base mutation",
+      "pass": true
+    },
+    {
+      "name": "investigation, wrong order, save reload and duplicate action preserve objective progress",
+      "pass": true
+    },
+    {
+      "name": "structure is a durable combat target, never attacks or attaches an aura",
+      "pass": true
+    },
+    {
+      "name": "post-Dvalin party clears field encounters; level-6 solo loses under the same combat pressure",
+      "pass": true
+    },
+    {
+      "name": "Venti Isekai legend registers at the tavern and H01-H05 use native affection/daily/save systems",
+      "pass": true
+    },
+    {
+      "name": "Zhongli has an actual introduction contact for both routes and five native affection stages",
+      "pass": true
+    }
+  ],
+  "passed": 6,
+  "total": 6
+}
