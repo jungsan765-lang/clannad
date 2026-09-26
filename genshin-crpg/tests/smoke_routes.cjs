@@ -33,15 +33,18 @@ function walk(route){
  const guide=[
   ['BUY',{stock:'STK_CRPG_MOND_WORN_SWORD',quantity:1}],
   ['EQUIP_NEW'],
+  ['ACCEPT_COMMISSION',{quest:'Q_MOND_EXP_PLAINS_CART'}],
   ['MOVE',{edge:'EDGE_MOND_CITY_TO_PLAINS'}],
   ['QUEST_CHOICE',{quest:'Q_MOND_EXP_PLAINS_CART',choice:'careful'}],
   ['CLAIM_QUEST',{quest:'Q_MOND_EXP_PLAINS_CART'}],
   ['XP_BOOKS'],
   ['MOVE',{edge:'EDGE_MOND_PLAINS_TO_CITY'}],
+  ['ACCEPT_COMMISSION',{quest:'Q_MOND_XP_SUPPLY'}],
   ['QUEST_CHOICE',{quest:'Q_MOND_XP_SUPPLY',choice:'submit'}],
   ['CLAIM_QUEST',{quest:'Q_MOND_XP_SUPPLY'}],
   ['XP_BOOKS'],
   ['BUY',{stock:'STK_INN_MOND',quantity:1}],
+  ['ACCEPT_COMMISSION',{quest:'Q_CRPG_MOND_FIRST_FIELD'}],
   ['MOVE',{edge:'EDGE_MOND_CITY_TO_PLAINS'}],
   ['QUEST_CHOICE',{quest:'Q_CRPG_MOND_FIRST_FIELD',choice:'careful'}],
   ['CLAIM_QUEST',{quest:'Q_CRPG_MOND_FIRST_FIELD'}],
@@ -53,6 +56,7 @@ function walk(route){
   if(strategy!=='guided'||guideIndex>=guide.length)return false;
   const [type,params]=guide[guideIndex++];
   if(type==='EQUIP_NEW'){const inv=r.s.inventory.find(x=>x.equip==='EQ_CRPG_WORN_SWORD'&&!x.equipped);if(inv)act('EQUIP',{slot:inv.slot,owner:'PLAYER_CUSTOM'});}
+  else if(type==='ACCEPT_COMMISSION'){if(!r.commissionAccepted(params.quest)){act('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});act('COMMISSION_ACCEPT',{quest:params.quest});act('PLACE_LEAVE');}}
   else if(type==='XP_BOOKS'){for(const item of ['MAT_CHAR_EXP_WANDERER','MAT_CHAR_EXP_ADVENTURER','MAT_CHAR_EXP_HERO']){const quantity=r.itemCount(item);if(quantity)act('USE_ITEM',{item,quantity,owner:'PLAYER_CUSTOM'});}}
   else if(type==='BUY'){const row=r.tables['19_SHOP_STOCK_DB'].get(params.stock);if(row&&!r.stockReason(row,params.quantity))act(type,params);}
   else act(type,params);
@@ -110,7 +114,7 @@ function walk(route){
  return {route,seed,strategy,outcome,actions:history.length,firstVictory:firstWin,firstStoryVictory:storyWin,guideCompleted:guideIndex===guide.length,retryEvidence,freeStops,battles,error,final:state(r),optionalRejected,history};
 }
 const routes=(process.env.CRPG_ROUTES||'ROUTE_TRAVELER,ROUTE_ISEKAI').split(','),runs=routes.map(walk);
-const report={testedAt:new Date().toISOString(),source,dbPath,dbHash:hash(data),loaded:files,hashes,policy:'New game plus public action only; first available authored choice, accept offered companions, equip naturally owned items, naturally owned food; authored battle guests and legal combat cards. Guided profile also buys an available practice sword, completes actual cart/supply/first-field quests, uses awarded XP books, and buys available inn rests. No direct save mutations.',runs};
+const report={testedAt:new Date().toISOString(),source,dbPath,dbHash:hash(data),loaded:files,hashes,policy:'New game plus public action only; first available authored choice, accept offered companions, equip naturally owned items, naturally owned food; authored battle guests and legal combat cards. Guided profile also buys an available practice sword, explicitly accepts and completes actual cart/supply/first-field commissions, uses awarded XP books, and buys available inn rests. No direct save mutations.',runs};
 const out=path.join(__dirname,'legitimate-route-smoke-results.json');fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');
 for(const r of runs)console.log(JSON.stringify({route:r.route,strategy:r.strategy,outcome:r.outcome,firstVictory:r.firstVictory,firstStoryVictory:r.firstStoryVictory,guideCompleted:r.guideCompleted,retryEvidence:r.retryEvidence,actions:r.actions,freeStops:r.freeStops.map(x=>x.node),battles:r.battles,error:r.error&&{code:r.error.code,message:r.error.message},final:r.final,optionalRejected:r.optionalRejected.map(x=>({type:x.type,params:x.params,error:x.error}))},null,2));
 console.log('Full public action transcript: '+out);
