@@ -7,18 +7,20 @@ files=['tests/test_nodes.js','tests/test_state.js','tests/test_story_isekai.js',
 files.append('tests/test_life_ui_v010.cjs')
 files.append('tests/test_release_v011.cjs')
 files.extend(['tests/test_work_validation.cjs','tests/test_encounter_context.cjs','tests/test_geography_v012.cjs'])
+files.extend([
+ 'tools/test_liyue_mora_step2.cjs',
+ 'tools/test_liyue_loot_step3.cjs',
+ 'tools/test_liyue_recruitment_step4.cjs',
+ 'tools/test_gameplay_step5.cjs',
+ 'tools/test_gameplay_step6_plus.cjs',
+ 'tools/test_gameplay_step7_ui.cjs',
+ 'tools/test_gameplay_step8_ui_assets.cjs',
+ 'tools/test_gameplay_step9_hotfix.cjs',
+])
 results=[]
 for file in files:
  result=subprocess.run(['node',file],cwd=root,env={**os.environ,'CRPG_TEST_RELATIONSHIPS':'1'},capture_output=True,text=True)
  results.append({'script':file,'exitCode':result.returncode,'stdout':result.stdout,'stderr':result.stderr})
  print(('PASS ' if result.returncode==0 else 'FAIL ')+file)
-(root/'reports/suite-results.json').write_text(json.dumps({'scope':'Bounded regression suites. Includes current policy/rules/Andrius regressions. Full Mond route completion and real offline browser restart remain unverified.','results':results},ensure_ascii=False,indent=2))
+(root/'reports/suite-results.json').write_text(json.dumps({'scope':'Bounded regression suites plus Liyue/gameplay steps 2-9. Full Mond route completion, browser pixel layout, touch-device interaction, and real offline browser restart remain separately unverified.','results':results},ensure_ascii=False,indent=2))
 sys.exit(any(r['exitCode'] for r in results))
-files.append('tools/test_liyue_mora_step2.cjs')
-files.append('tools/test_liyue_loot_step3.cjs')
-files.append('tools/test_liyue_recruitment_step4.cjs')
-files.append('tools/test_gameplay_step5.cjs')
-files.append('tools/test_gameplay_step6_plus.cjs')
-files.append('tools/test_gameplay_step7_ui.cjs')
-files.append('tools/test_gameplay_step8_ui_assets.cjs')
-files.append('tools/test_gameplay_step9_hotfix.cjs')
