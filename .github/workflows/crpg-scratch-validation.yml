@@ -28,8 +28,14 @@ jobs:
       - name: Build source to dist
         run: python3 tools/build.py
       - name: Run bounded and gameplay regressions
+        id: regressions
+        continue-on-error: true
         run: python3 tools/test_all.py
+      - name: Print regression evidence
+        if: always()
+        run: cat reports/suite-results.json
       - name: Persist generated QA output on scratch branch
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -38,3 +44,6 @@ jobs:
             git commit -m "chore(crpg): refresh scratch build and QA reports [skip ci]"
             git push
           fi
+      - name: Fail on regression
+        if: always() && steps.regressions.outcome != 'success'
+        run: exit 1
