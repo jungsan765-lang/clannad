@@ -6,55 +6,41 @@ function itemCategory(item){const value=game.row('16_EQUIP_DB',item.equip)[2];re
 function lockControls(box,reason){if(!reason)return;for(const control of box.querySelectorAll('button,input,select')){control.disabled=true;control.title=reason;}}
 function returnToJourney(p){p.append(actionButton(game.playPhase()==='PREPARATION'?'전투 준비로 돌아가기':'이야기로 돌아가기','MENU',{screen:'STORY'},true));}
 function actorPortrait(id,cls){const profile=game.rows('04_CHAR_DB').find(r=>r[1]===id),src=profile&&portraitFor(profile[0]);if(!src)return el('div',cls+' portrait-placeholder','✧');const img=el('img',cls);img.src=src;img.alt=ownerName(id);return img;}
+// Korean particle for a name: 이/가, 은/는, 을/를 by the last syllable's final consonant.
+function withJosa(word,consonant,vowel){const last=String(word||'').trim().slice(-1),code=last.charCodeAt(0)-0xAC00;return word+(code>=0&&code<11172?(code%28?consonant:vowel):consonant+'('+vowel+')');}
+// Leaving the party returns that member's gear to the bag; say so before it happens.
+function confirmPartyRemoval(id,run){
+  const gear=game.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===id);if(!gear.length){run();return;}
+  const box=el('div','party-remove-confirm'),list=el('ul'),row=el('div','row');for(const i of gear)list.append(el('li','',safeName('16_EQUIP_DB',i.equip)+(i.enhance?' +'+i.enhance:'')));
+  row.append(button('취소',()=>{document.getElementById('modal').close();render();}),button('장비를 풀고 편성에서 빼기',()=>{document.getElementById('modal').close();run();},false,true));
+  box.append(el('p','',withJosa(ownerName(id),'이','가')+' 편성에서 빠지면 착용 중인 장비 '+gear.length+'개가 해제되어 소지품으로 돌아갑니다.'),list,row);showModal('편성에서 빼기',box);
+}
 function partyScreen(p){
-  p.append(el('div','eyebrow','PARTY & EQUIPMENT'),el('h1','','편성·장비'),el('p','muted','현재 파티의 장비를 관리합니다. 편성을 해제하면 착용 장비는 소지품으로 돌아갑니다.'));
-  const owners=game.ownedActors(),ids=new Set(owners.filter(x=>x.active).map(x=>x.id)),reason=game.actionReason('EQUIP');
-  if(!ids.has(partyOwner))partyOwner='PLAYER_CUSTOM';
-  if(reason)p.append(el('p','phase-note','현재 장면에서는 편성과 장비를 확인할 수 있습니다. 변경은 장면을 마친 뒤 가능합니다.'));
+  p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료와 행동 방침을 정합니다. 장비는 장비 장착 메뉴에서 바꾸며, 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
+  const owners=game.ownedActors(),reason=game.actionReason('PARTY');
+  if(reason)p.append(el('p','phase-note','현재 장면에서는 편성을 확인만 할 수 있습니다. 변경은 장면을 마친 뒤 가능합니다.'));
   const formation=el('div','formation-grid');
   const bonuses=['주인공 · 고정','치명타 확률 +5% · 호감도 동행','최대 HP +5%','받는 최종 피해 −20%'];
   for(let n=1;n<=4;n++){
-    const member=game.s.party.find(x=>x.slot==='PARTY_'+n&&x.active),id=member?.source,c=el('section','formation-slot'+(id===partyOwner?' selected':''));
+    const member=game.s.party.find(x=>x.slot==='PARTY_'+n&&x.active),id=member?.source,c=el('section','formation-slot');
     c.append(el('small','slot-label',n+'번 · '+bonuses[n-1]));
-    if(id){const choose=button('',()=>{partyOwner=id;equipmentCandidate=null;render();});choose.className='member-select';choose.setAttribute('aria-label',ownerName(id)+' 장비 보기');choose.append(actorPortrait(id,'party-portrait'),el('strong','',ownerName(id)));c.append(choose);}
+    if(id){const worn=game.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===id).length,who=button('',()=>act('MENU',{screen:'STATUS'}));who.className='member-select';who.setAttribute('aria-label',ownerName(id)+' 장비 보기');who.append(actorPortrait(id,'party-portrait'),el('strong','',ownerName(id)),el('small','muted','장비 '+worn+'개'));c.append(who);}
     else c.append(el('div','empty-slot','비어 있음'));
     if(n>1){
       const controls=el('div','formation-controls'),select=el('select');select.setAttribute('aria-label',n+'번 슬롯 동료');select.append(new Option('동료를 선택하세요',''));
       for(const owner of owners.filter(x=>x.id!=='PLAYER_CUSTOM'&&(!x.active||x.id===id)))select.append(new Option(owner.name,owner.id));select.value=id||'';
-      select.onchange=()=>{if(select.value)act(id?'PARTY_REPLACE':'PARTY',{char:select.value,slot:n});};controls.append(select);
+      select.onchange=()=>{if(!select.value)return;const go=()=>act(id?'PARTY_REPLACE':'PARTY',{char:select.value,slot:n});if(id&&select.value!==id)confirmPartyRemoval(id,go);else go();};controls.append(select);
       if(id){
         const tactic=el('select');tactic.setAttribute('aria-label',ownerName(id)+' 행동 방침');for(const t of game.partyTactics())tactic.append(new Option(t,t));tactic.value=member.tactic;tactic.onchange=()=>act('PARTY_TACTIC',{slot:n,tactic:tactic.value});controls.append(tactic);
-        const moves=el('div','slot-moves');for(const target of [2,3,4].filter(x=>x!==n))moves.append(actionButton(target+'번과 교환','PARTY_SWAP',{from:n,to:target}));controls.append(moves,actionButton('편성 해제','PARTY_REMOVE',{slot:n}));
+        const moves=el('div','slot-moves');for(const target of [2,3,4].filter(x=>x!==n))moves.append(actionButton(target+'번과 교환','PARTY_SWAP',{from:n,to:target}));
+        controls.append(moves,button('편성 해제',()=>confirmPartyRemoval(id,()=>act('PARTY_REMOVE',{slot:n})),busy||!!game.actionReason('PARTY_REMOVE',{slot:n})));
       }
-      lockControls(controls,game.actionReason('PARTY'));c.append(controls);
+      lockControls(controls,reason);c.append(controls);
     }
     formation.append(c);
   }
   p.append(formation,el('p','muted','2번 슬롯은 개인 임무를 마친 동료의 호감도가 전투 승리마다 1점 오릅니다. 개인 임무 완료 보상은 10점으로 한 번만 받습니다.'));
-  const focus=el('label','settings-row'),chooser=el('select');chooser.setAttribute('aria-label','장비를 관리할 캐릭터');for(const owner of owners.filter(x=>x.active))chooser.append(new Option(owner.name+(owner.active?' · 편성 중':' · 대기 중'),owner.id));chooser.value=partyOwner;chooser.onchange=()=>{partyOwner=chooser.value;equipmentCandidate=null;render();};focus.append(el('span','','장비를 관리할 캐릭터'),chooser);p.append(focus);
-  const layout=el('div','equipment-layout'),summary=el('section','card equipment-character'),gear=el('section');
-  const actor=partyOwner==='PLAYER_CUSTOM'?game.player():game.character(partyOwner);
-  summary.append(actorPortrait(partyOwner,'equipment-portrait'),el('h2','',ownerName(partyOwner)),el('p','muted','Lv. '+game.growth(partyOwner).level));meter(summary,'HP',actor.hp,actor.maxHp);
-  const stats=el('dl','stat-grid');for(const [label,key]of [['공격력','atk'],['방어력','def'],['속도','spd'],['치명타 확률','crit']])stats.append(el('dt','',label),el('dd','',Math.round(actor[key]||0)+(key==='crit'?'%':'')));summary.append(stats,el('small','muted','능력치는 장비를 포함한 기본 수치입니다. 슬롯 효과는 전투에 적용됩니다.'));
-  for(const [category,label]of Object.entries(equipmentCategories)){
-    const item=game.s.inventory.find(x=>x.equip&&x.equipped&&x.owner===partyOwner&&itemCategory(x)===category),b=button('',()=>{equipmentCategory=category;equipmentCandidate=null;render();});b.className='equipped-slot'+(category===equipmentCategory?' selected':'');b.append(el('small','',label),el('strong','',item?safeName('16_EQUIP_DB',item.equip)+' +'+item.enhance:'미장착'));summary.append(b);
-  }
-  gear.append(el('h2','',equipmentCategories[equipmentCategory]+' 선택'));
-  const items=game.s.inventory.filter(x=>x.equip&&itemCategory(x)===equipmentCategory),current=items.find(x=>x.equipped&&x.owner===partyOwner);
-  if(current)gear.append(actionButton('현재 '+equipmentCategories[equipmentCategory]+' 해제','UNEQUIP',{slot:current.slot,owner:partyOwner}));
-  if(!items.length)gear.append(el('p','empty','보유한 장비가 없습니다.'));
-  const list=el('div','equipment-list');for(const item of items){const selected=item.slot===equipmentCandidate,b=button('',()=>{equipmentCandidate=selected?null:item.slot;render();});b.className='equipment-choice'+(selected?' selected':'');b.append(el('strong','',safeName('16_EQUIP_DB',item.equip)+' +'+item.enhance),el('small','',item.equipped?ownerName(item.owner)+' 장착 중':'미장착'));list.append(b);}gear.append(list);
-  const candidate=items.find(x=>x.slot===equipmentCandidate);
-  if(candidate){const preview=game.equipmentPreview(candidate.slot,partyOwner),box=el('section','card equipment-comparison');box.append(el('h3','','장착 전 비교'));
-    if(preview.reason)box.append(el('p','choice-note',preview.reason));
-    else{const table=el('table','compare-table'),head=el('tr');for(const text of ['능력치','현재','장착 후'])head.append(el('th','',text));table.append(head);
-      for(const [label,key]of [['최대 HP','maxHp'],['공격력','atk'],['방어력','def'],['속도','spd'],['치명타 확률','crit'],['치명타 피해','critDmg'],['명중','hit'],['회피','eva']]){const a=Math.round(preview.before[key]||0),b=Math.round(preview.after[key]||0),row=el('tr');row.append(el('th','',label),el('td','',a),el('td',b>a?'stat-up':b<a?'stat-down':'',b+(b!==a?' ('+(b>a?'+':'')+(b-a)+')':'')));table.append(row);}box.append(table);
-      if(candidate.equipped&&candidate.owner!==partyOwner)box.append(el('p','transfer-note',ownerName(candidate.owner)+'에게서 가져와 장착합니다. 이전 착용자의 해당 장비는 해제됩니다.'));
-      box.append(el('small','muted','장비 교체로 현재 HP가 회복되지는 않습니다.'));
-    }
-    const equip=actionButton(candidate.equipped&&candidate.owner===partyOwner?'현재 장착 중':'이 장비 장착','EQUIP',{slot:candidate.slot,owner:partyOwner},true);equip.disabled=equip.disabled||!!preview.reason||(candidate.equipped&&candidate.owner===partyOwner);box.append(equip);gear.append(box);
-  }
-  layout.append(summary,gear);p.append(layout);returnToJourney(p);
+  p.append(actionButton('장비 장착으로','MENU',{screen:'STATUS'}));returnToJourney(p);
 }
 inventory=function(p){
   p.append(el('div','eyebrow','INVENTORY'),el('h1','','소지품'),el('p','muted','음식·재료·전술 도구를 관리합니다. 장비는 편성·장비에서 캐릭터별로 관리할 수 있습니다.'));
@@ -78,7 +64,7 @@ battlePrepare=function(p){
   for(const choice of choices.values()){const row=el('label','settings-row'),check=el('input');check.type='checkbox';check.checked=selected.has(choice.id);check.disabled=busy||(!check.checked&&selected.size>=limit);check.onchange=()=>{const next=new Set(selected);check.checked?next.add(choice.id):next.delete(choice.id);act('PREP_SELECT',{group:prep.group,companions:[...next]});};row.append(check,el('span','',choice.name+(choice.owned?' · 합류한 동료':' · 이번 전투 동행')));p.append(row);}
   if(!choices.size)p.append(el('p','muted','현재 함께할 수 있는 동료가 없습니다. 주인공이 전투에 참가합니다.'));
   p.append(el('p','muted','선택한 동료 '+selected.size+' / '+limit+'명 · 메뉴를 오가거나 저장해도 선택이 유지됩니다.'));
-  const buttons=el('div','row');buttons.append(actionButton('편성·장비','MENU',{screen:'PARTY'}),actionButton('소지품·식사','MENU',{screen:'INVENTORY'}),actionButton('성장 확인','MENU',{screen:'STATUS'}));p.append(buttons);
+  const buttons=el('div','row');buttons.append(actionButton('편성','MENU',{screen:'PARTY'}),actionButton('장비 장착','MENU',{screen:'STATUS'}),actionButton('소지품·식사','MENU',{screen:'INVENTORY'}));p.append(buttons);
   if(game.combatStoryConfig(prep.group))p.append(el('p','muted','공중의 적에게는 원거리 공격 또는 부양·발판이 필요합니다. 지형이 모두 무너지기 전에 전투를 마쳐야 합니다.'));
   p.append(actionButton('이 편성으로 전투 순서 확인','COMBAT_PREPARE',{group:prep.group,companions:[...selected]},true),el('p','muted','패배하면 전투 직전 상태로 돌아가 다시 준비할 수 있습니다.'));
 };

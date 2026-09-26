@@ -1,5 +1,5 @@
 {
-  "appVersion": "0.13.29",
+  "appVersion": "0.13.30",
   "schemaVersion": 1,
   "saveCompatibilityVersion": "schema2-d0605b219738-enhance1-mond1-enemy1-boss1-balance1-navigation1-liyueareas1-chasm1",
   "compatibleSaveVersions": [
@@ -39,7 +39,7 @@
     "schema2-d0605b219738-enhance1-mond1-enemy1-boss1-balance1-navigation1-liyueareas1",
     "2026-09-24-d0605b219738-341f30487f8b"
   ],
-  "contentVersion": "2026-09-24-d0605b219738-327e9b2a5328",
+  "contentVersion": "2026-09-24-d0605b219738-0f0b876cdfc8",
   "sourceSpreadsheet": "1mpixlPo_5ccd6-Z5bdb5pxfAMND7_C9i1crgALx3R7U",
   "sourceModifiedAt": "2026-09-24T18:50:00.487Z",
   "assets": {
@@ -4153,183 +4153,201 @@
     }
   ],
   "releaseNotes": {
-    "version": "0.13.29",
+    "version": "0.13.30",
     "changes": [
-      "11번 완료: 리월의 랜덤 조우 23개 지역을 각각 독립된 지역 풀로 전환. 모든 지역에 4개 조우 항목을 배치해 총 92개의 지도 전용 편성 ID를 사용하고, 세부 지역이 부모 지역 편성을 그대로 복제하던 구조를 제거.",
-      "평야·도로, 습지·갈대밭, 해안·모래톱, 폐광, 고산 호숫가, 계곡·암벽, 수몰/석조 유적, 광구 지상, 층암 심층 등 지형별로 적 비중을 분리. 같은 적도 척후·명사수·약제, 방패 전열·사격대·혼성대처럼 역할과 수량 조합이 달라지도록 구성.",
-      "새 몬스터를 만들지 않고 현재 리월/층암 필드에서 실행 검증된 기존 적만 재조합. 보물 사냥단, 바위 방패 츄츄족대, 새끼 바위 용 도마뱀, 유적 가디언, 흑 뱀 무리/기사를 사용하며 흑 뱀 계열은 층암 심층에 집중.",
-      "기존 EG_TREASURE_PATROL, EG_LIYUE_HILI_ROCK, EG_LIYUE_VISHAP, EG_LIYUE_RUIN, EG_CHASM_HUSK, EG_CHASM_SERPENT 정의는 삭제·변경하지 않아 의뢰·스토리·기존 저장 참조를 보존. 랜덤 지도 풀만 새 지역 전용 그룹으로 교체.",
-      "리월 권장 레벨 보정, 생존 파티 규모에 따른 적 수 제한, LIYUE_FIELD_MORA_V2 모라 정산과 기존 소재 드롭 테이블은 그대로 사용해 지역 다양화가 별도의 경제 인플레를 만들지 않도록 유지."
+      "전설 임무 버그 수정: 준비물이 없어 「다시 준비해 오겠다」를 고르면 메인 화면으로 나가면서도 이야기가 끝나지 않아, 이야기 화면에 다시 들어가 「다음 활동 선택」을 눌러야만 다른 활동을 할 수 있던 문제를 고쳤다. 개인 이야기가 메인 화면으로 나가는 지점에 닿으면 그 자리에서 이야기를 마친다. 이 상태로 저장된 파일도 불러올 때 정리된다.",
+      "전투 버그 수정: 주인공이 쓰러져도 동료가 전투를 이기면 전멸이 아니라 승리로 끝난다. 전에는 승리 후에도 전투불능으로 처리되어 마을로 돌아갔다. 이제 주인공은 최대 HP의 10%로 다시 일어나고 결과 화면에서 알려 준다.",
+      "패배 페널티 추가: 전투에서 지면 가진 모라의 10%를 잃고, 실제 시간 60초 동안 회복·이동·다시 도전 같은 행동을 할 수 없다(메뉴 확인은 가능). 남은 시간은 왼쪽 메뉴와 결과 화면에 초 단위로 보이며, 0초가 되면 버튼이 바로 풀린다. 이야기 전투를 다시 도전해도 잃은 모라는 돌아오지 않는다.",
+      "적의 공격 대상 분산: 지금까지 적은 늘 HP가 가장 낮은 아군을 먼저 노려서 한 캐릭터만 집요하게 공격했다. 이제 다친 아군을 조금 더 노리되 무작위로 고르고, 방금 공격한 대상은 덜 노린다. 도발 상태와 보스 전용 패턴은 그대로다.",
+      "「장비 장착」 메뉴 신설: 성장·능력치 메뉴를 장비 장착으로 바꿨다. 편성된 파티원마다 무기·방어구·장신구·특수 장비 4칸과 능력치를 한 카드에 작게 보여 주고, 칸에 마우스를 올리면 장비 효과가, 누르면 바꿔 낄 장비 목록과 능력치 변화가 나온다. 휴대폰에서는 효과를 목록에 바로 적는다. 경험치 책도 여기서 쓴다.",
+      "편성 화면은 편성만 다룬다. 장비는 편성된 캐릭터만 장착할 수 있고, 동료를 편성에서 빼거나 다른 동료로 바꾸면 그 동료의 장비가 소지품으로 돌아간다. 장비를 낀 동료를 뺄 때는 풀리는 장비 목록과 함께 한 번 확인한다.",
+      "아이템 정리: 「누빔 조끼」를 머리 방어구 「누빔 두건」으로 바꾸고, 생명 반지·나무 부적 등 그림이 어울리지 않던 15개 아이템에 원신 원본 텍스처를 새로 골라 붙였다(성유물 6종·야타용왕의 지맥 결정 포함). 「야전 배낭」 설명을 처음 하는 사람도 알기 쉽게 고쳤다.",
+      "0.13.28에서 성유물 소지품 화면을 보강하던 스크립트가 문법 오류로 아예 실행되지 않던 문제와, 페이지 맨 아래에 「\\n」 글자가 찍히던 문제를 고쳤다."
     ],
     "notes": [
-      "23개 랜덤 조우 지역은 현재 런타임의 리월 야외·비안전 지역 수를 기준으로 전수 대응하며 각 풀의 d100 가중치는 100%로 검증합니다.",
-      "이번 작업은 랜덤 필드 편성만 다루며 본편 고정 전투, 보스, 의뢰 전용 편성, 몬스터 원본 능력치·드롭률은 변경하지 않았습니다.",
-      "Google Sheets와 원본 콘텐츠 데이터는 수정하지 않았습니다."
+      "저장 데이터는 그대로 불러올 수 있다. 패배 페널티(잃은 모라·남은 시간)는 저장에 함께 기록되고, 불러와도 남은 시간이 이어진다.",
+      "콘텐츠 시트(db.json)는 바꾸지 않았다. 장비 이름·설명 변경은 게임이 시작될 때 적용된다.",
+      "새 아이콘의 출처와 대응 근거는 assets/icons/CREDITS.md와 content/item-icons.json에 있다."
     ],
     "previous": {
-      "version": "0.13.28",
+      "version": "0.13.29",
       "changes": [
-        "10번 완료: 리월 반복 성장 루프를 추가. 오셀은 제외하고 황금옥의 타르탈리아와 야타용왕을 전용 파밍 재도전 대상으로 연결.",
-        "타르탈리아 파밍 승리 시 성유물 1개를 확정 획득. 6개 성향 중 하나가 나오며 품질 1~1000과 주·보조 능력치를 인벤토리 개체마다 별도로 굴려 조악한 드랍부터 극상급 드랍까지 편차가 크게 발생.",
-        "성유물은 기존 특수 장비 칸을 사용하며 주인공·동료의 실제 능력치에 즉시 반영. 같은 특수 슬롯 장비와 정상적으로 교체되고 개별 품질·옵션·강화 단계가 저장됨.",
-        "야타용왕 파밍 승리 시 성유물 전용 재료 「야타용왕의 지맥 결정」 2~4개를 획득. 대장간에서 +5까지 별도 확률 강화하며 +1 90% / +2 75% / +3 55% / +4 35% / +5 20%, 실패 시 단계 유지·파괴 없음.",
-        "타르탈리아와 야타용왕 파밍 입장은 각각 게임 내 48시간 쿨다운을 독립 저장. 입장 시점부터 계산되어 패배·이탈로 초기화되지 않으며, 기존 스토리 보스 루트와 오셀 전투는 변경하지 않음."
+        "11번 완료: 리월의 랜덤 조우 23개 지역을 각각 독립된 지역 풀로 전환. 모든 지역에 4개 조우 항목을 배치해 총 92개의 지도 전용 편성 ID를 사용하고, 세부 지역이 부모 지역 편성을 그대로 복제하던 구조를 제거.",
+        "평야·도로, 습지·갈대밭, 해안·모래톱, 폐광, 고산 호숫가, 계곡·암벽, 수몰/석조 유적, 광구 지상, 층암 심층 등 지형별로 적 비중을 분리. 같은 적도 척후·명사수·약제, 방패 전열·사격대·혼성대처럼 역할과 수량 조합이 달라지도록 구성.",
+        "새 몬스터를 만들지 않고 현재 리월/층암 필드에서 실행 검증된 기존 적만 재조합. 보물 사냥단, 바위 방패 츄츄족대, 새끼 바위 용 도마뱀, 유적 가디언, 흑 뱀 무리/기사를 사용하며 흑 뱀 계열은 층암 심층에 집중.",
+        "기존 EG_TREASURE_PATROL, EG_LIYUE_HILI_ROCK, EG_LIYUE_VISHAP, EG_LIYUE_RUIN, EG_CHASM_HUSK, EG_CHASM_SERPENT 정의는 삭제·변경하지 않아 의뢰·스토리·기존 저장 참조를 보존. 랜덤 지도 풀만 새 지역 전용 그룹으로 교체.",
+        "리월 권장 레벨 보정, 생존 파티 규모에 따른 적 수 제한, LIYUE_FIELD_MORA_V2 모라 정산과 기존 소재 드롭 테이블은 그대로 사용해 지역 다양화가 별도의 경제 인플레를 만들지 않도록 유지."
       ],
       "notes": [
-        "성유물의 품질·옵션 분포와 야타용왕 강화 재료/확률은 이 CRPG의 성장용 하우스룰이며 원신 본편의 성유물 강화 규칙을 그대로 재현한 것이 아닙니다.",
-        "일반 장비의 +12 강화·돌파 체계는 그대로 유지하며 성유물 +5는 별도 필드로 저장해 기존 ENHANCE_ALLOWED 검증과 충돌하지 않게 분리했습니다.",
+        "23개 랜덤 조우 지역은 현재 런타임의 리월 야외·비안전 지역 수를 기준으로 전수 대응하며 각 풀의 d100 가중치는 100%로 검증합니다.",
+        "이번 작업은 랜덤 필드 편성만 다루며 본편 고정 전투, 보스, 의뢰 전용 편성, 몬스터 원본 능력치·드롭률은 변경하지 않았습니다.",
         "Google Sheets와 원본 콘텐츠 데이터는 수정하지 않았습니다."
       ],
       "previous": {
-        "version": "0.13.27",
+        "version": "0.13.28",
         "changes": [
-          "임무 화면 정리: 모든 개인 임무를 길게 늘어놓던 「개인 임무」 탭을 없애고, 진행 중 탭을 의뢰 · 동료 획득 임무 · 호감도 임무 세 칸으로 나눴다. 동료 획득 임무는 소개받은 것만, 호감도 임무는 지금 진행할 수 있는 다음 단계만 짧게 보여준다.",
-          "동료 획득 임무 카드는 진행 장소, 부족한 조건·준비물, 시작 또는 이동 버튼 하나만 표시하고, 준비물 구하는 곳은 접어 둔다. 새 임무 소개는 기존 동료 획득 탭에서 받는다.",
-          "완료 탭은 의뢰 · 동료 획득 임무 · 호감도 이야기를 한 줄씩 요약한다.",
-          "호감도 화면: 인물별 호감도 임무를 열고 접을 수 있게 하고(기본 접힘, 모두 펼치기/접기), 지금 진행할 수 있는 인물을 먼저 보여준다. 단계는 1~5단계·유대 이야기 순서로 정렬하고, 다음 단계만 실제로 막힌 이유(호감도 점수·앞 단계·개인 임무)를 알려준다.",
-          "아이템 아이콘: 분류 아이콘으로만 보이던 아이템·장비 138개에 원신 원본 텍스처를 연결. 같은 이름의 원작 아이템 46개(스네즈나야 요리·식재료, 무기 18종 등), 같은 아이템의 다른 표기 11개, CRPG 자체 아이템 81개(가장 비슷한 원작 텍스처)를 구분해 기록했다."
+          "10번 완료: 리월 반복 성장 루프를 추가. 오셀은 제외하고 황금옥의 타르탈리아와 야타용왕을 전용 파밍 재도전 대상으로 연결.",
+          "타르탈리아 파밍 승리 시 성유물 1개를 확정 획득. 6개 성향 중 하나가 나오며 품질 1~1000과 주·보조 능력치를 인벤토리 개체마다 별도로 굴려 조악한 드랍부터 극상급 드랍까지 편차가 크게 발생.",
+          "성유물은 기존 특수 장비 칸을 사용하며 주인공·동료의 실제 능력치에 즉시 반영. 같은 특수 슬롯 장비와 정상적으로 교체되고 개별 품질·옵션·강화 단계가 저장됨.",
+          "야타용왕 파밍 승리 시 성유물 전용 재료 「야타용왕의 지맥 결정」 2~4개를 획득. 대장간에서 +5까지 별도 확률 강화하며 +1 90% / +2 75% / +3 55% / +4 35% / +5 20%, 실패 시 단계 유지·파괴 없음.",
+          "타르탈리아와 야타용왕 파밍 입장은 각각 게임 내 48시간 쿨다운을 독립 저장. 입장 시점부터 계산되어 패배·이탈로 초기화되지 않으며, 기존 스토리 보스 루트와 오셀 전투는 변경하지 않음."
         ],
         "notes": [
-          "저장 데이터와 콘텐츠 시트는 바꾸지 않았다. 기존 저장을 그대로 불러올 수 있다.",
-          "CRPG 자체 아이템의 아이콘은 원작 동명 아이템이라는 뜻이 아니라 비슷한 원작 그림을 고른 것이다. 출처와 대응 근거는 assets/icons/CREDITS.md와 content/item-icons.json에 있다."
+          "성유물의 품질·옵션 분포와 야타용왕 강화 재료/확률은 이 CRPG의 성장용 하우스룰이며 원신 본편의 성유물 강화 규칙을 그대로 재현한 것이 아닙니다.",
+          "일반 장비의 +12 강화·돌파 체계는 그대로 유지하며 성유물 +5는 별도 필드로 저장해 기존 ENHANCE_ALLOWED 검증과 충돌하지 않게 분리했습니다.",
+          "Google Sheets와 원본 콘텐츠 데이터는 수정하지 않았습니다."
         ],
         "previous": {
-          "version": "0.13.26",
+          "version": "0.13.27",
           "changes": [
-            "v0.13.25 전투 UI 핫픽스: 적별 '정보' 버튼이 화면 크기와 무관하게 바로 적 정보 모달을 열도록 수정하고, 별도 적 기술 정보 영역과 적 이름 클릭 의존을 제거.",
-            "적 정보마다 섞이던 토끼 백작 공용 안내를 제거하고, E/Q 배지를 카드 내부 그리드로 재배치해 기술명과 겹치던 현상을 수정. 장문 E/Q 설명은 효과 버튼에서만 표시.",
-            "적 기술 런타임이 12_ENEMY_CARD_DB에 이미 통합된 기술 ID를 다시 삽입하며 비전투 행동까지 ENEMY_CARD_COLLISION으로 막던 오류를 수정. 기존 DB 정의를 우선 사용.",
-            "대장간 상점 필터를 실제 재고 기반으로 안정화하고 필터별 상품 개수를 표시. 제작법 결과 카드에 아이템/장비 아이콘을 추가.",
-            "9번 완료: 몬드 전용으로 하드코딩된 신형 확률 강화·돌파를 실제 대장간 시설 기준으로 전환하여 리월 대장간에서도 동일하게 사용. ENHANCE_ALLOWED 장비는 신형 체계로 통일하고 구형 단계 강화 버튼을 제거."
+            "임무 화면 정리: 모든 개인 임무를 길게 늘어놓던 「개인 임무」 탭을 없애고, 진행 중 탭을 의뢰 · 동료 획득 임무 · 호감도 임무 세 칸으로 나눴다. 동료 획득 임무는 소개받은 것만, 호감도 임무는 지금 진행할 수 있는 다음 단계만 짧게 보여준다.",
+            "동료 획득 임무 카드는 진행 장소, 부족한 조건·준비물, 시작 또는 이동 버튼 하나만 표시하고, 준비물 구하는 곳은 접어 둔다. 새 임무 소개는 기존 동료 획득 탭에서 받는다.",
+            "완료 탭은 의뢰 · 동료 획득 임무 · 호감도 이야기를 한 줄씩 요약한다.",
+            "호감도 화면: 인물별 호감도 임무를 열고 접을 수 있게 하고(기본 접힘, 모두 펼치기/접기), 지금 진행할 수 있는 인물을 먼저 보여준다. 단계는 1~5단계·유대 이야기 순서로 정렬하고, 다음 단계만 실제로 막힌 이유(호감도 점수·앞 단계·개인 임무)를 알려준다.",
+            "아이템 아이콘: 분류 아이콘으로만 보이던 아이템·장비 138개에 원신 원본 텍스처를 연결. 같은 이름의 원작 아이템 46개(스네즈나야 요리·식재료, 무기 18종 등), 같은 아이템의 다른 표기 11개, CRPG 자체 아이템 81개(가장 비슷한 원작 텍스처)를 구분해 기록했다."
           ],
           "notes": [
-            "8번 야타용왕 본체전과 v0.13.25의 시설·공식 아이콘 변경은 그대로 유지합니다.",
-            "적 기술 정의 충돌은 상점·제작 같은 비전투 기능을 막지 않습니다. 기존 DB 카드와 실행기가 실제로 불일치할 때는 해당 기술 사용 시점의 cardSupport 검사에서만 차단합니다.",
-            "입문용 강화 불가 장비는 기존 NO_ENHANCE_REASON을 유지하며 신형 강화 대상으로 강제 편입하지 않습니다.",
-            "Google Sheet는 재고·ENHANCE_ALLOWED 확인용으로만 읽었고 수정하지 않았습니다."
+            "저장 데이터와 콘텐츠 시트는 바꾸지 않았다. 기존 저장을 그대로 불러올 수 있다.",
+            "CRPG 자체 아이템의 아이콘은 원작 동명 아이템이라는 뜻이 아니라 비슷한 원작 그림을 고른 것이다. 출처와 대응 근거는 assets/icons/CREDITS.md와 content/item-icons.json에 있다."
           ],
           "previous": {
-            "version": "0.13.25",
+            "version": "0.13.26",
             "changes": [
-              "8번 수정: 야타용왕 도전 루트의 본체전을 실제 실행 가능하게 연결. 2원소 선택, HP 70%/40% 원소 전환, 현재 원소 완전면역, 라운드 종료 지맥 피해, 종려 계약 디버프/중심 어그로를 구현.",
-              "몬드성·리월항 허브에서는 주변 시설을 여행 지도보다 먼저 보이게 하고, 시설 카드의 한글 세로 깨짐을 막도록 레이아웃을 재구성.",
-              "대장간·식당·조리시설·잡화·연금·모험가 길드·숙박·상점·이야기 장소에 서로 다른 원신 원본 UI 텍스처 아이콘을 번들.",
-              "낡은 연습검·연습용 양손검·연습용 창·연습용 사냥활·견습자의 마도서에 무기군별 원신 원본 1성 무기 아이콘을 정확히 연결.",
-              "임무 화면에 무조건 붙던 '리월의 바위 눈동자' 요약 카드를 제거. 바위 눈동자는 리월 탐험·절운간 공양·종려 획득 조건에서만 안내."
+              "v0.13.25 전투 UI 핫픽스: 적별 '정보' 버튼이 화면 크기와 무관하게 바로 적 정보 모달을 열도록 수정하고, 별도 적 기술 정보 영역과 적 이름 클릭 의존을 제거.",
+              "적 정보마다 섞이던 토끼 백작 공용 안내를 제거하고, E/Q 배지를 카드 내부 그리드로 재배치해 기술명과 겹치던 현상을 수정. 장문 E/Q 설명은 효과 버튼에서만 표시.",
+              "적 기술 런타임이 12_ENEMY_CARD_DB에 이미 통합된 기술 ID를 다시 삽입하며 비전투 행동까지 ENEMY_CARD_COLLISION으로 막던 오류를 수정. 기존 DB 정의를 우선 사용.",
+              "대장간 상점 필터를 실제 재고 기반으로 안정화하고 필터별 상품 개수를 표시. 제작법 결과 카드에 아이템/장비 아이콘을 추가.",
+              "9번 완료: 몬드 전용으로 하드코딩된 신형 확률 강화·돌파를 실제 대장간 시설 기준으로 전환하여 리월 대장간에서도 동일하게 사용. ENHANCE_ALLOWED 장비는 신형 체계로 통일하고 구형 단계 강화 버튼을 제거."
             ],
             "notes": [
-              "새 아이콘은 ylyking/GenshinTextures-full의 원신 본편 원본 텍스처 추출본을 저장소 내부에 복사해 사용하며 외부 핫링크하지 않습니다.",
-              "CRPG 입문 무기 이름 자체를 원작의 정식 무기명으로 주장하지 않고, 각 무기군에 대응하는 원작 1성 무기 시각 자산만 사용합니다.",
-              "야타용왕의 중성 변환 우회는 원소 공명 변환기를 준비한 플레이어의 직접 공격이 현재 면역 원소와 겹칠 때 라운드당 1회 자동 적용하며 최종 피해 70%, 원소 부착·반응 없음으로 처리합니다.",
-              "야타용왕 도전은 기존 BRT_AZHDAHA의 DIRECT/GAUNTLET 경로와 전초전 데이터를 그대로 사용합니다."
+              "8번 야타용왕 본체전과 v0.13.25의 시설·공식 아이콘 변경은 그대로 유지합니다.",
+              "적 기술 정의 충돌은 상점·제작 같은 비전투 기능을 막지 않습니다. 기존 DB 카드와 실행기가 실제로 불일치할 때는 해당 기술 사용 시점의 cardSupport 검사에서만 차단합니다.",
+              "입문용 강화 불가 장비는 기존 NO_ENHANCE_REASON을 유지하며 신형 강화 대상으로 강제 편입하지 않습니다.",
+              "Google Sheet는 재고·ENHANCE_ALLOWED 확인용으로만 읽었고 수정하지 않았습니다."
             ],
             "previous": {
-              "version": "0.13.24",
+              "version": "0.13.25",
               "changes": [
-                "7번 수정: 토끼 백작의 도발 규칙을 전 지역 공용으로 통일해 단일 공격만 유도하고 광역·회복·보호막·소환·자기 강화는 정상 사용.",
-                "앰버 E와 전투 화면의 사용자 노출 표기를 '토끼 백작'으로 통일하고 폭탄 인형·도발 인형 표현을 제거.",
-                "다단 공격은 한 행동으로 묶되 실제 피해 로그를 0.05초 간격으로 순차 표시해 연타감과 개별 피해 수치를 함께 보여 줌.",
-                "전투 행동 버튼을 적/아군 목록보다 위로 이동하고 기술 설명을 카드 본문에서 분리해 옆의 '효과' 버튼에서 열도록 변경.",
-                "적 기술 상세 패널을 전투 화면에서 제거하고 적별 '정보' 또는 상단 '적 기술 정보' 버튼으로 모달을 열도록 변경. 전투 기록도 기본 접힘으로 전환."
+                "8번 수정: 야타용왕 도전 루트의 본체전을 실제 실행 가능하게 연결. 2원소 선택, HP 70%/40% 원소 전환, 현재 원소 완전면역, 라운드 종료 지맥 피해, 종려 계약 디버프/중심 어그로를 구현.",
+                "몬드성·리월항 허브에서는 주변 시설을 여행 지도보다 먼저 보이게 하고, 시설 카드의 한글 세로 깨짐을 막도록 레이아웃을 재구성.",
+                "대장간·식당·조리시설·잡화·연금·모험가 길드·숙박·상점·이야기 장소에 서로 다른 원신 원본 UI 텍스처 아이콘을 번들.",
+                "낡은 연습검·연습용 양손검·연습용 창·연습용 사냥활·견습자의 마도서에 무기군별 원신 원본 1성 무기 아이콘을 정확히 연결.",
+                "임무 화면에 무조건 붙던 '리월의 바위 눈동자' 요약 카드를 제거. 바위 눈동자는 리월 탐험·절운간 공양·종려 획득 조건에서만 안내."
               ],
               "notes": [
-                "토끼 백작의 BUNNY/BARON_BUNNY는 저장·실행 호환을 위한 내부 식별자로만 유지하며 사용자 화면에는 노출하지 않습니다.",
-                "다단 피해 50ms 간격은 화면 재생 연출만 변경하며 전투 계산·난수·저장 결과에는 영향을 주지 않습니다.",
-                "이세계인 E/Q의 CRPG 전용 기술명과 규칙은 이번 패치에서 변경하지 않고, 화면의 장문 설명만 효과 버튼으로 이동합니다.",
-                "적 정보 확인은 행동·턴을 소비하지 않으며 기존 정보 내용과 대응 설명은 모달에서 그대로 확인할 수 있습니다."
+                "새 아이콘은 ylyking/GenshinTextures-full의 원신 본편 원본 텍스처 추출본을 저장소 내부에 복사해 사용하며 외부 핫링크하지 않습니다.",
+                "CRPG 입문 무기 이름 자체를 원작의 정식 무기명으로 주장하지 않고, 각 무기군에 대응하는 원작 1성 무기 시각 자산만 사용합니다.",
+                "야타용왕의 중성 변환 우회는 원소 공명 변환기를 준비한 플레이어의 직접 공격이 현재 면역 원소와 겹칠 때 라운드당 1회 자동 적용하며 최종 피해 70%, 원소 부착·반응 없음으로 처리합니다.",
+                "야타용왕 도전은 기존 BRT_AZHDAHA의 DIRECT/GAUNTLET 경로와 전초전 데이터를 그대로 사용합니다."
               ],
               "previous": {
-                "version": "0.13.23",
+                "version": "0.13.24",
                 "changes": [
-                  "6번 수정: 리월 필드의 바위 용 도마뱀 새끼가 공통 용 도마뱀 돌진·꼬리 휩쓸기를 사용하고, 유적 가디언 변종의 Lv.14 시험용 기술 제한을 리월 필드에서만 해제.",
-                  "몬드 몬스터 소재 판매가를 드롭률과 필드 모라 수익에 맞춰 하향 조정해 소재 판매가 전투 본수입을 압도하지 않게 정규화.",
-                  "리월항 의뢰 10개를 추가해 리월 일반 의뢰를 약 15개 규모로 확장하고 Lv.4~13, 소재 납품·3회 순찰·유적/층암 전투 등 다양한 진행을 배치.",
-                  "몬드·리월 시설 카드에 프로젝트에 이미 포함된 원신 원본 UI 텍스처 기반 아이콘과 지역 표식을 적용.",
-                  "여행 지도 오른쪽 '어디로 갈까?'의 목적지 카드는 즉시 MOVE하도록 바꾸고, 메인 화면의 중복 '다른 구역으로 이동' 목록을 제거."
+                  "7번 수정: 토끼 백작의 도발 규칙을 전 지역 공용으로 통일해 단일 공격만 유도하고 광역·회복·보호막·소환·자기 강화는 정상 사용.",
+                  "앰버 E와 전투 화면의 사용자 노출 표기를 '토끼 백작'으로 통일하고 폭탄 인형·도발 인형 표현을 제거.",
+                  "다단 공격은 한 행동으로 묶되 실제 피해 로그를 0.05초 간격으로 순차 표시해 연타감과 개별 피해 수치를 함께 보여 줌.",
+                  "전투 행동 버튼을 적/아군 목록보다 위로 이동하고 기술 설명을 카드 본문에서 분리해 옆의 '효과' 버튼에서 열도록 변경.",
+                  "적 기술 상세 패널을 전투 화면에서 제거하고 적별 '정보' 또는 상단 '적 기술 정보' 버튼으로 모달을 열도록 변경. 전투 기록도 기본 접힘으로 전환."
                 ],
                 "notes": [
-                  "바위 용 도마뱀 새끼는 새 가상 기술을 만들지 않고 DB에 이미 있는 MON_VISHAP 공통 기술을 상속합니다.",
-                  "유적 가디언 변종의 레벨 완화는 리월 RANDOM/QUEST 필드전에만 적용하며 다른 지역·보스의 기술 조건은 유지합니다.",
-                  "새 리월 의뢰는 모두 일회성이며 높은 레벨 보상도 무한 반복할 수 없습니다.",
-                  "시설 아이콘은 content/item-icons.json에 provenance=original_game_texture_archive로 기록된 기존 번들 자산을 재사용하며 외부 핫링크를 추가하지 않습니다.",
-                  "지도 위 번호/핀은 기존처럼 위치·경로 미리보기용으로 유지하고, 오른쪽 목적지 카드만 즉시 출발합니다."
+                  "토끼 백작의 BUNNY/BARON_BUNNY는 저장·실행 호환을 위한 내부 식별자로만 유지하며 사용자 화면에는 노출하지 않습니다.",
+                  "다단 피해 50ms 간격은 화면 재생 연출만 변경하며 전투 계산·난수·저장 결과에는 영향을 주지 않습니다.",
+                  "이세계인 E/Q의 CRPG 전용 기술명과 규칙은 이번 패치에서 변경하지 않고, 화면의 장문 설명만 효과 버튼으로 이동합니다.",
+                  "적 정보 확인은 행동·턴을 소비하지 않으며 기존 정보 내용과 대응 설명은 모달에서 그대로 확인할 수 있습니다."
                 ],
                 "previous": {
-                  "version": "0.13.22",
+                  "version": "0.13.23",
                   "changes": [
-                    "5번 수정: 리월 랜덤 필드전의 실제 적 레벨을 현재 지도의 권장 레벨 범위 안에서 생성하도록 정리.",
-                    "캐서린은 캐릭터 개인 임무 소개에서 제외하고, 리월 개인 임무를 만민당·비운 상회·왕생당·화유다관·옥경대·불복려·북국 은행·부두 등 지역 장소로 분산.",
-                    "리월 개인 임무의 준비 비용과 아이템 요구를 강화해 지역 탐험·채광·몬스터 소재 수집이 영입 준비로 이어지도록 조정.",
-                    "이세계인 다이루크는 몬드 본편 뒤 다운 와이너리 개인 임무로도 정상 획득 가능하며, 특정 스토리 진행 상태에서는 같은 임무의 준비 비용이 면제."
+                    "6번 수정: 리월 필드의 바위 용 도마뱀 새끼가 공통 용 도마뱀 돌진·꼬리 휩쓸기를 사용하고, 유적 가디언 변종의 Lv.14 시험용 기술 제한을 리월 필드에서만 해제.",
+                    "몬드 몬스터 소재 판매가를 드롭률과 필드 모라 수익에 맞춰 하향 조정해 소재 판매가 전투 본수입을 압도하지 않게 정규화.",
+                    "리월항 의뢰 10개를 추가해 리월 일반 의뢰를 약 15개 규모로 확장하고 Lv.4~13, 소재 납품·3회 순찰·유적/층암 전투 등 다양한 진행을 배치.",
+                    "몬드·리월 시설 카드에 프로젝트에 이미 포함된 원신 원본 UI 텍스처 기반 아이콘과 지역 표식을 적용.",
+                    "여행 지도 오른쪽 '어디로 갈까?'의 목적지 카드는 즉시 MOVE하도록 바꾸고, 메인 화면의 중복 '다른 구역으로 이동' 목록을 제거."
                   ],
                   "notes": [
-                    "지도 표시는 기존 권장 Lv. 범위를 유지하며, 리월 일반전의 실제 생성 레벨도 그 범위를 사용합니다.",
-                    "캐서린의 일반 의뢰·탐험 의뢰 접수 기능은 유지합니다. 캐릭터 개인 임무만 캐서린에게서 제거합니다.",
-                    "다이루크 획득 UI와 조건 설명에는 AB·AB1·AB2 같은 내부 분기명이 노출되지 않습니다. 내부 스토리 노드 식별자는 저장 호환을 위해 그대로 유지합니다.",
-                    "종려의 바위 눈동자 전량 수집·최종 공양 규칙과 리월 개인 임무 장별 개방 시점은 v0.13.21 정책을 유지합니다."
+                    "바위 용 도마뱀 새끼는 새 가상 기술을 만들지 않고 DB에 이미 있는 MON_VISHAP 공통 기술을 상속합니다.",
+                    "유적 가디언 변종의 레벨 완화는 리월 RANDOM/QUEST 필드전에만 적용하며 다른 지역·보스의 기술 조건은 유지합니다.",
+                    "새 리월 의뢰는 모두 일회성이며 높은 레벨 보상도 무한 반복할 수 없습니다.",
+                    "시설 아이콘은 content/item-icons.json에 provenance=original_game_texture_archive로 기록된 기존 번들 자산을 재사용하며 외부 핫링크를 추가하지 않습니다.",
+                    "지도 위 번호/핀은 기존처럼 위치·경로 미리보기용으로 유지하고, 오른쪽 목적지 카드만 즉시 출발합니다."
                   ],
                   "previous": {
-                    "version": "0.13.21",
+                    "version": "0.13.22",
                     "changes": [
-                      "4번 수정: 리월 비집정관 개인 임무 44개를 본편 1~4장 진행에 맞춰 단계적으로 개방.",
-                      "이세계인 리월 진행 중 몬드 개인 임무 소개까지 차단하던 지역 간섭을 제거.",
-                      "이세계인 리월에서는 완료한 장과 다음 장 사이의 휴식 구간에서 모험가 길드 개인 임무 소개를 허용하고, 진행 중인 장에서는 기존 도시 활동 제한을 유지."
+                      "5번 수정: 리월 랜덤 필드전의 실제 적 레벨을 현재 지도의 권장 레벨 범위 안에서 생성하도록 정리.",
+                      "캐서린은 캐릭터 개인 임무 소개에서 제외하고, 리월 개인 임무를 만민당·비운 상회·왕생당·화유다관·옥경대·불복려·북국 은행·부두 등 지역 장소로 분산.",
+                      "리월 개인 임무의 준비 비용과 아이템 요구를 강화해 지역 탐험·채광·몬스터 소재 수집이 영입 준비로 이어지도록 조정.",
+                      "이세계인 다이루크는 몬드 본편 뒤 다운 와이너리 개인 임무로도 정상 획득 가능하며, 특정 스토리 진행 상태에서는 같은 임무의 준비 비용이 면제."
                     ],
                     "notes": [
-                      "종려는 기존 바위 눈동자 전량 수집·최종 공양·본편 완료 조건을 그대로 유지합니다.",
-                      "응광·백출·신학·한운·자백은 후일담/후반 전제를 보존해 4장 이후, 타르탈리아는 황금옥 이후인 3장 이후에 개방합니다.",
-                      "개인 임무 본문·준비 비용·합류 선택·호감도·스토리 본편·전투·보상은 변경하지 않습니다."
+                      "지도 표시는 기존 권장 Lv. 범위를 유지하며, 리월 일반전의 실제 생성 레벨도 그 범위를 사용합니다.",
+                      "캐서린의 일반 의뢰·탐험 의뢰 접수 기능은 유지합니다. 캐릭터 개인 임무만 캐서린에게서 제거합니다.",
+                      "다이루크 획득 UI와 조건 설명에는 AB·AB1·AB2 같은 내부 분기명이 노출되지 않습니다. 내부 스토리 노드 식별자는 저장 호환을 위해 그대로 유지합니다.",
+                      "종려의 바위 눈동자 전량 수집·최종 공양 규칙과 리월 개인 임무 장별 개방 시점은 v0.13.21 정책을 유지합니다."
                     ],
                     "previous": {
-                      "version": "0.13.20",
+                      "version": "0.13.21",
                       "changes": [
-                        "3번 수정: 리월 일반·의뢰 전투의 조건부 몬스터 소재 드롭을 실제 정산에 연결.",
-                        "리월 일반전 보장 모라를 적 수·등급·지역 위험도·편성 보상 배율 기준으로 다시 낮춰 경제 인플레를 완화.",
-                        "층암거연·용계 희귀 제작 소재의 판매가를 낮춰 제작 재료를 반복 현금화하는 수익 폭주를 방지."
+                        "4번 수정: 리월 비집정관 개인 임무 44개를 본편 1~4장 진행에 맞춰 단계적으로 개방.",
+                        "이세계인 리월 진행 중 몬드 개인 임무 소개까지 차단하던 지역 간섭을 제거.",
+                        "이세계인 리월에서는 완료한 장과 다음 장 사이의 휴식 구간에서 모험가 길드 개인 임무 소개를 허용하고, 진행 중인 장에서는 기존 도시 활동 제한을 유지."
                       ],
                       "notes": [
-                        "20_LOOT_TABLE의 원래 드롭 확률·수량은 변경하지 않고 조건 판정만 리월 전투에 연결합니다.",
-                        "용 도마뱀 새끼는 용린 조각을 드롭하지만 '강한 용 도마뱀' 전용 용혈 결정은 드롭하지 않습니다.",
-                        "몬드 MOND_BALANCE_V1, 스토리·보스 보상, 장비 가격·개인 임무 비용·제작 모라 비용은 변경하지 않습니다."
+                        "종려는 기존 바위 눈동자 전량 수집·최종 공양·본편 완료 조건을 그대로 유지합니다.",
+                        "응광·백출·신학·한운·자백은 후일담/후반 전제를 보존해 4장 이후, 타르탈리아는 황금옥 이후인 3장 이후에 개방합니다.",
+                        "개인 임무 본문·준비 비용·합류 선택·호감도·스토리 본편·전투·보상은 변경하지 않습니다."
                       ],
                       "previous": {
-                        "version": "0.13.19",
+                        "version": "0.13.20",
                         "changes": [
-                          "2번 수정: 리월 일반 랜덤 전투 승리에 파티 공용 모라 보상을 연결.",
-                          "적 실제 레벨·등급과 현재 리월 지역 권장 레벨 위험도를 함께 사용해 보상량을 계산.",
-                          "전투 결과·영수증에 지급 모라와 LIYUE_FIELD_MORA_V1 정책을 기록해 중복 정산을 방지."
+                          "3번 수정: 리월 일반·의뢰 전투의 조건부 몬스터 소재 드롭을 실제 정산에 연결.",
+                          "리월 일반전 보장 모라를 적 수·등급·지역 위험도·편성 보상 배율 기준으로 다시 낮춰 경제 인플레를 완화.",
+                          "층암거연·용계 희귀 제작 소재의 판매가를 낮춰 제작 재료를 반복 현금화하는 수익 폭주를 방지."
                         ],
                         "notes": [
-                          "몬드의 기존 MOND_BALANCE_V1 보상과 스토리전·의뢰전·보스전 보상은 변경하지 않습니다.",
-                          "3번 항목인 리월 소재 드롭 조건 오류는 이번 작업에서 수정하지 않았습니다.",
-                          "저장 구조를 새로 추가하지 않아 v0.13.18 저장 호환 형식은 유지합니다."
+                          "20_LOOT_TABLE의 원래 드롭 확률·수량은 변경하지 않고 조건 판정만 리월 전투에 연결합니다.",
+                          "용 도마뱀 새끼는 용린 조각을 드롭하지만 '강한 용 도마뱀' 전용 용혈 결정은 드롭하지 않습니다.",
+                          "몬드 MOND_BALANCE_V1, 스토리·보스 보상, 장비 가격·개인 임무 비용·제작 모라 비용은 변경하지 않습니다."
                         ],
                         "previous": {
-                          "version": "0.13.18",
+                          "version": "0.13.19",
                           "changes": [
-                            "1번 수정: 층암거연 EG_CHASM_HUSK / EG_CHASM_SERPENT 전투 시작 오류 해결.",
-                            "기존 심연 기치·어둠의 일제사격·흑검 연참·방벽 절단의 실행 효과·발동 조건·재사용·표시 연결.",
-                            "진행 중 전투 저장·재개 지원. 이전 저장을 읽고 새 저장의 구버전 역방향 가져오기는 차단."
+                            "2번 수정: 리월 일반 랜덤 전투 승리에 파티 공용 모라 보상을 연결.",
+                            "적 실제 레벨·등급과 현재 리월 지역 권장 레벨 위험도를 함께 사용해 보상량을 계산.",
+                            "전투 결과·영수증에 지급 모라와 LIYUE_FIELD_MORA_V1 정책을 기록해 중복 정산을 방지."
                           ],
                           "notes": [
-                            "v0.13.17을 기준으로 적용합니다.",
-                            "스토리·지도·출현 편성·레벨·능력치·보상·영입·강화 데이터는 그대로 유지합니다.",
-                            "점검 목록 2번 이후 항목과 운영 사이트·원본 시트는 수정하지 않았습니다."
+                            "몬드의 기존 MOND_BALANCE_V1 보상과 스토리전·의뢰전·보스전 보상은 변경하지 않습니다.",
+                            "3번 항목인 리월 소재 드롭 조건 오류는 이번 작업에서 수정하지 않았습니다.",
+                            "저장 구조를 새로 추가하지 않아 v0.13.18 저장 호환 형식은 유지합니다."
                           ],
                           "previous": {
-                            "version": "0.13.17",
+                            "version": "0.13.18",
                             "changes": [
-                              "리월 초반 및 루트별 구조·퍼즐·추격 사건 14개.",
-                              "이세계인 주인공: 허술한 딴죽과 생활형 불평, 위기에서 도움을 청하고 사람을 챙기는 성격.",
-                              "새 선택 42개, 후속 회상 10개 묶음. 기존 대분기·전투 수치·보상·영입·원본 시트 유지.",
-                              "기존 노드 ID 유지 및 v0.13.16 세이브 호환 목록 보존."
+                              "1번 수정: 층암거연 EG_CHASM_HUSK / EG_CHASM_SERPENT 전투 시작 오류 해결.",
+                              "기존 심연 기치·어둠의 일제사격·흑검 연참·방벽 절단의 실행 효과·발동 조건·재사용·표시 연결.",
+                              "진행 중 전투 저장·재개 지원. 이전 저장을 읽고 새 저장의 구버전 역방향 가져오기는 차단."
                             ],
                             "notes": [
-                              "리월 이세계인 8갈래와 여행자 A/B에 적용됩니다. 몬드 rev01은 보존됩니다.",
-                              "신규 사건은 선택형 구조·퍼즐·추격·전투 연출이며 별도 턴제 전투 추가는 아닙니다.",
-                              "v0.13.16의 노드 ID와 저장 상태를 유지합니다. 이미 지난 장면은 강제로 되감지 않습니다.",
-                              "운영 사이트와 Google Sheets는 수정하지 않았습니다."
-                            ]
+                              "v0.13.17을 기준으로 적용합니다.",
+                              "스토리·지도·출현 편성·레벨·능력치·보상·영입·강화 데이터는 그대로 유지합니다.",
+                              "점검 목록 2번 이후 항목과 운영 사이트·원본 시트는 수정하지 않았습니다."
+                            ],
+                            "previous": {
+                              "version": "0.13.17",
+                              "changes": [
+                                "리월 초반 및 루트별 구조·퍼즐·추격 사건 14개.",
+                                "이세계인 주인공: 허술한 딴죽과 생활형 불평, 위기에서 도움을 청하고 사람을 챙기는 성격.",
+                                "새 선택 42개, 후속 회상 10개 묶음. 기존 대분기·전투 수치·보상·영입·원본 시트 유지.",
+                                "기존 노드 ID 유지 및 v0.13.16 세이브 호환 목록 보존."
+                              ],
+                              "notes": [
+                                "리월 이세계인 8갈래와 여행자 A/B에 적용됩니다. 몬드 rev01은 보존됩니다.",
+                                "신규 사건은 선택형 구조·퍼즐·추격·전투 연출이며 별도 턴제 전투 추가는 아닙니다.",
+                                "v0.13.16의 노드 ID와 저장 상태를 유지합니다. 이미 지난 장면은 강제로 되감지 않습니다.",
+                                "운영 사이트와 Google Sheets는 수정하지 않았습니다."
+                              ]
+                            }
                           }
                         }
                       }
@@ -8319,20 +8337,20 @@
       "TRPG_DRAGON_BLOOD_CRYSTAL": {
         "id": "TRPG_DRAGON_BLOOD_CRYSTAL",
         "name": "용혈 결정",
-        "path": "assets/icons/UI_ItemIcon_107010.webp",
-        "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_107010.png",
-        "sourceName": "진홍의 옥수",
-        "filename": "UI_ItemIcon_107010",
+        "path": "assets/icons/UI_ItemIcon_113018.webp",
+        "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_113018.png",
+        "sourceName": "혈옥의 가지",
+        "filename": "UI_ItemIcon_113018",
         "matchType": "official_base_visual",
         "provenance": "original_game_texture_archive",
-        "sha256": "ee84108f10bc853f2c035500210411a84ba362abdda6f3717a5893c738979303",
-        "source_sha256": "de392b95b2fb1a50dd718af1f55d84de15a0891bac52ecf4fcccc48c8441a687",
+        "sha256": "8c2b5f0ce3dd2380707942d2139534bb8df9d14744630935af045d3b35ba5832",
+        "source_sha256": "536a487d2ab1b9b16130708ba8aa8495d95865517e609468d8d0b5ad640f6a30",
         "source_dimensions": [
           256,
           256
         ],
-        "bytes": 16962,
-        "note": "붉은 결정"
+        "bytes": 21450,
+        "note": "야타용왕의 혈옥 → 용혈 결정"
       },
       "TRPG_NIGHTSOUL_EMBER": {
         "id": "TRPG_NIGHTSOUL_EMBER",
@@ -8355,20 +8373,20 @@
       "TRPG_FLAME_ALLOY": {
         "id": "TRPG_FLAME_ALLOY",
         "name": "화염 합금",
-        "path": "assets/icons/UI_ItemIcon_114077.webp",
-        "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_114077.png",
-        "sourceName": "긴 밤을 밝히는 불티",
-        "filename": "UI_ItemIcon_114077",
+        "path": "assets/icons/UI_ItemIcon_107010.webp",
+        "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_107010.png",
+        "sourceName": "진홍의 옥수",
+        "filename": "UI_ItemIcon_107010",
         "matchType": "official_base_visual",
-        "provenance": "original_game_texture_mirror_reencoded",
-        "sha256": "d1a08c890ada3c9c16c97b07487c5d247c35e7b3dc7ec998b8887125f386fc20",
-        "source_sha256": "57a166c410c713730c5f37efe7c5f3e5971919062c61c5ad2e7a7185330641fb",
+        "provenance": "original_game_texture_archive",
+        "sha256": "ee84108f10bc853f2c035500210411a84ba362abdda6f3717a5893c738979303",
+        "source_sha256": "de392b95b2fb1a50dd718af1f55d84de15a0891bac52ecf4fcccc48c8441a687",
         "source_dimensions": [
           256,
           256
         ],
-        "bytes": 11480,
-        "note": "불을 품은 금속"
+        "bytes": 16962,
+        "note": "열을 품은 붉은 결정"
       },
       "TRPG_COLD_IRON": {
         "id": "TRPG_COLD_IRON",
@@ -8391,20 +8409,20 @@
       "TRPG_HYDRO_FIBER": {
         "id": "TRPG_HYDRO_FIBER",
         "name": "수압 섬유",
-        "path": "assets/icons/UI_ItemIcon_113005.webp",
-        "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_113005.png",
-        "sourceName": "동풍의 숨결",
-        "filename": "UI_ItemIcon_113005",
+        "path": "assets/icons/UI_ItemIcon_101247.webp",
+        "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_101247.png",
+        "sourceName": "물보라깃 산호",
+        "filename": "UI_ItemIcon_101247",
         "matchType": "official_base_visual",
-        "provenance": "original_game_texture_archive",
-        "sha256": "5765c3bce2f330b9f2e0cb7566d31ec84762ce9aee37d8d33a565cccc032c987",
-        "source_sha256": "351b9683ea34d0cf35e03a5f1b2dd35d4c9396d5e0a3a35476edf950b8c69ea3",
+        "provenance": "original_game_texture_mirror_reencoded",
+        "sha256": "e13788185c0165918070ac0da444da3322fc84f5370b249c47377ae315461970",
+        "source_sha256": "26bafa300b1d6a7982a31f31e18252061a899a7459b63ffffc03427fa2b717d1",
         "source_dimensions": [
           256,
           256
         ],
-        "bytes": 14960,
-        "note": "물빛 소용돌이"
+        "bytes": 12906,
+        "note": "물기를 머금은 섬유"
       },
       "TRPG_AETHER_THREAD": {
         "id": "TRPG_AETHER_THREAD",
@@ -8805,20 +8823,20 @@
       "EQ_ACC_VITAL_RING": {
         "id": "EQ_ACC_VITAL_RING",
         "name": "생명 반지",
-        "path": "assets/icons/UI_ItemIcon_113007.webp",
-        "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_113007.png",
-        "sourceName": "북풍의 고리",
-        "filename": "UI_ItemIcon_113007",
+        "path": "assets/icons/UI_EquipIcon_Catalyst_Isikhulu.webp",
+        "source": "https://enka.network/ui/UI_EquipIcon_Catalyst_Isikhulu.png",
+        "sourceName": "약스체의 고리",
+        "filename": "UI_EquipIcon_Catalyst_Isikhulu",
         "matchType": "official_base_visual",
-        "provenance": "original_game_texture_archive",
-        "sha256": "9161dd2f66180bb52577fcd30e39833a730d80eadb6ebdbf08f089fa1f312790",
-        "source_sha256": "69d97c6c58cf1f5bfbab21baa3f01481eeb73530f7fdbee75f034a572aedc3dd",
+        "provenance": "original_game_texture_mirror",
+        "sha256": "a01456fb26bc43aca7e99ec4480ef293dbcd8bb493fe2c0039def71d2e2ecb5f",
+        "source_sha256": "ba768ddc9030eecd583c77013ada48bf06c0660dcea376f98903903fb6436272",
         "source_dimensions": [
           256,
           256
         ],
-        "bytes": 10188,
-        "note": "반지"
+        "bytes": 13604,
+        "note": "반지 모양 법구 → 생명 반지"
       },
       "EQ_ACC_SHARP_CHARM": {
         "id": "EQ_ACC_SHARP_CHARM",
@@ -9161,6 +9179,214 @@
         ],
         "bytes": 13580,
         "note": "단말기"
+      },
+      "EQ_CRPG_WOODEN_CHARM": {
+        "id": "EQ_CRPG_WOODEN_CHARM",
+        "name": "나무 부적",
+        "path": "assets/icons/UI_ItemIcon_114037.webp",
+        "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_114037.png",
+        "sourceName": "숲의 이슬을 닮은 동 부적",
+        "filename": "UI_ItemIcon_114037",
+        "matchType": "official_base_visual",
+        "provenance": "original_game_texture_archive",
+        "sha256": "f5bac9327818ca48a94eb8867b47f524f3967ac1a1267e72bf558274770468f2",
+        "source_sha256": "ce2ebcb90dacaf4b471f2183c626c042cc4e3e3fe761a7e6278fb070b12c8f26",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 10110,
+        "note": "나무결 무늬 부적",
+        "installedBy": "runtime"
+      },
+      "EQ_CRPG_PADDED_VEST": {
+        "id": "EQ_CRPG_PADDED_VEST",
+        "name": "누빔 두건",
+        "path": "assets/icons/UI_RelicIcon_10013_3.webp",
+        "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_10013_3.png",
+        "sourceName": "떠돌이 의사의 두건",
+        "filename": "UI_RelicIcon_10013_3",
+        "matchType": "official_base_visual",
+        "provenance": "official_hoyo_cdn",
+        "sha256": "c2ac9c09c75978c26a320e3108abec731d4a6edf7ddf96048652d09407b881d2",
+        "source_sha256": "8098f85a0656ad3dd6f219f0656581046e195326daffc99789f6a1012a24655f",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 12076,
+        "note": "천을 누벼 만든 두건(이번 버전에서 조끼 → 두건으로 변경)",
+        "installedBy": "runtime"
+      },
+      "KEY_CRPG_GEOCULUS": {
+        "id": "KEY_CRPG_GEOCULUS",
+        "name": "잃어버린 바위 신의 눈동자",
+        "path": "assets/icons/UI_ItemIcon_107003.webp",
+        "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_107003.png",
+        "sourceName": "잃어버린 바위 신의 눈동자",
+        "filename": "UI_ItemIcon_107003",
+        "matchType": "exact_name",
+        "provenance": "original_game_texture_archive",
+        "sha256": "747b542cb9394e2c0abd0e0187d90cc705fe9c098954b06be308342d02bf0c6a",
+        "source_sha256": "2e01473436b6415ae00efe43b422fcad0a9e32c2e3c2841831658c7496a49531",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 20278,
+        "installedBy": "runtime"
+      },
+      "CRPG_FRUIT_BAIT": {
+        "id": "CRPG_FRUIT_BAIT",
+        "name": "과일 미끼",
+        "path": "assets/icons/UI_ItemIcon_111023.webp",
+        "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_111023.png",
+        "sourceName": "과즙 미끼",
+        "filename": "UI_ItemIcon_111023",
+        "matchType": "official_base_visual",
+        "provenance": "original_game_texture_archive",
+        "sha256": "d1588e151e76a201543de76df9b3fa6b46bcd8032704823eb4a974c6c8c06fa6",
+        "source_sha256": "5c9963096ceb04dc4cd84bc2fdc9c1cc0a212d2b6d69d6e704a23ae0e27d6799",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 10510,
+        "note": "과일로 만든 미끼",
+        "installedBy": "runtime"
+      },
+      "MAT_AZHDAHA_ARTIFACT_CRYSTAL": {
+        "id": "MAT_AZHDAHA_ARTIFACT_CRYSTAL",
+        "name": "야타용왕의 지맥 결정",
+        "path": "assets/icons/UI_ItemIcon_113017.webp",
+        "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_113017.png",
+        "sourceName": "용왕의 면류관",
+        "filename": "UI_ItemIcon_113017",
+        "matchType": "official_base_visual",
+        "provenance": "original_game_texture_archive",
+        "sha256": "4f518b11bfbcbb546615b83a386ff75b011ae0a69ee06f6b56f147930f1a0aa9",
+        "source_sha256": "e337d427e743f5aabccf5005e7fcc7a617cb891dff2e266424bb30de3e41b346",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 14124,
+        "note": "야타용왕 전리품",
+        "installedBy": "runtime"
+      },
+      "EQ_ARTIFACT_EDGE": {
+        "id": "EQ_ARTIFACT_EDGE",
+        "name": "성유물 · 칼날형",
+        "path": "assets/icons/UI_RelicIcon_15001_4.webp",
+        "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15001_4.png",
+        "sourceName": "검투사의 미련",
+        "filename": "UI_RelicIcon_15001_4",
+        "matchType": "official_base_visual",
+        "provenance": "official_hoyo_cdn",
+        "sha256": "c1d2062897df98aad4a0900d23c8c2ff8a6f2dd2258f14059873807698387ae9",
+        "source_sha256": "819bc9094c6fedc0c7c00fa55f3d8a17620f0f722f7bc2fdda8db3f392830781",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 16734,
+        "note": "공격형 성유물",
+        "installedBy": "runtime"
+      },
+      "EQ_ARTIFACT_TIDE": {
+        "id": "EQ_ARTIFACT_TIDE",
+        "name": "성유물 · 격류형",
+        "path": "assets/icons/UI_RelicIcon_15016_4.webp",
+        "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15016_4.png",
+        "sourceName": "도금 브로치",
+        "filename": "UI_RelicIcon_15016_4",
+        "matchType": "official_base_visual",
+        "provenance": "official_hoyo_cdn",
+        "sha256": "8974342eb714c9baa50a258dd15cca45d057f17af639ab3d25ebafb52892d13a",
+        "source_sha256": "cfea9cd81c94c1da0309582cf8dd1b435ef3099f37d8b8bba60166a8f72afd62",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 15918,
+        "note": "물결형 성유물",
+        "installedBy": "runtime"
+      },
+      "EQ_ARTIFACT_GUARD": {
+        "id": "EQ_ARTIFACT_GUARD",
+        "name": "성유물 · 철벽형",
+        "path": "assets/icons/UI_RelicIcon_15017_4.webp",
+        "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15017_4.png",
+        "sourceName": "공로의 꽃",
+        "filename": "UI_RelicIcon_15017_4",
+        "matchType": "official_base_visual",
+        "provenance": "official_hoyo_cdn",
+        "sha256": "d613d10ac87ed5b840ea9b30872fe90de4faa665dd0772cdb9b7fdcea3be7b5e",
+        "source_sha256": "14d36b170fa51a01860ab1d1573cf50b60ed16d518db5394ed517b7b21f61a86",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 13202,
+        "note": "방어형 성유물",
+        "installedBy": "runtime"
+      },
+      "EQ_ARTIFACT_VITAL": {
+        "id": "EQ_ARTIFACT_VITAL",
+        "name": "성유물 · 생명형",
+        "path": "assets/icons/UI_RelicIcon_15022_4.webp",
+        "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15022_4.png",
+        "sourceName": "바다에 물든 꽃",
+        "filename": "UI_RelicIcon_15022_4",
+        "matchType": "official_base_visual",
+        "provenance": "official_hoyo_cdn",
+        "sha256": "2bec516ba70e45c7cb39f77434a7460fcced5ab4f49d8cc68c6c91bc51a55a6b",
+        "source_sha256": "bd22f2c241c8fda42066e3234cb0af7b52b2c775a228fcb68d1750ad67766974",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 13866,
+        "note": "생명형 성유물",
+        "installedBy": "runtime"
+      },
+      "EQ_ARTIFACT_SWIFT": {
+        "id": "EQ_ARTIFACT_SWIFT",
+        "name": "성유물 · 신속형",
+        "path": "assets/icons/UI_RelicIcon_15002_4.webp",
+        "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15002_4.png",
+        "sourceName": "야생화 기억 속의 푸른 들판",
+        "filename": "UI_RelicIcon_15002_4",
+        "matchType": "official_base_visual",
+        "provenance": "official_hoyo_cdn",
+        "sha256": "03a903caeb68befaa070f4f6f4e625e1ab013da0a3b2b0d888b28b84979a68d5",
+        "source_sha256": "17d4e37e48760ab0743b1657be380446631d7dbad0641f93b657e6254f021f47",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 16674,
+        "note": "신속형 성유물",
+        "installedBy": "runtime"
+      },
+      "EQ_ARTIFACT_BALANCE": {
+        "id": "EQ_ARTIFACT_BALANCE",
+        "name": "성유물 · 균형형",
+        "path": "assets/icons/UI_RelicIcon_10001_4.webp",
+        "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_10001_4.png",
+        "sourceName": "옛 벗의 마음",
+        "filename": "UI_RelicIcon_10001_4",
+        "matchType": "official_base_visual",
+        "provenance": "official_hoyo_cdn",
+        "sha256": "6ee7693f8863a226e3dd36deccaafd97b7baff53fe635ec93ccb188f09a5f0ff",
+        "source_sha256": "3a37a8db776bc7719334c0b4d9d5b7e4532dc10fbdeeb4f9300c15ade8e514e9",
+        "source_dimensions": [
+          256,
+          256
+        ],
+        "bytes": 11208,
+        "note": "균형형 성유물",
+        "installedBy": "runtime"
       }
     },
     "categories": {

@@ -49,3 +49,27 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 4. 위 세 곳에 없는 최신 텍스처 26개는 `gi.yatta.moe/assets/UI/`에서 받았다(재인코딩본이라 `original_game_texture_mirror_reencoded`로 구분).
 
 한국어 이름·아이템 ID 대조는 genshin-db(v5.2.14)와 Project Amber API(`gi.yatta.moe/api/v2/kr`)를 함께 사용했다. 모든 이미지를 디코딩해 256px 이내 WebP(q90)로 변환하고 원본·변환본 SHA-256을 `item-icons.json`과 `item-icon-sources.json`에 기록했으며, 접촉 시트로 전체를 육안 확인했다. 시스템 전용 행(SYS_*, 간이 회복식·파티 식사 시스템 행, 예시 장비), 스토리 전용 신의 심장, 아직 열리지 않은 스네즈나야 특별 보상 2종은 분류 아이콘을 유지한다.
+
+# v0.13.30 아이콘 재선정 15개
+
+그림이 아이템과 어울리지 않던 4개를 바꾸고, 런타임이 추가해 개별 그림이 없던 11개(`installedBy: runtime`)에 그림을 붙였다. 모두 원작 동명 아이템이 아니라 가장 비슷한 원작 그림이다(`official_base_visual`). 예외는 잃어버린 바위 신의 눈동자로, 원작과 이름이 같다(`exact_name`). 새 WebP 14개를 추가했고, 더 쓰지 않는 3개(`UI_ItemIcon_113005`, `113007`, `114077`)는 지웠다.
+
+| 아이템 | 이전 | 새 원작 그림 | 출처 |
+|---|---|---|---|
+| 생명 반지 | 북풍의 고리(재료) | 약스체의 고리 `UI_EquipIcon_Catalyst_Isikhulu` — 반지 모양 법구 | enka.network/ui |
+| 나무 부적 | 분류 아이콘 | 숲의 이슬을 닮은 동 부적 `UI_ItemIcon_114037` | GenshinTextures-full |
+| 누빔 두건(구 누빔 조끼) | 분류 아이콘 | 떠돌이 의사의 두건 `UI_RelicIcon_10013_3` — 장비도 조끼에서 두건으로 바꿈 | HoYo CDN |
+| 수압 섬유 | 동풍의 숨결 | 물보라깃 산호 `UI_ItemIcon_101247` | gi.yatta.moe(재인코딩) |
+| 용혈 결정 | 진홍의 옥수 | 혈옥의 가지 `UI_ItemIcon_113018` | GenshinTextures-full |
+| 화염 합금 | 긴 밤을 밝히는 불티 | 진홍의 옥수 `UI_ItemIcon_107010` | GenshinTextures-full |
+| 잃어버린 바위 신의 눈동자 | 분류 아이콘 | 같은 이름 `UI_ItemIcon_107003` | GenshinTextures-full |
+| 과일 미끼 | 분류 아이콘 | 과즙 미끼 `UI_ItemIcon_111023` | GenshinTextures-full |
+| 야타용왕의 지맥 결정 | 분류 아이콘 | 용왕의 면류관 `UI_ItemIcon_113017` | GenshinTextures-full |
+| 성유물 · 칼날형 | 분류 아이콘 | 검투사의 미련 `UI_RelicIcon_15001_4` | HoYo CDN |
+| 성유물 · 격류형 | 분류 아이콘 | 도금 브로치 `UI_RelicIcon_15016_4` | HoYo CDN |
+| 성유물 · 철벽형 | 분류 아이콘 | 공로의 꽃 `UI_RelicIcon_15017_4` | HoYo CDN |
+| 성유물 · 생명형 | 분류 아이콘 | 바다에 물든 꽃 `UI_RelicIcon_15022_4` | HoYo CDN |
+| 성유물 · 신속형 | 분류 아이콘 | 야생화 기억 속의 푸른 들판 `UI_RelicIcon_15002_4` | HoYo CDN |
+| 성유물 · 균형형 | 분류 아이콘 | 옛 벗의 마음 `UI_RelicIcon_10001_4` | HoYo CDN |
+
+변환 방식과 해시 기록은 v0.13.27과 같다. 런타임 추가 항목은 `item-icons.json`에서 `installedBy: "runtime"`로 표시해 콘텐츠 시트에 없는 ID임을 구분한다.
