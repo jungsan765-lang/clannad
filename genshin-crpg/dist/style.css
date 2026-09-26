@@ -330,6 +330,7 @@ nav button[data-screen=LOCATION]{border-color:#477f8b;background:#183b46}nav but
 .gear-effect{display:none;color:var(--muted);line-height:1.45}
 @media(hover:none){.gear-effect{display:block}}
 .gear-options .gear-tip{top:auto;bottom:calc(100% + 4px)}
+.gear-options .gear-cell:first-child>.gear-tip{top:calc(100% + 4px);bottom:auto}
 .party-remove-confirm ul{margin:8px 0 14px;padding-left:1.2rem}
 .party-remove-confirm .row button{margin:0 8px 0 0}
 .formation-slot .member-select small{display:block;font-size:.72rem}
