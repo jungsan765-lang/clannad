@@ -1,0 +1,19 @@
+name: CRPG v0.13.31 Audit
+on:
+  push:
+    branches:
+      - feat/crpg-v01331-step12-0-12-1
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: genshin-crpg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Story and equipment audit
+        run: node tools/audit_v01331_story_equipment.cjs
