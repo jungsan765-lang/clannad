@@ -45,7 +45,7 @@ test('invalid lot is surfaced and does not fabricate negative quantity', () => {
   assert.equal(entries.length,1); assert.equal(entries[0].quantity,1); assert.ok(entries[0].issues.includes('INVALID_FOOD_LOT'));
 });
 test('individual icons override categories; missing legacy category remains undeployed', () => {
-  const exact=presenter.itemDetail({equip:'EQ_SWORD_COOL_STEEL',quantity:1});assert.equal(exact.icon.id,'EQ_SWORD_COOL_STEEL');assert.equal(exact.icon.deployed,true);assert.equal(exact.icon.url,manifest.itemIcons.icons.EQ_SWORD_COOL_STEEL.path);assert.ok(fs.existsSync(path.join(gameDir,'dist',exact.icon.url)));const custom=presenter.itemDetail({equip:'EQ_ARMOR_TRAVEL_COAT',quantity:1});assert.equal(custom.icon.matchType,'category_fallback');
+  const exact=presenter.itemDetail({equip:'EQ_SWORD_COOL_STEEL',quantity:1});assert.equal(exact.icon.id,'EQ_SWORD_COOL_STEEL');assert.equal(exact.icon.deployed,true);assert.equal(exact.icon.url,manifest.itemIcons.icons.EQ_SWORD_COOL_STEEL.path);assert.ok(fs.existsSync(path.join(gameDir,'dist',exact.icon.url)));const custom=presenter.itemDetail({equip:'EQ_ARMOR_TRAVEL_COAT',quantity:1});assert.equal(custom.icon.matchType,'official_base_visual');const fallback=presenter.itemDetail({equip:'EQ_STORY_PYRO_GNOSIS',quantity:1});assert.equal(fallback.icon.matchType,'category_fallback');
   const detail=api.create(db).itemDetail({slot:'EQI_X',equip:'EQ_SWORD_COOL_STEEL',quantity:1});
   assert.equal(detail.icon.id,'ASSET_ICON_WEAPON_SWORD'); assert.equal(detail.icon.registered,true);
   if (!manifest.assets[detail.icon.id]) { assert.equal(detail.icon.deployed,false); assert.equal(detail.icon.url,null); }

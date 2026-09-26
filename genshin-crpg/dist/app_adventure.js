@@ -94,17 +94,66 @@ dialogue=function(p,v){
  for(const region of regions){const section=el('details','guild-region');section.open=region===currentRegion;const rows=offers.filter(q=>q.row[2]===region);section.append(el('summary','',region+' 의뢰 · '+rows.length));for(const q of rows)commissionCard(section,q,true);p.append(section);}
  if(!offers.length)p.append(el('p','muted','현재 새로 받을 의뢰가 없습니다.'));
  p.append(el('p','muted','몬드 동료 영입 임무는 디어 헌터의 사라 또는 천사의 몫에서 소개받을 수 있습니다.'));
- p.append(el('h2','','개인 임무 소개'));for(const entry of game.storyEntries().filter(e=>e.kind==='LEGEND'&&!game.legendRegistered(e.id)&&game.legendContactAllowed(e.definition))){const c=el('section','card');if(typeof requirementList==='function')requirementList(c,game.legendRequirements(entry.definition));c.append(el('h3','',game.tables['22_QUEST_DB'].get(entry.definition.QUEST_ID)?.[1]||entry.title),el('p','muted','소개받은 뒤 임무 → 개인 임무에서 준비물과 진행 장소를 확인할 수 있습니다.'),actionButton('개인 임무 소개받기','LEGEND_REGISTER',{quest:entry.id}));p.append(c);}
+ p.append(el('h2','','개인 임무 소개'));for(const entry of game.storyEntries().filter(e=>e.kind==='LEGEND'&&!game.legendRegistered(e.id)&&game.legendContactAllowed(e.definition))){const c=el('section','card');if(typeof requirementList==='function')requirementList(c,game.legendRequirements(entry.definition));c.append(el('h3','',game.tables['22_QUEST_DB'].get(entry.definition.QUEST_ID)?.[1]||entry.title),el('p','muted','소개받은 뒤 임무 → 진행 중에서 준비물과 진행 장소를 확인할 수 있습니다.'),actionButton('개인 임무 소개받기','LEGEND_REGISTER',{quest:entry.id}));p.append(c);}
 };
+function journalSection(parent,title,count,hint=''){const box=el('section','journal-section'),head=el('div','journal-head');head.append(el('h2','',title),el('span','journal-count',String(count)));box.append(head);if(hint)box.append(el('p','muted journal-hint',hint));parent.append(box);return box;}
+function journalTravel(parent,map){if(!map||map===game.s.global.CURRENT_MAP_ID)return;const edge=firstTravelEdge(map);if(edge)parent.append(actionButton(mapName(edge[2])+' 방향으로 이동','MOVE',{edge:edge[0]}));else parent.append(el('small','muted','이야기에서 이동 경로가 열리면 갈 수 있습니다.'));}
+const JOURNAL_STATUS={ready:'지금 시작 가능',travel:'장소로 이동 필요',locked:'조건 확인 필요'};
+// The entry itself may be open while the current scene still blocks every action; the journal
+// collects those reasons and says them once above the lists instead of under every card.
+let journalBlocked=null;
+function journalStart(parent,label,type,params){parent.append(actionButton(label,type,params,true));const why=game.actionReason(type,params);if(!why)return;if(journalBlocked)journalBlocked.add(why);else parent.append(el('small','choice-note journal-why',why));}
+function legendProgressCard(parent,m){
+ const d=m.definition,c=el('article','card journal-card status-'+m.status),head=el('div','journal-card-head');
+ head.append(el('small','journal-kind','동료 획득'+(m.region?' · '+m.region:'')),el('span','journal-status',JOURNAL_STATUS[m.status]+(m.accepted?' · 수락 완료':'')));c.append(head,el('h3','',m.title));
+ if(d.MAP_ID)c.append(el('p','journal-place','진행 장소 · '+mapName(d.MAP_ID)));
+ const unmet=m.requirements.filter(r=>!r.met&&r.kind!=='map');if(unmet.length){const chips=el('ul','journal-chips');for(const r of unmet)chips.append(el('li','requirement-unmet','필요 · '+r.label));c.append(chips);}
+ else if(m.status==='locked'&&m.reason)c.append(el('p','choice-note',m.reason));
+ const actions=el('div','journal-actions');if(m.status==='ready')journalStart(actions,game.storyLegendEntryNode(d)!==d.ENTRY_NODE_ID?'준비물 확인부터 계속':'개인 이야기 열기','LEGEND_ENTER',{quest:m.id});else if(m.status==='travel')journalTravel(actions,d.MAP_ID);if(actions.children.length)c.append(actions);
+ const missing=m.accepted?[]:Object.entries(parseUI(d.COST_ITEMS_JSON)).filter(([id,n])=>game.itemCount(id)<Number(n));
+ if(missing.length){const more=el('details','journal-more');more.append(el('summary','','준비물 구하는 곳 · '+missing.length+'종'));for(const [id]of missing){const row=el('div','material-requirement');row.append(el('strong','',safeName('14_ITEM_DB',id)));materialSources(row,id);more.append(row);}c.append(more);}
+ parent.append(c);
+}
+function affectionProgressRow(parent,m){
+ const row=el('article','journal-row status-'+m.next.status),photo=portraitFor(m.profile),copy=el('div','journal-row-copy'),actions=el('div','journal-row-actions');
+ if(photo){const img=el('img','journal-thumb');img.src=photo;img.alt='';img.loading='lazy';row.append(img);}else row.append(el('span','journal-thumb journal-thumb-empty','♡'));
+ copy.append(el('strong','',m.name+' · '+m.next.label),el('small','muted',(m.next.map?mapName(m.next.map)+' · ':'')+(m.next.status==='ready'?'지금 진행 가능':'장소로 이동하면 진행 가능')));
+ if(m.next.status==='ready')journalStart(actions,'이야기 시작','AFFECTION_ENTER',{event:m.next.id});else journalTravel(actions,m.next.map);
+ row.append(copy,actions);parent.append(row);
+}
+function journalDone(parent,kind,title,note){const row=el('div','journal-done');row.append(el('small','journal-kind',kind),el('strong','',title));if(note)row.append(el('small','muted',note));parent.append(row);}
+function completedJournal(p,linked){
+ const quests=game.tables['22_QUEST_DB'],done=game.commissionEntries().filter(q=>q.state?.claimed),story=linked.filter(x=>x.state.claimed);
+ const guild=journalSection(p,'의뢰',done.length+story.length);for(const q of done)journalDone(guild,(q.row[2]?q.row[2]+' ':'')+'의뢰',q.row[1],'보상 수령 완료');for(const {row}of story)journalDone(guild,'본편 연동 의뢰',row[1],'');
+ if(!done.length&&!story.length)guild.append(el('p','empty','아직 완료한 의뢰가 없습니다.'));
+ const legends=game.storyEntries().filter(e=>e.kind==='LEGEND'&&game.storyDone(e.id)),recruit=journalSection(p,'동료 획득 임무',legends.length);
+ for(const e of legends)journalDone(recruit,'동료 획득'+(e.definition.REGION?' · '+e.definition.REGION:''),quests.get(e.definition.QUEST_ID)?.[1]||e.title,'');
+ if(!legends.length)recruit.append(el('p','empty','아직 마친 동료 획득 임무가 없습니다.'));
+ const people=CRPGJournalPresenter.relations(game).filter(x=>x.done),bonds=journalSection(p,'호감도 임무',people.reduce((n,x)=>n+x.done,0));
+ for(const x of people)journalDone(bonds,'호감도',x.name,'호감도 이야기 '+x.done+' / '+x.track.length+' 완료');
+ if(!people.length)bonds.append(el('p','empty','아직 마친 호감도 이야기가 없습니다.'));
+}
 let missionTab='진행 중';
 quests=function(p){
  p.append(el('div','eyebrow','모험 기록'),el('h1','','임무'));mainObjective(p);
- const tabs=el('div','bag-tabs');for(const label of ['진행 중','동료 획득','개인 임무','완료']){const b=button(label,()=>{missionTab=label;render();});b.setAttribute('aria-pressed',String(missionTab===label));b.classList.toggle('selected',missionTab===label);tabs.append(b);}p.append(tabs);
+ // The old "개인 임무" tab listed every personal mission in full; received ones now live in 진행 중.
+ if(missionTab==='개인 임무')missionTab='진행 중';
+ const tabs=el('div','bag-tabs journal-tabs');for(const label of ['진행 중','동료 획득','완료']){const b=button(label,()=>{missionTab=label;render();});b.setAttribute('aria-pressed',String(missionTab===label));b.classList.toggle('selected',missionTab===label);tabs.append(b);}p.append(tabs);
  if(missionTab==='동료 획득'){recruitmentScreen(p);returnToJourney(p);return;}
- if(missionTab==='개인 임무'){const entries=game.storyEntries().filter(e=>e.kind==='LEGEND'&&!game.storyDone(e.definition.QUEST_ID));for(const entry of entries)journalEntry(p,entry);if(!entries.length)p.append(el('p','empty','현재 루트의 개인 임무를 모두 마쳤습니다.'));}
- else{const rows=game.commissionEntries().filter(q=>missionTab==='완료'?q.state?.claimed:q.accepted&&!q.state?.claimed);for(const q of rows)commissionCard(p,q);if(!rows.length)p.append(el('p','empty',missionTab==='완료'?'아직 완료한 의뢰가 없습니다.':'받은 의뢰가 없습니다. 안내원의 의뢰 접수에서 시작하세요.'));if(missionTab==='진행 중'){const k=game.placeCatalog().find(e=>e.entity==='NPC_MOND_KATHERYNE');if(k){if(k.maps.includes(game.s.global.CURRENT_MAP_ID))p.append(actionButton(placeName(k)+' · 의뢰 받으러 가기','PLACE_ENTER',{place:k.id},true));else travelGuide(p,k.maps[0]);}}}
- if(missionTab==='완료')for(const entry of game.storyEntries().filter(e=>e.kind==='LEGEND'&&game.storyDone(e.definition.QUEST_ID))){const c=el('section','card');c.append(el('small','','개인 임무 · 완료'),el('h3','',game.tables['22_QUEST_DB'].get(entry.definition.QUEST_ID)?.[1]||entry.title),el('p','muted','이야기를 마치고 보상을 받았습니다.'));p.append(c);}
- for(const r of game.rows('22_QUEST_DB').filter(r=>parseUI(r[10]).handler==='isk_m04_side_quest')){const state=game.s.quests[r[0]];if(!state||state.state==='미시작'||missionTab==='개인 임무'||(missionTab==='완료')!==!!state.claimed)continue;const c=el('section','card');c.append(el('small','','본편 연동 의뢰'),el('h3','',r[1]),el('p','',r[5]),el('p','muted',r[6]),actionButton('이야기에서 진행 확인','MENU',{screen:'STORY'}));p.append(c);}
+ const linked=game.rows('22_QUEST_DB').filter(r=>parseUI(r[10]).handler==='isk_m04_side_quest').map(row=>({row,state:game.s.quests[row[0]]})).filter(x=>x.state&&x.state.state!=='미시작');
+ if(missionTab==='완료'){completedJournal(p,linked);returnToJourney(p);return;}
+ const journal=CRPGJournalPresenter.inProgress(game),commissions=game.commissionEntries().filter(q=>q.accepted&&!q.state?.claimed),story=linked.filter(x=>!x.state.claimed);journalBlocked=new Set();
+ const guild=journalSection(p,'의뢰',commissions.length+story.length);for(const q of commissions)commissionCard(guild,q);
+ for(const {row}of story){const c=el('section','card');c.append(el('small','','본편 연동 의뢰'),el('h3','',row[1]),el('p','',row[5]),el('p','muted',row[6]),actionButton('이야기에서 진행 확인','MENU',{screen:'STORY'}));guild.append(c);}
+ if(!commissions.length&&!story.length)guild.append(el('p','empty','받은 의뢰가 없습니다. 안내원의 의뢰 접수에서 시작하세요.'));
+ const k=game.placeCatalog().find(e=>e.entity==='NPC_MOND_KATHERYNE');if(k){if(k.maps.includes(game.s.global.CURRENT_MAP_ID))guild.append(actionButton(placeName(k)+' · 의뢰 받으러 가기','PLACE_ENTER',{place:k.id},!commissions.length));else{guild.append(el('small','journal-note','의뢰 접수 · '+placeName(k)+' · '+mapName(k.maps[0])));journalTravel(guild,k.maps[0]);}}
+ const recruit=journalSection(p,'동료 획득 임무',journal.legends.length,journal.legends.length?'소개받은 임무만 표시합니다. 새 임무는 동료 획득 탭에서 소개받을 수 있습니다.':''),list=el('div','journal-list');
+ for(const m of journal.legends)legendProgressCard(list,m);if(list.children.length)recruit.append(list);
+ else recruit.append(el('p','empty','진행 중인 동료 획득 임무가 없습니다.'),button('동료 획득에서 소개처 보기',()=>{missionTab='동료 획득';render();},busy));
+ const bonds=journalSection(p,'호감도 임무',journal.affections.length);for(const m of journal.affections)affectionProgressRow(bonds,m);
+ if(!journal.affections.length)bonds.append(el('p','empty','지금 진행할 수 있는 호감도 임무가 없습니다.'));
+ if(journal.waiting){const more=el('div','journal-waiting');more.append(el('p','muted','조건이 남아 아직 열리지 않은 인물 '+journal.waiting+'명'),actionButton('호감도 화면에서 보기','MENU',{screen:'RELATIONS'}));bonds.append(more);}
+ if(journalBlocked.size)guild.before(el('p','choice-note journal-banner',[...journalBlocked].join(' ')));journalBlocked=null;
  returnToJourney(p);
 };
 const adventureReturn=returnToJourney;

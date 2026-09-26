@@ -63,7 +63,7 @@ function contactStories(parent){const place=game.currentPlace();if(!place?.valid
    c.append(actionButton('이야기를 듣고 개인 임무 소개받기','LEGEND_REGISTER',{quest:entry.id},true));
   }else{
    c.append(el('p','muted','소개받은 개인 임무 · 임무 현장으로 이동한 뒤 시작할 수 있습니다.'));travelGuide(c,d.MAP_ID);
-   c.append(button('임무에서 이야기 열기',()=>{missionTab='개인 임무';act('MENU',{screen:'QUEST'});},busy||!!game.actionReason('MENU',{screen:'QUEST'}),true));
+   c.append(button('임무에서 이야기 열기',()=>{missionTab='진행 중';act('MENU',{screen:'QUEST'});},busy||!!game.actionReason('MENU',{screen:'QUEST'}),true));
   }section.append(c);
  }
  if(!offers.length)section.append(el('p','muted','이곳에서 소개하는 개인 임무를 모두 마쳤습니다. 임무의 동료 획득 화면에서 동행 제안과 다른 소개처를 확인할 수 있습니다.'));parent.append(section);

@@ -141,15 +141,34 @@ quests=function(p,v){
   if(entries.length){p.append(el('h2','','개인 임무'));for(const entry of entries)journalEntry(p,entry);}
   returnToJourney(p);
 };
+// Collapsed by default so a long cast stays scannable; the choice survives re-renders.
+const openRelationMissions=new Set();
+function relationNextLabel(m){
+  if(!m.next)return m.track.length?'모든 단계를 마쳤습니다':'진행할 호감도 이야기가 없습니다';
+  return '다음 · '+m.next.label+' · '+(m.next.status==='ready'?'지금 진행 가능':m.next.status==='travel'?mapName(m.next.map)+'에서 진행':m.next.reason);
+}
 function relationsScreen(p){
   p.append(el('div','eyebrow','RELATIONSHIPS'),el('h1','','호감도'));
-  const entries=game.storyEntries?.()||[],activities=game.relationshipActivityEntries?.()||[],grid=el('div','relationship-grid');
-  for(const [pid,r]of Object.entries(game.s.relations)){if(r.firstContact===null)continue;const def=game.tables['04_CHAR_DB'].get(pid);if(!def)continue;
-    const c=el('section','card relationship-card'),photo=portraitFor(pid);if(photo){const img=el('img','relationship-photo');img.src=photo;img.alt=def[2];c.append(img);}
-    c.append(el('h2','',def[2]));const meeting=characterMeetingPlace(pid,entries);if(meeting){c.append(el('p','meeting-place',meeting.label+' · '+mapName(meeting.map)));if(meeting.map!==game.s.global.CURRENT_MAP_ID)travelGuide(c,meeting.map);}else c.append(el('p','muted','아직 다음 만남 장소를 알 수 없습니다.'));const score=r.BOND_SCORE??r.heart*20,h=Math.min(5,Math.floor(score/20));
-    c.append(el('p','heart-row','♥'.repeat(h)+'♡'.repeat(5-h)),el('p','','호감도 '+score+'점 · '+(h?'유대 '+h+'단계':'첫 만남')));
-    for(const e of entries.filter(e=>e.profile===pid&&e.kind==='AFFECTION'&&!/ADULT/.test(e.definition?.RELATION_KIND||'')&&!game.storyDone?.(e.id))){const stage=e.id.match(/_H0([1-5])$/)?.[1];const b=actionButton(stage?'일상 교류 · '+stage+'단계':'유대 이야기','AFFECTION_ENTER',{event:e.id});b.disabled=b.disabled||!!e.reason;c.append(b);if(e.reason)c.append(el('small','choice-note',e.reason));}
-    for(const a of activities.filter(a=>a.profileId===pid)){const b=actionButton((a.title||a.name)+' · 30분','RELATION_ACTIVITY',{activityId:a.id});b.disabled=b.disabled||!!a.reason;c.append(b);if(a.reason)c.append(el('small','choice-note',a.reason));}grid.append(c);
+  const entries=game.storyEntries?.()||[],people=CRPGJournalPresenter.relations(game),grid=el('div','relationship-grid');
+  if(people.length>1){const bar=el('div','relationship-toolbar'),toggles=el('div','relationship-toggles');toggles.append(button('모두 펼치기',()=>{for(const m of people)openRelationMissions.add(m.profile);render();},busy),button('모두 접기',()=>{openRelationMissions.clear();render();},busy));bar.append(el('p','muted',people.length+'명 · 지금 진행할 수 있는 인물이 먼저 표시됩니다.'),toggles);p.append(bar);}
+  for(const m of people){const pid=m.profile,c=el('section','card relationship-card status-'+(m.next?.status||'done')),photo=portraitFor(pid);
+    if(photo){const img=el('img','relationship-photo');img.src=photo;img.alt=m.name;c.append(img);}
+    c.append(el('h2','',m.name),el('p','heart-row','♥'.repeat(m.hearts)+'♡'.repeat(5-m.hearts)),el('p','relationship-score','호감도 '+m.score+'점 · '+(m.hearts?'유대 '+m.hearts+'단계':'첫 만남')));
+    const meeting=characterMeetingPlace(pid,entries);if(meeting){c.append(el('p','meeting-place',meeting.label+' · '+mapName(meeting.map)));journalTravel(c,meeting.map);}else c.append(el('p','muted','아직 다음 만남 장소를 알 수 없습니다.'));
+    const box=el('details','relationship-missions'),summary=el('summary');box.open=openRelationMissions.has(pid);box.addEventListener('toggle',()=>{if(box.open)openRelationMissions.add(pid);else openRelationMissions.delete(pid);});
+    summary.append(el('span','relationship-missions-title','호감도 임무 '+m.done+' / '+m.track.length+(m.activityReady?' · 오늘 교류 가능':'')),el('small','relationship-next',relationNextLabel(m)));box.append(summary);
+    const stages=el('ol','relationship-stages');
+    // Only the next stage explains its blocker; later ones just show the score they open at.
+    for(const t of m.track){const li=el('li','stage-'+t.status);li.append(el('span','stage-name',t.short));
+      if(t.status==='done')li.append(el('small','requirement-met','완료'));
+      else if(t.status==='ready')li.append(actionButton('이야기 시작','AFFECTION_ENTER',{event:t.id},true));
+      else if(t.status==='travel')li.append(el('small','muted',mapName(t.map)+'에서 진행'));
+      else if(t===m.next)li.append(el('small','requirement-unmet',t.reason));
+      else li.append(el('small','muted',t.need?'호감도 '+t.need+'점':'앞 단계 이후'));
+      stages.append(li);}
+    if(stages.children.length)box.append(stages);else box.append(el('p','muted','이 인물의 호감도 이야기는 아직 준비되지 않았습니다.'));
+    if(m.activities.length){const acts=el('div','relationship-activities');acts.append(el('h3','','교류 활동'));for(const a of m.activities){acts.append(actionButton(a.label,'RELATION_ACTIVITY',{activityId:a.id}));if(a.reason)acts.append(el('small','choice-note',a.reason));}box.append(acts);}
+    c.append(box);grid.append(c);
   }
   if(!grid.children.length)p.append(el('p','empty','여정에서 만난 인물들이 여기에 기록됩니다.'));p.append(grid);returnToJourney(p);
 }

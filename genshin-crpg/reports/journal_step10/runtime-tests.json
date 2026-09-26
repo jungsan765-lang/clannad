@@ -1,0 +1,117 @@
+{
+  "version": "0.13.27",
+  "runtimeDir": "source",
+  "scope": "mission journal, collapsible affinity missions, official item icons",
+  "checks": [
+    {
+      "name": "in progress lists only introduced, unfinished companion missions",
+      "passed": true,
+      "evidence": {
+        "introduced": 3,
+        "finished": 1,
+        "listed": 2
+      }
+    },
+    {
+      "name": "companion missions carry place-aware status and unmet requirements",
+      "passed": true,
+      "evidence": {
+        "here": 0,
+        "away": "travel"
+      }
+    },
+    {
+      "name": "affinity track is ordered and explains the real blocker",
+      "passed": true,
+      "evidence": [
+        "1단계:done",
+        "2단계:ready",
+        "3단계:locked"
+      ]
+    },
+    {
+      "name": "only the place is missing -> travel, not locked",
+      "passed": true,
+      "evidence": {
+        "id": "AFF_MOND_ALBEDO_H01",
+        "stage": 1,
+        "label": "일상 교류 · 1단계",
+        "short": "1단계",
+        "need": 20,
+        "map": "MAP_MOND_CITY",
+        "status": "travel",
+        "reason": "해당 인물이 있는 장소에서 진행할 수 있습니다."
+      }
+    },
+    {
+      "name": "affinity missions in progress show the next playable stage per person",
+      "passed": true,
+      "evidence": {
+        "id": "AFF_MOND_ALBEDO_H01",
+        "stage": 1,
+        "label": "일상 교류 · 1단계",
+        "short": "1단계",
+        "need": 20,
+        "map": "MAP_MOND_CITY",
+        "status": "ready",
+        "reason": ""
+      }
+    },
+    {
+      "name": "relations put people with something to play first and keep insertion order otherwise",
+      "passed": true,
+      "evidence": [
+        "알베도:ready",
+        "바바라:locked"
+      ]
+    },
+    {
+      "name": "presenter never changes the save",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "both routes build a journal without errors",
+      "passed": true,
+      "evidence": {
+        "ROUTE_TRAVELER": [
+          "ready",
+          "ready",
+          "ready",
+          "ready",
+          "ready",
+          "locked"
+        ],
+        "ROUTE_ISEKAI": [
+          "ready",
+          "ready",
+          "locked",
+          "locked",
+          "locked",
+          "locked"
+        ]
+      }
+    },
+    {
+      "name": "mission and affinity screens use the journal (source)",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "item icons: every recorded texture ships and matches its hash",
+      "passed": true,
+      "evidence": {
+        "exact_name": 162,
+        "verified_id_alias": 22,
+        "official_base_visual": 86
+      }
+    },
+    {
+      "name": "item icons: former fallbacks now resolve to their own texture",
+      "passed": true,
+      "evidence": null
+    }
+  ],
+  "total": 11,
+  "passed": 11
+}

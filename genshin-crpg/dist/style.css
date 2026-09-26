@@ -219,3 +219,66 @@ nav button[data-screen=LOCATION]{border-color:#477f8b;background:#183b46}nav but
 
 /* v0.13.25 combat/shop readability fixes */
 .enemy-info-button{white-space:nowrap;min-width:48px}.market-filter button{white-space:nowrap}.craft-output{display:flex;align-items:center;gap:10px;margin-bottom:8px}.craft-output .item-icon,.craft-output .item-glyph{width:46px;height:46px;flex:none}
+
+/* v0.13.27 mission journal and affinity readability */
+.journal-section{margin:26px 0 10px}
+.journal-head{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
+.journal-head h2{margin:0;font-size:1.15rem}
+.journal-count{min-width:28px;padding:2px 9px;border-radius:999px;background:#1d3d47;color:var(--gold);font-size:.8rem;font-weight:700;text-align:center}
+.journal-hint{margin:0 0 12px;font-size:.85rem}
+.journal-note{display:block;margin:10px 0 0;color:var(--muted);font-size:.85rem}
+.journal-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));gap:12px;align-items:start}
+.journal-card{margin:0;display:flex;flex-direction:column;gap:8px}
+.journal-card h3{margin:0;font-size:1rem;line-height:1.5;word-break:keep-all}
+.journal-card-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.journal-kind{color:var(--gold);font-size:.78rem;letter-spacing:.04em}
+.journal-status{flex:none;font-size:.75rem;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.journal-card.status-ready{border-color:#4f8f84}
+.journal-card.status-ready .journal-status{border-color:#4f9f8f;color:var(--green)}
+.journal-card.status-locked .journal-status{color:#d7b0a8}
+.journal-place{margin:0;color:#cde5df;font-size:.85rem}
+.journal-chips{list-style:none;display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:0}
+.journal-chips li{font-size:.78rem;line-height:1.5;padding:3px 10px;border-radius:999px;background:#2b2023;border:1px solid #6b4640;word-break:keep-all}
+.journal-actions{display:flex;flex-wrap:wrap;gap:8px}
+.journal-actions button{margin:0}
+.journal-more{margin:0}
+.journal-more>summary{min-height:36px;font-size:.82rem;color:var(--muted);list-style:none}
+.journal-more>summary::-webkit-details-marker{display:none}
+.journal-more>summary::before{content:'▸';display:inline-block;width:16px;color:var(--gold);transition:transform .15s}
+.journal-more[open]>summary::before{transform:rotate(90deg)}
+.journal-why{flex-basis:100%;margin:2px 0 0}
+.journal-banner{margin:18px 0 0;padding:10px 14px;border-radius:8px;border:1px solid #6b4640;background:#2b2023}
+.journal-more .material-requirement{margin:6px 0 0;padding:8px 10px;border-radius:8px;background:#0f232a}
+.journal-row{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#10252c;margin-bottom:8px}
+.journal-row.status-ready{border-color:#4f8f84}
+.journal-thumb{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:top;background:#081b23;display:grid;place-items:center;color:var(--gold)}
+.journal-row-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+.journal-row-copy strong{word-break:keep-all}
+.journal-row-actions button{margin:0;min-height:40px;white-space:nowrap}
+.journal-waiting{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:6px}
+.journal-waiting p{margin:0}
+.journal-waiting button{margin:0;min-height:40px}
+.journal-done{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:9px 2px;border-bottom:1px solid rgba(55,83,90,.55)}
+.journal-done strong{word-break:keep-all}
+.relationship-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 14px}
+.relationship-toolbar p{margin:0 auto 0 0}
+.relationship-toggles{display:flex;gap:8px}
+.relationship-toolbar button{margin:0;min-height:40px;white-space:nowrap}
+.relationship-score{margin:2px 0 6px;color:var(--muted);font-size:.9rem}
+.relationship-card.status-ready{border-color:#4f8f84}
+.relationship-missions{margin-top:12px;border-top:1px solid var(--line);padding-top:2px}
+.relationship-missions>summary{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;min-height:54px;list-style:none;cursor:pointer}
+.relationship-missions>summary::-webkit-details-marker{display:none}
+.relationship-missions-title{font-weight:700}
+.relationship-missions-title::before{content:'▸';display:inline-block;width:18px;color:var(--gold);transition:transform .15s}
+.relationship-missions[open] .relationship-missions-title::before{transform:rotate(90deg)}
+.relationship-next{padding-left:18px;color:var(--muted);font-size:.8rem;line-height:1.45}
+.relationship-card.status-ready .relationship-next{color:var(--green)}
+.relationship-stages{list-style:none;display:grid;gap:6px;padding:0;margin:6px 0 0}
+.relationship-stages li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 10px;min-height:44px;padding:6px 10px;border-radius:8px;background:#0f232a}
+.relationship-stages .stage-name{white-space:nowrap;font-weight:600}
+.relationship-stages li small{flex:1 1 120px;text-align:right;line-height:1.45}
+.relationship-stages li.stage-done{opacity:.72}
+.relationship-stages li button{flex:none;width:auto!important;min-height:38px;margin:0!important}
+.relationship-activities h3{margin:14px 0 4px;font-size:.9rem;color:var(--muted)}
+@media(max-width:640px){.journal-row{grid-template-columns:40px minmax(0,1fr)}.journal-thumb{width:40px;height:40px}.journal-row-actions{grid-column:1/-1}.journal-row-actions button{width:100%}.relationship-toolbar p{flex-basis:100%}}
