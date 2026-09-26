@@ -51,3 +51,10 @@ for(const t of relevantKeys){console.log('\nTABLE '+t+' HEADER '+JSON.stringify(
 
 const items=db['14_ITEM_DB']||[];
 console.log('\nLIYUE_MATERIAL_MATCHES '+JSON.stringify(items.slice(1).filter(r=>/(콜|라피스|COR|LAPIS|리월)/i.test(JSON.stringify(r))).map(r=>r.slice(0,Math.min(r.length,20))),null,2));
+
+
+for(const table of storyTables){
+ const h=db[table][0],idx=Object.fromEntries(h.map((x,i)=>[x,i]));
+ const rows=db[table].slice(1).filter(r=>r&&r[idx.ROUTE_ID]==='ROUTE_TRAVELER'&&r[idx.NODE_TYPE]!=='META');
+ console.log('\nTRAVELER_STRUCTURAL_TEXT '+table+' '+JSON.stringify(rows.filter(r=>['MENU_GATE','CHAPTER_END'].includes(r[idx.NODE_TYPE])||/^\s*\[/.test(String(r[idx.TEXT_KO]||''))).map(r=>({node:r[idx.NODE_ID],type:r[idx.NODE_TYPE],text:r[idx.TEXT_KO],next:r[idx.NEXT_NODE_ID]})),null,2));
+}
