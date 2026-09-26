@@ -1,37 +1,116 @@
 {
-  "version": "0.13.26",
-  "scope": "combat UI/store hotfix + priority 9 regional enhancement",
-  "checks": {
-    "modifiedJavascriptSyntax": "13/13",
-    "enemyInfoButton": "direct modal",
-    "globalEnemyIntelArea": "removed",
-    "bunnyGenericCue": "removed",
-    "enemySkillInstallCollision": "existing DB wins",
-    "combatCardOverlap": "grid layout",
-    "craftOutputIcons": "enabled",
-    "regionalEnhancement": "Liyue enabled",
-    "legacyEnhanceUI": "removed"
-  },
-  "liveSheet": {
-    "mondEquipmentBase": {
-      "basicWeapon": 3,
-      "catalystAccessory": 5,
-      "armor": 2
+  "version": "0.13.27",
+  "total": 13,
+  "passed": 13,
+  "results": [
+    {
+      "name": "enemy skill install no longer blocks smith purchase",
+      "ok": true,
+      "evidence": {
+        "stocks": 40,
+        "cost": 40
+      }
     },
-    "liyueEquipmentBase": {
-      "basicWeapon": 1,
-      "catalystAccessory": 1,
-      "armor": 1,
-      "material": 1
+    {
+      "name": "Mond smith exposes exact nonempty equipment categories",
+      "ok": true,
+      "evidence": {
+        "활": 4,
+        "법구": 5,
+        "방어구": 3,
+        "장신구": 4,
+        "한손검": 6,
+        "양손검": 5,
+        "장병기": 6,
+        "특수": 1
+      }
     },
-    "enhanceAllowedEncoding": "TRUE; runtime yes() accepts TRUE/Y/true"
-  },
-  "regression": [
-    "v0.13.25 Azhdaha runtime retained",
-    "Azhdaha place test expectation updated from unsupported to executable"
-  ],
-  "limitations": [
-    "No real browser pixel screenshot automation was available in this connector session; uploaded screenshots were used to identify the DOM/CSS failures and the exact rendering paths were changed.",
-    "Google Sheet was read only."
+    {
+      "name": "smith purchase equip unequip and sell roundtrip stays in equipment domain",
+      "ok": true,
+      "evidence": {
+        "purchase": 40,
+        "sale": 10
+      }
+    },
+    {
+      "name": "Liyue smith uses new regional enhancement",
+      "ok": true,
+      "evidence": {
+        "basis": "CRPG_REGIONAL_ENHANCEMENT_V2",
+        "target": 1
+      }
+    },
+    {
+      "name": "Liyue smith completes +10 ascend +11 +12 and survives travel/save",
+      "ok": true,
+      "evidence": {
+        "level": 12,
+        "cap": 12,
+        "map": "MAP_MOND_CITY"
+      }
+    },
+    {
+      "name": "Azhdaha authored repeat Y stays enterable after clear flag",
+      "ok": true,
+      "evidence": {
+        "repeat": "Y",
+        "group": "EG_BOSS_AZHDAHA"
+      }
+    },
+    {
+      "name": "Azhdaha direct victory writes clear flag and gauntlet starts authored prelim",
+      "ok": true,
+      "evidence": {
+        "clearFlag": "FLAG_BOSS_AZHDAHA_CLEAR",
+        "gauntletFirst": "EG_LIYUE_VISHAP",
+        "steps": [
+          "EG_LIYUE_VISHAP",
+          "EG_LIYUE_RUIN",
+          "EG_BOSS_AZHDAHA"
+        ]
+      }
+    },
+    {
+      "name": "Azhdaha phases immunity converter and save state execute at runtime",
+      "ok": true,
+      "evidence": {
+        "elements": [
+          "ELECTRO",
+          "HYDRO"
+        ],
+        "phase": 3,
+        "neutralOnce": true
+      }
+    },
+    {
+      "name": "Azhdaha Zhongli contract keeps debuff after Zhongli KO while releasing center lock",
+      "ok": true,
+      "evidence": {
+        "atk": 123.25,
+        "def": 114.75,
+        "released": true
+      }
+    },
+    {
+      "name": "Azhdaha v0.13.25 remains executable",
+      "ok": true,
+      "evidence": "EG_BOSS_AZHDAHA"
+    },
+    {
+      "name": "combat UI source has only per-enemy info buttons",
+      "ok": true,
+      "evidence": true
+    },
+    {
+      "name": "market filter source supports broad and exact equipment views",
+      "ok": true,
+      "evidence": true
+    },
+    {
+      "name": "craft results use item icons",
+      "ok": true,
+      "evidence": true
+    }
   ]
 }
