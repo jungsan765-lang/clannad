@@ -15,5 +15,27 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Audit current Liyue encounter inputs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow
+      - run: npm ci
+      - name: Audit previous Liyue encounter inputs
         run: node tools/audit_step11_inputs.cjs
+      - name: Step 11 Liyue encounter regressions
+        run: node tools/test_gameplay_step11_encounters.cjs
+      - name: Preserve Liyue level and recruitment behavior
+        run: node tools/test_gameplay_step5.cjs
+      - name: Preserve Liyue enemy skill behavior
+        run: node tools/test_gameplay_step6_plus.cjs
+      - name: Preserve step 10 artifact farming
+        run: node tools/test_gameplay_step10_artifacts.cjs
+      - name: Preserve step 9 hotfixes
+        run: node tools/test_gameplay_step9_hotfix.cjs
+      - name: Build production pack
+        run: python tools/build.py
+      - name: Verify built encounter module
+        run: |
+          test -f dist/runtime_liyue_encounters.js
+          grep -q "runtime_liyue_encounters.js?v=" dist/index.html
+          node -e "const p=require('./package.json'); if(p.version!=='0.13.29') process.exit(1)"
