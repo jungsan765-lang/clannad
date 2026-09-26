@@ -57,10 +57,11 @@ P.apply=function(a){
 // Enemies used to hit the lowest-HP ally every time, locking onto whoever was hurt first.
 // Now the first target is a weighted random pick: wounded allies are a little likelier,
 // the one it just hit is less likely. Taunts, decoys and scripted bosses still run inside.
+// v0.13.33: the enemy's target rule (front/back row, snipers) and aggro/stealth gear also weigh in.
 P.aiTurn=function(a,targets){
  const alive=Array.isArray(targets)?targets.filter(t=>t&&t.hp>0):[];
  if(a?.side!=='ENEMY'||alive.length<2||(a.statuses||[]).some(s=>/TAUNT/.test(s.id)))return old.aiTurn.call(this,a,targets);
- const weight=t=>(1+CONFIG.woundedTargetBonus*(1-Math.max(0,t.hp)/Math.max(1,t.maxHp)))*(t.id===a.lastTargetId?CONFIG.repeatTargetWeight:1);
+ const weight=t=>(1+CONFIG.woundedTargetBonus*(1-Math.max(0,t.hp)/Math.max(1,t.maxHp)))*(t.id===a.lastTargetId?CONFIG.repeatTargetWeight:1)*(this.enemyTargetWeight?this.enemyTargetWeight(a,t,alive):1);
  let roll=this.random()*alive.reduce((n,t)=>n+weight(t),0),pick=alive[alive.length-1];
  for(const t of alive){roll-=weight(t);if(roll<0){pick=t;break;}}
  a.lastTargetId=pick.id;

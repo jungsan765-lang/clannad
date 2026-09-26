@@ -359,3 +359,33 @@ nav button[data-screen=LOCATION]{border-color:#477f8b;background:#183b46}nav but
 .forge-blocked{margin-top:12px}
 .forge-blocked ul{margin:6px 0 0;padding-left:1.2rem;font-size:.85rem;color:var(--muted)}
 @media(max-width:640px){.forge-row{grid-template-columns:40px minmax(0,1fr)}.forge-actions{grid-column:1/-1;justify-content:flex-end}}
+/* v0.13.33 equipment traits, battle line, hazards */
+.gear-traits{margin:6px 0 0;padding-left:1.1rem;color:var(--green)}
+.gear-traits li{margin:2px 0}
+.gear-traits li.innate{color:var(--muted)}
+.gear-trait-chips{display:flex;flex-wrap:wrap;gap:5px;margin:0;padding:0;list-style:none}
+.gear-trait-chips li{font-size:.74rem;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);cursor:help}
+.gear-trait-chips li.trait-환경{border-color:#4f8f84;color:var(--green)}
+.gear-trait-chips li.trait-공략{border-color:#9a7a4a;color:var(--gold)}
+.gear-trait-chips li.trait-방어{border-color:#5f6f9a;color:#b8c4ee}
+.gear-trait-line{color:var(--green)}
+.formation-line{margin:0 0 16px}
+.formation-order{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.formation-row{display:grid;grid-template-columns:30px 44px minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:10px;align-items:center;padding:6px 10px;border:1px solid var(--line);border-radius:10px;background:#0f232a}
+.formation-row.front{border-left:3px solid #c98b5b}
+.formation-row.back{border-left:3px solid #5b8fc9}
+.formation-row .formation-pos{grid-row:1/3;font-size:1.2rem;font-weight:700;color:var(--gold);text-align:center}
+.formation-row .party-portrait{grid-row:1/3;width:44px;height:44px;border-radius:10px;object-fit:cover;object-position:top}
+.formation-row strong{grid-column:3}
+.formation-row small{grid-column:3}
+.formation-moves{grid-column:4;grid-row:1/3;display:flex;gap:6px}
+.formation-moves button{margin:0;min-width:40px;min-height:38px}
+.battle-position{display:inline-block;align-self:flex-start;width:max-content;font-size:.72rem;padding:1px 7px;border-radius:999px;margin:2px 0}
+.battle-position.front{background:#3a2a1f;color:#f0c79d}
+.battle-position.back{background:#1f2c3a;color:#a9c8ef}
+.battle-hazards{margin:10px 0;padding:10px 12px;border:1px solid #6b4640;border-radius:10px;background:#231a1c}
+.battle-hazards h2{font-size:.95rem;margin:0 0 6px}
+.battle-hazards .hazard{display:flex;flex-wrap:wrap;gap:4px 10px;margin:4px 0;font-size:.85rem}
+.battle-hazards .hazard strong{color:#ffb4a8}
+.battle-hazards .hazard.pending strong{color:var(--gold)}
+@media(max-width:640px){.formation-row{grid-template-columns:26px 36px minmax(0,1fr) auto}.formation-row .party-portrait{width:36px;height:36px}}
