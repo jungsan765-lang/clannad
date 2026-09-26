@@ -1,0 +1,46 @@
+name: CRPG v0.13.31 Apply Story Text
+
+on:
+  push:
+    branches:
+      - feat/crpg-v01331-step12-0-12-1
+    paths:
+      - "genshin-crpg/tools/apply_v01331_story_text.py"
+      - "genshin-crpg/tools/test_v01331_story_text.cjs"
+      - ".github/workflows/crpg-v01331-apply.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/crpg-v01331-step12-0-12-1
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Apply traveler story text cleanup
+        working-directory: genshin-crpg
+        run: python tools/apply_v01331_story_text.py
+      - name: Validate cleaned story text
+        working-directory: genshin-crpg
+        run: node tools/test_v01331_story_text.cjs
+      - name: Commit canonical content changes
+        run: |
+          git config user.name "crpg-story-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add genshin-crpg/content/db.json genshin-crpg/reports/v01331_step12_0/story-text-changes.json
+          if git diff --cached --quiet; then
+            echo "Story content already current."
+            exit 0
+          fi
+          git commit -m "[v01331-data] clean traveler story prose"
+          git push origin HEAD:feat/crpg-v01331-step12-0-12-1
