@@ -10,6 +10,7 @@ on:
       - "genshin-crpg/package.json"
       - "genshin-crpg/package-lock.json"
       - "genshin-crpg/tools/build.py"
+      - "genshin-crpg/tests/test_quality_fixes_v01335.cjs"
       - ".github/workflows/crpg-sync-dist.yml"
   workflow_dispatch:
 
