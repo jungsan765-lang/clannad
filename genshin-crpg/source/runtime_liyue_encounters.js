@@ -51,7 +51,7 @@ const MAPS={
  MAP_LY_DETAIL_DUNYU:{biome:'수몰 유적',note:'유적 기계 비중이 가장 높고 원거리 도굴대가 바깥을 점유한다.',enc:[['RUIN_TWIN',20],['RUIN_SENTINEL',25],['TREASURE_SNIPER',30],['HILI_ARCHERS',25]]},
  MAP_LY_DETAIL_LINGJU:{biome:'관문 폐허',note:'도굴 돌격대와 방패 전열이 관문을 차지하고 유적 기계가 섞인다.',enc:[['TREASURE_SWARM',30],['HILI_FRONT',30],['RUIN_SENTINEL',25],['VISHAP_PAIR',15]]},
  MAP_LY_DETAIL_QINGXU:{biome:'석조 폐허',note:'유적 기계와 혼성 방패대가 주력이고 도굴대는 후열 사격 위주다.',enc:[['RUIN_SENTINEL',35],['HILI_ESCORT',30],['TREASURE_SNIPER',20],['VISHAP_PAIR',15]]},
- MAP_LY_DETAIL_TIANHENG:{biome:'항구 전망 산길',note:'항구 가까운 개활 산길이라 원거리 도굴대와 궁수 비중이 높다.',enc:[['TREASURE_SNIPER',35],['HILI_ARCHERS',30],['TREASURE_PYRO',20],['VISHAP_PAIR',15]]},
+ MAP_LY_DETAIL_TIANHENG:{biome:'항구 전망 산길',note:'항구 가까운 개활 산길이라 원거리 도굴대와 궁수 비중이 높다.',enc:[['TREASURE_SNIPER',30],['HILI_ARCHERS',35],['TREASURE_PYRO',20],['VISHAP_PAIR',15]]},
  MAP_LY_DETAIL_GUYUN:{biome:'해상 섬·유적',note:'고립된 섬의 유적 기계와 용 도마뱀 비중을 높였다.',enc:[['RUIN_TWIN',25],['VISHAP_PACK',30],['HILI_ARCHERS',25],['TREASURE_SNIPER',20]]},
  MAP_LY_DETAIL_CHASM_GATE:{biome:'광구 진입로',note:'광구 입구의 도굴대와 유적 기계, 방패대가 서로 다른 역할로 등장한다.',enc:[['TREASURE_PYRO',25],['RUIN_SENTINEL',30],['HILI_FRONT',25],['VISHAP_PAIR',20]]},
  MAP_LY_DETAIL_CHASM_RIM:{biome:'지상 광구 가장자리',note:'광구 깊숙한 가장자리라 유적 기계와 용 도마뱀 비중을 높였다.',enc:[['RUIN_TWIN',30],['VISHAP_PACK',25],['TREASURE_SWARM',25],['HILI_ESCORT',20]]}
