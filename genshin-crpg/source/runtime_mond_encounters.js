@@ -83,12 +83,6 @@ const CONFIG={
     "MON_SLIME_LARGE_HYDRO",
     "MON_SLIME_LARGE_PYRO",
     "MON_SLIME_PYRO",
-    "MON_TH_CRUSHER",
-    "MON_TH_HANDYMAN",
-    "MON_TH_MARKSMAN",
-    "MON_TH_POTION_CRYO",
-    "MON_TH_POTION_PYRO",
-    "MON_TH_SCOUT",
     "MON_WHOPPER_CRYO",
     "MON_WHOPPER_PYRO"
   ],
@@ -138,19 +132,11 @@ const CONFIG={
         ]
       ]
     },
-    "TH_SCOUT": {
-      "name": "보물 사냥단 정찰조",
+    "HILI_SCOUT": {
+      "name": "츄츄족 정찰조",
       "members": [
-        [
-          "MON_TH_SCOUT",
-          1,
-          2
-        ],
-        [
-          "MON_TH_MARKSMAN",
-          1,
-          1
-        ]
+        ["MON_HILI_FIGHTER",1,2],
+        ["MON_HILI_SHOOTER",1,2]
       ]
     },
     "WOOD_SLIME": {
@@ -208,24 +194,12 @@ const CONFIG={
         ]
       ]
     },
-    "WOOD_THIEVES": {
-      "name": "숲속 보물 사냥단",
+    "WOOD_GRENADIERS": {
+      "name": "숲길의 화염 투척대",
       "members": [
-        [
-          "MON_TH_SCOUT",
-          1,
-          1
-        ],
-        [
-          "MON_TH_POTION_PYRO",
-          1,
-          1
-        ],
-        [
-          "MON_TH_HANDYMAN",
-          1,
-          2
-        ]
+        ["MON_HILI_GRENADIER",1,1],
+        ["MON_HILI_PYRO_SHOOTER",1,1],
+        ["MON_HILI_FIGHTER",1,2]
       ]
     },
     "HIGHLAND_SLIME": {
@@ -593,24 +567,12 @@ const CONFIG={
         ]
       ]
     },
-    "SNOW_THIEVES": {
-      "name": "설산의 보물 사냥단",
+    "SNOW_HILI_SCOUT": {
+      "name": "설산의 츄츄족 정찰대",
       "members": [
-        [
-          "MON_TH_POTION_CRYO",
-          1,
-          1
-        ],
-        [
-          "MON_TH_CRUSHER",
-          1,
-          1
-        ],
-        [
-          "MON_TH_MARKSMAN",
-          1,
-          1
-        ]
+        ["MON_HILI_CRYO_SHOOTER",1,2],
+        ["MON_SAMACHURL_CRYO",1,1],
+        ["MON_HILI_FIGHTER",1,1]
       ]
     },
     "SNOW_GUARD": {
@@ -841,7 +803,7 @@ const CONFIG={
           "weight": 30
         },
         {
-          "template": "TH_SCOUT",
+          "template": "HILI_SCOUT",
           "weight": 10
         }
       ]
@@ -867,7 +829,7 @@ const CONFIG={
           "weight": 25
         },
         {
-          "template": "WOOD_THIEVES",
+          "template": "WOOD_GRENADIERS",
           "weight": 15
         }
       ]
@@ -919,7 +881,7 @@ const CONFIG={
           "weight": 20
         },
         {
-          "template": "TH_SCOUT",
+          "template": "HILI_SCOUT",
           "weight": 10
         }
       ]
@@ -1257,7 +1219,7 @@ const CONFIG={
           "weight": 25
         },
         {
-          "template": "SNOW_THIEVES",
+          "template": "SNOW_HILI_SCOUT",
           "weight": 20
         }
       ]
@@ -1279,7 +1241,7 @@ const CONFIG={
           "weight": 30
         },
         {
-          "template": "SNOW_THIEVES",
+          "template": "SNOW_HILI_SCOUT",
           "weight": 25
         },
         {
