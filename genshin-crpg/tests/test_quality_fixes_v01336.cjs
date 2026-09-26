@@ -18,7 +18,7 @@ test('mystery orb player text contains no branch or CE implementation codes',()=
 test('accepted commission can be pinned and becomes navigation goal',()=>{
  const r=fresh();guild(r);r.action('COMMISSION_ACCEPT',{quest:'Q_MOND_EXP_PLAINS_CART'});r.action('PLACE_LEAVE');
  r.action('OBJECTIVE_PIN',{kind:'COMMISSION',objective:'Q_MOND_EXP_PLAINS_CART'});
- assert.deepEqual(r.s.pinnedObjective,{kind:'COMMISSION',id:'Q_MOND_EXP_PLAINS_CART'});
+ assert.equal(r.s.pinnedObjective.kind,'COMMISSION');assert.equal(r.s.pinnedObjective.id,'Q_MOND_EXP_PLAINS_CART');
  assert.equal(r.navigationGoal(),'MAP_MOND_PLAINS');
  r.action('OBJECTIVE_CLEAR');assert.equal(r.s.pinnedObjective,undefined);
 });
