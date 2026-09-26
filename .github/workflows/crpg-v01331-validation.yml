@@ -28,6 +28,8 @@ jobs:
         run: node tools/test_v01331_step12_2a.cjs
       - name: Step 12-2B/C combat and weapon rules
         run: node tools/test_v01331_step12_2bc.cjs
+      - name: Step 12-2D/E/F timed economy and Liyue gear
+        run: node tools/test_v01331_step12_2def.cjs
       - name: Existing story regression
         run: node tests/test_story_v09.cjs
       - name: Story flow regression
