@@ -12,6 +12,7 @@ on:
       - "genshin-crpg/tools/build.py"
       - "genshin-crpg/tests/test_quality_fixes_v01335.cjs"
       - "genshin-crpg/tests/test_quality_fixes_v01336.cjs"
+      - "genshin-crpg/tests/test_quality_fixes_v01337.cjs"
       - ".github/workflows/crpg-sync-dist.yml"
   workflow_dispatch:
 
@@ -44,6 +45,9 @@ jobs:
       - name: Quality fixes v0.13.36 regression
         working-directory: genshin-crpg
         run: node tests/test_quality_fixes_v01336.cjs
+      - name: Quality fixes v0.13.37 regression
+        working-directory: genshin-crpg
+        run: node tests/test_quality_fixes_v01337.cjs
       - name: Build production static pack
         working-directory: genshin-crpg
         run: python tools/build.py
