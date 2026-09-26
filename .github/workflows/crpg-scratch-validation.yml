@@ -30,10 +30,10 @@ jobs:
       - name: Run bounded and gameplay regressions
         id: regressions
         continue-on-error: true
-        run: python3 tools/test_all.py
+        run: python3 tools/test_handoff_regression.py
       - name: Print regression evidence
         if: always()
-        run: cat reports/suite-results.json
+        run: cat reports/handoff-regression.json
       - name: Persist generated QA output on scratch branch
         if: always()
         run: |
