@@ -14,11 +14,15 @@ function artifactLine(inv){const a=inv?.artifact;if(!a)return '';const st=game.a
 function tooltip(inv,d){
  const tip=el('div','gear-tip');tip.setAttribute('role','tooltip');tip.append(el('strong','',itemLabel(inv,d)),el('small','muted',d.category+(d.minimumLevel?' · 장착 Lv. '+d.minimumLevel+' 이상':'')));
  const stats=(d.stats||[]).map(s=>s.label+' '+(s.value>=0?'+':'')+fmt(s.value)+(s.unit||'')).join(' · ');if(stats)tip.append(el('p','gear-tip-stats',stats));
- const art=artifactLine(inv);if(art)tip.append(el('p','gear-tip-stats',art));if(d.effect&&d.effect!=='없음')tip.append(el('p','',d.effect));
+ const art=artifactLine(inv);if(art)tip.append(el('p','gear-tip-stats',art));
+ const traits=traitLines(inv);if(traits.length){const list=el('ul','gear-traits');for(const t of traits)list.append(el('li',t.innate?'innate':'',t.text));tip.append(list);}else if(d.effect&&d.effect!=='없음')tip.append(el('p','',d.effect));
  if(inv.equipped)tip.append(el('small','muted',ownerName(inv.owner)+' 장착 중'));return tip;
 }
+// Battle traits (v0.13.33) replace the flavour text when an item has them.
+function traitLines(inv){return game.gearTraitLines?game.gearTraitLines(inv.equip):[];}
+function traitShort(inv){return traitLines(inv).filter(t=>!t.innate).map(t=>t.label).join(' · ');}
 // Touch screens have no hover, so the picker also prints the effect under the name there.
-function effectNote(inv,d){const text=[artifactLine(inv),d.effect&&d.effect!=='없음'?d.effect:''].filter(Boolean).join(' · ');return text?el('small','gear-effect',text):'';}
+function effectNote(inv,d){const traits=traitLines(inv).map(t=>t.text).join(' · '),text=[artifactLine(inv),traits||(d.effect&&d.effect!=='없음'?d.effect:'')].filter(Boolean).join(' · ');return text?el('small','gear-effect',text):'';}
 function deltaLine(before,after){return STATS.map(([label,key,unit])=>{const d=Math.round(((after?.[key]||0)-(before?.[key]||0))*10)/10;return d?label+' '+(d>0?'+':'')+fmt(d)+unit:'';}).filter(Boolean).join(' · ');}
 function memberCard(id){
  const growth=game.growth(id),actor=game.s.runtime?.actors.find(a=>a.source===id)||(id==='PLAYER_CUSTOM'?game.player():game.character(id)),bonus=game.equipmentContribution?.(id)?.bonus||{};
@@ -34,7 +38,9 @@ function memberCard(id){
  }
  card.append(slots);
  const stats=el('dl','gear-stats');for(const [label,key,unit]of STATS){const dd=el('dd','',fmt(actor[key])+unit),plus=Math.round((bonus[key]||0)*10)/10;if(plus)dd.append(el('span',plus>0?'stat-up':'stat-down',' '+(plus>0?'+':'')+fmt(plus)));stats.append(el('dt','',label),dd);}
- card.append(stats);return card;
+ card.append(stats);
+ const summary=game.traitSummary?.(id)||[];if(summary.length){const chips=el('ul','gear-trait-chips');chips.setAttribute('aria-label','장비 특성');for(const t of summary){const chip=el('li','trait-'+(t.group||''),t.label);chip.title=t.text;chips.append(chip);}card.append(chips);}
+ return card;
 }
 function openPicker(owner,category){
  const label=SLOTS.find(s=>s[0]===category)[1],current=inSlot(owner,category),box=el('div','gear-picker'),close=()=>document.getElementById('modal').close();
@@ -47,6 +53,7 @@ function openPicker(owner,category){
  for(const o of options){
   const cell=el('div','gear-cell'),row=el('div','gear-option'+(o.reason?' blocked':'')),copy=el('div','gear-option-copy');
   copy.append(el('strong','',itemLabel(o.inv,o.d)),el('small','muted',o.inv.equipped?ownerName(o.inv.owner)+' 장착 중 · 옮겨서 장착':'보관 중'));
+  const short=traitShort(o.inv);if(short)copy.append(el('small','gear-trait-line','특성 · '+short));
   if(!o.preview.reason){const delta=deltaLine(o.preview.before,o.preview.after);copy.append(el('small','gear-delta',delta||'능력치 변화 없음'));}
   copy.append(effectNote(o.inv,o.d));if(o.reason)copy.append(el('small','choice-note',o.reason));
   row.append(itemGlyph(o.d),copy,button('장착',()=>{close();act('EQUIP',{slot:o.inv.slot,owner});},busy||!!o.reason,true));cell.append(row,tooltip(o.inv,o.d));list.append(cell);
@@ -64,7 +71,7 @@ function books(p){
 growthScreen=function(p){
  p.classList.add('gear-screen');p.append(el('div','eyebrow','EQUIPMENT'),el('h1','','장비 장착'),el('p','muted','편성된 파티원의 장비와 능력치입니다. 칸을 누르면 장비를 바꾸고'+(canHover()?', 마우스를 올리면 효과가 보입니다.':' 효과를 확인할 수 있습니다.')+' 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
  const locked=game.actionReason('EQUIP');if(locked)p.append(el('p','phase-note','지금은 장비를 확인만 할 수 있습니다. '+locked));
- const grid=el('div','gear-members');for(const id of game.s.party.filter(x=>x.active).map(x=>x.source))grid.append(memberCard(id));p.append(grid);
+ const grid=el('div','gear-members');for(const id of (game.formationOrder?game.formationOrder():game.s.party.filter(x=>x.active).map(x=>x.source)))grid.append(memberCard(id));p.append(grid);
  books(p);
  const links=el('div','row gear-links');links.append(actionButton('편성 바꾸기','MENU',{screen:'PARTY'}));if(window.openEquipmentHelp)links.append(button('장비 사용법',()=>window.openEquipmentHelp()));p.append(links);
  p.append(actionButton(game.s.runtime?'전투로 돌아가기':'이야기로 돌아가기','MENU',{screen:game.s.runtime&&!game.s.runtime.interlude?'COMBAT':'STORY'},true));

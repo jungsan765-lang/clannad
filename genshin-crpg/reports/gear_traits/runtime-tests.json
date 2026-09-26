@@ -1,0 +1,137 @@
+{
+  "version": "0.13.33",
+  "runtimeDir": "source",
+  "scope": "equipment traits, battle line, enemy target rules, hazards, weapon classes",
+  "checks": [
+    {
+      "name": "Liyue companions can hold their official weapon class",
+      "passed": true,
+      "evidence": {
+        "covered": 23
+      }
+    },
+    {
+      "name": "traits add up from worn gear and the weapon class, with caps and readable lines",
+      "passed": true,
+      "evidence": {
+        "traits": {
+          "COLD": 60,
+          "CONTROL_RES": 20,
+          "STAGGER_RES": 100,
+          "STACK_ATK": 3,
+          "HEAVY": 6,
+          "ARMOR_BREAK": 25
+        }
+      }
+    },
+    {
+      "name": "battle line order is saved, validated and decides positions and slot bonuses",
+      "passed": true,
+      "evidence": {
+        "MOND_LISA": 1,
+        "MOND_AMBER": 2,
+        "MOND_NOELLE": 3,
+        "PLAYER_CUSTOM": 4
+      }
+    },
+    {
+      "name": "leaving and joining members keep the line consistent",
+      "passed": true,
+      "evidence": [
+        "MOND_AMBER",
+        "PLAYER_CUSTOM",
+        "MOND_LISA"
+      ]
+    },
+    {
+      "name": "enemy target rules weigh the front row, back row, lead, tail and snipers; gear adds aggro or stealth",
+      "passed": true,
+      "evidence": {
+        "front": {
+          "1": 2.2,
+          "2": 2.2,
+          "3": 0.45,
+          "4": 0.34
+        },
+        "back": {
+          "1": 0.6,
+          "2": 0.6,
+          "3": 1.9,
+          "4": 1.42
+        }
+      }
+    },
+    {
+      "name": "the weighted pick favours the front row against a melee enemy",
+      "passed": true,
+      "evidence": {
+        "1": 83,
+        "2": 83,
+        "3": 17,
+        "4": 17
+      }
+    },
+    {
+      "name": "an adjacent ally with a shield or cover gear takes single-target hits, never area ones",
+      "passed": true,
+      "evidence": {
+        "covered": 30,
+        "of": 60
+      }
+    },
+    {
+      "name": "hazards hurt the chosen rows each round end, shields absorb them and matching gear mitigates",
+      "passed": true,
+      "evidence": {
+        "frost": {
+          "amber": 180,
+          "noelle": 172
+        }
+      }
+    },
+    {
+      "name": "offensive traits: slayer, aura hunter, anti-air, armour break, weak point, element boost, first strike",
+      "passed": true,
+      "evidence": {
+        "ok": true
+      }
+    },
+    {
+      "name": "defensive traits: element resistance, heavy armour, first guard, stagger and control resistance, heal and shield boosts",
+      "passed": true,
+      "evidence": {
+        "controlResisted": 21,
+        "of": 200
+      }
+    },
+    {
+      "name": "on-hit traits: stacking attack, extra physical hits, kill heal and high-HP crit",
+      "passed": true,
+      "evidence": {
+        "stack": 3
+      }
+    },
+    {
+      "name": "the Isekai protagonist reaches as far as the weapon class; the Traveler stays a swordsman",
+      "passed": true,
+      "evidence": {
+        "EQ_BOW_SLINGSHOT": "원거리",
+        "EQ_CATALYST_MAGIC_GUIDE": "중거리",
+        "EQ_POLEARM_WHITE_TASSEL": "중거리",
+        "EQ_CLAYMORE_DEBATE": "근접"
+      }
+    },
+    {
+      "name": "air access gear lets melee strike airborne enemies",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "UI wiring: gear traits, battle line editor, hazard panel (source)",
+      "passed": true,
+      "evidence": null
+    }
+  ],
+  "total": 14,
+  "passed": 14
+}
