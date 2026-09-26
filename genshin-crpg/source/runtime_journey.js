@@ -77,7 +77,7 @@ P.actionReason=function(type,a={}){
 P.apply=function(a){
  if(a.type==='PREP_LEAVE'){
   const pending=this.s.battlePreparation||this.s.storyRecovery,node=pending.node,map=this.storyNode()?.[8]||this.s.global.CURRENT_MAP_ID;
-  this.s.storyBreak={node,next:node,map,title:'결전 준비',prompt:'길드 훈련, 장비, 식사를 준비한 뒤 이 장소로 돌아오세요.',policy:this.s.global.STORY_MENU_POLICY||''};delete this.s.battlePreparation;delete this.s.storyRecovery;delete this.s.storyBattleCheckpoint;Object.assign(this.s.global,{STORY_WAITING:true,STORY_MENU_POLICY:'',SCREEN_MODE:'LOCATION'});return {preparationPaused:true};
+  this.s.storyBreak={node,next:node,map,title:'결전 준비',prompt:'장비, 식사, 편성을 준비한 뒤 이 장소로 돌아오세요.',policy:this.s.global.STORY_MENU_POLICY||''};delete this.s.battlePreparation;delete this.s.storyRecovery;delete this.s.storyBattleCheckpoint;Object.assign(this.s.global,{STORY_WAITING:true,STORY_MENU_POLICY:'',SCREEN_MODE:'LOCATION'});return {preparationPaused:true};
  }
  if(a.type==='STORY_RIDE'){const j=this.s.storyJourney,map=this.row('32_MAP_DB',j.target);this.advanceTime(j.minutes);Object.assign(this.s.global,{CURRENT_MAP_ID:j.target,LOCATION:map[2],LOCATION_PROFILE:map[5],SCREEN_MODE:'LOCATION'});this.ensureExplorationState();return {travel:true,ride:true,map:j.target};}
  if(a.type==='JOURNEY_RESUME'){
