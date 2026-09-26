@@ -1,13 +1,13 @@
 /* Item-grid shopping and exact-instance selling share the inventory presentation. */
 let marketMode='BUY',marketCategory='전체',marketSelection=null,marketPlace=null,marketAvailable=false,marketOwner='PLAYER_CUSTOM';
 function marketItems(){
- if(marketMode==='BUY')return game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')).map(s=>({key:s.row[0],stock:s,d:shopStockDetail(s.row),group:shopStockGroup(s.row),reason:s.reason,quantity:s.remaining,price:Number(s.row[5])}));
+ if(marketMode==='BUY')return game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')).map(s=>({key:s.row[0],stock:s,d:shopStockDetail(s.row),group:shopStockGroup(s.row),groups:shopStockGroups(s.row),reason:s.reason,quantity:s.remaining,price:Number(s.row[5])}));
  const entries=[];
  for(const inv of game.s.inventory.filter(i=>i.equip||i.item&&i.quantity>0)){
   const special=inv.item?game.s.specialFoodLots?.[inv.item]?.BARBARA_SPECIAL||0:0;
   for(const [variant,quantity]of inv.equip?[['NORMAL',1]]:[['NORMAL',inv.quantity-special],['BARBARA_SPECIAL',special]]){
    if(quantity<=0)continue;const args={slot:inv.slot,quantity:1,variant,instanceRevision:inv.instanceRevision||0},d=itemPresenter.itemDetail(inv,{quantity,variant:variant==='NORMAL'?undefined:variant});
-   entries.push({key:inv.slot+':'+variant,inv,args,d,group:d.group,quantity,price:game.saleUnitPrice(inv),reason:game.actionReason('SELL',args)});
+   const groups=inv.equip?shopStockGroups(['','','EQUIP',inv.equip]):[d.group];entries.push({key:inv.slot+':'+variant,inv,args,d,group:groups[0],groups,quantity,price:game.saleUnitPrice(inv),reason:game.actionReason('SELL',args)});
   }
  }return entries;
 }
@@ -45,8 +45,8 @@ shop=function(p,v){
  if(marketPlace!==entry.id){marketPlace=entry.id;marketMode='BUY';marketCategory='전체';marketSelection=null;marketAvailable=false;}
  const tabs=el('div','row market-tabs');for(const [mode,title]of [['BUY','구매'],['SELL','판매']]){const b=button(title,()=>{marketMode=mode;marketCategory='전체';marketSelection=null;render();});b.classList.toggle('selected',marketMode===mode);b.setAttribute('aria-pressed',String(marketMode===mode));tabs.append(b);}tabs.append(el('strong','shop-balance','보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라'));p.append(tabs);
  const all=marketItems(),filter=el('div','market-filter');if(marketMode==='BUY'){const label=el('label','row'),check=el('input');check.type='checkbox';check.checked=marketAvailable;check.onchange=()=>{marketAvailable=check.checked;marketSelection=null;render();};label.append(check,el('span','','지금 구매 가능한 상품만'));filter.append(label);}
- const preferred=['기본 무기','단조 무기','방어구','법구·장신구','제작 재료','음식','소모품','제작법','기타','장비','재료','퀘스트/핵심'],present=new Set(all.map(e=>e.group)),categories=['전체',...preferred.filter(x=>present.has(x)),...[...present].filter(x=>!preferred.includes(x))];if(!categories.includes(marketCategory))marketCategory='전체';for(const category of categories){const count=category==='전체'?all.length:all.filter(e=>e.group===category).length,b=button(category+' · '+count,()=>{marketCategory=category;marketSelection=null;render();});b.dataset.marketCategory=category;b.classList.toggle('selected',category===marketCategory);filter.append(b);}p.append(filter);
- const entries=all.filter(e=>(marketCategory==='전체'||e.group===marketCategory)&&!(marketMode==='BUY'&&marketAvailable&&e.reason)).sort((a,b)=>Number(!!a.reason)-Number(!!b.reason)||a.price-b.price);
+ const preferred=['기본 무기','한손검','양손검','장병기','활','법구','방어구','장신구','특수','단조 무기','제작 재료','음식','소모품','제작법','기타','장비','재료','퀘스트/핵심'],entryGroups=e=>e.groups?.length?e.groups:[e.group],present=new Set(all.flatMap(entryGroups)),categories=['전체',...preferred.filter(x=>present.has(x)),...[...present].filter(x=>!preferred.includes(x))];if(!categories.includes(marketCategory))marketCategory='전체';for(const category of categories){const count=category==='전체'?all.length:all.filter(e=>entryGroups(e).includes(category)).length,b=button(category+' · '+count,()=>{marketCategory=category;marketSelection=null;render();});b.dataset.marketCategory=category;b.classList.toggle('selected',category===marketCategory);filter.append(b);}p.append(filter);
+ const entries=all.filter(e=>(marketCategory==='전체'||entryGroups(e).includes(marketCategory))&&!(marketMode==='BUY'&&marketAvailable&&e.reason)).sort((a,b)=>Number(!!a.reason)-Number(!!b.reason)||a.price-b.price);
  if(!entries.some(e=>e.key===marketSelection))marketSelection=entries[0]?.key||null;
  p.append(el('p','muted',marketMode==='BUY'?'상품을 선택하면 효과와 장착 후 능력치를 비교할 수 있습니다.':'장착·준비 중인 장비와 임무 핵심 물품은 판매할 수 없습니다.'));
  const layout=el('div','market-layout'),grid=el('div','market-grid'),detail=el('section','card market-detail');
