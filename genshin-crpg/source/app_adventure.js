@@ -72,7 +72,9 @@ function materialSources(parent,id){
  if(['ORE_IRON','ORE_WHITE_IRON','ORE_CRYSTAL'].includes(id))parent.append(el('small','material-source','광맥이 있는 야외 구역 → 메인 화면 → 채광'));
 }
 journalEntry=function(parent,entry){
- const d=entry.definition||{},c=el('section','card personal-objective');c.append(el('small','','개인 임무'),el('h3','',game.tables['22_QUEST_DB'].get(d.QUEST_ID)?.[1]||entry.title));if(d.MAP_ID)travelGuide(c,d.MAP_ID);
+ const d=entry.definition||{},c=el('section','card personal-objective');c.append(el('small','','개인 임무'),el('h3','',game.tables['22_QUEST_DB'].get(d.QUEST_ID)?.[1]||entry.title));
+ const state=CRPGJournalPresenter.progress(game,entry);if(state.status==='active'){c.append(el('p','journal-status','진행 중'));journalContinue(c,state);parent.append(c);return;}
+ if(d.MAP_ID)travelGuide(c,d.MAP_ID);
  const costs=parseUI(d.COST_ITEMS_JSON),mora=Number(d.COST_MORA||0);if(game.s.storyCostReceipts?.[d.QUEST_ID])c.append(el('p','muted','준비물을 전달하고 수락한 임무입니다.'));else if(mora||Object.keys(costs).length){c.append(el('h4','','수락 준비물'));if(mora)c.append(el('p','','모라 '+mora+' · 보유 '+game.s.global.MORA));for(const [id,n]of Object.entries(costs)){const material=el('div','material-requirement');material.append(el('strong','',safeName('14_ITEM_DB',id)+' '+game.itemCount(id)+' / '+n));materialSources(material,id);c.append(material);}c.append(el('small','muted','소개는 무료이며, 이야기에서 수락할 때 준비물을 한 번 사용합니다.'));}
  if(entry.reason)c.append(el('p','choice-note',entry.reason));const start=actionButton(game.storyLegendEntryNode(d)!==d.ENTRY_NODE_ID?'준비물 확인부터 계속':'개인 이야기 열기','LEGEND_ENTER',{quest:entry.id},true);start.disabled=start.disabled||!!entry.reason;c.append(start);parent.append(c);
 };
@@ -98,7 +100,9 @@ dialogue=function(p,v){
 };
 function journalSection(parent,title,count,hint=''){const box=el('section','journal-section'),head=el('div','journal-head');head.append(el('h2','',title),el('span','journal-count',String(count)));box.append(head);if(hint)box.append(el('p','muted journal-hint',hint));parent.append(box);return box;}
 function journalTravel(parent,map){if(!map||map===game.s.global.CURRENT_MAP_ID)return;const edge=firstTravelEdge(map);if(edge)parent.append(actionButton(mapName(edge[2])+' 방향으로 이동','MOVE',{edge:edge[0]}));else parent.append(el('small','muted','이야기에서 이동 경로가 열리면 갈 수 있습니다.'));}
-const JOURNAL_STATUS={ready:'지금 시작 가능',travel:'장소로 이동 필요',locked:'조건 확인 필요'};
+const JOURNAL_STATUS={active:'진행 중',ready:'지금 시작 가능',travel:'장소로 이동 필요',locked:'조건 확인 필요'};
+// The story being played: continue it where it left off instead of offering to start it.
+function journalContinue(parent,m){if(!m.map){parent.append(actionButton('이야기로 돌아가기','MENU',{screen:'STORY'},true));return;}if(m.arrived){parent.append(actionButton('도착 · 이야기 계속','JOURNEY_RESUME',{},true));return;}parent.append(el('small','journal-note',mapName(m.map)+'에 도착하면 이어집니다.'));journalTravel(parent,m.map);}
 // The entry itself may be open while the current scene still blocks every action; the journal
 // collects those reasons and says them once above the lists instead of under every card.
 let journalBlocked=null;
@@ -106,6 +110,7 @@ function journalStart(parent,label,type,params){parent.append(actionButton(label
 function legendProgressCard(parent,m){
  const d=m.definition,c=el('article','card journal-card status-'+m.status),head=el('div','journal-card-head');
  head.append(el('small','journal-kind','동료 획득'+(m.region?' · '+m.region:'')),el('span','journal-status',JOURNAL_STATUS[m.status]+(m.accepted?' · 수락 완료':'')));c.append(head,el('h3','',m.title));
+ if(m.status==='active'){const actions=el('div','journal-actions');c.append(el('p','journal-place',m.map?'다음 장면 · '+mapName(m.map):'진행 장소 · '+mapName(game.s.global.CURRENT_MAP_ID)));journalContinue(actions,m);c.append(actions);parent.append(c);return;}
  if(d.MAP_ID)c.append(el('p','journal-place','진행 장소 · '+mapName(d.MAP_ID)));
  const unmet=m.requirements.filter(r=>!r.met&&r.kind!=='map');if(unmet.length){const chips=el('ul','journal-chips');for(const r of unmet)chips.append(el('li','requirement-unmet','필요 · '+r.label));c.append(chips);}
  else if(m.status==='locked'&&m.reason)c.append(el('p','choice-note',m.reason));
@@ -117,8 +122,9 @@ function legendProgressCard(parent,m){
 function affectionProgressRow(parent,m){
  const row=el('article','journal-row status-'+m.next.status),photo=portraitFor(m.profile),copy=el('div','journal-row-copy'),actions=el('div','journal-row-actions');
  if(photo){const img=el('img','journal-thumb');img.src=photo;img.alt='';img.loading='lazy';row.append(img);}else row.append(el('span','journal-thumb journal-thumb-empty','♡'));
- copy.append(el('strong','',m.name+' · '+m.next.label),el('small','muted',(m.next.map?mapName(m.next.map)+' · ':'')+(m.next.status==='ready'?'지금 진행 가능':'장소로 이동하면 진행 가능')));
- if(m.next.status==='ready')journalStart(actions,'이야기 시작','AFFECTION_ENTER',{event:m.next.id});else journalTravel(actions,m.next.map);
+ const active=m.next.status==='active';
+ copy.append(el('strong','',m.name+' · '+m.next.label),el('small','muted',active?'진행 중'+(m.next.map?' · '+mapName(m.next.map)+'에서 이어짐':''):(m.next.map?mapName(m.next.map)+' · ':'')+(m.next.status==='ready'?'지금 진행 가능':'장소로 이동하면 진행 가능')));
+ if(active)journalContinue(actions,m.next);else if(m.next.status==='ready')journalStart(actions,'이야기 시작','AFFECTION_ENTER',{event:m.next.id});else journalTravel(actions,m.next.map);
  row.append(copy,actions);parent.append(row);
 }
 function journalDone(parent,kind,title,note){const row=el('div','journal-done');row.append(el('small','journal-kind',kind),el('strong','',title));if(note)row.append(el('small','muted',note));parent.append(row);}

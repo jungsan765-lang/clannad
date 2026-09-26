@@ -5,7 +5,8 @@
   if (!P.recipeCost || !P.consumeMealFoods) throw new Error('runtime_passives.js requires economy recipeCost/consumeMealFoods hooks');
   const old = Object.fromEntries(['apply', 'recipeCost', 'craft', 'foodSpec', 'meal', 'pay', 'validateSave', 'cardSupport', 'cardReason'].map(k => [k, P[k]]));
   const fail = (code, message) => { throw new api.RuleError(code, message); };
-  const special = 'BARBARA_SPECIAL', prefix = '[바바라특제요리] ';
+  // Barbara's passive keeps the dish's own name first so a fried egg still reads as a fried egg.
+  const special = 'BARBARA_SPECIAL', specialName = name => name + ' · 바바라 특제';
   const definitions = {
     MOND_BARBARA_PASSIVE_DISH: { owner: 'MOND_BARBARA', trigger: 'PASSIVE_ON_COOK', script: 'COOK_HEAL_OUTPUT_MULT*1.1;PREFIX_SPECIAL_DISH' },
     MOND_ALBEDO_PASSIVE_CRAFT: { owner: 'MOND_ALBEDO', trigger: 'PASSIVE_ON_CRAFT', script: 'IF_PARTY_HAS:MOND_ALBEDO_AND_REGION=MOND_AND_RECIPE_KIND_IN(PROCESS/EQUIP):REDUCE_ONE_COMMON_MATERIAL_QTY_BY1:MIN1:ONCE_PER_CRAFT;EXCLUDE_RARE_QUEST_BOSS' },
@@ -75,7 +76,7 @@
       this.s.specialFoodLots ||= {};
       const lot = this.s.specialFoodLots[out.result] ||= { [special]: 0 };
       lot[special] += out.quantity;
-      out.outputVariant = special; out.outputName = prefix + item[1]; out.healMultiplier = 1.1;
+      out.outputVariant = special; out.outputName = specialName(item[1]); out.healMultiplier = 1.1;
     }
     return out;
   };
@@ -85,7 +86,7 @@
     if (r[2] !== '음식') return [];
     return [
       { item: id, variant: 'NORMAL', quantity: count - boosted, name: r[1], heal: Number(r[8] || 0) },
-      { item: id, variant: special, quantity: boosted, name: prefix + r[1], heal: Number(r[8] || 0) * 11 / 10 }
+      { item: id, variant: special, quantity: boosted, name: specialName(r[1]), heal: Number(r[8] || 0) * 11 / 10 }
     ].filter(lot => lot.quantity > 0);
   };
   P.foodSpec = function (id, entry = {}) {
@@ -97,7 +98,7 @@
       if (!(counts[variant] > 0)) fail('QUANTITY', '선택한 종류의 음식이 부족합니다.');
       counts[variant]--; reserved.counts[id] = counts;
     }
-    const name = (variant === special ? prefix : '') + this.row('14_ITEM_DB', id)[1];
+    const base = this.row('14_ITEM_DB', id)[1], name = variant === special ? specialName(base) : base;
     const enhanced = { ...spec, variant, name, heal: variant === special ? spec.heal * 11 / 10 : spec.heal };
     if (reserved) reserved.entries.push(enhanced);
     return enhanced;

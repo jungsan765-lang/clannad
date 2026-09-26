@@ -35,7 +35,12 @@ P.isStoryWaiting=function(){return !!(this.s.storyJourney||this.s.storyBreak)||o
 P.playPhase=function(){const s=this.s;if(!this.needsRecovery()&&!s.lifeJob&&!s.worldJob&&!s.runtime&&!s.battlePreparation&&!s.storyRecovery&&(s.storyJourney||s.storyBreak))return 'FREE';return old.playPhase.call(this);};
 P.storyFrame=function(){return {...old.storyFrame.call(this),journey:copy(this.s.storyJourney||null),break:copy(this.s.storyBreak||null),arrival:copy(this.s.storyArrival||null)};};
 P.storyRestoreFrame=function(f){const map=this.s.global.CURRENT_MAP_ID;old.storyRestoreFrame.call(this,f);if(!this.s.runtime)this.s.global.CURRENT_MAP_ID=map;for(const [key,v]of [['storyJourney',f.journey],['storyBreak',f.break],['storyArrival',f.arrival]]){if(v)this.s[key]=copy(v);else delete this.s[key];}};
-P.enterStory=function(id){const frame=this.storyFrame(),result=old.enterStory.call(this,id);const stack=this.s.storyReturnStack;if(stack?.length)Object.assign(stack[stack.length-1],{journey:frame.journey,break:frame.break,arrival:frame.arrival});delete this.s.storyBreak;delete this.s.storyArrival;return result;};
+// A main-story travel goal waits in the return frame while a personal story runs and comes back when it ends.
+P.enterStory=function(id){const frame=this.storyFrame(),result=old.enterStory.call(this,id);const stack=this.s.storyReturnStack;if(stack?.length)Object.assign(stack[stack.length-1],{journey:frame.journey,break:frame.break,arrival:frame.arrival});delete this.s.storyBreak;delete this.s.storyArrival;if(frame.journey&&!frame.context&&JSON.stringify(this.s.storyJourney||null)===JSON.stringify(frame.journey))delete this.s.storyJourney;return result;};
+P.storyJourneyReason=function(j=this.s.storyJourney){
+ const def=this.s.storyContext&&this.storyDefinition?.(this.s.storyContext.entry),title=def&&(this.tables['22_QUEST_DB']?.get(def.QUEST_ID)?.[1]||def.DISPLAY_NAME),place=this.tables['32_MAP_DB'].get(j?.target)?.[2]||'표시된 목적지';
+ return (title?'진행 중인 「'+title+'」 이야기가 ':'진행 중인 이야기가 ')+place+'에서 이어집니다. 도착한 뒤 「도착 · 이야기 계속」을 눌러 주세요.';
+};
 P.combatStoryConfig=function(group){const cfg=old.combatStoryConfig.call(this,group);return cfg?{...cfg,guest_char_ids:[]}:null;};
 P.startBattle=function(group,origin='EXPLICIT',options={}){
  const owned=json(this.s.global.COMPANION_ELIGIBILITY_JSON);
@@ -64,8 +69,9 @@ P.actionReason=function(type,a={}){
  if(type==='PREP_LEAVE')return this.s.battlePreparation||this.s.storyRecovery?'':'현재 전투 준비 단계가 아닙니다.';
  if(type==='JOURNEY_RESUME'){if(this.s.runtime||this.s.battlePreparation||this.s.storyRecovery)return '진행 중인 전투를 마쳐 주세요.';if(!j&&!b)return '이어갈 여행 목표가 없습니다.';if(this.s.placeVisit)return '시설에서 나온 뒤 이야기를 계속해 주세요.';if((j&&j.target!==this.s.global.CURRENT_MAP_ID)||(b&&b.map!==this.s.global.CURRENT_MAP_ID))return '표시된 목적지에 먼저 도착해 주세요.';return '';}
  if(type==='STORY_RIDE')return j?.special==='DVALIN_RIDE'&&!this.s.runtime&&!this.s.placeVisit&&this.s.global.CURRENT_MAP_ID===j.from?'':'현재 탑승 이동을 사용할 수 없습니다.';
- if((j||b)&&['STORY_NEXT','STORY_CHOICE','STORY_NAME','STORY_RESUME','STORY_CHAPTER','MAIN_STORY_ACCEPT'].includes(type))return '메인 임무의 여행 목표에서 이야기를 계속해 주세요.';
- if(j&&['LEGEND_ENTER','AFFECTION_ENTER'].includes(type))return '현재 이야기의 목적지에 도착한 뒤 다른 이야기를 시작해 주세요.';
+ if((j||b)&&['STORY_NEXT','STORY_CHOICE','STORY_NAME','STORY_RESUME','STORY_CHAPTER','MAIN_STORY_ACCEPT'].includes(type))return j&&this.s.storyContext?this.storyJourneyReason(j):'메인 임무의 여행 목표에서 이야기를 계속해 주세요.';
+ // Only a personal story that is itself mid-travel, or a guided move, keeps other stories closed.
+ if(j&&['LEGEND_ENTER','AFFECTION_ENTER'].includes(type)){if(this.s.storyContext)return this.storyJourneyReason(j);if(j.scripted||j.special)return '안내에 따른 이동을 마친 뒤 다른 이야기를 시작해 주세요.';}
  return old.actionReason.call(this,type,a);
 };
 P.apply=function(a){

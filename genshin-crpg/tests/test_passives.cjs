@@ -14,7 +14,7 @@ const test = (name, fn) => { fn(); passed++; console.log('PASS', name); };
 test('Barbara creates exactly the produced quantity as special lots, never heals while cooking', () => {
   const r = fresh(); join(r, 'MOND_BARBARA'); r.giveItem(egg, 2); const hp = r.s.global.PLAYER_HP_CURRENT, out = cookEgg(r, 3);
   assert.equal(r.itemCount(egg), 5); assert.equal(r.s.specialFoodLots[egg].BARBARA_SPECIAL, 3); assert.equal(r.s.global.PLAYER_HP_CURRENT, hp);
-  assert.equal(out.quantity, 3); assert.equal(out.outputName, '[바바라특제요리] 티바트 달걀 프라이');
+  assert.equal(out.quantity, 3); assert.equal(out.outputName, '티바트 달걀 프라이 · 바바라 특제');
   assert.deepEqual(clone(r.foodLots(egg).map(x => [x.variant, x.quantity, x.heal])), [['NORMAL', 2, 90], ['BARBARA_SPECIAL', 3, 99]]);
   assert.equal(r.s.inventory.filter(i => i.item === egg).length, 1);
 });
@@ -30,7 +30,7 @@ test('AUTO selects normal first, explicit special heals ×1.1 and keeps ordinary
   let out = r.action('USE_ITEM', { item: egg }).result; assert.equal(out.meals[0].variant, 'NORMAL'); assert.equal(r.s.global.PLAYER_HP_CURRENT, 91); assert.equal(r.s.specialFoodLots[egg].BARBARA_SPECIAL, 2);
   r.s.global.PLAYER_HP_CURRENT = 1; r.s.global.LAST_RECOVERY_MEAL_ITEM_ID = 'NONE';
   out = r.action('USE_ITEM', { item: egg, variant: 'BARBARA_SPECIAL' }).result;
-  assert.equal(out.meals[0].requestedHealing, 99); assert.equal(out.meals[0].name, '[바바라특제요리] 티바트 달걀 프라이'); assert.equal(r.s.global.PLAYER_HP_CURRENT, 100); assert.equal(r.s.specialFoodLots[egg].BARBARA_SPECIAL, 1);
+  assert.equal(out.meals[0].requestedHealing, 99); assert.equal(out.meals[0].name, '티바트 달걀 프라이 · 바바라 특제'); assert.equal(r.s.global.PLAYER_HP_CURRENT, 100); assert.equal(r.s.specialFoodLots[egg].BARBARA_SPECIAL, 1);
   assert.equal(r.foodLots(egg).find(l => l.variant === 'NORMAL').quantity, 1);
   rejectAtomic(r, 'USE_ITEM', { item: egg, variant: 'BARBARA_SPECIAL' }, 'MEAL_REPEAT');
 });

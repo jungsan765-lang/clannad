@@ -37,26 +37,58 @@
   box.append(button('확인',()=>document.getElementById('modal').close(),false,true));showModal(labels[r.outcome],box);
  }
  globalThis.renderEnhancementPanel=function(p){
-  ensurePresenter();const section=el('section','enhance-panel');section.append(el('h2','','장비 강화·돌파'),el('p','','몬드·리월의 대장간에서 같은 강화 규칙을 사용합니다. +10까지 강화한 뒤 보스 재료로 +12 한도를 해금합니다. 강화 불가 입문 장비는 상위 장비로 교체하세요.'));
+  ensurePresenter();const section=el('section','enhance-panel');section.append(el('h2','','장비 강화·돌파'),el('p','','몬드·리월의 대장간에서 같은 강화 규칙을 사용합니다. +10까지 강화한 뒤 보스 재료로 +12 한도를 해금합니다. 「강화」를 누르면 확률·능력치 변화·비용을 확인한 뒤 진행합니다.'));
   const info=el('details','enhance-rules'),summary=el('summary','','전체 강화 확률·돌파 재료 보기');info.append(summary);const table=el('table','enhance-chance-table'),head=el('tr');for(const x of ['단계','성공','유지','하락'])head.append(el('th','',x));table.append(head);
   const cfg=CRPGRuntime.enhancementConfig;for(let lv=1;lv<=12;lv++){const tr=el('tr');for(const text of ['+'+(lv-1)+' → +'+lv,pct(cfg.success[lv]),pct(10000-cfg.success[lv]-cfg.down[lv]),pct(cfg.down[lv])])tr.append(el('td','',text));table.append(tr);}info.append(table,el('p','','기본 공격력·방어력·최대 HP는 +1당 5%, +10에서 +50%, +11은 +65%, +12는 +80% 증가합니다. 기존 수치형 단계 보너스는 별도로 유지합니다.'),el('p','','고유 효과의 기존 실행 범위는 유지합니다. 준비 중인 전용 고유 효과를 이번 강화로 새로 구현한 것은 아닙니다.'));
   costs(info,cfg.ascensionCost);info.append(el('p','','드발린·안드리우스 승리: 강적의 잔향 1~2개 확정, 강적의 핵 1개 35%. 본편·첫 도전 완료 후 해당 현장에서 재도전할 수 있습니다. 보스별 입장 간격은 게임 내 48시간이며 패배·이탈해도 유지됩니다. 확률과 드롭은 이 CRPG의 규칙입니다.'));section.append(info);
-  const grid=el('div','enhance-grid');for(const inv of game.s.inventory.filter(i=>i.equip)){
-   const row=game.row('16_EQUIP_DB',inv.equip),q=game.enhancementQuote(inv.slot),card=el('section','card enhance-card');card.dataset.enhanceSlot=inv.slot;
-   card.append(itemGlyph(itemPresenter.itemDetail(inv)),el('h3','',row[1]+' +'+inv.enhance),el('small','',inv.equipped?ownerName(inv.owner)+' 장착 중':'보관 중 · '+inv.slot));
-   if(!q.supported){
-    card.append(el('p','muted',q.reason));
-   }else{
-    card.append(el('span','enhance-cap',q.cap===12?'돌파 완료 · 최대 +12':'기본 한도 +10'));
-    if(q.target<=q.cap){probabilities(card,q);statTable(card,q.statsBefore,q.statsAfter);costs(card,q.cost);}
-    const args=quoteArgs(q,'ENHANCE'),reason=game.actionReason('ENHANCE',args);if(reason)card.append(el('p','choice-note',reason));
-    if(q.target<=q.cap)card.append(button('+'+q.target+' 강화 확인',()=>openConfirm(inv.slot),busy||!!reason,true));
-    if(inv.enhance===10&&q.cap===10){const aq=game.enhancementQuote(inv.slot,'ASCEND'),ar=game.actionReason('EQUIP_ASCEND',quoteArgs(aq,'EQUIP_ASCEND'));costs(card,aq.cost);if(ar)card.append(el('p','choice-note',ar));card.append(button('+12 한도 돌파 확인',()=>openConfirm(inv.slot,'ASCEND'),busy||!!ar,true));}
-   }
-   grid.append(card);
-  }
-  if(!grid.children.length)grid.append(el('p','muted','소지한 장비가 없습니다.'));section.append(grid);p.append(section);
+  forgeList(section);p.append(section);
  };
+ // Many pieces of gear stay scannable: one row each with filters on top; odds, stats and costs open in the confirm window.
+ const FORGE_TABS=[['ALL','전체'],['WEAPON','무기'],['ARMOR','방어구'],['ACCESSORY','장신구'],['SPECIAL','특수 장비'],['ARTIFACT','성유물']];
+ const forge={tab:'ALL',worn:false,ready:false};
+ function costText(cost){const parts=[cost.mora.toLocaleString()+' 모라'];for(const [id,n]of Object.entries(cost.items||{}))parts.push(safeName('14_ITEM_DB',id)+' '+n+(game.itemCount(id)<n?'(보유 '+game.itemCount(id)+')':''));return parts.join(' · ');}
+ function forgeEntry(inv){
+  const d=itemPresenter.itemDetail(inv),party=game.s.party.filter(x=>x.active).map(x=>x.source),e={inv,d,worn:!!inv.equipped,order:inv.equipped?Math.max(0,party.indexOf(inv.owner)):99,actions:[]};
+  if(inv.artifact&&game.artifactEnhancementQuote){
+   const q=game.artifactEnhancementQuote(inv.slot);Object.assign(e,{tab:'ARTIFACT',supported:true,title:d.name+' · '+inv.artifact.grade+' +'+q.level,cap:'품질 '+inv.artifact.quality+'/1000 · 최대 +5'});
+   if(q.maxed)e.next='최대 강화 +5';
+   else{const reason=game.actionReason('ARTIFACT_ENHANCE',{slot:q.slot,expectedLevel:q.level,instanceRevision:q.instanceRevision});Object.assign(e,{next:'+'+q.level+' → +'+q.target+' · 성공 '+pct(q.successBp)+' · '+costText(q.cost),reason});e.actions.push(['강화',()=>globalThis.CRPGArtifactForge?.open(inv.slot),reason]);}
+   return e;
+  }
+  const q=game.enhancementQuote(inv.slot);Object.assign(e,{tab:itemCategory(inv),supported:q.supported,title:d.name+' +'+inv.enhance});
+  if(!q.supported){e.reason=q.reason;return e;}
+  e.cap=q.cap===12?'돌파 완료 · 최대 +12':'한도 +10';
+  if(q.target<=q.cap){const reason=game.actionReason('ENHANCE',quoteArgs(q,'ENHANCE'));Object.assign(e,{next:'+'+q.level+' → +'+q.target+' · 성공 '+pct(q.success)+(q.down?' · 하락 '+pct(q.down):'')+' · '+costText(q.cost),reason});e.actions.push(['강화',()=>openConfirm(inv.slot),reason]);}
+  else if(inv.enhance===10&&q.cap===10){const aq=game.enhancementQuote(inv.slot,'ASCEND'),reason=game.actionReason('EQUIP_ASCEND',quoteArgs(aq,'EQUIP_ASCEND'));Object.assign(e,{next:'+12 한도 돌파 · '+costText(aq.cost),reason});e.actions.push(['돌파',()=>openConfirm(inv.slot,'ASCEND'),reason]);}
+  else e.next='최대 강화 +12';
+  return e;
+ }
+ function forgeList(section){
+  const all=game.s.inventory.filter(i=>i.equip).map(forgeEntry),usable=all.filter(e=>e.supported),blocked=all.filter(e=>!e.supported);
+  if(!all.length){section.append(el('p','muted','소지한 장비가 없습니다.'));return;}
+  if(forge.tab!=='ALL'&&!usable.some(e=>e.tab===forge.tab))forge.tab='ALL';
+  const tabs=el('div','bag-tabs forge-tabs');tabs.setAttribute('aria-label','강화할 장비 분류');
+  for(const [key,label]of FORGE_TABS){const n=usable.filter(e=>key==='ALL'||e.tab===key).length;if(!n&&key!=='ALL')continue;const b=button(label+' '+n,()=>{forge.tab=key;render();});b.classList.toggle('selected',forge.tab===key);b.setAttribute('aria-pressed',String(forge.tab===key));tabs.append(b);}
+  const filters=el('div','forge-filters');for(const [key,label]of [['worn','장착 중인 장비만'],['ready','지금 강화할 수 있는 것만']]){const box=el('label','forge-toggle'),input=el('input');input.type='checkbox';input.checked=forge[key];input.onchange=()=>{forge[key]=input.checked;render();};box.append(input,el('span','',label));filters.append(box);}
+  section.append(tabs,filters);
+  // A reason shared by every row (not at a forge, story in progress) is said once above the list.
+  const reasons=usable.flatMap(e=>e.actions.map(a=>a[2])),common=reasons.length&&reasons.every(r=>r&&r===reasons[0])?reasons[0]:'';
+  if(common)section.append(el('p','choice-note forge-common',common));
+  if(forge.tab==='ARTIFACT'&&globalThis.CRPGArtifactForge?.rules)section.append(el('p','forge-note',CRPGArtifactForge.rules));
+  const shown=usable.filter(e=>(forge.tab==='ALL'||e.tab===forge.tab)&&(!forge.worn||e.worn)&&(!forge.ready||e.actions.some(a=>!a[2])))
+   .sort((a,b)=>a.order-b.order||(b.inv.artifact?.level??b.inv.enhance)-(a.inv.artifact?.level??a.inv.enhance)||a.d.name.localeCompare(b.d.name,'ko'));
+  const list=el('div','forge-list');
+  for(const e of shown){
+   const row=el('div','forge-row'+(e.worn?' worn':'')),copy=el('div','forge-copy'),actions=el('div','forge-actions');row.dataset.enhanceSlot=e.inv.slot;
+   copy.append(el('strong','',e.title),el('small','muted',(e.worn?ownerName(e.inv.owner)+' 장착 중':'보관 중')+(e.cap?' · '+e.cap:'')));
+   if(e.next)copy.append(el('small','forge-next',e.next));if(e.reason&&e.reason!==common)copy.append(el('small','choice-note',e.reason));
+   for(const [label,fn,reason]of e.actions){const b=button(label,fn,busy||!!reason,true);if(reason)b.title=reason;actions.append(b);}
+   row.append(itemGlyph(e.d),copy,actions);list.append(row);
+  }
+  if(!shown.length)list.append(el('p','empty',usable.length?'조건에 맞는 장비가 없습니다. 분류나 필터를 바꿔 보세요.':'강화할 수 있는 장비가 없습니다.'));
+  section.append(list);
+  if(blocked.length){const more=el('details','forge-blocked'),ul=el('ul');more.append(el('summary','','강화할 수 없는 장비 '+blocked.length+'개'));for(const e of blocked)ul.append(el('li','',e.title+' — '+e.reason));more.append(ul);section.append(more);}
+ }
  const oldLocation=drawLocation;drawLocation=function(p,v){oldLocation(p,v);if(!game)return;const cfg=CRPGRuntime.enhancementConfig;
   for(const [id,boss]of Object.entries(cfg.bosses)){if(game.s.global.CURRENT_MAP_ID!==boss.map)continue;const c=el('section','card material-challenge'),reason=game.materialChallengeReason(id);c.append(el('h2','',safeName('09_MONSTER_DB',id)+' · 재료 재도전'),el('p','','완료한 전투를 다시 도전합니다. 보스별 게임 내 48시간에 1회 입장하며, 패배·이탈해도 대기시간은 유지됩니다. 본편의 사건·클리어 상태를 되돌리지 않습니다. 승리 시 잔향 1~2개 확정, 핵 1개 35%.'),actionButton('보스 재도전','MOND_MATERIAL_CHALLENGE',{boss:id},true));if(reason)c.append(el('p','choice-note',reason));p.append(c);}
  };

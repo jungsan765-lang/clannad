@@ -67,7 +67,7 @@
       if (!record) return {...base, name:id || '미등록 소지품', group:'기타', category:'', rarity:'', description:'', effect:'', icon:{id:null,registered:false,deployed:false,url:null,label:''}, actionHint:null, issues:['MISSING_DEFINITION']};
       const sourceName = text(record[isEquipment ? '장비명' : '아이템명']);
       Object.assign(base, {
-        name:!isEquipment && variant === 'BARBARA_SPECIAL' ? '[바바라특제요리] ' + sourceName : sourceName,
+        name:!isEquipment && variant === 'BARBARA_SPECIAL' ? sourceName + ' · 바바라 특제' : sourceName,
         sourceName, group:groupFor(record,isEquipment), category:text(record[isEquipment ? '장비 종류' : '분류']),
         rarity:text(record['등급']), description:isEquipment ? '' : readable(record['설명']),
         effect:readable(record[isEquipment ? '고유 효과' : '효과']), icon:iconFor(record,isEquipment),
@@ -81,6 +81,7 @@
         if(base.questItem){base.category='퀘스트 아이템';base.questLabel=base.relatedQuests.map(q=>q.name).join(' · ')||(record.ITEM_ID==='KEY_CRPG_ANEMOCULUS'?'몬드의 바람 · 탐험 수집':'');}
         base.fields = displayFields([
           ['관련 임무',base.questLabel],['설명',record['설명']],['효과',record['효과']],['회복량',base.heal === null ? record['회복량'] : base.heal],
+          ['바바라 특제',variant === 'BARBARA_SPECIAL' ? '바바라가 파티에 있을 때 만든 회복 요리입니다. 바바라의 패시브 「정성♪듬뿍」으로 회복량이 10% 많습니다.' : ''],
           ['사용 가능 상황',record['사용 가능 상황']],['대상',record['배분 대상']],['지속 시간',record['지속 시간']],
           ['사용 제한',record['포만/사용 제한']],['획득처',record['획득처']],['판매가',record['판매가']],['구매가',record['구매가']]
         ]);

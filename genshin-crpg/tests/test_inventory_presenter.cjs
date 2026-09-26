@@ -38,7 +38,7 @@ test('normal and Barbara special food have separate quantities and keys', () => 
   assert.equal(entries.length,2); assert.equal(entries.reduce((n,e)=>n+e.quantity,0),5);
   assert.equal(entries.find(e=>e.variant==='NORMAL').quantity,3);
   const special=entries.find(e=>e.variant==='BARBARA_SPECIAL'); assert.equal(special.quantity,2); assert.equal(special.heal,242);
-  assert.equal(special.name,'[바바라특제요리] 몬드 감자전'); assert.equal(JSON.stringify(state),before);
+  assert.equal(special.name,'몬드 감자전 · 바바라 특제'); assert.equal(JSON.stringify(state),before);
 });
 test('invalid lot is surfaced and does not fabricate negative quantity', () => {
   const entries=presenter.inventoryEntries({inventory:[{item:'FOOD_HASH_BROWN',quantity:1}],specialFoodLots:{FOOD_HASH_BROWN:{BARBARA_SPECIAL:2}}});

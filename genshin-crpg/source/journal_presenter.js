@@ -2,7 +2,7 @@
 (function (root) {
   'use strict';
   const STAGE = /_H0([1-5])$/, DEEP = /_B1([12])0$/, BOND_REASON = '함께 활동하며 관계를 더 쌓아 주세요.';
-  const RANK = {ready:0, travel:1, locked:2, done:3};
+  const RANK = {active:-1, ready:0, travel:1, locked:2, done:3};
   const stageOf = id => Number(String(id).match(STAGE)?.[1] || 0);
   const bondNeed = d => Number(d?.BOND_SCORE_MIN || Number(d?.HEART_MIN || 0) * 20);
   const general = entry => !/ADULT/.test(entry.definition?.RELATION_KIND || '');
@@ -15,8 +15,17 @@
     facade.s = {...game.s, global:{...g, CURRENT_MAP_ID:map}};
     try { return facade.storyEntryReason(entry.definition); } catch { return entry.reason; }
   }
+  // The story the player is inside right now: where it continues, not why it cannot start.
+  function activeState(game, entry) {
+    const c = game.s.storyContext;
+    if (!c || c.kind === 'COMBAT_INTERLUDE' || c.entry !== entry.id) return null;
+    const j = game.s.storyJourney;
+    return {status:'active', reason:'', map:j ? j.target : null, arrived:!!j && j.target === game.s.global.CURRENT_MAP_ID};
+  }
   function progress(game, entry) {
     if (game.storyDone(entry.id)) return {status:'done', reason:''};
+    const active = activeState(game, entry);
+    if (active) return active;
     if (!entry.reason) return {status:'ready', reason:''};
     const there = reasonThere(game, entry), d = entry.definition || {};
     if (there === '') return {status:'travel', reason:entry.reason, map:d.MAP_ID};
