@@ -1,43 +1,37 @@
 {
   "total": 7,
-  "passed": 7,
+  "passed": 1,
   "scope": "full source/index.html world_content + runtime modules, current db.json",
   "results": [
     {
       "name": "personal legend travel life work reloads, completes once, and preserves return context",
-      "ok": true,
-      "job": "life",
-      "legend": "LEG_MOND_AMBER",
-      "phaseAfterResume": "STORY"
+      "ok": false,
+      "error": "Error: 사라 · 디어 헌터 식당에서 개인 임무를 소개받아 주세요.\n    at P.assertActionAllowed (runtime_flow.js:66:97)\n    at Runtime.transact (runtime.js:40:61)\n    at P.transact (runtime_equipment.js:251:53)\n    at Runtime.action (runtime.js:36:59)\n    at personalTravel (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:8:70)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:17:8\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:5:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:16:36)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)"
     },
     {
       "name": "personal legend travel world work reloads, completes once, and preserves return context",
-      "ok": true,
-      "job": "world",
-      "legend": "LEG_MOND_AMBER",
-      "phaseAfterResume": "STORY"
+      "ok": false,
+      "error": "Error: 사라 · 디어 헌터 식당에서 개인 임무를 소개받아 주세요.\n    at P.assertActionAllowed (runtime_flow.js:66:97)\n    at Runtime.transact (runtime.js:40:61)\n    at P.transact (runtime_equipment.js:251:53)\n    at Runtime.action (runtime.js:36:59)\n    at personalTravel (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:8:70)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:17:8\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:5:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:16:36)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)"
     },
     {
       "name": "life work still rejects injection into unpaused personal dialogue or locked story",
-      "ok": true,
-      "storyMessage": "진행 중인 생활 작업을 확인할 수 없습니다.",
-      "lockedMessage": "진행 중인 생활 작업을 확인할 수 없습니다."
+      "ok": false,
+      "error": "Error: 사라 · 디어 헌터 식당에서 개인 임무를 소개받아 주세요.\n    at P.assertActionAllowed (runtime_flow.js:66:97)\n    at Runtime.transact (runtime.js:40:61)\n    at P.transact (runtime_equipment.js:251:53)\n    at Runtime.action (runtime.js:36:59)\n    at personalTravel (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:8:70)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:27:10\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:5:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:26:36)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)"
     },
     {
       "name": "world work still rejects injection into unpaused personal dialogue or locked story",
-      "ok": true,
-      "storyMessage": "진행 중인 작업 기록을 확인해 주세요.",
-      "lockedMessage": "진행 중인 작업 기록을 확인해 주세요."
+      "ok": false,
+      "error": "Error: 사라 · 디어 헌터 식당에서 개인 임무를 소개받아 주세요.\n    at P.assertActionAllowed (runtime_flow.js:66:97)\n    at Runtime.transact (runtime.js:40:61)\n    at P.transact (runtime_equipment.js:251:53)\n    at Runtime.action (runtime.js:36:59)\n    at personalTravel (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:8:70)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:27:10\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:5:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:26:36)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)"
     },
     {
       "name": "life work injection cannot coexist with pending combat",
-      "ok": true,
-      "message": "진행 중인 생활 작업을 확인할 수 없습니다."
+      "ok": false,
+      "error": "Error: 사라 · 디어 헌터 식당에서 개인 임무를 소개받아 주세요.\n    at P.assertActionAllowed (runtime_flow.js:66:97)\n    at Runtime.transact (runtime.js:40:61)\n    at P.transact (runtime_equipment.js:251:53)\n    at Runtime.action (runtime.js:36:59)\n    at personalTravel (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:8:70)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:33:14\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:5:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:32:36)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)"
     },
     {
       "name": "world work injection cannot coexist with pending combat",
-      "ok": true,
-      "message": "진행 중인 작업 기록을 확인해 주세요."
+      "ok": false,
+      "error": "Error: 사라 · 디어 헌터 식당에서 개인 임무를 소개받아 주세요.\n    at P.assertActionAllowed (runtime_flow.js:66:97)\n    at Runtime.transact (runtime.js:40:61)\n    at P.transact (runtime_equipment.js:251:53)\n    at Runtime.action (runtime.js:36:59)\n    at personalTravel (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:8:70)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:33:14\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:5:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_work_validation.cjs:32:36)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)"
     },
     {
       "name": "main-story pause keeps life and world work available, and jobs stay mutually exclusive",

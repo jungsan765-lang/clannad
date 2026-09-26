@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T21:40:34.237Z",
+  "generatedAt": "2026-09-26T04:40:10.387Z",
   "productEdited": false,
   "modules": [
     "runtime.js",
@@ -33,6 +33,18 @@
     "runtime_geo_oculi.js",
     "runtime_encounter.js",
     "runtime_recruitment.js",
+    "runtime_protagonist.js",
+    "runtime_equipment.js",
+    "runtime_enhancement.js",
+    "runtime_mond_encounters.js",
+    "runtime_enemy_content.js",
+    "runtime_enemy_skills.js",
+    "runtime_mond_boss_balance.js",
+    "runtime_mond_balance.js",
+    "runtime_navigation.js",
+    "runtime_liyue_area_content.js",
+    "runtime_liyue_areas.js",
+    "runtime_chasm_skills.js",
     "save_adapter.js",
     "presentation.js"
   ],
@@ -43,7 +55,7 @@
       "ok": true,
       "evidence": {
         "battle": "OPENING-STORY:B2",
-        "hp": 600,
+        "hp": 480,
         "order": [
           {
             "index": 0,
@@ -55,8 +67,8 @@
             "score": 67,
             "first": false,
             "alive": true,
-            "hp": 2600,
-            "maxHp": 2600,
+            "hp": 2050,
+            "maxHp": 2050,
             "current": false,
             "acted": false
           },
@@ -67,11 +79,11 @@
             "name": "시작 순서 검증",
             "side": "ALLY",
             "control": "PLAYER",
-            "score": 67,
+            "score": 62,
             "first": false,
             "alive": true,
-            "hp": 600,
-            "maxHp": 600,
+            "hp": 480,
+            "maxHp": 480,
             "current": false,
             "acted": false
           }
@@ -99,14 +111,8 @@
     },
     {
       "name": "begin consumes already-rolled initiative and equals legacy combat outcome / PRNG",
-      "ok": true,
-      "evidence": {
-        "entries": [
-          "DIRECT",
-          "GAUNTLET"
-        ],
-        "comparison": "all runtime battle state except opening metadata + exact PRNG state"
-      }
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  {\n    battle: {\n      actionSequence: 1,\n      actors: [\n        {\n...\n          hit: 80,\n+         hp: 99871,\n-         hp: 99836,\n          id: 'PLAYER_CUSTOM',\n+         lastDamagePacket: 129,\n-         lastDamagePacket: 164,\n          level: 1,\n          maxHp: 100000,\n          name: '시작 순서 검증',\n          nextScorePenalty: 0,\n          position: {\n...\n          },\n+         atk: 110,\n-         atk: 140,\n          aura: null,\n          control: 'AI',\n          cooldowns: {\n            ECARD_ANDRIUS_LEAP: 2\n          },\n          crit: 15,\n          critDmg: 70,\n+         def: 75,\n-         def: 115,\n          element: '물리',\n          eva: 4,\n          facing: -1,\n          grade: '보스',\n          guard: false,\n          hasDedicatedCards: true,\n          hit: 85,\n+         hp: 2100,\n-         hp: 3000,\n          id: 'BOSS_ANDRIUS#1',\n+         level: 7,\n-         level: 15,\n          liyueDirectRound: 1,\n+         maxHp: 2100,\n-         maxHp: 3000,\n          name: '안드리우스',\n          nextScorePenalty: 0,\n          position: {\n            x: 3,\n            y: 0\n...\n          resist: 60,\n+         rewardLevel: 15,\n          shields: [],\n          side: 'ENEMY',\n          size: 'BOSS',\n          source: 'BOSS_ANDRIUS',\n          spd: 64,\n...\n      ],\n+     balanceProfile: {\n+       bosses: [\n+         'BOSS_ANDRIUS'\n+       ],\n+       kind: 'MOND_BOSS_FIXED',\n+       party: 1,\n+       recommendedLevel: 7,\n+       recommendedParty: 4,\n+       version: 4\n+     },\n      combatVersion: 1,\n      cursor: 1,\n      encounter: {\n        from: 'MAP_WOLF_ARENA',\n        kind: 'BOSS',\n...\n          critical: false,\n+         damage: 129,\n-         damage: 164,\n          element: '얼음',\n+         hpAfter: 99871,\n-         hpAfter: 99836,\n          hpBefore: 100000,\n          maxHp: 100000,\n          reaction: null,\n          round: 1,\n          sourceKind: null,\n...\n      ],\n+     mondBalance: {\n+       kind: 'BOSS',\n+       rewards: {\n+         mora: 900,\n+         parts: [\n+           {\n+             grade: '보스',\n+             level: 7,\n+             mora: 900,\n+             source: 'BOSS_ANDRIUS',\n+             xp: 900\n+           }\n+         ],\n+         xp: 900\n+       },\n+       risk: 0,\n+       version: 1\n+     },\n+     mondBossBalance: {\n+       bosses: [\n+         'BOSS_ANDRIUS'\n+       ],\n+       version: 1,\n+       windRoute: false\n+     },\n      order: [\n        {\n          first: false,\n          id: 'BOSS_ANDRIUS#1',\n          score: 67\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_opening.cjs:19:505\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_opening.cjs:15:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_opening.cjs:19:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
     },
     {
       "name": "duplicate explicit COMBAT_BEGIN returns receipt; new duplicate action rejects atomically",
@@ -141,8 +147,8 @@
             "score": 67,
             "first": false,
             "alive": true,
-            "hp": 2600,
-            "maxHp": 2600,
+            "hp": 2050,
+            "maxHp": 2050,
             "current": false,
             "acted": false
           },
@@ -153,11 +159,11 @@
             "name": "시작 순서 검증",
             "side": "ALLY",
             "control": "PLAYER",
-            "score": 67,
+            "score": 62,
             "first": false,
             "alive": true,
             "hp": 1,
-            "maxHp": 600,
+            "maxHp": 480,
             "current": false,
             "acted": false
           }
@@ -166,11 +172,8 @@
     },
     {
       "name": "Dvalin cutins and subdued final action retain existing continuation and save behavior",
-      "ok": true,
-      "evidence": {
-        "lines": 11,
-        "result": "ALIVE_PURIFIED"
-      }
+      "ok": false,
+      "error": "TypeError: Cannot read properties of undefined (reading 'call')\n    at P.storyNaturalPause (runtime_navigation.js:51:60)\n    at P.storyNext (runtime_nodes.js:284:30)\n    at Runtime.apply (runtime.js:42:99)\n    at P.apply (runtime_extensions.js:10:287)\n    at P.apply (runtime_story.js:7:472)\n    at P.apply (runtime_nodes.js:290:1056)\n    at P.apply (runtime_events.js:113:18)\n    at P.apply (runtime_combat.js:199:139)\n    at P.apply (runtime_economy.js:29:33)\n    at P.apply (runtime_passives.js:140:22)"
     },
     {
       "name": "legacy active battle without opening metadata remains playable",

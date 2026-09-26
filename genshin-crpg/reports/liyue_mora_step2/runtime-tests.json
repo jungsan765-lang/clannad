@@ -1,0 +1,81 @@
+{
+  "version": "0.13.19",
+  "scope": "gameplay priority 2 only: Liyue random-field Mora settlement",
+  "fixture": "actual full runtime stack; synthetic battle starts, no story or loot fix",
+  "checks": [
+    {
+      "name": "Liyue random victory grants shared Mora: MAP_LIYUE_PLAINS / EG_TREASURE_PATROL",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:256\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:32)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+    },
+    {
+      "name": "Liyue random victory grants shared Mora: MAP_LIYUE_MOUNTAINS / EG_LIYUE_VISHAP",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:256\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:32)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+    },
+    {
+      "name": "Liyue random victory grants shared Mora: MAP_LIYUE_JUEYUN / EG_LIYUE_HILI_ROCK",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:256\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:32)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+    },
+    {
+      "name": "Liyue random victory grants shared Mora: MAP_CHASM_SURFACE / EG_CHASM_HUSK",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:256\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:32)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+    },
+    {
+      "name": "Liyue random victory grants shared Mora: MAP_CHASM_DEEP / EG_CHASM_SERPENT",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:256\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:32)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+    },
+    {
+      "name": "regional risk rises from plains to deep Chasm without altering enemy data",
+      "passed": true,
+      "evidence": {
+        "risks": [
+          3,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    },
+    {
+      "name": "defeat grants no Mora even with the regional reward plan recorded",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:25:210\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:25:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+    },
+    {
+      "name": "quest-origin Liyue battle keeps quest economy separate",
+      "passed": true,
+      "evidence": {
+        "delta": 0
+      }
+    },
+    {
+      "name": "Mond field reward remains owned by MOND_BALANCE_V1",
+      "passed": true,
+      "evidence": {
+        "mora": 18
+      }
+    },
+    {
+      "name": "save/reload before settlement preserves exact Liyue Mora result",
+      "passed": true,
+      "evidence": {
+        "mora": 57
+      }
+    },
+    {
+      "name": "settled receipt cannot pay the same random battle twice",
+      "passed": true,
+      "evidence": {
+        "mora": 17
+      }
+    }
+  ],
+  "samples": [],
+  "total": 11,
+  "passed": 5
+}

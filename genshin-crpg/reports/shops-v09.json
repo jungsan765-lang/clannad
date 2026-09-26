@@ -1,7 +1,7 @@
 {
   "total": 14,
-  "passed": 14,
-  "failed": 0,
+  "passed": 13,
+  "failed": 1,
   "results": [
     {
       "name": "Mondstadt has one entered smith with all 15 canonical stock IDs; other cities retain common smith",
@@ -104,8 +104,8 @@
     },
     {
       "name": "shop renders separately named one/bulk actions, stats and meaningful groups",
-      "ok": true,
-      "evidence": null
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: 양손검\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:28:317\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:9:64)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:28:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
     },
     {
       "name": "bulk dialog validates total, available funds, stock and selected quantity",

@@ -1,6 +1,6 @@
 {
   "total": 5,
-  "passed": 5,
+  "passed": 2,
   "comparison": "current full runtime with and without runtime_encounter.js; saved states equal except runtime.encounter",
   "results": [
     {
@@ -17,39 +17,18 @@
     },
     {
       "name": "waiting encounter carries context without extra RNG, HP or turn effects",
-      "ok": true,
-      "context": {
-        "version": 1,
-        "kind": "FIELD",
-        "label": "주변의 적과 조우",
-        "text": "몬드 외곽 초원에서 활동하던 중 적 무리와 마주쳤습니다.",
-        "map": "MAP_MOND_PLAINS",
-        "from": "MAP_MOND_PLAINS"
-      }
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '성 주변 · 주변의 적과 조우'\n- '주변의 적과 조우'\n\n    at check (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_encounter_context.cjs:7:427)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_encounter_context.cjs:9:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
     },
     {
       "name": "movement encounter describes arrival without extra RNG, HP or turn effects",
-      "ok": true,
-      "context": {
-        "version": 1,
-        "kind": "FIELD",
-        "label": "이동 중 조우",
-        "text": "이동 도중 몬드 외곽 초원에서 적 무리와 마주쳤습니다.",
-        "map": "MAP_MOND_PLAINS",
-        "from": "MAP_MOND_CITY"
-      }
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '성 주변 · 이동 중 조우'\n- '이동 중 조우'\n\n    at check (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_encounter_context.cjs:7:427)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_encounter_context.cjs:10:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
     },
     {
       "name": "hunting encounter preserves earned materials and pre-start HP",
-      "ok": true,
-      "context": {
-        "version": 1,
-        "kind": "FIELD",
-        "label": "탐색 중 조우",
-        "text": "사냥을 마치던 중 속삭임의 숲 사냥터의 적 무리와 마주쳤습니다.",
-        "map": "MAP_CRPG_WHISPER_HUNT",
-        "from": "MAP_CRPG_WHISPER_HUNT"
-      }
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '근교 야외 · 탐색 중 조우'\n- '탐색 중 조우'\n\n    at check (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_encounter_context.cjs:7:427)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_encounter_context.cjs:11:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
     },
     {
       "name": "story temple explanation preserves original opening state",

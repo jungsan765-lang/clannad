@@ -31,10 +31,22 @@
     "runtime_liyue_combat.js",
     "runtime_geo_oculi.js",
     "runtime_encounter.js",
-    "runtime_recruitment.js"
+    "runtime_recruitment.js",
+    "runtime_protagonist.js",
+    "runtime_equipment.js",
+    "runtime_enhancement.js",
+    "runtime_mond_encounters.js",
+    "runtime_enemy_content.js",
+    "runtime_enemy_skills.js",
+    "runtime_mond_boss_balance.js",
+    "runtime_mond_balance.js",
+    "runtime_navigation.js",
+    "runtime_liyue_area_content.js",
+    "runtime_liyue_areas.js",
+    "runtime_chasm_skills.js"
   ],
   "total": 19,
-  "passed": 19,
+  "passed": 18,
   "results": [
     {
       "name": "ownership and active targeting remain distinct; unowned and inactive targets cannot equip",
@@ -70,7 +82,8 @@
     },
     {
       "name": "authored story separation retains ownership and returns deselected equipment",
-      "ok": true
+      "ok": false,
+      "error": "TypeError: Cannot read properties of undefined (reading 'call')\n    at P.storyNaturalPause (runtime_navigation.js:51:60)\n    at P.storyNext (runtime_nodes.js:284:30)\n    at Runtime.apply (runtime.js:42:99)\n    at P.apply (runtime_extensions.js:10:287)\n    at P.apply (runtime_story.js:7:472)\n    at P.apply (runtime_nodes.js:290:1056)\n    at P.apply (runtime_events.js:113:18)\n    at P.apply (runtime_combat.js:199:139)\n    at P.apply (runtime_economy.js:29:33)\n    at P.apply (runtime_passives.js:140:22)"
     },
     {
       "name": "temporary eligibility cannot grant a party slot",

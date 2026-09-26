@@ -1,17 +1,11 @@
 {
-  "source": "/workspace/scratch/adc1ed75baeb/game/source/app_av.js",
-  "sha256": "86ae7055b9b0a01da990662329ccd20ce66502733f697fe1a26c14254d530d66",
+  "source": "/home/runner/work/clannad/clannad/genshin-crpg/source/app_av.js",
+  "sha256": "f193202fb87c92d53bfb72ae89decb1550abb909f8fd771c04fa1c8a3d5533ec",
   "tests": [
     {
       "name": "shows exactly one event immediately and advances at 1400ms boundaries",
-      "ok": true,
-      "evidence": {
-        "times": [
-          0,
-          1400,
-          2800
-        ]
-      }
+      "ok": false,
+      "error": "ReferenceError: game is not defined\n    at Object.play (actual-app_av-playback.js:84:60)"
     },
     {
       "name": "pause freezes automatically advancing; next displays one and stays paused; resume continues",
@@ -41,13 +35,13 @@
     },
     {
       "name": "repeated keys across completed play calls are not replayed",
-      "ok": true,
-      "evidence": {}
+      "ok": false,
+      "error": "ReferenceError: game is not defined\n    at Object.play (actual-app_av-playback.js:84:60)"
     },
     {
       "name": "duplicate keys within the same event batch are shown once",
-      "ok": true,
-      "evidence": {}
+      "ok": false,
+      "error": "ReferenceError: game is not defined\n    at Object.play (actual-app_av-playback.js:84:60)"
     },
     {
       "name": "hidden and pagehide use actual listeners to stop pending display; showing tab does not replay",
@@ -56,25 +50,8 @@
     },
     {
       "name": "reduced motion preserves exact reading durations and HP updates while disabling actor animation",
-      "ok": true,
-      "evidence": [
-        {
-          "reducedMotion": false,
-          "times": [
-            0,
-            1400
-          ],
-          "animations": 4
-        },
-        {
-          "reducedMotion": true,
-          "times": [
-            0,
-            1400
-          ],
-          "animations": 0
-        }
-      ]
+      "ok": false,
+      "error": "ReferenceError: game is not defined\n    at Object.play (actual-app_av-playback.js:84:60)"
     },
     {
       "name": "grouped actions preserve critical totals and suppress extra attack motions for reactions",
@@ -86,6 +63,6 @@
     }
   ],
   "total": 9,
-  "passed": 9,
-  "failed": 0
+  "passed": 5,
+  "failed": 4
 }

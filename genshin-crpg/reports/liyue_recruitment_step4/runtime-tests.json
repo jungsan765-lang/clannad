@@ -1,8 +1,78 @@
 {
   "version": "0.13.21",
+  "runtimeDir": "source",
   "scope": "priority 4 staged Liyue recruitment",
-  "total": 10,
-  "passed": 10,
+  "checks": [
+    {
+      "name": "both routes patch all 22 non-Archon Liyue legends into staged chapter gates",
+      "passed": true,
+      "evidence": {
+        "ROUTE_TRAVELER": {
+          "1": 12,
+          "2": 4,
+          "3": 1,
+          "4": 5
+        },
+        "ROUTE_ISEKAI": {
+          "1": 12,
+          "2": 4,
+          "3": 1,
+          "4": 5
+        }
+      }
+    },
+    {
+      "name": "stage membership exact and Zhongli special unchanged",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "stage 1 opens after chapter 1 without region completion",
+      "passed": true,
+      "evidence": {
+        "routes": 2
+      }
+    },
+    {
+      "name": "higher stages stay locked until exact chapter",
+      "passed": true,
+      "evidence": {
+        "Keqing": 2,
+        "Tartaglia": 3,
+        "Ningguang": 4
+      }
+    },
+    {
+      "name": "Zibai keeps return flag",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "requirements show exact chapter",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "free rejoin no longer demands finale",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "Isekai Liyue progress no longer blocks Mond registration",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "Liyue guild opens between chapters but stays blocked inside next chapter",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '현재는 허가된 본편 구역에서만 활동할 수 있습니다.'\n- ''\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_recruitment_step4.cjs:20:221\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_recruitment_step4.cjs:6:72)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_recruitment_step4.cjs:20:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+    },
+    {
+      "name": "save reload preserves staged availability",
+      "passed": true,
+      "evidence": null
+    }
+  ],
   "stages": {
     "ROUTE_TRAVELER": {
       "1": 12,
@@ -17,19 +87,6 @@
       "4": 5
     }
   },
-  "regression": {
-    "integration": "18/18",
-    "selectedLegends": "8/8",
-    "representativeLiyueRoutes": [
-      "K1",
-      "B2",
-      "TRV_A"
-    ],
-    "dist": "10/10"
-  },
-  "notes": [
-    "Zhongli remains on Geo-oculus/final-offering rule.",
-    "Zibai still requires FLAG_WORLD_ZIBAI_RETURNED.",
-    "Known full-suite NAV_LIYUE_VISITED fixture mismatch is not attributed to this change."
-  ]
+  "total": 10,
+  "passed": 9
 }

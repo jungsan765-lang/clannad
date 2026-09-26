@@ -1,0 +1,254 @@
+{
+  "version": "0.13.20",
+  "runtimeDir": "source",
+  "scope": "priority 3 Liyue loot + economy normalization",
+  "checks": [
+    {
+      "name": "source DB loot rows and chances are not rewritten",
+      "passed": true,
+      "evidence": {
+        "contentUnchanged": true
+      }
+    },
+    {
+      "name": "market resale caps high-value Liyue crafting materials",
+      "passed": true,
+      "evidence": {
+        "TRPG_DRAGON_SCALE": 30,
+        "TRPG_DRAGON_BLOOD_CRYSTAL": 200,
+        "TRPG_ABYSS_KNIGHT_FRAGMENT": 90,
+        "TRPG_ABYSS_SHARD": 70,
+        "MAT_LEY_LINE_SPROUT": 120
+      }
+    },
+    {
+      "name": "Liyue random victory pays bounded shared Mora EG_TREASURE_PATROL",
+      "passed": true,
+      "evidence": {
+        "mora": 51
+      }
+    },
+    {
+      "name": "Liyue random victory pays bounded shared Mora EG_LIYUE_HILI_ROCK",
+      "passed": true,
+      "evidence": {
+        "mora": 59
+      }
+    },
+    {
+      "name": "Liyue random victory pays bounded shared Mora EG_LIYUE_VISHAP",
+      "passed": true,
+      "evidence": {
+        "mora": 84
+      }
+    },
+    {
+      "name": "Liyue random victory pays bounded shared Mora EG_LIYUE_RUIN",
+      "passed": true,
+      "evidence": {
+        "mora": 52
+      }
+    },
+    {
+      "name": "Liyue random victory pays bounded shared Mora EG_CHASM_HUSK",
+      "passed": true,
+      "evidence": {
+        "mora": 114
+      }
+    },
+    {
+      "name": "Liyue random victory pays bounded shared Mora EG_CHASM_SERPENT",
+      "passed": true,
+      "evidence": {
+        "mora": 154
+      }
+    },
+    {
+      "name": "small-party scaling also lowers direct Mora instead of becoming a solo farm exploit",
+      "passed": true,
+      "evidence": {
+        "one": 17,
+        "four": 51
+      }
+    },
+    {
+      "name": "defeat gives no direct Mora",
+      "passed": true,
+      "evidence": {
+        "mora": 0
+      }
+    },
+    {
+      "name": "quest battle keeps quest Mora separate but now receives eligible monster materials",
+      "passed": true,
+      "evidence": {
+        "loot": {
+          "MAT_TREASURE_INSIGNIA": 6,
+          "MAT_SILVER_INSIGNIA": 3
+        }
+      }
+    },
+    {
+      "name": "treasure, ruin, elite hilichurl and Chasm conditional rows really drop on successful rolls",
+      "passed": true,
+      "evidence": {
+        "treasure": {
+          "MAT_TREASURE_INSIGNIA": 6,
+          "MAT_SILVER_INSIGNIA": 3
+        },
+        "ruin": {
+          "MAT_CHAOS_DEVICE": 2,
+          "MAT_CHAOS_CIRCUIT": 1,
+          "TRPG_SCRAP_METAL": 2
+        },
+        "hili": {
+          "MAT_DAMAGED_MASK": 4,
+          "MAT_STAINED_MASK": 3,
+          "MAT_OMINOUS_MASK": 2
+        },
+        "chasm": {
+          "MAT_LEY_LINE_SPROUT": 2,
+          "TRPG_ABYSS_KNIGHT_FRAGMENT": 4,
+          "TRPG_ABYSS_SHARD": 2
+        }
+      }
+    },
+    {
+      "name": "hatchling drops scale but not strong-vishap blood crystal",
+      "passed": true,
+      "evidence": {
+        "TRPG_DRAGON_SCALE": 6
+      }
+    },
+    {
+      "name": "condition rejection is explicit and does not open unrelated tables",
+      "passed": true,
+      "evidence": {
+        "source": "MON_TH_SCOUT"
+      }
+    },
+    {
+      "name": "Mond reward ownership remains MOND_BALANCE_V1",
+      "passed": true,
+      "evidence": {
+        "mora": 72
+      }
+    },
+    {
+      "name": "expected liquid value stays below economy ceiling for current Liyue field groups",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: EG_LIYUE_VISHAP liquid 172 > 160\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_loot_step3.cjs:45:156\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_loot_step3.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_loot_step3.cjs:44:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+    }
+  ],
+  "samples": [
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "group": "EG_TREASURE_PATROL",
+      "mora": 51,
+      "enemies": [
+        {
+          "source": "MON_TH_SCOUT",
+          "level": 6,
+          "grade": "일반"
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "level": 6,
+          "grade": "일반"
+        },
+        {
+          "source": "MON_TH_MARKSMAN",
+          "level": 6,
+          "grade": "일반"
+        }
+      ]
+    },
+    {
+      "map": "MAP_LIYUE_MOUNTAINS",
+      "group": "EG_LIYUE_HILI_ROCK",
+      "mora": 59,
+      "enemies": [
+        {
+          "source": "MON_MITACHURL_ROCK",
+          "level": 8,
+          "grade": "정예"
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "level": 8,
+          "grade": "일반"
+        }
+      ]
+    },
+    {
+      "map": "MAP_LIYUE_JUEYUN",
+      "group": "EG_LIYUE_VISHAP",
+      "mora": 84,
+      "enemies": [
+        {
+          "source": "MON_GEOVISHAP_HATCHLING",
+          "level": 9,
+          "grade": "일반"
+        },
+        {
+          "source": "MON_GEOVISHAP_HATCHLING",
+          "level": 9,
+          "grade": "일반"
+        },
+        {
+          "source": "MON_GEOVISHAP_HATCHLING",
+          "level": 9,
+          "grade": "일반"
+        }
+      ]
+    },
+    {
+      "map": "MAP_CHASM_SURFACE",
+      "group": "EG_LIYUE_RUIN",
+      "mora": 52,
+      "enemies": [
+        {
+          "source": "MON_RUIN_GUARD_VARIANT",
+          "level": 11,
+          "grade": "정예"
+        }
+      ]
+    },
+    {
+      "map": "MAP_CHASM_SURFACE",
+      "group": "EG_CHASM_HUSK",
+      "mora": 114,
+      "enemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 11,
+          "grade": "정예"
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 11,
+          "grade": "정예"
+        }
+      ]
+    },
+    {
+      "map": "MAP_CHASM_DEEP",
+      "group": "EG_CHASM_SERPENT",
+      "mora": 154,
+      "enemies": [
+        {
+          "source": "MON_BLACK_SERPENT_SWORD",
+          "level": 11,
+          "grade": "강적"
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 11,
+          "grade": "정예"
+        }
+      ]
+    }
+  ],
+  "total": 16,
+  "passed": 15
+}

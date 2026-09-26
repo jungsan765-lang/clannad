@@ -1,0 +1,106 @@
+{
+  "total": 4,
+  "passed": 4,
+  "results": [
+    {
+      "name": "recommended levels",
+      "ok": true,
+      "evidence": [
+        {
+          "map": "MAP_LIYUE_PLAINS",
+          "level": 1,
+          "spawn": [
+            3
+          ]
+        },
+        {
+          "map": "MAP_LIYUE_PLAINS",
+          "level": 20,
+          "spawn": [
+            6
+          ]
+        },
+        {
+          "map": "MAP_LIYUE_MOUNTAINS",
+          "level": 1,
+          "spawn": [
+            4
+          ]
+        },
+        {
+          "map": "MAP_LIYUE_MOUNTAINS",
+          "level": 20,
+          "spawn": [
+            8
+          ]
+        },
+        {
+          "map": "MAP_LIYUE_JUEYUN",
+          "level": 1,
+          "spawn": [
+            5
+          ]
+        },
+        {
+          "map": "MAP_LIYUE_JUEYUN",
+          "level": 20,
+          "spawn": [
+            9
+          ]
+        },
+        {
+          "map": "MAP_CHASM_SURFACE",
+          "level": 1,
+          "spawn": [
+            7
+          ]
+        },
+        {
+          "map": "MAP_CHASM_SURFACE",
+          "level": 20,
+          "spawn": [
+            11
+          ]
+        },
+        {
+          "map": "MAP_CHASM_DEEP",
+          "level": 1,
+          "spawn": [
+            9
+          ]
+        },
+        {
+          "map": "MAP_CHASM_DEEP",
+          "level": 20,
+          "spawn": [
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Katheryne no legends, local Liyue contact works",
+      "ok": true,
+      "evidence": {
+        "katheryneLegends": 0,
+        "place": "만민당"
+      }
+    },
+    {
+      "name": "22 Liyue costs",
+      "ok": true,
+      "evidence": {
+        "count": 22,
+        "min": 300
+      }
+    },
+    {
+      "name": "Diluc normal and story-free paths",
+      "ok": true,
+      "evidence": {
+        "normal": 650,
+        "storyWaiver": 0
+      }
+    }
+  ]
+}

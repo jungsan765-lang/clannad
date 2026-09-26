@@ -39,7 +39,7 @@
     "schema2-d0605b219738-enhance1-mond1-enemy1-boss1-balance1-navigation1-liyueareas1",
     "2026-09-24-d0605b219738-341f30487f8b"
   ],
-  "contentVersion": "2026-09-26-d0605b219738-382c257423d9",
+  "contentVersion": "2026-09-24-d0605b219738-9390f84c1366",
   "sourceSpreadsheet": "1mpixlPo_5ccd6-Z5bdb5pxfAMND7_C9i1crgALx3R7U",
   "sourceModifiedAt": "2026-09-24T18:50:00.487Z",
   "assets": {
@@ -7394,8 +7394,8 @@
           "method": "60-second mono PCM cross-correlation at 8 kHz against Apple Music preview, excluding first 5 preview seconds",
           "correlation": 0.9998137962393412,
           "matchedSeconds": 60,
-          "fullTrackMatchOffsetSeconds": 5,
-          "previewMatchOffsetSeconds": 5,
+          "fullTrackMatchOffsetSeconds": 5.0,
+          "previewMatchOffsetSeconds": 5.0,
           "officialReference": "https://music.apple.com/us/song/1535609821"
         },
         "notes": "Full OST recording from the public individual-download page, not an official CDN. Official Apple Music preview was used only to verify identity and is not packaged.",
@@ -7431,8 +7431,8 @@
           "method": "60-second mono PCM cross-correlation at 8 kHz against Apple Music preview, excluding first 5 preview seconds",
           "correlation": 0.9997652596171004,
           "matchedSeconds": 60,
-          "fullTrackMatchOffsetSeconds": 5,
-          "previewMatchOffsetSeconds": 5,
+          "fullTrackMatchOffsetSeconds": 5.0,
+          "previewMatchOffsetSeconds": 5.0,
           "officialReference": "https://music.apple.com/us/song/1535610188"
         },
         "notes": "Full OST recording from the public individual-download page, not an official CDN. Official Apple Music preview was used only to verify identity and is not packaged.",
@@ -7474,8 +7474,8 @@
         "identityVerification": {
           "method": "20-second mono PCM normalized cross-correlation at 8 kHz with official Apple Music preview, excluding first 5 preview seconds",
           "correlation": 0.9999973965804203,
-          "matchedSeconds": 20,
-          "fullTrackMatchOffsetSeconds": 5,
+          "matchedSeconds": 20.0,
+          "fullTrackMatchOffsetSeconds": 5.0,
           "previewMatchOffsetSeconds": 5,
           "officialReference": "https://music.apple.com/us/album/angels-share/1535605650?i=1535606543&uo=4",
           "previewIncludedInGame": false
@@ -7507,8 +7507,8 @@
         "identityVerification": {
           "method": "20-second mono PCM normalized cross-correlation at 8 kHz with official Apple Music preview, excluding first 5 preview seconds",
           "correlation": 0.9999137007300395,
-          "matchedSeconds": 20,
-          "fullTrackMatchOffsetSeconds": 5,
+          "matchedSeconds": 20.0,
+          "fullTrackMatchOffsetSeconds": 5.0,
           "previewMatchOffsetSeconds": 5,
           "officialReference": "https://music.apple.com/us/album/dawn-winery-theme/1535605650?i=1535607388&uo=4",
           "previewIncludedInGame": false
@@ -7540,8 +7540,8 @@
         "identityVerification": {
           "method": "20-second mono PCM normalized cross-correlation at 8 kHz with official Apple Music preview, excluding first 5 preview seconds",
           "correlation": 0.9999895073114901,
-          "matchedSeconds": 20,
-          "fullTrackMatchOffsetSeconds": 5,
+          "matchedSeconds": 20.0,
+          "fullTrackMatchOffsetSeconds": 5.0,
           "previewMatchOffsetSeconds": 5,
           "officialReference": "https://music.apple.com/us/album/whispering-plain/1535605650?i=1535607800&uo=4",
           "previewIncludedInGame": false
@@ -7573,8 +7573,8 @@
         "identityVerification": {
           "method": "20-second mono PCM normalized cross-correlation at 8 kHz with official Apple Music preview, excluding first 5 preview seconds",
           "correlation": 0.9999387289138998,
-          "matchedSeconds": 20,
-          "fullTrackMatchOffsetSeconds": 5,
+          "matchedSeconds": 20.0,
+          "fullTrackMatchOffsetSeconds": 5.0,
           "previewMatchOffsetSeconds": 5,
           "officialReference": "https://music.apple.com/us/album/perilous-path/1535605650?i=1535606550&uo=4",
           "previewIncludedInGame": false
@@ -7606,8 +7606,8 @@
         "identityVerification": {
           "method": "20-second mono PCM normalized cross-correlation at 8 kHz with official Apple Music preview, excluding first 5 preview seconds",
           "correlation": 0.9999713365099062,
-          "matchedSeconds": 20,
-          "fullTrackMatchOffsetSeconds": 5,
+          "matchedSeconds": 20.0,
+          "fullTrackMatchOffsetSeconds": 5.0,
           "previewMatchOffsetSeconds": 5,
           "officialReference": "https://music.apple.com/us/album/wind-washed-mountains/1535605650?i=1535608135&uo=4",
           "previewIncludedInGame": false
@@ -7639,8 +7639,8 @@
         "identityVerification": {
           "method": "20-second mono PCM normalized cross-correlation at 8 kHz with official Apple Music preview, excluding first 5 preview seconds",
           "correlation": 0.9999748505970308,
-          "matchedSeconds": 20,
-          "fullTrackMatchOffsetSeconds": 5,
+          "matchedSeconds": 20.0,
+          "fullTrackMatchOffsetSeconds": 5.0,
           "previewMatchOffsetSeconds": 5,
           "officialReference": "https://music.apple.com/us/song/1538565673",
           "previewIncludedInGame": false

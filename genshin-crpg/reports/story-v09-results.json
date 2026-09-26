@@ -2,40 +2,31 @@
   "tests": [
     {
       "name": "candidate public openings preserve content choices with no blank automatic nodes",
-      "passed": true,
-      "ms": 2510,
-      "evidence": {
-        "paths": 2
-      }
+      "passed": false,
+      "error": "TypeError: Cannot read properties of undefined (reading 'call')\n    at P.storyNaturalPause (runtime_navigation.js:51:60)\n    at P.storyNext (runtime_nodes.js:284:30)\n    at Runtime.apply (runtime.js:42:99)\n    at P.apply (runtime_extensions.js:10:287)\n    at P.apply (runtime_story.js:7:472)\n    at P.apply (runtime_nodes.js:290:1056)\n    at P.apply (runtime_events.js:113:18)\n    at P.apply (runtime_combat.js:199:139)\n    at P.apply (runtime_economy.js:29:33)\n    at P.apply (runtime_passives.js:140:22)"
     },
     {
       "name": "legacy blank-event reload advances with exactly one effect application and receipt",
       "passed": true,
-      "ms": 1784,
+      "ms": 877,
       "evidence": {
         "count": 5
       }
     },
     {
       "name": "automatic event failure rolls back predecessor action and all earlier effects",
-      "passed": true,
-      "ms": 413,
-      "evidence": {
-        "predecessor": "ISK_M01_UT030"
-      }
+      "passed": false,
+      "error": "SyntaxError: \"undefined\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at cp (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:3:244)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:19:116\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:7:66)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:19:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)"
     },
     {
       "name": "legend completion grants exactly ten via public authored flow and both canonical ids are done",
-      "passed": true,
-      "ms": 1494,
-      "evidence": {
-        "bond": 10
-      }
+      "passed": false,
+      "error": "SyntaxError: \"undefined\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at cp (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:3:244)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:20:146\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:7:66)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:20:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)"
     },
     {
       "name": "each old completion evidence independently blocks repeat without clawback or regrant",
       "passed": true,
-      "ms": 3042,
+      "ms": 926,
       "evidence": {
         "forms": 5
       }
@@ -43,76 +34,53 @@
     {
       "name": "old save already inside repeated completed legend returns to original main frame",
       "passed": true,
-      "ms": 215,
+      "ms": 78,
       "evidence": {
         "main": "ISK_M01_T_END"
       }
     },
     {
       "name": "daily narrative runs at score 10 and arbitrary later scores with no general gain",
-      "passed": true,
-      "ms": 506,
-      "evidence": {
-        "scores": [
-          10,
-          61
-        ],
-        "dialogue": "정찰 경고 표식 점검"
-      }
+      "passed": false,
+      "error": "SyntaxError: \"undefined\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at cp (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:3:244)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:23:119\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:7:66)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:23:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)"
     },
     {
       "name": "affection H01 authored completion grants no score and daily requirement remains usable",
-      "passed": true,
-      "ms": 418,
-      "evidence": {
-        "score": 20
-      }
+      "passed": false,
+      "error": "SyntaxError: \"undefined\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at cp (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:3:244)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:24:125\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:7:66)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:24:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)"
     },
     {
       "name": "one victorious battle gives only active slot 2 exactly one point and duplicate receipt is harmless",
-      "passed": true,
-      "ms": 988,
-      "evidence": {
-        "group": "EG_MOND_SLIME_SMALL",
-        "score": 11
-      }
+      "passed": false,
+      "error": "SyntaxError: \"undefined\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at cp (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:3:244)\n    at prepareFight (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:26:50)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:30:120\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:7:66)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:30:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)"
     },
     {
       "name": "defeat gives no point and empty slot 2 or incomplete legend gives none",
-      "passed": true,
-      "ms": 539,
-      "evidence": {}
+      "passed": false,
+      "error": "SyntaxError: \"undefined\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at cp (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:3:244)\n    at prepareFight (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:26:50)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:31:92\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:7:66)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:31:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)"
     },
     {
       "name": "battle actor source and slot outrank actor id and stale persistent party, including story guest",
-      "passed": true,
-      "ms": 138,
-      "evidence": {
-        "char": "MOND_AMBER",
-        "guest": true
-      }
+      "passed": false,
+      "error": "SyntaxError: \"undefined\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at cp (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:3:244)\n    at prepareFight (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:26:50)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:32:117\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:7:66)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:32:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)"
     },
     {
       "name": "formation UI labels slot two and explains exact gain rules",
       "passed": true,
-      "ms": 1,
+      "ms": 0,
       "evidence": {}
     },
     {
       "name": "all 24 authored legends complete for exactly ten with immutable duplicate completion action",
-      "passed": true,
-      "ms": 5285,
-      "evidence": {
-        "count": 24
-      }
+      "passed": false,
+      "error": "SyntaxError: \"undefined\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at cp (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:3:244)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:34:134\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:7:66)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:34:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)"
     },
     {
       "name": "old ongoing battle without new target metadata settles slot 2 once after reload",
-      "passed": true,
-      "ms": 260,
-      "evidence": {}
+      "passed": false,
+      "error": "SyntaxError: \"undefined\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at cp (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:3:244)\n    at prepareFight (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:26:50)\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:35:99\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:7:66)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_story_v09.cjs:35:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)"
     }
   ],
-  "passed": 14,
+  "passed": 4,
   "total": 14
 }
