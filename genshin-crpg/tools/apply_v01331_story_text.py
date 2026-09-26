@@ -74,6 +74,11 @@ choice_fixes={
 'TRV_LY4_R07A':"헤어진 쌍둥이를 찾으려면 다른 나라의 신에게도 물어봐야 해.",
 'TRV_LY4_R07B':"쌍둥이의 행적을 알 만한 사람과 길을 계속 찾아볼 거야.",
 }
+report_path=ROOT/'reports/v01331_step12_0/story-text-changes.json'
+prior_changes=[]
+if report_path.exists():
+    try: prior_changes=json.loads(report_path.read_text(encoding='utf-8')).get('changes',[])
+    except Exception: prior_changes=[]
 changes=[]
 for node,new in text_fixes.items():
     row=rows.get(('ROUTE_TRAVELER',node))
@@ -90,7 +95,7 @@ for node,new in choice_fixes.items():
 
 # Traveler personal-story gates: keep mechanics in columns, remove implementation prose from player-facing text.
 P='57_MOND_STORY_SCENE_DB'; ph=db[P][0]; pi={h:i for i,h in enumerate(ph)}
-tech=re.compile(r'(?:실제 SAVE|해당 SAVE|플레이어가 과거 선택|카드만|카드를 1회|퀘스트 완료|전설 완료|호감도|하트|중복 지급|중복 처리|A/B 외에는 이벤트 진입|A/B 기억|같은 사건으로 합류|동일한 사건의 다음 단계로 이어진다|필수 경로는 같다|둘 모두 완료된다|명시적으로 수락할 때만|거절/보류에는 불이익|수락하기 전에는 지불하지 않는다|수락 전에는 (?:소모|차감)하지 않는다|미수락 때는 차감이 없다|동의 전에는 소모하지 않는다)')
+tech=re.compile(r'(?:실제 SAVE|해당 SAVE|플레이어가 과거 선택|카드만|카드를 1회|퀘스트 완료|전설 완료|호감도|하트|중복 지급|중복 처리|A/B 외에는 이벤트 진입|A/B 기억|같은 사건으로 합류|동일한 사건의 다음 단계로 이어진다|필수 경로는 같다|둘 모두 완료된다|명시적으로 수락할 때만|거절/보류에는 불이익|수락하기 전에는 지불하지 않는다|수락 전에는 (?:소모|차감)하지 않는다|수락 전에 (?:소모|차감)하지 않는다|미수락 때는 차감이 없다|동의 전에는 소모하지 않는다|두 선택은.*합류한다|두 길은.*합류한다|두 수색 선택.*합류한다|단서 두 갈래.*합류한다|대화 뒤 목적과 보상은 합류한다)')
 def natural_gate(node,text):
     if not tech.search(text or ''): return text
     if 'MEMORY_GATE' in node or 'TARTAGLIA_G_A' in (text or '') or '해당 SAVE' in (text or ''):
@@ -117,8 +122,27 @@ for row in db[P][1:]:
     if new!=old:
         row[pi['TEXT_KO']]=new;changes.append({'table':P,'node':node,'field':'TEXT_KO','old':old,'new':new})
 
+# Additional repeated player-visible prose outside MENU_GATE.
+for row in db[P][1:]:
+    if not row or row[pi['ROUTE_ID']]!='ROUTE_TRAVELER' or row[pi['NODE_TYPE']]=='META': continue
+    node=str(row[pi['NODE_ID']]);old=str(row[pi['TEXT_KO']] or '');new=old
+    new=new.replace('사건을 기록하고 메인 화면으로 돌아간다.','그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다.')
+    if node=='LEG_LIYUE_XINGQIU_N054':
+        new='상회의 배송 장부에는 정정 기록과 수령자의 선택이 나란히 남는다. 행추도 다음 여정에 함께하겠다는 뜻을 분명히 한다. 여행자는 일을 마무리하고 다음 일정을 준비한다.'
+    elif node=='LEG_LIYUE_XIANYUN_N027':
+        new=new.replace('사용자가 균형을 잡다가','쓰는 사람이 균형을 잡다가')
+    elif node=='AFF_LIYUE_XIANYUN_H05_N013':
+        new='한운은 자부심을 버리지 않고도 장치를 쓰는 사람에게 선택을 맡긴다. 점검표는 다음에도 쓸 수 있게 남겨 두고, 둘의 협력도 자연스럽게 이어진다.'
+    if new!=old:
+        row[pi['TEXT_KO']]=new;changes.append({'table':P,'node':node,'field':'TEXT_KO','old':old,'new':new})
+
 DB.write_text(json.dumps(db,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
 out=ROOT/'reports/v01331_step12_0'
 out.mkdir(parents=True,exist_ok=True)
-(out/'story-text-changes.json').write_text(json.dumps({'version':'0.13.31','count':len(changes),'changes':changes},ensure_ascii=False,indent=2),encoding='utf-8')
-print(json.dumps({'changed':len(changes),'mainText':len(text_fixes),'mainChoices':len(choice_fixes)},ensure_ascii=False))
+combined=prior_changes[:]
+seen={(x.get('table'),x.get('node'),x.get('field'),x.get('new')) for x in combined}
+for x in changes:
+    key=(x.get('table'),x.get('node'),x.get('field'),x.get('new'))
+    if key not in seen: combined.append(x);seen.add(key)
+(out/'story-text-changes.json').write_text(json.dumps({'version':'0.13.31','count':len(combined),'changes':combined},ensure_ascii=False,indent=2),encoding='utf-8')
+print(json.dumps({'changedThisRun':len(changes),'changedTotal':len(combined),'mainText':len(text_fixes),'mainChoices':len(choice_fixes)},ensure_ascii=False))
