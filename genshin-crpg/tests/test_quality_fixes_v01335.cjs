@@ -7,11 +7,11 @@ test('field commission puzzle lives on location and reward requires Katheryne',(
  const entry=r.commissionFieldEntries().find(q=>q.row[0]==='Q_MOND_EXP_PLAINS_CART');assert(entry?.puzzle);const before=r.s.global.WORLD_TIME;
  let out=r.action('COMMISSION_PUZZLE',{quest:'Q_MOND_EXP_PLAINS_CART',answer:1}).result;assert.equal(out.correct,false);assert.equal(r.s.quests.Q_MOND_EXP_PLAINS_CART.node,'INVESTIGATE');assert.notEqual(r.s.global.WORLD_TIME,before);
  out=r.action('COMMISSION_PUZZLE',{quest:'Q_MOND_EXP_PLAINS_CART',answer:0}).result;assert.equal(out.correct,true);assert.equal(r.s.quests.Q_MOND_EXP_PLAINS_CART.node,'READY_TO_CLAIM');
- const snapshot=r.serialize();assert.throws(()=>r.action('CLAIM_QUEST',{quest:'Q_MOND_EXP_PLAINS_CART'}),e=>e.code==='QUEST_REPORT');assert.equal(r.serialize(),snapshot);
+ const snapshot=r.serialize();assert.throws(()=>r.action('CLAIM_QUEST',{quest:'Q_MOND_EXP_PLAINS_CART'}),e=>/몬드의 캐서린/.test(e.message));assert.equal(r.serialize(),snapshot);
  guild(r);const mora=r.s.global.MORA;r.action('CLAIM_QUEST',{quest:'Q_MOND_EXP_PLAINS_CART'});assert(r.s.global.MORA>mora);assert.equal(r.s.global.SCREEN_MODE,'DIALOGUE');assert(r.currentPlace()?.valid);assert.equal(r.currentPlace()?.entity,'NPC_MOND_KATHERYNE');
 });
 test('field quest view includes all accepted exploration objectives at their actual map',()=>{
- const r=fresh();guild(r);r.action('COMMISSION_ACCEPT',{quest:'Q_MOND_EXP_FOREST_CACHE'});r.action('PLACE_LEAVE');r.s.global.CURRENT_MAP_ID='MAP_MOND_FOREST';const q=r.commissionFieldEntries().find(q=>q.row[0]==='Q_MOND_EXP_FOREST_CACHE');assert(q);assert(q.puzzle);assert.match(q.puzzle.prompt,/보관함/);
+ const r=fresh();r.s.global.PLAYER_LEVEL_STATE=2;r.s.global.PLAYER_XP_STATE=0;r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;guild(r);r.action('COMMISSION_ACCEPT',{quest:'Q_MOND_EXP_FOREST_CACHE'});r.action('PLACE_LEAVE');r.s.global.CURRENT_MAP_ID='MAP_MOND_FOREST';const q=r.commissionFieldEntries().find(q=>q.row[0]==='Q_MOND_EXP_FOREST_CACHE');assert(q);assert(q.puzzle);assert.match(q.puzzle.prompt,/보관함/);
 });
 test('Barbara legend output has full clinic scene instead of terse summary',()=>{
  const r=fresh('MAP_MOND_CITY');const row=r.storyIndex().nodes.get('ROUTE_TRAVELER:LEG_MOND_BARBARA_N022');assert(row);assert.match(r.storyDisplayText(row),/노래를 시작했는데/);assert.match(r.storyDisplayText(row),/웃는 얼굴/);
