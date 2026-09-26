@@ -43,7 +43,7 @@
   };
   // Fixed Mond weapon classes: source provenance in content/weapon-proficiencies.json.
   P.equipmentProficiencies=function(owner){
-    if(owner==='PLAYER_CUSTOM')return parse(this.s.global.WEAPON_PROFICIENCIES_JSON,[]);
+    if(owner==='PLAYER_CUSTOM')return this.s.global.STORY_ROUTE_ID==='ROUTE_ISEKAI'?weapons.slice():['한손검'];
     const explicit={"MOND_ALBEDO":["한손검"],"MOND_BARBARA":["법구"],"MOND_BENNETT":["한손검"],"MOND_VENTI":["활"],"MOND_DIONA":["활"],"MOND_DAHLIA":["한손검"],"MOND_DILUC":["양손검"],"MOND_AMBER":["활"],"MOND_JEAN":["한손검"],"MOND_KAEYA":["한손검"],"MOND_KLEE":["법구"],"MOND_MIKA":["장병기"],"MOND_MONA":["법구"],"MOND_NOELLE":["양손검"],"MOND_FISCHL":["활"],"MOND_LISA":["법구"],"MOND_RAZOR":["양손검"],"MOND_ROSARIA":["장병기"],"MOND_SUCROSE":["법구"],"MOND_EULA":["양손검"]};
     return explicit[owner]||[...new Set(this.rows('08_SKILL_CARD_DB').filter(c=>c[2]===owner).flatMap(c=>weapons.filter(type=>String(c[5]).includes(type))))];
   };
