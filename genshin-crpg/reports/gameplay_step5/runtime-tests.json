@@ -1,0 +1,63 @@
+{
+  "version": "0.13.22",
+  "scope": "priority 5 recommended levels + local legend contacts + stronger Liyue preparation + Diluc normal/free paths",
+  "checks": {
+    "step5": "7/7",
+    "integration": "18/18",
+    "chasm": "40/40",
+    "shops": "14/14",
+    "dilucGeneralFullLegend": "1/1"
+  },
+  "levelSamples": [
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "recommended": [
+        3,
+        6
+      ],
+      "low": 3,
+      "high": 6
+    },
+    {
+      "map": "MAP_LIYUE_MOUNTAINS",
+      "recommended": [
+        4,
+        8
+      ],
+      "low": 4,
+      "high": 8
+    },
+    {
+      "map": "MAP_LIYUE_JUEYUN",
+      "recommended": [
+        5,
+        9
+      ],
+      "low": 5,
+      "high": 9
+    },
+    {
+      "map": "MAP_CHASM_SURFACE",
+      "recommended": [
+        7,
+        11
+      ],
+      "low": 7,
+      "high": 11
+    },
+    {
+      "map": "MAP_CHASM_DEEP",
+      "recommended": [
+        9,
+        13
+      ],
+      "low": 9,
+      "high": 13
+    }
+  ],
+  "notes": [
+    "Known old QA fixture NAV_LIYUE_VISITED was supplied only for the full Diluc legend regression; the gameplay change does not depend on that variable.",
+    "Special Diluc cost waiver is derived from saved story state and is not exposed as a route label in UI.",
+    "Google Sheet was read for verification only; no Sheet writes."
+  ]
+}

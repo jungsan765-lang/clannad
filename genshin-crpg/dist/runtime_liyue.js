@@ -137,7 +137,7 @@ P.actionReason=function(type,a={}){
  if(g.STORY_ROUTE_ID==='ROUTE_ISEKAI'&&l?.activeQuest&&!l.regionReceipt){
   const chapter=l.chapters[l.activeQuest];if(chapter?.gate&&!chapter.handedOffTo&&['STORY_NEXT','STORY_CHOICE'].includes(type))return '다음 장을 선택해서 현재 이야기의 갈래를 이어가세요.';
   if(type==='MOVE'){const e=this.tables['47_MAP_EDGE_DB'].get(a.edge);if(e?.[2]==='MAP_LIYUE_HARBOR'&&!this.liyueReturnAllowed?.(e[2]))return '지금은 도시 출입이 제한됩니다. 본편의 안내에 따라 이동하세요.';}
-  const betweenChapters=this.storyDone(l.activeQuest),stagedSidePass=betweenChapters&&(type==='LEGEND_REGISTER'||type==='PLACE_ENTER'&&a.place==='EVT_CRPG_LIYUE_GUILD');
+  const betweenChapters=this.storyDone(l.activeQuest),stagedSidePass=betweenChapters&&(type==='LEGEND_REGISTER'||type==='PLACE_ENTER'&&this.liyueRecruitContactPlace?.(a.place));
   if(!stagedSidePass&&['PLACE_ENTER','NPC','BUY','SELL','CRAFT','COMMISSION_ACCEPT','LEGEND_REGISTER'].includes(type)&&g.CURRENT_MAP_ID==='MAP_LIYUE_HARBOR')return '현재는 허가된 본편 구역에서만 활동할 수 있습니다.';
  }
  return old.actionReason.call(this,type,a);

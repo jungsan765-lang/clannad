@@ -72,6 +72,22 @@ def patch(db):
             rows[at] = row
         return row
 
+    # Diluc always keeps a normal post-Mond personal acquisition route.
+    # Some authored story branches may already have recruited him; runtime waives this personal quest cost in that case.
+    diluc = definitions.get('LEG_ISK_MOND_DILUC')
+    if diluc:
+        condition = 'ROUTE_ID=ROUTE_ISEKAI && FLAG_ISK_M05_CLEAR=TRUE && FLAG_LEG_ISK_MOND_DILUC_CLEAR=FALSE && CURRENT_MAP_ID=MAP_MOND_DAWN_WINERY'
+        row = next(r for r in db['56_MOND_LEGEND_DB'][1:] if r and r[0] == 'LEG_ISK_MOND_DILUC')
+        row[headers.index('START_CONDITION')] = condition
+        row[headers.index('MAIN_FLAG_GATE')] = 'FLAG_ISK_M05_CLEAR'
+        row[headers.index('RECRUIT_MODE')] = 'STORY_OR_LEGEND_OPT_IN'
+        row[headers.index('COST_MORA')] = 650
+        row[headers.index('COST_ITEMS_JSON')] = json.dumps({'ORE_CRYSTAL':4,'MAT_DAMAGED_MASK':3}, ensure_ascii=False, separators=(',', ':'))
+        diluc.update(START_CONDITION=condition, MAIN_FLAG_GATE='FLAG_ISK_M05_CLEAR', RECRUIT_MODE='STORY_OR_LEGEND_OPT_IN',
+                     COST_MORA=650, COST_ITEMS_JSON=row[headers.index('COST_ITEMS_JSON')])
+        entry = next((r for r in db['57_MOND_STORY_SCENE_DB'][1:] if len(r)>11 and r[0]=='ROUTE_ISEKAI' and r[4]==diluc['ENTRY_NODE_ID']), None)
+        if entry: entry[11] = condition
+
     # Preserve early/late branch history instead of letting post-clear prose run during the prologue.
     start = node('LEG_ISK_MOND_JEAN_START')
     start[9] = start[9].replace('몬드의 명예기사라는 호칭보다', '형식적인 인사보다')
