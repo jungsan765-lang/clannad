@@ -46,3 +46,9 @@ jobs:
           grep -q "두 사람은 그쪽 길에서 나온 거지" dist/data.js
           grep -q "몬드성은 아직 드발린의 습격을 수습하는 중이다" dist/data.js
           ! grep -q "실제 SAVE와 해금 조건" dist/data.js
+          test -f dist/runtime_liyue_equipment.js
+          test -f dist/app_liyue_equipment.js
+          grep -q "runtime_liyue_equipment.js?v=" dist/index.html
+          grep -q "app_liyue_equipment.js?v=" dist/index.html
+          grep -q "지형이 모두 무너져 전멸했습니다." dist/runtime_combat.js
+          grep -q "경험치 획득" dist/app_adventure.js
