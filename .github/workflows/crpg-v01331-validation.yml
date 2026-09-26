@@ -1,0 +1,42 @@
+name: CRPG v0.13.31 Validation
+
+on:
+  push:
+    branches:
+      - feat/crpg-v01331-step12-0-12-1
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: genshin-crpg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow
+      - run: npm ci
+      - name: Traveler story prose regression
+        run: node tools/test_v01331_story_text.cjs
+      - name: Existing story regression
+        run: node tests/test_story_v09.cjs
+      - name: Story flow regression
+        run: node tests/test_flow.cjs
+      - name: v0.13.30 play fixes regression
+        run: node tools/test_play_fixes.cjs
+      - name: Route smoke
+        run: node tests/smoke_routes.cjs
+      - name: Production build
+        run: python tools/build.py
+      - name: Verify built v0.13.31 data
+        run: |
+          node -e "const p=require('./package.json'),r=require('./dist/release.json');if(p.version!=='0.13.31'||r.appVersion!=='0.13.31')process.exit(1)"
+          grep -q "두 사람은 그쪽 길에서 나온 거지" dist/data.js
+          grep -q "몬드성은 아직 드발린의 습격을 수습하는 중이다" dist/data.js
+          ! grep -q "실제 SAVE와 해금 조건" dist/data.js
