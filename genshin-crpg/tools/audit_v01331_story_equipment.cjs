@@ -47,3 +47,7 @@ for(const table of storyTables){
 
 const relevantKeys=tables.filter(k=>/EQUIP|RECIPE|STOCK|MERCHANT|SHOP/.test(k));
 for(const t of relevantKeys){console.log('\nTABLE '+t+' HEADER '+JSON.stringify(db[t][0]||[]));const rows=db[t].slice(1);const picked=rows.filter(r=>JSON.stringify(r).includes('리월')||JSON.stringify(r).includes('몬드')||String(r?.[0]||'').startsWith('EQ_')||String(r?.[0]||'').startsWith('REC_')||String(r?.[0]||'').startsWith('STK_'));console.log('ROWS '+t+' '+JSON.stringify(picked.slice(0,250),null,2));}
+
+
+const items=db['14_ITEM_DB']||[];
+console.log('\nLIYUE_MATERIAL_MATCHES '+JSON.stringify(items.slice(1).filter(r=>/(콜|라피스|COR|LAPIS|리월)/i.test(JSON.stringify(r))).map(r=>r.slice(0,Math.min(r.length,20))),null,2));
