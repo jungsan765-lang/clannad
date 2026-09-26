@@ -10,7 +10,7 @@ function step(r,prefer){if(!['STORY','STORY_WAIT'].includes(r.s.global.SCREEN_MO
 function opening(Runtime,unknown=false,observe=()=>{}){const r=new Runtime(db);r.newGame({name:'검증',route:'ROUTE_ISEKAI',seed:74219,saveId:'V09-STORY-'+(unknown?'U':'K')});for(let i=0;i<320;i++){if(r.playPhase()==='FREE')return r;observe(r);step(r,choices=>choices.find(c=>String(c[12]).includes('FLAG_ISK_META_KNOWLEDGE='+(unknown?'UNKNOWN':'KNOWN'))));}throw Error('Opening bound');}
 const LEG='LEG_ISK_MOND_AMBER',QUEST='Q_LEG_ISK_MOND_AMBER',PID='PROFILE_MOND_AMBER';
 let free,completed,baselineComplete=fixtures.baselineComplete,legacyBlank=fixtures.legacyBlank;
-function enterAmber(r){action(r,'PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});action(r,'LEGEND_REGISTER',{quest:LEG});action(r,'PLACE_LEAVE');r.giveItem('TRPG_STURDY_CLOTH',1);action(r,'LEGEND_ENTER',{quest:LEG});}
+function enterAmber(r){const d=r.storyDefinition(LEG),place=r.legendIntroductionPlaces(d)[0];assert(place,'missing Amber introduction contact');const map=r.s.global.CURRENT_MAP_ID;r.s.global.CURRENT_MAP_ID=place.maps[0];action(r,'PLACE_ENTER',{place:place.id});action(r,'LEGEND_REGISTER',{quest:LEG});action(r,'PLACE_LEAVE');r.s.global.CURRENT_MAP_ID=map;r.giveItem('TRPG_STURDY_CLOTH',1);action(r,'LEGEND_ENTER',{quest:LEG});}
 function completeAmber(r){enterAmber(r);for(let i=0;i<220&&r.s.storyContext;i++)step(r);assert(!r.s.storyContext);return r;}
 function rejects(r,type,params){const before=r.serialize();assert.throws(()=>action(r,type,params));assert.equal(r.serialize(),before);}
 
