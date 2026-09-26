@@ -26,7 +26,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   left.append(controls,el('p','terrain-legend','◆ 현재 구역   · 지형상 위치점   ① 선택 버튼(선으로 연결)'));
   const note=this.point(current)?.[3];if(note)left.append(el('p','terrain-location-note',note));
   left.append(el('small','terrain-help','점을 누르기 어려우면 같은 번호의 큰 카드를 선택하세요. 확대 후 지도를 밀어 볼 수 있습니다.'));
-  right.append(el('h3','','어디로 갈까?'),el('p','terrain-select-help','선택은 미리보기입니다. 아래 이동 버튼을 눌러야 출발합니다.'));
+  right.append(el('h3','','어디로 갈까?'),el('p','terrain-select-help','목적지 카드를 누르면 바로 이동합니다. 지도 번호는 위치와 경로를 미리 확인할 때 사용하세요.'));
   const domestic=nearby.filter(n=>!n.reason&&n.point?.[0]===this.atlas),other=nearby.filter(n=>!domestic.includes(n));
   const cards=el('div','terrain-destination-list');for(const n of domestic)cards.append(this.card(n));if(!domestic.length)cards.append(el('p','muted','이 지도 안에서 바로 이어지는 길이 없습니다.'));right.append(cards);
   if(other.length){const details=el('details','terrain-other-routes');details.open=other.some(n=>n.id===target);details.append(el('summary','','다른 지역·잠긴 길 ('+other.length+')'));for(const n of other)details.append(this.card(n));right.append(details);}
@@ -44,18 +44,18 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
    }else if(target===current){detail.append(el('span','','이미 도착한 장소입니다.'));dock.append(detail,this.disabledTravel('현재 위치'));}
    else{detail.append(el('p','terrain-lock-reason','지금 연결된 길이 없습니다. 본편 안내 이동이나 출입 조건을 확인하세요.'));dock.append(detail,this.disabledTravel());}
    const destAtlas=this.atlasFor(target);if(destAtlas&&destAtlas!==this.atlas){const b=this.control(T.atlases[destAtlas].name+' 지도 미리보기',()=>{this.atlas=destAtlas;const p=this.point(target);this.camera=p?{mode:'custom',zoom:1.7,cx:p[1],cy:p[2]}:{mode:'full'};this.refresh();},'preview');dock.append(b);}
-  }else{detail.append(el('strong','','지도 번호 또는 목적지 카드를 선택하세요'),el('span','','위치 확인은 자유롭게, 이동은 확인 후에.'));dock.append(detail,this.disabledTravel('목적지를 선택하세요'));}
+  }else{detail.append(el('strong','','지도 번호를 선택하면 이동 경로를 미리 볼 수 있습니다.'),el('span','','오른쪽 목적지 카드는 누르는 즉시 출발합니다.'));dock.append(detail,this.disabledTravel('지도에서 목적지를 선택하세요'));}
   section.append(dock);
   const footer=el('details','terrain-provenance');footer.append(el('summary','','지도 표시 기준'),el('p','','승인된 두 지도 이미지를 그대로 사용합니다. 작은 위치점은 지형 좌표에 고정됩니다. 번호는 누르기 쉽게 옮길 수 있으며 연결선 끝의 작은 점이 위치입니다. 넓은 구역·활동 장소와 실내·지하는 대표점으로 표시하며, 미검증 입구를 정확한 좌표로 보지 않습니다. 흐린 영역에는 임의의 지점을 만들지 않습니다. 지역 간 길은 카드에서 선택하고 실제 이동 규칙을 따릅니다.'));section.append(footer);
   return section;
  },
  control(text,fn,key,label){const b=button(text,fn);b.dataset.navFocus=key;if(label)b.setAttribute('aria-label',label);return b;},
  disabledTravel(text='이동할 수 없습니다'){const b=button(text,()=>{},true);b.className='terrain-travel';return b;},
- card(n){const b=this.control('',()=>this.choose(n.id),'card-'+n.row[0]);b.className='terrain-destination'+(this.target===n.id?' selected':'')+(n.reason?' locked':'');b.dataset.destination=n.id;b.setAttribute('aria-pressed',String(this.target===n.id));
+ card(n){const b=n.reason?this.control('',()=>this.choose(n.id),'card-'+n.row[0]):actionButton('','MOVE',{edge:n.row[0]},true);b.dataset.navFocus='card-'+n.row[0];b.className='terrain-destination'+(this.target===n.id?' selected':'')+(n.reason?' locked':'');b.dataset.destination=n.id;b.setAttribute('aria-pressed',String(this.target===n.id));
   const num=el('span','terrain-number',String(n.number)),copy=el('span','terrain-card-copy');copy.append(el('strong','',mapName(n.id)),el('small','',this.direction(n.id)+' · '+n.row[5]+'분 · '+this.risk(n.id)));
   if(n.point?.[3])copy.append(el('small','terrain-point-note',n.point[3]));
-  if(n.reason)copy.append(el('small','terrain-lock-reason','잠김 · '+n.reason));else if(!n.point)copy.append(el('small','','지도 범위 밖 · 경로로 안내'));
-  b.append(num,copy,el('span','terrain-card-state',n.reason?'잠김':this.target===n.id?'선택':'›'));
+  if(n.reason)copy.append(el('small','terrain-lock-reason','잠김 · '+n.reason));else if(!n.point)copy.append(el('small','','지도 범위 밖 · 경로로 이동'));
+  b.append(num,copy,el('span','terrain-card-state',n.reason?'잠김':'이동'));
   const highlight=()=>{document.querySelectorAll('.terrain-pin').forEach(p=>p.classList.toggle('hovered',(p.dataset.destinations||'').split(',').includes(n.id)));};
   b.addEventListener('pointerenter',highlight);b.addEventListener('focus',highlight);b.addEventListener('pointerleave',()=>document.querySelectorAll('.terrain-pin.hovered').forEach(p=>p.classList.remove('hovered')));return b;
  },

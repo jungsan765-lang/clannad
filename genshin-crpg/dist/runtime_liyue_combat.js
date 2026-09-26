@@ -1,7 +1,7 @@
 /* Explicit boss capabilities and a persistent eight-round defensive objective. */
 (function(root){
 'use strict';const api=root.CRPGRuntime,P=api.Runtime.prototype;
-const old=Object.fromEntries(['combatStoryConfig','startBattle','cardSupport','cardReason','cardTargets','executeCard','combatStat','combatDamageMultiplier','newRound','roundEnd','aiTurn','applyDamage','damage','addCombatStatus','resolveEnemyPhases','checkBattleInterludes','actionReason','apply','validateSave'].map(k=>[k,P[k]]));
+const old=Object.fromEntries(['combatStoryConfig','startBattle','actorCards','cardSupport','cardReason','cardTargets','executeCard','combatStat','combatDamageMultiplier','newRound','roundEnd','aiTurn','applyDamage','damage','addCombatStatus','resolveEnemyPhases','checkBattleInterludes','actionReason','apply','validateSave'].map(k=>[k,P[k]]));
 const copy=x=>JSON.parse(JSON.stringify(x)),json=x=>{try{return JSON.parse(x||'{}');}catch{return {};}};
 const bossIds=new Set(['BOSS_TARTAGLIA','BOSS_ISK_L03_GOLDEN','BOSS_OSIAL','BOSS_ISK_L04_OSIAL']),isOsial=a=>['BOSS_OSIAL','BOSS_ISK_L04_OSIAL'].includes(a?.source),isGolden=a=>['BOSS_TARTAGLIA','BOSS_ISK_L03_GOLDEN'].includes(a?.source);
 const waves={1:['MON_FATUI_CRYO','MON_FATUI_PYRO'],3:['MON_FATUI_ELECTRO','MON_FATUI_HYDRO'],5:['MON_FATUI_GEO','MON_FATUI_ANEMO'],7:['MON_FATUI_AGENT']};
@@ -13,6 +13,16 @@ P.combatStoryConfig=function(group){
  return old.combatStoryConfig.call(this,group);
 };
 const fieldEnemyCards=new Set(['ECARD_MITA_ROCK_SHIELD','ECARD_MITA_ROCK_CHARGE','ECARD_RUIN_VARIANT_CORE','ECARD_FATUI_CRYO_SPRAY','ECARD_FATUI_CRYO_ARMOR','ECARD_FATUI_PYRO_AIM','ECARD_FATUI_ANEMO_GUARD','ECARD_FATUI_ELECTRO_ARMOR','ECARD_FATUI_HYDRO_HEAL','ECARD_FATUI_GEO_BARRIER','ECARD_FATUI_AGENT_STEALTH','ECARD_FATUI_AGENT_BLADE']);
+P.isLiyueFieldEnemy=function(a){const b=this.s.runtime,map=this.tables['32_MAP_DB']?.get(this.s.global.CURRENT_MAP_ID);return a?.side==='ENEMY'&&map?.[1]==='리월'&&(b?.origin==='RANDOM'||b?.origin?.startsWith('QUEST:'));};
+P.actorCards=function(a){
+ let cards=old.actorCards.call(this,a);if(!this.isLiyueFieldEnemy(a))return cards;
+ if(a.source==='MON_GEOVISHAP_HATCHLING'){
+  const inherited=this.combatRows('12_ENEMY_CARD_DB').filter(r=>r[1]==='MON_VISHAP'&&r[3]!=='패시브'&&r[30]?.startsWith('ACTIVE')).map(r=>({...this.cardDefinition(r,true),owner:a.source,level:1,inheritedFrom:'MON_VISHAP'}));
+  if(inherited.length){a.hasDedicatedCards=true;cards=[...cards,...inherited];}
+ }
+ if(a.source==='MON_RUIN_GUARD_VARIANT'&&cards.length){a.hasDedicatedCards=true;cards=cards.map(c=>({...c,level:1}));}
+ return cards;
+};
 P.cardSupport=function(c){if(c.enemy&&fieldEnemyCards.has(c.id))return c.ready?'':'적 카드 정의가 준비되지 않았습니다.';return c.enemy&&bossIds.has(c.owner)&&c.ready?'':old.cardSupport.call(this,c);};
 P.cardTargets=function(a,c){if(['ECARD_FATUI_ANEMO_GUARD','ECARD_FATUI_GEO_BARRIER','ECARD_FATUI_HYDRO_HEAL'].includes(c.id))return this.s.runtime.actors.filter(t=>t.side===a.side&&t.hp>0&&(c.id==='ECARD_FATUI_HYDRO_HEAL'?t.hp/t.maxHp<=.7:!t.shields.some(s=>s.value>0))).sort((x,y)=>x.hp/x.maxHp-y.hp/y.maxHp);return old.cardTargets.call(this,a,c);};
 P.cardReason=function(a,c){if(c.id==='ECARD_FATUI_AGENT_STEALTH'&&a.statuses.some(s=>s.id==='AGENT_STEALTH'))return '이미 잠행 중입니다.';if(['ECARD_FATUI_ANEMO_GUARD','ECARD_FATUI_GEO_BARRIER','ECARD_FATUI_HYDRO_HEAL'].includes(c.id)&&!this.cardTargets(a,c).length)return '지원할 대상이 없습니다.';if(['ECARD_MITA_ROCK_SHIELD','ECARD_RUIN_VARIANT_CORE','ECARD_FATUI_CRYO_ARMOR','ECARD_FATUI_ELECTRO_ARMOR'].includes(c.id))return '조건에 따라 자동 발동합니다.';if(c.id==='ECARD_MITA_ROCK_CHARGE'&&!a.shields.some(s=>s.value>0))return '바위 방패가 필요합니다.';if(this.s.runtime?.liyueInterlude)return '전투 중 대화를 먼저 확인하세요.';if(c.enemy&&bossIds.has(c.owner)){if(isOsial(a)||c.trigger.startsWith('AUTO_'))return '전투 기믹으로 자동 처리됩니다.';const phase=Number(c.trigger.match(/ACTIVE_IF_PHASE=(\d)/)?.[1]);if(phase&&phase!==(a.liyuePhase||1))return '현재 단계에서 사용하지 않습니다.';if(a.cooldowns[c.id]>0)return '재사용 대기 중입니다.';return '';}return old.cardReason.call(this,a,c);};

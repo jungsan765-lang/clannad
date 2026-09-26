@@ -1,0 +1,27 @@
+{
+  "version": "0.13.23",
+  "scope": "priority 6 plus Mond resale, Liyue commissions, facility visuals and navigation",
+  "checks": {
+    "newFeatures": "8/8",
+    "integration": "18/18",
+    "chasm": "40/40",
+    "shops": "14/14",
+    "step5": "7/7"
+  },
+  "liyueCommissions": {
+    "added": 10,
+    "total": 15,
+    "minLevel": 4,
+    "maxLevel": 13,
+    "repeatable": false
+  },
+  "assets": {
+    "newDownloads": 0,
+    "reusedBundledOriginalGameIcons": 6
+  },
+  "navigation": {
+    "destinationCards": "direct MOVE",
+    "mapPins": "preview",
+    "removedLegacyEdgeList": true
+  }
+}

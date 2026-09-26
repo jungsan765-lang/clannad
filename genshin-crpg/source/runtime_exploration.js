@@ -23,6 +23,18 @@
   ['WOLVENDOM_PATROL','숲을 가르는 철제 발자국','MAP_MOND_WOLVENDOM',5,'exploration','중무장한 츄츄족 무리가 숲 안쪽의 통로를 막았다. 행인들이 다치기 전에 길을 되찾자.','넓은 공터로 유인해 중무장대를 상대한다.',15,200,140,{MAT_CHAR_EXP_ADVENTURER:1,ORE_WHITE_IRON:2},'EG_MOND_HILI_ELITE'],
   ['DRAGONSPINE_MARKERS','설원 귀환로의 표식','MAP_DRAGONSPINE',6,'exploration','눈보라에 탐사대의 귀환 표식이 묻혔다. 바람을 피할 수 있는 구간을 확인해야 한다.','바위 그늘을 따라 귀환 표식을 복구한다.',35,220,160,{MAT_CHAR_EXP_ADVENTURER:2}]
  ];
+ const liyueQuests=[
+  {suffix:'HARBOR_LEDGER',title:'부두 창고의 두 장부',map:'MAP_LIYUE_HARBOR',level:4,text:'같은 화물이 서로 다른 창고 장부에 두 번 적혔다. 서명과 도착 시간을 맞춰 실제 수량을 확인해야 한다.',choices:[{id:'careful',label:'서명과 시간표를 차례대로 대조한다.',minutes:25,next:'READY_TO_CLAIM',success_rate:100},{id:'quick',label:'표식이 같은 화물부터 빠르게 묶어 본다.',minutes:10,next:'READY_TO_CLAIM',on_failure:'INVESTIGATE',success_rate:75,failure_hp_fraction:.05}],reward:{mora:160,xp:90,items:{MAT_CHAR_EXP_WANDERER:1}}},
+  {suffix:'TREASURE_PROOF',title:'보물 사냥단 표식 수거',map:'MAP_LIYUE_HARBOR',level:5,text:'천암군이 여러 야영지의 표식을 대조하려 한다. 보물 사냥단 휘장 5개를 모아 실제 활동 범위를 확인하자.',items:{MAT_TREASURE_INSIGNIA:5},choices:[{id:'careful',label:'모아 온 휘장을 종류별로 정리해 넘긴다.',minutes:10,next:'READY_TO_CLAIM',success_rate:100}],reward:{mora:260,xp:120,items:{ORE_WHITE_IRON:2}}},
+  {suffix:'QINGCE_PROVISIONS',title:'경책 산장의 공동 식량',map:'MAP_LIYUE_QINGCE',level:6,text:'산길이 막히는 날을 대비해 공동 창고를 채운다. 생선 4개와 쌀 4개를 준비해 상하지 않게 분배하자.',items:{ING_FISH:4,ING_RICE:4},choices:[{id:'careful',label:'식량을 상태별로 나눠 공동 창고에 넣는다.',minutes:20,next:'READY_TO_CLAIM',success_rate:100}],reward:{mora:300,xp:140,items:{MAT_CHAR_EXP_ADVENTURER:1}}},
+  {suffix:'MOUNTAIN_BLOCKADE',title:'산길을 막은 바위 방패대',map:'MAP_LIYUE_MOUNTAINS',level:6,text:'운송대가 바위 방패 츄츄족 때문에 고갯길을 통과하지 못하고 있다. 수레가 움직일 틈을 만들자.',choices:[{id:'careful',label:'수레를 뒤로 물리고 바위 방패대를 상대한다.',minutes:15,next:'AWAIT_VICTORY',success_rate:100,combat_group:'EG_LIYUE_HILI_ROCK'}],reward:{mora:320,xp:160,items:{MAT_CHAR_EXP_ADVENTURER:1}}},
+  {suffix:'JUEYUN_SURVEY',title:'절운간의 사라진 이정표',map:'MAP_LIYUE_JUEYUN',level:7,text:'안개 뒤에서 이정표 세 개의 방향이 서로 맞지 않는다. 고도와 발자국, 바람 방향을 비교해 잘못 옮겨진 표식을 찾아야 한다.',choices:[{id:'careful',label:'고도와 발자국을 하나씩 대조한다.',minutes:45,next:'READY_TO_CLAIM',success_rate:100},{id:'quick',label:'가장 많이 밟힌 길부터 역으로 추적한다.',minutes:25,next:'READY_TO_CLAIM',on_failure:'INVESTIGATE',success_rate:80,failure_hp_fraction:.08}],reward:{mora:360,xp:180,items:{ORE_CRYSTAL:2}}},
+  {suffix:'RUIN_PARTS_ORDER',title:'유적 기계 부품 감정',map:'MAP_LIYUE_HARBOR',level:8,text:'항구 수리공들이 가짜 부품이 섞였다고 의심한다. 혼돈의 장치 3개와 기계 고철 2개를 가져와 마모 흔적을 비교하자.',items:{MAT_CHAOS_DEVICE:3,TRPG_SCRAP_METAL:2},choices:[{id:'careful',label:'부품을 분해하지 않고 마모 흔적부터 대조한다.',minutes:25,next:'READY_TO_CLAIM',success_rate:100}],reward:{mora:420,xp:220,items:{MAT_CHAR_EXP_ADVENTURER:1}}},
+  {suffix:'THREE_PATROLS',title:'천암군 외곽 순찰 세 차례',map:'MAP_LIYUE_HARBOR',level:8,text:'한 번의 토벌보다 며칠간의 동선 확인이 필요하다. 리월 야외에서 일반 조우 전투를 세 번 이기고 순찰 기록을 제출하자.',battle_wins:3,choices:[{id:'careful',label:'세 차례 순찰 기록을 시간순으로 정리해 제출한다.',minutes:15,next:'READY_TO_CLAIM',success_rate:100}],reward:{mora:480,xp:240,items:{MAT_CHAR_EXP_ADVENTURER:2}}},
+  {suffix:'RUIN_CLEARANCE',title:'층암거연 지상의 멈추지 않는 기계',map:'MAP_CHASM_SURFACE',level:9,text:'폐광 입구를 반복해서 배회하는 유적 기계가 작업대를 위협한다. 이동 경로를 확인한 뒤 안전 구간에서 제압하자.',choices:[{id:'careful',label:'작업자를 철수시키고 유적 기계를 유인한다.',minutes:20,next:'AWAIT_VICTORY',success_rate:100,combat_group:'EG_LIYUE_RUIN'}],reward:{mora:500,xp:260,items:{MAT_CHAR_EXP_ADVENTURER:2}}},
+  {suffix:'CHASM_SHIFT',title:'층암거연 교대조 구조선 확보',map:'MAP_CHASM_SURFACE',level:10,text:'교대조가 돌아올 길을 흑 뱀 무리가 끊었다. 광부들이 빠져나올 동안 통로를 지키고 마지막 적까지 정리해야 한다.',choices:[{id:'careful',label:'광부를 먼저 보내고 흑 뱀 수비대를 막는다.',minutes:25,next:'AWAIT_VICTORY',success_rate:100,combat_group:'EG_CHASM_HUSK'}],reward:{mora:600,xp:320,items:{MAT_CHAR_EXP_ADVENTURER:2,TRPG_MEDKIT:1}}},
+  {suffix:'DEEP_PATROL',title:'심층의 검은 길 재측량',map:'MAP_CHASM_DEEP',level:13,text:'심층 통로의 표식이 사라지고 흑 뱀 기사 선봉이 길목을 차지했다. 귀환선까지 다시 표시하려면 먼저 위험 구역을 비워야 한다.',choices:[{id:'careful',label:'귀환선을 표시하며 흑 뱀 기사 선봉을 정리한다.',minutes:35,next:'AWAIT_VICTORY',success_rate:100,combat_group:'EG_CHASM_SERPENT'}],reward:{mora:800,xp:420,items:{MAT_CHAR_EXP_ADVENTURER:3,ORE_CRYSTAL:3}}}
+ ];
  // Twelve fixed points, distributed over seven reachable areas; never a daily drop.
  const legacyPoints=[
   ['ANEMO_PLAINS_CART','MAP_MOND_PLAINS',1,'풍차 그늘의 빛','들풀 위에 오래 머무는 바람이 있다. 풍차의 그늘을 살펴보자.'],
@@ -56,6 +68,11 @@
    const d={schema:1,kind,map_id:map,conditions,start:'INVESTIGATE',text,choices:[choice],claim_node:'READY_TO_CLAIM',revisit:'현장 활동과 보상 수령을 모두 마쳤다.',authorship:'CRPG_LOCAL_V09'};
    if(!rows.some(r=>r[0]===id))rows.push([id,title,'몬드','NPC_MOND_KATHERYNE','LEVEL>='+level,text,'현장 보상','미시작','','로컬 추가 의뢰',JSON.stringify(d),JSON.stringify({mora,xp,items,flags:{}}),'READY','CRPG_LOCAL_V09']);
   }
+  for(const q of liyueQuests){
+   const id='Q_CRPG_LIYUE_EXP_'+q.suffix,conditions={map_id:q.map,min_level:q.level,unclaimed:true};if(q.items)conditions.items_cost=q.items;if(q.battle_wins)conditions.battle_wins=q.battle_wins;
+   const d={schema:1,kind:'exploration',map_id:q.map,conditions,start:'INVESTIGATE',text:q.text,choices:q.choices,claim_node:'READY_TO_CLAIM',revisit:'현장 활동과 보상 수령을 모두 마쳤다.',authorship:'CRPG_LOCAL_LIYUE_V1'};
+   if(!rows.some(r=>r[0]===id))rows.push([id,q.title,'리월','NPC_LIYUE_KATHERYNE','LEVEL>='+q.level,q.text,'리월 현장 보상','미시작','','리월항 추가 의뢰',JSON.stringify(d),JSON.stringify({...q.reward,flags:{}}),'READY','CRPG_LOCAL_LIYUE_V1']);
+  }
   setTable('22_QUEST_DB',rows);
   const items=this.db['14_ITEM_DB'].map(r=>r.slice());if(!items.some(r=>r[0]===ITEM))items.push([ITEM,'바람 신의 눈동자','퀘스트 아이템','희귀','[바람]','몬드 곳곳의 바람에 남은 작은 결정. 거목 아래에서 바람에 돌려줄 수 있다.','탐험','거목 아래 공양','','','N','공용','','일회성 수집',0,0,12,'몬드 탐험','N','Y','몬드','CRPG_LOCAL_V09']);setTable('14_ITEM_DB',items);
   const flags=this.db['23_FLAG_DB'].map(r=>r.slice());if(!flags.some(r=>r[0]===OWNED))flags.push([OWNED,'눈동자 공양으로 벤티와 동행 약속을 맺음',false,'PROFILE_MOND_VENTI','몬드','','CRPG_LOCAL_V09']);setTable('23_FLAG_DB',flags);
@@ -87,11 +104,18 @@
   if(!this.isCommission(id))return '';
   const level=json(row[10]).conditions?.min_level||1;return this.s.global.PLAYER_LEVEL_STATE<level?'Lv. '+level+'부터 받을 수 있는 의뢰입니다.':'';
  };
+ P.localLiyueRequirementReason=function(id){
+  const row=this.tables['22_QUEST_DB'].get(id),d=row&&json(row[10]);if(d?.authorship!=='CRPG_LOCAL_LIYUE_V1')return '';
+  const q=this.s.quests[id],c=d.conditions||{};
+  if(c.battle_wins&&!q?.localLiyueRequirementPaid){const now=json(this.s.global.WORLD_VISIT_COUNTS_JSON).LIYUE_ENCOUNTERS||0,base=q?.localLiyueWinsAtAccept??now,done=Math.max(0,now-base);if(done<c.battle_wins)return '리월 야외 순찰 승리 '+done+' / '+c.battle_wins+'회가 필요합니다.';}
+  if(c.items_cost&&!q?.localLiyueRequirementPaid)for(const [item,n]of Object.entries(c.items_cost))if(this.itemCount(item)<n)return (this.tables['14_ITEM_DB'].get(item)?.[1]||item)+' '+this.itemCount(item)+' / '+n+'개가 필요합니다.';
+  return '';
+ };
  P.questVisible=function(id){const r=this.tables['22_QUEST_DB'].get(id);return !!r&&(!r[2]||r[2]==='몬드'||this.regionVisited(r[2]))&&(!this.isCommission(id)||this.commissionAccepted(id)||!this.questUnlockReason(id));};
  P.commissionEntries=function(){return old.commissionEntries.call(this).filter(q=>this.questVisible(q.row[0]));};
  P.view=function(){const v=old.view.call(this);v.quests=v.quests.filter(q=>this.questVisible(q.row[0]));return v;};
- P.questConditions=function(id){return this.questUnlockReason(id)||old.questConditions.call(this,id);};
- P.questChoice=function(id,choice){const reason=this.questUnlockReason(id);if(reason)fail('QUEST_UNLOCK',reason);return old.questChoice.call(this,id,choice);};
+ P.questConditions=function(id){const unlock=this.questUnlockReason(id);if(unlock)return unlock;const base=old.questConditions.call(this,id);return base||this.localLiyueRequirementReason(id);};
+ P.questChoice=function(id,choice){const reason=this.questUnlockReason(id);if(reason)fail('QUEST_UNLOCK',reason);const local=this.localLiyueRequirementReason(id);if(local)fail('QUEST_REQUIREMENT',local);const row=this.tables['22_QUEST_DB'].get(id),d=row&&json(row[10]),q=this.s.quests[id];if(d?.authorship==='CRPG_LOCAL_LIYUE_V1'&&choice!=='leave'&&choice!=='requirements'&&!q?.localLiyueRequirementPaid){const cost=d.conditions?.items_cost||{};if(Object.keys(cost).length)this.pay({items:cost});q.localLiyueRequirementPaid=true;}return old.questChoice.call(this,id,choice);};
  P.claimQuest=function(id,equipment){const reason=this.questUnlockReason(id);if(reason)fail('QUEST_UNLOCK',reason);const result=old.claimQuest.call(this,id,equipment),reward=json(this.row('22_QUEST_DB',id)[11]);if(json(this.row('22_QUEST_DB',id)[10]).authorship==='CRPG_LOCAL_V09'&&reward.xp)this.addXp('PLAYER_CUSTOM',reward.xp);return result;};
  P.oculusEntries=function(){const s=this.s,g=s.global;return points.filter(p=>p.map===g.CURRENT_MAP_ID&&p.level<=g.PLAYER_LEVEL_STATE&&!s.exploration?.oculi[p.id]).map(p=>({...p,reason:this.actionReason('OCULUS_COLLECT',{point:p.id})}));};
  P.oculusSummary=function(){return {collected:Object.keys(this.s.exploration?.oculi||{}).length,total:points.length,balance:this.itemCount(ITEM),offerings:this.s.exploration?.tiers.length||0};};
@@ -135,6 +159,7 @@
  P.apply=function(a){
   this.ensureExplorationState();let result;
   if(a.type==='OCULUS_COLLECT')result=this.oculusCollect(a.point);else if(a.type==='OCULUS_OFFER')result=this.oculusOffer(a.tier);else result=old.apply.call(this,a);
+  if(a.type==='COMMISSION_ACCEPT'){const d=this.tables['22_QUEST_DB'].get(a.quest)&&json(this.row('22_QUEST_DB',a.quest)[10]);if(d?.authorship==='CRPG_LOCAL_LIYUE_V1'){const q=this.s.quests[a.quest];q.localLiyueWinsAtAccept=json(this.s.global.WORLD_VISIT_COUNTS_JSON).LIYUE_ENCOUNTERS||0;q.localLiyueRequirementPaid=false;}}
   this.ensureExplorationState();return result;
  };
  P.newGame=function(o){this.installExplorationContent();old.newGame.call(this,o);this.ensureExplorationState();return copy(this.s);};
@@ -150,5 +175,5 @@
   return s;
  };
  P.explorationVersion=1;api.explorationVersion=1;
- api.explorationCatalog={quests:quests.map(q=>({id:'Q_CRPG_MOND_EXP_'+q[0],title:q[1],map:q[2],level:q[3]})),points:copy(points),item:ITEM,tiers:copy(tiers)};
+ api.explorationCatalog={quests:quests.map(q=>({id:'Q_CRPG_MOND_EXP_'+q[0],title:q[1],map:q[2],level:q[3]})),liyueQuests:liyueQuests.map(q=>({id:'Q_CRPG_LIYUE_EXP_'+q.suffix,title:q.title,map:q.map,level:q.level})),points:copy(points),item:ITEM,tiers:copy(tiers)};
 })(globalThis);
