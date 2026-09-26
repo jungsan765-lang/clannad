@@ -17,3 +17,5 @@ jobs:
           node-version: '22'
       - name: Story and equipment audit
         run: node tools/audit_v01331_story_equipment.cjs
+      - name: XP economy audit
+        run: node tools/audit_v01331_xp.cjs
