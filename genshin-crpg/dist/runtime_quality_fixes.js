@@ -107,3 +107,175 @@ P.apply=function(a){if(a.type==='COMMISSION_PUZZLE')return this.commissionPuzzle
 P.storyDisplayText=function(row){const override=STORY_TEXT[row?.[4]];return override!==undefined?override:(old.storyDisplayText?old.storyDisplayText.call(this,row):row?.[9]||'');};
 P.qualityFixesVersion=1;api.qualityFixesVersion=1;api.commissionPuzzles=copy(PUZZLES);
 })(globalThis);
+
+
+/* v0.13.36 quality pass: pinned objectives, forge economy, acquaintance, region travel. */
+(function(root){
+'use strict';
+const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.qualityFixesV2)return;
+const prior={
+ newGame:P.newGame,validateSave:P.validateSave,apply:P.apply,actionReason:P.actionReason,
+ edgeReason:P.edgeReason,move:P.move,navigationGoal:P.navigationGoal,storyDisplayText:P.storyDisplayText,
+ storySetCompanion:P.storySetCompanion,placeCatalog:P.placeCatalog,legendContactAllowed:P.legendContactAllowed
+};
+const cp=x=>JSON.parse(JSON.stringify(x)),json=(x,d={})=>{if(x&&typeof x==='object')return cp(x);try{return JSON.parse(x||'{}')}catch{return cp(d)}};
+const fail=(c,m)=>{throw new api.RuleError(c,m)};
+const DIRECT_REGION=new Set([
+ 'EDGE_NAV_MOND_TO_LIYUE_ROAD','EDGE_NAV_LIYUE_ROAD_TO_MOND',
+ 'EDGE_CRPG_MOND_CITY_TO_LIYUE_HARBOR','EDGE_CRPG_LIYUE_HARBOR_TO_MOND_CITY'
+]);
+const RAZOR_PLACE='EVT_QUALITY_RAZOR_WOLVENDOM';
+const VENTI_REVEAL_TEXT={
+ TRV_M02_N300:'다이루크는 바로 대답하지 않는다. 깨진 하프를 쥔 손이 잠시 멈추고, 벤티를 처음 보는 사람처럼 한 번 더 훑어본다. “…바르바토스라고?” 짧은 침묵 뒤 표정이 다시 굳어진다. “놀랄 일은 나중에 정리하지. 신이라고 해서 깨진 악기를 되돌리거나 사라진 용을 이 자리로 데려올 수는 없겠지. 이름을 안 건 중요하지만, 먼저 오늘 무엇이 실패했는지부터 말해. 드발린은 네 소리를 알아들었고, 그다음 심연 메이지가 상처를 찔렀다. 맞나?”',
+ TRV_M02_N302:'진은 한동안 말을 잇지 못한다. 시선이 벤티와 드발린이 사라진 하늘 사이를 오가고, 무의식적으로 자세를 바로잡는다. “바르바토스 님…” 입 밖으로 나온 호칭을 스스로 듣고서야 숨을 고른다. “죄송합니다. 지금은 놀라고 있을 때가 아니군요. 몬드가 드발린을 수호자라 불러 온 기록과 오늘 시민들이 느낀 공포, 둘 다 외면할 수 없습니다. 사풍수호의 이야기를 처음부터 들려주십시오. 앞으로 무엇을 해야 할지 판단하려면 알아야 합니다.”',
+ ISK_M05_AB_117:'다이루크는 눈썹을 아주 조금 찌푸린 채 벤티를 바라본다. “바르바토스… 네가?” 평소라면 바로 다음 질문을 던졌을 그도 잠깐 말을 고른다. 곧 시선이 벤티의 부상으로 내려간다. “정체 얘기는 나중에도 할 수 있어. 방금 빼앗긴 신의 심장 때문에 지금 상태가 더 나빠지는지부터 말해.”',
+ ISK_M05_B_122:'진은 벤티를 바라본 채 몇 초 동안 아무 말도 하지 못한다. “바르바토스 님이… 정말 당신이셨군요.” 놀람과 당혹이 지나간 뒤, 그녀는 손에 쥔 천을 고쳐 잡고 기사단장의 표정으로 돌아온다. “하지만 지금은 먼저 다친 분을 지켜야 합니다. 시뇨라가 멋대로 붙인 이름입니다. 기사단은 어떤 담보도 약속한 적이 없고, 당신이 내놓은 물건도 아닙니다. 제 앞에서 공격하고 빼앗아 간 일이라는 사실은 제가 증언하겠습니다.”'
+};
+
+P.installQualityV2Content=function(){
+ if(this._qualityV2ContentInstalled)return;
+ this.db={...this.db};
+ const set=(name,rows)=>{this.db[name]=rows;this.tables[name]=new Map(rows.slice(1).filter(r=>r&&r[0]).map(r=>[r[0],r]));};
+
+ // Forged weapons and meaningful mining materials must come from crafting/mining, not a shop shortcut.
+ const recipes=this.db['17_RECIPE_DB']||[],forgeOutputs=new Set(recipes.slice(1).filter(r=>r&&r[1]==='무기 제작'&&r[2]==='EQUIP'&&r[3]).map(r=>r[3]));
+ const stock=this.db['19_SHOP_STOCK_DB']||[];
+ if(stock.length){
+  const blockedMaterials=new Set(['ORE_WHITE_IRON','ORE_CRYSTAL']);
+  set('19_SHOP_STOCK_DB',[stock[0].slice(),...stock.slice(1).filter(r=>r&&r[0]&&!forgeOutputs.has(r[3])&&!blockedMaterials.has(r[3])).map(r=>r.slice())]);
+ }
+
+ // Player-facing quest item text must never expose branch/CE implementation names.
+ const items=(this.db['14_ITEM_DB']||[]).map(r=>r.slice()),orb=items.find(r=>r[0]==='KEY_ISK_MYSTERY_ORB');
+ if(orb){
+  orb[5]='드발린 사건 뒤 주인공의 손에 남은 작은 수정구슬. 안쪽에서 희미한 빛이 움직이지만 정체와 제작자는 아직 알 수 없다.';
+  orb[6]='특정 이야기 장면에서만 사용할 수 있다.';
+  orb[7]='드발린의 오염에 반응한 흔적이 있지만, 정확한 작용은 아직 밝혀지지 않았다.';
+  orb[22]='중요한 퀘스트 아이템. 판매·양도·폐기할 수 없다.';
+  set('14_ITEM_DB',items);
+ }
+
+ // Restore a normal overland border road without turning it into the once-per-day city shortcut.
+ const edges=(this.db['47_MAP_EDGE_DB']||[]).map(r=>r.slice());
+ const add=row=>{if(!edges.some(r=>r[0]===row[0]))edges.push(row);};
+ add(['EDGE_QUALITY_DAWN_TO_SHIMEN','MAP_MOND_DAWN_WINERY','MAP_LY_DETAIL_SHIMEN','WORLD_MOVE',2,60,'NAV_LIYUE_VISITED','','Y','석문 통행로로 이동','EDGE_QUALITY_SHIMEN_TO_DAWN','ACTIVE','CRPG_QUALITY_V01336','다운 와이너리와 석문을 잇는 일반 육로. 지역 직행 쿨다운 대상 아님.']);
+ add(['EDGE_QUALITY_SHIMEN_TO_DAWN','MAP_LY_DETAIL_SHIMEN','MAP_MOND_DAWN_WINERY','WORLD_MOVE',2,60,'NAV_LIYUE_VISITED','','Y','다운 와이너리 방향으로 이동','EDGE_QUALITY_DAWN_TO_SHIMEN','ACTIVE','CRPG_QUALITY_V01336','석문에서 몬드 방면으로 돌아가는 일반 육로. 지역 직행 쿨다운 대상 아님.']);
+ set('47_MAP_EDGE_DB',edges);
+ this._placeCatalog=null;
+ this._qualityV2ContentInstalled=true;
+};
+
+P.placeCatalog=function(){
+ const list=prior.placeCatalog.call(this);
+ if(!list.some(p=>p.id===RAZOR_PLACE))list.push({
+  id:RAZOR_PLACE,kind:'FACILITY',entity:null,merchant:null,name:'울프 영지 · 레이저',facility:'울프 영지',
+  maps:['MAP_MOND_WOLVENDOM'],from:0,to:1440,merchantMaps:null,merchantFrom:null,merchantTo:null,
+  merchantType:'',merchantName:'',modes:['TALK']
+ });
+ return list;
+};
+P.legendContactAllowed=function(d,place=this.currentPlace()){
+ const owner=d&&(this.tables['04_CHAR_DB'].get(d.PROFILE_ID)?.[1]||d.CHAR_ID||d.CHARACTER_ID);
+ if(owner==='MOND_RAZOR')return !!(d&&d.kind==='LEGEND'&&place?.valid&&place.place===RAZOR_PLACE);
+ return prior.legendContactAllowed.call(this,d,place);
+};
+
+P.storyCharacterKnown=function(profile){
+ if(!profile)return false;
+ const rel=this.s?.relations?.[profile];if(rel&&rel.firstContact!==null&&rel.firstContact!==undefined)return true;
+ const row=this.tables['04_CHAR_DB']?.get(profile),char=row?.[1],owned=json(this.s?.global?.COMPANION_ELIGIBILITY_JSON);
+ if(char&&owned[char]&&owned[char].state&&!['LOCKED'].includes(owned[char].state))return true;
+ const applied=json(this.s?.global?.STORY_NODE_EFFECTS_JSON),route=this.s?.global?.STORY_ROUTE_ID;
+ for(const [id,done]of Object.entries(applied))if(done){const node=this.storyIndex?.().nodes?.get(route+':'+id);if(node?.[6]===profile)return true;}
+ return false;
+};
+P.storySetCompanion=function(id,state){
+ const out=prior.storySetCompanion.call(this,id,state);
+ if(['JOINED','ELIGIBLE'].includes(state)){
+  const profile=(this.db['04_CHAR_DB']||[]).find(r=>r[1]===id)?.[0];
+  if(profile&&this.markContact)this.markContact(profile);
+ }
+ return out;
+};
+P.storyDisplayText=function(row){
+ row??=this.storyNode?.();
+ if(VENTI_REVEAL_TEXT[row?.[4]])return VENTI_REVEAL_TEXT[row[4]];
+ const note=String(row?.[19]||''),m=note.match(/GREETING_VARIANT_JSON=(\{.*\})/);
+ if(m){try{const data=JSON.parse(m[1]);if(data.profile_id&&this.storyCharacterKnown(data.profile_id)&&typeof data.reunion_text==='string')return data.reunion_text;}catch{}}
+ return prior.storyDisplayText.call(this,row);
+};
+
+P.objectiveInfo=function(pin=this.s?.pinnedObjective){
+ if(!pin||!['COMMISSION','LEGEND','AFFECTION'].includes(pin.kind)||typeof pin.id!=='string')return null;
+ if(pin.kind==='COMMISSION'){
+  const row=this.tables['22_QUEST_DB']?.get(pin.id),q=this.s.quests?.[pin.id];if(!row||!this.isCommission?.(pin.id)||!this.commissionAccepted?.(pin.id)||q?.claimed)return null;
+  const d=json(row[10]),ready=q?.node===d.claim_node,target=ready?(this.commissionGuildPlace?.(row[2])?.maps?.[0]||d.map_id):d.map_id;
+  return {kind:pin.kind,id:pin.id,title:row[1],region:row[2],target,ready,active:true,reason:this.questConditions(pin.id)||''};
+ }
+ const entry=(this.storyEntries?.()||[]).find(e=>e.id===pin.id);if(!entry||entry.kind!==pin.kind||this.storyDone?.(entry.id))return null;
+ if(pin.kind==='LEGEND'&&!this.legendRegistered?.(entry.id))return null;
+ const d=entry.definition||{},inside=this.s.storyContext?.entry===entry.id;
+ const target=inside?(this.s.storyJourney?.target||this.s.storyBreak?.map||this.s.global.CURRENT_MAP_ID):(d.MAP_ID||null);
+ const reason=inside?'':(this.storyEntryReason?.(d)||entry.reason||'');
+ return {kind:pin.kind,id:pin.id,title:this.tables['22_QUEST_DB']?.get(d.QUEST_ID)?.[1]||entry.title||d.DISPLAY_NAME||entry.id,
+  profile:d.PROFILE_ID||entry.profile,target,active:inside,ready:!inside&&!reason,reason,definition:d};
+};
+P.normalizePinnedObjective=function(){
+ if(this.s?.pinnedObjective&&!this.objectiveInfo(this.s.pinnedObjective))delete this.s.pinnedObjective;
+ return this.s?.pinnedObjective||null;
+};
+P.actionReason=function(type,a={}){
+ if(type==='OBJECTIVE_CLEAR'){
+  if(this.s.runtime)return '전투를 먼저 마쳐 주세요.';
+  return '';
+ }
+ if(type==='OBJECTIVE_PIN'){
+  if(this.s.runtime)return '전투를 먼저 마쳐 주세요.';
+  if(this.s.global.STORY_MENU_POLICY==='SAVE_LOAD_ONLY')return '현재 장면을 마친 뒤 임무를 고정해 주세요.';
+  const info=this.objectiveInfo({kind:a.kind,id:a.objective});
+  return info?'':'현재 고정할 수 있는 임무가 아닙니다.';
+ }
+ return prior.actionReason.call(this,type,a);
+};
+P.apply=function(a){
+ if(a.type==='OBJECTIVE_CLEAR'){delete this.s.pinnedObjective;return {pinned:null};}
+ if(a.type==='OBJECTIVE_PIN'){const info=this.objectiveInfo({kind:a.kind,id:a.objective});if(!info)fail('OBJECTIVE_PIN','현재 고정할 수 있는 임무가 아닙니다.');this.s.pinnedObjective={kind:a.kind,id:a.objective};return {pinned:cp(this.s.pinnedObjective),target:info.target};}
+ const out=prior.apply.call(this,a);this.normalizePinnedObjective();return out;
+};
+P.navigationGoal=function(){const info=this.objectiveInfo();return info?.target||prior.navigationGoal.call(this);};
+
+P.edgeReason=function(row){
+ const reason=prior.edgeReason.call(this,row);if(reason)return reason;
+ if(DIRECT_REGION.has(row?.[0])&&this.s.regionTransitDaily?.day===this.s.global.WORLD_DAY)return '몬드성↔리월 직행은 게임 내 하루에 한 번만 이용할 수 있습니다. 일반 육로를 이용하거나 다음 날 다시 이용해 주세요.';
+ return '';
+};
+P.move=function(id){
+ const row=this.tables['47_MAP_EDGE_DB']?.get(id),direct=DIRECT_REGION.has(id),from=this.s.global.CURRENT_MAP_ID;
+ const out=prior.move.call(this,id);
+ if(direct){
+  this.s.regionTransitDaily={day:this.s.global.WORLD_DAY,edge:id,from,to:out.map};
+  return {...out,regionTransit:true,realWaitMs:30000};
+ }
+ return out;
+};
+
+function syncOwnedRelations(state){
+ const owned=json(state?.global?.COMPANION_ELIGIBILITY_JSON);
+ for(const [char,v]of Object.entries(owned)){
+  if(!v||!['JOINED','ELIGIBLE'].includes(v.state))continue;
+  const profile=(this.db['04_CHAR_DB']||[]).find(r=>r[1]===char)?.[0],rel=profile&&state.relations?.[profile];
+  if(rel&&rel.firstContact==null)rel.firstContact=Number(state.global.TURN||1);
+ }
+}
+P.newGame=function(...args){
+ const out=prior.newGame.apply(this,args);this.installQualityV2Content();syncOwnedRelations.call(this,this.s);return cp(this.s);
+};
+P.validateSave=function(s){
+ const out=prior.validateSave.call(this,s);this.installQualityV2Content();syncOwnedRelations.call(this,out);
+ if(out.regionTransitDaily&&(!Number.isInteger(out.regionTransitDaily.day)||out.regionTransitDaily.day<1||out.regionTransitDaily.day>out.global.WORLD_DAY))delete out.regionTransitDaily;
+ if(out.pinnedObjective){const priorState=this.s;this.s=out;try{if(!this.objectiveInfo(out.pinnedObjective))delete out.pinnedObjective;}finally{this.s=priorState;}}
+ return out;
+};
+
+P.qualityFixesV2=1;api.qualityFixesV2=1;api.directRegionTransitIds=[...DIRECT_REGION];api.razorWolvendomPlace=RAZOR_PLACE;
+})(globalThis);
