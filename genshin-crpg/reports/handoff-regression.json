@@ -1,0 +1,128 @@
+{
+  "scope": "Handoff regression: combat UI, shops/smith, facility assets, geo quest visibility, Chasm, Liyue prior steps, Azhdaha, regional enhancement, build/offline cache.",
+  "scripts": 20,
+  "passed": 17,
+  "failed": 3,
+  "results": [
+    {
+      "script": "tests/test_combat.cjs",
+      "exitCode": 0,
+      "stdout": "[\n  {\n    \"name\": \"public quest starts, legal targets shown, invalid target atomic rollback\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"same seed, completed public actions and serialization resume stay identical\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"legacy active battle is rejected without mutating the original save\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"duplicate action receipt does not repeat inventory/cost/turn\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"enemy dedicated axe/mage cards execute from public boss route\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"Dvalin airborne denies ordinary melee; guard consumes action and never grounds boss\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"prepared levitator uses one shared charge and makes melee targets legal\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"combat potion consumes one item once, lock survives resume\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"CE159 requires explicit preparation and never writes guest ownership\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"cooldowns decrease exactly once at each owner turn and use DB duration\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"terrain destruction defeats at fourth destruction independent of shield/HP\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"orb action remains manual at subdued HP0 and crosses both interludes\",\n    \"ok\": true\n  }\n]\n",
+      "stderr": ""
+    },
+    {
+      "script": "tests/test_dvalin_story.cjs",
+      "exitCode": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"cutinActions\": 11,\n  \"scenes\": [\n    \"ISK_M04_BATTLE_AB_70\",\n    \"ISK_M04_BATTLE_AB_35\"\n  ],\n  \"result\": {\n    \"bond\": null,\n    \"id\": \"DVALIN-STORY-TEST:B2\",\n    \"battleId\": \"DVALIN-STORY-TEST:B2\",\n    \"saveId\": \"DVALIN-STORY-TEST\",\n    \"group\": \"EG_ISK_M04_AB_DVALIN\",\n    \"origin\": \"STORY:ISK_M04_AB_COMBAT\",\n    \"gate\": \"ISK_M04_AB_COMBAT\",\n    \"branch\": \"AB\",\n    \"victory\": true,\n    \"xp\": 3060,\n    \"loot\": {},\n    \"rounds\": 2,\n    \"result\": \"ALIVE_PURIFIED\",\n    \"unsupportedEffects\": []\n  },\n  \"receipt\": {\n    \"resolvedNode\": \"ISK_M04_AB_COMBAT\",\n    \"saveId\": \"DVALIN-STORY-TEST\",\n    \"branch\": \"AB\",\n    \"gate\": \"ISK_M04_AB_COMBAT\",\n    \"victory\": true,\n    \"turn\": 16,\n    \"day\": 1,\n    \"group\": \"EG_ISK_M04_AB_DVALIN\",\n    \"result\": \"ALIVE_PURIFIED\",\n    \"battleId\": \"DVALIN-STORY-TEST:B2\"\n  },\n  \"node\": \"ISK_M04_AB_096\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tests/test_andrius.cjs",
+      "exitCode": 0,
+      "stdout": "[\n  {\n    \"name\": \"all ten exact READY source scripts are supported; drift is rejected\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"public boss entry initializes authored Andrius passive and ordinary Dragonspine group initializes ice shield\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"ice charge uses source1.10 and CE020 slow, then rejects broken shield\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"Cryo/Anemo direct, reaction, aura and control immunity spend no hit RNG\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"round4 START rage precedes forced charge and repeated newRound does not stack rage again\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"claw splash is60percent of final pre-shield primary, without double outgoing modifier\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"nested Mona bubble damage does not overwrite claw primary capture\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"sweep preserves1.05, pre-existing slow1.20 and applies new slow only through status roll\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"leap chooses at most two controlled targets and preserves final1.25 modifier\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"one threshold crossing executes phase2 then3 once and restores their saved state\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"wind blade fires3 packets with max2per target and EVA debuff only next round\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"roar creates2R wolves; existing field refresh has immediate proc and END proc once\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"run phase50percent reduction applies once to direct and independent reaction packets\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"public COMBAT phase3 executes two AI cards but advances owner turn and cooldown only once\",\n    \"ok\": true\n  },\n  {\n    \"name\": \"public actions and phase3 fields are identical after serialized resume\",\n    \"ok\": true\n  }\n]\n",
+      "stderr": ""
+    },
+    {
+      "script": "tests/test_inventory_presenter.cjs",
+      "exitCode": 0,
+      "stdout": "PASS source text, numeric zero and unknown values remain exact\nPASS same equipment id remains separate by inventory instance\nPASS cumulative numeric milestones and replacing effect overrides\nPASS normal and Barbara special food have separate quantities and keys\nPASS invalid lot is surfaced and does not fabricate negative quantity\nPASS individual icons override categories; missing legacy category remains undeployed\nPASS all current item and equipment definitions are readable without mutation\nPASS equipment growth, medical formulas and enhanced effects read as Korean\n8 groups passed\n",
+      "stderr": ""
+    },
+    {
+      "script": "tests/test_shop_conditions_v08.cjs",
+      "exitCode": 0,
+      "stdout": "{\"total\":84,\"passed\":84,\"failed\":0,\"report\":\"/home/runner/work/clannad/clannad/genshin-crpg/reports/shop-conditions-results.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tests/test_shops_v09.cjs",
+      "exitCode": 1,
+      "stdout": "{\"total\":14,\"passed\":13,\"failed\":1}\n",
+      "stderr": "shop renders separately named one/bulk actions, stats and meaningful groups AssertionError [ERR_ASSERTION]: 양손검\n    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:28:405\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:9:64)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_shops_v09.cjs:28:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49\n"
+    },
+    {
+      "script": "tests/test_save_revision.cjs",
+      "exitCode": 0,
+      "stdout": "PASS prior released pack imports under stable compatibility and preserves progress\nPASS future unknown content is rejected without mutating caller save\nPASS validator returned normalized state is actually used\nPASS main story SYSTEM checkpoint restores exact cursor RNG and XP\nPASS experience carries across threshold and max level has no division target\nPASS invalid XP increments leave state unchanged\nPASS invalid protagonist XP checkpoints are rejected\nPASS invalid companion fractional or overthreshold XP checkpoints are rejected\nPASS only active companion can use XP book; inactive and unowned targets roll back\nPASS free NPC visit persists an exact dialogue target\nPASS same action ID retry never reconsumes an experience item\nPASS default mode remains OFF and importing mode or consent cannot enable it\n{\n  \"passed\": 12,\n  \"failed\": 0,\n  \"results\": [\n    {\n      \"name\": \"prior released pack imports under stable compatibility and preserves progress\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"future unknown content is rejected without mutating caller save\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"validator returned normalized state is actually used\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"main story SYSTEM checkpoint restores exact cursor RNG and XP\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"experience carries across threshold and max level has no division target\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"invalid XP increments leave state unchanged\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"invalid protagonist XP checkpoints are rejected\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"invalid companion fractional or overthreshold XP checkpoints are rejected\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"only active companion can use XP book; inactive and unowned targets roll back\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"free NPC visit persists an exact dialogue target\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"same action ID retry never reconsumes an experience item\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"default mode remains OFF and importing mode or consent cannot enable it\",\n      \"ok\": true\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tests/test_geography_v012.cjs",
+      "exitCode": 0,
+      "stdout": "PASS legacy aggregate map retains a physical exit without direct plains bypass\nPASS pending travel refreshes old target while preserving cost and cursor\nPASS old acknowledged travel is not accepted at the wrong detailed map\nPASS choice-group cursor and all peers remain together at camp\nPASS K completed chapter gate migrates without a policy deadlock or replay\nPASS B completed chapter gate migrates without a policy deadlock or replay\nPASS K active legacy boss loads intact and a defeat remains recoverable\nPASS B active legacy boss loads intact and a defeat remains recoverable\nPASS legacy preparation becomes a same-node return goal instead of map-source failure\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_integration.js",
+      "exitCode": 0,
+      "stdout": "{\"checks\":18,\"passed\":18}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_offline.js",
+      "exitCode": 0,
+      "stdout": "{\"checks\":1659,\"passed\":true}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_chasm_step1.cjs",
+      "exitCode": 0,
+      "stdout": "{\n  \"total\": 40,\n  \"passed\": 40,\n  \"traces\": [\n    {\n      \"group\": \"EG_CHASM_HUSK\",\n      \"manualActions\": 8,\n      \"result\": \"VICTORY\",\n      \"rounds\": 8,\n      \"skills\": [\n        \"MOND_AMBER_Q\",\n        \"ECARD_HUSK_BOW_VOLLEY\",\n        \"MOND_BARBARA_Q\",\n        \"MOND_NOELLE_Q\",\n        \"PLAYER_BASIC_ATTACK\",\n        \"ECARD_HUSK_STANDARD_BANNER\",\n        \"MOND_AMBER_E\",\n        \"ENEMY_BASIC\",\n        \"MOND_BARBARA_E\",\n        \"MOND_NOELLE_E\",\n        \"ECARD_HUSK_STANDARD_STRIKE\"\n      ]\n    },\n    {\n      \"group\": \"EG_CHASM_SERPENT\",\n      \"manualActions\": 8,\n      \"result\": \"VICTORY\",\n      \"rounds\": 8,\n      \"skills\": [\n        \"MOND_AMBER_Q\",\n        \"ECARD_HUSK_BOW_VOLLEY\",\n        \"ECARD_BLACK_SWORD_COMBO\",\n        \"MOND_BARBARA_Q\",\n        \"MOND_NOELLE_Q\",\n        \"PLAYER_BASIC_ATTACK\",\n        \"ECARD_HUSK_BOW_SHOT\",\n        \"MOND_AMBER_E\",\n        \"ECARD_BLACK_SWORD_BREAKER\",\n        \"MOND_BARBARA_E\",\n        \"MOND_NOELLE_E\",\n        \"ENEMY_BASIC\"\n      ]\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_chasm_dist.cjs",
+      "exitCode": 0,
+      "stdout": "{\n  \"version\": \"0.13.18\",\n  \"total\": 6,\n  \"passed\": 6,\n  \"checkedFiles\": 792,\n  \"checks\": [\n    {\n      \"name\": \"compiled distribution starts and roundtrips a battle: EG_CHASM_HUSK\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"compiled distribution starts and roundtrips a battle: EG_CHASM_SERPENT\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"0.13.17 export accepted, saved state preserved\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"new compatibility tag prevents old app from interpreting new save\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"source and compiled combat handlers match byte-for-byte\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"every offline package hash matches delivered bytes, new module included\",\n      \"passed\": true\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_liyue_mora_step2.cjs",
+      "exitCode": 0,
+      "stdout": "{\n  \"total\": 11,\n  \"passed\": 11,\n  \"samples\": [\n    {\n      \"map\": \"MAP_LIYUE_PLAINS\",\n      \"group\": \"EG_TREASURE_PATROL\",\n      \"mora\": 17,\n      \"risk\": 3,\n      \"parts\": [\n        {\n          \"source\": \"MON_TH_SCOUT\",\n          \"level\": 6,\n          \"grade\": \"일반\",\n          \"mora\": 17\n        }\n      ]\n    },\n    {\n      \"map\": \"MAP_LIYUE_MOUNTAINS\",\n      \"group\": \"EG_LIYUE_VISHAP\",\n      \"mora\": 24,\n      \"risk\": 3,\n      \"parts\": [\n        {\n          \"source\": \"MON_GEOVISHAP_HATCHLING\",\n          \"level\": 8,\n          \"grade\": \"일반\",\n          \"mora\": 24\n        }\n      ]\n    },\n    {\n      \"map\": \"MAP_LIYUE_JUEYUN\",\n      \"group\": \"EG_LIYUE_HILI_ROCK\",\n      \"mora\": 39,\n      \"risk\": 4,\n      \"parts\": [\n        {\n          \"source\": \"MON_MITACHURL_ROCK\",\n          \"level\": 9,\n          \"grade\": \"정예\",\n          \"mora\": 39\n        }\n      ]\n    },\n    {\n      \"map\": \"MAP_CHASM_SURFACE\",\n      \"group\": \"EG_CHASM_HUSK\",\n      \"mora\": 57,\n      \"risk\": 5,\n      \"parts\": [\n        {\n          \"source\": \"MON_HUSK_STANDARD\",\n          \"level\": 11,\n          \"grade\": \"정예\",\n          \"mora\": 57\n        }\n      ]\n    },\n    {\n      \"map\": \"MAP_CHASM_DEEP\",\n      \"group\": \"EG_CHASM_SERPENT\",\n      \"mora\": 87,\n      \"risk\": 6,\n      \"parts\": [\n        {\n          \"source\": \"MON_BLACK_SERPENT_SWORD\",\n          \"level\": 11,\n          \"grade\": \"강적\",\n          \"mora\": 87\n        }\n      ]\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_liyue_loot_step3.cjs",
+      "exitCode": 0,
+      "stdout": "PASS source DB loot rows and chances are not rewritten\nPASS market resale caps high-value Liyue crafting materials\nPASS Liyue random victory pays bounded shared Mora EG_TREASURE_PATROL\nPASS Liyue random victory pays bounded shared Mora EG_LIYUE_HILI_ROCK\nPASS Liyue random victory pays bounded shared Mora EG_LIYUE_VISHAP\nPASS Liyue random victory pays bounded shared Mora EG_LIYUE_RUIN\nPASS Liyue random victory pays bounded shared Mora EG_CHASM_HUSK\nPASS Liyue random victory pays bounded shared Mora EG_CHASM_SERPENT\nPASS small-party scaling also lowers direct Mora instead of becoming a solo farm exploit\nPASS defeat gives no direct Mora\nPASS quest battle keeps quest Mora separate but now receives eligible monster materials\nPASS treasure, ruin, elite hilichurl and Chasm conditional rows really drop on successful rolls\nPASS hatchling drops scale but not strong-vishap blood crystal\nPASS condition rejection is explicit and does not open unrelated tables\nPASS Mond reward ownership remains MOND_BALANCE_V1\nPASS expected liquid value stays below economy ceiling for current Liyue field groups\n{\n  \"total\": 16,\n  \"passed\": 16,\n  \"samples\": [\n    {\n      \"map\": \"MAP_LIYUE_PLAINS\",\n      \"group\": \"EG_TREASURE_PATROL\",\n      \"mora\": 51,\n      \"enemies\": [\n        {\n          \"source\": \"MON_TH_SCOUT\",\n          \"level\": 6,\n          \"grade\": \"일반\"\n        },\n        {\n          \"source\": \"MON_TH_SCOUT\",\n          \"level\": 6,\n          \"grade\": \"일반\"\n        },\n        {\n          \"source\": \"MON_TH_MARKSMAN\",\n          \"level\": 6,\n          \"grade\": \"일반\"\n        }\n      ]\n    },\n    {\n      \"map\": \"MAP_LIYUE_MOUNTAINS\",\n      \"group\": \"EG_LIYUE_HILI_ROCK\",\n      \"mora\": 59,\n      \"enemies\": [\n        {\n          \"source\": \"MON_MITACHURL_ROCK\",\n          \"level\": 8,\n          \"grade\": \"정예\"\n        },\n        {\n          \"source\": \"MON_HILI_FIGHTER\",\n          \"level\": 8,\n          \"grade\": \"일반\"\n        }\n      ]\n    },\n    {\n      \"map\": \"MAP_LIYUE_JUEYUN\",\n      \"group\": \"EG_LIYUE_VISHAP\",\n      \"mora\": 84,\n      \"enemies\": [\n        {\n          \"source\": \"MON_GEOVISHAP_HATCHLING\",\n          \"level\": 9,\n          \"grade\": \"일반\"\n        },\n        {\n          \"source\": \"MON_GEOVISHAP_HATCHLING\",\n          \"level\": 9,\n          \"grade\": \"일반\"\n        },\n        {\n          \"source\": \"MON_GEOVISHAP_HATCHLING\",\n          \"level\": 9,\n          \"grade\": \"일반\"\n        }\n      ]\n    },\n    {\n      \"map\": \"MAP_CHASM_SURFACE\",\n      \"group\": \"EG_LIYUE_RUIN\",\n      \"mora\": 52,\n      \"enemies\": [\n        {\n          \"source\": \"MON_RUIN_GUARD_VARIANT\",\n          \"level\": 11,\n          \"grade\": \"정예\"\n        }\n      ]\n    },\n    {\n      \"map\": \"MAP_CHASM_SURFACE\",\n      \"group\": \"EG_CHASM_HUSK\",\n      \"mora\": 114,\n      \"enemies\": [\n        {\n          \"source\": \"MON_HUSK_STANDARD\",\n          \"level\": 11,\n          \"grade\": \"정예\"\n        },\n        {\n          \"source\": \"MON_HUSK_BOW\",\n          \"level\": 11,\n          \"grade\": \"정예\"\n        }\n      ]\n    },\n    {\n      \"map\": \"MAP_CHASM_DEEP\",\n      \"group\": \"EG_CHASM_SERPENT\",\n      \"mora\": 154,\n      \"enemies\": [\n        {\n          \"source\": \"MON_BLACK_SERPENT_SWORD\",\n          \"level\": 11,\n          \"grade\": \"강적\"\n        },\n        {\n          \"source\": \"MON_HUSK_BOW\",\n          \"level\": 11,\n          \"grade\": \"정예\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_liyue_recruitment_step4.cjs",
+      "exitCode": 0,
+      "stdout": "PASS both routes patch all 22 non-Archon Liyue legends into staged chapter gates\nPASS stage membership exact and Zhongli special unchanged\nPASS stage 1 opens after chapter 1 without region completion\nPASS higher stages stay locked until exact chapter\nPASS Zibai keeps return flag\nPASS requirements show exact chapter\nPASS free rejoin no longer demands finale\nPASS Isekai Liyue progress no longer blocks Mond registration\nPASS Liyue guild opens between chapters but stays blocked inside next chapter\nPASS save reload preserves staged availability\n{\n  \"total\": 10,\n  \"passed\": 10,\n  \"stages\": {\n    \"ROUTE_TRAVELER\": {\n      \"1\": 12,\n      \"2\": 4,\n      \"3\": 1,\n      \"4\": 5\n    },\n    \"ROUTE_ISEKAI\": {\n      \"1\": 12,\n      \"2\": 4,\n      \"3\": 1,\n      \"4\": 5\n    }\n  }\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_gameplay_step5.cjs",
+      "exitCode": 0,
+      "stdout": "{\"total\":4,\"passed\":4}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_gameplay_step6_plus.cjs",
+      "exitCode": 1,
+      "stdout": "PASS hatchling inherits common vishap skills\nPASS ruin variant spin is available in Liyue field\nPASS Mond monster resale is bounded\nPASS Liyue gains ten local commissions through Lv13\nPASS delivery commission consumes materials once\nPASS three patrol requirement counts post-accept Liyue wins\nPASS destination cards travel immediately, pins remain preview\n{\"total\":8,\"passed\":7}\n",
+      "stderr": "FAIL facility UI uses bundled icon set and removes duplicate edge list\nAssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(app.includes('assets/icons/facility/'+n))\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step6_plus.cjs:12:436\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step6_plus.cjs:4:62)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step6_plus.cjs:12:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49\n"
+    },
+    {
+      "script": "tools/test_gameplay_step7_ui.cjs",
+      "exitCode": 0,
+      "stdout": "{\"total\":9,\"passed\":9}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_gameplay_step8_ui_assets.cjs",
+      "exitCode": 0,
+      "stdout": "{\"total\":10,\"passed\":10}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/test_gameplay_step9_hotfix.cjs",
+      "exitCode": 1,
+      "stdout": "PASS enemy skill install no longer blocks smith purchase\nPASS Mond smith exposes exact nonempty equipment categories\nPASS Liyue smith uses new regional enhancement\nPASS Liyue smith completes +10 ascend +11 +12 and survives travel/save\nPASS Azhdaha authored repeat Y stays enterable after clear flag\nPASS Azhdaha phases immunity converter and save state execute at runtime\nPASS Azhdaha Zhongli contract keeps debuff after Zhongli KO while releasing center lock\nPASS Azhdaha v0.13.25 remains executable\nPASS combat UI source has only per-enemy info buttons\nPASS market filter source supports broad and exact equipment views\nPASS craft results use item icons\n{\"total\":12,\"passed\":11}\n",
+      "stderr": "FAIL smith purchase equip unequip and sell roundtrip stays in equipment domain\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step9_hotfix.cjs:8:521\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step9_hotfix.cjs:4:64)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_gameplay_step9_hotfix.cjs:8:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49\n"
+    }
+  ]
+}

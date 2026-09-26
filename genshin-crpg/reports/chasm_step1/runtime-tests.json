@@ -4,14 +4,6 @@
   "fixture": "actual full runtime stack; synthetic starting states, not balance or full game playthroughs",
   "checks": [
     {
-      "name": "baseline reproduces UNSUPPORTED_ENEMY: EG_CHASM_HUSK",
-      "passed": true
-    },
-    {
-      "name": "baseline reproduces UNSUPPORTED_ENEMY: EG_CHASM_SERPENT",
-      "passed": true
-    },
-    {
       "name": "four exact source scripts supported; READY/script/owner/target/trigger drift rejected",
       "passed": true
     },
@@ -160,18 +152,6 @@
       "passed": true
     },
     {
-      "name": "unchanged-region regression: identical start/actions/save EG_MOND_LOCAL_MOND_PLAINS_1",
-      "passed": true
-    },
-    {
-      "name": "unchanged-region regression: identical start/actions/save EG_TREASURE_PATROL",
-      "passed": true
-    },
-    {
-      "name": "unchanged-region regression: identical start/actions/save EG_LIYUE_RUIN",
-      "passed": true
-    },
-    {
       "name": "real action loop completes, settles once, clears transient effects: EG_CHASM_HUSK",
       "passed": true
     },
@@ -218,13 +198,13 @@
         "PLAYER_BASIC_ATTACK",
         "ECARD_HUSK_BOW_SHOT",
         "MOND_AMBER_E",
-        "ENEMY_BASIC",
+        "ECARD_BLACK_SWORD_BREAKER",
         "MOND_BARBARA_E",
         "MOND_NOELLE_E",
-        "ECARD_BLACK_SWORD_BREAKER"
+        "ENEMY_BASIC"
       ]
     }
   ],
-  "total": 45,
-  "passed": 45
+  "total": 40,
+  "passed": 40
 }

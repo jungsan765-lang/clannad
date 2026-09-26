@@ -5,28 +5,43 @@
   "checks": [
     {
       "name": "Liyue random victory grants shared Mora: MAP_LIYUE_PLAINS / EG_TREASURE_PATROL",
-      "passed": false,
-      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:256\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:32)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+      "passed": true,
+      "evidence": {
+        "mora": 17,
+        "risk": 3
+      }
     },
     {
       "name": "Liyue random victory grants shared Mora: MAP_LIYUE_MOUNTAINS / EG_LIYUE_VISHAP",
-      "passed": false,
-      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:256\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:32)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+      "passed": true,
+      "evidence": {
+        "mora": 24,
+        "risk": 3
+      }
     },
     {
       "name": "Liyue random victory grants shared Mora: MAP_LIYUE_JUEYUN / EG_LIYUE_HILI_ROCK",
-      "passed": false,
-      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:256\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:32)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+      "passed": true,
+      "evidence": {
+        "mora": 39,
+        "risk": 4
+      }
     },
     {
       "name": "Liyue random victory grants shared Mora: MAP_CHASM_SURFACE / EG_CHASM_HUSK",
-      "passed": false,
-      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:256\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:32)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+      "passed": true,
+      "evidence": {
+        "mora": 57,
+        "risk": 5
+      }
     },
     {
       "name": "Liyue random victory grants shared Mora: MAP_CHASM_DEEP / EG_CHASM_SERPENT",
-      "passed": false,
-      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:256\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:23:32)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+      "passed": true,
+      "evidence": {
+        "mora": 87,
+        "risk": 6
+      }
     },
     {
       "name": "regional risk rises from plains to deep Chasm without altering enemy data",
@@ -43,8 +58,10 @@
     },
     {
       "name": "defeat grants no Mora even with the regional reward plan recorded",
-      "passed": false,
-      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'LIYUE_FIELD_MORA_V2'\n- 'LIYUE_FIELD_MORA_V1'\n                     ^\n\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:25:210\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_mora_step2.cjs:25:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+      "passed": true,
+      "evidence": {
+        "delta": 0
+      }
     },
     {
       "name": "quest-origin Liyue battle keeps quest economy separate",
@@ -75,7 +92,78 @@
       }
     }
   ],
-  "samples": [],
+  "samples": [
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "group": "EG_TREASURE_PATROL",
+      "mora": 17,
+      "risk": 3,
+      "parts": [
+        {
+          "source": "MON_TH_SCOUT",
+          "level": 6,
+          "grade": "일반",
+          "mora": 17
+        }
+      ]
+    },
+    {
+      "map": "MAP_LIYUE_MOUNTAINS",
+      "group": "EG_LIYUE_VISHAP",
+      "mora": 24,
+      "risk": 3,
+      "parts": [
+        {
+          "source": "MON_GEOVISHAP_HATCHLING",
+          "level": 8,
+          "grade": "일반",
+          "mora": 24
+        }
+      ]
+    },
+    {
+      "map": "MAP_LIYUE_JUEYUN",
+      "group": "EG_LIYUE_HILI_ROCK",
+      "mora": 39,
+      "risk": 4,
+      "parts": [
+        {
+          "source": "MON_MITACHURL_ROCK",
+          "level": 9,
+          "grade": "정예",
+          "mora": 39
+        }
+      ]
+    },
+    {
+      "map": "MAP_CHASM_SURFACE",
+      "group": "EG_CHASM_HUSK",
+      "mora": 57,
+      "risk": 5,
+      "parts": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 11,
+          "grade": "정예",
+          "mora": 57
+        }
+      ]
+    },
+    {
+      "map": "MAP_CHASM_DEEP",
+      "group": "EG_CHASM_SERPENT",
+      "mora": 87,
+      "risk": 6,
+      "parts": [
+        {
+          "source": "MON_BLACK_SERPENT_SWORD",
+          "level": 11,
+          "grade": "강적",
+          "mora": 87
+        }
+      ]
+    }
+  ],
   "total": 11,
-  "passed": 5
+  "passed": 11
 }

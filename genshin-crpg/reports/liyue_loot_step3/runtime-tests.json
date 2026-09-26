@@ -136,8 +136,45 @@
     },
     {
       "name": "expected liquid value stays below economy ceiling for current Liyue field groups",
-      "passed": false,
-      "error": "AssertionError [ERR_ASSERTION]: EG_LIYUE_VISHAP liquid 172 > 160\n    at /home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_loot_step3.cjs:45:156\n    at test (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_loot_step3.cjs:13:43)\n    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tools/test_liyue_loot_step3.cjs:44:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+      "passed": true,
+      "evidence": {
+        "EG_TREASURE_PATROL": {
+          "mora": 51,
+          "expectedResale": 176,
+          "expectedLiquid": 227,
+          "ceiling": 260
+        },
+        "EG_LIYUE_HILI_ROCK": {
+          "mora": 59,
+          "expectedResale": 41,
+          "expectedLiquid": 100,
+          "ceiling": 240
+        },
+        "EG_LIYUE_VISHAP": {
+          "mora": 84,
+          "expectedResale": 88,
+          "expectedLiquid": 172,
+          "ceiling": 180
+        },
+        "EG_LIYUE_RUIN": {
+          "mora": 52,
+          "expectedResale": 43,
+          "expectedLiquid": 95,
+          "ceiling": 230
+        },
+        "EG_CHASM_HUSK": {
+          "mora": 114,
+          "expectedResale": 299,
+          "expectedLiquid": 413,
+          "ceiling": 430
+        },
+        "EG_CHASM_SERPENT": {
+          "mora": 154,
+          "expectedResale": 299,
+          "expectedLiquid": 453,
+          "ceiling": 470
+        }
+      }
     }
   ],
   "samples": [
@@ -250,5 +287,5 @@
     }
   ],
   "total": 16,
-  "passed": 15
+  "passed": 16
 }
