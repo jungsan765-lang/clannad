@@ -34,9 +34,12 @@ function walk(route){
   ['BUY',{stock:'STK_CRPG_MOND_WORN_SWORD',quantity:1}],
   ['EQUIP_NEW'],
   ['ACCEPT_COMMISSION',{quest:'Q_MOND_EXP_PLAINS_CART'}],
+  ['ACCEPT_COMMISSION',{quest:'Q_MOND_EXP_PLAINS_CAMP'}],
   ['MOVE',{edge:'EDGE_MOND_CITY_TO_PLAINS'}],
   ['QUEST_CHOICE',{quest:'Q_MOND_EXP_PLAINS_CART',choice:'careful'}],
   ['CLAIM_QUEST',{quest:'Q_MOND_EXP_PLAINS_CART'}],
+  ['QUEST_CHOICE',{quest:'Q_MOND_EXP_PLAINS_CAMP',choice:'careful'}],
+  ['CLAIM_QUEST',{quest:'Q_MOND_EXP_PLAINS_CAMP'}],
   ['XP_BOOKS'],
   ['MOVE',{edge:'EDGE_MOND_PLAINS_TO_CITY'}],
   ['ACCEPT_COMMISSION',{quest:'Q_CRPG_MOND_EXP_BRIDGE_PARCEL'}],
@@ -118,7 +121,7 @@ function walk(route){
  return {route,seed,strategy,outcome,actions:history.length,firstVictory:firstWin,firstStoryVictory:storyWin,guideCompleted:guideIndex===guide.length,retryEvidence,freeStops,battles,error,final:state(r),optionalRejected,history};
 }
 const routes=(process.env.CRPG_ROUTES||'ROUTE_TRAVELER,ROUTE_ISEKAI').split(','),runs=routes.map(walk);
-const report={testedAt:new Date().toISOString(),source,dbPath,dbHash:hash(data),loaded:files,hashes,policy:'New game plus public action only; first available authored choice, accept offered companions, equip naturally owned items, naturally owned food; authored battle guests and legal combat cards. Guided profile also buys an available practice sword, explicitly accepts and completes actual cart/supply/first-field commissions, uses awarded XP books, and buys available inn rests. No direct save mutations.',runs};
+const report={testedAt:new Date().toISOString(),source,dbPath,dbHash:hash(data),loaded:files,hashes,policy:'New game plus public action only; first available authored choice, accept offered companions, equip naturally owned items, naturally owned food; authored battle guests and legal combat cards. Guided profile also buys an available practice sword, explicitly accepts and completes actual cart/camp/supply/first-field commissions, uses awarded XP books, and buys available inn rests. No direct save mutations.',runs};
 const out=path.join(__dirname,'legitimate-route-smoke-results.json');fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');
 for(const r of runs)console.log(JSON.stringify({route:r.route,strategy:r.strategy,outcome:r.outcome,firstVictory:r.firstVictory,firstStoryVictory:r.firstStoryVictory,guideCompleted:r.guideCompleted,retryEvidence:r.retryEvidence,actions:r.actions,freeStops:r.freeStops.map(x=>x.node),battles:r.battles,error:r.error&&{code:r.error.code,message:r.error.message},final:r.final,optionalRejected:r.optionalRejected.map(x=>({type:x.type,params:x.params,error:x.error}))},null,2));
 console.log('Full public action transcript: '+out);
