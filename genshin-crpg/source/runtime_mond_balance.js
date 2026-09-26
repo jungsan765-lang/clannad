@@ -57,20 +57,9 @@
  };
  // A taunt is not a silence: keep area attacks / healing / self support executable.
  // Ordinary or single-target attacks still strike the existing decoy, unchanged.
- P.resolveMondDecoyAction=function(a,targets){
-  const b=this.s.runtime;
-  if(!enabled(b)||b.mondBalance.kind!=='FIELD'||a.side!=='ENEMY'||a.enemyCharge||a.charging||
-    !b.fields.some(f=>f.kind==='BUNNY'&&f.side!==a.side&&f.hp>0&&!f.done))return false;
-  const cards=this.actorCards(a).filter(c=>!this.cardReason(a,c)).filter(c=>
-   /DMG_AOE|HEAL|SHIELD|SUMMON|SELF_BUFF/.test(c.script)||/ALLY_ALL|ALLY_MAX[234]|MAX[234]/.test(c.target));
-  cards.sort((a,b)=>b.weight-a.weight||a.id.localeCompare(b.id));
-  if(!cards.length)return false;
-  const c=cards[0],legal=targets.filter(t=>t.hp>0&&this.hasAirAccess(a,t,c.range));
-  if(!legal.length&&!/HEAL|SHIELD|SUMMON|SELF_BUFF/.test(c.script))return false;
-  this.executeCard(a,c,legal[0]?.id,'TAP');return true;
- };
+ P.resolveMondDecoyAction=function(a,targets){return this.resolveDecoyAction?.(a,targets)||false;};
  if(old.enemyIntel)P.enemyIntel=function(id){const info=old.enemyIntel.call(this,id),b=this.s.runtime;if(info&&enabled(b)&&b.mondBalance.kind==='FIELD'){
-  info.cues.push({kind:'warning',text:'도발은 광역·회복·지원 기술을 봉쇄하지 않습니다.',detail:'단일 공격은 인형으로 유도할 수 있지만 광역·치유·보호막·소환 기술은 정상 사용합니다. 준비 중단·원소 약점·집중 공격으로 대응하세요.'});
+  info.cues.push({kind:'warning',text:'토끼 백작은 광역·회복·지원 기술을 봉쇄하지 않습니다.',detail:'단일 공격은 토끼 백작에게 유도할 수 있지만 광역·치유·보호막·소환 기술은 정상 사용합니다. 준비 중단·원소 약점·집중 공격으로 대응하세요.'});
  }return info;};
  if(old.mondAreaThreat)P.mondAreaThreat=function(...args){const x=old.mondAreaThreat.apply(this,args);if(x)x.rewardGuide='승리 보상: 참가자별 경험치 · 공용 모라 · 적 종류별 소재. 고급 소재는 확률 획득.';return x;};
  P.validateSave=function(s){old.validateSave.call(this,s);const b=s.runtime,m=b?.mondBalance;if(!m)return s;

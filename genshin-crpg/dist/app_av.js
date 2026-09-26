@@ -95,8 +95,8 @@ function combatSpeedControl(){
   range.oninput=()=>{settings.combatSpeed=Number(range.value);for(const other of document.querySelectorAll('.combat-speed')){other.querySelector('input').value=range.value;other.querySelector('output').textContent=value.textContent=Number(range.value).toFixed(2).replace(/0$/,'')+'×';}GameEffects.reschedule();};range.onchange=()=>persistSettings();row.append(label,range,value);return row;
 }
 const GameEffects={
-  generation:0,timer:null,resolve:null,layer:null,dock:null,seen:new Set(),lastFlash:0,paused:false,active:false,
-  cancel(){CombatFX.clear();this.generation++;clearTimeout(this.timer);this.resolve?.();this.resolve=null;this.layer?.replaceChildren();this.dock?.remove();this.dock=null;this.active=false;this.paused=false;document.documentElement.classList.remove('av-running');root.inert=busy;},
+  generation:0,timer:null,resolve:null,layer:null,dock:null,seen:new Set(),hitTimers:new Set(),lastFlash:0,paused:false,active:false,
+  cancel(){CombatFX.clear();this.generation++;clearTimeout(this.timer);for(const id of this.hitTimers)clearTimeout(id);this.hitTimers.clear();this.resolve?.();this.resolve=null;this.layer?.replaceChildren();this.dock?.remove();this.dock=null;this.active=false;this.paused=false;document.documentElement.classList.remove('av-running');root.inert=busy;},
   reschedule(){clearTimeout(this.timer);if(this.resolve&&!this.paused)this.timer=setTimeout(()=>this.advance(),(this.beatDuration||1400)/(settings.combatSpeed||1));},
   advance(){clearTimeout(this.timer);const done=this.resolve;this.resolve=null;done?.();},
   layerNode(){if(!this.layer){this.layer=el('div','combat-effects');this.layer.setAttribute('aria-hidden','true');document.body.append(this.layer);}return this.layer;},
@@ -121,18 +121,13 @@ const GameEffects={
     let cue=null,flashed=false;
     for(const t of frame.targets){
       const target=this.actorNode(t.targetId),rect=target?.getBoundingClientRect(),hit=t.events.find(e=>e.kind==='damage')||t.events.find(e=>e.kind==='heal')||t.events[0];
-      if(target&&Number.isFinite(t.hpAfter)){
-        const max=t.maxHp||Number(target.dataset.maxHp)||1;
-        target.querySelector('.stat').textContent='HP  '+t.hpAfter+' / '+max;target.querySelector('.meter i').style.width=Math.max(0,t.hpAfter/max*100)+'%';target.classList.toggle('dead',t.hpAfter<=0);
-        if(t.targetId==='PLAYER_CUSTOM'){const sidebar=root.querySelector('.player-card');if(sidebar){const stat=sidebar.querySelector('.stat'),bar=sidebar.querySelector('.meter i');if(stat)stat.textContent='HP  '+t.hpAfter+' / '+max;if(bar)bar.style.width=Math.max(0,t.hpAfter/max*100)+'%';}}
-      }
-      if(rect&&rect.bottom>100&&rect.top<innerHeight-240){
-        const item=el('div','impact effect-'+(hit?.element||'hit')+' kind-action'+(t.critical?' critical':''));
-        item.style.left=Math.max(80,Math.min(innerWidth-80,rect.left+rect.width/2))+'px';item.style.top=Math.max(140,Math.min(innerHeight-250,rect.top+rect.height/2))+'px';
-        item.append(el('strong','impact-label',t.damage?String(t.damage):t.heal?'+'+t.heal:t.immuneCount?'면역':t.missCount?'빗나감':t.events.find(e=>e.kind==='capacity')?.label||'방어'));
-        if(t.attemptCount>1)item.append(el('small','impact-target',t.attemptCount+'연타 합계'));
-        if(t.critical)item.append(el('small','impact-target','치명타 포함'));
-        layer.append(item);
+      const hp=(value,max=t.maxHp||Number(target?.dataset.maxHp)||1)=>{if(!target||!Number.isFinite(value))return;target.querySelector('.stat').textContent='HP  '+value+' / '+max;target.querySelector('.meter i').style.width=Math.max(0,value/max*100)+'%';target.classList.toggle('dead',value<=0);if(t.targetId==='PLAYER_CUSTOM'){const sidebar=root.querySelector('.player-card');if(sidebar){const stat=sidebar.querySelector('.stat'),bar=sidebar.querySelector('.meter i');if(stat)stat.textContent='HP  '+value+' / '+max;if(bar)bar.style.width=Math.max(0,value/max*100)+'%';}}};
+      const hitEvents=t.events.filter(e=>e.kind==='damage'&&Number(e.amount)>0);
+      const impact=(event,index,total)=>{if(!rect||rect.bottom<=100||rect.top>=innerHeight-240)return;const item=el('div','impact effect-'+(event?.element||hit?.element||'hit')+' kind-action'+(event?.critical?' critical':''));const spread=total>1?(index-(total-1)/2)*10:0;item.style.left=Math.max(80,Math.min(innerWidth-80,rect.left+rect.width/2+spread))+'px';item.style.top=Math.max(140,Math.min(innerHeight-250,rect.top+rect.height/2-(index%2)*12))+'px';item.append(el('strong','impact-label',event?String(event.amount):t.damage?String(t.damage):t.heal?'+'+t.heal:t.immuneCount?'면역':t.missCount?'빗나감':t.events.find(e=>e.kind==='capacity')?.label||'방어'));if(total>1&&index===total-1)item.append(el('small','impact-target',total+'연타'));if(event?.critical)item.append(el('small','impact-target','치명타'));layer.append(item);if(!settings.reducedMotion&&target)target.animate?.([{transform:'translateX(0)'},{transform:'translateX(-3px)'},{transform:'translateX(3px)'},{transform:'translateX(0)'}],{duration:140,easing:'ease-out'});};
+      if(hitEvents.length>1){
+        hitEvents.forEach((event,index)=>{const delay=Math.round(index*50/(settings.combatSpeed||1)),id=setTimeout(()=>{this.hitTimers.delete(id);hp(event.hpAfter,event.maxHp||t.maxHp);impact(event,index,hitEvents.length);},delay);this.hitTimers.add(id);});
+      }else{
+        hp(t.hpAfter,t.maxHp);impact(hitEvents[0]||null,0,1);
       }
       if(t.damage&&t.side==='ALLY')flashed=true;
       cue=cue||hit?.cue;

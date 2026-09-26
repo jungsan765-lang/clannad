@@ -1,5 +1,5 @@
 'use strict';
-const VERSION='2026-09-26-d0605b219738-6438f9bceb85';
+const VERSION='2026-09-26-d0605b219738-b4325f0a789b';
 const CACHE='crpg-pack-'+VERSION;
 const CORE='crpg-core-'+VERSION;
 const scopeURL=new URL('./',self.location.href);

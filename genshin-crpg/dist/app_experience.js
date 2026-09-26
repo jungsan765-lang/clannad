@@ -206,12 +206,24 @@ function battleActorRow(a,chosen,index){
   if(chosen?.targets?.some(t=>t.id===a.id))c.append(button(a.id===selectedTarget?'선택됨':'선택',()=>{selectedTarget=a.id;render();}));return c;
 }
 function battleDetails(p,b){
-  const details=el('details','battle-details');details.open=true;details.append(el('summary','','전투 기록 · '+b.log.length+'건'));
+  const details=el('details','battle-details');details.open=false;details.append(el('summary','','전투 기록 · '+b.log.length+'건'));
   const log=el('div','log');log.setAttribute('role','log');log.setAttribute('aria-live','polite');
   for(const e of b.log){const actor=b.actors.find(a=>a.id===e.actorId),target=b.actors.find(a=>a.id===e.targetId),an=actor?combatDisplayName(b,actor):e.actor,tn=target?combatDisplayName(b,target):e.target;
     const action=e.immune?'면역':e.miss?'공격 빗나감':Object.hasOwn(e,'damage')?(tn||'대상')+'에게 '+e.damage+' 피해'+(e.critical?' · 치명타':''):e.heal?tn+' '+e.heal+' 회복':e.reaction?e.reactionName||'원소 반응':e.guard?'방어':e.card?e.cardName||'스킬 사용':e.reason||'';
     const text=e.text||e.message||[an,action].filter(Boolean).join(' · ');if(text)log.append(el('p','',text));}details.append(log);
   p.append(details);
+}
+function combatCardEffect(card,b){
+  const box=el('div','combat-effect-detail'),desc=card.description||(card.id==='PLAYER_BASIC_ATTACK'?'선택한 적 1명을 기본 공격합니다.':card.id==='PLAYER_BASIC_GUARD'?'이번 행동 동안 받는 피해를 줄입니다.':'세부 효과 설명이 없습니다.');
+  box.append(el('h2','',card.name||'행동'),el('p','combat-effect-description',desc));
+  const meta=[];if(card.cooldown)meta.push('현재 재사용 대기 '+card.cooldown+'차례');if(card.targets?.length)meta.push('선택 가능 대상 '+card.targets.length+'명');if(card.reason)meta.push('현재 사용 불가 · '+card.reason);
+  if(meta.length)box.append(el('p','muted',meta.join(' · ')));
+  if(game.protagonistCombatView&&['PLAYER_ISEKAI_E','PLAYER_ISEKAI_Q'].includes(card.id)){
+    const v=game.protagonistCombatView();
+    if(card.id==='PLAYER_ISEKAI_E'){const t=v.windowTargets?.find(x=>x.id===selectedTarget);if(t)box.append(el('p','skill-preview',t.reason||t.name+' · 현재 선택 시 최대 HP −'+t.amount+' · 다음 자기 차례까지'));}
+    if(card.id==='PLAYER_ISEKAI_Q'){box.append(el('p','skill-preview','현재 합동 공격 추가 배율 +'+v.bonusPct+'% · 행동 가능한 동료가 기본 공격에 참가합니다.'));if(v.members?.length)box.append(el('p','muted',v.members.map(a=>a.name+(a.reason?' · 불참('+a.reason+')':' · 참가')).join(' / ')));}
+  }
+  showModal('효과 · '+(card.name||'행동'),box);
 }
 combat=function(p){
   const b=game.s.runtime,opening=game.combatOpening?.(),cards=opening?[]:(game.combatCards?.()||[]);
@@ -223,13 +235,13 @@ combat=function(p){
   const controls=el('section','battle-command');controls.setAttribute('aria-label','전투 행동');
   if(opening){controls.append(el('h2','','준비되면 전투를 시작하세요'),el('p','','아직 누구도 공격하지 않았습니다. 시작하면 위 순서대로 행동합니다. 주인공의 차례에는 행동 → 대상 → 실행을 선택하세요.'),actionButton('전투 시작','COMBAT_BEGIN',{battle:b.id},true));}
   else{
-    const buttons=el('div','battle-cards');for(const card of cards){const btn=button('',()=>{selectedCard=card.id;selectedBranch=card.branches?.[0]||'';render();},!!card.reason||busy);btn.dataset.cardId=card.id;btn.classList.toggle('selected',selectedCard===card.id);btn.append(el('strong','',card.name),el('small','',card.reason||(card.id==='PLAYER_BASIC_ATTACK'?'적 1명 선택':card.id==='PLAYER_BASIC_GUARD'?'자신에게 사용':card.description)||'사용 가능'));buttons.append(btn);}controls.append(buttons);
+    const buttons=el('div','battle-cards');for(const card of cards){const slot=el('div','battle-card-choice'),btn=button('',()=>{selectedCard=card.id;selectedBranch=card.branches?.[0]||'';render();},!!card.reason||busy);btn.dataset.cardId=card.id;btn.classList.toggle('selected',selectedCard===card.id);btn.append(el('strong','',card.name),el('small','',card.reason||(card.cooldown?'재사용 '+card.cooldown+'차례':'사용 가능')));const effect=button('효과',()=>combatCardEffect(card,b));effect.className='battle-effect-button';effect.setAttribute('aria-label',(card.name||'행동')+' 효과 보기');slot.append(btn,effect);buttons.append(slot);}controls.append(buttons);
     const execute=el('div','battle-execute');if(chosen?.branches?.length){const select=el('select');select.setAttribute('aria-label','스킬 방식');for(const branch of chosen.branches)select.append(new Option(({TAP:'짧게 사용',HOLD:'길게 사용',CHARGE:'차지'})[branch]||branch,branch));if(!chosen.branches.includes(selectedBranch))selectedBranch=chosen.branches[0];select.value=selectedBranch;select.onchange=()=>{selectedBranch=select.value;};execute.append(select);}
     if(chosen?.targets?.length){const targetSelect=el('select');targetSelect.setAttribute('aria-label','행동 대상');for(const t of chosen.targets){const a=b.actors.find(a=>a.id===t.id);targetSelect.append(new Option((a?combatDisplayName(b,a):t.name)+' · HP '+(a?.hp??''),t.id));}targetSelect.value=selectedTarget;targetSelect.onchange=()=>{selectedTarget=targetSelect.value;render();};execute.append(targetSelect);}
     const run=actionButton(chosen?.id==='PLAYER_BASIC_ATTACK'?'공격 실행':'선택한 행동 실행','COMBAT',{card:selectedCard,target:selectedTarget,branch:selectedBranch},true);run.disabled=run.disabled||!chosen||!!chosen.reason;execute.append(run);controls.append(execute);
   }controls.append(combatSpeedControl());p.append(controls);
   const stage=el('div','compact-battle-stage'),foes=b.actors.filter(a=>a.side==='ENEMY'),representative=foes.find(a=>a.hp>0)||foes[0];
 
-  const teams=el('div','battle-teams compact-teams');for(const side of ['ALLY','ENEMY']){const col=el('section');col.append(el('h2','',side==='ALLY'?'우리 파티':'적'));const actors=b.actors.filter(a=>a.side===side);for(const a of actors){const same=actors.filter(x=>x.name===a.name);col.append(battleActorRow(a,chosen,same.length>1?same.indexOf(a)+1:0));}teams.append(col);}stage.append(teams);p.append(stage);if(!opening)p.insertBefore(stage,controls);
+  const teams=el('div','battle-teams compact-teams');for(const side of ['ALLY','ENEMY']){const col=el('section');col.append(el('h2','',side==='ALLY'?'우리 파티':'적'));const actors=b.actors.filter(a=>a.side===side);for(const a of actors){const same=actors.filter(x=>x.name===a.name);col.append(battleActorRow(a,chosen,same.length>1?same.indexOf(a)+1:0));}teams.append(col);}stage.append(teams);p.append(stage);
   if(b.terrain!==null&&b.terrain!==undefined)p.append(el('p','muted','남은 지형 '+b.terrain+' / '+(b.terrainMax||4)));battleDetails(p,b);
 };

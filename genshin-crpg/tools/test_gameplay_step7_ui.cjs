@@ -1,0 +1,15 @@
+'use strict';
+const fs=require('fs'),path=require('path'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,'source',f),'utf8');
+const files=['runtime_combat.js','runtime_mond_balance.js','app_revision.js','app_experience.js','app_enemy_intel.js','app_protagonist.js','app_av.js'];
+for(const f of files)new Function(read(f));
+const combat=read('runtime_combat.js'),start=combat.indexOf('P.resolveDecoyAction=function'),end=combat.indexOf('P.aiTurn=function',start);assert(start>=0&&end>start);
+const P={};new Function('P',combat.slice(start,end))(P);const calls=[];
+const actor={side:'ENEMY'},fake={s:{runtime:{fields:[{kind:'BUNNY',side:'ALLY',hp:100,done:false}]}},actorCards:()=>[{id:'SINGLE',script:'DMG:ATK*1:PHYSICAL:ALLY_1',target:'ALLY_1',weight:10},{id:'AOE',script:'DMG_AOE:ATK*1:PHYSICAL:MAX2',target:'ALLY_MAX2',weight:5}],cardReason:()=>'',cardTargets:(a,c)=>c.id==='AOE'?[{id:'P1'}]:[{id:'P1'}],executeCard:(a,c,target)=>calls.push({id:c.id,target})};
+assert.equal(P.resolveDecoyAction.call(fake,actor,[{id:'P1'}]),true);assert.deepEqual(calls,[{id:'AOE',target:'P1'}]);
+assert.equal(P.resolveDecoyAction.call({...fake,actorCards:()=>[{id:'SINGLE',script:'DMG:ATK*1:PHYSICAL:ALLY_1',target:'ALLY_1',weight:10}]},actor,[{id:'P1'}]),false);
+const exp=read('app_experience.js'),intel=read('app_enemy_intel.js'),av=read('app_av.js'),rev=read('app_revision.js'),mond=read('runtime_mond_balance.js');
+assert([combat,rev,mond].every(x=>!x.includes('폭탄 인형')&&!x.includes('도발 인형')));assert(combat.includes("'토끼 백작'")&&mond.includes('토끼 백작'));
+assert(exp.includes('battle-effect-button')&&exp.includes('combatCardEffect'));assert(!exp.includes('insertBefore(stage,controls)'));assert(exp.includes('details.open=false'));
+assert(intel.includes('this.panel=null')&&!intel.includes('stage.append(this.panel)'));assert(av.includes('index*50/(settings.combatSpeed||1)')&&av.includes('hitTimers'));
+console.log(JSON.stringify({total:9,passed:9}));

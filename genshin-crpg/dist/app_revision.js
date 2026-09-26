@@ -128,7 +128,7 @@ growthScreen=function(p){growthRevision(p);const eligibility=parseUI(game.s.glob
 const combatRevision=combat;
 combat=function(p){combatRevision(p);const b=game.s.runtime,box=el('section','battle-map-panel');box.append(el('h2','','전장 위치'),el('p','muted','같은 칸과 상하좌우 한 칸이 인접 범위입니다.'));
  const grid=el('div','battle-map');grid.setAttribute('aria-label','6열 4행 전장 위치');
- const fieldNames={KLEE_MINE:'통통 폭탄',MIST_TRACE:'안개 흔적',PHANTOM:'물의 허영',DENDRO_CORE:'풀 원핵',OZ:'오즈',WIND_SPIRIT:'바람 정령',ICE:'얼음 고드름',DANDELION:'민들레 영역',ROSE:'장미의 뇌광',BUNNY:'폭탄 인형'};
+ const fieldNames={KLEE_MINE:'통통 폭탄',MIST_TRACE:'안개 흔적',PHANTOM:'물의 허영',DENDRO_CORE:'풀 원핵',OZ:'오즈',WIND_SPIRIT:'바람 정령',ICE:'얼음 고드름',DANDELION:'민들레 영역',ROSE:'장미의 뇌광',BUNNY:'토끼 백작'};
  for(let y=0;y<4;y++)for(let x=0;x<6;x++){const cell=el('div','battle-cell');cell.setAttribute('aria-label',(x+1)+'열 '+(y+1)+'행');for(const a of b.actors.filter(a=>a.hp>0&&a.position?.x===x&&a.position?.y===y)){const tag=el('span','map-actor '+a.side.toLowerCase(),a.name);tag.title=a.name+' · '+({SMALL:'소형',MEDIUM:'중형',LARGE:'대형',BOSS:'보스'}[a.size]||'중형');cell.append(tag);}for(const f of b.fields.filter(f=>!f.done&&f.position?.x===x&&f.position?.y===y&&fieldNames[f.kind]))cell.append(el('small','map-field',fieldNames[f.kind]));grid.append(cell);}box.append(grid);p.append(box);
 };
 

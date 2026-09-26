@@ -56,9 +56,9 @@ const EnemyIntel={
  },
  restorePlayback(){const token=this.resumeToken;this.resumeToken=null;if(token&&GameEffects.active&&token.generation===GameEffects.generation&&!token.wasPaused){GameEffects.paused=false;CombatFX.pause(false);GameEffects.reschedule();}},
  attach(p){
-  const stage=p.querySelector('.compact-battle-stage');if(!stage)return;stage.classList.add('with-enemy-intel');
-  this.panel=el('aside','enemy-intel-panel');this.panel.setAttribute('aria-label','선택한 적의 기술과 대응');stage.append(this.panel);this.refreshPanel();
-  const toolbar=el('div','enemy-intel-toolbar');toolbar.append(button('적 기술 정보 보기',()=>this.open()),el('small','','정보 확인은 행동·턴을 소비하지 않습니다.'));stage.insertBefore(toolbar,stage.firstChild);
+  const stage=p.querySelector('.compact-battle-stage');if(!stage)return;stage.classList.remove('with-enemy-intel');this.panel=null;
+  const toolbar=el('div','enemy-intel-toolbar combat-info-tools');toolbar.append(button('적 기술 정보',()=>this.open()),el('small','','적 카드의 상세 설명은 필요할 때만 엽니다.'));
+  const controls=p.querySelector('.battle-command');if(controls)controls.prepend(toolbar);else p.insertBefore(toolbar,stage);
   const recent=el('details','enemy-skill-history');recent.append(el('summary','','최근 적 기술 다시 보기'));
   const b=game.s.runtime,entries=(b.log||[]).filter(e=>e.card&&(e.actorId?this.cache.has(e.actorId):[...this.cache.values()].some(a=>a.name===e.actor))).slice(-12).reverse();
   if(!entries.length)recent.append(el('p','muted','아직 사용한 적 기술이 없습니다.'));

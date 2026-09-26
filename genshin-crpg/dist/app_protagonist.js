@@ -1,10 +1,7 @@
 /* Stage-2 presentation only: no state writes; keyboard shortcuts select, never execute. */
 (function(){'use strict';
  const priorCombat=combat;
- combat=function(p){priorCombat(p);const v=game.protagonistCombatView(),panel=el('section','protagonist-panel protagonist-'+v.kind.toLowerCase());panel.setAttribute('aria-label','주인공 전투 능력');
-  panel.append(el('strong','',v.title),el('p','',v.text));
-  if(v.kind==='ISEKAI'&&!v.legacy){const m=el('div','joint-members');m.setAttribute('aria-label','합동 공격 참여 상태');for(const a of v.members)m.append(el('span',a.reason?'unavailable':'',a.name+(a.reason?' · '+a.reason:'')));panel.append(m,el('p','joint-bonus',`Q · 기본 공격 배율 +${v.bonusPct}% · 자신의 공격력 ${v.stats.atk} / Lv.${v.stats.level}`));}
-  const controls=p.querySelector('.battle-command');if(controls)p.insertBefore(panel,controls);else p.append(panel);
+ combat=function(p){priorCombat(p);const v=game.protagonistCombatView(),controls=p.querySelector('.battle-command');
   for(const c of game.combatCards()){if(!c.key)continue;const btn=[...p.querySelectorAll('.battle-cards button')].find(x=>x.dataset.cardId===c.id);if(!btn)continue;btn.classList.add('protagonist-skill','skill-'+c.key.toLowerCase(),'identity-'+c.protagonistKind.toLowerCase());btn.prepend(el('span','skill-key',c.key));btn.setAttribute('aria-label',c.key+' · '+c.name+(c.reason?' · '+c.reason:''));}
   if(selectedCard==='PLAYER_ISEKAI_E'&&!v.legacy){const t=v.windowTargets.find(x=>x.id===selectedTarget);if(t)controls?.append(el('p','skill-preview',t.reason||`${t.name} · 최대 HP −${t.amount} · 다음 자기 차례까지. 임시 감소분은 만료 시 복원됩니다.`));}
   if(selectedCard==='PLAYER_ISEKAI_Q'&&!v.legacy)controls?.append(el('p','skill-preview','합동 공격: 본인부터 동료까지 기본 공격 1회씩. 사거리·행동 불가를 판정하며, 대상 격파 시 다음 공격 가능한 적을 노립니다. 동료의 평소 차례는 그대로입니다.'));

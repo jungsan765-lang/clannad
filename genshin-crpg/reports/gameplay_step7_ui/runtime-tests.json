@@ -1,0 +1,21 @@
+{
+  "version": "0.13.24",
+  "scope": "priority 7 shared Baron Bunny behavior + multihit playback + compact combat UI",
+  "checks": {
+    "javascriptSyntax": "7/7",
+    "sharedDecoyRule": "PASS",
+    "singleTargetFallsBackToBunny": "PASS",
+    "officialKoreanBunnyLabel": "PASS",
+    "effectButtons": "PASS",
+    "commandBeforeActors": "PASS",
+    "inlineEnemyIntelRemoved": "PASS",
+    "battleLogCollapsed": "PASS",
+    "multihitSpacing50ms": "PASS"
+  },
+  "behavior": {
+    "aoeBypassesBunny": true,
+    "singleTargetBypassesBunny": false,
+    "multihitMsAt1x": 50
+  },
+  "saveImpact": "none"
+}
