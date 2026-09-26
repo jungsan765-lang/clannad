@@ -38,5 +38,12 @@ for(const table of storyTables){
  console.log('\nVISIBLE_META_TEXT '+table+' '+JSON.stringify(rows.filter(r=>r[idx.NODE_TYPE]!=='META'&&/(?:메인 화면|메인 임무|서브임무|실제 SAVE|다음 스토리 노드|사용자|해금된 카드|해금 조건|CHOICE_GROUP|SCREEN:|FLAG_|ROUTE_|NODE_ID|버튼|메뉴로 복귀|파티:|카드 목록)/i.test(String(r[idx.TEXT_KO]||''))).map(r=>({node:r[idx.NODE_ID],type:r[idx.NODE_TYPE],speaker:r[idx.SPEAKER_NAME],text:r[idx.TEXT_KO]})),null,2));
 }
 
+
+for(const table of storyTables){
+ const h=db[table][0],idx=Object.fromEntries(h.map((x,i)=>[x,i]));
+ const rows=db[table].slice(1).filter(r=>r&&r[idx.ROUTE_ID]==='ROUTE_TRAVELER');
+ console.log('\nTRAVELER_CHOICES '+table+' '+JSON.stringify(rows.filter(r=>String(r[idx.SPEAKER_REF]||'')==='PLAYER_TRAVELER'&&r[idx.NODE_TYPE]==='CHOICE').map(r=>({node:r[idx.NODE_ID],arc:r[idx.ARC_ID],quest:r[idx.QUEST_ID],label:r[idx.CHOICE_LABEL],next:r[idx.NEXT_NODE_ID],pre:r[idx.PRECONDITION]})),null,2));
+}
+
 const relevantKeys=tables.filter(k=>/EQUIP|RECIPE|STOCK|MERCHANT|SHOP/.test(k));
 for(const t of relevantKeys){console.log('\nTABLE '+t+' HEADER '+JSON.stringify(db[t][0]||[]));const rows=db[t].slice(1);const picked=rows.filter(r=>JSON.stringify(r).includes('리월')||JSON.stringify(r).includes('몬드')||String(r?.[0]||'').startsWith('EQ_')||String(r?.[0]||'').startsWith('REC_')||String(r?.[0]||'').startsWith('STK_'));console.log('ROWS '+t+' '+JSON.stringify(picked.slice(0,250),null,2));}
