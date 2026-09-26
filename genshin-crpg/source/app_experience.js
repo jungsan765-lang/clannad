@@ -21,11 +21,18 @@ dialogue=function(p,v){
   const entry=placeHeader(p,'TALK');if(!entry)return;art(p,entry.entity);for(const img of p.querySelectorAll('img'))img.alt=entry.name;p.append(actionButton('임무 확인','MENU',{screen:'QUEST'}),actionButton('호감도 확인','MENU',{screen:'RELATIONS'}));
 };
 function shopStockDetail(row){return row[2]==='EQUIP'?itemPresenter.itemDetail({equip:row[3],quantity:1,enhance:0}):row[2]==='ITEM'?itemPresenter.itemDetail({item:row[3],quantity:1}):null;}
-function shopStockGroup(row){
- if(row[2]==='RECIPE')return '제작법';const d=shopStockDetail(row);if(!d)return '기타';
- if(row[2]==='EQUIP'){if(['법구','장신구'].includes(d.category))return '법구·장신구';if(d.category==='방어구')return '방어구';return game.row('16_EQUIP_DB',row[3])[14]==='Y'?'단조 무기':'기본 무기';}
- return d.group==='음식'?'음식':d.material?'제작 재료':'소모품';
+const EQUIPMENT_FILTERS=['한손검','양손검','장병기','활','법구','방어구','장신구','특수'];
+const WEAPON_FILTERS=new Set(['한손검','양손검','장병기','활','법구']);
+function shopStockGroups(row){
+ if(row[2]==='RECIPE')return ['제작법'];const d=shopStockDetail(row);if(!d)return ['기타'];
+ if(row[2]==='EQUIP'){
+  const category=EQUIPMENT_FILTERS.includes(d.category)?d.category:'장비',groups=[category];
+  if(WEAPON_FILTERS.has(category))groups.unshift(game.row('16_EQUIP_DB',row[3])[14]==='Y'?'단조 무기':'기본 무기');
+  return [...new Set(groups)];
+ }
+ return [d.group==='음식'?'음식':d.material?'제작 재료':'소모품'];
 }
+function shopStockGroup(row){return shopStockGroups(row)[0];}
 function shopQuantityLimit(row){const stock=game.stockRemaining(row),affordable=Number(row[5])>0?Math.floor(game.s.global.MORA/Number(row[5])):Number.MAX_SAFE_INTEGER;return Math.max(0,Math.min(stock,affordable));}
 function showPurchaseQuantity(id){
  const row=game.tables['19_SHOP_STOCK_DB'].get(id);if(!row||!['ITEM','EQUIP'].includes(row[2])||busy)return;
@@ -40,8 +47,8 @@ shop=function(p){
  if(isInn(entry)){const c=el('section','card inn-service'),stock=game.placeStocks().find(s=>s.row[3]==='SERVICE_INN_REST_8H');if(stock){c.append(el('h2','','숙박하기'),el('p','','8시간 숙박 후 현재 파티 전원의 HP를 모두 회복합니다.'),el('p','',stock.row[5]+' 모라 · 보유 '+game.s.global.MORA+' 모라'));if(stock.reason)c.append(el('p','choice-note',stock.reason));const b=actionButton('숙박하기 · '+stock.row[5]+' 모라','BUY',{stock:stock.row[0],quantity:1},true);b.disabled=b.disabled||!!stock.reason;c.append(b);}p.append(c);return;}
  p.append(el('p','shop-balance','보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라'));
  if(entry.entity==='NPC_MOND_SARA')p.append(el('p','','사라에게 완성된 음식을 구입할 수 있습니다. 음식은 아이템 화면에서 파티원에게 사용합니다.'));
- const stocks=game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')),groups=['기본 무기','단조 무기','방어구','법구·장신구','제작 재료','음식','소모품','제작법','기타'];
- for(const group of groups){const rows=stocks.filter(s=>shopStockGroup(s.row)===group).sort((a,b)=>Number(a.row[5])-Number(b.row[5])||a.row[4].localeCompare(b.row[4],'ko'));if(!rows.length)continue;
+ const stocks=game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')),groups=['기본 무기','한손검','양손검','장병기','활','법구','방어구','장신구','특수','단조 무기','제작 재료','음식','소모품','제작법','기타'];
+ for(const group of groups){const rows=stocks.filter(s=>shopStockGroups(s.row).includes(group)).sort((a,b)=>Number(a.row[5])-Number(b.row[5])||a.row[4].localeCompare(b.row[4],'ko'));if(!rows.length)continue;
   p.append(el('h2','',group));const grid=el('div','grid facility-stock');
   for(const stock of rows){const r=stock.row,c=el('section','card'),d=shopStockDetail(r);c.dataset.stockId=r[0];c.append(el('h3','',d?.name||r[4]),el('small','',d?.category||'제작법'),el('p','',Number(r[5]).toLocaleString()+' 모라'),el('small','',stock.remaining===Infinity?'상시 판매':'남은 재고 '+stock.remaining));
    if(d?.stats.length)c.append(el('p','shop-stats',d.stats.map(s=>s.label+' '+s.value+s.unit).join(' · ')));if(d?.effect)c.append(el('p','item-effect',d.effect));
