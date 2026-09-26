@@ -1,6 +1,6 @@
 {
   "version": "0.13.31",
-  "count": 135,
+  "count": 186,
   "changes": [
     {
       "table": "55_MAIN_STORY_DB",
@@ -946,6 +946,363 @@
       "field": "TEXT_KO",
       "old": "본인이 다시 제안했고 여행자가 명확히 수락했다. 카드를 1회만 추가한다.",
       "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_ZHONGLI_INVEST_GATE",
+      "field": "TEXT_KO",
+      "old": "장부 조사 방법을 고른다. 두 선택은 서로 다른 단서를 보여준 뒤 같은 증언 확인으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_NINGGUANG_INVEST_GATE",
+      "field": "TEXT_KO",
+      "old": "첫 조사 순서에 따라 각기 다른 증언을 듣는다. 두 길은 현장 수량 대조에서 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_BEIDOU_INVEST_GATE",
+      "field": "TEXT_KO",
+      "old": "두 수색 선택 모두 서로 다른 위치 단서를 얻은 뒤 하나의 구조 결론으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_YELAN_INVEST_GATE",
+      "field": "TEXT_KO",
+      "old": "단서 두 갈래. 두 선택의 반응을 달리한 뒤 증언 확인에서 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_BAIZHU_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "현장 기록·안전 물품·동행 인력 준비비 620모라를 확인한다. 수락 전에 차감하지 않는다.",
+      "new": "현장 기록·안전 물품·동행 인력 준비비 620모라를 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_BAIZHU_H01_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_BAIZHU_H02_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_BAIZHU_H03_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_BAIZHU_H04_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_BAIZHU_H05_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_QIQI_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "현장 기록·안전 물품·동행 인력 준비비 520모라를 확인한다. 수락 전에 차감하지 않는다.",
+      "new": "현장 기록·안전 물품·동행 인력 준비비 520모라를 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_QIQI_H01_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_QIQI_H02_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_QIQI_H03_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_QIQI_H04_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_QIQI_H05_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_GAMING_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "현장 기록·안전 물품·동행 인력 준비비 700모라를 확인한다. 수락 전에 차감하지 않는다.",
+      "new": "현장 기록·안전 물품·동행 인력 준비비 700모라를 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GAMING_H01_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GAMING_H02_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GAMING_H03_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GAMING_H04_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GAMING_H05_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_GANYU_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "현장 기록·안전 물품·동행 인력 준비비 650모라를 확인한다. 수락 전에 차감하지 않는다.",
+      "new": "현장 기록·안전 물품·동행 인력 준비비 650모라를 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GANYU_H01_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GANYU_H02_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GANYU_H03_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GANYU_H04_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GANYU_H05_DECIDE",
+      "field": "TEXT_KO",
+      "old": "여행자의 대응에 따라 상대가 다른 말로 답한다. 대화 뒤 목적과 보상은 합류한다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_BAIZHU_H01_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_BAIZHU_H02_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_BAIZHU_H03_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_BAIZHU_H04_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_BAIZHU_H05_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_QIQI_H01_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_QIQI_H02_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_QIQI_H03_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_QIQI_H04_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_QIQI_H05_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GAMING_H01_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GAMING_H02_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GAMING_H03_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GAMING_H04_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GAMING_H05_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GANYU_H01_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GANYU_H02_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GANYU_H03_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GANYU_H04_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_GANYU_H05_END",
+      "field": "TEXT_KO",
+      "old": "사건을 기록하고 메인 화면으로 돌아간다.",
+      "new": "그날의 일을 기록해 두고, 각자의 다음 일상으로 돌아간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XINGQIU_N054",
+      "field": "TEXT_KO",
+      "old": "상회의 배송 장부에 정정 기록과 수령자의 선택이 나란히 남는다. 행추가 명시적으로 동행에 합류하고 카드가 1회 열린다. 여행자는 다음 임무를 고를 수 있는 메인 화면으로 돌아간다.",
+      "new": "상회의 배송 장부에는 정정 기록과 수령자의 선택이 나란히 남는다. 행추도 다음 여정에 함께하겠다는 뜻을 분명히 한다. 여행자는 일을 마무리하고 다음 일정을 준비한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XIANYUN_N027",
+      "field": "TEXT_KO",
+      "old": "멈추게. 손을 빼고 물통을 먼저 내려놓게. 장치의 오류는 장치가 감당해야지 사용자가 균형을 잡다가 다쳐서는 안 된다네.",
+      "new": "멈추게. 손을 빼고 물통을 먼저 내려놓게. 장치의 오류는 장치가 감당해야지 쓰는 사람이 균형을 잡다가 다쳐서는 안 된다네."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XIANYUN_H05_N013",
+      "field": "TEXT_KO",
+      "old": "한운은 자부심을 버리지 않고도 사용자에게 선택을 내어 준다. 점검표는 다음에 쓸 수 있게 남겨 두고, 관계의 마지막 단계는 동료를 위한 협력으로 끝난다.",
+      "new": "한운은 자부심을 버리지 않고도 장치를 쓰는 사람에게 선택을 맡긴다. 점검표는 다음에도 쓸 수 있게 남겨 두고, 둘의 협력도 자연스럽게 이어진다."
     }
   ]
 }
