@@ -5,12 +5,12 @@
 (function(root){'use strict';
  const api=root.CRPGRuntime,P=api.Runtime.prototype,copy=x=>JSON.parse(JSON.stringify(x));
  const VERSION=1;
- const CONFIG={version:VERSION,
+ const CONFIG={version:VERSION,xpRate:.45,
   // Factors on v0.13.9 regional stats; never on player gear or relative level.
   field:{1:{hp:1,atk:1},2:{hp:.98,atk:1.12},3:{hp:.95,atk:1.2},4:{hp:.92,atk:1.28},5:{hp:.9,atk:1.4},6:{hp:.86,atk:1.5}},
   xpGrade:{'일반':1,'정예':2,'강적':4},moraGrade:{'일반':1,'정예':2,'강적':4},
   moraRisk:{1:1,2:1.05,3:1.1,4:1.2,5:1.3,6:1.4},
-  boss:{BOSS_DVALIN:{xp:600,mora:600},BOSS_ANDRIUS:{xp:900,mora:900}},
+  boss:{BOSS_DVALIN:{xp:270,mora:600},BOSS_ANDRIUS:{xp:405,mora:900}},
   dropConditions:{
    LT_SLIME:['없음','일반 슬라임 희귀 드랍','일반 슬라임 매우 희귀'],
    LT_SLIME_ELITE:['대형 슬라임'],
@@ -36,7 +36,7 @@
    for(const s of a.shields||[])if(Number.isFinite(s.value))s.value=Math.max(0,Math.round(s.value*scale.hp));
   }
   const parts=enemies.map(a=>{const named=boss&&CONFIG.boss[a.source];return {source:a.source,level:a.level,grade:a.grade,
-   xp:named?named.xp:Math.round((30+15*a.level)*(CONFIG.xpGrade[a.grade]||1)),
+   xp:named?named.xp:Math.round((30+15*a.level)*(CONFIG.xpGrade[a.grade]||1)*CONFIG.xpRate),
    mora:named?named.mora:Math.round((8+5*a.level)*(CONFIG.moraGrade[a.grade]||1)*(CONFIG.moraRisk[risk]||1))};});
   const noRewards=!!b.storyConfig?.noRewards;
   b.mondBalance={version:VERSION,kind:field?'FIELD':'BOSS',risk,
