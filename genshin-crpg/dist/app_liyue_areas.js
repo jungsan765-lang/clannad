@@ -33,9 +33,7 @@
   const panel=el('section','card liyue-local-guide');panel.id='liyue-local-guide';panel.append(el('small','eyebrow',a.zone+' · 자유 탐방'),el('h2','',a.name),el('p','',a.description));
   const row=el('div','liyue-local-tags');row.append(el('span','',a.safe?'안전한 거점':a.encounter?'야외 · 이동 중 적과 조우 가능':'야외 탐방 구역'),el('span','',a.kind?kinds[a.kind]+' 가능':'풍경 감상·길 찾기'));panel.append(row);
   const look=button('주변을 살펴본다',()=>{const box=el('div','liyue-local-observation');box.append(el('p','story',a.observe),el('p','muted','둘러보기에는 시간과 재료가 들지 않습니다.'));showModal(a.name,box);});look.dataset.lyLook=a.id;panel.append(look);
-  if(a.kind){const entry=game.lifeEntries().find(e=>e.kind===a.kind);if(entry){const res=el('div','liyue-local-resources');res.append(el('strong','','이곳에서 가능한 활동 · '+entry.label),el('p','',entry.pool.map(x=>safeName('14_ITEM_DB',x.item)).join(' · ')),el('small','muted','오늘 '+entry.remaining+'/'+entry.limit+'회 · 게임 시간 '+entry.minutes+'분'+(entry.kind==='FISH'?' · 낚싯대와 과일 미끼 필요':'')));
-    res.append(actionButton(entry.label+' 시작','LIFE_START',{kind:entry.kind},true));panel.append(res);
-  }}else if(a.parent==='MAP_LIYUE_HARBOR'){panel.append(el('p','muted','상점·제작·숙박·길드·본편 재개는 기존 리월항 중심 거점을 이용합니다.'),button('리월항 중심으로 가는 길 보기',()=>focusMap('MAP_LIYUE_HARBOR')));}
+   if(!a.kind&&a.parent==='MAP_LIYUE_HARBOR'){panel.append(el('p','muted','상점·제작·숙박·길드·본편 재개는 기존 리월항 중심 거점을 이용합니다.'),button('리월항 중심으로 가는 길 보기',()=>focusMap('MAP_LIYUE_HARBOR')));}
   const map=parent.querySelector('#journey-map');if(map)map.before(panel);else parent.prepend(panel);
  };
 })();
