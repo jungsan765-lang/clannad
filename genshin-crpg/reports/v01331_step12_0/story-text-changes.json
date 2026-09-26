@@ -1,0 +1,951 @@
+{
+  "version": "0.13.31",
+  "count": 135,
+  "changes": [
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_A002",
+      "field": "TEXT_KO",
+      "old": "멈춰! ...아, 겁줄 생각은 없었어. 난 페보니우스 기사단의 정찰 기사 엠버야. 성 밖을 순찰하던 중인데 이쪽 숲에서 큰 그림자가 지나가는 걸 봤어. 여행자와 페이몬은 그쪽 길에서 나왔지? 다친 곳은 없어?",
+      "new": "멈춰! ...아, 겁줄 생각은 없었어. 난 페보니우스 기사단의 정찰 기사 엠버야. 성 밖을 순찰하던 중인데 이쪽 숲에서 큰 그림자가 지나가는 걸 봤어. 두 사람은 그쪽 길에서 나온 거지? 다친 곳은 없어?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_A003",
+      "field": "TEXT_KO",
+      "old": "페이몬은 멀쩡해. 이쪽도 걸을 수 있고. 그런데 엠버가 말한 큰 그림자가 정확히 얼마나 컸는지부터 알려 줘. 작은 새를 보고 그런 거라면 페이몬이 방금 전에 한 말들을 좀 고쳐야 해서. ...아니, 표정을 보니까 새는 아닌 것 같네.",
+      "new": "난 페이몬이야. 페이몬은 멀쩡해! 이쪽도 걸을 수 있고. 그런데 엠버가 말한 큰 그림자가 정확히 얼마나 컸는지부터 알려 줘. 우린 숲 안에서 아주 큰 용을 봤거든."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_A004",
+      "field": "TEXT_KO",
+      "old": "여행자 일행도 봤구나. 이 근처에서 괜한 소문이 늘어서 확인하러 나온 거야. 보고한 사람마다 크기도 방향도 달라서, 실제로 본 사람이 있다면 말을 듣고 싶어. 바로 답하기 어렵다면 성에 들어가 안전한 자리에서 이야기해도 돼. 우선 내가 안내할게.",
+      "new": "두 사람도 봤구나. 그럼 더 빨리 성으로 가야겠어. 길에서 본 걸 기사단에 보고해야 해. 오는 동안 위험한 곳은 내가 먼저 확인할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_Z003",
+      "field": "TEXT_KO",
+      "old": "바람이 묻는 이름 — 제1장 완료.",
+      "new": "바람이 묻는 이름. 몬드에서의 첫 만남과 첫 보고를 마치고, 여행자는 다음 움직임을 준비한다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M02_N157",
+      "field": "TEXT_KO",
+      "old": "[고정 전투: 남풍 사자의 사당] 여행자 측과 물 슬라임 2마리·츄츄족 전사 1명이 전투한다. 번개·물 원소반응은 37/38 데이터에 따라 계산한다. 리사 동행 대사만으로 44 영구 파티에 자동 편입하지 않는다. 승리 전 장치 중단 불가.",
+      "new": "사당 안쪽을 물 슬라임과 츄츄족이 막아선다. 리사와 힘을 합쳐 적을 쓰러뜨리고 장치의 흐름을 되돌려야 한다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M02_N265",
+      "field": "TEXT_KO",
+      "old": "[고정 전투: 매의 문, 숨겨진 눈물] 불 심연 메이지 1명과 물 슬라임 1마리가 안쪽의 비경 통로를 차단한다. 승리 전 결정을 확보하지 않는다. 방어막과 원소 반응은 기존 전투 데이터대로 처리한다.",
+      "new": "매의 문 안쪽에서 불 심연 메이지와 물 슬라임이 길을 막는다. 이들을 물리쳐야 숨겨진 눈물을 되찾을 수 있다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M02_N274",
+      "field": "TEXT_KO",
+      "old": "[고정 전투: 일식 부족의 빼앗긴 눈물] 츄츄족 전사 2명과 츄츄족 궁수 1명이 상자 앞으로 모인다. 전투 승리 전에 상자를 열거나 눈물을 획득하지 않는다.",
+      "new": "일식 부족의 야영지에서 츄츄족들이 상자를 지키고 있다. 이들을 물리치고 빼앗긴 눈물을 되찾아야 한다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M02_N311",
+      "field": "TEXT_KO",
+      "old": "지도에는 동풍의 용이 사라진 방향과 몬드로 돌아가는 길이 함께 남는다. 드발린과의 첫 재회는 실패했고 천공의 하프는 깨졌다. 그러나 용이 벤티의 노래를 들었다는 사실, 심연이 그 순간에 끼어들었다는 사실, 바람 드래곤의 폐허에 닿아야 한다는 다음 목표도 남았다. 메인 화면으로 돌아가면 파티와 서브임무를 정리할 수 있다. 메인 임무를 다시 선택하면 심연 교단의 흔적을 쫓는 조사부터 이어진다.",
+      "new": "지도에는 동풍의 용이 사라진 방향과 몬드로 돌아가는 길이 함께 남는다. 드발린과의 첫 재회는 실패했고 천공의 하프는 깨졌다. 그래도 드발린이 벤티의 노래를 들었다는 사실과 심연 교단이 끼어들었다는 단서는 남았다. 바람 드래곤의 폐허로 향하기 전에 몬드에서 장비와 동료를 정비하고 필요한 일을 마칠 시간이 있다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M02_MENU_001",
+      "field": "TEXT_KO",
+      "old": "도시를 덮은 드발린이 북쪽으로 사라진 뒤, 경보 종의 마지막 울림도 잠잠해진다. 복구 중인 몬드성으로 가는 길이 여행자 앞에 열린다. 성문과 기사단, 사람들이 도움을 청하는 광장을 돌아볼 수 있다. 지금부터 메인 화면에서 메인 임무를 이어 하거나 서브임무·파티·캐릭터 카드·소지품·지도를 확인할 수 있다. 다른 메뉴를 둘러본다고 아직 기사단 회의를 끝냈다는 뜻은 아니다.",
+      "new": "도시를 덮은 드발린이 북쪽으로 사라진 뒤, 경보 종의 마지막 울림도 잠잠해진다. 복구 중인 몬드성으로 돌아온 여행자는 잠시 숨을 고를 수 있다. 성문과 기사단, 도움이 필요한 사람들이 있는 광장을 둘러본 뒤 준비가 되면 기사단 본부로 향하자."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M02_MENU_003",
+      "field": "TEXT_KO",
+      "old": "[메인 화면 — 몬드성] 메인 임무 계속하기: 기사단 본부로 이동하여 진·리사·케이아의 보고를 듣는다. 서브임무: 현재 조건을 만족하고 사용자가 수락한 임무만 진행. 파티: 해금된 카드로 4개 슬롯을 편성. 카드 목록·소지품·지도·저장: 각각 실제 SAVE와 해금 조건을 조회. 돌아오기: 이 메뉴로 복귀. 메인 임무 외 행동은 다음 스토리 노드를 진행시키지 않는다.",
+      "new": "몬드성은 아직 드발린의 습격을 수습하는 중이다. 필요한 준비를 마치면 기사단 본부로 가서 진·리사·케이아의 보고를 듣자."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M02_N357",
+      "field": "TEXT_KO",
+      "old": "[고정 전투: 서쪽 빛 인도 장치] 심연 메이지 습격조가 장치를 둘러싼다. 실제 승리 이전에는 돌문이 열리지 않으며 서쪽 봉인도 풀리지 않는다. 패배 또는 중단은 같은 장치 앞에서 재도전한다.",
+      "new": "서쪽 빛 인도 장치 주위로 심연 메이지의 습격조가 몰려든다. 장치를 지키는 적을 모두 물리쳐야 돌문과 봉인을 풀 수 있다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M02_N422",
+      "field": "TEXT_KO",
+      "old": "[몬드 본편 완료] 드발린의 오염을 정화하고 자유롭게 떠나보냈다. 벤티의 신분과 신의 심장 탈취를 확인했다. 여행자는 몬드의 남은 의뢰를 살피며 다음 여정을 준비할 수 있다. 리월 본편은 메인 화면에서 첫 장을 명시 수락하면 열린다. 떠나기 전 몬드의 의뢰와 파티를 정비할 수도 있다.",
+      "new": "드발린의 오염을 정화해 자유롭게 떠나보냈고, 여행자는 벤티의 정체와 신의 심장이 빼앗긴 일까지 지켜봤다. 몬드에는 아직 살필 일과 인사를 나눌 사람들이 남아 있다. 준비를 마치면 남쪽 길을 따라 리월로 향할 수 있다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY1_N166",
+      "field": "TEXT_KO",
+      "old": "[리월 본편 제1막 완료] 여행자는 청신의례에서 암왕제군에게 벌어진 변고를 목격하고 타르탈리아에게 받은 백무금기 비록으로 선인들에게 사실을 알렸다. 원인과 제군의 생사는 확정하지 않았으며, 리월항에 돌아와 다음 조사를 고를 수 있다.",
+      "new": "청신의례에서 암왕제군에게 벌어진 변고를 목격한 여행자는 타르탈리아에게 받은 백무금기 비록으로 선인들에게 사실을 알렸다. 원인과 제군의 생사는 아직 확정하지 않았다. 이제 리월항으로 돌아가 다음 단서를 찾아야 한다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY2_N193",
+      "field": "TEXT_KO",
+      "old": "[리월 제2막 완료] 송신의례 준비와 군옥각 방문을 거쳐 우인단의 백무금기 비록 복제 흔적을 확인했다. 여행자는 황금옥 입구에서 다음 행동을 준비한다. 타르탈리아의 속내, 선체의 진상, 전투 여부는 제3막 안에서 결정한다.",
+      "new": "송신의례 준비와 군옥각 방문을 거쳐 우인단이 백무금기 비록을 복제한 흔적까지 확인했다. 여행자는 황금옥 입구에서 숨을 고른다. 타르탈리아의 속내와 선조의 허물에 얽힌 진상은 아직 안쪽에 남아 있다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY3_A_END",
+      "field": "TEXT_KO",
+      "old": "[제3막 완료 · A: 황금옥 결투] 타르탈리아가 전투 중 선조의 허물에서 신의 심장이 없음을 직접 확인한 뒤 마왕무장 마지막 국면에서 여행자가 승리했다. 그는 그 후 오셀을 깨웠고, 경보는 전투가 끝난 뒤 발령됐다. 여행자는 적의 전투 정보와 지연된 경보를 안고 다음 작전에 합류할 수 있다.",
+      "new": "황금옥에서 타르탈리아와 직접 맞선 끝에 여행자가 승리했다. 선조의 허물에는 신의 심장이 없었고, 그 사실을 확인한 타르탈리아는 오셀의 봉인을 깨웠다. 이제 전투에서 확인한 정보와 뒤늦게 울린 경보를 들고 항구의 다음 작전에 합류해야 한다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY3_B_END",
+      "field": "TEXT_KO",
+      "old": "[제3막 완료 · B: 황금옥 경보] 타르탈리아와 싸우지 않고 황금옥 증거를 확보해 항구를 먼저 움직였다. 그는 빈 선조의 허물을 직접 확인한 뒤 오셀을 깨웠다. 여행자는 조기 대피 자료와 미확인 적 전력을 안고 다음 결전에 합류할 수 있다.",
+      "new": "여행자는 타르탈리아와 정면으로 싸우는 대신 황금옥의 증거를 확보해 항구에 먼저 경보를 보냈다. 타르탈리아는 빈 선조의 허물을 확인한 뒤 오셀의 봉인을 깨웠다. 확보한 자료와 미확인 적 전력을 들고 다음 결전에 합류해야 한다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_R11",
+      "field": "TEXT_KO",
+      "old": "항구에 저녁 불이 켜졌다. 리월에서 풀지 못한 일은 여행자의 기록에 남았고, 바다 건너 이나즈마는 소문만큼 가까운 길이 아니었다. 페이몬이 배편을 묻겠다며 시장 쪽을 가리켰지만 여행자는 지도를 먼저 펼쳐 출항 가능한 항구를 살폈다. 당장 바다를 건넌 일은 없었다. 다음 나라를 향한 준비는 메인 화면에서 천천히 고를 수 있다.",
+      "new": "항구에 저녁 불이 켜졌다. 리월에서 풀지 못한 일은 여행자의 기록에 남았고, 바다 건너 이나즈마는 소문만큼 가까운 길이 아니었다. 페이몬이 배편을 묻겠다며 시장 쪽을 가리켰지만 여행자는 지도를 먼저 펼쳐 출항 가능한 항구를 살폈다. 당장 바다를 건널 일은 없다. 두 사람은 리월항에서 다음 여정을 천천히 준비하기로 한다."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_G007",
+      "field": "CHOICE_LABEL",
+      "old": "음유시인에게 위험을 알리고 물러날 길을 가리킨다.",
+      "new": "위험해! 이쪽으로 물러나!"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_A006",
+      "field": "CHOICE_LABEL",
+      "old": "용과 초록 옷의 음유시인을 모두 봤다고 말한다.",
+      "new": "용도 봤고, 초록 옷의 음유시인도 봤어."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_A007",
+      "field": "CHOICE_LABEL",
+      "old": "용만 봤다고 말하고 음유시인의 신상은 보류한다.",
+      "new": "용은 봤어. 다른 사람 이야기는 지금은 하지 않을게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_A008",
+      "field": "CHOICE_LABEL",
+      "old": "지금은 안전한 곳에서 자세히 말하겠다고 답한다.",
+      "new": "여긴 위험해. 안전한 곳에 가면 자세히 말할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_K006",
+      "field": "CHOICE_LABEL",
+      "old": "숲에서 본 사실을 먼저 기사단에 보고하겠다고 답한다.",
+      "new": "숲에서 본 일부터 기사단에 보고할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_K007",
+      "field": "CHOICE_LABEL",
+      "old": "용건은 진 단장 대행 앞에서 말하겠다고 답한다.",
+      "new": "용건은 진 단장 대행 앞에서 이야기할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_K008",
+      "field": "CHOICE_LABEL",
+      "old": "케이아가 질문보다 표정을 먼저 읽었다고 되묻는다.",
+      "new": "질문보다 내 표정부터 읽고 있는 거야?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_J007",
+      "field": "CHOICE_LABEL",
+      "old": "싸 둔 붉은 결정을 가지고 있다고 알리고 안전하게 보여 준다.",
+      "new": "붉은 결정을 가지고 있어. 천으로 싸 뒀으니 조심해서 보여 줄게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_J008",
+      "field": "CHOICE_LABEL",
+      "old": "결정을 건드리지 않았고 위치를 표시했다고 말한다.",
+      "new": "결정은 건드리지 않았어. 위치만 표시해 뒀어."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_J009",
+      "field": "CHOICE_LABEL",
+      "old": "지금은 목격한 장면만 설명하고 물건 이야기는 보류한다.",
+      "new": "지금은 내가 본 장면부터 설명할게. 물건 이야기는 나중에 하자."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_J022",
+      "field": "CHOICE_LABEL",
+      "old": "헤어진 쌍둥이를 찾고 있다고 진에게 알린다.",
+      "new": "난 헤어진 쌍둥이를 찾고 있어."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_J023",
+      "field": "CHOICE_LABEL",
+      "old": "지금은 숲의 일부터 정리하고 개인 사정은 나중에 묻는다.",
+      "new": "지금은 숲의 일부터 정리하자. 내 개인 사정은 나중에 물어볼게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_M01_L007",
+      "field": "CHOICE_LABEL",
+      "old": "엠버에게 숲의 현장 위치를 다시 설명한 뒤 책을 읽는다.",
+      "new": "숲의 현장 위치부터 다시 설명할게. 그다음 책을 보자."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY1_N022",
+      "field": "CHOICE_LABEL",
+      "old": "쌍둥이를 찾을 단서를 먼저 묻겠다.",
+      "new": "헤어진 쌍둥이를 찾을 단서가 있는지 먼저 묻고 싶어."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY1_N025",
+      "field": "CHOICE_LABEL",
+      "old": "처음 길을 가로막은 낯선 신에 대해 묻겠다.",
+      "new": "처음 길을 가로막았던 낯선 신에 대해 알고 싶은 게 있어."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY1_N046",
+      "field": "CHOICE_LABEL",
+      "old": "본 것만 이야기하겠다고 천암군에게 다가간다.",
+      "new": "내가 직접 본 것만 이야기할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY1_N064",
+      "field": "CHOICE_LABEL",
+      "old": "먼저 천암군에게 현장 상황을 묻고 거리를 둔다.",
+      "new": "현장에서는 무슨 일이 있었어?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY1_N082",
+      "field": "CHOICE_LABEL",
+      "old": "백무금기 비록의 조건과 반환 방법을 묻는다.",
+      "new": "이 백무금기 비록은 어떤 조건으로 쓰고, 어떻게 돌려주면 돼?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY1_N085",
+      "field": "CHOICE_LABEL",
+      "old": "출처를 숨길 생각이 없다고 말한다.",
+      "new": "출처를 숨길 생각은 없어."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY1_N106",
+      "field": "CHOICE_LABEL",
+      "old": "제단에서 본 일을 전하고 선인들의 판단을 듣고 싶다.",
+      "new": "제단에서 본 일을 전하러 왔어. 선인들의 판단도 듣고 싶어."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY2_N006",
+      "field": "CHOICE_LABEL",
+      "old": "사람들이 가장 걱정하는 것부터 물어보자.",
+      "new": "사람들이 지금 가장 걱정하는 게 뭐야?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY2_N035",
+      "field": "CHOICE_LABEL",
+      "old": "상인에게 시험 비용과 원석 값을 따로 확인하자.",
+      "new": "시험 비용과 원석 값은 따로 계산되는 거야?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY2_N050",
+      "field": "CHOICE_LABEL",
+      "old": "선인들에게 소식을 전했지만 판단은 항구에서 확인해야 해.",
+      "new": "선인들에게 소식은 전했어. 하지만 판단은 항구에서도 확인해야 해."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY2_N064",
+      "field": "CHOICE_LABEL",
+      "old": "꽃이 가진 향이 무엇을 남기는지 앵아에게 묻자.",
+      "new": "이 꽃의 향은 어떤 식으로 남는 거야?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY2_N127",
+      "field": "CHOICE_LABEL",
+      "old": "칠성이 선인들에게 무엇을 전했는지 묻겠어.",
+      "new": "칠성은 선인들에게 뭐라고 전했어?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY2_N129",
+      "field": "CHOICE_LABEL",
+      "old": "우인단이 항구에서 무엇을 원하는지 묻겠어.",
+      "new": "우인단은 항구에서 뭘 원하는 거야?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY2_N142",
+      "field": "CHOICE_LABEL",
+      "old": "연구 현장에서 확인할 수 있는 자료만 보고하겠어.",
+      "new": "연구 현장에서 확인할 수 있는 자료만 보고할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY2_N187",
+      "field": "CHOICE_LABEL",
+      "old": "현장을 확인하고 대화할 수 있으면 먼저 이유를 묻겠어.",
+      "new": "현장을 먼저 확인하자. 대화할 수 있으면 이유부터 물어볼게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY3_A_REPORT_C1",
+      "field": "CHOICE_LABEL",
+      "old": "감우에게 타르탈리아의 물·번개 전환부터 설명한다.",
+      "new": "타르탈리아는 물과 번개를 전환하며 싸웠어. 그 순서부터 설명할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY3_A_REPORT_C2",
+      "field": "CHOICE_LABEL",
+      "old": "감우에게 빈 선체와 오셀 봉인 해방의 순서부터 설명한다.",
+      "new": "선조의 허물이 비어 있는 걸 확인한 뒤 오셀의 봉인이 풀렸어. 그 순서부터 설명할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY3_B_REPORT_C1",
+      "field": "CHOICE_LABEL",
+      "old": "감우에게 대피 시각과 안전한 길부터 전달한다.",
+      "new": "대피를 시작한 시각과 안전했던 길부터 전할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY3_B_REPORT_C2",
+      "field": "CHOICE_LABEL",
+      "old": "감우에게 복제 비록과 황금옥의 기록부터 전달한다.",
+      "new": "복제된 비록과 황금옥에서 확보한 기록부터 보여 줄게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_A04",
+      "field": "CHOICE_LABEL",
+      "old": "타르탈리아와 직접 싸웠고, 허물에서 신의 심장이 발견되지 않았다고 알린다.",
+      "new": "타르탈리아와 직접 싸웠어. 선조의 허물에서는 신의 심장을 찾지 못했어."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_A05",
+      "field": "CHOICE_LABEL",
+      "old": "먼저 바다의 변화와 봉인 해제를 알리고 전투 경과를 덧붙인다.",
+      "new": "먼저 바다의 변화와 봉인이 풀린 시점부터 말할게. 전투 경과는 그다음이야."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_B04",
+      "field": "CHOICE_LABEL",
+      "old": "가져온 문서를 먼저 맡기고, 직접 본 동선만 따로 말한다.",
+      "new": "가져온 문서부터 맡길게. 내가 직접 본 동선은 따로 설명하겠어."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_B05",
+      "field": "CHOICE_LABEL",
+      "old": "대피에 필요한 해역 변화부터 알리고, 문서 사본을 덧붙인다.",
+      "new": "대피에 필요한 해역 변화부터 말할게. 문서 사본도 같이 가져왔어."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_SRV_INTEL",
+      "field": "CHOICE_LABEL",
+      "old": "감우에게 황금옥의 시간 기록과 해역 변화를 다시 정리해 전달한다.",
+      "new": "황금옥의 시간 기록과 해역 변화를 다시 정리해서 전할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_AFT_A",
+      "field": "CHOICE_LABEL",
+      "old": "황금옥에서 타르탈리아와 싸웠던 경위를 감우에게 남긴다.",
+      "new": "황금옥에서 타르탈리아와 싸우게 된 경위부터 설명할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_AFT_B",
+      "field": "CHOICE_LABEL",
+      "old": "황금옥에서 증거를 옮겼던 경위를 각청에게 남긴다.",
+      "new": "황금옥에서 증거를 옮기게 된 경위부터 설명할게."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_BANK_ASK_CONTRACT",
+      "field": "CHOICE_LABEL",
+      "old": "계약을 위해 신의 심장을 넘기면서 리월의 위험을 어떻게 계산했는지 묻는다.",
+      "new": "신의 심장을 넘기는 계약을 하면서 리월의 위험은 어떻게 계산한 거야?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_BANK_ASK_PEOPLE",
+      "field": "CHOICE_LABEL",
+      "old": "선인과 칠성, 항구 사람들이 선택에 대해 언제 알게 되는지 묻는다.",
+      "new": "선인과 칠성, 항구 사람들은 그 선택을 언제 알게 되는 거야?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_RW_POSTER_CITY",
+      "field": "CHOICE_LABEL",
+      "old": "헤어진 쌍둥이의 행방을 찾는 전단을 리월항 곳곳에 붙여 달라고 부탁한다.",
+      "new": "헤어진 쌍둥이를 찾고 있어. 이 전단을 리월항 곳곳에 붙여 줄 수 있을까?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_RW_POSTER_TRAVEL",
+      "field": "CHOICE_LABEL",
+      "old": "쌍둥이를 찾는 전단을 여행자와 상인들이 지나는 길에도 전해 달라고 부탁한다.",
+      "new": "이 전단을 여행자와 상인들이 지나는 길에도 전해 줄 수 있을까?"
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_R07A",
+      "field": "CHOICE_LABEL",
+      "old": "헤어진 쌍둥이를 찾기 위해 다른 나라의 신에게도 물어봐야 한다고 말한다.",
+      "new": "헤어진 쌍둥이를 찾으려면 다른 나라의 신에게도 물어봐야 해."
+    },
+    {
+      "table": "55_MAIN_STORY_DB",
+      "node": "TRV_LY4_R07B",
+      "field": "CHOICE_LABEL",
+      "old": "쌍둥이의 행적을 알 만한 사람과 길을 계속 찾아보겠다고 말한다.",
+      "new": "쌍둥이의 행적을 알 만한 사람과 길을 계속 찾아볼 거야."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_ZHONGLI_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "장부 복원에 필요한 모라 500을 확인한다. 수락하기 전에는 지불하지 않는다.",
+      "new": "장부 복원에 필요한 모라 500을 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_NINGGUANG_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "현장 장부 조사에 드는 모라 600을 확인한다. 미수락 때는 차감이 없다.",
+      "new": "현장 장부 조사에 드는 모라 600을 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_NINGGUANG_REJOIN_END",
+      "field": "TEXT_KO",
+      "old": "별도 동행 대화가 끝난다. 전설 완료와 호감도는 다시 처리하지 않는다.",
+      "new": "동행에 대한 이야기를 마치고 다음 일정을 준비한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_BEIDOU_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "항구 등표 수선에 필요한 수정덩이 8개를 확인한다. 수락 전에는 소모하지 않는다.",
+      "new": "항구 등표 수선에 필요한 수정덩이 8개를 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_YELAN_ACTION_GATE",
+      "field": "TEXT_KO",
+      "old": "민간인 보호와 증거 보존 중 먼저 할 역할을 선택한다. 둘 모두 완료된다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_KEQING_REJOIN_N012",
+      "field": "TEXT_KO",
+      "old": "각청이 현장 동행을 다시 제안하고 여행자가 명확히 수락했다. 카드만 한 번 해금하고 퀘스트 완료·모라·호감 보상은 반복하지 않는다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_BAIZHU_FIRST_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 어느 쪽부터 조사해도 동일한 사건의 다음 단계로 이어진다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_BAIZHU_JOIN_GATE",
+      "field": "TEXT_KO",
+      "old": "백출이 안전한 범위의 다음 동행을 제안한다. 명시적으로 수락할 때만 카드를 받으며 거절/보류에는 불이익이 없다.",
+      "new": "동행 제안에 어떻게 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_QIQI_FIRST_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 어느 쪽부터 조사해도 동일한 사건의 다음 단계로 이어진다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_QIQI_JOIN_GATE",
+      "field": "TEXT_KO",
+      "old": "치치가 안전한 범위의 다음 동행을 제안한다. 명시적으로 수락할 때만 카드를 받으며 거절/보류에는 불이익이 없다.",
+      "new": "동행 제안에 어떻게 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_GAMING_FIRST_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 어느 쪽부터 조사해도 동일한 사건의 다음 단계로 이어진다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_GAMING_JOIN_GATE",
+      "field": "TEXT_KO",
+      "old": "가명이 안전한 범위의 다음 동행을 제안한다. 명시적으로 수락할 때만 카드를 받으며 거절/보류에는 불이익이 없다.",
+      "new": "동행 제안에 어떻게 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_GANYU_FIRST_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 어느 쪽부터 조사해도 동일한 사건의 다음 단계로 이어진다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_GANYU_JOIN_GATE",
+      "field": "TEXT_KO",
+      "old": "감우가 안전한 범위의 다음 동행을 제안한다. 명시적으로 수락할 때만 카드를 받으며 거절/보류에는 불이익이 없다.",
+      "new": "동행 제안에 어떻게 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XINGQIU_REJOIN_N011",
+      "field": "TEXT_KO",
+      "old": "행추는 이미 끝난 의뢰의 비용과 호감 보상을 반복하지 않고, 동행 카드만 한 번 건넨다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_HUTAO_REJOIN_N011",
+      "field": "TEXT_KO",
+      "old": "호두와의 동행 카드만 최초 1회 지급한다. 이미 종료한 등불 일의 비용·호감 보상은 반복하지 않는다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XIANGLING_REJOIN_N011",
+      "field": "TEXT_KO",
+      "old": "향릉의 동행 카드만 신규 1회 해금, 처음 요리 시험의 자원·호감 보상은 반복하지 않는다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XIANYUN_REJOIN_N011",
+      "field": "TEXT_KO",
+      "old": "한운 카드만 1회 해금. 이미 끝난 장치 시험의 비용과 하트는 반복 지급하거나 소모하지 않는다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_LANYAN_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "남연의 현장 의뢰에 필요한 자재·보관비 모라 100 · 철광 10개를 확인한다. 동의 전에는 소모하지 않는다.",
+      "new": "남연의 현장 의뢰에 필요한 자재·보관비 모라 100 · 철광 10개를 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_LANYAN_A_GATE",
+      "field": "TEXT_KO",
+      "old": "여행자의 판단을 고른다. 두 선택은 각기 다른 응답과 조치 뒤 같은 사건으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_LANYAN_B_GATE",
+      "field": "TEXT_KO",
+      "old": "여행자의 판단을 고른다. 두 선택은 각기 다른 응답과 조치 뒤 같은 사건으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_LANYAN_REJOIN_GATE",
+      "field": "TEXT_KO",
+      "old": "지금 수락해도 전설 완료 보상은 중복 지급되지 않는다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_LANYAN_H01_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_LANYAN_H02_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_LANYAN_H03_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_LANYAN_H04_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_LANYAN_H05_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XIAO_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "소의 현장 의뢰에 필요한 자재·보관비 수정덩이 7개를 확인한다. 동의 전에는 소모하지 않는다.",
+      "new": "소의 현장 의뢰에 필요한 자재·보관비 수정덩이 7개를 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XIAO_A_GATE",
+      "field": "TEXT_KO",
+      "old": "여행자의 판단을 고른다. 두 선택은 각기 다른 응답과 조치 뒤 같은 사건으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XIAO_B_GATE",
+      "field": "TEXT_KO",
+      "old": "여행자의 판단을 고른다. 두 선택은 각기 다른 응답과 조치 뒤 같은 사건으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XIAO_REJOIN_GATE",
+      "field": "TEXT_KO",
+      "old": "지금 수락해도 전설 완료 보상은 중복 지급되지 않는다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XIAO_H01_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XIAO_H02_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XIAO_H03_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XIAO_H04_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XIAO_H05_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_SHENHE_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "신학의 현장 의뢰에 필요한 자재·보관비 모라 620를 확인한다. 동의 전에는 소모하지 않는다.",
+      "new": "신학의 현장 의뢰에 필요한 자재·보관비 모라 620를 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_SHENHE_A_GATE",
+      "field": "TEXT_KO",
+      "old": "여행자의 판단을 고른다. 두 선택은 각기 다른 응답과 조치 뒤 같은 사건으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_SHENHE_B_GATE",
+      "field": "TEXT_KO",
+      "old": "여행자의 판단을 고른다. 두 선택은 각기 다른 응답과 조치 뒤 같은 사건으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_SHENHE_REJOIN_GATE",
+      "field": "TEXT_KO",
+      "old": "지금 수락해도 전설 완료 보상은 중복 지급되지 않는다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_SHENHE_H01_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_SHENHE_H02_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_SHENHE_H03_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_SHENHE_H04_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_SHENHE_H05_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XINYAN_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "신염의 현장 의뢰에 필요한 자재·보관비 수정덩이 7개를 확인한다. 동의 전에는 소모하지 않는다.",
+      "new": "신염의 현장 의뢰에 필요한 자재·보관비 수정덩이 7개를 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XINYAN_A_GATE",
+      "field": "TEXT_KO",
+      "old": "여행자의 판단을 고른다. 두 선택은 각기 다른 응답과 조치 뒤 같은 사건으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XINYAN_B_GATE",
+      "field": "TEXT_KO",
+      "old": "여행자의 판단을 고른다. 두 선택은 각기 다른 응답과 조치 뒤 같은 사건으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_XINYAN_REJOIN_GATE",
+      "field": "TEXT_KO",
+      "old": "지금 수락해도 전설 완료 보상은 중복 지급되지 않는다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XINYAN_H01_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XINYAN_H02_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XINYAN_H03_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XINYAN_H04_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_XINYAN_H05_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_TARTAGLIA_PREP_GATE",
+      "field": "TEXT_KO",
+      "old": "타르탈리아의 현장 의뢰에 필요한 자재·보관비 모라 700를 확인한다. 동의 전에는 소모하지 않는다.",
+      "new": "타르탈리아의 현장 의뢰에 필요한 자재·보관비 모라 700를 확인한다. 준비가 되면 일을 시작할 수 있다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_TARTAGLIA_A_GATE",
+      "field": "TEXT_KO",
+      "old": "황금옥에서 실제로 확정된 A 전투 또는 B 증거·대피 기억 가운데 해당 SAVE의 갈래 하나만 출력한다. 플레이어가 과거 선택을 다시 고르는 화면은 아니다.",
+      "new": "황금옥에서 실제로 겪었던 일을 떠올리고, 그 기억을 바탕으로 대화를 이어 간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_TARTAGLIA_B_GATE",
+      "field": "TEXT_KO",
+      "old": "여행자의 판단을 고른다. 두 선택은 각기 다른 응답과 조치 뒤 같은 사건으로 합류한다.",
+      "new": "어떻게 대응할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_TARTAGLIA_REJOIN_GATE",
+      "field": "TEXT_KO",
+      "old": "지금 수락해도 전설 완료 보상은 중복 지급되지 않는다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_TARTAGLIA_H01_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_TARTAGLIA_H01_MEMORY_GATE",
+      "field": "TEXT_KO",
+      "old": "황금옥에서 실제 선택한 사건 기억 한 갈래만 발화. A/B 외에는 이벤트 진입 불가.",
+      "new": "황금옥에서 실제로 겪었던 일을 떠올리고, 그 기억을 바탕으로 대화를 이어 간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_TARTAGLIA_H02_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_TARTAGLIA_H02_MEMORY_GATE",
+      "field": "TEXT_KO",
+      "old": "황금옥에서 실제 선택한 사건 기억 한 갈래만 발화. A/B 외에는 이벤트 진입 불가.",
+      "new": "황금옥에서 실제로 겪었던 일을 떠올리고, 그 기억을 바탕으로 대화를 이어 간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_TARTAGLIA_H03_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_TARTAGLIA_H03_MEMORY_GATE",
+      "field": "TEXT_KO",
+      "old": "황금옥에서 실제 선택한 사건 기억 한 갈래만 발화. A/B 외에는 이벤트 진입 불가.",
+      "new": "황금옥에서 실제로 겪었던 일을 떠올리고, 그 기억을 바탕으로 대화를 이어 간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_TARTAGLIA_H04_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_TARTAGLIA_H04_MEMORY_GATE",
+      "field": "TEXT_KO",
+      "old": "황금옥에서 실제 선택한 사건 기억 한 갈래만 발화. A/B 외에는 이벤트 진입 불가.",
+      "new": "황금옥에서 실제로 겪었던 일을 떠올리고, 그 기억을 바탕으로 대화를 이어 간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_TARTAGLIA_H05_DECIDE_GATE",
+      "field": "TEXT_KO",
+      "old": "둘 중 한 태도를 정한다. 상대의 반응만 달라지며 호감도 가감과 다음 사건의 필수 경로는 같다.",
+      "new": "어떤 태도로 답할지 정한다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "AFF_LIYUE_TARTAGLIA_H05_MEMORY_GATE",
+      "field": "TEXT_KO",
+      "old": "황금옥에서 실제 선택한 사건 기억 한 갈래만 발화. A/B 외에는 이벤트 진입 불가.",
+      "new": "황금옥에서 실제로 겪었던 일을 떠올리고, 그 기억을 바탕으로 대화를 이어 간다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_YANFEI_REJOIN_N011",
+      "field": "TEXT_KO",
+      "old": "본인이 다시 제안했고 여행자가 명확히 수락했다. 카드를 1회만 추가한다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_YUNJIN_REJOIN_N011",
+      "field": "TEXT_KO",
+      "old": "본인이 다시 제안했고 여행자가 명확히 수락했다. 카드를 1회만 추가한다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_YAOYAO_REJOIN_N011",
+      "field": "TEXT_KO",
+      "old": "본인이 다시 제안했고 여행자가 명확히 수락했다. 카드를 1회만 추가한다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_CHONGYUN_REJOIN_N011",
+      "field": "TEXT_KO",
+      "old": "본인이 다시 제안했고 여행자가 명확히 수락했다. 카드를 1회만 추가한다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    },
+    {
+      "table": "57_MOND_STORY_SCENE_DB",
+      "node": "LEG_LIYUE_ZIBAI_REJOIN_N011",
+      "field": "TEXT_KO",
+      "old": "본인이 다시 제안했고 여행자가 명확히 수락했다. 카드를 1회만 추가한다.",
+      "new": "동행 제안을 받아들였다. 함께 움직일 준비를 마친다."
+    }
+  ]
+}
