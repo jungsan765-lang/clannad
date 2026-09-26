@@ -24,7 +24,9 @@ jobs:
       - run: npm ci
       - name: Traveler story prose regression
         run: node tools/test_v01331_story_text.cjs
-      - name: Step 12-2A play fixes\n        run: node tools/test_v01331_step12_2a.cjs\n      - name: Existing story regression
+      - name: Step 12-2A play fixes
+        run: node tools/test_v01331_step12_2a.cjs
+      - name: Existing story regression
         run: node tests/test_story_v09.cjs
       - name: Story flow regression
         run: node tests/test_flow.cjs
