@@ -2,7 +2,7 @@
  * Reuses already shipped original-game textures; no new unverified image downloads.
  */
 (function(root){'use strict';
-const m=root.MANIFEST;if(!m?.itemIcons)return;
+const m=root.CRPG_MANIFEST;if(!m?.itemIcons)return;
 m.itemIcons.icons=m.itemIcons.icons||{};
 const add=(id,name,path)=>{m.itemIcons.icons[id]={id,name,path,matchType:'crpg_visual_mapping',provenance:'already_shipped_original_game_texture',label:name};};
 add('EQ_LIYUE_ARMOR_HARBOR_PATROL','항구 순찰 외투','assets/icons/UI_RelicIcon_14001_3.webp');
