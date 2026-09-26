@@ -32,16 +32,20 @@ function mainObjective(parent){
  parent.append(box);
 }
 function placeVisual(entry){
- const map=game.tables['32_MAP_DB'].get(game.s.global.CURRENT_MAP_ID),region=map?.[1]||'',text=(entry.name||'')+' '+(entry.facility||'')+' '+(entry.merchantType||'')+' '+(entry.merchantName||'');
- let icon='assets/icons/category_gadget.webp',kind='이용 시설';
- if(['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(entry.entity)){icon='assets/icons/category_quest.webp';kind='의뢰 접수';}
- else if(isInn(entry)||/식당|조리|만민당|디어 헌터/.test(text)){icon='assets/icons/category_food.webp';kind=isInn(entry)?'숙박시설':'음식·조리';}
- else if(/불복려|연금|의료|약/.test(text)){icon='assets/icons/category_medicine.webp';kind='의료·연금';}
- else if(entry.kind==='BOSS'){icon='assets/icons/category_quest.webp';kind='도전 입구';}
- else if(game.placeCanEnhance?.(entry)||/대장간|장비|무기/.test(text)){icon='assets/icons/category_equipment.webp';kind='장비·제작';}
- else if(entry.modes.includes('CRAFT')){icon='assets/icons/category_material.webp';kind='작업 시설';}
- else if(entry.modes.includes('SHOP')){icon='assets/icons/category_gadget.webp';kind='상점';}
- else if(entry.modes.includes('TALK')){icon='assets/icons/category_quest.webp';kind='이야기·소개';}
+ const map=game.tables['32_MAP_DB'].get(game.s.global.CURRENT_MAP_ID),region=map?.[1]||'',text=(entry.id||'')+' '+(entry.name||'')+' '+(entry.facility||'')+' '+(entry.merchantType||'')+' '+(entry.merchantName||'');
+ const base='assets/icons/facility/';let icon=base+'UI_Icon_Intee_Shop.png',kind='이용 시설';
+ if(['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(entry.entity)){icon=base+'UI_Icon_Intee_DailyEvent_0.png';kind='의뢰 접수';}
+ else if(isInn(entry)){icon=base+'UI_Icon_Intee_Comfort.png';kind='숙박시설';}
+ else if(/디어 헌터|만민당|식당/.test(text)){icon=base+'UI_Icon_Intee_Restaurant.png';kind='식당';}
+ else if(/공용 조리|조리시설/.test(text)){icon=base+'UI_Icon_Intee_Cooking.png';kind='조리시설';}
+ else if(/불복려|연금|의료|약제/.test(text)){icon=base+'UI_Icon_Intee_Combine.png';kind='연금·의료';}
+ else if(entry.kind==='BOSS'){icon=base+'UI_Icon_Intee_DailyEvent_0.png';kind='도전 입구';}
+ else if(game.placeCanEnhance?.(entry)||/대장간|대장장이/.test(text)){icon=base+'UI_Icon_Intee_Blacksmith.png';kind='대장간';}
+ else if(/잡화|보급|General|GENERAL/.test(text)){icon=base+'UI_Icon_Intee_GeneralCargo.png';kind='잡화·보급';}
+ else if(/장비점|장비 판매/.test(text)){icon=base+'UI_Icon_Intee_Shop.png';kind='장비 상점';}
+ else if(entry.modes.includes('CRAFT')){icon=base+'UI_Icon_Intee_Combine.png';kind='작업 시설';}
+ else if(entry.modes.includes('SHOP')){icon=base+'UI_Icon_Intee_Shop.png';kind='상점';}
+ else if(entry.modes.includes('TALK')){icon=base+'UI_Icon_Intee_Talk.png';kind='이야기·소개';}
  return {region,icon,kind};
 }
 function recoveryCard(parent){const c=el('section','card recovery-card');c.append(el('h2','','전투불능'),el('p','','이 상태에서는 이동하거나 전투할 수 없습니다. 회복하면 파티의 HP가 복구되며 1시간이 지납니다.'),actionButton('회복하고 다시 출발','RECOVER',{},true));parent.append(c);}
@@ -56,7 +60,7 @@ drawLocation=function(p,v){
  p.classList.add('adventure-main');p.append(el('div','eyebrow','메인 화면'),el('h1','',v.map[2]),el('p','area-level',levelLabel(v.map[0])+(v.map[12]==='Y'?' · 안전지대':' · 야외 구역')));
  if(game.needsRecovery()){recoveryCard(p);return;}mainObjective(p);
  p.append(el('h2','','주변 시설'));const grid=el('div','grid location-places');
- for(const entry of game.placeEntries()){const visual=placeVisual(entry),card=el('section','card place-entry region-'+(visual.region==='리월'?'liyue':visual.region==='몬드'?'mond':'other')),body=el('div','place-entry-copy'),icon=el('img','place-entry-icon');icon.src=visual.icon;icon.alt='';icon.loading='lazy';body.append(el('small','place-entry-kind',(visual.region?visual.region+' · ':'')+visual.kind),el('h3','',placeName(entry)),el('p','muted',entry.facility));if(entry.reason)body.append(el('small','choice-note',entry.reason));card.append(icon,body,actionButton(entry.kind==='BOSS'?'입구로 가기':isInn(entry)?'숙박 안내':entry.modes[0]==='TALK'?'찾아가기':'들어가기','PLACE_ENTER',{place:entry.id}));grid.append(card);}
+ for(const entry of game.placeEntries()){const visual=placeVisual(entry),card=el('section','card place-entry region-'+(visual.region==='리월'?'liyue':visual.region==='몬드'?'mond':'other')),body=el('div','place-entry-copy'),icon=el('img','place-entry-icon');icon.src=visual.icon;icon.alt='';icon.loading='lazy';body.append(el('small','place-entry-kind',(visual.region?visual.region+' · ':'')+visual.kind),el('h3','',placeName(entry)));if(entry.facility&&entry.facility!==v.map[2])body.append(el('p','muted',entry.facility));if(entry.reason)body.append(el('small','choice-note',entry.reason));card.append(icon,body,actionButton(entry.kind==='BOSS'?'입구로 가기':isInn(entry)?'숙박 안내':entry.modes[0]==='TALK'?'찾아가기':'들어가기','PLACE_ENTER',{place:entry.id}));grid.append(card);}
  if(grid.children.length)p.append(grid);else p.append(el('p','muted','이곳에는 이용할 시설이 없습니다.'));
  lifePanel(p);const waiting=el('section','wait-controls');waiting.append(actionButton('1시간 기다리기','WAIT',{minutes:60}));if(v.map[12]!=='Y')waiting.append(el('small','muted','기다리는 동안 '+v.map[9]+'% 확률로 적과 조우합니다. 전투 직후에는 한 번 보호됩니다.'));p.append(waiting);bossProgressControls(p);
 };

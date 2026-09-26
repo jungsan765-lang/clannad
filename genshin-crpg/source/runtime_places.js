@@ -97,10 +97,10 @@
   if(id==='BRT_DVALIN'&&!continuing)return '이야기 진행 중 해당 장소에서 시작하는 전투입니다.';
   const row=this.tables['35_BOSS_ROUTE_DB'].get(id);if(!row||row[2]!==this.s.global.CURRENT_MAP_ID)return '현재 지도에는 이 도전의 입구가 없습니다.';
   if(row[12]&&!truth(this.s.flags[row[12]]))return '보스 진입 조건을 충족하지 않았습니다.';
-  if(!continuing&&row[13]&&truth(this.s.flags[row[13]]))return '이미 완료한 도전입니다.';
+  if(!continuing&&row[14]==='N'&&row[13]&&truth(this.s.flags[row[13]]))return '이미 완료한 도전입니다.';
   if(entry&&!['DIRECT','GAUNTLET'].includes(entry))return '진입 방식을 선택해 주세요.';
   if(entry==='DIRECT'&&(row[8]!=='Y'||row[9]==='Y'||row[3]==='GAUNTLET')||entry==='GAUNTLET'&&row[3]==='DIRECT')return '이 도전에서 허용하는 진입 방식을 선택해 주세요.';
-  try{for(const step of this.bossSteps(id))for(const member of this.rows('49_ENCOUNTER_MEMBER_DB').filter(r=>r[1]===step[4])){const monster=this.row('09_MONSTER_DB',member[3]);if(monster[3]==='보스'&&!['BOSS_DVALIN','BOSS_ANDRIUS'].includes(monster[0]))return '이 도전의 전투 실행을 준비 중입니다.';for(const c of this.rows('12_ENEMY_CARD_DB').filter(r=>r[1]===monster[0]&&r[35]==='READY'))if(this.cardSupport(this.cardDefinition(c,true)))return '이 도전의 전투 실행을 준비 중입니다.';}}catch{return '이 도전의 전투 정의를 확인해야 합니다.';}
+  try{for(const step of this.bossSteps(id))for(const member of this.rows('49_ENCOUNTER_MEMBER_DB').filter(r=>r[1]===step[4])){const monster=this.row('09_MONSTER_DB',member[3]);if(monster[3]==='보스'&&!['BOSS_DVALIN','BOSS_ANDRIUS','BOSS_AZHDAHA'].includes(monster[0]))return '이 도전의 전투 실행을 준비 중입니다.';for(const c of this.rows('12_ENEMY_CARD_DB').filter(r=>r[1]===monster[0]&&r[35]==='READY'))if(this.cardSupport(this.cardDefinition(c,true)))return '이 도전의 전투 실행을 준비 중입니다.';}}catch{return '이 도전의 전투 정의를 확인해야 합니다.';}
   return '';
  };
  P.placeBossEntries=function(){return this.placeEntries().filter(x=>x.kind==='BOSS').map(x=>({...x,entries:['DIRECT','GAUNTLET'].map(entry=>({entry,reason:this.placeBossReason(x.route,entry)}))}));};

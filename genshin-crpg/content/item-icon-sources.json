@@ -4220,6 +4220,131 @@
       "bytes": 18946,
       "sha256": "15afc554144f75b05a2af6c63fa718064c0734b8321db23320183afef5851ac9",
       "provenance": "original_game_texture_archive"
+    },
+    {
+      "id": "EQ_CRPG_WORN_SWORD",
+      "name": "낡은 연습검",
+      "type": "한손검",
+      "sourceName": "UI_EquipIcon_Sword_Blunt",
+      "sourceKey": "UI_EquipIcon_Sword_Blunt",
+      "filename": "UI_EquipIcon_Sword_Blunt",
+      "images": {
+        "filename_icon": "UI_EquipIcon_Sword_Blunt"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Sword/Blunt/UI_EquipIcon_Sword_Blunt.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Sword/Blunt/UI_EquipIcon_Sword_Blunt.png",
+      "source_sha256": "a8ca847d6ff2548bf669913db6156345bcc46e4cce3022fe937c737d077d2f8b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/official/UI_EquipIcon_Sword_Blunt.png",
+      "bytes": 29945,
+      "sha256": "a8ca847d6ff2548bf669913db6156345bcc46e4cce3022fe937c737d077d2f8b",
+      "provenance": "original_game_texture_archive",
+      "matchType": "official_base_visual",
+      "note": "CRPG 입문 장비용 공식 게임 텍스처 대응."
+    },
+    {
+      "id": "EQ_CRPG_TRAINING_CLAYMORE",
+      "name": "연습용 양손검",
+      "type": "양손검",
+      "sourceName": "UI_EquipIcon_Claymore_Tin",
+      "sourceKey": "UI_EquipIcon_Claymore_Tin",
+      "filename": "UI_EquipIcon_Claymore_Tin",
+      "images": {
+        "filename_icon": "UI_EquipIcon_Claymore_Tin"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Claymore/Tin/UI_EquipIcon_Claymore_Tin.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Claymore/Tin/UI_EquipIcon_Claymore_Tin.png",
+      "source_sha256": "bf403b0946562c2c5628155bc955518e72286258a48f4209405a67fd9f56ccb7",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/official/UI_EquipIcon_Claymore_Tin.png",
+      "bytes": 32868,
+      "sha256": "bf403b0946562c2c5628155bc955518e72286258a48f4209405a67fd9f56ccb7",
+      "provenance": "original_game_texture_archive",
+      "matchType": "official_base_visual",
+      "note": "CRPG 입문 장비용 공식 게임 텍스처 대응."
+    },
+    {
+      "id": "EQ_CRPG_TRAINING_SPEAR",
+      "name": "연습용 창",
+      "type": "장병기",
+      "sourceName": "UI_EquipIcon_Pole_Gewalt",
+      "sourceKey": "UI_EquipIcon_Pole_Gewalt",
+      "filename": "UI_EquipIcon_Pole_Gewalt",
+      "images": {
+        "filename_icon": "UI_EquipIcon_Pole_Gewalt"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Pole/Gewalt/UI_EquipIcon_Pole_Gewalt.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Pole/Gewalt/UI_EquipIcon_Pole_Gewalt.png",
+      "source_sha256": "f4b8c4a3a21de4b3ef97d4fea40f64d5af3ce89126b965c023cefb42c86093c3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/official/UI_EquipIcon_Pole_Gewalt.png",
+      "bytes": 21648,
+      "sha256": "f4b8c4a3a21de4b3ef97d4fea40f64d5af3ce89126b965c023cefb42c86093c3",
+      "provenance": "original_game_texture_archive",
+      "matchType": "official_base_visual",
+      "note": "CRPG 입문 장비용 공식 게임 텍스처 대응."
+    },
+    {
+      "id": "EQ_CRPG_TRAINING_BOW",
+      "name": "연습용 사냥활",
+      "type": "활",
+      "sourceName": "UI_EquipIcon_Bow_Hunters",
+      "sourceKey": "UI_EquipIcon_Bow_Hunters",
+      "filename": "UI_EquipIcon_Bow_Hunters",
+      "images": {
+        "filename_icon": "UI_EquipIcon_Bow_Hunters"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Bow/Hunters/UI_EquipIcon_Bow_Hunters.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Bow/Hunters/UI_EquipIcon_Bow_Hunters.png",
+      "source_sha256": "c8856190bdf15efe41d2d95b0f247f8ac4bbe0a8e3e6afe273aaec7efecd2d4f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/official/UI_EquipIcon_Bow_Hunters.png",
+      "bytes": 34504,
+      "sha256": "c8856190bdf15efe41d2d95b0f247f8ac4bbe0a8e3e6afe273aaec7efecd2d4f",
+      "provenance": "original_game_texture_archive",
+      "matchType": "official_base_visual",
+      "note": "CRPG 입문 장비용 공식 게임 텍스처 대응."
+    },
+    {
+      "id": "EQ_CRPG_TRAINING_CATALYST",
+      "name": "견습자의 마도서",
+      "type": "법구",
+      "sourceName": "UI_EquipIcon_Catalyst_Apprentice",
+      "sourceKey": "UI_EquipIcon_Catalyst_Apprentice",
+      "filename": "UI_EquipIcon_Catalyst_Apprentice",
+      "images": {
+        "filename_icon": "UI_EquipIcon_Catalyst_Apprentice"
+      },
+      "archive_url": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Catalyst/Apprentice/UI_EquipIcon_Catalyst_Apprentice.png",
+      "status": "available",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Catalyst/Apprentice/UI_EquipIcon_Catalyst_Apprentice.png",
+      "source_sha256": "294cb29e7651dc22e0e49ff1ce57f32e9af46c0f1feb49dcc4d2c521f51cdc46",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "path": "assets/icons/official/UI_EquipIcon_Catalyst_Apprentice.png",
+      "bytes": 55938,
+      "sha256": "294cb29e7651dc22e0e49ff1ce57f32e9af46c0f1feb49dcc4d2c521f51cdc46",
+      "provenance": "original_game_texture_archive",
+      "matchType": "official_base_visual",
+      "note": "CRPG 입문 장비용 공식 게임 텍스처 대응."
     }
   ],
   "categories": {

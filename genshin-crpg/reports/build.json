@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-26-d0605b219738-b4325f0a789b",
+  "version": "2026-09-26-d0605b219738-50402d2d1ff5",
   "sourceTabs": 64,
   "excludedSaveTables": [
     "15_INVENTORY_STATE",
@@ -15,8 +15,8 @@
     "54_SAVE_RELATION_STATE"
   ],
   "assets": 245,
-  "fileCount": 778,
-  "bytes": 83462041,
+  "fileCount": 792,
+  "bytes": 83673151,
   "contentSha256": "d0605b21973841338f16be6eb45537e0c121cc8c31a9ac540465650d74191131",
-  "repackNote": "v0.13.24 selective repack: shared Baron Bunny behavior, Korean labels, 50ms multihit playback and compact combat UI updated; media/data unchanged."
+  "repackNote": "v0.13.25 selective repack: Azhdaha boss runtime, hub facility layout/order, bundled original-game facility/starter-weapon icons, and geo-oculus quest leak fixed."
 }

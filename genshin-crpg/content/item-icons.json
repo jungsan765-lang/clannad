@@ -2286,6 +2286,96 @@
         256
       ],
       "bytes": 18946
+    },
+    "EQ_CRPG_WORN_SWORD": {
+      "id": "EQ_CRPG_WORN_SWORD",
+      "name": "낡은 연습검",
+      "path": "assets/icons/official/UI_EquipIcon_Sword_Blunt.png",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Sword/Blunt/UI_EquipIcon_Sword_Blunt.png",
+      "sourceName": "UI_EquipIcon_Sword_Blunt",
+      "sourceKey": "UI_EquipIcon_Sword_Blunt",
+      "matchType": "official_base_visual",
+      "provenance": "original_game_texture_archive",
+      "sha256": "a8ca847d6ff2548bf669913db6156345bcc46e4cce3022fe937c737d077d2f8b",
+      "source_sha256": "a8ca847d6ff2548bf669913db6156345bcc46e4cce3022fe937c737d077d2f8b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 29945,
+      "note": "CRPG 입문 장비의 무기군에 대응하는 원신 원본 1성 무기 텍스처를 사용. CRPG 장비명 자체를 원작 명칭으로 주장하지 않음."
+    },
+    "EQ_CRPG_TRAINING_CLAYMORE": {
+      "id": "EQ_CRPG_TRAINING_CLAYMORE",
+      "name": "연습용 양손검",
+      "path": "assets/icons/official/UI_EquipIcon_Claymore_Tin.png",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Claymore/Tin/UI_EquipIcon_Claymore_Tin.png",
+      "sourceName": "UI_EquipIcon_Claymore_Tin",
+      "sourceKey": "UI_EquipIcon_Claymore_Tin",
+      "matchType": "official_base_visual",
+      "provenance": "original_game_texture_archive",
+      "sha256": "bf403b0946562c2c5628155bc955518e72286258a48f4209405a67fd9f56ccb7",
+      "source_sha256": "bf403b0946562c2c5628155bc955518e72286258a48f4209405a67fd9f56ccb7",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 32868,
+      "note": "CRPG 입문 장비의 무기군에 대응하는 원신 원본 1성 무기 텍스처를 사용. CRPG 장비명 자체를 원작 명칭으로 주장하지 않음."
+    },
+    "EQ_CRPG_TRAINING_SPEAR": {
+      "id": "EQ_CRPG_TRAINING_SPEAR",
+      "name": "연습용 창",
+      "path": "assets/icons/official/UI_EquipIcon_Pole_Gewalt.png",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Pole/Gewalt/UI_EquipIcon_Pole_Gewalt.png",
+      "sourceName": "UI_EquipIcon_Pole_Gewalt",
+      "sourceKey": "UI_EquipIcon_Pole_Gewalt",
+      "matchType": "official_base_visual",
+      "provenance": "original_game_texture_archive",
+      "sha256": "f4b8c4a3a21de4b3ef97d4fea40f64d5af3ce89126b965c023cefb42c86093c3",
+      "source_sha256": "f4b8c4a3a21de4b3ef97d4fea40f64d5af3ce89126b965c023cefb42c86093c3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 21648,
+      "note": "CRPG 입문 장비의 무기군에 대응하는 원신 원본 1성 무기 텍스처를 사용. CRPG 장비명 자체를 원작 명칭으로 주장하지 않음."
+    },
+    "EQ_CRPG_TRAINING_BOW": {
+      "id": "EQ_CRPG_TRAINING_BOW",
+      "name": "연습용 사냥활",
+      "path": "assets/icons/official/UI_EquipIcon_Bow_Hunters.png",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Bow/Hunters/UI_EquipIcon_Bow_Hunters.png",
+      "sourceName": "UI_EquipIcon_Bow_Hunters",
+      "sourceKey": "UI_EquipIcon_Bow_Hunters",
+      "matchType": "official_base_visual",
+      "provenance": "original_game_texture_archive",
+      "sha256": "c8856190bdf15efe41d2d95b0f247f8ac4bbe0a8e3e6afe273aaec7efecd2d4f",
+      "source_sha256": "c8856190bdf15efe41d2d95b0f247f8ac4bbe0a8e3e6afe273aaec7efecd2d4f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 34504,
+      "note": "CRPG 입문 장비의 무기군에 대응하는 원신 원본 1성 무기 텍스처를 사용. CRPG 장비명 자체를 원작 명칭으로 주장하지 않음."
+    },
+    "EQ_CRPG_TRAINING_CATALYST": {
+      "id": "EQ_CRPG_TRAINING_CATALYST",
+      "name": "견습자의 마도서",
+      "path": "assets/icons/official/UI_EquipIcon_Catalyst_Apprentice.png",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/EquipIcon/Catalyst/Apprentice/UI_EquipIcon_Catalyst_Apprentice.png",
+      "sourceName": "UI_EquipIcon_Catalyst_Apprentice",
+      "sourceKey": "UI_EquipIcon_Catalyst_Apprentice",
+      "matchType": "official_base_visual",
+      "provenance": "original_game_texture_archive",
+      "sha256": "294cb29e7651dc22e0e49ff1ce57f32e9af46c0f1feb49dcc4d2c521f51cdc46",
+      "source_sha256": "294cb29e7651dc22e0e49ff1ce57f32e9af46c0f1feb49dcc4d2c521f51cdc46",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 55938,
+      "note": "CRPG 입문 장비의 무기군에 대응하는 원신 원본 1성 무기 텍스처를 사용. CRPG 장비명 자체를 원작 명칭으로 주장하지 않음."
     }
   },
   "categories": {
