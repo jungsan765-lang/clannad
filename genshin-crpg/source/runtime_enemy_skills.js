@@ -140,6 +140,7 @@ P.combatDamageMultiplier=function(a,t,e,o={}){
 P.damage=function(a,t,k,e,o={}){
  const b=this.s.runtime,start=b?.log.length||0,previous=this._enemyIncoming;this._enemyIncoming={source:a.id,range:o.range||a.range,options:o};
  let result;try{result=old.damage.call(this,a,t,k,e,o);}finally{this._enemyIncoming=previous;}
+ if(t?.nativeAura)t.aura=t.nativeAura;
  if(!active(this)||!result)return result;
  const dealt=b.log.slice(start).find(v=>v.actor===a.name&&v.target===t.name&&((v.damage||0)>0||(v.absorbed||0)>0));
  if(!dealt)return result;
