@@ -390,3 +390,16 @@ nav button[data-screen=LOCATION]{border-color:#477f8b;background:#183b46}nav but
 .battle-hazards .hazard strong{color:#ffb4a8}
 .battle-hazards .hazard.pending strong{color:var(--gold)}
 @media(max-width:640px){.formation-row{grid-template-columns:26px 36px minmax(0,1fr) auto}.formation-row .party-portrait{width:36px;height:36px}}
+/* v0.13.40 enemy tiers, enemy line-up, forge purpose */
+.enemy-tier{display:inline-block;align-self:flex-start;width:max-content;max-width:100%;font-size:.72rem;padding:1px 7px;border-radius:999px;margin:2px 0;cursor:help;background:#2a2433;color:#d9c8f5}
+.enemy-tier.tier-2{background:#2b2a1d;color:#e8dc9a}
+.enemy-tier.tier-4{background:#3a2420;color:#f3b39a}
+.enemy-tier.tier-5{background:#4a1c22;color:#ffb0b8;font-weight:700}
+.enemy-lineup{margin:10px 0;padding:10px 12px;border:1px solid #5a4a78;border-radius:10px;background:#1c1a26}
+.enemy-lineup h2{font-size:.95rem;margin:0 0 6px}
+.enemy-lineup .lineup-combo{display:flex;flex-wrap:wrap;gap:4px 10px;margin:4px 0;font-size:.85rem}
+.enemy-lineup .lineup-combo strong{color:#d9c8f5}
+.enemy-lineup .lineup-danger{margin:4px 0;font-size:.85rem;color:#ffb0b8;font-weight:700}
+.craft-purpose{margin:4px 0 0;font-size:.85rem;color:var(--gold)}
+.craft-traits{font-size:.82rem}
+.craft-ready{margin-left:0}

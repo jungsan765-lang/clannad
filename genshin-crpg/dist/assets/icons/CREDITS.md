@@ -73,3 +73,31 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 | 성유물 · 균형형 | 분류 아이콘 | 옛 벗의 마음 `UI_RelicIcon_10001_4` | HoYo CDN |
 
 변환 방식과 해시 기록은 v0.13.27과 같다. 런타임 추가 항목은 `item-icons.json`에서 `installedBy: "runtime"`로 표시해 콘텐츠 시트에 없는 ID임을 구분한다.
+
+## v0.13.40 리월 특산물 · 콜 라피스 제작 장비
+
+런타임에 추가되는 24개 항목(`installedBy: "runtime"`). 특산물 6개는 같은 이름의 원본 아이콘, 제작 장비 18개는 분위기가 맞는 원작 무기·성유물 외형을 빌린 것이다(`official_base_visual`, 원작의 같은 장비라는 뜻이 아님).
+
+| CRPG 아이템 | 원본 이름 `텍스처` | 출처 |
+|---|---|---|
+| 콜 라피스 · 야박석 · 유리백합 · 예상꽃 · 별소라 · 절운고추 | 같은 이름 `UI_ItemIcon_100058/100028/100030/100029/100033/100027` | GenshinTextures-full |
+| 암각 파쇄검 | 용의 포효 `UI_EquipIcon_Sword_Rockkiller` | HoYo CDN |
+| 암맥 대검 | 천암고검 `UI_EquipIcon_Claymore_Lapis` | HoYo CDN |
+| 천암 관통창 | 천암장창 `UI_EquipIcon_Pole_Lapis` | HoYo CDN |
+| 천형 대공궁 | 흑암 배틀 보우 `UI_EquipIcon_Bow_Blackrock` | HoYo CDN |
+| 절운 불씨 법구 | 일월의 정수 `UI_EquipIcon_Catalyst_Resurrection` | HoYo CDN |
+| 별소라 물결 법구 | 소심 `UI_EquipIcon_Catalyst_Truelens` | HoYo CDN |
+| 적옥 내열갑 | 불 위를 걷는 현인 `UI_RelicIcon_14003_2` | HoYo CDN |
+| 뇌운 절연복 | 뇌명을 평정한 존자 `UI_RelicIcon_14002_3` | HoYo CDN |
+| 벽수 방수 외투 | 몰락한 마음 `UI_RelicIcon_15016_1` | HoYo CDN |
+| 기암 중장갑 | 유구한 반암 `UI_RelicIcon_15014_3` | HoYo CDN |
+| 운보 경갑 | 대지를 유랑하는 악단 `UI_RelicIcon_15003_3` | HoYo CDN |
+| 청심 정화 향낭 | 사랑받는 소녀 `UI_RelicIcon_14004_2` | HoYo CDN |
+| 천암군 수호 인장 | 견고한 천암 `UI_RelicIcon_15017_2` | HoYo CDN |
+| 유리백합 치유 매듭 | 사랑받는 소녀 `UI_RelicIcon_14004_4` | HoYo CDN |
+| 천추 관측경 | 학사 `UI_RelicIcon_10012_5` | HoYo CDN |
+| 지맥 안정 말뚝 | 유구한 반암 `UI_RelicIcon_15014_5` | HoYo CDN |
+| 야박석 원소 부적 | 물을 모시는 자 `UI_RelicIcon_15010_3` | HoYo CDN |
+| 잿불막이 부적 | 불을 모시는 자 `UI_RelicIcon_15009_3` | HoYo CDN |
+
+이름·파일 ID는 genshin-db(한국어)로 대조했다. 변환 방식(256px 이내 WebP)과 해시 기록 방식은 v0.13.27과 같다.
