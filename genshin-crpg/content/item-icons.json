@@ -5024,6 +5024,456 @@
       "bytes": 11208,
       "note": "균형형 성유물",
       "installedBy": "runtime"
+    },
+    "MAT_LIYUE_COR_LAPIS": {
+      "id": "MAT_LIYUE_COR_LAPIS",
+      "name": "콜 라피스",
+      "path": "assets/icons/UI_ItemIcon_100058.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100058.png",
+      "sourceName": "콜 라피스",
+      "filename": "UI_ItemIcon_100058",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "8515d13a8f96b9ced9dc4ab8c17063fd167208167fdc0419434e0b01ea72fdf7",
+      "source_sha256": "dccbe55a9d761468cc52e9c57d72208de42bce5eb15bb995672385216928e9db",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8982,
+      "installedBy": "runtime"
+    },
+    "MAT_LIYUE_NOCTILUCOUS_JADE": {
+      "id": "MAT_LIYUE_NOCTILUCOUS_JADE",
+      "name": "야박석",
+      "path": "assets/icons/UI_ItemIcon_100028.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100028.png",
+      "sourceName": "야박석",
+      "filename": "UI_ItemIcon_100028",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "0c376c5759d64cb33aca11af52ea16b81fcdab07de88596db6bc418d85f8b357",
+      "source_sha256": "8a0e88e9afe44143aa6b5e18c327b75e8ab95df8de01ceb642c47f6899c0f3ba",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11080,
+      "installedBy": "runtime"
+    },
+    "MAT_LIYUE_GLAZE_LILY": {
+      "id": "MAT_LIYUE_GLAZE_LILY",
+      "name": "유리백합",
+      "path": "assets/icons/UI_ItemIcon_100030.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100030.png",
+      "sourceName": "유리백합",
+      "filename": "UI_ItemIcon_100030",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "3901d04e25f7666749edee5d91477dc6199caa11d914827c36392229357b6396",
+      "source_sha256": "1ec85279f85c649ecfc1ea54db5a1102e4d404bd3d9ef72b15f9661d7cdc601d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17756,
+      "installedBy": "runtime"
+    },
+    "MAT_LIYUE_SILK_FLOWER": {
+      "id": "MAT_LIYUE_SILK_FLOWER",
+      "name": "예상꽃",
+      "path": "assets/icons/UI_ItemIcon_100029.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100029.png",
+      "sourceName": "예상꽃",
+      "filename": "UI_ItemIcon_100029",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "cd2235bf678895f38804429982b3a5ccc6843fbffbb9b32309b0a737692f9a08",
+      "source_sha256": "4af86fafd8e0cd9d9d0b691e4631fe23b411cd1dcd1962ac7fe0216de87911e0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17768,
+      "installedBy": "runtime"
+    },
+    "MAT_LIYUE_STARCONCH": {
+      "id": "MAT_LIYUE_STARCONCH",
+      "name": "별소라",
+      "path": "assets/icons/UI_ItemIcon_100033.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100033.png",
+      "sourceName": "별소라",
+      "filename": "UI_ItemIcon_100033",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "dd7a2d214c683351a819dd2e60ec3e569725c2e26075840ece24067da3b5e86c",
+      "source_sha256": "364df07a39a78164c05b47284ae410d15486e7443a6e6c2b15361c72d9800d32",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9294,
+      "installedBy": "runtime"
+    },
+    "MAT_LIYUE_JUEYUN_CHILI": {
+      "id": "MAT_LIYUE_JUEYUN_CHILI",
+      "name": "절운고추",
+      "path": "assets/icons/UI_ItemIcon_100027.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100027.png",
+      "sourceName": "절운고추",
+      "filename": "UI_ItemIcon_100027",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "e9a03ea2011b6ae80d20504adb887c568171e5e9b3736c8e624cf915fd2b0e32",
+      "source_sha256": "6f23b0296e39ffca247eeff05f64562eeb5af6fe68f43998253af381f2a3f45d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 6522,
+      "installedBy": "runtime"
+    },
+    "EQ_LY_SWORD_ROCKBREAKER": {
+      "id": "EQ_LY_SWORD_ROCKBREAKER",
+      "name": "암각 파쇄검",
+      "path": "assets/icons/UI_EquipIcon_Sword_Rockkiller.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Sword_Rockkiller.png",
+      "sourceName": "용의 포효",
+      "filename": "UI_EquipIcon_Sword_Rockkiller",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "c7779cfd5fba238371c43479f257d8b0612203f4d2e930c79a8fb25f622fd983",
+      "source_sha256": "94289716fb76a69f94799ecbc301136f89883248fe88e059a35ad049b09a8214",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10616,
+      "note": "바위를 깨는 한손검",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_CLAYMORE_BEDROCK": {
+      "id": "EQ_LY_CLAYMORE_BEDROCK",
+      "name": "암맥 대검",
+      "path": "assets/icons/UI_EquipIcon_Claymore_Lapis.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Claymore_Lapis.png",
+      "sourceName": "천암고검",
+      "filename": "UI_EquipIcon_Claymore_Lapis",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "2dbcd018f9635b45e1be961a0119d1d4b0e07a6340f8a24fe1b3730d75623769",
+      "source_sha256": "247258b8ab67d439337c54165e9277b9840a9558a546c22bfcbbffe01c6e5464",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14612,
+      "note": "콜 라피스 대검",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_POLEARM_PIERCER": {
+      "id": "EQ_LY_POLEARM_PIERCER",
+      "name": "천암 관통창",
+      "path": "assets/icons/UI_EquipIcon_Pole_Lapis.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Pole_Lapis.png",
+      "sourceName": "천암장창",
+      "filename": "UI_EquipIcon_Pole_Lapis",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "dc0259216776241bca14334ef623478186b06397971fc737336130efa00d8ee4",
+      "source_sha256": "2c53d005471429ae384f1cf67590d85379d8b56c9ce89a257bd9f52c87bf5765",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10460,
+      "note": "콜 라피스 장창",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_BOW_SKYPIERCER": {
+      "id": "EQ_LY_BOW_SKYPIERCER",
+      "name": "천형 대공궁",
+      "path": "assets/icons/UI_EquipIcon_Bow_Blackrock.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Bow_Blackrock.png",
+      "sourceName": "흑암 배틀 보우",
+      "filename": "UI_EquipIcon_Bow_Blackrock",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "49277222df562c2cab5e655fef6a56f1c458f5fc056603d86bfb3d3899eca200",
+      "source_sha256": "52f8affa409d445149323da3518ec1645ef31029454175d2fa8100af56dac217",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12496,
+      "note": "리월 대장간 활",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_CATALYST_CHILI_EMBER": {
+      "id": "EQ_LY_CATALYST_CHILI_EMBER",
+      "name": "절운 불씨 법구",
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Resurrection.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Resurrection.png",
+      "sourceName": "일월의 정수",
+      "filename": "UI_EquipIcon_Catalyst_Resurrection",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "24cb07d9b3da3bef87b3b7072f05e49ecec956c3ee457d805b3fe488fcc755c5",
+      "source_sha256": "09fe2ce2ac0100e207362f99d8c5e61e58ebbc9a3deca145b5e8a728a348b0b7",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15258,
+      "note": "불씨를 품은 구슬",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_CATALYST_TIDE_CONCH": {
+      "id": "EQ_LY_CATALYST_TIDE_CONCH",
+      "name": "별소라 물결 법구",
+      "path": "assets/icons/UI_EquipIcon_Catalyst_Truelens.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_EquipIcon_Catalyst_Truelens.png",
+      "sourceName": "소심",
+      "filename": "UI_EquipIcon_Catalyst_Truelens",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "5729cc678ed22175c9db856f485fd48ea7e001702ba0d7a576ab6cd66c198119",
+      "source_sha256": "cc2f6c70a6b1dee60f7f5b25f33e43851526a29fe72b6a4313636b0dcee31b43",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16360,
+      "note": "물결을 비추는 법구",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_ARMOR_JADEFLAME": {
+      "id": "EQ_LY_ARMOR_JADEFLAME",
+      "name": "적옥 내열갑",
+      "path": "assets/icons/UI_RelicIcon_14003_2.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_14003_2.png",
+      "sourceName": "불 위를 걷는 현인",
+      "filename": "UI_RelicIcon_14003_2",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "7a76b7a8aef79865ecc5cf2251843751900ec968bc9be0b5c067659d144c1dca",
+      "source_sha256": "0da2a110c486be194431ae74d663038408f95460de24d2a644f58c04d598b41b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16326,
+      "note": "내열 방어구",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_ARMOR_THUNDERWARD": {
+      "id": "EQ_LY_ARMOR_THUNDERWARD",
+      "name": "뇌운 절연복",
+      "path": "assets/icons/UI_RelicIcon_14002_3.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_14002_3.png",
+      "sourceName": "뇌명을 평정한 존자",
+      "filename": "UI_RelicIcon_14002_3",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "e8fe3d477abc7fdd547972f6a6e00b51948a99d2711ee76b1ede356efada2bfa",
+      "source_sha256": "23b8a9e6e05293a319b1d37719b7b7527a1212395529c89898b9f4ae9b99e76c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17244,
+      "note": "절연 방어구",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_ARMOR_TIDEWARD": {
+      "id": "EQ_LY_ARMOR_TIDEWARD",
+      "name": "벽수 방수 외투",
+      "path": "assets/icons/UI_RelicIcon_15016_1.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15016_1.png",
+      "sourceName": "몰락한 마음",
+      "filename": "UI_RelicIcon_15016_1",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "d92c00629328108be9d1cb346f4bdf0c314c7d0a11865ebfd31cd4458b8e9a24",
+      "source_sha256": "ea901a10e9ffdccf70363f8d75e4863dbb9e11a5e089409144d7268347e6d844",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12438,
+      "note": "방수 방어구",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_ARMOR_BEDROCK": {
+      "id": "EQ_LY_ARMOR_BEDROCK",
+      "name": "기암 중장갑",
+      "path": "assets/icons/UI_RelicIcon_15014_3.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15014_3.png",
+      "sourceName": "유구한 반암",
+      "filename": "UI_RelicIcon_15014_3",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "9b367934fc379730bc01b2c84fde0e909979edd9c261efa9d2c36eb3601d5c31",
+      "source_sha256": "164bb14c14832696ca7ed916d2fd7efe7929783ef145985743320a08b8f735b6",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17342,
+      "note": "중장갑",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_ARMOR_CLOUDSTRIDE": {
+      "id": "EQ_LY_ARMOR_CLOUDSTRIDE",
+      "name": "운보 경갑",
+      "path": "assets/icons/UI_RelicIcon_15003_3.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15003_3.png",
+      "sourceName": "대지를 유랑하는 악단",
+      "filename": "UI_RelicIcon_15003_3",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "702d3ac235a01df649e3f57ad864de2166d0c6de768481f8e9ad6fc85cd23512",
+      "source_sha256": "e9d2d6dabc937e3ca778248268fa044de955af5b702265cf32b3220e5e4e5c13",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15310,
+      "note": "경갑",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_ACC_QINGXIN_SACHET": {
+      "id": "EQ_LY_ACC_QINGXIN_SACHET",
+      "name": "청심 정화 향낭",
+      "path": "assets/icons/UI_RelicIcon_14004_2.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_14004_2.png",
+      "sourceName": "사랑받는 소녀",
+      "filename": "UI_RelicIcon_14004_2",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "6a53e56806358b880076b67c56c5d81ffc49727eba679d55df09026e29e18313",
+      "source_sha256": "e650359eeeb0f84c2651ff5dfe4854e90d5aa7142ee7e05dfd5107949f76d29d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13878,
+      "note": "정화 향낭",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_ACC_MILLELITH_SEAL": {
+      "id": "EQ_LY_ACC_MILLELITH_SEAL",
+      "name": "천암군 수호 인장",
+      "path": "assets/icons/UI_RelicIcon_15017_2.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15017_2.png",
+      "sourceName": "견고한 천암",
+      "filename": "UI_RelicIcon_15017_2",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "0345a1893913cebb31984c53125244ed1bba5ebb6852c176200a60f9d2ce3e26",
+      "source_sha256": "c3a06221c91dab9bfea78d8400e75737f89876f3ec4b7e79c7268373106b8503",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9882,
+      "note": "천암군 인장",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_ACC_LILY_KNOT": {
+      "id": "EQ_LY_ACC_LILY_KNOT",
+      "name": "유리백합 치유 매듭",
+      "path": "assets/icons/UI_RelicIcon_14004_4.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_14004_4.png",
+      "sourceName": "사랑받는 소녀",
+      "filename": "UI_RelicIcon_14004_4",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "26db077b9651ae9e027d94acd5dbf06bbf22b4c92753ac733a5a0d4b1dd9913e",
+      "source_sha256": "9045ace7ceac480ba5256450f4c87370114551d7c5af41fb717e4d82e0d31ded",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18038,
+      "note": "치유 매듭",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_ACC_STARGAZER": {
+      "id": "EQ_LY_ACC_STARGAZER",
+      "name": "천추 관측경",
+      "path": "assets/icons/UI_RelicIcon_10012_5.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_10012_5.png",
+      "sourceName": "학사",
+      "filename": "UI_RelicIcon_10012_5",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "62ecf97d15ebab894e04af9f80a9e60472368116fbb262271243d65576819c4b",
+      "source_sha256": "b8e184418de2684772f66c9f200e01d45e87a2668b530104c76ef21f997b700a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12548,
+      "note": "관측 도구",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_SPECIAL_LEYLINE_STAKE": {
+      "id": "EQ_LY_SPECIAL_LEYLINE_STAKE",
+      "name": "지맥 안정 말뚝",
+      "path": "assets/icons/UI_RelicIcon_15014_5.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15014_5.png",
+      "sourceName": "유구한 반암",
+      "filename": "UI_RelicIcon_15014_5",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "1ccc7397bed73667c47c3e64aee24577b6a6eaa76733069fbcc7df11122b2dcf",
+      "source_sha256": "0700d1bfd4a81eee044af549d55f3c20d63fc895e46b48ca0c6acadea40d240d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12696,
+      "note": "지맥 장치",
+      "installedBy": "runtime"
+    },
+    "EQ_LY_SPECIAL_JADE_WARD": {
+      "id": "EQ_LY_SPECIAL_JADE_WARD",
+      "name": "야박석 원소 부적",
+      "path": "assets/icons/UI_RelicIcon_15010_3.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15010_3.png",
+      "sourceName": "물을 모시는 자",
+      "filename": "UI_RelicIcon_15010_3",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "b566aa744196649a4ab7fcf5c23cf6588ce1284c4067a967506ccb8bc1a467cc",
+      "source_sha256": "a33e7563c0b9d29b3a017b71072173bb19a40c55222b94177317191fca41afb8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12538,
+      "note": "원소 부적",
+      "installedBy": "runtime"
+    },
+    "EQ_MOND_ACC_EMBERGUARD": {
+      "id": "EQ_MOND_ACC_EMBERGUARD",
+      "name": "잿불막이 부적",
+      "path": "assets/icons/UI_RelicIcon_15009_3.webp",
+      "source": "https://upload-bbs.mihoyo.com/game_record/genshin/equip/UI_RelicIcon_15009_3.png",
+      "sourceName": "불을 모시는 자",
+      "filename": "UI_RelicIcon_15009_3",
+      "matchType": "official_base_visual",
+      "provenance": "official_hoyo_cdn",
+      "sha256": "bbdac502859206dcb3db9f4fcb8835a8328956d6f73c77a094825e96899e33e4",
+      "source_sha256": "594d07cdb74176eeb22a98e22132499da52347cffcabe64305025122e3a563fd",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12442,
+      "note": "방화 부적",
+      "installedBy": "runtime"
     }
   },
   "categories": {

@@ -1,0 +1,108 @@
+{
+  "version": "0.13.40",
+  "runtimeDir": "source",
+  "scope": "Liyue Cor Lapis forge, purpose-built gear, enemy tiers, affixes, line-up roles",
+  "checks": [
+    {
+      "name": "Liyue specialties exist with official names and appear in the right mining and gathering spots",
+      "passed": true,
+      "evidence": {
+        "materials": 6
+      }
+    },
+    {
+      "name": "mining a Cor Lapis spot can yield Cor Lapis",
+      "passed": true,
+      "evidence": {
+        "corLapisFromSixDigs": 2
+      }
+    },
+    {
+      "name": "the Liyue equipment shop crafts every purpose-built item, consuming materials, mora and time",
+      "passed": true,
+      "evidence": {
+        "crafted": 18
+      }
+    },
+    {
+      "name": "crafted gear carries its purpose as traits, enhances like other forge gear and is not simply stronger than Mond gear",
+      "passed": true,
+      "evidence": {
+        "items": 18
+      }
+    },
+    {
+      "name": "old Mond gear keeps a niche: the ember charm stacks with Liyue heat armour against fire fields",
+      "passed": true,
+      "evidence": {
+        "heat": 90
+      }
+    },
+    {
+      "name": "enemy tiers only touch field battles in Mond and Liyue, and never consume the shared RNG",
+      "passed": true,
+      "evidence": {
+        "tiers": 0
+      }
+    },
+    {
+      "name": "risk and out-levelling raise the chance of promotions; danger bodies appear only in risky areas",
+      "passed": true,
+      "evidence": {
+        "low": {
+          "rate": 0.18181818181818182,
+          "danger": 0
+        },
+        "high": {
+          "rate": 0.44,
+          "danger": 3
+        },
+        "over": {
+          "rate": 0.4691358024691358,
+          "danger": 1
+        }
+      }
+    },
+    {
+      "name": "affixes are mechanics with counters: armour, ward, sniper, commander, regeneration, mending, hazard trails, vanguard",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "name": "a shield in front covers the shooters behind it against single attacks, not against area attacks",
+      "passed": true,
+      "evidence": {
+        "single": 19,
+        "of": 60
+      }
+    },
+    {
+      "name": "promoted enemies drop extra materials on victory; XP and the bounded field Mora stay the same; saves validate",
+      "passed": true,
+      "evidence": {
+        "bonus": {
+          "version": 1,
+          "loot": {
+            "TRPG_ABYSS_SHARD": 2
+          },
+          "enemies": [
+            {
+              "name": "흑 뱀 무리·기수",
+              "tier": 4,
+              "label": "강한 정예",
+              "affixes": [
+                "치유사",
+                "날랜"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "battle and forge screens show tiers, line-up hints, hazards and wiring order",
+      "passed": true,
+      "evidence": {}
+    }
+  ]
+}

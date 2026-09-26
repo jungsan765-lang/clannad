@@ -57,13 +57,26 @@ function costBlock(card,cost){
   for(const [id,n]of Object.entries(cost.items||{}))card.append(el('small','material-cost',safeName('14_ITEM_DB',id)+' '+n+'개 · 보유 '+game.itemCount(id)+'개'));
   return game.s.global.MORA<cost.mora?'모라가 부족합니다.':Object.entries(cost.items||{}).some(([id,n])=>game.itemCount(id)<n)?'재료가 부족합니다.':'';
 }
+// v0.13.40: a forge can hold many recipes. Tabs by output kind and a "craftable now" filter keep it scannable;
+// each card says what the item is FOR and lists its traits, so gear is chosen by purpose rather than by numbers.
+const CRAFT_TABS=[['ALL','전체'],['WEAPON','무기'],['ARMOR','방어구'],['ACCESSORY','장신구'],['SPECIAL','특수'],['ITEM','소모품·재료']];
+const craftView={tab:'ALL',ready:false};
+function craftKind(r){if(r[2]!=='EQUIP')return 'ITEM';const type=game.tables['16_EQUIP_DB'].get(r[3])?.[2];return {방어구:'ARMOR',장신구:'ACCESSORY',특수:'SPECIAL'}[type]||'WEAPON';}
 crafting=function(p){
   const entry=placeHeader(p,'CRAFT');if(!entry)return;
   if(presenterDB!==game.db){itemPresenter=CRPGInventoryPresenter.create(game.db,MANIFEST);presenterDB=game.db;}
   if(game.placeCanEnhance(entry))renderEnhancementPanel(p,entry);
   p.append(el('h2','','제작법'));const grid=el('div','grid');
-  for(const recipe of game.placeRecipes().filter(x=>x.row[1]!=='강화'&&!/사용 금지|레거시/.test(x.row[18]||''))){
+  const recipes=game.placeRecipes().filter(x=>x.row[1]!=='강화'&&!/사용 금지|레거시/.test(x.row[18]||'')).map(x=>{let cost=null,missing='';try{cost=game.recipeCost(x.row,1);missing=game.s.global.MORA<cost.mora?'모라가 부족합니다.':Object.entries(cost.items||{}).some(([id,n])=>game.itemCount(id)<n)?'재료가 부족합니다.':'';}catch(e){missing=e.message;}return {...x,kind:craftKind(x.row),ready:!x.reason&&!missing};});
+  if(craftView.tab!=='ALL'&&!recipes.some(x=>x.kind===craftView.tab))craftView.tab='ALL';
+  if(recipes.length>6){const tabs=el('div','bag-tabs craft-tabs');tabs.setAttribute('aria-label','제작법 분류');
+   for(const [key,label]of CRAFT_TABS){const n=recipes.filter(x=>key==='ALL'||x.kind===key).length;if(!n&&key!=='ALL')continue;const b=button(label+' '+n,()=>{craftView.tab=key;render();});b.classList.toggle('selected',craftView.tab===key);b.setAttribute('aria-pressed',String(craftView.tab===key));tabs.append(b);}
+   const box=el('label','forge-toggle craft-ready'),input=el('input');input.type='checkbox';input.checked=craftView.ready;input.onchange=()=>{craftView.ready=input.checked;render();};box.append(input,el('span','','지금 만들 수 있는 것만'));
+   const filters=el('div','forge-filters');filters.append(box);p.append(tabs,filters);}
+  for(const recipe of recipes.filter(x=>(craftView.tab==='ALL'||x.kind===craftView.tab)&&(!craftView.ready||x.ready))){
     const r=recipe.row,c=el('section','card'),d=r[2]==='EQUIP'?itemPresenter.itemDetail({equip:r[3],quantity:1,enhance:0}):itemPresenter.itemDetail({item:r[3],quantity:Number(r[4])||1}),output=el('div','craft-output');c.dataset.recipeId=r[0];output.append(itemGlyph(d),el('h3','',d.name||safeName(r[2]==='EQUIP'?'16_EQUIP_DB':'14_ITEM_DB',r[3])));c.append(output);let blocked=recipe.reason;
+    if(r[2]==='EQUIP'){const purpose=game.tables['16_EQUIP_DB'].get(r[3])?.[26];if(purpose&&!/^\s*$/.test(String(purpose)))c.append(el('p','craft-purpose','용도 · '+purpose));
+     const traits=(game.gearTraitLines?.(r[3])||[]).filter(l=>!l.innate);if(traits.length){const ul=el('ul','gear-traits craft-traits');for(const l of traits)ul.append(el('li','',l.text));c.append(ul);}}
     try{const cost=game.recipeCost(r,1),missing=costBlock(c,cost);blocked=blocked||missing;c.append(el('small','muted','제작 시간 '+r[19]));}catch(e){blocked=blocked||e.message;}
     if(recipe.stages){
       const stages=el('ol','craft-stages');stages.setAttribute('aria-label','공동 제작 준비');
@@ -73,7 +86,7 @@ crafting=function(p){
     }
     if(blocked)c.append(el('p','choice-note',blocked));const b=actionButton(recipe.stages?'공동 제작 완료':'제작','CRAFT',{recipe:r[0]});b.disabled=b.disabled||!!blocked;c.append(b);grid.append(c);
   }
-  if(!grid.children.length)grid.append(el('p','muted','이 시설에서 사용할 제작법이 없습니다.'));p.append(grid);
+  if(!grid.children.length)grid.append(el('p','muted',recipes.length?'조건에 맞는 제작법이 없습니다. 분류나 필터를 바꿔 보세요.':'이 시설에서 사용할 제작법이 없습니다.'));p.append(grid);
 };
 boss=function(p){
   const entry=placeHeader(p,'BOSS');if(!entry)return;

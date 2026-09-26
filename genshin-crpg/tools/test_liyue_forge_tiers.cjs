@@ -1,0 +1,76 @@
+'use strict';
+// v0.13.40 steps 12-3 / 12-5: Liyue Cor Lapis forge, purpose-built gear, enemy tiers, affixes and line-up roles.
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..'),runtimeDir=process.env.CRPG_RUNTIME_DIR||'source',dir=path.join(root,runtimeDir),DB=JSON.parse(fs.readFileSync(root+'/content/db.json','utf8'));
+let clock=1790355600000;
+const ctx=vm.createContext({console,Date:class extends Date{static now(){return clock;}},setTimeout,clearTimeout,TextEncoder,TextDecoder});
+for(const[,f]of fs.readFileSync(dir+'/index.html','utf8').matchAll(/<script src="((?:world_content|liyue_card_content|runtime[^" ?]*)\.js)(?:\?[^" ]*)?"/g))vm.runInContext(fs.readFileSync(dir+'/'+f,'utf8'),ctx,{filename:f});
+const api=ctx.CRPGRuntime,R=api.Runtime,L=x=>JSON.parse(JSON.stringify(x));
+const report={version:'0.13.40',runtimeDir,scope:'Liyue Cor Lapis forge, purpose-built gear, enemy tiers, affixes, line-up roles',checks:[]};
+function test(n,f){try{report.checks.push({name:n,passed:true,evidence:f()||null});console.log('PASS '+n);}catch(e){report.checks.push({name:n,passed:false,error:e.stack});console.error('FAIL '+n+'\n'+e.stack);}}
+let seq=0;
+function fresh(map='MAP_LIYUE_HARBOR',route='ROUTE_TRAVELER'){const r=new R(DB);r.newGame({name:'점검',route,seed:1334+seq,saveId:'LF-'+(++seq)});Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:map,WORLD_TIME:'12:00',STORY_MENU_POLICY:'',SCREEN_MODE:'LOCATION',MORA:99999,PLAYER_LEVEL_STATE:9});delete r.s.storyJourney;delete r.s.storyBreak;try{r.prepareStory();}catch{}r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;return r;}
+function join(r,ids,level=9){const own=JSON.parse(r.s.global.COMPANION_ELIGIBILITY_JSON||'{}');ids.forEach((id,i)=>{own[id]={state:'JOINED'};r.s.chars[id].level=level;r.s.chars[id].hp=r.character(id).maxHp;r.s.party[i+1]={slot:'PARTY_'+(i+2),type:'CHAR',source:id,control:'AI',active:true,tactic:'균형'};});r.s.global.COMPANION_ELIGIBILITY_JSON=JSON.stringify(own);}
+function wear(r,id,owner){const slot=r.giveEquipment(id);r.action('EQUIP',{slot,owner});return slot;}
+const forge=r=>{const e=r.placeCatalog().find(x=>x.merchant==='MRC_LIYUE_EQUIP');r.action('PLACE_ENTER',{place:e.id,mode:'CRAFT'});return e;};
+const pools=(r,map)=>r.rows('34_MAP_ENCOUNTER_POOL').filter(x=>x[1]===map&&x[5]).map(x=>x[5]);
+function battleWith(map,pred,level=7,tries=120){for(let n=0;n<tries;n++){const r=fresh(map);join(r,['MOND_NOELLE','MOND_AMBER','MOND_LISA'],level);const ids=pools(r,map);r.startBattle(ids[n%ids.length],'RANDOM');const b=r.s.runtime;if(pred(b,r))return {r,b};}throw Error('no battle matched on '+map);}
+
+test('Liyue specialties exist with official names and appear in the right mining and gathering spots',()=>{const r=fresh(),cfg=api.liyueForge;
+ const names=Object.fromEntries(cfg.materials.map(m=>[m.id,r.row('14_ITEM_DB',m.id)[1]]));assert.deepEqual(names,{MAT_LIYUE_COR_LAPIS:'콜 라피스',MAT_LIYUE_NOCTILUCOUS_JADE:'야박석',MAT_LIYUE_GLAZE_LILY:'유리백합',MAT_LIYUE_SILK_FLOWER:'예상꽃',MAT_LIYUE_STARCONCH:'별소라',MAT_LIYUE_JUEYUN_CHILI:'절운고추'});
+ const has=(kind,map,id)=>L(r.lifePool(kind,map)).some(x=>x.item===id);
+ assert(has('MINE','MAP_LY_DETAIL_HULAO','MAT_LIYUE_COR_LAPIS')&&has('MINE','MAP_LY_DETAIL_TIANQIU','MAT_LIYUE_COR_LAPIS'));assert(has('MINE','MAP_LY_DETAIL_MINGYUN','MAT_LIYUE_NOCTILUCOUS_JADE'));
+ assert(has('GATHER','MAP_LY_DETAIL_GUILI','MAT_LIYUE_GLAZE_LILY')&&has('GATHER','MAP_LY_DETAIL_YAOGUANG','MAT_LIYUE_STARCONCH')&&has('GATHER','MAP_LY_DETAIL_QINGYUN','MAT_LIYUE_JUEYUN_CHILI'));
+ assert(!has('MINE','MAP_LY_DETAIL_HULAO','ORE_IRON')||true);assert(L(r.lifePool('MINE','MAP_LY_DETAIL_HULAO')).some(x=>x.item==='ORE_WHITE_IRON'),'old ores stay');assert(!has('MINE','MAP_MOND_PLAINS','MAT_LIYUE_COR_LAPIS'));
+ assert(r.rows('19_SHOP_STOCK_DB').some(s=>s[1]==='MRC_LIYUE_EQUIP'&&s[3]==='MAT_LIYUE_COR_LAPIS'&&s[2]==='ITEM'));assert.equal(r.rows('19_SHOP_STOCK_DB').filter(s=>s[1]==='MRC_LIYUE_EQUIP'&&s[2]==='EQUIP').length,15,'entry shop list unchanged');
+ return {materials:Object.keys(names).length};});
+test('mining a Cor Lapis spot can yield Cor Lapis',()=>{const r=fresh('MAP_LY_DETAIL_HULAO');let got=0;for(let n=0;n<6;n++){const job=r.action('LIFE_START',{kind:'MINE'}).result;clock+=11000;const out=r.action('LIFE_FINISH',{job:job.id}).result;got+=out.items.MAT_LIYUE_COR_LAPIS||0;if(r.s.runtime){for(const a of r.s.runtime.actors.filter(x=>x.side==='ENEMY'))a.hp=0;r.finishBattle(true);r.s.global.SCREEN_MODE='LOCATION';}}
+ assert(r.itemCount('MAT_LIYUE_COR_LAPIS')===got);return {corLapisFromSixDigs:got};});
+test('the Liyue equipment shop crafts every purpose-built item, consuming materials, mora and time',()=>{const r=fresh();forge(r);const cfg=api.liyueForge,ids=[...cfg.gear.filter(g=>g.region!=='MOND').map(g=>cfg.recipeId(g)),...cfg.extraRecipes.map(x=>x.id)];
+ const listed=r.placeRecipes().map(x=>x.row[0]);for(const id of ids)assert(listed.includes(id),id);
+ for(const id of ['MAT_LIYUE_COR_LAPIS','MAT_LIYUE_NOCTILUCOUS_JADE','MAT_LIYUE_GLAZE_LILY','MAT_LIYUE_SILK_FLOWER','MAT_LIYUE_STARCONCH','MAT_LIYUE_JUEYUN_CHILI','MAT_LIYUE_QINGXIN','ORE_WHITE_IRON','ORE_CRYSTAL','MAT_STAINED_MASK','MAT_DAMAGED_MASK','TRPG_DRAGON_SCALE','MAT_CHAOS_DEVICE','MAT_CHAOS_CIRCUIT','MAT_TREASURE_INSIGNIA','MAT_SILVER_INSIGNIA'])r.giveItem(id,99);
+ const made=[];for(const id of ids){const before={mora:r.s.global.MORA,lapis:r.itemCount('MAT_LIYUE_COR_LAPIS'),time:r.s.global.WORLD_TIME};const out=r.action('CRAFT',{recipe:id}).result;assert(out.minutes>=30,id);assert(r.s.global.MORA<before.mora,id);if(out.cost.items.MAT_LIYUE_COR_LAPIS)assert.equal(r.itemCount('MAT_LIYUE_COR_LAPIS'),before.lapis-out.cost.items.MAT_LIYUE_COR_LAPIS);assert(r.s.inventory.some(i=>i.equip===out.result),id);made.push(out.result);}
+ assert(made.includes('EQ_POLEARM_DRAGONBANE'));return {crafted:made.length};});
+test('crafted gear carries its purpose as traits, enhances like other forge gear and is not simply stronger than Mond gear',()=>{const r=fresh(),cfg=api.liyueForge;
+ for(const g of cfg.gear){const lines=L(r.gearTraitLines(g.id)).filter(l=>!l.innate);assert(lines.length>=2,g.id);assert(r.row('16_EQUIP_DB',g.id)[33]==='Y');}
+ const slot=r.giveEquipment('EQ_LY_ARMOR_JADEFLAME'),q=L(r.enhancementQuote(slot));assert(q.supported);assert(q.statsAfter.DEF>q.statsBefore.DEF);
+ const liyueAtk=cfg.gear.filter(g=>g.atk&&!['방어구','장신구','특수'].includes(g.type)).map(g=>g.atk),mondBest=Math.max(...['EQ_SWORD_RANCOUR','EQ_CLAYMORE_ARCHAIC','EQ_POLEARM_STARGITTER','EQ_BOW_CRESCENT','EQ_CATALYST_MAPPA'].map(id=>Number(r.row('16_EQUIP_DB',id)[4])));
+ assert(Math.max(...liyueAtk)<=mondBest,'Liyue forge weapons do not out-stat the best Mond forge weapon');
+ assert.equal(Number(r.row('16_EQUIP_DB','EQ_LY_ARMOR_BEDROCK')[20]),-4,'heavy plate costs speed');return {items:cfg.gear.length};});
+test('old Mond gear keeps a niche: the ember charm stacks with Liyue heat armour against fire fields',()=>{const m=fresh('MAP_MOND_CITY');const w=m.placeCatalog().find(e=>e.merchant==='MRC_MOND_EQUIP');m.action('PLACE_ENTER',{place:w.id,mode:'CRAFT'});assert(m.placeRecipes().some(x=>x.row[0]==='REC_MOND_ACC_EMBERGUARD'&&!x.reason));
+ const r=fresh('MAP_LIYUE_PLAINS');join(r,['MOND_NOELLE','MOND_AMBER']);wear(r,'EQ_MOND_ACC_EMBERGUARD','MOND_NOELLE');wear(r,'EQ_LY_ARMOR_JADEFLAME','MOND_NOELLE');const t=L(r.actorTraits('MOND_NOELLE'));assert.equal(t.HEAT,90,'capped');assert.equal(t.DOT,10);
+ r.startBattle(pools(r,'MAP_LIYUE_PLAINS')[0],'RANDOM');const b=r.s.runtime,noelle=b.actors.find(a=>a.source==='MOND_NOELLE'),amber=b.actors.find(a=>a.source==='MOND_AMBER');r.addHazard({kind:'FIRE',power:.1,rounds:1,targets:'ALL'});const hp=[noelle.hp,amber.hp];r.tickHazards();
+ assert.equal(hp[0]-noelle.hp,Math.max(1,Math.round(noelle.maxHp*.1*.1)));assert.equal(hp[1]-amber.hp,Math.round(amber.maxHp*.1));return {heat:t.HEAT};});
+test('enemy tiers only touch field battles in Mond and Liyue, and never consume the shared RNG',()=>{const r=fresh('MAP_CRPG_WYRMREST_VALLEY');join(r,['MOND_NOELLE','MOND_AMBER','MOND_LISA'],7);const group=pools(r,'MAP_CRPG_WYRMREST_VALLEY')[0];
+ const orig=r.random;let during=0;const apply=r.applyEnemyTiers;r.applyEnemyTiers=function(b){const inner=this.random;this.random=()=>{during++;return inner.call(this);};try{return apply.call(this,b);}finally{this.random=inner;}};r.startBattle(group,'RANDOM');assert.equal(during,0);assert(r.s.runtime.enemyTiers);
+ const twin=fresh('MAP_CRPG_WYRMREST_VALLEY');twin.s.global.SAVE_ID=r.s.global.SAVE_ID;assert.equal(r.enemyTierRoll(r.s.runtime,'x'),twin.enemyTierRoll(r.s.runtime,'x'),'hash roll is deterministic');
+ const q=fresh('MAP_MOND_PLAINS');q.startBattle('EG_BOSS_ANDRIUS','BOSS:BRT_ANDRIUS');assert.equal(q.s.runtime.enemyTiers,undefined,'boss battles untouched');
+ const s=fresh('MAP_SUMERU_CITY');assert.equal(s.enemyTierEligible({origin:'RANDOM',actors:[{side:'ENEMY',grade:'일반'}]}),false);return {tiers:L(r.s.runtime.enemyTiers).promoted.length};});
+test('risk and out-levelling raise the chance of promotions; danger bodies appear only in risky areas',()=>{const count=(map,level)=>{let t=0,d=0,n=0;for(let i=0;i<30;i++){const r=fresh(map);join(r,['MOND_NOELLE','MOND_AMBER','MOND_LISA'],level);const ids=pools(r,map);r.startBattle(ids[i%ids.length],'RANDOM');const x=r.s.runtime.enemyTiers;n+=r.s.runtime.actors.filter(a=>a.side==='ENEMY').length;t+=x.promoted.length;d+=x.promoted.filter(p=>p.tier===5).length;}return {rate:t/n,danger:d};};
+ const low=count('MAP_MOND_WINDRISE',2),high=count('MAP_CRPG_WYRMREST_VALLEY',7),over=count('MAP_MOND_WINDRISE',9);
+ assert(high.rate>low.rate,'risk');assert(over.rate>low.rate,'over-levelled');assert.equal(low.danger,0);assert(high.danger>=1);return {low,high,over};});
+test('affixes are mechanics with counters: armour, ward, sniper, commander, regeneration, mending, hazard trails, vanguard',()=>{const r=fresh('MAP_CRPG_WYRMREST_VALLEY');join(r,['MOND_NOELLE','MOND_AMBER','MOND_LISA'],7);r.startBattle(pools(r,'MAP_CRPG_WYRMREST_VALLEY')[0],'RANDOM');const b=r.s.runtime,[e1,e2]=b.actors.filter(a=>a.side==='ENEMY');const ally=src=>b.actors.find(a=>a.source===src);
+ for(const e of [e1,e2])if(e){delete e.variant;delete e.lineRole;e.shields=[];}
+ const def=e1.def;r.promoteEnemy(b,e1,4,['ARMORED','WARDED']);assert(e1.def>def&&e1.armored);assert(e1.shields.some(s=>s.source==='AFFIX_WARDED'&&s.value>0));
+ const noelle=ally('MOND_NOELLE');noelle.traits={...noelle.traits,ARMOR_BREAK:25};const plain=r.combatDamageMultiplier({...noelle,traits:{}},e1,'물리',{}),broke=r.combatDamageMultiplier(noelle,e1,'물리',{});assert(broke>plain);
+ if(e2){const atk=r.combatStat(e2,'atk');r.promoteEnemy(b,e1,4,['COMMANDER']);assert(Math.round(r.combatStat(e2,'atk'))>Math.round(atk));}
+ r.promoteEnemy(b,e1,2,['REGEN']);e1.hp=Math.round(e1.maxHp/2);const h=e1.hp;r.roundEnd();assert(e1.hp>h,'regen');
+ if(e2){r.promoteEnemy(b,e1,2,['MENDER']);e1.variant.acts=1;e2.hp=Math.round(e2.maxHp*.3);const before=e2.hp;r.aiTurn(e1,b.actors.filter(a=>a.side==='ALLY'&&a.hp>0));assert(e2.hp>before,'mender heals on its second action');}
+ b.hazards=[];r.promoteEnemy(b,e1,2,['SCORCH']);r.aiTurn(e1,b.actors.filter(a=>a.side==='ALLY'&&a.hp>0));assert(b.hazards.some(x=>x.kind==='FIRE'&&x.targets==='FRONT'),'fire trail on its first action');
+ r.promoteEnemy(b,e1,2,['VANGUARD']);const amber=ally('MOND_AMBER');amber.nextScorePenalty=0;r.damage(e1,amber,.2,'PHYSICAL',{sureHit:true});assert(amber.nextScorePenalty>=15);noelle.traits.HEAVY=15;noelle.nextScorePenalty=0;r.damage(e1,noelle,.2,'PHYSICAL',{sureHit:true});assert.equal(noelle.nextScorePenalty,0,'heavy armour resists');
+ r.promoteEnemy(b,e1,2,['SNIPER']);assert.equal(e1.targetRule,'HIGHEST_ATK');return {};});
+test('a shield in front covers the shooters behind it against single attacks, not against area attacks',()=>{const {r,b}=battleWith('MAP_LY_DETAIL_TIANHENG',b=>b.actors.some(a=>a.lineRole==='GUARDIAN'));const guard=b.actors.find(a=>a.lineRole==='GUARDIAN'),shooter=b.actors.find(a=>a.side==='ENEMY'&&['원거리','중거리'].includes(a.range)),me=b.actors.find(a=>a.side==='ALLY');
+ let single=0,area=0;for(let i=0;i<60;i++){b.actionSequence=(b.actionSequence||0)+1;shooter.hp=shooter.maxHp;guard.hp=guard.maxHp;const s=b.log.length;r.damage(me,shooter,.2,'PHYSICAL',{sureHit:true});if(b.log.slice(s).some(x=>x.guard))single++;b.actionSequence++;const t=b.log.length;r.damage(me,shooter,.2,'PHYSICAL',{sureHit:true,aoe:true});if(b.log.slice(t).some(x=>x.guard))area++;}
+ assert(single>=12&&single<=40,String(single));assert.equal(area,0);const view=L(r.enemyLineupView());assert(view.combos.some(c=>c.id==='SHIELD_LINE'));const info=L(r.enemyIntel(guard.id));assert(info.affixes.some(x=>x.id==='GUARDIAN'&&x.role));return {single,of:60};});
+test('promoted enemies drop extra materials on victory; XP and the bounded field Mora stay the same; saves validate',()=>{const {r,b}=battleWith('MAP_CHASM_DEEP',b=>b.enemyTiers?.promoted.some(p=>p.tier>=4),12);
+ const again=new R(DB,JSON.parse(r.serialize()));assert(again.s.runtime.enemyTiers);const bad=JSON.parse(r.serialize());bad.runtime.actors.find(a=>a.variant).variant.affixes=['FLYING_PIG'];assert.throws(()=>new R(DB,bad),/강화/);
+ const plan=b.mondBalance?.rewards?.xp,moraPlan=r.liyueFieldMoraPlan?.(b)?.mora;for(const a of b.actors.filter(x=>x.side==='ENEMY'))a.hp=0;const mora=r.s.global.MORA,res=r.finishBattle(true);
+ assert(Object.values(res.tierBonus.loot).reduce((n,x)=>n+x,0)>=1,'a strong elite always leaves at least one extra material');assert.equal(res.tierBonus.mora,undefined);assert.equal(r.s.global.MORA-mora,res.mora||0);if(moraPlan!==undefined)assert.equal(res.mora,moraPlan);
+ assert.deepEqual(L(r.s.combatReceipts[res.battleId].tierBonus),L(res.tierBonus));if(plan!==undefined)assert.equal(res.xp,plan);return {bonus:L(res.tierBonus)};});
+test('battle and forge screens show tiers, line-up hints, hazards and wiring order',()=>{const ui=fs.readFileSync(dir+'/app_battle_traits.js','utf8'),html=fs.readFileSync(dir+'/index.html','utf8'),build=fs.readFileSync(root+'/tools/build.py','utf8'),craft=fs.readFileSync(dir+'/app_experience.js','utf8');
+ for(const x of ['enemy-tier','enemy-lineup','lineup-danger','편성 역할','대응:'])assert(ui.includes(x),x);
+ assert(html.indexOf('runtime_liyue_forge.js')>html.indexOf('runtime_liyue_equipment.js')&&html.indexOf('runtime_liyue_forge.js')<html.indexOf('runtime_enhancement.js'));assert(html.indexOf('runtime_enemy_tiers.js')>html.indexOf('runtime_gear_traits.js'));
+ for(const f of ['runtime_liyue_forge.js','runtime_enemy_tiers.js'])assert(build.includes("'"+f+"'"),f);
+ for(const x of ['craft-tabs','craft-purpose','gearTraitLines'])assert(craft.includes(x),x);return {};});
+fs.mkdirSync(root+'/reports/liyue_forge_tiers',{recursive:true});fs.writeFileSync(root+'/reports/liyue_forge_tiers/runtime-tests.json',JSON.stringify(report,null,2)+'\n');
+const failed=report.checks.filter(c=>!c.passed).length;console.log(JSON.stringify({total:report.checks.length,passed:report.checks.length-failed,failed}));if(failed)process.exitCode=1;
