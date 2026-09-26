@@ -1,0 +1,70 @@
+{
+  "version": "0.13.30-audit",
+  "shop": {
+    "merchant": "MRC_LIYUE_EQUIP",
+    "equipment": [
+      {
+        "id": "EQ_POLEARM_WHITE_TASSEL",
+        "name": "백술창",
+        "type": "장병기",
+        "price": 390,
+        "tier": "T1"
+      },
+      {
+        "id": "EQ_ARMOR_REINFORCED_LEATHER",
+        "name": "보강 가죽갑옷",
+        "type": "방어구",
+        "price": 780,
+        "tier": "T2",
+        "minLevel": 3
+      },
+      {
+        "id": "EQ_ACC_VITAL_RING",
+        "name": "생명 반지",
+        "type": "장신구",
+        "price": 840,
+        "tier": "T2",
+        "minLevel": 3
+      }
+    ]
+  },
+  "catalogCounts": {
+    "한손검": 17,
+    "양손검": 10,
+    "장병기": 11,
+    "활": 11,
+    "법구": 12,
+    "방어구": 10,
+    "장신구": 9,
+    "특수": 11
+  },
+  "liyueSpecific": {
+    "armorRecipes": 0,
+    "notableAccessoryRecipes": [
+      {
+        "id": "REC_ACC_STEADFAST",
+        "equip": "EQ_ACC_STEADFAST",
+        "name": "불굴의 수호석",
+        "minLevel": 6
+      }
+    ]
+  },
+  "corLapis": {
+    "present": false,
+    "checkedTable": "14_ITEM_DB",
+    "nearbyLiyueSpecialties": [
+      "청심",
+      "유리주머니"
+    ]
+  },
+  "enhancement": {
+    "baseCap": 10,
+    "ascendedCap": 12,
+    "growth": {
+      "10": 0.5,
+      "11": 0.65,
+      "12": 0.8
+    }
+  },
+  "conclusion": "장비 총량보다 리월 구간의 구매·제작·고난도 획득 단계가 비어 있는 것이 핵심."
+}
