@@ -9,7 +9,7 @@ const actor={side:'ENEMY'},fake={s:{runtime:{fields:[{kind:'BUNNY',side:'ALLY',h
 assert.equal(P.resolveDecoyAction.call(fake,actor,[{id:'P1'}]),true);assert.deepEqual(calls,[{id:'AOE',target:'P1'}]);
 assert.equal(P.resolveDecoyAction.call({...fake,actorCards:()=>[{id:'SINGLE',script:'DMG:ATK*1:PHYSICAL:ALLY_1',target:'ALLY_1',weight:10}]},actor,[{id:'P1'}]),false);
 const exp=read('app_experience.js'),intel=read('app_enemy_intel.js'),av=read('app_av.js'),rev=read('app_revision.js'),mond=read('runtime_mond_balance.js');
-assert([combat,rev,mond].every(x=>!x.includes('폭탄 인형')&&!x.includes('도발 인형')));assert(combat.includes("'토끼 백작'")&&mond.includes('토끼 백작'));
+assert([combat,rev,mond].every(x=>!x.includes('폭탄 인형')&&!x.includes('도발 인형')));assert(combat.includes("?'토끼 백작':rawName")&&combat.includes("name:'토끼 백작'"));assert(!mond.includes('토끼 백작은 광역·회복·지원 기술을 봉쇄하지 않습니다'));
 assert(exp.includes('battle-effect-button')&&exp.includes('combatCardEffect'));assert(!exp.includes('insertBefore(stage,controls)'));assert(exp.includes('details.open=false'));
 assert(intel.includes('this.panel=null')&&!intel.includes('stage.append(this.panel)'));assert(av.includes('index*50/(settings.combatSpeed||1)')&&av.includes('hitTimers'));
 console.log(JSON.stringify({total:9,passed:9}));
