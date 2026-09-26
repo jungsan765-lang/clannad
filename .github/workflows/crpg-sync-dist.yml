@@ -44,6 +44,12 @@ jobs:
           grep -q "runtime_liyue_encounters.js?v=" dist/index.html
           test -f dist/runtime_liyue_artifacts.js
           test -f dist/runtime_liyue_encounters.js
+          if [ "$(node -p "require('./package.json').version")" = "0.13.31" ]; then
+            test -f dist/runtime_liyue_equipment.js
+            test -f dist/app_liyue_equipment.js
+            grep -q "runtime_liyue_equipment.js?v=" dist/index.html
+            grep -q "app_liyue_equipment.js?v=" dist/index.html
+          fi
       - name: Commit built deployment pack
         run: |
           git config user.name "crpg-build-bot"
@@ -53,5 +59,6 @@ jobs:
             echo "Production dist already current."
             exit 0
           fi
-          git commit -m "build(crpg): sync production dist v0.13.29"
+          VERSION="$(node -p "require('./genshin-crpg/package.json').version")"
+          git commit -m "build(crpg): sync production dist v${VERSION}"
           git push origin HEAD:main
