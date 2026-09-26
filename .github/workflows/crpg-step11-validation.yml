@@ -1,0 +1,19 @@
+name: CRPG Step 11 Validation
+on:
+  push:
+    branches:
+      - feat/crpg-step11-liyue-encounters
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: genshin-crpg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit current Liyue encounter inputs
+        run: node tools/audit_step11_inputs.cjs
