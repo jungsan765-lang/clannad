@@ -16,8 +16,10 @@ async function appHTML(response){
 self.addEventListener('install',event=>{event.waitUntil((async()=>{
  const html=await appHTML(await fetch(new Request(local('./'),{cache:'reload'})));
  if(!html)throw Error('게임 진입 파일을 확인하지 못했습니다.');
- const core=await caches.open(CORE);
- await core.addAll(['runtime_liyue_card_content.js','runtime_liyue_cards.js','runtime_recruitment.js','app_recruitment.js','runtime_liyue.js','runtime_geo_oculi.js','runtime_liyue_combat.js','runtime_geography.js','runtime_encounter.js','app_combat_fx.js','app_discovery.js','style.css','app.js','app_legacy.js','app_revision.js','app_party.js','inventory_presenter.js','journal_presenter.js','app_experience.js','app_adventure.js','app_exploration.js','app_life.js','app_version.js','presentation.js','audio_playlists.js','app_av.js','world_content.js','runtime_world.js','runtime_journey.js','runtime_market.js','app_market.js','app_journey.js','app_tutorial.js','runtime.js','runtime_extensions.js','runtime_story.js','runtime_nodes.js','runtime_events.js','runtime_relationships.js','runtime_combat.js','runtime_mond_cards.js','runtime_economy.js','runtime_passives.js','runtime_rules.js','runtime_andrius.js','runtime_flow.js','runtime_party.js','runtime_opening.js','runtime_places.js','runtime_places_joint.js','runtime_adventure.js','runtime_exploration.js','runtime_life.js','save_adapter.js','data.js','assets.js','manifest.webmanifest','offline-pack.json','NotoSansKR_subset.woff'].map(path=>new Request(local(path)+(/\.(js|css)$/.test(path)?'?v='+VERSION:''),{cache:'reload'})));
+ const core=await caches.open(CORE),htmlText=await html.clone().text();
+ const entryAssets=[...htmlText.matchAll(/(?:src|href)="([^"]+\.(?:js|css)(?:\?[^"]*)?)"/g)].map(m=>m[1]);
+ const coreAssets=[...new Set([...entryAssets,'manifest.webmanifest','offline-pack.json','NotoSansKR_subset.woff'])];
+ await core.addAll(coreAssets.map(path=>new Request(new URL(path,scopeURL).href,{cache:'reload'})));
  await core.put(local('index.html'),html.clone());await core.put(local('./'),html);
  // Recovery release: activate even when a broken previous worker prevents opening the update button.
  // No client reload, IndexedDB write, or saved-game mutation occurs here.
