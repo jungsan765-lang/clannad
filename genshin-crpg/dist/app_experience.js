@@ -147,6 +147,7 @@ quests=function(p,v){
 const openRelationMissions=new Set();
 function relationNextLabel(m){
   if(!m.next)return m.track.length?'모든 단계를 마쳤습니다':'진행할 호감도 이야기가 없습니다';
+  if(m.next.status==='active')return '진행 중 · '+m.next.label+(m.next.map?' · '+mapName(m.next.map)+'에서 이어짐':'');
   return '다음 · '+m.next.label+' · '+(m.next.status==='ready'?'지금 진행 가능':m.next.status==='travel'?mapName(m.next.map)+'에서 진행':m.next.reason);
 }
 function relationsScreen(p){
@@ -163,6 +164,7 @@ function relationsScreen(p){
     // Only the next stage explains its blocker; later ones just show the score they open at.
     for(const t of m.track){const li=el('li','stage-'+t.status);li.append(el('span','stage-name',t.short));
       if(t.status==='done')li.append(el('small','requirement-met','완료'));
+      else if(t.status==='active'){li.append(el('small','requirement-met','진행 중'));journalContinue(li,t);}
       else if(t.status==='ready')li.append(actionButton('이야기 시작','AFFECTION_ENTER',{event:t.id},true));
       else if(t.status==='travel')li.append(el('small','muted',mapName(t.map)+'에서 진행'));
       else if(t===m.next)li.append(el('small','requirement-unmet',t.reason));

@@ -59,7 +59,7 @@ P.newGame=function(...args){old.newGame.apply(this,args);this.enhancementSync(th
 P.validateSave=function(s){s=old.validateSave.call(this,s);return this.enhancementSync(s);};
 P.enhancementMissing=function(cost){
  if(this.s.global.MORA<cost.mora)return '모라가 부족합니다.';
- for(const [id,n]of Object.entries(cost.items||{}))if(this.itemCount(id)<n)return this.row('14_ITEM_DB',id)[1]+'이(가) 부족합니다.';
+ for(const [id,n]of Object.entries(cost.items||{}))if(this.itemCount(id)<n){const name=this.row('14_ITEM_DB',id)[1],code=String(name).slice(-1).charCodeAt(0)-0xAC00;return name+(code>=0&&code<11172?(code%28?'이':'가'):'이(가)')+' 부족합니다.';}
  return '';
 };
 P.enhancementStatsAt=function(inv,level){
