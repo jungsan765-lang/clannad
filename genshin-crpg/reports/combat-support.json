@@ -2674,49 +2674,49 @@
   {
     "id": "ECARD_AZHDAHA_ELEMENT_CORE",
     "owner": "BOSS_AZHDAHA",
-    "supported": false,
-    "reason": "이 카드의 전용 효과는 아직 구현되지 않았습니다.",
-    "constraint": null,
+    "supported": true,
+    "reason": "",
+    "constraint": "현재 주입 원소 완전면역·라운드 종료 광역·파티 라운드당 중성 변환 1회",
     "script": "SELECT_DISTINCT2:RANDOM(PYRO/HYDRO/CRYO/ELECTRO)->AZHDAHA_ELEMENT_1/2;ON_INFUSED:IMMUNE_DAMAGE_AND_CONTROL_DEPENDENT=CURRENT_ELEMENT;ROUND_END_IF_INFUSED:DMG_AOE:ATK*0.35:CURRENT_ELEMENT:ALLY_ALL;TACTICAL_NEUTRAL_CONVERT:PARTY_ONCE_PER_ROUND:DIRECT_ATTACK->PHYSICAL/NEUTRAL:FINAL_DAMAGE*0.70:NO_AURA:NO_REACTION"
   },
   {
     "id": "ECARD_AZHDAHA_ZHONGLI",
     "owner": "BOSS_AZHDAHA",
-    "supported": false,
-    "reason": "이 카드의 전용 효과는 아직 구현되지 않았습니다.",
-    "constraint": null,
+    "supported": true,
+    "reason": "",
+    "constraint": "종려가 전투 가능한 상태로 참가하면 전투 종료까지 공·방 15% 감소, 중심점 고정",
     "script": "IF_ACTIVE_ALLY:LIYUE_ZHONGLI:SELF_ATK*0.85;SELF_DEF*0.85;PRIMARY_TARGET=LIYUE_ZHONGLI;IF_ZHONGLI_KO:RELEASE_TARGET_LOCK;KEEP_ATK_DEF_DEBUFF_UNTIL_COMBAT_END"
   },
   {
     "id": "ECARD_AZHDAHA_QUAKE",
     "owner": "BOSS_AZHDAHA",
-    "supported": false,
-    "reason": "이 카드의 전용 효과는 아직 구현되지 않았습니다.",
-    "constraint": null,
+    "supported": true,
+    "reason": "",
+    "constraint": "runtime_liyue_combat.js 전용 실행",
     "script": "DMG_AOE:ATK*0.95:GEO:ALLY_ALL;CENTER=LIYUE_ZHONGLI_IF_ACTIVE_ELSE_HIGHEST_THREAT;EXTRA_DMG:ATK*0.35:GEO:CENTER"
   },
   {
     "id": "ECARD_AZHDAHA_ELEMENT_ERUPTION",
     "owner": "BOSS_AZHDAHA",
-    "supported": false,
-    "reason": "이 카드의 전용 효과는 아직 구현되지 않았습니다.",
-    "constraint": null,
+    "supported": true,
+    "reason": "",
+    "constraint": "runtime_liyue_combat.js 전용 실행",
     "script": "MULTIHIT_AOE:ATK*0.70:CURRENT_ELEMENT:HITS=2:ALLY_ALL;CENTER=LIYUE_ZHONGLI_IF_ACTIVE_ELSE_HIGHEST_THREAT;HIT2_CENTER_FINAL_DAMAGE*1.25"
   },
   {
     "id": "ECARD_AZHDAHA_TAILSTORM",
     "owner": "BOSS_AZHDAHA",
-    "supported": false,
-    "reason": "이 카드의 전용 효과는 아직 구현되지 않았습니다.",
-    "constraint": null,
+    "supported": true,
+    "reason": "",
+    "constraint": "runtime_liyue_combat.js 전용 실행",
     "script": "IF_NOT_INFUSED:DMG_AOE:ATK*1.45:GEO:ALLY_ALL;IF_INFUSED:SPLIT_DMG_AOE:ATK*1.45:50%GEO+50%CURRENT_ELEMENT:ALLY_ALL;CENTER=LIYUE_ZHONGLI_IF_ACTIVE_ELSE_HIGHEST_THREAT;EXTRA_DMG:ATK*0.55:CARD_ELEMENT:CENTER"
   },
   {
     "id": "ECARD_AZHDAHA_PHASE_SHIFT",
     "owner": "BOSS_AZHDAHA",
-    "supported": false,
-    "reason": "이 카드의 전용 효과는 아직 구현되지 않았습니다.",
-    "constraint": null,
+    "supported": true,
+    "reason": "",
+    "constraint": "runtime_liyue_combat.js 전용 실행",
     "script": "ONCE_HP<=70:SET_CURRENT_ELEMENT=AZHDAHA_ELEMENT_1;DMG_AOE:ATK*0.75:NEW_ELEMENT:ALLY_ALL;ONCE_HP<=40:SET_CURRENT_ELEMENT=AZHDAHA_ELEMENT_2;DMG_AOE:ATK*0.75:NEW_ELEMENT:ALLY_ALL;REPLACE_PREVIOUS_ELEMENT_IMMUNITY"
   },
   {

@@ -14,8 +14,11 @@ const fail=(code,message)=>{throw new api.RuleError(code,message);};
 const label={STATUS_SLOW:'감속',STATUS_DEF_DOWN:'방어력 감소',ENEMY_CHARGE_EXPOSED:'차지 붕괴 · 받는 피해 증가',ENEMY_GRADER_CORE:'코어 노출',ENEMY_WOOD_OPEN:'나무 방패 무력화'};
 P.installEnemySkillContent=function(){
  if(this._enemySkillContentInstalled)return;
- const rows=this.db['12_ENEMY_CARD_DB'].map(r=>r.slice()),ids=new Set(rows.map(r=>r[0]));
- for(const row of C.cards){if(ids.has(row[0]))fail('ENEMY_CARD_COLLISION','적 기술 ID가 기존 데이터와 충돌합니다: '+row[0]);rows.push(row.slice());ids.add(row[0]);}
+ const rows=this.db['12_ENEMY_CARD_DB'].map(r=>r.slice()),byId=new Map(rows.filter(r=>r[0]).map(r=>[r[0],r]));
+ for(const row of C.cards){
+  if(byId.has(row[0]))continue; // Integrated DB is authoritative; compatibility is checked by cardSupport when the skill is actually used.
+  rows.push(row.slice());byId.set(row[0],row);
+ }
  this.db={...this.db,'12_ENEMY_CARD_DB':rows};this.tables['12_ENEMY_CARD_DB']=new Map(rows.slice(1).filter(r=>r[0]).map(r=>[r[0],r]));this._enemySkillContentInstalled=true;
 };
 P.installMarketContent=function(...args){const out=old.installMarketContent.apply(this,args);this.installEnemySkillContent();return out;};

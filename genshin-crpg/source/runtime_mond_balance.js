@@ -58,9 +58,6 @@
  // A taunt is not a silence: keep area attacks / healing / self support executable.
  // Ordinary or single-target attacks still strike the existing decoy, unchanged.
  P.resolveMondDecoyAction=function(a,targets){return this.resolveDecoyAction?.(a,targets)||false;};
- if(old.enemyIntel)P.enemyIntel=function(id){const info=old.enemyIntel.call(this,id),b=this.s.runtime;if(info&&enabled(b)&&b.mondBalance.kind==='FIELD'){
-  info.cues.push({kind:'warning',text:'토끼 백작은 광역·회복·지원 기술을 봉쇄하지 않습니다.',detail:'단일 공격은 토끼 백작에게 유도할 수 있지만 광역·치유·보호막·소환 기술은 정상 사용합니다. 준비 중단·원소 약점·집중 공격으로 대응하세요.'});
- }return info;};
  if(old.mondAreaThreat)P.mondAreaThreat=function(...args){const x=old.mondAreaThreat.apply(this,args);if(x)x.rewardGuide='승리 보상: 참가자별 경험치 · 공용 모라 · 적 종류별 소재. 고급 소재는 확률 획득.';return x;};
  P.validateSave=function(s){old.validateSave.call(this,s);const b=s.runtime,m=b?.mondBalance;if(!m)return s;
   if(m.version!==VERSION||!['FIELD','BOSS'].includes(m.kind)||!Number.isInteger(m.risk)||m.risk<0||m.risk>6||!m.rewards||!Array.isArray(m.rewards.parts))throw new api.RuleError('MOND_BALANCE_SAVE','몬드 전투 보상 기록이 올바르지 않습니다.');

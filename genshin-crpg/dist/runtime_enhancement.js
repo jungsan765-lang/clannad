@@ -21,8 +21,8 @@ P.installMarketContent=function(){
  old.installMarketContent.call(this);if(this._enhancementInstalled)return;
  const rows=this.db['16_EQUIP_DB'].map(r=>r.slice());
  for(const row of rows.slice(1)){
-  if(!scope.has(row[0])||!yes(row[33]))continue;
-  const existing=parse(row[32]),legacy=existing.basis==='CRPG_MOND_ENHANCEMENT_V1'?existing.legacy_profile:existing,milestones={};
+  if(!yes(row[33]))continue;
+  const existing=parse(row[32]),legacy=['CRPG_MOND_ENHANCEMENT_V1','CRPG_REGIONAL_ENHANCEMENT_V2'].includes(existing.basis)?(existing.legacy_profile||{}):existing,milestones={};
   for(let level=1;level<=12;level++){
    const prior=legacy.milestones?.[level],m=milestones[level]={stats_add:{...prior?.stats_add},effect_override:{...prior?.effect_override}};
    for(const [stat,col]of Object.entries(columns)){
@@ -30,16 +30,16 @@ P.installMarketContent=function(){
     if(gain>0)m.stats_add[stat]=(m.stats_add[stat]||0)+gain;
    }
   }
-  row[32]=JSON.stringify({...legacy,schema:2,basis:'CRPG_MOND_ENHANCEMENT_V1',allowed_levels:Array.from({length:13},(_,i)=>i),milestones,
+  row[32]=JSON.stringify({...legacy,schema:2,basis:'CRPG_REGIONAL_ENHANCEMENT_V2',allowed_levels:Array.from({length:13},(_,i)=>i),milestones,
    costs:Object.fromEntries(Array.from({length:12},(_,i)=>[i+1,{mora:CONFIG.mora[i+1],items:CONFIG.ores[i+1]}])),
    base_limit:10,ascended_limit:12,legacy_profile:legacy,
-   note:'확률·성장치는 CRPG 설계. 기존 고유효과 실행 범위는 유지하며, 새로운 고유효과 실행기를 추가하지 않음.'});
+   note:'확률·성장치는 CRPG 설계. 몬드·리월 등 실제 대장간에서 공통 사용. 기존 고유효과 실행 범위는 유지하며, 새로운 고유효과 실행기를 추가하지 않음.'});
   row[29]='기본 공격력·방어력·최대 HP: +1당 5%, +10은 +50%, 돌파 후 +11은 +65%, +12는 +80%. 기존 수치형 보너스 유지.';
   row[34]=12;
  }
  this.db={...this.db,'16_EQUIP_DB':rows};this.tables['16_EQUIP_DB']=new Map(rows.slice(1).filter(r=>r[0]).map(r=>[r[0],r]));this._enhancementInstalled=true;
 };
-P.isMondEnhanceable=function(id){const row=this.tables['16_EQUIP_DB'].get(id);return !!row&&scope.has(id)&&yes(row[33]);};
+P.isMondEnhanceable=function(id){const row=this.tables['16_EQUIP_DB'].get(id);return !!row&&yes(row[33]);};
 P.enhancementCap=function(inv){return inv.enhancementCap===12?12:10;};
 P.enhancementSync=function(s){
  if(!s?.global)return s;
@@ -72,7 +72,7 @@ P.enhancementQuote=function(slot,kind='ENHANCE'){
  const inv=this.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)return {supported:false,reason:'소지한 개별 장비를 선택해 주세요.'};
  const row=this.row('16_EQUIP_DB',inv.equip),supported=this.isMondEnhanceable(inv.equip),target=inv.enhance+1,cap=this.enhancementCap(inv);
  const q={slot,name:row[1],equip:inv.equip,level:inv.enhance,cap,instanceRevision:inv.instanceRevision||0,supported,kind,target,reason:'',cost:null};
- if(!supported){q.reason=row[35]||'이번 몬드 확률 강화 대상이 아닙니다.';return q;}
+ if(!supported){q.reason=row[35]||'이 장비는 확률 강화·돌파 대상이 아닙니다.';return q;}
  q.statsBefore=this.enhancementStatsAt(inv,inv.enhance);
  if(kind==='ASCEND'){
   q.target=12;q.cost=copy(CONFIG.ascensionCost);q.success=10000;q.hold=q.down=0;q.statsAfter=copy(q.statsBefore);
@@ -86,7 +86,6 @@ P.enhancementQuote=function(slot,kind='ENHANCE'){
 };
 P.enhancementFacilityReason=function(){
  if(this.s.runtime||this.playPhase()!=='FREE')return '현재 이야기·전투를 마친 뒤 강화해 주세요.';
- if(this.s.global.CURRENT_MAP_ID!=='MAP_MOND_CITY')return '이번 강화·돌파는 몬드성 대장간에서 이용합니다.';
  if(this.s.global.SCREEN_MODE!=='CRAFT')return '대장간의 제작·강화 화면에서 선택해 주세요.';
  return this.placeEnhanceReason();
 };
@@ -112,7 +111,7 @@ P.performEnhancement=function(a){
  // Store only the result in the existing action receipt; no duplicate global RNG or cost ledger.
  this.s.lastEnhancement=copy(result);return result;
 };
-P.enhance=function(slot){return this.isMondEnhanceable(this.s.inventory.find(i=>i.slot===slot)?.equip)?this.performEnhancement({type:'ENHANCE',slot}):old.enhance.call(this,slot);};
+P.enhance=function(slot){const inv=this.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)fail('ENHANCE','소지한 장비를 선택해 주세요.');if(!this.isMondEnhanceable(inv.equip))fail('ENHANCE',this.row('16_EQUIP_DB',inv.equip)[35]||'이 장비는 강화할 수 없습니다.');return this.performEnhancement({type:'ENHANCE',slot});};
 P.materialChallengeReason=function(boss){
  const cfg=CONFIG.bosses[boss];if(!cfg)return '몬드의 두 보스만 재도전할 수 있습니다.';
  const base=old.actionReason.call(this,'MOND_MATERIAL_CHALLENGE',{boss});if(base)return base;
@@ -124,13 +123,17 @@ P.materialChallengeReason=function(boss){
  return cleared?'':'본편 또는 현장 도전에서 이 보스를 먼저 클리어해야 합니다.';
 };
 P.actionReason=function(type,a={}){
- if(type==='ENHANCE'&&this.isMondEnhanceable(this.s.inventory.find(i=>i.slot===a.slot)?.equip)||type==='EQUIP_ASCEND')return this.enhancementActionReason({...a,type});
+ if(type==='ENHANCE'){
+  const inv=this.s.inventory.find(i=>i.slot===a.slot&&i.equip);if(inv&&!this.isMondEnhanceable(inv.equip))return this.row('16_EQUIP_DB',inv.equip)[35]||'이 장비는 강화할 수 없습니다.';
+  return this.enhancementActionReason({...a,type});
+ }
+ if(type==='EQUIP_ASCEND')return this.enhancementActionReason({...a,type});
  if(type==='MOND_MATERIAL_CHALLENGE')return this.materialChallengeReason(a.boss);
  return old.actionReason.call(this,type,a);
 };
 P.apply=function(a){
  let result;
- if(a.type==='ENHANCE'&&this.isMondEnhanceable(this.s.inventory.find(i=>i.slot===a.slot)?.equip)||a.type==='EQUIP_ASCEND')result=this.performEnhancement(a);
+ if(a.type==='ENHANCE'||a.type==='EQUIP_ASCEND')result=this.performEnhancement(a);
  else if(a.type==='MOND_MATERIAL_CHALLENGE'){
   const why=this.materialChallengeReason(a.boss);if(why)fail('MATERIAL_CHALLENGE',why);
   this.s.placeVisit=null;result=this.startBattle(CONFIG.bosses[a.boss].group,'MATERIAL_CHALLENGE:'+a.boss);

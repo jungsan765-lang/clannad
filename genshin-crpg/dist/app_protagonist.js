@@ -3,9 +3,6 @@
  const priorCombat=combat;
  combat=function(p){priorCombat(p);const v=game.protagonistCombatView(),controls=p.querySelector('.battle-command');
   for(const c of game.combatCards()){if(!c.key)continue;const btn=[...p.querySelectorAll('.battle-cards button')].find(x=>x.dataset.cardId===c.id);if(!btn)continue;btn.classList.add('protagonist-skill','skill-'+c.key.toLowerCase(),'identity-'+c.protagonistKind.toLowerCase());btn.prepend(el('span','skill-key',c.key));btn.setAttribute('aria-label',c.key+' · '+c.name+(c.reason?' · '+c.reason:''));}
-  if(selectedCard==='PLAYER_ISEKAI_E'&&!v.legacy){const t=v.windowTargets.find(x=>x.id===selectedTarget);if(t)controls?.append(el('p','skill-preview',t.reason||`${t.name} · 최대 HP −${t.amount} · 다음 자기 차례까지. 임시 감소분은 만료 시 복원됩니다.`));}
-  if(selectedCard==='PLAYER_ISEKAI_Q'&&!v.legacy)controls?.append(el('p','skill-preview','합동 공격: 본인부터 동료까지 기본 공격 1회씩. 사거리·행동 불가를 판정하며, 대상 격파 시 다음 공격 가능한 적을 노립니다. 동료의 평소 차례는 그대로입니다.'));
-  if(selectedCard==='PLAYER_TRAVELER_ANEMO_E')controls?.append(el('p','skill-preview','짧게: 1명, 재사용 2턴. 길게: 대상 주변 최대 3명, 재사용 3턴. 바람 절단 후 폭발하며 원소 전환은 시전당 한 종류만 적용됩니다.'));
  };
  document.addEventListener('keydown',event=>{if(event.defaultPrevented||event.repeat||event.ctrlKey||event.metaKey||event.altKey||busy||!game?.s?.runtime||document.querySelector('dialog[open]')||/^(INPUT|TEXTAREA|SELECT)$/.test(event.target?.tagName)||event.target?.isContentEditable)return;
   if(game.combatOpening?.()||!document.querySelector('.combat-panel'))return;const key=event.key.toUpperCase();if(!['E','Q'].includes(key))return;const c=game.combatCards().find(x=>x.key===key&&!x.reason);if(!c)return;event.preventDefault();selectedCard=c.id;selectedBranch=c.branches?.[0]||'';render();

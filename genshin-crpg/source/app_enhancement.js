@@ -37,7 +37,7 @@
   box.append(button('확인',()=>document.getElementById('modal').close(),false,true));showModal(labels[r.outcome],box);
  }
  globalThis.renderEnhancementPanel=function(p){
-  ensurePresenter();const section=el('section','enhance-panel');section.append(el('h2','','장비 강화·돌파'),el('p','','+10까지 강화한 뒤 보스 재료로 +12 한도를 해금합니다. 임시 입문 장비는 강화하지 않고 상위 장비로 교체하세요.'));
+  ensurePresenter();const section=el('section','enhance-panel');section.append(el('h2','','장비 강화·돌파'),el('p','','몬드·리월의 대장간에서 같은 강화 규칙을 사용합니다. +10까지 강화한 뒤 보스 재료로 +12 한도를 해금합니다. 강화 불가 입문 장비는 상위 장비로 교체하세요.'));
   const info=el('details','enhance-rules'),summary=el('summary','','전체 강화 확률·돌파 재료 보기');info.append(summary);const table=el('table','enhance-chance-table'),head=el('tr');for(const x of ['단계','성공','유지','하락'])head.append(el('th','',x));table.append(head);
   const cfg=CRPGRuntime.enhancementConfig;for(let lv=1;lv<=12;lv++){const tr=el('tr');for(const text of ['+'+(lv-1)+' → +'+lv,pct(cfg.success[lv]),pct(10000-cfg.success[lv]-cfg.down[lv]),pct(cfg.down[lv])])tr.append(el('td','',text));table.append(tr);}info.append(table,el('p','','기본 공격력·방어력·최대 HP는 +1당 5%, +10에서 +50%, +11은 +65%, +12는 +80% 증가합니다. 기존 수치형 단계 보너스는 별도로 유지합니다.'),el('p','','고유 효과의 기존 실행 범위는 유지합니다. 준비 중인 전용 고유 효과를 이번 강화로 새로 구현한 것은 아닙니다.'));
   costs(info,cfg.ascensionCost);info.append(el('p','','드발린·안드리우스 승리: 강적의 잔향 1~2개 확정, 강적의 핵 1개 35%. 본편·첫 도전 완료 후 해당 현장에서 재도전할 수 있습니다. 보스별 입장 간격은 게임 내 48시간이며 패배·이탈해도 유지됩니다. 확률과 드롭은 이 CRPG의 규칙입니다.'));section.append(info);
@@ -46,10 +46,6 @@
    card.append(itemGlyph(itemPresenter.itemDetail(inv)),el('h3','',row[1]+' +'+inv.enhance),el('small','',inv.equipped?ownerName(inv.owner)+' 장착 중':'보관 중 · '+inv.slot));
    if(!q.supported){
     card.append(el('p','muted',q.reason));
-    // Preserve old supported non-Mond operations, without widening this stage.
-    if(!Object.hasOwn(CRPGRuntime.equipmentValueConfig.stats,inv.equip)){
-     const pr=parseUI(row[32]),lv=inv.enhance+3,m=pr.milestones?.[lv],cost=pr.costs?.[lv];if(cost&&m&&!Object.keys(m.effect_override||{}).length&&lv<=Number(row[34])){costs(card,cost);card.append(actionButton('기존 방식 +'+lv+' 강화','ENHANCE',{slot:inv.slot}));}
-    }
    }else{
     card.append(el('span','enhance-cap',q.cap===12?'돌파 완료 · 최대 +12':'기본 한도 +10'));
     if(q.target<=q.cap){probabilities(card,q);statTable(card,q.statsBefore,q.statsAfter);costs(card,q.cost);}

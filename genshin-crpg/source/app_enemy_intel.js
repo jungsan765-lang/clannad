@@ -49,7 +49,7 @@ const EnemyIntel={
   this.select(id,true);const info=this.cache.get(id);if(!info)return;
   if(!this.dialog){const dialog=el('dialog','enemy-intel-dialog');dialog.id='enemy-intel-dialog';dialog.setAttribute('aria-labelledby','enemy-intel-dialog-title');document.body.append(dialog);this.dialog=dialog;dialog.addEventListener('close',()=>this.restorePlayback());dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});}
   if(GameEffects.active&&!this.dialog.open){this.resumeToken={generation:GameEffects.generation,wasPaused:GameEffects.paused};GameEffects.paused=true;CombatFX.pause(true);GameEffects.reschedule();}
-  const head=el('header','intel-dialog-head'),title=el('h2','','적 기술 정보');title.id='enemy-intel-dialog-title';const close=button('닫기',()=>this.dialog.close());close.setAttribute('aria-label','적 정보 닫기');head.append(title,close);
+  const head=el('header','intel-dialog-head'),title=el('h2','','적 정보');title.id='enemy-intel-dialog-title';const close=button('닫기',()=>this.dialog.close());close.setAttribute('aria-label','적 정보 닫기');head.append(title,close);
   const content=el('div','intel-dialog-scroll');content.append(this.detail(info,{skill,replay:GameEffects.active}));this.dialog.replaceChildren(head,content);
   if(!this.dialog.open)this.dialog.showModal();close.focus({preventScroll:true});
   if(skill)requestAnimationFrame(()=>content.querySelector('[data-skill-id="'+CSS.escape(skill)+'"]')?.scrollIntoView({block:'nearest'}));
@@ -57,13 +57,6 @@ const EnemyIntel={
  restorePlayback(){const token=this.resumeToken;this.resumeToken=null;if(token&&GameEffects.active&&token.generation===GameEffects.generation&&!token.wasPaused){GameEffects.paused=false;CombatFX.pause(false);GameEffects.reschedule();}},
  attach(p){
   const stage=p.querySelector('.compact-battle-stage');if(!stage)return;stage.classList.remove('with-enemy-intel');this.panel=null;
-  const toolbar=el('div','enemy-intel-toolbar combat-info-tools');toolbar.append(button('적 기술 정보',()=>this.open()),el('small','','적 카드의 상세 설명은 필요할 때만 엽니다.'));
-  const controls=p.querySelector('.battle-command');if(controls)controls.prepend(toolbar);else p.insertBefore(toolbar,stage);
-  const recent=el('details','enemy-skill-history');recent.append(el('summary','','최근 적 기술 다시 보기'));
-  const b=game.s.runtime,entries=(b.log||[]).filter(e=>e.card&&(e.actorId?this.cache.has(e.actorId):[...this.cache.values()].some(a=>a.name===e.actor))).slice(-12).reverse();
-  if(!entries.length)recent.append(el('p','muted','아직 사용한 적 기술이 없습니다.'));
-  for(const e of entries){const id=e.actorId||[...this.cache].find(([,a])=>a.name===e.actor)?.[0];if(!id)continue;const name=e.cardName||this.cache.get(id).cards.find(c=>c.id===e.card)?.name||'기본 공격';recent.append(button('R'+e.round+' · '+this.cache.get(id).name+' — '+name+(e.charging?' 준비':e.interrupted?' 중단':''),()=>this.open(id,e.card)));}
-  p.append(recent);
  },
  hideToast(){clearTimeout(this.toastTimer);this.toast?.remove();this.toast=null;},
  showSkill(frame){
@@ -82,8 +75,7 @@ const EnemyIntel={
 };
 const intelActorRow=battleActorRow;
 battleActorRow=function(a,...args){const row=intelActorRow(a,...args);if(a.side!=='ENEMY')return row;
- const info=button('정보',()=>{EnemyIntel.select(a.id,true);if(EnemyIntel.small())EnemyIntel.open(a.id);});info.classList.add('enemy-info-button');info.setAttribute('aria-label',a.name+' 기술과 대응 정보');info.addEventListener('focus',()=>EnemyIntel.select(a.id));row.append(info);
- const name=row.querySelector('.combatant-copy strong');if(name){name.classList.add('enemy-inspect-name');name.tabIndex=0;name.setAttribute('role','button');name.setAttribute('aria-label',a.name+' 정보 열기');name.addEventListener('mouseenter',()=>EnemyIntel.select(a.id));name.addEventListener('focus',()=>EnemyIntel.select(a.id));name.addEventListener('click',()=>{EnemyIntel.select(a.id,true);EnemyIntel.open(a.id);});name.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();EnemyIntel.open(a.id);}});}
+ const info=button('정보',()=>EnemyIntel.open(a.id));info.classList.add('enemy-info-button');info.setAttribute('aria-label',a.name+' 정보 열기');row.append(info);
  if(a.enemyCharge){const cue=el('small','enemy-charge-chip','준비 중 · '+a.enemyCharge.name);row.querySelector('.combatant-copy')?.append(cue);}
  return row;
 };

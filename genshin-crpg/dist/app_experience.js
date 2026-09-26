@@ -59,10 +59,11 @@ function costBlock(card,cost){
 }
 crafting=function(p){
   const entry=placeHeader(p,'CRAFT');if(!entry)return;
+  if(presenterDB!==game.db){itemPresenter=CRPGInventoryPresenter.create(game.db,MANIFEST);presenterDB=game.db;}
   if(game.placeCanEnhance(entry))renderEnhancementPanel(p,entry);
   p.append(el('h2','','제작법'));const grid=el('div','grid');
   for(const recipe of game.placeRecipes().filter(x=>x.row[1]!=='강화'&&!/사용 금지|레거시/.test(x.row[18]||''))){
-    const r=recipe.row,c=el('section','card');c.dataset.recipeId=r[0];c.append(el('h3','',safeName(r[2]==='EQUIP'?'16_EQUIP_DB':'14_ITEM_DB',r[3])));let blocked=recipe.reason;
+    const r=recipe.row,c=el('section','card'),d=r[2]==='EQUIP'?itemPresenter.itemDetail({equip:r[3],quantity:1,enhance:0}):itemPresenter.itemDetail({item:r[3],quantity:Number(r[4])||1}),output=el('div','craft-output');c.dataset.recipeId=r[0];output.append(itemGlyph(d),el('h3','',d.name||safeName(r[2]==='EQUIP'?'16_EQUIP_DB':'14_ITEM_DB',r[3])));c.append(output);let blocked=recipe.reason;
     try{const cost=game.recipeCost(r,1),missing=costBlock(c,cost);blocked=blocked||missing;c.append(el('small','muted','제작 시간 '+r[19]));}catch(e){blocked=blocked||e.message;}
     if(recipe.stages){
       const stages=el('ol','craft-stages');stages.setAttribute('aria-label','공동 제작 준비');
