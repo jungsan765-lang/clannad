@@ -22,12 +22,12 @@ async function actionRequest(payload){
  try{return await request('/game/action',payload);}
  catch(e){if(!e.retryable)throw e;await new Promise(resolve=>setTimeout(resolve,350));return request('/game/action',payload);}
 }
-function install(out){
+function install(out,{preservePresentation=false}={}){
  checkVersion(out);
  // Construct and validate before replacing the current journey or account metadata.
  const candidate=out.state?new Runtime(DB,out.state):null;
  O.account=out.account;O.revision=out.revision||0;O.ranked=out.ranked===true;O.active=!!candidate;
- game=candidate;if(candidate){activeSaveSlot=null;applySettings();restoreUIState();}persist();return out;
+ game=candidate;if(candidate){activeSaveSlot=null;applySettings();restoreUIState({preservePresentation});}persist();return out;
 }
 O.sync=async()=>{const out=await request('/me');install(out);pendingForAccount();render();return out;};
 O.execute=async(type,params)=>{
@@ -36,7 +36,7 @@ O.execute=async(type,params)=>{
  let p=O.pending;if(p&&p.account!==O.account.id)throw Error('다른 계정의 미확정 행동이 있습니다. 해당 계정으로 로그인해 주세요.');
  if(!p){p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,type,params};savePending(p);}
  const retryingDifferent=p.type!==type||JSON.stringify(p.params)!==JSON.stringify(params);
- try{const out=await actionRequest({...p,version:MANIFEST.appVersion});install(out);savePending(null);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
+ try{const out=await actionRequest({...p,version:MANIFEST.appVersion});install(out,{preservePresentation:true});savePending(null);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
  catch(e){if(e.status&&e.status<500&&e.status!==429&&e.status!==401&&e.code!=='VERSION_MISMATCH'){savePending(null);if(e.status===409)await O.sync();}if(e.status===401){O.token='';O.active=false;persist();game=null;auth(false,true);}if(e.code==='VERSION_MISMATCH')GameVersion.check();throw e;}
 };
 const originalStore=storeSave;storeSave=function(){if(O.active){saveFailed=false;lastSaveError='';updateQuick();return Promise.resolve({revision:O.revision});}return originalStore();};
