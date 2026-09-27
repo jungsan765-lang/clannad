@@ -128,7 +128,7 @@ function startActionCover(type,params={}){
   return {plan,promise,finishServer(){serverDone=true;if(performance.now()-started>=plan.duration)finish();},abort(){if(stopped)return;stopped=true;overlay.remove();resolver();}};
 }
 function optimisticStoryPreview(type,params={}){
-  if(!window.CRPGOnline?.active||game?.s.runtime||!['STORY_NEXT','STORY_CHOICE','STORY_NAME'].includes(type))return null;
+  if(!window.CRPGOnline?.active||CRPGOnline.pending||game?.s.runtime||!['STORY_NEXT','STORY_CHOICE','STORY_NAME'].includes(type))return null;
   let before,probe,result;try{before=JSON.parse(game.serialize());probe=new Runtime(DB,before);result=probe.action(type,params);}catch{return null;}
   const a=probe.s,b=before,stable=
     a.global.PRNG_STATE===b.global.PRNG_STATE&&a.global.CURRENT_MAP_ID===b.global.CURRENT_MAP_ID&&
@@ -254,7 +254,7 @@ act=async function(type,params={}){
     if(window.CRPGOnline){
       preview=optimisticStoryPreview(type,params);
       if(preview){game=preview.probe;lastResult=preview.result;softActionPreview=true;render();}
-      else if(type==='COMBAT')GameEffects.primeCombat(type,params);
+      else if(type==='COMBAT'&&!CRPGOnline.pending)GameEffects.primeCombat(type,params);
       try{lastResult=await CRPGOnline.execute(type,params);cover?.finishServer();}
       catch(e){cover?.abort();if(preview&&!e.resolved&&e.status!==409&&e.status!==401){game=new Runtime(DB,preview.before);restoreUIState();}throw e;}
       finally{softActionPreview=false;}
