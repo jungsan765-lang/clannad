@@ -70,6 +70,8 @@ jobs:
       - name: Accounts, abyss and quest regression
         working-directory: genshin-crpg
         run: |
+          node --check source/app_av.js
+          node --check source/app_online.js
           python tools/build_server.py
           node tests/test_online_server.mjs
           node tests/test_online_title_v01344.cjs
