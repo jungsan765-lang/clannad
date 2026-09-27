@@ -18,6 +18,7 @@ on:
       - "genshin-crpg/tests/test_quality_fixes_v01337.cjs"
       - "genshin-crpg/tests/test_quality_fixes_v01338.cjs"
       - "genshin-crpg/tests/test_online_bootstrap_v01343.cjs"
+      - "genshin-crpg/tests/test_playback_v08.cjs"
       - "genshin-crpg/tests/test_online_server.mjs"
       - "genshin-crpg/tests/test_liyue_rework*.cjs"
       - ".github/workflows/crpg-sync-dist.yml"
