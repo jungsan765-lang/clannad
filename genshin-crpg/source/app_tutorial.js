@@ -8,7 +8,7 @@ const tutorialSteps=[
  {title:'장비는 장비 장착에서',target:'[data-screen="STATUS"]',text:'편성된 파티원마다 무기·방어구·장신구·특수 장비 칸이 있습니다. 칸에 마우스를 올리면 효과가 보이고, 누르면 바꿔 낄 장비와 달라지는 능력치가 나옵니다.'},
  {title:'재료가 어디 쓰이는지 궁금하다면',target:'[data-screen="INVENTORY"]',text:'아이템을 누르면 효과와 사용처가 나옵니다. 음식·성장책은 현재 파티에 사용하고, 마을에서는 재료 상세에서 맞는 제작시설로 바로 갈 수 있습니다.'},
  {title:'인물을 다시 만나는 방법',target:'[data-screen="RELATIONS"]',text:'호감도 화면에는 다음 만남 장소가 표시됩니다. 개인 임무 최초 완료는 호감도 10점, 이후 2번 자리에서 전투 승리 시 1점입니다.'},
- {title:'행동마다 자동저장됩니다',target:'[data-screen="SYSTEM"]',text:'진행은 행동마다 자동저장됩니다. 제목 화면에서 가장 최근 여정을 이어 갑니다. 계정 여정은 서버에 확정되며, 이전 지점으로 되돌리거나 백업 파일을 가져올 수 없습니다.'}
+ {title:'여정은 자동저장됩니다',target:'[data-screen="SYSTEM"]',text:'일반 대사는 읽은 위치를 묶어서 저장합니다. 선택·보상·장비·전투는 즉시 저장합니다. 제목 화면에서 가장 최근 여정을 이어 갑니다. 계정 여정은 서버에 확정되며, 이전 지점으로 되돌리거나 백업 파일을 가져올 수 없습니다.'}
 ];
 function closeTutorial(mark=true){
  document.querySelectorAll('.tutorial-target').forEach(n=>n.classList.remove('tutorial-target'));
@@ -18,7 +18,7 @@ function closeTutorial(mark=true){
 function renderTutorial(){
  if(!activeTutorial||!game)return;document.getElementById('tutorial-tour')?.remove();document.querySelectorAll('.tutorial-target').forEach(n=>n.classList.remove('tutorial-target'));
  // Resume the same guide step in free play; never obscure battle controls or scroll its stage.
- if(game.s.runtime||game.s.battlePreparation)return;
+ if(busy||game.s.runtime||game.s.battlePreparation||game.s.lifeJob||game.s.worldJob)return;
  const step=tutorialSteps[activeTutorial.index],target=document.querySelector(step.target),box=el('section','tutorial-tour');box.id='tutorial-tour';box.setAttribute('role','dialog');box.setAttribute('aria-label','게임 화면 튜토리얼');
  box.append(el('small','eyebrow','화면 안내 '+(activeTutorial.index+1)+' / '+tutorialSteps.length),el('h2','',step.title),el('p','',step.text));
  const controls=el('div','tutorial-controls');if(activeTutorial.index)controls.append(button('이전',()=>{activeTutorial.index--;renderTutorial();}));controls.append(button(activeTutorial.index===tutorialSteps.length-1?'안내 마치기':'다음',()=>{if(activeTutorial.index===tutorialSteps.length-1)closeTutorial();else{activeTutorial.index++;renderTutorial();}},false,true),button('나중에 보기',()=>closeTutorial()));box.append(controls);document.body.append(box);

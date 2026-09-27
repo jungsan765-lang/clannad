@@ -1,0 +1,373 @@
+{
+  "version": "0.13.49",
+  "baseMain": "d8fecb643bb8e7b955eba2b8ee3b3aeb0358019c",
+  "branch": "fix/nonblocking-gameplay-20260927",
+  "releaseGateCount": 29,
+  "releaseGates": [
+    {
+      "test": "tests/test_online_server.mjs",
+      "ok": true,
+      "seconds": 7.8
+    },
+    {
+      "test": "tests/test_authoritative_flow.mjs",
+      "ok": true,
+      "seconds": 5.3
+    },
+    {
+      "test": "tests/test_reading_checkpoint.mjs",
+      "ok": true,
+      "seconds": 6.9
+    },
+    {
+      "test": "tests/test_combat_catalog_online.mjs",
+      "ok": true,
+      "seconds": 5.9
+    },
+    {
+      "test": "tests/test_action_feedback.cjs",
+      "ok": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "tests/test_online_bootstrap_v01343.cjs",
+      "ok": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "tests/test_online_title_v01344.cjs",
+      "ok": false,
+      "seconds": 2.1
+    },
+    {
+      "test": "tests/test_opening.cjs",
+      "ok": true,
+      "seconds": 12.2
+    },
+    {
+      "test": "tests/test_mond_content_v01344.cjs",
+      "ok": true,
+      "seconds": 5.6
+    },
+    {
+      "test": "tests/test_mond_full_v01344.cjs",
+      "ok": true,
+      "seconds": 131.1
+    },
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "ok": true,
+      "seconds": 11.3
+    },
+    {
+      "test": "tests/test_save_revision.cjs",
+      "ok": true,
+      "seconds": 15.7
+    },
+    {
+      "test": "tests/test_work_validation.cjs",
+      "ok": true,
+      "seconds": 12.0
+    },
+    {
+      "test": "tests/test_life_ui_v010.cjs",
+      "ok": true,
+      "seconds": 5.8
+    },
+    {
+      "test": "tests/test_playback_v08.cjs",
+      "ok": true,
+      "seconds": 2.5
+    },
+    {
+      "test": "tests/test_presentation.cjs",
+      "ok": true,
+      "seconds": 1.3
+    },
+    {
+      "test": "tests/test_access_gear_v01343.cjs",
+      "ok": true,
+      "seconds": 16.9
+    },
+    {
+      "test": "tests/test_gear_ui_v01343.cjs",
+      "ok": true,
+      "seconds": 3.3
+    },
+    {
+      "test": "tests/test_quality_fixes_v01335.cjs",
+      "ok": true,
+      "seconds": 4.3
+    },
+    {
+      "test": "tests/test_quality_fixes_v01336.cjs",
+      "ok": true,
+      "seconds": 6.4
+    },
+    {
+      "test": "tests/test_quality_fixes_v01337.cjs",
+      "ok": true,
+      "seconds": 1.3
+    },
+    {
+      "test": "tests/test_quality_fixes_v01338.cjs",
+      "ok": true,
+      "seconds": 4.0
+    },
+    {
+      "test": "tests/test_liyue_rework_mechanics.cjs",
+      "ok": true,
+      "seconds": 34.4
+    },
+    {
+      "test": "tests/test_liyue_rework_flow.cjs",
+      "ok": true,
+      "seconds": 260.4
+    },
+    {
+      "test": "tools/test_field_bosses.cjs",
+      "ok": true,
+      "seconds": 20.1
+    },
+    {
+      "test": "tools/test_exclusive_weapons.cjs",
+      "ok": true,
+      "seconds": 4.8
+    },
+    {
+      "test": "tests/test_update_v01341.cjs",
+      "ok": true,
+      "seconds": 28.4
+    },
+    {
+      "test": "tests/test_abyss_v01341.cjs",
+      "ok": true,
+      "seconds": 13.6
+    },
+    {
+      "test": "tests/test_osial_v01341.cjs",
+      "ok": true,
+      "seconds": 7.4
+    }
+  ],
+  "correctedHarnessReruns": [
+    {
+      "test": "tests/test_online_title_v01344.cjs",
+      "ok": true,
+      "seconds": 3.89
+    }
+  ],
+  "harnessNote": "The title harness gained window/document addEventListener APIs; its assertions were unchanged. Obsolete source-string checks for the replaced story-preview implementation moved to executed Worker/browser checkpoint and recovery tests.",
+  "sourceBrowser": {
+    "ok": true,
+    "results": [
+      {
+        "uninterruptedStoryInputs": 5,
+        "checkpoints": 2,
+        "readDurations": [
+          141,
+          105,
+          424,
+          68,
+          102
+        ]
+      },
+      {
+        "reloadReadingOnce": true,
+        "decisionWithReadingPrefix": true
+      },
+      {
+        "storyNodes": [
+          "ISK_M01_M005",
+          "ISK_M01_M006",
+          "ISK_M01_M014",
+          "ISK_M01_A001",
+          "ISK_M01_A002",
+          "ISK_M01_AM_CUTE",
+          "ISK_M01_A003",
+          "ISK_M01_NAME_INPUT",
+          "ISK_M01_NAME_REPLY",
+          "ISK_M01_EX_RESCUE_01",
+          "ISK_M01_EX_RESCUE_02",
+          "ISK_M01_EX_RESCUE_03",
+          "ISK_M01_EX_RESCUE_04",
+          "ISK_M01_A016"
+        ]
+      },
+      {
+        "menuRequests": 0,
+        "repeatedMenuCycles": 150
+      },
+      {
+        "lostReadingResponseReloadExactlyOnce": true
+      },
+      {
+        "lostResponseExactlyOnce": true
+      },
+      {
+        "lifeElapsedOnAcknowledgement": 2074,
+        "visibleBeforeAcknowledgement": true,
+        "activityTotalMilliseconds": 10913
+      },
+      {
+        "equipmentFeedback": "장착 중…",
+        "centered": true,
+        "singleNotice": true
+      },
+      {
+        "worldWorkOverlapsSaving": true
+      },
+      {
+        "playbackHP": {
+          "outcome": "검증 · 피해 23 / 치명타 포함 / 체력 480 → 457",
+          "player": "HP  457 / 480"
+        }
+      },
+      {
+        "combatActors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "hp": "체력  457 / 480"
+          },
+          {
+            "id": "MON_HILI_FIGHTER#1",
+            "hp": "체력  144 / 144"
+          }
+        ]
+      },
+      {
+        "reconnectForfeit": true
+      }
+    ]
+  },
+  "productionBrowser": {
+    "ok": true,
+    "results": [
+      {
+        "menuDuringReadingSave": true,
+        "menuPreservedOnAcknowledgement": true
+      },
+      {
+        "uninterruptedStoryInputs": 5,
+        "checkpoints": 2,
+        "readDurations": [
+          151,
+          264,
+          73,
+          73,
+          79
+        ],
+        "presentationMilliseconds": [
+          87.10000000149012,
+          198.89999999850988,
+          35,
+          24.5,
+          28.200000002980232
+        ]
+      },
+      {
+        "reloadReadingOnce": true,
+        "decisionWithReadingPrefix": true
+      },
+      {
+        "storyNodes": [
+          "ISK_M01_M005",
+          "ISK_M01_M006",
+          "ISK_M01_M014",
+          "ISK_M01_A001",
+          "ISK_M01_A002",
+          "ISK_M01_AM_CUTE",
+          "ISK_M01_A003",
+          "ISK_M01_NAME_INPUT",
+          "ISK_M01_NAME_REPLY",
+          "ISK_M01_EX_RESCUE_01",
+          "ISK_M01_EX_RESCUE_02",
+          "ISK_M01_EX_RESCUE_03",
+          "ISK_M01_EX_RESCUE_04",
+          "ISK_M01_A016"
+        ]
+      },
+      {
+        "menuRequests": 0,
+        "repeatedMenuCycles": 150
+      },
+      {
+        "lostReadingResponseReloadExactlyOnce": true
+      },
+      {
+        "lostResponseExactlyOnce": true
+      },
+      {
+        "lifeElapsedOnAcknowledgement": 2015,
+        "visibleBeforeAcknowledgement": true,
+        "activityTotalMilliseconds": 10828
+      },
+      {
+        "equipmentFeedback": "장착 중…",
+        "centered": true,
+        "singleNotice": true
+      },
+      {
+        "worldWorkOverlapsSaving": true
+      },
+      {
+        "playbackHP": {
+          "outcome": "검증 · 피해 23 / 치명타 포함 / 체력 480 → 457",
+          "player": "HP  457 / 480"
+        }
+      },
+      {
+        "combatActors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "hp": "체력  457 / 480"
+          },
+          {
+            "id": "MON_HILI_FIGHTER#1",
+            "hp": "체력  144 / 144"
+          }
+        ]
+      },
+      {
+        "reconnectForfeit": true
+      }
+    ]
+  },
+  "productionRelease": {
+    "appVersion": "0.13.49",
+    "packVersion": "2026-09-24-08d1b829ab7a-977492e551ce"
+  },
+  "productionPublished": false,
+  "serverDatabaseMigration": false,
+  "catalogLimitations": {
+    "unimplementedEffects": 281,
+    "unexecutedConditionedCards": 19
+  },
+  "initialRemoteCI": {
+    "run": "https://github.com/jungsan765-lang/clannad/actions/runs/36319927182",
+    "sourceCommit": "dbcb02dc79f3c7b03fa20ac17c725a0da9f58ecd",
+    "status": "success",
+    "releaseGatesPassed": 29,
+    "sourceBrowser": "passed",
+    "productionBrowser": "passed"
+  },
+  "menuFollowUp": "Local MENU remains immediate during reading checkpoints. The final production browser run verifies menu preservation across both acknowledgements, and returning to the exact visible story position.",
+  "menuRemoteCI": {
+    "run": "https://github.com/jungsan765-lang/clannad/actions/runs/36320628327",
+    "sourceCommit": "9eff4df48864a84486bb78878712ca49f855b518",
+    "status": "success",
+    "releaseGatesPassed": 29,
+    "sourceBrowser": "passed",
+    "productionBrowser": "passed"
+  },
+  "finalPresentationFollowUp": "Retained the existing 160ms impact boundary and shared that duration with both windup animations so trails reach their target before being cleared. All 11 playback assertions, including every multi-hit HP update, pass with their original expected HP and timing; added an assertion against cancelling windup early. Final source/build/browser verification runs again on the follow-up commit.",
+  "productionBrowserTestedCommit": "8cc16bfb8cbd91d0356f2a013333bdc164c60d5f",
+  "caughtRegression": {
+    "run": "https://github.com/jungsan765-lang/clannad/actions/runs/36321195748",
+    "failedGate": "tests/test_playback_v08.cjs",
+    "passedGates": 28,
+    "cause": "260ms beat delayed the existing 160ms impact boundary",
+    "resolution": "Restore impact timing and finish actual windup within the shared 160ms duration",
+    "localPlaybackTestsPassed": 11
+  }
+}

@@ -1,20 +1,27 @@
 /* Geometric light, trails and rings describe combat actions; no game state writes. */
 const CombatFX={
  animations:new Set(),
+ windupDuration:160,
  clear(){for(const a of this.animations)a.cancel();this.animations.clear();},
  pause(paused){for(const a of this.animations)paused?a.pause():a.play();},
  animate(node,frames,options){if(!node?.animate)return;const a=node.animate(frames,{...options,duration:options.duration/(settings.combatSpeed||1)});this.animations.add(a);a.finished.then(()=>this.animations.delete(a),()=>this.animations.delete(a));return a;},
  point(node){const r=node?.getBoundingClientRect();return r&&r.bottom>90&&r.top<innerHeight-200?{x:r.left+r.width/2,y:r.top+r.height/2}:null;},
  mote(layer,cls,p){const n=el('span','combat-light '+cls);n.style.left=p.x+'px';n.style.top=p.y+'px';layer.append(n);return n;},
+ anticipate(frame,effects){
+  this.clear();const actor=effects.actorNode(frame.actorId);actor?.classList.add('acting');
+  if(settings.reducedMotion)return;
+  // Hold a living preparation pose; launch the attack only once its result is acknowledged.
+  this.animate(actor,[{filter:'brightness(1)',transform:'translateX(0)'},{filter:'brightness(1.35)',transform:'translateX(3px)'},{filter:'brightness(1)',transform:'translateX(0)'}],{duration:900,iterations:Infinity,easing:'ease-in-out'});
+ },
  windup(frame,effects){
   effects.layerNode().replaceChildren();this.clear();if(frame.kind!=='action')return;
   const auxiliary=frame.periodic||frame.events.every(e=>(e.sourceKind&&e.sourceKind!=='JOINT_ATTACK')||e.kind==='reaction');
   if(effects.dock){effects.dock.querySelector('.playback-message').textContent=[frame.actor,frame.cardName||'행동',auxiliary?'효과 발동':'준비'].filter(Boolean).join(' · ');effects.dock.querySelector('.playback-outcomes').replaceChildren();}
   if(settings.reducedMotion)return;
   const actor=effects.actorNode(frame.actorId),from=this.point(actor),layer=effects.layerNode();
-  if(actor&&!auxiliary){const direction=actor.dataset.side==='ENEMY'?-1:1;this.animate(actor,[{transform:'translateX(0)'},{transform:'translateX('+direction*9+'px)',filter:'brightness(1.5)'}],{duration:260,fill:'forwards',easing:'ease-in'});}
+  if(actor&&!auxiliary){const direction=actor.dataset.side==='ENEMY'?-1:1;this.animate(actor,[{transform:'translateX(0)'},{transform:'translateX('+direction*9+'px)',filter:'brightness(1.5)'}],{duration:this.windupDuration,fill:'forwards',easing:'ease-in'});}
   for(const t of frame.targets){const target=this.point(effects.actorNode(t.targetId));if(!target||!from||t.targetId===frame.actorId||auxiliary)continue;const e=t.events.find(e=>e.kind==='damage')||t.events[0],element=e?.element||'hit',p=this.mote(layer,'cast-trail effect-'+element,from),dx=target.x-from.x,dy=target.y-from.y,angle=Math.atan2(dy,dx)*180/Math.PI;
-   this.animate(p,[{transform:'translate(-50%,-50%) rotate('+angle+'deg) scaleX(.3)',opacity:0},{offset:.2,opacity:1},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+angle+'deg) scaleX(1)',opacity:1}],{duration:260,fill:'forwards',easing:'ease-in'});
+   this.animate(p,[{transform:'translate(-50%,-50%) rotate('+angle+'deg) scaleX(.3)',opacity:0},{offset:.2,opacity:1},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+angle+'deg) scaleX(1)',opacity:1}],{duration:this.windupDuration,fill:'forwards',easing:'ease-in'});
   }
  },
  impact(frame,effects){

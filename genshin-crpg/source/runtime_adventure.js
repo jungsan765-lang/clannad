@@ -35,7 +35,7 @@
  };
  P.startLife=function(kind){
   const reason=this.actionReason('LIFE_START',{kind});if(reason)fail('LIFE',reason);
-  const g=this.s.global;this.s.lifeJob={id:g.SAVE_ID+':L'+(g.LAST_COMMITTED_ACTION_SEQ+1),kind,map:g.CURRENT_MAP_ID,day:g.WORLD_DAY,startedAt:Date.now(),duration:10000};g.SCREEN_MODE='LOCATION';return copy(this.s.lifeJob);
+  const g=this.s.global;this.s.lifeJob={id:g.SAVE_ID+':L'+(g.LAST_COMMITTED_ACTION_SEQ+1),kind,map:g.CURRENT_MAP_ID,day:g.WORLD_DAY,startedAt:this.actionStartedAt??Date.now(),duration:10000};g.SCREEN_MODE='LOCATION';return copy(this.s.lifeJob);
  };
  P.finishLife=function(id){
   const job=this.s.lifeJob,reason=this.actionReason('LIFE_FINISH',{job:id});if(reason)fail('LIFE',reason);
