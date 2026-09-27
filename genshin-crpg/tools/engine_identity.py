@@ -1,6 +1,6 @@
 """Identify authoritative rules independently of UI release numbers.
 
-Changing a runtime module, runtime load order or cleaned content requires a Worker
+Changing Worker endpoints, runtime modules, load order or cleaned content requires a Worker
 update. App UI and art changes keep the existing server compatible.
 """
 import hashlib, json, re
@@ -14,5 +14,6 @@ def engine_fingerprint(root, data):
     digest=hashlib.sha256(b'crpg-conversation-protocol-2\0')
     for name in runtime_files(root):
         digest.update(name.encode()+b'\0'+(root/'source'/name).read_bytes()+b'\0')
+    digest.update(b'server/worker.mjs\0'+(root/'server/worker.mjs').read_bytes()+b'\0')
     digest.update(json.dumps(data,ensure_ascii=False,separators=(',',':')).encode())
     return 'engine2-'+digest.hexdigest()
