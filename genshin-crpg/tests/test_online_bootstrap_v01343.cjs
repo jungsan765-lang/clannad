@@ -16,4 +16,7 @@ assert(!online.includes('await localBegin(name,route)'),'logged-out begin must n
 assert(online.includes("if(!O.account||!O.token){game=null;O.active=false;persist();auth(false,true);return;}"),'begin/load guards must require an authenticated account');
 assert(online.includes("busy||!loggedIn"),'title Game Start must stay disabled while logged out');
 assert(online.includes("if(!O.token||!O.account){game=null;O.active=false;activeSaveSlot=null;}"),'logged-out boot must discard any in-memory local journey');
-console.log('PASS production signup stays connected and gameplay requires login before start');
+assert(online.includes("retryable:e.name!=='AbortError'"),'transport failures must distinguish safe immediate retries from timeouts');
+assert(online.includes('async function actionRequest(payload)'), 'game actions must have an idempotent retry helper');
+assert(online.includes("return request('/game/action',payload)"), 'action retry must reuse the exact same payload and requestId');
+console.log('PASS production signup stays connected, login gates gameplay, and transient actions retry idempotently');
