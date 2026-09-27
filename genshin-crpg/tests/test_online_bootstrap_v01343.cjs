@@ -25,4 +25,6 @@ assert(av.includes('function optimisticStoryPreview(type,params={})'),'pure stor
 assert(av.includes("if(type==='COMBAT'&&!CRPGOnline.pending)GameEffects.primeCombat(type,params)"),'combat must begin visible windup while a fresh server action is being confirmed');
 assert(av.includes("index*32/(settings.combatSpeed||1)"),'multi-hit playback must use rapid per-hit spacing');
 assert(av.includes("preview&&!e.resolved&&e.status!==409&&e.status!==401"),'optimistic story rollback must never overwrite an authoritative retry/sync/login result');
+assert(av.includes("preservePresentation=false"),'presentation restore hook must support same-action commits without resetting playback');
+assert(online.includes("install(out,{preservePresentation:true})"),'online action commits must preserve current audio/combat presentation');
 console.log('PASS production signup, login gate, retry, responsive autosave cover and combat playback wiring');
