@@ -1,0 +1,15 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..');
+const config=fs.readFileSync(path.join(root,'source/online_config.js'),'utf8');
+const online=fs.readFileSync(path.join(root,'source/app_online.js'),'utf8');
+const sw=fs.readFileSync(path.join(root,'source/sw.js'),'utf8');
+const html=fs.readFileSync(path.join(root,'source/index.html'),'utf8');
+const api='https://genshin-crpg-online.jungsan765.workers.dev';
+assert(config.includes(api),'production API URL missing from online_config.js');
+assert(online.includes("productionApi='"+api+"'"),'production fallback API missing from app_online.js');
+assert(online.includes("configuredApi||(!isLocal?productionApi:'')"),'production fallback is not wired into base resolution');
+assert(sw.includes("new URL('online_config.js',scopeURL).pathname"),'service worker does not special-case online_config.js');
+assert(sw.includes("fetch(event.request,{cache:'no-store'})"),'online config is not fetched outside stale cache');
+assert(html.indexOf('online_config.js')<html.indexOf('app_online.js'),'online config must load before online account UI');
+console.log('PASS production signup keeps a live Worker fallback and refreshes online_config outside stale cache');
