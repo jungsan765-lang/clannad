@@ -13,11 +13,15 @@ async function request(path,data){
  if(!base)throw Error('계정 서버에 연결할 수 없습니다. 잠시 뒤 다시 시도해 주세요.');
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);let res;
  try{res=await fetch(base+path,{method:data===undefined?'GET':'POST',headers:{'Content-Type':'application/json',...(O.token?{Authorization:'Bearer '+O.token}:{})},...(data===undefined?{}:{body:JSON.stringify(data)}),cache:'no-store',signal:controller.signal});}
- catch(e){throw Error(e.name==='AbortError'?'서버 응답이 늦어지고 있습니다. 진행 기록은 유지됩니다. 다시 연결해 주세요.':'서버와 연결하지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요.');}finally{clearTimeout(timer);}
+ catch(e){throw Object.assign(Error(e.name==='AbortError'?'서버 응답이 늦어지고 있습니다. 진행 기록은 유지됩니다. 다시 연결해 주세요.':'서버와 연결하지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요.'),{transient:true,retryable:e.name!=='AbortError'});}finally{clearTimeout(timer);}
  let out;try{out=await res.json();}catch{throw Error('계정 서버 응답을 확인하지 못했습니다. 연결 후 다시 시도해 주세요.');}
  if(!res.ok)throw Object.assign(Error(out.error||'요청을 완료하지 못했습니다.'),{status:res.status,code:out.code,version:out.version});return out;
 }
 function checkVersion(out){if(out.version&&out.version!==MANIFEST.appVersion)throw Object.assign(Error('게임 업데이트를 맞추고 있습니다. 저장 기록은 유지됩니다. 화면 아래 버전 버튼에서 업데이트를 확인해 주세요.'),{code:'VERSION_MISMATCH',version:out.version});}
+async function actionRequest(payload){
+ try{return await request('/game/action',payload);}
+ catch(e){if(!e.retryable)throw e;await new Promise(resolve=>setTimeout(resolve,350));return request('/game/action',payload);}
+}
 function install(out){
  checkVersion(out);
  // Construct and validate before replacing the current journey or account metadata.
@@ -32,7 +36,7 @@ O.execute=async(type,params)=>{
  let p=O.pending;if(p&&p.account!==O.account.id)throw Error('다른 계정의 미확정 행동이 있습니다. 해당 계정으로 로그인해 주세요.');
  if(!p){p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,type,params};savePending(p);}
  const retryingDifferent=p.type!==type||JSON.stringify(p.params)!==JSON.stringify(params);
- try{const out=await request('/game/action',{...p,version:MANIFEST.appVersion});install(out);savePending(null);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
+ try{const out=await actionRequest({...p,version:MANIFEST.appVersion});install(out);savePending(null);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
  catch(e){if(e.status&&e.status<500&&e.status!==429&&e.status!==401&&e.code!=='VERSION_MISMATCH'){savePending(null);if(e.status===409)await O.sync();}if(e.status===401){O.token='';O.active=false;persist();game=null;auth(false,true);}if(e.code==='VERSION_MISMATCH')GameVersion.check();throw e;}
 };
 const originalStore=storeSave;storeSave=function(){if(O.active){saveFailed=false;lastSaveError='';updateQuick();return Promise.resolve({revision:O.revision});}return originalStore();};
