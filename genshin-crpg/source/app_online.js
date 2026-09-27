@@ -107,7 +107,7 @@ async function startGame(){
  await safely(async()=>{
   sceneHistory.length=0;const out=await O.sync();
   if(O.active&&O.pending)await O.execute(O.pending.type,O.pending.params);
-  if(O.active&&game?.s.runtime){const result=await O.execute('COMBAT_FORFEIT',{reason:'SESSION_RESUME'});abandoned=result?.victory===false;}
+  if(O.active&&game?.s.runtime){const receipt=await O.execute('COMBAT_FORFEIT',{reason:'SESSION_RESUME'});abandoned=receipt?.result?.victory===false&&receipt?.result?.abandoned===true;}
   if(!out.state)newJourney();
  });
  if(abandoned)say('전투 중 새로고침·브라우저 종료·다른 기기 재접속이 확인되어 해당 전투는 패배 처리되었습니다.');
