@@ -64,12 +64,12 @@ async function route(request,env){
   const isDebug=b.type==='OPERATOR_DEBUG';if(!ALLOWED.has(b.type)&&!isDebug)throw error(400,'지원하지 않는 게임 행동입니다.');if(isDebug&&!admin(env,account.id))throw error(403,'운영자 전용 기능입니다.');
   let r;try{r=takeRuntime(account,row);}catch{throw error(503,'저장 기록을 새 버전에서 여는 데 문제가 있습니다. 원본은 보존되어 있습니다. 운영자에게 알려 주세요.','SAVE_COMPATIBILITY');}
   r.serverAdmin=isDebug;const params={...(b.params||{})};for(const key of ['type','id','revision','__proto__','constructor','prototype'])delete params[key];const result=r.action(b.type,params);const state=JSON.stringify(compact(r.s));if(encoder.encode(state).length>1900000)throw error(507,'저장 크기 한도에 도달했습니다. 운영자에게 문의해 주세요.');
-  const next={state,revision:row.revision+1,ranked:isDebug?0:row.ranked},output=responseGame(next,account,env,result,r.s),outputText=JSON.stringify(output);
+  const next={state,revision:row.revision+1,ranked:isDebug?0:row.ranked},output=responseGame(next,account,env,result,r.s),outputText=JSON.stringify(output),receiptText=JSON.stringify({result});
   await ensureBackups(env.DB);
   const statements=[
    env.DB.prepare('INSERT OR IGNORE INTO game_backups SELECT account_id,revision,state,?,? FROM games WHERE account_id=? AND revision=?').bind(ENGINE_VERSION,now(),account.id,row.revision),
    env.DB.prepare('UPDATE games SET state=?,revision=?,last_request_id=?,ranked=?,updated_at=? WHERE account_id=? AND revision=?').bind(state,next.revision,b.requestId,next.ranked,now(),account.id,row.revision),
-   env.DB.prepare('INSERT INTO receipts SELECT account_id,?,revision,?,? FROM games WHERE account_id=? AND revision=? AND last_request_id=?').bind(b.requestId,outputText,now(),account.id,next.revision,b.requestId)
+   env.DB.prepare('INSERT INTO receipts SELECT account_id,?,revision,?,? FROM games WHERE account_id=? AND revision=? AND last_request_id=?').bind(b.requestId,receiptText,now(),account.id,next.revision,b.requestId)
   ],ranking=scoreStatement(env,account,next,b.requestId,r.s.abyss);if(ranking)statements.push(ranking);
   const batch=await env.DB.batch(statements);
   if(!batch[1].meta.changes)throw error(409,'다른 화면에서 먼저 진행되었습니다. 최신 자동저장을 이어 받아 주세요.');
