@@ -42,7 +42,7 @@ let worldUITimer=null;
 function updateWorldUI(){
  clearTimeout(worldUITimer);document.getElementById('world-work-status')?.remove();const job=game?.s.worldJob;if(!job)return;
  const box=el('section','life-work-status world-work-status');box.id='world-work-status';box.setAttribute('role','status');const bar=el('progress'),label=el('span');bar.max=job.duration;bar.setAttribute('aria-label',job.label+' 진행');box.append(el('strong','',job.label),bar,label,actionButton('작업 취소','WORLD_WORK_CANCEL'));document.querySelector('.content')?.prepend(box);
- const tick=()=>{if(!game?.s.worldJob||game.s.worldJob.id!==job.id)return;const elapsed=Math.max(0,Date.now()-job.startedAt);bar.value=Math.min(elapsed,job.duration);label.textContent=Math.max(0,Math.ceil((job.duration-elapsed)/1000))+'초 남음';if(elapsed>=job.duration&&!busy){act('WORLD_WORK_FINISH',{job:job.id});return;}worldUITimer=setTimeout(tick,100);};tick();
+ const tick=()=>{if(!game?.s.worldJob||game.s.worldJob.id!==job.id)return;const elapsed=Math.max(0,(globalThis.CRPGOnline?.active?CRPGOnline.now():Date.now())-job.startedAt);bar.value=Math.min(elapsed,job.duration);label.textContent=Math.max(0,Math.ceil((job.duration-elapsed)/1000))+'초 남음';if(elapsed>=job.duration&&!busy){act('WORLD_WORK_FINISH',{job:job.id});return;}worldUITimer=setTimeout(tick,100);};tick();
 }
 const journeyRender=render;
 render=function(){journeyRender();updateWorldUI();};
