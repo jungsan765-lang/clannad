@@ -2,7 +2,7 @@
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('node:assert/strict'),crypto=require('crypto');
 const gameRoot=process.env.CRPG_GAME||(fs.existsSync(path.join(__dirname,'../source/runtime.js'))?path.resolve(__dirname,'..'):path.resolve(__dirname,'../../game'));
 const source=process.env.CRPG_SOURCE||path.join(gameRoot,'source'),db=JSON.parse(fs.readFileSync(process.env.CRPG_DB||path.join(gameRoot,'content/db.json'))),results=[];
-const modules=[...fs.readFileSync(path.join(source,'index.html'),'utf8').matchAll(/<script src="([^"]+)"/g)].map(x=>x[1]).filter(x=>(x.startsWith('runtime')||x==='save_adapter.js'||x==='presentation.js')&&fs.existsSync(path.join(source,x)));
+const modules=[...fs.readFileSync(path.join(source,'index.html'),'utf8').matchAll(/<script src="([^"]+)"/g)].map(x=>x[1]).filter(x=>(x==='world_content.js'||x.startsWith('runtime')||x==='save_adapter.js'||x==='presentation.js')&&fs.existsSync(path.join(source,x)));
 const candidatePath=process.env.CRPG_OPENING||(fs.existsSync(path.join(__dirname,'runtime_opening.js'))?path.join(__dirname,'runtime_opening.js'):path.join(source,'runtime_opening.js'));
 const sourceCode=modules.map(name=>[name,fs.readFileSync(path.join(source,name),'utf8')]),candidate=fs.readFileSync(candidatePath,'utf8');
 let skew=0;// lets a test skip the 60 second defeat lock without waiting
