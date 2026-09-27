@@ -35,5 +35,8 @@ setup=function(){const wrap=el('section','online-hub');wrap.append(el('div','eye
 const onlineQuick=updateQuick;updateQuick=function(){onlineQuick();for(const b of document.querySelectorAll('#quick-actions button'))if(b.textContent==='저장')b.textContent='자동저장·계정';};
 system=function(p){p.append(el('h1','','자동저장·계정'),el('p','',O.active?'모든 행동이 서버에 확정된 뒤 진행됩니다.':'모든 행동이 이 기기에 자동저장됩니다. 공식 랭킹은 계정 여정에서 이용할 수 있습니다.'));p.append(button('제목 화면',fresh),button('상위 20위',ranking),button(O.account?'계정 관리':'로그인',()=>O.account?accountPanel():auth()));if(O.active)p.append(button('서버 기록 동기화',()=>safely(async()=>{if(O.pending)await O.execute(O.pending.type,O.pending.params);else await O.sync();})));if(game.localTest||O.active&&O.account?.admin)p.append(button('운영자 디버그',debug));p.append(el('h2','','표시 설정'));settingsControls(p);};
 const side=sidebar;sidebar=function(...args){const out=side(...args),nav=out.querySelector('nav');const sys=out.querySelector('[data-screen="SYSTEM"]');if(sys)sys.lastChild.textContent='자동저장·계정';nav?.append(button('나선비경',abyss,!!game.s.runtime));if(game.localTest||O.active&&O.account?.admin)nav?.append(button('디버그',debug));return out;};
+// Cached scripts can finish after the asynchronous save-store boot has rendered.
+// Refresh once all final hub overrides are installed, regardless of that ordering.
+render();
 if(new URLSearchParams(location.search).get('view')==='ranking')ranking();
 })();
