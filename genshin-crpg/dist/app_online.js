@@ -33,7 +33,7 @@ function install(out,{preservePresentation=false}={}){
  game=candidate;if(candidate){activeSaveSlot=null;applySettings();restoreUIState({preservePresentation});}persist();return out;
 }
 O.sync=async()=>{const out=await request('/me');install(out);pendingForAccount();render();return out;};
-function localAction(type,params={}){if(type!=='MENU')throw Error('저장하지 않는 화면 행동이 정의되지 않았습니다.');const reason=game.actionReason(type,params);if(reason)throw Error(reason);game.menu(params.screen);return {ok:true,local:true,screen:game.s.global.SCREEN_MODE};}
+function localAction(type,params={}){if(type!=='MENU')throw Error('저장하지 않는 화면 행동이 정의되지 않았습니다.');const reason=game.actionReason(type,params);if(reason)throw Error(reason);game.apply({type:'MENU',screen:params.screen});return {ok:true,local:true,screen:game.s.global.SCREEN_MODE};}
 function restoreLocalScreen(screen,type){if(!KEEP_LOCAL_SCREEN_AFTER_COMMIT.has(type)||!screen||!game)return;try{if(!game.actionReason('MENU',{screen}))game.menu(screen);}catch{}}
 O.execute=async(type,params)=>{
  if(!O.token||!O.account){game=null;O.active=false;persist();throw Error('로그인 후 게임을 시작해 주세요.');}
@@ -41,7 +41,7 @@ O.execute=async(type,params)=>{
  if(LOCAL_ONLY_ACTIONS.has(type)){if(O.pending)throw Error('이전 진행의 저장 확인을 먼저 마쳐 주세요.');return localAction(type,params);}
  const localScreen=game.s.global.SCREEN_MODE;
  let p=O.pending;if(p&&p.account!==O.account.id)throw Error('다른 계정의 미확정 행동이 있습니다. 해당 계정으로 로그인해 주세요.');
- if(!p){p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,type,params};savePending(p);}
+ if(!p){p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,uiScreen:localScreen,type,params};savePending(p);}
  const retryingDifferent=p.type!==type||JSON.stringify(p.params)!==JSON.stringify(params);
  try{const out=await actionRequest({...p,version:MANIFEST.appVersion});install(out,{preservePresentation:true});savePending(null);restoreLocalScreen(localScreen,type);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
  catch(e){if(e.status&&e.status<500&&e.status!==429&&e.status!==401&&e.code!=='VERSION_MISMATCH'){savePending(null);if(e.status===409)await O.sync();}if(e.status===401){O.token='';O.active=false;persist();game=null;auth(false,true);}if(e.code==='VERSION_MISMATCH')GameVersion.check();throw e;}
