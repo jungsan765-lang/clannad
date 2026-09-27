@@ -45,7 +45,7 @@ async function safely(task){if(busy)return;busy=true;render();try{await task();s
 function auth(signup=false,startAfter=false){
  const p=el('form','account-form'),banner=el('div','account-banner'),img=el('img');img.src=assetPath('bg_mondstadt_windrise_day.png')||assetPath('bg_mondstadt_city_day.png');img.alt='';banner.append(img,el('span','','✦  '+(signup?'새로운 인연의 시작':'다시, 모험 속으로')));p.append(banner);
  p.append(el('p','account-intro',signup?'당신의 여정을 담을 계정을 만드세요. 외부 인증은 필요하지 않습니다.':'아이디와 비밀번호를 입력하고, 함께하던 여정을 이어가세요.'));
- if(!base)p.append(el('p','account-service-note','계정 서비스 준비 중입니다. 기기 여정은 지금 바로 플레이할 수 있습니다.'));
+ if(!base)p.append(el('p','account-service-note','계정 서버에 연결해야 로그인하고 게임을 시작할 수 있습니다.'));
  const u=field(p,'아이디'),pw=field(p,'비밀번호','password');u.autocomplete='username';u.autocapitalize='none';u.spellcheck=false;u.minLength=3;u.maxLength=24;u.required=true;u.placeholder='아이디를 입력하세요';pw.autocomplete=signup?'new-password':'current-password';pw.minLength=8;pw.maxLength=128;pw.required=true;pw.placeholder=signup?'8자 이상 입력하세요':'비밀번호를 입력하세요';
  const confirm=signup?field(p,'비밀번호 확인','password'):null;if(confirm){confirm.autocomplete='new-password';confirm.required=true;confirm.placeholder='비밀번호를 한 번 더 입력하세요';}
  const status=el('p','account-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');p.append(status);
