@@ -1,0 +1,365 @@
+{
+  "version": "0.13.45",
+  "runtimeDir": "source",
+  "scope": "Liyue district roles, region board, Traveler Geo resonance, Geo oculus trails",
+  "checks": [
+    {
+      "name": "every Liyue Harbor district and Wangshu Inn now lists its own places; the centre keeps guild, goods, gear and lodging",
+      "passed": true,
+      "evidence": {
+        "MAP_LIYUE_HARBOR": [
+          "EVT_CRPG_LIYUE_GUILD",
+          "EVT_SCHEDULE_MRC_BLACKSMITH_COMMON",
+          "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+          "EVT_SCHEDULE_MRC_LIYUE_GENERAL",
+          "EVT_SCHEDULE_MRC_LIYUE_INN"
+        ],
+        "MAP_LY_DETAIL_FEIYUN": [
+          "EVT_CRPG_LIYUE_BUBU",
+          "EVT_CRPG_LIYUE_FEIYUN",
+          "EVT_CRPG_LIYUE_NORTHLAND"
+        ],
+        "MAP_LY_DETAIL_YUJING": [
+          "EVT_CRPG_LIYUE_YUJING"
+        ],
+        "MAP_LY_DETAIL_CHIHU": [
+          "EVT_CRPG_LIYUE_HEYU",
+          "EVT_CRPG_LIYUE_WANMIN",
+          "EVT_CRPG_LIYUE_YANSHANG",
+          "EVT_SCHEDULE_SERVICE_LIYUE_COOK"
+        ],
+        "MAP_LY_DETAIL_WHARF": [
+          "EVT_CRPG_LIYUE_DOCKS",
+          "EVT_SCHEDULE_SERVICE_LIYUE_SUPPLY"
+        ],
+        "MAP_LY_DETAIL_NORTH_GATE": [
+          "EVT_CRPG_LIYUE_ARTISAN",
+          "EVT_CRPG_LIYUE_WANGSHENG"
+        ],
+        "MAP_LY_DETAIL_WANGSHU": [
+          "EVT_CRPG_LIYUE_WANGSHU_DINING",
+          "EVT_CRPG_LIYUE_WANGSHU_INN"
+        ]
+      }
+    },
+    {
+      "name": "roles are divided, not copied: each service merchant stands in exactly one Liyue place",
+      "passed": true,
+      "evidence": {
+        "MRC_LIYUE_GENERAL": 1,
+        "MRC_BLACKSMITH_COMMON": 1,
+        "MRC_LIYUE_EQUIP": 1,
+        "MRC_LIYUE_INN": 1,
+        "MRC_ALCHEMY_COMMON": 1,
+        "MRC_LIYUE_WANMIN": 1,
+        "MRC_LIYUE_WANGSHU_INN": 1,
+        "MRC_LIYUE_WANGSHU_DINING": 1
+      }
+    },
+    {
+      "name": "Wanmin sells meals, the Chihu kitchen cooks and Bubu keeps the full alchemy counter",
+      "passed": true,
+      "evidence": {
+        "menu": [
+          "FOOD_TEA_BREAK_PANCAKE",
+          "FOOD_MATSUTAKE_ROLL",
+          "FOOD_UNIVERSAL_PEACE",
+          "FOOD_JADE_PARCELS"
+        ],
+        "cooking": 32,
+        "alchemy": [
+          "REC_ALCH_HEALING_POTION",
+          "REC_MEDICAL_MEDKIT",
+          "REC_SPECIAL_LENS",
+          "REC_TACTICAL_ELEMENT_CONVERTER"
+        ]
+      }
+    },
+    {
+      "name": "Wangshu Inn rests the party for 150 Mora and its dining room serves meals",
+      "passed": true,
+      "evidence": {
+        "rested": true
+      }
+    },
+    {
+      "name": "introductions stand in their district: Xiangling at Wanmin only, Zhongli at Wangsheng, Xiao also at Wangshu Inn",
+      "passed": true,
+      "evidence": {
+        "xiangling": [
+          "EVT_CRPG_LIYUE_WANMIN@MAP_LY_DETAIL_CHIHU"
+        ],
+        "xiao": [
+          "EVT_CRPG_LIYUE_JUEYUN_CONTACT@MAP_LIYUE_JUEYUN",
+          "EVT_CRPG_LIYUE_WANGSHU_INN@MAP_LY_DETAIL_WANGSHU"
+        ]
+      }
+    },
+    {
+      "name": "the Isekai harbor restriction covers the districts exactly like the centre",
+      "passed": true,
+      "evidence": {
+        "ok": true
+      }
+    },
+    {
+      "name": "saves made inside the old centre facilities load and simply leave the moved place",
+      "passed": true,
+      "evidence": {
+        "cases": [
+          "EVT_CRPG_LIYUE_WANMIN",
+          "EVT_CRPG_LIYUE_BUBU",
+          "EVT_SCHEDULE_MRC_ALCHEMY_COMMON",
+          "EVT_SCHEDULE_SERVICE_LIYUE_COOK",
+          "EVT_CRPG_LIYUE_DOCKS"
+        ]
+      }
+    },
+    {
+      "name": "every Liyue encounter map has a board built from its live pools",
+      "passed": true,
+      "evidence": {
+        "maps": 23
+      }
+    },
+    {
+      "name": "board reward ranges contain what a real battle pays on that map",
+      "passed": true,
+      "evidence": [
+        {
+          "map": "MAP_LY_DETAIL_DIHUA",
+          "group": "EG_LIYUE_LOCAL_LY_DETAIL_DIHUA_1",
+          "xp": 36,
+          "range": [
+            36,
+            48
+          ],
+          "mora": 13
+        },
+        {
+          "map": "MAP_LY_DETAIL_DIHUA",
+          "group": "EG_LIYUE_LOCAL_LY_DETAIL_DIHUA_2",
+          "xp": 36,
+          "range": [
+            36,
+            48
+          ],
+          "mora": 13
+        },
+        {
+          "map": "MAP_LY_DETAIL_DIHUA",
+          "group": "EG_LIYUE_LOCAL_LY_DETAIL_DIHUA_3",
+          "xp": 36,
+          "range": [
+            36,
+            48
+          ],
+          "mora": 13
+        },
+        {
+          "map": "MAP_LY_DETAIL_DIHUA",
+          "group": "EG_LIYUE_LOCAL_LY_DETAIL_DIHUA_4",
+          "xp": 36,
+          "range": [
+            36,
+            48
+          ],
+          "mora": 13
+        },
+        {
+          "map": "MAP_LY_DETAIL_HULAO",
+          "group": "EG_LIYUE_LOCAL_LY_DETAIL_HULAO_1",
+          "xp": 48,
+          "range": [
+            48,
+            60
+          ],
+          "mora": 17
+        },
+        {
+          "map": "MAP_LY_DETAIL_HULAO",
+          "group": "EG_LIYUE_LOCAL_LY_DETAIL_HULAO_2",
+          "xp": 144,
+          "range": [
+            144,
+            180
+          ],
+          "mora": 23
+        },
+        {
+          "map": "MAP_LY_DETAIL_HULAO",
+          "group": "EG_LIYUE_LOCAL_LY_DETAIL_HULAO_3",
+          "xp": 48,
+          "range": [
+            48,
+            60
+          ],
+          "mora": 17
+        },
+        {
+          "map": "MAP_LY_DETAIL_HULAO",
+          "group": "EG_LIYUE_LOCAL_LY_DETAIL_HULAO_4",
+          "xp": 144,
+          "range": [
+            144,
+            180
+          ],
+          "mora": 23
+        },
+        {
+          "map": "MAP_CHASM_DEEP",
+          "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+          "xp": 216,
+          "range": [
+            216,
+            252
+          ],
+          "mora": 39
+        },
+        {
+          "map": "MAP_CHASM_DEEP",
+          "group": "EG_LIYUE_LOCAL_CHASM_DEEP_2",
+          "xp": 216,
+          "range": [
+            216,
+            252
+          ],
+          "mora": 39
+        },
+        {
+          "map": "MAP_CHASM_DEEP",
+          "group": "EG_LIYUE_LOCAL_CHASM_DEEP_3",
+          "xp": 432,
+          "range": [
+            432,
+            504
+          ],
+          "mora": 50
+        },
+        {
+          "map": "MAP_CHASM_DEEP",
+          "group": "EG_LIYUE_LOCAL_CHASM_DEEP_4",
+          "xp": 216,
+          "range": [
+            216,
+            252
+          ],
+          "mora": 39
+        }
+      ]
+    },
+    {
+      "name": "low-level warning, over-level tier chances and the local field boss are shown",
+      "passed": true,
+      "evidence": {
+        "low": "최고 위험",
+        "tiers": [
+          {
+            "enhanced": 12,
+            "strongElite": 10,
+            "danger": 0
+          },
+          {
+            "enhanced": 45,
+            "strongElite": 45,
+            "danger": 5
+          }
+        ]
+      }
+    },
+    {
+      "name": "Geo resonance at the Liyue statue swaps the Traveler E/Q and is saved",
+      "passed": true,
+      "evidence": {
+        "cards": [
+          "PLAYER_BASIC_ATTACK",
+          "PLAYER_BASIC_GUARD",
+          "PLAYER_TRAVELER_GEO_E",
+          "PLAYER_TRAVELER_GEO_Q"
+        ]
+      }
+    },
+    {
+      "name": "the Mond statue switches back to Anemo and Liyue switches again without a second receipt",
+      "passed": true,
+      "evidence": {
+        "unlocked": [
+          "ANEMO",
+          "GEO"
+        ]
+      }
+    },
+    {
+      "name": "Isekai protagonist and a Traveler without Anemo cannot resonate; Isekai skills stay separate",
+      "passed": true,
+      "evidence": {
+        "isekai": [
+          "PLAYER_ISEKAI_E",
+          "PLAYER_ISEKAI_Q"
+        ]
+      }
+    },
+    {
+      "name": "Starfell Sword and Wake of Earth fight with Geo damage, a meteor shield and cooldowns",
+      "passed": true,
+      "evidence": {
+        "log": 6
+      }
+    },
+    {
+      "name": "tampered element records are rejected on load",
+      "passed": true,
+      "evidence": {
+        "ok": true
+      }
+    },
+    {
+      "name": "eleven clues are investigated at their detail place; the old region map points there",
+      "passed": true,
+      "evidence": {
+        "GEO_HARBOR_CRATES": "MAP_LY_DETAIL_WHARF",
+        "GEO_HARBOR_SEALED": "MAP_LY_DETAIL_WHARF",
+        "GEO_PLAINS_CART": "MAP_LY_DETAIL_SHIMEN",
+        "GEO_PLAINS_PATROL": "MAP_LY_DETAIL_DIHUA",
+        "GEO_PLAINS_BRAZIER": "MAP_LY_DETAIL_GUILI",
+        "GEO_QINGCE_WATER": "MAP_LY_DETAIL_QINGCE_FIELDS",
+        "GEO_QINGCE_SEQUENCE": "MAP_LY_DETAIL_QINGCE_FIELDS",
+        "GEO_MOUNTAINS_ROPE": "MAP_LY_DETAIL_HUAGUANG",
+        "GEO_MOUNTAINS_VEIN": "MAP_LY_DETAIL_HULAO",
+        "GEO_JUEYUN_LANTERN": "MAP_LY_DETAIL_QINGYUN",
+        "GEO_JUEYUN_GUARD": "MAP_LY_DETAIL_AOCANG"
+      }
+    },
+    {
+      "name": "a clue found at its detail place keeps the original record format",
+      "passed": true,
+      "evidence": {
+        "saveId": "LYP-24",
+        "route": "ROUTE_TRAVELER",
+        "map": "MAP_LIYUE_HARBOR",
+        "day": 1,
+        "action": "LYP-24:4"
+      }
+    },
+    {
+      "name": "an investigation already running at the old spot can still finish there",
+      "passed": true,
+      "evidence": {
+        "progress": 1
+      }
+    },
+    {
+      "name": "the collected 16-oculus fixture loads unchanged, zone goals can be claimed once, and Zhongli still needs all 16",
+      "passed": true,
+      "evidence": {
+        "claimed": [
+          "HARBOR",
+          "BISHUI",
+          "MINLIN"
+        ]
+      }
+    }
+  ],
+  "total": 19,
+  "passed": 19
+}

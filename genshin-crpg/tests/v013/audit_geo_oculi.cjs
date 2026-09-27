@@ -9,7 +9,7 @@ try{
  move('MAP_LIYUE_PLAINS');r.action('QUEST_CHOICE',{quest:'Q_LIYUE_EXP_PLAINS_CARAVAN',choice:'careful'});r.action('CLAIM_QUEST',{quest:'Q_LIYUE_EXP_PLAINS_CARAVAN'});
  // One real visit satisfies the character alternative without granting any characters.
  move('MAP_CRPG_LIYUE_BANK');
- for(const p of points){const out={id:p.id,map:p.map};report.points.push(out);try{move(p.map);r.s.global.WORLD_TIME=p.requirements.timeWindow?'20:00':'12:00';if(p.place)r.action('PLACE_ENTER',{place:p.place});assert.equal(r.worldRequirement(p),'');
+ for(const p of points){const out={id:p.id,map:p.map};report.points.push(out);try{move(r.geoOculusSite?.(p.id)||p.map);r.s.global.WORLD_TIME=p.requirements.timeWindow?'20:00':'12:00';if(p.place)r.action('PLACE_ENTER',{place:p.place});assert.equal(r.worldRequirement(p),'');
  for(let n=0;n<p.steps.length+1&&!r.s.geoOculi.receipts[p.id];n++){
  const step=r.oculusStep(p.id),before=r.itemCount('KEY_CRPG_GEOCULUS');assert(step);const args={kind:'OCULUS',point:p.id,...(step.options?{answer:step.answer}:{}),...(step.sequence?{sequence:step.sequence}:{})};r.action('WORLD_WORK_START',args);
  if(r.s.worldJob){const j=cp(r.s.worldJob);let early;try{r.action('WORLD_WORK_FINISH',{job:j.id});}catch(e){early=e;}assert(early,'early timed finish rejected');r=new R(db,JSON.parse(r.serialize()));advance(j.duration);r.action('WORLD_WORK_FINISH',{job:j.id});}
