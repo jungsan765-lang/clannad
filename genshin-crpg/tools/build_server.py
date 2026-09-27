@@ -16,7 +16,7 @@ version=json.loads((root/'package.json').read_text())['version']
 out=root/'server/generated';out.mkdir(exist_ok=True)
 # Module scope wrappers keep the existing runtime free of eval/new Function.
 source='const module=undefined;\n'+body+'\nconst DB='+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n'
-source+='const R=globalThis.CRPGRuntime.Runtime;\nif(globalThis.CRPGRelationships)globalThis.CRPGRelationships.install(globalThis.CRPGRuntime,{events:globalThis.CRPGRelationships.catalogFromDB(DB),activities:globalThis.CRPGRelationships.activitiesFromDB(DB),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});\n'
+source+='const R=globalThis.CRPGRuntime.Runtime;\nif(globalThis.CRPGRelationships)globalThis.CRPGRelationships.install(globalThis.CRPGRuntime,{events:globalThis.CRPGRelationships.catalogFromDB(DB),activities:globalThis.CRPGRelationships.activitiesFromDB(DB),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});\nnew R(DB); // Warm immutable lookup maps once per Worker isolate, outside request handling.\n'
 source+='export {R,DB};\nexport const ENGINE_VERSION='+json.dumps(version)+';\n'
 (out/'engine.mjs').write_text(source)
 print(json.dumps({'version':version,'runtime_files':len(files),'bytes':len(source.encode()),'gzip_bytes':len(gzip.compress(source.encode()))}))
