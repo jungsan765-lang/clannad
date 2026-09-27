@@ -1,9 +1,12 @@
 import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
 import {readFileSync} from 'node:fs';
-import worker from '../server/worker.mjs';
+import worker,{publicState} from '../server/worker.mjs';
 import {R,DB as GAME_DB,ENGINE_VERSION} from '../server/generated/engine.mjs';
 const sql=new DatabaseSync(':memory:');sql.exec(readFileSync(new URL('../server/schema.sql',import.meta.url),'utf8'));
+const baseA=new R(GAME_DB),baseB=new R(GAME_DB);assert.equal(baseA.tables['00_CORE'],baseB.tables['00_CORE'],'base table indexes should be reused inside one isolate');
+baseA.newGame({name:'캐시검증',route:'ROUTE_ISEKAI',seed:123,saveId:'CACHE-PARITY'});baseB.newGame({name:'캐시검증',route:'ROUTE_ISEKAI',seed:123,saveId:'CACHE-PARITY'});assert.equal(baseA.serialize(),baseB.serialize(),'shared base indexes must not change runtime behavior');
+const privatePrng=baseA.s.global.PRNG_STATE,publicCopy=publicState(baseA.s);assert.equal(publicCopy.global.PRNG_STATE,1);assert.deepEqual(publicCopy.processed,{});assert.equal(baseA.s.global.PRNG_STATE,privatePrng,'public response shaping must not mutate the authoritative state');
 class Statement{constructor(query,args=[]){this.query=query;this.args=args;}bind(...args){return new Statement(this.query,args);}async first(){return sql.prepare(this.query).get(...this.args)||null;}async all(){return {results:sql.prepare(this.query).all(...this.args)};}async run(){return {meta:{changes:Number(sql.prepare(this.query).run(...this.args).changes)}};}}
 const env={DB:{prepare:q=>new Statement(q),batch:async qs=>{sql.exec('BEGIN');try{const out=[];for(const q of qs)out.push(await q.run());sql.exec('COMMIT');return out;}catch(e){sql.exec('ROLLBACK');throw e;}}},PASSWORD_PEPPER:'test-only-secret-'.repeat(4),ALLOWED_ORIGIN:'https://clannad.shop',ADMIN_ACCOUNT_IDS:''};
 let tok='',ip=1;async function call(path,data,token=tok){const req=new Request('https://test.invalid'+path,{method:data===undefined?'GET':'POST',headers:{'content-type':'application/json','CF-Connecting-IP':String(ip),...(token?{authorization:'Bearer '+token}:{})},...(data===undefined?{}:{body:JSON.stringify(data)})});const res=await worker.fetch(req,env);return {status:res.status,...await res.json()};}
