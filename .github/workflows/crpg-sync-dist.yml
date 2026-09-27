@@ -96,12 +96,15 @@ jobs:
           path: verified-pack
       - name: Check matching authoritative server before publishing
         run: |
+          curl --fail --silent --show-error --retry 3 --retry-delay 2 --max-time 20 \
+            -H 'Cache-Control: no-cache' \
+            'https://genshin-crpg-online.jungsan765.workers.dev/health' \
+            -o "$RUNNER_TEMP/crpg-worker-health.json"
           python3 - <<'PY'
-          import json, urllib.request
+          import json, os
           package=json.load(open('genshin-crpg/package.json'))
-          request=urllib.request.Request('https://genshin-crpg-online.jungsan765.workers.dev/health',headers={'Cache-Control':'no-cache'})
-          health=json.load(urllib.request.urlopen(request,timeout=20))
-          assert health.get('configured') and health.get('version')==package['version'], 'Deploy the matching Worker first; client artifact is held.'
+          health=json.load(open(os.path.join(os.environ['RUNNER_TEMP'],'crpg-worker-health.json')))
+          assert health.get('ok') and health.get('configured') and health.get('version')==package['version'], 'Deploy the matching Worker first; client artifact is held.'
           PY
       - name: Stage existing site plus verified game artifact
         run: |
