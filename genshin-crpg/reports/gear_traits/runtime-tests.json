@@ -130,6 +130,14 @@
       "name": "UI wiring: gear traits, battle line editor, hazard panel (source)",
       "passed": true,
       "evidence": null
+    },
+    {
+      "name": "aura shortening sometimes sheds an element stuck on the wearer at the start of its turn",
+      "passed": true,
+      "evidence": {
+        "shed": 48,
+        "of": 60
+      }
     }
   ],
   "total": 14,

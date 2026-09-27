@@ -41,7 +41,7 @@ const BOSSES={
   gimmicks:{SPIKES:G('뇌광 가시','무작위 동료 2명 번개 피해','절연·번개 내성'),HAMMER:G('뇌전 망치','선두에 강한 단타','중장 장비·보호막'),STORM:G('낙뢰 지대','예고 후 후열에 낙뢰 지형 2라운드','절연 장비 · 후열 배치 조정'),PRISM:G('뇌광 프리즘','HP 50% 이하에서 프리즘 2개 · 프리즘이 있으면 본체 피해 절반','광역 공격·프리즘 먼저 파괴'),REVIVE:G('프리즘 부활','쓰러지면 프리즘 3개 · 3라운드 안에 모두 부수지 못하면 HP 40%로 부활','광역 공격·집중 공격'),IMMUNE:G('번개 면역','번개 원소 피해를 받지 않음','다른 원소·물리')}},
  FB_CRYO_REGISVINE:{kind:'CRYO_VINE',name:'얼음 나무',map:'MAP_MOND_THOUSAND_WINDS',region:'몬드',level:5,hp:2300,atk:115,def:70,spd:56,element:'얼음',immune:[],range:'중거리',material:'MAT_FB_HOARFROST_CORE',enrage:true,
   summary:'얼음 결정막으로 핵을 감싼 거대한 덩굴. 전열에 냉기를 퍼뜨리고, 결정막이 깨지면 잠시 무방비가 된다.',
-  gimmicks:{SHELL:G('서리 결정막','HP 30% 보호막 · 불 피해 3배, 그 밖의 피해는 약하게 들어감 · 깨지면 행동 불능과 핵 노출 · 3라운드 뒤 재생','불 원소 동료·보호막 파괴 장비'),WHIP:G('얼음 덩굴 채찍','전열 전원 얼음 피해','방한·얼음 내성'),SPREAD:G('냉기 확산','전열에 냉기 지형(감속) 2라운드','방한 장비(50 이상이면 감속 무시)'),ORBS:G('빙구 회전','예고 후 무작위 3회 · 빙결 확률','행동 방해 저항·방한'),ENRAGE:G('광폭','HP 30% 이하에서 한 차례에 두 번 행동','결정막이 깨진 틈에 몰아치기')}},
+  gimmicks:{SHELL:G('서리 결정막','HP 30% 보호막 · 불 피해 3배, 그 밖의 피해는 약하게 들어감 · 깨지면 행동 불능과 핵 노출 · 3라운드 뒤 재생','불 원소 동료·보호막 파괴 장비'),WHIP:G('얼음 덩굴 채찍','전열 전원 얼음 피해','방한·얼음 내성'),SPREAD:G('냉기 확산','전열에 냉기 지형(감속) 2라운드','방한 장비(50 이상이면 감속 무시)'),ORBS:G('빙구 회전','예고 후 무작위 3회 · 빙결 확률','행동 방해 저항·방한'),ENRAGE:G('광폭','HP 30% 이하에서 한 차례에 한 번 더 행동','결정막이 깨진 틈에 몰아치기')}},
  FB_CRYO_HYPOSTASIS:{kind:'CRYO_HYPO',name:'무상의 얼음',map:'MAP_CRPG_WYRMREST_VALLEY',region:'몬드',level:8,hp:2800,atk:145,def:85,spd:64,element:'얼음',immune:['얼음'],range:'중거리',material:'MAT_FB_CRYSTALLINE_BLOOM',
   summary:'얼음 원소의 정육면체. 한 줄을 꿰뚫는 창으로 얼리고, 쓰러지면 냉기의 핵이 되어 여러 번 맞아야 부서진다.',
   gimmicks:{LANCE:G('빙결 창','HP가 더 많은 줄(전열·후열)을 꿰뚫음 · 빙결 확률','행동 방해 저항 · 대열 분산'),BLAST:G('한기 방출','예고 후 전원 피해 + 냉기 지형 2라운드','방한 장비'),WALL:G('얼음 가시 방벽','얼음 보호막(불에 약함)','불 원소·보호막 파괴'),REVIVE:G('냉기 핵','쓰러지면 2라운드 동안 핵 · 서로 다른 공격 4번을 맞히지 못하면 HP 50%로 부활','여러 번 때리는 공격·파티 4인'),IMMUNE:G('얼음 면역','얼음 원소 피해를 받지 않음','다른 원소·물리')}},
@@ -50,14 +50,14 @@ const BOSSES={
   gimmicks:{ROCKFALL:G('바위 낙하','무작위 2명에게 강한 단타','중장 장비'),UPHEAVAL:G('지면 융기','예고 후 전열 피해 · 행동 지연','경직 저항·중장'),PILLARS:G('현암 기둥','HP 60% 이하에서 기둥 3개 · 기둥마다 라운드 끝 본체 회복','파쇄·양손검·바위 원소(기둥 피해 2배)'),REVIVE:G('기둥 부활','쓰러지면 기둥이 다시 서고 3라운드 안에 모두 부수지 못하면 HP 40%로 부활','파쇄 장비·광역 공격'),IMMUNE:G('바위 면역','바위 원소 피해를 받지 않음','다른 원소·물리')}},
  FB_PYRO_REGISVINE:{kind:'PYRO_VINE',name:'폭염 나무',map:'MAP_LY_DETAIL_LUHUA',region:'리월',level:6,hp:2500,atk:125,def:75,spd:56,element:'불',immune:[],range:'중거리',material:'MAT_FB_EVERFLAME_SEED',enrage:true,
   summary:'화염 결정막을 두른 거대한 덩굴. 세 라운드마다 전장을 불태우는 폭염을 일으킨다. 준비 없이 버티기 어렵다.',
-  gimmicks:{SHELL:G('화염 결정막','HP 30% 보호막 · 얼음 3배·물 2.5배, 그 밖의 피해는 약하게 들어감 · 깨지면 행동 불능과 핵 노출','얼음·물 원소 동료·보호막 파괴 장비'),VINE:G('화염 덩굴','전열 전원 불 피해','내열·불 내성'),BOMBS:G('화염 폭탄 비','무작위 3회 불 피해','불 내성·회복'),HEATWAVE:G('폭염 확산','3라운드마다 라운드 끝 전원 최대 HP 12% 화염 지형 (광폭 시 2라운드마다)','내열 장비 · 보호막 · 미리 회복'),ENRAGE:G('광폭','HP 30% 이하에서 한 차례에 두 번 행동','결정막이 깨진 틈에 몰아치기')}},
+  gimmicks:{SHELL:G('화염 결정막','HP 30% 보호막 · 얼음 3배·물 2.5배, 그 밖의 피해는 약하게 들어감 · 깨지면 행동 불능과 핵 노출','얼음·물 원소 동료·보호막 파괴 장비'),VINE:G('화염 덩굴','전열 전원 불 피해','내열·불 내성'),BOMBS:G('화염 폭탄 비','무작위 3회 불 피해','불 내성·회복'),LASH:G('덩굴 내려치기','선두에 강한 물리 단타 · 내열 장비로는 줄지 않음','중장 장비·보호막'),HEATWAVE:G('폭염 확산','3라운드마다 라운드 끝 전원 최대 HP 12% 화염 지형 (광폭 시 2라운드마다)','내열 장비 · 보호막 · 미리 회복'),ENRAGE:G('광폭','HP 30% 이하에서 한 차례에 한 번 더 행동','결정막이 깨진 틈에 몰아치기')}},
  FB_OCEANID:{kind:'OCEANID',name:'물의 정령',map:'MAP_LY_DETAIL_DIHUA',region:'리월',level:6,hp:800,atk:120,def:60,spd:60,element:'물',immune:['ALL'],range:'중거리',material:'MAT_FB_CLEANSING_HEART',
   summary:'물의 정령은 직접 공격이 닿지 않는다. 계속 불러내는 물의 형상을 8번 쓰러뜨리면 형체가 흩어진다.',
-  gimmicks:{FORMS:G('물의 형상','멧돼지·학·개구리·게·매 모양의 형상을 두 마리씩 불러냄 · 8번 쓰러뜨리면 승리','광역 공격 · 대공(학·매는 공중)'),WAVE:G('침수 파도','2차례마다 전원 침수 지형(젖음) 2라운드','방수 장비'),SPOUT:G('물줄기','무작위 동료 물 피해','물 내성'),BODY:G('닿지 않는 본체','정령 본체는 피해를 받지 않음','형상부터 처치'),FROG:G('개구리의 물폭탄','개구리 형상은 쓰러질 때 전열을 적심','방수 장비·후열 공격')}},
- FB_PRIMO_GEOVISHAP:{kind:'PRIMO',name:'고대 바위 용 도마뱀',map:'MAP_LY_DETAIL_TIANQIU',region:'리월',level:7,hp:2900,atk:140,def:90,spd:58,element:'바위',immune:[],range:'근접',material:'MAT_FB_JUVENILE_JADE',enrage:true,
+  gimmicks:{FORMS:G('물의 형상','멧돼지·학·개구리·게·매 모양의 형상을 두 마리씩 불러냄 · 8번 쓰러뜨리면 승리','광역 공격 · 대공(학·매는 떠 있다가 공격 뒤 잠깐 내려앉음)'),WAVE:G('침수 파도','2차례마다 전원 침수 지형(젖음) 2라운드','방수 장비'),SPOUT:G('물줄기','무작위 동료 물 피해','물 내성'),BODY:G('닿지 않는 본체','정령 본체는 피해를 받지 않음','형상부터 처치'),FROG:G('개구리의 물폭탄','개구리 형상은 쓰러질 때 전열을 적심','방수 장비·후열 공격')}},
+ FB_PRIMO_GEOVISHAP:{kind:'PRIMO',img:5,name:'고대 바위 용 도마뱀',map:'MAP_LY_DETAIL_TIANQIU',region:'리월',level:7,hp:2900,atk:140,def:90,spd:58,element:'바위',immune:[],range:'근접',material:'MAT_FB_JUVENILE_JADE',enrage:true,
   summary:'원소를 흡수한 거대한 용 도마뱀. 예고한 뒤 흡수한 원소로 원암 분사를 쏜다. 보호막이 없으면 크게 다친다.',
   gimmicks:{INFUSE:G('원소 흡수','전투 시작 시 불·물·얼음·번개 중 하나를 흡수 · 그 원소 피해 절반','다른 원소·흡수 원소 내성 장비'),CLAW:G('바위 할퀴기','선두에 단타','중장·보호막'),LEAP:G('용암 도약','전열 강한 단타 · 행동 지연','경직 저항·중장'),BEAM:G('원암 분사','예고 후 전원에게 흡수 원소의 큰 피해 · 보호막이 있으면 75% 감소 · 두 명 이상 막으면 튕겨 나가 행동 불능·핵 노출','보호막 동료·보호막 강화 장비·원소 내성'),ENRAGE:G('광폭','HP 30% 이하에서 원암 분사가 더 자주 옴','보호막 재사용 시점 맞추기')}},
- FB_RUIN_SERPENT:{kind:'SERPENT',name:'유적의 뱀',map:'MAP_CHASM_DEEP',region:'리월',level:10,hp:3500,atk:160,def:95,spd:60,element:'물리',immune:[],range:'근접',material:'MAT_FB_RUNIC_FANG',
+ FB_RUIN_SERPENT:{kind:'SERPENT',img:14,name:'유적의 뱀',map:'MAP_CHASM_DEEP',region:'리월',level:10,hp:3500,atk:160,def:95,spd:60,element:'물리',immune:[],range:'근접',material:'MAT_FB_RUNIC_FANG',
   summary:'층암거연 지하를 헤엄치는 유적 기계 뱀. 땅속에 숨어 후미를 기습하고 침식 파동을 퍼뜨린다. 돌진 뒤에는 머리가 드러난다.',
   gimmicks:{BURROW:G('잠행','땅속에 숨은 동안 피해를 받지 않고 다음 차례 후미를 기습','후미에 튼튼한 동료·보호막'),WAVE:G('침식 파동','전원 부식 지형 2라운드(방어력 −15%)','해독·정화 장비'),CHARGE:G('돌진 관통','예고 후 전열 강한 단타 · 뒤이어 머리가 1라운드 드러남','중장 장비 · 약점 공략으로 몰아치기'),BIND:G('휘감기','선두를 휘감아 기절시킴','행동 방해 저항·정화')}}
 };
@@ -65,14 +65,19 @@ const BOSSES={
 const SUMMONS={
  FB_SUMMON_PRISM:{name:'뇌광 프리즘',element:'번개',range:'원거리',hp:.1,atk:.5,def:40,spd:40,airborne:false},
  FB_SUMMON_PILLAR:{name:'현암 기둥',element:'바위',range:'근접',hp:.1,atk:0,def:150,spd:1,structure:true},
- FB_MIMIC_BOAR:{name:'물 멧돼지',element:'물',range:'근접',hp:430,atk:.9,def:60,spd:62},
- FB_MIMIC_CRANE:{name:'물 학',element:'물',range:'원거리',hp:300,atk:.8,def:45,spd:70,airborne:true},
- FB_MIMIC_FROG:{name:'물 개구리',element:'물',range:'중거리',hp:360,atk:.75,def:50,spd:58},
- FB_MIMIC_CRAB:{name:'물 게',element:'물',range:'근접',hp:520,atk:.8,def:80,spd:50},
- FB_MIMIC_FALCON:{name:'물 매',element:'물',range:'원거리',hp:280,atk:.85,def:40,spd:74,airborne:true}
+ FB_MIMIC_BOAR:{name:'물 멧돼지',element:'물',range:'근접',hp:580,atk:.9,def:60,spd:62},
+ FB_MIMIC_CRANE:{name:'물 학',element:'물',range:'원거리',hp:400,atk:.8,def:45,spd:70,airborne:true},
+ FB_MIMIC_FROG:{name:'물 개구리',element:'물',range:'중거리',hp:480,atk:.75,def:50,spd:58},
+ FB_MIMIC_CRAB:{name:'물 게',element:'물',range:'근접',hp:700,atk:.8,def:80,spd:50},
+ FB_MIMIC_FALCON:{name:'물 매',element:'물',range:'원거리',hp:380,atk:.85,def:40,spd:74,airborne:true}
 };
 const MIMIC_ORDER=['FB_MIMIC_BOAR','FB_MIMIC_CRANE','FB_MIMIC_FROG','FB_MIMIC_CRAB','FB_MIMIC_FALCON','FB_MIMIC_BOAR','FB_MIMIC_FROG','FB_MIMIC_CRANE'];
 const ROUTE=id=>'BRT_'+id,GROUP=id=>'EG_'+id,FLAG=id=>'FLAG_'+id+'_CLEAR',LOOT=id=>'LT_'+id;
+// Tuned with a 4-person party at the recommended level (reports/field_bosses/balance.json): an unprepared
+// generalist party should usually lose, a prepared one should usually win. Bosses act twice a turn.
+const TUNE={hp:1.35,atk:2.2,actions:2};
+const TUNE_BY={FB_ANEMO_HYPOSTASIS:{atk:3.8,hp:1.8},FB_ELECTRO_HYPOSTASIS:{hp:1.1,atk:2.5},FB_CRYO_REGISVINE:{atk:4,hp:1.6},FB_CRYO_HYPOSTASIS:{hp:.9,atk:1.9},FB_GEO_HYPOSTASIS:{hp:1.3,atk:2.4},FB_PYRO_REGISVINE:{hp:1.2},FB_OCEANID:{atk:2.8},FB_PRIMO_GEOVISHAP:{atk:2.5},FB_RUIN_SERPENT:{hp:1.6,atk:4}};
+const tuned=(d,key)=>Math.round(d[key]*((TUNE_BY[d.id]||{})[key]??TUNE[key]));
 // Two-day bosses: extra mechanics only in voluntary challenges (never in the story fights).
 const TWIN={BOSS_ANDRIUS:{name:'안드리우스',gimmicks:{FROST_FIELD:G('혹한의 영역','3라운드마다 라운드 끝 전원 냉기 지형(감속) 2라운드','방한 장비'),HUNT_MARK:G('사냥 표식','공격력이 가장 높은 동료에게 표식 · 표식 대상에게 주는 단일 피해 +30%','은밀 장비(20 이상이면 표식을 피함)·옆 칸 엄호')}},
  BOSS_DVALIN:{name:'드발린',gimmicks:{CORROSIVE_BREATH:G('부식의 숨결','3라운드마다 라운드 끝 전열 부식 지형 2라운드(방어력 −15%)','해독 장비'),STORM_WING:G('폭풍 날개','짝수 라운드 끝 선두를 밀어 다음 행동 지연','중장·경직 저항 장비')}}};
@@ -84,9 +89,9 @@ P.installFieldBosses=function(){
  const names=['14_ITEM_DB','09_MONSTER_DB','33_ENCOUNTER_GROUP_DB','49_ENCOUNTER_MEMBER_DB','35_BOSS_ROUTE_DB','50_BOSS_ROUTE_STEP_DB','20_LOOT_TABLE'],rows=Object.fromEntries(names.map(n=>[n,this.db[n].map(r=>r.slice())]));
  const has=(n,id)=>rows[n].some(r=>r[0]===id);
  for(const [id,m]of Object.entries(MATERIALS))if(!has('14_ITEM_DB',id)){const r=Array(rows['14_ITEM_DB'][0].length).fill('');const boss=Object.values(BOSSES).find(b=>b.material===id);Object.assign(r,{0:id,1:m.name,2:'보스 재료',3:'희귀',4:'[보스]',5:m.desc,6:'재료',7:'전용 무기·특수 장비 제작 재료',8:0,10:'N',11:'공용',14:120,15:0,16:999,17:boss.name+' 토벌',18:'Y',19:'N',20:boss.region,21:'공식 명칭·원작 드랍 보스 · 수량은 CRPG 설계'});rows['14_ITEM_DB'].push(r);}
- const mh=rows['09_MONSTER_DB'][0].length,monster=(id,d,grade,family,loot)=>{const r=Array(mh).fill('');Object.assign(r,{0:id,1:d.name,2:family,3:grade,4:d.region||'',5:'['+d.element+']',6:d.hp,7:d.atk,8:d.def,9:10,10:50,11:'필드 보스',12:(d.immune||[]).length?(d.immune[0]==='ALL'?'본체 피해 무효':d.immune.join('·')+' 면역'):'결정막',13:'선택',14:loot,15:1,16:'CRPG 12-6',17:d.summary||'',18:d.level,19:d.spd,20:85,21:5,22:25,23:d.range,24:'기믹우선',25:'필드 보스 전용 규칙'});return r;};
+ const mh=rows['09_MONSTER_DB'][0].length,monster=(id,d,grade,family,loot)=>{const r=Array(mh).fill('');Object.assign(r,{0:id,1:d.name,2:family,3:grade,4:d.region||'',5:'['+d.element+']',6:d.hp,7:d.atk,8:d.def,9:10,10:50,11:'필드 보스',12:(d.immune||[]).length?(d.immune[0]==='ALL'?'본체 피해 무효':d.immune.join('·')+' 면역'):'결정막',13:'선택',14:loot,15:d.img??'NONE',16:'CRPG 12-6',17:d.summary||'',18:d.level,19:d.spd,20:85,21:5,22:25,23:d.range,24:'기믹우선',25:'필드 보스 전용 규칙'});return r;};
  for(const [id,d]of Object.entries(BOSSES)){
-  if(!has('09_MONSTER_DB',id))rows['09_MONSTER_DB'].push(monster(id,d,'보스','필드 보스',LOOT(id)));
+  if(!has('09_MONSTER_DB',id))rows['09_MONSTER_DB'].push(monster(id,{...d,hp:d.kind==='OCEANID'?d.hp:tuned({...d,id},'hp'),atk:tuned({...d,id},'atk')},'보스','필드 보스',LOOT(id)));
   if(!has('33_ENCOUNTER_GROUP_DB',GROUP(id))){const r=Array(rows['33_ENCOUNTER_GROUP_DB'][0].length).fill('');Object.assign(r,{0:GROUP(id),1:d.name,2:'BOSS',3:'필드 보스',4:d.level,5:d.level,6:'FIXED',7:id,8:1,9:1,22:'없음',23:'필드 보스 전용 규칙',24:1,25:'Y',26:'Y',27:d.summary,28:'필드 보스,'+d.region});rows['33_ENCOUNTER_GROUP_DB'].push(r);}
   if(!has('49_ENCOUNTER_MEMBER_DB','EM_'+GROUP(id)+'_1'))rows['49_ENCOUNTER_MEMBER_DB'].push(['EM_'+GROUP(id)+'_1',GROUP(id),1,id,1,1,'MON1','CRPG_FIELD_BOSS_V1','필드 보스']);
   if(!has('35_BOSS_ROUTE_DB',ROUTE(id)))rows['35_BOSS_ROUTE_DB'].push([ROUTE(id),d.name+' 토벌',d.map,'DIRECT','','','',GROUP(id),'Y','N','CURRENT_STEP','N','',FLAG(id),'Y','필드 보스 · 승리 후 게임 내 24시간 뒤 다시 나타남']);
@@ -113,7 +118,7 @@ P.placeBossReason=function(id,entry,options={}){
  return '';
 };
 P.fieldBossNotes=function(id){const n=this.s.fieldBossNotes?.[id];return n?copy(n):{seen:[],attempts:0,wins:0,best:null};};
-P.fieldBossSeen=function(b,gimmick){const f=b.fieldBoss;if(!f)return;if(!f.seen.includes(gimmick))f.seen.push(gimmick);};
+P.fieldBossSeen=function(b,gimmick){const f=b?.fieldBoss;if(!f||!BOSSES[f.boss]?.gimmicks[gimmick])return;if(!f.seen.includes(gimmick))f.seen.push(gimmick);};
 
 // ---- battle start ------------------------------------------------------------------------------------------
 const hash=s=>{let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h;};
@@ -146,24 +151,27 @@ P.fbSpawnMimics=function(b,boss,count){const f=b.fieldBoss;for(let i=0;i<count&&
 // ---- boss turns ----------------------------------------------------------------------------------------------
 const allies=b=>b.actors.filter(a=>a.side==='ALLY'&&a.hp>0).sort((x,y)=>(x.slot||0)-(y.slot||0));
 const rowOf=(b,which)=>{const all=allies(b);if(which==='FRONT'){const f=all.filter(a=>(a.slot||1)<=2);return f.length?f:all.slice(0,2);}if(which==='BACK'){const k=all.filter(a=>(a.slot||1)>=3);return k.length?k:all.slice(-2);}if(which==='LEAD')return all.slice(0,1);if(which==='TAIL')return all.slice(-1);return all;};
-P.fbPick=function(b,n){const pool=allies(b),out=[];while(pool.length&&out.length<n)out.push(pool.splice(Math.floor(this.random()*pool.length),1)[0]);return out;};
+// Random picks respect aggro/stealth gear (the same weights the ordinary enemy AI uses).
+P.fbPick=function(b,n){const pool=allies(b),out=[],boss={targetRule:'SPREAD'};while(pool.length&&out.length<n){const w=pool.map(t=>this.enemyTargetWeight?this.enemyTargetWeight(boss,t,pool):1),sum=w.reduce((x,y)=>x+y,0);let r=this.random()*sum,i=0;for(;i<pool.length-1;i++){r-=w[i];if(r<0)break;}out.push(pool.splice(i,1)[0]);}return out;};
 P.fbLog=function(a,id,label,text){const b=this.s.runtime;b.log.push({actor:a.name,actorId:a.id,card:'FB_'+id,cardName:label,text:text||label,round:b.round,actionSequence:b.actionSequence||0,fieldBoss:true});};
 P.fbHit=function(a,t,k,el,o={}){if(!t||t.hp<=0)return false;return this.damage(a,t,k,el,{range:'전장',card:'FB_'+(o.move||'HIT'),...o});};
 P.fbDelay=function(t,amount,why){const b=this.s.runtime;if(t.hp<=0)return;if(tv(t,'HEAVY')>0||tv(t,'STAGGER_RES')>=100){b.log.push({target:t.name,targetId:t.id,resisted:'FB_DELAY',text:t.name+' · 경직 저항',round:b.round});return;}t.nextScorePenalty=Math.max(amount,t.nextScorePenalty||0);b.log.push({target:t.name,targetId:t.id,text:t.name+' · '+why+' · 다음 행동이 늦어진다',round:b.round});};
 P.fbTelegraph=function(a,move){const b=this.s.runtime,d=BOSSES[a.source],g=d.gimmicks[move];a.fb.next=move;b.fieldBoss.telegraph={move,label:g.label,text:g.text,counter:g.counter};this.fieldBossSeen(b,move);this.fbLog(a,move+'_READY',g.label+' 준비',a.name+'이(가) '+g.label+'을(를) 준비한다 · 대응: '+g.counter);};
 P.fbExpose=function(a,rounds,stun){const b=this.s.runtime;a.fb.exposedUntil=b.round+rounds;a.bossExposed=true;if(stun)a.fb.stunned=true;};
-const ROTATION={ANEMO:['GUST','PULL','GUST','RISE'],ELECTRO:['SPIKES','HAMMER','STORM','SPIKES'],CRYO_VINE:['WHIP','SPREAD','ORBS','WHIP'],CRYO_HYPO:['LANCE','BLAST','LANCE','WALL'],GEO_HYPO:['ROCKFALL','UPHEAVAL','ROCKFALL','ROCKFALL'],PYRO_VINE:['VINE','BOMBS','VINE','BOMBS'],OCEANID:['SPOUT','WAVE'],PRIMO:['CLAW','LEAP','CLAW','BEAM'],SERPENT:['BURROW','WAVE','CHARGE','BIND']};
+const ROTATION={ANEMO:['GUST','PULL','GUST','RISE'],ELECTRO:['SPIKES','HAMMER','STORM','SPIKES'],CRYO_VINE:['WHIP','SPREAD','ORBS','WHIP'],CRYO_HYPO:['LANCE','BLAST','LANCE','WALL'],GEO_HYPO:['ROCKFALL','UPHEAVAL','ROCKFALL','ROCKFALL'],PYRO_VINE:['VINE','LASH','BOMBS','VINE'],OCEANID:['SPOUT','WAVE'],PRIMO:['CLAW','LEAP','CLAW','BEAM'],SERPENT:['BURROW','WAVE','CHARGE','BIND']};
 const TELEGRAPHED=new Set(['PULL','STORM','ORBS','BLAST','UPHEAVAL','BEAM','CHARGE']);
 P.fieldBossTurn=function(a){
- const b=this.s.runtime,f=a.fb,d=BOSSES[a.source];f.acts++;
- if(f.stunned){f.stunned=false;this.fbLog(a,'STUNNED','무방비',a.name+'이(가) 무방비 상태라 움직이지 못한다.');return;}
- if(f.revival&&d.kind!=='CRYO_HYPO'){this.fbLog(a,'REVIVING','부활 준비',a.name+'이(가) 다시 일어서려 한다.');if(d.kind==='ANEMO')this.fbMove(a,'PULL');return;}
+ const b=this.s.runtime,f=a.fb,d=BOSSES[a.source],turn=b.round+':'+(a.turns||0);
+ // A wind-up ends the boss's turn: the rest of its actions wait, so the party always gets a window to answer.
+ if(f.endTurn===turn)return;f.acts++;
+ if(f.stunned){f.stunned=false;f.endTurn=turn;this.fbLog(a,'STUNNED','무방비',a.name+'이(가) 무방비 상태라 움직이지 못한다.');return;}
+ if(f.revival&&d.kind!=='CRYO_HYPO'){f.endTurn=turn;this.fbLog(a,'REVIVING','부활 준비',a.name+'이(가) 다시 일어서려 한다.');if(d.kind==='ANEMO')this.fbMove(a,'PULL');return;}
  if(f.burrowed){this.fbMove(a,'EMERGE');return;}
  if(f.next){const move=f.next;f.next=null;b.fieldBoss.telegraph=null;this.fbMove(a,move);return;}
  const rot=ROTATION[d.kind];let move=rot[(f.rot=(f.rot||0))%rot.length];f.rot++;
  if(d.kind==='PRIMO'&&a.hp/a.maxHp<=.3){this.fieldBossSeen(b,'ENRAGE');if(f.rot%3===0)move='BEAM';}
- if(d.kind==='ANEMO'&&move==='RISE'){a.airborne=true;this.fieldBossSeen(b,'RISE');f.next='SLAM';b.fieldBoss.telegraph={move:'RISE',label:'상승 기류',text:'떠올라 있는 동안 원거리·대공·공중 접근만 닿음 · 다음 차례 전열 내려찍기',counter:d.gimmicks.RISE.counter};this.fbLog(a,'RISE','상승 기류',a.name+'이(가) 높이 떠올랐다 · 다음 차례에 전열을 내려찍는다');return;}
- if(TELEGRAPHED.has(move)){this.fbTelegraph(a,move);return;}
+ if(d.kind==='ANEMO'&&move==='RISE'){a.airborne=true;this.fieldBossSeen(b,'RISE');f.next='SLAM';b.fieldBoss.telegraph={move:'RISE',label:'상승 기류',text:'떠올라 있는 동안 원거리·대공·공중 접근만 닿음 · 다음 차례 전열 내려찍기',counter:d.gimmicks.RISE.counter};this.fbLog(a,'RISE','상승 기류',a.name+'이(가) 높이 떠올랐다 · 다음 차례에 전열을 내려찍는다');f.endTurn=turn;return;}
+ if(TELEGRAPHED.has(move)){this.fbTelegraph(a,move);f.endTurn=turn;return;}
  this.fbMove(a,move);
 };
 P.fbMove=function(a,move){
@@ -186,11 +194,12 @@ P.fbMove=function(a,move){
   case 'UPHEAVAL':log();for(const t of rowOf(b,'FRONT')){this.fbHit(a,t,.9,'바위',{move,aoe:true});this.fbDelay(t,15,'땅이 솟구침');}break;
   case 'VINE':log();for(const t of rowOf(b,'FRONT'))this.fbHit(a,t,.95,'불',{move,aoe:true});break;
   case 'BOMBS':log();for(let i=0;i<3;i++)this.fbHit(a,this.fbPick(b,1)[0],.6,'불',{move});break;
+  case 'LASH':log();this.fbHit(a,rowOf(b,'LEAD')[0],1.3,'물리',{move,heavy:true});break;
   case 'SPOUT':log();this.fbHit(a,this.fbPick(b,1)[0],.85,'물',{move});break;
-  case 'WAVE':if(d.kind==='OCEANID'){log(g.label,'전장이 물에 잠긴다');this.addHazard({id:'FB_FLOOD',kind:'FLOOD',power:.05,rounds:2,targets:'ALL',source:a.id});}else{log(g.label,'침식 파동이 퍼진다');this.addHazard({id:'FB_ERODE',kind:'CORROSION',power:.05,rounds:2,targets:'ALL',source:a.id});}break;
+  case 'WAVE':if(d.kind==='OCEANID'){log(g.label,'전장이 물에 잠긴다');this.addHazard({id:'FB_FLOOD',kind:'FLOOD',power:.06,rounds:2,targets:'ALL',source:a.id});}else{log(g.label,'침식 파동이 퍼진다');this.addHazard({id:'FB_ERODE',kind:'CORROSION',power:.05,rounds:2,targets:'ALL',source:a.id});}break;
   case 'CLAW':log();this.fbHit(a,rowOf(b,'LEAD')[0],1.1,'바위',{move});break;
   case 'LEAP':log();for(const t of rowOf(b,'FRONT')){this.fbHit(a,t,1.2,'바위',{move,aoe:true,heavy:true});this.fbDelay(t,15,'충격파');}break;
-  case 'BEAM':{let shielded=0;log(g.label,a.name+'이(가) '+el+' 원소의 원암 분사를 뿜었다');for(const t of rowOf(b,'ALL')){const guarded=(t.shields||[]).some(s=>s.value>0);if(guarded){shielded++;b.log.push({target:t.name,targetId:t.id,text:t.name+' · 보호막으로 원암 분사를 막아냄',round:b.round});}this.fbHit(a,t,guarded?2.2*.25:2.2,el,{move,aoe:true,sureHit:true});}
+  case 'BEAM':{let shielded=0;log(g.label,a.name+'이(가) '+el+' 원소의 원암 분사를 뿜었다');for(const t of rowOf(b,'ALL')){const guarded=(t.shields||[]).some(s=>s.value>0);if(guarded){shielded++;b.log.push({target:t.name,targetId:t.id,text:t.name+' · 보호막으로 원암 분사를 막아냄',round:b.round});}this.fbHit(a,t,guarded?3.4*.25:3.4,el,{move,aoe:true,sureHit:true});}
    const need=allies(b).length<=2?1:2;if(shielded>=need){this.fbExpose(a,2,true);this.fbLog(a,'BEAM_REFLECT','분사 반사','보호막에 튕긴 원암 분사가 '+a.name+'을(를) 뒤흔들었다 · 무방비·핵 노출 2라운드');}break;}
   case 'BURROW':f.burrowed=true;log(g.label,a.name+'이(가) 땅속으로 파고들었다 · 다음 차례에 후미를 노린다');break;
   case 'EMERGE':f.burrowed=false;this.fieldBossSeen(b,'BURROW');this.fbLog(a,'EMERGE','지하 기습',a.name+'이(가) 땅속에서 솟구쳤다');this.fbHit(a,rowOf(b,'TAIL')[0],1.15,'물리',{move:'EMERGE',heavy:true});break;
@@ -201,11 +210,14 @@ P.fbMove=function(a,move){
 };
 P.fieldSummonTurn=function(a){
  const b=this.s.runtime,s=a.fbSummon,boss=b.actors.find(x=>x.id===s.owner);
- if(s.kind==='FB_SUMMON_PILLAR'){if(boss?.hp>0)b.log.push({actor:a.name,actorId:a.id,text:a.name+'이(가) 본체와 공명한다',round:b.round});return;}
+ if(s.kind==='FB_SUMMON_PILLAR')return;// pillars act through the round-end resonance heal
  if(s.kind==='FB_SUMMON_PRISM'){this.fbHit(a,this.fbPick(b,1)[0],.6,'번개',{move:'PRISM'});return;}
  const t=s.kind==='FB_MIMIC_BOAR'||s.kind==='FB_MIMIC_CRAB'||s.kind==='FB_MIMIC_FALCON'?rowOf(b,'LEAD')[0]:s.kind==='FB_MIMIC_CRANE'?this.fbPick({actors:rowOf(b,'BACK')},1)[0]||this.fbPick(b,1)[0]:this.fbPick(b,1)[0];
  const k={FB_MIMIC_BOAR:1.2,FB_MIMIC_CRANE:.9,FB_MIMIC_FROG:.65,FB_MIMIC_CRAB:.9,FB_MIMIC_FALCON:1}[s.kind]||.8;
- this.damage(a,t,k,'물',{range:'전장',card:'FB_'+s.kind,heavy:s.kind==='FB_MIMIC_BOAR'});if(s.kind==='FB_MIMIC_FROG'){const u=this.fbPick(b,1)[0];if(u&&u!==t)this.damage(a,u,.65,'물',{range:'전장',card:'FB_'+s.kind});}
+ const flier=s.kind==='FB_MIMIC_CRANE'||s.kind==='FB_MIMIC_FALCON';if(flier)a.airborne=true;
+ this.damage(a,t,k,'물',{range:'전장',card:'FB_'+s.kind,heavy:s.kind==='FB_MIMIC_BOAR'});
+ // A diving form lands after its attack: until its next turn every weapon can reach it.
+ if(flier&&a.hp>0){a.airborne=false;b.log.push({actor:a.name,actorId:a.id,text:a.name+'이(가) 내려앉았다 · 다음 차례 전까지 근접 공격도 닿는다',round:b.round});}if(s.kind==='FB_MIMIC_FROG'){const u=this.fbPick(b,1)[0];if(u&&u!==t)this.damage(a,u,.65,'물',{range:'전장',card:'FB_'+s.kind});}
 };
 // Two-day boss extras run beside the existing Andrius/Dvalin AI.
 P.twinBossRound=function(b,end){
@@ -222,7 +234,9 @@ P.twinBossRound=function(b,end){
 P.aiTurn=function(a,targets){
  if(a?.fb&&this.s.runtime?.fieldBoss)return this.fieldBossTurn(a,targets);
  if(a?.fbSummon&&this.s.runtime?.fieldBoss)return this.fieldSummonTurn(a,targets);
- if(a?.side==='ALLY'&&this.s.runtime?.fieldBoss){const reachable=targets.filter(t=>!this.fbUntouchable(t));if(reachable.length)targets=reachable;}
+ if(a?.side==='ALLY'&&this.s.runtime?.fieldBoss){const reachable=targets.filter(t=>!this.fbUntouchable(t));if(reachable.length)targets=reachable;
+  // Only flying bodies left and no way to reach them: an AI ally defends instead of stalling on an empty target.
+  try{return old.aiTurn.call(this,a,targets);}catch(e){if(e?.code!=='TARGET')throw e;a.guard=true;this.s.runtime.log.push({actor:a.name,actorId:a.id,guard:true,reason:'닿는 대상이 없어 방어 태세',round:this.s.runtime.round});return;}}
  return old.aiTurn.call(this,a,targets);
 };
 P.fbUntouchable=function(t){const f=t?.fb;if(!f)return false;return !!(f.untouchable||f.burrowed||(f.revival&&f.revival.guarded));};
@@ -230,6 +244,7 @@ P.hasElementImmunity=function(t,el){const d=t?.fb&&BOSSES[t.source];if(d&&(d.imm
 P.damage=function(a,t,k,e,o={}){
  const b=this.s.runtime;if(!b?.fieldBoss||!t)return old.damage.call(this,a,t,k,e,o);
  if(this.fbUntouchable(t)&&a.side==='ALLY'){const why=t.fb.untouchable?'본체에는 닿지 않는다 · 형상을 쓰러뜨려야 한다':t.fb.burrowed?'땅속에 있어 닿지 않는다':'부활을 지키는 '+(BOSSES[t.source].kind==='ELECTRO'?'프리즘':'기둥')+'을 먼저 부숴야 한다';b.log.push({actor:a.name,actorId:a.id,target:t.name,targetId:t.id,damage:0,immune:why,round:b.round});return false;}
+ if(t.fb&&a.side==='ALLY'&&this.hasElementImmunity(t,e))this.fieldBossSeen(b,'IMMUNE');
  if(t.fb?.revival&&a.side==='ALLY'&&BOSSES[t.source].kind==='CRYO_HYPO'&&!o.sourceKind){t.fb.revival.hits=(t.fb.revival.hits||0)+1;b.log.push({target:t.name,targetId:t.id,text:'냉기 핵에 금이 갔다 · '+t.fb.revival.hits+'/'+t.fb.revival.need,round:b.round});if(t.fb.revival.hits>=t.fb.revival.need){t.fb.revival=null;t.hp=0;this.fbLog(t,'CORE_BROKEN','핵 파괴',t.name+'의 냉기 핵이 부서졌다');return true;}return true;}
  return old.damage.call(this,a,t,k,e,o);
 };
@@ -284,13 +299,13 @@ P.roundEnd=function(...args){
  if(b?.fieldBoss){const boss=b.actors.find(a=>a.fb),d=boss&&BOSSES[boss.source];
   if(boss&&boss.hp>0&&b.actors.some(a=>a.side==='ALLY'&&a.hp>0)){
    if(d.kind==='PYRO_VINE'&&b.fieldBoss.heatwave==='THIS_ROUND'){this.addHazard({id:'FB_HEATWAVE',kind:'FIRE',power:.12,rounds:1,targets:'ALL',source:boss.id});this.fbLog(boss,'HEATWAVE','폭염 확산','전장이 폭염에 휩싸였다');}
-   for(const p of b.actors.filter(x=>x.fbSummon?.kind==='FB_SUMMON_PILLAR'&&x.hp>0&&x.fbSummon.owner===boss.id))if(!boss.fb.revival){const healed=this.heal(boss,boss.maxHp*.04,p.name);if(healed)b.log.push({target:boss.name,targetId:boss.id,heal:healed,text:'현암 공명 · '+boss.name+' 회복',round:b.round});}
+   for(const p of b.actors.filter(x=>x.fbSummon?.kind==='FB_SUMMON_PILLAR'&&x.hp>0&&x.fbSummon.owner===boss.id))if(!boss.fb.revival){const healed=this.heal(boss,boss.maxHp*.025,p.name);if(healed)b.log.push({target:boss.name,targetId:boss.id,heal:healed,text:'현암 공명 · '+boss.name+' 회복',round:b.round});}
    if(boss.fb.revival){boss.fb.revival.rounds--;if(boss.fb.revival.rounds<=0){boss.fb.revival=null;boss.hp=Math.round(boss.maxHp*(d.kind==='CRYO_HYPO'?.5:.4));boss.bossExposed=false;boss.fb.exposedUntil=0;for(const x of b.actors.filter(x=>x.fbSummon?.owner===boss.id))x.hp=0;this.fbLog(boss,'REVIVED','부활',boss.name+'이(가) 다시 일어섰다');}}
   }}
  if(b?.twinBoss&&b.actors.some(a=>a.side==='ALLY'&&a.hp>0))this.twinBossRound(b,true);
  return old.roundEnd.apply(this,args);
 };
-P.combatActionsPerTurn=function(a){const base=old.combatActionsPerTurn?old.combatActionsPerTurn.call(this,a):1;if(a?.fb&&BOSSES[a.source]?.enrage&&a.hp/a.maxHp<=.3&&!a.fb.stunned&&BOSSES[a.source].kind!=='PRIMO'){this.fieldBossSeen(this.s.runtime,'ENRAGE');return Math.max(base,2);}return base;};
+P.combatActionsPerTurn=function(a){const base=old.combatActionsPerTurn?old.combatActionsPerTurn.call(this,a):1;const d=a?.fb&&BOSSES[a.source];if(!d)return base;let n=Math.max(base,(TUNE_BY[a.source]||{}).actions??TUNE.actions);if(d.enrage&&a.hp/a.maxHp<=.3&&d.kind!=='PRIMO'){this.fieldBossSeen(this.s.runtime,'ENRAGE');n++;}return n;};
 P.combatCards=function(...args){const cards=old.combatCards.apply(this,args),b=this.s.runtime;if(!b?.fieldBoss||!Array.isArray(cards))return cards;
  return cards.map(c=>{if(!Array.isArray(c.targets))return c;const ok=c.targets.filter(t=>!this.fbUntouchable(b.actors.find(x=>x.id===t.id)));return ok.length&&ok.length!==c.targets.length?{...c,targets:ok}:c;});};
 

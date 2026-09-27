@@ -59,9 +59,9 @@ function costBlock(card,cost){
 }
 // v0.13.40: a forge can hold many recipes. Tabs by output kind and a "craftable now" filter keep it scannable;
 // each card says what the item is FOR and lists its traits, so gear is chosen by purpose rather than by numbers.
-const CRAFT_TABS=[['ALL','전체'],['WEAPON','무기'],['ARMOR','방어구'],['ACCESSORY','장신구'],['SPECIAL','특수'],['ITEM','소모품·재료']];
+const CRAFT_TABS=[['ALL','전체'],['EXCLUSIVE','전용 무기'],['WEAPON','무기'],['ARMOR','방어구'],['ACCESSORY','장신구'],['SPECIAL','특수'],['ITEM','소모품·재료']];
 const craftView={tab:'ALL',ready:false};
-function craftKind(r){if(r[2]!=='EQUIP')return 'ITEM';const type=game.tables['16_EQUIP_DB'].get(r[3])?.[2];return {방어구:'ARMOR',장신구:'ACCESSORY',특수:'SPECIAL'}[type]||'WEAPON';}
+function craftKind(r){if(r[2]!=='EQUIP')return 'ITEM';if(game.exclusiveOwner?.(r[3]))return 'EXCLUSIVE';const type=game.tables['16_EQUIP_DB'].get(r[3])?.[2];return {방어구:'ARMOR',장신구:'ACCESSORY',특수:'SPECIAL'}[type]||'WEAPON';}
 crafting=function(p){
   const entry=placeHeader(p,'CRAFT');if(!entry)return;
   if(presenterDB!==game.db){itemPresenter=CRPGInventoryPresenter.create(game.db,MANIFEST);presenterDB=game.db;}
@@ -75,7 +75,7 @@ crafting=function(p){
    const filters=el('div','forge-filters');filters.append(box);p.append(tabs,filters);}
   for(const recipe of recipes.filter(x=>(craftView.tab==='ALL'||x.kind===craftView.tab)&&(!craftView.ready||x.ready))){
     const r=recipe.row,c=el('section','card'),d=r[2]==='EQUIP'?itemPresenter.itemDetail({equip:r[3],quantity:1,enhance:0}):itemPresenter.itemDetail({item:r[3],quantity:Number(r[4])||1}),output=el('div','craft-output');c.dataset.recipeId=r[0];output.append(itemGlyph(d),el('h3','',d.name||safeName(r[2]==='EQUIP'?'16_EQUIP_DB':'14_ITEM_DB',r[3])));c.append(output);let blocked=recipe.reason;
-    if(r[2]==='EQUIP'){const purpose=game.tables['16_EQUIP_DB'].get(r[3])?.[26];if(purpose&&!/^\s*$/.test(String(purpose)))c.append(el('p','craft-purpose','용도 · '+purpose));
+    if(r[2]==='EQUIP'){const purpose=game.tables['16_EQUIP_DB'].get(r[3])?.[26];if(purpose&&!/^\s*$/.test(String(purpose)))c.append(el('p','craft-purpose','용도 · '+purpose));if(recipe.kind==='EXCLUSIVE'&&r[21])c.append(el('small','muted',String(r[21])));
      const traits=(game.gearTraitLines?.(r[3])||[]).filter(l=>!l.innate);if(traits.length){const ul=el('ul','gear-traits craft-traits');for(const l of traits)ul.append(el('li','',l.text));c.append(ul);}}
     try{const cost=game.recipeCost(r,1),missing=costBlock(c,cost);blocked=blocked||missing;c.append(el('small','muted','제작 시간 '+r[19]));}catch(e){blocked=blocked||e.message;}
     if(recipe.stages){

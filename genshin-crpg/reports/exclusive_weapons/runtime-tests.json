@@ -1,0 +1,48 @@
+{
+  "version": "0.13.41",
+  "runtimeDir": "source",
+  "scope": "companion exclusive weapons, signature traits, boss-material gear",
+  "checks": [
+    {
+      "name": "every playable companion owns exactly one exclusive weapon of their own class; protagonists own none",
+      "passed": true,
+      "evidence": {
+        "weapons": 43
+      }
+    },
+    {
+      "name": "each weapon uses the original ascension boss material, substitutes are marked",
+      "passed": true,
+      "evidence": {
+        "substitutes": 10
+      }
+    },
+    {
+      "name": "a companion weapon is crafted only after the companion joins, and only they can wield it",
+      "passed": true,
+      "evidence": {
+        "crafted": "EQ_EX_MOND_LISA"
+      }
+    },
+    {
+      "name": "전용 공명 boosts the owner own skills only; 치유 공명 and 수호 공명 boost the owner heals and shields",
+      "passed": true,
+      "evidence": {
+        "own": 1.2,
+        "basic": 1
+      }
+    },
+    {
+      "name": "nine boss-material gear pieces: one per boss material, counter traits, forged at the Liyue equipment shop",
+      "passed": true,
+      "evidence": {
+        "gear": 9
+      }
+    },
+    {
+      "name": "the forge shows an exclusive weapon tab and the note about original or substitute materials",
+      "passed": true,
+      "evidence": {}
+    }
+  ]
+}

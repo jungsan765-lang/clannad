@@ -1,0 +1,344 @@
+{
+  "generated": "CRPG field boss auto-battle simulation",
+  "runsPerSetup": 20,
+  "party": {
+    "base": {
+      "members": [
+        "MOND_NOELLE",
+        "MOND_BENNETT",
+        "MOND_LISA"
+      ],
+      "armor": "EQ_ARMOR_REINFORCED_LEATHER",
+      "acc": "EQ_ACC_VITAL_RING"
+    },
+    "prepared": {
+      "FB_ANEMO_HYPOSTASIS": {
+        "members": [
+          "MOND_NOELLE",
+          "MOND_FISCHL",
+          "MOND_BENNETT"
+        ],
+        "armor": "EQ_ARMOR_IRON_GUARD",
+        "acc": "EQ_LY_ACC_STARGAZER"
+      },
+      "FB_ELECTRO_HYPOSTASIS": {
+        "members": [
+          "MOND_NOELLE",
+          "MOND_AMBER",
+          "MOND_BENNETT"
+        ],
+        "armor": "EQ_LY_ARMOR_THUNDERWARD",
+        "acc": "EQ_ACC_VITAL_RING"
+      },
+      "FB_CRYO_REGISVINE": {
+        "members": [
+          "MOND_BENNETT",
+          "MOND_AMBER",
+          "MOND_DILUC"
+        ],
+        "armor": "EQ_ARMOR_FROSTWARD",
+        "acc": "EQ_LY_ACC_QINGXIN_SACHET",
+        "weapon": {
+          "장병기": "EQ_LY_POLEARM_PIERCER",
+          "법구": "EQ_LY_CATALYST_CHILI_EMBER"
+        }
+      },
+      "FB_CRYO_HYPOSTASIS": {
+        "members": [
+          "MOND_BENNETT",
+          "MOND_DILUC",
+          "MOND_NOELLE"
+        ],
+        "armor": "EQ_ARMOR_FROSTWARD",
+        "acc": "EQ_LY_ACC_QINGXIN_SACHET"
+      },
+      "FB_GEO_HYPOSTASIS": {
+        "members": [
+          "MOND_NOELLE",
+          "MOND_DILUC",
+          "MOND_BENNETT"
+        ],
+        "armor": "EQ_ARMOR_IRON_GUARD",
+        "acc": "EQ_ACC_VITAL_RING",
+        "weapon": {
+          "한손검": "EQ_LY_SWORD_ROCKBREAKER",
+          "양손검": "EQ_LY_CLAYMORE_BEDROCK"
+        }
+      },
+      "FB_PYRO_REGISVINE": {
+        "members": [
+          "MOND_KAEYA",
+          "MOND_BARBARA",
+          "LIYUE_XINGQIU"
+        ],
+        "armor": "EQ_LY_ARMOR_JADEFLAME",
+        "acc": "EQ_MOND_ACC_EMBERGUARD",
+        "weapon": {
+          "장병기": "EQ_LY_POLEARM_PIERCER"
+        }
+      },
+      "FB_OCEANID": {
+        "members": [
+          "MOND_LISA",
+          "MOND_FISCHL",
+          "MOND_BENNETT"
+        ],
+        "armor": "EQ_LY_ARMOR_TIDEWARD",
+        "acc": "EQ_LY_ACC_STARGAZER"
+      },
+      "FB_PRIMO_GEOVISHAP": {
+        "members": [
+          "MOND_NOELLE",
+          "LIYUE_ZHONGLI",
+          "MOND_BENNETT"
+        ],
+        "armor": "EQ_ARMOR_REINFORCED_LEATHER",
+        "acc": "EQ_LY_ACC_LILY_KNOT"
+      },
+      "FB_RUIN_SERPENT": {
+        "members": [
+          "MOND_NOELLE",
+          "MOND_BENNETT",
+          "LIYUE_KEQING"
+        ],
+        "armor": "EQ_LY_ARMOR_BEDROCK",
+        "acc": "EQ_LY_ACC_QINGXIN_SACHET",
+        "special": "EQ_SPECIAL_ABYSS_SEAL"
+      }
+    }
+  },
+  "results": {
+    "FB_ANEMO_HYPOSTASIS:base": {
+      "level": 5,
+      "winRate": "40%",
+      "avgRounds": 29.6,
+      "errors": {},
+      "seen": {
+        "GUST": 20,
+        "PULL": 20,
+        "RISE": 20,
+        "REVIVE": 20
+      }
+    },
+    "FB_ANEMO_HYPOSTASIS:counter": {
+      "level": 5,
+      "winRate": "100%",
+      "avgRounds": 12.9,
+      "errors": {},
+      "seen": {
+        "GUST": 20,
+        "PULL": 20,
+        "RISE": 20,
+        "REVIVE": 20
+      }
+    },
+    "FB_ELECTRO_HYPOSTASIS:base": {
+      "level": 6,
+      "winRate": "50%",
+      "avgRounds": 33.5,
+      "errors": {},
+      "seen": {
+        "SPIKES": 20,
+        "HAMMER": 20,
+        "IMMUNE": 20,
+        "STORM": 20,
+        "PRISM": 20,
+        "REVIVE": 20
+      }
+    },
+    "FB_ELECTRO_HYPOSTASIS:counter": {
+      "level": 6,
+      "winRate": "100%",
+      "avgRounds": 13.5,
+      "errors": {},
+      "seen": {
+        "SPIKES": 20,
+        "HAMMER": 20,
+        "STORM": 20,
+        "PRISM": 20,
+        "REVIVE": 20
+      }
+    },
+    "FB_CRYO_REGISVINE:base": {
+      "level": 5,
+      "winRate": "80%",
+      "avgRounds": 18.3,
+      "errors": {},
+      "seen": {
+        "SHELL": 20,
+        "WHIP": 20,
+        "SPREAD": 20,
+        "ORBS": 20,
+        "ENRAGE": 20
+      }
+    },
+    "FB_CRYO_REGISVINE:counter": {
+      "level": 5,
+      "winRate": "100%",
+      "avgRounds": 9.2,
+      "errors": {},
+      "seen": {
+        "SHELL": 20,
+        "WHIP": 20,
+        "SPREAD": 20,
+        "ORBS": 20,
+        "ENRAGE": 20
+      }
+    },
+    "FB_CRYO_HYPOSTASIS:base": {
+      "level": 8,
+      "winRate": "40%",
+      "avgRounds": 18.3,
+      "errors": {},
+      "seen": {
+        "LANCE": 20,
+        "BLAST": 20,
+        "WALL": 20,
+        "REVIVE": 16
+      }
+    },
+    "FB_CRYO_HYPOSTASIS:counter": {
+      "level": 8,
+      "winRate": "85%",
+      "avgRounds": 18.5,
+      "errors": {},
+      "seen": {
+        "LANCE": 20,
+        "BLAST": 20,
+        "WALL": 20,
+        "REVIVE": 20
+      }
+    },
+    "FB_GEO_HYPOSTASIS:base": {
+      "level": 5,
+      "winRate": "65%",
+      "avgRounds": 19.5,
+      "errors": {},
+      "seen": {
+        "ROCKFALL": 20,
+        "UPHEAVAL": 20,
+        "IMMUNE": 20,
+        "PILLARS": 20,
+        "REVIVE": 15
+      }
+    },
+    "FB_GEO_HYPOSTASIS:counter": {
+      "level": 5,
+      "winRate": "100%",
+      "avgRounds": 15.8,
+      "errors": {},
+      "seen": {
+        "ROCKFALL": 20,
+        "UPHEAVAL": 20,
+        "IMMUNE": 20,
+        "PILLARS": 20,
+        "REVIVE": 20
+      }
+    },
+    "FB_PYRO_REGISVINE:base": {
+      "level": 6,
+      "winRate": "50%",
+      "avgRounds": 15.9,
+      "errors": {},
+      "seen": {
+        "SHELL": 20,
+        "VINE": 20,
+        "LASH": 20,
+        "HEATWAVE": 20,
+        "BOMBS": 20,
+        "ENRAGE": 20
+      }
+    },
+    "FB_PYRO_REGISVINE:counter": {
+      "level": 6,
+      "winRate": "100%",
+      "avgRounds": 14.3,
+      "errors": {},
+      "seen": {
+        "SHELL": 20,
+        "VINE": 20,
+        "LASH": 20,
+        "HEATWAVE": 20,
+        "BOMBS": 20,
+        "ENRAGE": 20
+      }
+    },
+    "FB_OCEANID:base": {
+      "level": 6,
+      "winRate": "20%",
+      "avgRounds": 12.5,
+      "errors": {},
+      "seen": {
+        "BODY": 20,
+        "FORMS": 20,
+        "SPOUT": 20,
+        "WAVE": 20,
+        "FROG": 20
+      }
+    },
+    "FB_OCEANID:counter": {
+      "level": 6,
+      "winRate": "100%",
+      "avgRounds": 8.9,
+      "errors": {},
+      "seen": {
+        "BODY": 20,
+        "FORMS": 20,
+        "SPOUT": 20,
+        "WAVE": 20,
+        "FROG": 20
+      }
+    },
+    "FB_PRIMO_GEOVISHAP:base": {
+      "level": 7,
+      "winRate": "75%",
+      "avgRounds": 17.9,
+      "errors": {},
+      "seen": {
+        "INFUSE": 20,
+        "CLAW": 20,
+        "LEAP": 20,
+        "BEAM": 20,
+        "ENRAGE": 20
+      }
+    },
+    "FB_PRIMO_GEOVISHAP:counter": {
+      "level": 7,
+      "winRate": "100%",
+      "avgRounds": 11,
+      "errors": {},
+      "seen": {
+        "INFUSE": 20,
+        "CLAW": 20,
+        "LEAP": 20,
+        "BEAM": 20,
+        "ENRAGE": 19
+      }
+    },
+    "FB_RUIN_SERPENT:base": {
+      "level": 10,
+      "winRate": "35%",
+      "avgRounds": 18.6,
+      "errors": {},
+      "seen": {
+        "BURROW": 20,
+        "WAVE": 20,
+        "CHARGE": 20,
+        "BIND": 20
+      }
+    },
+    "FB_RUIN_SERPENT:counter": {
+      "level": 10,
+      "winRate": "100%",
+      "avgRounds": 13.1,
+      "errors": {},
+      "seen": {
+        "BURROW": 20,
+        "WAVE": 20,
+        "CHARGE": 20,
+        "BIND": 20
+      }
+    }
+  },
+  "note": "20 auto battles per setup at the recommended level. base = generalist party (Traveler, Noelle, Bennett, Lisa; 4-star forge weapon, reinforced leather, vital ring). prepared = boss-specific members and counter gear. Ruin Serpent re-run after its final tune."
+}

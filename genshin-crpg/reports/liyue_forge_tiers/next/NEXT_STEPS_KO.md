@@ -1,6 +1,15 @@
-# 다음 단계 설계 (다음 업데이트 예정) · 12-5-4 / 12-6 남은 작업
+# 12-5-4 / 12-6 진행 상황과 남은 작업
 
-이 폴더의 `runtime_field_bosses.draft.js`는 **초안**이다. 문법 검사만 통과했다. `source/`와 `index.html`에 연결하지 않았고, 실행 테스트와 밸런스 검증도 하지 않았다. 게임에는 아직 영향이 없다.
+**진행 상황: 모두 반영 (v0.13.41 작업분)**
+
+| 장 | 파일 | 자세한 내용 |
+|---|---|---|
+| 1장 필드 보스 9종 · 2장 이틀 보스 재도전 기믹 | `source/runtime_field_bosses.js`, `source/app_field_bosses.js` | `reports/field_bosses/README_KO.md` (밸런스 포함) |
+| 3장 캐릭터 전용 무기 43종 · 4장 보스 소재 장비 9종 | `source/runtime_exclusive_weapons.js` | `reports/exclusive_weapons/README_KO.md` |
+
+- 12-4 목록 중 빠져 있던 「원소 부착 단축」 특성도 추가했다.
+
+아래 1~4장은 처음 설계 기록으로 남겨 둔다. 실제 수치는 밸런스 조정 뒤 바뀌었다.
 
 ## 1. 필드 보스 9종
 

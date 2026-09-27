@@ -46,7 +46,8 @@ const TRAITS={
  HIGH_HP_CRIT:{label:'여유',group:'공략',text:v=>'HP 90% 이상이면 치명타 확률 +'+v+'%p'},
  STACK_ATK:{label:'연속 적중',group:'공략',text:v=>'적중할 때마다 공격력 +'+pct(v)+' (최대 3중첩, 2R)'},
  PROC_PHYSICAL:{label:'추가 타격',group:'공략',text:v=>'적중 시 '+pct(v)+' 확률로 공격력 40% 물리 추가 피해'},
- ON_KILL_HEAL:{label:'처치 회복',group:'지원',text:v=>'적을 쓰러뜨리면 HP '+v+' 회복'}
+ ON_KILL_HEAL:{label:'처치 회복',group:'지원',text:v=>'적을 쓰러뜨리면 HP '+v+' 회복'},
+ AURA_SHORTEN:{label:'원소 부착 단축',group:'방어',text:v=>'자기 차례 시작 시 '+pct(v)+' 확률로 몸에 묻은 원소가 사라짐 (반응·연계 피해 예방)'}
 };
 const GROUPS=['환경','방어','대열','공략','지원'];
 // Weapon classes carry a small innate identity so switching weapons changes how a fight plays.
@@ -79,7 +80,7 @@ const GEAR={
  EQ_ACC_VITAL_RING:[['HEAL_BOOST',8]],
  EQ_ACC_EAGLE_EYE:[['AIR_ACCESS',1],['ANTI_AIR',8]],
  EQ_ACC_STEADFAST:[['STAGGER_RES',100],['CONTROL_RES',10]],
- EQ_ACC_ELEMENTAL_PRISM:[['ELEMENT_RES','ALL',6]],
+ EQ_ACC_ELEMENTAL_PRISM:[['ELEMENT_RES','ALL',6],['AURA_SHORTEN',30]],
  EQ_ACC_HEALER_BROOCH:[['HEAL_BOOST',10],['SHIELD_BOOST',10]],
  EQ_ACC_GUARDIAN_TOKEN:[['COVER',30],['FIRST_GUARD',15]],
  EQ_SPECIAL_GRAPPLE:[['AIR_ACCESS',1],['TERRAIN_STEADY',1]],
@@ -97,7 +98,7 @@ const GEAR={
 };
 // Official weapon classes for Liyue companions (Mond ones already live in runtime_party.js).
 const LIYUE_WEAPONS={LIYUE_ZHONGLI:'장병기',LIYUE_NINGGUANG:'법구',LIYUE_BEIDOU:'양손검',LIYUE_YELAN:'활',LIYUE_KEQING:'한손검',LIYUE_BAIZHU:'법구',LIYUE_QIQI:'한손검',LIYUE_GAMING:'양손검',LIYUE_GANYU:'활',LIYUE_XINGQIU:'한손검',LIYUE_HUTAO:'장병기',LIYUE_XIANGLING:'장병기',LIYUE_XIANYUN:'법구',LIYUE_LANYAN:'법구',LIYUE_XIAO:'장병기',LIYUE_SHENHE:'장병기',LIYUE_XINYAN:'양손검',LIYUE_TARTAGLIA:'활',LIYUE_YANFEI:'법구',LIYUE_YUNJIN:'장병기',LIYUE_YAOYAO:'장병기',LIYUE_CHONGYUN:'양손검',LIYUE_ZIBAI:'한손검'};
-const CAPS={HEAT:90,COLD:90,INSULATE:90,WATERPROOF:90,ANTITOXIN:90,DOT:60,AOE_GUARD:50,HEAVY:50,FIRST_GUARD:60,STAGGER_RES:100,CONTROL_RES:75,PURIFY:75,COVER:75,STEALTH:75};
+const CAPS={HEAT:90,COLD:90,INSULATE:90,WATERPROOF:90,ANTITOXIN:90,DOT:60,AOE_GUARD:50,HEAVY:50,FIRST_GUARD:60,STAGGER_RES:100,CONTROL_RES:75,PURIFY:75,COVER:75,STEALTH:75,AURA_SHORTEN:75};
 const HAZARDS={
  FIRE:{label:'화염 지형',trait:'HEAT',element:'불'},
  FROST:{label:'냉기 지형',trait:'COLD',element:'얼음'},
@@ -224,7 +225,8 @@ P.applyCombatControl=function(a,t,kind,o={}){
 P.newRound=function(...args){const b=this.s.runtime;if(b)for(const a of b.actors.filter(x=>x.side==='ALLY'&&x.nextScorePenalty)){const r=Math.min(100,tv(a,'STAGGER_RES'));if(r)a.nextScorePenalty=Math.round(a.nextScorePenalty*(1-r/100));}return old.newRound.apply(this,args);};
 const DEBUFFS=['STATUS_SLOW','STATUS_DEF_DOWN','PHYS_VULN','HAZARD_WET','HAZARD_CORRODED','STATUS_BLEED','OMEN'];
 P.onCombatTurnStart=function(a){
- const out=old.onCombatTurnStart?.call(this,a),p=tv(a,'PURIFY');
+ const out=old.onCombatTurnStart?.call(this,a),p=tv(a,'PURIFY'),shed=tv(a,'AURA_SHORTEN');
+ if(a?.side==='ALLY'&&shed&&a.hp>0&&(a.auras?.length||a.aura)&&this.random()*100<Math.min(75,shed)){a.auras=[];a.aura=null;this.s.runtime.log.push({target:a.name,targetId:a.id,text:a.name+' · 원소 부착이 사라졌다',round:this.s.runtime.round});}
  if(a?.side==='ALLY'&&p&&a.hp>0){const bad=(a.statuses||[]).find(s=>DEBUFFS.includes(s.id)||s.tickDamage);if(bad&&this.random()*100<p){a.statuses=a.statuses.filter(s=>s!==bad);this.s.runtime.log.push({target:a.name,targetId:a.id,purified:bad.id,text:a.name+' · 정화',round:this.s.runtime.round});}}
  return out;
 };
