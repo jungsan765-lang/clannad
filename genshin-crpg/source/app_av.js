@@ -269,7 +269,7 @@ act=async function(type,params={}){
     if(['BUY','SELL'].includes(type))GameAudio.play('item_receive');if(type==='CLAIM_QUEST')GameAudio.play('commission_complete');if(type==='CRAFT'){const recipe=game.tables['17_RECIPE_DB'].get(params.recipe);GameAudio.play(recipe?.[1]==='요리'?'cook_complete':recipe?.[1]==='단조'?'forge_complete':'craft_complete');}
     const save=async()=>{if(entryCheckpoint&&game.playPhase()!=='FREE')try{await storeStoryCheckpoint(entryCheckpoint);}catch{say('이야기 시작 전 기록을 남기지 못했습니다. 현재 진행은 자동 저장합니다.');}try{await storeSave();}catch{}};
     await Promise.all([save(),GameEffects.play(effects),cover?cover.promise:playTravel(adventureBefore,type,params)]);showReceivedLoot(receivedLoot(adventureBefore,type));if(!battleBefore&&game.s.runtime?.actors.some(a=>a.side==='ENEMY'&&/HILI/i.test(a.source)))GameAudio.play('encounter_hilichurl');return lastResult;
-  }catch(e){cover?.abort();softActionPreview=false;say(e.message);return {ok:false,error:e.message};}
+  }catch(e){cover?.abort();if(type==='COMBAT')GameEffects.cancel();softActionPreview=false;say(e.message);return {ok:false,error:e.message};}
   finally{busy=false;softActionPreview=false;render();}
 };
 // Loading/restoring is deliberately silent; effects only originate from new actions.
