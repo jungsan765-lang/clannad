@@ -12,6 +12,7 @@
   const pending=r=>r.s?.runtime?.opening?.state==='PENDING';
   const safeMenus=new Set(['SYSTEM','SAVE','LOAD','SETTINGS','STATUS','COMBAT']);
   const nextAction=r=>r.s.global.SAVE_ID+':'+(r.s.global.LAST_COMMITTED_ACTION_SEQ+1);
+  const playerFirst=b=>{const i=b?.order?.findIndex(x=>x.id==='PLAYER_CUSTOM')??-1;if(i>0)b.order=[b.order[i],...b.order.slice(0,i),...b.order.slice(i+1)];return b?.order||[];};
 
   P.startBattle=function(...args){
     const prior=this._buildingCombatOpening;
@@ -28,6 +29,7 @@
     if(create)b.opening={version:1,state:'PENDING',round:b.round,createdActionId:nextAction(this),initialOrder:[]};
     const result=old.newRound.apply(this,args);
     if(create){
+      playerFirst(b);
       b.opening.initialOrder=copy(b.order);
       b.phase='WAIT_PLAYER';
       this.s.global.COMBAT_ACTION_PHASE='OPENING';
@@ -60,6 +62,7 @@
     const b=this.s.runtime;
     if(!pending(this))fail('COMBAT_OPENING','시작을 기다리는 전투가 없습니다.');
     if(battle&&battle!==b.id)fail('BATTLE_ID','현재 전투와 시작할 전투가 일치하지 않습니다.');
+    playerFirst(b);b.opening.initialOrder=copy(b.order);
     const logStart=b.log.length,initialOrder=copy(b.opening.initialOrder);
     b.opening.state='STARTED';b.opening.startedActionId=nextAction(this);
     b.phase='RESOLVING';this.s.global.COMBAT_ACTION_PHASE='RESOLVING';this.s.global.SCREEN_MODE='COMBAT';
@@ -87,6 +90,7 @@
     const b=s.runtime,o=b?.opening;if(!o)return s; // Old WAIT_PLAYER saves continue normally.
     if(o.version!==1||!['PENDING','STARTED'].includes(o.state)||o.round!==1||!Array.isArray(o.initialOrder)||!o.initialOrder.length||new Set(o.initialOrder.map(x=>x.id)).size!==o.initialOrder.length||o.initialOrder.some(x=>!b.actors.some(a=>a.id===x.id)||!Number.isFinite(x.score)))fail('OPENING_SAVE','전투 시작 순서 저장값이 잘못되었습니다.');
     if(o.state==='PENDING'&&(b.round!==1||b.cursor!==0||b.turnStarted!==null||b.actionSequence!==0||b.phase!=='WAIT_PLAYER'||s.global.COMBAT_ACTION_PHASE!=='OPENING'||b.interlude||b.pendingInterludes?.length||b.actors.some(a=>a.turns!==0)||JSON.stringify(b.order)!==JSON.stringify(o.initialOrder)))fail('OPENING_SAVE','전투 시작 대기 상태가 손상되었습니다.');
+    if(o.state==='PENDING'){playerFirst(b);o.initialOrder=copy(b.order);}
     return s;
   };
   api.openingVersion=1;

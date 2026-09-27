@@ -29,7 +29,8 @@ assert(av.includes("preservePresentation=false"),'presentation restore hook must
 assert(online.includes("install(out,{preservePresentation:true})"),'online action commits must preserve current audio/combat presentation');
 assert(online.includes("LOCAL_ONLY_ACTIONS=new Set(['MENU'])"),'screen-only MENU navigation must be explicitly local-only');
 assert(online.includes("O.savePolicy=type=>LOCAL_ONLY_ACTIONS.has(type)?'LOCAL_UI':'IMMEDIATE_SERVER'"),'unknown future gameplay actions must default to authoritative server saving');
-assert(online.includes("game.menu(params.screen)"),'local-only menu navigation must update the UI without a game transaction');
+assert(online.includes("game.apply({type:'MENU',screen:params.screen})"),'local-only MENU must run the same semantic menu side effects without a save transaction');
+assert(online.includes("uiScreen:localScreen"),'the next real action must carry the local screen so the server can fold navigation into that save');
 assert(online.includes("if(O.active&&game?.s.runtime)"),'reconnecting to an unfinished battle must trigger the abandonment path');
 assert(online.includes("O.execute('COMBAT_FORFEIT'"),'unfinished online battles must be forfeited on session resume');
 assert(av.includes("title:'자동 저장 중'"),'persisted actions without a dedicated animation must have a generic save progress bar');

@@ -24,6 +24,7 @@ async function ensureBackups(db){
  await backupStores.get(db);
 }
 function responseGame(row,account,env,result,parsedState){const state=parsedState||JSON.parse(row.state);return {account:{id:account.id,username:account.username,displayName:account.display_name,admin:admin(env,account.id)},version:ENGINE_VERSION,revision:row.revision,ranked:!!row.ranked,state:publicState(state),result:result||null};}
+const UI_SCREENS=new Set(['STORY','STATUS','COMBAT_PREP','COMBAT','SYSTEM','MAIN_MENU','HUB','LOCATION','INVENTORY','PARTY','SHOP','CRAFT','QUEST','RELATIONS','DIALOGUE','BOSS_INTRO','SAVE','LOAD','SETTINGS']);
 const ALLOWED=new Set(); // Filled from the checked-in UI action inventory below.
 
 for(const type of ["ABYSS_ENTER", "ABYSS_RESET", "ABYSS_REWARD", "AFFECTION_ENTER", "ARTIFACT_ENHANCE", "BOSS_CONTINUE", "BOSS_LEAVE", "BOSS_ROUTE", "BUY", "CLAIM_QUEST", "COMBAT", "COMBAT_FORFEIT", "COMBAT_BEGIN", "COMBAT_PREPARE", "COMMISSION_ACCEPT", "COMMISSION_PUZZLE", "CRAFT", "CRAFT_STAGE", "ENHANCE", "EQUIP", "EQUIPMENT_GUIDE_ACK", "FORMATION_SET", "GEO_OCULUS_OFFER", "GEO_TRAIL_CLAIM", "JOURNEY_RESUME", "LEGEND_ENTER", "LEGEND_REGISTER", "LIFE_CANCEL", "LIFE_FINISH", "LIFE_START", "LIYUE_ARTIFACT_CHALLENGE", "LIYUE_FIELD_ANSWER", "LIYUE_FIELD_BATTLE", "LIYUE_FIELD_CONTINUE", "LIYUE_FIELD_FINISH", "LIYUE_FIELD_INSPECT", "LIYUE_INTERLUDE_ACK", "MAIN_STORY_ACCEPT", "MASTERY", "MENU", "MOND_FIRST_CONTACT", "MOND_MATERIAL_CHALLENGE", "MOVE", "NPC", "OCULUS_COLLECT", "OCULUS_OFFER", "PARTY", "PARTY_REMOVE", "PARTY_REPLACE", "PARTY_SWAP", "PARTY_TACTIC", "PERSONAL", "PLACE_ENTER", "PLACE_LEAVE", "PREP_LEAVE", "PREP_SELECT", "QUEST_CHOICE", "RECOVER", "RECRUIT_REJOIN", "RELATION_ACTIVITY", "SELL", "STORY_BATTLE_CONFIRM", "STORY_CHAPTER", "STORY_CHOICE", "STORY_NAME", "STORY_NEXT", "STORY_PAUSE_FREE", "STORY_RESUME", "STORY_RETRY", "STORY_RIDE", "STORY_SCRIPTED_TRAVEL", "TOOL_PREPARE", "TRAVELER_RESONATE", "UNEQUIP", "USE_ITEM", "WAIT", "WORLD_WORK_CANCEL", "WORLD_WORK_FINISH", "WORLD_WORK_START", "ZIBAI_RETURN_CHECK"])ALLOWED.add(type);
@@ -63,7 +64,12 @@ async function route(request,env){
   if(b.revision!==row.revision)throw error(409,'다른 화면에서 진행되었습니다. 최신 자동저장을 이어 받아 주세요.');
   const isDebug=b.type==='OPERATOR_DEBUG';if(!ALLOWED.has(b.type)&&!isDebug)throw error(400,'지원하지 않는 게임 행동입니다.');if(isDebug&&!admin(env,account.id))throw error(403,'운영자 전용 기능입니다.');
   let r;try{r=takeRuntime(account,row);}catch{throw error(503,'저장 기록을 새 버전에서 여는 데 문제가 있습니다. 원본은 보존되어 있습니다. 운영자에게 알려 주세요.','SAVE_COMPATIBILITY');}
-  r.serverAdmin=isDebug;const params={...(b.params||{})};for(const key of ['type','id','revision','__proto__','constructor','prototype'])delete params[key];const result=r.action(b.type,params);const state=JSON.stringify(compact(r.s));if(encoder.encode(state).length>1900000)throw error(507,'저장 크기 한도에 도달했습니다. 운영자에게 문의해 주세요.');
+  r.serverAdmin=isDebug;const params={...(b.params||{})};for(const key of ['type','id','revision','__proto__','constructor','prototype'])delete params[key];
+  // MENU navigation is client-local. Apply its current screen only as part of the next real transaction,
+  // preserving story/place menu side effects without creating a standalone save revision.
+  const uiScreen=typeof b.uiScreen==='string'&&UI_SCREENS.has(b.uiScreen)?b.uiScreen:'';
+  if(uiScreen&&uiScreen!==r.s.global.SCREEN_MODE){const menuReason=r.actionReason('MENU',{screen:uiScreen});if(menuReason)throw error(409,'현재 화면 상태를 다시 맞춰 주세요.','UI_CONTEXT');r.apply({type:'MENU',screen:uiScreen});}
+  const result=r.action(b.type,params);const state=JSON.stringify(compact(r.s));if(encoder.encode(state).length>1900000)throw error(507,'저장 크기 한도에 도달했습니다. 운영자에게 문의해 주세요.');
   const next={state,revision:row.revision+1,ranked:isDebug?0:row.ranked},output=responseGame(next,account,env,result,r.s),outputText=JSON.stringify(output),receiptText=JSON.stringify({result});
   await ensureBackups(env.DB);
   const statements=[
