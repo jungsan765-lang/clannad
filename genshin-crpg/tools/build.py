@@ -8,27 +8,8 @@ sha=lambda b:hashlib.sha256(b).hexdigest()
 from apply_liyue_rework import apply as apply_liyue_rework
 apply_liyue_rework()
 db=json.loads((ROOT/'content/db.json').read_text())
-# Runtime/SAVE sheets retain their header contracts, never another game's progress.
-save_tables=['15_INVENTORY_STATE','25_CURRENT_ROSTER','38_COMBAT_STATE','39_COMBAT_LOG','41_PARTY_STATE','42_QUEST_STATE','43_RELATION_STATE','44_RUNTIME_STATE','52_RUNTIME_STATE','54_RELATIONSHIP_STATE']
-removed=[]
-for name,rows in db.items():
- if name in save_tables or name.startswith(('25_','38_','39_','41_','42_','43_','44_','52_','54_','98_')):
-  removed.append(name);db[name]=rows[:1]
-# Explicit fresh state starts from declared JSON/type defaults, never live values.
-for r in db['24_CURRENT_STATE'][1:]:
- if not r or not r[0]:continue
- typ=str(r[2] if len(r)>2 else '')
- value=r[1] if len(r)>1 else None
- if len(r)<2:r.append('')
- if 'JSON' in typ or str(r[0]).endswith('_JSON'):r[1]='[]' if str(value).startswith('[') else '{}'
- elif typ in ['BOOL','BOOLEAN']:r[1]=False
- elif any(x in typ for x in ['INT','NUMBER','FLOAT']):r[1]=0
- else:r[1]=''
-for r in db['07_CHAR_DB'][1:]:
- for key in ['XP','CURRENT_HP','LEVEL_STATE']:
-  if key in db['07_CHAR_DB'][0]:
-   i=db['07_CHAR_DB'][0].index(key)
-   if i<len(r):r[i]=0
+from runtime_data import clean_runtime_db
+db,removed=clean_runtime_db(db)
 content_bytes=json.dumps(db,ensure_ascii=False,separators=(',',':')).encode()
 version='2026-09-24-'+sha(content_bytes)[:12]
 manifest=json.loads((ROOT/'content/asset-manifest.json').read_text());files={};assets={};maps={}
@@ -84,15 +65,15 @@ public['sfx']={f['id']:{'url':'audio/genshin-sfx/'+f['file'],'sourceNature':f['s
 public['music']=json.loads((ROOT/'assets/audio/music-catalog.json').read_text())
 (OUT/'data.js').write_text('window.CRPG_DATA='+content_bytes.decode()+';\n')
 (OUT/'assets.js').write_text('window.CRPG_ASSETS='+json.dumps(files,ensure_ascii=False)+';\nwindow.CRPG_MANIFEST='+json.dumps(public,ensure_ascii=False)+';\n')
-for f in ['runtime_chasm_skills.js','runtime_liyue_encounters.js','runtime_play_fixes.js','runtime_gear_traits.js','runtime_enemy_tiers.js','runtime_field_bosses.js','runtime_quality_fixes.js','runtime_liyue_rework_content.js','runtime_liyue_rework.js','app_liyue_rework.js','app_gear.js','app_battle_traits.js','app_field_bosses.js','app_quality_fixes.js','runtime_liyue_area_content.js','runtime_liyue_areas.js','app_liyue_areas.js','terrain_map.js','runtime_navigation.js','app_navigation.js','runtime_mond_balance.js','runtime_mond_boss_balance.js','app_mond_boss_balance.js','runtime_enemy_content.js','runtime_enemy_skills.js','app_enemy_intel.js','runtime_mond_encounters.js','app_mond_encounters.js','runtime_liyue_equipment.js','runtime_liyue_forge.js','runtime_exclusive_weapons.js','runtime_enhancement.js','runtime_liyue_artifacts.js','app_enhancement.js','app_liyue_artifacts.js','runtime_equipment.js','app_equipment.js','runtime_protagonist.js','app_protagonist.js','runtime_liyue_card_content.js','runtime_liyue_cards.js','runtime_liyue_combat.js','runtime_geo_oculi.js','runtime_liyue.js','runtime_recruitment.js','app_recruitment.js','runtime_geography.js','app_discovery.js','runtime_encounter.js','app_combat_fx.js','world_content.js','runtime_world.js','runtime_journey.js','runtime_market.js','app_market.js','app_journey.js','app_tutorial.js','index.html','style.css','app.js','app_legacy.js','app_revision.js','app_party.js','inventory_presenter.js','app_liyue_equipment.js','journal_presenter.js','app_experience.js','app_adventure.js','app_exploration.js','app_life.js','app_version.js','presentation.js','audio_playlists.js','app_av.js','runtime.js','runtime_extensions.js','runtime_story.js','runtime_nodes.js','runtime_events.js','runtime_relationships.js','runtime_combat.js','runtime_mond_cards.js','runtime_economy.js','runtime_passives.js','runtime_rules.js','runtime_andrius.js','runtime_flow.js','runtime_party.js','runtime_opening.js','runtime_places.js','runtime_places_joint.js','runtime_adventure.js','runtime_exploration.js','runtime_life.js','save_adapter.js','NotoSansKR_subset.woff','manifest.webmanifest']:
+for f in ['runtime_field_bosses.js','runtime_exclusive_weapons.js','app_field_bosses.js','mobile-preview.html','runtime_abyss.js','runtime_operator.js','runtime_personal_expansion.js','online_config.js','app_online.js','runtime_chasm_skills.js','runtime_liyue_encounters.js','runtime_play_fixes.js','runtime_gear_traits.js','runtime_enemy_tiers.js','runtime_quality_fixes.js','runtime_liyue_rework_content.js','runtime_liyue_rework.js','app_liyue_rework.js','app_gear.js','app_battle_traits.js','app_quality_fixes.js','runtime_liyue_area_content.js','runtime_liyue_areas.js','app_liyue_areas.js','terrain_map.js','runtime_navigation.js','app_navigation.js','runtime_mond_balance.js','runtime_mond_boss_balance.js','app_mond_boss_balance.js','runtime_enemy_content.js','runtime_enemy_skills.js','app_enemy_intel.js','runtime_mond_encounters.js','app_mond_encounters.js','runtime_liyue_equipment.js','runtime_liyue_forge.js','runtime_enhancement.js','runtime_liyue_artifacts.js','app_enhancement.js','app_liyue_artifacts.js','runtime_equipment.js','app_equipment.js','runtime_protagonist.js','app_protagonist.js','runtime_liyue_card_content.js','runtime_liyue_cards.js','runtime_liyue_combat.js','runtime_geo_oculi.js','runtime_liyue.js','runtime_recruitment.js','app_recruitment.js','runtime_geography.js','app_discovery.js','runtime_encounter.js','app_combat_fx.js','world_content.js','runtime_world.js','runtime_journey.js','runtime_market.js','app_market.js','app_journey.js','app_tutorial.js','index.html','style.css','app.js','app_legacy.js','app_revision.js','app_party.js','inventory_presenter.js','app_liyue_equipment.js','journal_presenter.js','app_experience.js','app_adventure.js','app_exploration.js','app_life.js','app_version.js','presentation.js','audio_playlists.js','app_av.js','runtime.js','runtime_extensions.js','runtime_story.js','runtime_nodes.js','runtime_events.js','runtime_relationships.js','runtime_combat.js','runtime_mond_cards.js','runtime_economy.js','runtime_passives.js','runtime_rules.js','runtime_andrius.js','runtime_flow.js','runtime_party.js','runtime_opening.js','runtime_places.js','runtime_places_joint.js','runtime_adventure.js','runtime_exploration.js','runtime_life.js','save_adapter.js','NotoSansKR_subset.woff','manifest.webmanifest']:
  path=SRC/f
  if not path.exists():raise SystemExit('Implementation missing: '+f)
  shutil.copy2(path,OUT/f)
-shutil.copytree(ROOT/'assets/audio',OUT/'audio')
-shutil.copytree(ROOT/'assets/icons',OUT/'assets/icons')
+shutil.copytree(ROOT/'assets/audio',OUT/'audio',dirs_exist_ok=True)
+shutil.copytree(ROOT/'assets/icons',OUT/'assets/icons',dirs_exist_ok=True)
 # Exact user-approved terrain images; no crop, resize, generation or recompression.
-shutil.copytree(ROOT/'assets/terrain',OUT/'assets/terrain')
-shutil.copytree(ROOT/'assets/fonts',OUT/'assets/fonts')
+shutil.copytree(ROOT/'assets/terrain',OUT/'assets/terrain',dirs_exist_ok=True)
+shutil.copytree(ROOT/'assets/fonts',OUT/'assets/fonts',dirs_exist_ok=True)
 for size in (192,512):
  im=Image.new('RGB',(size,size),'#102b2e');draw=ImageDraw.Draw(im);c=size/2;draw.polygon([(c,size*.13),(size*.60,size*.4),(size*.87,c),(size*.60,size*.6),(c,size*.87),(size*.4,size*.6),(size*.13,c),(size*.4,size*.4)],fill='#e3c38a');im.save(OUT/f'icon-{size}.png')
 # Code and content activate as one versioned pack; installed worker never mixes releases.

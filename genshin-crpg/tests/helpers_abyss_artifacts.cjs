@@ -1,0 +1,4 @@
+function equip(r,id,e,enh=12){const slot=r.giveEquipment(e),i=r.s.inventory.find(x=>x.slot===slot);i.enhance=enh;i.enhancementCap=12;r.action('EQUIP',{slot,owner:id});}
+function artifacts(r,ids){for(const id of ids){let best,score=-1;for(let n=0;n<1500;n++){const d=r.rollArtifact(),i=r.artifactInstance(d.slot);i.artifact.level=5;const s=r.artifactStats(i);const good=i.artifact.quality>=900&&(id==='LIYUE_ZHONGLI'?s.MAX_HP>=200&&s.DEF>=20:id==='MOND_JEAN'?s.ATK>=25&&s.MAX_HP>=100:s.ATK>=35&&s.CRIT>=2);const val=good?(s.ATK||0)+(s.MAX_HP||0)*.05+(s.DEF||0)*.5:-1;if(val>score){if(best)r.s.inventory=r.s.inventory.filter(x=>x.slot!==best.slot);best=i;score=val;}else r.s.inventory=r.s.inventory.filter(x=>x!==i);}if(!best)throw Error('no natural artifact '+id);r.action('EQUIP',{slot:best.slot,owner:id});}}
+
+module.exports={equip,artifacts};

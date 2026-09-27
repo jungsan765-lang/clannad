@@ -1,0 +1,9 @@
+PRAGMA foreign_keys=ON;
+CREATE TABLE IF NOT EXISTS accounts(id TEXT PRIMARY KEY, username TEXT NOT NULL UNIQUE, display_name TEXT NOT NULL, salt TEXT NOT NULL, password_hash TEXT NOT NULL, created_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS sessions(token_hash TEXT PRIMARY KEY, account_id TEXT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE, expires_at INTEGER NOT NULL);
+CREATE INDEX IF NOT EXISTS sessions_owner ON sessions(account_id);
+CREATE TABLE IF NOT EXISTS games(account_id TEXT PRIMARY KEY REFERENCES accounts(id) ON DELETE CASCADE, state TEXT NOT NULL, revision INTEGER NOT NULL DEFAULT 0, last_request_id TEXT NOT NULL, ranked INTEGER NOT NULL DEFAULT 1, updated_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS receipts(account_id TEXT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE, request_id TEXT NOT NULL, revision INTEGER NOT NULL, response TEXT NOT NULL, created_at INTEGER NOT NULL, PRIMARY KEY(account_id,request_id));
+CREATE TABLE IF NOT EXISTS ranking(account_id TEXT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE, season TEXT NOT NULL, display_name TEXT NOT NULL, floor INTEGER NOT NULL, rounds INTEGER NOT NULL, attempts INTEGER NOT NULL, achieved_at INTEGER NOT NULL, PRIMARY KEY(account_id,season));
+CREATE INDEX IF NOT EXISTS ranking_top ON ranking(season,floor DESC,rounds,attempts,achieved_at);
+CREATE TABLE IF NOT EXISTS rate_limits(bucket TEXT PRIMARY KEY, count INTEGER NOT NULL, until_at INTEGER NOT NULL);

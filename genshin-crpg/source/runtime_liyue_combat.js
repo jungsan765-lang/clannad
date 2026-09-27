@@ -9,8 +9,8 @@ const waves={1:['MON_FATUI_CRYO','MON_FATUI_PYRO'],3:['MON_FATUI_ELECTRO','MON_F
 P.supportsLiyueBoss=id=>bossIds.has(id);
 P.combatStoryConfig=function(group){
  const node=this.storyNode(),e=node&&[...this.liyueDefinitions().values()].find(e=>e.SOURCE_ID_OR_FILTER===node[4]&&e.p.kind==='combat_gate'&&e.p.encounter_group_id===group);
- if(e){const p=e.p;return {node_id:node[4],map_id:node[8],route:'ROUTE_ISEKAI',party_max:4,guest_char_ids:[],branch:this.liyueLeaf(),eventId:e.EVENT_ID,noRewards:true,result:'VICTORY',liyue:true,objective:copy(p.objective||null)};}
- if(node?.[0]==='ROUTE_TRAVELER'&&String(node[1]).startsWith('Q_TRV_LIYUE_')&&String(node[12]).includes('START_FIXED_COMBAT:'+group))return {node_id:node[4],map_id:node[8],route:'ROUTE_TRAVELER',party_max:4,guest_char_ids:[],branch:this.s.flags.FLAG_TRV_LY_GOLDEN_ROUTE||null,liyue:true,objective:group==='EG_BOSS_OSIAL'?{kind:'PROTECT_FORMATION',formation_hp:3000,formation_def:120,charge_rounds:8,wave_hp_multiplier:.4}:null};
+ if(e){const p=e.p;return {node_id:node[4],map_id:node[8],route:'ROUTE_ISEKAI',party_max:4,guest_char_ids:[],branch:this.liyueLeaf(),eventId:e.EVENT_ID,noRewards:true,result:'VICTORY',liyue:true,objective:p.objective?.kind==='PROTECT_FORMATION'?{...copy(p.objective),formation_hp:2200,formation_def:90,wave_hp_multiplier:.80}:copy(p.objective||null)};}
+ if(node?.[0]==='ROUTE_TRAVELER'&&String(node[1]).startsWith('Q_TRV_LIYUE_')&&String(node[12]).includes('START_FIXED_COMBAT:'+group))return {node_id:node[4],map_id:node[8],route:'ROUTE_TRAVELER',party_max:4,guest_char_ids:[],branch:this.s.flags.FLAG_TRV_LY_GOLDEN_ROUTE||null,liyue:true,objective:group==='EG_BOSS_OSIAL'?{kind:'PROTECT_FORMATION',formation_hp:2200,formation_def:90,charge_rounds:8,wave_hp_multiplier:.80}:null};
  return old.combatStoryConfig.call(this,group);
 };
 const fieldEnemyCards=new Set(['ECARD_MITA_ROCK_SHIELD','ECARD_MITA_ROCK_CHARGE','ECARD_RUIN_VARIANT_CORE','ECARD_FATUI_CRYO_SPRAY','ECARD_FATUI_CRYO_ARMOR','ECARD_FATUI_PYRO_AIM','ECARD_FATUI_ANEMO_GUARD','ECARD_FATUI_ELECTRO_ARMOR','ECARD_FATUI_HYDRO_HEAL','ECARD_FATUI_GEO_BARRIER','ECARD_FATUI_AGENT_STEALTH','ECARD_FATUI_AGENT_BLADE']);
@@ -109,7 +109,7 @@ P.aiTurn=function(a,targets){
 P.roundEnd=function(){
  const b=this.s.runtime,o=b?.liyueObjective;if(b?.liyueEvacuation)b.liyueEvacuation.completedRounds=Math.max(b.liyueEvacuation.completedRounds,b.round);if(o&&!o.settled.includes(b.round)){
   o.settled.push(b.round);o.charge=Math.min(8,o.charge+1);b.log.push({objective:'FORMATION_CHARGE',charge:o.charge,target:8,round:b.round});
-  if(b.round%3===0){const boss=b.actors.find(isOsial),proxy={...boss,atk:b.storyConfig?.route==='ROUTE_ISEKAI'?90:boss.atk};for(const a of b.actors.filter(a=>a.side==='ALLY'&&a.hp>0))if(this.damage(proxy,a,1.75,'HYDRO',{range:'전장',card:'OSIAL_DELUGE',noAura:false}))a.nextScorePenalty=(a.nextScorePenalty||0)+12;}
+  if(b.round%3===0){const boss=b.actors.find(isOsial),proxy={...boss,atk:Math.max(230,Math.min(340,boss.atk))};for(const a of b.actors.filter(a=>a.side==='ALLY'&&a.hp>0))if(this.damage(proxy,a,1.75,'HYDRO',{range:'전장',card:'OSIAL_DELUGE',noAura:false}))a.nextScorePenalty=(a.nextScorePenalty||0)+12;}
  }
  const azh=b?.actors.find(a=>isAzhdaha(a)&&a.hp>0);if(azh?.azhdaha?.current&&azh.azhdaha.current!=='GEO')for(const ally of b.actors.filter(x=>x.side==='ALLY'&&x.hp>0))this.damage(azh,ally,.35,azh.azhdaha.current,{range:'전장',card:'ECARD_AZHDAHA_ELEMENT_CORE',sourceKind:'AZHDAHA_LEYLINE',aoe:true});
  return old.roundEnd.call(this);

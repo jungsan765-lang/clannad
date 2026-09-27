@@ -51,7 +51,7 @@ P.atCommissionGuild=function(region=''){
 };
 P.commissionFieldEntries=function(){
  const map=this.s.global.CURRENT_MAP_ID;
- return (this.commissionEntries?.()||[]).filter(q=>q.accepted&&!q.state?.claimed&&q.definition?.kind==='exploration'&&q.definition.map_id===map).map(q=>{
+ return (this.commissionEntries?.()||[]).filter(q=>q.accepted&&!q.state?.claimed&&['exploration','supply'].includes(q.definition?.kind)&&q.definition.map_id===map).map(q=>{
   const spec=PUZZLES[q.row[0]],stage=spec&&!q.state?.puzzleSolved?spec:null;
   return {...q,readyToReport:q.state?.node==='READY_TO_CLAIM',awaitingBattle:q.state?.node==='AWAIT_VICTORY',puzzle:stage?copy(stage):null};
  });

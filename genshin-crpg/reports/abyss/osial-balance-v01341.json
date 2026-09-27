@@ -1,0 +1,101 @@
+{
+  "provenance": "Native stats and actual equipment, no base-stat boosts; real combat actions. Defensive objective retains eight-round charge and wave cleanup.",
+  "runs": [
+    {
+      "level": 6,
+      "enhance": 0,
+      "team": [],
+      "seed": 12,
+      "win": false,
+      "rounds": 9
+    },
+    {
+      "level": 6,
+      "enhance": 0,
+      "team": [],
+      "seed": 441,
+      "win": false,
+      "rounds": 8
+    },
+    {
+      "level": 6,
+      "enhance": 0,
+      "team": [],
+      "seed": 1987,
+      "win": false,
+      "rounds": 9
+    },
+    {
+      "level": 10,
+      "enhance": 3,
+      "team": [
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_BARBARA"
+      ],
+      "seed": 12,
+      "win": false,
+      "rounds": 12
+    },
+    {
+      "level": 10,
+      "enhance": 3,
+      "team": [
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_BARBARA"
+      ],
+      "seed": 441,
+      "win": false,
+      "rounds": 13
+    },
+    {
+      "level": 10,
+      "enhance": 3,
+      "team": [
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_BARBARA"
+      ],
+      "seed": 1987,
+      "win": false,
+      "rounds": 14
+    },
+    {
+      "level": 15,
+      "enhance": 8,
+      "team": [
+        "MOND_DILUC",
+        "MOND_NOELLE",
+        "MOND_JEAN"
+      ],
+      "seed": 12,
+      "win": true,
+      "rounds": 11
+    },
+    {
+      "level": 15,
+      "enhance": 8,
+      "team": [
+        "MOND_DILUC",
+        "MOND_NOELLE",
+        "MOND_JEAN"
+      ],
+      "seed": 441,
+      "win": true,
+      "rounds": 10
+    },
+    {
+      "level": 15,
+      "enhance": 8,
+      "team": [
+        "MOND_DILUC",
+        "MOND_NOELLE",
+        "MOND_JEAN"
+      ],
+      "seed": 1987,
+      "win": true,
+      "rounds": 11
+    }
+  ]
+}

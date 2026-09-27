@@ -39,7 +39,7 @@ jobs:
           python-version: "3.12"
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
       - name: Install build dependency
         run: python -m pip install pillow
       - name: Apply pinned Liyue data revision
@@ -63,6 +63,16 @@ jobs:
       - name: All Liyue routes through actual actions
         working-directory: genshin-crpg
         run: node tests/test_liyue_rework_flow.cjs
+      - name: Accounts, abyss and quest regression
+        working-directory: genshin-crpg
+        run: |
+          python tools/build_server.py
+          node tests/test_online_server.mjs
+          node tools/test_field_bosses.cjs
+          node tools/test_exclusive_weapons.cjs
+          node tests/test_update_v01341.cjs
+          node tests/test_abyss_v01341.cjs
+          node tests/test_osial_v01341.cjs
       - name: Build production static pack
         working-directory: genshin-crpg
         run: python tools/build.py

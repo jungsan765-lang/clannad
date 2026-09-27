@@ -190,7 +190,7 @@ act=async function(type,params={}){
     const completedQuestsBefore=new Set(Object.entries(game.s.quests).filter(([,q])=>q.state==='완료').map(([id])=>id));
     const battleBefore=game.s.runtime?JSON.parse(JSON.stringify(game.s)):null,adventureBefore=adventureSnapshot(),before=CRPGPresentation.snapshot(game.s),entryCheckpoint=game.playPhase()==='FREE'&&['JOURNEY_RESUME','STORY_NEXT','MAIN_STORY_ACCEPT','STORY_CHAPTER','STORY_RESUME','LEGEND_ENTER','AFFECTION_ENTER'].includes(type)?JSON.parse(game.serialize()):null;
     let historyEntry=null;if(type==='STORY_NEXT'){const n=game.storyNode();if(n&&n[9]&&scenePermitted())historyEntry={speaker:displayText(n[7]||'이야기'),text:displayText(game.storyDisplayText?.(n)??n[9]),...sceneClassification()};}
-    lastResult=game.action(type,params);if(historyEntry)sceneHistory.push(historyEntry);if(type==='NPC')selectedNPC=params.entity;
+    lastResult=window.CRPGOnline?await CRPGOnline.execute(type,params):game.action(type,params);if(historyEntry)sceneHistory.push(historyEntry);if(type==='NPC')selectedNPC=params.entity;
     if(type==='RELATION_ACTIVITY'&&lastResult?.result?.dialogue){const c=el('div');c.append(el('p','story',lastResult.result.dialogue));showModal('일상 교류',c);}
     const effects=CRPGPresentation.actionFrames(CRPGPresentation.delta(before,game.s));say('');
     if(battleBefore&&effects.length){const committed=game.s;try{game.s=battleBefore;game.s.global.SCREEN_MODE='COMBAT';if(game.s.runtime.interlude)game.s.runtime.interlude=null;render();}finally{game.s=committed;}}else render();
