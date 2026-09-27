@@ -8,7 +8,8 @@ function baseData(db){
  const tables={},rows={},sources={};
  for(const [name,source] of Object.entries(db)){
   const body=source.slice(1).filter(r=>r&&r[0]!==undefined&&r[0]!=='');
-  rows[name]=body;sources[name]=source;tables[name]=new Map(body.map(r=>[r[0],r]));
+  rows[name]=body;sources[name]=source;
+  tables[name]=new Map(source.slice(1).filter(r=>r&&r[0]).map(r=>[r[0],r]));
  }
  cached={tables,rows,sources};baseTableCache.set(db,cached);return cached;
 }
