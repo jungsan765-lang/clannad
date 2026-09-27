@@ -20,7 +20,7 @@ assert(online.includes("if(!O.token||!O.account){game=null;O.active=false;active
 assert(online.includes("retryable:e.name!=='AbortError'"),'transport failures must distinguish safe immediate retries from timeouts');
 assert(online.includes('async function actionRequest(payload)'), 'game actions must have an idempotent retry helper');
 assert(online.includes("return request('/game/action',payload)"), 'action retry must reuse the exact same payload and requestId');
-assert(av.includes('function startActionCover(type,params={})'),'timed actions must start their progress feedback before the server round-trip finishes');
+assert(av.includes('function startActionCover(type,params={},generic=true)'),'timed and generic saved actions must start progress feedback before the server round-trip finishes');
 assert(av.includes('function optimisticStoryPreview(type,params={})'),'pure story actions must have an immediate safe preview path');
 assert(av.includes("if(type==='COMBAT'&&!CRPGOnline.pending)GameEffects.primeCombat(type,params)"),'combat must begin visible windup while a fresh server action is being confirmed');
 assert(av.includes("index*32/(settings.combatSpeed||1)"),'multi-hit playback must use rapid per-hit spacing');
