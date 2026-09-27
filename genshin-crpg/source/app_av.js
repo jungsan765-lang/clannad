@@ -274,5 +274,5 @@ act=async function(type,params={}){
 };
 // Loading/restoring is deliberately silent; effects only originate from new actions.
 const avRestore=restoreUIState;
-restoreUIState=function(){GameEffects.cancel();GameEffects.seen.clear();GameAudio.stop();avRestore();};
+restoreUIState=function({preservePresentation=false}={}){if(!preservePresentation){GameEffects.cancel();GameEffects.seen.clear();GameAudio.stop();}avRestore();};
 boot();
