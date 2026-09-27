@@ -251,18 +251,18 @@
         "uninterruptedStoryInputs": 5,
         "checkpoints": 2,
         "readDurations": [
-          283,
-          297,
-          84,
-          100,
-          121
+          151,
+          264,
+          73,
+          73,
+          79
         ],
         "presentationMilliseconds": [
-          135.59999999403954,
-          195.30000000447035,
-          40.80000000447035,
-          29.399999998509884,
-          49.5
+          87.10000000149012,
+          198.89999999850988,
+          35,
+          24.5,
+          28.200000002980232
         ]
       },
       {
@@ -298,9 +298,9 @@
         "lostResponseExactlyOnce": true
       },
       {
-        "lifeElapsedOnAcknowledgement": 1989,
+        "lifeElapsedOnAcknowledgement": 2015,
         "visibleBeforeAcknowledgement": true,
-        "activityTotalMilliseconds": 10819
+        "activityTotalMilliseconds": 10828
       },
       {
         "equipmentFeedback": "장착 중…",
@@ -335,7 +335,7 @@
   },
   "productionRelease": {
     "appVersion": "0.13.49",
-    "packVersion": "2026-09-24-08d1b829ab7a-99a1e0438274"
+    "packVersion": "2026-09-24-08d1b829ab7a-977492e551ce"
   },
   "productionPublished": false,
   "serverDatabaseMigration": false,
@@ -351,5 +351,14 @@
     "sourceBrowser": "passed",
     "productionBrowser": "passed"
   },
-  "menuFollowUp": "Local MENU remains immediate during reading checkpoints. The final production browser run verifies menu preservation across both acknowledgements, and returning to the exact visible story position."
+  "menuFollowUp": "Local MENU remains immediate during reading checkpoints. The final production browser run verifies menu preservation across both acknowledgements, and returning to the exact visible story position.",
+  "menuRemoteCI": {
+    "run": "https://github.com/jungsan765-lang/clannad/actions/runs/36320628327",
+    "sourceCommit": "9eff4df48864a84486bb78878712ca49f855b518",
+    "status": "success",
+    "releaseGatesPassed": 29,
+    "sourceBrowser": "passed",
+    "productionBrowser": "passed"
+  },
+  "finalPresentationFollowUp": "Neutral progress wording for non-travel waits and a 260ms windup beat matching the actual attack animation; action-feedback assertions and final production browser run passed."
 }
