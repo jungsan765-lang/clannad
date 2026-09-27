@@ -3,6 +3,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const root=path.resolve(__dirname,'..');
 const config=fs.readFileSync(path.join(root,'source/online_config.js'),'utf8');
 const online=fs.readFileSync(path.join(root,'source/app_online.js'),'utf8');
+const app=fs.readFileSync(path.join(root,'source/app.js'),'utf8');
 const av=fs.readFileSync(path.join(root,'source/app_av.js'),'utf8');
 const sw=fs.readFileSync(path.join(root,'source/sw.js'),'utf8');
 const html=fs.readFileSync(path.join(root,'source/index.html'),'utf8');
@@ -31,6 +32,8 @@ assert(online.includes("LOCAL_ONLY_ACTIONS=new Set(['MENU'])"),'screen-only MENU
 assert(online.includes("O.savePolicy=type=>LOCAL_ONLY_ACTIONS.has(type)?'LOCAL_UI':'IMMEDIATE_SERVER'"),'unknown future gameplay actions must default to authoritative server saving');
 assert(online.includes("game.apply({type:'MENU',screen:params.screen})"),'local-only MENU must run the same semantic menu side effects without a save transaction');
 assert(online.includes("uiScreen:localScreen"),'the next real action must carry the local screen so the server can fold navigation into that save');
+assert(app.includes("game.combatOpening?.()"),'combat UI must detect the explicit opening boundary');
+assert(app.includes("act('COMBAT_BEGIN',{battle:opening.battle})"),'combat opening must expose a visible player-controlled start button');
 assert(online.includes("if(O.active&&game?.s.runtime)"),'reconnecting to an unfinished battle must trigger the abandonment path');
 assert(online.includes("O.execute('COMBAT_FORFEIT'"),'unfinished online battles must be forfeited on session resume');
 assert(av.includes("title:'자동 저장 중'"),'persisted actions without a dedicated animation must have a generic save progress bar');
