@@ -11,6 +11,14 @@ const admin=(env,id)=>String(env.ADMIN_ACCOUNT_IDS||'').split(',').map(x=>x.trim
 function publicState(state){return {...state,global:{...state.global,PRNG_STATE:1},processed:{}};}
 function compact(state){state.log=state.log.slice(-240);const ids=Object.keys(state.processed||{});for(const id of ids.slice(0,-32))delete state.processed[id];return state;}
 const backupStores=new WeakMap();
+let hotRuntime=null;
+function takeRuntime(account,row){
+ const hit=hotRuntime&&hotRuntime.accountId===account.id&&hotRuntime.revision===row.revision&&hotRuntime.state===row.state;
+ const runtime=hit?hotRuntime.runtime:null;hotRuntime=null;
+ return runtime||new R(GAME_DB,JSON.parse(row.state),true);
+}
+function rememberRuntime(account,revision,state,runtime){hotRuntime={accountId:account.id,revision,state,runtime};}
+function forgetRuntime(accountId){if(!accountId||hotRuntime?.accountId===accountId)hotRuntime=null;}
 async function ensureBackups(db){
  if(!backupStores.has(db))backupStores.set(db,db.prepare('CREATE TABLE IF NOT EXISTS game_backups(account_id TEXT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,revision INTEGER NOT NULL,state TEXT NOT NULL,engine_version TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,revision))').run().catch(e=>{backupStores.delete(db);throw e;}));
  await backupStores.get(db);
@@ -44,9 +52,9 @@ async function route(request,env){
  }
  const {account,tokenHash}=await session(request,env),row=await env.DB.prepare('SELECT * FROM games WHERE account_id=?').bind(account.id).first();
  if(path==='/me'&&request.method==='GET')return json(row?responseGame(row,account,env):{account:{id:account.id,username:account.username,displayName:account.display_name,admin:admin(env,account.id)},version:ENGINE_VERSION,state:null,revision:0});
- if(path==='/logout'&&request.method==='POST'){await env.DB.prepare('DELETE FROM sessions WHERE token_hash=?').bind(tokenHash).run();return json({ok:true});}
- if(path==='/account/delete'&&request.method==='POST'){await rate(env,'delete:'+account.id,5,900000);const b=await body(request);if(b.confirm!==account.username||!same(await passwordHash(String(b.password||''),account.salt,env.PASSWORD_PEPPER),account.password_hash))throw error(403,'아이디와 비밀번호로 삭제를 확인해 주세요.');await ensureBackups(env.DB);await env.DB.batch(['game_backups','receipts','ranking','games','sessions'].map(table=>env.DB.prepare('DELETE FROM '+table+' WHERE account_id=?').bind(account.id)).concat(env.DB.prepare('DELETE FROM accounts WHERE id=?').bind(account.id)));return json({deleted:true});}
- if(path==='/game/new'&&request.method==='POST'){if(row)throw error(409,'이미 자동저장된 여정이 있습니다. 이어서 진행해 주세요.');const b=await body(request),r=new R(GAME_DB);r.newGame({name:String(b.name||account.display_name),route:b.route==='ROUTE_TRAVELER'?'ROUTE_TRAVELER':'ROUTE_ISEKAI',saveId:crypto.randomUUID(),seed:crypto.getRandomValues(new Uint32Array(1))[0]});const state=JSON.stringify(compact(r.s));try{await env.DB.prepare('INSERT INTO games VALUES(?,?,0,?,1,?)').bind(account.id,state,'NEW',now()).run();}catch{throw error(409,'이미 자동저장된 여정이 있습니다.');}return json(responseGame({state,revision:0,ranked:1},account,env,null,r.s));}
+ if(path==='/logout'&&request.method==='POST'){await env.DB.prepare('DELETE FROM sessions WHERE token_hash=?').bind(tokenHash).run();forgetRuntime(account.id);return json({ok:true});}
+ if(path==='/account/delete'&&request.method==='POST'){await rate(env,'delete:'+account.id,5,900000);const b=await body(request);if(b.confirm!==account.username||!same(await passwordHash(String(b.password||''),account.salt,env.PASSWORD_PEPPER),account.password_hash))throw error(403,'아이디와 비밀번호로 삭제를 확인해 주세요.');await ensureBackups(env.DB);await env.DB.batch(['game_backups','receipts','ranking','games','sessions'].map(table=>env.DB.prepare('DELETE FROM '+table+' WHERE account_id=?').bind(account.id)).concat(env.DB.prepare('DELETE FROM accounts WHERE id=?').bind(account.id)));forgetRuntime(account.id);return json({deleted:true});}
+ if(path==='/game/new'&&request.method==='POST'){if(row)throw error(409,'이미 자동저장된 여정이 있습니다. 이어서 진행해 주세요.');const b=await body(request),r=new R(GAME_DB);r.newGame({name:String(b.name||account.display_name),route:b.route==='ROUTE_TRAVELER'?'ROUTE_TRAVELER':'ROUTE_ISEKAI',saveId:crypto.randomUUID(),seed:crypto.getRandomValues(new Uint32Array(1))[0]});const state=JSON.stringify(compact(r.s));try{await env.DB.prepare('INSERT INTO games VALUES(?,?,0,?,1,?)').bind(account.id,state,'NEW',now()).run();}catch{throw error(409,'이미 자동저장된 여정이 있습니다.');}rememberRuntime(account,0,state,r);return json(responseGame({state,revision:0,ranked:1},account,env,null,r.s));}
  if(path==='/game/action'&&request.method==='POST'){
   if(!row)throw error(409,'먼저 여정을 시작해 주세요.');await rate(env,'action:'+account.id,240,60000);const b=await body(request);
   if(!/^[a-zA-Z0-9_-]{10,80}$/.test(b.requestId||''))throw error(400,'행동 식별자가 잘못되었습니다.');
@@ -54,7 +62,7 @@ async function route(request,env){
   if(b.version!==ENGINE_VERSION)throw error(409,'게임 업데이트를 맞추고 있습니다. 저장 기록은 유지됩니다. 새 버전을 적용한 뒤 다시 시작해 주세요.','VERSION_MISMATCH');
   if(b.revision!==row.revision)throw error(409,'다른 화면에서 진행되었습니다. 최신 자동저장을 이어 받아 주세요.');
   const isDebug=b.type==='OPERATOR_DEBUG';if(!ALLOWED.has(b.type)&&!isDebug)throw error(400,'지원하지 않는 게임 행동입니다.');if(isDebug&&!admin(env,account.id))throw error(403,'운영자 전용 기능입니다.');
-  let r;try{r=new R(GAME_DB,JSON.parse(row.state),true);}catch{throw error(503,'저장 기록을 새 버전에서 여는 데 문제가 있습니다. 원본은 보존되어 있습니다. 운영자에게 알려 주세요.','SAVE_COMPATIBILITY');}
+  let r;try{r=takeRuntime(account,row);}catch{throw error(503,'저장 기록을 새 버전에서 여는 데 문제가 있습니다. 원본은 보존되어 있습니다. 운영자에게 알려 주세요.','SAVE_COMPATIBILITY');}
   r.serverAdmin=isDebug;const params={...(b.params||{})};for(const key of ['type','id','revision','__proto__','constructor','prototype'])delete params[key];const result=r.action(b.type,params);const state=JSON.stringify(compact(r.s));if(encoder.encode(state).length>1900000)throw error(507,'저장 크기 한도에 도달했습니다. 운영자에게 문의해 주세요.');
   const next={state,revision:row.revision+1,ranked:isDebug?0:row.ranked},output=responseGame(next,account,env,result,r.s),outputText=JSON.stringify(output);
   await ensureBackups(env.DB);
@@ -65,6 +73,8 @@ async function route(request,env){
   ],ranking=scoreStatement(env,account,next,b.requestId,r.s.abyss);if(ranking)statements.push(ranking);
   const batch=await env.DB.batch(statements);
   if(!batch[1].meta.changes)throw error(409,'다른 화면에서 먼저 진행되었습니다. 최신 자동저장을 이어 받아 주세요.');
+  // Cache only an already committed revision. It is consumed before the next mutation, so overlapping requests cannot share a mutable Runtime.
+  rememberRuntime(account,next.revision,state,r);
   // Cleanup is retention-only. Running it every third revision reduces D1 work without changing committed state or retry receipts.
   if(next.revision%3===0)await env.DB.batch([env.DB.prepare('DELETE FROM receipts WHERE account_id=? AND revision<?').bind(account.id,next.revision-4),env.DB.prepare('DELETE FROM game_backups WHERE account_id=? AND revision<?').bind(account.id,next.revision-3)]).catch(()=>{});
   return jsonText(outputText);
