@@ -12,4 +12,8 @@ assert(online.includes("configuredApi||(!isLocal?productionApi:'')"),'production
 assert(sw.includes("new URL('online_config.js',scopeURL).pathname"),'service worker does not special-case online_config.js');
 assert(sw.includes("fetch(event.request,{cache:'no-store'})"),'online config is not fetched outside stale cache');
 assert(html.indexOf('online_config.js')<html.indexOf('app_online.js'),'online config must load before online account UI');
-console.log('PASS production signup keeps a live Worker fallback and refreshes online_config outside stale cache');
+assert(!online.includes('await localBegin(name,route)'),'logged-out begin must not fall back to a local journey');
+assert(online.includes("if(!O.account||!O.token){game=null;O.active=false;persist();auth(false,true);return;}"),'begin/load guards must require an authenticated account');
+assert(online.includes("busy||!loggedIn"),'title Game Start must stay disabled while logged out');
+assert(online.includes("if(!O.token||!O.account){game=null;O.active=false;activeSaveSlot=null;}"),'logged-out boot must discard any in-memory local journey');
+console.log('PASS production signup stays connected and gameplay requires login before start');
