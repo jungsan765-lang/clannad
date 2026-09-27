@@ -101,3 +101,77 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 | 잿불막이 부적 | 불을 모시는 자 `UI_RelicIcon_15009_3` | HoYo CDN |
 
 이름·파일 ID는 genshin-db(한국어)로 대조했다. 변환 방식(256px 이내 WebP)과 해시 기록 방식은 v0.13.27과 같다.
+## v0.13.41 필드 보스 재료
+
+필드 보스 9종이 떨어뜨리는 원작 재료를 같은 이름의 원본 아이콘으로 표시한다(런타임 추가, `installedBy: "runtime"`).
+
+| CRPG 아이템 | 원본 `텍스처` | 출처 |
+|---|---|---|
+| 폭풍의 씨앗 · 뇌광 프리즘 · 서리의 핵 · 응결의 꽃 · 현암의 탑 | `UI_ItemIcon_113001/113002/113010/113020/113009` | GenshinTextures-full |
+| 꺼지지 않는 불씨 · 물처럼 맑은 마음 · 설익은 옥 · 룬 무늬 이빨 | `UI_ItemIcon_113011/113012/113016/113035` | GenshinTextures-full |
+
+이미 들어 있던 113001·113010·113011은 기존 파일을 재사용했다. 재료 이름과 드랍 보스는 genshin-db(한국어)의 재료 출처로 대조했다.
+
+## v0.13.41 캐릭터 전용 무기 · 보스 소재 장비
+
+전용 무기 43종과 보스 소재 장비 9종은 CRPG 고유 장비다.
+- 아이콘은 분위기가 맞는 원작 무기·성유물 외형을 빌렸다(`official_base_visual`).
+- 원작의 같은 무기라는 뜻은 아니다.
+- 원본은 모두 HoYo 공식 CDN에서 받았다.
+
+| CRPG 장비 | 원본 이름 `텍스처` |
+|---|---|
+| 백악 전정검 | 진사의 방추 `UI_EquipIcon_Sword_Opus` |
+| 반짝반짝 무대 악보 | 불멸의 달빛 `UI_EquipIcon_Catalyst_Kaleido` |
+| 불운을 가르는 모험검 | 부식의 검 `UI_EquipIcon_Sword_Magnum` |
+| 방랑 시인의 바람활 | 종말 탄식의 노래 `UI_EquipIcon_Bow_Widsith` |
+| 고양이 꼬리 사냥활 | 바람 꽃의 노래 `UI_EquipIcon_Bow_Fleurfair` |
+| 성당 침례의 검 | 오래된 자유의 서약 `UI_EquipIcon_Sword_Widsith` |
+| 새벽 와이너리 대검 | 천공의 긍지 `UI_EquipIcon_Claymore_Dvalin` |
+| 정찰 기사의 신호궁 | 청록의 사냥활 `UI_EquipIcon_Bow_Viridescent` |
+| 민들레 기사의 검 | 매의 검 `UI_EquipIcon_Sword_Falcon` |
+| 서리 여우의 비검 | 천공의 검 `UI_EquipIcon_Sword_Dvalin` |
+| 도도코 폭죽 그림책 | 도도코 이야기집 `UI_EquipIcon_Catalyst_Ludiharpastum` |
+| 측량 기사의 창 | 용의 척추 `UI_EquipIcon_Pole_Everfrost` |
+| 점성술사의 천구 법구 | 천공의 두루마리 `UI_EquipIcon_Catalyst_Dvalin` |
+| 메이드 기사의 수호검 | 설장의 성은 `UI_EquipIcon_Claymore_Dragonfell` |
+| 단죄의 황녀 활 | 뒷골목 사냥꾼 `UI_EquipIcon_Bow_Outlaw` |
+| 장미 서고 마도서 | 사풍 원서 `UI_EquipIcon_Catalyst_Fourwinds` |
+| 늑대 무리의 대검 | 늑대의 말로 `UI_EquipIcon_Claymore_Wolfmound` |
+| 심야 순찰 창 | 천공의 마루 `UI_EquipIcon_Pole_Dvalin` |
+| 연금 확산 연구서 | 뒷골목의 술과 시 `UI_EquipIcon_Catalyst_Outlaw` |
+| 물보라 기사의 대검 | 송뢰가 울릴 무렵 `UI_EquipIcon_Claymore_Widsith` |
+| 불복려 약재 법구 | 벽락의 옥 `UI_EquipIcon_Catalyst_Morax` |
+| 남십자 선장의 대검 | 이무기 검 `UI_EquipIcon_Claymore_Kione` |
+| 불복려 부적검 | 참봉의 칼날 `UI_EquipIcon_Sword_Kunwu` |
+| 군옥각 성광구 | 속세의 자물쇠 `UI_EquipIcon_Catalyst_Kunwu` |
+| 옥형의 뇌광검 | 반암결록 `UI_EquipIcon_Sword_Morax` |
+| 서수 춤꾼의 대검 | 빗물 베기 `UI_EquipIcon_Claymore_Perdue` |
+| 월해정 비서의 활 | 아모스의 활 `UI_EquipIcon_Bow_Amos` |
+| 고화 가문의 비검 | 흑암 장검 `UI_EquipIcon_Sword_Blackrock` |
+| 왕생당 호접창 | 호마의 지팡이 `UI_EquipIcon_Pole_Homa` |
+| 만민당 주방창 | 결투의 창 `UI_EquipIcon_Pole_Gladiator` |
+| 선학의 구름 법구 | 학의 여음 `UI_EquipIcon_Catalyst_MountainGale` |
+| 제비 매듭 법구 | 흑암 홍옥 `UI_EquipIcon_Catalyst_Blackrock` |
+| 항마 야차의 창 | 화박연 `UI_EquipIcon_Pole_Morax` |
+| 빙결 부적 창 | 식재 `UI_EquipIcon_Pole_Santika` |
+| 록 스피릿 대검 | 흑암참도 `UI_EquipIcon_Claymore_Blackrock` |
+| 공자의 물빛 활 | 극지의 별 `UI_EquipIcon_Bow_Worldbane` |
+| 율법 자문의 인장서 | 왕실의 비전록 `UI_EquipIcon_Catalyst_Theocrat` |
+| 야란의 첩보 활 | 약수 `UI_EquipIcon_Bow_Kirin` |
+| 운한사 무대창 | 왕실의 장창 `UI_EquipIcon_Pole_Theocrat` |
+| 월계 토끼 창 | 달을 꿰뚫는 화살 `UI_EquipIcon_Pole_Arakalari` |
+| 계약 수호의 창 | 관홍의 창 `UI_EquipIcon_Pole_Kunwu` |
+| 퇴마 방사의 대검 | 왕실의 대검 `UI_EquipIcon_Claymore_Theocrat` |
+| 달결정 수양검 | 왕실의 장검 `UI_EquipIcon_Sword_Theocrat` |
+| 폭풍 씨앗 부적 | 청록색 그림자 `UI_RelicIcon_15002_2` |
+| 뇌광 프리즘 렌즈 | 번개 같은 분노 `UI_RelicIcon_15005_5` |
+| 서리 핵 보온구 | 얼음바람 속에서 길잃은 용사 `UI_RelicIcon_14001_4` |
+| 응결 꽃 장식 | 얼음바람 속에서 길잃은 용사 `UI_RelicIcon_14001_2` |
+| 현암 방벽 인장 | 유구한 반암 `UI_RelicIcon_15014_1` |
+| 불씨 수호 부적 | 불타오르는 화염의 마녀 `UI_RelicIcon_15006_5` |
+| 맑은 마음 성배 | 바다에 물든 거대 조개 `UI_RelicIcon_15022_1` |
+| 설익은 옥 원소 갑옷 | 견고한 천암 `UI_RelicIcon_15017_1` |
+| 룬 이빨 파쇄 장갑 | 창백의 화염 `UI_RelicIcon_15018_3` |
+
+이름과 파일 ID는 genshin-db(한국어)로 대조했다.

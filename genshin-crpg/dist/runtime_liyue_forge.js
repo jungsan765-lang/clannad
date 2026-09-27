@@ -59,7 +59,7 @@ const GEAR=[
  {id:'EQ_LY_ACC_LILY_KNOT',name:'유리백합 치유 매듭',type:'장신구',hp:180,level:4,grade:'희귀',role:'회복·보호막 효율',traits:[['HEAL_BOOST',15],['SHIELD_BOOST',12]],cost:{[L]:2,MAT_LIYUE_GLAZE_LILY:4},mora:400,time:'1시간',note:'받는 회복과 보호막을 늘린다. 치유 담당이 없으면 효과가 작다.'},
  {id:'EQ_LY_ACC_STARGAZER',name:'천추 관측경',type:'장신구',atk:6,hit:6,level:4,grade:'희귀',role:'공중 접근·대공',traits:[['AIR_ACCESS',1],['ANTI_AIR',10]],cost:{[L]:2,ORE_CRYSTAL:2,MAT_SILVER_INSIGNIA:1},mora:380,time:'1시간',note:'근접 동료도 공중 적을 노릴 수 있게 한다.'},
  {id:'EQ_LY_SPECIAL_LEYLINE_STAKE',name:'지맥 안정 말뚝',type:'특수',hp:80,level:5,grade:'희귀',role:'지형 효과·지속 피해 대응',traits:[['TERRAIN_STEADY',1],['DOT',25]],cost:{[L]:3,[J]:2,MAT_CHAOS_CIRCUIT:1},mora:520,time:'2시간',note:'어떤 지형 효과든 조금씩 줄여 주는 범용 대응 장비.'},
- {id:'EQ_LY_SPECIAL_JADE_WARD',name:'야박석 원소 부적',type:'특수',hp:60,res:4,level:6,grade:'희귀',role:'모든 원소·광역 공격 완화',traits:[['ELEMENT_RES','ALL',10],['AOE_GUARD',15]],cost:{[L]:3,[J]:3,ORE_CRYSTAL:2},mora:560,time:'2시간',note:'원소를 가리지 않는 방호. 특정 원소 전용 장비보다는 약하다.'},
+ {id:'EQ_LY_SPECIAL_JADE_WARD',name:'야박석 원소 부적',type:'특수',hp:60,res:4,level:6,grade:'희귀',role:'모든 원소·광역 공격 완화',traits:[['ELEMENT_RES','ALL',10],['AOE_GUARD',15],['AURA_SHORTEN',40]],cost:{[L]:3,[J]:3,ORE_CRYSTAL:2},mora:560,time:'2시간',note:'원소를 가리지 않는 방호. 특정 원소 전용 장비보다는 약하다.'},
  {id:'EQ_MOND_ACC_EMBERGUARD',name:'잿불막이 부적',type:'장신구',def:4,hp:90,level:3,grade:'고급',role:'화염 지형·불 지속 피해 대응',traits:[['HEAT',40],['DOT',10]],cost:{MAT_SLIME_CONDENSATE:3,ORE_WHITE_IRON:2},mora:180,time:'30분',region:'MOND',note:'몬드에서 싸게 만드는 방화 부적. 먼 곳의 화염 지형에서도 쓸모가 있다.'}
 ];
 // Existing weapon that the Liyue forge now makes (its traits already live in runtime_gear_traits.js).
