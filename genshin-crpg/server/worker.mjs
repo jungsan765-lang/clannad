@@ -54,7 +54,7 @@ async function route(request,env){
   if(b.version!==ENGINE_VERSION)throw error(409,'게임 업데이트를 맞추고 있습니다. 저장 기록은 유지됩니다. 새 버전을 적용한 뒤 다시 시작해 주세요.','VERSION_MISMATCH');
   if(b.revision!==row.revision)throw error(409,'다른 화면에서 진행되었습니다. 최신 자동저장을 이어 받아 주세요.');
   const isDebug=b.type==='OPERATOR_DEBUG';if(!ALLOWED.has(b.type)&&!isDebug)throw error(400,'지원하지 않는 게임 행동입니다.');if(isDebug&&!admin(env,account.id))throw error(403,'운영자 전용 기능입니다.');
-  let r;try{r=new R(GAME_DB,JSON.parse(row.state));}catch{throw error(503,'저장 기록을 새 버전에서 여는 데 문제가 있습니다. 원본은 보존되어 있습니다. 운영자에게 알려 주세요.','SAVE_COMPATIBILITY');}
+  let r;try{r=new R(GAME_DB,JSON.parse(row.state),true);}catch{throw error(503,'저장 기록을 새 버전에서 여는 데 문제가 있습니다. 원본은 보존되어 있습니다. 운영자에게 알려 주세요.','SAVE_COMPATIBILITY');}
   r.serverAdmin=isDebug;const params={...(b.params||{})};for(const key of ['type','id','revision','__proto__','constructor','prototype'])delete params[key];const result=r.action(b.type,params);const state=JSON.stringify(compact(r.s));if(encoder.encode(state).length>1900000)throw error(507,'저장 크기 한도에 도달했습니다. 운영자에게 문의해 주세요.');
   const next={state,revision:row.revision+1,ranked:isDebug?0:row.ranked};const output=responseGame(next,account,env,result,r.s);
   await ensureBackups(env.DB);
