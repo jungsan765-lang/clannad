@@ -41,7 +41,13 @@ try{
  for(let i=0;i<3;i++){const t=Date.now();await readButton().click();readDurations.push(Date.now()-t);readNodes.push(await page.evaluate(()=>game.storyActiveNodeId()));assert.equal(await page.evaluate(()=>busy),false);}
  assert.equal(new Set(readNodes).size,5,'all five lines advance before the first response');
  assert.equal(await page.locator('.pending-action-notice').count(),0);
- await page.evaluate(()=>window.readFlush);delay=0;
+ await page.locator('[data-screen="SYSTEM"]').click();await idle();
+ assert.equal(await page.evaluate(()=>game.s.global.SCREEN_MODE),'SYSTEM');
+ assert(await page.evaluate(()=>CRPGOnline.pending?.type==='STORY_READ'),'menu opens before the outstanding reading response');
+ await page.evaluate(()=>window.readFlush);assert.equal(await page.evaluate(()=>game.s.global.SCREEN_MODE),'SYSTEM','reading acknowledgement must not close the menu');
+ await page.locator('[data-screen="STORY"]').click();await idle();delay=0;
+ assert.equal(await page.evaluate(()=>game.storyActiveNodeId()),readNodes.at(-1),'returning from menus preserves the visible reading position');
+ results.push({menuDuringReadingSave:true,menuPreservedOnAcknowledgement:true});
  await same('background reading');assert.equal(fixture.read().revision,storyRevision+2,'five lines are two checkpoints while reading during an in-flight batch');
  assert.equal(await page.evaluate(()=>CRPGOnline.readingCount()),0);
  results.push({uninterruptedStoryInputs:5,checkpoints:2,readDurations,presentationMilliseconds:await page.evaluate(()=>readPresentationTimes)});

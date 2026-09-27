@@ -254,7 +254,7 @@ act=async function(type,params={}){
     const battleBefore=game.s.runtime?JSON.parse(JSON.stringify(game.s)):null,adventureBefore=adventureSnapshot(),before=CRPGPresentation.snapshot(game.s),entryCheckpoint=game.playPhase()==='FREE'&&['JOURNEY_RESUME','STORY_NEXT','MAIN_STORY_ACCEPT','STORY_CHAPTER','STORY_RESUME','LEGEND_ENTER','AFFECTION_ENTER'].includes(type)?JSON.parse(game.serialize()):null;
     let historyEntry=null;if(type==='STORY_NEXT'){const n=game.storyNode();if(n&&n[9]&&scenePermitted())historyEntry={speaker:displayText(n[7]||'이야기'),text:displayText(game.storyDisplayText?.(n)??n[9]),...sceneClassification()};}
     if(window.CRPGOnline?.active){
-      cover=startActionCover(CRPGOnline.pending?'RECOVER_PENDING':type,params,true);
+      cover=startActionCover(CRPGOnline.pending&&type!=='MENU'?'RECOVER_PENDING':type,params,true);
       if(type==='COMBAT'&&!CRPGOnline.pending)GameEffects.primeCombat(type,params);
       lastResult=await CRPGOnline.execute(type,params);cover?.finishServer();
     }else{cover=startActionCover(type,params,true);lastResult=game.action(type,params);cover?.finishServer();}
@@ -266,7 +266,7 @@ act=async function(type,params={}){
     if(['EQUIP','UNEQUIP','PARTY','PARTY_REPLACE','PARTY_SWAP'].includes(type))GameAudio.play('equip');
     if(type==='COMMISSION_ACCEPT')GameAudio.play('commission_accept');if(type!=='CLAIM_QUEST'&&Object.entries(game.s.quests).some(([id,q])=>q.state==='완료'&&!completedQuestsBefore.has(id)))GameAudio.play('quest_complete');if(['WORLD_WORK_FINISH','WORLD_WORK_START'].includes(type)&&lastResult?.result?.point&&lastResult.result.items)GameAudio.play('unlock');
     if(['BUY','SELL'].includes(type))GameAudio.play('item_receive');if(type==='CLAIM_QUEST')GameAudio.play('commission_complete');if(type==='CRAFT'){const recipe=game.tables['17_RECIPE_DB'].get(params.recipe);GameAudio.play(recipe?.[1]==='요리'?'cook_complete':recipe?.[1]==='단조'?'forge_complete':'craft_complete');}
-    const save=async()=>{if(entryCheckpoint&&game.playPhase()!=='FREE')try{await storeStoryCheckpoint(entryCheckpoint);}catch{say('이야기 시작 전 기록을 남기지 못했습니다. 현재 진행은 자동 저장합니다.');}try{await storeSave();}catch{}};
+    const save=async()=>{if(type==='MENU'&&window.CRPGOnline?.active)return;if(entryCheckpoint&&game.playPhase()!=='FREE')try{await storeStoryCheckpoint(entryCheckpoint);}catch{say('이야기 시작 전 기록을 남기지 못했습니다. 현재 진행은 자동 저장합니다.');}try{await storeSave();}catch{}};
     await Promise.all([save(),GameEffects.play(effects),cover?cover.promise:playTravel(adventureBefore,type,params)]);showReceivedLoot(receivedLoot(adventureBefore,type));if(!battleBefore&&game.s.runtime?.actors.some(a=>a.side==='ENEMY'&&/HILI/i.test(a.source)))GameAudio.play('encounter_hilichurl');return lastResult;
   }catch(e){cover?.abort();if(type==='COMBAT')GameEffects.cancel();say(e.message);return {ok:false,error:e.message};}
   finally{busy=false;render();}

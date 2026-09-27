@@ -16,13 +16,13 @@ const readingRecord=()=>readingAccounts[O.account?.id]||null;
 function saveReading(value){const next={...readingAccounts},id=O.account?.id;if(!id)return;if(value?.entries.length)next[id]=value;else delete next[id];localStorage.setItem(readingKey,JSON.stringify(next));readingAccounts=next;}
 O.readingCount=()=>readingRecord()?.entries.length||0;
 O.tryRead=function(params){
- if(!O.active||O.readingFailed||O.pending&&O.pending.type!=='STORY_READ'||O.readingCount()>=64)return null;
+ if(!O.active||O.readingFailed||O.pending&&O.pending.type!=='STORY_READ'||readingFlight&&uiActions.length||O.readingCount()>=64)return null;
  const preview=game.previewStoryRead(params.node);if(!preview)return null;
  const record=readingRecord()||{saveId:game.s.global.SAVE_ID,revision:O.revision,uiScreen:game.s.global.SCREEN_MODE,uiActions:uiActions.slice(),entries:[]};
  if(record.saveId!==game.s.global.SAVE_ID)return null;
  const step={id:crypto.randomUUID(),node:params.node,route:game.s.global.STORY_ROUTE_ID,context:game.s.storyContext?.entry||''};
  // Persist the command BEFORE showing it, so closing/reloading cannot forget a displayed line.
- saveReading({...record,entries:[...record.entries,step]});game.s=preview.state;scheduleReading();return preview.result;
+ saveReading({...record,entries:[...record.entries,step]});game.s=preview.state;if(!uiActions.length)uiStates=[];scheduleReading();return preview.result;
 };
 function scheduleReading(){
  clearTimeout(readingTimer);if(!O.readingCount()||O.readingFailed)return;
@@ -43,9 +43,10 @@ function acknowledgeReading(payload,out){
  const record=readingRecord();if(!record)return;
  const ids=new Set((payload.reading||[]).map(x=>x.id)),entries=record.entries.filter(x=>!ids.has(x.id));
  saveReading({...record,revision:out.revision,uiActions:[],uiScreen:out.state.global.SCREEN_MODE,entries});
+ const committed=game.s;
  for(const step of entries){
   const preview=step.route===game.s.global.STORY_ROUTE_ID&&step.context===(game.s.storyContext?.entry||'')&&game.previewStoryRead(step.node);
-  if(!preview){saveReading(null);throw Object.assign(Error('이야기 기록이 다른 화면에서 변경되어 최신 위치를 불러왔습니다.'),{resolved:true});}game.s=preview.state;
+  if(!preview){game.s=committed;saveReading(null);throw Object.assign(Error('이야기 기록이 다른 화면에서 변경되어 최신 위치를 불러왔습니다.'),{resolved:true});}game.s=preview.state;
  }
 }
 let pendingAccounts={};try{pendingAccounts=JSON.parse(localStorage.getItem(pendingAccountsKey)||'{}');if(!pendingAccounts||Array.isArray(pendingAccounts)||typeof pendingAccounts!=='object')pendingAccounts={};const legacy=JSON.parse(localStorage.getItem(pendingKey)||'null');if(legacy?.account)pendingAccounts[legacy.account]??=legacy;}catch{}
@@ -98,14 +99,21 @@ async function sendAction(type,params){
  if(!O.active||!game)throw Error('게임 시작 화면에서 계정 여정을 먼저 시작해 주세요.');
  const localScreen=game.s.global.SCREEN_MODE;
  let p=O.pending;if(p&&p.account!==O.account.id)throw Error('다른 계정의 미확정 행동이 있습니다. 해당 계정으로 로그인해 주세요.');
- if(!p){const reading=readingRecord();if(reading&&(reading.saveId!==game.s.global.SAVE_ID||reading.revision!==O.revision))throw Object.assign(Error('읽기 기록과 서버 위치가 다릅니다. 최신 기록을 다시 연결해 주세요.'),{status:409});p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,uiScreen:reading?.uiScreen||localScreen,uiActions:reading?.uiActions||uiActions.slice(),reading:reading?.entries||[],type,params};savePending(p);}
+ if(!p){const reading=readingRecord();if(reading&&(reading.saveId!==game.s.global.SAVE_ID||reading.revision!==O.revision))throw Object.assign(Error('읽기 기록과 서버 위치가 다릅니다. 최신 기록을 다시 연결해 주세요.'),{status:409});p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,uiScreen:reading?.uiScreen||localScreen,uiActions:reading?.uiActions||uiActions.slice(),reading:reading?.entries||[],type,params};savePending(p);if(type==='STORY_READ'&&(reading?.uiActions.length||!uiActions.length)){uiActions=[];uiStates=[];}}
  const retryingDifferent=p.type!==type||JSON.stringify(p.params)!==JSON.stringify(params);
- try{const out=await actionRequest({...p,version:MANIFEST.appVersion});install(out,{preservePresentation:true});acknowledgeReading(p,out);savePending(null);O.readingFailed=false;uiActions=[];uiStates=[];restoreLocalScreen(localScreen,p.type);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
- catch(e){O.readingFailed=!!O.readingCount();if(e.status&&e.status<500&&e.status!==429&&e.status!==401&&e.code!=='VERSION_MISMATCH'){savePending(null);if(e.status===409){saveReading(null);await O.sync();}}if(e.status===401){O.token='';O.active=false;persist();game=null;auth(false,true);}if(e.code==='VERSION_MISMATCH')GameVersion.check();throw e;}
+ try{const out=await actionRequest({...p,version:MANIFEST.appVersion}),lateMenus=p.type==='STORY_READ'?uiActions.slice():[];install(out,{preservePresentation:true});acknowledgeReading(p,out);savePending(null);O.readingFailed=false;uiActions=[];uiStates=[];for(const screen of lateMenus)localAction('MENU',{screen});restoreLocalScreen(localScreen,p.type);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
+ catch(e){O.readingFailed=!!O.readingCount();if(e.resolved)savePending(null);if(e.status&&e.status<500&&e.status!==429&&e.status!==401&&e.code!=='VERSION_MISMATCH'){savePending(null);if(e.status===409){saveReading(null);await O.sync();}}if(e.status===401){O.token='';O.active=false;persist();game=null;auth(false,true);}if(e.code==='VERSION_MISMATCH')GameVersion.check();throw e;}
 }
 O.execute=async(type,params)=>{
+ if(LOCAL_ONLY_ACTIONS.has(type)){
+  if(O.pending&&O.pending.type!=='STORY_READ')throw Error('이전 진행의 저장 확인을 먼저 마쳐 주세요.');
+  // Capture the reading request first; subsequent menu moves belong to the next transaction.
+  // Keep them visible while the checkpoint is in flight and replay them after its acknowledgement.
+  if(O.readingCount())O.flushReading().catch(e=>{say(e.message);if(!busy)render();});
+  return localAction(type,params);
+ }
  if(readingFlight)await readingFlight;
- if(LOCAL_ONLY_ACTIONS.has(type)){await O.flushReading();if(O.pending)throw Error('이전 진행의 저장 확인을 먼저 마쳐 주세요.');return localAction(type,params);}
+ if(type==='STORY_READ'&&!O.readingCount()&&!O.pending)return {ok:true,type,result:{node:game.storyActiveNodeId()}};
  clearTimeout(readingTimer);readingFirstAt=0;
  // The unread checkpoint prefix and the next decision commit in ONE transaction.
  return sendAction(type,params);

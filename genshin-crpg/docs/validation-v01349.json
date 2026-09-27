@@ -244,21 +244,25 @@
     "ok": true,
     "results": [
       {
+        "menuDuringReadingSave": true,
+        "menuPreservedOnAcknowledgement": true
+      },
+      {
         "uninterruptedStoryInputs": 5,
         "checkpoints": 2,
         "readDurations": [
-          211,
-          170,
-          149,
-          93,
-          87
+          283,
+          297,
+          84,
+          100,
+          121
         ],
         "presentationMilliseconds": [
-          75.80000000447035,
-          103,
-          85.30000000447035,
-          31.799999997019768,
-          39.899999998509884
+          135.59999999403954,
+          195.30000000447035,
+          40.80000000447035,
+          29.399999998509884,
+          49.5
         ]
       },
       {
@@ -294,9 +298,9 @@
         "lostResponseExactlyOnce": true
       },
       {
-        "lifeElapsedOnAcknowledgement": 1971,
+        "lifeElapsedOnAcknowledgement": 1989,
         "visibleBeforeAcknowledgement": true,
-        "activityTotalMilliseconds": 10917
+        "activityTotalMilliseconds": 10819
       },
       {
         "equipmentFeedback": "장착 중…",
@@ -331,12 +335,21 @@
   },
   "productionRelease": {
     "appVersion": "0.13.49",
-    "packVersion": "2026-09-24-08d1b829ab7a-69c909056d35"
+    "packVersion": "2026-09-24-08d1b829ab7a-99a1e0438274"
   },
   "productionPublished": false,
   "serverDatabaseMigration": false,
   "catalogLimitations": {
     "unimplementedEffects": 281,
     "unexecutedConditionedCards": 19
-  }
+  },
+  "initialRemoteCI": {
+    "run": "https://github.com/jungsan765-lang/clannad/actions/runs/36319927182",
+    "sourceCommit": "dbcb02dc79f3c7b03fa20ac17c725a0da9f58ecd",
+    "status": "success",
+    "releaseGatesPassed": 29,
+    "sourceBrowser": "passed",
+    "productionBrowser": "passed"
+  },
+  "menuFollowUp": "Local MENU remains immediate during reading checkpoints. The final production browser run verifies menu preservation across both acknowledgements, and returning to the exact visible story position."
 }
