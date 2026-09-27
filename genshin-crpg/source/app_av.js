@@ -256,7 +256,7 @@ act=async function(type,params={}){
       if(preview){game=preview.probe;lastResult=preview.result;softActionPreview=true;render();}
       else if(type==='COMBAT')GameEffects.primeCombat(type,params);
       try{lastResult=await CRPGOnline.execute(type,params);cover?.finishServer();}
-      catch(e){cover?.abort();if(preview){game=new Runtime(DB,preview.before);restoreUIState();}throw e;}
+      catch(e){cover?.abort();if(preview&&!e.resolved&&e.status!==409&&e.status!==401){game=new Runtime(DB,preview.before);restoreUIState();}throw e;}
       finally{softActionPreview=false;}
     }else{lastResult=game.action(type,params);cover?.finishServer();}
     if(historyEntry)sceneHistory.push(historyEntry);if(type==='NPC')selectedNPC=params.entity;
