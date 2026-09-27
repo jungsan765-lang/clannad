@@ -89,18 +89,77 @@ function optimizeImages(old){
   if(game&&showArt){const n=game.storyNode(),next=n&&game.storyIndex?.().nodes?.get?.(game.s.global.STORY_ROUTE_ID+':'+n[13]);if(next&&String(next[6]).startsWith('PROFILE_'))upcoming.push(portraitFor(next[6]));for(const owner of game.s.party.filter(x=>x.active)){const profile=game.rows('04_CHAR_DB').find(r=>r[1]===owner.source);if(profile){const src=portraitFor(profile[0]);upcoming.push(imageAssets.get(src)?.thumbnail);}}}
   upcoming.slice(0,4).forEach(warmImage);
 }
+function actionCoverPlan(type,params={}){
+  const simpleMove=new Set(['PLACE_ENTER','PLACE_LEAVE','RECOVER','STORY_SCRIPTED_TRAVEL','STORY_RIDE']);
+  if(type==='MOVE'){
+    const direct=(CRPGRuntime.directRegionTransitIds||[]).includes(params.edge),edge=game?.tables['47_MAP_EDGE_DB']?.get(params.edge),target=edge?.[2];
+    return {duration:direct?30000:1000,title:direct?'지역 직행 이동 중':'이동 중',label:direct?'실제 대기 30초 · '+(target?mapName(target):'목적지로 이동'):(target?mapName(target):'목적지로 이동'),remaining:direct,kind:'MOVE'};
+  }
+  if(simpleMove.has(type))return {duration:1000,title:'이동 중',label:'목적지로 이동',kind:'MOVE'};
+  if(type==='WAIT')return {duration:3000,title:'시간을 보내는 중',label:Number(params.minutes||0)+'분 기다리기',kind:'WAIT'};
+  if(type==='CRAFT'){
+    let kind='제작';try{kind=game.recipeDefinition(params.recipe)?.[1]||kind;}catch{}
+    return {duration:1400,title:kind==='요리'?'요리 중':'제작 중',label:(kind==='요리'?'요리':'제작')+' 진행',kind:'TASK'};
+  }
+  if(type==='ARTIFACT_ENHANCE')return {duration:1400,title:'성유물 강화 중',label:'성유물 강화 진행',kind:'TASK'};
+  if(type==='EQUIP_ASCEND')return {duration:1400,title:'한도 돌파 중',label:'장비 돌파 진행',kind:'TASK'};
+  if(type==='ENHANCE')return {duration:1400,title:'장비 강화 중',label:'장비 강화 진행',kind:'TASK'};
+  if(type==='BUY'){
+    const stock=game?.tables['19_SHOP_STOCK_DB']?.get(params.stock);
+    if(stock?.[2]==='SERVICE'&&stock?.[3]==='SERVICE_INN_REST_8H')return {duration:3000,title:'숙박 중',label:'8시간 휴식',kind:'TASK'};
+  }
+  if(['QUEST_CHOICE','COMMISSION_PUZZLE'].includes(type)){
+    let minutes=0;
+    if(type==='QUEST_CHOICE')try{const d=parseUI(game.row('22_QUEST_DB',params.quest)[10]),ch=(d.choices||[]).find(x=>x.id===params.choice);minutes=Number(ch?.minutes||0);}catch{}
+    return {duration:Math.max(900,Math.min(2300,850+minutes*18)),title:type==='COMMISSION_PUZZLE'?'현장 단서 확인 중':'현장 작업 중',label:minutes?'게임 시간 '+minutes+'분':'현장 확인',kind:'TASK'};
+  }
+  return null;
+}
+function startActionCover(type,params={}){
+  const plan=actionCoverPlan(type,params);if(!plan||document.hidden)return null;
+  const overlay=el('div','travel-overlay task-progress-overlay action-save-cover '+(plan.remaining?'region-transit-progress':''));overlay.setAttribute('role','status');
+  const title=el('strong','',plan.title),label=el('span','',plan.label),bar=el('progress'),remaining=plan.remaining?el('small',''):null;
+  overlay.append(el('span','travel-mark','✧'),title,label);bar.max=100;bar.value=0;bar.setAttribute('aria-label',plan.label);overlay.append(bar);if(remaining)overlay.append(remaining);document.body.append(overlay);
+  const started=performance.now();let serverDone=false,stopped=false,resolver;const promise=new Promise(resolve=>resolver=resolve);
+  const finish=()=>{if(stopped)return;stopped=true;bar.value=100;overlay.remove();resolver();};
+  const tick=()=>{if(stopped)return;const elapsed=performance.now()-started,pct=Math.min(serverDone?100:94,elapsed/plan.duration*100);bar.value=pct;if(remaining)remaining.textContent=Math.max(0,Math.ceil((plan.duration-elapsed)/1000))+'초 남음';
+    if(elapsed>=plan.duration&&serverDone){finish();return;}if(elapsed>=plan.duration&&!serverDone)label.textContent='저장 확인 중…';setTimeout(tick,30);
+  };tick();
+  return {plan,promise,finishServer(){serverDone=true;if(performance.now()-started>=plan.duration)finish();},abort(){if(stopped)return;stopped=true;overlay.remove();resolver();}};
+}
+function optimisticStoryPreview(type,params={}){
+  if(!window.CRPGOnline?.active||CRPGOnline.pending||game?.s.runtime||!['STORY_NEXT','STORY_CHOICE','STORY_NAME'].includes(type))return null;
+  let before,probe,result;try{before=JSON.parse(game.serialize());probe=new Runtime(DB,before);result=probe.action(type,params);}catch{return null;}
+  const a=probe.s,b=before,stable=
+    a.global.PRNG_STATE===b.global.PRNG_STATE&&a.global.CURRENT_MAP_ID===b.global.CURRENT_MAP_ID&&
+    a.global.WORLD_DAY===b.global.WORLD_DAY&&a.global.WORLD_TIME===b.global.WORLD_TIME&&
+    a.global.MORA===b.global.MORA&&a.global.PLAYER_HP_CURRENT===b.global.PLAYER_HP_CURRENT&&
+    !a.runtime&&!a.battlePreparation&&!a.storyJourney&&!a.storyBreak&&!a.lifeJob&&!a.worldJob&&!a.placeVisit&&
+    JSON.stringify(a.inventory)===JSON.stringify(b.inventory)&&JSON.stringify(a.party)===JSON.stringify(b.party);
+  return stable?{before,probe,result}:null;
+}
+let softActionPreview=false;
 function combatSpeedControl(){
   const row=el('label','combat-speed'),label=el('span','','전투 속도'),range=el('input'),value=el('output');
   range.type='range';range.min='.5';range.max='2';range.step='.25';range.value=settings.combatSpeed||1;range.setAttribute('aria-label','전투 속도');value.textContent=Number(range.value).toFixed(2).replace(/0$/,'')+'×';
   range.oninput=()=>{settings.combatSpeed=Number(range.value);for(const other of document.querySelectorAll('.combat-speed')){other.querySelector('input').value=range.value;other.querySelector('output').textContent=value.textContent=Number(range.value).toFixed(2).replace(/0$/,'')+'×';}GameEffects.reschedule();};range.onchange=()=>persistSettings();row.append(label,range,value);return row;
 }
 const GameEffects={
-  generation:0,timer:null,resolve:null,layer:null,dock:null,seen:new Set(),hitTimers:new Set(),lastFlash:0,paused:false,active:false,
-  cancel(){CombatFX.clear();this.generation++;clearTimeout(this.timer);for(const id of this.hitTimers)clearTimeout(id);this.hitTimers.clear();this.resolve?.();this.resolve=null;this.layer?.replaceChildren();this.dock?.remove();this.dock=null;this.active=false;this.paused=false;document.documentElement.classList.remove('av-running');root.inert=busy;},
+  generation:0,timer:null,resolve:null,layer:null,dock:null,seen:new Set(),hitTimers:new Set(),lastFlash:0,paused:false,active:false,prewound:null,
+  cancel(){CombatFX.clear();this.prewound=null;this.generation++;clearTimeout(this.timer);for(const id of this.hitTimers)clearTimeout(id);this.hitTimers.clear();this.resolve?.();this.resolve=null;this.layer?.replaceChildren();this.dock?.remove();this.dock=null;this.active=false;this.paused=false;document.documentElement.classList.remove('av-running');root.inert=busy;},
   reschedule(){clearTimeout(this.timer);if(this.resolve&&!this.paused)this.timer=setTimeout(()=>this.advance(),(this.beatDuration||1400)/(settings.combatSpeed||1));},
   advance(){clearTimeout(this.timer);const done=this.resolve;this.resolve=null;done?.();},
   layerNode(){if(!this.layer){this.layer=el('div','combat-effects');this.layer.setAttribute('aria-hidden','true');document.body.append(this.layer);}return this.layer;},
   actorNode(id){return id&&[...root.querySelectorAll('.combatant-row[data-actor-id]')].find(n=>n.dataset.actorId===id);},
+  primeCombat(type,params={}){
+    if(type!=='COMBAT'||document.hidden||!game?.s.runtime)return null;
+    let actor;try{actor=game.combatActor?.();}catch{}if(!actor)return null;
+    const card=(game.combatCards?.()||[]).find(x=>x.id===params.card),target=game.s.runtime.actors.find(x=>x.id===params.target);
+    const frame={kind:'action',actorId:actor.id,actor:actor.name,cardId:params.card,cardName:card?.name||params.card,round:game.s.runtime.round,
+      events:[{kind:'skill',sourceKind:null,cardId:params.card}],targets:target?[{targetId:target.id,target:target.name,events:[{kind:'skill',sourceKind:null,cardId:params.card}]}]:[],reactions:[]};
+    this.prewound={actorId:actor.id,cardId:params.card,round:game.s.runtime.round};CombatFX.windup(frame,this);
+    const phase=root.querySelector('.phase-note');if(phase)phase.textContent='행동 판정 중';return this.prewound;
+  },
   showAction(frame){
     const layer=this.layerNode();layer.replaceChildren();CombatFX.clear();
     const auxiliary=frame.periodic||frame.events.every(e=>(e.sourceKind&&e.sourceKind!=='JOINT_ATTACK')||e.kind==='reaction');
@@ -123,9 +182,10 @@ const GameEffects={
       const target=this.actorNode(t.targetId),rect=target?.getBoundingClientRect(),hit=t.events.find(e=>e.kind==='damage')||t.events.find(e=>e.kind==='heal')||t.events[0];
       const hp=(value,max=t.maxHp||Number(target?.dataset.maxHp)||1)=>{if(!target||!Number.isFinite(value))return;target.querySelector('.stat').textContent='HP  '+value+' / '+max;target.querySelector('.meter i').style.width=Math.max(0,value/max*100)+'%';target.classList.toggle('dead',value<=0);if(t.targetId==='PLAYER_CUSTOM'){const sidebar=root.querySelector('.player-card');if(sidebar){const stat=sidebar.querySelector('.stat'),bar=sidebar.querySelector('.meter i');if(stat)stat.textContent='HP  '+value+' / '+max;if(bar)bar.style.width=Math.max(0,value/max*100)+'%';}}};
       const hitEvents=t.events.filter(e=>e.kind==='damage'&&Number(e.amount)>0);
+      if(Number.isFinite(t.hpBefore))hp(t.hpBefore,t.maxHp);
       const impact=(event,index,total)=>{if(!rect||rect.bottom<=100||rect.top>=innerHeight-240)return;const item=el('div','impact effect-'+(event?.element||hit?.element||'hit')+' kind-action'+(event?.critical?' critical':''));const spread=total>1?(index-(total-1)/2)*10:0;item.style.left=Math.max(80,Math.min(innerWidth-80,rect.left+rect.width/2+spread))+'px';item.style.top=Math.max(140,Math.min(innerHeight-250,rect.top+rect.height/2-(index%2)*12))+'px';item.append(el('strong','impact-label',event?String(event.amount):t.damage?String(t.damage):t.heal?'+'+t.heal:t.immuneCount?'면역':t.missCount?'빗나감':t.events.find(e=>e.kind==='capacity')?.label||'방어'));if(total>1&&index===total-1)item.append(el('small','impact-target',total+'연타'));if(event?.critical)item.append(el('small','impact-target','치명타'));layer.append(item);if(!settings.reducedMotion&&target)target.animate?.([{transform:'translateX(0)'},{transform:'translateX(-3px)'},{transform:'translateX(3px)'},{transform:'translateX(0)'}],{duration:140,easing:'ease-out'});};
       if(hitEvents.length>1){
-        hitEvents.forEach((event,index)=>{const delay=Math.round(index*50/(settings.combatSpeed||1)),id=setTimeout(()=>{this.hitTimers.delete(id);hp(event.hpAfter,event.maxHp||t.maxHp);impact(event,index,hitEvents.length);},delay);this.hitTimers.add(id);});
+        hitEvents.forEach((event,index)=>{const delay=Math.round(index*32/(settings.combatSpeed||1)),id=setTimeout(()=>{this.hitTimers.delete(id);hp(event.hpAfter,event.maxHp||t.maxHp);impact(event,index,hitEvents.length);},delay);this.hitTimers.add(id);});
       }else{
         hp(t.hpAfter,t.maxHp);impact(hitEvents[0]||null,0,1);
       }
@@ -165,13 +225,13 @@ const GameEffects={
   },
   async play(events){
     const fresh=[];for(const e of events)if(!this.seen.has(e.key)){this.seen.add(e.key);fresh.push(e);}while(this.seen.size>500)this.seen.delete(this.seen.values().next().value);
-    if(!fresh.length||document.hidden)return;
-    this.cancel();const generation=this.generation;this.active=true;root.inert=true;const command=root.querySelector('.battle-command');command?.replaceChildren(el('h2','','전투 진행 중'),el('p','','한 행동씩 확인하고 있습니다. 아래에서 속도를 바꾸거나 잠시 멈출 수 있습니다.'));root.querySelector('.encounter-intro')?.remove();const stage=root.querySelector('.compact-battle-stage');if(stage&&command){command.parentNode.insertBefore(stage,command);stage.scrollIntoView({block:'nearest',behavior:'instant'});}const phase=root.querySelector('.phase-note');if(phase)phase.textContent='전투 진행 중';document.documentElement.classList.add('av-running');
+    if(!fresh.length||document.hidden){this.prewound=null;return;}
+    const primed=this.prewound;this.prewound=null;this.cancel();const generation=this.generation;this.active=true;root.inert=true;const command=root.querySelector('.battle-command');command?.replaceChildren(el('h2','','전투 진행 중'),el('p','','한 행동씩 확인하고 있습니다. 아래에서 속도를 바꾸거나 잠시 멈출 수 있습니다.'));root.querySelector('.encounter-intro')?.remove();const stage=root.querySelector('.compact-battle-stage');if(stage&&command){command.parentNode.insertBefore(stage,command);stage.scrollIntoView({block:'nearest',behavior:'instant'});}const phase=root.querySelector('.phase-note');if(phase)phase.textContent='전투 진행 중';document.documentElement.classList.add('av-running');
     const dock=el('section','combat-playback');dock.setAttribute('aria-label','전투 진행 조절');this.dock=dock;
     const readout=el('p','playback-message');readout.setAttribute('role','status');readout.setAttribute('aria-live','polite');
     const position=el('small','playback-position'),controls=el('div','playback-buttons'),pause=button('일시정지',()=>{this.paused=!this.paused;CombatFX.pause(this.paused);pause.textContent=this.paused?'계속 재생':'일시정지';pause.setAttribute('aria-pressed',String(this.paused));this.reschedule();});
     controls.append(pause,button('다음 표시',()=>this.advance()),button('결과 바로 보기',()=>this.cancel()));dock.append(position,readout,el('div','playback-outcomes'),combatSpeedControl(),controls);document.body.append(dock);
-    try{for(let i=0;i<fresh.length;i++){if(generation!==this.generation||document.hidden)break;position.textContent='전투 진행 '+(i+1)+' / '+fresh.length+(fresh[i].round?' · '+fresh[i].round+'라운드':'');if(fresh[i].kind==='action'){CombatFX.windup(fresh[i],this);this.beatDuration=settings.reducedMotion?100:270;await new Promise(resolve=>{this.resolve=resolve;this.reschedule();});if(generation!==this.generation||document.hidden)break;}this.show(fresh[i]);CombatFX.pause(this.paused);this.beatDuration=fresh[i].kind==='action'?1200:1400;await new Promise(resolve=>{this.resolve=resolve;this.reschedule();});}}
+    try{for(let i=0;i<fresh.length;i++){if(generation!==this.generation||document.hidden)break;const frame=fresh[i],alreadyWound=i===0&&frame.kind==='action'&&primed&&frame.actorId===primed.actorId&&(!frame.cardId||!primed.cardId||frame.cardId===primed.cardId);position.textContent='전투 진행 '+(i+1)+' / '+fresh.length+(frame.round?' · '+frame.round+'라운드':'');if(frame.kind==='action'&&!alreadyWound){CombatFX.windup(frame,this);this.beatDuration=settings.reducedMotion?60:160;await new Promise(resolve=>{this.resolve=resolve;this.reschedule();});if(generation!==this.generation||document.hidden)break;}this.show(frame);CombatFX.pause(this.paused);this.beatDuration=frame.kind==='action'?(frame.attemptCount>1?520:650):1400;await new Promise(resolve=>{this.resolve=resolve;this.reschedule();});}}
     finally{if(generation===this.generation){this.cancel();if(!game?.s.runtime)render();}}
   }
 };
@@ -180,30 +240,39 @@ const avRender=render;
 render=function(){
   const saveId=game?.s.global.SAVE_ID||null;if(saveId!==renderedSaveId){GameEffects.cancel();GameEffects.seen.clear();renderedSaveId=saveId;}
   if(game&&presenterDB!==game.db){presenterDB=game.db;itemPresenter=CRPGInventoryPresenter.create(presenterDB,MANIFEST);}
-  const old=[...root.querySelectorAll('img')];avRender();optimizeImages(old);root.inert=busy;root.setAttribute('aria-busy',String(busy));document.documentElement.classList.toggle('action-pending',busy);if(busy){const status=el('div','action-status','처리 중…');status.setAttribute('role','status');root.append(status);}GameAudio.sync();
+  const old=[...root.querySelectorAll('img')];avRender();optimizeImages(old);const hardBusy=busy&&!softActionPreview;root.inert=hardBusy;root.setAttribute('aria-busy',String(hardBusy));document.documentElement.classList.toggle('action-pending',hardBusy);if(hardBusy){const status=el('div','action-status','처리 중…');status.setAttribute('role','status');root.append(status);}GameAudio.sync();
 };
 // Commit once, then replay the captured battle view. Saves always use the committed state.
 act=async function(type,params={}){
-  if(busy||!game)return;busy=true;
+  if(busy||!game)return;busy=true;let cover=null,preview=null;
   try{
-    if(type==='WAIT'){const reason=game.actionReason(type,params);if(reason)throw Error(reason);render();await playWaitProgress(params.minutes);}
+    const reason=game.actionReason(type,params);if(reason)throw Error(reason);
     const completedQuestsBefore=new Set(Object.entries(game.s.quests).filter(([,q])=>q.state==='완료').map(([id])=>id));
     const battleBefore=game.s.runtime?JSON.parse(JSON.stringify(game.s)):null,adventureBefore=adventureSnapshot(),before=CRPGPresentation.snapshot(game.s),entryCheckpoint=game.playPhase()==='FREE'&&['JOURNEY_RESUME','STORY_NEXT','MAIN_STORY_ACCEPT','STORY_CHAPTER','STORY_RESUME','LEGEND_ENTER','AFFECTION_ENTER'].includes(type)?JSON.parse(game.serialize()):null;
     let historyEntry=null;if(type==='STORY_NEXT'){const n=game.storyNode();if(n&&n[9]&&scenePermitted())historyEntry={speaker:displayText(n[7]||'이야기'),text:displayText(game.storyDisplayText?.(n)??n[9]),...sceneClassification()};}
-    lastResult=window.CRPGOnline?await CRPGOnline.execute(type,params):game.action(type,params);if(historyEntry)sceneHistory.push(historyEntry);if(type==='NPC')selectedNPC=params.entity;
-    if(type==='RELATION_ACTIVITY'&&lastResult?.result?.dialogue){const c=el('div');c.append(el('p','story',lastResult.result.dialogue));showModal('일상 교류',c);}
+    cover=startActionCover(type,params);
+    if(window.CRPGOnline){
+      preview=optimisticStoryPreview(type,params);
+      if(preview){game=preview.probe;lastResult=preview.result;softActionPreview=true;render();}
+      else if(type==='COMBAT'&&!CRPGOnline.pending)GameEffects.primeCombat(type,params);
+      try{lastResult=await CRPGOnline.execute(type,params);cover?.finishServer();}
+      catch(e){cover?.abort();if(preview&&!e.resolved&&e.status!==409&&e.status!==401){game=new Runtime(DB,preview.before);restoreUIState();}throw e;}
+      finally{softActionPreview=false;}
+    }else{lastResult=game.action(type,params);cover?.finishServer();}
+    if(historyEntry)sceneHistory.push(historyEntry);if(type==='NPC')selectedNPC=params.entity;
+    if(type==='RELATION_ACTIVITY'&&lastResult?.result?.dialogue){const box=el('div');box.append(el('p','story',lastResult.result.dialogue));showModal('일상 교류',box);}
     const effects=CRPGPresentation.actionFrames(CRPGPresentation.delta(before,game.s));say('');
-    if(battleBefore&&effects.length){const committed=game.s;try{game.s=battleBefore;game.s.global.SCREEN_MODE='COMBAT';if(game.s.runtime.interlude)game.s.runtime.interlude=null;render();}finally{game.s=committed;}}else render();
+    if(battleBefore&&effects.length){const committed=game.s;try{game.s=battleBefore;game.s.global.SCREEN_MODE='COMBAT';if(game.s.runtime.interlude)game.s.runtime.interlude=null;render();}finally{game.s=committed;}}else if(!preview)render();
     if(type==='LIFE_START'&&params.kind==='HUNT')GameAudio.play('hunt_bow');if(type==='LIFE_START'&&params.kind==='GATHER')GameAudio.play('birds');if(type==='LIFE_FINISH'&&lastResult?.result?.kind==='HUNT')GameAudio.play(lastResult.result.items?.ING_FOWL?'birds':'hunt_pig');
     if(['EQUIP','UNEQUIP','PARTY','PARTY_REPLACE','PARTY_SWAP'].includes(type))GameAudio.play('equip');
     if(type==='COMMISSION_ACCEPT')GameAudio.play('commission_accept');if(type!=='CLAIM_QUEST'&&Object.entries(game.s.quests).some(([id,q])=>q.state==='완료'&&!completedQuestsBefore.has(id)))GameAudio.play('quest_complete');if(['WORLD_WORK_FINISH','WORLD_WORK_START'].includes(type)&&lastResult?.result?.point&&lastResult.result.items)GameAudio.play('unlock');
     if(['BUY','SELL'].includes(type))GameAudio.play('item_receive');if(type==='CLAIM_QUEST')GameAudio.play('commission_complete');if(type==='CRAFT'){const recipe=game.tables['17_RECIPE_DB'].get(params.recipe);GameAudio.play(recipe?.[1]==='요리'?'cook_complete':recipe?.[1]==='단조'?'forge_complete':'craft_complete');}
     const save=async()=>{if(entryCheckpoint&&game.playPhase()!=='FREE')try{await storeStoryCheckpoint(entryCheckpoint);}catch{say('이야기 시작 전 기록을 남기지 못했습니다. 현재 진행은 자동 저장합니다.');}try{await storeSave();}catch{}};
-    await Promise.all([save(),GameEffects.play(effects),playTravel(adventureBefore,type,params)]);showReceivedLoot(receivedLoot(adventureBefore,type));if(!battleBefore&&game.s.runtime?.actors.some(a=>a.side==='ENEMY'&&/HILI/i.test(a.source)))GameAudio.play('encounter_hilichurl');return lastResult;
-  }catch(e){say(e.message);return {ok:false,error:e.message};}
-  finally{busy=false;render();}
+    await Promise.all([save(),GameEffects.play(effects),cover?cover.promise:playTravel(adventureBefore,type,params)]);showReceivedLoot(receivedLoot(adventureBefore,type));if(!battleBefore&&game.s.runtime?.actors.some(a=>a.side==='ENEMY'&&/HILI/i.test(a.source)))GameAudio.play('encounter_hilichurl');return lastResult;
+  }catch(e){cover?.abort();if(type==='COMBAT')GameEffects.cancel();softActionPreview=false;say(e.message);return {ok:false,error:e.message};}
+  finally{busy=false;softActionPreview=false;render();}
 };
 // Loading/restoring is deliberately silent; effects only originate from new actions.
 const avRestore=restoreUIState;
-restoreUIState=function(){GameEffects.cancel();GameEffects.seen.clear();GameAudio.stop();avRestore();};
+restoreUIState=function({preservePresentation=false}={}){if(!preservePresentation){GameEffects.cancel();GameEffects.seen.clear();GameAudio.stop();}avRestore();};
 boot();
