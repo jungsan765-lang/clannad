@@ -15,6 +15,7 @@ on:
       - "genshin-crpg/tests/test_quality_fixes_v01336.cjs"
       - "genshin-crpg/tests/test_quality_fixes_v01337.cjs"
       - "genshin-crpg/tests/test_quality_fixes_v01338.cjs"
+      - "genshin-crpg/tests/test_online_bootstrap_v01343.cjs"
       - "genshin-crpg/tests/test_liyue_rework*.cjs"
       - ".github/workflows/crpg-sync-dist.yml"
   workflow_dispatch:
