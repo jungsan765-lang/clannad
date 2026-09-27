@@ -90,7 +90,7 @@
     const b=s.runtime,o=b?.opening;if(!o)return s; // Old WAIT_PLAYER saves continue normally.
     if(o.version!==1||!['PENDING','STARTED'].includes(o.state)||o.round!==1||!Array.isArray(o.initialOrder)||!o.initialOrder.length||new Set(o.initialOrder.map(x=>x.id)).size!==o.initialOrder.length||o.initialOrder.some(x=>!b.actors.some(a=>a.id===x.id)||!Number.isFinite(x.score)))fail('OPENING_SAVE','전투 시작 순서 저장값이 잘못되었습니다.');
     if(o.state==='PENDING'&&(b.round!==1||b.cursor!==0||b.turnStarted!==null||b.actionSequence!==0||b.phase!=='WAIT_PLAYER'||s.global.COMBAT_ACTION_PHASE!=='OPENING'||b.interlude||b.pendingInterludes?.length||b.actors.some(a=>a.turns!==0)||JSON.stringify(b.order)!==JSON.stringify(o.initialOrder)))fail('OPENING_SAVE','전투 시작 대기 상태가 손상되었습니다.');
-    if(o.state==='PENDING'){playerFirst(b);o.initialOrder=copy(b.order);}
+    // Loading an existing save must be byte-for-byte state preserving. Old pending battles keep their saved initiative until COMBAT_BEGIN, where playerFirst() safely hands the first live action to the protagonist.
     return s;
   };
   api.openingVersion=1;
