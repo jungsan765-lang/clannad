@@ -133,7 +133,7 @@ try{
  assert(Math.abs(equipFeedback.rect.x+equipFeedback.rect.width/2-equipFeedback.width/2)<3);assert(Math.abs(equipFeedback.rect.y+equipFeedback.rect.height/2-equipFeedback.height/2)<3);
  await page.screenshot({path:resolve(evidence,'equipment-pending.png')});await idle();delay=0;
  const equipped=await same('equipment confirmation');assert(equipped.inventory.find(i=>i.slot===weapon).equipped);results.push({equipmentFeedback:'장착 중…',centered:true,singleNotice:true});
- for(const label of ['안내 확인 · 나중에 장착','장착 확인']){const guide=page.getByRole('button',{name:label,exact:true});if(await guide.count()){await guide.click();await idle();await same('equipment guide dismissal '+label);}}assert.equal(await page.locator('.equipment-guide').count(),0);
+ for(const label of ['안내 확인 · 나중에 장착','장착 확인']){const guide=page.getByRole('button',{name:label,exact:true});if(await guide.count()){await guide.click();await idle();await same('equipment guide dismissal '+label);}}assert.equal(await page.locator('.equipment-guide').isVisible(),false,'acknowledged guide must release the play screen');
  const world=free(),point=globalThis.CRPGWorldContent.oculi.find(p=>p.steps[0].duration>0&&p.method!=='HIDDEN'&&p.level<=1&&!Object.keys(p.requirements||{}).length&&!p.place);
  assert(point);world.action('OPERATOR_DEBUG',{op:'travel',map:point.map});fixture.seed(world.s);await start();delay=1800;
  await page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first().click();await page.waitForTimeout(300);
