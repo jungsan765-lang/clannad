@@ -1,7 +1,7 @@
 /* Online actions commit on the server before combat playback. Local journeys stay separate. */
 (function(){
 'use strict';
-const key='crpg-online-session-v1',pendingKey='crpg-online-pending-v1',base=String(window.CRPG_ONLINE_CONFIG?.apiBase||'').replace(/\/$/,'');
+const key='crpg-online-session-v1',pendingKey='crpg-online-pending-v1',productionApi='https://genshin-crpg-online.jungsan765.workers.dev',configuredApi=String(window.CRPG_ONLINE_CONFIG?.apiBase||'').trim(),isLocal=/^(localhost|127\\.0\\.0\\.1|\\[::1\\])$/.test(location.hostname),base=String(configuredApi||(!isLocal?productionApi:'')).replace(/\/$/,'');
 let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}');}catch{}
 const O=window.CRPGOnline={account:saved.account||null,token:saved.token||'',revision:0,ranked:false,active:false,configured:!!base,pending:null};
 try{O.pending=JSON.parse(localStorage.getItem(pendingKey)||'null');}catch{}
