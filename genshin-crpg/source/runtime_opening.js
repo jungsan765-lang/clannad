@@ -72,6 +72,7 @@
   P.actionReason=function(type,params={}){
     if(type==='COMBAT_BEGIN')return pending(this)?(params.battle&&params.battle!==this.s.runtime.id?'현재 전투와 시작할 전투가 일치하지 않습니다.':''):'시작을 기다리는 전투가 없습니다.';
     if(pending(this)){
+      if(type==='COMBAT_FORFEIT')return '';
       if(type==='MENU'&&safeMenus.has(params.screen))return '';
       return '행동 순서를 확인한 뒤 전투 시작을 눌러 주세요.';
     }
