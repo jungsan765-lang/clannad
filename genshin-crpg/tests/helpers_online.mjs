@@ -17,7 +17,7 @@ export function onlineFixture(){
  let token='',account;
  async function call(path,data){const response=await worker.fetch(new Request('https://test.invalid'+path,{method:data===undefined?'GET':'POST',headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},...(data===undefined?{}:{body:JSON.stringify(data)})}),env);return {status:response.status,...await response.json()};}
  return {sql,env,call,get account(){return account;},get token(){return token;},
-  async start(route='ROUTE_ISEKAI'){const auth=await call('/register',{username:'fixture_user',password:'isolated-fixture-password'});account=auth.account;token=auth.token;return call('/game/new',{name:'검증',route});},
+  async start(route='ROUTE_ISEKAI'){const auth=await call('/register',{username:'fixture_user',password:'isolated-fixture-password'});account=auth.account;token=auth.token;const created=await call('/game/new',{name:'검증',route});const state=JSON.parse(this.read().state);state.global.PRNG_STATE=7317;this.seed(state);return created;},
   read(){return sql.prepare('SELECT * FROM games WHERE account_id=?').get(account.id);},
   seed(state){sql.prepare('UPDATE games SET state=? WHERE account_id=?').run(JSON.stringify(state),account.id);},
   async action(type,params={},extra={}){return call('/game/action',{version:ENGINE_VERSION,revision:this.read().revision,requestId:crypto.randomUUID(),type,params,...extra});}
