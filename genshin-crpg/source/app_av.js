@@ -146,7 +146,7 @@ function combatSpeedControl(){
 }
 const GameEffects={
   generation:0,timer:null,resolve:null,layer:null,dock:null,seen:new Set(),hitTimers:new Set(),lastFlash:0,paused:false,active:false,prewound:null,
-  cancel(){CombatFX.clear();this.generation++;clearTimeout(this.timer);for(const id of this.hitTimers)clearTimeout(id);this.hitTimers.clear();this.resolve?.();this.resolve=null;this.layer?.replaceChildren();this.dock?.remove();this.dock=null;this.active=false;this.paused=false;document.documentElement.classList.remove('av-running');root.inert=busy;},
+  cancel(){CombatFX.clear();this.prewound=null;this.generation++;clearTimeout(this.timer);for(const id of this.hitTimers)clearTimeout(id);this.hitTimers.clear();this.resolve?.();this.resolve=null;this.layer?.replaceChildren();this.dock?.remove();this.dock=null;this.active=false;this.paused=false;document.documentElement.classList.remove('av-running');root.inert=busy;},
   reschedule(){clearTimeout(this.timer);if(this.resolve&&!this.paused)this.timer=setTimeout(()=>this.advance(),(this.beatDuration||1400)/(settings.combatSpeed||1));},
   advance(){clearTimeout(this.timer);const done=this.resolve;this.resolve=null;done?.();},
   layerNode(){if(!this.layer){this.layer=el('div','combat-effects');this.layer.setAttribute('aria-hidden','true');document.body.append(this.layer);}return this.layer;},
