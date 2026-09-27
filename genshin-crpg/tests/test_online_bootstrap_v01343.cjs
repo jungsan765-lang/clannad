@@ -22,7 +22,7 @@ assert(online.includes('async function actionRequest(payload)'), 'game actions m
 assert(online.includes("return request('/game/action',payload)"), 'action retry must reuse the exact same payload and requestId');
 assert(av.includes('function startActionCover(type,params={})'),'timed actions must start their progress feedback before the server round-trip finishes');
 assert(av.includes('function optimisticStoryPreview(type,params={})'),'pure story actions must have an immediate safe preview path');
-assert(av.includes("if(type==='COMBAT')GameEffects.primeCombat(type,params)"),'combat must begin visible windup while the server confirms the action');
+assert(av.includes("if(type==='COMBAT'&&!CRPGOnline.pending)GameEffects.primeCombat(type,params)"),'combat must begin visible windup while a fresh server action is being confirmed');
 assert(av.includes("index*32/(settings.combatSpeed||1)"),'multi-hit playback must use rapid per-hit spacing');
 assert(av.includes("preview&&!e.resolved&&e.status!==409&&e.status!==401"),'optimistic story rollback must never overwrite an authoritative retry/sync/login result');
 console.log('PASS production signup, login gate, retry, responsive autosave cover and combat playback wiring');
