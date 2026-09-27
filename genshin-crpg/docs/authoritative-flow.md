@@ -50,3 +50,12 @@
 6. 전체 기존 사이트를 checkout하여 게임 외 공개 파일을 보존하고 검증된 dist만 덮은 Pages artifact를 배포한다. 기존 Pages artifact 자체가 약 7.2GB이므로 게임 89MB만 배포해 다른 이미지 경로를 지우면 안 된다.
 
 v0.13.48은 Actions run `36316683441`에서 실제 게시 완료했다(main `d8fecb6`). v0.13.49의 게시 여부는 이후 Actions 실행과 Worker health/release.json을 확인한다. 이 환경의 Cloudflare 대시보드는 인증 확인 화면에 막혀 있으며, 사용자가 로컬 Wrangler 로그인으로 서버 ZIP을 배포하는 경로가 확인되어 있다. 서버 반영 전에는 새 클라이언트를 게시하지 않는다.
+
+## v0.13.50: conversation and rejection boundaries
+
+- `previewStoryRead(node, type, params)` handles deterministic DIALOGUE/NARRATION, STORY_CHOICE (including a single response), and STORY_NAME. It does not authorize client saves. Every command is replayed against the authoritative save. Private PRNG changes, battle resolution and non-dialogue actions remain server boundaries.
+- There is no idle-time/debounce save during a conversation. Persist the command locally before showing the next line. Checkpoint at scene exit, navigation out of the conversation, explicit synchronization/close, or before a gameplay transaction. Long journals are sent in ordered batches of at most 64; reaching 64 must never turn the next dialogue into a blocking action.
+- Effects inside a conversation are provisional until server replay commits. A reward cannot be spent in a separate gameplay action without that prefix being validated. Invalid commands roll back the whole transaction. Stale multi-device journals yield to the authoritative revision.
+- Domain errors include both RuleError and RelationshipError. After receipt lookup, failures before persistence are explicitly `outcome: REJECTED`; clients release the rejected pending action. Errors after the database batch begins remain uncertain and preserve the request ID. Never clear ambiguous writes merely because HTTP status is 500.
+- `engineVersion` hashes actual loaded runtime sources, Worker endpoint source and cleaned content, separately from the frontend package version. A UI-only release accepts a matching engine fingerprint, and the Pages gate checks that fingerprint. Changes to Worker endpoint code also change the fingerprint and require Worker deployment. The engine hash is generated, never edited by hand.
+- Updating through an engine version mismatch preserves the durable pending/journal and permits activation of the new client. Real local save errors still block reload; update errors also appear inside the open version dialog.

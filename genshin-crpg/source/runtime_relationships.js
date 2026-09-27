@@ -77,7 +77,7 @@ function install(api,options={}){
  const policy=options.eligibility||{profiles:{},protagonists:{}};
  const eventCatalog=options.events||{}, activities=options.activities||{};
  const getSession=rt=>sessions.get(rt)||null;
- const oldValidate=P.validateSave, oldNew=P.newGame, oldContact=P.markContact, oldPersonal=P.personal, oldApply=P.apply;
+ const oldValidate=P.validateSave, oldNew=P.newGame, oldContact=P.markContact, oldPersonal=P.personal, oldApply=P.apply, oldReason=P.actionReason;
  P.validateSave=function(s){const m=migrateState(s);Object.assign(s,m);return oldValidate.call(this,s);};
  P.newGame=function(o){sessions.delete(this);modes.set(this,defaults.adultModeEnabled===true);oldNew.call(this,o);this.s=migrateState(this.s);return copy(this.s);};
  P.relation=function(profileId){
@@ -182,7 +182,7 @@ function install(api,options={}){
   if(g.STORY_MENU_POLICY==='SAVE_LOAD_ONLY')return '현재 장면에서는 이야기를 계속하거나 저장할 수 있습니다.';
   if(this.s.runtime)return '전투를 먼저 마쳐 주세요.';
   const r=this.s.relations[def.profileId];if(!r||r.firstContact===null)return '먼저 실제로 만난 인물과 교류할 수 있습니다.';
-  if(!(this.storyDone?.(def.legendQuest)||this.s.quests[def.legendQuest]?.claimed||this.s.flags[def.completeFlag]===true))return '개인 이야기를 먼저 마쳐 주세요.';
+  if(!(this.storyDone?.(def.legendQuest)||this.s.quests[def.legendQuest]?.claimed||this.s.flags[def.completeFlag]===true))return '개인임무를 먼저 마쳐 주세요.';
   const key=[g.SAVE_ID,g.STORY_ROUTE_ID,def.profileId,g.WORLD_DAY].join('|');if(r.activityReceipts?.[key])return '오늘은 이미 함께 활동했습니다.';
   // Daily narrative and stage prerequisites remain usable between arbitrary battle scores.
   return '';
@@ -213,6 +213,7 @@ function install(api,options={}){
   const raw=this.row('51_EVENT_DB',id),def=JSON.parse(raw[13]||'{}'),r=this.relation(def.profile_id),before=r.BOND_SCORE;
   const result=oldPersonal.call(this,id,choice);r.BOND_SCORE=before;this.changeBond(def.profile_id,0,{source:id});result.heart=r.heart;result.score=r.BOND_SCORE;return result;
  };
+ P.actionReason=function(type,params={}){const reason=oldReason?.call(this,type,params)||'';if(reason)return reason;return type==='RELATION_ACTIVITY'?this.relationshipActivityReason(activities[params.activityId]):'';};
  P.apply=function(a){
   if(a.type==='RELATION_ACTIVITY'){const def=activities[a.activityId];if(!def)fail('ACTIVITY_DEFINITION','준비된 교류 활동이 아닙니다.');const reason=this.relationshipActivityReason(def);if(reason)fail('ACTIVITY_LOCKED',reason);const receipt=this.dailyRelationshipActivity(def.profileId,{bondDelta:0,sourceId:a.activityId});return {...receipt,dialogue:def.dialogue,profileId:def.profileId,title:def.title};}
   return oldApply.call(this,a);

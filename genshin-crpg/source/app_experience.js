@@ -172,7 +172,7 @@ function relationsScreen(p){
     c.append(el('h2','',m.name),el('p','heart-row','♥'.repeat(m.hearts)+'♡'.repeat(5-m.hearts)),el('p','relationship-score','호감도 '+m.score+'점 · '+(m.hearts?'유대 '+m.hearts+'단계':'첫 만남')));
     const meeting=characterMeetingPlace(pid,entries);if(meeting){c.append(el('p','meeting-place',meeting.label+' · '+mapName(meeting.map)));journalTravel(c,meeting.map);}else c.append(el('p','muted','아직 다음 만남 장소를 알 수 없습니다.'));
     const box=el('details','relationship-missions'),summary=el('summary');box.open=openRelationMissions.has(pid);box.addEventListener('toggle',()=>{if(box.open)openRelationMissions.add(pid);else openRelationMissions.delete(pid);});
-    summary.append(el('span','relationship-missions-title','호감도 임무 '+m.done+' / '+m.track.length+(m.activityReady?' · 오늘 교류 가능':'')),el('small','relationship-next',relationNextLabel(m)));box.append(summary);
+    summary.append(el('span','relationship-missions-title','호감도 임무 '+m.done+' / '+m.track.length+(m.activityReady?' · 오늘 교류 가능':'')),el('small','relationship-next'+(m.next?.status==='locked'?' requirement-unmet':''),relationNextLabel(m)));box.append(summary);
     const stages=el('ol','relationship-stages');
     // Only the next stage explains its blocker; later ones just show the score they open at.
     for(const t of m.track){const li=el('li','stage-'+t.status);li.append(el('span','stage-name',t.short));
@@ -184,7 +184,7 @@ function relationsScreen(p){
       else li.append(el('small','muted',t.need?'호감도 '+t.need+'점':'앞 단계 이후'));
       stages.append(li);}
     if(stages.children.length)box.append(stages);else box.append(el('p','muted','이 인물의 호감도 이야기는 아직 준비되지 않았습니다.'));
-    if(m.activities.length){const acts=el('div','relationship-activities');acts.append(el('h3','','교류 활동'));for(const a of m.activities){acts.append(actionButton(a.label,'RELATION_ACTIVITY',{activityId:a.id}));if(a.reason)acts.append(el('small','choice-note',a.reason));}box.append(acts);}
+    if(m.activities.length){const acts=el('div','relationship-activities');acts.append(el('h3','','교류 활동'));for(const a of m.activities){const b=actionButton(a.label,'RELATION_ACTIVITY',{activityId:a.id});if(a.reason){b.disabled=true;b.title=a.reason;b.setAttribute('aria-description',a.reason);}acts.append(b);if(a.reason)acts.append(el('small','requirement-unmet',a.reason));}box.append(acts);}
     c.append(box);grid.append(c);
   }
   if(!grid.children.length)p.append(el('p','empty','여정에서 만난 인물들이 여기에 기록됩니다.'));p.append(grid);returnToJourney(p);

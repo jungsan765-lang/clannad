@@ -59,6 +59,8 @@ world=json.loads((SRC/'world_content.js').read_text().split('=',1)[1].strip().rs
 for area in world['newMaps']:
  parent=maps.get(area['parent']) or maps.get('MAP_DRAGONSPINE' if area['theme'].startswith('DRAGONSPINE') else 'MAP_MOND_PLAINS')
  if parent: maps[area['id']]={**parent,'name':area['name'],'inheritedFrom':area['parent']}
+from engine_identity import engine_fingerprint
+public['engineVersion']=engine_fingerprint(ROOT,db)
 public['releaseNotes']=json.loads((ROOT/'content/release-notes.json').read_text())
 public['itemIcons']=json.loads((ROOT/'content/item-icons.json').read_text())
 public['sfx']={f['id']:{'url':'audio/genshin-sfx/'+f['file'],'sourceNature':f['sourceNature']} for f in json.loads((ROOT/'assets/audio/genshin-sfx/catalog.json').read_text())['files']}
@@ -84,7 +86,7 @@ html=(OUT/'index.html').read_text()
 html=re.sub(r'src="([^"]+\.js)"',lambda m:'src="'+m[1]+'?v='+pack_version+'"',html)
 html=html.replace('href="style.css"','href="style.css?v='+pack_version+'"')
 (OUT/'index.html').write_text(html)
-(OUT/'release.json').write_text(json.dumps({'appVersion':public['appVersion'],'packVersion':pack_version}))
+(OUT/'release.json').write_text(json.dumps({'appVersion':public['appVersion'],'packVersion':pack_version,'engineVersion':public['engineVersion']}))
 (OUT/'assets.js').write_text('window.CRPG_ASSETS='+json.dumps(files,ensure_ascii=False)+';\nwindow.CRPG_MANIFEST='+json.dumps(public,ensure_ascii=False)+';\n')
 (OUT/'sw.js').write_text((SRC/'sw.js').read_text().replace('__CONTENT_VERSION__',pack_version))
 pack={'version':pack_version,'files':[{'path':p.relative_to(OUT).as_posix(),'sha256':sha(p.read_bytes()),'bytes':p.stat().st_size} for p in sorted(OUT.rglob('*')) if p.is_file() and p.name not in ['offline-pack.json','asset-manifest.json']]}
