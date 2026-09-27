@@ -2,8 +2,8 @@
 (function(root){
 'use strict';const api=root.CRPGRuntime,P=api.Runtime.prototype,apply=P.apply,reason=P.actionReason;
 const fail=m=>{throw new api.RuleError('OPERATOR',m);};
-P.actionReason=function(type,a={}){if(type==='OPERATOR_DEBUG')return this.serverAdmin===true||this.localTest===true?'':'운영자 권한이 필요합니다.';return reason.call(this,type,a);};
-P.apply=function(a){if(a.type!=='OPERATOR_DEBUG')return apply.call(this,a);if(this.serverAdmin!==true&&this.localTest!==true)fail('운영자 권한이 필요합니다.');
+P.actionReason=function(type,a={}){if(type==='OPERATOR_DEBUG')return this.serverAdmin===true?'':'운영자 권한이 필요합니다.';return reason.call(this,type,a);};
+P.apply=function(a){if(a.type!=='OPERATOR_DEBUG')return apply.call(this,a);if(this.serverAdmin!==true)fail('운영자 권한이 필요합니다.');
  const g=this.s.global;this.s.operatorModified=true;
  const integer=(x,min,max)=>{if(!Number.isInteger(x)||x<min||x>max)fail('수치 범위를 확인해 주세요.');return x;};
  if(a.op==='heal'){this.recalculate();g.PLAYER_HP_CURRENT=g.PLAYER_HP_MAX;for(const id of Object.keys(this.s.chars))this.s.chars[id].hp=this.character(id).maxHp;if(this.s.runtime)for(const x of this.s.runtime.actors.filter(x=>x.side==='ALLY'))x.hp=x.maxHp;}

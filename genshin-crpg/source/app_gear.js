@@ -75,7 +75,9 @@ growthScreen=function(p){
  books(p);
  const links=el('div','row gear-links');links.append(actionButton('편성 바꾸기','MENU',{screen:'PARTY'}));if(window.openEquipmentHelp)links.append(button('장비 사용법',()=>window.openEquipmentHelp()));p.append(links);
  p.append(actionButton(game.s.runtime?'전투로 돌아가기':'이야기로 돌아가기','MENU',{screen:game.s.runtime&&!game.s.runtime.interlude?'COMBAT':'STORY'},true));
- if(pendingPick){const x=pendingPick;pendingPick=null;queueMicrotask(()=>openPicker(x.owner,x.category));}
+ // Open after the MENU action has finished. A picker built during the busy render
+ // keeps its disabled buttons even when the underlying page is rendered again.
+ if(pendingPick&&!busy){const x=pendingPick;pendingPick=null;queueMicrotask(()=>openPicker(x.owner,x.category));}
 };
 // Other screens open the gear screen with one item's slot already chosen.
 window.openGear=function(slot,owner){

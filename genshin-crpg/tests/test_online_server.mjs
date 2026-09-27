@@ -25,6 +25,9 @@ let saved=JSON.parse(sql.prepare('SELECT state FROM games WHERE account_id=?').g
 let ranked=await action('MENU',{screen:'SYSTEM'},2);assert.equal(ranked.status,200,JSON.stringify(ranked));assert.equal((await call('/ranking')).entries[0].floor,1);
 env.ADMIN_ACCOUNT_IDS=uid;let debug=await action('OPERATOR_DEBUG',{op:'mora',value:999999},3);assert.equal(debug.status,200,JSON.stringify(debug));assert.equal(debug.ranked,false);assert.equal((await call('/ranking')).entries.length,0);
 assert.equal((await action('MENU',{screen:'SYSTEM'},4)).status,200);assert.equal((await call('/ranking')).entries.length,0);
+// A past operator save cannot preserve privilege after the operator ID is removed.
+env.ADMIN_ACCOUNT_IDS='';assert.equal((await action('OPERATOR_DEBUG',{op:'heal',admin:true,serverAdmin:true,localTest:true},5)).status,403);
+assert.equal((await call('/me')).account.admin,false);assert.equal(sql.prepare('SELECT revision FROM games WHERE account_id=?').get(uid).revision,5);
 // Public query hard-limits to twenty even when more valid rows exist.
 for(let n=0;n<25;n++){const id='synthetic-'+n;sql.prepare('INSERT INTO accounts VALUES(?,?,?,?,?,?)').run(id,id,id,'x','x',n);sql.prepare('INSERT INTO ranking VALUES(?,?,?,?,?,?,?)').run(id,'ABYSS_01',id,n%12+1,10+n,1,n);}
 let top=await call('/ranking');assert.equal(top.entries.length,20);assert.equal(top.entries[0].rank,1);assert.equal(top.entries[19].rank,20);assert.ok(top.entries.every((x,i,a)=>!i||a[i-1].floor>=x.floor));

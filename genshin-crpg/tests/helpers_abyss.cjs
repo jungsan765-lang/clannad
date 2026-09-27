@@ -1,6 +1,6 @@
 // Synthetic QA setup uses native stat formulas and actual equipment. No boosted combat stats.
 const {fresh,R,db}=require('./helpers_v011.cjs');
-function fixture(level=15,team=['MOND_DILUC','MOND_NOELLE','MOND_JEAN'],enh=6,route='ROUTE_ISEKAI'){const r=fresh('MAP_MOND_CITY',route);r.localTest=true;r.action('OPERATOR_DEBUG',{op:'level',value:level});for(const [i,id]of team.entries()){r.unlockCharacter(id);r.action('PARTY',{char:id,slot:i+2});}for(const id of ['PLAYER_CUSTOM',...team]){
+function fixture(level=15,team=['MOND_DILUC','MOND_NOELLE','MOND_JEAN'],enh=6,route='ROUTE_ISEKAI'){const r=fresh('MAP_MOND_CITY',route);r.serverAdmin=true;r.action('OPERATOR_DEBUG',{op:'level',value:level});for(const [i,id]of team.entries()){r.unlockCharacter(id);r.action('PARTY',{char:id,slot:i+2});}for(const id of ['PLAYER_CUSTOM',...team]){
  for(const cat of ['WEAPON','ARMOR','ACCESSORY']){const types={WEAPON:r.equipmentProficiencies(id),ARMOR:['방어구'],ACCESSORY:['장신구']}[cat];const rows=r.rows('16_EQUIP_DB').filter(x=>types.includes(x[2])&&(!String(x[30]||'').match(/^(MOND_|LIYUE_)/)||x[30]===id)&&Number(x[19]||1)<=level&&!/장착 불가/.test(String(x[3])+' '+String(x[30])));let best=null,bestScore=-1;for(const x of rows){const score=Number(x[4]||0)+Number(x[5]||0)+Number(x[6]||0)*.15;if(score>bestScore){best=x;bestScore=score;}} if(best){const slot=r.giveEquipment(best[0]),inv=r.s.inventory.find(i=>i.slot===slot);inv.enhance=enh;if(enh>10)inv.enhancementCap=12;try{r.action('EQUIP',{slot,owner:id});}catch{}}}
  }
  r.action('OPERATOR_DEBUG',{op:'heal'});return r;}
