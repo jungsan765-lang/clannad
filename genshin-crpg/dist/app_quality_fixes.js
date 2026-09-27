@@ -127,6 +127,11 @@ commissionCard=function(parent,q,guild=false){
   }else if(!q.accepted){
     if(guild)c.append(actionButton('의뢰 수락','COMMISSION_ACCEPT',{quest:r[0]},true));
     else c.append(el('p','muted','캐서린에게 의뢰를 먼저 받아 주세요.'));
+  }else if(guild&&r[0]===globalThis.CRPGWorldContent?.letterCommission?.quest&&game.letterStage?.()?.requiresPlace&&game.atCommissionGuild?.(r[2])){
+    c.append(el('p','',game.letterStage().label),actionButton('정리한 편지 전달','WORLD_WORK_START',{kind:'COMMISSION',quest:r[0]},true));
+  }else if(guild&&d.kind==='supply'&&state?.node!=='READY_TO_CLAIM'&&game.atCommissionGuild?.(r[2])){
+    if(q.reason)c.append(el('p','choice-note',q.reason));
+    for(const choice of (d.choices||[]).filter(x=>!['leave','requirements'].includes(x.id)))c.append(actionButton(choice.label,'QUEST_CHOICE',{quest:r[0],choice:choice.id},true));
   }else if(state?.node==='READY_TO_CLAIM'){
     if(game.atCommissionGuild?.(r[2])){
       reportButtons(c,q);
@@ -137,7 +142,7 @@ commissionCard=function(parent,q,guild=false){
   }else{
     c.append(el('p','muted','실제 수행은 진행 장소의 메인 화면에서 합니다. 임무 목록에서는 진행 상황만 확인합니다.'));
     if(game.s.global.CURRENT_MAP_ID===d.map_id){
-      c.append(actionButton('메인 화면에서 현장 진행','MENU',{screen:'LOCATION'},true));
+      c.append(actionButton('메인 화면에서 현장 진행',game.s.placeVisit?'PLACE_LEAVE':'MENU',game.s.placeVisit?{}:{screen:'LOCATION'},true));
     }
   }
   parent.append(c);
