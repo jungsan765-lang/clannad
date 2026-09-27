@@ -68,6 +68,7 @@ jobs:
         run: |
           python tools/build_server.py
           node tests/test_online_server.mjs
+          node tests/test_online_bootstrap_v01343.cjs
           node tests/test_access_gear_v01343.cjs
           node tests/test_gear_ui_v01343.cjs
           node tools/test_field_bosses.cjs
