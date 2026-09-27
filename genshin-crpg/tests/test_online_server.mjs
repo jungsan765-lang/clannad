@@ -36,7 +36,7 @@ assert.equal((await action('MENU',{screen:'SYSTEM'},4)).status,200);assert.equal
 // A past operator save cannot preserve privilege after the operator ID is removed.
 env.ADMIN_ACCOUNT_IDS='';assert.equal((await action('OPERATOR_DEBUG',{op:'heal',admin:true,serverAdmin:true,localTest:true},5)).status,403);
 assert.equal((await call('/me')).account.admin,false);assert.equal(sql.prepare('SELECT revision FROM games WHERE account_id=?').get(uid).revision,5);
-assert.deepEqual(sql.prepare('SELECT revision FROM game_backups WHERE account_id=? ORDER BY revision').all(uid).map(x=>x.revision),[2,3,4]);
+assert.deepEqual(sql.prepare('SELECT revision FROM game_backups WHERE account_id=? ORDER BY revision').all(uid).map(x=>x.revision),[0,1,2,3,4],'retention cleanup is intentionally batched every third revision');
 for(const b of sql.prepare('SELECT state FROM game_backups WHERE account_id=?').all(uid))assert.doesNotThrow(()=>new R(GAME_DB,JSON.parse(b.state)));
 const validState=sql.prepare('SELECT state FROM games WHERE account_id=?').get(uid).state;
 sql.prepare('UPDATE games SET state=? WHERE account_id=?').run('{"schema":999}',uid);
