@@ -3,6 +3,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const root=path.resolve(__dirname,'..');
 const config=fs.readFileSync(path.join(root,'source/online_config.js'),'utf8');
 const online=fs.readFileSync(path.join(root,'source/app_online.js'),'utf8');
+const av=fs.readFileSync(path.join(root,'source/app_av.js'),'utf8');
 const sw=fs.readFileSync(path.join(root,'source/sw.js'),'utf8');
 const html=fs.readFileSync(path.join(root,'source/index.html'),'utf8');
 const api='https://genshin-crpg-online.jungsan765.workers.dev';
@@ -19,4 +20,8 @@ assert(online.includes("if(!O.token||!O.account){game=null;O.active=false;active
 assert(online.includes("retryable:e.name!=='AbortError'"),'transport failures must distinguish safe immediate retries from timeouts');
 assert(online.includes('async function actionRequest(payload)'), 'game actions must have an idempotent retry helper');
 assert(online.includes("return request('/game/action',payload)"), 'action retry must reuse the exact same payload and requestId');
-console.log('PASS production signup stays connected, login gates gameplay, and transient actions retry idempotently');
+assert(av.includes('function startActionCover(type,params={})'),'timed actions must start their progress feedback before the server round-trip finishes');
+assert(av.includes('function optimisticStoryPreview(type,params={})'),'pure story actions must have an immediate safe preview path');
+assert(av.includes("if(type==='COMBAT')GameEffects.primeCombat(type,params)"),'combat must begin visible windup while the server confirms the action');
+assert(av.includes("index*32/(settings.combatSpeed||1)"),'multi-hit playback must use rapid per-hit spacing');
+console.log('PASS production signup, login gate, retry, responsive autosave cover and combat playback wiring');
