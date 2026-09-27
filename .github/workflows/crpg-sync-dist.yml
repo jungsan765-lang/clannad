@@ -78,6 +78,7 @@ jobs:
           node tests/test_save_v01344.cjs
           node tests/test_work_validation.cjs
           node tests/test_online_bootstrap_v01343.cjs
+          node tests/test_playback_v08.cjs
           node tests/test_access_gear_v01343.cjs
           node tests/test_gear_ui_v01343.cjs
           node tools/test_field_bosses.cjs
