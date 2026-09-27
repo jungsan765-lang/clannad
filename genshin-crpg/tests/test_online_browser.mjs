@@ -6,15 +6,16 @@ import {createRequire} from 'node:module';
 import {onlineFixture,R,DB} from './helpers_online.mjs';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 const root=resolve(import.meta.dirname,'..'),version=JSON.parse(readFileSync(resolve(root,'package.json'))).version,evidence=resolve(root,'evidence/online-flow');mkdirSync(evidence,{recursive:true});
-const server=createServer((req,res)=>{let path=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';if(path.includes('..')){res.writeHead(403).end();return;}const source=resolve(root,'source',path),file=!process.env.CRPG_TEST_DIST&&/\.(js|css)$/.test(path)&&existsSync(source)?source:resolve(root,'dist',path);try{res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.webp':'image/webp'})[extname(file)]||'application/octet-stream');let data=readFileSync(file);if(!process.env.CRPG_TEST_DIST&&path==='assets.js')data=data.toString().replace(/"appVersion":\s*"[^"]*"/,'"appVersion":'+JSON.stringify(version));res.end(data);}catch{res.writeHead(404).end();}});
+const server=createServer((req,res)=>{let path=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';if(path.includes('..')){res.writeHead(403).end();return;}const source=resolve(root,'source',path),file=!process.env.CRPG_TEST_DIST&&/\.(js|css|html)$/.test(path)&&existsSync(source)?source:resolve(root,'dist',path);try{res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.webp':'image/webp'})[extname(file)]||'application/octet-stream');let data=readFileSync(file);if(!process.env.CRPG_TEST_DIST&&path==='assets.js')data=data.toString().replace(/"appVersion":\s*"[^"]*"/,'"appVersion":'+JSON.stringify(version));res.end(data);}catch{res.writeHead(404).end();}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
 const fixture=onlineFixture();await fixture.start();
 const browser=await chromium.launch({headless:true,executablePath:process.env.CRPG_CHROMIUM_EXECUTABLE||undefined,args:['--no-sandbox']}),page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[],calls=[];
 page.on('pageerror',e=>errors.push(e.message));
-let delay=0,drops=0;
+let delay=0,drops=0,arrivalDelay=0;
 await page.route('https://genshin-crpg-online.jungsan765.workers.dev/**',async route=>{
  const req=route.request(),body=req.postDataJSON(),path=new URL(req.url()).pathname;
  calls.push({path,type:body?.type,requestId:body?.requestId,at:Date.now()});
+ if(arrivalDelay&&path==='/game/action')await new Promise(r=>setTimeout(r,arrivalDelay));
  const out=await fixture.call(path,req.method()==='GET'?undefined:body),serverTime=Date.now();
  if(delay&&path==='/game/action')await new Promise(r=>setTimeout(r,delay));
  if(drops&&path==='/game/action'){drops--;await route.abort('failed');return;}
@@ -29,22 +30,48 @@ const free=()=>{const r=new R(DB,JSON.parse(fixture.read().state));if(r.s.runtim
 const results=[];
 try{
  await start();await same('start');
- delay=1000;const storyRevision=fixture.read().revision;
- await page.getByRole('button',{name:'계속 읽기',exact:true}).click();
- await page.waitForFunction(()=>softActionPreview);
- const previewNode=await page.evaluate(()=>game.storyActiveNodeId());
- await page.getByRole('button',{name:'계속 읽기',exact:true}).click();await idle();delay=0;
- await same('queued story');assert.equal(fixture.read().revision,storyRevision+2);assert.notEqual(await page.evaluate(()=>game.storyActiveNodeId()),previewNode);results.push({queuedStoryInputs:2});
+ delay=1800;const storyRevision=fixture.read().revision;
+ await page.evaluate(()=>{window.readPresentationTimes=[];const original=act;act=function(type,params){const start=performance.now(),out=original(type,params);if(type==='STORY_NEXT'&&!busy)readPresentationTimes.push(performance.now()-start);return out;};});
+ const readButton=()=>page.getByRole('button',{name:'계속 읽기',exact:true});
+ const readNodes=[],readDurations=[];
+ for(let i=0;i<2;i++){const t=Date.now();await readButton().click();readDurations.push(Date.now()-t);readNodes.push(await page.evaluate(()=>game.storyActiveNodeId()));}
+ assert.equal(fixture.read().revision,storyRevision,'reading must not synchronously save every line');
+ await page.evaluate(()=>{window.readFlush=CRPGOnline.flushReading();});
+ await page.waitForFunction(()=>CRPGOnline.pending?.type==='STORY_READ');
+ for(let i=0;i<3;i++){const t=Date.now();await readButton().click();readDurations.push(Date.now()-t);readNodes.push(await page.evaluate(()=>game.storyActiveNodeId()));assert.equal(await page.evaluate(()=>busy),false);}
+ assert.equal(new Set(readNodes).size,5,'all five lines advance before the first response');
+ assert.equal(await page.locator('.pending-action-notice').count(),0);
+ await page.evaluate(()=>window.readFlush);delay=0;
+ await same('background reading');assert.equal(fixture.read().revision,storyRevision+2,'five lines are two checkpoints while reading during an in-flight batch');
+ assert.equal(await page.evaluate(()=>CRPGOnline.readingCount()),0);
+ results.push({uninterruptedStoryInputs:5,checkpoints:2,readDurations,presentationMilliseconds:await page.evaluate(()=>readPresentationTimes)});
+ // A reload before the debounce sends anything recovers the durable reading command, once.
+ const restart=new R(DB);restart.newGame({name:'검증',route:'ROUTE_ISEKAI',seed:7317,saveId:crypto.randomUUID()});fixture.seed(restart.s);await start();
+ await readButton().click();const beforeReloadNode=await page.evaluate(()=>game.storyActiveNodeId());
+ await page.reload();await page.locator('.title-start').click();await idle();await same('unsent reading reload');assert.equal(await page.evaluate(()=>game.storyActiveNodeId()),beforeReloadNode);
+ // The next choice and all remaining unsent lines form one authoritative transaction.
+ const boundaryRevision=fixture.read().revision;
+ for(let i=0;i<4;i++)await readButton().click();
+ const choice=await page.evaluate(()=>game.storyChoices()[0]);assert(choice);
+ await page.evaluate(node=>act('STORY_CHOICE',{node}),choice[4]);await idle();await same('reading and decision');
+ assert.equal(fixture.read().revision,boundaryRevision+1);results.push({reloadReadingOnce:true,decisionWithReadingPrefix:true});
  const visited=[];
  for(let i=0;i<16;i++){
   const current=await page.evaluate(()=>({node:game.storyActiveNodeId(),choices:game.storyChoices().length,kind:game.storyNode()?.[5]}));
   const next=page.getByRole('button',{name:current.kind==='INPUT_TEXT'?'정한 이름을 알려준다':'계속 읽기',exact:true});if(current.choices||!await next.count())break;
-  assert(!visited.includes(current.node),'story node repeated');visited.push(current.node);await next.click();await idle();await same('story '+i);
+  assert(!visited.includes(current.node),'story node repeated');visited.push(current.node);await next.click();await idle();await page.evaluate(()=>CRPGOnline.flushReading());await same('story '+i);
  }
  assert(visited.length>=1);results.push({storyNodes:visited});
  await page.screenshot({path:resolve(evidence,'story.png')});
  const count=calls.length,rev=fixture.read().revision;
  await page.locator('[data-screen="SYSTEM"]').click();await idle();await page.locator('[data-screen="STORY"]').click();await idle();await page.evaluate(async()=>{for(let i=0;i<150;i++){await CRPGOnline.execute('MENU',{screen:'SYSTEM'});await CRPGOnline.execute('MENU',{screen:'STORY'});}render();});assert.equal(calls.length,count);assert.equal(fixture.read().revision,rev);results.push({menuRequests:0,repeatedMenuCycles:150});
+ // A committed reading checkpoint whose two responses are lost survives reload without replaying lines.
+ fixture.seed(restart.s);await start();drops=2;
+ for(let i=0;i<3;i++)await readButton().click();const lostReadNode=await page.evaluate(()=>game.storyActiveNodeId());
+ await page.waitForSelector('.pending-action-notice',{timeout:15000});const lostReadRevision=fixture.read().revision;
+ assert.equal(await page.evaluate(()=>game.storyActiveNodeId()),lostReadNode,'lost acknowledgement cannot regress the displayed line');
+ await page.reload();await page.locator('.title-start').click();await idle();await same('lost reading response reload');
+ assert.equal(fixture.read().revision,lostReadRevision);assert.equal(await page.evaluate(()=>CRPGOnline.readingCount()),0);results.push({lostReadingResponseReloadExactlyOnce:true});
  fixture.seed(free().s);await start();
  const lostRevision=fixture.read().revision;drops=2;
  await page.evaluate(()=>act('WAIT',{minutes:10}));await idle();
@@ -52,22 +79,36 @@ try{
  assert.equal(fixture.read().revision,lostRevision+1);assert(await page.evaluate(()=>!!CRPGOnline.pending));
  await page.getByRole('button',{name:'진행 확인 다시 시도',exact:true}).click();await idle();await same('lost response recovery');
  assert.equal(fixture.read().revision,lostRevision+1);assert.equal(new Set(calls.filter(c=>c.type==='WAIT').map(c=>c.requestId)).size,1);results.push({lostResponseExactlyOnce:true});
- delay=1800;const life=page.getByRole('button',{name:/채집 시작 · 10초/});await life.click();await page.waitForTimeout(300);assert(await page.locator('.action-save-cover').isVisible());await idle();
+ delay=1800;arrivalDelay=500;const activityClickedAt=Date.now();const life=page.getByRole('button',{name:/채집 시작 · 10초/});await life.click();await page.waitForTimeout(300);const pendingLife=page.locator('.pending-activity');assert(await pendingLife.isVisible());assert((await pendingLife.innerText()).includes('채집 중'));assert(Number(await pendingLife.locator('progress').getAttribute('value'))>0,'life timer visibly progresses while its start request is pending');await page.screenshot({path:resolve(evidence,'life-pending.png')});await idle();arrivalDelay=0;
  const lifeState=await same('life start');assert(lifeState.lifeJob);const elapsed=await page.evaluate(()=>CRPGOnline.now()-game.s.lifeJob.startedAt);assert(elapsed>=1700,'response wait must already count toward life timer');
  await page.screenshot({path:resolve(evidence,'life.png')});delay=0;
- await page.waitForFunction(()=>!game.s.lifeJob&&!busy,{},{timeout:20000});await same('life finish');assert.equal(calls.filter(c=>c.type==='LIFE_START').length,1);assert.equal(calls.filter(c=>c.type==='LIFE_FINISH').length,1);results.push({lifeElapsedOnAcknowledgement:elapsed});
+ await page.waitForFunction(()=>!game.s.lifeJob&&!busy,{},{timeout:20000});await same('life finish');assert.equal(calls.filter(c=>c.type==='LIFE_START').length,1);assert.equal(calls.filter(c=>c.type==='LIFE_FINISH').length,1);results.push({lifeElapsedOnAcknowledgement:elapsed,visibleBeforeAcknowledgement:true,activityTotalMilliseconds:Date.now()-activityClickedAt});
  fixture.seed(free().s);await start();delay=1800;
  const move=page.locator('.terrain-destination:not([disabled])').first();assert(await move.count());await move.click();await page.waitForTimeout(1200);const progress=page.locator('.action-save-cover progress');assert.equal(await progress.getAttribute('value'),null,'expired travel animation must show indeterminate confirmation, never stuck 94%');await idle();delay=0;await same('move');
+ const gear=free(),weapon=gear.giveEquipment('EQ_SWORD_HARBINGER');fixture.seed(gear.s);await start();
+ await page.evaluate(slot=>openGear(slot,'PLAYER_CUSTOM'),weapon);await idle();
+ delay=1800;await page.locator('.gear-options').getByRole('button',{name:'장착',exact:true}).first().click();
+ await page.waitForSelector('.action-feedback');await page.waitForTimeout(250);
+ const equipFeedback=await page.locator('.action-feedback').evaluate(n=>({text:n.innerText,rect:{x:n.getBoundingClientRect().x,y:n.getBoundingClientRect().y,width:n.offsetWidth,height:n.offsetHeight},width:innerWidth,height:innerHeight}));
+ assert.equal((equipFeedback.text.match(/장착 중…/g)||[]).length,1);assert(!equipFeedback.text.includes('진행 확인'));assert.equal(await page.locator('.action-status').count(),1);
+ assert(Math.abs(equipFeedback.rect.x+equipFeedback.rect.width/2-equipFeedback.width/2)<3);assert(Math.abs(equipFeedback.rect.y+equipFeedback.rect.height/2-equipFeedback.height/2)<3);
+ await page.screenshot({path:resolve(evidence,'equipment-pending.png')});await idle();delay=0;
+ const equipped=await same('equipment confirmation');assert(equipped.inventory.find(i=>i.slot===weapon).equipped);results.push({equipmentFeedback:'장착 중…',centered:true,singleNotice:true});
+ const world=free(),point=globalThis.CRPGWorldContent.oculi.find(p=>p.steps[0].duration>0&&p.method!=='HIDDEN'&&p.level<=1&&!Object.keys(p.requirements||{}).length&&!p.place);
+ assert(point);world.action('OPERATOR_DEBUG',{op:'travel',map:point.map});fixture.seed(world.s);await start();delay=1800;
+ await page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first().click();await page.waitForTimeout(300);
+ assert(await page.locator('.pending-activity').isVisible());assert(Number(await page.locator('.pending-activity progress').getAttribute('value'))>0);await idle();delay=0;await same('world work start');
+ await page.waitForFunction(()=>!game.s.worldJob&&!busy,{},{timeout:20000});await same('world work finish');results.push({worldWorkOverlapsSaving:true});
  const battle=free();battle.startBattle('EG_MOND_HILI_PATROL','RANDOM');
  // Load without startGame, which intentionally forfeits a battle on reconnect: start in free play, then enter via real action.
  fixture.seed(free().s);await start();
  // Dedicated test fixture installs a server battle response using the real sync path, without simulating a reconnect.
  fixture.seed(battle.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
  assert.equal(await page.locator('#tutorial-tour').count(),0,'the free-play guide must not cover a battle');
- await page.getByRole('button',{name:'전투 시작',exact:true}).click();await idle();await same('combat begin');
+ delay=1800;await page.getByRole('button',{name:'전투 시작',exact:true}).click();await page.waitForTimeout(250);assert(await page.locator('.action-save-cover').isVisible());await idle();delay=0;await same('combat begin');
  assert.equal(await page.evaluate(()=>game.combatActor().id),'PLAYER_CUSTOM');
  const guard=page.locator('.battle-cards button').filter({hasText:'방어'}).first();if(await guard.count())await guard.click();
- await page.getByRole('button',{name:'선택한 행동 실행',exact:true}).click();await page.waitForSelector('.combat-playback');
+ delay=1800;await page.getByRole('button',{name:'선택한 행동 실행',exact:true}).click();await page.waitForTimeout(750);assert(await page.evaluate(()=>[...CombatFX.animations].some(a=>a.playState==='running')),'preparation stays animated while waiting for the authoritative result');assert.equal(await page.locator('.combat-playback').count(),0,'unconfirmed damage must not play');await page.screenshot({path:resolve(evidence,'combat-pending.png')});await page.waitForSelector('.combat-playback');delay=0;
  await page.waitForFunction(()=>document.querySelector('.playback-outcomes')?.textContent.includes('→'));
  await page.getByRole('button',{name:'일시정지',exact:true}).click();await page.waitForTimeout(150);
  const during=await page.evaluate(()=>({outcome:document.querySelector('.playback-outcomes').textContent,player:document.querySelector('[data-actor-id="PLAYER_CUSTOM"] .stat')?.textContent}));
