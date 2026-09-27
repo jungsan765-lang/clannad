@@ -4,7 +4,7 @@ from pathlib import Path
 import json,re,hashlib,gzip
 root=Path(__file__).resolve().parents[1]
 html=(root/'source/index.html').read_text()
-files=[x for x in re.findall(r'<script src="([^"?]+)',html) if x=='world_content.js' or x.startswith('runtime')]
+files=[x for x in re.findall(r'<script src="([^"?]+)',html) if x in ('world_content.js','presentation.js') or x.startswith('runtime')]
 body='\n'.join((root/'source'/x).read_text() for x in files)
 # Resolve the four legacy CommonJS fallback imports statically for the Worker bundler.
 body=re.sub(r'''require\(['"]\./runtime[^'"]*\.js['"]\)''','root.CRPGRuntime',body)

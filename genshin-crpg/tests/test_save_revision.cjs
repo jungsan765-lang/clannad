@@ -4,7 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),asse
 const root=path.resolve(__dirname,'..'),src=path.join(root,'source');
 const db=JSON.parse(fs.readFileSync(path.join(root,'content/db.json')));
 const oldVersion='2026-09-24-4d2a266ee290-d6279e592bc5',stableVersion='schema2-4d2a266ee290';
-const files=[...fs.readFileSync(path.join(src,'index.html'),'utf8').matchAll(/<script\s+src="([^"]+)"/g)].map(x=>x[1]).filter(n=>/^runtime.*\.js$/.test(n));
+const files=[...fs.readFileSync(path.join(src,'index.html'),'utf8').matchAll(/<script\s+src="([^"]+)"/g)].map(x=>x[1]).filter(n=>/^(?:world_content|runtime.*)\.js$/.test(n));
 const ctx=vm.createContext({console});for(const f of files)vm.runInContext(fs.readFileSync(path.join(src,f),'utf8'),ctx,{filename:f});
 ctx.CRPGRelationships.install(ctx.CRPGRuntime,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db)});
 const Runtime=ctx.CRPGRuntime.Runtime,{SaveAdapter}=require(path.join(src,'save_adapter.js'));

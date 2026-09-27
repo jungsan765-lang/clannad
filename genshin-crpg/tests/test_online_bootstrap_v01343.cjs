@@ -36,6 +36,6 @@ assert(app.includes("game.combatOpening?.()"),'combat UI must detect the explici
 assert(app.includes("act('COMBAT_BEGIN',{battle:opening.battle})"),'combat opening must expose a visible player-controlled start button');
 assert(online.includes("if(O.active&&game?.s.runtime)"),'reconnecting to an unfinished battle must trigger the abandonment path');
 assert(online.includes("O.execute('COMBAT_FORFEIT'"),'unfinished online battles must be forfeited on session resume');
-assert(av.includes("title:'자동 저장 중'"),'persisted actions without a dedicated animation must have a generic save progress bar');
-assert(av.includes("delay:100"),'generic save feedback should avoid flashing for sub-100ms commits');
 console.log('PASS production signup, login gate, retry, responsive autosave cover and combat playback wiring');
+
+// Progress timing and acknowledgement handoff are executed in test_action_feedback.cjs and test_online_browser.mjs.

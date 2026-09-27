@@ -1,0 +1,232 @@
+{
+  "version": "0.13.48",
+  "baseMain": "6ef4e6648569bd2ccc6c6c1e01c34720602882d0",
+  "releaseGates": [
+    {
+      "test": "tests/test_online_server.mjs",
+      "ok": true,
+      "seconds": 6.8
+    },
+    {
+      "test": "tests/test_authoritative_flow.mjs",
+      "ok": true,
+      "seconds": 2.6
+    },
+    {
+      "test": "tests/test_combat_catalog_online.mjs",
+      "ok": true,
+      "seconds": 5.8
+    },
+    {
+      "test": "tests/test_action_feedback.cjs",
+      "ok": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "tests/test_online_bootstrap_v01343.cjs",
+      "ok": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "tests/test_online_title_v01344.cjs",
+      "ok": true,
+      "seconds": 3.7
+    },
+    {
+      "test": "tests/test_opening.cjs",
+      "ok": true,
+      "seconds": 11.7
+    },
+    {
+      "test": "tests/test_mond_content_v01344.cjs",
+      "ok": true,
+      "seconds": 5.4
+    },
+    {
+      "test": "tests/test_mond_full_v01344.cjs",
+      "ok": true,
+      "seconds": 118.7
+    },
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "ok": true,
+      "seconds": 9.8
+    },
+    {
+      "test": "tests/test_save_revision.cjs",
+      "ok": true,
+      "seconds": 14.1
+    },
+    {
+      "test": "tests/test_work_validation.cjs",
+      "ok": true,
+      "seconds": 12.0
+    },
+    {
+      "test": "tests/test_life_ui_v010.cjs",
+      "ok": true,
+      "seconds": 5.5
+    },
+    {
+      "test": "tests/test_playback_v08.cjs",
+      "ok": true,
+      "seconds": 2.1
+    },
+    {
+      "test": "tests/test_presentation.cjs",
+      "ok": true,
+      "seconds": 1.0
+    },
+    {
+      "test": "tests/test_access_gear_v01343.cjs",
+      "ok": true,
+      "seconds": 13.8
+    },
+    {
+      "test": "tests/test_gear_ui_v01343.cjs",
+      "ok": true,
+      "seconds": 3.3
+    },
+    {
+      "test": "tests/test_quality_fixes_v01335.cjs",
+      "ok": true,
+      "seconds": 4.4
+    },
+    {
+      "test": "tests/test_quality_fixes_v01336.cjs",
+      "ok": true,
+      "seconds": 6.3
+    },
+    {
+      "test": "tests/test_quality_fixes_v01337.cjs",
+      "ok": true,
+      "seconds": 1.2
+    },
+    {
+      "test": "tests/test_quality_fixes_v01338.cjs",
+      "ok": true,
+      "seconds": 3.6
+    },
+    {
+      "test": "tests/test_liyue_rework_mechanics.cjs",
+      "ok": true,
+      "seconds": 32.0
+    },
+    {
+      "test": "tests/test_liyue_rework_flow.cjs",
+      "ok": true,
+      "seconds": 250.1
+    },
+    {
+      "test": "tools/test_field_bosses.cjs",
+      "ok": true,
+      "seconds": 20.2
+    },
+    {
+      "test": "tools/test_exclusive_weapons.cjs",
+      "ok": true,
+      "seconds": 4.2
+    },
+    {
+      "test": "tests/test_update_v01341.cjs",
+      "ok": true,
+      "seconds": 29.0
+    },
+    {
+      "test": "tests/test_abyss_v01341.cjs",
+      "ok": true,
+      "seconds": 12.3
+    },
+    {
+      "test": "tests/test_osial_v01341.cjs",
+      "ok": true,
+      "seconds": 6.7
+    }
+  ],
+  "additionalChecks": [
+    "ordered menu context, invalid service context rollback, party and equipment immediate persistence",
+    "body-read timeout and recoverable pending action",
+    "all gameplay collections compared to SQLite in production browser",
+    "free-play guide suspended during battle"
+  ],
+  "productionBrowser": {
+    "ok": true,
+    "results": [
+      {
+        "queuedStoryInputs": 2
+      },
+      {
+        "storyNodes": [
+          "ISK_M01_EX_WAKE_02",
+          "ISK_M01_E006",
+          "ISK_M01_M001"
+        ]
+      },
+      {
+        "menuRequests": 0,
+        "repeatedMenuCycles": 150
+      },
+      {
+        "lostResponseExactlyOnce": true
+      },
+      {
+        "lifeElapsedOnAcknowledgement": 2038
+      },
+      {
+        "playbackHP": {
+          "outcome": "검증 · 피해 18 / 체력 480 → 462",
+          "player": "HP  462 / 480"
+        }
+      },
+      {
+        "combatActors": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "hp": "체력  448 / 480"
+          },
+          {
+            "id": "MON_HILI_FIGHTER#1",
+            "hp": "체력  144 / 144"
+          }
+        ]
+      },
+      {
+        "reconnectForfeit": true
+      }
+    ]
+  },
+  "browserConditions": {
+    "clientClockAheadMs": 300000,
+    "responseDelayMs": 1800,
+    "lostResponsesAfterCommit": 2,
+    "repeatedMenuCycles": 150
+  },
+  "catalog": {
+    "characters": 119,
+    "enemies": 222,
+    "cards": 528,
+    "executed": 228,
+    "blocked": {
+      "이 카드의 전용 효과는 아직 구현되지 않았습니다.": 281,
+      "시간의 빛 70과 남은 강화 횟수가 필요합니다.": 1,
+      "장비 강화 조건이 충족되지 않았습니다.": 1,
+      "세 번째 페이즈에서만 사용할 수 있습니다.": 1,
+      "체력이 20% 이하일 때 사용할 수 있습니다.": 1,
+      "같은 편의 체력이 70% 이하일 때 사용합니다.": 1,
+      "바위 방패가 필요합니다.": 1,
+      "얼음 방패가 남아 있어야 합니다.": 1,
+      "지원할 대상이 없습니다.": 1,
+      "치친이 1체 이상 있고 보호막이 없을 때 사용합니다.": 1,
+      "원소 주입 이후 사용합니다.": 1,
+      "HP 60% 이하에서 사용합니다.": 1,
+      "현재 단계에서 사용하지 않습니다.": 8
+    },
+    "failures": []
+  },
+  "artifact": {
+    "file": "crpg-production-v0.13.48.tar.gz",
+    "bytes": 67595439,
+    "sha256": "59c260bd3d4192ddcdfa2f08a0887d24d67b033ba65019c22cdb8141209dffa6"
+  },
+  "productionDeployment": "not performed; Cloudflare deployment credentials and Pages Actions source transition required"
+}

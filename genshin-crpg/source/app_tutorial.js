@@ -17,6 +17,8 @@ function closeTutorial(mark=true){
 }
 function renderTutorial(){
  if(!activeTutorial||!game)return;document.getElementById('tutorial-tour')?.remove();document.querySelectorAll('.tutorial-target').forEach(n=>n.classList.remove('tutorial-target'));
+ // Resume the same guide step in free play; never obscure battle controls or scroll its stage.
+ if(game.s.runtime||game.s.battlePreparation)return;
  const step=tutorialSteps[activeTutorial.index],target=document.querySelector(step.target),box=el('section','tutorial-tour');box.id='tutorial-tour';box.setAttribute('role','dialog');box.setAttribute('aria-label','게임 화면 튜토리얼');
  box.append(el('small','eyebrow','화면 안내 '+(activeTutorial.index+1)+' / '+tutorialSteps.length),el('h2','',step.title),el('p','',step.text));
  const controls=el('div','tutorial-controls');if(activeTutorial.index)controls.append(button('이전',()=>{activeTutorial.index--;renderTutorial();}));controls.append(button(activeTutorial.index===tutorialSteps.length-1?'안내 마치기':'다음',()=>{if(activeTutorial.index===tutorialSteps.length-1)closeTutorial();else{activeTutorial.index++;renderTutorial();}},false,true),button('나중에 보기',()=>closeTutorial()));box.append(controls);document.body.append(box);

@@ -1,126 +1,116 @@
-name: CRPG Sync Production Dist
+name: CRPG Verify and Publish Artifact
 
 on:
+  pull_request:
+    paths: ['genshin-crpg/**', '.github/workflows/crpg-sync-dist.yml']
   push:
-    branches:
-      - main
-    paths:
-      - "genshin-crpg/source/**"
-      - "genshin-crpg/server/**"
-      - "genshin-crpg/content/**"
-      - "genshin-crpg/package.json"
-      - "genshin-crpg/package-lock.json"
-      - "genshin-crpg/tools/build.py"
-      - "genshin-crpg/tools/build_server.py"
-      - "genshin-crpg/tools/apply_liyue_rework.py"
-      - "genshin-crpg/tests/test_quality_fixes_v01335.cjs"
-      - "genshin-crpg/tests/test_quality_fixes_v01336.cjs"
-      - "genshin-crpg/tests/test_quality_fixes_v01337.cjs"
-      - "genshin-crpg/tests/test_quality_fixes_v01338.cjs"
-      - "genshin-crpg/tests/test_online_bootstrap_v01343.cjs"
-      - "genshin-crpg/tests/test_playback_v08.cjs"
-      - "genshin-crpg/tests/test_online_server.mjs"
-      - "genshin-crpg/tests/test_opening.cjs"
-      - "genshin-crpg/tests/test_liyue_rework*.cjs"
-      - ".github/workflows/crpg-sync-dist.yml"
+    branches: [main]
+    paths: ['genshin-crpg/**', '.github/workflows/crpg-sync-dist.yml']
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish verified artifact (requires matching Worker and Pages source: Actions)'
+        type: boolean
+        default: false
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: crpg-production-dist
-  cancel-in-progress: true
+  group: crpg-verify-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  build-and-sync:
+  verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
           fetch-depth: 0
           sparse-checkout: |
             genshin-crpg
             .github
-          sparse-checkout-cone-mode: true
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.12'
       - uses: actions/setup-node@v4
         with:
-          node-version: "24"
-      - name: Install build dependency
-        run: python -m pip install pillow
-      - name: Apply pinned Liyue data revision
-        working-directory: genshin-crpg
-        run: python tools/apply_liyue_rework.py
-      - name: Quality fixes regression
-        working-directory: genshin-crpg
-        run: node tests/test_quality_fixes_v01335.cjs
-      - name: Quality fixes v0.13.36 regression
-        working-directory: genshin-crpg
-        run: node tests/test_quality_fixes_v01336.cjs
-      - name: Quality fixes v0.13.37 regression
-        working-directory: genshin-crpg
-        run: node tests/test_quality_fixes_v01337.cjs
-      - name: Quality fixes v0.13.38 regression
-        working-directory: genshin-crpg
-        run: node tests/test_quality_fixes_v01338.cjs
-      - name: Liyue field mechanics and affinity regression
-        working-directory: genshin-crpg
-        run: node tests/test_liyue_rework_mechanics.cjs
-      - name: All Liyue routes through actual actions
-        working-directory: genshin-crpg
-        run: node tests/test_liyue_rework_flow.cjs
-      - name: Accounts, abyss and quest regression
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: genshin-crpg/package-lock.json
+      - name: Install dependencies
         working-directory: genshin-crpg
         run: |
-          node --check source/app_av.js
-          node --check source/app_online.js
-          python tools/build_server.py
-          node tests/test_online_server.mjs
-          node tests/test_online_title_v01344.cjs
-          node tests/test_opening.cjs
-          node tests/test_mond_content_v01344.cjs
-          node tests/test_mond_full_v01344.cjs
-          node tests/test_save_v01344.cjs
-          node tests/test_work_validation.cjs
-          node tests/test_online_bootstrap_v01343.cjs
-          node tests/test_playback_v08.cjs
-          node tests/test_access_gear_v01343.cjs
-          node tests/test_gear_ui_v01343.cjs
-          node tools/test_field_bosses.cjs
-          node tools/test_exclusive_weapons.cjs
-          node tests/test_update_v01341.cjs
-          node tests/test_abyss_v01341.cjs
-          node tests/test_osial_v01341.cjs
-      - name: Build production static pack
+          python -m pip install pillow
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Source and authoritative server regression gates
         working-directory: genshin-crpg
-        run: python tools/build.py
-      - name: Verify current release
+        run: npm test
+      - name: Source UI against actual Worker and SQLite
         working-directory: genshin-crpg
+        run: npm run test:browser
+      - name: Build production pack after source gates pass
+        working-directory: genshin-crpg
+        run: npm run build
+      - name: Verify shipped UI against actual Worker and SQLite
+        working-directory: genshin-crpg
+        env:
+          CRPG_TEST_DIST: '1'
         run: |
-          node -e "const p=require('./package.json'),r=require('./dist/release.json'); if(r.appVersion!==p.version){console.error(r,p);process.exit(1)}"
-          grep -q "runtime_liyue_artifacts.js?v=" dist/index.html
-          grep -q "runtime_liyue_encounters.js?v=" dist/index.html
-          test -f dist/runtime_liyue_artifacts.js
-          test -f dist/runtime_liyue_encounters.js
-          if [ "$(node -p "require('./package.json').version")" = "0.13.31" ]; then
-            test -f dist/runtime_liyue_equipment.js
-            test -f dist/app_liyue_equipment.js
-            grep -q "runtime_liyue_equipment.js?v=" dist/index.html
-            grep -q "app_liyue_equipment.js?v=" dist/index.html
-          fi
-      - name: Commit built deployment pack
+          npm run test:browser
+          node -e "const p=require('./package.json'),r=require('./dist/release.json');if(p.version!==r.appVersion)process.exit(1)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: crpg-production-${{ github.sha }}
+          path: genshin-crpg/dist
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: crpg-evidence-${{ github.sha }}
+          path: genshin-crpg/evidence
+          retention-days: 14
+
+  pages:
+    if: github.event_name == 'workflow_dispatch' && inputs.publish && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: crpg-pages-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: crpg-production-${{ github.sha }}
+          path: verified-pack
+      - name: Check matching authoritative server before publishing
         run: |
-          git config user.name "crpg-build-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add genshin-crpg/content/db.json genshin-crpg/dist genshin-crpg/reports/build.json
-          if git diff --cached --quiet; then
-            echo "Production dist already current."
-            exit 0
-          fi
-          VERSION="$(node -p "require('./genshin-crpg/package.json').version")"
-          git commit -m "build(crpg): sync production dist v${VERSION}"
-          git push origin HEAD:main
+          python3 - <<'PY'
+          import json, urllib.request
+          package=json.load(open('genshin-crpg/package.json'))
+          request=urllib.request.Request('https://genshin-crpg-online.jungsan765.workers.dev/health',headers={'Cache-Control':'no-cache'})
+          health=json.load(urllib.request.urlopen(request,timeout=20))
+          assert health.get('configured') and health.get('version')==package['version'], 'Deploy the matching Worker first; client artifact is held.'
+          PY
+      - name: Stage existing site plus verified game artifact
+        run: |
+          rm -rf genshin-crpg/dist
+          mv verified-pack genshin-crpg/dist
+          python3 genshin-crpg/tools/prepare_pages.py "$RUNNER_TEMP/crpg-pages"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/crpg-pages
+      - uses: actions/deploy-pages@v4
+        id: deployment

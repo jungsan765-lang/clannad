@@ -68,6 +68,10 @@ async function route(request,env){
   // MENU navigation is client-local. Apply its current screen only as part of the next real transaction,
   // preserving story/place menu side effects without creating a standalone save revision.
   const uiScreen=typeof b.uiScreen==='string'&&UI_SCREENS.has(b.uiScreen)?b.uiScreen:'';
+  if(b.uiActions!==undefined){
+   if(!Array.isArray(b.uiActions)||b.uiActions.length>128||b.uiActions.some(screen=>!UI_SCREENS.has(screen)))throw error(400,'화면 이동 기록을 확인해 주세요.');
+   for(const screen of b.uiActions){const reason=r.actionReason('MENU',{screen});if(reason)throw error(409,'현재 화면 상태를 다시 맞춰 주세요.','UI_CONTEXT');r.apply({type:'MENU',screen});}
+  }
   if(uiScreen&&uiScreen!==r.s.global.SCREEN_MODE){const menuReason=r.actionReason('MENU',{screen:uiScreen});if(menuReason)throw error(409,'현재 화면 상태를 다시 맞춰 주세요.','UI_CONTEXT');r.apply({type:'MENU',screen:uiScreen});}
   const result=r.action(b.type,params);const state=JSON.stringify(compact(r.s));if(encoder.encode(state).length>1900000)throw error(507,'저장 크기 한도에 도달했습니다. 운영자에게 문의해 주세요.');
   const next={state,revision:row.revision+1,ranked:isDebug?0:row.ranked},output=responseGame(next,account,env,result,r.s),outputText=JSON.stringify(output),receiptText=JSON.stringify({result});
@@ -92,6 +96,6 @@ export default {async fetch(request,env){
  if(origin&&origin!==allowed)return json({error:'허용되지 않은 접속 경로입니다.'},403);
  if(request.method==='OPTIONS')return new Response(null,{status:204,headers:{'Access-Control-Allow-Origin':allowed,'Access-Control-Allow-Methods':'GET,POST,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization','Access-Control-Max-Age':'86400','Vary':'Origin'}});
  let res;try{res=await route(request,env);}catch(e){res=json({error:e.status||e instanceof globalThis.CRPGRuntime.RuleError?e.message:'서버 요청을 처리하지 못했습니다.',...(e.code?{code:e.code}:{}),...(e.code==='VERSION_MISMATCH'?{version:ENGINE_VERSION}:{})},e.status|| (e instanceof globalThis.CRPGRuntime.RuleError?400:500));}
- res.headers.set('Access-Control-Allow-Origin',allowed);res.headers.set('Vary','Origin');res.headers.set('X-Content-Type-Options','nosniff');return res;
+ res.headers.set('Access-Control-Allow-Origin',allowed);res.headers.set('Access-Control-Expose-Headers','X-Server-Time');res.headers.set('X-Server-Time',String(now()));res.headers.set('Vary','Origin');res.headers.set('X-Content-Type-Options','nosniff');return res;
 }};
 export {passwordHash,publicState,ALLOWED};

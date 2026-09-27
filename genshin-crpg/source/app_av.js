@@ -90,6 +90,7 @@ function optimizeImages(old){
   upcoming.slice(0,4).forEach(warmImage);
 }
 function actionCoverPlan(type,params={},generic=true){
+  if(['LIFE_START','WORLD_WORK_START'].includes(type))return {duration:10000,title:type==='LIFE_START'?({GATHER:'채집',MINE:'채광',HUNT:'사냥',FISH:'낚시'}[params.kind]||'생활 작업')+' 준비 중':'현장 작업 준비 중',label:'시작을 확인하고 있습니다…',kind:'START',handoff:true};
   const simpleMove=new Set(['PLACE_ENTER','PLACE_LEAVE','RECOVER','STORY_SCRIPTED_TRAVEL','STORY_RIDE']);
   if(type==='MOVE'){
     const direct=(CRPGRuntime.directRegionTransitIds||[]).includes(params.edge),edge=game?.tables['47_MAP_EDGE_DB']?.get(params.edge),target=edge?.[2];
@@ -114,16 +115,16 @@ function actionCoverPlan(type,params={},generic=true){
     return {duration:Math.max(900,Math.min(2300,850+minutes*18)),title:type==='COMMISSION_PUZZLE'?'현장 단서 확인 중':'현장 작업 중',label:minutes?'게임 시간 '+minutes+'분':'현장 확인',kind:'TASK'};
   }
   if(!generic||['MENU','COMBAT'].includes(type))return null;
-  return {duration:650,title:'자동 저장 중',label:'진행 기록을 확인하고 있습니다.',kind:'SAVE',generic:true,delay:100};
+  return {duration:650,title:'진행 확인 중',label:'잠시만 기다려 주세요.',kind:'SAVE',generic:true,delay:250};
 }
 function startActionCover(type,params={},generic=true){
   const plan=actionCoverPlan(type,params,generic);if(!plan||document.hidden)return null;
   const started=performance.now();let serverDone=false,stopped=false,resolver,overlay=null,bar=null,label=null,remaining=null,showTimer=null,tickTimer=null;const promise=new Promise(resolve=>resolver=resolve);
   const finish=()=>{if(stopped)return;stopped=true;clearTimeout(showTimer);clearTimeout(tickTimer);if(bar)bar.value=100;overlay?.remove();resolver();};
-  const tick=()=>{if(stopped||!overlay)return;const elapsed=performance.now()-started,pct=Math.min(serverDone?100:94,elapsed/plan.duration*100);bar.value=pct;if(remaining)remaining.textContent=Math.max(0,Math.ceil((plan.duration-elapsed)/1000))+'초 남음';if(serverDone&&(plan.generic||elapsed>=plan.duration)){finish();return;}if(elapsed>=plan.duration&&!serverDone)label.textContent='저장 확인 중…';tickTimer=setTimeout(tick,30);};
-  const show=()=>{if(stopped)return;overlay=el('div','travel-overlay task-progress-overlay action-save-cover '+(plan.remaining?'region-transit-progress':''));overlay.setAttribute('role','status');const title=el('strong','',plan.title);label=el('span','',plan.label);bar=el('progress');remaining=plan.remaining?el('small',''):null;overlay.append(el('span','travel-mark','✧'),title,label);bar.max=100;bar.value=0;bar.setAttribute('aria-label',plan.label);overlay.append(bar);if(remaining)overlay.append(remaining);document.body.append(overlay);tick();};
+  const tick=()=>{if(stopped||!overlay)return;const elapsed=performance.now()-started;if(plan.generic||plan.handoff||elapsed>=plan.duration&&!serverDone)bar.removeAttribute('value');else bar.value=Math.min(100,elapsed/plan.duration*100);if(remaining)remaining.textContent=Math.max(0,Math.ceil((plan.duration-elapsed)/1000))+'초 남음';if(serverDone&&(plan.generic||plan.handoff||elapsed>=plan.duration)){finish();return;}if(elapsed>=plan.duration&&!serverDone)label.textContent='진행 확인 중 · '+Math.floor(elapsed/1000)+'초';tickTimer=setTimeout(tick,100);};
+  const show=()=>{if(stopped)return;overlay=el('div',(plan.generic?'action-status':'travel-overlay task-progress-overlay')+' action-save-cover '+(plan.remaining?'region-transit-progress':''));overlay.setAttribute('role','status');const title=el('strong','',plan.title);label=el('span','',plan.label);bar=el('progress');remaining=plan.remaining?el('small',''):null;overlay.append(el('span','travel-mark','✧'),title,label);bar.max=100;bar.value=0;bar.setAttribute('aria-label',plan.label);overlay.append(bar);if(remaining)overlay.append(remaining);document.body.append(overlay);tick();};
   if(plan.delay)showTimer=setTimeout(show,plan.delay);else show();
-  return {plan,promise,finishServer(){serverDone=true;const elapsed=performance.now()-started;if(plan.generic||elapsed>=plan.duration)finish();},abort:finish};
+  return {plan,promise,finishServer(){serverDone=true;const elapsed=performance.now()-started;if(plan.generic||plan.handoff||elapsed>=plan.duration)finish();},abort:finish};
 }
 function optimisticStoryPreview(type,params={}){
   if(!window.CRPGOnline?.active||CRPGOnline.pending||game?.s.runtime||!['STORY_NEXT','STORY_CHOICE','STORY_NAME'].includes(type))return null;
@@ -136,7 +137,7 @@ function optimisticStoryPreview(type,params={}){
     JSON.stringify(a.inventory)===JSON.stringify(b.inventory)&&JSON.stringify(a.party)===JSON.stringify(b.party);
   return stable?{before,probe,result}:null;
 }
-let softActionPreview=false;
+let softActionPreview=false,queuedStory=null;
 function combatSpeedControl(){
   const row=el('label','combat-speed'),label=el('span','','전투 속도'),range=el('input'),value=el('output');
   range.type='range';range.min='.5';range.max='2';range.step='.25';range.value=settings.combatSpeed||1;range.setAttribute('aria-label','전투 속도');value.textContent=Number(range.value).toFixed(2).replace(/0$/,'')+'×';
@@ -238,21 +239,33 @@ const avRender=render;
 render=function(){
   const saveId=game?.s.global.SAVE_ID||null;if(saveId!==renderedSaveId){GameEffects.cancel();GameEffects.seen.clear();renderedSaveId=saveId;}
   if(game&&presenterDB!==game.db){presenterDB=game.db;itemPresenter=CRPGInventoryPresenter.create(presenterDB,MANIFEST);}
-  const old=[...root.querySelectorAll('img')];avRender();optimizeImages(old);const hardBusy=busy&&!softActionPreview;root.inert=hardBusy;root.setAttribute('aria-busy',String(hardBusy));document.documentElement.classList.toggle('action-pending',hardBusy);if(hardBusy){const status=el('div','action-status','처리 중…');status.setAttribute('role','status');root.append(status);}GameAudio.sync();
+  const old=[...root.querySelectorAll('img')];avRender();optimizeImages(old);const hardBusy=busy&&!softActionPreview;root.inert=hardBusy;root.setAttribute('aria-busy',String(busy));document.documentElement.classList.toggle('action-pending',hardBusy);if(busy&&!document.querySelector('.action-save-cover')){const status=el('div','action-status',queuedStory?'다음 진행 대기 중…':softActionPreview?'진행 확인 중…':'처리 중…');status.setAttribute('role','status');root.append(status);}GameAudio.sync();
 };
 // Commit once, then replay the captured battle view. Saves always use the committed state.
 act=async function(type,params={}){
-  if(busy||!game)return;busy=true;let cover=null,preview=null;
+  if(!game)return;
+  if(busy){
+    // One deliberate input on the visible preview survives the acknowledgement wait.
+    // Never replay it after rollback or against a different authoritative story node.
+    if(softActionPreview&&['STORY_NEXT','STORY_CHOICE','STORY_NAME'].includes(type)&&!game.actionReason(type,params)){
+      if(!queuedStory){let resolve;const promise=new Promise(r=>resolve=r);queuedStory={type,params:{...params},node:game.storyActiveNodeId(),resolve,promise};render();}
+      return queuedStory.promise;
+    }
+    return;
+  }
+  busy=true;let cover=null,preview=null,completed=false;
   try{
-    const reason=game.actionReason(type,params);if(reason)throw Error(reason);
+    const reason=window.CRPGOnline?.pending?'':game.actionReason(type,params);if(reason)throw Error(reason);
     const completedQuestsBefore=new Set(Object.entries(game.s.quests).filter(([,q])=>q.state==='완료').map(([id])=>id));
     const battleBefore=game.s.runtime?JSON.parse(JSON.stringify(game.s)):null,adventureBefore=adventureSnapshot(),before=CRPGPresentation.snapshot(game.s),entryCheckpoint=game.playPhase()==='FREE'&&['JOURNEY_RESUME','STORY_NEXT','MAIN_STORY_ACCEPT','STORY_CHAPTER','STORY_RESUME','LEGEND_ENTER','AFFECTION_ENTER'].includes(type)?JSON.parse(game.serialize()):null;
     let historyEntry=null;if(type==='STORY_NEXT'){const n=game.storyNode();if(n&&n[9]&&scenePermitted())historyEntry={speaker:displayText(n[7]||'이야기'),text:displayText(game.storyDisplayText?.(n)??n[9]),...sceneClassification()};}
-    if(window.CRPGOnline){
-      preview=optimisticStoryPreview(type,params);cover=startActionCover(type,params,!preview);
+    if(window.CRPGOnline?.active){
+      preview=optimisticStoryPreview(type,params);cover=startActionCover(CRPGOnline.pending?'RECOVER_PENDING':type,params,!preview);
+      if(type==='COMBAT'&&!CRPGOnline.pending)GameEffects.primeCombat(type,params);
+      // Capture the original screen and persist the request BEFORE replacing the display with a preview.
+      const request=CRPGOnline.execute(type,params);
       if(preview){game=preview.probe;lastResult=preview.result;softActionPreview=true;render();}
-      else if(type==='COMBAT'&&!CRPGOnline.pending)GameEffects.primeCombat(type,params);
-      try{lastResult=await CRPGOnline.execute(type,params);cover?.finishServer();}
+      try{lastResult=await request;cover?.finishServer();}
       catch(e){cover?.abort();if(preview&&!e.resolved&&e.status!==409&&e.status!==401){game=new Runtime(DB,preview.before);restoreUIState();}throw e;}
       finally{softActionPreview=false;}
     }else{cover=startActionCover(type,params,true);lastResult=game.action(type,params);cover?.finishServer();}
@@ -265,9 +278,9 @@ act=async function(type,params={}){
     if(type==='COMMISSION_ACCEPT')GameAudio.play('commission_accept');if(type!=='CLAIM_QUEST'&&Object.entries(game.s.quests).some(([id,q])=>q.state==='완료'&&!completedQuestsBefore.has(id)))GameAudio.play('quest_complete');if(['WORLD_WORK_FINISH','WORLD_WORK_START'].includes(type)&&lastResult?.result?.point&&lastResult.result.items)GameAudio.play('unlock');
     if(['BUY','SELL'].includes(type))GameAudio.play('item_receive');if(type==='CLAIM_QUEST')GameAudio.play('commission_complete');if(type==='CRAFT'){const recipe=game.tables['17_RECIPE_DB'].get(params.recipe);GameAudio.play(recipe?.[1]==='요리'?'cook_complete':recipe?.[1]==='단조'?'forge_complete':'craft_complete');}
     const save=async()=>{if(entryCheckpoint&&game.playPhase()!=='FREE')try{await storeStoryCheckpoint(entryCheckpoint);}catch{say('이야기 시작 전 기록을 남기지 못했습니다. 현재 진행은 자동 저장합니다.');}try{await storeSave();}catch{}};
-    await Promise.all([save(),GameEffects.play(effects),cover?cover.promise:playTravel(adventureBefore,type,params)]);showReceivedLoot(receivedLoot(adventureBefore,type));if(!battleBefore&&game.s.runtime?.actors.some(a=>a.side==='ENEMY'&&/HILI/i.test(a.source)))GameAudio.play('encounter_hilichurl');return lastResult;
+    await Promise.all([save(),GameEffects.play(effects),cover?cover.promise:playTravel(adventureBefore,type,params)]);showReceivedLoot(receivedLoot(adventureBefore,type));if(!battleBefore&&game.s.runtime?.actors.some(a=>a.side==='ENEMY'&&/HILI/i.test(a.source)))GameAudio.play('encounter_hilichurl');completed=true;return lastResult;
   }catch(e){cover?.abort();if(type==='COMBAT')GameEffects.cancel();softActionPreview=false;say(e.message);return {ok:false,error:e.message};}
-  finally{busy=false;softActionPreview=false;render();}
+  finally{const next=queuedStory;queuedStory=null;busy=false;softActionPreview=false;render();if(next){if(completed&&!window.CRPGOnline?.pending&&game?.storyActiveNodeId()===next.node)act(next.type,next.params).then(next.resolve);else next.resolve({ok:false,error:'진행 기록을 확인한 뒤 다시 선택해 주세요.'});}}
 };
 // Loading/restoring is deliberately silent; effects only originate from new actions.
 const avRestore=restoreUIState;
