@@ -2,6 +2,12 @@
 'use strict';
 const clone=x=>JSON.parse(JSON.stringify(x)), clamp=(n,a,b)=>Math.max(a,Math.min(b,n)), round=Math.round;
 const parse=(x,d={})=>{try{return JSON.parse(x)}catch{return d}};
+const baseTableCache=new WeakMap();
+function baseTables(db){
+ let tables=baseTableCache.get(db);if(tables)return tables;
+ tables={};for(const [name,rows] of Object.entries(db))tables[name]=new Map(rows.slice(1).filter(r=>r&&r[0]).map(r=>[r[0],r]));
+ baseTableCache.set(db,tables);return tables;
+}
 const bool=x=>x===true||x==='TRUE'||x==='Y';
 class RuleError extends Error { constructor(code,message){super(message);this.code=code;} }
 const fail=(c,m)=>{throw new RuleError(c,m)};
@@ -15,7 +21,7 @@ function condition(text,vars){
  try{let v=or();return p===tokens.length&&v}catch{return false}
 }
 class Runtime {
- constructor(db,save=null){this.db=db;this.tables={};for(const [name,rows] of Object.entries(db)){this.tables[name]=new Map(rows.slice(1).filter(r=>r&&r[0]).map(r=>[r[0],r]));}this.s=save?this.validateSave(clone(save)):null;}
+ constructor(db,save=null){this.db=db;this.tables={...baseTables(db)};this.s=save?this.validateSave(clone(save)):null;}
  rows(n){return this.db[n].slice(1).filter(r=>r&&r[0]!==undefined&&r[0]!=='')}  row(n,id){const r=this.tables[n]?.get(id);if(!r)fail('MISSING_ID',n+': '+id);return r}
  config(key){return this.rows('00_CORE').find(r=>r[3]===key)?.[4]}
  newGame({name,route='ROUTE_ISEKAI',seed=12345,saveId}={}){
