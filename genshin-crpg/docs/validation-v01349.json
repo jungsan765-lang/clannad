@@ -360,5 +360,14 @@
     "sourceBrowser": "passed",
     "productionBrowser": "passed"
   },
-  "finalPresentationFollowUp": "Neutral progress wording for non-travel waits and a 260ms windup beat matching the actual attack animation; action-feedback assertions and final production browser run passed."
+  "finalPresentationFollowUp": "Retained the existing 160ms impact boundary and shared that duration with both windup animations so trails reach their target before being cleared. All 11 playback assertions, including every multi-hit HP update, pass with their original expected HP and timing; added an assertion against cancelling windup early. Final source/build/browser verification runs again on the follow-up commit.",
+  "productionBrowserTestedCommit": "8cc16bfb8cbd91d0356f2a013333bdc164c60d5f",
+  "caughtRegression": {
+    "run": "https://github.com/jungsan765-lang/clannad/actions/runs/36321195748",
+    "failedGate": "tests/test_playback_v08.cjs",
+    "passedGates": 28,
+    "cause": "260ms beat delayed the existing 160ms impact boundary",
+    "resolution": "Restore impact timing and finish actual windup within the shared 160ms duration",
+    "localPlaybackTestsPassed": 11
+  }
 }
