@@ -1,0 +1,22 @@
+{
+  "sourceCommit": "f97eaef134c7a2a171d8ce69e0db70a1d8c2678f",
+  "serverHealth": {
+    "ok": true,
+    "version": "0.13.44",
+    "configured": true
+  },
+  "liveAccountActionTest": "NOT_RUN: Cloudflare HTTP 403 / error 1010 blocked registration from automation; no test account created",
+  "productionDistCommit": "096788681f17ad8c80d76609efa54abbe45d8c74",
+  "qualityWorkflow": 36294034967,
+  "qualityConclusion": "success",
+  "pagesWorkflow": 36294415420,
+  "pagesConclusion": "success",
+  "webRelease": "0.13.44",
+  "browserChecks": [
+    "desktop title",
+    "360px title",
+    "start opens login",
+    "refresh closes login and restores title"
+  ],
+  "image": "start-screen.jpg"
+}
