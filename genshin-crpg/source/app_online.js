@@ -27,7 +27,8 @@ function install(out){
 }
 O.sync=async()=>{const out=await request('/me');install(out);pendingForAccount();render();return out;};
 O.execute=async(type,params)=>{
- if(!O.active){const before=game.serialize();try{const result=game.action(type,params);await storeSave();return result;}catch(e){game=new Runtime(DB,JSON.parse(before));throw e;}}
+ if(!O.token||!O.account){game=null;O.active=false;persist();throw Error('로그인 후 게임을 시작해 주세요.');}
+ if(!O.active||!game)throw Error('게임 시작 화면에서 계정 여정을 먼저 시작해 주세요.');
  let p=O.pending;if(p&&p.account!==O.account.id)throw Error('다른 계정의 미확정 행동이 있습니다. 해당 계정으로 로그인해 주세요.');
  if(!p){p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,type,params};savePending(p);}
  const retryingDifferent=p.type!==type||JSON.stringify(p.params)!==JSON.stringify(params);
@@ -72,8 +73,15 @@ async function ranking(){const p=el('div');p.append(el('p','','최고 정복 층
 function abyss(){if(!game)return;const p=el('div','abyss-list'),v=game.abyssView();p.append(el('p','','네 명의 파티로 도전합니다. 4~12층은 입장 순간 동료에게 해당 층의 출전 딱지가 붙습니다. 같은 층 재도전은 가능하며 주인공은 딱지에서 제외됩니다.'));p.append(el('p','muted',O.active&&O.ranked?'공식 랭킹 집계 중':'연습 기록 · 공식 랭킹 집계 제외'));for(const f of v.floors){const c=el('section','card');c.append(el('h2','',f.floor+'층 · '+f.name),el('p','', '권장 Lv. '+f.level+' · 제한 '+f.roundLimit+'라운드'+(f.cleared?' · 정복':'')));const b=button(f.cleared?'다시 도전':'입장',async()=>{document.getElementById('modal').close();await act('ABYSS_ENTER',{floor:f.floor});},!!f.reason);b.title=f.reason;c.append(b);if(f.reason)c.append(el('small','muted',f.reason));if(f.cleared&&!f.claimed){if(f.floor===12)c.append(button('이나즈마 성유물 받기',async()=>{await act('ABYSS_REWARD',{floor:12});abyss();}));else{const s=select(c,'첫 정복 보상',CRPGRuntime.abyssConfig.rewards.map(id=>[id,safeName('16_EQUIP_DB',id)]));c.append(button('선택한 장비 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor,equipment:s.value});abyss();}));}}p.append(c);}
  const tags=Object.entries(v.progress.tags);if(tags.length)p.append(el('p','',tags.map(([id,n])=>safeName('07_CHAR_DB',id)+': '+n+'층').join(' · ')));p.append(button('도전 초기화',()=>{const box=el('div');box.append(el('p','','이번 도전의 층 진행과 동료 딱지가 모두 초기화됩니다. 이미 받은 첫 정복 보상은 다시 받을 수 없습니다. 최고 랭킹 기록은 유지됩니다.'));box.append(button('초기화 확정',async()=>{await act('ABYSS_RESET',{confirm:true});abyss();},false,true));showModal('도전 초기화',box);}));showModal('나선비경',p);}
 function debug(){if(!O.active||O.account?.admin!==true){say('운영자 계정으로 로그인해 주세요.');return;}const p=el('div','operator-tools');p.append(el('p','','도구를 한 번이라도 사용한 여정은 영구적으로 랭킹에서 제외됩니다.'));const run=async params=>{await act('OPERATOR_DEBUG',params);debug();};const lv=field(p,'전체 레벨 (1~20)','number','20');p.append(button('레벨 적용',()=>run({op:'level',value:Number(lv.value)})),button('전체 회복',()=>run({op:'heal'})),button('모든 동료 해금',()=>run({op:'recruit',char:'ALL'})));const mora=field(p,'모라 (0~10,000,000)','number','1000000');p.append(button('모라 적용',()=>run({op:'mora',value:Number(mora.value)})));const maps=select(p,'이동 위치',game.rows('32_MAP_DB').filter(x=>x[0]).map(x=>[x[0],x[2]||x[0]]));p.append(button('자유행동으로 이동',()=>run({op:'travel',map:maps.value})));const gear=select(p,'지급 장비',game.rows('16_EQUIP_DB').filter(x=>x[0]).map(x=>[x[0],x[1]]));const enh=field(p,'강화 (0~12)','number','10');p.append(button('장비 지급',()=>run({op:'equipment',equipment:gear.value,value:Number(enh.value)})),button('성유물 10개 생성',()=>run({op:'artifact',value:10})));const floor=field(p,'시험할 나선비경 층 (1~12)','number','1');p.append(button('앞선 층 정복 처리',()=>run({op:'abyss_unlock',value:Number(floor.value)})));const node=field(p,'메인 스토리 장면 ID');p.append(button('장면으로 이동',()=>run({op:'story',node:node.value})));if(game.s.runtime)p.append(button('현재 전투 승리 처리',()=>run({op:'battle_end',win:true})),button('현재 전투 패배 처리',()=>run({op:'battle_end',win:false})));showModal('운영자 디버그',p);}
-const localBegin=begin;begin=async function(name,route){if(O.account&&O.token){await safely(async()=>{const out=await request('/game/new',{name,route});install(out);});return;}await localBegin(name,route);};
-const localLoad=loadSlot;loadSlot=async function(id){O.active=false;await localLoad(id);};
+const localLoad=loadSlot;
+begin=async function(name,route){
+ if(!O.account||!O.token){game=null;O.active=false;persist();auth(false,true);return;}
+ await safely(async()=>{const out=await request('/game/new',{name,route});install(out);});
+};
+loadSlot=async function(id){
+ if(!O.account||!O.token){game=null;O.active=false;persist();auth(false,true);return;}
+ O.active=false;await localLoad(id);
+};
 function newJourney(){
  const p=el('form','new-journey-form');p.append(el('p','','처음 시작할 이야기와 모험가 이름을 정하세요. 만든 여정은 행동마다 자동저장됩니다.'));
  const name=field(p,'모험가 이름');name.maxLength=24;name.required=true;name.autocomplete='off';name.placeholder='게임에서 사용할 이름';
@@ -83,7 +91,7 @@ function newJourney(){
  showModal('당신의 이야기',p);
 }
 async function startGame(){
- if(busy)return;if(!O.token){auth(false,true);return;}
+ if(busy)return;if(!O.token||!O.account){game=null;O.active=false;persist();auth(false,true);return;}
  await safely(async()=>{
   sceneHistory.length=0;const out=await O.sync();
   if(O.active&&O.pending)await O.execute(O.pending.type,O.pending.params);
@@ -98,7 +106,7 @@ setup=function(){
  const top=el('div','title-top');top.append(el('span','title-edition','AN ADVENTURE OF YOUR OWN'));
  const account=el('div','title-account');if(O.token&&O.account)account.append(el('span','',O.account.username),button('계정',accountPanel),button('로그아웃',logout));else account.append(button('로그인',()=>auth()),button('회원가입',()=>auth(true)));top.append(account);wrap.append(top);
  const center=el('div','title-center');center.append(el('div','title-star','✦'),el('p','title-kicker','TEYVAT · YOUR STORY'),el('h1','title-logo','원신'),el('div','title-crpg','C R P G'),el('p','title-tagline','당신의 선택으로 이어지는 새로운 여정'));
- const start=button(busy?'여정을 여는 중…':'게임 시작',startGame,busy,true);start.classList.add('title-start');center.append(start,el('p','title-save-note','모험은 자동으로 기록됩니다.'));wrap.append(center);
+ const loggedIn=!!(O.token&&O.account),start=button(busy?'여정을 여는 중…':'게임 시작',startGame,busy||!loggedIn,true);start.classList.add('title-start');if(!loggedIn)start.title='로그인 후 게임을 시작할 수 있습니다.';center.append(start,el('p','title-save-note',loggedIn?'모험은 자동으로 기록됩니다.':'로그인 후 게임을 시작할 수 있습니다.'));wrap.append(center);
  const footer=el('div','title-footer');footer.append(el('span','','몬드에서 시작되는 이야기'),button('나선비경 랭킹',ranking),button('설정',()=>{const p=el('div');settingsControls(p);p.append(button('이전 기기 저장 관리',()=>{const list=el('div');slotsUI(list);showModal('이전 기기 저장',list);}));showModal('설정',p);}));wrap.append(footer);root.append(wrap);
 };
 O.start=startGame;O.logout=logout;O.request=request;
@@ -106,6 +114,8 @@ const onlineQuick=updateQuick;updateQuick=function(){onlineQuick();for(const b o
 system=function(p){p.append(el('h1','','자동저장·계정'),el('p','',O.active?'모든 행동이 서버에 확정된 뒤 진행됩니다.':'모든 행동이 이 기기에 자동저장됩니다. 공식 랭킹은 계정 여정에서 이용할 수 있습니다.'));p.append(button('게임 시작 화면',fresh),button('상위 20위',ranking),button(O.token?'계정 관리':'로그인',()=>O.token?accountPanel():auth()));if(O.token)p.append(button('로그아웃',logout,busy));if(O.active)p.append(button('서버 기록 동기화',()=>safely(async()=>{if(O.pending)await O.execute(O.pending.type,O.pending.params);else await O.sync();})));if(O.active&&O.account?.admin)p.append(button('운영자 디버그',debug));p.append(el('h2','','표시 설정'));settingsControls(p);};
 const side=sidebar;sidebar=function(...args){const out=side(...args),nav=out.querySelector('nav');const sys=out.querySelector('[data-screen="SYSTEM"]');if(sys)sys.lastChild.textContent='자동저장·계정';nav?.append(button('나선비경',abyss,!!game.s.runtime),button('게임 시작 화면',fresh,busy));if(O.token)nav?.append(button('로그아웃',logout,busy));if(O.active&&O.account?.admin)nav?.append(button('디버그',debug));return out;};
 // Cached scripts can finish after the asynchronous save-store boot has rendered.
+// Logged-out visitors must never inherit an old local journey into gameplay.
+if(!O.token||!O.account){game=null;O.active=false;activeSaveSlot=null;}
 // Refresh once all final hub overrides are installed, regardless of that ordering.
 render();
 if(new URLSearchParams(location.search).get('view')==='ranking')ranking();
