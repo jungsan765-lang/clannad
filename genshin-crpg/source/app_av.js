@@ -89,7 +89,7 @@ function optimizeImages(old){
   if(game&&showArt){const n=game.storyNode(),next=n&&game.storyIndex?.().nodes?.get?.(game.s.global.STORY_ROUTE_ID+':'+n[13]);if(next&&String(next[6]).startsWith('PROFILE_'))upcoming.push(portraitFor(next[6]));for(const owner of game.s.party.filter(x=>x.active)){const profile=game.rows('04_CHAR_DB').find(r=>r[1]===owner.source);if(profile){const src=portraitFor(profile[0]);upcoming.push(imageAssets.get(src)?.thumbnail);}}}
   upcoming.slice(0,4).forEach(warmImage);
 }
-function actionCoverPlan(type,params={}){
+function actionCoverPlan(type,params={},generic=true){
   const simpleMove=new Set(['PLACE_ENTER','PLACE_LEAVE','RECOVER','STORY_SCRIPTED_TRAVEL','STORY_RIDE']);
   if(type==='MOVE'){
     const direct=(CRPGRuntime.directRegionTransitIds||[]).includes(params.edge),edge=game?.tables['47_MAP_EDGE_DB']?.get(params.edge),target=edge?.[2];
@@ -113,19 +113,17 @@ function actionCoverPlan(type,params={}){
     if(type==='QUEST_CHOICE')try{const d=parseUI(game.row('22_QUEST_DB',params.quest)[10]),ch=(d.choices||[]).find(x=>x.id===params.choice);minutes=Number(ch?.minutes||0);}catch{}
     return {duration:Math.max(900,Math.min(2300,850+minutes*18)),title:type==='COMMISSION_PUZZLE'?'현장 단서 확인 중':'현장 작업 중',label:minutes?'게임 시간 '+minutes+'분':'현장 확인',kind:'TASK'};
   }
-  return null;
+  if(!generic||['MENU','COMBAT'].includes(type))return null;
+  return {duration:650,title:'자동 저장 중',label:'진행 기록을 확인하고 있습니다.',kind:'SAVE',generic:true,delay:100};
 }
-function startActionCover(type,params={}){
-  const plan=actionCoverPlan(type,params);if(!plan||document.hidden)return null;
-  const overlay=el('div','travel-overlay task-progress-overlay action-save-cover '+(plan.remaining?'region-transit-progress':''));overlay.setAttribute('role','status');
-  const title=el('strong','',plan.title),label=el('span','',plan.label),bar=el('progress'),remaining=plan.remaining?el('small',''):null;
-  overlay.append(el('span','travel-mark','✧'),title,label);bar.max=100;bar.value=0;bar.setAttribute('aria-label',plan.label);overlay.append(bar);if(remaining)overlay.append(remaining);document.body.append(overlay);
-  const started=performance.now();let serverDone=false,stopped=false,resolver;const promise=new Promise(resolve=>resolver=resolve);
-  const finish=()=>{if(stopped)return;stopped=true;bar.value=100;overlay.remove();resolver();};
-  const tick=()=>{if(stopped)return;const elapsed=performance.now()-started,pct=Math.min(serverDone?100:94,elapsed/plan.duration*100);bar.value=pct;if(remaining)remaining.textContent=Math.max(0,Math.ceil((plan.duration-elapsed)/1000))+'초 남음';
-    if(elapsed>=plan.duration&&serverDone){finish();return;}if(elapsed>=plan.duration&&!serverDone)label.textContent='저장 확인 중…';setTimeout(tick,30);
-  };tick();
-  return {plan,promise,finishServer(){serverDone=true;if(performance.now()-started>=plan.duration)finish();},abort(){if(stopped)return;stopped=true;overlay.remove();resolver();}};
+function startActionCover(type,params={},generic=true){
+  const plan=actionCoverPlan(type,params,generic);if(!plan||document.hidden)return null;
+  const started=performance.now();let serverDone=false,stopped=false,resolver,overlay=null,bar=null,label=null,remaining=null,showTimer=null,tickTimer=null;const promise=new Promise(resolve=>resolver=resolve);
+  const finish=()=>{if(stopped)return;stopped=true;clearTimeout(showTimer);clearTimeout(tickTimer);if(bar)bar.value=100;overlay?.remove();resolver();};
+  const tick=()=>{if(stopped||!overlay)return;const elapsed=performance.now()-started,pct=Math.min(serverDone?100:94,elapsed/plan.duration*100);bar.value=pct;if(remaining)remaining.textContent=Math.max(0,Math.ceil((plan.duration-elapsed)/1000))+'초 남음';if(serverDone&&(plan.generic||elapsed>=plan.duration)){finish();return;}if(elapsed>=plan.duration&&!serverDone)label.textContent='저장 확인 중…';tickTimer=setTimeout(tick,30);};
+  const show=()=>{if(stopped)return;overlay=el('div','travel-overlay task-progress-overlay action-save-cover '+(plan.remaining?'region-transit-progress':''));overlay.setAttribute('role','status');const title=el('strong','',plan.title);label=el('span','',plan.label);bar=el('progress');remaining=plan.remaining?el('small',''):null;overlay.append(el('span','travel-mark','✧'),title,label);bar.max=100;bar.value=0;bar.setAttribute('aria-label',plan.label);overlay.append(bar);if(remaining)overlay.append(remaining);document.body.append(overlay);tick();};
+  if(plan.delay)showTimer=setTimeout(show,plan.delay);else show();
+  return {plan,promise,finishServer(){serverDone=true;const elapsed=performance.now()-started;if(plan.generic||elapsed>=plan.duration)finish();},abort:finish};
 }
 function optimisticStoryPreview(type,params={}){
   if(!window.CRPGOnline?.active||CRPGOnline.pending||game?.s.runtime||!['STORY_NEXT','STORY_CHOICE','STORY_NAME'].includes(type))return null;
@@ -250,15 +248,14 @@ act=async function(type,params={}){
     const completedQuestsBefore=new Set(Object.entries(game.s.quests).filter(([,q])=>q.state==='완료').map(([id])=>id));
     const battleBefore=game.s.runtime?JSON.parse(JSON.stringify(game.s)):null,adventureBefore=adventureSnapshot(),before=CRPGPresentation.snapshot(game.s),entryCheckpoint=game.playPhase()==='FREE'&&['JOURNEY_RESUME','STORY_NEXT','MAIN_STORY_ACCEPT','STORY_CHAPTER','STORY_RESUME','LEGEND_ENTER','AFFECTION_ENTER'].includes(type)?JSON.parse(game.serialize()):null;
     let historyEntry=null;if(type==='STORY_NEXT'){const n=game.storyNode();if(n&&n[9]&&scenePermitted())historyEntry={speaker:displayText(n[7]||'이야기'),text:displayText(game.storyDisplayText?.(n)??n[9]),...sceneClassification()};}
-    cover=startActionCover(type,params);
     if(window.CRPGOnline){
-      preview=optimisticStoryPreview(type,params);
+      preview=optimisticStoryPreview(type,params);cover=startActionCover(type,params,!preview);
       if(preview){game=preview.probe;lastResult=preview.result;softActionPreview=true;render();}
       else if(type==='COMBAT'&&!CRPGOnline.pending)GameEffects.primeCombat(type,params);
       try{lastResult=await CRPGOnline.execute(type,params);cover?.finishServer();}
       catch(e){cover?.abort();if(preview&&!e.resolved&&e.status!==409&&e.status!==401){game=new Runtime(DB,preview.before);restoreUIState();}throw e;}
       finally{softActionPreview=false;}
-    }else{lastResult=game.action(type,params);cover?.finishServer();}
+    }else{cover=startActionCover(type,params,true);lastResult=game.action(type,params);cover?.finishServer();}
     if(historyEntry)sceneHistory.push(historyEntry);if(type==='NPC')selectedNPC=params.entity;
     if(type==='RELATION_ACTIVITY'&&lastResult?.result?.dialogue){const box=el('div');box.append(el('p','story',lastResult.result.dialogue));showModal('일상 교류',box);}
     const effects=CRPGPresentation.actionFrames(CRPGPresentation.delta(before,game.s));say('');

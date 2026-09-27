@@ -17,6 +17,7 @@ function harness({session={account,token:'test-token'},pending={},handler}={}){
 (async()=>{
  let h=harness();assert.equal(h.requests.length,0);assert.equal(h.c.game,null);assert(labels(h.doc).includes('게임 시작'));assert(!labels(h.doc).some(x=>/이어서|여정 이어/.test(x)));assert.equal(h.modal.open,false);
  await h.c.CRPGOnline.start();assert.equal(h.c.game.s.global.SAVE_ID,state.global.SAVE_ID);assert.equal(h.c.CRPGOnline.active,true);assert.equal(h.requests[0].path,'/me');
+ const menuRequests=h.requests.length,menuRevision=h.c.CRPGOnline.revision;await h.c.CRPGOnline.execute('MENU',{screen:'SYSTEM'});assert.equal(h.requests.length,menuRequests,'screen navigation must not call the server');assert.equal(h.c.CRPGOnline.revision,menuRevision,'screen navigation must not advance save revision');assert.equal(h.c.game.s.global.SCREEN_MODE,'SYSTEM');
  await h.c.fresh();assert.equal(h.c.game,null);assert.equal(h.c.CRPGOnline.token,'test-token');assert(labels(h.doc).includes('게임 시작'));
  const reloaded=harness({session:JSON.parse(h.storage.get('crpg-online-session-v1'))});assert.equal(reloaded.c.game,null);assert.equal(reloaded.modal.open,false);assert.equal(reloaded.requests.length,0);
  h=harness({handler:()=>({status:401,data:{error:'로그인이 만료되었습니다.'}})});await h.c.CRPGOnline.start();assert.equal(h.modal.title,'로그인');assert.equal(h.c.CRPGOnline.token,'');assert.equal(h.c.game,null);

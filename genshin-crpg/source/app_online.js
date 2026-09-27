@@ -3,9 +3,12 @@
 'use strict';
 const key='crpg-online-session-v1',pendingKey='crpg-online-pending-v1',pendingAccountsKey='crpg-online-pending-accounts-v2',productionApi='https://genshin-crpg-online.jungsan765.workers.dev',configuredApi=String(window.CRPG_ONLINE_CONFIG?.apiBase||'').trim(),isLocal=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname),base=String(configuredApi||(!isLocal?productionApi:'')).replace(/\/$/,'');
 let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}');}catch{}
+const LOCAL_ONLY_ACTIONS=new Set(['MENU']),KEEP_LOCAL_SCREEN_AFTER_COMMIT=new Set(['PARTY','PARTY_REMOVE','PARTY_REPLACE','PARTY_SWAP','PARTY_TACTIC','EQUIP','UNEQUIP','TOOL_PREPARE','USE_ITEM','FORMATION_SET','MASTERY','EQUIPMENT_GUIDE_ACK']);
 const O=window.CRPGOnline={account:saved.account||null,token:saved.token||'',revision:0,ranked:false,active:false,configured:!!base,pending:null};
+// Saving is opt-out, not opt-in: future gameplay actions (including raid actions) default to an authoritative server commit.
+O.savePolicy=type=>LOCAL_ONLY_ACTIONS.has(type)?'LOCAL_UI':'IMMEDIATE_SERVER';
 let pendingAccounts={};try{pendingAccounts=JSON.parse(localStorage.getItem(pendingAccountsKey)||'{}');if(!pendingAccounts||Array.isArray(pendingAccounts)||typeof pendingAccounts!=='object')pendingAccounts={};const legacy=JSON.parse(localStorage.getItem(pendingKey)||'null');if(legacy?.account)pendingAccounts[legacy.account]??=legacy;}catch{}
-function pendingForAccount(){O.pending=pendingAccounts[O.account?.id]||null;}
+function pendingForAccount(){O.pending=pendingAccounts[O.account?.id]||null;if(O.pending&&LOCAL_ONLY_ACTIONS.has(O.pending.type)){const next={...pendingAccounts};delete next[O.account.id];pendingAccounts=next;O.pending=null;localStorage.setItem(pendingAccountsKey,JSON.stringify(next));localStorage.removeItem(pendingKey);}}
 function savePending(value){const id=O.account?.id;if(!id)throw Error('먼저 로그인해 주세요.');const next={...pendingAccounts};if(value)next[id]=value;else delete next[id];localStorage.setItem(pendingAccountsKey,JSON.stringify(next));localStorage.removeItem(pendingKey);pendingAccounts=next;O.pending=value;}
 pendingForAccount();
 const persist=()=>localStorage.setItem(key,JSON.stringify({account:O.account,token:O.token}));
@@ -30,18 +33,22 @@ function install(out,{preservePresentation=false}={}){
  game=candidate;if(candidate){activeSaveSlot=null;applySettings();restoreUIState({preservePresentation});}persist();return out;
 }
 O.sync=async()=>{const out=await request('/me');install(out);pendingForAccount();render();return out;};
+function localAction(type,params={}){if(type!=='MENU')throw Error('저장하지 않는 화면 행동이 정의되지 않았습니다.');const reason=game.actionReason(type,params);if(reason)throw Error(reason);game.menu(params.screen);return {ok:true,local:true,screen:game.s.global.SCREEN_MODE};}
+function restoreLocalScreen(screen,type){if(!KEEP_LOCAL_SCREEN_AFTER_COMMIT.has(type)||!screen||!game)return;try{if(!game.actionReason('MENU',{screen}))game.menu(screen);}catch{}}
 O.execute=async(type,params)=>{
  if(!O.token||!O.account){game=null;O.active=false;persist();throw Error('로그인 후 게임을 시작해 주세요.');}
  if(!O.active||!game)throw Error('게임 시작 화면에서 계정 여정을 먼저 시작해 주세요.');
+ if(LOCAL_ONLY_ACTIONS.has(type)){if(O.pending)throw Error('이전 진행의 저장 확인을 먼저 마쳐 주세요.');return localAction(type,params);}
+ const localScreen=game.s.global.SCREEN_MODE;
  let p=O.pending;if(p&&p.account!==O.account.id)throw Error('다른 계정의 미확정 행동이 있습니다. 해당 계정으로 로그인해 주세요.');
  if(!p){p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,type,params};savePending(p);}
  const retryingDifferent=p.type!==type||JSON.stringify(p.params)!==JSON.stringify(params);
- try{const out=await actionRequest({...p,version:MANIFEST.appVersion});install(out,{preservePresentation:true});savePending(null);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
+ try{const out=await actionRequest({...p,version:MANIFEST.appVersion});install(out,{preservePresentation:true});savePending(null);restoreLocalScreen(localScreen,type);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
  catch(e){if(e.status&&e.status<500&&e.status!==429&&e.status!==401&&e.code!=='VERSION_MISMATCH'){savePending(null);if(e.status===409)await O.sync();}if(e.status===401){O.token='';O.active=false;persist();game=null;auth(false,true);}if(e.code==='VERSION_MISMATCH')GameVersion.check();throw e;}
 };
 const originalStore=storeSave;storeSave=function(){if(O.active){saveFailed=false;lastSaveError='';updateQuick();return Promise.resolve({revision:O.revision});}return originalStore();};
 storeStoryCheckpoint=async()=>{};
-manualSave=()=>say('모든 행동은 자동저장됩니다.');
+manualSave=()=>say('진행·보상·전투·편성 변경은 자동저장됩니다. 화면 이동만으로는 저장하지 않습니다.');
 loadFile=()=>say('저장 파일 가져오기는 공식 여정에서 지원하지 않습니다.');
 function field(p,label,type='text',value=''){const l=el('label','form-label',label),input=el('input');input.type=type;input.value=value;l.append(input);p.append(l);return input;}
 function select(p,label,rows){const l=el('label','form-label',label),s=el('select');for(const [id,name]of rows){const o=el('option','',name);o.value=id;s.append(o);}l.append(s);p.append(l);return s;}
@@ -87,7 +94,7 @@ loadSlot=async function(id){
  O.active=false;await localLoad(id);
 };
 function newJourney(){
- const p=el('form','new-journey-form');p.append(el('p','','처음 시작할 이야기와 모험가 이름을 정하세요. 만든 여정은 행동마다 자동저장됩니다.'));
+ const p=el('form','new-journey-form');p.append(el('p','','처음 시작할 이야기와 모험가 이름을 정하세요. 진행을 바꾸는 행동은 자동저장되고, 화면 이동만으로는 저장하지 않습니다.'));
  const name=field(p,'모험가 이름');name.maxLength=24;name.required=true;name.autocomplete='off';name.placeholder='게임에서 사용할 이름';
  const route=select(p,'출발할 이야기',[['ROUTE_ISEKAI','이세계인 · 낯선 세계에 도착한 당신'],['ROUTE_TRAVELER','여행자 · 페이몬과 함께 떠나는 여정']]);
  const b=button('모험 시작',()=>{},false,true);b.type='submit';p.append(b);
@@ -96,11 +103,14 @@ function newJourney(){
 }
 async function startGame(){
  if(busy)return;if(!O.token||!O.account){game=null;O.active=false;persist();auth(false,true);return;}
+ let abandoned=false;
  await safely(async()=>{
   sceneHistory.length=0;const out=await O.sync();
   if(O.active&&O.pending)await O.execute(O.pending.type,O.pending.params);
+  if(O.active&&game?.s.runtime){const result=await O.execute('COMBAT_FORFEIT',{reason:'SESSION_RESUME'});abandoned=result?.victory===false;}
   if(!out.state)newJourney();
  });
+ if(abandoned)say('전투 중 새로고침·브라우저 종료·다른 기기 재접속이 확인되어 해당 전투는 패배 처리되었습니다.');
 }
 // Returning to the title never abandons an unconfirmed server action or erases a save.
 // Refresh also begins here; authentication is requested only after pressing Game Start.
@@ -115,7 +125,7 @@ setup=function(){
 };
 O.start=startGame;O.logout=logout;O.request=request;
 const onlineQuick=updateQuick;updateQuick=function(){onlineQuick();for(const b of document.querySelectorAll('#quick-actions button'))if(b.textContent==='저장')b.textContent='자동저장·계정';};
-system=function(p){p.append(el('h1','','자동저장·계정'),el('p','',O.active?'모든 행동이 서버에 확정된 뒤 진행됩니다.':'모든 행동이 이 기기에 자동저장됩니다. 공식 랭킹은 계정 여정에서 이용할 수 있습니다.'));p.append(button('게임 시작 화면',fresh),button('상위 20위',ranking),button(O.token?'계정 관리':'로그인',()=>O.token?accountPanel():auth()));if(O.token)p.append(button('로그아웃',logout,busy));if(O.active)p.append(button('서버 기록 동기화',()=>safely(async()=>{if(O.pending)await O.execute(O.pending.type,O.pending.params);else await O.sync();})));if(O.active&&O.account?.admin)p.append(button('운영자 디버그',debug));p.append(el('h2','','표시 설정'));settingsControls(p);};
+system=function(p){p.append(el('h1','','자동저장·계정'),el('p','',O.active?'진행·보상·전투·편성/장비 변경은 서버에 즉시 자동저장됩니다. 메인 화면·편성·아이템·임무 등 화면 사이를 오가는 것만으로는 저장하지 않습니다.':'진행 변경은 이 기기에 자동저장됩니다. 공식 랭킹은 계정 여정에서 이용할 수 있습니다.'));p.append(button('게임 시작 화면',fresh),button('상위 20위',ranking),button(O.token?'계정 관리':'로그인',()=>O.token?accountPanel():auth()));if(O.token)p.append(button('로그아웃',logout,busy));if(O.active)p.append(button('서버 기록 동기화',()=>safely(async()=>{if(O.pending)await O.execute(O.pending.type,O.pending.params);else await O.sync();})));if(O.active&&O.account?.admin)p.append(button('운영자 디버그',debug));p.append(el('h2','','표시 설정'));settingsControls(p);};
 const side=sidebar;sidebar=function(...args){const out=side(...args),nav=out.querySelector('nav');const sys=out.querySelector('[data-screen="SYSTEM"]');if(sys)sys.lastChild.textContent='자동저장·계정';nav?.append(button('나선비경',abyss,!!game.s.runtime),button('게임 시작 화면',fresh,busy));if(O.token)nav?.append(button('로그아웃',logout,busy));if(O.active&&O.account?.admin)nav?.append(button('디버그',debug));return out;};
 // Cached scripts can finish after the asynchronous save-store boot has rendered.
 // Logged-out visitors must never inherit an old local journey into gameplay.

@@ -45,6 +45,7 @@
       if(['STORY','CUTIN','RECOVERY'].includes(phase)&&inspect.has(screen))return '';
       return phase==='PREPARATION'?'전투 준비를 마치거나 저장해 주세요.':phase==='COMBAT'?'전투를 먼저 마쳐 주세요.':'현재 대화와 선택을 마치면 자유행동을 할 수 있습니다.';
     }
+    if(type==='COMBAT_FORFEIT')return this.s.runtime?'':'진행 중인 전투가 없습니다.';
     if(type==='COMBAT')return phase==='COMBAT'?'':'현재 전투 행동을 선택할 수 없습니다.';
     if(type==='PREP_SELECT')return phase==='PREPARATION'?'':'현재 전투 준비 단계가 아닙니다.';
     if(type==='COMBAT_PREPARE')return phase==='PREPARATION'?'':'현재 전투 준비 단계가 아닙니다.';
@@ -65,6 +66,7 @@
   };
   P.assertActionAllowed = function(a) {const reason=this.actionReason(a.type,a);if(reason)throw new api.RuleError('ACTION_LOCK',reason);};
   P.apply = function(a) {
+    if(a.type==='COMBAT_FORFEIT'){const b=this.s.runtime;if(!b)throw new api.RuleError('COMBAT','진행 중인 전투가 없습니다.');b.defeatReason='ABANDONED';b.defeatMessage='전투 중 새로고침·브라우저 종료·다른 기기 재접속으로 전장을 이탈했습니다.';const result=this.finishBattle(false);return {...result,abandoned:true};}
     if(a.type==='STORY_NAME'&&a.name!==this.s.global.PLAYER_NAME)throw new api.RuleError('NAME_FIXED','시작할 때 정한 이름으로 이야기합니다.');
     if(a.type==='STORY_RETRY'){
       if(!this.s.storyBattleCheckpoint)throw new api.RuleError('CHECKPOINT','전투 직전 저장을 불러와 주세요.');
