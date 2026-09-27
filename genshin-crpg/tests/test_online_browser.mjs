@@ -4,9 +4,10 @@ import {readFileSync,existsSync,mkdirSync,writeFileSync} from 'node:fs';
 import {resolve,extname} from 'node:path';
 import {createRequire} from 'node:module';
 import {onlineFixture,R,DB} from './helpers_online.mjs';
+import {ENGINE_FINGERPRINT} from '../server/generated/engine.mjs';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 const root=resolve(import.meta.dirname,'..'),version=JSON.parse(readFileSync(resolve(root,'package.json'))).version,evidence=resolve(root,'evidence/online-flow');mkdirSync(evidence,{recursive:true});
-const server=createServer((req,res)=>{let path=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';if(path.includes('..')){res.writeHead(403).end();return;}const source=resolve(root,'source',path),file=!process.env.CRPG_TEST_DIST&&/\.(js|css|html)$/.test(path)&&existsSync(source)?source:resolve(root,'dist',path);try{res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.webp':'image/webp'})[extname(file)]||'application/octet-stream');let data=readFileSync(file);if(!process.env.CRPG_TEST_DIST&&path==='assets.js')data=data.toString().replace(/"appVersion":\s*"[^"]*"/,'"appVersion":'+JSON.stringify(version));res.end(data);}catch{res.writeHead(404).end();}});
+const server=createServer((req,res)=>{let path=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';if(path.includes('..')){res.writeHead(403).end();return;}const source=resolve(root,'source',path),file=!process.env.CRPG_TEST_DIST&&/\.(js|css|html)$/.test(path)&&existsSync(source)?source:resolve(root,'dist',path);try{res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.webp':'image/webp'})[extname(file)]||'application/octet-stream');let data=readFileSync(file);if(!process.env.CRPG_TEST_DIST&&path==='assets.js')data=data.toString().replace(/"appVersion":\s*"[^"]*"/,'"appVersion":'+JSON.stringify(version))+'\nwindow.CRPG_MANIFEST.engineVersion='+JSON.stringify(ENGINE_FINGERPRINT)+';';res.end(data);}catch{res.writeHead(404).end();}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
 const fixture=onlineFixture();await fixture.start();
 const browser=await chromium.launch({headless:true,executablePath:process.env.CRPG_CHROMIUM_EXECUTABLE||undefined,args:['--no-sandbox']}),page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[],calls=[];
@@ -132,6 +133,7 @@ try{
  assert(Math.abs(equipFeedback.rect.x+equipFeedback.rect.width/2-equipFeedback.width/2)<3);assert(Math.abs(equipFeedback.rect.y+equipFeedback.rect.height/2-equipFeedback.height/2)<3);
  await page.screenshot({path:resolve(evidence,'equipment-pending.png')});await idle();delay=0;
  const equipped=await same('equipment confirmation');assert(equipped.inventory.find(i=>i.slot===weapon).equipped);results.push({equipmentFeedback:'장착 중…',centered:true,singleNotice:true});
+ const gearGuide=page.getByRole('button',{name:'안내 확인 · 나중에 장착',exact:true});if(await gearGuide.count()){await gearGuide.click();await idle();await same('equipment guide dismissal');assert.equal(await page.locator('.equipment-guide').count(),0);}
  const world=free(),point=globalThis.CRPGWorldContent.oculi.find(p=>p.steps[0].duration>0&&p.method!=='HIDDEN'&&p.level<=1&&!Object.keys(p.requirements||{}).length&&!p.place);
  assert(point);world.action('OPERATOR_DEBUG',{op:'travel',map:point.map});fixture.seed(world.s);await start();delay=1800;
  await page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first().click();await page.waitForTimeout(300);
