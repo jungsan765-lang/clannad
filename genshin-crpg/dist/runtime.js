@@ -2,6 +2,17 @@
 'use strict';
 const clone=x=>JSON.parse(JSON.stringify(x)), clamp=(n,a,b)=>Math.max(a,Math.min(b,n)), round=Math.round;
 const parse=(x,d={})=>{try{return JSON.parse(x)}catch{return d}};
+const baseTableCache=new WeakMap();
+function baseData(db){
+ let cached=baseTableCache.get(db);if(cached)return cached;
+ const tables={},rows={},sources={};
+ for(const [name,source] of Object.entries(db)){
+  const body=source.slice(1).filter(r=>r&&r[0]!==undefined&&r[0]!=='');
+  rows[name]=body;sources[name]=source;
+  tables[name]=new Map(source.slice(1).filter(r=>r&&r[0]).map(r=>[r[0],r]));
+ }
+ cached={tables,rows,sources};baseTableCache.set(db,cached);return cached;
+}
 const bool=x=>x===true||x==='TRUE'||x==='Y';
 class RuleError extends Error { constructor(code,message){super(message);this.code=code;} }
 const fail=(c,m)=>{throw new RuleError(c,m)};
@@ -15,8 +26,8 @@ function condition(text,vars){
  try{let v=or();return p===tokens.length&&v}catch{return false}
 }
 class Runtime {
- constructor(db,save=null){this.db=db;this.tables={};for(const [name,rows] of Object.entries(db)){this.tables[name]=new Map(rows.slice(1).filter(r=>r&&r[0]).map(r=>[r[0],r]));}this.s=save?this.validateSave(clone(save)):null;}
- rows(n){return this.db[n].slice(1).filter(r=>r&&r[0]!==undefined&&r[0]!=='')}  row(n,id){const r=this.tables[n]?.get(id);if(!r)fail('MISSING_ID',n+': '+id);return r}
+ constructor(db,save=null,takeOwnership=false){this.db=db;const base=baseData(db);this.tables={...base.tables};this._baseRows=base.rows;this._baseSources=base.sources;this.s=save?this.validateSave(takeOwnership?save:clone(save)):null;}
+ rows(n){const source=this.db[n]||[];return source===this._baseSources[n]?(this._baseRows[n]||[]):source.slice(1).filter(r=>r&&r[0]!==undefined&&r[0]!=='')}  row(n,id){const r=this.tables[n]?.get(id);if(!r)fail('MISSING_ID',n+': '+id);return r}
  config(key){return this.rows('00_CORE').find(r=>r[3]===key)?.[4]}
  newGame({name,route='ROUTE_ISEKAI',seed=12345,saveId}={}){
   if(typeof name!=='string'||!name.trim()||Array.from(name.trim()).length>24)fail('NAME','이름을 1~24자로 입력해 주세요.');const cfg=parse(this.config('NEW_GAME_PROFILE_JSON'));if(!cfg.routes?.[route])fail('ROUTE','지원하지 않는 시작 루트입니다.');const rt=cfg.routes[route];
