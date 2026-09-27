@@ -10,7 +10,7 @@ const canHover=()=>!!window.matchMedia?.('(hover: hover)').matches;
 function presenter(){if(presenterDB!==game.db){itemPresenter=CRPGInventoryPresenter.create(game.db,MANIFEST);presenterDB=game.db;}return itemPresenter;}
 function inSlot(owner,category){return game.s.inventory.find(i=>i.equip&&i.equipped&&i.owner===owner&&itemCategory(i)===category)||null;}
 function itemLabel(inv,d){return d.name+(inv.enhance?' +'+inv.enhance:'');}
-function artifactLine(inv){const a=inv?.artifact;if(!a)return '';const st=game.artifactStats?.(inv)||a.stats||{};return '성유물 '+a.grade+' · 품질 '+a.quality+'/1000 · +'+a.level+' · '+Object.entries(st).filter(([,v])=>v).map(([k,v])=>(ART[k]||k)+' +'+fmt(v)+(k==='CRIT'||k==='CRIT_DMG'?'%':'')).join(' · ');}
+function artifactLine(inv){const a=inv?.artifact;if(!a)return '';const st=game.artifactStats?.(inv)||a.stats||{};return '성유물 '+a.grade+' · 품질 '+fmt(a.quality/10)+'% · +'+a.level+' · '+Object.entries(st).filter(([,v])=>v).map(([k,v])=>(ART[k]||k)+' +'+fmt(v)+(k==='CRIT'||k==='CRIT_DMG'?'%':'')).join(' · ');}
 function tooltip(inv,d){
  const tip=el('div','gear-tip');tip.setAttribute('role','tooltip');tip.append(el('strong','',itemLabel(inv,d)),el('small','muted',d.category+(d.minimumLevel?' · 장착 Lv. '+d.minimumLevel+' 이상':'')));
  const stats=(d.stats||[]).map(s=>s.label+' '+(s.value>=0?'+':'')+fmt(s.value)+(s.unit||'')).join(' · ');if(stats)tip.append(el('p','gear-tip-stats',stats));

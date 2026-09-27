@@ -25,7 +25,7 @@
     const items = table(db,'14_ITEM_DB'), equipment = table(db,'16_EQUIP_DB'), quests = table(db,'22_QUEST_DB');
     const statuses=table(db,'13_STATUS_EFFECT_DB'),statNames=Object.fromEntries(STAT_FIELDS.map(([id,label])=>[id,label]));
     function readable(value){
-      return text(value).replace(/\bATK\b/g,'공격력').replace(/\bDEF\b/g,'방어력').replace(/ROUND\(MAX_HP[×*]([\d.]+)\)/g,(_,n)=>'최대 HP의 '+Math.round(Number(n)*100)+'%').replace(/\{[^{}]*\}/g,raw=>{try{return Object.entries(JSON.parse(raw)).map(([key,n])=>(statNames[key]||'추가 효과')+' '+(Number(n)>0?'+':'')+n).join(' · ');}catch{return raw;}}).replace(/STATUS_[A-Z0-9_]+/g,id=>statuses.get(id)?.['이름']||'상태 효과').replace(/\bMAX_HP\b/g,'최대 HP').replace(/\bCHAR_ID\b/g,'캐릭터').replace(/\bXP\b/g,'경험치');
+      return (root.CRPGText?root.CRPGText.readable(value,{resolve:id=>statuses.get(id)?.['이름']}):text(value)).replace(/\bATK\b/g,'공격력').replace(/\bDEF\b/g,'방어력').replace(/ROUND\(MAX_HP[×*]([\d.]+)\)/g,(_,n)=>'최대 HP의 '+Math.round(Number(n)*100)+'%').replace(/\{[^{}]*\}/g,raw=>{try{return Object.entries(JSON.parse(raw)).map(([key,n])=>(statNames[key]||'추가 효과')+' '+(Number(n)>0?'+':'')+n).join(' · ');}catch{return raw;}}).replace(/STATUS_[A-Z0-9_]+/g,id=>statuses.get(id)?.['이름']||'상태 효과').replace(/\bMAX_HP\b/g,'최대 HP').replace(/\bCHAR_ID\b/g,'캐릭터').replace(/\bXP\b/g,'경험치');
     }
     const displayFields=pairs=>fields(pairs).map(f=>({...f,value:readable(f.value)}));
     const assetRows = table(db,'03_IMAGE'), deployed = manifest.assets || {};

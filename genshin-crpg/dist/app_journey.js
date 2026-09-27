@@ -5,7 +5,7 @@ displayText=function(value){
  const consonant=tail!==null?tail!==0:/[013678lmn]$/i.test(last),rieul=tail===8||/[178l]$/i.test(last);
  const pairs={'은':['은','는'],'는':['은','는'],'이':['이','가'],'가':['이','가'],'을':['을','를'],'를':['을','를'],'과':['과','와'],'와':['과','와'],'이야':['이야','야'],'야':['이야','야'],'이라는':['이라는','라는'],'라는':['이라는','라는'],'으로':['으로','로'],'로':['으로','로']};
  const text=String(value||'').replace(/\{PLAYER_NAME\}(이라는|라는|으로|이야|은|는|이|가|을|를|과|와|야|로)(?=$|[\s,.!?…'"”’」]|[가-힣])/g,(_,p)=>name+pairs[p][p==='으로'||p==='로'?(!consonant||rieul?1:0):consonant?0:1]);
- return journeyDisplayText(text);
+ return CRPGText.readable(journeyDisplayText(text),{name,resolve:id=>game?.tables['13_STATUS_EFFECT_DB']?.get(id)?.[1]});
 };
 const journeyMainObjective=mainObjective;
 mainObjective=function(parent){const j=game.s.storyJourney,b=game.s.storyBreak;if(!j&&!b){journeyMainObjective(parent);return;}const c=el('section','main-objective journey-objective');c.append(el('small','eyebrow',game.s.storyContext?'개인 이야기 · 다음 여정':'메인 임무 · 다음 여정'),el('h2','',j?'이야기의 목적지로':b.title));
