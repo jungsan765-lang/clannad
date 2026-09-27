@@ -1,6 +1,14 @@
 # 계정·자동저장·나선비경 랭킹 서버
 
-현재 게임 주소와 GitHub 저장소는 그대로 사용합니다. GitHub Pages는 정적 파일만 제공하므로 계정과 서버 확정 자동저장에는 별도 서버가 필요합니다. 이 폴더는 Cloudflare Workers + D1 구현입니다. **배포 전이며 실제 가입·공식 랭킹은 아직 열리지 않았습니다.**
+현재 게임 주소와 GitHub 저장소는 그대로 사용합니다. GitHub Pages는 정적 파일만 제공하므로 계정과 서버 확정 자동저장에는 별도 서버가 필요합니다. 이 폴더는 Cloudflare Workers + D1 구현입니다. 운영 API는 `https://genshin-crpg-online.jungsan765.workers.dev`이며 D1 `genshin-crpg-online`에 연결되어 있습니다.
+
+## 기존 서버 업데이트
+
+이미 연결된 운영 서버는 DB를 새로 만들거나 `PASSWORD_PEPPER`를 교체하지 않습니다. `wrangler.jsonc`의 `keep_vars: true`와 운영자 ID 기본값 제거로 대시보드에서 설정한 `ADMIN_ACCOUNT_IDS`를 보존합니다. 관련 문서: https://developers.cloudflare.com/workers/wrangler/commands/workers/#deploy
+
+v0.13.44는 `game_backups` 테이블을 첫 저장 전에 자동 생성하고 최근 3개의 원본을 보관합니다. 플레이어용 되돌리기 API는 없습니다. 읽기 실패 시 원본을 유지하고 `SAVE_COMPATIBILITY`를 반환합니다. 운영자가 복구할 때는 영향을 받은 계정의 기록을 먼저 별도 보관하고, 과거 원본이 현재 엔진에서 읽히는지 확인한 뒤 진행합니다.
+
+배포 후 `/health`의 버전과 정적 사이트 `release.json`의 버전이 같은지 확인합니다. 서로 다르면 새 행동은 거부되고 기존 저장은 유지됩니다.
 
 ## 운영자가 준비할 것
 

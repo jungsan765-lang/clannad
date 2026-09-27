@@ -18,6 +18,9 @@ assert.equal((await call('/game/action',{version:'0',type:'MENU',params:{screen:
 const req={version:ENGINE_VERSION,type:'MENU',params:{screen:'SYSTEM',type:'OPERATOR_DEBUG',op:'mora',value:999999},revision:0,requestId:crypto.randomUUID()};
 const first=await call('/game/action',req);assert.equal(first.status,200,JSON.stringify(first));assert.notEqual(first.state.global.MORA,999999);assert.equal(first.revision,1);assert.equal(first.state.global.PRNG_STATE,1);
 const replay=await call('/game/action',req);assert.deepEqual(replay,first);assert.equal(sql.prepare('SELECT revision FROM games WHERE account_id=?').get(uid).revision,1);
+const oldVersionReplay=await call('/game/action',{...req,version:'previous-release'});assert.deepEqual(oldVersionReplay,first,'committed request retries survive a deployment');
+const versionBlocked=await call('/game/action',{...req,requestId:crypto.randomUUID(),version:'previous-release'});assert.equal(versionBlocked.status,409);assert.equal(versionBlocked.code,'VERSION_MISMATCH');assert.equal(versionBlocked.version,ENGINE_VERSION);assert.equal(sql.prepare('SELECT revision FROM games WHERE account_id=?').get(uid).revision,1);
+assert.equal(sql.prepare('SELECT revision FROM game_backups WHERE account_id=?').get(uid).revision,0);
 assert.equal((await action('MENU',{screen:'SYSTEM'},0)).status,409);
 const concurrent=await Promise.all([action('MENU',{screen:'SYSTEM'},1),action('MENU',{screen:'SYSTEM'},1)]);assert.deepEqual(concurrent.map(x=>x.status).sort(),[200,409]);
 // Seed server-owned synthetic abyss result; clients have no state-upload endpoint.
@@ -28,8 +31,18 @@ assert.equal((await action('MENU',{screen:'SYSTEM'},4)).status,200);assert.equal
 // A past operator save cannot preserve privilege after the operator ID is removed.
 env.ADMIN_ACCOUNT_IDS='';assert.equal((await action('OPERATOR_DEBUG',{op:'heal',admin:true,serverAdmin:true,localTest:true},5)).status,403);
 assert.equal((await call('/me')).account.admin,false);assert.equal(sql.prepare('SELECT revision FROM games WHERE account_id=?').get(uid).revision,5);
+assert.deepEqual(sql.prepare('SELECT revision FROM game_backups WHERE account_id=? ORDER BY revision').all(uid).map(x=>x.revision),[2,3,4]);
+for(const b of sql.prepare('SELECT state FROM game_backups WHERE account_id=?').all(uid))assert.doesNotThrow(()=>new R(GAME_DB,JSON.parse(b.state)));
+const validState=sql.prepare('SELECT state FROM games WHERE account_id=?').get(uid).state;
+sql.prepare('UPDATE games SET state=? WHERE account_id=?').run('{"schema":999}',uid);
+const invalidSave=await action('MENU',{screen:'SYSTEM'},5);assert.equal(invalidSave.status,503);assert.equal(invalidSave.code,'SAVE_COMPATIBILITY');assert.equal(sql.prepare('SELECT state FROM games WHERE account_id=?').get(uid).state,'{"schema":999}');
+sql.prepare('UPDATE games SET state=? WHERE account_id=?').run(validState,uid);
+const normalBatch=env.DB.batch;env.DB.batch=async statements=>{if(statements.some(s=>s.query.startsWith('DELETE FROM receipts')))throw Error('cleanup unavailable');return normalBatch(statements);};
+const cleanupRequest={version:ENGINE_VERSION,type:'MENU',params:{screen:'SYSTEM'},revision:5,requestId:crypto.randomUUID()};
+const cleanupResponse=await call('/game/action',cleanupRequest);assert.equal(cleanupResponse.status,200);assert.equal(cleanupResponse.revision,6);assert.deepEqual(await call('/game/action',cleanupRequest),cleanupResponse);
+env.DB.batch=normalBatch;
 // Public query hard-limits to twenty even when more valid rows exist.
 for(let n=0;n<25;n++){const id='synthetic-'+n;sql.prepare('INSERT INTO accounts VALUES(?,?,?,?,?,?)').run(id,id,id,'x','x',n);sql.prepare('INSERT INTO ranking VALUES(?,?,?,?,?,?,?)').run(id,'ABYSS_01',id,n%12+1,10+n,1,n);}
 let top=await call('/ranking');assert.equal(top.entries.length,20);assert.equal(top.entries[0].rank,1);assert.equal(top.entries[19].rank,20);assert.ok(top.entries.every((x,i,a)=>!i||a[i-1].floor>=x.floor));
-assert.equal((await call('/account/delete',{confirm:'testuser',password:'wrong-password'})).status,403);assert.equal((await call('/account/delete',{confirm:'testuser',password:pass})).deleted,true);assert.equal((await call('/me')).status,401);for(const table of ['games','ranking','receipts','sessions'])assert.equal(sql.prepare('SELECT COUNT(*) n FROM '+table+' WHERE account_id=?').get(uid).n,0);
-console.log('PASS accounts/passwords, server actions, parameter forgery, idempotent retry, concurrent revisions, operator exclusion, top20, account deletion');
+assert.equal((await call('/account/delete',{confirm:'testuser',password:'wrong-password'})).status,403);assert.equal((await call('/account/delete',{confirm:'testuser',password:pass})).deleted,true);assert.equal((await call('/me')).status,401);for(const table of ['game_backups','games','ranking','receipts','sessions'])assert.equal(sql.prepare('SELECT COUNT(*) n FROM '+table+' WHERE account_id=?').get(uid).n,0);
+console.log('PASS accounts/passwords, actions, forgery, retries across deployment, version gate, recent backups, corrupt-save preservation, cleanup failure, revisions, operator exclusion, top20, account deletion');

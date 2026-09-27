@@ -4,8 +4,11 @@ const {fresh,R,db,c,advance}=require('./helpers_v011.cjs');
 const copy=x=>JSON.parse(JSON.stringify(x)),results=[];
 function test(name,fn){try{const evidence=fn()||{};results.push({name,ok:true,...evidence});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);}}
 function personalTravel(){
- const r=fresh();r.s.flags.FLAG_TRV_MON_CH2_CLEAR=true;
- r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE'});r.action('LEGEND_REGISTER',{quest:'LEG_MOND_AMBER'});r.action('PLACE_LEAVE');r.action('LEGEND_ENTER',{quest:'LEG_MOND_AMBER'});
+ const r=fresh();r.s.flags.FLAG_TRV_MON_CH2_CLEAR=true;r.s.flags.FLAG_TRV_MON_PROLOGUE_CLEAR=true;
+ const def=r.storyDefinition('LEG_MOND_AMBER'),place=r.legendIntroductionPlaces(def).find(p=>p.maps.includes(r.s.global.CURRENT_MAP_ID));assert(place,'current authored introduction location exists');
+ r.action('PLACE_ENTER',{place:place.id,mode:place.modes[0]});r.action('LEGEND_REGISTER',{quest:def.id});r.action('PLACE_LEAVE');
+ const cost=r.legendEffectiveCost(def);r.s.global.MORA=Math.max(r.s.global.MORA,cost.mora);for(const [id,n]of Object.entries(cost.items))r.giveItem(id,n);
+ r.action('LEGEND_ENTER',{quest:def.id});
  for(let n=0;n<50&&!r.s.storyJourney;n++){const choices=r.storyChoices(),node=choices.find(x=>!/_DEFER$|_SHORTAGE$/.test(x[4]))||choices[0]||r.storyNode();r.action(choices.length?'STORY_CHOICE':'STORY_NEXT',{node:node[4]});}
  assert(r.s.storyJourney,'authored legend must reach a journey');assert.equal(r.s.storyJourney.target,'MAP_MOND_PLAINS');
  const edge=r.view().edges.find(e=>e.row[2]===r.s.storyJourney.target&&!e.reason);assert(edge,'real city-to-plains edge is usable');r.s.global.ENCOUNTER_COOLDOWN=1;r.action('MOVE',{edge:edge.row[0]});assert.equal(r.playPhase(),'FREE');assert.equal(r.s.storyContext.kind,'LEGEND');return r;

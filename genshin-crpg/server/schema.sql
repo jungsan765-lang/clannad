@@ -7,3 +7,4 @@ CREATE TABLE IF NOT EXISTS receipts(account_id TEXT NOT NULL REFERENCES accounts
 CREATE TABLE IF NOT EXISTS ranking(account_id TEXT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE, season TEXT NOT NULL, display_name TEXT NOT NULL, floor INTEGER NOT NULL, rounds INTEGER NOT NULL, attempts INTEGER NOT NULL, achieved_at INTEGER NOT NULL, PRIMARY KEY(account_id,season));
 CREATE INDEX IF NOT EXISTS ranking_top ON ranking(season,floor DESC,rounds,attempts,achieved_at);
 CREATE TABLE IF NOT EXISTS rate_limits(bucket TEXT PRIMARY KEY, count INTEGER NOT NULL, until_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS game_backups(account_id TEXT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE, revision INTEGER NOT NULL, state TEXT NOT NULL, engine_version TEXT NOT NULL, created_at INTEGER NOT NULL, PRIMARY KEY(account_id,revision));

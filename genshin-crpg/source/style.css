@@ -487,3 +487,38 @@ body:has(.online-hub) #quick-actions button{background:transparent;border-color:
  #modal-body{min-width:0;overflow-wrap:anywhere}#modal-body select,#modal-body input{max-width:100%;box-sizing:border-box}
  .online-hub{margin:12px 0}.online-hub .actions{display:grid;grid-template-columns:1fr 1fr}.online-hub .actions button{min-width:0;padding:10px}
 }
+
+/* v0.13.44 — a persistent title screen, separate from account authentication. */
+body:has(.game-title){background:#bfdcce;color:#f9fcf7;overflow-x:hidden}
+body:has(.game-title) #masthead,body:has(.game-title) .world-backdrop{display:none}
+body:has(.game-title) #root{max-width:none;padding:0;margin:0}
+body:has(.game-title) #notice:not(:empty){position:fixed;z-index:6;top:80px;left:50%;transform:translateX(-50%);width:min(650px,90vw);background:#fff9ed;color:#254c40;border:1px solid #c5d2b8;border-radius:12px;padding:14px 20px;box-shadow:0 8px 35px #183e4825}
+.game-title{min-height:100svh;position:relative;isolation:isolate;display:flex;flex-direction:column;overflow:hidden;background:#699b84}
+.title-landscape,.title-shade{position:absolute;inset:0;width:100%;height:100%;z-index:-2;object-fit:cover;object-position:50% 46%}
+.title-shade{z-index:-1;background:linear-gradient(180deg,#07393640 0%,#23452d08 32%,#082f2830 58%,#062d38db 100%)}
+.title-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 36px;text-shadow:0 1px 8px #07382c80}
+.title-edition{font-size:10px;letter-spacing:.23em;font-weight:600;color:#f4fbf4}
+.title-account{display:flex;align-items:center;gap:10px;font-size:13px}
+.title-account button,.title-footer button{background:#123e3833;color:#fffaf0;border:1px solid #ffffff60;padding:8px 15px;border-radius:999px;min-height:38px;font-size:12px;backdrop-filter:blur(8px)}
+.title-account button:hover,.title-footer button:hover{background:#ffffff28;border-color:#fff}
+.title-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:45px 24px 100px;text-shadow:0 2px 20px #173f3680}
+.title-star{font-size:38px;line-height:1;color:#fff5c8;margin-bottom:14px}
+.title-kicker{font-size:11px;letter-spacing:.35em;margin:0 0 10px;font-weight:600}
+.title-logo{font-size:clamp(74px,12vw,136px);font-weight:800;line-height:1.2;letter-spacing:.08em;color:#fffef5;margin:0;text-shadow:0 3px 0 #60897580,0 10px 45px #103c4960}
+.title-crpg{font-family:Georgia,serif;letter-spacing:.25em;font-size:25px;margin-top:8px;color:#fff5dc}
+.title-tagline{font-size:15px;line-height:1.7;letter-spacing:.06em;margin:25px 0 46px;color:#fffdf5}
+button.title-start{width:min(320px,80vw);min-height:63px;position:relative;display:block;background:linear-gradient(135deg,#fffbee,#e6efd7);color:#24483a;border:1px solid #fffdf5;border-radius:4px;font-size:21px;letter-spacing:.18em;font-weight:750;box-shadow:0 5px 26px #092f4a50,0 0 0 5px #ffffff1a;transition:transform .2s,box-shadow .2s}
+button.title-start:before,button.title-start:after{content:'✦';position:absolute;top:50%;transform:translateY(-50%);font-size:12px;color:#738f6b}
+button.title-start:before{left:24px}button.title-start:after{right:24px}
+button.title-start:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 35px #092f4a65,0 0 0 6px #ffffff30}
+.title-save-note{font-size:11px;color:#f1f8ebc9;margin:17px 0 0;letter-spacing:.06em}
+.title-footer{display:flex;align-items:center;justify-content:center;gap:16px;padding:18px 24px 36px;color:#f2f6e9cb;font-size:12px}
+.title-footer>span{margin-right:12px}.title-footer button{min-height:36px}
+.new-journey-form{display:grid;gap:18px;padding:6px}.new-journey-form p{line-height:1.8;color:var(--muted)}
+.new-journey-form input,.new-journey-form select{width:100%;min-height:48px;margin-top:8px}
+@media(max-width:600px){
+ .title-top{padding:20px 18px;align-items:flex-start}.title-edition{max-width:95px;font-size:8px;line-height:1.8}.title-account{gap:6px;flex-wrap:wrap;justify-content:flex-end}.title-account>span{max-width:100px;overflow-wrap:anywhere}.title-account button{padding:7px 12px;font-size:11px}
+ .title-center{padding:60px 20px 95px}.title-tagline{font-size:13px;margin:22px 0 38px}.title-kicker{font-size:9px;letter-spacing:.24em}.title-logo{font-size:89px}.title-footer{gap:10px;flex-wrap:wrap;padding:18px 20px 57px}.title-footer>span{width:100%;text-align:center;margin:0 0 2px}
+ .title-landscape{object-position:57% 50%}
+}
+@media(prefers-reduced-motion:reduce){button.title-start{transition:none}}

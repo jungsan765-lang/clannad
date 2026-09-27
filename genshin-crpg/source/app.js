@@ -7,7 +7,7 @@ const parseUI=(s,f={})=>{try{return JSON.parse(s)}catch{return f}};
 const oldRender=render, oldInventory=inventory, oldQuests=quests;
 function safeName(table,id,col=1){return game?.tables[table]?.get(id)?.[col]||'알 수 없는 항목'}
 function routeName(id){return id==='ROUTE_TRAVELER'?'여행자':'이세계인'}
-function toggleNotice(message){notice.textContent=[message,lastSaveError].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join('\n');if(saveFailed&&game){notice.append(el('br'),button('지금 저장 백업 파일 내보내기',download,false,true));}}
+function toggleNotice(message){notice.textContent=[message,lastSaveError].map(x=>window.CRPGText?CRPGText.readable(x,{name:game?.s.global.PLAYER_NAME||''}):x).filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join('\n');if(saveFailed&&game){notice.append(el('br'),button('지금 저장 백업 파일 내보내기',download,false,true));}}
 say=function(message){toggleNotice(message)};
 function assetPath(id){return MANIFEST.assets?.[id]?.url||ASSETS[id]||null}
 function portraitFor(id,variant=1){if(!game||!showArt)return null;const a=game.assetFor(id,variant);return a?(assetPath(a[0])||assetPath(a[5])):null}

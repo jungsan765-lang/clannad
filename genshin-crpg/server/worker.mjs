@@ -4,12 +4,17 @@ const hex=bytes=>Array.from(new Uint8Array(bytes),x=>x.toString(16).padStart(2,'
 const bytes=x=>Uint8Array.from(x.match(/.{2}/g)||[],h=>parseInt(h,16));
 const token=()=>hex(crypto.getRandomValues(new Uint8Array(32)));
 const hash=async x=>hex(await crypto.subtle.digest('SHA-256',encoder.encode(x)));
-const error=(status,message)=>Object.assign(new Error(message),{status});
+const error=(status,message,code)=>Object.assign(new Error(message),{status,code});
 const same=(a,b)=>{if(a.length!==b.length)return false;let n=0;for(let i=0;i<a.length;i++)n|=a.charCodeAt(i)^b.charCodeAt(i);return n===0;};
 async function passwordHash(password,salt,pepper){const key=await crypto.subtle.importKey('raw',encoder.encode(password+'\0'+pepper),'PBKDF2',false,['deriveBits']);return hex(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:bytes(salt),iterations:100000},key,256));}
 const admin=(env,id)=>String(env.ADMIN_ACCOUNT_IDS||'').split(',').map(x=>x.trim()).includes(id);
 function publicState(state){const s=structuredClone(state);s.global.PRNG_STATE=1;delete s.processed; s.processed={};return s;}
 function compact(state){state.log=state.log.slice(-240);const ids=Object.keys(state.processed||{});for(const id of ids.slice(0,-32))delete state.processed[id];return state;}
+const backupStores=new WeakMap();
+async function ensureBackups(db){
+ if(!backupStores.has(db))backupStores.set(db,db.prepare('CREATE TABLE IF NOT EXISTS game_backups(account_id TEXT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,revision INTEGER NOT NULL,state TEXT NOT NULL,engine_version TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,revision))').run().catch(e=>{backupStores.delete(db);throw e;}));
+ await backupStores.get(db);
+}
 function responseGame(row,account,env,result){return {account:{id:account.id,username:account.username,displayName:account.display_name,admin:admin(env,account.id)},version:ENGINE_VERSION,revision:row.revision,ranked:!!row.ranked,state:publicState(JSON.parse(row.state)),result:result||null};}
 const ALLOWED=new Set(); // Filled from the checked-in UI action inventory below.
 
@@ -40,23 +45,28 @@ async function route(request,env){
  const {account,tokenHash}=await session(request,env),row=await env.DB.prepare('SELECT * FROM games WHERE account_id=?').bind(account.id).first();
  if(path==='/me'&&request.method==='GET')return json(row?responseGame(row,account,env):{account:{id:account.id,username:account.username,displayName:account.display_name,admin:admin(env,account.id)},version:ENGINE_VERSION,state:null,revision:0});
  if(path==='/logout'&&request.method==='POST'){await env.DB.prepare('DELETE FROM sessions WHERE token_hash=?').bind(tokenHash).run();return json({ok:true});}
- if(path==='/account/delete'&&request.method==='POST'){await rate(env,'delete:'+account.id,5,900000);const b=await body(request);if(b.confirm!==account.username||!same(await passwordHash(String(b.password||''),account.salt,env.PASSWORD_PEPPER),account.password_hash))throw error(403,'아이디와 비밀번호로 삭제를 확인해 주세요.');await env.DB.batch(['receipts','ranking','games','sessions'].map(table=>env.DB.prepare('DELETE FROM '+table+' WHERE account_id=?').bind(account.id)).concat(env.DB.prepare('DELETE FROM accounts WHERE id=?').bind(account.id)));return json({deleted:true});}
+ if(path==='/account/delete'&&request.method==='POST'){await rate(env,'delete:'+account.id,5,900000);const b=await body(request);if(b.confirm!==account.username||!same(await passwordHash(String(b.password||''),account.salt,env.PASSWORD_PEPPER),account.password_hash))throw error(403,'아이디와 비밀번호로 삭제를 확인해 주세요.');await ensureBackups(env.DB);await env.DB.batch(['game_backups','receipts','ranking','games','sessions'].map(table=>env.DB.prepare('DELETE FROM '+table+' WHERE account_id=?').bind(account.id)).concat(env.DB.prepare('DELETE FROM accounts WHERE id=?').bind(account.id)));return json({deleted:true});}
  if(path==='/game/new'&&request.method==='POST'){if(row)throw error(409,'이미 자동저장된 여정이 있습니다. 이어서 진행해 주세요.');const b=await body(request),r=new R(GAME_DB);r.newGame({name:String(b.name||account.display_name),route:b.route==='ROUTE_TRAVELER'?'ROUTE_TRAVELER':'ROUTE_ISEKAI',saveId:crypto.randomUUID(),seed:crypto.getRandomValues(new Uint32Array(1))[0]});const state=JSON.stringify(compact(r.s));try{await env.DB.prepare('INSERT INTO games VALUES(?,?,0,?,1,?)').bind(account.id,state,'NEW',now()).run();}catch{throw error(409,'이미 자동저장된 여정이 있습니다.');}return json(responseGame({state,revision:0,ranked:1},account,env));}
  if(path==='/game/action'&&request.method==='POST'){
-  if(!row)throw error(409,'먼저 여정을 시작해 주세요.');await rate(env,'action:'+account.id,240,60000);const b=await body(request);if(b.version!==ENGINE_VERSION)throw error(409,'게임을 최신 버전으로 업데이트해 주세요.');
+  if(!row)throw error(409,'먼저 여정을 시작해 주세요.');await rate(env,'action:'+account.id,240,60000);const b=await body(request);
   if(!/^[a-zA-Z0-9_-]{10,80}$/.test(b.requestId||''))throw error(400,'행동 식별자가 잘못되었습니다.');
-  const receipt=await env.DB.prepare('SELECT response FROM receipts WHERE account_id=? AND request_id=?').bind(account.id,b.requestId).first();if(receipt){const cached=JSON.parse(receipt.response);return json(row.revision>cached.revision?responseGame(row,account,env,cached.result):cached);}
+  const receipt=await env.DB.prepare('SELECT response FROM receipts WHERE account_id=? AND request_id=?').bind(account.id,b.requestId).first();if(receipt){const cached=JSON.parse(receipt.response);return json(responseGame(row,account,env,cached.result));}
+  if(b.version!==ENGINE_VERSION)throw error(409,'게임 업데이트를 맞추고 있습니다. 저장 기록은 유지됩니다. 새 버전을 적용한 뒤 다시 시작해 주세요.','VERSION_MISMATCH');
   if(b.revision!==row.revision)throw error(409,'다른 화면에서 진행되었습니다. 최신 자동저장을 이어 받아 주세요.');
   const isDebug=b.type==='OPERATOR_DEBUG';if(!ALLOWED.has(b.type)&&!isDebug)throw error(400,'지원하지 않는 게임 행동입니다.');if(isDebug&&!admin(env,account.id))throw error(403,'운영자 전용 기능입니다.');
-  const r=new R(GAME_DB,JSON.parse(row.state));r.serverAdmin=isDebug;const params={...(b.params||{})};for(const key of ['type','id','revision','__proto__','constructor','prototype'])delete params[key];const result=r.action(b.type,params);const state=JSON.stringify(compact(r.s));if(encoder.encode(state).length>1900000)throw error(507,'저장 크기 한도에 도달했습니다. 운영자에게 문의해 주세요.');
+  let r;try{r=new R(GAME_DB,JSON.parse(row.state));}catch{throw error(503,'저장 기록을 새 버전에서 여는 데 문제가 있습니다. 원본은 보존되어 있습니다. 운영자에게 알려 주세요.','SAVE_COMPATIBILITY');}
+  r.serverAdmin=isDebug;const params={...(b.params||{})};for(const key of ['type','id','revision','__proto__','constructor','prototype'])delete params[key];const result=r.action(b.type,params);const state=JSON.stringify(compact(r.s));if(encoder.encode(state).length>1900000)throw error(507,'저장 크기 한도에 도달했습니다. 운영자에게 문의해 주세요.');
   const next={state,revision:row.revision+1,ranked:isDebug?0:row.ranked};const output=responseGame(next,account,env,result);
+  await ensureBackups(env.DB);
   const batch=await env.DB.batch([
+   env.DB.prepare('INSERT OR IGNORE INTO game_backups SELECT account_id,revision,state,?,? FROM games WHERE account_id=? AND revision=?').bind(ENGINE_VERSION,now(),account.id,row.revision),
    env.DB.prepare('UPDATE games SET state=?,revision=?,last_request_id=?,ranked=?,updated_at=? WHERE account_id=? AND revision=?').bind(state,next.revision,b.requestId,next.ranked,now(),account.id,row.revision),
    env.DB.prepare('INSERT INTO receipts SELECT account_id,?,revision,?,? FROM games WHERE account_id=? AND revision=? AND last_request_id=?').bind(b.requestId,JSON.stringify(output),now(),account.id,next.revision,b.requestId),
    scoreStatement(env,account,next,b.requestId)
   ]);
-  if(!batch[0].meta.changes)throw error(409,'다른 화면에서 먼저 진행되었습니다. 최신 자동저장을 이어 받아 주세요.');
-  await env.DB.prepare('DELETE FROM receipts WHERE account_id=? AND revision<?').bind(account.id,next.revision-4).run();return json(output);
+  if(!batch[1].meta.changes)throw error(409,'다른 화면에서 먼저 진행되었습니다. 최신 자동저장을 이어 받아 주세요.');
+  // Cleanup must not turn an already committed action into a reported failure.
+  await env.DB.batch([env.DB.prepare('DELETE FROM receipts WHERE account_id=? AND revision<?').bind(account.id,next.revision-4),env.DB.prepare('DELETE FROM game_backups WHERE account_id=? AND revision<?').bind(account.id,next.revision-3)]).catch(()=>{});return json(output);
  }
  throw error(404,'지원하지 않는 요청입니다.');
 }
@@ -64,7 +74,7 @@ export default {async fetch(request,env){
  const origin=request.headers.get('Origin'),allowed=env.ALLOWED_ORIGIN||'https://clannad.shop';
  if(origin&&origin!==allowed)return json({error:'허용되지 않은 접속 경로입니다.'},403);
  if(request.method==='OPTIONS')return new Response(null,{status:204,headers:{'Access-Control-Allow-Origin':allowed,'Access-Control-Allow-Methods':'GET,POST,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization','Access-Control-Max-Age':'86400','Vary':'Origin'}});
- let res;try{res=await route(request,env);}catch(e){res=json({error:e.status||e instanceof globalThis.CRPGRuntime.RuleError?e.message:'서버 요청을 처리하지 못했습니다.'},e.status|| (e instanceof globalThis.CRPGRuntime.RuleError?400:500));}
+ let res;try{res=await route(request,env);}catch(e){res=json({error:e.status||e instanceof globalThis.CRPGRuntime.RuleError?e.message:'서버 요청을 처리하지 못했습니다.',...(e.code?{code:e.code}:{}),...(e.code==='VERSION_MISMATCH'?{version:ENGINE_VERSION}:{})},e.status|| (e instanceof globalThis.CRPGRuntime.RuleError?400:500));}
  res.headers.set('Access-Control-Allow-Origin',allowed);res.headers.set('Vary','Origin');res.headers.set('X-Content-Type-Options','nosniff');return res;
 }};
 export {passwordHash,publicState,ALLOWED};

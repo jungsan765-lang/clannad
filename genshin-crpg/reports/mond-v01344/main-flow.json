@@ -1,0 +1,126 @@
+{
+  "scope": "Synthetic combat power; route progression/save compatibility only",
+  "runs": [
+    {
+      "leaf": "AA",
+      "status": "PASS",
+      "actions": 816,
+      "restores": 23,
+      "cursor": "ISK_M05_AA_END",
+      "contacts": [
+        "PROFILE_MOND_AMBER",
+        "PROFILE_MOND_KAEYA",
+        "PROFILE_MOND_JEAN",
+        "PROFILE_MOND_KATHERYNE",
+        "PROFILE_MOND_VENTI",
+        "PROFILE_MOND_DILUC",
+        "PROFILE_MOND_BARBARA",
+        "PROFILE_SNEZ_SGN",
+        "PROFILE_MOND_ALBEDO"
+      ]
+    },
+    {
+      "leaf": "AA_DIRECT",
+      "status": "PASS",
+      "actions": 809,
+      "restores": 23,
+      "cursor": "ISK_M05_AA_END",
+      "contacts": [
+        "PROFILE_MOND_AMBER",
+        "PROFILE_MOND_KAEYA",
+        "PROFILE_MOND_JEAN",
+        "PROFILE_MOND_KATHERYNE",
+        "PROFILE_MOND_VENTI",
+        "PROFILE_MOND_DILUC",
+        "PROFILE_MOND_BARBARA",
+        "PROFILE_SNEZ_SGN"
+      ]
+    },
+    {
+      "leaf": "AB",
+      "status": "PASS",
+      "actions": 894,
+      "restores": 24,
+      "cursor": "ISK_M05_AB_END",
+      "contacts": [
+        "PROFILE_MOND_AMBER",
+        "PROFILE_MOND_KAEYA",
+        "PROFILE_MOND_JEAN",
+        "PROFILE_MOND_KATHERYNE",
+        "PROFILE_MOND_VENTI",
+        "PROFILE_MOND_DILUC",
+        "PROFILE_MOND_ALBEDO",
+        "PROFILE_LIYUE_KEQING",
+        "PROFILE_SNEZ_SGN"
+      ]
+    },
+    {
+      "leaf": "B",
+      "status": "PASS",
+      "actions": 698,
+      "restores": 11,
+      "cursor": "ISK_M05_B_END",
+      "contacts": [
+        "PROFILE_MOND_AMBER",
+        "PROFILE_MOND_KAEYA",
+        "PROFILE_MOND_JEAN",
+        "PROFILE_MOND_KATHERYNE",
+        "PROFILE_MOND_ALBEDO",
+        "PROFILE_MOND_VENTI",
+        "PROFILE_SNEZ_SGN"
+      ]
+    },
+    {
+      "leaf": "K",
+      "status": "PASS",
+      "actions": 723,
+      "restores": 23,
+      "cursor": "ISK_M05_K_END",
+      "contacts": [
+        "PROFILE_MOND_AMBER",
+        "PROFILE_MOND_KATHERYNE",
+        "PROFILE_MOND_DIONA",
+        "PROFILE_MOND_JEAN",
+        "PROFILE_MOND_DAHLIA",
+        "PROFILE_MOND_VENTI",
+        "PROFILE_MOND_KAEYA",
+        "PROFILE_MOND_ALBEDO",
+        "PROFILE_SNEZ_SGN"
+      ]
+    },
+    {
+      "leaf": "TRV_FEMALE",
+      "status": "PASS",
+      "actions": 669,
+      "restores": 46,
+      "cursor": "TRV_M02_N422",
+      "contacts": [
+        "PROFILE_MOND_VENTI",
+        "PROFILE_MOND_AMBER",
+        "PROFILE_MOND_KAEYA",
+        "PROFILE_MOND_JEAN",
+        "PROFILE_MOND_LISA",
+        "PROFILE_MOND_DILUC",
+        "PROFILE_MOND_BARBARA",
+        "PROFILE_SNEZ_SGN"
+      ]
+    },
+    {
+      "leaf": "TRV_MALE",
+      "status": "PASS",
+      "actions": 658,
+      "restores": 38,
+      "cursor": "TRV_M02_N422",
+      "contacts": [
+        "PROFILE_MOND_VENTI",
+        "PROFILE_MOND_AMBER",
+        "PROFILE_MOND_KAEYA",
+        "PROFILE_MOND_JEAN",
+        "PROFILE_MOND_LISA",
+        "PROFILE_MOND_DILUC",
+        "PROFILE_MOND_BARBARA",
+        "PROFILE_SNEZ_SGN"
+      ]
+    }
+  ]
+}
