@@ -26,7 +26,7 @@ function condition(text,vars){
  try{let v=or();return p===tokens.length&&v}catch{return false}
 }
 class Runtime {
- constructor(db,save=null){this.db=db;const base=baseData(db);this.tables={...base.tables};this._baseRows=base.rows;this._baseSources=base.sources;this.s=save?this.validateSave(clone(save)):null;}
+ constructor(db,save=null,takeOwnership=false){this.db=db;const base=baseData(db);this.tables={...base.tables};this._baseRows=base.rows;this._baseSources=base.sources;this.s=save?this.validateSave(takeOwnership?save:clone(save)):null;}
  rows(n){const source=this.db[n]||[];return source===this._baseSources[n]?(this._baseRows[n]||[]):source.slice(1).filter(r=>r&&r[0]!==undefined&&r[0]!=='')}  row(n,id){const r=this.tables[n]?.get(id);if(!r)fail('MISSING_ID',n+': '+id);return r}
  config(key){return this.rows('00_CORE').find(r=>r[3]===key)?.[4]}
  newGame({name,route='ROUTE_ISEKAI',seed=12345,saveId}={}){
