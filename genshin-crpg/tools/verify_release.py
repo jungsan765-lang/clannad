@@ -9,7 +9,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 subprocess.run(['python3', 'tools/build_server.py'], cwd=ROOT, check=True)
 TESTS = [
     'tests/test_online_server.mjs', 'tests/test_authoritative_flow.mjs',
-    'tests/test_reading_checkpoint.mjs',
+    'tests/test_reading_checkpoint.mjs', 'tests/test_action_recovery.mjs', 'tests/test_update_recovery.cjs',
     'tests/test_combat_catalog_online.mjs', 'tests/test_action_feedback.cjs',
     'tests/test_online_bootstrap_v01343.cjs', 'tests/test_online_title_v01344.cjs',
     'tests/test_opening.cjs', 'tests/test_mond_content_v01344.cjs',

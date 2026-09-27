@@ -102,9 +102,9 @@ jobs:
             -o "$RUNNER_TEMP/crpg-worker-health.json"
           python3 - <<'PY'
           import json, os
-          package=json.load(open('genshin-crpg/package.json'))
+          release=json.load(open('verified-pack/release.json'))
           health=json.load(open(os.path.join(os.environ['RUNNER_TEMP'],'crpg-worker-health.json')))
-          assert health.get('ok') and health.get('configured') and health.get('version')==package['version'], 'Deploy the matching Worker first; client artifact is held.'
+          assert health.get('ok') and health.get('configured') and health.get('engineVersion')==release['engineVersion'], 'Deploy the matching Worker first; client artifact is held.'
           PY
       - name: Stage existing site plus verified game artifact
         run: |

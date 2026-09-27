@@ -25,14 +25,14 @@ const GameVersion={
   if(busy||this.updating)return;if(game&&autoSavePaused){say('자동 저장이 일시중지되어 있습니다. 저장·설정에서 새 자동 저장을 시작한 뒤 업데이트해 주세요.');return;}
   this.updating=true;busy=true;render();
   try{
-   await saveQueue.catch(()=>{});if(game)await storeSave();
+   await saveQueue.catch(()=>{});if(game)try{await storeSave();}catch(e){if(!(window.CRPGOnline?.active&&e.code==='VERSION_MISMATCH'))throw e;}
    const reg=this.registration||await navigator.serviceWorker?.getRegistration();if(reg)await reg.update();
    let waiting=reg?.waiting;
    if(!waiting&&reg?.installing)waiting=await new Promise((resolve,reject)=>{const worker=reg.installing,timer=setTimeout(()=>{worker.removeEventListener('statechange',done);reject(Error('새 버전 설치를 기다리고 있습니다. 잠시 후 다시 적용해 주세요.'));},10000);const done=()=>{if(['installed','redundant'].includes(worker.state)){clearTimeout(timer);worker.removeEventListener('statechange',done);if(worker.state==='installed')resolve(reg.waiting);else reject(Error('새 버전 파일을 준비하지 못했습니다. 연결을 확인해 주세요.'));}};worker.addEventListener('statechange',done);done();});
    if(waiting){const active=await new Promise(resolve=>{const onChange=()=>resolve(true);navigator.serviceWorker.addEventListener('controllerchange',onChange,{once:true});waiting.postMessage({type:'ACTIVATE_UPDATE'});setTimeout(()=>{navigator.serviceWorker.removeEventListener('controllerchange',onChange);resolve(false);},10000);});if(!active)throw Error('새 버전을 준비 중입니다. 잠시 후 다시 적용해 주세요.');}
    if(reg&&navigator.serviceWorker.controller&&this.changed()&&await this.workerVersion(navigator.serviceWorker.controller)!==this.latest.packVersion)throw Error('최신 버전의 준비가 확인되지 않았습니다. 잠시 후 다시 적용하거나 게임 탭을 모두 닫고 다시 열어 주세요.');
    const target=new URL(location.href);target.searchParams.set('release',this.latest?.packVersion||MANIFEST.contentVersion);location.replace(target.href);
-  }catch(e){say('업데이트하지 못했습니다. '+e.message);}finally{busy=false;this.updating=false;render();}
+  }catch(e){const message='업데이트하지 못했습니다. '+e.message;say(message);const box=document.querySelector('.version-details');if(box){let status=box.querySelector('.update-status');if(!status){status=el('p','update-status requirement-unmet');status.setAttribute('role','alert');box.append(status);}status.textContent=message;}}finally{busy=false;this.updating=false;render();}
  }
 };
 const versionRender=render;render=function(){versionRender();GameVersion.render();};

@@ -240,10 +240,10 @@ render=function(){
 act=async function(type,params={}){
   if(!game)return;
   if(busy)return;
-  if(window.CRPGOnline?.active&&type==='STORY_NEXT'){
+  if(window.CRPGOnline?.active&&['STORY_NEXT','STORY_CHOICE','STORY_NAME'].includes(type)){
     try{
-      const n=game.storyNode(),history=n?.[9]&&scenePermitted()?{speaker:displayText(n[7]||'이야기'),text:displayText(game.storyDisplayText?.(n)??n[9]),...sceneClassification()}:null;
-      const read=CRPGOnline.tryRead(params);
+      const n=game.storyNode(),history=type==='STORY_NEXT'&&n?.[9]&&scenePermitted()?{speaker:displayText(n[7]||'이야기'),text:displayText(game.storyDisplayText?.(n)??n[9]),...sceneClassification()}:null;
+      const read=CRPGOnline.tryRead(params,type);
       if(read){if(history)sceneHistory.push(history);lastResult=read;say('');render();return read;}
     }catch(e){say(e.message);return {ok:false,error:e.message};}
   }
