@@ -24,7 +24,7 @@ function tutorialDone(){
 }
 function renderTutorial(){
  document.getElementById('tutorial-tour')?.remove();document.querySelectorAll('.tutorial-target').forEach(n=>n.classList.remove('tutorial-target'));
- if(!game||!activeTutorial||game.s.global.SCREEN_MODE==='STORY'||game.s.lifeJob||game.s.worldJob)return;
+ if(!game||!activeTutorial||game.s.global.SCREEN_MODE==='STORY'||game.s.runtime||game.s.battlePreparation||game.s.lifeJob||game.s.worldJob)return;
  const done=tutorialDone(),battle=game.s.runtime,step=battle?tutorialSteps.find(x=>x.id==='battle'):tutorialSteps.find(x=>!done[x.id]);
  const host=document.querySelector('.content');if(!host)return;
  const box=el('section','learning-guide');box.id='tutorial-tour';box.setAttribute('aria-label','직접 해 보는 여행 안내');
