@@ -2,7 +2,7 @@
 
 `jungsan765-lang/clannad`의 `genshin-crpg`를 작업해. 최신 main을 확인하고 별도 브랜치에서 수정해. 현재는 **GitHub Pages 정적 클라이언트 + Cloudflare Worker/D1 authoritative 서버**다. 예전 동적 웹서버 방식으로 배포하지 마. 운영 D1·기존 세이브·비밀값은 보존해.
 
-개발 중 실제 플레이 확인은 우선 **로컬 격리 환경**을 사용한다. Windows에서는 `dev-local.cmd`가 로컬 Vite + 로컬 Worker + 로컬 D1을 함께 띄우며, `source/`, `content/`, `server/worker.mjs` 변경을 감지해 다시 빌드한다. 로컬 D1은 `.local/wrangler`에 저장되고 `reset-local.cmd`로만 초기화한다. 로컬 개발 경로에 `deploy` 또는 `--remote`를 추가하지 말고 운영 D1을 연결하지 마. 자세한 내용은 `docs/LOCAL_DEVELOPMENT_KO.md`를 따른다.
+개발 중 실제 플레이 확인은 우선 **로컬 격리 환경**을 사용한다. Windows에서는 `dev-local.cmd`가 로컬 정적 게임 서버 + 로컬 Worker + 로컬 D1을 함께 띄우며, `source/`, `content/`, `server/worker.mjs` 변경을 감지해 다시 빌드한다. 로컬 D1은 `.local/wrangler`에 저장되고 `reset-local.cmd`로만 초기화한다. 로컬 개발 경로에 `deploy` 또는 `--remote`를 추가하지 말고 운영 D1을 연결하지 마. 자세한 내용은 `docs/LOCAL_DEVELOPMENT_KO.md`를 따른다.
 
 소스 → `npm test` → 소스 브라우저 회귀검증 → `npm run build` → `CRPG_TEST_DIST=1 npm run test:browser` → 검증된 Pages artifact 순서다. PR/main push는 검증만 한다. `.github/workflows/crpg-sync-dist.yml`을 **main + publish=true**로 수동 실행해야 Pages가 게시된다. dist 중간 커밋으로 배포를 반복하지 마. 기존 사이트 이미지도 보존해야 하므로 `prepare_pages.py`를 쓰고 게임 dist만 Pages 루트에 올리지 마.
 
