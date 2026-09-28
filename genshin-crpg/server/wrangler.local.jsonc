@@ -1,0 +1,16 @@
+{
+  "name": "genshin-crpg-local",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-01",
+  "vars": {
+    "ALLOWED_ORIGIN": "http://127.0.0.1:5173",
+    "PASSWORD_PEPPER": "local-development-only-pepper-never-use-in-production-2026"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "genshin-crpg-local",
+      "database_id": "00000000-0000-0000-0000-000000000001"
+    }
+  ]
+}
