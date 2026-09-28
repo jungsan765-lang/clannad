@@ -52,7 +52,50 @@ function runPython(python, script) {
 
 function writeLocalOnlineConfig() {
   const target = path.join(distDir, 'online_config.js');
-  writeFileSync(target, "/* Generated only for local development. */\\nwindow.CRPG_ONLINE_CONFIG={apiBase:'http://127.0.0.1:8787'};\\n");
+  writeFileSync(target, "/* Generated only for local development. */\nwindow.CRPG_ONLINE_CONFIG={apiBase:'http://127.0.0.1:8787'};\n", 'utf8');
+}
+
+const MIME = {
+  '.html':'text/html; charset=utf-8',
+  '.css':'text/css; charset=utf-8',
+  '.js':'text/javascript; charset=utf-8',
+  '.json':'application/json; charset=utf-8',
+  '.webp':'image/webp',
+  '.png':'image/png',
+  '.jpg':'image/jpeg',
+  '.jpeg':'image/jpeg',
+  '.svg':'image/svg+xml',
+  '.woff':'font/woff',
+  '.woff2':'font/woff2',
+  '.mp3':'audio/mpeg',
+  '.ogg':'audio/ogg',
+  '.wav':'audio/wav'
+};
+
+function startStaticGameServer() {
+  const server=createServer((req,res)=>{
+    try{
+      const u=new URL(req.url||'/', 'http://127.0.0.1:5173');
+      let rel=decodeURIComponent(u.pathname||'/');
+      if(rel==='/'||rel==='')rel='/index.html';
+      rel=rel.replace(/^\/+/, '');
+      let file=path.resolve(distDir,rel);
+      const inside=path.relative(distDir,file);
+      if(inside.startsWith('..')||path.isAbsolute(inside)){res.writeHead(403).end('Forbidden');return;}
+      if(existsSync(file)&&statSync(file).isDirectory())file=path.join(file,'index.html');
+      if(!existsSync(file)||!statSync(file).isFile()){res.writeHead(404).end('Not found');return;}
+      res.statusCode=200;
+      res.setHeader('Content-Type',MIME[path.extname(file).toLowerCase()]||'application/octet-stream');
+      res.setHeader('Cache-Control','no-store');
+      res.end(readFileSync(file));
+    }catch(error){
+      res.writeHead(500,{'Content-Type':'text/plain; charset=utf-8'}).end(String(error.message||error));
+    }
+  });
+  return new Promise((resolve,reject)=>{
+    server.once('error',reject);
+    server.listen(5173,'127.0.0.1',()=>{server.removeListener('error',reject);resolve(server);});
+  });
 }
 
 async function waitFor(url, label, timeoutMs = 45000) {
