@@ -32,7 +32,7 @@
   const a=game.liyueAreaInfo?.();if(!a)return;
   const panel=el('section','card liyue-local-guide');panel.id='liyue-local-guide';panel.append(el('small','eyebrow',a.zone+' · 자유 탐방'),el('h2','',a.name),el('p','',a.description));
   const row=el('div','liyue-local-tags');row.append(el('span','',a.safe?'안전한 거점':a.encounter?'야외 · 이동 중 적과 조우 가능':'야외 탐방 구역'),el('span','',a.kind?kinds[a.kind]+' 가능':'풍경 감상·길 찾기'));panel.append(row);
-  const look=button('주변을 살펴본다',()=>{const box=el('div','liyue-local-observation');box.append(el('p','story',a.observe),el('p','muted','둘러보기에는 시간과 재료가 들지 않습니다.'));showModal(a.name,box);});look.dataset.lyLook=a.id;panel.append(look);
+  const look=button('주변 살펴보기',()=>{const box=el('div','liyue-local-observation');box.append(el('p','story',a.observe),el('p','muted','둘러보기에는 시간과 재료가 들지 않습니다.'));showModal(a.name,box);});look.dataset.lyLook=a.id;panel.append(look);
    if(!a.kind&&a.parent==='MAP_LIYUE_HARBOR'){const role=game.liyueDistrictRole?.(a.id);panel.append(el('p','muted',role?'이 구역의 역할 · '+role.role+' — '+role.text+'. 길드·잡화·장비·숙박과 본편 재개는 리월항 중심에서 이용합니다.':'상점·제작·숙박·길드·본편 재개는 기존 리월항 중심 거점을 이용합니다.'),button('리월항 중심으로 가는 길 보기',()=>focusMap('MAP_LIYUE_HARBOR')));}
   const map=parent.querySelector('#journey-map');if(map)map.before(panel);else parent.prepend(panel);
  };

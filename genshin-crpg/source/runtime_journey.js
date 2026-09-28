@@ -60,7 +60,8 @@ P.startBattle=function(group,origin='EXPLICIT',options={}){
  }
  return result;
 };
-P.basicHit=function(a,t,k){if(a.id==='PLAYER_CUSTOM')k=(k??.65)*(1+.3*(this.s.worldProgress?.mastery||0));return old.basicHit.call(this,a,t,k);};
+// v0.14.0: the guild's +30%-per-rank basic attack mastery is gone; the protagonist keeps the plain coefficient.
+P.basicHit=function(a,t,k){if(a.id==='PLAYER_CUSTOM')k=k??.65;return old.basicHit.call(this,a,t,k);};
 P.finishBattle=function(win){const b=this.s.runtime;const result=old.finishBattle.call(this,win);if(win&&b?.origin.startsWith('STORY:')&&/^EG_TRV_(FALCON|WOLF|LION)_WAVE$/.test(b.group)){const w=this.ensureWorldProgress();if(!w.milestones[b.origin]){w.milestones[b.origin]=true;for(const a of this.ownedActors().filter(a=>a.active))this.addXp(a.id,300);this.s.lastMilestone={title:'사당 조사',xp:300};}}return result;};
 P.personal=function(id,choice){const e=json(this.row('51_EVENT_DB',id)[13]);if(e.choices?.find(c=>c.id===choice)?.companion==='TEMPORARY')fail('COMPANION','임시동행은 제공하지 않습니다. 개인 임무를 통해 정식 합류를 진행하세요.');return old.personal.call(this,id,choice);};
 P.actionReason=function(type,a={}){

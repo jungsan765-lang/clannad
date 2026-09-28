@@ -3,7 +3,7 @@ const lifePriorPanel=lifePanel;
 lifePanel=function(parent){
  const entries=game.lifeEntries();if(!entries.length)return;const section=el('section','life-panel');section.append(el('h2','','이 구역의 생활 행동'));
  for(const entry of entries){const c=el('section','card life-resource');c.append(el('h3','',entry.label+' 전용 구역'),el('p','','오늘 남은 자원 '+entry.remaining+' / '+entry.limit+' · 다음 날 다시 생성'));
-  if(entry.kind==='FISH'){c.append(el('p','','낚싯대와 과일 미끼 1개가 필요합니다. 입질 후 버튼을 눌렀다 놓으며 장력을 맞추세요.'),el('small','muted','기본 낚싯대 '+(game.itemCount('TRPG_FISHING_ROD')?'보유':'없음')+' · 미끼 '+game.itemCount(CRPGRuntime.lifeCatalog.bait)+'개'));
+  if(entry.kind==='FISH'){c.append(el('p','','낚싯대와 과즙 미끼 1개가 필요합니다. 입질 후 버튼을 눌렀다 놓으며 장력을 맞추세요.'),el('small','muted','기본 낚싯대 '+(game.itemCount('TRPG_FISHING_ROD')?'보유':'없음')+' · 미끼 '+game.itemCount(CRPGRuntime.lifeCatalog.bait)+'개'));
    if(!game.itemCount('TRPG_FISHING_ROD')||!game.itemCount(CRPGRuntime.lifeCatalog.bait))materialSources(c,game.itemCount('TRPG_FISHING_ROD')?CRPGRuntime.lifeCatalog.bait:'TRPG_FISHING_ROD');
   }else c.append(el('p','muted','작업 10초 · 게임 시간 10분'+(['GATHER','HUNT'].includes(entry.kind)?' · 적 조우 5%':'')));
   c.append(el('p','resource-preview',entry.pool.map(x=>safeName('14_ITEM_DB',x.item)+' '+x.min+(x.max!==x.min?'–'+x.max:'')+'개').join(' / ')));
@@ -58,7 +58,7 @@ function contactStories(parent){const place=game.currentPlace();if(!place?.valid
  const offers=game.legendContactEntries();for(const entry of offers){const d=entry.definition,c=el('section','card'),registered=game.legendRegistered(entry.id);c.append(el('h3','',game.tables['22_QUEST_DB'].get(d.QUEST_ID)?.[1]||entry.title),el('p','',game.tables['22_QUEST_DB'].get(d.QUEST_ID)?.[5]||'당사자를 만나 이야기를 듣습니다.'));
   if(!registered){
    if(typeof requirementList==='function')requirementList(c,game.legendRequirements(d,{cost:false,location:false}));
-   const first=game.mondFirstContact?.(d);if(first&&!first.complete)c.append(actionButton('첫 만남의 이야기를 듣는다','MOND_FIRST_CONTACT',{quest:d.id},true));
+   const first=game.mondFirstContact?.(d);if(first&&!first.complete)c.append(actionButton('첫 만남 이야기 듣기','MOND_FIRST_CONTACT',{quest:d.id},true));
    const reason=game.legendIntroductionReason(d);if(reason)c.append(el('p','requirement-unmet',reason));
    c.append(actionButton('이야기를 듣고 개인 임무 소개받기','LEGEND_REGISTER',{quest:entry.id},true));
   }else{

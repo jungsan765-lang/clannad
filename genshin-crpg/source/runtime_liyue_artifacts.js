@@ -40,7 +40,7 @@ function installRows(r){
   headerSet(equips,row,'EQUIP_ID',spec.id);headerSet(equips,row,'장비명',spec.name);headerSet(equips,row,'이름',spec.name);
   headerSet(equips,row,'장비 종류','특수');headerSet(equips,row,'장착 가능 대상','전원');headerSet(equips,row,'최소 레벨',1);
   for(const key of ['기본 ATK','기본 DEF','기본 HP','치확%','치피%','SPD 보정','명중 보정','회피 보정','상태저항 보정'])headerSet(equips,row,key,0);
-  headerSet(equips,row,'기타 보조 스탯','드랍 시 개별 난수');headerSet(equips,row,'고유 효과','타르탈리아 반복 도전에서 개별 능력치가 난수로 결정되는 CRPG 성유물.');
+  headerSet(equips,row,'기타 보조 스탯','얻을 때마다 무작위');headerSet(equips,row,'고유 효과','타르탈리아 반복 도전에서 얻는 성유물. 세부 능력치는 얻을 때마다 무작위로 정해진다.');
   headerSet(equips,row,'강화 성장','야타용왕의 지맥 결정으로 +5까지 별도 확률 강화');headerSet(equips,row,'획득처/조건','리월 황금옥 · 타르탈리아 반복 도전');
   headerSet(equips,row,'판매가',100);headerSet(equips,row,'ENHANCEMENT_PROFILE_JSON','{}');headerSet(equips,row,'ENHANCE_ALLOWED','N');headerSet(equips,row,'ENHANCE_LIMIT',0);
   headerSet(equips,row,'NO_ENHANCE_REASON','성유물은 일반 장비 강화가 아니라 야타용왕 재료로 +5까지 별도 강화합니다.');
@@ -49,7 +49,7 @@ function installRows(r){
  if(!items.some(row=>row[0]===ARTIFACT_MATERIAL)){
   const row=itemTemplate.slice();
   headerSet(items,row,'ITEM_ID',ARTIFACT_MATERIAL);headerSet(items,row,'아이템명','야타용왕의 지맥 결정');headerSet(items,row,'이름','야타용왕의 지맥 결정');
-  headerSet(items,row,'분류','재료');headerSet(items,row,'설명','야타용왕 반복 도전에서 얻는 CRPG 전용 성장 재료. 타르탈리아에게서 얻은 성유물을 +5까지 확률 강화할 때 사용한다.');
+  headerSet(items,row,'분류','재료');headerSet(items,row,'설명','야타용왕 반복 도전에서 얻는 성장 재료. 타르탈리아에게서 얻은 성유물을 +5까지 확률 강화할 때 사용한다.');
   headerSet(items,row,'효과','성유물 강화 재료');headerSet(items,row,'재료 여부','Y');headerSet(items,row,'퀘스트 아이템 여부','N');headerSet(items,row,'판매가',150);headerSet(items,row,'구매가',0);
   items.push(row);
  }

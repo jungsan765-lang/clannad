@@ -43,10 +43,10 @@
     }
    }
   });
-  table('14_ITEM_DB',rows=>{if(!rows.some(r=>r[0]===BAIT))rows.push([BAIT,'과일 미끼','낚시 도구','일반','','낚싯바늘에 달아 물고기를 유인하는 과일 반죽.','낚시터','낚시를 시작할 때 1개 사용','','','N','공용','','',2,8,999,'몬드 잡화 상인 · 공용 조리시설','Y','N','공용','CRPG_LOCAL_V010','']);});
+  table('14_ITEM_DB',rows=>{if(!rows.some(r=>r[0]===BAIT))rows.push([BAIT,'과즙 미끼','낚시 도구','일반','','낚싯바늘에 달아 물고기를 유인하는 과일 반죽.','낚시터','낚시를 시작할 때 1개 사용','','','N','공용','','',2,8,999,'몬드 잡화 상인 · 공용 조리시설','Y','N','공용','CRPG_LOCAL_V010','']);});
   const rodStocks=this.rows('19_SHOP_STOCK_DB').filter(r=>r[3]==='TRPG_FISHING_ROD');
-  table('19_SHOP_STOCK_DB',rows=>{for(const stock of rodStocks){const id=stock[1]==='MRC_MOND_GENERAL'?'STK_CRPG_FRUIT_BAIT':'STK_CRPG_FRUIT_BAIT_'+stock[1];if(rows.some(r=>r[0]===id))continue;const r=stock.slice();r[0]=id;r[3]=BAIT;r[4]='과일 미끼';r[5]=8;r[6]=40;r[7]='매일';r[8]='';rows.push(r);}});
-  table('17_RECIPE_DB',rows=>{if(!rows.some(r=>r[0]==='REC_CRPG_FRUIT_BAIT'))rows.push(['REC_CRPG_FRUIT_BAIT','요리','ITEM',BAIT,10,'ING_SUNSETTIA',1,'ING_FLOUR',1,'',0,'',0,'',0,0,'조리시설','조리시설','기본 해금','5분',100,'과일 미끼 10개']);});
+  table('19_SHOP_STOCK_DB',rows=>{for(const stock of rodStocks){const id=stock[1]==='MRC_MOND_GENERAL'?'STK_CRPG_FRUIT_BAIT':'STK_CRPG_FRUIT_BAIT_'+stock[1];if(rows.some(r=>r[0]===id))continue;const r=stock.slice();r[0]=id;r[3]=BAIT;r[4]='과즙 미끼';r[5]=8;r[6]=40;r[7]='매일';r[8]='';rows.push(r);}});
+  table('17_RECIPE_DB',rows=>{if(!rows.some(r=>r[0]==='REC_CRPG_FRUIT_BAIT'))rows.push(['REC_CRPG_FRUIT_BAIT','요리','ITEM',BAIT,10,'ING_SUNSETTIA',1,'ING_FLOUR',1,'',0,'',0,'',0,0,'조리시설','조리시설','기본 해금','5분',100,'과즙 미끼 10개']);});
   table('48_RECIPE_INGREDIENT_DB',rows=>{for(const [i,item]of ['ING_SUNSETTIA','ING_FLOUR'].entries())if(!rows.some(r=>r[0]==='RI_CRPG_BAIT_'+i))rows.push(['RI_CRPG_BAIT_'+i,'REC_CRPG_FRUIT_BAIT',i+1,item,1,'','','CRPG_LOCAL_V010']);});
   table('51_EVENT_DB',rows=>{if(!rows.some(r=>r[0]===TAVERN)){const r=rows.find(r=>r[0]===SARA).slice(),d=parse(r[13]);Object.assign(d,{entity_id:'NPC_CRPG_CHARLES',merchant_id:null,label:'천사의 몫 · 찰스',facility:'천사의 몫',map_ids:['MAP_MOND_CITY'],from_minute:600,to_minute:1440});r[0]=TAVERN;r[13]=JSON.stringify(d);rows.push(r);}});
   this._placeCatalog=null;this._lifeInstalled=true;
@@ -105,7 +105,7 @@
    if(this.storyDone(d.id)||this.legendRegistered(d.id))return '이미 소개받았거나 마친 개인 임무입니다.';return '';
   }
   const reason=old.actionReason.call(this,type,a);if(reason)return reason;
-  if(type==='LIFE_START'&&a.kind==='FISH'){if(!this.itemCount('TRPG_FISHING_ROD'))return '기본 낚싯대가 필요합니다. 몬드 잡화 상인에게 구입할 수 있습니다.';if(!this.itemCount(BAIT))return '과일 미끼가 필요합니다. 잡화 상인에게 구입하거나 조리시설에서 만들 수 있습니다.';}
+  if(type==='LIFE_START'&&a.kind==='FISH'){if(!this.itemCount('TRPG_FISHING_ROD'))return '기본 낚싯대가 필요합니다. 몬드 잡화 상인에게 구입할 수 있습니다.';if(!this.itemCount(BAIT))return '과즙 미끼가 필요합니다. 잡화 상인에게 구입하거나 조리시설에서 만들 수 있습니다.';}
   return '';
  };
  P.apply=function(a){if(a.type==='LIFE_FINISH')return this.finishLife(a.job,a);return old.apply.call(this,a);};

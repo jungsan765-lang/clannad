@@ -263,7 +263,7 @@ const CONFIG={
       ]
     },
     "HIGHLAND_FIRE": {
-      "name": "고지의 불 슬라임",
+      "name": "고지의 화염 슬라임",
       "members": [
         [
           "MON_SLIME_LARGE_PYRO",
@@ -373,7 +373,7 @@ const CONFIG={
       ]
     },
     "PYRO_MAGE": {
-      "name": "불 심연 메이지의 습격",
+      "name": "화염의 심연 메이지 습격",
       "members": [
         [
           "MON_ABYSS_MAGE_PYRO",
@@ -686,7 +686,7 @@ const CONFIG={
       ]
     },
     "WHOPPER_FIRE": {
-      "name": "화염 구라구라꽃의 기습",
+      "name": "뜨거운 구라구라꽃의 기습",
       "members": [
         [
           "MON_WHOPPER_PYRO",
@@ -716,7 +716,7 @@ const CONFIG={
       ]
     },
     "HYDRO_MAGE": {
-      "name": "물 심연 메이지의 습격",
+      "name": "물의 심연 메이지 습격",
       "members": [
         [
           "MON_ABYSS_MAGE_HYDRO",
@@ -736,7 +736,7 @@ const CONFIG={
       ]
     },
     "CRYO_MAGE": {
-      "name": "얼음 심연 메이지의 습격",
+      "name": "얼음의 심연 메이지 습격",
       "members": [
         [
           "MON_ABYSS_MAGE_CRYO",
@@ -761,7 +761,7 @@ const CONFIG={
       ]
     },
     "RUIN_GRADER": {
-      "name": "눈에 묻힌 유적 중기",
+      "name": "눈에 묻힌 파멸의 유적 가디언",
       "members": [
         [
           "MON_RUIN_GRADER",

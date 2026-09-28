@@ -10,7 +10,7 @@ function recruitmentIntroductionGuide(parent,d){
   }else travelGuide(guide,place.maps[0]);
  }
  const first=game.mondFirstContact?.(d);
- if(first&&!first.complete)guide.append(actionButton('첫 만남의 이야기를 듣는다','MOND_FIRST_CONTACT',{quest:d.id},true));
+ if(first&&!first.complete)guide.append(actionButton('첫 만남 이야기 듣기','MOND_FIRST_CONTACT',{quest:d.id},true));
  parent.append(guide);
 }
 function recruitmentScreen(p){

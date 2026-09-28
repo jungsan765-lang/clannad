@@ -10,7 +10,7 @@
   const box=el('section','card mond-region-guide liyue-region-guide');box.id='liyue-region-guide';
   box.append(el('h2','','지역 위험도 · '+g.label));
   box.append(el('p','',g.biome+' · 적 Lv. '+g.minLevel+'–'+g.maxLevel+' · 현재 생존 파티 '+g.party.alive+'명 · 평균 Lv. '+g.party.average));
-  box.append(el('p',g.underLevel?'region-warning':'muted',g.underLevel?'현재 파티 레벨이 이 지역의 적보다 낮습니다. 장비·회복·동료를 준비하거나 더 안전한 지역에서 성장하세요.':g.overLevel?'파티가 이 지역보다 강합니다. 적 레벨은 '+g.maxLevel+'을 넘지 않지만, 강화 개체가 나올 확률이 조금 오릅니다.':'적은 파티 평균 레벨 ±1 안에서, 이 지역의 레벨 범위를 넘지 않게 등장합니다.'));
+  box.append(el('p',g.underLevel?'region-warning':'muted',g.underLevel?'현재 파티 레벨이 이 지역의 적보다 낮습니다. 장비·회복·동료를 준비하거나 더 안전한 지역에서 성장하세요.':g.overLevel?'파티가 이 지역보다 강합니다. 적 레벨은 최대 '+g.maxLevel+'까지만 오르지만, 강화 개체가 나올 확률이 조금 오릅니다.':'적은 파티 평균 레벨 ±1 안에서, 이 지역의 레벨 범위를 넘지 않게 등장합니다.'));
   box.append(el('p','muted','이동·대기 중 조우 확률 '+g.encounterChance+'% · 지금 파티로 만날 적 Lv. '+range(g.enemyLevels)+' · 전투당 적 수는 생존 파티 인원(최대 4명)까지 줄어듭니다.'));
   if(g.tiers)box.append(el('p','muted','강화 개체 출현 · 강화 일반 '+g.tiers.enhanced+'% · 강한 정예 '+g.tiers.strongElite+'% · 지역 위험 개체 '+g.tiers.danger+'%'));
   const details=el('details','region-encounters');details.append(el('summary','','이곳에서 만날 수 있는 적 · 편성 '+g.entries.length+'개'));

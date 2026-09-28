@@ -65,7 +65,7 @@ try{
  const visited=[];
  for(let i=0;i<16;i++){
   const current=await page.evaluate(()=>({node:game.storyActiveNodeId(),choices:game.storyChoices().length,kind:game.storyNode()?.[5]}));
-  const next=page.getByRole('button',{name:current.kind==='INPUT_TEXT'?'정한 이름을 알려준다':'계속 읽기',exact:true});if(current.choices||!await next.count())break;
+  const next=page.getByRole('button',{name:current.kind==='INPUT_TEXT'?'정한 이름 알려 주기':'계속 읽기',exact:true});if(current.choices||!await next.count())break;
   assert(!visited.includes(current.node),'story node repeated');visited.push(current.node);await next.click();await idle();await page.evaluate(()=>CRPGOnline.flushReading());await same('story '+i);
  }
  assert(visited.length>=1);results.push({storyNodes:visited});
@@ -106,11 +106,12 @@ try{
  const relations=free();relations.markContact('PROFILE_MOND_AMBER');fixture.seed(relations.s);await start();
  await page.locator('[data-screen="RELATIONS"]').click();await idle();
  const card=page.locator('.relationship-card').filter({hasText:'엠버'}).first();await card.locator('summary').click();
- const activity=card.locator('.relationship-activities');assert(await activity.getByRole('button').isDisabled());
- const unmet=activity.locator('.requirement-unmet');assert((await unmet.innerText()).includes('개인'));assert.equal(await unmet.evaluate(n=>getComputedStyle(n).color),'rgb(255, 155, 155)');
- const lockedActivity=relations.relationshipActivityEntries().find(x=>x.profileId==='PROFILE_MOND_AMBER');assert(lockedActivity?.reason);
+ // v0.14.0 removed daily exchange activities; the locked next affection stage still explains its blocker in red.
+ assert.equal(await card.locator('.relationship-activities').count(),0,'daily exchange activities were removed');
+ const unmet=card.locator('.relationship-next.requirement-unmet');assert((await unmet.innerText()).includes('개인'));assert.equal(await unmet.evaluate(n=>getComputedStyle(n).color),'rgb(255, 155, 155)');
+ const lockedActivity=Object.values(globalThis.CRPGRelationships.activitiesFromDB(DB)).find(x=>x.profileId==='PROFILE_MOND_AMBER'&&x.route===relations.s.global.STORY_ROUTE_ID);assert(relations.actionReason('RELATION_ACTIVITY',{activityId:lockedActivity.id}));
  const beforeLocked=fixture.read().revision;await page.evaluate(id=>act('RELATION_ACTIVITY',{activityId:id}),lockedActivity.id);await idle();assert.equal(fixture.read().revision,beforeLocked);assert.equal(await page.evaluate(()=>CRPGOnline.pending),null);
- const dismiss=page.getByRole('button',{name:'나중에 보기',exact:true});if(await dismiss.count())await dismiss.click();await activity.scrollIntoViewIfNeeded();await page.screenshot({path:resolve(evidence,'relationship-locked.png')});
+ const dismiss=page.getByRole('button',{name:'나중에 보기',exact:true});if(await dismiss.count())await dismiss.click();await card.scrollIntoViewIfNeeded();await page.screenshot({path:resolve(evidence,'relationship-locked.png')});
  await page.evaluate(({id,revision})=>{const p={account:CRPGOnline.account.id,requestId:crypto.randomUUID(),revision,version:'0.13.49',uiScreen:'RELATIONS',uiActions:[],reading:[],type:'RELATION_ACTIVITY',params:{activityId:id}};localStorage.setItem('crpg-online-pending-accounts-v2',JSON.stringify({[p.account]:p}));},{id:lockedActivity.id,revision:beforeLocked});
  await page.reload();await page.locator('.title-start').click();await idle();assert.equal(await page.evaluate(()=>CRPGOnline.pending),null,'legacy rejected relationship action cannot remain a permanent pending packet');assert.equal(fixture.read().revision,beforeLocked);
  await page.locator('[data-screen="LOCATION"]').click();await idle();await page.evaluate(()=>act('WAIT',{minutes:1}));await idle();await same('play after legacy rejection');

@@ -23,9 +23,7 @@ mainObjective=function(parent){
  box.append(el('small','muted',f.mission.startsWith('rescue_')?'현재 위기 장면의 목표를 먼저 해결하세요. 진행 도중 저장할 수 있습니다.':'지도·편성·장비·시설은 메인 화면에서 이용할 수 있습니다. 현장 진행은 자동 저장됩니다.'));parent.append(box);
 };
 const baseStory=story;
-story=function(parent,v){if(game.s.liyueField&&!game.s.storyContext){mainObjective(parent);parent.append(actionButton('메인 화면에서 이동·준비','MENU',{screen:'LOCATION'}));return;}baseStory(parent,v);
- const rows=CRPGLiyueRework.archive[game.storyActiveNodeId()];if(rows){const detail=el('details','story-transcript');detail.append(el('summary','','이 장면 자세히 읽기'));for(const r of rows)detail.append(el('p','',(r.speaker?r.speaker+': ':'')+displayText(r.text)));parent.append(detail);}
-};
+story=function(parent,v){if(game.s.liyueField&&!game.s.storyContext){mainObjective(parent);parent.append(actionButton('메인 화면에서 이동·준비','MENU',{screen:'LOCATION'}));return;}baseStory(parent,v);};
 const baseCombat=combat;
 combat=function(parent,v){baseCombat(parent,v);const b=game.s.runtime,o=b?.fieldObjective;if(!o)return;const box=el('section','card field-combat-objective');box.append(el('h3','',o.kind==='DESTROY'?'파괴 목표 · 구조물의 내구도를 0으로':o.kind==='BATTLE'?'현장 목표 · 습격자 제압':'보호 목표 · '+o.integrity+' / '+o.maxIntegrity));
  if(b.liyueEvacuation)box.append(el('p','','안전하게 이동한 라운드 '+b.liyueEvacuation.completedRounds+' / 3 · 남은 적도 모두 제압해야 합니다. 방어 행동은 목표가 받는 피해를 줄입니다.'));

@@ -29,12 +29,12 @@ P.worldRequirement=function(p){
  if(g.CURRENT_MAP_ID!==p.map)return '흔적이 있는 장소에 먼저 도착해 주세요.';
  if(g.PLAYER_LEVEL_STATE<p.level)return '권장 준비 단계 · Lv. '+p.level+'부터 조사할 수 있습니다.';
  if(p.place){if(s.placeVisit?.place!==p.place||!this.currentPlace()?.valid)return '몬드 잡화 상점 안에서 상인에게 물어보세요.';}else if(s.placeVisit)return '시설 밖에서 주변을 살펴보세요.';
- if(r.bond&&this.storyBond(r.profile)<r.bond)return '엠버와의 호감도 '+r.bond+'가 필요합니다. 개인 임무 후 2번 슬롯에서 함께 전투해 보세요.';
+ if(r.bond&&this.storyBond(r.profile)<r.bond)return '엠버와의 호감도가 '+r.bond+' 이상이어야 합니다. 엠버와 함께 다니며 먼저 가까워져 보세요.';
  const active=this.s.party.filter(p=>p.active).map(p=>p.source==='PLAYER_CUSTOM'?this.player():this.character(p.source)).filter(a=>a.hp>0);
  if(r.activeCharacter&&!active.some(a=>a.source===r.activeCharacter||a.id===r.activeCharacter))return '엠버를 살아 있는 파티원으로 편성해 주세요.';
  if(r.activeElement&&!active.some(a=>a.id!=='PLAYER_CUSTOM'&&String(this.row('07_CHAR_DB',a.id)[3]).includes('['+r.activeElement+']')))return '불 원소의 파티원과 함께 화로를 조사해 주세요.';
  if(r.timeWindow){const [h,mn]=String(g.WORLD_TIME).split(':').map(Number),m=h*60+mn;if(!(m>=r.timeWindow[0]||m<r.timeWindow[1]))return '밤 18:00~06:00에 빛을 확인할 수 있습니다.';}
- if(r.itemsOwned)for(const [id,n]of Object.entries(r.itemsOwned))if(this.itemCount(id)<n)return this.row('14_ITEM_DB',id)[1]+'이 필요합니다. 몬드 잡화 상점에서 준비할 수 있습니다.';
+ if(r.itemsOwned)for(const [id,n]of Object.entries(r.itemsOwned))if(this.itemCount(id)<n)return this.row('14_ITEM_DB',id)[1]+'이(가) 필요합니다. 몬드 잡화 상점에서 준비할 수 있습니다.';
  if(r.visitedMaps?.some(id=>!s.exploration?.visitedMaps[id]))return '먼저 바람맞이 산, 천풍 신전, 맹세의 갑각을 직접 여행해 보세요.';
  return '';
 };
@@ -85,17 +85,19 @@ P.actionReason=function(type,a={}){
  if(type==='OCULUS_COLLECT')return '흔적의 단서를 조사하고 조건을 해결해 주세요.';
  const reason=old.actionReason.call(this,type,a);if(reason)return reason;
  if(type==='WORLD_WORK_START'){try{const spec=this.worldWorkSpec(a);if(spec.step.cost)this.checkWorldCost(spec.step.cost);}catch(e){return e.message;}}
- if(type==='MASTERY'){const rank=this.s.worldProgress?.mastery||0;if(!this.atGuild())return '모험가 길드에서 무술을 배울 수 있습니다.';if(rank>=2)return '기초 무술 훈련을 모두 마쳤습니다.';if(this.s.global.PLAYER_LEVEL_STATE<3+rank*2)return 'Lv. '+(3+rank*2)+'부터 배울 수 있습니다.';if(this.s.global.MORA<100*(rank+1)||this.itemCount('ORE_IRON')<3*(rank+1))return (100*(rank+1))+' 모라와 철광석 '+(3*(rank+1))+'개가 필요합니다.';}
+ if(type==='MASTERY')return '무술 숙련은 없어졌습니다.';
  if(type==='CLAIM_QUEST'&&a.quest===LETTER&&!this.atGuild())return '캐서린에게 결과를 보고하고 보상을 받아 주세요.';
  return '';
 };
-P.apply=function(a){this.ensureWorldProgress();if(a.type==='WORLD_WORK_START')return this.startWorldWork(a);if(a.type==='WORLD_WORK_FINISH')return this.finishWorldWork(a.job);if(a.type==='WORLD_WORK_CANCEL'){delete this.s.worldJob;return {cancelled:true};}if(a.type==='MASTERY'){const w=this.ensureWorldProgress(),rank=w.mastery;this.pay({mora:100*(rank+1),items:{ORE_IRON:3*(rank+1)}});w.mastery++;return {mastery:w.mastery,basicAttackBonus:w.mastery*30};}return old.apply.call(this,a);};
+P.apply=function(a){this.ensureWorldProgress();if(a.type==='WORLD_WORK_START')return this.startWorldWork(a);if(a.type==='WORLD_WORK_FINISH')return this.finishWorldWork(a.job);if(a.type==='WORLD_WORK_CANCEL'){delete this.s.worldJob;return {cancelled:true};}if(a.type==='MASTERY')fail('MASTERY','무술 숙련은 없어졌습니다.');return old.apply.call(this,a);};
 P.newGame=function(o){this.installWorldContent();old.newGame.call(this,o);this.ensureWorldProgress();return copy(this.s);};
 P.validateSave=function(s){
  this.installWorldContent();const w=this.ensureWorldProgress(s);if(w.version!==1||!w.oculi||!w.commissions||!w.milestones||!Number.isInteger(w.mastery)||w.mastery<0||w.mastery>2||!w.training||!Number.isInteger(w.training.count)||w.training.count<0||w.training.count>3||!Number.isInteger(w.training.day)||w.training.day<0||w.training.day>s.global.WORLD_DAY)fail('WORLD_SAVE','탐험·훈련 기록을 확인해 주세요.');
  for(const [id,n]of Object.entries(w.oculi)){const p=this.oculusPoint(id);if(!p||!Number.isInteger(n)||n<0||n>p.steps.length)fail('WORLD_SAVE','눈동자 조사 단계를 확인해 주세요.');}
  for(const [id,n]of Object.entries(w.commissions))if(id!==LETTER||!Number.isInteger(n)||n<0||n>3)fail('WORLD_SAVE','편지 의뢰 단계를 확인해 주세요.');
  old.validateSave.call(this,s);
+ // v0.14.0 removed the +30% basic-attack mastery: return what each rank cost (100/200 Mora, 3/6 iron chunks).
+ if(w.mastery>0){const mora=50*w.mastery*(w.mastery+1),iron=1.5*w.mastery*(w.mastery+1),f=Object.create(this);f.s=s;s.global.MORA+=mora;f.giveItem('ORE_IRON',iron);w.masteryRefund={mora,iron};w.mastery=0;}
  if(s.worldJob){const facade=Object.create(this);facade.s=s;const j=s.worldJob,spec=facade.worldWorkSpec(j),phaseView=Object.create(this);phaseView.s={...s,lifeJob:undefined,worldJob:undefined};if(phaseView.playPhase()!=='FREE'||s.lifeJob||s.runtime||j.stage!==spec.stage||j.duration!==spec.duration||j.map!==s.global.CURRENT_MAP_ID||!Number.isSafeInteger(j.startedAt)||j.startedAt<0||j.startedAt>Date.now()+1000||typeof j.id!=='string'||!j.id.startsWith(s.global.SAVE_ID+':W'))fail('WORLD_SAVE','진행 중인 작업 기록을 확인해 주세요.');}
  return s;
 };

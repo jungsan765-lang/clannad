@@ -29,8 +29,7 @@ const EnemyIntel={
    body.append(el('p','',c.description),el('p','intel-condition','발동 조건 · '+(c.condition||'조건 없음')));
    if(c.unavailableReason)body.append(el('p','intel-condition','현재 제한 · '+c.unavailableReason));
    if(info.grade!=='보스'){const counter=el('div','intel-counter');counter.append(el('strong','','대응 방법'),el('p','',c.counter));body.insertBefore(counter,body.children[1]||null);}
-   if(c.authored)body.append(el('small','muted','기존 몬스터의 행동을 카드화한 CRPG 전용 명칭·수치입니다.'));
-   if(!c.supported)body.append(el('small','muted',c.reason||'정의만 존재하는 기술입니다.'));
+   if(!c.supported)body.append(el('small','muted',c.reason||'이번 전투에서는 쓰지 않는 기술입니다.'));
    entry.append(body);list.append(entry);
   }
   box.append(el('h3','intel-section-title','보유 기술 · '+info.cards.length),list,el('p','intel-footnote','대기시간은 이 적의 자기 차례에 감소합니다. 사용 가능 표시는 조건 충족 여부이며 다음 행동을 확정 예고하지는 않습니다.'));

@@ -1,7 +1,7 @@
 /* Read-only mission and affinity journal. Builds view models from the runtime; never acts or changes a save. */
 (function (root) {
   'use strict';
-  const STAGE = /_H0([1-5])$/, DEEP = /_B1([12])0$/, BOND_REASON = '함께 활동하며 관계를 더 쌓아 주세요.';
+  const STAGE = /_H0([1-5])$/, DEEP = /_B1([12])0$/, BOND_REASON = '조금 더 가까워진 뒤에 이어질 이야기입니다.';
   const RANK = {active:-1, ready:0, travel:1, locked:2, done:3};
   const stageOf = id => Number(String(id).match(STAGE)?.[1] || 0);
   const bondNeed = d => Number(d?.BOND_SCORE_MIN || Number(d?.HEART_MIN || 0) * 20);
@@ -37,7 +37,7 @@
       .sort((a, b) => (stageOf(a.id) || 9) - (stageOf(b.id) || 9) || a.id.localeCompare(b.id))
       .map(e => {
         const stage = stageOf(e.id), deep = String(e.id).match(DEEP)?.[1];
-        return {id:e.id, stage, label:stage ? '일상 교류 · ' + stage + '단계' : '유대 이야기' + (deep ? ' ' + deep : ''),
+        return {id:e.id, stage, label:stage ? '호감도 이야기 · ' + stage + '단계' : '유대 이야기' + (deep ? ' ' + deep : ''),
           short:stage ? stage + '단계' : '유대 이야기' + (deep ? ' ' + deep : ''), need:bondNeed(e.definition), map:e.definition?.MAP_ID || null, ...progress(game, e)};
       });
   }

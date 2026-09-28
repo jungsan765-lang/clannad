@@ -6,8 +6,8 @@ P.storyIndex=function(){
  const ix=previous.call(this);if(ix.mondEditorial44)return ix;
  const edit=(id,values)=>{const row=ix.nodes.get('ROUTE_ISEKAI:'+id);if(!row)throw new api.RuleError('MOND_CONTENT','몬드 이야기 연결을 확인해 주세요.');for(const [col,value]of Object.entries(values))row[Number(col)]=value;if(Object.hasOwn(values,'9'))row[19]=String(row[19]||'').replace(/GREETING_VARIANT_JSON=(\{.*\})/,(_,raw)=>{const data=JSON.parse(raw);data.first_text=values[9];data.reunion_text=values[9];return 'GREETING_VARIANT_JSON='+JSON.stringify(data);});return row;};
  edit('ISK_M05_AA_125',{9:'기사단 문을 나서자 엠버가 남쪽 길이 표시된 지도를 건넸다. 갈 곳과 챙길 물건은 정해졌다. 다만 구슬에 관해 적은 기록을 공방에 맡길지 잠시 망설였다. 알베도는 출발을 늦출 필요는 없다고 전해 왔다. 남은 인사는 돌아온 뒤에도 할 수 있었다.'});
- const choice=edit('ISK_M05_AA_126',{10:'출발 전에 알베도에게 구슬의 기록을 맡긴다.',13:'ISK_M05_AA_145'});
- const skip=choice.slice();skip[4]='ISK_M05_AA_DEPART_DIRECT';skip[10]='오늘은 바로 성문으로 간다. 기록은 돌아와서 전한다.';skip[13]='ISK_M05_AA_204';skip[17]=Number(choice[17])+.1;skip[19]='v0.13.44 선택 가능한 출발 준비. 기존 분기·보상에는 영향 없음.';
+ const choice=edit('ISK_M05_AA_126',{10:'출발 전에 알베도한테 구슬 기록부터 맡기고 가자.',13:'ISK_M05_AA_145'});
+ const skip=choice.slice();skip[4]='ISK_M05_AA_DEPART_DIRECT';skip[10]='기록은 돌아와서 전하자. 오늘은 바로 성문으로 가야겠어.';skip[13]='ISK_M05_AA_204';skip[17]=Number(choice[17])+.1;skip[19]='v0.13.44 선택 가능한 출발 준비. 기존 분기·보상에는 영향 없음.';
  Object.defineProperties(skip,{table:{value:'55_MAIN_STORY_DB'},sourceRow:{value:0}});ix.nodes.set('ROUTE_ISEKAI:'+skip[4],skip);ix.byTable['55_MAIN_STORY_DB'].push(skip);
  edit('ISK_M05_AA_127',{9:'알겠어. 길은 다 확인했으니까 더 서두르지는 말자. 공방에 기록만 맡기고 성문으로 가면 되겠네.',13:'ISK_M05_AA_145'});
  edit('ISK_M05_AA_145',{9:'공방 안에서는 알베도가 기사단에서 받은 보고서를 읽고 있었다. 그는 내가 꺼낸 기록을 탁자 위에 펼치고, 실제로 본 부분에만 표시를 부탁했다. 구슬은 가방 속에 그대로 두었다.'});

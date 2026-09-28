@@ -26,7 +26,7 @@ P.installLiyueAreas=function(){
  add('32_MAP_DB',maps);add('34_MAP_ENCOUNTER_POOL',pools);
  const edges=[];for(const [i,[from,to,minutes,kind]]of C.links.entries())for(const rev of [false,true]){
   const a=rev?to:from,b=rev?from:to,id='EDGE_LY_DETAIL_'+String(i+1).padStart(3,'0')+(rev?'_B':'_A'),back='EDGE_LY_DETAIL_'+String(i+1).padStart(3,'0')+(rev?'_A':'_B');
-  edges.push([id,a,b,kind,1,minutes,'','','Y',(kind==='SEA_TRANSIT'?'배편 · ':'')+this.row('32_MAP_DB',b)[2]+'로 이동',back,'ACTIVE','CRPG_LIYUE_DETAIL_V1','세부 여행 경로. 실제 도로/선박 시간의 환산값이 아님.']);
+  edges.push([id,a,b,kind,1,minutes,'','','Y',(kind==='SEA_TRANSIT'?'배편 · ':'')+this.row('32_MAP_DB',b)[2]+'(으)로 이동',back,'ACTIVE','CRPG_LIYUE_DETAIL_V1','세부 여행 경로. 실제 도로/선박 시간의 환산값이 아님.']);
  }
  add('47_MAP_EDGE_DB',edges);this._liyueAreasInstalled=true;
 };

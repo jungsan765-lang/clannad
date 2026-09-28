@@ -61,20 +61,20 @@ P.storyIndex=function(){
   const set=(id,fn)=>{const row=ix.nodes.get('ROUTE_ISEKAI:'+id);if(row)fn(row);};
   set(diluc.ENTRY_NODE_ID,row=>{row[9]='이세계인 전용 다이루크 개인 임무. 다운 와이너리의 운송 기록을 조사하고, 완료 뒤 동행 여부를 정한다.';row[11]=diluc.START_CONDITION;});
   set('LEG_ISK_MOND_DILUC_N005',row=>row[9]='이 기록은 사당의 일과 별개로 보겠다. 자네가 눈에 보이는 차이를 확인해 줘. 나는 실제로 수레를 몬 사람에게 묻지. 필요한 준비를 마쳤다면 시작하지.');
-  set('LEG_ISK_MOND_DILUC_PREP_ACCEPT',row=>row[10]='준비한 물자와 비용을 확인하고 운송 기록 조사를 시작한다.');
+  set('LEG_ISK_MOND_DILUC_PREP_ACCEPT',row=>row[10]='준비는 끝났어. 운송 기록부터 확인하러 가자.');
   set('LEG_ISK_MOND_DILUC_N024',row=>row[9]='오늘 일은 여기서 마쳤다. 앞으로도 함께 움직일 생각이 있다면 지금 정해도 된다. 당장 답하지 않아도 상관없어.');
-  set('LEG_ISK_MOND_DILUC_N025',row=>row[10]='앞으로도 함께 움직이자고 제안한다.');
-  set('LEG_ISK_MOND_DILUC_N026',row=>row[10]='오늘은 여기까지 하고, 동행 이야기는 다음으로 미룬다.');
-  set('LEG_ISK_MOND_DILUC_END_JOIN',row=>{row[9]='다이루크: 필요할 때 연락하지. 함께 움직일 일이 생기면 준비해 두겠다.\n다이루크와의 개인 임무를 마치고 동행하기로 한다.';row[12]='COMPLETE_LEGEND:Q_LEG_ISK_MOND_DILUC;UNLOCK_CARD_ONCE:MOND_DILUC:FLAG_ISK_RECRUIT_DILUC;ADD_HEART:PROFILE_MOND_DILUC:1;FLAG:FLAG_LEG_ISK_MOND_DILUC_CLEAR=TRUE';});
-  set('LEG_ISK_MOND_DILUC_END_DEFER',row=>{row[9]='다이루크: 오늘 일은 끝났군. 동행 이야기는 서두를 필요 없다. 생각이 정리되면 와이너리로 와.\n개인 임무는 마쳤지만 동행 제안은 다음으로 미룬다.';});
+  set('LEG_ISK_MOND_DILUC_N025',row=>row[10]='앞으로도 같이 움직이자, 다이루크.');
+  set('LEG_ISK_MOND_DILUC_N026',row=>row[10]='오늘은 여기까지 하자. 같이 다니는 건 좀 더 생각해 볼게.');
+  set('LEG_ISK_MOND_DILUC_END_JOIN',row=>{row[9]='다이루크가 장갑을 고쳐 끼며 짧게 고개를 끄덕인다. “필요할 때 부르지. 함께 움직일 일이 생기면 준비해 두겠다.”';row[12]='COMPLETE_LEGEND:Q_LEG_ISK_MOND_DILUC;UNLOCK_CARD_ONCE:MOND_DILUC:FLAG_ISK_RECRUIT_DILUC;ADD_HEART:PROFILE_MOND_DILUC:1;FLAG:FLAG_LEG_ISK_MOND_DILUC_CLEAR=TRUE';});
+  set('LEG_ISK_MOND_DILUC_END_DEFER',row=>{row[9]='다이루크는 대답을 재촉하지 않고 장부를 덮는다. “서두를 필요 없다. 생각이 정리되면 와이너리로 와.”';});
   const table='57_MOND_STORY_SCENE_DB',add=(id,type,text,next,effect='',group='',label='')=>{
    const key='ROUTE_ISEKAI:'+id;if(ix.nodes.has(key))return;const row=Array(20).fill('');
    Object.assign(row,{0:'ROUTE_ISEKAI',1:diluc.QUEST_ID,2:diluc.id+'_REJOIN',3:diluc.id+'_REJOIN',4:id,5:type,6:type==='DIALOGUE'?'PROFILE_MOND_DILUC':'',7:type==='DIALOGUE'?'다이루크':'',8:'MAP_MOND_DAWN_WINERY',9:text,10:label,11:'FLAG_LEG_ISK_MOND_DILUC_CLEAR=TRUE && FLAG_ISK_RECRUIT_DILUC=FALSE',12:effect,13:next,14:group,16:'CRPG_ORIGINAL',17:1,18:'ACTIVE',19:'v0.13.22 일반 획득 후 무료 재합류 제안.'});
    Object.defineProperties(row,{table:{value:table},sourceRow:{value:0}});ix.nodes.set(key,row);ix.byTable[table].push(row);
   };
   add('LEG_ISK_MOND_DILUC_REJOIN_START','DIALOGUE','전에 미뤄 둔 동행 이야기라면 지금 정해도 된다. 함께 움직일 생각이 있나?','CHOICE_GROUP:LEG_ISK_MOND_DILUC_REJOIN_G');
-  add('LEG_ISK_MOND_DILUC_REJOIN_ACCEPT','CHOICE','', 'SCREEN:CRPG_MAIN','UNLOCK_CARD_ONCE:MOND_DILUC:FLAG_ISK_RECRUIT_DILUC','LEG_ISK_MOND_DILUC_REJOIN_G','함께 움직이자고 한다.');
-  add('LEG_ISK_MOND_DILUC_REJOIN_DEFER','CHOICE','', 'SCREEN:CRPG_MAIN','NO_PENALTY','LEG_ISK_MOND_DILUC_REJOIN_G','이번에는 각자의 일을 한다.');
+  add('LEG_ISK_MOND_DILUC_REJOIN_ACCEPT','CHOICE','', 'SCREEN:CRPG_MAIN','UNLOCK_CARD_ONCE:MOND_DILUC:FLAG_ISK_RECRUIT_DILUC','LEG_ISK_MOND_DILUC_REJOIN_G','오늘은 같이 움직이자.');
+  add('LEG_ISK_MOND_DILUC_REJOIN_DEFER','CHOICE','', 'SCREEN:CRPG_MAIN','NO_PENALTY','LEG_ISK_MOND_DILUC_REJOIN_G','이번엔 각자 움직이는 게 좋겠어.');
  }
  for(const a of ix.affections.values())if(a.id.startsWith('AFF_ISK_MOND_DILUC_H0')){a.REQUIRED_FLAGS=JSON.stringify(['FLAG_ISK_RECRUIT_DILUC','FLAG_LEG_ISK_MOND_DILUC_CLEAR']);a.NOTE=String(a.NOTE||'').replace(/2AB[^.;]*/g,'일반 획득 또는 이야기 합류 이후');}
  for(const row of ix.byTable['57_MOND_STORY_SCENE_DB'])if(String(row[4]).startsWith('AFF_ISK_MOND_DILUC_H0')&&row[11])row[11]=String(row[11]).replace(/FLAG_ISK_MOND_BRANCH=EXPEDITION\s*&&\s*/g,'').replace(/FLAG_ISK_EXPEDITION_FORK=RETURN\s*&&\s*/g,'').replace(/FLAG\(FLAG_ISK_DILUC_LEGEND_FREE\)=TRUE\s*&&\s*/g,'').replace(/FLAG_ISK_DILUC_LEGEND_FREE=TRUE\s*&&\s*/g,'');

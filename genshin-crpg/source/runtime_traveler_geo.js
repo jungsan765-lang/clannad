@@ -16,7 +16,7 @@ const fail=(c,m)=>{throw new api.RuleError(c,m);},copy=x=>JSON.parse(JSON.string
 const card=(id,name,kind,range,cooldown,text,handler)=>[id,'PLAYER',PLAYER,name,kind,'[바위]','적',text,'루트별 해금',cooldown,'','','','GEO','','',text,'CRPG_HOUSE_RULE_20260927; 기술명은 한국어 게임 자료 교차 확인',0,range,0,'MANUAL_ONLY',1,'즉시','N',kind,0,0,0,'ATK','ACTIVE','ENEMY_1',handler,0,'runtime_traveler_geo.js','READY',JSON.stringify({handler,rule_version:1})];
 const CARDS=[
  card(GE,'성운검','원소전투스킬','중거리',RULE.e.cooldown,'대상에게 운석을 떨어뜨려 바위 피해를 주고, 대상 곁의 적 최대 2명에게 여파 피해. 떨어진 운석을 엄폐물 삼아 여행자가 2턴 동안 최대 HP 12%의 바위 보호막을 얻는다. 3턴.','TRAVELER_GEO_E'),
- card(GQ,'첩첩산중','원소폭발','전장',RULE.q.cooldown,'땅을 울려 대상과 주변 적 최대 4명에게 바위 충격파 3연속. 첫 충격파는 작은 적을 밀쳐 낸다. 턴제 환산 기술. 4턴.','TRAVELER_GEO_Q')
+ card(GQ,'첩첩산중','원소폭발','전장',RULE.q.cooldown,'땅을 울려 대상과 주변 적 최대 4명에게 바위 충격파 3연속. 첫 충격파는 작은 적을 밀쳐 낸다. 4턴.','TRAVELER_GEO_Q')
 ];
 const STATUES=[
  {id:STATUE.GEO,name:'일곱 신상 · 바위',facility:'리월 평야 길가',maps:['MAP_LIYUE_PLAINS']},

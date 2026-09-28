@@ -43,7 +43,7 @@ story=function(p,v){
   if(v.node?.[5]!=='INPUT_TEXT'){revisionStory(p,v);return;}
   const node=v.node;
   p.append(el('p','speaker',node[7]||'이야기'),el('p','story',displayText(game.storyDisplayText?.(node)??node[9])),el('p','chosen-name',game.s.global.PLAYER_NAME));
-  p.append(actionButton('정한 이름을 알려준다','STORY_NAME',{name:game.s.global.PLAYER_NAME},true));
+  p.append(actionButton('정한 이름 알려 주기','STORY_NAME',{name:game.s.global.PLAYER_NAME},true));
 };
 fresh=async function(){
   if(busy)return;

@@ -70,6 +70,12 @@ function fieldCommissionCard(parent,q){
     return;
   }
 
+  if(q.scene&&window.CRPGFieldScenes){
+    window.CRPGFieldScenes.render(c,q);
+    parent.append(c);
+    return;
+  }
+
   if(q.puzzle){
     c.append(el('p','field-puzzle-question',q.puzzle.prompt));
     const opts=el('div','field-puzzle-options');

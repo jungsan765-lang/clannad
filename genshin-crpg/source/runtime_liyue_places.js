@@ -37,7 +37,7 @@ const MERCHANTS=[
 // Prices follow the Mond restaurant: roughly two thirds of the item's list price.
 const STOCKS=[
  ['STK_LY_WANMIN_EGG','MRC_LIYUE_WANMIN','ITEM','FOOD_TEA_BREAK_PANCAKE','티바트 달걀 프라이',35,10,'매일','없음','만민당 편의 재고'],
- ['STK_LY_WANMIN_MATSUTAKE','MRC_LIYUE_WANMIN','ITEM','FOOD_MATSUTAKE_ROLL','송이버섯 고기말이',120,8,'매일','없음','만민당 편의 재고'],
+ ['STK_LY_WANMIN_MATSUTAKE','MRC_LIYUE_WANMIN','ITEM','FOOD_MATSUTAKE_ROLL','버섯고기말이',120,8,'매일','없음','만민당 편의 재고'],
  ['STK_LY_WANMIN_PEACE','MRC_LIYUE_WANMIN','ITEM','FOOD_UNIVERSAL_PEACE','세계 평화',180,5,'매일','없음','만민당 편의 재고'],
  ['STK_LY_WANMIN_JADE','MRC_LIYUE_WANMIN','ITEM','FOOD_JADE_PARCELS','비옥야채쌈',240,4,'매일','없음','만민당 편의 재고'],
  ['STK_INN_LIYUE_WANGSHU','MRC_LIYUE_WANGSHU_INN','SERVICE','SERVICE_INN_REST_8H','8시간 숙박',150,'상시','상시','전투 중 아님','활성 파티 전체 기준.'],

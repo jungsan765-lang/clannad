@@ -9,7 +9,7 @@
   const fail = (c, m) => { throw new api.RuleError(c, m); };
   const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
   const tactics = ['균형', '공격우선', '생존우선', '지원우선', '연계우선'];
-  const foodStatuses = ['STATUS_FOOD_ATK', 'STATUS_FOOD_FEAST', 'STATUS_FOOD_RESIST', 'STATUS_FOOD_SPEED'];
+  const foodStatuses = ['STATUS_FOOD_ATK', 'STATUS_FOOD_FEAST', 'STATUS_FOOD_RESIST', 'STATUS_FOOD_SPEED', 'STATUS_FOOD_DEF', 'STATUS_FOOD_CRIT'];
   const shiftedRecipes = new Set(['REC_PROCESS_BUTTER', 'REC_PROCESS_CHEESE', 'REC_PROCESS_HAM', 'REC_PROCESS_SAUSAGE', 'REC_ALCH_HEALING_POTION', 'REC_MEDICAL_BANDAGE']);
   const old = Object.fromEntries(['apply', 'useItem', 'buy', 'finishBattle', 'bossRoute', 'move', 'equip', 'setParty', 'validateSave'].map(k => [k, P[k]]));
 
@@ -194,9 +194,11 @@
     const facility = this.recipeFacilityReason(r); if (facility) return facility;
     const req = String(r[18] || '');
     if (!['', '없음', '기본', '기본 해금', '전투 중 아님'].includes(req)) {
-      const purchased = req.match(/^(STK_\w+) 구매완료$/);
+      // A recipe may be sold in more than one shop: "STK_A 또는 STK_B 구매완료" unlocks after either purchase.
+      const purchased = req.match(/^(STK_\w+(?: 또는 STK_\w+)*) 구매완료$/);
       if (purchased) {
-        if (!Object.keys(json(this.s.global.SHOP_STOCK_USAGE_STATE)).some(k => k.startsWith(purchased[1] + '|'))) return '제작법을 먼저 구매해 주세요.';
+        const stocks = purchased[1].split(' 또는 '), bought = Object.keys(json(this.s.global.SHOP_STOCK_USAGE_STATE));
+        if (!stocks.some(id => bought.some(k => k.startsWith(id + '|')))) return '제작법을 먼저 구매해 주세요.';
       } else if (!api.condition(req, this.vars())) {
         const match = /^\s*LEVEL\s*>=\s*(\d+)(?:\s*$|\s*\/)/.exec(req);
         const current = this.s.global.PLAYER_LEVEL_STATE, needed = match && Number(match[1]);

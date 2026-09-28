@@ -97,7 +97,7 @@
    if(this.legendRegistered(d.id))return '이미 소개받은 개인 임무입니다.';
    return this.storyCondition(d.START_CONDITION,d)?'':'개인 임무의 선행 이야기를 먼저 진행해 주세요.';
   }
-  if(type==='LEGEND_ENTER'&&!this.legendRegistered(a.quest||a.id))return '안내원에게 개인 임무를 먼저 소개받아 주세요.';
+  if(type==='LEGEND_ENTER'&&!this.legendRegistered(a.quest||a.id)){const label=this.legendIntroductionLabel?.(this.storyDefinition(a.quest||a.id));return label?label+'에서 개인 임무를 먼저 소개받아 주세요.':'개인 임무를 먼저 소개받아 주세요.';}
   return '';
  };
  P.apply=function(a){

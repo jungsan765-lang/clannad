@@ -1,0 +1,407 @@
+{
+ "id": "v0.14.0-names",
+ "updates": {
+  "14_ITEM_DB": {
+   "MAT_MIST_GRASS": {
+    "1": "안개풀 주머니"
+   },
+   "MAT_MIST_GRASS_WICK": {
+    "1": "안개 등심"
+   },
+   "MAT_CONCEALED_CLAW": {
+    "1": "맹수 발톱"
+   },
+   "MAT_CONCEALED_UNGUIS": {
+    "1": "맹수의 날카로운 발톱"
+   },
+   "MAT_CONCEALED_TALON": {
+    "1": "맹수의 귀신 발톱"
+   },
+   "MAT_TRANSOCEANIC_PEARL": {
+    "1": "기이한 바다의 방울"
+   },
+   "MAT_TRANSOCEANIC_CHUNK": {
+    "1": "기이한 바다의 결정"
+   },
+   "MAT_XENOCHROMATIC_CRYSTAL": {
+    "1": "이색 결정석"
+   },
+   "ORE_MAGIC_CRYSTAL": {
+    "1": "마법 수정석 조각"
+   },
+   "ING_MINT": {
+    "1": "민트"
+   },
+   "ING_RADISH": {
+    "1": "흰 무"
+   },
+   "ING_SHRIMP": {
+    "1": "생새우살"
+   },
+   "FOOD_MATSUTAKE_ROLL": {
+    "1": "버섯고기말이"
+   },
+   "FOOD_PIZZA": {
+    "1": "버섯피자"
+   },
+   "MAT_SNEZ_FROSTFAIRY_FLOWER": {
+    "1": "눈서리꽃"
+   },
+   "MAT_SNEZ_FLUFFGRASS": {
+    "1": "솜털풀"
+   },
+   "MAT_SNEZ_CHIMERA_CORE_BASIC": {
+    "1": "키메라의 기초 코어"
+   },
+   "MAT_SNEZ_CHIMERA_CORE_DOUBLE": {
+    "1": "키메라의 이중 코어"
+   },
+   "MAT_SNEZ_CHIMERA_CORE_MULTI": {
+    "1": "키메라의 다중 코어"
+   },
+   "MAT_SNEZ_IMMORTAL_BLOSSOM_BRANCH": {
+    "1": "불멸의 꽃가지"
+   },
+   "MAT_SNEZ_CHIMERA_TAILFEATHER": {
+    "1": "키메라의 꽁지깃"
+   },
+   "MAT_SNEZ_WANDERING_GUARDIAN_ARMOR": {
+    "1": "수호자의 견갑"
+   }
+  },
+  "09_MONSTER_DB": {
+   "MON_SLIME_PYRO": {
+    "1": "화염 슬라임"
+   },
+   "MON_SLIME_LARGE_PYRO": {
+    "1": "거대 화염 슬라임"
+   },
+   "MON_SLIME_LARGE_HYDRO": {
+    "1": "거대 물 슬라임"
+   },
+   "MON_SLIME_LARGE_ELECTRO": {
+    "1": "거대 번개 슬라임"
+   },
+   "MON_SLIME_LARGE_CRYO": {
+    "1": "거대 얼음 슬라임"
+   },
+   "MON_SLIME_LARGE_ANEMO": {
+    "1": "거대 바람 슬라임"
+   },
+   "MON_SLIME_LARGE_GEO": {
+    "1": "거대 바위 슬라임"
+   },
+   "MON_SLIME_LARGE_DENDRO": {
+    "1": "거대 풀 슬라임"
+   },
+   "MON_HILI_FIGHTER": {
+    "1": "츄츄 싸움꾼"
+   },
+   "MON_HILI_SHOOTER": {
+    "1": "츄츄 궁수"
+   },
+   "MON_HILI_PYRO_SHOOTER": {
+    "1": "츄츄 화염 궁수"
+   },
+   "MON_HILI_CRYO_SHOOTER": {
+    "1": "츄츄 얼음 궁수"
+   },
+   "MON_HILI_ELECTRO_SHOOTER": {
+    "1": "츄츄 번개 궁수"
+   },
+   "MON_HILI_GRENADIER": {
+    "1": "화염탄 츄츄"
+   },
+   "MON_MITACHURL_ROCK": {
+    "1": "돌방패 츄츄 폭도"
+   },
+   "MON_MITACHURL_AXE": {
+    "1": "불도끼 츄츄 폭도"
+   },
+   "MON_LAWACHURL_STONE": {
+    "1": "츄츄 바위왕"
+   },
+   "MON_ABYSS_MAGE_PYRO": {
+    "1": "화염의 심연 메이지"
+   },
+   "MON_ABYSS_MAGE_HYDRO": {
+    "1": "물의 심연 메이지"
+   },
+   "MON_ABYSS_MAGE_CRYO": {
+    "1": "얼음의 심연 메이지"
+   },
+   "MON_ABYSS_MAGE_ELECTRO": {
+    "1": "번개의 심연 메이지"
+   },
+   "MON_WHOPPER_PYRO": {
+    "1": "뜨거운 구라구라꽃"
+   },
+   "MON_WHOPPER_CRYO": {
+    "1": "얼어붙은 구라구라꽃"
+   },
+   "MON_WHOPPER_ELECTRO": {
+    "1": "전기 구라구라꽃"
+   },
+   "MON_BATHY_VISHAP_HYDRO": {
+    "1": "심해 용 도마뱀·원종"
+   },
+   "MON_BATHY_VISHAP_CRYO": {
+    "1": "얼음을 짓씹는 심해 용 도마뱀"
+   },
+   "MON_BATHY_VISHAP_ELECTRO": {
+    "1": "번개를 삼키는 심해 용 도마뱀"
+   },
+   "MON_FATUI_ANEMO": {
+    "1": "우인단 선발대·풍권 돌격대"
+   },
+   "MON_FATUI_CRYO": {
+    "1": "우인단 선발대·얼음총 중보병"
+   },
+   "MON_FATUI_HYDRO": {
+    "1": "우인단 선발대·물총 중보병"
+   },
+   "MON_FATUI_PYRO": {
+    "1": "우인단 선발대·화승총 유격대"
+   },
+   "MON_FATUI_ELECTRO": {
+    "1": "우인단 선발대·번개 해머 돌격대"
+   },
+   "MON_OPERATIVE_WIND": {
+    "1": "우인단·바람 심부름꾼"
+   },
+   "MON_OPERATIVE_FROST": {
+    "1": "우인단·서리 심부름꾼"
+   },
+   "MON_NOBUSHI_JINTOUBAN": {
+    "1": "「노부시·칼잡이」"
+   },
+   "MON_NOBUSHI_HITSUKEBAN": {
+    "1": "「노부시·방화범」"
+   },
+   "MON_NOBUSHI_KIKOBAN": {
+    "1": "「노부시·잔재주꾼」"
+   },
+   "MON_FUNGI_GROUND_HYDRO": {
+    "1": "둥실 물 버섯몬"
+   },
+   "MON_FUNGI_GROUND_PYRO": {
+    "1": "쭉쭉 불 버섯몬"
+   },
+   "MON_FUNGI_GROUND_DENDRO": {
+    "1": "둥실 풀 버섯몬"
+   },
+   "MON_FUNGI_GROUND_GEO": {
+    "1": "쭉쭉 바위 버섯몬"
+   },
+   "MON_FUNGUS_BEAST_DENDRO": {
+    "1": "포롱 풀 버섯몬"
+   },
+   "MON_FUNGUS_BEAST_CRYO": {
+    "1": "포롱 얼음 버섯몬"
+   },
+   "MON_FUNGUS_BEAST_PYRO": {
+    "1": "빙글 불 버섯몬"
+   },
+   "MON_FUNGUS_BEAST_GEO": {
+    "1": "뚜벅 바위 버섯몬"
+   },
+   "MON_EREMITE": {
+    "1": "도금 여단"
+   },
+   "MON_EREMITE_AXE": {
+    "1": "도금 여단·선봉 부월수"
+   },
+   "MON_EREMITE_SWORD": {
+    "1": "도금 여단·춤추는 칼"
+   },
+   "MON_EREMITE_LANCE": {
+    "1": "도금 여단·까마귀 부리 창병"
+   },
+   "MON_EREMITE_RINGDANCER": {
+    "1": "도금 여단·환도 무희"
+   },
+   "MON_EREMITE_STONE_ENCHANTER": {
+    "1": "도금 여단·마암역사"
+   },
+   "MON_EREMITE_FLORAL_RING": {
+    "1": "도금 여단·풀고리 무용수"
+   },
+   "MON_EREMITE_SCORCHING": {
+    "1": "도금 여단·모래의 이야기꾼"
+   },
+   "MON_EREMITE_THUNDER": {
+    "1": "도금 여단·낮을 밝히는 번개"
+   },
+   "MON_EREMITE_HYDRO": {
+    "1": "도금 여단·사막의 물"
+   },
+   "MON_EREMITE_CRYO": {
+    "1": "도금 여단·태양의 서리"
+   },
+   "MON_RIFT_WHELP_GEO": {
+    "1": "기암·수계(獸界) 유견"
+   },
+   "MON_RIFT_WHELP_ELECTRO": {
+    "1": "기뢰·수계(獸界) 유견"
+   },
+   "MON_RIFT_HOUND_GEO": {
+    "1": "기암·수계(獸界) 사냥개"
+   },
+   "MON_RIFT_HOUND_ELECTRO": {
+    "1": "기뢰·수계(獸界) 사냥개"
+   },
+   "MON_ABYSS_HERALD_CRYO": {
+    "1": "심연 사도·서리 내림"
+   },
+   "MON_BLACK_SERPENT_SWORD": {
+    "1": "흑 뱀 기사·바람을 가르는 검"
+   },
+   "MON_BLACK_SERPENT_AXE": {
+    "1": "흑 뱀 기사·바위를 부수는 도끼"
+   },
+   "MON_HUSK_STANDARD": {
+    "1": "암흑의 빈 갑주·기수"
+   },
+   "MON_HUSK_BOW": {
+    "1": "암흑의 빈 갑주·궁수"
+   },
+   "MON_MEKA_ASSAULT": {
+    "1": "돌격 특화 타입 장치"
+   },
+   "MON_MEKA_RECON": {
+    "1": "장치·정찰 기록 타입"
+   },
+   "MON_MEKA_SUPPRESS": {
+    "1": "제압 특화 타입 장치"
+   },
+   "MON_MEKA_GUARD": {
+    "1": "장치·구역 경비 타입"
+   },
+   "MON_MEKA_CONSTRUCTION": {
+    "1": "건설 특화 타입 장치"
+   },
+   "MON_MEKA_DEEPSEA_ASSAULT": {
+    "1": "장치·심해 공격 타입"
+   },
+   "MON_MEKA_DEEPSEA_PATROL": {
+    "1": "장치·수중 순찰 타입"
+   },
+   "MON_RUIN_GRADER": {
+    "1": "파멸의 유적 가디언"
+   },
+   "MON_RUIN_DESTROYER": {
+    "1": "유적 섬멸자"
+   },
+   "MON_RUIN_DRAKE_GROUND": {
+    "1": "유적 드레이크·대지의 수호자"
+   },
+   "MON_RUIN_DRAKE_SKY": {
+    "1": "유적 드레이크·천공의 수호자"
+   },
+   "MON_TH_MARKSMAN": {
+    "1": "보물 사냥단·신궁"
+   },
+   "MON_TH_HANDYMAN": {
+    "1": "보물 사냥단·허드레꾼"
+   },
+   "MON_TH_GRAVEDIGGER": {
+    "1": "보물 사냥단·무덤 도굴자"
+   },
+   "MON_TH_SEAMAN": {
+    "1": "보물 사냥단·바다의 남아"
+   },
+   "MON_TH_POTION_PYRO": {
+    "1": "보물 사냥단·불의 약제사"
+   },
+   "MON_TH_POTION_HYDRO": {
+    "1": "보물 사냥단·물의 약제사"
+   },
+   "MON_TH_POTION_CRYO": {
+    "1": "보물 사냥단·얼음의 약제사"
+   },
+   "MON_TH_POTION_ELECTRO": {
+    "1": "보물 사냥단·번개의 약제사"
+   },
+   "MON_BREACHER_PRIMUS": {
+    "1": "균열계 덩굴 원형체"
+   },
+   "MON_NODKRAI_BEAST": {
+    "1": "노드크라이 야생 마수",
+    "2": "노드크라이 마물"
+   },
+   "MON_NODKRAI_AUTOMATON": {
+    "1": "노드크라이 자동기계",
+    "2": "노드크라이 마물"
+   },
+   "MON_NODKRAI_ABYSS": {
+    "1": "노드크라이 심연 변이체",
+    "2": "노드크라이 마물"
+   },
+   "MON_SNEZ_BEAST_FAIRY_RAIDER": {
+    "1": "야수 요정 약탈자"
+   },
+   "MON_SNEZ_BEAST_FAIRY_SNIPER": {
+    "1": "야수 요정 저격수"
+   },
+   "MON_SNEZ_BEAST_FAIRY_THROWER": {
+    "1": "야수 요정 투척수"
+   },
+   "MON_SNEZ_BEAST_FAIRY_CRUSHER": {
+    "1": "야수 요정 분쇄자"
+   },
+   "MON_SNEZ_LIONDOG_GUARD": {
+    "1": "사자개 호위병"
+   },
+   "MON_SNEZ_RABBIT_RAIDER": {
+    "1": "토끼 요정 습격자"
+   },
+   "MON_SNEZ_BEAVER_LIAISON": {
+    "1": "비버 요정 연락병"
+   },
+   "MON_SNEZ_MAMMOTH_BERSERKER": {
+    "1": "매머드 요정 돌격병"
+   },
+   "MON_SNEZ_WOLF_TRACKER": {
+    "1": "늑대 추적자"
+   },
+   "MON_SNEZ_SNOW_ARCANIST": {
+    "1": "눈 요정 술사"
+   },
+   "MON_SNEZ_TREE_FAIRY_OLD": {
+    "1": "고목 요정"
+   },
+   "MON_SNEZ_TREE_FAIRY_SAPLING": {
+    "1": "묘목 요정"
+   },
+   "MON_SNEZ_CHIMERA_HORNBEAR": {
+    "1": "뿔곰 키메라"
+   },
+   "MON_SNEZ_CHIMERA_BURROW": {
+    "1": "땅굴 키메라"
+   },
+   "MON_SNEZ_CHIMERA_CARAPACE": {
+    "1": "갑각 키메라"
+   },
+   "MON_SNEZ_CHIMERA_ELEPHANT": {
+    "1": "코끼리 키메라"
+   },
+   "MON_SNEZ_SNOW_GUARD_KNIGHT": {
+    "1": "눈의 수호기사"
+   }
+  },
+  "19_SHOP_STOCK_DB": {
+   "STK_LIYUE_FOOD_002": {
+    "4": "생새우살"
+   },
+   "STK_INAZ_FOOD_002": {
+    "4": "생선 살코기"
+   },
+   "STK_FONT_FOOD_005": {
+    "4": "꽃게"
+   },
+   "STK_NOD_FOOD_005": {
+    "4": "생선 살코기"
+   }
+  }
+ }
+}

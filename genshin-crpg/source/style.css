@@ -543,3 +543,66 @@ button.title-start:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 
 
 /* Keep timed-work feedback compact and leave only one active action notice. */
 .pending-activity .travel-mark{font-size:26px;line-height:1}.action-pending #tutorial-tour{display:none}
+
+/* v0.14.0 cooking hall */
+.cook-hero{border:1px solid var(--line);border-left:4px solid var(--gold);background:linear-gradient(135deg,#17343c,#10262d);border-radius:8px;padding:16px 18px;margin:6px 0 16px}
+.cook-hero h2{margin:0 0 6px;color:var(--gold)}.cook-hero p{margin:0 0 10px}
+.cook-stats{display:flex;flex-wrap:wrap;gap:8px}.cook-stats span{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.875rem;background:#0e232b}
+.cook-tabs{margin-bottom:10px}.cook-effects{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.cook-effects button{min-height:38px;padding:5px 12px;font-size:.85rem;border-radius:999px}.cook-effects button.selected{border-color:var(--gold);color:var(--gold);background:#1f3a3f}
+.cook-ready{margin:4px 0 14px}
+.cook-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:14px}
+.cook-card{border:1px solid var(--line);background:linear-gradient(180deg,#143039,#0f242b);border-radius:9px;padding:14px;display:flex;flex-direction:column;gap:6px;position:relative}
+.cook-card.ready{border-color:#6fb8a8;box-shadow:0 0 0 1px rgba(141,221,208,.18) inset}
+.cook-card.locked{opacity:.78}.cook-card.locked .cook-head .item-icon{filter:grayscale(.65)}
+.cook-card.focused-recipe{outline:3px solid var(--gold);outline-offset:3px}
+.cook-head{display:flex;align-items:center;gap:10px}.cook-head .item-icon{width:52px;height:52px;margin:0;flex:0 0 auto;background:#0b1d23;border-radius:8px;padding:3px}
+.cook-title{flex:1;min-width:0}.cook-title h3{margin:0;font-size:1.05rem;line-height:1.35}
+.cook-stars{color:#e8c46e;font-size:.8rem;letter-spacing:1px}
+.cook-badge{flex:0 0 auto;border-radius:999px;padding:2px 10px;font-size:.78rem;border:1px solid var(--line);color:var(--muted)}
+.cook-badge.effect-heal{border-color:#6fb8a8;color:#9fe3d4}.cook-badge.effect-atk{border-color:#d88b70;color:#f0ad93}.cook-badge.effect-crit{border-color:#d07aa8;color:#f0a8cf}
+.cook-badge.effect-def{border-color:#7f9fd6;color:#adc6f3}.cook-badge.effect-speed{border-color:#a8c46b;color:#cfe79a}.cook-badge.effect-resist{border-color:#b39ad8;color:#d5c3f3}.cook-badge.effect-process{border-color:#8a9a9a}
+.cook-desc{margin:0;font-size:.86rem;color:var(--muted);line-height:1.55}
+.cook-effect{margin:0;font-weight:600;color:#e8dcc0}
+.cook-chips{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0}
+.cook-chip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:2px 10px 2px 4px;font-size:.82rem;background:#0d2027}
+.cook-chip.ok{border-color:#4f8f80}.cook-chip.short{border-color:#a8665a;background:#2a1a1a}
+.cook-chip-icon{width:22px;height:22px;object-fit:contain}.cook-chip-count{color:var(--muted);font-variant-numeric:tabular-nums}.cook-chip.short .cook-chip-count{color:var(--red)}
+.cook-where{border-top:1px dashed var(--line);padding-top:6px}.cook-where p{margin:2px 0;font-size:.8rem;color:var(--muted)}.cook-where p::before{content:'⌖ ';color:var(--gold)}
+.cook-lock{margin:2px 0;font-size:.86rem;color:var(--gold)}.cook-lock::before{content:'🔒 '}
+.cook-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:auto;padding-top:6px}.cook-foot small{flex:1 1 100%}
+.cook-foot button{margin:0;flex:1 1 auto;min-height:44px;text-align:center}
+@media(max-width:480px){.cook-grid{grid-template-columns:1fr}.cook-hero{padding:12px}.cook-card{padding:12px}}
+/* v0.14.0 field scenes */
+.field-scene-card .scene-steps{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:10px 0 6px;padding:0;counter-reset:scene}
+.field-scene-card .scene-steps li{counter-increment:scene;border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.8rem;color:var(--muted);background:#0e232b}
+.field-scene-card .scene-steps li::before{content:counter(scene) '. '}
+.field-scene-card .scene-steps li.done{border-color:#4f8f80;color:#9fe3d4}.field-scene-card .scene-steps li.done::before{content:'✓ '}
+.field-scene-card .scene-steps li.current{border-color:var(--gold);color:var(--gold);font-weight:600}
+.scene-goal{margin:4px 0 8px;font-size:.86rem;color:var(--gold)}.scene-goal::before{content:'✦ '}
+.scene-goal.missed{color:var(--muted)}.scene-goal.missed::before{content:'✗ ';color:var(--red)}
+.scene-step{border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:12px 14px;margin:8px 0;background:linear-gradient(135deg,#17343c,#10262d)}
+.scene-step h4{margin:0 0 6px;color:var(--gold);font-size:1rem}
+.scene-step .story{margin:0 0 8px;line-height:1.7}
+.scene-paimon{margin:6px 0;padding:8px 12px;border-radius:8px;background:rgba(227,195,138,.08);border:1px solid rgba(227,195,138,.25);line-height:1.6}
+.scene-paimon strong{color:var(--gold);margin-right:8px;font-size:.85rem}
+.scene-options{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.scene-options .scene-option{margin:0;text-align:left;min-height:46px;padding:10px 14px 10px 38px;position:relative;line-height:1.5;white-space:normal}
+.scene-options .scene-option::before{content:'💬';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.95rem}
+.scene-options .scene-option.battle::before{content:'⚔'}
+.scene-options .scene-option.tried{opacity:.55;text-decoration:line-through}
+.scene-log{margin:10px 0 2px;border-top:1px dashed var(--line);padding-top:6px}
+.scene-log summary{cursor:pointer;color:var(--muted);font-size:.86rem;min-height:32px;display:flex;align-items:center}
+.scene-log-row{border-left:3px solid #4f8f80;padding:4px 0 4px 10px;margin:8px 0}.scene-log-row.miss{border-left-color:#a8665a}
+.scene-log-row strong{font-size:.86rem}.scene-log-row p{margin:3px 0;font-size:.84rem;line-height:1.6;color:var(--muted)}
+.scene-say{color:var(--text)!important;font-weight:600}
+.scene-chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}
+.scene-chip{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.8rem;background:#0d2027}
+.scene-chip.loss{border-color:#a8665a;color:var(--red);background:#2a1a1a}.scene-chip.time{color:var(--muted)}
+.scene-result .story{line-height:1.75}
+.scene-result .scene-say{font-size:1rem;margin:0 0 8px}
+.scene-verdict{font-weight:600;margin:10px 0 4px}.scene-result.ok .scene-verdict{color:var(--green)}.scene-result.pass .scene-verdict{color:var(--gold)}.scene-result.miss .scene-verdict{color:var(--red)}
+.scene-next{margin:10px 0 0;color:var(--gold)}.scene-next::before{content:'▶ '}
+.scene-finale{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.scene-finale h3{margin:0 0 6px;color:var(--gold)}
+.scene-summary{color:var(--muted);font-size:.88rem}.scene-bonus{color:var(--green);font-weight:600}.scene-penalty{color:var(--red)}
+@media(max-width:480px){.scene-step{padding:10px}.scene-options .scene-option{padding-left:34px}}

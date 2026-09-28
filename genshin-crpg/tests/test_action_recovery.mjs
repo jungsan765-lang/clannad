@@ -7,10 +7,11 @@ for(const route of ['ROUTE_ISEKAI','ROUTE_TRAVELER']){
  const r=new R(DB);r.newGame({name:'검증',route,seed:7,saveId:'relations-'+route});r.serverAdmin=true;r.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_MOND_CITY'});
  for(const def of Object.values(globalThis.CRPGRelationships.activitiesFromDB(DB)).filter(x=>x.route===route)){
   // Each catalog case is an independent play session, not a rate-limit stress test.
-  f.sql.exec('DELETE FROM rate_limits');r.markContact(def.profileId);const reason=r.actionReason('RELATION_ACTIVITY',{activityId:def.id});assert(reason?.includes('개인'),def.id);
-  f.seed(r.s);const before=f.read(),denied=await f.action('RELATION_ACTIVITY',{activityId:def.id});assert.equal(denied.status,400,def.id);assert.equal(denied.outcome,'REJECTED');assert.equal(f.read().state,before.state);assert.equal(f.read().revision,before.revision);
-  const unlocked=new R(DB,structuredClone(r.s));unlocked.s.flags[def.completeFlag]=true;assert.equal(unlocked.actionReason('RELATION_ACTIVITY',{activityId:def.id}),'');f.seed(unlocked.s);
-  const accepted=await f.action('RELATION_ACTIVITY',{activityId:def.id});assert.equal(accepted.status,200,accepted.error);assert.equal(accepted.result.result.minutes,30);const again=await f.action('RELATION_ACTIVITY',{activityId:def.id});assert.equal(again.status,400);assert.equal(again.outcome,'REJECTED');checked++;
+  // v0.14.0 removed daily exchange activities: every legacy activity is an ordinary domain rejection, before and after the personal mission.
+  f.sql.exec('DELETE FROM rate_limits');r.markContact(def.profileId);
+  for(const done of [false,true]){const probe=new R(DB,structuredClone(r.s));if(done)probe.s.flags[def.completeFlag]=true;assert(probe.actionReason('RELATION_ACTIVITY',{activityId:def.id})?.includes('교류'),def.id);f.seed(probe.s);
+   const before=f.read(),denied=await f.action('RELATION_ACTIVITY',{activityId:def.id});assert.equal(denied.status,400,def.id);assert.equal(denied.outcome,'REJECTED');assert.equal(f.read().state,before.state);assert.equal(f.read().revision,before.revision);}
+  checked++;
  }
 }
 const r=new R(DB);r.newGame({name:'검증',route:'ROUTE_ISEKAI',seed:7,saveId:'recovery'});r.serverAdmin=true;r.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_MOND_PLAINS'});f.seed(r.s);

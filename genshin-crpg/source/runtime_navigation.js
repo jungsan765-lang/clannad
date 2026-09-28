@@ -56,7 +56,7 @@ P.storyNaturalPause=function(row){if(old.storyNaturalPause?.call(this,row))retur
 P.storyAutomaticNode=function(row){return liyue(row)&&row[5]==='STORY_PAUSE'||old.storyAutomaticNode.call(this,row);};
 P.storyDisplayText=function(row){row??=this.storyNode();return liyue(row)&&row[5]==='STORY_PAUSE'?'':old.storyDisplayText.call(this,row);};
 P.oculusEntries=function(){return old.oculusEntries.call(this).map(p=>{
- if(p.id==='GEO_QINGCE_BARTER'){const asked=this.oculusProgress(p.id)>0;return {...p,clue:asked?'주민이 돌을 천 위에 꺼내 놓고 교환을 기다리고 있다.':'한 주민이 밭을 정리하다 주웠다는 반짝이는 돌을 보여 준다.',context:asked?'돌은 평범한 광석과 달리 은은한 빛을 머금고 있다. 주민은 오늘 식사에 쓸 쌀 4개와 새우살 2개를 가져오면 돌을 넘기겠다고 한다. 재료를 건네면 바위 눈동자 1개를 얻으며, 지금은 떠났다가 나중에 돌아와도 된다.':'주민은 돌의 정체를 몰라 보관해 두었다고 한다. 먼저 발견한 경위를 듣고, 돌을 받을 방법을 물어볼 수 있다. 이야기를 듣는 동안에는 아이템을 소비하지 않는다.'};}
+ if(p.id==='GEO_QINGCE_BARTER'){const asked=this.oculusProgress(p.id)>0;return {...p,clue:asked?'주민이 돌을 천 위에 꺼내 놓고 교환을 기다리고 있다.':'한 주민이 밭을 정리하다 주웠다는 반짝이는 돌을 보여 준다.',context:asked?'돌은 평범한 광석과 달리 은은한 빛을 머금고 있다. 주민은 오늘 식사에 쓸 쌀 4개와 생새우살 2개를 가져오면 돌을 넘기겠다고 한다. 재료를 건네면 바위 눈동자 1개를 얻으며, 지금은 떠났다가 나중에 돌아와도 된다.':'주민은 돌의 정체를 몰라 보관해 두었다고 한다. 먼저 발견한 경위를 듣고, 돌을 받을 방법을 물어볼 수 있다. 이야기를 듣는 동안에는 아이템을 소비하지 않는다.'};}
  return p;
 });};
 P.newGame=function(o){old.newGame.call(this,o);this.installNavigation();return JSON.parse(JSON.stringify(this.s));};

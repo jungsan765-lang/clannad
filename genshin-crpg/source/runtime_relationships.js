@@ -187,7 +187,8 @@ function install(api,options={}){
   // Daily narrative and stage prerequisites remain usable between arbitrary battle scores.
   return '';
  };
- P.relationshipActivityEntries=function(){return Object.values(activities).filter(d=>d.route===this.s.global.STORY_ROUTE_ID&&this.s.relations[d.profileId]?.firstContact!==undefined&&this.s.relations[d.profileId]?.firstContact!==null).map(d=>({...d,reason:this.relationshipActivityReason(d)}));};
+ // v0.14.0: daily "교류 활동" chores were removed; relationships grow through personal missions and affection scenes.
+ P.relationshipActivityEntries=function(){return [];};
  P.beginMatureRelationshipEvent=function(eventId,{replay=false}={}){
   this.invalidateRelationshipConsent('SCENE_CHANGED');
   const def=eventCatalog[eventId];if(!def||def.category!=='MATURE_ROMANCE'||def.verifiedClassification!==true)fail('MATURE_DEFINITION','확인되지 않은 전용 사건입니다.');
@@ -213,9 +214,9 @@ function install(api,options={}){
   const raw=this.row('51_EVENT_DB',id),def=JSON.parse(raw[13]||'{}'),r=this.relation(def.profile_id),before=r.BOND_SCORE;
   const result=oldPersonal.call(this,id,choice);r.BOND_SCORE=before;this.changeBond(def.profile_id,0,{source:id});result.heart=r.heart;result.score=r.BOND_SCORE;return result;
  };
- P.actionReason=function(type,params={}){const reason=oldReason?.call(this,type,params)||'';if(reason)return reason;return type==='RELATION_ACTIVITY'?this.relationshipActivityReason(activities[params.activityId]):'';};
+ P.actionReason=function(type,params={}){if(type==='RELATION_ACTIVITY')return '일상 교류 활동은 더 이상 없습니다. 관계는 함께한 이야기로 깊어집니다.';return oldReason?.call(this,type,params)||'';};
  P.apply=function(a){
-  if(a.type==='RELATION_ACTIVITY'){const def=activities[a.activityId];if(!def)fail('ACTIVITY_DEFINITION','준비된 교류 활동이 아닙니다.');const reason=this.relationshipActivityReason(def);if(reason)fail('ACTIVITY_LOCKED',reason);const receipt=this.dailyRelationshipActivity(def.profileId,{bondDelta:0,sourceId:a.activityId});return {...receipt,dialogue:def.dialogue,profileId:def.profileId,title:def.title};}
+  if(a.type==='RELATION_ACTIVITY')fail('ACTIVITY_REMOVED','일상 교류 활동은 더 이상 없습니다. 관계는 함께한 이야기로 깊어집니다.');
   return oldApply.call(this,a);
  };
  return api;

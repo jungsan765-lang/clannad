@@ -22,7 +22,7 @@ TESTS = [
     'tests/test_liyue_rework_mechanics.cjs', 'tests/test_liyue_rework_flow.cjs',
     'tools/test_field_bosses.cjs', 'tools/test_exclusive_weapons.cjs',
     'tests/test_update_v01341.cjs', 'tests/test_abyss_v01341.cjs',
-    'tests/test_osial_v01341.cjs',
+    'tests/test_osial_v01341.cjs', 'tools/test_story_cleanup_v0140.cjs',
 ]
 def run(test):
     started = time.monotonic()

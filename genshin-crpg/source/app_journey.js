@@ -33,9 +33,6 @@ const journeyCommissionCard=commissionCard;
 commissionCard=function(parent,q,guild=false){if(q.row[0]!==CRPGWorldContent.letterCommission.quest||!q.accepted||q.state?.claimed||q.state?.node==='READY_TO_CLAIM'){journeyCommissionCard(parent,q,guild);return;}
  const c=el('section','card commission-card'),stage=game.letterStage();c.append(el('small','eyebrow','진행 중 · 성문 우편물'),el('h3','',q.row[1]),el('p','','편지 수집 → 주소 정리 → 캐서린에게 전달'));if(stage){c.append(el('p','',stage.label+(stage.duration?' · '+stage.duration/1000+'초':'')),actionButton(stage.label,'WORLD_WORK_START',{kind:'COMMISSION',quest:q.row[0]},true));if(stage.requiresPlace&&!game.atGuild()){const k=game.placeCatalog().find(e=>e.entity==='NPC_MOND_KATHERYNE');if(k)c.append(actionButton('캐서린에게 찾아가기','PLACE_ENTER',{place:k.id}));}}rewardPreview(c,q.reward);parent.append(c);
 };
-const journeyDialogue=dialogue;
-dialogue=function(p,v){journeyDialogue(p,v);if(!game.atGuild())return;const w=game.s.worldProgress,c=el('section','card guild-training');c.append(el('h2','','주인공 무술 숙련 '+w.mastery+' / 2'),el('p','','기본공격 피해 단계당 +30% · 필요한 레벨 '+(3+w.mastery*2)));if(w.mastery<2)c.append(el('p','',100*(w.mastery+1)+' 모라 · 철광석 '+3*(w.mastery+1)+'개'),actionButton('다음 무술 숙련 배우기','MASTERY',{},true));p.append(c);
-};
 const journeyBattlePrepare=battlePrepare;
 battlePrepare=function(p){journeyBattlePrepare(p);if(!game.s.battlePreparation)return;p.append(actionButton('지금은 물러나서 더 준비하기','PREP_LEAVE'));/* Boss advice is intentionally omitted; technical status remains in the boss panel. */};
 let worldUITimer=null;

@@ -58,7 +58,7 @@ function openPicker(owner,category){
   copy.append(effectNote(o.inv,o.d));if(o.reason)copy.append(el('small','choice-note',o.reason));
   row.append(itemGlyph(o.d),copy,button('장착',()=>{close();act('EQUIP',{slot:o.inv.slot,owner});},busy||!!o.reason,true));cell.append(row,tooltip(o.inv,o.d));list.append(cell);
  }
- if(!options.length)list.append(el('p','empty','바꿔 낄 '+label+'가 없습니다. 상점이나 제작 시설에서 구할 수 있습니다.'));
+ if(!options.length)list.append(el('p','empty','바꿔 낄 '+label+'이(가) 없습니다. 상점이나 제작 시설에서 구할 수 있습니다.'));
  box.append(list);showModal(ownerName(owner)+' · '+label,box);
 }
 function books(p){
@@ -103,7 +103,7 @@ recoveryCard=function(parent){
 const gearReward=reward;
 reward=function(p){
  gearReward(p);const r=parseUI(game.s.global.LAST_BATTLE_RESULT_JSON),anchor=p.querySelector('h1')?.nextSibling||null;
- if(r.protagonistRevived)p.insertBefore(el('p','revive-note',withJosa(game.s.global.PLAYER_NAME,'은','는')+' 쓰러졌지만 동료들이 전투에서 이겼습니다. HP '+fmt(r.protagonistRevived)+'으로 다시 일어났습니다.'),anchor);
+ if(r.protagonistRevived)p.insertBefore(el('p','revive-note',withJosa(game.s.global.PLAYER_NAME,'은','는')+' 쓰러졌지만 동료들이 전투에서 이겼습니다. HP '+fmt(r.protagonistRevived)+'(으)로 다시 일어났습니다.'),anchor);
  if(r.defeatPenalty&&game.s.defeatPenalty&&!p.querySelector('.recovery-card')){const box=el('section','card defeat-card');box.append(el('p','defeat-penalty','패배로 모라를 '+fmt(r.defeatPenalty.mora)+' 잃었습니다.'));countdown(box,'다시 도전하거나 회복할 수 있을 때까지');p.insertBefore(box,anchor);}
 };
 function tick(){const left=game?.defeatLockRemaining?.()||0;for(const n of document.querySelectorAll('[data-defeat-countdown]'))n.textContent=Math.ceil(left/1000)+'초';if(left<=0){clearInterval(lockTimer);lockTimer=null;render();}}
