@@ -26,7 +26,7 @@
 
 ## 검증
 
-`tests/test_v0142_combat_summons.cjs`를 release gate에 추가했다.
+`tests/test_combat_v0142.cjs`를 release gate에 추가했다.
 
 검증 항목:
 - 보호막 타격별 잔량.
