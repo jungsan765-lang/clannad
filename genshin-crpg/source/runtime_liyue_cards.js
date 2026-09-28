@@ -165,8 +165,8 @@ P.aiTurn=function(a,ts){
 P.tickFields=function(timing){
  const b=this.s.runtime;if(!b)return;old.tickFields.call(this,timing);
  for(const f of b.fields.slice().filter(f=>f.liyue&&!f.done)){
-  const a=b.actors.find(x=>x.id===f.actor&&x.hp>0);if(!a)continue;const foes=active(b,a.side==='ALLY'?'ENEMY':'ALLY'),allies=active(b,a.side),low=lowest(allies),atk=this.combatStat(a,'atk');
-  const hit=(k,e,n=4)=>foes.slice(0,n).forEach(t=>this.damage(a,t,k,e,{range:'전장',card:f.sourceCardId,sourceKind:'FIELD'})),heal=(t,n)=>this.heal(t,n,a.name);
+  const a=b.actors.find(x=>x.id===f.actor);if(!a)continue;const foes=active(b,a.side==='ALLY'?'ENEMY':'ALLY'),allies=active(b,a.side),low=lowest(allies),atk=this.combatStat(a,'atk'),summonName=({GOU_BA:'누룽지',YUEGUI_THROWING:'월계'})[f.kind]||null,summonId=summonName?'SUMMON:'+f.kind+':'+a.id:null;
+  const hit=(k,e,n=4)=>foes.slice(0,n).forEach(t=>this.damage(a,t,k,e,{range:'전장',card:f.sourceCardId,sourceKind:'FIELD',...(summonId?{presentationActorId:summonId,presentationActorName:summonName}:{})})),heal=(t,n)=>this.heal(t,n,a.name);
   if(timing==='START'&&f.kind==='BAIZHU_SEAMLESS_SHIELD'&&once(f,'START:'+b.round)&&low)this.shield(low,a.maxHp*.1,'LIYUE_BAIZHU_Q',1,{actor:a.id});
   if(timing!=='END'||!once(f,'END:'+b.round))continue;
   switch(f.kind){
