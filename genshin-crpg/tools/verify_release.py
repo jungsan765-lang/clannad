@@ -12,6 +12,7 @@ TESTS = [
     'tests/test_reading_checkpoint.mjs', 'tests/test_action_recovery.mjs', 'tests/test_update_recovery.cjs', 'tests/test_engine_identity.py',
     'tests/test_combat_catalog_online.mjs', 'tests/test_action_feedback.cjs',
     'tests/test_online_bootstrap_v01343.cjs', 'tests/test_online_title_v01344.cjs',
+    'tests/test_local_dev_config.cjs',
     'tests/test_opening.cjs', 'tests/test_mond_content_v01344.cjs',
     'tests/test_mond_full_v01344.cjs', 'tests/test_save_v01344.cjs',
     'tests/test_save_revision.cjs', 'tests/test_work_validation.cjs',
