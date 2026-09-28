@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Reproducible static/offline build from a pinned content snapshot and exact asset manifest."""
 from pathlib import Path
-import json,hashlib,shutil,sys,base64,datetime,re
+import json,hashlib,shutil,sys,base64,datetime,re,os
 from PIL import Image,ImageDraw
-ROOT=Path(__file__).resolve().parents[1];SRC=ROOT/'source';OUT=ROOT/'dist';shutil.rmtree(OUT,ignore_errors=True);OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];SRC=ROOT/'source';OUT=Path(os.environ.get('CRPG_BUILD_DIR',str(ROOT/'dist'))).resolve();shutil.rmtree(OUT,ignore_errors=True);OUT.mkdir(parents=True,exist_ok=True)
 sha=lambda b:hashlib.sha256(b).hexdigest()
 from apply_liyue_rework import apply as apply_liyue_rework
 apply_liyue_rework()
