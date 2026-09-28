@@ -1,0 +1,292 @@
+{
+  "version": "0.14.1",
+  "baseMain": "3d2ba543456d5cd3308307d5aea27a27db4ecfdf",
+  "productionTouched": false,
+  "build": "server and .local/dist passed",
+  "visualBrowserCheck": "BLOCKED_BY_CLIENT for local URL; user local play required",
+  "checks": [
+    {
+      "test": "tests/test_online_server.mjs",
+      "ok": true,
+      "seconds": 3.5
+    },
+    {
+      "test": "tests/test_authoritative_flow.mjs",
+      "ok": true,
+      "seconds": 2.0
+    },
+    {
+      "test": "tests/test_reading_checkpoint.mjs",
+      "ok": true,
+      "seconds": 7.5
+    },
+    {
+      "test": "tests/test_action_recovery.mjs",
+      "ok": true,
+      "seconds": 52.1
+    },
+    {
+      "test": "tests/test_update_recovery.cjs",
+      "ok": true,
+      "seconds": 0.1
+    },
+    {
+      "test": "tests/test_engine_identity.py",
+      "ok": true,
+      "seconds": 0.0
+    },
+    {
+      "test": "tests/test_combat_catalog_online.mjs",
+      "ok": true,
+      "seconds": 3.2
+    },
+    {
+      "test": "tests/test_action_feedback.cjs",
+      "ok": true,
+      "seconds": 0.1
+    },
+    {
+      "test": "tests/test_online_bootstrap_v01343.cjs",
+      "ok": true,
+      "seconds": 0.1
+    },
+    {
+      "test": "tests/test_online_title_v01344.cjs",
+      "ok": true,
+      "seconds": 1.6
+    },
+    {
+      "test": "tests/test_local_dev_config.cjs",
+      "ok": true,
+      "seconds": 0.1
+    },
+    {
+      "test": "tests/test_local_revision_v0141.cjs",
+      "ok": true,
+      "seconds": 5.4
+    },
+    {
+      "test": "tests/test_story_edition_v0141.cjs",
+      "ok": true,
+      "seconds": 1.0
+    },
+    {
+      "test": "tests/test_balance_v0141.cjs",
+      "ok": true,
+      "seconds": 7.8
+    },
+    {
+      "test": "tests/test_local_revision_online_v0141.mjs",
+      "ok": true,
+      "seconds": 2.4
+    },
+    {
+      "test": "tests/test_opening.cjs",
+      "ok": true,
+      "seconds": 7.1
+    },
+    {
+      "test": "tests/test_mond_content_v01344.cjs",
+      "ok": true,
+      "seconds": 2.8
+    },
+    {
+      "test": "tests/test_mond_full_v01344.cjs",
+      "ok": true,
+      "seconds": 79.1
+    },
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "ok": true,
+      "seconds": 4.7
+    },
+    {
+      "test": "tests/test_save_revision.cjs",
+      "ok": true,
+      "seconds": 10.5
+    },
+    {
+      "test": "tests/test_work_validation.cjs",
+      "ok": true,
+      "seconds": 7.3
+    },
+    {
+      "test": "tests/test_life_ui_v010.cjs",
+      "ok": true,
+      "seconds": 2.6
+    },
+    {
+      "test": "tests/test_playback_v08.cjs",
+      "ok": true,
+      "seconds": 0.7
+    },
+    {
+      "test": "tests/test_presentation.cjs",
+      "ok": true,
+      "seconds": 0.1
+    },
+    {
+      "test": "tests/test_access_gear_v01343.cjs",
+      "ok": true,
+      "seconds": 7.5
+    },
+    {
+      "test": "tests/test_gear_ui_v01343.cjs",
+      "ok": true,
+      "seconds": 1.0
+    },
+    {
+      "test": "tests/test_quality_fixes_v01335.cjs",
+      "ok": true,
+      "seconds": 1.8
+    },
+    {
+      "test": "tests/test_quality_fixes_v01336.cjs",
+      "ok": true,
+      "seconds": 3.8
+    },
+    {
+      "test": "tests/test_quality_fixes_v01337.cjs",
+      "ok": true,
+      "seconds": 0.3
+    },
+    {
+      "test": "tests/test_quality_fixes_v01338.cjs",
+      "ok": true,
+      "seconds": 1.6
+    },
+    {
+      "test": "tests/test_liyue_rework_mechanics.cjs",
+      "ok": true,
+      "seconds": 21.9
+    },
+    {
+      "test": "tests/test_liyue_rework_flow.cjs",
+      "ok": true,
+      "seconds": 105.7
+    },
+    {
+      "test": "tools/test_field_bosses.cjs",
+      "ok": true,
+      "seconds": 12.4
+    },
+    {
+      "test": "tools/test_exclusive_weapons.cjs",
+      "ok": true,
+      "seconds": 2.1
+    },
+    {
+      "test": "tests/test_update_v01341.cjs",
+      "ok": true,
+      "seconds": 20.4
+    },
+    {
+      "test": "tests/test_abyss_v01341.cjs",
+      "ok": true,
+      "seconds": 7.5
+    },
+    {
+      "test": "tests/test_osial_v01341.cjs",
+      "ok": true,
+      "seconds": 3.7
+    },
+    {
+      "test": "tools/test_story_cleanup_v0140.cjs",
+      "ok": true,
+      "seconds": 1.1
+    }
+  ],
+  "flowMethod": "v0.14.1 local candidate. Synthetic source-grounded M05 boundary; test-only level20/baseHP100000/baseATK10000 fixture. All Liyue advancement/COMBAT_BEGIN/COMBAT real public actions, no forced finishBattle. This is FLOW QA, NOT difficulty validation.",
+  "liyue": [
+    {
+      "leaf": "K1",
+      "status": "PASS",
+      "actions": 536,
+      "restores": 40,
+      "fieldEpisodes": 4,
+      "fieldSteps": 5,
+      "terminal": "SCREEN:CRPG_MAIN"
+    },
+    {
+      "leaf": "K2",
+      "status": "PASS",
+      "actions": 577,
+      "restores": 37,
+      "fieldEpisodes": 4,
+      "fieldSteps": 5,
+      "terminal": "SCREEN:CRPG_MAIN"
+    },
+    {
+      "leaf": "AA1",
+      "status": "PASS",
+      "actions": 462,
+      "restores": 26,
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "terminal": "SCREEN:CRPG_MAIN"
+    },
+    {
+      "leaf": "AA2",
+      "status": "PASS",
+      "actions": 505,
+      "restores": 26,
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "terminal": "SCREEN:CRPG_MAIN"
+    },
+    {
+      "leaf": "AB1",
+      "status": "PASS",
+      "actions": 515,
+      "restores": 22,
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "terminal": "SCREEN:CRPG_MAIN"
+    },
+    {
+      "leaf": "AB2",
+      "status": "PASS",
+      "actions": 539,
+      "restores": 27,
+      "fieldEpisodes": 5,
+      "fieldSteps": 5,
+      "terminal": "SCREEN:CRPG_MAIN"
+    },
+    {
+      "leaf": "B1",
+      "status": "PASS",
+      "actions": 436,
+      "restores": 27,
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "terminal": "SCREEN:CRPG_MAIN"
+    },
+    {
+      "leaf": "B2",
+      "status": "PASS",
+      "actions": 440,
+      "restores": 29,
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "terminal": "SCREEN:CRPG_MAIN"
+    },
+    {
+      "leaf": "TRV_A",
+      "status": "PASS",
+      "actions": 657,
+      "restores": 30,
+      "fieldEpisodes": 0,
+      "fieldSteps": 0,
+      "terminal": "TRV_LY4_END"
+    },
+    {
+      "leaf": "TRV_B",
+      "status": "PASS",
+      "actions": 640,
+      "restores": 26,
+      "fieldEpisodes": 0,
+      "fieldSteps": 0,
+      "terminal": "TRV_LY4_END"
+    }
+  ]
+}

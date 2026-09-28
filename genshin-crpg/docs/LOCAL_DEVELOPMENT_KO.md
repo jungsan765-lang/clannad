@@ -45,4 +45,4 @@ Windows에서는 Python 실행 명령을 `py -3`, `python`, `python3` 순서로 
 - Worker 운영 배포: 사용자의 인증된 Wrangler 환경에서 명시적으로 실행
 - Pages 운영 게시: `.github/workflows/crpg-sync-dist.yml`을 `main + publish=true`로 수동 실행
 
-개발 중에는 버전 번호를 올리거나 운영 배포를 반복하지 않습니다.
+테스트 후보는 0.14.1, 0.14.2처럼 올립니다. 사용자가 최종 승인한 큰 배포에서만 0.15.0처럼 정식 버전을 올립니다. 테스트 중 운영 Worker/D1/Pages는 건드리지 않으며, 승인 전 main 병합과 운영 배포도 하지 않습니다.

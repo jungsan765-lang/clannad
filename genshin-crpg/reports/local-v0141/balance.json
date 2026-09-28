@@ -1,0 +1,625 @@
+{
+  "method": "Synthetic legal ownership, levels and enhancement; native engine stats/damage, deterministic AI. Reachability tested separately. Samples are not exhaustive balance guarantees.",
+  "results": [
+    {
+      "name": "Dvalin: geared 4/4/3/3 loses, prepared level 8 party wins, five seeds each",
+      "ok": true,
+      "evidence": [
+        {
+          "seed": 717,
+          "levels": "4/4/3/3",
+          "enhance": 3,
+          "victory": false,
+          "rounds": 8
+        },
+        {
+          "seed": 717,
+          "levels": "8/8/8/8",
+          "enhance": 6,
+          "victory": true,
+          "rounds": 7
+        },
+        {
+          "seed": 718,
+          "levels": "4/4/3/3",
+          "enhance": 3,
+          "victory": false,
+          "rounds": 8
+        },
+        {
+          "seed": 718,
+          "levels": "8/8/8/8",
+          "enhance": 6,
+          "victory": true,
+          "rounds": 7
+        },
+        {
+          "seed": 719,
+          "levels": "4/4/3/3",
+          "enhance": 3,
+          "victory": false,
+          "rounds": 8
+        },
+        {
+          "seed": 719,
+          "levels": "8/8/8/8",
+          "enhance": 6,
+          "victory": true,
+          "rounds": 7
+        },
+        {
+          "seed": 720,
+          "levels": "4/4/3/3",
+          "enhance": 3,
+          "victory": false,
+          "rounds": 8
+        },
+        {
+          "seed": 720,
+          "levels": "8/8/8/8",
+          "enhance": 6,
+          "victory": true,
+          "rounds": 7
+        },
+        {
+          "seed": 721,
+          "levels": "4/4/3/3",
+          "enhance": 3,
+          "victory": false,
+          "rounds": 8
+        },
+        {
+          "seed": 721,
+          "levels": "8/8/8/8",
+          "enhance": 6,
+          "victory": true,
+          "rounds": 7
+        }
+      ]
+    },
+    {
+      "name": "FB_ANEMO_HYPOSTASIS: native level 10 equipped counter party can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_AMBER",
+          "MOND_LISA",
+          "MOND_BENNETT"
+        ],
+        "level": 10,
+        "enhance": 9,
+        "seed": 717,
+        "rounds": 11,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            10,
+            1074,
+            170.4,
+            92
+          ],
+          [
+            "MOND_AMBER",
+            10,
+            1305,
+            196,
+            122
+          ],
+          [
+            "MOND_LISA",
+            10,
+            1356,
+            218,
+            121
+          ],
+          [
+            "MOND_BENNETT",
+            10,
+            1400,
+            189,
+            131
+          ],
+          [
+            "FB_ANEMO_HYPOSTASIS",
+            10,
+            4140,
+            456,
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_ELECTRO_HYPOSTASIS: native level 10 equipped counter party can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_KLEE",
+          "MOND_NOELLE",
+          "MOND_BENNETT"
+        ],
+        "weapon": null,
+        "armor": "EQ_LY_ARMOR_THUNDERWARD",
+        "level": 10,
+        "enhance": 9,
+        "seed": 717,
+        "rounds": 8,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            10,
+            1117,
+            170.4,
+            86
+          ],
+          [
+            "MOND_KLEE",
+            10,
+            1294,
+            233,
+            108
+          ],
+          [
+            "MOND_NOELLE",
+            10,
+            1658,
+            210,
+            181
+          ],
+          [
+            "MOND_BENNETT",
+            10,
+            1443,
+            189,
+            125
+          ],
+          [
+            "FB_ELECTRO_HYPOSTASIS",
+            10,
+            2750,
+            325,
+            75
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_CRYO_REGISVINE: native level 10 equipped counter party can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_AMBER",
+          "MOND_LISA",
+          "MOND_BENNETT"
+        ],
+        "level": 10,
+        "enhance": 9,
+        "seed": 717,
+        "rounds": 7,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            10,
+            1074,
+            170.4,
+            92
+          ],
+          [
+            "MOND_AMBER",
+            10,
+            1305,
+            196,
+            122
+          ],
+          [
+            "MOND_LISA",
+            10,
+            1356,
+            218,
+            121
+          ],
+          [
+            "MOND_BENNETT",
+            10,
+            1400,
+            189,
+            131
+          ],
+          [
+            "FB_CRYO_REGISVINE",
+            10,
+            3680,
+            460,
+            70
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_CRYO_HYPOSTASIS: native level 10 equipped counter party can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_AMBER",
+          "MOND_LISA",
+          "MOND_BENNETT"
+        ],
+        "level": 10,
+        "enhance": 9,
+        "seed": 717,
+        "rounds": 8,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            10,
+            1074,
+            170.4,
+            92
+          ],
+          [
+            "MOND_AMBER",
+            10,
+            1305,
+            196,
+            122
+          ],
+          [
+            "MOND_LISA",
+            10,
+            1356,
+            218,
+            121
+          ],
+          [
+            "MOND_BENNETT",
+            10,
+            1400,
+            189,
+            131
+          ],
+          [
+            "FB_CRYO_HYPOSTASIS",
+            10,
+            2520,
+            276,
+            85
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_GEO_HYPOSTASIS: native level 10 equipped counter party can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_NOELLE",
+          "MOND_BENNETT",
+          "MOND_LISA"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "level": 10,
+        "enhance": 9,
+        "seed": 717,
+        "rounds": 21,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            10,
+            1074,
+            181.2,
+            109
+          ],
+          [
+            "MOND_NOELLE",
+            10,
+            1536,
+            210,
+            187
+          ],
+          [
+            "MOND_BENNETT",
+            10,
+            1470,
+            189,
+            131
+          ],
+          [
+            "MOND_LISA",
+            10,
+            1291,
+            218,
+            121
+          ],
+          [
+            "FB_GEO_HYPOSTASIS",
+            10,
+            3120,
+            300,
+            85
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_PYRO_REGISVINE: native level 10 equipped counter party can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_KAEYA",
+          "MOND_BARBARA",
+          "MOND_LISA"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "armor": "EQ_LY_ARMOR_JADEFLAME",
+        "level": 10,
+        "enhance": 9,
+        "seed": 717,
+        "rounds": 11,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            10,
+            1088,
+            181.2,
+            112
+          ],
+          [
+            "MOND_KAEYA",
+            10,
+            1387,
+            213,
+            136
+          ],
+          [
+            "MOND_BARBARA",
+            10,
+            1750,
+            160,
+            129
+          ],
+          [
+            "MOND_LISA",
+            10,
+            1305,
+            218,
+            124
+          ],
+          [
+            "FB_PYRO_REGISVINE",
+            10,
+            3000,
+            300,
+            75
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_OCEANID: native level 10 equipped counter party can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_AMBER",
+          "MOND_LISA",
+          "MOND_BENNETT"
+        ],
+        "level": 10,
+        "enhance": 9,
+        "seed": 717,
+        "rounds": 7,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            10,
+            1074,
+            170.4,
+            92
+          ],
+          [
+            "MOND_AMBER",
+            10,
+            1305,
+            196,
+            122
+          ],
+          [
+            "MOND_LISA",
+            10,
+            1356,
+            218,
+            121
+          ],
+          [
+            "MOND_BENNETT",
+            10,
+            1400,
+            189,
+            131
+          ],
+          [
+            "FB_OCEANID",
+            10,
+            800,
+            336,
+            60
+          ],
+          [
+            "FB_MIMIC_BOAR",
+            10,
+            580,
+            302,
+            60
+          ],
+          [
+            "FB_MIMIC_CRANE",
+            10,
+            400,
+            269,
+            45
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_PRIMO_GEOVISHAP: native level 10 equipped counter party can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_NOELLE",
+          "MOND_DIONA",
+          "MOND_BENNETT"
+        ],
+        "level": 10,
+        "enhance": 9,
+        "seed": 717,
+        "rounds": 15,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            10,
+            1074,
+            170.4,
+            92
+          ],
+          [
+            "MOND_NOELLE",
+            10,
+            1536,
+            210,
+            187
+          ],
+          [
+            "MOND_DIONA",
+            10,
+            1356,
+            167,
+            133
+          ],
+          [
+            "MOND_BENNETT",
+            10,
+            1400,
+            189,
+            131
+          ],
+          [
+            "FB_PRIMO_GEOVISHAP",
+            10,
+            4350,
+            350,
+            90
+          ]
+        ]
+      }
+    },
+    {
+      "name": "FB_RUIN_SERPENT: native level 10 equipped counter party can win",
+      "ok": true,
+      "evidence": {
+        "team": [
+          "MOND_NOELLE",
+          "MOND_DIONA",
+          "MOND_BENNETT"
+        ],
+        "weapon": "EQ_CLAYMORE_WHITEBLIND",
+        "level": 10,
+        "enhance": 9,
+        "seed": 717,
+        "rounds": 21,
+        "stats": [
+          [
+            "PLAYER_CUSTOM",
+            10,
+            1074,
+            181.2,
+            109
+          ],
+          [
+            "MOND_NOELLE",
+            10,
+            1536,
+            210,
+            187
+          ],
+          [
+            "MOND_DIONA",
+            10,
+            1356,
+            167,
+            133
+          ],
+          [
+            "MOND_BENNETT",
+            10,
+            1400,
+            189,
+            131
+          ],
+          [
+            "FB_RUIN_SERPENT",
+            10,
+            5600,
+            640,
+            95
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Liyue ESCORT: native level 6 solo fails; level 6 equipped party survives",
+      "ok": true,
+      "evidence": [
+        {
+          "anchor": "ISK_L01_B_038",
+          "team": [],
+          "level": 6,
+          "enhance": 3,
+          "seed": 717,
+          "victory": false,
+          "rounds": 7
+        },
+        {
+          "anchor": "ISK_L01_B_038",
+          "team": [
+            "MOND_AMBER",
+            "MOND_KAEYA",
+            "MOND_BARBARA"
+          ],
+          "level": 6,
+          "enhance": 3,
+          "seed": 717,
+          "victory": true,
+          "rounds": 4
+        }
+      ]
+    },
+    {
+      "name": "Liyue DEFEND: native level 6 solo fails; level 6 equipped party survives",
+      "ok": true,
+      "evidence": [
+        {
+          "anchor": "ISK_L02_K1_001",
+          "team": [],
+          "level": 6,
+          "enhance": 3,
+          "seed": 717,
+          "victory": false,
+          "rounds": 4
+        },
+        {
+          "anchor": "ISK_L02_K1_001",
+          "team": [
+            "MOND_AMBER",
+            "MOND_KAEYA",
+            "MOND_BARBARA"
+          ],
+          "level": 6,
+          "enhance": 3,
+          "seed": 717,
+          "victory": true,
+          "rounds": 4
+        }
+      ]
+    }
+  ]
+}

@@ -6,7 +6,7 @@
  const api=root.CRPGRuntime,P=api.Runtime.prototype,copy=x=>JSON.parse(JSON.stringify(x));
  const VERSION=1,WIND='SYS_MOND_WIND_ROUTE',ACCESS='EXPLICIT_ACCESS_TO_BOSS_DVALIN';
  const PROFILES={
-  BOSS_DVALIN:{name:'드발린',level:5,hp:2050,atk:190,def:70,recommended:5,terrain:4},
+  BOSS_DVALIN:{name:'드발린',level:7,hp:3800,atk:300,def:85,recommended:7,terrain:4},
   BOSS_ANDRIUS:{name:'안드리우스',level:7,hp:2100,atk:110,def:75,recommended:7}
  };
  const old=Object.fromEntries(['startBattle','combatCards','executeCombatSystem','enemyIntel','validateSave'].map(k=>[k,P[k]]));
@@ -27,7 +27,7 @@
  P.combatCards=function(...args){const cards=old.combatCards.apply(this,args),b=this.s.runtime,a=this.combatActor(args[0]||'PLAYER_CUSTOM');
   if(!b?.mondBossBalance||!a||a.source!=='PLAYER_CUSTOM'||!b.mondBossBalance.bosses.includes('BOSS_DVALIN'))return cards;
   let reason=b.opening?.state==='PENDING'?'먼저 전투 시작을 눌러 주세요.':b.interlude?'현재 대화를 마쳐 주세요.':b.subduedPending?'마지막 행동을 선택해 주세요.':a.hp<=0?'전투불능 상태입니다.':b.mondBossBalance.windRoute?'이미 바람길을 확보했습니다.':this.combatActionLocked?.(a)?'행동 불가 상태입니다.':'';
-  cards.push({id:WIND,name:'상승 기류 · 바람길 확보',system:true,cooldown:0,reason,targets:[{id:a.id,name:a.name,hp:a.hp,maxHp:a.maxHp}],description:'전장에 생긴 상승 기류를 이용합니다. 주인공의 1행동으로 살아 있는 아군 전체의 공중 접근을 이 전투 동안 확보하며, 주인공이 원소 능력을 얻는 것은 아닙니다. 근접·중거리 공격은 기존 최종 피해 −15%를 적용합니다. 장비·아이템은 소비하지 않습니다.'});return cards;
+  cards.push({id:WIND,name:'상승 기류 · 바람길 확보',system:true,cooldown:0,reason,targets:[{id:a.id,name:a.name,hp:a.hp,maxHp:a.maxHp}],description:'전장에 생긴 상승 기류를 이용합니다. 내 캐릭터의 1행동으로 살아 있는 아군 전체의 공중 접근을 이 전투 동안 확보하며, 내 캐릭터가 원소 능력을 얻는 것은 아닙니다. 근접·중거리 공격은 기존 최종 피해 −15%를 적용합니다. 장비·아이템은 소비하지 않습니다.'});return cards;
  };
  P.executeCombatSystem=function(a,id,target){if(id!==WIND)return old.executeCombatSystem.call(this,a,id,target);
   const b=this.s.runtime,entry=this.combatCards(a.id).find(c=>c.id===WIND);if(!entry||entry.reason)throw new api.RuleError('BOSS_WIND_ROUTE',entry?.reason||'현재 전투에서는 바람길을 확보할 수 없습니다.');

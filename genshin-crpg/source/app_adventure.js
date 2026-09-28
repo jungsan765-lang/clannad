@@ -79,10 +79,11 @@ journalEntry=function(parent,entry){
  if(entry.reason)c.append(el('p','choice-note',entry.reason));const start=actionButton(game.storyLegendEntryNode(d)!==d.ENTRY_NODE_ID?'준비물 확인부터 계속':'개인 이야기 열기','LEGEND_ENTER',{quest:entry.id},true);start.disabled=start.disabled||!!entry.reason;c.append(start);parent.append(c);
 };
 function rewardPreview(parent,rewards){
- const box=el('div','reward-preview');if(rewards.mora)box.append(el('span','','◈ '+rewards.mora+' 모라'));if(rewards.xp)box.append(el('span','','✦ 경험치 '+rewards.xp));for(const [id,n]of Object.entries(rewards.items||{}))box.append(el('span','',safeName('14_ITEM_DB',id)+' ×'+n));if(rewards.equipment_choice)box.append(el('span','','장비 1개 선택'));parent.append(box);
+ const box=el('div','reward-preview');if(rewards.mora)box.append(el('span','','◈ '+rewards.mora+' 모라'));if(rewards.xp)box.append(el('span','','✦ 편성 중인 파티원 각각 경험치 +'+rewards.xp));for(const [id,n]of Object.entries(rewards.items||{}))box.append(el('span','',safeName('14_ITEM_DB',id)+' ×'+n));if(rewards.equipment_choice)box.append(el('span','','장비 1개 선택'));parent.append(box);
 }
 function commissionCard(parent,q,guild=false){
  const c=el('section','card commission-card'),r=q.row,d=q.definition,state=q.state;c.append(el('small','',state?.claimed?'완료':q.accepted?'진행 중':'미수락'),el('h3','',r[1]),el('p','',r[5]||d.text));travelGuide(c,d.map_id);rewardPreview(c,q.reward);
+ const tale=game.commissionStory?.(r[0]);if(tale)c.append(el('p','commission-story',state?.claimed||state?.node==='READY_TO_CLAIM'?tale.after:tale.before));
  if(state?.claimed){c.append(el('p','muted','보상을 수령했습니다.'));}
  else if(!q.accepted){if(guild)c.append(actionButton('의뢰 수락','COMMISSION_ACCEPT',{quest:r[0]},true));else c.append(el('p','muted','안내원에게 찾아가 의뢰를 받아 주세요.'));}
  else if(q.reason)c.append(el('p','choice-note',q.reason));

@@ -30,7 +30,7 @@ P.finishBattle=function(victory){
  if(victory){
   // Companions carried the fight: the protagonist gets back up instead of being treated as a wipe.
   if(g.PLAYER_HP_CURRENT<=0){g.PLAYER_HP_CURRENT=Math.max(1,Math.ceil(g.PLAYER_HP_MAX*CONFIG.reviveHpRate));this.s.playerStatuses=[];settled.protagonistRevived=g.PLAYER_HP_CURRENT;}
- }else{
+ }else if(!battle.escaped){
   const mora=Math.floor(Math.max(0,Number(g.MORA)||0)*CONFIG.defeatMoraRate);g.MORA-=mora;
   this.s.defeatPenalty={version:1,battle:String(battle.id),mora,until:Date.now()+CONFIG.defeatLockMs,story:origin.startsWith('STORY:')};
   settled.defeatPenalty={mora,seconds:CONFIG.defeatLockMs/1000};

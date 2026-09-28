@@ -40,7 +40,7 @@ P.abyssParty=function(){return this.s.party.filter(x=>x.active).map(x=>x.source)
 P.abyssFloorReason=function(floor){
  const f=Number.isInteger(floor)&&FLOORS[floor-1];if(!f)return '등록되지 않은 층입니다.';
  if(this.s.runtime||this.s.battlePreparation||this.s.lifeJob||this.s.worldJob||this.s.storyContext||this.playPhase()!=='FREE')return '현재 장면과 작업을 마친 뒤 입장해 주세요.';
- if(!['MAP_MOND_CITY','MAP_LIYUE_HARBOR'].includes(this.s.global.CURRENT_MAP_ID))return '몬드성 또는 리월항에서 나선비경에 입장할 수 있습니다.';
+ if(this.s.global.CURRENT_MAP_ID!=='MAP_V141_MUSK_REEF')return '맹세의 갑각의 통로를 통해 머스크 암초로 이동해 주세요.';
  const s=this.ensureAbyss();if(this.abyssParty().some(id=>(id==='PLAYER_CUSTOM'?this.s.global.PLAYER_LEVEL_STATE:this.s.chars[id]?.level)<10))return '나선비경은 파티 전원 Lv. 10부터 입장할 수 있습니다.';if(floor>1&&!s.clears[floor-1])return '앞선 층을 먼저 정복해야 합니다.';
  const party=this.abyssParty();if(party.length!==4)return '주인공과 동료 세 명을 편성해 주세요.';
  if(party.some(id=>(id==='PLAYER_CUSTOM'?this.s.global.PLAYER_HP_CURRENT:this.s.chars[id]?.hp)<=0))return '전투불능 파티원을 회복해 주세요.';

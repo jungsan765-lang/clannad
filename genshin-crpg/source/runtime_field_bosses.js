@@ -54,10 +54,10 @@ const BOSSES={
  FB_OCEANID:{kind:'OCEANID',name:'물의 정령',map:'MAP_LY_DETAIL_DIHUA',region:'리월',level:6,hp:800,atk:120,def:60,spd:60,element:'물',immune:['ALL'],range:'중거리',material:'MAT_FB_CLEANSING_HEART',
   summary:'물의 정령은 직접 공격이 닿지 않는다. 계속 불러내는 물의 형상을 8번 쓰러뜨리면 형체가 흩어진다.',
   gimmicks:{FORMS:G('물의 형상','멧돼지·학·개구리·게·매 모양의 형상을 두 마리씩 불러냄 · 8번 쓰러뜨리면 승리','광역 공격 · 대공(학·매는 떠 있다가 공격 뒤 잠깐 내려앉음)'),WAVE:G('침수 파도','2차례마다 전원 침수 지형(젖음) 2라운드','방수 장비'),SPOUT:G('물줄기','무작위 동료 물 피해','물 내성'),BODY:G('닿지 않는 본체','정령 본체는 피해를 받지 않음','형상부터 처치'),FROG:G('개구리의 물폭탄','개구리 형상은 쓰러질 때 전열을 적심','방수 장비·후열 공격')}},
- FB_PRIMO_GEOVISHAP:{kind:'PRIMO',img:5,name:'고대 바위 용 도마뱀',map:'MAP_LY_DETAIL_TIANQIU',region:'리월',level:7,hp:2900,atk:140,def:90,spd:58,element:'바위',immune:[],range:'근접',material:'MAT_FB_JUVENILE_JADE',enrage:true,
+ FB_PRIMO_GEOVISHAP:{kind:'PRIMO',name:'고대 바위 용 도마뱀',map:'MAP_LY_DETAIL_TIANQIU',region:'리월',level:7,hp:2900,atk:140,def:90,spd:58,element:'바위',immune:[],range:'근접',material:'MAT_FB_JUVENILE_JADE',enrage:true,
   summary:'원소를 흡수한 거대한 용 도마뱀. 예고한 뒤 흡수한 원소로 원암 분사를 쏜다. 보호막이 없으면 크게 다친다.',
   gimmicks:{INFUSE:G('원소 흡수','전투 시작 시 불·물·얼음·번개 중 하나를 흡수 · 그 원소 피해 절반','다른 원소·흡수 원소 내성 장비'),CLAW:G('바위 할퀴기','선두에 단타','중장·보호막'),LEAP:G('용암 도약','전열 강한 단타 · 행동 지연','경직 저항·중장'),BEAM:G('원암 분사','예고 후 전원에게 흡수 원소의 큰 피해 · 보호막이 있으면 75% 감소 · 두 명 이상 막으면 튕겨 나가 행동 불능·핵 노출','보호막 동료·보호막 강화 장비·원소 내성'),ENRAGE:G('광폭','HP 30% 이하에서 원암 분사가 더 자주 옴','보호막 재사용 시점 맞추기')}},
- FB_RUIN_SERPENT:{kind:'SERPENT',img:14,name:'유적의 뱀',map:'MAP_CHASM_DEEP',region:'리월',level:10,hp:3500,atk:160,def:95,spd:60,element:'물리',immune:[],range:'근접',material:'MAT_FB_RUNIC_FANG',
+ FB_RUIN_SERPENT:{kind:'SERPENT',name:'유적의 뱀',map:'MAP_CHASM_DEEP',region:'리월',level:10,hp:3500,atk:160,def:95,spd:60,element:'물리',immune:[],range:'근접',material:'MAT_FB_RUNIC_FANG',
   summary:'층암거연 지하를 헤엄치는 유적 기계 뱀. 땅속에 숨어 후미를 기습하고 침식 파동을 퍼뜨린다. 돌진 뒤에는 머리가 드러난다.',
   gimmicks:{BURROW:G('잠행','땅속에 숨은 동안 피해를 받지 않고 다음 차례 후미를 기습','후미에 튼튼한 동료·보호막'),WAVE:G('침식 파동','전원 부식 지형 2라운드(방어력 −15%)','해독·정화 장비'),CHARGE:G('돌진 관통','예고 후 전열 강한 단타 · 뒤이어 머리가 1라운드 드러남','중장 장비 · 약점 공략으로 몰아치기'),BIND:G('휘감기','선두를 휘감아 기절시킴','행동 방해 저항·정화')}}
 };
@@ -75,7 +75,16 @@ const MIMIC_ORDER=['FB_MIMIC_BOAR','FB_MIMIC_CRANE','FB_MIMIC_FROG','FB_MIMIC_CR
 const ROUTE=id=>'BRT_'+id,GROUP=id=>'EG_'+id,FLAG=id=>'FLAG_'+id+'_CLEAR',LOOT=id=>'LT_'+id;
 // Tuned with a 4-person party at the recommended level (reports/field_bosses/balance.json): an unprepared
 // generalist party should usually lose, a prepared one should usually win. Bosses act twice a turn.
-const TUNE={hp:1.35,atk:2.2,actions:2};
+for(const d of Object.values(BOSSES))d.level=Math.max(10,d.level);
+BOSSES.FB_ANEMO_HYPOSTASIS.gimmicks.REVIVE.counter='원거리·대공 공격으로 떠오른 핵 집중 공격';
+BOSSES.FB_ELECTRO_HYPOSTASIS.gimmicks.REVIVE.counter='불·얼음·풀 원소로 프리즘 파괴';
+BOSSES.FB_CRYO_HYPOSTASIS.gimmicks.REVIVE.counter='불 원소·파쇄 공격 네 번';
+BOSSES.FB_CRYO_REGISVINE.gimmicks.SHELL.text='불 원소로만 결정막 파괴 · 깨지면 행동 불능과 핵 노출 · 3라운드 뒤 재생';
+BOSSES.FB_PYRO_REGISVINE.gimmicks.SHELL.text='물·얼음 원소로만 결정막 파괴 · 깨지면 행동 불능과 핵 노출';
+BOSSES.FB_OCEANID.gimmicks.FORMS.counter='광역 공격 · 원거리·대공 공격으로 공중 형상 처치';
+BOSSES.FB_PRIMO_GEOVISHAP.summary+=' 비늘을 열려면 보호막으로 원암 분사를 반사해야 한다.';
+BOSSES.FB_RUIN_SERPENT.summary+=' 노출된 머리를 파쇄·약점 공략으로 때려야 갑주가 열린다.';
+const TUNE={hp:1.5,atk:2.4,actions:2};
 const TUNE_BY={FB_ANEMO_HYPOSTASIS:{atk:3.8,hp:1.8},FB_ELECTRO_HYPOSTASIS:{hp:1.1,atk:2.5},FB_CRYO_REGISVINE:{atk:4,hp:1.6},FB_CRYO_HYPOSTASIS:{hp:.9,atk:1.9},FB_GEO_HYPOSTASIS:{hp:1.3,atk:2.4},FB_PYRO_REGISVINE:{hp:1.2},FB_OCEANID:{atk:2.8},FB_PRIMO_GEOVISHAP:{atk:2.5},FB_RUIN_SERPENT:{hp:1.6,atk:4}};
 const tuned=(d,key)=>Math.round(d[key]*((TUNE_BY[d.id]||{})[key]??TUNE[key]));
 // Two-day bosses: extra mechanics only in voluntary challenges (never in the story fights).
@@ -127,7 +136,7 @@ P.startBattle=function(group,origin='EXPLICIT',...rest){
  const boss=b.actors.find(a=>a.side==='ENEMY'&&BOSSES[a.source]);
  if(boss&&!b.fieldBoss){const d=BOSSES[boss.source];
   boss.fb={version:1,kind:d.kind,acts:0,next:null,stunned:false,exposedUntil:0,revived:false,revival:null,shieldBreaks:0,shieldReturn:0,summoned:0,burrowed:false,phase:1};boss.size='BOSS';
-  b.fieldBoss={version:1,boss:boss.source,route:String(origin).startsWith('BOSS:')?origin.slice(5):null,seen:[],telegraph:null,defeated:0,target:d.kind==='OCEANID'?8:0,spawned:0,heatwave:null};
+  b.fieldBoss={version:1,challengeRevision:1,boss:boss.source,route:String(origin).startsWith('BOSS:')?origin.slice(5):null,seen:[],telegraph:null,defeated:0,target:d.kind==='OCEANID'?8:0,spawned:0,heatwave:null};
   if(d.kind==='CRYO_VINE'||d.kind==='PYRO_VINE')this.fbShell(boss);
   if(d.kind==='PRIMO'){const pool=['불','물','얼음','번개'];boss.fb.infused=pool[hash(String(this.s.global.SAVE_ID)+'|'+b.id)%pool.length];this.fieldBossSeen(b,'INFUSE');b.log.push({actor:boss.name,actorId:boss.id,card:'FB_PRIMO_INFUSE',cardName:'원소 흡수',text:boss.name+'이(가) '+boss.fb.infused+' 원소를 흡수했다.',round:b.round});}
   if(d.kind==='OCEANID'){boss.fb.untouchable=true;this.fieldBossSeen(b,'BODY');this.fbSpawnMimics(b,boss,2);}
@@ -200,7 +209,7 @@ P.fbMove=function(a,move){
   case 'CLAW':log();this.fbHit(a,rowOf(b,'LEAD')[0],1.1,'바위',{move});break;
   case 'LEAP':log();for(const t of rowOf(b,'FRONT')){this.fbHit(a,t,1.2,'바위',{move,aoe:true,heavy:true});this.fbDelay(t,15,'충격파');}break;
   case 'BEAM':{let shielded=0;log(g.label,a.name+'이(가) '+el+' 원소의 원암 분사를 뿜었다');for(const t of rowOf(b,'ALL')){const guarded=(t.shields||[]).some(s=>s.value>0);if(guarded){shielded++;b.log.push({target:t.name,targetId:t.id,text:t.name+' · 보호막으로 원암 분사를 막아냄',round:b.round});}this.fbHit(a,t,guarded?3.4*.25:3.4,el,{move,aoe:true,sureHit:true});}
-   const need=allies(b).length<=2?1:2;if(shielded>=need){this.fbExpose(a,2,true);this.fbLog(a,'BEAM_REFLECT','분사 반사','보호막에 튕긴 원암 분사가 '+a.name+'을(를) 뒤흔들었다 · 무방비·핵 노출 2라운드');}break;}
+   const need=allies(b).length<=2?1:2;if(shielded>=need){f.beamReflected=true;this.fbExpose(a,2,true);this.fbLog(a,'BEAM_REFLECT','분사 반사','보호막에 튕긴 원암 분사가 '+a.name+'을(를) 뒤흔들었다 · 무방비·핵 노출 2라운드');}break;}
   case 'BURROW':f.burrowed=true;log(g.label,a.name+'이(가) 땅속으로 파고들었다 · 다음 차례에 후미를 노린다');break;
   case 'EMERGE':f.burrowed=false;this.fieldBossSeen(b,'BURROW');this.fbLog(a,'EMERGE','지하 기습',a.name+'이(가) 땅속에서 솟구쳤다');this.fbHit(a,rowOf(b,'TAIL')[0],1.15,'물리',{move:'EMERGE',heavy:true});break;
   case 'CHARGE':log();for(const t of rowOf(b,'FRONT'))this.fbHit(a,t,1.3,'물리',{move,aoe:true,heavy:true});this.fbExpose(a,1,false);this.fbLog(a,'HEAD','머리 노출',a.name+'의 머리가 드러났다 · 1라운드 동안 받는 피해 증가');break;
@@ -240,9 +249,29 @@ P.aiTurn=function(a,targets){
  return old.aiTurn.call(this,a,targets);
 };
 P.fbUntouchable=function(t){const f=t?.fb;if(!f)return false;return !!(f.untouchable||f.burrowed||(f.revival&&f.revival.guarded));};
+// Party counters are actual attack/gear/shield interactions, not character-name passwords.
+// Saves already inside an old fight retain the former rules (no challengeRevision).
+P.fieldBossBarrierReason=function(a,t,element){
+ const b=this.s.runtime;if(!b?.fieldBoss?.challengeRevision||a?.side!=='ALLY'||!t)return '';
+ const e=ko(element),heavy=tv(a,'ARMOR_BREAK')>=25,ranged=a.range==='원거리'||tv(a,'ANTI_AIR')>=15;
+ if(t.fbSummon?.kind==='FB_SUMMON_PRISM'&&!['불','얼음','풀'].includes(e))return '프리즘이 공격을 흘려냈다. 다른 원소가 필요하다.';
+ if(t.fbSummon?.kind==='FB_SUMMON_PILLAR'&&e!=='바위'&&!heavy)return '기둥에 흠집만 남았다. 바위 공격이나 파쇄 장비가 필요하다.';
+ const f=t.fb;if(!f)return '';
+ if(f.kind==='ANEMO'&&f.revival&&!ranged)return '떠오른 핵에 닿지 않는다. 원거리·대공 공격이 필요하다.';
+ if(f.kind==='CRYO_HYPO'&&f.revival&&e!=='불'&&!heavy)return '냉기 핵이 다시 얼어붙었다. 불 공격이나 파쇄가 필요하다.';
+ if((t.shields||[]).some(s=>s.source==='FB_SHELL'&&s.value>0)){
+  if(f.kind==='CRYO_VINE'&&e!=='불')return '얼음 결정막이 견뎠다. 불 원소로 녹여야 한다.';
+  if(f.kind==='PYRO_VINE'&&e!=='물'&&e!=='얼음')return '불 결정막이 견뎠다. 물이나 얼음 원소가 필요하다.';
+ }
+ if(f.kind==='PRIMO'&&!f.beamReflected)return '단단한 비늘이 충격을 흘려냈다. 보호막으로 원암 분사를 반사해야 한다.';
+ if(f.kind==='SERPENT'&&!f.armorOpened){if(f.exposedUntil>=b.round&&(heavy||tv(a,'WEAK_POINT')>=20))f.armorOpened=true;else return '갑주가 닫혀 있다. 머리가 드러났을 때 파쇄·약점 공략으로 열어야 한다.';}
+ return '';
+};
+P.fieldBossBlockedHit=function(a,t,reason){const b=this.s.runtime;b.log.push({actor:a.name,actorId:a.id,target:t.name,targetId:t.id,damage:0,immune:reason,text:reason,round:b.round});return 0;};
 P.hasElementImmunity=function(t,el){const d=t?.fb&&BOSSES[t.source];if(d&&(d.immune.includes(ko(el))||d.immune.includes('ALL')))return true;return !!old.hasElementImmunity?.call(this,t,el);};
 P.damage=function(a,t,k,e,o={}){
  const b=this.s.runtime;if(!b?.fieldBoss||!t)return old.damage.call(this,a,t,k,e,o);
+ const barrier=this.fieldBossBarrierReason(a,t,e);if(barrier)return this.fieldBossBlockedHit(a,t,barrier);
  if(this.fbUntouchable(t)&&a.side==='ALLY'){const why=t.fb.untouchable?'본체에는 닿지 않는다 · 형상을 쓰러뜨려야 한다':t.fb.burrowed?'땅속에 있어 닿지 않는다':'부활을 지키는 '+(BOSSES[t.source].kind==='ELECTRO'?'프리즘':'기둥')+'을 먼저 부숴야 한다';b.log.push({actor:a.name,actorId:a.id,target:t.name,targetId:t.id,damage:0,immune:why,round:b.round});return false;}
  if(t.fb&&a.side==='ALLY'&&this.hasElementImmunity(t,e))this.fieldBossSeen(b,'IMMUNE');
  if(t.fb?.revival&&a.side==='ALLY'&&BOSSES[t.source].kind==='CRYO_HYPO'&&!o.sourceKind){t.fb.revival.hits=(t.fb.revival.hits||0)+1;b.log.push({target:t.name,targetId:t.id,text:'냉기 핵에 금이 갔다 · '+t.fb.revival.hits+'/'+t.fb.revival.need,round:b.round});if(t.fb.revival.hits>=t.fb.revival.need){t.fb.revival=null;t.hp=0;this.fbLog(t,'CORE_BROKEN','핵 파괴',t.name+'의 냉기 핵이 부서졌다');return true;}return true;}
@@ -259,6 +288,7 @@ P.combatDamageMultiplier=function(a,t,e,o={}){
 };
 P.applyDamage=function(a,t,n,details={}){
  const b=this.s.runtime;if(!b?.fieldBoss||!t)return old.applyDamage.call(this,a,t,n,details);
+ const barrier=this.fieldBossBarrierReason(a,t,details.element);if(barrier)return this.fieldBossBlockedHit(a,t,barrier);
  const had=t.hp,shell=(t.shields||[]).some(s=>s.source==='FB_SHELL'&&s.value>0);
  if(t.fb?.revival&&BOSSES[t.source].kind==='ANEMO'&&a?.side==='ALLY'){const r=t.fb.revival,take=Math.max(0,Math.round(n));r.core=Math.max(0,r.core-take);b.log.push({actor:a.name,target:t.name,targetId:t.id,damage:take,core:r.core,text:'드러난 핵 · 남은 핵 '+r.core,round:b.round});if(r.core<=0){t.fb.revival=null;t.hp=0;this.fbLog(t,'CORE_BROKEN','핵 파괴',t.name+'의 핵이 부서졌다');}return take;}
  const result=old.applyDamage.call(this,a,t,n,details);
