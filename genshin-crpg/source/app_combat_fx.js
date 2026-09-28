@@ -15,12 +15,12 @@ const CombatFX={
  },
  windup(frame,effects){
   effects.layerNode().replaceChildren();this.clear();if(frame.kind!=='action')return;
-  const auxiliary=frame.periodic||frame.events.every(e=>(e.sourceKind&&e.sourceKind!=='JOINT_ATTACK')||e.kind==='reaction');
+  const auxiliary=frame.periodic||frame.events.every(e=>(e.sourceKind&&e.sourceKind!=='JOINT_ATTACK')||e.kind==='reaction'),summonSource=String(frame.actorId||'').startsWith('SUMMON:');
   if(effects.dock){effects.dock.querySelector('.playback-message').textContent=[frame.actor,frame.cardName||'행동',auxiliary?'효과 발동':'준비'].filter(Boolean).join(' · ');effects.dock.querySelector('.playback-outcomes').replaceChildren();}
   if(settings.reducedMotion)return;
   const actor=effects.actorNode(frame.actorId),from=this.point(actor),layer=effects.layerNode();
-  if(actor&&!auxiliary){const direction=actor.dataset.side==='ENEMY'?-1:1;this.animate(actor,[{transform:'translateX(0)'},{transform:'translateX('+direction*9+'px)',filter:'brightness(1.5)'}],{duration:this.windupDuration,fill:'forwards',easing:'ease-in'});}
-  for(const t of frame.targets){const target=this.point(effects.actorNode(t.targetId));if(!target||!from||t.targetId===frame.actorId||auxiliary)continue;const e=t.events.find(e=>e.kind==='damage')||t.events[0],element=e?.element||'hit',p=this.mote(layer,'cast-trail effect-'+element,from),dx=target.x-from.x,dy=target.y-from.y,angle=Math.atan2(dy,dx)*180/Math.PI;
+  if(actor&&(!auxiliary||summonSource)){const direction=actor.dataset.side==='ENEMY'?-1:1;this.animate(actor,[{transform:'translateX(0)'},{transform:'translateX('+direction*9+'px)',filter:'brightness(1.5)'}],{duration:this.windupDuration,fill:'forwards',easing:'ease-in'});}
+  for(const t of frame.targets){const target=this.point(effects.actorNode(t.targetId));if(!target||!from||t.targetId===frame.actorId||(auxiliary&&!summonSource))continue;const e=t.events.find(e=>e.kind==='damage')||t.events[0],element=e?.element||'hit',p=this.mote(layer,'cast-trail effect-'+element,from),dx=target.x-from.x,dy=target.y-from.y,angle=Math.atan2(dy,dx)*180/Math.PI;
    this.animate(p,[{transform:'translate(-50%,-50%) rotate('+angle+'deg) scaleX(.3)',opacity:0},{offset:.2,opacity:1},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+angle+'deg) scaleX(1)',opacity:1}],{duration:this.windupDuration,fill:'forwards',easing:'ease-in'});
   }
  },
