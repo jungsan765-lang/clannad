@@ -46,7 +46,7 @@ P.executeCard=function(a,c,target,branch){
  case'XINGQIU_Q':add('RAINCUTTER');break;
  case'HUTAO_E':if(a.hp/hp<=.15)fail('HP_COST','HP가 부족합니다.');a.hp=Math.max(1,a.hp-Math.floor(a.hp*.15));buff(a,'PARAMITA_PAPILIO');break;
  case'HUTAO_Q':{const low=a.hp/hp<=.5,hits=many(1.4*(low?1.25:1),'PYRO');heal(a,hp*.06*Math.min(3,hits.length)*(low?1.5:1));break;}
- case'XIANGLING_E':add('GOU_BA',2,{expires:b.round+2,name:'누룽지',asset:'summon_guoba.webp'});break;
+ case'XIANGLING_E':add('GOU_BA',99,{name:'누룽지',asset:'summon_guoba.webp',summonTurns:2,summonTicks:0});break;
  case'XIANGLING_Q':add('PYRONADO');break;
  case'XIANYUN_E':buff(friend,'SKY_LADDER',null,{untilTurn:(friend.turns||0)+2});break;
  case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.8));add('BAMBOO_STAR');break;
@@ -65,8 +65,8 @@ P.executeCard=function(a,c,target,branch){
  case'YELAN_E':{const count=ts.slice(0,3).length;many(.18,'HYDRO',3,{stat:'maxHp'});if(count===3)buff(a,'BREAKTHROUGH',null,{gainedAction:stamp(b,a),consumeAction:null});break;}
  case'YELAN_Q':add('EXQUISITE_THROW');break;
  case'YUNJIN_Q':add('FLYING_CLOUD_FLAG');break;
- case'YAOYAO_E':add('YUEGUI_THROWING',2,{name:'월계',asset:'summon_yuegui.webp'});break;
- case'YAOYAO_Q':{many(.8,'DENDRO');allies.forEach(t=>heal(t,hp*.1));const f=field(b,'YUEGUI_THROWING',a.side);add('YUEGUI_THROWING',2,{sage:!!f,name:'월계',asset:'summon_yuegui.webp'});break;}
+ case'YAOYAO_E':add('YUEGUI_THROWING',99,{name:'월계',asset:'summon_yuegui.webp',summonTurns:2,summonTicks:0});break;
+ case'YAOYAO_Q':{many(.8,'DENDRO');allies.forEach(t=>heal(t,hp*.1));const f=field(b,'YUEGUI_THROWING',a.side);add('YUEGUI_THROWING',99,{sage:!!f,name:'월계',asset:'summon_yuegui.webp',summonTurns:2,summonTicks:0});break;}
  case'ZHONGLI_E':allies.forEach(t=>this.shield(t,hp*.2,c.id,2,{ignoreForcedMove:true}));add('STONE_STELE');break;
  case'ZHONGLI_Q':for(const t of many(.8,'GEO',4,{rawAdd:hp*.25})){if(t.grade==='보스')(buff(t,'LIYUE_BOSS_PETRIFY',null,{nextDamage:true,resolveTurn:(t.turns||0)+1}),this.liyueSlowNextAction(t,.7));else buff(t,'LIYUE_PETRIFY',1);}break;
  case'CHONGYUN_E':many(.8,'CRYO',3);add('CHONGYUN_FROST');break;
@@ -172,11 +172,11 @@ P.tickFields=function(timing){
   switch(f.kind){
    case'HERALD_OF_FROST':hit(.45,'CRYO',1);if(low)heal(low,atk*.55*(a.liyueDirectRound===b.round?1.25:1));break;
    case'CELESTIAL_SHOWER':for(const t of foes.slice(0,foes.length>=3?3:2))this.damage(a,t,.4,'CRYO',{range:'전장',sourceKind:'FIELD',card:f.sourceCardId});if(foes.length===1)this.damage(a,foes[0],.4,'CRYO',{range:'전장',sourceKind:'FIELD',noAura:true,card:f.sourceCardId});break;
-   case'GOU_BA':hit(.45,'PYRO',2);if(b.round>=f.expires){f.done=true;this.addField('CHILI',a,1,{liyue:true});}break;
+   case'GOU_BA':hit(.45,'PYRO',2);f.summonTicks=Number(f.summonTicks||0)+1;if(f.summonTicks>=Number(f.summonTurns||2)){f.done=true;this.addField('CHILI',a,1,{liyue:true});}break;
    case'PYRONADO':hit(.55*(Object.keys(b.liyueMelee||{}).filter(k=>k.startsWith(b.round+':')).length>=2?1.2:1),'PYRO');break;
    case'DIVINE_MAIDEN':hit(.45,'CRYO');break;
    case'STONE_STELE':hit(.35,'GEO',3);break;
-   case'YUEGUI_THROWING':if(low?.hp/low?.maxHp<=.7||f.sage){heal(low,a.maxHp*.05);hit(.35,'DENDRO',f.sage?2:1);}else hit(.35,'DENDRO',2);break;
+   case'YUEGUI_THROWING':if(low?.hp/low?.maxHp<=.7||f.sage){if(low)heal(low,a.maxHp*.05);hit(.35,'DENDRO',f.sage?2:1);}else hit(.35,'DENDRO',2);f.summonTicks=Number(f.summonTicks||0)+1;if(f.summonTicks>=Number(f.summonTurns||2))f.done=true;break;
    case'ICE_LOTUS':if(b.round>=f.expires)this.liyueExplodeLotus(f);break;
    case'XINYAN_SHIELD_FLAME':if(b.round>=f.due){hit(.35,'PYRO',3);f.done=true;}break;
    case'FIRE_STAGE':if(b.round>=f.due){for(const t of foes.filter(t=>f.targets.includes(t.id)))this.damage(a,t,.45,'PYRO',{range:'전장',sourceKind:'FIELD',card:f.sourceCardId});f.done=true;}break;
