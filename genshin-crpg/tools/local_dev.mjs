@@ -1,4 +1,5 @@
-import {existsSync, mkdirSync, watch, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, watch, writeFileSync, readFileSync, statSync} from 'node:fs';
+import {createServer} from 'node:http';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {spawn, spawnSync} from 'node:child_process';
@@ -6,13 +7,14 @@ import {spawn, spawnSync} from 'node:child_process';
 const toolsDir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(toolsDir, '..');
 const serverDir = path.join(root, 'server');
-const distDir = path.join(root, 'dist');
+const distDir = path.join(root, '.local', 'dist');
 const localState = path.join(root, '.local', 'wrangler');
 const isWin = process.platform === 'win32';
 const npm = isWin ? 'npm.cmd' : 'npm';
 const npx = isWin ? 'npx.cmd' : 'npx';
 process.env.PYTHONUTF8 ??= '1';
 process.env.PYTHONIOENCODING ??= 'utf-8';
+process.env.CRPG_BUILD_DIR = distDir;
 
 function commandWorks(command, args = ['--version']) {
   const out = spawnSync(command, args, {cwd: root, stdio: 'ignore', shell: isWin});
@@ -51,7 +53,50 @@ function runPython(python, script) {
 
 function writeLocalOnlineConfig() {
   const target = path.join(distDir, 'online_config.js');
-  writeFileSync(target, "/* Generated only for local development. */\\nwindow.CRPG_ONLINE_CONFIG={apiBase:'http://127.0.0.1:8787'};\\n");
+  writeFileSync(target, "/* Generated only for local development. */\nwindow.CRPG_ONLINE_CONFIG={apiBase:'http://127.0.0.1:8787',localDev:true};\n", 'utf8');
+}
+
+const MIME = {
+  '.html':'text/html; charset=utf-8',
+  '.css':'text/css; charset=utf-8',
+  '.js':'text/javascript; charset=utf-8',
+  '.json':'application/json; charset=utf-8',
+  '.webp':'image/webp',
+  '.png':'image/png',
+  '.jpg':'image/jpeg',
+  '.jpeg':'image/jpeg',
+  '.svg':'image/svg+xml',
+  '.woff':'font/woff',
+  '.woff2':'font/woff2',
+  '.mp3':'audio/mpeg',
+  '.ogg':'audio/ogg',
+  '.wav':'audio/wav'
+};
+
+function startStaticGameServer() {
+  const server=createServer((req,res)=>{
+    try{
+      const u=new URL(req.url||'/', 'http://127.0.0.1:5173');
+      let rel=decodeURIComponent(u.pathname||'/');
+      if(rel==='/'||rel==='')rel='/index.html';
+      rel=rel.replace(/^\/+/, '');
+      let file=path.resolve(distDir,rel);
+      const inside=path.relative(distDir,file);
+      if(inside.startsWith('..')||path.isAbsolute(inside)){res.writeHead(403).end('Forbidden');return;}
+      if(existsSync(file)&&statSync(file).isDirectory())file=path.join(file,'index.html');
+      if(!existsSync(file)||!statSync(file).isFile()){res.writeHead(404).end('Not found');return;}
+      res.statusCode=200;
+      res.setHeader('Content-Type',MIME[path.extname(file).toLowerCase()]||'application/octet-stream');
+      res.setHeader('Cache-Control','no-store');
+      res.end(readFileSync(file));
+    }catch(error){
+      res.writeHead(500,{'Content-Type':'text/plain; charset=utf-8'}).end(String(error.message||error));
+    }
+  });
+  return new Promise((resolve,reject)=>{
+    server.once('error',reject);
+    server.listen(5173,'127.0.0.1',()=>{server.removeListener('error',reject);resolve(server);});
+  });
 }
 
 async function waitFor(url, label, timeoutMs = 45000) {
@@ -99,8 +144,8 @@ if (!commandWorks(npm)) {
 mkdirSync(localState, {recursive: true});
 
 try {
-  if (!existsSync(path.join(root, 'node_modules', '.bin', isWin ? 'vite.cmd' : 'vite'))) {
-    await run(npm, ['ci'], {label: '첫 실행: npm 의존성 설치'});
+  if (!commandWorks(python.command, [...python.prefix, '-c', 'import PIL'])) {
+    await run(python.command, [...python.prefix, '-m', 'pip', 'install', '-r', 'requirements.txt'], {cwd: root, label: '첫 실행: Python 빌드 의존성 설치'});
   }
 
   await runPython(python, 'tools/build_server.py');
@@ -152,6 +197,7 @@ function killTree(child) {
 function shutdown(code = 0) {
   if (stopping) return;
   stopping = true;
+  try{localHttpServer?.close();}catch{}
   for (const child of children) killTree(child);
   process.exitCode = code;
   setTimeout(() => process.exit(code), 100).unref();
@@ -161,6 +207,7 @@ process.on('SIGINT', () => shutdown(0));
 process.on('SIGTERM', () => shutdown(0));
 process.on('exit', () => {
   stopping = true;
+  try{localHttpServer?.close();}catch{}
   for (const child of children) killTree(child);
 });
 
@@ -178,18 +225,19 @@ addChild(
   serverDir
 );
 
-addChild(
-  '로컬 게임',
-  npm,
-  ['run', 'dev', '--', '--host', '127.0.0.1', '--port', '5173', '--strictPort'],
-  root
-);
+let localHttpServer=null;
+try{localHttpServer=await startStaticGameServer();console.log('\n[local] 로컬 게임 서버: http://127.0.0.1:5173/');}
+catch(error){console.error('\n[local] 로컬 게임 서버 시작 실패:',error.message);shutdown(1);}
 
 try {
   const health = await waitFor('http://127.0.0.1:8787/health', '로컬 Worker');
   const info = await health.json().catch(() => ({}));
   if (info.configured !== true) throw new Error('로컬 Worker 비밀번호 설정이 준비되지 않았습니다.');
   await waitFor('http://127.0.0.1:5173/', '로컬 게임');
+  const css=await fetch('http://127.0.0.1:5173/style.css',{cache:'no-store'}),cssText=await css.text();
+  if(!css.ok||!String(css.headers.get('content-type')||'').includes('text/css')||!cssText.includes(':root'))throw new Error('로컬 CSS를 정상적으로 제공하지 못했습니다.');
+  const cfg=await fetch('http://127.0.0.1:5173/online_config.js',{cache:'no-store'}),cfgText=await cfg.text();
+  if(!cfg.ok||!cfgText.includes("apiBase:'http://127.0.0.1:8787'")||!cfgText.includes('localDev:true'))throw new Error('로컬 API 설정을 정상적으로 만들지 못했습니다.');
 } catch (error) {
   console.error('\n[local] 서버 시작 실패:', error.message);
   shutdown(1);

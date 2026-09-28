@@ -1,7 +1,7 @@
 /* Online actions commit on the server before combat playback. Local journeys stay separate. */
 (function(){
 'use strict';
-const key='crpg-online-session-v1',pendingKey='crpg-online-pending-v1',pendingAccountsKey='crpg-online-pending-accounts-v2',productionApi='https://genshin-crpg-online.jungsan765.workers.dev',configuredApi=String(window.CRPG_ONLINE_CONFIG?.apiBase||'').trim(),isLocal=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname),base=String(configuredApi||(!isLocal?productionApi:'')).replace(/\/$/,'');
+const key='crpg-online-session-v1',pendingKey='crpg-online-pending-v1',pendingAccountsKey='crpg-online-pending-accounts-v2',productionApi='https://genshin-crpg-online.jungsan765.workers.dev',configuredApi=String(window.CRPG_ONLINE_CONFIG?.apiBase||'').trim(),isLocal=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname),localDev=isLocal&&window.CRPG_ONLINE_CONFIG?.localDev===true,base=String(configuredApi||(!isLocal?productionApi:'')).replace(/\/$/,'');
 let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}');}catch{}
 const LOCAL_ONLY_ACTIONS=new Set(['MENU']),KEEP_LOCAL_SCREEN_AFTER_COMMIT=new Set(['PARTY','PARTY_REMOVE','PARTY_REPLACE','PARTY_SWAP','PARTY_TACTIC','EQUIP','UNEQUIP','TOOL_PREPARE','USE_ITEM','FORMATION_SET','MASTERY','EQUIPMENT_GUIDE_ACK']);
 const O=window.CRPGOnline={account:saved.account||null,token:saved.token||'',revision:0,ranked:false,active:false,configured:!!base,pending:null};
@@ -132,6 +132,26 @@ loadFile=()=>say('저장 파일 가져오기는 공식 여정에서 지원하지
 function field(p,label,type='text',value=''){const l=el('label','form-label',label),input=el('input');input.type=type;input.value=value;l.append(input);p.append(l);return input;}
 function select(p,label,rows){const l=el('label','form-label',label),s=el('select');for(const [id,name]of rows){const o=el('option','',name);o.value=id;s.append(o);}l.append(s);p.append(l);return s;}
 async function safely(task){if(busy)return;busy=true;render();try{await task();say('');}catch(e){say(e.message);if(e.code==='VERSION_MISMATCH')GameVersion.check();if(e.status===401){O.token='';O.active=false;game=null;persist();auth(false,true);}}finally{busy=false;render();}}
+async function localDevLogin(startAfter=false){
+ if(!localDev||!base||busy)return;
+ busy=true;render();let loggedIn=false;
+ try{
+  const credentials={username:'localtester',password:'local-development-only-password'};
+  let out;
+  try{out=await request('/login',credentials);}
+  catch(e){
+   if(e.status!==401)throw e;
+   try{out=await request('/register',{...credentials,displayName:'로컬 테스트'});}
+   catch(registerError){
+    if(registerError.status!==409)throw registerError;
+    out=await request('/login',credentials);
+   }
+  }
+  O.token=out.token;O.account=out.account;O.active=false;pendingForAccount();persist();game=null;document.getElementById('modal')?.close();say('로컬 테스트 계정으로 로그인했습니다.');loggedIn=true;
+ }catch(e){say('로컬 테스트 로그인에 실패했습니다: '+e.message);}
+ finally{busy=false;render();}
+ if(loggedIn&&startAfter)await startGame();
+}
 function auth(signup=false,startAfter=false){
  const p=el('form','account-form'),banner=el('div','account-banner'),img=el('img');img.src=assetPath('bg_mondstadt_windrise_day.png')||assetPath('bg_mondstadt_city_day.png');img.alt='';banner.append(img,el('span','','✦  '+(signup?'새로운 인연의 시작':'다시, 모험 속으로')));p.append(banner);
  p.append(el('p','account-intro',signup?'당신의 여정을 담을 계정을 만드세요. 외부 인증은 필요하지 않습니다.':'아이디와 비밀번호를 입력하고, 함께하던 여정을 이어가세요.'));
@@ -199,7 +219,7 @@ fresh=async function(){if(busy)return;await safely(async()=>{if(game)await store
 setup=function(){
  const wrap=el('section','game-title'),photo=el('img','title-landscape');photo.src=assetPath('bg_mondstadt_windrise_day.png')||assetPath('bg_mondstadt_city_day.png');photo.alt='';photo.fetchPriority='high';wrap.append(photo,el('div','title-shade'));
  const top=el('div','title-top');top.append(el('span','title-edition','AN ADVENTURE OF YOUR OWN'));
- const account=el('div','title-account');if(O.token&&O.account)account.append(el('span','',O.account.username),button('계정',accountPanel),button('로그아웃',logout));else account.append(button('로그인',()=>auth()),button('회원가입',()=>auth(true)));top.append(account);wrap.append(top);
+ const account=el('div','title-account');if(O.token&&O.account)account.append(el('span','',O.account.username),button('계정',accountPanel),button('로그아웃',logout));else if(localDev)account.append(button('로컬 테스트 로그인',()=>localDevLogin()),button('일반 로그인',()=>auth()),button('회원가입',()=>auth(true)));else account.append(button('로그인',()=>auth()),button('회원가입',()=>auth(true)));top.append(account);wrap.append(top);
  const center=el('div','title-center');center.append(el('div','title-star','✦'),el('p','title-kicker','TEYVAT · YOUR STORY'),el('h1','title-logo','원신'),el('div','title-crpg','C R P G'),el('p','title-tagline','당신의 선택으로 이어지는 새로운 여정'));
  const loggedIn=!!(O.token&&O.account),start=button(busy?'여정을 여는 중…':'게임 시작',startGame,busy||!loggedIn,true);start.classList.add('title-start');if(!loggedIn)start.title='로그인 후 게임을 시작할 수 있습니다.';center.append(start,el('p','title-save-note',loggedIn?'모험은 자동으로 기록됩니다.':'로그인 후 게임을 시작할 수 있습니다.'));wrap.append(center);
  const footer=el('div','title-footer');footer.append(el('span','','몬드에서 시작되는 이야기'),button('나선비경 랭킹',ranking),button('설정',()=>{const p=el('div');settingsControls(p);p.append(button('이전 기기 저장 관리',()=>{const list=el('div');slotsUI(list);showModal('이전 기기 저장',list);}));showModal('설정',p);}));wrap.append(footer);root.append(wrap);
