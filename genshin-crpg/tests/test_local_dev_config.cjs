@@ -33,6 +33,10 @@ assert(!runner.includes("'deploy'"),'local runner must never deploy a Worker');
 assert(!runner.includes("'d1', 'execute', 'genshin-crpg-online'"),'local runner must not target the production database');
 assert(runner.includes("apiBase:'http://127.0.0.1:8787'"),'local runner must patch only the generated dist config to the local Worker');
 assert(runner.includes("path.join(distDir, 'online_config.js')"),'local API override must be written only into generated dist');
+assert(runner.includes('function startStaticGameServer()'),'local game must use the built-in static server');
+assert(runner.includes("'.css':'text/css; charset=utf-8'"),'local static server must serve CSS with the correct MIME type');
+assert(!runner.includes("['run', 'dev'"),'local game must not depend on Vite dev serving');
+assert(runner.includes("cssText.includes(':root')"),'startup must verify that CSS is actually available');
 
 assert(online.includes("https://genshin-crpg-online.jungsan765.workers.dev"),'source config must remain production-safe');
 assert(!online.includes('127.0.0.1:8787'),'source config must not globally redirect localhost or browser regression fixtures');
