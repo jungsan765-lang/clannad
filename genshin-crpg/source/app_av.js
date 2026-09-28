@@ -253,6 +253,7 @@ act=async function(type,params={}){
     const reason=window.CRPGOnline?.pending?'':game.actionReason(type,params);if(reason)throw Error(reason);
     const completedQuestsBefore=new Set(Object.entries(game.s.quests).filter(([,q])=>q.state==='완료').map(([id])=>id));
     const battleBefore=game.s.runtime?JSON.parse(JSON.stringify(game.s)):null,adventureBefore=adventureSnapshot(),before=CRPGPresentation.snapshot(game.s),entryCheckpoint=game.playPhase()==='FREE'&&['JOURNEY_RESUME','STORY_NEXT','MAIN_STORY_ACCEPT','STORY_CHAPTER','STORY_RESUME','LEGEND_ENTER','AFFECTION_ENTER'].includes(type)?JSON.parse(game.serialize()):null;
+    if(battleBefore){const rb=battleBefore.runtime,map=battleBefore.global.CURRENT_MAP_ID;audioHoldId=rb.id;GameAudio.combatHold={id:rb.id,map,region:game?.tables['32_MAP_DB'].get(map)?.[1]||'몬드',boss:!!rb.actors.some(a=>a.side==='ENEMY'&&a.grade==='보스')};GameAudio.sync();}
     let historyEntry=null;if(type==='STORY_NEXT'){const n=game.storyNode();if(n&&n[9]&&scenePermitted())historyEntry={speaker:displayText(n[7]||'이야기'),text:displayText(game.storyDisplayText?.(n)??n[9]),...sceneClassification()};}
     if(window.CRPGOnline?.active){
       cover=startActionCover(CRPGOnline.pending&&type!=='MENU'?'RECOVER_PENDING':type,params,true);
@@ -261,7 +262,7 @@ act=async function(type,params={}){
     }else{cover=startActionCover(type,params,true);lastResult=game.action(type,params);cover?.finishServer();}
     if(historyEntry)sceneHistory.push(historyEntry);if(type==='NPC')selectedNPC=params.entity;
     if(type==='RELATION_ACTIVITY'&&lastResult?.result?.dialogue){const box=el('div');box.append(el('p','story',lastResult.result.dialogue));showModal('일상 교류',box);}
-    const effects=CRPGPresentation.actionFrames(CRPGPresentation.delta(before,game.s));say('');if(battleBefore&&effects.length){const rb=battleBefore.runtime,map=battleBefore.global.CURRENT_MAP_ID;audioHoldId=rb.id;GameAudio.combatHold={id:rb.id,map,region:game?.tables['32_MAP_DB'].get(map)?.[1]||'몬드',boss:!!rb.actors.some(a=>a.side==='ENEMY'&&a.grade==='보스')};}
+    const effects=CRPGPresentation.actionFrames(CRPGPresentation.delta(before,game.s));say('');
     if(battleBefore&&effects.length&&!root.querySelector('.combatant-row[data-actor-id]')){const committed=game.s;try{game.s=battleBefore;game.s.global.SCREEN_MODE='COMBAT';if(game.s.runtime.interlude)game.s.runtime.interlude=null;render();}finally{game.s=committed;}}else if(!battleBefore||!effects.length)render();
     if(type==='LIFE_START'&&params.kind==='HUNT')GameAudio.play('hunt_bow');if(type==='LIFE_START'&&params.kind==='GATHER')GameAudio.play('birds');if(type==='LIFE_FINISH'&&lastResult?.result?.kind==='HUNT')GameAudio.play(lastResult.result.items?.ING_FOWL?'birds':'hunt_pig');
     if(['EQUIP','UNEQUIP','PARTY','PARTY_REPLACE','PARTY_SWAP'].includes(type))GameAudio.play('equip');
