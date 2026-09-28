@@ -11,6 +11,8 @@ const localState = path.join(root, '.local', 'wrangler');
 const isWin = process.platform === 'win32';
 const npm = isWin ? 'npm.cmd' : 'npm';
 const npx = isWin ? 'npx.cmd' : 'npx';
+process.env.PYTHONUTF8 ??= '1';
+process.env.PYTHONIOENCODING ??= 'utf-8';
 
 function commandWorks(command, args = ['--version']) {
   const out = spawnSync(command, args, {cwd: root, stdio: 'ignore', shell: isWin});
@@ -125,7 +127,7 @@ try {
 const children = [];
 let stopping = false;
 function addChild(label, command, args, cwd) {
-  const child = spawn(command, args, {cwd, stdio: 'inherit', windowsHide: false});
+  const child = spawn(command, args, {cwd, stdio: 'inherit', windowsHide: false, shell: isWin});
   children.push(child);
   child.on('error', error => {
     if (!stopping) console.error(`\n[local] ${label} 실행 실패:`, error.message);

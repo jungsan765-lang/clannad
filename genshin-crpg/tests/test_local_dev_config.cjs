@@ -26,6 +26,8 @@ assert(runner.includes("'--local'"),'local Wrangler operations must be explicitl
 assert(runner.includes("'d1', 'execute', 'genshin-crpg-local'"),'local D1 schema must target the local database');
 assert(runner.includes("'wrangler@4', 'dev'"),'runner must start a local Worker');
 assert(runner.includes("shell: isWin"),'Windows npm/npx .cmd commands must run through the Windows shell');
+assert(runner.includes("process.env.PYTHONUTF8 ??= '1'"),'Python builds must force UTF-8 on Windows');
+assert(launcher.includes('set PYTHONUTF8=1'),'Windows launcher must force Python UTF-8');
 assert(!runner.includes("'--remote'"),'local runner must not contain a remote D1 flag');
 assert(!runner.includes("'deploy'"),'local runner must never deploy a Worker');
 assert(!runner.includes("'d1', 'execute', 'genshin-crpg-online'"),'local runner must not target the production database');
