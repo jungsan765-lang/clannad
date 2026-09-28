@@ -254,11 +254,11 @@ function battleSummons(p,b){
   for(const side of ['ALLY','ENEMY']){
     const lane=el('section','summon-lane '+side.toLowerCase()),list=fields.filter(f=>f.side===side);lane.append(el('h3','',side==='ALLY'?'우리 소환물':'적 소환물'));
     if(!list.length){lane.append(el('small','muted','없음'));wrap.append(lane);continue;}
-    for(const f of list){const m=spec[f.kind],card=el('div','battle-summon');card.dataset.summonId=m.id(f);card.dataset.side=side;
+    for(const f of list){const m=spec[f.kind],card=el('div','battle-summon');card.dataset.summonId=m.id(f);card.dataset.side=side;if(f.kind==='BUNNY')card.dataset.maxHp=Math.max(1,Math.round(f.maxHp||f.hp));
       if(showArt){const img=el('img','summon-portrait');img.src='assets/summons/'+(f.asset||m.asset);img.alt='';card.append(img);}
       const cp=el('div','summon-copy'),remaining=Number.isFinite(f.summonTurns)?Math.max(0,f.summonTurns-Number(f.summonTicks||0)):Math.max(1,Number(f.rounds||1));
       cp.append(el('strong','',f.name||m.name));
-      if(f.kind==='BUNNY')cp.append(el('small','', 'HP '+Math.max(0,Math.round(f.hp))+' / '+Math.max(1,Math.round(f.maxHp||f.hp))+' · 단일 공격 도발 '+Math.round(f.tauntChance||30)+'%'));
+      if(f.kind==='BUNNY'){meter(cp,'HP',Math.max(0,Math.round(f.hp)),Math.max(1,Math.round(f.maxHp||f.hp)));cp.append(el('small','', '단일 공격 도발 '+Math.round(f.tauntChance||30)+'% · 파괴 또는 시간 종료 시 폭발'));}
       else cp.append(el('small','', '자동 행동 · 남은 '+remaining+'회'));
       card.append(cp);lane.append(card);
     }wrap.append(lane);
