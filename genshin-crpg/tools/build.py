@@ -92,5 +92,5 @@ html=html.replace('href="style.css"','href="style.css?v='+pack_version+'"')
 pack={'version':pack_version,'files':[{'path':p.relative_to(OUT).as_posix(),'sha256':sha(p.read_bytes()),'bytes':p.stat().st_size} for p in sorted(OUT.rglob('*')) if p.is_file() and p.name not in ['offline-pack.json','asset-manifest.json']]}
 (OUT/'offline-pack.json').write_text(json.dumps(pack,ensure_ascii=False))
 (OUT/'asset-manifest.json').write_text(json.dumps(public,ensure_ascii=False,indent=2))
-(ROOT/'reports/build.json').write_text(json.dumps({'version':pack_version,'sourceTabs':len(db),'excludedSaveTables':removed,'assets':len(assets),'fileCount':len(pack['files']),'bytes':sum(x['bytes'] for x in pack['files']),'contentSha256':sha(content_bytes)},indent=2))
+REPORT=Path(os.environ.get('CRPG_BUILD_REPORT',str(ROOT/'reports/build.json'))).resolve();REPORT.parent.mkdir(parents=True,exist_ok=True);REPORT.write_text(json.dumps({'version':pack_version,'sourceTabs':len(db),'excludedSaveTables':removed,'assets':len(assets),'fileCount':len(pack['files']),'bytes':sum(x['bytes'] for x in pack['files']),'contentSha256':sha(content_bytes)},indent=2))
 print(json.dumps({'version':pack_version,'files':len(pack['files']),'assets':len(assets),'megabytes':round(sum(x['bytes'] for x in pack['files'])/1e6,1)}))
