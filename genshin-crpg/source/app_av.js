@@ -1,7 +1,7 @@
 /* Sound, impacts and image reuse are view concerns. Committed saves stay authoritative. */
 const soundFiles=['click','equip','hit','guard','heal','fire','water','ice','lightning','wind','rock','dendro','melt','vaporize','overload','freeze','victory','defeat','birds','hunt_bow','hunt_pig',...Object.keys(MANIFEST.sfx||{})];
 const GameAudio={
-  context:null,armed:false,buffers:new Map(),voices:new Set(),music:null,musicKind:null,epoch:0,musicReady:false,lastError:'',lastUI:0,queue:new CRPGMusicQueue(MANIFEST.music),musicTrack:null,failedTracks:new Set(),
+  context:null,armed:false,buffers:new Map(),voices:new Set(),music:null,musicKind:null,epoch:0,musicReady:false,lastError:'',lastUI:0,queue:new CRPGMusicQueue(MANIFEST.music),musicTrack:null,failedTracks:new Set(),combatHold:null,
   enabled(){return settings.audioEnabled!==false;},
   async unlock(){
     if(!this.enabled()||document.hidden)return;
@@ -23,8 +23,8 @@ const GameAudio={
   },
   stop(){this.epoch++;this.music?.pause();for(const voice of this.voices){try{voice.stop();}catch{}}this.voices.clear();},
   musicSelection(){
-    const map=game?.s.global.CURRENT_MAP_ID||'TITLE',region=game?.tables['32_MAP_DB'].get(map)?.[1]||'몬드',battle=!!game?.s.runtime,boss=!!game?.s.runtime?.actors.some(a=>a.side==='ENEMY'&&a.grade==='보스');
-    return this.queue.select({map,region,place:game?.currentPlace()?.valid?game.s.placeVisit.place:null,battle,boss,battleId:game?.s.runtime?.id});
+    const live=game?.s.runtime,hold=this.combatHold,map=hold?.map||game?.s.global.CURRENT_MAP_ID||'TITLE',region=hold?.region||game?.tables['32_MAP_DB'].get(map)?.[1]||'몬드',battle=!!hold||!!live,boss=hold?.boss??!!live?.actors.some(a=>a.side==='ENEMY'&&a.grade==='보스'),battleId=hold?.id||live?.id;
+    return this.queue.select({map,region,place:battle?null:(game?.currentPlace()?.valid?game.s.placeVisit.place:null),battle,boss,battleId});
   },
   setTrack(selection){
     this.music?.pause();this.music?.remove();this.musicKind=selection?.key||null;this.musicTrack=selection;
@@ -144,7 +144,7 @@ const GameEffects={
   reschedule(){clearTimeout(this.timer);if(this.resolve&&!this.paused)this.timer=setTimeout(()=>this.advance(),(this.beatDuration||1400)/(settings.combatSpeed||1));},
   advance(){clearTimeout(this.timer);const done=this.resolve;this.resolve=null;done?.();},
   layerNode(){if(!this.layer){this.layer=el('div','combat-effects');this.layer.setAttribute('aria-hidden','true');document.body.append(this.layer);}return this.layer;},
-  actorNode(id){return id&&[...root.querySelectorAll('.combatant-row[data-actor-id]')].find(n=>n.dataset.actorId===id);},
+  actorNode(id){return id&&[...root.querySelectorAll('.combatant-row[data-actor-id],.battle-summon[data-summon-id]')].find(n=>n.dataset.actorId===id||n.dataset.summonId===id);},
   primeCombat(type,params={}){
     if(type!=='COMBAT'||document.hidden||!game?.s.runtime)return null;
     let actor;try{actor=game.combatActor?.();}catch{}if(!actor)return null;
@@ -159,13 +159,13 @@ const GameEffects={
     const auxiliary=frame.periodic||frame.events.every(e=>(e.sourceKind&&e.sourceKind!=='JOINT_ATTACK')||e.kind==='reaction');
     const heading=root.querySelector('.battle-heading .eyebrow');if(heading)heading.textContent='ROUND '+frame.round;
     for(const order of root.querySelectorAll('.battle-order li'))order.classList.toggle('current',order.dataset.actorId===frame.actorId);
-    for(const actor of root.querySelectorAll('.combatant-row[data-actor-id]'))actor.classList.toggle('acting',!auxiliary&&actor.dataset.actorId===frame.actorId);
+    for(const actor of root.querySelectorAll('.combatant-row[data-actor-id],.battle-summon[data-summon-id]'))actor.classList.toggle('acting',actor.dataset.actorId===frame.actorId||actor.dataset.summonId===frame.actorId);
     const actionLabel=[frame.actor,frame.cardName||frame.events.find(e=>e.kind==='skill')?.label||(auxiliary?'효과':'행동'),frame.periodic?'지속 효과':auxiliary?'반응·추가 효과':'1회 행동',frame.attemptCount>1?frame.attemptCount+'연타':''].filter(Boolean).join(' · ');
     if(this.dock){
       this.dock.querySelector('.playback-message').textContent=actionLabel;
       const outcomes=this.dock.querySelector('.playback-outcomes');outcomes.replaceChildren();
       for(const t of frame.targets){
-        const parts=[t.damage?'피해 '+t.damage:'',t.critical?'치명타 포함':'',t.heal?'회복 +'+t.heal:'',t.absorbed?'보호막 흡수 '+t.absorbed:'',t.missCount?'빗나감 '+t.missCount+'회':'',t.immuneCount?'면역 '+t.immuneCount+'회':'',Number.isFinite(t.hpBefore)&&Number.isFinite(t.hpAfter)?'HP '+t.hpBefore+' → '+t.hpAfter:''].filter(Boolean);
+        const parts=[t.damage?'HP 피해 '+t.damage:'',t.critical?'치명타 포함':'',t.heal?'회복 +'+t.heal:'',t.absorbed?'보호막 피해 '+t.absorbed:'',Number.isFinite(t.shieldBefore)&&Number.isFinite(t.shieldAfter)?'보호막 '+t.shieldBefore+' → '+t.shieldAfter:'',t.missCount?'빗나감 '+t.missCount+'회':'',t.immuneCount?'면역 '+t.immuneCount+'회':'',Number.isFinite(t.hpBefore)&&Number.isFinite(t.hpAfter)?'HP '+t.hpBefore+' → '+t.hpAfter:''].filter(Boolean);
         if(parts.length)outcomes.append(el('p','',t.target+' · '+parts.join(' / ')));
       }
       if(frame.reactions.length)outcomes.append(el('p','reaction-summary',frame.reactions.join(' · ')));
@@ -174,14 +174,15 @@ const GameEffects={
     let cue=null,flashed=false;
     for(const t of frame.targets){
       const target=this.actorNode(t.targetId),rect=target?.getBoundingClientRect(),hit=t.events.find(e=>e.kind==='damage')||t.events.find(e=>e.kind==='heal')||t.events[0];
-      const hp=(value,max=t.maxHp||Number(target?.dataset.maxHp)||1)=>{if(!target||!Number.isFinite(value))return;target.querySelector('.stat').textContent='HP  '+value+' / '+max;target.querySelector('.meter i').style.width=Math.max(0,value/max*100)+'%';target.classList.toggle('dead',value<=0);if(t.targetId==='PLAYER_CUSTOM'){const sidebar=root.querySelector('.player-card');if(sidebar){const stat=sidebar.querySelector('.stat'),bar=sidebar.querySelector('.meter i');if(stat)stat.textContent='HP  '+value+' / '+max;if(bar)bar.style.width=Math.max(0,value/max*100)+'%';}}};
-      const hitEvents=t.events.filter(e=>e.kind==='damage'&&Number(e.amount)>0);
-      if(Number.isFinite(t.hpBefore))hp(t.hpBefore,t.maxHp);
-      const impact=(event,index,total)=>{if(!rect||rect.bottom<=100||rect.top>=innerHeight-240)return;const item=el('div','impact effect-'+(event?.element||hit?.element||'hit')+' kind-action'+(event?.critical?' critical':''));const spread=total>1?(index-(total-1)/2)*10:0;item.style.left=Math.max(80,Math.min(innerWidth-80,rect.left+rect.width/2+spread))+'px';item.style.top=Math.max(140,Math.min(innerHeight-250,rect.top+rect.height/2-(index%2)*12))+'px';item.append(el('strong','impact-label',event?String(event.amount):t.damage?String(t.damage):t.heal?'+'+t.heal:t.immuneCount?'면역':t.missCount?'빗나감':t.events.find(e=>e.kind==='capacity')?.label||'방어'));if(total>1&&index===total-1)item.append(el('small','impact-target',total+'연타'));if(event?.critical)item.append(el('small','impact-target','치명타'));layer.append(item);if(!settings.reducedMotion&&target)target.animate?.([{transform:'translateX(0)'},{transform:'translateX(-3px)'},{transform:'translateX(3px)'},{transform:'translateX(0)'}],{duration:140,easing:'ease-out'});};
+      const hp=(value,max=t.maxHp||Number(target?.dataset.maxHp)||1)=>{if(!target||!Number.isFinite(value))return;const stat=target.querySelector('.stat'),bar=target.querySelector('.meter i');if(stat)stat.textContent='HP  '+value+' / '+max;if(bar)bar.style.width=Math.max(0,value/max*100)+'%';target.classList.toggle('dead',value<=0);if(t.targetId==='PLAYER_CUSTOM'){const sidebar=root.querySelector('.player-card');if(sidebar){const sideStat=sidebar.querySelector('.stat'),sideBar=sidebar.querySelector('.meter i');if(sideStat)sideStat.textContent='HP  '+value+' / '+max;if(sideBar)sideBar.style.width=Math.max(0,value/max*100)+'%';}}};
+      const shield=(value,max=Number(target?.dataset.shieldMax)||Math.max(1,Number(t.shieldBefore)||Number(t.shieldAfter)||1))=>{if(!target||!Number.isFinite(value))return;const box=target.querySelector('.shield-meter');if(!box)return;const stat=box.querySelector('.stat'),bar=box.querySelector('.meter i');if(stat)stat.textContent='보호막  '+Math.round(value)+' / '+Math.round(max);if(bar)bar.style.width=Math.max(0,Math.min(100,value/max*100))+'%';};
+      const hitEvents=t.events.filter(e=>['damage','guard'].includes(e.kind)&&(Number(e.amount)>0||Number(e.absorbed)>0));
+      if(Number.isFinite(t.hpBefore))hp(t.hpBefore,t.maxHp);if(Number.isFinite(t.shieldBefore))shield(t.shieldBefore);
+      const impact=(event,index,total)=>{if(!rect||rect.bottom<=100||rect.top>=innerHeight-240)return;const item=el('div','impact effect-'+(event?.element||hit?.element||'hit')+' kind-action'+(event?.critical?' critical':''));const spread=total>1?(index-(total-1)/2)*10:0;item.style.left=Math.max(80,Math.min(innerWidth-80,rect.left+rect.width/2+spread))+'px';item.style.top=Math.max(140,Math.min(innerHeight-250,rect.top+rect.height/2-(index%2)*12))+'px';const packet=event?[event.absorbed?'보호막 -'+event.absorbed:'',Number(event.amount)>0?'HP -'+event.amount:''].filter(Boolean).join(' · '):'';item.append(el('strong','impact-label',packet||t.damage?'HP -'+t.damage:t.heal?'+'+t.heal:t.immuneCount?'면역':t.missCount?'빗나감':t.events.find(e=>e.kind==='capacity')?.label||'방어'));if(total>1&&index===total-1)item.append(el('small','impact-target',total+'연타'));if(event?.critical)item.append(el('small','impact-target','치명타'));layer.append(item);if(!settings.reducedMotion&&target)target.animate?.([{transform:'translateX(0)'},{transform:'translateX(-3px)'},{transform:'translateX(3px)'},{transform:'translateX(0)'}],{duration:140,easing:'ease-out'});};
       if(hitEvents.length>1){
-        hitEvents.forEach((event,index)=>{const delay=Math.round(index*32/(settings.combatSpeed||1)),id=setTimeout(()=>{this.hitTimers.delete(id);hp(event.hpAfter,event.maxHp||t.maxHp);impact(event,index,hitEvents.length);},delay);this.hitTimers.add(id);});
+        hitEvents.forEach((event,index)=>{const delay=Math.round(index*32/(settings.combatSpeed||1)),id=setTimeout(()=>{this.hitTimers.delete(id);hp(event.hpAfter,event.maxHp||t.maxHp);shield(event.shieldAfter);impact(event,index,hitEvents.length);},delay);this.hitTimers.add(id);});
       }else{
-        hp(t.hpAfter,t.maxHp);impact(hitEvents[0]||null,0,1);
+        hp(t.hpAfter,t.maxHp);shield(t.shieldAfter);impact(hitEvents[0]||null,0,1);
       }
       if(t.damage&&t.side==='ALLY')flashed=true;
       cue=cue||hit?.cue;
@@ -247,7 +248,7 @@ act=async function(type,params={}){
       if(read){if(history)sceneHistory.push(history);lastResult=read;say('');render();return read;}
     }catch(e){say(e.message);return {ok:false,error:e.message};}
   }
-  busy=true;root.inert=true;root.setAttribute('aria-busy','true');document.documentElement.classList.add('action-pending');let cover=null;
+  busy=true;root.inert=true;root.setAttribute('aria-busy','true');document.documentElement.classList.add('action-pending');let cover=null,audioHoldId=null;
   try{
     const reason=window.CRPGOnline?.pending?'':game.actionReason(type,params);if(reason)throw Error(reason);
     const completedQuestsBefore=new Set(Object.entries(game.s.quests).filter(([,q])=>q.state==='완료').map(([id])=>id));
@@ -260,7 +261,7 @@ act=async function(type,params={}){
     }else{cover=startActionCover(type,params,true);lastResult=game.action(type,params);cover?.finishServer();}
     if(historyEntry)sceneHistory.push(historyEntry);if(type==='NPC')selectedNPC=params.entity;
     if(type==='RELATION_ACTIVITY'&&lastResult?.result?.dialogue){const box=el('div');box.append(el('p','story',lastResult.result.dialogue));showModal('일상 교류',box);}
-    const effects=CRPGPresentation.actionFrames(CRPGPresentation.delta(before,game.s));say('');
+    const effects=CRPGPresentation.actionFrames(CRPGPresentation.delta(before,game.s));say('');if(battleBefore&&effects.length){const rb=battleBefore.runtime,map=battleBefore.global.CURRENT_MAP_ID;audioHoldId=rb.id;GameAudio.combatHold={id:rb.id,map,region:game?.tables['32_MAP_DB'].get(map)?.[1]||'몬드',boss:!!rb.actors.some(a=>a.side==='ENEMY'&&a.grade==='보스')};}
     if(battleBefore&&effects.length&&!root.querySelector('.combatant-row[data-actor-id]')){const committed=game.s;try{game.s=battleBefore;game.s.global.SCREEN_MODE='COMBAT';if(game.s.runtime.interlude)game.s.runtime.interlude=null;render();}finally{game.s=committed;}}else if(!battleBefore||!effects.length)render();
     if(type==='LIFE_START'&&params.kind==='HUNT')GameAudio.play('hunt_bow');if(type==='LIFE_START'&&params.kind==='GATHER')GameAudio.play('birds');if(type==='LIFE_FINISH'&&lastResult?.result?.kind==='HUNT')GameAudio.play(lastResult.result.items?.ING_FOWL?'birds':'hunt_pig');
     if(['EQUIP','UNEQUIP','PARTY','PARTY_REPLACE','PARTY_SWAP'].includes(type))GameAudio.play('equip');
@@ -269,7 +270,7 @@ act=async function(type,params={}){
     const save=async()=>{if(type==='MENU'&&window.CRPGOnline?.active)return;if(entryCheckpoint&&game.playPhase()!=='FREE')try{await storeStoryCheckpoint(entryCheckpoint);}catch{say('이야기 시작 전 기록을 남기지 못했습니다. 현재 진행은 자동 저장합니다.');}try{await storeSave();}catch{}};
     await Promise.all([save(),GameEffects.play(effects),cover?cover.promise:playTravel(adventureBefore,type,params)]);showReceivedLoot(receivedLoot(adventureBefore,type));if(!battleBefore&&game.s.runtime?.actors.some(a=>a.side==='ENEMY'&&/HILI/i.test(a.source)))GameAudio.play('encounter_hilichurl');return lastResult;
   }catch(e){cover?.abort();if(type==='COMBAT')GameEffects.cancel();say(e.message);return {ok:false,error:e.message};}
-  finally{busy=false;render();}
+  finally{if(audioHoldId&&GameAudio.combatHold?.id===audioHoldId)GameAudio.combatHold=null;busy=false;render();}
 };
 // Loading/restoring is deliberately silent; effects only originate from new actions.
 const avRestore=restoreUIState;
