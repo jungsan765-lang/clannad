@@ -72,5 +72,35 @@ test('Isekai statue card reads as a scene, with one short help line',()=>{
  assert.deepEqual(shownText.filter(s=>/CRPG|TRPG|환산/.test(s)),[]);
 });
 
+test('bond grows only from the first personal mission (10) and battle victories of every party companion',()=>{
+ // Same installation as the game client (source/app.js).
+ const Rel=h.c.CRPGRelationships;Rel.install(h.c.CRPGRuntime,{events:Rel.catalogFromDB(h.db),activities:Rel.activitiesFromDB(h.db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
+ const g=h.fresh('MAP_MOND_CITY','ROUTE_TRAVELER'),chars=g.rows('04_CHAR_DB');
+ const cast=[...g.storyIndex().legends.values()].filter(d=>d.ROUTE_SCOPE==='ROUTE_TRAVELER').map(d=>({d,pid:d.PROFILE_ID,char:chars.find(x=>x[0]===d.PROFILE_ID)?.[1]})).filter(x=>x.char).slice(0,4);
+ assert.equal(cast.length,4);
+ const [a,b,c,x]=cast,score=p=>g.storyBond(p.pid);
+ for(const p of cast)g.markContact(p.pid);
+ g.s.storyEventReceipts??={};for(const p of [a,b])g.s.storyEventReceipts[p.d.id]={day:1,turn:1};
+ const start=cast.map(score);
+ // Finishing an affection scene adds nothing, and nothing tops the score up on its own.
+ const h01=[...g.storyIndex().affections.values()].find(e=>e.PROFILE_ID===a.pid&&e.ROUTE_SCOPE==='ROUTE_TRAVELER'&&/_H01$/.test(e.id));
+ assert(h01);g.completeAffection(h01.id,{profileId:a.pid,stage:'H01'});
+ assert.deepEqual(cast.map(score),start);
+ // The first personal-mission completion is worth exactly 10.
+ g.s.storyContext={entry:c.d.id};g.s.storyCostReceipts={...(g.s.storyCostReceipts||{}),[c.d.QUEST_ID]:true};
+ const done=g.storyCompleteLegend(c.d.id);g.s.storyContext=null;
+ assert.equal(done.bond.change,10);assert.equal(score(c),start[2]+10);
+ // A victory gives 1 to every companion in the party whose personal mission is done, in any slot; slot 2 is not special.
+ const battle={id:'V0140-BOND',actors:[{side:'ALLY',source:'PLAYER_CUSTOM',slot:1},{side:'ALLY',source:x.char,slot:2},{side:'ALLY',source:a.char,slot:3},{side:'ALLY',source:c.char,slot:4},{side:'ENEMY',source:'MON_X',slot:1}]};
+ const receipt=g.awardBattleBond(battle);
+ assert.equal(receipt.gains.length,2);
+ assert.deepEqual(cast.map(score),[start[0]+1,start[1],start[2]+11,start[3]]);
+ assert.deepEqual(JSON.parse(JSON.stringify(g.awardBattleBond(battle))),JSON.parse(JSON.stringify(receipt)));
+ assert.deepEqual(cast.map(score),[start[0]+1,start[1],start[2]+11,start[3]]);
+ // Story commands that used to add hearts stay inert, and there is no automatic bond floor.
+ const src=h.fs.readFileSync(h.path.join(h.root,'source/runtime_nodes.js'),'utf8');
+ assert.match(src,/case 'ADD_HEART':break;/);assert.doesNotMatch(src,/bondFloor|syncBondFloor/);
+});
+
 h.fs.mkdirSync(h.path.join(h.root,'reports/story_cleanup_v0140'),{recursive:true});
 h.fs.writeFileSync(h.path.join(h.root,'reports/story_cleanup_v0140/runtime-tests.json'),JSON.stringify({version:'0.14.0',results},null,2)+'\n');

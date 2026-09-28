@@ -104,7 +104,7 @@ def main():
         print('v0.14.0 revisions already applied')
         return
     tmp = DB_PATH.with_suffix('.revision-tmp')
-    tmp.write_text(out, encoding='utf-8')
+    tmp.write_text(out, encoding='utf-8', newline='\n')  # keep LF on Windows too
     tmp.replace(DB_PATH)
     print('v0.14.0 revisions applied:', ', '.join(p.name for p in files))
 

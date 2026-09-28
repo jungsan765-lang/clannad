@@ -29,7 +29,7 @@ P.worldRequirement=function(p){
  if(g.CURRENT_MAP_ID!==p.map)return '흔적이 있는 장소에 먼저 도착해 주세요.';
  if(g.PLAYER_LEVEL_STATE<p.level)return '권장 준비 단계 · Lv. '+p.level+'부터 조사할 수 있습니다.';
  if(p.place){if(s.placeVisit?.place!==p.place||!this.currentPlace()?.valid)return '몬드 잡화 상점 안에서 상인에게 물어보세요.';}else if(s.placeVisit)return '시설 밖에서 주변을 살펴보세요.';
- if(r.bond&&this.storyBond(r.profile)<r.bond)return '엠버와의 호감도가 '+r.bond+' 이상이어야 합니다. 엠버와 함께 다니며 먼저 가까워져 보세요.';
+ if(r.bond&&this.storyBond(r.profile)<r.bond)return '엠버와의 호감도가 '+r.bond+' 이상이어야 합니다. 엠버를 편성에 넣고 함께 전투에서 이기면 호감도가 오릅니다.';
  const active=this.s.party.filter(p=>p.active).map(p=>p.source==='PLAYER_CUSTOM'?this.player():this.character(p.source)).filter(a=>a.hp>0);
  if(r.activeCharacter&&!active.some(a=>a.source===r.activeCharacter||a.id===r.activeCharacter))return '엠버를 살아 있는 파티원으로 편성해 주세요.';
  if(r.activeElement&&!active.some(a=>a.id!=='PLAYER_CUSTOM'&&String(this.row('07_CHAR_DB',a.id)[3]).includes('['+r.activeElement+']')))return '불 원소의 파티원과 함께 화로를 조사해 주세요.';

@@ -92,19 +92,7 @@ P.storyActiveNodeId = function () { return this.s.storyContext?.node || this.s.g
 P.storySetCursor = function (id) {if(this.s.storyContext)this.s.storyContext.node=id;else this.s.global.STORY_CURSOR_NODE_ID=id;this.s.global.CURRENT_STORY_NODE_ID=this.s.global.STORY_CURSOR_NODE_ID||id;};
 P.storyNode = function() {return this.storyIndex().nodes.get(this.s.global.STORY_ROUTE_ID+':'+this.storyActiveNodeId());};
 P.storyRelation = function(profile) {return typeof this.relation==='function'?this.relation(profile):this.markContact(profile);};
-P.storyBond = function(profile) {const r=this.s.relations[profile];if(r&&this.syncBondFloor)this.syncBondFloor(profile);return Number(r?.BOND_SCORE??r?.bondScore??((r?.heart||0)*20));};
-// v0.14.0: affection advances through the story itself, never through repeated chores or battles.
-// Finishing the personal mission is worth 20 and each finished H01-H04 scene another 20, so the next scene always opens.
-P.bondFloor = function(profile) {
-  const route=this.s.global.STORY_ROUTE_ID,legend=[...this.storyIndex().legends.values()].find(d=>d.PROFILE_ID===profile&&d.ROUTE_SCOPE===route);
-  let floor=legend&&(this.storyDone(legend.id)||truth(this.s.flags[legend.COMPLETE_FLAG_ID]))?20:0;
-  for(const row of this.rows('58_MOND_AFFECTION_DB'))if(row[1]===profile&&(!row[15]||row[15]===route)&&/_H0[1-4]$/.test(row[0])&&(this.storyDone(row[0])||this.relationshipEventComplete?.(row[0])))floor+=20;
-  return Math.min(100,floor);
-};
-P.syncBondFloor = function(profile) {
-  const r=this.s.relations[profile];if(!r)return;const floor=this.bondFloor(profile),score=Number(r.BOND_SCORE??0);
-  if(floor>score){r.BOND_SCORE=floor;r.heart=r.HEART_STATE=Math.min(5,Math.floor(floor/20));}
-};
+P.storyBond = function(profile) {const r=this.s.relations[profile];return Number(r?.BOND_SCORE??r?.bondScore??((r?.heart||0)*20));};
 P.storyDone = function(id) {
   const def=this.storyDefinition(id),ids=def?.kind==='LEGEND'?[def.id,def.QUEST_ID]:[id];
   if(ids.some(key=>this.relationshipEventComplete?.(key)||this.s.storyEventReceipts?.[key]||this.s.quests[key]?.state==='완료'||this.s.quests[key]?.claimed===true))return true;
@@ -223,7 +211,7 @@ P.storyApplyEffects = function(source,node) {
       case 'COMPLETE_LEGEND':this.storyCompleteLegend(c.id);break;
       // Legacy content commands remain parseable; only legend completion and battle settlement award bond.
       case 'ADD_HEART':break;
-      case 'COMPLETE_AFFECTION':{const def=this.storyDefinition(c.id);if(!def||def.kind!=='AFFECTION'||this.s.storyContext?.entry!==c.id)fail('AFFECTION_SOURCE','현재 관계 사건의 완료점이 아닙니다.');if(this.completeAffection)this.completeAffection(c.id,{profileId:def.PROFILE_ID,stage:def.id.match(/_(H0[1-5])$/)?.[1]});this.s.storyEventReceipts||={};this.s.storyEventReceipts[c.id]||={day:g.WORLD_DAY,turn:g.TURN,node:node?.[4]};if(def.INFO_UNLOCK_KEY){const r=this.storyRelation(def.PROFILE_ID);r.unlocked||=[];if(!r.unlocked.includes(def.INFO_UNLOCK_KEY))r.unlocked.push(def.INFO_UNLOCK_KEY);}this.storyRelation(def.PROFILE_ID);this.syncBondFloor(def.PROFILE_ID);break;}
+      case 'COMPLETE_AFFECTION':{const def=this.storyDefinition(c.id);if(!def||def.kind!=='AFFECTION'||this.s.storyContext?.entry!==c.id)fail('AFFECTION_SOURCE','현재 관계 사건의 완료점이 아닙니다.');if(this.completeAffection)this.completeAffection(c.id,{profileId:def.PROFILE_ID,stage:def.id.match(/_(H0[1-5])$/)?.[1]});this.s.storyEventReceipts||={};this.s.storyEventReceipts[c.id]||={day:g.WORLD_DAY,turn:g.TURN,node:node?.[4]};if(def.INFO_UNLOCK_KEY){const r=this.storyRelation(def.PROFILE_ID);r.unlocked||=[];if(!r.unlocked.includes(def.INFO_UNLOCK_KEY))r.unlocked.push(def.INFO_UNLOCK_KEY);}this.storyRelation(def.PROFILE_ID);break;}
       case 'LOCAL_CHOICE':this.s.storyLocalChoices||={};this.s.storyLocalChoices[c.id]=c.value;break;
       case 'SCENE_MEMORY':if(c.value==='SHARED_NIGHT'&&!this.s.storyMatureReceipts?.[c.id])fail('MATURE_COMMIT','관계 사건의 확정 기록이 필요합니다.');this.s.storySceneMemories||={};this.s.storySceneMemories[c.id]=c.value;break;
       case 'SET_SCENE_CONSENT':if(c.value)fail('CONSENT','장면 동의는 별도 명시적 입력으로 확인해야 합니다.');if(this.clearSceneConsent)this.clearSceneConsent();break;
@@ -243,7 +231,7 @@ P.storyCompleteLegend=function(id){
   let bond;
   if(this.changeBond)bond=this.changeBond(def.PROFILE_ID,10,{source:'LEGEND:'+def.id});
   else {const r=this.storyRelation(def.PROFILE_ID),before=this.storyBond(def.PROFILE_ID);r.BOND_SCORE=Math.min(120,before+10);r.heart=r.HEART_STATE=Math.min(5,Math.floor(r.BOND_SCORE/20));bond={profileId:def.PROFILE_ID,previous:before,score:r.BOND_SCORE,change:r.BOND_SCORE-before};}
-  this.storyCompleteQuest(quest);if(def.COMPLETE_FLAG_ID)this.s.flags[def.COMPLETE_FLAG_ID]=true;this.syncBondFloor(def.PROFILE_ID);
+  this.storyCompleteQuest(quest);if(def.COMPLETE_FLAG_ID)this.s.flags[def.COMPLETE_FLAG_ID]=true;
   const receipt={day:this.s.global.WORLD_DAY,turn:this.s.global.TURN,legend:def.id,quest,bond};this.s.storyEventReceipts||={};this.s.storyEventReceipts[quest]=receipt;this.s.storyEventReceipts[def.id]=copy(receipt);return receipt;
 };
 P.storyEntryReason=function(def){
@@ -260,7 +248,7 @@ P.storyEntryReason=function(def){
     if(def.REQUIRED_QUEST_ID&&!this.storyDone(def.REQUIRED_QUEST_ID))return '개인 임무를 먼저 마쳐 주세요.';
     if(def.PREV_EVENT_ID&&!this.storyDone(def.PREV_EVENT_ID))return '앞선 관계 이야기를 먼저 마쳐 주세요.';
     if(readJSON(def.REQUIRED_FLAGS,[]).some(f=>!truth(this.s.flags[f])))return '선행 이야기의 진행이 필요합니다.';
-    if(this.storyBond(def.PROFILE_ID)<Number(def.BOND_SCORE_MIN||Number(def.HEART_MIN||0)*20))return '조금 더 가까워진 뒤에 이어질 이야기입니다.';
+    if(this.storyBond(def.PROFILE_ID)<Number(def.BOND_SCORE_MIN||Number(def.HEART_MIN||0)*20))return '호감도가 더 필요합니다. 편성에 넣고 함께 전투에서 이기면 오릅니다.';
   }
   const first=this.storyIndex().nodes.get(this.s.global.STORY_ROUTE_ID+':'+def.ENTRY_NODE_ID);if(!first||first[18]!=='ACTIVE')return '이야기 원고가 아직 준비되지 않았습니다.';
   if(!this.storyCondition(first[11],def)){const wait=/AFTER_PRIOR_DAILY\((\w+)\)/.exec(String(first[11]||''));if(wait&&!this.storyAfterDaily(wait[1]))return '오늘은 여기까지. 하루가 지난 뒤 다시 찾아가면 이야기가 이어집니다.';return '이야기 시작 조건이 아직 충족되지 않았습니다.';}

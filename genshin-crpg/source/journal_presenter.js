@@ -1,7 +1,7 @@
 /* Read-only mission and affinity journal. Builds view models from the runtime; never acts or changes a save. */
 (function (root) {
   'use strict';
-  const STAGE = /_H0([1-5])$/, DEEP = /_B1([12])0$/, BOND_REASON = '조금 더 가까워진 뒤에 이어질 이야기입니다.';
+  const STAGE = /_H0([1-5])$/, DEEP = /_B1([12])0$/, BOND_REASON = '호감도가 더 필요합니다. 편성에 넣고 함께 전투에서 이기면 오릅니다.';
   const RANK = {active:-1, ready:0, travel:1, locked:2, done:3};
   const stageOf = id => Number(String(id).match(STAGE)?.[1] || 0);
   const bondNeed = d => Number(d?.BOND_SCORE_MIN || Number(d?.HEART_MIN || 0) * 20);

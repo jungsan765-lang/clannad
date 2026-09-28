@@ -92,21 +92,28 @@ function install(api,options={}){
   const r=this.relation(profileId),before=r.BOND_SCORE;r.BOND_SCORE=cap(before+delta,0,120);r.heart=heart(r.BOND_SCORE);r.HEART_STATE=r.heart;
   return {profileId,previous:before,score:r.BOND_SCORE,heart:r.heart,change:r.BOND_SCORE-before,source:meta.source||null};
  };
- P.relationshipBattleTarget=function(battle){
-  const actor=battle?.actors?.find(a=>a.side==='ALLY'&&Number(a.slot)===2&&a.source!=='PLAYER_CUSTOM');
-  if(!actor)return null;
-  const profile=this.rows('04_CHAR_DB').find(row=>row[1]===actor.source)?.[0];
-  const legend=profile&&[...this.storyIndex().legends.values()].find(d=>d.ROUTE_SCOPE===this.s.global.STORY_ROUTE_ID&&d.PROFILE_ID===profile&&this.storyDone(d.id));
-  return legend?{profileId:profile,charId:actor.source,slot:2,legend:legend.id}:null;
+ // v0.14.0: every companion in the battle party whose personal mission is done gains 1 per victory (formerly slot 2 only).
+ // Besides the one-time 10 for finishing the personal mission, this is the only way bond grows.
+ P.relationshipBattleTargets=function(battle){
+  const route=this.s.global.STORY_ROUTE_ID,chars=this.rows('04_CHAR_DB'),legends=[...this.storyIndex().legends.values()],out=[];
+  for(const actor of battle?.actors||[]){
+   if(actor.side!=='ALLY'||actor.source==='PLAYER_CUSTOM'||out.some(t=>t.charId===actor.source))continue;
+   const profile=chars.find(row=>row[1]===actor.source)?.[0];
+   const legend=profile&&legends.find(d=>d.ROUTE_SCOPE===route&&d.PROFILE_ID===profile&&this.storyDone(d.id));
+   if(legend)out.push({profileId:profile,charId:actor.source,slot:Number(actor.slot)||null,legend:legend.id});
+  }
+  return out;
  };
+ P.relationshipBattleTarget=function(battle){const targets=this.relationshipBattleTargets(battle);return targets.length?targets:null;};
  P.awardBattleBond=function(battle){
   const existing=this.s.relationshipBattleReceipts?.[battle.id];if(existing)return copy(existing);
-  const target=own(battle,'relationshipTarget')?battle.relationshipTarget:this.relationshipBattleTarget(battle);
-  if(!target)return null;
+  // A battle saved before v0.14.0 holds a single slot-2 target (or null); settle it with the current party rule.
+  const stored=own(battle,'relationshipTarget')&&Array.isArray(battle.relationshipTarget)?battle.relationshipTarget:this.relationshipBattleTargets(battle);
   // source identifies characters; actor.id may identify a temporary story actor.
-  if(!battle.actors.some(a=>a.side==='ALLY'&&Number(a.slot)===2&&a.source===target.charId)||this.row('04_CHAR_DB',target.profileId)[1]!==target.charId)return null;
-  const bond=this.changeBond(target.profileId,1,{source:'BATTLE:'+battle.id});
-  const receipt={battleId:battle.id,...target,...bond};this.s.relationshipBattleReceipts||={};this.s.relationshipBattleReceipts[battle.id]=copy(receipt);return receipt;
+  const targets=stored.filter(t=>battle.actors.some(a=>a.side==='ALLY'&&a.source===t.charId)&&this.row('04_CHAR_DB',t.profileId)[1]===t.charId);
+  if(!targets.length)return null;
+  const gains=targets.map(t=>({...t,...this.changeBond(t.profileId,1,{source:'BATTLE:'+battle.id})}));
+  const receipt={battleId:battle.id,...gains[0],gains};this.s.relationshipBattleReceipts||={};this.s.relationshipBattleReceipts[battle.id]=copy(receipt);return receipt;
  };
  P.relationshipHeart=function(id){return this.relation(id).heart;};
  P.relationshipEventComplete=function(eventId){return Object.values(this.s.relations||{}).some(r=>r.events?.[eventId]==='COMPLETE');};

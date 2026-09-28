@@ -16,7 +16,7 @@ function confirmPartyRemoval(id,run){
   box.append(el('p','',withJosa(ownerName(id),'이','가')+' 편성에서 빠지면 착용 중인 장비 '+gear.length+'개가 해제되어 소지품으로 돌아갑니다.'),list,row);showModal('편성에서 빼기',box);
 }
 // v0.13.33: the battle line is its own order (the protagonist can stand anywhere); party slots only hold members.
-const POSITIONS=['선두 · 전열','전열 · 치명타 확률 +5% · 호감도 동행','후열 · 최대 HP +5%','후미 · 받는 최종 피해 −20%'];
+const POSITIONS=['선두 · 전열','전열 · 치명타 확률 +5%','후열 · 최대 HP +5%','후미 · 받는 최종 피해 −20%'];
 function formationLine(p){
   const order=game.formationOrder?game.formationOrder():game.s.party.filter(x=>x.active).map(x=>x.source),locked=game.actionReason('FORMATION_SET');
   const box=el('section','card formation-line');box.append(el('h2','','전투 대열'),el('p','muted','1·2번은 전열, 3·4번은 후열입니다. 근접 적은 전열을, 저격·기습형 적은 후열을 주로 노립니다. 바로 옆 칸 동료는 보호막이나 엄호 장비로 공격을 대신 받을 수 있습니다.'));
@@ -53,7 +53,7 @@ function partyScreen(p){
     }
     formation.append(c);
   }
-  p.append(formation,el('p','muted','전투 대열 2번에 선 동료는 개인 임무를 마쳤다면 호감도가 전투 승리마다 1점 오릅니다. 개인 임무 완료 보상은 10점으로 한 번만 받습니다.'));
+  p.append(formation,el('p','muted','편성에 넣은 동료는 개인 임무를 마쳤다면 전투에서 이길 때마다 호감도가 1점씩 오릅니다. 개인 임무를 처음 마칠 때 받는 10점은 한 번뿐입니다.'));
   p.append(actionButton('장비 장착으로','MENU',{screen:'STATUS'}));returnToJourney(p);
 }
 inventory=function(p){
