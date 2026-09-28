@@ -1,4 +1,4 @@
-import {existsSync, mkdirSync, watch} from 'node:fs';
+import {existsSync, mkdirSync, watch, writeFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {spawn, spawnSync} from 'node:child_process';
@@ -6,6 +6,7 @@ import {spawn, spawnSync} from 'node:child_process';
 const toolsDir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(toolsDir, '..');
 const serverDir = path.join(root, 'server');
+const distDir = path.join(root, 'dist');
 const localState = path.join(root, '.local', 'wrangler');
 const isWin = process.platform === 'win32';
 const npm = isWin ? 'npm.cmd' : 'npm';
@@ -44,6 +45,11 @@ function run(command, args, {cwd = root, label = command} = {}) {
 
 function runPython(python, script) {
   return run(python.command, [...python.prefix, script], {cwd: root, label: script});
+}
+
+function writeLocalOnlineConfig() {
+  const target = path.join(distDir, 'online_config.js');
+  writeFileSync(target, "/* Generated only for local development. */\\nwindow.CRPG_ONLINE_CONFIG={apiBase:'http://127.0.0.1:8787'};\\n");
 }
 
 async function waitFor(url, label, timeoutMs = 45000) {
@@ -97,6 +103,7 @@ try {
 
   await runPython(python, 'tools/build_server.py');
   await runPython(python, 'tools/build.py');
+  writeLocalOnlineConfig();
 
   await run(
     npx,
@@ -212,6 +219,7 @@ async function rebuild() {
       console.log('\n[local] 변경 감지: 로컬 빌드를 갱신합니다...');
       await runPython(python, 'tools/build_server.py');
       await runPython(python, 'tools/build.py');
+      writeLocalOnlineConfig();
       console.log('[local] 갱신 완료. 브라우저에서 새로고침하면 반영됩니다.');
     } while (queued);
   } catch (error) {
