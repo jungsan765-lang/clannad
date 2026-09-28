@@ -7,13 +7,14 @@ import {spawn, spawnSync} from 'node:child_process';
 const toolsDir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(toolsDir, '..');
 const serverDir = path.join(root, 'server');
-const distDir = path.join(root, 'dist');
+const distDir = path.join(root, '.local', 'dist');
 const localState = path.join(root, '.local', 'wrangler');
 const isWin = process.platform === 'win32';
 const npm = isWin ? 'npm.cmd' : 'npm';
 const npx = isWin ? 'npx.cmd' : 'npx';
 process.env.PYTHONUTF8 ??= '1';
 process.env.PYTHONIOENCODING ??= 'utf-8';
+process.env.CRPG_BUILD_DIR = distDir;
 
 function commandWorks(command, args = ['--version']) {
   const out = spawnSync(command, args, {cwd: root, stdio: 'ignore', shell: isWin});
