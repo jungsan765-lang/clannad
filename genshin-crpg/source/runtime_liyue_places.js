@@ -42,7 +42,7 @@ const STOCKS=[
  ['STK_LY_WANMIN_JADE','MRC_LIYUE_WANMIN','ITEM','FOOD_JADE_PARCELS','비옥야채쌈',240,4,'매일','없음','만민당 편의 재고'],
  ['STK_INN_LIYUE_WANGSHU','MRC_LIYUE_WANGSHU_INN','SERVICE','SERVICE_INN_REST_8H','8시간 숙박',150,'상시','상시','전투 중 아님','활성 파티 전체 기준.'],
  ['STK_LY_WANGSHU_EGG','MRC_LIYUE_WANGSHU_DINING','ITEM','FOOD_TEA_BREAK_PANCAKE','티바트 달걀 프라이',35,10,'매일','없음','객잔 편의 재고'],
- ['STK_LY_WANGSHU_STEW','MRC_LIYUE_WANGSHU_DINING','ITEM','FOOD_SWEET_MADAME','달콤달콤 닭고기 스튜',80,8,'매일','없음','객잔 편의 재고'],
+ ['STK_LY_WANGSHU_ALMOND_TOFU','MRC_LIYUE_WANGSHU_DINING','ITEM','FOOD_ALMOND_TOFU','행인두부',70,8,'매일','없음','객잔 편의 재고. 객잔에 머무는 선인이 즐겨 찾는 디저트.'],
  ['STK_LY_WANGSHU_ADEPTUS','MRC_LIYUE_WANGSHU_DINING','ITEM','FOOD_ADEPTUS_TEMPTATION','선도장',600,1,'매일','없음','객잔 편의 재고. 하루 한 접시.']
 ];
 // Who to visit for what. Places are read from the live catalogue, not repeated here.

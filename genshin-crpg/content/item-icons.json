@@ -6624,6 +6624,1740 @@
       "bytes": 16556,
       "note": "보스 소재 장비 외형",
       "installedBy": "runtime"
+    },
+    "FOOD_CALLA_LILY_SOUP": {
+      "id": "FOOD_CALLA_LILY_SOUP",
+      "name": "통통 연꽃 해산물 수프",
+      "path": "assets/icons/UI_ItemIcon_Recipe_1006.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1006.png",
+      "sourceName": "통통 연꽃 해산물 수프",
+      "filename": "UI_ItemIcon_Recipe_1006",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "e395f3a20dddb576f1c775da8919acf96d5c39f951b4dc8fb694ff8884cd1d90",
+      "source_sha256": "38701afd410a536f5b56d85deefab460031d30ad24b9ad95058aa34107350b23",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14350
+    },
+    "FOOD_SAUTEED_MATSUTAKE": {
+      "id": "FOOD_SAUTEED_MATSUTAKE",
+      "name": "버터 송이구이",
+      "path": "assets/icons/UI_ItemIcon_Recipe_1007.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1007.png",
+      "sourceName": "버터 송이구이",
+      "filename": "UI_ItemIcon_Recipe_1007",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "32d04831376f55726849e8cb7921e46909bbf2cd2b6e4d29ed6d8776f29226c2",
+      "source_sha256": "aebd7614999a9596db8c13f26c38794de21bd20eda09cbe0c290d33eb7d4f6b7",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15816
+    },
+    "FOOD_PILE_EM_UP": {
+      "id": "FOOD_PILE_EM_UP",
+      "name": "높이 쌓기",
+      "path": "assets/icons/UI_ItemIcon_Recipe_3004.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_3004.png",
+      "sourceName": "높이 쌓기",
+      "filename": "UI_ItemIcon_Recipe_3004",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "df4eb27bd4c249bfe625cbc5392ad3fc342b7b881acc716c1c13034ef6f16fc0",
+      "source_sha256": "d02afe868b18d6177e8bff050420883e2c1c55fe3e65e35d49a9ae275be7d8b9",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 19338
+    },
+    "FOOD_CRAB_HAM_BAKE": {
+      "id": "FOOD_CRAB_HAM_BAKE",
+      "name": "꽃게알 야채찜",
+      "path": "assets/icons/UI_ItemIcon_Recipe_2006.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_2006.png",
+      "sourceName": "꽃게알 야채찜",
+      "filename": "UI_ItemIcon_Recipe_2006",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "1e57a61af88042178773159438767f3685e41d61a1964e36d3b2ad58de729e8b",
+      "source_sha256": "717eb9b9eab0d5f4feacda60ef36bd35f22252a1cf3f66399d2b8da5e6d76a0e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15238
+    },
+    "FOOD_GOULASH": {
+      "id": "FOOD_GOULASH",
+      "name": "뜨끈 야채 스튜",
+      "path": "assets/icons/UI_ItemIcon_108205.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108205.png",
+      "sourceName": "뜨끈 야채 스튜",
+      "filename": "UI_ItemIcon_108205",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "0174fa6703cdfd82545dd13d274bd2f020556491c8de14d068868fd9db86a3e8",
+      "source_sha256": "c333c177c042d2ef213fa1526fd72be00007b111dbfa74b9d9b07d1af874cecc",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14602
+    },
+    "FOOD_SUNSHINE_SPRAT": {
+      "id": "FOOD_SUNSHINE_SPRAT",
+      "name": "버터 생선 구이",
+      "path": "assets/icons/UI_ItemIcon_108208.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108208.png",
+      "sourceName": "버터 생선 구이",
+      "filename": "UI_ItemIcon_108208",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "68ccaf2488c1e4651a06d74fe83fb52385ed32f753a093241301f84e17c7b578",
+      "source_sha256": "923b675c397d54dbecf9dd1446915371f7dd7981bba40f2c388b77e9643120c8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13976
+    },
+    "FOOD_POTATO_SHRIMP_PLATTER": {
+      "id": "FOOD_POTATO_SHRIMP_PLATTER",
+      "name": "바삭 쉬림프 카나페",
+      "path": "assets/icons/UI_ItemIcon_108223.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108223.png",
+      "sourceName": "바삭 쉬림프 카나페",
+      "filename": "UI_ItemIcon_108223",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "a85b1292baa256e0be4bdf359db81e9087d48f566929f970787e8d0e029a30c7",
+      "source_sha256": "e006a2b40167f48953ba11a926f7d10e2ba27c42016af4bfbf344ca809d3632a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16176
+    },
+    "FOOD_MASHED_POTATOES": {
+      "id": "FOOD_MASHED_POTATOES",
+      "name": "촉촉 으깬 감자",
+      "path": "assets/icons/UI_ItemIcon_108242.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108242.png",
+      "sourceName": "촉촉 으깬 감자",
+      "filename": "UI_ItemIcon_108242",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "0b583944c44f2ee076acfcae69c7f5ba02de5dede99d5d777b6d0add8ac42f06",
+      "source_sha256": "c95981f42c35379207f79a4ae6f49e9754925b9b691711f9f35ac2125e0749d2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13988
+    },
+    "FOOD_GRILLED_TIGER_FISH": {
+      "id": "FOOD_GRILLED_TIGER_FISH",
+      "name": "흘호어 구이",
+      "path": "assets/icons/UI_ItemIcon_108108.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108108.png",
+      "sourceName": "흘호어 구이",
+      "filename": "UI_ItemIcon_108108",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "52b5d6397c105f0fa93f48cad1c252e9d5fef1e7ccfcaf3e4484821545bdba41",
+      "source_sha256": "66d92b1eeecbd19b2a9d9aa8cf31896738f086c7fdebecd1471fce0f8a72419a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13900
+    },
+    "FOOD_RICE_BUNS": {
+      "id": "FOOD_RICE_BUNS",
+      "name": "쌀 찐빵",
+      "path": "assets/icons/UI_ItemIcon_108198.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108198.png",
+      "sourceName": "쌀 찐빵",
+      "filename": "UI_ItemIcon_108198",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "356cee258750641a9528546ac0928ede96f033da2faf51bf9d604598979e15f8",
+      "source_sha256": "2f93bb66c109e30f7c538a219333b8ad57052eac2efcc208809eaa9b5618dbe1",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14606
+    },
+    "FOOD_JUEYUN_GUOBA": {
+      "id": "FOOD_JUEYUN_GUOBA",
+      "name": "절운 누룽지",
+      "path": "assets/icons/UI_ItemIcon_108211.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108211.png",
+      "sourceName": "절운 누룽지",
+      "filename": "UI_ItemIcon_108211",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "deff3218da9a7220eafb65323a98947e70e32309e3e7cb351a721a78def3d574",
+      "source_sha256": "833a656053b958a81842a643164befbad4b926c4bb03a0d28c3a94e361994d8d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18158
+    },
+    "FOOD_QINGXIN_FLOWER_CAKE": {
+      "id": "FOOD_QINGXIN_FLOWER_CAKE",
+      "name": "청심 전병",
+      "path": "assets/icons/UI_ItemIcon_108782.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108782.png",
+      "sourceName": "청심 전병",
+      "filename": "UI_ItemIcon_108782",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "5037b447ded86ea79a0705e79eb9b4fd673204888ff69e4f9f391614da204a27",
+      "source_sha256": "244939b14952dce2096532a93b35cb986f796f30e988eddf0b952d0ea7487fbf",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13974
+    },
+    "FOOD_CHILI_MINCE_BUNS": {
+      "id": "FOOD_CHILI_MINCE_BUNS",
+      "name": "매운 고기 찐빵",
+      "path": "assets/icons/UI_ItemIcon_108316.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108316.png",
+      "sourceName": "매운 고기 찐빵",
+      "filename": "UI_ItemIcon_108316",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "c283d56ccef128d51e4745e987e453a5265e43e3eba06e056ae139cf20b14f29",
+      "source_sha256": "1d3ba434e78324fd2b257d490595d298bf05777939df8f25a333436b6a78f314",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17492
+    },
+    "FOOD_FINE_TEA_FULL_MOON": {
+      "id": "FOOD_FINE_TEA_FULL_MOON",
+      "name": "차와 보름달",
+      "path": "assets/icons/UI_ItemIcon_108649.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108649.png",
+      "sourceName": "차와 보름달",
+      "filename": "UI_ItemIcon_108649",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "6ac606b71fea13fe6d7621ec1aa8048b28f8c0e114480767f08ddf2dc02e7652",
+      "source_sha256": "54f50d26b47d6e30341c37d412d37bd3fb485badfcebc36d0455c98da1f1d4db",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11666
+    },
+    "FOOD_JADEVEIN_TEA_EGGS": {
+      "id": "FOOD_JADEVEIN_TEA_EGGS",
+      "name": "옥무늬 찻잎 달걀",
+      "path": "assets/icons/UI_ItemIcon_108652.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108652.png",
+      "sourceName": "옥무늬 찻잎 달걀",
+      "filename": "UI_ItemIcon_108652",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "b10460b06b500f88e18b66fb9164d30bd25cd0ca9c76dca449099047b76045b2",
+      "source_sha256": "b67cfe179e9d8d87f5065a9b895bb7a532b76c3a7f782b044667f24e6a91400e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13256
+    },
+    "FOOD_TEA_SMOKED_SQUAB": {
+      "id": "FOOD_TEA_SMOKED_SQUAB",
+      "name": "차향 훈제 비둘기",
+      "path": "assets/icons/UI_ItemIcon_108655.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108655.png",
+      "sourceName": "차향 훈제 비둘기",
+      "filename": "UI_ItemIcon_108655",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "fea2b64ecaa4fa54dc4a98ad1ef2369bd0bd8bc473b12581c06f46aae624f962",
+      "source_sha256": "5e40e8d5b2765b591c81d57b2fdd684af51475bd64928c5aa5a35461dc754d69",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12962
+    },
+    "FOOD_GUHUA_FISH_LAMB_SOUP": {
+      "id": "FOOD_GUHUA_FISH_LAMB_SOUP",
+      "name": "고화 어양선",
+      "path": "assets/icons/UI_ItemIcon_108658.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108658.png",
+      "sourceName": "고화 어양선",
+      "filename": "UI_ItemIcon_108658",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "1589760fd8ccc208764f798aafa604c36d41e45c2f82c17a093d80cd3b076253",
+      "source_sha256": "89b0764c28697f83d63a5443ff13de42cf1b9e0c4ffa8b3da0fbe77633845c67",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15766
+    },
+    "FOOD_CHENYU_BREW": {
+      "id": "FOOD_CHENYU_BREW",
+      "name": "침옥 차 이슬",
+      "path": "assets/icons/UI_ItemIcon_108661.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108661.png",
+      "sourceName": "침옥 차 이슬",
+      "filename": "UI_ItemIcon_108661",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "897614dd973c2abd690ed91f2316635ea08d529497b5953ad6353039dd1b1dc4",
+      "source_sha256": "f4e78f144b4e4079ed636d113a2c85675a930f2d48c09b7dc1e03ee6abbebed1",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11750
+    },
+    "FOOD_CELESTIAL_TEA_CRISP": {
+      "id": "FOOD_CELESTIAL_TEA_CRISP",
+      "name": "선잎 파이",
+      "path": "assets/icons/UI_ItemIcon_108904.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108904.png",
+      "sourceName": "선잎 파이",
+      "filename": "UI_ItemIcon_108904",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "a5cc3154e06d1b58ee43e3a223b1fbccc9ed56ed0badcf1e7a5f96a0d58b97e2",
+      "source_sha256": "37cfa0672a1b4ac22297f35858712fd706473a806869f73b4ad9312d09177f72",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16218
+    },
+    "FOOD_CRAB_ROE_TOFU": {
+      "id": "FOOD_CRAB_ROE_TOFU",
+      "name": "꽃게알 두부",
+      "path": "assets/icons/UI_ItemIcon_108177.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108177.png",
+      "sourceName": "꽃게알 두부",
+      "filename": "UI_ItemIcon_108177",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "a130e36757b923f34d259f31ee193ecca5d93bdedd109ac67df1aa6d494e65d9",
+      "source_sha256": "52dd58edc6f6bff1deda326174b6c541782c60325b537f237b3aa771195d0653",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15236
+    },
+    "FOOD_FULLMOON_EGG": {
+      "id": "FOOD_FULLMOON_EGG",
+      "name": "명월 딤섬",
+      "path": "assets/icons/UI_ItemIcon_108180.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108180.png",
+      "sourceName": "명월 딤섬",
+      "filename": "UI_ItemIcon_108180",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "029292c7821e6b1bff15bda0d17e85d9a9f5e50f15f593bcbe29610694c9645f",
+      "source_sha256": "7c0cfda7faaa8f1426ea0036972037c6f8d61be903f4af762f424fa5c803a805",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15878
+    },
+    "FOOD_CURED_PORK_HOTPOT": {
+      "id": "FOOD_CURED_PORK_HOTPOT",
+      "name": "훈제고기 볶음",
+      "path": "assets/icons/UI_ItemIcon_108183.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108183.png",
+      "sourceName": "훈제고기 볶음",
+      "filename": "UI_ItemIcon_108183",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "156c3147b5fe209b1c08aafd352d7851af218dd0f41e457ea31be1aa61c5217e",
+      "source_sha256": "ccfca042513ce98a2330fb3dda804003638a8e07438c58c0e1bc34606c89b0fd",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14676
+    },
+    "FOOD_FISH_NOODLES": {
+      "id": "FOOD_FISH_NOODLES",
+      "name": "생선 볶음면",
+      "path": "assets/icons/UI_ItemIcon_108186.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108186.png",
+      "sourceName": "생선 볶음면",
+      "filename": "UI_ItemIcon_108186",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "286473c35525f167726281130d2235e1b10768517043ceec99a7e54c43d710c0",
+      "source_sha256": "bab22a2f4864dbcc16f16584ebbdf64541b15879c8d22c4f95a81e7aba2a5adf",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18390
+    },
+    "FOOD_STONE_HARBOR_DELICACIES": {
+      "id": "FOOD_STONE_HARBOR_DELICACIES",
+      "name": "바위항 지삼선",
+      "path": "assets/icons/UI_ItemIcon_108192.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108192.png",
+      "sourceName": "바위항 지삼선",
+      "filename": "UI_ItemIcon_108192",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "0db12b821b524eb4735340ca96cdc1b7f53eb15587c2452a9bd0077aee7891a4",
+      "source_sha256": "a526841ff78ef40c2e775a2481e1c7b18e252a8ba7535ae29eac85ef93ca1bc6",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17356
+    },
+    "FOOD_STIR_FRIED_SHRIMP": {
+      "id": "FOOD_STIR_FRIED_SHRIMP",
+      "name": "새우살 볶음",
+      "path": "assets/icons/UI_ItemIcon_108195.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108195.png",
+      "sourceName": "새우살 볶음",
+      "filename": "UI_ItemIcon_108195",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "72332ac5fac4d1dd2367744f7384f7428a4b69c13446f2796dc33e1da79a343b",
+      "source_sha256": "2484eac76cbb89e369e63e6a0e30122766bd1313a8d173785b247eebf50e8ced",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17164
+    },
+    "FOOD_CHICKEN_TOFU_PUDDING": {
+      "id": "FOOD_CHICKEN_TOFU_PUDDING",
+      "name": "꼬꼬 연두부",
+      "path": "assets/icons/UI_ItemIcon_108247.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108247.png",
+      "sourceName": "꼬꼬 연두부",
+      "filename": "UI_ItemIcon_108247",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "b2b145a00c2abc47f1177cb24eb61129b5a6c1e41f0786d02ea965b2f0d79efc",
+      "source_sha256": "42e7f8d92595c438d2ca50f07f28dd2830a1282fdf958111ddd8b57f82654234",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15328
+    },
+    "FOOD_ONCIDIUM_TOFU": {
+      "id": "FOOD_ONCIDIUM_TOFU",
+      "name": "문심 두부",
+      "path": "assets/icons/UI_ItemIcon_108313.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108313.png",
+      "sourceName": "문심 두부",
+      "filename": "UI_ItemIcon_108313",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "bad07f9587fe13ed054bc65441e717bbf1b3590b0f48236fe614596e99ad6381",
+      "source_sha256": "8dbc8d785a7bd617f21217f9451ce1f66470d80cb212ee79501d35282499dbb3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16478
+    },
+    "FOOD_BOUNTIFUL_YEAR": {
+      "id": "FOOD_BOUNTIFUL_YEAR",
+      "name": "풍요로운 한 해",
+      "path": "assets/icons/UI_ItemIcon_108367.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108367.png",
+      "sourceName": "풍요로운 한 해",
+      "filename": "UI_ItemIcon_108367",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "98deae600f0bce7743a00569470327345ec427b4a1fe865556ad06b09ef397c3",
+      "source_sha256": "b96b6e4c674e99ef9f327a75f1a604a9d3ad0703c02fa7d6674ccb7848b2977c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 19848
+    },
+    "FOOD_PALACE_JEWELS": {
+      "id": "FOOD_PALACE_JEWELS",
+      "name": "금옥만당",
+      "path": "assets/icons/UI_ItemIcon_108625.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108625.png",
+      "sourceName": "금옥만당",
+      "filename": "UI_ItemIcon_108625",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "36533345aa4366cd1bb4934a32182fa306fd2b907897cbd6cb97a5d8337ba056",
+      "source_sha256": "3a19247cc13cd6706de9893d3cfed3be400cd77e26f92cf306675270b3cb6ce8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15150
+    },
+    "FOOD_TREMBLING_STRINGS": {
+      "id": "FOOD_TREMBLING_STRINGS",
+      "name": "번현급관",
+      "path": "assets/icons/UI_ItemIcon_108628.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108628.png",
+      "sourceName": "번현급관",
+      "filename": "UI_ItemIcon_108628",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "7d94f676ddfd013d4e7a03f8d1bd6c9ae104fcdc36cd4ed1924ebbf83ceab2a6",
+      "source_sha256": "65aa84e483164ed6b06d38cab2f522b7b93d04f7318a56d27f9ccb909aa22f0e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16066
+    },
+    "FOOD_HUMBLY_ENOUGH": {
+      "id": "FOOD_HUMBLY_ENOUGH",
+      "name": "만족의 기쁨",
+      "path": "assets/icons/UI_ItemIcon_108631.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108631.png",
+      "sourceName": "만족의 기쁨",
+      "filename": "UI_ItemIcon_108631",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "5fdc0c613e3b84e610f60ea765cc898b3e3d0a2037e90fb8869b9e370a6c1e25",
+      "source_sha256": "cb817e253d4d9a096409b69f16be4b4621993046634017ec7b0fef8cc32bc60a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14322
+    },
+    "FOOD_RIGHT_AT_HOME": {
+      "id": "FOOD_RIGHT_AT_HOME",
+      "name": "내 집 같은 편안함",
+      "path": "assets/icons/UI_ItemIcon_108634.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108634.png",
+      "sourceName": "내 집 같은 편안함",
+      "filename": "UI_ItemIcon_108634",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "b19fb82381fa03cd0beee35b21406ecd5a0e4a18c0e94399bca37bccad11bd45",
+      "source_sha256": "7b26008215de73596a77b9508a87ff3abac42b14450111ca6acda8e13fcfa66f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14602
+    },
+    "FOOD_EIGHT_TREASURE_DUCK": {
+      "id": "FOOD_EIGHT_TREASURE_DUCK",
+      "name": "팔보 복 오리",
+      "path": "assets/icons/UI_ItemIcon_108637.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108637.png",
+      "sourceName": "팔보 복 오리",
+      "filename": "UI_ItemIcon_108637",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "1c4dfad957f36622ec97ed7c1a2f67432995e07546162a6e70195915a04ad49e",
+      "source_sha256": "80ca1b607153334773f0f07ab278c3c5051585f5a7255969c3e2fbb2312a4b55",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12154
+    },
+    "FOOD_DOUBLECRISP": {
+      "id": "FOOD_DOUBLECRISP",
+      "name": "유폭쌍취",
+      "path": "assets/icons/UI_ItemIcon_108640.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108640.png",
+      "sourceName": "유폭쌍취",
+      "filename": "UI_ItemIcon_108640",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "926af980f1db62e241003cb969935f576ee2f156279e84efe66307244f79703c",
+      "source_sha256": "3aa652202e119058a5f2fb91aecbe680b0e2ee5ccb2deb8f10c7129a857ace68",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13196
+    },
+    "FOOD_BRAISED_MEATBALL": {
+      "id": "FOOD_BRAISED_MEATBALL",
+      "name": "홍소 고기 완자",
+      "path": "assets/icons/UI_ItemIcon_108643.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108643.png",
+      "sourceName": "홍소 고기 완자",
+      "filename": "UI_ItemIcon_108643",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "2ebac15005927d27b6a9bd254603b8de9866a64d2bd64fe237ca4f5c93a260ca",
+      "source_sha256": "e083650717cea14df7a7b87d2c343626da4c1cac9a83617959e746edfd09d3b5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11926
+    },
+    "FOOD_HONEY_CHAR_SIU": {
+      "id": "FOOD_HONEY_CHAR_SIU",
+      "name": "꿀 차사오",
+      "path": "assets/icons/UI_ItemIcon_108646.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108646.png",
+      "sourceName": "꿀 차사오",
+      "filename": "UI_ItemIcon_108646",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "19374545e379e76b5d5a4837ccdf3358b6ff6da4a747887753eac358cadd72d2",
+      "source_sha256": "bb67c86544bf72f487fb64d1a485798dc12586e27a441d1d5748cc60ff4297d6",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11056
+    },
+    "FOOD_DRUNKEN_PLUMS": {
+      "id": "FOOD_DRUNKEN_PLUMS",
+      "name": "눈에 취한 매화",
+      "path": "assets/icons/UI_ItemIcon_108785.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108785.png",
+      "sourceName": "눈에 취한 매화",
+      "filename": "UI_ItemIcon_108785",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "5d3f3441b8116994ac7202386778f2a17ad862e1b9373ea71d1f8bc13d49cea5",
+      "source_sha256": "d7af895e7163ff197d8ba1949b20940d622c807505643c8971d8ae75336815e8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15532
+    },
+    "FOOD_LUCKY_SNOW_DELIGHT": {
+      "id": "FOOD_LUCKY_SNOW_DELIGHT",
+      "name": "풍요 백설기",
+      "path": "assets/icons/UI_ItemIcon_108857.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108857.png",
+      "sourceName": "풍요 백설기",
+      "filename": "UI_ItemIcon_108857",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "e92f04bd9e484efafb1abaabf995b822164abe9de64395f7ee68fff17176fdaa",
+      "source_sha256": "213a2744d687255d329a119ce78675d1e7a3859da3f52f664168467653d31b7b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13822
+    },
+    "FOOD_SPRING_ROLLS": {
+      "id": "FOOD_SPRING_ROLLS",
+      "name": "춘권",
+      "path": "assets/icons/UI_ItemIcon_108868.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108868.png",
+      "sourceName": "춘권",
+      "filename": "UI_ItemIcon_108868",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "1cbfb71dd8e3669aa64d00d713a4a706422a9e8de07cd65a80be921e53689c55",
+      "source_sha256": "63f4964c17f8aea8b6024451a8675bc437ca04479d407be296f3edb9d412e458",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13448
+    },
+    "FOOD_GOLDEN_TEMPERED_JADE": {
+      "id": "FOOD_GOLDEN_TEMPERED_JADE",
+      "name": "빛나는 냉옥",
+      "path": "assets/icons/UI_ItemIcon_108869.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_108869.png",
+      "sourceName": "빛나는 냉옥",
+      "filename": "UI_ItemIcon_108869",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "9a020aa8ec1c40b97fcce1f8ef5778486005989640b19f55d6569bb3af02fc86",
+      "source_sha256": "055289f1401b1b770e29da729544fbfe20440303944b91f1ed2bce7d487029c6",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16536
+    },
+    "FOOD_STUFFED_TOFU": {
+      "id": "FOOD_STUFFED_TOFU",
+      "name": "냥더우푸",
+      "path": "assets/icons/UI_ItemIcon_108875.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_108875.png",
+      "sourceName": "냥더우푸",
+      "filename": "UI_ItemIcon_108875",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "4676083f660407fd7b06f44f7f537bb9b9c8eb8be89bd800cd8a29725362ea79",
+      "source_sha256": "39ce6446da3dc0658a29ed41e18a5fde04a6b63408fd01cfdd58cada5a5fa94c",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14018
+    },
+    "FOOD_FISHERMANS_TOAST": {
+      "id": "FOOD_FISHERMANS_TOAST",
+      "name": "어부 토스트",
+      "path": "assets/icons/UI_ItemIcon_Recipe_1001.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1001.png",
+      "sourceName": "어부 토스트",
+      "filename": "UI_ItemIcon_Recipe_1001",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "c18dd59d23b1e6b1b36b2f1554a9c021dd36f28795f25fd480a349143a0b6398",
+      "source_sha256": "85ff517c253bbac0d89a3719b0b6d5fe4a505e152333efcb6d87d41433362312",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12046
+    },
+    "FOOD_STEAK": {
+      "id": "FOOD_STEAK",
+      "name": "스테이크",
+      "path": "assets/icons/UI_ItemIcon_Recipe_3001.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_3001.png",
+      "sourceName": "스테이크",
+      "filename": "UI_ItemIcon_Recipe_3001",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "084a20cb1b01a0875cba8ff1006e3e654c75803a2b842324528443cb3935c8fd",
+      "source_sha256": "c1875e9d1770319617c89fec282aad9a5ab80807a66d1bff7ef00a12f2ce401f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10320
+    },
+    "FOOD_CHICKEN_SKEWER": {
+      "id": "FOOD_CHICKEN_SKEWER",
+      "name": "버섯 닭꼬치",
+      "path": "assets/icons/UI_ItemIcon_Recipe_1002.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1002.png",
+      "sourceName": "버섯 닭꼬치",
+      "filename": "UI_ItemIcon_Recipe_1002",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "4016a7287dce5bf3942030ff0e2355948caa027aeeac2d55f68963077ccbc211",
+      "source_sha256": "a71a6978d0a9d62744de502bfd220e530a8369e0e3b022e434bebcb347c89b4f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10560
+    },
+    "FOOD_BOLOGNESE": {
+      "id": "FOOD_BOLOGNESE",
+      "name": "불꽃 미트 스파게티",
+      "path": "assets/icons/UI_ItemIcon_Recipe_1003.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_1003.png",
+      "sourceName": "불꽃 미트 스파게티",
+      "filename": "UI_ItemIcon_Recipe_1003",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "855c5c250925303033a6ee776259b31cdb96022946b7970097d1cc717bf209f4",
+      "source_sha256": "f614d964030719299e03cf060a8b77c7afd71130c68937d7f789219084b7b9e3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12202
+    },
+    "FOOD_RADISH_SOUP": {
+      "id": "FOOD_RADISH_SOUP",
+      "name": "무 수프",
+      "path": "assets/icons/UI_ItemIcon_Recipe_3002.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_3002.png",
+      "sourceName": "무 수프",
+      "filename": "UI_ItemIcon_Recipe_3002",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "52f78ac80a8d3bc80e499ebf1c1bbd1185fc58d2dda709dffefc75e024e0767e",
+      "source_sha256": "56b69fc681e1e6a5fc52ff20e3b2659e0728485547ed53101395625166fe03f4",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11946
+    },
+    "FOOD_PANCAKE_TEA_BREAK": {
+      "id": "FOOD_PANCAKE_TEA_BREAK",
+      "name": "장원 팬케이크",
+      "path": "assets/icons/UI_ItemIcon_Recipe_4001.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_4001.png",
+      "sourceName": "장원 팬케이크",
+      "filename": "UI_ItemIcon_Recipe_4001",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "2ad9952ec9b0fecb04d8a4c089a54134fd0293fd2895591234a29264cf9be7f8",
+      "source_sha256": "8c6a291d1ee5cb9da2ea452b8eea700a4a533c8c8fb69361492592b6f9b0acb5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11616
+    },
+    "FOOD_SATISFYING_SALAD": {
+      "id": "FOOD_SATISFYING_SALAD",
+      "name": "만족 샐러드",
+      "path": "assets/icons/UI_ItemIcon_Recipe_4003.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_4003.png",
+      "sourceName": "만족 샐러드",
+      "filename": "UI_ItemIcon_Recipe_4003",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "c3df2c6b7eb54f408e96f5986b5ef73c2b6558077c81091d6445685a4cb2f1bf",
+      "source_sha256": "1e36fd8e380143abe59219a0503fa052b87d962cf9413e187328b021651e1bf3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15980
+    },
+    "FOOD_SMOKED_CHICKEN": {
+      "id": "FOOD_SMOKED_CHICKEN",
+      "name": "북극 훈제 닭",
+      "path": "assets/icons/UI_ItemIcon_Recipe_2002.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_2002.png",
+      "sourceName": "북극 훈제 닭",
+      "filename": "UI_ItemIcon_Recipe_2002",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "6bdccda373c903cdfdbf2aefb4e291c3136a3f555b922b4f720dd95f8865e10a",
+      "source_sha256": "2ca37528d487f1acf1dd81c18e09770eafa297526c622b7833a7fc5c18ac8f00",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17024
+    },
+    "FOOD_CREAM_STEW": {
+      "id": "FOOD_CREAM_STEW",
+      "name": "크림 스튜",
+      "path": "assets/icons/UI_ItemIcon_Recipe_2003.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_2003.png",
+      "sourceName": "크림 스튜",
+      "filename": "UI_ItemIcon_Recipe_2003",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "d6fab403309b6b15616a0465336a791874ff72e2e1e18e8495f6c0858539b0fa",
+      "source_sha256": "d9685a64c216809db6d067cfbaf473b976502b8813fdac23d0ce56079abe79ed",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13762
+    },
+    "FOOD_COLD_CUT": {
+      "id": "FOOD_COLD_CUT",
+      "name": "냉채수육",
+      "path": "assets/icons/UI_ItemIcon_Recipe_2004.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_2004.png",
+      "sourceName": "냉채수육",
+      "filename": "UI_ItemIcon_Recipe_2004",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "8d5946bbaa3d6373dc4932551f5ac4812d47841e38d09ac150e8fa9a111e4161",
+      "source_sha256": "e6e3d25928956fac67128159c5743efbe9905aed3ebe3bf018aca386b32ec0d3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16142
+    },
+    "FOOD_HONEY_ROAST": {
+      "id": "FOOD_HONEY_ROAST",
+      "name": "허니캐럿그릴",
+      "path": "assets/icons/UI_ItemIcon_Recipe_2005.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_2005.png",
+      "sourceName": "허니캐럿그릴",
+      "filename": "UI_ItemIcon_Recipe_2005",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "f430fe9b7dce318f0f76233b35d8cce17b0283519afba600b9d2740a3836a662",
+      "source_sha256": "4af34981846d52bec70f788b71736c954f6d543f301835504c981e600ce21394",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15312
+    },
+    "FOOD_MOND_GRILLED_FISH": {
+      "id": "FOOD_MOND_GRILLED_FISH",
+      "name": "몬드 생선구이",
+      "path": "assets/icons/UI_ItemIcon_108096.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108096.png",
+      "sourceName": "몬드 생선구이",
+      "filename": "UI_ItemIcon_108096",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "eaf72c8072fec9f3faa03cfccfd6adb694955c6df58cde61df7adb5ecbadd9fd",
+      "source_sha256": "5f1c254dc288c0ff1f1727cd00e9fa32f72055daf4daa49970b574b35562f823",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13630
+    },
+    "FOOD_BARBATOS_RATATOUILLE": {
+      "id": "FOOD_BARBATOS_RATATOUILLE",
+      "name": "바람신의 잡채",
+      "path": "assets/icons/UI_ItemIcon_108111.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108111.png",
+      "sourceName": "바람신의 잡채",
+      "filename": "UI_ItemIcon_108111",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "9944d3715071003eacab584b9db1aafaa9cfe769cee9402f37bcf130e8634d51",
+      "source_sha256": "6092df5a3cee2c0257d0e2350a382c0bc5cbd8b6be5aa32820f96babe0904a0b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14708
+    },
+    "FOOD_MOON_PIE": {
+      "id": "FOOD_MOON_PIE",
+      "name": "달빛 파이",
+      "path": "assets/icons/UI_ItemIcon_108165.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108165.png",
+      "sourceName": "달빛 파이",
+      "filename": "UI_ItemIcon_108165",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "a82b29011bdc89b0da85741a6506726bd91fca6df21dadde2f958babb97ab644",
+      "source_sha256": "51c879cedbbd221e2c2c72f7e50bf8b06d892634b15141957e65cf087c0fa7b8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17200
+    },
+    "FOOD_BREAKFAST_SANDWICH": {
+      "id": "FOOD_BREAKFAST_SANDWICH",
+      "name": "모험가 계란빵",
+      "path": "assets/icons/UI_ItemIcon_108168.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108168.png",
+      "sourceName": "모험가 계란빵",
+      "filename": "UI_ItemIcon_108168",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "9aeb8a9456e9976d8f25d73e8df2846f84b6c8f9a8520cb378939a9db3a9d178",
+      "source_sha256": "6de6919cbe43d2a84cf6d4589cdd7b7ff9fc84da58b6fd98ea5325d26bdbd2e0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10560
+    },
+    "FOOD_APPLE_STEW": {
+      "id": "FOOD_APPLE_STEW",
+      "name": "북극 사과고기찜",
+      "path": "assets/icons/UI_ItemIcon_108171.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108171.png",
+      "sourceName": "북극 사과고기찜",
+      "filename": "UI_ItemIcon_108171",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "27bfd1c7290d16d212e2e41a8ffbe7552f0146bdf03385fea045db37662e672f",
+      "source_sha256": "53aec62e716d3c824c4736759d96d65e678deac5b2d5f4fd8703c84243000b4f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14994
+    },
+    "FOOD_MINT_JELLY": {
+      "id": "FOOD_MINT_JELLY",
+      "name": "민트 젤리",
+      "path": "assets/icons/UI_ItemIcon_108226.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108226.png",
+      "sourceName": "민트 젤리",
+      "filename": "UI_ItemIcon_108226",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "f8dc048f26a08642fcce5a8afdc53ac5425dbc154aaaddcc7866a011b8546b49",
+      "source_sha256": "3ca37b531166ac4714beb8cc3c6ce82bbb62f980cacacacc749c0d09850e3a5e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10414
+    },
+    "FOOD_GOLDEN_FRIED_CHICKEN": {
+      "id": "FOOD_GOLDEN_FRIED_CHICKEN",
+      "name": "황금 크리스피 치킨",
+      "path": "assets/icons/UI_ItemIcon_108236.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108236.png",
+      "sourceName": "황금 크리스피 치킨",
+      "filename": "UI_ItemIcon_108236",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "b495943518fbfb0eafc305c7ef90bbca502bf6f9936667b05ef5632d6f1c6ce8",
+      "source_sha256": "0c943dbbe9201b3298e19e28b3fe87a750e5d0f0a1b592e31cf9038aa0b87114",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12386
+    },
+    "FOOD_CHICKEN_BURGER": {
+      "id": "FOOD_CHICKEN_BURGER",
+      "name": "바삭바삭 치킨버거",
+      "path": "assets/icons/UI_ItemIcon_108239.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108239.png",
+      "sourceName": "바삭바삭 치킨버거",
+      "filename": "UI_ItemIcon_108239",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "e52ed4a86c7911d13a7713f9808bf00a2cded5992380587a9832f13d4fa32a8b",
+      "source_sha256": "ec82072d7da9aba9e7361a79fe23de849f5bf4f8def726698ea5d4c0bef9be51",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 19942
+    },
+    "FOOD_RADISH_BALLS": {
+      "id": "FOOD_RADISH_BALLS",
+      "name": "무완자 튀김",
+      "path": "assets/icons/UI_ItemIcon_Recipe_4002.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/Recipe/UI_ItemIcon_Recipe_4002.png",
+      "sourceName": "무완자 튀김",
+      "filename": "UI_ItemIcon_Recipe_4002",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "2cf98e2ecacf5ada9132d7379f087937f81d20bdbc4ee7b931ae95bf671ead09",
+      "source_sha256": "94284eebcb7c39923981c7e3a54e69945a79bab9ff9b698d81bd446fb7523e4e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10988
+    },
+    "FOOD_CHOP_SUEY": {
+      "id": "FOOD_CHOP_SUEY",
+      "name": "중원 내장꼬치",
+      "path": "assets/icons/UI_ItemIcon_108072.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108072.png",
+      "sourceName": "중원 내장꼬치",
+      "filename": "UI_ItemIcon_108072",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "3ba5e5e702939ecf85097a13460da38a6c4cb0198aa58be561032b1c9ac805f0",
+      "source_sha256": "e434a36b30b3916c8f9d4bd87fd78a5a348d70f132da4b5e86f632dafdd2e453",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 20696
+    },
+    "FOOD_PERCH_STEW": {
+      "id": "FOOD_PERCH_STEW",
+      "name": "삶은 검정 농어",
+      "path": "assets/icons/UI_ItemIcon_108075.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108075.png",
+      "sourceName": "삶은 검정 농어",
+      "filename": "UI_ItemIcon_108075",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "5345c91a55e4531f2e3fb5881e5a5b0c4089ddd42d83f1ec29c0d642975874f7",
+      "source_sha256": "9d1c372a8026df82e6b0f91fb711d6767a68daef9810f86a0e94c693417c73fb",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15404
+    },
+    "FOOD_SQUIRREL_FISH": {
+      "id": "FOOD_SQUIRREL_FISH",
+      "name": "탕수어",
+      "path": "assets/icons/UI_ItemIcon_108078.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108078.png",
+      "sourceName": "탕수어",
+      "filename": "UI_ItemIcon_108078",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "ed253e07b2656cdb742045a1d3ed61e9a0d49d2191853de0da2e701a4eabbe8f",
+      "source_sha256": "b99341174a2268a107d642fcab336f12de0559655344c9984b5c26edea2ee18d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 20290
+    },
+    "FOOD_ALMOND_TOFU": {
+      "id": "FOOD_ALMOND_TOFU",
+      "name": "행인두부",
+      "path": "assets/icons/UI_ItemIcon_100428.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100428.png",
+      "sourceName": "행인두부",
+      "filename": "UI_ItemIcon_100428",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "250bf25427e9a9f5d3a638cabca876bc692cae1a1be2c106d3c9b1991536a25a",
+      "source_sha256": "f508683d580702c99f73e39c85115efe3964eb359462461d833417f1c85af816",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16118
+    },
+    "FOOD_CHILI_CHICKEN": {
+      "id": "FOOD_CHILI_CHICKEN",
+      "name": "절운고추 치킨",
+      "path": "assets/icons/UI_ItemIcon_108084.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108084.png",
+      "sourceName": "절운고추 치킨",
+      "filename": "UI_ItemIcon_108084",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "3757030af150ae59cebe0485e68c9ff142785d33dea931780e43cb3a49a6ab64",
+      "source_sha256": "fe38bd4bf3793c93204697242e09f17383e6e3e6b50670c691af7dfb106d32a5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 17144
+    },
+    "FOOD_JEWELRY_SOUP": {
+      "id": "FOOD_JEWELRY_SOUP",
+      "name": "진주비취백옥탕",
+      "path": "assets/icons/UI_ItemIcon_108087.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108087.png",
+      "sourceName": "진주비취백옥탕",
+      "filename": "UI_ItemIcon_108087",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "feafe1c453e7adc0ed622af0dbda3205dfdf60cc6bd01c85692905140cae73a6",
+      "source_sha256": "c0e0376d54e03b8c2596c18911098cb07551d0c5244b5f78a367aea38587b73a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14354
+    },
+    "FOOD_MORA_MEAT": {
+      "id": "FOOD_MORA_MEAT",
+      "name": "모라육",
+      "path": "assets/icons/UI_ItemIcon_108093.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108093.png",
+      "sourceName": "모라육",
+      "filename": "UI_ItemIcon_108093",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "689defbc599ce12eb5f0d203acd655cbf4a385695e0882e6eeb44f32b327de29",
+      "source_sha256": "f80fdc940818e5715817d640d57175f70e28581054b4451263c57aed7b224f7d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12466
+    },
+    "FOOD_STIR_FRIED_FILET": {
+      "id": "FOOD_STIR_FRIED_FILET",
+      "name": "고기볶음",
+      "path": "assets/icons/UI_ItemIcon_108099.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108099.png",
+      "sourceName": "고기볶음",
+      "filename": "UI_ItemIcon_108099",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "865780b8148d95407886cb21744dd9bda85e9499ba296d997b0c9b77f4d9d5a7",
+      "source_sha256": "d82f9ef3bccc7b38bda2b96ab2e37dc3a7dfd8918081e2ee08e48bdaebfb59f3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16846
+    },
+    "FOOD_GOLDEN_CRAB": {
+      "id": "FOOD_GOLDEN_CRAB",
+      "name": "골든크랩",
+      "path": "assets/icons/UI_ItemIcon_108102.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108102.png",
+      "sourceName": "골든크랩",
+      "filename": "UI_ItemIcon_108102",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "9eb25a6b02eb437ba0c2b3b5446e67d017de5b0beaa0a921caf7f8f20e57f282",
+      "source_sha256": "de225bd97aed7736f5b9ed20491fb7b3a9110caa55d7ada2be8fa3584dfa345e",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16116
+    },
+    "FOOD_CRYSTAL_SHRIMP": {
+      "id": "FOOD_CRYSTAL_SHRIMP",
+      "name": "수정 새우딤섬",
+      "path": "assets/icons/UI_ItemIcon_108105.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108105.png",
+      "sourceName": "수정 새우딤섬",
+      "filename": "UI_ItemIcon_108105",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "1eedd7e994a6beb5ad604fcf95398f4ed23ceec6015eaf8b01201699c0f676af",
+      "source_sha256": "6c4ff924bc5bec8a21198c15e4be2626f8f4f0c0a0b2b978476a40869c70325a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13554
+    },
+    "FOOD_LOTUS_EGG_SOUP": {
+      "id": "FOOD_LOTUS_EGG_SOUP",
+      "name": "연밥 계란찜",
+      "path": "assets/icons/UI_ItemIcon_108120.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108120.png",
+      "sourceName": "연밥 계란찜",
+      "filename": "UI_ItemIcon_108120",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "51b35232b50cba7248e395ffcede8f4123d2b63aaafd92f49f6c52bc57123bd1",
+      "source_sha256": "e9fa906620694a804efa9d1bbbe7fe93eecdd40816743b620b194c58e542a161",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11934
+    },
+    "FOOD_SHRIMP_BALLS": {
+      "id": "FOOD_SHRIMP_BALLS",
+      "name": "황금 새우볼",
+      "path": "assets/icons/UI_ItemIcon_108126.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108126.png",
+      "sourceName": "황금 새우볼",
+      "filename": "UI_ItemIcon_108126",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "ceb56c8e862513573d7560d5c35a7bcc847e415ccf8c276d67126e3d616f5e6a",
+      "source_sha256": "d78b0f638239a7ce0f06568052b2e842d545d74af77d5632e9dcecc1bd4594e8",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 19288
+    },
+    "FOOD_QINGCE_STIR_FRY": {
+      "id": "FOOD_QINGCE_STIR_FRY",
+      "name": "경책 가정식",
+      "path": "assets/icons/UI_ItemIcon_108129.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108129.png",
+      "sourceName": "경책 가정식",
+      "filename": "UI_ItemIcon_108129",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "07ca535d8aa5310a763a5d51cc317e156499874f327162736930c16f4b0efbf9",
+      "source_sha256": "45595ae426aa0293d03249f488306cf13dd29d989dbdd497687ea26c8b2b1d35",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18422
+    },
+    "FOOD_COME_AND_GET_IT": {
+      "id": "FOOD_COME_AND_GET_IT",
+      "name": "흥얼채",
+      "path": "assets/icons/UI_ItemIcon_108132.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108132.png",
+      "sourceName": "흥얼채",
+      "filename": "UI_ItemIcon_108132",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "fa51020647b10e752b68f53deb444ffb7e3099aaaa1c867ea6c2d74f2275306f",
+      "source_sha256": "978c8a29b7f9b483e6e4daca007966515d739b78f6e577e33d74ebe023ad9e39",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15796
+    },
+    "FOOD_MOUNTAIN_NOODLES": {
+      "id": "FOOD_MOUNTAIN_NOODLES",
+      "name": "산미 울면",
+      "path": "assets/icons/UI_ItemIcon_108142.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108142.png",
+      "sourceName": "산미 울면",
+      "filename": "UI_ItemIcon_108142",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "e5f93e60d9e5b0e91e19b331cf2211936b223db2c9a01a394cce48b08fb098a3",
+      "source_sha256": "7230e7c83fdceb6860a4c576f90037bde1766e0eddd167ceb40124b967f6e7dd",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15808
+    },
+    "FOOD_BAMBOO_SOUP": {
+      "id": "FOOD_BAMBOO_SOUP",
+      "name": "죽순 수프",
+      "path": "assets/icons/UI_ItemIcon_108153.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108153.png",
+      "sourceName": "죽순 수프",
+      "filename": "UI_ItemIcon_108153",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "19a6b8f650455e3f96cfce0dfe59b041517c13324494c67df5dc5188175d5293",
+      "source_sha256": "6672bee853a772485a3ba87ec1c6d94b73575f4f6bfc74608dbed74df2352ff6",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15022
+    },
+    "FOOD_CONSOMME": {
+      "id": "FOOD_CONSOMME",
+      "name": "고기죽순데침",
+      "path": "assets/icons/UI_ItemIcon_108156.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108156.png",
+      "sourceName": "고기죽순데침",
+      "filename": "UI_ItemIcon_108156",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "363a99670e7a2403c6874592e26fc0fc01681fbb575ac4c206c8d24db328b335",
+      "source_sha256": "51c82835d456f1068776bd60dc3ba5b85daf528fde9805a6f20547dab8838e7b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13116
+    },
+    "FOOD_TIANSHU_MEAT": {
+      "id": "FOOD_TIANSHU_MEAT",
+      "name": "천추육",
+      "path": "assets/icons/UI_ItemIcon_108159.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108159.png",
+      "sourceName": "천추육",
+      "filename": "UI_ItemIcon_108159",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "e1675789938fe8ad547ab012efd2d092eecb7085b1b249f51a64e52747cae076",
+      "source_sha256": "f890f79b486245f580785ddffdb5711286ad2f52c38f1d470e64d7d94c2b14cb",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14458
+    },
+    "FOOD_LOTUS_CRISP": {
+      "id": "FOOD_LOTUS_CRISP",
+      "name": "연꽃 파이",
+      "path": "assets/icons/UI_ItemIcon_108162.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108162.png",
+      "sourceName": "연꽃 파이",
+      "filename": "UI_ItemIcon_108162",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "4055b26ea913f29e4eaffed2e56ec844931efbffa103f5f5b6f3ee4e2d4f71df",
+      "source_sha256": "5bcc90d0f1289d1a86df63773d7c02ce992a13775907dcddf107819c04c0c933",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16158
+    },
+    "FOOD_VEGETARIAN_ABALONE": {
+      "id": "FOOD_VEGETARIAN_ABALONE",
+      "name": "채식 전복",
+      "path": "assets/icons/UI_ItemIcon_108189.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108189.png",
+      "sourceName": "채식 전복",
+      "filename": "UI_ItemIcon_108189",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "f46b95a153559bbabd7374f021fea42c7c423125933fe9a3defb81f64e214a58",
+      "source_sha256": "7246df550681b42f23d29cf7aac6ba64aa269d66df6722f720998508cfeb8716",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 15884
+    },
+    "FOOD_MINT_SALAD": {
+      "id": "FOOD_MINT_SALAD",
+      "name": "민트냉채",
+      "path": "assets/icons/UI_ItemIcon_108229.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108229.png",
+      "sourceName": "민트냉채",
+      "filename": "UI_ItemIcon_108229",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "1c02d830d628fd323a3d667c3b0e9aeabc1a9393eedcb690c4d54e79a79a39da",
+      "source_sha256": "8b42e948b2563c22666b82ed2ad31cdb59ee3b51893cca56498c4b3a01385ab0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16954
+    },
+    "FOOD_MINTY_MEAT_ROLLS": {
+      "id": "FOOD_MINTY_MEAT_ROLLS",
+      "name": "민트 고기말이",
+      "path": "assets/icons/UI_ItemIcon_108232.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108232.png",
+      "sourceName": "민트 고기말이",
+      "filename": "UI_ItemIcon_108232",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "6d7209bd290c288d791f487eeeeffc776a4819950f8cf4eaa3a2fa48cd79d6c5",
+      "source_sha256": "6279b906af377c4d55c3a08ce1544cd3a2c6e1197eefb6fecd41d82dd6cdf44f",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18158
+    },
+    "FOOD_DRAGON_NOODLES": {
+      "id": "FOOD_DRAGON_NOODLES",
+      "name": "용수면",
+      "path": "assets/icons/UI_ItemIcon_108370.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_108370.png",
+      "sourceName": "용수면",
+      "filename": "UI_ItemIcon_108370",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "9b6a070c5688888e21b5b35dbb35780fdcea004861baa42b0c6b0f2657e3a325",
+      "source_sha256": "e668ab5a80191033ff161a09b23601644d4ba827d146fdaa15ad944515a8e449",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 14706
+    },
+    "ING_PINECONE": {
+      "id": "ING_PINECONE",
+      "name": "솔방울",
+      "path": "assets/icons/UI_ItemIcon_100020.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100020.png",
+      "sourceName": "솔방울",
+      "filename": "UI_ItemIcon_100020",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "bfb1ad902d9eb79cb3fa16b877cab824f5463615fd96a0f5abb10864da95bfa6",
+      "source_sha256": "5e597e8639b1c7440c8d0002502a500f83c29a0aec5dbcdf1b7f3f1cd6350136",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9352
+    },
+    "ING_JAM": {
+      "id": "ING_JAM",
+      "name": "과일잼",
+      "path": "assets/icons/UI_ItemIcon_110008.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110008.png",
+      "sourceName": "과일잼",
+      "filename": "UI_ItemIcon_110008",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "dc27124f6dc8eca16d9f9063c307bf915aab30374de58255ae9ca5581e26d4a3",
+      "source_sha256": "64bf9f7c657ff3e069ca658bc1c1b691772184115ae1282589b4080376cb2369",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12200
+    },
+    "ING_CALLA_LILY": {
+      "id": "ING_CALLA_LILY",
+      "name": "통통 연꽃",
+      "path": "assets/icons/UI_ItemIcon_100056.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100056.png",
+      "sourceName": "통통 연꽃",
+      "filename": "UI_ItemIcon_100056",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "7a4df6456a567d2a244d88f54517a7a7a9ac0cf378f235323fb750e6f584726a",
+      "source_sha256": "ad6cf56eb7318b8cc020bb7a48fb7f8e437aaabbc0058a4e51f7155c7999050d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11630
+    },
+    "ING_LAMP_GRASS": {
+      "id": "ING_LAMP_GRASS",
+      "name": "등불꽃",
+      "path": "assets/icons/UI_ItemIcon_100055.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100055.png",
+      "sourceName": "등불꽃",
+      "filename": "UI_ItemIcon_100055",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "cb1e7bcb4e387e9154c05c23d48b493075dee1bd73650de05985f07bac0b4cf9",
+      "source_sha256": "bc35f00486117f5183541cc950566efa2df12fe6f4110bfd3c9ced7609d3589d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 13176
+    },
+    "ING_CRAB_ROE": {
+      "id": "ING_CRAB_ROE",
+      "name": "꽃게알",
+      "path": "assets/icons/UI_ItemIcon_110007.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110007.png",
+      "sourceName": "꽃게알",
+      "filename": "UI_ItemIcon_110007",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "f58779903482f85231dd2a797efee171fe848af57750dbab410153120a2cc807",
+      "source_sha256": "b0871e50c9ae7ad63e1ab33731984e7955de4306c5e17767349899d88e7733e5",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11914
+    },
+    "ING_CHILLED_MEAT": {
+      "id": "ING_CHILLED_MEAT",
+      "name": "「냉동 생고기」",
+      "path": "assets/icons/UI_ItemIcon_100094.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100094.png",
+      "sourceName": "「냉동 생고기」",
+      "filename": "UI_ItemIcon_100094",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "2f6de826caf35cbff834f004ed63cd450c969f45dc092e8a1f25f12109b9e6fb",
+      "source_sha256": "4746815136113c74dcb313172cc7a2e86f392a03d12b9ecd961c139149be441d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12024
+    },
+    "ING_HORSETAIL": {
+      "id": "ING_HORSETAIL",
+      "name": "말총",
+      "path": "assets/icons/UI_ItemIcon_100032.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100032.png",
+      "sourceName": "말총",
+      "filename": "UI_ItemIcon_100032",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "c6f1ef01e16dfaed6495d468a3febc0033df9e754b055e7b75093ab6bb1937a1",
+      "source_sha256": "0b5e48966147ff924b98ed268f048d59a8c9bd234f2f0eb4d6c49c808399e6b7",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12710
+    },
+    "ING_CHENYU_ADEPTEA": {
+      "id": "ING_CHENYU_ADEPTEA",
+      "name": "침옥 선잎",
+      "path": "assets/icons/UI_ItemIcon_101242.webp",
+      "source": "https://gi.yatta.moe/assets/UI/UI_ItemIcon_101242.png",
+      "sourceName": "침옥 선잎",
+      "filename": "UI_ItemIcon_101242",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_mirror_reencoded",
+      "sha256": "6c34f6534e876e4473441393e18b2bdd7b743d0b3f3ecccceeca7c0888736145",
+      "source_sha256": "ed031302c75ac106c5acc4d9cf9c6a71e584c06765ab178c0784f9d48dc3f3f2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10888
+    },
+    "ING_SUGAR": {
+      "id": "ING_SUGAR",
+      "name": "설탕",
+      "path": "assets/icons/UI_ItemIcon_110006.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110006.png",
+      "sourceName": "설탕",
+      "filename": "UI_ItemIcon_110006",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "267bdfa4e3484f4e91680574f4a77285fc7c2a7b9881eb3978b3c9d6c2be4fed",
+      "source_sha256": "6c3d9f90f354fee009310b82ff7388e1a1ef467b968cc6d3618b3ec351c4a081",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12440
+    },
+    "ING_BERRY": {
+      "id": "ING_BERRY",
+      "name": "라즈베리",
+      "path": "assets/icons/UI_ItemIcon_100051.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100051.png",
+      "sourceName": "라즈베리",
+      "filename": "UI_ItemIcon_100051",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "c93f38e42bf48ca2a8a07fd2e71cd05f166ea161ce9f1f3dde6b0a8d916aab0a",
+      "source_sha256": "0232414aae217f2ec977afdf881d4a59f2dc965f27fbeac9437f150e04415709",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8054
+    },
+    "ING_MATSUTAKE": {
+      "id": "ING_MATSUTAKE",
+      "name": "송이버섯",
+      "path": "assets/icons/UI_ItemIcon_100063.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100063.png",
+      "sourceName": "송이버섯",
+      "filename": "UI_ItemIcon_100063",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "d4288339e90226957e0d988233f470df685df8103c8a6d13fb1c1b972573bac4",
+      "source_sha256": "daeb4c74a64d6a8616675d3ab31c12a0d4ef1aaf96e8ca243d2e8b99e83b1964",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7518
+    },
+    "ING_ALMOND": {
+      "id": "ING_ALMOND",
+      "name": "행인",
+      "path": "assets/icons/UI_ItemIcon_100089.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100089.png",
+      "sourceName": "행인",
+      "filename": "UI_ItemIcon_100089",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "9d05fb6a18e2bffd7827a5a699774b711fdd8043873c31553748db346a39c9b7",
+      "source_sha256": "ec2e15811b373d695987cab6c0a99856ec16c90706bbd5c32cefb6c79c9e7feb",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9188
+    },
+    "ING_TOFU": {
+      "id": "ING_TOFU",
+      "name": "두부",
+      "path": "assets/icons/UI_ItemIcon_100088.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100088.png",
+      "sourceName": "두부",
+      "filename": "UI_ItemIcon_100088",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "bfe2501b610d5fbeeb36a768933c3427941b773cc531d0754b2232ab6e57d8b9",
+      "source_sha256": "119ffad29bf9e2a05bac51e7005938c17d6cfdd4d0f706849dd63b55ec9f7dc1",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 10164
+    },
+    "ING_LOTUS_HEAD": {
+      "id": "ING_LOTUS_HEAD",
+      "name": "연꽃받침",
+      "path": "assets/icons/UI_ItemIcon_100026.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100026.png",
+      "sourceName": "연꽃받침",
+      "filename": "UI_ItemIcon_100026",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "f824b009ecc8c81467d1887493d67d4fca26a9c0d74fe6f8e7098ef077ca2b8d",
+      "source_sha256": "0d069714c457d9de1ce2c8e08dfe01ba6383448e7c44acf2b82bef4c9feed085",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 7898
+    },
+    "ING_BAMBOO_SHOOT": {
+      "id": "ING_BAMBOO_SHOOT",
+      "name": "죽순",
+      "path": "assets/icons/UI_ItemIcon_100091.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100091.png",
+      "sourceName": "죽순",
+      "filename": "UI_ItemIcon_100091",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "19b77c94a4a2ccf6f19470bd76d0bb9f459545ef00230017f4dcb94c746e82c5",
+      "source_sha256": "0a03c9e7d87ce761c8a5dc0c254161c8bda1e7bfd0e1e64414993ecac9ecb58d",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 8386
+    },
+    "ING_BACON": {
+      "id": "ING_BACON",
+      "name": "베이컨",
+      "path": "assets/icons/UI_ItemIcon_110010.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110010.png",
+      "sourceName": "베이컨",
+      "filename": "UI_ItemIcon_110010",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "a78010bd6bab8699c3e054511338c64e5aeeac47c0065fdcf18f738f962d6a25",
+      "source_sha256": "bf2084448aa3f3ac8c228fe4351da183cc50479a7409975a3178b99c59ddc448",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9948
+    },
+    "ING_SNAPDRAGON": {
+      "id": "ING_SNAPDRAGON",
+      "name": "금어초",
+      "path": "assets/icons/UI_ItemIcon_100015.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_100015.png",
+      "sourceName": "금어초",
+      "filename": "UI_ItemIcon_100015",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "9c573491d7167a0e7892f3d04ce86c4dcb93df026648a2bc324c2a2c1163a08b",
+      "source_sha256": "ad325d19f3debebcd5fb1cd11db7e6bcb4d98f403e44022ee8cb118c7059dbc2",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12808
+    },
+    "ING_SMOKED_FOWL": {
+      "id": "ING_SMOKED_FOWL",
+      "name": "훈제 새고기",
+      "path": "assets/icons/UI_ItemIcon_110003.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_110003.png",
+      "sourceName": "훈제 새고기",
+      "filename": "UI_ItemIcon_110003",
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "dd8318255ecc733a2efff9d51c0ddfc76b478a80111180754624e4037f9b58a2",
+      "source_sha256": "4f22be149cfc523d0dae5ba596082409ba79ee52b686693ddc0684fd95787681",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 9104
     }
   },
   "categories": {
