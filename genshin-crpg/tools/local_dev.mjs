@@ -13,7 +13,7 @@ const npm = isWin ? 'npm.cmd' : 'npm';
 const npx = isWin ? 'npx.cmd' : 'npx';
 
 function commandWorks(command, args = ['--version']) {
-  const out = spawnSync(command, args, {cwd: root, stdio: 'ignore'});
+  const out = spawnSync(command, args, {cwd: root, stdio: 'ignore', shell: isWin});
   return !out.error && out.status === 0;
 }
 
@@ -37,7 +37,7 @@ function findPython() {
 function run(command, args, {cwd = root, label = command} = {}) {
   return new Promise((resolve, reject) => {
     console.log(`\n[local] ${label}`);
-    const child = spawn(command, args, {cwd, stdio: 'inherit', windowsHide: false});
+    const child = spawn(command, args, {cwd, stdio: 'inherit', windowsHide: false, shell: isWin});
     child.on('error', reject);
     child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${label} 실패 (exit ${code})`)));
   });
