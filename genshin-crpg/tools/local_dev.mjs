@@ -52,7 +52,7 @@ function runPython(python, script) {
 
 function writeLocalOnlineConfig() {
   const target = path.join(distDir, 'online_config.js');
-  writeFileSync(target, "/* Generated only for local development. */\nwindow.CRPG_ONLINE_CONFIG={apiBase:'http://127.0.0.1:8787'};\n", 'utf8');
+  writeFileSync(target, "/* Generated only for local development. */\nwindow.CRPG_ONLINE_CONFIG={apiBase:'http://127.0.0.1:8787',localDev:true};\n", 'utf8');
 }
 
 const MIME = {
@@ -236,7 +236,7 @@ try {
   const css=await fetch('http://127.0.0.1:5173/style.css',{cache:'no-store'}),cssText=await css.text();
   if(!css.ok||!String(css.headers.get('content-type')||'').includes('text/css')||!cssText.includes(':root'))throw new Error('로컬 CSS를 정상적으로 제공하지 못했습니다.');
   const cfg=await fetch('http://127.0.0.1:5173/online_config.js',{cache:'no-store'}),cfgText=await cfg.text();
-  if(!cfg.ok||!cfgText.includes("apiBase:'http://127.0.0.1:8787'"))throw new Error('로컬 API 설정을 정상적으로 만들지 못했습니다.');
+  if(!cfg.ok||!cfgText.includes("apiBase:'http://127.0.0.1:8787'")||!cfgText.includes('localDev:true'))throw new Error('로컬 API 설정을 정상적으로 만들지 못했습니다.');
 } catch (error) {
   console.error('\n[local] 서버 시작 실패:', error.message);
   shutdown(1);
