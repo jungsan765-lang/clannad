@@ -1,4 +1,5 @@
-import {existsSync, mkdirSync, watch, writeFileSync} from 'node:fs';
+import {existsSync, mkdirSync, watch, writeFileSync, readFileSync, statSync} from 'node:fs';
+import {createServer} from 'node:http';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {spawn, spawnSync} from 'node:child_process';
@@ -99,8 +100,8 @@ if (!commandWorks(npm)) {
 mkdirSync(localState, {recursive: true});
 
 try {
-  if (!existsSync(path.join(root, 'node_modules', '.bin', isWin ? 'vite.cmd' : 'vite'))) {
-    await run(npm, ['ci'], {label: '첫 실행: npm 의존성 설치'});
+  if (!commandWorks(python.command, [...python.prefix, '-c', 'import PIL'])) {
+    await run(python.command, [...python.prefix, '-m', 'pip', 'install', '-r', 'requirements.txt'], {cwd: root, label: '첫 실행: Python 빌드 의존성 설치'});
   }
 
   await runPython(python, 'tools/build_server.py');
@@ -152,6 +153,7 @@ function killTree(child) {
 function shutdown(code = 0) {
   if (stopping) return;
   stopping = true;
+  try{localHttpServer?.close();}catch{}
   for (const child of children) killTree(child);
   process.exitCode = code;
   setTimeout(() => process.exit(code), 100).unref();
@@ -161,6 +163,7 @@ process.on('SIGINT', () => shutdown(0));
 process.on('SIGTERM', () => shutdown(0));
 process.on('exit', () => {
   stopping = true;
+  try{localHttpServer?.close();}catch{}
   for (const child of children) killTree(child);
 });
 
@@ -178,18 +181,19 @@ addChild(
   serverDir
 );
 
-addChild(
-  '로컬 게임',
-  npm,
-  ['run', 'dev', '--', '--host', '127.0.0.1', '--port', '5173', '--strictPort'],
-  root
-);
+let localHttpServer=null;
+try{localHttpServer=await startStaticGameServer();console.log('\n[local] 로컬 게임 서버: http://127.0.0.1:5173/');}
+catch(error){console.error('\n[local] 로컬 게임 서버 시작 실패:',error.message);shutdown(1);}
 
 try {
   const health = await waitFor('http://127.0.0.1:8787/health', '로컬 Worker');
   const info = await health.json().catch(() => ({}));
   if (info.configured !== true) throw new Error('로컬 Worker 비밀번호 설정이 준비되지 않았습니다.');
   await waitFor('http://127.0.0.1:5173/', '로컬 게임');
+  const css=await fetch('http://127.0.0.1:5173/style.css',{cache:'no-store'}),cssText=await css.text();
+  if(!css.ok||!String(css.headers.get('content-type')||'').includes('text/css')||!cssText.includes(':root'))throw new Error('로컬 CSS를 정상적으로 제공하지 못했습니다.');
+  const cfg=await fetch('http://127.0.0.1:5173/online_config.js',{cache:'no-store'}),cfgText=await cfg.text();
+  if(!cfg.ok||!cfgText.includes("apiBase:'http://127.0.0.1:8787'"))throw new Error('로컬 API 설정을 정상적으로 만들지 못했습니다.');
 } catch (error) {
   console.error('\n[local] 서버 시작 실패:', error.message);
   shutdown(1);
