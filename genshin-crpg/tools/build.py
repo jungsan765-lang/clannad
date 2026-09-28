@@ -73,6 +73,7 @@ for f in ['runtime_commission_stories.js','runtime_local_story_content.js','runt
  shutil.copy2(path,OUT/f)
 shutil.copytree(ROOT/'assets/audio',OUT/'audio',dirs_exist_ok=True)
 shutil.copytree(ROOT/'assets/icons',OUT/'assets/icons',dirs_exist_ok=True)
+shutil.copytree(ROOT/'assets/summons',OUT/'assets/summons',dirs_exist_ok=True)
 # Exact user-approved terrain images; no crop, resize, generation or recompression.
 shutil.copytree(ROOT/'assets/terrain',OUT/'assets/terrain',dirs_exist_ok=True)
 shutil.copytree(ROOT/'assets/fonts',OUT/'assets/fonts',dirs_exist_ok=True)

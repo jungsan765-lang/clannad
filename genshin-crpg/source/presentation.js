@@ -14,7 +14,7 @@
     const display=a=>{if(!a)return '';const same=actors.filter(x=>x.name===a.name&&x.side===a.side);return a.name+(same.length>1?' '+(same.indexOf(a)+1):'');};
     const events=[];
     logs.slice(start).forEach((entry,n)=>{
-      const target=resolve(entry.target,entry.targetId),actor=resolve(entry.actor,entry.actorId),base={key:s.global.SAVE_ID+':'+id+':'+(start+n)+':'+s.global.LAST_COMMITTED_ACTION_ID,targetId:target?.id||null,actorId:actor?.id||null,actorSide:actor?.side||null,side:target?.side||null,target:display(target)||entry.target||'',actor:display(actor)||entry.actor||'',element:elements[entry.element]||'hit',hpBefore:entry.hpBefore,hpAfter:entry.hpAfter,maxHp:entry.maxHp,round:entry.round,action:entry.actionSequence,cardName:entry.cardName||'',cardId:entry.card||entry.presentationCardId||null,sourceKind:entry.sourceKind||entry.presentationSourceKind||null,absorbed:Number(entry.absorbed)||0,reactionId:entry.reaction||null,jointAttack:!!entry.jointAttack,jointSkipped:!!entry.jointSkipped,jointBonusPct:entry.jointBonusPct,jointIndex:entry.jointIndex,enemySkill:!!entry.enemySkill,charging:!!entry.charging,interrupted:!!entry.interrupted,released:!!entry.released,skillText:entry.text||''};
+      const target=resolve(entry.target,entry.targetId),actor=resolve(entry.actor,entry.actorId),virtualTarget=String(entry.targetId||'').startsWith('SUMMON:')?entry.targetId:null,visualActor=entry.presentationActorId||null,base={key:s.global.SAVE_ID+':'+id+':'+(start+n)+':'+s.global.LAST_COMMITTED_ACTION_ID,targetId:target?.id||virtualTarget||null,actorId:visualActor||actor?.id||null,actorSide:actor?.side||entry.actorSide||null,side:target?.side||entry.targetSide||null,target:display(target)||entry.target||'',actor:entry.presentationActorName||display(actor)||entry.actor||'',element:elements[entry.element]||'hit',hpBefore:entry.hpBefore,hpAfter:entry.hpAfter,maxHp:entry.maxHp,round:entry.round,action:entry.actionSequence,cardName:entry.cardName||'',cardId:entry.card||entry.presentationCardId||null,sourceKind:entry.sourceKind||entry.presentationSourceKind||null,absorbed:Number(entry.absorbed)||0,shieldBefore:Number.isFinite(entry.shieldBefore)?Number(entry.shieldBefore):null,shieldAfter:Number.isFinite(entry.shieldAfter)?Number(entry.shieldAfter):null,reactionId:entry.reaction||null,jointAttack:!!entry.jointAttack,jointSkipped:!!entry.jointSkipped,jointBonusPct:entry.jointBonusPct,jointIndex:entry.jointIndex,enemySkill:!!entry.enemySkill,charging:!!entry.charging,interrupted:!!entry.interrupted,released:!!entry.released,skillText:entry.text||''};
       let e;
       if(entry.charging||entry.interrupted||entry.released)e={kind:'skill',label:entry.text||entry.cardName||'기술 사용',cue:null};
       else if(Number.isFinite(entry.maxHpChange))e={kind:'capacity',label:entry.maxHpChange<0?'최대 HP '+entry.maxHpChange:'최대 HP 복원',cue:null};
@@ -63,6 +63,8 @@
    if(Number.isFinite(event.hpBefore)&&!Number.isFinite(target.hpBefore))target.hpBefore=event.hpBefore;
    if(Number.isFinite(event.hpAfter))target.hpAfter=event.hpAfter;
    if(Number.isFinite(event.maxHp))target.maxHp=event.maxHp;
+   if(Number.isFinite(event.shieldBefore)&&!Number.isFinite(target.shieldBefore))target.shieldBefore=event.shieldBefore;
+   if(Number.isFinite(event.shieldAfter))target.shieldAfter=event.shieldAfter;
    if(event.kind==='damage')target.damage+=Number(event.amount)||0;
    if(event.kind==='heal')target.heal+=Number(event.amount)||0;
    target.absorbed+=Number(event.absorbed)||0;

@@ -12,7 +12,7 @@ TESTS = [
     'tests/test_reading_checkpoint.mjs', 'tests/test_action_recovery.mjs', 'tests/test_update_recovery.cjs', 'tests/test_engine_identity.py',
     'tests/test_combat_catalog_online.mjs', 'tests/test_action_feedback.cjs',
     'tests/test_online_bootstrap_v01343.cjs', 'tests/test_online_title_v01344.cjs',
-    'tests/test_local_dev_config.cjs', 'tests/test_local_revision_v0141.cjs',
+    'tests/test_local_dev_config.cjs', 'tests/test_combat_v0142.cjs', 'tests/test_v0142_combat_summons.cjs', 'tests/test_local_revision_v0141.cjs',
     'tests/test_story_edition_v0141.cjs', 'tests/test_balance_v0141.cjs', 'tests/test_local_revision_online_v0141.mjs',
     'tests/test_opening.cjs', 'tests/test_mond_content_v01344.cjs',
     'tests/test_mond_full_v01344.cjs', 'tests/test_save_v01344.cjs',

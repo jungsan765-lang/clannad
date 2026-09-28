@@ -1,4 +1,4 @@
-/* 0.14.1 local candidate. Shared by the browser and authoritative local Worker. */
+/* 0.14.2 local candidate. Shared by the browser and authoritative local Worker. */
 (function(root){
 'use strict';
 const api=root.CRPGRuntime,P=api.Runtime.prototype,copy=x=>JSON.parse(JSON.stringify(x));
@@ -108,5 +108,5 @@ P.validateSave=function(s){
  if(guide&&(guide.version!==1||!guide.done||typeof guide.done!=='object'||Array.isArray(guide.done)||Object.values(guide.done).some(v=>v!==true)||typeof guide.dismissed!=='boolean'))throw new api.RuleError('GUIDE_SAVE','여행 안내 기록을 확인해 주세요.');
  return prior.validateSave.call(this,s);
 };
-api.localRevision={version:'0.14.1',maps:copy(MAPS),books:copy(BOOKS)};
+api.localRevision={version:'0.14.2',maps:copy(MAPS),books:copy(BOOKS)};
 })(globalThis);
