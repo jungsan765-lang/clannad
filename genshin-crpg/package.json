@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "dev:local": "node tools/local_dev.mjs",
     "build": "python3 tools/build.py",
     "test": "python3 tools/verify_release.py",
     "test:browser": "node tests/test_online_browser.mjs",
