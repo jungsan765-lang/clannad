@@ -2,7 +2,7 @@
 const path=require('path');const root=process.env.CRPG_ROOT||path.resolve(__dirname,'..'),qaDir=process.env.CRPG_QA_DIR||root+'/reports/liyue_rework';const {fs,R,db,fresh}=require(root+'/tests/helpers_v011.cjs');const assert=require('assert/strict'),copy=x=>JSON.parse(JSON.stringify(x));
 fs.mkdirSync(qaDir,{recursive:true});const seeds=JSON.parse(fs.readFileSync(path.join(root,'tests/fixtures/liyue-minimal-fixtures.json'),'utf8')).fixtures;
 const forks={K1:'ISK_L01_K_1_CHOOSE',K2:'ISK_L01_K_2_CHOOSE',AA1:'ISK_L01_AA_074',AA2:'ISK_L01_AA_127',AB1:'ISK_L01_AB_082',AB2:'ISK_L01_AB_083',B1:'ISK_L01_B_100',B2:'ISK_L01_B_101'};
-const result={provenance:'v0.13.39 candidate. Synthetic source-grounded M05 boundary; test-only level20/baseHP100000/baseATK10000 fixture. All Liyue advancement/COMBAT_BEGIN/COMBAT real public actions, no forced finishBattle. This is FLOW QA, NOT difficulty validation.',started:new Date().toISOString(),runs:[]};
+const result={provenance:'v0.14.1 local candidate. Synthetic source-grounded M05 boundary; test-only level20/baseHP100000/baseATK10000 fixture. All Liyue advancement/COMBAT_BEGIN/COMBAT real public actions, no forced finishBattle. This is FLOW QA, NOT difficulty validation.',started:new Date().toISOString(),runs:[]};
 function flush(){fs.writeFileSync((process.env.QA_RESUME==='1'?path.join(qaDir,'qa-liyue-resumed-results.json'):path.join(qaDir,'qa-liyue-fresh-results.json')),JSON.stringify(result,null,2));}
 function boost(r){const g=r.s.global;Object.assign(g,{PLAYER_LEVEL_STATE:20,PLAYER_XP_STATE:0,PLAYER_BASE_HP:100000,PLAYER_BASE_ATK:10000,PLAYER_BASE_DEF:1000});r.recalculate();g.PLAYER_HP_CURRENT=g.PLAYER_HP_MAX;}
 function subset(r){const s=r.s,g=s.global;return {node:r.storyActiveNodeId(),map:g.CURRENT_MAP_ID,hp:g.PLAYER_HP_CURRENT,mora:g.MORA,rng:g.PRNG_STATE,day:g.WORLD_DAY,time:g.WORLD_TIME,choice:g.PENDING_CHOICE_GROUP_ID,battleId:s.runtime?.id,round:s.runtime?.round,battleActors:s.runtime?.actors,objective:s.runtime?.liyueObjective,evac:s.runtime?.liyueEvacuation,flags:s.flags,liyue:s.liyue};}
@@ -32,7 +32,8 @@ for(const leaf of targets){let r;const run={leaf,actions:0,restores:[],battles:[
    if(r.s.global.CURRENT_MAP_ID!==view.target){walk(r,view.target,run);continue;}
    if(!step){r.action('LIYUE_FIELD_FINISH');continue;}
    if(f.done){r=restore(r,run,'field step '+f.mission+':'+f.stage);r.action('LIYUE_FIELD_CONTINUE');continue;}
-   if(step.kind==='INVESTIGATE'){const clue=step.clues.find(c=>!f.clues.includes(c.id));r.action(clue?'LIYUE_FIELD_INSPECT':'LIYUE_FIELD_ANSWER',clue?{clue:clue.id}:{answer:step.answer});}
+   if(step.kind==='SEARCH'){r.action('LIYUE_FIELD_INSPECT',{clue:step.clues.find(c=>!f.clues.includes(c.id)).id});}
+   else if(step.kind==='INVESTIGATE'){const clue=step.clues.find(c=>!f.clues.includes(c.id));r.action(clue?'LIYUE_FIELD_INSPECT':'LIYUE_FIELD_ANSWER',clue?{clue:clue.id}:{answer:step.answer});}
    else if(step.kind==='SEQUENCE')r.action('LIYUE_FIELD_ANSWER',{answer:step.sequence[f.sequence.length]});
    else if(step.kind==='CHOICE')r.action('LIYUE_FIELD_ANSWER',{answer:0});
    else r.action('LIYUE_FIELD_BATTLE');

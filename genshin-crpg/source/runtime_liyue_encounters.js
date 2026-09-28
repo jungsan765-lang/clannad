@@ -62,7 +62,7 @@ const groupId=(map,index)=>'EG_LIYUE_LOCAL_'+map.replace(/^MAP_/,'')+'_'+(index+
 P.installLiyueLocalEncounters=function(){
  if(this._liyueLocalEncountersInstalled)return;
  const names=['33_ENCOUNTER_GROUP_DB','34_MAP_ENCOUNTER_POOL','49_ENCOUNTER_MEMBER_DB'],rows=Object.fromEntries(names.map(n=>[n,this.db[n].map(r=>r.slice())]));
- const runtimeMaps=this.rows('32_MAP_DB').filter(r=>r[1]==='리월'&&r[8]==='Y'&&r[12]!=='Y').map(r=>r[0]),configured=Object.keys(MAPS);
+ const runtimeMaps=this.rows('32_MAP_DB').filter(r=>!api.localRevision?.maps.some(m=>m[0]===r[0])).filter(r=>r[1]==='리월'&&r[8]==='Y'&&r[12]!=='Y').map(r=>r[0]),configured=Object.keys(MAPS);
  if(runtimeMaps.length!==23||configured.length!==23||runtimeMaps.some(id=>!MAPS[id])||configured.some(id=>!runtimeMaps.includes(id)))fail('LIYUE_ENCOUNTER_MAPS','리월 랜덤 조우 23개 지역의 설정이 모두 대응하지 않습니다.');
  for(const id of ALLOWED){const m=this.tables['09_MONSTER_DB'].get(id);if(!m||m[3]==='보스')fail('LIYUE_ENCOUNTER_MONSTER','사용할 수 없는 기존 몬스터 정의: '+id);}
  rows['34_MAP_ENCOUNTER_POOL']=rows['34_MAP_ENCOUNTER_POOL'].filter((r,i)=>i===0||!MAPS[r[1]]);

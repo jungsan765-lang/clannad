@@ -3,7 +3,10 @@
 const assert=require('node:assert/strict'),cp=require('node:child_process');
 const {fs,path,vm,root,db,R}=require('./helpers_v011.cjs');
 const baseline='f0c08d6',cache=new Map();
-function read(p){if(!cache.has(p))cache.set(p,cp.execFileSync('git',['show',baseline+':genshin-crpg/'+p],{cwd:root,encoding:'utf8',maxBuffer:64*1024*1024}));return cache.get(p);}
+// A verified export can supply the historical engine in a shallow checkout.
+const baselineDir=process.env.CRPG_COMPAT_BASELINE_DIR;
+function read(p){if(!cache.has(p))cache.set(p,baselineDir?fs.readFileSync(path.join(baselineDir,p),'utf8'):cp.execFileSync('git',['show',baseline+':genshin-crpg/'+p],{cwd:root,encoding:'utf8',maxBuffer:64*1024*1024}));return cache.get(p);}
+if(baselineDir){const bytes=Buffer.from(read('content/db.json')),sha=require('node:crypto').createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex');assert.equal(sha,'75626bf50ac3417feb33ac65a49fa268db9a34b6','verified v0.13.43 database');}
 const old=vm.createContext({console,Date,setTimeout,clearTimeout});
 for(const [,f]of read('source/index.html').matchAll(/<script src="((?:world_content|liyue_card_content|runtime[^" ]*)\.js)"/g))vm.runInContext(read('source/'+f),old,{filename:f});
 const oldDB=JSON.parse(read('content/db.json')),results=[];

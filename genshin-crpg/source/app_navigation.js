@@ -28,11 +28,12 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   left.append(el('small','terrain-help','점을 누르기 어려우면 같은 번호의 큰 카드를 선택하세요. 확대 후 지도를 밀어 볼 수 있습니다.'));
   right.append(el('h3','','어디로 갈까?'),el('p','terrain-select-help','목적지 카드를 누르면 바로 이동합니다. 지도 번호는 위치와 경로를 미리 확인할 때 사용하세요.'));
   const domestic=nearby.filter(n=>!n.reason&&n.point?.[0]===this.atlas),other=nearby.filter(n=>!domestic.includes(n));
-  const cards=el('div','terrain-destination-list');for(const n of domestic)cards.append(this.card(n));if(!domestic.length)cards.append(el('p','muted','이 지도 안에서 바로 이어지는 길이 없습니다.'));right.append(cards);
-  if(other.length){const details=el('details','terrain-other-routes');details.open=other.some(n=>n.id===target);details.append(el('summary','','다른 지역·잠긴 길 ('+other.length+')'));for(const n of other)details.append(this.card(n));right.append(details);}
+  const cards=el('div','terrain-destination-list');for(const n of domestic)cards.append(this.card(n));if(!domestic.length)cards.append(el('p','muted','이어지는 길은 아래 다른 지역 목록에서도 확인할 수 있습니다.'));right.append(cards);
+  if(other.length){const details=el('details','terrain-other-routes');details.open=other.some(n=>!n.reason||n.id===target);details.append(el('summary','','다른 지역·잠긴 길 ('+other.length+')'));for(const n of other)details.append(this.card(n));right.append(details);}
   const find=el('details','terrain-search');find.open=!!target&&!nearby.some(n=>n.id===target);find.append(el('summary','','먼 목적지·귀환로 찾기'));
+  const discovered=new Set(game.travelDiscoveries?.().known||game.rows('32_MAP_DB').map(m=>m[0]));
   const select=el('select');select.id='journey-map-target';select.setAttribute('aria-label','찾아갈 장소');const empty=el('option','','목적지를 선택하세요');empty.value='';select.append(empty);
-  for(const m of game.rows('32_MAP_DB').filter(m=>m[0]&&['몬드','리월'].includes(m[1]))){const o=el('option','',m[2]);o.value=m[0];select.append(o);}select.value=target||'';select.onchange=()=>this.choose(select.value||null);find.append(select);
+  for(const m of game.rows('32_MAP_DB').filter(m=>m[0]&&discovered.has(m[0])&&['몬드','리월'].includes(m[1]))){const o=el('option','',m[2]);o.value=m[0];select.append(o);}select.value=target||'';select.onchange=()=>this.choose(select.value||null);find.append(select);
   if(current!=='MAP_MOND_CITY')find.append(this.control('몬드로 돌아가는 길 찾기',()=>this.choose('MAP_MOND_CITY'),'return'));right.append(find);body.append(left,right);section.append(body);
   const dock=el('div','terrain-travel-dock');dock.setAttribute('aria-live','polite');const detail=el('div','terrain-selection');
   if(target){detail.append(el('small','','선택한 목적지'),el('strong','',mapName(target)),el('span','',this.risk(target)));
@@ -53,8 +54,9 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
  disabledTravel(text='이동할 수 없습니다'){const b=button(text,()=>{},true);b.className='terrain-travel';return b;},
  card(n){const b=n.reason?this.control('',()=>this.choose(n.id),'card-'+n.row[0]):actionButton('','MOVE',{edge:n.row[0]},true);b.dataset.navFocus='card-'+n.row[0];b.className='terrain-destination'+(this.target===n.id?' selected':'')+(n.reason?' locked':'');b.dataset.destination=n.id;b.setAttribute('aria-pressed',String(this.target===n.id));
   const num=el('span','terrain-number',String(n.number)),copy=el('span','terrain-card-copy');copy.append(el('strong','',mapName(n.id)),el('small','',this.direction(n.id)+' · '+n.row[5]+'분 · '+this.risk(n.id)));
+  const boss=game.rows('35_BOSS_ROUTE_DB').find(r=>r[2]===n.id&&String(r[0]).startsWith('BRT_FB_'));if(boss)copy.append(el('small','terrain-boss-note','필드보스 · '+boss[1]+' · 권장 Lv.10'));
   if(n.point?.[3])copy.append(el('small','terrain-point-note',n.point[3]));
-  if(n.reason)copy.append(el('small','terrain-lock-reason','잠김 · '+n.reason));else if(!n.point)copy.append(el('small','','지도 범위 밖 · 경로로 이동'));
+  if(n.reason)copy.append(el('small','terrain-lock-reason','잠김 · '+n.reason));else if(!n.point)copy.append(el('small','','주변 세부 지역 · 경로로 이동'));
   b.append(num,copy,el('span','terrain-card-state',n.reason?'잠김':'이동'));
   const highlight=()=>{document.querySelectorAll('.terrain-pin').forEach(p=>p.classList.toggle('hovered',(p.dataset.destinations||'').split(',').includes(n.id)));};
   b.addEventListener('pointerenter',highlight);b.addEventListener('focus',highlight);b.addEventListener('pointerleave',()=>document.querySelectorAll('.terrain-pin.hovered').forEach(p=>p.classList.remove('hovered')));return b;

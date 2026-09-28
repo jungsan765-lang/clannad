@@ -81,10 +81,11 @@ P.claimQuest=function(id,equipment){
  if(rewards.equipment_choice&&!rewards.equipment_choice.includes(equipment))fail('REWARD_CHOICE','보급 장비 하나를 선택해 주세요.');
  for(const [iid,n]of Object.entries(rewards.items||{}))this.giveItem(iid,n);
  this.s.global.MORA+=Number(rewards.mora||0);if(equipment)this.giveEquipment(equipment);
- if(Number(rewards.xp)>0)this.addXp('PLAYER_CUSTOM',Math.floor(Number(rewards.xp)));
+ const xpRecipients=[...new Set(this.s.party.filter(p=>p.active).map(p=>p.source))];
+ if(Number(rewards.xp)>0)for(const owner of xpRecipients)this.addXp(owner,Math.floor(Number(rewards.xp)));
  Object.assign(this.s.flags,rewards.flags||{});Object.assign(q,{claimed:true,state:'완료',node:'COMPLETE',completedTurn:this.s.global.TURN});
  this.s.global.SCREEN_MODE='DIALOGUE';
- return {quest:id,rewards,equipment:equipment||null,reported:true,xp:Number(rewards.xp||0)};
+ return {quest:id,rewards,equipment:equipment||null,reported:true,xp:Number(rewards.xp||0),xpRecipients};
 };
 P.actionReason=function(type,a={}){
  if(type==='COMMISSION_PUZZLE'){

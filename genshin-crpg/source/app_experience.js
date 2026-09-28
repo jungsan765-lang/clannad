@@ -23,7 +23,7 @@ dialogue=function(p,v){
 function shopStockDetail(row){return row[2]==='EQUIP'?itemPresenter.itemDetail({equip:row[3],quantity:1,enhance:0}):row[2]==='ITEM'?itemPresenter.itemDetail({item:row[3],quantity:1}):null;}
 function shopStockGroup(row){
  if(row[2]==='RECIPE')return '제작법';const d=shopStockDetail(row);if(!d)return '기타';
- if(row[2]==='EQUIP'){if(['법구','장신구'].includes(d.category))return '법구·장신구';if(d.category==='방어구')return '방어구';return game.row('16_EQUIP_DB',row[3])[14]==='Y'?'단조 무기':'기본 무기';}
+ if(row[2]==='EQUIP'){if(d.category==='법구')return '법구';if(d.category==='장신구')return '장신구';if(d.category==='방어구')return '방어구';return game.row('16_EQUIP_DB',row[3])[14]==='Y'?'단조 무기':'기본 무기';}
  return d.group==='음식'?'음식':d.material?'제작 재료':'소모품';
 }
 function shopQuantityLimit(row){const stock=game.stockRemaining(row),affordable=Number(row[5])>0?Math.floor(game.s.global.MORA/Number(row[5])):Number.MAX_SAFE_INTEGER;return Math.max(0,Math.min(stock,affordable));}
@@ -40,7 +40,7 @@ shop=function(p){
  if(isInn(entry)){const c=el('section','card inn-service'),stock=game.placeStocks().find(s=>s.row[3]==='SERVICE_INN_REST_8H');if(stock){c.append(el('h2','','숙박하기'),el('p','','8시간 숙박 후 현재 파티 전원의 HP를 모두 회복합니다.'),el('p','',stock.row[5]+' 모라 · 보유 '+game.s.global.MORA+' 모라'));if(stock.reason)c.append(el('p','choice-note',stock.reason));const b=actionButton('숙박하기 · '+stock.row[5]+' 모라','BUY',{stock:stock.row[0],quantity:1},true);b.disabled=b.disabled||!!stock.reason;c.append(b);}p.append(c);return;}
  p.append(el('p','shop-balance','보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라'));
  if(entry.entity==='NPC_MOND_SARA')p.append(el('p','','사라에게 완성된 음식을 구입할 수 있습니다. 음식은 아이템 화면에서 파티원에게 사용합니다.'));
- const stocks=game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')),groups=['기본 무기','단조 무기','방어구','법구·장신구','제작 재료','음식','소모품','제작법','기타'];
+ const stocks=game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')),groups=['기본 무기','단조 무기','방어구','법구','장신구','제작 재료','음식','소모품','제작법','기타'];
  for(const group of groups){const rows=stocks.filter(s=>shopStockGroup(s.row)===group).sort((a,b)=>Number(a.row[5])-Number(b.row[5])||a.row[4].localeCompare(b.row[4],'ko'));if(!rows.length)continue;
   p.append(el('h2','',group));const grid=el('div','grid facility-stock');
   for(const stock of rows){const r=stock.row,c=el('section','card'),d=shopStockDetail(r);c.dataset.stockId=r[0];c.append(el('h3','',d?.name||r[4]),el('small','',d?.category||'제작법'),el('p','',Number(r[5]).toLocaleString()+' 모라'),el('small','',stock.remaining===Infinity?'상시 판매':'남은 재고 '+stock.remaining));
@@ -276,7 +276,7 @@ combat=function(p){
     const execute=el('div','battle-execute');if(chosen?.branches?.length){const select=el('select');select.setAttribute('aria-label','스킬 방식');for(const branch of chosen.branches)select.append(new Option(({TAP:'짧게 사용',HOLD:'길게 사용',CHARGE:'차지'})[branch]||branch,branch));if(!chosen.branches.includes(selectedBranch))selectedBranch=chosen.branches[0];select.value=selectedBranch;select.onchange=()=>{selectedBranch=select.value;};execute.append(select);}
     if(chosen?.targets?.length){const targetSelect=el('select');targetSelect.setAttribute('aria-label','행동 대상');for(const t of chosen.targets){const a=b.actors.find(a=>a.id===t.id);targetSelect.append(new Option((a?combatDisplayName(b,a):t.name)+' · HP '+(a?.hp??''),t.id));}targetSelect.value=selectedTarget;targetSelect.onchange=()=>{selectedTarget=targetSelect.value;render();};execute.append(targetSelect);}
     const run=actionButton(chosen?.id==='PLAYER_BASIC_ATTACK'?'공격 실행':'선택한 행동 실행','COMBAT',{card:selectedCard,target:selectedTarget,branch:selectedBranch},true);run.disabled=run.disabled||!chosen||!!chosen.reason;execute.append(run);controls.append(execute);
-  }controls.append(combatSpeedControl());p.append(controls);
+  }const blockedAttack=!opening&&game.combatCards().find(c=>c.id==='PLAYER_BASIC_ATTACK'&&/공중/.test(c.reason));if(blockedAttack)controls.append(el('p','battle-target-warning',blockedAttack.reason));if(!opening&&game.combatFleeReason?.()===''){const retreat=el('div','battle-retreat');retreat.append(el('p','muted','전투가 길어졌습니다. 도망치면 현재 체력은 유지되며 보상은 받지 못합니다.'),actionButton('도망치기','COMBAT_FLEE',{},false));controls.append(retreat);}controls.append(combatSpeedControl());p.append(controls);
   const stage=el('div','compact-battle-stage'),foes=b.actors.filter(a=>a.side==='ENEMY'),representative=foes.find(a=>a.hp>0)||foes[0];
 
   const teams=el('div','battle-teams compact-teams');for(const side of ['ALLY','ENEMY']){const col=el('section');col.append(el('h2','',side==='ALLY'?'우리 파티':'적'));const actors=b.actors.filter(a=>a.side===side);for(const a of actors){const same=actors.filter(x=>x.name===a.name);col.append(battleActorRow(a,chosen,same.length>1?same.indexOf(a)+1:0));}teams.append(col);}stage.append(teams);p.append(stage);

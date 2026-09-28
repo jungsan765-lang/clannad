@@ -37,6 +37,8 @@ assert(runner.includes("apiBase:'http://127.0.0.1:8787'"),'local runner must pat
 assert(runner.includes('localDev:true'),'local generated config must explicitly enable local-only login helpers');
 assert(runner.includes("path.join(root, '.local', 'dist')"),'local game build must live under ignored .local, not tracked dist');
 assert(runner.includes('process.env.CRPG_BUILD_DIR = distDir'),'local runner must direct build.py into .local/dist');
+assert(runner.includes('process.env.CRPG_BUILD_REPORT'),'local runner must direct build report into ignored .local');
+assert(build.includes("os.environ.get('CRPG_BUILD_REPORT'"),'build.py must support an isolated report output');
 assert(build.includes("os.environ.get('CRPG_BUILD_DIR'"),'build.py must support an isolated output directory');
 assert(runner.includes("path.join(distDir, 'online_config.js')"),'local API override must be written only into generated local dist');
 assert(runner.includes('function startStaticGameServer()'),'local game must use the built-in static server');
@@ -51,6 +53,6 @@ assert(appOnline.includes("button('로컬 테스트 로그인'"),'local title mu
 assert(appOnline.includes("localDev=isLocal&&window.CRPG_ONLINE_CONFIG?.localDev===true"),'local login helper must be gated behind the generated local config');
 assert(reset.includes('.local\\wrangler'),'reset command must only clear isolated local state');
 assert(!reset.includes('--remote'),'reset command must not include a remote operation');
-assert.equal(pkg.version,'0.14.0','adding local development must not bump the production game version');
+assert.equal(pkg.version,'0.14.1','this unapproved candidate stays on the 0.14 test line');
 
 console.log('PASS isolated one-click local development configuration');

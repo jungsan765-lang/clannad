@@ -15,6 +15,7 @@ const npx = isWin ? 'npx.cmd' : 'npx';
 process.env.PYTHONUTF8 ??= '1';
 process.env.PYTHONIOENCODING ??= 'utf-8';
 process.env.CRPG_BUILD_DIR = distDir;
+process.env.CRPG_BUILD_REPORT = path.join(root, '.local', 'build.json');
 
 function commandWorks(command, args = ['--version']) {
   const out = spawnSync(command, args, {cwd: root, stdio: 'ignore', shell: isWin});

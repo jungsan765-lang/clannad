@@ -12,7 +12,7 @@ function inSlot(owner,category){return game.s.inventory.find(i=>i.equip&&i.equip
 function itemLabel(inv,d){return d.name+(inv.enhance?' +'+inv.enhance:'');}
 function artifactLine(inv){const a=inv?.artifact;if(!a)return '';const st=game.artifactStats?.(inv)||a.stats||{};return '성유물 '+a.grade+' · 품질 '+fmt(a.quality/10)+'% · +'+a.level+' · '+Object.entries(st).filter(([,v])=>v).map(([k,v])=>(ART[k]||k)+' +'+fmt(v)+(k==='CRIT'||k==='CRIT_DMG'?'%':'')).join(' · ');}
 function tooltip(inv,d){
- const tip=el('div','gear-tip');tip.setAttribute('role','tooltip');tip.append(el('strong','',itemLabel(inv,d)),el('small','muted',d.category+(d.minimumLevel?' · 장착 Lv. '+d.minimumLevel+' 이상':'')));
+ const tip=el('div','gear-tip');if(tip.showPopover)tip.setAttribute('popover','manual');tip.setAttribute('role','tooltip');tip.append(el('strong','',itemLabel(inv,d)),el('small','muted',d.category+(d.minimumLevel?' · 장착 Lv. '+d.minimumLevel+' 이상':'')));
  const stats=(d.stats||[]).map(s=>s.label+' '+(s.value>=0?'+':'')+fmt(s.value)+(s.unit||'')).join(' · ');if(stats)tip.append(el('p','gear-tip-stats',stats));
  const art=artifactLine(inv);if(art)tip.append(el('p','gear-tip-stats',art));
  const traits=traitLines(inv);if(traits.length){const list=el('ul','gear-traits');for(const t of traits)list.append(el('li',t.innate?'innate':'',t.text));tip.append(list);}else if(d.effect&&d.effect!=='없음')tip.append(el('p','',d.effect));
@@ -61,13 +61,39 @@ function openPicker(owner,category){
  if(!options.length)list.append(el('p','empty','바꿔 낄 '+label+'이(가) 없습니다. 상점이나 제작 시설에서 구할 수 있습니다.'));
  box.append(list);showModal(ownerName(owner)+' · '+label,box);
 }
+function bookDialog(id,owner){
+ const growth=game.growth(owner),max=game.experienceBookLimit(id,owner),box=el('div','book-batch');
+ box.append(el('p','',growth.name+' · Lv. '+growth.level),el('p','',safeName('14_ITEM_DB',id)+' · 보유 '+game.itemCount(id)+'개'));
+ if(!max){box.append(el('p','','최대 레벨입니다.'));showModal('경험치 책',box);return;}
+ const label=el('label','','사용할 수량'),input=el('input');input.type='number';input.min='1';input.max=String(max);input.step='1';input.value='1';input.setAttribute('aria-label','경험치 책 사용 수량');label.append(input);box.append(label);
+ const preview=el('p','book-preview'),shortcuts=el('div','row'),use=button('사용',()=>{const quantity=Number(input.value);if(!Number.isSafeInteger(quantity)||quantity<1||quantity>max)return;document.getElementById('modal').close();act('USE_ITEM',{item:id,quantity,owner});},busy,true);
+ const refresh=()=>{const n=Number(input.value),valid=Number.isSafeInteger(n)&&n>=1&&n<=max;use.disabled=busy||!valid;preview.textContent=valid?'경험치 +'+fmt(n*BOOKS[id])+' · '+n+'개 사용':'1~'+max+'개 사이의 정수를 입력하세요.';};
+ for(const [text,n]of [['1개',1],['5개',Math.min(5,max)],['10개',Math.min(10,max)],['최대',max]])shortcuts.append(button(text,()=>{input.value=String(n);refresh();}));
+ input.oninput=refresh;box.append(shortcuts,preview,el('small','muted','최대 레벨에 필요한 수량까지만 사용합니다. 마지막 책의 남는 경험치는 사라집니다.'),use);refresh();showModal('경험치 책 일괄 사용',box);
+}
 function books(p){
- const owners=game.s.party.filter(x=>x.active).map(x=>x.source),rows=Object.keys(BOOKS).filter(id=>game.itemCount(id));if(!rows.length)return;
+ const owners=game.activePartyActors().map(x=>x.id),rows=Object.keys(BOOKS).filter(id=>game.itemCount(id));if(!rows.length)return;
  const box=el('section','gear-books');box.append(el('h2','','경험치 책'));
  for(const id of rows){const row=el('div','gear-book');row.append(el('strong','',safeName('14_ITEM_DB',id)+' · '+game.itemCount(id)+'개'),el('small','muted','1개당 경험치 '+fmt(BOOKS[id])));
-  for(const owner of owners){const g=game.growth(owner),b=actionButton(g.name,'USE_ITEM',{item:id,quantity:1,owner});if(g.max){b.disabled=true;b.title='최대 레벨입니다.';}row.append(b);}box.append(row);}
+  for(const owner of owners){const g=game.growth(owner),b=button(g.name+' · 수량 선택',()=>bookDialog(id,owner),busy||g.max);if(g.max)b.title='최대 레벨입니다.';row.append(b);}box.append(row);}
  p.append(box);
 }
+// Native popovers occupy the top layer, including above an equipment picker dialog.
+// Position against the viewport so neither the scrolling list nor the mobile edge clips them.
+let tipSequence=0;
+function showGearTip(target){
+ const cell=target?.closest?.('.gear-cell'),tip=cell?.querySelector('.gear-tip');if(!tip||!canHover()||!tip.showPopover)return;
+ document.querySelectorAll('.gear-tip:popover-open').forEach(t=>{if(t!==tip)t.hidePopover();});
+ tip.setAttribute('popover','manual');tip.id||='gear-tip-'+(++tipSequence);const trigger=cell.querySelector('button');trigger?.setAttribute('aria-describedby',tip.id);
+ tip.showPopover();const a=cell.getBoundingClientRect(),t=tip.getBoundingClientRect(),gap=10;
+ tip.style.left=Math.max(gap,Math.min(a.left,window.innerWidth-t.width-gap))+'px';
+ tip.style.top=Math.max(gap,Math.min(a.bottom+gap+t.height<=window.innerHeight?a.bottom+gap:a.top-t.height-gap,window.innerHeight-t.height-gap))+'px';
+}
+document.addEventListener('pointerover',e=>showGearTip(e.target));
+document.addEventListener('focusin',e=>showGearTip(e.target));
+for(const name of ['pointerout','focusout'])document.addEventListener(name,e=>{const cell=e.target?.closest?.('.gear-cell');if(cell&&!cell.contains(e.relatedTarget))cell.querySelector('.gear-tip:popover-open')?.hidePopover();});
+window.addEventListener('resize',()=>document.querySelectorAll('.gear-tip:popover-open').forEach(t=>t.hidePopover()));
+
 growthScreen=function(p){
  p.classList.add('gear-screen');p.append(el('div','eyebrow','EQUIPMENT'),el('h1','','장비 장착'),el('p','muted','편성된 파티원의 장비와 능력치입니다. 칸을 누르면 장비를 바꾸고'+(canHover()?', 마우스를 올리면 효과가 보입니다.':' 효과를 확인할 수 있습니다.')+' 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
  const locked=game.actionReason('EQUIP');if(locked)p.append(el('p','phase-note','지금은 장비를 확인만 할 수 있습니다. '+locked));

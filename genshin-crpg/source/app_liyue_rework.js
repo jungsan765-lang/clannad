@@ -18,9 +18,9 @@ mainObjective=function(parent){
   if(f.feedback)box.append(el('p','field-result',f.feedback));
   if(step.clues){for(const clue of step.clues){box.append(actionButton((f.clues.includes(clue.id)?'✓ ':'')+clue.label,'LIYUE_FIELD_INSPECT',{clue:clue.id}));if(f.clues.includes(clue.id))box.append(el('small','journal-note',clue.text));}}
   if(step.options)for(const [answer,label]of step.options.entries())box.append(actionButton(label,'LIYUE_FIELD_ANSWER',{answer}));
-  else {box.append(el('p','choice-note',step.kind==='DESTROY'?'구조물의 내구도를 공격으로 깎으세요.':'드발린 토벌 이후의 파티를 기준으로 한 전투입니다. 동료 편성과 회복·장비를 확인하세요.'),actionButton(step.kind==='DESTROY'?'통로의 구조물 공격하기':'현장 전투 시작','LIYUE_FIELD_BATTLE',{},true));}
+  else if(step.kind!=='SEARCH'){box.append(el('p','choice-note',step.kind==='DESTROY'?'구조물의 내구도를 공격으로 깎으세요.':'드발린 토벌 이후의 파티를 기준으로 한 전투입니다. 동료 편성과 회복·장비를 확인하세요.'),actionButton(step.kind==='DESTROY'?'통로의 구조물 공격하기':'현장 전투 시작','LIYUE_FIELD_BATTLE',{},true));}
  }
- box.append(el('small','muted',f.mission.startsWith('rescue_')?'현재 위기 장면의 목표를 먼저 해결하세요. 진행 도중 저장할 수 있습니다.':'지도·편성·장비·시설은 메인 화면에서 이용할 수 있습니다. 현장 진행은 자동 저장됩니다.'));parent.append(box);
+ box.append(el('small','muted',f.mission.startsWith('rescue_')||mission.locked?'현재 위기 장면의 목표를 먼저 해결하세요. 진행 상황은 자동 저장됩니다.':'지도·편성·장비·시설은 메인 화면에서 이용할 수 있습니다. 현장 진행은 자동 저장됩니다.'));parent.append(box);
 };
 const baseStory=story;
 story=function(parent,v){if(game.s.liyueField&&!game.s.storyContext){mainObjective(parent);parent.append(actionButton('메인 화면에서 이동·준비','MENU',{screen:'LOCATION'}));return;}baseStory(parent,v);};

@@ -14,7 +14,7 @@ P.prepareStory=function(...args){
  if(this.s?.liyueField&&!this.s.storyContext){this.s.global.STORY_WAITING=true;return;}
  const result=old.prepareStory.apply(this,args),s=this.s,n=this.storyNode();
  if(!s||s.runtime||s.storyContext||n?.[5]!=='FIELD_GATE')return result;
- const place=placements.get(n[4]);if(!place)fail('현장 임무 정의가 없습니다.');
+ const place=C.revisionPlacements?.[n[4]]||placements.get(n[4]);if(!place)fail('현장 임무 정의가 없습니다.');
  s.liyueFieldReceipts||={};
  if(s.liyueFieldReceipts[n[4]]){this.storySetCursor(n[13]);return this.prepareStory();}
  s.liyueField={version:1,node:n[4],mission:place.mission,saveId:s.global.SAVE_ID,route:s.global.STORY_ROUTE_ID,leaf:s.flags.FLAG_ISK_L01_LEAF||null,returnMap:s.global.CURRENT_MAP_ID,stage:0,clues:[],sequence:[],done:false,feedback:'',steps:[]};
@@ -26,7 +26,7 @@ P.isStoryWaiting=function(){return !!(this.s?.liyueField&&!this.s.storyContext)|
 P.navigationGoal=function(){if(this.s?.liyueField&&!this.s.storyContext&&!this.s.pinnedObjective)return this.liyueFieldView().target;return old.navigationGoal.call(this);};
 P.actionReason=function(type,a={}){
  const f=this.s?.liyueField;
- if(f?.mission.startsWith('rescue_')&&!this.s.storyContext&&['MOVE','PLACE_ENTER','NPC','WAIT','LEGEND_ENTER','AFFECTION_ENTER','WORLD_WORK_START','LIFE_START'].includes(type))return '현재 위기 장면의 현장 목표를 먼저 해결해 주세요.';
+ if(f&&(f.mission.startsWith('rescue_')||C.missions[f.mission]?.locked)&&!this.s.storyContext&&['MOVE','PLACE_ENTER','NPC','WAIT','LEGEND_ENTER','AFFECTION_ENTER','WORLD_WORK_START','LIFE_START'].includes(type))return '현재 위기 장면의 현장 목표를 먼저 해결해 주세요.';
  if(type.startsWith('LIYUE_FIELD_')){
   if(!f)return '진행 중인 현장 임무가 없습니다.';
   if(this.s.runtime||this.s.lifeJob||this.s.worldJob||this.s.placeVisit||this.s.storyContext)return '진행 중인 전투나 시설 이용을 마치고 현장으로 돌아오세요.';
@@ -57,7 +57,9 @@ P.apply=function(a){
  if(f.done)fail('이미 마친 단계입니다. 다음 목표를 확인하세요.');
  if(a.type==='LIYUE_FIELD_INSPECT'){
   const clue=step.clues?.find(c=>c.id===a.clue);if(!clue)fail('조사할 흔적을 선택해 주세요.');
-  if(!f.clues.includes(clue.id))f.clues.push(clue.id);f.feedback=clue.text;return {clue:clue.id,text:clue.text};
+  if(!f.clues.includes(clue.id))f.clues.push(clue.id);f.feedback=clue.text;
+  if(step.kind==='SEARCH'&&f.clues.length===step.clues.length)this.liyueFieldResolve(step.result,{clues:copy(f.clues)});
+  return {clue:clue.id,text:clue.text};
  }
  if(a.type==='LIYUE_FIELD_ANSWER'){
   if(!['INVESTIGATE','CHOICE','SEQUENCE'].includes(step.kind)||!Number.isInteger(a.answer)||!step.options[a.answer])fail('현재 목표의 행동을 선택해 주세요.');
@@ -82,7 +84,7 @@ P.apply=function(a){
   const level=Math.max(6,Math.min(12,this.s.global.PLAYER_LEVEL_STATE));
   for(const e of b.actors.filter(x=>x.side==='ENEMY')){
    const structure=step.kind==='DESTROY',defense=step.kind==='DEFEND';
-   e.level=level;e.hp=e.maxHp=structure?450+level*35:(defense?330:410)+level*20;
+   e.level=level;e.hp=e.maxHp=structure?(f.mission.startsWith('v141_')?140:450+level*35):(defense?330:410)+level*20;
    e.atk=structure?0:85+level*9;e.def=structure?0:35+level*5;
    if(structure){e.fieldStructure=true;e.aura=null;e.nativeAura=null;e.eva=0;e.atk=0;}
   }
@@ -139,7 +141,7 @@ P.validateSave=function(s){
  const f=s.liyueField;
  if(f){
   const spec=C.missions[f.mission],place=placements.get(f.node);
-  if(f.version!==1||!this.tables['32_MAP_DB'].has(f.returnMap)||typeof f.done!=='boolean'||f.node!==s.global.STORY_CURSOR_NODE_ID||!spec||place?.mission!==f.mission||f.saveId!==s.global.SAVE_ID||f.route!==s.global.STORY_ROUTE_ID||f.route!=='ROUTE_ISEKAI'||f.leaf!==(s.flags.FLAG_ISK_L01_LEAF||null)||!Number.isInteger(f.stage)||f.stage<0||f.stage>spec.steps.length||!Array.isArray(f.steps)||f.steps.length!==f.stage+(f.done?1:0)||!Array.isArray(f.clues)||!Array.isArray(f.sequence))fail('현장 임무 저장의 단계·루트·기록을 확인하세요.');
+  if(f.version!==1||!this.tables['32_MAP_DB'].has(f.returnMap)||typeof f.done!=='boolean'||f.node!==s.global.STORY_CURSOR_NODE_ID||!spec||![place?.mission,C.revisionPlacements?.[f.node]?.mission].includes(f.mission)||f.saveId!==s.global.SAVE_ID||f.route!==s.global.STORY_ROUTE_ID||f.route!=='ROUTE_ISEKAI'||f.leaf!==(s.flags.FLAG_ISK_L01_LEAF||null)||!Number.isInteger(f.stage)||f.stage<0||f.stage>spec.steps.length||!Array.isArray(f.steps)||f.steps.length!==f.stage+(f.done?1:0)||!Array.isArray(f.clues)||!Array.isArray(f.sequence))fail('현장 임무 저장의 단계·루트·기록을 확인하세요.');
   const step=spec.steps[f.stage];if(step&&(f.clues.some(id=>!step.clues?.some(c=>c.id===id))||new Set(f.clues).size!==f.clues.length||f.sequence.some((n,i)=>step.sequence?.[i]!==n)))fail('현장 조사 저장이 손상되었습니다.');
   const o=s.runtime?.fieldObjective;if(o&&(o.node!==f.node||o.stage!==f.stage||o.saveId!==f.saveId||o.kind!==step?.kind||!Number.isFinite(o.integrity)||o.integrity<0||o.integrity>100))fail('현장 전투 저장이 손상되었습니다.');
  }

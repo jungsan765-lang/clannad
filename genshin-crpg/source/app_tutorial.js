@@ -1,43 +1,50 @@
-/* A guided tour highlights the real controls without advancing the journey. */
+/* Learn through real controls: no modal, backdrop, forced scroll or fake rewards. */
 let activeTutorial=null;
 const tutorialSteps=[
- {title:'내 상태부터 확인하세요',target:'.player-card',text:'HP와 레벨, 다음 레벨까지의 경험치입니다. 레벨이 오르면 HP가 모두 회복됩니다. 체력이 낮으면 음식이나 숙박으로 준비하세요.'},
- {title:'다음 목적지는 메인 화면',target:'[data-screen="LOCATION"]',text:'이야기가 쉬어 가는 지점에서는 직접 이동하고 자유롭게 준비할 수 있습니다. 목적지의 권장 레벨과 이동 시간을 확인하세요. 도착한 뒤 이야기 계속을 눌러 재개합니다.'},
- {title:'임무는 여기서 확인',target:'[data-screen="QUEST"]',text:'진행 중에는 받은 의뢰, 소개받은 동료 획득 임무, 지금 할 수 있는 호감도 임무가 나뉘어 표시됩니다. 일반 의뢰는 캐서린에게, 동료 획득 임무는 소개하는 인물에게 받으세요.'},
- {title:'함께 싸울 동료를 정하세요',target:'[data-screen="PARTY"]',text:'정식으로 합류한 동료만 편성합니다. 편성에서 빠지면 그 동료의 장비는 소지품으로 돌아오며, 빼기 전에 한 번 알려 드립니다. 개인 임무를 마친 동료는 편성에 넣고 전투에서 이기면 호감도가 오릅니다.'},
- {title:'장비는 장비 장착에서',target:'[data-screen="STATUS"]',text:'편성된 파티원마다 무기·방어구·장신구·특수 장비 칸이 있습니다. 칸에 마우스를 올리면 효과가 보이고, 누르면 바꿔 낄 장비와 달라지는 능력치가 나옵니다.'},
- {title:'재료가 어디 쓰이는지 궁금하다면',target:'[data-screen="INVENTORY"]',text:'아이템을 누르면 효과와 사용처가 나옵니다. 음식·성장책은 현재 파티에 사용하고, 마을에서는 재료 상세에서 맞는 제작시설로 바로 갈 수 있습니다.'},
- {title:'인물을 다시 만나는 방법',target:'[data-screen="RELATIONS"]',text:'호감도 화면에는 다음 만남 장소가 표시됩니다. 개인 임무 최초 완료는 호감도 10점, 이후 편성에 넣고 전투에서 이길 때마다 1점입니다.'},
- {title:'여정은 자동저장됩니다',target:'[data-screen="SYSTEM"]',text:'일반 대사는 읽은 위치를 묶어서 저장합니다. 선택·보상·장비·전투는 즉시 저장합니다. 제목 화면에서 가장 최근 여정을 이어 갑니다. 계정 여정은 서버에 확정되며, 이전 지점으로 되돌리거나 백업 파일을 가져올 수 없습니다.'}
+ {id:'equip',title:'직접 무기를 장착해 보세요',screen:'STATUS',target:'.gear-slot[data-category="WEAPON"]',text:'장비 장착에서 이름 아래의 무기 칸을 누르세요. 쓸 수 있는 무기를 골라 장착하면 완료됩니다. 장비 이름을 누르면 효과와 바뀌는 능력치도 볼 수 있습니다.'},
+ {id:'party',title:'동료와 함께 싸울 준비',screen:'PARTY',target:'.party-grid',text:'합류한 동료를 편성에 넣어 보세요. 앞쪽은 튼튼한 동료, 뒤쪽은 활·회복 동료가 맡으면 좋습니다. 아직 합류한 동료가 없다면 본편을 조금 더 진행하세요.'},
+ {id:'battle',title:'첫 전투를 직접 마쳐 보세요',screen:'LOCATION',target:'.battle-command',text:'전투 시작 → 사용할 행동 → 대상 → 실행 순서입니다. 동료들은 정한 전술대로 싸웁니다. 적의 예고를 보고 방어하거나 회복하세요. 일반 조우가 10라운드까지 이어지면 도망칠 수도 있습니다.'},
+ {id:'commission',title:'첫 의뢰 받기',screen:'QUEST',target:'.commission-card',text:'몬드성 모험가 길드에서 캐서린을 만나 의뢰를 받으세요. 임무에 적힌 사연과 진행 장소를 먼저 확인하면 무엇을 해야 할지 알 수 있습니다.'},
+ {id:'pin',title:'내가 할 임무를 고정하세요',screen:'QUEST',target:'.objective-pin-actions',text:'받은 의뢰에서 「이 임무 고정」을 누르세요. 메인 화면 맨 위와 지도 목적지가 그 의뢰로 바뀝니다. 보상을 받거나 고정을 해제하면 본편 안내로 돌아갑니다.'},
+ {id:'travel',title:'지도를 따라 현장으로',screen:'LOCATION',target:'.terrain-destination-list',text:'목적지 카드에서 연결된 길을 골라 한 구역씩 이동하세요. 새 장소에 도착하면 다음 길이 보입니다. 다른 지역으로 가는 길도 지도 아래에서 바로 확인할 수 있습니다.'},
+ {id:'claim',title:'보고하고 첫 보상 받기',screen:'QUEST',target:'.commission-card',text:'현장 목표를 마쳤다면 길드로 돌아와 보상을 받으세요. 의뢰 경험치는 보상을 받을 때 편성된 파티원 모두에게 같은 양으로 지급됩니다.'},
+ {id:'craft',title:'첫 제작',screen:'LOCATION',target:'.location-places',text:'몬드성 대장간에 들어가 제작을 선택하세요. 만들 수 있는 제작법의 재료와 비용을 확인하고 하나를 직접 만드세요. 재료가 부족하면 의뢰 보상이나 지도에 표시된 채광처를 이용하세요.'},
+ {id:'enhance',title:'장비를 한 번 강화해 보세요',screen:'LOCATION',target:'.location-places',text:'대장간의 강화에서 사용할 장비를 고르세요. 필요한 모라·광석과 강화 전후 능력치를 보고 결정하면 됩니다. 무기뿐 아니라 버티는 데 필요한 방어구도 챙기세요.'},
+ {id:'books',title:'경험치 책은 필요한 만큼',screen:'STATUS',target:'.gear-books',text:'장비 장착 아래의 경험치 책에서 캐릭터를 고른 뒤 수량을 정하세요. 여러 개를 한 번에 쓸 수 있습니다. 레벨과 강화, 서로 맞는 동료 조합을 함께 준비하세요.'}
 ];
 function closeTutorial(mark=true){
  document.querySelectorAll('.tutorial-target').forEach(n=>n.classList.remove('tutorial-target'));
  document.getElementById('tutorial-tour')?.remove();activeTutorial=null;
- if(mark){settings.uiTutorialVersion=1;persistSettings();}
+ if(mark&&game)act('TUTORIAL_ACK',{dismissed:true});
+}
+function tutorialDone(){
+ const done={...game.s.learningGuide?.done};
+ if(Object.values(game.s.combatReceipts||{}).some(r=>r.victory))done.battle=true;
+ return done;
 }
 function renderTutorial(){
- if(!activeTutorial||!game)return;document.getElementById('tutorial-tour')?.remove();document.querySelectorAll('.tutorial-target').forEach(n=>n.classList.remove('tutorial-target'));
- // Resume the same guide step in free play; never obscure battle controls or scroll its stage.
- if(busy||game.s.runtime||game.s.battlePreparation||game.s.lifeJob||game.s.worldJob)return;
- const step=tutorialSteps[activeTutorial.index],target=document.querySelector(step.target),box=el('section','tutorial-tour');box.id='tutorial-tour';box.setAttribute('role','dialog');box.setAttribute('aria-label','게임 화면 튜토리얼');
- box.append(el('small','eyebrow','화면 안내 '+(activeTutorial.index+1)+' / '+tutorialSteps.length),el('h2','',step.title),el('p','',step.text));
- const controls=el('div','tutorial-controls');if(activeTutorial.index)controls.append(button('이전',()=>{activeTutorial.index--;renderTutorial();}));controls.append(button(activeTutorial.index===tutorialSteps.length-1?'안내 마치기':'다음',()=>{if(activeTutorial.index===tutorialSteps.length-1)closeTutorial();else{activeTutorial.index++;renderTutorial();}},false,true),button('나중에 보기',()=>closeTutorial()));box.append(controls);document.body.append(box);
- target?.classList.add('tutorial-target');if(target)target.scrollIntoView({block:'center',behavior:settings.reducedMotion?'auto':'smooth'});
+ document.getElementById('tutorial-tour')?.remove();document.querySelectorAll('.tutorial-target').forEach(n=>n.classList.remove('tutorial-target'));
+ if(!game||!activeTutorial||game.s.global.SCREEN_MODE==='STORY'||game.s.runtime||game.s.battlePreparation||game.s.lifeJob||game.s.worldJob)return;
+ const done=tutorialDone(),battle=game.s.runtime,step=battle?tutorialSteps.find(x=>x.id==='battle'):tutorialSteps.find(x=>!done[x.id]);
+ const host=document.querySelector('.content');if(!host)return;
+ const box=el('section','learning-guide');box.id='tutorial-tour';box.setAttribute('aria-label','직접 해 보는 여행 안내');
+ if(!step){box.append(el('strong','','기초 여행 안내 완료'),el('p','','직접 장비를 갖추고, 싸우고, 의뢰와 제작까지 해 봤습니다. 다음 목표는 지도와 임무에서 찾아보세요.'),button('안내 접기',()=>closeTutorial()));host.prepend(box);return;}
+ const head=el('div','learning-guide-heading');head.append(el('small','eyebrow','직접 해 보기 · '+tutorialSteps.filter(x=>done[x.id]).length+' / '+tutorialSteps.length),button('안내 접기',()=>closeTutorial(),busy));
+ box.append(head,el('h2','',step.title),el('p','',step.text));
+ if(!battle&&game.s.global.SCREEN_MODE!==step.screen&&!game.actionReason('MENU',{screen:step.screen}))box.append(actionButton(step.screen==='STATUS'?'장비 장착 열기':step.screen==='PARTY'?'편성 열기':step.screen==='QUEST'?'임무 열기':'메인 화면 열기','MENU',{screen:step.screen},true));
+ const list=el('details','learning-checklist');list.append(el('summary','','배울 내용 확인'));for(const s of tutorialSteps)list.append(el('p',done[s.id]?'done':'',(done[s.id]?'✓ ':'○ ')+s.title));box.append(list);host.prepend(box);
+ document.querySelector(step.target)?.classList.add('tutorial-target');
 }
-function openTutorial(){if(!game)return;activeTutorial={index:0};renderTutorial();}
+async function openTutorial(){if(!game)return;if(game.s.learningGuide?.dismissed)await act('TUTORIAL_ACK',{dismissed:false});activeTutorial={};renderTutorial();}
 function openGameHelp(){
- const box=el('div','game-help');box.append(el('p','','화면 안내는 실제 메뉴를 차례로 강조합니다. 언제든 닫고 다시 볼 수 있습니다.'));
- if(game)box.append(button('화면 튜토리얼 시작',()=>{document.getElementById('modal').close();openTutorial();},false,true));
+ const box=el('div','game-help');box.append(el('p','','여행 안내는 화면을 가리지 않습니다. 실제 장비·편성·전투·의뢰·제작 행동을 마치면 해당 항목이 완료됩니다. 순서와 상관없이 먼저 한 행동도 기억합니다.'));
+ if(game)box.append(button('직접 해 보는 여행 안내',()=>{document.getElementById('modal').close();openTutorial();},false,true));
  for(const [title,text]of [
-  ['이야기와 직접 이동','대화 중에는 이동할 수 없습니다. 목적지 안내나 휴식 지점이 나오면 메인 화면에서 이동·의뢰·육성을 진행한 뒤, 표시된 장소에서 이야기를 다시 시작합니다.'],
-  ['전투 준비','합류한 동료를 선택하고 장비·체력을 확인하세요. 준비가 부족하면 현장으로 돌아가 육성할 수 있습니다. 전투 시작 전 행동 순서를 확인하며, 진행 속도는 전투 화면에서 조절합니다.'],
-  ['생활과 현장 조사','구역마다 채광·채집·사냥·낚시 중 한 종류가 가능합니다. 작업 게이지가 끝나야 보상을 받습니다. 채집과 사냥은 5% 확률로 적과 마주칩니다. 의뢰 조사도 현장에서 직접 진행하세요.'],
-  ['낚시','낚싯대와 미끼를 갖추고 시작합니다. 입질 후 당기기 버튼을 누르면 장력이 오른쪽, 놓으면 왼쪽으로 움직입니다. 금색 구간 안에 유지하면 성공 게이지가 찹니다.'],
-  ['숨겨진 바람의 흔적','주변 단서와 지형, 만난 인물의 이야기를 살펴보세요. 흔적마다 필요한 행동이 다릅니다. 접근 방법을 해결한 뒤 회수할 수 있습니다.']
+ ['자동저장','일반 대사와 대화 선택은 읽는 동안 이 기기에 보관하고 장면이 끝나면 묶어서 저장합니다. 보상·전투·장비 변경은 즉시 확정됩니다. 저장이 끝나기 전에는 창을 닫지 마세요.'],
+ ['장비와 원소','무기에는 사용할 수 있는 캐릭터와 장착 레벨이 있습니다. 공중의 적에게는 활·법구·대공 공격 또는 공중 접근 효과가 필요합니다. 보스는 그에 맞는 편성을 준비해야 합니다.'],
+ ['필드보스와 나선비경','지도의 필드보스 표시를 따라 찾아가세요. 레벨 10의 장비를 갖춘 4인 파티부터 준비하고, 보스마다 요구하는 원소와 장비를 확인하세요. 나선비경은 맹세의 갑각을 거쳐 머스크 암초에서 들어갑니다.'],
+ ['호감도','동료 개인 임무와 함께한 전투로 호감도가 오릅니다. 하트마다 공격력·방어력이 1%씩, 5하트까지 합계 5% 증가합니다.']
  ])box.append(el('h2','',title),el('p','',text));showModal('여행 안내',box);
 }
-const tutorialQuick=updateQuick;
-updateQuick=function(){tutorialQuick();document.getElementById('quick-actions').append(button('도움말',openGameHelp,busy));};
-const tutorialRender=render;
-render=function(){tutorialRender();if(!game){closeTutorial(false);return;}if(activeTutorial)renderTutorial();else if(!busy&&game.playPhase()==='FREE'&&settings.uiTutorialVersion!==1){queueMicrotask(()=>{if(game&&!busy&&!activeTutorial&&!document.getElementById('modal').open){activeTutorial={index:0};renderTutorial();}});}};
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&activeTutorial)closeTutorial();});
+const tutorialQuick=updateQuick;updateQuick=function(){tutorialQuick();document.getElementById('quick-actions').append(button('도움말',openGameHelp,busy));};
+const tutorialRender=render;render=function(){tutorialRender();if(!game){closeTutorial(false);return;}const guide=game.s.learningGuide;if(guide?.dismissed){activeTutorial=null;document.getElementById('tutorial-tour')?.remove();return;}if(!activeTutorial&&guide?.auto)activeTutorial={};if(activeTutorial)renderTutorial();};

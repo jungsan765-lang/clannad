@@ -4,6 +4,8 @@
 
 개발 중 실제 플레이 확인은 우선 **로컬 격리 환경**을 사용한다. Windows에서는 `dev-local.cmd`가 로컬 정적 게임 서버 + 로컬 Worker + 로컬 D1을 함께 띄우며, `source/`, `content/`, `server/worker.mjs` 변경을 감지해 다시 빌드한다. 로컬 D1은 `.local/wrangler`에 저장되고 `reset-local.cmd`로만 초기화한다. 로컬 개발 경로에 `deploy` 또는 `--remote`를 추가하지 말고 운영 D1을 연결하지 마. 자세한 내용은 `docs/LOCAL_DEVELOPMENT_KO.md`를 따른다.
 
+테스트 후보는 0.14.1, 0.14.2처럼 올려. 사용자의 최종 승인 전에는 main 병합이나 운영 Worker/D1/Pages 배포를 하지 마. 정식 큰 배포 때만 0.15.0처럼 올려.
+
 소스 → `npm test` → 소스 브라우저 회귀검증 → `npm run build` → `CRPG_TEST_DIST=1 npm run test:browser` → 검증된 Pages artifact 순서다. PR/main push는 검증만 한다. `.github/workflows/crpg-sync-dist.yml`을 **main + publish=true**로 수동 실행해야 Pages가 게시된다. dist 중간 커밋으로 배포를 반복하지 마. 기존 사이트 이미지도 보존해야 하므로 `prepare_pages.py`를 쓰고 게임 dist만 Pages 루트에 올리지 마.
 
 v0.13.50부터 **클라이언트 appVersion과 서버 engineVersion을 분리**했다. `tools/engine_identity.py`가 실제 런타임·콘텐츠·Worker 엔트리·프로토콜의 해시를 만든다. Pages release.json과 Worker /health의 engineVersion이 같으면 UI 버전이 달라도 배포할 수 있다. **UI/CSS/안내 문구/이미지만 바뀌면 기존 Worker를 다시 배포할 필요가 없다.** 런타임·콘텐츠 규칙·서버 프로토콜을 바꾸면 서버 검증/배포가 필요하다. 해시나 테스트를 수동으로 맞춰 통과시키지 마. Worker 엔트리 변경도 이 검사에 포함된다.

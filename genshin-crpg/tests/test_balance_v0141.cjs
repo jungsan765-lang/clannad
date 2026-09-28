@@ -1,0 +1,19 @@
+'use strict';
+const assert=require('node:assert/strict'),{fixture,run}=require('./helpers_balance_v0141.cjs'),{c,fs,root}=require('./helpers_v011.cjs');
+const results=[];
+function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evidence});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
+check('Dvalin: geared 4/4/3/3 loses, prepared level 8 party wins, five seeds each',()=>{const out=[];for(const seed of [717,718,719,720,721])for(const low of [true,false]){const x=run(fixture(low?[4,4,3,3]:[8,8,8,8],['MOND_AMBER','MOND_LISA','MOND_KAEYA'],low?3:6),'EG_BOSS_DVALIN',seed);assert.equal(x.result.victory,!low,JSON.stringify({seed,low,result:x.result}));out.push({seed,levels:low?'4/4/3/3':'8/8/8/8',enhance:low?3:6,victory:x.result.victory,rounds:x.result.rounds});}return out;});
+const cases=[
+ ['FB_ANEMO_HYPOSTASIS',['MOND_AMBER','MOND_LISA','MOND_BENNETT']],
+ ['FB_ELECTRO_HYPOSTASIS',['MOND_KLEE','MOND_NOELLE','MOND_BENNETT'],null,'EQ_LY_ARMOR_THUNDERWARD'],
+ ['FB_CRYO_REGISVINE',['MOND_AMBER','MOND_LISA','MOND_BENNETT']],
+ ['FB_CRYO_HYPOSTASIS',['MOND_AMBER','MOND_LISA','MOND_BENNETT']],
+ ['FB_GEO_HYPOSTASIS',['MOND_NOELLE','MOND_BENNETT','MOND_LISA'],'EQ_CLAYMORE_WHITEBLIND'],
+ ['FB_PYRO_REGISVINE',['MOND_KAEYA','MOND_BARBARA','MOND_LISA'],'EQ_CLAYMORE_WHITEBLIND','EQ_LY_ARMOR_JADEFLAME'],
+ ['FB_OCEANID',['MOND_AMBER','MOND_LISA','MOND_BENNETT']],
+ ['FB_PRIMO_GEOVISHAP',['MOND_NOELLE','MOND_DIONA','MOND_BENNETT']],
+ ['FB_RUIN_SERPENT',['MOND_NOELLE','MOND_DIONA','MOND_BENNETT'],'EQ_CLAYMORE_WHITEBLIND']
+];
+for(const [id,team,weapon,armor]of cases)check(id+': native level 10 equipped counter party can win',()=>{const r=fixture([10,10,10,10],team,9);r.s.global.CURRENT_MAP_ID=c.CRPGRuntime.fieldBosses.bosses[id].map;const equip=(eq,owner)=>{const slot=r.giveEquipment(eq);r.action('EQUIP',{slot,owner});r.s.inventory.find(x=>x.slot===slot).enhance=9;};if(weapon)equip(weapon,'PLAYER_CUSTOM');if(armor)for(const owner of ['PLAYER_CUSTOM',...team])equip(armor,owner);r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;for(const owner of team)r.s.chars[owner].hp=r.character(owner).maxHp;const x=run(r,'EG_'+id,717);assert.equal(x.result.victory,true,JSON.stringify(x.result));return{team,weapon,armor,level:10,enhance:9,seed:717,rounds:x.result.rounds,stats:x.stats};});
+for(const kind of ['ESCORT','DEFEND'])check('Liyue '+kind+': native level 6 solo fails; level 6 equipped party survives',()=>{const found=Object.entries(c.CRPGLocalStory.episodes).find(([,e])=>e.steps.some(s=>s.kind===kind));assert(found,kind);const [anchor,e]=found,out=[];for(const team of [[],['MOND_AMBER','MOND_KAEYA','MOND_BARBARA']]){const r=fixture([6,6,6,6],team,3);r.storySetCursor('R39_FIELD_'+anchor);r.prepareStory();const f=r.s.liyueField,stage=e.steps.findIndex(s=>s.kind===kind);f.stage=stage;f.steps=e.steps.slice(0,stage).map((_,i)=>({stage:i}));r.s.global.CURRENT_MAP_ID=r.liyueFieldView().target;r.s.global.PRNG_STATE=717;r.action('LIYUE_FIELD_BATTLE');r.action('COMBAT_BEGIN');for(let i=0;i<120&&r.s.runtime;i++){const at=r.combatCards().find(x=>x.id==='PLAYER_BASIC_ATTACK'&&!x.reason);r.action('COMBAT',at?{card:at.id,target:at.targets[0].id}:{card:'PLAYER_BASIC_GUARD'});}assert(!r.s.runtime);const result=JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON);assert.equal(result.victory,!!team.length);out.push({anchor,team,level:6,enhance:3,seed:717,victory:result.victory,rounds:result.rounds});}return out;});
+fs.mkdirSync(root+'/reports/local-v0141',{recursive:true});fs.writeFileSync(root+'/reports/local-v0141/balance.json',JSON.stringify({method:'Synthetic legal ownership, levels and enhancement; native engine stats/damage, deterministic AI. Reachability tested separately. Samples are not exhaustive balance guarantees.',results},null,2)+'\n');
