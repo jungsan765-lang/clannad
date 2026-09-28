@@ -144,7 +144,7 @@ const GameEffects={
   reschedule(){clearTimeout(this.timer);if(this.resolve&&!this.paused)this.timer=setTimeout(()=>this.advance(),(this.beatDuration||1400)/(settings.combatSpeed||1));},
   advance(){clearTimeout(this.timer);const done=this.resolve;this.resolve=null;done?.();},
   layerNode(){if(!this.layer){this.layer=el('div','combat-effects');this.layer.setAttribute('aria-hidden','true');document.body.append(this.layer);}return this.layer;},
-  actorNode(id){return id&&[...root.querySelectorAll('.combatant-row[data-actor-id],.battle-summon[data-summon-id]')].find(n=>n.dataset.actorId===id||n.dataset.summonId===id);},
+  actorNode(id){if(!id)return null;const actor=[...root.querySelectorAll('.combatant-row[data-actor-id]')].find(n=>n.dataset.actorId===id);if(actor)return actor;return [...root.querySelectorAll('.battle-summon[data-summon-id]')].find(n=>n.dataset.summonId===id)||null;},
   primeCombat(type,params={}){
     if(type!=='COMBAT'||document.hidden||!game?.s.runtime)return null;
     let actor;try{actor=game.combatActor?.();}catch{}if(!actor)return null;
