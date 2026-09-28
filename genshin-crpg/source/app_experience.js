@@ -238,9 +238,31 @@ function battleOrder(p,b){
 function battleActorRow(a,chosen,index){
   const c=el('div','actor combatant-row'+(a.hp<=0?' dead':'')+(a.id===selectedTarget?' selected':''));c.dataset.actorId=a.id;c.dataset.maxHp=a.maxHp;c.dataset.side=a.side;
   if(showArt){let src;if(a.side==='ENEMY'){const row=game.tables['09_MONSTER_DB'].get(a.source);src=row&&assetPath('enemy_'+row[15]+'.png');}else{const profile=game.rows('04_CHAR_DB').find(r=>r[1]===a.source);src=profile&&portraitFor(profile[0]);}if(src){const image=el('img','combat-portrait');image.src=src;image.alt='';c.append(image);}else if(a.id==='PLAYER_CUSTOM')c.append(el('span','combat-player-mark','✦'));}
-  const copy=el('div','combatant-copy');copy.append(el('strong','',a.name+(index>0?' '+index:'')));meter(copy,'HP',a.hp,a.maxHp);const shieldValue=(a.shields||[]).reduce((n,s)=>n+Math.max(0,Number(s.value||0)),0),shieldMax=(a.shields||[]).reduce((n,s)=>n+Math.max(Number(s.initialValue||s.value||0),Number(s.value||0)),0);if(shieldValue>0){const shieldBox=el('div','shield-meter');meter(shieldBox,'보호막',Math.round(shieldValue),Math.max(1,Math.round(shieldMax)));copy.append(shieldBox);}
+  const copy=el('div','combatant-copy');copy.append(el('strong','',a.name+(index>0?' '+index:'')));meter(copy,'HP',a.hp,a.maxHp);const shieldValue=(a.shields||[]).reduce((n,s)=>n+Math.max(0,Number(s.value||0)),0),shieldMax=(a.shields||[]).reduce((n,s)=>n+Math.max(Number(s.initialValue||s.value||0),Number(s.value||0)),0);c.dataset.shieldMax=Math.max(1,Math.round(shieldMax||shieldValue||1));if(shieldValue>0){const shieldBox=el('div','shield-meter');shieldBox.dataset.shieldMax=c.dataset.shieldMax;meter(shieldBox,'보호막',Math.round(shieldValue),Math.max(1,Math.round(shieldMax)));copy.append(shieldBox);}
   const status=[a.aura&&({PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',ANEMO:'바람',GEO:'바위',DENDRO:'풀'}[a.aura]||a.aura),shieldValue>0?'보호막 '+Math.round(shieldValue):null,a.airborne?'공중':null,...(a.statuses||[]).map(s=>safeName('13_STATUS_EFFECT_DB',s.id))].filter(Boolean);if(status.length)copy.append(el('small','',status.join(' · ')));c.append(copy);
   if(chosen?.targets?.some(t=>t.id===a.id))c.append(button(a.id===selectedTarget?'선택됨':'선택',()=>{selectedTarget=a.id;render();}));return c;
+}
+function battleSummons(p,b){
+  const spec={
+    BUNNY:{name:'토끼 백작',asset:'summon_baron_bunny.webp',id:f=>'SUMMON:BUNNY:'+f.actor},
+    OZ:{name:'오즈',asset:'summon_oz.webp',id:f=>'SUMMON:OZ:'+f.actor},
+    GOU_BA:{name:'누룽지',asset:'summon_guoba.webp',id:f=>'SUMMON:GOU_BA:'+f.actor},
+    YUEGUI_THROWING:{name:'월계',asset:'summon_yuegui.webp',id:f=>'SUMMON:YUEGUI_THROWING:'+f.actor}
+  };
+  const fields=(b.fields||[]).filter(f=>spec[f.kind]&&!f.done&&(f.kind!=='BUNNY'||f.hp>0));if(!fields.length)return;
+  const wrap=el('div','battle-summons');wrap.setAttribute('aria-label','전투 소환물');
+  for(const side of ['ALLY','ENEMY']){
+    const lane=el('section','summon-lane '+side.toLowerCase()),list=fields.filter(f=>f.side===side);lane.append(el('h3','',side==='ALLY'?'우리 소환물':'적 소환물'));
+    if(!list.length){lane.append(el('small','muted','없음'));wrap.append(lane);continue;}
+    for(const f of list){const m=spec[f.kind],card=el('div','battle-summon');card.dataset.summonId=m.id(f);card.dataset.side=side;
+      if(showArt){const img=el('img','summon-portrait');img.src='assets/summons/'+(f.asset||m.asset);img.alt='';card.append(img);}
+      const cp=el('div','summon-copy'),remaining=Number.isFinite(f.summonTurns)?Math.max(0,f.summonTurns-Number(f.summonTicks||0)):Math.max(1,Number(f.rounds||1));
+      cp.append(el('strong','',f.name||m.name));
+      if(f.kind==='BUNNY')cp.append(el('small','', 'HP '+Math.max(0,Math.round(f.hp))+' / '+Math.max(1,Math.round(f.maxHp||f.hp))+' · 단일 공격 도발 '+Math.round(f.tauntChance||30)+'%'));
+      else cp.append(el('small','', '자동 행동 · 남은 '+remaining+'회'));
+      card.append(cp);lane.append(card);
+    }wrap.append(lane);
+  }p.append(wrap);
 }
 function battleDetails(p,b){
   const details=el('details','battle-details');details.open=false;details.append(el('summary','','전투 기록 · '+b.log.length+'건'));
@@ -279,6 +301,6 @@ combat=function(p){
   }const blockedAttack=!opening&&game.combatCards().find(c=>c.id==='PLAYER_BASIC_ATTACK'&&/공중/.test(c.reason));if(blockedAttack)controls.append(el('p','battle-target-warning',blockedAttack.reason));if(!opening&&game.combatFleeReason?.()===''){const retreat=el('div','battle-retreat');retreat.append(el('p','muted','전투가 길어졌습니다. 도망치면 현재 체력은 유지되며 보상은 받지 못합니다.'),actionButton('도망치기','COMBAT_FLEE',{},false));controls.append(retreat);}controls.append(combatSpeedControl());p.append(controls);
   const stage=el('div','compact-battle-stage'),foes=b.actors.filter(a=>a.side==='ENEMY'),representative=foes.find(a=>a.hp>0)||foes[0];
 
-  const teams=el('div','battle-teams compact-teams');for(const side of ['ALLY','ENEMY']){const col=el('section');col.append(el('h2','',side==='ALLY'?'우리 파티':'적'));const actors=b.actors.filter(a=>a.side===side);for(const a of actors){const same=actors.filter(x=>x.name===a.name);col.append(battleActorRow(a,chosen,same.length>1?same.indexOf(a)+1:0));}teams.append(col);}stage.append(teams);p.append(stage);
+  const teams=el('div','battle-teams compact-teams');for(const side of ['ALLY','ENEMY']){const col=el('section');col.append(el('h2','',side==='ALLY'?'우리 파티':'적'));const actors=b.actors.filter(a=>a.side===side);for(const a of actors){const same=actors.filter(x=>x.name===a.name);col.append(battleActorRow(a,chosen,same.length>1?same.indexOf(a)+1:0));}teams.append(col);}stage.append(teams);battleSummons(stage,b);p.append(stage);
   if(b.terrain!==null&&b.terrain!==undefined)p.append(el('p','muted','남은 지형 '+b.terrain+' / '+(b.terrainMax||4)));battleDetails(p,b);
 };
