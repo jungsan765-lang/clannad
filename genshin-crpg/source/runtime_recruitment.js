@@ -56,11 +56,12 @@ P.storyIndex=function(){
  }
  const diluc=ix.legends.get('LEG_ISK_MOND_DILUC');
  if(diluc){
-  diluc.MAIN_FLAG_GATE='FLAG_ISK_M05_CLEAR';diluc.RECRUIT_MODE='STORY_OR_LEGEND_OPT_IN';diluc.COST_MORA=650;diluc.COST_ITEMS_JSON=JSON.stringify({ORE_CRYSTAL:4,MAT_DAMAGED_MASK:3});
-  diluc.START_CONDITION='ROUTE_ID=ROUTE_ISEKAI && FLAG_ISK_M05_CLEAR=TRUE && FLAG_LEG_ISK_MOND_DILUC_CLEAR=FALSE && CURRENT_MAP_ID=MAP_MOND_DAWN_WINERY';
+  // v0.14.3: like every other Mond companion, Diluc opens after the Mond prologue, not after the whole Mond story.
+  diluc.MAIN_FLAG_GATE='FLAG_ISK_MON_PROLOGUE_CLEAR';diluc.RECRUIT_MODE='STORY_OR_LEGEND_OPT_IN';diluc.COST_MORA=650;diluc.COST_ITEMS_JSON=JSON.stringify({ORE_CRYSTAL:4,MAT_DAMAGED_MASK:3});
+  diluc.START_CONDITION='ROUTE_ID=ROUTE_ISEKAI && FLAG_ISK_MON_PROLOGUE_CLEAR=TRUE && FLAG_LEG_ISK_MOND_DILUC_CLEAR=FALSE && CURRENT_MAP_ID=MAP_MOND_DAWN_WINERY';
   const set=(id,fn)=>{const row=ix.nodes.get('ROUTE_ISEKAI:'+id);if(row)fn(row);};
-  set(diluc.ENTRY_NODE_ID,row=>{row[9]='이세계인 전용 다이루크 개인 임무. 다운 와이너리의 운송 기록을 조사하고, 완료 뒤 동행 여부를 정한다.';row[11]=diluc.START_CONDITION;});
-  set('LEG_ISK_MOND_DILUC_N005',row=>row[9]='이 기록은 사당의 일과 별개로 보겠다. 자네가 눈에 보이는 차이를 확인해 줘. 나는 실제로 수레를 몬 사람에게 묻지. 필요한 준비를 마쳤다면 시작하지.');
+  set(diluc.ENTRY_NODE_ID,row=>{row[9]='이세계인 전용 다이루크 개인 임무. 몬드 도입부 뒤 다운 와이너리의 운송 기록을 조사하고, 완료 뒤 동행 여부를 정한다.';row[11]=diluc.START_CONDITION;});
+  set('LEG_ISK_MOND_DILUC_N005',row=>row[9]='장부만 봐서는 답이 안 나와. 자네가 눈에 보이는 차이를 확인해 줘. 나는 실제로 수레를 몬 사람에게 묻지. 필요한 준비를 마쳤다면 시작하지.');
   set('LEG_ISK_MOND_DILUC_PREP_ACCEPT',row=>row[10]='준비는 끝났어. 운송 기록부터 확인하러 가자.');
   set('LEG_ISK_MOND_DILUC_N024',row=>row[9]='오늘 일은 여기서 마쳤다. 앞으로도 함께 움직일 생각이 있다면 지금 정해도 된다. 당장 답하지 않아도 상관없어.');
   set('LEG_ISK_MOND_DILUC_N025',row=>row[10]='앞으로도 같이 움직이자, 다이루크.');

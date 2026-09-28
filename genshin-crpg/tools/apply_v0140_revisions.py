@@ -7,7 +7,7 @@ Operations per patch file:
   upserts             {table: [row, ...]}                     insert new rows, or replace the row with the same id
   replace_ingredients {recipe_id: [48_RECIPE_INGREDIENT_DB rows]} swap a recipe's ingredient rows
   append_pool         {map_id: {col: ["ITEM:min-max@weight", ...]}} add missing entries to 32_MAP_DB life pools
-  story               [{route, node, text?, choice?, type?, speaker?, speaker_ref?, next?}]  set cells of 55/57 story rows
+  story               [{route, node, text?, choice?, type?, speaker?, speaker_ref?, map?, cond?, next?, group?}]  set cells of 55/57 story rows
   story_insert        [{route, after, row}]                   add a story row and route the `after` node through it
   deletes             {table: [row_id, ...]}                  remove rows of a non-story table (row id = column 0)
   story_upsert        {table: [row, ...]}                     add story rows (key = route + node id) or replace them in place
@@ -92,7 +92,7 @@ def apply_patch(db, patch):
         row = story.get((change['route'], change['node']))
         if row is None:
             fail(f"no story row {change['route']} {change['node']}")
-        for key, col in (('type', 5), ('speaker_ref', 6), ('speaker', 7), ('text', 9), ('choice', 10), ('next', 13)):
+        for key, col in (('type', 5), ('speaker_ref', 6), ('speaker', 7), ('map', 8), ('text', 9), ('choice', 10), ('cond', 11), ('next', 13), ('group', 14)):
             if key in change:
                 set_cell(row, col, change[key])
     for change in patch.get('story_insert', []):

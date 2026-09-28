@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-09-24T21:40:34.237Z",
+  "generatedAt": "2026-09-28T21:06:24.999Z",
   "productEdited": false,
   "modules": [
+    "world_content.js",
     "runtime.js",
     "runtime_extensions.js",
     "runtime_story.js",
@@ -33,20 +34,73 @@
     "runtime_geo_oculi.js",
     "runtime_encounter.js",
     "runtime_recruitment.js",
+    "runtime_protagonist.js",
+    "runtime_equipment.js",
+    "runtime_liyue_equipment.js",
+    "runtime_liyue_forge.js",
+    "runtime_exclusive_weapons.js",
+    "runtime_enhancement.js",
+    "runtime_liyue_artifacts.js",
+    "runtime_mond_encounters.js",
+    "runtime_enemy_content.js",
+    "runtime_enemy_skills.js",
+    "runtime_mond_boss_balance.js",
+    "runtime_mond_balance.js",
+    "runtime_navigation.js",
+    "runtime_liyue_area_content.js",
+    "runtime_liyue_areas.js",
+    "runtime_chasm_skills.js",
+    "runtime_liyue_encounters.js",
+    "runtime_play_fixes.js",
+    "runtime_gear_traits.js",
+    "runtime_enemy_tiers.js",
+    "runtime_field_bosses.js",
+    "runtime_quality_fixes.js",
+    "runtime_field_scenes.js",
+    "runtime_liyue_rework_content.js",
+    "runtime_liyue_rework.js",
+    "runtime_liyue_places.js",
+    "runtime_liyue_region_guide.js",
+    "runtime_traveler_geo.js",
+    "runtime_geo_trails.js",
+    "runtime_abyss.js",
+    "runtime_personal_expansion.js",
+    "runtime_operator.js",
+    "runtime_mond_revision.js",
+    "runtime_local_revision.js",
+    "runtime_local_story_content.js",
+    "runtime_local_story.js",
+    "runtime_commission_stories.js",
+    "runtime_reading.js",
     "save_adapter.js",
     "presentation.js"
   ],
-  "candidateSHA256": "fe8ef06ede2ce3648e0efea50822fb6dd1abf0282c6927bf78a86f36ccbd5274",
+  "candidateSHA256": "f4db094db0cfd8341603bdf6ffe6cad0877434bacb8786082c6a5849f836918b",
   "results": [
     {
       "name": "public story preparation commits actual order without any automatic turn or HP loss",
       "ok": true,
       "evidence": {
         "battle": "OPENING-STORY:B2",
-        "hp": 600,
+        "hp": 480,
         "order": [
           {
             "index": 0,
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "name": "시작 순서 검증",
+            "side": "ALLY",
+            "control": "PLAYER",
+            "score": 62,
+            "first": false,
+            "alive": true,
+            "hp": 480,
+            "maxHp": 480,
+            "current": false,
+            "acted": false
+          },
+          {
+            "index": 1,
             "id": "BOSS_DVALIN#1",
             "source": "BOSS_DVALIN",
             "name": "드발린",
@@ -55,23 +109,8 @@
             "score": 67,
             "first": false,
             "alive": true,
-            "hp": 2600,
-            "maxHp": 2600,
-            "current": false,
-            "acted": false
-          },
-          {
-            "index": 1,
-            "id": "PLAYER_CUSTOM",
-            "source": "PLAYER_CUSTOM",
-            "name": "시작 순서 검증",
-            "side": "ALLY",
-            "control": "PLAYER",
-            "score": 67,
-            "first": false,
-            "alive": true,
-            "hp": 600,
-            "maxHp": 600,
+            "hp": 3800,
+            "maxHp": 3800,
             "current": false,
             "acted": false
           }
@@ -94,18 +133,18 @@
       "evidence": {
         "round": 1,
         "phase": "COMBAT",
-        "prng": 3326130349
+        "prng": 1427919106
       }
     },
     {
-      "name": "begin consumes already-rolled initiative and equals legacy combat outcome / PRNG",
+      "name": "battle opening always gives the protagonist the first manual action",
       "ok": true,
       "evidence": {
         "entries": [
           "DIRECT",
           "GAUNTLET"
         ],
-        "comparison": "all runtime battle state except opening metadata + exact PRNG state"
+        "first": "PLAYER_CUSTOM"
       }
     },
     {
@@ -113,7 +152,7 @@
       "ok": true,
       "evidence": {
         "action": "OPENING-TEST:3",
-        "events": 2
+        "events": 0
       }
     },
     {
@@ -133,6 +172,21 @@
         "order": [
           {
             "index": 0,
+            "id": "PLAYER_CUSTOM",
+            "source": "PLAYER_CUSTOM",
+            "name": "시작 순서 검증",
+            "side": "ALLY",
+            "control": "PLAYER",
+            "score": 62,
+            "first": false,
+            "alive": true,
+            "hp": 1,
+            "maxHp": 480,
+            "current": false,
+            "acted": false
+          },
+          {
+            "index": 1,
             "id": "BOSS_DVALIN#1",
             "source": "BOSS_DVALIN",
             "name": "드발린",
@@ -141,23 +195,8 @@
             "score": 67,
             "first": false,
             "alive": true,
-            "hp": 2600,
-            "maxHp": 2600,
-            "current": false,
-            "acted": false
-          },
-          {
-            "index": 1,
-            "id": "PLAYER_CUSTOM",
-            "source": "PLAYER_CUSTOM",
-            "name": "시작 순서 검증",
-            "side": "ALLY",
-            "control": "PLAYER",
-            "score": 67,
-            "first": false,
-            "alive": true,
-            "hp": 1,
-            "maxHp": 600,
+            "hp": 3800,
+            "maxHp": 3800,
             "current": false,
             "acted": false
           }
