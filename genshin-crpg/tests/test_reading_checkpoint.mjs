@@ -66,11 +66,11 @@ for(const route of ['ROUTE_ISEKAI','ROUTE_TRAVELER']){
 assert(singletonChecked>0,'real authored single-response choices use the journal');
 console.log(JSON.stringify({conversationSteps:journal.length,choices,singletons,singletonChecked,sceneBoundary:boundary}));
 const free=new R(DB,initial);free.serverAdmin=true;free.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_MOND_PLAINS'});f.seed(free.s);
-const prepare=f.env.DB.prepare;
-f.env.DB.prepare=query=>{const statement=prepare(query);if(query.startsWith('SELECT a.id')){const bind=statement.bind.bind(statement);statement.bind=(...args)=>{const bound=bind(...args),first=bound.first.bind(bound);bound.first=async()=>{await new Promise(r=>setTimeout(r,300));return first();};return bound;};}return statement;};
+const originalBatch=f.env.DB.batch;
+f.env.DB.batch=async statements=>{if(statements.some(s=>s.query.startsWith('SELECT a.id')))await new Promise(r=>setTimeout(r,300));return originalBatch(statements);};
 const started=Date.now(),life=await f.action('LIFE_START',{kind:'GATHER',startedAt:0,actionStartedAt:0});
 assert.equal(life.status,200,life.error);assert(life.state.lifeJob.startedAt>=started);assert(life.state.lifeJob.startedAt<started+100,'the server activity clock starts before authentication/database delay');
-assert(Date.now()-life.state.lifeJob.startedAt>=300);f.env.DB.prepare=prepare;
+assert(Date.now()-life.state.lifeJob.startedAt>=300);f.env.DB.batch=originalBatch;
 const early=await f.action('LIFE_FINISH',{job:life.state.lifeJob.id,elapsed:1000000});assert.equal(early.status,400,'client elapsed time must not grant early rewards');
 assert.deepEqual(JSON.parse(f.read().state).inventory,life.state.inventory);
 console.log(JSON.stringify({ok:true,readingSteps:5,checkpointRevisions:1,previewMilliseconds:timings,atomicDecision:true,retryExactlyOnce:true,invalidBatchesRolledBack:true,serverActivityClock:true}));

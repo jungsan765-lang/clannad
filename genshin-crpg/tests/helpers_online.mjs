@@ -13,7 +13,7 @@ export function onlineFixture(){
   async all(){return {results:sql.prepare(this.query).all(...this.args)};}
   async run(){return {meta:{changes:Number(sql.prepare(this.query).run(...this.args).changes)}};}
  }
- const env={DB:{prepare:q=>new Statement(q),batch:async qs=>{sql.exec('BEGIN');try{const results=[];for(const q of qs)results.push(await q.run());sql.exec('COMMIT');return results;}catch(e){sql.exec('ROLLBACK');throw e;}}},PASSWORD_PEPPER:'isolated-test-only-'.repeat(4),ALLOWED_ORIGIN:'http://127.0.0.1:4173'};
+ const env={DB:{prepare:q=>new Statement(q),batch:async qs=>{sql.exec('BEGIN');try{const results=[];for(const q of qs){if(/^\s*(SELECT|WITH|PRAGMA)\b/i.test(q.query)||/\bRETURNING\b/i.test(q.query)){const rows=sql.prepare(q.query).all(...q.args);results.push({results:rows,meta:{changes:0}});}else results.push(await q.run());}sql.exec('COMMIT');return results;}catch(e){sql.exec('ROLLBACK');throw e;}}},PASSWORD_PEPPER:'isolated-test-only-'.repeat(4),ALLOWED_ORIGIN:'http://127.0.0.1:4173'};
  let token='',account;
  async function call(path,data){const response=await worker.fetch(new Request('https://test.invalid'+path,{method:data===undefined?'GET':'POST',headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},...(data===undefined?{}:{body:JSON.stringify(data)})}),env);return {status:response.status,...await response.json()};}
  return {sql,env,call,get account(){return account;},get token(){return token;},
