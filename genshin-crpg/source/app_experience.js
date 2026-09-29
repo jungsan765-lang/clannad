@@ -91,7 +91,7 @@ crafting=function(p){
 boss=function(p){
   const entry=placeHeader(p,'BOSS');if(!entry)return;
   if(['AWAIT_NEXT','RETRY'].includes(game.s.bossRouteProgress?.phase)){bossProgressControls(p);return;}
-  const row=game.row('35_BOSS_ROUTE_DB',entry.route);p.append(el('p','','이 장소에서 시작하는 현장 도전입니다. 보스별 게임 내 48시간에 1회 입장하며, 패배·이탈해도 제한은 유지됩니다. 완료한 도전은 재료 재도전 메뉴를 이용하세요.'));
+  const row=game.row('35_BOSS_ROUTE_DB',entry.route);p.append(el('p','','이 장소에서 시작하는 현장 도전입니다. 보스별로 하루에 한 번(현실 시간, 한국 시간 자정 기준) 입장하며, 패배·이탈해도 그날 입장은 쓴 것으로 칩니다. 완료한 도전은 재료 재도전 메뉴를 이용하세요.'));
   for(const mode of ['DIRECT','GAUNTLET']){if(mode==='GAUNTLET'&&row[3]==='DIRECT')continue;const reason=game.placeBossReason(entry.route,mode),b=actionButton(mode==='DIRECT'?'보스에게 도전':'전초전부터 도전','BOSS_ROUTE',{route:entry.route,entry:mode},true);b.disabled=b.disabled||!!reason;p.append(b);if(reason)p.append(el('small','choice-note',reason));}
 };
 returnToJourney=function(p){

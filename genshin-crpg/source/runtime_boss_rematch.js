@@ -43,6 +43,39 @@ P.finishBattle=function(victory){
 P.validateSave=function(s){
  const out=old.validateSave.call(this,s)||s,m=out.runtime?.rematch;
  if(m&&(m.version!==1||!REMATCH[m.boss]||m.level!==REMATCH[m.boss].level))fail('REMATCH_SAVE','보스 재도전 기록이 올바르지 않습니다.');
+ const d=out.bossRealAdmissions;if(d!==undefined&&(!d||typeof d!=='object'||Array.isArray(d)||Object.entries(d).some(([boss,day])=>!(Object.hasOwn(api.enhancementConfig.bosses,boss)||/^FARM_(TARTAGLIA|AZHDAHA)$/.test(boss))||!Number.isSafeInteger(day)||day<0)))fail('REMATCH_SAVE','보스 입장 기록이 올바르지 않습니다.');
+ return out;
+};
+// v0.14.5: now that the game reads real time, the two-day bosses open once per real day per boss (reset at
+// midnight, Korean time). The server's action clock decides online. Entering still counts, win or lose, and
+// the old in-game 48-hour records are simply no longer read.
+const DAY=86400000,KST=9*3600000,priorApply=P.apply;
+P.bossRealNow=function(){return Number(this.actionStartedAt??Date.now());};
+P.bossRealDay=function(now=this.bossRealNow()){return Math.floor((now+KST)/DAY);};
+P.bossAdmission=function(boss){
+ const now=this.bossRealNow(),today=this.bossRealDay(now),used=this.s.bossRealAdmissions?.[boss]===today,left=used?Math.max(1,Math.ceil(((today+1)*DAY-KST-now)/60000)):0;
+ return {boss,remainingMinutes:left,realDay:today,reason:used?'이 보스는 하루에 한 번(현실 시간, 한국 시간 자정에 초기화) 입장할 수 있습니다. '+Math.floor(left/60)+'시간 '+(left%60)+'분 남음.':''};
+};
+P.recordBossAdmission=function(boss){if(!api.enhancementConfig.bosses[boss])return;(this.s.bossRealAdmissions??={})[boss]=this.bossRealDay();};
+// The Liyue farming rematches (Tartaglia's artifacts, Azhdaha's crystals) follow the same real-day rule.
+const FARM_KEY=kind=>'FARM_'+kind,priorFarmReason=P.liyueArtifactFarmReason,priorFarmStart=P.startLiyueArtifactFarm;
+if(priorFarmReason&&priorFarmStart){
+ P.liyueArtifactFarmReason=function(kind){
+  const base=priorFarmReason.call(this,kind);if(base&&!/게임 내 48시간/.test(base))return base;
+  const now=this.bossRealNow(),today=this.bossRealDay(now);if(this.s.bossRealAdmissions?.[FARM_KEY(kind)]!==today)return '';
+  const left=Math.max(1,Math.ceil(((today+1)*DAY-KST-now)/60000));return '이 보스는 하루에 한 번(현실 시간, 한국 시간 자정에 초기화) 파밍 입장할 수 있습니다. '+Math.floor(left/60)+'시간 '+(left%60)+'분 남음.';
+ };
+ P.startLiyueArtifactFarm=function(kind){
+  const why=this.liyueArtifactFarmReason(kind);if(why)fail('LIYUE_FARM',why);
+  const cd=this.s.liyueArtifactFarm?.cooldowns;if(cd)cd[kind]=0; // the old in-game 48-hour record is no longer read
+  const out=priorFarmStart.call(this,kind);(this.s.bossRealAdmissions??={})[FARM_KEY(kind)]=this.bossRealDay();return out;
+ };
+}
+// A story retry restores a pre-battle snapshot; keep today's admissions instead of clearing them.
+P.apply=function(a){
+ if(a?.type!=='STORY_RETRY')return priorApply.call(this,a);
+ const keep={...(this.s.bossRealAdmissions||{})},out=priorApply.call(this,a);
+ if(Object.keys(keep).length){this.s.bossRealAdmissions??={};for(const [boss,day]of Object.entries(keep))this.s.bossRealAdmissions[boss]=Math.max(day,this.s.bossRealAdmissions[boss]??0);}
  return out;
 };
 })(globalThis);

@@ -34,12 +34,12 @@ function formationLine(p){
 const roleLabel=t=>window.CRPGRuntime?.formationConfig?.roles?.[t]?.label||t;
 function formationChoice(p){
   const v=game.formationView?.();if(!v)return;
-  const box=el('section','card formation-choice');box.append(el('h2','','진형'),el('p','muted','파티 전체가 어떤 진형으로 싸울지 고릅니다. 진형마다 장점과 약점이 있고, 동료 역할이 맞으면 시너지가 붙습니다.'));
+  const box=el('section','card formation-choice');box.append(el('h2','','진형'),el('p','muted formation-help','파티 전체의 진형입니다. 동료 역할이 진형과 맞으면 시너지가 붙습니다.'));
   const grid=el('div','formation-options');
   for(const f of v.formations){
     const why=game.actionReason('FORMATION_SET',{formation:f.id}),b=button('',()=>act('FORMATION_SET',{formation:f.id}),busy||f.selected||!!why);
     b.className='formation-option'+(f.selected?' selected':'');b.setAttribute('aria-pressed',String(f.selected));if(why)b.title=why;
-    b.append(el('strong','',f.name+(f.selected?' · 사용 중':'')),el('small','formation-motto',f.motto),el('span','formation-effect',f.text),el('small','formation-synergy'+(f.synergyActive?' on':''),(f.synergyActive?'시너지 발동 · ':'시너지 · ')+f.synergy.text));
+    b.append(el('strong','',f.name+(f.selected?' ✓':'')),el('span','formation-effect',f.text),el('small','formation-synergy'+(f.synergyActive?' on':''),(f.synergyActive?'발동 · ':'')+f.synergy.text));b.title=f.motto;
     grid.append(b);
   }
   box.append(grid);p.append(box);
@@ -48,7 +48,8 @@ function partyScreen(p){
   p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료와 진형, 전투 대열, 동료 역할을 정합니다. 장비는 장비 장착 메뉴에서 바꾸며, 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
   const owners=game.ownedActors(),reason=game.actionReason('PARTY');
   if(reason)p.append(el('p','phase-note','현재 장면에서는 편성을 확인만 할 수 있습니다. 변경은 장면을 마친 뒤 가능합니다.'));
-  formationChoice(p);formationLine(p);p.append(el('h2','','동료 편성'));
+  // v0.14.5: the party itself comes first; formation and battle line follow below it.
+  p.append(el('h2','','동료 편성'));
   const formation=el('div','formation-grid');
   for(let n=1;n<=4;n++){
     const member=game.s.party.find(x=>x.slot==='PARTY_'+n&&x.active),id=member?.source,c=el('section','formation-slot');
@@ -70,7 +71,7 @@ function partyScreen(p){
     }
     formation.append(c);
   }
-  p.append(formation,el('p','muted','편성에 넣은 동료는 개인 임무를 마쳤다면 전투에서 이길 때마다 호감도가 1점씩 오릅니다. 개인 임무를 처음 마칠 때 받는 10점은 한 번뿐입니다.'));
+  p.append(formation);formationChoice(p);formationLine(p);p.append(el('p','muted','편성에 넣은 동료는 개인 임무를 마쳤다면 전투에서 이길 때마다 호감도가 1점씩 오릅니다. 개인 임무를 처음 마칠 때 받는 10점은 한 번뿐입니다.'));
   p.append(actionButton('장비 장착으로','MENU',{screen:'STATUS'}));returnToJourney(p);
 }
 inventory=function(p){

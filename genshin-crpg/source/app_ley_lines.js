@@ -32,7 +32,7 @@ function leyRoute(){const v=game.currentPlace?.();const id=v?.valid&&v.entry?.ki
 const priorBoss=boss;
 boss=function(p,...args){
  priorBoss(p,...args);const id=leyRoute(),info=id&&game.leyLineRouteInfo?.(id);if(!info)return;
- for(const x of p.querySelectorAll('p'))if(/48시간/.test(x.textContent)){x.textContent='지맥의 꽃을 지키는 적과 싸웁니다. 단계를 고를 수 있고, 높은 단계일수록 적이 강한 대신 보상이 큽니다. 매시 정각에 꽃이 자리를 옮기며, '+info.name+' 보상은 단계와 관계없이 한 시간에 한 번 받습니다. 지면 이번 시간 안에 다시 도전할 수 있습니다.';break;}
+ for(const x of p.querySelectorAll('p'))if(/48시간|하루에 한 번\(현실 시간/.test(x.textContent)){x.textContent='지맥의 꽃을 지키는 적과 싸웁니다. 단계를 고를 수 있고, 높은 단계일수록 적이 강한 대신 보상이 큽니다. 매시 정각에 꽃이 자리를 옮기며, '+info.name+' 보상은 단계와 관계없이 한 시간에 한 번 받습니다. 지면 이번 시간 안에 다시 도전할 수 있습니다.';break;}
  // The single challenge button becomes one button per difficulty step.
  const single=[...p.querySelectorAll('button')].find(b=>b.textContent==='보스에게 도전'),note=single?.nextElementSibling?.classList.contains('choice-note')?single.nextElementSibling:null;
  const box=el('section','ley-line-info');box.setAttribute('aria-label','지맥의 꽃 단계');

@@ -13,10 +13,13 @@
   function tierRank(isEquipment, grade, acquisition, quality) {
     if (Number.isFinite(Number(quality)) && quality !== null && quality !== '') { const q = Number(quality); return q >= 970 ? 5 : q >= 850 ? 4 : q >= 650 ? 3 : q >= 400 ? 2 : 1; }
     if (isEquipment) {
+      // v0.14.5: the star grade decides first, as in the original game (3★ blue · 4★ purple · 5★ gold);
+      // only equipment without a grade falls back to its acquisition tier.
+      const byGrade = {'1성':1,'2성':2,'3성':3,'4성':4,'5성':5,'일반':1,'고급':2,'상급':2,'희귀':3,'영웅':4,'전설':5,'5성 성유물':5,'스토리 핵심':5}[grade];
+      if (byGrade) return byGrade;
       const m = /^T(\d)/.exec(String(acquisition || ''));
       if (m) return Math.max(1, Math.min(5, Number(m[1]) || 1));
-      if (/^EX/.test(String(acquisition || ''))) return 5;
-      return {'3성':1,'일반':1,'고급':2,'4성':3,'희귀':3,'영웅':4,'5성 성유물':4,'5성':5,'전설':5,'스토리 핵심':5}[grade] || 1;
+      return /^EX/.test(String(acquisition || '')) ? 5 : 1;
     }
     return {'일반':1,'통용':1,'특수':1,'고급':2,'희귀':3,'영웅':4,'전설':5}[grade] || 1;
   }

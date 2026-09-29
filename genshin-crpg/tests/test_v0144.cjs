@@ -120,5 +120,29 @@ check('screens: new scripts are wired in order and the UI shows the new rules',(
  assert(read('app_resonance.js').includes('portraitFor(profile,7)||portraitFor(profile,1)'),'motion art with the default image as fallback');
 });
 
+// ---- 0.14.5 ----
+check('0.14.5 two-day bosses open once per real day (Korean midnight), win or lose',()=>{
+ const cfg=api.enhancementConfig.bosses,r=fixture(16,TEAM,9),c0=cfg.BOSS_ANDRIUS,row=r.row('35_BOSS_ROUTE_DB',c0.route);r.s.flags[row[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});
+ const noonKst=Date.UTC(2026,8,29,3,0,0);r.actionStartedAt=noonKst;assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'');
+ r.action('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_ANDRIUS'});const b=r.s.runtime;for(const a of b.actors.filter(x=>x.side==='ALLY'))a.hp=0;r.finishBattle(false);
+ r.actionStartedAt=noonKst+11*3600000;assert.match(r.bossAdmission('BOSS_ANDRIUS').reason,/하루에 한 번.*1시간/,'a defeat still used the day');
+ assert.equal(r.bossAdmission('BOSS_DVALIN').reason,'','each boss has its own day');
+ r.actionStartedAt=noonKst+12*3600000+60000;assert.equal(r.bossAdmission('BOSS_ANDRIUS').reason,'','a new day after midnight');
+ const bad=JSON.parse(r.serialize());bad.bossRealAdmissions={BOSS_NOPE:1};assert.throws(()=>new api.Runtime(require(path.join(root,'content/db.json')),bad),/보스 입장 기록/);
+});
+check('0.14.5 equipment tiers follow the star grade (3★ blue, 4★ purple, 5★ gold)',()=>{
+ const P=require(path.join(root,'source/inventory_presenter.js'));
+ assert.deepEqual([P.tierRank(true,'3성','T1 일반'),P.tierRank(true,'4성','T2 고급'),P.tierRank(true,'5성','T3 보스 소재'),P.tierRank(true,'','T2 제작'),P.tierRank(true,'영웅','T4 영웅')],[3,4,5,2,4]);
+});
+check('0.14.5 the Baron Bunny never acts; its explosion is labelled as one',()=>{
+ const r=fixture(12,TEAM,7);r.startBattle('EG_LEY_MOND_PLAINS','EXPLICIT');if(r.s.runtime.opening)r.action('COMBAT_BEGIN',{battle:r.s.runtime.id});const b=r.s.runtime,amber=b.actors.find(a=>a.source==='MOND_AMBER');
+ r.executeCard(amber,r.cardDefinition(r.row('08_SKILL_CARD_DB','MOND_AMBER_E')));const bunny=b.fields.find(f=>f.kind==='BUNNY');assert(bunny);
+ assert.equal(r.actorCards(amber).some(x=>x.id==='MOND_AMBER_Q'),true);assert(!b.actors.some(a=>/BUNNY/.test(a.id)),'the bunny is a field, not an actor that takes turns');
+ const start=b.log.length;r.explodeBunny(bunny);const blast=b.log.slice(start).filter(e=>Object.hasOwn(e,'damage'));assert(blast.length&&blast.every(e=>e.cardName==='폭발'&&e.presentationActorName==='토끼 백작'));
+});
+check('0.14.5 the party screen shows the party first, then formation and battle line',()=>{
+ const src=fs.readFileSync(path.join(root,'source/app_party.js'),'utf8');assert(src.includes("p.append(formation);formationChoice(p);formationLine(p);"));assert(!src.includes("formationChoice(p);formationLine(p);p.append(el('h2','','동료 편성'))"));
+});
+
 fs.mkdirSync(path.join(root,'reports/v0144'),{recursive:true});fs.writeFileSync(path.join(root,'reports/v0144/checks.json'),JSON.stringify({version:'0.14.4',results},null,2)+'\n');
 console.log(JSON.stringify({total:results.length,passed:results.filter(x=>x.ok).length}));
