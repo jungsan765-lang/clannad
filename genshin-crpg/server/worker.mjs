@@ -13,14 +13,14 @@ function compact(state){state.log=state.log.slice(-240);const ids=Object.keys(st
 const backupStores=new WeakMap();
 let hotAction=null;
 function takeActionCache(tokenHash,revision,requestId){
- const hit=hotAction&&hotAction.tokenHash===tokenHash&&hotAction.expiresAt>now()?hotAction:null;
+ const hit=hotAction&&hotAction.tokenHash===tokenHash&&hotAction.validUntil>now()?hotAction:null;
  if(!hit)return null;
  if(hit.replay&&hit.replay.requestId===requestId&&hit.replay.revision===revision)return {replay:hit.replay};
  if(!hit.row||hit.row.revision!==revision)return null;
  hotAction=null;
  return {account:hit.account,row:hit.row,runtime:hit.runtime||null,expiresAt:hit.expiresAt};
 }
-function rememberActionCache(account,tokenHash,expiresAt,row,runtime,replay=null){hotAction={account,tokenHash,expiresAt,row,runtime,replay};}
+function rememberActionCache(account,tokenHash,expiresAt,row,runtime,replay=null){const validUntil=Math.min(Number(expiresAt||0),now()+30000);hotAction={account,tokenHash,expiresAt,validUntil,row,runtime,replay};}
 function forgetRuntime(accountId){if(!accountId||hotAction?.account?.id===accountId)hotAction=null;}
 async function ensureBackups(db){
  if(!backupStores.has(db))backupStores.set(db,db.prepare('CREATE TABLE IF NOT EXISTS game_backups(account_id TEXT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,revision INTEGER NOT NULL,state TEXT NOT NULL,engine_version TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,revision))').run().catch(e=>{backupStores.delete(db);throw e;}));
