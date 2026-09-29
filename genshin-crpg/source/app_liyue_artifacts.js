@@ -17,7 +17,7 @@ function farmCard(kind){
  if(reason)card.append(el('p','choice-note',reason));return card;
 }
 const oldLocation=drawLocation;drawLocation=function(p,v){oldLocation(p,v);if(!game)return;if(game.s.global.CURRENT_MAP_ID==='MAP_LIYUE_GOLDEN_HOUSE')p.append(farmCard('TARTAGLIA'));if(game.s.global.CURRENT_MAP_ID==='MAP_AZHDAHA_DOMAIN')p.append(farmCard('AZHDAHA'));};
-function costLine(box,q){const line=el('p','enhance-cost');line.append(document.createTextNode('필요 비용 · '+q.cost.mora.toLocaleString()+' 모라 · '+safeName('14_ITEM_DB',cfg.material)+' ×'+q.cost.items[cfg.material]+' (보유 '+game.itemCount(cfg.material)+')'));box.append(line);}
+function costLine(box,q){const line=el('p','enhance-cost'+(Number(game.s.global.MORA)<q.cost.mora||game.itemCount(cfg.material)<q.cost.items[cfg.material]?' lack':''));line.append(document.createTextNode('필요 비용 · '+q.cost.mora.toLocaleString()+' 모라 · '+safeName('14_ITEM_DB',cfg.material)+' ×'+q.cost.items[cfg.material]+' (보유 '+game.itemCount(cfg.material)+')'));box.append(line);}
 function openArtifactConfirm(slot){
  const inv=game.artifactInstance(slot),q=game.artifactEnhancementQuote(slot);if(!inv||q.maxed)return;const a=inv.artifact,args={slot:q.slot,expectedLevel:q.level,instanceRevision:q.instanceRevision},box=el('div','enhance-confirm artifact-confirm');
  box.append(el('h2','',game.row('16_EQUIP_DB',inv.equip)[1]+' · '+a.grade+' +'+q.level+' → +'+q.target),el('p','','성공률 '+pct(q.successBp)+'. 실패해도 성유물은 파괴되거나 강화도가 내려가지 않지만 재료와 모라는 소비됩니다.'),el('p','muted','현재 · '+statText(game.artifactStats(inv,q.level))),el('p','muted','성공 후 · '+statText(game.artifactStats(inv,q.target))));costLine(box,q);

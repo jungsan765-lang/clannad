@@ -8,19 +8,21 @@ function fixture(level=15,team=['MOND_DILUC','MOND_NOELLE','MOND_JEAN'],enh=6,ro
    levels, enhancement and artifacts; floors 8+ need the room's specific approach (gear swaps between rooms). */
 const HEAL=['FOOD_SWEET_MADAME','FOOD_HASH_BROWN','FOOD_MATSUTAKE_ROLL','FOOD_SNEZ_ZHARKOYE'];
 const SETUPS={
- 1:{lv:10,enh:7,team:['MOND_AMBER','MOND_KLEE','MOND_MONA']},
- 2:{lv:12,enh:7,team:['MOND_FISCHL','LIYUE_XINGQIU','MOND_DIONA']},
- 3:{lv:15,enh:7,team:['LIYUE_XIANGLING','MOND_NOELLE','MOND_LISA']},
- 4:{lv:18,enh:9,art:1,team:['LIYUE_GAMING','LIYUE_YUNJIN','MOND_ROSARIA'],food:{2:{ALL:'FOOD_JADE_PARCELS'}}},
- 5:{lv:19,enh:9,art:1,team:['MOND_VENTI','LIYUE_CHONGYUN','LIYUE_YAOYAO'],gear:{ALL:['EQ_LY_ACC_STARGAZER',6]}},
- 6:{lv:20,enh:10,art:1,team:['MOND_EULA','LIYUE_XIAO','LIYUE_BAIZHU'],food:{3:{ALL:'FOOD_ADEPTUS_TEMPTATION'}}},
- 7:{lv:20,enh:10,art:1,team:['LIYUE_YANFEI','MOND_MIKA','LIYUE_BEIDOU'],food:{2:{PLAYER_CUSTOM:'FOOD_ALMOND_TOFU'}}},
- 8:{lv:20,enh:10,art:1,team:['MOND_RAZOR','LIYUE_TARTAGLIA','LIYUE_XIANYUN'],gear:{ALL:['EQ_LY_SPECIAL_LEYLINE_STAKE',10]},swapBack:3,food:{3:{ALL:'FOOD_PILE_EM_UP'}}},
- 9:{lv:20,enh:10,art:1,team:['MOND_DAHLIA','LIYUE_XINYAN','LIYUE_LANYAN'],gear:{ALL:['EQ_ACC_STEADFAST',9]},swapAcc:{2:['EQ_LY_ACC_STARGAZER',0],3:['EQ_ACC_STEADFAST',9]}},
- 10:{lv:20,enh:12,art:1,team:['LIYUE_YELAN','LIYUE_KEQING','MOND_SUCROSE'],gear:{ALL:['EQ_LY_ACC_STARGAZER',10]}},
- 11:{lv:20,enh:12,art:1,team:['LIYUE_HUTAO','LIYUE_GANYU','LIYUE_NINGGUANG'],gear:{ALL:['EQ_LY_ACC_QINGXIN_SACHET',10]}},
- 12:{lv:20,enh:12,art:1,mastery:1,team:['MOND_DILUC','MOND_JEAN','LIYUE_ZHONGLI']}
+ 1:{lv:10,enh:7,team:['MOND_AMBER','MOND_KLEE','MOND_ALBEDO'],formation:'LINE_AHEAD',roles:['공격우선','공격우선','균형']},
+ 2:{lv:12,enh:7,team:['MOND_FISCHL','LIYUE_XINGQIU','MOND_DIONA'],formation:'DOUBLE_LINE',roles:['균형','연계우선','지원우선']},
+ 3:{lv:15,enh:7,team:['LIYUE_XIANGLING','MOND_NOELLE','MOND_LISA'],formation:'DOUBLE_LINE',roles:['연계우선','균형','연계우선']},
+ 4:{ex:1,lv:18,enh:9,art:1,team:['LIYUE_GAMING','LIYUE_YUNJIN','MOND_ROSARIA'],formation:'LINE_AHEAD',roles:['공격우선','균형','공격우선'],food:{2:{ALL:'FOOD_JADE_PARCELS'}}},
+ 5:{ex:1,lv:19,enh:9,art:1,team:['MOND_VENTI','LIYUE_CHONGYUN','LIYUE_YAOYAO'],formation:'DOUBLE_LINE',roles:['연계우선','균형','지원우선'],gear:{ALL:['EQ_LY_ACC_STARGAZER',6]}},
+ 6:{ex:1,lv:20,enh:10,art:1,team:['MOND_EULA','LIYUE_XIAO','LIYUE_BAIZHU'],formation:'DIAMOND',roles:['균형','공격우선','지원우선'],food:{3:{ALL:'FOOD_ADEPTUS_TEMPTATION'}}},
+ 7:{ex:1,lv:20,enh:10,art:1,team:['LIYUE_YANFEI','MOND_MIKA','LIYUE_BEIDOU'],formation:'DOUBLE_LINE',roles:['연계우선','균형','공격우선'],food:{2:{PLAYER_CUSTOM:'FOOD_ALMOND_TOFU'}}},
+ 8:{ex:1,lv:20,enh:10,art:1,team:['MOND_RAZOR','LIYUE_TARTAGLIA','LIYUE_XIANYUN'],formation:'DOUBLE_LINE',roles:['연계우선','연계우선','균형'],gear:{ALL:['EQ_LY_SPECIAL_LEYLINE_STAKE',10]},swapBack:3,food:{3:{ALL:'FOOD_PILE_EM_UP'}}},
+ 9:{ex:1,lv:20,enh:10,art:1,team:['MOND_DAHLIA','LIYUE_XINYAN','LIYUE_LANYAN'],formation:'DOUBLE_LINE',roles:['지원우선','균형','지원우선'],gear:{ALL:['EQ_ACC_STEADFAST',9]},swapAcc:{2:['EQ_LY_ACC_STARGAZER',0],3:['EQ_ACC_STEADFAST',9]},hitArtifacts:2,swapBack:3},
+ 10:{ex:1,lv:20,enh:12,art:1,team:['MOND_MONA','LIYUE_KEQING','MOND_SUCROSE'],formation:'DOUBLE_LINE',roles:['연계우선','공격우선','연계우선'],gear:{ALL:['EQ_LY_ACC_STARGAZER',10]}},
+ 11:{ex:1,lv:20,enh:12,art:1,team:['LIYUE_HUTAO','LIYUE_GANYU','LIYUE_NINGGUANG'],formation:'LINE_AHEAD',roles:['공격우선','공격우선','균형'],gear:{ALL:['EQ_LY_ACC_QINGXIN_SACHET',10]}},
+ 12:{lv:20,enh:12,art:1,mastery:1,team:['MOND_DILUC','MOND_JEAN','LIYUE_ZHONGLI'],formation:'DOUBLE_LINE',roles:['연계우선','공격우선','지원우선']}
 };
+// The artifact with the most accuracy out of many natural rolls, enhanced to +5 (for fog rooms).
+function hitArtifact(r,id){let best=null,score=-1;for(let n=0;n<900;n++){const d=r.rollArtifact(),i=r.artifactInstance(d.slot);i.artifact.level=5;const h=r.artifactStats(i).HIT||0;if(h>score){if(best)r.s.inventory=r.s.inventory.filter(x=>x!==best);best=i;score=h;}else r.s.inventory=r.s.inventory.filter(x=>x!==i);}r.action('EQUIP',{slot:best.slot,owner:id});return score;}
 const hpOf=(r,id)=>id==='PLAYER_CUSTOM'?[r.s.global.PLAYER_HP_CURRENT,r.s.global.PLAYER_HP_MAX]:[r.s.chars[id].hp,r.character(id).maxHp];
 /* Eat heal dishes (never the same one twice in a row) until 75% HP, then the room's buff dish. */
 function eat(r,extra={}){
@@ -33,11 +35,16 @@ function buildSetup(f,o={}){
  const s={...SETUPS[f],...o},r=fixture(s.lv,s.team,s.enh),ids=r.abyssParty();
  if(s.art)artifacts(r,ids);
  const arts=Object.fromEntries(ids.map(id=>[id,r.s.inventory.find(i=>i.equipped&&i.owner===id&&i.artifact)?.slot]).filter(x=>x[1]));
+ // v0.14.4: from floor 4 the companions hold their exclusive weapons (the late-game reference).
+ if(s.ex&&!s.mastery)for(const id of ids.slice(1))equip(r,id,'EQ_EX_'+id,s.enh);
  if(s.mastery){equip(r,'PLAYER_CUSTOM','EQ_CLAYMORE_ARCHAIC');for(const id of ids.slice(1))equip(r,id,'EQ_EX_'+id);}
  for(const [who,[g,enh]] of Object.entries(s.gear||{}))for(const id of who==='ALL'?ids:[who])equip(r,id,g,enh);
+ if(s.formation)r.action('FORMATION_SET',{formation:s.formation});
+ (s.roles||[]).forEach((t,i)=>{if(t&&ids[i+1])r.action('PARTY_TACTIC',{slot:i+2,tactic:t});});
  const kept={};
  const breakHook=(ch,r)=>{
   if(s.swapBack===ch)for(const [id,slot] of Object.entries(arts))r.action('EQUIP',{slot,owner:id});
+  if(s.hitArtifacts===ch)for(const id of r.abyssParty())hitArtifact(r,id);
   const want=s.swapAcc?.[ch];if(want)for(const id of r.abyssParty()){const key=id+':'+want[0];let slot=kept[key];if(!slot){slot=r.giveEquipment(want[0]);const i=r.s.inventory.find(x=>x.slot===slot);i.enhance=want[1];i.enhancementCap=12;kept[key]=slot;}r.action('EQUIP',{slot,owner:id});}
  };
  r.action('OPERATOR_DEBUG',{op:'heal'});return {r,s,breakHook};

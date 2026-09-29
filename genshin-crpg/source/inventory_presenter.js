@@ -8,6 +8,18 @@
     ['CRIT','치명타 확률','치확%','%'],['CRIT_DMG','치명타 피해','치피%','%'],
     ['SPD','속도','SPD 보정',''],['HIT','명중','명중 보정',''],['EVA','회피','회피 보정',''],['STATUS_RESIST','상태 저항','상태저항 보정','']
   ];
+  // 0.14.4 tiers: 일반 white, 상급 green, 희귀 blue, 영웅 purple, 전설 gold.
+  const TIER_LABELS = ['', '일반', '상급', '희귀', '영웅', '전설'];
+  function tierRank(isEquipment, grade, acquisition, quality) {
+    if (Number.isFinite(Number(quality)) && quality !== null && quality !== '') { const q = Number(quality); return q >= 970 ? 5 : q >= 850 ? 4 : q >= 650 ? 3 : q >= 400 ? 2 : 1; }
+    if (isEquipment) {
+      const m = /^T(\d)/.exec(String(acquisition || ''));
+      if (m) return Math.max(1, Math.min(5, Number(m[1]) || 1));
+      if (/^EX/.test(String(acquisition || ''))) return 5;
+      return {'3성':1,'일반':1,'고급':2,'4성':3,'희귀':3,'영웅':4,'5성 성유물':4,'5성':5,'전설':5,'스토리 핵심':5}[grade] || 1;
+    }
+    return {'일반':1,'통용':1,'특수':1,'고급':2,'희귀':3,'영웅':4,'전설':5}[grade] || 1;
+  }
   const EXP_IDS = new Set(['MAT_CHAR_EXP_WANDERER','MAT_CHAR_EXP_ADVENTURER','MAT_CHAR_EXP_HERO']);
   const MEDICINE_IDS = new Set(['TRPG_BANDAGE','TRPG_MEDKIT','TRPG_HEALING_POTION']);
   const clone = value => value == null ? value : JSON.parse(JSON.stringify(value));
@@ -28,6 +40,27 @@
       return (root.CRPGText?root.CRPGText.readable(value,{resolve:id=>statuses.get(id)?.['이름']}):text(value)).replace(/\bATK\b/g,'공격력').replace(/\bDEF\b/g,'방어력').replace(/ROUND\(MAX_HP[×*]([\d.]+)\)/g,(_,n)=>'최대 HP의 '+Math.round(Number(n)*100)+'%').replace(/\{[^{}]*\}/g,raw=>{try{return Object.entries(JSON.parse(raw)).map(([key,n])=>(statNames[key]||'추가 효과')+' '+(Number(n)>0?'+':'')+n).join(' · ');}catch{return raw;}}).replace(/STATUS_[A-Z0-9_]+/g,id=>statuses.get(id)?.['이름']||'상태 효과').replace(/\bMAX_HP\b/g,'최대 HP').replace(/\bCHAR_ID\b/g,'캐릭터').replace(/\bXP\b/g,'경험치');
     }
     const displayFields=pairs=>fields(pairs).map(f=>({...f,value:readable(f.value)}));
+    const pct=n=>Math.round(n*100)+'%';
+    function effectLine(key,n,o={}){
+      const t={wet_cryo_damage_bonus:'물/얼음 부착 대상에게 주는 피해 +'+pct(n),wet_pyro_damage_bonus:'물/불 부착 대상에게 주는 피해 +'+pct(n),on_kill_heal_flat:'적 처치 후 HP '+n+' 회복',after_skill_next_normal_bonus:'스킬 사용 후 다음 일반 공격 피해 +'+pct(n),normal_damage_bonus:'일반 공격 피해 +'+pct(n),first_hit_damage_bonus:'전투 첫 적중 피해 +'+pct(n),close_shot_damage_bonus:'근거리 사격 피해 +'+pct(n),exposed_weakpoint_damage_bonus:'약점/노출 부위 공격 피해 +'+pct(n),received_heal_bonus:'받는 회복량 +'+pct(n),skill_damage_bonus:'스킬 피해 +'+pct(n),normal_charged_damage_bonus:'일반·차지 공격 피해 +'+pct(n),normal_charged_damage_bonus_when_all_e_q_ready:'모든 스킬을 쓸 수 있을 때 일반·차지 공격 피해 +'+pct(n),on_skill_hit_q_cooldown_reduce:'스킬 적중 시 궁극기 재사용 대기시간 '+n+'라운드 감소'+(o.once_per_battle?' · 전투당 1회':''),on_hit_atk_def_per_stack:'공격 적중마다 공격력·방어력 +'+pct(n)+' · 최대 '+o.stack_cap+'중첩 · '+o.duration_rounds+'라운드',consecutive_hit_atk_per_stack:'연속 적중마다 공격력 +'+pct(n)+' · 최대 '+o.stack_cap+'중첩 · '+o.duration_rounds+'라운드'}[key];
+      return t||null;
+    }
+    // Old milestone shorthand ("치확 +1%p", "Q 사용 후 다음 E 명중 +2(1R)") in plain words.
+    const milestoneWords=value=>readable(value).replace(/치확/g,'치명타 확률').replace(/치피/g,'치명타 피해').replace(/\bSPD\b/g,'속도').replace(/\bQ\b/g,'궁극기').replace(/\bE\b/g,'스킬').replace(/\((\d+)R\)/g,'($1라운드)').replace(/\s*추가\.?\s*고유효과 변경 없음\.?/g,'').replace(/\s*추가\s*$/,'').replace(/\s*마일스톤\s*$/,'').trim();
+    function growthDescription(record,profile){
+      const lines=[],legacy=profile.legacy_profile||profile;
+      if(profile.schema===2){lines.push('강화 1단계마다 기본 공격력·방어력·최대 HP +5% (+10이면 +50%)');if(Number(profile.ascended_limit)===12)lines.push('한계 돌파 뒤 +11은 +65%, +12는 +80%');}
+      const steps=[];
+      if(legacy.legacy_exact_milestones)for(const part of String(legacy.legacy_exact_milestones).split(/\s*\/\s*/)){const m=/^\+(\d+)\s+(.+)$/.exec(part.trim());if(m&&milestoneWords(m[2]))steps.push('+'+m[1]+' · '+milestoneWords(m[2]));}
+      else for(const [level,ms]of Object.entries(legacy.milestones||{}).sort((a,b)=>Number(a[0])-Number(b[0]))){
+        if(profile.schema===2&&legacy===profile)break; // schema 2 milestones are the percent growth above
+        const parts=[];for(const [k,v]of Object.entries(ms.stats_add||{}))parts.push((statNames[k]||k)+' +'+v);
+        const o=ms.effect_override||{};for(const [k,v]of Object.entries(o)){const line=effectLine(k,v,o);if(line)parts.push(line);}
+        if(parts.length)steps.push('+'+level+' · '+parts.join(', '));
+      }
+      if(!lines.length&&!steps.length)for(const part of String(record['강화 성장']||'').split(/\s*\/\s*/)){const m=/^\+(\d+)\s+(.+)$/.exec(part.trim());if(m&&milestoneWords(m[2]))steps.push('+'+m[1]+' · '+milestoneWords(m[2]));}
+      return [...lines,...steps].join('\n');
+    }
     const assetRows = table(db,'03_IMAGE'), deployed = manifest.assets || {};
     function iconFor(record, isEquipment) {
       const catalog=manifest.itemIcons,recordId=record.ITEM_ID||record.EQUIP_ID,exact=catalog?.icons?.[recordId];
@@ -73,6 +106,8 @@
         effect:readable(record[isEquipment ? '고유 효과' : '효과']), icon:iconFor(record,isEquipment),
         actionHint:actionHint(id,record,isEquipment)
       });
+      const rank = tierRank(isEquipment, text(record['등급']), record['획득 티어'], instance.artifact ? instance.artifact.quality : null);
+      base.tier = {rank, label:TIER_LABELS[rank]};
       if (!isEquipment) {
         const heal = numeric(record['회복량']);
         base.heal = heal === null ? null : variant === 'BARBARA_SPECIAL' ? heal * 11 / 10 : heal;
@@ -113,18 +148,18 @@
       }).filter(stat => stat.value !== null && (stat.value !== 0 || stat.enhancement !== 0));
       base.enhancement = {
         allowed:yes(record.ENHANCE_ALLOWED), limit:numeric(record.ENHANCE_LIMIT), reason:text(record.NO_ENHANCE_REASON),
-        growthText:readable(record['강화 성장']), appliedMilestones, statsAdd:clone(additions), effectOverrides:clone(overrides),
+        growthText:growthDescription(record,profile), appliedMilestones, statsAdd:clone(additions), effectOverrides:clone(overrides),
         requiresEffectHandler:profile.requires_effect_handler === true
       };
-      const pct=n=>Math.round(n*100)+'%',effectLines=[];
-      const effectNames={wet_cryo_damage_bonus:n=>'물/얼음 부착 대상에게 주는 피해 +'+pct(n),wet_pyro_damage_bonus:n=>'물/불 부착 대상에게 주는 피해 +'+pct(n),on_kill_heal_flat:n=>'적 처치 후 HP '+n+' 회복',after_skill_next_normal_bonus:n=>'스킬 사용 후 다음 일반 공격 피해 +'+pct(n),normal_damage_bonus:n=>'일반 공격 피해 +'+pct(n),first_hit_damage_bonus:n=>'전투 첫 적중 피해 +'+pct(n),close_shot_damage_bonus:n=>'근거리 사격 피해 +'+pct(n),exposed_weakpoint_damage_bonus:n=>'약점/노출 부위 공격 피해 +'+pct(n),received_heal_bonus:n=>'받는 회복량 +'+pct(n),skill_damage_bonus:n=>'스킬 피해 +'+pct(n),normal_charged_damage_bonus:n=>'일반·차지 공격 피해 +'+pct(n),normal_charged_damage_bonus_when_all_e_q_ready:n=>'모든 스킬을 사용할 수 있을 때 일반·차지 공격 피해 +'+pct(n),on_skill_hit_q_cooldown_reduce:n=>'스킬 적중 시 궁극기 재사용 대기시간 '+n+'라운드 감소'+(overrides.once_per_battle?' · 전투당 1회':''),on_hit_atk_def_per_stack:n=>'공격 적중마다 공격력·방어력 +'+pct(n)+' · 최대 '+overrides.stack_cap+'중첩 · '+overrides.duration_rounds+'라운드',consecutive_hit_atk_per_stack:n=>'연속 적중마다 공격력 +'+pct(n)+' · 최대 '+overrides.stack_cap+'중첩 · '+overrides.duration_rounds+'라운드'};
-      for(const [key,n]of Object.entries(overrides))if(effectNames[key])effectLines.push(effectNames[key](n));
+      const effectLines=[];
+      for(const [key,n]of Object.entries(overrides)){const line=effectLine(key,n,overrides);if(line)effectLines.push(line);}
       if(effectLines.length){if(id==='EQ_BOW_RUST')effectLines.push(base.effect);if(id==='EQ_ACC_VITAL_RING')effectLines.push('전투 종료·이동·시간 경과만으로 HP가 회복되지는 않습니다.');base.effect=effectLines.join('\n');}
       base.fields = displayFields([
         ['장착 가능 대상',record['장착 가능 대상']],['보조 스탯',record['기타 보조 스탯']],
-        ['기본 고유 효과',record['고유 효과']],['강화 성장',record['강화 성장']],['최소 레벨',record['최소 레벨']],
+        ['기본 고유 효과',record['고유 효과']],['최소 레벨',record['최소 레벨']],
         ['전용 대상',record['전용 대상']],['사거리 보정',record['사거리 보정']],['획득처',record['획득처/조건']],['판매가',record['판매가']]
       ]);
+      if(base.enhancement.growthText)base.fields.splice(3,0,{label:'강화 성장',value:base.enhancement.growthText});
       return base;
     }
     function inventoryEntries(state) {
@@ -149,7 +184,7 @@
     }
     return {itemDetail,inventoryEntries};
   }
-  const api = {create,GROUPS:GROUPS.slice(),WEAPON_ICONS:{...WEAPON_ICONS},itemDetail:(db,instance,options={}) => create(db,options.manifest).itemDetail(instance,options)};
+  const api = {create,GROUPS:GROUPS.slice(),WEAPON_ICONS:{...WEAPON_ICONS},TIER_LABELS:TIER_LABELS.slice(),tierRank,itemDetail:(db,instance,options={}) => create(db,options.manifest).itemDetail(instance,options)};
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.CRPGInventoryPresenter = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

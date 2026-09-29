@@ -30,11 +30,25 @@ function formationLine(p){
   });
   box.append(list);if(locked)box.append(el('small','choice-note',locked));p.append(box);
 }
+// v0.14.4: a party-wide 진형 chosen before battle, with roles that can trigger its synergy.
+const roleLabel=t=>window.CRPGRuntime?.formationConfig?.roles?.[t]?.label||t;
+function formationChoice(p){
+  const v=game.formationView?.();if(!v)return;
+  const box=el('section','card formation-choice');box.append(el('h2','','진형'),el('p','muted','파티 전체가 어떤 진형으로 싸울지 고릅니다. 진형마다 장점과 약점이 있고, 동료 역할이 맞으면 시너지가 붙습니다.'));
+  const grid=el('div','formation-options');
+  for(const f of v.formations){
+    const why=game.actionReason('FORMATION_SET',{formation:f.id}),b=button('',()=>act('FORMATION_SET',{formation:f.id}),busy||f.selected||!!why);
+    b.className='formation-option'+(f.selected?' selected':'');b.setAttribute('aria-pressed',String(f.selected));if(why)b.title=why;
+    b.append(el('strong','',f.name+(f.selected?' · 사용 중':'')),el('small','formation-motto',f.motto),el('span','formation-effect',f.text),el('small','formation-synergy'+(f.synergyActive?' on':''),(f.synergyActive?'시너지 발동 · ':'시너지 · ')+f.synergy.text));
+    grid.append(b);
+  }
+  box.append(grid);p.append(box);
+}
 function partyScreen(p){
-  p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료, 전투 대열, 행동 방침을 정합니다. 장비는 장비 장착 메뉴에서 바꾸며, 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
+  p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료와 진형, 전투 대열, 동료 역할을 정합니다. 장비는 장비 장착 메뉴에서 바꾸며, 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
   const owners=game.ownedActors(),reason=game.actionReason('PARTY');
   if(reason)p.append(el('p','phase-note','현재 장면에서는 편성을 확인만 할 수 있습니다. 변경은 장면을 마친 뒤 가능합니다.'));
-  formationLine(p);p.append(el('h2','','동료 편성'));
+  formationChoice(p);formationLine(p);p.append(el('h2','','동료 편성'));
   const formation=el('div','formation-grid');
   for(let n=1;n<=4;n++){
     const member=game.s.party.find(x=>x.slot==='PARTY_'+n&&x.active),id=member?.source,c=el('section','formation-slot');
@@ -46,7 +60,10 @@ function partyScreen(p){
       for(const owner of owners.filter(x=>x.id!=='PLAYER_CUSTOM'&&(!x.active||x.id===id)))select.append(new Option(owner.name,owner.id));select.value=id||'';
       select.onchange=()=>{if(!select.value)return;const go=()=>act(id?'PARTY_REPLACE':'PARTY',{char:select.value,slot:n});if(id&&select.value!==id)confirmPartyRemoval(id,go);else go();};controls.append(select);
       if(id){
-        const tactic=el('select');tactic.setAttribute('aria-label',ownerName(id)+' 행동 방침');for(const t of game.partyTactics())tactic.append(new Option(t,t));tactic.value=member.tactic;tactic.onchange=()=>act('PARTY_TACTIC',{slot:n,tactic:tactic.value});controls.append(tactic);
+        const tactic=el('select');tactic.setAttribute('aria-label',ownerName(id)+' 역할');for(const t of game.partyTactics())tactic.append(new Option(roleLabel(t),t));tactic.value=member.tactic;tactic.onchange=()=>act('PARTY_TACTIC',{slot:n,tactic:tactic.value});controls.append(tactic);
+        const effect=window.CRPGRuntime?.formationConfig?.roles?.[member.tactic||'균형']?.text;if(effect)controls.append(el('small','role-effect',effect));
+        // v0.14.4: how often this companion's E/Q come back, and the awakening chance with the exclusive weapon.
+        const rhythm=game.skillRhythm?.(id);if(rhythm){const ch=game.resonanceChance?.(id)||0;controls.append(el('small','skill-rhythm','원소전투 스킬 '+rhythm.e+'차례 · 원소폭발 '+rhythm.q+'차례마다'+(ch?' · 공명 각성 '+Math.round(ch*100)+'%':'')));}
         controls.append(button('편성 해제',()=>confirmPartyRemoval(id,()=>act('PARTY_REMOVE',{slot:n})),busy||!!game.actionReason('PARTY_REMOVE',{slot:n})));
       }
       lockControls(controls,reason);c.append(controls);

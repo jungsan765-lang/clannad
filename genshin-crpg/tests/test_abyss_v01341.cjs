@@ -4,10 +4,13 @@ const assert=require('node:assert/strict'),{fresh,R,db,fs,root,c}=require('./hel
 const {fixture,runFloor,buildSetup,SETUPS,fight,hpOf}=require('./helpers_abyss.cjs'),{artifacts}=require('./helpers_abyss_artifacts.cjs');
 const CFG=c.CRPGRuntime.abyssConfig,report=[],plain=x=>JSON.parse(JSON.stringify(x));
 assert.equal(CFG.version,2);assert.equal(CFG.markName,'나선 각인');assert.equal(CFG.floors.length,12);
-assert(CFG.floors.every(f=>f.rooms.length===3&&f.rooms.every(r=>r.name&&r.hint&&r.limit>=12&&r.foes.length)),'every floor has three described rooms');
+assert(CFG.floors.every(f=>f.rooms.length===3&&f.rooms.every(r=>r.name&&r.hint&&r.limit>=10&&r.foes.length)),'every floor has three described rooms');
+// Room text shows the scene, never the answer.
+for(const f of CFG.floors)for(const room of f.rooms)assert.doesNotMatch(room.hint,/세요|필요|먹고|먹은|요리|장비|치명타|고정 피해|원거리|명중|보호막을|쓰러뜨|피해가 들어|통합니다|관측경|말뚝/,room.name);
 assert(!JSON.stringify(CFG).includes('딱지'),'the floor mark has its own name');
 assert.throws(()=>fixture(6).action('ABYSS_ENTER',{floor:1}),/Lv\. 10/);
 assert.throws(()=>fresh().action('ABYSS_ENTER',{floor:1}),/머스크 암초/);
+{const r=fixture(19);r.action('OPERATOR_DEBUG',{op:'abyss_unlock',value:10});assert.match(r.abyssFloorReason(10),/Lv\. 20/);assert.equal(r.abyssFloorReason(9),'');}
 
 // Every floor is solvable through native combat with its reference party, and each clear marks the companions.
 for(let f=1;f<=12;f++){
@@ -91,7 +94,7 @@ const pair=r=>{const b=r.s.runtime;return [b.actors.find(x=>x.side==='ALLY'&&x.s
  r.applyDamage(a,t,100,{sourceKind:'ABYSS_FIXED'});assert.equal(t.hp,hp-100);r.applyDamage(a,t,50,{sourceKind:'REACTION_DOT'});assert.equal(t.hp,hp-150);
 }
 { // 4-2: only allies who ate an attack dish get through.
- const r=enter(4,2),[a,t]=pair(r),hp=t.hp;r.applyDamage(a,t,300,{});assert.equal(t.hp,hp);
+ const r=enter(4,2),[a,t]=pair(r),hp=t.hp;r.applyDamage(a,t,300,{});assert.equal(t.hp,hp);assert.equal(r.s.runtime.log.at(-1).text,'무적입니다.','no hint about the missing condition');
  a.statuses.push({id:'STATUS_FOOD_ATK',rounds:null,sourceItem:'FOOD_JADE_PARCELS'});r.applyDamage(a,t,300,{});assert(t.hp<hp);
 }
 { // 7-2: the phantom appears only if someone ate Adeptus' Temptation or almond tofu.
@@ -101,8 +104,8 @@ const pair=r=>{const b=r.s.runtime;return [b.actors.find(x=>x.side==='ALLY'&&x.s
 { // 8-3: only critical hits count.
  const r=enter(8,3),[a,t]=pair(r),hp=t.hp;r.applyDamage(a,t,300,{critical:false});assert.equal(t.hp,hp);r.applyDamage(a,t,300,{critical:true});assert(t.hp<hp);
 }
-{ // 5-1: allies below 90 accuracy always miss in the fog.
- const r=enter(5,1,['MOND_DILUC','MOND_NOELLE','MOND_JEAN']),[a,t]=pair(r);assert(r.combatStat(a,'hit')<90);const hp=t.hp;assert.equal(r.damage(a,t,1,'PHYSICAL',{sureHit:true}),false);assert.equal(t.hp,hp);
+{ // 5-1: allies below 100 accuracy always miss in the fog, shown as an ordinary miss.
+ const r=enter(5,1,['MOND_DILUC','MOND_NOELLE','MOND_JEAN']),[a,t]=pair(r);assert(r.combatStat(a,'hit')<100);const hp=t.hp;assert.equal(r.damage(a,t,1,'PHYSICAL',{sureHit:true}),false);assert.equal(t.hp,hp);assert.equal(r.s.runtime.log.at(-1).text,undefined);
 }
 { // 2-3: a lone fallen twin returns with half of its partner's HP.
  const r=enter(2,3,null,12),b=r.s.runtime,[x,y]=b.actors.filter(a=>a.side==='ENEMY');x.hp=0;y.hp=1000;b.abyss.settled=[];r.roundEnd();assert.equal(x.hp,500);
@@ -132,5 +135,5 @@ const pair=r=>{const b=r.s.runtime;return [b.actors.find(x=>x.side==='ALLY'&&x.s
  m.finishBattle(true);assert.equal(m.s.abyss.active.phase,'BREAK');assert.equal(m.s.abyss.active.chamber,2);
 }
 fs.mkdirSync(root+'/reports/abyss',{recursive:true});
-fs.writeFileSync(root+'/reports/abyss/balance-v0143.json',JSON.stringify({provenance:'Spiral Abyss 0.14.3: three rooms per floor with rest breaks. Synthetic level/gear setup with native stat formulas; natural artifact rolls selected from 1500 drops per actor. The protagonist only uses basic attacks, companions follow their own AI, heal food is eaten between rooms when HP is below 75%. Each floor is tested on its own; the mark lifecycle is tested separately. This proves solvability, not a player clear rate.',runs:report},null,2)+'\n');
-console.log('PASS Spiral Abyss 0.14.3: 12 floors x 3 rooms through native combat, rest-break locks, HP carry-over, room rules, floor marks, full reset only, reward table, 0.14.2 save migration');
+fs.writeFileSync(root+'/reports/abyss/balance-v0143.json',JSON.stringify({provenance:'Spiral Abyss 0.14.4: three rooms per floor with rest breaks. Synthetic level/gear setup with native stat formulas; natural artifact rolls selected from 1500 drops per actor. The protagonist only uses basic attacks, companions follow their own AI, heal food is eaten between rooms when HP is below 75%. Each floor is tested on its own; the mark lifecycle is tested separately. This proves solvability, not a player clear rate.',runs:report},null,2)+'\n');
+console.log('PASS Spiral Abyss 0.14.4: 12 floors x 3 rooms through native combat, rest-break locks, HP carry-over, room rules, floor marks, full reset only, reward table, 0.14.2 save migration');

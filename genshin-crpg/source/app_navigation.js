@@ -10,7 +10,8 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
  draw(){
   this.observer?.disconnect();const g=game.s.global,current=g.CURRENT_MAP_ID,T=window.CRPGTerrainMap;
   if(this.saveId!==g.SAVE_ID){this.saveId=g.SAVE_ID;this.target=null;this.mapId=null;}
-  if(this.mapId!==current){this.mapId=current;this.target=null;this.atlas=this.atlasFor(current);this.camera={mode:'near'};}
+  // A chosen destination stays until the party arrives, so a long trip can be followed one area at a time.
+  if(this.mapId!==current){this.mapId=current;if(this.target===current)this.target=null;this.atlas=this.atlasFor(current);this.camera={mode:'near'};}
   if(!this.atlas)this.atlas=this.atlasFor(current)||'mond';if(!this.camera)this.camera={mode:'near'};
   if(this.target&&!game.tables['32_MAP_DB'].has(this.target))this.target=null;
   const nearby=this.nearby(),goal=game.navigationGoal(),target=this.target,route=target?game.navigationRoute(target):null;
@@ -26,15 +27,18 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   left.append(controls,el('p','terrain-legend','◆ 현재 구역   · 지형상 위치점   ① 선택 버튼(선으로 연결)'));
   const note=this.point(current)?.[3];if(note)left.append(el('p','terrain-location-note',note));
   left.append(el('small','terrain-help','점을 누르기 어려우면 같은 번호의 큰 카드를 선택하세요. 확대 후 지도를 밀어 볼 수 있습니다.'));
-  right.append(el('h3','','어디로 갈까?'),el('p','terrain-select-help','목적지 카드를 누르면 바로 이동합니다. 지도 번호는 위치와 경로를 미리 확인할 때 사용하세요.'));
+  right.append(el('h3','','어디로 갈까?'),el('p','terrain-select-help','목적지 카드를 누르면 바로 이동합니다. 먼 곳은 아래 「목적지 찾기」로 고르면 도착할 때까지 길을 안내합니다.'));
+  const findSlot=el('div','terrain-find-slot');right.append(findSlot);
   const domestic=nearby.filter(n=>!n.reason&&n.point?.[0]===this.atlas),other=nearby.filter(n=>!domestic.includes(n));
-  const cards=el('div','terrain-destination-list');for(const n of domestic)cards.append(this.card(n));if(!domestic.length)cards.append(el('p','muted','이어지는 길은 아래 다른 지역 목록에서도 확인할 수 있습니다.'));right.append(cards);
+  // Long lists fold after five cards (the selected destination always stays visible).
+  const cards=el('div','terrain-destination-list'),shown=domestic.length>6?domestic.filter((n,i)=>i<5||n.id===target):domestic,folded=domestic.filter(n=>!shown.includes(n));for(const n of shown)cards.append(this.card(n));if(!domestic.length)cards.append(el('p','muted','이어지는 길은 아래 다른 지역 목록에서도 확인할 수 있습니다.'));right.append(cards);
+  if(folded.length){const more=el('details','terrain-more-routes');more.append(el('summary','','주변 목적지 '+folded.length+'곳 더 보기'));const list=el('div','terrain-destination-list');for(const n of folded)list.append(this.card(n));more.append(list);right.append(more);}
   if(other.length){const details=el('details','terrain-other-routes');details.open=other.some(n=>!n.reason||n.id===target);details.append(el('summary','','다른 지역·잠긴 길 ('+other.length+')'));for(const n of other)details.append(this.card(n));right.append(details);}
-  const find=el('details','terrain-search');find.open=!!target&&!nearby.some(n=>n.id===target);find.append(el('summary','','먼 목적지·귀환로 찾기'));
+  const find=el('details','terrain-search');find.open=!!target&&!nearby.some(n=>n.id===target);find.append(el('summary','',target&&!nearby.some(n=>n.id===target)?'목적지 찾기 · '+mapName(target):'목적지 찾기 · 먼 곳·귀환로'));
   const discovered=new Set(game.travelDiscoveries?.().known||game.rows('32_MAP_DB').map(m=>m[0]));
   const select=el('select');select.id='journey-map-target';select.setAttribute('aria-label','찾아갈 장소');const empty=el('option','','목적지를 선택하세요');empty.value='';select.append(empty);
   for(const m of game.rows('32_MAP_DB').filter(m=>m[0]&&discovered.has(m[0])&&['몬드','리월'].includes(m[1]))){const o=el('option','',m[2]);o.value=m[0];select.append(o);}select.value=target||'';select.onchange=()=>this.choose(select.value||null);find.append(select);
-  if(current!=='MAP_MOND_CITY')find.append(this.control('몬드로 돌아가는 길 찾기',()=>this.choose('MAP_MOND_CITY'),'return'));right.append(find);body.append(left,right);section.append(body);
+  if(current!=='MAP_MOND_CITY')find.append(this.control('몬드로 돌아가는 길 찾기',()=>this.choose('MAP_MOND_CITY'),'return'));findSlot.append(find);body.append(left,right);section.append(body);
   const dock=el('div','terrain-travel-dock');dock.setAttribute('aria-live','polite');const detail=el('div','terrain-selection');
   if(target){detail.append(el('small','','선택한 목적지'),el('strong','',mapName(target)),el('span','',this.risk(target)));
    const direct=nearby.find(n=>n.id===target);
@@ -44,6 +48,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
     if(route.edges.length>1){const chain=el('div','terrain-route-chain');chain.append(el('small','','경로 · '+route.maps.map(mapName).join(' → ')),el('small','','한 구역씩 이동하며, 조우와 통행 조건을 건너뛰지 않습니다.'));dock.append(chain);}
    }else if(target===current){detail.append(el('span','','이미 도착한 장소입니다.'));dock.append(detail,this.disabledTravel('현재 위치'));}
    else{detail.append(el('p','terrain-lock-reason','지금 연결된 길이 없습니다. 본편 안내 이동이나 출입 조건을 확인하세요.'));dock.append(detail,this.disabledTravel());}
+   dock.append(this.control('목적지 해제',()=>this.choose(null),'clear-target'));
    const destAtlas=this.atlasFor(target);if(destAtlas&&destAtlas!==this.atlas){const b=this.control(T.atlases[destAtlas].name+' 지도 미리보기',()=>{this.atlas=destAtlas;const p=this.point(target);this.camera=p?{mode:'custom',zoom:1.7,cx:p[1],cy:p[2]}:{mode:'full'};this.refresh();},'preview');dock.append(b);}
   }else{detail.append(el('strong','','지도 번호를 선택하면 이동 경로를 미리 볼 수 있습니다.'),el('span','','오른쪽 목적지 카드는 누르는 즉시 출발합니다.'));dock.append(detail,this.disabledTravel('지도에서 목적지를 선택하세요'));}
   section.append(dock);
@@ -54,7 +59,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
  disabledTravel(text='이동할 수 없습니다'){const b=button(text,()=>{},true);b.className='terrain-travel';return b;},
  card(n){const b=n.reason?this.control('',()=>this.choose(n.id),'card-'+n.row[0]):actionButton('','MOVE',{edge:n.row[0]},true);b.dataset.navFocus='card-'+n.row[0];b.className='terrain-destination'+(this.target===n.id?' selected':'')+(n.reason?' locked':'');b.dataset.destination=n.id;b.setAttribute('aria-pressed',String(this.target===n.id));
   const num=el('span','terrain-number',String(n.number)),copy=el('span','terrain-card-copy');copy.append(el('strong','',mapName(n.id)),el('small','',this.direction(n.id)+' · '+n.row[5]+'분 · '+this.risk(n.id)));
-  const boss=game.rows('35_BOSS_ROUTE_DB').find(r=>r[2]===n.id&&String(r[0]).startsWith('BRT_FB_'));if(boss)copy.append(el('small','terrain-boss-note','필드보스 · '+boss[1]+' · 권장 Lv.10'));
+  const boss=game.rows('35_BOSS_ROUTE_DB').find(r=>r[2]===n.id&&String(r[0]).startsWith('BRT_FB_'));if(boss)copy.append(el('small','terrain-boss-note','필드보스 · '+boss[1]+' · 권장 Lv.'+(CRPGRuntime.fieldBosses?.bosses?.[String(boss[0]).slice(4)]?.level||10)));
   if(n.point?.[3])copy.append(el('small','terrain-point-note',n.point[3]));
   if(n.reason)copy.append(el('small','terrain-lock-reason','잠김 · '+n.reason));else if(!n.point)copy.append(el('small','','주변 세부 지역 · 경로로 이동'));
   b.append(num,copy,el('span','terrain-card-state',n.reason?'잠김':'이동'));
@@ -123,5 +128,6 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
  refresh(){const old=document.getElementById('journey-map');if(!old)return;const key=document.activeElement?.dataset.navFocus,scroll=window.scrollY;old.replaceWith(this.draw());if(key){const next=[...document.querySelectorAll('[data-nav-focus]')].find(e=>e.dataset.navFocus===key);next?.focus({preventScroll:true});}window.scrollTo({top:scroll,behavior:'instant'});}
 };
 firstTravelEdge=function(target){return game.navigationRoute(target)?.edges[0]||null;};
-const navigationLocation=drawLocation;drawLocation=function(p,v){navigationLocation(p,v);if(game.needsRecovery())return;const map=NavigationUI.draw(),objective=p.querySelector('.main-objective'),facilities=p.querySelector('.location-places'),cityHub=['MAP_MOND_CITY','MAP_LIYUE_HARBOR'].includes(v.map[0]);if(cityHub&&facilities)facilities.after(map);else if(objective)objective.after(map);else p.prepend(map);};
+// v0.14.4: the places of this area come before the (tall) travel map, so a phone reaches them without scrolling past it.
+const navigationLocation=drawLocation;drawLocation=function(p,v){navigationLocation(p,v);if(game.needsRecovery())return;const map=NavigationUI.draw(),objective=p.querySelector('.main-objective'),facilities=p.querySelector('.location-places');if(facilities&&(game.placeEntries?.()||[]).length)facilities.after(map);else if(objective)objective.after(map);else p.prepend(map);};
 const navigationStory=story;story=function(p,v){navigationStory(p,v);if(!game.storyPauseReason()){const bar=el('section','story-intermission-bar');bar.append(el('small','','대화·선택 진행은 보존됩니다.'),actionButton('잠시 메인 화면으로','STORY_PAUSE_FREE'));p.append(bar);}};

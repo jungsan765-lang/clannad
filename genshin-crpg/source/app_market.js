@@ -25,12 +25,12 @@ function showSaleQuantity(entry){
  const refresh=()=>{const quantity=Number(input.value),why=game.actionReason('SELL',{...entry.args,quantity});total.textContent='받는 금액 · '+(Number.isSafeInteger(quantity)&&quantity>0?(quantity*entry.price).toLocaleString():'—')+' 모라';reason.textContent=why;confirm.disabled=busy||!!why;};input.oninput=refresh;refresh();box.append(label,total,reason,confirm);showModal(entry.d.name+' · 판매',box);input.focus();
 }
 function marketDetail(box,entry){
- const {d,stock,reason}=entry;box.append(el('small','',d?.category||entry.group),el('h2','',d?.name||stock?.row[4]));if(d){box.append(itemGlyph(d));if(d.rarity)box.append(el('p','muted',d.rarity));if(d.description)box.append(el('p','',d.description));if(d.effect)box.append(el('p','item-effect',d.effect));
+ const {d,stock,reason}=entry;box.append(el('small','',d?.category||entry.group),d?tierMark(el('h2','',d.name),d):el('h2','',stock?.row[4]));if(d){box.append(itemGlyph(d));if(d.tier?.label)box.append(tierMark(el('p','tier-badge',d.tier.label+' 등급'),d));if(d.description)box.append(el('p','',d.description));if(d.effect)box.append(el('p','item-effect',d.effect));
   if(d.stats.length){const stats=el('dl','item-detail-fields');for(const s of d.stats)stats.append(el('dt','',s.label),el('dd','',s.value+s.unit));box.append(stats);}
   if(d.questLabel)box.append(el('p','', '관련 임무 · '+d.questLabel));
   if(d.minimumLevel)box.append(el('p',game.s.global.PLAYER_LEVEL_STATE<d.minimumLevel?'market-restriction':'muted','장착 Lv. '+d.minimumLevel+' 이상'));
  }
- box.append(el('p','market-price',(marketMode==='BUY'?'구매가 ':'판매가 ')+entry.price.toLocaleString()+' 모라'),el('p','muted',(marketMode==='BUY'?'남은 재고 ':'보유 수량 ')+(entry.quantity===Infinity?'상시':entry.quantity+'개')));
+ box.append(el('p','market-price'+(marketMode==='BUY'&&Number(game.s.global.MORA)<entry.price?' lack':''),(marketMode==='BUY'?'구매가 ':'판매가 ')+entry.price.toLocaleString()+' 모라'),el('p','muted',(marketMode==='BUY'?'남은 재고 ':'보유 수량 ')+(entry.quantity===Infinity?'상시':entry.quantity+'개')));
  if(stock){const min=String(stock.row[8]).match(/LEVEL>=(\d+)/)?.[1];if(min)box.append(el('p',game.s.global.PLAYER_LEVEL_STATE<Number(min)?'market-restriction':'muted','Lv. '+min+' 이상 구매 가능'));}
  if(reason)box.append(el('p','market-restriction',reason));const controls=el('div','row market-controls');
  if(stock){const one=actionButton('1개 구매','BUY',{stock:stock.row[0],quantity:1},true);one.disabled=one.disabled||!!reason;controls.append(one);if(['ITEM','EQUIP'].includes(stock.row[2])){const why=game.stockReason(stock.row,2),multi=button('여러 개 구매',()=>showPurchaseQuantity(stock.row[0]),busy||!!why);multi.title=why;controls.append(multi);}}
@@ -50,7 +50,7 @@ shop=function(p,v){
  if(!entries.some(e=>e.key===marketSelection))marketSelection=entries[0]?.key||null;
  p.append(el('p','muted',marketMode==='BUY'?'상품을 선택하면 효과와 장착 후 능력치를 비교할 수 있습니다.':'장착·준비 중인 장비와 임무 핵심 물품은 판매할 수 없습니다.'));
  const layout=el('div','market-layout'),grid=el('div','market-grid'),detail=el('section','card market-detail');
- for(const e of entries){const b=button('',()=>{marketSelection=e.key;render();});b.className='market-item'+(e.key===marketSelection?' selected':'')+(e.reason?' unavailable':'');b.dataset.marketKey=e.key;b.setAttribute('aria-pressed',String(e.key===marketSelection));b.setAttribute('aria-label',(e.d?.name||e.stock?.row[4])+' 상세');if(e.d)b.append(itemGlyph(e.d));b.append(el('strong','',e.d?.name||e.stock?.row[4]),el('span','',e.price.toLocaleString()+' 모라'));if(e.reason)b.append(el('small','market-restriction',e.reason));grid.append(b);}
+ for(const e of entries){const b=button('',()=>{marketSelection=e.key;render();});b.className='market-item'+(e.key===marketSelection?' selected':'')+(e.reason?' unavailable':'');b.dataset.marketKey=e.key;b.setAttribute('aria-pressed',String(e.key===marketSelection));b.setAttribute('aria-label',(e.d?.name||e.stock?.row[4])+' 상세');if(e.d)b.append(itemGlyph(e.d));b.append(e.d?tierMark(el('strong','',e.d.name),e.d):el('strong','',e.stock?.row[4]),el('span','',e.price.toLocaleString()+' 모라'));if(e.reason)b.append(el('small','market-restriction',e.reason));grid.append(b);}
  const selected=entries.find(e=>e.key===marketSelection);if(selected)marketDetail(detail,selected);else detail.append(el('p','empty',marketMode==='BUY'?'이 조건에 맞는 상품이 없습니다.':'판매할 소지품이 없습니다.'));layout.append(grid,detail);p.append(layout);contactStories(p);discoveryCards(p);
 };
 const marketReceivedLoot=receivedLoot;

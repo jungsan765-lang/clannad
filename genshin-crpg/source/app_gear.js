@@ -12,7 +12,7 @@ function inSlot(owner,category){return game.s.inventory.find(i=>i.equip&&i.equip
 function itemLabel(inv,d){return d.name+(inv.enhance?' +'+inv.enhance:'');}
 function artifactLine(inv){const a=inv?.artifact;if(!a)return '';const st=game.artifactStats?.(inv)||a.stats||{};return '성유물 '+a.grade+' · 품질 '+fmt(a.quality/10)+'% · +'+a.level+' · '+Object.entries(st).filter(([,v])=>v).map(([k,v])=>(ART[k]||k)+' +'+fmt(v)+(k==='CRIT'||k==='CRIT_DMG'?'%':'')).join(' · ');}
 function tooltip(inv,d){
- const tip=el('div','gear-tip');if(tip.showPopover)tip.setAttribute('popover','manual');tip.setAttribute('role','tooltip');tip.append(el('strong','',itemLabel(inv,d)),el('small','muted',d.category+(d.minimumLevel?' · 장착 Lv. '+d.minimumLevel+' 이상':'')));
+ const tip=el('div','gear-tip');if(tip.showPopover)tip.setAttribute('popover','manual');tip.setAttribute('role','tooltip');tip.append(tierMark(el('strong','',itemLabel(inv,d)),d),el('small','muted',[d.tier?.label?d.tier.label+' 등급':'',d.category,d.minimumLevel?'장착 Lv. '+d.minimumLevel+' 이상':''].filter(Boolean).join(' · ')));
  const stats=(d.stats||[]).map(s=>s.label+' '+(s.value>=0?'+':'')+fmt(s.value)+(s.unit||'')).join(' · ');if(stats)tip.append(el('p','gear-tip-stats',stats));
  const art=artifactLine(inv);if(art)tip.append(el('p','gear-tip-stats',art));
  const traits=traitLines(inv);if(traits.length){const list=el('ul','gear-traits');for(const t of traits)list.append(el('li',t.innate?'innate':'',t.text));tip.append(list);}else if(d.effect&&d.effect!=='없음')tip.append(el('p','',d.effect));
@@ -32,7 +32,7 @@ function memberCard(id){
  const slots=el('div','gear-slots');
  for(const [category,label]of SLOTS){
   const inv=inSlot(id,category),cell=el('div','gear-cell'),b=button('',()=>openPicker(id,category));b.className='gear-slot'+(inv?'':' empty');b.dataset.category=category;
-  if(inv){const d=presenter().itemDetail(inv);b.setAttribute('aria-label',label+' · '+itemLabel(inv,d)+' · 바꾸기');b.append(itemGlyph(d),el('small','',label),el('strong','',itemLabel(inv,d)));cell.append(b,tooltip(inv,d));}
+  if(inv){const d=presenter().itemDetail(inv);b.classList.add('tier-'+(d.tier?.rank||1));b.setAttribute('aria-label',label+' · '+itemLabel(inv,d)+' · 바꾸기');b.append(itemGlyph(d),el('small','',label),tierMark(el('strong','',itemLabel(inv,d)),d));cell.append(b,tooltip(inv,d));}
   else{b.setAttribute('aria-label',label+' · 비어 있음 · 장착하기');b.append(el('span','gear-empty-mark','+'),el('small','',label),el('strong','','비어 있음'));cell.append(b);}
   slots.append(cell);
  }
@@ -46,13 +46,13 @@ function openPicker(owner,category){
  const label=SLOTS.find(s=>s[0]===category)[1],current=inSlot(owner,category),box=el('div','gear-picker'),close=()=>document.getElementById('modal').close();
  box.append(el('p','muted',(canHover()?'마우스를 올리면 장비 효과가 보입니다. ':'')+'다른 파티원이 쓰던 장비를 고르면 옮겨서 장착합니다.'));
  const locked=game.actionReason('EQUIP');if(locked)box.append(el('p','phase-note','지금은 확인만 할 수 있습니다. '+locked));
- if(current){const d=presenter().itemDetail(current),row=el('div','gear-current'),copy=el('div','gear-option-copy');copy.append(el('strong','',itemLabel(current,d)+' · 장착 중'),effectNote(current,d));row.append(itemGlyph(d),copy,button('해제',()=>{close();act('UNEQUIP',{slot:current.slot,owner});},busy||!!game.actionReason('UNEQUIP',{slot:current.slot,owner})));box.append(row);}
+ if(current){const d=presenter().itemDetail(current),row=el('div','gear-current'),copy=el('div','gear-option-copy');copy.append(tierMark(el('strong','',itemLabel(current,d)+' · 장착 중'),d),effectNote(current,d));row.append(itemGlyph(d),copy,button('해제',()=>{close();act('UNEQUIP',{slot:current.slot,owner});},busy||!!game.actionReason('UNEQUIP',{slot:current.slot,owner})));box.append(row);}
  const options=game.s.inventory.filter(i=>i.equip&&itemCategory(i)===category&&!(i.equipped&&i.owner===owner)).map(inv=>{const preview=game.equipmentPreview(inv.slot,owner);return {inv,d:presenter().itemDetail(inv),preview,reason:preview.reason||game.actionReason('EQUIP',{slot:inv.slot,owner})};})
   .sort((a,b)=>Number(!!a.reason)-Number(!!b.reason)||Number(a.inv.equipped)-Number(b.inv.equipped)||a.d.name.localeCompare(b.d.name,'ko'));
  const list=el('div','gear-options');
  for(const o of options){
   const cell=el('div','gear-cell'),row=el('div','gear-option'+(o.reason?' blocked':'')),copy=el('div','gear-option-copy');
-  copy.append(el('strong','',itemLabel(o.inv,o.d)),el('small','muted',o.inv.equipped?ownerName(o.inv.owner)+' 장착 중 · 옮겨서 장착':'보관 중'));
+  copy.append(tierMark(el('strong','',itemLabel(o.inv,o.d)),o.d),el('small','muted',(o.d.tier?.label?o.d.tier.label+' · ':'')+(o.inv.equipped?ownerName(o.inv.owner)+' 장착 중 · 옮겨서 장착':'보관 중')));
   const short=traitShort(o.inv);if(short)copy.append(el('small','gear-trait-line','특성 · '+short));
   if(!o.preview.reason){const delta=deltaLine(o.preview.before,o.preview.after);copy.append(el('small','gear-delta',delta||'능력치 변화 없음'));}
   copy.append(effectNote(o.inv,o.d));if(o.reason)copy.append(el('small','choice-note',o.reason));

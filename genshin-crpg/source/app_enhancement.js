@@ -13,8 +13,8 @@
   for(const [label,key,cls]of [['성공','success','success'],['실패·유지','hold','hold'],['실패·1단계 하락','down','down']]){const c=el('div','enhance-prob '+cls);c.append(el('span','',label),el('strong','',pct(q[key])));row.append(c);}box.append(row);
   box.append(el('p','muted','모두 1회 시도 기준 확률입니다. 장비 파괴는 없으며, 실패해도 시도 비용은 소비됩니다.'));
  }
- function costs(box,cost){if(!cost)return;const c=el('div','enhance-cost');c.append(el('strong','','필요 비용 · '+cost.mora.toLocaleString()+' 모라'),el('small','', '보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라'));
-  for(const [id,n]of Object.entries(cost.items||{})){const line=el('div','enhance-material'),d=itemPresenter.itemDetail({item:id,quantity:n});line.append(itemGlyph(d),el('span','',d.name+' ×'+n),el('small',game.itemCount(id)<n?'stat-down':'','보유 '+game.itemCount(id)));c.append(line);}box.append(c);}
+ function costs(box,cost){if(!cost)return;const c=el('div','enhance-cost');c.append(el('strong','','필요 비용 · '+cost.mora.toLocaleString()+' 모라'),el('small',Number(game.s.global.MORA)<cost.mora?'lack':'', '보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라'));
+  for(const [id,n]of Object.entries(cost.items||{})){const line=el('div','enhance-material'),d=itemPresenter.itemDetail({item:id,quantity:n});line.append(itemGlyph(d),el('span','',d.name+' ×'+n),el('small',game.itemCount(id)<n?'stat-down lack':'','보유 '+game.itemCount(id)));c.append(line);}box.append(c);}
  function quoteArgs(q,type){return {slot:q.slot,expectedLevel:q.level,expectedCap:q.cap,instanceRevision:q.instanceRevision};}
  function openConfirm(slot,kind='ENHANCE'){
   ensurePresenter();const q=game.enhancementQuote(slot,kind),type=kind==='ASCEND'?'EQUIP_ASCEND':'ENHANCE',args=quoteArgs(q,type),box=el('div','enhance-confirm');box.dataset.enhanceConfirm=kind;
@@ -80,7 +80,7 @@
   const list=el('div','forge-list');
   for(const e of shown){
    const row=el('div','forge-row'+(e.worn?' worn':'')),copy=el('div','forge-copy'),actions=el('div','forge-actions');row.dataset.enhanceSlot=e.inv.slot;
-   copy.append(el('strong','',e.title),el('small','muted',(e.worn?ownerName(e.inv.owner)+' 장착 중':'보관 중')+(e.cap?' · '+e.cap:'')));
+   copy.append(tierMark(el('strong','',e.title),e.d||e.inv?.equip,e.inv),el('small','muted',(e.worn?ownerName(e.inv.owner)+' 장착 중':'보관 중')+(e.cap?' · '+e.cap:'')));
    if(e.next)copy.append(el('small','forge-next',e.next));if(e.reason&&e.reason!==common)copy.append(el('small','choice-note',e.reason));
    for(const [label,fn,reason]of e.actions){const b=button(label,fn,busy||!!reason,true);if(reason)b.title=reason;actions.append(b);}
    row.append(itemGlyph(e.d),copy,actions);list.append(row);
@@ -90,6 +90,6 @@
   if(blocked.length){const more=el('details','forge-blocked'),ul=el('ul');more.append(el('summary','','강화할 수 없는 장비 '+blocked.length+'개'));for(const e of blocked)ul.append(el('li','',e.title+' — '+e.reason));more.append(ul);section.append(more);}
  }
  const oldLocation=drawLocation;drawLocation=function(p,v){oldLocation(p,v);if(!game)return;const cfg=CRPGRuntime.enhancementConfig;
-  for(const [id,boss]of Object.entries(cfg.bosses)){if(game.s.global.CURRENT_MAP_ID!==boss.map)continue;const c=el('section','card material-challenge'),reason=game.materialChallengeReason(id);c.append(el('h2','',safeName('09_MONSTER_DB',id)+' · 재료 재도전'),el('p','','완료한 전투를 다시 도전합니다. 보스별 게임 내 48시간에 1회 입장하며, 패배·이탈해도 대기시간은 유지됩니다. 본편의 사건·클리어 상태를 되돌리지 않습니다. 승리 시 잔향 1~2개 확정, 핵 1개 35%.'),actionButton('보스 재도전','MOND_MATERIAL_CHALLENGE',{boss:id},true));if(reason)c.append(el('p','choice-note',reason));p.append(c);}
+  for(const [id,boss]of Object.entries(cfg.bosses)){if(game.s.global.CURRENT_MAP_ID!==boss.map)continue;const c=el('section','card material-challenge'),reason=game.materialChallengeReason(id);const rm=game.bossRematchInfo?.(id),books=rm?Object.entries(rm.books).map(([b,n])=>safeName('14_ITEM_DB',b)+' '+n+'개').join(' · ')+' · ':'';c.append(el('h2','',safeName('09_MONSTER_DB',id)+' · 재료 재도전'+(rm?' · 권장 Lv. '+rm.level:'')),el('p','',(rm?'본편보다 강해진 보스와 다시 싸웁니다(주인공 Lv. '+rm.minLevel+'부터). ':'완료한 전투를 다시 도전합니다. ')+'보스별 게임 내 48시간에 1회 입장하며, 패배·이탈해도 대기시간은 유지됩니다. 본편의 사건·클리어 상태를 되돌리지 않습니다.'),el('p','material-challenge-reward','승리 보상 · '+books+'강적의 잔향 1~2개 확정 · 강적의 핵 1개 35%'+(rm?' · 경험치 '+rm.xp+' · 모라 '+rm.mora:'')),actionButton('보스 재도전','MOND_MATERIAL_CHALLENGE',{boss:id},true));if(reason)c.append(el('p','choice-note',reason));p.append(c);}
  };
 })();

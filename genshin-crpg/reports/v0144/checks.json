@@ -1,0 +1,99 @@
+{
+  "version": "0.14.4",
+  "results": [
+    {
+      "name": "formations use plain in-world names and the chosen one reaches the battle",
+      "ok": true,
+      "evidence": {
+        "formation": {
+          "id": "LINE_AHEAD",
+          "synergy": false
+        }
+      }
+    },
+    {
+      "name": "field bosses: one fixed level each (Mond 10-13, Liyue 14-20), in a clear order",
+      "ok": true,
+      "evidence": {
+        "FB_ANEMO_HYPOSTASIS": 11,
+        "FB_ELECTRO_HYPOSTASIS": 12,
+        "FB_CRYO_REGISVINE": 10,
+        "FB_CRYO_HYPOSTASIS": 13,
+        "FB_GEO_HYPOSTASIS": 14,
+        "FB_PYRO_REGISVINE": 16,
+        "FB_OCEANID": 15,
+        "FB_PRIMO_GEOVISHAP": 18,
+        "FB_RUIN_SERPENT": 20
+      }
+    },
+    {
+      "name": "field bosses: all together pay out three times a game day; defeats never count",
+      "ok": true,
+      "evidence": {
+        "limit": 3
+      }
+    },
+    {
+      "name": "ley line blossoms: two per region each real hour, steps opened by level, one payout per kind and hour",
+      "ok": true,
+      "evidence": {
+        "hour": 500000,
+        "route": "BRT_LEY_REVELATION_MOND_PLAINS"
+      }
+    },
+    {
+      "name": "two-day boss rematches: Lv.15 Andrius and Lv.18 Dvalin, opened a little lower, paying Hero books",
+      "ok": true,
+      "evidence": {
+        "boss": {
+          "level": 15,
+          "hp": 7854,
+          "atk": 309
+        }
+      }
+    },
+    {
+      "name": "skill rhythm: companions keep their own E/Q periods, and slower cards land harder",
+      "ok": true,
+      "evidence": {
+        "distinct": 8
+      }
+    },
+    {
+      "name": "공명 각성: only a companion holding their exclusive weapon, only on the burst, logged for the screen",
+      "ok": true,
+      "evidence": {
+        "entry": {
+          "actor": "케이아",
+          "actorId": "MOND_KAEYA",
+          "card": "MOND_KAEYA_Q",
+          "cardName": "살을 에는 윤무",
+          "resonance": true,
+          "text": "케이아 · 공명 각성 — 원소폭발이 한층 강해졌다.",
+          "round": 1,
+          "actionSequence": 0
+        }
+      }
+    },
+    {
+      "name": "Andrius: a claw taken by a covering neighbour no longer stops the battle",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Liyue companions ask for more than Mond ones: a level per story stage and costlier preparation",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "item tiers: 일반 · 상급 · 희귀 · 영웅 · 전설",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "screens: new scripts are wired in order and the UI shows the new rules",
+      "ok": true,
+      "evidence": null
+    }
+  ]
+}

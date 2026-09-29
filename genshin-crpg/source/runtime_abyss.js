@@ -12,54 +12,54 @@ const ATTACK_FOOD=['STATUS_FOOD_ATK','STATUS_FOOD_FEAST'],FEAST_FOOD=['STATUS_FO
 const foe=(n,o={})=>({n,...o});
 /* One room per chamber. hp/atk multiply the floor base; the rest are the room's rules. */
 const FLOORS=[
- {floor:1,name:'입구의 잔향',level:10,hp:2400,atk:220,def:120,reward:{mora:800},rooms:[
-  {name:'잔향의 문지기',hint:'특별한 규칙이 없는 첫 방입니다. 여기서 잃은 HP는 다음 방까지 그대로 이어집니다.',foes:[foe('잔향 파수꾼'),foe('잔향 창병')],limit:14},
-  {name:'떠오른 잔향',hint:'적이 공중에 떠 있어 원거리 공격이나 천추 관측경 같은 공중 접근 수단이 있어야 닿습니다. 3라운드마다 한 번씩 땅에 내려오니 그때 몰아치세요.',foes:[foe('떠오른 사수',{air:true}),foe('떠오른 척후',{air:true})],limit:15,hp:.6},
-  {name:'되살리는 잔향',hint:'치유사가 2라운드마다 적 전원의 HP를 되돌립니다. 치유사부터 쓰러뜨리세요.',foes:[foe('잔향 파수꾼'),foe('잔향 치유사',{heal:true,hp:.8})],limit:14,healPct:.12}]},
- {floor:2,name:'엇갈린 회랑',level:12,hp:2900,atk:380,def:150,reward:{mora:1000,items:{ORE_WHITE_IRON:3}},rooms:[
-  {name:'회랑의 사수',hint:'공중의 사수 둘과 지상의 파수꾼이 함께 있습니다. 사수는 3라운드마다 한 번씩 땅에 내려오니, 그 전에는 지상의 적부터 맡으세요.',foes:[foe('회랑 사수',{air:true}),foe('회랑 사수',{air:true}),foe('회랑 파수꾼')],limit:14,hp:.6},
-  {name:'불꽃 장막',hint:'적이 불의 보호막을 두르고 나옵니다. 물 원소는 보호막을 2배, 얼음 원소는 1.5배로 깎습니다.',foes:[foe('불꽃 장막 술사'),foe('불꽃 장막 창병')],limit:14,el:'PYRO',shield:{element:'불',pct:.4,weak:{물:2,얼음:1.5}}},
-  {name:'엇갈린 쌍둥이',hint:'쌍둥이는 같은 라운드 안에 둘 다 쓰러뜨려야 합니다. 한쪽만 쓰러지면 라운드가 끝날 때 남은 쪽 HP의 절반을 받아 되살아나니, 둘을 고르게 깎으세요.',foes:[foe('쌍둥이 · 해'),foe('쌍둥이 · 달')],limit:15,twin:true}]},
- {floor:3,name:'무너지는 발판',level:15,hp:3100,atk:440,def:185,reward:{mora:1200,items:{ORE_WHITE_IRON:5}},rooms:[
-  {name:'갈라지는 발판',hint:'라운드가 끝날 때마다 파티 전원이 최대 HP의 2%를 잃습니다.',foes:[foe('발판 파수꾼'),foe('발판 창병'),foe('발판 사수')],limit:14,hp:.65,erosion:.02},
-  {name:'추격하는 그림자',hint:'짝수 라운드마다 적이 가장 약한 동료를 한 번 더 노립니다.',foes:[foe('그림자 추격자'),foe('그림자 사냥꾼')],limit:14,pursuit:true},
-  {name:'무너지는 왕좌',hint:'6라운드부터 적의 공격이 크게 강해집니다. 그 전에 끝내는 편이 좋습니다.',foes:[foe('왕좌의 파수꾼'),foe('왕좌의 근위병')],limit:12,enrage:[6,1.6]}]},
- {floor:4,name:'분리된 문',level:16,hp:4000,atk:560,def:215,reward:{mora:1500,items:{ORE_CRYSTAL:3}},rooms:[
-  {name:'얼음 장막',hint:'적이 얼음 보호막을 두르고 나옵니다. 불 원소는 보호막을 2배, 바위 원소는 1.5배로 깎습니다.',foes:[foe('얼음 장막 술사'),foe('얼음 장막 창병')],limit:13,el:'CRYO',shield:{element:'얼음',pct:.4,weak:{불:2,바위:1.5}}},
-  {name:'굶주린 문',hint:'공격 요리나 호화 요리를 먹고 들어온 동료의 공격만 문을 뚫습니다. 쉬는 동안 미리 먹어 두세요.',foes:[foe('굶주린 문지기'),foe('굶주린 창병')],limit:13,food:ATTACK_FOOD},
-  {name:'분리된 두 문',hint:'홀수 라운드에는 첫 번째 문지기만, 짝수 라운드에는 두 번째 문지기만 피해를 받습니다. 한쪽이 쓰러지면 남은 문은 더 이상 잠기지 않습니다.',foes:[foe('왼쪽 문지기'),foe('오른쪽 문지기')],limit:15,hp:.7,alternate:true}]},
- {floor:5,name:'되돌아오는 파수꾼',level:17,hp:4400,atk:600,def:245,reward:{mora:1800,items:{ORE_CRYSTAL:4}},rooms:[
-  {name:'안개 낀 제단',hint:'짙은 안개 때문에 명중이 90보다 낮은 동료의 공격은 모두 빗나갑니다. 천추 관측경이나 매의 눈 장식 같은 명중 장비가 필요합니다.',foes:[foe('안개 파수꾼'),foe('안개 사수')],limit:13,accuracy:90},
-  {name:'치유의 사제',hint:'사제가 물의 보호막 뒤에서 2라운드마다 적을 치유합니다. 얼음 원소는 보호막을 2배, 번개 원소는 1.5배로 깎습니다.',foes:[foe('제단 파수꾼'),foe('제단 사제',{heal:true,hp:.8,shield:true})],limit:13,el:'HYDRO',healPct:.14,shield:{element:'물',pct:.45,weak:{얼음:2,번개:1.5}}},
-  {name:'되돌아오는 파수꾼',hint:'두 파수꾼을 같은 라운드 안에 쓰러뜨려야 합니다. 한쪽만 쓰러지면 남은 쪽 HP의 절반을 받아 되살아납니다.',foes:[foe('되돌아오는 파수꾼'),foe('되돌아오는 추격자')],limit:14,twin:true}]},
- {floor:6,name:'침식의 회랑',level:18,hp:4800,atk:580,def:275,reward:{mora:2100,items:{ORE_CRYSTAL:5}},rooms:[
-  {name:'침식의 숨결',hint:'라운드가 끝날 때마다 파티 전원이 최대 HP의 3%를 잃습니다.',foes:[foe('침식 파수꾼'),foe('침식 창병'),foe('침식 사수')],limit:13,hp:.65,erosion:.03},
-  {name:'가시 갑주',hint:'가시 갑주는 받은 피해의 30%를 공격한 동료에게 되돌려줍니다. 보호막과 회복을 준비하세요.',foes:[foe('가시 갑주 기사'),foe('가시 갑주 창병')],limit:13,reflect:.3},
-  {name:'만찬의 결계',hint:'호화 요리(선도장, 황금 크리스피 치킨, 천추육 등)를 먹은 동료의 공격만 결계를 뚫습니다.',foes:[foe('만찬의 문지기'),foe('만찬의 시종')],limit:13,food:FEAST_FOOD}]},
- {floor:7,name:'멈추지 않는 추격',level:18,hp:5200,atk:680,def:310,reward:{mora:2400,items:{TRPG_BOSS_ESSENCE:2}},rooms:[
-  {name:'사냥개의 추격',hint:'짝수 라운드마다 추가 공격이 오고, 5라운드부터는 적의 공격이 강해집니다.',foes:[foe('심연 사냥개'),foe('심연 몰이꾼')],limit:12,pursuit:true,enrage:[5,1.4]},
-  {name:'선인의 환영',hint:'선인의 환영은 선도장이나 행인두부 냄새가 나야 모습을 드러냅니다. 파티 중 한 명 이상이 둘 중 하나를 먹고 들어와야 피해가 들어갑니다.',foes:[foe('선인의 환영',{hp:1.3})],limit:13,dish:ADEPTUS_DISH},
-  {name:'희생의 제단',hint:'결계가 깨지기 전까지 적은 주인공을 빼고 HP가 가장 낮은 동료부터 노리며, 라운드가 지날수록 더 세게 내려칩니다. 동료 두 명이 쓰러지면 그 라운드가 끝날 때 결계가 깨지면서 적의 HP가 절반으로 줄고, 그때부터 적의 공격은 약해지고 받는 피해는 2배가 됩니다.',foes:[foe('제단의 집행자'),foe('제단의 수호자')],limit:15,hp:.5,sacrifice:2}]},
- {floor:8,name:'침묵의 벽',level:19,hp:3000,atk:700,def:330,reward:{mora:2800,items:{TRPG_BOSS_ESSENCE:3}},rooms:[
-  {name:'침묵의 벽',hint:'칼날도 원소도 이 벽 앞에서는 소리를 잃는다. 땅속 맥을 붙드는 말뚝의 울림과, 몸에 남아 서서히 번지는 상처만이 벽에 닿는다.',foes:[foe('침묵의 벽'),foe('침묵의 파수꾼')],limit:14,fixedOnly:true},
-  {name:'독이 고인 정원',hint:'벽은 여전히 침묵하고, 고인 독이 발밑에서 스며 올라온다.',foes:[foe('정원의 벽'),foe('정원의 파수꾼')],limit:14,fixedOnly:true,erosion:.03},
-  {name:'치명의 틈',hint:'갑주의 이음새는 정확히 급소를 꿰뚫는 일격에만 벌어진다.',foes:[foe('틈을 감춘 기사'),foe('틈을 감춘 창병')],limit:15,hp:.4,critOnly:1}]},
- {floor:9,name:'거울의 제단',level:19,hp:4200,atk:720,def:330,reward:{mora:3200,items:{TRPG_BOSS_ESSENCE:3,ORE_CRYSTAL:5}},rooms:[
-  {name:'거울 방패',hint:'거울은 맨몸으로 휘두른 공격을 비춰 흘려보낼 뿐이다. 스스로를 감싼 자의 일격만이 거울을 넘는다.',foes:[foe('거울 방패병'),foe('거울 사제')],limit:14,shieldHolder:true,dmgMult:2.5},
-  {name:'안개의 제단',hint:'안개가 짙어 웬만한 눈으로는 표적을 좇을 수 없다. 천추의 별을 좇던 눈이라면 모를까.',foes:[foe('안개 제단의 파수꾼'),foe('안개 제단의 사수')],limit:13,accuracy:93},
-  {name:'거울의 제단',hint:'스스로를 감싼 것만으로는 부족하다. 흔들리지 않는 돌을 오래 벼려 지닌 자만이 제단을 깨뜨린다.',foes:[foe('거울 제단의 수호자'),foe('거울 제단의 사제')],limit:14,shieldHolder:true,gear:['EQ_ACC_STEADFAST',9],dmgMult:2.75}]},
- {floor:10,name:'폭풍의 닫힌 고리',level:20,hp:9000,atk:760,def:370,reward:{mora:3600,items:{TRPG_BOSS_CORE:1,TRPG_BOSS_ESSENCE:3}},rooms:[
-  {name:'폭풍의 입구',hint:'폭풍은 물과 번개와 바람이 함께 설 때에만 길을 연다. 무딘 무기로는 그 길을 걸을 수 없다.',foes:[foe('폭풍의 문지기'),foe('폭풍의 창병')],limit:13,elements:['HYDRO','ELECTRO','ANEMO'],weapons:10,dmgMult:1.6},
-  {name:'닫힌 고리',hint:'물, 번개, 바람이 짧은 사이에 모두 닿아야 고리가 열린다. 두 라운드가 지나면 고리는 다시 닫힌다.',foes:[foe('고리의 파수꾼'),foe('고리의 사수')],limit:13,elements:['HYDRO','ELECTRO','ANEMO'],sequence:['HYDRO','ELECTRO','ANEMO'],dmgMult:2.2},
-  {name:'폭풍의 눈',hint:'열린 고리 너머 폭풍의 눈을 보려면 하늘을 읽는 관측경을 끝까지 벼려야 한다.',foes:[foe('폭풍의 눈'),foe('폭풍의 사도')],limit:14,elements:['HYDRO','ELECTRO','ANEMO'],sequence:['HYDRO','ELECTRO','ANEMO'],weapons:10,teamGear:['EQ_LY_ACC_STARGAZER',10],dmgMult:2.75}]},
- {floor:11,name:'서로 잠긴 왕좌',level:20,hp:8000,atk:620,def:410,reward:{mora:4000,items:{TRPG_BOSS_CORE:1,ORE_CRYSTAL:8}},rooms:[
-  {name:'서리 왕좌',hint:'불과 얼음과 바위가 함께 서야 왕좌가 몸을 드러낸다. 얇은 갑옷으로는 그 한기를 버틸 수 없다.',foes:[foe('서리 왕좌의 기사'),foe('서리 왕좌의 시종')],limit:13,elements:['PYRO','CRYO','GEO'],armor:10,dmgMult:3.2},
-  {name:'잠긴 왕좌',hint:'두 왕좌는 번갈아 잠긴다. 잠긴 쪽을 두드린 자는 제 힘에 되맞는다.',foes:[foe('해의 왕좌'),foe('달의 왕좌')],limit:14,hp:.55,elements:['PYRO','CRYO','GEO'],alternate:true,reflect:.2,dmgMult:5},
-  {name:'서로 잠긴 왕좌',hint:'맑은 마음을 지키는 향을 끝까지 벼려 지닌 자가 없다면 왕좌의 속삭임에 흔들린다. 모두의 갑옷도 두꺼워야 한다.',foes:[foe('잠긴 왕좌의 주인'),foe('잠긴 왕좌의 그림자')],limit:13,elements:['PYRO','CRYO','GEO'],alternate:true,armor:10,teamGear:['EQ_LY_ACC_QINGXIN_SACHET',10],dmgMult:4.85}]},
- {floor:12,name:'끝을 삼키는 별',level:20,hp:12000,atk:850,def:450,reward:{mora:6000,artifact:true,items:{TRPG_BOSS_CORE:1}},rooms:[
-  {name:'별의 파편',hint:'정점에 선 자들만이 별에 닿는다. 세 번째 박자마다 별은 오직 치명적인 일격만 허락한다.',foes:[foe('별의 파편'),foe('파편의 그림자')],limit:12,mastery:true,critOnly:3,dmgMult:2.65},
+ {floor:1,name:'입구의 잔향',level:10,hp:3000,atk:265,def:120,reward:{mora:800},rooms:[
+  {name:'잔향의 문지기',hint:'입구를 지키는 잔향 둘이 창끝을 겨눈다.',foes:[foe('잔향 파수꾼'),foe('잔향 창병')],limit:14},
+  {name:'떠오른 잔향',hint:'발끝이 바닥에 닿지 않는 잔향들이 천장 가까이에서 흔들린다.',foes:[foe('떠오른 사수',{air:true}),foe('떠오른 척후',{air:true})],limit:15,hp:.6},
+  {name:'되살리는 잔향',hint:'뒤쪽의 잔향 하나가 쉬지 않고 무언가를 읊조린다.',foes:[foe('잔향 파수꾼'),foe('잔향 치유사',{heal:true,hp:.8})],limit:14,healPct:.12}]},
+ {floor:2,name:'엇갈린 회랑',level:12,hp:3600,atk:520,def:150,reward:{mora:1000,items:{ORE_WHITE_IRON:3}},rooms:[
+  {name:'회랑의 사수',hint:'회랑 높은 곳에 사수들이 자리를 잡았고, 아래에서는 파수꾼이 길을 막는다.',foes:[foe('회랑 사수',{air:true}),foe('회랑 사수',{air:true}),foe('회랑 파수꾼')],limit:14,hp:.6},
+  {name:'불꽃 장막',hint:'두 적이 일렁이는 불꽃의 막을 두르고 있다.',foes:[foe('불꽃 장막 술사'),foe('불꽃 장막 창병')],limit:14,el:'PYRO',shield:{element:'불',pct:.4,weak:{물:2,얼음:1.5}}},
+  {name:'엇갈린 쌍둥이',hint:'서로의 이름을 부르며 싸우는 쌍둥이.',foes:[foe('쌍둥이 · 해'),foe('쌍둥이 · 달')],limit:15,twin:true}]},
+ {floor:3,name:'무너지는 발판',level:15,hp:5000,atk:530,def:185,reward:{mora:1200,items:{ORE_WHITE_IRON:5}},rooms:[
+  {name:'갈라지는 발판',hint:'발밑의 돌판이 조금씩 갈라지며 기운을 빨아들인다.',foes:[foe('발판 파수꾼'),foe('발판 창병'),foe('발판 사수')],limit:14,hp:.65,erosion:.02},
+  {name:'추격하는 그림자',hint:'그림자들은 지쳐 보이는 쪽을 끈질기게 쫓는다.',foes:[foe('그림자 추격자'),foe('그림자 사냥꾼')],limit:14,pursuit:true},
+  {name:'무너지는 왕좌',hint:'시간이 흐를수록 왕좌를 지키는 자들의 숨소리가 거칠어진다.',foes:[foe('왕좌의 파수꾼'),foe('왕좌의 근위병')],limit:12,enrage:[6,1.6]}]},
+ {floor:4,name:'분리된 문',level:16,hp:5200,atk:670,def:215,reward:{mora:1500,items:{ORE_CRYSTAL:3}},rooms:[
+  {name:'얼음 장막',hint:'두 적이 서늘한 얼음의 막을 두르고 있다.',foes:[foe('얼음 장막 술사'),foe('얼음 장막 창병')],limit:13,el:'CRYO',shield:{element:'얼음',pct:.4,weak:{불:2,바위:1.5}}},
+  {name:'굶주린 문',hint:'문지기의 배에서 꼬르륵 소리가 난다. 빈손으로 온 자는 쳐다보지도 않는다.',foes:[foe('굶주린 문지기'),foe('굶주린 창병')],limit:13,food:ATTACK_FOOD},
+  {name:'분리된 두 문',hint:'두 문이 번갈아 빗장을 건다.',foes:[foe('왼쪽 문지기'),foe('오른쪽 문지기')],limit:15,hp:.7,alternate:true}]},
+ {floor:5,name:'되돌아오는 파수꾼',level:17,hp:5700,atk:720,def:245,reward:{mora:1800,items:{ORE_CRYSTAL:4}},rooms:[
+  {name:'안개 낀 제단',hint:'짙은 안개가 제단을 감쌌다. 적의 윤곽조차 흐릿하다.',foes:[foe('안개 파수꾼'),foe('안개 사수')],limit:13,accuracy:100},
+  {name:'치유의 사제',hint:'물의 막 뒤에서 사제가 조용히 기도를 올린다.',foes:[foe('제단 파수꾼'),foe('제단 사제',{heal:true,hp:.8,shield:true})],limit:13,hp:.75,el:'HYDRO',healPct:.1,shield:{element:'물',pct:.45,weak:{얼음:2,번개:1.5}}},
+  {name:'되돌아오는 파수꾼',hint:'두 파수꾼이 서로를 등지고 선다.',foes:[foe('되돌아오는 파수꾼'),foe('되돌아오는 추격자')],limit:14,hp:.8,twin:true}]},
+ {floor:6,name:'침식의 회랑',level:18,hp:6200,atk:700,def:275,reward:{mora:2100,items:{ORE_CRYSTAL:5}},rooms:[
+  {name:'침식의 숨결',hint:'회랑의 공기가 살갗을 조금씩 갉아먹는다.',foes:[foe('침식 파수꾼'),foe('침식 창병'),foe('침식 사수')],limit:13,hp:.65,erosion:.03},
+  {name:'가시 갑주',hint:'갑주 곳곳에 가시가 돋아 있다.',foes:[foe('가시 갑주 기사'),foe('가시 갑주 창병')],limit:13,reflect:.3},
+  {name:'만찬의 결계',hint:'결계 너머로 잔칫상 냄새가 흘러나온다.',foes:[foe('만찬의 문지기'),foe('만찬의 시종')],limit:13,food:FEAST_FOOD}]},
+ {floor:7,name:'멈추지 않는 추격',level:18,hp:6800,atk:800,def:310,reward:{mora:2400,items:{TRPG_BOSS_ESSENCE:2}},rooms:[
+  {name:'사냥개의 추격',hint:'사냥개는 지칠 줄 모르고, 시간이 지날수록 사나워진다.',foes:[foe('심연 사냥개'),foe('심연 몰이꾼')],limit:12,pursuit:true,enrage:[5,1.4]},
+  {name:'선인의 환영',hint:'안개 속 형상은 보일 듯 말 듯하다. 아주 오래된 맛을 그리워하는 것 같다.',foes:[foe('선인의 환영',{hp:1})],limit:13,dish:ADEPTUS_DISH},
+  {name:'희생의 제단',hint:'제단은 무언가를 바라고 있다.',foes:[foe('제단의 집행자'),foe('제단의 수호자')],limit:15,hp:.5,sacrifice:2}]},
+ {floor:8,name:'침묵의 벽',level:19,hp:3900,atk:840,def:330,reward:{mora:2800,items:{TRPG_BOSS_ESSENCE:3}},rooms:[
+  {name:'침묵의 벽',hint:'칼날도 원소도 이 벽 앞에서는 소리를 잃는다.',foes:[foe('침묵의 벽'),foe('침묵의 파수꾼')],limit:14,fixedOnly:true},
+  {name:'독이 고인 정원',hint:'벽은 여전히 침묵하고, 발밑에서 독이 스며 오른다.',foes:[foe('정원의 벽'),foe('정원의 파수꾼')],limit:14,fixedOnly:true,erosion:.03},
+  {name:'이음새 없는 갑주',hint:'틈 하나 보이지 않는 갑주.',foes:[foe('틈을 감춘 기사'),foe('틈을 감춘 창병')],limit:15,hp:.4,critOnly:1}]},
+ {floor:9,name:'거울의 제단',level:19,hp:5500,atk:860,def:330,reward:{mora:3200,items:{TRPG_BOSS_ESSENCE:3,ORE_CRYSTAL:5}},rooms:[
+  {name:'거울 방패',hint:'거울이 모든 공격을 비춰 흘려보낸다.',foes:[foe('거울 방패병'),foe('거울 사제')],limit:14,shieldHolder:true,dmgMult:2.5},
+  {name:'안개의 제단',hint:'안개가 한층 더 짙어졌다.',foes:[foe('안개 제단의 파수꾼'),foe('안개 제단의 사수')],limit:13,hp:.6,accuracy:110},
+  {name:'거울의 제단',hint:'거울은 이제 더 많은 것을 비춘다.',foes:[foe('거울 제단의 수호자'),foe('거울 제단의 사제')],limit:14,shieldHolder:true,gear:['EQ_ACC_STEADFAST',9],dmgMult:2.75}]},
+ {floor:10,name:'폭풍의 닫힌 고리',level:20,hp:20000,atk:780,def:370,reward:{mora:3600,items:{TRPG_BOSS_CORE:1,TRPG_BOSS_ESSENCE:3}},rooms:[
+  {name:'폭풍의 입구',hint:'폭풍이 길을 막아선다.',foes:[foe('폭풍의 문지기'),foe('폭풍의 창병')],limit:11,elements:['HYDRO','ELECTRO','ANEMO'],weapons:10,dmgMult:1.6},
+  {name:'닫힌 고리',hint:'세 개의 고리가 맞물려 돌아간다.',foes:[foe('고리의 파수꾼'),foe('고리의 사수')],limit:11,hp:.8,elements:['HYDRO','ELECTRO','ANEMO'],sequence:['HYDRO','ELECTRO','ANEMO'],dmgMult:2.2},
+  {name:'폭풍의 눈',hint:'폭풍의 눈은 하늘 너머에 있다.',foes:[foe('폭풍의 눈'),foe('폭풍의 사도')],limit:12,elements:['HYDRO','ELECTRO','ANEMO'],sequence:['HYDRO','ELECTRO','ANEMO'],weapons:10,teamGear:['EQ_LY_ACC_STARGAZER',10],dmgMult:2.75}]},
+ {floor:11,name:'서로 잠긴 왕좌',level:20,hp:11200,atk:740,def:410,reward:{mora:4000,items:{TRPG_BOSS_CORE:1,ORE_CRYSTAL:8}},rooms:[
+  {name:'서리 왕좌',hint:'왕좌에서 뿜어 나오는 한기에 갑옷이 삐걱거린다.',foes:[foe('서리 왕좌의 기사'),foe('서리 왕좌의 시종')],limit:13,elements:['PYRO','CRYO','GEO'],armor:10,dmgMult:3.2},
+  {name:'잠긴 왕좌',hint:'두 왕좌가 번갈아 숨을 죽인다.',foes:[foe('해의 왕좌'),foe('달의 왕좌')],limit:10,hp:.55,elements:['PYRO','CRYO','GEO'],alternate:true,reflect:.2,dmgMult:5},
+  {name:'서로 잠긴 왕좌',hint:'왕좌의 속삭임이 마음을 흔든다.',foes:[foe('잠긴 왕좌의 주인'),foe('잠긴 왕좌의 그림자')],limit:11,hp:.72,elements:['PYRO','CRYO','GEO'],alternate:true,armor:10,teamGear:['EQ_LY_ACC_QINGXIN_SACHET',10],dmgMult:4.85}]},
+ {floor:12,name:'끝을 삼키는 별',level:20,hp:16800,atk:1060,def:450,reward:{mora:6000,artifact:true,items:{TRPG_BOSS_CORE:1}},rooms:[
+  {name:'별의 파편',hint:'정점에 선 자들만이 별에 닿는다.',foes:[foe('별의 파편'),foe('파편의 그림자')],limit:12,mastery:true,critOnly:3,dmgMult:2.65},
   {name:'삼키는 별',hint:'별이 빛을 삼키며 곁에 선 모든 것을 갉아먹는다.',foes:[foe('삼키는 별'),foe('별을 삼킨 자')],limit:12,mastery:true,erosion:.03,dmgMult:2.65},
-  {name:'끝을 삼키는 별',hint:'정점의 끝. 세 번째 박자마다 치명적인 일격만 통하고, 별은 쉬지 않고 모든 것을 갉아먹는다.',foes:[foe('끝을 삼키는 별'),foe('별의 잔해')],limit:12,mastery:true,critOnly:3,erosion:.045,dmgMult:2.65}]}
+  {name:'끝을 삼키는 별',hint:'정점의 끝.',foes:[foe('끝을 삼키는 별'),foe('별의 잔해')],limit:12,hp:.85,mastery:true,critOnly:3,erosion:.045,dmgMult:2.65}]}
 ];
 const ROOM_HP=[.8,.9,1],ROOM_ATK=[.9,.95,1],ELEMENT_KO={PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',ANEMO:'바람',GEO:'바위',DENDRO:'풀'};
 api.abyssConfig={season:SEASON,version:VERSION,markName:MARK,rewards:INAZUMA.slice(),floors:cp(FLOORS)};
@@ -111,7 +111,9 @@ P.abyssFloorReason=function(floor){
   if(party.length!==act.party.length||party.some(id=>!act.party.includes(id)))return '도전을 시작한 파티 그대로 다음 방에 들어가야 합니다.';
   return hpOf(this,'PLAYER_CUSTOM')>0?'':'주인공이 쓰러져 더 나아갈 수 없습니다.';
  }
- if(party.some(id=>(id==='PLAYER_CUSTOM'?this.s.global.PLAYER_LEVEL_STATE:this.s.chars[id]?.level)<10))return '나선비경은 파티 전원 Lv. 10부터 입장할 수 있습니다.';
+ const levelOf=id=>id==='PLAYER_CUSTOM'?this.s.global.PLAYER_LEVEL_STATE:this.s.chars[id]?.level;
+ if(party.some(id=>levelOf(id)<10))return '나선비경은 파티 전원 Lv. 10부터 입장할 수 있습니다.';
+ if(floor>=10&&party.some(id=>levelOf(id)<20))return '10층부터는 파티 전원이 Lv. 20이어야 입장할 수 있습니다.';
  if(floor>1&&!s.clears[floor-1])return '앞선 층을 먼저 정복해야 합니다.';
  if(party.length!==4)return '주인공과 동료 세 명을 편성해 주세요.';
  if(party.some(id=>hpOf(this,id)<=0))return '전투불능 파티원을 회복해 주세요.';
@@ -199,7 +201,8 @@ P.applyDamage=function(a,t,n,d={}){
  const b=this.s.runtime,r=b?.abyss&&t?.abyssWarden?roomOf(b):null;
  if(!r)return old.applyDamage.call(this,a,t,n,d);
  const why=this.abyssBlock(a,t,d);
- if(why){b.log.push({actor:a.name,target:t.name,damage:0,text:b.abyss.floor>=8?'무적입니다.':why,immune:true,element:d.element,card:d.card});return 0;}
+ // The player works the rule out; the log never explains which condition failed.
+ if(why){b.log.push({actor:a.name,target:t.name,damage:0,text:'무적입니다.',immune:true,element:d.element,card:d.card});return 0;}
  if(a.side==='ALLY'){n*=r.dmgMult||1;if(r.sacrifice)n*=2;}
  const dealt=old.applyDamage.call(this,a,t,n,d);
  if(r.reflect&&a.side==='ALLY'&&a.hp>0&&dealt>0&&!['ABYSS_FIXED','REACTION_DOT','ABYSS_REFLECT'].includes(d.sourceKind))old.applyDamage.call(this,t,a,Math.max(1,Math.round(dealt*r.reflect)),{element:'반사',sourceKind:'ABYSS_REFLECT',card:'ABYSS_THORNS'});
@@ -208,7 +211,7 @@ P.applyDamage=function(a,t,n,d={}){
 P.damage=function(a,t,k,e,o={}){
  const b=this.s.runtime,ab=b?.abyss,r=roomOf(b);
  if(r&&a.side==='ALLY'&&t?.abyssWarden&&t.hp>0){
-  if(r.accuracy&&this.combatStat(a,'hit')<r.accuracy){b.log.push({actor:a.name,target:t.name,miss:true,reason:'안개',text:'안개 속이라 공격이 빗나갔습니다.'});return false;}
+  if(r.accuracy&&this.combatStat(a,'hit')<r.accuracy){b.log.push({actor:a.name,target:t.name,miss:true});return false;}
   if(r.sequence){const code=({물:'HYDRO',번개:'ELECTRO',바람:'ANEMO',불:'PYRO',얼음:'CRYO',바위:'GEO'}[e]||e);if(r.sequence.includes(code)&&!ab.marks.includes(code))ab.marks.push(code);}
  }
  const result=old.damage.call(this,a,t,k,e,o);

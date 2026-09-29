@@ -17,7 +17,8 @@ Object.assign(c,{game:r,busy:false,MANIFEST:{},presenterDB:null,itemPresenter:nu
  document:{addEventListener(){},getElementById:()=>({close(){}}),querySelectorAll:()=>[]},showModal:(title,content)=>modals.push({title,content})});
 function draw(){c.growthScreen(new Element('section'));while(queue.length)queue.shift()();}
 c.act=(type,params)=>{c.busy=true;const result=r.action(type,params);draw();if(type==='MENU')assert.equal(modals.length,0,'busy render must not freeze a disabled picker');c.busy=false;draw();return result;};
-for(const file of ['inventory_presenter.js','app_gear.js'])vm.runInContext(fs.readFileSync(path.join(root,'source',file),'utf8'),c,{filename:file});
+// v0.14.4: app_gear.js marks item tiers with app_tiers.js (loaded between them in index.html).
+for(const file of ['inventory_presenter.js','app_tiers.js','app_gear.js'])vm.runInContext(fs.readFileSync(path.join(root,'source',file),'utf8'),c,{filename:file});
 c.window.openGear(slot);assert.equal(modals.length,1);const equip=walk(modals[0].content).find(x=>x.tag==='button'&&x.textContent==='장착');assert(equip);assert.equal(equip.disabled,false);equip.onclick();
 assert.equal(r.s.inventory.find(i=>i.slot===slot).equipped,true);assert.equal(r.s.inventory.find(i=>i.slot===slot).owner,'PLAYER_CUSTOM');
 console.log('PASS actual acquisition/bag → gear picker → enabled equip button → native EQUIP');
