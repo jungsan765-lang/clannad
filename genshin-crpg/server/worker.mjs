@@ -39,6 +39,15 @@ async function sessionByHash(env,th,requestId=''){
  return {account,tokenHash:th,row,receipt:x.receipt_response?{response:x.receipt_response}:null};
 }
 async function session(request,env){return sessionByHash(env,await authHash(request));}
+async function actionPrelude(env,th,requestId){
+ const t=now(),sessionStmt=env.DB.prepare('SELECT a.id,a.username,a.display_name,a.salt,a.password_hash,a.created_at,g.account_id AS game_account_id,g.state AS game_state,g.revision AS game_revision,g.last_request_id AS game_last_request_id,g.ranked AS game_ranked,g.updated_at AS game_updated_at,rr.response AS receipt_response FROM sessions s JOIN accounts a ON a.id=s.account_id LEFT JOIN games g ON g.account_id=a.id LEFT JOIN receipts rr ON rr.account_id=a.id AND rr.request_id=? WHERE s.token_hash=? AND s.expires_at>?').bind(requestId,th,t),
+  rateStmt=env.DB.prepare("INSERT INTO rate_limits(bucket,count,until_at) SELECT 'action:'||a.id,1,? FROM sessions s JOIN accounts a ON a.id=s.account_id WHERE s.token_hash=? AND s.expires_at>? ON CONFLICT(bucket) DO UPDATE SET count=CASE WHEN until_at<? THEN 1 ELSE count+1 END,until_at=CASE WHEN until_at<? THEN excluded.until_at ELSE until_at END RETURNING count").bind(t+60000,th,t,t,t),
+  [sessionResult,rateResult]=await env.DB.batch([sessionStmt,rateStmt]),x=sessionResult.results?.[0];
+ if(!x)throw error(401,'로그인이 만료되었습니다.');if(Number(rateResult.results?.[0]?.count||0)>240)throw error(429,'시도가 너무 잦습니다. 잠시 뒤 다시 시도해 주세요.');
+ const account={id:x.id,username:x.username,display_name:x.display_name,salt:x.salt,password_hash:x.password_hash,created_at:x.created_at},row=x.game_account_id?{account_id:x.game_account_id,state:x.game_state,revision:x.game_revision,last_request_id:x.game_last_request_id,ranked:x.game_ranked,updated_at:x.game_updated_at}:null;
+ return {account,tokenHash:th,row,receipt:x.receipt_response?{response:x.receipt_response}:null};
+}
+
 async function loginResult(env,account){const t=token(),h=await hash(t);await env.DB.prepare('INSERT INTO sessions VALUES(?,?,?)').bind(h,account.id,now()+7*86400000).run();return {token:t,account:{id:account.id,username:account.username,displayName:account.display_name,admin:admin(env,account.id)},version:ENGINE_VERSION};}
 function scoreStatement(env,account,row,requestId,abyss){const a=abyss||JSON.parse(row.state).abyss;if(!row.ranked)return env.DB.prepare('DELETE FROM ranking WHERE account_id=? AND EXISTS(SELECT 1 FROM games WHERE account_id=? AND ranked=0 AND revision=? AND last_request_id=?)').bind(account.id,account.id,row.revision,requestId);const floor=Math.max(0,...Object.keys(a?.clears||{}).map(Number)),rounds=Object.values(a?.clears||{}).reduce((n,x)=>n+x.rounds,0);if(!floor)return null;
 return env.DB.prepare('INSERT INTO ranking SELECT account_id,?,?,?,?,?,? FROM games WHERE account_id=? AND ranked=1 AND revision=? AND last_request_id=? AND ?>0 ON CONFLICT(account_id,season) DO UPDATE SET display_name=excluded.display_name,floor=excluded.floor,rounds=excluded.rounds,attempts=excluded.attempts,achieved_at=excluded.achieved_at WHERE excluded.floor>ranking.floor OR (excluded.floor=ranking.floor AND (excluded.rounds<ranking.rounds OR (excluded.rounds=ranking.rounds AND excluded.attempts<ranking.attempts)))').bind(a?.season||'ABYSS_01',account.display_name,floor,rounds,a?.attempts||0,now(),account.id,row.revision,requestId,floor);}
@@ -63,7 +72,7 @@ async function route(request,env,ctx){
  if(path==='/game/action'&&request.method==='POST'){
   const th=await authHash(request),bodyStart=performance.now();b=await body(request);bodyMs=elapsed(bodyStart);
   if(!/^[a-zA-Z0-9_-]{10,80}$/.test(b.requestId||''))throw error(400,'행동 식별자가 잘못되었습니다.');
-  const preludeStart=performance.now(),parts=await Promise.all([sessionByHash(env,th,b.requestId),rate(env,'action-session:'+th,240,60000)]);({account,tokenHash,row,receipt}=parts[0]);preludeMs=elapsed(preludeStart);
+  const preludeStart=performance.now(),auth=await actionPrelude(env,th,b.requestId);({account,tokenHash,row,receipt}=auth);preludeMs=elapsed(preludeStart);
  }else{
   const sessionStart=performance.now(),auth=await session(request,env);({account,tokenHash,row}=auth);sessionMs=elapsed(sessionStart);
  }
