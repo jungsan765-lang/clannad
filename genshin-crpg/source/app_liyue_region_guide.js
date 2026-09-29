@@ -7,8 +7,9 @@
  drawLocation=function(p,v){
   previous(p,v);if(game.s.runtime||game.s.placeVisit||game.needsRecovery?.())return;
   const g=game.liyueRegionGuide?.();if(!g)return;
-  const box=el('section','card mond-region-guide liyue-region-guide');box.id='liyue-region-guide';
-  box.append(el('h2','','지역 위험도 · '+g.label));
+  // v0.14.4: folded by default and placed at the end so phones reach the map and places first.
+  const box=el('details','card mond-region-guide liyue-region-guide'),sum=el('summary','region-guide-summary');box.id='liyue-region-guide';
+  sum.append(el('strong','','지역 위험도 · '+g.label),el('span',g.underLevel?'lack':'muted',g.underLevel?' · 파티보다 위험':' · 적 Lv. '+g.minLevel+'–'+g.maxLevel));box.append(sum);
   box.append(el('p','',g.biome+' · 적 Lv. '+g.minLevel+'–'+g.maxLevel+' · 현재 생존 파티 '+g.party.alive+'명 · 평균 Lv. '+g.party.average));
   box.append(el('p',g.underLevel?'region-warning':'muted',g.underLevel?'현재 파티 레벨이 이 지역의 적보다 낮습니다. 장비·회복·동료를 준비하거나 더 안전한 지역에서 성장하세요.':g.overLevel?'파티가 이 지역보다 강합니다. 적 레벨은 최대 '+g.maxLevel+'까지만 오르지만, 강화 개체가 나올 확률이 조금 오릅니다.':'적은 파티 평균 레벨 ±1 안에서, 이 지역의 레벨 범위를 넘지 않게 등장합니다.'));
   box.append(el('p','muted','이동·대기 중 조우 확률 '+g.encounterChance+'% · 지금 파티로 만날 적 Lv. '+range(g.enemyLevels)+' · 전투당 적 수는 생존 파티 인원(최대 4명)까지 줄어듭니다.'));
@@ -28,6 +29,6 @@
   const t=r.tierBonus;reward.append(el('p','muted','강화 개체를 쓰러뜨리면 그 적의 가장 귀한 소재를 더 얻습니다: 강화 일반 '+t.enhanced+'% · 강한 정예 '+t.strongElite.join('% + ')+'% · 지역 위험 개체 '+t.danger.join('% + ')+'%와 강적의 잔향 '+t.essence+'%.'));
   box.append(reward);
   if(g.boss)box.append(el('p','muted','필드 보스 · '+g.boss.name+' (Lv. '+g.boss.level+') · 원작 재료 '+g.boss.material+(g.boss.cooldown?' · '+(g.boss.cooldownReason||'아직 다시 나타나지 않았습니다.'):' · 주변 시설의 「'+g.boss.name+' 토벌」에서 도전할 수 있습니다.')));
-  const anchor=p.querySelector('#liyue-local-guide');if(anchor)anchor.after(box);else p.insertBefore(box,p.children[2]||null);
+  p.append(box);
  };
 })();

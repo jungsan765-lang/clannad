@@ -11,6 +11,15 @@ const liyueRecruitStages={
  LIYUE_NINGGUANG:4,LIYUE_BAIZHU:4,LIYUE_SHENHE:4,LIYUE_XIANYUN:4,LIYUE_ZIBAI:4
 };
 const liyueStageQuest=(route,stage)=>(route==='ROUTE_ISEKAI'?'Q_ISK_LIYUE_0':'Q_TRV_LIYUE_0')+stage;
+// v0.14.4: Liyue companions ask more of a party that has already beaten Dvalin. Each story stage also needs a
+// protagonist level, the preparation costs more (Mora x2.5, x3 from stage 3; items x2), and from stage 3 the
+// companion asks for two pieces of the field boss material their exclusive weapon is forged from.
+const liyueRecruitLevels={1:8,2:10,3:12,4:14};
+function liyueScaledCost(id,stage,cost){
+ const items=Object.fromEntries(Object.entries(cost.items).map(([k,n])=>[k,n*2])),mat=stage>=3&&root.CRPGRuntime.exclusiveWeapons?.weapons.find(w=>w.owner===id)?.material;
+ if(mat)items[mat]=(items[mat]||0)+2;
+ return {mora:Math.round(cost.mora*(stage>=3?3:2.5)/50)*50,items};
+}
 const liyueRecruitCosts={
  LIYUE_XIANGLING:{mora:480,items:{ING_RICE:3,ING_SHRIMP:2}},LIYUE_XINGQIU:{mora:520,items:{MAT_TREASURE_INSIGNIA:3}},LIYUE_CHONGYUN:{mora:300,items:{MAT_DAMAGED_MASK:4,ORE_IRON:4}},LIYUE_YAOYAO:{mora:320,items:{ING_RICE:3}},
  LIYUE_GAMING:{mora:520,items:{ORE_IRON:5,MAT_TREASURE_INSIGNIA:2}},LIYUE_XINYAN:{mora:380,items:{ORE_IRON:6}},LIYUE_YANFEI:{mora:600,items:{MAT_TREASURE_INSIGNIA:4}},LIYUE_YUNJIN:{mora:550,items:{ORE_CRYSTAL:3}},
@@ -49,18 +58,19 @@ P.storyIndex=function(){
  const ix=baseStoryIndex.call(this);if(ix.liyueRecruitmentStageVersion===2)return ix;
  for(const d of ix.legends.values()){
   if(d.REGION!=='리월'||d.CHAR_ID==='LIYUE_ZHONGLI')continue;
-  const stage=liyueRecruitStages[d.CHAR_ID]||4,quest=liyueStageQuest(d.ROUTE_SCOPE,stage),extra=d.CHAR_ID==='LIYUE_ZIBAI'?' && FLAG_WORLD_ZIBAI_RETURNED=TRUE':'';
-  d.LIYUE_RECRUIT_STAGE=stage;d.MAIN_FLAG_GATE='';d.START_CONDITION='ROUTE_ID='+d.ROUTE_SCOPE+' && DONE('+quest+')=TRUE && '+d.COMPLETE_FLAG_ID+'=FALSE'+extra+' && CURRENT_MAP_ID='+d.MAP_ID;
-  const cost=liyueRecruitCosts[d.CHAR_ID];if(cost){d.COST_MORA=cost.mora;d.COST_ITEMS_JSON=JSON.stringify(cost.items);}
+  const stage=liyueRecruitStages[d.CHAR_ID]||4,quest=liyueStageQuest(d.ROUTE_SCOPE,stage),extra=d.CHAR_ID==='LIYUE_ZIBAI'?' && FLAG_WORLD_ZIBAI_RETURNED=TRUE':'',level=liyueRecruitLevels[stage];
+  d.LIYUE_RECRUIT_STAGE=stage;d.LIYUE_RECRUIT_LEVEL=level;d.MAIN_FLAG_GATE='';d.START_CONDITION='ROUTE_ID='+d.ROUTE_SCOPE+' && DONE('+quest+')=TRUE && PLAYER_LEVEL_STATE>='+level+' && '+d.COMPLETE_FLAG_ID+'=FALSE'+extra+' && CURRENT_MAP_ID='+d.MAP_ID;
+  const cost=liyueRecruitCosts[d.CHAR_ID];if(cost){const c=liyueScaledCost(d.CHAR_ID,stage,cost);d.COST_MORA=c.mora;d.COST_ITEMS_JSON=JSON.stringify(c.items);}
   const row=ix.nodes.get(d.ROUTE_SCOPE+':'+d.ENTRY_NODE_ID);if(row)row[11]=d.START_CONDITION;
  }
  const diluc=ix.legends.get('LEG_ISK_MOND_DILUC');
  if(diluc){
-  diluc.MAIN_FLAG_GATE='FLAG_ISK_M05_CLEAR';diluc.RECRUIT_MODE='STORY_OR_LEGEND_OPT_IN';diluc.COST_MORA=650;diluc.COST_ITEMS_JSON=JSON.stringify({ORE_CRYSTAL:4,MAT_DAMAGED_MASK:3});
-  diluc.START_CONDITION='ROUTE_ID=ROUTE_ISEKAI && FLAG_ISK_M05_CLEAR=TRUE && FLAG_LEG_ISK_MOND_DILUC_CLEAR=FALSE && CURRENT_MAP_ID=MAP_MOND_DAWN_WINERY';
+  // v0.14.3: like every other Mond companion, Diluc opens after the Mond prologue, not after the whole Mond story.
+  diluc.MAIN_FLAG_GATE='FLAG_ISK_MON_PROLOGUE_CLEAR';diluc.RECRUIT_MODE='STORY_OR_LEGEND_OPT_IN';diluc.COST_MORA=650;diluc.COST_ITEMS_JSON=JSON.stringify({ORE_CRYSTAL:4,MAT_DAMAGED_MASK:3});
+  diluc.START_CONDITION='ROUTE_ID=ROUTE_ISEKAI && FLAG_ISK_MON_PROLOGUE_CLEAR=TRUE && FLAG_LEG_ISK_MOND_DILUC_CLEAR=FALSE && CURRENT_MAP_ID=MAP_MOND_DAWN_WINERY';
   const set=(id,fn)=>{const row=ix.nodes.get('ROUTE_ISEKAI:'+id);if(row)fn(row);};
-  set(diluc.ENTRY_NODE_ID,row=>{row[9]='이세계인 전용 다이루크 개인 임무. 다운 와이너리의 운송 기록을 조사하고, 완료 뒤 동행 여부를 정한다.';row[11]=diluc.START_CONDITION;});
-  set('LEG_ISK_MOND_DILUC_N005',row=>row[9]='이 기록은 사당의 일과 별개로 보겠다. 자네가 눈에 보이는 차이를 확인해 줘. 나는 실제로 수레를 몬 사람에게 묻지. 필요한 준비를 마쳤다면 시작하지.');
+  set(diluc.ENTRY_NODE_ID,row=>{row[9]='이세계인 전용 다이루크 개인 임무. 몬드 도입부 뒤 다운 와이너리의 운송 기록을 조사하고, 완료 뒤 동행 여부를 정한다.';row[11]=diluc.START_CONDITION;});
+  set('LEG_ISK_MOND_DILUC_N005',row=>row[9]='장부만 봐서는 답이 안 나와. 자네가 눈에 보이는 차이를 확인해 줘. 나는 실제로 수레를 몬 사람에게 묻지. 필요한 준비를 마쳤다면 시작하지.');
   set('LEG_ISK_MOND_DILUC_PREP_ACCEPT',row=>row[10]='준비는 끝났어. 운송 기록부터 확인하러 가자.');
   set('LEG_ISK_MOND_DILUC_N024',row=>row[9]='오늘 일은 여기서 마쳤다. 앞으로도 함께 움직일 생각이 있다면 지금 정해도 된다. 당장 답하지 않아도 상관없어.');
   set('LEG_ISK_MOND_DILUC_N025',row=>row[10]='앞으로도 같이 움직이자, 다이루크.');
@@ -95,14 +105,14 @@ P.storyAcceptLegend=function(id,node){
 P.liyueLegendProgress=function(d){
  if(!d||d.REGION!=='리월'||d.CHAR_ID==='LIYUE_ZHONGLI')return null;
  const stage=Number(d.LIYUE_RECRUIT_STAGE||liyueRecruitStages[d.CHAR_ID]||4),quest=liyueStageQuest(d.ROUTE_SCOPE,stage),ready=this.storyDone(quest);
- return {stage,quest,ready,label:'리월 본편 '+stage+'장 완료'};
+ return {stage,quest,ready,label:'리월 본편 '+stage+'장 완료',level:Number(d.LIYUE_RECRUIT_LEVEL||liyueRecruitLevels[stage])};
 };
 const flagNames={FLAG_TRV_MON_PROLOGUE_CLEAR:'몬드 도입부 완료',FLAG_ISK_MON_PROLOGUE_CLEAR:'몬드 도입부 완료',FLAG_ISK_MAIN_UNLOCKED:'도입부 마무리 및 메인 화면 개방',FLAG_TRV_MON_CH2_CLEAR:'몬드 본편 완료',FLAG_ISK_M05_CLEAR:'몬드 본편 완료',FLAG_TRV_LIYUE_CLEAR:'리월 본편 완료',FLAG_ISK_L04_REGION_CLEAR:'리월 본편 완료',FLAG_MOND_MIKA_RETURNED:'첫 만남 임무에서 귀환 확인',FLAG_MOND_MONA_PRESENT:'첫 만남 임무에서 만남 확인',FLAG_WORLD_ZIBAI_RETURNED:'귀환 임무 완료'};
 P.legendRequirements=function(d,{cost=true,location=true,introduction=true}={}){
  if(!d)return [];
  const out=[],g=this.s.global,add=(label,met,kind)=>out.push({label,met:!!met,kind});
  if(d.STATUS!=='ACTIVE')add('이 루트의 개인 임무 연결 준비 중',false,'content');
- const liyueGate=this.liyueLegendProgress?.(d);if(liyueGate)add(liyueGate.label,liyueGate.ready,'story');
+ const liyueGate=this.liyueLegendProgress?.(d);if(liyueGate){add(liyueGate.label,liyueGate.ready,'story');const lv=Number(g.PLAYER_LEVEL_STATE)||1;add('주인공 Lv. '+liyueGate.level+' 이상 · 현재 Lv. '+lv,lv>=liyueGate.level,'level');}
  const flags=new Set([d.MAIN_FLAG_GATE,...[...String(d.START_CONDITION||'').matchAll(/(FLAG_[A-Z0-9_]+)\s*=\s*TRUE/g)].map(m=>m[1])].filter(Boolean));
  for(const flag of flags){if(flag===d.COMPLETE_FLAG_ID)continue;const name=flagNames[flag]||this.tables['23_FLAG_DB'].get(flag)?.[1]||'선행 이야기 진행';add(name,yes(this.s.flags[flag]),'story');}
  if(location&&d.MAP_ID)add((this.tables['32_MAP_DB'].get(d.MAP_ID)?.[2]||'지정 장소')+'에서 만나기',g.CURRENT_MAP_ID===d.MAP_ID,'map');

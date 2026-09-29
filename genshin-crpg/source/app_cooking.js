@@ -68,12 +68,12 @@ function chip(id,need){
   const have=game.itemCount(id),box=el('span','cook-chip'+(have>=need?' ok':' short'));
   const icon=itemPresenter.itemDetail({item:id,quantity:1}).icon;
   if(icon?.url){const img=el('img','cook-chip-icon');img.src=icon.url;img.alt='';box.append(img);}
-  box.append(el('span','cook-chip-name',safeName('14_ITEM_DB',id)),el('span','cook-chip-count',have+'/'+need));return box;
+  box.append(tierMark(el('span','cook-chip-name',safeName('14_ITEM_DB',id)),id),el('span','cook-chip-count',have+'/'+need));return box;
 }
 function card(d){
   const c=el('section','cook-card'+(d.ready?' ready':'')+(d.locked?' locked':''));c.dataset.recipeId=d.r[0];c.dataset.effect=d.effect;
   const head=el('div','cook-head'),detail=itemPresenter.itemDetail({item:d.r[3],quantity:1});head.append(itemGlyph(detail));
-  const title=el('div','cook-title');title.append(el('h3','',detail.name||safeName('14_ITEM_DB',d.r[3])),el('span','cook-stars','★'.repeat(d.stars)));
+  const title=el('div','cook-title');title.append(tierMark(el('h3','',detail.name||safeName('14_ITEM_DB',d.r[3])),detail),el('span','cook-stars','★'.repeat(d.stars)));
   head.append(title,el('span','cook-badge effect-'+d.effect.toLowerCase(),EFFECT_LABEL[d.effect]||''));c.append(head);
   if(d.item[5])c.append(el('p','cook-desc',d.item[5]));
   c.append(el('p','cook-effect',effectLine(d)));

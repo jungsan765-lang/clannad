@@ -122,7 +122,7 @@ P.character=function(id){const a=old.character.call(this,id),profile=this.rows('
 P.storyEntryReason=function(def){
  if(def?.id==='LEG_ISK_MOND_VENTI'){
   const eligibility=JSON.parse(this.s.global.COMPANION_ELIGIBILITY_JSON||'{}');
-  if(eligibility.MOND_VENTI?.state!=='JOINED')return '벤티를 동료로 맞이한 뒤 몬드 광장에서 만날 수 있습니다.';
+  if(eligibility.MOND_VENTI?.state!=='JOINED')return '몬드 곳곳의 바람 신의 눈동자를 모아 거목 아래에 바치고, 몬드 본편을 마친 뒤 벤티와 동행을 약속하면 이어지는 이야기입니다.';
  }
  return old.storyEntryReason.call(this,def);
 };

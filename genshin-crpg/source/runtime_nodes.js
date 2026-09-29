@@ -132,6 +132,8 @@ P.storyConditionValue = function(name,args,property) {
     case 'HEART':return Math.min(5,Math.floor(Math.max(0,this.storyBond(profile))/20));
     case 'BOND':case 'BOND_SCORE':if(args.length===2&&args[0]!==g.STORY_ROUTE_ID)return 0;return this.storyBond(profile);
     case 'DONE':return this.storyDone(args[0]);
+    // v0.14.3: MET(profile) is true once the player has actually spoken with that person, so a first meeting can open with introductions.
+    case 'MET':return this.s.relations?.[profile]?.firstContact!=null;
     case 'ITEM':case 'INVENTORY':return this.itemCount(args[0]);
     case 'LOCAL_CHOICE':return this.s.storyLocalChoices?.[args[0]]||'';
     case 'SCENE_MEMORY':return this.s.storySceneMemories?.[args[0]]||'';

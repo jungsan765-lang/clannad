@@ -37,7 +37,7 @@ function showPurchaseQuantity(id){
 }
 shop=function(p){
  const entry=placeHeader(p,'SHOP');if(!entry)return;
- if(isInn(entry)){const c=el('section','card inn-service'),stock=game.placeStocks().find(s=>s.row[3]==='SERVICE_INN_REST_8H');if(stock){c.append(el('h2','','숙박하기'),el('p','','8시간 숙박 후 현재 파티 전원의 HP를 모두 회복합니다.'),el('p','',stock.row[5]+' 모라 · 보유 '+game.s.global.MORA+' 모라'));if(stock.reason)c.append(el('p','choice-note',stock.reason));const b=actionButton('숙박하기 · '+stock.row[5]+' 모라','BUY',{stock:stock.row[0],quantity:1},true);b.disabled=b.disabled||!!stock.reason;c.append(b);}p.append(c);return;}
+ if(isInn(entry)){const c=el('section','card inn-service'),stock=game.placeStocks().find(s=>s.row[3]==='SERVICE_INN_REST_8H');if(stock){c.append(el('h2','','숙박하기'),el('p','','8시간 숙박 후 현재 파티 전원의 HP를 모두 회복합니다.'),el('p',Number(game.s.global.MORA)<Number(stock.row[5])?'lack':'',stock.row[5]+' 모라 · 보유 '+game.s.global.MORA+' 모라'));if(stock.reason)c.append(el('p','choice-note',stock.reason));const b=actionButton('숙박하기 · '+stock.row[5]+' 모라','BUY',{stock:stock.row[0],quantity:1},true);b.disabled=b.disabled||!!stock.reason;c.append(b);}p.append(c);return;}
  p.append(el('p','shop-balance','보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라'));
  if(entry.entity==='NPC_MOND_SARA')p.append(el('p','','사라에게 완성된 음식을 구입할 수 있습니다. 음식은 아이템 화면에서 파티원에게 사용합니다.'));
  const stocks=game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')),groups=['기본 무기','단조 무기','방어구','법구','장신구','제작 재료','음식','소모품','제작법','기타'];
@@ -53,8 +53,8 @@ shop=function(p){
  if(!stocks.length)p.append(el('p','empty','현재 판매 중인 상품이 없습니다.'));
 };
 function costBlock(card,cost){
-  card.append(el('p','muted',Number(cost.mora||0).toLocaleString()+' 모라'));
-  for(const [id,n]of Object.entries(cost.items||{}))card.append(el('small','material-cost',safeName('14_ITEM_DB',id)+' '+n+'개 · 보유 '+game.itemCount(id)+'개'));
+  card.append(el('p','muted'+(Number(game.s.global.MORA)<Number(cost.mora||0)?' lack':''),Number(cost.mora||0).toLocaleString()+' 모라'));
+  for(const [id,n]of Object.entries(cost.items||{}))card.append(el('small','material-cost'+(game.itemCount(id)<n?' lack':''),safeName('14_ITEM_DB',id)+' '+n+'개 · 보유 '+game.itemCount(id)+'개'));
   return game.s.global.MORA<cost.mora?'모라가 부족합니다.':Object.entries(cost.items||{}).some(([id,n])=>game.itemCount(id)<n)?'재료가 부족합니다.':'';
 }
 // v0.13.40: a forge can hold many recipes. Tabs by output kind and a "craftable now" filter keep it scannable;
@@ -91,7 +91,7 @@ crafting=function(p){
 boss=function(p){
   const entry=placeHeader(p,'BOSS');if(!entry)return;
   if(['AWAIT_NEXT','RETRY'].includes(game.s.bossRouteProgress?.phase)){bossProgressControls(p);return;}
-  const row=game.row('35_BOSS_ROUTE_DB',entry.route);p.append(el('p','','이 장소에서 시작하는 현장 도전입니다. 보스별 게임 내 48시간에 1회 입장하며, 패배·이탈해도 제한은 유지됩니다. 완료한 도전은 재료 재도전 메뉴를 이용하세요.'));
+  const row=game.row('35_BOSS_ROUTE_DB',entry.route);p.append(el('p','','이 장소에서 시작하는 현장 도전입니다. 보스별로 하루에 한 번(현실 시간, 한국 시간 자정 기준) 입장하며, 패배·이탈해도 그날 입장은 쓴 것으로 칩니다. 완료한 도전은 재료 재도전 메뉴를 이용하세요.'));
   for(const mode of ['DIRECT','GAUNTLET']){if(mode==='GAUNTLET'&&row[3]==='DIRECT')continue;const reason=game.placeBossReason(entry.route,mode),b=actionButton(mode==='DIRECT'?'보스에게 도전':'전초전부터 도전','BOSS_ROUTE',{route:entry.route,entry:mode},true);b.disabled=b.disabled||!!reason;p.append(b);if(reason)p.append(el('small','choice-note',reason));}
 };
 returnToJourney=function(p){
@@ -106,7 +106,7 @@ function itemGlyph(d){
 }
 function itemSummary(d){return [d.questLabel?'관련 임무 · '+d.questLabel:'',d.description,d.effect,...d.stats.map(s=>s.label+' '+s.value+s.unit),d.fields.find(f=>f.label==='사용 제한')?.value].filter(Boolean).join('\n');}
 function itemDetailView(box,d){
-  box.replaceChildren();box.append(el('small','',d.category),el('h2','',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:'')));
+  box.replaceChildren();box.append(el('small','',[d.tier?.label?d.tier.label+' 등급':'',d.category].filter(Boolean).join(' · ')),tierMark(el('h2','',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:'')),d));
   if(d.kind==='EQUIPMENT')box.append(el('p','muted',d.equipped?ownerName(d.owner)+' 장착 중':'미장착'));
   else box.append(el('p','muted',d.quantity+'개 보유'));
   if(d.description)box.append(el('p','',d.description));if(d.effect)box.append(el('p','item-effect',d.effect));
@@ -129,8 +129,8 @@ inventory=function(p){
   let shown=entries.filter(d=>bagCategory==='전체'||d.group===bagCategory);if(!shown.length&&entries.length){bagCategory='전체';shown=entries;}
   const layout=el('div','bag-layout'),grid=el('div','bag-grid'),detail=el('section','card bag-detail');detail.setAttribute('aria-label','선택한 아이템 상세');
   const chosen=shown.find(d=>d.key===bagSelection)||shown[0];bagSelection=chosen?.key||null;
-  for(const d of shown){const wrap=el('div','bag-cell'),b=button('',()=>{bagSelection=d.key;for(const x of grid.querySelectorAll('button'))x.setAttribute('aria-pressed',String(x.dataset.itemKey===d.key));itemDetailView(detail,d);});b.className='bag-item';b.dataset.itemKey=d.key;b.setAttribute('aria-pressed',String(d.key===bagSelection));b.setAttribute('aria-label',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:' '+d.quantity+'개'));b.append(itemGlyph(d),el('strong','item-count',d.kind==='EQUIPMENT'?'+'+d.enhance:'×'+d.quantity),el('span','item-name',d.name));if(d.equipped)b.append(el('small','item-worn','장착'));
-    const tooltip=el('div','item-tooltip');tooltip.id='item-tip-'+grid.children.length;tooltip.setAttribute('role','tooltip');tooltip.append(el('strong','',d.name),el('p','',itemSummary(d)||d.category));b.setAttribute('aria-describedby',tooltip.id);wrap.append(b,tooltip);grid.append(wrap);
+  for(const d of shown){const wrap=el('div','bag-cell'),b=button('',()=>{bagSelection=d.key;for(const x of grid.querySelectorAll('button'))x.setAttribute('aria-pressed',String(x.dataset.itemKey===d.key));itemDetailView(detail,d);});b.className='bag-item tier-'+(d.tier?.rank||1);b.dataset.itemKey=d.key;b.setAttribute('aria-pressed',String(d.key===bagSelection));b.setAttribute('aria-label',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:' '+d.quantity+'개'));b.append(itemGlyph(d),el('strong','item-count',d.kind==='EQUIPMENT'?'+'+d.enhance:'×'+d.quantity),tierMark(el('span','item-name',d.name),d));if(d.equipped)b.append(el('small','item-worn','장착'));
+    const tooltip=el('div','item-tooltip');tooltip.id='item-tip-'+grid.children.length;tooltip.setAttribute('role','tooltip');tooltip.append(tierMark(el('strong','',d.name),d),el('p','',itemSummary(d)||d.category));b.setAttribute('aria-describedby',tooltip.id);wrap.append(b,tooltip);grid.append(wrap);
   }
   if(chosen)itemDetailView(detail,chosen);else detail.append(el('p','empty','아직 보유한 아이템이 없습니다.'));layout.append(grid,detail);p.append(layout);
   const tools=el('details','tool-preparation');tools.append(el('summary','','전투 도구 준비'));toolPreparation(tools);lockControls(tools,game.actionReason('TOOL_PREPARE'));if(tools.children.length>1)p.append(tools);returnToJourney(p);
@@ -288,7 +288,8 @@ combat=function(p){
   const b=game.s.runtime,opening=game.combatOpening?.(),cards=opening?[]:(game.combatCards?.()||[]);
   if(!cards.some(c=>c.id===selectedCard&&!c.reason))selectedCard=cards.find(c=>!c.reason)?.id||cards[0]?.id;
   const chosen=cards.find(c=>c.id===selectedCard);if(!chosen?.targets?.some(x=>x.id===selectedTarget))selectedTarget=chosen?.targets?.[0]?.id||null;
-  p.classList.add('combat-panel');const head=el('div','battle-heading');head.append(el('span','eyebrow',opening?'전투 시작 전':'ROUND '+b.round),el('h1','',safeName('33_ENCOUNTER_GROUP_DB',b.group)));p.append(head);
+  p.classList.add('combat-panel');const head=el('div','battle-heading');head.append(el('span','eyebrow',opening?'전투 시작 전':'ROUND '+b.round),el('h1','',safeName('33_ENCOUNTER_GROUP_DB',b.group)));
+  const fm=b.formationV1&&window.CRPGRuntime?.formationConfig?.formations?.[b.formationV1.id];if(fm)head.append(el('small','battle-formation'+(b.formationV1.synergy?' synergy':''),'진형 · '+fm.name+(b.formationV1.synergy?' · 시너지 발동':'')));p.append(head);
   if(opening?.encounter){const e=opening.encounter,card=el('section','encounter-intro');card.setAttribute('aria-label','전투에 들어온 이유');card.append(el('small','eyebrow',e.label+' · '+mapName(e.map)),el('p','encounter-reason',displayText(e.text)));const foes=b.actors.filter(a=>a.side==='ENEMY'),preview=el('div','encounter-opponents');for(const name of [...new Set(foes.map(a=>a.name))]){const group=foes.filter(a=>a.name===name);preview.append(el('span','',name+' × '+group.length));}card.append(preview);p.append(card);}
   battleOrder(p,b);
   const controls=el('section','battle-command');controls.setAttribute('aria-label','전투 행동');

@@ -179,8 +179,10 @@
         const adjacent = this.nearbyTargets(target, target.side, Infinity).filter(t => t.id !== target.id && alive(t))[0];
         const capture = { actor: a.id, target: target.id, amount: null }, previous = this._andriusPrimaryCapture;
         this._andriusPrimaryCapture = capture;
-        let landed;
+        let landed;const logStart = b.log.length;
         try { landed = hit(target, 1.25); } finally { this._andriusPrimaryCapture = previous; }
+        // A neighbour with the cover trait took the claw instead: the target was not hit, so no penalty or splash.
+        if (landed && capture.amount === null && b.log.slice(logStart).some(x => x.cover && x.targetId === target.id)) break;
         if (landed && capture.amount === null) fail('ANDRIUS_PACKET_HOOK', '최종 피해 패킷 기록 훅이 연결되지 않았습니다.');
         if (landed) target.nextScorePenalty = Math.max(10, target.nextScorePenalty || 0);
         if (landed && adjacent && alive(adjacent) && capture.amount > 0 && !this.hasElementImmunity(adjacent, 'CRYO')) {

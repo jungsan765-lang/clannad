@@ -75,7 +75,11 @@ const MIMIC_ORDER=['FB_MIMIC_BOAR','FB_MIMIC_CRANE','FB_MIMIC_FROG','FB_MIMIC_CR
 const ROUTE=id=>'BRT_'+id,GROUP=id=>'EG_'+id,FLAG=id=>'FLAG_'+id+'_CLEAR',LOOT=id=>'LT_'+id;
 // Tuned with a 4-person party at the recommended level (reports/field_bosses/balance.json): an unprepared
 // generalist party should usually lose, a prepared one should usually win. Bosses act twice a turn.
-for(const d of Object.values(BOSSES))d.level=Math.max(10,d.level);
+// v0.14.4: each boss has its own fixed level, so there is an order to take them in: Mond Lv.10-13, Liyue Lv.14-20.
+// Stats were tuned at Lv.10; every level above adds HP, attack and defence (LEVEL_GROWTH).
+const LEVELS={FB_CRYO_REGISVINE:10,FB_ANEMO_HYPOSTASIS:11,FB_ELECTRO_HYPOSTASIS:12,FB_CRYO_HYPOSTASIS:13,FB_GEO_HYPOSTASIS:14,FB_OCEANID:15,FB_PYRO_REGISVINE:16,FB_PRIMO_GEOVISHAP:18,FB_RUIN_SERPENT:20};
+const LEVEL_GROWTH={hp:.08,atk:.2,def:.03},grown=(level,key)=>1+LEVEL_GROWTH[key]*Math.max(0,level-10);
+for(const [id,d]of Object.entries(BOSSES))d.level=LEVELS[id]||Math.max(10,d.level);
 BOSSES.FB_ANEMO_HYPOSTASIS.gimmicks.REVIVE.counter='원거리·대공 공격으로 떠오른 핵 집중 공격';
 BOSSES.FB_ELECTRO_HYPOSTASIS.gimmicks.REVIVE.counter='불·얼음·풀 원소로 프리즘 파괴';
 BOSSES.FB_CRYO_HYPOSTASIS.gimmicks.REVIVE.counter='불 원소·파쇄 공격 네 번';
@@ -86,7 +90,7 @@ BOSSES.FB_PRIMO_GEOVISHAP.summary+=' 비늘을 열려면 보호막으로 원암 
 BOSSES.FB_RUIN_SERPENT.summary+=' 노출된 머리를 파쇄·약점 공략으로 때려야 갑주가 열린다.';
 const TUNE={hp:1.5,atk:2.4,actions:2};
 const TUNE_BY={FB_ANEMO_HYPOSTASIS:{atk:3.8,hp:1.8},FB_ELECTRO_HYPOSTASIS:{hp:1.1,atk:2.5},FB_CRYO_REGISVINE:{atk:4,hp:1.6},FB_CRYO_HYPOSTASIS:{hp:.9,atk:1.9},FB_GEO_HYPOSTASIS:{hp:1.3,atk:2.4},FB_PYRO_REGISVINE:{hp:1.2},FB_OCEANID:{atk:2.8},FB_PRIMO_GEOVISHAP:{atk:2.5},FB_RUIN_SERPENT:{hp:1.6,atk:4}};
-const tuned=(d,key)=>Math.round(d[key]*((TUNE_BY[d.id]||{})[key]??TUNE[key]));
+const tuned=(d,key)=>Math.round(d[key]*((TUNE_BY[d.id]||{})[key]??TUNE[key])*grown(d.level,key));
 // Two-day bosses: extra mechanics only in voluntary challenges (never in the story fights).
 const TWIN={BOSS_ANDRIUS:{name:'안드리우스',gimmicks:{FROST_FIELD:G('혹한의 영역','3라운드마다 라운드 끝 전원 냉기 지형(감속) 2라운드','방한 장비'),HUNT_MARK:G('사냥 표식','공격력이 가장 높은 동료에게 표식 · 표식 대상에게 주는 단일 피해 +30%','은밀 장비(20 이상이면 표식을 피함)·옆 칸 엄호')}},
  BOSS_DVALIN:{name:'드발린',gimmicks:{CORROSIVE_BREATH:G('부식의 숨결','3라운드마다 라운드 끝 전열 부식 지형 2라운드(방어력 −15%)','해독 장비'),STORM_WING:G('폭풍 날개','짝수 라운드 끝 선두를 밀어 다음 행동 지연','중장·경직 저항 장비')}}};
@@ -100,7 +104,7 @@ P.installFieldBosses=function(){
  for(const [id,m]of Object.entries(MATERIALS))if(!has('14_ITEM_DB',id)){const r=Array(rows['14_ITEM_DB'][0].length).fill('');const boss=Object.values(BOSSES).find(b=>b.material===id);Object.assign(r,{0:id,1:m.name,2:'보스 재료',3:'희귀',4:'[보스]',5:m.desc,6:'재료',7:'전용 무기·특수 장비 제작 재료',8:0,10:'N',11:'공용',14:120,15:0,16:999,17:boss.name+' 토벌',18:'Y',19:'N',20:boss.region,21:'공식 명칭·원작 드랍 보스 · 수량은 CRPG 설계'});rows['14_ITEM_DB'].push(r);}
  const mh=rows['09_MONSTER_DB'][0].length,monster=(id,d,grade,family,loot)=>{const r=Array(mh).fill('');Object.assign(r,{0:id,1:d.name,2:family,3:grade,4:d.region||'',5:'['+d.element+']',6:d.hp,7:d.atk,8:d.def,9:10,10:50,11:'필드 보스',12:(d.immune||[]).length?(d.immune[0]==='ALL'?'본체 피해 무효':d.immune.join('·')+' 면역'):'결정막',13:'선택',14:loot,15:d.img??'NONE',16:'CRPG 12-6',17:d.summary||'',18:d.level,19:d.spd,20:85,21:5,22:25,23:d.range,24:'기믹우선',25:'필드 보스 전용 규칙'});return r;};
  for(const [id,d]of Object.entries(BOSSES)){
-  if(!has('09_MONSTER_DB',id))rows['09_MONSTER_DB'].push(monster(id,{...d,hp:d.kind==='OCEANID'?d.hp:tuned({...d,id},'hp'),atk:tuned({...d,id},'atk')},'보스','필드 보스',LOOT(id)));
+  if(!has('09_MONSTER_DB',id))rows['09_MONSTER_DB'].push(monster(id,{...d,hp:d.kind==='OCEANID'?d.hp:tuned({...d,id},'hp'),atk:tuned({...d,id},'atk'),def:Math.round(d.def*grown(d.level,'def'))},'보스','필드 보스',LOOT(id)));
   if(!has('33_ENCOUNTER_GROUP_DB',GROUP(id))){const r=Array(rows['33_ENCOUNTER_GROUP_DB'][0].length).fill('');Object.assign(r,{0:GROUP(id),1:d.name,2:'BOSS',3:'필드 보스',4:d.level,5:d.level,6:'FIXED',7:id,8:1,9:1,22:'없음',23:'필드 보스 전용 규칙',24:1,25:'Y',26:'Y',27:d.summary,28:'필드 보스,'+d.region});rows['33_ENCOUNTER_GROUP_DB'].push(r);}
   if(!has('49_ENCOUNTER_MEMBER_DB','EM_'+GROUP(id)+'_1'))rows['49_ENCOUNTER_MEMBER_DB'].push(['EM_'+GROUP(id)+'_1',GROUP(id),1,id,1,1,'MON1','CRPG_FIELD_BOSS_V1','필드 보스']);
   if(!has('35_BOSS_ROUTE_DB',ROUTE(id)))rows['35_BOSS_ROUTE_DB'].push([ROUTE(id),d.name+' 토벌',d.map,'DIRECT','','','',GROUP(id),'Y','N','CURRENT_STEP','N','',FLAG(id),'Y','필드 보스 · 승리 후 게임 내 24시간 뒤 다시 나타남']);
@@ -150,7 +154,7 @@ P.startBattle=function(group,origin='EXPLICIT',...rest){
 };
 P.fbShell=function(a){const d=BOSSES[a.source],fire=d.kind==='CRYO_VINE';this.shield(a,a.maxHp*.3,'FB_SHELL',null,{element:d.element,damageMultipliers:fire?{불:3,번개:1.2,바위:1.2,물:.6,바람:.6,풀:.6,물리:.6,얼음:.2}:{얼음:3,물:2.5,번개:1.2,바위:1.2,불:.2,바람:.6,풀:.6,물리:.6},fieldBoss:true});this.fieldBossSeen(this.s.runtime,'SHELL');};
 P.fbSummon=function(b,boss,id,extra={}){
- const s=SUMMONS[id],n=(b.summonSequence=(b.summonSequence||0)+1),hp=Math.max(1,Math.round(s.hp<=1?boss.maxHp*s.hp:s.hp)),atk=Math.max(0,Math.round(boss.atk*(s.atk||0)));
+ const s=SUMMONS[id],n=(b.summonSequence=(b.summonSequence||0)+1),hp=Math.max(1,Math.round(s.hp<=1?boss.maxHp*s.hp:s.hp*grown(BOSSES[boss.source]?.level||10,'hp'))),atk=Math.max(0,Math.round(boss.atk*(s.atk||0)));
  const a={id:id+'#S'+n,source:id,name:s.name,side:'ENEMY',control:'AI',hp,maxHp:hp,atk,def:s.def,crit:5,critDmg:50,level:boss.level,spd:s.spd,hit:85,eva:5,resist:10,range:s.range,grade:'일반',tags:['['+s.element+']'],tactic:'균형',aura:null,statuses:[],shields:[],cooldowns:{},turns:0,element:s.element,hasDedicatedCards:true,airborne:!!s.airborne,structure:!!s.structure,armored:!!s.structure,fbSummon:{kind:id,owner:boss.id},...extra};
  if(id==='FB_MIMIC_CRAB')this.shield(a,hp*.25,'FB_CRAB_SHELL',null,{element:'물',damageMultipliers:{번개:2,얼음:1.5}});
  b.actors.push(a);this.initCombatPositions?.();return a;
@@ -383,5 +387,5 @@ P.validateSave=function(s){
  return out;
 };
 P.fieldBossVersion=1;
-api.fieldBosses={version:1,cooldownMinutes:COOLDOWN,materials:copy(MATERIALS),bosses:copy(BOSSES),summons:copy(SUMMONS),twin:copy(TWIN),route:ROUTE,group:GROUP};
+api.fieldBosses={version:1,levels:copy(LEVELS),levelGrowth:copy(LEVEL_GROWTH),cooldownMinutes:COOLDOWN,materials:copy(MATERIALS),bosses:copy(BOSSES),summons:copy(SUMMONS),twin:copy(TWIN),route:ROUTE,group:GROUP};
 })(globalThis);

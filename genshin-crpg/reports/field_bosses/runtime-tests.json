@@ -22,12 +22,9 @@
       "name": "victory drops the material, starts a 24-hour respawn, records notes; defeat can be retried at once",
       "passed": true,
       "evidence": {
-        "got": 4,
+        "got": 3,
         "notes": {
-          "seen": [
-            "GUST",
-            "PULL"
-          ],
+          "seen": [],
           "attempts": 1,
           "wins": 1,
           "best": 1
@@ -63,12 +60,12 @@
       "name": "the Pyro Regisvine heat wave is an intentional unfair beat that heat gear answers",
       "passed": true,
       "evidence": {
-        "lisa": 92,
-        "noelle": 12
+        "lisa": 104,
+        "noelle": 13
       }
     },
     {
-      "name": "the Oceanid is untouchable; eight defeated forms win; flying forms land after they attack",
+      "name": "the Oceanid is untouchable; eight defeated forms win; flying forms retain altitude and require ranged counters",
       "passed": true,
       "evidence": {}
     },
@@ -93,15 +90,15 @@
       "name": "every boss fight finishes on auto without errors or stalls",
       "passed": true,
       "evidence": {
-        "FB_ANEMO_HYPOSTASIS": "L16 L16 ",
-        "FB_ELECTRO_HYPOSTASIS": "L13 L13 ",
-        "FB_CRYO_REGISVINE": "L14 L11 ",
-        "FB_CRYO_HYPOSTASIS": "L18 L14 ",
-        "FB_GEO_HYPOSTASIS": "L12 L9 ",
-        "FB_PYRO_REGISVINE": "L11 L11 ",
-        "FB_OCEANID": "L8 L7 ",
-        "FB_PRIMO_GEOVISHAP": "L10 L10 ",
-        "FB_RUIN_SERPENT": "L10 L13 "
+        "FB_ANEMO_HYPOSTASIS": "L20 L18 ",
+        "FB_ELECTRO_HYPOSTASIS": "L16 L16 ",
+        "FB_CRYO_REGISVINE": "L12 L12 ",
+        "FB_CRYO_HYPOSTASIS": "L13 L20 ",
+        "FB_GEO_HYPOSTASIS": "L17 L12 ",
+        "FB_PYRO_REGISVINE": "L9 L8 ",
+        "FB_OCEANID": "L10 L11 ",
+        "FB_PRIMO_GEOVISHAP": "L10 L7 ",
+        "FB_RUIN_SERPENT": "L9 L9 "
       }
     },
     {

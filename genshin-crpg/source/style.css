@@ -407,7 +407,22 @@ nav button[data-screen=LOCATION]{border-color:#477f8b;background:#183b46}nav but
 .field-boss-info{margin:12px 0;padding:12px 14px;border:1px solid #6b5a3a;border-radius:12px;background:#1f1c16}
 .field-boss-info h2{font-size:1.05rem;margin:0 0 6px}
 .field-boss-info h3{font-size:.92rem;margin:10px 0 4px}
-.field-boss-drop{color:var(--gold);margin:4px 0}
+.field-boss-drop{color:var(--gold);margin:4px 0}.field-boss-daily{margin:4px 0;font-weight:600}.field-boss-daily.short{color:var(--red)}
+/* v0.14.4 shortages and ley lines */
+.lack{color:var(--red)!important;font-weight:600}
+.ley-line-card{padding:12px 14px}.ley-line-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.ley-line-head h2{margin:0}.ley-line-timer{color:var(--gold);font-variant-numeric:tabular-nums;font-size:.9em}
+.ley-line-list{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}.ley-line-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.03)}
+.ley-line-item.revelation{border-left:3px solid #62aaff}.ley-line-item.wealth{border-left:3px solid #f5c451}.ley-line-item.claimed{opacity:.6}.ley-line-item.here{box-shadow:0 0 0 1px var(--gold) inset}
+.ley-line-copy{display:flex;flex-direction:column;min-width:0}.ley-line-copy small{color:var(--muted)}.ley-line-here{color:var(--gold);font-weight:600;white-space:nowrap}
+.ley-line-info{margin:8px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px}.ley-line-info h2{margin:0 0 4px}.ley-line-reward{color:var(--gold);margin:4px 0}.ley-line-claimed{color:var(--red)}.material-challenge-reward{color:var(--gold)}
+.ley-line-item button{width:auto;flex:0 0 auto;min-height:36px;padding:6px 12px;margin:0}.ley-line-more{margin-top:6px}.ley-line-tiers{display:grid;gap:6px;margin-top:8px}.ley-line-tier{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px}.ley-line-tier.recommended{border-color:var(--gold)}.ley-line-tier.locked{opacity:.7}.ley-line-tier button{width:auto;flex:0 0 auto;min-height:38px;padding:6px 16px;margin:0}.ley-line-more summary{cursor:pointer;min-height:36px;line-height:36px;font-size:.85rem;color:var(--muted)}.terrain-more-routes{margin-top:8px}.terrain-more-routes summary{font-size:.8rem;min-height:40px;line-height:40px;cursor:pointer;color:#c8d3bf}.region-guide-summary{cursor:pointer;min-height:40px;display:list-item}.region-guide-summary strong{font-size:1rem}
+@media(max-width:600px){
+ .player-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:12px;row-gap:2px;align-items:center}
+ .player-card>.eyebrow,.player-card>.meter{grid-column:1/-1}.player-card>h2{margin:0;font-size:1rem}.player-card .stat{font-size:.84rem;margin:0}.player-card .xp-block .stat{font-size:.76rem}
+ .terrain-navigation .terrain-destination{min-height:56px;padding:8px 10px}.terrain-card-copy small{margin-top:2px}.terrain-legend,.terrain-help{display:none}
+ .ley-line-card{padding:10px 12px}.ley-line-help{font-size:.78rem;margin:4px 0}.ley-line-item{padding:6px 8px}
+ .scene-panorama{height:180px}
+}
 .field-boss-immune{color:#ffb4a8;margin:4px 0}
 .field-boss-gimmicks{margin:0;padding-left:1.1rem}
 .field-boss-gimmicks li{margin:3px 0;font-size:.88rem}
@@ -615,3 +630,40 @@ button.title-start:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 
 .battle-target-warning{padding:10px 12px;border-left:3px solid var(--gold,#d5b77d);white-space:normal;overflow-wrap:anywhere}
 .learning-guide{position:static;padding:14px 18px;margin-bottom:14px;border:1px solid #9d875b;border-radius:12px;background:var(--panel,#142d2d);width:100%;box-sizing:border-box}.learning-guide h2{font-size:1.05rem;margin:5px 0}.learning-guide p{font-size:.9rem;line-height:1.6;margin:6px 0}.learning-guide-heading{display:flex;justify-content:space-between;align-items:center;gap:10px}.learning-guide-heading button{padding:6px 10px;min-height:36px}.learning-checklist{margin-top:8px}.learning-checklist .done{opacity:.6}.tutorial-target{outline:2px solid #d5b77d;outline-offset:3px}
 @media(max-width:600px){.learning-guide{padding:10px 12px}.learning-guide p{font-size:.85rem}.battle-retreat button{width:100%}.book-batch .row{flex-wrap:wrap}}
+
+/* v0.14.3 next-chapter offer and companion join notice */
+.next-chapter{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;border:1px solid var(--line);border-radius:7px;padding:12px 14px;margin:10px 0;background:#122a32}.next-chapter strong{color:var(--gold);flex:1 1 auto;min-width:0}.next-chapter small{flex-basis:100%}.next-chapter button{margin:0}
+.join-notice{display:flex;gap:14px;align-items:center;border:1px solid #d8b76e66;border-radius:7px;padding:12px;margin:0 0 12px;background:#1a2f36}.join-notice .party-portrait,.join-notice .portrait-placeholder{width:72px;height:72px;flex:0 0 72px;border-radius:50%;object-fit:cover}.join-notice h2{margin:0 0 4px;color:#f0d294}.join-notice p{margin:2px 0}
+/* v0.14.3 Spiral Abyss chambers, rest break and floor mark */
+.abyss-floor summary{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;cursor:pointer;min-height:36px;align-items:center}.abyss-floor summary strong{color:var(--gold)}.abyss-badges{color:var(--muted);font-size:.85rem}
+.abyss-rooms{margin:8px 0;padding-left:20px}.abyss-rooms li{margin:8px 0}.abyss-rooms li.current strong{color:var(--gold)}.abyss-rooms p{margin:4px 0;line-height:1.55;overflow-wrap:anywhere}
+.abyss-reward{border-left:3px solid var(--gold);padding-left:10px;overflow-wrap:anywhere}.abyss-hint{border-left:3px solid var(--line);padding-left:10px;line-height:1.55;overflow-wrap:anywhere}
+.abyss-break{border-color:var(--gold)}.abyss-party{display:grid;gap:10px;margin:12px 0}.abyss-member{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;border:1px solid var(--line);border-radius:7px;padding:10px 12px}.abyss-member.down{opacity:.6}.abyss-member .form-label,.abyss-member button,.abyss-member small,.abyss-hp{grid-column:1/-1}.abyss-member .form-label{margin:6px 0 0}
+.abyss-hp{height:6px;border-radius:3px;background:#ffffff1a;overflow:hidden}.abyss-hp::before{content:'';display:block;height:100%;width:calc(var(--hp,1)*100%);background:linear-gradient(90deg,#6fbf73,#b8d86b)}.abyss-buffs{color:var(--gold)}
+.abyss-result{border-color:var(--gold);margin:12px 0}
+/* v0.14.4 item tiers: 일반 white, 상급 green, 희귀 blue, 영웅 purple, 전설 gold */
+.tier-1{--tier:#ece6d8}.tier-2{--tier:#72d27f}.tier-3{--tier:#62aaff}.tier-4{--tier:#bb8bff}.tier-5{--tier:#f5c451}
+.tier-text{color:var(--tier)}.tier-badge{font-size:.85rem;margin:2px 0 6px;font-weight:600}
+.bag-item.tier-2,.bag-item.tier-3,.bag-item.tier-4,.bag-item.tier-5,.gear-slot.tier-2,.gear-slot.tier-3,.gear-slot.tier-4,.gear-slot.tier-5{box-shadow:inset 0 -3px 0 var(--tier)}
+.loot-item.tier-3,.loot-item.tier-4,.loot-item.tier-5{border-color:var(--tier)}
+.item-detail-fields dd{white-space:pre-line}
+/* v0.14.4 formations */
+.formation-options{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:10px}
+.formation-option{display:grid;gap:4px;text-align:left;padding:12px;border:1px solid var(--line);border-radius:8px;min-height:44px}
+.formation-option strong{color:var(--gold)}.formation-option.selected{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.formation-motto{color:var(--muted)}.formation-effect{font-size:.92rem;line-height:1.45}.formation-synergy{color:var(--muted);line-height:1.4}.formation-synergy.on{color:#72d27f}
+.role-effect{display:block;color:var(--muted);margin-top:4px;line-height:1.4}.battle-formation{display:inline-block;margin-top:2px;color:var(--muted)}.battle-formation.synergy{color:#72d27f}
+@media(max-width:600px){.formation-options{grid-template-columns:1fr 1fr}.formation-option{padding:10px}}
+/* v0.14.5: compact formation row under the party */
+.formation-choice{padding:12px 14px}.formation-choice h2{margin:0 0 2px}.formation-help{margin:0 0 6px;font-size:.85rem}@media(min-width:1000px){.formation-options{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.formation-option{padding:8px 10px;gap:2px}.formation-effect{font-size:.82rem}.formation-synergy{font-size:.74rem}}
+/* v0.14.4 공명 각성: a short translucent band with the character's motion art; never blocks input */
+.resonance-cue{position:fixed;left:0;right:0;top:24vh;height:clamp(120px,24vh,220px);z-index:60;pointer-events:none;display:flex;align-items:center;overflow:hidden;background:linear-gradient(90deg,rgba(7,20,27,0) 0%,rgba(7,20,27,.8) 16%,rgba(7,20,27,.8) 84%,rgba(7,20,27,0) 100%);border-top:1px solid rgba(228,195,127,.5);border-bottom:1px solid rgba(228,195,127,.5);animation:resonance-in var(--resonance-ms,1.5s) ease-out forwards}
+.resonance-art{position:absolute;right:3%;top:0;bottom:0;width:min(62%,560px);background-size:cover;background-position:center 28%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24%,#000 80%,transparent);mask-image:linear-gradient(90deg,transparent,#000 24%,#000 80%,transparent);opacity:.95}
+.resonance-text{position:relative;margin-left:max(16px,7vw);display:flex;flex-direction:column;gap:2px;text-shadow:0 2px 10px #000}.resonance-text small{color:var(--gold);letter-spacing:.24em;font-size:.78rem;font-weight:700}.resonance-text strong{font-size:clamp(1.3rem,3.2vw,2.1rem);line-height:1.2}.resonance-text span{color:#d9e7de;font-size:.95rem}
+@keyframes resonance-in{0%{opacity:0;transform:translateX(5%)}14%{opacity:1;transform:translateX(0)}80%{opacity:1;transform:translateX(0)}100%{opacity:0;transform:translateX(-2%)}}
+.resonance-cue.still,.reduce-motion .resonance-cue{animation:resonance-fade var(--resonance-ms,1.5s) linear forwards}@keyframes resonance-fade{0%{opacity:0}12%{opacity:1}82%{opacity:1}100%{opacity:0}}
+.skill-rhythm{display:block;color:var(--muted);font-size:.78rem;margin-top:2px}
+@media(max-width:600px){.resonance-cue{top:18vh;height:120px}.resonance-art{width:70%}.resonance-text strong{font-size:1.25rem}}
+/* v0.14.4 desktop: stage and commands side by side; a shorter scene so the location starts on the first screen */
+.combat-duo{display:flex;flex-direction:column}.combat-duo>.battle-command{order:-1}
+@media(min-width:1180px){.combat-duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,360px);gap:18px;align-items:start}.combat-duo>.battle-command{order:0;position:sticky;top:10px;max-height:calc(100vh - 20px);overflow:auto}.combat-duo>.battle-command .battle-cards{flex-wrap:wrap}.combat-duo .combatant-row{flex-wrap:wrap}.combat-duo .combatant-copy{flex:1 1 110px;min-width:0}.combat-duo .combatant-row>button{min-width:0;padding:6px 8px;font-size:.84rem}.scene-panorama{height:250px}}

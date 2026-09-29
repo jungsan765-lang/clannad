@@ -126,7 +126,7 @@ globalThis.CRPGLiyueAreas={
         223
       ],
       "kind": "GATHER",
-      "resource": "ING_SWEET_FLOWER:3-5@45;ING_MINT:3-5@55",
+      "resource": "ING_SWEET_FLOWER:3-5@30;ING_MINT:3-5@35;ING_HORSETAIL:3-5@35",
       "feature": "습지 채집",
       "description": "얕은 물길과 풀밭 사이로 도로가 이어진다. 길가의 재료를 모으고 남쪽 망서 객잔으로 이동할 수 있다.",
       "observe": "얕은 수로 옆으로 풀이 촘촘하게 자라 있다. 물가에서 떨어진 단단한 땅을 따라가면 채집할 꽃과 풀이 눈에 띈다. 남쪽으로 솟아 있는 객잔은 멀리서도 길잡이가 된다.",

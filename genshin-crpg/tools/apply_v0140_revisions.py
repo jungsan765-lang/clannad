@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply the v0.14.0 content revisions (content/revisions/v0.14.0-*.json) to content/db.json.
+"""Apply the v0.14 content revisions (content/revisions/v0.14.*-*.json, in file-name order) to content/db.json.
 
 Idempotent: every operation sets a final value, so running it again changes nothing.
 Operations per patch file:
@@ -7,8 +7,10 @@ Operations per patch file:
   upserts             {table: [row, ...]}                     insert new rows, or replace the row with the same id
   replace_ingredients {recipe_id: [48_RECIPE_INGREDIENT_DB rows]} swap a recipe's ingredient rows
   append_pool         {map_id: {col: ["ITEM:min-max@weight", ...]}} add missing entries to 32_MAP_DB life pools
-  story               [{route, node, text?, choice?, type?, speaker?, speaker_ref?, next?}]  set cells of 55/57 story rows
+  story               [{route, node, text?, choice?, type?, speaker?, speaker_ref?, map?, cond?, next?, group?}]  set cells of 55/57 story rows
   story_insert        [{route, after, row}]                   add a story row and route the `after` node through it
+  deletes             {table: [row_id, ...]}                  remove rows of a non-story table (row id = column 0)
+  story_upsert        {table: [row, ...]}                     add story rows (key = route + node id) or replace them in place
 """
 from pathlib import Path
 import json, sys
@@ -19,7 +21,7 @@ STORY_TABLES = ('55_MAIN_STORY_DB', '57_MOND_STORY_SCENE_DB')
 
 
 def fail(message):
-    raise SystemExit('v0.14.0 revision: ' + message)
+    raise SystemExit('v0.14 revision: ' + message)
 
 
 def row_index(db, table):
@@ -40,6 +42,11 @@ def apply_patch(db, patch):
                 fail(f'{table} has no row {row_id}')
             for col, value in cells.items():
                 set_cell(index[row_id], int(col), value)
+    for table, ids in patch.get('deletes', {}).items():
+        if table in STORY_TABLES:
+            fail('deletes cannot address story table ' + table)
+        drop = set(ids)
+        db[table][1:] = [r for r in db[table][1:] if not (isinstance(r, list) and r and r[0] in drop)]
     for table, rows in patch.get('upserts', {}).items():
         body = db[table]
         for new in rows:
@@ -64,6 +71,18 @@ def apply_patch(db, patch):
             have = {x.split(':')[0] for x in current}
             current += [e for e in entries if e.split(':')[0] not in have]
             set_cell(maps[map_id], int(col), ';'.join(current))
+    for table, rows in patch.get('story_upsert', {}).items():
+        if table not in STORY_TABLES:
+            fail('story_upsert needs a story table, not ' + table)
+        body = db[table]
+        where = {(r[0], r[4]): i for i, r in enumerate(body[1:], 1) if isinstance(r, list) and len(r) > 4}
+        for new in rows:
+            key = (new[0], new[4])
+            if key in where:
+                body[where[key]] = list(new)
+            else:
+                body.append(list(new))
+                where[key] = len(body) - 1
     story = {}
     for table in STORY_TABLES:
         for r in db[table][1:]:
@@ -73,7 +92,7 @@ def apply_patch(db, patch):
         row = story.get((change['route'], change['node']))
         if row is None:
             fail(f"no story row {change['route']} {change['node']}")
-        for key, col in (('type', 5), ('speaker_ref', 6), ('speaker', 7), ('text', 9), ('choice', 10), ('next', 13)):
+        for key, col in (('type', 5), ('speaker_ref', 6), ('speaker', 7), ('map', 8), ('text', 9), ('choice', 10), ('cond', 11), ('next', 13), ('group', 14)):
             if key in change:
                 set_cell(row, col, change[key])
     for change in patch.get('story_insert', []):
@@ -94,19 +113,19 @@ def apply_patch(db, patch):
 def main():
     raw = DB_PATH.read_text(encoding='utf-8')
     db = json.loads(raw)
-    files = sorted((ROOT / 'content/revisions').glob('v0.14.0-*.json'))
+    files = sorted((ROOT / 'content/revisions').glob('v0.14.*-*.json'))
     if not files:
         fail('no revision files')
     for path in files:
         apply_patch(db, json.loads(path.read_text(encoding='utf-8')))
     out = json.dumps(db, ensure_ascii=False, separators=(',', ':')) + '\n'
     if out == raw:
-        print('v0.14.0 revisions already applied')
+        print('v0.14 revisions already applied')
         return
     tmp = DB_PATH.with_suffix('.revision-tmp')
     tmp.write_text(out, encoding='utf-8', newline='\n')  # keep LF on Windows too
     tmp.replace(DB_PATH)
-    print('v0.14.0 revisions applied:', ', '.join(p.name for p in files))
+    print('v0.14 revisions applied:', ', '.join(p.name for p in files))
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ const BattleTechnique={
   if(cardId==='SYS_MOND_WIND_ROUTE')name='상승 기류 · 바람길 확보';
   if(!name)name=events.some(e=>e.kind==='guard')?'방어 태세':events.some(e=>e.kind==='heal')?'회복 효과':frame.periodic?'지속 효과':'기본 공격';
   const state=events.some(e=>e.interrupted)?'중단':events.some(e=>e.charging)?'준비':events.some(e=>e.released)?'발동':frame.periodic?'지속 효과':'사용';
-  return {frame,cardId,name,state,actor,side:actor?.side||events.find(e=>e.actorSide)?.actorSide||'EFFECT',owner:actor?.name||frame.actor||'전장 효과',description:own?.[16]||enemy?.[17]||'',coefficient:own?.[7]||enemy?.[6]||'',cooldown:own?.[9]??enemy?.[8],targets:[...new Set((frame.targets||[]).map(t=>t.target).filter(Boolean))],events};
+  return {frame,cardId,name,state,actor,side:actor?.side||events.find(e=>e.actorSide)?.actorSide||'EFFECT',owner:actor?.name||frame.actor||'전장 효과',description:own?.[16]||enemy?.[17]||'',coefficient:own?.[7]||enemy?.[6]||'',cooldown:own?(game.cardDefinition?.(own)?.cooldown??own[9]):enemy?.[8],targets:[...new Set((frame.targets||[]).map(t=>t.target).filter(Boolean))],events};
  },
  show(frame){if(!frame||['victory','defeat'].includes(frame.kind)){this.banner?.remove();this.banner=null;return;}const dock=GameEffects.dock;if(!dock)return;
   const d=this.definition(frame);this.current=d;

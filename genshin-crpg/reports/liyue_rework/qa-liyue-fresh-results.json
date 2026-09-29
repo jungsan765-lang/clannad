@@ -1,0 +1,2666 @@
+{
+  "provenance": "v0.14.1 local candidate. Synthetic source-grounded M05 boundary; test-only level20/baseHP100000/baseATK10000 fixture. All Liyue advancement/COMBAT_BEGIN/COMBAT real public actions, no forced finishBattle. This is FLOW QA, NOT difficulty validation.",
+  "started": "2026-09-29T01:03:34.838Z",
+  "runs": [
+    {
+      "leaf": "K1",
+      "actions": 536,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_K_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_K_002"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_K_016",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_K_016"
+        },
+        {
+          "why": "field step v141_ISK_L01_K_016:0",
+          "node": "R39_FIELD_ISK_L01_K_016"
+        },
+        {
+          "why": "field step v141_ISK_L01_K_105:0",
+          "node": "R39_FIELD_ISK_L01_K_105"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_K1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L02_K1_001_1"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K1_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "field step v141_ISK_L02_K1_001:0",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K1_001",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L02_K1_001",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "field step v141_ISK_L02_K1_001:1",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K1_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K1_001",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L02_K1_001",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K1_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_K1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_K1_003"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L03_K1_107"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L03_K1_107",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L03_K1_108"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_K1_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L04_K1_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L04_K1_001"
+        },
+        {
+          "why": "field step v141_ISK_L04_K1_001:0",
+          "node": "R39_FIELD_ISK_L04_K1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_K1_004"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_K1_040"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_K1_040",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_K1_040",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L04_K1_041"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-2:B350",
+          "battleId": "V011-2:B350",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L03_GOLDEN",
+          "origin": "STORY:ISK_L03_K1_107",
+          "gate": "ISK_L03_K1_107",
+          "branch": "K1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 1,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "bond": null,
+          "id": "V011-2:B410",
+          "battleId": "V011-2:B410",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L04_OSIAL",
+          "origin": "STORY:ISK_L04_K1_040",
+          "gate": "ISK_L04_K1_040",
+          "branch": "K1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 9,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "ISK_L01_K_003",
+        "ISK_L01_K_006",
+        "ISK_L01_K_008",
+        "ISK_L01_K_011",
+        "ISK_L01_K_013",
+        "REV02_K_LIFT_C1",
+        "ISK_L01_K_LOCAL_41_1",
+        "ISK_L01_K_060",
+        "ISK_L01_K_072",
+        "ISK_L01_K_084",
+        "ISK_L01_K_LOCAL_96_1",
+        "ISK_L01_K_1_CHOOSE",
+        "ISK_L01_K_123",
+        "REV02_K1_REPEAT_C1",
+        "ISK_L02_K1_004",
+        "ISK_L02_K1_006",
+        "ISK_L02_K1_010",
+        "ISK_L02_K1_016",
+        "ISK_L02_K1_018",
+        "ISK_L02_K1_023",
+        "ISK_L02_K1_026",
+        "ISK_L02_K1_032",
+        "ISK_L02_K1_036",
+        "ISK_L02_K1_042",
+        "ISK_L02_K1_045",
+        "ISK_L02_K1_051",
+        "ISK_L02_K1_055",
+        "ISK_L02_K1_058",
+        "ISK_L02_K1_064",
+        "ISK_L02_K1_068",
+        "ISK_L02_K1_071",
+        "ISK_L02_K1_074",
+        "ISK_L02_K1_077",
+        "ISK_L02_K1_081",
+        "ISK_L02_K1_083",
+        "ISK_L02_K1_086",
+        "ISK_L02_K1_089",
+        "ISK_L02_K1_092",
+        "ISK_L02_K1_098",
+        "ISK_L02_K1_101",
+        "ISK_L02_K1_105",
+        "ISK_L02_K1_112",
+        "ISK_L03_K1_002",
+        "ISK_L03_K1_005",
+        "ISK_L03_K1_009",
+        "ISK_L03_K1_011",
+        "ISK_L03_K1_019",
+        "ISK_L03_K1_022",
+        "ISK_L03_K1_025",
+        "ISK_L03_K1_028",
+        "ISK_L03_K1_030",
+        "ISK_L03_K1_034",
+        "ISK_L03_K1_040",
+        "ISK_L03_K1_046",
+        "ISK_L03_K1_052",
+        "ISK_L03_K1_057",
+        "ISK_L03_K1_060",
+        "ISK_L03_K1_063",
+        "ISK_L03_K1_065",
+        "ISK_L03_K1_071",
+        "ISK_L03_K1_076",
+        "ISK_L03_K1_081",
+        "ISK_L03_K1_087",
+        "ISK_L03_K1_092",
+        "ISK_L03_K1_094",
+        "ISK_L03_K1_097",
+        "ISK_L03_K1_101",
+        "ISK_L03_K1_109",
+        "ISK_L03_K1_112",
+        "ISK_L04_K1_003",
+        "ISK_L04_K1_006",
+        "ISK_L04_K1_010",
+        "ISK_L04_K1_014",
+        "ISK_L04_K1_020",
+        "ISK_L04_K1_026",
+        "ISK_L04_K1_029",
+        "ISK_L04_K1_034",
+        "ISK_L04_K1_038",
+        "ISK_L04_K1_043",
+        "ISK_L04_K1_047",
+        "ISK_L04_K1_052",
+        "ISK_L04_K1_061",
+        "ISK_L04_K1_066",
+        "ISK_L04_K1_071",
+        "V141_REPLY_ISK_L04_K1_073_0",
+        "ISK_L04_K1_078",
+        "ISK_L04_K1_081",
+        "ISK_L04_K1_085",
+        "ISK_L04_K1_093",
+        "ISK_L04_K1_095",
+        "ISK_L04_K1_098",
+        "ISK_L04_K1_103",
+        "ISK_L04_K1_110",
+        "ISK_L04_K1_112",
+        "ISK_L04_K1_115",
+        "ISK_L04_K1_122",
+        "ISK_L04_K1_125",
+        "ISK_L04_K1_127",
+        "ISK_L04_K1_130",
+        "ISK_L04_K1_132",
+        "ISK_L04_K1_135",
+        "ISK_L04_K1_139",
+        "ISK_L04_K1_143",
+        "ISK_L04_K1_144",
+        "ISK_L04_K1_146",
+        "ISK_L04_K1_149"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "ISK_L04_K1_150",
+        "type": "NARRATION",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\reports\\liyue_rework\\qa-liyue-final-K1.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 5,
+      "eventCount": 58,
+      "moraDelta": 1857
+    },
+    {
+      "leaf": "K2",
+      "actions": 577,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_K_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_K_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_K_002"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_K_016",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_K_016"
+        },
+        {
+          "why": "field step v141_ISK_L01_K_016:0",
+          "node": "R39_FIELD_ISK_L01_K_016"
+        },
+        {
+          "why": "field step v141_ISK_L01_K_105:0",
+          "node": "R39_FIELD_ISK_L01_K_105"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_K2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L02_K2_001_1"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "field step v141_ISK_L02_K2_001:0",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "field step v141_ISK_L02_K2_001:1",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L02_K2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L02_K2_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_K2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_K2_003"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L03_K2_110"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L03_K2_110",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L03_K2_111"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_K2_001"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L04_K2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L04_K2_001"
+        },
+        {
+          "why": "field step v141_ISK_L04_K2_001:0",
+          "node": "R39_FIELD_ISK_L04_K2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L04_K2_003"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_K2_047"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_K2_047",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_K2_047",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L04_K2_048"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-2:B362",
+          "battleId": "V011-2:B362",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L03_GOLDEN",
+          "origin": "STORY:ISK_L03_K2_110",
+          "gate": "ISK_L03_K2_110",
+          "branch": "K2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 1,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "bond": null,
+          "id": "V011-2:B429",
+          "battleId": "V011-2:B429",
+          "saveId": "V011-2",
+          "group": "EG_ISK_L04_OSIAL",
+          "origin": "STORY:ISK_L04_K2_047",
+          "gate": "ISK_L04_K2_047",
+          "branch": "K2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 9,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "ISK_L01_K_003",
+        "ISK_L01_K_006",
+        "ISK_L01_K_008",
+        "ISK_L01_K_011",
+        "ISK_L01_K_013",
+        "REV02_K_LIFT_C1",
+        "ISK_L01_K_LOCAL_41_1",
+        "ISK_L01_K_060",
+        "ISK_L01_K_072",
+        "ISK_L01_K_084",
+        "ISK_L01_K_LOCAL_96_1",
+        "ISK_L01_K_2_CHOOSE",
+        "REV02_K2_BRAKE_C1",
+        "ISK_L02_K2_003",
+        "ISK_L02_K2_008",
+        "ISK_L02_K2_013",
+        "ISK_L02_K2_020",
+        "ISK_L02_K2_024",
+        "ISK_L02_K2_030",
+        "ISK_L02_K2_036",
+        "ISK_L02_K2_041",
+        "ISK_L02_K2_046",
+        "ISK_L02_K2_048",
+        "ISK_L02_K2_051",
+        "ISK_L02_K2_058",
+        "ISK_L02_K2_061",
+        "ISK_L02_K2_064",
+        "ISK_L02_K2_069",
+        "ISK_L02_K2_072",
+        "ISK_L02_K2_076",
+        "ISK_L02_K2_078",
+        "ISK_L02_K2_080",
+        "ISK_L02_K2_083",
+        "ISK_L02_K2_086",
+        "ISK_L02_K2_089",
+        "ISK_L02_K2_091",
+        "ISK_L02_K2_094",
+        "ISK_L02_K2_096",
+        "ISK_L02_K2_099",
+        "ISK_L02_K2_103",
+        "ISK_L02_K2_109",
+        "ISK_L02_K2_111",
+        "ISK_L02_K2_114",
+        "ISK_L02_K2_117",
+        "ISK_L02_K2_119",
+        "ISK_L02_K2_127",
+        "ISK_L03_K2_002",
+        "ISK_L03_K2_005",
+        "ISK_L03_K2_009",
+        "ISK_L03_K2_012",
+        "ISK_L03_K2_020",
+        "ISK_L03_K2_022",
+        "ISK_L03_K2_025",
+        "ISK_L03_K2_027",
+        "ISK_L03_K2_029",
+        "ISK_L03_K2_032",
+        "ISK_L03_K2_038",
+        "ISK_L03_K2_041",
+        "ISK_L03_K2_050",
+        "ISK_L03_K2_052",
+        "ISK_L03_K2_055",
+        "ISK_L03_K2_057",
+        "ISK_L03_K2_060",
+        "ISK_L03_K2_063",
+        "ISK_L03_K2_066",
+        "ISK_L03_K2_072",
+        "ISK_L03_K2_077",
+        "ISK_L03_K2_081",
+        "ISK_L03_K2_084",
+        "ISK_L03_K2_089",
+        "ISK_L03_K2_094",
+        "ISK_L03_K2_097",
+        "ISK_L03_K2_100",
+        "ISK_L03_K2_104",
+        "ISK_L03_K2_112",
+        "ISK_L03_K2_115",
+        "ISK_L04_K2_002",
+        "ISK_L04_K2_005",
+        "ISK_L04_K2_009",
+        "ISK_L04_K2_012",
+        "ISK_L04_K2_018",
+        "ISK_L04_K2_025",
+        "ISK_L04_K2_028",
+        "ISK_L04_K2_031",
+        "ISK_L04_K2_034",
+        "ISK_L04_K2_037",
+        "ISK_L04_K2_042",
+        "ISK_L04_K2_045",
+        "ISK_L04_K2_051",
+        "ISK_L04_K2_054",
+        "ISK_L04_K2_058",
+        "ISK_L04_K2_067",
+        "ISK_L04_K2_070",
+        "ISK_L04_K2_073",
+        "ISK_L04_K2_076",
+        "ISK_L04_K2_080",
+        "ISK_L04_K2_086",
+        "ISK_L04_K2_090",
+        "V141_REPLY_ISK_L04_K2_091_0",
+        "ISK_L04_K2_094",
+        "ISK_L04_K2_098",
+        "ISK_L04_K2_101",
+        "ISK_L04_K2_106",
+        "ISK_L04_K2_109",
+        "ISK_L04_K2_113",
+        "ISK_L04_K2_115",
+        "ISK_L04_K2_117",
+        "ISK_L04_K2_119",
+        "ISK_L04_K2_122",
+        "ISK_L04_K2_125",
+        "ISK_L04_K2_132",
+        "ISK_L04_K2_139",
+        "ISK_L04_K2_141",
+        "ISK_L04_K2_144",
+        "ISK_L04_K2_146",
+        "ISK_L04_K2_149",
+        "ISK_L04_K2_151",
+        "ISK_L04_K2_154",
+        "ISK_L04_K2_156",
+        "ISK_L04_K2_159",
+        "ISK_L04_K2_161",
+        "ISK_L04_K2_164",
+        "ISK_L04_K2_167",
+        "ISK_L04_K2_170",
+        "ISK_L04_K2_172",
+        "ISK_L04_K2_176"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "ISK_L04_K2_177",
+        "type": "NARRATION",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\reports\\liyue_rework\\qa-liyue-final-K2.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 5,
+      "eventCount": 64,
+      "moraDelta": 1840
+    },
+    {
+      "leaf": "AA1",
+      "actions": 462,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AA_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L01_AA_004_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_AA_004",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_AA_004"
+        },
+        {
+          "why": "field step v141_ISK_L01_AA_004:0",
+          "node": "R39_FIELD_ISK_L01_AA_004"
+        },
+        {
+          "why": "field step v141_ISK_L01_AA_034:0",
+          "node": "R39_FIELD_ISK_L01_AA_034"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AA1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L02_AA1_001_1"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AA1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_AA1_002"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L03_AA1_047",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L03_AA1_047"
+        },
+        {
+          "why": "field step v141_ISK_L03_AA1_047:0",
+          "node": "R39_FIELD_ISK_L03_AA1_047"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AA1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_AA1_001_0"
+        },
+        {
+          "why": "field step v141_ISK_L04_AA1_001:0",
+          "node": "R39_FIELD_ISK_L04_AA1_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AA1_058"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AA1_058",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AA1_058",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L04_AA1_059"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-4:B373",
+          "battleId": "V011-4:B373",
+          "saveId": "V011-4",
+          "group": "EG_ISK_L04_AA1_EVAC",
+          "origin": "STORY:ISK_L04_AA1_058",
+          "gate": "ISK_L04_AA1_058",
+          "branch": "AA1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "ISK_L01_AA_002",
+        "LX_ISK_L01_AA_015_A",
+        "ISK_L01_AA_026",
+        "ISK_L01_AA_050",
+        "ISK_L01_AA_059",
+        "ISK_L01_AA_074",
+        "REV02_AA1_SCREEN_C1",
+        "ISK_L01_AA_089",
+        "ISK_L01_AA_103",
+        "ISK_L01_AA_113",
+        "ISK_L02_AA1_003",
+        "ISK_L02_AA1_006",
+        "ISK_L02_AA1_008",
+        "ISK_L02_AA1_011",
+        "ISK_L02_AA1_020",
+        "ISK_L02_AA1_022",
+        "ISK_L02_AA1_027",
+        "ISK_L02_AA1_030",
+        "LX_ISK_L02_AA1_037_A",
+        "ISK_L02_AA1_041",
+        "ISK_L02_AA1_043",
+        "ISK_L02_AA1_045",
+        "ISK_L02_AA1_053",
+        "ISK_L02_AA1_057",
+        "ISK_L02_AA1_059",
+        "ISK_L02_AA1_063",
+        "ISK_L02_AA1_065",
+        "ISK_L02_AA1_071",
+        "ISK_L02_AA1_074",
+        "ISK_L02_AA1_076",
+        "ISK_L02_AA1_079",
+        "ISK_L02_AA1_086",
+        "ISK_L02_AA1_088",
+        "ISK_L02_AA1_092",
+        "ISK_L02_AA1_096",
+        "ISK_L02_AA1_101",
+        "ISK_L02_AA1_103",
+        "ISK_L02_AA1_108",
+        "ISK_L02_AA1_112",
+        "ISK_L03_AA1_004",
+        "ISK_L03_AA1_006",
+        "ISK_L03_AA1_014",
+        "ISK_L03_AA1_019",
+        "ISK_L03_AA1_032",
+        "ISK_L03_AA1_037",
+        "ISK_L03_AA1_042",
+        "ISK_L03_AA1_052",
+        "ISK_L03_AA1_060",
+        "ISK_L03_AA1_065",
+        "ISK_L03_AA1_068",
+        "ISK_L03_AA1_075",
+        "ISK_L03_AA1_079",
+        "ISK_L03_AA1_088",
+        "ISK_L03_AA1_092",
+        "ISK_L04_AA1_003",
+        "ISK_L04_AA1_009",
+        "ISK_L04_AA1_012",
+        "ISK_L04_AA1_017",
+        "ISK_L04_AA1_026",
+        "ISK_L04_AA1_030",
+        "ISK_L04_AA1_033",
+        "ISK_L04_AA1_040",
+        "ISK_L04_AA1_044",
+        "ISK_L04_AA1_049",
+        "ISK_L04_AA1_055",
+        "ISK_L04_AA1_060",
+        "ISK_L04_AA1_066",
+        "ISK_L04_AA1_072",
+        "ISK_L04_AA1_076",
+        "ISK_L04_AA1_084",
+        "ISK_L04_AA1_086",
+        "V141_REPLY_ISK_L04_AA1_088_0",
+        "ISK_L04_AA1_092",
+        "ISK_L04_AA1_094",
+        "ISK_L04_AA1_097",
+        "ISK_L04_AA1_101",
+        "ISK_L04_AA1_104",
+        "ISK_L04_AA1_108",
+        "ISK_L04_AA1_113",
+        "ISK_L04_AA1_116",
+        "ISK_L04_AA1_122",
+        "ISK_L04_AA1_128",
+        "ISK_L04_AA1_130",
+        "ISK_L04_AA1_133"
+      ],
+      "status": "PASS",
+      "last": {
+        "choice": "ISK_L04_AA1_133"
+      },
+      "finalSave": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\reports\\liyue_rework\\qa-liyue-final-AA1.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "eventCount": 46,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "AA2",
+      "actions": 505,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AA_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AA_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L01_AA_004_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_AA_004",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_AA_004"
+        },
+        {
+          "why": "field step v141_ISK_L01_AA_004:0",
+          "node": "R39_FIELD_ISK_L01_AA_004"
+        },
+        {
+          "why": "field step v141_ISK_L01_AA_034:0",
+          "node": "R39_FIELD_ISK_L01_AA_034"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AA2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L02_AA2_001_1"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AA2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_AA2_003"
+        },
+        {
+          "why": "field step v141_ISK_L03_AA2_077:0",
+          "node": "R39_FIELD_ISK_L03_AA2_077"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L03_AA2_103",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L03_AA2_103"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AA2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_AA2_001_0"
+        },
+        {
+          "why": "field step v141_ISK_L04_AA2_001:0",
+          "node": "R39_FIELD_ISK_L04_AA2_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AA2_057"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AA2_057",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AA2_057",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L04_AA2_058"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-4:B411",
+          "battleId": "V011-4:B411",
+          "saveId": "V011-4",
+          "group": "EG_ISK_L04_AA2_CART",
+          "origin": "STORY:ISK_L04_AA2_057",
+          "gate": "ISK_L04_AA2_057",
+          "branch": "AA2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "ISK_L01_AA_002",
+        "LX_ISK_L01_AA_015_A",
+        "ISK_L01_AA_026",
+        "ISK_L01_AA_050",
+        "ISK_L01_AA_059",
+        "ISK_L01_AA_127",
+        "ISK_L01_AA_140",
+        "REV02_AA2_COURIER_C1",
+        "ISK_L01_AA_165",
+        "ISK_L01_AA_180",
+        "ISK_L02_AA2_003",
+        "ISK_L02_AA2_005",
+        "ISK_L02_AA2_009",
+        "ISK_L02_AA2_012",
+        "ISK_L02_AA2_014",
+        "ISK_L02_AA2_016",
+        "ISK_L02_AA2_024",
+        "ISK_L02_AA2_026",
+        "ISK_L02_AA2_032",
+        "ISK_L02_AA2_034",
+        "ISK_L02_AA2_038",
+        "ISK_L02_AA2_040",
+        "ISK_L02_AA2_046",
+        "ISK_L02_AA2_053",
+        "ISK_L02_AA2_055",
+        "ISK_L02_AA2_057",
+        "ISK_L02_AA2_065",
+        "ISK_L02_AA2_069",
+        "ISK_L02_AA2_071",
+        "ISK_L02_AA2_075",
+        "ISK_L02_AA2_077",
+        "ISK_L02_AA2_083",
+        "ISK_L02_AA2_086",
+        "ISK_L02_AA2_090",
+        "ISK_L02_AA2_093",
+        "ISK_L02_AA2_102",
+        "ISK_L02_AA2_106",
+        "ISK_L02_AA2_108",
+        "ISK_L02_AA2_111",
+        "ISK_L02_AA2_118",
+        "ISK_L02_AA2_120",
+        "ISK_L02_AA2_127",
+        "ISK_L03_AA2_002",
+        "ISK_L03_AA2_004",
+        "ISK_L03_AA2_007",
+        "ISK_L03_AA2_010",
+        "ISK_L03_AA2_017",
+        "ISK_L03_AA2_019",
+        "ISK_L03_AA2_021",
+        "ISK_L03_AA2_029",
+        "ISK_L03_AA2_031",
+        "ISK_L03_AA2_038",
+        "ISK_L03_AA2_040",
+        "ISK_L03_AA2_045",
+        "ISK_L03_AA2_049",
+        "ISK_L03_AA2_051",
+        "ISK_L03_AA2_055",
+        "ISK_L03_AA2_062",
+        "ISK_L03_AA2_065",
+        "ISK_L03_AA2_073",
+        "ISK_L03_AA2_075",
+        "ISK_L03_AA2_081",
+        "ISK_L03_AA2_084",
+        "ISK_L03_AA2_086",
+        "ISK_L03_AA2_088",
+        "ISK_L03_AA2_096",
+        "LX_ISK_L03_AA2_102_A",
+        "LX_ISK_L04_AA2_007_A",
+        "ISK_L04_AA2_014",
+        "ISK_L04_AA2_016",
+        "ISK_L04_AA2_019",
+        "ISK_L04_AA2_025",
+        "ISK_L04_AA2_031",
+        "ISK_L04_AA2_034",
+        "ISK_L04_AA2_036",
+        "ISK_L04_AA2_039",
+        "ISK_L04_AA2_041",
+        "ISK_L04_AA2_047",
+        "ISK_L04_AA2_050",
+        "ISK_L04_AA2_053",
+        "ISK_L04_AA2_059",
+        "ISK_L04_AA2_065",
+        "ISK_L04_AA2_070",
+        "ISK_L04_AA2_075",
+        "ISK_L04_AA2_078",
+        "ISK_L04_AA2_083",
+        "ISK_L04_AA2_090",
+        "ISK_L04_AA2_094",
+        "ISK_L04_AA2_096",
+        "V141_REPLY_ISK_L04_AA2_098_0",
+        "ISK_L04_AA2_102",
+        "ISK_L04_AA2_105",
+        "ISK_L04_AA2_108",
+        "ISK_L04_AA2_112",
+        "ISK_L04_AA2_121",
+        "ISK_L04_AA2_123",
+        "ISK_L04_AA2_127",
+        "ISK_L04_AA2_130",
+        "ISK_L04_AA2_136",
+        "ISK_L04_AA2_140"
+      ],
+      "status": "PASS",
+      "last": {
+        "choice": "ISK_L04_AA2_140"
+      },
+      "finalSave": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\reports\\liyue_rework\\qa-liyue-final-AA2.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "eventCount": 54,
+      "moraDelta": 1823
+    },
+    {
+      "leaf": "AB1",
+      "actions": 515,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AB_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_AB_002"
+        },
+        {
+          "why": "field step v141_ISK_L01_AB_019:0",
+          "node": "R39_FIELD_ISK_L01_AB_019"
+        },
+        {
+          "why": "field step v141_ISK_L01_AB_069:0",
+          "node": "R39_FIELD_ISK_L01_AB_069"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AB1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_AB1_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AB1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_AB1_003"
+        },
+        {
+          "why": "field step v141_ISK_L03_AB1_060:0",
+          "node": "V141_FIELD_ISK_L03_AB1_060"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AB1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_AB1_001_0"
+        },
+        {
+          "why": "field step v141_ISK_L04_AB1_001:0",
+          "node": "R39_FIELD_ISK_L04_AB1_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AB1_066"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AB1_066",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AB1_066",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L04_AB1_067"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-6:B419",
+          "battleId": "V011-6:B419",
+          "saveId": "V011-6",
+          "group": "EG_ISK_L04_AB1_STREET",
+          "origin": "STORY:ISK_L04_AB1_066",
+          "gate": "ISK_L04_AB1_066",
+          "branch": "AB1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "ISK_L01_AB_003",
+        "ISK_L01_AB_006",
+        "ISK_L01_AB_010",
+        "ISK_L01_AB_017",
+        "REV02_AB_LEDGE_C1",
+        "ISK_L01_AB_030",
+        "ISK_L01_AB_032",
+        "ISK_L01_AB_047",
+        "ISK_L01_AB_061",
+        "ISK_L01_AB_082",
+        "REV02_AB1_WARNING_C1",
+        "ISK_L01_AB_100",
+        "ISK_L01_AB_113",
+        "ISK_L01_AB_126",
+        "ISK_L01_AB_135",
+        "ISK_L02_AB1_003",
+        "ISK_L02_AB1_006",
+        "ISK_L02_AB1_009",
+        "ISK_L02_AB1_017",
+        "ISK_L02_AB1_022",
+        "ISK_L02_AB1_025",
+        "ISK_L02_AB1_030",
+        "ISK_L02_AB1_032",
+        "ISK_L02_AB1_035",
+        "ISK_L02_AB1_037",
+        "ISK_L02_AB1_045",
+        "ISK_L02_AB1_052",
+        "ISK_L02_AB1_060",
+        "ISK_L02_AB1_062",
+        "ISK_L02_AB1_065",
+        "ISK_L02_AB1_073",
+        "ISK_L02_AB1_077",
+        "ISK_L02_AB1_079",
+        "ISK_L02_AB1_085",
+        "ISK_L02_AB1_090",
+        "ISK_L02_AB1_093",
+        "ISK_L02_AB1_097",
+        "ISK_L02_AB1_100",
+        "ISK_L02_AB1_108",
+        "ISK_L02_AB1_115",
+        "ISK_L03_AB1_002",
+        "ISK_L03_AB1_007",
+        "ISK_L03_AB1_011",
+        "ISK_L03_AB1_018",
+        "ISK_L03_AB1_024",
+        "ISK_L03_AB1_027",
+        "ISK_L03_AB1_033",
+        "ISK_L03_AB1_042",
+        "ISK_L03_AB1_046",
+        "ISK_L03_AB1_050",
+        "ISK_L03_AB1_056",
+        "ISK_L03_AB1_065",
+        "ISK_L03_AB1_071",
+        "ISK_L03_AB1_074",
+        "ISK_L03_AB1_081",
+        "ISK_L03_AB1_087",
+        "ISK_L03_AB1_090",
+        "ISK_L03_AB1_099",
+        "ISK_L03_AB1_102",
+        "ISK_L03_AB1_110",
+        "ISK_L03_AB1_116",
+        "ISK_L03_AB1_124",
+        "ISK_L04_AB1_002",
+        "ISK_L04_AB1_004",
+        "ISK_L04_AB1_008",
+        "ISK_L04_AB1_013",
+        "ISK_L04_AB1_016",
+        "ISK_L04_AB1_024",
+        "ISK_L04_AB1_028",
+        "ISK_L04_AB1_032",
+        "ISK_L04_AB1_036",
+        "ISK_L04_AB1_040",
+        "ISK_L04_AB1_043",
+        "ISK_L04_AB1_048",
+        "ISK_L04_AB1_051",
+        "ISK_L04_AB1_055",
+        "ISK_L04_AB1_061",
+        "ISK_L04_AB1_064",
+        "ISK_L04_AB1_068",
+        "ISK_L04_AB1_073",
+        "ISK_L04_AB1_076",
+        "ISK_L04_AB1_080",
+        "ISK_L04_AB1_083",
+        "ISK_L04_AB1_089",
+        "ISK_L04_AB1_092",
+        "ISK_L04_AB1_096",
+        "ISK_L04_AB1_102",
+        "ISK_L04_AB1_107",
+        "ISK_L04_AB1_112",
+        "ISK_L04_AB1_114",
+        "ISK_L04_AB1_118",
+        "V141_REPLY_ISK_L04_AB1_121_0",
+        "ISK_L04_AB1_125",
+        "ISK_L04_AB1_129",
+        "ISK_L04_AB1_133",
+        "ISK_L04_AB1_140",
+        "ISK_L04_AB1_142",
+        "ISK_L04_AB1_147"
+      ],
+      "status": "PASS",
+      "last": {
+        "choice": "ISK_L04_AB1_147"
+      },
+      "finalSave": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\reports\\liyue_rework\\qa-liyue-final-AB1.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "eventCount": 46,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "AB2",
+      "actions": 539,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_AB_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_AB_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_AB_002"
+        },
+        {
+          "why": "field step v141_ISK_L01_AB_019:0",
+          "node": "R39_FIELD_ISK_L01_AB_019"
+        },
+        {
+          "why": "field step v141_ISK_L01_AB_069:0",
+          "node": "R39_FIELD_ISK_L01_AB_069"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_AB2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L02_AB2_001_0"
+        },
+        {
+          "why": "field step v141_ISK_L02_AB2_001:0",
+          "node": "R39_FIELD_ISK_L02_AB2_001"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_AB2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_AB2_003"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L03_AB2_074",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L03_AB2_074"
+        },
+        {
+          "why": "field step v141_ISK_L03_AB2_074:0",
+          "node": "R39_FIELD_ISK_L03_AB2_074"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_AB2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_AB2_001_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L04_AB2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L04_AB2_001"
+        },
+        {
+          "why": "field step v141_ISK_L04_AB2_001:0",
+          "node": "R39_FIELD_ISK_L04_AB2_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_AB2_065"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_AB2_065",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_AB2_065",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L04_AB2_066"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-6:B449",
+          "battleId": "V011-6:B449",
+          "saveId": "V011-6",
+          "group": "EG_ISK_L04_AB2_STORE",
+          "origin": "STORY:ISK_L04_AB2_065",
+          "gate": "ISK_L04_AB2_065",
+          "branch": "AB2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "ISK_L01_AB_003",
+        "ISK_L01_AB_006",
+        "ISK_L01_AB_010",
+        "ISK_L01_AB_017",
+        "REV02_AB_LEDGE_C1",
+        "ISK_L01_AB_030",
+        "ISK_L01_AB_032",
+        "ISK_L01_AB_047",
+        "ISK_L01_AB_061",
+        "ISK_L01_AB_083",
+        "ISK_L01_AB_171",
+        "REV02_AB2_HATCH_C1",
+        "ISK_L01_AB_206",
+        "ISK_L01_AB_208",
+        "ISK_L01_AB_226",
+        "ISK_L02_AB2_002",
+        "ISK_L02_AB2_005",
+        "ISK_L02_AB2_009",
+        "ISK_L02_AB2_012",
+        "ISK_L02_AB2_021",
+        "ISK_L02_AB2_024",
+        "ISK_L02_AB2_029",
+        "ISK_L02_AB2_031",
+        "ISK_L02_AB2_034",
+        "ISK_L02_AB2_036",
+        "ISK_L02_AB2_039",
+        "ISK_L02_AB2_047",
+        "ISK_L02_AB2_054",
+        "ISK_L02_AB2_061",
+        "ISK_L02_AB2_063",
+        "ISK_L02_AB2_066",
+        "ISK_L02_AB2_074",
+        "ISK_L02_AB2_078",
+        "ISK_L02_AB2_081",
+        "ISK_L02_AB2_087",
+        "ISK_L02_AB2_093",
+        "ISK_L02_AB2_096",
+        "ISK_L02_AB2_098",
+        "ISK_L02_AB2_101",
+        "ISK_L02_AB2_104",
+        "ISK_L02_AB2_112",
+        "ISK_L02_AB2_115",
+        "ISK_L02_AB2_122",
+        "ISK_L03_AB2_002",
+        "ISK_L03_AB2_005",
+        "ISK_L03_AB2_008",
+        "ISK_L03_AB2_013",
+        "ISK_L03_AB2_018",
+        "ISK_L03_AB2_022",
+        "ISK_L03_AB2_029",
+        "ISK_L03_AB2_035",
+        "ISK_L03_AB2_037",
+        "ISK_L03_AB2_039",
+        "ISK_L03_AB2_043",
+        "ISK_L03_AB2_045",
+        "ISK_L03_AB2_050",
+        "ISK_L03_AB2_052",
+        "ISK_L03_AB2_057",
+        "ISK_L03_AB2_060",
+        "ISK_L03_AB2_068",
+        "ISK_L03_AB2_077",
+        "ISK_L03_AB2_080",
+        "ISK_L03_AB2_086",
+        "ISK_L03_AB2_092",
+        "ISK_L03_AB2_097",
+        "ISK_L03_AB2_101",
+        "ISK_L03_AB2_107",
+        "ISK_L03_AB2_110",
+        "ISK_L03_AB2_114",
+        "ISK_L03_AB2_121",
+        "ISK_L04_AB2_002",
+        "ISK_L04_AB2_008",
+        "ISK_L04_AB2_011",
+        "ISK_L04_AB2_014",
+        "ISK_L04_AB2_018",
+        "ISK_L04_AB2_021",
+        "ISK_L04_AB2_024",
+        "ISK_L04_AB2_027",
+        "ISK_L04_AB2_034",
+        "ISK_L04_AB2_036",
+        "ISK_L04_AB2_040",
+        "ISK_L04_AB2_043",
+        "ISK_L04_AB2_046",
+        "ISK_L04_AB2_051",
+        "ISK_L04_AB2_054",
+        "ISK_L04_AB2_057",
+        "ISK_L04_AB2_059",
+        "ISK_L04_AB2_063",
+        "ISK_L04_AB2_068",
+        "ISK_L04_AB2_072",
+        "ISK_L04_AB2_076",
+        "ISK_L04_AB2_080",
+        "ISK_L04_AB2_083",
+        "ISK_L04_AB2_089",
+        "ISK_L04_AB2_093",
+        "ISK_L04_AB2_096",
+        "ISK_L04_AB2_099",
+        "ISK_L04_AB2_102",
+        "ISK_L04_AB2_108",
+        "ISK_L04_AB2_110",
+        "ISK_L04_AB2_114",
+        "V141_REPLY_ISK_L04_AB2_115_0",
+        "ISK_L04_AB2_119",
+        "ISK_L04_AB2_122",
+        "ISK_L04_AB2_125",
+        "ISK_L04_AB2_132",
+        "ISK_L04_AB2_134",
+        "ISK_L04_AB2_140"
+      ],
+      "status": "PASS",
+      "last": {
+        "choice": "ISK_L04_AB2_140"
+      },
+      "finalSave": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\reports\\liyue_rework\\qa-liyue-final-AB2.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 5,
+      "fieldSteps": 5,
+      "eventCount": 47,
+      "moraDelta": 1830
+    },
+    {
+      "leaf": "B1",
+      "actions": 436,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_B_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_B_002"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_B_038",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L01_B_038",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_B_038"
+        },
+        {
+          "why": "field step v141_ISK_L01_B_038:0",
+          "node": "R39_FIELD_ISK_L01_B_038"
+        },
+        {
+          "why": "field step v141_ISK_L01_B_078:0",
+          "node": "R39_FIELD_ISK_L01_B_078"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_B1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_B1_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_B1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_B1_003"
+        },
+        {
+          "why": "field step v141_ISK_L03_B1_069:0",
+          "node": "R39_FIELD_ISK_L03_B1_069"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_B1_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_B1_001_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L04_B1_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L04_B1_001"
+        },
+        {
+          "why": "field step v141_ISK_L04_B1_001:0",
+          "node": "R39_FIELD_ISK_L04_B1_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_B1_051"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_B1_051",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_B1_051",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L04_B1_052"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-8:B359",
+          "battleId": "V011-8:B359",
+          "saveId": "V011-8",
+          "group": "EG_ISK_L04_B1_ROAD",
+          "origin": "STORY:ISK_L04_B1_051",
+          "gate": "ISK_L04_B1_051",
+          "branch": "B1",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "ISK_L01_B_003",
+        "ISK_L01_B_008",
+        "ISK_L01_B_011",
+        "ISK_L01_B_013",
+        "ISK_L01_B_015",
+        "ISK_L01_B_025",
+        "ISK_L01_B_030",
+        "REV02_B_AMBUSH_C1",
+        "ISK_L01_B_046",
+        "ISK_L01_B_063",
+        "ISK_L01_B_076",
+        "ISK_L01_B_085",
+        "ISK_L01_B_088",
+        "ISK_L01_B_100",
+        "ISK_L01_B_114",
+        "REV02_B1_FIRE_C1",
+        "ISK_L01_B_131",
+        "ISK_L02_B1_003",
+        "ISK_L02_B1_006",
+        "ISK_L02_B1_012",
+        "ISK_L02_B1_016",
+        "ISK_L02_B1_020",
+        "ISK_L02_B1_024",
+        "ISK_L02_B1_032",
+        "ISK_L02_B1_036",
+        "ISK_L02_B1_042",
+        "ISK_L02_B1_052",
+        "ISK_L02_B1_055",
+        "ISK_L02_B1_062",
+        "ISK_L02_B1_066",
+        "ISK_L02_B1_072",
+        "ISK_L02_B1_074",
+        "ISK_L02_B1_078",
+        "ISK_L02_B1_081",
+        "ISK_L02_B1_087",
+        "ISK_L02_B1_091",
+        "ISK_L02_B1_093",
+        "ISK_L02_B1_096",
+        "ISK_L02_B1_102",
+        "ISK_L02_B1_108",
+        "ISK_L02_B1_111",
+        "ISK_L03_B1_002",
+        "ISK_L03_B1_008",
+        "ISK_L03_B1_011",
+        "ISK_L03_B1_019",
+        "ISK_L03_B1_024",
+        "ISK_L03_B1_027",
+        "ISK_L03_B1_031",
+        "ISK_L03_B1_038",
+        "ISK_L03_B1_041",
+        "ISK_L03_B1_043",
+        "ISK_L03_B1_046",
+        "ISK_L03_B1_050",
+        "ISK_L03_B1_054",
+        "ISK_L03_B1_061",
+        "ISK_L03_B1_065",
+        "ISK_L03_B1_070",
+        "ISK_L03_B1_073",
+        "ISK_L03_B1_078",
+        "ISK_L03_B1_085",
+        "ISK_L03_B1_092",
+        "ISK_L03_B1_098",
+        "ISK_L03_B1_100",
+        "ISK_L04_B1_002",
+        "ISK_L04_B1_006",
+        "ISK_L04_B1_009",
+        "ISK_L04_B1_018",
+        "ISK_L04_B1_022",
+        "ISK_L04_B1_024",
+        "ISK_L04_B1_030",
+        "ISK_L04_B1_036",
+        "ISK_L04_B1_040",
+        "ISK_L04_B1_049",
+        "ISK_L04_B1_053",
+        "ISK_L04_B1_061",
+        "ISK_L04_B1_063",
+        "ISK_L04_B1_066",
+        "ISK_L04_B1_073",
+        "ISK_L04_B1_079",
+        "ISK_L04_B1_083",
+        "V141_REPLY_ISK_L04_B1_084_0",
+        "ISK_L04_B1_087",
+        "ISK_L04_B1_091",
+        "ISK_L04_B1_100",
+        "ISK_L04_B1_103",
+        "ISK_L04_B1_105",
+        "ISK_L04_B1_107",
+        "ISK_L04_B1_110",
+        "ISK_L04_B1_117",
+        "ISK_L04_B1_119",
+        "ISK_L04_B1_123"
+      ],
+      "status": "PASS",
+      "last": {
+        "choice": "ISK_L04_B1_123"
+      },
+      "finalSave": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\reports\\liyue_rework\\qa-liyue-final-B1.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "eventCount": 58,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "B2",
+      "actions": 440,
+      "restores": [
+        {
+          "why": "start",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "ISK_M05_B_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L01_B_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L01_B_002"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L01_B_038",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "R39_FIELD_ISK_L01_B_038",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L01_B_038"
+        },
+        {
+          "why": "field step v141_ISK_L01_B_038:0",
+          "node": "R39_FIELD_ISK_L01_B_038"
+        },
+        {
+          "why": "field step v141_ISK_L01_B_078:0",
+          "node": "R39_FIELD_ISK_L01_B_078"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L02_B2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L02_B2_002"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L03_B2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "ISK_L03_B2_003"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L03_B2_072",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L03_B2_072"
+        },
+        {
+          "why": "field step v141_ISK_L03_B2_072:0",
+          "node": "R39_FIELD_ISK_L03_B2_072"
+        },
+        {
+          "why": "chapter gate",
+          "node": "SCREEN:CRPG_MAIN"
+        },
+        {
+          "why": "chapter entry",
+          "node": "ISK_L04_B2_001"
+        },
+        {
+          "why": "dialogue",
+          "node": "V141_BEFORE_ISK_L04_B2_001_0"
+        },
+        {
+          "why": "battle opening",
+          "node": "R39_FIELD_ISK_L04_B2_001",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "R39_FIELD_ISK_L04_B2_001"
+        },
+        {
+          "why": "field step v141_ISK_L04_B2_001:0",
+          "node": "R39_FIELD_ISK_L04_B2_001"
+        },
+        {
+          "why": "preparation",
+          "node": "ISK_L04_B2_047"
+        },
+        {
+          "why": "battle opening",
+          "node": "ISK_L04_B2_047",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "ISK_L04_B2_047",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "ISK_L04_B2_048"
+        },
+        {
+          "why": "region terminal",
+          "node": "SCREEN:CRPG_MAIN"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-8:B362",
+          "battleId": "V011-8:B362",
+          "saveId": "V011-8",
+          "group": "EG_ISK_L04_B2_BOAT",
+          "origin": "STORY:ISK_L04_B2_047",
+          "gate": "ISK_L04_B2_047",
+          "branch": "B2",
+          "victory": true,
+          "xp": 0,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_ISK_LIYUE_01",
+        "Q_ISK_LIYUE_02",
+        "Q_ISK_LIYUE_03",
+        "Q_ISK_LIYUE_04"
+      ],
+      "choices": [
+        "ISK_L01_B_003",
+        "ISK_L01_B_008",
+        "ISK_L01_B_011",
+        "ISK_L01_B_013",
+        "ISK_L01_B_015",
+        "ISK_L01_B_025",
+        "ISK_L01_B_030",
+        "REV02_B_AMBUSH_C1",
+        "ISK_L01_B_046",
+        "ISK_L01_B_063",
+        "ISK_L01_B_076",
+        "ISK_L01_B_085",
+        "ISK_L01_B_088",
+        "ISK_L01_B_101",
+        "REV02_B2_LASHING_C1",
+        "ISK_L01_B_167",
+        "ISK_L02_B2_003",
+        "ISK_L02_B2_006",
+        "ISK_L02_B2_013",
+        "ISK_L02_B2_017",
+        "ISK_L02_B2_021",
+        "ISK_L02_B2_023",
+        "ISK_L02_B2_025",
+        "ISK_L02_B2_033",
+        "ISK_L02_B2_039",
+        "ISK_L02_B2_048",
+        "ISK_L02_B2_050",
+        "ISK_L02_B2_053",
+        "ISK_L02_B2_060",
+        "ISK_L02_B2_064",
+        "ISK_L02_B2_070",
+        "ISK_L02_B2_073",
+        "ISK_L02_B2_075",
+        "ISK_L02_B2_079",
+        "ISK_L02_B2_083",
+        "ISK_L02_B2_090",
+        "ISK_L02_B2_096",
+        "ISK_L02_B2_098",
+        "ISK_L02_B2_103",
+        "ISK_L02_B2_107",
+        "ISK_L02_B2_110",
+        "ISK_L02_B2_113",
+        "ISK_L02_B2_120",
+        "ISK_L02_B2_122",
+        "ISK_L03_B2_002",
+        "ISK_L03_B2_008",
+        "ISK_L03_B2_015",
+        "ISK_L03_B2_022",
+        "ISK_L03_B2_029",
+        "ISK_L03_B2_034",
+        "ISK_L03_B2_037",
+        "ISK_L03_B2_040",
+        "ISK_L03_B2_049",
+        "ISK_L03_B2_053",
+        "ISK_L03_B2_058",
+        "ISK_L03_B2_064",
+        "ISK_L03_B2_067",
+        "ISK_L03_B2_075",
+        "ISK_L03_B2_080",
+        "ISK_L03_B2_083",
+        "ISK_L03_B2_090",
+        "ISK_L03_B2_094",
+        "ISK_L03_B2_097",
+        "ISK_L04_B2_002",
+        "ISK_L04_B2_007",
+        "ISK_L04_B2_010",
+        "ISK_L04_B2_016",
+        "ISK_L04_B2_021",
+        "ISK_L04_B2_030",
+        "ISK_L04_B2_033",
+        "ISK_L04_B2_037",
+        "ISK_L04_B2_045",
+        "ISK_L04_B2_050",
+        "ISK_L04_B2_054",
+        "ISK_L04_B2_059",
+        "ISK_L04_B2_064",
+        "ISK_L04_B2_069",
+        "ISK_L04_B2_072",
+        "V141_REPLY_ISK_L04_B2_074_0",
+        "ISK_L04_B2_077",
+        "ISK_L04_B2_080",
+        "ISK_L04_B2_083",
+        "ISK_L04_B2_086",
+        "ISK_L04_B2_092",
+        "ISK_L04_B2_094",
+        "ISK_L04_B2_098",
+        "ISK_L04_B2_100",
+        "ISK_L04_B2_103",
+        "ISK_L04_B2_106"
+      ],
+      "status": "PASS",
+      "last": {
+        "choice": "ISK_L04_B2_106"
+      },
+      "finalSave": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\reports\\liyue_rework\\qa-liyue-final-B2.json",
+      "terminal": "SCREEN:CRPG_MAIN",
+      "fieldEpisodes": 4,
+      "fieldSteps": 4,
+      "eventCount": 56,
+      "moraDelta": 1800
+    },
+    {
+      "leaf": "TRV_A",
+      "actions": 657,
+      "restores": [
+        {
+          "why": "start",
+          "node": "END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "TRV_LY1_N002"
+        },
+        {
+          "why": "dialogue",
+          "node": "TRV_LY1_N003"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY1_N126",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY1_N126"
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY1_N166"
+        },
+        {
+          "why": "chapter entry",
+          "node": "TRV_LY2_N002"
+        },
+        {
+          "why": "dialogue",
+          "node": "TRV_LY2_N003"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY2_N121",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY2_N121"
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY2_N193"
+        },
+        {
+          "why": "chapter entry",
+          "node": "TRV_LY3_N002"
+        },
+        {
+          "why": "dialogue",
+          "node": "TRV_LY3_N003"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY3_A_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY3_A_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY3_A_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "interlude",
+          "node": "TRV_LY3_A_COMBAT",
+          "round": 3
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY3_A_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "TRV_LY4_N00"
+        },
+        {
+          "why": "dialogue",
+          "node": "TRV_LY4_N01"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_FATUI_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY4_D07"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_OSIAL_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY4_O04"
+        },
+        {
+          "why": "region terminal",
+          "node": "TRV_LY4_END"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-1:B462",
+          "battleId": "V011-1:B462",
+          "saveId": "V011-1",
+          "group": "EG_BOSS_TARTAGLIA",
+          "origin": "STORY:TRV_LY3_A_COMBAT",
+          "gate": "TRV_LY3_A_COMBAT",
+          "branch": "A",
+          "victory": true,
+          "xp": 1008,
+          "loot": {},
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "bond": null,
+          "id": "V011-1:B573",
+          "battleId": "V011-1:B573",
+          "saveId": "V011-1",
+          "group": "EG_FATUI_PATROL",
+          "origin": "STORY:TRV_LY4_FATUI_COMBAT",
+          "gate": "TRV_LY4_FATUI_COMBAT",
+          "branch": "A",
+          "victory": true,
+          "xp": 864,
+          "loot": {},
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "bond": null,
+          "id": "V011-1:B588",
+          "battleId": "V011-1:B588",
+          "saveId": "V011-1",
+          "group": "EG_BOSS_OSIAL",
+          "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+          "gate": "TRV_LY4_OSIAL_COMBAT",
+          "branch": "A",
+          "victory": true,
+          "xp": 2412,
+          "loot": {},
+          "rounds": 9,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_TRV_LIYUE_01",
+        "Q_TRV_LIYUE_02",
+        "Q_TRV_LIYUE_03",
+        "Q_TRV_LIYUE_04"
+      ],
+      "choices": [
+        "TRV_LY1_N006",
+        "REV02_TRV_BRIDGE_C1",
+        "LX_TRV_LY1_N015_A",
+        "TRV_LY1_N022",
+        "LX_TRV_LY1_N037_A",
+        "TRV_LY1_N043",
+        "TRV_LY1_N058",
+        "LX_TRV_LY1_N072_A",
+        "TRV_LY1_N082",
+        "LX_TRV_LY1_N097_A",
+        "TRV_LY1_N106",
+        "LX_TRV_LY1_N120_A",
+        "LX_TRV_LY1_N127_A",
+        "LX_TRV_LY1_N135_A",
+        "TRV_LY1_N142",
+        "LX_TRV_LY1_N151_A",
+        "LX_TRV_LY1_N158_A",
+        "TRV_LY2_N006",
+        "LX_TRV_LY2_N015_A",
+        "TRV_LY2_N020",
+        "LX_TRV_LY2_N030_A",
+        "TRV_LY2_N033",
+        "LX_TRV_LY2_N043_A",
+        "TRV_LY2_N048",
+        "LX_TRV_LY2_N057_A",
+        "TRV_LY2_N062",
+        "LX_TRV_LY2_N071_A",
+        "TRV_LY2_N076",
+        "LX_TRV_LY2_N085_A",
+        "LX_TRV_LY2_N092_A",
+        "LX_TRV_LY2_N099_A",
+        "LX_TRV_LY2_N107_A",
+        "TRV_LY2_N113",
+        "LX_TRV_LY2_N122_A",
+        "TRV_LY2_N127",
+        "LX_TRV_LY2_N136_A",
+        "TRV_LY2_N142",
+        "LX_TRV_LY2_N152_A",
+        "TRV_LY2_N158",
+        "LX_TRV_LY2_N168_A",
+        "TRV_LY2_N173",
+        "LX_TRV_LY2_N182_A",
+        "TRV_LY2_N187",
+        "LX_TRV_LY3_N007_A",
+        "LX_TRV_LY3_N015_A",
+        "TRV_LY3_CHOOSE_A",
+        "REV02_TRVA_POSITION_C1",
+        "LX_TRV_LY3_N028_A",
+        "LX_TRV_LY3_N040_A",
+        "LX_TRV_LY3_N042_A",
+        "LX_TRV_LY3_N047_A",
+        "TRV_LY3_A_PRIORITY_C1",
+        "LX_TRV_LY3_N058_A",
+        "LX_TRV_LY3_A_HARBOR_08_A",
+        "TRV_LY3_A_REPORT_C1",
+        "TRV_LY4_ROUTE_A",
+        "TRV_LY4_A04",
+        "TRV_LY4_SRV_INTEL",
+        "TRV_LY4_DEF_GEAR",
+        "TRV_LY4_SAC_SUPPORT",
+        "TRV_LY4_AFT_A",
+        "TRV_LY4_BANK_ASK_CONTRACT",
+        "LX_TRV_LY4_R02_A",
+        "TRV_LY4_RW_POSTER_CITY",
+        "TRV_LY4_R07A"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "TRV_LY4_END",
+        "type": "CHAPTER_END",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\reports\\liyue_rework\\qa-liyue-final-TRV_A.json",
+      "terminal": "TRV_LY4_END",
+      "fieldEpisodes": 0,
+      "fieldSteps": 0,
+      "eventCount": 0,
+      "moraDelta": 53
+    },
+    {
+      "leaf": "TRV_B",
+      "actions": 640,
+      "restores": [
+        {
+          "why": "start",
+          "node": "END"
+        },
+        {
+          "why": "chapter gate",
+          "node": "END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "TRV_LY1_N002"
+        },
+        {
+          "why": "dialogue",
+          "node": "TRV_LY1_N003"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY1_N126",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY1_N126"
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY1_N166"
+        },
+        {
+          "why": "chapter entry",
+          "node": "TRV_LY2_N002"
+        },
+        {
+          "why": "dialogue",
+          "node": "TRV_LY2_N003"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY2_N100",
+          "round": 1
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY2_N100"
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY2_N193"
+        },
+        {
+          "why": "chapter entry",
+          "node": "TRV_LY3_N002"
+        },
+        {
+          "why": "dialogue",
+          "node": "TRV_LY3_N003"
+        },
+        {
+          "why": "chapter gate",
+          "node": "TRV_LY3_B_END"
+        },
+        {
+          "why": "chapter entry",
+          "node": "TRV_LY4_N00"
+        },
+        {
+          "why": "dialogue",
+          "node": "TRV_LY4_N01"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_FATUI_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_FATUI_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY4_D07"
+        },
+        {
+          "why": "preparation",
+          "node": "TRV_LY4_OSIAL_COMBAT"
+        },
+        {
+          "why": "battle opening",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 1
+        },
+        {
+          "why": "battle mid",
+          "node": "TRV_LY4_OSIAL_COMBAT",
+          "round": 2
+        },
+        {
+          "why": "battle settlement",
+          "node": "TRV_LY4_O04"
+        },
+        {
+          "why": "region terminal",
+          "node": "TRV_LY4_END"
+        }
+      ],
+      "battles": [
+        {
+          "bond": null,
+          "id": "V011-2:B557",
+          "battleId": "V011-2:B557",
+          "saveId": "V011-2",
+          "group": "EG_FATUI_PATROL",
+          "origin": "STORY:TRV_LY4_FATUI_COMBAT",
+          "gate": "TRV_LY4_FATUI_COMBAT",
+          "branch": "B",
+          "victory": true,
+          "xp": 864,
+          "loot": {},
+          "rounds": 4,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        },
+        {
+          "bond": null,
+          "id": "V011-2:B571",
+          "battleId": "V011-2:B571",
+          "saveId": "V011-2",
+          "group": "EG_BOSS_OSIAL",
+          "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+          "gate": "TRV_LY4_OSIAL_COMBAT",
+          "branch": "B",
+          "victory": true,
+          "xp": 2412,
+          "loot": {},
+          "rounds": 9,
+          "result": "VICTORY",
+          "unsupportedEffects": []
+        }
+      ],
+      "chapters": [
+        "Q_TRV_LIYUE_01",
+        "Q_TRV_LIYUE_02",
+        "Q_TRV_LIYUE_03",
+        "Q_TRV_LIYUE_04"
+      ],
+      "choices": [
+        "TRV_LY1_N006",
+        "REV02_TRV_BRIDGE_C1",
+        "LX_TRV_LY1_N015_A",
+        "TRV_LY1_N022",
+        "LX_TRV_LY1_N037_A",
+        "TRV_LY1_N043",
+        "TRV_LY1_N058",
+        "LX_TRV_LY1_N072_A",
+        "TRV_LY1_N082",
+        "LX_TRV_LY1_N097_A",
+        "TRV_LY1_N106",
+        "LX_TRV_LY1_N120_A",
+        "LX_TRV_LY1_N127_A",
+        "LX_TRV_LY1_N135_A",
+        "TRV_LY1_N142",
+        "LX_TRV_LY1_N151_A",
+        "LX_TRV_LY1_N158_A",
+        "TRV_LY2_N006",
+        "LX_TRV_LY2_N015_A",
+        "TRV_LY2_N020",
+        "LX_TRV_LY2_N030_A",
+        "TRV_LY2_N033",
+        "LX_TRV_LY2_N043_A",
+        "TRV_LY2_N048",
+        "LX_TRV_LY2_N057_A",
+        "TRV_LY2_N062",
+        "LX_TRV_LY2_N071_A",
+        "TRV_LY2_N076",
+        "LX_TRV_LY2_N085_A",
+        "LX_TRV_LY2_N092_A",
+        "LX_TRV_LY2_N099_A",
+        "LX_TRV_LY2_N107_A",
+        "TRV_LY2_N113",
+        "LX_TRV_LY2_N122_A",
+        "TRV_LY2_N127",
+        "LX_TRV_LY2_N136_A",
+        "TRV_LY2_N142",
+        "LX_TRV_LY2_N152_A",
+        "TRV_LY2_N158",
+        "LX_TRV_LY2_N168_A",
+        "TRV_LY2_N173",
+        "LX_TRV_LY2_N182_A",
+        "TRV_LY2_N187",
+        "LX_TRV_LY3_N007_A",
+        "LX_TRV_LY3_N015_A",
+        "TRV_LY3_CHOOSE_B",
+        "LX_TRV_LY3_N073_A",
+        "LX_TRV_LY3_B_DEBATE_02_A",
+        "LX_TRV_LY3_N081_A",
+        "LX_TRV_LY3_N087_A",
+        "REV02_TRVB_ESCAPE_C1",
+        "LX_TRV_LY3_B_EVAC_05_A",
+        "TRV_LY3_B_PRIORITY_C1",
+        "TRV_LY3_B_REPORT_C1",
+        "TRV_LY4_ROUTE_B",
+        "TRV_LY4_B04",
+        "TRV_LY4_SRV_INTEL",
+        "TRV_LY4_DEF_GEAR",
+        "TRV_LY4_SAC_SUPPORT",
+        "TRV_LY4_AFT_B",
+        "TRV_LY4_BANK_ASK_CONTRACT",
+        "LX_TRV_LY4_R02_A",
+        "TRV_LY4_RW_POSTER_CITY",
+        "TRV_LY4_R07A"
+      ],
+      "status": "PASS",
+      "last": {
+        "node": "TRV_LY4_END",
+        "type": "CHAPTER_END",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "finalSave": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\reports\\liyue_rework\\qa-liyue-final-TRV_B.json",
+      "terminal": "TRV_LY4_END",
+      "fieldEpisodes": 0,
+      "fieldSteps": 0,
+      "eventCount": 0,
+      "moraDelta": 41
+    }
+  ],
+  "finished": "2026-09-29T01:04:31.627Z"
+}
