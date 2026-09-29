@@ -22,8 +22,10 @@ def engine_fingerprint(root, data):
     mapping=json.loads(aliases.read_text()) if aliases.exists() else {}
     return mapping.get(rules,rules)
 
-def server_build(root):
+def server_build(root, data):
     digest=hashlib.sha256()
+    # Promotion evidence must match both server implementation AND the loaded game rules.
+    digest.update(engine_fingerprint(root,data).encode()+b'\0')
     for p in sorted((root/'server').glob('*.mjs')):
         digest.update(p.name.encode()+b'\0'+p.read_bytes())
     return 'server-'+digest.hexdigest()[:20]

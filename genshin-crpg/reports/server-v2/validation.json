@@ -1,6 +1,6 @@
 {
   "baseCommit": "abe662b5940763ef17b81c7392b33f49dd5c65d3",
-  "serverBuild": "server-540ccf6e8097cce33a05",
+  "serverBuild": "server-12121bec8a3c97c37b82",
   "releaseGate": {
     "passed": 43,
     "failed": 0,
@@ -702,8 +702,8 @@
   "realWorkerd": {
     "environment": "local workerd; loopback; no Korea/Cloudflare network latency",
     "samples": 25,
-    "warmP50": 9.274493999999322,
-    "warmP95": 12.348270000000412,
+    "warmP50": 10.463721999999507,
+    "warmP95": 13.287562000000435,
     "responseBytes": 780,
     "localSqlite": true,
     "replay": true
@@ -715,5 +715,9 @@
     "Final release gate passed after retrieving the exact historical engine blobs; no assertions skipped.",
     "Browser tests use the real game engine, Worker router and SQLite fixture; separate workerd gate validates platform APIs.",
     "Source and built browser flows were validated before final checkpoint checksum/rollback guard changes; final DO/release/workerd tests include those changes."
+  ],
+  "lastChangeVerification": [
+    "Promotion identity now includes the rules/protocol fingerprint as well as server implementation.",
+    "Engine identity property test and full workerd benchmark rerun after that build-identity-only change; no gameplay/persistence logic changed."
   ]
 }
