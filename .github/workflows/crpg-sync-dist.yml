@@ -2,10 +2,34 @@ name: CRPG Verify and Publish Artifact
 
 on:
   pull_request:
-    paths: ['genshin-crpg/**', '.github/workflows/crpg-sync-dist.yml']
+    paths:
+      - 'genshin-crpg/source/**'
+      - 'genshin-crpg/content/**'
+      - '!genshin-crpg/content/archive/**'
+      - 'genshin-crpg/assets/**'
+      - 'genshin-crpg/audio/**'
+      - 'genshin-crpg/tools/build.py'
+      - 'genshin-crpg/tools/engine_identity.py'
+      - 'genshin-crpg/server/protocol.json'
+      - 'genshin-crpg/server/compatibility.json'
+      - 'genshin-crpg/package.json'
+      - 'genshin-crpg/package-lock.json'
+      - '.github/workflows/crpg-sync-dist.yml'
   push:
     branches: [main]
-    paths: ['genshin-crpg/**', '.github/workflows/crpg-sync-dist.yml']
+    paths:
+      - 'genshin-crpg/source/**'
+      - 'genshin-crpg/content/**'
+      - '!genshin-crpg/content/archive/**'
+      - 'genshin-crpg/assets/**'
+      - 'genshin-crpg/audio/**'
+      - 'genshin-crpg/tools/build.py'
+      - 'genshin-crpg/tools/engine_identity.py'
+      - 'genshin-crpg/server/protocol.json'
+      - 'genshin-crpg/server/compatibility.json'
+      - 'genshin-crpg/package.json'
+      - 'genshin-crpg/package-lock.json'
+      - '.github/workflows/crpg-sync-dist.yml'
   workflow_dispatch:
     inputs:
       publish:
@@ -50,7 +74,9 @@ jobs:
         run: npm test
       - name: Source UI against actual Worker and SQLite
         working-directory: genshin-crpg
-        run: npm run test:browser
+        run: |
+          npm run test:browser
+          CRPG_TEST_BACKEND=do npm run test:browser
       - name: Build production pack after source gates pass
         working-directory: genshin-crpg
         run: npm run build
@@ -60,6 +86,7 @@ jobs:
           CRPG_TEST_DIST: '1'
         run: |
           npm run test:browser
+          CRPG_TEST_BACKEND=do npm run test:browser
           node -e "const p=require('./package.json'),r=require('./dist/release.json');if(p.version!==r.appVersion)process.exit(1)"
       - uses: actions/upload-artifact@v4
         with:

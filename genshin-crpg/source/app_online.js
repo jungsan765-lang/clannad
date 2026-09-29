@@ -5,7 +5,18 @@ const key='crpg-online-session-v1',pendingKey='crpg-online-pending-v1',pendingAc
 let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}');}catch{}
 const LOCAL_ONLY_ACTIONS=new Set(['MENU']),KEEP_LOCAL_SCREEN_AFTER_COMMIT=new Set(['PARTY','PARTY_REMOVE','PARTY_REPLACE','PARTY_SWAP','PARTY_TACTIC','EQUIP','UNEQUIP','TOOL_PREPARE','USE_ITEM','FORMATION_SET','MASTERY','EQUIPMENT_GUIDE_ACK']);
 const O=window.CRPGOnline={account:saved.account||null,token:saved.token||'',revision:0,ranked:false,active:false,configured:!!base,pending:null};
-let uiActions=[],uiStates=[];
+let uiActions=[],uiStates=[],confirmedState=null;
+function applyStatePatch(out){
+ if(!out.statePatch)return out;
+ if(!confirmedState||out.baseRevision!==O.revision)throw Object.assign(Error('서버 기준 기록을 다시 확인해야 합니다.'),{code:'DELTA_BASE_MISMATCH'});
+ const state=JSON.parse(JSON.stringify(confirmedState)),patch=out.statePatch;
+ const parsePath=raw=>{const p=JSON.parse(raw);if(!Array.isArray(p)||p.length<1||p.length>2||p.some(k=>typeof k!=='string'))throw Error('잘못된 상태 경로');return p;};
+ // Parent replacement must precede child writes. Delete children before parents.
+ for(const raw of [...patch.remove].sort((a,b)=>parsePath(b).length-parsePath(a).length)){const p=parsePath(raw);if(p.length===1)delete state[p[0]];else if(state[p[0]])delete state[p[0]][p[1]];}
+ for(const [raw,value] of [...patch.set].sort((a,b)=>parsePath(a[0]).length-parsePath(b[0]).length)){const p=parsePath(raw),parent=p.length===1?state:state[p[0]];if(!parent||typeof parent!=='object')throw Error('상태 기준이 일치하지 않습니다.');Object.defineProperty(parent,p.at(-1),{value:JSON.parse(value),writable:true,configurable:true,enumerable:true});}
+ for(const op of patch.splices||[]){const p=parsePath(op.path),parent=p.length===1?state:state[p[0]],value=parent?.[p.at(-1)];if(!Array.isArray(value)||!Number.isInteger(op.index)||!Number.isInteger(op.deleteCount)||op.index<0||op.deleteCount<0||op.index+op.deleteCount>value.length||!Array.isArray(op.items))throw Error('상태 배열 기준이 일치하지 않습니다.');Object.defineProperty(parent,p.at(-1),{value:value.slice(0,op.index).concat(op.items,value.slice(op.index+op.deleteCount)),writable:true,configurable:true,enumerable:true});}
+ return {...out,state};
+}
 O.now=()=>Date.now()+(O.clockOffset||0);
 // Saving is opt-out, not opt-in: future gameplay actions (including raid actions) default to an authoritative server commit.
 O.savePolicy=type=>LOCAL_ONLY_ACTIONS.has(type)?'LOCAL_UI':type==='STORY_READ'?'READING_CHECKPOINT':'IMMEDIATE_SERVER';
@@ -65,6 +76,7 @@ async function request(path,data){
   try{out=await res.json();}catch(e){if(e.name==='AbortError')throw e;throw Object.assign(Error('계정 서버 응답을 확인하지 못했습니다. 같은 행동의 저장을 다시 확인해 주세요.'),{transient:true,retryable:true});}
  }catch(e){if(e.transient)throw e;throw Object.assign(Error(e.name==='AbortError'?'서버 응답이 늦어지고 있습니다. 진행 기록은 유지됩니다. 다시 연결해 주세요.':'서버와 연결하지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요.'),{transient:true,retryable:e.name!=='AbortError'});}finally{clearTimeout(timer);}
  const serverTime=Number(res.headers?.get('X-Server-Time'));if(serverTime>0){const lower=serverTime-Date.now(),upper=serverTime-sentAt;O.clockOffset=Math.max(lower,Math.min(upper,O.clockOffset??lower));}
+ const routedSession=res.headers?.get('X-CRPG-Session');if(res.ok&&routedSession){O.token=routedSession;persist();}
  if(!res.ok)throw Object.assign(Error(out.error||'요청을 완료하지 못했습니다.'),{status:res.status,code:out.code,version:out.version,outcome:out.outcome});return out;
 }
 function checkVersion(out){if(out.engineVersion&&MANIFEST.engineVersion?out.engineVersion!==MANIFEST.engineVersion:out.version&&out.version!==MANIFEST.appVersion)throw Object.assign(Error('게임 업데이트를 맞추고 있습니다. 저장 기록은 유지됩니다. 화면 아래 버전 버튼에서 업데이트를 확인해 주세요.'),{code:'VERSION_MISMATCH',version:out.version});}
@@ -73,7 +85,7 @@ async function actionRequest(payload){
  catch(e){if(!e.retryable)throw e;await new Promise(resolve=>setTimeout(resolve,350));return request('/game/action',payload);}
 }
 function install(out,{preservePresentation=false}={}){
- checkVersion(out);
+ checkVersion(out);out=applyStatePatch(out);const nextConfirmed=out.state?JSON.parse(JSON.stringify(out.state)):null;
  // Construct and validate before replacing the current journey or account metadata.
  let candidate=null;
  if(out.state&&preservePresentation&&game?.s.global.SAVE_ID===out.state.global.SAVE_ID){
@@ -81,7 +93,7 @@ function install(out,{preservePresentation=false}={}){
   // but validate the whole candidate and restore the previous state atomically on any failure.
   const previous=game.s;try{game.s=out.state;game.s=game.validateSave(out.state);candidate=game;}catch(e){game.s=previous;throw e;}
  }else if(out.state)candidate=new Runtime(DB,out.state);
- O.account=out.account;O.revision=out.revision||0;O.ranked=out.ranked===true;O.active=!!candidate;
+ confirmedState=nextConfirmed;O.account=out.account;O.revision=out.revision||0;O.ranked=out.ranked===true;O.active=!!candidate;
  game=candidate;if(candidate){activeSaveSlot=null;applySettings();if(!preservePresentation)restoreUIState();}persist();return out;
 }
 O.sync=async()=>{const out=await request('/me');install(out);uiActions=[];uiStates=[];pendingForAccount();const reading=readingRecord();if(reading&&!O.pending&&(reading.saveId!==game?.s.global.SAVE_ID||reading.revision!==O.revision)){saveReading(null);O.syncMessage='다른 화면에서 진행한 서버 기록을 이어 받았습니다.';}if(readingRecord()&&reading.saveId===game?.s.global.SAVE_ID&&reading.revision===O.revision){for(const screen of reading.uiActions||[])game.menu(screen);if(reading.uiScreen&&game.s.global.SCREEN_MODE!==reading.uiScreen)game.menu(reading.uiScreen);replayReading(reading.entries);}O.readingFailed=false;render();return out;};
@@ -104,7 +116,7 @@ async function sendAction(type,params){
  let p=O.pending;if(p&&p.account!==O.account.id)throw Error('다른 계정의 미확정 행동이 있습니다. 해당 계정으로 로그인해 주세요.');
  if(!p){const reading=readingRecord();if(reading&&(reading.saveId!==game.s.global.SAVE_ID||reading.revision!==O.revision))throw Object.assign(Error('읽기 기록과 서버 위치가 다릅니다. 최신 기록을 다시 연결해 주세요.'),{status:409});p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,uiScreen:reading?.uiScreen||localScreen,uiActions:reading?.uiActions||uiActions.slice(),reading:type==='STORY_READ'?(reading?.entries||[]).slice(0,64):reading?.entries||[],type,params};savePending(p);if(type==='STORY_READ'&&(reading?.uiActions.length||!uiActions.length)){uiActions=[];uiStates=[];}}
  const retryingDifferent=p.type!==type||JSON.stringify(p.params)!==JSON.stringify(params);
- try{const out=await actionRequest({...p,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion}),lateMenus=p.type==='STORY_READ'?uiActions.slice():[];install(out,{preservePresentation:true});acknowledgeReading(p,out);savePending(null);O.readingFailed=false;uiActions=[];uiStates=[];for(const screen of lateMenus)localAction('MENU',{screen});restoreLocalScreen(localScreen,p.type);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
+ try{let out=await actionRequest({...p,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,responseMode:confirmedState?'state-parts-v1':'full'});if(out.statePatch&&(!confirmedState||out.baseRevision!==O.revision))out=await actionRequest({...p,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,responseMode:'full'});const lateMenus=p.type==='STORY_READ'?uiActions.slice():[];out=install(out,{preservePresentation:true});acknowledgeReading(p,out);savePending(null);O.readingFailed=false;uiActions=[];uiStates=[];for(const screen of lateMenus)localAction('MENU',{screen});restoreLocalScreen(localScreen,p.type);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
  catch(e){O.readingFailed=!!O.readingCount();if(e.resolved)savePending(null);if(e.code!=='VERSION_MISMATCH'&&(e.outcome==='REJECTED'||e.status&&e.status<500&&e.status!==429&&e.status!==401)){savePending(null);O.readingFailed=false;if(e.status===409||p.type==='STORY_READ'){saveReading(null);await O.sync();}}if(e.status===401){O.token='';O.active=false;persist();game=null;auth(false,true);}if(e.code==='VERSION_MISMATCH')GameVersion.check();throw e;}
 }
 O.execute=async(type,params)=>{

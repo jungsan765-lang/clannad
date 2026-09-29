@@ -1,0 +1,719 @@
+{
+  "baseCommit": "abe662b5940763ef17b81c7392b33f49dd5c65d3",
+  "serverBuild": "server-540ccf6e8097cce33a05",
+  "releaseGate": {
+    "passed": 43,
+    "failed": 0,
+    "results": [
+      {
+        "test": "tests/test_durable_account.mjs",
+        "ok": true,
+        "seconds": 2.3
+      },
+      {
+        "test": "tests/test_durable_migration.mjs",
+        "ok": true,
+        "seconds": 1.4
+      },
+      {
+        "test": "tests/test_online_server.mjs",
+        "ok": true,
+        "seconds": 4.5
+      },
+      {
+        "test": "tests/test_authoritative_flow.mjs",
+        "ok": true,
+        "seconds": 2.2
+      },
+      {
+        "test": "tests/test_reading_checkpoint.mjs",
+        "ok": true,
+        "seconds": 7.8
+      },
+      {
+        "test": "tests/test_action_recovery.mjs",
+        "ok": true,
+        "seconds": 58.8
+      },
+      {
+        "test": "tests/test_update_recovery.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_engine_identity.py",
+        "ok": true,
+        "seconds": 0.0
+      },
+      {
+        "test": "tests/test_combat_catalog_online.mjs",
+        "ok": true,
+        "seconds": 3.1
+      },
+      {
+        "test": "tests/test_action_feedback.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_online_bootstrap_v01343.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_online_title_v01344.cjs",
+        "ok": true,
+        "seconds": 1.8
+      },
+      {
+        "test": "tests/test_local_dev_config.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_combat_v0142.cjs",
+        "ok": true,
+        "seconds": 2.0
+      },
+      {
+        "test": "tests/test_v0142_combat_summons.cjs",
+        "ok": true,
+        "seconds": 1.4
+      },
+      {
+        "test": "tests/test_local_revision_v0141.cjs",
+        "ok": true,
+        "seconds": 5.2
+      },
+      {
+        "test": "tests/test_story_edition_v0141.cjs",
+        "ok": true,
+        "seconds": 1.1
+      },
+      {
+        "test": "tests/test_balance_v0141.cjs",
+        "ok": true,
+        "seconds": 9.7
+      },
+      {
+        "test": "tests/test_local_revision_online_v0141.mjs",
+        "ok": true,
+        "seconds": 3.3
+      },
+      {
+        "test": "tests/test_opening.cjs",
+        "ok": true,
+        "seconds": 8.1
+      },
+      {
+        "test": "tests/test_mond_content_v01344.cjs",
+        "ok": true,
+        "seconds": 3.2
+      },
+      {
+        "test": "tests/test_mond_full_v01344.cjs",
+        "ok": true,
+        "seconds": 88.8
+      },
+      {
+        "test": "tests/test_save_v01344.cjs",
+        "ok": true,
+        "seconds": 6.2
+      },
+      {
+        "test": "tests/test_save_revision.cjs",
+        "ok": true,
+        "seconds": 10.8
+      },
+      {
+        "test": "tests/test_work_validation.cjs",
+        "ok": true,
+        "seconds": 7.7
+      },
+      {
+        "test": "tests/test_life_ui_v010.cjs",
+        "ok": true,
+        "seconds": 3.1
+      },
+      {
+        "test": "tests/test_playback_v08.cjs",
+        "ok": true,
+        "seconds": 0.8
+      },
+      {
+        "test": "tests/test_presentation.cjs",
+        "ok": true,
+        "seconds": 0.3
+      },
+      {
+        "test": "tests/test_access_gear_v01343.cjs",
+        "ok": true,
+        "seconds": 8.7
+      },
+      {
+        "test": "tests/test_gear_ui_v01343.cjs",
+        "ok": true,
+        "seconds": 1.1
+      },
+      {
+        "test": "tests/test_quality_fixes_v01335.cjs",
+        "ok": true,
+        "seconds": 2.2
+      },
+      {
+        "test": "tests/test_quality_fixes_v01336.cjs",
+        "ok": true,
+        "seconds": 4.1
+      },
+      {
+        "test": "tests/test_quality_fixes_v01337.cjs",
+        "ok": true,
+        "seconds": 0.4
+      },
+      {
+        "test": "tests/test_quality_fixes_v01338.cjs",
+        "ok": true,
+        "seconds": 1.8
+      },
+      {
+        "test": "tests/test_liyue_rework_mechanics.cjs",
+        "ok": true,
+        "seconds": 23.2
+      },
+      {
+        "test": "tests/test_liyue_rework_flow.cjs",
+        "ok": true,
+        "seconds": 110.9
+      },
+      {
+        "test": "tools/test_field_bosses.cjs",
+        "ok": true,
+        "seconds": 13.3
+      },
+      {
+        "test": "tools/test_exclusive_weapons.cjs",
+        "ok": true,
+        "seconds": 2.0
+      },
+      {
+        "test": "tests/test_update_v01341.cjs",
+        "ok": true,
+        "seconds": 22.5
+      },
+      {
+        "test": "tests/test_abyss_v01341.cjs",
+        "ok": true,
+        "seconds": 15.5
+      },
+      {
+        "test": "tests/test_v0144.cjs",
+        "ok": true,
+        "seconds": 5.0
+      },
+      {
+        "test": "tests/test_osial_v01341.cjs",
+        "ok": true,
+        "seconds": 4.2
+      },
+      {
+        "test": "tools/test_story_cleanup_v0140.cjs",
+        "ok": true,
+        "seconds": 1.3
+      }
+    ]
+  },
+  "browser": {
+    "browser-d1.log": {
+      "ok": true,
+      "results": [
+        {
+          "menuDuringReadingSave": true,
+          "menuPreservedOnAcknowledgement": true
+        },
+        {
+          "uninterruptedStoryInputs": 5,
+          "checkpoints": 2,
+          "readDurations": [
+            77,
+            82,
+            67,
+            84,
+            70
+          ],
+          "presentationMilliseconds": [
+            22.800000000745058,
+            29.90000000037253,
+            26.59999999962747,
+            38.30000000074506,
+            20.59999999962747
+          ]
+        },
+        {
+          "reloadReadingOnce": true,
+          "decisionWithReadingPrefix": true
+        },
+        {
+          "storyNodes": [
+            "ISK_M01_M005",
+            "ISK_M01_M006",
+            "ISK_M01_M014",
+            "ISK_M01_A001",
+            "ISK_M01_A002",
+            "ISK_M01_AM_CUTE",
+            "ISK_M01_A003",
+            "ISK_M01_NAME_INPUT",
+            "ISK_M01_NAME_REPLY",
+            "ISK_M01_EX_RESCUE_01",
+            "ISK_M01_EX_RESCUE_02",
+            "ISK_M01_EX_RESCUE_03",
+            "ISK_M01_EX_RESCUE_04",
+            "ISK_M01_A016"
+          ]
+        },
+        {
+          "menuRequests": 0,
+          "repeatedMenuCycles": 150
+        },
+        {
+          "lostReadingResponseReloadExactlyOnce": true
+        },
+        {
+          "legacyRejectedPrefixRestoredOnce": true
+        },
+        {
+          "singleResponseRequests": 0,
+          "singleResponseProgress": "ISK_M03_A_066"
+        },
+        {
+          "sceneSteps": 33,
+          "automaticSceneCheckpoints": 1
+        },
+        {
+          "lostResponseExactlyOnce": true
+        },
+        {
+          "relationshipLocked": true,
+          "requirementRed": true,
+          "legacyPendingRecovered": true,
+          "precommitFailureRecovered": true
+        },
+        {
+          "lifeElapsedOnAcknowledgement": 2125,
+          "visibleBeforeAcknowledgement": true,
+          "activityTotalMilliseconds": 10867
+        },
+        {
+          "equipmentFeedback": "장착 중…",
+          "centered": true,
+          "singleNotice": true
+        },
+        {
+          "worldWorkOverlapsSaving": true
+        },
+        {
+          "playbackHP": {
+            "outcome": "검증 · 체력 피해 23 / 치명타 포함 / 보호막 0 → 0 / 체력 480 → 457",
+            "player": "HP  457 / 480"
+          }
+        },
+        {
+          "combatActors": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": "체력  457 / 480"
+            },
+            {
+              "id": "MON_HILI_FIGHTER#1",
+              "hp": "체력  144 / 144"
+            }
+          ]
+        },
+        {
+          "reconnectForfeit": true
+        }
+      ]
+    },
+    "browser-do.log": {
+      "ok": true,
+      "results": [
+        {
+          "menuDuringReadingSave": true,
+          "menuPreservedOnAcknowledgement": true
+        },
+        {
+          "uninterruptedStoryInputs": 5,
+          "checkpoints": 2,
+          "readDurations": [
+            86,
+            70,
+            82,
+            57,
+            67
+          ],
+          "presentationMilliseconds": [
+            35.70000000111759,
+            29.09999999962747,
+            19.800000000745058,
+            19.90000000037253,
+            21.90000000037253
+          ]
+        },
+        {
+          "reloadReadingOnce": true,
+          "decisionWithReadingPrefix": true
+        },
+        {
+          "storyNodes": [
+            "ISK_M01_M005",
+            "ISK_M01_M006",
+            "ISK_M01_M014",
+            "ISK_M01_A001",
+            "ISK_M01_A002",
+            "ISK_M01_AM_CUTE",
+            "ISK_M01_A003",
+            "ISK_M01_NAME_INPUT",
+            "ISK_M01_NAME_REPLY",
+            "ISK_M01_EX_RESCUE_01",
+            "ISK_M01_EX_RESCUE_02",
+            "ISK_M01_EX_RESCUE_03",
+            "ISK_M01_EX_RESCUE_04",
+            "ISK_M01_A016"
+          ]
+        },
+        {
+          "menuRequests": 0,
+          "repeatedMenuCycles": 150
+        },
+        {
+          "lostReadingResponseReloadExactlyOnce": true
+        },
+        {
+          "legacyRejectedPrefixRestoredOnce": true
+        },
+        {
+          "singleResponseRequests": 0,
+          "singleResponseProgress": "ISK_M03_A_066"
+        },
+        {
+          "sceneSteps": 33,
+          "automaticSceneCheckpoints": 1
+        },
+        {
+          "lostResponseExactlyOnce": true
+        },
+        {
+          "relationshipLocked": true,
+          "requirementRed": true,
+          "legacyPendingRecovered": true,
+          "precommitFailureRecovered": true
+        },
+        {
+          "lifeElapsedOnAcknowledgement": 2137,
+          "visibleBeforeAcknowledgement": true,
+          "activityTotalMilliseconds": 10728
+        },
+        {
+          "equipmentFeedback": "장착 중…",
+          "centered": true,
+          "singleNotice": true
+        },
+        {
+          "worldWorkOverlapsSaving": true
+        },
+        {
+          "playbackHP": {
+            "outcome": "검증 · 체력 피해 23 / 치명타 포함 / 보호막 0 → 0 / 체력 480 → 457",
+            "player": "HP  457 / 480"
+          }
+        },
+        {
+          "combatActors": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": "체력  457 / 480"
+            },
+            {
+              "id": "MON_HILI_FIGHTER#1",
+              "hp": "체력  144 / 144"
+            }
+          ]
+        },
+        {
+          "reconnectForfeit": true
+        }
+      ]
+    },
+    "browser-dist-d1.log": {
+      "ok": true,
+      "results": [
+        {
+          "menuDuringReadingSave": true,
+          "menuPreservedOnAcknowledgement": true
+        },
+        {
+          "uninterruptedStoryInputs": 5,
+          "checkpoints": 2,
+          "readDurations": [
+            85,
+            76,
+            64,
+            158,
+            64
+          ],
+          "presentationMilliseconds": [
+            30.700000001117587,
+            32.70000000111759,
+            29.200000001117587,
+            26.59999999962747,
+            19.800000000745058
+          ]
+        },
+        {
+          "reloadReadingOnce": true,
+          "decisionWithReadingPrefix": true
+        },
+        {
+          "storyNodes": [
+            "ISK_M01_M005",
+            "ISK_M01_M006",
+            "ISK_M01_M014",
+            "ISK_M01_A001",
+            "ISK_M01_A002",
+            "ISK_M01_AM_CUTE",
+            "ISK_M01_A003",
+            "ISK_M01_NAME_INPUT",
+            "ISK_M01_NAME_REPLY",
+            "ISK_M01_EX_RESCUE_01",
+            "ISK_M01_EX_RESCUE_02",
+            "ISK_M01_EX_RESCUE_03",
+            "ISK_M01_EX_RESCUE_04",
+            "ISK_M01_A016"
+          ]
+        },
+        {
+          "menuRequests": 0,
+          "repeatedMenuCycles": 150
+        },
+        {
+          "lostReadingResponseReloadExactlyOnce": true
+        },
+        {
+          "legacyRejectedPrefixRestoredOnce": true
+        },
+        {
+          "singleResponseRequests": 0,
+          "singleResponseProgress": "ISK_M03_A_066"
+        },
+        {
+          "sceneSteps": 33,
+          "automaticSceneCheckpoints": 1
+        },
+        {
+          "lostResponseExactlyOnce": true
+        },
+        {
+          "relationshipLocked": true,
+          "requirementRed": true,
+          "legacyPendingRecovered": true,
+          "precommitFailureRecovered": true
+        },
+        {
+          "lifeElapsedOnAcknowledgement": 2086,
+          "visibleBeforeAcknowledgement": true,
+          "activityTotalMilliseconds": 10961
+        },
+        {
+          "equipmentFeedback": "장착 중…",
+          "centered": true,
+          "singleNotice": true
+        },
+        {
+          "worldWorkOverlapsSaving": true
+        },
+        {
+          "playbackHP": {
+            "outcome": "검증 · 체력 피해 23 / 치명타 포함 / 보호막 0 → 0 / 체력 480 → 457",
+            "player": "HP  457 / 480"
+          }
+        },
+        {
+          "combatActors": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": "체력  457 / 480"
+            },
+            {
+              "id": "MON_HILI_FIGHTER#1",
+              "hp": "체력  144 / 144"
+            }
+          ]
+        },
+        {
+          "reconnectForfeit": true
+        }
+      ]
+    },
+    "browser-dist-do.log": {
+      "ok": true,
+      "results": [
+        {
+          "menuDuringReadingSave": true,
+          "menuPreservedOnAcknowledgement": true
+        },
+        {
+          "uninterruptedStoryInputs": 5,
+          "checkpoints": 2,
+          "readDurations": [
+            66,
+            66,
+            81,
+            70,
+            79
+          ],
+          "presentationMilliseconds": [
+            24.300000000745058,
+            24.90000000037253,
+            37,
+            27.899999998509884,
+            29.5
+          ]
+        },
+        {
+          "reloadReadingOnce": true,
+          "decisionWithReadingPrefix": true
+        },
+        {
+          "storyNodes": [
+            "ISK_M01_M005",
+            "ISK_M01_M006",
+            "ISK_M01_M014",
+            "ISK_M01_A001",
+            "ISK_M01_A002",
+            "ISK_M01_AM_CUTE",
+            "ISK_M01_A003",
+            "ISK_M01_NAME_INPUT",
+            "ISK_M01_NAME_REPLY",
+            "ISK_M01_EX_RESCUE_01",
+            "ISK_M01_EX_RESCUE_02",
+            "ISK_M01_EX_RESCUE_03",
+            "ISK_M01_EX_RESCUE_04",
+            "ISK_M01_A016"
+          ]
+        },
+        {
+          "menuRequests": 0,
+          "repeatedMenuCycles": 150
+        },
+        {
+          "lostReadingResponseReloadExactlyOnce": true
+        },
+        {
+          "legacyRejectedPrefixRestoredOnce": true
+        },
+        {
+          "singleResponseRequests": 0,
+          "singleResponseProgress": "ISK_M03_A_066"
+        },
+        {
+          "sceneSteps": 33,
+          "automaticSceneCheckpoints": 1
+        },
+        {
+          "lostResponseExactlyOnce": true
+        },
+        {
+          "relationshipLocked": true,
+          "requirementRed": true,
+          "legacyPendingRecovered": true,
+          "precommitFailureRecovered": true
+        },
+        {
+          "lifeElapsedOnAcknowledgement": 2074,
+          "visibleBeforeAcknowledgement": true,
+          "activityTotalMilliseconds": 10760
+        },
+        {
+          "equipmentFeedback": "장착 중…",
+          "centered": true,
+          "singleNotice": true
+        },
+        {
+          "worldWorkOverlapsSaving": true
+        },
+        {
+          "playbackHP": {
+            "outcome": "검증 · 체력 피해 23 / 치명타 포함 / 보호막 0 → 0 / 체력 480 → 457",
+            "player": "HP  457 / 480"
+          }
+        },
+        {
+          "combatActors": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "hp": "체력  457 / 480"
+            },
+            {
+              "id": "MON_HILI_FIGHTER#1",
+              "hp": "체력  144 / 144"
+            }
+          ]
+        },
+        {
+          "reconnectForfeit": true
+        }
+      ]
+    }
+  },
+  "durableRecovery": {
+    "ok": true,
+    "checks": [
+      "zero D1 warm actions",
+      "delta reconstruction",
+      "retry",
+      "collision",
+      "stale revision",
+      "restart",
+      "parallel duplicate",
+      "parallel different actions",
+      "SQLite rollback",
+      "lost acknowledgement",
+      "PRNG privacy",
+      "inverse backup",
+      "combat",
+      "gzip checkpoint",
+      "legacy fence",
+      "D1 outage",
+      "drain rollback"
+    ]
+  },
+  "migration": {
+    "ok": true,
+    "migrationFailureRecovery": true,
+    "originalPreserved": true,
+    "zeroD1RoutedAuth": true,
+    "legacyRevocationTombstone": true,
+    "expiry": true,
+    "accountDeletion": true
+  },
+  "historicalSaveCompatibility": {
+    "baseline": "f0c08d6abd5941cf72be9ef1a472f28bb4d2c96b",
+    "passed": 8
+  },
+  "realWorkerd": {
+    "environment": "local workerd; loopback; no Korea/Cloudflare network latency",
+    "samples": 25,
+    "warmP50": 9.274493999999322,
+    "warmP95": 12.348270000000412,
+    "responseBytes": 780,
+    "localSqlite": true,
+    "replay": true
+  },
+  "productionMutated": false,
+  "remoteKoreaBenchmark": "NOT RUN - requires user Cloudflare session and Korean network",
+  "windowsExecution": "NOT RUN - cross-platform launcher and extracted bundle build checked on Linux",
+  "notes": [
+    "Final release gate passed after retrieving the exact historical engine blobs; no assertions skipped.",
+    "Browser tests use the real game engine, Worker router and SQLite fixture; separate workerd gate validates platform APIs.",
+    "Source and built browser flows were validated before final checkpoint checksum/rollback guard changes; final DO/release/workerd tests include those changes."
+  ]
+}

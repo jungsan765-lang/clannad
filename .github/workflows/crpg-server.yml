@@ -1,0 +1,53 @@
+name: CRPG Server Only
+on:
+  pull_request:
+    paths: ['genshin-crpg/server/**', 'genshin-crpg/tests/**', 'genshin-crpg/tools/build_server.py', 'genshin-crpg/tools/python.mjs', 'genshin-crpg/tools/*server.mjs', '.github/workflows/crpg-server.yml']
+  push:
+    branches: [main]
+    paths: ['genshin-crpg/server/**', 'genshin-crpg/tests/**', 'genshin-crpg/tools/build_server.py', 'genshin-crpg/tools/python.mjs', 'genshin-crpg/tools/*server.mjs', '.github/workflows/crpg-server.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: crpg-server-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+jobs:
+  server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/
+            /genshin-crpg/
+            !/genshin-crpg/dist/
+            !/genshin-crpg/assets/
+            !/genshin-crpg/audio/
+            !/genshin-crpg/content/archive/
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: genshin-crpg/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Server build and recovery gates (no Pages artifact)
+        working-directory: genshin-crpg
+        run: |
+          npm ci
+          npm run build:server
+          node tests/test_online_server.mjs
+          node tests/test_action_recovery.mjs
+          node tests/test_durable_account.mjs
+          node tests/test_durable_migration.mjs
+          CRPG_TEST_BACKEND=do node tests/test_authoritative_flow.mjs
+          node tests/test_workerd_durable.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: crpg-server-evidence-${{ github.sha }}
+          path: genshin-crpg/evidence/durable
+          retention-days: 14

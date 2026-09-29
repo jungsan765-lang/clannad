@@ -1,4 +1,7 @@
-import {R,DB as GAME_DB,ENGINE_VERSION,ENGINE_FINGERPRINT} from './generated/engine.mjs';
+import {GameAccount,durableDispatch,enrollSession} from './durable-account.mjs';
+export {GameAccount};
+import {executeAction} from './game-core.mjs';
+import {R,DB as GAME_DB,ENGINE_VERSION,ENGINE_FINGERPRINT,SERVER_BUILD} from './generated/engine.mjs';
 const encoder=new TextEncoder(),now=()=>Date.now(),elapsed=t=>Math.round((performance.now()-t)*10)/10,JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'no-store'},json=(x,status=200)=>new Response(JSON.stringify(x),{status,headers:JSON_HEADERS}),jsonText=(text,status=200)=>new Response(text,{status,headers:JSON_HEADERS});
 const hex=bytes=>Array.from(new Uint8Array(bytes),x=>x.toString(16).padStart(2,'0')).join('');
 const bytes=x=>Uint8Array.from(x.match(/.{2}/g)||[],h=>parseInt(h,16));
@@ -53,12 +56,12 @@ async function loadActionState(env,account,row){
  return x.state;
 }
 
-async function loginResult(env,account){const t=token(),h=await hash(t);await env.DB.prepare('INSERT INTO sessions VALUES(?,?,?)').bind(h,account.id,now()+7*86400000).run();return {token:t,account:{id:account.id,username:account.username,displayName:account.display_name,admin:admin(env,account.id)},version:ENGINE_VERSION};}
+async function loginResult(env,account){const t=token(),h=await hash(t),expires=now()+7*86400000;await env.DB.prepare('INSERT INTO sessions VALUES(?,?,?)').bind(h,account.id,expires).run();if(env.GAME_STATE_BACKEND==='do')await enrollSession(env,account,h,expires);return {token:env.GAME_STATE_BACKEND==='do'?'v2.'+account.id+'.'+t:t,account:{id:account.id,username:account.username,displayName:account.display_name,admin:admin(env,account.id)},version:ENGINE_VERSION};}
 function scoreStatement(env,account,row,requestId,abyss){const a=abyss||JSON.parse(row.state).abyss;if(!row.ranked)return env.DB.prepare('DELETE FROM ranking WHERE account_id=? AND EXISTS(SELECT 1 FROM games WHERE account_id=? AND ranked=0 AND revision=? AND last_request_id=?)').bind(account.id,account.id,row.revision,requestId);const floor=Math.max(0,...Object.keys(a?.clears||{}).map(Number)),rounds=Object.values(a?.clears||{}).reduce((n,x)=>n+x.rounds,0);if(!floor)return null;
 return env.DB.prepare('INSERT INTO ranking SELECT account_id,?,?,?,?,?,? FROM games WHERE account_id=? AND ranked=1 AND revision=? AND last_request_id=? AND ?>0 ON CONFLICT(account_id,season) DO UPDATE SET display_name=excluded.display_name,floor=excluded.floor,rounds=excluded.rounds,attempts=excluded.attempts,achieved_at=excluded.achieved_at WHERE excluded.floor>ranking.floor OR (excluded.floor=ranking.floor AND (excluded.rounds<ranking.rounds OR (excluded.rounds=ranking.rounds AND excluded.attempts<ranking.attempts)))').bind(a?.season||'ABYSS_01',account.display_name,floor,rounds,a?.attempts||0,now(),account.id,row.revision,requestId,floor);}
 async function route(request,env,ctx){
  const perfStart=performance.now(),receivedAt=now(),url=new URL(request.url),path=url.pathname;
- if(path==='/health')return json({ok:true,version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,configured:!!env.PASSWORD_PEPPER});
+ if(path==='/health')return json({ok:true,version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,storage:env.GAME_STATE_BACKEND||'d1',configured:!!env.PASSWORD_PEPPER});
  if(path==='/ranking'&&request.method==='GET'){const q=await env.DB.prepare('SELECT display_name AS name,floor,rounds,attempts FROM ranking WHERE season=? ORDER BY floor DESC,rounds,attempts,achieved_at,account_id LIMIT 20').bind('ABYSS_01').all();return json({season:'ABYSS_01',entries:q.results.map((r,i)=>({rank:i+1,...r}))});}
  if(!env.PASSWORD_PEPPER||env.PASSWORD_PEPPER.length<32)throw error(503,'계정 서버의 운영 설정이 아직 완료되지 않았습니다.');
  if(['/register','/login'].includes(path)&&request.method==='POST'){
@@ -96,27 +99,7 @@ async function route(request,env,ctx){
   let persistenceStarted=false;try{
   if(b.engineVersion?b.engineVersion!==ENGINE_FINGERPRINT:b.version!==ENGINE_VERSION)throw error(409,'게임 업데이트를 맞추고 있습니다. 저장 기록은 유지됩니다. 새 버전을 적용한 뒤 다시 시작해 주세요.','VERSION_MISMATCH');
   if(b.revision!==row.revision)throw error(409,'다른 화면에서 진행되었습니다. 최신 자동저장을 이어 받아 주세요.');
-  const isDebug=b.type==='OPERATOR_DEBUG',isReading=b.type==='STORY_READ';if(!ALLOWED.has(b.type)&&!isDebug&&!isReading)throw error(400,'지원하지 않는 게임 행동입니다.');if(isDebug&&!admin(env,account.id))throw error(403,'운영자 전용 기능입니다.');
-  const runtimeStart=performance.now();let r;try{r=cachedRuntime||new R(GAME_DB,JSON.parse(row.state),true);}catch{throw error(503,'저장 기록을 새 버전에서 여는 데 문제가 있습니다. 원본은 보존되어 있습니다. 운영자에게 알려 주세요.','SAVE_COMPATIBILITY');}const runtimeMs=elapsed(runtimeStart);
-  r.serverAdmin=isDebug;const params={...(b.params||{})};for(const key of ['type','id','revision','__proto__','constructor','prototype'])delete params[key];
-  // MENU navigation is client-local. Apply its current screen only as part of the next real transaction,
-  // preserving story/place menu side effects without creating a standalone save revision.
-  const uiScreen=typeof b.uiScreen==='string'&&UI_SCREENS.has(b.uiScreen)?b.uiScreen:'';
-  if(b.uiActions!==undefined){
-   if(!Array.isArray(b.uiActions)||b.uiActions.length>128||b.uiActions.some(screen=>!UI_SCREENS.has(screen)))throw error(400,'화면 이동 기록을 확인해 주세요.');
-   for(const screen of b.uiActions){const reason=r.actionReason('MENU',{screen});if(reason)throw error(409,'현재 화면 상태를 다시 맞춰 주세요.','UI_CONTEXT');r.apply({type:'MENU',screen});}
-  }
-  if(uiScreen&&uiScreen!==r.s.global.SCREEN_MODE){const menuReason=r.actionReason('MENU',{screen:uiScreen});if(menuReason)throw error(409,'현재 화면 상태를 다시 맞춰 주세요.','UI_CONTEXT');r.apply({type:'MENU',screen:uiScreen});}
-  const reading=b.reading??[];
-  if(!Array.isArray(reading)||reading.length>64||(isReading&&!reading.length))throw error(400,'읽기 기록 형식을 확인해 주세요.');
-  for(const step of reading){
-   if(step?.route!==r.s.global.STORY_ROUTE_ID||step.context!==(r.s.storyContext?.entry||''))throw error(409,'이야기 문맥이 달라졌습니다. 최신 기록을 확인해 주세요.','READING_CONTEXT');
-   const preview=r.previewStoryRead(step.node,step.type||'STORY_NEXT',step.params||{node:step.node});if(!preview)throw error(409,'읽기 기록을 현재 이야기에서 확인할 수 없습니다.','READING_CONTEXT');r.s=preview.state;
-  }
-  // Work time begins when this request reaches the Worker, including database/engine work.
-  // Client timestamps never authorize elapsed time or rewards.
-  r.actionStartedAt=Math.max(receivedAt,row.updated_at||0);
-  const engineStart=performance.now();let result;try{result=isReading?{ok:true,type:'STORY_READ',result:{read:reading.length,node:r.storyActiveNodeId()}}:r.action(b.type,params);}finally{delete r.actionStartedAt;}const engineMs=elapsed(engineStart);
+  const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,account,env,receivedAt,cachedRuntime);
   const serializeStart=performance.now(),state=JSON.stringify(compact(r.s)),stateBytes=encoder.encode(state).length;if(stateBytes>1900000)throw error(507,'저장 크기 한도에 도달했습니다. 운영자에게 문의해 주세요.');
   const next={state,revision:row.revision+1,ranked:isDebug?0:row.ranked},output=responseGame(next,account,env,result,r.s),outputText=JSON.stringify(output),responseBytes=encoder.encode(outputText).length,receiptText=JSON.stringify({result}),serializeMs=elapsed(serializeStart);
   await ensureBackups(env.DB);
@@ -141,7 +124,17 @@ export default {async fetch(request,env,ctx){
  const origin=request.headers.get('Origin'),allowed=env.ALLOWED_ORIGIN||'https://clannad.shop';
  if(origin&&origin!==allowed)return json({error:'허용되지 않은 접속 경로입니다.'},403);
  if(request.method==='OPTIONS')return new Response(null,{status:204,headers:{'Access-Control-Allow-Origin':allowed,'Access-Control-Allow-Methods':'GET,POST,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization','Access-Control-Max-Age':'86400','Vary':'Origin'}});
- let res;try{res=await route(request,env,ctx);}catch(e){const rule=e instanceof globalThis.CRPGRuntime.RuleError||e instanceof globalThis.CRPGRelationships.RelationshipError;res=json({error:e.status||rule?e.message:'이 행동을 처리하지 못했습니다. 다른 행동을 선택하거나 잠시 뒤 다시 시도해 주세요.',...(e.code?{code:e.code}:{}),...(e.outcome?{outcome:e.outcome}:{}),...(e.code==='VERSION_MISMATCH'?{version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT}:{})},e.status||(rule?400:500));}
- res.headers.set('Access-Control-Allow-Origin',allowed);res.headers.set('Access-Control-Expose-Headers','X-Server-Time, Server-Timing, X-CRPG-State-Bytes, X-CRPG-Response-Bytes');res.headers.set('X-Server-Time',String(now()));res.headers.set('Vary','Origin');res.headers.set('X-Content-Type-Options','nosniff');return res;
+ let res;try{
+ const path=new URL(request.url).pathname;
+ if(env.GAME_STATE_BACKEND==='do'&&!['/health','/ranking','/login','/register'].includes(path)){
+  res=await durableDispatch(request.clone(),env);
+  if(res.status===503&&(await res.clone().json()).code==='ACCOUNT_DRAINED'){
+   const headers=new Headers(request.headers),auth=headers.get('authorization')||'';headers.set('authorization',auth.replace(/^Bearer v2\.[a-f0-9-]{36}\./,'Bearer '));
+   res=await route(new Request(request,{headers}),env,ctx);
+  }
+ }else res=await route(request,env,ctx);
+}catch(e){const rule=e instanceof globalThis.CRPGRuntime.RuleError||e instanceof globalThis.CRPGRelationships.RelationshipError;res=json({error:e.status||rule?e.message:'이 행동을 처리하지 못했습니다. 다른 행동을 선택하거나 잠시 뒤 다시 시도해 주세요.',...(e.code?{code:e.code}:{}),...(e.outcome?{outcome:e.outcome}:{}),...(e.code==='VERSION_MISMATCH'?{version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,SERVER_BUILD}:{})},e.status||(rule?400:500));}
+ res=new Response(res.body,res);
+ res.headers.set('Access-Control-Allow-Origin',allowed);res.headers.set('Access-Control-Expose-Headers','X-Server-Time, Server-Timing, X-CRPG-State-Bytes, X-CRPG-Response-Bytes, X-CRPG-Session');res.headers.set('X-Server-Time',String(now()));res.headers.set('Vary','Origin');res.headers.set('X-Content-Type-Options','nosniff');return res;
 }};
 export {passwordHash,publicState,ALLOWED};

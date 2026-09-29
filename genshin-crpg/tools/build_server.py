@@ -3,7 +3,7 @@
 from pathlib import Path
 import json,re,hashlib,gzip
 root=Path(__file__).resolve().parents[1]
-from engine_identity import runtime_files, engine_fingerprint
+from engine_identity import runtime_files, engine_fingerprint, server_build
 files=runtime_files(root)
 body='\n'.join((root/'source'/x).read_text() for x in files)
 # Resolve the four legacy CommonJS fallback imports statically for the Worker bundler.
@@ -19,5 +19,6 @@ source='const module=undefined;\n'+body+'\nconst DB='+json.dumps(data,ensure_asc
 source+='const R=globalThis.CRPGRuntime.Runtime;\nif(globalThis.CRPGRelationships)globalThis.CRPGRelationships.install(globalThis.CRPGRuntime,{events:globalThis.CRPGRelationships.catalogFromDB(DB),activities:globalThis.CRPGRelationships.activitiesFromDB(DB),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});\nnew R(DB); // Warm immutable lookup maps once per Worker isolate, outside request handling.\n'
 source+='export {R,DB};\nexport const ENGINE_VERSION='+json.dumps(version)+';\n'
 source+='export const ENGINE_FINGERPRINT='+json.dumps(engine_fingerprint(root,data))+';\n'
+source+='export const ENGINE_COMPATIBILITY=[ENGINE_FINGERPRINT];\nexport const SERVER_BUILD='+json.dumps(server_build(root))+';\n'
 (out/'engine.mjs').write_text(source)
 print(json.dumps({'version':version,'runtime_files':len(files),'bytes':len(source.encode()),'gzip_bytes':len(gzip.compress(source.encode()))}))

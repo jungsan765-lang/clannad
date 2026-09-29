@@ -10,9 +10,13 @@ with tempfile.TemporaryDirectory() as tmp:
     baseline=engine_fingerprint(root,{'content':['v1']})
     (root/'source/app.js').write_text('new UI');(root/'package.json').write_text('{"version":"next-ui-release"}')
     assert engine_fingerprint(root,{'content':['v1']})==baseline
-    for path in ['source/runtime.js','server/worker.mjs']:
+    for path in ['source/runtime.js']:
         p=root/path;original=p.read_text();p.write_text(original+'-changed')
         assert engine_fingerprint(root,{'content':['v1']})!=baseline,path
         p.write_text(original)
+    (root/'server/worker.mjs').write_text('storage-performance-only')
+    assert engine_fingerprint(root,{'content':['v1']})==baseline
+    (root/'server/protocol.json').write_text('{"version":3}')
+    assert engine_fingerprint(root,{'content':['v1']})!=baseline
     assert engine_fingerprint(root,{'content':['v2']})!=baseline
-print(json.dumps({'ok':True,'uiOnlyCompatible':True,'runtimeAndWorkerAndContentGated':True}))
+print(json.dumps({'ok':True,'uiOnlyCompatible':True,'rulesContentProtocolGatedWorkerIndependent':True}))
