@@ -1,0 +1,75 @@
+{
+  "version": "0.14.2",
+  "total": 11,
+  "passed": 11,
+  "checks": [
+    {
+      "name": "syntax source/runtime_combat.js",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "syntax source/runtime_liyue_cards.js",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "syntax source/presentation.js",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "syntax source/app_experience.js",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "syntax source/app_av.js",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "syntax source/app_combat_fx.js",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "shield packets carry immediate before/after values",
+      "ok": true,
+      "evidence": {
+        "actor": "ENEMY_TEST",
+        "target": "ALLY_TARGET",
+        "damage": 0,
+        "absorbed": 40,
+        "shieldBefore": 100,
+        "shieldAfter": 60,
+        "element": "물리"
+      }
+    },
+    {
+      "name": "Baron Bunny redirects only a rolled single-target packet and keeps own HP",
+      "ok": true,
+      "evidence": {
+        "redirected": true,
+        "remaining": 475
+      }
+    },
+    {
+      "name": "Oz attacks from summon identity for exactly two END ticks even if Fischl is down",
+      "ok": true,
+      "evidence": {
+        "targetHp": 954
+      }
+    },
+    {
+      "name": "Guoba and Yuegui attack from their own summon positions and expire after two ticks",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "combat UI ships summon lanes, source-origin FX, live shields and battle-music hold",
+      "ok": true,
+      "evidence": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "total": 3,
+  "passed": 3,
+  "results": [
+    {
+      "name": "Liyue Harbor facilities unlock after first story arrival but side stories stay gated",
+      "ok": true
+    },
+    {
+      "name": "once Harbor was reached, normal return edges into Harbor are no longer story-blocked",
+      "ok": true
+    },
+    {
+      "name": "old save already standing in Harbor receives the facility access receipt on load",
+      "ok": true
+    }
+  ]
+}

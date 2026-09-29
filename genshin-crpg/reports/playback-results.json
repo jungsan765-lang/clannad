@@ -1,6 +1,6 @@
 {
-  "source": "/workspace/scratch/adc1ed75baeb/game/source/app_av.js",
-  "sha256": "86ae7055b9b0a01da990662329ccd20ce66502733f697fe1a26c14254d530d66",
+  "source": "C:\\Users\\jungs\\Documents\\GitHub\\clannad\\genshin-crpg\\source\\app_av.js",
+  "sha256": "6261b9358f7c6b230de24d3b8850da8f1fcb4a43f9ab7a11a2010a9fe4947ee5",
   "tests": [
     {
       "name": "shows exactly one event immediately and advances at 1400ms boundaries",
@@ -77,15 +77,36 @@
       ]
     },
     {
+      "name": "rapid multi-hit updates HP on every impact instead of waiting for the action to finish",
+      "ok": true,
+      "evidence": {
+        "hitSpacingMs": 32,
+        "endingHp": 50
+      }
+    },
+    {
       "name": "grouped actions preserve critical totals and suppress extra attack motions for reactions",
       "ok": true,
       "evidence": {
         "directActions": 1,
         "effectFrames": 6
       }
+    },
+    {
+      "name": "actual Amber burst is one five-hit playback action instead of five slow actions",
+      "ok": true,
+      "evidence": {
+        "frames": 1,
+        "hitsPerTarget": [
+          5,
+          5,
+          5,
+          5
+        ]
+      }
     }
   ],
-  "total": 9,
-  "passed": 9,
+  "total": 11,
+  "passed": 11,
   "failed": 0
 }

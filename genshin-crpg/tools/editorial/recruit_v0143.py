@@ -39,7 +39,7 @@ class Chain:
         ref = ''
         name = ''
         if kind == 'DIALOGUE':
-            ref = PROFILES.get(speaker, '')
+            ref = 'ENTITY_PAIMON' if speaker == '페이몬' else PROFILES.get(speaker, '')
             name = speaker
         elif kind == 'CHOICE':
             name = '{PLAYER_NAME}'
@@ -116,6 +116,8 @@ def recruit(legend, route='ROUTE_ISEKAI', **s):
 from recruit_v0143_mond import write_mond  # noqa: E402  (story text lives in its own module)
 
 write_mond(recruit, Chain, edit, STORY)
+from recruit_v0143_more import write_more  # noqa: E402
+write_more(Chain, edit, STORY, DB)
 
 patch = {'id': 'v0.14.3-recruit', 'story_upsert': {k: v for k, v in rows.items() if v}, 'story': edits}
 out = ROOT / 'content/revisions/v0.14.3-recruit.json'
