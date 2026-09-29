@@ -1,0 +1,395 @@
+{
+  "provenance": "Spiral Abyss 0.14.3: three rooms per floor with rest breaks. Synthetic level/gear setup with native stat formulas; natural artifact rolls selected from 1500 drops per actor. The protagonist only uses basic attacks, companions follow their own AI, heal food is eaten between rooms when HP is below 75%. Each floor is tested on its own; the mark lifecycle is tested separately. This proves solvability, not a player clear rate.",
+  "runs": [
+    {
+      "floor": 1,
+      "level": 10,
+      "enhance": 7,
+      "artifacts": false,
+      "team": [
+        "MOND_AMBER",
+        "MOND_KLEE",
+        "MOND_MONA"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 5
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 6
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 7
+        }
+      ]
+    },
+    {
+      "floor": 2,
+      "level": 12,
+      "enhance": 7,
+      "artifacts": false,
+      "team": [
+        "MOND_FISCHL",
+        "LIYUE_XINGQIU",
+        "MOND_DIONA"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 7
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 9
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 10
+        }
+      ]
+    },
+    {
+      "floor": 3,
+      "level": 15,
+      "enhance": 7,
+      "artifacts": false,
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_NOELLE",
+        "MOND_LISA"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 3
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 3
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 5
+        }
+      ]
+    },
+    {
+      "floor": 4,
+      "level": 18,
+      "enhance": 9,
+      "artifacts": true,
+      "team": [
+        "LIYUE_GAMING",
+        "LIYUE_YUNJIN",
+        "MOND_ROSARIA"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 6
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 5
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 8
+        }
+      ]
+    },
+    {
+      "floor": 5,
+      "level": 19,
+      "enhance": 9,
+      "artifacts": true,
+      "team": [
+        "MOND_VENTI",
+        "LIYUE_CHONGYUN",
+        "LIYUE_YAOYAO"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 9
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 11
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 10
+        }
+      ]
+    },
+    {
+      "floor": 6,
+      "level": 20,
+      "enhance": 10,
+      "artifacts": true,
+      "team": [
+        "MOND_EULA",
+        "LIYUE_XIAO",
+        "LIYUE_BAIZHU"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 6
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 8
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 9
+        }
+      ]
+    },
+    {
+      "floor": 7,
+      "level": 20,
+      "enhance": 10,
+      "artifacts": true,
+      "team": [
+        "LIYUE_YANFEI",
+        "MOND_MIKA",
+        "LIYUE_BEIDOU"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 10
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 11
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 11
+        }
+      ]
+    },
+    {
+      "floor": 8,
+      "level": 20,
+      "enhance": 10,
+      "artifacts": true,
+      "team": [
+        "MOND_RAZOR",
+        "LIYUE_TARTAGLIA",
+        "LIYUE_XIANYUN"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 5
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 6
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 13
+        }
+      ]
+    },
+    {
+      "floor": 9,
+      "level": 20,
+      "enhance": 10,
+      "artifacts": true,
+      "team": [
+        "MOND_DAHLIA",
+        "LIYUE_XINYAN",
+        "LIYUE_LANYAN"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 6
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 11
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 7
+        }
+      ]
+    },
+    {
+      "floor": 10,
+      "level": 20,
+      "enhance": 12,
+      "artifacts": true,
+      "team": [
+        "LIYUE_YELAN",
+        "LIYUE_KEQING",
+        "MOND_SUCROSE"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 5
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 5
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 5
+        }
+      ]
+    },
+    {
+      "floor": 11,
+      "level": 20,
+      "enhance": 12,
+      "artifacts": true,
+      "team": [
+        "LIYUE_HUTAO",
+        "LIYUE_GANYU",
+        "LIYUE_NINGGUANG"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 7
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 6
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 11
+        }
+      ]
+    },
+    {
+      "floor": 12,
+      "level": 20,
+      "enhance": 12,
+      "artifacts": true,
+      "team": [
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "LIYUE_ZHONGLI"
+      ],
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 9
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 10
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 9
+        }
+      ]
+    },
+    {
+      "floor": 4,
+      "gate": "Lv.15 with +7 gear",
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "TIMEOUT",
+          "rounds": 14
+        }
+      ]
+    },
+    {
+      "floor": 6,
+      "gate": "no artifacts",
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 11
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 13
+        },
+        {
+          "chamber": 3,
+          "outcome": "TIMEOUT",
+          "rounds": 14
+        }
+      ]
+    },
+    {
+      "floor": 8,
+      "gate": "no fixed or lingering damage",
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "TIMEOUT",
+          "rounds": 15
+        }
+      ]
+    },
+    {
+      "floor": 10,
+      "gate": "weapons below +10",
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "TIMEOUT",
+          "rounds": 14
+        }
+      ]
+    }
+  ]
+}
