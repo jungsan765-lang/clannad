@@ -25,6 +25,7 @@ if systemctl is-active --quiet "$LIVE_SERVICE" && curl --fail --silent --max-tim
 if systemctl is-active --quiet genshin-crpg-fixed-region.service && curl --fail --silent --max-time 3 http://127.0.0.1:8788/health >/dev/null 2>&1; then SYNTH_OK=1; fi
 
 if [[ "$REMOTE_SHA" == "$CURRENT_SHA" && "$LIVE_OK" -eq 1 && "$SYNTH_OK" -eq 1 && -f "$DEPLOYED_FILE" && "$(cat "$DEPLOYED_FILE")" == "$REMOTE_SHA" ]]; then
+  bash "$PROJECT_DIR/tools/install-fixed-region-test-pack.sh" || true
   exit 0
 fi
 if [[ -f "$FAILED_FILE" ]] && [[ "$(cat "$FAILED_FILE")" == "$REMOTE_SHA" ]]; then
@@ -69,4 +70,5 @@ sleep 1
 curl --fail --silent --show-error http://127.0.0.1:8788/health >/dev/null
 curl --fail --silent --show-error http://127.0.0.1:8789/health >/dev/null
 echo "$REMOTE_SHA" >"$DEPLOYED_FILE"
+bash "$PROJECT_DIR/tools/install-fixed-region-test-pack.sh" || true
 echo "Deployed $REMOTE_SHA"
