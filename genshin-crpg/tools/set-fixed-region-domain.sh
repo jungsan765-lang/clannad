@@ -3,6 +3,7 @@ set -Eeuo pipefail
 
 API_DOMAIN="${1:-api-staging.clannad.shop}"
 TEST_DOMAIN="${2:-test.clannad.shop}"
+CADDY_DIR="/etc/caddy/conf.d"
 if [[ "${EUID}" -ne 0 ]]; then
   echo "Run with sudo." >&2
   exit 1
@@ -12,7 +13,11 @@ if [[ ! "$API_DOMAIN" =~ ^[A-Za-z0-9.-]+$ || ! "$TEST_DOMAIN" =~ ^[A-Za-z0-9.-]+
   exit 1
 fi
 
-cat >/etc/caddy/Caddyfile <<EOF
+mkdir -p "$CADDY_DIR"
+cat >/etc/caddy/Caddyfile <<'EOF'
+import /etc/caddy/conf.d/*.caddy
+EOF
+cat >"$CADDY_DIR/staging.caddy" <<EOF
 $API_DOMAIN {
     encode zstd gzip
     handle_path /live/* {
