@@ -7,8 +7,9 @@ import {ENGINE_VERSION, ENGINE_FINGERPRINT, SERVER_BUILD} from './generated/engi
 import {compact, executeAction, hash, same} from './game-core.mjs';
 import {fixture} from './benchmark-fixtures.mjs';
 import {splitState, joinState, diffParts, publicParts, wirePatch, intent} from './state-parts.mjs';
+import {diagnosticHtml} from './fixed-region-diagnostic-page.mjs';
 
-const TRANSPORT_BUILD='fixed-region-node-sqlite-v1';
+const TRANSPORT_BUILD='fixed-region-node-sqlite-v2';
 const ACCOUNT={id:'00000000-0000-4000-8000-000000000001',username:'synthetic',display_name:'성능시험용'};
 const ENV={ADMIN_ACCOUNT_IDS:''};
 const MAX_BODY=65536;
@@ -82,28 +83,29 @@ export class FixedRegionStore{
 
 async function readJson(req){let size=0,chunks=[];for await(const chunk of req){size+=chunk.length;if(size>MAX_BODY)throw Object.assign(new Error('요청이 너무 큽니다.'),{status:413});chunks.push(chunk);}const raw=Buffer.concat(chunks).toString('utf8');try{return JSON.parse(raw||'{}');}catch{throw Object.assign(new Error('요청 형식을 확인해 주세요.'),{status:400});}}
 function send(res,status,payload,headers={}){const text=JSON.stringify(payload);res.writeHead(status,{...jsonHeaders,'content-length':Buffer.byteLength(text),'x-content-type-options':'nosniff',...headers});res.end(text);}
-function corsHeaders(origin,allowedOrigin){return origin?{'access-control-allow-origin':allowedOrigin,'vary':'Origin'}:{};}
+function sendHtml(res,status,html,headers={}){res.writeHead(status,{'content-type':'text/html; charset=utf-8','cache-control':'no-store','content-length':Buffer.byteLength(html),'x-content-type-options':'nosniff',...headers});res.end(html);}
+function corsHeaders(origin){return origin?{'access-control-allow-origin':origin,'vary':'Origin'}:{};}
+function timingHeaders(timing,cors={}){const headers={...cors};headers['server-timing']=[timing.runtimeMs!=null?`runtime;dur=${timing.runtimeMs}`:'',timing.engineMs!=null?`engine;dur=${timing.engineMs}`:'',timing.persistMs!=null?`persist;dur=${timing.persistMs}`:'',`total;dur=${timing.totalMs||0}`].filter(Boolean).join(',');if(timing.stateBytes!=null)headers['x-crpg-state-bytes']=String(timing.stateBytes);if(timing.responseBytes!=null)headers['x-crpg-response-bytes']=String(timing.responseBytes);return headers;}
 
 export function createFixedRegionHandler({store,token,allowedOrigin='https://clannad.shop'}){
  if(typeof token!=='string'||token.length<32)throw new Error('STAGING_BEARER_TOKEN must be at least 32 characters.');
- let tokenDigestPromise=hash(token);
+ let tokenDigestPromise=hash(token);const diagnosticRate=new Map();
+ const takeDiagnostic=req=>{const key=req.socket?.remoteAddress||'unknown',t=now(),old=diagnosticRate.get(key),entry=!old||old.until<=t?{count:0,until:t+60000}:old;entry.count++;diagnosticRate.set(key,entry);if(entry.count>30)throw Object.assign(new Error('진단 요청이 너무 잦습니다. 잠시 뒤 다시 시도해 주세요.'),{status:429});};
  return async(req,res)=>{
-  const origin=req.headers.origin||'';if(origin&&origin!==allowedOrigin)return send(res,403,{error:'허용되지 않은 접속 경로입니다.'},{vary:'Origin'});
-  const cors=corsHeaders(origin,allowedOrigin);
+  const url=new URL(req.url,'http://fixed-region.local'),origin=req.headers.origin||'',host=req.headers.host||'',diagnostic=url.pathname==='/diagnostic'||url.pathname.startsWith('/diagnostic/'),sameOrigin=!!origin&&!!host&&(origin===`https://${host}`||origin===`http://${host}`);
+  if(origin&&origin!==allowedOrigin&&!(diagnostic&&sameOrigin))return send(res,403,{error:'허용되지 않은 접속 경로입니다.'},{vary:'Origin'});
+  const cors=corsHeaders(origin);
   if(req.method==='OPTIONS'){res.writeHead(204,{...cors,'access-control-allow-methods':'GET,POST,OPTIONS','access-control-allow-headers':'Content-Type,Authorization','access-control-max-age':'86400'});return res.end();}
-  const url=new URL(req.url,'http://fixed-region.local');
   try{
    if(url.pathname==='/health'&&req.method==='GET')return send(res,200,{ok:true,version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,transportBuild:TRANSPORT_BUILD,storage:'sqlite-node',configured:true,synthetic:true},cors);
    if(url.pathname==='/ping'&&req.method==='GET')return send(res,200,{ok:true,serverTime:now(),transportBuild:TRANSPORT_BUILD},cors);
+   if(url.pathname==='/diagnostic'&&req.method==='GET')return sendHtml(res,200,diagnosticHtml,cors);
+   if(url.pathname==='/diagnostic/reset'&&req.method==='POST'){takeDiagnostic(req);const b=await readJson(req);return send(res,200,store.reset(b.scenario||'move',false),cors);}
+   if(url.pathname==='/diagnostic/action'&&req.method==='POST'){takeDiagnostic(req);const b=await readJson(req),out=await store.action(b);return send(res,200,out.payload,timingHeaders(out.timing||{},cors));}
    const auth=(req.headers.authorization||'').replace(/^Bearer /,'');const supplied=await hash(auth),expected=await tokenDigestPromise;if(!auth||!same(supplied,expected))return send(res,401,{error:'로그인해 주세요.'},cors);
    if(url.pathname==='/game/state'&&req.method==='GET')return send(res,200,store.state(),cors);
    if(url.pathname==='/synthetic/reset'&&req.method==='POST'){const b=await readJson(req);return send(res,200,store.reset(b.scenario||'move',!!b.large),cors);}
-   if(url.pathname==='/game/action'&&req.method==='POST'){
-    const b=await readJson(req),out=await store.action(b),timing=out.timing||{},headers={...cors};
-    headers['server-timing']=[timing.runtimeMs!=null?`runtime;dur=${timing.runtimeMs}`:'',timing.engineMs!=null?`engine;dur=${timing.engineMs}`:'',timing.persistMs!=null?`persist;dur=${timing.persistMs}`:'',`total;dur=${timing.totalMs||0}`].filter(Boolean).join(',');
-    if(timing.stateBytes!=null)headers['x-crpg-state-bytes']=String(timing.stateBytes);if(timing.responseBytes!=null)headers['x-crpg-response-bytes']=String(timing.responseBytes);
-    return send(res,200,out.payload,headers);
-   }
+   if(url.pathname==='/game/action'&&req.method==='POST'){const b=await readJson(req),out=await store.action(b);return send(res,200,out.payload,timingHeaders(out.timing||{},cors));}
    return send(res,404,{error:'지원하지 않는 요청입니다.'},cors);
   }catch(e){const rule=!!(globalThis.CRPGRuntime?.RuleError&&e instanceof globalThis.CRPGRuntime.RuleError)||!!(globalThis.CRPGRelationships?.RelationshipError&&e instanceof globalThis.CRPGRelationships.RelationshipError);return send(res,e.status||(rule?400:500),{error:e.status||rule?e.message:'이 행동을 처리하지 못했습니다.',...(e.code?{code:e.code}:{})},cors);}
  };
