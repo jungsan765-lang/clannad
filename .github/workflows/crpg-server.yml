@@ -1,7 +1,7 @@
 name: CRPG Server Only
 on:
   pull_request:
-    paths: ['genshin-crpg/server/**', 'genshin-crpg/tests/**', 'genshin-crpg/tools/build_server.py', 'genshin-crpg/tools/python.mjs', 'genshin-crpg/tools/*server.mjs', '.github/workflows/crpg-server.yml']
+    paths: ['genshin-crpg/server/**', 'genshin-crpg/tests/**', 'genshin-crpg/tools/build_server.py', 'genshin-crpg/tools/python.mjs', 'genshin-crpg/tools/*server.mjs', 'genshin-crpg/tools/*.sh', 'genshin-crpg/package.json', '.github/workflows/crpg-server.yml']
   push:
     branches: [main]
     paths: ['genshin-crpg/server/**', 'genshin-crpg/tests/**', 'genshin-crpg/tools/build_server.py', 'genshin-crpg/tools/python.mjs', 'genshin-crpg/tools/*server.mjs', '.github/workflows/crpg-server.yml']
@@ -45,6 +45,13 @@ jobs:
           node tests/test_durable_migration.mjs
           CRPG_TEST_BACKEND=do node tests/test_authoritative_flow.mjs
           node tests/test_workerd_durable.mjs
+          node tests/test_fixed_region_staging.mjs
+          node tests/test_fixed_region_live.mjs
+          bash -n tools/bootstrap-fixed-region-ubuntu.sh
+          bash -n tools/fixed-region-autodeploy.sh
+          bash -n tools/set-fixed-region-domain.sh
+          bash -n tools/install-fixed-region-live-staging.sh
+          bash -n tools/install-fixed-region-test-pack.sh
       - uses: actions/upload-artifact@v4
         if: always()
         with:
