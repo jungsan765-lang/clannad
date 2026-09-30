@@ -33,7 +33,7 @@ P.storyIndex=function(){
   const rows=original.filter(r=>r[0]==='ROUTE_ISEKAI'&&r[1]===edit.quest&&r[3]===edit.scene);
   const narr=rows.filter(r=>r[5]==='NARRATION'),first=narr[0],last=narr[narr.length-1],spoken=rows.find(r=>r[5]==='DIALOGUE'&&r[7]===edit.speaker);
   if(!first||!last)throw Error('Missing edited scene '+edit.scene);
-  setText(first,edit.opening);if(last!==first)setText(last,edit.beat||edit.closing);if(last!==first)setText(last,edit.closing);if(spoken&&edit.beat)setText(spoken,edit.beat);
+  setText(first,edit.opening);if(last!==first)setText(last,edit.closing);if(spoken&&edit.beat)setText(spoken,edit.beat);
   const keep=new Set([first[4],last[4],spoken?.[4]]);
   for(const row of rows)if(row[5]==='CHOICE'&&(groups.get(row[0]+':'+row[14])?.length>1||row[12])){keep.add(row[4]);const reply=ix.nodes.get(row[0]+':'+row[13]);if(reply?.[5]==='DIALOGUE')keep.add(reply[4]);}
   for(const row of rows)if(['NARRATION','DIALOGUE','CHOICE'].includes(row[5])&&!keep.has(row[4])&&!row[12]&&(!row[11]||row[11]===first[11]))skip.add(row[0]+':'+row[4]);
