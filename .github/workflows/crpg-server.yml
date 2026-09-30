@@ -1,7 +1,7 @@
 name: CRPG Server Only
 on:
   pull_request:
-    paths: ['genshin-crpg/server/**', 'genshin-crpg/tests/**', 'genshin-crpg/tools/build_server.py', 'genshin-crpg/tools/python.mjs', 'genshin-crpg/tools/*server.mjs', '.github/workflows/crpg-server.yml']
+    paths: ['genshin-crpg/server/**', 'genshin-crpg/tests/**', 'genshin-crpg/tools/build_server.py', 'genshin-crpg/tools/python.mjs', 'genshin-crpg/tools/*server.mjs', 'genshin-crpg/tools/*.sh', 'genshin-crpg/package.json', '.github/workflows/crpg-server.yml']
   push:
     branches: [main]
     paths: ['genshin-crpg/server/**', 'genshin-crpg/tests/**', 'genshin-crpg/tools/build_server.py', 'genshin-crpg/tools/python.mjs', 'genshin-crpg/tools/*server.mjs', '.github/workflows/crpg-server.yml']
