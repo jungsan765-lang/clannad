@@ -25,7 +25,7 @@ let checks=0;const check=(condition,label)=>{assert.ok(condition,label);checks++
 const ix=fixture(),before=new Map([...ix.nodes].map(([k,r])=>[k,r.slice()])),rowsRef=ix.byTable['55_MAIN_STORY_DB'];
 const {runtime,api}=install(ix);check(runtime.storyIndex()===ix,'same index');
 check(ix.nodes.size===before.size,'no new/deleted IDs');check(rowsRef===ix.byTable['55_MAIN_STORY_DB'],'same table');
-check(api.mainStoryEntryRevision==='002.01','revision');
+check(api.mainStoryEntryRevision==='002.01-r2','revision');
 const targets=new Map(scene.map(s=>[R+':'+s.id,s]));
 for(const [k,row]of ix.nodes){
  const original=before.get(k),spec=targets.get(k),legacy=scene.find(s=>s.id.startsWith('R39_PROSE_')&&k===R+':'+s.id.slice(10));
