@@ -7,6 +7,7 @@ PROJECT_DIR="/opt/genshin-crpg-fixed/repo/genshin-crpg"
 DATA_DIR="/var/lib/genshin-crpg"
 ENV_FILE="/etc/genshin-crpg-live-staging.env"
 SERVICE="genshin-crpg-fixed-region-live.service"
+CADDY_DIR="/etc/caddy/conf.d"
 
 if [[ "${EUID}" -ne 0 ]]; then
   echo "Run as root." >&2
@@ -67,7 +68,11 @@ ReadWritePaths=$DATA_DIR
 WantedBy=multi-user.target
 EOF
 
-cat >/etc/caddy/Caddyfile <<EOF
+mkdir -p "$CADDY_DIR"
+cat >/etc/caddy/Caddyfile <<'EOF'
+import /etc/caddy/conf.d/*.caddy
+EOF
+cat >"$CADDY_DIR/staging.caddy" <<EOF
 $API_DOMAIN {
     encode zstd gzip
     handle_path /live/* {
@@ -95,6 +100,7 @@ $TEST_DOMAIN {
     }
 }
 EOF
+
 caddy validate --config /etc/caddy/Caddyfile
 systemctl daemon-reload
 systemctl enable "$SERVICE" >/dev/null
