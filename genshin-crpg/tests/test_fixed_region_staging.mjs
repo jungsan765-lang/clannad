@@ -8,8 +8,8 @@ import {splitState,joinState,applyParts} from '../server/state-parts.mjs';
 const token='synthetic-staging-token-'.padEnd(64,'x');
 async function open(dbPath=':memory:'){
  const app=await startFixedRegionStaging({dbPath,token,host:'127.0.0.1',port:0,allowedOrigin:'https://clannad.shop'}),base=`http://127.0.0.1:${app.address.port}`;
- async function api(path,{method='GET',body,auth=true}={}){
-  const headers={};if(auth)headers.authorization=`Bearer ${token}`;if(body!==undefined)headers['content-type']='application/json';
+ async function api(path,{method='GET',body,auth=true,origin}={}){
+  const headers={};if(auth)headers.authorization=`Bearer ${token}`;if(origin)headers.origin=origin;if(body!==undefined)headers['content-type']='application/json';
   const response=await fetch(base+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)});return {status:response.status,headers:response.headers,json:await response.json()};
  }
  return {...app,api};
@@ -18,6 +18,11 @@ async function open(dbPath=':memory:'){
 let app=await open();
 const health=await app.api('/health',{auth:false});assert.equal(health.status,200);assert.equal(health.json.storage,'sqlite-node');assert.equal(health.json.synthetic,true);
 const ping=await app.api('/ping',{auth:false});assert.equal(ping.status,200);assert.equal(ping.json.ok,true);
+const diagnosticPage=await fetch(`http://127.0.0.1:${app.address.port}/diagnostic`);assert.equal(diagnosticPage.status,200);assert((await diagnosticPage.text()).includes('CRPG 서울 스테이징 테스트'));
+const diagnosticOrigin=`http://127.0.0.1:${app.address.port}`;
+const diagnosticReset=await app.api('/diagnostic/reset',{method:'POST',auth:false,origin:diagnosticOrigin,body:{scenario:'move'}});assert.equal(diagnosticReset.status,200);
+const diagnosticMove=await app.api('/diagnostic/action',{method:'POST',auth:false,origin:diagnosticOrigin,body:{...diagnosticReset.json.suggestedAction,requestId:'diagnostic-move-0001',responseMode:'state-parts-v1'}});assert.equal(diagnosticMove.status,200);assert(diagnosticMove.json.statePatch);
+assert.equal((await app.api('/diagnostic/reset',{method:'POST',auth:false,origin:'https://evil.example',body:{scenario:'move'}})).status,403);
 assert.equal((await app.api('/game/state',{auth:false})).status,401);
 
 const reset=await app.api('/synthetic/reset',{method:'POST',body:{scenario:'move'}});assert.equal(reset.status,200);assert.equal(reset.json.revision,0);assert.equal(reset.json.scenario,'move');
@@ -38,4 +43,4 @@ const dir=await mkdtemp(join(tmpdir(),'crpg-fixed-region-')),dbPath=join(dir,'st
 app=await open(dbPath);const persistentReset=await app.api('/synthetic/reset',{method:'POST',body:{scenario:'move'}}),persistentMove={...persistentReset.json.suggestedAction,requestId:'persistent-move-0001',responseMode:'state-parts-v1'};assert.equal((await app.api('/game/action',{method:'POST',body:persistentMove})).status,200);await app.close();
 app=await open(dbPath);assert.equal((await app.api('/game/state')).json.revision,1);await app.close();await rm(dir,{recursive:true,force:true});
 
-console.log(JSON.stringify({ok:true,checks:['health','ping','auth gate','MOVE delta','delta reconstruction','requestId replay','requestId collision','revision conflict','parallel duplicate','COMBAT delta','SQLite restart persistence']}));
+console.log(JSON.stringify({ok:true,checks:['health','ping','browser diagnostic page','browser diagnostic MOVE','diagnostic same-origin gate','auth gate','MOVE delta','delta reconstruction','requestId replay','requestId collision','revision conflict','parallel duplicate','COMBAT delta','SQLite restart persistence']}));
