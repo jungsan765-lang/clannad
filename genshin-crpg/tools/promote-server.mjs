@@ -20,7 +20,7 @@ config.vars={...config.vars,GAME_STATE_BACKEND:'do',DO_LOCATION_HINT:'apac-ne'};
 config.durable_objects={bindings:[{name:'GAME_ACCOUNTS',class_name:'GameAccount'}]};config.migrations=[{tag:'game-account-sqlite-v1',new_sqlite_classes:['GameAccount']}];
 const configPath=resolve(dir,'wrangler.json');writeFileSync(configPath,JSON.stringify(config,null,2));
 console.log(`검토된 운영 반영: ${SERVER_BUILD}\n기존 D1 유지 / 소유권 보호 표·압축 백업 표 추가 / 접속 계정별 세이브 이전\nWorker 한 번 배포 / Pages 자동 배포 없음 / 기존 세션 유지\n롤백은 docs/server-operations-ko.md의 계정 drain 절차가 필요합니다.`);
-const rl=createInterface({input:process.stdin,output:process.stdout}),word=trial?'TRIAL_DEPLOY':'DEPLOY';const answer=await rl.question((trial?'운영 체감 시험':'최종 검토 후 운영 반영')+'을 승인하려면 '+word+' 입력: ');rl.close();if(answer!==word)throw Error('운영 변경 없이 종료했습니다.');
+const rl=createInterface({input:process.stdin,output:process.stdout}),word=trial?'TRIAL_DEPLOY':'DEPLOY';const answer=await rl.question((trial?'운영 체감 시험':'최종 검토 후 운영 반영')+'을 승인하려면 '+word+' 입력: ');rl.close();if(String(answer||'').trim().toUpperCase()!==word)throw Error('운영 변경 없이 종료했습니다.');
 run(['d1','execute','genshin-crpg-online','--remote','--config',configPath,'--file',resolve(root,'server/migrations/0001-durable-ownership.sql'),'--yes']);
 run(['deploy','--config',configPath]);
 const health=await (await fetch('https://genshin-crpg-online.jungsan765.workers.dev/health',{headers:{'Cache-Control':'no-cache'}})).json();
