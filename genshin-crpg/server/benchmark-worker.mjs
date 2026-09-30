@@ -42,6 +42,11 @@ export class GameAccount extends ProductionAccount {
 }
 export default {async fetch(request,env,ctx){
  const path=new URL(request.url).pathname;
+ if(path==='/bench/edge-ping'&&request.method==='POST'){
+  const h=await hash('crpg-edge-probe-v1'),id=[h.slice(0,8),h.slice(8,12),h.slice(12,16),h.slice(16,20),h.slice(20,32)].join('-'),started=performance.now();
+  const res=await env.GAME_ACCOUNTS.get(env.GAME_ACCOUNTS.idFromName(id),{locationHint:'apac-ne'}).fetch('https://internal/benchmark-preflight',{method:'POST',body:'{}'});
+  const body=await res.json();return json({ok:res.ok&&!!body.ok,probe:'edge-do-v1',serverBuild:SERVER_BUILD,clientCountry:request.cf?.country||null,edgeColo:request.cf?.colo||null,placement:request.headers.get('cf-placement')||null,doMs:performance.now()-started});
+ }
  if(path==='/bench/domain-ping'&&request.method==='POST')return json({ok:true,probe:'domain-v1',serverBuild:SERVER_BUILD,clientCountry:request.cf?.country||null,edgeColo:request.cf?.colo||null,placement:request.headers.get('cf-placement')||null});
  if(!path.startsWith('/bench/'))return production.fetch(request,env,ctx);
  const customToken=request.headers.get('x-crpg-benchmark-token')||'',auth=request.headers.get('authorization')||'',bearer=auth.startsWith('Bearer ')?auth.slice(7):'',supplied=customToken||bearer;
