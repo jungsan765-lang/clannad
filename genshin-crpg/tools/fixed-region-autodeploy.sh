@@ -7,6 +7,7 @@ DATA_DIR="/var/lib/genshin-crpg"
 BRANCH="staging/crpg-seoul-node-v0145"
 FAILED_FILE="$DATA_DIR/last-failed-deploy-sha"
 LOCK_FILE="$DATA_DIR/update.lock"
+DEPLOYED_FILE="$DATA_DIR/deployed-fixed-region-sha"
 LIVE_SERVICE="genshin-crpg-fixed-region-live.service"
 DOMAIN="api-staging.clannad.shop"
 
@@ -18,11 +19,11 @@ REMOTE_SHA="$(git -C "$REPO_DIR" rev-parse FETCH_HEAD)"
 CURRENT_SHA="$(git -C "$REPO_DIR" rev-parse HEAD)"
 
 LIVE_OK=0
-if systemctl is-active --quiet "$LIVE_SERVICE" && curl --fail --silent --max-time 3 http://127.0.0.1:8789/health >/dev/null 2>&1; then
-  LIVE_OK=1
-fi
+SYNTH_OK=0
+if systemctl is-active --quiet "$LIVE_SERVICE" && curl --fail --silent --max-time 3 http://127.0.0.1:8789/health >/dev/null 2>&1; then LIVE_OK=1; fi
+if systemctl is-active --quiet genshin-crpg-fixed-region.service && curl --fail --silent --max-time 3 http://127.0.0.1:8788/health >/dev/null 2>&1; then SYNTH_OK=1; fi
 
-if [[ "$REMOTE_SHA" == "$CURRENT_SHA" && "$LIVE_OK" -eq 1 ]]; then
+if [[ "$REMOTE_SHA" == "$CURRENT_SHA" && "$LIVE_OK" -eq 1 && "$SYNTH_OK" -eq 1 && -f "$DEPLOYED_FILE" && "$(cat "$DEPLOYED_FILE")" == "$REMOTE_SHA" ]]; then
   exit 0
 fi
 if [[ -f "$FAILED_FILE" ]] && [[ "$(cat "$FAILED_FILE")" == "$REMOTE_SHA" ]]; then
@@ -66,4 +67,5 @@ systemctl restart "$LIVE_SERVICE"
 sleep 1
 curl --fail --silent --show-error http://127.0.0.1:8788/health >/dev/null
 curl --fail --silent --show-error http://127.0.0.1:8789/health >/dev/null
+echo "$REMOTE_SHA" >"$DEPLOYED_FILE"
 echo "Deployed $REMOTE_SHA"
