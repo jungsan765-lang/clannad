@@ -20,11 +20,11 @@ const list=()=>JSON.parse(run(['d1','list','--json'],{capture:true}));let db;
 try{db=list().find(x=>x.name===name);}catch{run(['login']);db=list().find(x=>x.name===name);}
 if(!db){run(['d1','create',name,'--location','apac','--no-update-config']);db=list().find(x=>x.name===name);}
 if(!db||db.uuid==='1eaf2269-ca70-4b07-a4dc-0421d9a8bd78')throw Error('시험 DB 확인에 실패했습니다. 운영 DB는 사용하지 않습니다.');
-const config={name,main:'../../server/benchmark-worker.mjs',compatibility_date:'2026-09-01',workers_dev:true,vars:{ALLOWED_ORIGIN:'https://clannad.shop',GAME_STATE_BACKEND:'do',DO_LOCATION_HINT:'apac-ne',BENCHMARK_ONLY:'1'},d1_databases:[{binding:'DB',database_name:name,database_id:db.uuid}],durable_objects:{bindings:[{name:'GAME_ACCOUNTS',class_name:'GameAccount'}]},migrations:[{tag:'v1',new_sqlite_classes:['GameAccount']}]};writeFileSync(configPath,JSON.stringify(config,null,2));
+const secret=randomBytes(32).toString('hex'),pepper=randomBytes(32).toString('hex');
+const config={name,main:'../../server/benchmark-worker.mjs',compatibility_date:'2026-09-01',workers_dev:true,vars:{ALLOWED_ORIGIN:'https://clannad.shop',GAME_STATE_BACKEND:'do',DO_LOCATION_HINT:'apac-ne',BENCHMARK_ONLY:'1',BENCHMARK_TOKEN:secret,PASSWORD_PEPPER:pepper},d1_databases:[{binding:'DB',database_name:name,database_id:db.uuid}],durable_objects:{bindings:[{name:'GAME_ACCOUNTS',class_name:'GameAccount'}]},migrations:[{tag:'v1',new_sqlite_classes:['GameAccount']}]};writeFileSync(configPath,JSON.stringify(config,null,2));
 const schema=readFileSync(resolve(root,'server/schema.sql'),'utf8')+'\n'+readFileSync(resolve(root,'server/migrations/0001-durable-ownership.sql'),'utf8')+'\nCREATE TABLE IF NOT EXISTS benchmark_payloads(id INTEGER PRIMARY KEY,payload BLOB);';const schemaPath=resolve(dir,'schema.sql');writeFileSync(schemaPath,schema);
 run(['d1','execute',name,'--remote','--config',configPath,'--file',schemaPath,'--yes']);
 const deployed=run(['deploy','--config',configPath],{capture:true});const urls=deployed.match(/https:\/\/[a-zA-Z0-9.-]+\.workers\.dev/g),base=urls?.at(-1);if(!base)throw Error('시험 서버 주소를 확인하지 못했습니다.');
-const secret=randomBytes(32).toString('hex');run(['secret','bulk','--config',configPath],{input:JSON.stringify({PASSWORD_PEPPER:randomBytes(32).toString('hex'),BENCHMARK_TOKEN:secret})});
 console.log('한국 접속 환경에서 이동·전투를 측정합니다. 창을 닫지 마세요.');
 writeFileSync(attemptPath,JSON.stringify({startedAt:new Date().toISOString(),worker:name}),{flag:'wx'});
 const partialPath=resolve(root,'latency-partial.json');
