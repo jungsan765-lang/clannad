@@ -32,6 +32,16 @@ fi
 chown root:crpg-staging "$ENV_FILE"
 chmod 0640 "$ENV_FILE"
 
+TEST_ROOT="/var/www/genshin-crpg-test"
+mkdir -p "$TEST_ROOT/releases" "$TEST_ROOT/bootstrap"
+chmod 0755 "$TEST_ROOT" "$TEST_ROOT/releases" "$TEST_ROOT/bootstrap"
+if [[ ! -e "$TEST_ROOT/current" ]]; then
+  cat >"$TEST_ROOT/bootstrap/index.html" <<'EOF'
+<!doctype html><meta charset="utf-8"><title>CRPG TEST</title><body style="font-family:system-ui;padding:40px"><h1>테스트 환경 준비 중</h1><p>검증된 테스트 빌드를 기다리고 있습니다.</p></body>
+EOF
+  ln -s "$TEST_ROOT/bootstrap" "$TEST_ROOT/current"
+fi
+
 cat >/etc/systemd/system/$SERVICE <<EOF
 [Unit]
 Description=Genshin CRPG fixed-region account staging
@@ -70,21 +80,18 @@ $API_DOMAIN {
 
 $TEST_DOMAIN {
     encode zstd gzip
+    header X-Robots-Tag "noindex, nofollow, noarchive"
 
     handle_path /api/* {
         reverse_proxy 127.0.0.1:8789
     }
 
-    handle /online_config.js {
-        header Content-Type "application/javascript; charset=utf-8"
-        respond "window.CRPG_ONLINE_CONFIG={apiBase:'https://$TEST_DOMAIN/api',environment:'seoul-test'};"
-    }
+    @fresh path / /index.html /online_config.js /release.json /test-source-sha.txt
+    header @fresh Cache-Control "no-store"
 
     handle {
-        rewrite * /genshin-crpg/dist{uri}
-        reverse_proxy https://clannad.shop {
-            header_up Host clannad.shop
-        }
+        root * /var/www/genshin-crpg-test/current
+        file_server
     }
 }
 EOF
