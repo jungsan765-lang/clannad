@@ -13,9 +13,8 @@ files += list((root/'docs').glob('server-*.md'))
 files += list((root/'reports/server-v2').glob('*.json'))
 readme='''성능시험 전용 묶음 — 2026-09-30 쓰기 한도 문제 수정본
 
-오늘은 실행하지 마세요. 기존에 받은 ZIP의 실행기도 다시 실행하지 마세요.
-Cloudflare 한도가 초기화되는 한국 시간 2026년 10월 1일 오전 9시 이후에 사용합니다.
-그 전에는 실행기가 Cloudflare에 접속하기 전에 멈춥니다.
+이 묶음은 Workers Paid 전환 후 즉시 1회 시험할 수 있는 최신본입니다.
+기존에 받은 ZIP은 사용하지 마세요. 아직 Paid 전환이 완료되지 않았다면 실행하지 말고, Cloudflare 결제가 완료된 뒤 사용하세요.
 
 1. 이 ZIP 전체를 새 폴더에 압축 해제합니다. Node.js 24와 Python 3.10 이상이 필요합니다.
 2. 한국에서 test-server.cmd를 한 번만 더블클릭합니다.
