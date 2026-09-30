@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-DOMAIN="${1:-api-staging.clannad.shop}"
+API_DOMAIN="${1:-api-staging.clannad.shop}"
+TEST_DOMAIN="${2:-test.clannad.shop}"
 PROJECT_DIR="/opt/genshin-crpg-fixed/repo/genshin-crpg"
 DATA_DIR="/var/lib/genshin-crpg"
 ENV_FILE="/etc/genshin-crpg-live-staging.env"
@@ -11,7 +12,7 @@ if [[ "${EUID}" -ne 0 ]]; then
   echo "Run as root." >&2
   exit 1
 fi
-if [[ ! "$DOMAIN" =~ ^[A-Za-z0-9.-]+$ ]]; then
+if [[ ! "$API_DOMAIN" =~ ^[A-Za-z0-9.-]+$ || ! "$TEST_DOMAIN" =~ ^[A-Za-z0-9.-]+$ ]]; then
   echo "Invalid domain." >&2
   exit 1
 fi
@@ -57,35 +58,36 @@ WantedBy=multi-user.target
 EOF
 
 cat >/etc/caddy/Caddyfile <<EOF
-$DOMAIN {
+$API_DOMAIN {
     encode zstd gzip
     handle_path /live/* {
         reverse_proxy 127.0.0.1:8789
-    }
-    handle /play/online_config.js {
-        header Content-Type "application/javascript; charset=utf-8"
-        respond "window.CRPG_ONLINE_CONFIG={apiBase:'https://$DOMAIN/live',environment:'seoul-staging'};"
-    }
-    handle /play {
-        redir /play/ 302
-    }
-    handle_path /play/* {
-        rewrite * /genshin-crpg/dist{uri}
-        reverse_proxy https://clannad.shop {
-            header_up Host clannad.shop
-        }
-    }
-    handle /genshin-crpg/* {
-        reverse_proxy https://clannad.shop {
-            header_up Host clannad.shop
-        }
     }
     handle {
         reverse_proxy 127.0.0.1:8788
     }
 }
-EOF
 
+$TEST_DOMAIN {
+    encode zstd gzip
+
+    handle_path /api/* {
+        reverse_proxy 127.0.0.1:8789
+    }
+
+    handle /online_config.js {
+        header Content-Type "application/javascript; charset=utf-8"
+        respond "window.CRPG_ONLINE_CONFIG={apiBase:'https://$TEST_DOMAIN/api',environment:'seoul-test'};"
+    }
+
+    handle {
+        rewrite * /genshin-crpg/dist{uri}
+        reverse_proxy https://clannad.shop {
+            header_up Host clannad.shop
+        }
+    }
+}
+EOF
 caddy validate --config /etc/caddy/Caddyfile
 systemctl daemon-reload
 systemctl enable "$SERVICE" >/dev/null
@@ -93,4 +95,5 @@ systemctl restart "$SERVICE"
 systemctl reload caddy
 sleep 1
 curl --fail --silent --show-error http://127.0.0.1:8789/health >/dev/null
-echo "Live staging API ready: https://$DOMAIN/live/health"
+echo "Live staging API ready: https://$API_DOMAIN/live/health"
+echo "Dedicated test environment: https://$TEST_DOMAIN/"
