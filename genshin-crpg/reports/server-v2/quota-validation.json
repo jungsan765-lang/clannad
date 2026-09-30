@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "environment": "local workerd SQLite only; no remote Cloudflare writes",
+  "serverBuild": "server-43155ce13daa0765167c",
+  "storage": {
+    "observedSqlRows": 7514,
+    "reservedRows": 19350,
+    "reservationLimit": 25000
+  },
+  "checks": [
+    "128 actions complete",
+    "daily duplicate setup rejected before D1 account creation",
+    "unchanged fixture reset avoids full rewrite",
+    "full normalized state preserved across reset",
+    "budget exhausted safely; rejected requests write zero SQL rows",
+    "replay preserved"
+  ],
+  "extraLocalResetsBeforeBudgetStop": 56
+}

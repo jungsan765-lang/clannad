@@ -44,18 +44,20 @@ state는 최상위 값과 그 아래 한 단계 필드로 손실 없이 나눕�
 
 ## 실제 로컬 실행 환경 벤치마크
 
+2026-09-30 시험기 쓰기 한도 초과를 수정한 뒤 아래 결과를 다시 측정했습니다. [원인과 사용량 검증](server-benchmark-quota-incident-ko.md)을 확인합니다. 한국 원격 실측은 아직 완료되지 않았습니다.
+
 Node 모의 저장소뿐 아니라 Cloudflare `workerd`와 실제 로컬 SQLite DO로 측정했습니다. HTTP 요청부터 JSON 응답 다운로드까지 측정하고, 각 항목 30회·초기 2회 제외, 시험 상태 초기화는 측정 밖에서 수행했습니다. 운영 세이브 대신 실제 엔진으로 만든 합성 세이브를 사용했습니다. 인터넷 왕복과 Cloudflare 운영 복제 지연은 포함하지 않습니다.
 
 | 시나리오 | state | 중앙값 | p95 | 응답 |
 |---|---:|---:|---:|---:|
-| 일반 MOVE | 32.7KB | 10.3ms | 14.3ms | 1.43KB |
-| 장비가 많은 MOVE | 378.1KB | 19.5ms | 28.4ms | 1.43KB |
-| 장비가 많은 COMBAT | 381.0KB | 22.2ms | 30.0ms | 7.70KB |
-| 전투 기록이 큰 COMBAT | 378.6KB | 20.7ms | 26.6ms | 7.59KB |
+| 일반 MOVE | 32.7KB | 9.3ms | 13.0ms | 1.43KB |
+| 장비가 많은 MOVE | 378.1KB | 18.5ms | 23.5ms | 1.43KB |
+| 장비가 많은 COMBAT | 381.0KB | 20.6ms | 23.7ms | 7.70KB |
+| 전투 기록이 큰 COMBAT | 378.6KB | 19.6ms | 27.1ms | 7.59KB |
 
-최종 측정 구현 식별자: `server-12121bec8a3c97c37b82`. 원시 샘플은 `reports/server-v2/latency-local.json`에 있습니다. 전체 379KB 응답과 비교하면 시험 MOVE 응답은 약 99.6%, COMBAT 응답은 약 98.0% 작습니다. 실제 전투와 세이브 구성에 따라 달라집니다.
+최종 측정 구현 식별자: `server-43155ce13daa0765167c`. 원시 샘플은 `reports/server-v2/latency-local.json`에 있습니다. 전체 379KB 응답과 비교하면 시험 MOVE 응답은 약 99.6%, COMBAT 응답은 약 98.0% 작습니다. 실제 전투와 세이브 구성에 따라 달라집니다.
 
-압축 비교에서 합성 378,100바이트 JSON은 gzip 16,736바이트로 약 95.6% 줄었습니다. 반복 장비가 많은 합성 자료이므로 실제 운영 압축률이라고 볼 수 없습니다. 로컬 D1 실험 중앙값은 작은 쓰기 9.7ms, 전체 JSON 11.0ms, gzip 12.1ms였습니다. 원격 지연이 없는 환경에서는 압축 CPU 비용 때문에 더 느릴 수도 있다는 결과입니다.
+압축 비교에서 합성 378,100바이트 JSON은 gzip 16,736바이트로 약 95.6% 줄었습니다. 반복 장비가 많은 합성 자료이므로 실제 운영 압축률이라고 볼 수 없습니다. 로컬 D1 실험 중앙값은 작은 쓰기 5.2ms, 전체 JSON 10.6ms, gzip 10.9ms였습니다. 원격 지연이 없는 환경에서는 압축 CPU 비용 때문에 더 느릴 수도 있다는 결과입니다.
 
 **D1을 계속 썼을 때 한국에서 얻을 수 있는 최저 지연은 아직 확정할 수 없습니다.** APAC/HKG 배치와 SQL meta만으로 그 수치를 계산할 수 없습니다. 제공된 prelude 250ms도 작은 쓰기의 보장된 하한은 아닙니다. 별도 원격 시험 D1에 19바이트/전체 JSON/gzip을 각각 써서 바인딩 왕복·SQL 시간·전체 응답 시간을 함께 측정하도록 준비했습니다.
 
@@ -67,7 +69,7 @@ Node 모의 저장소뿐 아니라 Cloudflare `workerd`와 실제 로컬 SQLite 
 
 추가 DO 검사에는 동시 중복/서로 다른 요청, 영수증 재조회, revision 충돌, SQLite 트랜잭션 실패, 확정 직후 응답 유실, 객체 재시작, 인증 취소/만료, 이전 중 실패, 활성화 후 객체 분실 차단, 원본 보호 트리거, D1 장애 중 행동 계속, 압축 사본과 checksum, drain 후 최신 세이브/영수증 복귀가 포함됩니다. 최종 결과와 실행 범위는 `reports/server-v2/validation.json`을 확인합니다.
 
-Wrangler dry-run으로 빌드와 DO 바인딩을 확인했습니다. 실제 Cloudflare staging 배포와 Windows 실행은 아직 하지 않았습니다. Worker 번들은 비압축 약 36.2MiB, gzip 약 5.1MiB입니다. [공식 2026-09-04 변경](https://developers.cloudflare.com/changelog/post/2026-09-04-increased-worker-size-limit/)의 Free/Paid 공통 비압축 64MiB 제한 안에 있습니다. 크기 때문에 유료 플랜을 요구하지 않으며 CPU·시작 시간·사용량은 원격 시험에서 별도로 확인합니다.
+Wrangler dry-run으로 빌드와 DO 바인딩을 확인했습니다. 수정본의 실제 Cloudflare staging 배포와 Windows 실행은 아직 확인하지 못했습니다. 기존 시험기의 원격 실행은 쓰기 한도 초과로 중단되었습니다. Worker 번들은 비압축 약 36.2MiB, gzip 약 5.1MiB입니다. [공식 2026-09-04 변경](https://developers.cloudflare.com/changelog/post/2026-09-04-increased-worker-size-limit/)의 Free/Paid 공통 비압축 64MiB 제한 안에 있습니다. 크기 때문에 유료 플랜을 요구하지 않으며 CPU·시작 시간·사용량은 원격 시험에서 별도로 확인합니다.
 
 ## 버전과 배포
 

@@ -1,9 +1,7 @@
 {
-  "createdAt": "2026-09-29T18:31:25.124Z",
+  "createdAt": "2026-09-30T02:28:32.221Z",
+  "status": "complete",
   "environment": "local workerd loopback",
-  "serverBuild": "server-12121bec8a3c97c37b82",
-  "clientCountry": "US",
-  "edgeColo": "DFW",
   "syntheticSaves": true,
   "includesBodyDownload": true,
   "koreanGatePassed": false,
@@ -13,872 +11,1201 @@
   },
   "actions": [
     {
+      "kind": "move",
+      "large": false,
+      "rows": [
+        {
+          "ms": 11.283050000000003,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.138996000000589,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 7.855604000000312,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.827041000000463,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.854731999999785,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.70578099999966,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 11.465390999999727,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 9.251062999999704,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 10.284902999999758,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 9.889863999999761,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 10.28702499999963,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.993808999999601,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.692219999999907,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.803566000000501,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 13.040738000001511,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 9.641254000000117,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.426203999999416,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 9.05993800000033,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 10.298733999999968,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.596959000000425,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.926084000000628,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 10.576016000000891,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 19.64346999999907,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.687142000000676,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 9.788392999998905,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.886969999999565,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 9.552451000001383,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 9.265994999999748,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 8.572822000000087,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 11.04358300000058,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        }
+      ],
+      "warmups": [
+        {
+          "ms": 11.188739999999598,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 1892
+        },
+        {
+          "ms": 8.989001999999346,
+          "bytes": 1426,
+          "stateBytes": 32696,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        }
+      ],
       "summary": {
         "kind": "move",
         "large": false,
         "n": 30,
-        "p50": 10.292529999999715,
-        "p95": 14.336123999999472,
-        "max": 14.808106000000407,
+        "p50": 9.251062999999704,
+        "p95": 13.040738000001511,
+        "max": 19.64346999999907,
         "medianResponseBytes": 1426,
-        "stateBytes": 32696
-      },
-      "rows": [
-        {
-          "ms": 10.707760999999664,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 10.665186999999605,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 10.292529999999715,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 14.808106000000407,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 9.81840000000011,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 13.687546000000111,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 9.09909400000015,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 9.672128999999586,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 9.096129999999903,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 11.016582000000199,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 11.318881999999576,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 13.052578000000722,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 9.883968000000095,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 8.813162999998895,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 8.83712899999955,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 12.211798999998791,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 10.692767999998978,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 12.437924999998359,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 10.361084000000119,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 9.5145909999992,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 8.777439999999842,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 9.605894000000262,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 10.548451000000568,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 14.336123999999472,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 10.997497999998814,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 8.840594999999666,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 8.617929000000004,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 8.425849999999627,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 8.938642999999502,
-          "bytes": 1426,
-          "stateBytes": 32696
-        },
-        {
-          "ms": 9.277985000000626,
-          "bytes": 1426,
-          "stateBytes": 32696
-        }
-      ]
+        "stateBytes": 32696,
+        "medianSqlRows": 20,
+        "maxSqlRows": 20
+      }
     },
     {
+      "kind": "move",
+      "large": true,
+      "rows": [
+        {
+          "ms": 23.52977800000008,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 21.47024599999895,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 20.490420000000086,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 18.23012000000017,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 28.327264999999898,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 18.902979999998934,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 17.900831000000835,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 18.535123999999996,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 17.796630999999252,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 20.748168000000078,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 19.702729000000545,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 18.221746999999596,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 18.476635999999417,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 19.337965999999142,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 18.905032999999094,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 22.37910700000066,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 20.200063000000227,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 22.428600999999617,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 17.280188000000635,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 17.705058999999892,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 18.115269000001717,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 17.432864999998856,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 18.47229999999763,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 19.274042000000918,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 17.403221000000485,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 16.2338720000007,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 20.687353000001167,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 17.07482700000037,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 15.879795999997441,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        },
+        {
+          "ms": 16.31064200000037,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        }
+      ],
+      "warmups": [
+        {
+          "ms": 19.32653399999981,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 24
+        },
+        {
+          "ms": 20.468434000000343,
+          "bytes": 1425,
+          "stateBytes": 378100,
+          "sqlRows": 20,
+          "resetSqlRows": 20
+        }
+      ],
       "summary": {
         "kind": "move",
         "large": true,
         "n": 30,
-        "p50": 19.523568000000523,
-        "p95": 28.363531999999395,
-        "max": 29.430341999999655,
+        "p50": 18.535123999999996,
+        "p95": 23.52977800000008,
+        "max": 28.327264999999898,
         "medianResponseBytes": 1425,
-        "stateBytes": 378100
-      },
-      "rows": [
-        {
-          "ms": 22.513989000000947,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 20.09793499999978,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 19.523568000000523,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 17.968111999998655,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 18.624001000000135,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 18.790102000000843,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 26.724780000000464,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 19.256375999999364,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 20.201105999998617,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 23.122385999999096,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 29.430341999999655,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 21.417710000001534,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 28.363531999999395,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 18.88264199999867,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 20.389400000000023,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 19.348383999998987,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 24.154123000000254,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 18.962181999999302,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 18.06352599999809,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 18.934599000000162,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 17.54772800000137,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 20.390846999998757,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 17.137269999999262,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 17.662771999999677,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 16.8423240000011,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 17.719967999997607,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 19.226599999998143,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 24.92941299999802,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 23.09117999999944,
-          "bytes": 1425,
-          "stateBytes": 378100
-        },
-        {
-          "ms": 25.655181999998604,
-          "bytes": 1425,
-          "stateBytes": 378100
-        }
-      ]
+        "stateBytes": 378100,
+        "medianSqlRows": 20,
+        "maxSqlRows": 20
+      }
     },
     {
+      "kind": "combat",
+      "large": true,
+      "rows": [
+        {
+          "ms": 19.668743999998696,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.669003999999404,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 20.05051800000001,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 23.505411999998614,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 20.677842999997665,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.543344000001525,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 35.82399499999883,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 21.380355000001146,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 23.724936999999045,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 21.880455000002257,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.549731999999494,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.1093609999989,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 21.391005000001314,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 20.573608999999124,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.07092499999999,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 22.55570599999919,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.44623000000138,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 20.727202000001853,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 21.007346999998845,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 20.63192699999854,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 20.824586000002455,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.686986999997316,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 21.752176999998483,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 21.592087999997602,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.915027999999438,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.022939000002225,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.862991000001784,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.276702999999543,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.474967000001925,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.689131999999518,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        }
+      ],
+      "warmups": [
+        {
+          "ms": 28.58764700000029,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 85
+        },
+        {
+          "ms": 27.705251999999746,
+          "bytes": 7695,
+          "stateBytes": 381046,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        }
+      ],
       "summary": {
         "kind": "combat",
         "large": true,
         "n": 30,
-        "p50": 22.231392000001506,
-        "p95": 30.041623000000982,
-        "max": 35.34479199999987,
+        "p50": 20.573608999999124,
+        "p95": 23.724936999999045,
+        "max": 35.82399499999883,
         "medianResponseBytes": 7695,
-        "stateBytes": 381046
-      },
-      "rows": [
-        {
-          "ms": 22.231392000001506,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 26.121911000002,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 21.85361300000295,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 25.990963999996893,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 20.977241000000504,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 20.029872999999498,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 23.361708000000363,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 20.83197199999995,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 19.98884100000214,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 25.491550000002462,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 30.041623000000982,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 20.369660000000295,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 18.899937999998656,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 22.759839999998803,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 22.09495699999752,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 19.207431999999244,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 19.79653000000326,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 19.17038500000126,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 20.183655000000726,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 19.404059000000416,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 20.0994380000011,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 20.17982800000027,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 23.752206000001024,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 23.846528999998554,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 23.97939000000042,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 26.035962000001746,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 35.34479199999987,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 23.653103000000556,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 23.769733000000997,
-          "bytes": 7695,
-          "stateBytes": 381046
-        },
-        {
-          "ms": 24.57115200000044,
-          "bytes": 7695,
-          "stateBytes": 381046
-        }
-      ]
+        "stateBytes": 381046,
+        "medianSqlRows": 25,
+        "maxSqlRows": 25
+      }
     },
     {
+      "kind": "combat-log",
+      "large": false,
+      "rows": [
+        {
+          "ms": 27.099592000002303,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 22.897036000002117,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 21.528548999998748,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.095188000002963,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.19572700000208,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 22.00011000000086,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.412717999999586,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.611504999997123,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.79733099999794,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 23.0830930000011,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.40544299999965,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 22.017025000001013,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 17.673299999998562,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 25.11609899999894,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.413070999999036,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.10753499999919,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 21.193785999999818,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 21.631992999999056,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.304614000000583,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.54240199999913,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 20.114983999999822,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 20.31139400000029,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.945165000000998,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 16.039479999999458,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 27.45080600000074,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 20.65619599999991,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 17.909245999999257,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 17.507620000000315,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 18.08953499999916,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        },
+        {
+          "ms": 19.530463999999483,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        }
+      ],
+      "warmups": [
+        {
+          "ms": 19.755177999999432,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 29
+        },
+        {
+          "ms": 20.341702000001533,
+          "bytes": 7595,
+          "stateBytes": 378638,
+          "sqlRows": 25,
+          "resetSqlRows": 22
+        }
+      ],
       "summary": {
         "kind": "combat-log",
         "large": false,
         "n": 30,
-        "p50": 20.73482199999853,
-        "p95": 26.640433000000485,
-        "max": 28.143792000002577,
+        "p50": 19.611504999997123,
+        "p95": 27.099592000002303,
+        "max": 27.45080600000074,
         "medianResponseBytes": 7595,
-        "stateBytes": 378638
-      },
-      "rows": [
-        {
-          "ms": 18.830393000000186,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 22.194227000003593,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 18.648572999998578,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 18.91215899999952,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 18.097583999999188,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 21.037567999999737,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 20.02812400000039,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 22.10726799999975,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 19.67213400000037,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 28.143792000002577,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 20.824156999999104,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 19.61292400000093,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 20.73482199999853,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 21.90028600000005,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 25.693835000001854,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 22.68468700000085,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 19.529649000000063,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 25.160767999997915,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 19.65380599999844,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 19.2201129999994,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 20.449053000000276,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 24.595681999999215,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 21.891159000002517,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 18.00787599999967,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 17.772025999998732,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 21.29026800000065,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 21.67345999999816,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 20.249972999998135,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 19.677824999998847,
-          "bytes": 7595,
-          "stateBytes": 378638
-        },
-        {
-          "ms": 26.640433000000485,
-          "bytes": 7595,
-          "stateBytes": 378638
-        }
-      ]
+        "stateBytes": 378638,
+        "medianSqlRows": 25,
+        "maxSqlRows": 25
+      }
     }
   ],
   "d1": [
     {
       "mode": "small",
-      "bytes": 19,
-      "p50": 9.661533000002237,
-      "p95": 11.915592999997898,
       "rows": [
         {
-          "ms": 6.734838000000309,
+          "ms": 5.808436000002985,
+          "bindingMs": 0,
+          "sqlMs": 0,
+          "bytes": 19
+        },
+        {
+          "ms": 4.684165999999095,
+          "bindingMs": 0,
+          "sqlMs": 0,
+          "bytes": 19
+        },
+        {
+          "ms": 4.3865440000008675,
           "bindingMs": 1,
           "sqlMs": 0,
           "bytes": 19
         },
         {
-          "ms": 5.944085000002815,
+          "ms": 4.539820999998483,
+          "bindingMs": 0,
+          "sqlMs": 0,
+          "bytes": 19
+        },
+        {
+          "ms": 4.9317340000015975,
           "bindingMs": 1,
           "sqlMs": 0,
           "bytes": 19
         },
         {
-          "ms": 6.259020000001328,
-          "bindingMs": 1,
+          "ms": 5.633537000001525,
+          "bindingMs": 0,
           "sqlMs": 0,
           "bytes": 19
         },
         {
-          "ms": 6.805584999998246,
-          "bindingMs": 1,
-          "sqlMs": 0,
-          "bytes": 19
-        },
-        {
-          "ms": 9.661533000002237,
-          "bindingMs": 3,
-          "sqlMs": 0,
-          "bytes": 19
-        },
-        {
-          "ms": 10.935433999999077,
-          "bindingMs": 3,
-          "sqlMs": 0,
-          "bytes": 19
-        },
-        {
-          "ms": 11.915592999997898,
-          "bindingMs": 3,
-          "sqlMs": 2,
-          "bytes": 19
-        },
-        {
-          "ms": 10.400727000000188,
-          "bindingMs": 3,
-          "sqlMs": 0,
-          "bytes": 19
-        },
-        {
-          "ms": 9.90933700000096,
-          "bindingMs": 1,
-          "sqlMs": 0,
-          "bytes": 19
-        },
-        {
-          "ms": 7.000699000000168,
+          "ms": 5.335653000001912,
           "bindingMs": 1,
           "sqlMs": 1,
           "bytes": 19
+        },
+        {
+          "ms": 5.235365000000456,
+          "bindingMs": 0,
+          "sqlMs": 0,
+          "bytes": 19
+        },
+        {
+          "ms": 4.559321000000637,
+          "bindingMs": 0,
+          "sqlMs": 0,
+          "bytes": 19
+        },
+        {
+          "ms": 5.717840999997861,
+          "bindingMs": 1,
+          "sqlMs": 0,
+          "bytes": 19
         }
-      ]
+      ],
+      "bytes": 19,
+      "p50": 5.235365000000456,
+      "p95": 5.808436000002985
     },
     {
       "mode": "json",
-      "bytes": 378100,
-      "p50": 10.985259999997652,
-      "p95": 12.06238399999711,
       "rows": [
         {
-          "ms": 10.958879999998317,
+          "ms": 10.613020999997389,
           "bindingMs": 5,
           "sqlMs": 1,
           "bytes": 378100
         },
         {
-          "ms": 10.9480930000027,
+          "ms": 10.555636000000959,
+          "bindingMs": 5,
+          "sqlMs": 1,
+          "bytes": 378100
+        },
+        {
+          "ms": 11.211881000002904,
+          "bindingMs": 5,
+          "sqlMs": 1,
+          "bytes": 378100
+        },
+        {
+          "ms": 10.117134000000078,
           "bindingMs": 4,
           "sqlMs": 1,
           "bytes": 378100
         },
         {
-          "ms": 10.980713000000833,
+          "ms": 10.060430000001361,
+          "bindingMs": 5,
+          "sqlMs": 0,
+          "bytes": 378100
+        },
+        {
+          "ms": 10.355783999999403,
           "bindingMs": 5,
           "sqlMs": 1,
           "bytes": 378100
         },
         {
-          "ms": 11.284169999998994,
+          "ms": 10.18757899999764,
           "bindingMs": 5,
           "sqlMs": 1,
           "bytes": 378100
         },
         {
-          "ms": 10.868572999999742,
+          "ms": 10.972954999997455,
           "bindingMs": 4,
           "sqlMs": 1,
           "bytes": 378100
         },
         {
-          "ms": 11.276048000003357,
+          "ms": 11.745582999999897,
+          "bindingMs": 6,
+          "sqlMs": 0,
+          "bytes": 378100
+        },
+        {
+          "ms": 10.250142999997479,
           "bindingMs": 4,
-          "sqlMs": 1,
-          "bytes": 378100
-        },
-        {
-          "ms": 10.985259999997652,
-          "bindingMs": 5,
-          "sqlMs": 1,
-          "bytes": 378100
-        },
-        {
-          "ms": 12.06238399999711,
-          "bindingMs": 5,
-          "sqlMs": 1,
-          "bytes": 378100
-        },
-        {
-          "ms": 11.961792999998579,
-          "bindingMs": 5,
-          "sqlMs": 1,
-          "bytes": 378100
-        },
-        {
-          "ms": 10.435440000001108,
-          "bindingMs": 5,
           "sqlMs": 1,
           "bytes": 378100
         }
-      ]
+      ],
+      "bytes": 378100,
+      "p50": 10.555636000000959,
+      "p95": 11.745582999999897
     },
     {
       "mode": "gzip",
-      "bytes": 16736,
-      "p50": 12.126390000001265,
-      "p95": 16.620378999999957,
       "rows": [
         {
-          "ms": 11.475798999999824,
-          "bindingMs": 3,
-          "sqlMs": 1,
-          "bytes": 16736
-        },
-        {
-          "ms": 16.620378999999957,
-          "bindingMs": 3,
-          "sqlMs": 0,
-          "bytes": 16736
-        },
-        {
-          "ms": 11.699326999998448,
-          "bindingMs": 3,
-          "sqlMs": 0,
-          "bytes": 16736
-        },
-        {
-          "ms": 13.008821000003081,
-          "bindingMs": 3,
-          "sqlMs": 1,
-          "bytes": 16736
-        },
-        {
-          "ms": 13.002341999999771,
-          "bindingMs": 2,
-          "sqlMs": 0,
-          "bytes": 16736
-        },
-        {
-          "ms": 15.44207599999936,
-          "bindingMs": 3,
-          "sqlMs": 1,
-          "bytes": 16736
-        },
-        {
-          "ms": 11.81794599999921,
-          "bindingMs": 3,
-          "sqlMs": 0,
-          "bytes": 16736
-        },
-        {
-          "ms": 11.608233999999356,
+          "ms": 11.475762999998551,
           "bindingMs": 2,
           "sqlMs": 1,
           "bytes": 16736
         },
         {
-          "ms": 11.763789000000543,
+          "ms": 13.693015000000742,
+          "bindingMs": 2,
+          "sqlMs": 0,
+          "bytes": 16736
+        },
+        {
+          "ms": 10.789934000000358,
           "bindingMs": 3,
+          "sqlMs": 0,
+          "bytes": 16736
+        },
+        {
+          "ms": 10.522275999999692,
+          "bindingMs": 3,
+          "sqlMs": 0,
+          "bytes": 16736
+        },
+        {
+          "ms": 11.902677000001859,
+          "bindingMs": 2,
+          "sqlMs": 0,
+          "bytes": 16736
+        },
+        {
+          "ms": 10.03903899999932,
+          "bindingMs": 2,
           "sqlMs": 1,
           "bytes": 16736
         },
         {
-          "ms": 12.126390000001265,
+          "ms": 10.929189999998925,
+          "bindingMs": 2,
+          "sqlMs": 0,
+          "bytes": 16736
+        },
+        {
+          "ms": 10.409428999999363,
+          "bindingMs": 2,
+          "sqlMs": 0,
+          "bytes": 16736
+        },
+        {
+          "ms": 11.092814000003273,
+          "bindingMs": 3,
+          "sqlMs": 0,
+          "bytes": 16736
+        },
+        {
+          "ms": 10.16582699999708,
           "bindingMs": 2,
           "sqlMs": 1,
           "bytes": 16736
         }
-      ]
+      ],
+      "bytes": 16736,
+      "p50": 10.929189999998925,
+      "p95": 13.693015000000742
     }
   ],
+  "storage": {
+    "observedSqlRows": 7514,
+    "reservedRows": 19350,
+    "reservationLimit": 25000
+  },
   "notes": [
-    "Warm state; fixture reset outside timed action. Two warm-up samples omitted.",
+    "Warm state; differential fixture reset outside timed action. Two warm-up samples omitted.",
     "Local workerd results exclude Internet and production replication.",
     "Synthetic equipment-heavy save is not the unavailable production 378KB save.",
-    "D1 gzip includes compression; SQL time is separate from end-to-end latency."
-  ]
+    "D1 gzip includes compression; SQL time is separate from end-to-end latency.",
+    "SQL counters cover fixture resets and actions, including warm-ups. They exclude setup, platform alarm writes and unrelated account usage. Reservation is conservative, not an account-wide billing cap."
+  ],
+  "serverBuild": "server-43155ce13daa0765167c",
+  "clientCountry": "US",
+  "edgeColo": "DFW"
 }

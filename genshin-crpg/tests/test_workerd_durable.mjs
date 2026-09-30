@@ -29,5 +29,25 @@ try{
  const dbGame=await d1.prepare('SELECT * FROM games WHERE account_id=?').bind(account.id).first();assert.equal(dbGame,null,'DO game must not silently write through to legacy D1 games');
  const sorted=samples.slice(1).map(x=>x.ms).sort((a,b)=>a-b),summary={environment:'local workerd; loopback; no Korea/Cloudflare network latency',samples:samples.length,warmP50:sorted[Math.floor(sorted.length*.5)],warmP95:sorted[Math.floor(sorted.length*.95)],responseBytes:samples[1].bytes,localSqlite:true,replay:true};
  writeFileSync(resolve(evidence,'workerd.json'),JSON.stringify({summary,samples},null,2));console.log(JSON.stringify(summary));
-const measured=await benchmark({base:'http://local',secret:'test-benchmark-only-secret',fetcher:mf.dispatchFetch.bind(mf),samples:30,environment:'local workerd loopback'});writeFileSync(resolve(evidence,'latency-local.json'),JSON.stringify(measured,null,2));
+let syntheticSession;
+const measured=await benchmark({base:'http://local',secret:'test-benchmark-only-secret',fetcher:async(url,options)=>{const res=await mf.dispatchFetch(url,options);if(url.endsWith('/bench/setup')&&res.ok)syntheticSession=await res.clone().json();return res;},samples:30,environment:'local workerd loopback'});writeFileSync(resolve(evidence,'latency-local.json'),JSON.stringify(measured,null,2));
+assert.equal(measured.status,'complete');assert.equal(measured.koreanGatePassed,false);
+assert.ok(measured.storage.observedSqlRows<12000,'complete test must fit comfortably below the daily free allowance');
+assert.ok(measured.storage.reservedRows<=25000);
+const headers={'Content-Type':'application/json',Authorization:'Bearer test-benchmark-only-secret'};
+const bench=async(path,data)=>mf.dispatchFetch('http://local/bench/'+path,{method:'POST',headers,body:JSON.stringify(data)});
+const accountsBefore=await d1.prepare('SELECT COUNT(*) n FROM accounts').first();
+const repeat=await bench('setup',{});assert.equal(repeat.status,429);assert.equal((await repeat.json()).code,'BENCHMARK_ALREADY_RUN');
+assert.deepEqual(await d1.prepare('SELECT COUNT(*) n FROM accounts').first(),accountsBefore,'repeat setup must not create accounts');
+const reset=()=>bench('reset',{accountId:syntheticSession.accountId,kind:'combat-log',large:false});
+const readState=async()=>{const res=await mf.dispatchFetch('http://local/me',{headers:{Authorization:'Bearer '+syntheticSession.token}});assert.equal(res.status,200);return (await res.json()).state;};
+assert.equal((await reset()).status,200);const firstState=await readState();
+const unchangedReset=await reset();assert.equal(unchangedReset.status,200);assert.ok(Number(unchangedReset.headers.get('X-Benchmark-SQL-Rows-Written'))<=3,'unchanged reset must not rewrite all parts');
+assert.deepEqual(await readState(),firstState,'differential reset must reproduce the entire normalized fixture');
+let blocked=false,attempts=0;
+for(;attempts<300;attempts++){const res=await reset();if(res.status===429){assert.equal((await res.json()).code,'BENCHMARK_WRITE_BUDGET');assert.equal(Number(res.headers.get('X-Benchmark-SQL-Rows-Written')),0,'budget rejection must happen before state writes');blocked=true;break;}assert.equal(res.status,200);}
+assert.ok(blocked,'write budget must stop a runaway reset loop');assert.deepEqual(await readState(),firstState);
+const stillBlocked=await reset();assert.equal(stillBlocked.status,429);assert.equal(Number(stillBlocked.headers.get('X-Benchmark-SQL-Rows-Written')),0);
+writeFileSync(resolve(evidence,'quota-validation.json'),JSON.stringify({status:'passed',environment:'local workerd SQLite only; no remote Cloudflare writes',serverBuild:measured.serverBuild,storage:measured.storage,checks:['128 actions complete','daily duplicate setup rejected before D1 account creation','unchanged fixture reset avoids full rewrite','full normalized state preserved across reset','budget exhausted safely; rejected requests write zero SQL rows','replay preserved'],extraLocalResetsBeforeBudgetStop:attempts},null,2));
+console.log('PASS: full benchmark write count, once-daily setup, exact reset, budget rejection without writes.');
 }finally{await mf.dispose();}
