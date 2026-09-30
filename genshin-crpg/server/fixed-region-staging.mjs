@@ -27,6 +27,7 @@ export class FixedRegionStore{
   this.db=new DatabaseSync(path,{timeout:5000});
   this.tail=Promise.resolve();
   this.runtime=null;
+  this.partsCache=null;
   this.db.exec(`PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000; PRAGMA synchronous=FULL; ${path===':memory:'?'':'PRAGMA journal_mode=WAL;'}
    CREATE TABLE IF NOT EXISTS metadata(account_id TEXT PRIMARY KEY,account_json TEXT NOT NULL,revision INTEGER NOT NULL,ranked INTEGER NOT NULL,last_request_id TEXT NOT NULL,updated_at INTEGER NOT NULL) STRICT;
    CREATE TABLE IF NOT EXISTS parts(account_id TEXT NOT NULL,path TEXT NOT NULL,value TEXT NOT NULL,PRIMARY KEY(account_id,path),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT;
@@ -37,7 +38,7 @@ export class FixedRegionStore{
  close(){this.db.close();}
  serial(fn){const next=this.tail.then(fn);this.tail=next.catch(()=>{});return next;}
  meta(){return this.db.prepare('SELECT * FROM metadata WHERE account_id=?').get(ACCOUNT.id);}
- parts(){return new Map(this.db.prepare('SELECT path,value FROM parts WHERE account_id=?').all(ACCOUNT.id).map(x=>[x.path,x.value]));}
+ parts(){if(this.partsCache)return this.partsCache;this.partsCache=new Map(this.db.prepare('SELECT path,value FROM parts WHERE account_id=?').all(ACCOUNT.id).map(x=>[x.path,x.value]));return this.partsCache;}
  envelope(meta,result=null){return {account:accountView(),version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,transportBuild:TRANSPORT_BUILD,revision:meta.revision,ranked:!!meta.ranked,result};}
  output(meta,parts,result=null){return {...this.envelope(meta,result),state:clonePublic(parts)};}
  state(){const meta=this.meta();return this.output(meta,this.parts());}
@@ -50,7 +51,7 @@ export class FixedRegionStore{
    const insert=this.db.prepare('INSERT INTO parts VALUES(?,?,?)');for(const [path,value] of parts)insert.run(ACCOUNT.id,path,value);
    this.db.exec('COMMIT');
   }catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');throw e;}
-  this.runtime={revision:0,r:new R(GAME_DB,structuredClone(state),true)};
+  this.partsCache=parts;this.runtime={revision:0,r:new R(GAME_DB,structuredClone(state),true)};
   const meta=this.meta();return {...this.output(meta,parts),synthetic:true,scenario:kind,suggestedAction:{...seeded.action,version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,revision:0}};
  }
  async action(b){
@@ -67,8 +68,7 @@ export class FixedRegionStore{
     const warm=this.runtime?.revision===meta.revision?this.runtime.r:null;
     const row={state:warm?'':JSON.stringify(joinState(before)),revision:meta.revision,ranked:meta.ranked,updated_at:meta.updated_at};
     const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,ACCOUNT,ENV,now(),warm);compact(r.s);
-    const stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw Object.assign(new Error('저장 크기 한도에 도달했습니다.'),{status:507});
-    const after=splitState(r.s),delta=diffParts(before,after),next={...meta,revision:meta.revision+1,ranked:isDebug?0:meta.ranked,last_request_id:b.requestId,updated_at:now()};
+    const after=splitState(r.s),roughChars=[...after].reduce((n,[path,value])=>n+path.length+value.length+8,2);let stateBytes=roughChars*3;if(stateBytes>1900000){stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw Object.assign(new Error('저장 크기 한도에 도달했습니다.'),{status:507});}const delta=diffParts(before,after),next={...meta,revision:meta.revision+1,ranked:isDebug?0:meta.ranked,last_request_id:b.requestId,updated_at:now()};
     let payload;if(b.responseMode==='state-parts-v1')payload={...this.envelope(next,result),baseRevision:meta.revision,statePatch:wirePatch(publicParts(before),publicParts(after))};else payload=this.output(next,after,result);
     const persistStart=performance.now();
     const del=this.db.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=this.db.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
@@ -78,9 +78,9 @@ export class FixedRegionStore{
     this.db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(ACCOUNT.id,b.requestId,next.revision,meta.revision,digest,JSON.stringify({result}),next.updated_at);
     this.db.prepare('UPDATE metadata SET revision=?,ranked=?,last_request_id=?,updated_at=? WHERE account_id=?').run(next.revision,next.ranked,b.requestId,next.updated_at,ACCOUNT.id);
     this.db.exec('COMMIT');
-    this.runtime={revision:next.revision,r};
+    this.partsCache=after;this.runtime={revision:next.revision,r};
     return {payload,timing:{runtimeMs,engineMs,persistMs:Math.round((performance.now()-persistStart)*10)/10,totalMs:Math.round((performance.now()-started)*10)/10,stateBytes,responseBytes:Buffer.byteLength(JSON.stringify(payload))}};
-   }catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');this.runtime=null;throw e;}
+   }catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');this.runtime=null;this.partsCache=null;throw e;}
   });
  }
 }
