@@ -11,7 +11,7 @@ if(process.argv.includes('--check-only'))return;
 const root=resolve(import.meta.dirname,'..'),dir=resolve(root,'.local/staging');mkdirSync(dir,{recursive:true});
 const attemptPath=resolve(dir,'attempt-'+day+'.json');
 if(existsSync(attemptPath))throw Error('오늘 시험을 이미 시작했습니다. 다시 실행하지 말고 latency-partial.json 또는 latency-result.json을 전달해 주세요.');
-const wrangler=resolve(root,'node_modules/wrangler/bin/wrangler.js'),configPath=resolve(dir,'wrangler.json'),name='genshin-crpg-latency-seoul-v2';
+const wrangler=resolve(root,'node_modules/wrangler/bin/wrangler.js'),configPath=resolve(dir,'wrangler.json'),name='genshin-crpg-latency-test';
 const run=(args,{capture=false,input}={})=>{const r=spawnSync(process.execPath,[wrangler,...args],{cwd:root,encoding:'utf8',input,stdio:capture||input!==undefined?['pipe','pipe','pipe']:'inherit',env:{...process.env,WRANGLER_SEND_METRICS:'false'}});if(r.status!==0)throw Error(capture?(r.stderr||r.stdout||'Wrangler failed'):'Cloudflare 작업에 실패했습니다.');return r.stdout||'';};
 if(!existsSync(wrangler))throw Error('먼저 npm ci를 실행해야 합니다.');
 console.log('운영 서버는 변경하지 않습니다. 별도 성능시험 서버를 준비합니다.');
