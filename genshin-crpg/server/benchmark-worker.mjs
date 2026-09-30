@@ -16,19 +16,19 @@ export class GameAccount extends ProductionAccount {
   const path=new URL(request.url).pathname;
   if(path==='/benchmark-start')return this.serial(()=>this.measured(async()=>{
    const day=new Date().toISOString().slice(0,10);
-   this.sql.exec('CREATE TABLE IF NOT EXISTS benchmark_budget(day TEXT PRIMARY KEY,runs INTEGER NOT NULL,reserved_rows INTEGER NOT NULL)');
-   if(this.rows('SELECT * FROM benchmark_budget WHERE day=?',day)[0]?.runs)return json({error:'오늘 시험은 이미 시작했습니다. 자동 반복하지 않습니다. 남은 결과를 전달해 주세요.',code:'BENCHMARK_ALREADY_RUN'},429);
-   this.sql.exec('INSERT INTO benchmark_budget VALUES(?,1,256)',day);await this.ctx.storage.sync();return json({ok:true,day,reservedRows:256,limit:25000});
+   this.sql.exec('CREATE TABLE IF NOT EXISTS benchmark_budget_seoul_v3(day TEXT PRIMARY KEY,runs INTEGER NOT NULL,reserved_rows INTEGER NOT NULL)');
+   if(this.rows('SELECT * FROM benchmark_budget_seoul_v3 WHERE day=?',day)[0]?.runs)return json({error:'오늘 시험은 이미 시작했습니다. 자동 반복하지 않습니다. 남은 결과를 전달해 주세요.',code:'BENCHMARK_ALREADY_RUN'},429);
+   this.sql.exec('INSERT INTO benchmark_budget_seoul_v3 VALUES(?,1,256)',day);await this.ctx.storage.sync();return json({ok:true,day,reservedRows:256,limit:25000});
   }));
   if(path!=='/benchmark-reset')return this.measured(()=>super.fetch(request));
   return this.serial(()=>this.measured(async()=>{
    const {kind,large}=await request.json(),f=fixture(kind,large),r=new R(DB,f.state,true),parts=splitState(r.s);
-   const delta=diffParts(this.parts(),parts),tables=['receipts','backups','outbox','action_rate'],aux=tables.reduce((n,t)=>n+this.rows('SELECT COUNT(*) n FROM '+t)[0].n,0),day=new Date().toISOString().slice(0,10),budget=this.rows('SELECT * FROM benchmark_budget WHERE day=?',day)[0];
+   const delta=diffParts(this.parts(),parts),tables=['receipts','backups','outbox','action_rate'],aux=tables.reduce((n,t)=>n+this.rows('SELECT COUNT(*) n FROM '+t)[0].n,0),day=new Date().toISOString().slice(0,10),budget=this.rows('SELECT * FROM benchmark_budget_seoul_v3 WHERE day=?',day)[0];
    // Include index writes, auxiliary cleanup, and a conservative allowance for the next action/alarm.
    const reserve=2*(delta.set.length+delta.remove.length+aux)+96;
    if(!budget||budget.reserved_rows+reserve>25000)return json({error:'시험 쓰기 예산에 도달해 중단했습니다. 다시 실행하지 말고 부분 결과를 전달해 주세요.',code:'BENCHMARK_WRITE_BUDGET'},429);
    this.ctx.storage.transactionSync(()=>{
-    this.sql.exec('UPDATE benchmark_budget SET reserved_rows=reserved_rows+? WHERE day=?',reserve,day);
+    this.sql.exec('UPDATE benchmark_budget_seoul_v3 SET reserved_rows=reserved_rows+? WHERE day=?',reserve,day);
     for(const p of delta.remove)this.sql.exec('DELETE FROM parts WHERE path=?',p);
     for(const [p,v] of delta.set)this.sql.exec('INSERT INTO parts VALUES(?,?) ON CONFLICT(path) DO UPDATE SET value=excluded.value',p,v);
     for(const table of tables)this.sql.exec('DELETE FROM '+table);
@@ -47,7 +47,7 @@ export default {async fetch(request,env,ctx){
  const b=await request.json();
  if(path==='/bench/setup'){
   // Same daily account across ZIP copies and secret rotations: retrying cannot create a fresh allowance.
-  const h=await hash('crpg-latency-seoul-v2:'+new Date().toISOString().slice(0,10)),id=[h.slice(0,8),h.slice(8,12),h.slice(12,16),h.slice(16,20),h.slice(20,32)].join('-');
+  const h=await hash('crpg-latency-seoul-v3:'+new Date().toISOString().slice(0,10)),id=[h.slice(0,8),h.slice(8,12),h.slice(12,16),h.slice(16,20),h.slice(20,32)].join('-');
   const guard=await env.GAME_ACCOUNTS.get(env.GAME_ACCOUNTS.idFromName(id),{locationHint:env.DO_LOCATION_HINT||'apac-ne'}).fetch('https://internal/benchmark-start',{method:'POST',body:'{}'});if(!guard.ok)return guard;
   const secret=token(),th=await hash(secret),a={id,username:'perf_'+id.slice(0,18),display_name:'성능시험용',salt:token(),password_hash:token(),created_at:Date.now()};
   await env.DB.prepare('INSERT INTO accounts VALUES(?,?,?,?,?,?)').bind(a.id,a.username,a.display_name,a.salt,a.password_hash,a.created_at).run();await env.DB.prepare('INSERT INTO sessions VALUES(?,?,?)').bind(th,id,Date.now()+3600000).run();await enrollSession(env,a,th,Date.now()+3600000);
