@@ -18,7 +18,7 @@ Repository:
 - project: `genshin-crpg`
 
 2026-09-30 기록 시점:
-- `main`: `abe662b5940763ef17b81c7392b33f49dd5c65d3`
+- `main` 게임/서버 코드 기준: `abe662b5940763ef17b81c7392b33f49dd5c65d3`\n- 인수인계 문서 저장으로 main HEAD는 docs-only commit `ffc187f1b7ea7a29af437aeae6851b44afd34c90`가 추가됨 (게임/서버 코드 변경 없음)
 - DO 구현 브랜치: `perf/crpg-durable-state-v0145`
 - PR #14: `perf(crpg): promote Durable Object backend for production trial`
 - PR #14는 **open / not merged** 상태.
