@@ -2,6 +2,7 @@
 setlocal
 chcp 65001 >nul 2>nul
 cd /d "%~dp0"
+set CRPG_PAID_TEST=1
 
 where node.exe >nul 2>&1
 if errorlevel 1 (
