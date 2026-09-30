@@ -4,11 +4,11 @@ import sys,zipfile
 from engine_identity import runtime_files
 root=Path(__file__).resolve().parents[1]
 out=Path(sys.argv[1]).resolve()
-files=[root/'package.json',root/'package-lock.json',root/'test-server.cmd',root/'test-domain.cmd',root/'source/index.html',root/'content/db.json',root/'content/story-revisions/rev03-db-patch.json']
+files=[root/'package.json',root/'package-lock.json',root/'test-server.cmd',root/'test-domain.cmd',root/'test-edge.cmd',root/'source/index.html',root/'content/db.json',root/'content/story-revisions/rev03-db-patch.json']
 files += [root/'source'/name for name in runtime_files(root)]
 files += list((root/'server').glob('*.mjs'))
 files += [root/'server'/name for name in ['schema.sql','protocol.json','compatibility.json','migrations/0001-durable-ownership.sql']]
-files += [root/'tools'/name for name in ['build_server.py','engine_identity.py','runtime_data.py','apply_liyue_rework.py','python.mjs','stage-server.mjs','latency-benchmark.mjs','benchmark-safety.mjs','domain-probe.mjs']]
+files += [root/'tools'/name for name in ['build_server.py','engine_identity.py','runtime_data.py','apply_liyue_rework.py','python.mjs','stage-server.mjs','latency-benchmark.mjs','benchmark-safety.mjs','domain-probe.mjs','edge-probe.mjs']]
 files += list((root/'docs').glob('server-*.md'))
 files += list((root/'reports/server-v2').glob('*.json'))
 readme='''성능시험 전용 묶음 — 2026-09-30 쓰기 한도 문제 수정본
