@@ -25,11 +25,33 @@ $DOMAIN {
         reverse_proxy 127.0.0.1:8790
     }
 
+    # Safe synthetic diagnostics through the exact production hostname/network path.
+    handle /ping {
+        reverse_proxy 127.0.0.1:8788
+    }
+    handle /diagnostic* {
+        reverse_proxy 127.0.0.1:8788
+    }
+
+    # Preserve the historical GitHub Pages game URL and all relative assets.
+    handle /genshin-crpg/dist {
+        redir /genshin-crpg/dist/ 302
+    }
+    handle /genshin-crpg/dist/index {
+        redir /genshin-crpg/dist/ 302
+    }
+    handle_path /genshin-crpg/dist/* {
+        root * /var/www/genshin-crpg-production/current
+        try_files {path} {path}/ /index.html
+        file_server
+    }
+
     @fresh path / /index.html /online_config.js /release.json
     header @fresh Cache-Control "no-store"
 
     handle {
         root * /var/www/genshin-crpg-production/current
+        try_files {path} {path}/ /index.html
         file_server
     }
 }
