@@ -126,3 +126,23 @@ npm run serve:fixed-region
 - main merge
 
 실제 이전 단계에서는 authoritative handoff의 원칙대로 현재 DO export를 사용하거나, 정식 DO → D1 drain 후 최신 revision을 검증하고 이동한다.
+
+
+## 5. 한국 PC 최소 실측
+
+서버와 HTTPS 연결이 끝난 뒤 전체 30회 벤치마크 대신 아래 smoke를 한 번 실행한다.
+
+```bash
+CRPG_STAGING_TOKEN=<서버와 같은 staging token> node tools/fixed-region-smoke.mjs https://api-staging.clannad.shop
+```
+
+이 도구는 synthetic 데이터만 사용해서:
+- health
+- ping 3회
+- MOVE 3회
+- COMBAT 3회
+- 같은 requestId 재전송
+- stale revision 충돌
+- state-parts-v1 delta
+
+만 확인하고 중앙값을 출력한다. production 계정이나 production save는 읽지 않는다.
