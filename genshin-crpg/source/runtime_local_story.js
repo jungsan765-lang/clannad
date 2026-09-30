@@ -84,3 +84,51 @@ P.storyIndex=function(){
 };
 api.ensembleEdition={version:1,episodes:Object.keys(E).length};
 })(globalThis);
+
+/* Main story manuscript 001.01, v0.14.6. Fictional adaptation, not official dialogue.
+ * Text is isolated from node metadata. No rewards, flags, save layout or network rules change.
+ * The original 001.02 exit and all older cursor IDs remain addressable. */
+(function(root){
+'use strict';
+const api=root.CRPGRuntime,P=api.Runtime.prototype,previous=P.storyIndex;
+const ROUTE='ROUTE_ISEKAI',TABLE='55_MAIN_STORY_DB';
+const SCENE=[{"id":"ISK_L03_K2_019","speaker":"서술","profile":null,"text":"나는 의례장 안으로 들어서자마자 짐꾼을 두고 갔던 곳을 찾았다. 몸을 끌다가 더는 움직이지 못했던 자리였다. 지금은 사람이 오가는 돌바닥일 뿐이었다.\n고개를 들어 안쪽까지 살폈다. 모락스의 거대한 몸도 보이지 않았다. 저것만은 남아 있을 줄 알았다. 내가 무슨 일을 겪었는지, 말로 설명하지 않아도 보여 줄 수 있을 줄 알았다.","type":"NARRATION"},{"id":"R39_PROSE_ISK_L03_K2_020","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","text":"여기도 없어…… 저 안에 쓰러져 있었거든. 저만한 걸 옮겼으면 누가 봤을 거 아냐. 응광이 다른 데로 옮기라고 했어?","type":"DIALOGUE"},{"id":"ISK_L03_K2_021","speaker":"현장 병사","profile":null,"text":"응광 님의 지시로 확인했습니다만, 옮기라는 명령도 인계받았다는 곳도 찾지 못했습니다. 여기 남아 있는 사람들도 본 적이 없다고 합니다.","type":"DIALOGUE"},{"id":"V146_M00101_001","speaker":"각청","profile":"PROFILE_LIYUE_KEQING","text":"지금 남아 있는 사람들한테만 물었어? 자리를 비운 사람들은?","type":"DIALOGUE"},{"id":"V146_M00101_002","speaker":"현장 병사","profile":null,"text":"아직 전부 확인하지는 못했습니다. 당시 이곳에서 일한 사람들을 찾고 있습니다.","type":"DIALOGUE"},{"id":"R39_PROSE_ISK_L03_K2_022","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","text":"그럼 그분도 그렇게 찾고 있는 거야? 짐은 그대로 있고, 사람만 없어. 부두에서도 못 찾고, 여기까지 왔는데…… 대체 어디로 간 건데.","type":"DIALOGUE"},{"id":"ISK_L03_K2_023","speaker":"서술","profile":null,"text":"병사가 입을 열려다 멈췄다. 나도 그에게 따진다고 사람이 나타나지는 않는다는 걸 알았다. 그런데 한 번 높아진 목소리가 잘 내려가지 않았다. 손바닥으로 팔을 문질렀다. 그 사람을 끌어안고 힘을 주던 감각이 남아 있었다.","type":"NARRATION"},{"id":"V146_M00101_003","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","text":"내가 여기 두고 갔어. 조금만 더 끌었으면 됐을지도 모르는데, 결국 혼자 나왔어. 그러고 돌아와서는 어디 갔냐고 묻고 있네. 참 잘하는 짓이다, 진짜.","type":"DIALOGUE"},{"id":"ISK_L03_K2_024","speaker":"각청","profile":"PROFILE_LIYUE_KEQING","text":"잠깐. 난 네가 왜 혼자 돌아왔는지 따지려는 게 아니야. 마지막으로 그 사람을 본 곳을 확인하려는 거지. 네가 지금 서 있는 자리, 여기 맞아?","type":"DIALOGUE"},{"id":"R39_PROSE_ISK_L03_K2_025","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","text":"……응. 여기. 사람들 사이에 쓰러져 있었고, 내가 이쪽으로 끌었어. 그다음에 어떻게 됐는지는 몰라. 돌아오면 같이 짐 확인하기로 했는데.","type":"DIALOGUE"},{"id":"V146_M00101_004","speaker":"서술","profile":null,"text":"나는 발치의 빈자리를 가리켰다. 각청은 내가 손을 내릴 때까지 그곳을 살폈다. 내가 맞다고도, 잘못 봤다고도 하지 않았다. 대신 곁에 있던 병사를 불렀다.","type":"NARRATION"},{"id":"V146_M00101_005","speaker":"각청","profile":"PROFILE_LIYUE_KEQING","text":"부두의 검수 병사에게 사람을 보내. 남겨 둔 짐과 수레를 확인해서 주인이 누구인지 알아보고, 함께 일하던 사람들도 찾아봐. 다친 사람이 옮겨진 곳이 있는지도 확인해 줘.","type":"DIALOGUE"},{"id":"V146_M00101_006","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","text":"이름도 제대로 못 들었어. 얼굴은 알아볼 수 있는데. 이름도 모르는 사람 찾아 달라고 이러고 있는 게……","type":"DIALOGUE"},{"id":"V146_M00101_007","speaker":"각청","profile":"PROFILE_LIYUE_KEQING","text":"그걸 알아내려고 검수 병사에게 묻는 거잖아. 짐을 맡아 뒀다니 일하던 곳은 알 수도 있겠지. 너는 얼굴을 본 사람이고. 서로 아는 걸 모으면 돼.","type":"DIALOGUE"},{"id":"V146_M00101_008","speaker":"서술","profile":null,"text":"병사는 내가 가리킨 자리를 한 번 더 확인한 뒤 다른 병사에게 부두로 가 달라고 부탁했다. 그가 계단을 내려가는 모습을 보다가 각청에게 물었다.","type":"NARRATION"},{"id":"V146_M00101_009","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","text":"내 말을 믿는 거야? 아까는 모락스가 떨어졌다는 얘기도 처음 듣는다고 했잖아.","type":"DIALOGUE"},{"id":"V146_M00101_010","speaker":"각청","profile":"PROFILE_LIYUE_KEQING","text":"그건 지금도 그래. 네가 본 일을 내가 기억해 낼 수는 없어. 하지만 일하던 사람이 보이지 않고 짐만 남아 있다잖아. 확인도 안 해 보고 네가 틀렸다고 할 이유는 없지.","type":"DIALOGUE"},{"id":"V146_M00101_011","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","text":"……찾으면 소식 좀 줘. 다쳤으면 어디로 옮겼는지도. 내가 가 볼 수 있게.","type":"DIALOGUE"},{"id":"V146_M00101_012","speaker":"각청","profile":"PROFILE_LIYUE_KEQING","text":"알았어. 소식이 오면 알려 줄게. 아직 확인하지 못한 게 많으니까, 혼자 아무 데나 뛰어들지는 말고.","type":"DIALOGUE"},{"id":"V146_M00101_013","speaker":"서술","profile":null,"text":"나는 고개를 끄덕였다. 안심할 만한 소식은 아직 하나도 없었다. 그래도 누군가는 그 사람을 찾으러 움직이고 있었다. 각청은 현장에 남은 병사에게 다시 말을 걸었다.","type":"NARRATION"},{"id":"V146_M00101_014","speaker":"각청","profile":"PROFILE_LIYUE_KEQING","text":"제군의 몸을 봤다는 사람도 계속 찾아. 저 안에서 큰 짐을 실어 낼 만한 길이 어디인지 살펴보고, 옮긴 흔적이 있으면 먼저 알려 줘.","type":"DIALOGUE"},{"id":"ISK_L03_K2_026","speaker":"서술","profile":null,"text":"옮긴 흔적. 나는 비어 있는 의례장 안쪽을 다시 보았다. 짐꾼의 행방에만 매달리느라 잊고 있던 장소가 떠올랐다. 내가 알던 이야기에서는 제군의 몸이 이곳에 계속 놓여 있지 않았다.\n이번에도 같다는 보장은 없었다. 그래도 확인해 달라고 할 곳은 있었다.","type":"NARRATION"}];
+const ALIASES={ISK_L03_K2_020:'R39_PROSE_ISK_L03_K2_020',ISK_L03_K2_022:'R39_PROSE_ISK_L03_K2_022',ISK_L03_K2_025:'R39_PROSE_ISK_L03_K2_025'};
+const installed=new WeakSet();
+P.storyIndex=function(){
+ const ix=previous.call(this);if(installed.has(ix))return ix;
+ const get=id=>ix.nodes.get(ROUTE+':'+id);
+ const existing=SCENE.filter(s=>!s.id.startsWith('V146_'));
+ // Validate all anchors before making any changes; stale source must not be silently accepted.
+ for(const spec of existing){
+  const row=get(spec.id);
+  if(!row||row[1]!=='Q_ISK_LIYUE_03'||row[3]!=='K2_VANISHED'||row[5]!==spec.type||row[12])throw Error('Main story 001.01 anchor mismatch: '+spec.id);
+ }
+ for(const [id,target]of Object.entries(ALIASES)){
+  const row=get(id),canonical=get(target);
+  if(!row||row[1]!==canonical[1]||row[3]!==canonical[3]||row[5]!=='CHOICE'||row[12])throw Error('Main story 001.01 legacy cursor mismatch: '+id);
+ }
+ const end=get('ISK_L03_K2_026'),exit=end[13],all=ix.byTable[TABLE];
+ if(!exit||exit.startsWith('V146_')||!Array.isArray(all))throw Error('Main story 001.01 exit mismatch');
+ const templates={NARRATION:get('ISK_L03_K2_019'),PLAYER:get('R39_PROSE_ISK_L03_K2_020'),KEQING:get('ISK_L03_K2_024'),SOLDIER:get('ISK_L03_K2_021')};
+ const additions=SCENE.filter(s=>s.id.startsWith('V146_')).map((s,i)=>{
+  if(get(s.id))throw Error('Main story 001.01 duplicate: '+s.id);
+  const key=s.type==='NARRATION'?'NARRATION':s.profile==='PLAYER_ISEKAI'?'PLAYER':s.profile==='PROFILE_LIYUE_KEQING'?'KEQING':'SOLDIER';
+  const row=templates[key].slice();
+  Object.assign(row,{4:s.id,5:s.type,9:s.text,10:'',12:'',14:'',17:Number(templates.NARRATION[17])+0.0001*(i+1),19:'CRPG_MAIN_STORY_001_01'});
+  Object.defineProperties(row,{table:{value:TABLE},sourceRow:{value:0}});
+  return row;
+ });
+ for(const row of additions){ix.nodes.set(ROUTE+':'+row[4],row);all.push(row);}
+ for(let i=0;i<SCENE.length;i++){
+  const s=SCENE[i],row=get(s.id);
+  row[9]=s.text;row[10]='';row[13]=SCENE[i+1]?.id||exit;
+ }
+ // Single-option archives are not shown on the normal path, but old saves can resume here.
+ for(const [id,target]of Object.entries(ALIASES)){
+  const row=get(id),canonical=get(target);row[9]='';row[10]=canonical[9];row[13]=canonical[13];
+ }
+ installed.add(ix);return ix;
+};
+api.mainStoryManuscriptRevision='001.01';
+})(globalThis);
