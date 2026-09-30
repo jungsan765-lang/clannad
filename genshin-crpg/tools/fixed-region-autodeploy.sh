@@ -9,7 +9,8 @@ FAILED_FILE="$DATA_DIR/last-failed-deploy-sha"
 LOCK_FILE="$DATA_DIR/update.lock"
 DEPLOYED_FILE="$DATA_DIR/deployed-fixed-region-sha"
 LIVE_SERVICE="genshin-crpg-fixed-region-live.service"
-DOMAIN="api-staging.clannad.shop"
+API_DOMAIN="api-staging.clannad.shop"
+TEST_DOMAIN="test.clannad.shop"
 
 exec 9>"$LOCK_FILE"
 flock -n 9 || exit 0
@@ -61,7 +62,7 @@ if [[ "$RC" -ne 0 ]]; then
 fi
 
 rm -f "$FAILED_FILE"
-bash "$PROJECT_DIR/tools/install-fixed-region-live-staging.sh" "$DOMAIN"
+bash "$PROJECT_DIR/tools/install-fixed-region-live-staging.sh" "$API_DOMAIN" "$TEST_DOMAIN"
 systemctl restart genshin-crpg-fixed-region.service
 systemctl restart "$LIVE_SERVICE"
 sleep 1
