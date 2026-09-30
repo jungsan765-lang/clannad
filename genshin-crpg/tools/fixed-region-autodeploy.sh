@@ -69,6 +69,9 @@ systemctl restart "$LIVE_SERVICE"
 sleep 1
 curl --fail --silent --show-error http://127.0.0.1:8788/health >/dev/null
 curl --fail --silent --show-error http://127.0.0.1:8789/health >/dev/null
+if systemctl is-active --quiet genshin-crpg-production.service && [[ -f /var/www/genshin-crpg-production/current/index.html ]]; then
+  bash "$PROJECT_DIR/tools/activate-seoul-production.sh" clannad.shop
+fi
 echo "$REMOTE_SHA" >"$DEPLOYED_FILE"
 bash "$PROJECT_DIR/tools/install-fixed-region-test-pack.sh" || true
 echo "Deployed $REMOTE_SHA"
