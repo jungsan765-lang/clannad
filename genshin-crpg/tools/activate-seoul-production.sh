@@ -22,7 +22,11 @@ cat >/var/www/genshin-crpg-production/current/sw.js <<EOF
 'use strict';
 const VERSION='$PACK_VERSION';
 self.addEventListener('install',event=>event.waitUntil(self.skipWaiting()));
-self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const name of await caches.keys())if(name.startsWith('crpg-pack-')||name.startsWith('crpg-core-'))await caches.delete(name);await self.clients.claim();})()));
+self.addEventListener('activate',event=>event.waitUntil((async()=>{
+  for(const name of await caches.keys())if(name.startsWith('crpg-pack-')||name.startsWith('crpg-core-'))await caches.delete(name);
+  await self.registration.unregister();
+  await self.clients.claim();
+})()));
 self.addEventListener('message',event=>{if(event.data?.type==='GET_VERSION'){event.ports[0]?.postMessage({version:VERSION});return;}if(event.data?.type==='ACTIVATE_UPDATE')event.waitUntil(self.skipWaiting());});
 EOF
 node - <<'NODE'
@@ -60,7 +64,7 @@ $DOMAIN {
     }
 
     # Preserve the historical GitHub Pages game URL and all relative assets.
-    @legacyFresh path /genshin-crpg/dist/ /genshin-crpg/dist/index.html /genshin-crpg/dist/online_config.js /genshin-crpg/dist/release.json
+    @legacyFresh path /genshin-crpg/dist/ /genshin-crpg/dist/index.html /genshin-crpg/dist/online_config.js /genshin-crpg/dist/release.json /genshin-crpg/dist/sw.js
     header @legacyFresh Cache-Control "no-store"
 
     handle /genshin-crpg/dist {
@@ -84,7 +88,7 @@ $DOMAIN {
         file_server
     }
 
-    @fresh path / /index.html /online_config.js /release.json
+    @fresh path / /index.html /online_config.js /release.json /sw.js
     header @fresh Cache-Control "no-store"
 
     handle / {
