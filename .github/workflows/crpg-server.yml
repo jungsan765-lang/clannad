@@ -46,7 +46,6 @@ jobs:
           CRPG_TEST_BACKEND=do node tests/test_authoritative_flow.mjs
           node tests/test_workerd_durable.mjs
           node tests/test_fixed_region_staging.mjs
-          node tests/test_fixed_region_staging.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
