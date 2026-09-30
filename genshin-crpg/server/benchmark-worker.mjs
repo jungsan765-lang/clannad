@@ -41,8 +41,8 @@ export class GameAccount extends ProductionAccount {
 export default {async fetch(request,env,ctx){
  const path=new URL(request.url).pathname;
  if(!path.startsWith('/bench/'))return production.fetch(request,env,ctx);
- const customToken=request.headers.get('x-crpg-benchmark-token')||'',auth=request.headers.get('authorization')||'',bearer=auth.startsWith('Bearer ')?auth.slice(7):'';
- if(env.BENCHMARK_ONLY!=='1'||!customToken||!bearer||!same(customToken,bearer))return json({error:'Forbidden',code:'BENCH_AUTH',diagnostic:{benchmarkOnly:env.BENCHMARK_ONLY||null,customHeaderLength:customToken.length,bearerLength:bearer.length,headersMatch:!!customToken&&!!bearer&&same(customToken,bearer)}},403);
+ const customToken=request.headers.get('x-crpg-benchmark-token')||'',auth=request.headers.get('authorization')||'',bearer=auth.startsWith('Bearer ')?auth.slice(7):'',supplied=customToken||bearer;
+ if(env.BENCHMARK_ONLY!=='1'||!supplied||(customToken&&bearer&&!same(customToken,bearer)))return json({error:'Forbidden',code:'BENCH_AUTH',diagnostic:{benchmarkOnly:env.BENCHMARK_ONLY||null,customHeaderLength:customToken.length,bearerLength:bearer.length,headersMatch:!customToken||!bearer||same(customToken,bearer)}},403);
  if(request.method!=='POST')return json({error:'POST required'},405);
  const b=await request.json();
  if(path==='/bench/setup'){
