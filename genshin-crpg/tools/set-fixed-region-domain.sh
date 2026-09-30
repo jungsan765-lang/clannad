@@ -14,10 +14,15 @@ fi
 cat >/etc/caddy/Caddyfile <<EOF
 $DOMAIN {
     encode zstd gzip
-    reverse_proxy 127.0.0.1:8788
+    handle_path /live/* {
+        reverse_proxy 127.0.0.1:8789
+    }
+    handle {
+        reverse_proxy 127.0.0.1:8788
+    }
 }
 EOF
 
 caddy validate --config /etc/caddy/Caddyfile
 systemctl reload caddy
-echo "Caddy now serves https://$DOMAIN after DNS resolves to this server."
+echo "Caddy serves synthetic staging at https://$DOMAIN and account staging under /live/."
