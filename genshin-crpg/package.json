@@ -12,7 +12,9 @@
     "test:durable": "node tools/python.mjs tools/build_server.py && node tests/test_durable_account.mjs",
     "serve:fixed-region": "node server/fixed-region-staging.mjs",
     "test:fixed-region": "node tools/python.mjs tools/build_server.py && node tests/test_fixed_region_staging.mjs",
-    "smoke:fixed-region": "node tools/fixed-region-smoke.mjs"
+    "smoke:fixed-region": "node tools/fixed-region-smoke.mjs",
+    "serve:fixed-region-live": "node server/fixed-region-live.mjs",
+    "test:fixed-region-live": "node tools/python.mjs tools/build_server.py && node tests/test_fixed_region_live.mjs"
   },
   "devDependencies": {
     "playwright": "1.51.1",
