@@ -1,4 +1,5 @@
 // STAGING ONLY. Production config must always use worker.mjs.
+// Preflight gate revision: seoul-preflight-v1
 import production from './worker.mjs';
 import {GameAccount as ProductionAccount,enrollSession} from './durable-account.mjs';
 import {fixture} from './benchmark-fixtures.mjs';
