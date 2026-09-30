@@ -42,6 +42,7 @@ export class GameAccount extends ProductionAccount {
 }
 export default {async fetch(request,env,ctx){
  const path=new URL(request.url).pathname;
+ if(path==='/bench/domain-ping'&&request.method==='POST')return json({ok:true,probe:'domain-v1',serverBuild:SERVER_BUILD,clientCountry:request.cf?.country||null,edgeColo:request.cf?.colo||null,placement:request.headers.get('cf-placement')||null});
  if(!path.startsWith('/bench/'))return production.fetch(request,env,ctx);
  const customToken=request.headers.get('x-crpg-benchmark-token')||'',auth=request.headers.get('authorization')||'',bearer=auth.startsWith('Bearer ')?auth.slice(7):'',supplied=customToken||bearer;
  if(env.BENCHMARK_ONLY!=='1'||!supplied||(customToken&&bearer&&!same(customToken,bearer)))return json({error:'Forbidden',code:'BENCH_AUTH',diagnostic:{benchmarkOnly:env.BENCHMARK_ONLY||null,customHeaderLength:customToken.length,bearerLength:bearer.length,headersMatch:!customToken||!bearer||same(customToken,bearer)}},403);
