@@ -43,18 +43,36 @@ $DOMAIN {
     handle /genshin-crpg/dist/index {
         redir /genshin-crpg/dist/ 302
     }
+    handle /genshin-crpg/dist/ {
+        root * /var/www/genshin-crpg-production/current
+        rewrite * /index.html
+        file_server
+    }
+    handle /genshin-crpg/dist/index.html {
+        root * /var/www/genshin-crpg-production/current
+        rewrite * /index.html
+        file_server
+    }
     handle_path /genshin-crpg/dist/* {
         root * /var/www/genshin-crpg-production/current
-        try_files {path} {path}/ /index.html
         file_server
     }
 
     @fresh path / /index.html /online_config.js /release.json
     header @fresh Cache-Control "no-store"
 
+    handle / {
+        root * /var/www/genshin-crpg-production/current
+        rewrite * /index.html
+        file_server
+    }
+    handle /index.html {
+        root * /var/www/genshin-crpg-production/current
+        rewrite * /index.html
+        file_server
+    }
     handle {
         root * /var/www/genshin-crpg-production/current
-        try_files {path} {path}/ /index.html
         file_server
     }
 }
