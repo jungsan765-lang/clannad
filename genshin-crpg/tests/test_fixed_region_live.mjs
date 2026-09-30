@@ -19,6 +19,7 @@ let app=await open();
 const health=await app.api('/health');assert.equal(health.status,200);assert.equal(health.json.storage,'sqlite-node-accounts');assert.equal(health.json.synthetic,false);assert(health.json.capabilities.includes('state-parts-v1'));
 assert.equal((await app.api('/ranking')).status,200);
 assert.equal((await app.api('/register',{method:'POST',origin:'https://evil.example',body:{username:'baduser',password}})).status,403);
+const sameOrigin='http://127.0.0.1:'+app.address.port;const sameOriginReg=await app.api('/register',{method:'POST',origin:sameOrigin,body:{username:'mirror_01',password}});assert.equal(sameOriginReg.status,200,JSON.stringify(sameOriginReg.json));assert.equal(sameOriginReg.headers.get('access-control-allow-origin'),sameOrigin);
 const reg=await app.api('/register',{method:'POST',body:{username:'tester_01',password,displayName:'서울시험'}});assert.equal(reg.status,200,JSON.stringify(reg.json));const token=reg.json.token;assert.equal(token.length,64);
 const empty=await app.api('/me',{token});assert.equal(empty.status,200);assert.equal(empty.json.state,null);assert(Number(empty.headers.get('x-server-time'))>0);
 const created=await app.api('/game/new',{method:'POST',token,body:{name:'서울시험',route:'ROUTE_ISEKAI'}});assert.equal(created.status,200,JSON.stringify(created.json));assert.equal(created.json.revision,0);assert(created.json.state);
@@ -45,4 +46,4 @@ const relog=await app.api('/login',{method:'POST',body:{username:'persist_01',pa
 assert.equal((await app.api('/account/delete',{method:'POST',token:relog.json.token,body:{confirm:'persist_01',password}})).status,200);
 assert.equal((await app.api('/login',{method:'POST',body:{username:'persist_01',password}})).status,401);
 await app.close();await rm(dir,{recursive:true,force:true});
-console.log(JSON.stringify({ok:true,checks:['health','CORS gate','register','login','session','new game','delta reconstruction','requestId replay','requestId collision','revision conflict','parallel duplicate','logout','file restart persistence','account delete']}));
+console.log(JSON.stringify({ok:true,checks:['health','CORS gate','same-origin gameplay mirror','register','login','session','new game','delta reconstruction','requestId replay','requestId collision','revision conflict','parallel duplicate','logout','file restart persistence','account delete']}));
