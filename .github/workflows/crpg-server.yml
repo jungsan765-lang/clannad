@@ -46,9 +46,11 @@ jobs:
           CRPG_TEST_BACKEND=do node tests/test_authoritative_flow.mjs
           node tests/test_workerd_durable.mjs
           node tests/test_fixed_region_staging.mjs
+          node tests/test_fixed_region_live.mjs
           bash -n tools/bootstrap-fixed-region-ubuntu.sh
           bash -n tools/fixed-region-autodeploy.sh
           bash -n tools/set-fixed-region-domain.sh
+          bash -n tools/install-fixed-region-live-staging.sh
       - uses: actions/upload-artifact@v4
         if: always()
         with:
