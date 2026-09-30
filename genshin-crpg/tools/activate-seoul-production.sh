@@ -13,6 +13,9 @@ if [[ ! "$DOMAIN" =~ ^[A-Za-z0-9.-]+$ ]]; then
 fi
 curl --fail --silent --show-error http://127.0.0.1:8790/health >/dev/null
 [[ -f /var/www/genshin-crpg-production/current/index.html ]]
+chmod 0755 /var/www/genshin-crpg-production /var/www/genshin-crpg-production/current
+find /var/www/genshin-crpg-production/current -type d -exec chmod 0755 {} +
+find /var/www/genshin-crpg-production/current -type f -exec chmod 0644 {} +
 mkdir -p "$CADDY_DIR"
 cat >/etc/caddy/Caddyfile <<'EOF'
 import /etc/caddy/conf.d/*.caddy
