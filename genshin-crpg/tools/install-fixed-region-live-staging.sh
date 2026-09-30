@@ -62,6 +62,24 @@ $DOMAIN {
     handle_path /live/* {
         reverse_proxy 127.0.0.1:8789
     }
+    handle /play/online_config.js {
+        header Content-Type "application/javascript; charset=utf-8"
+        respond "window.CRPG_ONLINE_CONFIG={apiBase:'https://$DOMAIN/live',environment:'seoul-staging'};"
+    }
+    handle /play {
+        redir /play/ 302
+    }
+    handle_path /play/* {
+        rewrite * /genshin-crpg/dist{uri}
+        reverse_proxy https://clannad.shop {
+            header_up Host clannad.shop
+        }
+    }
+    handle /genshin-crpg/* {
+        reverse_proxy https://clannad.shop {
+            header_up Host clannad.shop
+        }
+    }
     handle {
         reverse_proxy 127.0.0.1:8788
     }
