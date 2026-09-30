@@ -41,7 +41,7 @@ export async function durableDispatch(request,env){
 // No public URL is mapped directly to this class. Only the Worker binding can reach its internal operations.
 export class GameAccount {
  constructor(ctx,env){
-  this.ctx=ctx;this.env=env;this.sql=ctx.storage.sql;this.tail=Promise.resolve();
+  this.ctx=ctx;this.env=env;this.sql=ctx.storage.sql;this.tail=Promise.resolve();this.partsCache=null;
   this.sql.exec(`CREATE TABLE IF NOT EXISTS metadata(id INTEGER PRIMARY KEY CHECK(id=1),account TEXT NOT NULL,epoch TEXT NOT NULL,status TEXT NOT NULL,revision INTEGER,ranked INTEGER,last_request_id TEXT,updated_at INTEGER);
    CREATE TABLE IF NOT EXISTS parts(path TEXT PRIMARY KEY,value TEXT NOT NULL);
    CREATE TABLE IF NOT EXISTS receipts(request_id TEXT PRIMARY KEY,revision INTEGER NOT NULL,base_revision INTEGER NOT NULL,intent_hash TEXT,result TEXT NOT NULL,created_at INTEGER NOT NULL);
@@ -53,7 +53,7 @@ export class GameAccount {
  serial(fn){const next=this.tail.then(fn);this.tail=next.catch(()=>{});return next;}
  rows(q,...args){return this.sql.exec(q,...args).toArray();}
  meta(){return this.rows('SELECT * FROM metadata WHERE id=1')[0];}
- parts(){return new Map(this.rows('SELECT path,value FROM parts').map(x=>[x.path,x.value]));}
+ parts(){if(this.partsCache)return this.partsCache;this.partsCache=new Map(this.rows('SELECT path,value FROM parts').map(x=>[x.path,x.value]));return this.partsCache;}
  async initialize(account){
   const existing=this.meta();if(existing){if(JSON.parse(existing.account).id!==account.id)throw error(403,'계정 경로가 일치하지 않습니다.');if(existing.status==='IMPORTING')await this.activate(account.id,existing.epoch);return;}
   if(this.env.GAME_IMPORT_DISABLED==='1')throw error(503,'새 저장 공간으로의 이전을 잠시 중단했습니다. 기존 기록은 유지됩니다.','IMPORT_DISABLED');
@@ -69,13 +69,13 @@ export class GameAccount {
   if(owner.owner!=='DO')throw error(503,'이 계정은 이전 저장 경로로 복구되어 있습니다.','ACCOUNT_DRAINED');
   if(owner.activated)throw error(503,'기존 저장 공간을 복구해야 합니다. 오래된 원본으로 덮어쓰지 않습니다.','DURABLE_STATE_MISSING');
   // Parse/validate BEFORE importing. Corrupt data stays untouched in the fenced D1 original.
-  const state=game?JSON.parse(game.state):null;if(state)new R(GAME_DB,structuredClone(state),true);
+  const state=game?JSON.parse(game.state):null;if(state)new R(GAME_DB,structuredClone(state),true);const importedParts=state?splitState(state):new Map();
   this.ctx.storage.transactionSync(()=>{
    this.sql.exec('INSERT INTO metadata VALUES(1,?,?,?,?,?,?,?)',JSON.stringify(account),owner.epoch,'IMPORTING',game?.revision??null,game?.ranked??1,game?.last_request_id??'',game?.updated_at??t);
-   if(state)for(const [path,value] of splitState(state))this.sql.exec('INSERT INTO parts VALUES(?,?)',path,value);
+   for(const [path,value] of importedParts)this.sql.exec('INSERT INTO parts VALUES(?,?)',path,value);
    for(const receipt of result[3].results)this.sql.exec('INSERT OR IGNORE INTO receipts VALUES(?,?,?,?,?,?)',receipt.request_id,receipt.revision,receipt.revision-1,null,receipt.response,receipt.created_at);
   });
-  await this.ctx.storage.sync();await this.activate(account.id,owner.epoch);
+  await this.ctx.storage.sync();this.partsCache=importedParts;await this.activate(account.id,owner.epoch);
  }
  async activate(id,epoch){
   const result=await this.env.DB.prepare("UPDATE game_owners SET activated=1 WHERE account_id=? AND epoch=? AND owner='DO'").bind(id,epoch).run();
@@ -90,7 +90,8 @@ export class GameAccount {
  }
  authenticate(th){const s=this.rows('SELECT * FROM sessions WHERE token_hash=?',th)[0];if(!s||s.revoked||s.expires_at<=now())throw error(401,'로그인이 만료되었습니다.');return JSON.parse(this.meta().account);}
  active(){const m=this.meta();if(!m)throw error(401,'계정에 다시 로그인해 주세요.');if(m.status==='ROLLED_BACK')throw error(503,'이 계정은 이전 저장 경로로 복구되어 있습니다.','ACCOUNT_DRAINED');if(m.status!=='ACTIVE')throw error(503,'저장 기록 복구 작업 중입니다. 잠시 뒤 다시 연결해 주세요.','STORAGE_FROZEN');return m;}
- output(m,parts,result=null){return {account:accountView(JSON.parse(m.account),this.env),version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,revision:m.revision??0,ranked:!!m.ranked,state:m.revision===null?null:joinState(publicParts(parts)),result};}
+ envelope(m,result=null){return {account:accountView(JSON.parse(m.account),this.env),version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,revision:m.revision??0,ranked:!!m.ranked,result};}
+ output(m,parts,result=null){return {...this.envelope(m,result),state:m.revision===null?null:joinState(publicParts(parts))};}
  async schedule(){if(await this.ctx.storage.getAlarm()===null)await this.ctx.storage.setAlarm(now()+10000);}
  bumpRate(){const t=now(),r=this.rows('SELECT * FROM action_rate WHERE id=1')[0];if(r&&r.until_at>t&&r.count>=240)throw error(429,'시도가 너무 잦습니다. 잠시 뒤 다시 시도해 주세요.');this.sql.exec('INSERT INTO action_rate VALUES(1,1,?) ON CONFLICT(id) DO UPDATE SET count=CASE WHEN until_at<=? THEN 1 ELSE count+1 END,until_at=CASE WHEN until_at<=? THEN excluded.until_at ELSE until_at END',t+60000,t,t);}
  async action(b,account){
@@ -103,15 +104,19 @@ export class GameAccount {
     return json({...this.output(m,this.parts(),JSON.parse(receipt.result).result),replayed:true,receiptRevision:receipt.revision});
    }
    if(m.revision===null)throw error(409,'먼저 여정을 시작해 주세요.');
-   this.bumpRate();const before=this.parts(),state=joinState(before),row={state:JSON.stringify(state),revision:m.revision,ranked:m.ranked,updated_at:m.updated_at};
-   const {r,result,isDebug}=executeAction(b,row,account,this.env,now(),this.runtime?.revision===m.revision?this.runtime.r:null);compact(r.s);
-   const stateText=JSON.stringify(r.s),stateBytes=new TextEncoder().encode(stateText).length;if(stateBytes>1900000)throw error(507,'저장 크기 한도에 도달했습니다.');
+   this.bumpRate();const before=this.parts(),warm=this.runtime?.revision===m.revision?this.runtime.r:null;
+   const row={state:warm?'':JSON.stringify(joinState(before)),revision:m.revision,ranked:m.ranked,updated_at:m.updated_at};
+   const {r,result,isDebug}=executeAction(b,row,account,this.env,now(),warm);compact(r.s);
    const after=splitState(r.s),delta=diffParts(before,after),next={...m,revision:m.revision+1,ranked:isDebug?0:m.ranked,last_request_id:b.requestId,updated_at:now()};
-   let output=this.output(next,after,result);
+   // Fast-path size guard: current saves are far below 1.9 MiB, so avoid rebuilding/UTF-8 encoding the whole state.
+   const roughChars=[...after].reduce((n,[path,value])=>n+path.length+value.length+8,2);let stateBytes;
+   if(roughChars*3<=1900000)stateBytes=roughChars*3;
+   else {const stateText=JSON.stringify(r.s);stateBytes=new TextEncoder().encode(stateText).length;if(stateBytes>1900000)throw error(507,'저장 크기 한도에 도달했습니다.');}
+   let output;
    if(b.responseMode==='state-parts-v1'){
-    const patch=wirePatch(publicParts(before),publicParts(after));
-    if(JSON.stringify(patch).length<JSON.stringify(output.state).length){delete output.state;output.baseRevision=m.revision;output.statePatch=patch;}
-   }
+    // A delta-capable client asked for a patch; do not construct the ~400 KiB full public state just to discard it.
+    output={...this.envelope(next,result),baseRevision:m.revision,statePatch:wirePatch(publicParts(before),publicParts(after))};
+   }else output=this.output(next,after,result);
    const outputText=JSON.stringify(output),responseBytes=new TextEncoder().encode(outputText).length;
    // Alarm is durable before the outbox commit. Failure here cannot acknowledge an unscheduled projection.
    await this.schedule();const commitStart=performance.now();persistenceStarted=true;
@@ -125,7 +130,7 @@ export class GameAccount {
     this.sql.exec('INSERT INTO outbox(id,revision) VALUES(1,?) ON CONFLICT(id) DO UPDATE SET revision=excluded.revision',next.revision);
    });
    await this.ctx.storage.sync();
-   this.runtime={revision:next.revision,r};
+   this.partsCache=after;this.runtime={revision:next.revision,r};
    const persistMs=elapsed(commitStart),totalMs=elapsed(started),out=new Response(outputText,{headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','Server-Timing':`durable;dur=${persistMs},total;dur=${totalMs}`,'X-CRPG-State-Bytes':String(stateBytes),'X-CRPG-Response-Bytes':String(responseBytes)}});
    console.log(JSON.stringify({kind:'crpg_durable_timing',action:b.type,revision:next.revision,d1CallsOnAction:0,stateBytes,changedBytes:delta.bytes,changedParts:delta.set.length,responseBytes,persistMs,totalMs,serverBuild:SERVER_BUILD}));return out;
   }catch(e){this.runtime=null;if(!persistenceStarted)Object.assign(e,REJECTED);throw e;}
@@ -147,7 +152,7 @@ export class GameAccount {
    await this.schedule();const parts=splitState(r.s),t=now();this.ctx.storage.transactionSync(()=>{
     for(const [p,v] of parts)this.sql.exec('INSERT INTO parts VALUES(?,?)',p,v);
     this.sql.exec("UPDATE metadata SET revision=0,ranked=1,last_request_id='NEW',updated_at=? WHERE id=1",t);this.sql.exec('INSERT INTO outbox(id,revision) VALUES(1,0)');
-   });await this.ctx.storage.sync();this.runtime={revision:0,r};return json(this.output(this.meta(),parts));
+   });await this.ctx.storage.sync();this.partsCache=parts;this.runtime={revision:0,r};return json(this.output(this.meta(),parts));
   }
   if(b.path==='/game/action'&&b.method==='POST')return this.action(b.data,account);
   throw error(404,'지원하지 않는 요청입니다.');
@@ -159,7 +164,7 @@ export class GameAccount {
   // Removing ownership and the account directory is one transaction; no old game writer can race between them.
   await db.batch([db.prepare('DELETE FROM game_owners WHERE account_id=?').bind(account.id),db.prepare('DELETE FROM accounts WHERE id=?').bind(account.id)]);
   this.ctx.storage.transactionSync(()=>{for(const table of ['parts','receipts','backups','sessions','outbox'])this.sql.exec('DELETE FROM '+table);this.sql.exec("UPDATE metadata SET status='DELETED',account=?,revision=NULL WHERE id=1",JSON.stringify({id:account.id}));});
-  await this.ctx.storage.deleteAlarm();await this.ctx.storage.sync();return json({deleted:true});
+  this.partsCache=null;this.runtime=null;await this.ctx.storage.deleteAlarm();await this.ctx.storage.sync();return json({deleted:true});
  }
  async snapshot(){const m=this.meta();if(!m||m.revision===null)return null;return {metadata:m,state:joinState(this.parts()),receipts:this.rows('SELECT * FROM receipts ORDER BY revision')};}
  async rollback(){
