@@ -49,6 +49,8 @@ if [[ -e "$PROD_DB" || -e "$PROD_DB-wal" || -e "$PROD_DB-shm" ]]; then
   exit 7
 fi
 node "$PROJECT_DIR/tools/promote-seoul-production.mjs" "$SNAPSHOT" "$TEST_DB" "$PROD_DB"
+chown crpg-staging:crpg-staging "$PROD_DB"
+chmod 0600 "$PROD_DB"
 
 umask 077
 cat >"$PROD_ENV" <<EOF
