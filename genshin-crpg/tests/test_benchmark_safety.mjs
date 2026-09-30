@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import {benchmark} from '../tools/latency-benchmark.mjs';
+import {checkBenchmarkWindow,QUOTA_RESET_AT} from '../tools/benchmark-safety.mjs';
+assert.throws(()=>checkBenchmarkWindow(Date.parse(QUOTA_RESET_AT)-1),/10월 1일/);
+assert.equal(checkBenchmarkWindow(Date.parse(QUOTA_RESET_AT)),'2026-10-01');
+let calls=0,progress;
+await assert.rejects(benchmark({base:'https://unused',secret:'must-not-be-persisted',fetcher:async()=>{calls++;return new Response(JSON.stringify({error:'quota exhausted'}),{status:429});},onProgress:r=>{progress=r;}}),/HTTP 429/);
+assert.equal(calls,1,'a failed setup must never restart the suite');
+assert.equal(progress.status,'failed');assert.equal(progress.koreanGatePassed,false);
+assert.ok(!JSON.stringify(progress).includes('must-not-be-persisted'));
+calls=0;
+await assert.rejects(benchmark({base:'https://unused',secret:'secret',samples:31,fetcher:async()=>{calls++;}}),/Sample count/);assert.equal(calls,0);
+const requested=[],saved=[];
+await assert.rejects(benchmark({base:'https://unused',secret:'secret',samples:1,onProgress:r=>saved.push(r),fetcher:async(url)=>{
+ requested.push(new URL(url).pathname);
+ if(url.endsWith('/bench/setup'))return Response.json({accountId:'private-id',token:'private-token',serverBuild:'build'});
+ if(url.endsWith('/bench/reset'))return Response.json({action:{type:'MOVE'},engineVersion:'v',stateBytes:378000,reservedRows:2200},{headers:{'X-Benchmark-SQL-Rows-Written':'1900'}});
+ return new Response('platform unavailable',{status:500});
+}}),/non-JSON/);
+assert.deepEqual(requested,['/bench/setup','/bench/reset','/game/action']);
+assert.equal(saved.at(-1).storage.observedSqlRows,1900);
+assert.equal(saved.at(-1).status,'failed');assert.equal(saved.at(-1).koreanGatePassed,false);
+assert.ok(!JSON.stringify(saved).includes('private-token'));assert.ok(!JSON.stringify(saved).includes('private-id'));
+console.log('PASS: reset-time guard, bounded sample count, no retry, partial results, secret exclusion.');

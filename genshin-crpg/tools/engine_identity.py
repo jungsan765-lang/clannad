@@ -1,8 +1,4 @@
-"""Identify authoritative rules independently of UI release numbers.
-
-Changing Worker endpoints, runtime modules, load order or cleaned content requires a Worker
-update. App UI and art changes keep the existing server compatible.
-"""
+"""Compatibility depends on rules/content/protocol, never Worker implementation."""
 import hashlib, json, re
 
 def runtime_files(root):
@@ -10,10 +6,26 @@ def runtime_files(root):
     return [x for x in re.findall(r'<script src="([^"?]+)',html)
             if x in ('world_content.js','presentation.js') or x.startswith('runtime')]
 
-def engine_fingerprint(root, data):
-    digest=hashlib.sha256(b'crpg-conversation-protocol-2\0')
+def rules_fingerprint(root, data):
+    protocol=root/'server/protocol.json'
+    version=json.loads(protocol.read_text())['version'] if protocol.exists() else 2
+    digest=hashlib.sha256(('crpg-protocol-'+str(version)+'\0').encode())
     for name in runtime_files(root):
         digest.update(name.encode()+b'\0'+(root/'source'/name).read_bytes()+b'\0')
-    digest.update(b'server/worker.mjs\0'+(root/'server/worker.mjs').read_bytes()+b'\0')
     digest.update(json.dumps(data,ensure_ascii=False,separators=(',',':')).encode())
-    return 'engine2-'+digest.hexdigest()
+    return 'engine3-'+digest.hexdigest()
+
+def engine_fingerprint(root, data):
+    rules=rules_fingerprint(root,data)
+    aliases=root/'server/compatibility.json'
+    # Preserve the deployed v2 identifier ONLY for these exact unchanged rules.
+    mapping=json.loads(aliases.read_text()) if aliases.exists() else {}
+    return mapping.get(rules,rules)
+
+def server_build(root, data):
+    digest=hashlib.sha256()
+    # Promotion evidence must match both server implementation AND the loaded game rules.
+    digest.update(engine_fingerprint(root,data).encode()+b'\0')
+    for p in sorted((root/'server').glob('*.mjs')):
+        digest.update(p.name.encode()+b'\0'+p.read_bytes())
+    return 'server-'+digest.hexdigest()[:20]

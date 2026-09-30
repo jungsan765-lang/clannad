@@ -1,3 +1,4 @@
+import {durableFixture} from './helpers_durable.mjs';
 import {DatabaseSync} from 'node:sqlite';
 import {readFileSync} from 'node:fs';
 import worker from '../server/worker.mjs';
@@ -5,6 +6,7 @@ import {R,DB,ENGINE_VERSION} from '../server/generated/engine.mjs';
 
 // Isolated real Worker + SQLite, never production D1. The browser uses the same HTTP contract.
 export function onlineFixture(){
+ if(process.env.CRPG_TEST_BACKEND==='do')return durableFixture();
  const sql=new DatabaseSync(':memory:');sql.exec(readFileSync(new URL('../server/schema.sql',import.meta.url),'utf8'));
  class Statement{
   constructor(query,args=[]){this.query=query;this.args=args;}

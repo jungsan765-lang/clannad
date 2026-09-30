@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Run current release gates; keep failure evidence."""
 from pathlib import Path
-import concurrent.futures, json, subprocess, time
+import concurrent.futures, json, subprocess, time, sys
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'evidence/release'
 OUT.mkdir(parents=True, exist_ok=True)
-subprocess.run(['python3', 'tools/build_server.py'], cwd=ROOT, check=True)
+subprocess.run([sys.executable, 'tools/build_server.py'], cwd=ROOT, check=True)
 TESTS = [
-    'tests/test_online_server.mjs', 'tests/test_authoritative_flow.mjs',
+    'tests/test_durable_account.mjs', 'tests/test_durable_migration.mjs', 'tests/test_online_server.mjs', 'tests/test_authoritative_flow.mjs',
     'tests/test_reading_checkpoint.mjs', 'tests/test_action_recovery.mjs', 'tests/test_update_recovery.cjs', 'tests/test_engine_identity.py',
     'tests/test_combat_catalog_online.mjs', 'tests/test_action_feedback.cjs',
     'tests/test_online_bootstrap_v01343.cjs', 'tests/test_online_title_v01344.cjs',
@@ -28,7 +28,7 @@ TESTS = [
 ]
 def run(test):
     started = time.monotonic()
-    result = subprocess.run(['python3' if test.endswith('.py') else 'node', test], cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=900)
+    result = subprocess.run([sys.executable if test.endswith('.py') else 'node', test], cwd=ROOT, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=900)
     (OUT / (Path(test).name + '.log')).write_text(result.stdout)
     row = {'test':test, 'ok':result.returncode == 0, 'seconds':round(time.monotonic()-started, 1)}
     print(json.dumps(row), flush=True)

@@ -33,7 +33,7 @@
 - 배포 주소에서는 이름과 출발점을 고르면 시작합니다.
 - 내려받은 묶음은 Python3이 있는 환경에서 Windows `start-game.bat`, macOS/Linux `./start-game.sh`로 실행한 뒤 브라우저에서 `http://localhost:8765/`를 엽니다.
 - `dist/index.html` 더블클릭은 권장하지 않습니다. 브라우저 저장·오프라인 기능을 위해 위 로컬 서버 또는 HTTPS 주소를 사용하세요.
-- 개발: `npm ci` → `npm run dev`. 빌드: `python3 tools/build.py`. 이미지 재인코딩이 필요하면 `python3 -m pip install -r requirements.txt`.
+- 개발: `npm ci` → `npm run dev`. 빌드: `npm run build`. 이미지 재인코딩이 필요하면 `node tools/python.mjs -m pip install -r requirements.txt`.
 - Windows 설치형 실행 파일은 이번 묶음에 포함하지 않습니다.
 
 ## 이번에 연결한 것
@@ -91,7 +91,7 @@
 
 ## 검증 재현
 
-`python3 tools/test_all.py`로 범위가 정해진 통과 검사들을 실행합니다. 개별 스크립트는 `tests/`에 있습니다. `tests/test_story_combat.js`는 알려진 실패를 포함한 전체 경로 검사이므로 일반 통과 묶음과 구별합니다. 브라우저 시험은 Playwright와Chromium이 필요합니다. 합성 시험 적격정책/능력치는 제품기본값이 아닙니다.
+`node tools/python.mjs tools/test_all.py`로 범위가 정해진 통과 검사들을 실행합니다. 개별 스크립트는 `tests/`에 있습니다. `tests/test_story_combat.js`는 알려진 실패를 포함한 전체 경로 검사이므로 일반 통과 묶음과 구별합니다. 브라우저 시험은 Playwright와Chromium이 필요합니다. 합성 시험 적격정책/능력치는 제품기본값이 아닙니다.
 
 ## 0.7 추가 수정
 

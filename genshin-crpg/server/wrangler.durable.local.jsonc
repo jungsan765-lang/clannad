@@ -1,20 +1,21 @@
 {
-  "name": "genshin-crpg-online",
+  "name": "genshin-crpg-durable-local",
   "main": "worker.mjs",
   "compatibility_date": "2026-09-01",
-  "keep_vars": true,
   "build": {
     "command": "node tools/python.mjs tools/build_server.py"
   },
   "vars": {
-    "ALLOWED_ORIGIN": "https://clannad.shop",
-    "HOT_STATE_CACHE": "1"
+    "ALLOWED_ORIGIN": "http://127.0.0.1:4173",
+    "GAME_STATE_BACKEND": "do",
+    "DO_LOCATION_HINT": "apac-ne",
+    "PASSWORD_PEPPER": "local-only-not-a-production-secret-1234567890"
   },
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "genshin-crpg-online",
-      "database_id": "1eaf2269-ca70-4b07-a4dc-0421d9a8bd78"
+      "database_name": "crpg-durable-local",
+      "database_id": "00000000-0000-0000-0000-000000000002"
     }
   ],
   "durable_objects": {
@@ -27,7 +28,7 @@
   },
   "migrations": [
     {
-      "tag": "game-account-sqlite-v1",
+      "tag": "v1",
       "new_sqlite_classes": [
         "GameAccount"
       ]
