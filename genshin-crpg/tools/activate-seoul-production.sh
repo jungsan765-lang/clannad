@@ -13,6 +13,29 @@ if [[ ! "$DOMAIN" =~ ^[A-Za-z0-9.-]+$ ]]; then
 fi
 curl --fail --silent --show-error http://127.0.0.1:8790/health >/dev/null
 [[ -f /var/www/genshin-crpg-production/current/index.html ]]
+
+# Production moved from the historical /genshin-crpg/dist/ scope to the site root.
+# Use a network-only worker during cutover so the old offline worker cannot intercept /api,
+# release metadata, or static assets with stale path assumptions.
+PACK_VERSION="$(node -e "process.stdout.write(require('/var/www/genshin-crpg-production/current/release.json').packVersion||'production-network-only')")"
+cat >/var/www/genshin-crpg-production/current/sw.js <<EOF
+'use strict';
+const VERSION='$PACK_VERSION';
+self.addEventListener('install',event=>event.waitUntil(self.skipWaiting()));
+self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const name of await caches.keys())if(name.startsWith('crpg-pack-')||name.startsWith('crpg-core-'))await caches.delete(name);await self.clients.claim();})()));
+self.addEventListener('message',event=>{if(event.data?.type==='GET_VERSION'){event.ports[0]?.postMessage({version:VERSION});return;}if(event.data?.type==='ACTIVATE_UPDATE')event.waitUntil(self.skipWaiting());});
+EOF
+node - <<'NODE'
+const fs=require('fs'),crypto=require('crypto'),root='/var/www/genshin-crpg-production/current';
+const packPath=root+'/offline-pack.json';
+if(fs.existsSync(packPath)){
+  const pack=JSON.parse(fs.readFileSync(packPath,'utf8')),data=fs.readFileSync(root+'/sw.js');
+  const entry=pack.files.find(x=>x.path==='sw.js');
+  if(entry){entry.sha256=crypto.createHash('sha256').update(data).digest('hex');entry.bytes=data.length;}
+  fs.writeFileSync(packPath,JSON.stringify(pack));
+}
+NODE
+
 chmod 0755 /var/www/genshin-crpg-production /var/www/genshin-crpg-production/current
 find /var/www/genshin-crpg-production/current -type d -exec chmod 0755 {} +
 find /var/www/genshin-crpg-production/current -type f -exec chmod 0644 {} +
