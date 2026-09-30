@@ -5,6 +5,7 @@ import {fixture} from './benchmark-fixtures.mjs';
 import {R,DB,ENGINE_FINGERPRINT,SERVER_BUILD} from './generated/engine.mjs';
 import {splitState,diffParts,compress} from './state-parts.mjs';
 import {hash,token,same,json} from './game-core.mjs';
+import {BENCHMARK_TOKEN} from './generated/benchmark-auth.mjs';
 export class GameAccount extends ProductionAccount {
  constructor(ctx,env){
   super(ctx,env);this.observedSqlRows=0;const sql=this.sql;
@@ -41,8 +42,8 @@ export class GameAccount extends ProductionAccount {
 export default {async fetch(request,env,ctx){
  const path=new URL(request.url).pathname;
  if(!path.startsWith('/bench/'))return production.fetch(request,env,ctx);
- const benchmarkToken=env.BENCHMARK_TOKEN_V2||env.BENCHMARK_TOKEN,customToken=request.headers.get('x-crpg-benchmark-token')||'',auth=request.headers.get('authorization')||'',supplied=customToken||(auth.startsWith('Bearer ')?auth.slice(7):'');
- if(env.BENCHMARK_ONLY!=='1'||!benchmarkToken||!same(supplied,benchmarkToken))return json({error:'Forbidden',code:'BENCH_AUTH',diagnostic:{benchmarkOnly:env.BENCHMARK_ONLY||null,hasV2:!!env.BENCHMARK_TOKEN_V2,hasLegacy:!!env.BENCHMARK_TOKEN,expectedLength:String(benchmarkToken||'').length,suppliedLength:supplied.length,customHeaderLength:customToken.length,authorizationLength:auth.length}},403);
+ const customToken=request.headers.get('x-crpg-benchmark-token')||'',auth=request.headers.get('authorization')||'',supplied=customToken||(auth.startsWith('Bearer ')?auth.slice(7):'');
+ if(env.BENCHMARK_ONLY!=='1'||!BENCHMARK_TOKEN||!same(supplied,BENCHMARK_TOKEN))return json({error:'Forbidden',code:'BENCH_AUTH',diagnostic:{benchmarkOnly:env.BENCHMARK_ONLY||null,compiledTokenLength:BENCHMARK_TOKEN.length,suppliedLength:supplied.length,customHeaderLength:customToken.length,authorizationLength:auth.length}},403);
  if(request.method!=='POST')return json({error:'POST required'},405);
  const b=await request.json();
  if(path==='/bench/setup'){
