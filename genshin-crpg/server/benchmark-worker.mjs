@@ -41,7 +41,8 @@ export class GameAccount extends ProductionAccount {
 export default {async fetch(request,env,ctx){
  const path=new URL(request.url).pathname;
  if(!path.startsWith('/bench/'))return production.fetch(request,env,ctx);
- if(env.BENCHMARK_ONLY!=='1'||!env.BENCHMARK_TOKEN||!same(request.headers.get('authorization')||'','Bearer '+env.BENCHMARK_TOKEN))return json({error:'Forbidden'},403);
+ const benchmarkToken=env.BENCHMARK_TOKEN_V2||env.BENCHMARK_TOKEN;
+ if(env.BENCHMARK_ONLY!=='1'||!benchmarkToken||!same(request.headers.get('authorization')||'','Bearer '+benchmarkToken))return json({error:'Forbidden'},403);
  if(request.method!=='POST')return json({error:'POST required'},405);
  const b=await request.json();
  if(path==='/bench/setup'){
