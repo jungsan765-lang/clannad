@@ -52,6 +52,9 @@ jobs:
           bash -n tools/set-fixed-region-domain.sh
           bash -n tools/install-fixed-region-live-staging.sh
           bash -n tools/install-fixed-region-test-pack.sh
+          bash -n tools/prepare-seoul-production.sh
+          bash -n tools/activate-seoul-production.sh
+          node --check tools/promote-seoul-production.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
