@@ -41,7 +41,7 @@ const config={
  compatibility_date:'2026-09-01',
  workers_dev:true,
  placement:{region:'gcp:asia-northeast3'},
- routes:[{pattern:host,custom_domain:true}],
+ routes:[{pattern:host,zone_name:'clannad.shop',custom_domain:true}],
  vars:{
   ALLOWED_ORIGIN:'https://clannad.shop',
   GAME_STATE_BACKEND:'do',
