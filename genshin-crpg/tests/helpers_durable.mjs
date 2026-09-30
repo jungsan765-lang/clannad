@@ -29,6 +29,6 @@ export function durableFixture(){
   read(){const o=get(account.id),m=o.meta();return {...m,state:JSON.stringify(joinState(o.parts()))};},
   restart(){objects.delete(account.id);return get(account.id);},
   async flush(){const o=get(account.id);handles.get(account.id).alarm=null;await o.alarm();await Promise.all(pending);},
-  seed(state){const o=get(account.id);o.runtime=null;o.sql.exec('DELETE FROM parts');for(const [p,v] of splitState(state))o.sql.exec('INSERT INTO parts VALUES(?,?)',p,v);}
+  seed(state){const o=get(account.id);o.runtime=null;o.partsCache=null;o.sql.exec('DELETE FROM parts');for(const [p,v] of splitState(state))o.sql.exec('INSERT INTO parts VALUES(?,?)',p,v);}
  };
 }
