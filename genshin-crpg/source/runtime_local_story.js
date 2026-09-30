@@ -85,6 +85,42 @@ P.storyIndex=function(){
 api.ensembleEdition={version:1,episodes:Object.keys(E).length};
 })(globalThis);
 
+/* Main story manuscript 002.01, v0.14.6. Display-text revision only.
+ * Source: the K common farewell archive. It precedes the 001.01 trial chronologically.
+ * No node, branch, condition, reward, event, travel or save contract is changed. */
+(function(root){
+'use strict';
+const api=root.CRPGRuntime,P=api.Runtime.prototype,previous=P.storyIndex;
+const ROUTE='ROUTE_ISEKAI',QUEST='Q_ISK_LIYUE_01';
+const SCENE=[{"id":"ISK_L01_K_002","speaker":"진","profile":"PROFILE_MOND_JEAN","type":"DIALOGUE","text":"잠깐. 오른쪽 끈이 돌아갔어. 아까부터 어깨를 움직이는 게 그것 때문이었군. 짐을 내려 보겠어? 그대로 걸으면 옷이 있어도 쓸릴 거야."},{"id":"R39_PROSE_ISK_L01_K_003","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","type":"DIALOGUE","text":"성문 나갈 때만이라도 좀 그럴듯하게 보이고 싶었는데요. 아직 출발도 안 했는데 들켜 버렸네요. 조금 걷다 보면 괜찮아질 줄 알았죠."},{"id":"ISK_L01_K_004","speaker":"진","profile":"PROFILE_MOND_JEAN","type":"DIALOGUE","text":"그때는 지금보다 더 아플걸. 나한테 잘 보이려고 참을 필요는 없어. 자, 이쪽을 잡아 줘. 안에 있는 천을 잠깐 꺼내도 될까?"},{"id":"ISK_L01_K_005","speaker":"이야기","profile":null,"type":"NARRATION","text":"고개를 끄덕이자 진은 가방 안에 말아 둔 천을 꺼냈다. 두께를 맞춰 접은 뒤 끈 아래에 받치고, 눌려 있던 옷자락까지 펴 주었다. 다시 짐을 메려 하자 한쪽을 받쳐 주던 손이, 어깨에 무게가 실린 것을 확인하고서야 떨어졌다.\n진은 바로 다음 말을 꺼내지 않고 몇 걸음 걸어 보라는 듯 길을 비켜섰다. 끈이 움직이지 않는 걸 보자, 그제야 가볍게 고개를 끄덕였다."},{"id":"R39_PROSE_ISK_L01_K_006","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","type":"DIALOGUE","text":"아, 훨씬 낫네요. 이 정도면 갈 만하겠어요. 명예기사라는 사람이 배웅 나오신 분한테 짐까지 고쳐 달라고 하고…… 떠나기 전부터 신세가 많네요."},{"id":"ISK_L01_K_007","speaker":"진","profile":"PROFILE_MOND_JEAN","type":"DIALOGUE","text":"그 정도로 신세를 따지면 출발하기도 전에 서로 할 말이 많아지겠어. 이제 편해졌으면 됐어. 가는 동안에도 불편하면 멈춰서 고치고. 리월에 도착하면 소식도 전해 줘. 큰일이 있어야만 편지를 보내는 건 아니니까."},{"id":"R39_PROSE_ISK_L01_K_008","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","type":"DIALOGUE","text":"그럼 이번에는 밥이 맛있었다는 얘기만 잔뜩 써도 됩니까? 어디 가서 뭘 먹었고, 길을 얼마나 헤맸고. 저도 그런 여행 한번 해 보고 싶어서요. 별일 없었다는 말로 끝나는 거요."},{"id":"ISK_L01_K_009","speaker":"진","profile":"PROFILE_MOND_JEAN","type":"DIALOGUE","text":"물론이지. 무사히 도착했다는 말이면 충분해. 길을 헤맸다면 돌아올 때는 어느 쪽으로 가면 되는지도 적어 두고. 나중에 또 떠날 때 같은 곳에서 곤란해지지 않도록."},{"id":"ISK_L01_K_010","speaker":"이야기","profile":null,"type":"NARRATION","text":"돌아올 때. 대답을 하려다 가방 안주머니 쪽으로 손이 갔다. 설산에서 보았던 작은 구슬은 이 안에 없었다. 손에 넣지도 못한 것을 찾으려 했다는 걸 깨닫고 손을 내렸다.\n드발린은 살아 돌아왔다. 그런데 그 말을 떠올리면 죽어 있던 모습도 함께 따라왔다. 다시 살아났으니 괜찮다는 말로는 그 사이가 이어지지 않았다. 분명히 보았던 죽음까지 없던 일이 되어 버리는 것 같아서, 입가에 남아 있던 웃음이 사라졌다.\n진이 부르려던 인사를 멈췄다. 그녀가 기다리고 있다는 걸 알면서도 첫마디가 쉽게 나오지 않았다."},{"id":"R39_PROSE_ISK_L01_K_011","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","type":"DIALOGUE","text":"진, 부탁 하나만 해도 될까요. 그때 드발린이 죽어 있었다는 거, 기록에 남겨 주세요. 지금 살아 있으니까 제가 잘못 봤던 거라고 정리하지는 말아 주세요. 리월에 가서도 그 일만큼은 제가 뭘 봤는지 알고 있어야 할 것 같아요."},{"id":"ISK_L01_K_012","speaker":"진","profile":"PROFILE_MOND_JEAN","type":"DIALOGUE","text":"너 혼자 본 일이 아니야. 나도 그 자리에 있었어. 드발린이 죽어 있었던 일도, 다시 살아 돌아온 일도 남길 거야. 이유를 아직 설명할 수 없다고 해서 우리가 본 것까지 바꾸지는 않아."},{"id":"R39_PROSE_ISK_L01_K_013","speaker":"{PLAYER_NAME}","profile":"PLAYER_ISEKAI","type":"DIALOGUE","text":"……고마워요. 떠나기 전에 그 말을 직접 듣고 싶었나 봐요. 거기서 뭔가 알게 되면 편지에 쓸게요. 제가 본 건지, 누구한테 들은 건지도 구분해서요. 아직은 저도 뭐라고 설명해야 할지 모르겠지만."},{"id":"ISK_L01_K_014","speaker":"진","profile":"PROFILE_MOND_JEAN","type":"DIALOGUE","text":"알겠어. 여기서도 확인할 수 있는 건 계속 알아볼게. 도움이 필요하면 내 이름을 말해도 돼. 몬드에서 함께 겪은 일을 물어 온다면 내가 답할 테니까.\n하지만 오늘은 먼 길을 떠나는 날이잖아. 도착하자마자 답부터 찾으려고 서두르지는 마. 묵을 곳부터 정하고, 식사도 하고. 네가 보내겠다고 한 그 편지, 기다릴게."},{"id":"ISK_L01_K_015","speaker":"이야기","profile":null,"type":"NARRATION","text":"진은 마지막으로 가방끈을 살핀 뒤 성문 쪽으로 돌아섰다. 기다리던 기사가 보고를 건네자 서류를 받아 들고, 첫 장을 넘기기 전에 이쪽을 한 번 더 돌아보았다. 손을 들자 그녀도 빈손을 들어 답했다.\n곧 기사의 설명에 귀를 기울이는 옆얼굴이 성문 안으로 멀어졌다. 진이 받쳐 둔 천은 걸음을 옮겨도 끈 아래에 남아 있었다. 가방을 다시 고쳐 멜 필요 없이, 리월로 향하는 길에 들어섰다."}];
+const installed=new WeakSet();
+P.storyIndex=function(){
+ const ix=previous.call(this);if(installed.has(ix))return ix;
+ const changes=[];
+ // Gather and validate the complete scope before mutating any display field.
+ for(const spec of SCENE){
+  const row=ix.nodes.get(ROUTE+':'+spec.id);
+  if(!row||row[0]!==ROUTE||row[1]!==QUEST||row[4]!==spec.id||row[5]!==spec.type)
+   throw Error('Main story 002.01 anchor mismatch: '+spec.id);
+  changes.push({row,spec,legacy:false});
+  if(spec.id.startsWith('R39_PROSE_')){
+   const legacy=ix.nodes.get(ROUTE+':'+spec.id.slice(10));
+   if(legacy){
+    if(legacy[0]!==ROUTE||legacy[1]!==QUEST||legacy[5]!=='CHOICE')
+     throw Error('Main story 002.01 legacy cursor mismatch: '+spec.id);
+    changes.push({row:legacy,spec,legacy:true});
+   }
+  }
+ }
+ for(const {row,spec,legacy}of changes){
+  if(legacy){row[10]=spec.text;if(row[9])row[9]=spec.text;}
+  else {row[9]=spec.text;if(spec.type==='NARRATION')row[7]='이야기';}
+ }
+ installed.add(ix);return ix;
+};
+api.mainStoryEntryRevision='002.01';
+})(globalThis);
+
 /* Main story manuscript 001.01, v0.14.6. Fictional adaptation, not official dialogue.
  * Text is isolated from node metadata. No rewards, flags, save layout or network rules change.
  * The original 001.02 exit and all older cursor IDs remain addressable. */
