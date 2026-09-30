@@ -9,7 +9,7 @@ import {fixture} from './benchmark-fixtures.mjs';
 import {splitState, joinState, diffParts, publicParts, wirePatch, intent} from './state-parts.mjs';
 import {diagnosticHtml} from './fixed-region-diagnostic-page.mjs';
 
-const TRANSPORT_BUILD='fixed-region-node-sqlite-v2';
+const TRANSPORT_BUILD='fixed-region-node-sqlite-v3-warm-runtime';
 const ACCOUNT={id:'00000000-0000-4000-8000-000000000001',username:'synthetic',display_name:'성능시험용'};
 const ENV={ADMIN_ACCOUNT_IDS:''};
 const MAX_BODY=65536;
