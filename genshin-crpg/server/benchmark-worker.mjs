@@ -5,7 +5,6 @@ import {fixture} from './benchmark-fixtures.mjs';
 import {R,DB,ENGINE_FINGERPRINT,SERVER_BUILD} from './generated/engine.mjs';
 import {splitState,diffParts,compress} from './state-parts.mjs';
 import {hash,token,same,json} from './game-core.mjs';
-const BENCHMARK_TOKEN='crpg-do30-seoul-v2-20260930';
 export class GameAccount extends ProductionAccount {
  constructor(ctx,env){
   super(ctx,env);this.observedSqlRows=0;const sql=this.sql;
@@ -42,13 +41,13 @@ export class GameAccount extends ProductionAccount {
 export default {async fetch(request,env,ctx){
  const path=new URL(request.url).pathname;
  if(!path.startsWith('/bench/'))return production.fetch(request,env,ctx);
- const customToken=request.headers.get('x-crpg-benchmark-token')||'',auth=request.headers.get('authorization')||'',supplied=customToken||(auth.startsWith('Bearer ')?auth.slice(7):'');
- if(env.BENCHMARK_ONLY!=='1'||!BENCHMARK_TOKEN||!same(supplied,BENCHMARK_TOKEN))return json({error:'Forbidden',code:'BENCH_AUTH',diagnostic:{benchmarkOnly:env.BENCHMARK_ONLY||null,compiledTokenLength:BENCHMARK_TOKEN.length,suppliedLength:supplied.length,customHeaderLength:customToken.length,authorizationLength:auth.length}},403);
+ const customToken=request.headers.get('x-crpg-benchmark-token')||'',auth=request.headers.get('authorization')||'',bearer=auth.startsWith('Bearer ')?auth.slice(7):'';
+ if(env.BENCHMARK_ONLY!=='1'||!customToken||!bearer||!same(customToken,bearer))return json({error:'Forbidden',code:'BENCH_AUTH',diagnostic:{benchmarkOnly:env.BENCHMARK_ONLY||null,customHeaderLength:customToken.length,bearerLength:bearer.length,headersMatch:!!customToken&&!!bearer&&same(customToken,bearer)}},403);
  if(request.method!=='POST')return json({error:'POST required'},405);
  const b=await request.json();
  if(path==='/bench/setup'){
   // Same daily account across ZIP copies and secret rotations: retrying cannot create a fresh allowance.
-  const h=await hash('crpg-latency-test:'+new Date().toISOString().slice(0,10)),id=[h.slice(0,8),h.slice(8,12),h.slice(12,16),h.slice(16,20),h.slice(20,32)].join('-');
+  const h=await hash('crpg-latency-seoul-v2:'+new Date().toISOString().slice(0,10)),id=[h.slice(0,8),h.slice(8,12),h.slice(12,16),h.slice(16,20),h.slice(20,32)].join('-');
   const guard=await env.GAME_ACCOUNTS.get(env.GAME_ACCOUNTS.idFromName(id),{locationHint:env.DO_LOCATION_HINT||'apac-ne'}).fetch('https://internal/benchmark-start',{method:'POST',body:'{}'});if(!guard.ok)return guard;
   const secret=token(),th=await hash(secret),a={id,username:'perf_'+id.slice(0,18),display_name:'성능시험용',salt:token(),password_hash:token(),created_at:Date.now()};
   await env.DB.prepare('INSERT INTO accounts VALUES(?,?,?,?,?,?)').bind(a.id,a.username,a.display_name,a.salt,a.password_hash,a.created_at).run();await env.DB.prepare('INSERT INTO sessions VALUES(?,?,?)').bind(th,id,Date.now()+3600000).run();await enrollSession(env,a,th,Date.now()+3600000);
