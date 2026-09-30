@@ -34,6 +34,9 @@ $DOMAIN {
     }
 
     # Preserve the historical GitHub Pages game URL and all relative assets.
+    @legacyFresh path /genshin-crpg/dist/ /genshin-crpg/dist/index.html /genshin-crpg/dist/online_config.js /genshin-crpg/dist/release.json
+    header @legacyFresh Cache-Control "no-store"
+
     handle /genshin-crpg/dist {
         redir /genshin-crpg/dist/ 302
     }
