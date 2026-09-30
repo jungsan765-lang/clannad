@@ -25,21 +25,18 @@ $API_DOMAIN {
 
 $TEST_DOMAIN {
     encode zstd gzip
+    header X-Robots-Tag "noindex, nofollow, noarchive"
 
     handle_path /api/* {
         reverse_proxy 127.0.0.1:8789
     }
 
-    handle /online_config.js {
-        header Content-Type "application/javascript; charset=utf-8"
-        respond "window.CRPG_ONLINE_CONFIG={apiBase:'https://$TEST_DOMAIN/api',environment:'seoul-test'};"
-    }
+    @fresh path / /index.html /online_config.js /release.json /test-source-sha.txt
+    header @fresh Cache-Control "no-store"
 
     handle {
-        rewrite * /genshin-crpg/dist{uri}
-        reverse_proxy https://clannad.shop {
-            header_up Host clannad.shop
-        }
+        root * /var/www/genshin-crpg-test/current
+        file_server
     }
 }
 EOF
