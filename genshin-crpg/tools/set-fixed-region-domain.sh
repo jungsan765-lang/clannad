@@ -1,46 +1,50 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-DOMAIN="${1:-}"
+API_DOMAIN="${1:-api-staging.clannad.shop}"
+TEST_DOMAIN="${2:-test.clannad.shop}"
 if [[ "${EUID}" -ne 0 ]]; then
   echo "Run with sudo." >&2
   exit 1
 fi
-if [[ ! "$DOMAIN" =~ ^[A-Za-z0-9.-]+$ ]]; then
-  echo "Usage: sudo bash tools/set-fixed-region-domain.sh api-staging.example.com" >&2
+if [[ ! "$API_DOMAIN" =~ ^[A-Za-z0-9.-]+$ || ! "$TEST_DOMAIN" =~ ^[A-Za-z0-9.-]+$ ]]; then
+  echo "Usage: sudo bash tools/set-fixed-region-domain.sh api-staging.example.com test.example.com" >&2
   exit 1
 fi
 
 cat >/etc/caddy/Caddyfile <<EOF
-$DOMAIN {
+$API_DOMAIN {
     encode zstd gzip
     handle_path /live/* {
         reverse_proxy 127.0.0.1:8789
     }
-    handle /play/online_config.js {
+    handle {
+        reverse_proxy 127.0.0.1:8788
+    }
+}
+
+$TEST_DOMAIN {
+    encode zstd gzip
+
+    handle_path /api/* {
+        reverse_proxy 127.0.0.1:8789
+    }
+
+    handle /online_config.js {
         header Content-Type "application/javascript; charset=utf-8"
-        respond "window.CRPG_ONLINE_CONFIG={apiBase:'https://$DOMAIN/live',environment:'seoul-staging'};"
+        respond "window.CRPG_ONLINE_CONFIG={apiBase:'https://$TEST_DOMAIN/api',environment:'seoul-test'};"
     }
-    handle /play {
-        redir /play/ 302
-    }
-    handle_path /play/* {
+
+    handle {
         rewrite * /genshin-crpg/dist{uri}
         reverse_proxy https://clannad.shop {
             header_up Host clannad.shop
         }
-    }
-    handle /genshin-crpg/* {
-        reverse_proxy https://clannad.shop {
-            header_up Host clannad.shop
-        }
-    }
-    handle {
-        reverse_proxy 127.0.0.1:8788
     }
 }
 EOF
 
 caddy validate --config /etc/caddy/Caddyfile
 systemctl reload caddy
-echo "Caddy serves synthetic staging at https://$DOMAIN and account staging under /live/."
+echo "API staging: https://$API_DOMAIN"
+echo "Dedicated test environment: https://$TEST_DOMAIN"
