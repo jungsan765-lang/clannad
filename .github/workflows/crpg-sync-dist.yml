@@ -139,8 +139,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TEST_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          gh release delete crpg-test-latest --repo "${{ github.repository }}" --cleanup-tag --yes || true
-          gh release create crpg-test-latest             crpg-test-pack.tar.gz crpg-test-sha.txt             --repo "${{ github.repository }}"             --target "$TEST_SHA"             --title "CRPG Seoul test latest"             --notes "Automated test-only artifact for $TEST_SHA. Not production."             --prerelease
+          if ! gh release view crpg-test-latest --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            gh release create crpg-test-latest --repo "${{ github.repository }}" --target "$TEST_SHA" --title "CRPG Seoul test latest" --notes "Automated test-only artifact. Not production." --prerelease
+          fi
+          gh release upload crpg-test-latest crpg-test-pack.tar.gz crpg-test-sha.txt --repo "${{ github.repository }}" --clobber
+          gh release edit crpg-test-latest --repo "${{ github.repository }}" --title "CRPG Seoul test latest" --notes "Automated test-only artifact for $TEST_SHA. Not production."
 
 
   pages:
