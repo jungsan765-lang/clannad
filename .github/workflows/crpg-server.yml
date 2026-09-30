@@ -45,9 +45,19 @@ jobs:
           node tests/test_durable_migration.mjs
           CRPG_TEST_BACKEND=do node tests/test_authoritative_flow.mjs
           node tests/test_workerd_durable.mjs
+      - name: Package paid-plan latency ZIP
+        if: success()
+        working-directory: genshin-crpg
+        run: python tools/package-server-test.py crpg-server-test-do30-paid.zip
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: crpg-server-evidence-${{ github.sha }}
           path: genshin-crpg/evidence/durable
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: crpg-server-test-do30-paid
+          path: genshin-crpg/crpg-server-test-do30-paid.zip
           retention-days: 14
