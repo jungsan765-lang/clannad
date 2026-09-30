@@ -5,7 +5,7 @@ import {fixture} from './benchmark-fixtures.mjs';
 import {R,DB,ENGINE_FINGERPRINT,SERVER_BUILD} from './generated/engine.mjs';
 import {splitState,diffParts,compress} from './state-parts.mjs';
 import {hash,token,same,json} from './game-core.mjs';
-import {BENCHMARK_TOKEN} from './generated/benchmark-auth.mjs';
+const BENCHMARK_TOKEN='crpg-do30-seoul-v2-20260930';
 export class GameAccount extends ProductionAccount {
  constructor(ctx,env){
   super(ctx,env);this.observedSqlRows=0;const sql=this.sql;
