@@ -51,6 +51,7 @@ jobs:
           bash -n tools/fixed-region-autodeploy.sh
           bash -n tools/set-fixed-region-domain.sh
           bash -n tools/install-fixed-region-live-staging.sh
+          bash -n tools/install-fixed-region-test-pack.sh
       - uses: actions/upload-artifact@v4
         if: always()
         with:
