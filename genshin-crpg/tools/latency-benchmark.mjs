@@ -6,7 +6,7 @@ export async function benchmark({base,secret,fetcher=fetch,samples=30,environmen
  const invoke=async(path,body,auth=secret)=>{
   const start=performance.now(),res=await fetcher(base+path,{method:'POST',headers:{'content-type':'application/json','x-crpg-benchmark-token':auth,authorization:'Bearer '+auth},body:JSON.stringify(body),signal:AbortSignal.timeout(30000)});
   const raw=await res.text();let out;try{out=JSON.parse(raw);}catch{throw Error(path+': HTTP '+res.status+' (non-JSON response; stopped without retry)');}
-  if(!res.ok){const e=Error(path+': HTTP '+res.status+' '+(out.code||out.error||'request failed'));e.code=out.code||'HTTP_'+res.status;throw e;}
+  if(!res.ok){const e=Error(path+': HTTP '+res.status+' '+(out.code||out.error||'request failed'));e.code=out.code||'HTTP_'+res.status;e.diagnostic={stage:out.stage||null,detail:out.detail||null,diagnostic:out.diagnostic||null};throw e;}
   const header=res.headers.get('X-Benchmark-SQL-Rows-Written'),sqlRows=header===null?null:Number(header);
   return {out,ms:performance.now()-start,bytes:Number(res.headers.get('X-CRPG-Response-Bytes'))||null,sqlRows};
  };
@@ -34,5 +34,5 @@ export async function benchmark({base,secret,fetcher=fetch,samples=30,environmen
    const sorted=scenario.rows.map(x=>x.ms).sort((a,b)=>a-b);Object.assign(scenario,{bytes:scenario.rows[0].bytes,p50:sorted[5],p95:sorted[9]});
   }
   report.status='complete';report.koreanGatePassed=environment==='remote'&&report.clientCountry==='KR'&&samples===30&&report.actions.every(x=>x.summary.p50<=150&&x.summary.p95<=300);await progress();return report;
- }catch(e){report.status='failed';report.koreanGatePassed=false;report.failure={code:e.code||'BENCHMARK_FAILED',message:e.message};await progress();e.partialReport=report;throw e;}
+ }catch(e){report.status='failed';report.koreanGatePassed=false;report.failure={code:e.code||'BENCHMARK_FAILED',message:e.message,...(e.diagnostic?{diagnostic:e.diagnostic}:{})};await progress();e.partialReport=report;throw e;}
 }
