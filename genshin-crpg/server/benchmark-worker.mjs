@@ -34,7 +34,7 @@ export class GameAccount extends ProductionAccount {
     for(const table of tables)this.sql.exec('DELETE FROM '+table);
     this.sql.exec("UPDATE metadata SET revision=0,ranked=0,last_request_id='BENCHMARK',updated_at=? WHERE id=1",Date.now());
    });
-   if(await this.ctx.storage.getAlarm()!==null)await this.ctx.storage.deleteAlarm();await this.ctx.storage.sync();this.runtime={revision:0,r};return json({action:f.action,revision:0,engineVersion:ENGINE_FINGERPRINT,stateBytes:new TextEncoder().encode(JSON.stringify(r.s)).length,reservedRows:budget.reserved_rows+reserve});
+   if(await this.ctx.storage.getAlarm()!==null)await this.ctx.storage.deleteAlarm();await this.ctx.storage.sync();this.partsCache=parts;this.runtime={revision:0,r};return json({action:f.action,revision:0,engineVersion:ENGINE_FINGERPRINT,stateBytes:new TextEncoder().encode(JSON.stringify(r.s)).length,reservedRows:budget.reserved_rows+reserve});
   }));
  }
 }
