@@ -37,7 +37,7 @@ for(let i=0;i<45;i++){
  }catch(e){lastPreflight=String(e?.message||e);}
  await sleep(1000);
 }
-if(!ready)throw Error('시험 서버 사전검사 실패: '+lastPreflight);
+if(!ready){writeFileSync(resolve(root,'latency-partial.json'),JSON.stringify({createdAt:new Date().toISOString(),status:'failed',environment:'remote',phase:'preflight',failure:{code:'BENCH_PREFLIGHT',message:lastPreflight}},null,2));throw Error('시험 서버 사전검사 실패: '+lastPreflight);}
 console.log('사전검사 통과: '+JSON.stringify({serverBuild:ready.serverBuild,clientCountry:ready.clientCountry,edgeColo:ready.edgeColo,d1Ok:ready.d1Ok,doOk:ready.doOk}));
 console.log('한국 접속 환경에서 이동·전투를 측정합니다. 창을 닫지 마세요.');
 writeFileSync(attemptPath,JSON.stringify({startedAt:new Date().toISOString(),worker:name,preflight:ready}),{flag:'wx'});
