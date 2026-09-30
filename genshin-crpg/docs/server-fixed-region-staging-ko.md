@@ -9,8 +9,8 @@
 ### iwinv KR1 — 1차 선택
 
 - 위치: Region1 (KR1), IDC SMILE 가산 센터.
-- General Purpose `vgna_1_n`: 1 vCPU, RAM 1 GB, NVMe 25 GB, 월 620 GB, 월 5,600원 + VAT.
-- VM당 공인 IP 1개 제공.
+- General Purpose `vgna_1_n`: 1 vCPU, RAM 1 GB, NVMe 25 GB, 월 600 GB, 월 5,600원 + VAT.
+- 공인 IP, 방화벽, 이미지(스냅샷) 기능을 제공한다.
 - 개인/법인 명의 신용카드·체크카드 등록 가능.
 - Ubuntu 클라우드 이미지 제공. 2026-05에는 Ubuntu 26.04 LTS 이미지도 추가됨.
 - staging 권장 OS: Ubuntu 24.04 LTS. 최신성보다 운영 도구 호환성과 안정성을 우선한다.
