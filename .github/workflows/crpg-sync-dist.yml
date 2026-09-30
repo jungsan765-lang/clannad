@@ -131,6 +131,22 @@ jobs:
             if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mark,{once:true});else mark();
           })();
           EOF
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('verified-pack')
+          pack=json.loads((root/'offline-pack.json').read_text())
+          target=root/'online_config.js'
+          data=target.read_bytes()
+          for entry in pack['files']:
+              if entry['path']=='online_config.js':
+                  entry['sha256']=hashlib.sha256(data).hexdigest()
+                  entry['bytes']=len(data)
+                  break
+          else:
+              raise SystemExit('online_config.js missing from offline-pack.json')
+          (root/'offline-pack.json').write_text(json.dumps(pack,ensure_ascii=False))
+          PY
           printf '%s\n' "$TEST_SHA" >verified-pack/test-source-sha.txt
           tar -C verified-pack -czf crpg-test-pack.tar.gz .
           printf '%s\n' "$TEST_SHA" >crpg-test-sha.txt
