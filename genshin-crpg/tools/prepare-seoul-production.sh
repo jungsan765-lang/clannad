@@ -61,6 +61,7 @@ PORT=8790
 EOF
 chown root:crpg-staging "$PROD_ENV"
 chmod 0640 "$PROD_ENV"
+umask 022
 
 mkdir -p "$PROD_ROOT"
 TMP="$PROD_ROOT/.current.tmp"
@@ -83,6 +84,9 @@ fs.writeFileSync(packPath,JSON.stringify(pack));
 NODE
 rm -rf "$PROD_ROOT/current"
 mv "$TMP" "$PROD_ROOT/current"
+chmod 0755 "$PROD_ROOT" "$PROD_ROOT/current"
+find "$PROD_ROOT/current" -type d -exec chmod 0755 {} +
+find "$PROD_ROOT/current" -type f -exec chmod 0644 {} +
 
 cat >/etc/systemd/system/$SERVICE <<EOF
 [Unit]
