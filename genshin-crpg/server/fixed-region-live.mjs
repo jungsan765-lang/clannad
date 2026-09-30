@@ -92,7 +92,7 @@ export class LiveRegionStore{
 }
 
 export function createLiveRegionHandler({store,allowedOrigin='https://clannad.shop'}){
- return async(req,res)=>{const origin=req.headers.origin||'';if(origin&&origin!==allowedOrigin)return send(res,403,{error:'허용되지 않은 접속 경로입니다.'},{vary:'Origin'});const c=cors(origin,allowedOrigin);
+ return async(req,res)=>{const origin=req.headers.origin||'',host=req.headers.host||'',sameOrigin=!!origin&&!!host&&(origin===`https://${host}`||origin===`http://${host}`);if(origin&&origin!==allowedOrigin&&!sameOrigin)return send(res,403,{error:'허용되지 않은 접속 경로입니다.'},{vary:'Origin'});const c=cors(origin,sameOrigin?origin:allowedOrigin);
   if(req.method==='OPTIONS'){res.writeHead(204,{...c,'access-control-allow-methods':'GET,POST,OPTIONS','access-control-allow-headers':'Content-Type,Authorization','access-control-max-age':'86400'});return res.end();}
   const path=new URL(req.url,'http://fixed-region-live.local').pathname;
   try{
