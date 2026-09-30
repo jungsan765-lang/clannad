@@ -5,6 +5,7 @@ import {resolve} from 'node:path';
 import {randomBytes} from 'node:crypto';
 import {benchmark} from './latency-benchmark.mjs';
 import {checkBenchmarkWindow} from './benchmark-safety.mjs';
+const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function main(){
 const day=checkBenchmarkWindow();
 if(process.argv.includes('--check-only'))return;
@@ -25,8 +26,21 @@ const config={name,main:'../../server/benchmark-worker.mjs',compatibility_date:'
 const schema=readFileSync(resolve(root,'server/schema.sql'),'utf8')+'\n'+readFileSync(resolve(root,'server/migrations/0001-durable-ownership.sql'),'utf8')+'\nCREATE TABLE IF NOT EXISTS benchmark_payloads(id INTEGER PRIMARY KEY,payload BLOB);';const schemaPath=resolve(dir,'schema.sql');writeFileSync(schemaPath,schema);
 run(['d1','execute',name,'--remote','--config',configPath,'--file',schemaPath,'--yes']);
 const deployed=run(['deploy','--config',configPath],{capture:true});const urls=deployed.match(/https:\/\/[a-zA-Z0-9.-]+\.workers\.dev/g),base=urls?.at(-1);if(!base)throw Error('시험 서버 주소를 확인하지 못했습니다.');
+console.log('시험 서버 사전검사를 진행합니다.');
+let ready=null,lastPreflight='';
+for(let i=0;i<45;i++){
+ try{
+  const res=await fetch(base+'/bench/preflight',{method:'POST',headers:{'content-type':'application/json','x-crpg-benchmark-token':secret,authorization:'Bearer '+secret},body:'{}',signal:AbortSignal.timeout(5000)});
+  const raw=await res.text();lastPreflight='HTTP '+res.status+' '+raw.slice(0,500);
+  let out=null;try{out=JSON.parse(raw);}catch{}
+  if(res.ok&&out?.ok&&out?.benchmarkRevision==='seoul-preflight-v1'&&out?.d1Ok&&out?.doOk){ready=out;break;}
+ }catch(e){lastPreflight=String(e?.message||e);}
+ await sleep(1000);
+}
+if(!ready)throw Error('시험 서버 사전검사 실패: '+lastPreflight);
+console.log('사전검사 통과: '+JSON.stringify({serverBuild:ready.serverBuild,clientCountry:ready.clientCountry,edgeColo:ready.edgeColo,d1Ok:ready.d1Ok,doOk:ready.doOk}));
 console.log('한국 접속 환경에서 이동·전투를 측정합니다. 창을 닫지 마세요.');
-writeFileSync(attemptPath,JSON.stringify({startedAt:new Date().toISOString(),worker:name}),{flag:'wx'});
+writeFileSync(attemptPath,JSON.stringify({startedAt:new Date().toISOString(),worker:name,preflight:ready}),{flag:'wx'});
 const partialPath=resolve(root,'latency-partial.json');
 const report=await benchmark({base,secret,onProgress:report=>writeFileSync(partialPath,JSON.stringify(report,null,2))});
 const out=resolve(root,'latency-result.json');writeFileSync(out,JSON.stringify(report,null,2));console.log('완료: '+out);console.log(report.koreanGatePassed?'한국 실측 목표 통과. 이 결과 파일을 전달해 주세요.':'아직 운영 반영하지 마세요. 결과 파일을 전달해 주세요.');
