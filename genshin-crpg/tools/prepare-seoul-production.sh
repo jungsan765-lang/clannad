@@ -44,7 +44,10 @@ if [[ -z "${PASSWORD_PEPPER:-}" ]]; then
   exit 6
 fi
 
-rm -f "$PROD_DB" "$PROD_DB-wal" "$PROD_DB-shm"
+if [[ -e "$PROD_DB" || -e "$PROD_DB-wal" || -e "$PROD_DB-shm" ]]; then
+  echo "Production DB already exists; refusing to overwrite." >&2
+  exit 7
+fi
 node "$PROJECT_DIR/tools/promote-seoul-production.mjs" "$SNAPSHOT" "$TEST_DB" "$PROD_DB"
 
 umask 077
