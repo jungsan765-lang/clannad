@@ -51,3 +51,13 @@ jobs:
           name: crpg-server-evidence-${{ github.sha }}
           path: genshin-crpg/evidence/durable
           retention-days: 14
+      - name: Package guarded production DO trial
+        if: success()
+        working-directory: genshin-crpg
+        run: python tools/package-production-trial.py crpg-production-do-trial.zip
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: crpg-production-do-trial
+          path: genshin-crpg/crpg-production-do-trial.zip
+          retention-days: 14
