@@ -53,7 +53,7 @@ function tilesAndDetail(cls,key,items,label){
   if(user)window.CRPGSound?.play?.('tab');
  };
  for(const x of items){
-  const tile=mk('button','shell-forge-tile tier-'+x.rank+(x.ready?'':' unready'));tile.type='button';tile.dataset.pick=x.id;tile.setAttribute('role','option');tile.title=x.title||x.name;
+  const tile=mk('button','shell-forge-tile tier-'+x.rank+(x.ready?'':' unready'));if(x.enh&&typeof enhanceFrameClass==='function'){const f=enhanceFrameClass(x.enh);if(f)tile.classList.add('enh',f);}tile.type='button';tile.dataset.pick=x.id;tile.setAttribute('role','option');tile.title=x.title||x.name;
   const art=mk('span','shell-forge-tile-art');if(x.glyph)art.append(x.glyph.cloneNode(true));art.append(mk('span','shell-forge-tile-stars','★'.repeat(x.rank)));
   if(x.badge)art.append(mk('span','shell-forge-tile-badge',x.badge));if(x.ready)art.append(mk('span','shell-forge-ready'));
   tile.append(art,mk('span','shell-forge-tile-name',x.name));tile.onclick=()=>show(x.id,true);list.append(tile);
@@ -86,7 +86,7 @@ function gear(root){
  const rows=$$(':scope > .forge-row',list);if(!rows.length)return null;
  const items=rows.map(row=>{const id=row.dataset.enhanceSlot,strong=row.querySelector('.forge-copy strong'),rank=Number((strong?.className.match(/tier-(\d)/)||[])[1])||1,title=strong?.textContent||'';
   const level=(title.match(/\+(\d+)$/)||[])[1],actions=row.querySelector('.forge-actions'),ready=!!actions&&[...actions.children].some(b=>!b.disabled);
-  return {id,rank,ready,name:title.replace(/\s*\+\d+$/,''),badge:level?'+'+level:'',title,glyph:row.querySelector(':scope > .item-glyph, :scope > .item-icon, :scope > img'),
+  return {id,rank,ready,enh:level,name:title.replace(/\s*\+\d+$/,''),badge:level?'+'+level:'',title,glyph:row.querySelector(':scope > .item-glyph, :scope > .item-icon, :scope > img'),
    detail:()=>{const copy=row.querySelector('.forge-copy');copy?.classList.add('shell-forge-copy');return [heroBox(rank,row.querySelector(':scope > .item-glyph, :scope > .item-icon, :scope > img'),row.classList.contains('worn')?'장착 중':'보관 중',title),copy].filter(Boolean);},
    actions:()=>actions?[...actions.children]:[]};});
  const wrap=tilesAndDetail('gear','gear',items,'강화할 장비');list.replaceWith(wrap);return wrap;

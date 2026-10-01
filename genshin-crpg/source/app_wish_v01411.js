@@ -185,6 +185,10 @@ function play(results){
 function reveal(stage,r,next){
  const card=mk('div','wish-reveal rarity-'+r.rarity+' kind-'+r.kind),el=r.kind==='char'?elementOf(r.id):null;
  const bg=wishBg(r.kind==='char'?(EL[el]||'default'):'weapon');if(bg)card.style.setProperty('--wish-bg','url("'+bg+'")');
+ // Centre the art on the circle of the original background (centre 607,256 and radius 205 on its 1024×512 picture),
+ // wherever the screen's shape puts it under background-size:cover. Tall screens use the CSS layout instead.
+ const box=stage.getBoundingClientRect();
+ if(box.width>box.height){const s=Math.max(box.width/1024,box.height/512);card.style.setProperty('--cx',Math.round((box.width-1024*s)/2+607*s)+'px');card.style.setProperty('--cy',Math.round((box.height-512*s)/2+256*s)+'px');card.style.setProperty('--cr',Math.round(205*s)+'px');}
  card.append(mk('div','wish-reveal-burst'),mk('div','wish-reveal-rays'));
  if(r.kind==='char'){const a=artOf(r.id);if(a){const frame=mk('div','wish-reveal-art'),i=mk('img','');i.src=a;i.alt='';frame.append(i,mk('span','wish-reveal-sheen'));card.append(frame);}}
  else{const p=weaponIcon(r.id);if(p){const frame=mk('div','wish-reveal-weapon'),i=mk('img','');i.src=p;i.alt='';frame.append(i);card.append(frame);}}

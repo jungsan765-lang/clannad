@@ -94,6 +94,12 @@ P.storyIndex=function(){
  }
  for(const a of ix.affections.values())if(a.id.startsWith('AFF_ISK_MOND_DILUC_H0')){a.REQUIRED_FLAGS=JSON.stringify(['FLAG_ISK_RECRUIT_DILUC','FLAG_LEG_ISK_MOND_DILUC_CLEAR']);a.NOTE=String(a.NOTE||'').replace(/2AB[^.;]*/g,'일반 획득 또는 이야기 합류 이후');}
  for(const row of ix.byTable['57_MOND_STORY_SCENE_DB'])if(String(row[4]).startsWith('AFF_ISK_MOND_DILUC_H0')&&row[11])row[11]=String(row[11]).replace(/FLAG_ISK_MOND_BRANCH=EXPEDITION\s*&&\s*/g,'').replace(/FLAG_ISK_EXPEDITION_FORK=RETURN\s*&&\s*/g,'').replace(/FLAG\(FLAG_ISK_DILUC_LEGEND_FREE\)=TRUE\s*&&\s*/g,'').replace(/FLAG_ISK_DILUC_LEGEND_FREE=TRUE\s*&&\s*/g,'');
+ // 0.14.12 (user): the Traveler route's Mond chapter 2 no longer hands Diluc over. He still comes along for that one
+ // investigation, but only his own personal mission makes him a companion (a 5★, so it asks a lot). Saves where he
+ // already joined keep him.
+ const join=ix.nodes.get('ROUTE_TRAVELER:TRV_M02_N234'),accept=ix.nodes.get('ROUTE_TRAVELER:TRV_M02_JOIN_DILUC_ACCEPT');
+ if(join){join[5]='NARRATION';join[9]='다이루크가 이번 조사에 동행한다. 정식으로 함께하려면 천사의 몫에서 그의 개인 임무를 따로 마쳐야 한다.';join[12]='';}
+ if(accept)accept[12]='';
  Object.defineProperty(ix,'liyueRecruitmentStageVersion',{value:2});return ix;
 };
 P.legendEffectiveCost=function(d){

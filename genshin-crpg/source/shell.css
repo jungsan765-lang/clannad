@@ -365,17 +365,32 @@ body.teyvat .bag-cols .shell-col-main{overflow:hidden;display:flex}
 body.teyvat .bag-cols .bag-layout{flex:1;min-height:0;height:100%;grid-template-columns:minmax(0,1fr) minmax(250px,300px);align-items:stretch}
 body.teyvat .bag-cols .bag-grid{overflow:auto;min-height:0;align-content:start;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;padding:2px 6px 10px 2px}
 body.teyvat .bag-cols .bag-detail{position:static;overflow:auto;min-height:0;max-height:100%;background:linear-gradient(180deg,rgba(236,229,216,.07),rgba(236,229,216,.03));border-color:var(--t-line)}
-body.teyvat .bag-item{display:flex;flex-direction:column;align-items:stretch;padding:0;gap:0;border-radius:8px;overflow:hidden;border:1px solid transparent;background:var(--t-cream);color:var(--t-ink);min-height:0;position:relative;text-align:center}
-body.teyvat .bag-item .item-icon{width:100%;aspect-ratio:1/1;height:auto;object-fit:contain;padding:10%;box-sizing:border-box;background:linear-gradient(160deg,#5d6270,#8c909b);border-radius:0 0 22px 0}
-body.teyvat .bag-item.tier-2 .item-icon{background:linear-gradient(160deg,#3f6b52,#6c9f80)}
-body.teyvat .bag-item.tier-3 .item-icon{background:linear-gradient(160deg,#415f98,#6f94cf)}
-body.teyvat .bag-item.tier-4 .item-icon{background:linear-gradient(160deg,#5d4c93,#9a7fd0)}
-body.teyvat .bag-item.tier-5 .item-icon{background:linear-gradient(160deg,#9a6230,#d7a458)}
-body.teyvat .bag-item .item-count{display:block;font-size:.78rem;line-height:1.5;color:var(--t-ink);font-weight:700;padding:1px 4px}
-body.teyvat .bag-item .item-name{display:block;font-size:.66rem;line-height:1.35;padding:0 4px 4px;color:var(--t-ink-2)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-body.teyvat .bag-item .item-worn{position:absolute;top:4px;left:4px;font-size:.62rem;padding:0 6px;border-radius:8px;background:rgba(20,24,36,.8);color:var(--t-cream)}
-body.teyvat .bag-item:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 0 0 2px rgba(255,255,255,.85),0 6px 18px rgba(0,0,0,.4);background:#fff}
-body.teyvat .bag-item.selected,body.teyvat .bag-item[aria-pressed=true],body.teyvat .bag-cell.selected .bag-item{box-shadow:0 0 0 3px var(--t-gold-hi),0 0 18px rgba(243,223,174,.5)}
+/* 0.14.12: bag tiles read like the forge tiles (user: 「제작처럼」, then 「가방 디자인이 별로」): a square of the item's grade
+   colour with the icon, the count as a badge, and the name on the cream strip below. */
+body.teyvat .bag-item{position:relative;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:0;gap:0;min-height:0;aspect-ratio:auto;border-radius:10px;overflow:hidden;border:2px solid transparent;background:#ece5d8;color:#3b4252;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+body.teyvat .bag-item .item-icon,body.teyvat .bag-item .item-glyph{display:grid;place-items:center;width:100%;aspect-ratio:1/1;height:auto;object-fit:contain;padding:14%;box-sizing:border-box;background:var(--rar-1);border-radius:0 0 18px 0;font-size:2rem;color:#fff}
+body.teyvat .bag-item.tier-2 .item-icon,body.teyvat .bag-item.tier-2 .item-glyph{background:var(--rar-2)}
+body.teyvat .bag-item.tier-3 .item-icon,body.teyvat .bag-item.tier-3 .item-glyph{background:var(--rar-3)}
+body.teyvat .bag-item.tier-4 .item-icon,body.teyvat .bag-item.tier-4 .item-glyph{background:var(--rar-4)}
+body.teyvat .bag-item.tier-5 .item-icon,body.teyvat .bag-item.tier-5 .item-glyph{background:var(--rar-5)}
+body.teyvat .bag-item .item-count{position:absolute;top:4px;right:5px;padding:0 6px;border-radius:8px;font-size:.68rem;line-height:1.5;font-weight:800;background:rgba(8,10,16,.72);color:#f3dfae}
+body.teyvat .bag-item .item-name{display:block;padding:5px 6px 6px;font-size:.72rem;font-weight:700;line-height:1.25;color:#3b4252!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.teyvat .bag-item .item-worn{position:absolute;top:4px;left:4px;font-size:.62rem;padding:0 6px;border-radius:8px;background:rgba(20,24,36,.8);color:#ece5d8}
+body.teyvat .bag-item:hover:not(:disabled){transform:none;border-color:rgba(243,223,174,.85);background:#ece5d8;box-shadow:0 0 0 1px rgba(243,223,174,.5),0 6px 16px rgba(0,0,0,.4)}
+body.teyvat .bag-item.selected,body.teyvat .bag-item[aria-pressed=true],body.teyvat .bag-cell.selected .bag-item{border-color:#f3dfae;box-shadow:0 0 0 2px rgba(243,223,174,.75),0 0 18px rgba(243,223,174,.35)}
+/* 0.14.12: equipment frames by enhancement on the bag, forge and character-gear tiles (user: 「강화수치가 높을수록 테두리,
+   운명의 자리처럼 간지나게는 말고, 10강부터 조금 간지」). An empty overlay on top of the tile: +3 a silver hairline, +6 gold,
+   +9 a double gold line, +10/+11 gold corner brackets with a soft inner glow, +12 the same with a slow shine. */
+body.teyvat :is(.bag-item,.gear-slot,.shell-forge-tile).enh{position:relative}
+body.teyvat :is(.bag-item,.gear-slot,.shell-forge-tile).enh::after{content:'';position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none}
+body.teyvat :is(.bag-item,.gear-slot,.shell-forge-tile).enh-3::after{box-shadow:inset 0 0 0 1.5px rgba(214,222,234,.95)}
+body.teyvat :is(.bag-item,.gear-slot,.shell-forge-tile).enh-6::after{box-shadow:inset 0 0 0 1.5px rgba(232,196,118,.95)}
+body.teyvat :is(.bag-item,.gear-slot,.shell-forge-tile).enh-9::after{box-shadow:inset 0 0 0 1.5px rgba(238,202,124,1),inset 0 0 0 3.5px rgba(238,202,124,.28)}
+body.teyvat :is(.bag-item,.gear-slot,.shell-forge-tile):is(.enh-10,.enh-12)::after{box-shadow:inset 0 0 0 1.5px rgba(246,212,138,1),inset 0 0 12px rgba(255,214,120,.42);
+ background:linear-gradient(#ffe2a0,#ffe2a0) left 3px top 3px/12px 2px,linear-gradient(#ffe2a0,#ffe2a0) left 3px top 3px/2px 12px,linear-gradient(#ffe2a0,#ffe2a0) right 3px top 3px/12px 2px,linear-gradient(#ffe2a0,#ffe2a0) right 3px top 3px/2px 12px,linear-gradient(#ffe2a0,#ffe2a0) left 3px bottom 3px/12px 2px,linear-gradient(#ffe2a0,#ffe2a0) left 3px bottom 3px/2px 12px,linear-gradient(#ffe2a0,#ffe2a0) right 3px bottom 3px/12px 2px,linear-gradient(#ffe2a0,#ffe2a0) right 3px bottom 3px/2px 12px;background-repeat:no-repeat}
+body.teyvat :is(.bag-item,.gear-slot,.shell-forge-tile).enh-12::before{content:'';position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 40%,rgba(255,240,200,.55) 50%,transparent 60%) no-repeat;background-size:250% 100%;animation:enh-shine 3.6s ease-in-out infinite}
+@keyframes enh-shine{0%,55%{background-position:120% 0}100%{background-position:-20% 0}}
+@media (prefers-reduced-motion:reduce){body.teyvat .enh-12::before{animation:none;opacity:0}}
 body.teyvat .shell-bag-side{height:100%}
 body.teyvat .shell-bag-side .shell-pane>*{margin:0 0 12px}
 /* ---------- characters (gear) ---------- */
@@ -1221,11 +1236,6 @@ body.teyvat .party-cols .party-portrait.portrait-placeholder{font-size:3.4rem}
 body.teyvat .gear-member-head .portrait-placeholder{font-size:2rem}
 body.teyvat .combat-panel .combat-player-mark{float:none;display:grid;place-items:center;overflow:hidden;font-size:1.4rem;line-height:1;color:var(--t-gold-hi);background:radial-gradient(circle at 50% 42%,rgba(var(--acc-rgb),.4),rgba(20,24,40,.95) 72%)}
 body.teyvat .bag-cols .bag-grid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px}
-body.teyvat .bag-item .item-count{font-size:.82rem}
-body.teyvat .bag-item .item-name{font-size:.74rem;font-weight:600;color:#39404f!important;padding:0 6px 6px}
-/* 0.14.12: the name under the icon, like the forge tiles (the square base tile squeezed it to nothing) */
-body.teyvat .bag-item{aspect-ratio:auto;justify-content:flex-start}
-body.teyvat .bag-item .item-name{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em;line-height:1.3;padding:1px 6px 6px;word-break:keep-all;overflow-wrap:anywhere}
 body.teyvat .bag-cols .bag-detail{font-size:.95rem;line-height:1.65;padding:16px 18px}
 body.teyvat .bag-detail h2{font-size:1.35rem;margin:6px 0 4px}
 body.teyvat .bag-detail .item-effect{background:rgba(255,255,255,.05);border:1px solid rgba(211,188,142,.18);border-radius:12px;padding:10px 12px;white-space:pre-line}
@@ -1429,31 +1439,33 @@ body.teyvat .wish-screen .wish-panel h3{margin:0 auto 0 0;color:#3b4255;font-siz
 .wish-panel select,.wish-panel input{min-height:38px}
 /* 0.14.12: the original wish video, then each result on its own */
 .wish-stage{position:absolute;inset:0;z-index:10;overflow:hidden;background:radial-gradient(ellipse at 72% -4%,#2b3a6e,#0a0d1d 62%,#05060d)}
-.wish-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+/* The recordings carry the recorder's UID in the bottom-right corner (the bottom ~3.5% of the frame). Anchored to the top
+   and enlarged 6%, that strip always falls below the screen, whatever the window's shape (user: 「UID 가려줘」). */
+.wish-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;transform:scale(1.06);transform-origin:50% 0;pointer-events:none}
 .wish-stage.whiteout::after{content:'';position:absolute;inset:0;z-index:6;background:#fff;pointer-events:none;animation:wish-whiteout .6s ease-out forwards}
 @keyframes wish-whiteout{from{opacity:1}to{opacity:0}}
 .wish-screen .wish-stage button.wish-skip{position:absolute;top:14px;right:18px;z-index:7;min-height:34px;padding:4px 16px;border-radius:17px;background:rgba(236,229,216,.15);border:1px solid rgba(236,229,216,.55);color:#ece5d8;box-shadow:none}
 /* one result on the original reveal background */
-.wish-reveal{position:absolute;inset:0;z-index:2;overflow:hidden;background:var(--wish-bg,none) center/cover no-repeat,#e8e2d4;cursor:pointer;--glow:#8fcbff}
+.wish-reveal{position:absolute;inset:0;z-index:2;overflow:hidden;background:var(--wish-bg,none) center/cover no-repeat,#e8e2d4;cursor:pointer;--glow:#8fcbff;--cx:61%;--cy:50%;--cr:min(40vh,320px)}
 .wish-reveal.rarity-4{--glow:#c39bff}
 .wish-reveal.rarity-5{--glow:#ffcf5c}
-.wish-reveal-burst{position:absolute;left:64%;top:50%;width:140vmax;height:140vmax;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#fff 0,color-mix(in srgb,var(--glow) 80%,#fff) 5%,color-mix(in srgb,var(--glow) 36%,transparent) 19%,transparent 45%);translate:-50% -50%;scale:.15;opacity:0;animation:wish-burst 1s cubic-bezier(.2,.7,.2,1) forwards}
+.wish-reveal-burst{position:absolute;left:var(--cx);top:var(--cy);width:140vmax;height:140vmax;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#fff 0,color-mix(in srgb,var(--glow) 80%,#fff) 5%,color-mix(in srgb,var(--glow) 36%,transparent) 19%,transparent 45%);translate:-50% -50%;scale:.15;opacity:0;animation:wish-burst 1s cubic-bezier(.2,.7,.2,1) forwards}
 .wish-reveal.rarity-3 .wish-reveal-burst{animation-duration:.6s}
 .wish-reveal.rarity-5 .wish-reveal-burst{animation-duration:1.4s}
 @keyframes wish-burst{0%{opacity:0;scale:.15}16%{opacity:1}100%{opacity:.5;scale:1}}
-.wish-reveal-rays{position:absolute;left:64%;top:50%;width:150vmax;height:150vmax;pointer-events:none;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--glow) 34%,transparent) 0 3deg,transparent 3deg 15deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 52%);mask:radial-gradient(circle,#000 0,transparent 52%);opacity:0;animation:wish-rays 1.4s .15s ease-out forwards,wish-spin 60s linear infinite}
+.wish-reveal-rays{position:absolute;left:var(--cx);top:var(--cy);width:150vmax;height:150vmax;pointer-events:none;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--glow) 34%,transparent) 0 3deg,transparent 3deg 15deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 52%);mask:radial-gradient(circle,#000 0,transparent 52%);opacity:0;animation:wish-rays 1.4s .15s ease-out forwards,wish-spin 60s linear infinite}
 .wish-reveal.rarity-3 .wish-reveal-rays{display:none}
 @keyframes wish-rays{to{opacity:.6}}
 @keyframes wish-spin{to{rotate:360deg}}
 /* a companion: this game's own portrait (never official art), lit as it lands */
-.wish-reveal-art{position:absolute;right:9%;top:50%;height:min(84vh,660px);aspect-ratio:4/5;translate:0 -50%;rotate:2deg;border-radius:20px;overflow:hidden;border:5px solid #fff;box-shadow:0 0 0 2px var(--glow),0 0 54px color-mix(in srgb,var(--glow) 70%,transparent),0 28px 60px rgba(0,0,0,.35);animation:wish-art-in .9s cubic-bezier(.16,.84,.24,1) both}
+.wish-reveal-art{position:absolute;left:var(--cx);top:var(--cy);height:min(84vh,calc(var(--cr)*2.15));aspect-ratio:4/5;translate:-50% -50%;rotate:2deg;border-radius:20px;overflow:hidden;border:5px solid #fff;box-shadow:0 0 0 2px var(--glow),0 0 54px color-mix(in srgb,var(--glow) 70%,transparent),0 28px 60px rgba(0,0,0,.35);animation:wish-art-in .9s cubic-bezier(.16,.84,.24,1) both}
 .wish-reveal.rarity-5 .wish-reveal-art{animation-duration:1.3s;animation-delay:.2s}
 .wish-reveal-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 12%}
 .wish-reveal-sheen{position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.7) 50%,transparent 65%);translate:-120% 0;animation:wish-sheen 1s .6s ease-in-out forwards}
 @keyframes wish-art-in{0%{opacity:0;transform:translateX(90px) rotate(5deg) scale(1.08);filter:brightness(3)}60%{opacity:1;filter:brightness(1.15)}100%{opacity:1;transform:none;filter:none}}
 @keyframes wish-sheen{to{translate:120% 0}}
 /* a weapon spins down into place */
-.wish-reveal-weapon{position:absolute;right:14%;top:50%;width:min(56vh,430px);aspect-ratio:1;translate:0 -50%;animation:wish-weapon-in .8s cubic-bezier(.16,.84,.24,1) both}
+.wish-reveal-weapon{position:absolute;left:var(--cx);top:var(--cy);width:calc(var(--cr)*1.3);aspect-ratio:1;translate:-50% -50%;animation:wish-weapon-in .8s cubic-bezier(.16,.84,.24,1) both}
 .wish-reveal-weapon img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 22px color-mix(in srgb,var(--glow) 85%,#fff)) drop-shadow(0 18px 24px rgba(0,0,0,.25))}
 @keyframes wish-weapon-in{0%{opacity:0;transform:translateY(12%) scale(.6) rotate(-14deg);filter:brightness(4)}55%{opacity:1;filter:brightness(1.3)}100%{opacity:1;transform:none;filter:none}}
 .wish-reveal-info{position:absolute;left:8%;bottom:15%;max-width:min(520px,44%);display:flex;flex-direction:column;align-items:flex-start;gap:8px;color:#2d3245}
@@ -1473,9 +1485,9 @@ body.teyvat .wish-screen .wish-reveal-info h2.wish-reveal-name{margin:0;font-siz
 .wish-reveal.leaving{animation:wish-out .16s forwards}
 @keyframes wish-out{to{opacity:0}}
 @media (max-aspect-ratio:1/1){
- .wish-reveal-art{right:50%;top:5%;translate:50% 0;height:min(54vh,520px)}
- .wish-reveal-weapon{right:50%;top:8%;translate:50% 0;width:min(70vw,380px)}
- .wish-reveal-burst,.wish-reveal-rays{left:50%;top:32%}
+ .wish-reveal{--cx:50%;--cy:33%}
+ .wish-reveal-art{height:min(54vh,520px)}
+ .wish-reveal-weapon{width:min(70vw,380px)}
  .wish-reveal-info{left:6%;right:6%;bottom:9%;max-width:none}
  body.teyvat .wish-screen .wish-reveal-info h2.wish-reveal-name{font-size:2.1rem}
 }
@@ -1556,12 +1568,15 @@ body.teyvat[data-region=liyue] .combat-panel>.battle-details>summary{background:
 body.teyvat[data-region=liyue] .combat-panel>.battle-details[open] .log{background:rgba(26,18,11,.9)}
 body.teyvat[data-region=liyue] .shell-battle-info-body>*{background:rgba(29,20,12,.86)}
 body.teyvat[data-region=liyue] .combat-playback{background:rgba(29,20,12,.95)}
-body.teyvat[data-region=liyue] .bag-item .item-icon{background:linear-gradient(160deg,#77685a,#8c909b)}
-body.teyvat[data-region=liyue] .bag-item.tier-3 .item-icon{background:linear-gradient(160deg,#a66b37,#6f94cf)}
-body.teyvat[data-region=liyue] .bag-item.tier-4 .item-icon{background:linear-gradient(160deg,#a06f44,#9a7fd0)}
-body.teyvat[data-region=liyue] .bag-item.tier-5 .item-icon{background:linear-gradient(160deg,#9a6230,#e49a4b)}
+body.teyvat[data-region=liyue] .bag-item{color:#584738}
+body.teyvat[data-region=liyue] .bag-item .item-count{background:rgba(17,12,7,.72);color:#f8d2a9}
+body.teyvat[data-region=liyue] .bag-item .item-name{color:#584738!important}
 body.teyvat[data-region=liyue] .bag-item .item-worn{background:rgba(39,28,18,.8)}
-body.teyvat[data-region=liyue] .bag-item.selected,body.teyvat[data-region=liyue] .bag-item[aria-pressed=true],body.teyvat[data-region=liyue] .bag-cell.selected .bag-item{box-shadow:0 0 0 3px var(--t-gold-hi),0 0 18px rgba(248,210,169,.5)}
+body.teyvat[data-region=liyue] .bag-item:hover:not(:disabled){border-color:rgba(248,210,169,.85);box-shadow:0 0 0 1px rgba(248,210,169,.5),0 6px 16px rgba(0,0,0,.4)}
+body.teyvat[data-region=liyue] .bag-item.selected,body.teyvat[data-region=liyue] .bag-item[aria-pressed=true],body.teyvat[data-region=liyue] .bag-cell.selected .bag-item{border-color:#f8d2a9;box-shadow:0 0 0 2px rgba(248,210,169,.75),0 0 18px rgba(248,210,169,.35)}
+body.teyvat[data-region=liyue] :is(.bag-item,.gear-slot,.shell-forge-tile).enh-6::after{box-shadow:inset 0 0 0 1.5px rgba(243,177,107,.95)}
+body.teyvat[data-region=liyue] :is(.bag-item,.gear-slot,.shell-forge-tile).enh-9::after{box-shadow:inset 0 0 0 1.5px rgba(244,183,118,1),inset 0 0 0 3.5px rgba(244,183,118,.28)}
+body.teyvat[data-region=liyue] :is(.bag-item,.gear-slot,.shell-forge-tile):is(.enh-10,.enh-12)::after{box-shadow:inset 0 0 0 1.5px rgba(246,194,138,1),inset 0 0 12px rgba(245,189,130,.42);background:linear-gradient(#f8d1a7,#f8d1a7) left 3px top 3px/12px 2px,linear-gradient(#f8d1a7,#f8d1a7) left 3px top 3px/2px 12px,linear-gradient(#f8d1a7,#f8d1a7) right 3px top 3px/12px 2px,linear-gradient(#f8d1a7,#f8d1a7) right 3px top 3px/2px 12px,linear-gradient(#f8d1a7,#f8d1a7) left 3px bottom 3px/12px 2px,linear-gradient(#f8d1a7,#f8d1a7) left 3px bottom 3px/2px 12px,linear-gradient(#f8d1a7,#f8d1a7) right 3px bottom 3px/12px 2px,linear-gradient(#f8d1a7,#f8d1a7) right 3px bottom 3px/2px 12px}
 body.teyvat[data-region=liyue] .shell-roster-item.active{box-shadow:0 0 14px rgba(248,210,169,.35)}
 body.teyvat[data-region=liyue] .quest-cols .main-objective{background:linear-gradient(125deg,rgba(52,42,24,.85),rgba(37,26,16,.85))}
 body.teyvat[data-region=liyue] .content.shell-content>.learning-guide.shell-float-guide{background:rgba(40,28,18,.95)}
@@ -1631,7 +1646,6 @@ body.teyvat[data-region=liyue] .hud-badge{box-shadow:0 0 0 2px #1a1109}
 body.teyvat[data-region=liyue] #game-version{background:rgba(17,12,7,.5)}
 body.teyvat[data-region=liyue] .portrait-placeholder{background:radial-gradient(circle at 50% 42%,rgba(var(--acc-rgb),.38),rgba(44,30,18,.92) 72%)}
 body.teyvat[data-region=liyue] .combat-panel .combat-player-mark{background:radial-gradient(circle at 50% 42%,rgba(var(--acc-rgb),.4),rgba(44,30,18,.95) 72%)}
-body.teyvat[data-region=liyue] .bag-item .item-name{color:#554436!important}
 body.teyvat[data-region=liyue] .bag-detail .item-effect{border:1px solid rgba(218,178,135,.18)}
 body.teyvat[data-region=liyue] .shell-item-hero{background:linear-gradient(160deg,#77685a,#8c909b)}
 body.teyvat[data-region=liyue] .shell-item-hero.tier-3{background:linear-gradient(160deg,#a66b37,#6f94cf)}
