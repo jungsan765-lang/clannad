@@ -1,0 +1,39 @@
+{
+  "task":"006.01","revision":1,"title":"살아 있는데, 낯선 얼굴",
+  "basisCommit":"dd97de6f41e60ef38d99e7d18f3ea0d63c2f7bf2",
+  "basisRange":"source/runtime_liyue_rework_content.js archive ISK_L03_K2_003~008; opening control 001~002 and 009~018 not retrieved",
+  "mainRoute":"K2","gameIntegration":"pending",
+  "before":[
+    {"kind":"NARRATION","speaker":"이야기","text":"각청이 병사와 이야기하다 고개를 들었다. 멀쩡히 서 있는 모습을 보자, 부르려던 이름이 목에 걸렸다."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"...각청? 너... 살아 있었어?"},
+    {"kind":"DIALOGUE","speaker":"각청","text":"왜 그래? 얼굴이 창백한데. 나를 찾아온 거야?"},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"나... 기억 안 나? 같이 짐도 확인했잖아."},
+    {"kind":"DIALOGUE","speaker":"각청","text":"끈이 풀린 포대 때문에 확인한 일은 알아. 그런데... 네 얼굴은 기억나지 않아."},
+    {"kind":"NARRATION","speaker":"이야기","text":"반가워서 다가가던 발이 멎었다. 각청은 대답을 기다리고 있었다."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"...그럼 그 짐꾼은? 허리 아프다고 하던 분. 나랑 같이 있었잖아."},
+    {"kind":"DIALOGUE","speaker":"각청","text":"그분을 찾는 거야? 이름은 알아?"},
+    {"kind":"NARRATION","speaker":"이야기","text":"입을 열었지만 이름은 나오지 않았다. 함께 기다리며 들었던 푸념만 떠올랐다."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"이름은... 못 들었어. 그래도 얼굴은 알아. 보면 알아볼 수 있어."},
+    {"kind":"DIALOGUE","speaker":"각청","text":"알겠어. 마지막으로 어디서 봤는지 말해 줘."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"의례장에 같이 갔어. 그런데 모락스의 시신이 떨어지고... 사람들이 전부 쓰러졌어. 너도, 그 사람도..."},
+    {"kind":"DIALOGUE","speaker":"각청","text":"...제군의 시신이 떨어졌다고? 그런 일은 기억에 없어."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"데리고 나오려고 했는데... 못 했어. 네가 살아 있으니까, 그분도 혹시..."}
+  ],
+  "choice":{"type":"LOCAL_DIALOGUE","prompt":"각청에게 부탁한다","options":[
+    {"label":"그분이 돌아왔는지... 같이 찾아봐 줘.","reply":[{"kind":"DIALOGUE","speaker":"각청","text":"알겠어. 짐을 맡아 둔 곳으로 가자. 거기 있는 병사라면 알 수도 있어."}]},
+    {"label":"...나부터 기억해 달라는 게 아니야. 그분만 찾아주면 돼.","reply":[{"kind":"DIALOGUE","speaker":"각청","text":"널 기억 못 한다고 찾지 않겠다는 뜻은 아니야. 나도 같이 확인할게."}]}
+  ],"changesMainRoute":false,"changesAffinity":false,"grantsReward":false},
+  "after":[
+    {"kind":"NARRATION","speaker":"이야기","text":"각청이 앞장서 수레 사이로 길을 잡았다. 맡겨 둔 짐은 그대로였지만, 그 곁에 짐꾼은 없었다."},
+    {"kind":"DIALOGUE","speaker":"각청","text":"이 사람과 같이 왔던 짐꾼, 어디 있는지 알아?"},
+    {"kind":"DIALOGUE","speaker":"검수 병사","text":"아, 그때 그분이군요. 두 분이 함께 계셨던 건 기억합니다. 짐도 아직 여기 있고요."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"그럼... 그분은요? 돌아온 건 봤어요?"},
+    {"kind":"DIALOGUE","speaker":"검수 병사","text":"자리를 비우신 건 아는데... 돌아오셨는지는 기억이 안 납니다."},
+    {"kind":"DIALOGUE","speaker":"각청","text":"의례장에 다녀온 사람도 불러 줘. 제군의 시신이 떨어졌다는 말을 들은 적 있는지 물어보고."},
+    {"kind":"NARRATION","speaker":"이야기","text":"병사가 불러온 두 사람도 고개를 저었다. 의례장에 다녀왔다면서도, 모락스가 떨어졌다는 말에는 되묻기만 했다."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"...짐은 여기 있는데. 사람만 어디로 간 거야..."},
+    {"kind":"DIALOGUE","speaker":"각청","text":"아직 마지막으로 본 자리가 남았잖아. 내가 같이 갈게. 어디인지 알려 줘."},
+    {"kind":"NARRATION","speaker":"이야기","text":"각청이 수레 사이에서 비켜서 길을 내주었다. 돌아갈 곳은 그 사람을 두고 온 의례장이었다."}
+  ],
+  "exit":{"mainRoute":"K2","keqingAliveInScene":true,"keqingRecognizesProtagonistFace":false,"keqingKnowsCargoIssue":true,"cargoStillHeld":true,"porterLocated":false,"portersCurrentLifeStatus":"unknown","sourceOfMemoryLoss":"unknown","moraxFall":"reported_by_protagonist_not_corrobated_by_queried_people","nextIntention":"return_to_rite_site","riteSiteArrivalCommitted":false,"newAffinityChange":false,"newReward":false}
+}

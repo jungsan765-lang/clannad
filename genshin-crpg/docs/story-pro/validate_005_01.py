@@ -14,6 +14,10 @@ def validate():
     scene = json.loads((HERE / 'SCENE_005_01.json').read_text(encoding='utf-8'))
     manuscript = (HERE / 'WORK_005_01.md').read_text(encoding='utf-8')
     before, after, choice = scene['before'], scene['after'], scene['choice']
+    thanks = next(i for i, row in enumerate(after) if row['text'] == '그럼... 고맙습니다.')
+    assert after[thanks+1] == {'kind':'DIALOGUE','speaker':'각청','text':'......'}
+    assert after[thanks+2]['speaker'] == '각청' and after[thanks+2]['text'] == '인사는 들었으니까, 이제 정말 가서 쉬어.'
+    assert sum(row['text'] == '......' for row in before+after) == 1
     assert scene['task'] == '005.01' and scene['mainRoute'] == 'K2'
     assert choice['type'] == 'LOCAL_DIALOGUE' and len(choice['options']) == 2
     assert not any(choice[key] for key in ('changesMainRoute', 'grantsReward', 'changesAffinity'))

@@ -5,28 +5,18 @@
   "choiceGroups": 1,
   "optionsPerGroup": 2,
   "readingPaths": [
-    {
-      "option": 1,
-      "units": 22,
-      "characters": 838,
-      "declaredExitRoute": "K2"
-    },
-    {
-      "option": 2,
-      "units": 22,
-      "characters": 860,
-      "declaredExitRoute": "K2"
-    }
+    {"option":1,"units":23,"characters":844,"declaredExitRoute":"K2"},
+    {"option":2,"units":23,"characters":866,"declaredExitRoute":"K2"}
   ],
-  "bodyAndStructuredTextMatch": true,
-  "choiceSpecificRepliesDistinct": true,
-  "chosenTextNotImmediatelyRepeated": true,
-  "K1WarningAbsentFromBody": true,
-  "declaredRouteChange": false,
-  "declaredAffinityChange": false,
-  "declaredReward": false,
-  "maxUnitCharacters": 59,
-  "manuscriptSha256": "39f38ffec5e762d2467b9ea433e0018fc9f80c58d0147ffe936f2e53c246f78f",
-  "gameIntegration": "pending",
-  "testServerDeployment": "not_done"
+  "bodyAndStructuredTextMatch":true,
+  "choiceSpecificRepliesDistinct":true,
+  "chosenTextNotImmediatelyRepeated":true,
+  "K1WarningAbsentFromBody":true,
+  "declaredRouteChange":false,
+  "declaredAffinityChange":false,
+  "declaredReward":false,
+  "maxUnitCharacters":59,
+  "manuscriptSha256":"5de0945008812d35c6b16fc4e541b4bb3e0bdde8b389b4782250ae860984ea10",
+  "gameIntegration":"pending",
+  "testServerDeployment":"not_done"
 }
