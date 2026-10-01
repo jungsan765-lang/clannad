@@ -11,9 +11,12 @@
 //   # pre <EXPR> | # pre -        base precondition of every new row (default: the most common one among the chain's old prose rows; '-' = none)
 //   ## <scene-key>                scene key used for generated node ids
 //   @map <MAP_ID>                 map for the following new lines
+//   @keep <NODE_ID> as 이야기      keep an INPUT_TEXT row but show it as narration (its effects stay; STORY_NEXT resolves it)
+//   ??@<ROW_ID> [text]            also accepts a CONDITION_GROUP member row (the block then lists every member; no new options)
 //   @keep <NODE_ID>               keep an existing node (effects, gates, events)
 //   @keep <NODE_ID> hold          keep the node but stop before its ensemble/gate rows;
 //   @thru <NODE_ID>               ...then continue through that node's ensemble/gate rows here
+//   @goto <NODE_ID>               end this branch by continuing at a node kept elsewhere in the chain
 //   > <text>                      replacement text for the preceding @keep/@text
 //   @text <NODE_ID>               rewrite the text of a node outside the chain
 //   @drop <NODE_ID>               unlink an existing node from its chain
@@ -53,8 +56,9 @@ function parseFile(file){
    if(t.startsWith('## ')){scene=t.slice(3).trim().replace(/[^A-Za-z0-9가-힣]+/g,'_');pos++;continue;}
    if(t.startsWith('@map ')){map=t.slice(5).trim();pos++;continue;}
    if(t.startsWith('@cond ')){cond=t.slice(6).trim();if(cond==='-')cond='';pos++;continue;}
-   if(t.startsWith('@keep ')){const w=t.slice(6).trim().split(/\s+/);const item={k:'keep',id:w[0]};if(w[1]==='hold')item.hold=true;else if(w[1])err(l,'unknown @keep flag '+w[1]);pos++;const text=quoted(indent);if(text!=null)item.text=text;items.push(item);continue;}
-  if(t.startsWith('@thru ')){items.push({k:'thru',id:t.slice(6).trim()});pos++;continue;}
+   if(t.startsWith('@keep ')){const w=t.slice(6).trim().split(/\s+/);const item={k:'keep',id:w[0]};if(w[1]==='hold')item.hold=true;else if(w[1]==='as'&&w[2]==='이야기')item.as='NARRATION';else if(w[1])err(l,'unknown @keep flag '+w[1]);pos++;const text=quoted(indent);if(text!=null)item.text=text;items.push(item);continue;}
+   if(t.startsWith('@thru ')){items.push({k:'thru',id:t.slice(6).trim()});pos++;continue;}
+   if(t.startsWith('@goto ')){items.push({k:'goto',id:t.slice(6).trim()});pos++;continue;}
    if(t.startsWith('@combat ')){const group=t.slice(8).trim();if(!/^EG_[A-Z0-9_]+$/.test(group))err(l,'bad encounter group '+group);pos++;const text=quoted(indent);if(text==null)err(l,'@combat needs a > line');const item={k:'combat',id:nextId(),group,text};if(map)item.map=map;if(cond)item.cond=cond;items.push(item);continue;}
    if(t.startsWith('@text ')){const id=t.slice(6).trim();pos++;const text=quoted(indent);if(text==null)err(l,'@text needs a > line');chain.edits.push({k:'text',id,text});continue;}
    if(t.startsWith('@drop ')){chain.edits.push({k:'drop',id:t.slice(6).trim()});pos++;continue;}

@@ -22,7 +22,7 @@ assert.equal(JSON.stringify(ix.mainStoryK.installed.map(c=>c.chain)),JSON.string
 const ROUTE='ROUTE_ISEKAI';
 const graph=index=>{
  const rows=index.byTable['55_MAIN_STORY_DB'].filter(x=>x[0]===ROUTE),get=id=>index.nodes.get(ROUTE+':'+id),groups=new Map();
- for(const x of rows)if(x[5]==='CHOICE'&&x[14]){if(!groups.has(x[14]))groups.set(x[14],[]);groups.get(x[14]).push(x);}
+ for(const x of rows)if(x[14]){if(!groups.has(x[14]))groups.set(x[14],[]);groups.get(x[14]).push(x);}
  return {rows,get,groups};
 };
 const oldG=graph(oldIx),newG=graph(ix);
@@ -35,6 +35,7 @@ function walk(g,entry,skip=new Set(),stop=new Set()){
  while(stack.length){
   const id=stack.pop();if(id.startsWith('SCREEN:')||['END','PAUSE','HUB',''].includes(id))continue;
   if(id.startsWith('CHOICE_GROUP:')){const opts=g.groups.get(id.slice(13))||[];assert.ok(opts.length,'empty choice group '+id);if(seen.has(id))continue;seen.add(id);for(const c of opts)if(!skip.has(c[4]))push(id,c[4]);continue;}
+  if(id.startsWith('CONDITION_GROUP:')){const opts=g.groups.get(id.slice(16))||[];assert.ok(opts.length,'empty condition group '+id);if(seen.has(id))continue;seen.add(id);for(const c of opts)push(id,c[4]);continue;}
   if(seen.has(id))continue;seen.add(id);order.push(id);
   const row=g.get(id);assert.ok(row,'dangling node '+id);
   assert.ok(row[13],'node without NEXT '+id);
@@ -68,7 +69,7 @@ for(const chain of content.chains){
  const oldAnc=ancestors(oldG,chain.entry,isEvent),newAnc=ancestors(newG,chain.entry,isEvent);
  for(const e of oldEvents)assert.deepEqual([...newAnc.get(e)||[]].sort(),[...oldAnc.get(e)||[]].sort(),chain.id+' keeps the event order before '+e);
  // Bypassed original rows still continue into the chain.
- for(const id of oldWalk.seen){const row=newG.get(id);if(!row||seen.has(id)||id.startsWith('CHOICE_GROUP:'))continue;assert.ok(row[13]&&(row[13].startsWith('SCREEN:')||['END','PAUSE','HUB'].includes(row[13])||seen.has(row[13])),chain.id+' bypassed node '+id+' rejoins the chain');}
+ for(const id of oldWalk.seen){const row=newG.get(id);if(!row||seen.has(id)||id.startsWith('CHOICE_GROUP:')||id.startsWith('CONDITION_GROUP:'))continue;assert.ok(row[13]&&(row[13].startsWith('SCREEN:')||['END','PAUSE','HUB'].includes(row[13])||seen.has(row[13])),chain.id+' bypassed node '+id+' rejoins the chain');}
  console.log(JSON.stringify({chain:chain.id,nodes:order.length,events:newEvents.length}));
 }
 // Each new row has a resolvable speaker, text and a valid map.
