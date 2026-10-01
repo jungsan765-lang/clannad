@@ -1,4 +1,5 @@
 import {createServer} from 'node:http';
+import {createHash} from 'node:crypto';
 import {mkdirSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -17,13 +18,20 @@ function send(res,status,payload,headers={}){const text=JSON.stringify(payload);
 function timing(t,c={}){const h={...c},v=[];if(t.runtimeMs!=null)v.push('runtime;dur='+t.runtimeMs);if(t.engineMs!=null)v.push('engine;dur='+t.engineMs);if(t.persistMs!=null)v.push('persist;dur='+t.persistMs);v.push('total;dur='+(t.totalMs||0));h['server-timing']=v.join(',');if(t.stateBytes!=null)h['x-crpg-state-bytes']=String(t.stateBytes);if(t.responseBytes!=null)h['x-crpg-response-bytes']=String(t.responseBytes);return h;}
 async function body(req){let n=0,chunks=[];for await(const x of req){n+=x.length;if(n>MAX_BODY)throw err(413,'요청이 너무 큽니다.');chunks.push(x);}try{return JSON.parse(Buffer.concat(chunks).toString('utf8')||'{}');}catch{throw err(400,'요청 형식을 확인해 주세요.');}}
 const uname=v=>String(v||'').normalize('NFKC').trim().toLowerCase();
+// 0.14.7 social features. Chat and trade are switched on per server (CRPG_FEATURES), so the production
+// database gains no new tables until they are approved there.
+const CHAT_MAX=140,CHAT_KEEP=400,CHAT_CHANNELS=new Set(['world']),TRADE_PENDING=5;
+const pidOf=id=>createHash('sha256').update('crpg-chat:'+id).digest('hex').slice(0,12);
+const cleanText=v=>[...String(v??'')].map(ch=>{const c=ch.codePointAt(0);return c<32||c===127||(c>=0x200b&&c<=0x200f)||(c>=0x2028&&c<=0x202e)||(c>=0x2060&&c<=0x206f)||c===0xfeff?' ':ch;}).join('').replace(/\s+/g,' ').trim();
+export function defaultFeatures(dbPath,env=process.env){const raw=env.CRPG_FEATURES;if(raw!==undefined)return String(raw).split(',').map(x=>x.trim()).filter(Boolean);return /live-staging|:memory:/.test(String(dbPath))?['chat','trade']:[];}
 const ip=req=>String(req.headers['x-forwarded-for']||req.socket?.remoteAddress||'local').split(',')[0].trim().slice(0,96);
 function score(state){const a=state?.abyss||{},floor=Math.max(0,...Object.keys(a.clears||{}).map(Number)),rounds=Object.values(a.clears||{}).reduce((n,x)=>n+(x?.rounds||0),0);return {season:a.season||'ABYSS_01',floor,rounds,attempts:a.attempts||0};}
 
 export class LiveRegionStore{
- constructor(path=':memory:',{pepper,adminIds=''}={}){
+ constructor(path=':memory:',{pepper,adminIds='',features=[]}={}){
   if(typeof pepper!=='string'||pepper.length<32)throw new Error('PASSWORD_PEPPER must be at least 32 characters.');
   this.pepper=pepper;this.admins=new Set(String(adminIds||'').split(',').map(x=>x.trim()).filter(Boolean));this.locks=new Map();this.cache=new Map();this.rates=new Map();
+  this.features=new Set(features);this.subscribers=new Set();
   if(path!==':memory:')mkdirSync(dirname(resolve(path)),{recursive:true});this.db=new DatabaseSync(path,{timeout:5000});
   const pragmas=['PRAGMA foreign_keys=ON','PRAGMA busy_timeout=5000','PRAGMA synchronous=FULL',path===':memory:'?'':'PRAGMA journal_mode=WAL','PRAGMA temp_store=MEMORY','PRAGMA cache_size=-16384'].filter(Boolean).join(';')+';';
   const ddl=[
@@ -37,8 +45,83 @@ export class LiveRegionStore{
    'CREATE TABLE IF NOT EXISTS ranking(account_id TEXT NOT NULL,season TEXT NOT NULL,display_name TEXT NOT NULL,floor INTEGER NOT NULL,rounds INTEGER NOT NULL,attempts INTEGER NOT NULL,achieved_at INTEGER NOT NULL,PRIMARY KEY(account_id,season),FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT'
   ].join(';')+';';
   this.db.exec(pragmas+ddl);
+  if(this.features.has('chat'))this.db.exec('CREATE TABLE IF NOT EXISTS chat(id INTEGER PRIMARY KEY AUTOINCREMENT,channel TEXT NOT NULL,account_id TEXT NOT NULL,author TEXT NOT NULL,text TEXT NOT NULL,created_at INTEGER NOT NULL,deleted INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS chat_channel_idx ON chat(channel,id);');
+  if(this.features.has('trade'))this.db.exec("CREATE TABLE IF NOT EXISTS trades(id INTEGER PRIMARY KEY AUTOINCREMENT,from_id TEXT NOT NULL,to_id TEXT NOT NULL,give TEXT NOT NULL,want TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(from_id) REFERENCES accounts(id) ON DELETE CASCADE,FOREIGN KEY(to_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS trades_to_idx ON trades(to_id,status);CREATE INDEX IF NOT EXISTS trades_from_idx ON trades(from_id,status);");
+  this.heartbeat=setInterval(()=>this.push(': ping\n\n'),25000);this.heartbeat.unref?.();
  }
- close(){this.db.close();}
+ close(){clearInterval(this.heartbeat);for(const s of this.subscribers){try{s.res.end();}catch{}}this.subscribers.clear();this.db.close();}
+ need(feature){if(!this.features.has(feature))throw err(404,'지원하지 않는 요청입니다.');}
+ capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1']:[]),...(this.features.has('trade')?['trade-v1']:[])];}
+ // ---------- chat ----------
+ push(text,filter){for(const s of this.subscribers){if(filter&&!filter(s))continue;try{s.res.write(text);}catch{this.subscribers.delete(s);}}}
+ broadcast(event,filter){this.push('data: '+JSON.stringify(event)+'\n\n',filter);}
+ subscribe(a,res){if(this.subscribers.size>=500)throw err(503,'채팅 연결이 많습니다. 잠시 뒤 다시 시도해 주세요.');const s={res,account:a.id};this.subscribers.add(s);return ()=>this.subscribers.delete(s);}
+ chatView(row){return {id:row.id,channel:row.channel,author:row.author,pid:pidOf(row.account_id),text:row.deleted?'':row.text,deleted:row.deleted===1,at:row.created_at,staff:this.admins.has(row.account_id)};}
+ chatRecent(a,after,channel){
+  this.need('chat');const ch=CHAT_CHANNELS.has(channel)?channel:'world',from=Number(after);
+  const rows=Number.isSafeInteger(from)&&from>0?this.db.prepare('SELECT * FROM chat WHERE channel=? AND id>? ORDER BY id LIMIT 60').all(ch,from):this.db.prepare('SELECT * FROM (SELECT * FROM chat WHERE channel=? ORDER BY id DESC LIMIT 40) ORDER BY id').all(ch);
+  return {channel:ch,messages:rows.map(r=>this.chatView(r)),max:CHAT_MAX,me:pidOf(a.id)};
+ }
+ chatSend(a,b){
+  this.need('chat');const ch=CHAT_CHANNELS.has(b?.channel)?b.channel:'world',text=cleanText(b?.text);
+  if(!text)throw err(400,'보낼 내용을 입력해 주세요.');if([...text].length>CHAT_MAX)throw err(400,'채팅은 '+CHAT_MAX+'자까지 보낼 수 있습니다.');
+  try{this.rate('chat-gap:'+a.id,1,1200);this.rate('chat-burst:'+a.id,8,30000);}catch(e){throw err(429,'채팅을 조금 천천히 보내 주세요.');}
+  const t=now(),info=this.db.prepare('INSERT INTO chat(channel,account_id,author,text,created_at) VALUES(?,?,?,?,?)').run(ch,a.id,a.display_name,text,t),id=Number(info.lastInsertRowid);
+  if(id%50===0)this.db.prepare('DELETE FROM chat WHERE channel=? AND id<=?').run(ch,id-CHAT_KEEP);
+  const message=this.chatView({id,channel:ch,account_id:a.id,author:a.display_name,text,created_at:t,deleted:0});this.broadcast({type:'chat',message});return {message};
+ }
+ chatDelete(a,b){
+  this.need('chat');if(!this.admins.has(a.id))throw err(403,'운영자 전용 기능입니다.');const id=Number(b?.id);if(!Number.isSafeInteger(id))throw err(400,'메시지를 확인해 주세요.');
+  this.db.prepare('UPDATE chat SET deleted=1 WHERE id=?').run(id);this.broadcast({type:'chat-delete',id});return {deleted:true};
+ }
+ // ---------- trade ----------
+ tradeView(t){const who=id=>{const x=this.db.prepare('SELECT display_name FROM accounts WHERE id=?').get(id);return {name:x?x.display_name:'떠난 모험가',pid:pidOf(id)};};return {id:t.id,from:who(t.from_id),to:who(t.to_id),give:JSON.parse(t.give),want:JSON.parse(t.want),status:t.status,note:t.note,at:t.created_at,updated:t.updated_at};}
+ tradeList(a){this.need('trade');const q=col=>this.db.prepare('SELECT * FROM trades WHERE '+col+'=? ORDER BY CASE status WHEN \'PENDING\' THEN 0 ELSE 1 END,id DESC LIMIT 20').all(a.id).map(t=>this.tradeView(t));return {incoming:q('to_id'),outgoing:q('from_id'),limit:TRADE_PENDING};}
+ runtimeOf(id){const m=this.meta(id);if(!m||m.revision==null)return null;return new R(GAME_DB,joinState(this.loadParts(id)),true);}
+ tradeOffer(a,b){
+  this.need('trade');this.rate('trade-offer:'+a.id,12,600000);
+  // The receiver is named by login ID, or picked from the chat by the public chat id (login IDs stay private).
+  let target=b?.to?this.account(uname(b.to)):null;
+  if(!target&&b?.toPid&&this.features.has('chat')){const pid=String(b.toPid);for(const row of this.db.prepare('SELECT DISTINCT account_id FROM chat').all())if(pidOf(row.account_id)===pid){target=this.db.prepare('SELECT * FROM accounts WHERE id=?').get(row.account_id);break;}}
+  if(!target)throw err(404,'받는 모험가를 찾을 수 없습니다. 아이디를 확인해 주세요.');if(target.id===a.id)throw err(400,'자신에게는 교환을 제안할 수 없습니다.');
+  if(this.db.prepare("SELECT COUNT(*) AS n FROM trades WHERE from_id=? AND status='PENDING'").get(a.id).n>=TRADE_PENDING)throw err(409,'응답을 기다리는 제안이 '+TRADE_PENDING+'건입니다. 정리한 뒤 다시 제안해 주세요.');
+  const r=this.runtimeOf(a.id);if(!r)throw err(409,'먼저 여정을 시작해 주세요.');if(!this.meta(target.id)||this.meta(target.id).revision==null)throw err(409,'상대가 아직 여정을 시작하지 않았습니다.');
+  let give,want;try{give=r.tradeNormalize(b.give||[]);want=r.tradeNormalize(b.want||[]);}catch(e){throw err(400,e.message);}
+  if(!give.length&&!want.length)throw err(400,'주거나 받을 아이템을 고르세요.');
+  const why=r.tradeCheck(give);if(why)throw err(400,why);
+  for(const w of want){if(w.slot)throw err(400,'상대의 장비는 이름으로 요청할 수 없습니다.');const rule=r.tradeRule(w.item);if(!rule.ok)throw err(400,rule.reason);}
+  const shown=give.map(x=>x.slot?{slot:x.slot,label:r.tradeLabel([x])}:{item:x.item,qty:x.qty,label:r.tradeLabel([x])}),asked=want.map(x=>({item:x.item,qty:x.qty,label:r.tradeLabel([x])})),t=now(),note=cleanText(b.note).slice(0,60);
+  const id=Number(this.db.prepare("INSERT INTO trades(from_id,to_id,give,want,status,note,created_at,updated_at) VALUES(?,?,?,?,'PENDING',?,?,?)").run(a.id,target.id,JSON.stringify(shown),JSON.stringify(asked),note,t,t).lastInsertRowid);
+  const trade=this.tradeView(this.db.prepare('SELECT * FROM trades WHERE id=?').get(id));this.broadcast({type:'trade',id,status:'PENDING'},s=>s.account===target.id);return {trade};
+ }
+ async tradeRespond(a,b,decision){
+  this.need('trade');const id=Number(b?.id),t=Number.isSafeInteger(id)&&this.db.prepare('SELECT * FROM trades WHERE id=?').get(id);if(!t)throw err(404,'교환 제안을 찾을 수 없습니다.');
+  if(t.status!=='PENDING')throw err(409,'이미 처리된 제안입니다.');
+  const mark=(status,note=t.note)=>{this.db.prepare('UPDATE trades SET status=?,note=?,updated_at=? WHERE id=?').run(status,note,now(),t.id);this.broadcast({type:'trade',id:t.id,status},s=>s.account===t.from_id||s.account===t.to_id);return {trade:this.tradeView(this.db.prepare('SELECT * FROM trades WHERE id=?').get(t.id))};};
+  if(decision==='cancel'){if(t.from_id!==a.id)throw err(403,'보낸 사람만 취소할 수 있습니다.');return mark('CANCELLED');}
+  if(t.to_id!==a.id)throw err(403,'받은 사람만 응답할 수 있습니다.');
+  if(decision==='decline')return mark('DECLINED');
+  const [first,second]=[t.from_id,t.to_id].sort();
+  return this.serial(first,()=>this.serial(second,()=>this.applyTrade(t,mark)));
+ }
+ applyTrade(t,mark){
+  const giver=this.runtimeOf(t.from_id),taker=this.runtimeOf(t.to_id);if(!giver||!taker)throw err(409,'여정 기록을 찾을 수 없습니다.');
+  for(const [r,who]of [[giver,'보낸 모험가'],[taker,'받는 모험가']])if((r.playPhase?.()||'FREE')!=='FREE'||r.s.runtime)throw err(409,who+'가 이야기나 전투를 진행 중입니다. 자유행동 중일 때 다시 수락해 주세요.');
+  const give=JSON.parse(t.give).map(x=>x.slot?{slot:x.slot}:{item:x.item,qty:x.qty}),want=JSON.parse(t.want).map(x=>({item:x.item,qty:x.qty}));
+  let sent,returned;try{sent=giver.tradeTake(give);returned=want.length?taker.tradeTake(want):[];}catch(e){mark('FAILED',cleanText(e.message).slice(0,60));throw err(409,'교환할 수 없습니다. '+e.message,'TRADE_FAILED');}
+  taker.tradeGive(sent);giver.tradeGive(returned);compact(giver.s);compact(taker.s);
+  const t2=now(),write=(id,r)=>{const m=this.meta(id),before=this.loadParts(id),after=splitState(r.s),d=diffParts(before,after),del=this.db.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=this.db.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
+   for(const p of d.remove)del.run(id,p);for(const [p,v] of d.set)up.run(id,p,v);
+   this.db.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(id,m.revision,JSON.stringify(d.undo),t2);this.db.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(id,m.revision-3);
+   this.db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(id,'trade-'+t.id,m.revision+1,m.revision,'trade',JSON.stringify({result:{type:'TRADE',trade:t.id}}),t2);
+   this.db.prepare('UPDATE metadata SET revision=?,last_request_id=?,updated_at=? WHERE account_id=?').run(m.revision+1,'trade-'+t.id,t2,id);};
+  this.db.exec('BEGIN IMMEDIATE');
+  try{const still=this.db.prepare('SELECT status FROM trades WHERE id=?').get(t.id);if(still?.status!=='PENDING')throw err(409,'이미 처리된 제안입니다.');write(t.from_id,giver);write(t.to_id,taker);this.db.prepare("UPDATE trades SET status='ACCEPTED',updated_at=? WHERE id=?").run(t2,t.id);this.db.exec('COMMIT');}
+  catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');throw e;}
+  finally{this.invalidate(t.from_id);this.invalidate(t.to_id);}
+  this.broadcast({type:'trade',id:t.id,status:'ACCEPTED',sync:true},s=>s.account===t.from_id||s.account===t.to_id);
+  return {trade:this.tradeView(this.db.prepare('SELECT * FROM trades WHERE id=?').get(t.id)),received:taker.tradeLabel(sent),given:taker.tradeLabel(returned)};
+ }
  rate(key,limit,windowMs){const t=now(),old=this.rates.get(key),r=!old||old.until<=t?{count:0,until:t+windowMs}:old;r.count++;this.rates.set(key,r);if(r.count>limit)throw err(429,'시도가 너무 잦습니다. 잠시 뒤 다시 시도해 주세요.');}
  async serial(id,fn){const prev=this.locks.get(id)||Promise.resolve(),next=prev.then(fn),guard=next.catch(()=>{});this.locks.set(id,guard);try{return await next;}finally{if(this.locks.get(id)===guard)this.locks.delete(id);}}
  account(username){return this.db.prepare('SELECT * FROM accounts WHERE username=?').get(username);}
@@ -96,7 +179,7 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
   if(req.method==='OPTIONS'){res.writeHead(204,{...c,'access-control-allow-methods':'GET,POST,OPTIONS','access-control-allow-headers':'Content-Type,Authorization','access-control-max-age':'86400'});return res.end();}
   const path=new URL(req.url,'http://fixed-region-live.local').pathname;
   try{
-   if(path==='/health'&&req.method==='GET')return send(res,200,{ok:true,version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,transportBuild:TRANSPORT_BUILD,storage:'sqlite-node-accounts',configured:true,synthetic:false,staging:true,capabilities:['state-parts-v1']},c);
+   if(path==='/health'&&req.method==='GET')return send(res,200,{ok:true,version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,transportBuild:TRANSPORT_BUILD,storage:'sqlite-node-accounts',configured:true,synthetic:false,staging:true,capabilities:store.capabilities()},c);
    if(path==='/ranking'&&req.method==='GET')return send(res,200,store.ranking(),c);
    if((path==='/register'||path==='/login')&&req.method==='POST'){const b=await body(req),out=path==='/register'?await store.register(b,ip(req)):await store.login(b,ip(req));return send(res,200,out,c);}
    const raw=(req.headers.authorization||'').replace(/^Bearer /,''),auth=await store.auth(raw),a=auth.a;
@@ -105,11 +188,23 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
    if(path==='/account/delete'&&req.method==='POST')return send(res,200,await store.remove(a,await body(req)),c);
    if(path==='/game/new'&&req.method==='POST')return send(res,200,await store.newGame(a,await body(req)),c);
    if(path==='/game/action'&&req.method==='POST'){const out=await store.action(a,await body(req));return send(res,200,out.payload,timing(out.timing||{},c));}
+   if(path==='/chat/recent'&&req.method==='GET'){const q=new URL(req.url,'http://fixed-region-live.local').searchParams;return send(res,200,store.chatRecent(a,q.get('after'),q.get('channel')||'world'),c);}
+   if(path==='/chat/send'&&req.method==='POST')return send(res,200,store.chatSend(a,await body(req)),c);
+   if(path==='/chat/delete'&&req.method==='POST')return send(res,200,store.chatDelete(a,await body(req)),c);
+   if(path==='/chat/stream'&&req.method==='GET'){
+    // Server-sent events over an authorised fetch: new chat lines for everyone, trade news only for its two players.
+    if(!store.features.has('chat')&&!store.features.has('trade'))throw err(404,'지원하지 않는 요청입니다.');
+    const leave=store.subscribe(a,res);res.writeHead(200,{...c,'content-type':'text/event-stream; charset=utf-8','cache-control':'no-store','x-accel-buffering':'no'});res.write(': connected\n\n');req.on('close',leave);return;
+   }
+   if(path==='/trade/list'&&req.method==='GET')return send(res,200,store.tradeList(a),c);
+   if(path==='/trade/offer'&&req.method==='POST')return send(res,200,store.tradeOffer(a,await body(req)),c);
+   if(['/trade/accept','/trade/decline','/trade/cancel'].includes(path)&&req.method==='POST')return send(res,200,await store.tradeRespond(a,await body(req),path.slice(7)),c);
    return send(res,404,{error:'지원하지 않는 요청입니다.'},c);
   }catch(e){const rule=!!(globalThis.CRPGRuntime?.RuleError&&e instanceof globalThis.CRPGRuntime.RuleError)||!!(globalThis.CRPGRelationships?.RelationshipError&&e instanceof globalThis.CRPGRelationships.RelationshipError);return send(res,e.status||(rule?400:500),{error:e.status||rule?e.message:'이 행동을 처리하지 못했습니다. 다른 행동을 선택하거나 잠시 뒤 다시 시도해 주세요.',...(e.code?{code:e.code}:{}),...(e.outcome?{outcome:e.outcome}:{}),...(e.code==='VERSION_MISMATCH'?{version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD}:{})},c);}
  };
 }
-export async function startLiveRegionStaging({dbPath=':memory:',pepper,adminIds='',allowedOrigin='https://clannad.shop',host='127.0.0.1',port=0}={}){
- const store=new LiveRegionStore(dbPath,{pepper,adminIds}),server=createServer(createLiveRegionHandler({store,allowedOrigin}));await new Promise((ok,bad)=>{server.once('error',bad);server.listen(port,host,ok);});return {store,server,address:server.address(),close:async()=>{await new Promise((ok,bad)=>server.close(e=>e?bad(e):ok()));store.close();}};
+export async function startLiveRegionStaging({dbPath=':memory:',pepper,adminIds='',allowedOrigin='https://clannad.shop',host='127.0.0.1',port=0,features=defaultFeatures(dbPath)}={}){
+ const store=new LiveRegionStore(dbPath,{pepper,adminIds,features}),server=createServer(createLiveRegionHandler({store,allowedOrigin}));await new Promise((ok,bad)=>{server.once('error',bad);server.listen(port,host,ok);});
+ return {store,server,address:server.address(),close:async()=>{for(const s of store.subscribers){try{s.res.end();}catch{}}server.closeIdleConnections?.();await new Promise((ok,bad)=>server.close(e=>e?bad(e):ok()));store.close();}};
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){const started=await startLiveRegionStaging({dbPath:process.env.CRPG_SQLITE_PATH||'./data/fixed-region-live.sqlite3',pepper:process.env.PASSWORD_PEPPER,adminIds:process.env.ADMIN_ACCOUNT_IDS||'',allowedOrigin:process.env.ALLOWED_ORIGIN||'https://clannad.shop',host:process.env.HOST||'127.0.0.1',port:Number(process.env.PORT||8789)});console.log(JSON.stringify({kind:'crpg_fixed_region_live_started',port:started.address.port,transportBuild:TRANSPORT_BUILD}));}
+if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){const dbPath=process.env.CRPG_SQLITE_PATH||'./data/fixed-region-live.sqlite3',started=await startLiveRegionStaging({dbPath,pepper:process.env.PASSWORD_PEPPER,adminIds:process.env.ADMIN_ACCOUNT_IDS||'',allowedOrigin:process.env.ALLOWED_ORIGIN||'https://clannad.shop',host:process.env.HOST||'127.0.0.1',port:Number(process.env.PORT||8789)});console.log(JSON.stringify({kind:'crpg_fixed_region_live_started',port:started.address.port,transportBuild:TRANSPORT_BUILD,features:[...started.store.features]}));}
