@@ -3,11 +3,28 @@
   "ok": true,
   "scope": "manuscript text and declared structure only; not game/browser/server execution",
   "readingPaths": [
-    {"option":1,"utteranceAndNarrationUnits":24,"bodyCharacters":733,"declaredFieldActions":1,"declaredExitRoute":"K2"},
-    {"option":2,"utteranceAndNarrationUnits":24,"bodyCharacters":743,"declaredFieldActions":1,"declaredExitRoute":"K2"}
+    {
+      "option": 1,
+      "utteranceAndNarrationUnits": 24,
+      "bodyCharacters": 737,
+      "declaredFieldActions": 1,
+      "declaredExitRoute": "K2"
+    },
+    {
+      "option": 2,
+      "utteranceAndNarrationUnits": 24,
+      "bodyCharacters": 747,
+      "declaredFieldActions": 1,
+      "declaredExitRoute": "K2"
+    }
   ],
-  "choiceGroups":1,"optionsPerGroup":2,"bodyAndStructuredTextMatch":true,
-  "choicesHaveDifferentReplies":true,"priorFiveSilencePreserved":true,
-  "maxUnitCharacters":46,"gameIntegration":"pending","testServerDeployment":"not_done",
-  "manuscriptSha256":"d33a326d4b81806ed673f92de5c2dab4d9636f2b5f0e828e074fbbd84700d6fb"
+  "choiceGroups": 1,
+  "optionsPerGroup": 2,
+  "bodyAndStructuredTextMatch": true,
+  "choicesHaveDifferentReplies": true,
+  "priorFiveSilencePreserved": true,
+  "maxUnitCharacters": 46,
+  "gameIntegration": "pending",
+  "testServerDeployment": "not_done",
+  "manuscriptSha256": "dc610887521b5e1b671d98f46152e8f2ce06bb70c39845437e66ce00cd875ac1"
 }
