@@ -14,6 +14,16 @@ def validate():
     s = json.loads((HERE/'SCENE_006_01.json').read_text(encoding='utf-8'))
     m = (HERE/'WORK_006_01.md').read_text(encoding='utf-8')
     assert s['task'] == '006.01' and s['mainRoute'] == 'K2'
+    assert s['revision'] == 2
+    opening = s['before']
+    assert opening[1]['text'] == '...각청? 너... 살아 있었어?'
+    assert opening[2]['speaker'] == '각청'
+    assert '누군지는 모르겠지만' in opening[2]['text'] and '무례한걸?' in opening[2]['text']
+    assert '끈 풀린 포대' in opening[3]['text'] and '그 포대 일은 알아' in opening[4]['text']
+    assert opening[7]['speaker'] == '각청' and opening[7]['text'].startswith('진정해 봐.')
+    assert '지금 이 근처' in opening[7]['text'] and opening[7]['text'].endswith('찾는 거야?')
+    assert opening[8]['text'].startswith('응...')
+    assert all('네 얼굴은 기억나지 않아' not in row['text'] for row in opening)
     c = s['choice']
     assert c['type'] == 'LOCAL_DIALOGUE' and len(c['options']) == 2
     assert not any(c[k] for k in ('changesMainRoute','changesAffinity','grantsReward'))
@@ -46,7 +56,7 @@ def validate():
     for i,o in enumerate(c['options'],1):
         path = s['before'] + [{'text':o['label']}] + o['reply'] + s['after']
         paths.append({'option':i,'units':len(path),'characters':sum(len(x['text']) for x in path),'declaredExitRoute':'K2'})
-    result = {'task':'006.01','ok':True,'scope':'manuscript text and declared structure only; no game/browser/server execution',
+    result = {'task':'006.01','revision':2,'ok':True,'scope':'manuscript text and declared structure only; no game/browser/server execution',
       'readingPaths':paths,'choiceGroups':1,'optionsPerGroup':2,'bodyAndStructuredTextMatch':True,
       'fiveSeparateSilenceExact':True,'choicesHaveDifferentReplies':True,'mainRouteChanged':False,
       'nextSiteNotYetReached':True,'gameIntegration':'pending','testServerDeployment':'not_done',
