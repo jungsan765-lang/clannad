@@ -7,6 +7,7 @@ import {DatabaseSync} from 'node:sqlite';
 import {R,DB as GAME_DB,ENGINE_VERSION,ENGINE_FINGERPRINT,SERVER_BUILD} from './generated/engine.mjs';
 import {compact,executeAction,hash,same,passwordHash,token} from './game-core.mjs';
 import {splitState,joinState,diffParts,publicParts,wirePatch,intent} from './state-parts.mjs';
+import {AdminConsole,installAdminSchema,banOf,banMessage,SYSTEM_ACCOUNT} from './admin-api.mjs';
 
 const TRANSPORT_BUILD='fixed-region-live-sqlite-v1',MAX_BODY=65536,SESSION_MS=7*86400000,MAX_CACHE=16,now=()=>Date.now();
 const RID=/^[a-zA-Z0-9_-]{10,80}$/,JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'no-store'};
@@ -44,7 +45,7 @@ export class LiveRegionStore{
    'CREATE TABLE IF NOT EXISTS backups(account_id TEXT NOT NULL,revision INTEGER NOT NULL,undo TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,revision),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT',
    'CREATE TABLE IF NOT EXISTS ranking(account_id TEXT NOT NULL,season TEXT NOT NULL,display_name TEXT NOT NULL,floor INTEGER NOT NULL,rounds INTEGER NOT NULL,attempts INTEGER NOT NULL,achieved_at INTEGER NOT NULL,PRIMARY KEY(account_id,season),FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT'
   ].join(';')+';';
-  this.db.exec(pragmas+ddl);
+  this.db.exec(pragmas+ddl);installAdminSchema(this.db);
   if(this.features.has('chat'))this.db.exec('CREATE TABLE IF NOT EXISTS chat(id INTEGER PRIMARY KEY AUTOINCREMENT,channel TEXT NOT NULL,account_id TEXT NOT NULL,author TEXT NOT NULL,text TEXT NOT NULL,created_at INTEGER NOT NULL,deleted INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS chat_channel_idx ON chat(channel,id);');
   if(this.features.has('trade'))this.db.exec("CREATE TABLE IF NOT EXISTS trades(id INTEGER PRIMARY KEY AUTOINCREMENT,from_id TEXT NOT NULL,to_id TEXT NOT NULL,give TEXT NOT NULL,want TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(from_id) REFERENCES accounts(id) ON DELETE CASCADE,FOREIGN KEY(to_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS trades_to_idx ON trades(to_id,status);CREATE INDEX IF NOT EXISTS trades_from_idx ON trades(from_id,status);");
   this.heartbeat=setInterval(()=>this.push(': ping\n\n'),25000);this.heartbeat.unref?.();
@@ -56,7 +57,7 @@ export class LiveRegionStore{
  push(text,filter){for(const s of this.subscribers){if(filter&&!filter(s))continue;try{s.res.write(text);}catch{this.subscribers.delete(s);}}}
  broadcast(event,filter){this.push('data: '+JSON.stringify(event)+'\n\n',filter);}
  subscribe(a,res){if(this.subscribers.size>=500)throw err(503,'채팅 연결이 많습니다. 잠시 뒤 다시 시도해 주세요.');const s={res,account:a.id};this.subscribers.add(s);return ()=>this.subscribers.delete(s);}
- chatView(row){return {id:row.id,channel:row.channel,author:row.author,pid:pidOf(row.account_id),text:row.deleted?'':row.text,deleted:row.deleted===1,at:row.created_at,staff:this.admins.has(row.account_id)};}
+ chatView(row){return {id:row.id,channel:row.channel,author:row.author,pid:pidOf(row.account_id),text:row.deleted?'':row.text,deleted:row.deleted===1,at:row.created_at,staff:this.admins.has(row.account_id)||row.account_id===SYSTEM_ACCOUNT};}
  chatRecent(a,after,channel){
   this.need('chat');const ch=CHAT_CHANNELS.has(channel)?channel:'world',from=Number(after);
   const rows=Number.isSafeInteger(from)&&from>0?this.db.prepare('SELECT * FROM chat WHERE channel=? AND id>? ORDER BY id LIMIT 60').all(ch,from):this.db.prepare('SELECT * FROM (SELECT * FROM chat WHERE channel=? ORDER BY id DESC LIMIT 40) ORDER BY id').all(ch);
@@ -142,10 +143,11 @@ export class LiveRegionStore{
  }
  async login(b,addr){
   const username=uname(b.username),password=String(b.password||'');this.rate('auth-ip:'+addr,30,600000);this.rate('auth-user:'+username,10,600000);
-  const a=this.account(username),ph=await passwordHash(password,a?.salt||'0'.repeat(64),this.pepper);if(!a||!same(ph,a.password_hash))throw err(401,'아이디 또는 비밀번호를 확인해 주세요.');return this.issue(a);
+  const a=this.account(username),ph=await passwordHash(password,a?.salt||'0'.repeat(64),this.pepper);if(!a||a.id===SYSTEM_ACCOUNT||!same(ph,a.password_hash))throw err(401,'아이디 또는 비밀번호를 확인해 주세요.');
+  const ban=banOf(this.db,a.id);if(ban)throw err(403,banMessage(ban),'ACCOUNT_BANNED');return this.issue(a);
  }
  async issue(a){const secret=token(),th=await hash(secret);this.db.prepare('INSERT INTO sessions VALUES(?,?,?)').run(th,a.id,now()+SESSION_MS);return {token:secret,account:view(a,this.admins),version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT};}
- async auth(raw){if(!/^[a-f0-9]{64}$/.test(raw||''))throw err(401,'로그인해 주세요.');const th=await hash(raw),a=this.db.prepare('SELECT a.* FROM sessions s JOIN accounts a ON a.id=s.account_id WHERE s.token_hash=? AND s.expires_at>?').get(th,now());if(!a)throw err(401,'로그인이 만료되었습니다.');return {a,th};}
+ async auth(raw){if(!/^[a-f0-9]{64}$/.test(raw||''))throw err(401,'로그인해 주세요.');const th=await hash(raw),a=this.db.prepare('SELECT a.* FROM sessions s JOIN accounts a ON a.id=s.account_id WHERE s.token_hash=? AND s.expires_at>?').get(th,now());if(!a)throw err(401,'로그인이 만료되었습니다.');const ban=banOf(this.db,a.id);if(ban)throw err(401,banMessage(ban),'ACCOUNT_BANNED');return {a,th};}
  me(a){const m=this.meta(a.id),e=m&&this.cached(a.id,m.revision),parts=e?.parts||(m?this.loadParts(a.id):new Map());return this.output(a,m,parts);}
  logout(th){this.db.prepare('DELETE FROM sessions WHERE token_hash=?').run(th);return {ok:true};}
  async remove(a,b){this.rate('delete:'+a.id,5,900000);if(b.confirm!==a.username||!same(await passwordHash(String(b.password||''),a.salt,this.pepper),a.password_hash))throw err(403,'아이디와 비밀번호로 삭제를 확인해 주세요.');this.db.prepare('DELETE FROM accounts WHERE id=?').run(a.id);this.invalidate(a.id);return {deleted:true};}
@@ -174,7 +176,7 @@ export class LiveRegionStore{
  ranking(){const rows=this.db.prepare('SELECT display_name AS name,floor,rounds,attempts FROM ranking WHERE season=? ORDER BY floor DESC,rounds,attempts,achieved_at,account_id LIMIT 20').all('ABYSS_01');return {season:'ABYSS_01',entries:rows.map((r,i)=>({rank:i+1,...r}))};}
 }
 
-export function createLiveRegionHandler({store,allowedOrigin='https://clannad.shop'}){
+export function createLiveRegionHandler({store,allowedOrigin='https://clannad.shop',adminConsole=null}){
  return async(req,res)=>{const origin=req.headers.origin||'',host=req.headers.host||'',sameOrigin=!!origin&&!!host&&(origin===`https://${host}`||origin===`http://${host}`);if(origin&&origin!==allowedOrigin&&!sameOrigin)return send(res,403,{error:'허용되지 않은 접속 경로입니다.'},{vary:'Origin'});const c=cors(origin,sameOrigin?origin:allowedOrigin);
   if(req.method==='OPTIONS'){res.writeHead(204,{...c,'access-control-allow-methods':'GET,POST,OPTIONS','access-control-allow-headers':'Content-Type,Authorization','access-control-max-age':'86400'});return res.end();}
   const path=new URL(req.url,'http://fixed-region-live.local').pathname;
@@ -182,6 +184,8 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
    if(path==='/health'&&req.method==='GET')return send(res,200,{ok:true,version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,transportBuild:TRANSPORT_BUILD,storage:'sqlite-node-accounts',configured:true,synthetic:false,staging:true,capabilities:store.capabilities()},c);
    if(path==='/ranking'&&req.method==='GET')return send(res,200,store.ranking(),c);
    if((path==='/register'||path==='/login')&&req.method==='POST'){const b=await body(req),out=path==='/register'?await store.register(b,ip(req)):await store.login(b,ip(req));return send(res,200,out,c);}
+   // 0.14.12 operator console: its own login (server/admin-api.mjs), never a game session.
+   if(path.startsWith('/admin/')){if(!adminConsole)throw err(404,'지원하지 않는 요청입니다.');return send(res,200,await adminConsole.handle({path,method:req.method,url:new URL(req.url,'http://fixed-region-live.local'),authorization:req.headers.authorization,readBody:()=>body(req),ip:ip(req)}),c);}
    const raw=(req.headers.authorization||'').replace(/^Bearer /,''),auth=await store.auth(raw),a=auth.a;
    if(path==='/me'&&req.method==='GET')return send(res,200,store.me(a),c);
    if(path==='/logout'&&req.method==='POST')return send(res,200,store.logout(auth.th),c);
@@ -203,8 +207,8 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
   }catch(e){const rule=!!(globalThis.CRPGRuntime?.RuleError&&e instanceof globalThis.CRPGRuntime.RuleError)||!!(globalThis.CRPGRelationships?.RelationshipError&&e instanceof globalThis.CRPGRelationships.RelationshipError);return send(res,e.status||(rule?400:500),{error:e.status||rule?e.message:'이 행동을 처리하지 못했습니다. 다른 행동을 선택하거나 잠시 뒤 다시 시도해 주세요.',...(e.code?{code:e.code}:{}),...(e.outcome?{outcome:e.outcome}:{}),...(e.code==='VERSION_MISMATCH'?{version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD}:{})},c);}
  };
 }
-export async function startLiveRegionStaging({dbPath=':memory:',pepper,adminIds='',allowedOrigin='https://clannad.shop',host='127.0.0.1',port=0,features=defaultFeatures(dbPath)}={}){
- const store=new LiveRegionStore(dbPath,{pepper,adminIds,features}),server=createServer(createLiveRegionHandler({store,allowedOrigin}));await new Promise((ok,bad)=>{server.once('error',bad);server.listen(port,host,ok);});
- return {store,server,address:server.address(),close:async()=>{for(const s of store.subscribers){try{s.res.end();}catch{}}server.closeIdleConnections?.();await new Promise((ok,bad)=>server.close(e=>e?bad(e):ok()));store.close();}};
+export async function startLiveRegionStaging({dbPath=':memory:',pepper,adminIds='',allowedOrigin='https://clannad.shop',host='127.0.0.1',port=0,features=defaultFeatures(dbPath),adminConsoleId='',adminConsoleHash=''}={}){
+ const store=new LiveRegionStore(dbPath,{pepper,adminIds,features}),adminConsole=new AdminConsole(store,{id:adminConsoleId,secret:adminConsoleHash,pepper}),server=createServer(createLiveRegionHandler({store,allowedOrigin,adminConsole}));await new Promise((ok,bad)=>{server.once('error',bad);server.listen(port,host,ok);});
+ return {store,adminConsole,server,address:server.address(),close:async()=>{for(const s of store.subscribers){try{s.res.end();}catch{}}server.closeIdleConnections?.();await new Promise((ok,bad)=>server.close(e=>e?bad(e):ok()));store.close();}};
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){const dbPath=process.env.CRPG_SQLITE_PATH||'./data/fixed-region-live.sqlite3',started=await startLiveRegionStaging({dbPath,pepper:process.env.PASSWORD_PEPPER,adminIds:process.env.ADMIN_ACCOUNT_IDS||'',allowedOrigin:process.env.ALLOWED_ORIGIN||'https://clannad.shop',host:process.env.HOST||'127.0.0.1',port:Number(process.env.PORT||8789)});console.log(JSON.stringify({kind:'crpg_fixed_region_live_started',port:started.address.port,transportBuild:TRANSPORT_BUILD,features:[...started.store.features]}));}
+if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){const dbPath=process.env.CRPG_SQLITE_PATH||'./data/fixed-region-live.sqlite3',started=await startLiveRegionStaging({dbPath,pepper:process.env.PASSWORD_PEPPER,adminIds:process.env.ADMIN_ACCOUNT_IDS||'',allowedOrigin:process.env.ALLOWED_ORIGIN||'https://clannad.shop',host:process.env.HOST||'127.0.0.1',port:Number(process.env.PORT||8789),adminConsoleId:process.env.ADMIN_CONSOLE_ID||'',adminConsoleHash:process.env.ADMIN_CONSOLE_HASH||''});console.log(JSON.stringify({kind:'crpg_fixed_region_live_started',port:started.address.port,transportBuild:TRANSPORT_BUILD,features:[...started.store.features],adminConsole:started.adminConsole.configured()}));}

@@ -108,12 +108,15 @@ function companions(box){
  let list=[];try{list=game.recruitmentEntries?.()||[];}catch{}
  if(!list.length){box.append(mk('p','hb-note','동료 정보를 불러오지 못했습니다.'));return;}
  const owned=list.filter(x=>x.owned).length;
- const s=section('동료 '+owned+' / '+list.length,'각 동료의 개인 임무를 마치면 동행을 제안받습니다. 조건을 모두 채운 임무는 임무 화면에서 시작할 수 있습니다.');
+ const s=section('동료 '+owned+' / '+list.length,'각 동료의 개인 임무를 마치면 동행을 제안받습니다. 조건을 모두 채운 임무는 임무 화면에서 시작할 수 있습니다. 5★ 동료는 4★보다 조건이 훨씬 많고 기본 능력치가 10% 높습니다.');
  const filter=mk('div','hb-filter');let mode=H.companionFilter||'todo';
  const grid=mk('div','hb-companions');
  const draw=()=>{grid.replaceChildren();for(const x of list.filter(x=>mode==='all'||(mode==='todo'?!x.owned:x.owned))){const c=mk('article','hb-companion'+(x.owned?' owned':''));const met=(x.requirements||[]).filter(r=>r.met).length,total=(x.requirements||[]).length;
-  c.append(mk('strong','',x.name),mk('small','',x.region+' · '+(x.owned?'동행 중':x.complete?'임무 완료':met+' / '+total+' 조건')));
-  if(!x.owned){const ul=mk('ul','hb-reqs');for(const r of (x.requirements||[]).slice(0,4))ul.append(mk('li',r.met?'met':'unmet',r.label));c.append(ul);}
+  // 0.14.12: the rarity beside the name, the way to recruit, and every condition with what to do (it used to stop at
+  // four lines without explanations, so the preparation items never showed).
+  const rar=game.premiumRarity?.(x.character)===5?5:4,name=mk('strong','',x.name);name.append(mk('span','hb-rarity r'+rar,' '+'★'.repeat(rar)));
+  c.append(name,mk('small','',x.region+' · '+(x.owned?'동행 중':x.complete?'임무 완료':met+' / '+total+' 조건')));
+  if(!x.owned){if(x.method)c.append(mk('p','hb-method',x.method));const ul=mk('ul','hb-reqs');for(const r of (x.requirements||[])){const li=mk('li',r.met?'met':'unmet',r.label);if(r.hint&&!r.met)li.append(mk('small','hb-hint',r.hint));ul.append(li);}c.append(ul);}
   grid.append(c);}if(!grid.children.length)grid.append(mk('p','hb-note',mode==='todo'?'모든 동료가 함께하고 있습니다.':'아직 함께하는 동료가 없습니다.'));};
  for(const [id,label]of [['todo','합류 전'],['owned','합류함'],['all','전체']]){const b=mk('button','hb-filter-button'+(mode===id?' active':''),label);b.type='button';b.onclick=()=>{mode=H.companionFilter=id;for(const x of filter.children)x.classList.toggle('active',x===b);draw();};filter.append(b);}
  s.append(filter,grid);draw();box.append(s);

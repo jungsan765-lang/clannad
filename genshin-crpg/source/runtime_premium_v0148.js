@@ -30,7 +30,8 @@ const OFFERS=[
  {id:'GLITTER_STELLA',shop:'STARGLITTER',price:40,label:'운명의 별 · 원하는 동료 1명',stella:true,note:'5★ 동료와 주인공 40, 4★ 동료 25'},
  {id:'BOSS_GLITTER',shop:'BOSS',price:4,label:'스타라이트 ×1',give:{STARGLITTER:1},boss:true,weekly:5,note:'같은 필드 보스 재료 4개'},
  {id:'DUST_HERO_EXP',shop:'STARDUST',price:20,label:'영웅의 경험 ×1',items:{MAT_CHAR_EXP_HERO:1},weekly:5},
- {id:'DUST_MORA',shop:'STARDUST',price:10,label:'모라 ×500',mora:500,weekly:5}
+ // 0.14.12: about one 부의 꽃 (1,200~2,600) per exchange; 500 was less than half the smallest blossom.
+ {id:'DUST_MORA',shop:'STARDUST',price:10,label:'모라 ×2,000',mora:2000,weekly:5}
 ];
 api.premiumV0148={currency:copy(CURRENCY),offers:copy(OFFERS),talent:copy(TALENT),bossMaterials:copy(BOSS_MATERIALS),weekOf};
 const old=Object.fromEntries(['apply','actionReason','validateSave','combatDamageMultiplier','installMarketContent'].map(k=>[k,P[k]]));

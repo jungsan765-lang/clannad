@@ -25,9 +25,11 @@ function curIcon(key,cls='premium-cur'){const p=MAN().itemIcons?.icons?.[CUR[key
 function itemIcon(id,cls='premium-cur'){const p=MAN().itemIcons?.icons?.[id]?.path;if(!p)return mk('span',cls+' fallback','◆');const i=mk('img',cls);i.src=p;i.alt='';i.draggable=false;return i;}
 const sfx=n=>window.CRPGSound?.play?.(n);
 // ---- 교환 ----
-function openShop(tab){
+function openShop(tab,done){
  if(!game?.premiumBalance)return;if(tab)shopTab=tab;
  const box=mk('div','shell-premium-shop'),bal=game.premiumBalance(),info=P();
+ // 0.14.12: say what an exchange gave (or why it failed) inside the window; the game's notice line sits behind it.
+ if(done){const p=mk('p','premium-done'+(done.error?' failed':''),done.text);p.setAttribute('role','status');box.append(p);}
  const head=mk('div','premium-balances');for(const key of ['PRIMOGEM','STARGLITTER','STARDUST','INTERTWINED_FATE','ACQUAINT_FATE']){const b=mk('span','premium-balance '+key.toLowerCase());b.title=CUR[key][0];b.append(curIcon(key),mk('b','',fmt(bal[key])),mk('small','',CUR[key][0]));head.append(b);}
  const tabs=mk('div','premium-tabs');for(const [k,label]of SHOPS){const t=mk('button','premium-tab'+(shopTab===k?' active':''),label);t.type='button';t.onclick=()=>{shopTab=k;openShop();};tabs.append(t);}
  const list=mk('div','premium-offers'),owned=game.premiumFighters?.()||[];
@@ -51,7 +53,12 @@ function openShop(tab){
   const params=()=>({offer:o.id,...(o.stella&&pick?.value?{char:pick.value}:{}),...(o.boss&&pick?.value?{item:pick.value}:{}),...(count?{count:Number(count.value)}:{})});
   const sync=()=>{const n=count?Number(count.value):1;amount.textContent=o.stella?(pick?.value?fmt(game.premiumStellaPrice(pick.value)):'25~40'):o.boss?o.price*n+'개':fmt(o.price*n);const r=game.premiumOfferReason(params());buy.disabled=!!r||busy;buy.title=r||'';};sync();
   pick?.addEventListener('change',sync);count?.addEventListener('change',sync);
-  buy.onclick=async()=>{await act('PREMIUM_BUY',params());openShop();};
+  buy.onclick=async()=>{
+   const p=params(),n=p.count||1,out=await act('PREMIUM_BUY',p);if(out===undefined)return;
+   if(out?.ok===false){openShop(undefined,{error:true,text:out.error||'교환하지 못했습니다.'});return;}
+   const what=o.stella?'운명의 별 · '+game.premiumCharName(p.char):o.label;
+   sfx('item_receive');openShop(undefined,{text:'교환했습니다 · '+what+(n>1?' ('+n+'번)':'')});
+  };
   card.append(buy);list.append(card);
  }
  if(!list.childElementCount)list.append(mk('p','muted','교환할 수 있는 상품이 없습니다.'));

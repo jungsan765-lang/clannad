@@ -64,3 +64,10 @@
 - 원 게시물이 링크한 ZIP: https://raw.githubusercontent.com/SamToki/Genshin-Impact-Archive/main/Genshin%20Impact%20Short%20Sound%20Collection.zip
 
 녹음자 게시물의 출처 표기: audio copyright miHoYo; recording collection Sam Toki, CC BY-NC. 녹음자가 밝혔던 `229`개 WAV 파일과 ZIP 구조를 확인했다. 공식 CDN 원본 14개를 확보했고 그중 8개를 MP3로 정리했다. 녹음 모음에서 18개를 후보로 선정했다. 전체 라이브러리를 게임에 추가하지 않는다.
+
+## v0.14.12 기원 결과 등장 소리
+
+- `ig_wish_reveal3.mp3`·`ig_wish_reveal4.mp3`·`ig_wish_reveal5.mp3`: 기원 영상 뒤에 결과가 하나씩 나올 때의 원작 소리(3★·4★·5★). `ig_wish_result_list.mp3`: 결과 목록이 펼쳐질 때의 소리.
+- 받은 곳: 공개 팬 기원 시뮬레이터 저장소 https://github.com/Mantan21/Genshin-Impact-Wish-Simulator 의 `static/sfx/reveal-3star.ogg`·`reveal-4star.ogg`·`reveal-5star.ogg`·`result-list.ogg`(저작권 miHoYo / HoYoverse). 공식 CDN 직접 배포본이 아니다.
+- 앞 무음을 자르고, 세 등급의 원래 크기 차이는 그대로 둔 채 5★가 다른 녹음과 같은 크기(150 Hz 위 50 ms 최대 -24 dBFS)가 되도록 모두 약 2 dB 키운 뒤 Windows 내장 인코더로 MP3 128 kbps로 바꿨다. 원본 SHA-256과 자른 구간은 `catalog.json`에 있다.
+- 기원 유성 소리는 이제 기원 영상(`assets/video/wish/`)에 들어 있는 원작 소리를 쓴다. `ig_wish_execute3~5`는 「효과음 고르기」에 남아 있다.

@@ -1,6 +1,6 @@
 /* Acquisition is visible before the player meets or recruits a character. */
 let recruitmentRegion='전체',recruitmentOnlyMissing=false;
-function requirementList(parent,requirements){const list=el('ul','acquisition-requirements');for(const r of requirements){const item=el('li',r.met?'requirement-met':'requirement-unmet',(r.met?'✓ ':'필요 · ')+r.label);list.append(item);}parent.append(list);}
+function requirementList(parent,requirements){const list=el('ul','acquisition-requirements');for(const r of requirements){const item=el('li',r.met?'requirement-met':'requirement-unmet',(r.met?'✓ ':'필요 · ')+r.label);if(r.hint&&!r.met)item.append(el('small','requirement-hint',' — '+r.hint));list.append(item);}parent.append(list);}
 function recruitmentIntroductionGuide(parent,d){
  if(!d||game.legendRegistered(d.id))return;
  const guide=el('div','recruitment-introduction');guide.append(el('p','muted','임무 소개처 · '+game.legendIntroductionLabel(d)+' · 소개만 받을 때는 재화를 소모하지 않습니다.'));

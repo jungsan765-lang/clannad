@@ -3773,5 +3773,73 @@
    "bytes": 2046,
    "label": "5성"
   }
- }
+ },
+ "video": {
+  "3star-single": {
+   "file": "3star-single.mp4",
+   "path": "assets/video/wish/3star-single.mp4",
+   "source": "https://raw.githubusercontent.com/Mantan21/Genshin-Impact-Wish-Simulator/master/static/videos/3star-single.mp4",
+   "sourcePage": "https://github.com/Mantan21/Genshin-Impact-Wish-Simulator",
+   "provenance": "original_game_video_via_public_fan_simulator",
+   "sha256": "f70366d17a11f8a4f8c701026e83fd8a18ad79fecbd4d5858063cac21889d8fe",
+   "bytes": 3546131,
+   "format": "MP4 (H.264 1920x1080, AAC stereo), unchanged",
+   "duration_seconds": 6.12,
+   "label": "1회 · 3★ (파란 유성)",
+   "addedIn": "0.14.12"
+  },
+  "4star-single": {
+   "file": "4star-single.mp4",
+   "path": "assets/video/wish/4star-single.mp4",
+   "source": "https://raw.githubusercontent.com/Mantan21/Genshin-Impact-Wish-Simulator/master/static/videos/4star-single.mp4",
+   "sourcePage": "https://github.com/Mantan21/Genshin-Impact-Wish-Simulator",
+   "provenance": "original_game_video_via_public_fan_simulator",
+   "sha256": "133c27b1ab1c6529f12861c07fdf0e1107e4cc1d005bcd00b5235343b89e2be2",
+   "bytes": 3842180,
+   "format": "MP4 (H.264 1920x1080, AAC stereo), unchanged",
+   "duration_seconds": 6.06,
+   "label": "1회 · 4★ (보라 유성)",
+   "addedIn": "0.14.12"
+  },
+  "5star-single": {
+   "file": "5star-single.mp4",
+   "path": "assets/video/wish/5star-single.mp4",
+   "source": "https://raw.githubusercontent.com/Mantan21/Genshin-Impact-Wish-Simulator/master/static/videos/5star-single.mp4",
+   "sourcePage": "https://github.com/Mantan21/Genshin-Impact-Wish-Simulator",
+   "provenance": "original_game_video_via_public_fan_simulator",
+   "sha256": "45dbba9c284b99f540a3f987baa8b8b99c80e933235ca503dd73ba40ffa9a879",
+   "bytes": 3931003,
+   "format": "MP4 (H.264 1920x1080, AAC stereo), unchanged",
+   "duration_seconds": 6.06,
+   "label": "1회 · 5★ (금빛 유성)",
+   "addedIn": "0.14.12"
+  },
+  "4star-multi": {
+   "file": "4star-multi.mp4",
+   "path": "assets/video/wish/4star-multi.mp4",
+   "source": "https://raw.githubusercontent.com/Mantan21/Genshin-Impact-Wish-Simulator/master/static/videos/4star-multi.mp4",
+   "sourcePage": "https://github.com/Mantan21/Genshin-Impact-Wish-Simulator",
+   "provenance": "original_game_video_via_public_fan_simulator",
+   "sha256": "63b6f50b2a794ace903c7433558c38302c5bc7bd3b2544533ad740b59f876f90",
+   "bytes": 4484181,
+   "format": "MP4 (H.264 1920x1080, AAC stereo), unchanged",
+   "duration_seconds": 6.06,
+   "label": "10회 · 4★ (보라 유성)",
+   "addedIn": "0.14.12"
+  },
+  "5star-multi": {
+   "file": "5star-multi.mp4",
+   "path": "assets/video/wish/5star-multi.mp4",
+   "source": "https://raw.githubusercontent.com/Mantan21/Genshin-Impact-Wish-Simulator/master/static/videos/5star-multi.mp4",
+   "sourcePage": "https://github.com/Mantan21/Genshin-Impact-Wish-Simulator",
+   "provenance": "original_game_video_via_public_fan_simulator",
+   "sha256": "48ba513648b4794ce286eaf8e7550ac755a0a17ceddda8deedcd4374a5262710",
+   "bytes": 3940380,
+   "format": "MP4 (H.264 1920x1080, AAC stereo), unchanged",
+   "duration_seconds": 6,
+   "label": "10회 · 5★ (금빛 유성)",
+   "addedIn": "0.14.12"
+  }
+ },
+ "videoNote": "0.14.12: 기원 유성 연출은 원신 원작 기원 영상을 그대로 쓴다(사용자 요청 「기원 영상을 갖다 붙여」). 공개 팬 기원 시뮬레이터 저장소가 쓰는 파일을 변환 없이 받았다. 공식 CDN 직접 배포본이 아니다."
 }

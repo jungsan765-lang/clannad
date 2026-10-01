@@ -220,6 +220,9 @@ function pageHead(key,p,{title,iconName}={}){
  let back=[...p.children].filter(c=>c.tagName==='BUTTON'&&BACK_LABELS.test(c.textContent.trim())).at(-1);
  if(back){back.classList.add('shell-back');back.setAttribute('aria-label',back.textContent.trim()+' (Esc)');const label=back.textContent.trim();back.replaceChildren(icon('CLOSE'),mk('span','shell-back-label',label));tools.append(back);}
  else{const target=returnScreen();if(target&&target!==key){const src=navButton(target);back=mk('button','shell-back');back.type='button';back.append(icon('CLOSE'),mk('span','shell-back-label',target==='STORY'?'이야기로 돌아가기':target==='COMBAT'?'전투로 돌아가기':'메인 화면으로'));back.setAttribute('aria-label',back.textContent+' (Esc)');back.disabled=!!src?.disabled&&target!=='COMBAT';back.onclick=()=>target==='COMBAT'?act('MENU',{screen:'COMBAT'}):openScreen(target);tools.append(back);}}
+ // 0.14.12: inside a facility (바그너의 대장간 and the rest) 「메인 화면으로」 and Esc leave it exactly like 「밖으로 나가기」,
+ // with the same exit and save, instead of switching screens on the spot.
+ if(back&&!back.disabled&&game?.s?.placeVisit&&!game.s.runtime&&back.textContent.trim()==='메인 화면으로'&&!game.actionReason('PLACE_LEAVE',{}))back.onclick=()=>act('PLACE_LEAVE',{});
  return {head,tools,back};
 }
 S.pageHead=pageHead;
@@ -483,7 +486,7 @@ function soundGallery(){
   ['원소',[['불','fire'],['물','water'],['얼음','ice'],['번개','lightning'],['바람','wind'],['바위','rock'],['풀','dendro']]],
   ['원소 반응',[['융해','melt'],['증발','vaporize'],['과부하','overload'],['빙결','freeze']]],
   ['메뉴',[['버튼','click'],['마우스 올림','hover'],['탭','tab'],['선택지','choice'],['알림','toast'],['메뉴 열기','menu_open'],['메뉴 닫기','menu_close'],['쪽 넘김','page'],['핸드북','handbook_open'],['이동','travel'],['안 될 때','error']]],
-  ['기원·운명의 자리',[['기원 화면 열기','wish_open'],['기원 버튼','wish_click'],['유성 (3★)','wish_3'],['유성 (4★)','wish_4'],['유성 (5★)','wish_5'],['결과에서 돌아가기','wish_return'],['기원 화면 닫기','wish_close'],['운명의 자리 활성화','constellation'],['운명의 자리 열기','constellation_open'],['운명의 자리 고르기','constellation_node']]]];
+  ['기원·운명의 자리',[['기원 화면 열기','wish_open'],['기원 버튼','wish_click'],['유성 (3★)','wish_3'],['유성 (4★)','wish_4'],['유성 (5★)','wish_5'],['결과 등장 (3★)','wish_reveal3'],['결과 등장 (4★)','wish_reveal4'],['결과 등장 (5★)','wish_reveal5'],['결과 목록','wish_result'],['결과에서 돌아가기','wish_return'],['기원 화면 닫기','wish_close'],['운명의 자리 활성화','constellation'],['운명의 자리 열기','constellation_open'],['운명의 자리 고르기','constellation_node']]]];
  for(const [title,list]of groups){const box=mk('div','shell-sound-group');box.append(mk('h4','',title));
   for(const [label,id]of list){const options=SND.options?.(id)||[];if(!options.length)continue;
    const row=mk('div','shell-sound-pick variants'),pick=mk('div','shell-sound-variants'),mark=()=>{for(const x of pick.children)x.classList.toggle('active',x.dataset.which===SND.choice(id));};

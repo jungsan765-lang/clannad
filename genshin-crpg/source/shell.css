@@ -404,6 +404,9 @@ body.teyvat .party-cols .formation-slot .member-select{background:transparent;bo
 body.teyvat .party-cols .formation-slot .member-select:hover{background:rgba(236,229,216,.08)}
 /* ---------- quests / bonds ---------- */
 body.teyvat .quest-cols{grid-template-columns:minmax(260px,360px) minmax(0,1fr)}
+/* 0.14.12: a shop with side notes (몬드 잡화 상인's 「주변의 작은 단서」…) puts the goods left and the notes in a narrow
+   right column; stacked in one column without row sizes, the notes took the height and buried the goods. */
+body.teyvat .shop-cols.with-side{grid-template-columns:minmax(0,1fr) minmax(240px,300px);grid-template-rows:minmax(0,1fr)}
 body.teyvat .quest-cols .quest-track>*{margin:0 0 12px}
 body.teyvat .quest-cols .main-objective{border-left:3px solid var(--t-gold);background:linear-gradient(125deg,rgba(52,42,24,.85),rgba(18,22,34,.85));margin:0 0 12px}
 body.teyvat .quest-cols .quest-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-content:start}
@@ -584,6 +587,11 @@ html.reduce-motion body.teyvat *{animation:none!important}
 .hb-companion.owned{background:linear-gradient(160deg,#f6ecd4,#efe0bb);border-color:#d3bc8e}
 .hb-reqs{margin:4px 0 0;padding:0 0 0 16px;font-size:.76rem;color:#6b6f7c}
 .hb-reqs li.met{color:#35683a}.hb-reqs li.unmet{color:#9a3b2c}
+/* 0.14.12: rarity, how to recruit, and a hint under each unmet condition */
+.hb-rarity{font-size:.72rem;letter-spacing:-.02em;color:#a36bff;font-weight:700}.hb-rarity.r5{color:#d49a21}
+.hb-method{margin:2px 0 0;font-size:.74rem;line-height:1.45;color:#4e5466}
+.hb-reqs li{margin:3px 0;line-height:1.4}
+.hb-reqs .hb-hint{display:block;font-size:.68rem;color:#7a7f8c;font-weight:400}
 .hb-close{position:absolute;top:14px;right:14px;width:40px;height:40px;min-height:40px;padding:0;border-radius:50%;display:grid;place-items:center;background:#39404f;border:0;color:#ece5d8;cursor:pointer;z-index:2}
 .hb-close:hover{box-shadow:0 0 0 3px rgba(211,188,142,.55)}
 @media (max-width:760px){
@@ -806,6 +814,11 @@ body.teyvat .hud-primo .hud-primo-icon{width:24px;height:24px;object-fit:contain
 .shell-premium-shop .premium-weekly{color:var(--t-gold-hi,#f3dfae);font-size:.74rem}
 .shell-premium-shop .premium-pick,.shell-premium-shop .premium-count{width:100%}
 .shell-premium-shop .premium-note{font-size:.8rem;line-height:1.5}
+.shell-premium-shop .premium-done{margin:0;padding:8px 14px;border-radius:10px;background:rgba(95,197,154,.16);border:1px solid rgba(95,197,154,.55);color:#c9f2de;font-weight:700;animation:premium-done-in .35s ease-out}
+.shell-premium-shop .premium-done::before{content:'✓ '}
+.shell-premium-shop .premium-done.failed{background:rgba(226,103,95,.14);border-color:rgba(226,103,95,.55);color:#ffc9c4}
+.shell-premium-shop .premium-done.failed::before{content:'! '}
+@keyframes premium-done-in{from{opacity:0;translate:0 -6px}to{opacity:1;translate:0 0}}
 body.teyvat .shell-premium-member{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:14px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(211,188,142,.18)}
 body.teyvat .shell-premium-member h4{margin:0 0 6px;font-size:.9rem;color:var(--t-gold)}
 body.teyvat .premium-talents,body.teyvat .premium-cons{display:flex;flex-direction:column;gap:6px;min-width:0}
@@ -1210,6 +1223,9 @@ body.teyvat .combat-panel .combat-player-mark{float:none;display:grid;place-item
 body.teyvat .bag-cols .bag-grid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px}
 body.teyvat .bag-item .item-count{font-size:.82rem}
 body.teyvat .bag-item .item-name{font-size:.74rem;font-weight:600;color:#39404f!important;padding:0 6px 6px}
+/* 0.14.12: the name under the icon, like the forge tiles (the square base tile squeezed it to nothing) */
+body.teyvat .bag-item{aspect-ratio:auto;justify-content:flex-start}
+body.teyvat .bag-item .item-name{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em;line-height:1.3;padding:1px 6px 6px;word-break:keep-all;overflow-wrap:anywhere}
 body.teyvat .bag-cols .bag-detail{font-size:.95rem;line-height:1.65;padding:16px 18px}
 body.teyvat .bag-detail h2{font-size:1.35rem;margin:6px 0 4px}
 body.teyvat .bag-detail .item-effect{background:rgba(255,255,255,.05);border:1px solid rgba(211,188,142,.18);border-radius:12px;padding:10px 12px;white-space:pre-line}
@@ -1346,7 +1362,11 @@ body.teyvat .shell-preset-name input{flex:1;min-width:0}
 .wish-cur.small{width:20px;height:20px}
 .wish-cur.fallback{display:inline-grid;place-items:center;color:#9fdcff}
 .wish-screen button.wish-plus{width:22px;height:22px;min-height:0;padding:0;border-radius:50%;display:grid;place-items:center;background:#ece5d8;color:#3b4255;font-weight:800;border:0;line-height:1}
-.wish-screen button.wish-close{flex:none;width:38px;height:38px;min-height:0;padding:0;border-radius:50%;background:#ece5d8;color:#3b4255;font-size:1.5rem;line-height:1;border:0;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.wish-screen button.wish-close{position:relative;flex:none;width:38px;height:38px;min-height:0;padding:0;border-radius:50%;background:#ece5d8;color:#3b4255;font-size:0;line-height:0;text-align:center;border:0;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+/* 0.14.12: the × is drawn, centred; the base button style left-aligned the text glyph */
+.wish-screen button.wish-close::before,.wish-screen button.wish-close::after{content:'';position:absolute;left:50%;top:50%;width:46%;height:2.5px;border-radius:2px;background:currentColor;translate:-50% -50%;rotate:45deg}
+.wish-screen button.wish-close::after{rotate:-45deg}
+.wish-screen button.wish-close:hover{filter:brightness(1.06)}
 .wish-banner{position:relative;display:grid;grid-template-columns:minmax(300px,40%) 1fr;min-height:0;border-radius:18px;overflow:hidden;background:var(--wish-bg,none) center/cover no-repeat,#e9e3d6;box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 2px rgba(243,223,174,.55);animation:wish-banner-in .35s ease-out}
 @keyframes wish-banner-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .wish-banner-art{position:absolute;top:0;right:0;bottom:0;width:64%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 26%);mask-image:linear-gradient(90deg,transparent 0,#000 26%)}
@@ -1378,6 +1398,7 @@ body.teyvat .wish-screen h2.wish-banner-name{margin:0;font-size:2.2rem;line-heig
 .wish-screen button.wish-ghost.active{background:#ece5d8;color:#3b4255}
 .wish-pity{display:flex;flex-direction:column;gap:2px;margin:0 0 0 auto;font-size:.74rem;color:#c9cfdf;text-align:right}
 .wish-guarantee{color:#f3dfae;font-weight:700}
+.wish-lock{position:absolute;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%);max-width:min(620px,92vw);margin:0;padding:9px 18px;border-radius:20px;background:rgba(30,34,48,.88);border:1px solid rgba(243,223,174,.55);color:#f3dfae;font-size:.86rem;font-weight:700;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.4)}
 .wish-pulls{display:flex;gap:12px;flex:none}
 .wish-screen button.wish-pull{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:210px;min-height:64px;padding:6px 18px;border-radius:32px;background:linear-gradient(#fbf6ea,#e2d7bf);color:#4a4f5f;border:2px solid #fff;box-shadow:0 4px 0 #b7a98a,0 10px 24px rgba(0,0,0,.45);transform:none}
 .wish-screen button.wish-pull strong{font-size:1rem}
@@ -1388,7 +1409,7 @@ body.teyvat .wish-screen h2.wish-banner-name{margin:0;font-size:2.2rem;line-heig
 .wish-panel{width:min(640px,92%);max-height:86%;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:16px 18px;border-radius:16px;background:#ece5d8;color:#3b4255;box-shadow:0 20px 60px rgba(0,0,0,.6)}
 .wish-panel-head{display:flex;align-items:center;gap:8px}
 body.teyvat .wish-screen .wish-panel h3{margin:0 auto 0 0;color:#3b4255;font-size:1.1rem}
-.wish-screen .wish-panel button.wish-close.small{width:30px;height:30px;font-size:1.1rem;background:#3b4255;color:#ece5d8}
+.wish-screen .wish-panel button.wish-close.small{width:30px;height:30px;font-size:0;background:#3b4255;color:#ece5d8}
 .wish-buy{display:flex;align-items:center;justify-content:center;gap:10px;font-size:1.3rem}
 .wish-buy .wish-cur{width:46px;height:46px}
 .wish-steps{display:flex;gap:6px;justify-content:center}
@@ -1406,47 +1427,62 @@ body.teyvat .wish-screen .wish-panel h3{margin:0 auto 0 0;color:#3b4255;font-siz
 .wish-history li.rarity-5{background:rgba(240,180,41,.2)}
 .wish-history li.rarity-4{background:rgba(160,120,230,.15)}
 .wish-panel select,.wish-panel input{min-height:38px}
-/* the falling star */
-.wish-stage{position:absolute;inset:0;z-index:10;overflow:hidden;background:radial-gradient(ellipse at 72% -4%,#2b3a6e,#0a0d1d 62%,#05060d);--m:#7cc6ff}
-.wish-stage.best-4{--m:#c99dff}
-.wish-stage.best-5{--m:#ffd36b}
-.wish-stage-sky{animation:wish-drift 12s linear infinite}
-@keyframes wish-drift{from{transform:translate(0,0)}to{transform:translate(-40px,22px)}}
-.wish-meteor{position:absolute;inset:0;pointer-events:none}
-.wish-trail{position:absolute;top:-6%;right:-6%;width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 18px 8px var(--m),0 0 60px 22px color-mix(in srgb,var(--m) 55%,transparent);animation:wish-fall 5.8s cubic-bezier(.32,.04,.36,1) forwards}
-.wish-trail::after{content:'';position:absolute;top:50%;left:50%;width:46vw;height:5px;margin-top:-2.5px;transform-origin:0 50%;transform:rotate(-38deg);border-radius:3px;background:linear-gradient(90deg,#fff,var(--m) 8%,color-mix(in srgb,var(--m) 40%,transparent) 45%,transparent)}
-.wish-stage.multi .wish-trail.t1{animation-delay:.35s;top:-12%;right:4%;transform:scale(.7)}
-.wish-stage.multi .wish-trail.t2{animation-delay:.7s;top:-2%;right:-14%;transform:scale(.55)}
-@keyframes wish-fall{0%{translate:0 0;scale:.5;opacity:0}8%{opacity:1}70%{scale:1.1}100%{translate:-56vw 78vh;scale:1.6;opacity:1}}
-.wish-flash{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle at 44% 76%,#fff 0,color-mix(in srgb,var(--m) 85%,#fff) 22%,color-mix(in srgb,var(--m) 40%,transparent) 48%,transparent 72%)}
-.wish-stage.flashed .wish-flash{animation:wish-flash .9s ease-out forwards}
-@keyframes wish-flash{0%{opacity:0}30%{opacity:1}100%{opacity:.0}}
-.wish-screen .wish-stage button.wish-skip{position:absolute;top:14px;right:18px;z-index:4;min-height:34px;padding:4px 16px;border-radius:17px;background:rgba(236,229,216,.15);border:1px solid rgba(236,229,216,.55);color:#ece5d8;box-shadow:none}
+/* 0.14.12: the original wish video, then each result on its own */
+.wish-stage{position:absolute;inset:0;z-index:10;overflow:hidden;background:radial-gradient(ellipse at 72% -4%,#2b3a6e,#0a0d1d 62%,#05060d)}
+.wish-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.wish-stage.whiteout::after{content:'';position:absolute;inset:0;z-index:6;background:#fff;pointer-events:none;animation:wish-whiteout .6s ease-out forwards}
+@keyframes wish-whiteout{from{opacity:1}to{opacity:0}}
+.wish-screen .wish-stage button.wish-skip{position:absolute;top:14px;right:18px;z-index:7;min-height:34px;padding:4px 16px;border-radius:17px;background:rgba(236,229,216,.15);border:1px solid rgba(236,229,216,.55);color:#ece5d8;box-shadow:none}
 /* one result on the original reveal background */
-.wish-reveal{position:absolute;inset:0;z-index:2;overflow:hidden;background:var(--wish-bg,none) center/cover no-repeat,#d9d2c3;cursor:pointer;animation:wish-reveal-in .45s ease-out}
-.wish-reveal-art{position:absolute;right:10%;top:50%;height:min(80vh,620px);width:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 14%;border-radius:18px;border:5px solid #fff;box-shadow:0 0 0 2px #f0b429,0 0 42px rgba(255,214,110,.6),0 26px 50px rgba(0,0,0,.35);transform:translateY(-50%) rotate(2.5deg);animation:wish-card-pop 1s cubic-bezier(.2,.8,.2,1)}
-.wish-reveal.rarity-4 .wish-reveal-art{box-shadow:0 0 0 2px #b98bff,0 0 38px rgba(185,139,255,.55),0 26px 50px rgba(0,0,0,.35)}
-.wish-reveal-weapon{position:absolute;right:14%;top:50%;width:min(52vh,400px);transform:translateY(-50%);filter:drop-shadow(0 0 26px rgba(255,255,255,.8));animation:wish-art-slide 1s cubic-bezier(.2,.8,.2,1)}
-.wish-reveal.rarity-4 .wish-reveal-weapon{filter:drop-shadow(0 0 30px #c99dff)}
-.wish-reveal-info{position:absolute;left:10%;top:50%;transform:translateY(-50%);max-width:min(460px,40%);display:flex;flex-direction:column;gap:8px;color:#2d3245;animation:wish-info-in .8s .25s both}
-@keyframes wish-card-pop{from{opacity:0;transform:translateY(-46%) rotate(9deg) scale(.86)}to{opacity:1;transform:translateY(-50%) rotate(2.5deg)}}
-@keyframes wish-art-slide{from{opacity:0;translate:60px 0;scale:1.06}to{opacity:1;translate:0 0;scale:1}}
-.wish-reveal-stars{font-size:1.8rem;letter-spacing:.12em;color:#f0b429;text-shadow:0 0 12px rgba(240,180,41,.85)}
-.wish-reveal.rarity-4 .wish-reveal-stars{color:#a36bff;text-shadow:0 0 12px rgba(163,107,255,.7)}
-body.teyvat .wish-screen .wish-reveal-info h2{margin:0;font-size:2.8rem;line-height:1.1;color:#2d3245;text-shadow:0 1px 0 #fff}
-.wish-reveal-sub{margin:0;font-size:.95rem;color:#4a5066}
-.wish-reveal-gain{margin:0;font-size:.85rem;color:#7a5b16;font-weight:700}
-.wish-reveal-up{align-self:flex-start;padding:2px 12px;border-radius:11px;background:#d2683f;color:#fff;font-weight:800;font-size:.8rem}
-.wish-reveal-hint{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);margin:0;color:#5b6276;font-size:.8rem}
-.wish-reveal.leaving{animation:wish-out .18s forwards}
-@keyframes wish-reveal-in{from{opacity:0;filter:brightness(2.2)}to{opacity:1;filter:none}}
-@keyframes wish-art-in{from{opacity:0;transform:translateX(60px) scale(1.06)}to{opacity:1;transform:none}}
-@keyframes wish-info-in{from{opacity:0;translate:-30px 0}to{opacity:1;translate:0 0}}
+.wish-reveal{position:absolute;inset:0;z-index:2;overflow:hidden;background:var(--wish-bg,none) center/cover no-repeat,#e8e2d4;cursor:pointer;--glow:#8fcbff}
+.wish-reveal.rarity-4{--glow:#c39bff}
+.wish-reveal.rarity-5{--glow:#ffcf5c}
+.wish-reveal-burst{position:absolute;left:64%;top:50%;width:140vmax;height:140vmax;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#fff 0,color-mix(in srgb,var(--glow) 80%,#fff) 5%,color-mix(in srgb,var(--glow) 36%,transparent) 19%,transparent 45%);translate:-50% -50%;scale:.15;opacity:0;animation:wish-burst 1s cubic-bezier(.2,.7,.2,1) forwards}
+.wish-reveal.rarity-3 .wish-reveal-burst{animation-duration:.6s}
+.wish-reveal.rarity-5 .wish-reveal-burst{animation-duration:1.4s}
+@keyframes wish-burst{0%{opacity:0;scale:.15}16%{opacity:1}100%{opacity:.5;scale:1}}
+.wish-reveal-rays{position:absolute;left:64%;top:50%;width:150vmax;height:150vmax;pointer-events:none;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--glow) 34%,transparent) 0 3deg,transparent 3deg 15deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 52%);mask:radial-gradient(circle,#000 0,transparent 52%);opacity:0;animation:wish-rays 1.4s .15s ease-out forwards,wish-spin 60s linear infinite}
+.wish-reveal.rarity-3 .wish-reveal-rays{display:none}
+@keyframes wish-rays{to{opacity:.6}}
+@keyframes wish-spin{to{rotate:360deg}}
+/* a companion: this game's own portrait (never official art), lit as it lands */
+.wish-reveal-art{position:absolute;right:9%;top:50%;height:min(84vh,660px);aspect-ratio:4/5;translate:0 -50%;rotate:2deg;border-radius:20px;overflow:hidden;border:5px solid #fff;box-shadow:0 0 0 2px var(--glow),0 0 54px color-mix(in srgb,var(--glow) 70%,transparent),0 28px 60px rgba(0,0,0,.35);animation:wish-art-in .9s cubic-bezier(.16,.84,.24,1) both}
+.wish-reveal.rarity-5 .wish-reveal-art{animation-duration:1.3s;animation-delay:.2s}
+.wish-reveal-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+.wish-reveal-sheen{position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.7) 50%,transparent 65%);translate:-120% 0;animation:wish-sheen 1s .6s ease-in-out forwards}
+@keyframes wish-art-in{0%{opacity:0;transform:translateX(90px) rotate(5deg) scale(1.08);filter:brightness(3)}60%{opacity:1;filter:brightness(1.15)}100%{opacity:1;transform:none;filter:none}}
+@keyframes wish-sheen{to{translate:120% 0}}
+/* a weapon spins down into place */
+.wish-reveal-weapon{position:absolute;right:14%;top:50%;width:min(56vh,430px);aspect-ratio:1;translate:0 -50%;animation:wish-weapon-in .8s cubic-bezier(.16,.84,.24,1) both}
+.wish-reveal-weapon img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 22px color-mix(in srgb,var(--glow) 85%,#fff)) drop-shadow(0 18px 24px rgba(0,0,0,.25))}
+@keyframes wish-weapon-in{0%{opacity:0;transform:translateY(12%) scale(.6) rotate(-14deg);filter:brightness(4)}55%{opacity:1;filter:brightness(1.3)}100%{opacity:1;transform:none;filter:none}}
+.wish-reveal-info{position:absolute;left:8%;bottom:15%;max-width:min(520px,44%);display:flex;flex-direction:column;align-items:flex-start;gap:8px;color:#2d3245}
+body.teyvat .wish-screen .wish-reveal-info h2.wish-reveal-name{margin:0;font-size:2.9rem;line-height:1.1;color:#2d3245;text-shadow:0 1px 0 #fff,0 0 18px rgba(255,255,255,.8);animation:wish-name-in .6s .3s both}
+.wish-reveal-stars{display:flex;gap:4px;font-size:1.9rem;line-height:1}
+.wish-reveal-stars span{display:inline-block;color:#f3b72d;text-shadow:0 0 10px rgba(243,183,45,.9),0 1px 0 #fff;opacity:0;animation:wish-star-pop .34s calc(.55s + var(--s) * .12s) cubic-bezier(.3,1.6,.5,1) forwards}
+.wish-reveal-sub{margin:0;font-size:.95rem;color:#4a5066;animation:wish-info-in .5s .85s both}
+.wish-reveal-gain{margin:0;font-size:.85rem;color:#7a5b16;font-weight:700;animation:wish-info-in .5s .95s both}
+.wish-reveal-up{padding:2px 12px;border-radius:11px;background:#d2683f;color:#fff;font-weight:800;font-size:.8rem;animation:wish-info-in .5s 1s both}
+@keyframes wish-name-in{from{opacity:0;translate:-36px 0}to{opacity:1;translate:0 0}}
+@keyframes wish-star-pop{0%{opacity:0;scale:2.4}100%{opacity:1;scale:1}}
+@keyframes wish-info-in{from{opacity:0;translate:-24px 0}to{opacity:1;translate:0 0}}
+.wish-reveal-hint{position:absolute;bottom:16px;left:50%;translate:-50% 0;margin:0;color:#5b6276;font-size:.8rem;opacity:0;transition:opacity .3s}
+.wish-reveal.settled .wish-reveal-hint{opacity:1}
+/* a click during the entrance shows the result at once */
+.wish-reveal.settled :is(.wish-reveal-burst,.wish-reveal-art,.wish-reveal-sheen,.wish-reveal-weapon,.wish-reveal-name,.wish-reveal-stars span,.wish-reveal-sub,.wish-reveal-gain,.wish-reveal-up){animation-duration:.01ms!important;animation-delay:0s!important}
+.wish-reveal.leaving{animation:wish-out .16s forwards}
 @keyframes wish-out{to{opacity:0}}
+@media (max-aspect-ratio:1/1){
+ .wish-reveal-art{right:50%;top:5%;translate:50% 0;height:min(54vh,520px)}
+ .wish-reveal-weapon{right:50%;top:8%;translate:50% 0;width:min(70vw,380px)}
+ .wish-reveal-burst,.wish-reveal-rays{left:50%;top:32%}
+ .wish-reveal-info{left:6%;right:6%;bottom:9%;max-width:none}
+ body.teyvat .wish-screen .wish-reveal-info h2.wish-reveal-name{font-size:2.1rem}
+}
+@media (prefers-reduced-motion:reduce){.wish-reveal *{animation-duration:.01ms!important;animation-delay:0s!important}.wish-reveal-rays{display:none}}
 /* all results */
 .wish-stage.summary{background:var(--wish-summary,none) center/cover no-repeat,#151a2b}
 .wish-summary{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px;background:radial-gradient(ellipse at 50% 50%,rgba(10,14,28,.15),rgba(5,7,14,.55))}
-.wish-stage.summary .wish-meteor,.wish-stage.summary .wish-flash{display:none}
 .wish-cards{display:flex;gap:10px;justify-content:center;align-items:stretch;width:100%;height:min(60vh,440px)}
 .wish-card{position:relative;flex:0 1 118px;min-width:0;border-radius:14px 14px 44px 44px/14px 14px 26px 26px;overflow:hidden;background:linear-gradient(180deg,#3a4a76,#1b2139);border:2px solid #7d93d3;box-shadow:0 8px 18px rgba(0,0,0,.45);animation:wish-card-in .5s calc(var(--i) * .07s) both}
 .wish-card.rarity-4{background:linear-gradient(180deg,#7254b0,#2b1f48);border-color:#c9a2ff;box-shadow:0 0 18px rgba(201,162,255,.5),0 8px 18px rgba(0,0,0,.45)}
@@ -1609,4 +1645,7 @@ body.teyvat[data-region=liyue] .shell-place-main{border:1px solid rgba(218,178,1
 body.teyvat[data-region=liyue] .shell-battle-line>.shell-draggable.dragging{box-shadow:0 18px 40px rgba(0,0,0,.6),0 0 0 2px rgba(248,210,169,.85)}
 body.teyvat[data-region=liyue] .shell-battle-line>.drop-target{box-shadow:0 0 0 2px #f8d2a9,0 0 24px rgba(248,210,169,.45)}
 body.teyvat[data-region=liyue] :where(#root) button.shell-preset-chip.active{border-color:#f8d2a9;background:rgba(248,210,169,.12);box-shadow:0 0 0 1px rgba(248,210,169,.6)}
+body.teyvat[data-region=liyue] .wish-screen h2.wish-banner-name{color:#4a392a}
+body.teyvat[data-region=liyue] .wish-screen .wish-panel h3{color:#5b4838}
+body.teyvat[data-region=liyue] .wish-screen .wish-reveal-info h2.wish-reveal-name{color:#4a392a}
 /* ---------- /리월 색 ---------- */

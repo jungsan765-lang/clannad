@@ -65,6 +65,11 @@ const CHOICES={
  wish_5:[['ig_wish_execute5','본편 기원 유성 (5★)']],
  wish_return:[['ig_wish_return','본편 기원 결과에서 돌아가기']],
  wish_close:[['ig_wish_close','본편 기원 화면 닫기']],
+ // 0.14.12: each result appearing after the original wish video, and the final list.
+ wish_reveal3:[['ig_wish_reveal3','본편 기원 결과 등장 (3★)']],
+ wish_reveal4:[['ig_wish_reveal4','본편 기원 결과 등장 (4★)']],
+ wish_reveal5:[['ig_wish_reveal5','본편 기원 결과 등장 (5★)']],
+ wish_result:[['ig_wish_result_list','본편 기원 결과 목록']],
  constellation:[['ig_constellation_activate','본편 운명의 자리 활성화']],
  constellation_open:[['ig_constellation_open','본편 운명의 자리 열기']],
  constellation_node:[['ig_character_constellation','본편 운명의 자리 고르기']]
@@ -107,7 +112,7 @@ function playBuffer(buffer,level,id){
  src.connect(g).connect(c.destination);return {src,g};
 }
 // Fanfares dip the music for their length so they are heard.
-const DUCK=new Set(['victory','defeat','level_up','quest_complete','commission_complete','wish_3','wish_4','wish_5','constellation']);let duckUntil=0;
+const DUCK=new Set(['victory','defeat','level_up','quest_complete','commission_complete','wish_3','wish_4','wish_5','wish_reveal4','wish_reveal5','constellation']);let duckUntil=0;
 const priorSync=GameAudio.sync.bind(GameAudio);
 GameAudio.sync=function(...args){const out=priorSync(...args);if(this.music&&performance.now()<duckUntil)this.music.volume=Math.min(this.music.volume,settings.musicVolume*.65*.25);return out;};
 function duck(seconds){duckUntil=performance.now()+seconds*1000;const m=GameAudio.music;if(m)m.volume=Math.min(m.volume,settings.musicVolume*.65*.25);clearTimeout(S.duckTimer);S.duckTimer=setTimeout(()=>{duckUntil=0;try{GameAudio.sync();}catch{}},seconds*1000+120);}
@@ -132,6 +137,11 @@ GameAudio.play=async function(name){
 S.play=name=>{try{GameAudio.play(name);}catch{}};
 // A long recording (the wish's falling star) stops when its scene is skipped.
 S.stop=name=>{try{GameAudio.named?.[name]?.stop();}catch{}if(DUCK.has(name)){duckUntil=0;try{GameAudio.sync();}catch{}}};
+// 0.14.12: the wish video carries its own sound; the music dips under it like under a fanfare. The video follows the
+// effect volume and the sound switch.
+S.duck=seconds=>{try{duck(seconds);}catch{}};
+S.unduck=()=>{clearTimeout(S.duckTimer);duckUntil=0;try{GameAudio.sync();}catch{}};
+S.effectVolume=()=>{try{return GameAudio.enabled()?Math.max(0,Math.min(1,Number(settings.sfxVolume)||0)):0;}catch{return 0;}};
 S.hover=()=>S.play('hover');
 // Plain hits take the attacker's colour: a bow user's shot sounds like a bow, a hilichurl's blow like a hilichurl.
 // Slimes keep app_av.js's own slime sound; elemental hits keep their element.

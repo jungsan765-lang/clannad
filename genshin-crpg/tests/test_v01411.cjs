@@ -186,7 +186,9 @@ check('screens: the wish screen and its presentation, the constellation chart an
  const html=src('index.html'),build=src('../tools/build.py');
  for(const f of ['runtime_constellations_v01411.js','runtime_wish_v01411.js','app_wish_v01411.js'])assert(html.includes('<script src="'+f+'"></script>')&&build.includes("'"+f+"'"),f);
  assert(html.indexOf('runtime_premium_v0148.js')<html.indexOf('runtime_constellations_v01411.js')&&html.indexOf('runtime_constellations_v01411.js')<html.indexOf('runtime_wish_v01411.js'));
- const w=src('app_wish_v01411.js');assert(w.includes("const sound='wish_'+best;SND(sound);")&&w.includes('건너뛰기')&&w.includes("SND('wish_return')"),'a falling star with the original sound, skippable, then the results');
+ // 0.14.12: the falling star is the original wish video; every result then appears on its own, 3★ weapons too.
+ const w=src('app_wish_v01411.js');assert(w.includes("'assets/video/wish/'")&&w.includes("const sound='wish_reveal'+r.rarity;SND(sound);")&&w.includes('건너뛰기')&&w.includes("SND('wish_return')"),'the original wish video, every result in turn, skippable, then the results');
+ for(const v of ['3star-single','4star-single','5star-single','4star-multi','5star-multi'])assert(fs.existsSync(path.join(root,'assets/video/wish',v+'.mp4')),v);
  assert(w.includes("then:count")&&w.includes("'교환하고 기원'"),'missing fates are exchanged on the spot');
  const p=src('app_premium_v0148.js');assert(p.includes("sfx('constellation')")&&p.includes("'cons-frame','cons-'+lv"),'opening a constellation plays the original sound; cards wear a frame per level');
  assert(src('app_equipment.js').includes("document.querySelector('.wish-screen'))return;"),'the first-equipment guide waits for the wish screen to close');

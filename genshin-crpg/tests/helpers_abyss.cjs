@@ -17,7 +17,7 @@ const SETUPS={
  7:{ex:1,lv:20,enh:10,art:1,team:['LIYUE_YANFEI','MOND_MIKA','LIYUE_BEIDOU'],formation:'DOUBLE_LINE',roles:['연계우선','균형','공격우선'],food:{2:{PLAYER_CUSTOM:'FOOD_ALMOND_TOFU'}}},
  8:{ex:1,lv:20,enh:10,art:1,team:['MOND_RAZOR','LIYUE_TARTAGLIA','LIYUE_XIANYUN'],formation:'DOUBLE_LINE',roles:['연계우선','연계우선','균형'],gear:{ALL:['EQ_LY_SPECIAL_LEYLINE_STAKE',10]},swapBack:3,food:{3:{ALL:'FOOD_PILE_EM_UP'}}},
  9:{ex:1,lv:20,enh:10,art:1,team:['MOND_DAHLIA','LIYUE_XINYAN','LIYUE_LANYAN'],formation:'DOUBLE_LINE',roles:['지원우선','균형','지원우선'],gear:{ALL:['EQ_ACC_STEADFAST',9]},swapAcc:{2:['EQ_LY_ACC_STARGAZER',0],3:['EQ_ACC_STEADFAST',9]},hitArtifacts:2,swapBack:3},
- 10:{ex:1,lv:20,enh:12,art:1,team:['MOND_MONA','LIYUE_KEQING','MOND_SUCROSE'],formation:'DOUBLE_LINE',roles:['연계우선','공격우선','연계우선'],gear:{ALL:['EQ_LY_ACC_STARGAZER',10]}},
+ 10:{ex:1,lv:20,enh:12,art:1,team:['MOND_MONA','LIYUE_KEQING','MOND_SUCROSE'],formation:'DOUBLE_LINE',roles:['연계우선','공격우선','연계우선'],gear:{ALL:['EQ_LY_ACC_STARGAZER',10]},food:{3:{ALL:'FOOD_ADEPTUS_TEMPTATION'}}},
  11:{ex:1,lv:20,enh:12,art:1,team:['LIYUE_HUTAO','LIYUE_GANYU','LIYUE_NINGGUANG'],formation:'LINE_AHEAD',roles:['공격우선','공격우선','균형'],gear:{ALL:['EQ_LY_ACC_QINGXIN_SACHET',10]}},
  12:{lv:20,enh:12,art:1,mastery:1,team:['MOND_DILUC','MOND_JEAN','LIYUE_ZHONGLI'],formation:'DOUBLE_LINE',roles:['연계우선','공격우선','지원우선']}
 };

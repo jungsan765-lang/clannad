@@ -27,16 +27,23 @@ function nameOf(r){return r.kind==='char'?game.premiumCharName(r.id):(game.table
 function weaponIcon(id){return MAN().itemIcons?.icons?.[id]?.path||'';}
 function stars(n){return '★'.repeat(n);}
 function admin(){return window.CRPGOnline?.account?.admin===true||game?.serverAdmin===true;}
+// Wishes and fate exchanges happen in free play only (not during a dialogue or a battle). The game's own notice line
+// sits behind this screen, so the reason, and any refusal, is shown here instead.
+function lockReason(){try{const a={banner:UI.banner,count:1},all=game.actionReason('WISH',a)||'',own=game.wishReason?.(a)||'';return all&&all!==own?all:(game.s.runtime?own:'');}catch{return '';}}
+async function attempt(type,params){const out=await act(type,params);if(out?.ok===false){UI.note=out.error||'지금은 할 수 없습니다.';SND('error');}else UI.note='';return out;}
 function balance(){return game.premiumBalance?.()||{};}
 function fateOf(banner){return game.wishView().banners[banner].fate;}
 // ---- the screen ----
 function open(banner){
  if(!game?.wishView)return;if(banner)UI.banner=banner;
- if(!UI.root){UI.root=mk('div','wish-screen');UI.root.setAttribute('role','dialog');UI.root.setAttribute('aria-label','기원');document.body.append(UI.root);document.addEventListener('keydown',onKey);SND('wish_open');}
+ if(!UI.root){UI.root=mk('div','wish-screen');UI.root.setAttribute('role','dialog');UI.root.setAttribute('aria-label','기원');document.body.append(UI.root);document.addEventListener('keydown',onKey);SND('wish_open');warmVideos();}
  draw();
 }
 function close(){if(!UI.root||UI.stage)return;SND('wish_close');document.removeEventListener('keydown',onKey);UI.root.remove();UI.root=null;UI.panel=null;try{render();}catch{}}
-function onKey(e){if(e.key!=='Escape')return;if(UI.stage){UI.stage.skip?.();return;}if(UI.panel){UI.panel=null;draw();return;}close();}
+function onKey(e){
+ if(UI.stage&&(e.key===' '||e.key==='Enter')){e.preventDefault();UI.stage.advance?.();return;}
+ if(e.key!=='Escape')return;if(UI.stage){UI.stage.skip?.();return;}if(UI.panel){UI.panel=null;draw();return;}close();
+}
 function wallet(){
  const w=mk('div','wish-wallet'),b=balance();
  for(const key of ['PRIMOGEM','INTERTWINED_FATE','ACQUAINT_FATE']){
@@ -70,9 +77,11 @@ function draw(){
  const s=v.state[UI.banner],pity=mk('p','wish-pity');
  pity.append(mk('span','','5★까지 최대 '+(90-s.pity5)+'회'),mk('span','','4★ 이상까지 최대 '+(10-s.pity4)+'회'));
  if(UI.banner==='EVENT'&&s.guarantee5)pity.append(mk('span','wish-guarantee','다음 5★는 확률 UP 동료 확정'));
- const pulls=mk('div','wish-pulls'),fate=v.banners[UI.banner].fate;
- for(const n of [1,10]){const b=mk('button','wish-pull'+(n===10?' ten':''));b.type='button';const cost=mk('span','wish-cost');cost.append(curIcon(fate,'wish-cur small'),mk('span','','× '+n));b.append(mk('strong','',n===1?'기원 1회':'기원 10회'),cost);b.disabled=UI.busy;b.onclick=()=>pull(n);pulls.append(b);}
- foot.append(left,pity,pulls);root.append(foot);
+ const pulls=mk('div','wish-pulls'),fate=v.banners[UI.banner].fate,lock=lockReason();
+ for(const n of [1,10]){const b=mk('button','wish-pull'+(n===10?' ten':''));b.type='button';const cost=mk('span','wish-cost');cost.append(curIcon(fate,'wish-cur small'),mk('span','','× '+n));b.append(mk('strong','',n===1?'기원 1회':'기원 10회'),cost);b.disabled=UI.busy||!!lock;if(lock)b.title=lock;b.onclick=()=>pull(n);pulls.append(b);}
+ foot.append(left,pity,pulls);
+ const note=lock||UI.note;if(note){const p=mk('p','wish-lock',note);p.setAttribute('role','status');foot.append(p);}
+ root.append(foot);
  if(UI.panel)root.append(panel(UI.panel,v,bal));
 }
 function eventBanner(v){
@@ -105,9 +114,9 @@ function panel(p,v,bal){
   if(need)box.append(mk('p','wish-warn',name+'이(가) '+need+'개 부족합니다.'));
   const row=mk('div','wish-buy');row.append(curIcon('PRIMOGEM'),mk('b','',fmt(cost)),mk('span','','→'),curIcon(fate),mk('b','','× '+count));box.append(row);
   const step=mk('div','wish-steps');for(const n of [1,5,10]){const b=mk('button','wish-ghost'+(count===n?' active':''),n+'개');b.type='button';b.onclick=()=>{UI.panel={...p,count:n};draw();};step.append(b);}box.append(step);
-  const why=game.premiumOfferReason({offer:FATE_OFFER[fate],count});
+  const why=lockReason()||game.premiumOfferReason({offer:FATE_OFFER[fate],count});
   const go=mk('button','wish-primary',p.then?'교환하고 기원':'교환');go.type='button';go.disabled=!!why||UI.busy;if(why)box.append(mk('p','wish-warn',why));
-  go.onclick=async()=>{UI.busy=true;try{const out=await act('PREMIUM_BUY',{offer:FATE_OFFER[fate],count});if(out?.ok===false)return;}finally{UI.busy=false;}const then=p.then;UI.panel=null;draw();if(then)pull(then);};box.append(go);
+  go.onclick=async()=>{UI.busy=true;let out;try{out=await attempt('PREMIUM_BUY',{offer:FATE_OFFER[fate],count});}finally{UI.busy=false;}if(out?.ok===false){draw();return;}const then=p.then;UI.panel=null;draw();if(then)pull(then);};box.append(go);
   box.append(mk('small','muted','원석 160개로 인연 1개를 교환합니다. 지금은 원석을 얻을 방법이 없습니다.'));
  }else if(p.kind==='details'){
   head.append(mk('h3','','기원 상세 정보'),x);box.append(head);
@@ -134,45 +143,71 @@ function panel(p,v,bal){
 async function pull(count){
  if(UI.busy||UI.stage)return;const banner=UI.banner,fate=fateOf(banner),have=balance()[fate]||0;
  if(have<count){UI.panel={kind:'buy',fate,need:count-have,count:count-have,then:count};SND('error');draw();return;}
+ const lock=lockReason();if(lock){UI.note=lock;SND('error');draw();return;}
  const before=game.wishState().seq;UI.busy=true;SND('wish_click');
- let out;try{out=await act('WISH',{banner,count});}finally{UI.busy=false;}
+ let out;try{out=await attempt('WISH',{banner,count});}finally{UI.busy=false;}
  if(out?.ok===false||!game.s.wish){draw();return;}
  const results=(game.s.wish.history||[]).filter(h=>h.seq>before).sort((a,b)=>a.seq-b.seq);
  if(!results.length){draw();return;}
  play(results);
 }
+// 0.14.12: the falling star is the original wish video (assets/video/wish, with its own sound). Like the original, a
+// 10-wish always plays the purple or gold version and a single wish the blue, purple or gold one. After it, every result
+// appears on its own in the order it was drawn (3★ weapons too) and moves on with a click, Space or Enter;
+// 건너뛰기 or Esc jumps to the list. The video's sound follows the effect volume and the music dips under it.
+const VIDEOS={'3star-single':1,'4star-single':1,'5star-single':1,'4star-multi':1,'5star-multi':1};
+const videoUrl=name=>'assets/video/wish/'+name+'.mp4';
+function videoFor(results){const best=Math.max(...results.map(r=>r.rarity));return results.length>1?(best>=5?'5star-multi':'4star-multi'):(best>=5?'5star-single':best===4?'4star-single':'3star-single');}
+// The two most common videos start loading when the wish screen opens; the gold ones load when they are drawn.
+function warmVideos(){if(UI.warm)return;UI.warm=['3star-single','4star-multi'].map(n=>{const v=document.createElement('video');v.preload='auto';v.muted=true;v.src=videoUrl(n);return v;});}
 function play(results){
- const best=Math.max(...results.map(r=>r.rarity)),stage=mk('div','wish-stage best-'+best+(results.length>1?' multi':''));
- const sky=mk('div','wish-stage-sky'),meteor=mk('div','wish-meteor'),flash=mk('div','wish-flash');
- for(let i=0;i<(results.length>1?3:1);i++){const m=mk('span','wish-trail t'+i);meteor.append(m);}
- const skip=mk('button','wish-skip','건너뛰기 ›');skip.type='button';
- stage.append(sky,meteor,flash,skip);UI.root.append(stage);
- const sound='wish_'+best;SND(sound);
- let index=-1,timer=null,done=false;const singles=results.filter(r=>r.rarity>=4);
- const finish=()=>{if(done)return;done=true;clearTimeout(timer);STOP(sound);summary(stage,results);};
- const next=()=>{index++;if(index>=singles.length){finish();return;}reveal(stage,singles[index],next);};
- UI.stage={skip:finish};skip.onclick=e=>{e.stopPropagation();finish();};
- const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
- timer=setTimeout(()=>{stage.classList.add('flashed');timer=setTimeout(()=>{STOP(sound);next();},reduce?100:450);},reduce?400:6000);
+ const order=results.slice().sort((a,b)=>a.seq-b.seq),best=Math.max(...order.map(r=>r.rarity));
+ const stage=mk('div','wish-stage best-'+best),video=mk('video','wish-video'),skip=mk('button','wish-skip','건너뛰기 ›');skip.type='button';
+ const name=videoFor(order);video.src=videoUrl(VIDEOS[name]?name:'4star-multi');video.preload='auto';video.playsInline=true;video.setAttribute('playsinline','');video.disablePictureInPicture=true;
+ const volume=window.CRPGSound?.effectVolume?.()??.6;video.volume=Math.min(1,volume);video.muted=volume<=0;
+ stage.append(video,skip);UI.root.append(stage);
+ let phase='video',index=-1,current=null;
+ const dropVideo=()=>{clearTimeout(guard);try{video.pause();}catch{}video.removeAttribute('src');try{video.load();}catch{}video.remove();window.CRPGSound?.unduck?.();};
+ const toList=()=>{if(phase==='list')return;phase='list';dropVideo();current?.stopSound();summary(stage,results);};
+ const next=()=>{if(phase!=='reveal')return;current?.stopSound();index++;if(index>=order.length){toList();return;}current=reveal(stage,order[index],next);};
+ const afterVideo=()=>{if(phase!=='video')return;phase='reveal';dropVideo();stage.classList.add('whiteout');next();};
+ // A download that stalls must not hold the wish: the results come after 14 s at the latest.
+ const guard=setTimeout(afterVideo,14000);
+ video.addEventListener('ended',afterVideo);video.addEventListener('error',afterVideo);
+ UI.stage={skip:toList,advance:()=>{if(phase==='video')return;current?.advance();}};
+ skip.onclick=e=>{e.stopPropagation();toList();};
+ window.CRPGSound?.duck?.(7);
+ const started=video.play();
+ // Some browsers refuse a video with sound after the server's reply; play it silently then, or skip to the results.
+ if(started?.catch)started.catch(()=>{video.muted=true;video.play().catch(afterVideo);});
 }
+// One result on the original reveal background. The first click finishes its entrance; the next one moves on.
 function reveal(stage,r,next){
  const card=mk('div','wish-reveal rarity-'+r.rarity+' kind-'+r.kind),el=r.kind==='char'?elementOf(r.id):null;
  const bg=wishBg(r.kind==='char'?(EL[el]||'default'):'weapon');if(bg)card.style.setProperty('--wish-bg','url("'+bg+'")');
- if(r.kind==='char'){const a=artOf(r.id);if(a){const i=mk('img','wish-reveal-art');i.src=a;i.alt='';card.append(i);}}
- else{const p=weaponIcon(r.id);if(p){const i=mk('img','wish-reveal-weapon');i.src=p;i.alt='';card.append(i);}}
+ card.append(mk('div','wish-reveal-burst'),mk('div','wish-reveal-rays'));
+ if(r.kind==='char'){const a=artOf(r.id);if(a){const frame=mk('div','wish-reveal-art'),i=mk('img','');i.src=a;i.alt='';frame.append(i,mk('span','wish-reveal-sheen'));card.append(frame);}}
+ else{const p=weaponIcon(r.id);if(p){const frame=mk('div','wish-reveal-weapon'),i=mk('img','');i.src=p;i.alt='';frame.append(i);card.append(frame);}}
  const info=mk('div','wish-reveal-info');
- info.append(mk('span','wish-reveal-stars',stars(r.rarity)),mk('h2','',nameOf(r)));
+ const name=mk('h2','wish-reveal-name',nameOf(r)),starRow=mk('div','wish-reveal-stars');
+ for(let s=0;s<r.rarity;s++){const star=mk('span','','★');star.style.setProperty('--s',String(s));starRow.append(star);}
+ info.append(name,starRow);
  const sub=r.kind==='char'?((el?el+' 원소 · ':'')+(r.stella?'운명의 별 · '+game.premiumCharName(r.id):'운명의 자리를 모두 채웠습니다')):(game.tables['16_EQUIP_DB']?.get(r.id)?.[2]||'무기');
  info.append(mk('p','wish-reveal-sub',sub));
  const gain=rewardLine(r);if(gain)info.append(mk('p','wish-reveal-gain',gain));
  if(r.featured)info.append(mk('span','wish-reveal-up','확률 UP'));
  card.append(info,mk('p','wish-reveal-hint','눌러서 계속'));
  stage.querySelector('.wish-reveal')?.remove();stage.append(card);
- card.onclick=()=>{card.classList.add('leaving');setTimeout(()=>{card.remove();next();},180);};
+ const sound='wish_reveal'+r.rarity;SND(sound);
+ let settled=false,left=false;const settle=()=>{settled=true;card.classList.add('settled');};
+ const timer=setTimeout(settle,r.rarity>=5?1700:r.rarity===4?1200:800);
+ const advance=()=>{if(left)return;if(!settled){clearTimeout(timer);settle();return;}left=true;card.classList.add('leaving');setTimeout(()=>{card.remove();next();},160);};
+ card.onclick=advance;
+ return {advance,stopSound:()=>{clearTimeout(timer);STOP(sound);}};
 }
 function rewardLine(r){const parts=[];if(r.kind==='char'&&r.stella)parts.push('운명의 별 ×1');if(r.glitter)parts.push('스타라이트 +'+r.glitter);if(r.dust)parts.push('스타더스트 +'+r.dust+(r.converted?' (같은 무기 3개 보유)':''));return parts.join(' · ');}
 function summary(stage,results){
- stage.querySelector('.wish-reveal')?.remove();stage.classList.add('summary');
+ stage.querySelector('.wish-reveal')?.remove();stage.classList.remove('whiteout');stage.classList.add('summary');SND('wish_result');
  const bg=wishBg('summary');if(bg)stage.style.setProperty('--wish-summary','url("'+bg+'")');
  const box=mk('div','wish-summary'),cards=mk('div','wish-cards'+(results.length===1?' one':''));
  const sorted=results.slice().sort((a,b)=>b.rarity-a.rarity||(a.kind===b.kind?0:a.kind==='char'?-1:1)||a.seq-b.seq);
