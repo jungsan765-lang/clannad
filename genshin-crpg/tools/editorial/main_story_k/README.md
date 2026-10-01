@@ -1,6 +1,6 @@
 # 메인스토리 K 루트 원고 (0.14.8)
 
-이 폴더의 `.md` 파일이 이세계 주인공 루트(`ROUTE_ISEKAI`) 리월 메인스토리 1~4장(K1·K2 분기)의 본문이다.
+이 폴더의 `.md` 파일이 이세계 주인공 루트(`ROUTE_ISEKAI`) 몬드 메인스토리 1~5장(K 분기)과 리월 메인스토리 1~4장(K1·K2 분기)의 본문이다.
 게임은 이 원고를 직접 읽지 않는다. 컴파일러가 원고를 `source/runtime_main_story_k_content.js`로 바꾸고,
 `source/runtime_main_story_k.js`가 게임을 시작할 때 `content/db.json`의 `55_MAIN_STORY_DB` 위에 덮어 설치한다.
 원본 DB는 바꾸지 않으므로 원고 파일을 지우면 예전 본문으로 돌아간다.
@@ -13,6 +13,11 @@
 | `ch3_k1_hand.md` | `ISK_L03_K1` | 3장 K1: 기억 없는 각청 → 빈 의례장 → 선인들 → 군옥각 → 황금옥, 타르탈리아 → 붕괴 |
 | `ch3_k2_name.md` | `ISK_L03_K2` | 3장 K2: 사라진 짐꾼 → 빈 의례장 → 행추·연비 → 군옥각 → 황금옥 → 붕괴 |
 | `ch4_k1_under.md` | `ISK_L04_K1` | 4장 K1: 구조 → 오셀, 군옥각 포기 → 회복 → 종려·북국은행 → 이나즈마 준비 |
+| `mond_ch1_k.md` | `ISK_M01` | 몬드 1장 K: 깨어남 → 엠버 → 이름 입력 → 「알고 있다」 선택(K) → 몬드성 → 캐서린 → 드발린 통과 → 고양이 꼬리, 디오나 → 엠버 합류. U 분기(`??=`)와 공통 꼬리(`@cond`)는 원문 그대로 |
+| `mond_ch2_k.md` | `ISK_M02` | 몬드 2장 K: 진 보고 → 벤티 정체 → 성당, 사라진 하프 → 매 사당(전투) → 죽은 우인단 → 사자 사당(전투) → 정화 실패 → 복귀. U 분기 선택은 `??=` |
+| `mond_ch3_k.md` | `ISK_M03_K` | 몬드 3장 K: 사흘째 → 단장실(벤티·케이아·진) → 길드 지원 → 평원 호위(전투) → 폐허 장치 → 벤티가 드발린을 부름 → 떨어진 시체 |
+| `mond_ch4_k.md` | `ISK_M04_K` | 몬드 4장 K: 죽음 확인 → 속삭임 「드래곤스파인」 → 본부, 케이아 → 진 합류 → 설산, 알베도 → 등반(전투) → 한천의 못 추락 → 구슬 → 되살아난 드발린(전투) |
+| `mond_ch5_k.md` | `ISK_M05_K` | 몬드 5장 K: 정화된 드발린 → 거점, 구슬은 알베도에게 → 하산(전투) → 귀환, 엠버·벤티 → 명예기사 → 청신의례 소식 → 성당 앞, 시뇨라의 신의 심장 탈취 → 다음 날 작별 |
 | `ch4_k2_breath.md` | `ISK_L04_K2` | 4장 K2: 구조 → 살아 있는 짐꾼 → 오셀 → 이름 「장록」 → 화물 인계와 작별 → 북국은행 → 이나즈마 준비 |
 
 ## 작업 순서
@@ -21,6 +26,8 @@
 node tools/editorial/compile_main_story_k.cjs      # 원고 → source/runtime_main_story_k_content.js
 node tests/test_main_story_k_v0148.cjs             # 설치 검증 (npm test에도 포함)
 node tools/editorial/dump_main_story_k.cjs ISK_L03_K2 [out.txt]   # 설치된 체인을 진행 순서대로 출력해 교정
+node tools/editorial/export_main_story_k_reader.cjs out.md [--only ISK_M0] [--title ..] [--intro ..]   # 읽기용 원고 전문(Markdown)
+MOND_LEAVES=K,AA,AB,B node tests/test_mond_full_v01344.cjs   # 몬드 플레이 QA (K=원고 분기, 나머지는 원문 분기)
 ```
 
 컴파일 결과 파일은 저장소에 함께 올린다(테스트가 원고와 결과가 같은지 확인한다).
@@ -30,6 +37,7 @@ node tools/editorial/dump_main_story_k.cjs ISK_L03_K2 [out.txt]   # 설치된 �
 ```
 # chain ISK_L03_K2            체인 이름
 # entry ISK_L03_K2_001        시작 노드 (첫 항목은 반드시 @keep <entry>)
+# pre -                       새 행의 기본 조건. 생략하면 그 체인의 옛 지문 행에서 가장 흔한 조건을 쓴다. 분기 전 공통 장면이 있는 체인(몬드 1장)은 `-`(조건 없음)로 두고 분기 전용 줄에만 @cond를 쓴다
 ## scene                      장면 이름 (새 노드 ID에 들어감: PRO_L03K2_scene_001 …)
 @map MAP_LIYUE_HARBOR         이후 새 노드의 지도
 @keep ISK_L03_K2_017          기존 노드를 그대로 둔다 (사건·전투·일시정지·보상 행은 반드시 @keep)
@@ -44,11 +52,16 @@ node tools/editorial/dump_main_story_k.cjs ISK_L03_K2 [out.txt]   # 설치된 �
 ~ 대사                        바로 앞 대사의 호감도 60 이상 변형 (프로필이 있는 캐릭터만)
 ?? 선택 문구                  선택지; 아래에 더 들여쓴 줄이 그 선택의 결과 (중첩 가능)
 ??@REV02_K2_BRAKE_C1 [문구]   기존 선택 행을 유지 (효과·사건이 붙은 선택은 이 방식으로)
+??= ISK_M01_O003               기존 선택 행과 그 뒤만 이어지는 행을 통째로 얼린다 (다른 분기, 몸 없음; 한 묶음에 얼리지 않은 선택이 하나는 있어야 함)
+@cond FLAG_X=KNOWN            이후 새 줄·전투에 조건을 덧붙인다 (`@cond -`로 해제). 다른 분기와 함께 쓰는 꼬리 행에 쓴다
 @combat EG_TREASURE_PATROL    새 전투 (33_ENCOUNTER_GROUP_DB의 그룹). 바로 아래 > 줄이 전투 안내문. 패배하면 같은 자리에서 다시 싸운다
 // 메모                       무시
 ```
 
 설치기가 지키는 규칙:
+- 한 `??` 묶음은 같은 선택 그룹이어야 한다. 서로 다른 그룹의 `??@` 줄을 잇따라 쓰면 하나로 합쳐지므로, 사이에 지문 한 줄을 둔다.
+- 체인 끝은 `STORY_PAUSE`·`CHAPTER_END` 행이거나 `SCREEN:CRPG_MAIN`으로 나가는 행이어야 한다. 몬드 1·2장처럼 다른 분기와 꼬리 행을 함께 쓰면 그 행은 `@keep`(글은 그대로)하고, 한쪽 분기만 봐야 하는 새 줄에는 `@cond`를 붙인다.
+- 몬드의 런타임(`runtime_mond_encounters.js`)은 폐허·설산 행의 지도를 세부 지도(`MAP_CRPG_LAIR_*` 등)로 다시 매긴다. 새 줄은 `@map` 없이 두면 바로 앞 `@keep` 행의 지도를 따른다.
 - 기존 행의 효과(EFFECT)와 조건(PRECONDITION)은 바꾸지 않는다. 효과가 있는 행을 @keep 하지 않으면 설치가 실패한다.
 - 뒤의 사건이 영수증처럼 확인하는 선택 행(4장의 치료 동의 `ISK_L04_K1_010`/`K2_009`, 보상 수령 `K1_149`/`K2_176`)도 `??@`로 유지해야 한다. 이 선택은 한 갈래만 두어야 사건이 통과한다.
 - 사건 노드의 순서(체인 안에서 서로 앞뒤 관계)는 예전과 같아야 한다 (`tests/test_main_story_k_v0148.cjs`).

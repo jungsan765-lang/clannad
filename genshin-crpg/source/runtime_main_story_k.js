@@ -15,34 +15,41 @@ P.storyIndex=function(){
  const groups=()=>{const g=new Map();for(const r of all)if(r[0]===ROUTE&&r[5]==='CHOICE'&&r[14]){if(!g.has(r[14]))g.set(r[14],[]);g.get(r[14]).push(r);}return g;};
  const origNext=new Map();for(const r of all)if(r[0]===ROUTE)origNext.set(r[4],r[13]);
  const origGroups=groups();
- const reach=entry=>{const seen=new Set(),stack=[entry];while(stack.length){const id=stack.pop();if(!id||id.startsWith('SCREEN:'))continue;if(id.startsWith('CHOICE_GROUP:')){for(const c of origGroups.get(id.slice(13))||[])stack.push(c[4]);continue;}if(seen.has(id)||!get(id))continue;seen.add(id);stack.push(origNext.get(id));}return seen;};
+ // reach(): rows of the original graph behind an entry. Frozen choice options (??=) are not
+ // followed, and stopAt rows are counted but not expanded.
+ const reach=(entry,frozen=new Set(),stopAt=new Set())=>{const seen=new Set(),stack=[].concat(entry);while(stack.length){const id=stack.pop();if(!id||id.startsWith('SCREEN:'))continue;if(id.startsWith('CHOICE_GROUP:')){for(const c of origGroups.get(id.slice(13))||[])if(!frozen.has(c[4]))stack.push(c[4]);continue;}if(seen.has(id)||!get(id))continue;seen.add(id);const row=get(id);if(!stopAt.has(id)&&row[5]!=='STORY_PAUSE'&&row[5]!=='CHAPTER_END')stack.push(origNext.get(id));}return seen;};
  // Rows reached through a FIELD_GATE anchor (ensemble chain and gate) stay as a unit.
  const tails=row=>{const set=new Set([row[4]]),out=[],stack=[row];while(stack.length){const r=stack.pop();const n=r[13];if(n&&n.startsWith('CHOICE_GROUP:')&&n.slice(13).startsWith('V141_')){for(const c of origGroups.get(n.slice(13))||[]){set.add(c[4]);stack.push(c);}continue;}const t=n&&get(n);if(t&&TRANSPARENT.test(n)&&!set.has(n)){set.add(n);stack.push(t);}else out.push(r);}return out;};
  for(const chain of M.chains){
   try{
    const entry=get(chain.entry);if(!entry)throw Error('missing entry '+chain.entry);
-   const old=reach(chain.entry);
    // Resolve every reference before mutating anything.
-   const keeps=new Set(),newIds=[];
+   const keeps=new Set(),frozen=new Set(),newIds=[];
+   const freeze=items=>{for(const it of items)if(it.k==='choice')for(const o of it.options){if(o.freeze){const c=get(o.freeze);if(!c||c[5]!=='CHOICE')throw Error('missing frozen choice '+o.freeze);frozen.add(o.freeze);}else freeze(o.items);}};
+   freeze(chain.items);
+   const old=reach(chain.entry,frozen);
+   for(const id of frozen)if(!old.has(id)&&!reach(chain.entry).has(id))throw Error('frozen choice not in this chain: '+id);
    const check=items=>{for(const it of items){
     if(it.k==='keep'){if(!get(it.id))throw Error('missing node '+it.id);if(get(it.id)[5]==='CHOICE')throw Error('use ??@ for choice '+it.id);if(keeps.has(it.id))throw Error('node kept twice '+it.id);keeps.add(it.id);}
     else if(it.k==='line'){if(get(it.id))throw Error('duplicate node '+it.id);if(it.speaker&&it.speaker!=='나'&&it.alt&&!refs.get(it.speaker))throw Error('no profile for '+it.speaker);newIds.push(it.id);if(it.alt)newIds.push(it.alt.id);}
-    else if(it.k==='choice'){if(!it.options.length)throw Error('empty choice');for(const o of it.options){if(o.keep){const c=get(o.keep);if(!c||c[5]!=='CHOICE')throw Error('missing choice '+o.keep);keeps.add(o.keep);}else newIds.push(o.id);check(o.items);}}
+    else if(it.k==='choice'){if(!it.options.length)throw Error('empty choice');const gids=new Set(it.options.filter(o=>o.keep||o.freeze).map(o=>get(o.keep||o.freeze)?.[14]));if(gids.size>1)throw Error('one ?? block mixes choice groups: '+[...gids].join(','));for(const o of it.options){if(o.freeze)continue;if(o.keep){const c=get(o.keep);if(!c||c[5]!=='CHOICE')throw Error('missing choice '+o.keep);keeps.add(o.keep);}else newIds.push(o.id);check(o.items);}}
     else if(it.k==='thru'){if(!keeps.has(it.id))throw Error('@thru before @keep '+it.id);}
     else if(it.k==='combat'){if(get(it.id))throw Error('duplicate node '+it.id);if(!this.tables['33_ENCOUNTER_GROUP_DB']?.get(it.group))throw Error('unknown encounter group '+it.group);newIds.push(it.id);}
     else throw Error('unknown item '+it.k);}};
    check(chain.items);
    for(const e of chain.edits)if(!get(e.id))throw Error('missing edit target '+e.id);
    for(const id of old){const r=get(id);if(r[12]&&!keeps.has(id)&&!TRANSPARENT.test(id))throw Error('row with effects not kept: '+id);}
+   // A frozen branch that flows back into this chain's rows must do so through a kept row.
+   if(frozen.size){const shared=reach([...frozen].map(id=>origNext.get(id)),new Set(),keeps);for(const id of shared)if(old.has(id)&&!keeps.has(id)&&!TRANSPARENT.test(id))throw Error('row shared with a frozen branch must be kept: '+id);}
    // Choice rows that a later event checks as a receipt (treatment consent, reward acceptance) must stay too.
    for(const e of this.storyEventDefinitions()){let p;try{p=JSON.parse(e.EXEC_PAYLOAD_JSON||'{}');}catch(_){continue;}for(const id of [p.consent_node,...(p.consent_choice_candidates||[]),...(p.reward_acceptance_choice_candidates||[])])if(id&&old.has(id)&&!keeps.has(id))throw Error('receipt choice not kept: '+id);}
    // Base attributes for new rows: the most common precondition of the old prose rows.
    const count=new Map();for(const id of old){const r=get(id);if(['NARRATION','DIALOGUE'].includes(r[5])&&r[11])count.set(r[11],(count.get(r[11])||0)+1);}
-   const pre=[...count.entries()].sort((a,b)=>b[1]-a[1])[0]?.[0]||entry[11];
+   const pre=chain.pre!==undefined?chain.pre:([...count.entries()].sort((a,b)=>b[1]-a[1])[0]?.[0]||entry[11]);
    let order=Number(entry[17])||0;
    const make=(id,type,speaker,text,label,group,map,scene,cond)=>{
     const row=entry.slice();const player=speaker==='나';
-    Object.assign(row,{3:'PRO_'+scene,4:id,5:type,6:player?'PLAYER_ISEKAI':speaker?refs.get(speaker)||'':null,7:player?'{PLAYER_NAME}':speaker||null,8:map,9:type==='CHOICE'?null:text,10:type==='CHOICE'?label:null,11:cond?pre+' AND '+cond:pre,12:'',13:'',14:group||null,15:null,17:order+=0.001,19:NOTE});
+    Object.assign(row,{3:'PRO_'+scene,4:id,5:type,6:player?'PLAYER_ISEKAI':speaker?refs.get(speaker)||'':null,7:player?'{PLAYER_NAME}':speaker||null,8:map,9:type==='CHOICE'?null:text,10:type==='CHOICE'?label:null,11:cond?(pre?pre+' AND '+cond:cond):pre,12:'',13:'',14:group||null,15:null,17:order+=0.001,19:NOTE});
     Object.defineProperties(row,{table:{value:TABLE},sourceRow:{value:0}});
     nodes.set(ROUTE+':'+id,row);all.push(row);return row;
    };
@@ -57,7 +64,7 @@ P.storyIndex=function(){
      if(it.k==='keep'){
       const r=get(it.id);if(it.text!=null&&r[5]!=='CHOICE')r[9]=it.text;if(r[8])map=r[8];
       link(it.id);
-      if(r[5]==='STORY_PAUSE'||r[13]==='SCREEN:CRPG_MAIN'){open=[];continue;}
+      if(r[5]==='STORY_PAUSE'||r[5]==='CHAPTER_END'||r[13]==='SCREEN:CRPG_MAIN'){open=[];continue;}
       if(it.hold){open=[id=>{r[13]=id;}];continue;}
       open=tails(r).map(t=>id=>{t[13]=id;});
      }else if(it.k==='thru'){
@@ -65,14 +72,16 @@ P.storyIndex=function(){
       link(n);open=tails(get(n)).map(t=>id=>{t[13]=id;});
      }else if(it.k==='line'){
       const m=it.map||map,type=it.speaker?'DIALOGUE':'NARRATION';
-      if(it.alt){const profile=refs.get(it.speaker);const a=make(it.alt.id,type,it.speaker,it.alt.text,null,null,m,scene,'BOND('+profile+')>=60'),b=make(it.id,type,it.speaker,it.text,null,null,m,scene,'BOND('+profile+')<60');a[13]=b[4];link(a[4]);open=[id=>{b[13]=id;}];}
-      else{const r=make(it.id,type,it.speaker,it.text,null,null,m,scene);link(r[4]);open=[id=>{r[13]=id;}];}
+      const extra=it.cond?' AND '+it.cond:'';
+      if(it.alt){const profile=refs.get(it.speaker);const a=make(it.alt.id,type,it.speaker,it.alt.text,null,null,m,scene,'BOND('+profile+')>=60'+extra),b=make(it.id,type,it.speaker,it.text,null,null,m,scene,'BOND('+profile+')<60'+extra);a[13]=b[4];link(a[4]);open=[id=>{b[13]=id;}];}
+      else{const r=make(it.id,type,it.speaker,it.text,null,null,m,scene,it.cond);link(r[4]);open=[id=>{r[13]=id;}];}
      }else if(it.k==='combat'){
-      const r=make(it.id,'COMBAT_GATE','',it.text,null,null,it.map||map,scene);r[12]='START_FIXED_COMBAT:'+it.group+';ON_DEFEAT:RETRY_SAME_NODE';link(r[4]);open=[id=>{r[13]=id;}];
+      const r=make(it.id,'COMBAT_GATE','',it.text,null,null,it.map||map,scene,it.cond);r[12]='START_FIXED_COMBAT:'+it.group+';ON_DEFEAT:RETRY_SAME_NODE';link(r[4]);open=[id=>{r[13]=id;}];
      }else if(it.k==='choice'){
-      let group=it.group;const kept=it.options.find(o=>o.keep);if(kept)group=get(kept.keep)[14];
+      let group=it.group;const kept=it.options.find(o=>o.keep||o.freeze);if(kept)group=get(kept.keep||kept.freeze)[14];
       link('CHOICE_GROUP:'+group);const next=[];
       for(const o of it.options){
+       if(o.freeze)continue;
        let c;if(o.keep){c=get(o.keep);if(o.label)c[10]=o.label;}else c=make(o.id,'CHOICE','나',null,o.label,group,map,scene);
        const sub=wire(o.items,scene);
        if(sub.first)c[13]=sub.first;else sub.open.push(id=>{c[13]=id;});
@@ -89,7 +98,7 @@ P.storyIndex=function(){
    const current=groups();
    const forward=id=>{const seen=new Set();while(id&&!seen.has(id)){seen.add(id);if(id.startsWith('SCREEN:'))return id;if(id.startsWith('CHOICE_GROUP:')){const opts=origGroups.get(id.slice(13))||[];if(opts.some(c=>keeps.has(c[4])))return id;id=opts[0]?.[13];continue;}if(keeps.has(id))return id;id=origNext.get(id);}return null;};
    for(const id of old){if(keeps.has(id)||TRANSPARENT.test(id))continue;const r=get(id);const target=forward(origNext.get(id));if(target)r[13]=target;}
-   report.installed.push({chain:chain.id,kept:keeps.size,added:newIds.length});
+   report.installed.push({chain:chain.id,kept:keeps.size,added:newIds.length,frozen:frozen.size});
   }catch(e){report.failed.push({chain:chain.id,error:e.message});console.error('[main story K] '+chain.id+': '+e.message);}
  }
  Object.defineProperty(ix,'mainStoryK',{value:report});return ix;

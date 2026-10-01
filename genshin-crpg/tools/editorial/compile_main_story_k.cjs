@@ -8,6 +8,7 @@
 // Manuscript syntax (one item per line):
 //   # chain <CHAIN_ID>            start a chain (first line of the file)
 //   # entry <NODE_ID>             existing story node the chain starts from
+//   # pre <EXPR> | # pre -        base precondition of every new row (default: the most common one among the chain's old prose rows; '-' = none)
 //   ## <scene-key>                scene key used for generated node ids
 //   @map <MAP_ID>                 map for the following new lines
 //   @keep <NODE_ID>               keep an existing node (effects, gates, events)
@@ -23,6 +24,9 @@
 //   ~ <text>                      close-bond variant of the preceding dialogue
 //   ?? <label>                    choice option; following deeper-indented lines are its reply
 //   ??@<CHOICE_ID> [label]        keep an existing choice row (its effects stay)
+//   ??= <CHOICE_ID>               freeze an existing choice row: it and everything only
+//                                 reachable through it stay exactly as in the original DB
+//   @cond <EXPR> | @cond -        precondition added to the following new lines (or cleared)
 //   // comment
 const fs=require('fs'),path=require('path');
 const root=path.resolve(__dirname,'../..'),srcDir=path.join(__dirname,'main_story_k'),out=path.join(root,'source/runtime_main_story_k_content.js');
@@ -34,7 +38,7 @@ function parseFile(file){
  const chain={id:'',entry:'',items:[],edits:[]};
  let pos=0;
  const err=(l,msg)=>{throw Error(`${l.file}:${l.line}: ${msg}`);};
- const counters={};let scene='MAIN',map='';
+ const counters={};let scene='MAIN',map='',cond='';
  const nextId=()=>{const key=scene;counters[key]=(counters[key]||0)+1;return `PRO_${chain.id.replace(/^ISK_/,'').replace(/_/g,'')}_${key}_${String(counters[key]).padStart(3,'0')}`;};
  function block(indent){
   const items=[];
@@ -45,11 +49,13 @@ function parseFile(file){
    const t=l.text;
    if(t.startsWith('# chain ')){chain.id=t.slice(8).trim();pos++;continue;}
    if(t.startsWith('# entry ')){chain.entry=t.slice(8).trim();pos++;continue;}
+   if(t.startsWith('# pre')){const v=t.slice(5).trim();chain.pre=v==='-'?'':v;pos++;continue;}
    if(t.startsWith('## ')){scene=t.slice(3).trim().replace(/[^A-Za-z0-9가-힣]+/g,'_');pos++;continue;}
    if(t.startsWith('@map ')){map=t.slice(5).trim();pos++;continue;}
+   if(t.startsWith('@cond ')){cond=t.slice(6).trim();if(cond==='-')cond='';pos++;continue;}
    if(t.startsWith('@keep ')){const w=t.slice(6).trim().split(/\s+/);const item={k:'keep',id:w[0]};if(w[1]==='hold')item.hold=true;else if(w[1])err(l,'unknown @keep flag '+w[1]);pos++;const text=quoted(indent);if(text!=null)item.text=text;items.push(item);continue;}
   if(t.startsWith('@thru ')){items.push({k:'thru',id:t.slice(6).trim()});pos++;continue;}
-   if(t.startsWith('@combat ')){const group=t.slice(8).trim();if(!/^EG_[A-Z0-9_]+$/.test(group))err(l,'bad encounter group '+group);pos++;const text=quoted(indent);if(text==null)err(l,'@combat needs a > line');const item={k:'combat',id:nextId(),group,text};if(map)item.map=map;items.push(item);continue;}
+   if(t.startsWith('@combat ')){const group=t.slice(8).trim();if(!/^EG_[A-Z0-9_]+$/.test(group))err(l,'bad encounter group '+group);pos++;const text=quoted(indent);if(text==null)err(l,'@combat needs a > line');const item={k:'combat',id:nextId(),group,text};if(map)item.map=map;if(cond)item.cond=cond;items.push(item);continue;}
    if(t.startsWith('@text ')){const id=t.slice(6).trim();pos++;const text=quoted(indent);if(text==null)err(l,'@text needs a > line');chain.edits.push({k:'text',id,text});continue;}
    if(t.startsWith('@drop ')){chain.edits.push({k:'drop',id:t.slice(6).trim()});pos++;continue;}
    if(t.startsWith('>'))err(l,'stray > line');
@@ -57,19 +63,23 @@ function parseFile(file){
    if(t.startsWith('??')){
     const group={k:'choice',group:nextId().replace(/^PRO_/,'G_PRO_'),options:[]};
     while(pos<lines.length&&lines[pos].indent===indent&&lines[pos].text.startsWith('??')){
-     const o=lines[pos];const m=/^\?\?(?:@([A-Za-z0-9_]+))?\s*(.*)$/.exec(o.text);
+     const o=lines[pos];
+     const fz=/^\?\?=\s*([A-Za-z0-9_]+)\s*$/.exec(o.text);
+     if(fz){pos++;if(pos<lines.length&&lines[pos].indent>indent)err(lines[pos],'a frozen choice (??=) takes no body');group.options.push({freeze:fz[1]});continue;}
+     const m=/^\?\?(?:@([A-Za-z0-9_]+))?\s*(.*)$/.exec(o.text);
      const opt={label:m[2].trim()};if(m[1])opt.keep=m[1];else opt.id=nextId();
      if(!opt.keep&&!opt.label)err(o,'choice needs a label');
      pos++;
      if(pos<lines.length&&lines[pos].indent>indent)opt.items=block(lines[pos].indent);else opt.items=[];
      group.options.push(opt);
     }
+    if(!group.options.some(o=>!o.freeze))err(l,'a choice needs at least one option that is not frozen');
     items.push(group);continue;
    }
    const m=/^([^:]{1,24}):\s*(.*)$/.exec(t);
    if(!m)err(l,'cannot parse line: '+t);
    const speaker=m[1].trim()==='이야기'?'':m[1].trim();
-   const item={k:'line',id:nextId(),speaker,text:m[2].trim()};if(map)item.map=map;
+   const item={k:'line',id:nextId(),speaker,text:m[2].trim()};if(map)item.map=map;if(cond)item.cond=cond;
    if(!item.text)err(l,'empty text');
    items.push(item);pos++;
   }
@@ -90,7 +100,7 @@ function compile(){
  const files=fs.readdirSync(srcDir).filter(f=>f.endsWith('.md')&&fs.readFileSync(path.join(srcDir,f),'utf8').startsWith('# chain ')).sort();
  const chains=files.map(f=>parseFile(path.join(srcDir,f)));
  const ids=new Set();
- const walk=items=>{for(const it of items){if(it.k==='combat'){if(ids.has(it.id))throw Error('duplicate id '+it.id);ids.add(it.id);}if(it.k==='line'){if(ids.has(it.id))throw Error('duplicate id '+it.id);ids.add(it.id);if(it.alt)ids.add(it.alt.id);}if(it.k==='choice')for(const o of it.options){if(o.id)ids.add(o.id);walk(o.items);}}};
+ const walk=items=>{for(const it of items){if(it.k==='combat'){if(ids.has(it.id))throw Error('duplicate id '+it.id);ids.add(it.id);}if(it.k==='line'){if(ids.has(it.id))throw Error('duplicate id '+it.id);ids.add(it.id);if(it.alt)ids.add(it.alt.id);}if(it.k==='choice')for(const o of it.options){if(o.freeze)continue;if(o.id)ids.add(o.id);walk(o.items);}}};
  chains.forEach(c=>walk(c.items));
  return {version:1,chains};
 }

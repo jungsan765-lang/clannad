@@ -29,15 +29,16 @@ const oldG=graph(oldIx),newG=graph(ix);
 // Effects of every original row are untouched.
 for(const x of oldG.rows){const y=newG.get(x[4]);assert.ok(y,'original node still exists '+x[4]);assert.equal(y[12],x[12],'effect unchanged '+x[4]);assert.equal(y[11],x[11],'precondition unchanged '+x[4]);}
 
-function walk(g,entry){
+function walk(g,entry,skip=new Set(),stop=new Set()){
  const seen=new Set(),order=[],stack=[entry],edges=new Map();
  const push=(from,to)=>{if(!edges.has(from))edges.set(from,new Set());edges.get(from).add(to);stack.push(to);};
  while(stack.length){
-  const id=stack.pop();if(id.startsWith('SCREEN:'))continue;
-  if(id.startsWith('CHOICE_GROUP:')){const opts=g.groups.get(id.slice(13))||[];assert.ok(opts.length,'empty choice group '+id);if(seen.has(id))continue;seen.add(id);for(const c of opts)push(id,c[4]);continue;}
+  const id=stack.pop();if(id.startsWith('SCREEN:')||['END','PAUSE','HUB',''].includes(id))continue;
+  if(id.startsWith('CHOICE_GROUP:')){const opts=g.groups.get(id.slice(13))||[];assert.ok(opts.length,'empty choice group '+id);if(seen.has(id))continue;seen.add(id);for(const c of opts)if(!skip.has(c[4]))push(id,c[4]);continue;}
   if(seen.has(id))continue;seen.add(id);order.push(id);
   const row=g.get(id);assert.ok(row,'dangling node '+id);
   assert.ok(row[13],'node without NEXT '+id);
+  if(stop.has(id)||row[5]==='STORY_PAUSE'||row[5]==='CHAPTER_END')continue;
   push(id,row[13]);
  }
  // acyclic
@@ -55,16 +56,19 @@ const ancestors=(g,entry,pick)=>{
 const isEvent=row=>/EVENT:/.test(row[12]||'');
 for(const chain of content.chains){
  const {seen,order}=walk(newG,chain.entry);
- const expect=new Set();const collect=items=>{for(const it of items){if(it.k==='keep'||it.k==='combat')expect.add(it.id);if(it.k==='line'){expect.add(it.id);if(it.alt)expect.add(it.alt.id);}if(it.k==='choice')for(const o of it.options){expect.add(o.keep||o.id);collect(o.items);}}};collect(chain.items);
+ const expect=new Set();const collect=items=>{for(const it of items){if(it.k==='keep'||it.k==='combat')expect.add(it.id);if(it.k==='line'){expect.add(it.id);if(it.alt)expect.add(it.alt.id);}if(it.k==='choice')for(const o of it.options){expect.add(o.keep||o.freeze||o.id);collect(o.items||[]);}}};collect(chain.items);
  for(const id of expect)assert.ok(seen.has(id),chain.id+' reaches '+id);
- assert.ok(order.some(id=>newG.get(id)[5]==='STORY_PAUSE'),chain.id+' ends at a story pause');
+ assert.ok(order.some(id=>['STORY_PAUSE','CHAPTER_END'].includes(newG.get(id)[5])),chain.id+' ends at a story pause');
+ // Frozen options and everything only they reach are byte-for-byte the original rows.
+ const frozen=[];const fz=items=>{for(const it of items)if(it.k==='choice')for(const o of it.options){if(o.freeze)frozen.push(o.freeze);else fz(o.items);}};fz(chain.items);
+ if(frozen.length){const keptOld=new Set([...expect].filter(id=>oldG.get(id))),live=walk(newG,chain.entry,new Set(frozen)).seen;for(const f of frozen)for(const id of walk(oldG,f,new Set([...frozen,...keptOld]),keptOld).order){if(live.has(id)||keptOld.has(id))continue;assert.equal(JSON.stringify(newG.get(id).slice(0,20)),JSON.stringify(oldG.get(id).slice(0,20)),chain.id+' frozen row untouched '+id);}}
  const oldWalk=walk(oldG,chain.entry);
  const oldEvents=[...oldWalk.seen].filter(id=>oldG.get(id)&&isEvent(oldG.get(id))),newEvents=[...seen].filter(id=>newG.get(id)&&isEvent(newG.get(id)));
  assert.deepEqual(new Set(newEvents),new Set(oldEvents),chain.id+' keeps every event node');
  const oldAnc=ancestors(oldG,chain.entry,isEvent),newAnc=ancestors(newG,chain.entry,isEvent);
  for(const e of oldEvents)assert.deepEqual([...newAnc.get(e)||[]].sort(),[...oldAnc.get(e)||[]].sort(),chain.id+' keeps the event order before '+e);
  // Bypassed original rows still continue into the chain.
- for(const id of oldWalk.seen){const row=newG.get(id);if(!row||seen.has(id)||id.startsWith('CHOICE_GROUP:'))continue;assert.ok(row[13]&&(row[13].startsWith('SCREEN:')||seen.has(row[13])),chain.id+' bypassed node '+id+' rejoins the chain');}
+ for(const id of oldWalk.seen){const row=newG.get(id);if(!row||seen.has(id)||id.startsWith('CHOICE_GROUP:'))continue;assert.ok(row[13]&&(row[13].startsWith('SCREEN:')||['END','PAUSE','HUB'].includes(row[13])||seen.has(row[13])),chain.id+' bypassed node '+id+' rejoins the chain');}
  console.log(JSON.stringify({chain:chain.id,nodes:order.length,events:newEvents.length}));
 }
 // Each new row has a resolvable speaker, text and a valid map.
@@ -72,7 +76,7 @@ for(const x of newG.rows.filter(x=>x[19]==='CRPG_V0148_MAIN_STORY_K')){
  assert.ok(x[18]==='ACTIVE');
  if(x[5]==='CHOICE'){assert.ok(x[10]&&x[14],'choice label/group '+x[4]);assert.equal(x[9],null);}
  else{assert.ok(x[9],'text '+x[4]);if(x[5]==='DIALOGUE')assert.ok(x[7],'speaker '+x[4]);if(x[5]==='COMBAT_GATE'){const m=/^START_FIXED_COMBAT:(EG_[A-Z0-9_]+);ON_DEFEAT:RETRY_SAME_NODE$/.exec(x[12]);assert.ok(m,'combat effect '+x[4]);assert.ok(db['49_ENCOUNTER_MEMBER_DB'].some(e=>e[1]===m[1]),'encounter members '+m[1]);}else assert.equal(x[12],'','no effect on new prose row '+x[4]);}
- assert.ok(!x[8]||db['32_MAP_DB'].some(m=>m[0]===x[8]),'map '+x[8]+' on '+x[4]);
+ assert.ok(!x[8]||r.rows('32_MAP_DB').some(m=>m[0]===x[8]),'map '+x[8]+' on '+x[4]);
  assert.ok(r.storyCondition(x[11])!==undefined);
 }
 console.log('main story K edition OK');
