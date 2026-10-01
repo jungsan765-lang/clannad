@@ -7,10 +7,12 @@
 <title>원신 CRPG · 몬드와 리월의 여정</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%23102b2e'/%3E%3Cpath d='M24 6l4 14 14 4-14 4-4 14-4-14-14-4 14-4z' fill='%23e3c38a'/%3E%3C/svg%3E">
 <script>
-/* PC frame. On a desktop browser the game runs inside a 1280×720 frame (stretching to at most 1536×800 on wide or
-   tall screens) that is scaled as a whole to fit the window, so a bigger window shows the same layout, larger,
-   instead of stretching it. Inside the frame the page sees an ordinary 1280×720 window, so layout, clicks and
-   positions work unchanged. Phones and tablets, automated browsers and ?frame=0 keep the responsive page. */
+/* PC frame. On a desktop browser the game runs inside a frame whose page size follows the window at the chosen
+   screen size (설정 → 화면 크기: 작게/보통/크게, 보통 = the browser's own size), but never below 1280×720, never taller
+   than 1200 and never wider than about 2:1. Outside those limits the whole frame is scaled to fit, so very small,
+   very large or very wide windows keep the same layout instead of breaking it. Inside the frame the page sees an
+   ordinary window of that size, so layout, clicks and positions work unchanged. Phones and tablets, automated
+   browsers and ?frame=0 keep the responsive page. */
 (function(){
  try{
   var q=new URLSearchParams(location.search);
@@ -24,10 +26,12 @@
    // CSS zoom renders the game at the enlarged size (crisp text); where zoom does not scale the frame and its page
    // together, fall back to transform: scale.
    var mode='zoom',w=1280,h=720,s=1;
-   var fit=function(){var W=innerWidth,H=innerHeight;s=Math.min(W/1280,H/720);w=Math.min(1536,Math.floor(W/s));h=Math.min(800,Math.floor(H/s));var x=(W-w*s)/2,y=(H-h*s)/2;f.style.width=w+'px';f.style.height=h+'px';
+   var size=function(){try{return {small:.85,large:1.2}[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||1;}catch(e){return 1;}};
+   var fit=function(){var W=innerWidth,H=innerHeight,k=size();h=Math.round(Math.max(720,Math.min(1200,H/k)));w=Math.round(Math.max(1280,Math.min(W/k,h*1.92)));s=Math.min(W/w,H/h);var x=(W-w*s)/2,y=(H-h*s)/2;f.style.width=w+'px';f.style.height=h+'px';
     if(mode==='zoom'){f.style.transform='';f.style.zoom=String(s);f.style.left=(x/s)+'px';f.style.top=(y/s)+'px';}
     else{f.style.zoom='';f.style.left='0';f.style.top='0';f.style.transform='translate('+Math.round(x)+'px,'+Math.round(y)+'px) scale('+s+')';}};
    var check=function(){if(mode!=='zoom')return;var ok=Math.abs(f.getBoundingClientRect().width-w*s)<3;try{if(f.contentWindow.innerWidth)ok=ok&&Math.abs(f.contentWindow.innerWidth-w)<3;}catch(e){}if(!ok){mode='transform';fit();}};
+   window.CRPGFrameFit=function(){fit();check();};
    fit();check();addEventListener('resize',fit);if(window.ResizeObserver)new ResizeObserver(fit).observe(d.documentElement);
    var focus=function(){try{f.contentWindow.focus();}catch(e){}};
    f.addEventListener('load',function(){check();focus();try{var t=f.contentDocument.title;if(t)d.title=t;}catch(e){}});

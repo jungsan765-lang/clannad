@@ -44,6 +44,7 @@ const ICON={
  DIAMOND:'M12 3l6 9-6 9-6-9z M12 8l2.7 4L12 16l-2.7-4z',
  DOT:'M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
  CHAT:'M4 5h16v11H11l-5 4v-4H4z M8 9.5h8 M8 12.5h5',
+ EYE:'M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
  TRADE:'M4 8h13l-3-3 M20 16H7l3 3 M17 8l-3 3 M7 16l3-3'
 };
 function icon(name,cls='shell-icon'){const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('class',cls);const p=document.createElementNS(NS,'path');p.setAttribute('d',ICON[name]||ICON.DOT);s.append(p);return s;}
@@ -90,6 +91,7 @@ function buildHUD(aside,key){
  const tools=mk('div','hud-tools');
  if(window.CRPGHandbook){const hb=toolButton('HANDBOOK','모험가 핸드북 (F1)',()=>CRPGHandbook.open());hb.classList.add('hud-handbook');tools.append(hb);}
  tools.append(toolButton('MAP','지도 (M)',openMap));
+ if(WORLD_SCREENS.has(key))tools.append(toolButton('EYE','풍경 보기 (V)',()=>toggleScenery(true),'hud-scenery'));
  for(const make of S.extraTools){try{const b=make(toolButton);if(b)tools.append(b);}catch{}}
  const snd=quickButton(b=>b.dataset.audioToggle==='true');if(snd){const on=/끄기/.test(snd.textContent);tools.append(toolButton(on?'SOUND':'MUTE',snd.textContent,()=>{quickButton(b=>b.dataset.audioToggle==='true')?.click();}));}
  tools.append(toolButton('MENU','메뉴 (Esc)',()=>toggleMenu(true),'hud-menu-button'));
@@ -144,6 +146,34 @@ function buildMenu(){
 }
 function tile(name,label,key,fn){const b=mk('button','pm-tile');b.type='button';b.append(icon(name,'shell-icon pm-glyph'),mk('span','pm-label',label));if(key)b.append(mk('kbd','',key));b.onclick=fn;return b;}
 function footButton(name,label,fn){const b=mk('button','pm-foot-button');b.type='button';b.append(icon(name),mk('span','',label));b.onclick=fn;return b;}
+// ---------- 풍경 보기 ----------
+// Every field and town can be looked at without the interface, dragged left and right. A hidden oculus glints
+// somewhere in that view and nowhere else, so finding it means actually looking around.
+const WORLD_SCREENS=new Set(['LOCATION','HUB']);
+const GLINT_AT={'scene-bottom-right':[90,74],default:[87,70]};
+function hiddenGlints(){try{return (game.oculusEntries?.()||[]).filter(p=>p.method==='HIDDEN'&&!game.oculusProgress(p.id)&&!p.reason);}catch{return [];}}
+function sceneryImage(){const c=$('#root > main > .content');return $('.scene img.scene-back',c)?.src||$('.scene img',c)?.src||mapBackground();}
+function toggleScenery(open=!S.scenery){
+ if(!open){const v=S.scenery;if(!v)return;S.scenery=null;document.body.classList.remove('shell-scenery-open');v.classList.remove('open');setTimeout(()=>v.remove(),230);return;}
+ if(S.scenery||!game||busy||!WORLD_SCREENS.has(screenKey()))return;
+ const src=sceneryImage();if(!src){toast('이곳은 둘러볼 풍경이 없습니다.');return;}
+ const view=mk('div','shell-scenery');view.setAttribute('role','dialog');view.setAttribute('aria-modal','true');view.setAttribute('aria-label','풍경 보기');
+ const pan=mk('div','scenery-pan'),stage=mk('div','scenery-stage'),img=mk('img','scenery-img');img.src=src;img.alt='';img.decoding='async';img.draggable=false;stage.append(img);
+ for(const p of hiddenGlints()){const b=mk('button','scenery-glint','✧'),at=GLINT_AT[p.hotspot?.zone]||GLINT_AT.default;b.type='button';b.setAttribute('aria-label',p.hotspot?.accessibleLabel||'희미하게 반짝이는 곳 살펴보기');b.style.left=at[0]+'%';b.style.top=at[1]+'%';b.onclick=e=>{e.stopPropagation();toggleScenery(false);act('WORLD_WORK_START',{kind:'OCULUS',point:p.id});};stage.append(b);}
+ pan.append(stage);
+ const bar=mk('div','scenery-bar'),close=mk('button','scenery-close');close.type='button';close.setAttribute('aria-label','풍경 보기 닫기 (Esc)');close.title='닫기 (Esc)';close.append(icon('CLOSE'));close.onclick=()=>toggleScenery(false);
+ bar.append(mk('strong','',safeMap(game.s.global.CURRENT_MAP_ID)),mk('small','','끌거나 휠을 돌려 둘러보기 · Esc 닫기'),close);
+ view.append(pan,bar);document.body.append(view);document.body.classList.add('shell-scenery-open');S.scenery=view;
+ let drag=null;
+ pan.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;drag={x:e.clientX,left:pan.scrollLeft,id:e.pointerId};try{pan.setPointerCapture(e.pointerId);}catch{}pan.classList.add('dragging');});
+ pan.addEventListener('pointermove',e=>{if(drag&&e.pointerId===drag.id)pan.scrollLeft=drag.left-(e.clientX-drag.x);});
+ const end=e=>{if(drag&&e.pointerId===drag.id){drag=null;pan.classList.remove('dragging');}};pan.addEventListener('pointerup',end);pan.addEventListener('pointercancel',end);
+ pan.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){pan.scrollLeft+=e.deltaY;e.preventDefault();}},{passive:false});
+ view.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();pan.scrollBy({left:(e.key==='ArrowLeft'?-1:1)*Math.round(pan.clientWidth*.25),behavior:settings.reducedMotion?'instant':'smooth'});}});
+ requestAnimationFrame(()=>{view.classList.add('open');pan.scrollLeft=Math.round((pan.scrollWidth-pan.clientWidth)/2);close.focus({preventScroll:true});});
+ sound('menu_open');
+}
+S.toggleScenery=toggleScenery;
 function openMap(){if(!game)return;S.tabs.LOCATION_MOBILE='move';if(screenKey()!=='LOCATION'){if(!openScreen('LOCATION'))return;}else if(isMobile())render();requestAnimationFrame(()=>{const m=$('#journey-map');if(m){m.classList.add('shell-flash');m.scrollIntoView({block:'nearest'});setTimeout(()=>m.classList.remove('shell-flash'),900);$('.terrain-destination:not([disabled])',m)?.focus({preventScroll:true});}});}
 S.openMap=openMap;
 // ---------- regions and tabs ----------
@@ -186,6 +216,9 @@ function returnScreen(){if(!game)return null;if(game.s.runtime&&!game.s.runtime.
 function layoutLocation(content,p){
  content.classList.add('shell-world');setBackdrop(mapBackground()||$('.scene img',content)?.src);
  const scene=$(':scope > .scene',content);if(scene)scene.classList.add('shell-offscreen');
+ // A hidden oculus here turns the place picture into scenery to scroll through (app_discovery.js). In this frame the
+ // oculus only glints inside 풍경 보기, which every field and town has, so nothing on screen gives it away.
+ const discovery=$(':scope > .discovery-scene',content);if(discovery)discovery.classList.add('shell-offscreen');
  const kids=[...p.children];
  const groups=classify(kids,[
   {name:'head',sel:['.eyebrow','h1','.area-level']},
@@ -203,6 +236,10 @@ function layoutLocation(content,p){
  const mapId=game.s.global.CURRENT_MAP_ID,hub=game.tables['32_MAP_DB']?.get(mapId)?.[12]==='Y';
  const places=groups.get('places'),activity=groups.get('activity'),info=groups.get('info');
  const placeCount=places.reduce((n,x)=>n+(x.matches('.location-places')?x.children.length:1),0);
+ // Facilities become small tiles (icon and name) and the whole tile enters, so a town fits without scrolling.
+ for(const box of places)for(const entry of $$('.place-entry',box)){const btns=$$(':scope > button',entry);if(btns.length!==1)continue;
+  const name=$('h3',entry)?.textContent.trim()||'',b=btns[0];entry.classList.add('shell-place-tile');b.setAttribute('aria-label',(name?name+' · ':'')+b.textContent.trim());
+  entry.title=$$('.place-entry-copy > *',entry).map(n=>n.textContent.trim()).filter(Boolean).join(' · ');}
  const tabs=[{id:'todo',label:'할 일',icon:'STAR',nodes:todo},{id:'places',label:'시설',icon:'PIN',nodes:places,badge:placeCount?String(placeCount):''},{id:'activity',label:'지맥·보스',icon:'SWORDS',nodes:activity},{id:'info',label:'지역 정보',icon:'HANDBOOK',nodes:info}];
  const key='LOC:'+mapId;if(!S.tabs[key])S.tabs[key]=hub&&places.length?'places':todo.length?'todo':places.length?'places':'activity';
  if(isMobile()){
@@ -328,7 +365,7 @@ const MENU_LAYOUT={
  SYSTEM(body,nodes,head,key){
   // The display rows are appended after the sound section by the settings code; put them back under 표시 설정.
   const displayHead=nodes.find(n=>n.tagName==='H2'&&/표시 설정/.test(n.textContent));
-  if(displayHead){const rows=nodes.filter(n=>n.matches?.('label.settings-row')&&/성인 모드|글자 크기|인물 일러스트/.test(n.textContent));for(const r of rows)nodes.splice(nodes.indexOf(r),1);nodes.splice(nodes.indexOf(displayHead)+1,0,...rows);}
+  if(displayHead){const rows=nodes.filter(n=>n.matches?.('label.settings-row')&&/성인 모드|글자 크기|화면 크기|인물 일러스트/.test(n.textContent));for(const r of rows)nodes.splice(nodes.indexOf(r),1);nodes.splice(nodes.indexOf(displayHead)+1,0,...rows);}
   const groups=sectionsByHeading(nodes,'계정·저장');const t=tabset('PAGE_SYSTEM',groups.map((g,i)=>({id:'s'+i+':'+g.label,label:g.label,nodes:g.nodes})),'shell-page-tabs'+(isMobile()?'':' vertical'));if(t)body.append(t);else body.append(...nodes);void key;}
 };
 // Battle results: a banner, the rewards as tiles, and the next steps as large buttons at the bottom.
@@ -358,9 +395,10 @@ render=function(){
 };
 function shell(){
  const body=document.body;
- if(!game||!$('#root > main')){body.classList.remove('teyvat','shell-mobile');delete body.dataset.shellScreen;delete body.dataset.mode;S.screen=null;setBackdrop(null);if(S.menu)toggleMenu(false);$$('.hud-guide-pop').forEach(n=>n.remove());return;}
+ if(!game||!$('#root > main')){body.classList.remove('teyvat','shell-mobile');delete body.dataset.shellScreen;delete body.dataset.mode;S.screen=null;setBackdrop(null);if(S.menu)toggleMenu(false);if(S.scenery)toggleScenery(false);$$('.hud-guide-pop').forEach(n=>n.remove());return;}
  body.classList.add('teyvat');S.mobile=isMobile();body.classList.toggle('shell-mobile',S.mobile);
  const key=screenKey(),main=$('#root > main'),aside=$(':scope > aside',main),content=$(':scope > .content',main),p=content&&[...content.children].find(c=>c.classList.contains('panel'));
+ if(S.scenery&&!WORLD_SCREENS.has(key))toggleScenery(false);
  if(S.screen!==key){S.screen=key;if(content)content.classList.add('shell-screen-enter');}
  body.dataset.shellScreen=key;body.dataset.phase=game.playPhase?.()||'';
  if(aside)buildHUD(aside,key);
@@ -383,6 +421,7 @@ document.addEventListener('keydown',e=>{
  if(e.defaultPrevented||e.ctrlKey||e.metaKey||e.altKey||!game)return;
  const typing=/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName)||e.target?.isContentEditable;
  const dialog=$('dialog[open]');
+ if(S.scenery){if(e.key==='Escape'||e.key.toLowerCase()==='v'){e.preventDefault();toggleScenery(false);}return;}
  if(e.key==='Escape'){if(dialog||typing)return;if(window.CRPGHandbook?.isOpen?.()){e.preventDefault();CRPGHandbook.close();return;}if(window.CRPGTrade?.isOpen?.()){e.preventDefault();CRPGTrade.close();return;}if(window.CRPGChat?.open){e.preventDefault();CRPGChat.toggle(false);return;}if(S.menu){e.preventDefault();toggleMenu(false);return;}const back=$('.shell-back');if(back&&!back.disabled&&!e.repeat){e.preventDefault();back.click();return;}e.preventDefault();toggleMenu(true);return;}
  if(typing||dialog||S.menu||e.repeat)return;
  if(e.key==='F1'){e.preventDefault();window.CRPGHandbook?.open();return;}
@@ -390,6 +429,7 @@ document.addEventListener('keydown',e=>{
  const k=e.key.toLowerCase(),screen=S.screen;
  if(screen==='COMBAT')return; // combat keys belong to the battle screen (E/Q select a skill)
  if(k==='m'){e.preventDefault();openMap();return;}
+ if(k==='v'&&WORLD_SCREENS.has(screen)){e.preventDefault();toggleScenery(true);return;}
  if(HOTKEYS[k]){e.preventDefault();const target=HOTKEYS[k];if(S.screen===target&&target!=='STORY')openScreen(game.s.runtime?'STORY':'LOCATION');else openScreen(target);return;}
  const onButton=e.target?.closest?.('button,a,summary');
  if(['STORY','STORY_WAIT','COMBAT_INTERLUDE','DIALOGUE'].includes(screen)){
@@ -422,6 +462,18 @@ function soundGallery(){
  return gallery;
 }
 if(typeof settingsControls==='function'){const priorSettings=settingsControls;settingsControls=function(p){priorSettings(p);try{
+ // 화면 크기 (PC frame only): how much page the frame shows, read by the frame host in index.html.
+ if(document.documentElement.classList.contains('crpg-framed')){
+  const row=mk('label','settings-row shell-ui-scale'),copy=mk('div','copy'),select=mk('select');
+  copy.append(mk('p','','화면 크기'),mk('small','','컴퓨터에서 게임 화면 전체의 크기입니다. 작게 할수록 한 화면에 더 많이 보입니다.'));
+  for(const [v,t]of [['small','작게'],['normal','보통'],['large','크게']]){const o=mk('option','',t);o.value=v;select.append(o);}
+  select.value=['small','large'].includes(settings.uiScale)?settings.uiScale:'normal';
+  select.onchange=()=>{settings.uiScale=select.value;persistSettings();try{window.parent.CRPGFrameFit?.();}catch{}};
+  row.append(copy,select);
+  const font=[...p.querySelectorAll('label.settings-row')].find(r=>/글자 크기/.test(r.textContent));
+  if(font)font.after(row);else p.prepend(row);
+ }
+}catch{}try{
  // The sound credits say where the sounds come from, and the gallery follows the sound section.
  for(const n of p.querySelectorAll('p.muted'))if(/공식 웹 이벤트 원소 효과음/.test(n.textContent))n.textContent='원신 OST · 지역별 순환 재생 · 효과음은 원신 본편 녹음과 공식 웹 이벤트 소리를 씁니다(「이전」·「새로 만든」이라고 적힌 전투 시작·타격·풀 소리는 이 게임에서 만든 소리). 아래 「효과음 고르기」에서 소리마다 후보를 들어 보고 바꿀 수 있습니다.';
  const credit=[...p.querySelectorAll('a')].find(a=>/genshin-sfx\/CREDITS/.test(a.getAttribute('href')||''));

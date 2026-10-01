@@ -22,17 +22,20 @@ check('field bosses: one fixed level each (Mond 10-13, Liyue 14-20), in a clear 
  return lv;
 });
 
-check('field bosses: all together pay out three times a game day; defeats never count',()=>{
+check('field bosses: all together pay out three times in every 12 real hours (KST 00:00/12:00); defeats never count',()=>{
  const FB=api.fieldBosses,boss='FB_CRYO_REGISVINE',route=FB.route(boss),r=fixture(10,TEAM,7);
- r.s.global.CURRENT_MAP_ID=FB.bosses[boss].map;r.s.global.SCREEN_MODE='LOCATION';const day=r.s.global.WORLD_DAY;
+ r.actionStartedAt=Date.UTC(2026,9,1,1,0,0); // 10:00 Korean time: the 00:00-12:00 window
+ r.s.global.CURRENT_MAP_ID=FB.bosses[boss].map;r.s.global.SCREEN_MODE='LOCATION';const w=r.fieldBossWindow();assert.equal(w%2,0);assert.equal(r.fieldBossDaily().resetAt,'12:00');
  r.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT'});let b=r.s.runtime;
- for(const a of b.actors.filter(x=>x.side==='ENEMY'))a.hp=0;r.finishBattle(true);assert.deepEqual(plain(r.s.fieldBossDaily),{day,wins:1});
- r.s.fieldBossClock={};if(r.s.placeVisit?.place!=='BOSS:'+route)r.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT'});b=r.s.runtime;for(const a of b.actors.filter(x=>x.side==='ALLY'))a.hp=0;r.finishBattle(false);assert.equal(r.s.fieldBossDaily.wins,1,'a defeat does not count');
- r.s.fieldBossDaily={day,wins:3};r.s.fieldBossClock={};assert.match(r.placeBossReason(route,'DIRECT'),/하루에 3번/);
+ for(const a of b.actors.filter(x=>x.side==='ENEMY'))a.hp=0;r.finishBattle(true);assert.deepEqual(plain(r.s.fieldBossWindow),{window:w,wins:1});
+ assert.equal(r.placeBossReason(route,'DIRECT'),'','the same boss can be fought again at once');
+ if(r.s.placeVisit?.place!=='BOSS:'+route)r.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT'});b=r.s.runtime;for(const a of b.actors.filter(x=>x.side==='ALLY'))a.hp=0;r.finishBattle(false);assert.equal(r.s.fieldBossWindow.wins,1,'a defeat does not count');
+ r.s.fieldBossWindow={window:w,wins:3};assert.match(r.placeBossReason(route,'DIRECT'),/12시간마다 3번/);
  assert.equal(r.fieldBossRouteInfo(route).daily.left,0);
- r.s.global.WORLD_DAY=day+1;assert.equal(r.placeBossReason(route,'DIRECT'),'');
- const bad=JSON.parse(r.serialize());bad.fieldBossDaily={day:0,wins:1};assert.throws(()=>new api.Runtime(require(path.join(root,'content/db.json')),bad),/하루 토벌/);
- return {limit:api.fieldBossLimits.dailyLimit};
+ r.s.global.WORLD_DAY+=1;assert.match(r.placeBossReason(route,'DIRECT'),/12시간마다/,'an in-game day no longer resets the count');
+ r.actionStartedAt=Date.UTC(2026,9,1,3,0,0);assert.equal(r.fieldBossWindow(),w+1);assert.equal(r.fieldBossDaily().resetAt,'00:00');assert.equal(r.placeBossReason(route,'DIRECT'),'','12:00 Korean time opens a new count');
+ const bad=JSON.parse(r.serialize());bad.fieldBossWindow={window:-1,wins:1};assert.throws(()=>new api.Runtime(require(path.join(root,'content/db.json')),bad),/12시간 토벌/);
+ return {limit:api.fieldBossLimits.dailyLimit,hours:api.fieldBossLimits.windowHours};
 });
 
 check('ley line blossoms: two per region each real hour, steps opened by level, one payout per kind and hour',()=>{

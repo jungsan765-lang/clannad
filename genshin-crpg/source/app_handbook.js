@@ -50,25 +50,25 @@ function journey(box){
  box.append(obj);
  // Today's limits at a glance.
  const today=section('오늘의 기록','게임 내 하루와 현실 시간을 따로 셉니다.');const list=mk('div','hb-grid');
- try{const d=game.fieldBossDaily?.();if(d)list.append(stat('필드 보스 토벌',d.wins+' / '+d.limit,d.left?'오늘 '+d.left+'번 더 토벌할 수 있습니다.':'게임 내 다음 날에 다시 토벌할 수 있습니다.',d.left?'':'spent'));}catch{}
+ try{const d=game.fieldBossDaily?.();if(d)list.append(stat('필드 보스 토벌',d.wins+' / '+d.limit,d.left?'이번 12시간 동안 '+d.left+'번 더 토벌할 수 있습니다 · '+(d.resetAt||'')+' 초기화':'한국 시간 '+(d.resetAt||'0시·12시')+'에 다시 토벌할 수 있습니다.',d.left?'':'spent'));}catch{}
  try{const st=game.leyLineStatus?.();if(st)list.append(stat('지맥의 꽃',st.unlocked?st.blossoms.filter(b=>b.claimed).length+' / '+st.blossoms.length:'Lv. '+st.minLevel+'부터',st.unlocked?'정각까지 '+st.minutesLeft+'분 · 꽃마다 한 시간에 한 번 받습니다.':'주인공 레벨이 오르면 매시 정각에 핍니다.'));}catch{}
- try{const cfg=CRPGRuntime.enhancementConfig,ids=Object.keys(cfg?.bosses||{});if(ids.length){const used=ids.filter(id=>game.bossAdmission?.(id)?.reason).length;list.append(stat('이틀 주기 보스',used+' / '+ids.length+' 입장','보스마다 현실 시간으로 하루에 한 번 · 한국 시간 자정에 초기화',used===ids.length?'spent':''));}}catch{}
+ try{const cfg=CRPGRuntime.enhancementConfig,ids=Object.keys(cfg?.bosses||{});if(ids.length){const used=ids.filter(id=>game.bossAdmission?.(id)?.reason).length;list.append(stat('일일 보스',used+' / '+ids.length+' 입장','보스마다 현실 시간으로 하루에 한 번 · 한국 시간 0시에 초기화',used===ids.length?'spent':''));}}catch{}
  today.append(list);box.append(today);
 }
 function stat(title,value,note,cls=''){const c=mk('div','hb-stat '+cls);c.append(mk('small','',title),mk('strong','',value),mk('p','',note));return c;}
 function bosses(box){
  const fb=CRPGRuntime.fieldBosses,routes=game.rows('35_BOSS_ROUTE_DB').filter(r=>String(r[0]).startsWith('BRT_FB_'));
  const daily=(()=>{try{return game.fieldBossDaily?.();}catch{return null;}})();
- const s1=section('필드 보스','보스마다 고정된 레벨입니다. 낮은 레벨부터 차례로 도전하세요.'+(daily?' 오늘 토벌 '+daily.wins+'/'+daily.limit+'.':''));
+ const s1=section('필드 보스','보스마다 고정된 레벨입니다. 낮은 레벨부터 차례로 도전하세요. 모두 합쳐 12시간마다(한국 시간 0시·12시 초기화) '+(daily?.limit||3)+'번까지 토벌할 수 있습니다.'+(daily?' 이번 토벌 '+daily.wins+'/'+daily.limit+'.':''));
  const items=routes.map(r=>{const id=String(r[0]).slice(4);let info=null;try{info=game.fieldBossRouteInfo?.(r[0]);}catch{}return {r,id,map:r[2],level:info?.level||fb?.levels?.[id]||fb?.bosses?.[id]?.level||0,info};}).sort((a,b)=>a.level-b.level);
  for(const x of items){const i=x.info;const subs=[regionOf(x.map)+' · '+mapLabel(x.map)];if(i?.material?.name)subs.push('보상 · '+i.material.name);
-  const state=i?.cooldown?.reason?chip('재등장 대기','wait'):i?.low?.length?chip('레벨 부족','warn'):chip('도전 가능','ok');
+  const state=i?.cooldown?.reason?chip('재등장 대기','wait'):i?.daily&&!i.daily.left?chip('횟수 소진','wait'):i?.low?.length?chip('레벨 부족','warn'):chip('도전 가능','ok');
   const r=row('hb-boss',(i?.name||x.r[1])+' · Lv.'+x.level,subs,guideButton(x.map));r.querySelector('.hb-copy strong').after(state);
   if(i?.cooldown?.reason)r.querySelector('.hb-copy').append(mk('small','hb-reason',i.cooldown.reason));
   s1.append(r);}
  if(!items.length)s1.append(mk('p','hb-note','아직 알려진 필드 보스가 없습니다.'));
  box.append(s1);
- const s2=section('이틀 주기 보스','본편에서 쓰러뜨린 보스와 다시 싸웁니다. 보스마다 현실 시간으로 하루에 한 번 입장할 수 있습니다.');
+ const s2=section('일일 보스','본편에서 쓰러뜨린 보스와 다시 싸웁니다. 보스마다 현실 시간으로 하루에 한 번 입장할 수 있고, 한국 시간 0시에 다시 열립니다.');
  const cfg=CRPGRuntime.enhancementConfig;
  for(const [id,b]of Object.entries(cfg?.bosses||{})){let reason='',adm=null,rm=null;try{reason=game.materialChallengeReason?.(id)||'';adm=game.bossAdmission?.(id);rm=game.bossRematchInfo?.(id);}catch{}
   const name=game.tables['09_MONSTER_DB']?.get(id)?.[1]||id;const r=row('hb-boss',name+(rm?' · Lv.'+rm.level:''),[mapLabel(b.map),rm?'보상 · 영웅의 경험 '+Object.values(rm.books||{}).reduce((a,n)=>a+n,0)+'권 · 강적의 잔향':'보상 · 강적의 잔향'],guideButton(b.map));
@@ -96,7 +96,8 @@ function abyss(box){
  let v=null;try{v=game.abyssView?.();}catch{}
  if(!v){box.append(mk('p','hb-note','나선비경 기록이 없습니다.'));return;}
  const cleared=v.floors.filter(f=>f.cleared).length;
- const s=section('나선비경 · '+(v.markName||'기록'),'층마다 방 세 개를 연달아 공략합니다. 10~12층은 파티 전원이 Lv. 20이어야 도전할 수 있습니다.');
+ const mark=v.markName||'나선 각인';
+ const s=section('나선비경 기록','층마다 방 세 개를 연달아 공략합니다. 층을 정복하면 함께 싸운 동료에게 「'+mark+'」이 새겨지고, 각인된 동료는 도전을 전부 초기화하기 전까지 다른 층에 나설 수 없습니다(주인공은 새겨지지 않습니다). 10~12층은 파티 전원이 Lv. 20이어야 도전할 수 있습니다.');
  const hero=mk('div','hb-grid');hero.append(stat('클리어한 층',cleared+' / '+v.floors.length,cleared?'최고 기록을 갱신해 보세요.':'1층부터 도전할 수 있습니다.'));
  if(v.active)hero.append(stat('진행 중',v.active.floor+'층 '+v.active.chamber+'번 방',v.active.floorName||''));
  s.append(hero);

@@ -60,7 +60,7 @@ function appendBossPreparation(p,ids){
  for(const id of ids){const r=game.mondBossReadiness(id);if(!r)continue;box.append(el('h2','',r.name+' · 권장 Lv.'+r.recommended+' / 4인'));
   box.append(el('p','','체력 '+r.hp+' · 공격력 '+r.atk+' · 방어력 '+r.def+' · 장비·레벨에 따라 자동 상승하지 않는 고정 보스'));
   
-  box.append(el('small','muted','장비 착용은 승리 보장이 아닙니다. 입장 후에는 장비 교체가 불가능하며, 보스별 게임 내 이틀 입장 간격은 유지됩니다.'));
+  box.append(el('small','muted','장비 착용은 승리 보장이 아닙니다. 입장 후에는 장비 교체가 불가능하며, 보스마다 현실 시간으로 하루에 한 번(한국 시간 0시 초기화) 입장할 수 있습니다.'));
  }p.prepend(box);
 }
 const bossPrepareScreen=battlePrepare;battlePrepare=function(p,...args){bossPrepareScreen(p,...args);const group=game.s.battlePreparation?.group;const row=game.combatRows('33_ENCOUNTER_GROUP_DB').find(r=>r[0]===group);appendBossPreparation(p,row&&['BOSS_DVALIN','BOSS_ANDRIUS'].includes(row[7])?[row[7]]:[]);};

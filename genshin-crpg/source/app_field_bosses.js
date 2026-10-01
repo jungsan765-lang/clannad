@@ -11,7 +11,7 @@ function routeOfVisit(){const v=game.currentPlace?.();return v?.valid&&v.entry?.
 const priorBoss=boss;
 boss=function(p,...args){
  priorBoss(p,...args);const route=routeOfVisit(),info=route&&game.fieldBossRouteInfo?.(route);if(!info)return;
- for(const x of p.querySelectorAll('p'))if(/48시간|하루에 한 번\(현실 시간/.test(x.textContent)){x.textContent='필드 보스 토벌입니다. 쓰러뜨리면 게임 내 24시간 뒤에 다시 나타나며, 필드 보스는 모두 합쳐 하루 '+(info.daily?.limit||3)+'번까지 토벌할 수 있습니다. 지면 횟수가 줄지 않으니 기믹을 확인한 뒤 장비·진형·대열을 바꿔 다시 도전해 보세요.';break;}
+ for(const x of p.querySelectorAll('p'))if(/48시간|하루에 한 번\(현실 시간/.test(x.textContent)){x.textContent='필드 보스 토벌입니다. 필드 보스는 모두 합쳐 12시간마다(현실 시간, 한국 시간 0시·12시 초기화) '+(info.daily?.limit||3)+'번까지 토벌할 수 있습니다. 지면 횟수가 줄지 않으니 기믹을 확인한 뒤 장비·진형·대열을 바꿔 다시 도전해 보세요.';break;}
  const box=el('section','field-boss-info');box.setAttribute('aria-label','필드 보스 정보');
  box.append(el('h2','',info.name+' · 권장 Lv.'+info.level+' · 4인'),el('p','',info.summary));
  box.append(el('p','field-boss-drop','주요 보상 · '+info.material.name+' 2~3개 (첫 토벌 +1) · 강적의 잔향 20%'));
