@@ -43,5 +43,5 @@ const changed=fixture();changed.nodes.get(R+':ISK_L03_K2_026')[12]='NEW_EFFECT';
 for(const row of ix.nodes.values())if(row[5]==='NARRATION')assert.equal(row[7],'이야기');checks++;
 for(const s of scene.filter(s=>s.type==='NARRATION')){assert.equal(s.speaker,'이야기');assert.ok(!/(?:^|[.!?]\s+|\n)나는\s/.test(s.text));}checks++;
 assert.ok(scene.some(s=>s.type==='NARRATION'&&/내가|내 쪽|내 얼굴/.test(s.text)),'first-person relational wording is retained');checks++;
-assert.ok(scene.some(s=>s.type==='DIALOGUE'&&s.speaker==='{PLAYER_NAME}'&&s.text.startsWith('내가 여기')),'spoken protagonist remains intact');checks++;
+assert.ok(scene.some(s=>s.type==='DIALOGUE'&&s.speaker==='{PLAYER_NAME}'&&s.profile==='PLAYER_ISEKAI'&&/내가/.test(s.text)),'spoken protagonist remains intact');checks++;
 console.log(JSON.stringify({ok:true,checks,scope:'focused installer and graph checks on reconstructed anchor fixture; not a full game/browser/deployment test',screens:scene.length,addedNodes:14,exit:id},null,2));
