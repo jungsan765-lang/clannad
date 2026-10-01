@@ -21,7 +21,7 @@ def validate():
     rows = scene['before'] + scene['afterChoice'] + scene['afterAction']
     rows += [r for o in choice['options'] for r in o['reply']]
     for row in rows:
-        assert row['speaker'] in {'이야기', '호위 병사', '플레이어 닉네임'}
+        assert row['speaker'] in {'이야기', '천암군', '플레이어 닉네임'}
         assert (row['kind'] == 'NARRATION') == (row['speaker'] == '이야기')
         assert row['kind'] in {'NARRATION', 'DIALOGUE'} and row['text'].strip()
     labels = [o['label'] for o in choice['options']]
@@ -41,6 +41,12 @@ def validate():
     assert scene['fieldAction']['basisKind'] == 'DESTROY'
     assert scene['exit']['rescuersReachedHand'] and not scene['exit']['extractionComplete']
     assert scene['exit']['tartagliaLocation'] == 'not_confirmed'
+    assert scene['revision'] == 3
+    assert scene['afterAction'][5]['text'] == '...타르탈리아는요? 그 사람은 나왔어요?'
+    assert scene['afterAction'][6]['speaker'] == '천암군'
+    assert scene['afterAction'][6]['text'] == '...우인단 집행관 말입니까? 안에 같이 있었습니까?'
+    assert scene['afterAction'][7]['text'] == '네... 무너지기 전엔 바로 앞에 있었는데...'
+    assert not any('머리' in r['text'] or r['speaker'] == '호위 병사' for r in rows)
     assert not scene['exit']['porterReunionShown']
     five = json.loads((HERE / 'SCENE_005_01.json').read_text(encoding='utf-8'))['after']
     thanks = next(i for i, r in enumerate(five) if r['text'] == '그럼... 고맙습니다.')
@@ -53,6 +59,7 @@ def validate():
     result = {'task': '007.01', 'ok': True, 'scope': 'manuscript text and declared structure only; not game/browser/server execution',
         'readingPaths': paths, 'choiceGroups': 1, 'optionsPerGroup': 2, 'bodyAndStructuredTextMatch': True,
         'choicesHaveDifferentReplies': True, 'priorFiveSilencePreserved': True,
+        'millelithSpeakerConfirmed': True, 'harbingerRecognitionDialogue': True, 'hairDescriptionRemoved': True,
         'maxUnitCharacters': max(len(r['text']) for r in rows),
         'gameIntegration': 'pending', 'testServerDeployment': 'not_done',
         'manuscriptSha256': hashlib.sha256((HERE / 'WORK_007_01.md').read_bytes()).hexdigest()}
