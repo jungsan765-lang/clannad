@@ -3,6 +3,7 @@ let activeTutorial=null;
 const tutorialSteps=[
  {id:'equip',title:'직접 무기를 장착해 보세요',screen:'STATUS',target:'.gear-slot[data-category="WEAPON"]',text:'장비 장착에서 이름 아래의 무기 칸을 누르세요. 쓸 수 있는 무기를 골라 장착하면 완료됩니다. 장비 이름을 누르면 효과와 바뀌는 능력치도 볼 수 있습니다.'},
  {id:'party',title:'동료와 함께 싸울 준비',screen:'PARTY',target:'.party-grid',text:'합류한 동료를 편성에 넣어 보세요. 앞쪽은 튼튼한 동료, 뒤쪽은 활·회복 동료가 맡으면 좋습니다. 아직 합류한 동료가 없다면 본편을 조금 더 진행하세요.'},
+ {id:'personal',title:'동료의 개인 임무',screen:'QUEST',target:'.acquisition-objective',text:'엠버의 개인 임무가 열렸습니다. 임무(J) → 진행 중 → 「동료 획득 임무」에서 시작하세요. 동료마다 개인 임무가 있고, 처음 마치면 그 동료의 호감도가 10 오릅니다. 그 뒤로는 함께 싸워 이길 때마다 1씩 오릅니다. 다른 동료의 개인 임무는 임무의 「동료 획득」 탭에서 소개받습니다.'},
  {id:'battle',title:'첫 전투를 직접 마쳐 보세요',screen:'LOCATION',target:'.battle-command',text:'전투 시작 → 사용할 행동 → 대상 → 실행 순서입니다. 동료들은 정한 전술대로 싸웁니다. 적의 예고를 보고 방어하거나 회복하세요. 일반 조우가 10라운드까지 이어지면 도망칠 수도 있습니다.'},
  {id:'commission',title:'첫 의뢰 받기',screen:'QUEST',target:'.commission-card',text:'몬드성 모험가 길드에서 캐서린을 만나 의뢰를 받으세요. 임무에 적힌 사연과 진행 장소를 먼저 확인하면 무엇을 해야 할지 알 수 있습니다.'},
  {id:'pin',title:'내가 할 임무를 고정하세요',screen:'QUEST',target:'.objective-pin-actions',text:'받은 의뢰에서 「이 임무 고정」을 누르세요. 메인 화면 맨 위와 지도 목적지가 그 의뢰로 바뀝니다. 보상을 받거나 고정을 해제하면 본편 안내로 돌아갑니다.'},
@@ -20,6 +21,8 @@ function closeTutorial(mark=true){
 function tutorialDone(){
  const done={...game.s.learningGuide?.done};
  if(Object.values(game.s.combatReceipts||{}).some(r=>r.victory))done.battle=true;
+ // 0.14.8: the personal mission step waits until Amber's mission has opened, and ends once it is started or done.
+ const open=game.openedPersonalMissions?.()||[];if(!open.length||open.some(id=>game.s.storyContext?.entry===id))done.personal=true;
  return done;
 }
 function renderTutorial(){
@@ -47,4 +50,6 @@ function openGameHelp(){
  ])box.append(el('h2','',title),el('p','',text));showModal('여행 안내',box);
 }
 const tutorialQuick=updateQuick;updateQuick=function(){tutorialQuick();document.getElementById('quick-actions').append(button('도움말',openGameHelp,busy));};
-const tutorialRender=render;render=function(){tutorialRender();if(!game){closeTutorial(false);return;}const guide=game.s.learningGuide;if(guide?.dismissed){activeTutorial=null;document.getElementById('tutorial-tour')?.remove();return;}if(!activeTutorial&&guide?.auto)activeTutorial={};if(activeTutorial)renderTutorial();};
+// A one-time notice when a personal mission opens by itself (0.14.8), even with the guide closed.
+function personalNotice(){try{for(const id of game.openedPersonalMissions?.()||[]){const key='crpg-personal-open:'+game.s.global.SAVE_ID+':'+id;if(localStorage.getItem(key))continue;localStorage.setItem(key,'1');const name=game.storyDefinition?.(id)?.DISPLAY_NAME||'동료';window.CRPGShell?.toast?.(name+'의 개인 임무가 열렸습니다 · 임무(J) → 진행 중');}}catch{}}
+const tutorialRender=render;render=function(){tutorialRender();if(game)personalNotice();if(!game){closeTutorial(false);return;}const guide=game.s.learningGuide;if(guide?.dismissed){activeTutorial=null;document.getElementById('tutorial-tour')?.remove();return;}if(!activeTutorial&&guide?.auto)activeTutorial={};if(activeTutorial)renderTutorial();};

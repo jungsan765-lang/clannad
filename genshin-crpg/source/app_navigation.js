@@ -63,8 +63,8 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   if(n.point?.[3])copy.append(el('small','terrain-point-note',n.point[3]));
   if(n.reason)copy.append(el('small','terrain-lock-reason','잠김 · '+n.reason));else if(!n.point)copy.append(el('small','','주변 세부 지역 · 경로로 이동'));
   b.append(num,copy,el('span','terrain-card-state',n.reason?'잠김':'이동'));
-  const highlight=()=>{document.querySelectorAll('.terrain-pin').forEach(p=>p.classList.toggle('hovered',(p.dataset.destinations||'').split(',').includes(n.id)));};
-  b.addEventListener('pointerenter',highlight);b.addEventListener('focus',highlight);b.addEventListener('pointerleave',()=>document.querySelectorAll('.terrain-pin.hovered').forEach(p=>p.classList.remove('hovered')));return b;
+  const highlight=()=>{document.querySelectorAll('.terrain-pin,.terrain-route-tag').forEach(p=>p.classList.toggle('hovered',(p.dataset.destinations||'').split(',').includes(n.id)));document.querySelectorAll('.terrain-route[data-destination]').forEach(p=>p.classList.toggle('hovered',p.dataset.destination===n.id&&!p.classList.contains('trip')));};
+  b.addEventListener('pointerenter',highlight);b.addEventListener('focus',highlight);b.addEventListener('pointerleave',()=>document.querySelectorAll('.terrain-pin.hovered,.terrain-route-tag.hovered,.terrain-route.hovered').forEach(p=>p.classList.remove('hovered')));return b;
  },
  drawMap(nearby){
   const T=CRPGTerrainMap,atlas=this.atlas,viewport=el('div','terrain-viewport'),canvas=el('div','terrain-canvas'),sheet=el('div','terrain-sheet'),img=el('img','terrain-raster');
@@ -74,7 +74,27 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   const current=this.point(game.s.global.CURRENT_MAP_ID),local=nearby.filter(n=>n.point?.[0]===atlas),target=this.point(this.target);
   const addMarker=(point,kind,text,label,ids=[],fn)=>{const p=fn?this.control('',fn,'pin-'+ids.join('-'),label):el('div');p.className='terrain-pin '+kind;p.style.left=(point[1]/T.width*100)+'%';p.style.top=(point[2]/T.height*100)+'%';p.dataset.destinations=ids.join(',');p.append(el('span','terrain-pin-core',text));p.title=label;if(kind==='current')p.append(el('span','terrain-current-label','현재 위치'));if(this.target&&ids.includes(this.target))p.classList.add('selected');overlays.append(p);return p;};
   let initializing=false,drawnScale=0;
-  const drawPins=scale=>{overlays.replaceChildren();
+  // 0.14.8: every way out of here is drawn along the roads of the picture (CRPGTerrainMap.roads), with its number
+  // on the road itself, so the map shows which road reaches which place. The chosen trip is drawn in full.
+  const route=this.target?game.navigationRoute(this.target):null;
+  const routes=document.createElementNS('http://www.w3.org/2000/svg','svg');routes.setAttribute('class','terrain-routes');routes.setAttribute('viewBox','0 0 '+T.width+' '+T.height);routes.setAttribute('preserveAspectRatio','none');routes.setAttribute('aria-hidden','true');img.after(routes);
+  const roadPoints=(a,b)=>{const pa=this.point(a),pb=this.point(b);if(!pa||!pb||pa[0]!==atlas||pb[0]!==atlas)return null;const key=[a,b].sort().join('>'),mid=(T.roads?.[key]||[]).slice();if([a,b].sort()[0]!==a)mid.reverse();return [[pa[1],pa[2]],...mid,[pb[1],pb[2]]];};
+  const along=(pts,f)=>{let total=0;const seg=[];for(let i=1;i<pts.length;i++){const d=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);seg.push(d);total+=d;}let goal=total*f;for(let i=1;i<pts.length;i++){if(goal<=seg[i-1]){const k=seg[i-1]?goal/seg[i-1]:0;return [pts[i-1][0]+(pts[i][0]-pts[i-1][0])*k,pts[i-1][1]+(pts[i][1]-pts[i-1][1])*k];}goal-=seg[i-1];}return pts.at(-1);};
+  const drawRoutes=()=>{routes.replaceChildren();const here=game.s.global.CURRENT_MAP_ID;
+   const line=(pts,cls,id)=>{const p=document.createElementNS('http://www.w3.org/2000/svg','polyline');p.setAttribute('points',pts.map(q=>q.join(',')).join(' '));p.setAttribute('class','terrain-route '+cls);if(id)p.dataset.destination=id;routes.append(p);return p;};
+   // The chosen trip, area by area, under the ways out.
+   if(route?.maps?.length>2)for(let i=1;i<route.maps.length-1;i++){const pts=roadPoints(route.maps[i],route.maps[i+1]);if(pts)line(pts,'trip',this.target);}
+   const ways=local.map(n=>({n,pts:roadPoints(here,n.id)})).filter(w=>w.pts);
+   // Ways out often share the first stretch of road; each number goes where its road has left the others.
+   const segDist=(p,a,b)=>{const dx=b[0]-a[0],dy=b[1]-a[1],l=dx*dx+dy*dy,t=l?Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/l)):0;return Math.hypot(p[0]-a[0]-t*dx,p[1]-a[1]-t*dy);};
+   const away=(p,pts)=>{let d=Infinity;for(let i=1;i<pts.length;i++)d=Math.min(d,segDist(p,pts[i-1],pts[i]));return d;};
+   const placed=[];
+   for(const w of ways){const {n,pts}=w,on=this.target===n.id||route?.maps?.[1]===n.id;line(pts,(n.reason?'locked ':'')+(on?'selected':''),n.id);
+    let spot=null;for(let f=.3;f<=.86&&!spot;f+=.04){const p=along(pts,f);if(ways.every(o=>o===w||away(p,o.pts)>=9)&&placed.every(q=>Math.hypot(q[0]-p[0],q[1]-p[1])>=14))spot=p;}
+    spot=spot||along(pts,.55);placed.push(spot);
+    const tag=el('span','terrain-route-tag'+(n.reason?' locked':'')+(on?' selected':''),String(n.number));tag.style.left=(spot[0]/T.width*100)+'%';tag.style.top=(spot[1]/T.height*100)+'%';tag.dataset.destinations=n.id;tag.setAttribute('aria-hidden','true');overlays.append(tag);}
+  };
+  const drawPins=scale=>{overlays.replaceChildren();drawRoutes();
    // Geographic anchors NEVER move for touch accessibility. Only the numbered controls move.
    const seen=new Set(),anchor=(point,id)=>{if(seen.has(id))return;seen.add(id);
     const a=el('span','terrain-anchor');a.style.left=(point[1]/T.width*100)+'%';a.style.top=(point[2]/T.height*100)+'%';a.dataset.mapId=id;a.setAttribute('aria-hidden','true');overlays.append(a);};

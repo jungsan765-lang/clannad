@@ -24,7 +24,23 @@ const CombatFX={
    this.animate(p,[{transform:'translate(-50%,-50%) rotate('+angle+'deg) scaleX(.3)',opacity:0},{offset:.2,opacity:1},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+angle+'deg) scaleX(1)',opacity:1}],{duration:this.windupDuration,fill:'forwards',easing:'ease-in'});
   }
  },
+ // Reaction names ride on their target's damage number, as in the original, instead of a separate banner.
+ reactionTags(frame,effects){
+  const layer=effects.layerNode(),shown=new Set();
+  const name=id=>{try{return game?.tables?.['37_ELEMENTAL_REACTION_DB']?.get(id)?.[1]||'';}catch{return '';}};
+  for(const t of frame.targets){
+   const list=[];for(const e of t.events){const label=e.kind==='reaction'?e.label:e.reactionId?name(e.reactionId):'';if(label&&!list.includes(label))list.push(label);}
+   const p=list.length?this.point(effects.actorNode(t.targetId)):null;if(!p)continue;
+   const kind=(t.events.find(e=>e.kind==='reaction')?.element)||reactionKind(t.events.find(e=>e.reactionId)?.reactionId);
+   const tag=this.mote(layer,'reaction-tag effect-'+(kind||'hit'),{x:p.x,y:p.y-44});tag.textContent=list.join(' · ');for(const l of list)shown.add(l);
+   if(!settings.reducedMotion)this.animate(tag,[{opacity:0,transform:'translate(-50%,-30%) scale(.7)'},{offset:.15,opacity:1,transform:'translate(-50%,-60%) scale(1.12)'},{offset:.3,transform:'translate(-50%,-62%) scale(1)'},{offset:.8,opacity:1,transform:'translate(-50%,-110%) scale(1)'},{opacity:0,transform:'translate(-50%,-130%) scale(.96)'}],{duration:1100,easing:'ease-out',fill:'forwards'});
+  }
+  // A reaction without a known target (a field, a summon) still gets one line in the middle.
+  const rest=frame.reactions.filter(r=>!shown.has(r));
+  if(rest.length){const badge=el('div','reaction-burst',rest.join(' · '));layer.append(badge);if(!settings.reducedMotion)this.animate(badge,[{opacity:0,transform:'translate(-50%,12px) scale(.9)'},{opacity:1,transform:'translate(-50%,0) scale(1)'}],{duration:350,fill:'forwards'});}
+ },
  impact(frame,effects){
+  if(frame.kind==='action')this.reactionTags(frame,effects);
   if(settings.reducedMotion||frame.kind!=='action')return;const layer=effects.layerNode();
   for(const t of frame.targets){const target=effects.actorNode(t.targetId),p=this.point(target);if(!p)continue;
    const e=t.events.find(e=>e.kind==='damage')||t.events.find(e=>e.kind==='heal')||t.events[0],element=e?.element||'hit';
@@ -35,6 +51,23 @@ const CombatFX={
    }
    if(t.damage&&t.hpAfter<=0){const badge=this.mote(layer,'defeated-marker',p);badge.textContent='격파';this.animate(badge,[{opacity:0,transform:'translate(-50%,20px)'},{opacity:1,transform:'translate(-50%,8px)'}],{duration:400,fill:'forwards'});}
   }
-  if(frame.reactions.length){const badge=el('div','reaction-burst',frame.reactions.join(' · '));layer.append(badge);this.animate(badge,[{opacity:0,transform:'translate(-50%,12px) scale(.9)'},{opacity:1,transform:'translate(-50%,0) scale(1)'}],{duration:350,fill:'forwards'});}
  }
 };
+// Which colour a reaction tag takes.
+function reactionKind(id){id=String(id||'');return /MELT|VAPORIZE|OVERLOADED|BURN/.test(id)?'fire':/FROZEN|SUPERCONDUCT/.test(id)?'ice':/ELECTRO|AGGRAVATE|HYPERBLOOM/.test(id)?'lightning':/SWIRL/.test(id)?'wind':/CRYSTALLIZE|SHATTER/.test(id)?'rock':/BLOOM|SPREAD|BURGEON|QUICKEN/.test(id)?'dendro':'hit';}
+// Damage numbers read like the original's: the number alone in the element's colour; a critical hit is simply
+// bigger. The numbers are drawn by the battle playback (app_av.js); this only rewrites their text as they appear.
+(function(){
+ const relabel=item=>{
+  if(!item?.classList?.contains('impact')||item.dataset.shellNumber||!/kind-(action|damage)/.test(item.className))return;item.dataset.shellNumber='1';
+  const label=item.querySelector('.impact-label');if(!label)return;const text=label.textContent.trim();
+  const hp=text.match(/HP -(\d[\d,]*)/),guard=text.match(/보호막 -(\d[\d,]*)/);
+  if(hp){label.textContent=hp[1];if(guard){const note=document.createElement('small');note.className='impact-target impact-shield';note.textContent='보호막 '+guard[1];label.after(note);}}
+  else if(guard&&!hp){label.textContent=guard[1];item.classList.add('shielded');}
+  else if(/^\d[\d,]*$/.test(text)){}
+  else if(/^\+\d/.test(text))item.classList.add('healing');
+  else item.classList.add('worded');
+  for(const small of item.querySelectorAll('.impact-target'))if(small.textContent==='치명타')small.remove();
+ };
+ try{new MutationObserver(list=>{for(const r of list)for(const n of r.addedNodes){if(n.nodeType!==1)continue;if(n.classList.contains('impact'))relabel(n);else if(n.querySelector)n.querySelectorAll('.impact').forEach(relabel);}}).observe(document.documentElement,{childList:true,subtree:true});}catch{}
+})();

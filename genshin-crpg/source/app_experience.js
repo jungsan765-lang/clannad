@@ -148,7 +148,7 @@ quests=function(p,v){
   for(const q of v.quests){const def=parseUI(q.row[10]),c=el('section','card');if(def.map_id!==game.s.global.CURRENT_MAP_ID)continue;
     c.append(el('h2','',q.row[1]),el('p','',q.state?.claimed?def.revisit:def.text));
     if(q.reason)c.append(el('small','choice-note',q.reason));
-    else if(q.state?.node==='READY_TO_CLAIM'){const r=parseUI(q.row[11]);if(r.equipment_choice)for(const id of r.equipment_choice)c.append(actionButton(safeName('16_EQUIP_DB',id)+' 수령','CLAIM_QUEST',{quest:q.row[0],equipment:id}));else c.append(actionButton('보상 수령','CLAIM_QUEST',{quest:q.row[0]},true));}
+    else if(q.state?.node==='READY_TO_CLAIM'){const r=parseUI(q.row[11]);if(r.equipment_choice)for(const id of r.equipment_choice)c.append(actionButton(rewardEquipLabel(id)+' 수령','CLAIM_QUEST',{quest:q.row[0],equipment:id}));else c.append(actionButton('보상 수령','CLAIM_QUEST',{quest:q.row[0]},true));}
     else for(const ch of def.choices||[])c.append(actionButton(ch.label,'QUEST_CHOICE',{quest:q.row[0],choice:ch.id}));list.append(c);
   }
   if(!list.children.length)list.append(el('p','muted','현재 장소에서 받을 수 있는 의뢰가 없습니다.'));p.append(list);
@@ -279,8 +279,8 @@ function combatCardEffect(card,b){
   if(meta.length)box.append(el('p','muted',meta.join(' · ')));
   if(game.protagonistCombatView&&['PLAYER_ISEKAI_E','PLAYER_ISEKAI_Q'].includes(card.id)){
     const v=game.protagonistCombatView();
-    if(card.id==='PLAYER_ISEKAI_E'){const t=v.windowTargets?.find(x=>x.id===selectedTarget);if(t)box.append(el('p','skill-preview',t.reason||t.name+' · 현재 선택 시 최대 HP −'+t.amount+' · 다음 자기 차례까지'));}
-    if(card.id==='PLAYER_ISEKAI_Q'){box.append(el('p','skill-preview','현재 합동 공격 추가 배율 +'+v.bonusPct+'% · 행동 가능한 동료가 기본 공격에 참가합니다.'));if(v.members?.length)box.append(el('p','muted',v.members.map(a=>a.name+(a.reason?' · 불참('+a.reason+')':' · 참가')).join(' / ')));}
+    if(card.id==='PLAYER_ISEKAI_E'){const t=v.exposeTargets?.find(x=>x.id===selectedTarget);if(t)box.append(el('p','skill-preview',t.name+' · 공격력×'+(v.exposeCoefficient||1.5)+' 피해 · '+(v.exposeRounds||2)+'라운드 동안 파티에게 받는 피해 +'+t.pct+'%'));else{const w=v.windowTargets?.find(x=>x.id===selectedTarget);if(w)box.append(el('p','skill-preview',w.reason||w.name+' · 현재 선택 시 최대 HP −'+w.amount+' · 다음 자기 차례까지'));}}
+    if(card.id==='PLAYER_ISEKAI_Q'){box.append(el('p','skill-preview','현재 합동 공격 추가 배율 +'+v.bonusPct+'% · 행동 가능한 동료가 각자의 원소로 함께 공격합니다.'));if(v.members?.length)box.append(el('p','muted',v.members.map(a=>a.name+(a.reason?' · 불참('+a.reason+')':' · 참가')).join(' / ')));}
   }
   showModal('효과 · '+(card.name||'행동'),box);
 }

@@ -79,7 +79,7 @@ journalEntry=function(parent,entry){
  if(entry.reason)c.append(el('p','choice-note',entry.reason));const start=actionButton(game.storyLegendEntryNode(d)!==d.ENTRY_NODE_ID?'준비물 확인부터 계속':'개인 이야기 열기','LEGEND_ENTER',{quest:entry.id},true);start.disabled=start.disabled||!!entry.reason;c.append(start);parent.append(c);
 };
 function rewardPreview(parent,rewards){
- const box=el('div','reward-preview');if(rewards.mora)box.append(el('span','','◈ '+rewards.mora+' 모라'));if(rewards.xp)box.append(el('span','','✦ 편성 중인 파티원 각각 경험치 +'+rewards.xp));for(const [id,n]of Object.entries(rewards.items||{}))box.append(tierMark(el('span','',safeName('14_ITEM_DB',id)+' ×'+n),id));if(rewards.equipment_choice)box.append(el('span','','장비 1개 선택'));parent.append(box);
+ const box=el('div','reward-preview');if(rewards.mora)box.append(el('span','','◈ '+rewards.mora+' 모라'));if(rewards.xp)box.append(el('span','','✦ 편성 중인 파티원 각각 경험치 +'+rewards.xp));for(const [id,n]of Object.entries(rewards.items||{}))box.append(tierMark(el('span','',safeName('14_ITEM_DB',id)+' ×'+n),id));if(rewards.equipment_choice)box.append(el('span','',rewards.equipment_choice.every(id=>game?.weaponBlueprintId?.(id))?'단조 도면 1개 선택':'장비 1개 선택'));parent.append(box);
 }
 function commissionCard(parent,q,guild=false){
  const c=el('section','card commission-card'),r=q.row,d=q.definition,state=q.state;c.append(el('small','',state?.claimed?'완료':q.accepted?'진행 중':'미수락'),el('h3','',r[1]),el('p','',r[5]||d.text));travelGuide(c,d.map_id);rewardPreview(c,q.reward);
@@ -87,7 +87,7 @@ function commissionCard(parent,q,guild=false){
  if(state?.claimed){c.append(el('p','muted','보상을 수령했습니다.'));}
  else if(!q.accepted){if(guild)c.append(actionButton('의뢰 수락','COMMISSION_ACCEPT',{quest:r[0]},true));else c.append(el('p','muted','안내원에게 찾아가 의뢰를 받아 주세요.'));}
  else if(q.reason)c.append(el('p','choice-note',q.reason));
- else if(state?.node==='READY_TO_CLAIM'){if(q.reward.equipment_choice)for(const id of q.reward.equipment_choice)c.append(actionButton(safeName('16_EQUIP_DB',id)+' 수령','CLAIM_QUEST',{quest:r[0],equipment:id}));else c.append(actionButton('의뢰 완료 · 보상 수령','CLAIM_QUEST',{quest:r[0]},true));}
+ else if(state?.node==='READY_TO_CLAIM'){if(q.reward.equipment_choice)for(const id of q.reward.equipment_choice)c.append(actionButton(rewardEquipLabel(id)+' 수령','CLAIM_QUEST',{quest:r[0],equipment:id}));else c.append(actionButton('의뢰 완료 · 보상 수령','CLAIM_QUEST',{quest:r[0]},true));}
  else for(const choice of d.choices||[]){if(['leave','requirements'].includes(choice.id))continue;c.append(actionButton(choice.label,'QUEST_CHOICE',{quest:r[0],choice:choice.id}));}parent.append(c);
 }
 const previousGuildDialogue=dialogue;

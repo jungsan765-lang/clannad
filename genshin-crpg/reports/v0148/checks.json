@@ -1,5 +1,5 @@
 {
-  "version": "0.14.8",
+  "version": "0.14.9",
   "results": [
     {
       "name": "field bosses: three wins per 12 real hours in total, reset at 00:00 and 12:00 Korean time, no in-game wait",
@@ -37,6 +37,79 @@
       "name": "names: 일일 보스 instead of 이틀 주기 보스, and 나선 각인 is explained where it appears",
       "ok": true,
       "evidence": {}
+    },
+    {
+      "name": "skills and bursts always land: an ally E or Q skips the accuracy roll, normal and enemy attacks keep it",
+      "ok": true,
+      "evidence": {}
+    },
+    {
+      "name": "이세계인: new base stats for new and older saves (once), 약점 간파 marks a target, 함께하는 일격 carries each element",
+      "ok": true,
+      "evidence": {
+        "bonus": 55.7,
+        "hits": [
+          [
+            "PLAYER_CUSTOM",
+            "물리",
+            69
+          ],
+          [
+            "MOND_AMBER",
+            "불",
+            75
+          ],
+          [
+            "MOND_KAEYA",
+            "얼음",
+            180
+          ],
+          [
+            "MOND_LISA",
+            "번개",
+            127
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Liyue: one smith in the harbour, fuller shops, and 4★+ weapons only from the forge",
+      "ok": true,
+      "evidence": {
+        "liyueGeneral": 37,
+        "liyueEquip": 27,
+        "blueprints": 11
+      }
+    },
+    {
+      "name": "Amber's personal mission opens by itself once she has joined and the prologue is done",
+      "ok": true,
+      "evidence": {
+        "ROUTE_TRAVELER": {
+          "day": 1,
+          "auto": true
+        },
+        "ROUTE_ISEKAI": {
+          "day": 1,
+          "auto": true
+        }
+      }
+    },
+    {
+      "name": "원석·스타라이트·스타더스트, 특성, 운명의 자리: present, nothing earned yet, unchanged combat at the start",
+      "ok": true,
+      "evidence": {
+        "offers": 6,
+        "stella": true
+      }
+    },
+    {
+      "name": "travel map: every connection drawn on an atlas follows its traced road, numbered on the way out",
+      "ok": true,
+      "evidence": {
+        "roads": 54,
+        "drawn": 108
+      }
     }
   ]
 }

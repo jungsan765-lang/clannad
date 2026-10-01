@@ -26,8 +26,9 @@ for(let f=1;f<=12;f++){
  const reward=CFG.floors[f-1].reward,mora=r.s.global.MORA,items=Object.fromEntries(Object.keys(reward.items||{}).map(id=>[id,r.itemCount(id)]));
  if(f<12){
   assert.throws(()=>r.action('ABYSS_REWARD',{floor:f,equipment:'EQ_SWORD_FAVONIUS'}),/이나즈마 장비/);
-  const pick=CFG.rewards[f%CFG.rewards.length],had=r.s.inventory.filter(i=>i.equip===pick).length;
-  r.action('ABYSS_REWARD',{floor:f,equipment:pick});assert.equal(r.s.inventory.filter(i=>i.equip===pick).length,had+1);
+  // 0.14.8: a 4★ weapon arrives as its forging blueprint (weapons of that grade come only from the forge).
+  const pick=CFG.rewards[f%CFG.rewards.length],bp=r.weaponBlueprintId?.(pick),count=()=>bp?r.itemCount(bp):r.s.inventory.filter(i=>i.equip===pick).length,had=count();
+  r.action('ABYSS_REWARD',{floor:f,equipment:pick});assert.equal(count(),had+1);
  }else{r.action('ABYSS_REWARD',{floor:12});const art=r.s.inventory.find(i=>i.equip==='EQ_ABYSS_INAZUMA_ARTIFACT');assert(art.artifact.quality>=900);}
  assert.equal(r.s.global.MORA,mora+reward.mora);for(const [id,n] of Object.entries(reward.items||{}))assert.equal(r.itemCount(id),items[id]+n);
  assert.throws(()=>r.action('ABYSS_REWARD',{floor:f,equipment:CFG.rewards[0]}),/첫 정복 보상/);

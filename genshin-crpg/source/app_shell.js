@@ -45,6 +45,9 @@ const ICON={
  DOT:'M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
  CHAT:'M4 5h16v11H11l-5 4v-4H4z M8 9.5h8 M8 12.5h5',
  EYE:'M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
+ PRIMO:'M12 2.5l6.5 7-6.5 12-6.5-12z M5.5 9.5h13 M12 2.5l-2.5 7 2.5 12 2.5-12z',
+ SHOP:'M4 9.5h16l-1.2 10.5H5.2z M7.5 9.5V7a4.5 4.5 0 0 1 9 0v2.5 M9.5 14h5',
+ STARS:'M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z M18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z M6 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z',
  TRADE:'M4 8h13l-3-3 M20 16H7l3 3 M17 8l-3 3 M7 16l3-3'
 };
 function icon(name,cls='shell-icon'){const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('class',cls);const p=document.createElementNS(NS,'path');p.setAttribute('d',ICON[name]||ICON.DOT);s.append(p);return s;}

@@ -745,6 +745,120 @@ body.teyvat .settings-row .copy small{display:block;margin-top:2px;line-height:1
 body.teyvat .settings-row select{width:auto;min-width:120px;flex:0 0 auto}
 body.teyvat .settings-row input[type=range]{flex:0 1 260px;accent-color:var(--acc)}
 body.teyvat .settings-row input[type=checkbox]{accent-color:var(--acc);width:22px;height:22px}
+/* ---------- travel map routes along the roads (app_navigation.js) ---------- */
+.terrain-routes{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
+.terrain-route{fill:none;stroke:rgba(255,246,222,.78);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:7 6;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 1.5px rgba(0,0,0,.85));transition:stroke .15s,stroke-width .15s}
+.terrain-route.locked{stroke:rgba(190,190,190,.35)}
+.terrain-route.trip{stroke:rgba(255,215,106,.75);stroke-dasharray:3 6;stroke-width:3}
+.terrain-route.hovered,.terrain-route.selected{stroke:#ffd76a;stroke-width:5;stroke-dasharray:none;filter:drop-shadow(0 0 4px rgba(255,215,106,.7)) drop-shadow(0 0 1px #000)}
+.terrain-route-tag{position:absolute;z-index:2;transform:translate(-50%,-50%);min-width:18px;height:18px;padding:0 4px;border-radius:9px;display:grid;place-items:center;font:700 11px/1 system-ui,sans-serif;color:#3b2f15;background:#fff3cf;box-shadow:0 0 0 1.5px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.45);pointer-events:none}
+.terrain-route-tag.locked{background:#9a9a9a;color:#222}
+.terrain-route-tag.hovered,.terrain-route-tag.selected{background:#ffd76a;transform:translate(-50%,-50%) scale(1.25)}
+/* ---------- 원석·상점·특성·운명의 자리 (app_premium_v0148.js) ---------- */
+body.teyvat :where(#root) button.hud-primo{display:flex;align-items:center;gap:6px;min-height:0;padding:5px 12px 5px 8px;border-radius:16px;background:rgba(255,255,255,.07);border:0;font-variant-numeric:tabular-nums;font-size:.9rem;white-space:nowrap;color:var(--t-text)}
+body.teyvat :where(#root) button.hud-primo:hover:not(:disabled){background:rgba(160,220,255,.16);box-shadow:none}
+body.teyvat .hud-primo .shell-icon{width:18px;height:18px;color:#9fdcff;stroke-width:1.6}
+@media (max-width:760px){body.teyvat :where(#root) button.hud-primo{font-size:.8rem;padding:4px 10px 4px 6px}}
+.shell-premium-shop{display:flex;flex-direction:column;gap:12px;min-width:min(560px,82vw)}
+.shell-premium-shop .premium-balances{display:flex;gap:10px;flex-wrap:wrap}
+.shell-premium-shop .premium-balance{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:14px;background:rgba(255,255,255,.06);font-variant-numeric:tabular-nums}
+.shell-premium-shop .premium-balance .shell-icon{width:18px;height:18px;fill:none;stroke:#9fdcff;stroke-width:1.6}
+.shell-premium-shop .premium-balance.starglitter .shell-icon{stroke:#e7c46b}
+.shell-premium-shop .premium-balance.stardust .shell-icon{stroke:#c9a4ff}
+.shell-premium-shop .premium-balance small{color:var(--t-muted,#bdb6a9)}
+.shell-premium-shop .premium-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.shell-premium-shop .premium-tab{min-height:34px;padding:4px 14px;border-radius:17px}
+.shell-premium-shop .premium-tab.active{background:#ece5d8!important;color:#39404f!important;border-color:#ece5d8!important;font-weight:700}
+.shell-premium-shop .premium-offers{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.shell-premium-shop .premium-offer{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(211,188,142,.22)}
+.shell-premium-shop .premium-price{display:flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.shell-premium-shop .premium-price .shell-icon{width:16px;height:16px;fill:none;stroke:#9fdcff;stroke-width:1.6}
+.shell-premium-shop .premium-pick{width:100%}
+.shell-premium-shop .premium-note{font-size:.8rem;line-height:1.5}
+body.teyvat .shell-premium-member{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(211,188,142,.18)}
+body.teyvat .shell-premium-member h4{margin:0 0 6px;font-size:.9rem;color:var(--t-gold)}
+body.teyvat .premium-talents,body.teyvat .premium-cons{display:flex;flex-direction:column;gap:6px;min-width:0}
+body.teyvat .premium-talent{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:baseline;padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.04);font-size:.84rem}
+body.teyvat .premium-talent .talent-kind{color:var(--t-muted);font-size:.74rem}
+body.teyvat .premium-talent strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.teyvat .premium-talent .talent-level{font-variant-numeric:tabular-nums;color:var(--t-gold-hi);font-size:.8rem}
+body.teyvat .premium-cons-nodes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+body.teyvat .premium-cons-nodes li{display:flex;gap:8px;align-items:center;padding:5px 8px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);font-size:.76rem;color:var(--t-muted)}
+body.teyvat .premium-cons-nodes li b{flex:0 0 22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.72rem;background:rgba(255,255,255,.08);color:var(--t-muted)}
+body.teyvat .premium-cons-nodes li.on{color:var(--t-text);border-color:rgba(243,223,174,.45)}
+body.teyvat .premium-cons-nodes li.on b{background:radial-gradient(circle,#fff6d8,#e2b85a);color:#3b2f15;box-shadow:0 0 10px rgba(243,223,174,.6)}
+body.teyvat .premium-cons-open{min-height:34px;padding:4px 12px;font-size:.8rem}
+@media (max-width:1100px){body.teyvat .shell-premium-member{grid-template-columns:1fr}}
+/* ---------- 제작 (app_forge_v0148.js): item cards on their grade colour, the chosen one large on the right ---------- */
+body.teyvat{--rar-1:linear-gradient(160deg,#6c6e74,#8c8e93);--rar-2:linear-gradient(160deg,#3c705d,#5c9a7f);--rar-3:linear-gradient(160deg,#4a6596,#6a8fce);--rar-4:linear-gradient(160deg,#69539a,#9a78cf);--rar-5:linear-gradient(160deg,#a8622b,#e2a04a)}
+body.teyvat .shell-forge{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,420px);gap:18px;align-items:start}
+body.teyvat .shell-forge-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px;align-content:start}
+body.teyvat :where(#root) button.shell-forge-tile{position:relative;display:flex;flex-direction:column;padding:0;min-height:0;border-radius:10px;overflow:hidden;background:#ece5d8;border:2px solid transparent;box-shadow:0 4px 12px rgba(0,0,0,.35);color:#3b4252;text-align:center}
+body.teyvat :where(#root) button.shell-forge-tile:hover:not(:disabled){border-color:rgba(243,223,174,.85);background:#ece5d8;box-shadow:0 0 0 1px rgba(243,223,174,.5),0 6px 16px rgba(0,0,0,.4)}
+body.teyvat :where(#root) button.shell-forge-tile.active{border-color:#f3dfae;box-shadow:0 0 0 2px rgba(243,223,174,.75),0 0 18px rgba(243,223,174,.35)}
+body.teyvat .shell-forge-tile.unready{filter:saturate(.55) brightness(.82)}
+body.teyvat .shell-forge-tile-art{position:relative;display:grid;place-items:center;aspect-ratio:1;width:100%;background:var(--rar-1);border-bottom-right-radius:18px}
+body.teyvat .shell-forge-tile.tier-2 .shell-forge-tile-art{background:var(--rar-2)}
+body.teyvat .shell-forge-tile.tier-3 .shell-forge-tile-art{background:var(--rar-3)}
+body.teyvat .shell-forge-tile.tier-4 .shell-forge-tile-art{background:var(--rar-4)}
+body.teyvat .shell-forge-tile.tier-5 .shell-forge-tile-art{background:var(--rar-5)}
+body.teyvat .shell-forge-tile-art img,body.teyvat .shell-forge-tile-art .item-glyph{width:72%;height:72%;object-fit:contain;filter:drop-shadow(0 3px 4px rgba(0,0,0,.35));font-size:2rem;display:grid;place-items:center;color:#fff}
+body.teyvat .shell-forge-tile-stars{position:absolute;left:0;right:0;bottom:3px;font-size:.62rem;letter-spacing:-.04em;color:#ffcc33;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+body.teyvat .shell-forge-tile-name{display:block;padding:5px 6px 6px;font-size:.72rem;font-weight:700;line-height:1.25;color:#3b4252;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.teyvat .shell-forge-detail{position:sticky;top:0;display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:16px;background:rgba(10,13,21,.6);border:1px solid var(--t-line)}
+body.teyvat .shell-forge-hero{display:flex;gap:14px;align-items:center}
+body.teyvat .shell-forge-art{position:relative;flex:0 0 96px;height:96px;border-radius:12px;display:grid;place-items:center;background:var(--rar-1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+body.teyvat .shell-forge-hero.tier-2 .shell-forge-art{background:var(--rar-2)}
+body.teyvat .shell-forge-hero.tier-3 .shell-forge-art{background:var(--rar-3)}
+body.teyvat .shell-forge-hero.tier-4 .shell-forge-art{background:var(--rar-4)}
+body.teyvat .shell-forge-hero.tier-5 .shell-forge-art{background:var(--rar-5)}
+body.teyvat .shell-forge-art img,body.teyvat .shell-forge-art .item-glyph{width:74%;height:74%;object-fit:contain;filter:drop-shadow(0 3px 5px rgba(0,0,0,.4));font-size:2.4rem;display:grid;place-items:center;color:#fff}
+body.teyvat .shell-forge-stars{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:.72rem;color:#ffcc33;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+body.teyvat .shell-forge-words h3{margin:2px 0 0;font-size:1.25rem}
+body.teyvat .shell-forge-kind{font-size:.76rem;color:var(--t-muted)}
+body.teyvat .shell-forge-info{display:flex;flex-direction:column;gap:6px}
+body.teyvat .shell-forge-sub{margin:4px 0 0;font-size:.74rem;letter-spacing:.08em;color:var(--t-gold)}
+body.teyvat .shell-forge-stats{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.04)}
+body.teyvat .shell-forge-stats dt{color:var(--t-muted);font-size:.84rem}
+body.teyvat .shell-forge-stats dd{margin:0;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+body.teyvat .shell-forge-effect{margin:0;font-size:.84rem;line-height:1.55;color:var(--t-cream-2)}
+body.teyvat .shell-forge-note{margin:0;font-size:.76rem;color:var(--t-muted)}
+body.teyvat .shell-forge-card{margin:0;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.035)}
+body.teyvat .shell-forge-card>.craft-output{display:none}
+body.teyvat .shell-forge-card>button{width:100%;margin-top:6px}
+body.teyvat .shell-forge-tabs>.shell-tabbar{padding:0 0 10px}
+body.teyvat .shell-forge-tabs>.shell-panes{overflow:visible}
+body.teyvat .shell-forge-tabs .shell-pane>h2{display:none}
+body.teyvat .shell-forge-tabs .shell-pane>.craft-tabs,body.teyvat .shell-forge-tabs .shell-pane>.forge-filters{margin:0 0 10px}
+@media (max-width:1100px){body.teyvat .shell-forge{grid-template-columns:1fr}body.teyvat .shell-forge-detail{position:static;order:-1}}
+/* ---------- damage numbers and reactions (app_combat_fx.js rewrites the text) ----------
+   The number alone, in the element's colour with a thin dark rim; a critical hit is bigger. It pops, then drifts up. */
+body.teyvat .impact{--dmg:#fffaf0;--dmg-2:#e8e0d2}
+body.teyvat .impact.effect-fire{--dmg:#ffb56b;--dmg-2:#ff8a3d}
+body.teyvat .impact.effect-water{--dmg:#7fd6ff;--dmg-2:#3fb2f0}
+body.teyvat .impact.effect-ice{--dmg:#c4f6ff;--dmg-2:#8fe4f2}
+body.teyvat .impact.effect-lightning{--dmg:#e6b6ff;--dmg-2:#c47cf5}
+body.teyvat .impact.effect-wind{--dmg:#9ff7dc;--dmg-2:#5fe0bd}
+body.teyvat .impact.effect-rock{--dmg:#ffe08a;--dmg-2:#f2bc45}
+body.teyvat .impact.effect-dendro{--dmg:#c4ef7a;--dmg-2:#94cf3e}
+body.teyvat .impact.healing,body.teyvat .impact.kind-heal{--dmg:#b8ff9a;--dmg-2:#7fe06a}
+body.teyvat .impact.shielded{--dmg:#d9e6f2;--dmg-2:#a9bccd}
+body.teyvat .impact:is(.kind-action,.kind-damage,.kind-heal){animation:shellDmgPop 1s cubic-bezier(.2,.8,.3,1) both}
+body.teyvat .impact:is(.kind-action,.kind-damage,.kind-heal) .impact-label{font-family:HoyoDamageNumbers,'Cinzel',CRPGKorean,sans-serif;font-size:1.8rem;font-weight:700;font-style:normal;letter-spacing:.01em;line-height:1.05;color:var(--dmg);background-color:transparent!important;background-image:linear-gradient(180deg,#fff 0%,var(--dmg) 40%,var(--dmg-2) 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent;-webkit-text-stroke:.8px rgba(36,24,14,.6);paint-order:stroke fill;filter:drop-shadow(0 1px 0 rgba(0,0,0,.6)) drop-shadow(0 0 4px rgba(0,0,0,.35));text-shadow:none;padding:0 .04em!important;border-radius:0!important}
+body.teyvat .impact.critical:is(.kind-action,.kind-damage) .impact-label{font-size:2.45rem}
+body.teyvat .impact.worded .impact-label{font-family:'Gowun Batang',CRPGKorean,serif;font-size:1.2rem;-webkit-text-stroke:0;background-image:none!important;-webkit-text-fill-color:currentColor;color:#e9e4da;filter:drop-shadow(0 1px 2px rgba(0,0,0,.8))}
+body.teyvat .impact .impact-target{background:none;color:#f3eee4;font-size:.72rem;padding:0;margin:2px auto 0;text-shadow:0 1px 3px #000}
+body.teyvat .impact .impact-shield{color:#cfe0ee}
+@keyframes shellDmgPop{0%{opacity:0;transform:translate(-50%,-40%) scale(.55)}12%{opacity:1;transform:translate(-50%,-58%) scale(1.22)}26%{transform:translate(-50%,-62%) scale(1)}78%{opacity:1;transform:translate(-50%,-88%) scale(1)}100%{opacity:0;transform:translate(-50%,-104%) scale(.96)}}
+body.teyvat .combat-light.reaction-tag{position:absolute;z-index:4;white-space:nowrap;transform:translate(-50%,-60%);font-family:'Gowun Batang',CRPGKorean,serif;font-weight:700;font-size:1.05rem;letter-spacing:.06em;color:var(--rx,#f3eee4);-webkit-text-stroke:.6px rgba(30,20,12,.6);paint-order:stroke fill;text-shadow:0 1px 0 rgba(0,0,0,.6),0 0 10px rgba(0,0,0,.45);pointer-events:none;background:none;border:0;width:auto;height:auto}
+body.teyvat .combat-light.reaction-tag.effect-fire{--rx:#ffb15e}
+body.teyvat .combat-light.reaction-tag.effect-ice{--rx:#b9f1ff}
+body.teyvat .combat-light.reaction-tag.effect-lightning{--rx:#e3a8ff}
+body.teyvat .combat-light.reaction-tag.effect-wind{--rx:#8ff5d4}
+body.teyvat .combat-light.reaction-tag.effect-rock{--rx:#ffd773}
+body.teyvat .combat-light.reaction-tag.effect-dendro{--rx:#b8ea6c}
+body.teyvat .combat-light.reaction-tag.effect-water{--rx:#88d8ff}
+.reduce-motion body.teyvat .impact,body.teyvat.reduce-motion .impact{animation:none}
 /* ---------- battle result ---------- */
 body.teyvat .content.shell-result-screen{justify-content:center}
 body.teyvat .content.shell-result-screen>.panel.shell-result{flex:0 1 auto;max-height:100%;overflow:auto;width:min(760px,100%);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;padding:28px 28px 22px;background:none;border:0;box-shadow:none;text-align:center}
