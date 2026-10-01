@@ -1,0 +1,42 @@
+{
+  "task":"007.01","revision":1,"title":"돌 틈 너머의 목소리","basisCommit":"b61ce143a6a41dc71deec7ae33c98de795b597e0","mainRoute":"K2","gameIntegration":"pending",
+  "before":[
+    {"kind":"NARRATION","speaker":"이야기","text":"들보가 다리를 누르고 있었다. 몸을 일으키려 하자, 통증에 숨이 턱 막혔다."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"...아, 안 돼... 다리가 안 빠져."},
+    {"kind":"NARRATION","speaker":"이야기","text":"출구가 있던 쪽에서 돌 구르는 소리가 들렸다. 손에 잡힌 파편으로 바닥을 두드렸다."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"거기... 사람 있어요? 여기 있어요!"},
+    {"kind":"DIALOGUE","speaker":"호위 병사","text":"들립니다! 들어가신 통로를 따라왔습니다. 그 자리에서 움직이지 마세요!"},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"여기까지... 올 수 있어요?"},
+    {"kind":"DIALOGUE","speaker":"호위 병사","text":"앞이 막혔습니다. 목소리는 잘 들립니다. 손을 움직일 수 있습니까?"}
+  ],
+  "choice":{"type":"LOCAL_DIALOGUE","prompt":"바깥에 대답한다","options":[
+    {"label":"손은 움직여요. 이쪽이에요... 소리 들려요?","reply":[
+      {"kind":"NARRATION","speaker":"이야기","text":"손에 쥔 파편으로 다시 두드렸다. 이번에는 바로 가까운 곳에서 대답이 돌아왔다."},
+      {"kind":"DIALOGUE","speaker":"호위 병사","text":"들립니다. 그쪽부터 열겠습니다. 손은 잠깐 뒤로 빼 주세요."}
+    ]},
+    {"label":"다리가 눌렸어요... 여기, 더 무너지는 건 아니죠?","reply":[
+      {"kind":"DIALOGUE","speaker":"호위 병사","text":"바깥에서도 들보가 보입니다. 먼저 받치겠습니다. 혼자 다리를 빼려 하지 마세요."},
+      {"kind":"NARRATION","speaker":"이야기","text":"바깥에서 받침을 부르는 소리가 이어졌다. 꽉 쥐었던 파편을 내려놓았다."}
+    ]}
+  ],"changesMainRoute":false,"changesAffinity":false,"grantsReward":false},
+  "afterChoice":[
+    {"kind":"DIALOGUE","speaker":"호위 병사","text":"손앞의 작은 파편부터 치우겠습니다. 몸을 누르는 들보는 건드리지 마세요."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"...이 작은 것만요. 손은 닿아요."}
+  ],
+  "fieldAction":{"type":"EXISTING_ACTION_ADAPTATION","basisAnchor":"ISK_L04_K2_001","basisKind":"DESTROY","prompt":"손앞의 작은 파편을 옆으로 밀어 틈을 넓힌다.","successText":"기존 현장 행동의 완료 뒤에만 아래 본문을 표시한다. 엔진 연결은 아직 하지 않았다."},
+  "afterAction":[
+    {"kind":"NARRATION","speaker":"이야기","text":"파편이 옆으로 굴렀다. 좁은 틈으로 빛이 들고, 흙 묻은 손 하나가 나타났다."},
+    {"kind":"DIALOGUE","speaker":"호위 병사","text":"보입니다! 뒤쪽, 받쳐! 조금만 더..."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"아...! 잠깐, 다리가...!"},
+    {"kind":"DIALOGUE","speaker":"호위 병사","text":"멈춰! 받침 그대로 잡아. 더 들지 마!"},
+    {"kind":"NARRATION","speaker":"이야기","text":"움직임이 멎었다. 병사들이 다시 신호를 맞추자 다리를 누르던 무게가 조금씩 줄었다."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"...아까 같이 있던 사람은요?"},
+    {"kind":"DIALOGUE","speaker":"호위 병사","text":"같이 있던 사람이라면, 누구 말입니까?"},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"타르탈리아... 붉은 머리요. 무너지기 전엔 바로 앞에 있었는데..."},
+    {"kind":"DIALOGUE","speaker":"호위 병사","text":"바깥에도 전하겠습니다. 먼저 손을 이쪽으로 뻗어 보십시오."},
+    {"kind":"NARRATION","speaker":"이야기","text":"돌 틈을 더듬던 손이 병사에게 붙잡혔다. 손이 미끄러질까 봐 손가락에 힘을 줬다."},
+    {"kind":"DIALOGUE","speaker":"플레이어 닉네임","text":"...잡았어요. 놓지 마요."},
+    {"kind":"DIALOGUE","speaker":"호위 병사","text":"놓지 않습니다. 여기 있으니 제 목소리를 듣고 계세요."}
+  ],
+  "exit":{"mainRoute":"K2","protagonistConscious":true,"legStillInjured":true,"rescuersReachedHand":true,"extractionComplete":false,"tartagliaLocation":"not_confirmed","porterReunionShown":false,"newAffinityChange":false,"newReward":false,"controlFlowIntegrated":false}
+}
