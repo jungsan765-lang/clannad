@@ -1,81 +1,28 @@
 {
-  "task": "004.01",
+  "task": "004.01-r2",
   "ok": true,
   "scope": "manuscript structure/text only; no game or browser execution",
   "choiceGroups": 4,
   "optionsPerGroup": 2,
   "menusPerReadingPath": 3,
   "readingPaths": [
-    {
-      "commonChoice": 1,
-      "route": "K1",
-      "routeChoice": 1,
-      "menus": 3,
-      "units": 21,
-      "characters": 793
-    },
-    {
-      "commonChoice": 1,
-      "route": "K1",
-      "routeChoice": 2,
-      "menus": 3,
-      "units": 21,
-      "characters": 790
-    },
-    {
-      "commonChoice": 1,
-      "route": "K2",
-      "routeChoice": 1,
-      "menus": 3,
-      "units": 20,
-      "characters": 756
-    },
-    {
-      "commonChoice": 1,
-      "route": "K2",
-      "routeChoice": 2,
-      "menus": 3,
-      "units": 20,
-      "characters": 770
-    },
-    {
-      "commonChoice": 2,
-      "route": "K1",
-      "routeChoice": 1,
-      "menus": 3,
-      "units": 21,
-      "characters": 795
-    },
-    {
-      "commonChoice": 2,
-      "route": "K1",
-      "routeChoice": 2,
-      "menus": 3,
-      "units": 21,
-      "characters": 792
-    },
-    {
-      "commonChoice": 2,
-      "route": "K2",
-      "routeChoice": 1,
-      "menus": 3,
-      "units": 20,
-      "characters": 758
-    },
-    {
-      "commonChoice": 2,
-      "route": "K2",
-      "routeChoice": 2,
-      "menus": 3,
-      "units": 20,
-      "characters": 772
-    }
+    {"commonChoice": 1, "route": "K1", "routeChoice": 1, "menus": 3},
+    {"commonChoice": 1, "route": "K1", "routeChoice": 2, "menus": 3},
+    {"commonChoice": 1, "route": "K2", "routeChoice": 1, "menus": 3},
+    {"commonChoice": 1, "route": "K2", "routeChoice": 2, "menus": 3},
+    {"commonChoice": 2, "route": "K1", "routeChoice": 1, "menus": 3},
+    {"commonChoice": 2, "route": "K1", "routeChoice": 2, "menus": 3},
+    {"commonChoice": 2, "route": "K2", "routeChoice": 1, "menus": 3},
+    {"commonChoice": 2, "route": "K2", "routeChoice": 2, "menus": 3}
   ],
-  "totalAuthoredCharacters": 1597,
   "maxUnitCharacters": 74,
   "bodyAndStructuredTextMatch": true,
   "choiceSpecificRepliesDistinct": true,
+  "K2Unchanged": true,
+  "choicesUnchanged": true,
   "K2DoesNotDiscloseXiaoWarningInDialogue": true,
+  "ellipsisInMeaningfulUtterance": true,
+  "exactCanonicalKeqingHonorific": "not_confirmed",
   "gameIntegration": "pending",
   "testServerDeployment": "not_done"
 }
