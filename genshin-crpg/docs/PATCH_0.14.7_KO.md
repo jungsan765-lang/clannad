@@ -31,7 +31,8 @@
 
 ## 구조(다음 작업자용)
 
-- PC 화면 틀: `source/index.html` 맨 앞의 작은 스크립트가 PC 브라우저(마우스 사용, 자동화 브라우저 아님, `?frame=0` 아님)에서 문서 읽기를 멈추고, 같은 주소에 `frame=inner`를 붙인 iframe을 1280×720(최대 1536×800)으로 만들어 창에 맞게 `transform: scale`로 키웁니다. iframe 안의 게임은 평범한 1280×720 창으로 보이므로 좌표·레이아웃 코드를 고칠 필요가 없습니다. 안쪽 문서에는 `html.crpg-framed`가 붙습니다. 브라우저 자동 테스트는 `navigator.webdriver`라 틀 없이 돕니다.
+- PC 화면 틀: `source/index.html` 맨 앞의 작은 스크립트가 PC 브라우저(마우스 사용, 자동화 브라우저 아님, `?frame=0` 아님)에서 `document.write`로 iframe을 쓰고 나머지 문서를 숨긴 `<plaintext>`로 바꿔(바깥에서는 게임 스크립트가 돌지 않음), 같은 주소에 `frame=inner`를 붙인 iframe을 1280×720(최대 1536×800)으로 만들어 창에 맞게 CSS `zoom`으로 키웁니다(게임이 확대된 해상도로 그려져 글자가 선명함). zoom이 틀과 안쪽 페이지를 함께 키우지 못하는 브라우저에서는 `transform: scale`로 자동 전환합니다. iframe 안의 게임은 평범한 1280×720 창으로 보이므로 좌표·레이아웃 코드를 고칠 필요가 없습니다. 안쪽 문서에는 `html.crpg-framed`가 붙습니다. 브라우저 자동 테스트는 `navigator.webdriver`라 틀 없이 돕니다.
+- 주의: 바깥 문서를 `window.stop()`으로 멈추면 크롬이 화면을 아예 그리지 않아 검은 화면이 됩니다(0.14.7 중간에 겪은 문제). 이 방식으로 되돌리지 마세요.
 - `source/app_shell.js`: 화면 틀. 기존 화면 함수가 만든 DOM을 **그대로 옮겨** 배치합니다(버튼·처리기·클래스 유지). HUD, 페이몬 메뉴(`CRPGShell.extraTiles`), HUD 도구(`CRPGShell.extraTools`), 화면별 배치(메인·이야기·전투·결과·메뉴), 탭(`tabset`), 단축키, 여행 안내 팝오버, 이야기 자동 재생, 레벨업 배너.
 - `source/app_motion.js`: 포인터 기울기·빛, 지역 강조색(`body[data-region]`), 빛 입자 캔버스, 로딩 팁.
 - `source/app_sound.js`: 효과음(`GameAudio.buffer/play` 교체). `CHOICES`가 게임 소리 이름 → 후보 녹음 목록(첫 번째가 기본)이고, 고른 것은 `settings.sfxChoice`에 저장됩니다. 녹음마다 재생할 때 크기를 -24 dBFS 근처로 맞추고(`normal`), `LEVEL`로 메뉴 소리를 조금 낮춥니다. `CRPGPresentation.actionFrames`를 감싸 활 사용자·츄츄족의 물리 타격을 `bow_hit`·`hili_hit`로 바꿉니다. 행동별 소리와 레벨업 감지도 여기 있습니다.
