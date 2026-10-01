@@ -55,7 +55,7 @@ const ancestors=(g,entry,pick)=>{
 const isEvent=row=>/EVENT:/.test(row[12]||'');
 for(const chain of content.chains){
  const {seen,order}=walk(newG,chain.entry);
- const expect=new Set();const collect=items=>{for(const it of items){if(it.k==='keep')expect.add(it.id);if(it.k==='line'){expect.add(it.id);if(it.alt)expect.add(it.alt.id);}if(it.k==='choice')for(const o of it.options){expect.add(o.keep||o.id);collect(o.items);}}};collect(chain.items);
+ const expect=new Set();const collect=items=>{for(const it of items){if(it.k==='keep'||it.k==='combat')expect.add(it.id);if(it.k==='line'){expect.add(it.id);if(it.alt)expect.add(it.alt.id);}if(it.k==='choice')for(const o of it.options){expect.add(o.keep||o.id);collect(o.items);}}};collect(chain.items);
  for(const id of expect)assert.ok(seen.has(id),chain.id+' reaches '+id);
  assert.ok(order.some(id=>newG.get(id)[5]==='STORY_PAUSE'),chain.id+' ends at a story pause');
  const oldWalk=walk(oldG,chain.entry);
@@ -71,7 +71,7 @@ for(const chain of content.chains){
 for(const x of newG.rows.filter(x=>x[19]==='CRPG_V0148_MAIN_STORY_K')){
  assert.ok(x[18]==='ACTIVE');
  if(x[5]==='CHOICE'){assert.ok(x[10]&&x[14],'choice label/group '+x[4]);assert.equal(x[9],null);}
- else{assert.ok(x[9],'text '+x[4]);if(x[5]==='DIALOGUE')assert.ok(x[7],'speaker '+x[4]);}
+ else{assert.ok(x[9],'text '+x[4]);if(x[5]==='DIALOGUE')assert.ok(x[7],'speaker '+x[4]);if(x[5]==='COMBAT_GATE'){const m=/^START_FIXED_COMBAT:(EG_[A-Z0-9_]+);ON_DEFEAT:RETRY_SAME_NODE$/.exec(x[12]);assert.ok(m,'combat effect '+x[4]);assert.ok(db['49_ENCOUNTER_MEMBER_DB'].some(e=>e[1]===m[1]),'encounter members '+m[1]);}else assert.equal(x[12],'','no effect on new prose row '+x[4]);}
  assert.ok(!x[8]||db['32_MAP_DB'].some(m=>m[0]===x[8]),'map '+x[8]+' on '+x[4]);
  assert.ok(r.storyCondition(x[11])!==undefined);
 }

@@ -16,6 +16,8 @@
 //   > <text>                      replacement text for the preceding @keep/@text
 //   @text <NODE_ID>               rewrite the text of a node outside the chain
 //   @drop <NODE_ID>               unlink an existing node from its chain
+//   @combat <ENCOUNTER_GROUP_ID>  new fixed battle (the following > line is its text);
+//                                 defeat retries the same node, victory continues
 //   이야기: <text>                narration
 //   <이름>: <text>                dialogue; 나: is the player
 //   ~ <text>                      close-bond variant of the preceding dialogue
@@ -47,6 +49,7 @@ function parseFile(file){
    if(t.startsWith('@map ')){map=t.slice(5).trim();pos++;continue;}
    if(t.startsWith('@keep ')){const w=t.slice(6).trim().split(/\s+/);const item={k:'keep',id:w[0]};if(w[1]==='hold')item.hold=true;else if(w[1])err(l,'unknown @keep flag '+w[1]);pos++;const text=quoted(indent);if(text!=null)item.text=text;items.push(item);continue;}
   if(t.startsWith('@thru ')){items.push({k:'thru',id:t.slice(6).trim()});pos++;continue;}
+   if(t.startsWith('@combat ')){const group=t.slice(8).trim();if(!/^EG_[A-Z0-9_]+$/.test(group))err(l,'bad encounter group '+group);pos++;const text=quoted(indent);if(text==null)err(l,'@combat needs a > line');const item={k:'combat',id:nextId(),group,text};if(map)item.map=map;items.push(item);continue;}
    if(t.startsWith('@text ')){const id=t.slice(6).trim();pos++;const text=quoted(indent);if(text==null)err(l,'@text needs a > line');chain.edits.push({k:'text',id,text});continue;}
    if(t.startsWith('@drop ')){chain.edits.push({k:'drop',id:t.slice(6).trim()});pos++;continue;}
    if(t.startsWith('>'))err(l,'stray > line');
@@ -87,7 +90,7 @@ function compile(){
  const files=fs.readdirSync(srcDir).filter(f=>f.endsWith('.md')&&fs.readFileSync(path.join(srcDir,f),'utf8').startsWith('# chain ')).sort();
  const chains=files.map(f=>parseFile(path.join(srcDir,f)));
  const ids=new Set();
- const walk=items=>{for(const it of items){if(it.k==='line'){if(ids.has(it.id))throw Error('duplicate id '+it.id);ids.add(it.id);if(it.alt)ids.add(it.alt.id);}if(it.k==='choice')for(const o of it.options){if(o.id)ids.add(o.id);walk(o.items);}}};
+ const walk=items=>{for(const it of items){if(it.k==='combat'){if(ids.has(it.id))throw Error('duplicate id '+it.id);ids.add(it.id);}if(it.k==='line'){if(ids.has(it.id))throw Error('duplicate id '+it.id);ids.add(it.id);if(it.alt)ids.add(it.alt.id);}if(it.k==='choice')for(const o of it.options){if(o.id)ids.add(o.id);walk(o.items);}}};
  chains.forEach(c=>walk(c.items));
  return {version:1,chains};
 }

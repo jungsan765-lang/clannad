@@ -29,6 +29,7 @@ P.storyIndex=function(){
     else if(it.k==='line'){if(get(it.id))throw Error('duplicate node '+it.id);if(it.speaker&&it.speaker!=='나'&&it.alt&&!refs.get(it.speaker))throw Error('no profile for '+it.speaker);newIds.push(it.id);if(it.alt)newIds.push(it.alt.id);}
     else if(it.k==='choice'){if(!it.options.length)throw Error('empty choice');for(const o of it.options){if(o.keep){const c=get(o.keep);if(!c||c[5]!=='CHOICE')throw Error('missing choice '+o.keep);keeps.add(o.keep);}else newIds.push(o.id);check(o.items);}}
     else if(it.k==='thru'){if(!keeps.has(it.id))throw Error('@thru before @keep '+it.id);}
+    else if(it.k==='combat'){if(get(it.id))throw Error('duplicate node '+it.id);if(!this.tables['33_ENCOUNTER_GROUP_DB']?.get(it.group))throw Error('unknown encounter group '+it.group);newIds.push(it.id);}
     else throw Error('unknown item '+it.k);}};
    check(chain.items);
    for(const e of chain.edits)if(!get(e.id))throw Error('missing edit target '+e.id);
@@ -66,6 +67,8 @@ P.storyIndex=function(){
       const m=it.map||map,type=it.speaker?'DIALOGUE':'NARRATION';
       if(it.alt){const profile=refs.get(it.speaker);const a=make(it.alt.id,type,it.speaker,it.alt.text,null,null,m,scene,'BOND('+profile+')>=60'),b=make(it.id,type,it.speaker,it.text,null,null,m,scene,'BOND('+profile+')<60');a[13]=b[4];link(a[4]);open=[id=>{b[13]=id;}];}
       else{const r=make(it.id,type,it.speaker,it.text,null,null,m,scene);link(r[4]);open=[id=>{r[13]=id;}];}
+     }else if(it.k==='combat'){
+      const r=make(it.id,'COMBAT_GATE','',it.text,null,null,it.map||map,scene);r[12]='START_FIXED_COMBAT:'+it.group+';ON_DEFEAT:RETRY_SAME_NODE';link(r[4]);open=[id=>{r[13]=id;}];
      }else if(it.k==='choice'){
       let group=it.group;const kept=it.options.find(o=>o.keep);if(kept)group=get(kept.keep)[14];
       link('CHOICE_GROUP:'+group);const next=[];
