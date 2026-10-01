@@ -8,7 +8,7 @@
 (function(){
 'use strict';
 if(typeof render!=='function'||typeof act!=='function')return;
-const S=window.CRPGShell={version:1,tabs:{},screen:null,menu:null,mobile:false,backdrop:null};
+const S=window.CRPGShell={version:1,tabs:{},screen:null,menu:null,mobile:false,backdrop:null,extraTools:[],extraTiles:[]};
 const mk=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined&&text!==null)e.textContent=String(text);return e;};
 const $=(sel,root=document)=>root.querySelector(sel),$$=(sel,root=document)=>[...root.querySelectorAll(sel)];
 const NS='http://www.w3.org/2000/svg';
@@ -42,7 +42,9 @@ const ICON={
  SWORD:'M14.5 3.5h6v6L10 20l-6-6z M4 20l3-3 M13 7l4 4',
  SHIELD:'M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z M12 7v10',
  DIAMOND:'M12 3l6 9-6 9-6-9z M12 8l2.7 4L12 16l-2.7-4z',
- DOT:'M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z'
+ DOT:'M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
+ CHAT:'M4 5h16v11H11l-5 4v-4H4z M8 9.5h8 M8 12.5h5',
+ TRADE:'M4 8h13l-3-3 M20 16H7l3 3 M17 8l-3 3 M7 16l3-3'
 };
 function icon(name,cls='shell-icon'){const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('class',cls);const p=document.createElementNS(NS,'path');p.setAttribute('d',ICON[name]||ICON.DOT);s.append(p);return s;}
 S.icon=icon;
@@ -88,6 +90,7 @@ function buildHUD(aside,key){
  const tools=mk('div','hud-tools');
  if(window.CRPGHandbook){const hb=toolButton('HANDBOOK','모험가 핸드북 (F1)',()=>CRPGHandbook.open());hb.classList.add('hud-handbook');tools.append(hb);}
  tools.append(toolButton('MAP','지도 (M)',openMap));
+ for(const make of S.extraTools){try{const b=make(toolButton);if(b)tools.append(b);}catch{}}
  const snd=quickButton(b=>b.dataset.audioToggle==='true');if(snd){const on=/끄기/.test(snd.textContent);tools.append(toolButton(on?'SOUND':'MUTE',snd.textContent,()=>{quickButton(b=>b.dataset.audioToggle==='true')?.click();}));}
  tools.append(toolButton('MENU','메뉴 (Esc)',()=>toggleMenu(true),'hud-menu-button'));
  const guideSlot=mk('div','hud-guide-slot');
@@ -130,6 +133,7 @@ function buildMenu(){
  for(const [screen,def]of Object.entries(NAV)){const src=navButton(screen);if(!src)continue;const t=tile(def.icon,src.querySelector('.hud-nav-label')?.textContent||def.label,def.key,()=>{toggleMenu(false);src.click();});t.disabled=src.disabled;if(src.disabled&&src.title)t.title=src.title;grid.append(t);}
  if(window.CRPGHandbook)grid.append(tile('HANDBOOK','모험가 핸드북','F1',()=>{toggleMenu(false);CRPGHandbook.open();}));
  grid.append(tile('MAP','지도','M',()=>{toggleMenu(false);openMap();}));
+ for(const x of S.extraTiles){try{if(x.show&&!x.show())continue;const t=tile(x.icon,x.label,x.key||'',()=>{toggleMenu(false);x.run();});grid.append(t);}catch{}}
  const foot=mk('div','pm-foot');
  for(const q of $$('#quick-actions button')){const label=q.textContent.trim();if(!label)continue;const kind=/기록/.test(label)?'HISTORY':/도움말/.test(label)?'HELP':q.dataset.audioToggle?(/끄기/.test(label)?'SOUND':'MUTE'):/계정|저장/.test(label)?'SYSTEM':'DOT';const b=footButton(kind,label,()=>{toggleMenu(false);q.click();});b.disabled=q.disabled;foot.append(b);}
  for(const x of $$('main > aside nav .hud-extra')){const label=x.textContent.trim(),kind=/로그아웃/.test(label)?'LOGOUT':/시작 화면/.test(label)?'TITLE':/디버그/.test(label)?'DEBUG':'DOT';const b=footButton(kind,label,()=>{toggleMenu(false);x.click();});b.disabled=x.disabled;foot.append(b);}
@@ -387,7 +391,7 @@ document.addEventListener('keydown',e=>{
  if(e.defaultPrevented||e.ctrlKey||e.metaKey||e.altKey||!game)return;
  const typing=/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName)||e.target?.isContentEditable;
  const dialog=$('dialog[open]');
- if(e.key==='Escape'){if(dialog||typing)return;if(window.CRPGHandbook?.isOpen?.()){e.preventDefault();CRPGHandbook.close();return;}if(S.menu){e.preventDefault();toggleMenu(false);return;}const back=$('.shell-back');if(back&&!back.disabled&&!e.repeat){e.preventDefault();back.click();return;}e.preventDefault();toggleMenu(true);return;}
+ if(e.key==='Escape'){if(dialog||typing)return;if(window.CRPGHandbook?.isOpen?.()){e.preventDefault();CRPGHandbook.close();return;}if(window.CRPGTrade?.isOpen?.()){e.preventDefault();CRPGTrade.close();return;}if(window.CRPGChat?.open){e.preventDefault();CRPGChat.toggle(false);return;}if(S.menu){e.preventDefault();toggleMenu(false);return;}const back=$('.shell-back');if(back&&!back.disabled&&!e.repeat){e.preventDefault();back.click();return;}e.preventDefault();toggleMenu(true);return;}
  if(typing||dialog||S.menu||e.repeat)return;
  if(e.key==='F1'){e.preventDefault();window.CRPGHandbook?.open();return;}
  if(window.CRPGHandbook?.isOpen?.())return;
