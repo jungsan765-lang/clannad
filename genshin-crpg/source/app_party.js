@@ -13,7 +13,7 @@ function confirmPartyRemoval(id,run){
   const gear=game.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===id);if(!gear.length){run();return;}
   const box=el('div','party-remove-confirm'),list=el('ul'),row=el('div','row');for(const i of gear)list.append(el('li','',safeName('16_EQUIP_DB',i.equip)+(i.enhance?' +'+i.enhance:'')));
   row.append(button('취소',()=>{document.getElementById('modal').close();render();}),button('장비를 풀고 편성에서 빼기',()=>{document.getElementById('modal').close();run();},false,true));
-  box.append(el('p','',withJosa(ownerName(id),'이','가')+' 편성에서 빠지면 착용 중인 장비 '+gear.length+'개가 해제되어 소지품으로 돌아갑니다.'),list,row);showModal('편성에서 빼기',box);
+  box.append(el('p','',withJosa(ownerName(id),'이','가')+' 편성에서 빠지면 착용 중인 장비 '+gear.length+'개가 해제되어 가방으로 돌아갑니다.'),list,row);showModal('편성에서 빼기',box);
 }
 // v0.13.33: the battle line is its own order (the protagonist can stand anywhere); party slots only hold members.
 const POSITIONS=['선두 · 전열','전열 · 치명타 확률 +5%','후열 · 최대 HP +5%','후미 · 받는 최종 피해 −20%'];
@@ -75,14 +75,14 @@ function partyScreen(p){
   p.append(actionButton('캐릭터 화면으로','MENU',{screen:'STATUS'}));returnToJourney(p);
 }
 inventory=function(p){
-  p.append(el('div','eyebrow','INVENTORY'),el('h1','','소지품'),el('p','muted','음식·재료·전술 도구를 관리합니다. 장비는 편성·장비에서 캐릭터별로 관리할 수 있습니다.'));
-  const reason=game.actionReason('USE_ITEM'),content=el('div');if(reason)p.append(el('p','phase-note','현재 장면에서는 소지품 확인만 가능합니다.'));
+  p.append(el('div','eyebrow','INVENTORY'),el('h1','','가방'),el('p','muted','음식·재료·전술 도구를 관리합니다. 장비는 캐릭터 화면에서 캐릭터별로 관리할 수 있습니다.'));
+  const reason=game.actionReason('USE_ITEM'),content=el('div');if(reason)p.append(el('p','phase-note','현재 장면에서는 가방 확인만 가능합니다.'));
   const items=game.s.inventory.filter(x=>x.item&&x.quantity>0),grid=el('div','grid');
-  for(const item of items){const row=game.row('14_ITEM_DB',item.item),c=el('section','card');c.append(el('small','',row[2]||'소지품'),el('h3','',row[1]),el('p','',item.quantity.toLocaleString()+'개'));
+  for(const item of items){const row=game.row('14_ITEM_DB',item.item),c=el('section','card');c.append(el('small','',row[2]||'물건'),el('h3','',row[1]),el('p','',item.quantity.toLocaleString()+'개'));
     if(row[2]==='음식'){let spec;try{spec=game.foodSpec(item.item);}catch{}if(spec){const select=el('select');select.setAttribute('aria-label',row[1]+' 사용 대상');for(const member of game.s.party.filter(x=>x.active))select.append(new Option(ownerName(member.source),member.source));c.append(select,button('1개 사용',()=>act('USE_ITEM',{item:item.item,quantity:1,owner:select.value}),!!reason));}}
-    if(item.item.startsWith('MAT_CHAR_EXP_'))c.append(actionButton('성장에서 사용','MENU',{screen:'STATUS'}));grid.append(c);
+    if(item.item.startsWith('MAT_CHAR_EXP_'))c.append(actionButton('캐릭터 화면에서 사용','MENU',{screen:'STATUS'}));grid.append(c);
   }
-  if(!items.length)grid.append(el('p','empty','아직 소지품이 없습니다.'));content.append(grid);const tools=el('section');toolPreparation(tools);lockControls(tools,game.actionReason('TOOL_PREPARE'));content.append(tools);p.append(content);
+  if(!items.length)grid.append(el('p','empty','가방이 비어 있습니다.'));content.append(grid);const tools=el('section');toolPreparation(tools);lockControls(tools,game.actionReason('TOOL_PREPARE'));content.append(tools);p.append(content);
   p.append(actionButton('보유 장비 '+game.s.inventory.filter(x=>x.equip).length+'개 관리','MENU',{screen:'PARTY'}));returnToJourney(p);
 };
 // Keep preparation choices in the save, including an intentionally empty selection.

@@ -8358,6 +8358,101 @@
         256
       ],
       "bytes": 9104
+    },
+    "CUR_PRIMOGEM": {
+      "id": "CUR_PRIMOGEM",
+      "name": "원석",
+      "path": "assets/icons/UI_ItemIcon_201.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_201.png",
+      "sourceName": "원석",
+      "sourceKey": "primogem",
+      "assetId": 201,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "d196ec88b78eb87ad311c4e93c9583a0234b5fc6e755578db052519b60fd3729",
+      "source_sha256": "60e222508b151d1320d1a6d483733087275710b6c0fc41776c0e8dfba1b0a7c3",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "bytes": 1864,
+      "addedIn": "0.14.11"
+    },
+    "CUR_STARGLITTER": {
+      "id": "CUR_STARGLITTER",
+      "name": "스타라이트",
+      "path": "assets/icons/UI_ItemIcon_221.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_221.png",
+      "sourceName": "스타라이트",
+      "sourceKey": "masterlessstarglitter",
+      "assetId": 221,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "d5c1468b5ff07cfab716027282d427a1fec5b5ee14b7c19e7dc6ec49c1c7afda",
+      "source_sha256": "b252343e1001a8f0d64cc089d0e4618ddfec9f1fb5fdd61627c95fc73bb51f3a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 21134,
+      "addedIn": "0.14.11"
+    },
+    "CUR_STARDUST": {
+      "id": "CUR_STARDUST",
+      "name": "스타더스트",
+      "path": "assets/icons/UI_ItemIcon_222.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_222.png",
+      "sourceName": "스타더스트",
+      "sourceKey": "masterlessstardust",
+      "assetId": 222,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "a84f9496b599943faee072e48e51190b3d064180baa478b8fd7afae7d8d2046d",
+      "source_sha256": "dd84e81b6237b6ecb0ce20135f2d7504e0d3cc3726af477ec49447a742e07afc",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "bytes": 2106,
+      "addedIn": "0.14.11"
+    },
+    "CUR_INTERTWINED_FATE": {
+      "id": "CUR_INTERTWINED_FATE",
+      "name": "뒤얽힌 인연",
+      "path": "assets/icons/UI_ItemIcon_223.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_223.png",
+      "sourceName": "뒤얽힌 인연",
+      "sourceKey": "intertwinedfate",
+      "assetId": 223,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "9b5dd197e994d3dc304f5ce6c3f645d7614b51c8b5183c5a610c97ba87737302",
+      "source_sha256": "5b2cb416e62f67e9b58f71bb5bc5e664b7a0d9f945d92ff5db61023583270b09",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "bytes": 2998,
+      "addedIn": "0.14.11"
+    },
+    "CUR_ACQUAINT_FATE": {
+      "id": "CUR_ACQUAINT_FATE",
+      "name": "만남의 인연",
+      "path": "assets/icons/UI_ItemIcon_224.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_224.png",
+      "sourceName": "만남의 인연",
+      "sourceKey": "acquaintfate",
+      "assetId": 224,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "350cb5a1437d4f123f3f9e0beefdc3846b26fe4f25dc1821e91d935f5a2b27ce",
+      "source_sha256": "11ce04faf3ca15908739ce9ccd9f00f267889e4ca03ce642e8187ffd86a1a495",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "bytes": 3028,
+      "addedIn": "0.14.11"
     }
   },
   "categories": {

@@ -136,5 +136,5 @@ const prepareRevision=battlePrepare;
 battlePrepare=function(p){prepareRevision(p);const group=game.row('33_ENCOUNTER_GROUP_DB',game.s.battlePreparation.group),members=game.combatRows('49_ENCOUNTER_MEMBER_DB').filter(r=>r[1]===group[0]);
  const note=el('section','card preparation-guide');note.append(el('h2','','전투 전 확인'),el('p','',members.map(m=>{const e=game.row('09_MONSTER_DB',m[3]);return e[1]+' · '+(group[6]==='PARTY_BANDED'?'파티 레벨에 맞춰 등장':'Lv. '+e[18]);}).join(' / ')),el('p','muted','편성과 캐릭터 화면에서 동료와 장비를, 가방에서 식사와 전술 도구를 준비할 수 있습니다. 패배하면 전투 직전 상태로 돌아가 편성을 바꾸어 재도전할 수 있습니다.'));
  if(game.combatStoryConfig(group[0]))note.append(el('p','muted','공중의 적에게는 원거리 공격 또는 부양·발판이 필요합니다. 지형이 모두 무너지기 전에 전투를 마쳐야 합니다.'));
- note.append(actionButton('편성·장비 확인','MENU',{screen:'PARTY'}),actionButton('소지품 확인','MENU',{screen:'INVENTORY'}),actionButton('성장 확인','MENU',{screen:'STATUS'}));p.prepend(note);
+ note.append(actionButton('편성 확인','MENU',{screen:'PARTY'}),actionButton('가방 확인','MENU',{screen:'INVENTORY'}),actionButton('캐릭터 확인','MENU',{screen:'STATUS'}));p.prepend(note);
 };

@@ -48,7 +48,10 @@ const ICON={
  PRIMO:'M12 2.5l6.5 7-6.5 12-6.5-12z M5.5 9.5h13 M12 2.5l-2.5 7 2.5 12 2.5-12z',
  SHOP:'M4 9.5h16l-1.2 10.5H5.2z M7.5 9.5V7a4.5 4.5 0 0 1 9 0v2.5 M9.5 14h5',
  STARS:'M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z M18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z M6 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z',
- TRADE:'M4 8h13l-3-3 M20 16H7l3 3 M17 8l-3 3 M7 16l3-3'
+ TRADE:'M4 8h13l-3-3 M20 16H7l3 3 M17 8l-3 3 M7 16l3-3',
+ ANVIL:'M3 7h12.5a4.5 4.5 0 0 0 4.5-3v5a4 4 0 0 1-4 4h-2v3l3 3H7l3-3v-3H8a5 5 0 0 1-5-5z',
+ POT:'M3 10h18 M5 10l1.3 8.4A2 2 0 0 0 8.3 20h7.4a2 2 0 0 0 2-1.6L19 10 M9.5 6.8c0-1.1 1.2-1.4 1.2-2.6 M13.5 6.8c0-1.1 1.2-1.4 1.2-2.6',
+ FLASK:'M9 3h6 M10 3v6.5L4.6 18.4A1.7 1.7 0 0 0 6.1 21h11.8a1.7 1.7 0 0 0 1.5-2.6L14 9.5V3 M7 15.5h10'
 };
 function icon(name,cls='shell-icon'){const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('class',cls);const p=document.createElementNS(NS,'path');p.setAttribute('d',ICON[name]||ICON.DOT);s.append(p);return s;}
 S.icon=icon;
@@ -219,6 +222,7 @@ function pageHead(key,p,{title,iconName}={}){
  else{const target=returnScreen();if(target&&target!==key){const src=navButton(target);back=mk('button','shell-back');back.type='button';back.append(icon('CLOSE'),mk('span','shell-back-label',target==='STORY'?'이야기로 돌아가기':target==='COMBAT'?'전투로 돌아가기':'메인 화면으로'));back.setAttribute('aria-label',back.textContent+' (Esc)');back.disabled=!!src?.disabled&&target!=='COMBAT';back.onclick=()=>target==='COMBAT'?act('MENU',{screen:'COMBAT'}):openScreen(target);tools.append(back);}}
  return {head,tools,back};
 }
+S.pageHead=pageHead;
 // Where a menu returns to: the running battle, the story in progress, or the main screen.
 function returnScreen(){if(!game)return null;if(game.s.runtime&&!game.s.runtime.interlude)return 'COMBAT';const l=navButton('LOCATION');if(l&&!l.disabled)return 'LOCATION';return 'STORY';}
 // ---------- screen layouts ----------
@@ -297,7 +301,9 @@ function layoutCombat(content,p){
  // Level beside an enemy's name and a coloured mark for the element on each fighter, as in the original.
  const b=game.s.runtime;if(b){for(const row of $$('.combatant-row[data-actor-id]',p)){const a=b.actors.find(x=>x.id===row.dataset.actorId);if(!a)continue;
   const name=$('.combatant-copy strong',row);if(a.side==='ENEMY'&&a.level&&name&&!$('.shell-level',name))name.prepend(mk('small','shell-level','Lv.'+a.level));
-  const aura=AURA[a.aura]||AURA[String(a.aura||'').toUpperCase()];if(aura){row.dataset.aura=aura;}}
+  // 0.14.11: the element on a fighter is a labelled badge on the card (it was a small dot after the name).
+  const aura=AURA[a.aura]||AURA[String(a.aura||'').toUpperCase()];$(':scope > .shell-aura-badge',row)?.remove();
+  if(aura){row.dataset.aura=aura;const badge=mk('span','shell-aura-badge aura-'+aura,AURA_LABEL[aura]+' 부착');badge.title=AURA_LABEL[aura]+' 원소가 붙어 있습니다';row.append(badge);}else delete row.dataset.aura;}
   const order=$('.battle-order',p);if(order)for(const li of $$('li[data-actor-id]',order)){const a=b.actors.find(x=>x.id===li.dataset.actorId);if(a&&a.hp<=0)li.classList.add('down');}}
  // Skill buttons: a round glyph (E/Q, attack, guard or a card), and the turns left on a cooldown.
  for(const btn of $$('.battle-cards button[data-card-id]',p)){
@@ -308,6 +314,7 @@ function layoutCombat(content,p){
  }
 }
 const AURA={'불':'pyro','물':'hydro','얼음':'cryo','번개':'electro','바람':'anemo','바위':'geo','풀':'dendro',PYRO:'pyro',HYDRO:'hydro',CRYO:'cryo',ELECTRO:'electro',ANEMO:'anemo',GEO:'geo',DENDRO:'dendro'};
+const AURA_LABEL={pyro:'불',hydro:'물',cryo:'얼음',electro:'번개',anemo:'바람',geo:'바위',dendro:'풀'};
 function layoutMenu(key,content,p){
  content.classList.add('shell-menu');setBackdrop(mapBackground());
  const {head}=pageHead(key,p);
@@ -368,7 +375,17 @@ const MENU_LAYOUT={
   const notes=nodes.filter(n=>n.matches('p.muted')),rest=nodes.filter(n=>![crumb,tabs,filter,layout].includes(n)&&!notes.includes(n));
   if(filter&&notes.length){const hint=notes.at(-1);hint.classList.add('shell-hint');filter.append(hint);}
   body.classList.add('shell-cols','shop-cols');if(!layout){body.append(...nodes.filter(n=>n!==crumb&&n!==tabs));return;}
-  const main=region('shell-col-main shop-main',[filter,layout].filter(Boolean));body.append(main);
+  const main=region('shell-col-main shop-main',[filter,layout].filter(Boolean));
+  // 0.14.11: a shop that also introduces companion missions (디어 헌터 식당, 만민당, 불복려…) shows them as their own
+  // tab; squeezed under the goods they made a short box with a very long scroll.
+  const stories=rest.filter(n=>n.matches?.('section.contact-stories'));
+  if(stories.length){
+   const count=stories.reduce((n,s)=>n+s.querySelectorAll(':scope > section.card').length,0),others=rest.filter(n=>!stories.includes(n)&&!n.matches?.('.contact-entry-link')),storyNodes=[];
+   for(const s of stories){const cards=[...s.children].filter(n=>n.matches('section.card')),top=mk('div','shell-place-notes'),grid=mk('div','shell-place-grid');top.append(...[...s.children].filter(n=>!cards.includes(n)));grid.append(...cards);storyNodes.push(top,grid);}
+   const t=tabset('SHOP:'+(game.s.placeVisit?.place||''),[{id:'shop',label:'상점',icon:'SHOP',nodes:[main]},{id:'stories',label:'동료 영입 임무',badge:String(count),icon:'PARTY',nodes:storyNodes},{id:'more',label:'그 밖',icon:'DOT',nodes:others}],'shell-shop-tabs');
+   body.classList.remove('shell-cols');body.classList.add('shop-with-stories');body.append(t);return;
+  }
+  body.append(main);
   if(rest.length){body.classList.add('with-side');body.append(region('shell-col-side',rest));}
  },
  SYSTEM(body,nodes,head,key){
@@ -420,6 +437,8 @@ function shell(){
  let mode='plain';
  if(key==='COMBAT'){mode='battle';layoutCombat(content,p);}
  else if(key==='LOCATION'||key==='HUB'||key==='MAIN_MENU'){mode='world';layoutLocation(content,p);}
+ // 0.14.11: a facility you talk in (guild, tavern, offices, statues) has its own page (app_places_v01411.js).
+ else if(key==='DIALOGUE'&&game.s.placeVisit&&S.placeLayout&&$(':scope > .place-breadcrumb',p)){mode='menu';S.placeLayout(content,p);}
  else if(['STORY','STORY_WAIT','COMBAT_INTERLUDE','DIALOGUE'].includes(key)&&$('.story-layout,.story,.choice,.story-copy',p)){mode='story';layoutStory(content,p);}
  else if(key==='REWARD'&&$('h1',p)){mode='battle';layoutReward(content,p);}
  else if(MENU_SCREENS.has(key)){mode='menu';layoutMenu(key,content,p);}
@@ -463,7 +482,8 @@ function soundGallery(){
   ['전투',[['전투 시작','battle_start'],['타격 (검·창)','hit'],['활 공격','bow_hit'],['츄츄족 공격','hili_hit'],['슬라임 공격','slime_hit'],['방어 (피격)','guard'],['회복','heal'],['츄츄족 조우','encounter_hilichurl']]],
   ['원소',[['불','fire'],['물','water'],['얼음','ice'],['번개','lightning'],['바람','wind'],['바위','rock'],['풀','dendro']]],
   ['원소 반응',[['융해','melt'],['증발','vaporize'],['과부하','overload'],['빙결','freeze']]],
-  ['메뉴',[['버튼','click'],['마우스 올림','hover'],['탭','tab'],['선택지','choice'],['알림','toast'],['메뉴 열기','menu_open'],['메뉴 닫기','menu_close'],['쪽 넘김','page'],['핸드북','handbook_open'],['이동','travel'],['안 될 때','error']]]];
+  ['메뉴',[['버튼','click'],['마우스 올림','hover'],['탭','tab'],['선택지','choice'],['알림','toast'],['메뉴 열기','menu_open'],['메뉴 닫기','menu_close'],['쪽 넘김','page'],['핸드북','handbook_open'],['이동','travel'],['안 될 때','error']]],
+  ['기원·운명의 자리',[['기원 화면 열기','wish_open'],['기원 버튼','wish_click'],['유성 (3★)','wish_3'],['유성 (4★)','wish_4'],['유성 (5★)','wish_5'],['결과에서 돌아가기','wish_return'],['기원 화면 닫기','wish_close'],['운명의 자리 활성화','constellation'],['운명의 자리 열기','constellation_open'],['운명의 자리 고르기','constellation_node']]]];
  for(const [title,list]of groups){const box=mk('div','shell-sound-group');box.append(mk('h4','',title));
   for(const [label,id]of list){const options=SND.options?.(id)||[];if(!options.length)continue;
    const row=mk('div','shell-sound-pick variants'),pick=mk('div','shell-sound-variants'),mark=()=>{for(const x of pick.children)x.classList.toggle('active',x.dataset.which===SND.choice(id));};

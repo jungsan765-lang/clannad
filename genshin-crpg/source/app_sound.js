@@ -56,7 +56,18 @@ const CHOICES={
  melt:[['fire','웹 이벤트 불']],
  vaporize:[['ig_swim_splash_b','본편 물보라 2']],
  overload:[['ig_thunder_sphere2','본편 번개 구체 2']],
- freeze:[['ice','웹 이벤트 얼음']]
+ freeze:[['ice','웹 이벤트 얼음']],
+ // 0.14.11 기원 and 운명의 자리.
+ wish_open:[['ig_wish_open','본편 기원 화면 열기']],
+ wish_click:[['ig_wish_click','본편 기원 버튼']],
+ wish_3:[['ig_wish_execute3','본편 기원 유성 (3★)']],
+ wish_4:[['ig_wish_execute4','본편 기원 유성 (4★)']],
+ wish_5:[['ig_wish_execute5','본편 기원 유성 (5★)']],
+ wish_return:[['ig_wish_return','본편 기원 결과에서 돌아가기']],
+ wish_close:[['ig_wish_close','본편 기원 화면 닫기']],
+ constellation:[['ig_constellation_activate','본편 운명의 자리 활성화']],
+ constellation_open:[['ig_constellation_open','본편 운명의 자리 열기']],
+ constellation_node:[['ig_character_constellation','본편 운명의 자리 고르기']]
 };
 // Playback level per sound. Every recording is first brought to the same loudness (see normal()); 0.45 is the
 // level the game always used for recordings, and interface ticks sit a little under the rest.
@@ -96,7 +107,7 @@ function playBuffer(buffer,level,id){
  src.connect(g).connect(c.destination);return {src,g};
 }
 // Fanfares dip the music for their length so they are heard.
-const DUCK=new Set(['victory','defeat','level_up','quest_complete','commission_complete']);let duckUntil=0;
+const DUCK=new Set(['victory','defeat','level_up','quest_complete','commission_complete','wish_3','wish_4','wish_5','constellation']);let duckUntil=0;
 const priorSync=GameAudio.sync.bind(GameAudio);
 GameAudio.sync=function(...args){const out=priorSync(...args);if(this.music&&performance.now()<duckUntil)this.music.volume=Math.min(this.music.volume,settings.musicVolume*.65*.25);return out;};
 function duck(seconds){duckUntil=performance.now()+seconds*1000;const m=GameAudio.music;if(m)m.volume=Math.min(m.volume,settings.musicVolume*.65*.25);clearTimeout(S.duckTimer);S.duckTimer=setTimeout(()=>{duckUntil=0;try{GameAudio.sync();}catch{}},seconds*1000+120);}
@@ -104,7 +115,7 @@ function duck(seconds){duckUntil=performance.now()+seconds*1000;const m=GameAudi
 S.audition=async function(name,id){try{await GameAudio.unlock?.();S.stopAudition();if(id==='none')return;const b=await GameAudio.buffer(name,id);if(!b||!GameAudio.context)return;const {src}=playBuffer(b,(settings.sfxVolume||.6)*levelOf(name,id),id);S.auditionSource=src;src.start();if(DUCK.has(name))duck(b.duration);}catch{}};
 S.stopAudition=()=>{try{S.auditionSource?.stop();}catch{}S.auditionSource=null;};
 // A tab, page or menu has its own sound in Genshin; the generic click that every button makes yields to it.
-const OWN_CLICK=new Set(['tab','page','menu_open','menu_close','handbook_open']);
+const OWN_CLICK=new Set(['tab','page','menu_open','menu_close','handbook_open','wish_open','wish_click','wish_return','wish_close','constellation_open','constellation_node']);
 GameAudio.play=async function(name){
  if(!this.armed||!this.enabled()||document.hidden||!settings.sfxVolume)return;
  if(name==='equip'&&S.equipKind==='artifact')name='equip_artifact';
@@ -116,9 +127,11 @@ GameAudio.play=async function(name){
  if(token&&this.clickSkip===token)return;
  if(this.voices.size>=8){const old=this.voices.values().next().value;try{old.stop();}catch{}this.voices.delete(old);}
  const {src:source,g:gain}=playBuffer(buffer,settings.sfxVolume*levelOf(name,id),id);
- this.voices.add(source);source.onended=()=>{this.voices.delete(source);source.disconnect();gain.disconnect();if(this.clickSource===source)this.clickSource=null;};source.start();if(token)this.clickSource=source;if(DUCK.has(name))duck(buffer.duration);
+ this.voices.add(source);source.onended=()=>{this.voices.delete(source);source.disconnect();gain.disconnect();if(this.clickSource===source)this.clickSource=null;if(this.named?.[name]===source)delete this.named[name];};source.start();if(token)this.clickSource=source;(this.named||(this.named={}))[name]=source;if(DUCK.has(name))duck(buffer.duration);
 };
 S.play=name=>{try{GameAudio.play(name);}catch{}};
+// A long recording (the wish's falling star) stops when its scene is skipped.
+S.stop=name=>{try{GameAudio.named?.[name]?.stop();}catch{}if(DUCK.has(name)){duckUntil=0;try{GameAudio.sync();}catch{}}};
 S.hover=()=>S.play('hover');
 // Plain hits take the attacker's colour: a bow user's shot sounds like a bow, a hilichurl's blow like a hilichurl.
 // Slimes keep app_av.js's own slime sound; elemental hits keep their element.

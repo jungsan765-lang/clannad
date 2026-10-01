@@ -95,7 +95,7 @@ for(const name of ['pointerout','focusout'])document.addEventListener(name,e=>{c
 window.addEventListener('resize',()=>document.querySelectorAll('.gear-tip:popover-open').forEach(t=>t.hidePopover()));
 
 growthScreen=function(p){
- p.classList.add('gear-screen');p.append(el('div','eyebrow','CHARACTER'),el('h1','','캐릭터'),el('p','muted','편성된 파티원의 장비와 능력치입니다. 칸을 누르면 장비를 바꾸고'+(canHover()?', 마우스를 올리면 효과가 보입니다.':' 효과를 확인할 수 있습니다.')+' 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
+ p.classList.add('gear-screen');p.append(el('div','eyebrow','CHARACTER'),el('h1','','캐릭터'),el('p','muted','편성된 파티원의 장비와 능력치입니다. 칸을 누르면 장비를 바꾸고'+(canHover()?', 마우스를 올리면 효과가 보입니다.':' 효과를 확인할 수 있습니다.')+' 편성에서 빠진 동료의 장비는 가방으로 돌아갑니다.'));
  const locked=game.actionReason('EQUIP');if(locked)p.append(el('p','phase-note','지금은 장비를 확인만 할 수 있습니다. '+locked));
  const grid=el('div','gear-members');for(const id of (game.formationOrder?game.formationOrder():game.s.party.filter(x=>x.active).map(x=>x.source)))grid.append(memberCard(id));p.append(grid);
  books(p);
