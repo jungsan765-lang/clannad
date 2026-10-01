@@ -60,3 +60,5 @@ node tools/editorial/dump_main_story_k.cjs ISK_L03_K2 [out.txt]   # 설치된 �
 - 주인공은 각청·진·소·류운차풍진군에게 존댓말을 쓰다가 2장의 참사에서 반말이 터져 나오고, 각청과는 그 뒤로 반말. 류운차풍진군·응광·종려·시뇨라에게는 끝까지 존댓말. 타르탈리아에게는 반말. 짐꾼에게는 존댓말.
 - 각청은 주인공에게 반말, 짐꾼과 병사에게 존댓말.
 - 몬드·여행자·AA/AB/B 루트의 본문은 손대지 않았다.
+
+읽기용 원고 전문 내보내기: `node tools/editorial/export_main_story_k_reader.cjs out.md` (사용자 검수용 마크다운).
