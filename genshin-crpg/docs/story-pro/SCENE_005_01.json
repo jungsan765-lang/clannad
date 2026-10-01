@@ -1,0 +1,156 @@
+{
+  "task": "005.01",
+  "revision": 1,
+  "title": "길어진 첫날",
+  "basisCommit": "bcc293d9b3b5fe13f37b19b86ac2a25a13ea48d0",
+  "basisRange": "source/runtime_liyue_rework_content.js archive ISK_L02_K2_006~011; 004~005 and 018~027 read for context",
+  "mainRoute": "K2",
+  "gameIntegration": "pending",
+  "before": [
+    {
+      "kind": "NARRATION",
+      "speaker": "이야기",
+      "text": "해가 기울 무렵, 각청이 대기 자리로 돌아왔다. 짐꾼이 일어서자 그녀가 앉아 계시라는 손짓을 했다."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "각청",
+      "text": "짐부터 볼게요. 아까 제가 확인한 뒤에 옮기지는 않으셨죠?"
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "짐꾼",
+      "text": "그대로 뒀소. 풀지도 않았고. 다음 사람이 오면 또 풀자고 하겠지만..."
+    },
+    {
+      "kind": "NARRATION",
+      "speaker": "이야기",
+      "text": "각청은 포대의 묶인 부분을 살핀 뒤 병사를 불렀다."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "각청",
+      "text": "이 짐은 따로 맡아 줘. 다음 담당자가 와도 다시 풀기 전에 이 표부터 보여 주고."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "천암군 병사",
+      "text": "예. 두 분도 여기서 기다리시게 할까요?"
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "각청",
+      "text": "아니. 짐을 지키는 건 우리 일이야. 계속 옆에 붙어 있게 할 필요는 없어."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "짐꾼",
+      "text": "그럼 오늘은 어디까지 된 거요? 같은 설명만 하다가 해가 졌소. 나도 내일 할 일이 있는데."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "각청",
+      "text": "오늘 안에 끝난다고 약속할 수는 없어요. 대신 담당자가 바뀔 때마다 처음부터 다시 확인하는 일은 막을게요."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "플레이어 닉네임",
+      "text": "저도 끈이 풀린 것밖에는... 더 말씀드릴 게 없어요."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "각청",
+      "text": "그건 적어 뒀어. 기다리는 동안 새로 본 게 없다면 같은 말을 반복할 필요는 없어."
+    }
+  ],
+  "choice": {
+    "type": "LOCAL_DIALOGUE",
+    "prompt": "각청에게 묻는다",
+    "options": [
+      {
+        "label": "...제가 괜히 끼어들어서 더 늦어진 건 아니죠?",
+        "reply": [
+          {
+            "kind": "DIALOGUE",
+            "speaker": "각청",
+            "text": "아니. 덕분에 짐을 더 섞기 전에 멈췄잖아. 뒷일은 내가 맡을게."
+          },
+          {
+            "kind": "DIALOGUE",
+            "speaker": "플레이어 닉네임",
+            "text": "...다행이네요. 일만 벌여 놓고 가는 것 같아서."
+          }
+        ]
+      },
+      {
+        "label": "다음에도 처음부터 설명해야 하나요?",
+        "reply": [
+          {
+            "kind": "DIALOGUE",
+            "speaker": "각청",
+            "text": "같은 말은 반복하지 않아도 돼. 더 물을 게 생기면, 어느 부분인지 내가 짚어서 물어볼게."
+          },
+          {
+            "kind": "NARRATION",
+            "speaker": "이야기",
+            "text": "각청은 병사가 받아 든 표의 아래쪽을 짚어, 이미 확인한 내용을 구분해 주었다."
+          }
+        ]
+      }
+    ],
+    "changesMainRoute": false,
+    "grantsReward": false,
+    "changesAffinity": false
+  },
+  "after": [
+    {
+      "kind": "DIALOGUE",
+      "speaker": "각청",
+      "text": "잠깐 자리를 비우실 땐 이 병사에게 말씀해 주세요. 짐은 그대로 두고 다녀오셔도 됩니다."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "짐꾼",
+      "text": "그 말이면 됐소. 어디까지 자리를 비워도 되는지 몰라서 꼼짝을 못 했지."
+    },
+    {
+      "kind": "NARRATION",
+      "speaker": "이야기",
+      "text": "짐꾼이 굳은 허리를 폈다. 각청은 그가 수레 사이로 나갈 수 있도록 옆으로 비켜섰다."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "플레이어 닉네임",
+      "text": "...이제 좀 살겠네요. 각청 씨도 쉬러 가요?"
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "각청",
+      "text": "다음 교대에 할 말을 전하고. 돌아왔을 때 같은 질문부터 듣게 할 순 없잖아."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "플레이어 닉네임",
+      "text": "그럼... 고맙습니다."
+    },
+    {
+      "kind": "DIALOGUE",
+      "speaker": "각청",
+      "text": "인사는 들었으니까, 이제 정말 가서 쉬어."
+    },
+    {
+      "kind": "NARRATION",
+      "speaker": "이야기",
+      "text": "각청은 병사와 함께 접수대로 돌아갔다. 대기 중인 수레의 순서를 짚어 주는 목소리가 잠시 더 들렸다."
+    }
+  ],
+  "exit": {
+    "mainRoute": "K2",
+    "harborAccess": "unchanged_closed",
+    "xiaoWarningToldToKeqing": false,
+    "cargoCaseSolved": false,
+    "keeper": "soldiers",
+    "peopleMayLeaveAfterInformingSoldier": true,
+    "elapsedTimeCommitted": false
+  }
+}
