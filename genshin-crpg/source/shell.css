@@ -1,0 +1,660 @@
+/* 0.14.7 테이바트 UI. Loaded after style.css. Everything is scoped to body.teyvat, which app_shell.js sets while
+   a journey is open, so the title screen keeps its own look. Night-sky glass, cream (#ece5d8) controls with dark
+   ink, gold (#d3bc8e) trim, and an accent that follows the region (app_motion.js sets body[data-region]). */
+body.teyvat{
+ --t-bg:#0a0d18;--t-glass:rgba(14,18,32,.78);--t-glass-2:rgba(20,25,43,.9);--t-glass-3:rgba(30,36,60,.92);
+ --t-line:rgba(211,188,142,.24);--t-line-2:rgba(211,188,142,.52);--t-gold:#d3bc8e;--t-gold-hi:#f3dfae;
+ --t-cream:#ece5d8;--t-cream-2:#dcd2bd;--t-ink:#39404f;--t-ink-2:#5b6272;--t-text:#f3eee4;--t-muted:#bdb6a9;
+ --t-ally:#8fc6e6;--t-foe:#ff9b8a;--t-ok:#a6dca0;
+ --acc:#6fd6c6;--acc-2:#b6f2e8;--acc-rgb:130,226,210;--acc-deep:#1f5a5a;
+ --font-display:'Gowun Batang','Noto Serif KR',CRPGKorean,serif;--font-latin:'Cinzel','Gowun Batang',serif;--font-ui:CRPGKorean,system-ui,sans-serif;
+ --gold:#d3bc8e;--line:rgba(211,188,142,.24);--panel:rgba(14,18,32,.78);--text:#f3eee4;--muted:#bdb6a9;--green:#9fd8b8;
+ --hud-h:62px;--dock-h:0px;--gap:14px;
+ background:var(--t-bg);color:var(--t-text);height:100vh;height:100dvh;overflow:hidden;font-family:var(--font-ui);
+}
+body.teyvat[data-region=liyue]{--acc:#f2b84b;--acc-2:#ffe0a0;--acc-rgb:248,196,96;--acc-deep:#5a3f12}
+body.teyvat[data-region=snow]{--acc:#8fd3f0;--acc-2:#d8f3ff;--acc-rgb:160,220,248;--acc-deep:#1d4560}
+body.teyvat[data-region=chasm]{--acc:#a58bff;--acc-2:#d9ccff;--acc-rgb:176,150,255;--acc-deep:#33265c}
+body.teyvat[data-region=abyss]{--acc:#7d8cff;--acc-2:#c7cdff;--acc-rgb:140,152,255;--acc-deep:#22285c}
+body.teyvat[data-region=hydro]{--acc:#5ab8f0;--acc-2:#bfe6ff;--acc-rgb:110,190,245;--acc-deep:#173f5c}
+body.teyvat[data-region=electro]{--acc:#b48cf0;--acc-2:#e6d6ff;--acc-rgb:190,150,245;--acc-deep:#3a245c}
+body.teyvat[data-region=dendro]{--acc:#9bd65a;--acc-2:#ddf5bf;--acc-rgb:170,220,110;--acc-deep:#2f4d14}
+body.teyvat[data-region=pyro]{--acc:#f08a5a;--acc-2:#ffd2bd;--acc-rgb:245,150,105;--acc-deep:#5c2414}
+body.teyvat[data-region=nod]{--acc:#7fd0e8;--acc-2:#d0f2fb;--acc-rgb:140,212,235;--acc-deep:#1d4752}
+body.teyvat *{scrollbar-width:thin;scrollbar-color:rgba(211,188,142,.42) transparent}
+body.teyvat ::-webkit-scrollbar{width:8px;height:8px}
+body.teyvat ::-webkit-scrollbar-thumb{background:rgba(211,188,142,.38);border-radius:8px}
+body.teyvat ::-webkit-scrollbar-track{background:transparent}
+body.teyvat #masthead{display:none}
+/* ---------- world backdrop ---------- */
+body.teyvat .world-backdrop{opacity:.5;filter:blur(3px) saturate(1.05);transform:scale(1.04);transition:opacity .8s ease,filter .8s ease;background-color:#0e1222;animation:shellDrift 46s ease-in-out infinite alternate}
+body.teyvat .world-backdrop.shell-lit{opacity:1;filter:saturate(1.08)}
+@keyframes shellDrift{from{transform:scale(1.04) translate3d(0,0,0)}to{transform:scale(1.12) translate3d(-1.2%,-1%,0)}}
+body.teyvat .shell-motes{position:fixed;inset:0;z-index:0;pointer-events:none;mix-blend-mode:screen}
+body.teyvat #root{position:relative;z-index:1}
+body.teyvat .world-backdrop:after{background:linear-gradient(180deg,rgba(8,10,16,.78) 0,rgba(8,10,16,.18) 16%,rgba(8,10,16,.12) 55%,rgba(8,10,16,.82) 100%),radial-gradient(ellipse at 50% 45%,transparent 40%,rgba(6,8,14,.55) 100%)}
+body.teyvat[data-mode=menu] .world-backdrop,body.teyvat[data-mode=plain] .world-backdrop{filter:blur(14px) brightness(.62) saturate(.9)}
+body.teyvat[data-mode=battle] .world-backdrop{filter:brightness(.62) saturate(1.1)}
+/* ---------- frame ---------- */
+body.teyvat #root{height:100%}
+body.teyvat #root>main{max-width:none;margin:0;height:100%;display:block;padding:calc(var(--hud-h) + 8px) 18px 14px;box-sizing:border-box}
+body.teyvat .content.shell-content{height:100%;min-height:0;display:flex;flex-direction:column;gap:10px;position:relative}
+body.teyvat .content.shell-content>.panel{flex:1 1 auto;min-height:0;margin:0}
+body.teyvat .content.shell-content>:not(.panel){flex:0 0 auto}
+body.teyvat .shell-offscreen{display:none!important}
+body.teyvat #notice:not(:empty){position:fixed;z-index:420;top:calc(var(--hud-h) + 10px);left:50%;transform:translateX(-50%);margin:0;width:max-content;max-width:min(760px,calc(100vw - 32px));background:rgba(22,26,40,.95);border:1px solid var(--t-line-2);border-radius:16px;padding:10px 20px;box-shadow:0 10px 32px rgba(0,0,0,.45);animation:shellDrop .25s ease-out}
+body.teyvat #root>.pending-action-notice{position:fixed;z-index:430;top:calc(var(--hud-h) + 10px);left:50%;transform:translateX(-50%);width:min(620px,calc(100vw - 32px));background:rgba(40,30,18,.96);border:1px solid #c9a15b;border-radius:16px;padding:12px 18px;box-shadow:0 10px 32px rgba(0,0,0,.5)}
+@keyframes shellDrop{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes shellIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes shellFade{from{opacity:0}to{opacity:1}}
+@keyframes shellGlow{0%,100%{box-shadow:0 0 0 1px rgba(243,223,174,.45),0 0 10px rgba(243,223,174,.25)}50%{box-shadow:0 0 0 2px rgba(243,223,174,.75),0 0 22px rgba(243,223,174,.45)}}
+@keyframes shellBlink{0%,100%{opacity:.35;transform:translateY(0)}50%{opacity:1;transform:translateY(3px)}}
+@keyframes shellSpin{to{transform:rotate(360deg)}}
+body.teyvat .content.shell-screen-enter>.panel{animation:shellIn .3s cubic-bezier(.2,.8,.2,1)}
+body.teyvat .shell-flash{animation:shellGlow .45s ease-in-out 2}
+/* ---------- base controls ---------- */
+body.teyvat{font-size:15px}
+body.teyvat h1,body.teyvat h2,body.teyvat h3{letter-spacing:.01em}
+body.teyvat h2{color:var(--t-gold)}
+body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button{border-radius:22px;border:1px solid rgba(236,229,216,.2);background:rgba(255,255,255,.06);color:var(--t-text);transition:background .15s,border-color .15s,transform .12s,box-shadow .18s,color .15s}
+body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button:hover:not(:disabled){border-color:rgba(243,223,174,.7);background:rgba(236,229,216,.12);box-shadow:0 0 0 1px rgba(243,223,174,.2),0 0 14px rgba(243,223,174,.16)}
+body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button:active:not(:disabled){transform:scale(.98)}
+body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button:disabled{opacity:.42}
+body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button.primary{background:var(--t-cream);border-color:var(--t-cream);color:var(--t-ink);font-weight:700}
+body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button.primary:hover:not(:disabled){background:#fffaf0;color:var(--t-ink);box-shadow:0 0 0 2px rgba(243,223,174,.65),0 0 20px rgba(243,223,174,.42)}
+body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button.primary:not(.terrain-destination):not(.choice):not(.bag-item):not(.gear-slot):not(.member-select):not(.formation-option):not(.shell-back):not([data-card-id]){position:relative;padding-left:44px}
+body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button.primary:not(.terrain-destination):not(.choice):not(.bag-item):not(.gear-slot):not(.member-select):not(.formation-option):not(.shell-back):not([data-card-id])::before{content:'';position:absolute;left:12px;top:50%;width:20px;height:20px;margin-top:-10px;border-radius:50%;background:radial-gradient(circle,#f1c24c 0 32%,#39404f 35%);box-shadow:0 0 0 2px rgba(57,64,79,.25)}
+body.teyvat :where(#root,#modal) input,body.teyvat :where(#root,#modal) select{background:rgba(10,13,21,.7);border:1px solid rgba(236,229,216,.2);border-radius:12px;color:var(--t-text)}
+body.teyvat input:focus-visible,body.teyvat select:focus-visible,body.teyvat button:focus-visible,body.teyvat summary:focus-visible{outline:2px solid var(--t-gold-hi);outline-offset:3px}
+body.teyvat .card{background:rgba(255,255,255,.035);border:1px solid rgba(211,188,142,.18);border-radius:14px}
+body.teyvat details>summary{cursor:pointer}
+body.teyvat .meter{background:rgba(255,255,255,.1);border:0;border-radius:6px}
+body.teyvat .muted,body.teyvat small{color:var(--t-muted)}
+body.teyvat .shell-icon{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+/* ---------- typography ---------- */
+body.teyvat h1,body.teyvat .shell-h1,body.teyvat .speaker,body.teyvat .hud-place-name,body.teyvat .pm-who strong,body.teyvat .hb-head h2,body.teyvat .shell-loc-head h1,body.teyvat .combat-panel>.battle-heading h1{font-family:var(--font-display);font-weight:700;letter-spacing:.02em}
+body.teyvat .eyebrow,body.teyvat .shell-eyebrow,body.teyvat .combat-panel>.battle-heading .eyebrow,body.teyvat .hb-title strong{font-family:var(--font-latin);letter-spacing:.16em}
+body.teyvat h2{font-family:var(--font-display);font-weight:700}
+/* ---------- pointer response (app_motion.js) ---------- */
+body .tiltable{position:relative;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift,0px)) scale(var(--sc,1));transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease,border-color .3s ease,background-color .3s ease,filter .3s ease;will-change:transform}
+body .tiltable.is-tilting{--lift:-3px;--sc:1.015;transition:transform .1s linear,box-shadow .3s ease,border-color .3s ease,background-color .3s ease,filter .3s ease;z-index:2}
+body.teyvat .tiltable.is-tilting:not(.shell-tab):not(.hud-nav-button):not(.hud-tool){box-shadow:0 16px 36px rgba(0,0,0,.45),0 0 0 1px rgba(var(--acc-rgb),.6),0 0 30px rgba(var(--acc-rgb),.22);border-color:rgba(var(--acc-rgb),.75)}
+body .tiltable.is-pressed{--sc:.965;transition-duration:.08s}
+body .tiltable::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.2),rgba(var(--acc-rgb,243,223,174),.08) 32%,transparent 60%);opacity:0;transition:opacity .35s ease;mix-blend-mode:screen}
+body .tiltable.is-tilting::after{opacity:1}
+body.teyvat .tiltable.is-tilting img{transform:translate3d(var(--px,0px),var(--py,0px),0) scale(1.05);transition:transform .1s linear}
+body.teyvat .tiltable img{transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+/* ---------- HUD ---------- */
+body.teyvat main>aside.shell-hud{position:fixed;inset:0 0 auto 0;height:var(--hud-h);z-index:45;display:flex;align-items:center;gap:12px;padding:0 14px;margin:0;background:none;border-bottom:1px solid rgba(211,188,142,.16);box-sizing:border-box}
+/* The blur sits on a pseudo-element: a backdrop-filter on the HUD itself would trap the phone dock (position:fixed) inside it. */
+body.teyvat main>aside.shell-hud::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(8,10,18,.94),rgba(8,10,18,.72));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body.teyvat .shell-hidden-card{display:none!important}
+body.teyvat [hidden]{display:none!important}
+body.teyvat .hud-extra{display:none!important}
+body.teyvat .hud-info{display:flex;flex-direction:column;justify-content:center;gap:0;min-width:0;flex:0 1 auto}
+body.teyvat .hud-place{display:flex;align-items:center;gap:6px;min-height:0;padding:0 8px 0 2px;border:0;background:transparent;min-width:0;box-shadow:none!important;line-height:1.3}
+body.teyvat .hud-place:hover:not(:disabled){background:transparent;color:var(--t-gold-hi)}
+body.teyvat .hud-place .shell-icon{color:var(--t-gold);width:18px;height:18px}
+body.teyvat .hud-place-name{font-weight:700;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px;min-width:3em}
+body.teyvat .hud-subline{display:flex;align-items:center;gap:8px;padding-left:26px;font-size:.74rem;line-height:1.35;white-space:nowrap;min-width:0}
+body.teyvat .hud-time{white-space:nowrap;color:var(--t-muted);font-variant-numeric:tabular-nums}
+body.teyvat .hud-phase{white-space:nowrap;padding:0 8px;border-radius:8px;background:rgba(211,188,142,.14);color:var(--t-gold-hi);border:0;margin:0;max-width:220px;overflow:hidden;text-overflow:ellipsis;font-size:.72rem}
+body.teyvat .hud-guide-slot{display:flex;min-width:0;flex:0 1 auto}
+body.teyvat .hud-guide{display:flex;align-items:center;gap:8px;min-height:36px;max-width:340px;padding:4px 14px 4px 8px;border-radius:18px;background:rgba(211,188,142,.12);border-color:rgba(211,188,142,.4);color:var(--t-gold-hi);font-size:.8rem;min-width:0}
+body.teyvat .hud-guide:not(.open){animation:shellGlow 2.4s ease-in-out infinite}
+body.teyvat .hud-guide .shell-icon{width:18px;height:18px}
+body.teyvat .hud-guide-count{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+body.teyvat .hud-guide-step{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--t-text)}
+.hud-guide-pop{position:fixed;z-index:44;top:calc(var(--hud-h,62px) + 8px);left:50%;transform:translateX(-50%);width:min(440px,calc(100vw - 24px));max-height:calc(100dvh - var(--hud-h,62px) - 24px);overflow:auto;border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.55);animation:shellDrop .25s ease-out}
+.hud-guide-pop .learning-guide{margin:0!important;position:static!important;background:rgba(22,27,41,.97)!important;border:1px solid rgba(211,188,142,.55)!important;border-radius:16px!important;padding:14px 18px!important}
+.hud-guide-pop .learning-guide h2{color:#f3dfae}
+.hud-guide-pop .hud-guide-min{position:absolute;top:8px;right:8px;z-index:2;width:30px;height:30px;min-height:30px;padding:0;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(236,229,216,.25);color:#ece5d8}
+.hud-guide-pop .hud-guide-min .shell-icon{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.hud-guide-pop .learning-guide-heading{padding-right:34px}
+body.teyvat .hud-me{display:flex;align-items:center;gap:12px;margin-left:auto;min-width:0}
+body.teyvat .hud-level{display:flex;align-items:center;gap:8px;min-width:0}
+body.teyvat .hud-level-ring{--p:0;width:36px;height:36px;border-radius:50%;flex:0 0 36px;display:grid;place-items:center;position:relative;background:conic-gradient(var(--t-gold-hi) calc(var(--p)*1%),rgba(255,255,255,.14) 0)}
+body.teyvat .hud-level-ring:before{content:'';position:absolute;inset:3px;border-radius:50%;background:#151a27}
+body.teyvat .hud-level-ring b{position:relative;font-size:.82rem;color:var(--t-cream)}
+body.teyvat .hud-name{font-weight:600;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:1500px){body.teyvat .hud-name{display:none}body.teyvat .hud-guide{max-width:240px}}
+@media (max-width:1320px){body.teyvat .hud-guide-step{display:none}body.teyvat .hud-hp small{display:none}body.teyvat .hud-hp{width:90px}}
+body.teyvat .shell-dialogue p.shell-recall{opacity:.72;font-size:1.02rem;animation:none}
+body.teyvat .hud-hp{display:flex;flex-direction:column;gap:3px;width:130px}
+body.teyvat .hud-bar{display:block;height:6px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden}
+body.teyvat .hud-bar i{display:block;height:100%;background:linear-gradient(90deg,#65c775,#bdf0a2);transition:width .45s ease}
+body.teyvat .hud-hp.low .hud-bar i{background:linear-gradient(90deg,#d8544f,#f6a07c)}
+body.teyvat .hud-hp small{font-size:.7rem;line-height:1;font-variant-numeric:tabular-nums}
+body.teyvat .hud-mora{display:flex;align-items:center;gap:6px;padding:5px 12px 5px 8px;border-radius:16px;background:rgba(255,255,255,.07);font-variant-numeric:tabular-nums;font-size:.9rem;white-space:nowrap}
+body.teyvat .hud-mora .shell-icon{width:18px;height:18px;color:#f0c46a}
+body.teyvat nav.hud-nav{display:flex;gap:4px;align-items:center}
+body.teyvat nav.hud-nav button.hud-nav-button{position:relative;width:42px;height:42px;min-height:42px;padding:0;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid transparent;color:var(--t-cream)}
+body.teyvat nav.hud-nav button.hud-nav-button:hover:not(:disabled){background:rgba(236,229,216,.16);border-color:rgba(243,223,174,.55);transform:translateY(-1px)}
+body.teyvat nav.hud-nav button.hud-nav-button.active{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-cream);box-shadow:0 0 0 3px rgba(211,188,142,.3),0 0 16px rgba(243,223,174,.35)}
+body.teyvat nav.hud-nav button.hud-nav-button:disabled{opacity:.3}
+body.teyvat .nav-glyph{width:21px;height:21px}
+body.teyvat .hud-nav-label{position:absolute;top:calc(100% + 7px);left:50%;transform:translate(-50%,-4px);opacity:0;pointer-events:none;white-space:nowrap;background:var(--t-cream);color:var(--t-ink);font-size:.74rem;font-weight:600;padding:3px 9px;border-radius:10px;transition:opacity .15s,transform .15s;z-index:5}
+body.teyvat .hud-nav-button:hover .hud-nav-label,body.teyvat .hud-nav-button:focus-visible .hud-nav-label{opacity:1;transform:translate(-50%,0)}
+body.teyvat .hud-tools{display:flex;gap:4px;align-items:center;padding-left:8px;border-left:1px solid rgba(211,188,142,.18)}
+body.teyvat .hud-tool{width:42px;height:42px;min-height:42px;padding:0;border-radius:50%;display:grid;place-items:center;border-color:transparent;background:rgba(255,255,255,.06);color:var(--t-cream)}
+body.teyvat .hud-tool.hud-menu-button{background:var(--t-cream);color:var(--t-ink)}
+body.teyvat .hud-tool.hud-handbook{color:var(--t-gold-hi)}
+/* ---------- tabs ---------- */
+body.teyvat .shell-tabs{display:flex;flex-direction:column;min-height:0}
+body.teyvat .shell-tabbar{display:flex;gap:6px;padding:10px 10px 8px;overflow-x:auto;flex:0 0 auto}
+body.teyvat .shell-tabs.single>.shell-tabbar{display:none}
+body.teyvat .shell-tab{min-height:36px;padding:5px 14px;border-radius:18px;display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:.88rem;color:var(--t-muted);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+body.teyvat .shell-tab .shell-icon{width:16px;height:16px}
+body.teyvat .shell-tab.active{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-cream);font-weight:700;box-shadow:0 0 12px rgba(243,223,174,.25)}
+body.teyvat .shell-tab-badge{font-size:.7rem;padding:0 6px;border-radius:8px;background:rgba(211,188,142,.2)}
+body.teyvat .shell-panes{flex:1;min-height:0;overflow:auto}
+body.teyvat .shell-pane{min-height:0}
+body.teyvat .shell-pane.shell-enter{animation:shellFade .22s ease-out}
+body.teyvat .shell-page-tabs.vertical{display:grid;grid-template-columns:210px minmax(0,1fr);height:100%;gap:0}
+body.teyvat .shell-page-tabs.vertical>.shell-tabbar{flex-direction:column;overflow:auto;padding:14px 10px;border-right:1px solid rgba(211,188,142,.14);gap:4px}
+body.teyvat .shell-page-tabs.vertical>.shell-tabbar .shell-tab{border-radius:12px;justify-content:flex-start;white-space:normal;text-align:left}
+body.teyvat .shell-page-tabs.vertical>.shell-panes{padding:14px 20px}
+/* ---------- page frame (menus) ---------- */
+body.teyvat .panel.shell-page{height:100%;display:flex;flex-direction:column;padding:0;overflow:hidden;background:linear-gradient(160deg,rgba(20,24,37,.92),rgba(12,15,24,.92));border:1px solid var(--t-line);border-radius:18px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+body.teyvat .shell-page-head{height:auto;display:flex;align-items:center;gap:14px 18px;flex-wrap:wrap;padding:12px 16px 12px 18px;border-bottom:1px solid rgba(211,188,142,.16);background:linear-gradient(90deg,rgba(211,188,142,.1),transparent 55%)}
+body.teyvat .shell-page-head.untitled .shell-page-title{display:none}
+body.teyvat .shell-page-title{display:flex;align-items:center;gap:12px;min-width:0}
+body.teyvat .page-glyph{width:38px;height:38px;padding:7px;border-radius:50%;background:var(--t-cream);color:var(--t-ink);stroke-width:1.8}
+body.teyvat .shell-page-words{display:flex;flex-direction:column;min-width:0}
+body.teyvat .shell-eyebrow{font-size:.7rem;letter-spacing:.2em;color:var(--t-gold);margin:0}
+body.teyvat .shell-h1{font-size:1.32rem;line-height:1.3;margin:0}
+body.teyvat .shell-page-intro{font-size:.8rem;line-height:1.5;margin:2px 0 0;max-width:720px}
+body.teyvat .shell-page-tools{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+body.teyvat .shell-page-tools>*{margin:0}
+body.teyvat .shell-page-tools button{min-height:40px;padding:6px 14px;font-size:.88rem}
+body.teyvat button.shell-back{display:flex;align-items:center;gap:6px;padding:6px 14px 6px 10px;min-height:40px;background:rgba(255,255,255,.08);border-color:rgba(236,229,216,.25);color:var(--t-cream);font-weight:600}
+body.teyvat button.shell-back .shell-icon{width:18px;height:18px}
+body.teyvat .shell-subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:0;flex-basis:100%}
+body.teyvat .shell-subtabs button{min-height:34px;padding:4px 14px;border-radius:17px;font-size:.84rem}
+body.teyvat .shell-subtabs button.selected,body.teyvat .shell-subtabs button.active,body.teyvat .shell-subtabs button[aria-selected=true]{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-cream);font-weight:700}
+body.teyvat .shell-page-body{flex:1;min-height:0;overflow:auto;padding:14px 18px 18px}
+body.teyvat .shell-cols{display:grid;gap:16px;overflow:hidden;align-items:stretch}
+body.teyvat .shell-cols>.shell-region{min-height:0;overflow:auto;padding-right:2px}
+body.teyvat .shell-page-body.shell-cols{overflow:hidden}
+/* ---------- location (world HUD) ---------- */
+body.teyvat .panel.shell-loc{display:grid;grid-template-columns:minmax(300px,360px) minmax(0,1fr);gap:var(--gap);padding:0;background:none;border:0;border-radius:0;box-shadow:none;height:100%;min-height:0}
+body.teyvat .shell-loc-left{display:flex;flex-direction:column;gap:10px;overflow:hidden;min-height:0;padding:0}
+body.teyvat .shell-loc-left>*{margin:0;flex:0 0 auto}
+body.teyvat .shell-loc-left>section:not(.shell-loc-side),body.teyvat .shell-loc-left>details,body.teyvat .shell-loc-left>.card,body.teyvat .shell-loc-left>.next-chapter{background:var(--t-glass);border:1px solid var(--t-line);border-radius:16px;padding:12px 16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body.teyvat .shell-loc-left>.shell-loc-side{flex:1 1 auto;min-height:120px}
+body.teyvat .shell-loc-left>button{width:100%}
+body.teyvat .shell-loc-head{height:auto;display:block;background:none;border:0;padding:2px 4px 4px}
+body.teyvat .shell-loc-head .eyebrow{font-size:.7rem;letter-spacing:.2em;color:var(--t-gold);text-shadow:0 1px 6px #000}
+body.teyvat .shell-loc-head h1{font-size:1.75rem;margin:2px 0 6px;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+body.teyvat .shell-loc-head .area-level{display:inline-block;margin:0;padding:2px 12px;border-radius:12px;background:rgba(10,13,21,.7);border:1px solid var(--t-line);font-size:.8rem}
+body.teyvat .shell-loc-head p.muted{margin:8px 0 0;font-size:.82rem;text-shadow:0 1px 6px #000}
+body.teyvat .shell-loc-left .main-objective{border-left:3px solid var(--t-gold);background:linear-gradient(125deg,rgba(52,42,24,.88),rgba(18,22,34,.86));padding:14px 16px}
+body.teyvat .shell-loc-left .main-objective h2{font-size:.78rem;letter-spacing:.14em;margin:2px 0 4px;color:var(--t-gold)}
+body.teyvat .shell-loc-left .main-objective h3{font-size:1.08rem;margin:0 0 6px;color:var(--t-cream)}
+body.teyvat .shell-loc-left .main-objective h3:before{content:'◆ ';color:var(--t-gold-hi);font-size:.8em}
+body.teyvat .shell-loc-left .main-objective p{font-size:.86rem;margin:4px 0}
+body.teyvat .shell-loc-left .main-objective button{margin:8px 0 0;width:100%}
+body.teyvat .shell-loc-left h2{font-size:1rem;margin:0 0 8px}
+body.teyvat .shell-loc-left .wait-controls{display:flex;flex-direction:column;gap:6px;background:rgba(16,20,31,.66)}
+body.teyvat .shell-loc-left .wait-controls small{font-size:.74rem;line-height:1.5}
+body.teyvat .shell-loc-main{min-height:0;display:flex;flex-direction:column}
+body.teyvat .shell-loc-main>#journey-map,body.teyvat .shell-loc-main>.terrain-navigation{flex:1;min-height:0;display:flex;flex-direction:column;margin:0;padding:12px 14px;background:var(--t-glass);border:1px solid var(--t-line);border-radius:16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body.teyvat .shell-loc-main .terrain-header{flex:0 0 auto;margin:0}
+body.teyvat .shell-loc-main .terrain-header h2{font-size:1.05rem;margin:0}
+body.teyvat .shell-loc-main .terrain-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(230px,290px);gap:14px;flex:1;min-height:0;margin-top:10px}
+body.teyvat .shell-loc-main .terrain-map-column{display:flex;flex-direction:column;min-height:0;gap:6px}
+body.teyvat .shell-loc-main .terrain-viewport{flex:1;height:auto!important;min-height:200px;border-color:rgba(211,188,142,.35);border-radius:14px}
+body.teyvat .shell-loc-main .terrain-legend,body.teyvat .shell-loc-main .terrain-help{display:none}
+body.teyvat .shell-loc-main .terrain-location-note{font-size:.8rem;margin:0;color:var(--t-muted)}
+body.teyvat .shell-loc-main .terrain-controls{display:flex;gap:6px;flex-wrap:wrap}
+body.teyvat .shell-loc-main .terrain-controls button{min-height:34px;padding:4px 12px;font-size:.8rem}
+body.teyvat .shell-loc-main .terrain-destinations{overflow:auto;min-height:0;order:initial;padding-right:4px}
+body.teyvat .shell-loc-main .terrain-destinations h3{font-size:.95rem;margin:0 0 4px}
+body.teyvat .shell-loc-main .terrain-select-help{font-size:.76rem;margin:0 0 8px;color:var(--t-muted)}
+body.teyvat .terrain-destination{border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(211,188,142,.22);color:var(--t-text);margin-bottom:6px}
+body.teyvat .terrain-destination:hover:not(:disabled){background:rgba(236,229,216,.13);border-color:var(--t-gold-hi)}
+body.teyvat .terrain-destination.selected{border-color:var(--t-gold-hi);box-shadow:0 0 0 2px rgba(243,223,174,.35)}
+body.teyvat .terrain-destination .terrain-number{background:var(--t-cream);color:var(--t-ink)}
+body.teyvat .shell-loc-main .terrain-travel-dock{flex:0 0 auto;margin-top:10px;padding:8px 10px;border-radius:14px;background:rgba(10,13,21,.6);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+body.teyvat .shell-loc-main .terrain-travel-dock .terrain-selection{flex:1 1 220px;font-size:.84rem}
+body.teyvat .shell-loc-main .terrain-provenance{flex:0 0 auto;font-size:.72rem;margin-top:6px;opacity:.75}
+body.teyvat .shell-loc-side{min-height:0;display:flex;flex-direction:column;background:var(--t-glass);border:1px solid var(--t-line);border-radius:16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);overflow:hidden}
+body.teyvat .shell-loc-side>.shell-panes{padding:4px 12px 14px}
+body.teyvat .shell-loc-side .shell-pane>*{margin:0 0 12px}
+body.teyvat .shell-loc-side .shell-pane>h2{font-size:1rem;margin:4px 0 8px}
+body.teyvat .shell-loc-side .location-places{grid-template-columns:1fr;gap:8px}
+body.teyvat .shell-loc-side .location-places>*{margin:0}
+/* ---------- story (dialogue) ---------- */
+body.teyvat .content.shell-story{justify-content:flex-end}
+body.teyvat .shell-story-figure{position:absolute;left:0;right:0;top:0;bottom:190px;display:flex;justify-content:center;align-items:flex-end;pointer-events:none;z-index:1}
+body.teyvat .shell-story-figure .portrait-frame{position:static;margin:0;height:100%;border:0;background:none;border-radius:0;display:flex;align-items:flex-end;justify-content:center}
+body.teyvat .shell-story-figure .portrait-frame img{height:100%;width:auto;max-width:min(620px,72vw);object-fit:contain;object-position:bottom;-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent 99%);mask-image:linear-gradient(180deg,#000 72%,transparent 99%);filter:drop-shadow(0 16px 40px rgba(0,0,0,.55));animation:shellIn .45s ease-out}
+body.teyvat .shell-story-figure figcaption{display:none}
+body.teyvat .content.shell-story>.panel.shell-dialogue{flex:0 0 auto}
+body.teyvat .panel.shell-dialogue{flex:0 0 auto;position:relative;z-index:2;margin:0 -18px -14px;padding:22px max(26px,9vw) 18px;border:0;border-radius:0;background:linear-gradient(0deg,rgba(6,8,13,.95) 0,rgba(6,8,13,.9) 62%,rgba(6,8,13,.55) 88%,rgba(6,8,13,0));box-shadow:none;max-height:62%;overflow:auto}
+body.teyvat .panel.shell-dialogue.can-continue{cursor:pointer}
+body.teyvat .shell-dialogue .story-layout{display:block}
+body.teyvat .shell-dialogue .speaker{display:flex;align-items:center;gap:12px;margin:0 0 8px;color:var(--t-gold-hi);font-weight:700;font-size:1.06rem;letter-spacing:.04em}
+body.teyvat .shell-dialogue .speaker:after{content:'';flex:0 0 140px;height:1px;background:linear-gradient(90deg,rgba(211,188,142,.7),transparent)}
+body.teyvat .shell-dialogue p.story{font-size:1.14rem;line-height:1.9;max-width:1060px;margin:0 0 10px;color:#f7f2e8;text-shadow:0 1px 3px rgba(0,0,0,.6);animation:shellFade .35s ease-out}
+body.teyvat .shell-dialogue h1{font-size:1.3rem;margin:0 0 8px}
+body.teyvat .shell-dialogue .actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin:6px 0 0}
+body.teyvat .shell-dialogue .actions>button{width:auto}
+body.teyvat .shell-dialogue .shell-continue{min-width:170px}
+body.teyvat .shell-dialogue .shell-continue:after{content:'';display:inline-block;width:0;height:0;margin-left:10px;vertical-align:middle;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid currentColor;animation:shellBlink 1.3s ease-in-out infinite}
+body.teyvat .shell-dialogue.has-choices .story-copy .actions{flex-direction:column;align-items:flex-end;gap:8px}
+body.teyvat .shell-dialogue .choice{display:flex;align-items:center;gap:12px;width:min(520px,100%);padding:10px 20px 10px 12px;border-radius:26px;background:rgba(14,17,27,.82);border:1px solid rgba(236,229,216,.26);color:var(--t-cream);text-align:left;animation:shellIn .25s ease-out backwards}
+body.teyvat .shell-dialogue .choice:nth-child(2){animation-delay:.04s}body.teyvat .shell-dialogue .choice:nth-child(3){animation-delay:.08s}body.teyvat .shell-dialogue .choice:nth-child(4){animation-delay:.12s}
+body.teyvat .shell-dialogue .choice:hover:not(:disabled),body.teyvat .shell-dialogue .choice:focus-visible{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-cream)}
+body.teyvat .shell-dialogue .choice .choice-index{display:grid;place-items:center;width:28px;height:28px;flex:0 0 28px;border-radius:50%;background:rgba(236,229,216,.16);font-size:.78rem;font-weight:700}
+body.teyvat .shell-dialogue .choice:hover .choice-index{background:var(--t-ink);color:var(--t-cream)}
+body.teyvat .shell-dialogue .story-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:8px;border-top:1px solid rgba(211,188,142,.14);font-size:.8rem}
+body.teyvat .shell-dialogue .story-toolbar button,body.teyvat .shell-dialogue .story-intermission-bar button{min-height:34px;padding:4px 14px;font-size:.8rem}
+body.teyvat .shell-dialogue .story-intermission-bar{display:flex;gap:10px;align-items:center;justify-content:flex-end;margin-top:6px;background:none;border:0;padding:0}
+body.teyvat .shell-dialogue .next-chapter{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 0;padding:10px 14px;border-radius:14px;background:rgba(211,188,142,.1);border:1px solid var(--t-line)}
+/* ---------- combat ---------- */
+body.teyvat .panel.combat-panel{height:100%;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto;grid-template-areas:"head" "order" "duo" "log";gap:8px 14px;padding:0;background:none;border:0;box-shadow:none;position:relative}
+body.teyvat .panel.combat-panel.with-info{grid-template-columns:minmax(230px,290px) minmax(0,1fr);grid-template-areas:"head head" "order order" "info duo" "info log"}
+body.teyvat .combat-panel>.battle-heading{grid-area:head;display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0;padding:0 2px}
+body.teyvat .combat-panel>.battle-heading .eyebrow{background:var(--t-cream);color:var(--t-ink);padding:2px 12px;border-radius:12px;font-weight:800;letter-spacing:.12em;font-size:.78rem}
+body.teyvat .combat-panel>.battle-heading h1{font-size:1.2rem;margin:0;text-shadow:0 2px 10px #000}
+body.teyvat .combat-panel>.battle-heading .battle-formation{padding:2px 10px;border-radius:10px;background:rgba(10,13,21,.7);border:1px solid var(--t-line)}
+body.teyvat .combat-panel>.battle-order{grid-area:order;margin:0;padding:2px 2px 4px;display:flex;gap:6px;overflow-x:auto;list-style:none}
+body.teyvat .combat-panel>.battle-order li{display:flex;align-items:center;gap:6px;padding:3px 12px 3px 3px;border-radius:18px;background:rgba(12,15,24,.78);border:1px solid rgba(255,255,255,.1);white-space:nowrap;font-size:.8rem;flex:0 0 auto}
+body.teyvat .combat-panel>.battle-order li>small:first-child{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.12);font-size:.7rem;color:var(--t-cream)}
+body.teyvat .combat-panel>.battle-order li.ally{border-color:rgba(143,198,230,.38)}
+body.teyvat .combat-panel>.battle-order li.enemy{border-color:rgba(255,155,138,.38)}
+body.teyvat .combat-panel>.battle-order li.current{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-gold);animation:shellGlow 1.8s ease-in-out infinite}
+body.teyvat .combat-panel>.battle-order li.current>small{color:var(--t-ink)}
+body.teyvat .combat-panel>.combat-duo{grid-area:duo;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:8px}
+body.teyvat .combat-panel .compact-battle-stage{flex:1;min-height:0;overflow:auto;padding:8px 2px 2px;margin:0}
+body.teyvat .combat-panel .combat-duo>.battle-command{position:static;max-height:none;overflow:visible;order:0}
+body.teyvat .combat-panel .battle-teams.compact-teams{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,300px);gap:14px;align-items:start;min-height:100%}
+body.teyvat .combat-panel .battle-teams>section{margin:0;min-width:0}
+body.teyvat .combat-panel .battle-teams>section>h2{font-size:.74rem;letter-spacing:.2em;color:var(--t-gold);margin:0 0 8px;text-shadow:0 1px 6px #000}
+body.teyvat .combat-panel .shell-enemies{order:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;align-content:start}
+body.teyvat .combat-panel .shell-enemies>h2{grid-column:1/-1}
+body.teyvat .combat-panel .shell-allies{order:2;display:flex;flex-direction:column;gap:8px}
+body.teyvat .combat-panel .combatant-row{margin:0;background:rgba(14,17,27,.84);border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:border-color .2s,box-shadow .2s,transform .2s}
+body.teyvat .combat-panel .shell-enemies .combatant-row{flex-direction:column;align-items:stretch;gap:6px;padding:10px 10px 12px;min-height:0;border:1px solid rgba(255,155,138,.24);position:relative}
+body.teyvat .combat-panel .shell-enemies .combat-portrait{width:100%;height:118px;object-fit:contain;border-radius:10px;background:radial-gradient(ellipse at 50% 75%,rgba(255,120,90,.2),transparent 70%)}
+body.teyvat .combat-panel .shell-enemies .combatant-row>button{min-height:34px;font-size:.78rem;padding:4px 10px}
+body.teyvat .combat-panel .shell-enemies .combatant-row.selected{border-color:#ffc27a;box-shadow:0 0 0 2px rgba(255,194,122,.5),0 0 24px rgba(255,130,70,.32);transform:translateY(-2px)}
+body.teyvat .combat-panel .shell-enemies .combatant-row.selected:before{content:'';position:absolute;top:-7px;left:50%;width:12px;height:12px;margin-left:-6px;transform:rotate(45deg);background:#ffc27a;box-shadow:0 0 12px #ff9a4a}
+body.teyvat .combat-panel .shell-enemies .meter i{background:linear-gradient(90deg,#d94f47,#ff9468)}
+body.teyvat .combat-panel .shell-allies .combatant-row{padding:8px 12px 8px 8px;min-height:64px;border:1px solid rgba(143,198,230,.22);border-radius:34px 14px 14px 34px}
+body.teyvat .combat-panel .shell-allies .combat-portrait,body.teyvat .combat-panel .shell-allies .combat-player-mark{width:48px;height:48px;flex:0 0 48px;border-radius:50%;object-fit:cover;object-position:top;background:rgba(236,229,216,.12);display:grid;place-items:center;border:2px solid rgba(236,229,216,.35)}
+body.teyvat .combat-panel .shell-allies .meter i{background:linear-gradient(90deg,#5fc06d,#b8ef9f)}
+body.teyvat .combat-panel .combatant-copy{min-width:0;flex:1}
+body.teyvat .combat-panel .combatant-copy strong{font-size:.92rem}
+body.teyvat .combat-panel .combatant-copy .stat{font-size:.76rem;margin:2px 0;font-variant-numeric:tabular-nums}
+body.teyvat .combat-panel .combatant-copy small{font-size:.72rem}
+body.teyvat .combat-panel .combatant-row.shell-acting{border-color:var(--t-gold-hi)!important;animation:shellGlow 1.8s ease-in-out infinite}
+body.teyvat .combat-panel .combatant-row.dead{opacity:.42;filter:grayscale(.85)}
+body.teyvat .combat-panel .battle-command{flex:0 0 auto;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:10px 14px;background:rgba(12,15,24,.86);border:1px solid var(--t-line);border-radius:18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body.teyvat .combat-panel .battle-command>h2{margin:0;font-size:1rem}
+body.teyvat .combat-panel .battle-command>p{margin:0;font-size:.84rem}
+body.teyvat .combat-panel .battle-cards{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+body.teyvat .combat-panel .battle-card-choice{display:flex;align-items:stretch}
+body.teyvat .combat-panel .battle-cards button[data-card-id]{min-width:112px;min-height:52px;display:flex;flex-direction:column;justify-content:center;gap:1px;padding:6px 14px;border-radius:16px 0 0 16px;border:1px solid rgba(236,229,216,.22);border-right:0;border-top:1px solid rgba(236,229,216,.22);background:rgba(255,255,255,.07)}
+body.teyvat .combat-panel .battle-cards button[data-card-id] strong{font-size:.9rem;line-height:1.3}
+body.teyvat .combat-panel .battle-cards button[data-card-id] small{font-size:.7rem;line-height:1.3}
+body.teyvat .combat-panel .battle-cards button[data-card-id].selected{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-cream);box-shadow:0 0 16px rgba(243,223,174,.45)}
+body.teyvat .combat-panel .battle-cards button[data-card-id].selected small{color:var(--t-ink-2)}
+body.teyvat .combat-panel .battle-cards button.skill-q:not(:disabled){border-color:rgba(243,223,174,.7)}
+body.teyvat .combat-panel .battle-cards button.skill-q:not(:disabled):not(.selected){animation:shellGlow 2.2s ease-in-out infinite}
+body.teyvat .combat-panel .battle-effect-button{min-height:0;padding:4px 10px;border-radius:0 16px 16px 0;font-size:.72rem;border-color:rgba(236,229,216,.22)}
+body.teyvat .combat-panel .skill-key{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--t-ink);color:var(--t-cream);font-size:.68rem;font-weight:800;margin-bottom:2px}
+body.teyvat .combat-panel .battle-execute{display:flex;gap:8px;align-items:center;margin-left:auto;flex-wrap:wrap}
+body.teyvat .combat-panel .battle-execute select{width:auto;min-width:190px;min-height:44px}
+body.teyvat .combat-panel .battle-execute button.primary{min-width:168px;min-height:48px;font-size:1rem}
+body.teyvat .combat-panel .battle-command .combat-speed{display:flex;align-items:center;gap:8px;font-size:.76rem;margin:0}
+body.teyvat .combat-panel .battle-command .combat-speed input{width:90px;min-height:0}
+body.teyvat .combat-panel .battle-retreat{display:flex;align-items:center;gap:10px;font-size:.78rem}
+body.teyvat .combat-panel .battle-retreat p{margin:0}
+body.teyvat .shell-battle-feed{flex:0 0 auto;display:flex;flex-direction:column;gap:2px;padding:0 6px;font-size:.78rem;color:var(--t-muted);pointer-events:none}
+body.teyvat .shell-battle-feed p{margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px #000;animation:shellFade .3s ease-out}
+body.teyvat .shell-battle-feed p:last-child{color:var(--t-cream)}
+body.teyvat .combat-panel>.battle-details{grid-area:log;margin:0;font-size:.8rem;align-self:end}
+body.teyvat .combat-panel>.battle-details>summary{display:inline-flex;padding:4px 12px;border-radius:14px;background:rgba(12,15,24,.7);border:1px solid rgba(255,255,255,.1)}
+body.teyvat .combat-panel>.battle-details[open] .log{max-height:28vh;overflow:auto;background:rgba(12,15,24,.9);border-radius:12px;padding:8px 12px;margin-top:6px}
+body.teyvat .shell-battle-info{grid-area:info;min-height:0;display:flex;flex-direction:column;gap:8px}
+body.teyvat .shell-battle-info-toggle{display:none}
+body.teyvat .shell-battle-info-body{min-height:0;overflow:auto;display:flex;flex-direction:column;gap:10px;padding-right:2px}
+body.teyvat .shell-battle-info-body>*{margin:0;background:rgba(14,17,27,.86);border:1px solid var(--t-line);border-radius:14px;padding:12px 14px;font-size:.84rem}
+body.teyvat .shell-battle-info-body h2,body.teyvat .shell-battle-info-body h3{font-size:.95rem;margin:0 0 6px}
+body.teyvat .combat-playback{background:rgba(14,17,27,.95);border:1px solid var(--t-line-2);border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.55)}
+body.teyvat .combat-playback .playback-buttons button{min-height:38px;padding:4px 14px}
+/* ---------- bag ---------- */
+body.teyvat .bag-cols{grid-template-columns:minmax(0,1fr) minmax(260px,320px)}
+body.teyvat .bag-cols .shell-col-main{overflow:hidden;display:flex}
+body.teyvat .bag-cols .bag-layout{flex:1;min-height:0;height:100%;grid-template-columns:minmax(0,1fr) minmax(250px,300px);align-items:stretch}
+body.teyvat .bag-cols .bag-grid{overflow:auto;min-height:0;align-content:start;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;padding:2px 6px 10px 2px}
+body.teyvat .bag-cols .bag-detail{position:static;overflow:auto;min-height:0;max-height:100%;background:linear-gradient(180deg,rgba(236,229,216,.07),rgba(236,229,216,.03));border-color:var(--t-line)}
+body.teyvat .bag-item{display:flex;flex-direction:column;align-items:stretch;padding:0;gap:0;border-radius:8px;overflow:hidden;border:1px solid transparent;background:var(--t-cream);color:var(--t-ink);min-height:0;position:relative;text-align:center}
+body.teyvat .bag-item .item-icon{width:100%;aspect-ratio:1/1;height:auto;object-fit:contain;padding:10%;box-sizing:border-box;background:linear-gradient(160deg,#5d6270,#8c909b);border-radius:0 0 22px 0}
+body.teyvat .bag-item.tier-2 .item-icon{background:linear-gradient(160deg,#3f6b52,#6c9f80)}
+body.teyvat .bag-item.tier-3 .item-icon{background:linear-gradient(160deg,#415f98,#6f94cf)}
+body.teyvat .bag-item.tier-4 .item-icon{background:linear-gradient(160deg,#5d4c93,#9a7fd0)}
+body.teyvat .bag-item.tier-5 .item-icon{background:linear-gradient(160deg,#9a6230,#d7a458)}
+body.teyvat .bag-item .item-count{display:block;font-size:.78rem;line-height:1.5;color:var(--t-ink);font-weight:700;padding:1px 4px}
+body.teyvat .bag-item .item-name{display:block;font-size:.66rem;line-height:1.35;padding:0 4px 4px;color:var(--t-ink-2)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.teyvat .bag-item .item-worn{position:absolute;top:4px;left:4px;font-size:.62rem;padding:0 6px;border-radius:8px;background:rgba(20,24,36,.8);color:var(--t-cream)}
+body.teyvat .bag-item:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 0 0 2px rgba(255,255,255,.85),0 6px 18px rgba(0,0,0,.4);background:#fff}
+body.teyvat .bag-item.selected,body.teyvat .bag-item[aria-pressed=true],body.teyvat .bag-cell.selected .bag-item{box-shadow:0 0 0 3px var(--t-gold-hi),0 0 18px rgba(243,223,174,.5)}
+body.teyvat .shell-bag-side{height:100%}
+body.teyvat .shell-bag-side .shell-pane>*{margin:0 0 12px}
+/* ---------- characters (gear) ---------- */
+body.teyvat .gear-cols{grid-template-columns:170px minmax(0,1fr) minmax(250px,300px)}
+body.teyvat .gear-cols:not(:has(.shell-col-roster)){grid-template-columns:minmax(0,1fr) minmax(250px,300px)}
+body.teyvat .shell-roster{display:flex;flex-direction:column;gap:8px}
+body.teyvat .shell-roster-item{display:flex;align-items:center;gap:10px;padding:6px 12px 6px 6px;border-radius:32px 14px 14px 32px;min-height:58px;text-align:left}
+body.teyvat .shell-roster-item.active{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-cream);box-shadow:0 0 14px rgba(243,223,174,.35)}
+body.teyvat .shell-roster-face{width:44px!important;height:44px!important;flex:0 0 44px;border-radius:50%;object-fit:cover;object-position:top;display:grid;place-items:center;background:rgba(236,229,216,.15)}
+body.teyvat .gear-cols .gear-members{display:block}
+body.teyvat .gear-cols .gear-member{background:rgba(255,255,255,.035);animation:shellFade .25s ease-out}
+body.teyvat .gear-cols .gear-member[hidden]{display:none}
+/* ---------- party ---------- */
+body.teyvat .party-cols{grid-template-columns:minmax(0,1.7fr) minmax(280px,1fr)}
+body.teyvat .party-cols .formation-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+body.teyvat .party-cols .formation-slot{background:linear-gradient(180deg,rgba(236,229,216,.08),rgba(236,229,216,.02));border:1px solid var(--t-line);border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:8px}
+body.teyvat .party-cols .member-select{display:flex;flex-direction:column;align-items:center;gap:6px;border-radius:14px;padding:10px 8px;text-align:center}
+body.teyvat .party-cols .party-portrait{width:100%;max-width:150px;aspect-ratio:3/4;height:auto;object-fit:cover;object-position:top;border-radius:12px;background:rgba(236,229,216,.1)}
+body.teyvat .party-cols .shell-col-side>*{margin:0 0 12px}
+body.teyvat .party-cols .formation-options{grid-template-columns:1fr;gap:6px}
+body.teyvat .party-cols .formation-option{border-radius:12px;padding:8px 12px}
+body.teyvat .formation-option.selected{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-cream)}
+body.teyvat .formation-option.selected strong,body.teyvat .formation-option.selected small{color:var(--t-ink)}
+body.teyvat .party-cols .formation-row{background:rgba(255,255,255,.04);border-color:var(--t-line)}
+body.teyvat .party-cols .formation-slot .member-select{background:transparent;border:0}
+body.teyvat .party-cols .formation-slot .member-select:hover{background:rgba(236,229,216,.08)}
+/* ---------- quests / bonds ---------- */
+body.teyvat .quest-cols{grid-template-columns:minmax(260px,360px) minmax(0,1fr)}
+body.teyvat .quest-cols .quest-track>*{margin:0 0 12px}
+body.teyvat .quest-cols .main-objective{border-left:3px solid var(--t-gold);background:linear-gradient(125deg,rgba(52,42,24,.85),rgba(18,22,34,.85));margin:0 0 12px}
+body.teyvat .quest-cols .quest-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-content:start}
+body.teyvat .quest-cols .quest-list>*{margin:0}
+body.teyvat .relations-body .relationship-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+/* ---------- floating guide ---------- */
+body.teyvat .content.shell-content>.learning-guide.shell-float-guide{position:fixed;right:18px;bottom:16px;z-index:36;width:min(360px,calc(100vw - 36px));max-height:42vh;overflow:auto;margin:0;background:rgba(20,24,37,.95);border:1px solid var(--t-line-2);border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.5);animation:shellIn .3s ease-out}
+body.teyvat[data-shell-screen=COMBAT] .content.shell-content>.learning-guide.shell-float-guide{display:none}
+/* ---------- Paimon menu ---------- */
+.paimon-menu{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:16px;background:radial-gradient(ellipse at 30% 35%,rgba(46,56,86,.55),rgba(5,7,12,.9));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;transition:opacity .18s ease}
+.paimon-menu.open{opacity:1}
+.paimon-menu .shell-icon{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.pm-box{position:relative;width:min(1000px,100%);max-height:calc(100dvh - 32px);overflow:auto;display:grid;grid-template-columns:290px minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;gap:18px 22px;padding:30px;border-radius:24px;background:rgba(17,21,33,.82);border:1px solid rgba(211,188,142,.3);box-shadow:0 30px 90px rgba(0,0,0,.6);transform:scale(.97) translateY(10px);transition:transform .24s cubic-bezier(.2,.8,.2,1)}
+.paimon-menu.open .pm-box{transform:none}
+.pm-card{grid-row:1/3;border-radius:18px;padding:22px 20px;background:linear-gradient(165deg,#f0e9dc,#d9cdb4);color:#39404f;position:relative;overflow:hidden}
+.pm-card:after{content:'';position:absolute;right:-40px;bottom:-40px;width:180px;height:180px;border-radius:50%;border:24px solid rgba(57,64,79,.06)}
+.pm-who{display:flex;flex-direction:column;gap:2px;margin-bottom:16px}
+.pm-who small{font-size:.72rem;letter-spacing:.2em;color:#8a7650}
+.pm-who strong{font-size:1.5rem;line-height:1.3}
+.pm-who span{font-size:.86rem;color:#5b6272}
+.pm-facts{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0;font-size:.86rem}
+.pm-facts dt{color:#8a7650}
+.pm-facts dd{margin:0;color:#39404f;font-weight:600}
+.pm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:12px;align-content:start}
+.pm-tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:112px;padding:14px 8px;border-radius:18px;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(236,229,216,.14);color:#f2ede3;cursor:pointer;transition:transform .15s,background .15s,border-color .15s,box-shadow .15s}
+.pm-tile:hover:not(:disabled),.pm-tile:focus-visible{transform:translateY(-3px);background:rgba(236,229,216,.1);border-color:rgba(243,223,174,.7);box-shadow:0 10px 26px rgba(0,0,0,.35),0 0 18px rgba(243,223,174,.2);outline:none}
+.pm-tile:disabled{opacity:.35;cursor:default}
+.pm-glyph{width:46px!important;height:46px!important;padding:10px;border-radius:50%;background:rgba(236,229,216,.12);color:#ece5d8;transition:background .15s,color .15s}
+.pm-tile:hover:not(:disabled) .pm-glyph{background:#ece5d8;color:#39404f}
+.pm-label{font-size:.9rem;font-weight:600}
+.pm-tile kbd{position:absolute;top:8px;right:10px;font:600 .66rem/1 system-ui,sans-serif;padding:3px 6px;border-radius:6px;background:rgba(255,255,255,.1);color:#d3bc8e}
+.pm-foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-top:14px;border-top:1px solid rgba(211,188,142,.18)}
+.pm-foot-button{display:flex;align-items:center;gap:8px;min-height:40px;padding:6px 14px 6px 10px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(236,229,216,.16);color:#f2ede3;cursor:pointer;font:inherit;font-size:.86rem}
+.pm-foot-button:hover:not(:disabled){border-color:rgba(243,223,174,.7);background:rgba(236,229,216,.12)}
+.pm-foot-button .shell-icon{width:18px;height:18px}
+.pm-close{position:absolute;top:14px;right:14px;width:40px;height:40px;min-height:40px;padding:0;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(236,229,216,.2);color:#ece5d8;cursor:pointer}
+body.shell-menu-open{overflow:hidden}
+/* ---------- toast ---------- */
+.shell-toast{position:fixed;left:50%;top:calc(var(--hud-h,62px) + 14px);transform:translate(-50%,-10px);opacity:0;z-index:440;max-width:min(640px,calc(100vw - 32px));padding:10px 22px;border-radius:22px;background:rgba(18,22,34,.95);border:1px solid rgba(211,188,142,.5);color:#f2ede3;box-shadow:0 10px 30px rgba(0,0,0,.45);pointer-events:none;transition:opacity .2s,transform .2s}
+.shell-toast.show{opacity:1;transform:translate(-50%,0)}
+/* ---------- modal ---------- */
+body.teyvat dialog#modal{background:linear-gradient(170deg,rgba(24,29,44,.98),rgba(14,17,27,.98));color:var(--t-text);border:1px solid var(--t-line-2);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:shellIn .25s ease-out}
+body.teyvat dialog#modal::backdrop{background:rgba(5,7,12,.7);backdrop-filter:blur(6px)}
+/* ---------- responsive ---------- */
+@media (max-width:1180px){
+ body.teyvat .hud-name,body.teyvat .hud-time{display:none}
+ body.teyvat .hud-hp{width:96px}
+ body.teyvat .panel.shell-loc{grid-template-columns:minmax(280px,320px) minmax(0,1fr)}
+ body.teyvat .shell-loc-main .terrain-layout{grid-template-columns:minmax(0,1fr) minmax(210px,250px)}
+ body.teyvat .gear-cols{grid-template-columns:150px minmax(0,1fr)}
+ body.teyvat .gear-cols>.shell-col-side{grid-column:2}
+ body.teyvat .gear-cols{overflow:auto}
+ body.teyvat .bag-cols{grid-template-columns:minmax(0,1fr)}
+ body.teyvat .bag-cols>.shell-col-side{max-height:40%}
+ body.teyvat .panel.combat-panel.with-info{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "order" "duo" "log"}
+ body.teyvat .panel.combat-panel.with-info>.shell-battle-info{position:absolute;top:0;right:0;z-index:6;width:min(360px,90%);align-items:flex-end}
+ body.teyvat .shell-battle-info-toggle{display:flex;align-items:center;gap:6px;min-height:36px;padding:4px 14px;border-radius:18px;background:rgba(14,17,27,.9)}
+ body.teyvat .shell-battle-info:not(.open)>.shell-battle-info-body{display:none}
+ body.teyvat .shell-battle-info.open>.shell-battle-info-body{max-height:62vh;width:100%}
+}
+@media (max-width:760px){
+ body.teyvat{--hud-h:52px;--dock-h:60px;font-size:14.5px}
+ body.teyvat #root>main{padding:calc(var(--hud-h) + 6px) 8px calc(var(--dock-h) + 8px)}
+ body.teyvat main>aside.shell-hud{gap:6px;padding:0 8px}
+ body.teyvat .hud-phase,body.teyvat .hud-hp,body.teyvat .hud-level .hud-name,body.teyvat .hud-tools .hud-tool:not(.hud-menu-button):not(.hud-handbook){display:none}
+ body.teyvat .hud-place{padding:4px 8px 4px 4px}
+ body.teyvat .hud-place-name{max-width:34vw;font-size:.92rem}
+ body.teyvat .hud-level-ring{width:32px;height:32px;flex-basis:32px}
+ body.teyvat .hud-mora{font-size:.8rem;padding:4px 10px 4px 6px}
+ body.teyvat .hud-tools{border-left:0;padding-left:0}
+ body.teyvat .hud-tool{width:38px;height:38px;min-height:38px}
+ body.teyvat nav.hud-nav{position:fixed;left:0;right:0;bottom:0;height:var(--dock-h);z-index:46;justify-content:space-around;gap:0;padding:4px 2px calc(4px + env(safe-area-inset-bottom));background:rgba(9,11,18,.96);border-top:1px solid rgba(211,188,142,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+ body.teyvat nav.hud-nav button.hud-nav-button{flex:1 1 0;width:auto;height:52px;min-height:52px;border-radius:14px;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:none}
+ body.teyvat nav.hud-nav button.hud-nav-button.active{background:rgba(236,229,216,.14);color:var(--t-gold-hi);box-shadow:none;border-color:transparent}
+ body.teyvat nav.hud-nav .hud-nav-label{position:static;opacity:1;transform:none;background:none;color:inherit;font-size:.6rem;font-weight:500;padding:0;letter-spacing:-.02em}
+ body.teyvat nav.hud-nav button[data-screen=SYSTEM],body.teyvat nav.hud-nav button[data-screen=RELATIONS]{display:none}
+ body.teyvat .shell-page-body{padding:10px}
+ body.teyvat .shell-cols,body.teyvat .shell-page-body.shell-cols{display:flex;flex-direction:column;overflow:auto}
+ body.teyvat .shell-cols>.shell-region{overflow:visible}
+ body.teyvat .shell-page-tabs.vertical{display:flex;flex-direction:column}
+ body.teyvat .shell-page-tabs.vertical>.shell-tabbar{flex-direction:row;border-right:0;border-bottom:1px solid rgba(211,188,142,.14)}
+ body.teyvat .panel.shell-loc{display:flex;flex-direction:column}
+ body.teyvat .shell-loc-tabs{height:100%;background:rgba(12,15,24,.55);border-radius:16px}
+ body.teyvat .shell-loc-tabs>.shell-panes{padding:0 8px 10px}
+ body.teyvat .shell-loc-tabs .shell-pane>*{margin:0 0 10px}
+ body.teyvat .shell-loc-tabs .shell-pane>section,body.teyvat .shell-loc-tabs .shell-pane>details{background:var(--t-glass);border:1px solid var(--t-line);border-radius:14px;padding:12px}
+ body.teyvat .shell-loc-tabs #journey-map .terrain-layout{display:flex!important;flex-direction:column}
+ body.teyvat .shell-loc-tabs .terrain-viewport{height:46vh!important}
+ body.teyvat .panel.shell-dialogue{margin:0 -8px -8px;padding:16px 16px 12px;max-height:70%}
+ body.teyvat .shell-story-figure{bottom:210px}
+ body.teyvat .shell-dialogue p.story{font-size:1.02rem;line-height:1.8}
+ body.teyvat .shell-dialogue .choice{width:100%}
+ body.teyvat .combat-panel .battle-teams.compact-teams{grid-template-columns:minmax(0,1fr)}
+ body.teyvat .combat-panel .shell-enemies{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+ body.teyvat .combat-panel .shell-enemies .combat-portrait{height:78px}
+ body.teyvat .combat-panel .battle-cards button[data-card-id]{min-width:88px}
+ body.teyvat .combat-panel .battle-execute{margin-left:0;width:100%}
+ body.teyvat .combat-panel .battle-execute select{flex:1;min-width:0}
+ body.teyvat .combat-panel .battle-execute button.primary{flex:1;min-width:0}
+ body.teyvat .content.shell-content>.learning-guide.shell-float-guide{bottom:calc(var(--dock-h) + 10px);right:8px;left:8px;width:auto;max-height:34vh}
+ .pm-box{grid-template-columns:1fr;padding:22px 16px;gap:14px}
+ .pm-card{grid-row:auto}
+ .pm-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .pm-tile{min-height:92px;padding:10px 4px}
+ .pm-glyph{width:40px!important;height:40px!important}
+}
+@media (prefers-reduced-motion:reduce){
+ body.teyvat *,.paimon-menu,.paimon-menu *{animation:none!important;transition:none!important}
+}
+html.reduce-motion body.teyvat *{animation:none!important}
+/* ---------- adventurer's handbook ---------- */
+.handbook{position:fixed;inset:0;z-index:310;display:grid;place-items:center;padding:16px;background:radial-gradient(ellipse at 60% 30%,rgba(46,56,86,.5),rgba(5,7,12,.9));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;transition:opacity .18s ease}
+.handbook.open{opacity:1}
+.handbook .shell-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.hb-book{position:relative;width:min(1120px,100%);height:min(780px,calc(100dvh - 32px));display:grid;grid-template-columns:230px minmax(0,1fr);border-radius:22px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.6);transform:scale(.97) translateY(10px);transition:transform .24s cubic-bezier(.2,.8,.2,1);border:1px solid rgba(211,188,142,.35)}
+.handbook.open .hb-book{transform:none}
+.hb-side{background:linear-gradient(180deg,#1b2131,#131826);color:#ece5d8;padding:22px 14px;display:flex;flex-direction:column;gap:18px;border-right:1px solid rgba(211,188,142,.25)}
+.hb-title{display:flex;align-items:center;gap:10px;padding:0 6px}
+.hb-title strong{font-size:1.1rem;letter-spacing:.04em}
+.hb-title small{margin-left:auto;font-size:.68rem;padding:2px 6px;border-radius:6px;background:rgba(255,255,255,.1);color:#d3bc8e}
+.hb-glyph{width:34px!important;height:34px!important;padding:6px;border-radius:50%;background:#ece5d8;color:#39404f}
+.hb-tabs{display:flex;flex-direction:column;gap:6px}
+.hb-tab{display:flex;align-items:center;gap:10px;min-height:46px;padding:8px 14px;border-radius:14px;background:transparent;border:1px solid transparent;color:#cfc8ba;font:inherit;font-size:.95rem;text-align:left;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.hb-tab:hover{background:rgba(236,229,216,.08);color:#fff;border-color:rgba(211,188,142,.3)}
+.hb-tab.active{background:#ece5d8;color:#39404f;font-weight:700;box-shadow:0 0 18px rgba(243,223,174,.25)}
+.hb-page{background:linear-gradient(180deg,#efe8db,#e6dccb);color:#39404f;display:flex;flex-direction:column;min-height:0}
+.hb-head{height:auto;display:block;background:none;padding:20px 28px 10px;border-bottom:1px solid rgba(57,64,79,.12)}
+.hb-head h2{margin:0;font-size:1.35rem;color:#39404f}
+.hb-body{flex:1;min-height:0;overflow:auto;padding:14px 28px 28px;animation:shellFade .22s ease-out}
+.hb-body *{scrollbar-color:rgba(57,64,79,.35) transparent}
+.hb-section{margin:0 0 20px}
+.hb-section>h3{font-size:1rem;margin:10px 0 4px;color:#8a6d3b;display:flex;align-items:center;gap:8px}
+.hb-section>h3:before{content:'';width:8px;height:8px;transform:rotate(45deg);background:#c9a86a}
+.hb-note{font-size:.84rem;color:#6b6f7c;margin:0 0 10px;line-height:1.6}
+.hb-row{display:flex;align-items:center;gap:14px;padding:12px 14px;margin:0 0 8px;border-radius:14px;background:#f8f4ec;border:1px solid rgba(57,64,79,.1);transition:transform .15s,box-shadow .15s}
+.hb-row:hover{transform:translateX(3px);box-shadow:0 6px 18px rgba(57,64,79,.12)}
+.hb-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.hb-copy strong{font-size:.98rem;color:#2f3544}
+.hb-copy small{font-size:.8rem;color:#6b6f7c}
+.hb-copy .hb-reason{color:#a0522d}
+.hb-chip{display:inline-block;align-self:flex-start;font-size:.7rem;font-weight:700;padding:1px 9px;border-radius:9px;background:rgba(57,64,79,.1);color:#39404f}
+.hb-chip.ok{background:#dbeed4;color:#35683a}.hb-chip.wait{background:#efe0c4;color:#8a5a19}.hb-chip.warn{background:#f3d6d0;color:#9a3b2c}.hb-chip.blue{background:#d6e4f3;color:#2d5a8a}.hb-chip.gold{background:#f1e2bb;color:#7c5a14}
+.hb-guide{display:flex;align-items:center;gap:6px;min-height:38px;padding:6px 14px 6px 10px;border-radius:19px;background:#39404f;color:#ece5d8;border:1px solid #39404f;font:inherit;font-size:.84rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.hb-guide:hover:not(:disabled){background:#4a5266;box-shadow:0 0 0 2px rgba(211,188,142,.6)}
+.hb-guide:disabled{opacity:.55;cursor:default}
+.hb-guide.here{background:transparent;color:#39404f;border-color:rgba(57,64,79,.3)}
+.hb-hero{display:flex;gap:18px;align-items:stretch;flex-wrap:wrap;margin:6px 0 18px}
+.hb-level{flex:1 1 260px;padding:16px 18px;border-radius:16px;background:linear-gradient(135deg,#39404f,#2b3140);color:#ece5d8;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:14px;align-items:center}
+.hb-level small{grid-column:1/-1;font-size:.72rem;letter-spacing:.18em;color:#d3bc8e}
+.hb-level b{font-size:2.2rem;line-height:1;grid-row:2}
+.hb-level span{font-size:.84rem;color:#cfc8ba;grid-row:2}
+.hb-xp{grid-column:1/-1;height:6px;border-radius:4px;background:rgba(255,255,255,.15);overflow:hidden;margin-top:10px}
+.hb-xp i{display:block;height:100%;background:linear-gradient(90deg,#d3bc8e,#f3dfae)}
+.hb-party{flex:1 1 260px;display:flex;flex-wrap:wrap;gap:6px;align-content:center}
+.hb-party .hb-chip{font-size:.8rem;padding:4px 12px;border-radius:14px;background:#f8f4ec;border:1px solid rgba(57,64,79,.12)}
+.hb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.hb-stat{padding:14px 16px;border-radius:14px;background:#f8f4ec;border:1px solid rgba(57,64,79,.1)}
+.hb-stat small{font-size:.74rem;color:#8a6d3b;letter-spacing:.06em}
+.hb-stat strong{display:block;font-size:1.3rem;color:#2f3544;margin:2px 0}
+.hb-stat p{margin:0;font-size:.78rem;color:#6b6f7c;line-height:1.5}
+.hb-stat.spent strong{color:#9a8c75}
+.hb-table{width:100%;border-collapse:separate;border-spacing:0;font-size:.84rem;background:#f8f4ec;border-radius:14px;overflow:hidden;border:1px solid rgba(57,64,79,.1)}
+.hb-table th{text-align:left;padding:8px 12px;background:#39404f;color:#ece5d8;font-weight:600}
+.hb-table td{padding:8px 12px;border-top:1px solid rgba(57,64,79,.08)}
+.hb-table tr.locked td{color:#9a9aa3}
+.hb-floors{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin-top:12px}
+.hb-floor{padding:12px 8px;border-radius:12px;text-align:center;background:#f8f4ec;border:1px solid rgba(57,64,79,.12);display:flex;flex-direction:column;gap:2px}
+.hb-floor b{font-size:1.05rem;color:#2f3544}.hb-floor small{font-size:.72rem;color:#6b6f7c}
+.hb-floor.cleared{background:linear-gradient(160deg,#f3e3bd,#e8d09a);border-color:#c9a86a}
+.hb-floor.locked{opacity:.55}
+.hb-filter{display:flex;gap:6px;margin:0 0 12px}
+.hb-filter-button{min-height:34px;padding:4px 14px;border-radius:17px;background:#f8f4ec;border:1px solid rgba(57,64,79,.15);color:#39404f;font:inherit;font-size:.84rem;cursor:pointer}
+.hb-filter-button.active{background:#39404f;color:#ece5d8;border-color:#39404f}
+.hb-companions{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.hb-companion{padding:12px 14px;border-radius:14px;background:#f8f4ec;border:1px solid rgba(57,64,79,.1);display:flex;flex-direction:column;gap:4px}
+.hb-companion strong{color:#2f3544}.hb-companion small{font-size:.78rem;color:#6b6f7c}
+.hb-companion.owned{background:linear-gradient(160deg,#f6ecd4,#efe0bb);border-color:#d3bc8e}
+.hb-reqs{margin:4px 0 0;padding:0 0 0 16px;font-size:.76rem;color:#6b6f7c}
+.hb-reqs li.met{color:#35683a}.hb-reqs li.unmet{color:#9a3b2c}
+.hb-close{position:absolute;top:14px;right:14px;width:40px;height:40px;min-height:40px;padding:0;border-radius:50%;display:grid;place-items:center;background:#39404f;border:0;color:#ece5d8;cursor:pointer;z-index:2}
+.hb-close:hover{box-shadow:0 0 0 3px rgba(211,188,142,.55)}
+@media (max-width:760px){
+ .hb-book{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);height:calc(100dvh - 16px)}
+ .handbook{padding:8px}
+ .hb-side{padding:12px 10px;gap:10px;border-right:0;border-bottom:1px solid rgba(211,188,142,.25)}
+ .hb-tabs{flex-direction:row;overflow-x:auto}
+ .hb-tab{flex:0 0 auto;min-height:40px;padding:6px 12px;font-size:.85rem}
+ .hb-head{padding:14px 16px 8px}.hb-body{padding:10px 14px 20px}
+ .hb-row{flex-wrap:wrap}
+}
+/* ---------- accent, glass borders, ornaments ---------- */
+body.teyvat main>aside.shell-hud::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;background:linear-gradient(90deg,transparent 0,rgba(var(--acc-rgb),.9) 50%,transparent 100%);background-size:50% 100%;background-repeat:no-repeat;animation:shellHudLine 9s ease-in-out infinite;opacity:.75}
+@keyframes shellHudLine{0%{background-position:-60% 0}50%{background-position:160% 0}100%{background-position:-60% 0}}
+body.teyvat nav.hud-nav button.hud-nav-button.active{box-shadow:0 0 0 3px rgba(var(--acc-rgb),.38),0 0 20px rgba(var(--acc-rgb),.5)}
+body.teyvat nav.hud-nav button.hud-nav-button:hover:not(:disabled){border-color:rgba(var(--acc-rgb),.75);box-shadow:0 0 16px rgba(var(--acc-rgb),.35)}
+body.teyvat .shell-tab.active{box-shadow:0 0 0 2px rgba(var(--acc-rgb),.35),0 0 16px rgba(var(--acc-rgb),.3)}
+body.teyvat .shell-loc-left>section:not(.shell-loc-side),body.teyvat .shell-loc-left>details,body.teyvat .shell-loc-left>.card,body.teyvat .shell-loc-left>.next-chapter,body.teyvat .shell-loc-main>#journey-map,body.teyvat .shell-loc-side,body.teyvat .panel.shell-page,body.teyvat .combat-panel .battle-command{border:1px solid transparent;background:linear-gradient(var(--t-glass),var(--t-glass)) padding-box,linear-gradient(140deg,rgba(var(--acc-rgb),.55),rgba(255,255,255,.07) 34%,rgba(255,255,255,.04) 66%,rgba(211,188,142,.42)) border-box}
+body.teyvat .panel.shell-page{background:linear-gradient(160deg,rgba(18,22,40,.93),rgba(10,13,24,.93)) padding-box,linear-gradient(140deg,rgba(var(--acc-rgb),.55),rgba(255,255,255,.07) 34%,rgba(255,255,255,.04) 66%,rgba(211,188,142,.42)) border-box}
+body.teyvat .shell-loc-left .main-objective{background:linear-gradient(125deg,rgba(54,44,24,.9),rgba(16,20,34,.88)) padding-box,linear-gradient(140deg,rgba(var(--acc-rgb),.7),rgba(211,188,142,.4)) border-box;border-left:3px solid var(--acc)}
+body.teyvat .shell-loc-left .main-objective h3:before{color:var(--acc-2)}
+body.teyvat .shell-page-head{background:linear-gradient(90deg,rgba(var(--acc-rgb),.14),transparent 55%)}
+body.teyvat .page-glyph{box-shadow:0 0 0 3px rgba(var(--acc-rgb),.3),0 0 18px rgba(var(--acc-rgb),.3)}
+body.teyvat .panel.shell-page::before{content:'';position:absolute;top:8px;left:8px;width:9px;height:9px;transform:rotate(45deg);border:1px solid rgba(var(--acc-rgb),.7);pointer-events:none}
+body.teyvat .panel.shell-page{position:relative}
+body.teyvat :where(#root,#modal) button.primary:hover:not(:disabled){box-shadow:0 0 0 2px rgba(var(--acc-rgb),.55),0 0 22px rgba(var(--acc-rgb),.38)}
+body.teyvat input:focus-visible,body.teyvat select:focus-visible,body.teyvat button:focus-visible,body.teyvat summary:focus-visible{outline-color:var(--acc-2)}
+body.teyvat .hud-bar i{box-shadow:0 0 8px rgba(160,240,150,.5)}
+/* Primary buttons get a light sweep on hover. */
+body.teyvat :where(#root,#modal) button.primary{background-image:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);background-size:250% 100%;background-position:120% 0;background-repeat:no-repeat;background-color:var(--t-cream)}
+body.teyvat :where(#root,#modal) button.primary:hover:not(:disabled){background-position:-20% 0;transition:background-position .6s ease,box-shadow .2s,transform .12s}
+/* ---------- travel and work screens ---------- */
+body.teyvat .travel-overlay{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;margin:0;border:0;border-radius:0;transform:none;width:auto;max-width:none;background:radial-gradient(ellipse at 50% 58%,rgba(var(--acc-rgb),.14),transparent 55%),linear-gradient(180deg,#060810,#0c1120 70%,#070912);color:var(--t-text);animation:shellFade .35s ease-out;box-shadow:none}
+body.teyvat .travel-overlay .travel-mark{display:block;font-size:0;width:88px;height:88px;margin-bottom:10px;border-radius:50%;border:2px solid rgba(var(--acc-rgb),.55);box-shadow:0 0 34px rgba(var(--acc-rgb),.35),inset 0 0 24px rgba(var(--acc-rgb),.2);position:relative;animation:shellSpin 7s linear infinite}
+body.teyvat .travel-overlay .travel-mark::before{content:'';position:absolute;inset:20px;transform:rotate(45deg);border:2px solid var(--acc-2);box-shadow:0 0 16px rgba(var(--acc-rgb),.6)}
+body.teyvat .travel-overlay .travel-mark::after{content:'';position:absolute;inset:36px;border-radius:50%;background:var(--acc-2);box-shadow:0 0 18px var(--acc)}
+body.teyvat .travel-overlay strong{font-family:var(--font-display);font-size:1.9rem;letter-spacing:.14em;color:#fff;text-shadow:0 0 18px rgba(var(--acc-rgb),.5)}
+body.teyvat .travel-overlay>span:not(.travel-mark){font-size:.95rem;color:var(--t-muted);letter-spacing:.06em}
+body.teyvat .travel-overlay progress{width:min(440px,72vw);height:4px;border:0;border-radius:4px;overflow:hidden;background:rgba(255,255,255,.12);appearance:none;-webkit-appearance:none;margin-top:12px}
+body.teyvat .travel-overlay progress::-webkit-progress-bar{background:rgba(255,255,255,.12)}
+body.teyvat .travel-overlay progress::-webkit-progress-value{background:linear-gradient(90deg,var(--t-gold),var(--acc-2));box-shadow:0 0 10px var(--acc)}
+body.teyvat .travel-overlay progress::-moz-progress-bar{background:linear-gradient(90deg,var(--t-gold),var(--acc-2))}
+body.teyvat .travel-overlay .shell-tip{position:absolute;bottom:8vh;left:50%;transform:translateX(-50%);width:min(640px,86vw);text-align:center;font-size:.86rem;color:var(--t-muted);line-height:1.6}
+body.teyvat .travel-overlay .shell-tip b{color:var(--acc-2);font-weight:700;margin-right:8px;font-family:var(--font-latin);letter-spacing:.14em}
+/* ---------- level-up banner ---------- */
+.shell-levelup{position:fixed;z-index:520;left:0;right:0;top:28%;display:flex;flex-direction:column;align-items:center;gap:4px;pointer-events:none;padding:22px 0;background:linear-gradient(90deg,transparent,rgba(10,13,24,.9) 20%,rgba(10,13,24,.9) 80%,transparent);border-top:1px solid rgba(211,188,142,.45);border-bottom:1px solid rgba(211,188,142,.45);animation:shellLevel 2.8s cubic-bezier(.2,.8,.2,1) forwards}
+.shell-levelup small{font:700 .8rem/1 'Cinzel','Gowun Batang',serif;letter-spacing:.3em;color:#d3bc8e}
+.shell-levelup strong{font:700 2.1rem/1.3 'Gowun Batang',serif;color:#fff;text-shadow:0 0 22px rgba(243,223,174,.6)}
+.shell-levelup span{font-size:1rem;color:#f3dfae;letter-spacing:.08em}
+@keyframes shellLevel{0%{opacity:0;transform:scaleY(.2)}12%{opacity:1;transform:scaleY(1)}80%{opacity:1}100%{opacity:0;transform:translateY(-12px)}}
+/* ---------- loot tiles ---------- */
+body.teyvat .loot-item{border-radius:10px;overflow:hidden;background:var(--t-cream);color:var(--t-ink);border:0}
+body.teyvat .loot-item strong{color:var(--t-ink)}
+/* ---------- battle v2: standees, party list, round skills ---------- */
+body.teyvat[data-mode=battle] .world-backdrop:after{background:radial-gradient(ellipse at 50% 40%,transparent 30%,rgba(6,7,14,.7) 100%),linear-gradient(180deg,rgba(8,10,16,.75),rgba(8,10,16,.15) 22%,rgba(8,10,16,.3) 70%,rgba(8,10,16,.92))}
+body.teyvat .combat-panel .shell-enemies{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px 14px;padding-top:6px}
+body.teyvat .combat-panel .shell-enemies .combatant-row{background:transparent;border:0;border-radius:18px;padding:6px 6px 10px;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;align-items:center;text-align:center}
+body.teyvat .combat-panel .shell-enemies .combatant-row::before{content:'';position:absolute;left:12%;right:12%;top:146px;height:18px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.55),transparent 70%);pointer-events:none;transform:none;width:auto;margin:0;box-shadow:none}
+body.teyvat .combat-panel .shell-enemies .combat-portrait{height:150px;width:100%;object-fit:contain;background:none;filter:drop-shadow(0 10px 18px rgba(0,0,0,.55));border-radius:0;position:relative;z-index:1}
+body.teyvat .combat-panel .shell-enemies .combatant-row.selected{transform:translateY(-4px);box-shadow:none}
+body.teyvat .combat-panel .shell-enemies .combatant-row.selected .combat-portrait{filter:drop-shadow(0 0 14px rgba(255,190,110,.85)) drop-shadow(0 10px 18px rgba(0,0,0,.55))}
+body.teyvat .combat-panel .shell-enemies .combatant-row.selected::before{background:radial-gradient(ellipse,rgba(255,180,90,.75),rgba(255,140,60,.25) 55%,transparent 72%);animation:shellPulse 1.6s ease-in-out infinite}
+body.teyvat .combat-panel .shell-enemies .combatant-row.selected::after{opacity:0}
+@keyframes shellPulse{0%,100%{opacity:.7;transform:scaleX(1)}50%{opacity:1;transform:scaleX(1.12)}}
+body.teyvat .combat-panel .shell-enemies .combatant-copy{width:100%;display:flex;flex-direction:column;align-items:center;gap:2px}
+body.teyvat .combat-panel .shell-enemies .combatant-copy strong{font-size:.95rem;text-shadow:0 2px 8px #000;display:flex;align-items:baseline;gap:6px;justify-content:center;flex-wrap:wrap}
+body.teyvat .combat-panel .shell-level{font:700 .72rem/1 var(--font-latin);letter-spacing:.06em;color:#ffd7a0;background:rgba(10,12,20,.75);padding:2px 6px;border-radius:6px}
+body.teyvat .combat-panel .shell-enemies .meter{width:100%;height:7px;background:rgba(10,12,20,.75);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);border-radius:5px}
+body.teyvat .combat-panel .meter i{transition:width .6s cubic-bezier(.2,.8,.2,1)}
+body.teyvat .combat-panel .shell-enemies .combatant-copy .stat{font-size:.72rem;color:var(--t-muted);text-shadow:0 1px 4px #000}
+body.teyvat .combat-panel .shell-enemies .combatant-row>button{min-height:30px;padding:2px 12px;font-size:.74rem;border-radius:15px;background:rgba(10,12,20,.72)}
+body.teyvat .combat-panel .shell-enemies .combatant-row.selected>button:not(.enemy-info-button){background:#ffc27a;color:#3a2410;border-color:#ffc27a;font-weight:700}
+body.teyvat .combat-panel .combatant-row[data-aura]::marker{content:none}
+body.teyvat .combat-panel .combatant-row[data-aura] .combatant-copy strong::after{content:'';display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:6px;background:var(--aura,#fff);box-shadow:0 0 8px var(--aura,#fff);vertical-align:middle}
+body.teyvat .combatant-row[data-aura=pyro]{--aura:#ff7a45}body.teyvat .combatant-row[data-aura=hydro]{--aura:#4cc2f1}body.teyvat .combatant-row[data-aura=cryo]{--aura:#a6e4f2}body.teyvat .combatant-row[data-aura=electro]{--aura:#c79bff}body.teyvat .combatant-row[data-aura=anemo]{--aura:#74e0c2}body.teyvat .combatant-row[data-aura=geo]{--aura:#f5c542}body.teyvat .combatant-row[data-aura=dendro]{--aura:#a5d63b}
+body.teyvat .combat-panel .shell-allies{counter-reset:ally}
+body.teyvat .combat-panel .shell-allies .combatant-row{counter-increment:ally;padding:6px 12px 6px 6px;min-height:62px;border-radius:36px 16px 16px 36px;background:linear-gradient(90deg,rgba(14,17,30,.92),rgba(14,17,30,.7));border:1px solid rgba(143,198,230,.2)}
+body.teyvat .combat-panel .shell-allies .combatant-row::before{content:counter(ally);position:absolute;right:10px;top:8px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font:700 .7rem/1 var(--font-latin);background:rgba(236,229,216,.14);color:var(--t-cream)}
+body.teyvat .combat-panel .shell-allies .combatant-row.shell-acting{background:linear-gradient(90deg,rgba(var(--acc-rgb),.28),rgba(14,17,30,.82));border-color:rgba(var(--acc-rgb),.85)!important;transform:translateX(-6px)}
+body.teyvat .combat-panel .shell-allies .combatant-row.shell-acting::before{background:var(--t-cream);color:var(--t-ink)}
+body.teyvat .combat-panel .shell-allies .combatant-row.dead .combat-portrait{filter:grayscale(1)}
+body.teyvat .combat-panel>.battle-order li.down{opacity:.4;text-decoration:line-through}
+body.teyvat .combat-panel .battle-cards{gap:10px}
+body.teyvat .combat-panel .battle-card-choice{position:relative}
+body.teyvat .combat-panel .battle-cards button[data-card-id]{display:grid;grid-template-columns:auto auto;grid-template-rows:auto auto;column-gap:10px;align-items:center;justify-items:start;min-width:132px;min-height:58px;padding:6px 14px 6px 6px;border-radius:30px 0 0 30px}
+body.teyvat .combat-panel .battle-cards button[data-card-id] .shell-card-glyph{grid-row:1/3;width:44px;height:44px;margin:0;border-radius:50%;display:grid;place-items:center;font:800 1.05rem/1 var(--font-latin);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.28),rgba(255,255,255,.06) 60%),rgba(20,24,40,.9);color:var(--t-cream);border:2px solid rgba(236,229,216,.5);box-shadow:inset 0 0 10px rgba(255,255,255,.08)}
+body.teyvat .combat-panel .battle-cards button[data-card-id] .shell-card-glyph .shell-icon{width:22px;height:22px}
+body.teyvat .combat-panel .battle-cards button[data-card-id].selected .shell-card-glyph{border-color:var(--t-ink);background:var(--t-ink);color:var(--t-cream)}
+body.teyvat .combat-panel .battle-cards button.skill-e .shell-card-glyph{border-color:rgba(var(--acc-rgb),.9);box-shadow:0 0 12px rgba(var(--acc-rgb),.45)}
+body.teyvat .combat-panel .shell-burst button.skill-q .shell-card-glyph{width:50px;height:50px;border-color:#ffe39a;background:radial-gradient(circle at 35% 30%,rgba(255,240,200,.55),rgba(255,200,90,.25) 55%),rgba(40,30,12,.95);color:#fff4d6;box-shadow:0 0 18px rgba(255,210,110,.6)}
+body.teyvat .combat-panel .shell-burst button.skill-q:not(:disabled) .shell-card-glyph{animation:shellBurst 2s ease-in-out infinite}
+@keyframes shellBurst{0%,100%{box-shadow:0 0 12px rgba(255,210,110,.45)}50%{box-shadow:0 0 26px rgba(255,215,120,.95),0 0 0 4px rgba(255,215,120,.22)}}
+body.teyvat .combat-panel .battle-cards button[data-cd]::before{content:attr(data-cd);position:absolute;left:6px;top:50%;width:44px;height:44px;margin-top:-22px;border-radius:50%;display:grid;place-items:center;background:rgba(6,8,14,.72);color:#fff;font:800 1.2rem/1 var(--font-latin);z-index:2}
+body.teyvat .combat-panel .battle-cards button[data-card-id] strong{grid-column:2;font-size:.88rem}
+body.teyvat .combat-panel .battle-cards button[data-card-id] small{grid-column:2;font-size:.68rem}
+body.teyvat .combat-panel .battle-effect-button{border-radius:0 30px 30px 0;padding:4px 12px 4px 8px}
+body.teyvat .combat-panel .battle-execute button.primary{min-width:180px;min-height:52px;font-size:1.04rem;border-radius:26px;box-shadow:0 0 0 2px rgba(var(--acc-rgb),.35),0 6px 20px rgba(0,0,0,.4)}
+/* battle v2 refinements: enemies fill the stage, their art fades into the scene */
+body.teyvat .combat-panel .compact-battle-stage{display:flex;flex-direction:column}
+body.teyvat .combat-panel .battle-teams.compact-teams{flex:1;align-items:stretch}
+body.teyvat .combat-panel .shell-enemies{--enemy-h:clamp(120px,24vh,240px);grid-template-columns:repeat(auto-fit,minmax(170px,250px));justify-content:center;align-content:center;min-height:100%}
+body.teyvat .combat-panel .shell-enemies>h2{justify-self:start}
+body.teyvat .combat-panel .shell-enemies .combat-portrait{height:var(--enemy-h);object-fit:cover;-webkit-mask-image:radial-gradient(ellipse 72% 68% at 50% 48%,#000 52%,transparent 100%);mask-image:radial-gradient(ellipse 72% 68% at 50% 48%,#000 52%,transparent 100%);filter:saturate(1.08) contrast(1.04)}
+body.teyvat .combat-panel .shell-enemies .combatant-row::before{top:calc(var(--enemy-h) - 18px);height:22px}
+body.teyvat .combat-panel .shell-enemies .combatant-row:not(.selected)::before{opacity:.0}
+body.teyvat .combat-panel .shell-enemies .combatant-row::after{display:none}
+body.teyvat .combat-panel .shell-enemies .combatant-row.tiltable.is-tilting{box-shadow:none}
+body.teyvat .combat-panel .shell-enemies .combatant-row.tiltable.is-tilting .combat-portrait{filter:saturate(1.15) brightness(1.08) drop-shadow(0 0 10px rgba(var(--acc-rgb),.5))}
+body.teyvat .combat-panel .shell-enemies .combatant-row.dead{opacity:.35}
