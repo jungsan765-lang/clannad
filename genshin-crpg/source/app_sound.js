@@ -3,8 +3,9 @@
  * official web-event sounds. Nothing is synthesised at run time. Each game sound has one or more candidates; the
  * first is the default and the player can audition and pick another in 설정 → 소리 · 효과음 고르기
  * (settings.sfxChoice). Plain hits take the attacker's colour where a recording exists (a bow user's shot, a
- * hilichurl's blow), and artifacts sound different from gear when equipped. The earlier battle-start and hit sounds
- * (made by this project; the player asked for the old battle start back) are offered as recorded files (prev_*).
+ * hilichurl's blow), and artifacts sound different from gear when equipped. Sounds made by this project are offered as
+ * recorded files: the earlier battle start and hit (prev_*, the player asked for the old battle start back) and the
+ * dendro leaf slices (made_*, the player asked for a new grass slicing sound).
  * Volume and on/off follow the existing 소리 settings. Load after app_av.js. */
 (function(){
 'use strict';
@@ -50,8 +51,8 @@ const CHOICES={
  ice:[['ice','웹 이벤트 얼음']],
  lightning:[['ig_thunder_sphere','본편 번개 구체']],
  wind:[['wind','웹 이벤트 바람']],
- rock:[['ig_door_rise','본편 비경 문이 솟는 소리'],['ig_domain_close_slam','본편 비경이 닫히며 쿵']],
- dendro:[['ig_unarm1','본편 무기 넣기 1'],['ig_unarm2','본편 무기 넣기 2']],
+ rock:[['ig_door_rise_early','본편 비경 문이 솟는 소리(앞부분)']],
+ dendro:[['made_dendro_slice','새로 만든 풀 베기 (서걱)'],['made_dendro_slice2','새로 만든 풀 베기 (서걱서걱)'],['made_dendro_whirl','새로 만든 풀 베기 (휘익-서걱)']],
  melt:[['fire','웹 이벤트 불']],
  vaporize:[['ig_swim_splash_b','본편 물보라 2']],
  overload:[['ig_thunder_sphere2','본편 번개 구체 2']],
