@@ -9,10 +9,11 @@
 <script>
 /* PC frame. On a desktop browser the game runs inside a frame whose page size follows the window at the chosen
    screen size (설정 → 화면 크기: 작게/보통/크게, 보통 = the browser's own size), but never below 1280×720, never taller
-   than 1200 and never wider than about 2:1. Outside those limits the whole frame is scaled to fit, so very small,
-   very large or very wide windows keep the same layout instead of breaking it. Inside the frame the page sees an
-   ordinary window of that size, so layout, clicks and positions work unchanged. Phones and tablets, automated
-   browsers and ?frame=0 keep the responsive page. */
+   than 1600 (at 보통; the limit moves with the chosen size, so 작게 and 크게 still differ on very large monitors) and
+   never wider than about 2:1. Outside those limits the whole frame is scaled to fit, so very small, very large or
+   very wide windows keep the same layout instead of breaking it. Inside the frame the page sees an ordinary window of
+   that size, so layout, clicks and positions work unchanged. Phones and tablets, automated browsers and ?frame=0
+   keep the responsive page. */
 (function(){
  try{
   var q=new URLSearchParams(location.search);
@@ -26,8 +27,12 @@
    // CSS zoom renders the game at the enlarged size (crisp text); where zoom does not scale the frame and its page
    // together, fall back to transform: scale.
    var mode='zoom',w=1280,h=720,s=1;
-   var size=function(){try{return {small:.85,large:1.2}[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||1;}catch(e){return 1;}};
-   var fit=function(){var W=innerWidth,H=innerHeight,k=size();h=Math.round(Math.max(720,Math.min(1200,H/k)));w=Math.round(Math.max(1280,Math.min(W/k,h*1.92)));s=Math.min(W/w,H/h);var x=(W-w*s)/2,y=(H-h*s)/2;f.style.width=w+'px';f.style.height=h+'px';
+   var SIZES={small:.85,large:1.2};
+   var size=function(){try{return SIZES[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||1;}catch(e){return 1;}};
+   // The page size and scale this window gives a screen size k (also used by the setting to show what each choice does).
+   var measure=function(k){var W=innerWidth,H=innerHeight,mh=Math.round(Math.max(720,Math.min(1600/k,H/k))),mw=Math.round(Math.max(1280,Math.min(W/k,mh*1.92)));return {w:mw,h:mh,s:Math.min(W/mw,H/mh)};};
+   window.CRPGFrameMeasure=function(name){return measure(SIZES[name]||1);};
+   var fit=function(){var W=innerWidth,H=innerHeight,m=measure(size());w=m.w;h=m.h;s=m.s;var x=(W-w*s)/2,y=(H-h*s)/2;f.style.width=w+'px';f.style.height=h+'px';
     if(mode==='zoom'){f.style.transform='';f.style.zoom=String(s);f.style.left=(x/s)+'px';f.style.top=(y/s)+'px';}
     else{f.style.zoom='';f.style.left='0';f.style.top='0';f.style.transform='translate('+Math.round(x)+'px,'+Math.round(y)+'px) scale('+s+')';}};
    var check=function(){if(mode!=='zoom')return;var ok=Math.abs(f.getBoundingClientRect().width-w*s)<3;try{if(f.contentWindow.innerWidth)ok=ok&&Math.abs(f.contentWindow.innerWidth-w)<3;}catch(e){}if(!ok){mode='transform';fit();}};

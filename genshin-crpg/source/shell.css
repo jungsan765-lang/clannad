@@ -87,6 +87,9 @@ body.teyvat .tiltable.is-tilting img{transform:translate3d(var(--px,0px),var(--p
 body.teyvat .tiltable img{transition:transform .45s cubic-bezier(.2,.8,.2,1)}
 /* ---------- HUD ---------- */
 body.teyvat main>aside.shell-hud{position:fixed;inset:0 0 auto 0;height:var(--hud-h);z-index:45;display:flex;align-items:center;gap:12px;padding:0 14px;margin:0;background:none;border-bottom:1px solid rgba(211,188,142,.16);box-sizing:border-box}
+/* The old sidebar rule (style.css: aside{max-height;overflow-y:auto}) must not apply to the bar: the icon labels hang
+   below it, and a scrolling bar showed a small up-and-down scrollbar at its right end. */
+body.teyvat main>aside.shell-hud{max-height:none;overflow:visible;overscroll-behavior:auto}
 /* The blur sits on a pseudo-element: a backdrop-filter on the HUD itself would trap the phone dock (position:fixed) inside it. */
 body.teyvat main>aside.shell-hud::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(8,10,18,.94),rgba(8,10,18,.72));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 body.teyvat .shell-hidden-card{display:none!important}
@@ -690,6 +693,11 @@ body.teyvat .combat-panel .shell-enemies .combatant-row::after{display:none}
 body.teyvat .combat-panel .shell-enemies .combatant-row.tiltable.is-tilting{box-shadow:none}
 body.teyvat .combat-panel .shell-enemies .combatant-row.tiltable.is-tilting .combat-portrait{filter:saturate(1.15) brightness(1.08) drop-shadow(0 0 10px rgba(var(--acc-rgb),.5))}
 body.teyvat .combat-panel .shell-enemies .combatant-row.dead{opacity:.35}
+/* 0.14.10: on a narrow PC page (the 1280-wide frame) the enemy cards overlapped: two columns of 250px left the third
+   card to a second row squeezed shorter than its card. Rows now always fit their cards (the stage scrolls instead)
+   and up to three cards share a row with lower portraits. */
+body.teyvat .combat-panel .shell-enemies{grid-auto-rows:max-content}
+@media (min-width:761px) and (max-width:1400px){body.teyvat .combat-panel .shell-enemies{--enemy-h:clamp(96px,19vh,200px);grid-template-columns:repeat(auto-fit,minmax(140px,188px));gap:12px 10px}}
 /* ---------- character screen: art in the middle, details on the right ---------- */
 body.teyvat .gear-cols .gear-stage{position:relative;overflow:auto;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
 body.teyvat .gear-cols .gear-stage>.gear-members,body.teyvat .gear-cols .gear-stage>:not(.shell-splash){position:relative;z-index:1;width:min(560px,62%)}
@@ -753,7 +761,29 @@ body.teyvat .settings-row input[type=checkbox]{accent-color:var(--acc);width:22p
 .terrain-route.hovered,.terrain-route.selected{stroke:#ffd76a;stroke-width:5;stroke-dasharray:none;filter:drop-shadow(0 0 4px rgba(255,215,106,.7)) drop-shadow(0 0 1px #000)}
 .terrain-route-tag{position:absolute;z-index:2;transform:translate(-50%,-50%);min-width:18px;height:18px;padding:0 4px;border-radius:9px;display:grid;place-items:center;font:700 11px/1 system-ui,sans-serif;color:#3b2f15;background:#fff3cf;box-shadow:0 0 0 1.5px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.45);pointer-events:none}
 .terrain-route-tag.locked{background:#9a9a9a;color:#222}
-.terrain-route-tag.hovered,.terrain-route-tag.selected{background:#ffd76a;transform:translate(-50%,-50%) scale(1.25)}
+.terrain-route-tag.hovered,.terrain-route-tag.selected{background:#ffd76a;box-shadow:0 0 0 2px #3b2f15,0 0 10px rgba(255,215,106,.85)}
+/* 0.14.10: every mark of a destination can be pressed — the number on its road, its road (a wide invisible stroke)
+   and its dot — not only the numbered pin. */
+.terrain-route-hit{fill:none;stroke:transparent;stroke-width:18;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;pointer-events:stroke;cursor:pointer}
+/* Marks never change size or place (hover, selection and press show in colour): a mark growing under the pointer
+   between press and release would swallow the press. */
+.terrain-navigation button.terrain-route-tag{pointer-events:auto;cursor:pointer;margin:0;min-height:0;min-width:20px;height:20px;padding:0 5px;border:0;border-radius:10px;background:#fff3cf;color:#3b2f15;font:700 11.5px/1 system-ui,sans-serif;box-shadow:0 0 0 1.5px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.45);transition:background .15s,box-shadow .15s}
+.terrain-navigation button.terrain-route-tag.locked{background:#9a9a9a;color:#222}
+.terrain-navigation button.terrain-route-tag.hovered,.terrain-navigation button.terrain-route-tag.selected{background:#ffd76a;box-shadow:0 0 0 2px #3b2f15,0 0 10px rgba(255,215,106,.85)}
+.terrain-navigation button.terrain-anchor{transition:background .15s,box-shadow .15s}
+.terrain-navigation button.terrain-anchor{pointer-events:auto;cursor:pointer;margin:0;padding:0;min-width:0;min-height:0;width:10px;height:10px;border:2px solid #103c38;border-radius:50%;background:#fff0c5;box-shadow:0 0 0 2px #fff7}
+.terrain-navigation button.terrain-route-tag::after,.terrain-navigation button.terrain-anchor::after{content:'';position:absolute;inset:-6px;border-radius:50%}
+body.teyvat .terrain-navigation button.terrain-route-tag:hover:not(:disabled){background:#ffd76a;border:0;color:#3b2f15;box-shadow:0 0 0 1.5px rgba(0,0,0,.55),0 0 10px rgba(255,215,106,.7)}
+body.teyvat .terrain-navigation button.terrain-anchor:hover:not(:disabled){background:#ffd76a;border:2px solid #103c38;box-shadow:0 0 0 3px rgba(255,215,106,.6)}
+body.teyvat .terrain-destination.route-hovered{border-color:var(--t-gold-hi);background:rgba(236,229,216,.1)}
+/* The general pressed-button style (scale only) dropped the centring of these absolutely placed marks, so a pin
+   jumped half its size away while held and the release missed it: a normal click on a pin did nothing. A pressed
+   mark now keeps its place and size (a shrinking mark loses presses near its edge); the press shows in colour. */
+body.teyvat .terrain-navigation .terrain-pin:active:not(:disabled),body.teyvat .terrain-navigation button.terrain-anchor:active:not(:disabled){transform:translate(-50%,-50%)}
+body.teyvat .terrain-navigation .terrain-pin:active:not(:disabled) .terrain-pin-core{filter:brightness(.82)}
+body.teyvat .terrain-navigation button.terrain-route-tag:active:not(:disabled){transform:translate(-50%,-50%);filter:brightness(.85)}
+body.teyvat .terrain-navigation button.terrain-anchor:active:not(:disabled){filter:brightness(.85)}
+body.teyvat .terrain-controls button.terrain-view[aria-pressed=true]{background:rgba(236,229,216,.16);border-color:rgba(243,223,174,.7);color:var(--t-gold-hi)}
 /* ---------- 원석·상점·특성·운명의 자리 (app_premium_v0148.js) ---------- */
 body.teyvat :where(#root) button.hud-primo{display:flex;align-items:center;gap:6px;min-height:0;padding:5px 12px 5px 8px;border-radius:16px;background:rgba(255,255,255,.07);border:0;font-variant-numeric:tabular-nums;font-size:.9rem;white-space:nowrap;color:var(--t-text)}
 body.teyvat :where(#root) button.hud-primo:hover:not(:disabled){background:rgba(160,220,255,.16);box-shadow:none}

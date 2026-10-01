@@ -38,10 +38,11 @@ check('hidden oculi: no banner or card gives them away; they glint only inside �
  return {hidden:hidden.map(p=>p.id)};
 });
 
-check('PC frame: the page follows the window at the chosen 화면 크기, within 1280x720 to 1200 high and about 2:1',()=>{
+check('PC frame: the page follows the window at the chosen 화면 크기, within 1280x720 to 1600/size high and about 2:1',()=>{
  const html=src('index.html'),shell=src('app_shell.js');
- assert(html.includes("JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||1")&&html.includes('{small:.85,large:1.2}'),'reads the setting');
- assert(html.includes('Math.max(720,Math.min(1200,H/k))')&&html.includes('Math.max(1280,Math.min(W/k,h*1.92))'),'limits');
+ assert(html.includes("SIZES[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||1")&&html.includes('SIZES={small:.85,large:1.2}'),'reads the setting');
+ // 0.14.10: the height limit moves with the chosen size (it was a fixed 1200, so 작게 did nothing on large monitors).
+ assert(html.includes('Math.max(720,Math.min(1600/k,H/k))')&&html.includes('Math.max(1280,Math.min(W/k,mh*1.92))'),'limits');
  assert(html.includes('window.CRPGFrameFit='),'the setting refits at once');
  assert(shell.includes("document.documentElement.classList.contains('crpg-framed')")&&shell.includes("mk('p','','화면 크기')"),'the 화면 크기 row only inside the frame');
  assert(shell.includes('/성인 모드|글자 크기|화면 크기|인물 일러스트/'),'it sits under 표시 설정');
@@ -179,7 +180,7 @@ check('travel map: every connection drawn on an atlas follows its traced road, n
  assert.deepEqual(missing,[],'run tools/trace_terrain_roads.py after changing anchors or connections');
  const nav=src('app_navigation.js'),css=src('shell.css');
  assert(nav.includes("routes.setAttribute('class','terrain-routes')")&&nav.includes("if([a,b].sort()[0]!==a)mid.reverse()"),'the road is drawn from where you stand');
- assert(nav.includes("el('span','terrain-route-tag'")&&nav.includes(".terrain-route[data-destination]"),'number tags, hover highlight');
+ assert(nav.includes("tag.className='terrain-route-tag'")&&nav.includes(".terrain-route[data-destination]"),'number tags (buttons since 0.14.10), hover highlight');
  assert(css.includes('.terrain-route')&&css.includes('.terrain-route-tag'));
  return {roads:Object.keys(T.roads).length,drawn};
 });

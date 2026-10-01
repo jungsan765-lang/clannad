@@ -1,0 +1,60 @@
+{
+  "version": "0.14.10",
+  "results": [
+    {
+      "name": "top bar: it never scrolls; the labels under its icons show below it",
+      "ok": true,
+      "evidence": {}
+    },
+    {
+      "name": "travel map: a held press on a pin keeps it in place, and numbers, dots and roads choose their place too",
+      "ok": true,
+      "evidence": {}
+    },
+    {
+      "name": "화면 크기: the height limit follows the chosen size, so 작게 and 크게 work on large monitors; each choice shows its size",
+      "ok": true,
+      "evidence": {
+        "big": [
+          85,
+          100,
+          120
+        ],
+        "laptop": [
+          85,
+          90,
+          90
+        ]
+      }
+    },
+    {
+      "name": "글자 크기: 100% (16px) stays the base, 80% and 90% are added, earlier choices keep their size",
+      "ok": true,
+      "evidence": {
+        "steps": [
+          80,
+          90,
+          100,
+          112,
+          125,
+          150
+        ]
+      }
+    },
+    {
+      "name": "one name per screen: 설정 (not 자동저장·계정), 캐릭터 (equipment, talents, constellations), 가방",
+      "ok": true,
+      "evidence": {}
+    },
+    {
+      "name": "travel map words: no picture coordinates or approval notes on screen",
+      "ok": true,
+      "evidence": {}
+    },
+    {
+      "name": "battle on the narrow PC page: enemy rows always fit their cards, three cards share a row",
+      "ok": true,
+      "evidence": {}
+    }
+  ]
+}

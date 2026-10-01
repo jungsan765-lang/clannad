@@ -45,7 +45,7 @@ function formationChoice(p){
   box.append(grid);p.append(box);
 }
 function partyScreen(p){
-  p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료와 진형, 전투 대열, 동료 역할을 정합니다. 장비는 장비 장착 메뉴에서 바꾸며, 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
+  p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료와 진형, 전투 대열, 동료 역할을 정합니다. 장비는 캐릭터 화면에서 바꾸며, 편성에서 빠진 동료의 장비는 가방으로 돌아갑니다.'));
   const owners=game.ownedActors(),reason=game.actionReason('PARTY');
   if(reason)p.append(el('p','phase-note','현재 장면에서는 편성을 확인만 할 수 있습니다. 변경은 장면을 마친 뒤 가능합니다.'));
   // v0.14.5: the party itself comes first; formation and battle line follow below it.
@@ -72,7 +72,7 @@ function partyScreen(p){
     formation.append(c);
   }
   p.append(formation);formationChoice(p);formationLine(p);p.append(el('p','muted','편성에 넣은 동료는 개인 임무를 마쳤다면 전투에서 이길 때마다 호감도가 1점씩 오릅니다. 개인 임무를 처음 마칠 때 받는 10점은 한 번뿐입니다.'));
-  p.append(actionButton('장비 장착으로','MENU',{screen:'STATUS'}));returnToJourney(p);
+  p.append(actionButton('캐릭터 화면으로','MENU',{screen:'STATUS'}));returnToJourney(p);
 }
 inventory=function(p){
   p.append(el('div','eyebrow','INVENTORY'),el('h1','','소지품'),el('p','muted','음식·재료·전술 도구를 관리합니다. 장비는 편성·장비에서 캐릭터별로 관리할 수 있습니다.'));
@@ -96,7 +96,7 @@ battlePrepare=function(p){
   for(const choice of choices.values()){const row=el('label','settings-row'),check=el('input');check.type='checkbox';check.checked=selected.has(choice.id);check.disabled=busy||(!check.checked&&selected.size>=limit);check.onchange=()=>{const next=new Set(selected);check.checked?next.add(choice.id):next.delete(choice.id);act('PREP_SELECT',{group:prep.group,companions:[...next]});};row.append(check,el('span','',choice.name+(choice.owned?' · 합류한 동료':' · 이번 전투 동행')));p.append(row);}
   if(!choices.size)p.append(el('p','muted','현재 함께할 수 있는 동료가 없습니다. 주인공이 전투에 참가합니다.'));
   p.append(el('p','muted','선택한 동료 '+selected.size+' / '+limit+'명 · 메뉴를 오가거나 저장해도 선택이 유지됩니다.'));
-  const buttons=el('div','row');buttons.append(actionButton('편성','MENU',{screen:'PARTY'}),actionButton('장비 장착','MENU',{screen:'STATUS'}),actionButton('소지품·식사','MENU',{screen:'INVENTORY'}));p.append(buttons);
+  const buttons=el('div','row');buttons.append(actionButton('편성','MENU',{screen:'PARTY'}),actionButton('캐릭터','MENU',{screen:'STATUS'}),actionButton('가방','MENU',{screen:'INVENTORY'}));p.append(buttons);
   if(game.combatStoryConfig(prep.group))p.append(el('p','muted','공중의 적에게는 원거리 공격 또는 부양·발판이 필요합니다. 지형이 모두 무너지기 전에 전투를 마쳐야 합니다.'));
   p.append(actionButton('이 편성으로 전투 순서 확인','COMBAT_PREPARE',{group:prep.group,companions:[...selected]},true),el('p','muted','패배하면 전투 직전 상태로 돌아가 다시 준비할 수 있습니다.'));
 };

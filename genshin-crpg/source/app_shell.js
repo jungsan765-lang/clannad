@@ -53,7 +53,11 @@ const ICON={
 function icon(name,cls='shell-icon'){const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('class',cls);const p=document.createElementNS(NS,'path');p.setAttribute('d',ICON[name]||ICON.DOT);s.append(p);return s;}
 S.icon=icon;
 // data-screen of the nav buttons -> icon, hotkey and the short label shown on phones and in the menu.
-const NAV={STORY:{icon:'STORY',key:'T',label:'이야기',short:'이야기'},LOCATION:{icon:'LOCATION',key:'',label:'메인 화면',short:'메인'},PARTY:{icon:'PARTY',key:'L',label:'편성',short:'편성'},STATUS:{icon:'STATUS',key:'C',label:'장비·성장',short:'장비'},INVENTORY:{icon:'INVENTORY',key:'B',label:'가방',short:'가방'},QUEST:{icon:'QUEST',key:'J',label:'임무',short:'임무'},RELATIONS:{icon:'RELATIONS',key:'O',label:'호감도',short:'호감도'},SYSTEM:{icon:'SYSTEM',key:'',label:'설정·저장',short:'설정'}};
+// One name per screen everywhere (bar, menu, page title): 캐릭터 = equipment, talents and constellations, 가방 = items.
+const NAV={STORY:{icon:'STORY',key:'T',label:'이야기',short:'이야기'},LOCATION:{icon:'LOCATION',key:'',label:'메인 화면',short:'메인'},PARTY:{icon:'PARTY',key:'L',label:'편성',short:'편성'},STATUS:{icon:'STATUS',key:'C',label:'캐릭터',short:'캐릭터'},INVENTORY:{icon:'INVENTORY',key:'B',label:'가방',short:'가방'},QUEST:{icon:'QUEST',key:'J',label:'임무',short:'임무'},RELATIONS:{icon:'RELATIONS',key:'O',label:'호감도',short:'호감도'},SYSTEM:{icon:'SYSTEM',key:'',label:'설정',short:'설정'}};
+// Plain names for labels made by the online and sound layers (those files are not edited here).
+const RELABEL={'소리 시작':'소리 켜기','게임 시작 화면':'시작 화면으로','상위 20위':'나선비경 랭킹','자동저장·계정':'설정','저장':'설정'};
+const relabel=s=>RELABEL[String(s||'').trim()]||String(s||'').trim();
 const HOTKEYS={t:'STORY',l:'PARTY',c:'STATUS',b:'INVENTORY',j:'QUEST',o:'RELATIONS'};
 const MENU_SCREENS=new Set(['PARTY','STATUS','INVENTORY','QUEST','RELATIONS','SYSTEM','SHOP','CRAFT','COOKING','MARKET','RECRUITMENT','ABYSS','ENHANCE','FORGE']);
 const isMobile=()=>matchMedia('(max-width: 760px)').matches;
@@ -90,13 +94,13 @@ function buildHUD(aside,key){
  const hpBox=mk('div','hud-hp');hpBox.title='체력 '+fmt(hp)+' / '+fmt(max);const bar=mk('span','hud-bar'),fill=mk('i');fill.style.width=Math.max(0,Math.min(100,hp/(max||1)*100))+'%';if(hp/(max||1)<.3)hpBox.classList.add('low');bar.append(fill);hpBox.append(bar,mk('small','',fmt(hp)+' / '+fmt(max)));
  const mora=mk('div','hud-mora');mora.title='모라';mora.append(icon('MORA'),mk('span','',fmt(g.MORA)));
  me.append(lv,hpBox,mora);
- if(nav){nav.classList.add('hud-nav');for(const b of $$('button',nav)){const scr=b.dataset.screen,def=NAV[scr];if(def){b.classList.add('hud-nav-button');const old=$('.nav-icon',b);if(old)old.replaceWith(icon(def.icon,'shell-icon nav-glyph'));const label=b.lastElementChild;if(label&&label.tagName==='SPAN')label.classList.add('hud-nav-label');b.append(mk('span','hud-nav-short',def.short));b.title=(b.title?b.title+' · ':'')+(label?.textContent||def.label)+(def.key?' ('+def.key+')':'');}else{b.classList.add('hud-extra');b.hidden=true;}}}
+ if(nav){nav.classList.add('hud-nav');for(const b of $$('button',nav)){const scr=b.dataset.screen,def=NAV[scr];if(def){b.classList.add('hud-nav-button');const old=$('.nav-icon',b);if(old)old.replaceWith(icon(def.icon,'shell-icon nav-glyph'));const label=b.lastElementChild;if(label&&label.tagName==='SPAN'){label.classList.add('hud-nav-label');label.textContent=def.label;}b.setAttribute('aria-label',def.label);b.append(mk('span','hud-nav-short',def.short));b.title=(b.title?b.title+' · ':'')+def.label+(def.key?' ('+def.key+')':'');}else{b.classList.add('hud-extra');b.hidden=true;}}}
  const tools=mk('div','hud-tools');
  if(window.CRPGHandbook){const hb=toolButton('HANDBOOK','모험가 핸드북 (F1)',()=>CRPGHandbook.open());hb.classList.add('hud-handbook');tools.append(hb);}
  tools.append(toolButton('MAP','지도 (M)',openMap));
  if(WORLD_SCREENS.has(key))tools.append(toolButton('EYE','풍경 보기 (V)',()=>toggleScenery(true),'hud-scenery'));
  for(const make of S.extraTools){try{const b=make(toolButton);if(b)tools.append(b);}catch{}}
- const snd=quickButton(b=>b.dataset.audioToggle==='true');if(snd){const on=/끄기/.test(snd.textContent);tools.append(toolButton(on?'SOUND':'MUTE',snd.textContent,()=>{quickButton(b=>b.dataset.audioToggle==='true')?.click();}));}
+ const snd=quickButton(b=>b.dataset.audioToggle==='true');if(snd){const on=/끄기/.test(snd.textContent);tools.append(toolButton(on?'SOUND':'MUTE',relabel(snd.textContent),()=>{quickButton(b=>b.dataset.audioToggle==='true')?.click();}));}
  tools.append(toolButton('MENU','메뉴 (Esc)',()=>toggleMenu(true),'hud-menu-button'));
  const guideSlot=mk('div','hud-guide-slot');
  aside.replaceChildren(...[info,guideSlot,me,nav,tools,card].filter(Boolean));
@@ -140,8 +144,9 @@ function buildMenu(){
  grid.append(tile('MAP','지도','M',()=>{toggleMenu(false);openMap();}));
  for(const x of S.extraTiles){try{if(x.show&&!x.show())continue;const t=tile(x.icon,x.label,x.key||'',()=>{toggleMenu(false);x.run();});grid.append(t);}catch{}}
  const foot=mk('div','pm-foot');
- for(const q of $$('#quick-actions button')){const label=q.textContent.trim();if(!label)continue;const kind=/기록/.test(label)?'HISTORY':/도움말/.test(label)?'HELP':q.dataset.audioToggle?(/끄기/.test(label)?'SOUND':'MUTE'):/계정|저장/.test(label)?'SYSTEM':'DOT';const b=footButton(kind,label,()=>{toggleMenu(false);q.click();});b.disabled=q.disabled;foot.append(b);}
- for(const x of $$('main > aside nav .hud-extra')){const label=x.textContent.trim(),kind=/로그아웃/.test(label)?'LOGOUT':/시작 화면/.test(label)?'TITLE':/디버그/.test(label)?'DEBUG':'DOT';const b=footButton(kind,label,()=>{toggleMenu(false);x.click();});b.disabled=x.disabled;foot.append(b);}
+ // The quick 설정 button only repeats the 설정 tile above, so it is left out here.
+ for(const q of $$('#quick-actions button')){const label=q.textContent.trim();if(!label)continue;const kind=/기록/.test(label)?'HISTORY':/도움말/.test(label)?'HELP':q.dataset.audioToggle?(/끄기/.test(label)?'SOUND':'MUTE'):/계정|저장|설정/.test(label)?'SYSTEM':'DOT';if(kind==='SYSTEM')continue;const b=footButton(kind,relabel(label),()=>{toggleMenu(false);q.click();});b.disabled=q.disabled;foot.append(b);}
+ for(const x of $$('main > aside nav .hud-extra')){const label=x.textContent.trim(),kind=/로그아웃/.test(label)?'LOGOUT':/시작 화면/.test(label)?'TITLE':/디버그/.test(label)?'DEBUG':'DOT';const b=footButton(kind,relabel(label),()=>{toggleMenu(false);x.click();});b.disabled=x.disabled;foot.append(b);}
  const close=mk('button','pm-close');close.type='button';close.setAttribute('aria-label','메뉴 닫기');close.append(icon('CLOSE'));close.onclick=()=>toggleMenu(false);
  box.append(close,card,grid,foot);wrap.append(box);
  wrap.addEventListener('keydown',e=>{if(e.key==='Tab'){const f=$$('button:not([disabled])',wrap);if(!f.length)return;const i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f.at(-1).focus();}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus();}}});
@@ -206,6 +211,7 @@ function sectionsByHeading(nodes,firstLabel){const groups=[];let cur={label:firs
 const BACK_LABELS=/^(메인 화면으로|이야기로 돌아가기|전투로 돌아가기|장소로 돌아가기|돌아가기)$/;
 function pageHead(key,p,{title,iconName}={}){
  const head=mk('header','shell-page-head'),h1=[...p.children].find(c=>c.tagName==='H1');const eyebrow=[...p.children].find(c=>c.classList?.contains('eyebrow'));
+ if(h1&&['STATUS','INVENTORY','SYSTEM'].includes(key))h1.textContent=NAV[key].label;
  const t=mk('div','shell-page-title');t.append(icon(iconName||NAV[key]?.icon||'STAR','shell-icon page-glyph'));const words=mk('div','shell-page-words');if(h1){h1.classList.add('shell-h1');words.append(h1);}else words.append(mk('h1','shell-h1',title||NAV[key]?.label||''));if(eyebrow){eyebrow.classList.add('shell-eyebrow');words.prepend(eyebrow);}t.append(words);head.append(t);
  const tools=mk('div','shell-page-tools');head.append(tools);
  let back=[...p.children].filter(c=>c.tagName==='BUTTON'&&BACK_LABELS.test(c.textContent.trim())).at(-1);
@@ -366,6 +372,9 @@ const MENU_LAYOUT={
   if(rest.length){body.classList.add('with-side');body.append(region('shell-col-side',rest));}
  },
  SYSTEM(body,nodes,head,key){
+  // Plain names for the online layer's buttons and screen names (가방, not 아이템).
+  for(const n of nodes){for(const b of [n,...(n.querySelectorAll?.('button')||[])])if(b.tagName==='BUTTON'&&!b.children.length&&RELABEL[b.textContent.trim()])b.textContent=relabel(b.textContent);
+   if(n.tagName==='P'&&n.textContent.includes('·아이템·'))n.textContent=n.textContent.replace('·아이템·','·가방·');}
   // The display rows are appended after the sound section by the settings code; put them back under 표시 설정.
   const displayHead=nodes.find(n=>n.tagName==='H2'&&/표시 설정/.test(n.textContent));
   if(displayHead){const rows=nodes.filter(n=>n.matches?.('label.settings-row')&&/성인 모드|글자 크기|화면 크기|인물 일러스트/.test(n.textContent));for(const r of rows)nodes.splice(nodes.indexOf(r),1);nodes.splice(nodes.indexOf(displayHead)+1,0,...rows);}
@@ -441,7 +450,7 @@ document.addEventListener('keydown',e=>{
  }
 });
 // Keep the HUD sound icon honest when the quick actions change without a render.
-try{const q=$('#quick-actions');if(q)new MutationObserver(()=>{if(!game)return;const snd=quickButton(b=>b.dataset.audioToggle==='true'),tool=$('main > aside .hud-tools .hud-tool[title]:not(.hud-menu-button):not(.hud-handbook)+.hud-tool');void tool;const holder=$$('main > aside .hud-tools .hud-tool').find(b=>/소리/.test(b.title));if(snd&&holder){const on=/끄기/.test(snd.textContent);holder.title=snd.textContent;holder.setAttribute('aria-label',snd.textContent);holder.replaceChildren(icon(on?'SOUND':'MUTE'));}}).observe(q,{childList:true,subtree:true,characterData:true});}catch{}
+try{const q=$('#quick-actions');if(q)new MutationObserver(()=>{if(!game)return;const snd=quickButton(b=>b.dataset.audioToggle==='true'),tool=$('main > aside .hud-tools .hud-tool[title]:not(.hud-menu-button):not(.hud-handbook)+.hud-tool');void tool;const holder=$$('main > aside .hud-tools .hud-tool').find(b=>/소리/.test(b.title));if(snd&&holder){const on=/끄기/.test(snd.textContent);holder.title=relabel(snd.textContent);holder.setAttribute('aria-label',relabel(snd.textContent));holder.replaceChildren(icon(on?'SOUND':'MUTE'));}}).observe(q,{childList:true,subtree:true,characterData:true});}catch{}
 // The bag's detail opens with the item itself: a large icon on its tier colour and its stars.
 if(typeof itemDetailView==='function'){const priorDetail=itemDetailView;itemDetailView=function(box,d){priorDetail(box,d);try{const rank=Math.max(1,Math.min(5,d?.tier?.rank||1)),hero=mk('div','shell-item-hero tier-'+rank);hero.append(typeof itemGlyph==='function'?itemGlyph(d):mk('span','item-glyph','◆'),mk('span','shell-item-stars','★'.repeat(rank)));box.prepend(hero);}catch{}};}
 // Settings (title screen and in game) end with what this project is, and where the original lives.
@@ -467,11 +476,21 @@ function soundGallery(){
 if(typeof settingsControls==='function'){const priorSettings=settingsControls;settingsControls=function(p){priorSettings(p);try{
  // 화면 크기 (PC frame only): how much page the frame shows, read by the frame host in index.html.
  if(document.documentElement.classList.contains('crpg-framed')){
-  const row=mk('label','settings-row shell-ui-scale'),copy=mk('div','copy'),select=mk('select');
-  copy.append(mk('p','','화면 크기'),mk('small','','컴퓨터에서 게임 화면 전체의 크기입니다. 작게 할수록 한 화면에 더 많이 보입니다.'));
-  for(const [v,t]of [['small','작게'],['normal','보통'],['large','크게']]){const o=mk('option','',t);o.value=v;select.append(o);}
-  select.value=['small','large'].includes(settings.uiScale)?settings.uiScale:'normal';
-  select.onchange=()=>{settings.uiScale=select.value;persistSettings();try{window.parent.CRPGFrameFit?.();}catch{}};
+  const row=mk('label','settings-row shell-ui-scale'),copy=mk('div','copy'),select=mk('select'),hint=mk('small','shell-ui-scale-hint');
+  copy.append(mk('p','','화면 크기'),mk('small','','컴퓨터에서 게임 화면 전체의 크기입니다. 작게 할수록 한 화면에 더 많이 보입니다.'),hint);
+  // Each choice shows what it gives in this window: a small window cannot grow the game and a huge one has a limit.
+  const NAMES=[['small','작게'],['normal','보통'],['large','크게']];
+  const measure=n=>{try{return window.parent.CRPGFrameMeasure?.(n)||null;}catch{return null;}};
+  const label=()=>{const m=Object.fromEntries(NAMES.map(([v])=>[v,measure(v)])),pct=x=>Math.round(x.s*100);
+   for(const o of select.options){const name=NAMES.find(n=>n[0]===o.value)[1];o.textContent=m[o.value]?name+' · '+pct(m[o.value])+'%':name;}
+   const cur=m[select.value];if(!cur){hint.textContent='';return;}
+   let t='지금 창에서는 '+pct(cur)+'% 크기로 보입니다.';
+   if(m.large&&m.normal&&pct(m.large)===pct(m.normal))t+=' 창이 작아 「크게」로 더 키울 수 없습니다. 창을 넓히거나 글자 크기를 올려 보세요.';
+   else if(m.small&&m.normal&&pct(m.small)===pct(m.normal))t+=' 창이 아주 커서 「작게」로 더 줄일 수 없습니다.';
+   hint.textContent=t;};
+  for(const [v,t]of NAMES){const o=mk('option','',t);o.value=v;select.append(o);}
+  select.value=['small','large'].includes(settings.uiScale)?settings.uiScale:'normal';label();
+  select.onchange=()=>{settings.uiScale=select.value;persistSettings();try{window.parent.CRPGFrameFit?.();}catch{}label();};
   row.append(copy,select);
   const font=[...p.querySelectorAll('label.settings-row')].find(r=>/글자 크기/.test(r.textContent));
   if(font)font.after(row);else p.prepend(row);
