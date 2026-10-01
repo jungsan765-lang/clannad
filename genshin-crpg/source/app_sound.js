@@ -36,6 +36,13 @@ function buzz(o,dest,{t=0,d=.24,g=.32,f=2600,rate=90}){
  src.buffer=noiseBuffer(o);fl.type='highpass';fl.frequency.value=f;lfo.type='square';lfo.frequency.value=rate;depth.gain.value=.5;am.gain.value=.5;lfo.connect(depth).connect(am.gain);
  envelope(gn.gain,t,.004,g,d);src.connect(fl).connect(am).connect(gn).connect(dest);src.start(t,Math.random());src.stop(t+d+.05);lfo.start(t);lfo.stop(t+d+.05);
 }
+// Water: a droplet is a 20 ms upward chirp ("plip"); a body of water is noise whose colour sways.
+function plip(o,dest,{t=0,f=1100,g=.14,pan=0}){const os=o.createOscillator(),gn=o.createGain();os.frequency.setValueAtTime(f,t);os.frequency.exponentialRampToValueAtTime(f*1.7,t+.02);envelope(gn.gain,t,.002,g,.04);os.connect(gn);route(o,gn,dest,pan);os.start(t);os.stop(t+.08);}
+function slosh(o,dest,{t=0,d=.5,g=.4,f=900,depth=450,rate=7,q=1.3,pan=0}){
+ const src=o.createBufferSource(),fl=o.createBiquadFilter(),gn=o.createGain(),lfo=o.createOscillator(),amt=o.createGain();src.buffer=noiseBuffer(o);
+ fl.type='bandpass';fl.frequency.value=f;fl.Q.value=q;lfo.frequency.value=rate;amt.gain.value=depth;lfo.connect(amt).connect(fl.frequency);
+ envelope(gn.gain,t,.045,g,d);src.connect(fl).connect(gn);route(o,gn,dest,pan);src.start(t,Math.random());src.stop(t+d+.1);lfo.start(t);lfo.stop(t+d+.1);
+}
 const arp=(o,x,notes,{t=0,step=.06,d=.6,g=.12,spread=.15}={})=>notes.forEach((n,i)=>bell(o,x,{f:NOTE(n),t:t+i*step,d,g,pan:(i-(notes.length-1)/2)*spread}));
 // d: rendered length, v: playback level (before the 효과음 음량 setting), n: variants, wet: room reverb.
 const SOUNDS={
@@ -65,14 +72,16 @@ const SOUNDS={
  // A drum-like double strike and a rising rush of air: the fight begins.
  battle_start:{d:1.2,v:.66,wet:.35,b(o,x){thump(o,x,{f:44,d:.3,g:.9});noise(o,x,{type:'lowpass',f:650,d:.28,g:.5});thump(o,x,{t:.21,f:50,d:.26,g:.75});noise(o,x,{t:.21,type:'lowpass',f:600,d:.24,g:.42});noise(o,x,{f:280,f2:2600,glide:.42,q:1.1,a:.06,d:.45,g:.26});tick(o,x,{t:.21,f:3500,g:.3});}},
  // Physical: the blade's swish, the edge's bite and the body's weight.
- hit:{d:.4,v:.72,n:4,wet:.16,b(o,x){const p=rnd(.85,1.15);swish(o,x,{from:5200*p,to:1100*p,d:.12,g:.48,pan:rnd(-.25,.25)});tick(o,x,{t:.055,f:5200,g:.36});noise(o,x,{t:.055,f:1500*p,q:.9,d:.07,g:.34});thump(o,x,{t:.055,f:58*p,d:.09,g:.55});}},
+ // A blade, not a shot: the swish carries it, then a short metallic ring and a soft body impact.
+ hit:{d:.5,v:.7,n:4,wet:.2,b(o,x){const p=rnd(.88,1.12);swish(o,x,{from:4800*p,to:900*p,d:.16,g:.5,q:1.1,pan:rnd(-.25,.25)});bell(o,x,{f:rnd(1800,2400),t:.07,d:.14,g:.05,partials:[[1,1],[2.76,.4],[5.4,.2]]});noise(o,x,{t:.07,f:700*p,q:1.4,a:.008,d:.1,g:.3});thump(o,x,{t:.07,f:52*p,d:.08,g:.28});}},
  slime_hit:{d:.4,v:.62,n:2,wet:.12,b(o,x){noise(o,x,{f:rnd(500,700),q:5,d:.12,g:.48});noise(o,x,{t:.02,type:'lowpass',f:800,d:.14,g:.34});thump(o,x,{f:54,d:.08,g:.38});}},
  guard:{d:.62,v:.62,n:2,wet:.2,b(o,x){bell(o,x,{f:rnd(320,380),d:.3,g:.22,partials:[[1,1],[2.76,.5],[5.4,.3],[8.9,.18]]});tick(o,x,{f:4000,g:.42});thump(o,x,{f:72,d:.06,g:.3});}},
  heal:{d:1.3,v:.52,wet:.25,b(o,x){noise(o,x,{type:'highpass',f:6000,a:.15,d:.6,g:.06});arp(o,x,[84,88,91,96],{t:.05,step:.08,d:.65,g:.095});osc(o,x,{type:'triangle',f:NOTE(72),a:.1,d:.6,g:.06});}},
- fire:{d:.85,v:.72,n:3,wet:.22,b(o,x){noise(o,x,{type:'lowpass',f:400,f2:2600,glide:.12,a:.04,d:.45,g:.5});crackle(o,x,{t:.02,span:.4,n:10,g:[.12,.3]});thump(o,x,{f:52,d:.12,g:.45});noise(o,x,{t:.06,f:900,q:.7,d:.3,g:.24});}},
- water:{d:.8,v:.68,n:3,wet:.25,b(o,x){noise(o,x,{f:rnd(1000,1400),q:.9,a:.004,d:.28,g:.5});for(let i=0;i<5;i++)tick(o,x,{t:.05+i*.05+rnd(0,.03),f:rnd(3500,6500),g:rnd(.14,.28),pan:rnd(-.4,.4)});noise(o,x,{t:.02,type:'lowpass',f:700,d:.2,g:.3});thump(o,x,{f:60,d:.07,g:.28});}},
+ fire:{d:.9,v:.7,n:3,wet:.24,b(o,x){noise(o,x,{type:'lowpass',f:400,f2:2600,glide:.14,a:.05,d:.5,g:.5});crackle(o,x,{t:.04,span:.45,n:11,g:[.1,.26]});thump(o,x,{t:.02,f:50,d:.1,g:.25});noise(o,x,{t:.06,f:900,q:.7,d:.32,g:.24});}},
+ // Hydro: a swell of moving water and scattered droplets; no sharp crack, no punch.
+ water:{d:1,v:.62,n:3,wet:.32,b(o,x){slosh(o,x,{d:.5,g:.42,f:rnd(800,1000),depth:420,rate:rnd(6,9),pan:rnd(-.2,.2)});slosh(o,x,{t:.12,d:.4,g:.22,f:1800,depth:600,rate:rnd(9,12),q:2});for(let i=0;i<7;i++)plip(o,x,{t:.06+i*.055+rnd(0,.04),f:rnd(900,1700),g:rnd(.07,.14),pan:rnd(-.5,.5)});noise(o,x,{type:'highpass',f:5200,a:.03,d:.3,g:.06});}},
  ice:{d:1,v:.64,n:3,wet:.3,b(o,x){bell(o,x,{f:NOTE(rnd(93,98)),d:.5,g:.14,partials:[[1,1],[2.32,.6],[3.7,.4],[5.1,.25]]});crackle(o,x,{span:.12,n:6,f:[5000,9000],g:[.2,.35]});noise(o,x,{type:'highpass',f:7000,d:.3,g:.14});thump(o,x,{f:70,d:.06,g:.25});}},
- lightning:{d:.7,v:.68,n:3,wet:.2,b(o,x){buzz(o,x,{d:.22,g:.4,f:2400,rate:rnd(70,110)});crackle(o,x,{span:.25,n:12,f:[3000,8000],g:[.2,.4]});tick(o,x,{f:3000,g:.5});thump(o,x,{f:60,d:.08,g:.4});}},
+ lightning:{d:.75,v:.64,n:3,wet:.24,b(o,x){buzz(o,x,{d:.26,g:.4,f:2200,rate:rnd(70,110)});crackle(o,x,{span:.3,n:12,f:[3000,8000],g:[.16,.32]});noise(o,x,{type:'bandpass',f:3200,q:2,a:.01,d:.18,g:.2});thump(o,x,{f:60,d:.06,g:.18});}},
  wind:{d:1,v:.62,n:2,wet:.2,b(o,x){noise(o,x,{f:300,f2:2400,q:2,a:.12,d:.55,g:.5,glide:.35,pan:-.25});noise(o,x,{f:2400,f2:700,q:2,t:.3,a:.05,d:.5,g:.3,glide:.5,pan:.25});tick(o,x,{t:.12,f:4500,g:.15});}},
  rock:{d:.85,v:.72,n:3,wet:.2,b(o,x){noise(o,x,{type:'lowpass',f:500,a:.003,d:.25,g:.6});thump(o,x,{f:46,d:.16,g:.75});for(let i=0;i<5;i++)noise(o,x,{f:rnd(900,2200),q:3,t:rnd(.02,.25),a:.002,d:.04,g:.2,pan:rnd(-.3,.3)});tick(o,x,{f:2500,g:.32});}},
  dendro:{d:.85,v:.62,n:2,wet:.2,b(o,x){for(let i=0;i<6;i++)noise(o,x,{f:rnd(2800,4800),q:2,t:i*.05,a:.004,d:.05,g:.13,pan:rnd(-.4,.4)});noise(o,x,{f:900,q:9,d:.09,g:.45});noise(o,x,{t:.07,f:700,q:9,d:.09,g:.35});thump(o,x,{f:62,d:.07,g:.25});}},
@@ -102,17 +111,33 @@ function synth(name){
  const def=SOUNDS[name];if(!def)return null;const n=def.n||1,v=Math.floor(Math.random()*n),key=name+'#'+v;
  if(!cache.has(key))cache.set(key,render(name).catch(()=>{cache.delete(key);return null;}));return cache.get(key);
 }
+// Two sets: the recorded official web-event sounds where they exist, and the synthesised set. Results and
+// rewards default to the recordings (they are real fanfares); combat hits default to the new synthesis.
+// Every sound that has both can be auditioned and chosen in 설정 → 소리 (settings.sfxChoice).
+const RECORDED=new Set(['victory','defeat','quest_complete','commission_accept','commission_complete','cook_complete','forge_complete','craft_complete','item_receive','unlock','equip','heal','fire','ice','lightning','wind','slime_hit','encounter_hilichurl']);
+const DEFAULT_REC=new Set(['victory','defeat','quest_complete','commission_accept','commission_complete','cook_complete','forge_complete','craft_complete','item_receive','unlock','equip','encounter_hilichurl']);
+const hasRecording=name=>RECORDED.has(name)&&!!(window.MANIFEST?.sfx?.[name]||(typeof MANIFEST!=='undefined'&&MANIFEST.sfx?.[name]));
+S.choice=name=>{const c=settings.sfxChoice?.[name];return hasRecording(name)?(c==='syn'?'syn':c==='rec'?'rec':DEFAULT_REC.has(name)?'rec':'syn'):'syn';};
+S.RECORDED=RECORDED;S.names=Object.keys(SOUNDS);
 const priorBuffer=GameAudio.buffer.bind(GameAudio);
-GameAudio.buffer=async function(name){if(!this.context)return null;if(KEEP.has(name))return priorBuffer(name);return synth(SOUNDS[name]?name:'hit');};
+GameAudio.buffer=async function(name,force){if(!this.context)return null;if(KEEP.has(name))return priorBuffer(name);const use=force||S.choice(name);if(use==='rec'&&hasRecording(name)){const b=await priorBuffer(name);if(b)return b;}return synth(SOUNDS[name]?name:'hit');};
+// Fanfares dip the music for their length so they are heard.
+const DUCK=new Set(['victory','defeat','level_up','quest_complete','commission_complete']);let duckUntil=0;
+const priorSync=GameAudio.sync.bind(GameAudio);
+GameAudio.sync=function(...args){const out=priorSync(...args);if(this.music&&performance.now()<duckUntil)this.music.volume=Math.min(this.music.volume,settings.musicVolume*.65*.25);return out;};
+function duck(seconds){duckUntil=performance.now()+seconds*1000;const m=GameAudio.music;if(m)m.volume=Math.min(m.volume,settings.musicVolume*.65*.25);clearTimeout(S.duckTimer);S.duckTimer=setTimeout(()=>{duckUntil=0;try{GameAudio.sync();}catch{}},seconds*1000+120);}
+// Settings: listen to either version and keep the one you like.
+S.audition=async function(name,which){try{await GameAudio.unlock?.();const b=await GameAudio.buffer(name,which);if(!b||!GameAudio.context)return;const src=GameAudio.context.createBufferSource(),g=GameAudio.context.createGain();src.buffer=b;g.gain.value=(settings.sfxVolume||.6)*(which==='rec'?.45:(SOUNDS[name]?.v??.5));src.connect(g).connect(GameAudio.context.destination);src.start();if(DUCK.has(name))duck(b.duration);}catch{}};
+S.setChoice=function(name,which){settings.sfxChoice={...(settings.sfxChoice||{}),[name]:which};try{persistSettings();}catch{}};
 // Same rules as before (armed, enabled, page visible, a limited number of voices), with a level per sound.
 GameAudio.play=async function(name){
  if(!this.armed||!this.enabled()||document.hidden||!settings.sfxVolume)return;
  const ui=['click','hover','tab','equip'].includes(name);if(ui){const now=performance.now(),gap=name==='hover'?45:90;if(now-(this['last_'+name]||0)<gap)return;this['last_'+name]=now;}
  const epoch=this.epoch,buffer=await this.buffer(name);if(!buffer||epoch!==this.epoch||!this.enabled()||document.hidden||this.context.state!=='running')return;
  if(this.voices.size>=8){const old=this.voices.values().next().value;try{old.stop();}catch{}this.voices.delete(old);}
- const source=this.context.createBufferSource(),gain=this.context.createGain(),level=KEEP.has(name)?.45:(SOUNDS[name]?.v??.5);
- source.buffer=buffer;source.playbackRate.value=SOUNDS[name]?.n?rnd(.97,1.03):1;gain.gain.value=settings.sfxVolume*level;source.connect(gain).connect(this.context.destination);
- this.voices.add(source);source.onended=()=>{this.voices.delete(source);source.disconnect();gain.disconnect();};source.start();
+ const recorded=KEEP.has(name)||S.choice(name)==='rec'&&hasRecording(name),source=this.context.createBufferSource(),gain=this.context.createGain(),level=recorded?.45:(SOUNDS[name]?.v??.5);
+ source.buffer=buffer;source.playbackRate.value=!recorded&&SOUNDS[name]?.n?rnd(.97,1.03):1;gain.gain.value=settings.sfxVolume*level;source.connect(gain).connect(this.context.destination);
+ this.voices.add(source);source.onended=()=>{this.voices.delete(source);source.disconnect();gain.disconnect();};source.start();if(DUCK.has(name))duck(buffer.duration);
 };
 S.play=name=>{try{GameAudio.play(name);}catch{}};
 S.hover=()=>S.play('hover');

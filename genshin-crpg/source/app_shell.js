@@ -327,15 +327,27 @@ const MENU_LAYOUT={
  },
  SYSTEM(body,nodes,head,key){
   // The sound set is synthesised now: say so, and let the player audition it.
-  for(const n of nodes)if(n.matches?.('p.muted')&&/공식 웹 이벤트 원소 효과음/.test(n.textContent))n.textContent='원신 OST · 지역별 순환 재생 · 효과음은 이 게임에서 직접 합성한 소리입니다(새·활·멧돼지 소리는 녹음 출처 표기).';
-  for(const a of nodes.filter(a=>a.tagName==='A'&&/genshin-sfx/.test(a.getAttribute('href')||''))){a.remove();nodes.splice(nodes.indexOf(a),1);}
+  for(const n of nodes)if(n.matches?.('p.muted')&&/공식 웹 이벤트 원소 효과음/.test(n.textContent))n.textContent='원신 OST · 지역별 순환 재생 · 효과음은 원작 웹 이벤트 녹음과 이 게임에서 합성한 소리를 함께 씁니다. 아래 「효과음 고르기」에서 소리마다 바꿀 수 있습니다.';
   // The display rows are appended after the sound section by the settings code; put them back under 표시 설정.
   const displayHead=nodes.find(n=>n.tagName==='H2'&&/표시 설정/.test(n.textContent));
   if(displayHead){const rows=nodes.filter(n=>n.matches?.('label.settings-row')&&/성인 모드|글자 크기|인물 일러스트/.test(n.textContent));for(const r of rows)nodes.splice(nodes.indexOf(r),1);nodes.splice(nodes.indexOf(displayHead)+1,0,...rows);}
   const soundHead=nodes.find(n=>n.tagName==='H2'&&/소리/.test(n.textContent));
-  if(soundHead&&window.CRPGSound){const gallery=mk('section','card shell-sound-gallery');gallery.append(mk('h3','','효과음 들어보기'));
-   for(const [label,list]of [['원소',[['불','fire'],['물','water'],['얼음','ice'],['번개','lightning'],['바람','wind'],['바위','rock'],['풀','dendro']]],['원소 반응',[['융해','melt'],['증발','vaporize'],['과부하','overload'],['빙결','freeze']]],['전투',[['타격','hit'],['방어','guard'],['회복','heal'],['조우','battle_start'],['승리','victory'],['패배','defeat']]],['메뉴와 보상',[['메뉴','menu_open'],['책장','handbook_open'],['장착','equip'],['획득','item_receive'],['임무 완료','quest_complete'],['레벨업','level_up']]]]){
-    const row=mk('div','shell-sound-row');row.append(mk('small','',label));for(const [name,id]of list){const b=mk('button','shell-sound-chip',name);b.type='button';b.onclick=async()=>{await GameAudio.unlock?.();CRPGSound.play(id);};row.append(b);}gallery.append(row);}
+  if(soundHead&&window.CRPGSound){
+   // 효과음 고르기: hear the recorded and the synthesised version of each sound and keep the one you like.
+   const gallery=mk('section','card shell-sound-gallery');gallery.append(mk('h3','','효과음 고르기'),mk('p','muted','녹음은 원작 웹 이벤트에서 가져온 소리, 합성은 이 게임에서 만든 소리입니다. ▶로 들어 보고 마음에 드는 쪽을 고르세요. 이 기기에 저장됩니다.'));
+   const groups=[['결과·보상',[['승리','victory'],['패배','defeat'],['임무 완료','quest_complete'],['의뢰 수락','commission_accept'],['의뢰 완료','commission_complete'],['획득','item_receive'],['해금','unlock'],['장착','equip'],['요리 완료','cook_complete'],['단조 완료','forge_complete'],['합성 완료','craft_complete'],['레벨업','level_up']]],
+    ['전투',[['타격','hit'],['불','fire'],['물','water'],['얼음','ice'],['번개','lightning'],['바람','wind'],['바위','rock'],['풀','dendro'],['방어','guard'],['회복','heal'],['슬라임','slime_hit'],['전투 시작','battle_start'],['츄츄족 조우','encounter_hilichurl']]],
+    ['원소 반응',[['융해','melt'],['증발','vaporize'],['과부하','overload'],['빙결','freeze']]],
+    ['메뉴',[['메뉴 열기','menu_open'],['메뉴 닫기','menu_close'],['핸드북','handbook_open'],['탭','tab'],['알림','toast'],['이동','travel'],['선택지','choice']]]];
+   for(const [title,list]of groups){const box=mk('div','shell-sound-group');box.append(mk('h4','',title));
+    for(const [label,id]of list){const row=mk('div','shell-sound-pick'),both=CRPGSound.RECORDED?.has(id)&&!!MANIFEST.sfx?.[id];row.append(mk('span','shell-sound-name',label));
+     const play=(which,text)=>{const b=mk('button','shell-sound-chip',text);b.type='button';b.onclick=()=>CRPGSound.audition(id,which);return b;};
+     if(both){const pick=mk('div','shell-sound-choice'),mark=()=>{for(const x of pick.children)x.classList.toggle('active',x.dataset.which===CRPGSound.choice(id));};
+      for(const [which,text]of [['rec','녹음'],['syn','합성']]){const b=mk('button','shell-sound-opt',text);b.type='button';b.dataset.which=which;b.onclick=()=>{CRPGSound.setChoice(id,which);mark();CRPGSound.audition(id,which);};pick.append(b);}mark();
+      row.append(play('rec','▶ 녹음'),play('syn','▶ 합성'),pick);}
+     else row.append(play('syn','▶ 듣기'));
+     box.append(row);}
+    gallery.append(box);}
    const idx=nodes.indexOf(soundHead);let end=nodes.findIndex((n,i)=>i>idx&&n.tagName==='H2');if(end<0)end=nodes.length;nodes.splice(end,0,gallery);}
   const groups=sectionsByHeading(nodes,'계정·저장');const t=tabset('PAGE_SYSTEM',groups.map((g,i)=>({id:'s'+i+':'+g.label,label:g.label,nodes:g.nodes})),'shell-page-tabs'+(isMobile()?'':' vertical'));if(t)body.append(t);else body.append(...nodes);void key;}
 };
@@ -407,6 +419,10 @@ document.addEventListener('keydown',e=>{
 });
 // Keep the HUD sound icon honest when the quick actions change without a render.
 try{const q=$('#quick-actions');if(q)new MutationObserver(()=>{if(!game)return;const snd=quickButton(b=>b.dataset.audioToggle==='true'),tool=$('main > aside .hud-tools .hud-tool[title]:not(.hud-menu-button):not(.hud-handbook)+.hud-tool');void tool;const holder=$$('main > aside .hud-tools .hud-tool').find(b=>/소리/.test(b.title));if(snd&&holder){const on=/끄기/.test(snd.textContent);holder.title=snd.textContent;holder.setAttribute('aria-label',snd.textContent);holder.replaceChildren(icon(on?'SOUND':'MUTE'));}}).observe(q,{childList:true,subtree:true,characterData:true});}catch{}
+// The bag's detail opens with the item itself: a large icon on its tier colour and its stars.
+if(typeof itemDetailView==='function'){const priorDetail=itemDetailView;itemDetailView=function(box,d){priorDetail(box,d);try{const rank=Math.max(1,Math.min(5,d?.tier?.rank||1)),hero=mk('div','shell-item-hero tier-'+rank);hero.append(typeof itemGlyph==='function'?itemGlyph(d):mk('span','item-glyph','◆'),mk('span','shell-item-stars','★'.repeat(rank)));box.prepend(hero);}catch{}};}
+// Settings (title screen and in game) end with what this project is, and where the original lives.
+if(typeof settingsControls==='function'){const priorSettings=settingsControls;settingsControls=function(p){priorSettings(p);try{const head=mk('h2','','정보'),note=mk('p','shell-disclaimer','본 게임은 비영리 비공식 팬 프로젝트이며 HoYoverse의 공식 게임이 아닙니다. 원신 및 관련 캐릭터, 음악, 이미지 등의 권리는 각 권리자에게 있습니다. 권리자의 요청이 있는 경우 해당 콘텐츠는 즉시 제거 또는 교체될 수 있습니다.'),link=mk('a','shell-official','원신 공식 홈페이지 바로가기');link.href='https://genshin.hoyoverse.com/ko/';link.target='_blank';link.rel='noopener noreferrer';p.append(head,note,link);}catch{}};}
 // Formation and role effects are runtime statuses without a table row; name them instead of "알 수 없는 항목".
 if(typeof safeName==='function'){const priorSafeName=safeName;safeName=function(table,id,col=1){if(table==='13_STATUS_EFFECT_DB'){if(id==='FORMATION')return '진형 효과';if(id==='ROLE')return '역할 효과';}return priorSafeName(table,id,col);};}
 })();
