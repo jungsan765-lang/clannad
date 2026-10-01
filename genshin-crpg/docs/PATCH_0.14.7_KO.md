@@ -43,6 +43,30 @@
 - 테스트: `tests/test_fixed_region_live.mjs`에 채팅·교환·운영 꺼짐 검사를 추가했습니다(자동 배포 검증에도 쓰임). 브라우저 흐름 검사(`tests/test_online_browser.mjs`)는 새 UI에서 그대로 통과합니다.
 - 주의: 브라우저 테스트는 `data-screen` 선택자를 씁니다. body나 HUD에 `data-screen`을 붙이지 마세요(셸은 `data-shell-screen`을 씁니다). 버튼 안에 CSS 글자(::after content)를 넣으면 접근성 이름이 바뀌어 테스트가 실패합니다.
 
+## 테스트 서버(test.clannad.shop)에 올리는 방법
+
+- 서울 VPS(1GB)에서는 npm 설치·빌드·검사를 **절대 돌리지 않습니다**(예전 자동 배포가 메모리 부족으로 Caddy와 서버까지 멈춘 적이 있음). `genshin-crpg-fixed-region-update.timer`는 일부러 꺼 둔 것이니 다시 켜지 마세요.
+- `test/*` 또는 `release/*` 브랜치에서 main을 대상으로 PR(초안 포함)을 열면 GitHub Actions(`crpg-sync-dist.yml`)가 검사·빌드를 모두 하고, 통과하면 `crpg-test-latest` 릴리스에 올립니다.
+  - `crpg-test-pack.tar.gz`: 게임 화면 묶음
+  - `crpg-test-server.tar.gz`: 같은 코드로 만든 테스트 API 서버와 엔진
+  - `install-fixed-region-test-release.sh`: 설치 스크립트
+  - `crpg-test-sha.txt`: 커밋 표식. 맨 마지막에 올라갑니다.
+  - 화면 묶음과 서버 묶음의 엔진이 다르면 Actions 단계에서 실패합니다.
+- 옛 `staging/crpg-seoul-node-v0145` 브랜치는 PR #15로 끝난 인프라 브랜치이므로 테스트 PR에 다시 쓰지 않습니다.
+- 서울 VPS에서는 root로 설치 스크립트만 내려받아 실행합니다. 스크립트는 내려받아 바꿔 끼우기만 합니다.
+  - 테스트 API(`genshin-crpg-fixed-region-live.service`, 8789)는 운영과 같은 코드 폴더 대신 `/opt/genshin-crpg-test-server/current`에서 돌게 됩니다(systemd drop-in).
+  - 게임 화면은 `/var/www/genshin-crpg-test/current`가 바뀝니다.
+  - 새 엔진으로 안 뜨면 테스트 API를 이전 상태로 되돌립니다.
+  - 운영(clannad.shop, `genshin-crpg-production.service`, 운영 폴더, Caddy 운영 설정)은 건드리지 않습니다.
+
+```bash
+curl -fsSLo /root/install-fixed-region-test-release.sh https://github.com/jungsan765-lang/clannad/releases/download/crpg-test-latest/install-fixed-region-test-release.sh
+```
+
+```bash
+bash /root/install-fixed-region-test-release.sh
+```
+
 ## 운영 반영 때 할 일(승인 후)
 
 1. main 병합 → 테스트 팩과 같은 엔진으로 운영 서버 재시작과 운영 클라이언트 교체.

@@ -88,6 +88,27 @@ jobs:
           npm run test:browser
           CRPG_TEST_BACKEND=do npm run test:browser
           node -e "const p=require('./package.json'),r=require('./dist/release.json');if(p.version!==r.appVersion)process.exit(1)"
+      # Test releases (PRs from test/* or release/* branches of this repository, drafts included): also package the
+      # test API server built from the same verified tree, so the Seoul VPS only downloads and swaps files and never
+      # builds or tests anything itself.
+      - name: Package verified test API server
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && (startsWith(github.head_ref, 'test/') || startsWith(github.head_ref, 'release/'))
+        working-directory: genshin-crpg
+        run: |
+          bash -n tools/install-fixed-region-test-release.sh
+          npm run build:server
+          mkdir -p ../verified-server/server/generated
+          cp server/*.mjs ../verified-server/server/
+          cp server/generated/engine.mjs ../verified-server/server/generated/
+          cp tools/install-fixed-region-test-release.sh ../verified-server/
+          node --input-type=module -e "const m=await import(process.argv[1]);process.stdout.write(m.ENGINE_FINGERPRINT)" "$PWD/server/generated/engine.mjs" >../verified-server/server-engine.txt
+          node -e "const fs=require('fs'),a=fs.readFileSync('../verified-server/server-engine.txt','utf8').trim(),b=require('./dist/release.json').engineVersion;if(!a||a!==b){console.error('test API engine '+a+' does not match client pack engine '+b);process.exit(1)}"
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && (startsWith(github.head_ref, 'test/') || startsWith(github.head_ref, 'release/'))
+        with:
+          name: crpg-test-server-${{ github.sha }}
+          path: verified-server
+          retention-days: 14
       - uses: actions/upload-artifact@v4
         with:
           name: crpg-production-${{ github.sha }}
@@ -101,8 +122,10 @@ jobs:
           retention-days: 14
 
 
+  # Test release for test.clannad.shop: any PR (drafts included) from a test/* or release/* branch of this repository.
+  # Builds and tests happen only in the verify job above; this job packages the verified results.
   test-package:
-    if: github.event_name == 'pull_request' && github.head_ref == 'staging/crpg-seoul-node-v0145' && github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && (startsWith(github.head_ref, 'test/') || startsWith(github.head_ref, 'release/'))
     needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -113,6 +136,10 @@ jobs:
         with:
           name: crpg-production-${{ github.sha }}
           path: verified-pack
+      - uses: actions/download-artifact@v4
+        with:
+          name: crpg-test-server-${{ github.sha }}
+          path: verified-server
       - name: Mark dedicated Seoul test artifact
         env:
           TEST_SHA: ${{ github.event.pull_request.head.sha }}
@@ -149,6 +176,9 @@ jobs:
           PY
           printf '%s\n' "$TEST_SHA" >verified-pack/test-source-sha.txt
           tar -C verified-pack -czf crpg-test-pack.tar.gz .
+          printf '%s\n' "$TEST_SHA" >verified-server/test-source-sha.txt
+          cp verified-server/install-fixed-region-test-release.sh install-fixed-region-test-release.sh
+          tar -C verified-server -czf crpg-test-server.tar.gz .
           printf '%s\n' "$TEST_SHA" >crpg-test-sha.txt
       - name: Publish replaceable test pack release
         env:
@@ -158,7 +188,9 @@ jobs:
           if ! gh release view crpg-test-latest --repo "${{ github.repository }}" >/dev/null 2>&1; then
             gh release create crpg-test-latest --repo "${{ github.repository }}" --target "$TEST_SHA" --title "CRPG Seoul test latest" --notes "Automated test-only artifact. Not production." --prerelease
           fi
-          gh release upload crpg-test-latest crpg-test-pack.tar.gz crpg-test-sha.txt --repo "${{ github.repository }}" --clobber
+          gh release upload crpg-test-latest crpg-test-pack.tar.gz crpg-test-server.tar.gz install-fixed-region-test-release.sh --repo "${{ github.repository }}" --clobber
+          # The commit marker goes last, so the VPS never sees a SHA whose files are not all uploaded yet.
+          gh release upload crpg-test-latest crpg-test-sha.txt --repo "${{ github.repository }}" --clobber
           gh release edit crpg-test-latest --repo "${{ github.repository }}" --title "CRPG Seoul test latest" --notes "Automated test-only artifact for $TEST_SHA. Not production."
 
 
