@@ -75,12 +75,15 @@ export class LiveRegionStore{
   this.db.prepare('UPDATE chat SET deleted=1 WHERE id=?').run(id);this.broadcast({type:'chat-delete',id});return {deleted:true};
  }
  // ---------- trade ----------
- tradeView(t){const who=id=>{const x=this.db.prepare('SELECT username,display_name FROM accounts WHERE id=?').get(id);return x?{username:x.username,name:x.display_name}:{username:'',name:'떠난 모험가'};};return {id:t.id,from:who(t.from_id),to:who(t.to_id),give:JSON.parse(t.give),want:JSON.parse(t.want),status:t.status,note:t.note,at:t.created_at,updated:t.updated_at};}
+ tradeView(t){const who=id=>{const x=this.db.prepare('SELECT display_name FROM accounts WHERE id=?').get(id);return {name:x?x.display_name:'떠난 모험가',pid:pidOf(id)};};return {id:t.id,from:who(t.from_id),to:who(t.to_id),give:JSON.parse(t.give),want:JSON.parse(t.want),status:t.status,note:t.note,at:t.created_at,updated:t.updated_at};}
  tradeList(a){this.need('trade');const q=col=>this.db.prepare('SELECT * FROM trades WHERE '+col+'=? ORDER BY CASE status WHEN \'PENDING\' THEN 0 ELSE 1 END,id DESC LIMIT 20').all(a.id).map(t=>this.tradeView(t));return {incoming:q('to_id'),outgoing:q('from_id'),limit:TRADE_PENDING};}
  runtimeOf(id){const m=this.meta(id);if(!m||m.revision==null)return null;return new R(GAME_DB,joinState(this.loadParts(id)),true);}
  tradeOffer(a,b){
   this.need('trade');this.rate('trade-offer:'+a.id,12,600000);
-  const target=this.account(uname(b?.to));if(!target)throw err(404,'받는 모험가를 찾을 수 없습니다. 아이디를 확인해 주세요.');if(target.id===a.id)throw err(400,'자신에게는 교환을 제안할 수 없습니다.');
+  // The receiver is named by login ID, or picked from the chat by the public chat id (login IDs stay private).
+  let target=b?.to?this.account(uname(b.to)):null;
+  if(!target&&b?.toPid&&this.features.has('chat')){const pid=String(b.toPid);for(const row of this.db.prepare('SELECT DISTINCT account_id FROM chat').all())if(pidOf(row.account_id)===pid){target=this.db.prepare('SELECT * FROM accounts WHERE id=?').get(row.account_id);break;}}
+  if(!target)throw err(404,'받는 모험가를 찾을 수 없습니다. 아이디를 확인해 주세요.');if(target.id===a.id)throw err(400,'자신에게는 교환을 제안할 수 없습니다.');
   if(this.db.prepare("SELECT COUNT(*) AS n FROM trades WHERE from_id=? AND status='PENDING'").get(a.id).n>=TRADE_PENDING)throw err(409,'응답을 기다리는 제안이 '+TRADE_PENDING+'건입니다. 정리한 뒤 다시 제안해 주세요.');
   const r=this.runtimeOf(a.id);if(!r)throw err(409,'먼저 여정을 시작해 주세요.');if(!this.meta(target.id)||this.meta(target.id).revision==null)throw err(409,'상대가 아직 여정을 시작하지 않았습니다.');
   let give,want;try{give=r.tradeNormalize(b.give||[]);want=r.tradeNormalize(b.want||[]);}catch(e){throw err(400,e.message);}

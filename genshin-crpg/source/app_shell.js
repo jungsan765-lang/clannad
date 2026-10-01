@@ -49,7 +49,7 @@ const ICON={
 function icon(name,cls='shell-icon'){const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('class',cls);const p=document.createElementNS(NS,'path');p.setAttribute('d',ICON[name]||ICON.DOT);s.append(p);return s;}
 S.icon=icon;
 // data-screen of the nav buttons -> icon, hotkey and the short label shown on phones and in the menu.
-const NAV={STORY:{icon:'STORY',key:'T',label:'이야기'},LOCATION:{icon:'LOCATION',key:'',label:'메인 화면'},PARTY:{icon:'PARTY',key:'L',label:'편성'},STATUS:{icon:'STATUS',key:'C',label:'장비·성장'},INVENTORY:{icon:'INVENTORY',key:'B',label:'가방'},QUEST:{icon:'QUEST',key:'J',label:'임무'},RELATIONS:{icon:'RELATIONS',key:'O',label:'호감도'},SYSTEM:{icon:'SYSTEM',key:'',label:'설정·저장'}};
+const NAV={STORY:{icon:'STORY',key:'T',label:'이야기',short:'이야기'},LOCATION:{icon:'LOCATION',key:'',label:'메인 화면',short:'메인'},PARTY:{icon:'PARTY',key:'L',label:'편성',short:'편성'},STATUS:{icon:'STATUS',key:'C',label:'장비·성장',short:'장비'},INVENTORY:{icon:'INVENTORY',key:'B',label:'가방',short:'가방'},QUEST:{icon:'QUEST',key:'J',label:'임무',short:'임무'},RELATIONS:{icon:'RELATIONS',key:'O',label:'호감도',short:'호감도'},SYSTEM:{icon:'SYSTEM',key:'',label:'설정·저장',short:'설정'}};
 const HOTKEYS={t:'STORY',l:'PARTY',c:'STATUS',b:'INVENTORY',j:'QUEST',o:'RELATIONS'};
 const MENU_SCREENS=new Set(['PARTY','STATUS','INVENTORY','QUEST','RELATIONS','SYSTEM','SHOP','CRAFT','COOKING','MARKET','RECRUITMENT','ABYSS','ENHANCE','FORGE']);
 const isMobile=()=>matchMedia('(max-width: 760px)').matches;
@@ -86,7 +86,7 @@ function buildHUD(aside,key){
  const hpBox=mk('div','hud-hp');hpBox.title='체력 '+fmt(hp)+' / '+fmt(max);const bar=mk('span','hud-bar'),fill=mk('i');fill.style.width=Math.max(0,Math.min(100,hp/(max||1)*100))+'%';if(hp/(max||1)<.3)hpBox.classList.add('low');bar.append(fill);hpBox.append(bar,mk('small','',fmt(hp)+' / '+fmt(max)));
  const mora=mk('div','hud-mora');mora.title='모라';mora.append(icon('MORA'),mk('span','',fmt(g.MORA)));
  me.append(lv,hpBox,mora);
- if(nav){nav.classList.add('hud-nav');for(const b of $$('button',nav)){const scr=b.dataset.screen,def=NAV[scr];if(def){b.classList.add('hud-nav-button');const old=$('.nav-icon',b);if(old)old.replaceWith(icon(def.icon,'shell-icon nav-glyph'));const label=b.lastElementChild;if(label&&label.tagName==='SPAN')label.classList.add('hud-nav-label');b.title=(b.title?b.title+' · ':'')+(label?.textContent||def.label)+(def.key?' ('+def.key+')':'');}else{b.classList.add('hud-extra');b.hidden=true;}}}
+ if(nav){nav.classList.add('hud-nav');for(const b of $$('button',nav)){const scr=b.dataset.screen,def=NAV[scr];if(def){b.classList.add('hud-nav-button');const old=$('.nav-icon',b);if(old)old.replaceWith(icon(def.icon,'shell-icon nav-glyph'));const label=b.lastElementChild;if(label&&label.tagName==='SPAN')label.classList.add('hud-nav-label');b.append(mk('span','hud-nav-short',def.short));b.title=(b.title?b.title+' · ':'')+(label?.textContent||def.label)+(def.key?' ('+def.key+')':'');}else{b.classList.add('hud-extra');b.hidden=true;}}}
  const tools=mk('div','hud-tools');
  if(window.CRPGHandbook){const hb=toolButton('HANDBOOK','모험가 핸드북 (F1)',()=>CRPGHandbook.open());hb.classList.add('hud-handbook');tools.append(hb);}
  tools.append(toolButton('MAP','지도 (M)',openMap));

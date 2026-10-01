@@ -695,15 +695,10 @@ body.teyvat .shell-story-figure .portrait-frame img{animation:shellFigure .6s cu
 @keyframes shellFigure{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
 /* ---------- title screen (no journey open) ---------- */
 .game-title .title-landscape{animation:shellDrift 52s ease-in-out infinite alternate;transform-origin:50% 60%}
-.game-title .title-logo{font-family:'Gowun Batang','Noto Serif KR',serif;background:linear-gradient(180deg,#ffffff 0%,#fff4d8 45%,#e8c98c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 18px rgba(0,0,0,.45)) drop-shadow(0 0 22px rgba(255,236,190,.35));animation:shellFloat 6s ease-in-out infinite}
-.game-title .title-crpg,.game-title .title-kicker,.game-title .title-edition{font-family:'Cinzel','Gowun Batang',serif}
+.game-title .title-logo{color:#fffef5;text-shadow:0 2px 0 rgba(30,60,70,.55),0 4px 14px rgba(0,0,0,.55),0 0 34px rgba(10,40,60,.55);animation:shellFloat 6s ease-in-out infinite}
 .game-title .title-star{display:inline-block;animation:shellTwinkle 3.2s ease-in-out infinite}
 @keyframes shellFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes shellTwinkle{0%,100%{transform:scale(1) rotate(0deg);opacity:.85}50%{transform:scale(1.25) rotate(45deg);opacity:1;filter:drop-shadow(0 0 12px #fff3c4)}}
-.game-title .title-start{position:relative;overflow:hidden;background-image:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.6) 50%,transparent 65%)!important;background-size:250% 100%!important;background-position:130% 0!important;background-repeat:no-repeat!important;transition:background-position .7s ease,box-shadow .25s,transform .2s}
-.game-title .title-start:hover{background-position:-30% 0!important;box-shadow:0 0 0 2px rgba(255,236,190,.75),0 0 30px rgba(255,236,190,.5);transform:translateY(-2px)}
-.game-title .title-start::after{content:'';position:absolute;inset:-2px;border-radius:inherit;border:1px solid rgba(255,240,200,.7);animation:shellRing 2.4s ease-out infinite;pointer-events:none}
-@keyframes shellRing{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(1.08,1.35)}}
 body:not(.teyvat) .shell-motes{position:fixed;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen}
 body.teyvat .shell-sound-gallery{margin:12px 0;padding:12px 14px}
 body.teyvat .shell-sound-gallery h3{margin:0 0 8px;font-family:var(--font-display)}
@@ -808,3 +803,71 @@ body.teyvat .hud-chat.active{background:var(--t-cream);color:var(--t-ink)}
 body.teyvat .trade-rule{margin:10px 0 0;padding:6px 10px;border-radius:10px;font-size:.8rem;font-weight:600}
 body.teyvat .trade-rule.ok{background:rgba(120,200,140,.14);color:#a8e0b4;border:1px solid rgba(120,200,140,.3)}
 body.teyvat .trade-rule.bound{background:rgba(232,120,100,.1);color:#f0b2a6;border:1px solid rgba(232,120,100,.25)}
+/* ---------- small fixes: dock labels, tab scrollbars, version chip ---------- */
+body.teyvat .hud-nav-short{display:none}
+body.teyvat .shell-tabbar,body.teyvat .hb-tabs,body.teyvat nav.hud-nav{scrollbar-width:none}
+body.teyvat .shell-tabbar::-webkit-scrollbar,body.teyvat nav.hud-nav::-webkit-scrollbar{display:none}
+body.teyvat #game-version{position:fixed;right:8px;bottom:6px;z-index:40;min-height:0;padding:1px 8px;font-size:.66rem;line-height:1.5;opacity:.5;background:rgba(8,10,16,.5);border:1px solid rgba(255,255,255,.08);border-radius:8px;color:var(--t-muted)}
+body.teyvat #game-version:hover{opacity:1}
+@media (max-width:760px){
+ body.teyvat nav.hud-nav .hud-nav-label{display:none}
+ body.teyvat nav.hud-nav .hud-nav-short{display:block;font-size:.64rem;font-weight:600;line-height:1.2}
+ body.teyvat #game-version{bottom:calc(var(--dock-h) + 6px)}
+}
+
+.game-title button.title-start:not(:disabled){animation:shellTitlePulse 2.6s ease-in-out infinite}
+@keyframes shellTitlePulse{0%,100%{box-shadow:0 5px 26px #092f4a50,0 0 0 5px #ffffff1a}50%{box-shadow:0 8px 32px #092f4a60,0 0 0 8px #ffffff33,0 0 28px #fff6d880}}
+/* ---------- trade v2: tiles and trays ---------- */
+.trade-box{width:min(1060px,100%)}
+.trade-body.tab-new{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,1fr);gap:14px;overflow:hidden;padding:12px 16px 16px}
+.tr-picker,.tr-offer{min-height:0;display:flex;flex-direction:column;gap:8px;background:#f8f4ec;border:1px solid rgba(57,64,79,.1);border-radius:16px;padding:12px}
+.tr-offer{overflow:auto}
+.tr-offer h3,.tr-tray h3{margin:4px 0 2px;font-size:.9rem;color:#8a6d3b;font-family:'Gowun Batang',serif}
+.tr-modes{display:flex;gap:6px}
+.tr-mode{flex:1}
+.tr-mode.active,.tr-cat.active,.tr-person.active{background:#39404f;color:#ece5d8;border-color:#39404f}
+.tr-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tr-cats{display:flex;gap:4px;flex-wrap:wrap}
+.tr-cat{min-height:30px;padding:2px 12px;font-size:.78rem}
+.tr-search{flex:1;min-width:140px;min-height:34px;padding:4px 12px;border-radius:17px;border:1px solid rgba(57,64,79,.2);background:#fff;color:#39404f;font:inherit;font-size:.84rem}
+.tr-grid{flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;align-content:start;padding:4px 2px}
+.tr-tile{position:relative;display:flex;flex-direction:column;align-items:stretch;padding:0;border:1px solid transparent;border-radius:8px;overflow:hidden;background:#ece5d8;color:#39404f;cursor:pointer;font:inherit;min-height:0;transition:transform .15s,box-shadow .15s}
+.tr-tile:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 0 0 2px #fff,0 6px 16px rgba(57,64,79,.3)}
+.tr-tile:disabled{opacity:.55;cursor:default}
+.tr-tile.in-tray{box-shadow:0 0 0 3px #c9a86a}
+.tr-art{display:grid;place-items:center;aspect-ratio:1/1;border-radius:0 0 16px 0;background:linear-gradient(160deg,#5d6270,#8c909b)}
+.tr-tile.tier-2 .tr-art{background:linear-gradient(160deg,#3f6b52,#6c9f80)}.tr-tile.tier-3 .tr-art{background:linear-gradient(160deg,#415f98,#6f94cf)}.tr-tile.tier-4 .tr-art{background:linear-gradient(160deg,#5d4c93,#9a7fd0)}.tr-tile.tier-5 .tr-art{background:linear-gradient(160deg,#9a6230,#d7a458)}
+.tr-art .item-icon{width:78%;height:78%;object-fit:contain}
+.tr-art .item-glyph{font-size:1.6rem}
+.tr-count{font-size:.7rem;font-weight:700;line-height:1.5;text-align:center}
+.tr-name{font-size:.62rem;line-height:1.3;padding:0 4px 4px;color:#5b6272;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+.tr-badge{position:absolute;top:4px;right:4px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#39404f;color:#f3dfae;font-size:.7rem;font-weight:700;line-height:20px;text-align:center}
+.tr-people{display:flex;flex-wrap:wrap;gap:6px}
+.tr-person{min-height:32px;padding:3px 12px;font-size:.82rem}
+.tr-id,.tr-note{min-height:38px;padding:6px 12px;border-radius:12px;border:1px solid rgba(57,64,79,.2);background:#fff;color:#39404f;font:inherit;font-size:.86rem}
+.tr-tray{display:flex;flex-direction:column;gap:6px}
+.tr-tray-list{display:flex;flex-direction:column;gap:6px}
+.tr-tray-item{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:10px;align-items:center;padding:6px;border-radius:12px;background:#fff;border:1px solid rgba(57,64,79,.1);animation:shellIn .2s ease-out}
+.tr-tray-item .tr-tile{width:62px}
+.tr-tray-info{display:flex;flex-direction:column;gap:4px;min-width:0}
+.tr-tray-info>span{font-size:.86rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tr-stepper{display:flex;align-items:center;gap:4px}
+.tr-step{min-height:28px;width:28px;padding:0;border-radius:14px;text-align:center}
+.tr-stepper input{width:56px;min-height:28px;padding:2px 6px;border-radius:8px;border:1px solid rgba(57,64,79,.2);text-align:center;font:inherit;font-size:.84rem}
+.trade-note.small{font-size:.78rem;margin-top:4px}
+.trade-note.empty{text-align:center;padding:40px 0}
+.trade-send{align-self:stretch;margin-top:6px}
+.trade-send:disabled{opacity:.45;cursor:default}
+.tr-offer-row{display:grid;grid-template-columns:62px minmax(0,1fr);gap:8px;align-items:center;margin:6px 0}
+.tr-offer-row b{font-size:.8rem;color:#8a6d3b}
+.tr-offer-tiles{display:flex;flex-wrap:wrap;gap:6px}
+.tr-offer-tiles .tr-tile{width:68px}
+.trade-card-top small{margin-left:auto;margin-right:8px;color:#8a8e99;font-size:.74rem}
+body.teyvat .trade-bag-add{margin-top:8px;width:100%}
+@media (max-width:760px){.trade-body.tab-new{grid-template-columns:1fr;overflow:auto}.tr-picker{max-height:52vh}.tr-grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr))}}
+.tr-grid{grid-auto-rows:max-content}
+.tr-tile{flex:0 0 auto}
+.tr-art{aspect-ratio:auto;height:70px;flex:0 0 70px}
+.tr-tray-item .tr-art,.tr-offer-tiles .tr-art{height:56px;flex-basis:56px}
+.tr-stepper input{background:#fff;color:#39404f;max-width:none;width:56px}
+.trade-overlay input[type=number]::-webkit-inner-spin-button{opacity:.4}
