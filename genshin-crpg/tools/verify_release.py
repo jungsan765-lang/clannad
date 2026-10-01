@@ -25,6 +25,7 @@ TESTS = [
     'tools/test_field_bosses.cjs', 'tools/test_exclusive_weapons.cjs',
     'tests/test_update_v01341.cjs', 'tests/test_abyss_v01341.cjs', 'tests/test_v0144.cjs', 'tests/test_v0148.cjs', 'tests/test_v01410.cjs', 'tests/test_v01411.cjs', 'tests/test_admin_v01412.mjs',
     'tests/test_osial_v01341.cjs', 'tools/test_story_cleanup_v0140.cjs',
+    'tests/test_main_story_k_v0148.cjs',
 ]
 def run(test):
     started = time.monotonic()

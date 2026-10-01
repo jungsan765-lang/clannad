@@ -62,7 +62,7 @@ function openShop(tab,done){
   card.append(buy);list.append(card);
  }
  if(!list.childElementCount)list.append(mk('p','muted','교환할 수 있는 상품이 없습니다.'));
- box.append(head,tabs,list,mk('p','muted premium-note','원석은 아직 얻을 방법이 없습니다. 비영리 팬 게임이므로 현금으로 사는 일은 없습니다.'));
+ box.append(head,tabs,list,mk('p','muted premium-note','원석은 나선비경 1~8층을 처음 정복하면 받습니다(모두 1,600개). 비영리 팬 게임이므로 현금으로 사는 일은 없습니다.'));
  showModal('교환',box);
 }
 window.CRPGPremium={openShop};

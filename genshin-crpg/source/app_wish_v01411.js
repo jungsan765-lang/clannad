@@ -117,7 +117,7 @@ function panel(p,v,bal){
   const why=lockReason()||game.premiumOfferReason({offer:FATE_OFFER[fate],count});
   const go=mk('button','wish-primary',p.then?'교환하고 기원':'교환');go.type='button';go.disabled=!!why||UI.busy;if(why)box.append(mk('p','wish-warn',why));
   go.onclick=async()=>{UI.busy=true;let out;try{out=await attempt('PREMIUM_BUY',{offer:FATE_OFFER[fate],count});}finally{UI.busy=false;}if(out?.ok===false){draw();return;}const then=p.then;UI.panel=null;draw();if(then)pull(then);};box.append(go);
-  box.append(mk('small','muted','원석 160개로 인연 1개를 교환합니다. 지금은 원석을 얻을 방법이 없습니다.'));
+  box.append(mk('small','muted','원석 160개로 인연 1개를 교환합니다. 원석은 나선비경 1~8층 첫 정복 보상으로 받습니다.'));
  }else if(p.kind==='details'){
   head.append(mk('h3','','기원 상세 정보'),x);box.append(head);
   const list=[['5★','기본 0.6% · 74회부터 크게 오르고 90회에 확정 (5★가 나오면 다시 셉니다)'],['4★ 이상','기본 5.1% · 9회째 56.1% · 10회 안에 반드시 1번'],['10회 기원','동료가 반드시 한 명 이상'],['캐릭터 이벤트 기원','5★는 절반 확률로 확률 UP 동료, 놓치면 다음 5★는 확정. 4★도 절반 확률로 확률 UP 동료 3명 중 1명, 놓치면 다음 4★는 확정'],['동료','운명의 별 + 스타라이트 (4★ 2, 5★ 10 · 운명의 자리를 모두 채운 동료는 4★ 5, 5★ 25)'],['4★ 무기','무기 + 스타라이트 2'],['3★ 무기','무기 + 스타더스트 15 (같은 무기를 3개 갖고 있으면 무기 대신 스타더스트 30)'],['횟수 기록','두 기원은 따로 셉니다. 횟수는 주가 바뀌어도 이어집니다']];
