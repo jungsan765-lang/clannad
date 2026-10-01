@@ -54,7 +54,7 @@ function start(){
  size();const n=innerWidth<760?18:34;motes=Array.from({length:n},()=>spawn(innerWidth,innerHeight,true));running=true;canvas.hidden=false;lastT=performance.now();raf2=requestAnimationFrame(tick);
 }
 function stop(){running=false;if(raf2)cancelAnimationFrame(raf2);raf2=0;if(canvas){canvas.hidden=true;ctx?.clearRect(0,0,canvas.width,canvas.height);}}
-M.syncMotes=function(){const mode=document.body.dataset.mode,want=!document.hidden&&!reduced()&&document.body.classList.contains('teyvat')&&['world','menu','plain','story'].includes(mode);if(want)start();else stop();};
+M.syncMotes=function(){const mode=document.body.dataset.mode,title=!!document.querySelector('.game-title'),want=!document.hidden&&!reduced()&&(title||document.body.classList.contains('teyvat')&&['world','menu','plain','story'].includes(mode));if(want)start();else stop();};
 document.addEventListener('visibilitychange',()=>M.syncMotes());
 // Loading tips on the travel and work screens, like the original's loading screen.
 const TIPS=['F1을 누르면 모험가 핸드북에서 필드 보스·지맥의 꽃·오늘의 기록을 한눈에 볼 수 있습니다.','Esc로 메뉴를 엽니다. J는 임무, L은 편성, C는 장비, B는 가방, M은 지도입니다.','지맥의 꽃은 매시 정각에 자리를 옮깁니다. 꽃마다 한 시간에 한 번 보상을 받습니다.','필드 보스는 모두 합쳐 게임 내 하루에 3번까지 토벌할 수 있습니다.','이틀 주기 보스는 현실 시간으로 하루에 한 번 입장합니다. 한국 시간 자정에 다시 열립니다.','동료의 개인 임무를 마치면 동행을 제안받습니다.','전투에서 E와 Q 키로 주인공의 원소전투 스킬과 원소폭발을 고를 수 있습니다.','동료 역할이 진형과 맞으면 시너지가 붙습니다.','전용 무기를 든 동료는 원소폭발 때 일정 확률로 「공명 각성」을 일으킵니다.','회복 요리는 같은 요리를 연달아 먹으면 효과가 없습니다. 번갈아 준비해 두세요.','길 안내를 정하면 도착할 때까지 지도에 다음 구역이 표시됩니다.'];

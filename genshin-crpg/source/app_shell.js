@@ -103,7 +103,9 @@ function placeGuide(){
  if(S.guideStep!==step){S.guideStep=step;S.guideOpen=!S.guideMin;}
  let pop=guide.closest('.hud-guide-pop');if(!pop){pop=mk('div','hud-guide-pop');pop.setAttribute('role','region');pop.setAttribute('aria-label','여행 안내');document.body.append(pop);pop.append(guide);}
  const min=mk('button','hud-guide-min');min.type='button';min.setAttribute('aria-label','안내 잠시 숨기기');min.title='안내 잠시 숨기기 (HUD의 안내 버튼으로 다시 열기)';min.append(icon('CLOSE'));min.onclick=()=>{S.guideOpen=false;S.guideMin=true;placeGuide();};
- pop.querySelector('.hud-guide-min')?.remove();pop.prepend(min);pop.hidden=!S.guideOpen||!slot;
+ pop.querySelector('.hud-guide-min')?.remove();pop.prepend(min);
+ // A save confirmation or a dialog always wins over the guide.
+ pop.hidden=!S.guideOpen||!slot||!!$('#root > .pending-action-notice')||!!$('dialog[open]');
  if(!slot)return;
  const pill=mk('button','hud-guide'+(S.guideOpen?' open':''));pill.type='button';pill.setAttribute('aria-expanded',String(!!S.guideOpen));pill.title='여행 안내 · '+step;
  pill.append(icon('HELP'),mk('span','hud-guide-count',count||'안내'),mk('span','hud-guide-step',step));
@@ -223,8 +225,17 @@ function layoutStory(content,p){
  }
  const cont=continueButton(p);if(cont){cont.classList.add('shell-continue');p.classList.add('can-continue');cont.title=(cont.title?cont.title+' · ':'')+'Space / Enter';}
  p.addEventListener('click',e=>{if(e.target.closest('button,a,input,select,textarea,summary,label,details'))return;const b=continueButton(p);if(b&&!b.disabled)b.click();});
+ // 자동 재생: reads on by itself like the original's auto button; it always stops at a choice.
+ const bar=$('.story-toolbar',p);if(bar){const auto=mk('button','shell-auto'+(S.auto?' on':''));auto.type='button';auto.setAttribute('aria-pressed',String(!!S.auto));auto.append(icon('CLOCK'),mk('span','',S.auto?'자동 재생 중':'자동 재생'));auto.title='대사를 일정한 간격으로 넘깁니다. 선택지에서는 멈춥니다.';auto.onclick=e=>{e.stopPropagation();S.auto=!S.auto;try{localStorage.setItem('crpg-shell-auto',S.auto?'1':'0');}catch{}render();};bar.append(auto);}
+ scheduleAuto(p,choices.length);
  void copy;
 }
+function scheduleAuto(p,hasChoices){
+ clearTimeout(S.autoTimer);if(!S.auto||hasChoices)return;const b=continueButton(p);if(!b||!/계속 읽기/.test(b.textContent))return;
+ const text=$('p.story',p)?.textContent||'',wait=Math.min(9000,1400+text.length*55);const node=game?.storyActiveNodeId?.();
+ S.autoTimer=setTimeout(()=>{if(!S.auto||busy||!game||game.storyActiveNodeId?.()!==node||document.hidden||S.menu||window.CRPGHandbook?.isOpen?.())return;const now=continueButton($('.content .panel')||document);if(now&&!now.disabled)now.click();},wait);
+}
+try{S.auto=localStorage.getItem('crpg-shell-auto')==='1';}catch{}
 function continueButton(p){const primary=$$('.story-copy .actions button.primary, :scope > .actions button.primary',p).filter(b=>!b.disabled);return primary.find(b=>/계속 읽기|전투 시작|다음 활동 선택|정한 이름 알려 주기/.test(b.textContent))||null;}
 function layoutCombat(content,p){
  content.classList.add('shell-battle');setBackdrop(mapBackground());
@@ -275,11 +286,15 @@ const MENU_LAYOUT={
   const members=nodes.find(n=>n.matches('.gear-members'));const books=nodes.filter(n=>n.matches('.gear-books'));const rest=nodes.filter(n=>n!==intro&&n!==links&&n!==members&&!books.includes(n));
   body.classList.add('shell-cols','gear-cols');
   if(members){const cards=[...members.children].filter(c=>c.matches('.gear-member'));
+   // Like the character screen of the original: the selected member's art fills the middle, details on the right.
+   const splash=mk('div','shell-splash');splash.setAttribute('aria-hidden','true');
+   const paint=c=>{const src=$('img.gear-portrait',c)?.getAttribute('src');splash.replaceChildren();splash.classList.toggle('empty',!src);if(src){const img=mk('img');img.src=src;img.alt='';img.decoding='async';splash.append(img);}else splash.append(mk('span','shell-splash-mark','✧'));};
    if(cards.length>1){const list=mk('div','shell-roster');list.setAttribute('role','tablist');list.setAttribute('aria-label','파티원');let cur=Math.min(S.gearIndex||0,cards.length-1);
-    const show=i=>{S.gearIndex=i;cards.forEach((c,j)=>{c.hidden=j!==i;});[...list.children].forEach((b,j)=>{b.setAttribute('aria-selected',String(j===i));b.classList.toggle('active',j===i);});};
-    cards.forEach((c,i)=>{const b=mk('button','shell-roster-item');b.type='button';b.setAttribute('role','tab');const face=$('.gear-portrait',c);const pic=face?face.cloneNode(true):mk('span','gear-portrait portrait-placeholder','✧');pic.classList.add('shell-roster-face');b.append(pic,mk('span','',$('h2',c)?.textContent||'파티원'));b.onclick=()=>show(i);list.append(b);});
+    const show=(i,user)=>{if(user&&S.gearIndex!==i)sound('tab');S.gearIndex=i;cards.forEach((c,j)=>{c.hidden=j!==i;});[...list.children].forEach((b,j)=>{b.setAttribute('aria-selected',String(j===i));b.classList.toggle('active',j===i);});paint(cards[i]);};
+    cards.forEach((c,i)=>{const b=mk('button','shell-roster-item');b.type='button';b.setAttribute('role','tab');const face=$('.gear-portrait',c);const pic=face?face.cloneNode(true):mk('span','gear-portrait portrait-placeholder','✧');pic.classList.add('shell-roster-face');b.append(pic,mk('span','',$('h2',c)?.textContent||'파티원'));b.onclick=()=>show(i,true);list.append(b);});
     show(cur);body.append(region('shell-col-roster',[list]));}
-   body.append(region('shell-col-main',[members,...rest]));}
+   else if(cards[0])paint(cards[0]);
+   body.append(region('shell-col-main gear-stage',[splash,members,...rest]));}
   else body.append(region('shell-col-main',rest));
   if(books.length)body.append(region('shell-col-side',books));
  },
@@ -306,8 +321,33 @@ const MENU_LAYOUT={
   const main=region('shell-col-main shop-main',[filter,layout].filter(Boolean));body.append(main);
   if(rest.length){body.classList.add('with-side');body.append(region('shell-col-side',rest));}
  },
- SYSTEM(body,nodes,head,key){const groups=sectionsByHeading(nodes,'계정·저장');const t=tabset('PAGE_SYSTEM',groups.map((g,i)=>({id:'s'+i+':'+g.label,label:g.label,nodes:g.nodes})),'shell-page-tabs'+(isMobile()?'':' vertical'));if(t)body.append(t);else body.append(...nodes);void key;}
+ SYSTEM(body,nodes,head,key){
+  // The sound set is synthesised now: say so, and let the player audition it.
+  for(const n of nodes)if(n.matches?.('p.muted')&&/공식 웹 이벤트 원소 효과음/.test(n.textContent))n.textContent='원신 OST · 지역별 순환 재생 · 효과음은 이 게임에서 직접 합성한 소리입니다(새·활·멧돼지 소리는 녹음 출처 표기).';
+  for(const a of nodes.filter(a=>a.tagName==='A'&&/genshin-sfx/.test(a.getAttribute('href')||''))){a.remove();nodes.splice(nodes.indexOf(a),1);}
+  // The display rows are appended after the sound section by the settings code; put them back under 표시 설정.
+  const displayHead=nodes.find(n=>n.tagName==='H2'&&/표시 설정/.test(n.textContent));
+  if(displayHead){const rows=nodes.filter(n=>n.matches?.('label.settings-row')&&/성인 모드|글자 크기|인물 일러스트/.test(n.textContent));for(const r of rows)nodes.splice(nodes.indexOf(r),1);nodes.splice(nodes.indexOf(displayHead)+1,0,...rows);}
+  const soundHead=nodes.find(n=>n.tagName==='H2'&&/소리/.test(n.textContent));
+  if(soundHead&&window.CRPGSound){const gallery=mk('section','card shell-sound-gallery');gallery.append(mk('h3','','효과음 들어보기'));
+   for(const [label,list]of [['원소',[['불','fire'],['물','water'],['얼음','ice'],['번개','lightning'],['바람','wind'],['바위','rock'],['풀','dendro']]],['원소 반응',[['융해','melt'],['증발','vaporize'],['과부하','overload'],['빙결','freeze']]],['전투',[['타격','hit'],['방어','guard'],['회복','heal'],['조우','battle_start'],['승리','victory'],['패배','defeat']]],['메뉴와 보상',[['메뉴','menu_open'],['책장','handbook_open'],['장착','equip'],['획득','item_receive'],['임무 완료','quest_complete'],['레벨업','level_up']]]]){
+    const row=mk('div','shell-sound-row');row.append(mk('small','',label));for(const [name,id]of list){const b=mk('button','shell-sound-chip',name);b.type='button';b.onclick=async()=>{await GameAudio.unlock?.();CRPGSound.play(id);};row.append(b);}gallery.append(row);}
+   const idx=nodes.indexOf(soundHead);let end=nodes.findIndex((n,i)=>i>idx&&n.tagName==='H2');if(end<0)end=nodes.length;nodes.splice(end,0,gallery);}
+  const groups=sectionsByHeading(nodes,'계정·저장');const t=tabset('PAGE_SYSTEM',groups.map((g,i)=>({id:'s'+i+':'+g.label,label:g.label,nodes:g.nodes})),'shell-page-tabs'+(isMobile()?'':' vertical'));if(t)body.append(t);else body.append(...nodes);void key;}
 };
+// Battle results: a banner, the rewards as tiles, and the next steps as large buttons at the bottom.
+function layoutReward(content,p){
+ content.classList.add('shell-result-screen');setBackdrop(mapBackground());
+ let r={};try{r=JSON.parse(game.s.global.LAST_BATTLE_RESULT_JSON||'{}');}catch{}
+ const kids=[...p.children],h1=kids.find(c=>c.tagName==='H1');
+ const banner=mk('header','shell-result-banner');banner.append(mk('small','',r.victory?'VICTORY':'BATTLE END'));if(h1)banner.append(h1);else banner.append(mk('h1','',r.victory?'전투 승리':'전투 종료'));
+ const actions=mk('div','shell-result-actions');
+ for(const c of kids){if(c===h1)continue;if(c.tagName==='BUTTON')actions.append(c);else if(c.matches?.('.actions')&&!c.closest('.card'))actions.append(...c.children);}
+ const rest=kids.filter(c=>c!==h1&&c.parentNode===p);
+ const body=mk('div','shell-result-body');body.append(...rest);
+ p.replaceChildren(banner,body,actions);p.classList.add('shell-result',r.victory?'victory':'defeat');
+ if(r.victory&&content.classList.contains('shell-screen-enter'))sound('item_receive');
+}
 function layoutGeneric(key,content,p){
  content.classList.add('shell-plain');setBackdrop(mapBackground());
  if(p.classList.contains('shell-page'))return;
@@ -335,8 +375,10 @@ function shell(){
  if(key==='COMBAT'){mode='battle';layoutCombat(content,p);}
  else if(key==='LOCATION'||key==='HUB'||key==='MAIN_MENU'){mode='world';layoutLocation(content,p);}
  else if(['STORY','STORY_WAIT','COMBAT_INTERLUDE','DIALOGUE'].includes(key)&&$('.story-layout,.story,.choice,.story-copy',p)){mode='story';layoutStory(content,p);}
+ else if(key==='REWARD'&&$('h1',p)){mode='battle';layoutReward(content,p);}
  else if(MENU_SCREENS.has(key)){mode='menu';layoutMenu(key,content,p);}
  else layoutGeneric(key,content,p);
+ if(mode!=='story')clearTimeout(S.autoTimer);
  body.dataset.mode=mode;
 }
 S.relayout=shell;
