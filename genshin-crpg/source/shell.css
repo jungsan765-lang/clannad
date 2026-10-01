@@ -961,3 +961,9 @@ body.teyvat :where(#root,#modal) .shell-sound-variants .shell-sound-opt.active::
 #modal button.shell-sound-chip,#modal button.shell-sound-opt{width:auto;min-height:32px;padding:3px 12px;font-size:.8rem;border-radius:16px}
 #modal .shell-sound-choice button.shell-sound-opt{border:0;border-radius:0;background:transparent}
 #modal button.shell-sound-opt.active{background:#ece5d8;color:#1d1b24;font-weight:700}
+/* Title screen: on short desktop windows (and the 1280×720 PC frame) the centre column's large top/bottom padding
+   pushed the footer below the fold; trim it so the whole title fits without scrolling. */
+@media (min-width:900px) and (max-height:830px){
+ .game-title .title-center{padding-top:10px;padding-bottom:14px}
+ .game-title .title-tagline{margin-bottom:28px}
+}

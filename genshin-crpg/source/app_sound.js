@@ -1,8 +1,10 @@
 /* 0.14.7 sound set: every effect is a Genshin recording. In-game recordings (the Sam Toki collection already
  * credited in audio/genshin-sfx/CREDITS.md, trimmed so they start at once and levelled to the same loudness) and
- * official web-event sounds. Nothing is synthesised. Each game sound has one or more candidates; the first is the
- * default and the player can audition and pick another in 설정 → 소리 · 효과음 고르기 (settings.sfxChoice).
- * Plain hits take the attacker's colour where a recording exists (a bow user's shot, a hilichurl's blow).
+ * official web-event sounds. Nothing is synthesised at run time. Each game sound has one or more candidates; the
+ * first is the default and the player can audition and pick another in 설정 → 소리 · 효과음 고르기
+ * (settings.sfxChoice). Plain hits take the attacker's colour where a recording exists (a bow user's shot, a
+ * hilichurl's blow), and artifacts sound different from gear when equipped. The earlier battle-start and hit sounds
+ * (made by this project; the player asked for the old battle start back) are offered as recorded files (prev_*).
  * Volume and on/off follow the existing 소리 settings. Load after app_av.js. */
 (function(){
 'use strict';
@@ -11,47 +13,48 @@ const S=window.CRPGSound={};
 // Game sound → candidates [asset id, label]. Asset ids are audio/genshin-sfx files (MANIFEST.sfx) or the
 // official web-event click; 'none' plays nothing.
 const CHOICES={
- click:[['ig_click_general2','본편 기본 클릭'],['ig_click_general1','본편 클릭 2'],['ig_click_general3','본편 클릭 3'],['official_click','웹 이벤트 클릭']],
- hover:[['ig_hover_nav','본편 초점 이동'],['ig_click_general5','본편 짧은 클릭'],['none','소리 없음']],
- tab:[['ig_tab_click2','본편 탭'],['ig_tab_click1','본편 큰 탭'],['ig_tab_small','본편 작은 탭']],
- choice:[['ig_next','본편 대화 넘김'],['ig_ding','본편 딩'],['ig_dialog_open','본편 대화창']],
- toast:[['ig_notification','본편 알림'],['ig_hint','본편 짧은 힌트'],['ig_quest_hint','본편 임무 힌트']],
- error:[['ig_didi','본편 삐빅'],['ig_beep3','본편 삑 1'],['ig_beep1','본편 삑 2']],
- menu_open:[['ig_paimon_open','본편 페이몬 메뉴 열기'],['ig_menu_open','본편 메뉴 열기']],
- menu_close:[['ig_paimon_close','본편 페이몬 메뉴 닫기'],['ig_menu_close','본편 메뉴 닫기']],
- page:[['ig_page_flip1','본편 책장 넘김 1'],['ig_page_flip2','본편 책장 넘김 2']],
- handbook_open:[['ig_quests_open','본편 임무 일지 열기'],['ig_battlepass_open','본편 기행 열기'],['ig_archive_home','본편 도감 열기'],['ig_achievements_open','본편 업적 열기']],
- travel:[['ig_teleport','본편 순간이동'],['ig_reach_destination','본편 목적지 도착']],
- equip:[['equip','본편 장착 1'],['ig_item_arm2','본편 장착 2']],
- item_receive:[['item_receive','본편 아이템 획득'],['ig_obtained1','본편 획득 2'],['ig_reward_popup','본편 보상 표시']],
- unlock:[['unlock','웹 이벤트 해제'],['ig_chest_unlock','본편 상자 잠금 해제']],
+ click:[['ig_click_general2','본편 기본 클릭']],
+ hover:[['ig_hover_nav','본편 초점 이동'],['none','소리 없음']],
+ tab:[['ig_tab_click2','본편 탭']],
+ choice:[['ig_next','본편 대화 넘김']],
+ toast:[['ig_notification','본편 알림']],
+ error:[['ig_didi','본편 삐빅']],
+ menu_open:[['ig_paimon_open','본편 페이몬 메뉴 열기']],
+ menu_close:[['ig_paimon_close','본편 페이몬 메뉴 닫기']],
+ page:[['ig_page_flip1','본편 책장 넘김']],
+ handbook_open:[['ig_quests_open','본편 임무 일지 열기']],
+ travel:[['ig_teleport','본편 순간이동']],
+ equip:[['equip','본편 장착 1']],
+ equip_artifact:[['ig_item_arm2','본편 장착 2']],
+ item_receive:[['item_receive','본편 아이템 획득']],
+ unlock:[['unlock','웹 이벤트 해제']],
  quest_complete:[['quest_complete','본편 임무 완료']],
  commission_accept:[['commission_accept','본편 의뢰 수락']],
  commission_complete:[['commission_complete','본편 의뢰 완료']],
  cook_complete:[['cook_complete','본편 요리 완료']],
  forge_complete:[['forge_complete','본편 단조 완료']],
  craft_complete:[['craft_complete','본편 합성 완료']],
- level_up:[['ig_battlepass_levelup','본편 기행 레벨업'],['ig_obtained2','본편 획득 팡파르'],['ig_constellation','본편 운명의 자리'],['ig_rank_popup','본편 모험 등급']],
- victory:[['quest_complete','본편 임무 완료'],['victory','본편 도전 성공']],
- defeat:[['defeat','본편 도전 실패'],['event_fail','웹 이벤트 실패'],['ost_defeat_moonlike','OST · Moonlike Smile'],['ost_defeat_fragile','OST · Fragile Fantasy']],
- battle_start:[['ig_abyss_deepen','본편 나선비경 진입'],['ig_domain_enter','본편 비경 입장'],['ig_countdown','본편 카운트다운']],
+ level_up:[['ig_battlepass_levelup','본편 기행 레벨업']],
+ victory:[['quest_complete','본편 임무 완료']],
+ defeat:[['defeat','본편 도전 실패']],
+ battle_start:[['prev_battle_start','이전 전투 시작음'],['ig_abyss_deepen','본편 나선비경 진입'],['ig_domain_enter','본편 비경 입장'],['ig_countdown','본편 카운트다운']],
  encounter_hilichurl:[['encounter_hilichurl','본편 츄츄족 발견']],
- hit:[['ig_box_break','본편 나무 상자 타격'],['ig_pot_break','본편 항아리 깨짐'],['ig_chest_open','본편 상자 뚜껑'],['ig_hilichurl_attacked','본편 츄츄족 피격']],
+ hit:[['prev_hit','이전 타격음'],['ig_unarm2','본편 무기 넣기']],
  bow_hit:[['ig_bow_shot','본편 활 공격']],
  hili_hit:[['ig_hilichurl_attack','본편 츄츄족 공격'],['ig_box_break','본편 나무 상자 타격']],
  slime_hit:[['slime_hit','본편 슬라임 공격']],
- guard:[['ig_chest_open','본편 상자 뚜껑'],['ig_box_break','본편 나무 상자 타격'],['ig_pot_break','본편 항아리 깨짐']],
- heal:[['ig_statue_heal','본편 신상 회복'],['ig_exp_up','본편 경험치 상승'],['heal','본편 신상 회복(전체)']],
- fire:[['ig_torch','본편 횃불 점화'],['fire','웹 이벤트 불']],
- water:[['ig_swim_splash_a','본편 물보라 1'],['ig_swim_splash_b','본편 물보라 2'],['ig_swim_stroke','본편 물살'],['slime_hit','본편 슬라임 공격']],
+ guard:[['ig_box_break','본편 나무 상자 타격']],
+ heal:[['ig_statue_heal_late','본편 신상 회복(후반)']],
+ fire:[['fire','웹 이벤트 불']],
+ water:[['ig_swim_splash_a','본편 물보라']],
  ice:[['ice','웹 이벤트 얼음']],
- lightning:[['ig_thunder_sphere','본편 번개 구체'],['lightning','웹 이벤트 번개'],['ig_raiden_burst','본편 라이덴 원소폭발'],['ig_electrogranum','본편 번개 석류']],
- wind:[['ig_venti_skill','본편 벤티 원소전투'],['wind','웹 이벤트 바람'],['ig_venti_burst','본편 벤티 원소폭발'],['ig_wing','본편 날개']],
- rock:[['ig_zhongli_burst','본편 종려 원소폭발'],['ig_pressure_plate','본편 발판 장치'],['ig_pot_break','본편 항아리 깨짐']],
- dendro:[['ig_nahida_skill','본편 나히다 원소전투'],['ig_nahida_charged','본편 나히다 강공격'],['ig_nahida_hit','본편 나히다 일반공격']],
- melt:[['fire','웹 이벤트 불'],['ig_torch','본편 횃불 점화']],
- vaporize:[['ig_swim_splash_b','본편 물보라'],['fire','웹 이벤트 불']],
- overload:[['ig_raiden_burst','본편 라이덴 원소폭발'],['ig_thunder_sphere2','본편 번개 구체 2']],
+ lightning:[['ig_thunder_sphere','본편 번개 구체']],
+ wind:[['wind','웹 이벤트 바람']],
+ rock:[['ig_door_rise','본편 비경 문이 솟는 소리'],['ig_domain_close_slam','본편 비경이 닫히며 쿵']],
+ dendro:[['ig_unarm1','본편 무기 넣기 1'],['ig_unarm2','본편 무기 넣기 2']],
+ melt:[['fire','웹 이벤트 불']],
+ vaporize:[['ig_swim_splash_b','본편 물보라 2']],
+ overload:[['ig_thunder_sphere2','본편 번개 구체 2']],
  freeze:[['ice','웹 이벤트 얼음']]
 };
 // Playback level per sound. Every recording is first brought to the same loudness (see normal()); 0.45 is the
@@ -75,8 +78,12 @@ const sfxEntry=id=>{if(id==='official_click')return {url:'audio/official-review-
 const usable=id=>id==='none'||!!sfxEntry(id);
 S.CHOICES=CHOICES;S.usable=usable;
 S.options=name=>(CHOICES[name]||[]).filter(([id])=>usable(id));
-S.choice=name=>{const list=S.options(name),saved=settings.sfxChoice?.[name];return list.some(([id])=>id===saved)?saved:list[0]?.[0]||null;};
-S.setChoice=function(name,id){settings.sfxChoice={...(settings.sfxChoice||{}),[name]:id};try{persistSettings();}catch{}};
+// Choices saved before the candidate lists were settled (0.14.7 round 2) are dropped once, so the defaults the
+// player picked by listening apply everywhere.
+const CHOICE_REV=2;
+function settled(){if(settings.sfxChoiceRev===CHOICE_REV)return;settings.sfxChoice={};settings.sfxChoiceRev=CHOICE_REV;try{persistSettings();}catch{}}
+S.choice=name=>{settled();const list=S.options(name),saved=settings.sfxChoice?.[name];return list.some(([id])=>id===saved)?saved:list[0]?.[0]||null;};
+S.setChoice=function(name,id){settled();settings.sfxChoice={...(settings.sfxChoice||{}),[name]:id};try{persistSettings();}catch{}};
 const priorBuffer=GameAudio.buffer.bind(GameAudio);
 // The official click is fetched by app_av.js under the name 'click'.
 GameAudio.buffer=async function(name,force){if(!this.context)return null;if(KEEP.has(name))return priorBuffer(name);const id=force||S.choice(name);if(!id||id==='none')return null;return priorBuffer(id==='official_click'?'click':id);};
@@ -99,6 +106,7 @@ S.stopAudition=()=>{try{S.auditionSource?.stop();}catch{}S.auditionSource=null;}
 const OWN_CLICK=new Set(['tab','page','menu_open','menu_close','handbook_open']);
 GameAudio.play=async function(name){
  if(!this.armed||!this.enabled()||document.hidden||!settings.sfxVolume)return;
+ if(name==='equip'&&S.equipKind==='artifact')name='equip_artifact';
  const now=performance.now();
  if(OWN_CLICK.has(name)&&now-(this.clickAt||0)<150){this.clickSkip=this.clickToken;try{this.clickSource?.stop();}catch{}}
  let token=0;if(name==='click'){token=this.clickToken=(this.clickToken||0)+1;this.clickAt=now;}
@@ -132,7 +140,9 @@ if(typeof act==='function'){
  const priorAct=act;
  act=async function(type,params={}){
   const lv=typeof game!=='undefined'&&game?Number(game.s.global.PLAYER_LEVEL_STATE)||0:0;
-  const out=await priorAct(type,params);
+  // Equipping or removing an artifact sounds different from gear (app_av.js plays 'equip' during the action).
+  try{S.equipKind=['EQUIP','UNEQUIP'].includes(type)&&game?.s.inventory.find(i=>i.slot===params.slot)?.artifact?'artifact':null;}catch{S.equipKind=null;}
+  let out;try{out=await priorAct(type,params);}finally{S.equipKind=null;}
   try{
    if(out&&out.ok===false){if(type!=='MENU')S.play('error');}
    else if(typeof game!=='undefined'&&game){
