@@ -569,6 +569,148 @@
       },
       "author": "miHoYo / HoYoverse · recording collection: Sam Toki",
       "original": false
+    },
+    {
+      "id": "event_success",
+      "title": "웹 이벤트 성공",
+      "originalContext": "effect_success",
+      "source": "https://webstatic.mihoyo.com/ys/event/e20220517-jump-eola/medias/effect_success.085a6ee8..mp3",
+      "sourcePage": "https://webstatic.mihoyo.com/ys/event/e20220517-jump-eola/index.html",
+      "sourceScript": "https://webstatic.mihoyo.com/ys/event/e20220517-jump-eola/index_e419b2294575f173ec57.js",
+      "sourceNature": "official_public_web_event",
+      "originalFilename": "effect_success.085a6ee8..mp3",
+      "recommended": false,
+      "notes": "0.14.7 결과 음악 후보. 공식 웹 이벤트 원본 그대로(재인코딩 없음). 설정의 효과음 고르기에서 선택.",
+      "file": "event_success.mp3",
+      "bytes": 38253,
+      "sha256": "a34e587d55257a74062999c2cb735dc506b1edd1ffc378507f637a027582892b",
+      "author": "miHoYo / HoYoverse",
+      "addedIn": "0.14.7"
+    },
+    {
+      "id": "event_fail",
+      "title": "웹 이벤트 실패",
+      "originalContext": "effect_fail",
+      "source": "https://webstatic.mihoyo.com/ys/event/e20220517-jump-eola/medias/effect_fail.29be2dca..mp3",
+      "sourcePage": "https://webstatic.mihoyo.com/ys/event/e20220517-jump-eola/index.html",
+      "sourceScript": "https://webstatic.mihoyo.com/ys/event/e20220517-jump-eola/index_e419b2294575f173ec57.js",
+      "sourceNature": "official_public_web_event",
+      "originalFilename": "effect_fail.29be2dca..mp3",
+      "recommended": false,
+      "notes": "0.14.7 결과 음악 후보. 공식 웹 이벤트 원본 그대로(재인코딩 없음). 설정의 효과음 고르기에서 선택.",
+      "file": "event_fail.mp3",
+      "bytes": 67053,
+      "sha256": "880f4af48af040d261522b0bc38ac004e5c6fc808f088ed88f6a5c5d37140ff1",
+      "author": "miHoYo / HoYoverse",
+      "addedIn": "0.14.7"
+    },
+    {
+      "id": "ost_victory_gallant",
+      "title": "OST 승리 · Gallant Challenge 끝부분",
+      "originalContext": "liyue_gallant 34.9s–42.2s",
+      "source": "assets/audio/genshin/liyue_gallant.mp3",
+      "sourceNature": "official_web_event_audio_excerpt",
+      "notes": "0.14.7 결과 음악 후보. 게임에 이미 있는 원신 OST 파일(공식 웹 이벤트 배포본)에서 MP3 프레임 단위로 잘라냄(재인코딩 없음). 재생 시 앞 0.12초 페이드 인, 끝 페이드 아웃.",
+      "file": "ost_victory_gallant.mp3",
+      "bytes": 116343,
+      "sha256": "58c4c1f7d8d1170a0140dae24cc930f809043bbfe175e0868f37af73f3d0dfcb",
+      "author": "HoYoverse (원신 OST)",
+      "excerpt": {
+        "track": "liyue_gallant",
+        "from": 34.9,
+        "to": 42.2
+      },
+      "addedIn": "0.14.7"
+    },
+    {
+      "id": "ost_victory_resolution",
+      "title": "OST 승리 · His Resolution 끝부분",
+      "originalContext": "mond_resolution 272s–280.3s",
+      "source": "assets/audio/genshin/mond_resolution.mp3",
+      "sourceNature": "public_third_party_ost_archive_excerpt",
+      "notes": "0.14.7 결과 음악 후보. 게임에 이미 있는 원신 OST 파일(제3자 공개 보관본)에서 MP3 프레임 단위로 잘라냄(재인코딩 없음). 재생 시 앞 0.12초 페이드 인, 끝 페이드 아웃.",
+      "file": "ost_victory_resolution.mp3",
+      "bytes": 132911,
+      "sha256": "ed68ac52dd463009711bf4287b7177cf5f4f31d0afe6c4366390c438f7968421",
+      "author": "HoYoverse (원신 OST)",
+      "excerpt": {
+        "track": "mond_resolution",
+        "from": 272,
+        "to": 280.3
+      },
+      "addedIn": "0.14.7"
+    },
+    {
+      "id": "ost_victory_monoceros",
+      "title": "OST 승리 · Wrath of Monoceros Caeli 끝부분",
+      "originalContext": "boss_monoceros 49s–56.2s",
+      "source": "assets/audio/genshin/boss_monoceros.mp3",
+      "sourceNature": "official_web_event_audio_excerpt",
+      "notes": "0.14.7 결과 음악 후보. 게임에 이미 있는 원신 OST 파일(공식 웹 이벤트 배포본)에서 MP3 프레임 단위로 잘라냄(재인코딩 없음). 재생 시 앞 0.12초 페이드 인, 끝 페이드 아웃.",
+      "file": "ost_victory_monoceros.mp3",
+      "bytes": 115092,
+      "sha256": "5ffd98b98cd12d58dbd11c2624353466655834bb675a9b12287c2ce5c4bd8028",
+      "author": "HoYoverse (원신 OST)",
+      "excerpt": {
+        "track": "boss_monoceros",
+        "from": 49,
+        "to": 56.2
+      },
+      "addedIn": "0.14.7"
+    },
+    {
+      "id": "ost_victory_mountains",
+      "title": "OST 승리 · Wind-Washed Mountains 절정",
+      "originalContext": "mond_mountains 30s–37.9s",
+      "source": "assets/audio/genshin/mond_mountains.mp3",
+      "sourceNature": "public_third_party_ost_archive_excerpt",
+      "notes": "0.14.7 결과 음악 후보. 게임에 이미 있는 원신 OST 파일(제3자 공개 보관본)에서 MP3 프레임 단위로 잘라냄(재인코딩 없음). 재생 시 앞 0.12초 페이드 인, 끝 페이드 아웃.",
+      "file": "ost_victory_mountains.mp3",
+      "bytes": 126223,
+      "sha256": "7cadf12f6e82eb24cca5cae9af966a4efb22c943478b31bd8f81fca7199afeb6",
+      "author": "HoYoverse (원신 OST)",
+      "excerpt": {
+        "track": "mond_mountains",
+        "from": 30,
+        "to": 37.9
+      },
+      "addedIn": "0.14.7"
+    },
+    {
+      "id": "ost_defeat_moonlike",
+      "title": "OST 패배 · Moonlike Smile 끝부분",
+      "originalContext": "dragonspine_moonlike 62s–72.8s",
+      "source": "assets/audio/genshin/dragonspine_moonlike.mp3",
+      "sourceNature": "official_web_event_audio_excerpt",
+      "notes": "0.14.7 결과 음악 후보. 게임에 이미 있는 원신 OST 파일(공식 웹 이벤트 배포본)에서 MP3 프레임 단위로 잘라냄(재인코딩 없음). 재생 시 앞 0.12초 페이드 인, 끝 페이드 아웃.",
+      "file": "ost_defeat_moonlike.mp3",
+      "bytes": 151040,
+      "sha256": "f8f82c53b2139efa7074f84704343b59662e42b34c6166fa5043b507f21e4554",
+      "author": "HoYoverse (원신 OST)",
+      "excerpt": {
+        "track": "dragonspine_moonlike",
+        "from": 62,
+        "to": 72.8
+      },
+      "addedIn": "0.14.7"
+    },
+    {
+      "id": "ost_defeat_fragile",
+      "title": "OST 패배 · Fragile Fantasy 끝부분",
+      "originalContext": "dragonspine_fragile 110s–118.6s",
+      "source": "assets/audio/genshin/dragonspine_fragile.mp3",
+      "sourceNature": "official_web_event_audio_excerpt",
+      "notes": "0.14.7 결과 음악 후보. 게임에 이미 있는 원신 OST 파일(공식 웹 이벤트 배포본)에서 MP3 프레임 단위로 잘라냄(재인코딩 없음). 재생 시 앞 0.12초 페이드 인, 끝 페이드 아웃.",
+      "file": "ost_defeat_fragile.mp3",
+      "bytes": 120686,
+      "sha256": "18936bd800b34444cffcf13b6181a512809dcfad2339373d00ec0d9ca7c15a6c",
+      "author": "HoYoverse (원신 OST)",
+      "excerpt": {
+        "track": "dragonspine_fragile",
+        "from": 110,
+        "to": 118.6
+      },
+      "addedIn": "0.14.7"
     }
   ]
 }

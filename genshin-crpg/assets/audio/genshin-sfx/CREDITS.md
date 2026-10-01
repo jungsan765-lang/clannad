@@ -43,6 +43,25 @@
 
 본편 일반 물리 타격·방어·물 원소 공격·융해/증발/과부하/빙결 전용 원본과 공식 새·멧돼지 소리는 이번 제한된 조사에서 용도와 소리를 모두 확인한 파일을 찾지 못했다. 현재 자체 제작음이나 자연 녹음을 그대로 유지한다면 최종 보고에서도 미완료로 구분한다. 기존 자연 녹음을 원신 공식 소리로 이름만 바꿔서는 안 된다.
 
+## 0.14.7 추가: 전투 결과 음악 후보
+
+설정의 「효과음 고르기」에서 승리·패배 음악으로 고를 수 있는 파일이다. 파일별 해시와 원본 위치는 `catalog.json`에 있다.
+
+| 파일 | 용도 | 출처 |
+|---|---|---|
+| event_success.mp3 | 승리 후보 | 공식 `통통 슬라임` 웹 이벤트의 성공 효과(`effect_success`) 원본 그대로 |
+| event_fail.mp3 | 패배 후보 | 같은 이벤트의 실패 효과(`effect_fail`) 원본 그대로 |
+| ost_victory_gallant.mp3 | 승리 후보(기본) | 게임에 있는 원신 OST 《Gallant Challenge》(공식 웹 이벤트 배포본) 34.9–42.2초 |
+| ost_victory_resolution.mp3 | 승리 후보 | 원신 OST 《His Resolution》(게임에 이미 있는 제3자 공개 보관본) 272.0–280.3초 |
+| ost_victory_monoceros.mp3 | 승리 후보 | 원신 OST 《Wrath of Monoceros Caeli》(공식 웹 이벤트 배포본) 49.0–56.2초 |
+| ost_victory_mountains.mp3 | 승리 후보 | 원신 OST 《Wind-Washed Mountains》(게임에 이미 있는 제3자 공개 보관본) 30.0–37.9초 |
+| ost_defeat_moonlike.mp3 | 패배 후보 | 원신 OST 《Moonlike Smile》(공식 웹 이벤트 배포본) 62.0–72.8초 |
+| ost_defeat_fragile.mp3 | 패배 후보 | 원신 OST 《Fragile Fantasy》(공식 웹 이벤트 배포본) 110.0–118.6초 |
+
+OST 구간은 MP3 프레임 단위로 잘라 다시 인코딩하지 않았고, 재생할 때 앞 0.12초를 페이드 인·끝 약 1초를 페이드 아웃한다. 원곡 출처는 `assets/audio/README_OFFICIAL_AUDIO_KO.md`와 같다.
+
+버튼 소리는 기존 `audio/official-review-click.mp3`(공식 웹 이벤트 클릭음)를 다시 기본으로 쓰고, 마우스를 올릴 때는 같은 파일을 1.45배 빠르게·0.07초만 재생한다. 그 밖의 합성음은 이 게임에서 만든 소리이며 원작 소리라고 표시하지 않는다.
+
 ## 출처
 
 - 공식 이벤트: https://webstatic.mihoyo.com/ys/event/e20220517-jump-eola/index.html

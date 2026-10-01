@@ -704,7 +704,7 @@ body.teyvat .shell-sound-gallery{margin:12px 0;padding:12px 14px}
 body.teyvat .shell-sound-gallery h3{margin:0 0 8px;font-family:var(--font-display)}
 body.teyvat .shell-sound-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
 body.teyvat .shell-sound-row small{width:72px;flex:0 0 72px;color:var(--t-gold)}
-body.teyvat #root button.shell-sound-chip{min-height:32px;padding:3px 12px;font-size:.8rem;border-radius:16px}
+body.teyvat :where(#root,#modal) button.shell-sound-chip{min-height:32px;padding:3px 12px;font-size:.8rem;border-radius:16px}
 body.teyvat .settings-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 14px;margin:0 0 8px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(211,188,142,.14)}
 body.teyvat .settings-row .copy{flex:1;min-width:0}
 body.teyvat .settings-row .copy p{margin:0;font-weight:600}
@@ -938,5 +938,26 @@ body.teyvat .shell-sound-group h4{margin:8px 0 6px;color:var(--t-gold);font-size
 body.teyvat .shell-sound-pick{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:6px 8px;border-radius:12px;background:rgba(255,255,255,.03);margin-bottom:4px}
 body.teyvat .shell-sound-name{min-width:84px;font-size:.86rem;font-weight:600}
 body.teyvat .shell-sound-choice{display:inline-flex;margin-left:auto;border-radius:16px;overflow:hidden;border:1px solid rgba(236,229,216,.25)}
-body.teyvat #root .shell-sound-opt{min-height:30px;padding:2px 12px;border-radius:0;border:0;font-size:.78rem;background:transparent}
-body.teyvat #root .shell-sound-opt.active{background:var(--t-cream);color:var(--t-ink);font-weight:700}
+body.teyvat :where(#root,#modal) .shell-sound-opt{min-height:30px;padding:2px 12px;border-radius:0;border:0;font-size:.78rem;background:transparent}
+body.teyvat :where(#root,#modal) .shell-sound-opt.active{background:var(--t-cream);color:var(--t-ink);font-weight:700}
+body.teyvat .shell-sound-pick.variants{align-items:flex-start}
+body.teyvat .shell-sound-pick.variants .shell-sound-name{padding-top:6px}
+body.teyvat .shell-sound-variants{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 260px}
+body.teyvat :where(#root,#modal) .shell-sound-variants .shell-sound-opt{border:1px solid rgba(236,229,216,.25);border-radius:16px;padding:3px 12px;text-align:left}
+body.teyvat :where(#root,#modal) .shell-sound-variants .shell-sound-opt:hover{border-color:rgba(var(--acc-rgb),.7)}
+body.teyvat :where(#root,#modal) .shell-sound-variants .shell-sound-opt.active::before{content:'';display:inline-block;width:6px;height:6px;margin-right:6px;border-radius:50%;background:var(--t-ink);vertical-align:middle}
+
+/* The title screen's settings window sits outside the shell: keep its rows readable and style the sound picker. */
+#modal .settings-row select{width:auto;min-width:120px;flex:0 0 auto}
+#modal .settings-row .copy{flex:1;min-width:0}
+#modal .shell-sound-gallery{margin:14px 0;padding:12px 14px;border:1px solid rgba(236,229,216,.16);border-radius:12px}
+#modal .shell-sound-gallery h3{margin:0 0 6px}
+#modal .shell-sound-group h4{margin:10px 0 6px;font-size:.9rem;color:#d3bc8e}
+#modal .shell-sound-pick{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:6px 8px;border-radius:10px;background:rgba(255,255,255,.035);margin-bottom:4px}
+#modal .shell-sound-pick.variants{align-items:flex-start}
+#modal .shell-sound-name{min-width:84px;font-size:.86rem;font-weight:600}
+#modal .shell-sound-choice{display:inline-flex;margin-left:auto;border-radius:16px;overflow:hidden;border:1px solid rgba(236,229,216,.25)}
+#modal .shell-sound-variants{display:flex;flex-wrap:wrap;gap:6px;flex:1 1 240px}
+#modal button.shell-sound-chip,#modal button.shell-sound-opt{width:auto;min-height:32px;padding:3px 12px;font-size:.8rem;border-radius:16px}
+#modal .shell-sound-choice button.shell-sound-opt{border:0;border-radius:0;background:transparent}
+#modal button.shell-sound-opt.active{background:#ece5d8;color:#1d1b24;font-weight:700}
