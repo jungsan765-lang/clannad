@@ -145,6 +145,8 @@ function buildMenu(){
  for(const [screen,def]of Object.entries(NAV)){const src=navButton(screen);if(!src)continue;const t=tile(def.icon,src.querySelector('.hud-nav-label')?.textContent||def.label,def.key,()=>{toggleMenu(false);src.click();});t.disabled=src.disabled;if(src.disabled&&src.title)t.title=src.title;grid.append(t);}
  if(window.CRPGHandbook)grid.append(tile('HANDBOOK','모험가 핸드북','F1',()=>{toggleMenu(false);CRPGHandbook.open();}));
  grid.append(tile('MAP','지도','M',()=>{toggleMenu(false);openMap();}));
+ // 0.14.13: the phone top bar has room for the menu button only, so 풍경 보기 is here too.
+ if(isMobile()&&WORLD_SCREENS.has(S.screen))grid.append(tile('EYE','풍경 보기','V',()=>{toggleMenu(false);toggleScenery(true);}));
  for(const x of S.extraTiles){try{if(x.show&&!x.show())continue;const t=tile(x.icon,x.label,x.key||'',()=>{toggleMenu(false);x.run();});grid.append(t);}catch{}}
  const foot=mk('div','pm-foot');
  // The quick 설정 button only repeats the 설정 tile above, so it is left out here.
@@ -254,7 +256,7 @@ function layoutLocation(content,p){
  const placeCount=places.reduce((n,x)=>n+(x.matches('.location-places')?x.children.length:1),0);
  // Facilities become small tiles (icon and name) and the whole tile enters, so a town fits without scrolling.
  for(const box of places)for(const entry of $$('.place-entry',box)){const btns=$$(':scope > button',entry);if(btns.length!==1)continue;
-  const name=$('h3',entry)?.textContent.trim()||'',b=btns[0];entry.classList.add('shell-place-tile');b.setAttribute('aria-label',(name?name+' · ':'')+b.textContent.trim());
+  const name=$('h3',entry)?.textContent.trim()||'',b=btns[0];entry.classList.add('shell-place-tile');entry.classList.toggle('locked',b.disabled&&!!$('.choice-note',entry));b.setAttribute('aria-label',(name?name+' · ':'')+b.textContent.trim());
   entry.title=$$('.place-entry-copy > *',entry).map(n=>n.textContent.trim()).filter(Boolean).join(' · ');}
  const tabs=[{id:'todo',label:'할 일',icon:'STAR',nodes:todo},{id:'places',label:'시설',icon:'PIN',nodes:places,badge:placeCount?String(placeCount):''},{id:'activity',label:'지맥·보스',icon:'SWORDS',nodes:activity},{id:'info',label:'지역 정보',icon:'HANDBOOK',nodes:info}];
  const key='LOC:'+mapId;if(!S.tabs[key])S.tabs[key]=hub&&places.length?'places':todo.length?'todo':places.length?'places':'activity';

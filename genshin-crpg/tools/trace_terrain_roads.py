@@ -56,12 +56,17 @@ def classify(r, g, b):
         return 'road'
     if r + g + b < 70:
         return 'void'
-    if b > r + 15 and g > r:
+    # Water is dark blue-green (red below ~55 in the sea and lakes). Dragonspine's snow and ice are bluish greys with
+    # more red; counting them as water sent its roads around the whole mountain.
+    if b > r + 15 and g > r and r < 68:
         return 'water'
     return 'land'
 
 
-COST = {'road': 1.0, 'land': 7.0, 'water': 45.0, 'void': 90.0}
+# 0.14.13: land was 7.0, which let a route wander up to ~7x farther to stay on drawn paths (user: 「돌아서 가는 길이
+# 상식적으로 이해가 안 된다」). At 1.9 a drawn path wins only when it is not much longer; a short ford over a narrow
+# inlet now beats going round a whole bay, while lakes and the sea stay out of the way.
+COST = {'road': 1.0, 'land': 1.9, 'water': 22.0, 'void': 90.0}
 
 
 def grid(atlas):

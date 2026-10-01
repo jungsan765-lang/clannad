@@ -1,8 +1,10 @@
 /* Current game interface: all navigation and gameplay controls use the public policy. */
+// 0.14.13: a greyed-out button keeps why, and app_reasons_v01413.js shows it when the button is pressed.
+function withReason(b,reason){if(reason){b.setAttribute('data-reason',reason);if(!b.title)b.title=reason;}return b;}
 function actionButton(label,type,params={},primary=false){
   const reason=game?.actionReason(type,params)||'';
   const b=button(label,()=>act(type,params),!!reason||busy,primary);
-  if(reason){b.title=reason;b.setAttribute('aria-description',reason);}
+  if(reason){b.title=reason;b.setAttribute('aria-description',reason);b.setAttribute('data-reason',reason);}
   return b;
 }
 function xpMeter(parent,owner='PLAYER_CUSTOM'){

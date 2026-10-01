@@ -1,8 +1,8 @@
 import {createServer} from 'node:http';
 import {createHash} from 'node:crypto';
-import {mkdirSync} from 'node:fs';
+import {mkdirSync,realpathSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {pathToFileURL,fileURLToPath} from 'node:url';
 import {DatabaseSync} from 'node:sqlite';
 import {R,DB as GAME_DB,ENGINE_VERSION,ENGINE_FINGERPRINT,SERVER_BUILD} from './generated/engine.mjs';
 import {compact,executeAction,hash,same,passwordHash,token} from './game-core.mjs';
@@ -211,4 +211,6 @@ export async function startLiveRegionStaging({dbPath=':memory:',pepper,adminIds=
  const store=new LiveRegionStore(dbPath,{pepper,adminIds,features}),adminConsole=new AdminConsole(store,{id:adminConsoleId,secret:adminConsoleHash,pepper}),server=createServer(createLiveRegionHandler({store,allowedOrigin,adminConsole}));await new Promise((ok,bad)=>{server.once('error',bad);server.listen(port,host,ok);});
  return {store,adminConsole,server,address:server.address(),close:async()=>{for(const s of store.subscribers){try{s.res.end();}catch{}}server.closeIdleConnections?.();await new Promise((ok,bad)=>server.close(e=>e?bad(e):ok()));store.close();}};
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){const dbPath=process.env.CRPG_SQLITE_PATH||'./data/fixed-region-live.sqlite3',started=await startLiveRegionStaging({dbPath,pepper:process.env.PASSWORD_PEPPER,adminIds:process.env.ADMIN_ACCOUNT_IDS||'',allowedOrigin:process.env.ALLOWED_ORIGIN||'https://clannad.shop',host:process.env.HOST||'127.0.0.1',port:Number(process.env.PORT||8789),adminConsoleId:process.env.ADMIN_CONSOLE_ID||'',adminConsoleHash:process.env.ADMIN_CONSOLE_HASH||''});console.log(JSON.stringify({kind:'crpg_fixed_region_live_started',port:started.address.port,transportBuild:TRANSPORT_BUILD,features:[...started.store.features],adminConsole:started.adminConsole.configured()}));}
+// Started directly (compare real paths: the servers run it through a current symlink).
+const startedDirectly=()=>{try{return !!process.argv[1]&&realpathSync(fileURLToPath(import.meta.url))===realpathSync(resolve(process.argv[1]));}catch{return false;}};
+if(startedDirectly()){const dbPath=process.env.CRPG_SQLITE_PATH||'./data/fixed-region-live.sqlite3',started=await startLiveRegionStaging({dbPath,pepper:process.env.PASSWORD_PEPPER,adminIds:process.env.ADMIN_ACCOUNT_IDS||'',allowedOrigin:process.env.ALLOWED_ORIGIN||'https://clannad.shop',host:process.env.HOST||'127.0.0.1',port:Number(process.env.PORT||8789),adminConsoleId:process.env.ADMIN_CONSOLE_ID||'',adminConsoleHash:process.env.ADMIN_CONSOLE_HASH||''});console.log(JSON.stringify({kind:'crpg_fixed_region_live_started',port:started.address.port,transportBuild:TRANSPORT_BUILD,features:[...started.store.features],adminConsole:started.adminConsole.configured()}));}

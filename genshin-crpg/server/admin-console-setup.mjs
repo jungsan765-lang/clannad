@@ -3,10 +3,10 @@
 // It asks for the console ID and password and writes ADMIN_CONSOLE_ID and ADMIN_CONSOLE_HASH into the service's
 // environment file. The hash is salted PBKDF2 mixed with that server's PASSWORD_PEPPER; the password itself is stored
 // nowhere. Running it again replaces the old login. It loads no game engine, so it is light on the 1 GB server.
-import {readFileSync,writeFileSync,existsSync} from 'node:fs';
+import {readFileSync,writeFileSync,existsSync,realpathSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {resolve} from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {pathToFileURL,fileURLToPath} from 'node:url';
 
 const enc=new TextEncoder(),hex=b=>Array.from(new Uint8Array(b),x=>x.toString(16).padStart(2,'0')).join(''),bytes=x=>Uint8Array.from(x.match(/.{2}/g)||[],h=>parseInt(h,16));
 const SERVICES={'/etc/genshin-crpg-live-staging.env':'genshin-crpg-fixed-region-live.service','/etc/genshin-crpg-production.env':'genshin-crpg-production.service'};
@@ -61,4 +61,6 @@ async function main(){
  execFileSync('systemctl',['restart',service],{stdio:'inherit'});
  console.log('다시 시작했습니다. 이제 운영자 페이지(게임 주소 뒤에 admin.html)에서 로그인할 수 있습니다.');
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)main().catch(e=>{try{process.stdin.setRawMode?.(false);}catch{}console.error(e.message||e);process.exit(1);});
+// Run directly: compare real paths, because the server calls it through the `current` symlink of its release folder.
+const isMain=()=>{try{return !!process.argv[1]&&pathToFileURL(realpathSync(fileURLToPath(import.meta.url))).href===pathToFileURL(realpathSync(resolve(process.argv[1]))).href;}catch{return false;}};
+if(isMain())main().catch(e=>{try{process.stdin.setRawMode?.(false);}catch{}console.error(e.message||e);process.exit(1);});

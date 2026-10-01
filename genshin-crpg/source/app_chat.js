@@ -52,7 +52,7 @@ async function catchUp(){if(!online()||C.enabled!==true)return;try{const out=awa
 function startPoll(){if(C.poll)return;C.poll=setInterval(()=>{if(!document.hidden)catchUp();},C.open?3000:15000);}
 function stopPoll(){clearInterval(C.poll);C.poll=null;}
 function disconnect(){C.ctrl?.abort();C.ctrl=null;stopPoll();}
-C.reset=function(){disconnect();C.enabled=null;C.lines=[];C.last=0;C.unread=0;C.open=false;C.node?.remove();C.node=null;};
+C.reset=function(){disconnect();C.enabled=null;C.lines=[];C.last=0;C.unread=0;C.open=false;C.node?.remove();C.node=null;document.querySelector('body > .chat-fab')?.remove();};
 // ---------- window ----------
 function toggle(open=!C.open){
  C.open=open;if(open){C.unread=0;if(!C.node)build();C.node.hidden=false;requestAnimationFrame(()=>C.node?.classList.add('open'));draw();setTimeout(()=>C.node?.querySelector('input')?.focus(),60);window.CRPGSound?.play('menu_open');if(C.fails>=3){stopPoll();startPoll();}}
@@ -68,7 +68,8 @@ function build(){
  const form=mk('form','chat-form'),input=mk('input');input.type='text';input.maxLength=C.max;input.placeholder='모두에게 보내기 · Enter';input.setAttribute('aria-label','채팅 입력');input.autocomplete='off';
  const send=mk('button','chat-send','보내기');send.type='submit';const count=mk('small','chat-count','0/'+C.max);
  input.oninput=()=>{count.textContent=[...input.value].length+'/'+C.max;};
- input.onkeydown=e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();toggle(false);}};
+ // 0.14.13: Enter on an empty line closes the window again, as in the game it imitates (Enter opens it).
+ input.onkeydown=e=>{if(e.key==='Escape'||e.key==='Enter'&&!e.isComposing&&!input.value.trim()){e.preventDefault();e.stopPropagation();toggle(false);}};
  form.onsubmit=async e=>{e.preventDefault();const text=input.value.trim();if(!text||send.disabled)return;send.disabled=true;
   try{const out=await O.request('/chat/send',{text});ingest([out.message],true);input.value='';count.textContent='0/'+C.max;}catch(err){SHELL.toast?.(err.message);}finally{send.disabled=false;input.focus();}};
  form.append(input,count,send);
@@ -91,9 +92,17 @@ function draw(){
  const muted=C.node.querySelector('.chat-muted');muted.hidden=!C.muted.size;muted.textContent='숨긴 모험가 '+C.muted.size+'명 · 다시 보기';
  if(stick)list.scrollTop=list.scrollHeight;
 }
-function badge(){for(const b of document.querySelectorAll('.hud-chat')){b.hidden=C.enabled!==true;b.classList.toggle('active',C.open);const n=b.querySelector('.hud-badge');if(n){n.textContent=C.unread>99?'99+':String(C.unread);n.hidden=!C.unread;}}}
-SHELL.extraTools.push(tool=>{const b=tool('CHAT','채팅 ( / )',()=>toggle());b.classList.add('hud-chat');b.append(mk('span','hud-badge'));b.hidden=C.enabled!==true;return b;});
-document.addEventListener('keydown',e=>{if(e.key!=='/'||e.ctrlKey||e.metaKey||e.altKey||!document.body.classList.contains('teyvat')||C.enabled!==true)return;if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName)||e.target?.isContentEditable||document.querySelector('dialog[open]'))return;e.preventDefault();toggle(true);});
+// 0.14.13: a phone's top bar has no room for the chat button, so a round one waits above the bottom dock (shell.css
+// shows it on phones only) and the window opens from the bottom.
+function fab(){let b=document.querySelector('body > .chat-fab');if(!b){b=mk('button','chat-fab');b.type='button';b.setAttribute('aria-label','채팅 열기');b.append(SHELL.icon('CHAT','shell-icon'),mk('span','hud-badge'));b.onclick=()=>toggle(true);document.body.append(b);}return b;}
+function badge(){
+ const live=C.enabled===true&&document.body.classList.contains('teyvat');if(live)fab();else document.querySelector('body > .chat-fab')?.remove();
+ for(const b of document.querySelectorAll('.hud-chat,body > .chat-fab')){b.hidden=C.enabled!==true||b.classList.contains('chat-fab')&&C.open;b.classList.toggle('active',C.open);const n=b.querySelector('.hud-badge');if(n){n.textContent=C.unread>99?'99+':String(C.unread);n.hidden=!C.unread;}}
+}
+SHELL.extraTools.push(tool=>{const b=tool('CHAT','채팅 (Enter · /)',()=>toggle());b.classList.add('hud-chat');b.append(mk('span','hud-badge'));b.hidden=C.enabled!==true;return b;});
+// / or Enter opens the chat (0.14.13: Enter too). A button that was clicked keeps the focus, and Enter would press it
+// again (in a battle, the last attack): Enter opens the chat instead, unless the focus was moved there by keyboard.
+document.addEventListener('keydown',e=>{if(!(e.key==='/'||e.key==='Enter')||e.isComposing||e.repeat||e.ctrlKey||e.metaKey||e.altKey||e.shiftKey||!document.body.classList.contains('teyvat')||C.enabled!==true||C.open)return;if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName)||e.target?.isContentEditable||document.querySelector('dialog[open]'))return;if(e.key==='Enter'&&e.target?.closest?.('button,a[href],summary,[role=button],[tabindex]:not([tabindex="-1"])')&&e.target.matches?.(':focus-visible'))return;e.preventDefault();toggle(true);});
 // Follow the session: connect while a journey is open online, drop everything on logout.
 if(typeof render==='function'){const prior=render;render=function(){prior();try{if(!online()){if(C.enabled!==null||C.lines.length)C.reset();}else if(document.body.classList.contains('teyvat')){if(C.enabled===null)probe();badge();}else if(C.open)toggle(false);}catch{}};}
 })();

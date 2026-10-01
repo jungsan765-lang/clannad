@@ -5,6 +5,16 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype,C=root.CRPGWorldContent;
 const old=Object.fromEntries(['newGame','validateSave','apply','actionReason','questChoice','claimQuest','finishBattle'].map(k=>[k,P[k]]));
 const copy=x=>JSON.parse(JSON.stringify(x)),fail=(c,m)=>{throw new api.RuleError(c,m);};
 const LETTER=C.letterCommission.quest,ITEM=api.explorationCatalog.item;
+const NEIGHBOURS=[
+ ['MAP_MOND_WOLVENDOM','MAP_WOLF_ARENA',10],['MAP_MOND_DAWN_WINERY','MAP_MOND_WOLVENDOM',15],
+ ['MAP_MOND_TEMPLE_FALCON','MAP_MOND_WINDRISE',10],['MAP_CRPG_CIDER_BANK','MAP_MOND_PLAINS',10],
+ ['MAP_MOND_FATUI_CACHE','MAP_MOND_WINDRISE',10],['MAP_CRPG_FALCON_COAST','MAP_MOND_FATUI_CACHE',10],
+ ['MAP_CRPG_FALCON_COAST','MAP_MOND_TEMPLE_WOLF',10],['MAP_MOND_TEMPLE_WOLF','MAP_MOND_THOUSAND_WINDS',15],
+ ['MAP_MOND_TEMPLE_LION','MAP_MOND_WINDRISE',20],['MAP_CRPG_DADAUPA_GORGE','MAP_MOND_TEMPLE_LION',15],
+ ['MAP_CRPG_DRAGONSPINE_CAMP','MAP_MOND_TEMPLE_LION',20],['MAP_CRPG_DRAGONSPINE_CAMP','MAP_MOND_ECLIPSE_CAMP',15],
+ ['MAP_CRPG_CAPE_OATH','MAP_MOND_EAGLES_GATE',10],['MAP_CRPG_MOND_QUARRY','MAP_MOND_FOREST',10],
+ ['MAP_CRPG_MOND_QUARRY','MAP_MOND_TEMPLE_WOLF',15]
+];
 P.installWorldContent=function(){
  if(this._worldInstalled)return;this.installLifeContent();this.db={...this.db};
  const add=(key,rows)=>{
@@ -18,7 +28,12 @@ P.installWorldContent=function(){
   for(const row of rows){const id=identity(row);if(!seen.has(id)){all.push(copy(row));seen.add(id);}}
   this.db[key]=all;this.tables[key]=new Map(all.slice(1).filter(r=>r[0]).map(r=>[r[0],r]));
  };
- add('32_MAP_DB',C.mapRows);add('47_MAP_EDGE_DB',[...C.edgeRows,['EDGE_CRPG_FOREST_PLAINS','MAP_MOND_FOREST','MAP_MOND_PLAINS','WORLD_MOVE',1,10,'','','Y','숲 가장자리를 따라 외곽 초원으로','EDGE_CRPG_PLAINS_FOREST','ACTIVE','CRPG_LOCAL_V011',''],['EDGE_CRPG_PLAINS_FOREST','MAP_MOND_PLAINS','MAP_MOND_FOREST','WORLD_MOVE',1,10,'','','Y','숲 가장자리로 이동','EDGE_CRPG_FOREST_PLAINS','ACTIVE','CRPG_LOCAL_V011','']]);add('34_MAP_ENCOUNTER_POOL',C.encounterRows);add('19_SHOP_STOCK_DB',C.requiredNewStockRows);
+ add('32_MAP_DB',C.mapRows);
+ // 0.14.13: places side by side on the map had no path between them, so the fastest trip went round through Mondstadt
+ // (울프 영지 → 왕랑 구역 via 숲·초원). Both directions; minutes match nearby paths of the same length.
+ const name=id=>this.tables['32_MAP_DB'].get(id)?.[2]||id,edge=(a,b)=>'EDGE_CRPG_V01413_'+a.slice(4)+'_TO_'+b.slice(4);
+ const near=NEIGHBOURS.flatMap(([a,b,minutes])=>[[a,b],[b,a]].map(([x,y])=>[edge(x,y),x,y,'WORLD_MOVE',1,minutes,'','','Y',name(y)+' 이동',edge(y,x),'ACTIVE','CRPG_LOCAL_V01413','지도에서 맞닿은 곳을 잇는 길']));
+ add('47_MAP_EDGE_DB',[...C.edgeRows,...near,['EDGE_CRPG_FOREST_PLAINS','MAP_MOND_FOREST','MAP_MOND_PLAINS','WORLD_MOVE',1,10,'','','Y','숲 가장자리를 따라 외곽 초원으로','EDGE_CRPG_PLAINS_FOREST','ACTIVE','CRPG_LOCAL_V011',''],['EDGE_CRPG_PLAINS_FOREST','MAP_MOND_PLAINS','MAP_MOND_FOREST','WORLD_MOVE',1,10,'','','Y','숲 가장자리로 이동','EDGE_CRPG_FOREST_PLAINS','ACTIVE','CRPG_LOCAL_V011','']]);add('34_MAP_ENCOUNTER_POOL',C.encounterRows);add('19_SHOP_STOCK_DB',C.requiredNewStockRows);
  for(const m of C.mapRenames||[]){const r=this.tables['32_MAP_DB'].get(m.id);if(r)r[2]=m.name;}this._worldInstalled=true;
 };
 P.ensureWorldProgress=function(s=this.s){return s.worldProgress??={version:1,oculi:{},commissions:{},training:{day:0,count:0},mastery:0,milestones:{}};};
