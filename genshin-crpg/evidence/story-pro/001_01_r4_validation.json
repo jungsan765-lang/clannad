@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "scope": "001.01 text-only revision; no actual full game/browser/deployment validation",
+  "base_commit": "1bb49b472b0ec94e37e266ec067cb8b3140dfb5c",
+  "base_source_git_blob": "8e6e29dd50ec8d997ca268bbb565c287dff669f3",
+  "new_source_git_blob": "e40c8bbde5882bd40006d6dd682eb42b6c392d6c",
+  "scene_units": 22,
+  "new_nodes_this_revision": 0,
+  "all_non_text_scene_fields_unchanged": true,
+  "source_outside_scene_and_revision_identifier_unchanged": false,
+  "manuscript_source_and_excerpt_match": true,
+  "tests": {
+    "test_main_story_001_01.mjs": {
+      "ok": true,
+      "checks": 51,
+      "scope": "focused installer and graph checks on reconstructed anchor fixture; not a full game/browser/deployment test",
+      "screens": 22,
+      "addedNodes": 14,
+      "exit": "CHOICE_GROUP:G_ISK_L03_K2_027"
+    },
+    "test_main_story_002_01.mjs": {
+      "ok": true,
+      "checks": 67,
+      "scope": "reconstructed installer fixture, not full-game/browser/deployment verification",
+      "screens": 14,
+      "addedNodes": 0,
+      "textCharacters": 649
+    },
+    "test_story_speech_variants.mjs": {
+      "ok": true,
+      "checks": 218,
+      "scope": "reconstructed runtime display fixture; shared-state isolation and unchanged reading implementation; not full-game/browser/deployment",
+      "profile": "PROFILE_MOND_JEAN",
+      "bondMin": 60,
+      "variantLines": 6
+    }
+  },
+  "new_chars": {
+    "all": 897,
+    "narration": 254,
+    "player": 176,
+    "keqing": 386
+  },
+  "source_outside_scene_and_revision_identifier_unchanged_except_final_newline": true,
+  "end_of_file_change": "Terminal newline removed; no executable logic changed."
+}
