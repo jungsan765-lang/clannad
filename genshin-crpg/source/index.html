@@ -16,18 +16,26 @@
   var q=new URLSearchParams(location.search);
   if(window.top!==window.self){document.documentElement.classList.add('crpg-framed');return;}
   if(q.get('frame')==='0'||navigator.webdriver||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
-  window.stop();
   q.set('frame','inner');
-  var d=document,style=d.createElement('style'),body=d.body||d.documentElement.appendChild(d.createElement('body')),f=d.createElement('iframe');
-  style.textContent='html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#04070a radial-gradient(ellipse at center,#12232a 0%,#04070a 70%)}#crpg-frame{position:absolute;left:0;top:0;border:0;display:block;transform-origin:0 0;background:#0b1418;box-shadow:0 0 0 1px rgba(227,195,138,.18),0 0 80px rgba(0,0,0,.65)}';
-  d.head.appendChild(style);
-  f.id='crpg-frame';f.title=d.title||'원신 CRPG';f.src=location.pathname+'?'+q.toString()+location.hash;f.allow='autoplay; fullscreen; clipboard-write';
-  body.appendChild(f);
-  var fit=function(){var W=innerWidth,H=innerHeight,s=Math.min(W/1280,H/720),w=Math.min(1536,Math.floor(W/s)),h=Math.min(800,Math.floor(H/s));f.style.width=w+'px';f.style.height=h+'px';f.style.transform='translate('+Math.round((W-w*s)/2)+'px,'+Math.round((H-h*s)/2)+'px) scale('+s+')';};
-  fit();addEventListener('resize',fit);if(window.ResizeObserver)new ResizeObserver(fit).observe(d.documentElement);
-  var focus=function(){try{f.contentWindow.focus();}catch(e){}};
-  f.addEventListener('load',function(){focus();try{var t=f.contentDocument.title;if(t)d.title=t;}catch(e){}});
-  addEventListener('pointerdown',focus);addEventListener('keydown',focus);
+  var src=location.pathname+'?'+q.toString()+location.hash;
+  window.CRPGFrameHost=function(){
+   var d=document,f=d.getElementById('crpg-frame');if(!f)return;
+   f.src=src;
+   // CSS zoom renders the game at the enlarged size (crisp text); where zoom does not scale the frame and its page
+   // together, fall back to transform: scale.
+   var mode='zoom',w=1280,h=720,s=1;
+   var fit=function(){var W=innerWidth,H=innerHeight;s=Math.min(W/1280,H/720);w=Math.min(1536,Math.floor(W/s));h=Math.min(800,Math.floor(H/s));var x=(W-w*s)/2,y=(H-h*s)/2;f.style.width=w+'px';f.style.height=h+'px';
+    if(mode==='zoom'){f.style.transform='';f.style.zoom=String(s);f.style.left=(x/s)+'px';f.style.top=(y/s)+'px';}
+    else{f.style.zoom='';f.style.left='0';f.style.top='0';f.style.transform='translate('+Math.round(x)+'px,'+Math.round(y)+'px) scale('+s+')';}};
+   var check=function(){if(mode!=='zoom')return;var ok=Math.abs(f.getBoundingClientRect().width-w*s)<3;try{if(f.contentWindow.innerWidth)ok=ok&&Math.abs(f.contentWindow.innerWidth-w)<3;}catch(e){}if(!ok){mode='transform';fit();}};
+   fit();check();addEventListener('resize',fit);if(window.ResizeObserver)new ResizeObserver(fit).observe(d.documentElement);
+   var focus=function(){try{f.contentWindow.focus();}catch(e){}};
+   f.addEventListener('load',function(){check();focus();try{var t=f.contentDocument.title;if(t)d.title=t;}catch(e){}});
+   addEventListener('pointerdown',focus);addEventListener('keydown',focus);
+  };
+  // Write the frame, then turn the rest of this file into hidden text (<plaintext>) so the game itself runs only inside
+  // the frame. Stopping the parser with window.stop() instead leaves Chrome unable to paint the page (black screen).
+  document.write('<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#04070a radial-gradient(ellipse at center,#12232a 0%,#04070a 70%)}#crpg-frame{position:absolute;left:0;top:0;border:0;display:block;transform-origin:0 0;background:#0b1418;box-shadow:0 0 0 1px rgba(227,195,138,.18),0 0 80px rgba(0,0,0,.65)}plaintext{display:none!important}</style></head><body><iframe id="crpg-frame" title="'+document.title.replace(/[<>&"]/g,'')+'" allow="autoplay; fullscreen; clipboard-write"></iframe><script>CRPGFrameHost();<\/script><plaintext hidden>');
  }catch(e){}
 })();
 </script>
