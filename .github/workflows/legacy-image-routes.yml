@@ -1,0 +1,35 @@
+name: Legacy image routing guard
+on:
+  pull_request:
+    paths:
+      - 'genshin-crpg/tools/*.sh'
+      - 'genshin-crpg/tests/test_legacy_image_routes.py'
+      - '.github/workflows/legacy-image-routes.yml'
+  push:
+    branches: [main, staging/crpg-seoul-node-v0145]
+    paths:
+      - 'genshin-crpg/tools/*.sh'
+      - 'genshin-crpg/tests/test_legacy_image_routes.py'
+      - '.github/workflows/legacy-image-routes.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  image-routing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            genshin-crpg/tools
+            genshin-crpg/tests
+      - name: Install real Caddy (same Ubuntu package source as the server bootstrap)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y caddy
+          caddy version
+      - name: Test rollback, complete namespace coverage, and real HTTP routing
+        env:
+          REQUIRE_CADDY: '1'
+        run: python3 genshin-crpg/tests/test_legacy_image_routes.py
