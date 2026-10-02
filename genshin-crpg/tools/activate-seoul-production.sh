@@ -51,6 +51,29 @@ cat >"$CADDY_DIR/production.caddy" <<EOF
 $DOMAIN {
     encode zstd gzip
 
+    # BEGIN CLANNAD LEGACY IMAGES
+    # Preserve every historical image namespace, not only /1/.
+    @clannadLegacyImages {
+        method GET HEAD
+        path /1/* /a/* /genshin/* /gg/* /ggg/* /mt/* /mtg/* /mtt/* /mttg/* /oc/* /rfy/* /rfya/*
+        path_regexp legacyImageExtension (?i)[.](png|jpe?g|webp|gif|avif|svg|ico|bmp|apng|tiff?|heic|heif|jxl)$
+    }
+    handle @clannadLegacyImages {
+        reverse_proxy https://raw.githubusercontent.com {
+            header_up Host raw.githubusercontent.com
+            header_up -Cookie
+            header_up -Authorization
+            header_up -Proxy-Authorization
+            header_up -Referer
+            header_up -Origin
+            header_up -X-Forwarded-For
+            header_up -X-Forwarded-Host
+            header_up -X-Forwarded-Proto
+            rewrite /jungsan765-lang/clannad/main{uri}
+        }
+    }
+    # END CLANNAD LEGACY IMAGES
+
     handle_path /api/* {
         reverse_proxy 127.0.0.1:8790
     }
