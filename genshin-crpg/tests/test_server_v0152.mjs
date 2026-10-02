@@ -70,6 +70,22 @@ async function sortie(p){
   const hit=r.combatCards().find(c=>c.id==='PLAYER_BASIC_ATTACK'&&!c.reason);last=await act(p,'COMBAT',hit?{card:hit.id,target:boss.id}:{card:'PLAYER_BASIC_GUARD'});assert.equal(last.status,200,JSON.stringify(last.json));}
  assert(!app.store.runtimeOf(p.row.id).s.runtime,'the sortie ends');return last;
 }
+// 0.15.4: the raid opens only as an event the operator opens (user: 「공동 토벌전은 이벤트로 열거였는데 왜 니 맘대로 열었지?」).
+let event=null;
+await check('공동 토벌전: closed until the operator opens an event; the console opens one (with a chat notice) and refuses a second',async()=>{
+ const p=await raider('raid_wait','기다리는 모험가',12);
+ const st0=(await api('/raid',{token:p.token})).json;assert.equal(st0.open,false);assert.equal(st0.current,null);assert.match(st0.closedReason,/열린 공동 토벌전이 없습니다/);
+ const shut=await act(p,'RAID_ENTER');assert.notEqual(shut.status,200);assert.match(JSON.stringify(shut.json),/열린 공동 토벌전이 없습니다/);
+ const cfg=globalThis.CRPGRuntime.raidV0152;
+ assert.throws(()=>app.adminConsole.raid({op:'open',boss:'MON_SLIME_HYDRO',days:1},'test','127.0.0.1'),/보스를 골라/);
+ assert.throws(()=>app.adminConsole.raid({op:'open',boss:cfg.bosses[1].id,days:0},'test','127.0.0.1'),/1~30일/);
+ const opened=await app.adminConsole.raid({op:'open',boss:cfg.bosses[1].id,days:3,target:500},'test','127.0.0.1');event=opened.event;
+ assert.match(event.id,/^RAID_\d+$/);assert.equal(event.boss,cfg.bosses[1].id);assert.equal(event.target,500);assert.equal(Math.round((event.endsAt-event.startsAt)/86400000),3);
+ assert(app.store.db.prepare("SELECT COUNT(*) AS n FROM chat WHERE text LIKE '공동 토벌전이 열렸습니다%'").get().n>=1,'a chat notice');
+ assert.throws(()=>app.adminConsole.raid({op:'open',boss:cfg.bosses[0].id,days:1},'test','127.0.0.1'),/이미 열린 공동 토벌전/);
+ const st1=(await api('/raid',{token:p.token})).json;assert.equal(st1.open,true);assert.equal(st1.current.id,event.id);assert.equal(st1.current.target,500);
+ const list=app.store.raidAdminList();assert.equal(list.events[0].state,'OPEN');
+});
 await check('공동 토벌전: a sortie adds its hits once (a replayed request never counts twice); Lv.9 cannot sortie',async()=>{
  const low=await raider('raid_low','막내기사',9);const refused=await act(low,'RAID_ENTER');assert.notEqual(refused.status,200);assert.match(JSON.stringify(refused.json),/Lv\.10부터/);
  const p=await raider('raid_one','토벌대원',12),last=await sortie(p);
@@ -77,13 +93,15 @@ await check('공동 토벌전: a sortie adds its hits once (a replayed request n
  const replay=await api('/game/action',{token:p.token,body:last.body});
  assert.equal(replay.status,200,JSON.stringify(replay.json).slice(0,200));assert.equal(replay.json.replayed,true);assert.equal(app.store.db.prepare('SELECT COUNT(*) AS n FROM raid_hits').get().n,1,'a replay does not add again');
  const st=(await api('/raid',{token:p.token})).json;assert.equal(st.current.total,rows[0].hits);assert.equal(st.current.me.runs,1);assert.equal(st.current.players,1);
- assert.equal(app.store.runtimeOf(p.row.id).raidView().sortiesLeft,2,'three sorties a day');
+ const rt=app.store.runtimeOf(p.row.id);rt.raidServerEvent=app.store.raidActive();assert.equal(rt.raidView().sortiesLeft,2,'three sorties a day');
 });
 await check('공동 토벌전: stage rewards need the shared total and one sortie, are paid once into the save, and a rollback lets them be taken again',async()=>{
  const p=app.store.account('raid_one'),me={token:null,row:p};me.token=(await api('/login',{body:{username:'raid_one',password}})).json.token;
- const watcher=await raider('raid_none','구경꾼',12),cfg=globalThis.CRPGRuntime.raidV0152,ev=cfg.eventOf(Date.now());
- const early=await api('/raid/claim',{token:me.token,body:{event:ev.id,reward:'S25'}});assert.equal(early.status,409);assert.match(early.json.error,/25%/);
- app.store.db.prepare('INSERT INTO raid_hits VALUES(?,?,?,?,?,?)').run('test-battle-1',ev.id,watcher.row.id+'-other','다른 모험가',Math.ceil(cfg.target*.3),Date.now());
+ const watcher=await raider('raid_none','구경꾼',12),ev=event;
+ const early=await api('/raid/claim',{token:me.token,body:{event:ev.id,reward:'S25'}});
+ const mine=app.store.db.prepare('SELECT COALESCE(SUM(hits),0) AS n FROM raid_hits WHERE event=?').get(ev.id).n;
+ if(mine<Math.ceil(ev.target*.25)){assert.equal(early.status,409);assert.match(early.json.error,/25%/);}
+ app.store.db.prepare('INSERT INTO raid_hits VALUES(?,?,?,?,?,?)').run('test-battle-1',ev.id,watcher.row.id+'-other','다른 모험가',Math.ceil(ev.target*.3),Date.now());
  const none=await api('/raid/claim',{token:watcher.token,body:{event:ev.id,reward:'S25'}});assert.equal(none.status,409);assert.match(none.json.error,/한 번 이상 출격/);
  const mora0=app.store.runtimeOf(p.id).s.global.MORA,ok=await api('/raid/claim',{token:me.token,body:{event:ev.id,reward:'S25'}});assert.equal(ok.status,200,JSON.stringify(ok.json));
  assert.equal(app.store.runtimeOf(p.id).s.global.MORA-mora0,5000,'paid into the save');
@@ -92,6 +110,20 @@ await check('공동 토벌전: stage rewards need the shared total and one sorti
  await app.adminConsole.rollback({id:p.id,steps:1},'test','127.0.0.1');
  assert.equal(app.store.db.prepare('SELECT COUNT(*) AS n FROM raid_claims WHERE account_id=?').get(p.id).n,0,'the claim is undone with the save');
  const back=await api('/raid/claim',{token:me.token,body:{event:ev.id,reward:'S25'}});assert.equal(back.status,200,'taken again after the rollback: '+JSON.stringify(back.json));
+});
+await check('공동 토벌전: closing ends sorties at once; the finished event still pays its rewards for seven days, not after',async()=>{
+ const me={row:app.store.account('raid_one')};me.token=(await api('/login',{body:{username:'raid_one',password}})).json.token;
+ const p={...me,version:(await api('/me',{token:me.token})).json.version,engineVersion:(await api('/me',{token:me.token})).json.engineVersion};
+ const closed=await app.adminConsole.raid({op:'close',num:Number(event.id.slice(5))-1000000},'test','127.0.0.1');assert.equal(closed.event.closed,true);
+ const st=(await api('/raid',{token:me.token})).json;assert.equal(st.open,false);assert.equal(st.previous?.id,event.id,'the finished event is still listed for its rewards');
+ const shut=await act(p,'RAID_ENTER');assert.notEqual(shut.status,200);assert.match(JSON.stringify(shut.json),/열린 공동 토벌전이 없습니다/);
+ app.store.db.prepare('INSERT INTO raid_hits VALUES(?,?,?,?,?,?)').run('test-battle-2',event.id,'other-adventurer-2','다른 모험가',Math.ceil(event.target*.3),Date.now());
+ const s50=await api('/raid/claim',{token:me.token,body:{event:event.id,reward:'S50'}});assert.doesNotMatch(s50.json.error||'',/지금 열린 토벌이나/,'a finished event can still pay');assert.equal(s50.status,200,JSON.stringify(s50.json));
+ app.store.db.prepare('UPDATE raid_events SET ends_at=?').run(Date.now()-8*86400000);
+ const late=await api('/raid/claim',{token:me.token,body:{event:event.id,reward:'S75'}});assert.equal(late.status,400);assert.match(late.json.error,/7일/);
+ assert.equal((await api('/raid',{token:me.token})).json.previous,null,'gone after seven days');
+ // Old weekly ids (0.15.2) never count again.
+ assert.equal(app.store.raidById('RAID_2900'),null);
 });
 
 await app.close();

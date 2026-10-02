@@ -41,7 +41,9 @@ function executeAction(b,row,account,env,receivedAt,cachedRuntime=null){
   // Work time begins when this request reaches the Worker, including database/engine work.
   // Client timestamps never authorize elapsed time or rewards.
   r.actionStartedAt=Math.max(receivedAt,row.updated_at||0);
-  const engineStart=performance.now();let result;try{result=isReading?{ok:true,type:'STORY_READ',result:{read:reading.length,node:r.storyActiveNodeId()}}:r.action(b.type,params);}finally{delete r.actionStartedAt;}const engineMs=elapsed(engineStart);
+  // 0.15.4: the 공동 토벌전 event the account server has open (none on servers that do not run it).
+  r.raidServerEvent=env?.RAID_EVENT||null;
+  const engineStart=performance.now();let result;try{result=isReading?{ok:true,type:'STORY_READ',result:{read:reading.length,node:r.storyActiveNodeId()}}:r.action(b.type,params);}finally{delete r.actionStartedAt;delete r.raidServerEvent;}const engineMs=elapsed(engineStart);
 
  return {r,result,isDebug,runtimeMs,engineMs};
 }

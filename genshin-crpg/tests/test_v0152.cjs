@@ -73,13 +73,22 @@ check('regional events: each kind settles once; fights settle on victory; a devi
  const bad=fresh(),s=JSON.parse(bad.serialize());s.regionEvents={version:1,day:1,done:{},primogems:41,escort:null,bought:{},total:{},count:0};assert(refused(()=>new api.Runtime(bad.db,s,true),/지역 사건 기록/));
  return out;
 });
-check('공동 토벌전: Lv.10 to sortie, three a day, eight rounds where every hit counts 1 and the boss never falls',()=>{
- const low=fixture(9,TEAM,6);low.installMarketContent();assert.match(low.raidReason(),/Lv\.10부터/);
- const r=fixture(12,TEAM,8);r.installMarketContent();r.actionStartedAt=Date.UTC(2026,9,1,1,0,0);r.s.global.SCREEN_MODE='LOCATION';
- r.action('RAID_ENTER',{});const b=r.s.runtime;assert(b.raid&&b.storyConfig.noRewards);const boss=b.actors.find(a=>a.raidBoss);assert.equal(boss.maxHp,1000000);
+check('공동 토벌전: closed unless an event is open; then Lv.10 to sortie, three a day, eight rounds where every hit counts 1 and the boss never falls',()=>{
+ // 0.15.4: the account server hands the engine the event the operator opened (user: 「공동 토벌전은 이벤트로 열거였는데」).
+ const at=Date.UTC(2026,9,1,1,0,0),event={id:'RAID_1000001',boss:'MON_RAID_GRADER',startsAt:at-3600000,endsAt:at+7*86400000,target:4000};
+ const shut=fixture(12,TEAM,8);shut.installMarketContent();shut.actionStartedAt=at;shut.s.global.SCREEN_MODE='LOCATION';
+ assert.equal(shut.raidReason(),api.raidV0152.closed);assert.equal(shut.raidView().open,false);assert(refused(()=>shut.action('RAID_ENTER',{}),/열린 공동 토벌전이 없습니다/));
+ shut.raidServerEvent={...event,endsAt:at};assert.equal(shut.raidReason(),api.raidV0152.closed,'an event that has ended is closed');
+ shut.raidServerEvent={...event,boss:'MON_SLIME_HYDRO'};assert.equal(shut.raidReason(),api.raidV0152.closed,'an unknown boss is no event');
+ const low=fixture(9,TEAM,6);low.installMarketContent();low.raidServerEvent=event;low.actionStartedAt=at;assert.match(low.raidReason(),/Lv\.10부터/);
+ const r=fixture(12,TEAM,8);r.installMarketContent();r.actionStartedAt=at;r.raidServerEvent=event;r.s.global.SCREEN_MODE='LOCATION';
+ assert.equal(r.raidView().open,true);assert.equal(r.raidView().name,api.raidV0152.bosses[0].name);
+ r.action('RAID_ENTER',{});assert.equal(r.s.runtime.raid.event,'RAID_1000001');const b=r.s.runtime;assert(b.raid&&b.storyConfig.noRewards);const boss=b.actors.find(a=>a.raidBoss);assert.equal(boss.maxHp,1000000);
+ // The event closes while the sortie runs: the fight still finishes and its hits still go to that event's record.
+ r.raidServerEvent=null;
  r.action('COMBAT_BEGIN');for(let i=0;i<300&&r.s.runtime;i++){for(const a of r.s.runtime.actors)if(a.side==='ALLY')a.control='AI';r.autoUntilPlayer();}
  const res=JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON);assert(res.raid.hits>0);assert(res.raid.finished||!res.victory);assert(res.rounds<=api.raidV0152.rounds+1);
- assert.equal(r.s.raid.hits,res.raid.hits);assert.equal(r.raidView().sortiesLeft,2);
+ r.raidServerEvent=event;assert.equal(r.s.raid.hits,res.raid.hits);assert.equal(r.raidView().sortiesLeft,2);
  r.s.raid.sorties=3;assert.match(r.raidReason(),/오늘 출격을 모두 마쳤습니다/);
  const g=r.s.global.MORA;r.raidGrant({mora:5000,items:{MAT_CHAR_EXP_HERO:1}});assert.equal(r.s.global.MORA-g,5000);
  const s=JSON.parse(r.serialize());s.raid.sorties=4;assert(refused(()=>new api.Runtime(r.db,s,true),/공동 토벌전 기록/));

@@ -94,6 +94,13 @@ check('the Dvalin preparation note shows the real recommended level, not the old
  const src=fs.readFileSync(path.join(root,'source/app_party.js'),'utf8');assert(!src.includes("'권장 Lv. 4'"));assert(/mondBossProfiles\?\.\(\)\.BOSS_DVALIN\?\.recommended/.test(src));
  assert.equal(fresh().mondBossProfiles().BOSS_DVALIN.recommended,7);
 });
+check('journal rows (호감도 임무 and the rest) wrap by their own width: the text keeps 200 px and the buttons drop below',()=>{
+ // 0.15.4, user: 「이거 고치라고 했잖아」 — on PC the 호감도 임무 column squeezed the text to one letter a line.
+ const css=fs.readFileSync(path.join(root,'source/shell.css'),'utf8'),cut=css.indexOf('/* ---------- 리월 색 (generated');
+ const own=css.slice(0,cut);assert(cut>0);
+ assert(/body\.teyvat \.journal-row\{display:flex;flex-wrap:wrap/.test(own));assert(/\.journal-row>\.journal-row-copy\{flex:1 1 200px;min-width:min\(200px,100%\)\}/.test(own));
+ assert(/\.journal-row>\.journal-row-actions\{flex:1 1 auto;display:flex;flex-wrap:wrap/.test(own));
+});
 check('the modules are wired into the page and the build in load order (early story and pacing before the kit)',()=>{
  const html=fs.readFileSync(path.join(root,'source/index.html'),'utf8'),build=fs.readFileSync(path.join(root,'tools/build.py'),'utf8');
  for(const text of [html,build]){const a=text.indexOf('runtime_early_story_v0153.js'),p=text.indexOf('runtime_story_pacing_v0153.js'),b=text.indexOf('runtime_starter_kit_v0153.js');assert(a>0&&p>a&&b>p,'order');}

@@ -284,6 +284,19 @@ export class AdminConsole{
   const message=this.store.chatView({id,channel:'world',account_id:SYSTEM_ACCOUNT,author:'운영자 공지',text,created_at:t,deleted:0});this.store.broadcast({type:'chat',message});
   this.audit(actor,ip,null,'notice',{text});return {message};
  }
+ // 0.15.4: 공동 토벌전 is an event the operator opens and closes (server/raid-v0152.mjs). Opening also posts a chat notice
+ // when the server runs chat.
+ raid(b,actor,ip){
+  const op=String(b?.op||'');
+  if(op==='open'){
+   const out=this.store.raidAdminOpen(b,actor),e=out.event,days=Math.round((e.endsAt-e.startsAt)/86400000);
+   this.audit(actor,ip,null,'raid-open',{event:e.id,boss:e.boss,days,target:e.target});
+   if(b?.notice!==false&&this.store.features?.has('chat')){try{this.notice({text:'공동 토벌전이 열렸습니다 · '+e.name+' · '+days+'일 동안 · 페이몬 메뉴의 「공동 토벌전」에서 출격하세요.'},actor,ip);}catch{}}
+   return out;
+  }
+  if(op==='close'){const out=this.store.raidAdminClose(b);this.audit(actor,ip,null,'raid-close',{event:out.event.id});return out;}
+  throw err(400,'토벌전 작업을 골라 주세요.');
+ }
  chatDelete(b,actor,ip){this.store.need('chat');const id=Number(b?.id);if(!Number.isSafeInteger(id))throw err(400,'메시지를 확인해 주세요.');this.db.prepare('UPDATE chat SET deleted=1 WHERE id=?').run(id);this.store.broadcast({type:'chat-delete',id});this.audit(actor,ip,null,'chat-delete',{id});return {deleted:true};}
  // ---------- routes ----------
  async handle({path,method,url,authorization,readBody,ip}){
@@ -299,6 +312,7 @@ export class AdminConsole{
    if(path==='/admin/audit')return this.auditList(q.get('target'),q.get('page'));
    if(path==='/admin/chat')return this.chat();
    if(path==='/admin/trades')return this.trades();
+   if(path==='/admin/raid')return this.store.raidAdminList();
   }
   if(method==='POST'){
    if(path==='/admin/logout'){this.sessions.delete(th);this.audit(actor,ip,null,'logout-console',{});return {ok:true};}
@@ -315,6 +329,7 @@ export class AdminConsole{
    if(path==='/admin/bulk')return this.bulk(b,actor,ip);
    if(path==='/admin/notice')return this.notice(b,actor,ip);
    if(path==='/admin/chat-delete')return this.chatDelete(b,actor,ip);
+   if(path==='/admin/raid')return this.raid(b,actor,ip);
   }
   throw err(404,'지원하지 않는 운영자 요청입니다.');
  }

@@ -1,10 +1,13 @@
 /* 0.15.2 공동 토벌전 (user: 「공동 토벌전. 이거는 이벤트로, 레벨 10 이상이면 누구나 무관하게 데미지 1씩 넣거나 이렇게 해서 턴
- * 안에 데미지 어느정도 넣기 이런거 괜찮겠다. 다단히트성 캐릭터가 있으면 좋겠지?」). Each week (Monday 00:00, Korean time) one
- * raid boss stands against the whole server. An adventurer whose protagonist is Lv.10 or above may sortie three times a day
- * (Korean midnight): a sortie lasts eight rounds, and every hit on the boss deals exactly 1 damage whatever its strength, so
- * characters that hit many times (Amber's arrows, Ningguang's stars, summons, follow-ups) count most. The boss never falls
- * in a sortie. The account server adds every sortie's hits to the week's shared total and pays the rewards
- * (server/raid-v0152.mjs); this file is the fight and the adventurer's own record. Offline the raid stays closed. */
+ * 안에 데미지 어느정도 넣기 이런거 괜찮겠다. 다단히트성 캐릭터가 있으면 좋겠지?」). 0.15.4: the raid is an event — it is open only
+ * while the operator has opened one from the console (boss, length, goal; user: 「공동 토벌전은 이벤트로 열거였는데 왜 니 맘대로
+ * 열었지?」, 0.15.2 had opened a new boss every week by itself). The account server tells the engine which event is open when
+ * it runs an action (r.raidServerEvent, like actionStartedAt); without one the raid is closed, and offline it stays closed.
+ * During an event, an adventurer whose protagonist is Lv.10 or above may sortie three times a day (Korean midnight): a
+ * sortie lasts eight rounds, and every hit on the boss deals exactly 1 damage whatever its strength, so characters that hit
+ * many times (Amber's arrows, Ningguang's stars, summons, follow-ups) count most. The boss never falls in a sortie. The
+ * account server adds every sortie's hits to the event's shared total and pays the rewards (server/raid-v0152.mjs); this
+ * file is the fight and the adventurer's own record. */
 (function(root){'use strict';
 const api=root.CRPGRuntime,P=api?.Runtime?.prototype;if(!P?.premiumV0148||P.raidV0152)return;P.raidV0152=true;
 const fail=(c,m)=>{throw new api.RuleError(c,m);},copy=x=>JSON.parse(JSON.stringify(x));
@@ -22,8 +25,10 @@ const BOSSES=[
 // Rewards: everyone who sortied when the week's total reaches 25/50/75/100%, and each adventurer's own hits.
 const STAGES=[{key:'S25',at:.25,reward:{mora:5000,items:{MAT_CHAR_EXP_HERO:1}}},{key:'S50',at:.5,reward:{primogem:30,items:{MAT_CHAR_EXP_ADVENTURER:3}}},{key:'S75',at:.75,reward:{mora:10000,items:{ORE_CRYSTAL:3}}},{key:'S100',at:1,reward:{primogem:60,items:{MAT_CHAR_EXP_HERO:2}}}];
 const TIERS=[{key:'P100',hits:100,reward:{mora:3000}},{key:'P300',hits:300,reward:{primogem:20}},{key:'P600',hits:600,reward:{items:{MAT_CHAR_EXP_HERO:2}}}];
-const eventOf=now=>{const week=weekOf(now),boss=BOSSES[((week%BOSSES.length)+BOSSES.length)%BOSSES.length];return {id:'RAID_'+week,week,boss:boss.id,name:boss.name,text:boss.text,endsAt:(week+1)*WEEK-KST-3*DAY};};
-api.raidV0152={rounds:ROUNDS,sorties:SORTIES,minLevel:MIN_LEVEL,target:TARGET,stages:copy(STAGES),tiers:copy(TIERS),bosses:BOSSES.map(b=>({id:b.id,name:b.name,text:b.text})),eventOf};
+// The event the account server says is open: {id:'RAID_<number>', boss, startsAt, endsAt, target}. Anything else is no event.
+const eventFrom=e=>{if(!e||typeof e!=='object'||!/^RAID_\d+$/.test(String(e.id)))return null;const boss=BOSSES.find(b=>b.id===e.boss);if(!boss)return null;const endsAt=Number(e.endsAt),startsAt=Number(e.startsAt)||0,target=Number.isInteger(e.target)&&e.target>0?e.target:TARGET;if(!Number.isFinite(endsAt))return null;return {id:String(e.id),boss:boss.id,name:boss.name,text:boss.text,startsAt,endsAt,target};};
+const CLOSED='지금은 열린 공동 토벌전이 없습니다. 운영자가 이벤트로 열면 참여할 수 있습니다.';
+api.raidV0152={rounds:ROUNDS,sorties:SORTIES,minLevel:MIN_LEVEL,target:TARGET,stages:copy(STAGES),tiers:copy(TIERS),bosses:BOSSES.map(b=>({id:b.id,name:b.name,text:b.text})),eventFrom,closed:CLOSED};
 const old=Object.fromEntries(['installMarketContent','supportsLiyueBoss','apply','actionReason','startBattle','applyDamage','roundEnd','liyueBattleOutcome','finishBattle','validateSave'].map(k=>[k,P[k]]));
 function table(r,key){const rows=r.db[key].map(x=>x.slice());r.db={...r.db,[key]:rows};r.tables[key]=new Map(rows.slice(1).filter(x=>x[0]).map(x=>[x[0],x]));}
 // One boss row and one fight per raid boss, copied from the monster it is built on.
@@ -41,19 +46,22 @@ P.installRaidContent=function(){
 P.installMarketContent=function(...args){const out=old.installMarketContent.apply(this,args);this.installRaidContent();return out;};
 P.supportsLiyueBoss=function(id){return BOSSES.some(b=>b.id===id)||!!old.supportsLiyueBoss?.call(this,id);};
 P.raidNow=function(){return Number(this.actionStartedAt??Date.now());};
-P.raidEvent=function(){return eventOf(this.raidNow());};
+// Open only while the account server has an event running (closed once its end time passes, even mid-request).
+P.raidEvent=function(){const e=eventFrom(this.raidServerEvent);return e&&e.startsAt<=this.raidNow()&&this.raidNow()<e.endsAt?e:null;};
 P.raidDay=function(){return Math.floor((this.raidNow()+KST)/DAY);};
-// The adventurer's own record of this week's raid (never changed by a view).
-P.raidRecordOf=function(){const e=this.raidEvent(),r=this.s.raid;return r?.version===1&&r.event===e.id?r:null;};
-P.raidState=function(){const e=this.raidEvent(),day=this.raidDay();let r=this.s.raid;
+// The adventurer's own record of the open event (never changed by a view).
+P.raidRecordOf=function(){const e=this.raidEvent(),r=this.s.raid;return e&&r?.version===1&&r.event===e.id?r:null;};
+P.raidState=function(){const e=this.raidEvent();if(!e)fail('RAID',CLOSED);const day=this.raidDay();let r=this.s.raid;
  if(r?.version!==1||r.event!==e.id)r=this.s.raid={version:1,event:e.id,day,sorties:0,hits:0,best:0,runs:0,lifetime:r?.lifetime||{runs:0,hits:0}};
  if(r.day!==day){r.day=day;r.sorties=0;}return r;};
 P.raidView=function(){
  const e=this.raidEvent(),r=this.raidRecordOf(),today=r&&r.day===this.raidDay()?r.sorties:0,level=Number(this.s.global.PLAYER_LEVEL_STATE)||1;
- return {...e,hoursLeft:Math.max(0,Math.ceil((e.endsAt-this.raidNow())/3600000)),rounds:ROUNDS,sorties:SORTIES,sortiesLeft:Math.max(0,SORTIES-today),hits:r?.hits||0,best:r?.best||0,runs:r?.runs||0,
-  lifetime:copy(this.s.raid?.lifetime||{runs:0,hits:0}),minLevel:MIN_LEVEL,level,target:TARGET,stages:copy(STAGES),tiers:copy(TIERS),reason:this.raidReason()};
+ const rules={rounds:ROUNDS,sorties:SORTIES,minLevel:MIN_LEVEL,level,stages:copy(STAGES),tiers:copy(TIERS),lifetime:copy(this.s.raid?.lifetime||{runs:0,hits:0}),reason:this.raidReason()};
+ if(!e)return {open:false,...rules,target:TARGET,sortiesLeft:0,hits:0,best:0,runs:0,hoursLeft:0};
+ return {open:true,...e,...rules,hoursLeft:Math.max(0,Math.ceil((e.endsAt-this.raidNow())/3600000)),sortiesLeft:Math.max(0,SORTIES-today),hits:r?.hits||0,best:r?.best||0,runs:r?.runs||0};
 };
 P.raidReason=function(){
+ if(!this.raidEvent())return CLOSED;
  if(this.s.runtime||this.s.battlePreparation)return '진행 중인 전투를 먼저 마쳐 주세요.';
  if((this.playPhase?.()||'FREE')!=='FREE')return '이야기를 마친 뒤 출격할 수 있습니다.';
  if((Number(this.s.global.PLAYER_LEVEL_STATE)||1)<MIN_LEVEL)return '공동 토벌전은 주인공 Lv.'+MIN_LEVEL+'부터 참여할 수 있습니다.';
@@ -90,8 +98,10 @@ P.liyueBattleOutcome=function(b){if(b?.raid){if(b.raid.ended)return true;if(!b.a
 P.finishBattle=function(victory){
  const b=this.s.runtime,raid=b?.raid?copy(b.raid):null,result=old.finishBattle.call(this,victory);
  if(!raid||!result||typeof result!=='object')return result;
- const st=this.raidState();if(st.event===raid.event){st.hits+=raid.hits;st.best=Math.max(st.best,raid.hits);}st.lifetime.hits+=raid.hits;st.lifetime.best=Math.max(st.lifetime.best||0,raid.hits);
- const info={event:raid.event,boss:raid.boss,name:BOSSES.find(x=>x.id===raid.boss)?.name||'',hits:raid.hits,finished:!!raid.ended,eventHits:st.event===raid.event?st.hits:raid.hits};
+ // The record of the sortie's own event (the event may have been closed while the fight ran).
+ const st=this.s.raid;if(st?.version===1&&st.event===raid.event){st.hits+=raid.hits;st.best=Math.max(st.best,raid.hits);}
+ if(st?.version===1){st.lifetime.hits+=raid.hits;st.lifetime.best=Math.max(st.lifetime.best||0,raid.hits);}
+ const info={event:raid.event,boss:raid.boss,name:BOSSES.find(x=>x.id===raid.boss)?.name||'',hits:raid.hits,finished:!!raid.ended,eventHits:st?.event===raid.event?st.hits:raid.hits};
  const key=result.battleId||result.id,add=x=>{if(x&&typeof x==='object')x.raid=copy(info);};
  add(result);if(this.s.combatReceipts?.[key]&&this.s.combatReceipts[key]!==result)add(this.s.combatReceipts[key]);
  let settled=null;try{settled=JSON.parse(this.s.global.LAST_BATTLE_RESULT_JSON||'null');}catch{}

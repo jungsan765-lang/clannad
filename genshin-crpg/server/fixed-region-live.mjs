@@ -180,7 +180,10 @@ export class LiveRegionStore{
  // the market and the rankings show it. An account without a journey yet has no public name.
  heroName(id){const row=this.db.prepare('SELECT value FROM parts WHERE account_id=? AND path=?').get(id,'["global","PLAYER_NAME"]');try{return row?String(JSON.parse(row.value)||'').trim().slice(0,24):'';}catch{return '';}}
  syncName(a){const name=this.heroName(a.id);if(name&&name!==a.display_name){this.db.prepare('UPDATE accounts SET display_name=? WHERE id=?').run(name,a.id);a.display_name=name;}return name;}
- me(a){const m=this.meta(a.id),e=m&&this.cached(a.id,m.revision),parts=e?.parts||(m?this.loadParts(a.id):new Map());return this.output(a,m,parts);}
+ me(a){const m=this.meta(a.id),e=m&&this.cached(a.id,m.revision),parts=e?.parts||(m?this.loadParts(a.id):new Map());
+  // 0.15.4: build the journey's runtime while the player is still on the title screen, so the first action is quick.
+  if(m&&m.revision!=null&&!e){try{this.touch(a.id,{revision:m.revision,parts,r:new R(GAME_DB,joinState(parts),true)});}catch{}}
+  return this.output(a,m,parts);}
  logout(th){this.db.prepare('DELETE FROM sessions WHERE token_hash=?').run(th);return {ok:true};}
  async remove(a,b){this.rate('delete:'+a.id,5,900000);if(b.confirm!==a.username||!same(await passwordHash(String(b.password||''),a.salt,this.pepper),a.password_hash))throw err(403,'아이디와 비밀번호로 삭제를 확인해 주세요.');this.db.prepare('DELETE FROM accounts WHERE id=?').run(a.id);this.invalidate(a.id);return {deleted:true};}
  async newGame(a,b){
@@ -193,16 +196,19 @@ export class LiveRegionStore{
  rank(a,ranked,state){if(!ranked){this.db.prepare('DELETE FROM ranking WHERE account_id=?').run(a.id);return;}const x=score(state);if(!x.floor)return;this.db.prepare('INSERT INTO ranking VALUES(?,?,?,?,?,?,?) ON CONFLICT(account_id,season) DO UPDATE SET display_name=excluded.display_name,floor=excluded.floor,rounds=excluded.rounds,attempts=excluded.attempts,achieved_at=excluded.achieved_at WHERE excluded.floor>ranking.floor OR (excluded.floor=ranking.floor AND (excluded.rounds<ranking.rounds OR (excluded.rounds=ranking.rounds AND excluded.attempts<ranking.attempts)))').run(a.id,x.season,a.display_name,x.floor,x.rounds,x.attempts,now());this.dropHonours(a.id);}
  async action(a,b){
   if(!RID.test(b?.requestId||''))throw err(400,'행동 식별자가 잘못되었습니다.');this.rate('action:'+a.id,240,60000);const digest=await hash(intent(b));
-  return this.serial(a.id,async()=>{const started=performance.now();let persistence=false;this.db.exec('BEGIN IMMEDIATE');
+  return this.serial(a.id,async()=>{const started=performance.now();let persistence=false,refused=null;this.db.exec('BEGIN IMMEDIATE');
    try{const m=this.meta(a.id);if(!m||m.revision==null)throw err(409,'먼저 여정을 시작해 주세요.');const receipt=this.db.prepare('SELECT * FROM receipts WHERE account_id=? AND request_id=?').get(a.id,b.requestId),entry=this.cached(a.id,m.revision),before=entry?.parts||this.loadParts(a.id);
     if(receipt){if(receipt.intent_hash!==digest)throw err(409,'같은 행동 식별자를 다른 행동에 사용할 수 없습니다.','REQUEST_ID_REUSED');this.db.exec('COMMIT');return {payload:{...this.output(a,m,before,JSON.parse(receipt.result).result),replayed:true,receiptRevision:receipt.revision},timing:{totalMs:Math.round((performance.now()-started)*10)/10,persistMs:0}};}
-    const warm=entry?.r||null,row={state:warm?'':JSON.stringify(joinState(before)),revision:m.revision,ranked:m.ranked,updated_at:m.updated_at},env={ADMIN_ACCOUNT_IDS:[...this.admins].join(',')};
+    // 0.15.4: the cached runtime works on a copy of its state, so a refused action puts the copy back instead of throwing
+    // the cache away (building a runtime from the save costs about a quarter of a second; user: 「장비 장착할때 렉이」).
+    const warm=entry?.r||null,pristine=warm?warm.s:null;if(warm){warm.s=structuredClone(pristine);refused={warm,pristine};}
+    const row={state:warm?'':JSON.stringify(joinState(before)),revision:m.revision,ranked:m.ranked,updated_at:m.updated_at},env={ADMIN_ACCOUNT_IDS:[...this.admins].join(','),RAID_EVENT:this.raidActive?.()||null};
     const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,a,env,now(),warm);compact(r.s);const after=splitState(r.s),rough=[...after].reduce((n,[p,v])=>n+p.length+v.length+8,2);let stateBytes=rough*3;if(stateBytes>1900000){stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw err(507,'저장 크기 한도에 도달했습니다.');}
     const d=diffParts(before,after),next={...m,revision:m.revision+1,ranked:isDebug?0:m.ranked,last_request_id:b.requestId,updated_at:now()},payload=b.responseMode==='state-parts-v1'?{...this.envelope(a,next,result),baseRevision:m.revision,statePatch:wirePatch(publicParts(before),publicParts(after))}:this.output(a,next,after,result);
     persistence=true;const ps=performance.now(),del=this.db.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=this.db.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
     for(const p of d.remove)del.run(a.id,p);for(const [p,v] of d.set)up.run(a.id,p,v);this.db.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(a.id,m.revision,JSON.stringify(d.undo),next.updated_at);this.db.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(a.id,m.revision-3);this.db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(a.id,b.requestId,next.revision,m.revision,digest,JSON.stringify({result}),next.updated_at);this.db.prepare('UPDATE metadata SET revision=?,ranked=?,last_request_id=?,updated_at=? WHERE account_id=?').run(next.revision,next.ranked,b.requestId,next.updated_at,a.id);this.rank(a,next.ranked,r.s);const raided=this.raidRecord?.(a,r,next);this.db.exec('COMMIT');this.touch(a.id,{revision:next.revision,parts:after,r});if(raided)this.broadcast({type:'raid',event:raided.event,hits:raided.hits},()=>true);
     return {payload,timing:{runtimeMs,engineMs,persistMs:Math.round((performance.now()-ps)*10)/10,totalMs:Math.round((performance.now()-started)*10)/10,stateBytes,responseBytes:Buffer.byteLength(JSON.stringify(payload))}};
-   }catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');this.invalidate(a.id);if(!persistence)e.outcome='REJECTED';throw e;}
+   }catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');if(!persistence&&refused&&this.cache.get(a.id)?.r===refused.warm)refused.warm.s=refused.pristine;else this.invalidate(a.id);if(!persistence)e.outcome='REJECTED';throw e;}
   });
  }
  // 0.14.15: the current monthly season, with last season alongside.

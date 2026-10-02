@@ -76,8 +76,9 @@ const relog=await app.api('/login',{method:'POST',body:{username:'persist_01',pa
 assert.equal((await app.api('/account/delete',{method:'POST',token:relog.json.token,body:{confirm:'persist_01',password}})).status,200);
 assert.equal((await app.api('/login',{method:'POST',body:{username:'persist_01',password}})).status,401);
 await app.close();await rm(dir,{recursive:true,force:true});
-// Production databases keep the social tables off until they are approved.
+// Production databases keep the social tables off until they are approved. The 0.15.2 co-op raid needs only the account
+// server, so it is listed everywhere (raid-v1).
 const prodDir=await mkdtemp(join(tmpdir(),'crpg-live-prod-')),prod=await open(join(prodDir,'production.sqlite3'));
-assert.deepEqual(prod.store.capabilities(),['state-parts-v1']);const pr=await prod.api('/register',{method:'POST',body:{username:'prod_user',password}});assert.equal((await prod.api('/chat/recent',{token:pr.json.token})).status,404);assert.equal(prod.store.db.prepare("SELECT COUNT(*) AS n FROM sqlite_master WHERE name IN ('chat','trades')").get().n,0);
+assert.deepEqual(prod.store.capabilities(),['state-parts-v1','raid-v1']);const pr=await prod.api('/register',{method:'POST',body:{username:'prod_user',password}});assert.equal((await prod.api('/chat/recent',{token:pr.json.token})).status,404);assert.equal(prod.store.db.prepare("SELECT COUNT(*) AS n FROM sqlite_master WHERE name IN ('chat','trades')").get().n,0);
 await prod.close();await rm(prodDir,{recursive:true,force:true});
 console.log(JSON.stringify({ok:true,checks:['health','CORS gate','same-origin gameplay mirror','register','login','session','new game','delta reconstruction','requestId replay','requestId collision','revision conflict','parallel duplicate','logout','chat send/stream/recent/limits','trade bound items','trade accept both saves','trade cancel/decline','file restart persistence','account delete','production social off']}));

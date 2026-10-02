@@ -47,5 +47,15 @@ await check('a new journey on the server starts with the starter kit in the bag'
  assert.deepEqual(r.s.inventory.filter(i=>i.equip).map(i=>i.equip).sort(),['EQ_ARMOR_TRAVEL_COAT','EQ_SWORD_TRAVELER']);
  assert.equal(r.itemCount('FOOD_SWEET_MADAME'),2);assert.equal(r.itemCount('FOOD_HASH_BROWN'),2);assert.equal(r.s.starterKit.player,true);
 });
+// 0.15.4 (user: 「장비 장착할때 렉이 좀 있는거같은데」): rebuilding a journey's runtime from the save costs about a quarter of a
+// second; /me prepares it on the title screen and a refused action no longer throws it away.
+await check('/me prepares the runtime before the first action; a refused action keeps the prepared runtime and its state',async()=>{
+ const token=await register('cache_check_11');const made=await api('/game/new',{token,body:{name:'캐시',route:'ROUTE_TRAVELER'}});
+ const row=app.store.account('cache_check_11');app.store.invalidate(row.id);
+ assert.equal((await api('/me',{token})).status,200);const e=app.store.cache.get(row.id);assert(e?.r,'prepared on /me');
+ const before=JSON.stringify(e.r.s),m=app.store.meta(row.id);
+ const bad=await api('/game/action',{token,body:{version:made.json.version,engineVersion:made.json.engineVersion,type:'EQUIP',params:{slot:'EQI_999999',owner:'PLAYER_CUSTOM'},revision:m.revision,requestId:'cache-00000001',responseMode:'state-parts-v1'}});
+ assert.notEqual(bad.status,200);const kept=app.store.cache.get(row.id);assert.equal(kept?.r,e.r,'the same runtime stays');assert.equal(JSON.stringify(kept.r.s),before,'with the state it had');
+});
 console.log(JSON.stringify({ok:true,checks}));
 }finally{await app.close?.();}

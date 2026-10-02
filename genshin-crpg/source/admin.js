@@ -11,7 +11,7 @@ const A={token:'',admin:'',server:null,catalog:null,tab:'accounts',account:null,
 try{const s=JSON.parse(sessionStorage.getItem(KEY)||'null');if(s&&/^[a-f0-9]{64}$/.test(s.token||'')){A.token=s.token;A.admin=String(s.admin||'');}}catch{}
 const CUR={MORA:['모라','UI_ItemIcon_202'],PRIMOGEM:['원석','UI_ItemIcon_201'],STARGLITTER:['스타라이트','UI_ItemIcon_221'],STARDUST:['스타더스트','UI_ItemIcon_222'],INTERTWINED_FATE:['뒤얽힌 인연','UI_ItemIcon_223'],ACQUAINT_FATE:['만남의 인연','UI_ItemIcon_224']};
 const OPS={login:'운영자 로그인','login-fail':'운영자 로그인 실패','logout-console':'운영자 로그아웃',save:'여정 변경',rollback:'되돌리기',password:'비밀번호 변경',logout:'강제 로그아웃',ban:'이용 제한',unban:'제한 해제',profile:'이름·아이디 변경','rank-on':'랭킹 포함','rank-off':'랭킹 제외','reset-journey':'여정 초기화','delete-account':'계정 삭제',bulk:'전체 지급',notice:'공지','chat-delete':'채팅 가리기'};
-const TABS=[['accounts','모험가 계정'],['bulk','전체 지급'],['chat','채팅·공지'],['trades','교환 기록'],['audit','운영 기록'],['server','서버 상태']];
+const TABS=[['accounts','모험가 계정'],['bulk','전체 지급'],['chat','채팅·공지'],['raid','공동 토벌전'],['trades','교환 기록'],['audit','운영 기록'],['server','서버 상태']];
 const SUBS=[['summary','요약'],['wallet','재화·아이템'],['gear','장비'],['chars','캐릭터'],['world','위치·진행'],['account','계정 관리'],['log','기록']];
 const TALENT={na:'일반 공격',e:'원소전투 스킬',q:'원소폭발'};
 const PHASE={FREE:'자유행동',STORY:'이야기 진행 중',STORY_LOCKED:'이야기 진행 중 (메뉴 잠김)',COMBAT:'전투 중',CUTIN:'전투 연출 중',PREPARATION:'전투 준비 중',COMBAT_OPENING:'전투 시작 전',RECOVERY:'패배 뒤 회복 대기',DOWNED:'쓰러짐 (회복 필요)',LIFE:'생활 작업 중'};
@@ -126,7 +126,7 @@ function drawShell(){
 function show(tab){
  A.tab=tab;for(const b of document.querySelectorAll('.adm-tab'))b.classList.toggle('active',b.dataset.tab===tab);
  const main=document.getElementById('adm-main');if(!main)return;main.replaceChildren(h('p',{class:'adm-empty',text:'불러오는 중…'}));
- ({accounts:drawAccounts,bulk:drawBulk,chat:drawChat,trades:drawTrades,audit:drawAudit,server:drawServer})[tab](main);
+ ({accounts:drawAccounts,bulk:drawBulk,chat:drawChat,raid:drawRaid,trades:drawTrades,audit:drawAudit,server:drawServer})[tab](main);
 }
 
 // ---------- accounts ----------
@@ -347,6 +347,24 @@ async function drawChat(main){
  const list=out.messages.map(m=>h('li',{class:m.deleted?'deleted':''},h('span',{class:'adm-chat-who'},h('strong',{text:m.author}),h('small',{text:(m.username?'@'+m.username+' · ':'')+when(m.at)})),h('span',{class:'adm-chat-text',text:m.deleted?'(가린 메시지) '+m.text:m.text}),!m.deleted?button('가리기',async()=>{if(await run(()=>api('/admin/chat-delete',{id:m.id}),'메시지를 가렸습니다.'))show('chat');},'warn small'):null));
  main.replaceChildren(h('div',{class:'adm-page'},card('공지 보내기',h('div',{class:'adm-form-row'},text,button('보내기',async()=>{const v=text.value.trim();if(!v)return;if(await run(()=>api('/admin/notice',{text:v}),'공지를 보냈습니다.'))show('chat');},'ok'))),
   card('최근 채팅',button('새로고침',()=>show('chat'),'ghost small'),h('ul',{class:'adm-chat'},list.length?list:h('li',{class:'adm-empty',text:'대화가 없습니다.'})))));
+}
+// ---------- 공동 토벌전 (0.15.4: opened only as an event from here) ----------
+async function drawRaid(main){
+ const out=await read('/admin/raid');if(!out){main.replaceChildren();return;}
+ const STATE={OPEN:['열림','ok'],SCHEDULED:['예정','info'],ENDED:['끝남',''],CLOSED:['닫음','warn']},num=n=>Number(n||0).toLocaleString('ko-KR');
+ const active=out.events.find(e=>e.state==='OPEN');
+ const status=active?card('지금 열린 토벌전',h('p',{text:active.name+' · '+when(active.startsAt)+' ~ '+when(active.endsAt)}),h('p',{text:'맞힌 횟수 '+num(active.hits)+' / 목표 '+num(active.target)+' · 참여 '+active.players+'명'}),
+  button('지금 닫기',async()=>{if(!confirm(active.name+' 토벌전을 지금 닫을까요? 닫은 뒤에도 '+7+'일 동안 보상은 받을 수 있습니다.'))return;if(await run(()=>api('/admin/raid',{op:'close',num:active.num}),'토벌전을 닫았습니다.'))show('raid');},'warn'))
+  :card('지금 열린 토벌전',h('p',{class:'adm-empty',text:'열린 공동 토벌전이 없습니다. 모험가에게는 출격 버튼이 잠겨 보입니다.'}));
+ const boss=h('select',{class:'adm-text'},out.bosses.map(b=>h('option',{value:b.id,text:b.name})));
+ const days=h('input',{type:'number',min:'1',max:'30',value:String(out.defaults.days),class:'adm-text small'}),target=h('input',{type:'number',min:'100',max:'1000000',step:'100',value:String(out.defaults.target),class:'adm-text small'});
+ const notice=h('input',{type:'checkbox',checked:true});
+ const open=card('토벌전 열기',h('div',{class:'adm-form-row'},h('label',{},h('span',{text:'보스 '}),boss),h('label',{},h('span',{text:'기간(일) '}),days),h('label',{},h('span',{text:'모두의 목표(맞힌 횟수) '}),target),h('label',{},notice,h('span',{text:' 채팅에 공지'})),
+  button('열기',async()=>{if(active){alert('이미 열린 토벌전이 있습니다. 먼저 닫아 주세요.');return;}const b={op:'open',boss:boss.value,days:Number(days.value),target:Number(target.value),notice:notice.checked};if(!confirm(boss.selectedOptions[0].textContent+' 토벌전을 '+b.days+'일 동안 열까요?'))return;if(await run(()=>api('/admin/raid',b),'토벌전을 열었습니다.'))show('raid');},'ok')),
+  h('p',{class:'adm-hint',text:'열면 바로 시작합니다. Lv.10 이상 모험가가 하루 3번 출격하고, 끝난 뒤 7일 동안 보상을 받을 수 있습니다.'}));
+ const rows=out.events.map(e=>h('tr',{},h('td',{class:'nowrap',text:'#'+e.num}),h('td',{text:e.name}),h('td',{class:'nowrap',text:when(e.startsAt)+' ~ '+when(e.endsAt)}),h('td',{},badge(...(STATE[e.state]||[e.state,'']))),h('td',{class:'nowrap',text:num(e.hits)+' / '+num(e.target)}),h('td',{text:String(e.players)}),h('td',{text:e.openedBy||'-'})));
+ const list=card('최근 토벌전',h('div',{class:'adm-scroll'},h('table',{class:'adm-table'},h('thead',{},h('tr',{},['번호','보스','기간','상태','맞힌 횟수','참여','연 사람'].map(t=>h('th',{text:t})))),h('tbody',{},rows.length?rows:h('tr',{},h('td',{colspan:'7',class:'adm-empty',text:'아직 연 토벌전이 없습니다.'}))))));
+ main.replaceChildren(h('div',{class:'adm-page'},status,active?null:open,list));
 }
 // ---------- 교환 기록 ----------
 async function drawTrades(main){
