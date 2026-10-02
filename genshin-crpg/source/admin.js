@@ -185,6 +185,8 @@ function subSummary(body,d,s){
  cards.append(card('파티',h('ul',{class:'adm-party'},s.party.map(c=>h('li',{},h('strong',{text:c.name}),h('span',{text:'Lv.'+c.level+' · HP '+fmt(c.hp)+'/'+fmt(c.maxHp)+(c.constellation?' · C'+c.constellation:'')}))))));
  const joined=s.companions.filter(c=>c.joined).length;
  cards.append(card('기록',dl([['동료',joined+'명 합류 / '+s.companions.length+'명'],['가방',s.items.length+'종 · 장비 '+s.equipment.length+'개 · 성유물 '+s.artifacts+'개'],['나선비경',s.abyss.floor?s.abyss.floor+'층 정복 · 도전 '+s.abyss.attempts+'번':'기록 없음'],['기원',s.wish?s.wish.count+'번 · 이벤트 천장 '+s.wish.EVENT.pity5+' · 상시 천장 '+s.wish.STANDARD.pity5:'기록 없음']])));
+ // 0.15.1 우편: gifts the player has not taken yet.
+ if(s.mail)cards.append(card('우편함',s.mail.unclaimed?h('ul',{class:'adm-party'},s.mail.gifts.map(g=>h('li',{},h('strong',{text:g.title}),h('span',{text:g.lines.join(', ')+' · '+when(g.at)})))):h('p',{class:'adm-empty',text:'받지 않은 선물이 없습니다. (우편 '+s.mail.total+'통)'})));
  body.append(cards);
 }
 // ----- 재화·아이템 -----
@@ -194,7 +196,7 @@ function subWallet(body,d,s){
   const go=async mode=>{const v=int(n);if(!Number.isInteger(v)||v<0||(mode!=='set'&&v===0)){toast('수량을 확인해 주세요.','error');return;}if(await change([{op:'currency',key:k,mode:mode==='set'?'set':'add',value:mode==='take'?-v:v}],mode==='set'?CUR[k][0]+'을(를) '+fmt(v)+'(으)로 바꿀까요?':null))n.value='';};
   return h('tr',{},h('td',{},icon(k),' ',CUR[k][0]),h('td',{class:'num',text:fmt(s.currencies[k])}),h('td',{},n),h('td',{class:'adm-actions'},button('지급',()=>go('give'),'ok'),button('회수',()=>go('take'),'warn'),button('이 값으로',()=>go('set'),'ghost')));
  });
- body.append(card('재화',h('table',{class:'adm-table'},h('thead',{},h('tr',{},['재화','보유','수량',''].map(t=>h('th',{text:t})))),h('tbody',{},rows))));
+ body.append(card('재화',h('p',{class:'adm-fine',text:'지급(재화·아이템·장비)은 우편으로 보내져 모험가가 우편함에서 「받기」를 눌러야 들어갑니다. 회수·「이 값으로」 등 다른 변경은 바로 적용되고, 무엇을 바꿨는지 알림 우편이 갑니다.'}),h('table',{class:'adm-table'},h('thead',{},h('tr',{},['재화','보유','수량',''].map(t=>h('th',{text:t})))),h('tbody',{},rows))));
  const pick=picker(A.catalog.itemList,'아이템 이름이나 ID'),count=h('input',{type:'number',min:'1',max:'99999',step:'1',value:'1',class:'adm-num'});
  const give=async sign=>{const id=pick.get(),n=int(count);if(!id){toast('아이템을 목록에서 골라 주세요.','error');return;}if(!(n>0)){toast('수량을 확인해 주세요.','error');return;}if(await change([{op:'item',id,count:sign*n}]))pick.clear();};
  body.append(card('아이템 지급·회수',h('div',{class:'adm-form-row'},field('아이템',pick.node),field('수량',count),h('div',{class:'adm-actions'},button('지급',()=>give(1),'ok'),button('회수',()=>give(-1),'warn')))));
@@ -316,6 +318,8 @@ function subLog(body,d){
 function drawBulk(main){
  A.bulkRows=A.bulkRows||[{kind:'currency',key:'PRIMOGEM',value:160}];
  const rowsBox=h('div',{class:'adm-bulk-rows'}),days=h('input',{type:'number',min:'0',max:'3650',step:'1',placeholder:'비우면 전체',class:'adm-num'}),ok=h('input',{type:'text',placeholder:'전체 지급',class:'adm-text',autocomplete:'off'}),result=h('div',{class:'adm-result'});
+ // 0.15.1: grants arrive as a gift mail; the operator may name it and add a line (e.g. 점검 보상).
+ const mailTitle=h('input',{type:'text',maxlength:'60',placeholder:'운영자의 선물',class:'adm-text'}),mailBody=h('input',{type:'text',maxlength:'300',placeholder:'비우면 기본 문구',class:'adm-text wide'});
  const draw=()=>rowsBox.replaceChildren(...A.bulkRows.map((r,i)=>{
   const kind=h('select',{onchange:()=>{r.kind=kind.value;draw();}},h('option',{value:'currency',selected:r.kind==='currency',text:'재화'}),h('option',{value:'item',selected:r.kind==='item',text:'아이템'}));
   const amount=h('input',{type:'number',min:'1',step:'1',value:String(r.value||1),class:'adm-num',oninput:()=>{r.value=int(amount);}});
@@ -325,12 +329,13 @@ function drawBulk(main){
   return h('div',{class:'adm-form-row'},field('종류',kind),field(r.kind==='currency'?'재화':'아이템',what),field('수량',amount),A.bulkRows.length>1?button('빼기',()=>{A.bulkRows.splice(i,1);draw();},'ghost small'):null);
  }));
  draw();
- main.replaceChildren(h('div',{class:'adm-page'},card('전체 지급',h('p',{class:'adm-fine',text:'여정을 시작한 모든 모험가(또는 최근 며칠 안에 플레이한 모험가)에게 재화·아이템을 더해 줍니다. 회수와 장비는 계정마다 따로 하세요. 지급 기록은 운영 기록에 남습니다.'}),
-  rowsBox,h('div',{class:'adm-form-row'},button('줄 추가',()=>{A.bulkRows.push({kind:'currency',key:'MORA',value:1000});draw();},'ghost'),field('최근 며칠 안에 플레이',days,'비우면 전원'),field('확인 문구',ok,'「전체 지급」이라고 입력'),
+ main.replaceChildren(h('div',{class:'adm-page'},card('전체 지급',h('p',{class:'adm-fine',text:'여정을 시작한 모든 모험가(또는 최근 며칠 안에 플레이한 모험가)에게 재화·아이템을 우편으로 보냅니다. 모험가가 우편함에서 「받기」를 누르면 들어갑니다. 회수와 장비는 계정마다 따로 하세요. 지급 기록은 운영 기록에 남습니다.'}),
+  rowsBox,h('div',{class:'adm-form-row'},field('우편 제목',mailTitle,'비우면 「운영자의 선물」'),field('우편 내용',mailBody,'선택')),
+  h('div',{class:'adm-form-row'},button('줄 추가',()=>{A.bulkRows.push({kind:'currency',key:'MORA',value:1000});draw();},'ghost'),field('최근 며칠 안에 플레이',days,'비우면 전원'),field('확인 문구',ok,'「전체 지급」이라고 입력'),
    button('전체 지급',async()=>{
     const ops=[];for(const r of A.bulkRows){const v=Number(r.value);if(!(v>0)){toast('수량을 확인해 주세요.','error');return;}if(r.kind==='currency')ops.push({op:'currency',key:r.key,mode:'add',value:v});else{if(!r.id){toast('아이템을 목록에서 골라 주세요.','error');return;}ops.push({op:'item',id:r.id,count:v});}}
     const n=int(days);if(!confirm('정말 '+(n>0?'최근 '+n+'일 안에 플레이한 ':'모든 ')+'모험가에게 지급할까요?'))return;
-    const out=await run(()=>api('/admin/bulk',{ops,days:n>0?n:0,confirm:ok.value.trim()}),o=>o.done+'명에게 지급했습니다.');
+    const out=await run(()=>api('/admin/bulk',{ops,days:n>0?n:0,confirm:ok.value.trim(),mailTitle:mailTitle.value.trim(),mailBody:mailBody.value.trim()}),o=>o.done+'명에게 우편으로 보냈습니다.');
     if(out){ok.value='';result.replaceChildren(h('p',{text:'대상 '+out.targets+'명 · 지급 '+out.done+'명'+(out.failed.length?' · 실패 '+out.failed.length+'명':'')}),...out.failed.map(f=>h('p',{class:'bad',text:'@'+f.username+': '+f.error})));}
    },'danger')),result)));
 }
@@ -346,9 +351,24 @@ async function drawChat(main){
 // ---------- 교환 기록 ----------
 async function drawTrades(main){
  const out=await read('/admin/trades');if(!out){main.replaceChildren();return;}
- const STATUS={PENDING:'대기',ACCEPTED:'완료',DECLINED:'거절',CANCELLED:'취소',FAILED:'실패'};
- main.replaceChildren(h('div',{class:'adm-page'},card('교환 기록',!out.enabled?h('p',{class:'adm-empty',text:'이 서버는 교환을 켜지 않았습니다.'}):h('div',{class:'adm-scroll'},h('table',{class:'adm-table'},h('thead',{},h('tr',{},['시각','보낸 모험가','받는 모험가','준 것','요청한 것','상태'].map(t=>h('th',{text:t})))),
-  h('tbody',{},out.trades.length?out.trades.map(t=>h('tr',{},h('td',{class:'nowrap',text:when(t.at)}),h('td',{text:t.from}),h('td',{text:t.to}),h('td',{text:t.give||'-'}),h('td',{text:t.want||'-'}),h('td',{},badge(STATUS[t.status]||t.status,t.status==='ACCEPTED'?'ok':t.status==='FAILED'?'danger':'')))):h('tr',{},h('td',{colspan:'6',class:'adm-empty',text:'교환 기록이 없습니다.'}))))))));
+ const STATUS={PENDING:'대기',ACCEPTED:'완료',DECLINED:'거절',CANCELLED:'취소',FAILED:'실패'},SALE={ACTIVE:['판매 중','info'],SOLD:['팔림','ok'],CANCELLED:['내림','']};
+ if(!out.enabled){main.replaceChildren(h('div',{class:'adm-page'},card('교환 기록',h('p',{class:'adm-empty',text:'이 서버는 교환을 켜지 않았습니다.'}))));return;}
+ const money=n=>Number(n||0).toLocaleString('ko-KR');
+ const table=(heads,rows,empty)=>h('div',{class:'adm-scroll'},h('table',{class:'adm-table'},h('thead',{},h('tr',{},heads.map(t=>h('th',{text:t})))),h('tbody',{},rows.length?rows:h('tr',{},h('td',{colspan:String(heads.length),class:'adm-empty',text:empty})))));
+ // 0.15.1: the market (shops with a fee) and live trades between online players.
+ const market=table(['올린 시각','판매자','물건','가격','수수료','상태','산 모험가','마지막 변경'],(out.market||[]).map(x=>h('tr',{},h('td',{class:'nowrap',text:when(x.at)}),h('td',{text:x.seller}),h('td',{text:x.label}),h('td',{class:'nowrap',text:money(x.price)+' 모라'}),h('td',{class:'nowrap',text:money(x.fee)}),h('td',{},badge(...(SALE[x.status]||[x.status,'']))),h('td',{text:x.buyer||'-'}),h('td',{class:'nowrap',text:when(x.updated)}))),'시장 기록이 없습니다.');
+ const deals=table(['시각','모험가 A','A가 준 것','모험가 B','B가 준 것'],(out.deals||[]).map(d=>h('tr',{},h('td',{class:'nowrap',text:when(d.at)}),h('td',{text:d.a}),h('td',{text:d.aGave}),h('td',{text:d.b}),h('td',{text:d.bGave}))),'직접 거래 기록이 없습니다.');
+ const old=table(['시각','보낸 모험가','받는 모험가','준 것','요청한 것','상태'],out.trades.map(t=>h('tr',{},h('td',{class:'nowrap',text:when(t.at)}),h('td',{text:t.from}),h('td',{text:t.to}),h('td',{text:t.give||'-'}),h('td',{text:t.want||'-'}),h('td',{},badge(STATUS[t.status]||t.status,t.status==='ACCEPTED'?'ok':t.status==='FAILED'?'danger':'')))),'예전 교환 기록이 없습니다.');
+ // 0.15.1 letters between adventurers: what each carried, the postage, and where the parcel is now. The text opens below
+ // the title (for reports).
+ const LETTER={TAKEN:['받아 감','ok'],RETURNED:['돌아옴 · 되찾기 전','warn'],BACK:['돌아옴 · 되찾음','']};
+ const carried=x=>[x.label,x.mora?money(x.mora)+' 모라':''].filter(Boolean).join(', ')||'-';
+ const letters=table(['보낸 시각','보낸 모험가','받는 모험가','제목 · 내용','넣은 것','수수료','상태','마지막 변경'],(out.letters||[]).map(x=>h('tr',{},h('td',{class:'nowrap',text:when(x.at)}),h('td',{text:x.from}),h('td',{text:x.to}),
+  h('td',{},h('details',{class:'adm-letter'},h('summary',{text:x.title}),h('p',{class:'adm-letter-body',text:x.body||'(내용 없음)'}))),h('td',{text:carried(x)}),h('td',{class:'nowrap',text:money(x.fee)}),
+  h('td',{},badge(...(x.status==='SENT'?(x.label||x.mora?['받기 전','info']:['배달됨','']):LETTER[x.status]||[x.status,''])),x.note?h('small',{class:'adm-fine',text:' '+x.note}):null),h('td',{class:'nowrap',text:when(x.updated)}))),'편지 기록이 없습니다.');
+ main.replaceChildren(h('div',{class:'adm-page'},card('시장 (상점 판매)',h('p',{class:'adm-fine',text:'최근 80건. 팔리면 가격에서 수수료를 뺀 모라가 판매자의 판매 대금으로 쌓입니다.'}),market),card('직접 거래',h('p',{class:'adm-fine',text:'두 모험가가 모두 확정하고 거래를 마친 기록 최근 60건.'}),deals),
+  card('편지',h('p',{class:'adm-fine',text:'최근 80통. 넣은 물건·모라는 받는 모험가가 「받기」를 누를 때까지 서버에 보관되고, 돌려보내거나 30일이 지나면 보낸 모험가에게 돌아갑니다. 수수료는 보낼 때 빠지고 돌려주지 않습니다. 제목을 누르면 내용이 보입니다.'}),letters),
+  out.trades.length?card('예전 교환 기록',old):null));
 }
 // ---------- 운영 기록 ----------
 async function drawAudit(main){

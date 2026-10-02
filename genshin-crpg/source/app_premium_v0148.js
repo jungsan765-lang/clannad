@@ -22,6 +22,8 @@ const EL={'불':'fire','물':'water','얼음':'ice','번개':'electro','바람':
 const KIND={na:'일반 공격',e:'원소전투 스킬',q:'원소폭발'};
 let shopTab='PRIMOGEM';const ui={talent:{},node:{},lit:null};
 function curIcon(key,cls='premium-cur'){const p=MAN().itemIcons?.icons?.[CUR[key]?.[1]]?.path;if(!p)return mk('span',cls+' fallback','◆');const i=mk('img',cls);i.src=p;i.alt='';i.draggable=false;return i;}
+// 0.15.1: 운명의 별 shows its own picture (4★ or 5★ by the chosen companion) instead of a ✦ glyph.
+function stellaArt(goods,o,pick){if(!o.stella)return;const img=goods.querySelector('img.stella');if(!img||!pick?.value)return;const p=MAN().itemIcons?.icons?.['STELLA_FORTUNA_'+((game.premiumRarity?.(pick.value)||4)>=5?5:4)]?.path;if(p)img.src=p;}
 function itemIcon(id,cls='premium-cur'){const p=MAN().itemIcons?.icons?.[id]?.path;if(!p)return mk('span',cls+' fallback','◆');const i=mk('img',cls);i.src=p;i.alt='';i.draggable=false;return i;}
 const sfx=n=>window.CRPGSound?.play?.(n);
 // ---- 교환 ----
@@ -39,19 +41,20 @@ function openShop(tab,done){
   if(o.give)for(const k of Object.keys(o.give))goods.append(curIcon(k,'premium-goods-icon'));
   if(o.items)for(const k of Object.keys(o.items))goods.append(itemIcon(k,'premium-goods-icon'));
   if(o.mora)goods.append(itemIcon('CUR_MORA','premium-goods-icon'));
-  if(o.stella)goods.append(mk('span','premium-goods-icon stella','✦'));
+  if(o.stella)goods.append(itemIcon('STELLA_FORTUNA_5','premium-goods-icon stella'));
   card.append(goods,mk('strong','',o.label));if(o.note)card.append(mk('small','muted',o.note));
   let pick=null,count=null;
   if(o.stella){pick=mk('select','premium-pick');pick.append(new Option('동료 고르기',''));for(const id of owned)pick.append(new Option(game.premiumCharName(id)+' · '+game.premiumRarity(id)+'★ · 운명의 자리 '+game.constellationLevel(id)+'/6 · 스타라이트 '+game.premiumStellaPrice(id),id));card.append(pick);}
   if(o.boss){pick=mk('select','premium-pick');pick.append(new Option('필드 보스 재료 고르기',''));for(const id of info.bossMaterials){const n=game.itemCount(id);pick.append(new Option((game.tables['14_ITEM_DB']?.get(id)?.[1]||id)+' · 보유 '+n,id));}card.append(pick);}
   if(o.bulk>1){count=mk('select','premium-count');for(const n of [1,5,10])count.append(new Option(n+'개',String(n)));card.append(count);}
   const price=mk('span','premium-price');
-  const priceIcon=o.shop==='BOSS'?mk('span','premium-cur fallback','◇'):curIcon(o.shop);
+  const priceIcon=o.shop==='BOSS'?itemIcon(info.bossMaterials?.[0],'premium-cur'):curIcon(o.shop);
   const amount=mk('b','');price.append(priceIcon,amount);card.append(price);
   if(o.weekly){const used=game.premiumWeeklyUsed(o.id);card.append(mk('small','premium-weekly','이번 주 '+used+' / '+o.weekly+' · 월요일 0시 초기화'));}
+  if(o.monthly){const used=game.premiumMonthlyUsed?.(o.id)||0;card.append(mk('small','premium-weekly','이번 달 '+used+' / '+o.monthly+' · 매달 1일 0시 초기화'));}
   const buy=mk('button','premium-buy','교환');buy.type='button';
   const params=()=>({offer:o.id,...(o.stella&&pick?.value?{char:pick.value}:{}),...(o.boss&&pick?.value?{item:pick.value}:{}),...(count?{count:Number(count.value)}:{})});
-  const sync=()=>{const n=count?Number(count.value):1;amount.textContent=o.stella?(pick?.value?fmt(game.premiumStellaPrice(pick.value)):'25~40'):o.boss?o.price*n+'개':fmt(o.price*n);const r=game.premiumOfferReason(params());buy.disabled=!!r||busy;buy.title=r||'';};sync();
+  const sync=()=>{const n=count?Number(count.value):1;stellaArt(goods,o,pick);if(o.boss&&pick?.value){const ip=MAN().itemIcons?.icons?.[pick.value]?.path;if(ip&&priceIcon.tagName==='IMG')priceIcon.src=ip;}amount.textContent=o.stella?(pick?.value?fmt(game.premiumStellaPrice(pick.value)):'25~40'):o.boss?o.price*n+'개':fmt(o.price*n);const r=game.premiumOfferReason(params());buy.disabled=!!r||busy;buy.title=r||'';};sync();
   pick?.addEventListener('change',sync);count?.addEventListener('change',sync);
   buy.onclick=async()=>{
    const p=params(),n=p.count||1,out=await act('PREMIUM_BUY',p);if(out===undefined)return;
@@ -62,7 +65,7 @@ function openShop(tab,done){
   card.append(buy);list.append(card);
  }
  if(!list.childElementCount)list.append(mk('p','muted','교환할 수 있는 상품이 없습니다.'));
- box.append(head,tabs,list,mk('p','muted premium-note','원석은 나선비경 1~8층을 처음 정복하면 받습니다(모두 1,600개). 비영리 팬 게임이므로 현금으로 사는 일은 없습니다.'));
+ box.append(head,tabs,list,mk('p','muted premium-note','비영리 팬 게임이므로 현금으로 사는 일은 없습니다.'));
  showModal('교환',box);
 }
 window.CRPGPremium={openShop};
@@ -110,7 +113,7 @@ function premiumCard(id){
  }
  if(v.nodes.length)show(v.nodes[selected-1]);
  cons.append(chart,detail);
- const open=mk('button','premium-cons-open','운명의 별로 다음 자리 활성화'+(v.stellaCount?' · 보유 '+v.stellaCount:''));open.type='button';open.disabled=!!v.reason||busy;open.title=v.reason||'';
+ const open=mk('button','premium-cons-open','운명의 별로 다음 자리 활성화'+(v.stellaCount?' · 보유 '+v.stellaCount:''));open.prepend(itemIcon('STELLA_FORTUNA_'+((game.premiumRarity?.(id)||4)>=5?5:4),'premium-stella-icon'));open.type='button';open.disabled=!!v.reason||busy;open.title=v.reason||'';
  open.onclick=async()=>{const before=game.constellationLevel(id);const out=await act('CONSTELLATION_UNLOCK',{char:id});const after=game.constellationLevel(id);if(after>before&&out?.ok!==false){ui.lit={id,level:after,at:Date.now()};ui.node[id]=after;sfx('constellation');render();setTimeout(()=>{if(ui.lit?.id===id)ui.lit=null;},2600);}};
  cons.append(open,mk('small','muted',v.reason&&!v.stellaCount?'운명의 별은 기원이나 스타라이트 교환으로 얻습니다.':'운명의 별을 쓰면 다음 자리가 열립니다.'));
  sec.append(talents,cons);return sec;

@@ -1,7 +1,7 @@
 /* 0.14.15 모험가 정보 (user: 「채팅하면 상대방의 정보를 좀 볼 수 있게. 캐릭터 보유나 운명의 자리나 장비 뭐 끼고 있나 등등」).
  * Pressing a name in the chat opens that adventurer's public card from the account server: the protagonist, every
  * companion with level and 운명의 자리, the party and the gear each member wears, this season's Spiral Abyss floor and
- * the 나선 문장 of past seasons. From the card: a live trade (when they are online) or a look at their shop.
+ * the 나선 문장 of past seasons. From the card: a live trade (when they are online), a letter, or a look at their shop.
  * Load after app_chat.js. */
 (function(){
 'use strict';
@@ -75,6 +75,8 @@ function actions(card,v){
  if(!v.you){
   const trade=btn('직접 거래 신청',async()=>{if(P.busy)return;P.busy=true;try{await window.CRPGTrade?.invite?.(v.pid,v.name);close();}finally{P.busy=false;}},'primary');
   if(!v.online){trade.disabled=true;trade.title=v.name+' 님은 지금 접속해 있지 않습니다.';}row.append(trade);
+  // 0.15.1: a letter reaches them online or not (app_mail_v0151.js).
+  if(v.journey&&window.CRPGMail?.canWrite?.())row.append(btn('편지 보내기',()=>{close();window.CRPGMail.compose({to:{pid:v.pid,name:v.name}});}));
  }
  if(v.listings){row.append(btn('상점 보기 · '+v.listings+'개',()=>{close();window.CRPGTrade?.open?.('market',{seller:v.pid,sellerName:v.name});}));}
  if(!v.you&&window.CRPGChat?.muted){const muted=window.CRPGChat.muted.has(v.pid);row.append(btn(muted?'메시지 다시 보기':'메시지 숨기기',()=>{if(muted)window.CRPGChat.muted.delete(v.pid);else window.CRPGChat.muted.add(v.pid);try{localStorage.setItem('crpg-chat-muted',JSON.stringify([...window.CRPGChat.muted]));}catch{}window.CRPGChat.redraw?.();close();}));}

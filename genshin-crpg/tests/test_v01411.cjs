@@ -36,7 +36,7 @@ check('편성: the cards are the battle line; press, hold and drag one onto anot
 
 check('시설 화면: the host beside what the place offers as tabs; 캐서린 says 별과 심연을 향해',()=>{
  const s=src('app_places_v01411.js'),shell=src('app_shell.js');
- assert(s.includes("'별과 심연을 향해! 모험가 길드에 오신 것을 환영합니다.'"));
+ assert(s.includes("'별과 심연을 향해! 모험가 길드에 온 걸 환영해.'"));
  assert(s.includes('동료 영입 임무')&&s.includes('이곳에서'),'recruitment and the rest are separate tabs');
  assert(shell.includes("else if(key==='DIALOGUE'&&game.s.placeVisit&&S.placeLayout&&$(':scope > .place-breadcrumb',p)){mode='menu';S.placeLayout(content,p);}"));
 });
@@ -151,7 +151,7 @@ check('기원: rates and pity, the weekly banner, the 10-wish companion, weapons
  assert.equal(weeks.size,13);assert(!W.pools.LIMITED5.includes('LIYUE_ZIBAI'));assert.notEqual(g.wishFeatured(5).five,g.wishFeatured(6).five);
  // Weapons go to the bag; a fourth copy of a 3★ weapon turns into 스타더스트.
  const h=fresh();for(let i=0;i<3;i++)h.giveEquipment('EQ_SWORD_HARBINGER');const bag=h.s.inventory.length,dust=h.premiumBalance().STARDUST;
- const x=h.wishGrant({kind:'weapon',rarity:3,id:'EQ_SWORD_HARBINGER'});assert.equal(x.converted,true);assert.equal(h.s.inventory.length,bag);assert.equal(h.premiumBalance().STARDUST-dust,30);
+ const x=h.wishGrant({kind:'weapon',rarity:3,id:'EQ_SWORD_HARBINGER'});assert.equal(x.converted,true);assert.equal(h.s.inventory.length,bag);assert.equal(h.premiumBalance().STARDUST-dust,15,'the copy comes as its 15 alone (0.15.1)');
  const y=h.wishGrant({kind:'weapon',rarity:4,id:'EQ_BOW_FAVONIUS'});assert(y.slot&&h.s.inventory.some(i=>i.slot===y.slot));
  // A companion whose six 운명의 자리 are covered gives 스타라이트 instead of another 별.
  h.s.constellations={LIYUE_ZHONGLI:6};const z=h.wishGrant({kind:'char',rarity:5,id:'LIYUE_ZHONGLI'});assert.equal(z.stella,false);assert.equal(z.glitter,25);

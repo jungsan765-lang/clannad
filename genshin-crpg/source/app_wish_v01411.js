@@ -117,10 +117,10 @@ function panel(p,v,bal){
   const why=lockReason()||game.premiumOfferReason({offer:FATE_OFFER[fate],count});
   const go=mk('button','wish-primary',p.then?'교환하고 기원':'교환');go.type='button';go.disabled=!!why||UI.busy;if(why)box.append(mk('p','wish-warn',why));
   go.onclick=async()=>{UI.busy=true;let out;try{out=await attempt('PREMIUM_BUY',{offer:FATE_OFFER[fate],count});}finally{UI.busy=false;}if(out?.ok===false){draw();return;}const then=p.then;UI.panel=null;draw();if(then)pull(then);};box.append(go);
-  box.append(mk('small','muted','원석 160개로 인연 1개를 교환합니다. 원석은 나선비경 1~8층 첫 정복 보상으로 받습니다.'));
+  box.append(mk('small','muted','원석 160개로 인연 1개를 교환합니다. 기원에서 모인 스타더스트 75개로도 인연을 매달 종류마다 5개까지 바꿀 수 있습니다.'));
  }else if(p.kind==='details'){
   head.append(mk('h3','','기원 상세 정보'),x);box.append(head);
-  const list=[['5★','기본 0.6% · 74회부터 크게 오르고 90회에 확정 (5★가 나오면 다시 셉니다)'],['4★ 이상','기본 5.1% · 9회째 56.1% · 10회 안에 반드시 1번'],['10회 기원','동료가 반드시 한 명 이상'],['캐릭터 이벤트 기원','5★는 절반 확률로 확률 UP 동료, 놓치면 다음 5★는 확정. 4★도 절반 확률로 확률 UP 동료 3명 중 1명, 놓치면 다음 4★는 확정'],['동료','운명의 별 + 스타라이트 (4★ 2, 5★ 10 · 운명의 자리를 모두 채운 동료는 4★ 5, 5★ 25)'],['4★ 무기','무기 + 스타라이트 2'],['3★ 무기','무기 + 스타더스트 15 (같은 무기를 3개 갖고 있으면 무기 대신 스타더스트 30)'],['횟수 기록','두 기원은 따로 셉니다. 횟수는 주가 바뀌어도 이어집니다']];
+  const list=[['5★','기본 0.6% · 74회부터 크게 오르고 90회에 확정 (5★가 나오면 다시 셉니다)'],['4★ 이상','기본 5.1% · 9회째 56.1% · 10회 안에 반드시 1번'],['10회 기원','동료가 반드시 한 명 이상'],['캐릭터 이벤트 기원','5★는 절반 확률로 확률 UP 동료, 놓치면 다음 5★는 확정. 4★도 절반 확률로 확률 UP 동료 3명 중 1명, 놓치면 다음 4★는 확정'],['동료','운명의 별 + 스타라이트 (4★ 2, 5★ 10 · 운명의 자리를 모두 채운 동료는 4★ 5, 5★ 25)'],['4★ 무기','무기 + 스타라이트 2'],['3★ 무기','무기 + 스타더스트 15 (같은 무기를 이미 3개 갖고 있으면 무기 없이 스타더스트 15만)'],['스타더스트','교환에서 인연(75개 · 매달 종류마다 5개) · 영웅의 경험 · 모라로 바꿉니다'],['횟수 기록','두 기원은 따로 셉니다. 횟수는 주가 바뀌어도 이어집니다']];
   const dl=mk('dl','wish-rates');for(const [k,t]of list)dl.append(mk('dt','',k),mk('dd','',t));box.append(dl);
   const pools=mk('div','wish-pools');const P=window.CRPGRuntime?.wishV01411?.pools||{};
   const line=(label,ids,f)=>{const d=mk('p','');d.append(mk('b','',label+' · '),mk('span','',ids.map(f).join(', ')));pools.append(d);};
@@ -198,17 +198,23 @@ function reveal(stage,r,next){
  info.append(name,starRow);
  const sub=r.kind==='char'?((el?el+' 원소 · ':'')+(r.stella?'운명의 별 · '+game.premiumCharName(r.id):'운명의 자리를 모두 채웠습니다')):(game.tables['16_EQUIP_DB']?.get(r.id)?.[2]||'무기');
  info.append(mk('p','wish-reveal-sub',sub));
- const gain=rewardLine(r);if(gain)info.append(mk('p','wish-reveal-gain',gain));
+ const gain=gainNode(r,'p','wish-reveal-gain');if(gain)info.append(gain);
  if(r.featured)info.append(mk('span','wish-reveal-up','확률 UP'));
  card.append(info,mk('p','wish-reveal-hint','눌러서 계속'));
  stage.querySelector('.wish-reveal')?.remove();stage.append(card);
  const sound='wish_reveal'+r.rarity;SND(sound);
  let settled=false,left=false;const settle=()=>{settled=true;card.classList.add('settled');};
- const timer=setTimeout(settle,r.rarity>=5?1700:r.rarity===4?1200:800);
+ // 0.15.1: the art stands as a shadow first and the name and stars come in slowly (user: 「카드 그림자만 나왔다가 이름하고
+ // 별하고 천천히」), so the result settles later; a click still shows it at once.
+ const timer=setTimeout(settle,r.kind==='char'?(r.rarity>=5?2300:2000):(r.rarity>=4?2700:2500));
  const advance=()=>{if(left)return;if(!settled){clearTimeout(timer);settle();return;}left=true;card.classList.add('leaving');setTimeout(()=>{card.remove();next();},160);};
  card.onclick=advance;
  return {advance,stopSound:()=>{clearTimeout(timer);STOP(sound);}};
 }
+// 0.15.1: what a result also gives, with its pictures (운명의 별 4★/5★, 스타라이트, 스타더스트).
+function gainNode(r,tag,cls){const node=mk(tag,cls),pic=(key,text)=>{const p=MAN().itemIcons?.icons?.[key]?.path,part=mk('span','wish-gain');if(p){const i=mk('img','wish-gain-icon');i.src=p;i.alt='';i.draggable=false;part.append(i);}part.append(text);node.append(part);};
+ if(r.kind==='char'&&r.stella)pic('STELLA_FORTUNA_'+(r.rarity>=5?5:4),'운명의 별 ×1');if(r.glitter)pic('CUR_STARGLITTER','스타라이트 +'+r.glitter);if(r.dust)pic('CUR_STARDUST','스타더스트 +'+r.dust+(r.converted?' (같은 무기 3개 보유)':''));
+ return node.childElementCount?node:null;}
 function rewardLine(r){const parts=[];if(r.kind==='char'&&r.stella)parts.push('운명의 별 ×1');if(r.glitter)parts.push('스타라이트 +'+r.glitter);if(r.dust)parts.push('스타더스트 +'+r.dust+(r.converted?' (같은 무기 3개 보유)':''));return parts.join(' · ');}
 function summary(stage,results){
  stage.querySelector('.wish-reveal')?.remove();stage.classList.remove('whiteout');stage.classList.add('summary');SND('wish_result');
@@ -221,10 +227,12 @@ function summary(stage,results){
   else{const p=weaponIcon(r.id);if(p){const img=mk('img','wish-card-weapon');img.src=p;img.alt='';c.append(img);}}
   const q=MAN().uiAssets?.wish?.['quality'+Math.max(4,r.rarity)]?.path;
   const foot=mk('div','wish-card-foot');foot.append(mk('span','wish-card-stars',stars(r.rarity)),mk('strong','',nameOf(r)));
-  const gain=rewardLine(r);if(gain)foot.append(mk('small','',gain));c.append(foot);
+  const gain=gainNode(r,'small','wish-card-gain');if(gain)foot.append(gain);c.append(foot);
   if(r.rarity>=4&&q){const b=mk('img','wish-card-badge');b.src=q;b.alt='';c.append(b);}
   if(r.featured)c.append(mk('span','wish-card-up','UP'));
   cards.append(c);
+  // each card comes up as a shadow, then lights up one after another with its name and stars
+  setTimeout(()=>c.classList.add('lit'),650+i*230);
  });
  const ok=mk('button','wish-primary','확인');ok.type='button';
  const total=results.reduce((a,r)=>({glitter:a.glitter+(r.glitter||0),dust:a.dust+(r.dust||0)}),{glitter:0,dust:0});

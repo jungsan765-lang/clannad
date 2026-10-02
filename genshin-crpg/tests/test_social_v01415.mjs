@@ -17,7 +17,8 @@ async function player(username,display){
  const token=reg.json.token;assert.equal((await api('/game/new',{method:'POST',token,body:{name:display,route:'ROUTE_TRAVELER'}})).status,200);
  const p={token,row:app.store.account(username)};await edit(p,[{op:'teleport',map:'MAP_MOND_CITY'}]);return p; // free play: trading is for free time
 }
-const edit=(p,ops)=>app.adminConsole.editSave(p.row,r=>app.adminConsole.applyOps(r,ops),'test');
+// 0.15.1: what the console gives arrives in the mailbox; these tests take it at once.
+const edit=(p,ops)=>app.adminConsole.editSave(p.row,r=>{const out=app.adminConsole.applyOps(r,ops);if(r.s.mail?.list.some(x=>x.kind==='GIFT'&&!x.claimed))r.mailClaim('ALL');return out;},'test');
 const count=(p,item)=>app.store.runtimeOf(p.row.id).itemCount(item);
 const mora=p=>Number(app.store.runtimeOf(p.row.id).s.global.MORA);
 // An SSE reader that collects the events one account receives.

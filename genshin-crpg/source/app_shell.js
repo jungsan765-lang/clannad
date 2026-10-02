@@ -44,6 +44,8 @@ const ICON={
  DIAMOND:'M12 3l6 9-6 9-6-9z M12 8l2.7 4L12 16l-2.7-4z',
  DOT:'M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
  CHAT:'M4 5h16v11H11l-5 4v-4H4z M8 9.5h8 M8 12.5h5',
+ MAIL:'M3.5 6h17v12h-17z M3.5 6.5l8.5 6.5 8.5-6.5',
+ LOCK:'M7.5 11V8a4.5 4.5 0 0 1 9 0v3 M5.5 11h13v9.5h-13z M12 14.5v2.5',
  EYE:'M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
  PRIMO:'M12 2.5l6.5 7-6.5 12-6.5-12z M5.5 9.5h13 M12 2.5l-2.5 7 2.5 12 2.5-12z',
  SHOP:'M4 9.5h16l-1.2 10.5H5.2z M7.5 9.5V7a4.5 4.5 0 0 1 9 0v2.5 M9.5 14h5',
@@ -95,7 +97,8 @@ function buildHUD(aside,key){
  let growth=null;try{growth=game.growth('PLAYER_CUSTOM');}catch{}
  const lv=mk('div','hud-level');lv.title=growth&&!growth.max?'경험치 '+fmt(growth.xp)+' / '+fmt(growth.next):'최대 레벨';const ring=mk('span','hud-level-ring');ring.style.setProperty('--p',growth?.max?100:Math.max(0,Math.min(100,(growth?.xp||0)/(growth?.next||1)*100)).toFixed(1));ring.append(mk('b','',g.PLAYER_LEVEL_STATE||1));lv.append(ring,mk('span','hud-name',g.PLAYER_NAME||'모험가'));
  const hpBox=mk('div','hud-hp');hpBox.title='체력 '+fmt(hp)+' / '+fmt(max);const bar=mk('span','hud-bar'),fill=mk('i');fill.style.width=Math.max(0,Math.min(100,hp/(max||1)*100))+'%';if(hp/(max||1)<.3)hpBox.classList.add('low');bar.append(fill);hpBox.append(bar,mk('small','',fmt(hp)+' / '+fmt(max)));
- const mora=mk('div','hud-mora');mora.title='모라';mora.append(icon('MORA'),mk('span','',fmt(g.MORA)));
+ // 0.15.1: the Mora coin from the game, like the Primogem beside it (user: 「이쪽 모라는 안바꿔?」).
+ const mora=mk('div','hud-mora');mora.title='모라';mora.append(window.currencyIcon?.('MORA','hud-mora-icon')||icon('MORA'),mk('span','',fmt(g.MORA)));
  me.append(lv,hpBox,mora);
  if(nav){nav.classList.add('hud-nav');for(const b of $$('button',nav)){const scr=b.dataset.screen,def=NAV[scr];if(def){b.classList.add('hud-nav-button');const old=$('.nav-icon',b);if(old)old.replaceWith(icon(def.icon,'shell-icon nav-glyph'));const label=b.lastElementChild;if(label&&label.tagName==='SPAN'){label.classList.add('hud-nav-label');label.textContent=def.label;}b.setAttribute('aria-label',def.label);b.append(mk('span','hud-nav-short',def.short));b.title=(b.title?b.title+' · ':'')+def.label+(def.key?' ('+def.key+')':'');}else{b.classList.add('hud-extra');b.hidden=true;}}}
  const tools=mk('div','hud-tools');
@@ -365,7 +368,9 @@ const MENU_LAYOUT={
  },
  INVENTORY(body,nodes,head){
   const tabs=nodes.find(n=>n.matches('.bag-tabs'));if(tabs){tabs.classList.add('shell-subtabs');head.append(tabs);}
-  const layout=nodes.find(n=>n.matches('.bag-layout'));const extra=nodes.filter(n=>n!==tabs&&n!==layout);
+  // 0.15.1: 거래 가능 · 거래 불가 sits under the kinds, not in the side tabs.
+  const trade=nodes.find(n=>n.matches('.bag-trade-filter'));if(trade){trade.classList.add('shell-subtabs');head.append(trade);}
+  const layout=nodes.find(n=>n.matches('.bag-layout'));const extra=nodes.filter(n=>n!==tabs&&n!==layout&&n!==trade);
   body.classList.add('shell-cols','bag-cols');if(layout)body.append(region('shell-col-main',[layout]));
   if(extra.length){const t=tabset('BAG_SIDE',[{id:'artifacts',label:'성유물',nodes:extra.filter(n=>n.matches('.artifact-inventory'))},{id:'tools',label:'전투 도구',nodes:extra.filter(n=>n.matches('.tool-preparation'))},{id:'more',label:'기타',nodes:extra.filter(n=>!n.matches('.artifact-inventory,.tool-preparation'))}],'shell-bag-side');if(t){for(const d of $$('details',t))d.open=true;body.append(region('shell-col-side',[t]));}}
  },
@@ -484,7 +489,9 @@ if(typeof itemDetailView==='function'){const priorDetail=itemDetailView;itemDeta
 // 효과음 고르기: every sound is a Genshin recording with one or more candidates; pressing a candidate plays it and
 // keeps it.
 function soundGallery(){
- const SND=window.CRPGSound,gallery=mk('section','card shell-sound-gallery');gallery.append(mk('h3','','효과음 고르기'),mk('p','muted','효과음은 원신 본편 녹음과 공식 웹 이벤트 소리입니다(「이전」·「새로 만든」이라고 적힌 것은 이 게임에서 만든 소리). 후보를 누르면 바로 들리고 그 소리로 정해집니다. 고른 소리는 이 기기에 저장됩니다.'));
+ // 0.15.1: folded until opened (user: 「설정 부분에 효과음 고르기 너무 길어서 접어놔」).
+ const SND=window.CRPGSound,gallery=mk('details','card shell-sound-gallery'),sum=mk('summary','shell-sound-summary');sum.append(mk('strong','','효과음 고르기'),mk('small','','눌러서 펼치기 · 소리마다 후보를 들어 보고 고릅니다'));
+ gallery.append(sum,mk('p','muted','효과음은 원신 본편 녹음과 공식 웹 이벤트 소리입니다(「이전」·「새로 만든」이라고 적힌 것은 이 게임에서 만든 소리). 후보를 누르면 바로 들리고 그 소리로 정해집니다. 고른 소리는 이 기기에 저장됩니다.'));
  const groups=[['전투 결과',[['승리','victory'],['패배','defeat']]],
   ['결과·보상',[['레벨업','level_up'],['임무 완료','quest_complete'],['의뢰 수락','commission_accept'],['의뢰 완료','commission_complete'],['획득','item_receive'],['해금','unlock'],['장착 (장비)','equip'],['장착 (성유물)','equip_artifact'],['요리 완료','cook_complete'],['단조 완료','forge_complete'],['합성 완료','craft_complete']]],
   ['전투',[['전투 시작','battle_start'],['타격 (검·창)','hit'],['활 공격','bow_hit'],['츄츄족 공격','hili_hit'],['슬라임 공격','slime_hit'],['방어 (피격)','guard'],['회복','heal'],['츄츄족 조우','encounter_hilichurl']]],
@@ -529,6 +536,13 @@ if(typeof settingsControls==='function'){const priorSettings=settingsControls;se
  const credit=[...p.querySelectorAll('a')].find(a=>/genshin-sfx\/CREDITS/.test(a.getAttribute('href')||''));
  if(credit&&window.CRPGSound){const note=credit.nextElementSibling?.matches?.('.choice-note')?credit.nextElementSibling:credit;note.after(soundGallery());}
 }catch{}try{const head=mk('h2','','정보'),note=mk('p','shell-disclaimer','본 게임은 비영리 비공식 팬 프로젝트이며 HoYoverse의 공식 게임이 아닙니다. 원신 및 관련 캐릭터, 음악, 이미지 등의 권리는 각 권리자에게 있습니다. 권리자의 요청이 있는 경우 해당 콘텐츠는 즉시 제거 또는 교체될 수 있습니다.'),link=mk('a','shell-official','원신 공식 홈페이지 바로가기');link.href='https://genshin.hoyoverse.com/ko/';link.target='_blank';link.rel='noopener noreferrer';p.append(head,note,link);}catch{}};}
+// 0.15.1: the original currency pictures (모라, 원석 …) wherever a reward shows one, instead of a ◈ or ✧ glyph
+// (user: 「모라도 이제 아이콘 좀 쓰고… 획득한 보상에 마름모만 있는 거 보기 좀 그렇다」).
+window.currencyIcon=function(key,cls='cur-icon'){const p=(window.CRPG_MANIFEST||{}).itemIcons?.icons?.['CUR_'+key]?.path;if(!p)return null;const i=document.createElement('img');i.className=cls;i.src=p;i.alt='';i.draggable=false;return i;};
+// 0.15.1: the fan-project notice also sits at the bottom of the title (login) screen, which app_online.js draws.
+const LEGAL='본 게임은 비영리 비공식 팬 프로젝트이며 HoYoverse의 공식 게임이 아닙니다. 원신 및 관련 캐릭터, 음악, 이미지 등의 권리는 각 권리자에게 있습니다. 권리자의 요청이 있는 경우 해당 콘텐츠는 즉시 제거 또는 교체될 수 있습니다.';
+const titleLegal=()=>{for(const t of document.querySelectorAll('section.game-title:not(.has-legal)')){t.classList.add('has-legal');t.append(mk('p','title-legal',LEGAL));}};
+new MutationObserver(titleLegal).observe(document.body,{childList:true,subtree:true});titleLegal();
 // Formation and role effects are runtime statuses without a table row; name them instead of "알 수 없는 항목".
 if(typeof safeName==='function'){const priorSafeName=safeName;safeName=function(table,id,col=1){if(table==='13_STATUS_EFFECT_DB'){if(id==='FORMATION')return '진형 효과';if(id==='ROLE')return '역할 효과';}return priorSafeName(table,id,col);};}
 })();

@@ -73,14 +73,23 @@ ok((await A('/admin/account?id=nope')).status===404,'unknown account');
 // ---------- save tools ----------
 const companion=catalog.characters.find(c=>c.id!=='PLAYER_CUSTOM').id;
 let r0=rev();
+// 0.15.1: what the console gives waits in the player's mailbox as one gift; the player takes it with MAIL_CLAIM.
+let claims=0;const claim=mail=>api('/game/action',{token,body:{version:created.json.version,engineVersion:created.json.engineVersion,type:'MAIL_CLAIM',params:{mail},revision:rev(),requestId:'claim-gift-'+String(++claims).padStart(6,'0'),responseMode:'state-parts-v1'}});
 let s=await A('/admin/save',{id:player.id,ops:[{op:'currency',key:'PRIMOGEM',mode:'add',value:1600},{op:'currency',key:'MORA',mode:'set',value:50000},{op:'item',id:'ING_APPLE',count:5}]});
 ok(s.status===200&&s.json.changes.length===3&&rev()===r0+1,'several changes land as one save');
-ok(R().s.global.PRIMOGEM===1600&&R().s.global.MORA===50000&&R().itemCount('ING_APPLE')===5,'currencies and items changed');
-const take=await A('/admin/save',{id:player.id,ops:[{op:'item',id:'ING_APPLE',count:-2},{op:'currency',key:'PRIMOGEM',mode:'add',value:-99999}]});
-ok(take.status===400&&rev()===r0+1&&R().itemCount('ING_APPLE')===5,'a failing change leaves the whole request unapplied');
-ok((await A('/admin/save',{id:player.id,ops:[{op:'item',id:'ING_APPLE',count:-2}]})).status===200&&R().itemCount('ING_APPLE')===3,'items are taken back');
-s=await A('/admin/save',{id:player.id,ops:[{op:'equipment_give',id:'EQ_SWORD_HARBINGER',enhance:5,count:2}]});const gear=R().s.inventory.filter(x=>x.equip==='EQ_SWORD_HARBINGER');
-ok(s.status===200&&gear.length===2&&gear.every(x=>x.enhance===5),'gear given with its enhancement');
+const box=R().s.mail.list,gift=box.find(x=>x.kind==='GIFT'),notice=box.find(x=>x.kind==='NOTICE');
+ok(!Number(R().s.global.PRIMOGEM)&&R().s.global.MORA===50000&&R().itemCount('ING_APPLE')===0,'grants wait in the mailbox; a value that is set applies at once');
+ok(gift&&gift.gifts.currency.PRIMOGEM===1600&&gift.gifts.items.ING_APPLE===5&&!gift.claimed&&s.json.mail.length===2,'one gift mail holds the grants');
+ok(notice&&notice.body.includes('모라')&&!notice.read,'a notice mail says what else the operator changed');
+ok((await A('/admin/account?id='+player.id)).json.summary.mail.unclaimed===1,'the console shows the gift still waiting');
+ok((await claim(gift.id)).status===200&&R().s.global.PRIMOGEM===1600&&R().itemCount('ING_APPLE')===5&&R().s.mail.list.find(x=>x.id===gift.id).claimed,'the player takes it: currencies and items changed');
+ok((await claim(gift.id)).status!==200,'a gift is taken once');
+const r1=rev(),take=await A('/admin/save',{id:player.id,ops:[{op:'item',id:'ING_APPLE',count:-2},{op:'currency',key:'PRIMOGEM',mode:'add',value:-99999}]});
+ok(take.status===400&&rev()===r1&&R().itemCount('ING_APPLE')===5,'a failing change leaves the whole request unapplied');
+ok((await A('/admin/save',{id:player.id,ops:[{op:'item',id:'ING_APPLE',count:-2}]})).status===200&&R().itemCount('ING_APPLE')===3,'items are taken back at once');
+s=await A('/admin/save',{id:player.id,ops:[{op:'equipment_give',id:'EQ_SWORD_HARBINGER',enhance:5,count:2}]});ok(s.status===200&&(await claim('ALL')).status===200,'gear arrives by mail and is taken');
+const gear=R().s.inventory.filter(x=>x.equip==='EQ_SWORD_HARBINGER');
+ok(gear.length===2&&gear.every(x=>x.enhance===5),'gear given with its enhancement');
 ok((await A('/admin/save',{id:player.id,ops:[{op:'equipment_remove',slot:gear[0].slot}]})).status===200&&R().s.inventory.filter(x=>x.equip==='EQ_SWORD_HARBINGER').length===1,'gear taken back');
 s=await A('/admin/save',{id:player.id,ops:[{op:'recruit',char:companion},{op:'level',target:'PLAYER_CUSTOM',value:10},{op:'level',target:companion,value:15},{op:'constellation',char:companion,value:6},{op:'talent',char:companion,kind:'q',value:9}]});
 ok(s.status===200,'character tools: '+JSON.stringify(s.json));const rr=R();
@@ -108,8 +117,10 @@ const me=await api('/me',{token});ok(me.json.state.global.PLAYER_NAME==='운영�
 
 // ---------- rollback ----------
 {
+ ok((await claim('ALL')).status===200,'the Starglitter gift is taken');
  const glitter=()=>Number(R().s.global.STARGLITTER||0),before=glitter(),r1=rev();
  const back=await A('/admin/rollback',{id:player.id,steps:1});ok(back.status===200&&glitter()===before-5&&rev()===r1+1,'one step back undoes the last change as a new save');
+ ok(R().s.mail.list.some(x=>x.kind==='GIFT'&&!x.claimed&&x.gifts.currency.STARGLITTER===5)&&R().s.mail.list.some(x=>x.kind==='NOTICE'&&x.title.includes('되돌렸')),'the gift waits again and a notice says the journey was put back');
  ok((await A('/admin/rollback',{id:player.id,steps:1})).status===200&&glitter()===before,'rolling back the rollback restores it');
  ok((await A('/admin/rollback',{id:player.id,steps:9})).status===400,'only the kept steps');
 }
@@ -141,10 +152,10 @@ const me=await api('/me',{token});ok(me.json.state.global.PLAYER_NAME==='운영�
  ok((await A('/admin/bulk',{ops:[{op:'currency',key:'PRIMOGEM',mode:'add',value:160}]})).status===400,'bulk needs the confirmation words');
  ok((await A('/admin/bulk',{ops:[{op:'currency',key:'PRIMOGEM',mode:'set',value:0}],confirm:'전체 지급'})).status===400,'bulk cannot set or take');
  ok((await A('/admin/bulk',{ops:[{op:'equipment_give',id:'EQ_SWORD_HARBINGER'}],confirm:'전체 지급'})).status===400,'bulk gives only currencies and items');
- const gems=r=>Number(r.s.global.PRIMOGEM||0),p1=gems(R()),p2=gems(app.store.runtimeOf(second.id));
- const bulk=await A('/admin/bulk',{ops:[{op:'currency',key:'PRIMOGEM',mode:'add',value:160},{op:'item',id:'ING_APPLE',count:1}],confirm:'전체 지급'});
+ const bulk=await A('/admin/bulk',{ops:[{op:'currency',key:'PRIMOGEM',mode:'add',value:160},{op:'item',id:'ING_APPLE',count:1}],confirm:'전체 지급',mailTitle:'점검 보상',mailBody:'기다려 주셔서 고맙습니다.'});
  ok(bulk.status===200&&bulk.json.targets===2&&bulk.json.done===2,'bulk reached both journeys');
- ok(gems(R())===p1+160&&gems(app.store.runtimeOf(second.id))===p2+160,'both got the gift');
+ const waits=r=>r.s.mail.list.some(x=>x.kind==='GIFT'&&!x.claimed&&x.title==='점검 보상'&&x.body==='기다려 주셔서 고맙습니다.'&&x.gifts.currency.PRIMOGEM===160&&x.gifts.items.ING_APPLE===1);
+ ok(waits(R())&&waits(app.store.runtimeOf(second.id)),'both got the gift in their mailbox, with the title and words given');
 }
 
 // ---------- notices and chat ----------

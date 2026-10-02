@@ -9,7 +9,7 @@ const S=window.CRPGShell;if(!S||!S.tabset||!S.pageHead)return;
 const mk=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined&&text!==null)e.textContent=String(text);return e;};
 const $=(sel,root=document)=>root.querySelector(sel),$$=(sel,root=document)=>[...root.querySelectorAll(sel)];
 // What the host says first. Katheryne greets every adventurer with the guild's motto, in Mondstadt and in Liyue.
-const GUILD='별과 심연을 향해! 모험가 길드에 오신 것을 환영합니다.';
+const GUILD='별과 심연을 향해! 모험가 길드에 온 걸 환영해.';
 const GREETING={EVT_SCHEDULE_NPC_MOND_KATHERYNE:GUILD,EVT_CRPG_LIYUE_GUILD:GUILD};
 S.placeGreeting=GREETING;
 S.placeLayout=function(content,p){

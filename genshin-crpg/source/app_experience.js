@@ -98,7 +98,7 @@ returnToJourney=function(p){
   const visit=game.currentPlace?.();if(visit?.valid){p.append(actionButton(placeName(visit.entry)+' · 돌아가기','MENU',{screen:{SHOP:'SHOP',CRAFT:'CRAFT',BOSS:'BOSS_INTRO',TALK:'DIALOGUE'}[visit.mode]},true));return;}
   p.append(actionButton(game.playPhase()==='PREPARATION'?'전투 준비로 돌아가기':'이야기로 돌아가기','MENU',{screen:'STORY'},true));
 };
-let bagCategory='전체',bagSelection=null;
+let bagCategory='전체',bagSelection=null,bagTrade='전체';
 // 0.14.12: equipment frames by enhancement (user: 「강화수치가 높을수록 테두리, 운명의 자리처럼 간지나게는 말고, 10강부터 조금 간지」).
 // +3 silver line, +6 gold line, +9 double gold line, +10 gold corners and a soft inner glow, +12 adds a slow shine.
 function enhanceFrameClass(n){n=Number(n)||0;return n>=12?'enh-12':n>=10?'enh-10':n>=9?'enh-9':n>=6?'enh-6':n>=3?'enh-3':'';}
@@ -129,10 +129,15 @@ inventory=function(p){
   p.append(el('div','eyebrow','INVENTORY'),el('h1','','아이템'));
   const entries=itemPresenter.inventoryEntries(game.s),tabs=el('div','bag-tabs');tabs.setAttribute('aria-label','아이템 분류');
   for(const category of ['전체',...CRPGInventoryPresenter.GROUPS]){const count=entries.filter(d=>category==='전체'||d.group===category).length;if(!count&&category!=='전체')continue;const b=button(category+' '+count,()=>{bagCategory=category;bagSelection=null;render();});b.classList.toggle('selected',bagCategory===category);b.setAttribute('aria-pressed',String(bagCategory===category));tabs.append(b);}p.append(tabs);
-  let shown=entries.filter(d=>bagCategory==='전체'||d.group===bagCategory);if(!shown.length&&entries.length){bagCategory='전체';shown=entries;}
+  // 0.15.1: tradeable and bound items apart (user: 「거래 가능이랑 거래 불가 템을 좀 나눠서」); the rules are runtime_trade.js.
+  const tradeOf=d=>typeof bagTradeRule==='function'?bagTradeRule(d):null;
+  if(typeof bagTradeRule==='function'){const ok=entries.filter(d=>tradeOf(d)?.ok).length,trade=el('div','bag-trade-filter');trade.setAttribute('aria-label','거래 가능 여부');
+   for(const [k,label] of [['전체','모두'],['가능','거래 가능 '+ok],['불가','거래 불가 '+(entries.length-ok)]]){const b=button(label,()=>{bagTrade=k;bagSelection=null;render();});b.classList.toggle('selected',bagTrade===k);b.setAttribute('aria-pressed',String(bagTrade===k));trade.append(b);}
+   p.append(trade);}
+  let shown=entries.filter(d=>(bagCategory==='전체'||d.group===bagCategory)&&(bagTrade==='전체'||!tradeOf(d)||(tradeOf(d).ok?bagTrade==='가능':bagTrade==='불가')));if(!shown.length&&entries.length){bagCategory='전체';bagTrade='전체';shown=entries;}
   const layout=el('div','bag-layout'),grid=el('div','bag-grid'),detail=el('section','card bag-detail');detail.setAttribute('aria-label','선택한 아이템 상세');
   const chosen=shown.find(d=>d.key===bagSelection)||shown[0];bagSelection=chosen?.key||null;
-  for(const d of shown){const wrap=el('div','bag-cell'),b=button('',()=>{bagSelection=d.key;for(const x of grid.querySelectorAll('button'))x.setAttribute('aria-pressed',String(x.dataset.itemKey===d.key));itemDetailView(detail,d);});b.className='bag-item tier-'+(d.tier?.rank||1);if(d.kind==='EQUIPMENT'){const f=enhanceFrameClass(d.enhance);if(f)b.classList.add('enh',f);}b.dataset.itemKey=d.key;b.setAttribute('aria-pressed',String(d.key===bagSelection));b.setAttribute('aria-label',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:' '+d.quantity+'개'));b.append(itemGlyph(d),el('strong','item-count',d.kind==='EQUIPMENT'?'+'+d.enhance:'×'+d.quantity),tierMark(el('span','item-name',d.name),d));if(d.equipped)b.append(el('small','item-worn','장착'));
+  for(const d of shown){const wrap=el('div','bag-cell'),b=button('',()=>{bagSelection=d.key;for(const x of grid.querySelectorAll('button'))x.setAttribute('aria-pressed',String(x.dataset.itemKey===d.key));itemDetailView(detail,d);});b.className='bag-item tier-'+(d.tier?.rank||1);if(d.kind==='EQUIPMENT'){const f=enhanceFrameClass(d.enhance);if(f)b.classList.add('enh',f);}b.dataset.itemKey=d.key;b.setAttribute('aria-pressed',String(d.key===bagSelection));b.setAttribute('aria-label',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:' '+d.quantity+'개'));b.append(itemGlyph(d),el('strong','item-count',d.kind==='EQUIPMENT'?'+'+d.enhance:'×'+d.quantity),tierMark(el('span','item-name',d.name),d));if(d.equipped)b.append(el('small','item-worn','장착'));if(typeof bagTradeMark==='function')bagTradeMark(b,d);
     const tooltip=el('div','item-tooltip');tooltip.id='item-tip-'+grid.children.length;tooltip.setAttribute('role','tooltip');tooltip.append(tierMark(el('strong','',d.name),d),el('p','',itemSummary(d)||d.category));b.setAttribute('aria-describedby',tooltip.id);wrap.append(b,tooltip);grid.append(wrap);
   }
   if(chosen)itemDetailView(detail,chosen);else detail.append(el('p','empty','아직 보유한 아이템이 없습니다.'));layout.append(grid,detail);p.append(layout);

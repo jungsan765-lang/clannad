@@ -85,8 +85,12 @@ function solved(chest,answer,body){
 const preview=(src,body)=>{if(!src)return;const d=mk('details','ch-preview');const s=mk('summary','','완성된 그림 보기');const i=mk('img','');i.src=src;i.alt='';d.append(s,i);body.append(d);};
 // 틀린 그림 찾기: the right picture has small changes; press them on either picture.
 function spotGame(p,body,done){
- const src=placeImage();body.closest('.ch-box')?.classList.add('wide');note(body,'두 그림에서 다른 곳 '+p.count+'군데를 찾아 누르세요. 없던 물건, 좌우가 뒤집힌 부분, 색이 바뀐 부분을 잘 보세요.');
- const counter=mk('p','ch-count','찾은 곳 0 / '+p.count);body.append(counter);
+ // 0.15.1: a wrong press costs a chance (Mond 5, Liyue 3) and pauses the board for a moment; with no chances left the
+ // found spots start over (user: 「그냥 아무렇게나 눌러도 되니까 이것도 좀 바꿔야」).
+ const lives0=p.subtle?3:5;let lives=lives0,cool=false;
+ const src=placeImage();body.closest('.ch-box')?.classList.add('wide');note(body,'두 그림에서 다른 곳 '+p.count+'군데를 찾아 누르세요. 없던 물건, 좌우가 뒤집힌 부분, 색이 바뀐 부분을 잘 보세요. 엉뚱한 곳을 누르면 기회가 줄고, 기회를 다 쓰면 처음부터 다시 찾습니다.');
+ const counter=mk('p','ch-count','찾은 곳 0 / '+p.count),hearts=mk('p','ch-lives');body.append(counter,hearts);
+ const drawLives=()=>{hearts.replaceChildren(mk('span','','남은 기회'),...Array.from({length:lives0},(_,i)=>mk('b',i<lives?'on':'off',i<lives?'♥':'♡')));};drawLives();
  const wrap=mk('div','ch-game ch-spot'+(p.subtle?' subtle':'')),A=mk('div','spot-pic'),B=mk('div','spot-pic changed');
  for(const el of [A,B]){if(src)el.style.backgroundImage='url("'+src+'")';else el.classList.add('noimg');}
  wrap.append(A,B);body.append(wrap);
@@ -100,10 +104,18 @@ function spotGame(p,body,done){
   p.diffs.forEach((d,i)=>{if(d.kind!=='flip')return;const r=R/100*W,cx=d.x/100*W,cy=d.y/100*H,e=patches[i];e.style.backgroundImage='url("'+src+'")';e.style.backgroundSize=dw+'px '+dh+'px';e.style.backgroundPosition=(ox-(cx-r))+'px '+(oy-(cy-r))+'px';});};
  if(src){C.spotImg=new Image();C.spotImg.onload=layout;C.spotImg.src=src;}new ResizeObserver(layout).observe(B);
  const mark=(el,d,cls)=>{const m=mk('span','spot-mark '+cls);m.style.left=d.x+'%';m.style.top=d.y+'%';m.style.setProperty('--r',R+'%');el.append(m);return m;};
+ const pause=ms=>{cool=true;wrap.classList.add('cooling');setTimeout(()=>{cool=false;wrap.classList.remove('cooling');},ms);};
  const tap=(el,e)=>{
+  if(cool||wrap.classList.contains('solved'))return;
   const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*100,y=(e.clientY-r.top)/r.height*100;
   const hit=p.diffs.findIndex((d,i)=>!found.has(i)&&Math.hypot((x-d.x)*r.width,(y-d.y)*r.height)/100<=R/100*r.width*(p.subtle?1.3:1.15));
-  if(hit<0){const m=mark(el,{x,y},'miss');setTimeout(()=>m.remove(),600);SND('error');return;}
+  if(hit<0){
+   const m=mark(el,{x,y},'miss');setTimeout(()=>m.remove(),600);SND('error');lives--;drawLives();hearts.classList.remove('shake');void hearts.offsetWidth;hearts.classList.add('shake');
+   if(lives>0){pause(700);return;}
+   // no chances left: the found spots start over
+   found.clear();for(const x of wrap.querySelectorAll('.spot-mark.hit'))x.remove();counter.textContent='찾은 곳 0 / '+p.count;lives=lives0;
+   const warn=mk('div','ch-solved ch-reset','기회를 다 써서 처음부터 다시 찾습니다');wrap.append(warn);setTimeout(()=>{warn.remove();drawLives();},1600);pause(1600);return;
+  }
   found.add(hit);mark(A,p.diffs[hit],'hit');mark(B,p.diffs[hit],'hit');SND('puzzle_step');counter.textContent='찾은 곳 '+found.size+' / '+p.count;
   if(found.size===p.count)done([...found]);
  };

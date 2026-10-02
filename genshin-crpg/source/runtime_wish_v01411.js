@@ -7,7 +7,8 @@
  * every ten. On top of that, every 10-wish holds at least one companion. Companions come as their 운명의 별 (the
  * companion still joins through their own story; the 별 waits until then) plus 스타라이트 (4★ 2, 5★ 10; 5 and 25 once
  * all six 운명의 자리 are covered). 4★ weapons come with 스타라이트 2, 3★ weapons with 스타더스트 15; weapons go to the bag,
- * except a 3★ weapon the bag already holds three of, which turns into 스타더스트 30 instead.
+ * except a 3★ weapon the bag already holds three of, which comes as its 스타더스트 15 alone (0.15.1: it was 30, and with
+ * the stardust shop capped that piled up with nothing to spend it on).
  * The draw mixes in the server's action time, so a result can't be worked out in advance from the save.
  * The pools are this game's companions and weapons; rarities are the original ones. Load after runtime_premium_v0148.js. */
 (function(root){'use strict';
@@ -78,8 +79,8 @@ P.wishGrant=function(r){
   this.giveItem(stella,1);g.STARGLITTER=int(g.STARGLITTER)+n;return {...r,stella:true,glitter:n};
  }
  if(r.rarity===4){const slot=this.giveEquipment(r.id);g.STARGLITTER=int(g.STARGLITTER)+2;return {...r,slot,glitter:2};}
- // A 3★ weapon the bag already holds three of comes as more 스타더스트 instead, so the bag never fills with copies.
- if(this.s.inventory.filter(i=>i.equip===r.id).length>=COPIES3){g.STARDUST=int(g.STARDUST)+DUST3*2;return {...r,converted:true,dust:DUST3*2};}
+ // A 3★ weapon the bag already holds three of comes as its 스타더스트 alone, so the bag never fills with copies.
+ if(this.s.inventory.filter(i=>i.equip===r.id).length>=COPIES3){g.STARDUST=int(g.STARDUST)+DUST3;return {...r,converted:true,dust:DUST3};}
  const slot=this.giveEquipment(r.id);g.STARDUST=int(g.STARDUST)+DUST3;return {...r,slot,dust:DUST3};
 };
 P.actionReason=function(type,a={}){const base=old.actionReason.call(this,type,a);if(base)return base;if(type==='WISH')return this.wishReason(a);return '';};

@@ -21,7 +21,7 @@ const fmt=n=>Number(n||0).toLocaleString('ko-KR');
 const detail=x=>{try{return x.kind==='GEAR'||x.gear||x.equip?presenter().itemDetail({equip:x.ref||x.equip||x.gear?.equip,quantity:1,enhance:x.enhance??x.gear?.enhance??0}):presenter().itemDetail({item:x.ref||x.item,quantity:x.qty||1});}catch{return {name:x.label||x.name||'',tier:{rank:1}};}};
 const GROUPS=['전체','재료','음식','소모품','장비'];
 const groupOf=d=>d.kind==='EQUIPMENT'?'장비':d.group==='음식'?'음식':d.group==='소모품'?'소모품':'재료';
-const moraIcon=()=>{try{return SHELL.icon('MORA','shell-icon tr-mora');}catch{return mk('span','tr-mora','◈');}};
+const moraIcon=()=>{const i=window.currencyIcon?.('MORA','tr-mora tr-mora-img');if(i)return i;try{return SHELL.icon('MORA','shell-icon tr-mora');}catch{return mk('span','tr-mora','◈');}};
 const free=()=>{try{return !game.s.runtime&&(game.playPhase?.()||'FREE')==='FREE';}catch{return false;}};
 // ---------- tiles ----------
 function tile(d,{count,badge,cls='',title,onClick,disabled}={}){
@@ -40,8 +40,15 @@ function bagGrid(entries,{onPick,picked,empty}){
  const shown=entries.filter(d=>T.cat==='전체'||groupOf(d)===T.cat);
  if(!shown.length)grid.append(mk('p','trade-note',empty||'거래할 수 있는 물건이 없습니다. 모라·경험치 책·보스 재료·전용 무기·장착 중인 장비는 거래할 수 없습니다.'));
  for(const d of shown.slice(0,240)){const have=d.kind==='EQUIPMENT'?1:game.itemCount(d.id),p=picked?.(d);grid.append(tile(d,{count:d.kind==='EQUIPMENT'?'+'+(d.enhance||0):'×'+fmt(have),badge:p||'',cls:p?'in-tray':'',title:d.name+(d.kind==='EQUIPMENT'?'':' · 보유 '+have+'개'),onClick:()=>onPick(d)}));}
- wrap.append(cats,grid);return wrap;
+ wrap.append(cats,grid);
+ // 0.15.1: what cannot change hands is listed apart, each with the reason (user: 「거래 가능이랑 거래 불가 템을 나눠서」).
+ const bound=boundEntries();
+ if(bound.length){const det=mk('details','tr-bound'),list=mk('ul','tr-bound-list');det.append(mk('summary','','거래할 수 없는 물건 '+bound.length+'종 · 이유 보기'));
+  for(const {d,reason} of bound.slice(0,160)){const li=mk('li');li.append(SHELL.icon('LOCK','shell-icon'),mk('span','tr-bound-name',d.name+(d.kind==='EQUIPMENT'?' +'+(d.enhance||0):' ×'+fmt(d.quantity))),mk('small','',reason));list.append(li);}
+  det.append(list);wrap.append(det);}
+ return wrap;
 }
+function boundEntries(){const P=presenter();if(!P||typeof game==='undefined'||!game)return [];return P.inventoryEntries(game.s).map(d=>({d,r:window.bagTradeRule?.(d)})).filter(x=>x.r&&!x.r.ok).map(x=>({d:x.d,reason:x.r.reason}));}
 // ---------- the window ----------
 function build(){
  const wrap=mk('div','trade-overlay');wrap.hidden=true;wrap.setAttribute('role','dialog');wrap.setAttribute('aria-modal','true');wrap.setAttribute('aria-label','거래소');
@@ -225,6 +232,9 @@ window.CRPGChat?.on?.(async ev=>{
   if(T.isOpen()){clearTimeout(T.reloadTimer);T.reloadTimer=setTimeout(load,400);}}
 });
 SHELL.extraTiles.push({icon:'TRADE',label:'거래소',key:'',show:()=>T.enabled!==false&&!!O.token,run:()=>open()});
+// 0.15.1: the bag marks what cannot change hands (a lock on the tile, with the reason) and can show either kind alone.
+window.bagTradeRule=d=>{try{const entry=d.kind==='EQUIPMENT'?game.s.inventory.find(i=>i.slot===d.key):d.id;return game.tradeRule?.(entry||d.id)||null;}catch{return null;}};
+window.bagTradeMark=(b,d)=>{const r=window.bagTradeRule(d);if(!r||r.ok)return;const lock=mk('span','item-bound');lock.title='거래 불가 · '+r.reason;lock.setAttribute('aria-label','거래 불가');lock.append(SHELL.icon('LOCK','shell-icon'));b.append(lock);b.title=(b.title?b.title+' · ':'')+'거래 불가';};
 // The bag says whether the selected item can change hands, and sends it to the shop or the open trade in one press.
 if(typeof itemDetailView==='function'){const prior=itemDetailView;itemDetailView=function(box,d){prior(box,d);try{
  const entry=d.kind==='EQUIPMENT'?game.s.inventory.find(i=>i.slot===d.key):d.id,rule=game.tradeRule?.(entry||d.id);if(!rule)return;

@@ -20,7 +20,10 @@ export function installSocialSchema(db,features){
   'CREATE TABLE IF NOT EXISTS market(id INTEGER PRIMARY KEY AUTOINCREMENT,seller_id TEXT NOT NULL,seller_name TEXT NOT NULL,goods TEXT NOT NULL,label TEXT NOT NULL,kind TEXT NOT NULL,ref TEXT NOT NULL,qty INTEGER NOT NULL,enhance INTEGER NOT NULL DEFAULT 0,category TEXT NOT NULL DEFAULT \'\',price INTEGER NOT NULL,status TEXT NOT NULL,buyer_id TEXT,created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(seller_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT',
   'CREATE INDEX IF NOT EXISTS market_status_idx ON market(status,id)',
   'CREATE INDEX IF NOT EXISTS market_seller_idx ON market(seller_id,status)',
-  'CREATE TABLE IF NOT EXISTS market_wallet(account_id TEXT PRIMARY KEY,mora INTEGER NOT NULL,sales INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT'
+  'CREATE TABLE IF NOT EXISTS market_wallet(account_id TEXT PRIMARY KEY,mora INTEGER NOT NULL,sales INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT',
+  // 0.15.1: finished live trades, for the operator console's trade log (kept when an account goes).
+  'CREATE TABLE IF NOT EXISTS deal_log(id TEXT PRIMARY KEY,a_id TEXT NOT NULL,a_name TEXT NOT NULL,b_id TEXT NOT NULL,b_name TEXT NOT NULL,a_gave TEXT NOT NULL,b_gave TEXT NOT NULL,at INTEGER NOT NULL) STRICT',
+  'CREATE INDEX IF NOT EXISTS deal_log_at_idx ON deal_log(at)'
  ].join(';')+';');
 }
 // Records kept before seasons (ABYSS_01) move to the month they were reached in.
@@ -88,6 +91,8 @@ export const socialMethods={
    abyss:abyss?{season:abyss.season,label:abyss.seasonLabel,best:abyss.best.floor}:null};
  },
  // ---------- saving a changed journey from the server side ----------
+ // A receipt id is used once per account; ids that could repeat after an operator rollback (buying or taking down the
+ // same listing again) carry the time.
  writeSave(id,r,requestId,result){
   compact(r.s);const m=this.meta(id),before=this.loadParts(id),after=splitState(r.s),d=diffParts(before,after),t=now();
   const del=this.db.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=this.db.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
@@ -96,9 +101,9 @@ export const socialMethods={
   this.db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(id,requestId,m.revision+1,m.revision,requestId.split('-')[0],JSON.stringify({result}),t);
   this.db.prepare('UPDATE metadata SET revision=?,last_request_id=?,updated_at=? WHERE account_id=?').run(m.revision+1,requestId,t,id);
  },
- liveRuntime(id,who='모험가'){
+ liveRuntime(id,who='모험가',what='거래할'){
   const r=this.runtimeOf(id);if(!r)throw err(409,'먼저 여정을 시작해 주세요.');
-  if(!free(r))throw err(409,who+'가 이야기나 전투를 진행 중입니다. 자유행동 중에만 거래할 수 있습니다.','NOT_FREE');
+  if(!free(r))throw err(409,who+'가 이야기나 전투를 진행 중입니다. 자유행동 중에만 '+what+' 수 있습니다.','NOT_FREE');
   return r;
  },
  commit(fn){this.db.exec('BEGIN IMMEDIATE');try{const out=fn();this.db.exec('COMMIT');return out;}catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');throw e;}},
@@ -139,7 +144,7 @@ export const socialMethods={
   if(!row)throw err(404,'판매 물건을 찾을 수 없습니다.');if(row.seller_id!==a.id)throw err(403,'내 상점의 물건만 내릴 수 있습니다.');if(row.status!=='ACTIVE')throw err(409,'이미 팔렸거나 내린 물건입니다.');
   return this.serial(a.id,()=>{
    const r=this.liveRuntime(a.id,'판매하는 모험가');r.tradeGive(JSON.parse(row.goods));
-   this.commit(()=>{const still=this.db.prepare('SELECT status FROM market WHERE id=?').get(id);if(still?.status!=='ACTIVE')throw err(409,'이미 팔렸거나 내린 물건입니다.');this.db.prepare("UPDATE market SET status='CANCELLED',updated_at=? WHERE id=?").run(now(),id);this.writeSave(a.id,r,'market-cancel-'+id,{type:'MARKET_CANCEL',listing:id});});
+   this.commit(()=>{const still=this.db.prepare('SELECT status FROM market WHERE id=?').get(id);if(still?.status!=='ACTIVE')throw err(409,'이미 팔렸거나 내린 물건입니다.');this.db.prepare("UPDATE market SET status='CANCELLED',updated_at=? WHERE id=?").run(now(),id);this.writeSave(a.id,r,'market-cancel-'+id+'-'+now(),{type:'MARKET_CANCEL',listing:id});});
    this.invalidate(a.id);this.broadcast({type:'market',id,status:'CANCELLED'},s=>s.account!==a.id);return {cancelled:id,returned:row.label,sync:true};
   });
  },
@@ -156,7 +161,7 @@ export const socialMethods={
     const still=this.db.prepare('SELECT status FROM market WHERE id=?').get(id);if(still?.status!=='ACTIVE')throw err(409,'방금 다른 모험가가 샀습니다.');
     this.db.prepare("UPDATE market SET status='SOLD',buyer_id=?,updated_at=? WHERE id=?").run(a.id,t,id);
     this.db.prepare('INSERT INTO market_wallet VALUES(?,?,1,?) ON CONFLICT(account_id) DO UPDATE SET mora=market_wallet.mora+excluded.mora,sales=market_wallet.sales+1,updated_at=excluded.updated_at').run(row.seller_id,gain,t);
-    this.writeSave(a.id,r,'market-buy-'+id,{type:'MARKET_BUY',listing:id});
+    this.writeSave(a.id,r,'market-buy-'+id+'-'+t,{type:'MARKET_BUY',listing:id});
    });
    this.invalidate(a.id);
    this.broadcast({type:'market',id,status:'SOLD',label:row.label,gain},s=>s.account===row.seller_id);this.broadcast({type:'market',id,status:'SOLD'},s=>s.account!==row.seller_id&&s.account!==a.id);
@@ -234,7 +239,8 @@ export const socialMethods={
     const ra=this.liveRuntime(d.a.id,d.a.name+' 님'),rb=this.liveRuntime(d.b.id,d.b.name+' 님');let fromA,fromB;
     try{fromA=ra.tradeTake(entries(d.a));fromB=rb.tradeTake(entries(d.b));}catch(e){throw err(409,'거래할 수 없습니다. '+e.message,'TRADE_FAILED');}
     ra.tradeGive(fromB);rb.tradeGive(fromA);
-    this.commit(()=>{this.writeSave(d.a.id,ra,'deal-'+d.id+'-a',{type:'DEAL',deal:d.id});this.writeSave(d.b.id,rb,'deal-'+d.id+'-b',{type:'DEAL',deal:d.id});});
+    this.commit(()=>{this.writeSave(d.a.id,ra,'deal-'+d.id+'-a',{type:'DEAL',deal:d.id});this.writeSave(d.b.id,rb,'deal-'+d.id+'-b',{type:'DEAL',deal:d.id});
+     this.db.prepare('INSERT INTO deal_log VALUES(?,?,?,?,?,?,?,?)').run(d.id,d.a.id,d.a.name,d.b.id,d.b.name,fromA.length?ra.tradeLabel(fromA):'없음',fromB.length?rb.tradeLabel(fromB):'없음',now());});
     this.invalidate(d.a.id);this.invalidate(d.b.id);
    }));
   }catch(e){for(const x of [d.a,d.b]){x.locked=false;x.confirmed=false;}d.note=e.message;d.updated=now();this.dealPush(d);throw e;}

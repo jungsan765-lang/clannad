@@ -25,7 +25,7 @@ function handle(ev){
 C.on=fn=>C.handlers.push(fn);
 // 0.14.12: the operator console changed this journey (or ended this login). Load it again from the server once the
 // current action has finished; a login that was ended returns to the login screen.
-const ADMIN_NEWS={gift:'운영자가 보낸 선물이 도착했습니다. 가방과 재화를 확인해 보세요.',reset:'운영자가 여정을 초기화했습니다.',profile:'계정 정보가 바뀌었습니다.'};
+const ADMIN_NEWS={gift:'운영자가 보낸 선물이 우편함에 도착했습니다.',reset:'운영자가 여정을 초기화했습니다.',profile:'계정 정보가 바뀌었습니다.'};
 C.on(async ev=>{
  if(ev?.type!=='admin'||!ev.sync)return;
  for(let i=0;i<20&&(busy||O.pending);i++)await new Promise(r=>setTimeout(r,500));

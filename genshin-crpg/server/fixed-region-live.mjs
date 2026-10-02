@@ -9,6 +9,7 @@ import {compact,executeAction,hash,same,passwordHash,token} from './game-core.mj
 import {splitState,joinState,diffParts,publicParts,wirePatch,intent} from './state-parts.mjs';
 import {AdminConsole,installAdminSchema,banOf,banMessage,SYSTEM_ACCOUNT} from './admin-api.mjs';
 import {installSocialSchema,migrateRankingSeasons,socialMethods,socialRoute} from './social-v01415.mjs';
+import {installLetterSchema,letterMethods,letterRoute} from './letters-v0151.mjs';
 
 const TRANSPORT_BUILD='fixed-region-live-sqlite-v1',MAX_BODY=65536,SESSION_MS=7*86400000,MAX_CACHE=16,now=()=>Date.now();
 const RID=/^[a-zA-Z0-9_-]{10,80}$/,JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'no-store'};
@@ -50,12 +51,12 @@ export class LiveRegionStore{
   this.db.exec(pragmas+ddl);installAdminSchema(this.db);migrateRankingSeasons(this.db);
   if(this.features.has('chat'))this.db.exec('CREATE TABLE IF NOT EXISTS chat(id INTEGER PRIMARY KEY AUTOINCREMENT,channel TEXT NOT NULL,account_id TEXT NOT NULL,author TEXT NOT NULL,text TEXT NOT NULL,created_at INTEGER NOT NULL,deleted INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS chat_channel_idx ON chat(channel,id);');
   if(this.features.has('trade'))this.db.exec("CREATE TABLE IF NOT EXISTS trades(id INTEGER PRIMARY KEY AUTOINCREMENT,from_id TEXT NOT NULL,to_id TEXT NOT NULL,give TEXT NOT NULL,want TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(from_id) REFERENCES accounts(id) ON DELETE CASCADE,FOREIGN KEY(to_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS trades_to_idx ON trades(to_id,status);CREATE INDEX IF NOT EXISTS trades_from_idx ON trades(from_id,status);");
-  installSocialSchema(this.db,this.features);
+  installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);
   this.heartbeat=setInterval(()=>this.push(': ping\n\n'),25000);this.heartbeat.unref?.();
  }
  close(){clearInterval(this.heartbeat);for(const s of this.subscribers){try{s.res.end();}catch{}}this.subscribers.clear();this.db.close();}
  need(feature){if(!this.features.has(feature))throw err(404,'지원하지 않는 요청입니다.');}
- capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1','profile-v1']:[]),...(this.features.has('trade')?['trade-v1','market-v1','deal-v1']:[])];}
+ capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1','profile-v1']:[]),...(this.features.has('trade')?['trade-v1','market-v1','deal-v1','mail-v1']:[])];}
  // ---------- chat ----------
  push(text,filter){for(const s of this.subscribers){if(filter&&!filter(s))continue;try{s.res.write(text);}catch{this.subscribers.delete(s);}}}
  broadcast(event,filter){this.push('data: '+JSON.stringify(event)+'\n\n',filter);}
@@ -181,7 +182,7 @@ export class LiveRegionStore{
  ranking(){const S=globalThis.CRPGRuntime?.abyssSeason,cur=this.seasonNow(),prev=S?.previous(cur),top=season=>this.db.prepare('SELECT display_name AS name,floor,rounds,attempts FROM ranking WHERE season=? ORDER BY floor DESC,rounds,attempts,achieved_at,account_id LIMIT 20').all(season).map((r,i)=>({rank:i+1,...r}));return {season:cur,label:S?.label(cur)||cur,endsAt:S?.end(cur)||null,entries:top(cur),previous:prev?{season:prev,label:S.label(prev),entries:top(prev)}:null};}
 }
 
-Object.assign(LiveRegionStore.prototype,socialMethods);
+Object.assign(LiveRegionStore.prototype,socialMethods,letterMethods);
 
 export function createLiveRegionHandler({store,allowedOrigin='https://clannad.shop',adminConsole=null}){
  return async(req,res)=>{const origin=req.headers.origin||'',host=req.headers.host||'',sameOrigin=!!origin&&!!host&&(origin===`https://${host}`||origin===`http://${host}`);if(origin&&origin!==allowedOrigin&&!sameOrigin)return send(res,403,{error:'허용되지 않은 접속 경로입니다.'},{vary:'Origin'});const c=cors(origin,sameOrigin?origin:allowedOrigin);
@@ -212,6 +213,8 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
    if(['/trade/accept','/trade/decline','/trade/cancel'].includes(path)&&req.method==='POST')return send(res,200,await store.tradeRespond(a,await body(req),path.slice(7)),c);
    // 0.14.15 profiles, the market and live trades (server/social-v01415.mjs).
    const social=await socialRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(social!==undefined)return send(res,200,social,c);
+   // 0.15.1 letters between adventurers (server/letters-v0151.mjs).
+   const letters=await letterRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(letters!==undefined)return send(res,200,letters,c);
    return send(res,404,{error:'지원하지 않는 요청입니다.'},c);
   }catch(e){const rule=!!(globalThis.CRPGRuntime?.RuleError&&e instanceof globalThis.CRPGRuntime.RuleError)||!!(globalThis.CRPGRelationships?.RelationshipError&&e instanceof globalThis.CRPGRelationships.RelationshipError);return send(res,e.status||(rule?400:500),{error:e.status||rule?e.message:'이 행동을 처리하지 못했습니다. 다른 행동을 선택하거나 잠시 뒤 다시 시도해 주세요.',...(e.code?{code:e.code}:{}),...(e.outcome?{outcome:e.outcome}:{}),...(e.code==='VERSION_MISMATCH'?{version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD}:{})},c);}
  };

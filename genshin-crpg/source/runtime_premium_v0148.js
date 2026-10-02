@@ -5,8 +5,9 @@
  *   and ACQUAINT_FATE (만남의 인연, standard wish) — whole numbers, 0 by default. Wishes are in runtime_wish_v01411.js.
  * - PREMIUM_BUY offers: 원석 160 → one fate of either kind (1-10 at a time); 스타라이트 → the 운명의 별 of a chosen
  *   fighter (5★ and the protagonist 40, 4★ 25, about a hundred wishes' worth); four field boss materials → 1 스타라이트;
- *   스타더스트 → 영웅의 경험 or Mora. The boss exchange and the stardust shop have weekly limits (Korean time, the week
- *   turns on Monday 00:00; the server's action clock decides online).
+ *   스타더스트 → 인연 (75 each, five of each kind a month; 0.15.1), 영웅의 경험 or Mora. The boss exchange and the other
+ *   stardust offers have weekly limits (Korean time, the week turns on Monday 00:00, the month on the 1st; the server's action
+ *   clock decides online).
  * - 운명의 별 · <character> unlocks that character's next 운명의 자리 (CONSTELLATION_UNLOCK), up to six. What each
  *   level does is in runtime_constellations_v01411.js.
  * - 특성: every fighter has 일반 공격 / 원소전투 스킬 / 원소폭발 at Lv.1-10 (s.talents; all Lv.1 for now), up to 13 with
@@ -23,17 +24,22 @@ const TALENT={MAX:10,CAP:13,KEYS:['na','e','q'],CURVE:[100,108,117,127,138,150,1
 // Weekly limits count in Korean time; the week turns on Monday 00:00.
 const KST=9*3600000,DAY=86400000,WEEK=7*DAY;
 const weekOf=now=>Math.floor((now+KST+3*DAY)/WEEK);
+const monthOf=now=>{const d=new Date(now+KST);return d.getUTCFullYear()*12+d.getUTCMonth();};
 const BOSS_MATERIALS=['MAT_FB_HURRICANE_SEED','MAT_FB_LIGHTNING_PRISM','MAT_FB_BASALT_PILLAR','MAT_FB_HOARFROST_CORE','MAT_FB_EVERFLAME_SEED','MAT_FB_CLEANSING_HEART','MAT_FB_JUVENILE_JADE','MAT_FB_CRYSTALLINE_BLOOM','MAT_FB_RUNIC_FANG'];
 const OFFERS=[
  {id:'FATE_INTERTWINED',shop:'PRIMOGEM',price:160,label:'뒤얽힌 인연',give:{INTERTWINED_FATE:1},bulk:10,note:'이벤트 기원에 쓰는 인연'},
  {id:'FATE_ACQUAINT',shop:'PRIMOGEM',price:160,label:'만남의 인연',give:{ACQUAINT_FATE:1},bulk:10,note:'상시 기원에 쓰는 인연'},
  {id:'GLITTER_STELLA',shop:'STARGLITTER',price:40,label:'운명의 별 · 원하는 동료 1명',stella:true,note:'5★ 동료와 주인공 40, 4★ 동료 25'},
  {id:'BOSS_GLITTER',shop:'BOSS',price:4,label:'스타라이트 ×1',give:{STARGLITTER:1},boss:true,weekly:5,note:'같은 필드 보스 재료 4개'},
+ // 0.15.1: 스타더스트 buys fates as in the original, five of each a month (user: 「스타더스트도 좀 과하게 나오거나,
+ // 쓸데가 없다거나 그런 경우가 있는것 같아서」). The month turns on the 1st at 00:00, Korean time.
+ {id:'DUST_ACQUAINT',shop:'STARDUST',price:75,label:'만남의 인연',give:{ACQUAINT_FATE:1},monthly:5,note:'상시 기원에 쓰는 인연'},
+ {id:'DUST_INTERTWINED',shop:'STARDUST',price:75,label:'뒤얽힌 인연',give:{INTERTWINED_FATE:1},monthly:5,note:'이벤트 기원에 쓰는 인연'},
  {id:'DUST_HERO_EXP',shop:'STARDUST',price:20,label:'영웅의 경험 ×1',items:{MAT_CHAR_EXP_HERO:1},weekly:5},
  // 0.14.12: about one 부의 꽃 (1,200~2,600) per exchange; 500 was less than half the smallest blossom.
  {id:'DUST_MORA',shop:'STARDUST',price:10,label:'모라 ×2,000',mora:2000,weekly:5}
 ];
-api.premiumV0148={currency:copy(CURRENCY),offers:copy(OFFERS),talent:copy(TALENT),bossMaterials:copy(BOSS_MATERIALS),weekOf};
+api.premiumV0148={currency:copy(CURRENCY),offers:copy(OFFERS),talent:copy(TALENT),bossMaterials:copy(BOSS_MATERIALS),weekOf,monthOf};
 const old=Object.fromEntries(['apply','actionReason','validateSave','combatDamageMultiplier','installMarketContent'].map(k=>[k,P[k]]));
 const int=x=>Math.max(0,Math.floor(Number(x)||0));
 // ---- reads ----
@@ -42,6 +48,8 @@ P.premiumWeek=function(){return weekOf(this.premiumNow());};
 P.premiumBalance=function(){const g=this.s.global;return Object.fromEntries(Object.keys(CURRENCY).map(k=>[k,int(g[k])]));};
 P.premiumWeeklyUsed=function(offer){const w=this.s.premiumWeekly;return w&&w.week===this.premiumWeek()?int(w.bought?.[offer]):0;};
 P.premiumWeekReset=function(){const now=this.premiumNow(),next=(this.premiumWeek()+1)*WEEK-KST-3*DAY;return {at:next,hours:Math.max(0,Math.ceil((next-now)/3600000))};};
+P.premiumMonth=function(){return monthOf(this.premiumNow());};
+P.premiumMonthlyUsed=function(offer){const m=this.s.premiumMonthly;return m&&m.month===this.premiumMonth()?int(m.bought?.[offer]):0;};
 P.constellationLevel=function(id){return Math.max(0,Math.min(6,int(this.s.constellations?.[id])));};
 P.premiumRarity=function(id){if(id===PLAYER)return 5;return this.constellationInfo?.(id)?.rarity||4;};
 P.premiumStellaPrice=function(id){return this.premiumRarity(id)>=5?40:25;};
@@ -80,6 +88,7 @@ P.premiumOfferReason=function(a={}){
  const count=a.count===undefined?1:a.count;
  if(!Number.isInteger(count)||count<1||count>(o.bulk||1))return '수량을 확인해 주세요.';
  if(o.weekly&&this.premiumWeeklyUsed(o.id)+count>o.weekly)return '이번 주에는 더 교환할 수 없습니다. (주간 '+o.weekly+'회, 월요일 0시 초기화)';
+ if(o.monthly&&this.premiumMonthlyUsed(o.id)+count>o.monthly)return '이번 달에는 더 교환할 수 없습니다. (매달 '+o.monthly+'회, 1일 0시 초기화)';
  if(o.boss){if(!BOSS_MATERIALS.includes(a.item))return '교환할 필드 보스 재료를 골라 주세요.';if(this.itemCount(a.item)<o.price*count)return '같은 필드 보스 재료가 '+(o.price*count)+'개 필요합니다.';return '';}
  if(o.stella){
   if(!a.char||!this.premiumOwns(a.char))return '운명의 별을 받을 동료를 골라 주세요.';
@@ -110,6 +119,7 @@ P.apply=function(a){
   if(o.mora)g.MORA=int(g.MORA)+o.mora*count;
   if(o.stella)this.giveItem(STELLA(a.char),1);
   if(o.weekly){const w=this.premiumWeek();if(this.s.premiumWeekly?.week!==w)this.s.premiumWeekly={week:w,bought:{}};this.s.premiumWeekly.bought[o.id]=int(this.s.premiumWeekly.bought[o.id])+count;}
+  if(o.monthly){const m=this.premiumMonth();if(this.s.premiumMonthly?.month!==m)this.s.premiumMonthly={month:m,bought:{}};this.s.premiumMonthly.bought[o.id]=int(this.s.premiumMonthly.bought[o.id])+count;}
   return {offer:o.id,count,char:a.char||null,item:a.item||null,balance:this.premiumBalance()};}
  return old.apply.call(this,a);
 };
@@ -119,6 +129,7 @@ P.validateSave=function(s){
  for(const [id,n]of Object.entries(out.constellations||{}))if(!Number.isInteger(n)||n<0||n>6||!(id===PLAYER||this.tables['07_CHAR_DB']?.has(id)))fail('PREMIUM_SAVE','운명의 자리 기록이 올바르지 않습니다.');
  for(const [id,t]of Object.entries(out.talents||{})){if(!t||typeof t!=='object')fail('PREMIUM_SAVE','특성 기록이 올바르지 않습니다.');for(const k of TALENT.KEYS)if(t[k]!==undefined&&!(Number.isInteger(t[k])&&t[k]>=1&&t[k]<=TALENT.MAX))fail('PREMIUM_SAVE','특성 기록이 올바르지 않습니다.');}
  const w=out.premiumWeekly;if(w!==undefined&&w!==null&&(typeof w!=='object'||!Number.isInteger(w.week)||!w.bought||typeof w.bought!=='object'||Object.entries(w.bought).some(([k,n])=>!OFFERS.some(o=>o.id===k)||!Number.isInteger(n)||n<0)))fail('PREMIUM_SAVE','주간 교환 기록이 올바르지 않습니다.');
+ const m=out.premiumMonthly;if(m!==undefined&&m!==null&&(typeof m!=='object'||!Number.isInteger(m.month)||!m.bought||typeof m.bought!=='object'||Object.entries(m.bought).some(([k,n])=>!OFFERS.some(o=>o.id===k&&o.monthly)||!Number.isInteger(n)||n<0)))fail('PREMIUM_SAVE','월간 교환 기록이 올바르지 않습니다.');
  return out;
 };
 // ---- combat: talent levels ----

@@ -206,3 +206,14 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 | `chest_luxurious.webp` | 화려한 보물상자 `Item_Luxurious_Chest.png` | `a5b416bc…1c3ac31f` |
 
 원본 위치: https://genshin-impact.fandom.com/wiki/File:Item_Common_Chest.png (나머지 둘도 같은 형식의 파일 페이지).
+
+# v0.15.1 운명의 별 아이콘
+
+`item-icons.json`의 `STELLA_FORTUNA_4`·`STELLA_FORTUNA_5` 2개. 원신 위키(Genshin Impact Wiki) 파일 페이지의 원작 그림(Stella Fortuna, 4성·5성)을 받아 256px 이내 WebP(q90)로 바꿨다. 기원 결과·교환소·운명의 자리 화면에서 쓴다.
+
+| 파일 | 원작 그림 | 원본 SHA-256 |
+|---|---|---|
+| `UI_ItemIcon_StellaFortuna4.webp` | 운명의 별(4★) `Item_Stella_Fortuna_(4_Star).png` | `06614b8a…c6f7b3a0` |
+| `UI_ItemIcon_StellaFortuna5.webp` | 운명의 별(5★) `Item_Stella_Fortuna_(5_Star).png` | `3bb77dd3…3eb20e72` |
+
+원본 위치: https://genshin-impact.fandom.com/wiki/File:Item_Stella_Fortuna_(5_Star).png (4성도 같은 형식의 파일 페이지).

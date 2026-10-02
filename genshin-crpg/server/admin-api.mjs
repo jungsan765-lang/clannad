@@ -10,6 +10,7 @@
 import {R,DB as GAME_DB,ENGINE_VERSION,ENGINE_FINGERPRINT,SERVER_BUILD} from './generated/engine.mjs';
 import {compact,passwordHash,token,hash,same} from './game-core.mjs';
 import {splitState,joinState,diffParts} from './state-parts.mjs';
+import {MARKET} from './social-v01415.mjs';
 
 const err=(status,message,code)=>Object.assign(new Error(message),{status,code});
 const now=()=>Date.now();
@@ -123,10 +124,16 @@ export class AdminConsole{
   const rows=this.db.prepare('SELECT c.*,a.username FROM chat c LEFT JOIN accounts a ON a.id=c.account_id ORDER BY c.id DESC LIMIT 100').all();
   return {enabled:true,messages:rows.map(x=>({id:x.id,channel:x.channel,accountId:x.account_id,username:x.account_id===SYSTEM_ACCOUNT?null:x.username,author:x.author,text:x.text,deleted:x.deleted===1,at:x.created_at}))};
  }
+ // 0.15.1: the market (listings, sales, fees) and finished live trades are listed too, next to the old exchange log.
  trades(){
-  if(!this.store.features.has('trade'))return {enabled:false,trades:[]};
-  const name=id=>this.db.prepare('SELECT username,display_name FROM accounts WHERE id=?').get(id);
-  return {enabled:true,trades:this.db.prepare('SELECT * FROM trades ORDER BY id DESC LIMIT 60').all().map(t=>{const f=name(t.from_id),to=name(t.to_id);return {id:t.id,from:f?f.display_name+' (@'+f.username+')':'떠난 모험가',to:to?to.display_name+' (@'+to.username+')':'떠난 모험가',give:JSON.parse(t.give).map(x=>x.label).join(', '),want:JSON.parse(t.want).map(x=>x.label).join(', '),status:t.status,note:t.note,at:t.created_at,updated:t.updated_at};})};
+  if(!this.store.features.has('trade'))return {enabled:false,trades:[],market:[],deals:[],letters:[]};
+  const name=id=>this.db.prepare('SELECT username,display_name FROM accounts WHERE id=?').get(id),who=(id,fallback)=>{const x=id?name(id):null;return x?x.display_name+' (@'+x.username+')':fallback;};
+  const table=t=>!!this.db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get(t);
+  const trades=table('trades')?this.db.prepare('SELECT * FROM trades ORDER BY id DESC LIMIT 60').all().map(t=>({id:t.id,from:who(t.from_id,'떠난 모험가'),to:who(t.to_id,'떠난 모험가'),give:JSON.parse(t.give).map(x=>x.label).join(', '),want:JSON.parse(t.want).map(x=>x.label).join(', '),status:t.status,note:t.note,at:t.created_at,updated:t.updated_at})):[];
+  const market=table('market')?this.db.prepare('SELECT * FROM market ORDER BY updated_at DESC,id DESC LIMIT 80').all().map(x=>({id:x.id,seller:who(x.seller_id,x.seller_name+' (떠난 모험가)'),buyer:x.buyer_id?who(x.buyer_id,'떠난 모험가'):'',label:x.label,price:x.price,fee:Math.max(1,Math.ceil(x.price*MARKET.fee)),status:x.status,at:x.created_at,updated:x.updated_at})):[];
+  const deals=table('deal_log')?this.db.prepare('SELECT * FROM deal_log ORDER BY at DESC LIMIT 60').all().map(d=>({id:d.id,a:who(d.a_id,d.a_name+' (떠난 모험가)'),b:who(d.b_id,d.b_name+' (떠난 모험가)'),aGave:d.a_gave,bGave:d.b_gave,at:d.at})):[];
+  const letters=table('letters')?this.db.prepare('SELECT * FROM letters ORDER BY id DESC LIMIT 80').all().map(x=>({id:x.id,from:who(x.from_id,x.from_name+' (떠난 모험가)'),to:who(x.to_id,x.to_name+' (떠난 모험가)'),title:x.title,body:x.body,label:x.label,mora:x.mora,fee:x.fee,status:x.status,note:x.note,at:x.created_at,updated:x.updated_at})):[];
+  return {enabled:true,trades,market,deals,letters};
  }
  // ---------- save changes ----------
  // Load, change through the game's own rules, check that the result opens again, then commit as one revision with
@@ -140,12 +147,13 @@ export class AdminConsole{
    const after=splitState(r.s);return this.commit(a,m,before,after,label,out,r.s,reason);
   });
  }
- commit(a,m,before,after,label,out,state,reason='change'){
+ commit(a,m,before,after,label,out,state,reason='change',extra=null){
   const d=diffParts(before,after),t=now(),rid='admin-'+t+'-'+token().slice(0,8),db=this.db;
   db.exec('BEGIN IMMEDIATE');
   try{
    const del=db.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=db.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
    for(const p of d.remove)del.run(a.id,p);for(const [p,v] of d.set)up.run(a.id,p,v);
+   extra?.(db);
    db.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(a.id,m.revision,JSON.stringify(d.undo),t);db.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(a.id,m.revision-3);
    db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(a.id,rid,m.revision+1,m.revision,'admin',JSON.stringify({result:{type:'ADMIN',label}}),t);
    db.prepare('UPDATE metadata SET revision=?,last_request_id=?,updated_at=? WHERE account_id=?').run(m.revision+1,rid,t,a.id);
@@ -158,12 +166,48 @@ export class AdminConsole{
  // Tell an open game of that player to fetch its journey again (a change, a gift, a reset, or a logout that ends its
  // session). Without the chat stream the game finds out at its next action, which the revision check turns into a sync.
  notify(id,reason='change'){this.store.broadcast({type:'admin',sync:true,reason},s=>s.account===id);}
- applyOps(r,ops){
+ // 0.15.1: grants go to the player's mailbox as one gift mail, every other change sends one notice mail
+ // (runtime_mail_v0151.js).
+ applyOps(r,ops,mail={}){
   if(!Array.isArray(ops)||!ops.length||ops.length>40)throw err(400,'작업을 1~40개 골라 주세요.');
   const lines=[];for(const op of ops){try{lines.push(r.adminApply(op));}catch(e){throw err(400,(e.message||'적용하지 못했습니다.'),'ADMIN_OP');}}
-  return {changes:lines};
+  const sent=r.adminMailFlush?.({title:clean(mail.title).slice(0,60),body:String(mail.body||'').slice(0,600)})||[];
+  return {changes:lines,mail:sent};
  }
- async save(b,actor,ip){const a=this.accountRow(b?.id),ops=b?.ops;const out=await this.editSave(a,r=>this.applyOps(r,ops),'운영자 변경');this.audit(actor,ip,a,'save',{ops,changes:out.changes});return out;}
+ async save(b,actor,ip){const a=this.accountRow(b?.id),ops=b?.ops;const out=await this.editSave(a,r=>this.applyOps(r,ops,{title:b?.mailTitle,body:b?.mailBody}),'운영자 변경');this.audit(actor,ip,a,'save',{ops,changes:out.changes});return out;}
+ // A rollback puts the journey back, so the market has to follow (user report: 되돌리기가 시장 판매 등록을 함께 되돌리지
+ // 않음). Newest step first: a listing made in a reverted step is taken off the market (its goods are back in the bag),
+ // a listing taken down is put back up, collected sale money goes back into the wallet, and a purchase is undone when the
+ // seller has not taken the money yet. A sold listing or a live trade involves another player and stops the rollback.
+ marketUndo(id,receipts){
+  const lines=[],ops=[],status=new Map(),wallet=new Map(),has=this.store.features.has('trade');
+  const row=lid=>has?this.db.prepare('SELECT * FROM market WHERE id=?').get(lid):null;
+  const money=n=>Number(n||0).toLocaleString('ko-KR');
+  for(const rc of receipts){
+   let res;try{res=JSON.parse(rc.result)?.result;}catch{continue;}const t=res?.type;if(!t||!/^(MARKET_|DEAL$)/.test(t))continue;
+   if(t==='DEAL')throw err(409,'되돌릴 단계 안에 직접 거래(저장 '+rc.revision+')가 있습니다. 상대 모험가의 저장도 함께 바뀌어 되돌릴 수 없으니 그보다 적은 단계로 되돌려 주세요.');
+   if(!has)throw err(409,'시장 기록이 있는 단계는 거래 기능이 꺼진 서버에서 되돌릴 수 없습니다.');
+   if(t==='MARKET_COLLECT'){const n=Number(res.mora)||0;if(n>0){ops.push(db=>db.prepare('INSERT INTO market_wallet VALUES(?,?,0,?) ON CONFLICT(account_id) DO UPDATE SET mora=market_wallet.mora+excluded.mora,updated_at=excluded.updated_at').run(id,n,now()));lines.push('받았던 판매 대금 '+money(n)+' 모라를 다시 받을 수 있게 돌려놓음');}continue;}
+   const lid=Number(res.listing),x=row(lid);if(!x)throw err(409,'시장 기록(물건 '+lid+')을 찾을 수 없어 되돌릴 수 없습니다.');
+   const cur=status.get(lid)??x.status;
+   if(t==='MARKET_CANCEL'){
+    if(cur!=='CANCELLED')throw err(409,'시장에서 내렸던 「'+x.label+'」의 상태가 바뀌어 되돌릴 수 없습니다.');
+    status.set(lid,'ACTIVE');ops.push(db=>db.prepare("UPDATE market SET status='ACTIVE',updated_at=? WHERE id=?").run(now(),lid));lines.push('내렸던 「'+x.label+'」을(를) 다시 시장에 올림');
+   }else if(t==='MARKET_SELL'){
+    if(cur==='SOLD')throw err(409,'되돌릴 단계 안에 올린 「'+x.label+'」이(가) 이미 팔렸습니다. 산 모험가가 있으므로 그 단계는 되돌릴 수 없습니다.');
+    if(cur!=='ACTIVE')throw err(409,'시장에 올린 「'+x.label+'」의 상태가 바뀌어 되돌릴 수 없습니다.');
+    status.set(lid,'GONE');ops.push(db=>db.prepare('DELETE FROM market WHERE id=?').run(lid));lines.push('시장에 올린 「'+x.label+'」 등록을 지움(물건은 가방으로 돌아감)');
+   }else if(t==='MARKET_BUY'){
+    if(cur!=='SOLD'||x.buyer_id!==id)throw err(409,'산 「'+x.label+'」의 시장 기록이 바뀌어 되돌릴 수 없습니다.');
+    const gain=x.price-Math.max(1,Math.ceil(x.price*MARKET.fee)),left=wallet.get(x.seller_id)??(this.db.prepare('SELECT mora FROM market_wallet WHERE account_id=?').get(x.seller_id)?.mora||0);
+    if(left<gain)throw err(409,'되돌릴 단계 안의 구매(「'+x.label+'」)는 판매자가 이미 대금을 받아 가서 되돌릴 수 없습니다.');
+    wallet.set(x.seller_id,left-gain);status.set(lid,'ACTIVE');
+    ops.push(db=>{db.prepare("UPDATE market SET status='ACTIVE',buyer_id=NULL,updated_at=? WHERE id=?").run(now(),lid);db.prepare('UPDATE market_wallet SET mora=mora-?,sales=MAX(0,sales-1),updated_at=? WHERE account_id=?').run(gain,now(),x.seller_id);});
+    lines.push('산 「'+x.label+'」을(를) 시장에 되돌리고 판매자 대금에서 '+money(gain)+' 모라를 뺌');
+   }
+  }
+  return {lines,changed:ops.length>0,apply:db=>{for(const f of ops)f(db);}};
+ }
  async rollback(b,actor,ip){
   // Every save keeps the undo of its last four changes (player actions and operator changes alike).
   const a=this.accountRow(b?.id),steps=Number(b?.steps||1);if(!Number.isInteger(steps)||steps<1||steps>4)throw err(400,'1~4단계까지 되돌릴 수 있습니다.');
@@ -172,7 +216,15 @@ export class AdminConsole{
    const before=this.store.loadParts(a.id);let state=new Map(before);
    for(let k=1;k<=steps;k++){const row=this.db.prepare('SELECT undo FROM backups WHERE account_id=? AND revision=?').get(a.id,m.revision-k);if(!row)throw err(404,'되돌릴 기록이 '+(k-1)+'단계까지만 남아 있습니다.');const undo=JSON.parse(row.undo);for(const [p,v] of undo.set)state.set(p,v);for(const p of undo.remove)state.delete(p);}
    let r;try{r=new R(GAME_DB,joinState(state),true);}catch(e){throw err(400,'되돌린 저장이 검사를 통과하지 못했습니다: '+e.message);}
-   return this.commit(a,m,before,splitState(r.s),'운영자 되돌리기',{changes:[steps+'단계 전(저장 '+(m.revision-steps)+') 상태로 되돌림']},r.s,'rollback');
+   const receipts=this.db.prepare('SELECT revision,result FROM receipts WHERE account_id=? AND revision>? AND revision<=? ORDER BY revision DESC').all(a.id,m.revision-steps,m.revision);
+   // Letters sent or taken in those steps follow too (server/letters-v0151.mjs).
+   const market=this.marketUndo(a.id,receipts),letters=this.store.letterUndo?.(a.id,receipts)||{lines:[],changed:false,notify:[],apply:()=>{}},lines=[...market.lines,...letters.lines];
+   const changes=[steps+'단계 전(저장 '+(m.revision-steps)+') 상태로 되돌림',...lines];
+   r.mailAdd?.({kind:'NOTICE',title:'운영자가 여정을 되돌렸습니다',body:'운영자가 이 여정을 '+steps+'단계 전 상태로 되돌렸습니다.'+(lines.length?'\n'+lines.map(x=>'· '+x).join('\n'):'')});
+   const out=this.commit(a,m,before,splitState(r.s),'운영자 되돌리기',{changes},r.s,'rollback',db=>{market.apply(db);letters.apply(db);});
+   if(market.changed)this.store.broadcast({type:'market',status:'CHANGED'},()=>true);
+   for(const id of letters.notify)this.store.broadcast({type:'mail',status:'CHANGED'},s=>s.account===id);
+   return out;
   });
   this.audit(actor,ip,a,'rollback',{steps});return out;
  }
@@ -219,7 +271,8 @@ export class AdminConsole{
   const days=Number(b?.days||0),since=days>0?now()-days*86400000:0;
   const ids=this.db.prepare('SELECT m.account_id AS id FROM metadata m JOIN accounts a ON a.id=m.account_id WHERE m.revision IS NOT NULL AND m.updated_at>=? AND a.id<>?').all(since,SYSTEM_ACCOUNT).map(x=>x.id);
   let done=0;const failed=[];
-  for(const id of ids){const a=this.accountRow(id);try{await this.editSave(a,r=>this.applyOps(r,ops),'운영자 전체 지급','gift');done++;}catch(e){failed.push({username:a.username,error:e.message});}}
+  const mail={title:b?.mailTitle,body:b?.mailBody};
+  for(const id of ids){const a=this.accountRow(id);try{await this.editSave(a,r=>this.applyOps(r,ops,mail),'운영자 전체 지급','gift');done++;}catch(e){failed.push({username:a.username,error:e.message});}}
   this.audit(actor,ip,null,'bulk',{ops,days,targets:ids.length,done,failed:failed.length});return {targets:ids.length,done,failed};
  }
  notice(b,actor,ip){
