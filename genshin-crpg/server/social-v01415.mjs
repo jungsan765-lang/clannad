@@ -79,6 +79,8 @@ export const socialMethods={
   const t=this.accountByPid(pid);if(!t)throw err(404,'모험가를 찾을 수 없습니다.');
   const out={name:t.display_name,pid:pidOf(t.id),you:t.id===a.id,online:this.isOnline(t.id),staff:this.admins.has(t.id),honours:this.honours(t.id),listings:0};
   if(this.features.has('trade'))out.listings=this.db.prepare("SELECT COUNT(*) AS n FROM market WHERE seller_id=? AND status='ACTIVE'").get(t.id).n;
+  // 0.15.3 다인 모드: whether they host a room the viewer can join, or can be invited into the viewer's (coop-v0153.mjs).
+  out.coop=this.coopProfileInfo?.(t.id,a.id)||null;
   const r=this.profileRuntime(t.id);if(!r)return {...out,journey:false};
   const g=r.s.global,ids=(r.adminCompanions?.()||[]).filter(id=>r.adminJoined?.(id));
   const gearOf=owner=>(r.s.inventory||[]).filter(i=>i.equipped&&i.owner===owner&&i.equip).map(i=>{const row=r.tables['16_EQUIP_DB'].get(i.equip);return {equip:i.equip,name:row?.[1]||i.equip,category:i.category||row?.[2]||'',enhance:Number(i.enhance)||0,artifact:!!i.artifact};});

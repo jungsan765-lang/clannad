@@ -2564,6 +2564,141 @@ body.teyvat .wish-screen .wish-reveal.kind-char.rarity-5 .wish-reveal-info h2.wi
  .ac-side{flex-direction:row;align-items:center;margin-left:54px}
  .mut-time{margin-left:0;flex-basis:100%}
 }
+/* ---------- 0.15.3 다인 모드 (app_coop_v0153.js): the window, the guest's battle window, the host's marks ---------- */
+body.teyvat :is(.cp-overlay,.cp-battle){position:fixed;inset:0;z-index:2150;display:grid;place-items:center;padding:16px;background:rgba(5,7,14,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .16s;word-break:keep-all;overflow-wrap:anywhere}
+body.teyvat .cp-battle{z-index:2160;background:rgba(5,7,14,.78)}
+body.teyvat :is(.cp-overlay,.cp-battle).open{opacity:1}
+body.teyvat :is(.cp-box,.cp-bbox){width:min(860px,100%);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#1a2335,#121826 60%);color:#ece5d8;border:1px solid rgba(140,190,255,.42);box-shadow:0 26px 70px rgba(0,0,0,.6)}
+body.teyvat .cp-bbox{width:min(980px,100%);height:calc(100dvh - 32px)}
+body.teyvat :is(.cp-head,.cp-bhead){display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid rgba(160,200,255,.2)}
+body.teyvat .cp-head-icon{width:32px!important;height:32px!important;padding:5px;border-radius:50%;background:linear-gradient(#cfe9ff,#5d9ad6);color:#10243a;fill:none;stroke:currentColor;stroke-width:1.6;flex:none}
+body.teyvat .cp-head-copy{display:flex;flex-direction:column;flex:1;min-width:0}
+body.teyvat .cp-head-copy strong{font:700 1.1rem 'Gowun Batang',serif;color:#d6ebff}
+body.teyvat .cp-head-copy small{color:#b3b9c6;font-size:.78rem}
+body.teyvat :is(.cp-close,.cp-back){width:36px;height:36px;min-height:0;padding:0;margin:0;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(236,229,216,.25);color:#ece5d8;cursor:pointer;flex:none}
+body.teyvat :is(.cp-close,.cp-back) .shell-icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8}
+body.teyvat .cp-btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;min-height:38px;margin:0;padding:6px 16px;border-radius:19px;border:1px solid rgba(236,229,216,.3);background:rgba(255,255,255,.07);color:#ece5d8;font:inherit;font-size:.86rem;line-height:1.3;cursor:pointer;word-break:keep-all}
+body.teyvat .cp-btn.primary{background:linear-gradient(#fbf6ea,#e2d7bf);color:#3b4255;font-weight:800;border:2px solid #fff;box-shadow:0 3px 0 #b7a98a,0 8px 18px rgba(0,0,0,.4)}
+body.teyvat .cp-btn.cp-danger{border-color:rgba(255,150,130,.55);color:#ffc9bf}
+body.teyvat .cp-btn.cp-mini{min-height:30px;padding:3px 12px;font-size:.76rem;font-weight:600}
+body.teyvat .cp-btn:disabled{opacity:.5;cursor:not-allowed}
+body.teyvat :is(.cp-body,.cp-bbody){flex:1;min-height:0;overflow:auto;padding:14px 16px 18px;display:flex;flex-direction:column;gap:14px}
+body.teyvat :is(.cp-body,.cp-bbody) h3{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px;font-size:.95rem;color:#f3dfae}
+body.teyvat :is(.cp-row,.cp-actions){display:flex;flex-wrap:wrap;gap:8px}
+body.teyvat .cp-note{margin:0;font-size:.8rem;color:#b9c0cc;line-height:1.5}
+body.teyvat .cp-why{margin:4px 0 0;font-size:.8rem;color:#ffb8a2;line-height:1.45}
+body.teyvat .cp-empty{margin:0;padding:12px;border-radius:12px;background:rgba(255,255,255,.04);color:#a9b0bc;font-size:.86rem;text-align:center}
+body.teyvat .cp-msg{margin:0;padding:10px 16px;background:rgba(232,96,76,.15);color:#ffc9bf;font-size:.86rem;line-height:1.45;border-top:1px solid rgba(232,96,76,.35)}
+body.teyvat .cp-rules{display:flex;flex-direction:column;gap:4px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px dashed rgba(160,200,255,.25)}
+body.teyvat .cp-rules p{margin:0;font-size:.78rem;color:#c3c9d4;line-height:1.55}
+body.teyvat :is(.cp-room,.cp-invite-row,.cp-state){display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+body.teyvat .cp-room+.cp-room{margin-top:8px}
+body.teyvat :is(.cp-room.invited,.cp-invite-row){border-color:rgba(243,223,174,.55)}
+body.teyvat .cp-room-copy{flex:1;min-width:180px;display:flex;flex-direction:column;gap:2px}
+body.teyvat .cp-room-copy small{color:#b9c0cc;font-size:.78rem}
+body.teyvat .cp-room-members{color:#9fd2ff!important}
+body.teyvat .cp-invite-row strong{flex:1;min-width:150px}
+body.teyvat .cp-state{flex-direction:column;align-items:flex-start}
+body.teyvat .cp-state.running{border-color:rgba(255,190,120,.6);background:rgba(120,70,20,.25)}
+body.teyvat .cp-state small{color:#c9cfd9;font-size:.82rem;line-height:1.5}
+body.teyvat :is(.cp-chars,.cp-team){display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+body.teyvat .cp-team>h3{grid-column:1/-1}
+body.teyvat .cp-char{display:flex;align-items:center;gap:10px;width:100%;min-width:0;margin:0;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#ece5d8;font:inherit;text-align:left;position:relative}
+body.teyvat button.cp-char{cursor:pointer}
+body.teyvat button.cp-char:hover:not(:disabled){border-color:rgba(160,200,255,.7)}
+body.teyvat .cp-char.rarity-5{box-shadow:inset 3px 0 0 #e8b85b}
+body.teyvat .cp-char.rarity-4{box-shadow:inset 3px 0 0 #a98be0}
+body.teyvat .cp-char:disabled{opacity:.6}
+body.teyvat .cp-face{width:48px;height:48px;flex:none;border-radius:50%;object-fit:cover;object-position:50% 15%;background:rgba(255,255,255,.08)}
+body.teyvat .cp-face-glyph{display:grid;place-items:center;color:#f3dfae;font-size:1.3rem}
+body.teyvat .cp-char-copy{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+body.teyvat .cp-char-copy strong{font-size:.92rem}
+body.teyvat .cp-char-copy small{font-size:.72rem;color:#b9c0cc;line-height:1.4}
+body.teyvat .cp-char-gear{color:#d8c79a!important;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+body.teyvat .cp-char-why{position:absolute;right:8px;bottom:6px;font-style:normal;font-size:.68rem;color:#ffb8a2;max-width:45%;text-align:right}
+body.teyvat .cp-member{display:flex;flex-direction:column;gap:4px;padding:6px;border-radius:16px;background:rgba(0,0,0,.18)}
+body.teyvat .cp-member.me{outline:1px solid rgba(159,210,255,.6)}
+body.teyvat .cp-member.host{outline:1px solid rgba(243,223,174,.5)}
+body.teyvat .cp-member.empty{display:grid;place-items:center;min-height:64px;color:#7f8694;font-size:.82rem;border:1px dashed rgba(255,255,255,.15)}
+body.teyvat .cp-member-who{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:0 4px;font-size:.8rem;color:#d6ebff}
+body.teyvat .cp-member>.cp-btn{align-self:flex-end}
+body.teyvat .cp-ready{font-style:normal;font-size:.7rem;padding:1px 8px;border-radius:9px;background:rgba(255,255,255,.08);color:#b9c0cc}
+body.teyvat .cp-ready.on{background:rgba(120,200,140,.25);color:#bdf0c8}
+body.teyvat .cp-invite{display:flex;flex-direction:column;gap:6px}
+body.teyvat .cp-online{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.04);font-size:.86rem}
+/* the guest's battle window */
+body.teyvat .cp-turn{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+body.teyvat .cp-turn.mine{background:rgba(90,140,220,.22);border-color:rgba(159,210,255,.75);box-shadow:0 0 18px rgba(120,180,255,.25)}
+body.teyvat .cp-turn-who{flex:1;min-width:160px;font-size:.98rem}
+body.teyvat .cp-turn .cp-note{flex-basis:100%}
+body.teyvat .cp-count{min-width:52px;padding:2px 10px;border-radius:12px;background:#ece5d8;color:#2b2f3a;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
+body.teyvat :is(.cp-count,.cp-host-count).hurry{background:#ff8f73;color:#2b1208}
+body.teyvat .cp-sides{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+body.teyvat .cp-side{display:flex;flex-direction:column;gap:6px;min-width:0}
+body.teyvat .cp-side h3{margin:0}
+body.teyvat .cp-unit{display:flex;flex-direction:column;gap:3px;padding:7px 10px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+body.teyvat .cp-unit.mine{border-color:rgba(159,210,255,.7)}
+body.teyvat .cp-unit.acting{box-shadow:0 0 0 2px rgba(243,223,174,.7)}
+body.teyvat .cp-unit.down{opacity:.45}
+body.teyvat .cp-unit-top{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px}
+body.teyvat .cp-unit-top strong{font-size:.88rem}
+body.teyvat .cp-unit-top small{font-size:.7rem;color:#b9c0cc}
+body.teyvat .cp-tag{font-style:normal;font-size:.66rem;padding:0 7px;border-radius:8px;background:rgba(159,210,255,.2);color:#cfe7ff}
+body.teyvat .cp-tag.me{background:#9fd2ff;color:#10243a;font-weight:800}
+body.teyvat .cp-tag.host{background:rgba(243,223,174,.2);color:#f3dfae}
+body.teyvat .cp-tag.auto{background:rgba(255,255,255,.1);color:#c9cfd9}
+body.teyvat .cp-tag.boss{background:rgba(255,120,90,.3);color:#ffd0c4}
+body.teyvat .cp-hp{height:7px;border-radius:4px;background:rgba(0,0,0,.35);overflow:hidden}
+body.teyvat .cp-hp>span{display:block;height:100%;background:linear-gradient(90deg,#7fd68a,#c6f0a0)}
+body.teyvat .enemies .cp-hp>span{background:linear-gradient(90deg,#e8604c,#ff9a7a)}
+body.teyvat :is(.cp-hp-num,.cp-unit-st){font-size:.7rem;color:#b9c0cc;font-variant-numeric:tabular-nums}
+body.teyvat .cp-commands{display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:14px;background:rgba(90,140,220,.12);border:1px solid rgba(159,210,255,.35)}
+body.teyvat .cp-cards{display:flex;flex-wrap:wrap;gap:8px}
+body.teyvat .cp-card{display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:120px;max-width:100%;margin:0;padding:7px 12px;border-radius:14px;border:1px solid rgba(236,229,216,.25);background:rgba(255,255,255,.06);color:#ece5d8;font:inherit;text-align:left;cursor:pointer}
+body.teyvat .cp-card strong{font-size:.86rem}
+body.teyvat .cp-card small{font-size:.7rem;color:#b9c0cc}
+body.teyvat .cp-card.selected{background:#ece5d8;color:#2b2f3a;border-color:#fff}
+body.teyvat .cp-card.selected small{color:#5b6070}
+body.teyvat .cp-card:disabled{opacity:.5;cursor:not-allowed}
+body.teyvat .cp-go{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+body.teyvat .cp-select{min-height:38px;max-width:100%;padding:4px 10px;border-radius:10px;background:rgba(10,14,24,.8);color:#ece5d8;border:1px solid rgba(236,229,216,.3);font:inherit;font-size:.86rem}
+body.teyvat .cp-run{min-width:96px}
+body.teyvat .cp-log{display:flex;flex-direction:column;gap:2px}
+body.teyvat .cp-log p{margin:0;font-size:.76rem;color:#c3c9d4;line-height:1.45}
+body.teyvat .cp-result{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 12px;text-align:center}
+body.teyvat .cp-result h2{margin:0;font:700 1.6rem 'Gowun Batang',serif;color:#ffe08a}
+body.teyvat .cp-result.lose h2{color:#c9cfd9}
+body.teyvat .cp-result p{margin:0;line-height:1.55}
+body.teyvat .cp-bfoot{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;padding:10px 16px;border-top:1px solid rgba(160,200,255,.15)}
+body.teyvat .cp-pill{position:fixed;z-index:2055;right:12px;bottom:calc(var(--dock-h,0px) + 14px);display:flex;align-items:center;gap:8px;min-height:44px;margin:0;padding:6px 16px 6px 10px;border-radius:22px;background:rgba(18,24,38,.95);border:1px solid rgba(159,210,255,.6);color:#d6ebff;font:inherit;font-size:.86rem;box-shadow:0 8px 22px rgba(0,0,0,.5);cursor:pointer}
+body.teyvat .cp-pill .shell-icon{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6}
+body.teyvat .cp-pill.mine{background:#9fd2ff;color:#10243a;animation:reTease 1.6s ease-in-out infinite}
+body.teyvat .cp-invite-pop{position:fixed;z-index:2060;left:50%;top:76px;translate:-50% 0;width:min(380px,calc(100vw - 24px));display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:16px;background:linear-gradient(180deg,#1f2638,#161b29);color:#ece5d8;border:1px solid rgba(159,210,255,.65);box-shadow:0 18px 50px rgba(0,0,0,.55);animation:shellIn .25s ease-out;word-break:keep-all;overflow-wrap:anywhere}
+body.teyvat .cp-invite-pop small{color:#bdb6a9}
+/* the host's battle screen */
+body.teyvat .cp-host-tag{display:inline-block;margin-top:2px;padding:1px 8px;border-radius:8px;background:rgba(159,210,255,.22);color:#cfe7ff;font-size:.68rem;font-weight:700;word-break:keep-all}
+body.teyvat .cp-host-tag.away{background:rgba(255,255,255,.1);color:#c9cfd9}
+body.teyvat .cp-host-wait{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin:0 0 8px;padding:8px 12px;border-radius:12px;background:rgba(90,140,220,.22);border:1px solid rgba(159,210,255,.6);color:#d6ebff;word-break:keep-all}
+body.teyvat .cp-host-wait .shell-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;flex:none}
+body.teyvat .cp-host-wait small{flex-basis:100%;font-size:.74rem;color:#b9c0cc}
+body.teyvat .cp-host-count{min-width:44px;padding:0 8px;border-radius:10px;background:#ece5d8;color:#2b2f3a;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}
+body.teyvat .cp-host-note{margin:0 0 8px;font-size:.78rem;color:#cfe7ff}
+@media (max-width:760px){
+ body.teyvat :is(.cp-overlay,.cp-battle){padding:6px}
+ body.teyvat .cp-box{max-height:calc(100dvh - 12px)}
+ body.teyvat .cp-bbox{height:calc(100dvh - 12px)}
+ body.teyvat :is(.cp-body,.cp-bbody){padding:12px 10px 14px;gap:12px}
+ body.teyvat :is(.cp-head,.cp-bhead){padding:10px 12px}
+ body.teyvat :is(.cp-chars,.cp-team){grid-template-columns:1fr}
+ body.teyvat .cp-sides{gap:8px}
+ body.teyvat .cp-unit{padding:6px 8px}
+ body.teyvat .cp-room-copy{min-width:0;flex-basis:100%}
+ body.teyvat :is(.cp-room,.cp-actions)>.cp-btn{flex:1}
+ body.teyvat .cp-card{flex:1 1 calc(50% - 8px);min-width:0}
+ body.teyvat .cp-go>:is(.cp-select,.cp-btn){flex:1 1 100%}
+ body.teyvat .cp-char-why{position:static;max-width:none;text-align:left}
+ body.teyvat .cp-pill{right:10px;left:auto;max-width:calc(100vw - 20px)}
+}
 
 /* ==================== 0.15.3 ==================== */
 /* Journal rows (임무: 호감도 임무 · 의뢰 · 동료 획득 임무) wrap by their own width, not the window's. style.css only moved the
@@ -2755,4 +2890,28 @@ body.teyvat[data-region=liyue] .wish-screen h2.wish-banner-name{color:#4a392a}
 body.teyvat[data-region=liyue] .wish-screen .wish-panel h3{color:#5b4838}
 body.teyvat[data-region=liyue] .wish-screen .wish-reveal-info h2.wish-reveal-name{color:#4a392a}
 body.teyvat[data-region=liyue] .hud-mora .hud-mora-icon{filter:drop-shadow(0 0 3px rgba(243,175,103,.45))}
+body.teyvat[data-region=liyue] :is(.cp-overlay,.cp-battle){background:rgba(15,9,4,.62)}
+body.teyvat[data-region=liyue] .cp-battle{background:rgba(15,9,4,.78)}
+body.teyvat[data-region=liyue] :is(.cp-box,.cp-bbox){background:linear-gradient(180deg,#3a2717,#291c10 60%)}
+body.teyvat[data-region=liyue] .cp-head-icon{color:#3d240e}
+body.teyvat[data-region=liyue] .cp-btn.primary{background:linear-gradient(#fbf6ea,#e6d1bb);color:#5b4838}
+body.teyvat[data-region=liyue] :is(.cp-body,.cp-bbody) h3{color:#f8d2a9}
+body.teyvat[data-region=liyue] :is(.cp-room.invited,.cp-invite-row){border-color:rgba(248,210,169,.55)}
+body.teyvat[data-region=liyue] .cp-char.rarity-5{box-shadow:inset 3px 0 0 #e8b85b}
+body.teyvat[data-region=liyue] .cp-char.rarity-4{box-shadow:inset 3px 0 0 #a98be0}
+body.teyvat[data-region=liyue] .cp-face-glyph{color:#f8d2a9}
+body.teyvat[data-region=liyue] .cp-char-gear{color:#deba94!important}
+body.teyvat[data-region=liyue] .cp-member.host{outline:1px solid rgba(248,210,169,.5)}
+body.teyvat[data-region=liyue] .cp-count{color:#3e3329}
+body.teyvat[data-region=liyue] .cp-unit.acting{box-shadow:0 0 0 2px rgba(248,210,169,.7)}
+body.teyvat[data-region=liyue] .cp-tag.me{color:#3d240e}
+body.teyvat[data-region=liyue] .cp-tag.host{background:rgba(248,210,169,.2);color:#f8d2a9}
+body.teyvat[data-region=liyue] .cp-card.selected{color:#3e3329}
+body.teyvat[data-region=liyue] .cp-card.selected small{color:#776658}
+body.teyvat[data-region=liyue] .cp-select{background:rgba(26,17,8,.8)}
+body.teyvat[data-region=liyue] .cp-result h2{color:#f6c693}
+body.teyvat[data-region=liyue] .cp-pill{background:rgba(41,28,16,.95)}
+body.teyvat[data-region=liyue] .cp-pill.mine{color:#3d240e}
+body.teyvat[data-region=liyue] .cp-invite-pop{background:linear-gradient(180deg,#3d2b1c,#2d1f14)}
+body.teyvat[data-region=liyue] .cp-host-count{color:#3e3329}
 /* ---------- /리월 색 ---------- */

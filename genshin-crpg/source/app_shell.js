@@ -57,7 +57,9 @@ const ICON={
  // 0.15.2: 업적, 퍼즐 장치, 공동 토벌전
  TROPHY:'M7 4h10v5a5 5 0 0 1-10 0z M7 6H4v1a4 4 0 0 0 3.6 4 M17 6h3v1a4 4 0 0 1-3.6 4 M12 14v3 M8.5 20.5h7 M9.5 17h5v3.5h-5z',
  PUZZLE:'M5 6h4a2.2 2.2 0 1 1 4 0h4v4a2.2 2.2 0 1 1 0 4v4h-4a2.2 2.2 0 1 0-4 0H5v-4a2.2 2.2 0 1 0 0-4z',
- RAID:'M12 3l2.4 4.2L19 6l-1.2 4.7L21 14l-4.6 1.1L15 20l-3-3.2L9 20l-1.4-4.9L3 14l3.2-3.3L5 6l4.6 1.2z M12 10.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4z'
+ RAID:'M12 3l2.4 4.2L19 6l-1.2 4.7L21 14l-4.6 1.1L15 20l-3-3.2L9 20l-1.4-4.9L3 14l3.2-3.3L5 6l4.6 1.2z M12 10.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4z',
+ // 0.15.3: 다인 모드 (two adventurers side by side)
+ COOP:'M8 10.5a2.8 2.8 0 1 0 0-5.6 2.8 2.8 0 0 0 0 5.6z M16 10.5a2.8 2.8 0 1 0 0-5.6 2.8 2.8 0 0 0 0 5.6z M2.8 19.5c.6-3.2 2.6-5 5.2-5s4.6 1.8 5.2 5 M10.8 19.5c.6-3.2 2.6-5 5.2-5s4.6 1.8 5.2 5'
 };
 function icon(name,cls='shell-icon'){const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('class',cls);const p=document.createElementNS(NS,'path');p.setAttribute('d',ICON[name]||ICON.DOT);s.append(p);return s;}
 S.icon=icon;
