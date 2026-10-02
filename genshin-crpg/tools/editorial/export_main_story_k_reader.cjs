@@ -84,7 +84,7 @@ function visit(id,depth,stop){
  }
 }
 out.push('# '+(arg('--title')||doc.title||'메인스토리 원고 전문 (0.14.8)'));out.push('');
-out.push((arg('--intro')||doc.intro||'')+' 게임에 설치된 순서 그대로입니다. 굵은 글씨는 말하는 사람이고 주인공은 **(이름)**으로 적었습니다. **▶ 선택**은 플레이어가 고르는 자리이며 번호 아래 들여쓴 부분이 그 선택의 결과입니다. 선택지나 대사 옆의 *(…일 때)* 표시는 그 조건에서만 나오는 선택지·대사라는 뜻입니다. 〔전투〕는 전투가 벌어지는 자리, 〔장 마침〕은 장이 끝나고 자유 행동으로 돌아가는 자리입니다. 선택의 결과가 끝나면 다시 왼쪽으로 돌아와 공통 흐름이 이어집니다.');
+out.push((arg('--intro')||doc.intro||'')+' 게임에 설치된 순서 그대로입니다. 굵은 글씨는 말하는 사람이고 주인공은 **(이름)**으로 적었습니다. 주인공의 말은 게임에서 전부 선택지로 나오며, 고를 것이 하나뿐인 선택지는 **(이름)** 줄로 적었습니다. **▶ 선택**은 플레이어가 고르는 자리이며 번호 아래 들여쓴 부분이 그 선택의 결과입니다. 선택지나 대사 옆의 *(…일 때)* 표시는 그 조건에서만 나오는 선택지·대사라는 뜻입니다. 〔전투〕는 전투가 벌어지는 자리, 〔장 마침〕은 장이 끝나고 자유 행동으로 돌아가는 자리입니다. 선택의 결과가 끝나면 다시 왼쪽으로 돌아와 공통 흐름이 이어집니다.');
 let curPart=null;
 for(const chain of chains){curChain=chain.id;if(doc.parts[chain.id]&&doc.parts[chain.id]!==curPart){curPart=doc.parts[chain.id];out.push('');out.push('---');out.push('');out.push('## '+curPart);}out.push('');out.push('---');out.push('');out.push('### '+(TITLES[chain.id]||chain.id));curMap=null;printed=new Map();owner='';visit(chain.entry,0,null);}
 const text=out.join('\n').replace(/\n{3,}/g,'\n\n');
