@@ -14,10 +14,10 @@ async function api(path,{method='GET',body,token,admin}={}){
 const checks=[];const check=(name,fn)=>{app.store.rates.clear();return fn().then(()=>{checks.push(name);console.log('PASS '+name);});};
 // What the console gives arrives by mail (0.15.1); these tests take it at once.
 const edit=(p,ops)=>app.adminConsole.editSave(p.row,r=>{const out=app.adminConsole.applyOps(r,ops);if(r.s.mail?.list.some(x=>x.kind==='GIFT'&&!x.claimed))r.mailClaim('ALL');return out;},'test');
-async function player(username,display,{free=true}={}){
+async function player(username,display,{free=true,level=10}={}){
  const reg=await api('/register',{body:{username,password,displayName:display}});assert.equal(reg.status,200,JSON.stringify(reg.json));
  const token=reg.json.token;assert.equal((await api('/game/new',{token,body:{name:display,route:'ROUTE_TRAVELER'}})).status,200);
- const p={token,row:app.store.account(username)};p.pid=(await api('/chat/recent',{token})).json.me;if(free)await edit(p,[{op:'teleport',map:'MAP_MOND_CITY'}]);return p; // a new journey starts in its opening story
+ const p={token,row:app.store.account(username)};p.pid=(await api('/chat/recent',{token})).json.me;if(free)await edit(p,[{op:'level',target:'PLAYER_CUSTOM',value:level},{op:'teleport',map:'MAP_MOND_CITY'}]);return p; // a new journey starts in its opening story
 }
 const R=p=>app.store.runtimeOf(p.row.id),count=(p,item)=>R(p).itemCount(item),mora=p=>Number(R(p).s.global.MORA)||0;
 const sword=p=>R(p).s.inventory.find(i=>i.equip==='EQ_SWORD_HARBINGER'&&!i.equipped);

@@ -1,7 +1,10 @@
 /* 0.14.11 편성: the party cards are the battle line. They stand in battle order with their position (1·2 전열,
  * 3·4 후열) and are rearranged by pressing and holding a card, then dragging it onto another (the separate 전투 대열
  * list with ▲▼ buttons is gone). Above them, six 프리셋 keep whole loadouts (members, order, roles, 진형, equipment)
- * to switch to before a fight; the same presets can be applied from battle preparation. Load after app_party.js. */
+ * to switch to before a fight; the same presets can be applied from battle preparation. Load after app_party.js.
+ * 0.15.2: every card has ◀ ▶ to trade places with its neighbour, and a finger no longer drags cards: on a phone the
+ * cards stand side by side to swipe through, and a finger on a card scrolls (user: 「편성부분은 드래그로 내려야해서
+ * 내리기가 힘들어. 그냥 옆으로 옮기는 방식이라던가」). A mouse can still drag. */
 (function(){
 'use strict';
 if(typeof partyScreen!=='function')return;
@@ -48,14 +51,21 @@ function battleLine(p){
  grid.replaceChildren(...members,...empty);grid.classList.add('shell-battle-line');
  members.forEach((c,i)=>{const label=$('.slot-label',c);if(label){label.textContent=LINE[i]||String(i+1);label.classList.add(i<2?'front':'back');}});
  const locked=game.actionReason('FORMATION_SET',{order});
- const help=mk('p','muted shell-line-help',locked?'지금은 전투 대열을 바꿀 수 없습니다 · '+locked:'카드를 꾹 눌러 다른 카드 위로 끌면 전투 대열 순서가 바뀝니다. 1·2번은 전열, 3·4번은 후열입니다. 근접 적은 전열을, 저격·기습형 적은 후열을 주로 노립니다.');grid.prepend(help);
+ const help=mk('p','muted shell-line-help',locked?'지금은 전투 대열을 바꿀 수 없습니다 · '+locked:'◀ ▶를 누르면 옆 동료와 자리를 바꿉니다(PC에서는 카드를 꾹 눌러 다른 카드 위로 끌어도 됩니다). 1·2번은 전열, 3·4번은 후열입니다. 근접 적은 전열을, 저격·기습형 적은 후열을 주로 노립니다.');grid.before(help);
+ // ◀ ▶: trade places with the neighbour in battle order
+ const swap=(a,b)=>{const x=order.indexOf(members[a].dataset.owner),y=order.indexOf(members[b].dataset.owner);if(x<0||y<0)return;const next=order.slice();[next[x],next[y]]=[next[y],next[x]];act('FORMATION_SET',{order:next});};
+ members.forEach((c,i)=>{
+  const label=$('.slot-label',c),head=mk('div','shell-line-head'),move=(text,to,name)=>{const b=mk('button','shell-line-move',text);b.type='button';b.setAttribute('aria-label',name);const why=locked||(to<0||to>=members.length?(to<0?'이미 맨 앞입니다.':'이미 맨 뒤입니다.'):'');if(why||busy){b.disabled=true;if(why)withReason(b,why);}b.onclick=e=>{e.stopPropagation();swap(i,to);};return b;};
+  head.append(move('◀',i-1,'앞 자리와 바꾸기'));if(label)head.append(label);head.append(move('▶',i+1,'뒷 자리와 바꾸기'));c.prepend(head);
+ });
  if(locked||members.length<2)return;
  for(const card of members){
   card.classList.add('shell-draggable');
   // The portrait is an image: without this the browser starts its own image drag and cancels ours.
   card.addEventListener('dragstart',e=>e.preventDefault());for(const img of $$('img',card))img.draggable=false;
   card.addEventListener('pointerdown',e=>{
-   if(e.button!==0||busy||e.target.closest('select,input,.formation-controls button'))return;
+   // a finger scrolls (◀ ▶ move the cards); a mouse or pen may drag
+   if(e.pointerType==='touch'||e.button!==0||busy||e.target.closest('select,input,.formation-controls button,.shell-line-move'))return;
    const start={x:e.clientX,y:e.clientY};let dragging=false,target=null;
    const hold=setTimeout(()=>{dragging=true;card.classList.add('dragging');try{card.setPointerCapture(e.pointerId);}catch{}window.CRPGSound?.play?.('tab');},220);
    const move=ev=>{

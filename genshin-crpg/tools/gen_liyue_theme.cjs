@@ -27,13 +27,20 @@ function walk(text){const blocks=[];let i=0;
   i=j;}
  return blocks;}
 function splitSelectors(sel){const out=[];let depth=0,cur='';for(const ch of sel){if(ch==='(')depth++;if(ch===')')depth--;if(ch===','&&depth===0){out.push(cur.trim());cur='';}else cur+=ch;}if(cur.trim())out.push(cur.trim());return out;}
-function liyueSelector(sel){const parts=splitSelectors(sel).filter(s=>s.startsWith('body.teyvat')&&!s.includes('data-region'));return parts.map(s=>s.replace(/^body\.teyvat/,'body.teyvat[data-region=liyue]')).join(',');}
+// Colours that mean something stay the same in both regions: item rarity (the 3★ blue and 4★ purple cards turned brown at
+// the top in Liyue — user: 「아이템들 색깔이 이상해 리월에서 뒤 UI 색에 영향받나본데」) and element colours. Their rules get a
+// Liyue twin with the colours unchanged, so the warm twin of a plain rule (the same specificity, later) cannot cover them.
+const MEANING=/\.tier-\d|rarity|data-aura|data-element|\.el-/,MEANING_PROP=/^--(rar-|aura)/,COLORISH=/#[0-9a-fA-F]{3,8}\b|rgba?\(|gradient\(|var\(--rar/;
+const twin=s=>s.replace(/^body\.teyvat/,'body.teyvat[data-region=liyue]');
 function emit(rules){let out='';for(const r of rules){
  if(r.at){const inner=emit(r.rules);if(inner)out+=r.at+'{\n'+inner+'}\n';continue;}
- const sel=liyueSelector(r.sel);if(!sel)continue;
- const decls=r.body.replace(/\/\*[\s\S]*?\*\//g,'').split(';').map(d=>d.trim()).filter(Boolean),keep=[];
- for(const d of decls){const k=d.indexOf(':');if(k<0)continue;const prop=d.slice(0,k).trim(),val=d.slice(k+1).trim();const m=mapColors(val);if(m)keep.push(prop+':'+m);}
- if(keep.length)out+=sel+'{'+keep.join(';')+'}\n';}
+ const parts=splitSelectors(r.sel).filter(s=>s.startsWith('body.teyvat')&&!s.includes('data-region'));if(!parts.length)continue;
+ const plain=parts.filter(s=>!MEANING.test(s)),meant=parts.filter(s=>MEANING.test(s));
+ const decls=r.body.replace(/\/\*[\s\S]*?\*\//g,'').split(';').map(d=>d.trim()).filter(Boolean),warmed=[],kept=[];
+ for(const d of decls){const k=d.indexOf(':');if(k<0)continue;const prop=d.slice(0,k).trim(),val=d.slice(k+1).trim(),m=mapColors(val);
+  if(COLORISH.test(val))kept.push(prop+':'+val);if(m&&!MEANING_PROP.test(prop))warmed.push(prop+':'+m);}
+ if(plain.length&&warmed.length)out+=plain.map(twin).join(',')+'{'+warmed.join(';')+'}\n';
+ if(meant.length&&kept.length)out+=meant.map(twin).join(',')+'{'+kept.join(';')+'}\n';}
  return out;}
 const generated=emit(walk(css));
 const accent='body.teyvat[data-region=liyue]{--acc:#f0a04b;--acc-2:#ffd3a1;--acc-rgb:240,160,75;--acc-deep:#5c3613}\n';

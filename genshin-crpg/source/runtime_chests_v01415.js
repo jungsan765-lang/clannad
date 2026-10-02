@@ -17,12 +17,14 @@ const HOW={SCENERY:'풍경',SCENERY_NIGHT:'밤 풍경',MENU:'페이몬 메뉴',M
 const LEVEL={MOND:{SPOT:3,SWAP:3,SUDOKU:4,LIGHTS:3},LIYUE:{SPOT:5,SLIDE:3,SUDOKU:6,LIGHTS:4}};
 const M_ITEMS=[{MAT_CHAR_EXP_ADVENTURER:1},{ORE_WHITE_IRON:2},{ORE_CRYSTAL:1}],L_ITEMS=[{MAT_CHAR_EXP_ADVENTURER:2},{ORE_CRYSTAL:2},{MAT_CHAR_EXP_HERO:1}];
 const puzzle=(region,list)=>list.map(([map,game],i)=>({region,map,game,tier:'EXQUISITE',how:'SCENERY',reward:region==='MOND'?{primogem:20,mora:1200,items:M_ITEMS[i%3]}:{primogem:25,mora:2000,items:L_ITEMS[i%3]}}));
-const MOND_PUZZLES=puzzle('MOND',[['MAP_MOND_CITY','SPOT'],['MAP_MOND_PLAINS','SWAP'],['MAP_MOND_FOREST','SUDOKU'],['MAP_MOND_WINDRISE','LIGHTS'],['MAP_MOND_SPRINGVALE','SPOT'],['MAP_MOND_WOLVENDOM','SWAP'],
- ['MAP_MOND_DAWN_WINERY','SUDOKU'],['MAP_CRPG_STARFELL_LAKE','LIGHTS'],['MAP_MOND_THOUSAND_WINDS','SPOT'],['MAP_CRPG_STORMBEARER_MOUNTAINS','SWAP'],['MAP_CRPG_FALCON_COAST','SUDOKU'],['MAP_CRPG_DADAUPA_GORGE','LIGHTS'],
- ['MAP_CRPG_CAPE_OATH','SPOT'],['MAP_CRPG_BRIGHTCROWN_CANYON','SWAP'],['MAP_CRPG_DRAGONSPINE_CAMP','SUDOKU'],['MAP_CRPG_SNOW_COVERED_PATH','LIGHTS'],['MAP_CRPG_WYRMREST_VALLEY','SPOT'],['MAP_CRPG_STARGLOW_CAVERN','SWAP']]);
-const LIYUE_PUZZLES=puzzle('LIYUE',[['MAP_LIYUE_HARBOR','SPOT'],['MAP_LIYUE_PLAINS','SLIDE'],['MAP_LIYUE_MOUNTAINS','SUDOKU'],['MAP_LIYUE_QINGCE','LIGHTS'],['MAP_LIYUE_JUEYUN','SPOT'],['MAP_CHASM_SURFACE','SLIDE'],
- ['MAP_LY_DETAIL_FEIYUN','SUDOKU'],['MAP_LY_DETAIL_YUJING','LIGHTS'],['MAP_LY_DETAIL_WANGSHU','SPOT'],['MAP_LY_DETAIL_DIHUA','SLIDE'],['MAP_LY_DETAIL_GUILI','SUDOKU'],['MAP_LY_DETAIL_MINGYUN','LIGHTS'],
- ['MAP_LY_DETAIL_LUHUA','SPOT'],['MAP_LY_DETAIL_AOCANG','SLIDE'],['MAP_LY_DETAIL_QINGYUN','SUDOKU'],['MAP_LY_DETAIL_HUAGUANG','LIGHTS'],['MAP_LY_DETAIL_TIANHENG','SPOT'],['MAP_LY_DETAIL_GUYUN','SLIDE']]);
+// 0.15.2: the 18 puzzle chests of each region use the new games too (runtime_puzzles_v0152.js; user: 「퍼즐도 종류를 좀 확
+// 늘려서 재미를 붙이게 해줘」). Spot-the-difference stays in the two cities.
+const MOND_PUZZLES=puzzle('MOND',[['MAP_MOND_CITY','SPOT'],['MAP_MOND_PLAINS','ROTATE'],['MAP_MOND_FOREST','NONOGRAM'],['MAP_MOND_WINDRISE','LIGHTS'],['MAP_MOND_SPRINGVALE','PAIRS'],['MAP_MOND_WOLVENDOM','MAZE'],
+ ['MAP_MOND_DAWN_WINERY','SUDOKU'],['MAP_CRPG_STARFELL_LAKE','CONSTELLATION'],['MAP_MOND_THOUSAND_WINDS','MEMGRID'],['MAP_CRPG_STORMBEARER_MOUNTAINS','PIPES'],['MAP_CRPG_FALCON_COAST','WORD'],['MAP_CRPG_DADAUPA_GORGE','HANOI'],
+ ['MAP_CRPG_CAPE_OATH','MINES'],['MAP_CRPG_BRIGHTCROWN_CANYON','SWAP'],['MAP_CRPG_DRAGONSPINE_CAMP','FLOOD'],['MAP_CRPG_SNOW_COVERED_PATH','SIMON'],['MAP_CRPG_WYRMREST_VALLEY','MASTERMIND'],['MAP_CRPG_STARGLOW_CAVERN','MIRRORS']]);
+const LIYUE_PUZZLES=puzzle('LIYUE',[['MAP_LIYUE_HARBOR','SPOT'],['MAP_LIYUE_PLAINS','SLIDE'],['MAP_LIYUE_MOUNTAINS','SUDOKU'],['MAP_LIYUE_QINGCE','LIGHTS'],['MAP_LIYUE_JUEYUN','CONSTELLATION'],['MAP_CHASM_SURFACE','MINES'],
+ ['MAP_LY_DETAIL_FEIYUN','WORD'],['MAP_LY_DETAIL_YUJING','NONOGRAM'],['MAP_LY_DETAIL_WANGSHU','QUIZ'],['MAP_LY_DETAIL_DIHUA','PAIRS'],['MAP_LY_DETAIL_GUILI','MASTERMIND'],['MAP_LY_DETAIL_MINGYUN','PIPES'],
+ ['MAP_LY_DETAIL_LUHUA','SYMMETRY'],['MAP_LY_DETAIL_AOCANG','MIRRORS'],['MAP_LY_DETAIL_QINGYUN','DIALS'],['MAP_LY_DETAIL_HUAGUANG','LIGHTS_X'],['MAP_LY_DETAIL_TIANHENG','HANOI'],['MAP_LY_DETAIL_GUYUN','FLOOD']]);
 // Hidden chests. The game never says where they are (user: 「보물이 어딨는지 다 알려줘? 그건 안 알려줘도 돼」).
 // `spot` places the map shimmer on the region atlas (source/terrain_map.js coordinates).
 const hidden=(region,map,how,tier,primogem,extra={})=>({region,map,game:null,tier,how,reward:{primogem,mora:region==='MOND'?2500:4000,items:region==='MOND'?{MAT_CHAR_EXP_HERO:1}:{MAT_CHAR_EXP_HERO:2}},...extra});
@@ -104,7 +106,8 @@ function makeSpot(count,r){
 }
 function spotOk(p,answer){return Array.isArray(answer)&&answer.length===p.count&&new Set(answer).size===p.count&&answer.every(i=>Number.isInteger(i)&&i>=0&&i<p.count);}
 const MAKE={SUDOKU:makeSudoku,SWAP:makeSwap,SLIDE:makeSlide,LIGHTS:makeLights,SPOT:makeSpot},CHECK={SUDOKU:sudokuOk,SWAP:swapOk,SLIDE:slideOk,LIGHTS:lightsOk,SPOT:spotOk};
-api.chestRules={version:1,tiers:TIER,games:GAME,hows:HOW,chests:CHESTS.map(c=>({...c,reward:{...c.reward,items:{...c.reward.items}}})),check:CHECK};
+// 0.15.2: the regional events (runtime_events_v0152.js) reuse the games and sizes.
+api.chestRules={version:1,tiers:TIER,games:GAME,hows:HOW,chests:CHESTS.map(c=>({...c,reward:{...c.reward,items:{...c.reward.items}}})),check:CHECK,make:MAKE,level:LEVEL};
 // ---------- state ----------
 P.chestState=function(){return this.s.chests??={version:1,opened:{}};};
 P.chestOpened=function(id){return !!this.s.chests?.opened?.[id];};
@@ -113,10 +116,12 @@ P.chestPuzzle=function(id){
  const c=BY_ID.get(id);if(!c?.game)return null;const r=rng(hash(id+'|'+(this.s.global.SAVE_ID||'save'))),size=LEVEL[c.region][c.game];
  return {id,game:c.game,name:GAME[c.game],region:c.region,...MAKE[c.game](size,r)};
 };
-// Why the chest cannot be opened now ('' = it can).
+// Why the chest cannot be opened now ('' = it can). 0.15.2: a main story in progress no longer keeps the chests shut
+// (user: 「메인스토리 안밀면 그냥 아예 열 수가 없네」); only a battle, its preparation or work in hand does.
 P.chestReason=function(id){
  const c=BY_ID.get(id);if(!c)return '보물상자를 찾을 수 없습니다.';if(this.chestOpened(id))return '이미 연 보물상자입니다.';
- if(this.s.runtime||this.s.battlePreparation||(this.playPhase?.()||'FREE')!=='FREE')return '이야기나 전투를 마친 뒤 열 수 있습니다.';
+ if(this.s.runtime||this.s.battlePreparation||this.s.storyRecovery)return '전투를 마친 뒤 열 수 있습니다.';
+ if(this.s.lifeJob||this.s.worldJob)return '하고 있는 일을 마친 뒤 열 수 있습니다.';
  if(this.s.global.CURRENT_MAP_ID!==c.map)return '이 보물상자가 있는 곳에 가야 열 수 있습니다.';
  if((c.how==='SCENERY_NIGHT'||c.night)&&!this.chestNight())return '밤(19시~5시)에만 보이는 보물상자입니다.';
  return '';

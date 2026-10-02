@@ -9,8 +9,13 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype,fail=(c,m)=>{throw new api.Ru
 const OPEN=new Set(['음식','몬스터 재료','식재료','가공 식재료','광물','제작 재료','지역 특산물','기계 부품','연금 재료','소모품','전투 치료품','탐험 도구','전술 도구']);
 const BOUND={'퀘스트 아이템':'임무 아이템은 교환할 수 없습니다.','재화':'모라는 교환할 수 없습니다.','캐릭터 경험치 소재':'경험치 책은 교환할 수 없습니다.','보스 재료':'보스 재료는 각자 모아야 합니다.','무기 원형':'무기 원형은 교환할 수 없습니다.','특수 재료':'특수 재료는 교환할 수 없습니다.','특별 보상':'특별 보상은 교환할 수 없습니다.','외형 해금':'외형 아이템은 교환할 수 없습니다.','탐험 장치':'탐험 장치는 교환할 수 없습니다.','생활 도구':'기본 생활 도구는 교환할 수 없습니다.'};
 const LIMIT={entries:6,quantity:999};
-api.tradeRules={version:1,open:[...OPEN],limit:{...LIMIT}};
+// 0.15.2: sending letters, the market and live trades start at protagonist Lv.10, so a pile of new accounts cannot feed
+// one journey (user: 「우편도 레벨제한 걸어놔. 계정 무한 생성해서 돈 모으려는 버그 이용할 수도 있으니까」). Taking what
+// others send needs no level. The account server checks it; screens show the same reason.
+const MIN_LEVEL=10;
+api.tradeRules={version:1,open:[...OPEN],limit:{...LIMIT},minLevel:MIN_LEVEL};
 const no=reason=>({ok:false,reason});
+P.tradeLevelReason=function(){return (Number(this.s.global.PLAYER_LEVEL_STATE)||1)<MIN_LEVEL?'편지와 거래소는 주인공 Lv.'+MIN_LEVEL+'부터 쓸 수 있습니다.':'';};
 P.tradeRule=function(entry){
  const inv=typeof entry==='string'?{item:entry}:entry||{};
  if(inv.equip){

@@ -13,7 +13,7 @@ const regionOf=id=>mapRow(id)?.[1]||'';
 const itemName=id=>game.tables['14_ITEM_DB']?.get(id)?.[1]||id;
 const charName=id=>game.tables['07_CHAR_DB']?.get(id)?.[1]||id;
 const icon=(n,c)=>window.CRPGShell?.icon?CRPGShell.icon(n,c):mk('span');
-const TABS=[['journey','여정','STORY'],['bosses','토벌','SWORDS'],['ley','지맥의 꽃','STAR'],['abyss','나선비경','CLOCK'],['companions','동료','PARTY'],['treasure','보물','STARS']];
+const TABS=[['journey','여정','STORY'],['bosses','토벌','SWORDS'],['ley','지맥의 꽃','STAR'],['abyss','나선비경','CLOCK'],['companions','동료','PARTY'],['treasure','보물','STARS'],['achievements','업적','TROPHY']];
 function guide(map){
  if(!map||!game)return;close();
  if(game.s.global.CURRENT_MAP_ID===map){window.CRPGShell?.toast?.('이미 '+mapLabel(map)+'에 있습니다.');return;}
@@ -77,9 +77,11 @@ function bosses(box){
   s2.append(r);}
  const farm=CRPGRuntime.liyueArtifactConfig?.farm;
  for(const [kind,f]of Object.entries(farm||{})){let reason='';try{reason=game.liyueArtifactFarmReason?.(kind)||'';}catch{}
-  const r=row('hb-boss',f.name+' · 반복 도전',[mapLabel(f.map),f.reward==='ARTIFACT'?'보상 · 성유물':'보상 · 성유물 강화 재료'],guideButton(f.map));
+  const lv=game.farmLevelV0152?.(kind),r=row('hb-boss',f.name+' · 반복 도전'+(lv?' · Lv.'+lv.level:''),[mapLabel(f.map),f.reward==='ARTIFACT'?'보상 · 성유물':'보상 · 성유물 강화 재료'],guideButton(f.map));
   r.querySelector('.hb-copy strong').after(/하루에 한 번/.test(reason)?chip('오늘 입장함','wait'):reason?chip('조건 미충족','warn'):chip('입장 가능','ok'));if(reason)r.querySelector('.hb-copy').append(mk('small','hb-reason',reason));s2.append(r);}
  box.append(s2);
+ // 0.15.2: this week's mutated bosses (app_mutations_v0152.js)
+ window.CRPGMutations?.journal?.(box,{section,row,chip,guideButton});
 }
 function ley(box){
  let st=null;try{st=game.leyLineStatus?.();}catch{}
@@ -126,7 +128,9 @@ function companions(box){
 }
 // 0.14.15 보물: how many treasure chests each region holds and how many are found, never where (app_chests_v01415.js).
 function treasure(box){const host=mk('div','hb-treasure');box.append(mk('p','hb-note','몬드와 리월 곳곳에 보물상자가 있습니다. 가는 곳마다 풍경 보기(V)로 둘러보세요. 퍼즐이 걸린 상자는 풀어야 열리고, 어떤 상자는 아주 꼼꼼히 찾아야 보입니다.'),host);window.CRPGChests?.journal(host);}
-const DRAW={journey,bosses,ley,abyss,companions,treasure};
+// 0.15.2 업적 (app_achievements_v0152.js)
+function achievements(box){if(window.CRPGAchievements?.journal)window.CRPGAchievements.journal(box);else box.append(mk('p','hb-note','업적을 표시하지 못했습니다.'));}
+const DRAW={journey,bosses,ley,abyss,companions,treasure,achievements};
 // ---------- frame ----------
 function open(tab){
  if(!game)return;if(tab)H.tab=tab;if(H.node){refresh();return;}

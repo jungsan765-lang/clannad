@@ -15,7 +15,7 @@ const checks=[];const check=(name,fn)=>fn().then(()=>{checks.push(name);console.
 async function player(username,display){
  const reg=await api('/register',{method:'POST',body:{username,password,displayName:display}});assert.equal(reg.status,200,JSON.stringify(reg.json));
  const token=reg.json.token;assert.equal((await api('/game/new',{method:'POST',token,body:{name:display,route:'ROUTE_TRAVELER'}})).status,200);
- const p={token,row:app.store.account(username)};await edit(p,[{op:'teleport',map:'MAP_MOND_CITY'}]);return p; // free play: trading is for free time
+ const p={token,row:app.store.account(username)};await edit(p,[{op:'level',target:'PLAYER_CUSTOM',value:10},{op:'teleport',map:'MAP_MOND_CITY'}]);return p; // free play and Lv.10: trading is for free time (0.15.2 level gate)
 }
 // 0.15.1: what the console gives arrives in the mailbox; these tests take it at once.
 const edit=(p,ops)=>app.adminConsole.editSave(p.row,r=>{const out=app.adminConsole.applyOps(r,ops);if(r.s.mail?.list.some(x=>x.kind==='GIFT'&&!x.claimed))r.mailClaim('ALL');return out;},'test');
@@ -37,9 +37,9 @@ await check('capabilities list profiles, the market and live trades',async()=>{
 });
 
 await check('profiles: protagonist, companions, the party with its gear and the Abyss season; unknown ids fail',async()=>{
- await edit(A,[{op:'recruit',char:'MOND_AMBER'},{op:'level',target:'PLAYER_CUSTOM',value:9},{op:'constellation',char:'MOND_AMBER',value:2}]);
+ await edit(A,[{op:'recruit',char:'MOND_AMBER'},{op:'level',target:'PLAYER_CUSTOM',value:12},{op:'constellation',char:'MOND_AMBER',value:2}]);
  const p=(await api('/profile?pid='+pidA,{token:B.token}));assert.equal(p.status,200,JSON.stringify(p.json));
- const v=p.json;assert.equal(v.name,'바람상인');assert.equal(v.you,false);assert.equal(v.journey,true);assert.equal(v.player.level,9);
+ const v=p.json;assert.equal(v.name,'바람상인');assert.equal(v.you,false);assert.equal(v.journey,true);assert.equal(v.player.level,12);
  const amber=v.companions.find(x=>x.id==='MOND_AMBER');assert(amber&&amber.constellation===2&&amber.rarity===4,'Amber C2 4★');
  assert(Array.isArray(v.party)&&v.party.some(x=>x.id==='PLAYER_CUSTOM'),'party with the protagonist');assert(v.abyss&&/^ABYSS_\d{4}_\d{2}$/.test(v.abyss.season));
  assert(!('username' in v)&&!JSON.stringify(v).includes('seller_01'),'login ids stay private');

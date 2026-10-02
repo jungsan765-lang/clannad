@@ -23,6 +23,8 @@ const GROUPS=['전체','재료','음식','소모품','장비'];
 const groupOf=d=>d.kind==='EQUIPMENT'?'장비':d.group==='음식'?'음식':d.group==='소모품'?'소모품':'재료';
 const moraIcon=()=>{const i=window.currencyIcon?.('MORA','tr-mora tr-mora-img');if(i)return i;try{return SHELL.icon('MORA','shell-icon tr-mora');}catch{return mk('span','tr-mora','◈');}};
 const free=()=>{try{return !game.s.runtime&&(game.playPhase?.()||'FREE')==='FREE';}catch{return false;}};
+// 0.15.2: buying, selling and live trades start at protagonist Lv.10 (runtime_trade.js; the server checks it too).
+const lvWhy=()=>{try{return game.tradeLevelReason?.()||'';}catch{return '';}};
 // ---------- tiles ----------
 function tile(d,{count,badge,cls='',title,onClick,disabled}={}){
  const b=mk('button','tr-tile tier-'+tierOf(d)+' '+cls);b.type='button';b.title=title||d?.name||'';b.disabled=!!disabled;
@@ -85,6 +87,7 @@ function redraw(){
  if(typeof game==='undefined'||!game){body.append(mk('p','trade-note','여정을 연 뒤 사용할 수 있습니다.'));return;}
  if(T.error)body.append(mk('p','trade-note warn',T.error));
  if(!free())body.append(mk('p','trade-note warn','이야기나 전투가 진행 중입니다. 사고팔기와 거래는 자유행동 중에만 할 수 있습니다.'));
+ if(lvWhy())body.append(mk('p','trade-note warn',lvWhy()+' 시장 구경과 판매 대금 받기는 지금도 할 수 있습니다.'));
  ({market:drawMarket,shop:drawShop,direct:drawDirect})[T.tab]?.(body);
 }
 // ---------- 시장 ----------
@@ -110,7 +113,7 @@ function drawMarket(body){
   if(x.mine)card.append(mk('span','mk-mine','내 물건'));
   else{
    const asking=T.confirmBuy===x.id,b=btn(asking?fmt(x.price)+' 모라로 사기':'구매',()=>asking?buy(x):(T.confirmBuy=x.id,redraw()),asking?'primary mk-buy confirm':'mk-buy');
-   const why=!free()?'자유행동 중에만 살 수 있습니다.':money<x.price?'모라가 부족합니다 · 보유 '+fmt(money):'';if(why){b.disabled=true;b.title=why;}
+   const why=lvWhy()||(!free()?'자유행동 중에만 살 수 있습니다.':money<x.price?'모라가 부족합니다 · 보유 '+fmt(money):'');if(why){b.disabled=true;b.title=why;}
    card.append(b);if(asking)card.append(btn('취소',()=>{T.confirmBuy=null;redraw();},'mk-cancel'));
   }
   grid.append(card);
@@ -139,7 +142,7 @@ function drawShop(body){
   const price=mk('input','mk-price-input');price.type='number';price.inputMode='numeric';price.min=rules.minPrice;price.max=rules.maxPrice;price.placeholder='판매 가격 (모라, 묶음 전체)';price.value=S.price;price.setAttribute('aria-label','판매 가격');
   const preview=mk('small','mk-preview');const showPreview=()=>{const v=Math.floor(Number(price.value)||0),fee=v?Math.max(1,Math.ceil(v*rules.fee)):0;preview.textContent=v?'수수료 '+fmt(fee)+' 모라 · 팔리면 '+fmt(v-fee)+' 모라'+(S.qty>1?' · 개당 '+fmt(Math.ceil(v/S.qty)):''):rules.minPrice+'~'+fmt(rules.maxPrice)+' 모라';};
   price.oninput=()=>{S.price=price.value;showPreview();};showPreview();fields.append(price,preview);
-  const go=btn('상점에 올리기',()=>sell(picked),'primary');const why=!free()?'자유행동 중에만 올릴 수 있습니다.':(M?.mine||[]).filter(x=>x.status==='ACTIVE').length>=rules.maxListings?'상점이 가득 찼습니다.':'';if(why){go.disabled=true;go.title=why;}
+  const go=btn('상점에 올리기',()=>sell(picked),'primary');const why=lvWhy()||(!free()?'자유행동 중에만 올릴 수 있습니다.':(M?.mine||[]).filter(x=>x.status==='ACTIVE').length>=rules.maxListings?'상점이 가득 찼습니다.':'');if(why){go.disabled=true;go.title=why;}
   fields.append(go);form.append(fields);left.append(form);
  }
  right.append(mk('h3','','내 상점'));const mine=M?.mine||[];
@@ -168,7 +171,7 @@ function drawDirect(body){
  else if(!T.online.length)list.append(mk('p','trade-note','지금 접속 중인 다른 모험가가 없습니다.'));
  for(const p of T.online||[]){const row=mk('div','mk-person'),name=mk('button','mk-person-name',p.name);name.type='button';name.onclick=()=>window.CRPGProfile?.open(p.pid,p.name);
   if(p.honours?.count&&window.CRPGProfile?.medal){const m=window.CRPGProfile.medal(p.honours.top,p.honours.top);m.removeAttribute('aria-hidden');m.title='나선 문장 '+p.honours.count+'개 · 최고 '+p.honours.top+'층';name.append(m);}
-  const b=btn('거래 신청',()=>T.invite(p.pid,p.name),'primary');if(p.busy){b.disabled=true;b.title=p.name+' 님은 다른 거래 중입니다.';}else if(T.deal){b.disabled=true;b.title='이미 진행 중인 거래가 있습니다.';}else if(!free()){b.disabled=true;b.title='자유행동 중에만 거래할 수 있습니다.';}
+  const b=btn('거래 신청',()=>T.invite(p.pid,p.name),'primary');if(p.busy){b.disabled=true;b.title=p.name+' 님은 다른 거래 중입니다.';}else if(T.deal){b.disabled=true;b.title='이미 진행 중인 거래가 있습니다.';}else if(!free()){b.disabled=true;b.title='자유행동 중에만 거래할 수 있습니다.';}else if(lvWhy()){b.disabled=true;b.title=lvWhy();}
   row.append(name,b);list.append(row);}
  body.append(list,btn('새로 고침',load,'mk-refresh'));
 }

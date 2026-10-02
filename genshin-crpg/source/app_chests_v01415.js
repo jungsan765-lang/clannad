@@ -27,7 +27,9 @@ function overlay(chest){
  close();const wrap=mk('div','ch-overlay region-'+chest.region.toLowerCase());wrap.setAttribute('role','dialog');wrap.setAttribute('aria-modal','true');wrap.setAttribute('aria-label',chest.tierName);
  const bg=placeImage();if(bg)wrap.style.setProperty('--ch-bg','url("'+bg+'")');
  const box=mk('div','ch-box'),head=mk('header','ch-head');
- head.append(mk('img','ch-head-icon'),mk('div','ch-head-copy'));head.firstChild.src=chestImg(chest.icon);head.firstChild.alt='';
+ // 0.15.2: a regional event's device shows a glyph instead of a chest (C.play).
+ if(chest.glyph)head.append(SHELL.icon(chest.glyph,'shell-icon ch-head-icon ch-head-glyph'),mk('div','ch-head-copy'));
+ else{head.append(mk('img','ch-head-icon'),mk('div','ch-head-copy'));head.firstChild.src=chestImg(chest.icon);head.firstChild.alt='';}
  head.lastChild.append(mk('strong','',chest.tierName+(chest.game?' · '+chest.gameName:'')),mk('small','',chest.mapName+(chest.hidden?' · 숨은 보물':'')));
  const x=mk('button','ch-close');x.type='button';x.setAttribute('aria-label','닫기');x.append(SHELL.icon('CLOSE','shell-icon'));x.onclick=close;head.append(x);
  const body=mk('div','ch-body');box.append(head,body);wrap.append(box);
@@ -46,7 +48,7 @@ function reveal(chest,answer,body){
   if(open.disabled)return;open.disabled=true;open.textContent='여는 중…';
   let receipt;try{receipt=await act('CHEST_OPEN',{chest:chest.id,answer});}catch(e){receipt={ok:false,error:e};}
   const ok=receipt?.ok!==false&&game.chestOpened(chest.id);
-  if(!ok){open.disabled=false;open.textContent='다시 열기';note(body,(receipt?.error?.message||lastResult?.error?.message||'상자를 열 수 없습니다. 이야기나 전투를 마친 뒤 다시 시도해 주세요.'),'warn');SND('error');return;}
+  if(!ok){open.disabled=false;open.textContent='다시 열기';note(body,(receipt?.error?.message||lastResult?.error?.message||'상자를 열 수 없습니다. 전투를 마친 뒤 다시 시도해 주세요.'),'warn');SND('error');return;}
   const out=receipt?.result||lastResult?.result||{};open.remove();
   stage.classList.add('opened');SND('chest_open');
   const flash=mk('div','ch-flash');stage.append(flash);
@@ -56,27 +58,42 @@ function reveal(chest,answer,body){
  body.append(open);setTimeout(()=>open.focus({preventScroll:true}),400);
 }
 function rewards(chest,out,body){
- const w=chest.reward,row=mk('div','ch-rewards');
- const card=(icon,label,count,cls='')=>{const c=mk('div','ch-reward '+cls);c.append(icon,mk('strong','ch-reward-count',count),mk('span','ch-reward-name',label));return c;};
- const prim=card(curIcon('PRIMOGEM','ch-reward-icon'),'원석','×0','primo');row.append(prim);
- row.append(card(curIcon('MORA','ch-reward-icon'),'모라','×'+fmt(w.mora),'mora'));
- for(const [id,n] of Object.entries(w.items||{})){let d;try{d=itemPresenter.itemDetail({item:id,quantity:n});}catch{d={name:id};}let g;try{g=itemGlyph(d);}catch{g=mk('span','item-glyph','◆');}g.classList.add('ch-reward-icon');row.append(card(g,d.name||id,'×'+n,'tier-'+(d.tier?.rank||1)));}
- body.append(row);[...row.children].forEach((c,i)=>{c.style.setProperty('--i',i);});
- SND('chest_reward');
- // the Primogem count runs up
- const target=out.primogem??w.primogem,startAt=performance.now();const tick=t=>{const k=Math.min(1,(t-startAt)/700);prim.querySelector('.ch-reward-count').textContent='×'+Math.round(target*k);if(k<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);
+ const w=chest.reward;body.append(rewardRow({primogem:out.primogem??w.primogem,mora:w.mora,items:w.items},true));SND('chest_reward');
  const region=chest.region==='MOND'?'몬드':'리월';body.append(mk('p','ch-progress',region+' 보물상자 '+(out.found??'?')+' / '+(out.total??24)+' 발견'));
  body.append(btn('확인',close,'primary ch-done'));
 }
+// The reward cards, the 원석 count running up (also the regional events' rewards). `always` keeps 원석 and Mora at 0.
+function rewardRow(w,always=false){
+ const row=mk('div','ch-rewards');
+ const card=(icon,label,count,cls='')=>{const c=mk('div','ch-reward '+cls);c.append(icon,mk('strong','ch-reward-count',count),mk('span','ch-reward-name',label));return c;};
+ const target=Number(w.primogem)||0,prim=always||target?card(curIcon('PRIMOGEM','ch-reward-icon'),'원석','×0','primo'):null;if(prim)row.append(prim);
+ if(always||w.mora)row.append(card(curIcon('MORA','ch-reward-icon'),'모라','×'+fmt(w.mora),'mora'));
+ for(const [id,n] of Object.entries(w.items||{})){let d;try{d=itemPresenter.itemDetail({item:id,quantity:n});}catch{d={name:id};}let g;try{g=itemGlyph(d);}catch{g=mk('span','item-glyph','◆');}g.classList.add('ch-reward-icon');row.append(card(g,d.name||id,'×'+n,'tier-'+(d.tier?.rank||1)));}
+ [...row.children].forEach((c,i)=>{c.style.setProperty('--i',i);});
+ if(prim){const startAt=performance.now(),tick=t=>{const k=Math.min(1,(t-startAt)/700);prim.querySelector('.ch-reward-count').textContent='×'+Math.round(target*k);if(k<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);}
+ return row;
+}
+C.rewardRow=rewardRow;
 // ---------- the games ----------
 function start(chest){
  if(!ready())return;const why=game.chestReason(chest.id);if(why){SHELL.toast?.(why);SND('error');return;}
  const body=overlay(chest);
  if(!chest.game){note(body,chest.how==='SCENERY'?'풍경 속에 놓여 있던 보물상자입니다.':'아무도 모르는 곳에 숨겨져 있던 보물상자입니다.');reveal(chest,undefined,body);return;}
  const p=game.chestPuzzle(chest.id);if(!p){close();return;}
- ({SPOT:spotGame,SWAP:swapGame,SLIDE:slideGame,SUDOKU:sudokuGame,LIGHTS:lightsGame})[p.game](p,body,answer=>solved(chest,answer,body));
+ const play=C.games[p.game];if(!play){note(body,'이 퍼즐을 표시하지 못했습니다. 게임을 새로 고친 뒤 다시 열어 주세요.','warn');return;}
+ play(p,body,answer=>solved(chest,answer,body));
 }
 C.start=start;
+// 0.15.2: the regional events play the same games in the same window (app_events_v0152.js). spec: {title, sub, region,
+// glyph | icon, puzzle, solvedText, done(answer, body)}; done settles the event and draws what it paid.
+C.play=function(spec){
+ const body=overlay({region:spec.region||'MOND',tierName:spec.title,icon:spec.icon||'common',glyph:spec.glyph,game:spec.puzzle.game,gameName:spec.puzzle.name,mapName:spec.sub||'',hidden:false});
+ const play=C.games[spec.puzzle.game];if(!play){note(body,'이 퍼즐을 표시하지 못했습니다.','warn');return;}
+ play(spec.puzzle,body,answer=>{
+  SND('chest_unlock');body.querySelector('.ch-game')?.classList.add('solved');body.append(mk('div','ch-solved',spec.solvedText||'봉인이 풀렸다!'));
+  setTimeout(()=>{if(C.node&&body.isConnected)spec.done?.(answer,body);},1300);
+ });
+};
 function solved(chest,answer,body){
  SND('chest_unlock');const board=body.querySelector('.ch-game');board?.classList.add('solved');
  const banner=mk('div','ch-solved','봉인이 풀렸다!');body.append(banner);
@@ -161,6 +178,9 @@ function lightsGame(p,body,done){
  row.append(btn('처음부터',()=>{state.splice(0,state.length,...p.state);moves.length=0;draw();},''),btn('힌트',()=>{const sol=solveLights(state,n);if(!sol.length)return;grid.children[sol[0]]?.classList.add('hinted');setTimeout(()=>grid.children[sol[0]]?.classList.remove('hinted'),1500);},'ch-hint'));
  body.append(row);
 }
+// The games by name; app_puzzles_v0152.js adds the 0.15.2 ones.
+C.games={SPOT:spotGame,SWAP:swapGame,SLIDE:slideGame,SUDOKU:sudokuGame,LIGHTS:lightsGame};
+C.note=note;C.preview=preview;C.placeImage=placeImage;
 function solveLights(state,n){const N=n*n;for(let mask=0;mask<1<<N;mask++){const s=state.slice(),list=[];for(let i=0;i<N;i++)if(mask>>i&1){list.push(i);const x=i%n,y=Math.floor(i/n);for(const k of [i,x>0?i-1:-1,x<n-1?i+1:-1,y>0?i-n:-1,y<n-1?i+n:-1])if(k>=0)s[k]^=1;}if(s.every(v=>v===1))return list;}return [];}
 // 스도쿠, with a short lesson the first time and on request.
 function sudokuGame(p,body,done){

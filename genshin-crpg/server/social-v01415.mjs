@@ -106,6 +106,8 @@ export const socialMethods={
   if(!free(r))throw err(409,who+'가 이야기나 전투를 진행 중입니다. 자유행동 중에만 '+what+' 수 있습니다.','NOT_FREE');
   return r;
  },
+ // 0.15.2: the market, live trades and letters start at protagonist Lv.10 (runtime_trade.js tradeLevelReason).
+ levelGate(r,who=''){const why=r?.tradeLevelReason?.();if(!why)return;const min=globalThis.CRPGRuntime?.tradeRules?.minLevel||10;throw err(403,who?who+'의 주인공이 아직 Lv.'+min+'이 되지 않았습니다. '+why:why,'LEVEL');},
  commit(fn){this.db.exec('BEGIN IMMEDIATE');try{const out=fn();this.db.exec('COMMIT');return out;}catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');throw e;}},
  // ---------- market ----------
  marketView(row,viewer){
@@ -130,11 +132,11 @@ export const socialMethods={
   if(this.db.prepare("SELECT COUNT(*) AS n FROM market WHERE seller_id=? AND status='ACTIVE'").get(a.id).n>=MARKET.maxListings)throw err(409,'상점에는 한 번에 '+MARKET.maxListings+'개까지 올릴 수 있습니다.');
   const entry=b?.entry;if(!entry||typeof entry!=='object')throw err(400,'판매할 물건을 골라 주세요.');
   return this.serial(a.id,()=>{
-   const r=this.liveRuntime(a.id,'판매하는 모험가');let moved;
+   const r=this.liveRuntime(a.id,'판매하는 모험가');this.levelGate(r);let moved;
    try{moved=r.tradeTake([entry.slot?{slot:String(entry.slot)}:{item:String(entry.item||''),qty:int(entry.qty)}]);}catch(e){throw err(400,e.message);}
    const m=moved[0],label=r.tradeLabel(moved),kind=m.gear?'GEAR':'ITEM',ref=m.gear?m.gear.equip:m.item,qty=m.gear?1:m.qty,enhance=m.gear?Number(m.gear.enhance)||0:0;
    const category=m.gear?(r.tables['16_EQUIP_DB'].get(ref)?.[2]||''):(r.tables['14_ITEM_DB'].get(ref)?.[2]||'');
-   const t=now(),id=this.commit(()=>{const id=Number(this.db.prepare("INSERT INTO market(seller_id,seller_name,goods,label,kind,ref,qty,enhance,category,price,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,'ACTIVE',?,?)").run(a.id,a.display_name,JSON.stringify(moved),label,kind,ref,qty,enhance,category,price,t,t).lastInsertRowid);this.writeSave(a.id,r,'market-sell-'+id,{type:'MARKET_SELL',listing:id});return id;});
+   const t=now(),id=this.commit(()=>{const id=Number(this.db.prepare("INSERT INTO market(seller_id,seller_name,goods,label,kind,ref,qty,enhance,category,price,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,'ACTIVE',?,?)").run(a.id,a.display_name,JSON.stringify(moved),label,kind,ref,qty,enhance,category,price,t,t).lastInsertRowid);r.achievementCount?.('listed');this.writeSave(a.id,r,'market-sell-'+id,{type:'MARKET_SELL',listing:id});return id;});
    this.invalidate(a.id);this.broadcast({type:'market',id,status:'ACTIVE'},s=>s.account!==a.id);
    return {listing:this.marketView(this.db.prepare('SELECT * FROM market WHERE id=?').get(id),a.id),sync:true};
   });
@@ -154,14 +156,14 @@ export const socialMethods={
   if(!row||row.status!=='ACTIVE')throw err(409,'이미 팔렸거나 내린 물건입니다.');if(row.seller_id===a.id)throw err(400,'내 상점의 물건은 살 수 없습니다.');
   if(b?.price!==undefined&&int(b.price)!==row.price)throw err(409,'가격이 바뀌었습니다. 다시 확인해 주세요.');
   return this.serial(a.id,()=>{
-   const r=this.liveRuntime(a.id,'사는 모험가');if((Number(r.s.global.MORA)||0)<row.price)throw err(409,'모라가 부족합니다.');
+   const r=this.liveRuntime(a.id,'사는 모험가');this.levelGate(r);if((Number(r.s.global.MORA)||0)<row.price)throw err(409,'모라가 부족합니다.');
    r.s.global.MORA=(Number(r.s.global.MORA)||0)-row.price;r.tradeGive(JSON.parse(row.goods));
    const fee=Math.max(1,Math.ceil(row.price*MARKET.fee)),gain=row.price-fee,t=now();
    this.commit(()=>{
     const still=this.db.prepare('SELECT status FROM market WHERE id=?').get(id);if(still?.status!=='ACTIVE')throw err(409,'방금 다른 모험가가 샀습니다.');
     this.db.prepare("UPDATE market SET status='SOLD',buyer_id=?,updated_at=? WHERE id=?").run(a.id,t,id);
     this.db.prepare('INSERT INTO market_wallet VALUES(?,?,1,?) ON CONFLICT(account_id) DO UPDATE SET mora=market_wallet.mora+excluded.mora,sales=market_wallet.sales+1,updated_at=excluded.updated_at').run(row.seller_id,gain,t);
-    this.writeSave(a.id,r,'market-buy-'+id+'-'+t,{type:'MARKET_BUY',listing:id});
+    r.achievementCount?.('bought');this.writeSave(a.id,r,'market-buy-'+id+'-'+t,{type:'MARKET_BUY',listing:id});
    });
    this.invalidate(a.id);
    this.broadcast({type:'market',id,status:'SOLD',label:row.label,gain},s=>s.account===row.seller_id);this.broadcast({type:'market',id,status:'SOLD'},s=>s.account!==row.seller_id&&s.account!==a.id);
@@ -204,6 +206,7 @@ export const socialMethods={
   if(!this.isOnline(t.id))throw err(409,t.display_name+' 님은 지금 접속해 있지 않습니다. 접속 중인 모험가와만 거래할 수 있습니다.');
   if(this.dealOf(a.id))throw err(409,'이미 진행 중인 거래가 있습니다.');if(this.dealOf(t.id))throw err(409,t.display_name+' 님은 다른 거래를 하고 있습니다.');
   for(const id of [a.id,t.id]){const m=this.meta(id);if(!m||m.revision==null)throw err(409,'두 모험가 모두 여정을 시작해야 거래할 수 있습니다.');}
+  this.levelGate(this.runtimeOf(a.id));this.levelGate(this.runtimeOf(t.id),t.display_name+' 님');
   const side=x=>({id:x.id,name:x.display_name,pid:pidOf(x.id),items:[],locked:false,confirmed:false});
   const d={id:createHash('sha256').update(a.id+':'+t.id+':'+now()+':'+Math.random()).digest('hex').slice(0,16),status:'INVITED',a:side(a),b:side(t),created:now(),updated:now()};
   this.deals.set(d.id,d);this.dealPush(d);return {deal:this.dealView(d,a.id)};
@@ -238,7 +241,7 @@ export const socialMethods={
    await this.serial(first,()=>this.serial(second,()=>{
     const ra=this.liveRuntime(d.a.id,d.a.name+' 님'),rb=this.liveRuntime(d.b.id,d.b.name+' 님');let fromA,fromB;
     try{fromA=ra.tradeTake(entries(d.a));fromB=rb.tradeTake(entries(d.b));}catch(e){throw err(409,'거래할 수 없습니다. '+e.message,'TRADE_FAILED');}
-    ra.tradeGive(fromB);rb.tradeGive(fromA);
+    ra.tradeGive(fromB);rb.tradeGive(fromA);ra.achievementCount?.('deals');rb.achievementCount?.('deals');
     this.commit(()=>{this.writeSave(d.a.id,ra,'deal-'+d.id+'-a',{type:'DEAL',deal:d.id});this.writeSave(d.b.id,rb,'deal-'+d.id+'-b',{type:'DEAL',deal:d.id});
      this.db.prepare('INSERT INTO deal_log VALUES(?,?,?,?,?,?,?,?)').run(d.id,d.a.id,d.a.name,d.b.id,d.b.name,fromA.length?ra.tradeLabel(fromA):'없음',fromB.length?rb.tradeLabel(fromB):'없음',now());});
     this.invalidate(d.a.id);this.invalidate(d.b.id);

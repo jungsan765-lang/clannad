@@ -9,7 +9,8 @@ function statText(stats){return Object.entries(stats||{}).filter(([,v])=>v).map(
 function farmCard(kind){
  const f=cfg.farm[kind],card=el('section','card liyue-artifact-farm'),reason=game.liyueArtifactFarmReason(kind),cooldown=game.s.liyueArtifactFarm?.cooldowns?.[kind];
  card.dataset.liyueArtifactFarm=kind;
- card.append(el('small','eyebrow','리월 반복 성장 콘텐츠'),el('h2','',f.name+' · '+(kind==='TARTAGLIA'?'성유물 파밍':'성유물 강화 재료')),
+ const lv=game.farmLevelV0152?.(kind);// 0.15.2: an endgame fight now (runtime_balance_v0152.js)
+ card.append(el('small','eyebrow','리월 반복 성장 콘텐츠'+(lv?' · 권장 Lv. '+lv.level+' (주인공 Lv. '+lv.minLevel+'부터)':'')),el('h2','',f.name+' · '+(kind==='TARTAGLIA'?'성유물 파밍':'성유물 강화 재료')),
   el('p','',kind==='TARTAGLIA'?'승리할 때마다 종류와 능력치가 크게 다른 성유물 1개를 획득합니다. 성유물은 특수 장비 칸에 장착하며 같은 종류라도 품질과 옵션이 전혀 다를 수 있습니다.':'승리 시 야타용왕의 지맥 결정 2~4개를 획득합니다. 이 재료는 성유물을 +5까지 확률 강화할 때 사용합니다.'),
   el('p','muted','파밍 입장은 보스별로 하루에 한 번(현실 시간, 한국 시간 자정 기준)입니다. 입장 순간 기록되므로 패배·이탈해도 그날 입장은 쓴 것으로 칩니다. 기존 스토리·보스 루트의 클리어 상태는 되돌리지 않습니다.'));
  if(cooldown)card.append(el('small','muted','이 보스의 다음 파밍 입장 시간이 저장되어 있습니다.'));

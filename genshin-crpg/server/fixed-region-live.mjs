@@ -10,6 +10,7 @@ import {splitState,joinState,diffParts,publicParts,wirePatch,intent} from './sta
 import {AdminConsole,installAdminSchema,banOf,banMessage,SYSTEM_ACCOUNT} from './admin-api.mjs';
 import {installSocialSchema,migrateRankingSeasons,socialMethods,socialRoute} from './social-v01415.mjs';
 import {installLetterSchema,letterMethods,letterRoute} from './letters-v0151.mjs';
+import {installRaidSchema,raidMethods,raidRoute} from './raid-v0152.mjs';
 
 const TRANSPORT_BUILD='fixed-region-live-sqlite-v1',MAX_BODY=65536,SESSION_MS=7*86400000,MAX_CACHE=16,now=()=>Date.now();
 const RID=/^[a-zA-Z0-9_-]{10,80}$/,JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'no-store'};
@@ -28,6 +29,10 @@ const pidOf=id=>createHash('sha256').update('crpg-chat:'+id).digest('hex').slice
 const cleanText=v=>[...String(v??'')].map(ch=>{const c=ch.codePointAt(0);return c<32||c===127||(c>=0x200b&&c<=0x200f)||(c>=0x2028&&c<=0x202e)||(c>=0x2060&&c<=0x206f)||c===0xfeff?' ':ch;}).join('').replace(/\s+/g,' ').trim();
 export function defaultFeatures(dbPath,env=process.env){const raw=env.CRPG_FEATURES;if(raw!==undefined)return String(raw).split(',').map(x=>x.trim()).filter(Boolean);return /live-staging|:memory:/.test(String(dbPath))?['chat','trade']:[];}
 const ip=req=>String(req.headers['x-forwarded-for']||req.socket?.remoteAddress||'local').split(',')[0].trim().slice(0,96);
+// 0.15.2: at most three new accounts a day from one connection (user: 「계정 무한 생성해서 돈 모으려는 버그 … 아이피별로 계정
+// 생성에 제한을 걸어두던가」). The server only listens behind Caddy, which names the visitor; a loopback address without it (tests,
+// the local preview) is not counted.
+const REGISTER_PER_DAY=3,LOOPBACK=/^(local|seed|127\.|::1$|::ffff:127\.)/;
 // 0.14.15: records count per monthly season; a save from before seasons counts in the month it is played.
 function score(state){const a=state?.abyss||{},floor=Math.max(0,...Object.keys(a.clears||{}).map(Number)),rounds=Object.values(a.clears||{}).reduce((n,x)=>n+(x?.rounds||0),0),S=globalThis.CRPGRuntime?.abyssSeason,season=!a.season||a.season==='ABYSS_01'?(S?S.of(now()):'ABYSS_01'):a.season;return {season,floor,rounds,attempts:a.attempts||0};}
 
@@ -46,17 +51,19 @@ export class LiveRegionStore{
    'CREATE TABLE IF NOT EXISTS parts(account_id TEXT NOT NULL,path TEXT NOT NULL,value TEXT NOT NULL,PRIMARY KEY(account_id,path),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT',
    'CREATE TABLE IF NOT EXISTS receipts(account_id TEXT NOT NULL,request_id TEXT NOT NULL,revision INTEGER NOT NULL,base_revision INTEGER NOT NULL,intent_hash TEXT NOT NULL,result TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,request_id),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT',
    'CREATE TABLE IF NOT EXISTS backups(account_id TEXT NOT NULL,revision INTEGER NOT NULL,undo TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,revision),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT',
-   'CREATE TABLE IF NOT EXISTS ranking(account_id TEXT NOT NULL,season TEXT NOT NULL,display_name TEXT NOT NULL,floor INTEGER NOT NULL,rounds INTEGER NOT NULL,attempts INTEGER NOT NULL,achieved_at INTEGER NOT NULL,PRIMARY KEY(account_id,season),FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT'
+   'CREATE TABLE IF NOT EXISTS ranking(account_id TEXT NOT NULL,season TEXT NOT NULL,display_name TEXT NOT NULL,floor INTEGER NOT NULL,rounds INTEGER NOT NULL,attempts INTEGER NOT NULL,achieved_at INTEGER NOT NULL,PRIMARY KEY(account_id,season),FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT',
+   // 0.15.2: new accounts per connection (only a peppered hash of the address is kept, for a week).
+   'CREATE TABLE IF NOT EXISTS register_log(ip TEXT NOT NULL,at INTEGER NOT NULL) STRICT','CREATE INDEX IF NOT EXISTS register_log_idx ON register_log(ip,at)'
   ].join(';')+';';
   this.db.exec(pragmas+ddl);installAdminSchema(this.db);migrateRankingSeasons(this.db);
   if(this.features.has('chat'))this.db.exec('CREATE TABLE IF NOT EXISTS chat(id INTEGER PRIMARY KEY AUTOINCREMENT,channel TEXT NOT NULL,account_id TEXT NOT NULL,author TEXT NOT NULL,text TEXT NOT NULL,created_at INTEGER NOT NULL,deleted INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS chat_channel_idx ON chat(channel,id);');
   if(this.features.has('trade'))this.db.exec("CREATE TABLE IF NOT EXISTS trades(id INTEGER PRIMARY KEY AUTOINCREMENT,from_id TEXT NOT NULL,to_id TEXT NOT NULL,give TEXT NOT NULL,want TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(from_id) REFERENCES accounts(id) ON DELETE CASCADE,FOREIGN KEY(to_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS trades_to_idx ON trades(to_id,status);CREATE INDEX IF NOT EXISTS trades_from_idx ON trades(from_id,status);");
-  installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);
+  installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);installRaidSchema(this.db);
   this.heartbeat=setInterval(()=>this.push(': ping\n\n'),25000);this.heartbeat.unref?.();
  }
  close(){clearInterval(this.heartbeat);for(const s of this.subscribers){try{s.res.end();}catch{}}this.subscribers.clear();this.db.close();}
  need(feature){if(!this.features.has(feature))throw err(404,'지원하지 않는 요청입니다.');}
- capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1','profile-v1']:[]),...(this.features.has('trade')?['trade-v1','market-v1','deal-v1','mail-v1']:[])];}
+ capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1','profile-v1']:[]),...(this.features.has('trade')?['trade-v1','market-v1','deal-v1','mail-v1']:[]),'raid-v1'];}
  // ---------- chat ----------
  push(text,filter){for(const s of this.subscribers){if(filter&&!filter(s))continue;try{s.res.write(text);}catch{this.subscribers.delete(s);}}}
  broadcast(event,filter){this.push('data: '+JSON.stringify(event)+'\n\n',filter);}
@@ -142,8 +149,11 @@ export class LiveRegionStore{
   const username=uname(b.username),password=String(b.password||'');this.rate('auth-ip:'+addr,30,600000);this.rate('auth-user:'+username,10,600000);this.rate('register:'+addr,5,3600000);
   if(!/^[a-z0-9가-힣_]{3,24}$/.test(username)||password.length<8||password.length>128)throw err(400,'아이디는 한글·영문·숫자·밑줄 3~24자, 비밀번호는 8~128자로 입력해 주세요.');
   if(this.account(username))throw err(409,'이미 사용 중인 아이디입니다.');
+  const ipKey=LOOPBACK.test(String(addr))?null:createHash('sha256').update('crpg-register:'+this.pepper+':'+addr).digest('hex').slice(0,32);
+  if(ipKey&&this.db.prepare('SELECT COUNT(*) AS n FROM register_log WHERE ip=? AND at>?').get(ipKey,now()-86400000).n>=REGISTER_PER_DAY)throw err(429,'이 연결에서는 하루에 계정을 '+REGISTER_PER_DAY+'개까지 만들 수 있습니다. 내일 다시 시도해 주세요.','REGISTER_LIMIT');
   const id=crypto.randomUUID(),salt=token(),ph=await passwordHash(password,salt,this.pepper),display=String(b.displayName||username).trim().slice(0,24)||username;
   try{this.db.prepare('INSERT INTO accounts VALUES(?,?,?,?,?,?)').run(id,username,display,salt,ph,now());}catch{throw err(409,'이미 사용 중인 아이디입니다.');}
+  if(ipKey){this.db.prepare('INSERT INTO register_log VALUES(?,?)').run(ipKey,now());this.db.prepare('DELETE FROM register_log WHERE at<?').run(now()-7*86400000);}
   return this.issue(this.account(username));
  }
  async login(b,addr){
@@ -173,7 +183,7 @@ export class LiveRegionStore{
     const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,a,env,now(),warm);compact(r.s);const after=splitState(r.s),rough=[...after].reduce((n,[p,v])=>n+p.length+v.length+8,2);let stateBytes=rough*3;if(stateBytes>1900000){stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw err(507,'저장 크기 한도에 도달했습니다.');}
     const d=diffParts(before,after),next={...m,revision:m.revision+1,ranked:isDebug?0:m.ranked,last_request_id:b.requestId,updated_at:now()},payload=b.responseMode==='state-parts-v1'?{...this.envelope(a,next,result),baseRevision:m.revision,statePatch:wirePatch(publicParts(before),publicParts(after))}:this.output(a,next,after,result);
     persistence=true;const ps=performance.now(),del=this.db.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=this.db.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
-    for(const p of d.remove)del.run(a.id,p);for(const [p,v] of d.set)up.run(a.id,p,v);this.db.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(a.id,m.revision,JSON.stringify(d.undo),next.updated_at);this.db.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(a.id,m.revision-3);this.db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(a.id,b.requestId,next.revision,m.revision,digest,JSON.stringify({result}),next.updated_at);this.db.prepare('UPDATE metadata SET revision=?,ranked=?,last_request_id=?,updated_at=? WHERE account_id=?').run(next.revision,next.ranked,b.requestId,next.updated_at,a.id);this.rank(a,next.ranked,r.s);this.db.exec('COMMIT');this.touch(a.id,{revision:next.revision,parts:after,r});
+    for(const p of d.remove)del.run(a.id,p);for(const [p,v] of d.set)up.run(a.id,p,v);this.db.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(a.id,m.revision,JSON.stringify(d.undo),next.updated_at);this.db.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(a.id,m.revision-3);this.db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(a.id,b.requestId,next.revision,m.revision,digest,JSON.stringify({result}),next.updated_at);this.db.prepare('UPDATE metadata SET revision=?,ranked=?,last_request_id=?,updated_at=? WHERE account_id=?').run(next.revision,next.ranked,b.requestId,next.updated_at,a.id);this.rank(a,next.ranked,r.s);const raided=this.raidRecord?.(a,r,next);this.db.exec('COMMIT');this.touch(a.id,{revision:next.revision,parts:after,r});if(raided)this.broadcast({type:'raid',event:raided.event,hits:raided.hits},()=>true);
     return {payload,timing:{runtimeMs,engineMs,persistMs:Math.round((performance.now()-ps)*10)/10,totalMs:Math.round((performance.now()-started)*10)/10,stateBytes,responseBytes:Buffer.byteLength(JSON.stringify(payload))}};
    }catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');this.invalidate(a.id);if(!persistence)e.outcome='REJECTED';throw e;}
   });
@@ -182,7 +192,7 @@ export class LiveRegionStore{
  ranking(){const S=globalThis.CRPGRuntime?.abyssSeason,cur=this.seasonNow(),prev=S?.previous(cur),top=season=>this.db.prepare('SELECT display_name AS name,floor,rounds,attempts FROM ranking WHERE season=? ORDER BY floor DESC,rounds,attempts,achieved_at,account_id LIMIT 20').all(season).map((r,i)=>({rank:i+1,...r}));return {season:cur,label:S?.label(cur)||cur,endsAt:S?.end(cur)||null,entries:top(cur),previous:prev?{season:prev,label:S.label(prev),entries:top(prev)}:null};}
 }
 
-Object.assign(LiveRegionStore.prototype,socialMethods,letterMethods);
+Object.assign(LiveRegionStore.prototype,socialMethods,letterMethods,raidMethods);
 
 export function createLiveRegionHandler({store,allowedOrigin='https://clannad.shop',adminConsole=null}){
  return async(req,res)=>{const origin=req.headers.origin||'',host=req.headers.host||'',sameOrigin=!!origin&&!!host&&(origin===`https://${host}`||origin===`http://${host}`);if(origin&&origin!==allowedOrigin&&!sameOrigin)return send(res,403,{error:'허용되지 않은 접속 경로입니다.'},{vary:'Origin'});const c=cors(origin,sameOrigin?origin:allowedOrigin);
@@ -215,6 +225,8 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
    const social=await socialRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(social!==undefined)return send(res,200,social,c);
    // 0.15.1 letters between adventurers (server/letters-v0151.mjs).
    const letters=await letterRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(letters!==undefined)return send(res,200,letters,c);
+   // 0.15.2 공동 토벌전 (server/raid-v0152.mjs).
+   const raid=await raidRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(raid!==undefined)return send(res,200,raid,c);
    return send(res,404,{error:'지원하지 않는 요청입니다.'},c);
   }catch(e){const rule=!!(globalThis.CRPGRuntime?.RuleError&&e instanceof globalThis.CRPGRuntime.RuleError)||!!(globalThis.CRPGRelationships?.RelationshipError&&e instanceof globalThis.CRPGRelationships.RelationshipError);return send(res,e.status||(rule?400:500),{error:e.status||rule?e.message:'이 행동을 처리하지 못했습니다. 다른 행동을 선택하거나 잠시 뒤 다시 시도해 주세요.',...(e.code?{code:e.code}:{}),...(e.outcome?{outcome:e.outcome}:{}),...(e.code==='VERSION_MISMATCH'?{version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD}:{})},c);}
  };

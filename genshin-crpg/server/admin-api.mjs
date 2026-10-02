@@ -218,10 +218,10 @@ export class AdminConsole{
    let r;try{r=new R(GAME_DB,joinState(state),true);}catch(e){throw err(400,'되돌린 저장이 검사를 통과하지 못했습니다: '+e.message);}
    const receipts=this.db.prepare('SELECT revision,result FROM receipts WHERE account_id=? AND revision>? AND revision<=? ORDER BY revision DESC').all(a.id,m.revision-steps,m.revision);
    // Letters sent or taken in those steps follow too (server/letters-v0151.mjs).
-   const market=this.marketUndo(a.id,receipts),letters=this.store.letterUndo?.(a.id,receipts)||{lines:[],changed:false,notify:[],apply:()=>{}},lines=[...market.lines,...letters.lines];
+   const market=this.marketUndo(a.id,receipts),letters=this.store.letterUndo?.(a.id,receipts)||{lines:[],changed:false,notify:[],apply:()=>{}},raid=this.store.raidUndo?.(a.id,receipts)||{lines:[],apply:()=>{}},lines=[...market.lines,...letters.lines,...raid.lines];
    const changes=[steps+'단계 전(저장 '+(m.revision-steps)+') 상태로 되돌림',...lines];
    r.mailAdd?.({kind:'NOTICE',title:'운영자가 여정을 되돌렸습니다',body:'운영자가 이 여정을 '+steps+'단계 전 상태로 되돌렸습니다.'+(lines.length?'\n'+lines.map(x=>'· '+x).join('\n'):'')});
-   const out=this.commit(a,m,before,splitState(r.s),'운영자 되돌리기',{changes},r.s,'rollback',db=>{market.apply(db);letters.apply(db);});
+   const out=this.commit(a,m,before,splitState(r.s),'운영자 되돌리기',{changes},r.s,'rollback',db=>{market.apply(db);letters.apply(db);raid.apply(db);});
    if(market.changed)this.store.broadcast({type:'market',status:'CHANGED'},()=>true);
    for(const id of letters.notify)this.store.broadcast({type:'mail',status:'CHANGED'},s=>s.account===id);
    return out;

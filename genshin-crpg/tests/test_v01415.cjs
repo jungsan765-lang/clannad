@@ -7,17 +7,8 @@ const results=[],src=f=>fs.readFileSync(path.join(root,'source',f),'utf8'),file=
 function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evidence:evidence??null});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 const api=c.CRPGRuntime,rules=api.chestRules;
 const world=(map='MAP_MOND_CITY')=>{const g=fresh(map);g.installMarketContent();return g;};
-// Reference solvers, written apart from the game code.
-const solve={
- SUDOKU(p){const {n,box:[br,bc]}=p,a=p.givens.slice();const ok=(i,v)=>{const y=Math.floor(i/n),x=i%n;for(let k=0;k<n;k++)if(a[y*n+k]===v||a[k*n+x]===v)return false;const by=y-y%br,bx=x-x%bc;for(let yy=0;yy<br;yy++)for(let xx=0;xx<bc;xx++)if(a[(by+yy)*n+bx+xx]===v)return false;return true;};
-  const go=i=>{if(i===n*n)return true;if(a[i])return go(i+1);for(let v=1;v<=n;v++)if(ok(i,v)){a[i]=v;if(go(i+1))return true;a[i]=0;}return false;};assert(go(0),'sudoku has a solution');return a;},
- SWAP(p){const b=p.board.slice(),moves=[];for(let i=0;i<b.length;i++)if(b[i]!==i){const j=b.indexOf(i);moves.push([i,j]);[b[i],b[j]]=[b[j],b[i]];}return moves;},
- LIGHTS(p){const n=p.n,N=n*n;for(let mask=0;mask<(1<<N);mask++){const s=p.state.slice(),presses=[];for(let i=0;i<N;i++)if(mask>>i&1){presses.push(i);for(const k of [i,i%n>0?i-1:-1,i%n<n-1?i+1:-1,i>=n?i-n:-1,i<N-n?i+n:-1])if(k>=0)s[k]^=1;}if(s.every(v=>v===1))return presses;}throw Error('lights has no solution');},
- SLIDE(p){const n=p.n,N=n*n,start=p.board.join(','),goal=[...Array(N).keys()].join(','),prev=new Map([[start,null]]),q=[start];
-  while(q.length){const cur=q.shift();if(cur===goal)break;const b=cur.split(',').map(Number),blank=b.indexOf(N-1),x=blank%n,y=Math.floor(blank/n);for(const i of [x>0?blank-1:-1,x<n-1?blank+1:-1,y>0?blank-n:-1,y<n-1?blank+n:-1]){if(i<0)continue;const d=b.slice();d[blank]=d[i];d[i]=N-1;const k=d.join(',');if(!prev.has(k)){prev.set(k,[cur,i]);q.push(k);}}}
-  assert(prev.has(goal),'slide has a solution');const out=[];let k=goal;while(prev.get(k)){const [p2,i]=prev.get(k);out.unshift(i);k=p2;}return out;},
- SPOT(p){return [...Array(p.count).keys()];}
-};
+// Reference solvers, written apart from the game code (0.15.2: every chest game, tests/puzzle_solvers.cjs).
+const {solve}=require('./puzzle_solvers.cjs');
 const refused=(fn,pattern)=>{try{fn();}catch(e){if(pattern)assert.match(e.message,pattern);return true;}return false;};
 const plain=x=>JSON.parse(JSON.stringify(x)); // values made inside the game's VM context have other prototypes
 
@@ -39,7 +30,7 @@ check('chests: each opens once with the right answer, at its place; wrong answer
   const g=world(x.map);
   if(x.how==='SCENERY_NIGHT'||x.night){assert(refused(()=>g.action('CHEST_OPEN',{chest:x.id}),/밤/),x.id+' only at night');g.s.global.WORLD_TIME='21:00';}
   let answer;
-  if(x.game){const p=g.chestPuzzle(x.id);answer=solve[x.game](p);games[x.game]=(games[x.game]||0)+1;
+  if(x.game){const p=plain(g.chestPuzzle(x.id));answer=solve[x.game](p,api);games[x.game]=(games[x.game]||0)+1;
    assert(refused(()=>g.action('CHEST_OPEN',{chest:x.id,answer:x.game==='SPOT'?[0]:[]}),/퍼즐/),x.id+' wrong answer refused');}
   const before=Number(g.s.global.PRIMOGEM)||0,mora=Number(g.s.global.MORA)||0;g.action('CHEST_OPEN',{chest:x.id,answer});
   assert.equal((Number(g.s.global.PRIMOGEM)||0)-before,x.reward.primogem,x.id+' primogems');assert.equal(g.s.global.MORA-mora,x.reward.mora,x.id+' mora');
@@ -59,7 +50,7 @@ check('chests: a puzzle stays the same for one journey and differs between journ
  assert.equal(liyueSpot.count,5);assert(liyueSpot.subtle,'Liyue differences are subtle');assert(liyueSpot.radius<mondSpot.radius);
  for(const id of rules.chests.filter(x=>x.game==='SPOT').map(x=>x.id))for(const d of p(id).diffs){
   assert(['icon','flip','hue'].includes(d.kind),'no stains or blurs: '+d.kind);assert(d.y>=40&&d.y<=90,'in the lower part of the picture, not the sky: '+id+' y'+d.y);}
- assert.equal(p('CHEST_M03').n,4);assert.equal(p('CHEST_L03').n,6,'sudoku 4×4 in Mond, 6×6 in Liyue');
+ assert.equal(p('CHEST_M07').n,4);assert.equal(p('CHEST_L03').n,6,'sudoku 4×4 in Mond, 6×6 in Liyue');
  assert.equal(p('CHEST_M04').n,3);assert.equal(p('CHEST_L04').n,4,'slates 3×3 in Mond, 4×4 in Liyue');
  return {mondSpot:mondSpot.count,liyueSpot:liyueSpot.count};
 });

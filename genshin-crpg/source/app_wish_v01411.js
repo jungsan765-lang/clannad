@@ -81,6 +81,8 @@ function draw(){
  for(const n of [1,10]){const b=mk('button','wish-pull'+(n===10?' ten':''));b.type='button';const cost=mk('span','wish-cost');cost.append(curIcon(fate,'wish-cur small'),mk('span','','× '+n));b.append(mk('strong','',n===1?'기원 1회':'기원 10회'),cost);b.disabled=UI.busy||!!lock;if(lock)b.title=lock;b.onclick=()=>pull(n);pulls.append(b);}
  foot.append(left,pity,pulls);
  const note=lock||UI.note;if(note){const p=mk('p','wish-lock',note);p.setAttribute('role','status');foot.append(p);}
+ // 0.15.2: a lock that runs out by itself (the short rest after a lost battle) opens the buttons again without reopening
+ clearTimeout(UI.lockTimer);const sec=/(\d+)초 남음/.exec(lock||'');if(sec)UI.lockTimer=setTimeout(()=>{if(UI.root&&!UI.stage)draw();},(Number(sec[1])+1)*1000);
  root.append(foot);
  if(UI.panel)root.append(panel(UI.panel,v,bal));
 }
@@ -204,9 +206,9 @@ function reveal(stage,r,next){
  stage.querySelector('.wish-reveal')?.remove();stage.append(card);
  const sound='wish_reveal'+r.rarity;SND(sound);
  let settled=false,left=false;const settle=()=>{settled=true;card.classList.add('settled');};
- // 0.15.1: the art stands as a shadow first and the name and stars come in slowly (user: 「카드 그림자만 나왔다가 이름하고
- // 별하고 천천히」), so the result settles later; a click still shows it at once.
- const timer=setTimeout(settle,r.kind==='char'?(r.rarity>=5?2300:2000):(r.rarity>=4?2700:2500));
+ // 0.15.1/0.15.2: every result, card or weapon, stands as a shadow first and the name and stars come in slowly (user:
+ // 「카드 그림자만 나왔다가 이름하고 별하고 천천히」, 「하나씩 나올때 그림자여야된다고」), so it settles later; a click shows it at once.
+ const timer=setTimeout(settle,r.kind==='char'?(r.rarity>=5?3000:2700):(r.rarity>=4?2700:2500));
  const advance=()=>{if(left)return;if(!settled){clearTimeout(timer);settle();return;}left=true;card.classList.add('leaving');setTimeout(()=>{card.remove();next();},160);};
  card.onclick=advance;
  return {advance,stopSound:()=>{clearTimeout(timer);STOP(sound);}};
@@ -231,8 +233,6 @@ function summary(stage,results){
   if(r.rarity>=4&&q){const b=mk('img','wish-card-badge');b.src=q;b.alt='';c.append(b);}
   if(r.featured)c.append(mk('span','wish-card-up','UP'));
   cards.append(c);
-  // each card comes up as a shadow, then lights up one after another with its name and stars
-  setTimeout(()=>c.classList.add('lit'),650+i*230);
  });
  const ok=mk('button','wish-primary','확인');ok.type='button';
  const total=results.reduce((a,r)=>({glitter:a.glitter+(r.glitter||0),dust:a.dust+(r.dust||0)}),{glitter:0,dust:0});

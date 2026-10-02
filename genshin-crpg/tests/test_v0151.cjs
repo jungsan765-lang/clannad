@@ -64,13 +64,16 @@ check('Katheryne speaks 반말 to the traveller at the guild desk',()=>{
  assert(!places.includes('모험가 길드에 오신 것을 환영합니다'));
 });
 
-check('pictures: 운명의 별 and Mora have their Genshin icons; the wish shows gains as pictures and cards light up one by one',()=>{
+check('pictures: 운명의 별 and Mora have their Genshin icons; the wish shows gains as pictures and each result comes as a shadow first',()=>{
  const icons=JSON.parse(file('content/item-icons.json')).icons;
  for(const k of ['STELLA_FORTUNA_4','STELLA_FORTUNA_5']){const x=icons[k];assert(x&&fs.existsSync(path.join(root,x.path)),k);assert.equal(x.provenance,'genshin_impact_wiki_file');}
  assert.match(file('assets/icons/CREDITS.md'),/Stella Fortuna/);
  assert.match(src('app_shell.js'),/window\.currencyIcon=/);assert.match(src('app_shell.js'),/currencyIcon\?\.\('MORA','hud-mora-icon'\)/,'the Mora at the top too');assert.match(src('app_adventure.js'),/withCur\(/);assert.match(src('app_premium_v0148.js'),/STELLA_FORTUNA_5/);
- const wish=src('app_wish_v01411.js');assert.match(wish,/classList\.add\('lit'\)/);assert.match(wish,/function gainNode/);
- const css=src('shell.css');assert.match(css,/\.wish-card:not\(\.lit\) \.wish-card-art\{filter:brightness\(0\)/);assert.match(css,/\.wish-card-weapon\{top:6%;width:auto;max-width:84%;height:60%;object-fit:contain\}/);
+ // 0.15.2: the shadow belongs to the one-by-one reveal (cards and weapons), not to the list at the end (user: 「마지막 부분이
+ // 그림자여야 된다는게 아니라 하나씩 나올때 그림자여야된다고」)
+ const wish=src('app_wish_v01411.js');assert.doesNotMatch(wish,/classList\.add\('lit'\)/);assert.match(wish,/function gainNode/);
+ const css=src('shell.css');assert.match(css,/\.wish-reveal\.kind-char \.wish-reveal-art img\{animation:wish-art-shadow/);assert.match(css,/\.wish-reveal\.kind-weapon \.wish-reveal-weapon img\{animation:wish-shadow-in/);
+ assert.doesNotMatch(css,/\.wish-card:not\(\.lit\)/,'the list at the end shows everything at once');assert.match(css,/\.wish-card-weapon\{top:6%;width:auto;max-width:84%;height:60%;object-fit:contain\}/);
 });
 
 check('틀린 그림 찾기: a wrong press costs a chance (Mond 5, Liyue 3); with none left the search starts over',()=>{

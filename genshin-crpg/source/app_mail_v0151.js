@@ -223,6 +223,7 @@ function composeView(){
  const bf=mk('label','ml-field');const cnt=mk('small','ml-count',[...d.body].length+'/'+R.bodyMax);bf.append(mk('span','ml-label','내용'),cnt);
  const ta=mk('textarea','ml-input ml-textarea');ta.maxLength=R.bodyMax;ta.rows=5;ta.value=d.body;ta.placeholder='전할 말을 적어 주세요.';ta.oninput=()=>{d.body=ta.value;cnt.textContent=[...ta.value].length+'/'+R.bodyMax;};bf.append(ta);
  form.append(to,tf,bf);
+ try{const lv=game.tradeLevelReason?.();if(lv)form.prepend(mk('p','ml-note ml-warn',lv+' 받은 편지는 지금도 읽고 받을 수 있습니다.'));}catch{}
  // 넣을 물건
  const af=mk('div','ml-field');af.append(mk('span','ml-label','넣을 물건 · '+d.items.size+'/'+R.entries+'종'));
  const tray=mk('div','ml-tray');
@@ -264,6 +265,7 @@ function feeText(p,d){
   mk('small','','보유 모라 '+fmt(have)+(have>=need?' → 보낸 뒤 '+fmt(have-need):' · '+fmt(need-have)+' 모라 부족')+' · 수수료는 돌려받지 못합니다'));
 }
 function sendWhy(d){
+ const lv=(()=>{try{return game.tradeLevelReason?.()||'';}catch{return '';}})();if(lv)return lv;
  if(!d.to)return '받는 모험가를 골라 주세요.';if(!String(d.title).trim())return '제목을 적어 주세요.';
  const need=postage(d.items.size,d.mora)+d.mora;if(mora()<need)return '모라가 부족합니다.';return busyReason();
 }

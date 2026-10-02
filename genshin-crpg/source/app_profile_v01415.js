@@ -74,7 +74,7 @@ function actions(card,v){
  const row=mk('div','pf-actions');
  if(!v.you){
   const trade=btn('직접 거래 신청',async()=>{if(P.busy)return;P.busy=true;try{await window.CRPGTrade?.invite?.(v.pid,v.name);close();}finally{P.busy=false;}},'primary');
-  if(!v.online){trade.disabled=true;trade.title=v.name+' 님은 지금 접속해 있지 않습니다.';}row.append(trade);
+  if(!v.online){trade.disabled=true;trade.title=v.name+' 님은 지금 접속해 있지 않습니다.';}else{const lv=game?.tradeLevelReason?.();if(lv){trade.disabled=true;trade.title=lv;}}row.append(trade);
   // 0.15.1: a letter reaches them online or not (app_mail_v0151.js).
   if(v.journey&&window.CRPGMail?.canWrite?.())row.append(btn('편지 보내기',()=>{close();window.CRPGMail.compose({to:{pid:v.pid,name:v.name}});}));
  }

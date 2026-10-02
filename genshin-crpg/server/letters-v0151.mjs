@@ -78,11 +78,11 @@ export const letterMethods={
   const reply=b?.replyTo?this.letterRow(b.replyTo):null,replyTo=reply&&reply.to_id===a.id?reply.id:null;
   this.rate('letter-send:'+a.id,POST.sendLimit,POST.sendWindowMs);
   return this.serial(a.id,()=>{
-   const r=this.liveRuntime(a.id,'편지를 보내는 모험가','편지를 보낼');let moved=[];
+   const r=this.liveRuntime(a.id,'편지를 보내는 모험가','편지를 보낼');this.levelGate(r);let moved=[];
    if(items.length){try{moved=r.tradeTake(items.map(x=>x?.slot?{slot:String(x.slot)}:{item:String(x?.item||''),qty:int(x?.qty)}));}catch(e){throw err(400,e.message);}}
    const fee=postage(moved.length,mora),have=Number(r.s.global.MORA)||0;
    if(have<mora+fee)throw err(409,'모라가 부족합니다. '+(mora?'보낼 모라 '+fmt(mora)+' + ':'')+'수수료 '+fmt(fee)+' = '+fmt(mora+fee)+' 모라가 필요합니다.');
-   r.s.global.MORA=have-mora-fee;
+   r.s.global.MORA=have-mora-fee;r.achievementCount?.('letters');
    const label=moved.length?r.tradeLabel(moved):'',parcel=moved.length>0||mora>0,t=now();
    const id=this.commit(()=>{
     const id=Number(this.db.prepare("INSERT INTO letters(from_id,from_name,to_id,to_name,title,body,goods,label,mora,fee,status,reply_to,created_at,updated_at,expires_at) VALUES(?,?,?,?,?,?,?,?,?,?,'SENT',?,?,?,?)").run(a.id,a.display_name,to.id,to.display_name,title,body,JSON.stringify(moved),label,mora,fee,replyTo,t,t,t+KEEP_MS).lastInsertRowid);

@@ -53,7 +53,11 @@ const ICON={
  TRADE:'M4 8h13l-3-3 M20 16H7l3 3 M17 8l-3 3 M7 16l3-3',
  ANVIL:'M3 7h12.5a4.5 4.5 0 0 0 4.5-3v5a4 4 0 0 1-4 4h-2v3l3 3H7l3-3v-3H8a5 5 0 0 1-5-5z',
  POT:'M3 10h18 M5 10l1.3 8.4A2 2 0 0 0 8.3 20h7.4a2 2 0 0 0 2-1.6L19 10 M9.5 6.8c0-1.1 1.2-1.4 1.2-2.6 M13.5 6.8c0-1.1 1.2-1.4 1.2-2.6',
- FLASK:'M9 3h6 M10 3v6.5L4.6 18.4A1.7 1.7 0 0 0 6.1 21h11.8a1.7 1.7 0 0 0 1.5-2.6L14 9.5V3 M7 15.5h10'
+ FLASK:'M9 3h6 M10 3v6.5L4.6 18.4A1.7 1.7 0 0 0 6.1 21h11.8a1.7 1.7 0 0 0 1.5-2.6L14 9.5V3 M7 15.5h10',
+ // 0.15.2: 업적, 퍼즐 장치, 공동 토벌전
+ TROPHY:'M7 4h10v5a5 5 0 0 1-10 0z M7 6H4v1a4 4 0 0 0 3.6 4 M17 6h3v1a4 4 0 0 1-3.6 4 M12 14v3 M8.5 20.5h7 M9.5 17h5v3.5h-5z',
+ PUZZLE:'M5 6h4a2.2 2.2 0 1 1 4 0h4v4a2.2 2.2 0 1 1 0 4v4h-4a2.2 2.2 0 1 0-4 0H5v-4a2.2 2.2 0 1 0 0-4z',
+ RAID:'M12 3l2.4 4.2L19 6l-1.2 4.7L21 14l-4.6 1.1L15 20l-3-3.2L9 20l-1.4-4.9L3 14l3.2-3.3L5 6l4.6 1.2z M12 10.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4z'
 };
 function icon(name,cls='shell-icon'){const s=document.createElementNS(NS,'svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('class',cls);const p=document.createElementNS(NS,'path');p.setAttribute('d',ICON[name]||ICON.DOT);s.append(p);return s;}
 S.icon=icon;
