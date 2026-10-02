@@ -34,12 +34,14 @@ P.cardDefinition=function(r,enemy=false){
 P.skillRhythm=function(id){const R=RHYTHM[id];return R?{e:R[0],q:R[1],ePower:POWER.E[R[0]],qPower:POWER.Q[R[1]]}:null;};
 // The exclusive weapon a companion is holding (its enhancement raises the awakening chance).
 P.resonanceWeapon=function(owner){return this.s.inventory.find(i=>i.equipped&&i.owner===owner&&i.equip==='EQ_EX_'+owner)||null;};
-P.resonanceChance=function(owner){const w=this.resonanceWeapon(owner);return w?Math.min(.9,AWAKEN.base+AWAKEN.perEnhance*(Number(w.enhance)||0)):0;};
+// A fighter or a character id. 0.15.3: a fighter brought from another adventurer's journey (다인 모드) carries its own
+// chance (resonanceSnapshot), worked out from that journey's weapon.
+P.resonanceChance=function(x){if(x&&typeof x==='object'){if(Number.isFinite(x.resonanceSnapshot))return Math.max(0,Math.min(.9,x.resonanceSnapshot));x=x.source;}const w=this.resonanceWeapon(x);return w?Math.min(.9,AWAKEN.base+AWAKEN.perEnhance*(Number(w.enhance)||0)):0;};
 P.executeCard=function(a,c,...rest){
  const b=this.s.runtime,s=b&&a?.side==='ALLY'&&slot(c);if(!s)return old.executeCard.call(this,a,c,...rest);
  const R=RHYTHM[c.owner],power=s==='E'?POWER.E[R[0]]:POWER.Q[R[1]];let dmg=power,support=power;
  if(s==='Q'&&Number(a.traits?.SIGNATURE||0)>0){
-  const chance=this.resonanceChance(a.source);
+  const chance=this.resonanceChance(a);
   if(chance>0&&this.random()<chance){dmg*=AWAKEN.damage;support*=AWAKEN.support;
    b.log.push({actor:a.name,actorId:a.id,card:c.id,cardName:c.name,resonance:true,text:a.name+' · 공명 각성 — 원소폭발이 한층 강해졌다.',round:b.round,actionSequence:b.actionSequence||0});
    b.resonanceCount=(b.resonanceCount||0)+1;}

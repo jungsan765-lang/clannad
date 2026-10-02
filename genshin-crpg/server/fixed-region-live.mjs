@@ -11,6 +11,7 @@ import {AdminConsole,installAdminSchema,banOf,banMessage,SYSTEM_ACCOUNT} from '.
 import {installSocialSchema,migrateRankingSeasons,socialMethods,socialRoute} from './social-v01415.mjs';
 import {installLetterSchema,letterMethods,letterRoute} from './letters-v0151.mjs';
 import {installRaidSchema,raidMethods,raidRoute} from './raid-v0152.mjs';
+import {installCoopSchema,coopMethods,coopRoute} from './coop-v0153.mjs';
 
 const TRANSPORT_BUILD='fixed-region-live-sqlite-v1',MAX_BODY=65536,SESSION_MS=7*86400000,MAX_CACHE=16,now=()=>Date.now();
 const RID=/^[a-zA-Z0-9_-]{10,80}$/,JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'no-store'};
@@ -27,7 +28,8 @@ const uname=v=>String(v||'').normalize('NFKC').trim().toLowerCase();
 const CHAT_MAX=140,CHAT_KEEP=400,CHAT_CHANNELS=new Set(['world']),TRADE_PENDING=5;
 const pidOf=id=>createHash('sha256').update('crpg-chat:'+id).digest('hex').slice(0,12);
 const cleanText=v=>[...String(v??'')].map(ch=>{const c=ch.codePointAt(0);return c<32||c===127||(c>=0x200b&&c<=0x200f)||(c>=0x2028&&c<=0x202e)||(c>=0x2060&&c<=0x206f)||c===0xfeff?' ':ch;}).join('').replace(/\s+/g,' ').trim();
-export function defaultFeatures(dbPath,env=process.env){const raw=env.CRPG_FEATURES;if(raw!==undefined)return String(raw).split(',').map(x=>x.trim()).filter(Boolean);return /live-staging|:memory:/.test(String(dbPath))?['chat','trade']:[];}
+// 0.15.3: 'coop' (다인 모드) joins the switches; test databases have it on, production needs CRPG_FEATURES=chat,trade,coop.
+export function defaultFeatures(dbPath,env=process.env){const raw=env.CRPG_FEATURES;if(raw!==undefined)return String(raw).split(',').map(x=>x.trim()).filter(Boolean);return /live-staging|:memory:/.test(String(dbPath))?['chat','trade','coop']:[];}
 const ip=req=>String(req.headers['x-forwarded-for']||req.socket?.remoteAddress||'local').split(',')[0].trim().slice(0,96);
 // 0.15.2: at most three new accounts a day from one connection (user: 「계정 무한 생성해서 돈 모으려는 버그 … 아이피별로 계정
 // 생성에 제한을 걸어두던가」). The server only listens behind Caddy, which names the visitor; a loopback address without it (tests,
@@ -58,12 +60,12 @@ export class LiveRegionStore{
   this.db.exec(pragmas+ddl);installAdminSchema(this.db);migrateRankingSeasons(this.db);
   if(this.features.has('chat'))this.db.exec('CREATE TABLE IF NOT EXISTS chat(id INTEGER PRIMARY KEY AUTOINCREMENT,channel TEXT NOT NULL,account_id TEXT NOT NULL,author TEXT NOT NULL,text TEXT NOT NULL,created_at INTEGER NOT NULL,deleted INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS chat_channel_idx ON chat(channel,id);');
   if(this.features.has('trade'))this.db.exec("CREATE TABLE IF NOT EXISTS trades(id INTEGER PRIMARY KEY AUTOINCREMENT,from_id TEXT NOT NULL,to_id TEXT NOT NULL,give TEXT NOT NULL,want TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(from_id) REFERENCES accounts(id) ON DELETE CASCADE,FOREIGN KEY(to_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS trades_to_idx ON trades(to_id,status);CREATE INDEX IF NOT EXISTS trades_from_idx ON trades(from_id,status);");
-  installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);installRaidSchema(this.db);
+  installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);installRaidSchema(this.db);installCoopSchema(this.db,this.features);
   this.heartbeat=setInterval(()=>this.push(': ping\n\n'),25000);this.heartbeat.unref?.();
  }
  close(){clearInterval(this.heartbeat);for(const s of this.subscribers){try{s.res.end();}catch{}}this.subscribers.clear();this.db.close();}
  need(feature){if(!this.features.has(feature))throw err(404,'지원하지 않는 요청입니다.');}
- capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1','profile-v1']:[]),...(this.features.has('trade')?['trade-v1','market-v1','deal-v1','mail-v1']:[]),'raid-v1'];}
+ capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1','profile-v1']:[]),...(this.features.has('trade')?['trade-v1','market-v1','deal-v1','mail-v1']:[]),'raid-v1',...(this.features.has('coop')?['coop-v1']:[])];}
  // ---------- chat ----------
  push(text,filter){for(const s of this.subscribers){if(filter&&!filter(s))continue;try{s.res.write(text);}catch{this.subscribers.delete(s);}}}
  broadcast(event,filter){this.push('data: '+JSON.stringify(event)+'\n\n',filter);}
@@ -180,10 +182,10 @@ export class LiveRegionStore{
    try{const m=this.meta(a.id);if(!m||m.revision==null)throw err(409,'먼저 여정을 시작해 주세요.');const receipt=this.db.prepare('SELECT * FROM receipts WHERE account_id=? AND request_id=?').get(a.id,b.requestId),entry=this.cached(a.id,m.revision),before=entry?.parts||this.loadParts(a.id);
     if(receipt){if(receipt.intent_hash!==digest)throw err(409,'같은 행동 식별자를 다른 행동에 사용할 수 없습니다.','REQUEST_ID_REUSED');this.db.exec('COMMIT');return {payload:{...this.output(a,m,before,JSON.parse(receipt.result).result),replayed:true,receiptRevision:receipt.revision},timing:{totalMs:Math.round((performance.now()-started)*10)/10,persistMs:0}};}
     const warm=entry?.r||null,row={state:warm?'':JSON.stringify(joinState(before)),revision:m.revision,ranked:m.ranked,updated_at:m.updated_at},env={ADMIN_ACCOUNT_IDS:[...this.admins].join(',')};
-    const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,a,env,now(),warm);compact(r.s);const after=splitState(r.s),rough=[...after].reduce((n,[p,v])=>n+p.length+v.length+8,2);let stateBytes=rough*3;if(stateBytes>1900000){stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw err(507,'저장 크기 한도에 도달했습니다.');}
+    const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,a,env,now(),warm,this.coopContextFor?.(a.id)||null);compact(r.s);const after=splitState(r.s),rough=[...after].reduce((n,[p,v])=>n+p.length+v.length+8,2);let stateBytes=rough*3;if(stateBytes>1900000){stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw err(507,'저장 크기 한도에 도달했습니다.');}
     const d=diffParts(before,after),next={...m,revision:m.revision+1,ranked:isDebug?0:m.ranked,last_request_id:b.requestId,updated_at:now()},payload=b.responseMode==='state-parts-v1'?{...this.envelope(a,next,result),baseRevision:m.revision,statePatch:wirePatch(publicParts(before),publicParts(after))}:this.output(a,next,after,result);
     persistence=true;const ps=performance.now(),del=this.db.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=this.db.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
-    for(const p of d.remove)del.run(a.id,p);for(const [p,v] of d.set)up.run(a.id,p,v);this.db.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(a.id,m.revision,JSON.stringify(d.undo),next.updated_at);this.db.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(a.id,m.revision-3);this.db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(a.id,b.requestId,next.revision,m.revision,digest,JSON.stringify({result}),next.updated_at);this.db.prepare('UPDATE metadata SET revision=?,ranked=?,last_request_id=?,updated_at=? WHERE account_id=?').run(next.revision,next.ranked,b.requestId,next.updated_at,a.id);this.rank(a,next.ranked,r.s);const raided=this.raidRecord?.(a,r,next);this.db.exec('COMMIT');this.touch(a.id,{revision:next.revision,parts:after,r});if(raided)this.broadcast({type:'raid',event:raided.event,hits:raided.hits},()=>true);
+    for(const p of d.remove)del.run(a.id,p);for(const [p,v] of d.set)up.run(a.id,p,v);this.db.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(a.id,m.revision,JSON.stringify(d.undo),next.updated_at);this.db.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(a.id,m.revision-3);this.db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(a.id,b.requestId,next.revision,m.revision,digest,JSON.stringify({result}),next.updated_at);this.db.prepare('UPDATE metadata SET revision=?,ranked=?,last_request_id=?,updated_at=? WHERE account_id=?').run(next.revision,next.ranked,b.requestId,next.updated_at,a.id);this.rank(a,next.ranked,r.s);const raided=this.raidRecord?.(a,r,next),shared=this.coopRecord?.(a,r,before.get('["runtime"]')==='{}');this.db.exec('COMMIT');this.touch(a.id,{revision:next.revision,parts:after,r});if(raided)this.broadcast({type:'raid',event:raided.event,hits:raided.hits},()=>true);try{this.coopAfter?.(a,r,shared);}catch{}
     return {payload,timing:{runtimeMs,engineMs,persistMs:Math.round((performance.now()-ps)*10)/10,totalMs:Math.round((performance.now()-started)*10)/10,stateBytes,responseBytes:Buffer.byteLength(JSON.stringify(payload))}};
    }catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');this.invalidate(a.id);if(!persistence)e.outcome='REJECTED';throw e;}
   });
@@ -192,7 +194,7 @@ export class LiveRegionStore{
  ranking(){const S=globalThis.CRPGRuntime?.abyssSeason,cur=this.seasonNow(),prev=S?.previous(cur),top=season=>this.db.prepare('SELECT display_name AS name,floor,rounds,attempts FROM ranking WHERE season=? ORDER BY floor DESC,rounds,attempts,achieved_at,account_id LIMIT 20').all(season).map((r,i)=>({rank:i+1,...r}));return {season:cur,label:S?.label(cur)||cur,endsAt:S?.end(cur)||null,entries:top(cur),previous:prev?{season:prev,label:S.label(prev),entries:top(prev)}:null};}
 }
 
-Object.assign(LiveRegionStore.prototype,socialMethods,letterMethods,raidMethods);
+Object.assign(LiveRegionStore.prototype,socialMethods,letterMethods,raidMethods,coopMethods);
 
 export function createLiveRegionHandler({store,allowedOrigin='https://clannad.shop',adminConsole=null}){
  return async(req,res)=>{const origin=req.headers.origin||'',host=req.headers.host||'',sameOrigin=!!origin&&!!host&&(origin===`https://${host}`||origin===`http://${host}`);if(origin&&origin!==allowedOrigin&&!sameOrigin)return send(res,403,{error:'허용되지 않은 접속 경로입니다.'},{vary:'Origin'});const c=cors(origin,sameOrigin?origin:allowedOrigin);
@@ -215,7 +217,7 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
    if(path==='/chat/delete'&&req.method==='POST')return send(res,200,store.chatDelete(a,await body(req)),c);
    if(path==='/chat/stream'&&req.method==='GET'){
     // Server-sent events over an authorised fetch: new chat lines for everyone, trade news only for its two players.
-    if(!store.features.has('chat')&&!store.features.has('trade'))throw err(404,'지원하지 않는 요청입니다.');
+    if(!store.features.has('chat')&&!store.features.has('trade')&&!store.features.has('coop'))throw err(404,'지원하지 않는 요청입니다.');
     const leave=store.subscribe(a,res);res.writeHead(200,{...c,'content-type':'text/event-stream; charset=utf-8','cache-control':'no-store','x-accel-buffering':'no'});res.write(': connected\n\n');req.on('close',leave);return;
    }
    if(path==='/trade/list'&&req.method==='GET')return send(res,200,store.tradeList(a),c);
@@ -227,6 +229,8 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
    const letters=await letterRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(letters!==undefined)return send(res,200,letters,c);
    // 0.15.2 공동 토벌전 (server/raid-v0152.mjs).
    const raid=await raidRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(raid!==undefined)return send(res,200,raid,c);
+   // 0.15.3 다인 모드 (server/coop-v0153.mjs).
+   const coop=await coopRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(coop!==undefined)return send(res,200,coop,c);
    return send(res,404,{error:'지원하지 않는 요청입니다.'},c);
   }catch(e){const rule=!!(globalThis.CRPGRuntime?.RuleError&&e instanceof globalThis.CRPGRuntime.RuleError)||!!(globalThis.CRPGRelationships?.RelationshipError&&e instanceof globalThis.CRPGRelationships.RelationshipError);return send(res,e.status||(rule?400:500),{error:e.status||rule?e.message:'이 행동을 처리하지 못했습니다. 다른 행동을 선택하거나 잠시 뒤 다시 시도해 주세요.',...(e.code?{code:e.code}:{}),...(e.outcome?{outcome:e.outcome}:{}),...(e.code==='VERSION_MISMATCH'?{version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD}:{})},c);}
  };

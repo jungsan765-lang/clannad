@@ -59,7 +59,9 @@ P.talentLevels=function(id){
  if(c>=3)out[kinds.c3]=Math.min(TALENT.CAP,out[kinds.c3]+3);if(c>=5)out[kinds.c5]=Math.min(TALENT.CAP,out[kinds.c5]+3);
  return {...out,base,kinds};
 };
-P.premiumTalentMultiplier=function(id,kind){const lv=this.talentLevels(id)[kind];return lv?TALENT.CURVE[Math.max(1,Math.min(TALENT.CAP,lv))-1]/100:1;};
+// A fighter or a character id. 0.15.3: a fighter brought from another adventurer's journey (다인 모드) carries its own
+// talent levels (talentSnapshot, C3/C5 already added).
+P.premiumTalentMultiplier=function(x,kind){const actor=x&&typeof x==='object'?x:null,levels=actor?.talentSnapshot||this.talentLevels(actor?actor.source:x),lv=Number(levels?.[kind])||0;return lv?TALENT.CURVE[Math.max(1,Math.min(TALENT.CAP,lv))-1]/100:1;};
 // Only companions who have joined (their own story) count; every character has a stat block from the start.
 P.premiumOwns=function(id){if(id===PLAYER)return true;if(!this.s.chars?.[id])return false;try{return JSON.parse(this.s.global.COMPANION_ELIGIBILITY_JSON||'{}')[id]?.state==='JOINED';}catch{return false;}};
 P.premiumFighters=function(){return [PLAYER,...Object.keys(this.s.chars||{}).filter(id=>this.tables['07_CHAR_DB']?.has(id)&&this.premiumOwns(id))];};
@@ -147,7 +149,7 @@ P.premiumHitKind=function(a,o={}){
 };
 P.combatDamageMultiplier=function(a,t,e,o={}){
  let n=old.combatDamageMultiplier.call(this,a,t,e,o);if(a?.side!=='ALLY'||!a.source)return n;
- const kind=this.premiumHitKind(a,o);if(kind)n*=this.premiumTalentMultiplier(a.source,kind);
+ const kind=this.premiumHitKind(a,o);if(kind)n*=this.premiumTalentMultiplier(a,kind);
  return n;
 };
 // ---- tables: one 운명의 별 per fighter ----

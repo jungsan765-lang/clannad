@@ -317,7 +317,11 @@ P.constellationInfo=function(id){
  const key=this.constellationKey(id),N=NAMES[key];if(!N)return null;
  return {key,group:N[0],rarity:N[1],talentNames:{na:N[2],e:N[3],q:N[4]},nodes:N[6].map((name,i)=>({n:i+1,name,text:nodeText(key,i+1)}))};
 };
-P.consFx=function(id){if(!id||!this.s.runtime)return NONE;const key=this.constellationKey(id),lv=key?this.constellationLevel(id):0;return lv?fxList(key,lv):NONE;};
+// A fighter (or a character id). 0.15.3: a fighter brought from another adventurer's journey (다인 모드) carries its own
+// constellation (consSnapshot {key, level}); every other fighter reads this journey's.
+P.consFx=function(x){const actor=x&&typeof x==='object'?x:null,id=actor?actor.source:x;if(!id||!this.s.runtime)return NONE;
+ const own=actor?.consSnapshot;if(own){const lv=Math.max(0,Math.min(6,Number(own.level)||0));return lv&&NAMES[own.key]?fxList(own.key,lv):NONE;}
+ const key=this.constellationKey(id),lv=key?this.constellationLevel(id):0;return lv?fxList(key,lv):NONE;};
 // ---- interpreter ----
 const EL={PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',ANEMO:'바람',GEO:'바위',DENDRO:'풀',PHYSICAL:'물리'};
 const elName=e=>EL[e]||e||'물리',ELEMS=['불','물','얼음','번개','바람','바위','풀'];
@@ -369,16 +373,16 @@ P.combatDamageMultiplier=function(a,t,e,o={}){
  const ctx=this.consTop(a)||{a,t,el:elName(e),o,kind:this.premiumHitKind(a,o)};
  if(a.side==='ALLY'&&a.source){
   let add=0;
-  for(const fx of this.consFx(a.source))if(fx.t==='dmg'&&matchHit(fx,ctx)&&this.consCond(fx.if,ctx,a,a))add+=fx.perStack?fx.perStack*(Number(st(a,fx.stackId)?.stacks)||0):fx.pct;
-  for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner.source))if(fx.t==='team'&&fx.dmg&&matchHit(fx.dmg,ctx)&&this.consCond(fx.while,ctx,owner,owner)&&this.consCond(fx.if,ctx,a,owner))add+=fx.dmg.pct;
+  for(const fx of this.consFx(a))if(fx.t==='dmg'&&matchHit(fx,ctx)&&this.consCond(fx.if,ctx,a,a))add+=fx.perStack?fx.perStack*(Number(st(a,fx.stackId)?.stacks)||0):fx.pct;
+  for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))if(fx.t==='team'&&fx.dmg&&matchHit(fx.dmg,ctx)&&this.consCond(fx.while,ctx,owner,owner)&&this.consCond(fx.if,ctx,a,owner))add+=fx.dmg.pct;
   for(const s of a.statuses||[])if(s.consDmg&&live(s)&&!s.consSpent&&matchHit(s.consDmg,ctx)){add+=s.consDmg.pct;if(s.consDmg.once&&this._consStack?.length)s.consSpent=true;}
   if(add)n*=1+add/100;
  }
  if(a.side!==t.side){let vuln=0;for(const s of t.statuses||[])if(s.vuln&&live(s)&&elMatch(s.vuln.el,ctx.el))vuln+=s.vuln.pct;if(vuln)n*=1+vuln/100;}
  if(t.side==='ALLY'&&a.side!==t.side&&t.source){
   let taken=0;
-  for(const fx of this.consFx(t.source))if(fx.t==='taken'&&this.consCond(fx.if,ctx,t,t))taken+=fx.pct;
-  for(const owner of this.consAllies(t.side))for(const fx of this.consFx(owner.source))if(fx.t==='team'&&typeof fx.taken==='number'&&this.consCond(fx.while,ctx,owner,owner)&&this.consCond(fx.if,ctx,t,owner))taken+=fx.taken;
+  for(const fx of this.consFx(t))if(fx.t==='taken'&&this.consCond(fx.if,ctx,t,t))taken+=fx.pct;
+  for(const owner of this.consAllies(t.side))for(const fx of this.consFx(owner))if(fx.t==='team'&&typeof fx.taken==='number'&&this.consCond(fx.while,ctx,owner,owner)&&this.consCond(fx.if,ctx,t,owner))taken+=fx.taken;
   for(const s of t.statuses||[])if(typeof s.consTaken==='number'&&live(s))taken+=s.consTaken;
   if(taken)n*=Math.max(.05,1+taken/100);
  }
@@ -388,11 +392,11 @@ P.combatStat=function(a,key){
  let n=old.combatStat.call(this,a,key);const b=this.s.runtime;if(!b||!a)return n;
  if(a.side==='ALLY'&&a.source){
   const ctx=this.consTop(a);let pct=0,flat=0;
-  for(const fx of this.consFx(a.source))if(fx.t==='stat'&&fx.key===key&&(!needsHit(fx)||ctx&&matchHit(fx,ctx))&&this.consCond(fx.if,ctx,a,a)){pct+=fx.pct||0;flat+=fx.flat||0;if(fx.from)flat+=this.combatStat(a,fx.from)*fx.k;}
-  for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner.source))if(fx.t==='team'&&fx.stat?.key===key&&(!needsHit(fx.stat)||ctx&&matchHit(fx.stat,ctx))&&this.consCond(fx.while,ctx,owner,owner)&&this.consCond(fx.if,ctx,a,owner)){pct+=fx.stat.pct||0;flat+=fx.stat.flat||0;}
+  for(const fx of this.consFx(a))if(fx.t==='stat'&&fx.key===key&&(!needsHit(fx)||ctx&&matchHit(fx,ctx))&&this.consCond(fx.if,ctx,a,a)){pct+=fx.pct||0;flat+=fx.flat||0;if(fx.from)flat+=this.combatStat(a,fx.from)*fx.k;}
+  for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))if(fx.t==='team'&&fx.stat?.key===key&&(!needsHit(fx.stat)||ctx&&matchHit(fx.stat,ctx))&&this.consCond(fx.while,ctx,owner,owner)&&this.consCond(fx.if,ctx,a,owner)){pct+=fx.stat.pct||0;flat+=fx.stat.flat||0;}
   if(pct||flat)n=n*(1+pct/100)+flat;
  }else if(a.side==='ENEMY'){
-  let pct=0;for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner.source))if(fx.t==='enemyStat'&&fx.key===key&&this.consCond(fx.if,{t:a},owner,owner))pct+=fx.pct;
+  let pct=0;for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner))if(fx.t==='enemyStat'&&fx.key===key&&this.consCond(fx.if,{t:a},owner,owner))pct+=fx.pct;
   if(pct)n*=Math.max(.1,1+pct/100);
  }
  return n;
@@ -479,15 +483,15 @@ P.damage=function(a,t,k,el,o={}){
 };
 P.consAfterHit=function(ctx){
  const {a,t}=ctx;
- for(const fx of this.consFx(a.source))if(fx.t==='onHit'&&matchHit(fx,ctx)&&this.consCond(fx.if,ctx,a,a)&&this.consOnce(fx,a,ctx)&&this.consChance(fx))this.consRun(fx,a,{target:t,attacker:a,card:ctx.o?.card});
- if(ctx.killed)for(const fx of this.consFx(a.source))if(fx.t==='onKill'&&this.consCond(fx.if,ctx,a,a))this.consRun(fx,a,{target:t,attacker:a});
- for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner.source))
+ for(const fx of this.consFx(a))if(fx.t==='onHit'&&matchHit(fx,ctx)&&this.consCond(fx.if,ctx,a,a)&&this.consOnce(fx,a,ctx)&&this.consChance(fx))this.consRun(fx,a,{target:t,attacker:a,card:ctx.o?.card});
+ if(ctx.killed)for(const fx of this.consFx(a))if(fx.t==='onKill'&&this.consCond(fx.if,ctx,a,a))this.consRun(fx,a,{target:t,attacker:a});
+ for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))
   if(fx.t==='teamHit'&&(fx.self||owner!==a)&&matchHit(fx,ctx)&&this.consCond(fx.while,ctx,owner,owner)&&this.consCond(fx.if,ctx,a,owner)&&this.consOnce(fx,owner,ctx)&&this.consChance(fx))this.consRun(fx,owner,{target:t,attacker:a});
 };
 P.consReactionBonus=function(a){
  const b=this.s.runtime,ctx={a,o:{sourceKind:'REACTION'},reaction:true};let add=0;
- for(const fx of this.consFx(a.source))if(fx.t==='dmg'&&kindsOf(fx.kind||[]).includes('reaction')&&this.consCond(fx.if,ctx,a,a))add+=fx.pct;
- for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner.source))if(fx.t==='team'&&fx.dmg&&kindsOf(fx.dmg.kind||[]).includes('reaction')&&this.consCond(fx.while,ctx,owner,owner))add+=fx.dmg.pct;
+ for(const fx of this.consFx(a))if(fx.t==='dmg'&&kindsOf(fx.kind||[]).includes('reaction')&&this.consCond(fx.if,ctx,a,a))add+=fx.pct;
+ for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))if(fx.t==='team'&&fx.dmg&&kindsOf(fx.dmg.kind||[]).includes('reaction')&&this.consCond(fx.while,ctx,owner,owner))add+=fx.dmg.pct;
  for(const s of a.statuses||[])if(s.consDmg&&live(s)&&kindsOf(s.consDmg.kind||[]).includes('reaction'))add+=s.consDmg.pct;
  return add;
 };
@@ -499,7 +503,7 @@ P.applyDamage=function(a,t,amount,details={}){
  if(this.s.runtime!==b||t.side!=='ALLY')return out;
  // Shields: a broken one may set something off, a Jade Shield heals the one it protects.
  const after=(t.shields||[]);
- for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner.source)){
+ for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner)){
   if(fx.t==='shieldBreak'&&shields.some(s=>s.source===fx.source&&s.value>0)&&!after.some(s=>s.source===fx.source&&s.value>0))this.consRun(fx,owner,{target:a?.side==='ENEMY'&&a.hp>0?a:null});
   if(fx.t==='shieldHeal'&&t.hp>0){const before=shields.filter(s=>s.source===fx.source).reduce((n,s)=>n+s.value,0),now=after.filter(s=>s.source===fx.source).reduce((n,s)=>n+(Number(s.value)||0),0),taken=before-now;if(taken>0)this.heal(t,Math.min(taken*fx.pct/100,t.maxHp*fx.cap/100),owner.name);}
  }
@@ -507,12 +511,12 @@ P.applyDamage=function(a,t,amount,details={}){
  const used=b.consUsed||(b.consUsed={});
  // Falling: a lethal blow may be survived (the fighter's own constellation first, then a party revival).
  if(hp>0&&t.hp<=0){
-  for(const fx of this.consFx(t.source))if(fx.t==='lowHp'&&fx.lethal&&!used[fx.uid+':'+t.id]){used[fx.uid+':'+t.id]=true;t.hp=1;this.consRun(fx,t,{target:a,attacker:t});return out;}
-  for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner.source))if(fx.t==='revive'&&!used[fx.uid]){used[fx.uid]=true;t.hp=Math.max(1,round(t.maxHp*fx.pct/100));this.consLog(owner,fx);b.log.push({actor:owner.name,actorId:owner.id,target:t.name,targetId:t.id,heal:t.hp,revived:true});return out;}
+  for(const fx of this.consFx(t))if(fx.t==='lowHp'&&fx.lethal&&!used[fx.uid+':'+t.id]){used[fx.uid+':'+t.id]=true;t.hp=1;this.consRun(fx,t,{target:a,attacker:t});return out;}
+  for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner))if(fx.t==='revive'&&!used[fx.uid]){used[fx.uid]=true;t.hp=Math.max(1,round(t.maxHp*fx.pct/100));this.consLog(owner,fx);b.log.push({actor:owner.name,actorId:owner.id,target:t.name,targetId:t.id,heal:t.hp,revived:true});return out;}
   return out;
  }
  if(t.hp>0&&t.hp<hp){
-  for(const fx of this.consFx(t.source)){
+  for(const fx of this.consFx(t)){
    if(fx.t==='onHurt')this.consRun(fx,t,{target:a,attacker:t});
    if(fx.t==='lowHp'&&!used[fx.uid+':'+t.id]&&t.hp/t.maxHp*100<fx.below&&hp/t.maxHp*100>=fx.below){used[fx.uid+':'+t.id]=true;this.consRun(fx,t,{target:a,attacker:t});}
   }
@@ -524,13 +528,13 @@ P.heal=function(a,amount,source=''){
  let n=Number(amount)||0;
  const healer=this._consCast?.a?.name===source?this._consCast.a:b.actors.find(x=>x.side==='ALLY'&&x.name===source);
  if(healer?.source&&healer.side===a.side){
-  let add=0;for(const fx of this.consFx(healer.source))if(fx.t==='heal'&&this.consCond(fx.if,null,healer,healer))add+=fx.pct;
-  if(this._consCast?.a===healer&&this._consCast.kind&&this._consCast.kind!=='na')n*=this.premiumTalentMultiplier?.(healer.source,this._consCast.kind)||1;
+  let add=0;for(const fx of this.consFx(healer))if(fx.t==='heal'&&this.consCond(fx.if,null,healer,healer))add+=fx.pct;
+  if(this._consCast?.a===healer&&this._consCast.kind&&this._consCast.kind!=='na')n*=this.premiumTalentMultiplier?.(healer,this._consCast.kind)||1;
   if(add)n*=1+add/100;
  }
- if(a.side==='ALLY'){let inc=0;for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner.source))if(fx.t==='team'&&fx.healIn&&this.consCond(fx.while,null,owner,owner)&&this.consCond(fx.if,null,a,owner))inc+=fx.healIn;if(inc)n*=1+inc/100;}
+ if(a.side==='ALLY'){let inc=0;for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner))if(fx.t==='team'&&fx.healIn&&this.consCond(fx.while,null,owner,owner)&&this.consCond(fx.if,null,a,owner))inc+=fx.healIn;if(inc)n*=1+inc/100;}
  const want=Math.max(0,round(n)),missing=a.maxHp-a.hp,applied=old.heal.call(this,a,n,source);
- if(a.side==='ALLY'&&a.source&&want>missing&&missing>=0)for(const fx of this.consFx(a.source))if(fx.t==='onHealed'&&fx.overflow)this.consRun(fx,a,{attacker:a});
+ if(a.side==='ALLY'&&a.source&&want>missing&&missing>=0)for(const fx of this.consFx(a))if(fx.t==='onHealed'&&fx.overflow)this.consRun(fx,a,{attacker:a});
  return applied;
 };
 P.shield=function(a,value,source,rounds,extra={}){
@@ -539,8 +543,8 @@ P.shield=function(a,value,source,rounds,extra={}){
  if(b&&a&&!/^(CONS:|RX_)/.test(String(source))){
   const owner=this._consCast?.a||b.actors.find(x=>x.side==='ALLY'&&x.source&&x.source===this.consCardOwner(source));
   if(owner?.source&&owner.side==='ALLY'){
-   let add=0;for(const fx of this.consFx(owner.source))if(fx.t==='shieldPow')add+=fx.pct;
-   if(this._consCast?.a===owner&&this._consCast.kind&&this._consCast.kind!=='na')v*=this.premiumTalentMultiplier?.(owner.source,this._consCast.kind)||1;
+   let add=0;for(const fx of this.consFx(owner))if(fx.t==='shieldPow')add+=fx.pct;
+   if(this._consCast?.a===owner&&this._consCast.kind&&this._consCast.kind!=='na')v*=this.premiumTalentMultiplier?.(owner,this._consCast.kind)||1;
    if(add)v*=1+add/100;
   }
  }
@@ -549,11 +553,11 @@ P.shield=function(a,value,source,rounds,extra={}){
 P.consAfterCast=function(a,card,kind,env={}){
  const b=this.s.runtime;if(!b||a.side!=='ALLY'||!a.source)return;
  const ctx={a,t:env.targetActor||null,pre:env.pre||new Set(),kind};
- const fxs=this.consFx(a.source);
+ const fxs=this.consFx(a);
  if(card&&kind!=='na'){
   for(const fx of fxs)if(fx.t==='cd'&&fx.kind===kind&&Number(a.cooldowns[card])>0)a.cooldowns[card]=Math.max(1,a.cooldowns[card]-(fx.n||1));
   for(const fx of fxs)if(fx.t==='charge'&&fx.kind===kind){a.consCharge=a.consCharge||{};if(!a.consCharge[card]){a.consCharge[card]=true;a.cooldowns[card]=0;}else a.consCharge[card]=false;}
-  for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner.source))if(fx.t==='teamCast'&&kindsOf(fx.kind).includes(kind)&&this.consCond(fx.while,ctx,owner,owner)&&Number(a.cooldowns[card])>0)a.cooldowns[card]=Math.max(1,a.cooldowns[card]-(fx.n||1));
+  for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))if(fx.t==='teamCast'&&kindsOf(fx.kind).includes(kind)&&this.consCond(fx.while,ctx,owner,owner)&&Number(a.cooldowns[card])>0)a.cooldowns[card]=Math.max(1,a.cooldowns[card]-(fx.n||1));
  }
  const target=env.targetActor&&env.targetActor.hp>0?env.targetActor:b.actors.find(x=>x.side!==a.side&&x.hp>0)||null;
  for(const fx of fxs)if(fx.t==='onCast'&&(fx.kind==='any'||kindsOf(fx.kind).includes(kind))&&(!fx.card||fx.card===card)&&this.consCond(fx.if,{...ctx,t:target},a,a)&&this.consChance(fx))this.consRun(fx,a,{target,attacker:a,card});
@@ -574,13 +578,13 @@ P.basicHit=function(a,t,k){
 // "When the battle starts": once, as the first round is ordered and before anyone acts.
 P.newRound=function(...args){
  const out=old.newRound.apply(this,args),b=this.s.runtime;
- if(b&&!b.consStarted){b.consStarted=true;for(const a of this.consAllies('ALLY'))for(const fx of this.consFx(a.source))if(fx.t==='start')this.consRun(fx,a,{attacker:a});}
+ if(b&&!b.consStarted){b.consStarted=true;for(const a of this.consAllies('ALLY'))for(const fx of this.consFx(a))if(fx.t==='start')this.consRun(fx,a,{attacker:a});}
  return out;
 };
 P.roundEnd=function(){
  const b=this.s.runtime;if(!b)return old.roundEnd.call(this);
- for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner.source))if(fx.t==='roundEnd'&&this.consCond(fx.while,null,owner,owner)&&this.consCond(fx.if,null,owner,owner))this.consRun(fx,owner,{attacker:owner});
- const watched=[];for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner.source))if(fx.t==='fieldEnd'&&b.fields.some(f=>f.kind===fx.kind&&f.actor===owner.id&&!f.done))watched.push([owner,fx]);
+ for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner))if(fx.t==='roundEnd'&&this.consCond(fx.while,null,owner,owner)&&this.consCond(fx.if,null,owner,owner))this.consRun(fx,owner,{attacker:owner});
+ const watched=[];for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner))if(fx.t==='fieldEnd'&&b.fields.some(f=>f.kind===fx.kind&&f.actor===owner.id&&!f.done))watched.push([owner,fx]);
  const out=old.roundEnd.call(this);
  if(this.s.runtime===b)for(const [owner,fx]of watched)if(owner.hp>0&&!b.fields.some(f=>f.kind===fx.kind&&f.actor===owner.id&&!f.done))this.consRun(fx,owner,{attacker:owner});
  return out;
