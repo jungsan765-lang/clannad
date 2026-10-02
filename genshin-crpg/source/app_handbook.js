@@ -13,7 +13,7 @@ const regionOf=id=>mapRow(id)?.[1]||'';
 const itemName=id=>game.tables['14_ITEM_DB']?.get(id)?.[1]||id;
 const charName=id=>game.tables['07_CHAR_DB']?.get(id)?.[1]||id;
 const icon=(n,c)=>window.CRPGShell?.icon?CRPGShell.icon(n,c):mk('span');
-const TABS=[['journey','여정','STORY'],['bosses','토벌','SWORDS'],['ley','지맥의 꽃','STAR'],['abyss','나선비경','CLOCK'],['companions','동료','PARTY']];
+const TABS=[['journey','여정','STORY'],['bosses','토벌','SWORDS'],['ley','지맥의 꽃','STAR'],['abyss','나선비경','CLOCK'],['companions','동료','PARTY'],['treasure','보물','STARS']];
 function guide(map){
  if(!map||!game)return;close();
  if(game.s.global.CURRENT_MAP_ID===map){window.CRPGShell?.toast?.('이미 '+mapLabel(map)+'에 있습니다.');return;}
@@ -100,7 +100,10 @@ function abyss(box){
  const s=section('나선비경 기록','층마다 방 세 개를 연달아 공략합니다. 층을 정복하면 함께 싸운 동료에게 「'+mark+'」이 새겨지고, 각인된 동료는 도전을 전부 초기화하기 전까지 다른 층에 나설 수 없습니다(주인공은 새겨지지 않습니다). 10~12층은 파티 전원이 Lv. 20이어야 도전할 수 있습니다.');
  const hero=mk('div','hb-grid');hero.append(stat('클리어한 층',cleared+' / '+v.floors.length,cleared?'최고 기록을 갱신해 보세요.':'1층부터 도전할 수 있습니다.'));
  if(v.active)hero.append(stat('진행 중',v.active.floor+'층 '+v.active.chamber+'번 방',v.active.floorName||''));
+ // 0.14.15: the running season, and the 나선 문장 (one per season at floor 10+).
+ if(v.seasonLabel){const left=v.seasonEnds?Math.max(0,v.seasonEnds-Date.now()):0,d=Math.floor(left/86400000),h=Math.floor(left%86400000/3600000);hero.append(stat('이번 시즌',v.seasonLabel,v.seasonEnds?'남은 기간 '+(d?d+'일 ':'')+h+'시간 · 매달 1일 0시에 새 시즌':'시즌 기록 집계 전'));}
  s.append(hero);
+ if(v.medals?.length&&window.CRPGProfile?.medal){const row=mk('div','abyss-medals hb-medals');for(const m of v.medals){const b=window.CRPGProfile.medal(m.floor,m.label.replace(/ 시즌$/,'')+' · '+m.floor+'층','wide');b.removeAttribute('aria-hidden');b.title='나선 문장 · '+m.label+' '+m.floor+'층 정복';row.append(b);}s.append(row);}
  const list=mk('div','hb-floors');for(const f of v.floors){const c=mk('div','hb-floor'+(f.cleared?' cleared':'')+(f.reason?' locked':''));c.append(mk('b','',f.floor+'층'),mk('small','',f.cleared?(f.best?f.best+'라운드':'클리어'):f.reason?'잠김':'도전 가능'));c.title=f.name+(f.reason?' · '+f.reason:'');list.append(c);}
  s.append(list);box.append(s);
 }
@@ -121,7 +124,9 @@ function companions(box){
  for(const [id,label]of [['todo','합류 전'],['owned','합류함'],['all','전체']]){const b=mk('button','hb-filter-button'+(mode===id?' active':''),label);b.type='button';b.onclick=()=>{mode=H.companionFilter=id;for(const x of filter.children)x.classList.toggle('active',x===b);draw();};filter.append(b);}
  s.append(filter,grid);draw();box.append(s);
 }
-const DRAW={journey,bosses,ley,abyss,companions};
+// 0.14.15 보물: how many treasure chests each region holds and how many are found, never where (app_chests_v01415.js).
+function treasure(box){const host=mk('div','hb-treasure');box.append(mk('p','hb-note','몬드와 리월 곳곳에 보물상자가 있습니다. 가는 곳마다 풍경 보기(V)로 둘러보세요. 퍼즐이 걸린 상자는 풀어야 열리고, 어떤 상자는 아주 꼼꼼히 찾아야 보입니다.'),host);window.CRPGChests?.journal(host);}
+const DRAW={journey,bosses,ley,abyss,companions,treasure};
 // ---------- frame ----------
 function open(tab){
  if(!game)return;if(tab)H.tab=tab;if(H.node){refresh();return;}

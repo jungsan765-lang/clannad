@@ -6,7 +6,28 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype,cp=x=>JSON.parse(JSON.stringi
 const fail=(c,m)=>{throw new api.RuleError(c,m);};
 const old=Object.fromEntries(['installMarketContent','newGame','validateSave','startBattle','damage','applyDamage','aiTurn','roundEnd','liyueBattleOutcome','finishBattle','actionReason','apply','enemyIntel','supportsLiyueBoss'].map(k=>[k,P[k]]));
 P.supportsLiyueBoss=function(id){return id==='MON_ABYSS_WARDEN'||old.supportsLiyueBoss.call(this,id);};
-const SEASON='ABYSS_01',VERSION=2,MARK='나선 각인';
+const LEGACY='ABYSS_01',VERSION=2,MARK='나선 각인';
+/* 0.14.15 seasons (user: 「시즌별로 10층 이상 깬 사람은 훈장, 전 시즌 10층 이상이면 채팅에 테두리」). A season is a calendar
+   month in Korea. When a new one starts the floors, marks and runs start over (only after a run under way has ended);
+   the floor reached is kept in the season history, and first-clear rewards stay claimed for good. Saves from before
+   seasons (ABYSS_01) carry their progress into the first real season. The account server keeps the official records. */
+const KST=9*3600000,SEASON_RE=/^ABYSS_(\d{4})_(\d{2})$/;
+const seasonOf=ms=>{const d=new Date(Number(ms)+KST);return 'ABYSS_'+d.getUTCFullYear()+'_'+String(d.getUTCMonth()+1).padStart(2,'0');};
+const seasonParts=id=>{const m=SEASON_RE.exec(String(id||''));return m?[Number(m[1]),Number(m[2])]:null;};
+const seasonShift=(id,n)=>{const p=seasonParts(id);if(!p)return null;const t=p[0]*12+p[1]-1+n;return 'ABYSS_'+Math.floor(t/12)+'_'+String(t%12+1).padStart(2,'0');};
+const seasonStart=id=>{const p=seasonParts(id);return p?Date.UTC(p[0],p[1]-1,1)-KST:0;};
+api.abyssSeason={of:seasonOf,previous:id=>seasonShift(id,-1),next:id=>seasonShift(id,1),start:seasonStart,end:id=>seasonStart(seasonShift(id,1)),
+ label:id=>{const p=seasonParts(id);return p?p[0]+'년 '+p[1]+'월 시즌':'첫 시즌';},valid:id=>id===LEGACY||!!seasonParts(id),legacy:LEGACY,medalFloor:10};
+const bestOf=s=>{const floors=Object.keys(s?.clears||{}).map(Number).filter(Number.isInteger),floor=floors.length?Math.max(...floors):0;return {floor,rounds:Object.values(s?.clears||{}).reduce((n,x)=>n+(x?.rounds||0),0)};};
+/* The record as it stands in `season`: a finished season moves into the history and the floors start over. A first-clear
+   reward not yet taken stays claimable (owed), on the screen as in the save. */
+function seasonal(s,season){
+ if(!s||s.season===season||s.active||!seasonParts(season))return s;
+ if(s.season===LEGACY||!seasonParts(s.season))return {...s,season};
+ const best=bestOf(s),history=[...(s.history||[]).filter(h=>h.season!==s.season),...(best.floor?[{season:s.season,floor:best.floor,rounds:best.rounds,attempts:s.attempts||0}]:[])].slice(-36);
+ const unclaimed=Object.keys(s.clears||{}).map(Number).filter(f=>Number.isInteger(f)&&!s.claimed?.[f]),owed=[...new Set([...(s.owed||[]),...unclaimed])].sort((a,b)=>a-b);
+ const next={...s,season,tags:{},clears:{},active:null,attempts:0,run:(s.run||1)+1,history};if(owed.length)next.owed=owed;return next;
+}
 const INAZUMA=['EQ_SWORD_AMENOMA','EQ_CLAYMORE_KATSURAGI','EQ_POLEARM_KITAIN','EQ_BOW_HAMAYUMI','EQ_CATALYST_HAKUSHIN','EQ_POLEARM_CATCH','EQ_ACC_SWIFT_TALISMAN'];
 const ATTACK_FOOD=['STATUS_FOOD_ATK','STATUS_FOOD_FEAST'],FEAST_FOOD=['STATUS_FOOD_FEAST'],ADEPTUS_DISH=['FOOD_ADEPTUS_TEMPTATION','FOOD_ALMOND_TOFU'];
 const foe=(n,o={})=>({n,...o});
@@ -68,7 +89,7 @@ const ROOM_HP=[.8,.9,1],ROOM_ATK=[.9,.95,1],ELEMENT_KO={PYRO:'불',HYDRO:'물',C
 const POWER={hp:1.07,atk:1.05},powerOf=f=>f===10?{hp:1,atk:1}:POWER;
 // 0.14.12 (user): Inazuma gear from floor 9 on; floors 1–8 pay Primogems instead, 1,600 for all eight.
 const PRIMOGEM_TOTAL=1600;
-api.abyssConfig={season:SEASON,version:VERSION,markName:MARK,rewards:INAZUMA.slice(),floors:cp(FLOORS)};
+api.abyssConfig={season:'MONTHLY',version:VERSION,markName:MARK,rewards:INAZUMA.slice(),floors:cp(FLOORS)};
 api.abyssVersion=VERSION;
 const groupId=(f,c)=>'EG_ABYSS_'+f+'_'+c,originId=(f,c)=>'ABYSS:'+f+':'+c;
 const roomOf=b=>b?.abyss?FLOORS[b.abyss.floor-1]?.rooms[b.abyss.chamber-1]:null;
@@ -99,10 +120,26 @@ P.installMarketContent=function(...args){const out=old.installMarketContent.appl
 function migrate(s){
  const a=s?.abyss;if(!a||a.version!==1)return;
  const act=a.active,b=s.runtime?.abyss&&s.runtime.origin===('ABYSS:'+act?.floor)?s.runtime:null;
- s.abyss={version:VERSION,season:SEASON,tags:{},clears:{},claimed:{},legacyClaimed:cp(a.claimed||{}),attempts:a.attempts||0,resets:a.resets||0,totalRounds:a.totalRounds||0,run:(a.run||1)+1,active:null};
+ s.abyss={version:VERSION,season:LEGACY,tags:{},clears:{},claimed:{},legacyClaimed:cp(a.claimed||{}),attempts:a.attempts||0,resets:a.resets||0,totalRounds:a.totalRounds||0,run:(a.run||1)+1,active:null};
  if(b){s.abyss.active={floor:act.floor,chamber:1,phase:'BATTLE',party:act.party.slice(),attempt:act.attempt,run:s.abyss.run,rounds:[]};b.origin=originId(act.floor,1);b.abyss={version:VERSION,floor:act.floor,chamber:1,limit:b.abyss.roundLimit,marks:b.abyss.marks||[],settled:b.abyss.settled||[],pulse:b.abyss.pulse||{},broken:false,legacy:true};}
 }
-P.ensureAbyss=function(){migrate(this.s);return this.s.abyss??={version:VERSION,season:SEASON,tags:{},clears:{},claimed:{},attempts:0,resets:0,totalRounds:0,run:1,active:null};};
+P.ensureAbyss=function(){migrate(this.s);return this.s.abyss??={version:VERSION,season:this.abyssSeasonNow(),tags:{},clears:{},claimed:{},attempts:0,resets:0,totalRounds:0,run:1,active:null};};
+// Server time during an action, the device clock otherwise (as for ley lines and the weekly exchange).
+P.abyssNow=function(){return Number(this.actionStartedAt??Date.now());};
+P.abyssSeasonNow=function(){return seasonOf(this.abyssNow());};
+// The record as the current season sees it, without changing the save (screens and reasons).
+P.abyssCurrent=function(){return seasonal(this.ensureAbyss(),this.abyssSeasonNow());};
+// Apply a season change to the save; Spiral Abyss actions call this first.
+P.abyssRoll=function(){
+ const s=this.ensureAbyss(),next=seasonal(s,this.abyssSeasonNow());if(next===s)return false;
+ this.s.abyss=next;return true;
+};
+// Seasons whose best floor reached the medal floor (10), this one included once reached.
+P.abyssMedals=function(){
+ const s=this.abyssCurrent(),list=(s.history||[]).filter(h=>h.floor>=10).map(h=>({season:h.season,label:api.abyssSeason.label(h.season),floor:h.floor}));
+ const now=bestOf(s);if(now.floor>=10&&seasonParts(s.season))list.push({season:s.season,label:api.abyssSeason.label(s.season),floor:now.floor,current:true});
+ return list;
+};
 P.abyssParty=function(){return this.s.party.filter(x=>x.active).map(x=>x.source);};
 const hpOf=(r,id)=>id==='PLAYER_CUSTOM'?r.s.global.PLAYER_HP_CURRENT:r.s.chars[id]?.hp;
 const nameOf=(r,id)=>id==='PLAYER_CUSTOM'?r.s.global.PLAYER_NAME||'주인공':r.row('07_CHAR_DB',id)[1];
@@ -110,7 +147,7 @@ P.abyssFloorReason=function(floor){
  const f=Number.isInteger(floor)&&FLOORS[floor-1];if(!f)return '등록되지 않은 층입니다.';
  if(this.s.runtime||this.s.battlePreparation||this.s.lifeJob||this.s.worldJob||this.s.storyContext||this.playPhase()!=='FREE')return '현재 장면과 작업을 마친 뒤 입장해 주세요.';
  if(this.s.global.CURRENT_MAP_ID!=='MAP_V141_MUSK_REEF')return '맹세의 갑각의 통로를 지나 머스크 암초로 이동해 주세요.';
- const s=this.ensureAbyss(),act=s.active,party=this.abyssParty();
+ const s=this.abyssCurrent(),act=s.active,party=this.abyssParty();
  if(act){
   if(act.floor!==floor)return act.floor+'층 도전이 진행 중입니다. 그 층을 마치거나 도전을 포기해 주세요.';
   if(act.phase!=='BREAK')return '전투가 이미 진행 중입니다.';
@@ -135,12 +172,14 @@ function rewardView(r,F){
  return {text:parts.join(' · '),choice:w.artifact||w.primogem?null:INAZUMA.slice(),mora:w.mora||0,primogem:w.primogem||0,items:cp(w.items||{}),artifact:!!w.artifact};
 }
 P.abyssView=function(){
- const s=this.ensureAbyss(),act=s.active;
- return {season:SEASON,version:VERSION,markName:MARK,progress:cp(s),
+ const s=this.abyssCurrent(),act=s.active,owed=new Set(s.owed||[]),timed=!!seasonParts(s.season);
+ return {season:s.season,seasonLabel:api.abyssSeason.label(s.season),seasonEnds:timed?api.abyssSeason.end(s.season):null,seasonTimed:timed,
+  history:cp(s.history||[]).map(h=>({...h,label:api.abyssSeason.label(h.season)})),medals:this.abyssMedals(),best:bestOf(s),
+  version:VERSION,markName:MARK,progress:cp(s),
   active:act?{...cp(act),room:cp(FLOORS[act.floor-1].rooms[act.chamber-1]),floorName:FLOORS[act.floor-1].name}:null,
   floors:FLOORS.map(F=>({floor:F.floor,name:F.name,level:F.level,riddle:F.floor>=8,
    rooms:F.rooms.map((r,i)=>({chamber:i+1,name:r.name,hint:r.hint,limit:r.limit,foes:r.foes.length})),
-   reward:rewardView(this,F),cleared:!!s.clears[F.floor],best:s.clears[F.floor]?.rounds||null,claimed:!!s.claimed[F.floor],reason:this.abyssFloorReason(F.floor)}))};
+   reward:rewardView(this,F),cleared:!!s.clears[F.floor],owed:owed.has(F.floor)&&!s.claimed[F.floor],best:s.clears[F.floor]?.rounds||null,claimed:!!s.claimed[F.floor],reason:this.abyssFloorReason(F.floor)}))};
 };
 P.startAbyss=function(floor){
  const why=this.abyssFloorReason(floor);if(why)fail('ABYSS_ENTRY',why);
@@ -275,7 +314,9 @@ P.finishBattle=function(win){
 };
 P.claimAbyss=function(floor,equipment){
  const s=this.ensureAbyss(),F=Number.isInteger(floor)&&FLOORS[floor-1];if(!F)fail('ABYSS_REWARD','등록되지 않은 층입니다.');
- if(!s.clears[floor]||s.claimed[floor])fail('ABYSS_REWARD','받을 수 있는 첫 정복 보상이 없습니다.');
+ // A floor cleared last season but not yet claimed stays claimable (owed).
+ if(!s.clears[floor]&&!(s.owed||[]).includes(floor)||s.claimed[floor])fail('ABYSS_REWARD','받을 수 있는 첫 정복 보상이 없습니다.');
+ if(s.owed)s.owed=s.owed.filter(f=>f!==floor);
  const w=F.reward,out={floor,mora:w.mora||0,items:cp(w.items||{})};
  if(!w.artifact&&!w.primogem&&!INAZUMA.includes(equipment))fail('ABYSS_REWARD','받을 이나즈마 장비를 골라 주세요.');
  if(w.mora)this.s.global.MORA+=w.mora;
@@ -299,15 +340,16 @@ P.actionReason=function(type,a={}){
  if(type==='ABYSS_ENTER')return this.abyssFloorReason(a.floor);
  if(type==='ABYSS_RESET'||type==='ABYSS_REWARD'){
   if(this.s.runtime||this.playPhase()!=='FREE')return '현재 전투와 장면을 먼저 마쳐 주세요.';
-  const s=this.ensureAbyss();
+  const s=this.abyssCurrent();
   if(type==='ABYSS_RESET')return a.retreat&&!s.active?'포기할 도전이 없습니다.':'';
   if(s.active?.phase==='BREAK')return '진행 중인 층을 먼저 마쳐 주세요.';
-  return !s.clears[a.floor]||s.claimed[a.floor]?'받을 수 있는 첫 정복 보상이 없습니다.':'';
+  return (!s.clears[a.floor]&&!(s.owed||[]).includes(a.floor))||s.claimed[a.floor]?'받을 수 있는 첫 정복 보상이 없습니다.':'';
  }
  const locked=this.abyssBreakReason(type,a);if(locked)return locked;
  return old.actionReason.call(this,type,a);
 };
 P.apply=function(a){
+ if(/^ABYSS_/.test(a.type))this.abyssRoll();
  if(a.type==='ABYSS_ENTER')return this.startAbyss(a.floor);
  if(a.type==='ABYSS_REWARD')return this.claimAbyss(a.floor,a.equipment);
  if(a.type==='ABYSS_RESET'){
@@ -329,7 +371,9 @@ P.validateSave=function(s){
  this.installMarketContent();migrate(s);const out=old.validateSave.call(this,s);migrate(out);const a=out.abyss;
  if(a){
   const bad=m=>fail('ABYSS_SAVE',m);
-  if(a.version!==VERSION||a.season!==SEASON||!a.tags||!a.clears||!a.claimed||!Number.isInteger(a.attempts)||a.attempts<0||!Number.isInteger(a.run)||a.run<1)bad('나선비경 기록이 손상되었습니다.');
+  if(a.version!==VERSION||!api.abyssSeason.valid(a.season)||!a.tags||!a.clears||!a.claimed||!Number.isInteger(a.attempts)||a.attempts<0||!Number.isInteger(a.run)||a.run<1)bad('나선비경 기록이 손상되었습니다.');
+  if(a.history!==undefined&&(!Array.isArray(a.history)||a.history.length>36||a.history.some(h=>!seasonParts(h?.season)||!Number.isInteger(h.floor)||h.floor<1||h.floor>12||!Number.isInteger(h.rounds)||h.rounds<0)))bad('나선비경 시즌 기록이 손상되었습니다.');
+  if(a.owed!==undefined&&(!Array.isArray(a.owed)||a.owed.some(f=>!Number.isInteger(f)||f<1||f>12)))bad('나선비경 보상 기록이 손상되었습니다.');
   for(const [key,clear]of Object.entries(a.clears)){const f=Number(key);if(!Number.isInteger(f)||f<1||f>12||!Number.isInteger(clear.rounds)||clear.rounds<1||clear.rounds>limitSum(f)+3||f>1&&!a.clears[f-1])bad('층 정복 기록이 손상되었습니다.');}
   for(const key of Object.keys(a.claimed))if(!/^(?:[1-9]|1[0-2])$/.test(key))bad('보상 기록이 손상되었습니다.');
   for(const [id,f]of Object.entries(a.tags))if(!this.tables['07_CHAR_DB'].has(id)||!Number.isInteger(f)||f<1||f>12)fail('ABYSS_TAG',MARK+' 기록이 손상되었습니다.');

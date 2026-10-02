@@ -8,6 +8,7 @@ import {R,DB as GAME_DB,ENGINE_VERSION,ENGINE_FINGERPRINT,SERVER_BUILD} from './
 import {compact,executeAction,hash,same,passwordHash,token} from './game-core.mjs';
 import {splitState,joinState,diffParts,publicParts,wirePatch,intent} from './state-parts.mjs';
 import {AdminConsole,installAdminSchema,banOf,banMessage,SYSTEM_ACCOUNT} from './admin-api.mjs';
+import {installSocialSchema,migrateRankingSeasons,socialMethods,socialRoute} from './social-v01415.mjs';
 
 const TRANSPORT_BUILD='fixed-region-live-sqlite-v1',MAX_BODY=65536,SESSION_MS=7*86400000,MAX_CACHE=16,now=()=>Date.now();
 const RID=/^[a-zA-Z0-9_-]{10,80}$/,JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'no-store'};
@@ -26,7 +27,8 @@ const pidOf=id=>createHash('sha256').update('crpg-chat:'+id).digest('hex').slice
 const cleanText=v=>[...String(v??'')].map(ch=>{const c=ch.codePointAt(0);return c<32||c===127||(c>=0x200b&&c<=0x200f)||(c>=0x2028&&c<=0x202e)||(c>=0x2060&&c<=0x206f)||c===0xfeff?' ':ch;}).join('').replace(/\s+/g,' ').trim();
 export function defaultFeatures(dbPath,env=process.env){const raw=env.CRPG_FEATURES;if(raw!==undefined)return String(raw).split(',').map(x=>x.trim()).filter(Boolean);return /live-staging|:memory:/.test(String(dbPath))?['chat','trade']:[];}
 const ip=req=>String(req.headers['x-forwarded-for']||req.socket?.remoteAddress||'local').split(',')[0].trim().slice(0,96);
-function score(state){const a=state?.abyss||{},floor=Math.max(0,...Object.keys(a.clears||{}).map(Number)),rounds=Object.values(a.clears||{}).reduce((n,x)=>n+(x?.rounds||0),0);return {season:a.season||'ABYSS_01',floor,rounds,attempts:a.attempts||0};}
+// 0.14.15: records count per monthly season; a save from before seasons counts in the month it is played.
+function score(state){const a=state?.abyss||{},floor=Math.max(0,...Object.keys(a.clears||{}).map(Number)),rounds=Object.values(a.clears||{}).reduce((n,x)=>n+(x?.rounds||0),0),S=globalThis.CRPGRuntime?.abyssSeason,season=!a.season||a.season==='ABYSS_01'?(S?S.of(now()):'ABYSS_01'):a.season;return {season,floor,rounds,attempts:a.attempts||0};}
 
 export class LiveRegionStore{
  constructor(path=':memory:',{pepper,adminIds='',features=[]}={}){
@@ -45,19 +47,21 @@ export class LiveRegionStore{
    'CREATE TABLE IF NOT EXISTS backups(account_id TEXT NOT NULL,revision INTEGER NOT NULL,undo TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,revision),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT',
    'CREATE TABLE IF NOT EXISTS ranking(account_id TEXT NOT NULL,season TEXT NOT NULL,display_name TEXT NOT NULL,floor INTEGER NOT NULL,rounds INTEGER NOT NULL,attempts INTEGER NOT NULL,achieved_at INTEGER NOT NULL,PRIMARY KEY(account_id,season),FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT'
   ].join(';')+';';
-  this.db.exec(pragmas+ddl);installAdminSchema(this.db);
+  this.db.exec(pragmas+ddl);installAdminSchema(this.db);migrateRankingSeasons(this.db);
   if(this.features.has('chat'))this.db.exec('CREATE TABLE IF NOT EXISTS chat(id INTEGER PRIMARY KEY AUTOINCREMENT,channel TEXT NOT NULL,account_id TEXT NOT NULL,author TEXT NOT NULL,text TEXT NOT NULL,created_at INTEGER NOT NULL,deleted INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS chat_channel_idx ON chat(channel,id);');
   if(this.features.has('trade'))this.db.exec("CREATE TABLE IF NOT EXISTS trades(id INTEGER PRIMARY KEY AUTOINCREMENT,from_id TEXT NOT NULL,to_id TEXT NOT NULL,give TEXT NOT NULL,want TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(from_id) REFERENCES accounts(id) ON DELETE CASCADE,FOREIGN KEY(to_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS trades_to_idx ON trades(to_id,status);CREATE INDEX IF NOT EXISTS trades_from_idx ON trades(from_id,status);");
+  installSocialSchema(this.db,this.features);
   this.heartbeat=setInterval(()=>this.push(': ping\n\n'),25000);this.heartbeat.unref?.();
  }
  close(){clearInterval(this.heartbeat);for(const s of this.subscribers){try{s.res.end();}catch{}}this.subscribers.clear();this.db.close();}
  need(feature){if(!this.features.has(feature))throw err(404,'지원하지 않는 요청입니다.');}
- capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1']:[]),...(this.features.has('trade')?['trade-v1']:[])];}
+ capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1','profile-v1']:[]),...(this.features.has('trade')?['trade-v1','market-v1','deal-v1']:[])];}
  // ---------- chat ----------
  push(text,filter){for(const s of this.subscribers){if(filter&&!filter(s))continue;try{s.res.write(text);}catch{this.subscribers.delete(s);}}}
  broadcast(event,filter){this.push('data: '+JSON.stringify(event)+'\n\n',filter);}
  subscribe(a,res){if(this.subscribers.size>=500)throw err(503,'채팅 연결이 많습니다. 잠시 뒤 다시 시도해 주세요.');const s={res,account:a.id};this.subscribers.add(s);return ()=>this.subscribers.delete(s);}
- chatView(row){return {id:row.id,channel:row.channel,author:row.author,pid:pidOf(row.account_id),text:row.deleted?'':row.text,deleted:row.deleted===1,at:row.created_at,staff:this.admins.has(row.account_id)||row.account_id===SYSTEM_ACCOUNT};}
+ // 0.14.15: Spiral Abyss medals and last season's frame travel with every line.
+ chatView(row){const staff=this.admins.has(row.account_id)||row.account_id===SYSTEM_ACCOUNT,h=row.account_id===SYSTEM_ACCOUNT?null:this.honours(row.account_id);return {id:row.id,channel:row.channel,author:row.author,pid:pidOf(row.account_id),text:row.deleted?'':row.text,deleted:row.deleted===1,at:row.created_at,staff,medals:h?.count||0,top:h?.top||0,frame:h?.frame||0};}
  chatRecent(a,after,channel){
   this.need('chat');const ch=CHAT_CHANNELS.has(channel)?channel:'world',from=Number(after);
   const rows=Number.isSafeInteger(from)&&from>0?this.db.prepare('SELECT * FROM chat WHERE channel=? AND id>? ORDER BY id LIMIT 60').all(ch,from):this.db.prepare('SELECT * FROM (SELECT * FROM chat WHERE channel=? ORDER BY id DESC LIMIT 40) ORDER BY id').all(ch);
@@ -158,7 +162,7 @@ export class LiveRegionStore{
    const m=this.meta(a.id);this.touch(a.id,{revision:0,parts,r});return this.output(a,m,parts);
   });
  }
- rank(a,ranked,state){if(!ranked){this.db.prepare('DELETE FROM ranking WHERE account_id=?').run(a.id);return;}const x=score(state);if(!x.floor)return;this.db.prepare('INSERT INTO ranking VALUES(?,?,?,?,?,?,?) ON CONFLICT(account_id,season) DO UPDATE SET display_name=excluded.display_name,floor=excluded.floor,rounds=excluded.rounds,attempts=excluded.attempts,achieved_at=excluded.achieved_at WHERE excluded.floor>ranking.floor OR (excluded.floor=ranking.floor AND (excluded.rounds<ranking.rounds OR (excluded.rounds=ranking.rounds AND excluded.attempts<ranking.attempts)))').run(a.id,x.season,a.display_name,x.floor,x.rounds,x.attempts,now());}
+ rank(a,ranked,state){if(!ranked){this.db.prepare('DELETE FROM ranking WHERE account_id=?').run(a.id);return;}const x=score(state);if(!x.floor)return;this.db.prepare('INSERT INTO ranking VALUES(?,?,?,?,?,?,?) ON CONFLICT(account_id,season) DO UPDATE SET display_name=excluded.display_name,floor=excluded.floor,rounds=excluded.rounds,attempts=excluded.attempts,achieved_at=excluded.achieved_at WHERE excluded.floor>ranking.floor OR (excluded.floor=ranking.floor AND (excluded.rounds<ranking.rounds OR (excluded.rounds=ranking.rounds AND excluded.attempts<ranking.attempts)))').run(a.id,x.season,a.display_name,x.floor,x.rounds,x.attempts,now());this.dropHonours(a.id);}
  async action(a,b){
   if(!RID.test(b?.requestId||''))throw err(400,'행동 식별자가 잘못되었습니다.');this.rate('action:'+a.id,240,60000);const digest=await hash(intent(b));
   return this.serial(a.id,async()=>{const started=performance.now();let persistence=false;this.db.exec('BEGIN IMMEDIATE');
@@ -173,8 +177,11 @@ export class LiveRegionStore{
    }catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');this.invalidate(a.id);if(!persistence)e.outcome='REJECTED';throw e;}
   });
  }
- ranking(){const rows=this.db.prepare('SELECT display_name AS name,floor,rounds,attempts FROM ranking WHERE season=? ORDER BY floor DESC,rounds,attempts,achieved_at,account_id LIMIT 20').all('ABYSS_01');return {season:'ABYSS_01',entries:rows.map((r,i)=>({rank:i+1,...r}))};}
+ // 0.14.15: the current monthly season, with last season alongside.
+ ranking(){const S=globalThis.CRPGRuntime?.abyssSeason,cur=this.seasonNow(),prev=S?.previous(cur),top=season=>this.db.prepare('SELECT display_name AS name,floor,rounds,attempts FROM ranking WHERE season=? ORDER BY floor DESC,rounds,attempts,achieved_at,account_id LIMIT 20').all(season).map((r,i)=>({rank:i+1,...r}));return {season:cur,label:S?.label(cur)||cur,endsAt:S?.end(cur)||null,entries:top(cur),previous:prev?{season:prev,label:S.label(prev),entries:top(prev)}:null};}
 }
+
+Object.assign(LiveRegionStore.prototype,socialMethods);
 
 export function createLiveRegionHandler({store,allowedOrigin='https://clannad.shop',adminConsole=null}){
  return async(req,res)=>{const origin=req.headers.origin||'',host=req.headers.host||'',sameOrigin=!!origin&&!!host&&(origin===`https://${host}`||origin===`http://${host}`);if(origin&&origin!==allowedOrigin&&!sameOrigin)return send(res,403,{error:'허용되지 않은 접속 경로입니다.'},{vary:'Origin'});const c=cors(origin,sameOrigin?origin:allowedOrigin);
@@ -203,6 +210,8 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
    if(path==='/trade/list'&&req.method==='GET')return send(res,200,store.tradeList(a),c);
    if(path==='/trade/offer'&&req.method==='POST')return send(res,200,store.tradeOffer(a,await body(req)),c);
    if(['/trade/accept','/trade/decline','/trade/cancel'].includes(path)&&req.method==='POST')return send(res,200,await store.tradeRespond(a,await body(req),path.slice(7)),c);
+   // 0.14.15 profiles, the market and live trades (server/social-v01415.mjs).
+   const social=await socialRoute(store,a,path,req,new URL(req.url,'http://fixed-region-live.local'),body);if(social!==undefined)return send(res,200,social,c);
    return send(res,404,{error:'지원하지 않는 요청입니다.'},c);
   }catch(e){const rule=!!(globalThis.CRPGRuntime?.RuleError&&e instanceof globalThis.CRPGRuntime.RuleError)||!!(globalThis.CRPGRelationships?.RelationshipError&&e instanceof globalThis.CRPGRelationships.RelationshipError);return send(res,e.status||(rule?400:500),{error:e.status||rule?e.message:'이 행동을 처리하지 못했습니다. 다른 행동을 선택하거나 잠시 뒤 다시 시도해 주세요.',...(e.code?{code:e.code}:{}),...(e.outcome?{outcome:e.outcome}:{}),...(e.code==='VERSION_MISMATCH'?{version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD}:{})},c);}
  };

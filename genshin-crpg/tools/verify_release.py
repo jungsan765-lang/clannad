@@ -23,7 +23,7 @@ TESTS = [
     *[f'tests/test_quality_fixes_v013{n}.cjs' for n in [35,36,37,38]],
     'tests/test_liyue_rework_mechanics.cjs', 'tests/test_liyue_rework_flow.cjs',
     'tools/test_field_bosses.cjs', 'tools/test_exclusive_weapons.cjs',
-    'tests/test_update_v01341.cjs', 'tests/test_abyss_v01341.cjs', 'tests/test_v0144.cjs', 'tests/test_v0148.cjs', 'tests/test_v01410.cjs', 'tests/test_v01411.cjs', 'tests/test_admin_v01412.mjs', 'tests/test_v01413.cjs',
+    'tests/test_update_v01341.cjs', 'tests/test_abyss_v01341.cjs', 'tests/test_v0144.cjs', 'tests/test_v0148.cjs', 'tests/test_v01410.cjs', 'tests/test_v01411.cjs', 'tests/test_admin_v01412.mjs', 'tests/test_v01413.cjs', 'tests/test_v01415.cjs', 'tests/test_social_v01415.mjs',
     'tests/test_osial_v01341.cjs', 'tools/test_story_cleanup_v0140.cjs',
     'tests/test_main_story_k_v0148.cjs',
 ]

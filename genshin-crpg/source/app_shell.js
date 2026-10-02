@@ -8,7 +8,7 @@
 (function(){
 'use strict';
 if(typeof render!=='function'||typeof act!=='function')return;
-const S=window.CRPGShell={version:1,tabs:{},screen:null,menu:null,mobile:false,backdrop:null,extraTools:[],extraTiles:[]};
+const S=window.CRPGShell={version:1,tabs:{},screen:null,menu:null,mobile:false,backdrop:null,extraTools:[],extraTiles:[],sceneryHooks:[],menuHooks:[]};
 const mk=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined&&text!==null)e.textContent=String(text);return e;};
 const $=(sel,root=document)=>root.querySelector(sel),$$=(sel,root=document)=>[...root.querySelectorAll(sel)];
 const NS='http://www.w3.org/2000/svg';
@@ -154,6 +154,7 @@ function buildMenu(){
  for(const x of $$('main > aside nav .hud-extra')){const label=x.textContent.trim(),kind=/로그아웃/.test(label)?'LOGOUT':/시작 화면/.test(label)?'TITLE':/디버그/.test(label)?'DEBUG':'DOT';const b=footButton(kind,relabel(label),()=>{toggleMenu(false);x.click();});b.disabled=x.disabled;foot.append(b);}
  const close=mk('button','pm-close');close.type='button';close.setAttribute('aria-label','메뉴 닫기');close.append(icon('CLOSE'));close.onclick=()=>toggleMenu(false);
  box.append(close,card,grid,foot);wrap.append(box);
+ for(const add of S.menuHooks)try{add(box,{close:()=>toggleMenu(false)});}catch{}
  wrap.addEventListener('keydown',e=>{if(e.key==='Tab'){const f=$$('button:not([disabled])',wrap);if(!f.length)return;const i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f.at(-1).focus();}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus();}}});
  return wrap;
 }
@@ -173,6 +174,8 @@ function toggleScenery(open=!S.scenery){
  const view=mk('div','shell-scenery');view.setAttribute('role','dialog');view.setAttribute('aria-modal','true');view.setAttribute('aria-label','풍경 보기');
  const pan=mk('div','scenery-pan'),stage=mk('div','scenery-stage'),img=mk('img','scenery-img');img.src=src;img.alt='';img.decoding='async';img.draggable=false;stage.append(img);
  for(const p of hiddenGlints()){const b=mk('button','scenery-glint','✧'),at=GLINT_AT[p.hotspot?.zone]||GLINT_AT.default;b.type='button';b.setAttribute('aria-label',p.hotspot?.accessibleLabel||'희미하게 반짝이는 곳 살펴보기');b.style.left=at[0]+'%';b.style.top=at[1]+'%';b.onclick=e=>{e.stopPropagation();toggleScenery(false);act('WORLD_WORK_START',{kind:'OCULUS',point:p.id});};stage.append(b);}
+ // 0.14.15: other things placed in the view (treasure chests, app_chests_v01415.js).
+ for(const add of S.sceneryHooks)try{add(stage,{close:()=>toggleScenery(false),image:src});}catch{}
  pan.append(stage);
  const bar=mk('div','scenery-bar'),close=mk('button','scenery-close');close.type='button';close.setAttribute('aria-label','풍경 보기 닫기 (Esc)');close.title='닫기 (Esc)';close.append(icon('CLOSE'));close.onclick=()=>toggleScenery(false);
  bar.append(mk('strong','',safeMap(game.s.global.CURRENT_MAP_ID)),mk('small','','끌거나 휠을 돌려 둘러보기 · Esc 닫기'),close);

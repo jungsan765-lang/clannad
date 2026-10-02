@@ -11191,6 +11191,3130 @@
       "sha256": "4069d6f8424ca940268b085eb3d1323f0642938147e4796fabc43fb63bab12c8",
       "source": "Existing project portrait recovered from the interrupted conversation attachment; linked by the unchanged 03_IMAGE asset row. Official authorship not re-audited.",
       "variant": 1
+    },
+    "ASSET_BG_PLACE_STARFELL_VALLEY": {
+      "asset_id": "ASSET_BG_PLACE_STARFELL_VALLEY",
+      "owner_id": "SCENE_PLACE_STARFELL_VALLEY",
+      "file_name": "bg_place_starfell_valley.png",
+      "drive_id": null,
+      "src": "assets/bg_place_starfell_valley.webp",
+      "local_path": "assets/bg_place_starfell_valley.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 656038,
+      "sha256": "58fe00c7ee8e127b02b39bf51b514ec32149b870ef5cce23725dd1601c94a9c0",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "몬드 외곽 초원",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Starfell Valley",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/5/5c/Starfell_Valley.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Starfell_Valley",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "58fe00c7ee8e127b02b39bf51b514ec32149b870ef5cce23725dd1601c94a9c0",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_MOND_PLAINS"
+        ],
+        "stored": {
+          "file": "assets/bg_place_starfell_valley.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 312296,
+          "sha256": "f73fc12ed133ceaa18963bf5e57052e2513911c5712e5563df242da5f70213a2",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_TEMPLE_FALCON": {
+      "asset_id": "ASSET_BG_PLACE_TEMPLE_FALCON",
+      "owner_id": "SCENE_PLACE_TEMPLE_FALCON",
+      "file_name": "bg_place_temple_falcon.png",
+      "drive_id": null,
+      "src": "assets/bg_place_temple_falcon.webp",
+      "local_path": "assets/bg_place_temple_falcon.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 591390,
+      "sha256": "35f5b51f980f96b0d24215ecf04fe21d60ec241300936e72be4aba4fb9127982",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "서풍 매의 사당",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Domain Location Temple of the Falcon Context.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/6/6c/Domain_Location_Temple_of_the_Falcon_Context.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ADomain_Location_Temple_of_the_Falcon_Context.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "35f5b51f980f96b0d24215ecf04fe21d60ec241300936e72be4aba4fb9127982",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_MOND_TEMPLE_FALCON"
+        ],
+        "stored": {
+          "file": "assets/bg_place_temple_falcon.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 283750,
+          "sha256": "7c52edf0bae3c7325b5b493ccbf02cc2b4c60ef070fbc3e8b473cd9d2a58c30a",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_TEMPLE_WOLF": {
+      "asset_id": "ASSET_BG_PLACE_TEMPLE_WOLF",
+      "owner_id": "SCENE_PLACE_TEMPLE_WOLF",
+      "file_name": "bg_place_temple_wolf.png",
+      "drive_id": null,
+      "src": "assets/bg_place_temple_wolf.webp",
+      "local_path": "assets/bg_place_temple_wolf.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 457484,
+      "sha256": "9a2052c1e18cba2d39f3066ba1469931a36f23de4e201b099f27163f1180b2db",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "북풍 늑대의 사당",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Domain Location Temple of the Wolf Context.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/7/72/Domain_Location_Temple_of_the_Wolf_Context.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ADomain_Location_Temple_of_the_Wolf_Context.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "9a2052c1e18cba2d39f3066ba1469931a36f23de4e201b099f27163f1180b2db",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_MOND_TEMPLE_WOLF"
+        ],
+        "stored": {
+          "file": "assets/bg_place_temple_wolf.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 221014,
+          "sha256": "85dac4bf6a14a2c66b7239d42bc93ef1d29167b39969a5e39f21ac8f498a4498",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_TEMPLE_LION": {
+      "asset_id": "ASSET_BG_PLACE_TEMPLE_LION",
+      "owner_id": "SCENE_PLACE_TEMPLE_LION",
+      "file_name": "bg_place_temple_lion.png",
+      "drive_id": null,
+      "src": "assets/bg_place_temple_lion.webp",
+      "local_path": "assets/bg_place_temple_lion.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 512,
+      "height": 256,
+      "bytes": 35612,
+      "sha256": "bfcf0000f7f629c80e70c006927589fb7e770bf0997adc9c08ae19c57dbe3c73",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "남풍 사자의 사당",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Domain Temple of the Lion.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/5/5b/Domain_Temple_of_the_Lion.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ADomain_Temple_of_the_Lion.png",
+        "dimensions": [
+          512,
+          256
+        ],
+        "sha256": "bfcf0000f7f629c80e70c006927589fb7e770bf0997adc9c08ae19c57dbe3c73",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_MOND_TEMPLE_LION"
+        ],
+        "stored": {
+          "file": "assets/bg_place_temple_lion.webp",
+          "dimensions": [
+            512,
+            256
+          ],
+          "bytes": 24624,
+          "sha256": "b7d61909b454fb1a1093047a97c837e0d8c9e06d1f7a2c90607c059fdf1e91c1",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_BRIGHTCROWN_MOUNTAINS": {
+      "asset_id": "ASSET_BG_PLACE_BRIGHTCROWN_MOUNTAINS",
+      "owner_id": "SCENE_PLACE_BRIGHTCROWN_MOUNTAINS",
+      "file_name": "bg_place_brightcrown_mountains.png",
+      "drive_id": null,
+      "src": "assets/bg_place_brightcrown_mountains.webp",
+      "local_path": "assets/bg_place_brightcrown_mountains.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 502266,
+      "sha256": "11ba19be9815abffc3ddf8ee7d6d0a80f9ff7358afcedf82e2666cf29a4f4093",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "우인단 보관고",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Brightcrown Mountains",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/b/bc/Brightcrown_Mountains.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Brightcrown_Mountains",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "11ba19be9815abffc3ddf8ee7d6d0a80f9ff7358afcedf82e2666cf29a4f4093",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_MOND_FATUI_CACHE"
+        ],
+        "stored": {
+          "file": "assets/bg_place_brightcrown_mountains.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 225334,
+          "sha256": "87dd049ea9c1ce6af0cff7cc51c77f663746550f1c4e3f5a14fe7ab26f30a84b",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_EAGLES_GATE": {
+      "asset_id": "ASSET_BG_PLACE_EAGLES_GATE",
+      "owner_id": "SCENE_PLACE_EAGLES_GATE",
+      "file_name": "bg_place_eagles_gate.png",
+      "drive_id": null,
+      "src": "assets/bg_place_eagles_gate.webp",
+      "local_path": "assets/bg_place_eagles_gate.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 512,
+      "height": 256,
+      "bytes": 48714,
+      "sha256": "b25ecea9f57fb73bbbeffb54bbb1870e6102ea6bbb15ab5dbfd46a57faa2cfcb",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "매의 문 비경",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Domain Eagles Gate.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/7/76/Domain_Eagles_Gate.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ADomain_Eagles_Gate.png",
+        "dimensions": [
+          512,
+          256
+        ],
+        "sha256": "b25ecea9f57fb73bbbeffb54bbb1870e6102ea6bbb15ab5dbfd46a57faa2cfcb",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_MOND_EAGLES_GATE"
+        ],
+        "stored": {
+          "file": "assets/bg_place_eagles_gate.webp",
+          "dimensions": [
+            512,
+            256
+          ],
+          "bytes": 35422,
+          "sha256": "df2038ac8833924c6bece9923f90d554daa78344f30847eb893ce6502ba7ec85",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_DADAUPA_GORGE": {
+      "asset_id": "ASSET_BG_PLACE_DADAUPA_GORGE",
+      "owner_id": "SCENE_PLACE_DADAUPA_GORGE",
+      "file_name": "bg_place_dadaupa_gorge.png",
+      "drive_id": null,
+      "src": "assets/bg_place_dadaupa_gorge.webp",
+      "local_path": "assets/bg_place_dadaupa_gorge.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 606314,
+      "sha256": "e7165b29ff5b573c87e9d104dde73170b479388eda51dd603959453c08090d5f",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "타타우파 협곡 · 일식 부족 야영지",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Dadaupa Gorge",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/b/bb/Dadaupa_Gorge.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Dadaupa_Gorge",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "e7165b29ff5b573c87e9d104dde73170b479388eda51dd603959453c08090d5f",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_MOND_ECLIPSE_CAMP",
+          "MAP_CRPG_DADAUPA_GORGE"
+        ],
+        "stored": {
+          "file": "assets/bg_place_dadaupa_gorge.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 272198,
+          "sha256": "875cabfa49410dd27a8eaabed6ac0f0b6e21b9b5618f2febfd54d9e466b182fe",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_STARSNATCH_CLIFF": {
+      "asset_id": "ASSET_BG_PLACE_STARSNATCH_CLIFF",
+      "owner_id": "SCENE_PLACE_STARSNATCH_CLIFF",
+      "file_name": "bg_place_starsnatch_cliff.png",
+      "drive_id": null,
+      "src": "assets/bg_place_starsnatch_cliff.webp",
+      "local_path": "assets/bg_place_starsnatch_cliff.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 197378,
+      "sha256": "fcf9049acee105a4d3dc0e3f0a9e61b37eec6b05c5c4030ba5bc39bf111ca380",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "별을 따는 절벽",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Starsnatch Cliff",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/1/15/Starsnatch_Cliff.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Starsnatch_Cliff",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "fcf9049acee105a4d3dc0e3f0a9e61b37eec6b05c5c4030ba5bc39bf111ca380",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_MOND_STARSNATCH_CLIFF"
+        ],
+        "stored": {
+          "file": "assets/bg_place_starsnatch_cliff.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 90946,
+          "sha256": "ee78cfbc8496b30fd97288101fb8193cec8be952b2ff1e3d490502141f6e96bc",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_STORMBEARER_MOUNTAINS": {
+      "asset_id": "ASSET_BG_PLACE_STORMBEARER_MOUNTAINS",
+      "owner_id": "SCENE_PLACE_STORMBEARER_MOUNTAINS",
+      "file_name": "bg_place_stormbearer_mountains.png",
+      "drive_id": null,
+      "src": "assets/bg_place_stormbearer_mountains.webp",
+      "local_path": "assets/bg_place_stormbearer_mountains.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 511878,
+      "sha256": "a08ab6e6f2fc8fc2b0dac23c903fb28d5f92eb4bac62f7ed0a18613d0f43b2e6",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "바람맞이 산",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Stormbearer Mountains",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/a/a9/Stormbearer_Mountains.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Stormbearer_Mountains",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "a08ab6e6f2fc8fc2b0dac23c903fb28d5f92eb4bac62f7ed0a18613d0f43b2e6",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_STORMBEARER_MOUNTAINS",
+          "MAP_V141_STORMBEARER_PASS"
+        ],
+        "stored": {
+          "file": "assets/bg_place_stormbearer_mountains.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 228212,
+          "sha256": "b3930619abf7ce74ca34f8dfb820b9a6652f89ed36a19cf68a5ab383591a1a03",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_STORMBEARER_POINT": {
+      "asset_id": "ASSET_BG_PLACE_STORMBEARER_POINT",
+      "owner_id": "SCENE_PLACE_STORMBEARER_POINT",
+      "file_name": "bg_place_stormbearer_point.png",
+      "drive_id": null,
+      "src": "assets/bg_place_stormbearer_point.webp",
+      "local_path": "assets/bg_place_stormbearer_point.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 308498,
+      "sha256": "539b7d59dc1e07e82c6cbfd79866e3ac2802318b908b1271759ee1a6b058d2af",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "바람맞이 봉우리",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Stormbearer Point",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/3/32/Stormbearer_Point.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Stormbearer_Point",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "539b7d59dc1e07e82c6cbfd79866e3ac2802318b908b1271759ee1a6b058d2af",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_STORMBEARER_POINT"
+        ],
+        "stored": {
+          "file": "assets/bg_place_stormbearer_point.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 137566,
+          "sha256": "3e8a10830432d5f78a96b6aa0dc9229e3ae35e04583a3fad3e53497a37a31330",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_FALCON_COAST": {
+      "asset_id": "ASSET_BG_PLACE_FALCON_COAST",
+      "owner_id": "SCENE_PLACE_FALCON_COAST",
+      "file_name": "bg_place_falcon_coast.png",
+      "drive_id": null,
+      "src": "assets/bg_place_falcon_coast.webp",
+      "local_path": "assets/bg_place_falcon_coast.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 339686,
+      "sha256": "4a60a71c957facd3cfd3cfe90815fc8b2ce5b4339025862d574e756a948ae286",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "매의 해안",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Falcon Coast",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/0/00/Falcon_Coast.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Falcon_Coast",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "4a60a71c957facd3cfd3cfe90815fc8b2ce5b4339025862d574e756a948ae286",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_FALCON_COAST"
+        ],
+        "stored": {
+          "file": "assets/bg_place_falcon_coast.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 158650,
+          "sha256": "e4a549631388ed6dffd84c9f3e5d73ae42dd01fa051bb8b0d72b890eea11d91d",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_CAPE_OATH": {
+      "asset_id": "ASSET_BG_PLACE_CAPE_OATH",
+      "owner_id": "SCENE_PLACE_CAPE_OATH",
+      "file_name": "bg_place_cape_oath.png",
+      "drive_id": null,
+      "src": "assets/bg_place_cape_oath.webp",
+      "local_path": "assets/bg_place_cape_oath.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 341048,
+      "sha256": "b8c62950f8c7ad8236925ff9cb86f9e527e062417fce2ca17ef9d55ed59e02de",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "맹세의 갑각",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Cape Oath",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/5/5e/Cape_Oath.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Cape_Oath",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "b8c62950f8c7ad8236925ff9cb86f9e527e062417fce2ca17ef9d55ed59e02de",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_CAPE_OATH"
+        ],
+        "stored": {
+          "file": "assets/bg_place_cape_oath.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 199830,
+          "sha256": "847e8abcc5e3f0e42e428a556aa3d377552621acefa8524f40c9abd9dc46e61c",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_BRIGHTCROWN_CANYON": {
+      "asset_id": "ASSET_BG_PLACE_BRIGHTCROWN_CANYON",
+      "owner_id": "SCENE_PLACE_BRIGHTCROWN_CANYON",
+      "file_name": "bg_place_brightcrown_canyon.png",
+      "drive_id": null,
+      "src": "assets/bg_place_brightcrown_canyon.webp",
+      "local_path": "assets/bg_place_brightcrown_canyon.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 293660,
+      "sha256": "b51905bd72526e5e1a1eb6ddf348bc2cb13600d004affa1cf156d54ccc1b6696",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "크라운 협곡",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Brightcrown Canyon",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/a/ac/Brightcrown_Canyon.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Brightcrown_Canyon",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "b51905bd72526e5e1a1eb6ddf348bc2cb13600d004affa1cf156d54ccc1b6696",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_BRIGHTCROWN_CANYON"
+        ],
+        "stored": {
+          "file": "assets/bg_place_brightcrown_canyon.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 131234,
+          "sha256": "cac0721d482b7f20df6102536e29ca155c05504a4aa0081ba8da77a6f8a8ba33",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_DRAGONSPINE_ADVENTURER_CAMP": {
+      "asset_id": "ASSET_BG_PLACE_DRAGONSPINE_ADVENTURER_CAMP",
+      "owner_id": "SCENE_PLACE_DRAGONSPINE_ADVENTURER_CAMP",
+      "file_name": "bg_place_dragonspine_adventurer_camp.png",
+      "drive_id": null,
+      "src": "assets/bg_place_dragonspine_adventurer_camp.webp",
+      "local_path": "assets/bg_place_dragonspine_adventurer_camp.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1600,
+      "height": 900,
+      "bytes": 235328,
+      "sha256": "2fcaffe407c948a68796d3114f961184e4b04147d43810bbacae62482e210e6a",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "설산 탐사 야영지",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Dragonspine Adventurer Camp.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/b/b3/Dragonspine_Adventurer_Camp.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ADragonspine_Adventurer_Camp.png",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "2fcaffe407c948a68796d3114f961184e4b04147d43810bbacae62482e210e6a",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_DRAGONSPINE_CAMP"
+        ],
+        "stored": {
+          "file": "assets/bg_place_dragonspine_adventurer_camp.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 142722,
+          "sha256": "a6bd31a59529de2931ccb59280124a9ddb4456fbe5d801fc3dff3b9fab957902",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_SNOW_COVERED_PATH": {
+      "asset_id": "ASSET_BG_PLACE_SNOW_COVERED_PATH",
+      "owner_id": "SCENE_PLACE_SNOW_COVERED_PATH",
+      "file_name": "bg_place_snow_covered_path.png",
+      "drive_id": null,
+      "src": "assets/bg_place_snow_covered_path.webp",
+      "local_path": "assets/bg_place_snow_covered_path.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1600,
+      "height": 900,
+      "bytes": 336922,
+      "sha256": "6688559d4b27556ca95d40aff9ebd4913711994fba40e69b3ba0fcbb6768e983",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "눈 덮인 길",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Snow-Covered Path",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/5/55/Snow-Covered_Path.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Snow-Covered_Path",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "6688559d4b27556ca95d40aff9ebd4913711994fba40e69b3ba0fcbb6768e983",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_SNOW_COVERED_PATH"
+        ],
+        "stored": {
+          "file": "assets/bg_place_snow_covered_path.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 202762,
+          "sha256": "fc9950295c3d757e4abe86f0b7a11cf1c16b4c9caf28ffb4214568728ff6cf3b",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_WYRMREST_VALLEY": {
+      "asset_id": "ASSET_BG_PLACE_WYRMREST_VALLEY",
+      "owner_id": "SCENE_PLACE_WYRMREST_VALLEY",
+      "file_name": "bg_place_wyrmrest_valley.png",
+      "drive_id": null,
+      "src": "assets/bg_place_wyrmrest_valley.webp",
+      "local_path": "assets/bg_place_wyrmrest_valley.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 369296,
+      "sha256": "142e51dff10390fe77610adb24936aee866ea6793189f458af8f237fc1dd36c3",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "드래곤이 잠든 협곡",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Wyrmrest Valley",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/b/bc/Wyrmrest_Valley.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Wyrmrest_Valley",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "142e51dff10390fe77610adb24936aee866ea6793189f458af8f237fc1dd36c3",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_WYRMREST_VALLEY"
+        ],
+        "stored": {
+          "file": "assets/bg_place_wyrmrest_valley.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 157596,
+          "sha256": "2f3c8cca5e22a3ccd82fde2d60413fe70e90d8bb5467c6fa61fe0a45801979cf",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_ENTOMBED_OUTSKIRTS": {
+      "asset_id": "ASSET_BG_PLACE_ENTOMBED_OUTSKIRTS",
+      "owner_id": "SCENE_PLACE_ENTOMBED_OUTSKIRTS",
+      "file_name": "bg_place_entombed_outskirts.png",
+      "drive_id": null,
+      "src": "assets/bg_place_entombed_outskirts.webp",
+      "local_path": "assets/bg_place_entombed_outskirts.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1600,
+      "height": 900,
+      "bytes": 218956,
+      "sha256": "75db244d56d8969349affbc833daa3301ff78cddbcf2712436f5824a77974a64",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "눈에 묻힌 도시 · 근교",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Entombed City - Outskirts",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/2/29/Entombed_City_-_Outskirts.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Entombed_City_-_Outskirts",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "75db244d56d8969349affbc833daa3301ff78cddbcf2712436f5824a77974a64",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_ENTOMBED_OUTSKIRTS"
+        ],
+        "stored": {
+          "file": "assets/bg_place_entombed_outskirts.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 127820,
+          "sha256": "6e621fd7a6675ec094b8f816b465609a5838738c965ca1b22eb2425ca4a1a628",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_ENTOMBED_PALACE": {
+      "asset_id": "ASSET_BG_PLACE_ENTOMBED_PALACE",
+      "owner_id": "SCENE_PLACE_ENTOMBED_PALACE",
+      "file_name": "bg_place_entombed_palace.png",
+      "drive_id": null,
+      "src": "assets/bg_place_entombed_palace.webp",
+      "local_path": "assets/bg_place_entombed_palace.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 3840,
+      "height": 2160,
+      "bytes": 523804,
+      "sha256": "c9d8395a285c7040c28a64ebe6576c06210504a0232c0cf8657606b7cf612e60",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "눈에 묻힌 도시 · 고궁",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Entombed City - Ancient Palace",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/e/e8/Entombed_City_-_Ancient_Palace.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Entombed_City_-_Ancient_Palace",
+        "dimensions": [
+          3840,
+          2160
+        ],
+        "sha256": "c9d8395a285c7040c28a64ebe6576c06210504a0232c0cf8657606b7cf612e60",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_ENTOMBED_PALACE"
+        ],
+        "stored": {
+          "file": "assets/bg_place_entombed_palace.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 99036,
+          "sha256": "7765801e05ce5d941c00f94ad4fe658e1bc00cf78c507b728a880e8e029e77ac",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_STARGLOW_CAVERN": {
+      "asset_id": "ASSET_BG_PLACE_STARGLOW_CAVERN",
+      "owner_id": "SCENE_PLACE_STARGLOW_CAVERN",
+      "file_name": "bg_place_starglow_cavern.png",
+      "drive_id": null,
+      "src": "assets/bg_place_starglow_cavern.webp",
+      "local_path": "assets/bg_place_starglow_cavern.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 3840,
+      "height": 2160,
+      "bytes": 652868,
+      "sha256": "938faa1979654335c772ccb4fa90514643581e4e58ad8eb8c65e8f5a32039b42",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "별빛 동굴",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Starglow Cavern",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/0/02/Starglow_Cavern.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Starglow_Cavern",
+        "dimensions": [
+          3840,
+          2160
+        ],
+        "sha256": "938faa1979654335c772ccb4fa90514643581e4e58ad8eb8c65e8f5a32039b42",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_STARGLOW_CAVERN"
+        ],
+        "stored": {
+          "file": "assets/bg_place_starglow_cavern.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 117708,
+          "sha256": "ceaa5f730315c5568351ec5e3d39c3e7d4d924ec86c4e30575027b85b86a1de8",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_SKYFROST_NAIL": {
+      "asset_id": "ASSET_BG_PLACE_SKYFROST_NAIL",
+      "owner_id": "SCENE_PLACE_SKYFROST_NAIL",
+      "file_name": "bg_place_skyfrost_nail.png",
+      "drive_id": null,
+      "src": "assets/bg_place_skyfrost_nail.webp",
+      "local_path": "assets/bg_place_skyfrost_nail.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1600,
+      "height": 900,
+      "bytes": 278976,
+      "sha256": "a11ce7a8ceded038cf6219d9a3d1844e911cf9d1958be512700a75f67098f42c",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "한천의 못",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Skyfrost Nail",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/c/c6/Skyfrost_Nail.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Skyfrost_Nail",
+        "dimensions": [
+          1600,
+          900
+        ],
+        "sha256": "a11ce7a8ceded038cf6219d9a3d1844e911cf9d1958be512700a75f67098f42c",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_SKYFROST_NAIL"
+        ],
+        "stored": {
+          "file": "assets/bg_place_skyfrost_nail.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 174962,
+          "sha256": "b074231bed84d3d32c55ba6b2bac1ab5cfcecc74db14ed084f41865784d29787",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_FORGOTTEN_SWORD_CEMETERY": {
+      "asset_id": "ASSET_BG_PLACE_FORGOTTEN_SWORD_CEMETERY",
+      "owner_id": "SCENE_PLACE_FORGOTTEN_SWORD_CEMETERY",
+      "file_name": "bg_place_forgotten_sword_cemetery.png",
+      "drive_id": null,
+      "src": "assets/bg_place_forgotten_sword_cemetery.webp",
+      "local_path": "assets/bg_place_forgotten_sword_cemetery.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 508878,
+      "sha256": "8e0b8acb79c40ebfa383b19d4d568a4e2638e2f5bc2034b9c3b565ae3e7ce0aa",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "이름없는 검무덤",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Forgotten Sword Cemetery",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/7/7b/Forgotten_Sword_Cemetery.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Forgotten_Sword_Cemetery",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "8e0b8acb79c40ebfa383b19d4d568a4e2638e2f5bc2034b9c3b565ae3e7ce0aa",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_SWORD_CEMETERY"
+        ],
+        "stored": {
+          "file": "assets/bg_place_forgotten_sword_cemetery.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 245034,
+          "sha256": "3fe34e72ba4e9ad9460c33f86c235ecc44af0f6b5d088a60b2f604a92f62e851",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_LAIR_CANYON_ENTRANCE": {
+      "asset_id": "ASSET_BG_PLACE_LAIR_CANYON_ENTRANCE",
+      "owner_id": "SCENE_PLACE_LAIR_CANYON_ENTRANCE",
+      "file_name": "bg_place_lair_canyon_entrance.png",
+      "drive_id": null,
+      "src": "assets/bg_place_lair_canyon_entrance.webp",
+      "local_path": "assets/bg_place_lair_canyon_entrance.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 419554,
+      "sha256": "1909416360235a7e6aec3a7f7b9d7f74730e2f7b2598d0900a64fcf6fbae6fec",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "바람 드래곤의 폐허 · 옛 관문",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Brightcrown Canyon Entrance to Stormterror's Lair.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/e/ef/Brightcrown_Canyon_Entrance_to_Stormterror%27s_Lair.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ABrightcrown_Canyon_Entrance_to_Stormterror%27s_Lair.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "1909416360235a7e6aec3a7f7b9d7f74730e2f7b2598d0900a64fcf6fbae6fec",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_LAIR_OUTER_GATE"
+        ],
+        "stored": {
+          "file": "assets/bg_place_lair_canyon_entrance.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 195626,
+          "sha256": "5cc36455e7debd130bf11fa57557484b4436ba6799660c076058f52db46acb20",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_LAIR_FROM_ABOVE": {
+      "asset_id": "ASSET_BG_PLACE_LAIR_FROM_ABOVE",
+      "owner_id": "SCENE_PLACE_LAIR_FROM_ABOVE",
+      "file_name": "bg_place_lair_from_above.png",
+      "drive_id": null,
+      "src": "assets/bg_place_lair_from_above.webp",
+      "local_path": "assets/bg_place_lair_from_above.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 209182,
+      "sha256": "4dc99690de0a085eb2bf885574064e2c87884c36c2a97bcc265829a702dcd246",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "바람 드래곤의 폐허 · 서쪽 회랑",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Stormterror's Lair from Above.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/f/f0/Stormterror%27s_Lair_from_Above.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3AStormterror%27s_Lair_from_Above.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "4dc99690de0a085eb2bf885574064e2c87884c36c2a97bcc265829a702dcd246",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_LAIR_WEST_RUINS"
+        ],
+        "stored": {
+          "file": "assets/bg_place_lair_from_above.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 92772,
+          "sha256": "3a14d04c232609fc5bad73fad9bc6dda5905b45a046cc1789c7903e1b0a33248",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_LAIR_CONCEPT_ART": {
+      "asset_id": "ASSET_BG_PLACE_LAIR_CONCEPT_ART",
+      "owner_id": "SCENE_PLACE_LAIR_CONCEPT_ART",
+      "file_name": "bg_place_lair_concept_art.png",
+      "drive_id": null,
+      "src": "assets/bg_place_lair_concept_art.webp",
+      "local_path": "assets/bg_place_lair_concept_art.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 841,
+      "height": 448,
+      "bytes": 81698,
+      "sha256": "9b0a267f46dce5d20d777ab935d831471b31e88b9bd534735af762d00b1909ed",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "바람 드래곤의 폐허 · 동쪽 정원",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Stormterror's Lair Concept Art.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/f/f6/Stormterror%27s_Lair_Concept_Art.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3AStormterror%27s_Lair_Concept_Art.png",
+        "dimensions": [
+          841,
+          448
+        ],
+        "sha256": "9b0a267f46dce5d20d777ab935d831471b31e88b9bd534735af762d00b1909ed",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_LAIR_EAST_RUINS"
+        ],
+        "stored": {
+          "file": "assets/bg_place_lair_concept_art.webp",
+          "dimensions": [
+            841,
+            448
+          ],
+          "bytes": 61010,
+          "sha256": "455e961a51a1f1b9ff6f25fa07ab25f7d394feac7b8d70812d2bf88a3170cb27",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_DRUNKARD_GORGE": {
+      "asset_id": "ASSET_BG_PLACE_DRUNKARD_GORGE",
+      "owner_id": "SCENE_PLACE_DRUNKARD_GORGE",
+      "file_name": "bg_place_drunkard_gorge.png",
+      "drive_id": null,
+      "src": "assets/bg_place_drunkard_gorge.webp",
+      "local_path": "assets/bg_place_drunkard_gorge.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 532560,
+      "sha256": "947956f09ef09176f58a576b613b2e3e8cbb8b0097bf9ec40e02ded6d056932f",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "몬드 동쪽 광산",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Drunkard Gorge.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/3/38/Drunkard_Gorge.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ADrunkard_Gorge.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "947956f09ef09176f58a576b613b2e3e8cbb8b0097bf9ec40e02ded6d056932f",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_MOND_QUARRY"
+        ],
+        "stored": {
+          "file": "assets/bg_place_drunkard_gorge.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 239850,
+          "sha256": "fc0c3c93b270124704a7c5c1b5b2d82c6e85b785add25168af381eb121b4cb25",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_CIDER_LAKE": {
+      "asset_id": "ASSET_BG_PLACE_CIDER_LAKE",
+      "owner_id": "SCENE_PLACE_CIDER_LAKE",
+      "file_name": "bg_place_cider_lake.png",
+      "drive_id": null,
+      "src": "assets/bg_place_cider_lake.webp",
+      "local_path": "assets/bg_place_cider_lake.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 237250,
+      "sha256": "bf4d971c68b525d7a32dfb8ee0b4abbdebca6cdb97114548db500915282cf565",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "시드르 호수 낚시터",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Cider Lake",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/1/1f/Cider_Lake.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Cider_Lake",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "bf4d971c68b525d7a32dfb8ee0b4abbdebca6cdb97114548db500915282cf565",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_CIDER_BANK"
+        ],
+        "stored": {
+          "file": "assets/bg_place_cider_lake.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 103868,
+          "sha256": "9514a66705957639bc092647516a668df05b477dc5a0e7dbb3d39f6c3a431923",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_WHISPERING_WOODS": {
+      "asset_id": "ASSET_BG_PLACE_WHISPERING_WOODS",
+      "owner_id": "SCENE_PLACE_WHISPERING_WOODS",
+      "file_name": "bg_place_whispering_woods.png",
+      "drive_id": null,
+      "src": "assets/bg_place_whispering_woods.webp",
+      "local_path": "assets/bg_place_whispering_woods.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 611730,
+      "sha256": "50011d7a12abf9db1fcc3f5eb3da2368b0307249a8eea3e39957421ed594fcbe",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "속삭임의 숲 사냥터",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Whispering Woods",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/6/63/Whispering_Woods.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Whispering_Woods",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "50011d7a12abf9db1fcc3f5eb3da2368b0307249a8eea3e39957421ed594fcbe",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_WHISPER_HUNT"
+        ],
+        "stored": {
+          "file": "assets/bg_place_whispering_woods.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 292058,
+          "sha256": "4630a97062ca0c5b1a72a9a43eda712486c42ea3a944c7a5b44bcd620ee005e1",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_WINDWAIL_HIGHLAND": {
+      "asset_id": "ASSET_BG_PLACE_WINDWAIL_HIGHLAND",
+      "owner_id": "SCENE_PLACE_WINDWAIL_HIGHLAND",
+      "file_name": "bg_place_windwail_highland.png",
+      "drive_id": null,
+      "src": "assets/bg_place_windwail_highland.webp",
+      "local_path": "assets/bg_place_windwail_highland.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 324940,
+      "sha256": "3c9d99f8f3e33f76a8db36cde6b39775606e0ac8449c599f0af99dedb01619eb",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "와이너리 강변 낚시터",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Windwail Highland Version 1.0.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/2/28/Windwail_Highland_Version_1.0.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3AWindwail_Highland_Version_1.0.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "3c9d99f8f3e33f76a8db36cde6b39775606e0ac8449c599f0af99dedb01619eb",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_DAWN_BANK"
+        ],
+        "stored": {
+          "file": "assets/bg_place_windwail_highland.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 151296,
+          "sha256": "2f97d3165868ba44d13f588bcfc63017f2e94ff43602de2756ec1e7209ffc817",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_SPRINGVALE": {
+      "asset_id": "ASSET_BG_PLACE_SPRINGVALE",
+      "owner_id": "SCENE_PLACE_SPRINGVALE",
+      "file_name": "bg_place_springvale.png",
+      "drive_id": null,
+      "src": "assets/bg_place_springvale.webp",
+      "local_path": "assets/bg_place_springvale.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 587038,
+      "sha256": "35621394b06124c7aeda4dbb84bbdaa03af35b5da36aaf78873aad8e40dafa7a",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "샘물 연못 낚시터",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Springvale",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/4/4d/Springvale.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Springvale",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "35621394b06124c7aeda4dbb84bbdaa03af35b5da36aaf78873aad8e40dafa7a",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_SPRING_POOL"
+        ],
+        "stored": {
+          "file": "assets/bg_place_springvale.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 287154,
+          "sha256": "b3961eb855ac09dd4402058a06f390b6a2d48ee083210554c2f227101302b5f7",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_MUSK_REEF": {
+      "asset_id": "ASSET_BG_PLACE_MUSK_REEF",
+      "owner_id": "SCENE_PLACE_MUSK_REEF",
+      "file_name": "bg_place_musk_reef.png",
+      "drive_id": null,
+      "src": "assets/bg_place_musk_reef.webp",
+      "local_path": "assets/bg_place_musk_reef.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 402350,
+      "sha256": "1d5d4e6e791dbdc5f273f8b83e7431ae25f4221ea962a15c5a925bc68bfe1e8d",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "머스크 암초",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Musk Reef",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/9/9e/Musk_Reef.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Musk_Reef",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "1d5d4e6e791dbdc5f273f8b83e7431ae25f4221ea962a15c5a925bc68bfe1e8d",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_V141_MUSK_REEF"
+        ],
+        "stored": {
+          "file": "assets/bg_place_musk_reef.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 181824,
+          "sha256": "d0f2b7727b9fb5a035b8d8aaaf910012719137a1d60d0af53fe12db6b0ae8e36",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_THOUSAND_WINDS_TEMPLE": {
+      "asset_id": "ASSET_BG_PLACE_THOUSAND_WINDS_TEMPLE",
+      "owner_id": "SCENE_PLACE_THOUSAND_WINDS_TEMPLE",
+      "file_name": "bg_place_thousand_winds_temple.png",
+      "drive_id": null,
+      "src": "assets/bg_place_thousand_winds_temple.webp",
+      "local_path": "assets/bg_place_thousand_winds_temple.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 513702,
+      "sha256": "aab618e257b5361983b8a76d9d9ad4a60162eb8ad1605f6150361869e32bae90",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "천풍 신전 · 서리 협곡",
+        "region": "몬드",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Thousand Winds Temple",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/9/91/Thousand_Winds_Temple.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Thousand_Winds_Temple",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "aab618e257b5361983b8a76d9d9ad4a60162eb8ad1605f6150361869e32bae90",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_V141_THOUSAND_RAVINE"
+        ],
+        "stored": {
+          "file": "assets/bg_place_thousand_winds_temple.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 241164,
+          "sha256": "bdf158df0656a8c0797e2c325e8a102ea30044acc9eb0936dd247a49f0656b74",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_GOLDEN_HOUSE": {
+      "asset_id": "ASSET_BG_PLACE_GOLDEN_HOUSE",
+      "owner_id": "SCENE_PLACE_GOLDEN_HOUSE",
+      "file_name": "bg_place_golden_house.png",
+      "drive_id": null,
+      "src": "assets/bg_place_golden_house.webp",
+      "local_path": "assets/bg_place_golden_house.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 550604,
+      "sha256": "0c28093c68a58c45ef0e033a7f338d5aaaf5651602566ecf9fa86c3246b3759c",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "황금옥",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Golden House",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/3/3a/The_Golden_House.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Golden_House",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "0c28093c68a58c45ef0e033a7f338d5aaaf5651602566ecf9fa86c3246b3759c",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LIYUE_GOLDEN_HOUSE"
+        ],
+        "stored": {
+          "file": "assets/bg_place_golden_house.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 272042,
+          "sha256": "f135cf885698e42a01fb30ae9b99f2e9beccd2925e8a3831347e7ddd5ad9d5df",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_LIYUE_HARBOR_PIER": {
+      "asset_id": "ASSET_BG_PLACE_LIYUE_HARBOR_PIER",
+      "owner_id": "SCENE_PLACE_LIYUE_HARBOR_PIER",
+      "file_name": "bg_place_liyue_harbor_pier.png",
+      "drive_id": null,
+      "src": "assets/bg_place_liyue_harbor_pier.webp",
+      "local_path": "assets/bg_place_liyue_harbor_pier.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 2048,
+      "height": 1536,
+      "bytes": 361172,
+      "sha256": "320315027c52f634b0d3784814f9289ffbcc85c9da7e0a2624407db2e491f64c",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "리월항 방파제 낚시터",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Liyue Harbor No Ship.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/7/7d/Liyue_Harbor_No_Ship.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ALiyue_Harbor_No_Ship.png",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "sha256": "320315027c52f634b0d3784814f9289ffbcc85c9da7e0a2624407db2e491f64c",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_CRPG_LIYUE_BANK"
+        ],
+        "stored": {
+          "file": "assets/bg_place_liyue_harbor_pier.webp",
+          "dimensions": [
+            1333,
+            1000
+          ],
+          "bytes": 132150,
+          "sha256": "7a242a321feba500d43f8e13f0b48ed8817a39d11afa9531404c7156ae410375",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_LIYUE_HARBOR_CONCEPT_ART": {
+      "asset_id": "ASSET_BG_PLACE_LIYUE_HARBOR_CONCEPT_ART",
+      "owner_id": "SCENE_PLACE_LIYUE_HARBOR_CONCEPT_ART",
+      "file_name": "bg_place_liyue_harbor_concept_art.png",
+      "drive_id": null,
+      "src": "assets/bg_place_liyue_harbor_concept_art.webp",
+      "local_path": "assets/bg_place_liyue_harbor_concept_art.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 4000,
+      "height": 2008,
+      "bytes": 1036064,
+      "sha256": "09df598857258be4ba68b4570b0f2b26d543414b0cf2d6c5f2bee4d4d4e2da73",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "리월항 · 북쪽 진입로",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Liyue Harbor Concept Art.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/f/f2/Liyue_Harbor_Concept_Art.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ALiyue_Harbor_Concept_Art.png",
+        "dimensions": [
+          4000,
+          2008
+        ],
+        "sha256": "09df598857258be4ba68b4570b0f2b26d543414b0cf2d6c5f2bee4d4d4e2da73",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_NORTH_GATE"
+        ],
+        "stored": {
+          "file": "assets/bg_place_liyue_harbor_concept_art.webp",
+          "dimensions": [
+            1600,
+            803
+          ],
+          "bytes": 225356,
+          "sha256": "f32f5e0219628d66bf5166c29f2700bcb5117c5e077af75744385343b11f9662",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_FEIYUN_SLOPE": {
+      "asset_id": "ASSET_BG_PLACE_FEIYUN_SLOPE",
+      "owner_id": "SCENE_PLACE_FEIYUN_SLOPE",
+      "file_name": "bg_place_feiyun_slope.png",
+      "drive_id": null,
+      "src": "assets/bg_place_feiyun_slope.webp",
+      "local_path": "assets/bg_place_feiyun_slope.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 699962,
+      "sha256": "47dd98f40072daa91a2fd8ad3d0965550da5f4d4584daf0e29e4347d70270bad",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "비운 언덕 · 상업 거리",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Feiyun Slope",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/8/81/Feiyun_Slope.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Feiyun_Slope",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "47dd98f40072daa91a2fd8ad3d0965550da5f4d4584daf0e29e4347d70270bad",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_FEIYUN"
+        ],
+        "stored": {
+          "file": "assets/bg_place_feiyun_slope.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 364034,
+          "sha256": "260ba05b9209a635145ee278c9066aaf5474f74cbbdf9d78ac5e84a0a1ab5fb9",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_YUJING_TERRACE": {
+      "asset_id": "ASSET_BG_PLACE_YUJING_TERRACE",
+      "owner_id": "SCENE_PLACE_YUJING_TERRACE",
+      "file_name": "bg_place_yujing_terrace.png",
+      "drive_id": null,
+      "src": "assets/bg_place_yujing_terrace.webp",
+      "local_path": "assets/bg_place_yujing_terrace.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 561882,
+      "sha256": "f574cbe5e8774b1fe5d6f723079ced1ddbb16160e2f2e29b34384448980dee30",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "옥경대 · 전망 구역",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Yujing Terrace",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/8/8e/Yujing_Terrace.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Yujing_Terrace",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "f574cbe5e8774b1fe5d6f723079ced1ddbb16160e2f2e29b34384448980dee30",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_YUJING"
+        ],
+        "stored": {
+          "file": "assets/bg_place_yujing_terrace.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 285450,
+          "sha256": "632a262b42b9339f2a6f420270739c3107fe3957f738cf434f6e607cdb4cdb12",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_CHIHU_ROCK": {
+      "asset_id": "ASSET_BG_PLACE_CHIHU_ROCK",
+      "owner_id": "SCENE_PLACE_CHIHU_ROCK",
+      "file_name": "bg_place_chihu_rock.png",
+      "drive_id": null,
+      "src": "assets/bg_place_chihu_rock.webp",
+      "local_path": "assets/bg_place_chihu_rock.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 649704,
+      "sha256": "3d93f82f21ef0041ae49a007c6c82658c7dcc73b06ad75d5414f1694c0b8f4bc",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "흘호암 · 골목",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Chihu Rock",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/d/d4/Chihu_Rock.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Chihu_Rock",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "3d93f82f21ef0041ae49a007c6c82658c7dcc73b06ad75d5414f1694c0b8f4bc",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_CHIHU"
+        ],
+        "stored": {
+          "file": "assets/bg_place_chihu_rock.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 318568,
+          "sha256": "ed6295a1d0711e05c5c97aca6cb866ad4117e787a8417f39f3404dbc0c5858d4",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_LIYUE_HARBOR_SHIPS": {
+      "asset_id": "ASSET_BG_PLACE_LIYUE_HARBOR_SHIPS",
+      "owner_id": "SCENE_PLACE_LIYUE_HARBOR_SHIPS",
+      "file_name": "bg_place_liyue_harbor_ships.png",
+      "drive_id": null,
+      "src": "assets/bg_place_liyue_harbor_ships.webp",
+      "local_path": "assets/bg_place_liyue_harbor_ships.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 2048,
+      "height": 1536,
+      "bytes": 404860,
+      "sha256": "810ea85a4e0d19f91d73b9ca0c953c132bb8510914a76bf6dd88d63bdebdda6a",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "리월항 · 부두",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Liyue Harbor Large Ship.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/f/f9/Liyue_Harbor_Large_Ship.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ALiyue_Harbor_Large_Ship.png",
+        "dimensions": [
+          2048,
+          1536
+        ],
+        "sha256": "810ea85a4e0d19f91d73b9ca0c953c132bb8510914a76bf6dd88d63bdebdda6a",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_WHARF"
+        ],
+        "stored": {
+          "file": "assets/bg_place_liyue_harbor_ships.webp",
+          "dimensions": [
+            1333,
+            1000
+          ],
+          "bytes": 147866,
+          "sha256": "3c5a157f268778e21870fef1fcf8bde943c65be7ae81b656e2483fda5077a6b5",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_STONE_GATE": {
+      "asset_id": "ASSET_BG_PLACE_STONE_GATE",
+      "owner_id": "SCENE_PLACE_STONE_GATE",
+      "file_name": "bg_place_stone_gate.png",
+      "drive_id": null,
+      "src": "assets/bg_place_stone_gate.webp",
+      "local_path": "assets/bg_place_stone_gate.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 398788,
+      "sha256": "23f5cb4cc8d91abd92b20f02176a0f43721e8756740e7de766c98b5a4a9baec9",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "석문 · 통행로",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Stone Gate",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/7/7b/Stone_Gate.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Stone_Gate",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "23f5cb4cc8d91abd92b20f02176a0f43721e8756740e7de766c98b5a4a9baec9",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_SHIMEN"
+        ],
+        "stored": {
+          "file": "assets/bg_place_stone_gate.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 221708,
+          "sha256": "70f751ed0c8529afd55373eac7a3c7f74b20943ddbc2a2e38d08553ecb0ba542",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_DIHUA_MARSH": {
+      "asset_id": "ASSET_BG_PLACE_DIHUA_MARSH",
+      "owner_id": "SCENE_PLACE_DIHUA_MARSH",
+      "file_name": "bg_place_dihua_marsh.png",
+      "drive_id": null,
+      "src": "assets/bg_place_dihua_marsh.webp",
+      "local_path": "assets/bg_place_dihua_marsh.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 548720,
+      "sha256": "4dc792028b9b89d809647d08aabaffad3e871fb867013983e1e80e3331446070",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "적화주 · 갈대 물가",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Dihua Marsh",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/f/f8/Dihua_Marsh.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Dihua_Marsh",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "4dc792028b9b89d809647d08aabaffad3e871fb867013983e1e80e3331446070",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_DIHUA"
+        ],
+        "stored": {
+          "file": "assets/bg_place_dihua_marsh.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 270178,
+          "sha256": "59be40210e17771e891e26c4e62688b0a594227d276d0ac148a1ef126d81b4e8",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_WANGSHU_INN": {
+      "asset_id": "ASSET_BG_PLACE_WANGSHU_INN",
+      "owner_id": "SCENE_PLACE_WANGSHU_INN",
+      "file_name": "bg_place_wangshu_inn.png",
+      "drive_id": null,
+      "src": "assets/bg_place_wangshu_inn.webp",
+      "local_path": "assets/bg_place_wangshu_inn.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 377264,
+      "sha256": "af568bf26a4a0f1b8f739ddb26137ac014e46e09907f09641e23abea3a6501fb",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "망서 객잔 · 아래 광장",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Wangshu Inn",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/9/9d/Wangshu_Inn.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Wangshu_Inn",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "af568bf26a4a0f1b8f739ddb26137ac014e46e09907f09641e23abea3a6501fb",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_WANGSHU"
+        ],
+        "stored": {
+          "file": "assets/bg_place_wangshu_inn.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 170912,
+          "sha256": "c8dcb60fbcba489208e16fc2640f7a94c5df2aa5e1751cac6850a7d006678c47",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_QINGCE_CONCEPT_ART": {
+      "asset_id": "ASSET_BG_PLACE_QINGCE_CONCEPT_ART",
+      "owner_id": "SCENE_PLACE_QINGCE_CONCEPT_ART",
+      "file_name": "bg_place_qingce_concept_art.png",
+      "drive_id": null,
+      "src": "assets/bg_place_qingce_concept_art.webp",
+      "local_path": "assets/bg_place_qingce_concept_art.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 2560,
+      "height": 1440,
+      "bytes": 601924,
+      "sha256": "de2352a5a01ad2513e9166eb935911b7c46c4c2daa36df63f4cc11edea950492",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "경책 산장 · 남쪽 밭길",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Qingce Mountain Concept Art.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/6/62/Qingce_Mountain_Concept_Art.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3AQingce_Mountain_Concept_Art.png",
+        "dimensions": [
+          2560,
+          1440
+        ],
+        "sha256": "de2352a5a01ad2513e9166eb935911b7c46c4c2daa36df63f4cc11edea950492",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_QINGCE_FIELDS"
+        ],
+        "stored": {
+          "file": "assets/bg_place_qingce_concept_art.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 209992,
+          "sha256": "af8fbf6941ce2651a4039881a840821933af8c573206cd3285b21aff720582e9",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_GUILI_PLAINS": {
+      "asset_id": "ASSET_BG_PLACE_GUILI_PLAINS",
+      "owner_id": "SCENE_PLACE_GUILI_PLAINS",
+      "file_name": "bg_place_guili_plains.png",
+      "drive_id": null,
+      "src": "assets/bg_place_guili_plains.webp",
+      "local_path": "assets/bg_place_guili_plains.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 652476,
+      "sha256": "99d8a8a8368555a268241568304d611105bbc97c36cd0f778723a2486003d6e3",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "귀리 평원 · 옛 유적",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Guili Plains",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/9/99/Guili_Plains.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Guili_Plains",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "99d8a8a8368555a268241568304d611105bbc97c36cd0f778723a2486003d6e3",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_GUILI"
+        ],
+        "stored": {
+          "file": "assets/bg_place_guili_plains.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 312352,
+          "sha256": "f685cab5d28e7ef7bfcd4c1e63d8eb1dbbc6b2be4a22f504847cfa08f1cd77e6",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_MINGYUN_VILLAGE": {
+      "asset_id": "ASSET_BG_PLACE_MINGYUN_VILLAGE",
+      "owner_id": "SCENE_PLACE_MINGYUN_VILLAGE",
+      "file_name": "bg_place_mingyun_village.png",
+      "drive_id": null,
+      "src": "assets/bg_place_mingyun_village.webp",
+      "local_path": "assets/bg_place_mingyun_village.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 781516,
+      "sha256": "572e09174e0bc4c3594a7670fae1295ffe22d113b72bb75aa86c4b49e3d1ae8e",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "명온 마을 · 폐광 주변",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Mingyun Village",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/7/70/Mingyun_Village.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Mingyun_Village",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "572e09174e0bc4c3594a7670fae1295ffe22d113b72bb75aa86c4b49e3d1ae8e",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_MINGYUN"
+        ],
+        "stored": {
+          "file": "assets/bg_place_mingyun_village.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 396094,
+          "sha256": "516d75e00ef3456a77f2664167d3e5ab8fddde7eb0c4c9e3373ec37155449f94",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_YAOGUANG_SHOAL": {
+      "asset_id": "ASSET_BG_PLACE_YAOGUANG_SHOAL",
+      "owner_id": "SCENE_PLACE_YAOGUANG_SHOAL",
+      "file_name": "bg_place_yaoguang_shoal.png",
+      "drive_id": null,
+      "src": "assets/bg_place_yaoguang_shoal.webp",
+      "local_path": "assets/bg_place_yaoguang_shoal.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 361718,
+      "sha256": "56f53a8d83ad91435f4052f4203d68b52dd27b548de64d618e7b87df35eb85b0",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "요광 해안 · 모래톱",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Yaoguang Shoal",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/7/76/Yaoguang_Shoal.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Yaoguang_Shoal",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "56f53a8d83ad91435f4052f4203d68b52dd27b548de64d618e7b87df35eb85b0",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_YAOGUANG"
+        ],
+        "stored": {
+          "file": "assets/bg_place_yaoguang_shoal.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 169156,
+          "sha256": "0ffc38d226fa90cadcb138b07424955778241ab057a33b87844add8f1054adf2",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_LUHUA_POOL": {
+      "asset_id": "ASSET_BG_PLACE_LUHUA_POOL",
+      "owner_id": "SCENE_PLACE_LUHUA_POOL",
+      "file_name": "bg_place_luhua_pool.png",
+      "drive_id": null,
+      "src": "assets/bg_place_luhua_pool.webp",
+      "local_path": "assets/bg_place_luhua_pool.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 520964,
+      "sha256": "b909ae950f8594f9b5d41a9d5f177c454ad9dfa9ee22877db9c7d7c27b24d2b0",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "녹화 연못 · 물가",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Luhua Pool",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/a/a1/Luhua_Pool.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Luhua_Pool",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "b909ae950f8594f9b5d41a9d5f177c454ad9dfa9ee22877db9c7d7c27b24d2b0",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_LUHUA"
+        ],
+        "stored": {
+          "file": "assets/bg_place_luhua_pool.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 252652,
+          "sha256": "b84c4f98610d305f0ca235eff13559b36c1e047d1cc521cacebb59e690f276bc",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_MT_AOCANG": {
+      "asset_id": "ASSET_BG_PLACE_MT_AOCANG",
+      "owner_id": "SCENE_PLACE_MT_AOCANG",
+      "file_name": "bg_place_mt_aocang.png",
+      "drive_id": null,
+      "src": "assets/bg_place_mt_aocang.webp",
+      "local_path": "assets/bg_place_mt_aocang.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 347248,
+      "sha256": "92e5e25c3f5c64a1a47e4c9abd4d100256508fee66d3d0868660673f38d4028b",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "오장산 · 정상 호숫가",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Mt. Aocang",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/e/e6/Mt._Aocang.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Mt._Aocang",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "92e5e25c3f5c64a1a47e4c9abd4d100256508fee66d3d0868660673f38d4028b",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_AOCANG"
+        ],
+        "stored": {
+          "file": "assets/bg_place_mt_aocang.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 198378,
+          "sha256": "6206836b127c1b0c163f04902ec316299476f41957b7648500c541d6b2bc5d17",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_QINGYUN_PEAK": {
+      "asset_id": "ASSET_BG_PLACE_QINGYUN_PEAK",
+      "owner_id": "SCENE_PLACE_QINGYUN_PEAK",
+      "file_name": "bg_place_qingyun_peak.png",
+      "drive_id": null,
+      "src": "assets/bg_place_qingyun_peak.webp",
+      "local_path": "assets/bg_place_qingyun_peak.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 207664,
+      "sha256": "2faaef7fe45ce6c30678a920fa35c181250c8a16b73f7ca8d448caeca68e1a44",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "경운봉 · 산길",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Qingyun Peak",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/b/b2/Qingyun_Peak.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Qingyun_Peak",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "2faaef7fe45ce6c30678a920fa35c181250c8a16b73f7ca8d448caeca68e1a44",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_QINGYUN"
+        ],
+        "stored": {
+          "file": "assets/bg_place_qingyun_peak.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 98546,
+          "sha256": "87d3130f2d3a041a10d66b08c2e7bb3f88c9a3e2f1e10432da57555036814707",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_MT_HULAO": {
+      "asset_id": "ASSET_BG_PLACE_MT_HULAO",
+      "owner_id": "SCENE_PLACE_MT_HULAO",
+      "file_name": "bg_place_mt_hulao.png",
+      "drive_id": null,
+      "src": "assets/bg_place_mt_hulao.webp",
+      "local_path": "assets/bg_place_mt_hulao.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 623056,
+      "sha256": "ac5804c64b6147f46b170054ed8f0e666f965be177000314f5c66d166ccbee0a",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "호로산 · 호박 바위길",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Mt. Hulao",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/5/5f/Mt._Hulao.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Mt._Hulao",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "ac5804c64b6147f46b170054ed8f0e666f965be177000314f5c66d166ccbee0a",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_HULAO"
+        ],
+        "stored": {
+          "file": "assets/bg_place_mt_hulao.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 314524,
+          "sha256": "f2c8ab443df58e5bc1adb5ada913511f475dbab744dafde754a30f2854a44317",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_HUAGUANG_STONE_FOREST": {
+      "asset_id": "ASSET_BG_PLACE_HUAGUANG_STONE_FOREST",
+      "owner_id": "SCENE_PLACE_HUAGUANG_STONE_FOREST",
+      "file_name": "bg_place_huaguang_stone_forest.png",
+      "drive_id": null,
+      "src": "assets/bg_place_huaguang_stone_forest.webp",
+      "local_path": "assets/bg_place_huaguang_stone_forest.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 319062,
+      "sha256": "628fb52df967fda758ecfbb82a3f5729fa76f23eafcee9d5e36c4aeed067506f",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "화광림 · 계곡길",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Huaguang Stone Forest",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/0/0d/Huaguang_Stone_Forest.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Huaguang_Stone_Forest",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "628fb52df967fda758ecfbb82a3f5729fa76f23eafcee9d5e36c4aeed067506f",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_HUAGUANG"
+        ],
+        "stored": {
+          "file": "assets/bg_place_huaguang_stone_forest.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 149098,
+          "sha256": "add0037b0aca7f3cc4be4705dfeb92dad96cc646a4bb049b4fc54d33d4cee671",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_NANTIANMEN": {
+      "asset_id": "ASSET_BG_PLACE_NANTIANMEN",
+      "owner_id": "SCENE_PLACE_NANTIANMEN",
+      "file_name": "bg_place_nantianmen.png",
+      "drive_id": null,
+      "src": "assets/bg_place_nantianmen.webp",
+      "local_path": "assets/bg_place_nantianmen.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 443044,
+      "sha256": "44cd8509e2ce0193f02859f026965a08d230570c8a066cc3bea8eb997992be6d",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "남천문 · 고목 주변",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Nantianmen",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/8/87/Nantianmen.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Nantianmen",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "44cd8509e2ce0193f02859f026965a08d230570c8a066cc3bea8eb997992be6d",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_NANTIANMEN"
+        ],
+        "stored": {
+          "file": "assets/bg_place_nantianmen.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 187588,
+          "sha256": "36d2db66f3d7e3d9bd12adad5c0a3368ec593bb83e1e15ff18775bcec21eaa62",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_TIANQIU_VALLEY": {
+      "asset_id": "ASSET_BG_PLACE_TIANQIU_VALLEY",
+      "owner_id": "SCENE_PLACE_TIANQIU_VALLEY",
+      "file_name": "bg_place_tianqiu_valley.png",
+      "drive_id": null,
+      "src": "assets/bg_place_tianqiu_valley.webp",
+      "local_path": "assets/bg_place_tianqiu_valley.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 406124,
+      "sha256": "19a602394f5f0320a6f4df78c1e2c8139f4350de64b07cf463227bf1e06e7d01",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "천주 골짜기 · 유적길",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Tianqiu Valley",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/2/2a/Tianqiu_Valley.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Tianqiu_Valley",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "19a602394f5f0320a6f4df78c1e2c8139f4350de64b07cf463227bf1e06e7d01",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_TIANQIU"
+        ],
+        "stored": {
+          "file": "assets/bg_place_tianqiu_valley.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 220354,
+          "sha256": "f406b3464881cd13a18f17c343aa1c14c475155fee0ece257bafc07ab90066c0",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_DUNYU_RUINS": {
+      "asset_id": "ASSET_BG_PLACE_DUNYU_RUINS",
+      "owner_id": "SCENE_PLACE_DUNYU_RUINS",
+      "file_name": "bg_place_dunyu_ruins.png",
+      "drive_id": null,
+      "src": "assets/bg_place_dunyu_ruins.webp",
+      "local_path": "assets/bg_place_dunyu_ruins.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 605610,
+      "sha256": "574ac439d9e3c31216101227b2add99033918bfa30b546d89a9cd67f87031010",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "둔옥릉 · 유적 가장자리",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Dunyu Ruins",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/c/cf/Dunyu_Ruins.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Dunyu_Ruins",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "574ac439d9e3c31216101227b2add99033918bfa30b546d89a9cd67f87031010",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_DUNYU"
+        ],
+        "stored": {
+          "file": "assets/bg_place_dunyu_ruins.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 302076,
+          "sha256": "5e91bd6be5923cead66f0d5fc994180d2ba8bcf86b181e5ffe425b54b6091b10",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_LINGJU_PASS": {
+      "asset_id": "ASSET_BG_PLACE_LINGJU_PASS",
+      "owner_id": "SCENE_PLACE_LINGJU_PASS",
+      "file_name": "bg_place_lingju_pass.png",
+      "drive_id": null,
+      "src": "assets/bg_place_lingju_pass.webp",
+      "local_path": "assets/bg_place_lingju_pass.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 521402,
+      "sha256": "27795ef6b3ce49ae2d4591e344d19b930343025c33af7c4059ef0e723c26c0b5",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "성법 관문 · 바깥길",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Lingju Pass",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/d/d6/Lingju_Pass.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Lingju_Pass",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "27795ef6b3ce49ae2d4591e344d19b930343025c33af7c4059ef0e723c26c0b5",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_LINGJU"
+        ],
+        "stored": {
+          "file": "assets/bg_place_lingju_pass.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 300634,
+          "sha256": "d1e678cd8b70f7286c0d54209106ea94d9c9bdd67754903432c455e347a005a4",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_QINGXU_POOL": {
+      "asset_id": "ASSET_BG_PLACE_QINGXU_POOL",
+      "owner_id": "SCENE_PLACE_QINGXU_POOL",
+      "file_name": "bg_place_qingxu_pool.png",
+      "drive_id": null,
+      "src": "assets/bg_place_qingxu_pool.webp",
+      "local_path": "assets/bg_place_qingxu_pool.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 391136,
+      "sha256": "a2562329a1593cd4229699a7c8772daad0cebdc61247dfe3c813ffbe658ef4fd",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "청허포 · 석조 유적",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Qingxu Pool",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/5/5e/Qingxu_Pool.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Qingxu_Pool",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "a2562329a1593cd4229699a7c8772daad0cebdc61247dfe3c813ffbe658ef4fd",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_QINGXU"
+        ],
+        "stored": {
+          "file": "assets/bg_place_qingxu_pool.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 179584,
+          "sha256": "194cf8a771e32d574ca82e4f7c0b805edf02fa5c2551879e3b7b71ef2f3eea15",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_MT_TIANHENG": {
+      "asset_id": "ASSET_BG_PLACE_MT_TIANHENG",
+      "owner_id": "SCENE_PLACE_MT_TIANHENG",
+      "file_name": "bg_place_mt_tianheng.png",
+      "drive_id": null,
+      "src": "assets/bg_place_mt_tianheng.webp",
+      "local_path": "assets/bg_place_mt_tianheng.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 272504,
+      "sha256": "2a41c6c99245893425a7acd3a462e03cc442d24a87182d7612d43ff9c295fa3b",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "천형산 · 항구 전망길",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Mt. Tianheng",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/6/62/Mt._Tianheng.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Mt._Tianheng",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "2a41c6c99245893425a7acd3a462e03cc442d24a87182d7612d43ff9c295fa3b",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_TIANHENG"
+        ],
+        "stored": {
+          "file": "assets/bg_place_mt_tianheng.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 142498,
+          "sha256": "8d2cd752b0d7b4438db97b49fae778b02d67c9adacd1c370e1aa23c7bc139a77",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_GUYUN_STONE_FOREST": {
+      "asset_id": "ASSET_BG_PLACE_GUYUN_STONE_FOREST",
+      "owner_id": "SCENE_PLACE_GUYUN_STONE_FOREST",
+      "file_name": "bg_place_guyun_stone_forest.png",
+      "drive_id": null,
+      "src": "assets/bg_place_guyun_stone_forest.webp",
+      "local_path": "assets/bg_place_guyun_stone_forest.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 275254,
+      "sha256": "5fce7d37635d02c3d4749fc772e3c9ab5aac84710cf0b0865326321611f1b6ed",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "고운각 · 서북쪽 섬",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "Guyun Stone Forest",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/3/35/Guyun_Stone_Forest.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/Guyun_Stone_Forest",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "5fce7d37635d02c3d4749fc772e3c9ab5aac84710cf0b0865326321611f1b6ed",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_GUYUN",
+          "MAP_V141_GUYUN_WRECK",
+          "MAP_V141_GUYUN_CHANNEL"
+        ],
+        "stored": {
+          "file": "assets/bg_place_guyun_stone_forest.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 120534,
+          "sha256": "3352e93a3e9819478f2b301c4358810ffda3496d5089c7c3a43d5be4bc5cc7fb",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_LUMBERPICK_VALLEY": {
+      "asset_id": "ASSET_BG_PLACE_LUMBERPICK_VALLEY",
+      "owner_id": "SCENE_PLACE_LUMBERPICK_VALLEY",
+      "file_name": "bg_place_lumberpick_valley.png",
+      "drive_id": null,
+      "src": "assets/bg_place_lumberpick_valley.webp",
+      "local_path": "assets/bg_place_lumberpick_valley.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 511730,
+      "sha256": "6aa09b553dd2e0c99393e55e6062bb17b9f5d31a704653137f6f7a2fe74fde04",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "층암거연 · 동쪽 진입로",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Lumberpick Valley.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/a/a8/Lumberpick_Valley.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3ALumberpick_Valley.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "6aa09b553dd2e0c99393e55e6062bb17b9f5d31a704653137f6f7a2fe74fde04",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_CHASM_GATE"
+        ],
+        "stored": {
+          "file": "assets/bg_place_lumberpick_valley.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 246276,
+          "sha256": "9da3029138a43dd3c16becf3bff30278a14f1345a4a67bafe6e62990e30f6bba",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_CHASM_MAW": {
+      "asset_id": "ASSET_BG_PLACE_CHASM_MAW",
+      "owner_id": "SCENE_PLACE_CHASM_MAW",
+      "file_name": "bg_place_chasm_maw.png",
+      "drive_id": null,
+      "src": "assets/bg_place_chasm_maw.webp",
+      "local_path": "assets/bg_place_chasm_maw.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 555460,
+      "sha256": "3652350f03a187a599f3c780a9ad50b87199cdde5c258fcca7838f8dac5dd949",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "층암거연 · 동쪽 광구길",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:The Chasm's Maw.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/6/6b/The_Chasm%27s_Maw.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3AThe_Chasm%27s_Maw.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "3652350f03a187a599f3c780a9ad50b87199cdde5c258fcca7838f8dac5dd949",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_LY_DETAIL_CHASM_RIM"
+        ],
+        "stored": {
+          "file": "assets/bg_place_chasm_maw.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 264832,
+          "sha256": "5f25362865f7c9d0d17689c64a365bd279950b896e85969a2209df5f7e77a67e",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
+    },
+    "ASSET_BG_PLACE_MINERS_QUARTERS": {
+      "asset_id": "ASSET_BG_PLACE_MINERS_QUARTERS",
+      "owner_id": "SCENE_PLACE_MINERS_QUARTERS",
+      "file_name": "bg_place_miners_quarters.png",
+      "drive_id": null,
+      "src": "assets/bg_place_miners_quarters.webp",
+      "local_path": "assets/bg_place_miners_quarters.webp",
+      "category": "BACKGROUND",
+      "content_rating": "GENERAL",
+      "variant": "01",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 511952,
+      "sha256": "3e7ba82dcfee28a22cc3abbc679d05eb7d22a794b0c6f3122784a31c73c1d4ec",
+      "mime_type": "image/png",
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "SCENE_PLATE",
+      "max_display_width_px": 1024,
+      "source": "0.14.15 official place picture (Genshin Impact Wiki file page); stored scaled to fit 1600x1000 as WebP q90",
+      "source_metadata": {
+        "label": "층암거연 · 구조 전진기지",
+        "region": "리월",
+        "source": "GAME_GEOGRAPHY_OFFICIAL_PICTURE",
+        "title": "File:Miner's Quarters.png",
+        "url": "https://static.wikia.nocookie.net/gensin-impact/images/c/c1/Miner%27s_Quarters.png",
+        "source_page": "https://genshin-impact.fandom.com/wiki/File%3AMiner%27s_Quarters.png",
+        "dimensions": [
+          1920,
+          1080
+        ],
+        "sha256": "3e7ba82dcfee28a22cc3abbc679d05eb7d22a794b0c6f3122784a31c73c1d4ec",
+        "qa": "PASS_VISUAL_PLACE_MATCH_0_14_15",
+        "display_role": "SCENE_PLATE",
+        "map_ids": [
+          "MAP_V141_CHASM_CAMP"
+        ],
+        "stored": {
+          "file": "assets/bg_place_miners_quarters.webp",
+          "dimensions": [
+            1600,
+            900
+          ],
+          "bytes": 252302,
+          "sha256": "40d2ba5b0441b9c07d07e61bf998fa57e9a3917ac7afcc2357f2bd9b6ea2bbf3",
+          "encoding_method": "WEBP_Q90_FIT_1600x1000_NO_CROP_NO_RETOUCH"
+        }
+      }
     }
   },
   "owners": {
@@ -11644,6 +14768,186 @@
       "ASSET_RIWAL_BC_5",
       "ASSET_RIWAL_BC_6",
       "ASSET_RIWAL_BC_7"
+    ],
+    "SCENE_PLACE_STARFELL_VALLEY": [
+      "ASSET_BG_PLACE_STARFELL_VALLEY"
+    ],
+    "SCENE_PLACE_TEMPLE_FALCON": [
+      "ASSET_BG_PLACE_TEMPLE_FALCON"
+    ],
+    "SCENE_PLACE_TEMPLE_WOLF": [
+      "ASSET_BG_PLACE_TEMPLE_WOLF"
+    ],
+    "SCENE_PLACE_TEMPLE_LION": [
+      "ASSET_BG_PLACE_TEMPLE_LION"
+    ],
+    "SCENE_PLACE_BRIGHTCROWN_MOUNTAINS": [
+      "ASSET_BG_PLACE_BRIGHTCROWN_MOUNTAINS"
+    ],
+    "SCENE_PLACE_EAGLES_GATE": [
+      "ASSET_BG_PLACE_EAGLES_GATE"
+    ],
+    "SCENE_PLACE_DADAUPA_GORGE": [
+      "ASSET_BG_PLACE_DADAUPA_GORGE"
+    ],
+    "SCENE_PLACE_STARSNATCH_CLIFF": [
+      "ASSET_BG_PLACE_STARSNATCH_CLIFF"
+    ],
+    "SCENE_PLACE_STORMBEARER_MOUNTAINS": [
+      "ASSET_BG_PLACE_STORMBEARER_MOUNTAINS"
+    ],
+    "SCENE_PLACE_STORMBEARER_POINT": [
+      "ASSET_BG_PLACE_STORMBEARER_POINT"
+    ],
+    "SCENE_PLACE_FALCON_COAST": [
+      "ASSET_BG_PLACE_FALCON_COAST"
+    ],
+    "SCENE_PLACE_CAPE_OATH": [
+      "ASSET_BG_PLACE_CAPE_OATH"
+    ],
+    "SCENE_PLACE_BRIGHTCROWN_CANYON": [
+      "ASSET_BG_PLACE_BRIGHTCROWN_CANYON"
+    ],
+    "SCENE_PLACE_DRAGONSPINE_ADVENTURER_CAMP": [
+      "ASSET_BG_PLACE_DRAGONSPINE_ADVENTURER_CAMP"
+    ],
+    "SCENE_PLACE_SNOW_COVERED_PATH": [
+      "ASSET_BG_PLACE_SNOW_COVERED_PATH"
+    ],
+    "SCENE_PLACE_WYRMREST_VALLEY": [
+      "ASSET_BG_PLACE_WYRMREST_VALLEY"
+    ],
+    "SCENE_PLACE_ENTOMBED_OUTSKIRTS": [
+      "ASSET_BG_PLACE_ENTOMBED_OUTSKIRTS"
+    ],
+    "SCENE_PLACE_ENTOMBED_PALACE": [
+      "ASSET_BG_PLACE_ENTOMBED_PALACE"
+    ],
+    "SCENE_PLACE_STARGLOW_CAVERN": [
+      "ASSET_BG_PLACE_STARGLOW_CAVERN"
+    ],
+    "SCENE_PLACE_SKYFROST_NAIL": [
+      "ASSET_BG_PLACE_SKYFROST_NAIL"
+    ],
+    "SCENE_PLACE_FORGOTTEN_SWORD_CEMETERY": [
+      "ASSET_BG_PLACE_FORGOTTEN_SWORD_CEMETERY"
+    ],
+    "SCENE_PLACE_LAIR_CANYON_ENTRANCE": [
+      "ASSET_BG_PLACE_LAIR_CANYON_ENTRANCE"
+    ],
+    "SCENE_PLACE_LAIR_FROM_ABOVE": [
+      "ASSET_BG_PLACE_LAIR_FROM_ABOVE"
+    ],
+    "SCENE_PLACE_LAIR_CONCEPT_ART": [
+      "ASSET_BG_PLACE_LAIR_CONCEPT_ART"
+    ],
+    "SCENE_PLACE_DRUNKARD_GORGE": [
+      "ASSET_BG_PLACE_DRUNKARD_GORGE"
+    ],
+    "SCENE_PLACE_CIDER_LAKE": [
+      "ASSET_BG_PLACE_CIDER_LAKE"
+    ],
+    "SCENE_PLACE_WHISPERING_WOODS": [
+      "ASSET_BG_PLACE_WHISPERING_WOODS"
+    ],
+    "SCENE_PLACE_WINDWAIL_HIGHLAND": [
+      "ASSET_BG_PLACE_WINDWAIL_HIGHLAND"
+    ],
+    "SCENE_PLACE_SPRINGVALE": [
+      "ASSET_BG_PLACE_SPRINGVALE"
+    ],
+    "SCENE_PLACE_MUSK_REEF": [
+      "ASSET_BG_PLACE_MUSK_REEF"
+    ],
+    "SCENE_PLACE_THOUSAND_WINDS_TEMPLE": [
+      "ASSET_BG_PLACE_THOUSAND_WINDS_TEMPLE"
+    ],
+    "SCENE_PLACE_GOLDEN_HOUSE": [
+      "ASSET_BG_PLACE_GOLDEN_HOUSE"
+    ],
+    "SCENE_PLACE_LIYUE_HARBOR_PIER": [
+      "ASSET_BG_PLACE_LIYUE_HARBOR_PIER"
+    ],
+    "SCENE_PLACE_LIYUE_HARBOR_CONCEPT_ART": [
+      "ASSET_BG_PLACE_LIYUE_HARBOR_CONCEPT_ART"
+    ],
+    "SCENE_PLACE_FEIYUN_SLOPE": [
+      "ASSET_BG_PLACE_FEIYUN_SLOPE"
+    ],
+    "SCENE_PLACE_YUJING_TERRACE": [
+      "ASSET_BG_PLACE_YUJING_TERRACE"
+    ],
+    "SCENE_PLACE_CHIHU_ROCK": [
+      "ASSET_BG_PLACE_CHIHU_ROCK"
+    ],
+    "SCENE_PLACE_LIYUE_HARBOR_SHIPS": [
+      "ASSET_BG_PLACE_LIYUE_HARBOR_SHIPS"
+    ],
+    "SCENE_PLACE_STONE_GATE": [
+      "ASSET_BG_PLACE_STONE_GATE"
+    ],
+    "SCENE_PLACE_DIHUA_MARSH": [
+      "ASSET_BG_PLACE_DIHUA_MARSH"
+    ],
+    "SCENE_PLACE_WANGSHU_INN": [
+      "ASSET_BG_PLACE_WANGSHU_INN"
+    ],
+    "SCENE_PLACE_QINGCE_CONCEPT_ART": [
+      "ASSET_BG_PLACE_QINGCE_CONCEPT_ART"
+    ],
+    "SCENE_PLACE_GUILI_PLAINS": [
+      "ASSET_BG_PLACE_GUILI_PLAINS"
+    ],
+    "SCENE_PLACE_MINGYUN_VILLAGE": [
+      "ASSET_BG_PLACE_MINGYUN_VILLAGE"
+    ],
+    "SCENE_PLACE_YAOGUANG_SHOAL": [
+      "ASSET_BG_PLACE_YAOGUANG_SHOAL"
+    ],
+    "SCENE_PLACE_LUHUA_POOL": [
+      "ASSET_BG_PLACE_LUHUA_POOL"
+    ],
+    "SCENE_PLACE_MT_AOCANG": [
+      "ASSET_BG_PLACE_MT_AOCANG"
+    ],
+    "SCENE_PLACE_QINGYUN_PEAK": [
+      "ASSET_BG_PLACE_QINGYUN_PEAK"
+    ],
+    "SCENE_PLACE_MT_HULAO": [
+      "ASSET_BG_PLACE_MT_HULAO"
+    ],
+    "SCENE_PLACE_HUAGUANG_STONE_FOREST": [
+      "ASSET_BG_PLACE_HUAGUANG_STONE_FOREST"
+    ],
+    "SCENE_PLACE_NANTIANMEN": [
+      "ASSET_BG_PLACE_NANTIANMEN"
+    ],
+    "SCENE_PLACE_TIANQIU_VALLEY": [
+      "ASSET_BG_PLACE_TIANQIU_VALLEY"
+    ],
+    "SCENE_PLACE_DUNYU_RUINS": [
+      "ASSET_BG_PLACE_DUNYU_RUINS"
+    ],
+    "SCENE_PLACE_LINGJU_PASS": [
+      "ASSET_BG_PLACE_LINGJU_PASS"
+    ],
+    "SCENE_PLACE_QINGXU_POOL": [
+      "ASSET_BG_PLACE_QINGXU_POOL"
+    ],
+    "SCENE_PLACE_MT_TIANHENG": [
+      "ASSET_BG_PLACE_MT_TIANHENG"
+    ],
+    "SCENE_PLACE_GUYUN_STONE_FOREST": [
+      "ASSET_BG_PLACE_GUYUN_STONE_FOREST"
+    ],
+    "SCENE_PLACE_LUMBERPICK_VALLEY": [
+      "ASSET_BG_PLACE_LUMBERPICK_VALLEY"
+    ],
+    "SCENE_PLACE_CHASM_MAW": [
+      "ASSET_BG_PLACE_CHASM_MAW"
+    ],
+    "SCENE_PLACE_MINERS_QUARTERS": [
+      "ASSET_BG_PLACE_MINERS_QUARTERS"
     ]
   },
   "profiles": {
@@ -12815,18 +16119,18 @@
     "MAP_MOND_PLAINS": {
       "map_id": "MAP_MOND_PLAINS",
       "label": "몬드 외곽 초원",
-      "asset_id": "ASSET_BG_MONDSTADT_STARFELL_LAKE_01",
+      "asset_id": "ASSET_BG_PLACE_STARFELL_VALLEY",
       "status": "BOUND_REFERENCE",
-      "source": "map_background_coverage.json",
+      "source": "place_pictures_v01415",
       "presentation": "LOCATION_REFERENCE",
       "automatic_scene_selection": false,
       "world_state_match_required": true,
       "fit": "contain",
       "allow_upscale": false,
-      "visible_state_note": "원본에 보이는 시간대·날씨·구조물 상태와 장면 문맥을 확인하여 사용. 자동 시간대 변환 없음.",
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
       "native_size": [
-        1024,
-        512
+        1600,
+        900
       ]
     },
     "MAP_MOND_FOREST": {
@@ -12951,38 +16255,70 @@
     "MAP_MOND_TEMPLE_FALCON": {
       "map_id": "MAP_MOND_TEMPLE_FALCON",
       "label": "서풍 매의 사당",
-      "asset_id": null,
-      "status": "NAME_AND_ACTIONS",
-      "presentation": "NAME_AND_ACTIONS",
+      "asset_id": "ASSET_BG_PLACE_TEMPLE_FALCON",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
       "automatic_scene_selection": false,
-      "reason": "최신 03_IMAGE와 배치/배경 manifest에 동일 장소의 검증된 이미지가 없음. 인접 장소·다른 사당을 대체 연결하지 않음."
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
     },
     "MAP_MOND_TEMPLE_WOLF": {
       "map_id": "MAP_MOND_TEMPLE_WOLF",
       "label": "북풍 늑대의 사당",
-      "asset_id": null,
-      "status": "NAME_AND_ACTIONS",
-      "presentation": "NAME_AND_ACTIONS",
+      "asset_id": "ASSET_BG_PLACE_TEMPLE_WOLF",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
       "automatic_scene_selection": false,
-      "reason": "최신 03_IMAGE와 배치/배경 manifest에 동일 장소의 검증된 이미지가 없음. 인접 장소·다른 사당을 대체 연결하지 않음."
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
     },
     "MAP_MOND_TEMPLE_LION": {
       "map_id": "MAP_MOND_TEMPLE_LION",
       "label": "남풍 사자의 사당",
-      "asset_id": null,
-      "status": "NAME_AND_ACTIONS",
-      "presentation": "NAME_AND_ACTIONS",
+      "asset_id": "ASSET_BG_PLACE_TEMPLE_LION",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
       "automatic_scene_selection": false,
-      "reason": "최신 03_IMAGE와 배치/배경 manifest에 동일 장소의 검증된 이미지가 없음. 인접 장소·다른 사당을 대체 연결하지 않음."
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        512,
+        256
+      ]
     },
     "MAP_MOND_FATUI_CACHE": {
       "map_id": "MAP_MOND_FATUI_CACHE",
       "label": "우인단 보관고",
-      "asset_id": null,
-      "status": "NAME_AND_ACTIONS",
-      "presentation": "NAME_AND_ACTIONS",
+      "asset_id": "ASSET_BG_PLACE_BRIGHTCROWN_MOUNTAINS",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
       "automatic_scene_selection": false,
-      "reason": "최신 03_IMAGE와 배치/배경 manifest에 동일 장소의 검증된 이미지가 없음. 인접 장소·다른 사당을 대체 연결하지 않음."
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
     },
     "MAP_MOND_DAWN_WINERY": {
       "map_id": "MAP_MOND_DAWN_WINERY",
@@ -13021,29 +16357,53 @@
     "MAP_MOND_EAGLES_GATE": {
       "map_id": "MAP_MOND_EAGLES_GATE",
       "label": "매의 문 비경",
-      "asset_id": null,
-      "status": "NAME_AND_ACTIONS",
-      "presentation": "NAME_AND_ACTIONS",
+      "asset_id": "ASSET_BG_PLACE_EAGLES_GATE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
       "automatic_scene_selection": false,
-      "reason": "최신 03_IMAGE와 배치/배경 manifest에 동일 장소의 검증된 이미지가 없음. 인접 장소·다른 사당을 대체 연결하지 않음."
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        512,
+        256
+      ]
     },
     "MAP_MOND_ECLIPSE_CAMP": {
       "map_id": "MAP_MOND_ECLIPSE_CAMP",
-      "label": "다다우파 협곡·일식 부족 야영지",
-      "asset_id": null,
-      "status": "NAME_AND_ACTIONS",
-      "presentation": "NAME_AND_ACTIONS",
+      "label": "타타우파 협곡 · 일식 부족 야영지",
+      "asset_id": "ASSET_BG_PLACE_DADAUPA_GORGE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
       "automatic_scene_selection": false,
-      "reason": "최신 03_IMAGE와 배치/배경 manifest에 동일 장소의 검증된 이미지가 없음. 인접 장소·다른 사당을 대체 연결하지 않음."
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
     },
     "MAP_MOND_STARSNATCH_CLIFF": {
       "map_id": "MAP_MOND_STARSNATCH_CLIFF",
       "label": "별을 따는 절벽",
-      "asset_id": null,
-      "status": "NAME_AND_ACTIONS",
-      "presentation": "NAME_AND_ACTIONS",
+      "asset_id": "ASSET_BG_PLACE_STARSNATCH_CLIFF",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
       "automatic_scene_selection": false,
-      "reason": "최신 03_IMAGE와 배치/배경 manifest에 동일 장소의 검증된 이미지가 없음. 인접 장소·다른 사당을 대체 연결하지 않음."
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
     },
     "MAP_LIYUE_QINGCE": {
       "map_id": "MAP_LIYUE_QINGCE",
@@ -13221,16 +16581,973 @@
       "max_display_width_px": 1024
     },
     "MAP_CRPG_LIYUE_BANK": {
-      "asset_id": "ASSET_BG_LIYUE_HARBOR_DAY",
-      "name": "리월항 방파제 낚시터",
-      "inheritedFrom": "MAP_LIYUE_HARBOR"
+      "map_id": "MAP_CRPG_LIYUE_BANK",
+      "label": "리월항 방파제 낚시터",
+      "asset_id": "ASSET_BG_PLACE_LIYUE_HARBOR_PIER",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1333,
+        1000
+      ]
     },
     "MAP_LIYUE_GOLDEN_HOUSE": {
-      "asset_id": null,
-      "name": "황금옥",
-      "max_display_width_px": 1024,
-      "sceneTheme": "GOLDEN_HOUSE",
-      "note": "전용 원화 미등록: 금빛 실내 테마 사용"
+      "map_id": "MAP_LIYUE_GOLDEN_HOUSE",
+      "label": "황금옥",
+      "asset_id": "ASSET_BG_PLACE_GOLDEN_HOUSE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_DADAUPA_GORGE": {
+      "map_id": "MAP_CRPG_DADAUPA_GORGE",
+      "label": "타타우파 협곡",
+      "asset_id": "ASSET_BG_PLACE_DADAUPA_GORGE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_STORMBEARER_MOUNTAINS": {
+      "map_id": "MAP_CRPG_STORMBEARER_MOUNTAINS",
+      "label": "바람맞이 산",
+      "asset_id": "ASSET_BG_PLACE_STORMBEARER_MOUNTAINS",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_V141_STORMBEARER_PASS": {
+      "map_id": "MAP_V141_STORMBEARER_PASS",
+      "label": "바람맞이 산 · 돌풍 고개",
+      "asset_id": "ASSET_BG_PLACE_STORMBEARER_MOUNTAINS",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_STORMBEARER_POINT": {
+      "map_id": "MAP_CRPG_STORMBEARER_POINT",
+      "label": "바람맞이 봉우리",
+      "asset_id": "ASSET_BG_PLACE_STORMBEARER_POINT",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_FALCON_COAST": {
+      "map_id": "MAP_CRPG_FALCON_COAST",
+      "label": "매의 해안",
+      "asset_id": "ASSET_BG_PLACE_FALCON_COAST",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_CAPE_OATH": {
+      "map_id": "MAP_CRPG_CAPE_OATH",
+      "label": "맹세의 갑각",
+      "asset_id": "ASSET_BG_PLACE_CAPE_OATH",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_BRIGHTCROWN_CANYON": {
+      "map_id": "MAP_CRPG_BRIGHTCROWN_CANYON",
+      "label": "크라운 협곡",
+      "asset_id": "ASSET_BG_PLACE_BRIGHTCROWN_CANYON",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_DRAGONSPINE_CAMP": {
+      "map_id": "MAP_CRPG_DRAGONSPINE_CAMP",
+      "label": "설산 탐사 야영지",
+      "asset_id": "ASSET_BG_PLACE_DRAGONSPINE_ADVENTURER_CAMP",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_SNOW_COVERED_PATH": {
+      "map_id": "MAP_CRPG_SNOW_COVERED_PATH",
+      "label": "눈 덮인 길",
+      "asset_id": "ASSET_BG_PLACE_SNOW_COVERED_PATH",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_WYRMREST_VALLEY": {
+      "map_id": "MAP_CRPG_WYRMREST_VALLEY",
+      "label": "드래곤이 잠든 협곡",
+      "asset_id": "ASSET_BG_PLACE_WYRMREST_VALLEY",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_ENTOMBED_OUTSKIRTS": {
+      "map_id": "MAP_CRPG_ENTOMBED_OUTSKIRTS",
+      "label": "눈에 묻힌 도시 · 근교",
+      "asset_id": "ASSET_BG_PLACE_ENTOMBED_OUTSKIRTS",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_ENTOMBED_PALACE": {
+      "map_id": "MAP_CRPG_ENTOMBED_PALACE",
+      "label": "눈에 묻힌 도시 · 고궁",
+      "asset_id": "ASSET_BG_PLACE_ENTOMBED_PALACE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_STARGLOW_CAVERN": {
+      "map_id": "MAP_CRPG_STARGLOW_CAVERN",
+      "label": "별빛 동굴",
+      "asset_id": "ASSET_BG_PLACE_STARGLOW_CAVERN",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_SKYFROST_NAIL": {
+      "map_id": "MAP_CRPG_SKYFROST_NAIL",
+      "label": "한천의 못",
+      "asset_id": "ASSET_BG_PLACE_SKYFROST_NAIL",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_SWORD_CEMETERY": {
+      "map_id": "MAP_CRPG_SWORD_CEMETERY",
+      "label": "이름없는 검무덤",
+      "asset_id": "ASSET_BG_PLACE_FORGOTTEN_SWORD_CEMETERY",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_LAIR_OUTER_GATE": {
+      "map_id": "MAP_CRPG_LAIR_OUTER_GATE",
+      "label": "바람 드래곤의 폐허 · 옛 관문",
+      "asset_id": "ASSET_BG_PLACE_LAIR_CANYON_ENTRANCE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_LAIR_WEST_RUINS": {
+      "map_id": "MAP_CRPG_LAIR_WEST_RUINS",
+      "label": "바람 드래곤의 폐허 · 서쪽 회랑",
+      "asset_id": "ASSET_BG_PLACE_LAIR_FROM_ABOVE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_LAIR_EAST_RUINS": {
+      "map_id": "MAP_CRPG_LAIR_EAST_RUINS",
+      "label": "바람 드래곤의 폐허 · 동쪽 정원",
+      "asset_id": "ASSET_BG_PLACE_LAIR_CONCEPT_ART",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        841,
+        448
+      ]
+    },
+    "MAP_CRPG_MOND_QUARRY": {
+      "map_id": "MAP_CRPG_MOND_QUARRY",
+      "label": "몬드 동쪽 광산",
+      "asset_id": "ASSET_BG_PLACE_DRUNKARD_GORGE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_CIDER_BANK": {
+      "map_id": "MAP_CRPG_CIDER_BANK",
+      "label": "시드르 호수 낚시터",
+      "asset_id": "ASSET_BG_PLACE_CIDER_LAKE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_WHISPER_HUNT": {
+      "map_id": "MAP_CRPG_WHISPER_HUNT",
+      "label": "속삭임의 숲 사냥터",
+      "asset_id": "ASSET_BG_PLACE_WHISPERING_WOODS",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_DAWN_BANK": {
+      "map_id": "MAP_CRPG_DAWN_BANK",
+      "label": "와이너리 강변 낚시터",
+      "asset_id": "ASSET_BG_PLACE_WINDWAIL_HIGHLAND",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_SPRING_POOL": {
+      "map_id": "MAP_CRPG_SPRING_POOL",
+      "label": "샘물 연못 낚시터",
+      "asset_id": "ASSET_BG_PLACE_SPRINGVALE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_V141_MUSK_REEF": {
+      "map_id": "MAP_V141_MUSK_REEF",
+      "label": "머스크 암초",
+      "asset_id": "ASSET_BG_PLACE_MUSK_REEF",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_V141_THOUSAND_RAVINE": {
+      "map_id": "MAP_V141_THOUSAND_RAVINE",
+      "label": "천풍 신전 · 서리 협곡",
+      "asset_id": "ASSET_BG_PLACE_THOUSAND_WINDS_TEMPLE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_NORTH_GATE": {
+      "map_id": "MAP_LY_DETAIL_NORTH_GATE",
+      "label": "리월항 · 북쪽 진입로",
+      "asset_id": "ASSET_BG_PLACE_LIYUE_HARBOR_CONCEPT_ART",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        803
+      ]
+    },
+    "MAP_LY_DETAIL_FEIYUN": {
+      "map_id": "MAP_LY_DETAIL_FEIYUN",
+      "label": "비운 언덕 · 상업 거리",
+      "asset_id": "ASSET_BG_PLACE_FEIYUN_SLOPE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_YUJING": {
+      "map_id": "MAP_LY_DETAIL_YUJING",
+      "label": "옥경대 · 전망 구역",
+      "asset_id": "ASSET_BG_PLACE_YUJING_TERRACE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_CHIHU": {
+      "map_id": "MAP_LY_DETAIL_CHIHU",
+      "label": "흘호암 · 골목",
+      "asset_id": "ASSET_BG_PLACE_CHIHU_ROCK",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_WHARF": {
+      "map_id": "MAP_LY_DETAIL_WHARF",
+      "label": "리월항 · 부두",
+      "asset_id": "ASSET_BG_PLACE_LIYUE_HARBOR_SHIPS",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1333,
+        1000
+      ]
+    },
+    "MAP_LY_DETAIL_SHIMEN": {
+      "map_id": "MAP_LY_DETAIL_SHIMEN",
+      "label": "석문 · 통행로",
+      "asset_id": "ASSET_BG_PLACE_STONE_GATE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_DIHUA": {
+      "map_id": "MAP_LY_DETAIL_DIHUA",
+      "label": "적화주 · 갈대 물가",
+      "asset_id": "ASSET_BG_PLACE_DIHUA_MARSH",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_WANGSHU": {
+      "map_id": "MAP_LY_DETAIL_WANGSHU",
+      "label": "망서 객잔 · 아래 광장",
+      "asset_id": "ASSET_BG_PLACE_WANGSHU_INN",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_QINGCE_FIELDS": {
+      "map_id": "MAP_LY_DETAIL_QINGCE_FIELDS",
+      "label": "경책 산장 · 남쪽 밭길",
+      "asset_id": "ASSET_BG_PLACE_QINGCE_CONCEPT_ART",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_GUILI": {
+      "map_id": "MAP_LY_DETAIL_GUILI",
+      "label": "귀리 평원 · 옛 유적",
+      "asset_id": "ASSET_BG_PLACE_GUILI_PLAINS",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_MINGYUN": {
+      "map_id": "MAP_LY_DETAIL_MINGYUN",
+      "label": "명온 마을 · 폐광 주변",
+      "asset_id": "ASSET_BG_PLACE_MINGYUN_VILLAGE",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_YAOGUANG": {
+      "map_id": "MAP_LY_DETAIL_YAOGUANG",
+      "label": "요광 해안 · 모래톱",
+      "asset_id": "ASSET_BG_PLACE_YAOGUANG_SHOAL",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_LUHUA": {
+      "map_id": "MAP_LY_DETAIL_LUHUA",
+      "label": "녹화 연못 · 물가",
+      "asset_id": "ASSET_BG_PLACE_LUHUA_POOL",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_AOCANG": {
+      "map_id": "MAP_LY_DETAIL_AOCANG",
+      "label": "오장산 · 정상 호숫가",
+      "asset_id": "ASSET_BG_PLACE_MT_AOCANG",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_QINGYUN": {
+      "map_id": "MAP_LY_DETAIL_QINGYUN",
+      "label": "경운봉 · 산길",
+      "asset_id": "ASSET_BG_PLACE_QINGYUN_PEAK",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_HULAO": {
+      "map_id": "MAP_LY_DETAIL_HULAO",
+      "label": "호로산 · 호박 바위길",
+      "asset_id": "ASSET_BG_PLACE_MT_HULAO",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_HUAGUANG": {
+      "map_id": "MAP_LY_DETAIL_HUAGUANG",
+      "label": "화광림 · 계곡길",
+      "asset_id": "ASSET_BG_PLACE_HUAGUANG_STONE_FOREST",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_NANTIANMEN": {
+      "map_id": "MAP_LY_DETAIL_NANTIANMEN",
+      "label": "남천문 · 고목 주변",
+      "asset_id": "ASSET_BG_PLACE_NANTIANMEN",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_TIANQIU": {
+      "map_id": "MAP_LY_DETAIL_TIANQIU",
+      "label": "천주 골짜기 · 유적길",
+      "asset_id": "ASSET_BG_PLACE_TIANQIU_VALLEY",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_DUNYU": {
+      "map_id": "MAP_LY_DETAIL_DUNYU",
+      "label": "둔옥릉 · 유적 가장자리",
+      "asset_id": "ASSET_BG_PLACE_DUNYU_RUINS",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_LINGJU": {
+      "map_id": "MAP_LY_DETAIL_LINGJU",
+      "label": "성법 관문 · 바깥길",
+      "asset_id": "ASSET_BG_PLACE_LINGJU_PASS",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_QINGXU": {
+      "map_id": "MAP_LY_DETAIL_QINGXU",
+      "label": "청허포 · 석조 유적",
+      "asset_id": "ASSET_BG_PLACE_QINGXU_POOL",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_TIANHENG": {
+      "map_id": "MAP_LY_DETAIL_TIANHENG",
+      "label": "천형산 · 항구 전망길",
+      "asset_id": "ASSET_BG_PLACE_MT_TIANHENG",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_GUYUN": {
+      "map_id": "MAP_LY_DETAIL_GUYUN",
+      "label": "고운각 · 서북쪽 섬",
+      "asset_id": "ASSET_BG_PLACE_GUYUN_STONE_FOREST",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_V141_GUYUN_WRECK": {
+      "map_id": "MAP_V141_GUYUN_WRECK",
+      "label": "고운각 · 해안 잔해",
+      "asset_id": "ASSET_BG_PLACE_GUYUN_STONE_FOREST",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_V141_GUYUN_CHANNEL": {
+      "map_id": "MAP_V141_GUYUN_CHANNEL",
+      "label": "고운각 · 남쪽 항로",
+      "asset_id": "ASSET_BG_PLACE_GUYUN_STONE_FOREST",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_CHASM_GATE": {
+      "map_id": "MAP_LY_DETAIL_CHASM_GATE",
+      "label": "층암거연 · 동쪽 진입로",
+      "asset_id": "ASSET_BG_PLACE_LUMBERPICK_VALLEY",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_LY_DETAIL_CHASM_RIM": {
+      "map_id": "MAP_LY_DETAIL_CHASM_RIM",
+      "label": "층암거연 · 동쪽 광구길",
+      "asset_id": "ASSET_BG_PLACE_CHASM_MAW",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_V141_CHASM_CAMP": {
+      "map_id": "MAP_V141_CHASM_CAMP",
+      "label": "층암거연 · 구조 전진기지",
+      "asset_id": "ASSET_BG_PLACE_MINERS_QUARTERS",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "공식 장소 사진. 원본 구도 그대로이며 자르거나 고치지 않음.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_CRPG_STARFELL_LAKE": {
+      "map_id": "MAP_CRPG_STARFELL_LAKE",
+      "label": "별이 떨어지는 호수",
+      "asset_id": "ASSET_BG_MONDSTADT_STARFELL_LAKE_01",
+      "status": "BOUND_REFERENCE",
+      "source": "place_pictures_v01415",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "기존 별이 떨어지는 호수 사진을 해당 구역에 직접 연결.",
+      "native_size": [
+        1024,
+        512
+      ]
     }
   },
   "policy": {
@@ -13255,41 +17572,6 @@
       "profile_id": "PROFILE_MOND_KATHERYNE",
       "owner_id": "mond_ksr",
       "reason": "제작 프롬프트에서 미확정 소유자 자동 화자 연결 금지. 별도 mond_kth 자산을 ksr로 추정 연결하지 않음."
-    },
-    {
-      "kind": "UNBOUND_NEW_MOND_MAP",
-      "map_id": "MAP_MOND_TEMPLE_FALCON",
-      "fallback": "NAME_AND_ACTIONS"
-    },
-    {
-      "kind": "UNBOUND_NEW_MOND_MAP",
-      "map_id": "MAP_MOND_TEMPLE_WOLF",
-      "fallback": "NAME_AND_ACTIONS"
-    },
-    {
-      "kind": "UNBOUND_NEW_MOND_MAP",
-      "map_id": "MAP_MOND_TEMPLE_LION",
-      "fallback": "NAME_AND_ACTIONS"
-    },
-    {
-      "kind": "UNBOUND_NEW_MOND_MAP",
-      "map_id": "MAP_MOND_FATUI_CACHE",
-      "fallback": "NAME_AND_ACTIONS"
-    },
-    {
-      "kind": "UNBOUND_NEW_MOND_MAP",
-      "map_id": "MAP_MOND_EAGLES_GATE",
-      "fallback": "NAME_AND_ACTIONS"
-    },
-    {
-      "kind": "UNBOUND_NEW_MOND_MAP",
-      "map_id": "MAP_MOND_ECLIPSE_CAMP",
-      "fallback": "NAME_AND_ACTIONS"
-    },
-    {
-      "kind": "UNBOUND_NEW_MOND_MAP",
-      "map_id": "MAP_MOND_STARSNATCH_CLIFF",
-      "fallback": "NAME_AND_ACTIONS"
     }
   ],
   "summary": {
@@ -13301,7 +17583,12 @@
     "mapped_mond_references": 11,
     "mond_name_action_fallbacks": 7,
     "new_maps_existing_exact_references": 2,
-    "new_maps_unbound": 7,
-    "all_maps_have_actual_backgrounds": false
+    "new_maps_unbound": 0,
+    "all_maps_have_actual_backgrounds": false,
+    "place_pictures_v01415": {
+      "maps": 65,
+      "pictures": 60,
+      "stored_bytes": 12161072
+    }
   }
 }

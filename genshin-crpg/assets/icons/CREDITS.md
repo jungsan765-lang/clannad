@@ -194,3 +194,15 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 - 이세계인의 표류자리는 CRPG 원작이므로 원신 아이콘을 쓰지 않는다.
 
 이 기록은 출처와 일치 여부를 남기기 위한 것이며, 재배포 사용 조건 전체를 검토했다고 주장하지 않는다.
+
+# v0.14.15 보물상자 아이콘
+
+`assets/icons/chests/`의 3개. 원신 위키(Genshin Impact Wiki) 파일 페이지의 원작 상자 그림을 그대로 받아 WebP로 바꿨다. 상자 등급 이름도 원작과 같다.
+
+| 파일 | 원작 그림 | 원본 SHA-256 |
+|---|---|---|
+| `chest_common.webp` | 평범한 보물상자 `Item_Common_Chest.png` | `f79809fe…d7ed2995` |
+| `chest_exquisite.webp` | 정교한 보물상자 `Item_Exquisite_Chest.png` | `ce0ae4e5…ac49a5a7` |
+| `chest_luxurious.webp` | 화려한 보물상자 `Item_Luxurious_Chest.png` | `a5b416bc…1c3ac31f` |
+
+원본 위치: https://genshin-impact.fandom.com/wiki/File:Item_Common_Chest.png (나머지 둘도 같은 형식의 파일 페이지).

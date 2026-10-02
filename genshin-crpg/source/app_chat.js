@@ -82,8 +82,13 @@ function draw(){
  const me=O.account,shown=C.lines.filter(m=>!C.muted.has(m.pid));
  if(!shown.length)list.append(mk('p','chat-empty',C.enabled===false?'이 서버에서는 채팅을 사용할 수 없습니다.':'아직 대화가 없습니다. 먼저 인사해 보세요.'));
  for(const m of shown){
-  const own=!!C.me&&m.pid===C.me,row=mk('div','chat-line'+(own?' own':'')+(m.deleted?' deleted':''));
-  const who=mk('strong','chat-author',m.author);who.style.setProperty('--h',hue(m.pid));if(m.staff)who.append(mk('span','chat-staff','운영'));
+  // 0.14.15: a frame for those who reached floor 10+ in the Spiral Abyss last season, their best 나선 문장 (one per
+  // season at floor 10+) beside the name, and the name opens the adventurer's card (app_profile_v01415.js).
+  const own=!!C.me&&m.pid===C.me,row=mk('div','chat-line'+(own?' own':'')+(m.deleted?' deleted':'')+(m.frame?' abyss-frame frame-'+Math.min(12,m.frame):''));
+  const who=mk('button','chat-author',m.author);who.type='button';who.style.setProperty('--h',hue(m.pid));who.title=m.author+' · 모험가 정보 보기';
+  who.onclick=()=>window.CRPGProfile?.open(m.pid,m.author);if(m.staff)who.append(mk('span','chat-staff','운영'));
+  if(m.medals>0&&window.CRPGProfile?.medal){const medal=window.CRPGProfile.medal(m.top,m.top);medal.title='나선 문장 '+m.medals+'개 · 최고 '+m.top+'층';medal.removeAttribute('aria-hidden');who.append(medal);}
+  if(m.frame)row.title='지난 시즌 나선비경 '+m.frame+'층 정복';
   row.append(who,mk('time','chat-time',time(m.at)),mk('p','chat-text',m.deleted?'운영자가 가린 메시지입니다.':m.text));
   if(!own&&!m.deleted){const tools=mk('span','chat-tools');const hide=mk('button','',`숨기기`);hide.type='button';hide.title=m.author+'의 메시지를 이 기기에서 숨깁니다.';hide.onclick=()=>{C.muted.add(m.pid);saveMuted();draw();};tools.append(hide);
    if(me?.admin){const del=mk('button','','가리기');del.type='button';del.onclick=async()=>{try{await O.request('/chat/delete',{id:m.id});}catch(e){SHELL.toast?.(e.message);}};tools.append(del);}row.append(tools);}
@@ -95,6 +100,7 @@ function draw(){
 // 0.14.13: a phone's top bar has no room for the chat button, so a round one waits above the bottom dock (shell.css
 // shows it on phones only) and the window opens from the bottom.
 function fab(){let b=document.querySelector('body > .chat-fab');if(!b){b=mk('button','chat-fab');b.type='button';b.setAttribute('aria-label','채팅 열기');b.append(SHELL.icon('CHAT','shell-icon'),mk('span','hud-badge'));b.onclick=()=>toggle(true);document.body.append(b);}return b;}
+C.redraw=()=>draw();
 function badge(){
  const live=C.enabled===true&&document.body.classList.contains('teyvat');if(live)fab();else document.querySelector('body > .chat-fab')?.remove();
  for(const b of document.querySelectorAll('.hud-chat,body > .chat-fab')){b.hidden=C.enabled!==true||b.classList.contains('chat-fab')&&C.open;b.classList.toggle('active',C.open);const n=b.querySelector('.hud-badge');if(n){n.textContent=C.unread>99?'99+':String(C.unread);n.hidden=!C.unread;}}

@@ -35,19 +35,31 @@ function floorCard(f,v){
  s.append(el('strong','',f.floor+'층 · '+f.name),el('span','abyss-badges',[f.cleared?'정복 '+f.best+'라운드':'',f.claimed?'보상 수령':f.cleared?'보상 대기':''].filter(Boolean).join(' · ')));
  d.append(s,el('p','muted','권장 Lv. '+f.level+(f.floor>=10?' · 파티 전원 Lv. 20 필요':'')),roomList(f.rooms,v.active?.floor===f.floor?v.active.chamber:0),el('p','abyss-reward','첫 정복 보상: '+f.reward.text));
  if(!v.active){const b=button(f.cleared?'다시 도전':'입장',async()=>{document.getElementById('modal').close();await act('ABYSS_ENTER',{floor:f.floor});},!!f.reason,!f.cleared);b.title=f.reason;d.append(b);if(f.reason)d.append(el('small','muted',f.reason));}
- if(f.cleared&&!f.claimed&&!v.active){
+ if(f.owed)d.append(el('p','abyss-owed','지난 시즌에 정복한 층입니다. 첫 정복 보상을 아직 받지 않았습니다.'));
+ if((f.cleared||f.owed)&&!f.claimed&&!v.active){
   if(f.reward.artifact||!f.reward.choice)d.append(button('보상 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor});abyssScreen();},false,true));
   else{const s=pick(d,'받을 이나즈마 장비',f.reward.choice.map(id=>[id,rewardEquipLabel(id)+' · '+safeName('16_EQUIP_DB',id,2)]));d.append(button('보상 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor,equipment:s.value});abyssScreen();},false,true));}
  }
  return d;
 }
+// 0.14.15 seasons: this month's season, its time left, last season's best and the 나선 문장 (one per season at floor 10+).
+function seasonCard(v){
+ const c=el('section','card abyss-season'),head=el('div','abyss-season-head');
+ head.append(el('strong','',v.seasonLabel),el('span','abyss-season-left',v.seasonEnds?left(v.seasonEnds):'시즌 기록 집계 전'));c.append(head);
+ c.append(el('p','muted','시즌은 매달 1일 0시(한국 시간)에 바뀝니다. 새 시즌이 되면 층 정복 기록과 '+v.markName+'이 처음부터 시작하고, 이미 받은 첫 정복 보상은 다시 받지 않습니다. 시즌 안에 '+CRPGRuntime.abyssSeason.medalFloor+'층 이상을 정복하면 그 시즌의 나선 문장(10층 은빛 · 11층 보랏빛 · 12층 금빛)을 받고, 다음 시즌 동안 채팅에 테두리가 생깁니다.'));
+ const last=v.history.at(-1);c.append(el('p','abyss-season-line','이번 시즌 최고 · '+(v.best.floor?v.best.floor+'층':'아직 없음')+(last?' · 지난 기록 · '+last.label+' '+last.floor+'층':'')));
+ if(v.medals.length){const row=el('div','abyss-medals');for(const m of v.medals){const text=m.label.replace(/ 시즌$/,'')+' · '+m.floor+'층',b=window.CRPGProfile?.medal?window.CRPGProfile.medal(m.floor,text,'wide'):el('span','abyss-medal',text);b.removeAttribute('aria-hidden');b.title='나선 문장 · '+m.label+' '+m.floor+'층 정복'+(m.current?' (이번 시즌)':'');row.append(b);}c.append(row);}
+ return c;
+}
+function left(at){const ms=at-Date.now();if(ms<=0)return '곧 새 시즌';const d=Math.floor(ms/86400000),h=Math.floor(ms%86400000/3600000);return '남은 기간 '+(d?d+'일 ':'')+h+'시간';}
 function abyssScreen(){
  if(!game)return;const v=game.abyssView(),p=el('div','abyss-list');
+ p.append(seasonCard(v));
  p.append(el('p','','층마다 방이 세 개 있고, 방마다 전투를 한 번씩 치릅니다. 방과 방 사이에는 음식을 먹으며 숨을 고를 수 있고, HP는 다음 방까지 이어집니다. 한 방이라도 지거나 제한 라운드를 넘기면 그 층은 1번 방부터 다시 도전해야 합니다.'),
   el('p','','세 방을 모두 돌파하면 함께 싸운 동료에게 그 층의 '+v.markName+'이 새겨집니다. '+v.markName+'이 새겨진 동료는 도전을 전부 초기화하기 전까지 다른 층에 나설 수 없습니다. 주인공은 각인이 새겨지지 않습니다.'));
  if(v.active?.phase==='BREAK')breakPanel(p,v);
  const next=Math.min(12,(Object.keys(v.progress.clears).map(Number).sort((a,b)=>b-a)[0]||0)+1);
- for(const f of v.floors){const card=floorCard(f,v);if(f.floor===(v.active?.floor||next)||f.cleared&&!f.claimed)card.open=true;p.append(card);}
+ for(const f of v.floors){const card=floorCard(f,v);if(f.floor===(v.active?.floor||next)||(f.cleared||f.owed)&&!f.claimed)card.open=true;p.append(card);}
  const marks=Object.entries(v.progress.tags);
  p.append(el('h2','',v.markName+' · 다른 층에 나설 수 없는 동료'),el('p','muted','층을 정복할 때 함께 싸운 동료에게 새겨지는 표시입니다. 도전 전체 초기화로 지울 수 있습니다.'),el('p',marks.length?'':'muted',marks.length?marks.sort((a,b)=>a[1]-b[1]).map(([id,f])=>who(id)+' '+f+'층').join(' · '):'아직 각인이 새겨진 동료가 없습니다.'));
  p.append(button('도전 전체 초기화',()=>confirmBox('도전 전체 초기화','모든 층의 정복 기록과 '+v.markName+'이 한꺼번에 지워지고 1층부터 다시 시작합니다. 층 하나만 골라 초기화할 수는 없습니다. 이미 받은 첫 정복 보상은 다시 받을 수 없습니다.','전체 초기화',async()=>{await act('ABYSS_RESET',{confirm:true});abyssScreen();}),!!game.actionReason('ABYSS_RESET',{confirm:true})));

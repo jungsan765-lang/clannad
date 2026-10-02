@@ -72,7 +72,14 @@ const CHOICES={
  wish_result:[['ig_wish_result_list','본편 기원 결과 목록']],
  constellation:[['ig_constellation_activate','본편 운명의 자리 활성화']],
  constellation_open:[['ig_constellation_open','본편 운명의 자리 열기']],
- constellation_node:[['ig_character_constellation','본편 운명의 자리 고르기']]
+ constellation_node:[['ig_character_constellation','본편 운명의 자리 고르기']],
+ // 0.14.15 보물상자와 퍼즐.
+ chest_appear:[['ig_chest_appear','본편 보물상자 등장']],
+ chest_unlock:[['ig_chest_unlock','본편 퍼즐 해결 · 봉인 해제']],
+ chest_open:[['ig_chest_open','본편 보물상자 열기']],
+ chest_reward:[['ig_reward_popup','본편 보상 표시'],['ig_battlepass_levelup','본편 기행 레벨업']],
+ puzzle_light:[['ig_torch_activate','본편 유적 횃불 점화'],['ig_click_general2','본편 클릭']],
+ puzzle_step:[['ig_click_general2','본편 클릭'],['ig_tab_click2','본편 탭']]
 };
 // Playback level per sound. Every recording is first brought to the same loudness (see normal()); 0.45 is the
 // level the game always used for recordings, and interface ticks sit a little under the rest.
