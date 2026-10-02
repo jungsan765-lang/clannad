@@ -27,6 +27,17 @@ const uname=v=>String(v||'').normalize('NFKC').trim().toLowerCase();
 const CHAT_MAX=140,CHAT_KEEP=400,CHAT_CHANNELS=new Set(['world']),TRADE_PENDING=5;
 const pidOf=id=>createHash('sha256').update('crpg-chat:'+id).digest('hex').slice(0,12);
 const cleanText=v=>[...String(v??'')].map(ch=>{const c=ch.codePointAt(0);return c<32||c===127||(c>=0x200b&&c<=0x200f)||(c>=0x2028&&c<=0x202e)||(c>=0x2060&&c<=0x206f)||c===0xfeff?' ':ch;}).join('').replace(/\s+/g,' ').trim();
+// 0.15.3: names other adventurers see follow each journey's protagonist (see syncName). Rows written earlier with the login
+// id are rewritten once at start; rows that already carry the name are left alone. Tables of switched-off features are skipped.
+const HERO_NAME_PATH='["global","PLAYER_NAME"]';
+const NAME_COLUMNS=[['accounts','display_name','id'],['chat','author','account_id'],['market','seller_name','seller_id'],['letters','from_name','from_id'],['letters','to_name','to_id'],['raid_hits','name','account_id'],['ranking','display_name','account_id']];
+export function migrateHeroNames(db){
+ const rows=db.prepare('SELECT account_id,value FROM parts WHERE path=?').all(HERO_NAME_PATH);if(!rows.length)return;
+ const stmts=NAME_COLUMNS.map(([table,col,key])=>{try{return db.prepare('UPDATE '+table+' SET '+col+'=? WHERE '+key+'=? AND '+col+'<>?');}catch{return null;}}).filter(Boolean);
+ db.exec('BEGIN IMMEDIATE');
+ try{for(const r of rows){let name='';try{name=String(JSON.parse(r.value)||'').trim().slice(0,24);}catch{}if(name)for(const s of stmts)s.run(name,r.account_id,name);}db.exec('COMMIT');}
+ catch(e){if(db.isTransaction)db.exec('ROLLBACK');throw e;}
+}
 export function defaultFeatures(dbPath,env=process.env){const raw=env.CRPG_FEATURES;if(raw!==undefined)return String(raw).split(',').map(x=>x.trim()).filter(Boolean);return /live-staging|:memory:/.test(String(dbPath))?['chat','trade']:[];}
 const ip=req=>String(req.headers['x-forwarded-for']||req.socket?.remoteAddress||'local').split(',')[0].trim().slice(0,96);
 // 0.15.2: at most three new accounts a day from one connection (user: 「계정 무한 생성해서 돈 모으려는 버그 … 아이피별로 계정
@@ -58,7 +69,7 @@ export class LiveRegionStore{
   this.db.exec(pragmas+ddl);installAdminSchema(this.db);migrateRankingSeasons(this.db);
   if(this.features.has('chat'))this.db.exec('CREATE TABLE IF NOT EXISTS chat(id INTEGER PRIMARY KEY AUTOINCREMENT,channel TEXT NOT NULL,account_id TEXT NOT NULL,author TEXT NOT NULL,text TEXT NOT NULL,created_at INTEGER NOT NULL,deleted INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS chat_channel_idx ON chat(channel,id);');
   if(this.features.has('trade'))this.db.exec("CREATE TABLE IF NOT EXISTS trades(id INTEGER PRIMARY KEY AUTOINCREMENT,from_id TEXT NOT NULL,to_id TEXT NOT NULL,give TEXT NOT NULL,want TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(from_id) REFERENCES accounts(id) ON DELETE CASCADE,FOREIGN KEY(to_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS trades_to_idx ON trades(to_id,status);CREATE INDEX IF NOT EXISTS trades_from_idx ON trades(from_id,status);");
-  installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);installRaidSchema(this.db);
+  installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);installRaidSchema(this.db);migrateHeroNames(this.db);
   this.heartbeat=setInterval(()=>this.push(': ping\n\n'),25000);this.heartbeat.unref?.();
  }
  close(){clearInterval(this.heartbeat);for(const s of this.subscribers){try{s.res.end();}catch{}}this.subscribers.clear();this.db.close();}
@@ -79,9 +90,10 @@ export class LiveRegionStore{
   this.need('chat');const ch=CHAT_CHANNELS.has(b?.channel)?b.channel:'world',text=cleanText(b?.text);
   if(!text)throw err(400,'보낼 내용을 입력해 주세요.');if([...text].length>CHAT_MAX)throw err(400,'채팅은 '+CHAT_MAX+'자까지 보낼 수 있습니다.');
   try{this.rate('chat-gap:'+a.id,1,1200);this.rate('chat-burst:'+a.id,8,30000);}catch(e){throw err(429,'채팅을 조금 천천히 보내 주세요.');}
-  const t=now(),info=this.db.prepare('INSERT INTO chat(channel,account_id,author,text,created_at) VALUES(?,?,?,?,?)').run(ch,a.id,a.display_name,text,t),id=Number(info.lastInsertRowid);
+  const author=this.syncName(a)||'새 모험가';
+  const t=now(),info=this.db.prepare('INSERT INTO chat(channel,account_id,author,text,created_at) VALUES(?,?,?,?,?)').run(ch,a.id,author,text,t),id=Number(info.lastInsertRowid);
   if(id%50===0)this.db.prepare('DELETE FROM chat WHERE channel=? AND id<=?').run(ch,id-CHAT_KEEP);
-  const message=this.chatView({id,channel:ch,account_id:a.id,author:a.display_name,text,created_at:t,deleted:0});this.broadcast({type:'chat',message});return {message};
+  const message=this.chatView({id,channel:ch,account_id:a.id,author,text,created_at:t,deleted:0});this.broadcast({type:'chat',message});return {message};
  }
  chatDelete(a,b){
   this.need('chat');if(!this.admins.has(a.id))throw err(403,'운영자 전용 기능입니다.');const id=Number(b?.id);if(!Number.isSafeInteger(id))throw err(400,'메시지를 확인해 주세요.');
@@ -162,7 +174,12 @@ export class LiveRegionStore{
   const ban=banOf(this.db,a.id);if(ban)throw err(403,banMessage(ban),'ACCOUNT_BANNED');return this.issue(a);
  }
  async issue(a){const secret=token(),th=await hash(secret);this.db.prepare('INSERT INTO sessions VALUES(?,?,?)').run(th,a.id,now()+SESSION_MS);return {token:secret,account:view(a,this.admins),version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT};}
- async auth(raw){if(!/^[a-f0-9]{64}$/.test(raw||''))throw err(401,'로그인해 주세요.');const th=await hash(raw),a=this.db.prepare('SELECT a.* FROM sessions s JOIN accounts a ON a.id=s.account_id WHERE s.token_hash=? AND s.expires_at>?').get(th,now());if(!a)throw err(401,'로그인이 만료되었습니다.');const ban=banOf(this.db,a.id);if(ban)throw err(401,banMessage(ban),'ACCOUNT_BANNED');return {a,th};}
+ async auth(raw){if(!/^[a-f0-9]{64}$/.test(raw||''))throw err(401,'로그인해 주세요.');const th=await hash(raw),a=this.db.prepare('SELECT a.* FROM sessions s JOIN accounts a ON a.id=s.account_id WHERE s.token_hash=? AND s.expires_at>?').get(th,now());if(!a)throw err(401,'로그인이 만료되었습니다.');const ban=banOf(this.db,a.id);if(ban)throw err(401,banMessage(ban),'ACCOUNT_BANNED');this.syncName(a);return {a,th};}
+ // 0.15.3: other adventurers see the name chosen for the journey, never the login id (user: 「채팅은 플레이어 아이디 말고
+ // 이름으로 나오게 해줘」). The account's display name follows the protagonist's name, so chat, profiles, letters, trades,
+ // the market and the rankings show it. An account without a journey yet has no public name.
+ heroName(id){const row=this.db.prepare('SELECT value FROM parts WHERE account_id=? AND path=?').get(id,'["global","PLAYER_NAME"]');try{return row?String(JSON.parse(row.value)||'').trim().slice(0,24):'';}catch{return '';}}
+ syncName(a){const name=this.heroName(a.id);if(name&&name!==a.display_name){this.db.prepare('UPDATE accounts SET display_name=? WHERE id=?').run(name,a.id);a.display_name=name;}return name;}
  me(a){const m=this.meta(a.id),e=m&&this.cached(a.id,m.revision),parts=e?.parts||(m?this.loadParts(a.id):new Map());return this.output(a,m,parts);}
  logout(th){this.db.prepare('DELETE FROM sessions WHERE token_hash=?').run(th);return {ok:true};}
  async remove(a,b){this.rate('delete:'+a.id,5,900000);if(b.confirm!==a.username||!same(await passwordHash(String(b.password||''),a.salt,this.pepper),a.password_hash))throw err(403,'아이디와 비밀번호로 삭제를 확인해 주세요.');this.db.prepare('DELETE FROM accounts WHERE id=?').run(a.id);this.invalidate(a.id);return {deleted:true};}
@@ -170,7 +187,7 @@ export class LiveRegionStore{
   return this.serial(a.id,async()=>{const old=this.meta(a.id);if(old?.revision!=null)throw err(409,'이미 자동저장된 여정이 있습니다.');
    const r=new R(GAME_DB);r.newGame({name:String(b.name||a.display_name),route:b.route==='ROUTE_TRAVELER'?'ROUTE_TRAVELER':'ROUTE_ISEKAI',saveId:crypto.randomUUID(),seed:crypto.getRandomValues(new Uint32Array(1))[0]});compact(r.s);const parts=splitState(r.s),t=now();
    this.db.exec('BEGIN IMMEDIATE');try{this.db.prepare('INSERT INTO metadata VALUES(?,?,?,?,?) ON CONFLICT(account_id) DO UPDATE SET revision=excluded.revision,ranked=excluded.ranked,last_request_id=excluded.last_request_id,updated_at=excluded.updated_at').run(a.id,0,1,'NEW',t);this.db.prepare('DELETE FROM parts WHERE account_id=?').run(a.id);const ins=this.db.prepare('INSERT INTO parts VALUES(?,?,?)');for(const [p,v] of parts)ins.run(a.id,p,v);this.db.exec('COMMIT');}catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');throw e;}
-   const m=this.meta(a.id);this.touch(a.id,{revision:0,parts,r});return this.output(a,m,parts);
+   this.syncName(a);const m=this.meta(a.id);this.touch(a.id,{revision:0,parts,r});return this.output(a,m,parts);
   });
  }
  rank(a,ranked,state){if(!ranked){this.db.prepare('DELETE FROM ranking WHERE account_id=?').run(a.id);return;}const x=score(state);if(!x.floor)return;this.db.prepare('INSERT INTO ranking VALUES(?,?,?,?,?,?,?) ON CONFLICT(account_id,season) DO UPDATE SET display_name=excluded.display_name,floor=excluded.floor,rounds=excluded.rounds,attempts=excluded.attempts,achieved_at=excluded.achieved_at WHERE excluded.floor>ranking.floor OR (excluded.floor=ranking.floor AND (excluded.rounds<ranking.rounds OR (excluded.rounds=ranking.rounds AND excluded.attempts<ranking.attempts)))').run(a.id,x.season,a.display_name,x.floor,x.rounds,x.attempts,now());this.dropHonours(a.id);}

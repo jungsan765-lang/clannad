@@ -26,6 +26,7 @@ TESTS = [
     'tests/test_update_v01341.cjs', 'tests/test_abyss_v01341.cjs', 'tests/test_v0144.cjs', 'tests/test_v0148.cjs', 'tests/test_v01410.cjs', 'tests/test_v01411.cjs', 'tests/test_admin_v01412.mjs', 'tests/test_v01413.cjs', 'tests/test_v01415.cjs', 'tests/test_social_v01415.mjs',
     'tests/test_v0151.cjs', 'tests/test_letters_v0151.mjs',
     'tests/test_v0152.cjs', 'tests/test_balance_v0152.cjs', 'tests/test_server_v0152.mjs',
+    'tests/test_v0153.cjs', 'tests/test_server_v0153.mjs',
     'tests/test_osial_v01341.cjs', 'tools/test_story_cleanup_v0140.cjs',
     'tests/test_main_story_k_v0148.cjs',
 ]

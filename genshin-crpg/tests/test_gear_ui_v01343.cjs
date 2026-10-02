@@ -7,7 +7,9 @@ class Element{
  append(...nodes){this.children.push(...nodes);}setAttribute(k,v){this.attributes[k]=v;}querySelector(){return null;}
 }
 const walk=n=>n instanceof Element?[n,...n.children.flatMap(walk)]:[],queue=[],modals=[];
-const r=fresh('MAP_MOND_CITY','ROUTE_ISEKAI'),slot=r.giveEquipment('EQ_BOW_SLINGSHOT');
+// 0.15.3: a new journey already holds the starter sword, and the acquisition guide points at it, so the guide path
+// starts from that piece; a save without a pending guide falls back to a new bow.
+const r=fresh('MAP_MOND_CITY','ROUTE_ISEKAI'),slot=r.s.equipmentGuide?.pendingAcquired?.slot||r.giveEquipment('EQ_BOW_SLINGSHOT');
 Object.assign(c,{game:r,busy:false,MANIFEST:{},presenterDB:null,itemPresenter:null,window:{addEventListener(){},matchMedia:()=>({matches:true})},
  el:(...a)=>new Element(...a),button:(label,fn,disabled=false)=>Object.assign(new Element('button','',label),{onclick:fn,disabled}),
  actionButton:(label)=>new Element('button','',label),meter(){},actorPortrait:()=>new Element('img'),itemGlyph:()=>new Element('span'),
