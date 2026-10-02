@@ -49,6 +49,7 @@ if [[ "$PACKAGE_CHANGED" -eq 1 ]]; then npm ci; RC=$?; else RC=0; fi
 if [[ "$RC" -eq 0 ]]; then npm run build:server; RC=$?; fi
 if [[ "$RC" -eq 0 ]]; then node tests/test_fixed_region_staging.mjs; RC=$?; fi
 if [[ "$RC" -eq 0 ]]; then node tests/test_fixed_region_live.mjs; RC=$?; fi
+if [[ "$RC" -eq 0 ]]; then REQUIRE_CADDY=1 python3 tests/test_legacy_image_routes.py; RC=$?; fi
 set -e
 
 if [[ "$RC" -ne 0 ]]; then
@@ -69,9 +70,8 @@ systemctl restart "$LIVE_SERVICE"
 sleep 1
 curl --fail --silent --show-error http://127.0.0.1:8788/health >/dev/null
 curl --fail --silent --show-error http://127.0.0.1:8789/health >/dev/null
-if systemctl is-active --quiet genshin-crpg-production.service && [[ -f /var/www/genshin-crpg-production/current/index.html ]]; then
-  bash "$PROJECT_DIR/tools/activate-seoul-production.sh" clannad.shop
-fi
+# Staging updates must never regenerate production routes or modify production files.
+# Production routing changes require the separate guarded activation command.
 echo "$REMOTE_SHA" >"$DEPLOYED_FILE"
 bash "$PROJECT_DIR/tools/install-fixed-region-test-pack.sh" || true
 echo "Deployed $REMOTE_SHA"

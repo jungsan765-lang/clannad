@@ -1,0 +1,75 @@
+name: Legacy image routing guard
+on:
+  pull_request:
+    paths:
+      - 'genshin-crpg/tools/*.sh'
+      - 'genshin-crpg/tests/test_legacy_image_routes.py'
+      - '.github/workflows/legacy-image-routes.yml'
+  push:
+    branches: [main, staging/crpg-seoul-node-v0145]
+    paths:
+      - 'genshin-crpg/tools/*.sh'
+      - 'genshin-crpg/tests/test_legacy_image_routes.py'
+      - '.github/workflows/legacy-image-routes.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  image-routing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            genshin-crpg/tools
+            genshin-crpg/tests
+      - name: Install real Caddy (same Ubuntu package source as the server bootstrap)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y caddy
+          caddy version
+      - name: Test rollback, complete namespace coverage, and real HTTP routing
+        env:
+          REQUIRE_CADDY: '1'
+        run: python3 genshin-crpg/tests/test_legacy_image_routes.py
+  live-images:
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    needs: image-routing
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github
+      - name: Read-only HTTPS probes for all legacy image namespaces
+        run: |
+          python3 - <<'PY'
+          import concurrent.futures, json, os, pathlib, subprocess, urllib.request, urllib.parse
+          roots=('1','a','genshin','gg','ggg','mt','mtg','mtt','mttg','oc','rfy','rfya')
+          names=subprocess.check_output(['git','ls-tree','-r','--name-only','-z','HEAD']).decode().split('\0')
+          samples=[]
+          for root in roots:
+              matches=sorted(p for p in names if p.startswith(root+'/') and pathlib.PurePosixPath(p).suffix.lower() in ('.png','.jpg','.jpeg','.webp','.gif','.avif','.svg'))
+              if not matches: raise SystemExit('No image sample in '+root)
+              chosen='1/tefs/1.png' if root=='1' and '1/tefs/1.png' in matches else matches[0]
+              samples.append((root,'https://clannad.shop/'+urllib.parse.quote(chosen,safe='/')))
+          def probe(sample):
+              root,url=sample
+              row={'namespace':root,'url':url,'ok':False}
+              for attempt in range(2):
+                  try:
+                      req=urllib.request.Request(url,method='HEAD',headers={'Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(req,timeout=15) as r:
+                          row.update(status=r.status,mime=r.headers.get_content_type(),final_url=r.url)
+                          row['ok']=r.status==200 and row['mime'].startswith('image/') and r.url==url
+                      break
+                  except Exception as e: row['error']=str(e)
+              return row
+          with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool: rows=list(pool.map(probe,samples))
+          print(json.dumps(rows,ensure_ascii=False,indent=2))
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
+              f.write('## Live legacy image probes (read-only)\n\n')
+              f.write('\n'.join('- /'+r['namespace']+'/: '+('PASS' if r['ok'] else 'FAIL')+' '+str(r.get('status',''))+' '+r.get('mime',r.get('error','')) for r in rows)+'\n')
+          if not all(r['ok'] for r in rows): raise SystemExit('One or more live image namespaces failed.')
+          PY

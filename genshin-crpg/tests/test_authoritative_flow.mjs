@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import {onlineFixture,R,DB} from './helpers_online.mjs';
 const f=onlineFixture();await f.start();
 const r=new R(DB,JSON.parse(f.read().state));
+// Both backends must use the same fixed PRNG state for this damage assertion.
+r.s.global.PRNG_STATE=7317;
 Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:'MAP_MOND_PLAINS',STORY_MENU_POLICY:'',WORLD_TIME:'12:00'});
 delete r.s.storyJourney;delete r.s.storyBreak;r.prepareStory();
 r.startBattle('EG_MOND_HILI_PATROL','RANDOM');f.seed(r.s);

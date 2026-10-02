@@ -13,10 +13,19 @@ if [[ ! "$API_DOMAIN" =~ ^[A-Za-z0-9.-]+$ || ! "$TEST_DOMAIN" =~ ^[A-Za-z0-9.-]+
   exit 1
 fi
 
+# Staging may not take ownership of the production hostname.
+if [[ "${API_DOMAIN,,}" == clannad.shop || "${TEST_DOMAIN,,}" == clannad.shop || "${API_DOMAIN,,}" == "${TEST_DOMAIN,,}" ]]; then
+  echo 'Production/duplicate hostname is not a staging target. Nothing changed.' >&2
+  exit 2
+fi
+
 mkdir -p "$CADDY_DIR"
+# Keep existing global options and production sites intact.
+if [[ ! -f /etc/caddy/Caddyfile ]]; then
 cat >/etc/caddy/Caddyfile <<'EOF'
 import /etc/caddy/conf.d/*.caddy
 EOF
+fi
 cat >"$CADDY_DIR/staging.caddy" <<EOF
 $API_DOMAIN {
     encode zstd gzip
