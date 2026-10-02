@@ -44,10 +44,16 @@ chmod 0755 /var/www/genshin-crpg-production /var/www/genshin-crpg-production/cur
 find /var/www/genshin-crpg-production/current -type d -exec chmod 0755 {} +
 find /var/www/genshin-crpg-production/current -type f -exec chmod 0644 {} +
 mkdir -p "$CADDY_DIR"
+# Never overwrite an existing root configuration (global options and other sites).
+if [[ ! -f /etc/caddy/Caddyfile ]]; then
 cat >/etc/caddy/Caddyfile <<'EOF'
 import /etc/caddy/conf.d/*.caddy
 EOF
-cat >"$CADDY_DIR/production.caddy" <<EOF
+fi
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+CANDIDATE=$(mktemp /tmp/clannad-production-candidate.XXXXXX)
+trap 'rm -f -- "$CANDIDATE"' EXIT
+cat >"$CANDIDATE" <<EOF
 $DOMAIN {
     encode zstd gzip
 
@@ -130,7 +136,6 @@ $DOMAIN {
     }
 }
 EOF
-caddy validate --config /etc/caddy/Caddyfile
-systemctl reload caddy
+bash "$SCRIPT_DIR/apply-production-caddy.sh" "$CANDIDATE" "$DOMAIN"
 echo "Production Caddy route armed for https://$DOMAIN"
 echo "Now point the root A record(s) for $DOMAIN to this Seoul server."
