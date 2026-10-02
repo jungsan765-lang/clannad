@@ -34,7 +34,7 @@ jobs:
           REQUIRE_CADDY: '1'
         run: python3 genshin-crpg/tests/test_legacy_image_routes.py
   live-images:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     needs: image-routing
     runs-on: ubuntu-latest
     timeout-minutes: 5
