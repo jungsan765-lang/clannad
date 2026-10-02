@@ -83,6 +83,7 @@ function parseFile(file){
    const m=/^([^:]{1,24}):\s*(.*)$/.exec(t);
    if(!m)err(l,'cannot parse line: '+t);
    const speaker=m[1].trim()==='이야기'?'':m[1].trim();
+   if(speaker==='나'||speaker==='{PLAYER_NAME}')err(l,'player lines are choices: write `?? '+m[2].trim().slice(0,20)+'…` (a single option is fine)');
    const item={k:'line',id:nextId(),speaker,text:m[2].trim()};if(map)item.map=map;if(cond)item.cond=cond;
    if(!item.text)err(l,'empty text');
    items.push(item);pos++;
