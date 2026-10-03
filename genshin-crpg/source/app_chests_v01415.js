@@ -100,12 +100,19 @@ function solved(chest,answer,body){
  setTimeout(()=>reveal(chest,answer,body),1400);
 }
 const preview=(src,body)=>{if(!src)return;const d=mk('details','ch-preview');const s=mk('summary','','완성된 그림 보기');const i=mk('img','');i.src=src;i.alt='';d.append(s,i);body.append(d);};
+// 0.15.15: with no chances left the board rests for 30 seconds before the search starts over (user: 「틀린그림찾기 기회 다
+// 닳으면 30초 기다리는거도 추가하자. 해보니까 그게 없으니까 그냥 체력이 있나 없나 똑같은 것 같아」). The rest belongs to the
+// puzzle (its changes), so closing and opening the window again, or reloading, does not cut it short.
+const SPOT_REST=30000,spotRest=new Map();
+try{for(const [k,v] of Object.entries(JSON.parse(localStorage.getItem('crpg-spot-rest')||'{}')))if(Number(v)>Date.now())spotRest.set(k,Number(v));}catch{}
+const keepRest=()=>{try{const o={};for(const [k,v] of spotRest)if(v>Date.now())o[k]=v;localStorage.setItem('crpg-spot-rest',JSON.stringify(o));}catch{}};
 // 틀린 그림 찾기: the right picture has small changes; press them on either picture.
 function spotGame(p,body,done){
  // 0.15.1: a wrong press costs a chance (Mond 5, Liyue 3) and pauses the board for a moment; with no chances left the
- // found spots start over (user: 「그냥 아무렇게나 눌러도 되니까 이것도 좀 바꿔야」).
- const lives0=p.subtle?3:5;let lives=lives0,cool=false;
- const src=placeImage();body.closest('.ch-box')?.classList.add('wide');note(body,'두 그림에서 다른 곳 '+p.count+'군데를 찾아 누르세요. 없던 물건, 좌우가 뒤집힌 부분, 색이 바뀐 부분을 잘 보세요. 엉뚱한 곳을 누르면 기회가 줄고, 기회를 다 쓰면 처음부터 다시 찾습니다.');
+ // found spots start over (user: 「그냥 아무렇게나 눌러도 되니까 이것도 좀 바꿔야」), after a 30-second rest since 0.15.15.
+ const lives0=p.subtle?3:5;let lives=lives0,cool=false,locked=false;
+ const key='spot:'+p.diffs.map(d=>Math.round(d.x)+','+Math.round(d.y)).join(';');
+ const src=placeImage();body.closest('.ch-box')?.classList.add('wide');note(body,'두 그림에서 다른 곳 '+p.count+'군데를 찾아 누르세요. 없던 물건, 좌우가 뒤집힌 부분, 색이 바뀐 부분을 잘 보세요. 엉뚱한 곳을 누르면 기회가 줄고, 기회를 다 쓰면 30초 쉰 뒤 처음부터 다시 찾습니다.');
  const counter=mk('p','ch-count','찾은 곳 0 / '+p.count),hearts=mk('p','ch-lives');body.append(counter,hearts);
  const drawLives=()=>{hearts.replaceChildren(mk('span','','남은 기회'),...Array.from({length:lives0},(_,i)=>mk('b',i<lives?'on':'off',i<lives?'♥':'♡')));};drawLives();
  const wrap=mk('div','ch-game ch-spot'+(p.subtle?' subtle':'')),A=mk('div','spot-pic'),B=mk('div','spot-pic changed');
@@ -122,25 +129,42 @@ function spotGame(p,body,done){
  if(src){C.spotImg=new Image();C.spotImg.onload=layout;C.spotImg.src=src;}new ResizeObserver(layout).observe(B);
  const mark=(el,d,cls)=>{const m=mk('span','spot-mark '+cls);m.style.left=d.x+'%';m.style.top=d.y+'%';m.style.setProperty('--r',R+'%');el.append(m);return m;};
  const pause=ms=>{cool=true;wrap.classList.add('cooling');setTimeout(()=>{cool=false;wrap.classList.remove('cooling');},ms);};
+ // The rest: hearts empty, the board dimmed and locked with the seconds left; then the chances come back.
+ let restTimer=0;
+ const rest=()=>{
+  const until=spotRest.get(key)||0;if(until<=Date.now())return;
+  locked=true;lives=0;drawLives();wrap.classList.add('cooling','resting');syncHint();
+  const warn=mk('div','ch-solved ch-reset ch-rest'),left=mk('small','');warn.append(mk('strong','','기회를 다 써서 처음부터 다시 찾습니다'),left);warn.setAttribute('role','status');wrap.append(warn);
+  const tick=()=>{
+   if(!wrap.isConnected){clearInterval(restTimer);return;}
+   const s=Math.ceil((until-Date.now())/1000);
+   if(s>0){left.textContent=s+'초 뒤에 다시 찾을 수 있습니다';return;}
+   clearInterval(restTimer);spotRest.delete(key);keepRest();warn.remove();locked=false;lives=lives0;drawLives();wrap.classList.remove('cooling','resting');syncHint();
+  };
+  tick();clearInterval(restTimer);restTimer=setInterval(tick,250);
+ };
  const tap=(el,e)=>{
-  if(cool||wrap.classList.contains('solved'))return;
+  if(cool||locked||wrap.classList.contains('solved'))return;
   const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*100,y=(e.clientY-r.top)/r.height*100;
   const hit=p.diffs.findIndex((d,i)=>!found.has(i)&&Math.hypot((x-d.x)*r.width,(y-d.y)*r.height)/100<=R/100*r.width*(p.subtle?1.3:1.15));
   if(hit<0){
    const m=mark(el,{x,y},'miss');setTimeout(()=>m.remove(),600);SND('error');lives--;drawLives();hearts.classList.remove('shake');void hearts.offsetWidth;hearts.classList.add('shake');
    if(lives>0){pause(700);return;}
-   // no chances left: the found spots start over
-   found.clear();for(const x of wrap.querySelectorAll('.spot-mark.hit'))x.remove();counter.textContent='찾은 곳 0 / '+p.count;lives=lives0;
-   const warn=mk('div','ch-solved ch-reset','기회를 다 써서 처음부터 다시 찾습니다');wrap.append(warn);setTimeout(()=>{warn.remove();drawLives();},1600);pause(1600);return;
+   // no chances left: the found spots start over, after the rest
+   found.clear();for(const x of wrap.querySelectorAll('.spot-mark.hit'))x.remove();counter.textContent='찾은 곳 0 / '+p.count;
+   spotRest.set(key,Date.now()+SPOT_REST);keepRest();rest();return;
   }
   found.add(hit);mark(A,p.diffs[hit],'hit');mark(B,p.diffs[hit],'hit');SND('puzzle_step');counter.textContent='찾은 곳 '+found.size+' / '+p.count;
   if(found.size===p.count)done([...found]);
  };
  A.onclick=e=>tap(A,e);B.onclick=e=>tap(B,e);
- // A hint rings one change for a moment, then waits (20 s in Mond, 45 s in Liyue).
- const wait=p.subtle?45000:20000;
- const hint=btn('힌트',()=>{const i=p.diffs.findIndex((d,k)=>!found.has(k));if(i<0)return;const m=mark(B,p.diffs[i],'hint');setTimeout(()=>m.remove(),1600);hint.disabled=true;hint.title=Math.round(wait/1000)+'초 뒤에 다시 쓸 수 있습니다.';setTimeout(()=>{hint.disabled=false;hint.title='';},wait);},'ch-hint');
+ // A hint rings one change for a moment, then waits (20 s in Mond, 45 s in Liyue). Not while the board rests.
+ const wait=p.subtle?45000:20000;let hintWaiting=false;
+ const hint=btn('힌트',()=>{if(locked||hintWaiting)return;const i=p.diffs.findIndex((d,k)=>!found.has(k));if(i<0)return;const m=mark(B,p.diffs[i],'hint');setTimeout(()=>m.remove(),1600);hintWaiting=true;syncHint();setTimeout(()=>{hintWaiting=false;syncHint();},wait);},'ch-hint');
+ function syncHint(){const why=locked?'기회를 다 써서 쉬는 동안에는 힌트를 쓸 수 없습니다.':hintWaiting?Math.round(wait/1000)+'초 뒤에 다시 쓸 수 있습니다.':'';hint.disabled=!!why;hint.title=why;if(why)hint.dataset.reason=why;else delete hint.dataset.reason;}
  body.append(hint);
+ // Opened again while this puzzle still rests: the rest goes on.
+ rest();
 }
 // 그림 맞추기: press two pieces to swap them.
 function swapGame(p,body,done){

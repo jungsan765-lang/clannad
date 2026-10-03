@@ -272,14 +272,17 @@ function minimize(){C.minimized=true;if(C.shown){const n=C.shown;C.shown=null;n.
 function closeBattle(all){if(C.shown){const n=C.shown;C.shown=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}if(all){C.battle=null;C.ended=null;document.querySelector('body > .cp-pill')?.remove();}}
 // A small button to go back to the fight after minimizing it.
 // 0.15.9: outside a fight the same corner shows where the party is (guests) or who is along (the host), and opens the room.
-// The world note shows on one's own field and town screens (not on the title, in a story or in a fight).
+// The world note shows on one's own field and town screen only (0.15.15: not on the menu screens such as 관계 · 캐릭터 · 가방,
+// nor inside a facility, on the title, in a story or in a fight). While it shows, the field screen's list keeps room under
+// it (`cp-world-on`), so the last button can always be scrolled clear of the button.
 function roaming(){
- try{if(!ready()||!O?.active||game.s.runtime)return false;return !['STORY','DIALOGUE'].includes(String(game.s.global.SCREEN_MODE||''))&&['FREE','LIFE','DOWNED'].includes(game.playPhase?.()||'FREE');}catch{return false;}
+ try{if(!ready()||!O?.active||game.s.runtime||game.s.placeVisit)return false;return String(game.s.global.SCREEN_MODE||'')==='LOCATION'&&['FREE','LIFE','DOWNED'].includes(game.playPhase?.()||'FREE');}catch{return false;}
 }
 function pill(){
  let p=document.querySelector('body > .cp-pill');const r=room();
  const fight=C.minimized&&!!C.battle&&r?.you==='GUEST';
  const world=!fight&&!!r?.world&&!C.node&&!C.shown&&roaming()&&(r.you==='GUEST'||r.count>0);
+ document.body.classList.toggle('cp-world-on',world);
  if(!fight&&!world){p?.remove();return;}
  const fresh=!p;if(fresh){p=mk('button','cp-pill');p.type='button';document.body.append(p);}
  p.onclick=fight?openBattle:()=>C.open();p.classList.toggle('world',world);

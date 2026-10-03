@@ -2153,6 +2153,13 @@ body.teyvat .bag-trade-filter button.selected{background:var(--t-cream);color:va
 @keyframes livesShake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 .ch-spot.cooling .spot-pic{cursor:wait;filter:saturate(.7)}
 .ch-reset{white-space:nowrap;font-size:1rem;color:#ffb8a2;border-color:#ffb8a2;pointer-events:none}
+/* 0.15.15: the spot game's 30-second rest, two lines that fit a phone. */
+.ch-reset.ch-rest{display:flex;flex-direction:column;align-items:center;gap:4px;width:max-content;max-width:min(92%,380px);white-space:normal;text-align:center;line-height:1.35;word-break:keep-all;overflow-wrap:anywhere}
+.ch-reset.ch-rest small{font-size:.8rem;font-weight:600;letter-spacing:0;color:#f3dfae}
+.ch-spot.resting .spot-pic{filter:saturate(.35) brightness(.72)}
+/* 0.15.15: a window's header keeps its height when the window is full (on a 320 px phone the chest window squeezed its
+   header to 25 px and the two-line title rose above the window, leaving only 「틀린 그림 찾기」). */
+:is(.pf-head,.deal-head,.ch-head,.trade-head){flex-shrink:0}
 /* ---------- 기원: 하나씩 나올 때 그림자 먼저 (user: 「카드 그림자만 나왔다가 이름하고 별하고 천천히」; 0.15.2 「마지막 부분이
    그림자여야 된다는게 아니라 하나씩 나올때 그림자여야된다고」) ---------- */
 /* one by one: the character card and the weapon stand as a shadow, then take their colours; names and stars follow slowly */
@@ -2787,6 +2794,9 @@ body.teyvat .cp-pill.world.compact:focus-visible .cp-pill-copy{position:static;w
 body.teyvat .cp-char-stats span{white-space:nowrap}
 /* Settings 「정보」: the operator's note on asking customer service, under the fan-project notice. */
 .shell-guidance{margin-top:0;font-size:.82rem;color:#d8cfbd;word-break:keep-all;overflow-wrap:anywhere}
+/* 0.15.15: room under the corner button at the end of the field screen's lists (phone tabs; PC side list and map). */
+body.teyvat.cp-world-on .shell-loc-tabs>.shell-panes{padding-bottom:86px}
+body.teyvat.cp-world-on :is(.shell-loc-left,.shell-loc-main){padding-bottom:64px}
 /* The host has a guest's suggestion waiting. */
 body.teyvat .cp-pill.world.news::after{content:'';position:absolute;top:1px;right:1px;width:11px;height:11px;border-radius:50%;background:#f3c96b;box-shadow:0 0 0 2px rgba(18,24,38,.95)}
 

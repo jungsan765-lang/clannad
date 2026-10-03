@@ -135,7 +135,12 @@ await check('the corner button: the party’s place in two lines, folded to a ro
  P.advance(5000);assert(pill.classList.contains('compact'));
  P.game.s.global.SCREEN_MODE='STORY';P.ctx.render();assert.equal(P.$('body > .cp-pill'),null,'not in a story');
  P.game.s.global.SCREEN_MODE='LOCATION';P.ctx.render();assert(P.$('body > .cp-pill.world'),'back on the field');
- P.O.active=false;P.ctx.render();assert.equal(P.$('body > .cp-pill'),null,'not on the title');
+ // 0.15.15: only the field screen (PR #20's screen pass: it could cover the last row of 관계 or 생활); room under its lists.
+ assert(P.doc.body.classList.contains('cp-world-on'),'the field list keeps room under the button');
+ P.game.s.global.SCREEN_MODE='RELATIONS';P.ctx.render();assert.equal(P.$('body > .cp-pill'),null,'not on menu screens such as 관계');assert(!P.doc.body.classList.contains('cp-world-on'));
+ P.game.s.global.SCREEN_MODE='LOCATION';P.game.s.placeVisit={place:'PLACE_TEST'};P.ctx.render();assert.equal(P.$('body > .cp-pill'),null,'not inside a facility');
+ P.game.s.placeVisit=null;P.ctx.render();assert(P.$('body > .cp-pill.world'),'back again on the field');
+ P.O.active=false;P.ctx.render();assert.equal(P.$('body > .cp-pill'),null,'not on the title');assert(!P.doc.body.classList.contains('cp-world-on'));
 });
 
 await check('the host: a guest’s suggestion shows on the button (a dot) and in the room; 「지도에서 보기」 opens the travel map on that place',async()=>{
