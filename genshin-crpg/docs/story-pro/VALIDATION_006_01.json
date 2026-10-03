@@ -1,0 +1,30 @@
+{
+  "task": "006.01",
+  "revision": 2,
+  "ok": true,
+  "scope": "manuscript text and declared structure only; no game/browser/server execution",
+  "readingPaths": [
+    {
+      "option": 1,
+      "units": 25,
+      "characters": 1012,
+      "declaredExitRoute": "K2"
+    },
+    {
+      "option": 2,
+      "units": 25,
+      "characters": 1021,
+      "declaredExitRoute": "K2"
+    }
+  ],
+  "choiceGroups": 1,
+  "optionsPerGroup": 2,
+  "bodyAndStructuredTextMatch": true,
+  "fiveSeparateSilenceExact": true,
+  "choicesHaveDifferentReplies": true,
+  "mainRouteChanged": false,
+  "nextSiteNotYetReached": true,
+  "gameIntegration": "pending",
+  "testServerDeployment": "not_done",
+  "manuscriptSha256": "5e041f966b89e15035f3e57fc3d6b93f5cdcd0b5ef2b0316504eac1875984369"
+}

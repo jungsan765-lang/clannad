@@ -1,0 +1,22 @@
+{
+  "task": "005.01",
+  "ok": true,
+  "scope": "manuscript text and declared choice structure only; not game, browser or server execution",
+  "choiceGroups": 1,
+  "optionsPerGroup": 2,
+  "readingPaths": [
+    {"option":1,"units":23,"characters":844,"declaredExitRoute":"K2"},
+    {"option":2,"units":23,"characters":866,"declaredExitRoute":"K2"}
+  ],
+  "bodyAndStructuredTextMatch":true,
+  "choiceSpecificRepliesDistinct":true,
+  "chosenTextNotImmediatelyRepeated":true,
+  "K1WarningAbsentFromBody":true,
+  "declaredRouteChange":false,
+  "declaredAffinityChange":false,
+  "declaredReward":false,
+  "maxUnitCharacters":59,
+  "manuscriptSha256":"5de0945008812d35c6b16fc4e541b4bb3e0bdde8b389b4782250ae860984ea10",
+  "gameIntegration":"pending",
+  "testServerDeployment":"not_done"
+}
