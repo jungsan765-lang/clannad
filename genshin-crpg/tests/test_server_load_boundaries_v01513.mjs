@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import {fork} from 'node:child_process';
 import {once} from 'node:events';
-import {request as httpRequest} from 'node:http';
+import {request as httpRequest,Agent} from 'node:http';
 import {mkdtempSync,rmSync,existsSync} from 'node:fs';
 import {join} from 'node:path';
 import {tmpdir,cpus} from 'node:os';
@@ -113,6 +113,21 @@ if(mode==='--lock'){
  try{
   server=await child('--server');settings=await call('seed');
   if(mode!=='--cache-only'){
+  // Server and client timers run in separate processes here. Prove normal connection reuse, then expiry;
+  // node:http does not retry the following mutation, so its single commit must come from one request.
+  await call('reset');const keepAliveAgent=new Agent({keepAlive:true,maxSockets:1});
+  const keepAliveRequest=(path,body)=>new Promise((resolve,reject)=>{
+   const req=httpRequest(server.ready.base+path,{agent:keepAliveAgent,method:body?'POST':'GET',headers:body?{authorization:'Bearer '+settings.tokens[0],'content-type':'application/json'}:{}},res=>{
+    const socket=res.socket,chunks=[];res.on('data',x=>chunks.push(x));res.on('error',reject);res.on('end',()=>resolve({status:res.statusCode,json:JSON.parse(Buffer.concat(chunks)),socket}));
+   });req.on('error',reject);req.end(body?JSON.stringify(body):undefined);
+  });
+  try{
+   const first=await keepAliveRequest('/health'),second=await keepAliveRequest('/health');assert.equal(first.status,200);assert.equal(second.status,200);assert.equal(first.socket,second.socket,'two healthy requests reuse the same physical connection');
+   await until(()=>second.socket.destroyed,'default server idle timeout closes the reused socket',10000);
+   const before=await call('saved'),once=command(before.revision),out=await keepAliveRequest('/game/action',once);assert.equal(out.status,200);assert.notEqual(out.socket,second.socket);
+   const after=await call('saved');assert.equal(after.revision,before.revision+1);assert.equal(after.receipts.filter(x=>x.request_id===once.requestId).length,1);assert.equal((await call('stats')).requests,3);
+   await record('http_keepalive_reuse_and_idle_expiry',{sameSocketForTwoRequests:true,expiredSocketReplaced:true,mutationRequests:1,commits:1});
+  }finally{keepAliveAgent.destroy();}
   for(const count of [5,25,100]){
    await call('reset');const group=await Promise.all(Array.from({length:count},(_,i)=>openStream(i)));
    assert.equal((await call('stats')).streams,count);await call('broadcast',{count:20,bytes:400});

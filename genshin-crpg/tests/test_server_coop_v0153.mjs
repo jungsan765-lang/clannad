@@ -9,10 +9,14 @@ const pepper='server-coop-v0153-test-pepper-'.padEnd(64,'c'),password='correct-h
 const app=await startLiveRegionStaging({dbPath:':memory:',pepper,host:'127.0.0.1',port:0,allowedOrigin:'https://clannad.shop'}),base='http://127.0.0.1:'+app.address.port,store=app.store;
 let currentCheck='fixture setup',lastResponseAt=performance.now(),requestNumber=0;
 async function api(path,{body,token}={}){
- const headers={};if(token)headers.authorization='Bearer '+token;if(body!==undefined)headers['content-type']='application/json';
+ // Synchronous runtime/admin fixtures share this process with both HTTP ends. They can starve idle timers:
+ // Node 24.21 / Undici 7.29.1 reproduced sending the next POST into an expired pooled socket before the
+ // server receives it. Keep fixture API connections independent; never retry a possibly applied mutation.
+ // SSE stays persistent below; the separate-process load test still exercises normal server keep-alive.
+ const headers={connection:'close'};if(token)headers.authorization='Bearer '+token;if(body!==undefined)headers['content-type']='application/json';
  const method=body===undefined?'GET':'POST',number=++requestNumber,idleMs=Math.round(performance.now()-lastResponseAt);
  try{const r=await fetch(base+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)}),text=await r.text();lastResponseAt=performance.now();let json;try{json=JSON.parse(text);}catch{json={raw:text};}return {status:r.status,json};}
- catch(cause){throw new Error('Co-op HTTP request '+number+' failed: '+method+' '+path+(body?.type?' ['+body.type+']':'')+'; check='+currentCheck+'; gap since last API response='+idleMs+'ms; active streams='+store.subscribers.size,{cause});}
+ catch(cause){throw new Error('Co-op HTTP request '+number+' failed: '+method+' '+path+(body?.type?' ['+body.type+']':'')+'; check='+currentCheck+'; gap since last API response='+idleMs+'ms; active streams='+store.subscribers.size+'; Node='+process.version+'; Undici='+process.versions.undici,{cause});}
 }
 const checks=[];const check=(name,fn)=>{currentCheck=name;store.rates.clear();return fn().then(()=>{checks.push(name);console.log('PASS '+name);});};
 const edit=(p,fn)=>app.adminConsole.editSave(p.row,r=>{const out=typeof fn==='function'?fn(r):app.adminConsole.applyOps(r,fn);if(r.s.mail?.list.some(x=>x.kind==='GIFT'&&!x.claimed))r.mailClaim('ALL');return out;},'test');
