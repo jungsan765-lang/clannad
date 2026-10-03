@@ -7,11 +7,14 @@ import {startLiveRegionStaging} from '../server/fixed-region-live.mjs';
 
 const pepper='server-coop-v0153-test-pepper-'.padEnd(64,'c'),password='correct-horse-battery-coop';
 const app=await startLiveRegionStaging({dbPath:':memory:',pepper,host:'127.0.0.1',port:0,allowedOrigin:'https://clannad.shop'}),base='http://127.0.0.1:'+app.address.port,store=app.store;
+let currentCheck='fixture setup',lastResponseAt=performance.now(),requestNumber=0;
 async function api(path,{body,token}={}){
  const headers={};if(token)headers.authorization='Bearer '+token;if(body!==undefined)headers['content-type']='application/json';
- const r=await fetch(base+path,{method:body===undefined?'GET':'POST',headers,body:body===undefined?undefined:JSON.stringify(body)}),text=await r.text();let json;try{json=JSON.parse(text);}catch{json={raw:text};}return {status:r.status,json};
+ const method=body===undefined?'GET':'POST',number=++requestNumber,idleMs=Math.round(performance.now()-lastResponseAt);
+ try{const r=await fetch(base+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)}),text=await r.text();lastResponseAt=performance.now();let json;try{json=JSON.parse(text);}catch{json={raw:text};}return {status:r.status,json};}
+ catch(cause){throw new Error('Co-op HTTP request '+number+' failed: '+method+' '+path+(body?.type?' ['+body.type+']':'')+'; check='+currentCheck+'; gap since last API response='+idleMs+'ms; active streams='+store.subscribers.size,{cause});}
 }
-const checks=[];const check=(name,fn)=>{store.rates.clear();return fn().then(()=>{checks.push(name);console.log('PASS '+name);});};
+const checks=[];const check=(name,fn)=>{currentCheck=name;store.rates.clear();return fn().then(()=>{checks.push(name);console.log('PASS '+name);});};
 const edit=(p,fn)=>app.adminConsole.editSave(p.row,r=>{const out=typeof fn==='function'?fn(r):app.adminConsole.applyOps(r,fn);if(r.s.mail?.list.some(x=>x.kind==='GIFT'&&!x.claimed))r.mailClaim('ALL');return out;},'test');
 const rt=p=>store.runtimeOf(p.row.id);
 let seq=0;
@@ -151,8 +154,11 @@ await check('after 20 seconds (server clock) any member may let the waiting figh
  const t=await untilTurnOf(H,G2.pid,[G1,G2]);assert(t,'G2\'s turn came');
  const early=await api('/coop/auto',{token:G1.token,body:{}});assert.equal(early.status,400);assert.match(early.json.error,/초 뒤에 자동으로/);
  const hostEarly=await api('/coop/auto',{token:H.token,body:{}});assert.equal(hostEarly.status,400);
- const real=Date.now;Date.now=()=>real()+21000;
- try{const late=await api('/coop/auto',{token:G1.token,body:{}});assert.equal(late.status,200,JSON.stringify(late.json));}finally{Date.now=real;}
+ assert.equal(t.deadline-t.at,20000,'the server gives a guest exactly 20 seconds');
+ // Expire only this stored turn, not the global clock also used by HTTP clients/timers. This removes test clock
+ // interference; it does not establish the cause of the intermittent CI ECONNRESET. Never retry the mutation.
+ await edit(H,r=>{const turn=r.s.runtime.coop.turn;assert.equal(turn.actor,t.actor);assert.equal(turn.deadline,t.deadline);turn.at-=21000;turn.deadline-=21000;});
+ const late=await api('/coop/auto',{token:G1.token,body:{}});assert.equal(late.status,200,JSON.stringify(late.json));
  const g2=battle(H).actors.find(a=>a.coop?.owner===G2.pid);assert.equal(g2.control,'GUEST','still G2\'s to command later');
  // G2 leaves while it is their turn: the fight moves on at once and G2's fighter fights on by the AI.
  const t2=await untilTurnOf(H,G2.pid,[G1,G2]);assert(t2);
