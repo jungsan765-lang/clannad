@@ -183,7 +183,9 @@
           if (special > 0) result.push(itemDetail({item:id,quantity:special},{variant:'BARBARA_SPECIAL'}));
         } else result.push(itemDetail({item:id,quantity}));
       }
-      return result.sort((a,b) => GROUPS.indexOf(a.group)-GROUPS.indexOf(b.group) || a.name.localeCompare(b.name,'ko') || text(a.key).localeCompare(text(b.key)));
+      // 0.15.6: equipment shows the best first (star grade, then enhancement), so pieces from many wishes are easy to find.
+      const rank = x => x.kind === 'EQUIPMENT' ? (x.tier?.rank || 0) : 0, enh = x => x.kind === 'EQUIPMENT' ? (Number(x.enhance) || 0) : 0;
+      return result.sort((a,b) => GROUPS.indexOf(a.group)-GROUPS.indexOf(b.group) || rank(b)-rank(a) || enh(b)-enh(a) || a.name.localeCompare(b.name,'ko') || text(a.key).localeCompare(text(b.key)));
     }
     return {itemDetail,inventoryEntries};
   }

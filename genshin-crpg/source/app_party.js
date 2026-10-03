@@ -13,7 +13,7 @@ function confirmPartyRemoval(id,run){
   const gear=game.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===id);if(!gear.length){run();return;}
   const box=el('div','party-remove-confirm'),list=el('ul'),row=el('div','row');for(const i of gear)list.append(el('li','',safeName('16_EQUIP_DB',i.equip)+(i.enhance?' +'+i.enhance:'')));
   row.append(button('취소',()=>{document.getElementById('modal').close();render();}),button('장비를 풀고 편성에서 빼기',()=>{document.getElementById('modal').close();run();},false,true));
-  box.append(el('p','',withJosa(ownerName(id),'이','가')+' 편성에서 빠지면 착용 중인 장비 '+gear.length+'개가 해제되어 소지품으로 돌아갑니다.'),list,row);showModal('편성에서 빼기',box);
+  box.append(el('p','',withJosa(ownerName(id),'이','가')+' 편성에서 빠지면 착용 중인 장비 '+gear.length+'개가 해제되어 가방으로 돌아갑니다.'),list,row);showModal('편성에서 빼기',box);
 }
 // v0.13.33: the battle line is its own order (the protagonist can stand anywhere); party slots only hold members.
 const POSITIONS=['선두 · 전열','전열 · 치명타 확률 +5%','후열 · 최대 HP +5%','후미 · 받는 최종 피해 −20%'];
@@ -45,7 +45,7 @@ function formationChoice(p){
   box.append(grid);p.append(box);
 }
 function partyScreen(p){
-  p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료와 진형, 전투 대열, 동료 역할을 정합니다. 장비는 장비 장착 메뉴에서 바꾸며, 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
+  p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료와 진형, 전투 대열, 동료 역할을 정합니다. 장비는 캐릭터 화면에서 바꾸며, 편성에서 빠진 동료의 장비는 가방으로 돌아갑니다.'));
   const owners=game.ownedActors(),reason=game.actionReason('PARTY');
   if(reason)p.append(el('p','phase-note','현재 장면에서는 편성을 확인만 할 수 있습니다. 변경은 장면을 마친 뒤 가능합니다.'));
   // v0.14.5: the party itself comes first; formation and battle line follow below it.
@@ -72,17 +72,17 @@ function partyScreen(p){
     formation.append(c);
   }
   p.append(formation);formationChoice(p);formationLine(p);p.append(el('p','muted','편성에 넣은 동료는 개인 임무를 마쳤다면 전투에서 이길 때마다 호감도가 1점씩 오릅니다. 개인 임무를 처음 마칠 때 받는 10점은 한 번뿐입니다.'));
-  p.append(actionButton('장비 장착으로','MENU',{screen:'STATUS'}));returnToJourney(p);
+  p.append(actionButton('캐릭터 화면으로','MENU',{screen:'STATUS'}));returnToJourney(p);
 }
 inventory=function(p){
-  p.append(el('div','eyebrow','INVENTORY'),el('h1','','소지품'),el('p','muted','음식·재료·전술 도구를 관리합니다. 장비는 편성·장비에서 캐릭터별로 관리할 수 있습니다.'));
-  const reason=game.actionReason('USE_ITEM'),content=el('div');if(reason)p.append(el('p','phase-note','현재 장면에서는 소지품 확인만 가능합니다.'));
+  p.append(el('div','eyebrow','INVENTORY'),el('h1','','가방'),el('p','muted','음식·재료·전술 도구를 관리합니다. 장비는 캐릭터 화면에서 캐릭터별로 관리할 수 있습니다.'));
+  const reason=game.actionReason('USE_ITEM'),content=el('div');if(reason)p.append(el('p','phase-note','현재 장면에서는 가방 확인만 가능합니다.'));
   const items=game.s.inventory.filter(x=>x.item&&x.quantity>0),grid=el('div','grid');
-  for(const item of items){const row=game.row('14_ITEM_DB',item.item),c=el('section','card');c.append(el('small','',row[2]||'소지품'),el('h3','',row[1]),el('p','',item.quantity.toLocaleString()+'개'));
+  for(const item of items){const row=game.row('14_ITEM_DB',item.item),c=el('section','card');c.append(el('small','',row[2]||'물건'),el('h3','',row[1]),el('p','',item.quantity.toLocaleString()+'개'));
     if(row[2]==='음식'){let spec;try{spec=game.foodSpec(item.item);}catch{}if(spec){const select=el('select');select.setAttribute('aria-label',row[1]+' 사용 대상');for(const member of game.s.party.filter(x=>x.active))select.append(new Option(ownerName(member.source),member.source));c.append(select,button('1개 사용',()=>act('USE_ITEM',{item:item.item,quantity:1,owner:select.value}),!!reason));}}
-    if(item.item.startsWith('MAT_CHAR_EXP_'))c.append(actionButton('성장에서 사용','MENU',{screen:'STATUS'}));grid.append(c);
+    if(item.item.startsWith('MAT_CHAR_EXP_'))c.append(actionButton('캐릭터 화면에서 사용','MENU',{screen:'STATUS'}));grid.append(c);
   }
-  if(!items.length)grid.append(el('p','empty','아직 소지품이 없습니다.'));content.append(grid);const tools=el('section');toolPreparation(tools);lockControls(tools,game.actionReason('TOOL_PREPARE'));content.append(tools);p.append(content);
+  if(!items.length)grid.append(el('p','empty','가방이 비어 있습니다.'));content.append(grid);const tools=el('section');toolPreparation(tools);lockControls(tools,game.actionReason('TOOL_PREPARE'));content.append(tools);p.append(content);
   p.append(actionButton('보유 장비 '+game.s.inventory.filter(x=>x.equip).length+'개 관리','MENU',{screen:'PARTY'}));returnToJourney(p);
 };
 // Keep preparation choices in the save, including an intentionally empty selection.
@@ -92,11 +92,11 @@ battlePrepare=function(p){
   const selected=new Set((raw.selectedCompanions??prep.active??[]).filter(id=>choices.has(id))),limit=(prep.max||4)-1;
   p.append(el('div','eyebrow','BEFORE THE BATTLE'),el('h1','','전투 준비'),el('p','',withJosa(game.s.global.PLAYER_NAME,'과','와')+' 함께 싸울 동료를 '+limit+'명까지 선택하세요. 정식으로 합류한 동료만 참가합니다.'));
   const group=game.row('33_ENCOUNTER_GROUP_DB',prep.group),members=game.combatRows('49_ENCOUNTER_MEMBER_DB').filter(r=>r[1]===prep.group);
-  p.append(el('p','phase-note',members.map(m=>{const e=game.row('09_MONSTER_DB',m[3]);return e[1]+' · '+(group[6]==='PARTY_BANDED'?'파티 레벨에 맞춰 등장':(/DVALIN/.test(prep.group)?'권장 Lv. 4':/^EG_TRV_(FALCON|WOLF|LION)_WAVE$/.test(prep.group)?'권장 Lv. 2':'Lv. '+e[18]));}).join(' / ')));
+  p.append(el('p','phase-note',members.map(m=>{const e=game.row('09_MONSTER_DB',m[3]);return e[1]+' · '+(group[6]==='PARTY_BANDED'?'파티 레벨에 맞춰 등장':(/DVALIN/.test(prep.group)?'권장 Lv. '+(game.mondBossProfiles?.().BOSS_DVALIN?.recommended||7)+' · 4명':/^EG_TRV_(FALCON|WOLF|LION)_WAVE$/.test(prep.group)?'권장 Lv. 2':'Lv. '+e[18]));}).join(' / ')));
   for(const choice of choices.values()){const row=el('label','settings-row'),check=el('input');check.type='checkbox';check.checked=selected.has(choice.id);check.disabled=busy||(!check.checked&&selected.size>=limit);check.onchange=()=>{const next=new Set(selected);check.checked?next.add(choice.id):next.delete(choice.id);act('PREP_SELECT',{group:prep.group,companions:[...next]});};row.append(check,el('span','',choice.name+(choice.owned?' · 합류한 동료':' · 이번 전투 동행')));p.append(row);}
   if(!choices.size)p.append(el('p','muted','현재 함께할 수 있는 동료가 없습니다. 주인공이 전투에 참가합니다.'));
   p.append(el('p','muted','선택한 동료 '+selected.size+' / '+limit+'명 · 메뉴를 오가거나 저장해도 선택이 유지됩니다.'));
-  const buttons=el('div','row');buttons.append(actionButton('편성','MENU',{screen:'PARTY'}),actionButton('장비 장착','MENU',{screen:'STATUS'}),actionButton('소지품·식사','MENU',{screen:'INVENTORY'}));p.append(buttons);
+  const buttons=el('div','row');buttons.append(actionButton('편성','MENU',{screen:'PARTY'}),actionButton('캐릭터','MENU',{screen:'STATUS'}),actionButton('가방','MENU',{screen:'INVENTORY'}));p.append(buttons);
   if(game.combatStoryConfig(prep.group))p.append(el('p','muted','공중의 적에게는 원거리 공격 또는 부양·발판이 필요합니다. 지형이 모두 무너지기 전에 전투를 마쳐야 합니다.'));
   p.append(actionButton('이 편성으로 전투 순서 확인','COMBAT_PREPARE',{group:prep.group,companions:[...selected]},true),el('p','muted','패배하면 전투 직전 상태로 돌아가 다시 준비할 수 있습니다.'));
 };

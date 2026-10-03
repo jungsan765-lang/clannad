@@ -6,41 +6,62 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype,cp=x=>JSON.parse(JSON.stringi
 const fail=(c,m)=>{throw new api.RuleError(c,m);};
 const old=Object.fromEntries(['installMarketContent','newGame','validateSave','startBattle','damage','applyDamage','aiTurn','roundEnd','liyueBattleOutcome','finishBattle','actionReason','apply','enemyIntel','supportsLiyueBoss'].map(k=>[k,P[k]]));
 P.supportsLiyueBoss=function(id){return id==='MON_ABYSS_WARDEN'||old.supportsLiyueBoss.call(this,id);};
-const SEASON='ABYSS_01',VERSION=2,MARK='나선 각인';
+const LEGACY='ABYSS_01',VERSION=2,MARK='나선 각인';
+/* 0.14.15 seasons (user: 「시즌별로 10층 이상 깬 사람은 훈장, 전 시즌 10층 이상이면 채팅에 테두리」). A season is a calendar
+   month in Korea. When a new one starts the floors, marks and runs start over (only after a run under way has ended);
+   the floor reached is kept in the season history, and first-clear rewards stay claimed for good. Saves from before
+   seasons (ABYSS_01) carry their progress into the first real season. The account server keeps the official records. */
+const KST=9*3600000,SEASON_RE=/^ABYSS_(\d{4})_(\d{2})$/;
+const seasonOf=ms=>{const d=new Date(Number(ms)+KST);return 'ABYSS_'+d.getUTCFullYear()+'_'+String(d.getUTCMonth()+1).padStart(2,'0');};
+const seasonParts=id=>{const m=SEASON_RE.exec(String(id||''));return m?[Number(m[1]),Number(m[2])]:null;};
+const seasonShift=(id,n)=>{const p=seasonParts(id);if(!p)return null;const t=p[0]*12+p[1]-1+n;return 'ABYSS_'+Math.floor(t/12)+'_'+String(t%12+1).padStart(2,'0');};
+const seasonStart=id=>{const p=seasonParts(id);return p?Date.UTC(p[0],p[1]-1,1)-KST:0;};
+api.abyssSeason={of:seasonOf,previous:id=>seasonShift(id,-1),next:id=>seasonShift(id,1),start:seasonStart,end:id=>seasonStart(seasonShift(id,1)),
+ label:id=>{const p=seasonParts(id);return p?p[0]+'년 '+p[1]+'월 시즌':'첫 시즌';},valid:id=>id===LEGACY||!!seasonParts(id),legacy:LEGACY,medalFloor:10};
+const bestOf=s=>{const floors=Object.keys(s?.clears||{}).map(Number).filter(Number.isInteger),floor=floors.length?Math.max(...floors):0;return {floor,rounds:Object.values(s?.clears||{}).reduce((n,x)=>n+(x?.rounds||0),0)};};
+/* The record as it stands in `season`: a finished season moves into the history and the floors start over. A first-clear
+   reward not yet taken stays claimable (owed), on the screen as in the save. */
+function seasonal(s,season){
+ if(!s||s.season===season||s.active||!seasonParts(season))return s;
+ if(s.season===LEGACY||!seasonParts(s.season))return {...s,season};
+ const best=bestOf(s),history=[...(s.history||[]).filter(h=>h.season!==s.season),...(best.floor?[{season:s.season,floor:best.floor,rounds:best.rounds,attempts:s.attempts||0}]:[])].slice(-36);
+ const unclaimed=Object.keys(s.clears||{}).map(Number).filter(f=>Number.isInteger(f)&&!s.claimed?.[f]),owed=[...new Set([...(s.owed||[]),...unclaimed])].sort((a,b)=>a-b);
+ const next={...s,season,tags:{},clears:{},active:null,attempts:0,run:(s.run||1)+1,history};if(owed.length)next.owed=owed;return next;
+}
 const INAZUMA=['EQ_SWORD_AMENOMA','EQ_CLAYMORE_KATSURAGI','EQ_POLEARM_KITAIN','EQ_BOW_HAMAYUMI','EQ_CATALYST_HAKUSHIN','EQ_POLEARM_CATCH','EQ_ACC_SWIFT_TALISMAN'];
 const ATTACK_FOOD=['STATUS_FOOD_ATK','STATUS_FOOD_FEAST'],FEAST_FOOD=['STATUS_FOOD_FEAST'],ADEPTUS_DISH=['FOOD_ADEPTUS_TEMPTATION','FOOD_ALMOND_TOFU'];
 const foe=(n,o={})=>({n,...o});
 /* One room per chamber. hp/atk multiply the floor base; the rest are the room's rules. */
 const FLOORS=[
- {floor:1,name:'입구의 잔향',level:10,hp:3000,atk:265,def:120,reward:{mora:800},rooms:[
+ {floor:1,name:'입구의 잔향',level:10,hp:3000,atk:265,def:120,reward:{primogem:100,mora:800},rooms:[
   {name:'잔향의 문지기',hint:'입구를 지키는 잔향 둘이 창끝을 겨눈다.',foes:[foe('잔향 파수꾼'),foe('잔향 창병')],limit:14},
   {name:'떠오른 잔향',hint:'발끝이 바닥에 닿지 않는 잔향들이 천장 가까이에서 흔들린다.',foes:[foe('떠오른 사수',{air:true}),foe('떠오른 척후',{air:true})],limit:15,hp:.6},
   {name:'되살리는 잔향',hint:'뒤쪽의 잔향 하나가 쉬지 않고 무언가를 읊조린다.',foes:[foe('잔향 파수꾼'),foe('잔향 치유사',{heal:true,hp:.8})],limit:14,healPct:.12}]},
- {floor:2,name:'엇갈린 회랑',level:12,hp:3600,atk:520,def:150,reward:{mora:1000,items:{ORE_WHITE_IRON:3}},rooms:[
+ {floor:2,name:'엇갈린 회랑',level:12,hp:3600,atk:520,def:150,reward:{primogem:120,mora:1000,items:{ORE_WHITE_IRON:3}},rooms:[
   {name:'회랑의 사수',hint:'회랑 높은 곳에 사수들이 자리를 잡았고, 아래에서는 파수꾼이 길을 막는다.',foes:[foe('회랑 사수',{air:true}),foe('회랑 사수',{air:true}),foe('회랑 파수꾼')],limit:14,hp:.6},
   {name:'불꽃 장막',hint:'두 적이 일렁이는 불꽃의 막을 두르고 있다.',foes:[foe('불꽃 장막 술사'),foe('불꽃 장막 창병')],limit:14,el:'PYRO',shield:{element:'불',pct:.4,weak:{물:2,얼음:1.5}}},
   {name:'엇갈린 쌍둥이',hint:'서로의 이름을 부르며 싸우는 쌍둥이.',foes:[foe('쌍둥이 · 해'),foe('쌍둥이 · 달')],limit:15,twin:true}]},
- {floor:3,name:'무너지는 발판',level:15,hp:5000,atk:530,def:185,reward:{mora:1200,items:{ORE_WHITE_IRON:5}},rooms:[
+ {floor:3,name:'무너지는 발판',level:15,hp:5000,atk:530,def:185,reward:{primogem:140,mora:1200,items:{ORE_WHITE_IRON:5}},rooms:[
   {name:'갈라지는 발판',hint:'발밑의 돌판이 조금씩 갈라지며 기운을 빨아들인다.',foes:[foe('발판 파수꾼'),foe('발판 창병'),foe('발판 사수')],limit:14,hp:.65,erosion:.02},
   {name:'추격하는 그림자',hint:'그림자들은 지쳐 보이는 쪽을 끈질기게 쫓는다.',foes:[foe('그림자 추격자'),foe('그림자 사냥꾼')],limit:14,pursuit:true},
   {name:'무너지는 왕좌',hint:'시간이 흐를수록 왕좌를 지키는 자들의 숨소리가 거칠어진다.',foes:[foe('왕좌의 파수꾼'),foe('왕좌의 근위병')],limit:12,enrage:[6,1.6]}]},
- {floor:4,name:'분리된 문',level:16,hp:5200,atk:670,def:215,reward:{mora:1500,items:{ORE_CRYSTAL:3}},rooms:[
+ {floor:4,name:'분리된 문',level:16,hp:5200,atk:670,def:215,reward:{primogem:180,mora:1500,items:{ORE_CRYSTAL:3}},rooms:[
   {name:'얼음 장막',hint:'두 적이 서늘한 얼음의 막을 두르고 있다.',foes:[foe('얼음 장막 술사'),foe('얼음 장막 창병')],limit:13,el:'CRYO',shield:{element:'얼음',pct:.4,weak:{불:2,바위:1.5}}},
   {name:'굶주린 문',hint:'문지기의 배에서 꼬르륵 소리가 난다. 빈손으로 온 자는 쳐다보지도 않는다.',foes:[foe('굶주린 문지기'),foe('굶주린 창병')],limit:13,food:ATTACK_FOOD},
   {name:'분리된 두 문',hint:'두 문이 번갈아 빗장을 건다.',foes:[foe('왼쪽 문지기'),foe('오른쪽 문지기')],limit:15,hp:.7,alternate:true}]},
- {floor:5,name:'되돌아오는 파수꾼',level:17,hp:5700,atk:720,def:245,reward:{mora:1800,items:{ORE_CRYSTAL:4}},rooms:[
+ {floor:5,name:'되돌아오는 파수꾼',level:17,hp:5700,atk:720,def:245,reward:{primogem:200,mora:1800,items:{ORE_CRYSTAL:4}},rooms:[
   {name:'안개 낀 제단',hint:'짙은 안개가 제단을 감쌌다. 적의 윤곽조차 흐릿하다.',foes:[foe('안개 파수꾼'),foe('안개 사수')],limit:13,accuracy:100},
   {name:'치유의 사제',hint:'물의 막 뒤에서 사제가 조용히 기도를 올린다.',foes:[foe('제단 파수꾼'),foe('제단 사제',{heal:true,hp:.8,shield:true})],limit:13,hp:.75,el:'HYDRO',healPct:.1,shield:{element:'물',pct:.45,weak:{얼음:2,번개:1.5}}},
   {name:'되돌아오는 파수꾼',hint:'두 파수꾼이 서로를 등지고 선다.',foes:[foe('되돌아오는 파수꾼'),foe('되돌아오는 추격자')],limit:14,hp:.8,twin:true}]},
- {floor:6,name:'침식의 회랑',level:18,hp:6200,atk:700,def:275,reward:{mora:2100,items:{ORE_CRYSTAL:5}},rooms:[
+ {floor:6,name:'침식의 회랑',level:18,hp:6200,atk:700,def:275,reward:{primogem:240,mora:2100,items:{ORE_CRYSTAL:5}},rooms:[
   {name:'침식의 숨결',hint:'회랑의 공기가 살갗을 조금씩 갉아먹는다.',foes:[foe('침식 파수꾼'),foe('침식 창병'),foe('침식 사수')],limit:13,hp:.65,erosion:.03},
   {name:'가시 갑주',hint:'갑주 곳곳에 가시가 돋아 있다.',foes:[foe('가시 갑주 기사'),foe('가시 갑주 창병')],limit:13,reflect:.3},
   {name:'만찬의 결계',hint:'결계 너머로 잔칫상 냄새가 흘러나온다.',foes:[foe('만찬의 문지기'),foe('만찬의 시종')],limit:13,food:FEAST_FOOD}]},
- {floor:7,name:'멈추지 않는 추격',level:18,hp:6800,atk:800,def:310,reward:{mora:2400,items:{TRPG_BOSS_ESSENCE:2}},rooms:[
+ {floor:7,name:'멈추지 않는 추격',level:18,hp:6800,atk:800,def:310,reward:{primogem:280,mora:2400,items:{TRPG_BOSS_ESSENCE:2}},rooms:[
   {name:'사냥개의 추격',hint:'사냥개는 지칠 줄 모르고, 시간이 지날수록 사나워진다.',foes:[foe('심연 사냥개'),foe('심연 몰이꾼')],limit:12,pursuit:true,enrage:[5,1.4]},
   {name:'선인의 환영',hint:'안개 속 형상은 보일 듯 말 듯하다. 아주 오래된 맛을 그리워하는 것 같다.',foes:[foe('선인의 환영',{hp:1})],limit:13,dish:ADEPTUS_DISH},
   {name:'희생의 제단',hint:'제단은 무언가를 바라고 있다.',foes:[foe('제단의 집행자'),foe('제단의 수호자')],limit:15,hp:.5,sacrifice:2}]},
- {floor:8,name:'침묵의 벽',level:19,hp:3900,atk:840,def:330,reward:{mora:2800,items:{TRPG_BOSS_ESSENCE:3}},rooms:[
+ {floor:8,name:'침묵의 벽',level:19,hp:3900,atk:840,def:330,reward:{primogem:340,mora:2800,items:{TRPG_BOSS_ESSENCE:3}},rooms:[
   {name:'침묵의 벽',hint:'칼날도 원소도 이 벽 앞에서는 소리를 잃는다.',foes:[foe('침묵의 벽'),foe('침묵의 파수꾼')],limit:14,fixedOnly:true},
   {name:'독이 고인 정원',hint:'벽은 여전히 침묵하고, 발밑에서 독이 스며 오른다.',foes:[foe('정원의 벽'),foe('정원의 파수꾼')],limit:14,fixedOnly:true,erosion:.03},
   {name:'이음새 없는 갑주',hint:'틈 하나 보이지 않는 갑주.',foes:[foe('틈을 감춘 기사'),foe('틈을 감춘 창병')],limit:15,hp:.4,critOnly:1}]},
@@ -62,7 +83,13 @@ const FLOORS=[
   {name:'끝을 삼키는 별',hint:'정점의 끝.',foes:[foe('끝을 삼키는 별'),foe('별의 잔해')],limit:12,hp:.85,mastery:true,critOnly:3,erosion:.045,dmgMult:2.65}]}
 ];
 const ROOM_HP=[.8,.9,1],ROOM_ATK=[.9,.95,1],ELEMENT_KO={PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',ANEMO:'바람',GEO:'바위',DENDRO:'풀'};
-api.abyssConfig={season:SEASON,version:VERSION,markName:MARK,rewards:INAZUMA.slice(),floors:cp(FLOORS)};
+// 0.14.12: 5★ companions gained 10% base HP/ATK/DEF (runtime_rarity_v01412.js); the Abyss keeps its edge with stronger
+// wardens, so a mixed party stands where it stood and an all-5★ party keeps only part of its new margin.
+// Floor 10 stays as it was: it is already the tightest damage race, and its reference party clears it only with a meal.
+const POWER={hp:1.07,atk:1.05},powerOf=f=>f===10?{hp:1,atk:1}:POWER;
+// 0.14.12 (user): Inazuma gear from floor 9 on; floors 1–8 pay Primogems instead, 1,600 for all eight.
+const PRIMOGEM_TOTAL=1600;
+api.abyssConfig={season:'MONTHLY',version:VERSION,markName:MARK,rewards:INAZUMA.slice(),floors:cp(FLOORS)};
 api.abyssVersion=VERSION;
 const groupId=(f,c)=>'EG_ABYSS_'+f+'_'+c,originId=(f,c)=>'ABYSS:'+f+':'+c;
 const roomOf=b=>b?.abyss?FLOORS[b.abyss.floor-1]?.rooms[b.abyss.chamber-1]:null;
@@ -93,10 +120,26 @@ P.installMarketContent=function(...args){const out=old.installMarketContent.appl
 function migrate(s){
  const a=s?.abyss;if(!a||a.version!==1)return;
  const act=a.active,b=s.runtime?.abyss&&s.runtime.origin===('ABYSS:'+act?.floor)?s.runtime:null;
- s.abyss={version:VERSION,season:SEASON,tags:{},clears:{},claimed:{},legacyClaimed:cp(a.claimed||{}),attempts:a.attempts||0,resets:a.resets||0,totalRounds:a.totalRounds||0,run:(a.run||1)+1,active:null};
+ s.abyss={version:VERSION,season:LEGACY,tags:{},clears:{},claimed:{},legacyClaimed:cp(a.claimed||{}),attempts:a.attempts||0,resets:a.resets||0,totalRounds:a.totalRounds||0,run:(a.run||1)+1,active:null};
  if(b){s.abyss.active={floor:act.floor,chamber:1,phase:'BATTLE',party:act.party.slice(),attempt:act.attempt,run:s.abyss.run,rounds:[]};b.origin=originId(act.floor,1);b.abyss={version:VERSION,floor:act.floor,chamber:1,limit:b.abyss.roundLimit,marks:b.abyss.marks||[],settled:b.abyss.settled||[],pulse:b.abyss.pulse||{},broken:false,legacy:true};}
 }
-P.ensureAbyss=function(){migrate(this.s);return this.s.abyss??={version:VERSION,season:SEASON,tags:{},clears:{},claimed:{},attempts:0,resets:0,totalRounds:0,run:1,active:null};};
+P.ensureAbyss=function(){migrate(this.s);return this.s.abyss??={version:VERSION,season:this.abyssSeasonNow(),tags:{},clears:{},claimed:{},attempts:0,resets:0,totalRounds:0,run:1,active:null};};
+// Server time during an action, the device clock otherwise (as for ley lines and the weekly exchange).
+P.abyssNow=function(){return Number(this.actionStartedAt??Date.now());};
+P.abyssSeasonNow=function(){return seasonOf(this.abyssNow());};
+// The record as the current season sees it, without changing the save (screens and reasons).
+P.abyssCurrent=function(){return seasonal(this.ensureAbyss(),this.abyssSeasonNow());};
+// Apply a season change to the save; Spiral Abyss actions call this first.
+P.abyssRoll=function(){
+ const s=this.ensureAbyss(),next=seasonal(s,this.abyssSeasonNow());if(next===s)return false;
+ this.s.abyss=next;return true;
+};
+// Seasons whose best floor reached the medal floor (10), this one included once reached.
+P.abyssMedals=function(){
+ const s=this.abyssCurrent(),list=(s.history||[]).filter(h=>h.floor>=10).map(h=>({season:h.season,label:api.abyssSeason.label(h.season),floor:h.floor}));
+ const now=bestOf(s);if(now.floor>=10&&seasonParts(s.season))list.push({season:s.season,label:api.abyssSeason.label(s.season),floor:now.floor,current:true});
+ return list;
+};
 P.abyssParty=function(){return this.s.party.filter(x=>x.active).map(x=>x.source);};
 const hpOf=(r,id)=>id==='PLAYER_CUSTOM'?r.s.global.PLAYER_HP_CURRENT:r.s.chars[id]?.hp;
 const nameOf=(r,id)=>id==='PLAYER_CUSTOM'?r.s.global.PLAYER_NAME||'주인공':r.row('07_CHAR_DB',id)[1];
@@ -104,7 +147,7 @@ P.abyssFloorReason=function(floor){
  const f=Number.isInteger(floor)&&FLOORS[floor-1];if(!f)return '등록되지 않은 층입니다.';
  if(this.s.runtime||this.s.battlePreparation||this.s.lifeJob||this.s.worldJob||this.s.storyContext||this.playPhase()!=='FREE')return '현재 장면과 작업을 마친 뒤 입장해 주세요.';
  if(this.s.global.CURRENT_MAP_ID!=='MAP_V141_MUSK_REEF')return '맹세의 갑각의 통로를 지나 머스크 암초로 이동해 주세요.';
- const s=this.ensureAbyss(),act=s.active,party=this.abyssParty();
+ const s=this.abyssCurrent(),act=s.active,party=this.abyssParty();
  if(act){
   if(act.floor!==floor)return act.floor+'층 도전이 진행 중입니다. 그 층을 마치거나 도전을 포기해 주세요.';
   if(act.phase!=='BREAK')return '전투가 이미 진행 중입니다.';
@@ -123,18 +166,20 @@ P.abyssFloorReason=function(floor){
 };
 function rewardView(r,F){
  const w=F.reward,parts=[];
- if(w.artifact)parts.push('이나즈마 성유물 · 나선의 유산 1개(품질 90% 이상)');else parts.push('이나즈마 장비 1종 선택');
+ if(w.artifact)parts.push('이나즈마 성유물 · 나선의 유산 1개(품질 90% 이상)');else if(w.primogem)parts.push('원석 '+w.primogem+'개');else parts.push('이나즈마 장비 1종 선택');
  if(w.mora)parts.push(String(w.mora).replace(/\B(?=(\d{3})+(?!\d))/g,',')+' 모라');
  for(const [id,n] of Object.entries(w.items||{}))parts.push((r.tables['14_ITEM_DB'].get(id)?.[1]||id)+' '+n+'개');
- return {text:parts.join(' · '),choice:w.artifact?null:INAZUMA.slice(),mora:w.mora||0,items:cp(w.items||{}),artifact:!!w.artifact};
+ return {text:parts.join(' · '),choice:w.artifact||w.primogem?null:INAZUMA.slice(),mora:w.mora||0,primogem:w.primogem||0,items:cp(w.items||{}),artifact:!!w.artifact};
 }
 P.abyssView=function(){
- const s=this.ensureAbyss(),act=s.active;
- return {season:SEASON,version:VERSION,markName:MARK,progress:cp(s),
+ const s=this.abyssCurrent(),act=s.active,owed=new Set(s.owed||[]),timed=!!seasonParts(s.season);
+ return {season:s.season,seasonLabel:api.abyssSeason.label(s.season),seasonEnds:timed?api.abyssSeason.end(s.season):null,seasonTimed:timed,
+  history:cp(s.history||[]).map(h=>({...h,label:api.abyssSeason.label(h.season)})),medals:this.abyssMedals(),best:bestOf(s),
+  version:VERSION,markName:MARK,progress:cp(s),
   active:act?{...cp(act),room:cp(FLOORS[act.floor-1].rooms[act.chamber-1]),floorName:FLOORS[act.floor-1].name}:null,
   floors:FLOORS.map(F=>({floor:F.floor,name:F.name,level:F.level,riddle:F.floor>=8,
    rooms:F.rooms.map((r,i)=>({chamber:i+1,name:r.name,hint:r.hint,limit:r.limit,foes:r.foes.length})),
-   reward:rewardView(this,F),cleared:!!s.clears[F.floor],best:s.clears[F.floor]?.rounds||null,claimed:!!s.claimed[F.floor],reason:this.abyssFloorReason(F.floor)}))};
+   reward:rewardView(this,F),cleared:!!s.clears[F.floor],owed:owed.has(F.floor)&&!s.claimed[F.floor],best:s.clears[F.floor]?.rounds||null,claimed:!!s.claimed[F.floor],reason:this.abyssFloorReason(F.floor)}))};
 };
 P.startAbyss=function(floor){
  const why=this.abyssFloorReason(floor);if(why)fail('ABYSS_ENTRY',why);
@@ -154,7 +199,7 @@ P.startBattle=function(group,origin='EXPLICIT',options={}){
   b.abyss={version:VERSION,floor:F.floor,chamber:act.chamber,limit:r.limit,marks:[],settled:[],pulse:{},broken:false};b.storyConfig={noRewards:true};
   for(const x of r.foes)names[x.n]=(names[x.n]||0)+1;const seen={};
   b.actors.filter(a=>a.side==='ENEMY').forEach((a,i)=>{
-   const spec=r.foes[i]||r.foes[0],hp=Math.round(F.hp*(r.hp??1)*ROOM_HP[c]*(spec.hp||1)),atk=Math.round(F.atk*ROOM_ATK[c]*(spec.atk||1));
+   const spec=r.foes[i]||r.foes[0],pw=powerOf(F.floor),hp=Math.round(F.hp*(r.hp??1)*ROOM_HP[c]*(spec.hp||1)*pw.hp),atk=Math.round(F.atk*ROOM_ATK[c]*(spec.atk||1)*pw.atk);
    seen[spec.n]=(seen[spec.n]||0)+1;const name=names[spec.n]>1?spec.n+' '+seen[spec.n]:spec.n;
    Object.assign(a,{name,hp,maxHp:hp,atk,def:F.def,level:F.level,spd:26+F.floor*2,hit:98,eva:Math.min(25,6+F.floor),resist:95,abyssWarden:true,abyssIndex:i,abyssHealer:!!spec.heal,abyssAir:!!spec.air,airborne:!!spec.air,tags:['[나선비경]'],hasDedicatedCards:false});
    if(r.shield&&(spec.shield||!r.foes.some(x=>x.shield)))this.shield(a,a.maxHp*r.shield.pct,'ABYSS_SHIELD',null,{element:r.shield.element,damageMultipliers:r.shield.weak});
@@ -269,10 +314,13 @@ P.finishBattle=function(win){
 };
 P.claimAbyss=function(floor,equipment){
  const s=this.ensureAbyss(),F=Number.isInteger(floor)&&FLOORS[floor-1];if(!F)fail('ABYSS_REWARD','등록되지 않은 층입니다.');
- if(!s.clears[floor]||s.claimed[floor])fail('ABYSS_REWARD','받을 수 있는 첫 정복 보상이 없습니다.');
+ // A floor cleared last season but not yet claimed stays claimable (owed).
+ if(!s.clears[floor]&&!(s.owed||[]).includes(floor)||s.claimed[floor])fail('ABYSS_REWARD','받을 수 있는 첫 정복 보상이 없습니다.');
+ if(s.owed)s.owed=s.owed.filter(f=>f!==floor);
  const w=F.reward,out={floor,mora:w.mora||0,items:cp(w.items||{})};
- if(!w.artifact&&!INAZUMA.includes(equipment))fail('ABYSS_REWARD','받을 이나즈마 장비를 골라 주세요.');
+ if(!w.artifact&&!w.primogem&&!INAZUMA.includes(equipment))fail('ABYSS_REWARD','받을 이나즈마 장비를 골라 주세요.');
  if(w.mora)this.s.global.MORA+=w.mora;
+ if(w.primogem){this.s.global.PRIMOGEM=(Number(this.s.global.PRIMOGEM)||0)+w.primogem;out.primogem=w.primogem;for(const [id,n] of Object.entries(w.items||{}))this.giveItem(id,n);s.claimed[floor]={...out,run:s.run};return {abyssReward:true,...out};}
  for(const [id,n] of Object.entries(w.items||{}))this.giveItem(id,n);
  if(w.artifact){const roll=this.rollArtifact(),inv=this.artifactInstance(roll.slot);inv.equip='EQ_ABYSS_INAZUMA_ARTIFACT';const previousScale=.22+2.78*Math.pow(inv.artifact.quality/1000,1.8);inv.artifact.quality=900+Math.floor(this.random()*101);const rewardScale=(.22+2.78*Math.pow(inv.artifact.quality/1000,1.8))/previousScale;inv.artifact.grade=this.artifactGrade(inv.artifact.quality);for(const k of Object.keys(inv.artifact.stats))inv.artifact.stats[k]=Math.round(inv.artifact.stats[k]*rewardScale*1.18*10)/10;Object.assign(out,{slot:inv.slot,equip:inv.equip,quality:inv.artifact.quality});}
  else Object.assign(out,{slot:this.giveEquipment(equipment),equip:equipment});
@@ -292,15 +340,16 @@ P.actionReason=function(type,a={}){
  if(type==='ABYSS_ENTER')return this.abyssFloorReason(a.floor);
  if(type==='ABYSS_RESET'||type==='ABYSS_REWARD'){
   if(this.s.runtime||this.playPhase()!=='FREE')return '현재 전투와 장면을 먼저 마쳐 주세요.';
-  const s=this.ensureAbyss();
+  const s=this.abyssCurrent();
   if(type==='ABYSS_RESET')return a.retreat&&!s.active?'포기할 도전이 없습니다.':'';
   if(s.active?.phase==='BREAK')return '진행 중인 층을 먼저 마쳐 주세요.';
-  return !s.clears[a.floor]||s.claimed[a.floor]?'받을 수 있는 첫 정복 보상이 없습니다.':'';
+  return (!s.clears[a.floor]&&!(s.owed||[]).includes(a.floor))||s.claimed[a.floor]?'받을 수 있는 첫 정복 보상이 없습니다.':'';
  }
  const locked=this.abyssBreakReason(type,a);if(locked)return locked;
  return old.actionReason.call(this,type,a);
 };
 P.apply=function(a){
+ if(/^ABYSS_/.test(a.type))this.abyssRoll();
  if(a.type==='ABYSS_ENTER')return this.startAbyss(a.floor);
  if(a.type==='ABYSS_REWARD')return this.claimAbyss(a.floor,a.equipment);
  if(a.type==='ABYSS_RESET'){
@@ -322,7 +371,9 @@ P.validateSave=function(s){
  this.installMarketContent();migrate(s);const out=old.validateSave.call(this,s);migrate(out);const a=out.abyss;
  if(a){
   const bad=m=>fail('ABYSS_SAVE',m);
-  if(a.version!==VERSION||a.season!==SEASON||!a.tags||!a.clears||!a.claimed||!Number.isInteger(a.attempts)||a.attempts<0||!Number.isInteger(a.run)||a.run<1)bad('나선비경 기록이 손상되었습니다.');
+  if(a.version!==VERSION||!api.abyssSeason.valid(a.season)||!a.tags||!a.clears||!a.claimed||!Number.isInteger(a.attempts)||a.attempts<0||!Number.isInteger(a.run)||a.run<1)bad('나선비경 기록이 손상되었습니다.');
+  if(a.history!==undefined&&(!Array.isArray(a.history)||a.history.length>36||a.history.some(h=>!seasonParts(h?.season)||!Number.isInteger(h.floor)||h.floor<1||h.floor>12||!Number.isInteger(h.rounds)||h.rounds<0)))bad('나선비경 시즌 기록이 손상되었습니다.');
+  if(a.owed!==undefined&&(!Array.isArray(a.owed)||a.owed.some(f=>!Number.isInteger(f)||f<1||f>12)))bad('나선비경 보상 기록이 손상되었습니다.');
   for(const [key,clear]of Object.entries(a.clears)){const f=Number(key);if(!Number.isInteger(f)||f<1||f>12||!Number.isInteger(clear.rounds)||clear.rounds<1||clear.rounds>limitSum(f)+3||f>1&&!a.clears[f-1])bad('층 정복 기록이 손상되었습니다.');}
   for(const key of Object.keys(a.claimed))if(!/^(?:[1-9]|1[0-2])$/.test(key))bad('보상 기록이 손상되었습니다.');
   for(const [id,f]of Object.entries(a.tags))if(!this.tables['07_CHAR_DB'].has(id)||!Number.isInteger(f)||f<1||f>12)fail('ABYSS_TAG',MARK+' 기록이 손상되었습니다.');
@@ -330,6 +381,8 @@ P.validateSave=function(s){
   if(act&&(!FLOORS[act.floor-1]||![1,2,3].includes(act.chamber)||!['BATTLE','BREAK'].includes(act.phase)||!Array.isArray(act.party)||!act.party.includes('PLAYER_CUSTOM')||!Array.isArray(act.rounds)||act.rounds.length!==act.chamber-1))bad('진행 중인 층 기록이 손상되었습니다.');
   if(rb&&(!act||act.phase!=='BATTLE'||act.floor!==rb.floor||act.chamber!==rb.chamber||out.runtime.origin!==originId(act.floor,act.chamber)))bad('입장 기록과 진행 중인 전투가 일치하지 않습니다.');
   if(act?.phase==='BATTLE'&&!rb)bad('진행 중인 방 전투 기록이 없습니다.');
+  // 0.14.12: a floor among 1–8 claimed under the old rule (an Inazuma pick) also pays its Primogems, once.
+  for(const [key,c]of Object.entries(a.claimed)){const w=FLOORS[Number(key)-1]?.reward;if(w?.primogem&&c&&typeof c==='object'&&c.primogem===undefined){out.global.PRIMOGEM=(Number(out.global.PRIMOGEM)||0)+w.primogem;c.primogem=w.primogem;c.primogemLater=true;}}
  }
  return out;
 };

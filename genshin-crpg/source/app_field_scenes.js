@@ -6,7 +6,7 @@ function costChips(parent,e){
  const box=el('div','scene-chips');
  if(e.minutes)box.append(el('span','scene-chip time','⏱ '+e.minutes+'분 경과'));
  if(e.hp)box.append(el('span','scene-chip loss','♥ 체력 −'+e.hp+(e.hpPct?' (최대 체력의 '+e.hpPct+'%)':'')));
- if(e.mora)box.append(el('span','scene-chip loss','◈ 보상 모라 −'+e.mora));
+ if(e.mora){const chip=el('span','scene-chip loss'),ic=typeof currencyIcon==='function'&&currencyIcon('MORA','reward-cur');if(ic)chip.append(ic,'보상 모라 −'+e.mora);else chip.textContent='◈ 보상 모라 −'+e.mora;box.append(chip);}
  if(box.children.length)parent.append(box);
 }
 function bonusText(b){

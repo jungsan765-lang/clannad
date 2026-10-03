@@ -185,3 +185,35 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 - 새 WebP 합계 1,445,240바이트(약 1.38MiB).
 - 한국어 이름·아이템 ID·요리 재료는 Project Amber API(`gi.yatta.moe/api/v2/kr`)로 대조했다. 접촉 시트로 전체를 육안 확인했다.
 - 시스템 전용 행(SYS_*, 간이 회복식·파티 식사), 스토리 전용 신의 심장, 스네즈나야 특별 보상 2종은 계속 분류 아이콘을 쓴다.
+
+# v0.14.11 기원·운명의 자리 자산
+
+- 재화 아이콘 5개(`item-icons.json`의 `CUR_PRIMOGEM`·`CUR_STARGLITTER`·`CUR_STARDUST`·`CUR_INTERTWINED_FATE`·`CUR_ACQUAINT_FATE`): 원석(201)·스타라이트(221)·스타더스트(222)·뒤얽힌 인연(223)·만남의 인연(224). 공개 원본 게임 텍스처 보관본에서 받아 256px 이내 WebP로 변환.
+- 운명의 자리 아이콘 270개(`assets/icons/constellations/`, 목록·출처·해시는 `content/genshin-ui-assets.json`): 플레이할 수 있는 동료 43명과 여행자(바람·바위)의 1~6번째 운명의 자리. 파일명은 genshin-db 한국어 데이터의 `images.filename_c1~c6`을 따른다. 35명과 여행자는 위 보관본에서, 보관본에 없는 8명(달리아·미카·백출·가명·한운·남연·요요·자백)은 원본 파일명 그대로 원신 UI 텍스처를 제공하는 공개 미러(https://enka.network/ui/)에서 받았다. 128px 이내 WebP.
+- 기원 연출 배경(`assets/icons/wish/`): 원소별 캐릭터 등장 배경 7장과 무기·기본 배경(GachaShowPanel), 결과 화면 배경(GachaSettlement Bg2), 등급 배지 2장(AvatarQuality 4·5). 위 보관본.
+- 이세계인의 표류자리는 CRPG 원작이므로 원신 아이콘을 쓰지 않는다.
+
+이 기록은 출처와 일치 여부를 남기기 위한 것이며, 재배포 사용 조건 전체를 검토했다고 주장하지 않는다.
+
+# v0.14.15 보물상자 아이콘
+
+`assets/icons/chests/`의 3개. 원신 위키(Genshin Impact Wiki) 파일 페이지의 원작 상자 그림을 그대로 받아 WebP로 바꿨다. 상자 등급 이름도 원작과 같다.
+
+| 파일 | 원작 그림 | 원본 SHA-256 |
+|---|---|---|
+| `chest_common.webp` | 평범한 보물상자 `Item_Common_Chest.png` | `f79809fe…d7ed2995` |
+| `chest_exquisite.webp` | 정교한 보물상자 `Item_Exquisite_Chest.png` | `ce0ae4e5…ac49a5a7` |
+| `chest_luxurious.webp` | 화려한 보물상자 `Item_Luxurious_Chest.png` | `a5b416bc…1c3ac31f` |
+
+원본 위치: https://genshin-impact.fandom.com/wiki/File:Item_Common_Chest.png (나머지 둘도 같은 형식의 파일 페이지).
+
+# v0.15.1 운명의 별 아이콘
+
+`item-icons.json`의 `STELLA_FORTUNA_4`·`STELLA_FORTUNA_5` 2개. 원신 위키(Genshin Impact Wiki) 파일 페이지의 원작 그림(Stella Fortuna, 4성·5성)을 받아 256px 이내 WebP(q90)로 바꿨다. 기원 결과·교환소·운명의 자리 화면에서 쓴다.
+
+| 파일 | 원작 그림 | 원본 SHA-256 |
+|---|---|---|
+| `UI_ItemIcon_StellaFortuna4.webp` | 운명의 별(4★) `Item_Stella_Fortuna_(4_Star).png` | `06614b8a…c6f7b3a0` |
+| `UI_ItemIcon_StellaFortuna5.webp` | 운명의 별(5★) `Item_Stella_Fortuna_(5_Star).png` | `3bb77dd3…3eb20e72` |
+
+원본 위치: https://genshin-impact.fandom.com/wiki/File:Item_Stella_Fortuna_(5_Star).png (4성도 같은 형식의 파일 페이지).

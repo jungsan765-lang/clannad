@@ -51,7 +51,7 @@ shop=function(p,v){
  p.append(el('p','muted',marketMode==='BUY'?'상품을 선택하면 효과와 장착 후 능력치를 비교할 수 있습니다.':'장착·준비 중인 장비와 임무 핵심 물품은 판매할 수 없습니다.'));
  const layout=el('div','market-layout'),grid=el('div','market-grid'),detail=el('section','card market-detail');
  for(const e of entries){const b=button('',()=>{marketSelection=e.key;render();});b.className='market-item'+(e.key===marketSelection?' selected':'')+(e.reason?' unavailable':'');b.dataset.marketKey=e.key;b.setAttribute('aria-pressed',String(e.key===marketSelection));b.setAttribute('aria-label',(e.d?.name||e.stock?.row[4])+' 상세');if(e.d)b.append(itemGlyph(e.d));b.append(e.d?tierMark(el('strong','',e.d.name),e.d):el('strong','',e.stock?.row[4]),el('span','',e.price.toLocaleString()+' 모라'));if(e.reason)b.append(el('small','market-restriction',e.reason));grid.append(b);}
- const selected=entries.find(e=>e.key===marketSelection);if(selected)marketDetail(detail,selected);else detail.append(el('p','empty',marketMode==='BUY'?'이 조건에 맞는 상품이 없습니다.':'판매할 소지품이 없습니다.'));layout.append(grid,detail);p.append(layout);contactStories(p);discoveryCards(p);
+ const selected=entries.find(e=>e.key===marketSelection);if(selected)marketDetail(detail,selected);else detail.append(el('p','empty',marketMode==='BUY'?'이 조건에 맞는 상품이 없습니다.':'가방에 판매할 물건이 없습니다.'));layout.append(grid,detail);p.append(layout);contactStories(p);discoveryCards(p);
 };
 const marketReceivedLoot=receivedLoot;
 receivedLoot=function(before,type){

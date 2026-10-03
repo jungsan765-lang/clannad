@@ -39,7 +39,7 @@
  globalThis.renderEnhancementPanel=function(p){
   ensurePresenter();const section=el('section','enhance-panel');section.append(el('h2','','장비 강화·돌파'),el('p','','몬드·리월의 대장간에서 같은 강화 규칙을 사용합니다. +10까지 강화한 뒤 보스 재료로 +12 한도를 해금합니다. 「강화」를 누르면 확률·능력치 변화·비용을 확인한 뒤 진행합니다.'));
   const info=el('details','enhance-rules'),summary=el('summary','','전체 강화 확률·돌파 재료 보기');info.append(summary);const table=el('table','enhance-chance-table'),head=el('tr');for(const x of ['단계','성공','유지','하락'])head.append(el('th','',x));table.append(head);
-  const cfg=CRPGRuntime.enhancementConfig;for(let lv=1;lv<=12;lv++){const tr=el('tr');for(const text of ['+'+(lv-1)+' → +'+lv,pct(cfg.success[lv]),pct(10000-cfg.success[lv]-cfg.down[lv]),pct(cfg.down[lv])])tr.append(el('td','',text));table.append(tr);}info.append(table,el('p','','기본 공격력·방어력·최대 HP는 +1당 5%, +10에서 +50%, +11은 +65%, +12는 +80% 증가합니다. 기존 수치형 단계 보너스는 별도로 유지합니다.'),el('p','','고유 효과의 기존 실행 범위는 유지합니다. 준비 중인 전용 고유 효과를 이번 강화로 새로 구현한 것은 아닙니다.'));
+  const cfg=CRPGRuntime.enhancementConfig;for(let lv=1;lv<=12;lv++){const tr=el('tr');for(const text of ['+'+(lv-1)+' → +'+lv,pct(cfg.success[lv]),pct(10000-cfg.success[lv]-cfg.down[lv]),pct(cfg.down[lv])])tr.append(el('td','',text));table.append(tr);}info.append(table,el('p','','기본 공격력·방어력·최대 HP는 +1당 5%, +10에서 +50%, +11은 +65%, +12는 +80% 증가합니다. 장비에 표시된 단계별 추가 능력치는 별도로 적용됩니다.'),el('p','','강화는 장비의 고유 효과를 바꾸지 않습니다.'));
   costs(info,cfg.ascensionCost);info.append(el('p','','드발린·안드리우스 승리: 강적의 잔향 1~2개 확정, 강적의 핵 1개 35%. 본편·첫 도전 완료 후 해당 현장에서 재도전할 수 있습니다. 보스별로 하루에 한 번(현실 시간, 한국 시간 자정 기준) 입장하며 패배·이탈해도 그날 입장은 쓴 것으로 칩니다. 확률과 드롭은 이 CRPG의 규칙입니다.'));section.append(info);
   forgeList(section);p.append(section);
  };

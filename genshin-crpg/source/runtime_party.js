@@ -90,7 +90,10 @@
     try{
       if(this.partyTargetReason(owner))fail('OWNER',this.partyTargetReason(owner));
       result.before=stats(this,owner);
-      const candidate=new api.Runtime(this.db,copy(this.s)),def=candidate.equipmentDefinition(slot,owner);
+      // 0.15.6: a child of this runtime with its own copy of the save. A whole new runtime (a second copy, the full save
+      // check and its own story index) took about 0.3 s per item, so a long equipment list took seconds to open (user:
+      // 「장비 아직도 렉 있어」; 61 swords: 18 s → 50 ms).
+      const candidate=Object.assign(Object.create(this),{s:copy(this.s)}),def=candidate.equipmentDefinition(slot,owner);
       result.category=def.category;result.displacedOwner=def.inv.equipped&&def.inv.owner!==owner?def.inv.owner:null;
       result.displacedSlot=candidate.s.inventory.find(i=>i.slot!==slot&&i.equipped&&i.owner===owner&&category(candidate.row('16_EQUIP_DB',i.equip))===def.category)?.slot||null;
       candidate.equip(slot,owner);result.after=stats(candidate,owner);

@@ -15,6 +15,8 @@ const production=JSON.parse(read('server/wrangler.jsonc'));
 const online=read('source/online_config.js');
 const appOnline=read('source/app_online.js');
 const pkg=JSON.parse(read('package.json'));
+const lock=JSON.parse(read('package-lock.json'));
+const release=JSON.parse(read('content/release-notes.json'));
 
 assert(launcher.includes('tools\\local_dev.mjs'),'Windows launcher must start the local runner');
 assert.equal(config.name,'genshin-crpg-local');
@@ -53,6 +55,11 @@ assert(appOnline.includes("button('로컬 테스트 로그인'"),'local title mu
 assert(appOnline.includes("localDev=isLocal&&window.CRPG_ONLINE_CONFIG?.localDev===true"),'local login helper must be gated behind the generated local config');
 assert(reset.includes('.local\\wrangler'),'reset command must only clear isolated local state');
 assert(!reset.includes('--remote'),'reset command must not include a remote operation');
-assert.equal(pkg.version,'0.14.5','this candidate stays on the 0.14 test line');
+// Local isolation applies to both the 0.14 test line and the approved 0.15 release line.
+// A version bump must not bypass any of the production-safety checks above.
+assert.match(pkg.version,/^0\.(?:14|15)\.\d+$/,'local development must support the 0.14 test and 0.15 release lines');
+assert.equal(lock.version,pkg.version,'package-lock version must match package.json');
+assert.equal(lock.packages?.['']?.version,pkg.version,'package-lock root package version must match package.json');
+assert.equal(release.version,pkg.version,'release notes version must match package.json');
 
 console.log('PASS isolated one-click local development configuration');

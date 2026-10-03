@@ -222,7 +222,14 @@ const adviceFor=c=>{
 P.enemySkillInfo=function(c,a=null){
  const row=c.row,reason=this.cardSupport(c),passive=!c.trigger.startsWith('ACTIVE'),cd=a?.cooldowns?.[c.id]||0;
  const supported=!reason,targetLabel=/HEAL_TARGET/.test(c.script)?'적 진영 1명 · 자신 포함':/^(SUMMON|APPLY_SHIELD)/.test(c.script)?'자신':String(row[5]||c.target).replaceAll('아군','우리 파티');
- return {id:c.id,name:c.name,kind:passive?'패시브·기믹':c.kind,passive,element:row[12]||'물리',target:targetLabel,coefficient:row[6]||'',description:row[13]||row[17]||'세부 설명 없음',summary:row[17]||row[13]||'',condition:row[7]||row[16]||'조건 없음',cooldown:c.cooldown,remaining:cd,supported,reason,available:!passive&&supported&&a&&this.s.runtime?!this.cardReason(a,c):false,unavailableReason:!passive&&supported&&a&&this.s.runtime?this.cardReason(a,c):'',counter:supported?adviceFor(c):'실행 대기 중인 정의입니다. 현재 전투에서 사용 가능한 기술로 안내하지 않습니다.',authored:named.has(c.id),charging:a?.enemyCharge?.card===c.id,level:c.level};
+ const info={id:c.id,name:c.name,kind:passive?'패시브·기믹':c.kind,passive,element:row[12]||'물리',target:targetLabel,coefficient:row[6]||'',description:row[13]||row[17]||'세부 설명 없음',summary:row[17]||row[13]||'',condition:row[7]||row[16]||'조건 없음',cooldown:c.cooldown,remaining:cd,supported,reason,available:!passive&&supported&&a&&this.s.runtime?!this.cardReason(a,c):false,unavailableReason:!passive&&supported&&a&&this.s.runtime?this.cardReason(a,c):'',counter:supported?adviceFor(c):'실행 대기 중인 정의입니다. 현재 전투에서 사용 가능한 기술로 안내하지 않습니다.',authored:named.has(c.id),charging:a?.enemyCharge?.card===c.id,level:c.level};
+ if(c.id==='ECARD_DVALIN_TERRAIN_CLOCK'){
+  const savedMax=this.s.runtime?.terrainMax,max=Number.isInteger(savedMax)&&savedMax>0?savedMax:4;
+  info.coefficient='2라운드마다 지형 1개 파괴 / '+max+'개가 모두 파괴되면 전멸';
+  info.description='전투 시작 시 지형은 '+max+'개입니다. 2라운드마다 라운드가 끝날 때 드발린이 행동할 수 있는지와 관계없이 지형 1개가 무너집니다. 지형이 모두 무너지면 남은 체력·보호막·부활 효과와 관계없이 파티가 전멸하고 전투에서 패배합니다. 지형 붕괴는 피해가 아니므로 피해 감소·무적·보호막으로 막을 수 없습니다.';
+  info.summary=(max*2)+'라운드 종료 전에 드발린을 쓰러뜨려야 합니다.';
+ }
+ return info;
 };
 P.enemyIntel=function(id){
  const b=this.s.runtime,a=b?.actors.find(x=>x.id===id&&x.side==='ENEMY');if(!a)return null;

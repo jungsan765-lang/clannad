@@ -11,7 +11,8 @@ drawLocation=function(p,v){
  const st=game.leyLineStatus?.();if(!st)return;
  const box=el('section','card ley-line-card');box.setAttribute('aria-label','지맥의 꽃');
  const head=el('div','ley-line-head');head.append(el('h2','','지맥의 꽃'),el('span','ley-line-timer','정각까지 '+st.minutesLeft+'분'));box.append(head);
- if(!st.unlocked){box.append(el('p','muted','주인공 Lv. '+st.minLevel+'부터 매시 정각마다 몬드·리월에 핍니다.'));}
+ // 0.14.13: below the level the card says so plainly, with the level now, instead of a grey line.
+ if(!st.unlocked){box.append(el('p','ley-line-locked','⚠ 아직 도전할 수 없습니다 · 주인공 Lv. '+st.minLevel+'부터 (지금 Lv. '+(Number(game.s.global.PLAYER_LEVEL_STATE)||1)+')'),el('p','muted','매시 정각마다 몬드·리월 곳곳에 핍니다. 레벨을 올린 뒤 다시 찾아오세요.'));}
  else{
   box.append(el('p','muted ley-line-help','매시 정각에 자리를 옮기며, 계시의 꽃(경험치 책)과 부의 꽃(모라)은 한 시간에 한 번씩 받을 수 있습니다. 적은 파티 레벨에 맞춰 강해집니다.'));
   const item=b=>{const li=el('li','ley-line-item '+b.kind.toLowerCase()+(b.claimed?' claimed':'')+(b.here?' here':''));

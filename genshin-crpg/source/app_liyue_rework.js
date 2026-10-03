@@ -31,5 +31,7 @@ combat=function(parent,v){baseCombat(parent,v);const b=game.s.runtime,o=b?.field
  parent.prepend(box);
 };
 const baseAffection=affectionProgressRow;
-affectionProgressRow=function(parent,m){baseAffection(parent,m);parent.lastElementChild?.append(el('small','muted','하트마다 공격력·방어력 +1% · 5하트 최대 +5%'));};
+// 0.15.1: the note goes under the name, not into the row's grid, where it fell into the narrow picture column and broke
+// into one or two letters a line (user: 「호감도 임무가 생성될 때 글씨가 깨지는 문제」).
+affectionProgressRow=function(parent,m){baseAffection(parent,m);const row=parent.lastElementChild;(row?.querySelector(':scope>.journal-row-copy')||row)?.append(el('small','muted journal-bond-note','하트마다 공격력·방어력 +1% · 5하트 최대 +5%'));};
 })();

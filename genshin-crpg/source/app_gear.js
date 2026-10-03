@@ -32,7 +32,7 @@ function memberCard(id){
  const slots=el('div','gear-slots');
  for(const [category,label]of SLOTS){
   const inv=inSlot(id,category),cell=el('div','gear-cell'),b=button('',()=>openPicker(id,category));b.className='gear-slot'+(inv?'':' empty');b.dataset.category=category;
-  if(inv){const d=presenter().itemDetail(inv);b.classList.add('tier-'+(d.tier?.rank||1));b.setAttribute('aria-label',label+' · '+itemLabel(inv,d)+' · 바꾸기');b.append(itemGlyph(d),el('small','',label),tierMark(el('strong','',itemLabel(inv,d)),d));cell.append(b,tooltip(inv,d));}
+  if(inv){const d=presenter().itemDetail(inv);b.classList.add('tier-'+(d.tier?.rank||1));{const f=typeof enhanceFrameClass==='function'?enhanceFrameClass(inv.enhance):'';if(f)b.classList.add('enh',f);}b.setAttribute('aria-label',label+' · '+itemLabel(inv,d)+' · 바꾸기');b.append(itemGlyph(d),el('small','',label),tierMark(el('strong','',itemLabel(inv,d)),d));cell.append(b,tooltip(inv,d));}
   else{b.setAttribute('aria-label',label+' · 비어 있음 · 장착하기');b.append(el('span','gear-empty-mark','+'),el('small','',label),el('strong','','비어 있음'));cell.append(b);}
   slots.append(cell);
  }
@@ -47,12 +47,17 @@ function openPicker(owner,category){
  box.append(el('p','muted',(canHover()?'마우스를 올리면 장비 효과가 보입니다. ':'')+'다른 파티원이 쓰던 장비를 고르면 옮겨서 장착합니다.'));
  const locked=game.actionReason('EQUIP');if(locked)box.append(el('p','phase-note','지금은 확인만 할 수 있습니다. '+locked));
  if(current){const d=presenter().itemDetail(current),row=el('div','gear-current'),copy=el('div','gear-option-copy');copy.append(tierMark(el('strong','',itemLabel(current,d)+' · 장착 중'),d),effectNote(current,d));row.append(itemGlyph(d),copy,button('해제',()=>{close();act('UNEQUIP',{slot:current.slot,owner});},busy||!!game.actionReason('UNEQUIP',{slot:current.slot,owner})));box.append(row);}
- const options=game.s.inventory.filter(i=>i.equip&&itemCategory(i)===category&&!(i.equipped&&i.owner===owner)).map(inv=>{const preview=game.equipmentPreview(inv.slot,owner);return {inv,d:presenter().itemDetail(inv),preview,reason:preview.reason||game.actionReason('EQUIP',{slot:inv.slot,owner})};})
-  .sort((a,b)=>Number(!!a.reason)-Number(!!b.reason)||Number(a.inv.equipped)-Number(b.inv.equipped)||a.d.name.localeCompare(b.d.name,'ko'));
+ // 0.15.6 (user: 「장비 좋은거랑 자기 전무를 맨 위로 올려서 보여지게 해. 기원 하면서 많이 나오면 장비 찾기도 힘들어」):
+ // the character's own exclusive weapon first, then what can be worn now, then by star grade, enhancement and how much
+ // it raises the numbers.
+ const gain=o=>{const b=o.preview.before,a=o.preview.after;if(o.preview.reason||!a||!b)return -1e9;return (a.atk-b.atk)*2+(a.def-b.def)*1.5+(a.maxHp-b.maxHp)*.1+(a.crit-b.crit)*3+(a.critDmg-b.critDmg)*1.5+(a.spd-b.spd)*2;};
+ const options=game.s.inventory.filter(i=>i.equip&&itemCategory(i)===category&&!(i.equipped&&i.owner===owner)).map(inv=>{const preview=game.equipmentPreview(inv.slot,owner);return {inv,d:presenter().itemDetail(inv),preview,own:game.exclusiveOwner?.(inv.equip)===owner,reason:preview.reason||game.actionReason('EQUIP',{slot:inv.slot,owner})};})
+  .map(o=>({...o,score:gain(o)}))
+  .sort((a,b)=>Number(b.own)-Number(a.own)||Number(!!a.reason)-Number(!!b.reason)||(b.d.tier?.rank||0)-(a.d.tier?.rank||0)||(Number(b.inv.enhance)||0)-(Number(a.inv.enhance)||0)||b.score-a.score||Number(a.inv.equipped)-Number(b.inv.equipped)||a.d.name.localeCompare(b.d.name,'ko'));
  const list=el('div','gear-options');
  for(const o of options){
   const cell=el('div','gear-cell'),row=el('div','gear-option'+(o.reason?' blocked':'')),copy=el('div','gear-option-copy');
-  copy.append(tierMark(el('strong','',itemLabel(o.inv,o.d)),o.d),el('small','muted',(o.d.tier?.label?o.d.tier.label+' · ':'')+(o.inv.equipped?ownerName(o.inv.owner)+' 장착 중 · 옮겨서 장착':'보관 중')));
+  copy.append(tierMark(el('strong','',itemLabel(o.inv,o.d)),o.d),el('small','muted',(o.own?'전용 무기 · ':'')+(o.d.tier?.label?o.d.tier.label+' · ':'')+(o.inv.equipped?ownerName(o.inv.owner)+' 장착 중 · 옮겨서 장착':'보관 중')));
   const short=traitShort(o.inv);if(short)copy.append(el('small','gear-trait-line','특성 · '+short));
   if(!o.preview.reason){const delta=deltaLine(o.preview.before,o.preview.after);copy.append(el('small','gear-delta',delta||'능력치 변화 없음'));}
   copy.append(effectNote(o.inv,o.d));if(o.reason)copy.append(el('small','choice-note',o.reason));
@@ -95,7 +100,7 @@ for(const name of ['pointerout','focusout'])document.addEventListener(name,e=>{c
 window.addEventListener('resize',()=>document.querySelectorAll('.gear-tip:popover-open').forEach(t=>t.hidePopover()));
 
 growthScreen=function(p){
- p.classList.add('gear-screen');p.append(el('div','eyebrow','EQUIPMENT'),el('h1','','장비 장착'),el('p','muted','편성된 파티원의 장비와 능력치입니다. 칸을 누르면 장비를 바꾸고'+(canHover()?', 마우스를 올리면 효과가 보입니다.':' 효과를 확인할 수 있습니다.')+' 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
+ p.classList.add('gear-screen');p.append(el('div','eyebrow','CHARACTER'),el('h1','','캐릭터'),el('p','muted','편성된 파티원의 장비와 능력치입니다. 칸을 누르면 장비를 바꾸고'+(canHover()?', 마우스를 올리면 효과가 보입니다.':' 효과를 확인할 수 있습니다.')+' 편성에서 빠진 동료의 장비는 가방으로 돌아갑니다.'));
  const locked=game.actionReason('EQUIP');if(locked)p.append(el('p','phase-note','지금은 장비를 확인만 할 수 있습니다. '+locked));
  const grid=el('div','gear-members');for(const id of (game.formationOrder?game.formationOrder():game.s.party.filter(x=>x.active).map(x=>x.source)))grid.append(memberCard(id));p.append(grid);
  books(p);
@@ -114,7 +119,7 @@ window.openGear=function(slot,owner){
 const gearSidebar=sidebar;
 sidebar=function(g,v){
  const side=gearSidebar(g,v),b=side.querySelector('nav [data-screen="STATUS"]');
- if(b){const spans=b.querySelectorAll('span');if(spans[0])spans[0].textContent='⚔';if(spans[1])spans[1].textContent='장비 장착';b.setAttribute('aria-label','장비 장착');}
+ if(b){const spans=b.querySelectorAll('span');if(spans[0])spans[0].textContent='⚔';if(spans[1])spans[1].textContent='캐릭터';b.setAttribute('aria-label','캐릭터');}
  const left=game?.defeatLockRemaining?.()||0,note=side.querySelector('.phase-note');
  if(left>0&&note){note.replaceChildren(document.createTextNode('패배 후 회복 중 · '));const t=el('strong','',Math.ceil(left/1000)+'초');t.dataset.defeatCountdown='1';note.append(t);}
  return side;
