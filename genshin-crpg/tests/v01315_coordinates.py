@@ -52,11 +52,12 @@ try:
    for z in [1,2,4]:
     for area in a['areas']:
      page.evaluate("([id,z])=>{const p=CRPGTerrainMap.points[id];NavigationUI.atlas='liyue';NavigationUI.camera={mode:'custom',zoom:z,cx:p[1],cy:p[2]};NavigationUI.choose(id);}",[area['id'],z]);page.wait_for_timeout(12)
-     result=page.evaluate("""id=>{const im=document.querySelector('.terrain-raster').getBoundingClientRect(),el=document.querySelector('.terrain-anchor[data-map-id="'+id+'"]');if(!el)return null;const r=el.getBoundingClientRect(),p=CRPGTerrainMap.points[id];return {error:Math.hypot(r.x+r.width/2-im.x-p[1]/880*im.width,r.y+r.height/2-im.y-p[2]/786*im.height),point:document.querySelector('.liyue-coordinate-detail')?.dataset.point};}""",area['id'])
+     result=page.evaluate("""id=>{const im=document.querySelector('.terrain-raster').getBoundingClientRect(),el=document.querySelector('.terrain-anchor[data-map-id="'+id+'"]');if(!el)return null;const r=el.getBoundingClientRect(),p=CRPGTerrainMap.points[id];return {error:Math.hypot(r.x+r.width/2-im.x-p[1]/880*im.width,r.y+r.height/2-im.y-p[2]/786*im.height),point:p[1]+','+p[2],caption:p[3]||null};}""",area['id'])
      assert result is not None,area['id']
      maxerr=max(maxerr,result['error']);pixel_samples.append({'id':area['id'],'width':width,'zoom':z,'error_css_px':result['error']})
-     # 0.14.10: the picture coordinates are kept as data, not shown to players.
-     assert result['point']==f"{area['point'][0]},{area['point'][1]}"
+     # 0.14.10: the picture coordinates are kept as data, not shown to players. 0.15.6: the mapper's anchor note is not
+     # shown either (no caption on Liyue detail areas).
+     assert result['point']==f"{area['point'][0]},{area['point'][1]}" and result['caption'] is None
   ck('All 26 anchors align at desktop/mobile and 1x/2x/4x',maxerr<1,{'samples':len(pixel_samples),'max_error_css_px':maxerr})
   ck('Map selection and zoom preserve full serialized game state',page.evaluate('game.serialize()')==before)
   ck('Mobile has no horizontal page overflow',page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))

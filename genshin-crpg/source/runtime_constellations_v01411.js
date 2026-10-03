@@ -303,7 +303,9 @@ const fxCache=new Map(),NONE=Object.freeze([]);
 function fxList(key,level){
  const id=key+':'+level;let v=fxCache.get(id);if(v)return v;v=[];
  // ck = whose constellation this is (fx.key is the stat an effect changes).
- for(const n of [1,2,4,6])if(n<=level)(EFFECTS[key]?.[n]||[]).slice(1).forEach((fx,i)=>v.push(Object.freeze({...fx,n,ck:key,uid:key+':'+n+':'+i})));
+ // n = the node (1/2/4/6). 0.15.6: an effect's own amount `n` (cd(), teamCast: turns cut) is kept as `cut`; it used to be
+ // overwritten by the node, so 이세계인 C2 cut its burst by 2 turns (3 → 1, back every turn) and 케이아 C6 by 6.
+ for(const n of [1,2,4,6])if(n<=level)(EFFECTS[key]?.[n]||[]).slice(1).forEach((fx,i)=>v.push(Object.freeze({...fx,...(fx.n!==undefined?{cut:fx.n}:{}),n,ck:key,uid:key+':'+n+':'+i})));
  fxCache.set(id,v);return v;
 }
 api.constellationsV01411={names:copy(NAMES),effects:Object.fromEntries(Object.entries(EFFECTS).map(([k,v])=>[k,Object.fromEntries(Object.entries(v).map(([n,x])=>[n,{text:x[0],fx:copy(x.slice(1))}]))])),nodeText};
@@ -555,9 +557,12 @@ P.consAfterCast=function(a,card,kind,env={}){
  const ctx={a,t:env.targetActor||null,pre:env.pre||new Set(),kind};
  const fxs=this.consFx(a);
  if(card&&kind!=='na'){
-  for(const fx of fxs)if(fx.t==='cd'&&fx.kind===kind&&Number(a.cooldowns[card])>0)a.cooldowns[card]=Math.max(1,a.cooldowns[card]-(fx.n||1));
+  // 0.15.6: a cut never brings an element burst back on the caster's very next turn (a cooldown of 1 left after the
+  // cast is gone at that turn's start), and never raises a cooldown that is already shorter.
+  const cut=fx=>{const cur=Number(a.cooldowns[card]),floor=Math.min(cur,kind==='q'?2:1);a.cooldowns[card]=Math.max(floor,cur-(fx.cut||1));};
+  for(const fx of fxs)if(fx.t==='cd'&&fx.kind===kind&&Number(a.cooldowns[card])>0)cut(fx);
   for(const fx of fxs)if(fx.t==='charge'&&fx.kind===kind){a.consCharge=a.consCharge||{};if(!a.consCharge[card]){a.consCharge[card]=true;a.cooldowns[card]=0;}else a.consCharge[card]=false;}
-  for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))if(fx.t==='teamCast'&&kindsOf(fx.kind).includes(kind)&&this.consCond(fx.while,ctx,owner,owner)&&Number(a.cooldowns[card])>0)a.cooldowns[card]=Math.max(1,a.cooldowns[card]-(fx.n||1));
+  for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))if(fx.t==='teamCast'&&kindsOf(fx.kind).includes(kind)&&this.consCond(fx.while,ctx,owner,owner)&&Number(a.cooldowns[card])>0)cut(fx);
  }
  const target=env.targetActor&&env.targetActor.hp>0?env.targetActor:b.actors.find(x=>x.side!==a.side&&x.hp>0)||null;
  for(const fx of fxs)if(fx.t==='onCast'&&(fx.kind==='any'||kindsOf(fx.kind).includes(kind))&&(!fx.card||fx.card===card)&&this.consCond(fx.if,{...ctx,t:target},a,a)&&this.consChance(fx))this.consRun(fx,a,{target,attacker:a,card});

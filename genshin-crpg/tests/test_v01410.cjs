@@ -72,7 +72,8 @@ check('one name per screen: 설정 (not 자동저장·계정), 캐릭터 (equipm
 check('travel map words: no picture coordinates or approval notes on screen',()=>{
  const nav=src('app_navigation.js'),ly=src('app_liyue_areas.js');
  assert(!nav.includes('승인된 두 지도')&&nav.includes("el('summary','','지도 보는 법')"));
- assert(!ly.includes('원본 좌표')&&!ly.includes('880 × 786')&&!ly.includes('기준점')&&ly.includes("note.dataset.point=shown.point[0]+','+shown.point[1]"));
+ // 0.15.6: the coordinates stay in the map data (CRPGTerrainMap.points) and the mapper's anchor note is not shown at all.
+ assert(!ly.includes('원본 좌표')&&!ly.includes('880 × 786')&&!ly.includes('기준점')&&ly.includes("CRPGTerrainMap.points[a.id]=['liyue',a.point[0],a.point[1]]")&&!ly.includes('shown.anchor'));
  return {};
 });
 

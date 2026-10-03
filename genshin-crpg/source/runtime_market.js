@@ -27,7 +27,8 @@ P.saleEntry=function(a){
  return {inv,id,quantity,price,total:price*quantity,variant,name:row[1]};
 };
 P.sell=function(a){const e=this.saleEntry(a);if(e.inv.equip)this.s.inventory=this.s.inventory.filter(i=>i.slot!==e.inv.slot);else{this._foodSpendLots={[e.id]:{NORMAL:e.variant==='NORMAL'?e.quantity:0,BARBARA_SPECIAL:e.variant==='BARBARA_SPECIAL'?e.quantity:0}};try{this.pay({items:{[e.id]:e.quantity}});}finally{delete this._foodSpendLots;}}this.s.global.MORA+=e.total;return {sold:e.id,name:e.name,quantity:e.quantity,mora:e.total};};
-P.shopEquipmentPreview=function(id,owner='PLAYER_CUSTOM'){const r=new api.Runtime(this.db,copy(this.s)),slot=r.giveEquipment(id);return r.equipmentPreview(slot,owner);};
+// 0.15.6: a light child runtime with its own copy of the save, like equipmentPreview (a new runtime cost about 0.3 s).
+P.shopEquipmentPreview=function(id,owner='PLAYER_CUSTOM'){const r=Object.assign(Object.create(this),{s:copy(this.s)}),slot=r.giveEquipment(id);return r.equipmentPreview(slot,owner);};
 P.actionReason=function(type,a={}){const reason=old.actionReason.call(this,type,a);if(reason)return reason;if(type==='SELL')try{this.saleEntry(a);}catch(e){return e.message;}return '';};
 P.apply=function(a){if(a.type==='SELL')return this.sell(a);return old.apply.call(this,a);};
 P.newGame=function(o){this.installMarketContent();old.newGame.call(this,o);this.s.marketVersion=1;return copy(this.s);};

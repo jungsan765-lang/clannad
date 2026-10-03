@@ -48,7 +48,11 @@ function tilesAndDetail(cls,key,items,label){
  const show=(id,user)=>{
   F[key]=id;for(const t of list.children){const on=t.dataset.pick===id;t.classList.toggle('active',on);t.setAttribute('aria-selected',String(on));}
   const item=items.find(x=>x.id===id);detail.replaceChildren();if(!item)return;
-  const body=mk('div','shell-forge-scroll'),foot=mk('div','shell-forge-foot');body.append(...item.detail());const actions=item.actions();if(actions.length)foot.append(...actions);
+  // 0.15.6: the buttons are taken from the card once and kept with the item. They used to be looked up in the card
+  // every time, but the first showing had moved them into a foot that is thrown away, so picking the item again
+  // showed no 제작 / 준비 / 강화 button (user: 「제작 버튼이 안나오는 버그인듯 전용무기에도 같은 문제」).
+  item.actionNodes??=item.actions();
+  const body=mk('div','shell-forge-scroll'),foot=mk('div','shell-forge-foot');body.append(...item.detail());if(item.actionNodes.length)foot.append(...item.actionNodes);
   detail.append(body);if(foot.children.length)detail.append(foot);
   if(user)window.CRPGSound?.play?.('tab');
  };
@@ -86,8 +90,10 @@ function gear(root){
  const rows=$$(':scope > .forge-row',list);if(!rows.length)return null;
  const items=rows.map(row=>{const id=row.dataset.enhanceSlot,strong=row.querySelector('.forge-copy strong'),rank=Number((strong?.className.match(/tier-(\d)/)||[])[1])||1,title=strong?.textContent||'';
   const level=(title.match(/\+(\d+)$/)||[])[1],actions=row.querySelector('.forge-actions'),ready=!!actions&&[...actions.children].some(b=>!b.disabled);
+  // 0.15.6: the piece's next step is kept with the item; looked up in the row each time, it was gone once shown (moved).
+  const copy=row.querySelector('.forge-copy');
   return {id,rank,ready,enh:level,name:title.replace(/\s*\+\d+$/,''),badge:level?'+'+level:'',title,glyph:row.querySelector(':scope > .item-glyph, :scope > .item-icon, :scope > img'),
-   detail:()=>{const copy=row.querySelector('.forge-copy');copy?.classList.add('shell-forge-copy');return [heroBox(rank,row.querySelector(':scope > .item-glyph, :scope > .item-icon, :scope > img'),row.classList.contains('worn')?'장착 중':'보관 중',title),copy].filter(Boolean);},
+   detail:()=>{copy?.classList.add('shell-forge-copy');return [heroBox(rank,row.querySelector(':scope > .item-glyph, :scope > .item-icon, :scope > img'),row.classList.contains('worn')?'장착 중':'보관 중',title),copy].filter(Boolean);},
    actions:()=>actions?[...actions.children]:[]};});
  const wrap=tilesAndDetail('gear','gear',items,'강화할 장비');list.replaceWith(wrap);return wrap;
 }
