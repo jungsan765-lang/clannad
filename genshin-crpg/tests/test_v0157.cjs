@@ -21,7 +21,7 @@ function page({ua='Mozilla/5.0 (Linux; Android 14; SM-S918N) AppleWebKit/537.36 
   exitFullscreen:async()=>{fullEl=null;},createElement:t=>new Element(t),addEventListener(){},getElementById:()=>({close(){closed++;}}),
   querySelector:sel=>sel==='.title-footer'?footer:null,querySelectorAll:()=>[]};
  const win={innerWidth:width,innerHeight:height,addEventListener:(k,fn)=>{(listeners[k]??=[]).push(fn);},
-  matchMedia:q=>({matches:q==='(pointer: coarse)'?coarse:q==='(display-mode: '+display+')'})};
+  matchMedia:q=>({matches:q==='(pointer: coarse)'||q==='(hover: none)'?coarse:q==='(display-mode: '+display+')'})};
  const shell={menuHooks:[],icon:()=>new Element('svg')};win.CRPGShell=shell;
  const ctx=vm.createContext({console,window:win,document:doc,navigator:{userAgent:ua,platform,maxTouchPoints:coarse?5:0,standalone:display==='standalone-ios'?true:undefined},
   render(){},showModal:(title,content)=>modals.push({title,content}),say:t=>said.push(t)});
@@ -68,7 +68,8 @@ await check('Paimon’s menu on an Android browser: 전체 화면 hides the brow
 });
 
 await check('already installed (full screen or standalone) and desktop browsers: no install button, no toggle',()=>{
- for(const opts of [{display:'fullscreen'},{display:'standalone'},{ua:'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0 Safari/537.36',coarse:false,width:1920,height:1080,platform:'Win32'}]){
+ const desk='Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/128.0 Safari/537.36';
+ for(const opts of [{display:'fullscreen'},{display:'standalone'},{ua:desk,coarse:false,width:1920,height:1080,platform:'Win32'},{ua:desk,coarse:false,width:800,height:600,platform:'Win32'}]){
   const p=page(opts);p.ctx.render();assert(!button(p.footer,'title-install'),JSON.stringify(opts));
   if(opts.display==='fullscreen'){const menu=new Element('div'),foot=new Element('div');foot.className='pm-foot';menu.append(foot);for(const add of p.shell.menuHooks)add(menu,{close(){}});assert.equal(foot.children.length,0);}
  }

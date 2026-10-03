@@ -14,7 +14,8 @@ const mk=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className
 const I=window.CRPGInstall={prompt:null,installed:false};
 const media=q=>{try{return !!window.matchMedia?.(q).matches;}catch{return false;}};
 const ua=()=>String(navigator.userAgent||'');
-const phone=()=>media('(pointer: coarse)')||Math.min(window.innerWidth||9999,window.innerHeight||9999)<=820;
+// A touch screen without hover (phones, tablets) or a mobile browser; never a desktop window, however small.
+const phone=()=>(media('(pointer: coarse)')&&media('(hover: none)'))||/Android|iPhone|iPad|iPod|Mobile/i.test(ua());
 const standalone=()=>media('(display-mode: fullscreen)')||media('(display-mode: standalone)')||navigator.standalone===true;
 const ios=()=>/iPad|iPhone|iPod/.test(ua())||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 const inApp=()=>/KAKAOTALK|Discord|Instagram|FBAN|FBAV|Line\/|NAVER\(inapp|everytimeApp|Twitter/i.test(ua());

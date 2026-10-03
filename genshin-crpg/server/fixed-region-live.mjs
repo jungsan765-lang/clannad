@@ -47,6 +47,16 @@ const ip=req=>String(req.headers['x-forwarded-for']||req.socket?.remoteAddress||
 // 생성에 제한을 걸어두던가」). The server only listens behind Caddy, which names the visitor; a loopback address without it (tests,
 // the local preview) is not counted.
 const REGISTER_PER_DAY=3,LOOPBACK=/^(local|seed|127\.|::1$|::ffff:127\.)/;
+// 0.15.8: what a sign-up form gets wrong, in the player's words (the ID is already NFKC + lower case).
+const ID_CHAR=/^[a-z0-9가-힣_]$/u;
+export function signupReason(username,password){
+ const bad=[...new Set([...String(username)].filter(ch=>!ID_CHAR.test(ch)))];
+ if(bad.length)return '아이디에 쓸 수 없는 글자가 있습니다: '+bad.slice(0,6).map(ch=>/\s/u.test(ch)?'띄어쓰기':'「'+ch+'」').join(' ')+'. 아이디는 한글 · 영문 · 숫자 · 밑줄(_)만 쓸 수 있습니다. (비밀번호에는 특수문자를 써도 됩니다.)';
+ const n=[...String(username)].length;if(n<3||n>24)return '아이디는 3~24자로 정해 주세요. (지금 '+n+'자)';
+ if(String(password).length<8)return '비밀번호는 8자 이상으로 정해 주세요.';
+ if(String(password).length>128)return '비밀번호는 128자까지 쓸 수 있습니다.';
+ return '';
+}
 // 0.14.15: records count per monthly season; a save from before seasons counts in the month it is played.
 function score(state){const a=state?.abyss||{},floor=Math.max(0,...Object.keys(a.clears||{}).map(Number)),rounds=Object.values(a.clears||{}).reduce((n,x)=>n+(x?.rounds||0),0),S=globalThis.CRPGRuntime?.abyssSeason,season=!a.season||a.season==='ABYSS_01'?(S?S.of(now()):'ABYSS_01'):a.season;return {season,floor,rounds,attempts:a.attempts||0};}
 
@@ -161,7 +171,11 @@ export class LiveRegionStore{
  envelope(a,m,result=null){return {account:view(a,this.admins),version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,transportBuild:TRANSPORT_BUILD,revision:m?.revision??0,ranked:m?.ranked===1,result};}
  output(a,m,parts,result=null){return {...this.envelope(a,m,result),state:m?.revision==null?null:publicState(parts)};}
  async register(b,addr){
-  const username=uname(b.username),password=String(b.password||'');this.rate('auth-ip:'+addr,30,600000);this.rate('auth-user:'+username,10,600000);this.rate('register:'+addr,5,3600000);
+  const username=uname(b.username),password=String(b.password||'');this.rate('auth-ip:'+addr,30,600000);
+  // 0.15.8: say exactly what is wrong (a tester's ID with 「!」 「@」 「♡」 got one sentence about both fields and gave up),
+  // and only a well-formed request uses one of the connection's five sign-up tries an hour.
+  const why=signupReason(username,password);if(why)throw err(400,why,'SIGNUP_FORM');
+  this.rate('auth-user:'+username,10,600000);this.rate('register:'+addr,5,3600000);
   if(!/^[a-z0-9가-힣_]{3,24}$/.test(username)||password.length<8||password.length>128)throw err(400,'아이디는 한글·영문·숫자·밑줄 3~24자, 비밀번호는 8~128자로 입력해 주세요.');
   if(this.account(username))throw err(409,'이미 사용 중인 아이디입니다.');
   const ipKey=LOOPBACK.test(String(addr))?null:createHash('sha256').update('crpg-register:'+this.pepper+':'+addr).digest('hex').slice(0,32);
