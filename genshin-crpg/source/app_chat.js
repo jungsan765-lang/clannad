@@ -27,33 +27,34 @@ C.on=fn=>C.handlers.push(fn);
 // current action has finished; a login that was ended returns to the login screen.
 const ADMIN_NEWS={gift:'운영자가 보낸 선물이 우편함에 도착했습니다.',reset:'운영자가 여정을 초기화했습니다.',profile:'계정 정보가 바뀌었습니다.'};
 C.on(async ev=>{
- if(ev?.type!=='admin'||!ev.sync)return;
+ if(ev?.type!=='admin'||!ev.sync)return;const session=O.sessionStamp();
  for(let i=0;i<20&&(busy||O.pending);i++)await new Promise(r=>setTimeout(r,500));
- if(busy||O.pending)return;
- try{await O.sync();SHELL.toast?.(ADMIN_NEWS[ev.reason]||'운영자가 여정 기록을 갱신했습니다.');}
- catch(e){if(e.status===401){await O.logout?.();const text='운영자가 이 계정의 로그인을 끝냈습니다. 다시 로그인해 주세요.';if(typeof say==='function')say(text);else SHELL.toast?.(text);}}
+ if(busy||O.pending||!O.sameSession(session))return;
+ try{await O.sync();if(!O.sameSession(session))return;SHELL.toast?.(ADMIN_NEWS[ev.reason]||'운영자가 여정 기록을 갱신했습니다.');}
+ catch(e){if(O.sameSession(session)&&e.status===401){await O.logout?.();const text='운영자가 이 계정의 로그인을 끝냈습니다. 다시 로그인해 주세요.';if(typeof say==='function')say(text);else SHELL.toast?.(text);}}
 });
+let probeId=0,reconnectTimer=0;
 async function probe(){
- if(C.enabled===false||C.probing||!online())return;C.probing=true;
- try{const out=await O.request('/chat/recent');C.enabled=true;C.max=out.max||140;C.me=out.me||'';ingest(out.messages,true);connect();}
- catch(e){if(e.status===404)C.enabled=false;else C.enabled=null;}
- finally{C.probing=false;badge();}
+ if(C.enabled===false||C.probing||!online())return;C.probing=true;const id=++probeId,session=O.sessionStamp(),current=()=>id===probeId&&O.sameSession(session);
+ try{const out=await O.request('/chat/recent');if(!current())return;C.enabled=true;C.max=out.max||140;C.me=out.me||'';ingest(out.messages,true);connect();}
+ catch(e){if(current()){if(e.status===404)C.enabled=false;else C.enabled=null;}}
+ finally{if(current()){C.probing=false;badge();}}
 }
 function connect(){
- if(C.ctrl||!online()||C.enabled!==true)return;const ctrl=new AbortController();C.ctrl=ctrl;
+ if(C.ctrl||!online()||C.enabled!==true)return;clearTimeout(reconnectTimer);const ctrl=new AbortController(),session=O.sessionStamp();C.ctrl=ctrl;
  fetch(base+'/chat/stream',{headers:{Authorization:'Bearer '+O.token},signal:ctrl.signal,cache:'no-store'}).then(async res=>{
-  if(!res.ok||!res.body)throw Error('stream '+res.status);C.fails=0;stopPoll();const reader=res.body.getReader(),dec=new TextDecoder();let buf='';
-  for(;;){const {value,done}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;while((i=buf.indexOf('\n\n'))>=0){const block=buf.slice(0,i);buf=buf.slice(i+2);const data=block.split('\n').filter(l=>l.startsWith('data: ')).map(l=>l.slice(6)).join('\n');if(data){try{if(C.ctrl!==ctrl||!online())return;handle(JSON.parse(data));}catch{}}}}
- }).catch(()=>{C.fails++;}).finally(()=>{if(C.ctrl!==ctrl)return;C.ctrl=null;if(ctrl.signal.aborted||!online())return;
+  if(C.ctrl!==ctrl||!O.sameSession(session))return;if(!res.ok||!res.body)throw Error('stream '+res.status);C.fails=0;stopPoll();const reader=res.body.getReader(),dec=new TextDecoder();let buf='';
+  for(;;){const {value,done}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;while((i=buf.indexOf('\n\n'))>=0){const block=buf.slice(0,i);buf=buf.slice(i+2);const data=block.split('\n').filter(l=>l.startsWith('data: ')).map(l=>l.slice(6)).join('\n');if(data){try{if(C.ctrl!==ctrl||!online()||!O.sameSession(session))return;handle(JSON.parse(data));}catch{}}}}
+ }).catch(()=>{if(C.ctrl===ctrl&&O.sameSession(session))C.fails++;}).finally(()=>{if(C.ctrl!==ctrl)return;C.ctrl=null;if(ctrl.signal.aborted||!online()||!O.sameSession(session))return;
   // Missed lines while reconnecting come from the recent list; three failures switch to polling.
-  if(C.fails>=3)startPoll();setTimeout(()=>{catchUp();connect();},Math.min(30000,1500*Math.pow(2,Math.min(C.fails,4))));});
+  if(C.fails>=3)startPoll();reconnectTimer=setTimeout(()=>{reconnectTimer=0;if(!O.sameSession(session))return;catchUp();connect();},Math.min(30000,1500*Math.pow(2,Math.min(C.fails,4))));});
 }
 let catchUpFlight=null;
-function catchUp(){if(!online()||C.enabled!==true)return Promise.resolve();if(catchUpFlight)return catchUpFlight;const flight=(async()=>{try{const out=await O.request('/chat/recent'+(C.last?'?after='+C.last:''));ingest(out.messages);}catch{}})();catchUpFlight=flight;flight.then(()=>{if(catchUpFlight===flight)catchUpFlight=null;});return flight;}
+function catchUp(){if(!online()||C.enabled!==true)return Promise.resolve();if(catchUpFlight)return catchUpFlight;const session=O.sessionStamp(),generation=probeId,flight=(async()=>{try{const out=await O.request('/chat/recent'+(C.last?'?after='+C.last:''));if(generation===probeId&&O.sameSession(session))ingest(out.messages);}catch{}})();catchUpFlight=flight;flight.then(()=>{if(catchUpFlight===flight)catchUpFlight=null;});return flight;}
 function startPoll(){if(C.poll)return;C.poll=setInterval(()=>{if(!document.hidden)catchUp();},C.open?3000:15000);}
 function stopPoll(){clearInterval(C.poll);C.poll=null;}
-function disconnect(){C.ctrl?.abort();C.ctrl=null;stopPoll();}
-C.reset=function(){disconnect();catchUpFlight=null;C.enabled=null;C.lines=[];C.last=0;C.unread=0;C.open=false;C.node?.remove();C.node=null;document.querySelector('body > .chat-fab')?.remove();};
+function disconnect(){clearTimeout(reconnectTimer);reconnectTimer=0;C.ctrl?.abort();C.ctrl=null;stopPoll();}
+C.reset=function(){disconnect();probeId++;C.probing=false;C.fails=0;C.me='';catchUpFlight=null;C.enabled=null;C.lines=[];C.last=0;C.unread=0;C.open=false;C.node?.remove();C.node=null;document.querySelector('body > .chat-fab')?.remove();};
 // ---------- window ----------
 function toggle(open=!C.open){
  C.open=open;if(open){C.unread=0;if(!C.node)build();C.node.hidden=false;requestAnimationFrame(()=>C.node?.classList.add('open'));draw();setTimeout(()=>C.node?.querySelector('input')?.focus(),60);window.CRPGSound?.play('menu_open');}
@@ -112,5 +113,5 @@ SHELL.extraTools.push(tool=>{const b=tool('CHAT','채팅 (Enter · /)',()=>toggl
 // again (in a battle, the last attack): Enter opens the chat instead, unless the focus was moved there by keyboard.
 document.addEventListener('keydown',e=>{if(!(e.key==='/'||e.key==='Enter')||e.isComposing||e.repeat||e.ctrlKey||e.metaKey||e.altKey||e.shiftKey||window.CRPGShell?.topOverlay?.()||!document.body.classList.contains('teyvat')||C.enabled!==true||C.open)return;if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName)||e.target?.isContentEditable||document.querySelector('dialog[open]'))return;if(e.key==='Enter'&&e.target?.closest?.('button,a[href],summary,[role=button],[tabindex]:not([tabindex="-1"])')&&e.target.matches?.(':focus-visible'))return;e.preventDefault();toggle(true);});
 // Follow the session: connect while a journey is open online, drop everything on logout.
-if(typeof render==='function'){const prior=render;render=function(){prior();try{if(!online()){if(C.enabled!==null||C.lines.length)C.reset();}else if(document.body.classList.contains('teyvat')){if(C.enabled===null)probe();badge();}else if(C.open)toggle(false);}catch{}};}
+if(typeof render==='function'){const prior=render;render=function(){prior();try{if(!online()){if(C.enabled!==null||C.lines.length||C.probing||C.ctrl||C.poll||C.node)C.reset();}else if(document.body.classList.contains('teyvat')){if(C.enabled===null)probe();badge();}else if(C.open)toggle(false);}catch{}};}
 })();

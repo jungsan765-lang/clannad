@@ -259,6 +259,8 @@ setup=function(){
  const loggedIn=!!(O.token&&O.account),start=button(busy?'여정을 여는 중…':'게임 시작',startGame,busy||!loggedIn,true);start.classList.add('title-start');if(!loggedIn)start.title='로그인 후 게임을 시작할 수 있습니다.';center.append(start,el('p','title-save-note',loggedIn?'모험은 자동으로 기록됩니다.':'로그인 후 게임을 시작할 수 있습니다.'));wrap.append(center);
  const footer=el('div','title-footer');footer.append(el('span','','몬드에서 시작되는 이야기'),button('나선비경 랭킹',ranking),button('설정',()=>{const p=el('div');settingsControls(p);p.append(button('이전 기기 저장 관리',()=>{const list=el('div');slotsUI(list);showModal('이전 기기 저장',list);}));showModal('설정',p);}));wrap.append(footer);root.append(wrap);
 };
+// UI modules use the same session generation to retire delayed work; routed tokens may rotate within it.
+O.sessionStamp=sessionStamp;O.sameSession=sameSession;
 O.start=startGame;O.logout=logout;O.request=request;
 const onlineRender=render;render=function(){onlineRender();if(O.active&&O.pending&&!busy&&game&&(!readingFlight||O.readingFailed)){const box=el('section','pending-action-notice');box.setAttribute('role','status');box.append(el('p','','이전 행동의 저장 확인이 필요합니다. 같은 기록을 다시 확인하며 보상을 중복 지급하지 않습니다.'),button('진행 확인 다시 시도',()=>act(O.pending.type,O.pending.params)));root.prepend(box);}};
 const onlineQuick=updateQuick;updateQuick=function(){onlineQuick();for(const b of document.querySelectorAll('#quick-actions button'))if(b.textContent==='저장')b.textContent='자동저장·계정';};

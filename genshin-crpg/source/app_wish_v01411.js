@@ -30,20 +30,27 @@ function admin(){return window.CRPGOnline?.account?.admin===true||game?.serverAd
 // Wishes and fate exchanges happen in free play only (not during a dialogue or a battle). The game's own notice line
 // sits behind this screen, so the reason, and any refusal, is shown here instead.
 function lockReason(){try{const a={banner:UI.banner,count:1},all=game.actionReason('WISH',a)||'',own=game.wishReason?.(a)||'';return all&&all!==own?all:(game.s.runtime?own:'');}catch{return '';}}
-async function attempt(type,params){const out=await act(type,params);if(out?.ok===false){UI.note=out.error||'지금은 할 수 없습니다.';SND('error');}else UI.note='';return out;}
+async function attempt(type,params){let out;try{out=await act(type,params);}catch{out={ok:false,error:'처리 결과를 확인하지 못했습니다. 동기화한 뒤 기원 기록을 확인해 주세요.'};}if(!out)out={ok:false,error:'다른 행동을 처리하고 있습니다. 잠시 뒤 다시 시도해 주세요.'};if(out.ok===false){UI.note=out.error||'지금은 할 수 없습니다.';SND('error');}else UI.note='';return out;}
 function balance(){return game.premiumBalance?.()||{};}
 function fateOf(banner){return game.wishView().banners[banner].fate;}
 // ---- the screen ----
 function open(banner){
  if(!game?.wishView)return;if(banner)UI.banner=banner;
- if(!UI.root){UI.root=mk('div','wish-screen');UI.root.setAttribute('role','dialog');UI.root.setAttribute('aria-label','기원');document.body.append(UI.root);document.addEventListener('keydown',onKey);SND('wish_open');warmVideos();}
+ if(!UI.root){UI.root=mk('div','wish-screen');UI.root.setAttribute('role','dialog');UI.root.setAttribute('aria-label','기원');document.body.append(UI.root);document.addEventListener('keydown',onKey);SND('wish_open');}
  draw();
 }
-function close(){if(!UI.root||UI.stage)return;SND('wish_close');document.removeEventListener('keydown',onKey);UI.root.remove();UI.root=null;UI.panel=null;try{render();}catch{}}
+function close(){if(!UI.root||UI.stage)return;clearTimeout(UI.lockTimer);SND('wish_close');document.removeEventListener('keydown',onKey);UI.root.remove();UI.root=null;UI.panel=null;try{render();}catch{}}
 function onKey(e){
+ if(typeof window!=='undefined'){const top=window.CRPGShell?.topOverlay?.();if(top&&top!==UI.root&&!UI.root?.contains(top))return;}
  if(UI.stage&&(e.key===' '||e.key==='Enter')){e.preventDefault();UI.stage.advance?.();return;}
  if(e.key!=='Escape')return;if(UI.stage){UI.stage.skip?.();return;}if(UI.panel){UI.panel=null;draw();return;}close();
 }
+// Side panels and the result animation belong to this dialog, but only their controls are interactive.
+function focusLayer(layer){
+ if(!UI.root)return;for(const child of UI.root.children)child.inert=!!layer&&child!==layer;
+ if(layer){UI.root.scrollTop=0;const target=layer.querySelector('button:not(:disabled),input:not(:disabled),select:not(:disabled)')||layer;if(target===layer)layer.tabIndex=-1;target.focus({preventScroll:true});}
+}
+function refreshBusy(){if(!UI.root)return;UI.root.setAttribute('aria-busy',String(UI.busy));for(const button of UI.root.querySelectorAll('.wish-pull,.wish-primary'))button.disabled=UI.busy||!!button.wishLock;}
 function wallet(){
  const w=mk('div','wish-wallet'),b=balance();
  for(const key of ['PRIMOGEM','INTERTWINED_FATE','ACQUAINT_FATE']){
@@ -54,8 +61,8 @@ function wallet(){
  return w;
 }
 function draw(){
- const root=UI.root;if(!root)return;const v=game.wishView(),bal=balance();
- root.replaceChildren();root.dataset.banner=UI.banner;
+ const root=UI.root;if(!root||UI.stage)return;const v=game.wishView(),bal=balance();
+ root.replaceChildren();root.dataset.banner=UI.banner;root.setAttribute('aria-busy',String(UI.busy));
  const sky=mk('div','wish-sky');root.append(sky);
  // top
  const top=mk('header','wish-top'),title=mk('h1','wish-title');title.append(mk('span','wish-title-star','✦'),mk('span','','기원'));
@@ -78,13 +85,13 @@ function draw(){
  pity.append(mk('span','','5★까지 최대 '+(90-s.pity5)+'회'),mk('span','','4★ 이상까지 최대 '+(10-s.pity4)+'회'));
  if(UI.banner==='EVENT'&&s.guarantee5)pity.append(mk('span','wish-guarantee','다음 5★는 확률 UP 동료 확정'));
  const pulls=mk('div','wish-pulls'),fate=v.banners[UI.banner].fate,lock=lockReason();
- for(const n of [1,10]){const b=mk('button','wish-pull'+(n===10?' ten':''));b.type='button';const cost=mk('span','wish-cost');cost.append(curIcon(fate,'wish-cur small'),mk('span','','× '+n));b.append(mk('strong','',n===1?'기원 1회':'기원 10회'),cost);b.disabled=UI.busy||!!lock;if(lock)b.title=lock;b.onclick=()=>pull(n);pulls.append(b);}
+ for(const n of [1,10]){const b=mk('button','wish-pull'+(n===10?' ten':''));b.type='button';const cost=mk('span','wish-cost');cost.append(curIcon(fate,'wish-cur small'),mk('span','','× '+n));b.append(mk('strong','',n===1?'기원 1회':'기원 10회'),cost);b.wishLock=!!lock;b.disabled=UI.busy||b.wishLock;if(lock)b.title=lock;b.onclick=()=>pull(n);pulls.append(b);}
  foot.append(left,pity,pulls);
  const note=lock||UI.note;if(note){const p=mk('p','wish-lock',note);p.setAttribute('role','status');foot.append(p);}
  // 0.15.2: a lock that runs out by itself (the short rest after a lost battle) opens the buttons again without reopening
  clearTimeout(UI.lockTimer);const sec=/(\d+)초 남음/.exec(lock||'');if(sec)UI.lockTimer=setTimeout(()=>{if(UI.root&&!UI.stage)draw();},(Number(sec[1])+1)*1000);
  root.append(foot);
- if(UI.panel)root.append(panel(UI.panel,v,bal));
+ if(UI.panel){const layer=panel(UI.panel,v,bal);root.append(layer);focusLayer(layer);}
 }
 function eventBanner(v){
  const f=v.featured,el=elementOf(f.five),box=mk('section','wish-banner event el-'+(EL[el]||'default'));
@@ -114,11 +121,12 @@ function panel(p,v,bal){
  if(p.kind==='buy'){
   const fate=p.fate,name=CUR[fate][0],need=p.need||0,count=Math.max(1,Math.min(10,p.count||need||1)),cost=count*160;head.append(mk('h3','',name+' 교환'),x);box.append(head);
   if(need)box.append(mk('p','wish-warn',name+'이(가) '+need+'개 부족합니다.'));
+  if(UI.note)box.append(mk('p','wish-warn',UI.note));
   const row=mk('div','wish-buy');row.append(curIcon('PRIMOGEM'),mk('b','',fmt(cost)),mk('span','','→'),curIcon(fate),mk('b','','× '+count));box.append(row);
   const step=mk('div','wish-steps');for(const n of [1,5,10]){const b=mk('button','wish-ghost'+(count===n?' active':''),n+'개');b.type='button';b.onclick=()=>{UI.panel={...p,count:n};draw();};step.append(b);}box.append(step);
   const why=lockReason()||game.premiumOfferReason({offer:FATE_OFFER[fate],count});
-  const go=mk('button','wish-primary',p.then?'교환하고 기원':'교환');go.type='button';go.disabled=!!why||UI.busy;if(why)box.append(mk('p','wish-warn',why));
-  go.onclick=async()=>{UI.busy=true;let out;try{out=await attempt('PREMIUM_BUY',{offer:FATE_OFFER[fate],count});}finally{UI.busy=false;}if(out?.ok===false){draw();return;}const then=p.then;UI.panel=null;draw();if(then)pull(then);};box.append(go);
+  const go=mk('button','wish-primary',p.then?'교환하고 기원':'교환');go.type='button';go.wishLock=!!why;go.disabled=go.wishLock||UI.busy;if(why)box.append(mk('p','wish-warn',why));
+  go.onclick=async()=>{if(UI.busy)return;const root=UI.root;UI.busy=true;draw();let out;try{out=await attempt('PREMIUM_BUY',{offer:FATE_OFFER[fate],count});}finally{UI.busy=false;}if(UI.root!==root||UI.panel!==p){refreshBusy();return;}if(out?.ok===false){draw();return;}const then=p.then;UI.panel=null;draw();if(then)pull(then);};box.append(go);
   box.append(mk('small','muted','원석 160개로 인연 1개를 교환합니다. 기원에서 모인 스타더스트 75개로도 인연을 매달 종류마다 5개까지 바꿀 수 있습니다.'));
  }else if(p.kind==='details'){
   head.append(mk('h3','','기원 상세 정보'),x);box.append(head);
@@ -136,7 +144,7 @@ function panel(p,v,bal){
   head.append(mk('h3','','운영자 · 재화 지급'),x);box.append(head);box.append(mk('p','muted','시험 기원용입니다. 도구를 쓴 여정은 랭킹에서 제외됩니다.'));
   const sel=mk('select','');for(const key of ['PRIMOGEM','INTERTWINED_FATE','ACQUAINT_FATE','STARGLITTER','STARDUST'])sel.append(new Option(CUR[key][0],key));
   const num=mk('input','');num.type='number';num.min='0';num.max='1000000';num.value='16000';
-  const go=mk('button','wish-primary','지급');go.type='button';go.onclick=async()=>{const value=Math.floor(Number(num.value)||0);UI.busy=true;try{await act('OPERATOR_DEBUG',{op:'premium',currency:sel.value,value});}finally{UI.busy=false;}UI.panel=null;draw();};
+  const go=mk('button','wish-primary','지급');go.type='button';go.disabled=UI.busy;go.onclick=async()=>{if(UI.busy)return;const root=UI.root,value=Math.floor(Number(num.value)||0),currency=sel.value;UI.busy=true;refreshBusy();try{await attempt('OPERATOR_DEBUG',{op:'premium',currency,value});}finally{UI.busy=false;}if(UI.root!==root||UI.panel!==p){refreshBusy();return;}UI.panel=null;draw();};
   box.append(sel,num,go);
  }
  wrap.append(box);return wrap;
@@ -146,8 +154,9 @@ async function pull(count){
  if(UI.busy||UI.stage)return;const banner=UI.banner,fate=fateOf(banner),have=balance()[fate]||0;
  if(have<count){UI.panel={kind:'buy',fate,need:count-have,count:count-have,then:count};SND('error');draw();return;}
  const lock=lockReason();if(lock){UI.note=lock;SND('error');draw();return;}
- const before=game.wishState().seq;UI.busy=true;SND('wish_click');
+ const before=game.wishState().seq,root=UI.root;UI.busy=true;SND('wish_click');draw();
  let out;try{out=await attempt('WISH',{banner,count});}finally{UI.busy=false;}
+ if(UI.root!==root){refreshBusy();return;}
  if(out?.ok===false||!game.s.wish){draw();return;}
  const results=(game.s.wish.history||[]).filter(h=>h.seq>before).sort((a,b)=>a.seq-b.seq);
  if(!results.length){draw();return;}
@@ -160,8 +169,7 @@ async function pull(count){
 const VIDEOS={'3star-single':1,'4star-single':1,'5star-single':1,'4star-multi':1,'5star-multi':1};
 const videoUrl=name=>'assets/video/wish/'+name+'.mp4';
 function videoFor(results){const best=Math.max(...results.map(r=>r.rarity));return results.length>1?(best>=5?'5star-multi':'4star-multi'):(best>=5?'5star-single':best===4?'4star-single':'3star-single');}
-// The two most common videos start loading when the wish screen opens; the gold ones load when they are drawn.
-function warmVideos(){if(UI.warm)return;UI.warm=['3star-single','4star-multi'].map(n=>{const v=document.createElement('video');v.preload='auto';v.muted=true;v.src=videoUrl(n);return v;});}
+// Load only the selected result's recording, after its wish action has completed.
 function play(results){
  const order=results.slice().sort((a,b)=>a.seq-b.seq),best=Math.max(...order.map(r=>r.rarity));
  const stage=mk('div','wish-stage best-'+best),video=mk('video','wish-video'),skip=mk('button','wish-skip','건너뛰기 ›');skip.type='button';
@@ -177,6 +185,7 @@ function play(results){
  const guard=setTimeout(afterVideo,14000);
  video.addEventListener('ended',afterVideo);video.addEventListener('error',afterVideo);
  UI.stage={skip:toList,advance:()=>{if(phase==='video')return;current?.advance();}};
+ focusLayer(stage);
  skip.onclick=e=>{e.stopPropagation();toList();};
  window.CRPGSound?.duck?.(7);
  const started=video.play();
@@ -239,8 +248,9 @@ function summary(stage,results){
  const sums=mk('p','wish-summary-gain');if(total.glitter){sums.append(curIcon('STARGLITTER','wish-cur small'),mk('span','','+'+total.glitter));}if(total.dust){sums.append(curIcon('STARDUST','wish-cur small'),mk('span','','+'+total.dust));}
  box.append(cards,sums,ok);stage.append(box);
  const leave=()=>{SND('wish_return');stage.remove();UI.stage=null;draw();};
- ok.onclick=leave;UI.stage={skip:leave};
+ ok.onclick=leave;UI.stage={skip:leave,advance:leave};
  stage.querySelector('.wish-skip')?.remove();
+ ok.focus({preventScroll:true});
 }
 window.CRPGWish={open,close};
 if(window.CRPGShell?.extraTiles)window.CRPGShell.extraTiles.push({icon:'STARS',label:'기원',run:()=>open()});

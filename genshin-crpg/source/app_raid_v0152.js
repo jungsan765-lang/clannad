@@ -19,7 +19,7 @@ const MAN=()=>typeof MANIFEST!=='undefined'?MANIFEST:(window.CRPG_MANIFEST||{});
 const left=h=>h>48?Math.ceil(h/24)+'일':Math.max(1,h)+'시간';
 const itemName=id=>{try{return game.tables['14_ITEM_DB'].get(id)?.[1]||id;}catch{return id;}};
 function rewardText(w){const parts=[];if(w.primogem)parts.push('원석 '+w.primogem);if(w.mora)parts.push(fmt(w.mora)+' 모라');for(const [id,n] of Object.entries(w.items||{}))parts.push(itemName(id)+' '+n+'개');return parts.join(' · ');}
-function bossArt(id,cls){try{const row=game.tables['09_MONSTER_DB'].get(id),src=row&&typeof assetPath==='function'?assetPath('enemy_'+row[15]+'.png'):null;if(src){const i=mk('img',cls);i.src=src;i.alt='';i.draggable=false;return i;}}catch{}return mk('span',cls+' fallback','✦');}
+function bossArt(id,cls){try{const src=typeof enemyPortraitFor==='function'?enemyPortraitFor(id):null;if(src){const i=mk('img',cls);i.src=src;i.alt='';i.draggable=false;return i;}}catch{}return mk('span',cls+' fallback','✦');}
 // ---------- the server ----------
 // The engine checks sorties against the open event; the local copy learns it from the server's answer.
 const openEvent=()=>{const c=R.status?.current;return R.status?.open&&c?{id:c.id,boss:c.boss,startsAt:c.startsAt,endsAt:c.endsAt,target:c.target}:null;};

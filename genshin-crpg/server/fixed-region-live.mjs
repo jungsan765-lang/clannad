@@ -14,6 +14,7 @@ import {installRaidSchema,raidMethods,raidRoute} from './raid-v0152.mjs';
 import {installCoopSchema,coopMethods,coopRoute} from './coop-v0153.mjs';
 
 const TRANSPORT_BUILD='fixed-region-live-sqlite-v1',MAX_BODY=65536,SESSION_MS=7*86400000,MAX_CACHE=16,now=()=>Date.now();
+const STREAM_MAX=500,STREAM_PER_ACCOUNT=8,STREAM_BUFFER_BYTES=128*1024,STREAM_STALL_MS=30000,EPHEMERAL_SWEEP_MS=60000;
 const RID=/^[a-zA-Z0-9_-]{10,80}$/,JSON_HEADERS={'content-type':'application/json; charset=utf-8','cache-control':'no-store'};
 const err=(status,message,code)=>Object.assign(new Error(message),{status,code});
 const view=(a,admins)=>({id:a.id,username:a.username,displayName:a.display_name,admin:admins.has(a.id)});
@@ -71,6 +72,8 @@ export class LiveRegionStore{
    'CREATE TABLE IF NOT EXISTS accounts(id TEXT PRIMARY KEY,username TEXT NOT NULL UNIQUE,display_name TEXT NOT NULL,salt TEXT NOT NULL,password_hash TEXT NOT NULL,created_at INTEGER NOT NULL) STRICT',
    'CREATE TABLE IF NOT EXISTS sessions(token_hash TEXT PRIMARY KEY,account_id TEXT NOT NULL,expires_at INTEGER NOT NULL,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT',
    'CREATE INDEX IF NOT EXISTS sessions_account_idx ON sessions(account_id)',
+   'CREATE INDEX IF NOT EXISTS sessions_expiry_idx ON sessions(expires_at)',
+   'CREATE INDEX IF NOT EXISTS sessions_account_expiry_idx ON sessions(account_id,expires_at DESC,token_hash DESC)',
    'CREATE TABLE IF NOT EXISTS metadata(account_id TEXT PRIMARY KEY,revision INTEGER,ranked INTEGER NOT NULL,last_request_id TEXT NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT',
    'CREATE TABLE IF NOT EXISTS parts(account_id TEXT NOT NULL,path TEXT NOT NULL,value TEXT NOT NULL,PRIMARY KEY(account_id,path),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT',
    'CREATE TABLE IF NOT EXISTS receipts(account_id TEXT NOT NULL,request_id TEXT NOT NULL,revision INTEGER NOT NULL,base_revision INTEGER NOT NULL,intent_hash TEXT NOT NULL,result TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,request_id),FOREIGN KEY(account_id) REFERENCES metadata(account_id) ON DELETE CASCADE) STRICT',
@@ -83,15 +86,52 @@ export class LiveRegionStore{
   if(this.features.has('chat'))this.db.exec('CREATE TABLE IF NOT EXISTS chat(id INTEGER PRIMARY KEY AUTOINCREMENT,channel TEXT NOT NULL,account_id TEXT NOT NULL,author TEXT NOT NULL,text TEXT NOT NULL,created_at INTEGER NOT NULL,deleted INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS chat_channel_idx ON chat(channel,id);');
   if(this.features.has('trade'))this.db.exec("CREATE TABLE IF NOT EXISTS trades(id INTEGER PRIMARY KEY AUTOINCREMENT,from_id TEXT NOT NULL,to_id TEXT NOT NULL,give TEXT NOT NULL,want TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(from_id) REFERENCES accounts(id) ON DELETE CASCADE,FOREIGN KEY(to_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS trades_to_idx ON trades(to_id,status);CREATE INDEX IF NOT EXISTS trades_from_idx ON trades(from_id,status);");
   installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);installRaidSchema(this.db);installCoopSchema(this.db,this.features);migrateHeroNames(this.db);
-  this.heartbeat=setInterval(()=>this.push(': ping\n\n'),25000);this.heartbeat.unref?.();
+  this.heartbeat=setInterval(()=>{this.pruneStreams();this.push(': ping\n\n');},25000);this.heartbeat.unref?.();
+  this.pruneEphemeral();this.maintenance=setInterval(()=>{try{this.pruneEphemeral();}catch{console.error('CRPG ephemeral cleanup failed; retrying next minute.');}},EPHEMERAL_SWEEP_MS);this.maintenance.unref?.();
  }
- close(){clearInterval(this.heartbeat);for(const s of this.subscribers){try{s.res.end();}catch{}}this.subscribers.clear();this.db.close();}
+ closeStreams(filter){for(const s of this.subscribers)if(!filter||filter(s))s.leave(true);}
+ pruneStreams(t=now()){
+  const valid=this.db.prepare('SELECT 1 FROM sessions WHERE token_hash=? AND account_id=? AND expires_at>?');
+  for(const s of this.subscribers)if(s.sessionHash&&(s.expiresAt<=t||!valid.get(s.sessionHash,s.account,t)))s.leave(true);
+ }
+ close(){clearInterval(this.heartbeat);clearInterval(this.maintenance);this.closeStreams();this.db.close();}
+ pruneEphemeral(t=now()){
+  for(const [key,r]of this.rates)if(r.until<=t)this.rates.delete(key);
+  if(this.db.isTransaction)return;
+  // Keep the newest row per account: the admin account list uses it for the last-login date. Older expired
+  // sessions no longer authenticate; delete at most 1,000 per sweep without touching receipts or audit history.
+  this.db.prepare('DELETE FROM sessions WHERE token_hash IN (SELECT s.token_hash FROM sessions s WHERE s.expires_at<=? AND s.token_hash<>(SELECT n.token_hash FROM sessions n WHERE n.account_id=s.account_id ORDER BY n.expires_at DESC,n.token_hash DESC LIMIT 1) ORDER BY s.expires_at LIMIT 1000)').run(t);
+ }
  need(feature){if(!this.features.has(feature))throw err(404,'지원하지 않는 요청입니다.');}
  capabilities(){return ['state-parts-v1',...(this.features.has('chat')?['chat-v1','profile-v1']:[]),...(this.features.has('trade')?['trade-v1','market-v1','deal-v1','mail-v1']:[]),'raid-v1',...(this.features.has('coop')?['coop-v1']:[])];}
  // ---------- chat ----------
- push(text,filter){for(const s of this.subscribers){if(filter&&!filter(s))continue;try{s.res.write(text);}catch{this.subscribers.delete(s);}}}
+ push(text,filter){for(const s of this.subscribers){if(filter&&!filter(s))continue;s.send(text);}}
  broadcast(event,filter){this.push('data: '+JSON.stringify(event)+'\n\n',filter);}
- subscribe(a,res){if(this.subscribers.size>=500)throw err(503,'채팅 연결이 많습니다. 잠시 뒤 다시 시도해 주세요.');const s={res,account:a.id};this.subscribers.add(s);return ()=>this.subscribers.delete(s);}
+ subscribe(a,res,session={}){
+  if([...this.subscribers].filter(s=>s.account===a.id).length>=STREAM_PER_ACCOUNT)throw err(429,'이 계정의 실시간 연결이 많습니다. 다른 게임 창을 닫고 다시 시도해 주세요.','STREAM_ACCOUNT_LIMIT');
+  if(this.subscribers.size>=STREAM_MAX)throw err(503,'채팅 연결이 많습니다. 잠시 뒤 다시 시도해 주세요.');
+  // Only the session hash is retained. Heartbeats recheck revoked/expired sessions even if a client ignores logout.
+  const s={res,account:a.id,sessionHash:session.th||null,expiresAt:session.expiresAt||0,queue:[],queuedBytes:0,blocked:false,timer:null,closed:false};
+  const leave=(destroy=false)=>{
+   if(s.closed)return;s.closed=true;this.subscribers.delete(s);clearTimeout(s.timer);s.queue.length=0;s.queuedBytes=0;
+   res.off('drain',drain);res.off('close',onClose);res.off('error',onError);
+   if(destroy)try{res.destroy();}catch{}
+  };
+  const onClose=()=>leave(),onError=()=>leave(true),stall=()=>{s.blocked=true;s.timer=setTimeout(()=>leave(true),STREAM_STALL_MS);s.timer.unref?.();};
+  const write=text=>{try{if(!res.write(text))stall();}catch{leave(true);}};
+  const drain=()=>{
+   if(s.closed)return;clearTimeout(s.timer);s.timer=null;s.blocked=false;
+   while(s.queue.length&&!s.blocked&&!s.closed){const text=s.queue.shift();s.queuedBytes-=Buffer.byteLength(text);write(text);}
+  };
+  s.send=text=>{
+   if(s.closed)return;if(res.destroyed||res.writableEnded)return leave();
+   // A false write already accepted that chunk. Wait for drain instead of appending to Node's socket buffer.
+   // Bound the pending bytes as well; an overloaded client reconnects and reads the existing state endpoints.
+   const bytes=Buffer.byteLength(text);if(s.queuedBytes+(res.writableLength||0)+bytes>STREAM_BUFFER_BYTES)return leave(true);
+   if(s.blocked){s.queue.push(text);s.queuedBytes+=bytes;}else write(text);
+  };
+  s.leave=leave;res.on('drain',drain);res.on('close',onClose);res.on('error',onError);this.subscribers.add(s);return leave;
+ }
  // 0.14.15: Spiral Abyss medals and last season's frame travel with every line.
  chatView(row){const staff=this.admins.has(row.account_id)||row.account_id===SYSTEM_ACCOUNT,h=row.account_id===SYSTEM_ACCOUNT?null:this.honours(row.account_id);return {id:row.id,channel:row.channel,author:row.author,pid:pidOf(row.account_id),text:row.deleted?'':row.text,deleted:row.deleted===1,at:row.created_at,staff,medals:h?.count||0,top:h?.top||0,frame:h?.frame||0};}
  chatRecent(a,after,channel){
@@ -198,7 +238,7 @@ export class LiveRegionStore{
   const ban=banOf(this.db,a.id);if(ban)throw err(403,banMessage(ban),'ACCOUNT_BANNED');return this.issue(a);
  }
  async issue(a){const secret=token(),th=await hash(secret);this.db.prepare('INSERT INTO sessions VALUES(?,?,?)').run(th,a.id,now()+SESSION_MS);return {token:secret,account:view(a,this.admins),version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT};}
- async auth(raw){if(!/^[a-f0-9]{64}$/.test(raw||''))throw err(401,'로그인해 주세요.');const th=await hash(raw),a=this.db.prepare('SELECT a.* FROM sessions s JOIN accounts a ON a.id=s.account_id WHERE s.token_hash=? AND s.expires_at>?').get(th,now());if(!a)throw err(401,'로그인이 만료되었습니다.');const ban=banOf(this.db,a.id);if(ban)throw err(401,banMessage(ban),'ACCOUNT_BANNED');this.syncName(a);return {a,th};}
+ async auth(raw){if(!/^[a-f0-9]{64}$/.test(raw||''))throw err(401,'로그인해 주세요.');const th=await hash(raw),row=this.db.prepare('SELECT a.*,s.expires_at AS session_expires_at FROM sessions s JOIN accounts a ON a.id=s.account_id WHERE s.token_hash=? AND s.expires_at>?').get(th,now());if(!row)throw err(401,'로그인이 만료되었습니다.');const {session_expires_at:expiresAt,...a}=row,ban=banOf(this.db,a.id);if(ban)throw err(401,banMessage(ban),'ACCOUNT_BANNED');this.syncName(a);return {a,th,expiresAt};}
  // 0.15.3: other adventurers see the name chosen for the journey, never the login id (user: 「채팅은 플레이어 아이디 말고
  // 이름으로 나오게 해줘」). The account's display name follows the protagonist's name, so chat, profiles, letters, trades,
  // the market and the rankings show it. An account without a journey yet has no public name.
@@ -208,7 +248,7 @@ export class LiveRegionStore{
   // 0.15.4: build the journey's runtime while the player is still on the title screen, so the first action is quick.
   if(m&&m.revision!=null&&!e){try{this.touch(a.id,{revision:m.revision,parts,r:new R(GAME_DB,joinState(parts),true)});}catch{}}
   return this.output(a,m,parts);}
- logout(th){this.db.prepare('DELETE FROM sessions WHERE token_hash=?').run(th);return {ok:true};}
+ logout(th){this.db.prepare('DELETE FROM sessions WHERE token_hash=?').run(th);this.closeStreams(s=>s.sessionHash===th);return {ok:true};}
  async remove(a,b){this.rate('delete:'+a.id,5,900000);if(b.confirm!==a.username||!same(await passwordHash(String(b.password||''),a.salt,this.pepper),a.password_hash))throw err(403,'아이디와 비밀번호로 삭제를 확인해 주세요.');this.db.prepare('DELETE FROM accounts WHERE id=?').run(a.id);this.invalidate(a.id);return {deleted:true};}
  async newGame(a,b){
   return this.serial(a.id,async()=>{const old=this.meta(a.id);if(old?.revision!=null)throw err(409,'이미 자동저장된 여정이 있습니다.');
@@ -263,7 +303,7 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
    if(path==='/chat/stream'&&req.method==='GET'){
     // Server-sent events over an authorised fetch: new chat lines for everyone, trade news only for its two players.
     if(!store.features.has('chat')&&!store.features.has('trade')&&!store.features.has('coop'))throw err(404,'지원하지 않는 요청입니다.');
-    const leave=store.subscribe(a,res);res.writeHead(200,{...c,'content-type':'text/event-stream; charset=utf-8','cache-control':'no-store','x-accel-buffering':'no'});res.write(': connected\n\n');req.on('close',leave);return;
+    const leave=store.subscribe(a,res,auth);res.writeHead(200,{...c,'content-type':'text/event-stream; charset=utf-8','cache-control':'no-store','x-accel-buffering':'no'});store.push(': connected\n\n',s=>s.res===res);req.on('close',()=>leave());return;
    }
    if(path==='/trade/list'&&req.method==='GET')return send(res,200,store.tradeList(a),c);
    if(path==='/trade/offer'&&req.method==='POST')return send(res,200,store.tradeOffer(a,await body(req)),c);
@@ -282,7 +322,7 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
 }
 export async function startLiveRegionStaging({dbPath=':memory:',pepper,adminIds='',allowedOrigin='https://clannad.shop',host='127.0.0.1',port=0,features=defaultFeatures(dbPath),adminConsoleId='',adminConsoleHash=''}={}){
  const store=new LiveRegionStore(dbPath,{pepper,adminIds,features}),adminConsole=new AdminConsole(store,{id:adminConsoleId,secret:adminConsoleHash,pepper}),server=createServer(createLiveRegionHandler({store,allowedOrigin,adminConsole}));await new Promise((ok,bad)=>{server.once('error',bad);server.listen(port,host,ok);});
- return {store,adminConsole,server,address:server.address(),close:async()=>{for(const s of store.subscribers){try{s.res.end();}catch{}}server.closeIdleConnections?.();await new Promise((ok,bad)=>server.close(e=>e?bad(e):ok()));store.close();}};
+ return {store,adminConsole,server,address:server.address(),close:async()=>{store.closeStreams();server.closeIdleConnections?.();await new Promise((ok,bad)=>server.close(e=>e?bad(e):ok()));store.close();}};
 }
 // Started directly (compare real paths: the servers run it through a current symlink).
 const startedDirectly=()=>{try{return !!process.argv[1]&&realpathSync(fileURLToPath(import.meta.url))===realpathSync(resolve(process.argv[1]));}catch{return false;}};

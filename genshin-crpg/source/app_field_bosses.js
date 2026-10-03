@@ -15,7 +15,7 @@ boss=function(p,...args){
  const box=el('section','field-boss-info');box.setAttribute('aria-label','필드 보스 정보');
  box.append(el('h2','',info.name+' · 권장 Lv.'+info.level+' · 4인'),el('p','',info.summary));
  box.append(el('p','field-boss-drop','주요 보상 · '+info.material.name+' 2~3개 (첫 토벌 +1) · 강적의 잔향 20%'));
- if(info.daily)box.append(el('p','field-boss-daily'+(info.daily.left?'':' short'),'오늘 필드 보스 토벌 '+info.daily.wins+'/'+info.daily.limit+(info.daily.left?' · '+info.daily.left+'번 남음':' · 다음 날 다시 도전')));
+ if(info.daily)box.append(el('p','field-boss-daily'+(info.daily.left?'':' short'),'이번 시간대 필드 보스 토벌 '+info.daily.wins+'/'+info.daily.limit+(info.daily.left?' · '+info.daily.left+'번 남음':' · 한국 시간 '+info.daily.resetAt+'에 다시 도전')));
  const X=globalThis.CRPGRuntime?.exclusiveWeapons;if(X){const who=X.weapons.filter(w=>w.material===info.material.id).map(w=>game.tables['07_CHAR_DB'].get(w.owner)?.[1]||w.owner),gear=X.bossGear.filter(g=>g.material===info.material.id).map(g=>g.name);
   if(who.length||gear.length)box.append(el('p','field-boss-uses','재료 쓰임새 (리월 장비점) · '+[who.length?'전용 무기: '+who.join(', '):'',gear.length?'보스 장비: '+gear.join(', '):''].filter(Boolean).join(' · ')));}
  if(info.cooldown.reason)box.append(el('p','choice-note',info.cooldown.reason));

@@ -16,8 +16,8 @@ const NS='http://www.w3.org/2000/svg';
 const svgEl=(tag,attrs={})=>{const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);return e;};
 const note=(body,text,cls='')=>C.note(body,text,cls);
 const tools=(...kids)=>{const r=mk('div','ch-tools');r.append(...kids.filter(Boolean));return r;};
-const open=()=>!!C.node;
-const later=(fn,ms)=>setTimeout(()=>{if(open())fn();},ms);
+const open=node=>!!node&&C.node===node;
+const later=(fn,ms)=>{const node=C.node;return setTimeout(()=>{if(open(node))fn();},ms);};
 const range=n=>[...Array(n).keys()];
 const hard=p=>p.region==='LIYUE';
 const solvedOf=el=>el.classList.contains('solved');
@@ -196,8 +196,8 @@ C.games.SIMON=function(p,body,done){
  const keys=EL.map((name,i)=>{const b=cell('pz-simon-key el-'+KEY[i],name+' 원소',()=>tap(i));b.append(orb(i),mk('small','',name));pad.append(b);return b;});body.append(pad);
  const flash=(i,ms)=>{keys[i].classList.add('lit');timers.push(setTimeout(()=>keys[i].classList.remove('lit'),ms));};
  const play=()=>{if(phase==='done')return;phase='show';pos=0;counter.textContent=round+' / '+seq.length+' · 잘 보세요';const gap=p.showMs+160;
-  for(let k=0;k<round;k++)timers.push(setTimeout(()=>{if(!open())return;flash(seq[k],p.showMs);SND('puzzle_light');},k*gap+300));
-  timers.push(setTimeout(()=>{if(!open()||phase!=='show')return;phase='play';counter.textContent=round+' / '+seq.length+' · 같은 순서로 누르세요';},round*gap+300));};
+  for(let k=0;k<round;k++)timers.push(later(()=>{flash(seq[k],p.showMs);SND('puzzle_light');},k*gap+300));
+  timers.push(later(()=>{if(phase!=='show')return;phase='play';counter.textContent=round+' / '+seq.length+' · 같은 순서로 누르세요';},round*gap+300));};
  const tap=i=>{
   if(phase!=='play'||solvedOf(pad))return;flash(i,220);
   if(i!==seq[pos]){SND('error');shake(pad);phase='wait';counter.textContent='틀렸습니다. 다시 보여 드릴게요.';later(play,1100);return;}

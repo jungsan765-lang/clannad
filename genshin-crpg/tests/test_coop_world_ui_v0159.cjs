@@ -84,7 +84,7 @@ function page(you='GUEST'){
  const edges=[['E1','MAP_MOND_CITY','MAP_MOND_PLAINS','WORLD_MOVE','','','','','Y','','','ACTIVE'],['E2','MAP_MOND_CITY','MAP_MOND_FOREST','WORLD_MOVE','','','','','Y','','','ACTIVE']];
  const maps=new Map([['MAP_MOND_CITY',['MAP_MOND_CITY','몬드','몬드성']],['MAP_MOND_PLAINS',['MAP_MOND_PLAINS','몬드','몬드 외곽 초원']],['MAP_MOND_FOREST',['MAP_MOND_FOREST','몬드','속삭임의 숲']],['MAP_MOND_WINERY',['MAP_MOND_WINERY','몬드','다운 와이너리']]]);
  const game={s:{global:{SCREEN_MODE:'LOCATION',CURRENT_MAP_ID:'MAP_MOND_CITY'},runtime:null},playPhase:()=>'FREE',coopCharChoices:()=>[],coopLevelReason:()=>'',tables:{'32_MAP_DB':maps},rows:t=>t==='47_MAP_EDGE_DB'?edges:[]};
- const O={token:'token',account:{username:'tester'},active:true,pending:false,request:async(p,body)=>{
+ const O={sessionStamp:()=>0,sameSession:()=>true,token:'token',account:{username:'tester'},active:true,pending:false,request:async(p,body)=>{
   sent.push([p,body]);
   if(p==='/coop/room')return {room:serverRoom,invites:[],me:{pid:you==='HOST'?'h1':'g1'}};
   if(p==='/coop/say'){const line={from:{name:you==='HOST'?'루미':'하루',pid:you==='HOST'?'h1':'g1',host:you==='HOST'},text:body.text,at:++clock};return {line};}

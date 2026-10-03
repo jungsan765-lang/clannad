@@ -11,6 +11,7 @@
 'use strict';
 const SHELL=window.CRPGShell;if(!SHELL)return;
 const O=window.CRPGOnline;
+const mailSession=()=>O?.sessionStamp?.(),sameMailSession=session=>!O?.sameSession||O.sameSession(session);
 const M=window.CRPGMail={node:null,tab:'in',pick:null,sentPick:null,seen:null,busy:false,letters:null,enabled:null,probing:false,nextProbe:0,draft:null,msg:''};
 const mk=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined&&text!==null)e.textContent=String(text);return e;};
 const btn=(label,fn,cls='')=>{const b=mk('button','ml-btn '+cls,label);b.type='button';b.onclick=fn;return b;};
@@ -71,17 +72,23 @@ function badge(){
 const KIND={GIFT:'선물',NOTICE:'알림',LETTER:'편지',RETURN:'반송'};
 const sentState=l=>l.status==='TAKEN'?['받아 감','ok']:l.status==='RETURNED'?['돌아옴','warn']:l.status==='BACK'?['되찾음','']:l.parcel?[l.read?'읽음 · 받기 전':'받기 전','info']:[l.read?'읽음':'배달됨',''];
 // ---------- the server's letters ----------
-async function loadLetters(){
- if(!O?.token)return;
- try{M.letters=await O.request('/mail/letters');M.enabled=true;}
- catch(e){if(e.status===404){M.enabled=false;M.letters=null;}else M.nextProbe=Date.now()+30000;}
- badge();if(M.node&&M.tab!=='write')draw();
+let lettersFlight=null,lettersSequence=0;
+function loadLetters(refresh=false){
+ if(!O?.token)return Promise.resolve();
+ const session=O.sessionStamp();if(!refresh&&lettersFlight&&O.sameSession(lettersFlight.session))return lettersFlight.promise;
+ const sequence=++lettersSequence,flight={session},current=()=>sequence===lettersSequence&&O.sameSession(session);
+ flight.promise=(async()=>{
+  try{const out=await O.request('/mail/letters');if(!current())return;M.letters=out;M.enabled=true;}
+  catch(e){if(!current())return;if(e.status===404){M.enabled=false;M.letters=null;}else M.nextProbe=Date.now()+30000;}
+  finally{if(lettersFlight===flight)lettersFlight=null;}
+  if(current()){badge();if(M.node&&M.tab!=='write')draw();}
+ })();lettersFlight=flight;return flight.promise;
 }
-M.reload=loadLetters;
+M.reload=()=>loadLetters(true);
 let readQueue=new Set(),readTimer=null;
 function seen(l){
- if(!l||l.box!=='IN'||l.read)return;l.read=true;readQueue.add(l.id);clearTimeout(readTimer);
- readTimer=setTimeout(async()=>{const ids=[...readQueue];readQueue=new Set();try{await O.request('/mail/read',{ids});}catch{}},400);badge();
+ if(!l||l.box!=='IN'||l.read)return;l.read=true;readQueue.add(l.id);clearTimeout(readTimer);const session=O.sessionStamp();
+ readTimer=setTimeout(async()=>{const ids=[...readQueue];readQueue=new Set();if(!O.sameSession(session)||!O.token)return;try{await O.request('/mail/read',{ids});}catch{}},400);badge();
 }
 // ---------- the window ----------
 function close(){if(!M.node)return;const n=M.node;M.node=null;n.classList.remove('open');setTimeout(()=>n.remove(),180);SND('menu_close');}
@@ -101,7 +108,7 @@ M.open=function(tab){
 // Write a letter, optionally to someone already chosen (the profile card, 「답장」).
 const newDraft=(opts={})=>({to:opts.to||null,q:'',results:[],title:opts.title||'',body:'',items:new Map(),mora:0,picker:false,replyTo:opts.replyTo||null,confirm:false});
 M.compose=function(opts={}){
- M.draft=newDraft(opts);
+ clearTimeout(M.findTimer);M.findList=null;M.draft=newDraft(opts);
  if(!M.node)M.open('write');else{M.tab='write';M.msg='';draw();}
 };
 M.canWrite=()=>!!O?.token&&M.enabled!==false;
@@ -280,8 +287,12 @@ function sendButtons(d){
  return [lock(btn(uncertainSend(d)?'보낸 기록 확인':'보내기',()=>{d.confirm=true;M.msg='';draw();},'primary ml-go'),why),btn('취소',()=>{M.draft=null;M.tab='in';M.msg='';draw();})];
 }
 async function find(d){
- const q=String(d.q||'').trim();if(!q){d.results=[];if(M.findList)fillFind(M.findList,d);return;}
- try{const out=await O.request('/mail/find?q='+encodeURIComponent(q));if(d.q.trim()!==q)return;d.results=out.players||[];}catch(e){d.results=[];M.msg=e.message;}
+ if(M.draft!==d||M.tab!=='write'||!O?.token)return;
+ const q=String(d.q||'').trim(),session=O.sessionStamp(),version=d.findVersion=(d.findVersion||0)+1;
+ const current=()=>M.draft===d&&M.tab==='write'&&O.sameSession(session)&&d.findVersion===version&&String(d.q||'').trim()===q;
+ if(!q){d.results=[];if(M.findList)fillFind(M.findList,d);return;}
+ try{const out=await O.request('/mail/find?q='+encodeURIComponent(q));if(!current())return;d.results=out.players||[];}
+ catch(e){if(!current())return;d.results=[];M.msg=e.message;}
  if(M.findList?.isConnected)fillFind(M.findList,d);
 }
 function fillFind(ul,d){
@@ -297,51 +308,53 @@ function twoStep(label,sure,fn,cls=''){
 // act() answers {ok:false,error:'…'} when the game refuses, nothing while another action runs, else the receipt.
 const failed=r=>r?.ok===false?(typeof r.error==='string'?r.error:r.error?.message||'처리하지 못했습니다.'):'';
 async function claim(id){
- if(M.busy)return;M.busy=true;let receipt;
- try{receipt=await act('MAIL_CLAIM',{mail:id});}catch(e){receipt={ok:false,error:e.message};}
- M.busy=false;if(!receipt)return;
+ if(M.busy)return;const session=mailSession();M.busy=true;let receipt;
+ try{receipt=await act('MAIL_CLAIM',{mail:id});}catch(e){if(!sameMailSession(session))return;receipt={ok:false,error:e.message};}
+ if(!sameMailSession(session))return;M.busy=false;if(!receipt)return;
  const err=failed(receipt);if(err){M.msg=err;SND('error');draw();return;}
  SND('chest_reward');M.msg='';draw();
  if(receipt.result?.lines?.length)SHELL.toast?.('받았습니다 · '+receipt.result.lines.join(', '));
  M.node?.querySelector('.ml-gifts')?.classList.add('just');
 }
 async function take(l){
- if(M.busy)return;M.busy=true;M.msg='';
+ if(M.busy)return;const session=mailSession();M.busy=true;M.msg='';
  try{const out=await O.request('/mail/take',{id:l.id});SND('chest_reward');SHELL.toast?.((l.box==='BACK'?'되찾았습니다 · ':'받았습니다 · ')+[out.label,out.mora?fmt(out.mora)+' 모라':''].filter(Boolean).join(', '));try{await O.sync();}catch{}}
- catch(e){M.msg=e.message;SND('error');}
- finally{M.busy=false;}
- await loadLetters();draw();M.node?.querySelector('.ml-gifts')?.classList.add('just');
+ catch(e){if(!sameMailSession(session))return;M.msg=e.message;SND('error');}
+ finally{if(sameMailSession(session))M.busy=false;}
+ if(!sameMailSession(session))return;
+ await loadLetters(true);draw();M.node?.querySelector('.ml-gifts')?.classList.add('just');
 }
 async function takeAll(){
- if(M.busy)return;M.msg='';const lines=[];
- if(opView().unclaimed){M.busy=true;let receipt;try{receipt=await act('MAIL_CLAIM',{mail:'ALL'});}catch(e){receipt={ok:false,error:e.message};}M.busy=false;
+ if(M.busy)return;const session=mailSession();M.msg='';const lines=[];
+ if(opView().unclaimed){M.busy=true;let receipt;try{receipt=await act('MAIL_CLAIM',{mail:'ALL'});}catch(e){if(!sameMailSession(session))return;receipt={ok:false,error:e.message};}if(!sameMailSession(session))return;M.busy=false;
   if(!receipt)return;const err=failed(receipt);if(err){M.msg=err;SND('error');draw();return;}lines.push(...(receipt.result?.lines||[]));}
  if(letters()&&(M.letters?.inbox||[]).some(l=>l.waiting)){M.busy=true;
-  try{const out=await O.request('/mail/take',{all:true});if(out.label)lines.push(out.label);if(out.mora)lines.push(fmt(out.mora)+' 모라');try{await O.sync();}catch{}}catch(e){M.msg=e.message;SND('error');}
-  finally{M.busy=false;}await loadLetters();}
+  try{const out=await O.request('/mail/take',{all:true});if(out.label)lines.push(out.label);if(out.mora)lines.push(fmt(out.mora)+' 모라');try{await O.sync();}catch{}}catch(e){if(!sameMailSession(session))return;M.msg=e.message;SND('error');}
+  finally{if(sameMailSession(session))M.busy=false;}if(!sameMailSession(session))return;await loadLetters(true);}
  if(lines.length){SND('chest_reward');SHELL.toast?.('받았습니다 · '+lines.join(', '));}
  draw();
 }
 async function sendBack(l){
- if(M.busy)return;M.busy=true;M.msg='';
- try{await O.request('/mail/return',{id:l.id});SND('menu_close');SHELL.toast?.(l.from.name+' 님에게 돌려보냈습니다.');}catch(e){M.msg=e.message;SND('error');}
- finally{M.busy=false;}await loadLetters();draw();
+ if(M.busy)return;const session=mailSession();M.busy=true;M.msg='';
+ try{await O.request('/mail/return',{id:l.id});SND('menu_close');SHELL.toast?.(l.from.name+' 님에게 돌려보냈습니다.');}catch(e){if(!sameMailSession(session))return;M.msg=e.message;SND('error');}
+ finally{if(sameMailSession(session))M.busy=false;}if(!sameMailSession(session))return;await loadLetters(true);draw();
 }
 async function remove(items){
- if(M.busy)return;M.busy=true;M.msg='';let n=0;
+ if(M.busy)return;const session=mailSession();M.busy=true;M.msg='';let n=0;
  const ops=items.filter(x=>x.src==='op').map(x=>x.key),ids=items.filter(x=>x.src==='letter').map(x=>x.id??x.l?.id);
  try{
-  if(ops.length){const receipt=await act('MAIL_DELETE',{ids:ops});const err=failed(receipt);if(err)throw Error(err);n+=receipt?.result?.deleted||0;}
+  if(ops.length){const receipt=await act('MAIL_DELETE',{ids:ops});if(!sameMailSession(session))return;const err=failed(receipt);if(err)throw Error(err);n+=receipt?.result?.deleted||0;}
   if(ids.length){const out=await O.request('/mail/delete',{ids});n+=out.deleted||0;}
   SND('menu_close');if(n)SHELL.toast?.('우편 '+n+'통을 지웠습니다.');
- }catch(e){M.msg=e.message;SND('error');}
- finally{M.busy=false;}
- if(ids.length)await loadLetters();draw();
+ }catch(e){if(!sameMailSession(session))return;M.msg=e.message;SND('error');}
+ finally{if(sameMailSession(session))M.busy=false;}
+ if(!sameMailSession(session))return;
+ if(ids.length)await loadLetters(true);draw();
 }
 async function block(p,on){
- if(M.busy)return;M.busy=true;M.msg='';
- try{await O.request('/mail/block',{pid:p.pid,blocked:on});SHELL.toast?.(on?p.name+' 님의 편지를 더 받지 않습니다.':p.name+' 님의 편지를 다시 받습니다.');}catch(e){M.msg=e.message;SND('error');}
- finally{M.busy=false;}await loadLetters();draw();
+ if(M.busy)return;const session=mailSession();M.busy=true;M.msg='';
+ try{await O.request('/mail/block',{pid:p.pid,blocked:on});SHELL.toast?.(on?p.name+' 님의 편지를 더 받지 않습니다.':p.name+' 님의 편지를 다시 받습니다.');}catch(e){if(!sameMailSession(session))return;M.msg=e.message;SND('error');}
+ finally{if(sameMailSession(session))M.busy=false;}if(!sameMailSession(session))return;await loadLetters(true);draw();
 }
 function sendPayload(d){
  const items=[...d.items.values()].map(x=>x.slot?{slot:x.slot}:{item:x.item,qty:x.qty}).sort((a,b)=>String(a.slot||a.item).localeCompare(String(b.slot||b.item)));
@@ -349,16 +362,17 @@ function sendPayload(d){
 }
 function uncertainSend(d){return !!(d.sendAttempt?.uncertain&&d.sendAttempt.intent===JSON.stringify(sendPayload(d)));}
 async function send(d){
- if(M.busy)return;const why=sendWhy(d);if(why){M.msg=why;d.confirm=false;draw();return;}M.busy=true;M.msg='';
+ if(M.busy)return;const session=mailSession();const why=sendWhy(d);if(why){M.msg=why;d.confirm=false;draw();return;}M.busy=true;M.msg='';
  const payload=sendPayload(d),intent=JSON.stringify(payload);
  if(d.sendAttempt?.intent!==intent)d.sendAttempt={intent,requestId:'mail-'+crypto.randomUUID(),uncertain:false};
  try{
   const out=await O.request('/mail/send',{...payload,requestId:d.sendAttempt.requestId});
   SND('commission_accept');SHELL.toast?.(d.to.name+' 님에게 편지를 보냈습니다 · 수수료 '+fmt(out.fee)+' 모라');
   M.draft=null;M.tab='sent';M.sentPick='S'+out.letter.id;try{await O.sync();}catch{}
- }catch(e){d.sendAttempt.uncertain=e.code!=='SESSION_CHANGED'&&e.outcome!=='REJECTED'&&(!e.status||e.status>=500);M.msg=e.message;d.confirm=false;SND('error');}
- finally{M.busy=false;}
- await loadLetters();draw();
+ }catch(e){if(!sameMailSession(session))return;d.sendAttempt.uncertain=e.code!=='SESSION_CHANGED'&&e.outcome!=='REJECTED'&&(!e.status||e.status>=500);M.msg=e.message;d.confirm=false;SND('error');}
+ finally{if(sameMailSession(session))M.busy=false;}
+ if(!sameMailSession(session))return;
+ await loadLetters(true);draw();
 }
 // ---------- the envelope at the top, Paimon's menu, news from the server ----------
 SHELL.extraTools.push(tool=>{
@@ -372,11 +386,11 @@ window.CRPGChat?.on?.(ev=>{
  if(ev?.type!=='mail')return;
  if(ev.status==='NEW'){SND('chest_appear');SHELL.toast?.('편지가 도착했습니다 · '+ev.from+' 님'+(ev.parcel?' (물건이 들어 있습니다)':''));}
  else if(ev.status==='RETURNED')SHELL.toast?.('보낸 편지 「'+ev.title+'」이(가) 돌아왔습니다. 우편함에서 되찾아 주세요.');
- clearTimeout(M.reloadTimer);M.reloadTimer=setTimeout(loadLetters,300);
+ clearTimeout(M.reloadTimer);M.reloadTimer=setTimeout(()=>loadLetters(true),300);
 });
 // Letters come with a login on an account server that has them; everything is forgotten on logout.
 if(typeof render==='function'){const prior=render;render=function(){prior();try{
- if(!O?.token){if(M.letters||M.enabled!==null){M.letters=null;M.enabled=null;M.draft=null;M.tab='in';close();}return;}
- if(M.enabled===null&&!M.probing&&Date.now()>=M.nextProbe){M.probing=true;loadLetters().finally(()=>{M.probing=false;});}
+ if(!O?.token){clearTimeout(readTimer);clearTimeout(M.findTimer);clearTimeout(M.reloadTimer);readQueue.clear();lettersSequence++;lettersFlight=null;M.letters=null;M.enabled=null;M.draft=null;M.findList=null;M.tab='in';M.busy=false;M.probing=false;M.seen=null;M.msg='';M.nextProbe=0;close();return;}
+ if(M.enabled===null&&!M.probing&&Date.now()>=M.nextProbe){const session=O.sessionStamp();M.probing=true;loadLetters().finally(()=>{if(O.sameSession(session))M.probing=false;});}
 }catch{}};}
 })();

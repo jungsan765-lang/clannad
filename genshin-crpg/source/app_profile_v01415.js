@@ -33,8 +33,8 @@ P.open=async function(pid,name=''){
  wrap.addEventListener('click',e=>{if(e.target===wrap)close();});wrap.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close();}});
  const card=mk('div','pf-card');card.append(mk('p','pf-loading',(name?name+' · ':'')+'모험가 정보를 불러오는 중…'));wrap.append(card);document.body.append(wrap);P.node=wrap;
  requestAnimationFrame(()=>wrap.classList.add('open'));window.CRPGSound?.play('menu_open');
- try{P.data=await O.request('/profile?pid='+encodeURIComponent(pid));if(P.node===wrap)draw(card,P.data);}
- catch(e){card.replaceChildren(mk('p','pf-error',e.status===404&&!e.message?'모험가 정보를 볼 수 없는 서버입니다.':e.message),btn('닫기',close));}
+ try{const out=await O.request('/profile?pid='+encodeURIComponent(pid));if(P.node!==wrap)return;P.data=out;draw(card,out);}
+ catch(e){if(P.node!==wrap||e.code==='SESSION_CHANGED')return;card.replaceChildren(mk('p','pf-error',e.status===404&&!e.message?'모험가 정보를 볼 수 없는 서버입니다.':e.message),btn('닫기',close));}
 };
 function head(v){
  const h=mk('header','pf-head'),title=mk('div','pf-title');

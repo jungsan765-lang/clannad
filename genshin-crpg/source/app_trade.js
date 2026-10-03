@@ -64,19 +64,30 @@ function open(tab,opts={}){
  if(typeof game==='undefined'||!game)return;if(tab)T.tab=tab;window.CRPGProfile?.close?.();
  if(opts.seller!==undefined){T.filter.seller=opts.seller||'';T.filter.sellerName=opts.sellerName||'';}
  if(opts.pick){T.sell={key:opts.pick,qty:1,price:''};}
- if(!T.node)build();T.node.hidden=false;requestAnimationFrame(()=>T.node?.classList.add('open'));SND('handbook_open');redraw();load();
+ clearTimeout(closeTimer);if(!T.node)build();T.node.hidden=false;requestAnimationFrame(()=>T.node?.classList.add('open'));SND('handbook_open');redraw();load();
 }
-function close(){if(!T.node)return;const n=T.node;n.classList.remove('open');setTimeout(()=>{n.hidden=true;},180);SND('menu_close');}
+let closeTimer=0;
+function close(){if(!T.node)return;const n=T.node;n.classList.remove('open');clearTimeout(closeTimer);closeTimer=setTimeout(()=>{n.hidden=true;},180);SND('menu_close');}
 T.open=open;T.close=close;T.isOpen=()=>!!T.node&&!T.node.hidden;
-async function load(){
- if(!O.token)return;
- try{
-  const f=T.filter,qs=new URLSearchParams();if(f.q)qs.set('q',f.q);if(f.kind)qs.set('kind',f.kind);if(f.sort)qs.set('sort',f.sort);if(f.seller)qs.set('seller',f.seller);
-  const [market,deal]=await Promise.all([O.request('/market'+(qs.toString()?'?'+qs:'')),O.request('/deal')]);
-  T.market=market;T.deal=deal.deal;T.enabled=true;T.error='';
-  if(T.tab==='direct'){try{T.online=(await O.request('/online')).players;}catch(e){T.online=null;T.error=e.message;}}
- }catch(e){if(e.status===404)T.enabled=false;else T.error=e.message;}
- redraw();
+let loadFlight=null,loadSequence=0;
+function load(refresh=false){
+ if(!O.token)return Promise.resolve();
+ const f=T.filter,qs=new URLSearchParams();if(f.q)qs.set('q',f.q);if(f.kind)qs.set('kind',f.kind);if(f.sort)qs.set('sort',f.sort);if(f.seller)qs.set('seller',f.seller);
+ const key=T.tab+':'+qs,session=O.sessionStamp();
+ if(!refresh&&loadFlight?.key===key&&O.sameSession(loadFlight.session))return loadFlight.promise;
+ const sequence=++loadSequence,before=T.deal,flight={key,session};
+ const current=()=>sequence===loadSequence&&O.sameSession(session);
+ flight.promise=(async()=>{
+  try{
+   const [market,deal,online]=await Promise.all([O.request('/market'+(qs.toString()?'?'+qs:'')),O.request('/deal'),T.tab==='direct'?O.request('/online').catch(error=>({error})):null]);
+   if(!current())return;
+   T.market=market;T.enabled=true;T.error='';if(online){T.online=online.error?null:online.players;if(online.error)T.error=online.error.message;}
+   // A newer stream event must not be rolled back by a slow market refresh.
+   if(T.deal===before){T.deal=deal.deal;if(T.deal?.status==='OPEN'&&(!T.offer||before?.id!==T.deal.id)){resetOfferSync();T.offer=new Map((T.deal.me.items||[]).map(x=>[x.slot?'slot:'+x.slot:'item:'+x.item,{...x}]));}}
+  }catch(e){if(!current())return;if(e.status===404)T.enabled=false;else T.error=e.message;}
+  finally{if(loadFlight===flight)loadFlight=null;}
+  if(current())redraw();
+ })();loadFlight=flight;return flight.promise;
 }
 T.load=load;
 function redraw(){
@@ -121,9 +132,9 @@ function drawMarket(body){
  body.append(grid);if(T.market.total>list.length)body.append(mk('p','trade-note small','최근 '+list.length+'개를 보여 줍니다 · 검색으로 좁혀 보세요.'));
 }
 async function buy(x){
- if(T.busy)return;T.busy=true;T.confirmBuy=null;
+ if(T.busy)return;const session=O.sessionStamp();T.busy=true;T.confirmBuy=null;
  try{const out=await O.request('/market/buy',{id:x.id,price:x.price});SND('item_receive');say('구매 완료 · '+out.label+' · '+fmt(out.price)+' 모라');try{await O.sync();}catch{}}
- catch(e){say(e.message);SND('error');}finally{T.busy=false;load();}
+ catch(e){if(!O.sameSession(session))return;say(e.message);SND('error');}finally{if(O.sameSession(session)){T.busy=false;load(true);}}
 }
 // ---------- 내 상점 ----------
 function drawShop(body){
@@ -155,12 +166,12 @@ function drawShop(body){
  cols.append(left,right);body.append(cols);
 }
 async function sell(d){
- if(T.busy)return;const S=T.sell,price=Math.floor(Number(S.price)||0);if(!price){say('판매 가격을 입력해 주세요.');return;}
+ if(T.busy)return;const session=O.sessionStamp(),S=T.sell,price=Math.floor(Number(S.price)||0);if(!price){say('판매 가격을 입력해 주세요.');return;}
  T.busy=true;try{const entry=d.kind==='EQUIPMENT'?{slot:d.key}:{item:d.id,qty:S.qty};const out=await O.request('/market/sell',{entry,price});SND('commission_accept');say('상점에 올렸습니다 · '+out.listing.label+' · '+fmt(out.listing.price)+' 모라');T.sell={key:'',qty:1,price:''};try{await O.sync();}catch{}}
- catch(e){say(e.message);SND('error');}finally{T.busy=false;load();}
+ catch(e){if(!O.sameSession(session))return;say(e.message);SND('error');}finally{if(O.sameSession(session)){T.busy=false;load(true);}}
 }
-async function cancel(x){if(T.busy)return;T.busy=true;try{const out=await O.request('/market/cancel',{id:x.id});say('상점에서 내렸습니다 · '+out.returned+'을(를) 가방으로 돌려받았습니다.');try{await O.sync();}catch{}}catch(e){say(e.message);SND('error');}finally{T.busy=false;load();}}
-async function collect(){if(T.busy)return;T.busy=true;try{const out=await O.request('/market/collect',{});SND('item_receive');say('판매 대금 '+fmt(out.mora)+' 모라를 받았습니다.');try{await O.sync();}catch{}}catch(e){say(e.message);SND('error');}finally{T.busy=false;load();}}
+async function cancel(x){if(T.busy)return;const session=O.sessionStamp();T.busy=true;try{const out=await O.request('/market/cancel',{id:x.id});say('상점에서 내렸습니다 · '+out.returned+'을(를) 가방으로 돌려받았습니다.');try{await O.sync();}catch{}}catch(e){if(!O.sameSession(session))return;say(e.message);SND('error');}finally{if(O.sameSession(session)){T.busy=false;load(true);}}}
+async function collect(){if(T.busy)return;const session=O.sessionStamp();T.busy=true;try{const out=await O.request('/market/collect',{});SND('item_receive');say('판매 대금 '+fmt(out.mora)+' 모라를 받았습니다.');try{await O.sync();}catch{}}catch(e){if(!O.sameSession(session))return;say(e.message);SND('error');}finally{if(O.sameSession(session)){T.busy=false;load(true);}}}
 // ---------- 직접 거래 ----------
 function drawDirect(body){
  body.append(mk('p','trade-note','접속 중인 모험가와 그 자리에서 물건을 주고받습니다. 두 사람 모두 「확정」한 뒤 「거래하기」를 눌러야 바뀌고, 한쪽이 물건을 바꾸면 확정이 풀립니다. 모라·경험치 책·보스 재료·전용 무기·장착 중인 장비는 거래할 수 없습니다(모라는 시장을 이용하세요).'));
@@ -176,19 +187,19 @@ function drawDirect(body){
  body.append(list,btn('새로 고침',load,'mk-refresh'));
 }
 T.invite=async function(pid,name){
- if(T.busy)return;T.busy=true;
+ if(T.busy)return;const session=O.sessionStamp();T.busy=true;
  try{const out=await O.request('/deal/invite',{toPid:pid});T.deal=out.deal;SND('commission_accept');say((name||'상대')+' 님에게 직접 거래를 신청했습니다. 수락하면 거래 창이 열립니다.');}
- catch(e){say(e.message);SND('error');}finally{T.busy=false;redraw();}
+ catch(e){if(!O.sameSession(session))return;say(e.message);SND('error');}finally{if(O.sameSession(session)){T.busy=false;redraw();}}
 };
-async function respond(accept){if(!T.deal||T.busy)return;T.busy=true;try{const out=await O.request('/deal/respond',{id:T.deal.id,accept});setDeal(out.deal);}catch(e){say(e.message);SND('error');}finally{T.busy=false;closeInvite();redraw();}}
-async function cancelDeal(){if(!T.deal||T.busy)return;T.busy=true;try{const out=await O.request('/deal/cancel',{id:T.deal.id});setDeal(out.deal);}catch(e){say(e.message);}finally{T.busy=false;redraw();}}
+async function respond(accept){if(!T.deal||T.busy)return;const session=O.sessionStamp();T.busy=true;try{const out=await O.request('/deal/respond',{id:T.deal.id,accept});setDeal(out.deal);}catch(e){if(!O.sameSession(session))return;say(e.message);SND('error');}finally{if(O.sameSession(session)){T.busy=false;closeInvite();redraw();}}}
+async function cancelDeal(){if(!T.deal||T.busy)return;const session=O.sessionStamp();T.busy=true;try{const out=await O.request('/deal/cancel',{id:T.deal.id});setDeal(out.deal);}catch(e){if(!O.sameSession(session))return;say(e.message);}finally{if(O.sameSession(session)){T.busy=false;redraw();}}}
 // ---------- the live trade window ----------
 function setDeal(d){
  const before=T.deal;T.deal=d&&['INVITED','OPEN'].includes(d.status)?d:null;
  if(!d)return;
- if(d.status==='OPEN'){if(!T.offer||before?.id!==d.id)T.offer=new Map((d.me.items||[]).map(x=>[x.slot?'slot:'+x.slot:'item:'+x.item,{...x}]));openDeal();drawDeal();}
+ if(d.status==='OPEN'){if(!T.offer||before?.id!==d.id){resetOfferSync();T.offer=new Map((d.me.items||[]).map(x=>[x.slot?'slot:'+x.slot:'item:'+x.item,{...x}]));}openDeal();drawDeal();}
  else if(d.status==='INVITED'){if(!d.inviter)showInvite(d);}
- else{closeDeal();closeInvite();T.offer=null;if(d.status==='DONE')SND('item_receive');say(d.note||({DONE:'거래가 끝났습니다.',DECLINED:'거래가 거절되었습니다.',CANCELLED:'거래가 닫혔습니다.',EXPIRED:'시간이 지나 거래가 닫혔습니다.'}[d.status]||''));}
+ else{resetOfferSync();closeDeal();closeInvite();T.offer=null;if(d.status==='DONE')SND('item_receive');say(d.note||({DONE:'거래가 끝났습니다.',DECLINED:'거래가 거절되었습니다.',CANCELLED:'거래가 닫혔습니다.',EXPIRED:'시간이 지나 거래가 닫혔습니다.'}[d.status]||''));}
  redraw();
 }
 function showInvite(d){
@@ -205,8 +216,43 @@ function openDeal(){
  const box=mk('div','deal-box');wrap.append(box);document.body.append(wrap);T.dealNode=wrap;requestAnimationFrame(()=>wrap.classList.add('open'));drawDeal();
 }
 function closeDeal(){if(!T.dealNode)return;const n=T.dealNode;T.dealNode=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}
-let pushTimer=0;
-function pushOffer(){clearTimeout(pushTimer);pushTimer=setTimeout(async()=>{if(!T.deal||T.deal.status!=='OPEN')return;const items=[...T.offer.values()].map(x=>x.slot?{slot:x.slot}:{item:x.item,qty:x.qty});try{const out=await O.request('/deal/update',{id:T.deal.id,items});T.deal=out.deal;drawDeal();}catch(e){say(e.message);SND('error');}},350);}
+// Keep one offer write in flight. A lock waits for every displayed edit to be acknowledged.
+let pushTimer=0,offerFlight=null,offerNext=null,offerEpoch=0,offerIssue='';
+function resetOfferSync(){clearTimeout(pushTimer);pushTimer=0;offerEpoch++;offerNext=null;offerFlight=null;offerIssue='';}
+const offerPending=()=>!!(pushTimer||offerFlight||offerNext||offerIssue);
+function pushOffer(){
+ if(!T.deal||T.deal.status!=='OPEN'||!T.offer)return;
+ offerNext={id:T.deal.id,items:[...T.offer.values()].map(x=>x.slot?{slot:x.slot}:{item:x.item,qty:x.qty}),session:O.sessionStamp(),epoch:offerEpoch};
+ offerIssue='';clearTimeout(pushTimer);pushTimer=setTimeout(()=>{pushTimer=0;flushOffer();},350);drawDeal();
+}
+async function flushOffer(){
+ clearTimeout(pushTimer);pushTimer=0;
+ if(offerFlight){const ok=await offerFlight;if(!ok)return false;return offerFlight||offerNext?flushOffer():true;}
+ const next=offerNext;if(!next)return !offerIssue;
+ if(next.epoch!==offerEpoch||!O.sameSession(next.session)||T.deal?.id!==next.id){offerNext=null;return false;}
+ offerNext=null;
+ const current=()=>next.epoch===offerEpoch&&O.sameSession(next.session)&&T.deal?.id===next.id&&T.deal.status==='OPEN';
+ const flight=(async()=>{
+  try{const out=await O.request('/deal/update',{id:next.id,items:next.items});if(!current())return false;if(!T.deal.updated||out.deal.updated>=T.deal.updated)T.deal=out.deal;offerIssue='';return true;}
+  catch(e){if(current()){offerNext??=next;offerIssue=e.message;say(e.message);SND('error');}return false;}
+  finally{if(offerFlight===flight)offerFlight=null;if(current())drawDeal();}
+ })();offerFlight=flight;const ok=await flight;
+ return ok&&offerNext?flushOffer():ok;
+}
+async function toggleDealLock(d){
+ if(T.busy||T.deal?.id!==d.id)return;const session=O.sessionStamp();T.busy=true;drawDeal();
+ try{if(!d.me.locked&&!await flushOffer())return;if(!O.sameSession(session)||T.deal?.id!==d.id)return;
+  const out=await O.request('/deal/lock',{id:d.id,locked:!d.me.locked});if(T.deal?.id===d.id&&(!T.deal.updated||out.deal.updated>=T.deal.updated))T.deal=out.deal;
+ }catch(e){if(O.sameSession(session))say(e.message);}
+ finally{if(O.sameSession(session)){T.busy=false;drawDeal();}}
+}
+async function confirmDeal(d){
+ if(T.busy||offerPending()||T.deal?.id!==d.id)return;const session=O.sessionStamp();T.busy=true;drawDeal();
+ try{const out=await O.request('/deal/confirm',{id:d.id});if(out.deal.status==='DONE'){setDeal(out.deal);try{await O.sync();}catch{}}
+  else if(T.deal?.id===d.id){T.deal=out.deal;drawDeal();}
+ }catch(e){if(!O.sameSession(session))return;say(e.message);SND('error');try{const out=await O.request('/deal');if(T.deal?.id===d.id)setDeal(out.deal);}catch{}}
+ finally{if(O.sameSession(session)){T.busy=false;drawDeal();}}
+}
 function drawDeal(){
  if(!T.dealNode||!T.deal)return;const d=T.deal,box=T.dealNode.querySelector('.deal-box');box.replaceChildren();
  const head=mk('header','deal-head');head.append(mk('strong','','직접 거래 · '+d.other.name),mk('small','',d.note||'두 사람 모두 확정하고 「거래하기」를 누르면 바뀝니다.'));
@@ -215,24 +261,24 @@ function drawDeal(){
   const list=mk('div','deal-items');if(!items.length)list.append(mk('p','trade-note',editable?'아래 가방에서 물건을 눌러 올리세요.':'아직 올린 물건이 없습니다.'));
   for(const it of items){const dd=detail(it),row=mk('div','deal-item');row.append(tile(dd,{count:it.kind==='GEAR'?'+'+(it.enhance||0):'×'+fmt(it.qty),title:it.label}));
    if(editable){const info=mk('div','deal-item-info');info.append(mk('span','',dd.name||it.label));const key=it.slot?'slot:'+it.slot:'item:'+it.item,cur=T.offer.get(key);
-    if(!it.slot&&cur){const max=game.itemCount(it.item);info.append(stepper(cur.qty,max,n=>{cur.qty=Math.max(1,Math.min(max,n));drawDeal();pushOffer();}));}
-    row.append(info,btn('×',()=>{T.offer.delete(key);drawDeal();pushOffer();},'tr-x'));}
+    if(!it.slot&&cur){const max=game.itemCount(it.item);info.append(stepper(cur.qty,max,n=>{cur.qty=Math.max(1,Math.min(max,n));pushOffer();}));}
+    row.append(info,btn('×',()=>{T.offer.delete(key);pushOffer();},'tr-x'));}
    list.append(row);}
   s.append(list);return s;};
  const mineShown=[...T.offer.values()];
- const cols=mk('div','deal-cols');cols.append(side('내가 줄 것',mineShown,d.me.locked,d.me.confirmed,!d.me.locked),side(d.other.name+' 님이 줄 것',d.other.items,d.other.locked,d.other.confirmed,false));box.append(cols);
- if(!d.me.locked)box.append(bagGrid(myEntries(),{picked:x=>T.offer.get(entryKey(x))?(x.kind==='EQUIPMENT'?'✓':String(T.offer.get(entryKey(x)).qty)):'',onPick:x=>{const key=entryKey(x);if(x.kind==='EQUIPMENT'){if(T.offer.has(key))T.offer.delete(key);else if(T.offer.size<6)T.offer.set(key,{slot:x.key,kind:'GEAR',ref:x.equip||x.id,enhance:x.enhance||0,qty:1,label:x.name});}else{const cur=T.offer.get(key),have=game.itemCount(x.id);if(cur)cur.qty=Math.min(have,cur.qty+1);else if(T.offer.size<6)T.offer.set(key,{item:x.id,kind:'ITEM',ref:x.id,qty:1,label:x.name});}SND('tab');drawDeal();pushOffer();}}));
+ const cols=mk('div','deal-cols');cols.append(side('내가 줄 것',mineShown,d.me.locked,d.me.confirmed,!d.me.locked&&!T.busy),side(d.other.name+' 님이 줄 것',d.other.items,d.other.locked,d.other.confirmed,false));box.append(cols);
+ if(!d.me.locked&&!T.busy)box.append(bagGrid(myEntries(),{picked:x=>T.offer.get(entryKey(x))?(x.kind==='EQUIPMENT'?'✓':String(T.offer.get(entryKey(x)).qty)):'',onPick:x=>{const key=entryKey(x);if(x.kind==='EQUIPMENT'){if(T.offer.has(key))T.offer.delete(key);else if(T.offer.size<6)T.offer.set(key,{slot:x.key,kind:'GEAR',ref:x.equip||x.id,enhance:x.enhance||0,qty:1,label:x.name});}else{const cur=T.offer.get(key),have=game.itemCount(x.id);if(cur)cur.qty=Math.min(have,cur.qty+1);else if(T.offer.size<6)T.offer.set(key,{item:x.id,kind:'ITEM',ref:x.id,qty:1,label:x.name});}SND('tab');pushOffer();}}));
  const foot=mk('div','deal-foot');
- const lock=btn(d.me.locked?'확정 풀기':'확정',async()=>{try{const out=await O.request('/deal/lock',{id:d.id,locked:!d.me.locked});T.deal=out.deal;drawDeal();}catch(e){say(e.message);}},d.me.locked?'':'primary');
- const both=d.me.locked&&d.other.locked,go=btn(d.me.confirmed?'상대를 기다리는 중…':'거래하기',async()=>{if(T.busy)return;T.busy=true;try{const out=await O.request('/deal/confirm',{id:d.id});if(out.deal.status==='DONE'){setDeal(out.deal);try{await O.sync();}catch{}}else{T.deal=out.deal;drawDeal();}}catch(e){say(e.message);SND('error');try{T.deal=(await O.request('/deal')).deal||T.deal;}catch{}drawDeal();}finally{T.busy=false;}},'primary deal-go');
- if(!both){go.disabled=true;go.title='두 사람 모두 확정해야 거래할 수 있습니다.';}else if(d.me.confirmed){go.disabled=true;go.title='상대가 「거래하기」를 누르면 끝납니다.';}
+ const lock=btn(d.me.locked?'확정 풀기':T.busy?'확인 중…':'확정',()=>toggleDealLock(d),d.me.locked?'':'primary');lock.disabled=T.busy;
+ const both=d.me.locked&&d.other.locked,go=btn(d.me.confirmed?'상대를 기다리는 중…':'거래하기',()=>confirmDeal(d),'primary deal-go');
+ if(offerPending()||T.busy){go.disabled=true;go.title='올린 물건을 서버에서 확인하고 있습니다. 확정을 눌러 다시 확인할 수 있습니다.';}else if(!both){go.disabled=true;go.title='두 사람 모두 확정해야 거래할 수 있습니다.';}else if(d.me.confirmed){go.disabled=true;go.title='상대가 「거래하기」를 누르면 끝납니다.';}
  foot.append(lock,go);box.append(foot);
 }
 // ---------- server news ----------
 window.CRPGChat?.on?.(async ev=>{
  if(ev?.type==='deal'){const d=ev.deal;if(ev.sync&&d.status==='DONE'){setDeal(d);if(!busy&&!O.pending){try{await O.sync();}catch{}}return;}setDeal(d);return;}
  if(ev?.type==='market'){if(ev.status==='SOLD'&&ev.label){SND('item_receive');say('상점의 '+ev.label+'이(가) 팔렸습니다 · 판매 대금 '+fmt(ev.gain)+' 모라 (거래소 · 내 상점에서 받기)');}
-  if(T.isOpen()){clearTimeout(T.reloadTimer);T.reloadTimer=setTimeout(load,400);}}
+  if(T.isOpen()){clearTimeout(T.reloadTimer);T.reloadTimer=setTimeout(()=>load(true),400);}}
 });
 SHELL.extraTiles.push({icon:'TRADE',label:'거래소',key:'',show:()=>T.enabled!==false&&!!O.token,run:()=>open()});
 // 0.15.1: the bag marks what cannot change hands (a lock on the tile, with the reason) and can show either kind alone.
@@ -247,7 +293,7 @@ if(typeof itemDetailView==='function'){const prior=itemDetailView;itemDetailView
 }catch{}};}
 // A trade that was open when the page reloaded comes back; everything is forgotten on logout.
 if(typeof render==='function'){const prior=render;render=function(){prior();try{
- if(!O.token){if(T.node){T.node.remove();T.node=null;}closeDeal();closeInvite();Object.assign(T,{market:null,online:null,deal:null,enabled:null,offer:null});return;}
- if(T.enabled===null&&!T.probing&&window.CRPGChat?.enabled===true){T.probing=true;O.request('/deal').then(out=>{T.enabled=true;if(out.deal)setDeal(out.deal);}).catch(e=>{if(e.status===404)T.enabled=false;}).finally(()=>{T.probing=false;});}
+ if(!O.token){resetOfferSync();clearTimeout(closeTimer);clearTimeout(T.reloadTimer);loadSequence++;loadFlight=null;if(T.node){T.node.remove();T.node=null;}closeDeal();closeInvite();Object.assign(T,{market:null,online:null,deal:null,enabled:null,offer:null,busy:false,probing:false,error:''});return;}
+ if(T.enabled===null&&!T.probing&&window.CRPGChat?.enabled===true){const session=O.sessionStamp();T.probing=true;O.request('/deal').then(out=>{T.enabled=true;if(out.deal)setDeal(out.deal);}).catch(e=>{if(O.sameSession(session)&&e.status===404)T.enabled=false;}).finally(()=>{if(O.sameSession(session))T.probing=false;});}
 }catch{}};}
 })();

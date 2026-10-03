@@ -35,7 +35,10 @@ TESTS = [
     'tests/test_server_account_audit_fixes.mjs', 'tests/test_server_social_audit_fixes.mjs',
     'tests/test_server_coop_audit_fixes.mjs', 'tests/test_client_audit_fixes.cjs',
     'tests/test_ui_audit_regressions.cjs', 'tests/test_test_banner_v01510.cjs', 'tests/test_version.cjs',
-    'tests/test_test_release_pin.cjs',
+    'tests/test_test_release_pin.cjs', 'tests/test_test_release_transaction.cjs',
+    'tests/test_server_capacity_audit_fixes.mjs', 'tests/test_social_concurrency_v01511.mjs',
+    'tests/test_asset_followup.cjs', 'tests/test_client_social_followup.cjs',
+    'tests/test_wish_ui_audit_fixes.cjs', 'tests/test_puzzle_ui_lifecycle.cjs',
     'tests/v013/test_recruitment_cost_consistency.cjs',
 ]
 def run(test):

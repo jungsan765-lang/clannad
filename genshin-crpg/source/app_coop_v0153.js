@@ -32,12 +32,20 @@ function reason(){
  return game.coopLevelReason?.()||'';
 }
 // ---------- the server ----------
-async function load(){
- if(!online()||C.loading)return;C.loading=true;
- try{const out=await O.request('/coop/room');C.enabled=true;apply(out);}
- catch(e){if(e.status===404){C.enabled=false;C.status=null;}else if(C.node)C.msg=e.message;}
- finally{C.loading=false;}
- draw();drawBattle();
+let roomFlight=null,roomSequence=0,roomNews=0;
+function load(refresh=false){
+ if(!online())return Promise.resolve();
+ const session=O.sessionStamp();if(!refresh&&roomFlight&&O.sameSession(roomFlight.session))return roomFlight.promise;
+ const sequence=++roomSequence,news=roomNews,flight={session};C.loading=true;
+ const current=()=>sequence===roomSequence&&O.sameSession(session);
+ flight.promise=(async()=>{
+  try{const out=await O.request('/coop/room');if(!current())return;C.enabled=true;
+   // Stream news may advance or close the room while this snapshot is travelling back.
+   if(news!==roomNews&&C.status){C.status={...out,...C.status};if(out.rewards?.length){showRewards(out.rewards);wantSync();}return;}apply(out);
+  }catch(e){if(!current()||news!==roomNews)return;if(e.status===404){C.enabled=false;C.status=null;}else if(C.node)C.msg=e.message;}
+  finally{if(roomFlight===flight){roomFlight=null;C.loading=false;}}
+  if(current()){draw();drawBattle();}
+ })();roomFlight=flight;return flight.promise;
 }
 C.reload=load;
 async function loadList(){if(!online()||C.enabled===false)return;try{const out=await O.request('/coop/list');C.list=out.rooms||[];}catch(e){if(e.status===404)C.enabled=false;else C.msg=e.message;}draw();}
@@ -49,19 +57,19 @@ function apply(out){
  schedule();
 }
 async function call(path,body,ok){
- if(C.busy)return null;C.busy=true;C.msg='';draw();
+ if(C.busy)return null;const session=O.sessionStamp();C.busy=true;C.msg='';draw();
  try{const out=await O.request(path,body||{});if(ok){toast(ok);SND('menu_open');}return out;}
- catch(e){C.msg=e.message;SND('error');return null;}
- finally{C.busy=false;draw();}
+ catch(e){if(O.sameSession(session)){C.msg=e.message;SND('error');}return null;}
+ finally{if(O.sameSession(session)){C.busy=false;draw();}}
 }
-async function openRoom(visibility){const out=await call('/coop/open',{visibility},visibility==='INVITE'?'초대한 모험가만 들어올 수 있는 방을 열었습니다.':'방을 열었습니다. 모집 중인 방 목록에 보입니다.');if(out){C.view='home';await load();}}
-async function join(id,char){const out=await call('/coop/join',{room:id,char},'방에 들어갔습니다.');if(out){C.joining=null;C.view='home';await load();}}
-async function changeChar(char){const out=await call('/coop/char',{char},'함께할 캐릭터를 바꿨습니다.');if(out){C.joining=null;C.view='home';await load();}}
-async function leave(){const h=host(),out=await call(h?'/coop/close':'/coop/leave',{},h?'방을 닫았습니다.':'방에서 나왔습니다.');if(out){C.status={...C.status,room:null,battle:null};closeBattle(true);await load();await loadList();}}
-async function kick(pid){const out=await call('/coop/kick',{pid},'방에서 내보냈습니다.');if(out)await load();}
-async function setReady(v){const out=await call('/coop/ready',{ready:v},v?'함께 싸울 준비가 되었습니다.':'잠시 쉬는 중으로 바꿨습니다.');if(out)await load();}
-async function invite(pid,name){const out=await call('/coop/invite',{pid},(name||'모험가')+' 님을 초대했습니다.');if(out)await load();return !!out;}
-async function decline(id){await call('/coop/decline',{room:id});C.invites=C.invites.filter(x=>x.room!==id);closeInvite();draw();}
+async function openRoom(visibility){const out=await call('/coop/open',{visibility},visibility==='INVITE'?'초대한 모험가만 들어올 수 있는 방을 열었습니다.':'방을 열었습니다. 모집 중인 방 목록에 보입니다.');if(out){C.view='home';await load(true);}}
+async function join(id,char){const out=await call('/coop/join',{room:id,char},'방에 들어갔습니다.');if(out){C.joining=null;C.view='home';await load(true);}}
+async function changeChar(char){const out=await call('/coop/char',{char},'함께할 캐릭터를 바꿨습니다.');if(out){C.joining=null;C.view='home';await load(true);}}
+async function leave(){const h=host(),out=await call(h?'/coop/close':'/coop/leave',{},h?'방을 닫았습니다.':'방에서 나왔습니다.');if(out){C.status={...C.status,room:null,battle:null};closeBattle(true);await load(true);await loadList();}}
+async function kick(pid){const out=await call('/coop/kick',{pid},'방에서 내보냈습니다.');if(out)await load(true);}
+async function setReady(v){const out=await call('/coop/ready',{ready:v},v?'함께 싸울 준비가 되었습니다.':'잠시 쉬는 중으로 바꿨습니다.');if(out)await load(true);}
+async function invite(pid,name){const out=await call('/coop/invite',{pid},(name||'모험가')+' 님을 초대했습니다.');if(out)await load(true);return !!out;}
+async function decline(id){if(!await call('/coop/decline',{room:id}))return;C.invites=C.invites.filter(x=>x.room!==id);closeInvite();draw();}
 // Online adventurers to invite (from the chat's list).
 async function loadOnline(){try{C.online=(await O.request('/online')).players||[];}catch{C.online=[];}draw();}
 // ---------- the window ----------
@@ -349,12 +357,12 @@ function commands(v){
 }
 let pendingCommand=null;
 async function command(){
- if(C.busy||!C.battle?.turn?.mine)return;C.busy=true;C.msg='';drawBattle();
+ if(C.busy||!C.battle?.turn?.mine)return;const session=O.sessionStamp();C.busy=true;C.msg='';drawBattle();
  const payload={card:C.card,target:C.target||undefined,branch:C.branch||undefined,battle:C.battle.battle,turn:{actor:C.battle.turn.actor,deadline:C.battle.turn.deadline,round:C.battle.round}},intent=JSON.stringify(payload);
  if(pendingCommand?.intent!==intent)pendingCommand={intent,payload:{...payload,requestId:'coop-'+crypto.randomUUID()}};
  try{const out=await O.request('/coop/act',pendingCommand.payload);pendingCommand=null;if(out&&'battle' in out)setBattle(out.battle);SND('click');}
- catch(e){if(e.code==='SESSION_CHANGED'||e.outcome==='REJECTED'||e.status&&e.status<500)pendingCommand=null;C.msg=e.message;SND('error');load();}
- finally{C.busy=false;drawBattle();}
+ catch(e){if(!O.sameSession(session))return;if(e.code==='SESSION_CHANGED'||e.outcome==='REJECTED'||e.status&&e.status<500)pendingCommand=null;C.msg=e.message;SND('error');load();}
+ finally{if(O.sameSession(session)){C.busy=false;drawBattle();}}
 }
 // After the 20 seconds, any client in the room asks for the AI to play the waiting turn (the server checks the time).
 async function auto(mine=false){
@@ -409,11 +417,11 @@ function tick(){
 // ---------- news from the server ----------
 let syncing=false,syncWanted=false;
 async function wantSync(){
- syncWanted=true;if(syncing)return;syncing=true;
- try{for(let i=0;i<60&&syncWanted;i++){if(isBusy()){await sleep(400);continue;}syncWanted=false;try{await O.sync();}catch{}}}finally{syncing=false;}
+ syncWanted=true;if(syncing)return;const session=O.sessionStamp();syncing=true;
+ try{for(let i=0;i<60&&syncWanted&&O.sameSession(session);i++){if(isBusy()){await sleep(400);continue;}syncWanted=false;try{await O.sync();}catch{}}}finally{syncing=false;}
 }
 window.CRPGChat?.on?.(ev=>{
- if(ev?.type!=='coop')return;
+ if(ev?.type!=='coop')return;roomNews++;
  if(['kicked','left','closed'].includes(ev.kind)){const was=!!room();C.status={...(C.status||{}),room:null,battle:null};if(ev.kind!=='left'||was)toast(ev.reason||'방이 닫혔습니다.');C.msg=ev.reason||'';closeBattle(true);draw();schedule();return;}
  if(ev.kind==='invite'){C.invites=[...C.invites.filter(x=>x.room!==ev.invite.room),{room:ev.invite.room,from:ev.invite.from,at:Date.now()}];showInvite(ev.invite);draw();return;}
  if(ev.kind==='declined'){toast(ev.from.name+' 님이 초대를 거절했습니다.');return;}
@@ -434,13 +442,13 @@ C.profileButton=function(v,closeCard){
  if(x.hosting){label=x.joined?'같은 방 · 열기':'같이 하기 · 방 참여';run=()=>{closeCard?.();if(x.joined)C.open();else C.open({join:x.room,hostName:v.name});};
   if(!lock&&!x.joined){if(x.visibility==='INVITE'&&!x.invited)lock='초대받은 모험가만 들어갈 수 있는 방입니다.';else if(x.count>=x.max)lock='방이 가득 찼습니다.';else if(mine)lock='이미 다른 방에 들어가 있습니다.';}}
  // Without a room of one's own, 「같이 하기」 opens one by invitation and invites them; what goes wrong shows in the window.
- else{label=mine?'같이 하기 · 초대':'같이 하기';run=async()=>{closeCard?.();C.open();if(!room()){const out=await call('/coop/open',{visibility:'INVITE'});if(!out)return;await load();}await invite(v.pid,v.name);};
+ else{label=mine?'같이 하기 · 초대':'같이 하기';run=async()=>{closeCard?.();C.open();if(!room()){const out=await call('/coop/open',{visibility:'INVITE'});if(!out)return;await load(true);}await invite(v.pid,v.name);};
   if(!lock){if(x.busy)lock=v.name+' 님은 다른 방에서 함께하는 중입니다.';else if(!v.online)lock=v.name+' 님은 지금 접속해 있지 않습니다.';else if(mine&&mine.you!=='HOST')lock='손님으로 들어간 방에서는 초대할 수 없습니다.';else if(mine&&!x.canInvite)lock='방이 가득 찼습니다.';}}
  const b=mk('button','pf-btn cp-profile-btn'+(lock?'':' primary'),label);b.type='button';b.onclick=run;if(lock){b.disabled=true;b.title=lock;b.dataset.reason=lock;}return b;
 };
 // Find out once per login whether this server runs 다인 모드, keep the room, forget everything on logout.
 if(typeof render==='function'){const prior=render;render=function(){prior();try{
- if(!online()){if(C.status||C.enabled!==null){C.status=null;C.enabled=null;C.list=null;C.invites=[];C.draft='';closeBattle(true);closeInvite();close();schedule();}return;}
+ if(!online()){if(C.status||C.enabled!==null||C.loading||C.node){roomSequence++;roomNews++;roomFlight=null;C.loading=false;C.busy=false;C.probe=0;C.status=null;C.enabled=null;C.list=null;C.invites=[];C.draft='';closeBattle(true);closeInvite();close();schedule();}return;}
  if(C.enabled===null&&!C.loading&&Date.now()>=C.probe){C.probe=Date.now()+30000;load();}
  schedule();pill();
 }catch{}};}

@@ -26,7 +26,7 @@ function chat(){
  const s={console,AbortController,TextDecoder,Date,location:{hostname:'fixture.invalid'},localStorage:{getItem:()=>null},setTimeout:()=>1,clearTimeout:noop,
   setInterval:(fn,ms)=>{intervals.push({id:++seq,ms,fn});return seq;},clearInterval:id=>clears.push(id),
   document:{hidden:false,body:{classList:{contains:()=>false}},querySelector:()=>null,querySelectorAll:()=>[],addEventListener:(type,fn)=>listeners[type]=fn},
-  CRPGOnline:{token:'fixture-token',account:{id:'fixture-account'},request:url=>new Promise(resolve=>requests.push({url,resolve}))},
+  CRPGOnline:{token:'fixture-token',account:{id:'fixture-account'},sessionStamp:()=>0,sameSession:()=>true,request:url=>new Promise(resolve=>requests.push({url,resolve}))},
   CRPGShell:{extraTools:[],toast:noop,topOverlay:()=>null},CRPG_ONLINE_CONFIG:{apiBase:'https://fixture.invalid'}};
  s.window=s;vm.createContext(s);
  // Only expose existing private functions; their bodies and public toggle remain unchanged.
@@ -43,7 +43,7 @@ function worker(){
 }
 function mail(){
  const source=src('app_mail_v0151.js'),requests=[],M={busy:false};let balance=1000;
- const s={M,crypto,JSON,String,draw:noop,SND:noop,SHELL:{toast:noop},fmt:String,loadLetters:async()=>{},game:{tradeLevelReason:()=>''},postage:()=>100,mora:()=>balance,busyReason:()=>'',
+ const s={M,crypto,JSON,String,mailSession:()=>0,sameMailSession:()=>true,draw:noop,SND:noop,SHELL:{toast:noop},fmt:String,loadLetters:async()=>{},game:{tradeLevelReason:()=>''},postage:()=>100,mora:()=>balance,busyReason:()=>'',
   O:{sync:async()=>{},request:async(url,payload)=>{requests.push({url,payload:structuredClone(payload)});throw Object.assign(Error('response lost'),{retryable:true});}}};
  vm.createContext(s);
  // Keep the real validation/payload/send flow; omit unrelated mailbox rendering.
@@ -52,7 +52,7 @@ function mail(){
 }
 function coop(){
  const source=src('app_coop_v0153.js'),requests=[],C={busy:false,card:'CARD_A',target:'enemy',branch:'',battle:{battle:'battle-1',round:4,turn:{actor:'guest',deadline:123456,mine:true}}};
- const s={C,JSON,crypto,drawBattle:noop,SND:noop,load:noop,setBattle:view=>C.battle=view,O:{request:async(url,payload)=>{requests.push({url,payload:structuredClone(payload)});throw Error('response lost');}}};
+ const s={C,JSON,crypto,drawBattle:noop,SND:noop,load:noop,setBattle:view=>C.battle=view,O:{sessionStamp:()=>0,sameSession:()=>true,request:async(url,payload)=>{requests.push({url,payload:structuredClone(payload)});throw Error('response lost');}}};
  vm.createContext(s);vm.runInContext(source.slice(source.indexOf('let pendingCommand=null;'),source.indexOf('// After the 20 seconds')),s);return{s,C,requests};
 }
 (async()=>{

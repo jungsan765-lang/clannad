@@ -1597,6 +1597,20 @@ body.teyvat .wish-screen .wish-reveal-info h2.wish-reveal-name{margin:0;font-siz
 .wish-screen button.wish-primary{display:flex;align-items:center;justify-content:center;text-align:center}
 .wish-screen .wish-stage button.wish-skip{background:rgba(16,20,36,.5);border-color:rgba(236,229,216,.7);text-shadow:0 1px 2px #000}
 @media (prefers-reduced-motion:reduce){.wish-sky,.wish-stage-sky,.wish-trail,.wish-card,.wish-reveal,.wish-reveal-art,.wish-reveal-info,.wish-banner{animation:none!important}}
+/* Short windows and enlarged text may need more than one viewport: keep every control reachable by scrolling. */
+.wish-screen{grid-template-rows:auto minmax(240px,1fr) auto;overflow-y:auto;overscroll-behavior:contain}
+.wish-screen:has(.wish-panel-wrap,.wish-stage){overflow:hidden}
+.wish-screen>.wish-top,.wish-foot,.wish-wallet{flex-wrap:wrap}
+.wish-screen>.wish-banner{min-height:240px}
+.wish-wallet,.wish-tabs,.wish-panel{min-width:0;max-width:100%}
+.wish-panel{overflow-wrap:anywhere}
+.wish-rates{grid-template-columns:auto minmax(0,1fr)}
+@media (max-width:640px){
+ .wish-rates{grid-template-columns:minmax(0,1fr);gap:4px}
+ .wish-rates dt{white-space:normal}.wish-rates dd{margin-bottom:8px}
+ .wish-history li{grid-template-columns:86px minmax(0,1fr);gap:4px 8px}
+ .wish-history li>strong{min-width:0;overflow-wrap:anywhere}
+}
 
 /* ---------- 0.14.13 왜 안 되는지 (app_reasons_v01413.js): a greyed-out button lets the press through, and the reason
    shows in a bubble beside it, over windows too (top layer) ---------- */
@@ -1853,6 +1867,7 @@ button:disabled{pointer-events:none}
 .ch-close{width:36px;height:36px;min-height:0;padding:0;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(236,229,216,.25);color:#ece5d8;cursor:pointer}
 .ch-close .shell-icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8}
 .ch-body{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 16px 18px}
+.ch-body>*{min-width:0;max-width:100%}
 .ch-note{margin:0;font-size:.86rem;color:#d8d1c3;text-align:center;line-height:1.55}
 .ch-note.warn{color:#ffb8a2}
 .ch-count{margin:0;font-weight:800;color:#f3dfae}

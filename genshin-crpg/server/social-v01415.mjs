@@ -137,6 +137,7 @@ export const socialMethods={
   if(this.db.prepare("SELECT COUNT(*) AS n FROM market WHERE seller_id=? AND status='ACTIVE'").get(a.id).n>=MARKET.maxListings)throw err(409,'상점에는 한 번에 '+MARKET.maxListings+'개까지 올릴 수 있습니다.');
   const entry=b?.entry;if(!entry||typeof entry!=='object')throw err(400,'판매할 물건을 골라 주세요.');
   return this.serial(a.id,()=>{
+   if(this.db.prepare("SELECT COUNT(*) AS n FROM market WHERE seller_id=? AND status='ACTIVE'").get(a.id).n>=MARKET.maxListings)throw err(409,'상점에는 한 번에 '+MARKET.maxListings+'개까지 올릴 수 있습니다.');
    const r=this.liveRuntime(a.id,'판매하는 모험가');this.levelGate(r);let moved;
    try{moved=r.tradeTake([entry.slot?{slot:String(entry.slot)}:{item:String(entry.item||''),qty:int(entry.qty)}]);}catch(e){throw err(400,e.message);}
    const m=moved[0],label=r.tradeLabel(moved),kind=m.gear?'GEAR':'ITEM',ref=m.gear?m.gear.equip:m.item,qty=m.gear?1:m.qty,enhance=m.gear?Number(m.gear.enhance)||0:0;
@@ -202,7 +203,7 @@ export const socialMethods={
   return {id:d.id,status:d.status,note:d.note||'',inviter:d.a.id===viewer,me:side(me),other:side(other),updated:d.updated};
  },
  dealPush(d,extra={}){for(const x of [d.a,d.b])this.broadcast({type:'deal',deal:this.dealView(d,x.id),...extra},s=>s.account===x.id);},
- dealEnd(d,status,note){d.status=status;d.note=note||'';d.updated=now();this.dealPush(d);},
+ dealEnd(d,status,note){d.status=status;d.note=note||'';d.version=(d.version||0)+1;d.updated=now();this.dealPush(d);},
  dealGet(a,id){const d=this.dealOf(a.id);if(!d||d.id!==String(id||''))throw err(404,'진행 중인 거래가 없습니다.');return d;},
  dealCurrent(a){this.need('trade');const d=this.dealOf(a.id);return {deal:d?this.dealView(d,a.id):null};},
  dealInvite(a,b){
@@ -228,31 +229,38 @@ export const socialMethods={
   const list=Array.isArray(b?.items)?b.items.slice(0,DEAL.maxEntries):[];let norm;try{norm=r.tradeNormalize(list);}catch(e){throw err(400,e.message);}
   const why=r.tradeCheck(norm);if(why)throw err(400,why);
   me.items=norm.map(x=>{if(x.slot){const inv=r.s.inventory.find(i=>i.slot===x.slot);return {slot:x.slot,kind:'GEAR',ref:inv.equip,qty:1,enhance:Number(inv.enhance)||0,label:r.tradeLabel([x])};}return {item:x.item,kind:'ITEM',ref:x.item,qty:x.qty,label:r.tradeLabel([x])};});
-  for(const x of [d.a,d.b]){x.locked=false;x.confirmed=false;}d.updated=now();this.dealPush(d);return {deal:this.dealView(d,a.id)};
+  for(const x of [d.a,d.b]){x.locked=false;x.confirmed=false;}d.version=(d.version||0)+1;d.updated=now();this.dealPush(d);return {deal:this.dealView(d,a.id)};
  },
  dealLock(a,b){
   this.need('trade');const d=this.dealGet(a,b?.id);if(d.status!=='OPEN')throw err(409,'거래가 열려 있지 않습니다.');
   const me=d.a.id===a.id?d.a:d.b;me.locked=b?.locked!==false;if(!me.locked)for(const x of [d.a,d.b])x.confirmed=false;
-  d.updated=now();this.dealPush(d);return {deal:this.dealView(d,a.id)};
+  d.version=(d.version||0)+1;d.updated=now();this.dealPush(d);return {deal:this.dealView(d,a.id)};
  },
  async dealConfirm(a,b){
   this.need('trade');const d=this.dealGet(a,b?.id);if(d.status!=='OPEN')throw err(409,'거래가 열려 있지 않습니다.');
+  if(d.committing)throw err(409,'거래 결과를 확인하고 있습니다. 잠시만 기다려 주세요.','DEAL_PENDING');
   if(!d.a.locked||!d.b.locked)throw err(409,'두 사람 모두 「확정」을 눌러야 거래할 수 있습니다.');
   if(!d.a.items.length&&!d.b.items.length)throw err(400,'주고받을 물건을 하나 이상 올려 주세요.');
   const me=d.a.id===a.id?d.a:d.b;me.confirmed=true;d.updated=now();
   if(!d.a.confirmed||!d.b.confirmed){this.dealPush(d);return {deal:this.dealView(d,a.id)};}
   const [first,second]=[d.a.id,d.b.id].sort(),entries=x=>x.items.map(i=>i.slot?{slot:i.slot}:{item:i.item,qty:i.qty});
+  const version=d.version||0,offerA=entries(d.a),offerB=entries(d.b);d.committing=true;
   try{
    await this.serial(first,()=>this.serial(second,()=>{
+    // Offers and cancellation may change while either account's previous action is finishing.
+    if(d.status!=='OPEN'||(d.version||0)!==version||!d.a.locked||!d.b.locked||!d.a.confirmed||!d.b.confirmed)throw err(409,'거래 내용이 바뀌었거나 거래가 닫혔습니다. 다시 확인해 주세요.','DEAL_CHANGED');
     const ra=this.liveRuntime(d.a.id,d.a.name+' 님'),rb=this.liveRuntime(d.b.id,d.b.name+' 님');let fromA,fromB;
-    try{fromA=ra.tradeTake(entries(d.a));fromB=rb.tradeTake(entries(d.b));}catch(e){throw err(409,'거래할 수 없습니다. '+e.message,'TRADE_FAILED');}
+    this.levelGate(ra);this.levelGate(rb,d.b.name+' 님');
+    try{fromA=ra.tradeTake(offerA);fromB=rb.tradeTake(offerB);}catch(e){throw err(409,'거래할 수 없습니다. '+e.message,'TRADE_FAILED');}
     ra.tradeGive(fromB);rb.tradeGive(fromA);ra.achievementCount?.('deals');rb.achievementCount?.('deals');
     this.commit(()=>{this.writeSave(d.a.id,ra,'deal-'+d.id+'-a',{type:'DEAL',deal:d.id});this.writeSave(d.b.id,rb,'deal-'+d.id+'-b',{type:'DEAL',deal:d.id});
      this.db.prepare('INSERT INTO deal_log VALUES(?,?,?,?,?,?,?,?)').run(d.id,d.a.id,d.a.name,d.b.id,d.b.name,fromA.length?ra.tradeLabel(fromA):'없음',fromB.length?rb.tradeLabel(fromB):'없음',now());});
     this.invalidate(d.a.id);this.invalidate(d.b.id);
+    d.status='DONE';d.note='거래가 끝났습니다.';d.updated=now();
    }));
-  }catch(e){for(const x of [d.a,d.b]){x.locked=false;x.confirmed=false;}d.note=e.message;d.updated=now();this.dealPush(d);throw e;}
-  d.status='DONE';d.note='거래가 끝났습니다.';d.updated=now();this.dealPush(d,{sync:true});
+  }catch(e){if(d.status==='OPEN'&&(d.version||0)===version){for(const x of [d.a,d.b]){x.locked=false;x.confirmed=false;}d.note=e.message;d.updated=now();this.dealPush(d);}throw e;}
+  finally{d.committing=false;}
+  this.dealPush(d,{sync:true});
   return {deal:this.dealView(d,a.id),sync:true};
  },
  dealCancel(a,b){this.need('trade');const d=this.dealGet(a,b?.id);this.dealEnd(d,'CANCELLED',a.display_name+' 님이 거래를 닫았습니다.');return {deal:this.dealView(d,a.id)};}
