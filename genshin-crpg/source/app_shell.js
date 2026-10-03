@@ -275,7 +275,8 @@ function layoutLocation(content,p){
  const tabs=[{id:'todo',label:'할 일',icon:'STAR',nodes:todo},{id:'places',label:'시설',icon:'PIN',nodes:places,badge:placeCount?String(placeCount):''},{id:'activity',label:'지맥·보스',icon:'SWORDS',nodes:activity},{id:'info',label:'지역 정보',icon:'HANDBOOK',nodes:info}];
  const key='LOC:'+mapId;if(!S.tabs[key])S.tabs[key]=hub&&places.length?'places':todo.length?'todo':places.length?'places':'activity';
  if(isMobile()){
-  const mkey='LOCM:'+mapId;if(!S.tabs[mkey])S.tabs[mkey]=S.tabs.LOCATION_MOBILE==='move'?'move':'here';S.tabs.LOCATION_MOBILE=null;
+  // 「지도 열기」 (openMap) always lands on the 이동 tab, also when this place's tabs were already shown (0.15.9).
+  const mkey='LOCM:'+mapId;if(S.tabs.LOCATION_MOBILE==='move')S.tabs[mkey]='move';else if(!S.tabs[mkey])S.tabs[mkey]='here';S.tabs.LOCATION_MOBILE=null;
   const here=[header,...groups.get('objective'),...(hub?[]:todo),...groups.get('wait')];
   const t=tabset(mkey,[{id:'here',label:'주변',icon:'LOCATION',nodes:here},{id:'move',label:'이동',icon:'MAP',nodes:groups.get('map')},...(hub?[{id:'todo',label:'할 일',icon:'STAR',nodes:todo}]:[]),...tabs.slice(1)],'shell-loc-tabs');if(t)p.append(t);return;
  }
@@ -543,12 +544,16 @@ if(typeof settingsControls==='function'){const priorSettings=settingsControls;se
  for(const n of p.querySelectorAll('p.muted'))if(/공식 웹 이벤트 원소 효과음/.test(n.textContent))n.textContent='원신 OST · 지역별 순환 재생 · 효과음은 원신 본편 녹음과 공식 웹 이벤트 소리를 씁니다(「이전」·「새로 만든」이라고 적힌 전투 시작·타격·풀 소리는 이 게임에서 만든 소리). 아래 「효과음 고르기」에서 소리마다 후보를 들어 보고 바꿀 수 있습니다.';
  const credit=[...p.querySelectorAll('a')].find(a=>/genshin-sfx\/CREDITS/.test(a.getAttribute('href')||''));
  if(credit&&window.CRPGSound){const note=credit.nextElementSibling?.matches?.('.choice-note')?credit.nextElementSibling:credit;note.after(soundGallery());}
-}catch{}try{const head=mk('h2','','정보'),note=mk('p','shell-disclaimer','본 게임은 비영리 비공식 팬 프로젝트이며 HoYoverse의 공식 게임이 아닙니다. 원신 및 관련 캐릭터, 음악, 이미지 등의 권리는 각 권리자에게 있습니다. 권리자의 요청이 있는 경우 해당 콘텐츠는 즉시 제거 또는 교체될 수 있습니다.'),link=mk('a','shell-official','원신 공식 홈페이지 바로가기');link.href='https://genshin.hoyoverse.com/ko/';link.target='_blank';link.rel='noopener noreferrer';p.append(head,note,link);}catch{}};}
+}catch{}try{const head=mk('h2','','정보'),note=mk('p','shell-disclaimer','본 게임은 비영리 비공식 팬 프로젝트이며 HoYoverse의 공식 게임이 아닙니다. 원신 및 관련 캐릭터, 음악, 이미지 등의 권리는 각 권리자에게 있습니다. 권리자의 요청이 있는 경우 해당 콘텐츠는 즉시 제거 또는 교체될 수 있습니다.'),link=mk('a','shell-official','원신 공식 홈페이지 바로가기');link.href='https://genshin.hoyoverse.com/ko/';link.target='_blank';link.rel='noopener noreferrer';
+ // 0.15.9 (operator, 2026-10-03): what customer service answered before the project went on; not a licence or a partnership.
+ const guide=mk('p','shell-disclaimer shell-guidance',GUIDANCE);p.append(head,note,guide,link);}catch{}};}
 // 0.15.1: the original currency pictures (모라, 원석 …) wherever a reward shows one, instead of a ◈ or ✧ glyph
 // (user: 「모라도 이제 아이콘 좀 쓰고… 획득한 보상에 마름모만 있는 거 보기 좀 그렇다」).
 window.currencyIcon=function(key,cls='cur-icon'){const p=(window.CRPG_MANIFEST||{}).itemIcons?.icons?.['CUR_'+key]?.path;if(!p)return null;const i=document.createElement('img');i.className=cls;i.src=p;i.alt='';i.draggable=false;return i;};
 // 0.15.1: the fan-project notice also sits at the bottom of the title (login) screen, which app_online.js draws.
 const LEGAL='본 게임은 비영리 비공식 팬 프로젝트이며 HoYoverse의 공식 게임이 아닙니다. 원신 및 관련 캐릭터, 음악, 이미지 등의 권리는 각 권리자에게 있습니다. 권리자의 요청이 있는 경우 해당 콘텐츠는 즉시 제거 또는 교체될 수 있습니다.';
+// 0.15.9: the operator's note on asking customer service first (settings 「정보」 and docs/FAN_PROJECT_KO.md).
+var GUIDANCE='운영 안내 · 운영자는 원신(HoYoverse) 고객센터에 미리 문의했고, 공식 가이드라인과 비영리 범위 안에서 판단해 활동하라는 안내를 받았습니다. 공식 허가나 제휴를 뜻하지 않으며, 이 게임은 그 범위 안에서만 운영합니다.';
 const titleLegal=()=>{for(const t of document.querySelectorAll('section.game-title:not(.has-legal)')){t.classList.add('has-legal');t.append(mk('p','title-legal',LEGAL));}};
 new MutationObserver(titleLegal).observe(document.body,{childList:true,subtree:true});titleLegal();
 // Formation and role effects are runtime statuses without a table row; name them instead of "알 수 없는 항목".

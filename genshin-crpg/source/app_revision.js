@@ -113,7 +113,9 @@ boot=async function(){
     if(saveStore)try{const existing=await saveStore.list(),legacy=localStorage.getItem('crpg-latest');if(legacy&&!existing.some(x=>x.saveId===legacy))await saveStore.importLegacyLocalStorage('legacy:'+legacy,{key:'crpg-save:'+legacy,name:'이전 저장'});}catch(e){say('이전 저장을 자동으로 가져오지 못했습니다. 현재 저장소는 정상 사용할 수 있습니다.');}
   }
   render();
-  if('serviceWorker'in navigator&&location.protocol!=='file:')try{const reg=await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;navigator.serviceWorker.addEventListener('message',e=>{if(e.data?.type==='PACK_READY')window.CRPG_OFFLINE_READY=true;});reg.active?.postMessage({type:'PACK_STATUS'});}catch(e){say('오프라인 기능을 시작하지 못했습니다. '+e.message);}
+  if('serviceWorker'in navigator&&location.protocol!=='file:')try{const reg=await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;navigator.serviceWorker.addEventListener('message',e=>{if(e.data?.type==='PACK_READY')window.CRPG_OFFLINE_READY=true;});reg.active?.postMessage({type:'PACK_STATUS'});}catch(e){console.warn('CRPG offline pack unavailable:',e?.message||e);}
+  // 0.15.9: a browser without the offline pack (private windows, some in-app browsers) plays on as usual; the browser's
+  // English error used to stay over the title and, on a small phone, over 「게임 시작」.
 };
 window.CRPG_APP={get game(){return game;},begin:(...a)=>begin(...a),act:(...a)=>act(...a),render:()=>render(),get settings(){return settings;},get saveStore(){return saveStore;}};
 // Boot runs after the formation and presentation modules have installed.

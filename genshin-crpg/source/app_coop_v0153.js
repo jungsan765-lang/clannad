@@ -65,7 +65,7 @@ async function decline(id){await call('/coop/decline',{room:id});C.invites=C.inv
 // Online adventurers to invite (from the chat's list).
 async function loadOnline(){try{C.online=(await O.request('/online')).players||[];}catch{C.online=[];}draw();}
 // ---------- the window ----------
-function close(){if(!C.node)return;const n=C.node;C.node=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);SND('menu_close');schedule();}
+function close(){if(!C.node)return;const n=C.node;C.node=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);SND('menu_close');schedule();pill();}
 C.close=close;
 C.open=function(opts={}){
  C.msg='';if(opts.join){C.joining={room:opts.join,host:opts.hostName||''};C.view='pick';}else if(!C.node)C.view='home';
@@ -85,24 +85,99 @@ function charCard(c,{onPick,picked,why}={}){
  let face;try{face=typeof actorPortrait==='function'&&!c.player?actorPortrait(c.id,'cp-face'):null;}catch{face=null;}
  card.append(face||mk('span','cp-face cp-face-glyph',c.player?'✦':'✧'));
  const copy=mk('span','cp-char-copy');copy.append(mk('strong','',c.name),mk('small','','Lv.'+c.level+(c.player?' · '+(c.route||'주인공'):' · '+'★'.repeat(c.rarity||4))+(c.constellation?' · 운명의 자리 '+c.constellation:'')));
- const stats=mk('small','cp-char-stats','HP '+fmt(c.hp)+' · 공격 '+fmt(c.atk)+' · 방어 '+fmt(c.def)+(c.talents?' · 특성 '+c.talents.na+'/'+c.talents.e+'/'+c.talents.q:''));copy.append(stats);
+ // Each stat keeps together, so a narrow phone breaks the line between them (never inside 「특성 1/1/1」).
+ const stats=mk('small','cp-char-stats'),parts=['HP '+fmt(c.hp),'공격 '+fmt(c.atk),'방어 '+fmt(c.def),...(c.talents?['특성 '+c.talents.na+'/'+c.talents.e+'/'+c.talents.q]:[])];
+ parts.forEach((t,i)=>{if(i)stats.append(' · ');stats.append(mk('span','',t));});copy.append(stats);
  const gear=(c.gear||[]).map(g=>g.name+(g.enhance?' +'+g.enhance:'')).join(' · ');copy.append(mk('small','cp-char-gear',gear?'장비 · '+gear:'장비 없음'));
  card.append(copy);if(why&&onPick)card.append(mk('em','cp-char-why',why));return card;
 }
 function draw(){
- const wrap=C.node;if(!wrap)return;const box=wrap.querySelector('.cp-box'),parts=[];
+ pill();const wrap=C.node;if(!wrap)return;const box=wrap.querySelector('.cp-box'),parts=[];
  const why=reason(),r=room();
  if(C.view==='pick'){parts.push(...pickView());}
  else if(r){parts.push(head('다인 모드',(r.you==='HOST'?'내 방':'방장 '+r.host.name)+' · '+(r.visibility==='INVITE'?'초대 전용':'공개 모집')+' · '+r.count+' / '+r.max+'명'),roomView(r));}
  else{parts.push(head('다인 모드','필드 전투를 다른 모험가와 함께 · 최대 4명'),homeView(why));}
  if(C.msg){const m=mk('p','cp-msg',C.msg);m.setAttribute('role','alert');parts.push(m);}
- box.replaceChildren(...parts);
+ const live=box.querySelector('.cp-talk'),fresh=parts.map(p=>p.querySelector?.('.cp-talk')).find(Boolean);
+ if(live&&fresh&&live.dataset.room===fresh.dataset.room&&keepTalk(box,parts,live,fresh))return;
+ box.replaceChildren(...parts);const log=box.querySelector('.cp-talk-log');if(log)log.scrollTop=log.scrollHeight;
+}
+// A redraw (news, the slow poll) leaves the room's talk box in the page and swaps everything around it, so what is
+// being typed, the caret and a phone's keyboard stay; its lines and quick words are renewed in place.
+function keepTalk(box,parts,live,fresh){
+ const oldBody=live.parentElement,newBody=fresh.parentElement,top=parts.indexOf(newBody);if(!oldBody||oldBody.parentElement!==box||top<0)return false;
+ const oldLog=live.querySelector(':scope>.cp-talk-log'),atEnd=!oldLog||oldLog.scrollTop+oldLog.clientHeight>=oldLog.scrollHeight-8,was=oldLog?.scrollTop||0;
+ for(const cls of ['cp-talk-log','cp-chips']){const a=live.querySelector(':scope>.'+cls),b=fresh.querySelector(':scope>.'+cls);if(a&&b)a.replaceWith(b);}
+ const kids=[...newBody.children],i=kids.indexOf(fresh);
+ for(const n of [...oldBody.childNodes])if(n!==live)n.remove();live.before(...kids.slice(0,i));live.after(...kids.slice(i+1));oldBody.className=newBody.className;
+ for(const n of [...box.childNodes])if(n!==oldBody)n.remove();oldBody.before(...parts.slice(0,top));oldBody.after(...parts.slice(top+1));
+ const log=live.querySelector(':scope>.cp-talk-log');if(log)log.scrollTop=atEnd?log.scrollHeight:was;
+ return true;
 }
 function rulesBox(){
  const s=mk('section','cp-rules');const R=C.status?.rules;
  s.append(mk('p','','함께 싸우는 전투 · '+(R?.shared||RULES.text.shared)),mk('p','','혼자 하는 전투 · '+(R?.solo||RULES.text.solo)),
   mk('p','','방장의 주인공과 손님 최대 3명이 각자 데려온 캐릭터 하나로 싸웁니다. 손님의 차례에는 '+(RULES.turnMs/1000)+'초 안에 고르고, 넘기면 스스로 싸웁니다. 보상은 각자의 여정에 들어가고, 패배해도 손님은 잃는 것이 없습니다.'));
  return s;
+}
+// ---------- 0.15.9 함께 다니기: the host's world, suggestions and the room's talk ----------
+const mapName=id=>{try{return game.tables['32_MAP_DB'].get(id)?.[2]||id;}catch{return id;}};
+const muted=pid=>{try{return !!window.CRPGChat?.muted?.has(pid);}catch{return false;}};
+// The places one step away from the host (the same map data every journey has); the host decides whether the way is open.
+function neighbors(id){
+ const out=new Map();try{for(const e of game.rows('47_MAP_EDGE_DB'))if(e[1]===id&&e[8]!=='N'&&(e[11]||'ACTIVE')==='ACTIVE'&&e[2]!==id&&game.tables['32_MAP_DB'].has(e[2]))out.set(e[2],{id:e[2],name:mapName(e[2])});}catch{}
+ return [...out.values()];
+}
+function doingText(w,r){
+ if(w.doing==='BATTLE')return r.battle?.shared===false?'방장이 혼자 싸우는 중':'전투 중';
+ if(w.doing==='STORY')return '이야기 진행 중 · 이야기 전투는 방장 혼자 합니다';
+ if(w.doing==='PLACE')return (w.place||'시설')+' 이용 중';
+ return (w.safe?'안전한 거점':'야외 · 이동 중 적과 마주칠 수 있음')+(w.levels?' · 권장 Lv.'+w.levels[0]+'~'+w.levels[1]:'');
+}
+// The region's map with the party's pin (and the suggested place), centred on the party.
+function miniMap(id,suggestId){
+ const T=window.CRPGTerrainMap,pt=T?.points?.[id];if(!pt)return null;const A=T.atlases?.[pt[0]];if(!A)return null;
+ const box=mk('div','cp-minimap');box.setAttribute('role','img');box.setAttribute('aria-label',A.name+' 지도 · 지금 파티가 있는 곳');
+ const W=T.width||880,H=T.height||786,layer=mk('div','cp-minimap-layer');layer.style.transform='translate('+(-pt[1]/W*100).toFixed(2)+'%,'+(-pt[2]/H*100).toFixed(2)+'%)';
+ const img=mk('img');img.src=A.url;img.alt='';img.decoding='async';layer.append(img);
+ const pin=(p,cls,label)=>{const d=mk('span','cp-pin '+cls);d.style.left=(p[1]/W*100).toFixed(2)+'%';d.style.top=(p[2]/H*100).toFixed(2)+'%';d.append(mk('em','',label));layer.append(d);};
+ const sp=suggestId&&suggestId!==id?T.points[suggestId]:null;if(sp&&sp[0]===pt[0])pin(sp,'suggest','제안');
+ pin(pt,'party','함께');box.append(layer);return box;
+}
+function worldSection(r){
+ const w=r.world,s=mk('section','cp-world');s.append(mk('h3','',r.you==='HOST'?'함께 다니기 · 내 세계':'함께 다니기 · '+r.host.name+' 님의 세계'));
+ if(!w){s.append(mk('p','cp-empty','방장의 위치를 불러오는 중…'));return s;}
+ const where=mk('div','cp-where');where.append(mk('strong','',(w.region?w.region+' · ':'')+w.name),mk('small','',doingText(w,r)+(w.time?' · '+w.day+'일차 '+w.time:'')));s.append(where);
+ const sug=r.suggest&&r.suggest.map!==w.map?r.suggest:null,map=miniMap(w.map,sug?.map);if(map)s.append(map);
+ if(sug){const p=mk('div','cp-suggested');p.append(mk('span','',sug.from.name+' 님 · 「'+sug.name+'」(으)로 가요'));if(r.you==='HOST')p.append(btn('지도에서 보기',()=>showOnMap(sug.map),'cp-mini'));s.append(p);}
+ if(r.you==='GUEST'){const near=neighbors(w.map);if(near.length&&w.doing!=='BATTLE'){const row=mk('div','cp-chips');row.setAttribute('aria-label','가자고 하기');row.append(mk('small','cp-chips-label','가자고 하기'));
+  for(const n of near.slice(0,8))row.append(btn(n.name,()=>suggest(n.id),'cp-chip'+(sug?.map===n.id?' on':''),C.busy?'잠시 기다려 주세요.':''));s.append(row);}}
+ s.append(mk('small','cp-note',r.you==='HOST'?'내가 이동하면 손님들도 함께 이동합니다. 손님이 가고 싶은 곳을 고르면 여기와 지도에 보입니다.':'방장이 파티를 이끕니다. 방장이 이동하면 함께 이동하고, 가고 싶은 곳은 「가자고 하기」로 알려 주세요. 내 여정의 위치는 그대로입니다.'));
+ return s;
+}
+function talkSection(r){
+ const s=mk('section','cp-talk');s.dataset.room=r.id;s.append(mk('h3','','방 대화'));
+ const log=mk('div','cp-talk-log');log.setAttribute('aria-live','polite');const lines=(r.log||[]).filter(l=>!muted(l.from.pid)).slice(-8);
+ if(!lines.length)log.append(mk('p','cp-empty','아직 나눈 말이 없습니다. 방 사람에게만 보입니다.'));
+ for(const l of lines){const p=mk('p','cp-talk-line'+(l.from.host?' host':''));p.append(mk('strong','',l.from.name+(l.from.host?' · 방장':'')),mk('span','',l.text));log.append(p);}
+ s.append(log);
+ const quick=mk('div','cp-chips');for(const q of ['출발해요','준비됐어요','잠깐만요','고마워요'])quick.append(btn(q,()=>say(q),'cp-chip',C.busy?'잠시 기다려 주세요.':''));s.append(quick);
+ const form=mk('form','cp-talk-form'),input=mk('input');input.maxLength=80;input.placeholder='방 사람들에게 할 말';input.setAttribute('aria-label','방 대화');input.value=C.draft||'';
+ input.oninput=()=>{C.draft=input.value;};
+ const send=btn('보내기',()=>{},'primary');send.type='submit';form.append(input,send);
+ form.onsubmit=e=>{e.preventDefault();const t=input.value.trim();if(t){C.draft='';input.value='';say(t);}};s.append(form);
+ return s;
+}
+async function suggest(map){const out=await call('/coop/suggest',{map},'「'+mapName(map)+'」(으)로 가자고 했습니다.');if(out?.room)C.status={...C.status,room:out.room};draw();}
+async function say(text){
+ try{const out=await O.request('/coop/say',{text});if(out?.line)addLine(out.line);}
+ catch(e){C.msg=e.message;SND('error');draw();}
+}
+function addLine(line){const r=room();if(!r)return;const log=r.log||[];if(log.some(l=>l.at===line.at&&l.from.pid===line.from.pid&&l.text===line.text))return;r.log=[...log,line].slice(-20);draw();}
+// The host's own travel map shows the suggested place (app_navigation.js; on a phone the main screen's 「이동」 tab).
+function showOnMap(map){
+ close();try{const pt=window.CRPGTerrainMap?.points?.[map];if(typeof NavigationUI!=='undefined'){if(pt){NavigationUI.atlas=pt[0];NavigationUI.camera={mode:'custom',zoom:2,cx:pt[1],cy:pt[2]};}NavigationUI.choose(map);}
+  if(SHELL.openMap)SHELL.openMap();else if(game?.s?.global?.SCREEN_MODE!=='LOCATION'&&typeof act==='function')act('MENU',{screen:'LOCATION'});}catch{}
 }
 function homeView(why){
  const body=mk('div','cp-body');
@@ -116,7 +191,7 @@ function homeView(why){
  else if(!C.list.length)list.append(mk('p','cp-empty','지금 모집 중인 방이 없습니다. 방을 열고 기다려 보세요.'));
  for(const x of C.list||[]){
   const item=mk('article','cp-room'+(x.invited?' invited':''));const t=mk('div','cp-room-copy');
-  t.append(mk('strong','',x.host.name+' 님의 방'),mk('small','','방장 Lv.'+x.host.level+' · '+x.count+' / '+x.max+'명'+(x.fighting?' · 전투 중':'')+(x.invited?' · 초대받음':'')));
+  t.append(mk('strong','',x.host.name+' 님의 방'),mk('small','','방장 Lv.'+x.host.level+' · '+x.count+' / '+x.max+'명'+(x.where?' · '+x.where.name:'')+(x.fighting?' · 전투 중':'')+(x.invited?' · 초대받음':'')));
   if(x.members.length)t.append(mk('small','cp-room-members',x.members.map(m=>m.name+'('+m.char+' Lv.'+m.level+')').join(', ')));item.append(t);
   item.append(btn('참여',()=>{C.joining={room:x.id,host:x.host.name};C.view='pick';draw();},'primary',why||(x.full?'방이 가득 찼습니다.':'')));list.append(item);
  }
@@ -139,7 +214,7 @@ function roomView(r){
  state.append(mk('strong','',b?.running?(b.shared?'전투 중 · '+(b.opening?'시작 전':'라운드 '+b.round):'방장이 혼자 싸우는 중'):'전투를 기다리는 중'),
   mk('small','',b?.running?(b.shared?(b.title||'함께 싸우는 전투')+(r.you==='GUEST'?' · '+(me&&C.battle?.me?'내 캐릭터가 싸우고 있습니다':'다음 라운드부터 함께 싸웁니다'):''):b.solo):(r.you==='HOST'?'필드에서 전투가 시작되면 손님들이 함께 싸웁니다.':'방장이 필드에서 싸움을 시작하면 함께 싸웁니다.')));
  if(r.you==='GUEST'&&b?.shared&&C.battle)state.append(btn('전투 화면 보기',()=>{C.minimized=false;openBattle();},'primary'));
- body.append(state);
+ body.append(state,worldSection(r),talkSection(r));
  const team=mk('section','cp-team');team.append(mk('h3','','함께하는 모험가'));
  const hostRow=mk('div','cp-member host');hostRow.append(charCard(r.host.char),mk('span','cp-member-who',r.host.name+' · 방장'+(r.host.online?'':' · 접속 끊김')));team.append(hostRow);
  for(const m of r.members){const row=mk('div','cp-member'+(m.me?' me':''));row.append(charCard(m.char));const who=mk('span','cp-member-who',m.name+(m.me?' (나)':''));
@@ -188,10 +263,30 @@ function openBattle(){
 function minimize(){C.minimized=true;if(C.shown){const n=C.shown;C.shown=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}pill();}
 function closeBattle(all){if(C.shown){const n=C.shown;C.shown=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}if(all){C.battle=null;C.ended=null;document.querySelector('body > .cp-pill')?.remove();}}
 // A small button to go back to the fight after minimizing it.
+// 0.15.9: outside a fight the same corner shows where the party is (guests) or who is along (the host), and opens the room.
+// The world note shows on one's own field and town screens (not on the title, in a story or in a fight).
+function roaming(){
+ try{if(!ready()||!O?.active||game.s.runtime)return false;return !['STORY','DIALOGUE'].includes(String(game.s.global.SCREEN_MODE||''))&&['FREE','LIFE','DOWNED'].includes(game.playPhase?.()||'FREE');}catch{return false;}
+}
 function pill(){
- let p=document.querySelector('body > .cp-pill');if(!C.minimized||!C.battle||room()?.you!=='GUEST'){p?.remove();return;}
- if(!p){p=mk('button','cp-pill');p.type='button';p.onclick=openBattle;document.body.append(p);}
- const t=C.battle.turn;p.classList.toggle('mine',!!t?.mine);p.replaceChildren(SHELL.icon('COOP','shell-icon'),mk('span','',t?.mine?'내 차례! · 전투로 돌아가기':'다인 전투 · 라운드 '+C.battle.round));
+ let p=document.querySelector('body > .cp-pill');const r=room();
+ const fight=C.minimized&&!!C.battle&&r?.you==='GUEST';
+ const world=!fight&&!!r?.world&&!C.node&&!C.shown&&roaming()&&(r.you==='GUEST'||r.count>0);
+ if(!fight&&!world){p?.remove();return;}
+ const fresh=!p;if(fresh){p=mk('button','cp-pill');p.type='button';document.body.append(p);}
+ p.onclick=fight?openBattle:()=>C.open();p.classList.toggle('world',world);
+ if(fight){const t=C.battle.turn;p.classList.toggle('mine',!!t?.mine);p.classList.remove('compact','news');p.removeAttribute('title');p.removeAttribute('aria-label');p.replaceChildren(SHELL.icon('COOP','shell-icon'),mk('span','',t?.mine?'내 차례! · 전투로 돌아가기':'다인 전투 · 라운드 '+C.battle.round));return;}
+ p.classList.remove('mine');
+ // Two short lines: who one is with, and where (or, for the host, the guests' suggestion).
+ const w=r.world,sug=r.suggest&&r.suggest.map!==w.map?r.suggest:null,lines=r.you==='HOST'
+  ?['함께 다니는 중 · 손님 '+r.count+'명',sug?'제안 · '+sug.name+' ('+sug.from.name+')':'내 세계 · '+w.name]
+  :[r.host.name+' 님과 함께',w.name+({STORY:' · 이야기 진행 중',BATTLE:' · 전투 중'}[w.doing]||(w.doing==='PLACE'&&w.place?' · '+w.place:''))];
+ const copy=mk('span','cp-pill-copy');copy.append(mk('strong','',lines[0]),mk('small','',lines[1]));
+ p.title=lines.join(' · ')+' · 눌러서 방 열기';p.setAttribute('aria-label','다인 모드 · '+lines.join(' · '));
+ p.replaceChildren(SHELL.icon('COOP','shell-icon'),copy);
+ // Folded to a round button like the chat's, so it covers nothing; it opens for a few seconds when something changes.
+ const sig=lines.join('|');p.classList.toggle('news',!!sug&&r.you==='HOST');
+ if(fresh||C.pillSig!==sig){C.pillSig=sig;p.classList.remove('compact');clearTimeout(C.pillFold);C.pillFold=setTimeout(()=>document.querySelector('body > .cp-pill.world')?.classList.add('compact'),5000);}
 }
 const left=t=>t?.deadline?Math.max(0,Math.ceil((t.deadline-(C.battle?.now||0)-(Date.now()-C.battleAt))/1000)):null;
 function unitRow(u,me){
@@ -321,6 +416,10 @@ window.CRPGChat?.on?.(ev=>{
  if(ev.kind==='declined'){toast(ev.from.name+' 님이 초대를 거절했습니다.');return;}
  if(ev.kind==='reward'){showRewards(ev.rewards||[]);if(ev.sync)wantSync();return;}
  if(ev.kind==='sync'){wantSync();return;}
+ // 0.15.9: the room's talk, a suggestion for the host, the host moving for a guest (a note when the window is closed).
+ if(ev.kind==='say'){if(ev.line&&room()?.id===ev.room){addLine(ev.line);if(!C.node&&ev.line.from.pid!==C.status?.me?.pid&&!muted(ev.line.from.pid)){toast(ev.line.from.name+' · '+ev.line.text);SND('notice');}}return;}
+ if(ev.kind==='suggest'&&ev.room?.you==='HOST'&&ev.room.suggest){toast(ev.room.suggest.from.name+' 님이 「'+ev.room.suggest.name+'」(으)로 가자고 합니다.');SND('notice');}
+ if(ev.kind==='moved'&&ev.room?.you==='GUEST'&&ev.room.world&&!C.node)toast('방장이 「'+ev.room.world.name+'」(으)로 이동했습니다. 함께 이동합니다.');
  if(ev.room!==undefined){C.status={...(C.status||{enabled:true}),room:ev.room};if(ev.kind==='ended'&&ev.ended&&ev.room?.you==='GUEST'){C.ended=ev.ended;SND(ev.ended.victory?'victory':'defeat');if(!C.minimized)openBattle();}setBattle(ev.battle||null);draw();}
 });
 // ---------- where it is opened ----------
@@ -338,8 +437,8 @@ C.profileButton=function(v,closeCard){
 };
 // Find out once per login whether this server runs 다인 모드, keep the room, forget everything on logout.
 if(typeof render==='function'){const prior=render;render=function(){prior();try{
- if(!online()){if(C.status||C.enabled!==null){C.status=null;C.enabled=null;C.list=null;C.invites=[];closeBattle(true);closeInvite();close();schedule();}return;}
+ if(!online()){if(C.status||C.enabled!==null){C.status=null;C.enabled=null;C.list=null;C.invites=[];C.draft='';closeBattle(true);closeInvite();close();schedule();}return;}
  if(C.enabled===null&&!C.loading&&Date.now()>=C.probe){C.probe=Date.now()+30000;load();}
- schedule();
+ schedule();pill();
 }catch{}};}
 })();
