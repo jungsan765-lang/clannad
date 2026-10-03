@@ -265,6 +265,7 @@ function feeText(p,d){
   mk('small','','보유 모라 '+fmt(have)+(have>=need?' → 보낸 뒤 '+fmt(have-need):' · '+fmt(need-have)+' 모라 부족')+' · 수수료는 돌려받지 못합니다'));
 }
 function sendWhy(d){
+ if(uncertainSend(d))return '';
  const lv=(()=>{try{return game.tradeLevelReason?.()||'';}catch{return '';}})();if(lv)return lv;
  if(!d.to)return '받는 모험가를 골라 주세요.';if(!String(d.title).trim())return '제목을 적어 주세요.';
  const need=postage(d.items.size,d.mora)+d.mora;if(mora()<need)return '모라가 부족합니다.';return busyReason();
@@ -276,7 +277,7 @@ function sendButtons(d){
   const note=mk('p','ml-confirm',d.to.name+' 님에게 「'+String(d.title).trim()+'」을(를) 보냅니다'+(what.length?' · 넣은 것: '+what.join(', '):'')+' · 수수료 '+fmt(postage(d.items.size,d.mora))+' 모라');
   return [note,btn('보내기 확인',()=>send(d),'primary ml-go'),btn('고치기',()=>{d.confirm=false;draw();})];
  }
- return [lock(btn('보내기',()=>{d.confirm=true;M.msg='';draw();},'primary ml-go'),why),btn('취소',()=>{M.draft=null;M.tab='in';M.msg='';draw();})];
+ return [lock(btn(uncertainSend(d)?'보낸 기록 확인':'보내기',()=>{d.confirm=true;M.msg='';draw();},'primary ml-go'),why),btn('취소',()=>{M.draft=null;M.tab='in';M.msg='';draw();})];
 }
 async function find(d){
  const q=String(d.q||'').trim();if(!q){d.results=[];if(M.findList)fillFind(M.findList,d);return;}
@@ -342,14 +343,20 @@ async function block(p,on){
  try{await O.request('/mail/block',{pid:p.pid,blocked:on});SHELL.toast?.(on?p.name+' 님의 편지를 더 받지 않습니다.':p.name+' 님의 편지를 다시 받습니다.');}catch(e){M.msg=e.message;SND('error');}
  finally{M.busy=false;}await loadLetters();draw();
 }
+function sendPayload(d){
+ const items=[...d.items.values()].map(x=>x.slot?{slot:x.slot}:{item:x.item,qty:x.qty}).sort((a,b)=>String(a.slot||a.item).localeCompare(String(b.slot||b.item)));
+ return {to:d.to?.pid,title:String(d.title).trim(),body:String(d.body||'').trim(),items,mora:d.mora,replyTo:d.replyTo};
+}
+function uncertainSend(d){return !!(d.sendAttempt?.uncertain&&d.sendAttempt.intent===JSON.stringify(sendPayload(d)));}
 async function send(d){
  if(M.busy)return;const why=sendWhy(d);if(why){M.msg=why;d.confirm=false;draw();return;}M.busy=true;M.msg='';
- const items=[...d.items.values()].map(x=>x.slot?{slot:x.slot}:{item:x.item,qty:x.qty});
+ const payload=sendPayload(d),intent=JSON.stringify(payload);
+ if(d.sendAttempt?.intent!==intent)d.sendAttempt={intent,requestId:'mail-'+crypto.randomUUID(),uncertain:false};
  try{
-  const out=await O.request('/mail/send',{to:d.to.pid,title:d.title,body:d.body,items,mora:d.mora,replyTo:d.replyTo});
+  const out=await O.request('/mail/send',{...payload,requestId:d.sendAttempt.requestId});
   SND('commission_accept');SHELL.toast?.(d.to.name+' 님에게 편지를 보냈습니다 · 수수료 '+fmt(out.fee)+' 모라');
   M.draft=null;M.tab='sent';M.sentPick='S'+out.letter.id;try{await O.sync();}catch{}
- }catch(e){M.msg=e.message;d.confirm=false;SND('error');}
+ }catch(e){d.sendAttempt.uncertain=e.code!=='SESSION_CHANGED'&&e.outcome!=='REJECTED'&&(!e.status||e.status>=500);M.msg=e.message;d.confirm=false;SND('error');}
  finally{M.busy=false;}
  await loadLetters();draw();
 }

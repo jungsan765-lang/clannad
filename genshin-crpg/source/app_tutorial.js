@@ -25,18 +25,29 @@ function tutorialDone(){
  const open=game.openedPersonalMissions?.()||[];if(!open.length||open.some(id=>game.s.storyContext?.entry===id))done.personal=true;
  return done;
 }
+// An incomplete lesson can be pending without asking for an action the current story or inventory forbids.
+function tutorialPresentation(step){
+ if(step?.id!=='equip')return step;
+ const locked=game.actionReason('EQUIP');
+ if(locked)return {...step,title:'이야기를 마친 뒤 장비를 갖춰 보세요',text:locked+' 지금은 장비와 능력치를 살펴볼 수 있습니다. 장비를 바꿀 수 있게 되면 무기 장착을 안내할게요.',target:null,screen:null};
+ const owners=(game.s.party||[]).filter(x=>x.active).map(x=>x.source);if(!owners.includes('PLAYER_CUSTOM'))owners.unshift('PLAYER_CUSTOM');
+ const weapons=(game.s.inventory||[]).filter(i=>i.equip&&(typeof itemCategory==='function'?itemCategory(i):i.category)==='WEAPON');
+ const available=weapons.some(i=>owners.some(owner=>!(i.equipped&&i.owner===owner)&&!game.actionReason('EQUIP',{slot:i.slot,owner})&&!game.equipmentPreview?.(i.slot,owner)?.reason));
+ if(!available)return {...step,title:'먼저 사용할 무기를 준비하세요',text:'아직 새로 장착할 수 있는 무기가 없습니다. 이야기의 보상이나 상점·제작에서 사용할 무기를 얻으면 장착을 안내할게요. 이미 장착한 무기는 그대로 사용해도 됩니다.',target:null,screen:null};
+ return step;
+}
 function renderTutorial(){
  document.getElementById('tutorial-tour')?.remove();document.querySelectorAll('.tutorial-target').forEach(n=>n.classList.remove('tutorial-target'));
  if(!game||!activeTutorial||game.s.global.SCREEN_MODE==='STORY'||game.s.runtime||game.s.battlePreparation||game.s.lifeJob||game.s.worldJob)return;
- const done=tutorialDone(),battle=game.s.runtime,step=battle?tutorialSteps.find(x=>x.id==='battle'):tutorialSteps.find(x=>!done[x.id]);
+ const done=tutorialDone(),battle=game.s.runtime,step=tutorialPresentation(battle?tutorialSteps.find(x=>x.id==='battle'):tutorialSteps.find(x=>!done[x.id]));
  const host=document.querySelector('.content');if(!host)return;
  const box=el('section','learning-guide');box.id='tutorial-tour';box.setAttribute('aria-label','직접 해 보는 여행 안내');
  if(!step){box.append(el('strong','','기초 여행 안내 완료'),el('p','','직접 장비를 갖추고, 싸우고, 의뢰와 제작까지 해 봤습니다. 다음 목표는 지도와 임무에서 찾아보세요.'),button('안내 접기',()=>closeTutorial()));host.prepend(box);return;}
  const head=el('div','learning-guide-heading');head.append(el('small','eyebrow','직접 해 보기 · '+tutorialSteps.filter(x=>done[x.id]).length+' / '+tutorialSteps.length),button('안내 접기',()=>closeTutorial(),busy));
  box.append(head,el('h2','',step.title),el('p','',step.text));
- if(!battle&&game.s.global.SCREEN_MODE!==step.screen&&!game.actionReason('MENU',{screen:step.screen}))box.append(actionButton(step.screen==='STATUS'?'장비 장착 열기':step.screen==='PARTY'?'편성 열기':step.screen==='QUEST'?'임무 열기':'메인 화면 열기','MENU',{screen:step.screen},true));
+ if(!battle&&step.screen&&game.s.global.SCREEN_MODE!==step.screen&&!game.actionReason('MENU',{screen:step.screen}))box.append(actionButton(step.screen==='STATUS'?'장비 장착 열기':step.screen==='PARTY'?'편성 열기':step.screen==='QUEST'?'임무 열기':'메인 화면 열기','MENU',{screen:step.screen},true));
  const list=el('details','learning-checklist');list.append(el('summary','','배울 내용 확인'));for(const s of tutorialSteps)list.append(el('p',done[s.id]?'done':'',(done[s.id]?'✓ ':'○ ')+s.title));box.append(list);host.prepend(box);
- document.querySelector(step.target)?.classList.add('tutorial-target');
+ if(step.target)document.querySelector(step.target)?.classList.add('tutorial-target');
 }
 async function openTutorial(){if(!game)return;if(game.s.learningGuide?.dismissed)await act('TUTORIAL_ACK',{dismissed:false});activeTutorial={};renderTutorial();}
 function openGameHelp(){

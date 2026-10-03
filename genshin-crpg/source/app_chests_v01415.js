@@ -196,7 +196,7 @@ function sudokuGame(p,body,done){
  for(let v=1;v<=n;v++)pad.append(btn(String(v),()=>put(v),'sd-num'));pad.append(btn('지우기',()=>put(0),'sd-erase'));
  const row=mk('div','ch-tools');const hint=btn('힌트 ('+hints+')',()=>{const sol=solveSudoku(p.givens.map((g,i)=>g||0),n,br,bc);if(!sol)return;const empty=cells.map((v,i)=>v!==sol[i]?i:-1).filter(i=>i>=0&&!p.givens[i]);if(!empty.length||!hints)return;const i=empty[0];cells[i]=sol[i];sel=i;hints--;hint.textContent='힌트 ('+hints+')';if(!hints)hint.disabled=true;SND('puzzle_step');draw();},'ch-hint');
  row.append(btn('규칙 보기',()=>sudokuLesson(n,br,bc),''),hint);body.append(row);
- document.addEventListener('keydown',function key(e){if(!C.node){document.removeEventListener('keydown',key);return;}const v=Number(e.key);if(v>=1&&v<=n){put(v);e.preventDefault();}else if(e.key==='Backspace'||e.key==='Delete'||e.key==='0'){put(0);e.preventDefault();}});
+ document.addEventListener('keydown',function key(e){if(!C.node){document.removeEventListener('keydown',key);return;}const top=window.CRPGShell?.topOverlay?.();if(top&&!top.contains(C.node))return;const v=Number(e.key);if(v>=1&&v<=n){put(v);e.preventDefault();}else if(e.key==='Backspace'||e.key==='Delete'||e.key==='0'){put(0);e.preventDefault();}});
  draw();
  let seen=false;try{seen=localStorage.getItem('crpg-sudoku-lesson')==='1';}catch{}if(!seen)sudokuLesson(n,br,bc);
 }

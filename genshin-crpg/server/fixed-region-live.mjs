@@ -124,6 +124,7 @@ export class LiveRegionStore{
   if(!target)throw err(404,'받는 모험가를 찾을 수 없습니다. 아이디를 확인해 주세요.');if(target.id===a.id)throw err(400,'자신에게는 교환을 제안할 수 없습니다.');
   if(this.db.prepare("SELECT COUNT(*) AS n FROM trades WHERE from_id=? AND status='PENDING'").get(a.id).n>=TRADE_PENDING)throw err(409,'응답을 기다리는 제안이 '+TRADE_PENDING+'건입니다. 정리한 뒤 다시 제안해 주세요.');
   const r=this.runtimeOf(a.id);if(!r)throw err(409,'먼저 여정을 시작해 주세요.');if(!this.meta(target.id)||this.meta(target.id).revision==null)throw err(409,'상대가 아직 여정을 시작하지 않았습니다.');
+  this.levelGate(r,'보낸 모험가');this.levelGate(this.runtimeOf(target.id),'받는 모험가');
   let give,want;try{give=r.tradeNormalize(b.give||[]);want=r.tradeNormalize(b.want||[]);}catch(e){throw err(400,e.message);}
   if(!give.length&&!want.length)throw err(400,'주거나 받을 아이템을 고르세요.');
   const why=r.tradeCheck(give);if(why)throw err(400,why);
@@ -144,7 +145,7 @@ export class LiveRegionStore{
  }
  applyTrade(t,mark){
   const giver=this.runtimeOf(t.from_id),taker=this.runtimeOf(t.to_id);if(!giver||!taker)throw err(409,'여정 기록을 찾을 수 없습니다.');
-  for(const [r,who]of [[giver,'보낸 모험가'],[taker,'받는 모험가']])if((r.playPhase?.()||'FREE')!=='FREE'||r.s.runtime)throw err(409,who+'가 이야기나 전투를 진행 중입니다. 자유행동 중일 때 다시 수락해 주세요.');
+  for(const [r,who]of [[giver,'보낸 모험가'],[taker,'받는 모험가']]){this.levelGate(r,who);if((r.playPhase?.()||'FREE')!=='FREE'||r.s.runtime)throw err(409,who+'가 이야기나 전투를 진행 중입니다. 자유행동 중일 때 다시 수락해 주세요.');}
   const give=JSON.parse(t.give).map(x=>x.slot?{slot:x.slot}:{item:x.item,qty:x.qty}),want=JSON.parse(t.want).map(x=>({item:x.item,qty:x.qty}));
   let sent,returned;try{sent=giver.tradeTake(give);returned=want.length?taker.tradeTake(want):[];}catch(e){mark('FAILED',cleanText(e.message).slice(0,60));throw err(409,'교환할 수 없습니다. '+e.message,'TRADE_FAILED');}
   taker.tradeGive(sent);giver.tradeGive(returned);compact(giver.s);compact(taker.s);
@@ -167,7 +168,7 @@ export class LiveRegionStore{
  loadParts(id){return new Map(this.db.prepare('SELECT path,value FROM parts WHERE account_id=?').all(id).map(x=>[x.path,x.value]));}
  touch(id,e){e.lastUsed=now();this.cache.delete(id);this.cache.set(id,e);while(this.cache.size>MAX_CACHE)this.cache.delete(this.cache.keys().next().value);}
  cached(id,revision){const e=this.cache.get(id);if(!e||e.revision!==revision){if(e)this.cache.delete(id);return null;}this.touch(id,e);return e;}
- invalidate(id){this.cache.delete(id);}
+ invalidate(id){this.cache.delete(id);this.profileCache?.delete(id);this.honourCache?.delete(id);}
  envelope(a,m,result=null){return {account:view(a,this.admins),version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,transportBuild:TRANSPORT_BUILD,revision:m?.revision??0,ranked:m?.ranked===1,result};}
  output(a,m,parts,result=null){return {...this.envelope(a,m,result),state:m?.revision==null?null:publicState(parts)};}
  async register(b,addr){
@@ -181,8 +182,14 @@ export class LiveRegionStore{
   const ipKey=LOOPBACK.test(String(addr))?null:createHash('sha256').update('crpg-register:'+this.pepper+':'+addr).digest('hex').slice(0,32);
   if(ipKey&&this.db.prepare('SELECT COUNT(*) AS n FROM register_log WHERE ip=? AND at>?').get(ipKey,now()-86400000).n>=REGISTER_PER_DAY)throw err(429,'이 연결에서는 하루에 계정을 '+REGISTER_PER_DAY+'개까지 만들 수 있습니다. 내일 다시 시도해 주세요.','REGISTER_LIMIT');
   const id=crypto.randomUUID(),salt=token(),ph=await passwordHash(password,salt,this.pepper),display=String(b.displayName||username).trim().slice(0,24)||username;
-  try{this.db.prepare('INSERT INTO accounts VALUES(?,?,?,?,?,?)').run(id,username,display,salt,ph,now());}catch{throw err(409,'이미 사용 중인 아이디입니다.');}
-  if(ipKey){this.db.prepare('INSERT INTO register_log VALUES(?,?)').run(ipKey,now());this.db.prepare('DELETE FROM register_log WHERE at<?').run(now()-7*86400000);}
+  this.db.exec('BEGIN IMMEDIATE');try{
+   // Hashing yields to other sign-ups. Check again while reserving this account and its daily slot together.
+   if(this.account(username))throw err(409,'이미 사용 중인 아이디입니다.');
+   if(ipKey&&this.db.prepare('SELECT COUNT(*) AS n FROM register_log WHERE ip=? AND at>?').get(ipKey,now()-86400000).n>=REGISTER_PER_DAY)throw err(429,'이 연결에서는 하루에 계정을 '+REGISTER_PER_DAY+'개까지 만들 수 있습니다. 내일 다시 시도해 주세요.','REGISTER_LIMIT');
+   this.db.prepare('INSERT INTO accounts VALUES(?,?,?,?,?,?)').run(id,username,display,salt,ph,now());
+   if(ipKey){this.db.prepare('INSERT INTO register_log VALUES(?,?)').run(ipKey,now());this.db.prepare('DELETE FROM register_log WHERE at<?').run(now()-7*86400000);}
+   this.db.exec('COMMIT');
+  }catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');throw e;}
   return this.issue(this.account(username));
  }
  async login(b,addr){
@@ -196,7 +203,7 @@ export class LiveRegionStore{
  // 이름으로 나오게 해줘」). The account's display name follows the protagonist's name, so chat, profiles, letters, trades,
  // the market and the rankings show it. An account without a journey yet has no public name.
  heroName(id){const row=this.db.prepare('SELECT value FROM parts WHERE account_id=? AND path=?').get(id,'["global","PLAYER_NAME"]');try{return row?String(JSON.parse(row.value)||'').trim().slice(0,24):'';}catch{return '';}}
- syncName(a){const name=this.heroName(a.id);if(name&&name!==a.display_name){this.db.prepare('UPDATE accounts SET display_name=? WHERE id=?').run(name,a.id);a.display_name=name;}return name;}
+ syncName(a){const name=this.heroName(a.id);if(name&&name!==a.display_name){this.db.prepare('UPDATE accounts SET display_name=? WHERE id=?').run(name,a.id);this.db.prepare('UPDATE ranking SET display_name=? WHERE account_id=?').run(name,a.id);a.display_name=name;}return name;}
  me(a){const m=this.meta(a.id),e=m&&this.cached(a.id,m.revision),parts=e?.parts||(m?this.loadParts(a.id):new Map());
   // 0.15.4: build the journey's runtime while the player is still on the title screen, so the first action is quick.
   if(m&&m.revision!=null&&!e){try{this.touch(a.id,{revision:m.revision,parts,r:new R(GAME_DB,joinState(parts),true)});}catch{}}

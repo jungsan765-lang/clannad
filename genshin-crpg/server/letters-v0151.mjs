@@ -5,6 +5,8 @@
 // after 30 days it goes back by itself. The sender's save changes when the letter goes, the taker's when the parcel is
 // taken; reading, sending back, deleting and blocking never touch a save. Follows the server's 'trade' switch.
 import {pidOf} from './social-v01415.mjs';
+import {createHash} from 'node:crypto';
+import {canonical} from './state-parts.mjs';
 
 const now=()=>Date.now();
 const err=(status,message,code)=>Object.assign(new Error(message),{status,code});
@@ -12,6 +14,7 @@ const int=v=>Number.isSafeInteger(Number(v))?Number(v):NaN;
 const fmt=n=>Number(n||0).toLocaleString('ko-KR');
 export const POST={base:50,perEntry:100,moraRate:0.05,maxMora:1000000,entries:6,titleMax:30,bodyMax:500,inbox:100,keepDays:30,sendLimit:10,sendWindowMs:600000,blockMax:100};
 const KEEP_MS=POST.keepDays*86400000;
+const SEND_RID=/^[a-zA-Z0-9_-]{10,80}$/;
 export const postage=(entries,mora)=>POST.base+POST.perEntry*entries+(mora>0?Math.max(1,Math.ceil(mora*POST.moraRate)):0);
 // Plain text only: no control, zero-width or direction characters; a title is one line, a body keeps its line breaks.
 const bad=c=>c<32||c===127||(c>=0x200b&&c<=0x200f)||(c>=0x2028&&c<=0x202e)||(c>=0x2060&&c<=0x206f)||c===0xfeff;
@@ -69,27 +72,40 @@ export const letterMethods={
  },
  async letterSend(a,b){
   this.need('trade');
-  const to=this.accountByPid(b?.to);if(!to||this.meta(to.id)?.revision==null)throw err(404,'받는 모험가를 찾을 수 없습니다.');if(to.id===a.id)throw err(400,'자신에게는 편지를 보낼 수 없습니다.');
+  const requestId=b?.requestId;
+  if(requestId!==undefined&&(typeof requestId!=='string'||!SEND_RID.test(requestId)))throw err(400,'편지 전송 정보를 확인하지 못했습니다. 우편함을 다시 열어 주세요.');
   const title=cut(line(b?.title),POST.titleMax),body=cut(text(b?.body),POST.bodyMax);if(!title)throw err(400,'제목을 적어 주세요.');
   const items=Array.isArray(b?.items)?b.items:[];if(items.length>POST.entries)throw err(400,'물건은 '+POST.entries+'종류까지 넣을 수 있습니다.');
   const mora=b?.mora===undefined||b?.mora===null||b?.mora===''?0:int(b.mora);if(!Number.isInteger(mora)||mora<0||mora>POST.maxMora)throw err(400,'함께 보낼 모라는 0~'+fmt(POST.maxMora)+' 사이로 정해 주세요.');
-  if(this.db.prepare('SELECT 1 FROM letter_block WHERE account_id=? AND blocked_id=?').get(to.id,a.id))throw err(403,to.display_name+' 님은 지금 편지를 받지 않습니다.');
-  if(this.db.prepare('SELECT COUNT(*) AS n FROM letters WHERE to_id=? AND to_hidden=0').get(to.id).n>=POST.inbox)throw err(409,to.display_name+' 님의 우편함이 가득 찼습니다.');
-  const reply=b?.replyTo?this.letterRow(b.replyTo):null,replyTo=reply&&reply.to_id===a.id?reply.id:null;
-  this.rate('letter-send:'+a.id,POST.sendLimit,POST.sendWindowMs);
+  const entries=items.map(x=>x?.slot?{slot:String(x.slot)}:{item:String(x?.item||''),qty:int(x?.qty)});
+  // ':' keeps these receipts outside the public game-action request-id namespace. Keep the original reply even if
+  // the letter later changes state or an operator rolls the send back: one confirmed send intention stays consumed.
+  const receiptId=requestId?'mail-send:'+requestId:null;
+  const intentHash=receiptId?createHash('sha256').update(canonical({to:String(b?.to||''),title,body,items:entries,mora,replyTo:int(b?.replyTo)||null})).digest('hex'):null;
   return this.serial(a.id,()=>{
+   if(receiptId){const rc=this.db.prepare('SELECT result FROM receipts WHERE account_id=? AND request_id=?').get(a.id,receiptId);if(rc){
+    let saved;try{saved=JSON.parse(rc.result)?.result;}catch{}
+    if(saved?.type!=='MAIL_SEND'||saved.intentHash!==intentHash||!saved.reply)throw err(409,'이전 전송과 편지 내용이 다릅니다. 내용을 다시 확인해 주세요.','REQUEST_ID_REUSED');
+    return {...saved.reply,replayed:true};
+   }}
+   const to=this.accountByPid(b?.to);if(!to||this.meta(to.id)?.revision==null)throw err(404,'받는 모험가를 찾을 수 없습니다.');if(to.id===a.id)throw err(400,'자신에게는 편지를 보낼 수 없습니다.');
+   if(this.db.prepare('SELECT 1 FROM letter_block WHERE account_id=? AND blocked_id=?').get(to.id,a.id))throw err(403,to.display_name+' 님은 지금 편지를 받지 않습니다.');
+   if(this.db.prepare('SELECT COUNT(*) AS n FROM letters WHERE to_id=? AND to_hidden=0').get(to.id).n>=POST.inbox)throw err(409,to.display_name+' 님의 우편함이 가득 찼습니다.');
+   const reply=b?.replyTo?this.letterRow(b.replyTo):null,replyTo=reply&&reply.to_id===a.id?reply.id:null;
+   this.rate('letter-send:'+a.id,POST.sendLimit,POST.sendWindowMs);
    const r=this.liveRuntime(a.id,'편지를 보내는 모험가','편지를 보낼');this.levelGate(r);let moved=[];
-   if(items.length){try{moved=r.tradeTake(items.map(x=>x?.slot?{slot:String(x.slot)}:{item:String(x?.item||''),qty:int(x?.qty)}));}catch(e){throw err(400,e.message);}}
+   if(entries.length){try{moved=r.tradeTake(entries);}catch(e){throw err(400,e.message);}}
    const fee=postage(moved.length,mora),have=Number(r.s.global.MORA)||0;
    if(have<mora+fee)throw err(409,'모라가 부족합니다. '+(mora?'보낼 모라 '+fmt(mora)+' + ':'')+'수수료 '+fmt(fee)+' = '+fmt(mora+fee)+' 모라가 필요합니다.');
    r.s.global.MORA=have-mora-fee;r.achievementCount?.('letters');
    const label=moved.length?r.tradeLabel(moved):'',parcel=moved.length>0||mora>0,t=now();
-   const id=this.commit(()=>{
+   const out=this.commit(()=>{
     const id=Number(this.db.prepare("INSERT INTO letters(from_id,from_name,to_id,to_name,title,body,goods,label,mora,fee,status,reply_to,created_at,updated_at,expires_at) VALUES(?,?,?,?,?,?,?,?,?,?,'SENT',?,?,?,?)").run(a.id,a.display_name,to.id,to.display_name,title,body,JSON.stringify(moved),label,mora,fee,replyTo,t,t,t+KEEP_MS).lastInsertRowid);
-    this.writeSave(a.id,r,'letter-send-'+id,{type:'MAIL_SEND',letter:id,parcel,fee});return id;
+    const reply={letter:this.letterView(this.letterRow(id),a.id),fee,sync:true};
+    this.writeSave(a.id,r,receiptId||'letter-send-'+id,{type:'MAIL_SEND',letter:id,parcel,fee,...(receiptId?{intentHash,reply}:{})});return reply;
    });
-   this.invalidate(a.id);this.broadcast({type:'mail',status:'NEW',id,from:a.display_name,title,parcel},s=>s.account===to.id);
-   return {letter:this.letterView(this.letterRow(id),a.id),fee,sync:true};
+   this.invalidate(a.id);this.broadcast({type:'mail',status:'NEW',id:out.letter.id,from:a.display_name,title,parcel},s=>s.account===to.id);
+   return out;
   });
  },
  // Take what one letter carries, or every parcel waiting (received ones and ones that came back).

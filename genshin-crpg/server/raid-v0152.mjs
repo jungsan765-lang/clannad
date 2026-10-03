@@ -32,6 +32,7 @@ export const raidMethods={
  raidActive(t=now()){const row=this.db.prepare('SELECT * FROM raid_events WHERE starts_at<=? AND ends_at>? AND closed_at IS NULL ORDER BY id DESC LIMIT 1').get(t,t);return row?eventView(row):null;},
  // The latest event that has ended within the claim window (for rewards still waiting).
  raidRecent(t=now()){const row=this.db.prepare('SELECT * FROM raid_events WHERE (ends_at<=? OR closed_at IS NOT NULL) AND ends_at>? ORDER BY id DESC LIMIT 1').get(t,t-CLAIM_DAYS*DAY);return row?eventView(row):null;},
+ raidClaimablePrevious(t=now()){return this.db.prepare('SELECT * FROM raid_events WHERE (ends_at<=? OR closed_at IS NOT NULL) AND starts_at<=? AND ends_at>? ORDER BY id DESC').all(t,t,t-CLAIM_DAYS*DAY).map(eventView);},
  raidById(id){const m=/^RAID_(\d+)$/.exec(String(id||''));if(!m)return null;const n=Number(m[1])-ID_BASE;if(!Number.isSafeInteger(n)||n<1)return null;const row=this.db.prepare('SELECT * FROM raid_events WHERE id=?').get(n);return row?eventView(row):null;},
  // Inside the action's transaction: a sortie that just ended adds its hits once (keyed by battle id). Only sorties of an
  // event the operator opened count; journeys changed by the operator's debug tools (unranked) do not count.
@@ -53,19 +54,19 @@ export const raidMethods={
  },
  raidStatus(a){
   const cfg=R();if(!cfg)throw err(404,'지원하지 않는 요청입니다.');
-  const cur=this.raidActive(),prev=this.raidRecent();
-  return {open:!!cur,current:cur?this.raidEventStatus(a,cur):null,previous:prev?this.raidEventStatus(a,prev):null,closedReason:cur?'':cfg.closed,rules:{rounds:cfg.rounds,sorties:cfg.sorties,minLevel:cfg.minLevel,claimDays:CLAIM_DAYS}};
+  const cur=this.raidActive(),previousEvents=this.raidClaimablePrevious().map(e=>this.raidEventStatus(a,e));
+  return {open:!!cur,current:cur?this.raidEventStatus(a,cur):null,previous:previousEvents[0]||null,previousEvents,closedReason:cur?'':cfg.closed,rules:{rounds:cfg.rounds,sorties:cfg.sorties,minLevel:cfg.minLevel,claimDays:CLAIM_DAYS}};
  },
  async raidClaim(a,b){
   const cfg=R();if(!cfg)throw err(404,'지원하지 않는 요청입니다.');this.rate('raid-claim:'+a.id,30,600000);
-  const cur=this.raidActive(),prev=this.raidRecent(),event=[cur,prev].find(e=>e&&e.id===String(b?.event||''));
-  if(!event)throw err(400,'지금 열린 토벌이나 끝난 지 '+CLAIM_DAYS+'일이 지나지 않은 토벌만 보상을 받을 수 있습니다.');
   return this.serial(a.id,()=>{
+   const event=this.raidById(b?.event),t=now();
+   if(!event||event.startsAt>t||event.endsAt<=t-CLAIM_DAYS*DAY)throw err(400,'지금 열린 토벌이나 끝난 지 '+CLAIM_DAYS+'일이 지나지 않은 토벌만 보상을 받을 수 있습니다.');
    const st=this.raidEventStatus(a,event),key=String(b?.reward||''),item=st.stages.find(s=>s.key===key)||st.tiers.find(t=>t.key===key);
    if(!item)throw err(400,'받을 보상을 골라 주세요.');if(item.claimed)throw err(409,'이미 받은 보상입니다.');
    if(!item.reached)throw err(409,item.at?'아직 모두의 토벌이 '+Math.round(item.at*100)+'%에 이르지 않았습니다.':'이번 토벌에서 '+item.hits+'번을 맞혀야 받을 수 있습니다.');
    if(item.at&&!st.me.runs)throw err(409,'이 토벌에 한 번 이상 출격해야 받을 수 있습니다.');
-   const r=this.liveRuntime(a.id,'보상을 받는 모험가','보상을 받을'),granted=r.raidGrant(item.reward),t=now();
+   const r=this.liveRuntime(a.id,'보상을 받는 모험가','보상을 받을'),granted=r.raidGrant(item.reward);
    this.commit(()=>{this.db.prepare('INSERT INTO raid_claims VALUES(?,?,?,?)').run(event.id,a.id,key,t);this.writeSave(a.id,r,'raid-claim-'+event.id+'-'+key+'-'+t,{type:'RAID_CLAIM',event:event.id,reward:key});});
    this.invalidate(a.id);return {event:event.id,reward:key,granted,sync:true};
   });

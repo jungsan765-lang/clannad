@@ -1,5 +1,15 @@
 # 다음 AI에게 전달할 프롬프트
 
+## 2026-10-03 최신 감사 후 수정 — 아래 과거 배포 설명보다 우선
+
+현재 작업은 **0.15.10 테스트 후보**다. 사용자는 검사만 하던 단계에서 확인된 버그 수정도 승인했지만, 게임 설계를 임의로 바꾸는 것을 걱정하고 있다. `docs/PATCH_0.15.10_KO.md`와 `docs/QA_AUDIT_MATRIX_2026-10-03.md`를 먼저 읽어라. 본편 원고·캐릭터 성격·난도·보상·획득 조건을 보존하고 검증 수준을 구별하라. 자동 분기 순회만으로 이야기 품질이나 전 기기 화면 확인을 완료했다고 말하지 마라.
+
+이번 대상은 **서울 Node/SQLite 테스트 서버(test.clannad.shop)**다. `test/crpg-v01414-story` PR #20의 검증된 GitHub 테스트 묶음을 `tools/install-fixed-region-test-release.sh`로 설치한다. `CRPG_EXPECTED_TEST_SHA`로 검증한 커밋을 고정할 수 있다. 실제 VPS에서는 빌드·npm·테스트를 하지 않는다. 옛 `fixed-region-autodeploy.sh`와 업데이트 타이머를 사용하지 마라. main 병합·운영 승격·Worker/D1/Pages 배포는 이번 요청 범위가 아니다. GitHub 게시, VPS 설치, 실서버 확인은 각각 따로 증명해야 한다. 원격 명령 실행 수단이 없으면 설치를 완료했다고 쓰지 마라.
+
+브라우저 보호 오류 때문에 이번 수정판의 직접 화면 관찰은 대기다. 로컬 QA 생성기는 합성 저장으로 화면 점검을 준비하기 위한 도구이며 배포 대상이나 온라인 우회 수단이 아니다. 남은 기기·화면·성능·서사 검수와 SSE/기록 보존 위험을 행렬에서 이어 가라.
+
+## 과거 작업 지침과 기능 계약
+
 `jungsan765-lang/clannad`의 `genshin-crpg`를 작업해. 최신 main을 확인하고 별도 브랜치에서 수정해. 현재는 **GitHub Pages 정적 클라이언트 + Cloudflare Worker/D1 authoritative 서버**다. 예전 동적 웹서버 방식으로 배포하지 마. 운영 D1·기존 세이브·비밀값은 보존해.
 
 개발 중 실제 플레이 확인은 우선 **로컬 격리 환경**을 사용한다. Windows에서는 `dev-local.cmd`가 로컬 정적 게임 서버 + 로컬 Worker + 로컬 D1을 함께 띄우며, `source/`, `content/`, `server/worker.mjs` 변경을 감지해 다시 빌드한다. 로컬 D1은 `.local/wrangler`에 저장되고 `reset-local.cmd`로만 초기화한다. 로컬 개발 경로에 `deploy` 또는 `--remote`를 추가하지 말고 운영 D1을 연결하지 마. 자세한 내용은 `docs/LOCAL_DEVELOPMENT_KO.md`를 따른다.

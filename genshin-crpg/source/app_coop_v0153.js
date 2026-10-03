@@ -347,10 +347,13 @@ function commands(v){
  go.append(btn(C.busy?'보내는 중…':'실행',()=>command(),'primary cp-run',!chosen?'쓸 수 있는 행동이 없습니다.':C.busy?'잠시 기다려 주세요.':''),btn('자동으로 맡기기',()=>auto(true),'',C.busy?'잠시 기다려 주세요.':''));
  s.append(go);return s;
 }
+let pendingCommand=null;
 async function command(){
  if(C.busy||!C.battle?.turn?.mine)return;C.busy=true;C.msg='';drawBattle();
- try{const out=await O.request('/coop/act',{card:C.card,target:C.target||undefined,branch:C.branch||undefined,requestId:'coop-'+crypto.randomUUID()});if(out?.battle)setBattle(out.battle);SND('click');}
- catch(e){C.msg=e.message;SND('error');load();}
+ const payload={card:C.card,target:C.target||undefined,branch:C.branch||undefined,battle:C.battle.battle,turn:{actor:C.battle.turn.actor,deadline:C.battle.turn.deadline,round:C.battle.round}},intent=JSON.stringify(payload);
+ if(pendingCommand?.intent!==intent)pendingCommand={intent,payload:{...payload,requestId:'coop-'+crypto.randomUUID()}};
+ try{const out=await O.request('/coop/act',pendingCommand.payload);pendingCommand=null;if(out&&'battle' in out)setBattle(out.battle);SND('click');}
+ catch(e){if(e.code==='SESSION_CHANGED'||e.outcome==='REJECTED'||e.status&&e.status<500)pendingCommand=null;C.msg=e.message;SND('error');load();}
  finally{C.busy=false;drawBattle();}
 }
 // After the 20 seconds, any client in the room asks for the AI to play the waiting turn (the server checks the time).

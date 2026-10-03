@@ -31,6 +31,12 @@ TESTS = [
     'tests/test_v0156.cjs', 'tests/test_v0157.cjs', 'tests/test_v0158.mjs',
     'tests/test_osial_v01341.cjs', 'tools/test_story_cleanup_v0140.cjs',
     'tests/test_main_story_k_v0148.cjs',
+    'tests/test_fixed_region_live.mjs',
+    'tests/test_server_account_audit_fixes.mjs', 'tests/test_server_social_audit_fixes.mjs',
+    'tests/test_server_coop_audit_fixes.mjs', 'tests/test_client_audit_fixes.cjs',
+    'tests/test_ui_audit_regressions.cjs', 'tests/test_test_banner_v01510.cjs', 'tests/test_version.cjs',
+    'tests/test_test_release_pin.cjs',
+    'tests/v013/test_recruitment_cost_consistency.cjs',
 ]
 def run(test):
     started = time.monotonic()

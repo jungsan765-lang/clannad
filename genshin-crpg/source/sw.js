@@ -25,7 +25,23 @@ self.addEventListener('install',event=>{event.waitUntil((async()=>{
  // No client reload, IndexedDB write, or saved-game mutation occurs here.
  await self.skipWaiting();
 })());});
-self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));
+// Retain the current release and the most recently installed predecessor for update recovery.
+// Cache Storage is shared by an origin: only a core containing this registration's entry is ours.
+async function pruneOldPacks(){
+ const names=await caches.keys(),owned=[];
+ for(const name of names){if(!name.startsWith('crpg-core-')||name===CORE)continue;const cache=await caches.open(name);if(await cache.match(local('index.html')))owned.push(name);}
+ const previous=owned.at(-1);
+ for(const name of owned){
+  if(name===previous)continue;
+  await caches.delete(name);
+  const pack='crpg-pack-'+name.slice('crpg-core-'.length);
+  if(!names.includes(pack))continue;
+  const cache=await caches.open(pack);
+  const entries=await cache.keys();
+  if(entries.every(entry=>entry.url.startsWith(scopeURL.href)))await caches.delete(pack);
+ }
+}
+self.addEventListener('activate',event=>event.waitUntil((async()=>{await self.clients.claim();await pruneOldPacks().catch(()=>{});})()));
 self.addEventListener('fetch',event=>{
  const u=new URL(event.request.url);if(event.request.method!=='GET'||u.origin!==self.location.origin)return;
  if(event.request.mode==='navigate'){

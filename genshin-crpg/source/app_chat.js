@@ -43,20 +43,22 @@ function connect(){
  if(C.ctrl||!online()||C.enabled!==true)return;const ctrl=new AbortController();C.ctrl=ctrl;
  fetch(base+'/chat/stream',{headers:{Authorization:'Bearer '+O.token},signal:ctrl.signal,cache:'no-store'}).then(async res=>{
   if(!res.ok||!res.body)throw Error('stream '+res.status);C.fails=0;stopPoll();const reader=res.body.getReader(),dec=new TextDecoder();let buf='';
-  for(;;){const {value,done}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;while((i=buf.indexOf('\n\n'))>=0){const block=buf.slice(0,i);buf=buf.slice(i+2);const data=block.split('\n').filter(l=>l.startsWith('data: ')).map(l=>l.slice(6)).join('\n');if(data){try{handle(JSON.parse(data));}catch{}}}}
+  for(;;){const {value,done}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;while((i=buf.indexOf('\n\n'))>=0){const block=buf.slice(0,i);buf=buf.slice(i+2);const data=block.split('\n').filter(l=>l.startsWith('data: ')).map(l=>l.slice(6)).join('\n');if(data){try{if(C.ctrl!==ctrl||!online())return;handle(JSON.parse(data));}catch{}}}}
  }).catch(()=>{C.fails++;}).finally(()=>{if(C.ctrl!==ctrl)return;C.ctrl=null;if(ctrl.signal.aborted||!online())return;
   // Missed lines while reconnecting come from the recent list; three failures switch to polling.
   if(C.fails>=3)startPoll();setTimeout(()=>{catchUp();connect();},Math.min(30000,1500*Math.pow(2,Math.min(C.fails,4))));});
 }
-async function catchUp(){if(!online()||C.enabled!==true)return;try{const out=await O.request('/chat/recent'+(C.last?'?after='+C.last:''));ingest(out.messages);}catch{}}
+let catchUpFlight=null;
+function catchUp(){if(!online()||C.enabled!==true)return Promise.resolve();if(catchUpFlight)return catchUpFlight;const flight=(async()=>{try{const out=await O.request('/chat/recent'+(C.last?'?after='+C.last:''));ingest(out.messages);}catch{}})();catchUpFlight=flight;flight.then(()=>{if(catchUpFlight===flight)catchUpFlight=null;});return flight;}
 function startPoll(){if(C.poll)return;C.poll=setInterval(()=>{if(!document.hidden)catchUp();},C.open?3000:15000);}
 function stopPoll(){clearInterval(C.poll);C.poll=null;}
 function disconnect(){C.ctrl?.abort();C.ctrl=null;stopPoll();}
-C.reset=function(){disconnect();C.enabled=null;C.lines=[];C.last=0;C.unread=0;C.open=false;C.node?.remove();C.node=null;document.querySelector('body > .chat-fab')?.remove();};
+C.reset=function(){disconnect();catchUpFlight=null;C.enabled=null;C.lines=[];C.last=0;C.unread=0;C.open=false;C.node?.remove();C.node=null;document.querySelector('body > .chat-fab')?.remove();};
 // ---------- window ----------
 function toggle(open=!C.open){
- C.open=open;if(open){C.unread=0;if(!C.node)build();C.node.hidden=false;requestAnimationFrame(()=>C.node?.classList.add('open'));draw();setTimeout(()=>C.node?.querySelector('input')?.focus(),60);window.CRPGSound?.play('menu_open');if(C.fails>=3){stopPoll();startPoll();}}
+ C.open=open;if(open){C.unread=0;if(!C.node)build();C.node.hidden=false;requestAnimationFrame(()=>C.node?.classList.add('open'));draw();setTimeout(()=>C.node?.querySelector('input')?.focus(),60);window.CRPGSound?.play('menu_open');}
  else if(C.node){C.node.classList.remove('open');setTimeout(()=>{if(!C.open&&C.node)C.node.hidden=true;},180);window.CRPGSound?.play('menu_close');}
+ if(C.fails>=3){stopPoll();startPoll();}
  badge();
 }
 C.toggle=toggle;
@@ -108,7 +110,7 @@ function badge(){
 SHELL.extraTools.push(tool=>{const b=tool('CHAT','채팅 (Enter · /)',()=>toggle());b.classList.add('hud-chat');b.append(mk('span','hud-badge'));b.hidden=C.enabled!==true;return b;});
 // / or Enter opens the chat (0.14.13: Enter too). A button that was clicked keeps the focus, and Enter would press it
 // again (in a battle, the last attack): Enter opens the chat instead, unless the focus was moved there by keyboard.
-document.addEventListener('keydown',e=>{if(!(e.key==='/'||e.key==='Enter')||e.isComposing||e.repeat||e.ctrlKey||e.metaKey||e.altKey||e.shiftKey||!document.body.classList.contains('teyvat')||C.enabled!==true||C.open)return;if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName)||e.target?.isContentEditable||document.querySelector('dialog[open]'))return;if(e.key==='Enter'&&e.target?.closest?.('button,a[href],summary,[role=button],[tabindex]:not([tabindex="-1"])')&&e.target.matches?.(':focus-visible'))return;e.preventDefault();toggle(true);});
+document.addEventListener('keydown',e=>{if(!(e.key==='/'||e.key==='Enter')||e.isComposing||e.repeat||e.ctrlKey||e.metaKey||e.altKey||e.shiftKey||window.CRPGShell?.topOverlay?.()||!document.body.classList.contains('teyvat')||C.enabled!==true||C.open)return;if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName)||e.target?.isContentEditable||document.querySelector('dialog[open]'))return;if(e.key==='Enter'&&e.target?.closest?.('button,a[href],summary,[role=button],[tabindex]:not([tabindex="-1"])')&&e.target.matches?.(':focus-visible'))return;e.preventDefault();toggle(true);});
 // Follow the session: connect while a journey is open online, drop everything on logout.
 if(typeof render==='function'){const prior=render;render=function(){prior();try{if(!online()){if(C.enabled!==null||C.lines.length)C.reset();}else if(document.body.classList.contains('teyvat')){if(C.enabled===null)probe();badge();}else if(C.open)toggle(false);}catch{}};}
 })();

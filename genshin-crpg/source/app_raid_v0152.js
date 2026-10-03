@@ -25,15 +25,17 @@ function bossArt(id,cls){try{const row=game.tables['09_MONSTER_DB'].get(id),src=
 const openEvent=()=>{const c=R.status?.current;return R.status?.open&&c?{id:c.id,boss:c.boss,startsAt:c.startsAt,endsAt:c.endsAt,target:c.target}:null;};
 function syncEvent(){if(ready())game.raidServerEvent=openEvent();}
 const claimable=e=>!!e&&[...(e.stages||[]),...(e.tiers||[])].some(x=>x.canClaim);
+const previousEvents=()=>R.status?.previousEvents||(R.status?.previous?[R.status.previous]:[]);
+const previousClaimable=()=>previousEvents().some(claimable);
 const isOpen=()=>!!openEvent()&&Date.now()<openEvent().endsAt;
 async function load(){
- if(!O?.token||R.loading)return;R.loading=true;const was=isOpen()+':'+claimable(R.status?.previous);
+ if(!O?.token||R.loading)return;R.loading=true;const was=isOpen()+':'+previousClaimable();
  try{R.status=await O.request('/raid');R.enabled=true;R.msg='';}
  catch(e){if(e.status===404){R.enabled=false;R.status=null;}else R.msg=e.message;}
  finally{R.loading=false;}
  syncEvent();draw();
  // The tile and the 할 일 card follow the event: redraw the screen when it opened or closed.
- if(was!==isOpen()+':'+claimable(R.status?.previous)&&typeof render==='function'&&!R.node){try{render();}catch{}}
+ if(was!==isOpen()+':'+previousClaimable()&&typeof render==='function'&&!R.node){try{render();}catch{}}
 }
 R.reload=load;
 async function claim(event,reward){
@@ -100,12 +102,12 @@ function draw(){
   // the top ten
   if(st?.top?.length){const sec=mk('section','rd-top');sec.append(mk('h3','','이번 토벌에서 많이 맞힌 모험가'));const ol=mk('ol','rd-top-list');for(const p of st.top){const li=mk('li',p.me?'me':'');li.append(mk('b','',p.rank),mk('span','',p.name),mk('strong','',fmt(p.hits)+'번'),mk('small','',p.runs+'회 출격'));ol.append(li);}sec.append(ol);body.append(sec);}
  }
- const prev=R.status?.previous;if(claimable(prev))body.append(rewards(prev,'끝난 토벌 · '+prev.name+' · 받지 않은 보상 (끝난 뒤 '+(R.status?.rules?.claimDays||7)+'일까지)'));
+ for(const prev of previousEvents())if(claimable(prev))body.append(rewards(prev,'끝난 토벌 · '+prev.name+' · 받지 않은 보상 (끝난 뒤 '+(R.status?.rules?.claimDays||7)+'일까지)'));
  const parts=[head,body];if(R.msg){const m=mk('p','rd-msg',R.msg);m.setAttribute('role','alert');parts.push(m);}
  box.replaceChildren(...parts);
 }
 // ---------- where it is opened ----------
-SHELL.extraTiles.push({icon:'RAID',label:'공동 토벌전',show:()=>ready()&&!!O?.token&&R.enabled!==false&&(isOpen()||claimable(R.status?.previous)),run:()=>R.open()});
+SHELL.extraTiles.push({icon:'RAID',label:'공동 토벌전',show:()=>ready()&&!!O?.token&&R.enabled!==false&&(isOpen()||previousClaimable()),run:()=>R.open()});
 if(typeof drawLocation==='function'){const prior=drawLocation;drawLocation=function(p,v){
  prior(p,v);
  try{

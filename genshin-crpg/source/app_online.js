@@ -6,6 +6,10 @@ let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}');}catch{}
 const LOCAL_ONLY_ACTIONS=new Set(['MENU']),KEEP_LOCAL_SCREEN_AFTER_COMMIT=new Set(['PARTY','PARTY_REMOVE','PARTY_REPLACE','PARTY_SWAP','PARTY_TACTIC','EQUIP','UNEQUIP','TOOL_PREPARE','USE_ITEM','FORMATION_SET','MASTERY','EQUIPMENT_GUIDE_ACK']);
 const O=window.CRPGOnline={account:saved.account||null,token:saved.token||'',revision:0,ranked:false,active:false,configured:!!base,pending:null};
 let uiActions=[],uiStates=[],confirmedState=null;
+let sessionEpoch=0,actionEpoch=0,syncActionEpoch=-1,syncFlight=null;
+const sessionStamp=()=>({epoch:sessionEpoch,account:O.account?.id||''});
+const sameSession=s=>s.epoch===sessionEpoch&&s.account===(O.account?.id||'');
+function invalidateSession(){sessionEpoch++;syncFlight=null;confirmedState=null;}
 function applyStatePatch(out){
  if(!out.statePatch)return out;
  if(!confirmedState||out.baseRevision!==O.revision)throw Object.assign(Error('서버 기준 기록을 다시 확인해야 합니다.'),{code:'DELTA_BASE_MISMATCH'});
@@ -70,25 +74,27 @@ pendingForAccount();
 const persist=()=>localStorage.setItem(key,JSON.stringify({account:O.account,token:O.token}));
 async function request(path,data){
  if(!base)throw Error('계정 서버에 연결할 수 없습니다. 잠시 뒤 다시 시도해 주세요.');
- const sentAt=Date.now(),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);let res,out;
+ const session=sessionStamp(),sentToken=O.token,sentAt=Date.now(),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);let res,out;
  try{
   res=await fetch(base+path,{method:data===undefined?'GET':'POST',headers:{'Content-Type':'application/json',...(O.token?{Authorization:'Bearer '+O.token}:{})},...(data===undefined?{}:{body:JSON.stringify(data)}),cache:'no-store',signal:controller.signal,keepalive:path==='/game/action'&&typeof document!=='undefined'&&document.hidden});
   try{out=await res.json();}catch(e){if(e.name==='AbortError')throw e;throw Object.assign(Error('계정 서버 응답을 확인하지 못했습니다. 같은 행동의 저장을 다시 확인해 주세요.'),{transient:true,retryable:true});}
- }catch(e){if(e.transient)throw e;throw Object.assign(Error(e.name==='AbortError'?'서버 응답이 늦어지고 있습니다. 진행 기록은 유지됩니다. 다시 연결해 주세요.':'서버와 연결하지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요.'),{transient:true,retryable:e.name!=='AbortError'});}finally{clearTimeout(timer);}
+ }catch(e){if(!sameSession(session))throw Object.assign(Error('로그인 상태가 바뀌어 이전 응답을 적용하지 않았습니다.'),{code:'SESSION_CHANGED'});if(e.transient)throw e;throw Object.assign(Error(e.name==='AbortError'?'서버 응답이 늦어지고 있습니다. 진행 기록은 유지됩니다. 다시 연결해 주세요.':'서버와 연결하지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요.'),{transient:true,retryable:e.name!=='AbortError'});}finally{clearTimeout(timer);}
+ if(!sameSession(session))throw Object.assign(Error('로그인 상태가 바뀌어 이전 응답을 적용하지 않았습니다.'),{code:'SESSION_CHANGED'});
  const serverTime=Number(res.headers?.get('X-Server-Time'));if(serverTime>0){const lower=serverTime-Date.now(),upper=serverTime-sentAt;O.clockOffset=Math.max(lower,Math.min(upper,O.clockOffset??lower));}
- const routedSession=res.headers?.get('X-CRPG-Session');if(res.ok&&routedSession){O.token=routedSession;persist();}
+ const routedSession=res.headers?.get('X-CRPG-Session');if(res.ok&&routedSession&&O.token===sentToken){O.token=routedSession;persist();}
  if(!res.ok)throw Object.assign(Error(out.error||'요청을 완료하지 못했습니다.'),{status:res.status,code:out.code,version:out.version,outcome:out.outcome});return out;
 }
 function checkVersion(out){if(out.engineVersion&&MANIFEST.engineVersion?out.engineVersion!==MANIFEST.engineVersion:out.version&&out.version!==MANIFEST.appVersion)throw Object.assign(Error('게임 업데이트를 맞추고 있습니다. 저장 기록은 유지됩니다. 화면 아래 버전 버튼에서 업데이트를 확인해 주세요.'),{code:'VERSION_MISMATCH',version:out.version});}
 async function actionRequest(payload){
+ const session=sessionStamp();
  try{return await request('/game/action',payload);}
- catch(e){if(!e.retryable)throw e;await new Promise(resolve=>setTimeout(resolve,350));return request('/game/action',payload);}
+ catch(e){if(!e.retryable)throw e;await new Promise(resolve=>setTimeout(resolve,350));if(!sameSession(session))throw Object.assign(Error('로그인 상태가 바뀌어 이전 행동을 다시 보내지 않았습니다.'),{code:'SESSION_CHANGED'});return request('/game/action',payload);}
 }
-function install(out,{preservePresentation=false}={}){
+function install(out,{preservePresentation=false,reuseRuntime=preservePresentation}={}){
  checkVersion(out);out=applyStatePatch(out);const nextConfirmed=out.state?JSON.parse(JSON.stringify(out.state)):null;
  // Construct and validate before replacing the current journey or account metadata.
  let candidate=null;
- if(out.state&&preservePresentation&&game?.s.global.SAVE_ID===out.state.global.SAVE_ID){
+ if(out.state&&reuseRuntime&&game?.s.global.SAVE_ID===out.state.global.SAVE_ID){
   // An acknowledged action changes the save, not the content database. Reuse installed indexes,
   // but validate the whole candidate and restore the previous state atomically on any failure.
   const previous=game.s;try{game.s=out.state;game.s=game.validateSave(out.state);candidate=game;}catch(e){game.s=previous;throw e;}
@@ -96,7 +102,23 @@ function install(out,{preservePresentation=false}={}){
  confirmedState=nextConfirmed;O.account=out.account;O.revision=out.revision||0;O.ranked=out.ranked===true;O.active=!!candidate;
  game=candidate;if(candidate){activeSaveSlot=null;applySettings();if(!preservePresentation)restoreUIState();}persist();return out;
 }
-O.sync=async()=>{const out=await request('/me');install(out);uiActions=[];uiStates=[];pendingForAccount();const reading=readingRecord();if(reading&&!O.pending&&(reading.saveId!==game?.s.global.SAVE_ID||reading.revision!==O.revision)){saveReading(null);O.syncMessage='다른 화면에서 진행한 서버 기록을 이어 받았습니다.';}if(readingRecord()&&reading.saveId===game?.s.global.SAVE_ID&&reading.revision===O.revision){for(const screen of reading.uiActions||[])game.menu(screen);if(reading.uiScreen&&game.s.global.SCREEN_MODE!==reading.uiScreen)game.menu(reading.uiScreen);replayReading(reading.entries);}O.readingFailed=false;render();return out;};
+O.sync=function(){
+ if(syncFlight&&syncActionEpoch===actionEpoch)return syncFlight;
+ const session=sessionStamp(),pending=O.pending,startedActionEpoch=actionEpoch;
+ const flight=(async()=>{
+  const out=await request('/me');
+  if(!sameSession(session))throw Object.assign(Error('로그인 상태가 바뀌어 이전 응답을 적용하지 않았습니다.'),{code:'SESSION_CHANGED'});
+  // A background read must not replace a newer action or its unacknowledged presentation.
+  // Resume-time pending receipts already present at the start still use the usual recovery path.
+  const sameJourney=out.state?.global?.SAVE_ID&&(confirmedState?.global?.SAVE_ID||game?.s.global.SAVE_ID)===out.state.global.SAVE_ID;
+  if(startedActionEpoch!==actionEpoch||sameJourney&&(out.revision||0)<O.revision||O.pending&&(O.active||O.pending!==pending))return {...out,state:game?.s||null,revision:O.revision,ignored:true};
+  install(out,{reuseRuntime:O.active});uiActions=[];uiStates=[];pendingForAccount();
+  const reading=readingRecord();if(reading&&!O.pending&&(reading.saveId!==game?.s.global.SAVE_ID||reading.revision!==O.revision)){saveReading(null);O.syncMessage='다른 화면에서 진행한 서버 기록을 이어 받았습니다.';}
+  if(readingRecord()&&reading.saveId===game?.s.global.SAVE_ID&&reading.revision===O.revision){for(const screen of reading.uiActions||[])game.menu(screen);if(reading.uiScreen&&game.s.global.SCREEN_MODE!==reading.uiScreen)game.menu(reading.uiScreen);replayReading(reading.entries);}
+  O.readingFailed=false;render();return out;
+ })();syncFlight=flight;syncActionEpoch=startedActionEpoch;
+ flight.then(()=>{if(syncFlight===flight)syncFlight=null;},()=>{if(syncFlight===flight)syncFlight=null;});return flight;
+};
 function localAction(type,params={}){
  if(type!=='MENU')throw Error('저장하지 않는 화면 행동이 정의되지 않았습니다.');const reason=game.actionReason(type,params);if(reason)throw Error(reason);
  if(uiActions.length>=128)throw Error('서버 기록 동기화 후 화면을 이동해 주세요.');
@@ -112,12 +134,13 @@ function restoreLocalScreen(screen,type){if(!KEEP_LOCAL_SCREEN_AFTER_COMMIT.has(
 async function sendAction(type,params){
  if(!O.token||!O.account){game=null;O.active=false;persist();throw Error('로그인 후 게임을 시작해 주세요.');}
  if(!O.active||!game)throw Error('게임 시작 화면에서 계정 여정을 먼저 시작해 주세요.');
+ actionEpoch++;
  const localScreen=game.s.global.SCREEN_MODE;
  let p=O.pending;if(p&&p.account!==O.account.id)throw Error('다른 계정의 미확정 행동이 있습니다. 해당 계정으로 로그인해 주세요.');
  if(!p){const reading=readingRecord();if(reading&&(reading.saveId!==game.s.global.SAVE_ID||reading.revision!==O.revision))throw Object.assign(Error('읽기 기록과 서버 위치가 다릅니다. 최신 기록을 다시 연결해 주세요.'),{status:409});p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,uiScreen:reading?.uiScreen||localScreen,uiActions:reading?.uiActions||uiActions.slice(),reading:type==='STORY_READ'?(reading?.entries||[]).slice(0,64):reading?.entries||[],type,params};savePending(p);if(type==='STORY_READ'&&(reading?.uiActions.length||!uiActions.length)){uiActions=[];uiStates=[];}}
  const retryingDifferent=p.type!==type||JSON.stringify(p.params)!==JSON.stringify(params);
  try{let out=await actionRequest({...p,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,responseMode:confirmedState?'state-parts-v1':'full'});if(out.statePatch&&(!confirmedState||out.baseRevision!==O.revision))out=await actionRequest({...p,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,responseMode:'full'});const lateMenus=p.type==='STORY_READ'?uiActions.slice():[];out=install(out,{preservePresentation:true});acknowledgeReading(p,out);savePending(null);O.readingFailed=false;uiActions=[];uiStates=[];for(const screen of lateMenus)localAction('MENU',{screen});restoreLocalScreen(localScreen,p.type);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
- catch(e){O.readingFailed=!!O.readingCount();if(e.resolved)savePending(null);if(e.code!=='VERSION_MISMATCH'&&(e.outcome==='REJECTED'||e.status&&e.status<500&&e.status!==429&&e.status!==401)){savePending(null);O.readingFailed=false;if(e.status===409||p.type==='STORY_READ'){saveReading(null);await O.sync();}}if(e.status===401){O.token='';O.active=false;persist();game=null;auth(false,true);}if(e.code==='VERSION_MISMATCH')GameVersion.check();throw e;}
+ catch(e){if(e.code==='SESSION_CHANGED')throw e;O.readingFailed=!!O.readingCount();if(e.resolved)savePending(null);if(e.code!=='VERSION_MISMATCH'&&(e.outcome==='REJECTED'||e.status&&e.status<500&&e.status!==429&&e.status!==401)){savePending(null);O.readingFailed=false;if(e.status===409||p.type==='STORY_READ'){saveReading(null);await O.sync();}}if(e.status===401){invalidateSession();O.token='';O.active=false;persist();game=null;auth(false,true);}if(e.code==='VERSION_MISMATCH')GameVersion.check();throw e;}
 }
 O.execute=async(type,params)=>{
  if(LOCAL_ONLY_ACTIONS.has(type)){
@@ -143,7 +166,7 @@ manualSave=()=>say('진행·보상·전투·편성 변경은 자동저장됩니�
 loadFile=()=>say('저장 파일 가져오기는 공식 여정에서 지원하지 않습니다.');
 function field(p,label,type='text',value=''){const l=el('label','form-label',label),input=el('input');input.type=type;input.value=value;l.append(input);p.append(l);return input;}
 function select(p,label,rows){const l=el('label','form-label',label),s=el('select');for(const [id,name]of rows){const o=el('option','',name);o.value=id;s.append(o);}l.append(s);p.append(l);return s;}
-async function safely(task){if(busy)return;busy=true;render();try{await task();say('');}catch(e){say(e.message);if(e.code==='VERSION_MISMATCH')GameVersion.check();if(e.status===401){O.token='';O.active=false;game=null;persist();auth(false,true);}}finally{busy=false;render();}}
+async function safely(task){if(busy)return;busy=true;render();try{await task();say('');}catch(e){say(e.message);if(e.code==='VERSION_MISMATCH')GameVersion.check();if(e.status===401){invalidateSession();O.token='';O.active=false;game=null;persist();auth(false,true);}}finally{busy=false;render();}}
 async function localDevLogin(startAfter=false){
  if(!localDev||!base||busy)return;
  busy=true;render();let loggedIn=false;
@@ -159,7 +182,7 @@ async function localDevLogin(startAfter=false){
     out=await request('/login',credentials);
    }
   }
-  O.token=out.token;O.account=out.account;O.active=false;pendingForAccount();persist();game=null;document.getElementById('modal')?.close();say('로컬 테스트 계정으로 로그인했습니다.');loggedIn=true;
+  invalidateSession();O.token=out.token;O.account=out.account;O.revision=0;O.active=false;pendingForAccount();persist();game=null;document.getElementById('modal')?.close();say('로컬 테스트 계정으로 로그인했습니다.');loggedIn=true;
  }catch(e){say('로컬 테스트 로그인에 실패했습니다: '+e.message);}
  finally{busy=false;render();}
  if(loggedIn&&startAfter)await startGame();
@@ -173,14 +196,14 @@ function auth(signup=false,startAfter=false){
  const status=el('p','account-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');p.append(status);
  const b=button(signup?'계정 만들기':'로그인',()=>{},!base,true);b.type='submit';p.append(b);
  const switcher=button(signup?'이미 계정이 있나요? 로그인':'처음 오셨나요? 계정 만들기',()=>auth(!signup,startAfter));switcher.type='button';switcher.className='account-switch';p.append(switcher);
- p.onsubmit=async e=>{e.preventDefault();if(busy)return;if(confirm&&confirm.value!==pw.value){status.textContent='비밀번호가 서로 다릅니다.';return;}busy=true;b.disabled=true;status.textContent='연결하고 있습니다…';let loggedIn=false;try{const out=await request(signup?'/register':'/login',{username:u.value,password:pw.value});pw.value='';if(confirm)confirm.value='';O.token=out.token;O.account=out.account;O.active=false;pendingForAccount();persist();game=null;document.getElementById('modal').close();say('');loggedIn=true;}catch(err){status.textContent=err.message;}finally{busy=false;b.disabled=!base;render();}if(loggedIn&&startAfter)await startGame();};
+ p.onsubmit=async e=>{e.preventDefault();if(busy)return;if(confirm&&confirm.value!==pw.value){status.textContent='비밀번호가 서로 다릅니다.';return;}busy=true;b.disabled=true;status.textContent='연결하고 있습니다…';let loggedIn=false;try{const out=await request(signup?'/register':'/login',{username:u.value,password:pw.value});pw.value='';if(confirm)confirm.value='';invalidateSession();O.token=out.token;O.account=out.account;O.revision=0;O.active=false;pendingForAccount();persist();game=null;document.getElementById('modal').close();say('');loggedIn=true;}catch(err){status.textContent=err.message;}finally{busy=false;b.disabled=!base;render();}if(loggedIn&&startAfter)await startGame();};
  showModal(signup?'회원가입':'로그인',p);
 }
 async function logout(){
  if(busy)return;
  busy=true;let remote=true;
  try{if(O.active)await O.flushReading();if(O.token)await request('/logout',{});}catch{remote=false;}
- finally{O.token='';O.account=null;O.active=false;O.pending=null;O.revision=0;O.ranked=false;game=null;selectedNPC=null;activeSaveSlot=null;sceneHistory.length=0;persist();document.getElementById('modal').close();busy=false;render();say(remote?'로그아웃했습니다.':'이 기기에서 로그아웃했습니다. 서버 연결이 끊겨 서버의 로그인 종료는 확인하지 못했습니다.');}
+ finally{invalidateSession();O.token='';O.account=null;O.active=false;O.pending=null;O.revision=0;O.ranked=false;game=null;selectedNPC=null;activeSaveSlot=null;sceneHistory.length=0;persist();document.getElementById('modal').close();busy=false;render();say(remote?'로그아웃했습니다.':'이 기기에서 로그아웃했습니다. 서버 연결이 끊겨 서버의 로그인 종료는 확인하지 못했습니다.');}
 }
 function accountPanel(){
  if(!O.account||!O.token){auth();return;}
@@ -188,7 +211,7 @@ function accountPanel(){
  p.append(button('로그아웃',logout),button('계정 삭제',()=>{
   const box=el('div');box.append(el('p','','계정, 자동저장, 랭킹 기록이 영구 삭제됩니다. 복구할 수 없습니다.'));
   const user=field(box,'삭제할 아이디'),password=field(box,'비밀번호','password');password.autocomplete='current-password';
-  box.append(button('계정과 기록 영구 삭제',()=>safely(async()=>{await request('/account/delete',{confirm:user.value,password:password.value});savePending(null);saveReading(null);O.token='';O.account=null;O.active=false;persist();game=null;sceneHistory.length=0;document.getElementById('modal').close();}),false,true));showModal('계정 삭제 확인',box);
+  box.append(button('계정과 기록 영구 삭제',()=>safely(async()=>{await request('/account/delete',{confirm:user.value,password:password.value});savePending(null);saveReading(null);invalidateSession();O.token='';O.account=null;O.active=false;persist();game=null;sceneHistory.length=0;document.getElementById('modal').close();}),false,true));showModal('계정 삭제 확인',box);
  }));showModal('계정 관리',p);
 }
 async function ranking(){const p=el('div');p.append(el('p','','최고 정복 층 → 누적 소요 라운드 → 입장 횟수 순으로 1~20위만 표시합니다. 운영 도구를 사용한 여정은 집계하지 않습니다.'));showModal('나선비경 · 상위 20위',p);try{const out=await request('/ranking');if(!out.entries.length)p.append(el('p','muted','아직 등록된 정복 기록이 없습니다.'));const table=el('table','ranking-table');const head=el('tr');for(const x of ['순위','모험가','층','라운드','입장'])head.append(el('th','',x));table.append(head);for(const x of out.entries.slice(0,20)){const tr=el('tr');for(const v of [x.rank,x.name,x.floor,x.rounds,x.attempts])tr.append(el('td','',String(v)));table.append(tr);}p.append(table);}catch(e){p.append(el('p','muted',e.message));}}
@@ -198,7 +221,7 @@ function debug(){if(!O.active||O.account?.admin!==true){say('운영자 계정으
 const localLoad=loadSlot;
 begin=async function(name,route){
  if(!O.account||!O.token){game=null;O.active=false;persist();auth(false,true);return;}
- await safely(async()=>{const out=await request('/game/new',{name,route});install(out);});
+ await safely(async()=>{actionEpoch++;const out=await request('/game/new',{name,route});install(out);});
 };
 loadSlot=async function(id){
  if(!O.account||!O.token){game=null;O.active=false;persist();auth(false,true);return;}
@@ -227,7 +250,7 @@ async function startGame(){
 }
 // Returning to the title never abandons an unconfirmed server action or erases a save.
 // Refresh also begins here; authentication is requested only after pressing Game Start.
-fresh=async function(){if(busy)return;await safely(async()=>{if(game)await storeSave();game=null;O.active=false;selectedNPC=null;activeSaveSlot=null;sceneHistory.length=0;document.getElementById('modal').close();});};
+fresh=async function(){if(busy)return;await safely(async()=>{if(game)await storeSave();actionEpoch++;game=null;O.active=false;selectedNPC=null;activeSaveSlot=null;sceneHistory.length=0;document.getElementById('modal').close();});};
 setup=function(){
  const wrap=el('section','game-title'),photo=el('img','title-landscape');photo.src=assetPath('bg_mondstadt_windrise_day.png')||assetPath('bg_mondstadt_city_day.png');photo.alt='';photo.fetchPriority='high';wrap.append(photo,el('div','title-shade'));
  const top=el('div','title-top');top.append(el('span','title-edition','AN ADVENTURE OF YOUR OWN'));

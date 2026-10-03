@@ -27,10 +27,22 @@ if [[ "${EUID}" -ne 0 ]]; then
   exit 1
 fi
 
+# Optional pin supplied by the reviewed handoff command. Refuse a moving latest release before any local write.
+EXPECTED_SHA="${CRPG_EXPECTED_TEST_SHA:-}"
+if [[ -n "$EXPECTED_SHA" && ! "$EXPECTED_SHA" =~ ^[a-f0-9]{40}$ ]]; then
+  echo "Invalid expected test commit; nothing changed." >&2
+  exit 1
+fi
+
 REMOTE_SHA="$(curl -fsSL --retry 2 --retry-delay 2 --max-time 20 "$BASE/crpg-test-sha.txt" 2>/dev/null | tr -d '\r\n' || true)"
 if [[ ! "$REMOTE_SHA" =~ ^[a-f0-9]{40}$ ]]; then
   echo "No verified test release is published yet; nothing changed."
   exit 0
+fi
+
+if [[ -n "$EXPECTED_SHA" && "$REMOTE_SHA" != "$EXPECTED_SHA" ]]; then
+  echo "Published test commit differs from the reviewed commit; nothing changed." >&2
+  exit 1
 fi
 
 live_engine() {

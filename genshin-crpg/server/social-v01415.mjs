@@ -120,13 +120,16 @@ export const socialMethods={
  marketList(a,q={}){
   this.need('trade');
   const text=String(q.q||'').trim().slice(0,30),kind=['ITEM','GEAR'].includes(q.kind)?q.kind:'';
-  let rows=this.db.prepare("SELECT * FROM market WHERE status='ACTIVE' ORDER BY id DESC LIMIT 400").all();
-  if(kind)rows=rows.filter(r=>r.kind===kind);if(text)rows=rows.filter(r=>r.label.includes(text)||r.seller_name.includes(text));
-  const seller=q.seller?this.accountByPid(q.seller):null;if(q.seller)rows=rows.filter(r=>seller&&r.seller_id===seller.id);
-  const sort=q.sort==='price'?(x,y)=>x.price/x.qty-y.price/y.qty:q.sort==='expensive'?(x,y)=>y.price-x.price:null;if(sort)rows.sort(sort);
+  // Search and sort the whole active market before limiting the response. An old listing must remain discoverable.
+  const where=["status='ACTIVE'"],params=[];
+  if(kind){where.push('kind=?');params.push(kind);}if(text){where.push('(instr(label,?)>0 OR instr(seller_name,?)>0)');params.push(text,text);}
+  if(q.seller){const seller=this.accountByPid(q.seller);where.push('seller_id=?');params.push(seller?.id||'');}
+  const filter=where.join(' AND '),order=q.sort==='price'?'CAST(price AS REAL)/qty ASC,id DESC':q.sort==='expensive'?'price DESC,id DESC':'id DESC';
+  const total=this.db.prepare('SELECT COUNT(*) AS n FROM market WHERE '+filter).get(...params).n;
+  const rows=this.db.prepare('SELECT * FROM market WHERE '+filter+' ORDER BY '+order+' LIMIT ?').all(...params,MARKET.page);
   const mine=this.db.prepare("SELECT * FROM market WHERE seller_id=? AND status IN ('ACTIVE','SOLD') ORDER BY CASE status WHEN 'ACTIVE' THEN 0 ELSE 1 END,updated_at DESC LIMIT 30").all(a.id);
   const w=this.db.prepare('SELECT * FROM market_wallet WHERE account_id=?').get(a.id);
-  return {listings:rows.slice(0,MARKET.page).map(r=>this.marketView(r,a.id)),total:rows.length,mine:mine.map(r=>this.marketView(r,a.id)),wallet:{mora:w?.mora||0,sales:w?.sales||0},rules:{...MARKET}};
+  return {listings:rows.map(r=>this.marketView(r,a.id)),total,mine:mine.map(r=>this.marketView(r,a.id)),wallet:{mora:w?.mora||0,sales:w?.sales||0},rules:{...MARKET}};
  },
  async marketSell(a,b){
   this.need('trade');this.rate('market-sell:'+a.id,20,600000);

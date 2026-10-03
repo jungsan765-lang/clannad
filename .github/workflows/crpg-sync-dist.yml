@@ -154,6 +154,11 @@ jobs:
               el.textContent='TEST SERVER · 서울 테스트 환경 · 운영 세이브와 분리됨';
               Object.assign(el.style,{position:'fixed',left:'0',right:'0',top:'0',zIndex:'2147483647',padding:'5px 10px',textAlign:'center',font:'700 12px/1.3 system-ui,sans-serif',background:'#7a2e00',color:'#fff',pointerEvents:'none'});
               document.body.appendChild(el);
+              // Reserve exactly the rendered height, including wrapping and browser text scaling.
+              const reserve=()=>document.documentElement.style.setProperty('--crpg-top-inset',Math.ceil(el.getBoundingClientRect().height)+'px');
+              reserve();
+              if(window.ResizeObserver)new ResizeObserver(reserve).observe(el);
+              addEventListener('resize',reserve,{passive:true});
             }
             if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mark,{once:true});else mark();
           })();

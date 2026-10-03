@@ -385,7 +385,7 @@ C.games.MAZE=function(p,body,done){
  const toward=i=>{const dx=i%m-at%m,dy=Math.floor(i/m)-Math.floor(at/m);if(Math.abs(dx)+Math.abs(dy)!==1)return;move(dy<0?0:dx>0?1:dy>0?2:3);};
  const pad=mk('div','pz-maze-pad');for(const [d,label] of [[0,'▲'],[3,'◀'],[2,'▼'],[1,'▶']]){const b=btn(label,()=>move(d),'pz-arrow a'+d);b.setAttribute('aria-label',DIRS[d][3]+'으로');pad.append(b);}body.append(pad);
  const KEYS={ArrowUp:0,KeyW:0,ArrowRight:1,KeyD:1,ArrowDown:2,KeyS:2,ArrowLeft:3,KeyA:3};
- document.addEventListener('keydown',function key(e){if(!grid.isConnected||solvedOf(grid)){document.removeEventListener('keydown',key);return;}const d=KEYS[e.code];if(d===undefined||e.target?.matches?.('input,textarea'))return;e.preventDefault();move(d);});
+ document.addEventListener('keydown',function key(e){if(!grid.isConnected||solvedOf(grid)){document.removeEventListener('keydown',key);return;}const top=window.CRPGShell?.topOverlay?.();if(top&&!top.contains(grid))return;const d=KEYS[e.code];if(d===undefined||e.target?.matches?.('input,textarea'))return;e.preventDefault();move(d);});
  draw();
 };
 // ---------- 별자리 잇기 ----------

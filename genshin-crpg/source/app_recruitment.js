@@ -1,5 +1,6 @@
 /* Acquisition is visible before the player meets or recruits a character. */
 let recruitmentRegion='전체',recruitmentOnlyMissing=false;
+const recruitmentExpanded=new Set();
 function requirementList(parent,requirements){const list=el('ul','acquisition-requirements');for(const r of requirements){const item=el('li',r.met?'requirement-met':'requirement-unmet',(r.met?'✓ ':'필요 · ')+r.label);if(r.hint&&!r.met)item.append(el('small','requirement-hint',' — '+r.hint));list.append(item);}parent.append(list);}
 function recruitmentIntroductionGuide(parent,d){
  if(!d||game.legendRegistered(d.id))return;
@@ -19,7 +20,7 @@ function recruitmentScreen(p){
  for(const label of ['전체','몬드','리월']){const b=button(label,()=>{recruitmentRegion=label;render();});b.classList.toggle('selected',recruitmentRegion===label);b.setAttribute('aria-pressed',String(recruitmentRegion===label));controls.append(b);}
  const only=button(recruitmentOnlyMissing?'미획득만 표시 중':'미획득만 보기',()=>{recruitmentOnlyMissing=!recruitmentOnlyMissing;render();});only.setAttribute('aria-pressed',String(recruitmentOnlyMissing));controls.append(only);p.append(controls);
  for(const e of all.filter(e=>(recruitmentRegion==='전체'||e.region===recruitmentRegion)&&(!recruitmentOnlyMissing||!e.owned))){
-  const card=el('details','card acquisition-card'),summary=el('summary'),name=el('strong','',e.name),status=el('span',e.owned?'requirement-met':'requirement-unmet',e.owned?'합류 완료':e.complete?'동행 제안 확인':'미획득');summary.append(name,status);if(!e.owned){const needed=e.requirements.find(r=>!r.met);if(needed)summary.append(el('small','requirement-unmet',needed.label));}card.append(summary,el('p','',e.method));
+  const card=el('details','card acquisition-card'),summary=el('summary'),name=el('strong','',e.name),status=el('span',e.owned?'requirement-met':'requirement-unmet',e.owned?'합류 완료':e.complete?'동행 제안 확인':'미획득');summary.append(name,status);if(!e.owned){const needed=e.requirements.find(r=>!r.met);if(needed)summary.append(el('small','requirement-unmet',needed.label));}card.dataset.viewKey='recruit:'+String(e.profile||e.character||e.name);card.open=recruitmentExpanded.has(card.dataset.viewKey);card.addEventListener('toggle',()=>{if(!card.isConnected)return;if(card.open)recruitmentExpanded.add(card.dataset.viewKey);else recruitmentExpanded.delete(card.dataset.viewKey);});card.append(summary,el('p','',e.method));
   if(!e.owned){requirementList(card,e.requirements);recruitmentIntroductionGuide(card,e.definition);if(e.definition&&!e.archon){const d=e.definition;if(!game.legendRegistered(d.id))card.append(actionButton('개인 임무 소개받기','LEGEND_REGISTER',{quest:d.id}));else if(!e.complete)card.append(actionButton('개인 임무 시작','LEGEND_ENTER',{quest:d.id},true));if(e.complete&&game.recruitmentRejoinEntry?.(d))card.append(actionButton('동행 제안 다시 듣기','RECRUIT_REJOIN',{quest:d.id},true));if(d.MAP_ID)travelGuide(card,e.complete?(game.recruitmentRejoinEntry(d)?.map||d.MAP_ID):d.MAP_ID);}}
   else card.append(el('p','muted','편성·장비에서 빈 슬롯에 배치할 수 있습니다.'));p.append(card);
  }

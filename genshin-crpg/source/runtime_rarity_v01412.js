@@ -102,3 +102,107 @@ P.actionReason=function(type,a={}){
 P.rarityV01412=true;
 api.rarityV01412={fiveBonus:FIVE_BONUS,liyueLevel:{...LIYUE_LEVEL},liyue5Oculi:{...LIYUE5_OCULI},mond5:{...MOND5}};
 })(typeof window!=='undefined'?window:globalThis);
+
+/* Keep preparation dialogue, choice gates and deductions on the final recruitment cost.
+ * Story amounts outside these audited preparation lines are intentionally untouched. */
+(function(root){'use strict';
+const P=root.CRPGRuntime.Runtime.prototype;
+const old={index:P.storyIndex,condition:P.storyConditionValue,text:P.storyDisplayText,choices:P.storyChoices};
+const MORA_ROWS=new Set([
+ "LEG_MOND_MONA_N020","LEG_LIYUE_NINGGUANG_NG_B","LEG_LIYUE_NINGGUANG_PREP_GATE",
+ "LEG_LIYUE_YELAN_YL_B","LEG_LIYUE_YELAN_PREP_GATE","LEG_LIYUE_BAIZHU_L06",
+ "LEG_LIYUE_BAIZHU_PREP_GATE","LEG_LIYUE_QIQI_L06","LEG_LIYUE_QIQI_PREP_GATE",
+ "LEG_LIYUE_GAMING_L04","LEG_LIYUE_GAMING_PREP_GATE","LEG_LIYUE_GANYU_L04",
+ "LEG_LIYUE_GANYU_PREP_GATE","LEG_LIYUE_XINGQIU_PREP_GATE","LEG_LIYUE_HUTAO_PREP_GATE",
+ "LEG_LIYUE_HUTAO_N009","LEG_LIYUE_XIANGLING_PREP_GATE","LEG_LIYUE_XIANGLING_N009",
+ "LEG_LIYUE_LANYAN_INTRO04","LEG_LIYUE_LANYAN_PREP_GATE","LEG_LIYUE_SHENHE_INTRO04",
+ "LEG_LIYUE_SHENHE_PREP_GATE","LEG_LIYUE_TARTAGLIA_INTRO04","LEG_LIYUE_TARTAGLIA_PREP_GATE",
+ "LEG_LIYUE_YANFEI_N006","LEG_LIYUE_YUNJIN_N006","LEG_LIYUE_YAOYAO_N006",
+ "LEG_ISK_LIYUE_NINGGUANG_PREP_YES","LEG_ISK_LIYUE_YELAN_PREP_YES","LEG_ISK_LIYUE_BAIZHU_N009",
+ "LEG_ISK_LIYUE_BAIZHU_PREP_GATE","LEG_ISK_LIYUE_BAIZHU_N011","LEG_ISK_LIYUE_QIQI_N009",
+ "LEG_ISK_LIYUE_QIQI_PREP_GATE","LEG_ISK_LIYUE_QIQI_N011","LEG_ISK_LIYUE_GAMING_N008",
+ "LEG_ISK_LIYUE_GAMING_PREP_GATE","LEG_ISK_LIYUE_GAMING_N011","LEG_ISK_LIYUE_GAMING_N012",
+ "LEG_ISK_LIYUE_GANYU_N008","LEG_ISK_LIYUE_GANYU_PREP_GATE","LEG_ISK_LIYUE_GANYU_N010",
+ "LEG_ISK_LIYUE_GANYU_N011","LEG_ISK_LIYUE_XINGQIU_INTRO_04","LEG_ISK_LIYUE_XINGQIU_PREP_GATE",
+ "LEG_ISK_LIYUE_XINGQIU_PREP_ACCEPT","LEG_ISK_LIYUE_XINGQIU_V143_AGAIN_00","LEG_ISK_LIYUE_XIANYUN_INTRO_04",
+ "LEG_ISK_LIYUE_XIANYUN_PREP_GATE","LEG_ISK_LIYUE_XIANYUN_PREP_ACCEPT","LEG_ISK_LIYUE_XIANGLING_INTRO_04",
+ "LEG_ISK_LIYUE_XIANGLING_PREP_GATE","LEG_ISK_LIYUE_XIANGLING_PREP_ACCEPT","LEG_ISK_LIYUE_HUTAO_INTRO_04",
+ "LEG_ISK_LIYUE_HUTAO_PREP_GATE","LEG_ISK_LIYUE_HUTAO_PREP_ACCEPT","LEG_ISK_LIYUE_LANYAN_JOB",
+ "LEG_ISK_LIYUE_LANYAN_ACCEPT_COST","LEG_ISK_LIYUE_SHENHE_JOB","LEG_ISK_LIYUE_SHENHE_ACCEPT_COST",
+ "LEG_ISK_LIYUE_XINYAN_JOB","LEG_ISK_LIYUE_XINYAN_ACCEPT_COST","LEG_ISK_LIYUE_YANFEI_N006",
+ "LEG_ISK_LIYUE_YANFEI_PREP_ACCEPT","LEG_ISK_LIYUE_YUNJIN_N006","LEG_ISK_LIYUE_YUNJIN_PREP_ACCEPT",
+ "LEG_ISK_LIYUE_YAOYAO_N006","LEG_ISK_LIYUE_YAOYAO_PREP_ACCEPT"
+]);
+const costTerm=/^(?:MORA|(?:ITEM|INVENTORY)\(\w+\))\s*(?:>=|<)\s*\d+$/;
+const costDefinition=(r,row)=>row&&r.storyIndex().legendCostRows.get(row[0]+':'+row[4]);
+P.storyIndex=function(){
+ const ix=old.index.call(this);if(ix.legendCostRows)return ix;
+ ix.legendCostRows=new Map();ix.legendCostChoices=new Set();
+ const defs=new Map([...ix.legends.values()].filter(d=>d.STATUS==='ACTIVE').map(d=>[d.ROUTE_SCOPE+':'+d.QUEST_ID,d]));
+ for(const row of ix.byTable['57_MOND_STORY_SCENE_DB']){
+  const d=defs.get(row[0]+':'+row[1]);if(!d||!String(row[4]).startsWith(d.id+'_')||row[18]!=='ACTIVE')continue;
+  const key=row[0]+':'+row[4];ix.legendCostRows.set(key,d);
+  const commits=String(row[12]).split(';').includes('LEGEND_ACCEPT_AND_PAY:'+d.QUEST_ID);
+  const prep=/PREP_(?:YES|SHORT|SHORTAGE)$/.test(row[4]);
+  if(!commits&&!prep)continue;
+  const condition=String(row[11]||''),neg=/^NOT\((.*)\)$/.exec(condition),parts=condition.split(/\s*&&\s*/).filter(Boolean);
+  const hasCost=neg?costTerm.test(neg[1]):parts.some(p=>costTerm.test(p));
+  if(commits||hasCost){
+   // Preserve unrelated conditions (e.g. unpaid-only choices) and use the complete current cost.
+   const shortage=!!neg||parts.some(p=>costTerm.test(p)&&/</.test(p));
+   row[11]=(neg?[]:parts.filter(p=>!costTerm.test(p))).concat('LEGEND_COST_READY('+d.QUEST_ID+')='+(shortage?'FALSE':'TRUE')).join(' && ');
+   if(row[5]==='CHOICE'&&!shortage)ix.legendCostChoices.add(key);
+  }
+ }
+ for(const id of ['EVT_MOND_MIKA_INTRO_LINE_2','EVT_MOND_MONA_INTRO_LINE_2']){
+  const row=ix.nodes.get('ROUTE_TRAVELER:'+id);if(row?.[6]==='NPC_PAIMON')row[6]='ENTITY_PAIMON';
+ }
+ return ix;
+};
+P.legendCostReady=function(d){
+ if(!d||d.STATUS!=='ACTIVE')return false;
+ if(this.s.storyCostReceipts?.[d.QUEST_ID])return true;
+ const cost=this.legendEffectiveCost(d);
+ return this.s.global.MORA>=cost.mora&&Object.entries(cost.items).every(([id,n])=>this.itemCount(id)>=n);
+};
+P.storyConditionValue=function(name,args,property){
+ if(name==='LEGEND_COST_READY'&&args)return this.legendCostReady(this.storyDefinition(args[0]));
+ return old.condition.call(this,name,args,property);
+};
+P.legendCostSummary=function(d){
+ if(this.s.storyCostReceipts?.[d.QUEST_ID])return '이미 지불함 · 추가 차감 없음';
+ const cost=this.legendEffectiveCost(d);if(cost.waivedByStory)return '이야기 진행으로 준비 비용 면제';
+ return [cost.mora+' 모라',...Object.entries(cost.items).map(([id,n])=>(this.tables['14_ITEM_DB'].get(id)?.[1]||id)+' '+n+'개')].join(' · ');
+};
+P.legendCostDisplayText=function(row,text){
+ const d=costDefinition(this,row);if(!d)return text;
+ let out=String(text||'');const cost=this.legendEffectiveCost(d),id=row[4];
+ if(MORA_ROWS.has(id))out=out.replace(/([\d,]+)(\s*)모라|모라(\s*)([\d,]+)/g,(_,before,space,after)=>before?cost.mora+space+'모라':'모라'+after+cost.mora);
+ // These lines describe the preparation material, not a separate story transaction.
+ if(d.REGION==='리월'){
+  if(d.id==='LEG_LIYUE_XINYAN')out=out.replace(/수정덩이 일곱 개|수정덩이 7개/g,'철광 '+cost.items.ORE_IRON+'개').replace(/수정덩이/g,'철광');
+  if(d.id==='LEG_ISK_LIYUE_BEIDOU')out=out.replace(/철광 12개/g,'필요한 자재').replace(/철광으로/g,'준비한 자재로').replace(/철광을/g,'자재를');
+  if(d.id==='LEG_ISK_LIYUE_CHONGYUN')out=out.replace(/철광석/g,'철광');
+  for(const [item,n]of Object.entries(cost.items)){
+   const name=this.tables['14_ITEM_DB'].get(item)?.[1];if(!name)continue;
+   out=out.replace(new RegExp(name+' (?:\\d+|열두|열|여덟|일곱)\\s*개','g'),name+' '+n+'개');
+  }
+  if(id==='LEG_LIYUE_XIANGLING_PREP_GATE')out='향릉을 도우려면 준비물이 필요하다.';
+  if(id==='LEG_LIYUE_XIANGLING_N008')out=out.replace('생선 살코기','준비물');
+  if(id==='LEG_LIYUE_XIANGLING_N009')out=out.replace('생선 살코기 세 개는','준비해 준 재료는');
+ }
+ return out;
+};
+P.storyDisplayText=function(row){
+ row??=this.storyNode();let text=this.legendCostDisplayText(row,old.text.call(this,row));
+ const d=costDefinition(this,row);if(d&&/_PREP_GATE$/.test(row[4]))text+='\n준비 비용 · '+this.legendCostSummary(d);
+ return text;
+};
+P.storyChoices=function(){return old.choices.call(this).map(row=>{
+ const d=costDefinition(this,row);if(!d)return row;
+ const copy=row.slice();Object.defineProperties(copy,{table:{value:row.table},sourceRow:{value:row.sourceRow}});
+ copy[9]=this.legendCostDisplayText(row,row[9]);copy[10]=this.legendCostDisplayText(row,row[10]);
+ if(this.storyIndex().legendCostChoices.has(row[0]+':'+row[4]))copy[10]+='\n준비 비용 · '+this.legendCostSummary(d);
+ return copy;
+});};
+})(globalThis);

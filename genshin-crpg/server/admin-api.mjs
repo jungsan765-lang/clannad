@@ -147,7 +147,7 @@ export class AdminConsole{
    const after=splitState(r.s);return this.commit(a,m,before,after,label,out,r.s,reason);
   });
  }
- commit(a,m,before,after,label,out,state,reason='change',extra=null){
+ commit(a,m,before,after,label,out,state,reason='change',extra=null,receiptMeta={}){
   const d=diffParts(before,after),t=now(),rid='admin-'+t+'-'+token().slice(0,8),db=this.db;
   db.exec('BEGIN IMMEDIATE');
   try{
@@ -155,9 +155,9 @@ export class AdminConsole{
    for(const p of d.remove)del.run(a.id,p);for(const [p,v] of d.set)up.run(a.id,p,v);
    extra?.(db);
    db.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(a.id,m.revision,JSON.stringify(d.undo),t);db.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(a.id,m.revision-3);
-   db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(a.id,rid,m.revision+1,m.revision,'admin',JSON.stringify({result:{type:'ADMIN',label}}),t);
+   db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(a.id,rid,m.revision+1,m.revision,'admin',JSON.stringify({result:{type:'ADMIN',label,...receiptMeta}}),t);
    db.prepare('UPDATE metadata SET revision=?,last_request_id=?,updated_at=? WHERE account_id=?').run(m.revision+1,rid,t,a.id);
-   this.store.rank(a,m.ranked,state);db.exec('COMMIT');
+   this.store.syncName(a);this.store.rank(a,m.ranked,state);db.exec('COMMIT');
   }catch(e){if(db.isTransaction)db.exec('ROLLBACK');throw e;}
   finally{this.store.invalidate(a.id);}
   this.notify(a.id,reason);
@@ -184,8 +184,8 @@ export class AdminConsole{
   const row=lid=>has?this.db.prepare('SELECT * FROM market WHERE id=?').get(lid):null;
   const money=n=>Number(n||0).toLocaleString('ko-KR');
   for(const rc of receipts){
-   let res;try{res=JSON.parse(rc.result)?.result;}catch{continue;}const t=res?.type;if(!t||!/^(MARKET_|DEAL$)/.test(t))continue;
-   if(t==='DEAL')throw err(409,'되돌릴 단계 안에 직접 거래(저장 '+rc.revision+')가 있습니다. 상대 모험가의 저장도 함께 바뀌어 되돌릴 수 없으니 그보다 적은 단계로 되돌려 주세요.');
+   let res;try{res=JSON.parse(rc.result)?.result;}catch{continue;}const t=res?.type;if(!t||!/^(MARKET_|DEAL$|TRADE$)/.test(t))continue;
+   if(t==='DEAL'||t==='TRADE')throw err(409,'되돌릴 단계 안에 직접 거래(저장 '+rc.revision+')가 있습니다. 상대 모험가의 저장도 함께 바뀌어 되돌릴 수 없으니 그보다 적은 단계로 되돌려 주세요.','ROLLBACK_TRADE');
    if(!has)throw err(409,'시장 기록이 있는 단계는 거래 기능이 꺼진 서버에서 되돌릴 수 없습니다.');
    if(t==='MARKET_COLLECT'){const n=Number(res.mora)||0;if(n>0){ops.push(db=>db.prepare('INSERT INTO market_wallet VALUES(?,?,0,?) ON CONFLICT(account_id) DO UPDATE SET mora=market_wallet.mora+excluded.mora,updated_at=excluded.updated_at').run(id,n,now()));lines.push('받았던 판매 대금 '+money(n)+' 모라를 다시 받을 수 있게 돌려놓음');}continue;}
    const lid=Number(res.listing),x=row(lid);if(!x)throw err(409,'시장 기록(물건 '+lid+')을 찾을 수 없어 되돌릴 수 없습니다.');
@@ -217,11 +217,15 @@ export class AdminConsole{
    for(let k=1;k<=steps;k++){const row=this.db.prepare('SELECT undo FROM backups WHERE account_id=? AND revision=?').get(a.id,m.revision-k);if(!row)throw err(404,'되돌릴 기록이 '+(k-1)+'단계까지만 남아 있습니다.');const undo=JSON.parse(row.undo);for(const [p,v] of undo.set)state.set(p,v);for(const p of undo.remove)state.delete(p);}
    let r;try{r=new R(GAME_DB,joinState(state),true);}catch(e){throw err(400,'되돌린 저장이 검사를 통과하지 못했습니다: '+e.message);}
    const receipts=this.db.prepare('SELECT revision,result FROM receipts WHERE account_id=? AND revision>? AND revision<=? ORDER BY revision DESC').all(a.id,m.revision-steps,m.revision);
+   // External rows cannot be reconstructed from the save-only backup of an earlier rollback. Old rollback
+   // receipts did not say whether they changed those rows, so treat those conservatively too.
+   for(const rc of receipts){let res;try{res=JSON.parse(rc.result)?.result;}catch{continue;}
+    if(res?.type==='ADMIN'&&(res.rollback?.external===true||(res.label==='운영자 되돌리기'&&!res.rollback)))throw err(409,'되돌릴 단계에 시장·편지 등 다른 기록과 연결된 되돌리기가 있습니다. 재화가 중복되지 않도록 이 단계는 다시 되돌릴 수 없습니다.','ROLLBACK_EXTERNAL');}
    // Letters sent or taken in those steps follow too (server/letters-v0151.mjs).
    const market=this.marketUndo(a.id,receipts),letters=this.store.letterUndo?.(a.id,receipts)||{lines:[],changed:false,notify:[],apply:()=>{}},raid=this.store.raidUndo?.(a.id,receipts)||{lines:[],apply:()=>{}},coop=this.store.coopUndo?.(a.id,receipts)||{lines:[],apply:()=>{}},lines=[...market.lines,...letters.lines,...raid.lines,...coop.lines];
    const changes=[steps+'단계 전(저장 '+(m.revision-steps)+') 상태로 되돌림',...lines];
    r.mailAdd?.({kind:'NOTICE',title:'운영자가 여정을 되돌렸습니다',body:'운영자가 이 여정을 '+steps+'단계 전 상태로 되돌렸습니다.'+(lines.length?'\n'+lines.map(x=>'· '+x).join('\n'):'')});
-   const out=this.commit(a,m,before,splitState(r.s),'운영자 되돌리기',{changes},r.s,'rollback',db=>{market.apply(db);letters.apply(db);raid.apply(db);coop.apply(db);});
+   const out=this.commit(a,m,before,splitState(r.s),'운영자 되돌리기',{changes},r.s,'rollback',db=>{market.apply(db);letters.apply(db);raid.apply(db);coop.apply(db);},{rollback:{version:1,external:lines.length>0}});
    if(market.changed)this.store.broadcast({type:'market',status:'CHANGED'},()=>true);
    for(const id of letters.notify)this.store.broadcast({type:'mail',status:'CHANGED'},s=>s.account===id);
    return out;
@@ -246,11 +250,23 @@ export class AdminConsole{
   const n=banned?this.db.prepare('DELETE FROM sessions WHERE account_id=?').run(a.id).changes:0;if(banned)this.notify(a.id,'logout');
   this.audit(actor,ip,a,banned?'ban':'unban',{reason,hours,loggedOut:n});return {banned,until,loggedOut:n};
  }
- profile(b,actor,ip){
-  const a=this.accountRow(b?.id),detail={};
-  if(b?.displayName!==undefined){const v=clean(b.displayName).slice(0,24);if(!v)throw err(400,'표시 이름을 입력해 주세요.');this.db.prepare('UPDATE accounts SET display_name=? WHERE id=?').run(v,a.id);this.db.prepare('UPDATE ranking SET display_name=? WHERE account_id=?').run(v,a.id);detail.displayName=[a.display_name,v];}
-  if(b?.username!==undefined){const v=uname(b.username);if(!/^[a-z0-9가-힣_]{3,24}$/.test(v))throw err(400,'아이디는 한글·영문·숫자·밑줄 3~24자로 입력해 주세요.');const other=this.db.prepare('SELECT id FROM accounts WHERE username=?').get(v);if(other&&other.id!==a.id)throw err(409,'이미 사용 중인 아이디입니다.');this.db.prepare('UPDATE accounts SET username=? WHERE id=?').run(v,a.id);detail.username=[a.username,v];}
-  if(!Object.keys(detail).length)throw err(400,'바꿀 내용을 입력해 주세요.');this.notify(a.id,'profile');this.audit(actor,ip,a,'profile',detail);return {changed:detail};
+ async profile(b,actor,ip){
+  const id=this.accountRow(b?.id).id,name=b?.displayName===undefined?undefined:clean(b.displayName).slice(0,24),username=b?.username===undefined?undefined:uname(b.username);
+  if(name!==undefined&&!name)throw err(400,'표시 이름을 입력해 주세요.');
+  if(username!==undefined&&!/^[a-z0-9가-힣_]{3,24}$/.test(username))throw err(400,'아이디는 한글·영문·숫자·밑줄 3~24자로 입력해 주세요.');
+  if(name===undefined&&username===undefined)throw err(400,'바꿀 내용을 입력해 주세요.');
+  return this.store.serial(id,()=>{
+   const a=this.accountRow(id),detail={};
+   if(username!==undefined){const other=this.store.account(username);if(other&&other.id!==id)throw err(409,'이미 사용 중인 아이디입니다.');detail.username=[a.username,username];}
+   if(name!==undefined)detail.displayName=[a.display_name,name];
+   const update=db=>{if(username!==undefined)db.prepare('UPDATE accounts SET username=? WHERE id=?').run(username,id);if(name!==undefined){db.prepare('UPDATE accounts SET display_name=? WHERE id=?').run(name,id);db.prepare('UPDATE ranking SET display_name=? WHERE account_id=?').run(name,id);a.display_name=name;}};
+   const m=this.store.meta(id);
+   if(name!==undefined&&m?.revision!=null){
+    const before=this.store.loadParts(id),r=new R(GAME_DB,joinState(before),true);this.applyOps(r,[{op:'name',value:name}]);compact(r.s);r.validateSave(r.s);
+    this.commit(a,m,before,splitState(r.s),'운영자 이름 변경',{},r.s,'profile',update);
+   }else{this.store.commit(()=>update(this.db));this.store.invalidate(id);this.notify(id,'profile');}
+   this.audit(actor,ip,a,'profile',detail);return {changed:detail};
+  });
  }
  async ranked(b,actor,ip){
   const a=this.accountRow(b?.id),ranked=b?.ranked===true;

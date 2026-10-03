@@ -4,7 +4,7 @@
  combat=function(p){priorCombat(p);const v=game.protagonistCombatView(),controls=p.querySelector('.battle-command');
   for(const c of game.combatCards()){if(!c.key)continue;const btn=[...p.querySelectorAll('.battle-cards button')].find(x=>x.dataset.cardId===c.id);if(!btn)continue;btn.classList.add('protagonist-skill','skill-'+c.key.toLowerCase(),'identity-'+c.protagonistKind.toLowerCase());btn.prepend(el('span','skill-key',c.key));btn.setAttribute('aria-label',c.key+' · '+c.name+(c.reason?' · '+c.reason:''));}
  };
- document.addEventListener('keydown',event=>{if(event.defaultPrevented||event.repeat||event.ctrlKey||event.metaKey||event.altKey||busy||!game?.s?.runtime||document.querySelector('dialog[open]')||/^(INPUT|TEXTAREA|SELECT)$/.test(event.target?.tagName)||event.target?.isContentEditable)return;
+ document.addEventListener('keydown',event=>{if(event.defaultPrevented||event.repeat||event.ctrlKey||event.metaKey||event.altKey||window.CRPGShell?.topOverlay?.()||busy||!game?.s?.runtime||document.querySelector('dialog[open]')||/^(INPUT|TEXTAREA|SELECT)$/.test(event.target?.tagName)||event.target?.isContentEditable)return;
   if(game.combatOpening?.()||!document.querySelector('.combat-panel'))return;const key=event.key.toUpperCase();if(!['E','Q'].includes(key))return;const c=game.combatCards().find(x=>x.key===key&&!x.reason);if(!c)return;event.preventDefault();selectedCard=c.id;selectedBranch=c.branches?.[0]||'';render();
  });
  // Grouped playback still uses its original timing and reduced-motion controls.

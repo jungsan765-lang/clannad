@@ -74,7 +74,54 @@ const relabel=s=>RELABEL[String(s||'').trim()]||String(s||'').trim();
 const HOTKEYS={t:'STORY',l:'PARTY',c:'STATUS',b:'INVENTORY',j:'QUEST',o:'RELATIONS'};
 const MENU_SCREENS=new Set(['PARTY','STATUS','INVENTORY','QUEST','RELATIONS','SYSTEM','SHOP','CRAFT','COOKING','MARKET','RECRUITMENT','ABYSS','ENHANCE','FORGE']);
 const isMobile=()=>matchMedia('(max-width: 760px)').matches;
-try{matchMedia('(max-width: 760px)').addEventListener('change',()=>{if(game)render();});}catch{}
+try{matchMedia('(max-width: 760px)').addEventListener('change',()=>{if(game){S.restoreView=S.lastView?.screen===screenKey()?S.lastView:captureView();render();}});}catch{}
+// Custom windows share the same input boundary as a native modal. Visibility must not depend on body.teyvat.
+function topOverlay(){
+ const native=document.querySelector('dialog[open]');if(native)return native;
+ return [...document.querySelectorAll('[aria-modal="true"],.wish-screen')].filter(n=>!n.hidden&&n.isConnected&&n.getClientRects().length&&getComputedStyle(n).display!=='none')
+  .map((n,i)=>({n,z:Number(getComputedStyle(n).zIndex)||0,i})).sort((a,b)=>a.z-b.z||a.i-b.i).at(-1)?.n||null;
+}
+S.topOverlay=topOverlay;
+function modalControls(n){return [...n.querySelectorAll('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),summary,[tabindex]:not([tabindex="-1"])')].filter(e=>!e.closest('[hidden],[inert]')&&e.getClientRects().length);}
+let modalRoot=null,modalReturn=null;const modalInert=new Map();
+function focusOverlay(next){if(next&&!next.contains(document.activeElement)){const first=modalControls(next)[0];if(first)first.focus({preventScroll:true});else{next.tabIndex=-1;next.focus({preventScroll:true});}}}
+function inertBackground(next){for(const n of document.body.children)if(n!==next&&!n.contains(next)&&!['SCRIPT','STYLE','LINK'].includes(n.tagName)&&!modalInert.has(n)){modalInert.set(n,n.inert);n.inert=true;}}
+function syncOverlay(){
+ const next=topOverlay();if(next===modalRoot){if(next)inertBackground(next);focusOverlay(next);return;}
+ for(const [n,before]of modalInert)n.inert=before;modalInert.clear();
+ const old=modalRoot;modalRoot=next;document.body.classList.toggle('shell-overlay-open',!!next);
+ if(next){
+  if(!old)modalReturn=document.activeElement;
+  inertBackground(next);
+  focusOverlay(next);
+ }else{const back=modalReturn?.isConnected?modalReturn:document.querySelector('.hud-menu-button');back?.focus({preventScroll:true});modalReturn=null;}
+}
+try{let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;queueMicrotask(()=>{queued=false;syncOverlay();});}).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class','open']});}catch{}
+document.addEventListener('keydown',e=>{
+ const top=topOverlay();if(!top)return;
+ if(!top.contains(e.target)){syncOverlay();e.preventDefault();e.stopImmediatePropagation();return;}
+ if(e.key==='Tab'){
+  const list=modalControls(top);if(!list.length){e.preventDefault();return;}
+  const at=list.indexOf(document.activeElement);
+  if(e.shiftKey&&at<=0){e.preventDefault();list.at(-1).focus();}
+  else if(!e.shiftKey&&(at===list.length-1||at<0)){e.preventDefault();list[0].focus();}
+ }
+},true);
+// Keep the item being read across the phone/tablet breakpoint, not an obsolete pixel offset on another layout.
+function scrollHost(n){for(let p=n.parentElement;p&&p!==document.body;p=p.parentElement)if(/auto|scroll/.test(getComputedStyle(p).overflowY)&&p.scrollHeight>p.clientHeight+1)return p;return null;}
+function captureView(){
+ const page=document.querySelector('.panel.shell-page');if(!page)return null;
+ const cards=[...page.querySelectorAll('[data-view-key]')];let anchor=null;
+ for(const card of cards){const host=scrollHost(card),r=card.getBoundingClientRect(),h=host?.getBoundingClientRect();if(host&&r.bottom>h.top+1&&r.top<h.bottom){anchor={key:card.dataset.viewKey,offset:r.top-h.top};break;}}
+ return {screen:screenKey(),anchor};
+}
+function restoreView(state){
+ if(!state||state.screen!==screenKey()||!state.anchor)return;
+ const card=[...document.querySelectorAll('[data-view-key]')].find(n=>n.dataset.viewKey===state.anchor.key),host=card&&scrollHost(card);
+ if(host)host.scrollTop+=card.getBoundingClientRect().top-host.getBoundingClientRect().top-state.anchor.offset;
+}
+S.captureView=captureView;S.restoreViewPosition=restoreView;
+let viewScrollFrame=0;document.addEventListener('scroll',()=>{if(viewScrollFrame||S.restoreView)return;viewScrollFrame=requestAnimationFrame(()=>{viewScrollFrame=0;if(!S.restoreView){const v=captureView();if(v?.anchor)S.lastView=v;}});},true);
 function navButton(screen){return $('main > aside nav [data-screen="'+screen+'"]');}
 function openScreen(screen){const b=navButton(screen);if(b){if(b.disabled){toast(b.title||b.getAttribute('aria-description')||'지금은 이 메뉴를 열 수 없습니다.');return false;}b.click();return true;}if(game&&!busy){act('MENU',{screen});return true;}return false;}
 S.open=openScreen;
@@ -307,7 +354,7 @@ function layoutStory(content,p){
 function scheduleAuto(p,hasChoices){
  clearTimeout(S.autoTimer);if(!S.auto||hasChoices)return;const b=continueButton(p);if(!b||!/계속 읽기/.test(b.textContent))return;
  const text=$('p.story',p)?.textContent||'',wait=Math.min(9000,1400+text.length*55);const node=game?.storyActiveNodeId?.();
- S.autoTimer=setTimeout(()=>{if(!S.auto||busy||!game||game.storyActiveNodeId?.()!==node||document.hidden||S.menu||window.CRPGHandbook?.isOpen?.())return;const now=continueButton($('.content .panel')||document);if(now&&!now.disabled)now.click();},wait);
+ S.autoTimer=setTimeout(()=>{if(!S.auto||busy||!game||game.storyActiveNodeId?.()!==node||document.hidden||topOverlay())return;const now=continueButton($('.content .panel')||document);if(now&&!now.disabled)now.click();},wait);
 }
 try{S.auto=localStorage.getItem('crpg-shell-auto')==='1';}catch{}
 function continueButton(p){const primary=$$('.story-copy .actions button.primary, :scope > .actions button.primary',p).filter(b=>!b.disabled);return primary.find(b=>/계속 읽기|전투 시작|다음 활동 선택|정한 이름 알려 주기/.test(b.textContent))||null;}
@@ -442,7 +489,7 @@ function layoutGeneric(key,content,p){
 const priorRender=render;
 render=function(){
  priorRender();
- try{shell();}catch(e){console.error('[shell]',e);}
+ try{shell();const restore=S.restoreView;S.restoreView=null;if(restore)requestAnimationFrame(()=>{restoreView(restore);S.lastView=captureView();});}catch(e){console.error('[shell]',e);}
 };
 function shell(){
  const body=document.body;
@@ -474,9 +521,23 @@ document.addEventListener('keydown',e=>{
  if(e.defaultPrevented||e.ctrlKey||e.metaKey||e.altKey||!game)return;
  const typing=/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName)||e.target?.isContentEditable;
  const dialog=$('dialog[open]');
- if(S.scenery){if(e.key==='Escape'||e.key.toLowerCase()==='v'){e.preventDefault();toggleScenery(false);}return;}
- if(e.key==='Escape'){if(dialog||typing)return;if(window.CRPGHandbook?.isOpen?.()){e.preventDefault();CRPGHandbook.close();return;}if(window.CRPGTrade?.isOpen?.()){e.preventDefault();CRPGTrade.close();return;}if(window.CRPGChat?.open){e.preventDefault();CRPGChat.toggle(false);return;}if(S.menu){e.preventDefault();toggleMenu(false);return;}const back=$('.shell-back');if(back&&!back.disabled&&!e.repeat){e.preventDefault();back.click();return;}e.preventDefault();toggleMenu(true);return;}
- if(typing||dialog||S.menu||e.repeat)return;
+ const overlay=topOverlay();
+ if(S.scenery&&(!overlay||overlay===S.scenery)){if(e.key==='Escape'||e.key.toLowerCase()==='v'){e.preventDefault();toggleScenery(false);}return;}
+ if(e.key==='Escape'){
+  if(dialog)return; // the browser owns native dialog cancellation
+  if(overlay){
+   // Only the top window may close. Other custom windows own Escape in their own handlers.
+   if(overlay===S.menu){e.preventDefault();toggleMenu(false);}
+   else if(overlay.matches?.('.handbook')&&window.CRPGHandbook?.isOpen?.()){e.preventDefault();CRPGHandbook.close();}
+   else if(overlay.matches?.('.trade-overlay')&&window.CRPGTrade?.isOpen?.()){e.preventDefault();CRPGTrade.close();}
+   return;
+  }
+  if(typing)return;
+  if(window.CRPGChat?.open){e.preventDefault();CRPGChat.toggle(false);return;}
+  const back=$('.shell-back');if(back&&!back.disabled&&!e.repeat){e.preventDefault();back.click();return;}
+  e.preventDefault();toggleMenu(true);return;
+ }
+ if(overlay||typing||dialog||S.menu||e.repeat)return;
  if(e.key==='F1'){e.preventDefault();window.CRPGHandbook?.open();return;}
  if(window.CRPGHandbook?.isOpen?.())return;
  const k=e.key.toLowerCase(),screen=S.screen;

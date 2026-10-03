@@ -181,8 +181,8 @@ P.recruitmentRejoinEntry=function(d){
  else if(owned[d.CHAR_ID]?.state==='JOINED')reason='이미 동행하는 인물입니다.';
  else if(this.playPhase()!=='FREE'||this.s.storyContext||this.s.worldJob||this.s.lifeJob)reason='현재 진행 중인 장면을 먼저 마쳐 주세요.';
  else if(d.REGION==='리월'&&d.CHAR_ID!=='LIYUE_ZHONGLI'){const gate=this.liyueLegendProgress?.(d);if(gate&&!gate.ready)reason=gate.label+' 후 다시 만날 수 있습니다.';}
- else if(this.s.global.CURRENT_MAP_ID!==row[8])reason=(this.tables['32_MAP_DB'].get(row[8])?.[2]||'지정 장소')+'에서 다시 만날 수 있습니다.';
- else {try{if(!this.storyCondition(row[11],d))reason='재회 조건을 먼저 확인해 주세요.';}catch{reason='재회 조건을 확인할 수 없습니다.';}}
+ if(!reason&&this.s.global.CURRENT_MAP_ID!==row[8])reason=(this.tables['32_MAP_DB'].get(row[8])?.[2]||'지정 장소')+'에서 다시 만날 수 있습니다.';
+ if(!reason){try{if(!this.storyCondition(row[11],d))reason='재회 조건을 먼저 확인해 주세요.';}catch{reason='재회 조건을 확인할 수 없습니다.';}}
  return {id:row[4],map:row[8],reason};
 };
 P.storyCompleteLegend=function(id){const out=old.storyCompleteLegend.call(this,id),d=this.storyDefinition(id);if(d&&this.s.storyContext?.entry===d.id&&!['MOND_VENTI','LIYUE_ZHONGLI'].includes(d.CHAR_ID))this.s.storyContext.kind='RECRUIT';return out;};

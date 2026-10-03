@@ -1,5 +1,6 @@
 // 0.15.3 다인 모드 on the Seoul account server (the fight itself is source/runtime_coop_v0153.js). Rooms live in memory only:
-// a restart drops them, and a fight that was running goes on by the AI for the guests (the host's save holds it).
+// a restart drops them; reopening during a saved shared fight restores its room ID so returning guests can resume it.
+// Without a reopened room the existing AI fallback still lets the host finish alone.
 //  - A host opens a room (public, in the list, or invite-only) for up to three guests. A guest joins with one of their own
 //    characters; the snapshot is read from the guest's own save on the server (never from the request).
 //  - Every action on the host's save gets the room as `coopContext` (fixed-region-live.mjs action(), and coopHostAction
@@ -37,7 +38,10 @@ export function installCoopSchema(db,features){
  db.exec([
   // host_id is kept without a foreign key: a guest's reward stays payable when the host's account is gone.
   "CREATE TABLE IF NOT EXISTS coop_rewards(battle_id TEXT NOT NULL,account_id TEXT NOT NULL,host_id TEXT NOT NULL,room TEXT NOT NULL,payload TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,paid_at INTEGER,PRIMARY KEY(battle_id,account_id),FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT",
-  'CREATE INDEX IF NOT EXISTS coop_rewards_due_idx ON coop_rewards(account_id,status)'
+  'CREATE INDEX IF NOT EXISTS coop_rewards_due_idx ON coop_rewards(account_id,status)',
+  // Keep the compact command outcome after later turns, room changes and restarts. The host has no foreign key:
+  // deleting that account must not let an old guest command become a new command in another host's room.
+  'CREATE TABLE IF NOT EXISTS coop_commands(account_id TEXT NOT NULL,request_id TEXT NOT NULL,host_id TEXT NOT NULL,room TEXT NOT NULL,battle_id TEXT NOT NULL,turn TEXT NOT NULL,intent TEXT NOT NULL,result TEXT NOT NULL,created_at INTEGER NOT NULL,PRIMARY KEY(account_id,request_id),FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT'
  ].join(';')+';');
 }
 
@@ -132,15 +136,26 @@ export const coopMethods={
  // Tests (and a clean shutdown) wait for the background work.
  async coopSettled(){for(let i=0;i<20&&this.coopJobs?.size;i++)await Promise.all([...this.coopJobs]);},
  // ---------- the host's save, changed by someone else ----------
- async coopHostAction(room,type,params,caller){
+ async coopHostAction(room,type,params,caller,command=null){
   const hostId=room.host.id,host=this.db.prepare('SELECT * FROM accounts WHERE id=?').get(hostId);if(!host)throw err(404,'방장을 찾을 수 없습니다.');
   const out=await this.serial(hostId,async()=>{
    this.db.exec('BEGIN IMMEDIATE');
    try{
+    // Joining, leaving or closing can happen while this action waits for the host's save lock.
+    if(command&&(this.coopRoomOf(command.accountId)!==room||room.closed||!room.members.some(x=>x.id===command.accountId)))throw err(409,'방에 다시 들어온 뒤 행동을 골라 주세요.','NO_ROOM');
+    if(command?.requestId){
+     const receipt=this.db.prepare('SELECT * FROM coop_commands WHERE account_id=? AND request_id=?').get(command.accountId,command.requestId);
+     if(receipt){
+      if(receipt.host_id!==hostId||receipt.room!==room.id||receipt.intent!==command.intent)throw err(409,'이미 처리한 요청 번호입니다. 현재 차례에서 행동을 다시 골라 주세요.','REQUEST_ID_REUSED');
+      const r=this.coopHostRuntime(room);this.db.exec('COMMIT');
+      return {replayed:true,result:{result:JSON.parse(receipt.result)},r};
+     }
+    }
     const m=this.meta(hostId);if(!m||m.revision==null)throw err(409,'방장의 여정을 찾을 수 없습니다.');
     const entry=this.cached(hostId,m.revision),before=entry?.parts||this.loadParts(hostId);let r;
     try{r=entry?.r||new R(GAME_DB,joinState(before),true);}catch{throw err(503,'방장의 저장 기록을 열지 못했습니다.');}
-    const hadBattle=!!r.s.runtime;
+    const hadBattle=!!r.s.runtime,battleId=r.s.runtime?.id||'',turn=r.s.runtime?.coop?.turn;
+    if(command?.expected&&(command.expected.battle!==battleId||command.expected.actor!==turn?.actor||command.expected.deadline!==turn?.deadline||(command.expected.round!==undefined&&command.expected.round!==r.s.runtime?.round)))throw err(409,'전투 차례가 바뀌었습니다. 현재 차례에서 행동을 다시 골라 주세요.','COOP_STALE_TURN');
     r.actionStartedAt=Math.max(now(),m.updated_at||0);r.coopContext={...(this.coopContextFor(hostId)||{version:1,room:room.id,members:[]}),caller:caller||null};
     let result;try{result=r.action(type,params);}finally{delete r.actionStartedAt;r.coopContext=null;}
     compact(r.s);const after=splitState(r.s),d=diffParts(before,after),t=now(),requestId='coop-'+type.toLowerCase().replace(/_/g,'')+'-'+randomUUID();
@@ -149,11 +164,13 @@ export const coopMethods={
     this.db.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(hostId,m.revision,JSON.stringify(d.undo),t);this.db.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(hostId,m.revision-3);
     this.db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(hostId,requestId,m.revision+1,m.revision,'coop',JSON.stringify({result:{type,by:caller||'',result:result?.result??null}}),t);
     this.db.prepare('UPDATE metadata SET revision=?,last_request_id=?,updated_at=? WHERE account_id=?').run(m.revision+1,requestId,t,hostId);
+    if(command?.requestId)this.db.prepare('INSERT INTO coop_commands VALUES(?,?,?,?,?,?,?,?,?)').run(command.accountId,command.requestId,hostId,room.id,battleId,JSON.stringify(turn||null),command.intent,JSON.stringify(result?.result??null),t);
     const done=this.coopRecord(host,r,hadBattle);
     this.db.exec('COMMIT');this.touch(hostId,{revision:m.revision+1,parts:after,r});
     return {result,r,done,revision:m.revision+1};
    }catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');this.invalidate(hostId);throw e;}
   });
+  if(out.replayed)return out;
   // Committed: telling the room and paying rewards never turn the command into a failure.
   try{this.coopAfter(host,out.r,out.done,{byOther:true,revision:out.revision});}catch{}
   return out;
@@ -254,7 +271,11 @@ export const coopMethods={
   const visibility=b?.visibility==='INVITE'?'INVITE':'PUBLIC',cur=this.coopRoomOf(a.id);
   if(cur){if(cur.host.id!==a.id)throw err(409,'이미 다른 방에 들어가 있습니다. 먼저 그 방에서 나와 주세요.');cur.visibility=visibility;cur.updated=now();this.coopPush(cur);return {room:this.coopView(cur,a.id)};}
   const r=this.coopJourney(a.id),why=r.coopLevelReason();if(why)throw err(403,why,'LEVEL');
-  const id='R'+randomBytes(6).toString('hex'),t=now();
+  const savedRoom=r.s.runtime?.coop?.room;
+  // A running battle is already persisted with this ID. Giving its host a different room would strand every guest's
+  // turn behind COOP_ROOM. Restore only the room's identity; the saved fighters, difficulty and rewards stay intact.
+  const id=ROOM.test(String(savedRoom||''))?savedRoom:'R'+randomBytes(6).toString('hex'),t=now();
+  if(this.coopRooms().has(id))throw err(409,'이전 전투의 방을 복원하지 못했습니다. 잠시 뒤 다시 시도해 주세요.','COOP_ROOM_CONFLICT');
   const room={id,host:{id:a.id,name:a.display_name,pid:pidOf(a.id)},hostSummary:r.coopCharSummary(PLAYER),visibility,invites:new Map(),members:[],created:t,updated:t,hostSeen:t,sig:'',battle:null,closed:false,
    world:this.coopWorld(r),suggest:null,log:[]};
   this.coopRooms().set(id,room);this.coopWhere().set(a.id,id);
@@ -278,7 +299,7 @@ export const coopMethods={
   if(room.visibility!=='PUBLIC'&&!room.invites.has(a.id))throw err(403,'초대받은 모험가만 들어갈 수 있는 방입니다.');
   if(room.members.length>=COOP.maxGuests)throw err(409,'방이 가득 찼습니다. (최대 '+COOP.maxGuests+'명)');
   const {snap,summary}=this.coopSnapFor(a,b?.char,room),t=now();
-  room.members.push({id:a.id,name:a.display_name,pid:pidOf(a.id),snap,summary,ready:true,joined:t,seen:t,lastAct:null});
+  room.members.push({id:a.id,name:a.display_name,pid:pidOf(a.id),snap,summary,ready:true,joined:t,seen:t});
   room.invites.delete(a.id);this.coopWhere().set(a.id,room.id);room.updated=t;this.coopPush(room);
   return {room:this.coopView(room,a.id)};
  },
@@ -319,11 +340,21 @@ export const coopMethods={
  // A guest's command for their own fighter, applied to the host's save (only on that fighter's turn; the rules check it).
  async coopAct(a,b){
   this.coopNeed();this.rate('coop-act:'+a.id,90,60000);const {room,m}=this.coopMember(a);
-  const rid=typeof b?.requestId==='string'&&RID.test(b.requestId)?b.requestId:null;if(rid&&m.lastAct?.requestId===rid)return {...m.lastAct.out,replayed:true};
+  const rid=b?.requestId===undefined||b?.requestId===null?null:b.requestId;
+  if(rid!==null&&(typeof rid!=='string'||!RID.test(rid)))throw err(400,'행동 요청 번호가 올바르지 않습니다. 다시 시도해 주세요.','REQUEST_ID');
   const params={room:room.id,card:String(b?.card||'').slice(0,64)};
   if(b?.target!==undefined&&b?.target!==null&&b?.target!=='')params.target=String(b.target).slice(0,64);if(b?.branch)params.branch=String(b.branch).slice(0,24);
-  const res=await this.coopHostAction(room,'COOP_COMBAT',params,m.pid);
-  const out={ok:true,result:res.result?.result??null,battle:this.coopBattleFor(room,res.r,a.id)};if(rid)m.lastAct={requestId:rid,out};return out;
+  // Older clients send only a request ID. New clients also bind a first delivery to the turn they displayed, so a
+  // delayed command that has never reached the server cannot consume a later turn even with a fresh request ID.
+  let expected=null;
+  if(b?.battle!==undefined||b?.turn!==undefined){
+   if(typeof b?.battle!=='string'||!b.battle||b.battle.length>160||typeof b?.turn?.actor!=='string'||!b.turn.actor||b.turn.actor.length>64||!Number.isSafeInteger(b?.turn?.deadline))throw err(400,'전투 차례를 확인하지 못했습니다. 화면을 새로고침해 주세요.','COOP_TURN');
+   expected={battle:b.battle,actor:b.turn.actor,deadline:b.turn.deadline};
+   if(b.turn.round!==undefined){if(!Number.isSafeInteger(b.turn.round)||b.turn.round<1)throw err(400,'전투 라운드를 확인하지 못했습니다. 화면을 새로고침해 주세요.','COOP_TURN');expected.round=b.turn.round;}
+  }
+  const command={accountId:a.id,requestId:rid,expected,intent:JSON.stringify({params,expected})};
+  const res=await this.coopHostAction(room,'COOP_COMBAT',params,m.pid,command);
+  return {ok:true,result:res.result?.result??null,battle:this.coopBattleFor(room,res.r,a.id),...(res.replayed?{replayed:true}:{})};
  },
  // The 20-second auto turn: any room member (or the host) may ask; the rules check the deadline on the server clock.
  async coopAutoTurn(a){
