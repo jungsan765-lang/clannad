@@ -46,7 +46,7 @@ function journey(box){
  else if(goal)obj.append(row('hb-goal','다음 여정',['목적지 · '+mapLabel(goal)],guideButton(goal)));
  const offers=(game.mainStoryEntries?.()||[]).filter(c=>c.available&&!c.reason&&(c.state||'미시작')==='미시작');
  for(const c of offers.slice(0,3))obj.append(row('hb-offer','새 이야기 · 「'+(c.title||c.name||c.label||'이야기')+'」',['임무 화면이나 메인 화면에서 시작할 수 있습니다.']));
- if(obj.children.length<3)obj.append(mk('p','hb-note','지금 이어지는 본편 목표가 없습니다. 개인 임무·의뢰·토벌로 성장한 뒤 다음 이야기를 기다려 보세요.'));
+ if(!obj.querySelector('.hb-goal,.hb-offer'))obj.append(mk('p','hb-note','지금 이어지는 본편 목표가 없습니다. 개인 임무·의뢰·토벌로 성장한 뒤 다음 이야기를 기다려 보세요.'));
  box.append(obj);
  // Today's limits at a glance.
  const today=section('오늘의 기록','게임 내 하루와 현실 시간을 따로 셉니다.');const list=mk('div','hb-grid');

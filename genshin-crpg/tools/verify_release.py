@@ -39,6 +39,8 @@ TESTS = [
     'tests/test_server_capacity_audit_fixes.mjs', 'tests/test_social_concurrency_v01511.mjs',
     'tests/test_asset_followup.cjs', 'tests/test_client_social_followup.cjs',
     'tests/test_wish_ui_audit_fixes.cjs', 'tests/test_puzzle_ui_lifecycle.cjs',
+    'tests/test_client_connection_recovery.cjs', 'tests/test_popup_lifecycle_v01512.cjs',
+    'tests/test_server_coop_recovery_v01512.mjs',
     'tests/v013/test_recruitment_cost_consistency.cjs',
 ]
 def run(test):

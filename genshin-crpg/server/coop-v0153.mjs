@@ -142,7 +142,7 @@ export const coopMethods={
    this.db.exec('BEGIN IMMEDIATE');
    try{
     // Joining, leaving or closing can happen while this action waits for the host's save lock.
-    if(command&&(this.coopRoomOf(command.accountId)!==room||room.closed||!room.members.some(x=>x.id===command.accountId)))throw err(409,'방에 다시 들어온 뒤 행동을 골라 주세요.','NO_ROOM');
+    if(command&&(this.coopRoomOf(command.accountId)!==room||room.closed||(command.member?!room.members.includes(command.member):room.host.id!==command.accountId)))throw err(409,'방에 다시 들어온 뒤 행동을 골라 주세요.','NO_ROOM');
     if(command?.requestId){
      const receipt=this.db.prepare('SELECT * FROM coop_commands WHERE account_id=? AND request_id=?').get(command.accountId,command.requestId);
      if(receipt){
@@ -352,14 +352,20 @@ export const coopMethods={
    expected={battle:b.battle,actor:b.turn.actor,deadline:b.turn.deadline};
    if(b.turn.round!==undefined){if(!Number.isSafeInteger(b.turn.round)||b.turn.round<1)throw err(400,'전투 라운드를 확인하지 못했습니다. 화면을 새로고침해 주세요.','COOP_TURN');expected.round=b.turn.round;}
   }
-  const command={accountId:a.id,requestId:rid,expected,intent:JSON.stringify({params,expected})};
+  // Capture this membership, not just the account: leaving and rejoining creates a new member while an old
+  // command may still be waiting on the host's lock. That old intent must not act in the new membership.
+  const command={accountId:a.id,member:m,requestId:rid,expected,intent:JSON.stringify({params,expected})};
   const res=await this.coopHostAction(room,'COOP_COMBAT',params,m.pid,command);
   return {ok:true,result:res.result?.result??null,battle:this.coopBattleFor(room,res.r,a.id),...(res.replayed?{replayed:true}:{})};
  },
  // The 20-second auto turn: any room member (or the host) may ask; the rules check the deadline on the server clock.
  async coopAutoTurn(a){
   this.coopNeed();this.rate('coop-auto:'+a.id,60,60000);const room=this.coopRoomOf(a.id);if(!room)throw err(404,'들어가 있는 방이 없습니다.','NO_ROOM');this.coopTouch(room,a.id);
-  const res=await this.coopHostAction(room,'COOP_AUTO',{room:room.id},room.host.id===a.id?null:pidOf(a.id));
+  const member=room.host.id===a.id?null:room.members.find(m=>m.id===a.id);
+  if(room.host.id!==a.id&&!member)throw err(404,'들어가 있는 방이 없습니다.','NO_ROOM');
+  // User requests obey the same queued membership check as manual cards. Internal departure fallback calls
+  // coopHostAction without a command guard so it can still release a fighter after its room has closed.
+  const res=await this.coopHostAction(room,'COOP_AUTO',{room:room.id},member?member.pid:null,{accountId:a.id,member});
   return {ok:true,battle:this.coopBattleFor(room,res.r,a.id)};
  },
  async coopClaim(a){this.coopNeed();this.rate('coop-misc:'+a.id,60,60000);return {rewards:await this.coopPay(a.id)};},

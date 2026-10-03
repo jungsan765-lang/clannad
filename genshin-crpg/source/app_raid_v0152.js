@@ -9,7 +9,7 @@
  * logged in to it. Load after app_chat.js and app_mail_v0151.js. */
 (function(){'use strict';
 const SHELL=window.CRPGShell,O=window.CRPGOnline,RAID=window.CRPGRuntime?.raidV0152;if(!SHELL||!RAID)return;
-const R=window.CRPGRaid={node:null,status:null,enabled:null,loading:false,msg:'',busy:false,probe:0};
+const R=window.CRPGRaid={node:null,status:null,enabled:null,loading:false,msg:'',loadError:'',busy:false,probe:0,session:null};
 const mk=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined&&text!==null)e.textContent=String(text);return e;};
 const btn=(label,fn,cls='')=>{const b=mk('button','rd-btn '+cls,label);b.type='button';b.onclick=fn;return b;};
 const SND=n=>{try{window.CRPGSound?.play(n);}catch{}};
@@ -28,28 +28,41 @@ const claimable=e=>!!e&&[...(e.stages||[]),...(e.tiers||[])].some(x=>x.canClaim)
 const previousEvents=()=>R.status?.previousEvents||(R.status?.previous?[R.status.previous]:[]);
 const previousClaimable=()=>previousEvents().some(claimable);
 const isOpen=()=>!!openEvent()&&Date.now()<openEvent().endsAt;
-async function load(){
- if(!O?.token||R.loading)return;R.loading=true;const was=isOpen()+':'+previousClaimable();
- try{R.status=await O.request('/raid');R.enabled=true;R.msg='';}
- catch(e){if(e.status===404){R.enabled=false;R.status=null;}else R.msg=e.message;}
- finally{R.loading=false;}
- syncEvent();draw();
- // The tile and the 할 일 card follow the event: redraw the screen when it opened or closed.
- if(was!==isOpen()+':'+previousClaimable()&&typeof render==='function'&&!R.node){try{render();}catch{}}
+let statusFlight=null;
+function resetSession(){statusFlight=null;clearTimeout(R.timer);close();Object.assign(R,{status:null,enabled:null,loading:false,msg:'',loadError:'',busy:false,probe:0,seen:null,session:null});syncEvent();}
+async function load(refresh=false){
+ if(!O?.token)return Promise.resolve();const session=O.sessionStamp();
+ if(R.session&&!O.sameSession(R.session))resetSession();R.session=session;
+ if(statusFlight&&O.sameSession(statusFlight.session)){
+  // Invalidate a pre-mutation snapshot, then fetch once more; repeated news still shares one request.
+  if(refresh){const pending=statusFlight;pending.stale=true;return pending.promise.then(()=>O.sameSession(session)?load():undefined);}
+  return statusFlight.promise;
+ }
+ const flight={session,stale:false,promise:null},was=isOpen()+':'+previousClaimable();statusFlight=flight;R.loading=true;
+ const current=()=>statusFlight===flight&&!flight.stale&&O.sameSession(session);
+ flight.promise=(async()=>{
+  try{const out=await O.request('/raid');if(!current())return;R.status=out;R.enabled=true;R.loadError='';}
+  catch(e){if(!current())return;if(e.status===404){R.enabled=false;R.status=null;}else R.loadError=e.message;}
+  finally{if(statusFlight===flight){statusFlight=null;R.loading=false;}}
+  if(flight.stale||!O.sameSession(session))return;syncEvent();draw();
+  // The tile and the 할 일 card follow the event: redraw the screen when it opened or closed.
+  if(was!==isOpen()+':'+previousClaimable()&&typeof render==='function'&&!R.node){try{render();}catch{}}
+ })();return flight.promise;
 }
 R.reload=load;
 async function claim(event,reward){
- if(R.busy)return;R.busy=true;R.msg='';draw();
- try{const out=await O.request('/raid/claim',{event,reward});SND('chest_reward');SHELL.toast?.('공동 토벌전 보상 · '+rewardText(out.granted||{}));try{await O.sync();}catch{}}
- catch(e){R.msg=e.message;SND('error');}
- finally{R.busy=false;}
- await load();
+ if(R.busy)return;const session=O.sessionStamp();R.busy=true;R.msg='';draw();
+ try{const out=await O.request('/raid/claim',{event,reward});if(!O.sameSession(session))return;SND('chest_reward');SHELL.toast?.('공동 토벌전 보상 · '+rewardText(out.granted||{}));try{await O.sync();}catch{}}
+ catch(e){if(!O.sameSession(session))return;R.msg=e.message;SND('error');}
+ finally{if(O.sameSession(session))R.busy=false;}
+ if(O.sameSession(session))await load(true);
 }
 async function sortie(){
  if(R.busy)return;const why=reason();if(why){R.msg=why;draw();SND('error');return;}
- R.busy=true;let r;try{r=await act('RAID_ENTER',{});}catch(e){r={ok:false,error:e.message};}R.busy=false;
+ const node=R.node,session=O.sessionStamp();R.busy=true;draw();let r;try{r=await act('RAID_ENTER',{});}catch(e){r={ok:false,error:e.message};}if(!O.sameSession(session))return;R.busy=false;
+ if(!r){R.msg='다른 행동을 처리하는 중입니다. 잠시 뒤 다시 눌러 주세요.';draw();return;}
  if(r?.ok===false){R.msg=typeof r.error==='string'?r.error:r.error?.message||'출격하지 못했습니다.';draw();SND('error');return;}
- if(r)close();
+ if(R.node===node)close();else draw();
 }
 function reason(){
  if(!ready())return '게임을 불러오는 중입니다.';if(!O?.token)return '공동 토벌전은 온라인 계정으로 접속했을 때 열립니다.';if(R.enabled===false)return '이 서버에서는 공동 토벌전이 열리지 않았습니다.';
@@ -103,7 +116,7 @@ function draw(){
   if(st?.top?.length){const sec=mk('section','rd-top');sec.append(mk('h3','','이번 토벌에서 많이 맞힌 모험가'));const ol=mk('ol','rd-top-list');for(const p of st.top){const li=mk('li',p.me?'me':'');li.append(mk('b','',p.rank),mk('span','',p.name),mk('strong','',fmt(p.hits)+'번'),mk('small','',p.runs+'회 출격'));ol.append(li);}sec.append(ol);body.append(sec);}
  }
  for(const prev of previousEvents())if(claimable(prev))body.append(rewards(prev,'끝난 토벌 · '+prev.name+' · 받지 않은 보상 (끝난 뒤 '+(R.status?.rules?.claimDays||7)+'일까지)'));
- const parts=[head,body];if(R.msg){const m=mk('p','rd-msg',R.msg);m.setAttribute('role','alert');parts.push(m);}
+ const parts=[head,body];if(R.msg||R.loadError){const m=mk('p','rd-msg',R.msg||R.loadError);m.setAttribute('role','alert');parts.push(m);}
  box.replaceChildren(...parts);
 }
 // ---------- where it is opened ----------
@@ -131,17 +144,18 @@ if(typeof reward==='function'){const prior=reward;reward=function(p,...args){
  const out=prior(p,...args);
  try{const r=JSON.parse(game.s.global.LAST_BATTLE_RESULT_JSON||'{}').raid;if(!r)return out;
   const c=el('section','card raid-result');c.append(el('small','eyebrow','공동 토벌전'),el('h2','',r.name+' · '+r.hits+'번 맞힘'),el('p','',(r.finished?RAID.rounds+'라운드를 버텼습니다. ':'파티가 쓰러졌지만 맞힌 횟수는 모두 더해집니다. ')+'이번 토벌 나의 합계 '+fmt(r.eventHits)+'번.'));
-  c.append(button('공동 토벌전 보기',()=>R.open(),false,true));p.append(c);if(R.seen!==r.event+':'+r.hits+':'+r.eventHits){R.seen=r.event+':'+r.hits+':'+r.eventHits;setTimeout(load,300);}}catch{}
+  c.append(button('공동 토벌전 보기',()=>R.open(),false,true));p.append(c);if(R.seen!==r.event+':'+r.hits+':'+r.eventHits){R.seen=r.event+':'+r.hits+':'+r.eventHits;setTimeout(()=>load(true),300);}}catch{}
  return out;
 };}
 // News from the server: the operator opened or closed an event (always reload), or someone's sortie moved the total.
 window.CRPGChat?.on?.(ev=>{
- if(ev?.type==='raid-event'){clearTimeout(R.timer);R.timer=setTimeout(load,200);return;}
- if(ev?.type!=='raid')return;if(R.node){clearTimeout(R.timer);R.timer=setTimeout(load,400);}
+ if(ev?.type==='raid-event'){clearTimeout(R.timer);R.timer=setTimeout(()=>load(true),200);return;}
+ if(ev?.type!=='raid')return;if(R.node){clearTimeout(R.timer);R.timer=setTimeout(()=>load(true),400);}
 });
 // Find out once per login whether an event is open, and look again when the open one has run out; forget it all on logout.
 if(typeof render==='function'){const prior=render;render=function(){prior();try{
- if(!O?.token){if(R.status||R.enabled!==null){R.status=null;R.enabled=null;close();}return;}
+ if(!O?.token){if(R.status||R.enabled!==null||R.loading||R.node||R.busy||R.session)resetSession();return;}
+ if(R.session&&!O.sameSession(R.session))resetSession();
  const expired=openEvent()&&Date.now()>=openEvent().endsAt;
  if((R.enabled===null||expired)&&!R.loading&&Date.now()>=R.probe){R.probe=Date.now()+30000;load();}
 }catch{}};}

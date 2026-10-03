@@ -2802,6 +2802,9 @@ body.teyvat #notice:not(:empty),body.teyvat #root>.pending-action-notice{top:cal
 .shell-toast{top:calc(var(--hud-h,62px) + var(--crpg-top-inset) + 14px)}
 body.teyvat.shell-overlay-open>.cp-pill,body.teyvat.shell-overlay-open>.chat-fab{display:none}
 body.teyvat .shell-dialogue p.story{word-break:keep-all;overflow-wrap:anywhere}
+/* The replay dock already contains progress and controls; its old command placeholder was visible behind it. */
+.av-running body.teyvat .combat-panel .battle-command{visibility:hidden}
+body.teyvat .relationship-card .relationship-next{word-break:keep-all;overflow-wrap:anywhere}
 body.teyvat .quest-cols .quest-list{grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr))}
 /* A missing illustration must not reserve an illustration-sized empty column or a 38vh mobile panel. */
 body.teyvat .gear-stage>.shell-splash.empty{display:none}

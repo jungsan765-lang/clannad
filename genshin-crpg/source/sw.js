@@ -55,4 +55,23 @@ self.addEventListener('fetch',event=>{
  if(u.pathname===new URL('online_config.js',scopeURL).pathname){event.respondWith((async()=>{try{return await fetch(event.request,{cache:'no-store'});}catch{const core=await caches.open(CORE);return await core.match(event.request)||Response.error();}})());return;}
  event.respondWith((async()=>{const cache=await caches.open(CACHE),core=await caches.open(CORE),found=await cache.match(event.request)||await core.match(event.request);return found||fetch(event.request);})());
 });
-self.addEventListener('message',event=>{if(event.data?.type==='GET_VERSION'){event.ports[0]?.postMessage({version:VERSION});return;}if(event.data?.type==='ACTIVATE_UPDATE'){event.waitUntil(self.skipWaiting());return;}if(event.data?.type==='PACK_STATUS'){event.waitUntil((async()=>{const cache=await caches.open(CACHE);if(await cache.match(local('__ready__')))event.source?.postMessage({type:'PACK_READY',version:VERSION})})());return;}if(event.data?.type!=='DOWNLOAD_PACK')return;const port=event.ports[0];event.waitUntil((async()=>{try{const pack=await (await fetch(local('offline-pack.json'),{cache:'no-store'})).json();if(pack.version!==VERSION)throw Error('콘텐츠 버전이 바뀌었습니다. 저장 후 앱을 다시 시작해 주세요.');const staging=await caches.open(CACHE);let done=0;for(const entry of pack.files){const response=await fetch(local(entry.path));if(!response.ok)throw Error('콘텐츠 파일을 받지 못했습니다.');const bytes=await response.clone().arrayBuffer();const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('');if(hash!==entry.sha256)throw Error('파일 검증에 실패했습니다. 다시 다운로드해 주세요.');await staging.put(local(entry.path),response);port.postMessage({done:++done,total:pack.files.length});}await staging.put(local('__ready__'),new Response(JSON.stringify({version:VERSION,at:Date.now()})));port.postMessage({ok:true,version:VERSION});}catch(error){port.postMessage({error:error.message});}})())});
+// Several open tabs may request the large optional pack at once. Share its download and progress.
+let packFlight=null,packProgress=null;
+const packPorts=new Set();
+function packNews(message){packProgress=message;for(const port of packPorts)try{port.postMessage(message);}catch{packPorts.delete(port);}}
+function downloadPack(port){
+ packPorts.add(port);if(packFlight){if(packProgress)try{port.postMessage(packProgress);}catch{packPorts.delete(port);}return packFlight;}
+ packProgress=null;
+ packFlight=(async()=>{try{
+  const pack=await (await fetch(local('offline-pack.json'),{cache:'no-store'})).json();if(pack.version!==VERSION)throw Error('콘텐츠 버전이 바뀌었습니다. 저장 후 앱을 다시 시작해 주세요.');
+  const staging=await caches.open(CACHE);let done=0;
+  for(const entry of pack.files){const response=await fetch(local(entry.path),{cache:'reload'});if(!response.ok)throw Error('콘텐츠 파일을 받지 못했습니다.');const bytes=await response.clone().arrayBuffer();const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('');if(hash!==entry.sha256)throw Error('파일 검증에 실패했습니다. 다시 다운로드해 주세요.');await staging.put(local(entry.path),response);packNews({done:++done,total:pack.files.length});}
+  await staging.put(local('__ready__'),new Response(JSON.stringify({version:VERSION,at:Date.now()})));packNews({ok:true,version:VERSION});
+ }catch(error){packNews({error:error.message});}finally{packPorts.clear();packProgress=null;packFlight=null;}})();return packFlight;
+}
+self.addEventListener('message',event=>{
+ if(event.data?.type==='GET_VERSION'){event.ports[0]?.postMessage({version:VERSION});return;}
+ if(event.data?.type==='ACTIVATE_UPDATE'){event.waitUntil(self.skipWaiting());return;}
+ if(event.data?.type==='PACK_STATUS'){event.waitUntil((async()=>{const cache=await caches.open(CACHE);if(await cache.match(local('__ready__')))event.source?.postMessage({type:'PACK_READY',version:VERSION})})());return;}
+ if(event.data?.type==='DOWNLOAD_PACK'&&event.ports?.[0])event.waitUntil(downloadPack(event.ports[0]));
+});

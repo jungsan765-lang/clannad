@@ -33,28 +33,40 @@ C.on(async ev=>{
  try{await O.sync();if(!O.sameSession(session))return;SHELL.toast?.(ADMIN_NEWS[ev.reason]||'운영자가 여정 기록을 갱신했습니다.');}
  catch(e){if(O.sameSession(session)&&e.status===401){await O.logout?.();const text='운영자가 이 계정의 로그인을 끝냈습니다. 다시 로그인해 주세요.';if(typeof say==='function')say(text);else SHELL.toast?.(text);}}
 });
-let probeId=0,reconnectTimer=0;
+let probeId=0,reconnectTimer=0,probeTimer=0,probeAfter=0;
 async function probe(){
- if(C.enabled===false||C.probing||!online())return;C.probing=true;const id=++probeId,session=O.sessionStamp(),current=()=>id===probeId&&O.sameSession(session);
+ if(C.enabled===false||C.probing||!online()||document.hidden||Date.now()<probeAfter)return;C.probing=true;const id=++probeId,session=O.sessionStamp(),current=()=>id===probeId&&O.sameSession(session);
  try{const out=await O.request('/chat/recent');if(!current())return;C.enabled=true;C.max=out.max||140;C.me=out.me||'';ingest(out.messages,true);connect();}
- catch(e){if(current()){if(e.status===404)C.enabled=false;else C.enabled=null;}}
+ catch(e){if(current()){if(e.status===404)C.enabled=false;else{C.enabled=null;probeAfter=Date.now()+30000;clearTimeout(probeTimer);probeTimer=setTimeout(()=>{probeTimer=0;if(current())probe();},30000);}}}
  finally{if(current()){C.probing=false;badge();}}
 }
 function connect(){
- if(C.ctrl||!online()||C.enabled!==true)return;clearTimeout(reconnectTimer);const ctrl=new AbortController(),session=O.sessionStamp();C.ctrl=ctrl;
+ if(C.ctrl||!online()||C.enabled!==true||document.hidden)return;clearTimeout(reconnectTimer);const ctrl=new AbortController(),session=O.sessionStamp();C.ctrl=ctrl;
+ let watchdog=0,stalled=false;
+ // The server sends a heartbeat every 25 seconds. A half-open mobile connection must recover too.
+ const watch=()=>{clearTimeout(watchdog);watchdog=setTimeout(()=>{stalled=true;ctrl.abort();},60000);};watch();
  fetch(base+'/chat/stream',{headers:{Authorization:'Bearer '+O.token},signal:ctrl.signal,cache:'no-store'}).then(async res=>{
-  if(C.ctrl!==ctrl||!O.sameSession(session))return;if(!res.ok||!res.body)throw Error('stream '+res.status);C.fails=0;stopPoll();const reader=res.body.getReader(),dec=new TextDecoder();let buf='';
-  for(;;){const {value,done}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;while((i=buf.indexOf('\n\n'))>=0){const block=buf.slice(0,i);buf=buf.slice(i+2);const data=block.split('\n').filter(l=>l.startsWith('data: ')).map(l=>l.slice(6)).join('\n');if(data){try{if(C.ctrl!==ctrl||!online()||!O.sameSession(session))return;handle(JSON.parse(data));}catch{}}}}
- }).catch(()=>{if(C.ctrl===ctrl&&O.sameSession(session))C.fails++;}).finally(()=>{if(C.ctrl!==ctrl)return;C.ctrl=null;if(ctrl.signal.aborted||!online()||!O.sameSession(session))return;
-  // Missed lines while reconnecting come from the recent list; three failures switch to polling.
-  if(C.fails>=3)startPoll();reconnectTimer=setTimeout(()=>{reconnectTimer=0;if(!O.sameSession(session))return;catchUp();connect();},Math.min(30000,1500*Math.pow(2,Math.min(C.fails,4))));});
+  if(C.ctrl!==ctrl||!O.sameSession(session)||!online()){ctrl.abort();return;}if(!res.ok||!res.body)throw Error('stream '+res.status);
+  const opened=Date.now(),reader=res.body.getReader(),dec=new TextDecoder();let buf='';
+  for(;;){const {value,done}=await reader.read();if(C.ctrl!==ctrl||!online()||!O.sameSession(session)){ctrl.abort();return;}if(done)break;watch();
+   // A 200 response which closes immediately is still a failed connection, not recovery.
+   if(Date.now()-opened>=20000){C.fails=0;stopPoll();}
+   buf+=dec.decode(value,{stream:true});let i;while((i=buf.indexOf('\n\n'))>=0){const block=buf.slice(0,i);buf=buf.slice(i+2);const data=block.split('\n').filter(l=>l.startsWith('data: ')).map(l=>l.slice(6)).join('\n');if(data){try{if(C.ctrl!==ctrl||!online()||!O.sameSession(session))return;handle(JSON.parse(data));}catch{}}}}
+ }).catch(()=>{}).finally(()=>{clearTimeout(watchdog);if(C.ctrl!==ctrl)return;C.ctrl=null;if(ctrl.signal.aborted&&!stalled||!online()||!O.sameSession(session))return;
+  C.fails++;if(C.fails>=3)startPoll();
+  // Hidden tabs keep a healthy stream, but do not repeatedly reopen a broken one.
+  reconnectTimer=setTimeout(()=>{reconnectTimer=0;if(!O.sameSession(session)||document.hidden)return;catchUp();connect();},Math.min(30000,1500*Math.pow(2,Math.min(C.fails,4))));
+ });
 }
 let catchUpFlight=null;
 function catchUp(){if(!online()||C.enabled!==true)return Promise.resolve();if(catchUpFlight)return catchUpFlight;const session=O.sessionStamp(),generation=probeId,flight=(async()=>{try{const out=await O.request('/chat/recent'+(C.last?'?after='+C.last:''));if(generation===probeId&&O.sameSession(session))ingest(out.messages);}catch{}})();catchUpFlight=flight;flight.then(()=>{if(catchUpFlight===flight)catchUpFlight=null;});return flight;}
 function startPoll(){if(C.poll)return;C.poll=setInterval(()=>{if(!document.hidden)catchUp();},C.open?3000:15000);}
 function stopPoll(){clearInterval(C.poll);C.poll=null;}
-function disconnect(){clearTimeout(reconnectTimer);reconnectTimer=0;C.ctrl?.abort();C.ctrl=null;stopPoll();}
-C.reset=function(){disconnect();probeId++;C.probing=false;C.fails=0;C.me='';catchUpFlight=null;C.enabled=null;C.lines=[];C.last=0;C.unread=0;C.open=false;C.node?.remove();C.node=null;document.querySelector('body > .chat-fab')?.remove();};
+function disconnect(){clearTimeout(probeTimer);probeTimer=0;clearTimeout(reconnectTimer);reconnectTimer=0;C.ctrl?.abort();C.ctrl=null;stopPoll();}
+C.reset=function(){disconnect();probeAfter=0;probeId++;C.probing=false;C.fails=0;C.me='';catchUpFlight=null;C.enabled=null;C.lines=[];C.last=0;C.unread=0;C.open=false;C.node?.remove();C.node=null;document.querySelector('body > .chat-fab')?.remove();};
+// Recover missed lines on returning to the page without starting duplicate streams or polls.
+function resume(){if(document.hidden||!online())return;if(C.enabled===null)probe();else if(C.enabled===true){catchUp();if(!C.ctrl&&!reconnectTimer)connect();}}
+document.addEventListener('visibilitychange',resume);window.addEventListener?.('online',resume);
 // ---------- window ----------
 function toggle(open=!C.open){
  C.open=open;if(open){C.unread=0;if(!C.node)build();C.node.hidden=false;requestAnimationFrame(()=>C.node?.classList.add('open'));draw();setTimeout(()=>C.node?.querySelector('input')?.focus(),60);window.CRPGSound?.play('menu_open');}

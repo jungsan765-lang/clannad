@@ -109,6 +109,7 @@ try{
  // v0.14.0 removed daily exchange activities; the locked next affection stage still explains its blocker in red.
  assert.equal(await card.locator('.relationship-activities').count(),0,'daily exchange activities were removed');
  const unmet=card.locator('.relationship-next.requirement-unmet');assert((await unmet.innerText()).includes('개인'));assert.equal(await unmet.evaluate(n=>getComputedStyle(n).color),'rgb(255, 155, 155)');
+ assert.equal(await unmet.evaluate(n=>getComputedStyle(n).wordBreak),'keep-all','relationship prerequisites keep Korean words together');
  const lockedActivity=Object.values(globalThis.CRPGRelationships.activitiesFromDB(DB)).find(x=>x.profileId==='PROFILE_MOND_AMBER'&&x.route===relations.s.global.STORY_ROUTE_ID);assert(relations.actionReason('RELATION_ACTIVITY',{activityId:lockedActivity.id}));
  const beforeLocked=fixture.read().revision;await page.evaluate(id=>act('RELATION_ACTIVITY',{activityId:id}),lockedActivity.id);await idle();assert.equal(fixture.read().revision,beforeLocked);assert.equal(await page.evaluate(()=>CRPGOnline.pending),null);
  const dismiss=page.getByRole('button',{name:'나중에 보기',exact:true});if(await dismiss.count())await dismiss.click();await card.scrollIntoViewIfNeeded();await page.screenshot({path:resolve(evidence,'relationship-locked.png')});
@@ -152,6 +153,8 @@ try{
  delay=1800;await page.getByRole('button',{name:'선택한 행동 실행',exact:true}).click();await page.waitForTimeout(750);assert(await page.evaluate(()=>[...CombatFX.animations].some(a=>a.playState==='running')),'preparation stays animated while waiting for the authoritative result');assert.equal(await page.locator('.combat-playback').count(),0,'unconfirmed damage must not play');await page.screenshot({path:resolve(evidence,'combat-pending.png')});await page.waitForSelector('.combat-playback');delay=0;
  await page.waitForFunction(()=>document.querySelector('.playback-outcomes')?.textContent.includes('→'));
  await page.getByRole('button',{name:'일시정지',exact:true}).click();await page.waitForTimeout(150);
+ assert.equal(await page.locator('.battle-command').evaluate(n=>getComputedStyle(n).visibility),'hidden','duplicate progress strip must not protrude behind the replay dock');
+ assert(await page.getByRole('button',{name:'계속 재생',exact:true}).isVisible());assert(await page.getByRole('button',{name:'결과 바로 보기',exact:true}).isVisible());
  const during=await page.evaluate(()=>({outcome:document.querySelector('.playback-outcomes').textContent,player:document.querySelector('[data-actor-id="PLAYER_CUSTOM"] .stat')?.textContent}));
  const transition=during.outcome.match(/(?:HP|체력) (\d+) → (\d+)/);assert(transition,'real playback must display the acknowledged HP transition');assert(during.player.includes(transition[2]),'HP must already update during playback, before skipping or final render');results.push({playbackHP:during});
  await page.screenshot({path:resolve(evidence,'combat.png')});
