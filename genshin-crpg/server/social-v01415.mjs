@@ -59,8 +59,12 @@ export const socialMethods={
  accountByPid(pid){
   pid=String(pid||'');if(!/^[a-f0-9]{12}$/.test(pid))return null;
   this.pidCache??=new Map();let id=this.pidCache.get(pid);
-  if(!id&&(!this.pidBuilt||this.pidBuilt<now()-5000)){this.pidBuilt=now();for(const row of this.db.prepare('SELECT id FROM accounts').all())this.pidCache.set(pidOf(row.id),row.id);id=this.pidCache.get(pid);}
-  return id?this.db.prepare('SELECT * FROM accounts WHERE id=?').get(id):null;
+  if(!id&&(!this.pidBuilt||this.pidBuilt<now()-5000)){
+   // Rebuild from current accounts: merging would keep every deleted account until the process restarts.
+   this.pidCache=new Map(this.db.prepare('SELECT id FROM accounts').all().map(row=>[pidOf(row.id),row.id]));this.pidBuilt=now();id=this.pidCache.get(pid);
+  }
+  const account=id?this.db.prepare('SELECT * FROM accounts WHERE id=?').get(id):null;
+  if(id&&!account)this.pidCache.delete(pid);return account;
  },
  isOnline(accountId){for(const s of this.subscribers)if(s.account===accountId)return true;return false;},
  onlineList(a){

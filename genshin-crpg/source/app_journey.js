@@ -1,10 +1,18 @@
 /* Travel objectives, local discoveries and timed work. */
+const literalStoryTextIndexes=new WeakSet();
+function bindLiteralStoryText(){
+ const ids=CRPGText.literalProtagonistNodes,ix=game?.storyIndex?.();if(!ids||!ix||literalStoryTextIndexes.has(ix))return;
+ let registered=0;const route=game.s.global.STORY_ROUTE_ID;
+ for(const id of ids){const row=ix.nodes.get(route+':'+id)||ix.nodes.get('ROUTE_ISEKAI:'+id)||ix.nodes.get('ROUTE_TRAVELER:'+id);if(row&&CRPGText.registerLiteralProtagonist(id,game.storyDisplayText?.(row)??row[9]))registered++;}
+ if(registered===ids.length)literalStoryTextIndexes.add(ix);
+}
 const journeyDisplayText=displayText;
 displayText=function(value){
+ bindLiteralStoryText();
  const name=game?.s.global.PLAYER_NAME||'',last=Array.from(name).pop()||'',code=last.charCodeAt(0),tail=code>=0xac00&&code<=0xd7a3?(code-0xac00)%28:null;
  const consonant=tail!==null?tail!==0:/[013678lmn]$/i.test(last),rieul=tail===8||/[178l]$/i.test(last);
- const pairs={'은':['은','는'],'는':['은','는'],'이':['이','가'],'가':['이','가'],'을':['을','를'],'를':['을','를'],'과':['과','와'],'와':['과','와'],'이야':['이야','야'],'야':['이야','야'],'이라는':['이라는','라는'],'라는':['이라는','라는'],'으로':['으로','로'],'로':['으로','로']};
- const text=String(value||'').replace(/\{PLAYER_NAME\}(이라는|라는|으로|이야|은|는|이|가|을|를|과|와|야|로)(?=$|[\s,.!?…'"”’」]|[가-힣])/g,(_,p)=>name+pairs[p][p==='으로'||p==='로'?(!consonant||rieul?1:0):consonant?0:1]);
+ const pairs={'은':['은','는'],'는':['은','는'],'이':['이','가'],'가':['이','가'],'을':['을','를'],'를':['을','를'],'과':['과','와'],'와':['과','와'],'이야':['이야','야'],'야':['이야','야'],'이라고':['이라고','라고'],'라고':['이라고','라고'],'이라는':['이라는','라는'],'라는':['이라는','라는'],'으로':['으로','로'],'로':['으로','로']};
+ const text=String(value||'').replace(/\{PLAYER_NAME\}(이라고|라고|이라는|라는|으로|이야|은|는|이|가|을|를|과|와|야|로)(?=$|[\s,.!?…'"”’」]|[가-힣])/g,(_,p)=>name+pairs[p][p==='으로'||p==='로'?(!consonant||rieul?1:0):consonant?0:1]);
  return CRPGText.readable(journeyDisplayText(text),{name,resolve:id=>game?.tables['13_STATUS_EFFECT_DB']?.get(id)?.[1]});
 };
 const journeyMainObjective=mainObjective;

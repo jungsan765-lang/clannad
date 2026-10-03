@@ -45,6 +45,9 @@ TESTS = [
     'tests/test_settings_audio_v01513.cjs', 'tests/test_content_boundaries_v01513.cjs',
     'tests/test_release_isolation_v01513.cjs', 'tests/test_release_isolation_v01513.py',
     'tests/test_server_load_boundaries_v01513.mjs',
+    'tests/test_story_asset_bindings.cjs',
+    'tests/test_server_remaining_audit_v01513.mjs', 'tests/test_enemy_text_v01514.cjs',
+    'tests/test_story_named_text_v01514.cjs',
     'tests/v013/test_recruitment_cost_consistency.cjs',
 ]
 def run(test):
