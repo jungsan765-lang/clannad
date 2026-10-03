@@ -53,6 +53,6 @@ assert(appOnline.includes("button('로컬 테스트 로그인'"),'local title mu
 assert(appOnline.includes("localDev=isLocal&&window.CRPG_ONLINE_CONFIG?.localDev===true"),'local login helper must be gated behind the generated local config');
 assert(reset.includes('.local\\wrangler'),'reset command must only clear isolated local state');
 assert(!reset.includes('--remote'),'reset command must not include a remote operation');
-assert.equal(pkg.version,'0.14.5','this candidate stays on the 0.14 test line');
+assert.match(pkg.version,/^0\.14\.\d+$/,'this candidate stays on the 0.14 test line');
 
 console.log('PASS isolated one-click local development configuration');

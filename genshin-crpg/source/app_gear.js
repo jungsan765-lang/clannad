@@ -32,7 +32,7 @@ function memberCard(id){
  const slots=el('div','gear-slots');
  for(const [category,label]of SLOTS){
   const inv=inSlot(id,category),cell=el('div','gear-cell'),b=button('',()=>openPicker(id,category));b.className='gear-slot'+(inv?'':' empty');b.dataset.category=category;
-  if(inv){const d=presenter().itemDetail(inv);b.classList.add('tier-'+(d.tier?.rank||1));b.setAttribute('aria-label',label+' · '+itemLabel(inv,d)+' · 바꾸기');b.append(itemGlyph(d),el('small','',label),tierMark(el('strong','',itemLabel(inv,d)),d));cell.append(b,tooltip(inv,d));}
+  if(inv){const d=presenter().itemDetail(inv);b.classList.add('tier-'+(d.tier?.rank||1));{const f=typeof enhanceFrameClass==='function'?enhanceFrameClass(inv.enhance):'';if(f)b.classList.add('enh',f);}b.setAttribute('aria-label',label+' · '+itemLabel(inv,d)+' · 바꾸기');b.append(itemGlyph(d),el('small','',label),tierMark(el('strong','',itemLabel(inv,d)),d));cell.append(b,tooltip(inv,d));}
   else{b.setAttribute('aria-label',label+' · 비어 있음 · 장착하기');b.append(el('span','gear-empty-mark','+'),el('small','',label),el('strong','','비어 있음'));cell.append(b);}
   slots.append(cell);
  }
@@ -95,7 +95,7 @@ for(const name of ['pointerout','focusout'])document.addEventListener(name,e=>{c
 window.addEventListener('resize',()=>document.querySelectorAll('.gear-tip:popover-open').forEach(t=>t.hidePopover()));
 
 growthScreen=function(p){
- p.classList.add('gear-screen');p.append(el('div','eyebrow','EQUIPMENT'),el('h1','','장비 장착'),el('p','muted','편성된 파티원의 장비와 능력치입니다. 칸을 누르면 장비를 바꾸고'+(canHover()?', 마우스를 올리면 효과가 보입니다.':' 효과를 확인할 수 있습니다.')+' 편성에서 빠진 동료의 장비는 소지품으로 돌아갑니다.'));
+ p.classList.add('gear-screen');p.append(el('div','eyebrow','CHARACTER'),el('h1','','캐릭터'),el('p','muted','편성된 파티원의 장비와 능력치입니다. 칸을 누르면 장비를 바꾸고'+(canHover()?', 마우스를 올리면 효과가 보입니다.':' 효과를 확인할 수 있습니다.')+' 편성에서 빠진 동료의 장비는 가방으로 돌아갑니다.'));
  const locked=game.actionReason('EQUIP');if(locked)p.append(el('p','phase-note','지금은 장비를 확인만 할 수 있습니다. '+locked));
  const grid=el('div','gear-members');for(const id of (game.formationOrder?game.formationOrder():game.s.party.filter(x=>x.active).map(x=>x.source)))grid.append(memberCard(id));p.append(grid);
  books(p);
@@ -114,7 +114,7 @@ window.openGear=function(slot,owner){
 const gearSidebar=sidebar;
 sidebar=function(g,v){
  const side=gearSidebar(g,v),b=side.querySelector('nav [data-screen="STATUS"]');
- if(b){const spans=b.querySelectorAll('span');if(spans[0])spans[0].textContent='⚔';if(spans[1])spans[1].textContent='장비 장착';b.setAttribute('aria-label','장비 장착');}
+ if(b){const spans=b.querySelectorAll('span');if(spans[0])spans[0].textContent='⚔';if(spans[1])spans[1].textContent='캐릭터';b.setAttribute('aria-label','캐릭터');}
  const left=game?.defeatLockRemaining?.()||0,note=side.querySelector('.phase-note');
  if(left>0&&note){note.replaceChildren(document.createTextNode('패배 후 회복 중 · '));const t=el('strong','',Math.ceil(left/1000)+'초');t.dataset.defeatCountdown='1';note.append(t);}
  return side;

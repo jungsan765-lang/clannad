@@ -36,8 +36,8 @@ function floorCard(f,v){
  d.append(s,el('p','muted','권장 Lv. '+f.level+(f.floor>=10?' · 파티 전원 Lv. 20 필요':'')),roomList(f.rooms,v.active?.floor===f.floor?v.active.chamber:0),el('p','abyss-reward','첫 정복 보상: '+f.reward.text));
  if(!v.active){const b=button(f.cleared?'다시 도전':'입장',async()=>{document.getElementById('modal').close();await act('ABYSS_ENTER',{floor:f.floor});},!!f.reason,!f.cleared);b.title=f.reason;d.append(b);if(f.reason)d.append(el('small','muted',f.reason));}
  if(f.cleared&&!f.claimed&&!v.active){
-  if(f.reward.artifact)d.append(button('보상 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor});abyssScreen();},false,true));
-  else{const s=pick(d,'받을 이나즈마 장비',f.reward.choice.map(id=>[id,safeName('16_EQUIP_DB',id)+' · '+safeName('16_EQUIP_DB',id,2)]));d.append(button('보상 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor,equipment:s.value});abyssScreen();},false,true));}
+  if(f.reward.artifact||!f.reward.choice)d.append(button('보상 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor});abyssScreen();},false,true));
+  else{const s=pick(d,'받을 이나즈마 장비',f.reward.choice.map(id=>[id,rewardEquipLabel(id)+' · '+safeName('16_EQUIP_DB',id,2)]));d.append(button('보상 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor,equipment:s.value});abyssScreen();},false,true));}
  }
  return d;
 }
@@ -49,7 +49,7 @@ function abyssScreen(){
  const next=Math.min(12,(Object.keys(v.progress.clears).map(Number).sort((a,b)=>b-a)[0]||0)+1);
  for(const f of v.floors){const card=floorCard(f,v);if(f.floor===(v.active?.floor||next)||f.cleared&&!f.claimed)card.open=true;p.append(card);}
  const marks=Object.entries(v.progress.tags);
- p.append(el('h2','',v.markName),el('p',marks.length?'':'muted',marks.length?marks.sort((a,b)=>a[1]-b[1]).map(([id,f])=>who(id)+' '+f+'층').join(' · '):'아직 각인이 새겨진 동료가 없습니다.'));
+ p.append(el('h2','',v.markName+' · 다른 층에 나설 수 없는 동료'),el('p','muted','층을 정복할 때 함께 싸운 동료에게 새겨지는 표시입니다. 도전 전체 초기화로 지울 수 있습니다.'),el('p',marks.length?'':'muted',marks.length?marks.sort((a,b)=>a[1]-b[1]).map(([id,f])=>who(id)+' '+f+'층').join(' · '):'아직 각인이 새겨진 동료가 없습니다.'));
  p.append(button('도전 전체 초기화',()=>confirmBox('도전 전체 초기화','모든 층의 정복 기록과 '+v.markName+'이 한꺼번에 지워지고 1층부터 다시 시작합니다. 층 하나만 골라 초기화할 수는 없습니다. 이미 받은 첫 정복 보상은 다시 받을 수 없습니다.','전체 초기화',async()=>{await act('ABYSS_RESET',{confirm:true});abyssScreen();}),!!game.actionReason('ABYSS_RESET',{confirm:true})));
  showModal('나선비경',p);
 }

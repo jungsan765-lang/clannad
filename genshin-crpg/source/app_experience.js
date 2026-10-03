@@ -39,7 +39,7 @@ shop=function(p){
  const entry=placeHeader(p,'SHOP');if(!entry)return;
  if(isInn(entry)){const c=el('section','card inn-service'),stock=game.placeStocks().find(s=>s.row[3]==='SERVICE_INN_REST_8H');if(stock){c.append(el('h2','','숙박하기'),el('p','','8시간 숙박 후 현재 파티 전원의 HP를 모두 회복합니다.'),el('p',Number(game.s.global.MORA)<Number(stock.row[5])?'lack':'',stock.row[5]+' 모라 · 보유 '+game.s.global.MORA+' 모라'));if(stock.reason)c.append(el('p','choice-note',stock.reason));const b=actionButton('숙박하기 · '+stock.row[5]+' 모라','BUY',{stock:stock.row[0],quantity:1},true);b.disabled=b.disabled||!!stock.reason;c.append(b);}p.append(c);return;}
  p.append(el('p','shop-balance','보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라'));
- if(entry.entity==='NPC_MOND_SARA')p.append(el('p','','사라에게 완성된 음식을 구입할 수 있습니다. 음식은 아이템 화면에서 파티원에게 사용합니다.'));
+ if(entry.entity==='NPC_MOND_SARA')p.append(el('p','','사라에게 완성된 음식을 구입할 수 있습니다. 음식은 가방에서 파티원에게 사용합니다.'));
  const stocks=game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')),groups=['기본 무기','단조 무기','방어구','법구','장신구','제작 재료','음식','소모품','제작법','기타'];
  for(const group of groups){const rows=stocks.filter(s=>shopStockGroup(s.row)===group).sort((a,b)=>Number(a.row[5])-Number(b.row[5])||a.row[4].localeCompare(b.row[4],'ko'));if(!rows.length)continue;
   p.append(el('h2','',group));const grid=el('div','grid facility-stock');
@@ -99,6 +99,9 @@ returnToJourney=function(p){
   p.append(actionButton(game.playPhase()==='PREPARATION'?'전투 준비로 돌아가기':'이야기로 돌아가기','MENU',{screen:'STORY'},true));
 };
 let bagCategory='전체',bagSelection=null;
+// 0.14.12: equipment frames by enhancement (user: 「강화수치가 높을수록 테두리, 운명의 자리처럼 간지나게는 말고, 10강부터 조금 간지」).
+// +3 silver line, +6 gold line, +9 double gold line, +10 gold corners and a soft inner glow, +12 adds a slow shine.
+function enhanceFrameClass(n){n=Number(n)||0;return n>=12?'enh-12':n>=10?'enh-10':n>=9?'enh-9':n>=6?'enh-6':n>=3?'enh-3':'';}
 function itemGlyph(d){
   if(d.icon?.url){const img=el('img','item-icon');img.src=d.icon.url;img.alt='';return img;}
   const icons={한손검:'🗡',양손검:'⚔',장병기:'🔱',활:'🏹',법구:'📖',방어구:'🛡',장신구:'💍',특수:'💠',음식:'🍲',광물:'💎',전술도구:'🧰'};
@@ -116,7 +119,7 @@ function itemDetailView(box,d){
     const select=el('select');select.setAttribute('aria-label','아이템 사용 대상');for(const member of game.s.party.filter(x=>x.active))select.append(new Option(ownerName(member.source),member.source));
     const use=button('1개 사용',()=>act('USE_ITEM',{item:d.id,quantity:1,owner:select.value,variant:d.variant||undefined}),false,true),reason=el('p','choice-note');
     const refresh=()=>{let message=game.actionReason('USE_ITEM')||'';if(!message)try{if(d.actionHint==='FOOD'){const spec=game.foodSpec(d.id,{variant:d.variant}),a=game.economyOwner(select.value);if(a.hp<=0)message='전투불능 대상은 일반 음식을 먹을 수 없습니다.';else if(spec.heal&&a.lastMeal===d.id)message='직전에 먹은 회복 음식과 다른 음식을 골라 주세요.';else if(!spec.status&&a.hp>=a.maxHp&&!a.statuses.some(s=>s.id==='STATUS_BOND_OF_LIFE'))message='이미 HP가 가득 찬 대상입니다.';}else if(game.growth(select.value).max)message='최대 레벨입니다.';}catch(e){message=e.message;}use.disabled=busy||!!message;use.title=message;reason.textContent=message;};select.onchange=refresh;refresh();box.append(select,use,reason,el('small','muted','현재 파티에 편성된 캐릭터만 사용할 수 있습니다.'));
-  }else if(d.kind==='EQUIPMENT'){const b=button('장비 장착에서 장착하기',()=>openGear(d.slot,d.owner),!!game.actionReason('MENU',{screen:'STATUS'}));box.append(b);}
+  }else if(d.kind==='EQUIPMENT'){const why=game.actionReason('MENU',{screen:'STATUS'}),b=button('캐릭터 화면에서 장착하기',()=>openGear(d.slot,d.owner),!!why);if(why)b.title=why;box.append(b);}
   else if(d.actionHint==='COMBAT_MEDICINE')box.append(el('p','muted','전투 중 행동 카드에서 사용합니다.'));
   else if(d.actionHint==='TACTICAL_PREPARATION')box.append(el('p','muted','아래 전투 도구 준비에서 선택할 수 있습니다.'));
 }
@@ -129,7 +132,7 @@ inventory=function(p){
   let shown=entries.filter(d=>bagCategory==='전체'||d.group===bagCategory);if(!shown.length&&entries.length){bagCategory='전체';shown=entries;}
   const layout=el('div','bag-layout'),grid=el('div','bag-grid'),detail=el('section','card bag-detail');detail.setAttribute('aria-label','선택한 아이템 상세');
   const chosen=shown.find(d=>d.key===bagSelection)||shown[0];bagSelection=chosen?.key||null;
-  for(const d of shown){const wrap=el('div','bag-cell'),b=button('',()=>{bagSelection=d.key;for(const x of grid.querySelectorAll('button'))x.setAttribute('aria-pressed',String(x.dataset.itemKey===d.key));itemDetailView(detail,d);});b.className='bag-item tier-'+(d.tier?.rank||1);b.dataset.itemKey=d.key;b.setAttribute('aria-pressed',String(d.key===bagSelection));b.setAttribute('aria-label',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:' '+d.quantity+'개'));b.append(itemGlyph(d),el('strong','item-count',d.kind==='EQUIPMENT'?'+'+d.enhance:'×'+d.quantity),tierMark(el('span','item-name',d.name),d));if(d.equipped)b.append(el('small','item-worn','장착'));
+  for(const d of shown){const wrap=el('div','bag-cell'),b=button('',()=>{bagSelection=d.key;for(const x of grid.querySelectorAll('button'))x.setAttribute('aria-pressed',String(x.dataset.itemKey===d.key));itemDetailView(detail,d);});b.className='bag-item tier-'+(d.tier?.rank||1);if(d.kind==='EQUIPMENT'){const f=enhanceFrameClass(d.enhance);if(f)b.classList.add('enh',f);}b.dataset.itemKey=d.key;b.setAttribute('aria-pressed',String(d.key===bagSelection));b.setAttribute('aria-label',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:' '+d.quantity+'개'));b.append(itemGlyph(d),el('strong','item-count',d.kind==='EQUIPMENT'?'+'+d.enhance:'×'+d.quantity),tierMark(el('span','item-name',d.name),d));if(d.equipped)b.append(el('small','item-worn','장착'));
     const tooltip=el('div','item-tooltip');tooltip.id='item-tip-'+grid.children.length;tooltip.setAttribute('role','tooltip');tooltip.append(tierMark(el('strong','',d.name),d),el('p','',itemSummary(d)||d.category));b.setAttribute('aria-describedby',tooltip.id);wrap.append(b,tooltip);grid.append(wrap);
   }
   if(chosen)itemDetailView(detail,chosen);else detail.append(el('p','empty','아직 보유한 아이템이 없습니다.'));layout.append(grid,detail);p.append(layout);
@@ -148,7 +151,7 @@ quests=function(p,v){
   for(const q of v.quests){const def=parseUI(q.row[10]),c=el('section','card');if(def.map_id!==game.s.global.CURRENT_MAP_ID)continue;
     c.append(el('h2','',q.row[1]),el('p','',q.state?.claimed?def.revisit:def.text));
     if(q.reason)c.append(el('small','choice-note',q.reason));
-    else if(q.state?.node==='READY_TO_CLAIM'){const r=parseUI(q.row[11]);if(r.equipment_choice)for(const id of r.equipment_choice)c.append(actionButton(safeName('16_EQUIP_DB',id)+' 수령','CLAIM_QUEST',{quest:q.row[0],equipment:id}));else c.append(actionButton('보상 수령','CLAIM_QUEST',{quest:q.row[0]},true));}
+    else if(q.state?.node==='READY_TO_CLAIM'){const r=parseUI(q.row[11]);if(r.equipment_choice)for(const id of r.equipment_choice)c.append(actionButton(rewardEquipLabel(id)+' 수령','CLAIM_QUEST',{quest:q.row[0],equipment:id}));else c.append(actionButton('보상 수령','CLAIM_QUEST',{quest:q.row[0]},true));}
     else for(const ch of def.choices||[])c.append(actionButton(ch.label,'QUEST_CHOICE',{quest:q.row[0],choice:ch.id}));list.append(c);
   }
   if(!list.children.length)list.append(el('p','muted','현재 장소에서 받을 수 있는 의뢰가 없습니다.'));p.append(list);
@@ -191,7 +194,7 @@ function relationsScreen(p){
 }
 
 let autoSavePaused=false;
-const experienceSidebar=sidebar;sidebar=function(g,v){const side=experienceSidebar(g,v);if(autoSavePaused)side.append(el('p','phase-note','자동 저장 일시중지 · 저장·설정에서 다시 시작'));return side;};
+const experienceSidebar=sidebar;sidebar=function(g,v){const side=experienceSidebar(g,v);if(autoSavePaused)side.append(el('p','phase-note','자동 저장 일시중지 · 설정에서 다시 시작'));return side;};
 const experienceStoreSave=storeSave;
 storeSave=function(){return autoSavePaused?Promise.resolve():experienceStoreSave();};
 async function resumeAutoSave(){
@@ -208,7 +211,7 @@ function confirmDeleteSave(rec,container){
   if(busy)return;const dialog=el('dialog','save-delete-confirm');dialog.setAttribute('aria-labelledby','delete-save-title');dialog.setAttribute('role','alertdialog');
   const title=el('h2','','이 저장을 삭제할까요?');title.id='delete-save-title';
   const current=!!game&&(activeSaveSlot||'auto:'+game.s.global.SAVE_ID)===rec.slotId;
-  dialog.append(title,el('p','',rec.summary?.playerName+' · '+(rec.summary?.name||'게임 불러오기')),el('p','',current?'현재 플레이는 유지됩니다. 자동 저장은 일시중지되며, 저장·설정에서 새 자동 저장을 시작할 수 있습니다.':'선택한 저장만 삭제합니다. 다른 저장과 현재 플레이는 유지됩니다.'));
+  dialog.append(title,el('p','',rec.summary?.playerName+' · '+(rec.summary?.name||'게임 불러오기')),el('p','',current?'현재 플레이는 유지됩니다. 자동 저장은 일시중지되며, 설정에서 새 자동 저장을 시작할 수 있습니다.':'선택한 저장만 삭제합니다. 다른 저장과 현재 플레이는 유지됩니다.'));
   const cancel=button('취소',()=>dialog.close()),confirm=button('저장 삭제',async()=>{
     if(busy)return;busy=true;confirm.disabled=true;cancel.disabled=true;
     try{await saveQueue.catch(()=>{});await saveStore.remove(rec.slotId,{expectedSlotRevision:rec.slotRevision});slotRevisions.delete(rec.slotId);
@@ -279,8 +282,8 @@ function combatCardEffect(card,b){
   if(meta.length)box.append(el('p','muted',meta.join(' · ')));
   if(game.protagonistCombatView&&['PLAYER_ISEKAI_E','PLAYER_ISEKAI_Q'].includes(card.id)){
     const v=game.protagonistCombatView();
-    if(card.id==='PLAYER_ISEKAI_E'){const t=v.windowTargets?.find(x=>x.id===selectedTarget);if(t)box.append(el('p','skill-preview',t.reason||t.name+' · 현재 선택 시 최대 HP −'+t.amount+' · 다음 자기 차례까지'));}
-    if(card.id==='PLAYER_ISEKAI_Q'){box.append(el('p','skill-preview','현재 합동 공격 추가 배율 +'+v.bonusPct+'% · 행동 가능한 동료가 기본 공격에 참가합니다.'));if(v.members?.length)box.append(el('p','muted',v.members.map(a=>a.name+(a.reason?' · 불참('+a.reason+')':' · 참가')).join(' / ')));}
+    if(card.id==='PLAYER_ISEKAI_E'){const t=v.exposeTargets?.find(x=>x.id===selectedTarget);if(t)box.append(el('p','skill-preview',t.name+' · 공격력×'+(v.exposeCoefficient||1.5)+' 피해 · '+(v.exposeRounds||2)+'라운드 동안 파티에게 받는 피해 +'+t.pct+'%'));else{const w=v.windowTargets?.find(x=>x.id===selectedTarget);if(w)box.append(el('p','skill-preview',w.reason||w.name+' · 현재 선택 시 최대 HP −'+w.amount+' · 다음 자기 차례까지'));}}
+    if(card.id==='PLAYER_ISEKAI_Q'){box.append(el('p','skill-preview','현재 합동 공격 추가 배율 +'+v.bonusPct+'% · 행동 가능한 동료가 각자의 원소로 함께 공격합니다.'));if(v.members?.length)box.append(el('p','muted',v.members.map(a=>a.name+(a.reason?' · 불참('+a.reason+')':' · 참가')).join(' / ')));}
   }
   showModal('효과 · '+(card.name||'행동'),box);
 }
