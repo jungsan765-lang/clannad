@@ -105,9 +105,9 @@ S.options=name=>(CHOICES[name]||[]).filter(([id])=>usable(id));
 // Choices saved before the candidate lists were settled (0.14.7 round 2) are dropped once, so the defaults the
 // player picked by listening apply everywhere.
 const CHOICE_REV=2;
-function settled(){if(settings.sfxChoiceRev===CHOICE_REV)return;settings.sfxChoice={};settings.sfxChoiceRev=CHOICE_REV;try{persistSettings();}catch{}}
+function settled(){if(settings.sfxChoiceRev===CHOICE_REV&&settings.sfxChoice&&typeof settings.sfxChoice==='object'&&!Array.isArray(settings.sfxChoice))return;settings.sfxChoice={};settings.sfxChoiceRev=CHOICE_REV;try{persistSettings();}catch{}}
 S.choice=name=>{settled();const list=S.options(name),saved=settings.sfxChoice?.[name];return list.some(([id])=>id===saved)?saved:list[0]?.[0]||null;};
-S.setChoice=function(name,id){settled();settings.sfxChoice={...(settings.sfxChoice||{}),[name]:id};try{persistSettings();}catch{}};
+S.setChoice=function(name,id){settled();if(!S.options(name).some(([candidate])=>candidate===id))return;settings.sfxChoice={...settings.sfxChoice,[name]:id};try{persistSettings();}catch{}};
 const priorBuffer=GameAudio.buffer.bind(GameAudio);
 // The official click is fetched by app_av.js under the name 'click'.
 GameAudio.buffer=async function(name,force){if(!this.context)return null;if(KEEP.has(name))return priorBuffer(name);const id=force||S.choice(name);if(!id||id==='none')return null;return priorBuffer(id==='official_click'?'click':id);};
@@ -119,31 +119,44 @@ function playBuffer(buffer,level,id){
  src.connect(g).connect(c.destination);return {src,g};
 }
 // Fanfares dip the music for their length so they are heard.
-const DUCK=new Set(['victory','defeat','level_up','quest_complete','commission_complete','wish_3','wish_4','wish_5','wish_reveal4','wish_reveal5','constellation']);let duckUntil=0;
+const DUCK=new Set(['victory','defeat','level_up','quest_complete','commission_complete','wish_3','wish_4','wish_5','wish_reveal4','wish_reveal5','constellation']);let duckUntil=0,duckOwner=null;
 const priorSync=GameAudio.sync.bind(GameAudio);
-GameAudio.sync=function(...args){const out=priorSync(...args);if(this.music&&performance.now()<duckUntil)this.music.volume=Math.min(this.music.volume,settings.musicVolume*.65*.25);return out;};
-function duck(seconds){duckUntil=performance.now()+seconds*1000;const m=GameAudio.music;if(m)m.volume=Math.min(m.volume,settings.musicVolume*.65*.25);clearTimeout(S.duckTimer);S.duckTimer=setTimeout(()=>{duckUntil=0;try{GameAudio.sync();}catch{}},seconds*1000+120);}
+GameAudio.sync=function(...args){const out=priorSync(...args);if(!this.enabled()||document.hidden||!S.effectVolume()){S.stopAudition();for(const voice of this.voices){try{voice.stop();}catch{}}this.voices.clear();}if(this.music&&performance.now()<duckUntil)this.music.volume=Math.min(this.music.volume,settings.musicVolume*.65*.25);return out;};
+function duck(seconds,owner=null){duckOwner=owner;duckUntil=performance.now()+seconds*1000;const m=GameAudio.music;if(m)m.volume=Math.min(m.volume,settings.musicVolume*.65*.25);clearTimeout(S.duckTimer);S.duckTimer=setTimeout(()=>{duckOwner=null;duckUntil=0;try{GameAudio.sync();}catch{}},seconds*1000+120);}
 // Settings: listen to a candidate (it does not change the choice by itself).
-S.audition=async function(name,id){try{await GameAudio.unlock?.();S.stopAudition();if(id==='none')return;const b=await GameAudio.buffer(name,id);if(!b||!GameAudio.context)return;const {src}=playBuffer(b,(settings.sfxVolume||.6)*levelOf(name,id),id);S.auditionSource=src;src.start();if(DUCK.has(name))duck(b.duration);}catch{}};
-S.stopAudition=()=>{try{S.auditionSource?.stop();}catch{}S.auditionSource=null;};
+let auditionToken=0;
+S.stopAudition=()=>{auditionToken++;const source=S.auditionSource;S.auditionSource=null;try{source?.stop();}catch{}if(source&&duckOwner===source){clearTimeout(S.duckTimer);duckOwner=null;duckUntil=0;try{GameAudio.sync();}catch{}}};
+S.audition=async function(name,id){S.stopAudition();const token=auditionToken,epoch=GameAudio.epoch;try{
+ const current=()=>token===auditionToken&&epoch===GameAudio.epoch&&GameAudio.enabled()&&!document.hidden&&S.effectVolume()>0;
+ if(id==='none'||!usable(id)||!current())return;await GameAudio.unlock?.();if(!current())return;
+ const b=await GameAudio.buffer(name,id);if(!b||!current()||GameAudio.context?.state!=='running')return;
+ const {src,g}=playBuffer(b,S.effectVolume()*levelOf(name,id),id);S.auditionSource=src;
+ src.onended=()=>{src.disconnect();g.disconnect();if(S.auditionSource===src)S.auditionSource=null;};
+ try{src.start();}catch(error){src.onended();throw error;}if(DUCK.has(name))duck(b.duration,src);
+}catch{}};
+const priorStop=GameAudio.stop.bind(GameAudio);
+GameAudio.stop=function(...args){clearTimeout(S.duckTimer);duckOwner=null;duckUntil=0;S.stopAudition();return priorStop(...args);};
 // A tab, page or menu has its own sound in Genshin; the generic click that every button makes yields to it.
 const OWN_CLICK=new Set(['tab','page','menu_open','menu_close','handbook_open','wish_open','wish_click','wish_return','wish_close','constellation_open','constellation_node']);
+const namedTokens=new Map();
 GameAudio.play=async function(name){
- if(!this.armed||!this.enabled()||document.hidden||!settings.sfxVolume)return;
+ try{
+ if(!this.armed||!this.enabled()||document.hidden||!S.effectVolume())return;
  if(name==='equip'&&S.equipKind==='artifact')name='equip_artifact';
  const now=performance.now();
  if(OWN_CLICK.has(name)&&now-(this.clickAt||0)<150){this.clickSkip=this.clickToken;try{this.clickSource?.stop();}catch{}}
  let token=0;if(name==='click'){token=this.clickToken=(this.clickToken||0)+1;this.clickAt=now;}
  const ui=['click','hover','tab','equip'].includes(name);if(ui){const gap=name==='hover'?45:90;if(now-(this['last_'+name]||0)<gap)return;this['last_'+name]=now;}
- const epoch=this.epoch,id=KEEP.has(name)?name:S.choice(name),buffer=await this.buffer(name);if(!buffer||epoch!==this.epoch||!this.enabled()||document.hidden||this.context.state!=='running')return;
+ const epoch=this.epoch,namedToken=namedTokens.get(name),id=KEEP.has(name)?name:S.choice(name),buffer=await this.buffer(name);if(!buffer||epoch!==this.epoch||namedToken!==namedTokens.get(name)||!this.enabled()||document.hidden||!S.effectVolume()||this.context?.state!=='running')return;
  if(token&&this.clickSkip===token)return;
  if(this.voices.size>=8){const old=this.voices.values().next().value;try{old.stop();}catch{}this.voices.delete(old);}
- const {src:source,g:gain}=playBuffer(buffer,settings.sfxVolume*levelOf(name,id),id);
- this.voices.add(source);source.onended=()=>{this.voices.delete(source);source.disconnect();gain.disconnect();if(this.clickSource===source)this.clickSource=null;if(this.named?.[name]===source)delete this.named[name];};source.start();if(token)this.clickSource=source;(this.named||(this.named={}))[name]=source;if(DUCK.has(name))duck(buffer.duration);
+ const {src:source,g:gain}=playBuffer(buffer,S.effectVolume()*levelOf(name,id),id);
+ this.voices.add(source);source.onended=()=>{this.voices.delete(source);source.disconnect();gain.disconnect();if(this.clickSource===source)this.clickSource=null;if(this.named?.[name]===source)delete this.named[name];};try{source.start();}catch(error){source.onended();throw error;}if(token)this.clickSource=source;(this.named||(this.named={}))[name]=source;if(DUCK.has(name))duck(buffer.duration,source);
+ }catch{}
 };
 S.play=name=>{try{GameAudio.play(name);}catch{}};
 // A long recording (the wish's falling star) stops when its scene is skipped.
-S.stop=name=>{try{GameAudio.named?.[name]?.stop();}catch{}if(DUCK.has(name)){duckUntil=0;try{GameAudio.sync();}catch{}}};
+S.stop=name=>{namedTokens.set(name,(namedTokens.get(name)||0)+1);try{GameAudio.named?.[name]?.stop();}catch{}if(DUCK.has(name)){duckUntil=0;try{GameAudio.sync();}catch{}}};
 // 0.14.12: the wish video carries its own sound; the music dips under it like under a fanfare. The video follows the
 // effect volume and the sound switch.
 S.duck=seconds=>{try{duck(seconds);}catch{}};

@@ -82,9 +82,9 @@ function topOverlay(){
   .map((n,i)=>({n,z:Number(getComputedStyle(n).zIndex)||0,i})).sort((a,b)=>a.z-b.z||a.i-b.i).at(-1)?.n||null;
 }
 S.topOverlay=topOverlay;
-function modalControls(n){return [...n.querySelectorAll('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),summary,[tabindex]:not([tabindex="-1"])')].filter(e=>!e.closest('[hidden],[inert]')&&e.getClientRects().length);}
+function modalControls(n){return [...n.querySelectorAll('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),summary,[tabindex]:not([tabindex="-1"])')].filter(e=>!e.disabled&&!e.matches?.(':disabled')&&!(e.hasAttribute?.('tabindex')&&Number(e.getAttribute('tabindex'))<0)&&!e.closest('[hidden],[inert]')&&e.getClientRects().length&&!['hidden','collapse'].includes(getComputedStyle(e).visibility));}
 let modalRoot=null,modalReturn=null;const modalInert=new Map();
-function focusOverlay(next){if(next&&!next.contains(document.activeElement)){const first=modalControls(next)[0];if(first)first.focus({preventScroll:true});else{next.tabIndex=-1;next.focus({preventScroll:true});}}}
+function focusOverlay(next){const active=document.activeElement;if(next&&(!next.contains(active)||active?.disabled||active?.matches?.(':disabled')||active?.closest?.('[hidden],[inert]')||!active?.getClientRects().length||['hidden','collapse'].includes(getComputedStyle(active).visibility))){const first=modalControls(next)[0];if(first)first.focus({preventScroll:true});else{next.tabIndex=-1;next.focus({preventScroll:true});}}}
 function inertBackground(next){for(const n of document.body.children)if(n!==next&&!n.contains(next)&&!['SCRIPT','STYLE','LINK'].includes(n.tagName)&&!modalInert.has(n)){modalInert.set(n,n.inert);n.inert=true;}}
 function syncOverlay(){
  const next=topOverlay();if(next===modalRoot){if(next)inertBackground(next);focusOverlay(next);return;}
@@ -96,7 +96,7 @@ function syncOverlay(){
   focusOverlay(next);
  }else{const back=modalReturn?.isConnected?modalReturn:document.querySelector('.hud-menu-button');back?.focus({preventScroll:true});modalReturn=null;}
 }
-try{let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;queueMicrotask(()=>{queued=false;syncOverlay();});}).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class','open']});}catch{}
+try{let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;queueMicrotask(()=>{queued=false;syncOverlay();S.syncGuideBoundary?.();});}).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class','open','disabled','inert']});}catch{}
 document.addEventListener('keydown',e=>{
  const top=topOverlay();if(!top)return;
  if(!top.contains(e.target)){syncOverlay();e.preventDefault();e.stopImmediatePropagation();return;}
@@ -167,7 +167,19 @@ function buildHUD(aside,key){
  aside.replaceChildren(...[info,guideSlot,me,nav,tools,card].filter(Boolean));
  aside.dataset.shellScreen=key;
 }
-// The learning guide lives behind a HUD pill; its popover opens once per step and never covers play for long.
+// Keep ordinary notices readable above the guide. Temporary toasts and modal/recovery surfaces take priority.
+function syncGuideBoundary(){
+ const body=document.body,notice=$('#notice'),pop=$('.hud-guide-pop'),slot=$('main > aside .hud-guide-slot');
+ const height=body.classList.contains('teyvat')&&notice?.textContent.trim()&&!notice.hidden?Math.ceil(notice.getBoundingClientRect().height)+12:0;
+ const offset=height+'px';if(body.style.getPropertyValue('--shell-notice-offset')!==offset)body.style.setProperty('--shell-notice-offset',offset);
+ if(!pop)return;const hidden=!S.guideOpen||!slot||!!$('#root > .pending-action-notice')||!!$('#shell-toast.show')||!!topOverlay();
+ if(pop.hidden!==hidden)pop.hidden=hidden;
+ const pill=slot&&$('.hud-guide',slot);if(pill){const expanded=String(!hidden);if(pill.getAttribute('aria-expanded')!==expanded)pill.setAttribute('aria-expanded',expanded);if(pill.classList.contains('open')===hidden)pill.classList.toggle('open',!hidden);}
+}
+S.syncGuideBoundary=syncGuideBoundary;
+try{const notice=$('#notice');if(notice)new ResizeObserver(syncGuideBoundary).observe(notice);}catch{}
+window.addEventListener('resize',syncGuideBoundary);
+// The learning guide lives behind a HUD pill; its popover opens once per step.
 function placeGuide(){
  const guide=$('#tutorial-tour'),slot=$('main > aside .hud-guide-slot');
  $$('.hud-guide-pop').forEach(n=>{if(!guide||!n.contains(guide))n.remove();});
@@ -177,13 +189,11 @@ function placeGuide(){
  let pop=guide.closest('.hud-guide-pop');if(!pop){pop=mk('div','hud-guide-pop');pop.setAttribute('role','region');pop.setAttribute('aria-label','여행 안내');document.body.append(pop);pop.append(guide);}
  const min=mk('button','hud-guide-min');min.type='button';min.setAttribute('aria-label','안내 잠시 숨기기');min.title='안내 잠시 숨기기 (HUD의 안내 버튼으로 다시 열기)';min.append(icon('CLOSE'));min.onclick=()=>{S.guideOpen=false;S.guideMin=true;placeGuide();};
  pop.querySelector('.hud-guide-min')?.remove();pop.prepend(min);
- // A save confirmation or a dialog always wins over the guide.
- pop.hidden=!S.guideOpen||!slot||!!$('#root > .pending-action-notice')||!!$('dialog[open]');
- if(!slot)return;
+ if(!slot){syncGuideBoundary();return;}
  const pill=mk('button','hud-guide'+(S.guideOpen?' open':''));pill.type='button';pill.setAttribute('aria-expanded',String(!!S.guideOpen));pill.title='여행 안내 · '+step;
  pill.append(icon('HELP'),mk('span','hud-guide-count',count||'안내'),mk('span','hud-guide-step',step));
- pill.onclick=()=>{S.guideOpen=!S.guideOpen;if(S.guideOpen)S.guideMin=false;placeGuide();};
- slot.replaceChildren(pill);
+ pill.onclick=()=>{S.guideOpen=pop.hidden||!S.guideOpen;if(S.guideOpen)S.guideMin=false;placeGuide();};
+ slot.replaceChildren(pill);syncGuideBoundary();
 }
 if(typeof renderTutorial==='function'){const priorTutorial=renderTutorial;renderTutorial=function(){priorTutorial();try{placeGuide();}catch{}};}
 function toolButton(name,label,fn,cls=''){const b=mk('button','hud-tool '+cls);b.type='button';b.title=label;b.setAttribute('aria-label',label);b.append(icon(name));b.onclick=fn;return b;}

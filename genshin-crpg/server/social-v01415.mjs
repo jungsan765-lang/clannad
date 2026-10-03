@@ -3,8 +3,9 @@
 // Each part follows the server's feature switches: profiles need 'chat'; the market and live trades need 'trade'.
 // Saves change only here, server side, on the accounts' own state, in one transaction per change.
 import {createHash} from 'node:crypto';
-import {splitState,diffParts} from './state-parts.mjs';
+import {splitState,joinState,diffParts} from './state-parts.mjs';
 import {compact} from './game-core.mjs';
+import {R,DB as GAME_DB} from './generated/engine.mjs';
 
 const now=()=>Date.now();
 const err=(status,message,code)=>Object.assign(new Error(message),{status,code});
@@ -67,11 +68,12 @@ export const socialMethods={
   for(const s of this.subscribers)if(s.account!==a.id&&!seen.has(s.account)){const x=this.db.prepare('SELECT id,display_name FROM accounts WHERE id=?').get(s.account);if(x)seen.set(x.id,{name:x.display_name,pid:pidOf(x.id),honours:this.honours(x.id),busy:!!this.dealOf(x.id)});}
   return {players:[...seen.values()].sort((x,y)=>x.name.localeCompare(y.name,'ko')).slice(0,80)};
  },
- // A runtime per account and revision, kept briefly (profiles are looked at in bursts).
- profileRuntime(id){
-  const m=this.meta(id);if(!m||m.revision==null)return null;this.profileCache??=new Map();
-  const hit=this.profileCache.get(id);if(hit&&hit.revision===m.revision)return hit.r;
-  const r=this.runtimeOf(id);this.profileCache.set(id,{revision:m.revision,r});if(this.profileCache.size>24)this.profileCache.delete(this.profileCache.keys().next().value);return r;
+ // Views share warm indexes but own their state. Cold room views use the existing bounded runtime cache;
+ // a one-off public profile must not retain a second large runtime or evict active players' warm saves.
+ profileRuntime(id,cacheCold=true){
+  const m=this.meta(id);if(!m||m.revision==null)return null;let entry=this.cached(id,m.revision);
+  if(!entry?.r){const parts=entry?.parts||this.loadParts(id),r=new R(GAME_DB,joinState(parts),true);entry={revision:m.revision,parts,r};if(cacheCold)this.touch(id,entry);}
+  return Object.assign(Object.create(entry.r),{s:structuredClone(entry.r.s)});
  },
  // Public card: protagonist, companions (rarity, level, 운명의 자리), the party with its gear, Abyss records.
  profile(a,pid){
@@ -81,16 +83,24 @@ export const socialMethods={
   if(this.features.has('trade'))out.listings=this.db.prepare("SELECT COUNT(*) AS n FROM market WHERE seller_id=? AND status='ACTIVE'").get(t.id).n;
   // 0.15.3 다인 모드: whether they host a room the viewer can join, or can be invited into the viewer's (coop-v0153.mjs).
   out.coop=this.coopProfileInfo?.(t.id,a.id)||null;
-  const r=this.profileRuntime(t.id);if(!r)return {...out,journey:false};
+  const m=this.meta(t.id);if(!m||m.revision==null)return {...out,journey:false};
+  // Cache only public card fields, never Runtime/content indexes. Presence, invitations, medals and listings
+  // above remain live. Save changes invalidate this map; revision and month also guard restored/seasonal views.
+  this.profileCache??=new Map();const season=this.seasonNow(),hit=this.profileCache.get(t.id);
+  if(hit?.data&&hit.revision===m.revision&&hit.season===season)return {...out,...structuredClone(hit.data)};
+  const r=this.profileRuntime(t.id,false);if(!r)return {...out,journey:false};
   const g=r.s.global,ids=(r.adminCompanions?.()||[]).filter(id=>r.adminJoined?.(id));
   const gearOf=owner=>(r.s.inventory||[]).filter(i=>i.equipped&&i.owner===owner&&i.equip).map(i=>{const row=r.tables['16_EQUIP_DB'].get(i.equip);return {equip:i.equip,name:row?.[1]||i.equip,category:i.category||row?.[2]||'',enhance:Number(i.enhance)||0,artifact:!!i.artifact};});
   const levelOf=id=>id==='PLAYER_CUSTOM'?Number(g.PLAYER_LEVEL_STATE)||1:Number(r.s.chars?.[id]?.level)||1;
   const charView=id=>({id,name:r.premiumCharName?.(id)||id,rarity:r.rarityOf?.(id)||4,level:levelOf(id),constellation:r.constellationLevel?.(id)||0});
   const abyss=r.abyssView?.();
-  return {...out,journey:true,player:{name:g.PLAYER_NAME||'',level:levelOf('PLAYER_CUSTOM'),route:g.STORY_ROUTE_ID==='ROUTE_ISEKAI'?'이세계인':'여행자',constellation:r.constellationLevel?.('PLAYER_CUSTOM')||0},
+  const data={journey:true,player:{name:g.PLAYER_NAME||'',level:levelOf('PLAYER_CUSTOM'),route:g.STORY_ROUTE_ID==='ROUTE_ISEKAI'?'이세계인':'여행자',constellation:r.constellationLevel?.('PLAYER_CUSTOM')||0},
    companions:ids.map(charView).sort((x,y)=>y.rarity-x.rarity||y.constellation-x.constellation||y.level-x.level||x.name.localeCompare(y.name,'ko')),companionTotal:(r.adminCompanions?.()||[]).length,
    party:(r.s.party||[]).filter(x=>x.active).map(x=>({...charView(x.source),gear:gearOf(x.source)})),
    abyss:abyss?{season:abyss.season,label:abyss.seasonLabel,best:abyss.best.floor}:null};
+  this.profileCache.delete(t.id);this.profileCache.set(t.id,{revision:m.revision,season,data});
+  if(this.profileCache.size>24)this.profileCache.delete(this.profileCache.keys().next().value);
+  return {...out,...structuredClone(data)};
  },
  // ---------- saving a changed journey from the server side ----------
  // A receipt id is used once per account; ids that could repeat after an operator rollback (buying or taking down the

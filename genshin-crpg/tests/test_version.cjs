@@ -20,7 +20,7 @@ class Element extends Events{
 }
 async function harness(options={}){
  const calls={save:0,reload:0,updates:0,messages:[],posts:[],fetch:[],renders:0,storage:0,workerVersions:[]},timers=new Map();let nextTimer=0;
- const serviceWorker=new Events(),worker=(version,state='installed')=>Object.assign(new Events(),{testVersion:version,state,postMessage(message){calls.posts.push(message);if(message.type==='ACTIVATE_UPDATE'&&options.activate!==false){reg.active=this;reg.waiting=null;serviceWorker.controller=this;this.state='activated';queueMicrotask(()=>serviceWorker.dispatch('controllerchange'));}}});
+ const serviceWorker=new Events(),worker=(version,state='installed')=>Object.assign(new Events(),{testVersion:version,state,postMessage(message,ports){calls.posts.push(message);if(message.type==='GET_VERSION'&&ports?.[0]){ports[0].postMessage({version:this.testVersion});ports[0].close();}if(message.type==='ACTIVATE_UPDATE'&&options.activate!==false&&this.state!=='activated'){reg.active=this;reg.waiting=null;serviceWorker.controller=this;this.state='activated';queueMicrotask(()=>serviceWorker.dispatch('controllerchange'));}}});
  const active=worker(options.activeVersion||'pack-old','activated'),waiting=options.waiting===false?null:worker(options.waitingVersion||'pack-new');
  const installing=options.installing?worker('pack-new',options.installing):null;
  const reg={active,waiting,installing,async update(){calls.updates++;if(options.updateError)throw Error(options.updateError);}};
@@ -65,6 +65,19 @@ function swHarness(){
  await test('installation timeout without waiting worker blocks reload',async()=>{const h=await harness({waiting:false,installing:'installing'}),applied=h.api.apply();await tick();await h.flushTimers();await applied;assert.equal(h.calls.reload,0,'installation timed out but page reloaded');assert.ok(h.calls.messages.length);});
  await test('old active worker without update blocks a misleading same-version reload',async()=>{const h=await harness({waiting:false,activeVersion:'pack-old'});await h.api.apply();assert.equal(h.calls.reload,0,'old active worker silently reloaded old pack');assert.ok(h.calls.messages.length);});
  await test('already active matching pack allows saved reload without skipWaiting',async()=>{const h=await harness({waiting:false,activeVersion:'pack-new'});await h.api.apply();assert.equal(h.calls.save,1);assert.equal(h.calls.posts.length,0);assert.equal(h.calls.reload,1);});
+ await test('automatic activation before the installation continuation does not wait for a second controllerchange',async()=>{
+  const h=await harness({waiting:false,installing:'installing'}),applied=h.api.apply();await tick();
+  const installed=h.reg.installing;installed.state='installed';h.reg.installing=null;h.reg.waiting=installed;
+  // The waiting pointer is captured by the installed listener, but activation/claim
+  // finishes before the awaiting apply continuation resumes. skipWaiting on an
+  // already activated worker does not emit another controllerchange.
+  queueMicrotask(()=>{installed.state='activated';h.reg.waiting=null;h.reg.active=installed;h.serviceWorker.controller=installed;h.serviceWorker.dispatch('controllerchange');});
+  installed.dispatch('statechange');await tick();await h.flushTimers();await applied;
+  assert.equal(h.calls.reload,1,'the verified active target must be enough, even after an earlier controllerchange');
+  assert.equal(h.calls.posts.filter(message=>message.type==='ACTIVATE_UPDATE').length,0);
+  assert.equal(h.calls.messages.length,0);assert.equal(h.ctx.busy,false);assert.equal(h.api.updating,false);
+  assert.equal(h.timers.size,0);assert.equal((h.serviceWorker.listeners.get('controllerchange')||[]).length,0);
+ });
  await test('controllerchange alone cannot approve a worker from a different pack',async()=>{const h=await harness({waitingVersion:'pack-other'});await h.api.apply();assert.equal(h.calls.posts.length,1);assert.equal(h.calls.reload,0);assert.match(h.calls.messages.at(-1),/최신 버전/);});
  await test('actual workerVersion helper uses a request port and returns its version',async()=>{const h=await harness({nativeChannel:true}),messages=[];const version=await h.api.workerVersion({postMessage(message,ports){messages.push(message);ports[0].postMessage({version:'pack-native'});ports[0].close();}});assert.equal(version,'pack-native');assert.equal(messages.length,1);assert.equal(messages[0].type,'GET_VERSION');assert.equal(h.timers.size,0);});
  await test('actual workerVersion helper times out cleanly for older workers without GET_VERSION',async()=>{const h=await harness({nativeChannel:true});let port;const pending=h.api.workerVersion({postMessage(_message,ports){port=ports[0];}});await h.flushTimers();assert.equal(await pending,null);port.close();});

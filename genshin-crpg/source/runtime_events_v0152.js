@@ -100,13 +100,14 @@ P.regionEventHere=function(){
  const escort=today?.escort?{...copy(today.escort),here:today.escort.to===map}:null;
  if(!ev)return {event:null,escort,primogems:today?.primogems||0,cap:PRIMO_DAY};
  const done=today?.done?.[map]||null,busy=free(this)?'':'이야기나 전투를 마친 뒤 할 수 있습니다.';
- for(const c of ev.choices)c.reason=done?'오늘 이곳의 사건은 이미 마무리했습니다.':this.regionChoiceReason(ev,c.id,{});
+ for(const c of ev.choices){c.reason=done?'오늘 이곳의 사건은 이미 마무리했습니다.':this.regionChoiceReason(ev,c.id,{});if(escort?.map===map&&c.id==='LEAVE')c.label='동행을 그만둔다';}
  return {event:ev,done,escort,primogems:today?.primogems||0,cap:PRIMO_DAY,busy,bought:today?.bought?.[map]||[],puzzle:ev.puzzle&&!done?this.regionEventPuzzle(ev):null};
 };
 P.regionChoiceReason=function(ev,choice,a={}){
  if(!free(this))return '이야기나 전투를 마친 뒤 할 수 있습니다.';
  if(!ev)return '오늘 이곳에는 사건이 없습니다.';const c=ev.choices.find(x=>x.id===choice);if(!c)return '고를 수 없는 선택입니다.';
  const today=this.regionToday();if(today?.done?.[ev.map])return '오늘 이곳의 사건은 이미 마무리했습니다.';
+ if(today?.escort?.map===ev.map&&choice!=='LEAVE')return '이미 함께 이동하고 있습니다. 목적지까지 데려다주세요.';
  if(c.battle&&!ev.group)return '이곳에는 싸울 상대가 없습니다.';
  if(c.escort&&today?.escort)return '이미 다른 사람을 데려다주는 중입니다.';
  if(c.deliver&&this.itemCount(ev.want.item)<ev.want.qty)return name(this,ev.want.item)+'이(가) '+ev.want.qty+'개 필요합니다. (보유 '+this.itemCount(ev.want.item)+')';
@@ -137,7 +138,7 @@ P.regionEventAct=function(a){
  }
  const ev=this.regionEventAt(map),why=this.regionChoiceReason(ev,choice,a);if(why)fail('REGION_EVENT',why);
  const c=ev.choices.find(x=>x.id===choice),st=this.regionEventState();
- if(choice==='LEAVE')return this.regionEventSettle(st,ev,choice,'LEFT',null);
+ if(choice==='LEAVE'){if(st.escort?.map===map)st.escort=null;return this.regionEventSettle(st,ev,choice,'LEFT',null);}
  if(c.battle){
   this._regionEvent={key:ev.key,kind:ev.kind,map,day:ev.day,choice,elite:c.elite};
   try{this.startBattle(ev.group,ORIGIN+ev.key);}finally{this._regionEvent=null;}
@@ -195,6 +196,9 @@ P.validateSave=function(s){
   for(const [k,n] of Object.entries(r.total))if(!K[k]||!Number.isInteger(n)||n<0)bad();
   for(const [map,list] of Object.entries(r.bought))if(!this.tables['32_MAP_DB'].has(map)||!Array.isArray(list)||list.some(i=>!Number.isInteger(i)||i<0||i>2))bad();
   if(r.escort!==null&&r.escort!==undefined&&(typeof r.escort!=='object'||!this.tables['32_MAP_DB'].has(r.escort.to)||!this.tables['32_MAP_DB'].has(r.escort.map)))bad();
+  // Older saves may have selected another ending while an escort was still active.
+  // Keep the settled ending and its reward; the traveller no longer follows the party.
+  if(r.escort&&r.done[r.escort.map])r.escort=null;
  }
  const e=out.runtime?.regionEvent;if(e&&(e.version!==1||!K[e.kind]||!this.tables['32_MAP_DB'].has(e.map)))bad();
  return out;

@@ -41,9 +41,19 @@ async function pruneOldPacks(){
   if(entries.every(entry=>entry.url.startsWith(scopeURL.href)))await caches.delete(pack);
  }
 }
-self.addEventListener('activate',event=>event.waitUntil((async()=>{await self.clients.claim();await pruneOldPacks().catch(()=>{});})()));
+// Retire the old same-origin QA wrapper even from the retained previous offline pack.
+const retiredPreview=new URL('mobile-preview.html',scopeURL).pathname;
+async function removeRetiredPreview(){
+ for(const name of await caches.keys()){
+  if(!/^crpg-(?:core|pack)-/.test(name))continue;
+  const cache=await caches.open(name);
+  for(const entry of await cache.keys()){const u=new URL(entry.url);if(u.origin===scopeURL.origin&&u.pathname===retiredPreview)await cache.delete(entry);}
+ }
+}
+self.addEventListener('activate',event=>event.waitUntil((async()=>{await self.clients.claim();await removeRetiredPreview().catch(()=>{});await pruneOldPacks().catch(()=>{});})()));
 self.addEventListener('fetch',event=>{
  const u=new URL(event.request.url);if(event.request.method!=='GET'||u.origin!==self.location.origin)return;
+ if(u.pathname===retiredPreview){event.respondWith(Promise.resolve(new Response('Not Found',{status:404,headers:{'Cache-Control':'no-store'}})));return;}
  if(event.request.mode==='navigate'){
   if(!appEntry(u))return;
   event.respondWith((async()=>{

@@ -437,7 +437,10 @@ body.teyvat .quest-cols .quest-track>*{margin:0 0 12px}
 body.teyvat .quest-cols .main-objective{border-left:3px solid var(--t-gold);background:linear-gradient(125deg,rgba(52,42,24,.85),rgba(18,22,34,.85));margin:0 0 12px}
 body.teyvat .quest-cols .quest-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-content:start}
 body.teyvat .quest-cols .quest-list>*{margin:0}
-body.teyvat .relations-body .relationship-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+body.teyvat .relations-body .relationship-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(270px,100%),1fr));gap:12px;align-items:start}
+body.teyvat .relations-body .relationship-card{min-width:0}
+body.teyvat .relationship-toggles{flex-wrap:wrap;max-width:100%}
+body.teyvat .relationship-toggles button{max-width:100%;white-space:normal;overflow-wrap:anywhere}
 /* ---------- floating guide ---------- */
 body.teyvat .content.shell-content>.learning-guide.shell-float-guide{position:fixed;right:18px;bottom:16px;z-index:36;width:min(360px,calc(100vw - 36px));max-height:42vh;overflow:auto;margin:0;background:rgba(20,24,37,.95);border:1px solid var(--t-line-2);border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.5);animation:shellIn .3s ease-out}
 body.teyvat[data-shell-screen=COMBAT] .content.shell-content>.learning-guide.shell-float-guide{display:none}
@@ -2798,8 +2801,9 @@ body.teyvat :is(.pm-box,.trade-box,.deal-box,.pf-box,.ch-box,.ml-box,.rd-box,.cp
 body.teyvat .hb-book{height:min(780px,calc(100dvh - var(--crpg-top-inset) - 32px))}
 body.teyvat .cp-bbox{height:calc(100dvh - var(--crpg-top-inset) - 32px)}
 body.teyvat #notice:not(:empty),body.teyvat #root>.pending-action-notice{top:calc(var(--hud-h) + var(--crpg-top-inset) + 10px)}
-.hud-guide-pop{top:calc(var(--hud-h,62px) + var(--crpg-top-inset) + 8px);max-height:calc(100dvh - var(--hud-h,62px) - var(--crpg-top-inset) - 24px)}
-.shell-toast{top:calc(var(--hud-h,62px) + var(--crpg-top-inset) + 14px)}
+body.teyvat #notice:not(:empty){max-height:max(44px,30dvh);overflow:auto;word-break:keep-all;overflow-wrap:anywhere}
+.hud-guide-pop{top:calc(var(--hud-h,62px) + var(--crpg-top-inset) + var(--shell-notice-offset,0px) + 8px);max-height:calc(100dvh - var(--hud-h,62px) - var(--crpg-top-inset) - var(--shell-notice-offset,0px) - var(--dock-h,0px) - 24px)}
+.shell-toast{top:calc(var(--hud-h,62px) + var(--crpg-top-inset) + var(--shell-notice-offset,0px) + 14px)}
 body.teyvat.shell-overlay-open>.cp-pill,body.teyvat.shell-overlay-open>.chat-fab{display:none}
 body.teyvat .shell-dialogue p.story{word-break:keep-all;overflow-wrap:anywhere}
 /* The replay dock already contains progress and controls; its old command placeholder was visible behind it. */

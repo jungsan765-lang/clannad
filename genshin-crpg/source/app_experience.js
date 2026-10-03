@@ -175,11 +175,11 @@ function relationsScreen(p){
   p.append(el('div','eyebrow','RELATIONSHIPS'),el('h1','','호감도'));
   const entries=game.storyEntries?.()||[],people=CRPGJournalPresenter.relations(game),grid=el('div','relationship-grid');
   if(people.length>1){const bar=el('div','relationship-toolbar'),toggles=el('div','relationship-toggles');toggles.append(button('모두 펼치기',()=>{for(const m of people)openRelationMissions.add(m.profile);render();},busy),button('모두 접기',()=>{openRelationMissions.clear();render();},busy));bar.append(el('p','muted',people.length+'명 · 지금 진행할 수 있는 인물이 먼저 표시됩니다.'),toggles);p.append(bar);}
-  for(const m of people){const pid=m.profile,c=el('section','card relationship-card status-'+(m.next?.status||'done')),photo=portraitFor(pid);
+  for(const m of people){const pid=m.profile,c=el('section','card relationship-card status-'+(m.next?.status||'done')),photo=portraitFor(pid);c.dataset.viewKey='relation:'+pid;
     if(photo){const img=el('img','relationship-photo');img.src=photo;img.alt=m.name;c.append(img);}
     c.append(el('h2','',m.name),el('p','heart-row','♥'.repeat(m.hearts)+'♡'.repeat(5-m.hearts)),el('p','relationship-score','호감도 '+m.score+'점 · '+(m.hearts?'유대 '+m.hearts+'단계':'첫 만남')));
     const meeting=characterMeetingPlace(pid,entries);if(meeting){c.append(el('p','meeting-place',meeting.label+' · '+mapName(meeting.map)));journalTravel(c,meeting.map);}else c.append(el('p','muted','아직 다음 만남 장소를 알 수 없습니다.'));
-    const box=el('details','relationship-missions'),summary=el('summary');box.open=openRelationMissions.has(pid);box.addEventListener('toggle',()=>{if(box.open)openRelationMissions.add(pid);else openRelationMissions.delete(pid);});
+    const box=el('details','relationship-missions'),summary=el('summary');box.open=openRelationMissions.has(pid);box.addEventListener('toggle',()=>{if(!box.isConnected)return;if(box.open)openRelationMissions.add(pid);else openRelationMissions.delete(pid);});
     summary.append(el('span','relationship-missions-title','호감도 임무 '+m.done+' / '+m.track.length+(m.activityReady?' · 오늘 교류 가능':'')),el('small','relationship-next'+(m.next?.status==='locked'?' requirement-unmet':''),relationNextLabel(m)));box.append(summary);
     const stages=el('ol','relationship-stages');
     // Only the next stage explains its blocker; later ones just show the score they open at.

@@ -41,6 +41,10 @@ TESTS = [
     'tests/test_wish_ui_audit_fixes.cjs', 'tests/test_puzzle_ui_lifecycle.cjs',
     'tests/test_client_connection_recovery.cjs', 'tests/test_popup_lifecycle_v01512.cjs',
     'tests/test_server_coop_recovery_v01512.mjs',
+    'tests/test_feature_boundaries_v01513.cjs', 'tests/test_ui_boundaries_v01513.cjs',
+    'tests/test_settings_audio_v01513.cjs', 'tests/test_content_boundaries_v01513.cjs',
+    'tests/test_release_isolation_v01513.cjs', 'tests/test_release_isolation_v01513.py',
+    'tests/test_server_load_boundaries_v01513.mjs',
     'tests/v013/test_recruitment_cost_consistency.cjs',
 ]
 def run(test):

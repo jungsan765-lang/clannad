@@ -79,7 +79,10 @@ jobs:
           CRPG_TEST_BACKEND=do npm run test:browser
       - name: Build production pack after source gates pass
         working-directory: genshin-crpg
-        run: npm run build
+        run: |
+          npm run build
+          python tests/test_release_isolation_v01513.py --built dist --server server/generated/engine.mjs
+          node tests/test_content_boundaries_v01513.cjs --built dist
       - name: Verify shipped UI against actual Worker and SQLite
         working-directory: genshin-crpg
         env:
