@@ -9,17 +9,12 @@ function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evide
 const terrain=()=>{const box={window:{}};vm.runInNewContext(src('terrain_map.js'),box);return box.window.CRPGTerrainMap;};
 const world=(map='MAP_MOND_CITY')=>{const g=fresh(map);g.installMarketContent();g.installNavigation?.();return g;};
 
-check('roads: no traced road is more than 1.7 times the straight line, and the tracer keeps snow off the water',()=>{
- const T=terrain();let worst=['',0];
- for(const [key,way]of Object.entries(T.roads)){
-  const [a,b]=key.split('>'),pa=T.points[a],pb=T.points[b],P=[[pa[1],pa[2]],...way,[pb[1],pb[2]]];
-  let len=0;for(let i=1;i<P.length;i++)len+=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);
-  const ratio=len/Math.max(1,Math.hypot(pb[1]-pa[1],pb[2]-pa[2]));if(ratio>worst[1])worst=[key,ratio];
- }
- assert(worst[1]<=1.7,'worst detour '+worst[0]+' '+worst[1].toFixed(2));
- const tracer=file('tools/trace_terrain_roads.py');
- assert(tracer.includes("if b > r + 15 and g > r and r < 68:")&&tracer.includes("COST = {'road': 1.0, 'land': 1.9, 'water': 22.0, 'void': 90.0}"),'snow (bluish grey with more red) is land; open land only a little dearer than a drawn path');
- return {roads:Object.keys(T.roads).length,worst:[worst[0],+worst[1].toFixed(2)]};
+// 0.15.16: the map draws each connection as a straight line between two circles (user: 「저번에 했던 길 개편도 그지같아서
+// 안되겠어」), so the traced waypoints and their tracer are gone; tests/test_map_v01516.cjs checks the lines.
+check('roads: the map keeps no traced waypoints any more (straight lines since 0.15.16)',()=>{
+ const T=terrain();assert(!('roads' in T),'CRPGTerrainMap.roads is retired');
+ assert(!fs.existsSync(path.join(root,'tools/trace_terrain_roads.py')),'the tracer went with it');
+ return {points:Object.keys(T.points).length};
 });
 
 check('neighbours: places side by side are joined both ways, open to everyone, and drawn on the map',()=>{
@@ -29,7 +24,7 @@ check('neighbours: places side by side are joined both ways, open to everyone, a
   assert(g.tables['32_MAP_DB'].has(r[1])&&g.tables['32_MAP_DB'].has(r[2]),r[0]);
   assert.equal(r[8],'Y');assert.equal(r[11],'ACTIVE');assert(!r[6]&&!r[7],'no requirement on '+r[0]);
   assert(edges.some(x=>x[0]===r[10]&&x[1]===r[2]&&x[2]===r[1]),'return path of '+r[0]);
-  assert(T.roads[[r[1],r[2]].sort().join('>')],'road drawn for '+r[0]);
+  assert(T.points[r[1]]&&T.points[r[2]],'both ends have a circle, so the line is drawn: '+r[0]);
  }
  return {pairs:edges.length/2};
 });

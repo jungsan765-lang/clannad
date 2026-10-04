@@ -172,21 +172,22 @@ check('원석·스타라이트·스타더스트, 특성, 운명의 자리: prese
  return {offers:api.premiumV0148.offers.length,stella:f.tables['14_ITEM_DB'].has('STELLA_MOND_AMBER')};
 });
 
-check('travel map: every connection drawn on an atlas follows its traced road, numbered on the way out',()=>{
+// 0.15.16: the traced roads with numbers on them became one straight line per connection between two circles (user: 「이어지는
+// 구간들에 줄을 만들어봐」); tests/test_map_v01516.cjs checks the lines and circles in a page.
+check('travel map: every connection on an atlas is a straight line between its two places',()=>{
  const sandbox={window:{}};require('node:vm').runInNewContext(src('terrain_map.js'),sandbox);const T=sandbox.window.CRPGTerrainMap;
- const r=fresh('MAP_MOND_CITY');r.installMarketContent();const missing=[];let drawn=0;
+ const r=fresh('MAP_MOND_CITY');r.installMarketContent();let drawn=0;
  for(const row of r.rows('47_MAP_EDGE_DB')){
   if(row[8]!=='Y'||row[11]!=='ACTIVE')continue;const a=T.points[row[1]],b=T.points[row[2]];
-  if(!a||!b||a[0]!==b[0]||(a[1]===b[1]&&a[2]===b[2]))continue;
-  const road=T.roads[[row[1],row[2]].sort().join('>')];if(!road){missing.push(row[1]+'>'+row[2]);continue;}drawn++;
-  assert(road.every(([x,y])=>x>=0&&x<=T.width&&y>=0&&y<=T.height),'waypoints stay on the picture');
+  if(!a||!b||a[0]!==b[0])continue;drawn++;
+  assert(!(a[1]===b[1]&&a[2]===b[2]),'two connected places never share one dot: '+row[0]);
+  assert([a,b].every(([,x,y])=>x>=0&&x<=T.width&&y>=0&&y<=T.height),'dots stay on the picture');
  }
- assert.deepEqual(missing,[],'run tools/trace_terrain_roads.py after changing anchors or connections');
  const nav=src('app_navigation.js'),css=src('shell.css');
- assert(nav.includes("routes.setAttribute('class','terrain-routes')")&&nav.includes("if([a,b].sort()[0]!==a)mid.reverse()"),'the road is drawn from where you stand');
- assert(nav.includes("tag.className='terrain-route-tag'")&&nav.includes(".terrain-route[data-destination]"),'number tags (buttons since 0.14.10), hover highlight');
- assert(css.includes('.terrain-route')&&css.includes('.terrain-route-tag'));
- return {roads:Object.keys(T.roads).length,drawn};
+ assert(nav.includes("svg.setAttribute('class','terrain-links')")&&nav.includes('line.dataset.ends=l.key'),'one line per pair of places');
+ assert(nav.includes("document.querySelectorAll('#journey-map .terrain-link[data-ends]')"),'hover lights the roads of a place');
+ assert(css.includes('.terrain-link{')&&css.includes('.terrain-link.route{')&&css.includes('.terrain-navigation .terrain-node{'));
+ return {drawn};
 });
 
 fs.mkdirSync(path.join(root,'reports/v0148'),{recursive:true});fs.writeFileSync(path.join(root,'reports/v0148/checks.json'),JSON.stringify({version:JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')).version,results},null,2)+'\n');

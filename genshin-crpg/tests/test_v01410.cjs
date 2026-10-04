@@ -13,15 +13,14 @@ check('top bar: it never scrolls; the labels under its icons show below it',()=>
  return {};
 });
 
-check('travel map: a held press on a pin keeps it in place, and numbers, dots and roads choose their place too',()=>{
+check('travel map: a held press on a circle keeps it in place, and every circle chooses its place',()=>{
  const css=src('shell.css'),nav=src('app_navigation.js');
- // A pressed pin used to lose its centring (scale only) and jump 22px away before the release.
- assert(css.includes('body.teyvat .terrain-navigation .terrain-pin:active:not(:disabled),body.teyvat .terrain-navigation button.terrain-anchor:active:not(:disabled){transform:translate(-50%,-50%)}'),'pins keep their place and size while pressed');
- assert(!/terrain-route-tag[^{]*\{[^}]*scale\(1\.25\)/.test(css),'road numbers never grow under the pointer');
- assert(nav.includes("hit.setAttribute('class','terrain-route-hit')")&&css.includes('.terrain-route-hit{fill:none;stroke:transparent;stroke-width:18')&&css.includes('pointer-events:stroke'),'roads take presses');
- assert(nav.includes("const tag=this.control(String(n.number),()=>this.choose(n.id),'tag-'+n.row[0])"),'road numbers are buttons');
- assert(nav.includes("this.control('',()=>this.choose(id),'anchor-'+id)"),'dots are buttons');
- assert(nav.includes('drawRoutes(scale,occupied)')&&nav.includes('dPin/(30*px)')&&nav.includes('dTag/(28*px)'),'numbers keep clear of pins and of each other on screen');
+ // A pressed pin used to lose its centring (scale only) and jump 22px away before the release. 0.15.16: the numbered
+ // pins, road numbers and pressable roads became one circle per place (tests/test_map_v01516.cjs).
+ assert(css.includes('body.teyvat .terrain-navigation button.terrain-node:active:not(:disabled){transform:translate(-50%,-50%)'),'circles keep their place and size while pressed');
+ assert(!/terrain-node[^{]*:(hover|active)[^{]*\{[^}]*(width|height|scale)/.test(css),'circles never grow under the pointer');
+ assert(nav.includes("this.control('',()=>this.choose(id),'node-'+id)"),'circles are buttons');
+ assert(/\.terrain-label\{[^}]*pointer-events:none/.test(css),'names never take a press from the circle under them');
  assert(nav.includes("if(!moved&&Math.hypot(dx,dy)>4){moved=true;try{viewport.setPointerCapture(drag.id);}catch{}}")&&nav.includes("viewport.addEventListener('click',e=>{if(moved){moved=false;e.stopPropagation();e.preventDefault();}},true);"),'dragging only grabs after a real move and never ends in a press');
  assert(nav.includes("viewport.addEventListener('pointerdown',e=>{moved=false;"),'a press after a drag is never swallowed');
  assert(nav.includes('this.zoomButtons.out.disabled=c.zoom<=1.001;this.zoomButtons.in.disabled=c.zoom>=3.999;')&&nav.includes("b.setAttribute('aria-pressed',String((this.view||'near')===mode))"),'zoom buttons grey out at their limits, the chosen view stays lit');

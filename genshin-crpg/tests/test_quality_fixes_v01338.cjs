@@ -16,8 +16,9 @@ test('Liyue Harbor facilities unlock after first story arrival but side stories 
 });
 test('once Harbor was reached, normal return edges into Harbor are no longer story-blocked',()=>{
  const r=fresh('MAP_MOND_CITY','ROUTE_ISEKAI');prepHarbor(r);r.noteLiyueHarborAccess('TEST_ARRIVAL');
- r.s.global.CURRENT_MAP_ID='MAP_LIYUE_PLAINS';
- const edge=r.row('47_MAP_EDGE_DB','EDGE_LIYUE_PLAINS_TO_HARBOR');assert.equal(r.edgeReason(edge),'');
+ // 0.15.16: the plains road into Harbor runs through 북쪽 진입로 (the direct plains edge was retired).
+ r.s.global.CURRENT_MAP_ID='MAP_LY_DETAIL_NORTH_GATE';
+ const edge=r.row('47_MAP_EDGE_DB','EDGE_LY_DETAIL_001_B');assert.equal(edge[2],'MAP_LIYUE_HARBOR');assert.equal(r.edgeReason(edge),'');
 });
 test('old save already standing in Harbor receives the facility access receipt on load',()=>{
  const r=fresh('MAP_MOND_CITY','ROUTE_ISEKAI');prepHarbor(r);delete r.s.liyue.harborAccessReceipt;

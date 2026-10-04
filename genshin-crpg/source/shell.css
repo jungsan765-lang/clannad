@@ -224,7 +224,6 @@ body.teyvat .shell-loc-main .terrain-select-help{font-size:.76rem;margin:0 0 8px
 body.teyvat .terrain-destination{border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(211,188,142,.22);color:var(--t-text);margin-bottom:6px}
 body.teyvat .terrain-destination:hover:not(:disabled){background:rgba(236,229,216,.13);border-color:var(--t-gold-hi)}
 body.teyvat .terrain-destination.selected{border-color:var(--t-gold-hi);box-shadow:0 0 0 2px rgba(243,223,174,.35)}
-body.teyvat .terrain-destination .terrain-number{background:var(--t-cream);color:var(--t-ink)}
 body.teyvat .shell-loc-main .terrain-travel-dock{flex:0 0 auto;margin-top:10px;padding:8px 10px;border-radius:14px;background:rgba(10,13,21,.6);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 body.teyvat .shell-loc-main .terrain-travel-dock .terrain-selection{flex:1 1 220px;font-size:.84rem}
 body.teyvat .shell-loc-main .terrain-provenance{flex:0 0 auto;font-size:.72rem;margin-top:6px;opacity:.75}
@@ -802,36 +801,45 @@ body.teyvat .settings-row .copy small{display:block;margin-top:2px;line-height:1
 body.teyvat .settings-row select{width:auto;min-width:120px;flex:0 0 auto}
 body.teyvat .settings-row input[type=range]{flex:0 1 260px;accent-color:var(--acc)}
 body.teyvat .settings-row input[type=checkbox]{accent-color:var(--acc);width:22px;height:22px}
-/* ---------- travel map routes along the roads (app_navigation.js) ---------- */
-.terrain-routes{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
-.terrain-route{fill:none;stroke:rgba(255,246,222,.78);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:7 6;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 1.5px rgba(0,0,0,.85));transition:stroke .15s,stroke-width .15s}
-.terrain-route.locked{stroke:rgba(190,190,190,.35)}
-.terrain-route.trip{stroke:rgba(255,215,106,.75);stroke-dasharray:3 6;stroke-width:3}
-.terrain-route.hovered,.terrain-route.selected{stroke:#ffd76a;stroke-width:5;stroke-dasharray:none;filter:drop-shadow(0 0 4px rgba(255,215,106,.7)) drop-shadow(0 0 1px #000)}
-.terrain-route-tag{position:absolute;z-index:2;transform:translate(-50%,-50%);min-width:18px;height:18px;padding:0 4px;border-radius:9px;display:grid;place-items:center;font:700 11px/1 system-ui,sans-serif;color:#3b2f15;background:#fff3cf;box-shadow:0 0 0 1.5px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.45);pointer-events:none}
-.terrain-route-tag.locked{background:#9a9a9a;color:#222}
-.terrain-route-tag.hovered,.terrain-route-tag.selected{background:#ffd76a;box-shadow:0 0 0 2px #3b2f15,0 0 10px rgba(255,215,106,.85)}
-/* 0.14.10: every mark of a destination can be pressed — the number on its road, its road (a wide invisible stroke)
-   and its dot — not only the numbered pin. */
-.terrain-route-hit{fill:none;stroke:transparent;stroke-width:18;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;pointer-events:stroke;cursor:pointer}
-/* Marks never change size or place (hover, selection and press show in colour): a mark growing under the pointer
-   between press and release would swallow the press. */
-.terrain-navigation button.terrain-route-tag{pointer-events:auto;cursor:pointer;margin:0;min-height:0;min-width:20px;height:20px;padding:0 5px;border:0;border-radius:10px;background:#fff3cf;color:#3b2f15;font:700 11.5px/1 system-ui,sans-serif;box-shadow:0 0 0 1.5px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.45);transition:background .15s,box-shadow .15s}
-.terrain-navigation button.terrain-route-tag.locked{background:#9a9a9a;color:#222}
-.terrain-navigation button.terrain-route-tag.hovered,.terrain-navigation button.terrain-route-tag.selected{background:#ffd76a;box-shadow:0 0 0 2px #3b2f15,0 0 10px rgba(255,215,106,.85)}
-.terrain-navigation button.terrain-anchor{transition:background .15s,box-shadow .15s}
-.terrain-navigation button.terrain-anchor{pointer-events:auto;cursor:pointer;margin:0;padding:0;min-width:0;min-height:0;width:10px;height:10px;border:2px solid #103c38;border-radius:50%;background:#fff0c5;box-shadow:0 0 0 2px #fff7}
-.terrain-navigation button.terrain-route-tag::after,.terrain-navigation button.terrain-anchor::after{content:'';position:absolute;inset:-6px;border-radius:50%}
-body.teyvat .terrain-navigation button.terrain-route-tag:hover:not(:disabled){background:#ffd76a;border:0;color:#3b2f15;box-shadow:0 0 0 1.5px rgba(0,0,0,.55),0 0 10px rgba(255,215,106,.7)}
-body.teyvat .terrain-navigation button.terrain-anchor:hover:not(:disabled){background:#ffd76a;border:2px solid #103c38;box-shadow:0 0 0 3px rgba(255,215,106,.6)}
+/* ---------- travel map: a circle for every place, a straight line for every road (app_navigation.js, 0.15.16) ---------- */
+.terrain-links{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
+.terrain-link{stroke:rgba(255,246,222,.82);stroke-width:2.5;stroke-linecap:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 1.5px rgba(0,0,0,.9));transition:stroke .15s,stroke-width .15s}
+.terrain-link.here{stroke:#fff6de;stroke-width:3.5}
+.terrain-link.locked{stroke:rgba(255,246,222,.55);stroke-width:2;stroke-dasharray:4 5;filter:drop-shadow(0 0 1px rgba(0,0,0,.85))}
+.terrain-link.hovered{stroke:#ffe9a8;stroke-width:4}
+.terrain-link.route{stroke:#ffd76a;stroke-width:5;stroke-dasharray:none;filter:drop-shadow(0 0 4px rgba(255,215,106,.75)) drop-shadow(0 0 1px #000)}
+/* Circles never change size or place under the pointer (a mark growing between press and release would swallow the
+   press): hover, selection and press show in colour and ring. The press area is wider than the circle. */
+.terrain-navigation .terrain-node{position:absolute;transform:translate(-50%,-50%);box-sizing:border-box;width:14px;height:14px;margin:0;padding:0;min-width:0;min-height:0;border:2px solid #17312d;border-radius:50%;background:#fff0c5;box-shadow:0 0 0 2px rgba(255,247,222,.45),0 1px 4px rgba(0,0,0,.6);pointer-events:auto;cursor:pointer;z-index:2;transition:background .15s,box-shadow .15s,opacity .15s}
+.terrain-navigation .terrain-node::after{content:'';position:absolute;inset:-9px;border-radius:50%}
+.terrain-navigation .terrain-node.near{width:18px;height:18px;background:#ffe39a;border-color:#3b2f15;z-index:3}
+.terrain-navigation .terrain-node.faded{background:rgba(255,255,255,.16);border:2px solid rgba(255,246,222,.8);box-shadow:0 0 0 1.5px rgba(0,0,0,.5),inset 0 0 0 1px rgba(0,0,0,.35)}
+.terrain-navigation .terrain-node.unknown:not(.faded){background:#d9dfd9}
+.terrain-navigation .terrain-node.on-route{background:#ffd76a;border-color:#3b2f15;opacity:1;z-index:4}
+.terrain-navigation .terrain-node.selected{width:22px;height:22px;background:#ffd76a;border:2px solid #3b2f15;opacity:1;box-shadow:0 0 0 3px rgba(255,237,158,.9),0 0 14px rgba(255,215,106,.9);z-index:5}
+.terrain-navigation .terrain-node.current{width:26px;height:26px;display:grid;place-items:center;background:#93f3df;border:2px solid #f1fff7;color:#063f3b;font-size:.78rem;font-weight:800;line-height:1;box-shadow:0 0 0 3px #043c35b0,0 2px 10px #000b;pointer-events:none;z-index:6}
+.terrain-navigation .terrain-node.hovered{box-shadow:0 0 0 3px rgba(255,215,106,.75),0 0 10px rgba(255,215,106,.6);opacity:1}
+body.teyvat .terrain-navigation button.terrain-node:hover:not(:disabled){background:#ffd76a;border-color:#3b2f15;box-shadow:0 0 0 3px rgba(255,215,106,.7);opacity:1}
+body.teyvat .terrain-navigation button.terrain-node:active:not(:disabled){transform:translate(-50%,-50%);filter:brightness(.85)}
+/* Names sit beside their circle and never take a press (a circle under a name stays pressable). */
+.terrain-label{position:absolute;z-index:1;white-space:nowrap;pointer-events:none;padding:1px 6px;border-radius:8px;background:rgba(14,22,26,.8);color:#fff7e0;font:700 11px/16px system-ui,sans-serif;letter-spacing:-.01em;box-shadow:0 1px 4px rgba(0,0,0,.5)}
+.terrain-label.extra{background:rgba(14,22,26,.62);font-weight:600;color:#efe6cc}
+.terrain-label.current{background:#123d38;color:#edfff7;box-shadow:0 0 0 1px #b1dfc6,0 1px 4px rgba(0,0,0,.5)}
+.terrain-label.selected{background:#ffd76a;color:#3b2f15}
+.terrain-label.quiet{display:none}
+.terrain-label.hovered{display:block;z-index:7;background:#ffd76a;color:#3b2f15}
+/* The key under the map. */
+.terrain-key{display:flex;flex-wrap:wrap;gap:4px 12px;margin:6px 0 0;font-size:.72rem;line-height:1.5;color:#c8d3bf}
+.terrain-key-item{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.terrain-key-item::before{content:'';flex:0 0 auto;box-sizing:border-box;width:11px;height:11px;border-radius:50%;border:2px solid #3b2f15;background:#ffe39a}
+.terrain-key-item.here::before{background:#93f3df;border-color:#f1fff7}
+.terrain-key-item.faded::before{background:rgba(255,255,255,.16);border:2px solid rgba(255,246,222,.8);box-shadow:0 0 0 1.5px rgba(0,0,0,.5)}
+.terrain-key-item.route::before{width:16px;height:4px;border:0;border-radius:2px;background:#ffd76a}
+/* A card's dot is its place's circle on the map. */
+.terrain-navigation .terrain-dot{flex:0 0 14px;width:14px;height:14px;box-sizing:border-box;margin:0 4px;border-radius:50%;border:2px solid #3b2f15;background:#ffe39a}
+.terrain-navigation .terrain-dot.locked{background:rgba(255,255,255,.16);border:2px solid rgba(255,246,222,.8);box-shadow:0 0 0 1.5px rgba(0,0,0,.5)}
+.terrain-navigation .terrain-destination.selected .terrain-dot{background:#ffd76a;box-shadow:0 0 0 3px rgba(255,237,158,.6)}
 body.teyvat .terrain-destination.route-hovered{border-color:var(--t-gold-hi);background:rgba(236,229,216,.1)}
-/* The general pressed-button style (scale only) dropped the centring of these absolutely placed marks, so a pin
-   jumped half its size away while held and the release missed it: a normal click on a pin did nothing. A pressed
-   mark now keeps its place and size (a shrinking mark loses presses near its edge); the press shows in colour. */
-body.teyvat .terrain-navigation .terrain-pin:active:not(:disabled),body.teyvat .terrain-navigation button.terrain-anchor:active:not(:disabled){transform:translate(-50%,-50%)}
-body.teyvat .terrain-navigation .terrain-pin:active:not(:disabled) .terrain-pin-core{filter:brightness(.82)}
-body.teyvat .terrain-navigation button.terrain-route-tag:active:not(:disabled){transform:translate(-50%,-50%);filter:brightness(.85)}
-body.teyvat .terrain-navigation button.terrain-anchor:active:not(:disabled){filter:brightness(.85)}
 body.teyvat .terrain-controls button.terrain-view[aria-pressed=true]{background:rgba(236,229,216,.16);border-color:rgba(243,223,174,.7);color:var(--t-gold-hi)}
 /* ---------- 원석·교환·특성·운명의 자리 (app_premium_v0148.js) ---------- */
 body.teyvat :where(#root) button.hud-primo{display:flex;align-items:center;gap:6px;min-height:0;padding:3px 12px 3px 5px;border-radius:16px;background:rgba(255,255,255,.07);border:0;font-variant-numeric:tabular-nums;font-size:.9rem;white-space:nowrap;color:var(--t-text)}
@@ -1620,10 +1628,6 @@ body.teyvat .wish-screen .wish-reveal-info h2.wish-reveal-name{margin:0;font-siz
 button:disabled{pointer-events:none}
 .locked-reason-tip{position:fixed;inset:auto;margin:0;max-width:min(320px,calc(100vw - 16px));padding:8px 12px;border-radius:10px;border:1px solid rgba(255,176,150,.6);background:rgba(30,20,18,.96);color:#ffe3d8;font-size:.82rem;font-weight:600;line-height:1.45;text-align:left;box-shadow:0 8px 22px rgba(0,0,0,.55);pointer-events:none;animation:locked-tip-in .16s ease-out}
 .locked-reason-tip::before{content:'⚠ ';color:#ffb27a}
-/* The 「현재 위치」 tag covered the numbers of the places right beside it: presses pass through it and the numbered
-   pins stay on top (smaller still on phones, below). */
-.terrain-navigation .terrain-current-label{pointer-events:none;opacity:.92}
-.terrain-navigation .terrain-pin:not(.current){z-index:3}
 .ley-line-locked{margin:6px 0 2px;padding:7px 10px;border-radius:8px;border:1px solid rgba(255,176,150,.45);background:rgba(255,120,90,.1);color:#ffcdb8;font-weight:700;font-size:.86rem}
 /* 0.14.13 phone top bar: at 375px the guide, level, Mora, 원석 and buttons were drawn over each other. Everything keeps
    its size and only the place name gives way; the handbook and scenery buttons are in the menu there, and the guide
@@ -1658,7 +1662,6 @@ button:disabled{pointer-events:none}
  body.teyvat .shell-tabbar>.shell-tab{flex:1 1 auto;justify-content:center;min-height:34px;padding:4px 8px;gap:4px;font-size:.8rem}
  body.teyvat .shell-tabbar>.shell-tab .shell-icon{width:14px;height:14px}
  body.teyvat .shell-page-tabs.vertical>.shell-tabbar{flex-direction:row;flex-wrap:wrap}
- .terrain-navigation .terrain-current-label{bottom:38px;padding:2px 6px;font-size:.64rem}
  /* Battle: enemies and the party each keep their full height and the stage scrolls (the enemy cards ran into 우리 파티). */
  body.teyvat .combat-panel .battle-teams.compact-teams{flex:0 0 auto;min-height:auto;grid-template-rows:auto auto}
  body.teyvat .combat-panel .battle-teams.compact-teams>*{min-height:auto}
@@ -2974,8 +2977,7 @@ body.teyvat[data-region=liyue] .gear-cols .gear-slot.tier-3{background:linear-gr
 body.teyvat[data-region=liyue] .gear-cols .gear-slot.tier-2{background:linear-gradient(160deg,rgba(108,159,128,.3),rgba(63,107,82,.14));border-color:rgba(120,180,140,.5)}
 body.teyvat[data-region=liyue] .shell-roster-item{background:rgba(30,19,10,.7)}
 body.teyvat[data-region=liyue] .settings-row{border:1px solid rgba(218,178,135,.14)}
-body.teyvat[data-region=liyue] .terrain-navigation button.terrain-route-tag:hover:not(:disabled){background:#f4b775;box-shadow:0 0 0 1.5px rgba(0,0,0,.55),0 0 10px rgba(244,183,117,.7)}
-body.teyvat[data-region=liyue] .terrain-navigation button.terrain-anchor:hover:not(:disabled){background:#f4b775;box-shadow:0 0 0 3px rgba(244,183,117,.6)}
+body.teyvat[data-region=liyue] .terrain-navigation button.terrain-node:hover:not(:disabled){background:#f4b775;box-shadow:0 0 0 3px rgba(244,183,117,.7)}
 body.teyvat[data-region=liyue] .terrain-controls button.terrain-view[aria-pressed=true]{border-color:rgba(248,210,169,.7)}
 body.teyvat[data-region=liyue] .shell-premium-member{border-top:1px solid rgba(218,178,135,.18)}
 body.teyvat[data-region=liyue] :where(#root) button.premium-talent:hover:not(:disabled),body.teyvat[data-region=liyue] :where(#root) button.premium-talent.open{background:rgba(248,210,169,.08);border-color:rgba(248,210,169,.35)}
