@@ -54,7 +54,7 @@ function partyScreen(p){
   for(let n=1;n<=4;n++){
     const member=game.s.party.find(x=>x.slot==='PARTY_'+n&&x.active),id=member?.source,c=el('section','formation-slot');
     c.append(el('small','slot-label',n===1?'주인공':'동료 칸 '+(n-1)));
-    if(id){const worn=game.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===id).length,who=button('',()=>act('MENU',{screen:'STATUS'}));who.className='member-select';who.setAttribute('aria-label',ownerName(id)+' 장비 보기');who.append(actorPortrait(id,'party-portrait'),el('strong','',ownerName(id)),el('small','muted','장비 '+worn+'개'));c.append(who);}
+    if(id){const worn=game.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===id).length,who=button('',()=>{window.CRPGShell?.focusGear?.(id);act('MENU',{screen:'STATUS'});});who.className='member-select';who.setAttribute('aria-label',ownerName(id)+' 장비 보기');who.append(actorPortrait(id,'party-portrait'),el('strong','',ownerName(id)),el('small','muted','장비 '+worn+'개'));c.append(who);}
     else c.append(el('div','empty-slot','비어 있음'));
     if(n>1){
       const controls=el('div','formation-controls'),select=el('select');select.setAttribute('aria-label',n+'번 슬롯 동료');select.append(new Option('동료를 선택하세요',''));
@@ -65,6 +65,8 @@ function partyScreen(p){
         const effect=window.CRPGRuntime?.formationConfig?.roles?.[member.tactic||'균형']?.text;if(effect)controls.append(el('small','role-effect',effect));
         // v0.14.4: how often this companion's E/Q come back, and the awakening chance with the exclusive weapon.
         const rhythm=game.skillRhythm?.(id);if(rhythm){const ch=game.resonanceChance?.(id)||0;controls.append(el('small','skill-rhythm','원소전투 스킬 '+rhythm.e+'차례 · 원소폭발 '+rhythm.q+'차례마다'+(ch?' · 공명 각성 '+Math.round(ch*100)+'%':'')));}
+        // 0.15.17 (user: 장비 변경 above 편성 해제): opens the character screen on this member.
+        const gearWhy=game.actionReason('MENU',{screen:'STATUS'}),gear=button('장비 변경',()=>{window.CRPGShell?.focusGear?.(id);act('MENU',{screen:'STATUS'});},busy||!!gearWhy);if(gearWhy)gear.title=gearWhy;gear.classList.add('party-gear');controls.append(gear);
         controls.append(button('편성 해제',()=>confirmPartyRemoval(id,()=>act('PARTY_REMOVE',{slot:n})),busy||!!game.actionReason('PARTY_REMOVE',{slot:n})));
       }
       lockControls(controls,reason);c.append(controls);

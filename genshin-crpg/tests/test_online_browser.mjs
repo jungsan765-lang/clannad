@@ -46,7 +46,7 @@ try{
  assert.equal(await page.evaluate(()=>game.s.global.SCREEN_MODE),'SYSTEM');
  assert(await page.evaluate(()=>CRPGOnline.pending?.type==='STORY_READ'),'menu opens before the outstanding reading response');
  await page.evaluate(()=>window.readFlush);assert.equal(await page.evaluate(()=>game.s.global.SCREEN_MODE),'SYSTEM','reading acknowledgement must not close the menu');
- await page.locator('[data-screen="STORY"]').click();await idle();delay=0;
+ await page.evaluate(()=>document.querySelector('main > aside nav [data-screen="STORY"]').click());await idle();delay=0;
  assert.equal(await page.evaluate(()=>game.storyActiveNodeId()),readNodes.at(-1),'returning from menus preserves the visible reading position');
  results.push({menuDuringReadingSave:true,menuPreservedOnAcknowledgement:true});
  await same('background reading');assert.equal(fixture.read().revision,storyRevision+2,'five lines are two checkpoints while reading during an in-flight batch');
@@ -71,7 +71,7 @@ try{
  assert(visited.length>=1);results.push({storyNodes:visited});
  await page.screenshot({path:resolve(evidence,'story.png')});
  const count=calls.length,rev=fixture.read().revision;
- await page.locator('[data-screen="SYSTEM"]').click();await idle();await page.locator('[data-screen="STORY"]').click();await idle();await page.evaluate(async()=>{for(let i=0;i<150;i++){await CRPGOnline.execute('MENU',{screen:'SYSTEM'});await CRPGOnline.execute('MENU',{screen:'STORY'});}render();});assert.equal(calls.length,count);assert.equal(fixture.read().revision,rev);results.push({menuRequests:0,repeatedMenuCycles:150});
+ await page.locator('[data-screen="SYSTEM"]').click();await idle();await page.evaluate(()=>document.querySelector('main > aside nav [data-screen="STORY"]').click());await idle();await page.evaluate(async()=>{for(let i=0;i<150;i++){await CRPGOnline.execute('MENU',{screen:'SYSTEM'});await CRPGOnline.execute('MENU',{screen:'STORY'});}render();});assert.equal(calls.length,count);assert.equal(fixture.read().revision,rev);results.push({menuRequests:0,repeatedMenuCycles:150});
  // A committed reading checkpoint whose two responses are lost survives reload without replaying lines.
  fixture.seed(restart.s);await start();drops=2;
  for(let i=0;i<3;i++)await readButton().click();const lostReadNode=await page.evaluate(()=>game.storyActiveNodeId());
@@ -154,11 +154,11 @@ try{
  await page.waitForFunction(()=>document.querySelector('.playback-outcomes')?.textContent.includes('→'));
  await page.getByRole('button',{name:'일시정지',exact:true}).click();await page.waitForTimeout(150);
  assert.equal(await page.locator('.battle-command').evaluate(n=>getComputedStyle(n).visibility),'hidden','duplicate progress strip must not protrude behind the replay dock');
- assert(await page.getByRole('button',{name:'계속 재생',exact:true}).isVisible());assert(await page.getByRole('button',{name:'결과 바로 보기',exact:true}).isVisible());
+ assert(await page.getByRole('button',{name:'계속 재생',exact:true}).isVisible());assert.equal(await page.getByRole('button',{name:'결과 바로 보기',exact:true}).count(),0,'no battle skip in the playback (0.15.17)');
  const during=await page.evaluate(()=>({outcome:document.querySelector('.playback-outcomes').textContent,player:document.querySelector('[data-actor-id="PLAYER_CUSTOM"] .stat')?.textContent}));
  const transition=during.outcome.match(/(?:HP|체력) (\d+) → (\d+)/);assert(transition,'real playback must display the acknowledged HP transition');assert(during.player.includes(transition[2]),'HP must already update during playback, before skipping or final render');results.push({playbackHP:during});
  await page.screenshot({path:resolve(evidence,'combat.png')});
- await page.getByRole('button',{name:'결과 바로 보기',exact:true}).click();await idle();const after=await same('combat result');
+ await page.getByRole('button',{name:'계속 재생',exact:true}).click();await page.waitForSelector('.combat-playback',{state:'detached',timeout:90000});await idle();const after=await same('combat result');
  const rows=await page.locator('.combatant-row').evaluateAll(nodes=>nodes.map(n=>({id:n.dataset.actorId,hp:n.querySelector('.stat')?.textContent})));
  for(const a of after.runtime?.actors||[])assert(rows.find(n=>n.id===a.id)?.hp.includes(String(a.hp)),'visible HP matches '+a.id);
  results.push({combatActors:rows});

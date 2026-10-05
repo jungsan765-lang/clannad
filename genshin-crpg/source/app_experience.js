@@ -103,6 +103,10 @@ let bagCategory='전체',bagSelection=null,bagTrade='전체';
 // +3 silver line, +6 gold line, +9 double gold line, +10 gold corners and a soft inner glow, +12 adds a slow shine.
 function enhanceFrameClass(n){n=Number(n)||0;return n>=12?'enh-12':n>=10?'enh-10':n>=9?'enh-9':n>=6?'enh-6':n>=3?'enh-3':'';}
 function itemGlyph(d){
+  // 0.15.17: a companion's own 운명의 별 (STELLA_<id>) had only the plain category picture; it shows the 4★ or 5★ star of
+  // that companion, like the wish results and the constellation screen.
+  const stella=/^STELLA_(?!FORTUNA_)(.+)$/.exec(d.id||''),star=stella&&typeof MANIFEST!=='undefined'?MANIFEST.itemIcons?.icons?.['STELLA_FORTUNA_'+((game?.premiumRarity?.(stella[1])||4)>=5?5:4)]?.path:null;
+  if(star){const img=el('img','item-icon');img.src=star;img.alt='';return img;}
   if(d.icon?.url){const img=el('img','item-icon');img.src=d.icon.url;img.alt='';return img;}
   const icons={한손검:'🗡',양손검:'⚔',장병기:'🔱',활:'🏹',법구:'📖',방어구:'🛡',장신구:'💍',특수:'💠',음식:'🍲',광물:'💎',전술도구:'🧰'};
   const icon=el('span','item-glyph',d.actionHint==='EXPERIENCE'?'📚':icons[d.category]||(d.group==='음식'?'🍲':d.group==='재료'?'💎':d.group==='퀘스트/핵심'?'🔑':'🧰'));icon.setAttribute('aria-hidden','true');return icon;

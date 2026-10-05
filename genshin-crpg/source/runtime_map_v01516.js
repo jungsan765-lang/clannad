@@ -40,7 +40,10 @@ const ADDED=[
  ['SPRINGVALE_WINERY','MAP_MOND_SPRINGVALE','MAP_MOND_DAWN_WINERY',20],
  ['LINGJU_TIANHENG','MAP_LY_DETAIL_LINGJU','MAP_LY_DETAIL_TIANHENG',25],
  // 옥경대 was reached only from 비운 언덕, and that line ran through the 리월항 circle between them.
- ['HARBOR_YUJING','MAP_LIYUE_HARBOR','MAP_LY_DETAIL_YUJING',5]
+ ['HARBOR_YUJING','MAP_LIYUE_HARBOR','MAP_LY_DETAIL_YUJING',5],
+ // 0.15.17: no road and no story scene led to 야타용왕 도전 구역, so its boss route and the crystal rematch could never be
+ // started. The domain lies under 남천문, where the road now goes.
+ ['NANTIANMEN_AZHDAHA','MAP_LY_DETAIL_NANTIANMEN','MAP_AZHDAHA_DOMAIN',15]
 ];
 // A side road that made a detour faster than the main road it bends around: 몬드성 → 시드르 호수 낚시터 → 몬드 외곽 초원 took 20
 // minutes against 30 on the main road, so every trip to the plains was routed past the fishing spot. [a, b, minutes].
@@ -65,6 +68,14 @@ P.navigationReach=function(){
  while(queue.length){const map=queue.shift(),view=Object.create(this);view.s={...this.s,global:{...this.s.global,CURRENT_MAP_ID:map}};
   for(const r of from.get(map)||[]){if(view.edgeReason(r))continue;open.add(r[0]);if(!maps.has(r[2])&&this.tables['32_MAP_DB'].has(r[2])){maps.add(r[2]);queue.push(r[2]);}}}
  return {maps,open};
+};
+// 0.15.17 (user: 「타르탈리아 스토리 끝나고 입장 안되는거」): the Golden House door followed the traveller's chapter flags only,
+// so an otherworlder who had beaten Tartaglia could never walk back in for the artifact rematch. Once Tartaglia is beaten
+// (either route) and no story scene is running, the door opens both ways.
+const GOLDEN=new Set(['EDGE_TRV_LIYUE_HARBOR_TO_GOLDEN_HOUSE','EDGE_TRV_LIYUE_GOLDEN_HOUSE_TO_HARBOR']),priorReason=P.edgeReason;
+P.edgeReason=function(row){
+ if(row&&GOLDEN.has(row[0])&&row[6]&&!this.s.storyJourney&&!this.s.storyContext&&this.liyueArtifactUnlocked?.('TARTAGLIA')){const r=row.slice();r[6]='';r[7]='';return priorReason.call(this,r);}
+ return priorReason.call(this,row);
 };
 // Some routes are added on read rather than stored (runtime_andrius.js's side-boss road); they are retired the same way.
 const retiredSet=new Set(RETIRED),retire=r=>r&&retiredSet.has(r[0])&&r[11]==='ACTIVE'?Object.assign(r.slice(),{11:'INACTIVE'}):r;

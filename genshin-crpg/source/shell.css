@@ -2160,6 +2160,10 @@ body.teyvat .bag-trade-filter button.selected{background:var(--t-cream);color:va
 .ch-reset.ch-rest{display:flex;flex-direction:column;align-items:center;gap:4px;width:max-content;max-width:min(92%,380px);white-space:normal;text-align:center;line-height:1.35;word-break:keep-all;overflow-wrap:anywhere}
 .ch-reset.ch-rest small{font-size:.8rem;font-weight:600;letter-spacing:0;color:#f3dfae}
 .ch-spot.resting .spot-pic{filter:saturate(.35) brightness(.72)}
+/* 0.15.17: the same rest on 폭발 꽃 찾기 and 원소 암호; the code's earlier tries stay readable above the banner. */
+.pz-mines.resting .pz-mine{filter:saturate(.35) brightness(.72);cursor:wait}
+.pz-mm.resting :is(.pz-mm-slots,.pz-mm-pal){opacity:.45;pointer-events:none}
+.pz-mm>.ch-rest{top:auto;bottom:6px;translate:-50% 0}
 /* 0.15.15: a window's header keeps its height when the window is full (on a 320 px phone the chest window squeezed its
    header to 25 px and the two-line title rose above the window, leaving only 「틀린 그림 찾기」). */
 :is(.pf-head,.deal-head,.ch-head,.trade-head){flex-shrink:0}

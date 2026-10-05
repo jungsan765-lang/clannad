@@ -114,6 +114,8 @@ growthScreen=function(p){
 window.openGear=function(slot,owner){
  const inv=game?.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)return act('MENU',{screen:'STATUS'});
  const party=game.s.party.filter(x=>x.active).map(x=>x.source);pendingPick={owner:party.includes(owner)?owner:inv.equipped&&party.includes(inv.owner)?inv.owner:'PLAYER_CUSTOM',category:itemCategory(inv)};
+ // 0.15.17: the screen shows the member whose slot opens, not the one picked last time.
+ window.CRPGShell?.focusGear?.(pendingPick.owner);
  return act('MENU',{screen:'STATUS'});
 };
 const gearSidebar=sidebar;

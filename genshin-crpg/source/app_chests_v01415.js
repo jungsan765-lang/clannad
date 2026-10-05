@@ -205,6 +205,9 @@ function lightsGame(p,body,done){
 // The games by name; app_puzzles_v0152.js adds the 0.15.2 ones.
 C.games={SPOT:spotGame,SWAP:swapGame,SLIDE:slideGame,SUDOKU:sudokuGame,LIGHTS:lightsGame};
 C.note=note;C.preview=preview;C.placeImage=placeImage;
+// 0.15.17: the same rest for every puzzle with chances (user: 「지뢰찾기 이런 기회 있는것들은 전부 기다리는 시간을 가지게 하자
+// 30초같은거」). Keys name the puzzle ('spot:…', 'mines:…', 'code:…'); the rests are kept with the spot game's.
+C.rest={ms:SPOT_REST,until:key=>spotRest.get(key)||0,start:key=>{spotRest.set(key,Date.now()+SPOT_REST);keepRest();},end:key=>{spotRest.delete(key);keepRest();}};
 function solveLights(state,n){const N=n*n;for(let mask=0;mask<1<<N;mask++){const s=state.slice(),list=[];for(let i=0;i<N;i++)if(mask>>i&1){list.push(i);const x=i%n,y=Math.floor(i/n);for(const k of [i,x>0?i-1:-1,x<n-1?i+1:-1,y>0?i-n:-1,y<n-1?i+n:-1])if(k>=0)s[k]^=1;}if(s.every(v=>v===1))return list;}return [];}
 // 스도쿠, with a short lesson the first time and on request.
 function sudokuGame(p,body,done){

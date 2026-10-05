@@ -45,9 +45,9 @@ check('roads: every line runs both ways, and every place is reachable from 몬�
  for(const r of roads)assert(roads.some(x=>x[1]===r[2]&&x[2]===r[1]),'the way back from '+name(r[2])+' to '+name(r[1])+' ('+r[0]+')');
  const out=new Set(['MAP_MOND_CITY']),back=new Set(['MAP_MOND_CITY']);
  for(let grew=true;grew;){grew=false;for(const r of roads){if(out.has(r[1])&&!out.has(r[2])){out.add(r[2]);grew=true;}if(back.has(r[2])&&!back.has(r[1])){back.add(r[1]);grew=true;}}}
- // The two challenge places are entered by their challenge, not over a road.
+ // Only the sea fight against Osial is a story scene with no road (0.15.17 opened 야타용왕 도전 구역 from 남천문).
  const apart=places.map(m=>m[0]).filter(id=>!out.has(id)||!back.has(id)).sort();
- assert.deepEqual(apart,['MAP_AZHDAHA_DOMAIN','MAP_OSIAL_BATTLE']);
+ assert.deepEqual(apart,['MAP_OSIAL_BATTLE']);
  for(const id of apart)assert(!g.rows('47_MAP_EDGE_DB').some(r=>r[8]==='Y'&&r[11]==='ACTIVE'&&(r[1]===id||r[2]===id)),id+' has no road');
  return {roads:roads.length,places:places.length-apart.length};
 });

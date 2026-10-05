@@ -23,6 +23,16 @@ const hard=p=>p.region==='LIYUE';
 const solvedOf=el=>el.classList.contains('solved');
 const shake=el=>{el.classList.remove('pz-shake');void el.offsetWidth;el.classList.add('pz-shake');};
 const status=(body,text='')=>{const s=mk('p','ch-count pz-status',text);s.setAttribute('aria-live','polite');body.append(s);return s;};
+// 0.15.17: a board whose chances run out rests 30 seconds, like 틀린 그림 찾기 (user: 「지뢰찾기 이런 기회 있는것들은 전부
+// 기다리는 시간을 가지게 하자 30초같은거」). The rest belongs to the puzzle, so closing the window or reloading does not cut it
+// short. True while resting; `after` runs when it ends, if the board is still on screen.
+function rest(board,key,title,after){
+ const until=C.rest?.until(key)||0;if(until<=Date.now())return false;
+ board.classList.add('resting');const warn=mk('div','ch-solved ch-reset ch-rest'),left=mk('small','');warn.append(mk('strong','',title),left);warn.setAttribute('role','status');board.append(warn);
+ let timer=0;const tick=()=>{if(!board.isConnected){clearInterval(timer);return;}const s=Math.ceil((until-Date.now())/1000);if(s>0){left.textContent=s+'초 뒤에 다시 할 수 있습니다';return;}
+  clearInterval(timer);C.rest.end(key);warn.remove();board.classList.remove('resting');after();};
+ timer=setInterval(tick,250);tick();return true;
+}
 function itemImg(id,cls=''){const p=MAN().itemIcons?.icons?.[id]?.path;if(!p)return mk('span','pz-item fallback '+cls,'◆');const i=mk('img','pz-item '+cls);i.src=p;i.alt='';i.draggable=false;return i;}
 // ---------- elements: colour orbs with a small sign (the game has no element pictures) ----------
 const EL=PZ.elements,KEY=['pyro','hydro','cryo','electro','anemo','geo','dendro'];
@@ -147,10 +157,10 @@ C.games.MEMGRID=function(p,body,done){
 };
 // ---------- 폭발 꽃 찾기 ----------
 C.games.MINES=function(p,body,done){
- const n=p.n,bombs=new Set(p.bombs),lives0=hard(p)?2:3,st=Array(n*n).fill(0);let lives=lives0,flag=false,cool=false;// st: 0 hidden 1 open 2 flag 3 bloomed
+ const n=p.n,bombs=new Set(p.bombs),lives0=hard(p)?2:3,st=Array(n*n).fill(0),key='mines:'+p.bombs.join(',');let lives=lives0,flag=false,cool=false;// st: 0 hidden 1 open 2 flag 3 bloomed
  const around=i=>{const x=i%n,y=Math.floor(i/n),out=[];for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const yy=y+dy,xx=x+dx;if((dy||dx)&&yy>=0&&yy<n&&xx>=0&&xx<n)out.push(yy*n+xx);}return out;};
  const near=i=>around(i).filter(k=>bombs.has(k)).length;
- note(body,'숫자는 주변 8칸에 숨은 폭발 꽃의 수입니다. 폭발 꽃이 없는 칸을 모두 열면 풀립니다. 「깃발」로 의심 가는 칸에 표시하세요(PC는 오른쪽 클릭). 폭발 꽃을 열면 기회가 하나 줄고, 기회를 다 쓰면 처음부터 다시 엽니다.');
+ note(body,'숫자는 주변 8칸에 숨은 폭발 꽃의 수입니다. 폭발 꽃이 없는 칸을 모두 열면 풀립니다. 「깃발」로 의심 가는 칸에 표시하세요(PC는 오른쪽 클릭). 폭발 꽃을 열면 기회가 하나 줄고, 기회를 다 쓰면 30초 쉰 뒤 처음부터 다시 엽니다.');
  const hearts=mk('p','ch-lives'),grid=mk('div','ch-game pz-mines');grid.style.setProperty('--n',n);body.append(hearts,grid);
  const drawLives=()=>hearts.replaceChildren(mk('span','','남은 기회'),...range(lives0).map(i=>mk('b',i<lives?'on':'off',i<lives?'♥':'♡')));
  const reveal=i=>{const q=[i];while(q.length){const c=q.pop();if(st[c]===1||bombs.has(c))continue;st[c]=1;if(!near(c))for(const k of around(c))if(st[k]===0)q.push(k);}};
@@ -158,18 +168,21 @@ C.games.MINES=function(p,body,done){
  const draw=()=>{cells.forEach((b,i)=>{const s=st[i];b.className='pz-mine'+(s===1?' open n'+near(i):s===2?' flag':s===3?' bloom':'');b.textContent=s===1&&near(i)?String(near(i)):s===2?'⚑':s===3?'✿':'';});drawLives();};
  const won=()=>range(n*n).every(i=>bombs.has(i)||st[i]===1);
  const restart=()=>{st.fill(0);lives=lives0;reveal(p.start);draw();};
+ // The rest: the board closes and dims, the hearts stay empty, and the seconds count down.
+ const resting=()=>{if(!rest(grid,key,'기회를 다 써서 처음부터 다시 엽니다',()=>{cool=false;restart();}))return false;cool=true;lives=0;st.fill(0);draw();return true;};
  const tap=(i,asFlag)=>{
   if(cool||solvedOf(grid)||st[i]===1||st[i]===3)return;
   if(asFlag||flag){st[i]=st[i]===2?0:2;SND('puzzle_step');draw();return;}
   if(st[i]===2)return;
   if(bombs.has(i)){st[i]=3;lives--;SND('error');draw();shake(hearts);
-   if(lives<=0){cool=true;const warn=mk('div','ch-solved ch-reset','기회를 다 써서 처음부터 다시 엽니다');grid.append(warn);later(()=>{warn.remove();cool=false;restart();},1500);}
+   if(lives<=0){cool=true;if(C.rest){C.rest.start(key);later(resting,700);}else{const warn=mk('div','ch-solved ch-reset','기회를 다 써서 처음부터 다시 엽니다');grid.append(warn);later(()=>{warn.remove();cool=false;restart();},1500);}}
    else{cool=true;later(()=>{cool=false;},500);}return;}
   reveal(i);SND('puzzle_step');draw();if(won()){for(const b of bombs)if(st[b]!==3)st[b]=2;draw();done([...bombs].sort((a,b)=>a-b));}
  };
  const fb=btn('깃발 꽂기',()=>{flag=!flag;fb.classList.toggle('on',flag);fb.textContent=flag?'깃발 꽂는 중':'깃발 꽂기';},'pz-mode');
  body.append(tools(fb));
- restart();
+ // Opened again while this board still rests: the rest goes on.
+ restart();resting();
 };
 // ---------- 원소 물들이기 ----------
 const FLOOD_EL=[0,1,6,3,5];
@@ -211,26 +224,29 @@ C.games.SIMON=function(p,body,done){
 };
 // ---------- 원소 암호 ----------
 C.games.MASTERMIND=function(p,body,done){
- const k=p.k,len=p.len;let guess=Array(len).fill(-1),tries=[],old=[];
- note(body,'원소 '+len+'개로 된 암호를 맞히세요. 암호에는 서로 다른 원소가 쓰입니다. 시도할 때마다 ● 자리까지 맞은 원소의 수, ○ 들어 있지만 자리가 다른 원소의 수를 알려 줍니다. '+p.max+'번 안에 맞히세요.');
+ const k=p.k,len=p.len,key='code:'+p.code.join(',');let guess=Array(len).fill(-1),tries=[],old=[],locked=false;
+ note(body,'원소 '+len+'개로 된 암호를 맞히세요. 암호에는 서로 다른 원소가 쓰입니다. 시도할 때마다 ● 자리까지 맞은 원소의 수, ○ 들어 있지만 자리가 다른 원소의 수를 알려 줍니다. '+p.max+'번 안에 맞히세요. 다 쓰면 30초 쉰 뒤 같은 암호에 다시 도전합니다.');
  const counter=status(body),wrap=mk('div','ch-game pz-mm'),list=mk('div','pz-mm-list'),slots=mk('div','pz-mm-slots'),pal=mk('div','pz-mm-pal');wrap.append(list,slots,pal);body.append(wrap);
  const score=g=>{let exact=0;const a={},b={};g.forEach((v,i)=>{if(v===p.code[i])exact++;a[v]=(a[v]||0)+1;});p.code.forEach(v=>b[v]=(b[v]||0)+1);let common=0;for(const v of Object.keys(a))common+=Math.min(a[v],b[v]||0);return [exact,common-exact];};
  const rowOf=(g,cls)=>{const r=mk('div','pz-mm-row '+cls);for(const v of g)r.append(orb(v,'small'));const [e,o]=score(g),fb=mk('span','pz-mm-fb');fb.append(mk('b','','●'.repeat(e)),mk('i','','○'.repeat(o)));if(!e&&!o)fb.append(mk('small','','없음'));r.append(fb);return r;};
  const draw=()=>{
   list.replaceChildren(...old.map(g=>rowOf(g,'old')),...tries.map(g=>rowOf(g,'')));list.scrollTop=list.scrollHeight;
-  slots.replaceChildren(...guess.map((v,i)=>{const b=cell('pz-mm-slot'+(v<0?' empty':''),(i+1)+'번째 자리',()=>{if(guess[i]<0)return;guess[i]=-1;SND('puzzle_step');draw();});if(v>=0)b.append(orb(v));return b;}));
-  counter.textContent='시도 '+tries.length+' / '+p.max;
+  slots.replaceChildren(...guess.map((v,i)=>{const b=cell('pz-mm-slot'+(v<0?' empty':''),(i+1)+'번째 자리',()=>{if(locked||guess[i]<0)return;guess[i]=-1;SND('puzzle_step');draw();});if(v>=0)b.append(orb(v));return b;}));
+  counter.textContent=locked?'쉬는 동안 지난 시도를 보고 다시 추리하세요. 암호는 그대로입니다.':'시도 '+tries.length+' / '+p.max;
  };
- for(let v=0;v<k;v++){const b=cell('pz-mm-key',EL[v]+' 원소',()=>{if(solvedOf(wrap))return;const i=guess.indexOf(-1);if(i<0)return;guess[i]=v;SND('puzzle_step');draw();});b.append(orb(v),mk('small','',EL[v]));pal.append(b);}
+ for(let v=0;v<k;v++){const b=cell('pz-mm-key',EL[v]+' 원소',()=>{if(locked||solvedOf(wrap))return;const i=guess.indexOf(-1);if(i<0)return;guess[i]=v;SND('puzzle_step');draw();});b.append(orb(v),mk('small','',EL[v]));pal.append(b);}
+ // With every try used, the board rests 30 seconds (the earlier tries stay readable), then the tries come back.
+ const resting=()=>{if(!rest(wrap,key,'기회를 모두 썼습니다',()=>{locked=false;draw();}))return false;locked=true;draw();return true;};
  const go=btn('확인',()=>{
-  if(solvedOf(wrap))return;if(guess.includes(-1)){counter.textContent='네 자리를 모두 채워 주세요.';shake(slots);return;}
+  if(locked||solvedOf(wrap))return;if(guess.includes(-1)){counter.textContent='네 자리를 모두 채워 주세요.';shake(slots);return;}
   tries.push(guess.slice());const [e]=score(guess);guess=Array(len).fill(-1);
   if(e===len){draw();done(tries.map(g=>g.slice()));return;}
   SND('error');draw();
-  if(tries.length>=p.max){old=[...old,...tries].slice(-8);tries=[];counter.textContent='기회를 모두 썼습니다. 암호는 그대로이니 지난 시도를 보고 다시 추리하세요.';}
+  if(tries.length>=p.max){old=[...old,...tries].slice(-8);tries=[];if(C.rest){C.rest.start(key);resting();}else counter.textContent='기회를 모두 썼습니다. 암호는 그대로이니 지난 시도를 보고 다시 추리하세요.';}
  },'primary');
- body.append(tools(go,btn('지우기',()=>{guess=Array(len).fill(-1);draw();})));
- draw();
+ body.append(tools(go,btn('지우기',()=>{if(locked)return;guess=Array(len).fill(-1);draw();})));
+ // Opened again while this code still rests: the rest goes on.
+ draw();resting();
 };
 // ---------- 연동 다이얼 ----------
 C.games.DIALS=function(p,body,done){

@@ -88,7 +88,10 @@ function focusOverlay(next){const active=document.activeElement;if(next&&(!next.
 function inertBackground(next){for(const n of document.body.children)if(n!==next&&!n.contains(next)&&!['SCRIPT','STYLE','LINK'].includes(n.tagName)&&!modalInert.has(n)){modalInert.set(n,n.inert);n.inert=true;}}
 function syncOverlay(){
  const next=topOverlay();if(next===modalRoot){if(next)inertBackground(next);focusOverlay(next);return;}
- for(const [n,before]of modalInert)n.inert=before;modalInert.clear();
+ // 0.15.17: #root's own inert belongs to the game (busy while an action saves, the battle playback). A window opened while
+ // an action was still saving remembered that moment's inert and gave it back on closing, after the action had ended, so
+ // the whole screen stopped taking presses until something drew it again. #root gets the game's state now instead.
+ for(const [n,before]of modalInert)n.inert=n.id==='root'?(typeof busy!=='undefined'&&!!busy)||(typeof GameEffects!=='undefined'&&!!GameEffects.active):before;modalInert.clear();
  const old=modalRoot;modalRoot=next;document.body.classList.toggle('shell-overlay-open',!!next);
  if(next){
   if(!old)modalReturn=document.activeElement;
@@ -123,6 +126,11 @@ function restoreView(state){
 S.captureView=captureView;S.restoreViewPosition=restoreView;
 let viewScrollFrame=0;document.addEventListener('scroll',()=>{if(viewScrollFrame||S.restoreView)return;viewScrollFrame=requestAnimationFrame(()=>{viewScrollFrame=0;if(!S.restoreView){const v=captureView();if(v?.anchor)S.lastView=v;}});},true);
 function navButton(screen){return $('main > aside nav [data-screen="'+screen+'"]');}
+// The character screen opens on this member next time it is drawn (see MENU_LAYOUT.STATUS).
+S.focusGear=id=>{S.gearOwner=id||null;};
+// 0.15.17 (user: 「결과 바로 보기가 전투스킵이잖아」): no battle skip. The playback keeps 일시정지 and the speed setting, and loses
+// 「결과 바로 보기」 and 「다음 표시」 (app_av.js builds them; its dock exists as soon as play() returns its promise).
+if(typeof GameEffects!=='undefined'&&typeof GameEffects.play==='function'){const priorPlay=GameEffects.play;GameEffects.play=function(...args){const out=priorPlay.apply(this,args);for(const b of this.dock?.querySelectorAll('.playback-buttons button')||[])if(['다음 표시','결과 바로 보기'].includes(b.textContent.trim()))b.remove();return out;};}
 function openScreen(screen){const b=navButton(screen);if(b){if(b.disabled){toast(b.title||b.getAttribute('aria-description')||'지금은 이 메뉴를 열 수 없습니다.');return false;}b.click();return true;}if(game&&!busy){act('MENU',{screen});return true;}return false;}
 S.open=openScreen;
 function toast(text){if(!text)return;let t=$('#shell-toast');if(!t){t=mk('div','shell-toast');t.id='shell-toast';t.setAttribute('role','status');document.body.append(t);}t.textContent=text;t.classList.remove('show');void t.offsetWidth;t.classList.add('show');clearTimeout(S.toastTimer);S.toastTimer=setTimeout(()=>t.classList.remove('show'),2600);window.CRPGSound?.play('toast');}
@@ -155,7 +163,11 @@ function buildHUD(aside,key){
  // 0.15.1: the Mora coin from the game, like the Primogem beside it (user: 「이쪽 모라는 안바꿔?」).
  const mora=mk('div','hud-mora');mora.title='모라';mora.append(window.currencyIcon?.('MORA','hud-mora-icon')||icon('MORA'),mk('span','',fmt(g.MORA)));
  me.append(lv,hpBox,mora);
- if(nav){nav.classList.add('hud-nav');for(const b of $$('button',nav)){const scr=b.dataset.screen,def=NAV[scr];if(def){b.classList.add('hud-nav-button');const old=$('.nav-icon',b);if(old)old.replaceWith(icon(def.icon,'shell-icon nav-glyph'));const label=b.lastElementChild;if(label&&label.tagName==='SPAN'){label.classList.add('hud-nav-label');label.textContent=def.label;}b.setAttribute('aria-label',def.label);b.append(mk('span','hud-nav-short',def.short));b.title=(b.title?b.title+' · ':'')+def.label+(def.key?' ('+def.key+')':'');}else{b.classList.add('hud-extra');b.hidden=true;}}}
+ if(nav){nav.classList.add('hud-nav');for(const b of $$('button',nav)){const scr=b.dataset.screen,def=NAV[scr];
+  // 0.15.17 (user: 메인스토리 out of the top menu): the story is reached from 메인 임무 on the main screen and from 임무; the
+  // button stays in the page (hidden) for the T key and the screens that open the story through it.
+  if(scr==='STORY'){b.classList.add('hud-story');b.hidden=true;continue;}
+  if(def){b.classList.add('hud-nav-button');const old=$('.nav-icon',b);if(old)old.replaceWith(icon(def.icon,'shell-icon nav-glyph'));const label=b.lastElementChild;if(label&&label.tagName==='SPAN'){label.classList.add('hud-nav-label');label.textContent=def.label;}b.setAttribute('aria-label',def.label);b.append(mk('span','hud-nav-short',def.short));b.title=(b.title?b.title+' · ':'')+def.label+(def.key?' ('+def.key+')':'');}else{b.classList.add('hud-extra');b.hidden=true;}}}
  const tools=mk('div','hud-tools');
  if(window.CRPGHandbook){const hb=toolButton('HANDBOOK','모험가 핸드북 (F1)',()=>CRPGHandbook.open());hb.classList.add('hud-handbook');tools.append(hb);}
  tools.append(toolButton('MAP','지도 (M)',openMap));
@@ -423,7 +435,10 @@ const MENU_LAYOUT={
    // Like the character screen of the original: the selected member's art fills the middle, details on the right.
    const splash=mk('div','shell-splash');splash.setAttribute('aria-hidden','true');
    const paint=c=>{const src=$('img.gear-portrait',c)?.getAttribute('src');splash.replaceChildren();splash.classList.toggle('empty',!src);if(src){const img=mk('img');img.src=src;img.alt='';img.decoding='async';splash.append(img);}else splash.append(mk('span','shell-splash-mark','✧'));};
-   if(cards.length>1){const list=mk('div','shell-roster');list.setAttribute('role','tablist');list.setAttribute('aria-label','파티원');let cur=Math.min(S.gearIndex||0,cards.length-1);
+   // 0.15.17 (user: a character's gear opened on the member picked last time): a screen that opens this one for a member
+   // (편성's member picture, 가방's 「캐릭터 화면에서 장착하기」) shows that member first (S.focusGear).
+   const wanted=S.gearOwner?cards.findIndex(c=>c.dataset.owner===S.gearOwner):-1;S.gearOwner=null;
+   if(cards.length>1){const list=mk('div','shell-roster');list.setAttribute('role','tablist');list.setAttribute('aria-label','파티원');let cur=wanted>=0?wanted:Math.min(S.gearIndex||0,cards.length-1);
     const show=(i,user)=>{if(user&&S.gearIndex!==i)sound('tab');S.gearIndex=i;cards.forEach((c,j)=>{c.hidden=j!==i;});[...list.children].forEach((b,j)=>{b.setAttribute('aria-selected',String(j===i));b.classList.toggle('active',j===i);});paint(cards[i]);};
     cards.forEach((c,i)=>{const b=mk('button','shell-roster-item');b.type='button';b.setAttribute('role','tab');const face=$('.gear-portrait',c);const pic=face?face.cloneNode(true):mk('span','gear-portrait portrait-placeholder','✧');pic.classList.add('shell-roster-face');b.append(pic,mk('span','',$('h2',c)?.textContent||'파티원'));b.onclick=()=>show(i,true);list.append(b);});
     show(cur);body.append(region('shell-col-roster',[list]));}
