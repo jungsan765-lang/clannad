@@ -40,7 +40,7 @@ function play(route,def,ix){
  const within=reachable(ix,route,def.ENTRY_NODE_ID);
  const ends=[...within].map(get).filter(x=>x&&['EVENT_END','LEGEND_END','AFFECTION_END','END','SYSTEM'].includes(x[5])&&String(x[13]).startsWith('SCREEN:')).map(x=>x[4]);
  const reachedEnds=new Set(),seenNodes=new Set();let paths=0,maxDepth=0;
- const r0=enter(route,def);
+ let r0;try{r0=enter(route,def);}catch(e){summary.push({id:def.id,route,skipped:'entry gate: '+String(e.message).slice(0,60)});return;}
  if(!r0.s.storyContext){problems.push(`${def.id}: could not enter`);return;}
  const start=r0.serialize();
  // One runtime per event; a fork restores the saved state and takes its own option first.
