@@ -247,12 +247,24 @@ function battleOrder(p,b){
   const order=el('ol','battle-order compact-order');order.setAttribute('aria-label','이번 라운드 행동 순서');
   for(const [i,x]of b.order.entries()){const a=b.actors.find(t=>t.id===x.id);if(!a||a.hp<=0)continue;const entry=el('li',(a.side==='ALLY'?'ally':'enemy')+(i===b.cursor?' current':''));entry.dataset.actorId=a.id;entry.append(el('small','',String(i+1)),el('span','',combatDisplayName(b,a)));if(i===b.cursor&&!b.opening?.state?.includes('PENDING'))entry.append(el('small','','현재'));order.append(entry);}p.append(order);
 }
+function combatPortraitSrc(a){if(a.side==='ENEMY')return enemyPortraitFor(a.source);const profile=game.rows('04_CHAR_DB').find(r=>r[1]===a.source);return profile&&portraitFor(profile[0]);}
+// 0.15.18 (user: 「전투할때 누구 차례인지 잘 모르겠으니까 그것도 좀 잘 보이게 해주고」): whose turn it is, in big letters over
+// the commands, with the fighter's face.
+function battleTurnBanner(b){
+  const x=b.order?.[b.cursor],a=x&&b.actors.find(t=>t.id===x.id);if(!a||a.hp<=0)return null;
+  const box=el('div','battle-turn-banner '+(a.side==='ALLY'?'ally':'enemy'));box.setAttribute('role','status');
+  const src=showArt?combatPortraitSrc(a):null;if(src){const img=el('img','battle-turn-face');img.src=src;img.alt='';box.append(img);}else box.append(el('span','battle-turn-face mark',a.side==='ALLY'?'✦':'!'));
+  const copy=el('div','battle-turn-copy');copy.append(el('strong','',combatDisplayName(b,a)+'의 차례'),el('small','',a.side==='ALLY'?'행동을 고르고 적을 눌러 대상을 정한 뒤 실행하세요.':'적이 행동합니다.'));box.append(copy);return box;
+}
 function battleActorRow(a,chosen,index){
   const c=el('div','actor combatant-row'+(a.hp<=0?' dead':'')+(a.id===selectedTarget?' selected':''));c.dataset.actorId=a.id;c.dataset.maxHp=a.maxHp;c.dataset.side=a.side;
-  if(showArt){let src;if(a.side==='ENEMY'){src=enemyPortraitFor(a.source);}else{const profile=game.rows('04_CHAR_DB').find(r=>r[1]===a.source);src=profile&&portraitFor(profile[0]);}if(src){const image=el('img','combat-portrait');image.src=src;image.alt='';c.append(image);}else if(a.id==='PLAYER_CUSTOM')c.append(el('span','combat-player-mark','✦'));}
+  if(showArt){const src=combatPortraitSrc(a);if(src){const image=el('img','combat-portrait');image.src=src;image.alt='';c.append(image);}else if(a.id==='PLAYER_CUSTOM')c.append(el('span','combat-player-mark','✦'));}
   const copy=el('div','combatant-copy');copy.append(el('strong','',a.name+(index>0?' '+index:'')));meter(copy,'HP',a.hp,a.maxHp);const shieldValue=(a.shields||[]).reduce((n,s)=>n+Math.max(0,Number(s.value||0)),0),shieldMax=(a.shields||[]).reduce((n,s)=>n+Math.max(Number(s.initialValue||s.value||0),Number(s.value||0)),0);c.dataset.shieldMax=Math.max(1,Math.round(shieldMax||shieldValue||1));if(shieldValue>0){const shieldBox=el('div','shield-meter');shieldBox.dataset.shieldMax=c.dataset.shieldMax;meter(shieldBox,'보호막',Math.round(shieldValue),Math.max(1,Math.round(shieldMax)));copy.append(shieldBox);}
   const status=[a.aura&&({PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',ANEMO:'바람',GEO:'바위',DENDRO:'풀'}[a.aura]||a.aura),shieldValue>0?'보호막 '+Math.round(shieldValue):null,a.airborne?'공중':null,...(a.statuses||[]).map(s=>safeName('13_STATUS_EFFECT_DB',s.id))].filter(Boolean);if(status.length)copy.append(el('small','',status.join(' · ')));c.append(copy);
-  if(chosen?.targets?.some(t=>t.id===a.id))c.append(button(a.id===selectedTarget?'선택됨':'선택',()=>{selectedTarget=a.id;render();}));return c;
+  if(chosen?.targets?.some(t=>t.id===a.id)){c.append(button(a.id===selectedTarget?'선택됨':'선택',()=>{selectedTarget=a.id;render();}));
+    // 0.15.18 (user: 적 누르면 타겟): a press anywhere on the card chooses it, not only its small button.
+    c.classList.add('targetable');c.addEventListener('click',e=>{if(e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});}
+  return c;
 }
 function battleSummons(p,b){
   const spec={
@@ -262,10 +274,11 @@ function battleSummons(p,b){
     YUEGUI_THROWING:{name:'월계',asset:'summon_yuegui.webp',id:f=>'SUMMON:YUEGUI_THROWING:'+f.actor}
   };
   const fields=(b.fields||[]).filter(f=>spec[f.kind]&&!f.done&&(f.kind!=='BUNNY'||f.hp>0));if(!fields.length)return;
-  const wrap=el('div','battle-summons');wrap.setAttribute('aria-label','전투 소환물');
+  // 0.15.18 (user: 소환물이 맨 밑에 묻혀 있음): the summons stand at the top of the battlefield, a lane only for a side that
+  // has one, so a phone sees them without scrolling past both teams.
+  const wrap=el('div','battle-summons top');wrap.setAttribute('aria-label','전투 소환물');
   for(const side of ['ALLY','ENEMY']){
-    const lane=el('section','summon-lane '+side.toLowerCase()),list=fields.filter(f=>f.side===side);lane.append(el('h3','',side==='ALLY'?'우리 소환물':'적 소환물'));
-    if(!list.length){lane.append(el('small','muted','없음'));wrap.append(lane);continue;}
+    const lane=el('section','summon-lane '+side.toLowerCase()),list=fields.filter(f=>f.side===side);if(!list.length)continue;lane.append(el('h3','',side==='ALLY'?'우리 소환물':'적 소환물'));
     for(const f of list){const m=spec[f.kind],card=el('div','battle-summon');card.dataset.summonId=m.id(f);card.dataset.side=side;if(f.kind==='BUNNY')card.dataset.maxHp=Math.max(1,Math.round(f.maxHp||f.hp));
       if(showArt){const img=el('img','summon-portrait');img.src='assets/summons/'+(f.asset||m.asset);img.alt='';card.append(img);}
       const cp=el('div','summon-copy'),remaining=Number.isFinite(f.summonTurns)?Math.max(0,f.summonTurns-Number(f.summonTicks||0)):Math.max(1,Number(f.rounds||1));
@@ -274,7 +287,7 @@ function battleSummons(p,b){
       else cp.append(el('small','', '자동 행동 · 남은 '+remaining+'회'));
       card.append(cp);lane.append(card);
     }wrap.append(lane);
-  }p.append(wrap);
+  }p.prepend(wrap);
 }
 function battleDetails(p,b){
   const details=el('details','battle-details');details.open=false;details.append(el('summary','','전투 기록 · '+b.log.length+'건'));
@@ -305,6 +318,7 @@ combat=function(p){
   if(opening?.encounter){const e=opening.encounter,card=el('section','encounter-intro');card.setAttribute('aria-label','전투에 들어온 이유');card.append(el('small','eyebrow',e.label+' · '+mapName(e.map)),el('p','encounter-reason',displayText(e.text)));const foes=b.actors.filter(a=>a.side==='ENEMY'),preview=el('div','encounter-opponents');for(const name of [...new Set(foes.map(a=>a.name))]){const group=foes.filter(a=>a.name===name);preview.append(el('span','',name+' × '+group.length));}card.append(preview);p.append(card);}
   battleOrder(p,b);
   const controls=el('section','battle-command');controls.setAttribute('aria-label','전투 행동');
+  if(!opening){const turn=battleTurnBanner(b);if(turn)controls.append(turn);}
   if(opening){controls.append(el('h2','','준비되면 전투를 시작하세요'),el('p','','아직 누구도 공격하지 않았습니다. 시작하면 위 순서대로 행동합니다. 주인공의 차례에는 행동 → 대상 → 실행을 선택하세요.'),actionButton('전투 시작','COMBAT_BEGIN',{battle:b.id},true));}
   else{
     const buttons=el('div','battle-cards');for(const card of cards){const slot=el('div','battle-card-choice'),btn=button('',()=>{selectedCard=card.id;selectedBranch=card.branches?.[0]||'';render();},!!card.reason||busy);btn.dataset.cardId=card.id;btn.classList.toggle('selected',selectedCard===card.id);btn.append(el('strong','',card.name),el('small','',card.reason||(card.cooldown?'재사용 '+card.cooldown+'차례':'사용 가능')));const effect=button('효과',()=>combatCardEffect(card,b));effect.className='battle-effect-button';effect.setAttribute('aria-label',(card.name||'행동')+' 효과 보기');slot.append(btn,effect);buttons.append(slot);}controls.append(buttons);
