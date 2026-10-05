@@ -74,7 +74,14 @@ if(S?.extraTiles)S.extraTiles.push({icon:'SHOP',label:'교환',run:()=>openShop(
 function talentRow(id,kind,name,lv,base,mult,next){
  const row=mk('button','premium-talent'+(ui.talent[id]===kind?' open':''));row.type='button';row.dataset.kind=kind;
  const level=mk('span','talent-level','Lv.'+lv);if(lv>base)level.append(mk('em','',' +'+(lv-base)));
- row.append(mk('span','talent-kind',KIND[kind]),mk('strong','',name),level,mk('span','talent-mult',mult+'%'));
+ // 0.15.21 (user: 「글씨가 꼭 필요하지 않은 부분은 아이콘으로」, 「딴데서 에셋을 가져오는게 맞지 않아?」): the kind is the talent's own
+ // picture from the original game, in a round mark tinted by the element; its name stays on the pointer and for screen
+ // readers. A talent without a picture (이세계인's E and Q) shows its letter.
+ const icons=typeof CRPGIcons!=='undefined'?CRPGIcons:null,pic=icons?.talent(id,kind),mark=pic||mk('span','',KIND[kind]);
+ mark.classList.add('talent-kind');
+ if(icons){const el=icons.ofCharacter(id);mark.classList.add('as-icon','kind-'+kind);if(el)mark.classList.add('el-'+el);
+  if(!pic){mark.textContent='';mark.title=KIND[kind];mark.setAttribute('role','img');mark.setAttribute('aria-label',KIND[kind]);mark.append(mk('b','',kind==='na'?'A':kind.toUpperCase()));}}
+ row.append(mark,mk('strong','',name),level,mk('span','talent-mult',mult+'%'));
  row.title=KIND[kind]+' '+name+' · 피해 '+mult+'%'+(next?' · 다음 레벨 '+next+'%':'');
  row.onclick=()=>{ui.talent[id]=ui.talent[id]===kind?null:kind;sfx('tab');render();};
  return row;

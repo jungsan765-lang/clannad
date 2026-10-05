@@ -2,11 +2,13 @@
 // Run the real puzzle module with deterministic timers. A new puzzle must not revive a closed one's cues.
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const source=fs.readFileSync(path.join(__dirname,'../source/app_puzzles_v0152.js'),'utf8');
+// 0.15.21: the element orbs come from the game's icon module, which the page loads first.
+const icons=fs.readFileSync(path.join(__dirname,'../source/app_icons_v01521.js'),'utf8');
 function harness(){
  const timers=new Map(),sounds=[];let seq=0;
  function element(tag){return{tag,children:[],className:'',textContent:'',style:{setProperty(){}},classList:{add(){},remove(){}},setAttribute(){},append(...nodes){this.children.push(...nodes);}};}
  const C={node:{id:'first'},games:{},note(){}},s={document:{createElement:element,createElementNS:(ns,tag)=>element(tag)},setTimeout:(fn,ms)=>{timers.set(++seq,{fn,ms});return seq;},clearTimeout:id=>timers.delete(id),CRPGChests:C,CRPGShell:{},CRPGSound:{play:name=>sounds.push(name)},CRPGRuntime:{chestRules:{puzzleV0152:{elements:['불','물']}}}};
- s.window=s;vm.createContext(s);vm.runInContext(source,s);
+ s.window=s;vm.createContext(s);vm.runInContext(icons,s);vm.runInContext(source,s);
  const body=element('div'),play=()=>C.games.SIMON({region:'MOND',seq:[0],showMs:200},body,()=>{});
  const fire=ms=>{const item=[...timers].find(([,timer])=>timer.ms===ms);assert(item,'expected timer '+ms);timers.delete(item[0]);item[1].fn();};
  return{C,timers,sounds,body,play,fire};

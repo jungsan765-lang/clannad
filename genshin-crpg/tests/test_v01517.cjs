@@ -111,7 +111,7 @@ function puzzlePage(store=new Map()){
   CRPGShell:{icon:()=>new El(doc,'svg'),toast(){},extraTiles:[],sceneryHooks:[],menuHooks:[]},CRPGSound:{play(){}},
   CRPGRuntime:{chestRules:{puzzleV0152:{elements:['불','물','얼음','번개','바람','바위','풀']}}}};
  ctx.window=ctx;vm.createContext(ctx);
- for(const f of ['app_chests_v01415.js','app_puzzles_v0152.js'])vm.runInContext(src(f),ctx,{filename:f});
+ for(const f of ['app_icons_v01521.js','app_chests_v01415.js','app_puzzles_v0152.js'])vm.runInContext(src(f),ctx,{filename:f});
  // An open chest window (a puzzle acts only while its window is the open one).
  const open=(kind,p)=>{const box=doc.createElement('div');box.className='ch-box';const body=doc.createElement('div');body.className='ch-body';box.append(body);doc.body.append(box);ctx.CRPGChests.node=box;
   ctx.CRPGChests.games[kind](p,body,()=>{});return {box,body,banner:()=>body.querySelector('.ch-rest'),lives:()=>body.querySelectorAll('.ch-lives b').map(b=>b.className).join(','),

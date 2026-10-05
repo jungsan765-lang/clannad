@@ -217,3 +217,19 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 | `UI_ItemIcon_StellaFortuna5.webp` | 운명의 별(5★) `Item_Stella_Fortuna_(5_Star).png` | `3bb77dd3…3eb20e72` |
 
 원본 위치: https://genshin-impact.fandom.com/wiki/File:Item_Stella_Fortuna_(5_Star).png (4성도 같은 형식의 파일 페이지).
+
+# v0.15.21 원소 · 무기 종류 · 특성 아이콘
+
+사용자 요청 「아이콘이 저게 맞아? 그냥 딴데서 에셋을 가져오는게 맞지 않아?」로 자체 선 그림을 원작 UI 텍스처로 바꿨다. 107개, 원본 PNG 459,170바이트 → 128px 이내 무손실 WebP 290,224바이트. `assets/icons/ui/`에 원본 파일 이름 그대로 두고, `content/genshin-ui-assets.json`(빌드 뒤 `MANIFEST.uiAssets`)의 `elements` · `weaponTypes` · `normalAttacks` · `skills`에 파일별 출처 URL, 원본 · 변환본 SHA-256, 원본 크기를 기록했다.
+
+- 원소 7개 `UI_Buff_Element_{Fire,Water,Ice,Electric,Wind,Rock,Grass}`: 캐릭터 · 적의 원소, 원소 부착, 퍼즐 구슬 속 문양.
+- 무기 종류 5개 `UI_GachaTypeIcon_{Sword,Claymore,Pole,Bow,Catalyst}`: 편성 · 캐릭터 화면.
+- 일반 공격 5개 `Skill_A_01`(한손검) · `Skill_A_04`(양손검) · `Skill_A_03`(장병기) · `Skill_A_02`(활) · `Skill_A_Catalyst_MD`(법구).
+- 원소전투 스킬 · 원소폭발 90개 `Skill_S_*` · `Skill_E_*`: 동료 43명과 여행자(바람 · 바위). 이세계인은 원작 그림이 없어 글자 표시를 유지한다.
+
+## 출처
+
+- 원본 PNG: https://enka.network/ui/ (`original_game_texture_mirror`). 그곳에 없는 `UI_Buff_Element_Ice` 1개는 https://gi.yatta.moe/assets/UI/ (`original_game_texture_mirror_reencoded`).
+- 캐릭터와 특성 아이콘의 짝: Project Amber API https://gi.yatta.moe/api/v2/kr/avatar 의 캐릭터별 `talent` 목록. 캐릭터는 운명의 자리 아이콘 파일 이름에 든 원작 내부 이름(예: 엠버 = Ambor)으로 대조했다(45명 전원 일치).
+
+이 자료는 자산의 출처 · 일치 여부를 기록한다. 재배포 사용 조건 전체를 검토했다거나 모든 원신 자산에 제한이 없다고 주장하지 않는다.

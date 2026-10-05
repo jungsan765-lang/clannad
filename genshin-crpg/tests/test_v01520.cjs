@@ -46,12 +46,9 @@ check('the map: a place beyond one move is see-through',()=>{
 
 check('battle: the 「차례」 tag and the 「○ 부착」 badge never share a corner, and the tag follows the fighter in the playback',()=>{
  const css=src('shell.css'),shell=src('app_shell.js');
- assert(/\.combat-panel \.shell-turn-badge\{position:absolute;top:-9px;right:12px;/.test(css),'the tag: top right');
- assert(css.includes('body.teyvat .combat-panel .shell-allies .shell-turn-badge{right:38px}'),'left of an ally\'s order number');
- assert(css.includes('@media (max-width:760px){body.teyvat .combat-panel .shell-allies .shell-turn-badge{right:8px}}'),'a phone hides the number');
+ // 0.15.21: no tag at all any more — the acting card glows as a whole, so nothing can sit on the 「○ 부착」 badge.
+ assert(!css.includes('.shell-turn-badge{position:absolute'),'no 「차례」 tag');
  assert(/\.shell-aura-badge\{position:absolute;top:6px;left:8px;/.test(css),'the element badge keeps the top left');
- // The longest badge (「번개 부착」) is about 66px; the tag is 40px. The narrowest cards: a phone enemy 130px, a phone ally 165px.
- for(const [card,right] of [[130,12],[188,12],[165,8],[300,38]])assert(card-right-40>8+66,'room on a '+card+'px card');
  assert(shell.includes("function turnBadge(row,scope=row.closest('.combat-panel')||document)"),'one tag per battle screen');
  assert(shell.includes("GameEffects.showAction=function(frame,...args){const out=priorShow.call(this,frame,...args);")&&shell.includes("if(row)turnBadge(row);orderNow();return out;"),'the playback moves it');
  assert(fnBody(shell,'orderNow').includes("now.append(mk('small','','현재'))"),'the order\'s 「현재」 goes along');

@@ -12,7 +12,8 @@
  CombatFX.windup=function(frame,effects){const joint=frame.cardId==='PLAYER_ISEKAI_Q'||frame.events?.some(e=>e.cardId==='PLAYER_ISEKAI_Q'||e.sourceKind==='JOINT_ATTACK');const skipped=frame.events?.every(e=>e.jointSkipped);
   if(joint&&!skipped){const decorated={...frame,periodic:false,events:frame.events.map(e=>({...e,sourceKind:e.sourceKind==='JOINT_ATTACK'?null:e.sourceKind}))};windup.call(this,decorated,effects);
    if(effects.dock){effects.dock.classList.add('joint-attack-playback');effects.dock.querySelector('.playback-message').textContent='합동 공격 Q · '+frame.actor+' · 함께하는 일격';}
-   if(!settings.reducedMotion){const badge=el('div','joint-attack-banner','Q · 함께하는 일격');effects.layerNode().append(badge);this.animate(badge,[{opacity:0,transform:'translate(-50%,12px)'},{opacity:1,transform:'translate(-50%,0)'}],{duration:220,fill:'forwards'});}
+   // 0.15.21 (user: 「공격 할때마다 왜 컷인이 뜨는거냐 함께하는 일격에?」): no banner on every joined blow; the playback
+   // window already names the joint attack.
   }else{effects.dock?.classList.remove('joint-attack-playback');windup.call(this,frame,effects);}
  };
  const showAction=GameEffects.showAction;

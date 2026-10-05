@@ -21,10 +21,14 @@ function pickCompanion(n,current){
   for(const x of list){
    const type=x.active?'PARTY_SWAP':current?'PARTY_REPLACE':'PARTY',params=x.active?{from:x.slot,to:n}:{char:x.id,slot:n},why=game.actionReason(type,params);
    const b=button('',()=>{close();act(type,params);},busy||!!why);b.className='member-pick'+(x.active?' in-party':'');if(why)b.title=why;
-   const stars=game.premiumRarity?.(x.id)>=5?5:4,element=ELEMENT_OF(x.id);
-   b.append(actorPortrait(x.id,'member-pick-face'),el('strong','',x.name),el('small','member-pick-meta','Lv.'+x.level+(element?' · '+element:'')),el('span','member-pick-stars r'+stars,'★'.repeat(stars)));
+   const stars=game.premiumRarity?.(x.id)>=5?5:4,element=ELEMENT_OF(x.id),icons=typeof CRPGIcons!=='undefined'?CRPGIcons:null,weapon=icons?.weaponOfCharacter(x.id)||'';
+   // 0.15.21 (user: 「동료칸에 불 번개 바람 얼음 뭐 이런거 적혀있는거 가능하면 아이콘으로」): the element's symbol and the weapon
+   // kind, the original game's pictures (app_icons_v01521.js).
+   const meta=el('small','member-pick-meta','Lv.'+x.level),mark=icons?.element(element),arm=icons?.weapon(weapon,'pick-weapon');
+   if(mark)meta.append(mark);else if(element)meta.append(' · '+element);if(arm)meta.append(arm);
+   b.append(actorPortrait(x.id,'member-pick-face'),el('strong','',x.name),meta,el('span','member-pick-stars r'+stars,'★'.repeat(stars)));
    if(x.active)b.append(el('small','member-pick-state',(x.slot-1)+'번 칸과 자리 바꾸기'));
-   b.setAttribute('aria-label',x.name+' · Lv.'+x.level+(x.active?' · '+(x.slot-1)+'번 칸과 자리 바꾸기':''));grid.append(b);
+   b.setAttribute('aria-label',x.name+' · Lv.'+x.level+(element?' · '+element+' 원소':'')+(weapon?' · '+weapon:'')+(x.active?' · '+(x.slot-1)+'번 칸과 자리 바꾸기':''));grid.append(b);
   }
   if(!list.length)grid.append(el('p','empty','함께할 수 있는 동료가 아직 없습니다. 기원이나 동료의 이야기에서 만날 수 있습니다.'));
   box.append(grid);showModal(current?'동료 바꾸기 · 동료 칸 '+(n-1):'동료 넣기 · 동료 칸 '+(n-1),box);

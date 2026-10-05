@@ -343,6 +343,8 @@ P.roundEnd=function(...args){
  return old.roundEnd.apply(this,args);
 };
 P.combatActionsPerTurn=function(a){const base=old.combatActionsPerTurn?old.combatActionsPerTurn.call(this,a):1;const d=a?.fb&&BOSSES[a.source];if(!d)return base;let n=Math.max(base,(TUNE_BY[a.source]||{}).actions??TUNE.actions);if(d.enrage&&a.hp/a.maxHp<=.3&&d.kind!=='PRIMO'){this.fieldBossSeen(this.s.runtime,'ENRAGE');n++;}return n;};
+// 0.15.21: the same count for the turn order on screen (「×2」), without noting the enrage as seen (read-only).
+P.fieldBossActions=function(a){const d=a?.fb&&BOSSES[a.source];if(!d)return 1;let n=(TUNE_BY[a.source]||{}).actions??TUNE.actions;if(d.enrage&&a.hp/a.maxHp<=.3&&d.kind!=='PRIMO')n++;return n;};
 P.combatCards=function(...args){const cards=old.combatCards.apply(this,args),b=this.s.runtime;if(!b?.fieldBoss||!Array.isArray(cards))return cards;
  return cards.map(c=>{if(!Array.isArray(c.targets))return c;const ok=c.targets.filter(t=>!this.fbUntouchable(b.actors.find(x=>x.id===t.id)));return ok.length&&ok.length!==c.targets.length?{...c,targets:ok}:c;});};
 

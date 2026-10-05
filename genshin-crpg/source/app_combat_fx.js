@@ -1,7 +1,10 @@
 /* Geometric light, trails and rings describe combat actions; no game state writes. */
 const CombatFX={
  animations:new Set(),
- windupDuration:160,
+ // 0.15.21 (user: 「차례가 나온 뒤 0.몇초정도 뜸을 주고 공격」): the fighter's card lights up first (app_battle_fx_v01521.js),
+ // waits windupLead, then steps in and strikes in the rest of windupDuration.
+ windupDuration:460,
+ windupLead:300,
  clear(){for(const a of this.animations)a.cancel();this.animations.clear();},
  pause(paused){for(const a of this.animations)paused?a.pause():a.play();},
  animate(node,frames,options){if(!node?.animate)return;const a=node.animate(frames,{...options,duration:options.duration/(settings.combatSpeed||1)});this.animations.add(a);a.finished.then(()=>this.animations.delete(a),()=>this.animations.delete(a));return a;},
@@ -19,9 +22,13 @@ const CombatFX={
   if(effects.dock){effects.dock.querySelector('.playback-message').textContent=[frame.actor,frame.cardName||'행동',auxiliary?'효과 발동':'준비'].filter(Boolean).join(' · ');effects.dock.querySelector('.playback-outcomes').replaceChildren();}
   if(settings.reducedMotion)return;
   const actor=effects.actorNode(frame.actorId),from=this.point(actor),layer=effects.layerNode();
-  if(actor&&(!auxiliary||summonSource)){const direction=actor.dataset.side==='ENEMY'?-1:1;this.animate(actor,[{transform:'translateX(0)'},{transform:'translateX('+direction*9+'px)',filter:'brightness(1.5)'}],{duration:this.windupDuration,fill:'forwards',easing:'ease-in'});}
+  const strike=Math.max(60,this.windupDuration-(this.windupLead||0)),wait=(this.windupLead||0)/(settings.combatSpeed||1);
+  if(actor&&(!auxiliary||summonSource)){const direction=actor.dataset.side==='ENEMY'?-1:1;this.animate(actor,[{transform:'translateX(0)'},{transform:'translateX('+direction*9+'px)',filter:'brightness(1.5)'}],{duration:strike,delay:wait,fill:'forwards',easing:'ease-in'});}
+  // 0.15.21 (user: 「뿅뿅 날아가는 것만 말고 장비마다 공격 모션」): only an arrow or a spell flies ahead now; a melee blow is
+  // drawn on the target when it lands (app_battle_fx_v01521.js).
+  if(typeof BattleFX!=='undefined'&&BattleFX.windupShot){BattleFX.windupShot(frame,effects,from,auxiliary,summonSource,{delay:wait,duration:strike});return;}
   for(const t of frame.targets){const target=this.point(effects.actorNode(t.targetId));if(!target||!from||t.targetId===frame.actorId||(auxiliary&&!summonSource))continue;const e=t.events.find(e=>e.kind==='damage')||t.events[0],element=e?.element||'hit',p=this.mote(layer,'cast-trail effect-'+element,from),dx=target.x-from.x,dy=target.y-from.y,angle=Math.atan2(dy,dx)*180/Math.PI;
-   this.animate(p,[{transform:'translate(-50%,-50%) rotate('+angle+'deg) scaleX(.3)',opacity:0},{offset:.2,opacity:1},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+angle+'deg) scaleX(1)',opacity:1}],{duration:this.windupDuration,fill:'forwards',easing:'ease-in'});
+   this.animate(p,[{transform:'translate(-50%,-50%) rotate('+angle+'deg) scaleX(.3)',opacity:0},{offset:.2,opacity:1},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+angle+'deg) scaleX(1)',opacity:1}],{duration:strike,delay:wait,fill:'both',easing:'ease-in'});
   }
  },
  // Reaction names ride on their target's damage number, as in the original, instead of a separate banner.
@@ -47,7 +54,8 @@ const CombatFX={
    if(t.events.some(e=>e.kind==='reaction'||e.reactionId))continue;
    const hit=t.events.find(e=>e.kind==='damage'&&NAME[e.element]);if(!hit)continue;
    const p=this.point(effects.actorNode(t.targetId));if(!p)continue;
-   const tag=this.mote(layer,'aura-tag effect-'+hit.element,{x:p.x,y:p.y+34});tag.textContent=NAME[hit.element]+' 부착';
+   // 0.15.21: the element's symbol (app_icons_v01521.js) instead of its name.
+   const tag=this.mote(layer,'aura-tag effect-'+hit.element,{x:p.x,y:p.y+34}),pic=typeof CRPGIcons!=='undefined'?CRPGIcons.element(hit.element):null;if(pic)tag.append(pic,'부착');else tag.textContent=NAME[hit.element]+' 부착';
    if(!settings.reducedMotion)this.animate(tag,[{opacity:0,transform:'translate(-50%,-20%) scale(.8)'},{offset:.18,opacity:1,transform:'translate(-50%,-50%) scale(1.06)'},{offset:.3,transform:'translate(-50%,-50%) scale(1)'},{offset:.82,opacity:1},{opacity:0,transform:'translate(-50%,-70%)'}],{duration:1150,easing:'ease-out',fill:'forwards'});
   }
  },

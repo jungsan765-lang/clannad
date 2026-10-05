@@ -16,8 +16,9 @@ check('whose turn: a banner with the fighter\'s face over the commands, and a ta
  assert(banner.includes("el('strong','',combatDisplayName(b,a)+'의 차례')"),'「…의 차례」');
  assert(banner.includes("'행동을 고르고 적을 눌러 대상을 정한 뒤 실행하세요.'")&&banner.includes("'적이 행동합니다.'"));
  assert(exp.includes("if(!opening){const turn=battleTurnBanner(b);if(turn)controls.append(turn);}"),'shown once the fight has begun, first in the commands');
- assert(shell.includes("row.classList.add('shell-acting');row.append(mk('span','shell-turn-badge','차례'));")&&shell.includes("if(row)turnBadge(row,p);"),'the card wears 「차례」 (0.15.20: one tag per battle screen)');
- assert(/body\.teyvat \.battle-command \.battle-turn-banner\{[^}]*animation:shellGlow/.test(css)&&/\.combat-panel \.shell-turn-badge\{[^}]*pointer-events:none/.test(css));
+ // 0.15.21: the whole card glows instead of wearing a 「차례」 tag (user: 「차례인 인원은 아예 그 캐릭터 프로필 전체가 빛나는걸로」).
+ assert(shell.includes("row.classList.add('shell-acting');}")&&shell.includes("if(row)turnBadge(row,p);")&&!shell.includes("mk('span','shell-turn-badge','차례')"),'the acting card glows, one per battle screen');
+ assert(/body\.teyvat \.battle-command \.battle-turn-banner\{[^}]*animation:shellGlow/.test(css)&&/\.combatant-row\.shell-acting\{[^}]*animation:fxActingGlow/.test(css));
  return {};
 });
 

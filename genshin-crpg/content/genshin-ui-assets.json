@@ -3841,5 +3841,2278 @@
    "addedIn": "0.14.12"
   }
  },
- "videoNote": "0.14.12: 기원 유성 연출은 원신 원작 기원 영상을 그대로 쓴다(사용자 요청 「기원 영상을 갖다 붙여」). 공개 팬 기원 시뮬레이터 저장소가 쓰는 파일을 변환 없이 받았다. 공식 CDN 직접 배포본이 아니다."
+ "videoNote": "0.14.12: 기원 유성 연출은 원신 원작 기원 영상을 그대로 쓴다(사용자 요청 「기원 영상을 갖다 붙여」). 공개 팬 기원 시뮬레이터 저장소가 쓰는 파일을 변환 없이 받았다. 공식 CDN 직접 배포본이 아니다.",
+ "uiIconsAddedIn": "0.15.21",
+ "uiIconsNote": "0.15.21: 원소 · 무기 종류 · 특성 아이콘(사용자 요청 「딴데서 에셋을 가져오는게 맞지 않아?」). 원본 PNG는 enka.network/ui, 없으면 gi.yatta.moe/assets/UI에서 받았다. 캐릭터와 특성 아이콘의 짝은 gi.yatta.moe/api/v2/kr/avatar의 talent 목록(운명의 자리 아이콘의 내부 이름으로 대조)을 따른다.",
+ "elements": {
+  "pyro": {
+   "file": "UI_Buff_Element_Fire",
+   "path": "assets/icons/ui/UI_Buff_Element_Fire.webp",
+   "source": "https://enka.network/ui/UI_Buff_Element_Fire.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "4bbb3e1da68740f4879c5a6940cb58833833253e8aeb681c76ac542284c5d1fa",
+   "source_sha256": "134405c2a26eec3beb7f852ea7a25a717b87c19eacd43a40fafdf12340872e62",
+   "source_dimensions": [
+    64,
+    64
+   ],
+   "bytes": 1504,
+   "label": "불 원소"
+  },
+  "hydro": {
+   "file": "UI_Buff_Element_Water",
+   "path": "assets/icons/ui/UI_Buff_Element_Water.webp",
+   "source": "https://enka.network/ui/UI_Buff_Element_Water.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "195c9e8e5b03223eaa10c1d3180ba3083460448c2fd0aaaeb088c31177328611",
+   "source_sha256": "308a80debc1185a3151a26bee04e513566773c23a2dedcd29f8cd23c2ce4d6c9",
+   "source_dimensions": [
+    64,
+    64
+   ],
+   "bytes": 1310,
+   "label": "물 원소"
+  },
+  "cryo": {
+   "file": "UI_Buff_Element_Ice",
+   "path": "assets/icons/ui/UI_Buff_Element_Ice.webp",
+   "source": "https://gi.yatta.moe/assets/UI/UI_Buff_Element_Ice.png",
+   "provenance": "original_game_texture_mirror_reencoded",
+   "sha256": "395900ebe8c426f61f1bd3179eae42491d00d4e6b59e6d00c874946f351898c6",
+   "source_sha256": "608d950043276eb0a1116170de197ff2cdac4302a26bb8de48b7b8070a59463e",
+   "source_dimensions": [
+    64,
+    64
+   ],
+   "bytes": 1570,
+   "label": "얼음 원소"
+  },
+  "electro": {
+   "file": "UI_Buff_Element_Electric",
+   "path": "assets/icons/ui/UI_Buff_Element_Electric.webp",
+   "source": "https://enka.network/ui/UI_Buff_Element_Electric.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "789496cae2d979991a815851584cc89e4c29760754fe98f1e368c2e0d7304471",
+   "source_sha256": "ed6103fff7e837508d0c5e51d97d3adf73b0c8c95bd7863041080e0e15263c15",
+   "source_dimensions": [
+    64,
+    64
+   ],
+   "bytes": 1192,
+   "label": "번개 원소"
+  },
+  "anemo": {
+   "file": "UI_Buff_Element_Wind",
+   "path": "assets/icons/ui/UI_Buff_Element_Wind.webp",
+   "source": "https://enka.network/ui/UI_Buff_Element_Wind.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "e501e45a7acfe1e9d6e77cc99c2a03b2617b74c6a718664171222bb1c0895ff9",
+   "source_sha256": "2e13617eab4cac1beafd0b9262e91e5ebc4cf00479e83d591fa1c11e3a22ee5e",
+   "source_dimensions": [
+    64,
+    64
+   ],
+   "bytes": 1708,
+   "label": "바람 원소"
+  },
+  "geo": {
+   "file": "UI_Buff_Element_Rock",
+   "path": "assets/icons/ui/UI_Buff_Element_Rock.webp",
+   "source": "https://enka.network/ui/UI_Buff_Element_Rock.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "ca09b237dc2d4cde9f1c3c82f9bb0a22ce3c87d4acf8a3f2e6a2da8634daedf5",
+   "source_sha256": "3b48d6507588b237596822376f14f5ff091565dcf55984e9cecff7f7a68a8b53",
+   "source_dimensions": [
+    64,
+    64
+   ],
+   "bytes": 1314,
+   "label": "바위 원소"
+  },
+  "dendro": {
+   "file": "UI_Buff_Element_Grass",
+   "path": "assets/icons/ui/UI_Buff_Element_Grass.webp",
+   "source": "https://enka.network/ui/UI_Buff_Element_Grass.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "f5ca16bb79ef7f15eb72e0ec024874c76b0fc46806a8161d0a4e7e5a93cec03c",
+   "source_sha256": "98afa8d2a553ef3beaa67c15436af8cb0ad675bf93055cbc7ece2dd4d28b8f1d",
+   "source_dimensions": [
+    64,
+    64
+   ],
+   "bytes": 1338,
+   "label": "풀 원소"
+  }
+ },
+ "weaponTypes": {
+  "한손검": {
+   "file": "UI_GachaTypeIcon_Sword",
+   "path": "assets/icons/ui/UI_GachaTypeIcon_Sword.webp",
+   "source": "https://enka.network/ui/UI_GachaTypeIcon_Sword.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+   "source_sha256": "923f24fd7b0f5f5b9cf359b8fc9c7e109fa6d2add9867e47d5feacf046867faf",
+   "source_dimensions": [
+    128,
+    128
+   ],
+   "bytes": 5098,
+   "label": "한손검"
+  },
+  "양손검": {
+   "file": "UI_GachaTypeIcon_Claymore",
+   "path": "assets/icons/ui/UI_GachaTypeIcon_Claymore.webp",
+   "source": "https://enka.network/ui/UI_GachaTypeIcon_Claymore.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "373d0767d6d7fb6dc9e03c831a9d08bf7751a93e0b506e882135575a75bc55b6",
+   "source_sha256": "beb9635de7815366a32313872dc35ef4d0e653484f1023aa8614b78f47ee6ca1",
+   "source_dimensions": [
+    128,
+    128
+   ],
+   "bytes": 5014,
+   "label": "양손검"
+  },
+  "장병기": {
+   "file": "UI_GachaTypeIcon_Pole",
+   "path": "assets/icons/ui/UI_GachaTypeIcon_Pole.webp",
+   "source": "https://enka.network/ui/UI_GachaTypeIcon_Pole.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+   "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+   "source_dimensions": [
+    128,
+    128
+   ],
+   "bytes": 1970,
+   "label": "장병기"
+  },
+  "활": {
+   "file": "UI_GachaTypeIcon_Bow",
+   "path": "assets/icons/ui/UI_GachaTypeIcon_Bow.webp",
+   "source": "https://enka.network/ui/UI_GachaTypeIcon_Bow.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "b1fe2d449bb39d779f520ba2d400677aa8b89a493d161d866c2574dc13da1a54",
+   "source_sha256": "de1b24eff8e00122e2a62620de65c3c9af591037152f0fa136ee29eac966ee6c",
+   "source_dimensions": [
+    128,
+    128
+   ],
+   "bytes": 4660,
+   "label": "활"
+  },
+  "법구": {
+   "file": "UI_GachaTypeIcon_Catalyst",
+   "path": "assets/icons/ui/UI_GachaTypeIcon_Catalyst.webp",
+   "source": "https://enka.network/ui/UI_GachaTypeIcon_Catalyst.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+   "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+   "source_dimensions": [
+    128,
+    128
+   ],
+   "bytes": 1916,
+   "label": "법구"
+  }
+ },
+ "normalAttacks": {
+  "한손검": {
+   "file": "Skill_A_01",
+   "path": "assets/icons/ui/Skill_A_01.webp",
+   "source": "https://enka.network/ui/Skill_A_01.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+   "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+   "source_dimensions": [
+    128,
+    128
+   ],
+   "bytes": 5098,
+   "label": "일반 공격"
+  },
+  "양손검": {
+   "file": "Skill_A_04",
+   "path": "assets/icons/ui/Skill_A_04.webp",
+   "source": "https://enka.network/ui/Skill_A_04.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "373d0767d6d7fb6dc9e03c831a9d08bf7751a93e0b506e882135575a75bc55b6",
+   "source_sha256": "c59a0f2792a527a1fc6f60fb6d6120be57ef936dc523485b3d14d87c416755aa",
+   "source_dimensions": [
+    128,
+    128
+   ],
+   "bytes": 5014,
+   "label": "일반 공격"
+  },
+  "장병기": {
+   "file": "Skill_A_03",
+   "path": "assets/icons/ui/Skill_A_03.webp",
+   "source": "https://enka.network/ui/Skill_A_03.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+   "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+   "source_dimensions": [
+    128,
+    128
+   ],
+   "bytes": 1970,
+   "label": "일반 공격"
+  },
+  "활": {
+   "file": "Skill_A_02",
+   "path": "assets/icons/ui/Skill_A_02.webp",
+   "source": "https://enka.network/ui/Skill_A_02.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "b1fe2d449bb39d779f520ba2d400677aa8b89a493d161d866c2574dc13da1a54",
+   "source_sha256": "0e6b40ac7f2e4051a9967572194cc99a4451eaa898c4d6efae0f3680eb9e403f",
+   "source_dimensions": [
+    128,
+    128
+   ],
+   "bytes": 4660,
+   "label": "일반 공격"
+  },
+  "법구": {
+   "file": "Skill_A_Catalyst_MD",
+   "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+   "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+   "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+   "source_dimensions": [
+    128,
+    128
+   ],
+   "bytes": 1916,
+   "label": "일반 공격"
+  }
+ },
+ "skills": {
+  "LIYUE_BAIZHU": {
+   "na": {
+    "file": "Skill_A_Catalyst_MD",
+    "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+    "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+    "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1916,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Baizhuer_01",
+    "path": "assets/icons/ui/Skill_S_Baizhuer_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Baizhuer_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "15457a40459ffac135499d3168091bb22831325dc77cb46697277fadedae8cc9",
+    "source_sha256": "cc17d74f03f7c92dbea9eb6d00915f28d46df10e4c780e19516e43deba727a27",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3138,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Baizhuer_01",
+    "path": "assets/icons/ui/Skill_E_Baizhuer_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Baizhuer_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "d48e5dd69d00269df25c2da59159a6fcfa3160381d5363fc5959cdc221d4459c",
+    "source_sha256": "4dfe06aa4588af2436313f15a87a83a70dc66c7bc48b3c682f9f849551e3862d",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2404,
+    "label": "원소폭발"
+   },
+   "amber": "10000082"
+  },
+  "LIYUE_BEIDOU": {
+   "na": {
+    "file": "Skill_A_04",
+    "path": "assets/icons/ui/Skill_A_04.webp",
+    "source": "https://enka.network/ui/Skill_A_04.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "373d0767d6d7fb6dc9e03c831a9d08bf7751a93e0b506e882135575a75bc55b6",
+    "source_sha256": "c59a0f2792a527a1fc6f60fb6d6120be57ef936dc523485b3d14d87c416755aa",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5014,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Beidou_01",
+    "path": "assets/icons/ui/Skill_S_Beidou_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Beidou_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "c7598488be82233f054a10ac0031cbf5aa29e3d86db03ac494bae1b682f4b607",
+    "source_sha256": "45810943d5ffcb4e01d4135030c10babc40c1efe170bbc8a4c949869dc8d95b1",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 4026,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Beidou_01",
+    "path": "assets/icons/ui/Skill_E_Beidou_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Beidou_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b42a49f2db6d9c917c72a599107b36af7de350fe0e8f32b450f1f86412a17533",
+    "source_sha256": "b0dfbeca6060a8e7a54dafb4f836428a3adc0370bb17912389acd214e90cca0a",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1976,
+    "label": "원소폭발"
+   },
+   "amber": "10000024"
+  },
+  "LIYUE_CHONGYUN": {
+   "na": {
+    "file": "Skill_A_04",
+    "path": "assets/icons/ui/Skill_A_04.webp",
+    "source": "https://enka.network/ui/Skill_A_04.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "373d0767d6d7fb6dc9e03c831a9d08bf7751a93e0b506e882135575a75bc55b6",
+    "source_sha256": "c59a0f2792a527a1fc6f60fb6d6120be57ef936dc523485b3d14d87c416755aa",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5014,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Chongyun_01",
+    "path": "assets/icons/ui/Skill_S_Chongyun_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Chongyun_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "a64a3272b022e12f2e5056d48357a5c0ba5642c5067729304d94475003c02dee",
+    "source_sha256": "75a9259404b63f275f86c474f29a4a0626def489201bd79c2bdacfe3ccd28f92",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2512,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Chongyun_01",
+    "path": "assets/icons/ui/Skill_E_Chongyun_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Chongyun_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "bed43001af4c226f3cdee189dabc723778b98d0dc52715eacc1b9e67932b412a",
+    "source_sha256": "3ee98a09c4605fcca13f60a7d925e6f072a10227ca2807880e45928ce780b022",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2276,
+    "label": "원소폭발"
+   },
+   "amber": "10000036"
+  },
+  "LIYUE_GAMING": {
+   "na": {
+    "file": "Skill_A_04",
+    "path": "assets/icons/ui/Skill_A_04.webp",
+    "source": "https://enka.network/ui/Skill_A_04.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "373d0767d6d7fb6dc9e03c831a9d08bf7751a93e0b506e882135575a75bc55b6",
+    "source_sha256": "c59a0f2792a527a1fc6f60fb6d6120be57ef936dc523485b3d14d87c416755aa",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5014,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Gaming_01",
+    "path": "assets/icons/ui/Skill_S_Gaming_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Gaming_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "75200d1b53b880507bdc16242db4d3126e7eeaddf9733be3c4bbcd93a809e41e",
+    "source_sha256": "29a8e9819190afae18c4317aeb32613661b1dc2529c4d47b620363c9a11c5af2",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 4314,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Gaming_01",
+    "path": "assets/icons/ui/Skill_E_Gaming_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Gaming_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "45b30cfffa2eab866c33b71fd0419059aa43c9abea101f6afa81341d6eaec771",
+    "source_sha256": "f5f1d1c0210d18f2a3f5a90b528eb234296a5901a4fcffd3651e40e9f3a4ddd8",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2654,
+    "label": "원소폭발"
+   },
+   "amber": "10000092"
+  },
+  "LIYUE_GANYU": {
+   "na": {
+    "file": "Skill_A_02",
+    "path": "assets/icons/ui/Skill_A_02.webp",
+    "source": "https://enka.network/ui/Skill_A_02.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b1fe2d449bb39d779f520ba2d400677aa8b89a493d161d866c2574dc13da1a54",
+    "source_sha256": "0e6b40ac7f2e4051a9967572194cc99a4451eaa898c4d6efae0f3680eb9e403f",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 4660,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Ganyu_01",
+    "path": "assets/icons/ui/Skill_S_Ganyu_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Ganyu_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "8feef3c31f4a3079b2bcccbb4e2e966cd0e663a360b7c87891dbe92dbf70cdd5",
+    "source_sha256": "39f934729ff6638da150ca9edbe262d22afd908440b29ff27665c5af0ca29a46",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2454,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Ganyu_01",
+    "path": "assets/icons/ui/Skill_E_Ganyu_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Ganyu_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "eb2c30291ecffaf81c52a32de90f58081f104ba99c39da8720b3b959bcd4b9a0",
+    "source_sha256": "9397681119e61b5eee10d42906cf5f2e41e7a20d16c05463ae1f59bd07601643",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1912,
+    "label": "원소폭발"
+   },
+   "amber": "10000037"
+  },
+  "LIYUE_HUTAO": {
+   "na": {
+    "file": "Skill_A_03",
+    "path": "assets/icons/ui/Skill_A_03.webp",
+    "source": "https://enka.network/ui/Skill_A_03.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+    "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1970,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Hutao_01",
+    "path": "assets/icons/ui/Skill_S_Hutao_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Hutao_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "d25ed42fa7cfe3863a0004fe5c1ff4d06929be23d7b863dec3e0aa3587e85123",
+    "source_sha256": "bba5d16891bf32c591158f466b3aa8bccb55027e6e99bb56efe94934a07c7686",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2760,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Hutao_01",
+    "path": "assets/icons/ui/Skill_E_Hutao_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Hutao_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "a218f801ce014e62f7927c2bb195c4019353d3331fab4587e103390c3710ce8d",
+    "source_sha256": "cccf5e7e491323d1f94cea39df756f06042d54ffef3115845696e814ffcb9773",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1684,
+    "label": "원소폭발"
+   },
+   "amber": "10000046"
+  },
+  "LIYUE_KEQING": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Keqing_01",
+    "path": "assets/icons/ui/Skill_S_Keqing_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Keqing_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "48fd3b70e886c937a44c89ef5453a6ec56b72bf4d939057bd8aee6ad5af63178",
+    "source_sha256": "0e182f38a09c6b39038fa4b6cd48c23cb13dd2830ffbb5f812c1c32edeb52b58",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 4766,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Keqing_01",
+    "path": "assets/icons/ui/Skill_E_Keqing_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Keqing_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "6cbfea56cc0c892bd2234ebc31a369c2ab30cf87a716d066bb448c39eeb6122c",
+    "source_sha256": "c75792b0cf2bd969c23126c6fbf9d40df703c8f8d028bd2ff578b51126bac010",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2288,
+    "label": "원소폭발"
+   },
+   "amber": "10000042"
+  },
+  "LIYUE_LANYAN": {
+   "na": {
+    "file": "Skill_A_Catalyst_MD",
+    "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+    "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+    "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1916,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Lanyan_01",
+    "path": "assets/icons/ui/Skill_S_Lanyan_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Lanyan_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "775a082ff1dd8b928c7eb1c7d7415d2b66ed59350a6d03a7c306923b6cbc7e91",
+    "source_sha256": "6217852027f5a24105444510925312d39d1a1b0529c552f9648aad0a7a936d20",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3678,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Lanyan_01",
+    "path": "assets/icons/ui/Skill_E_Lanyan_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Lanyan_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "ea36dd4e459ed6d37030171a74c744171751fcd13626b9f3aec23c6d9097c354",
+    "source_sha256": "96ad81bf6846ad482c543dc00d9939ee7116aed3de9217ce7cc0a096afb145b0",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1942,
+    "label": "원소폭발"
+   },
+   "amber": "10000108"
+  },
+  "LIYUE_NINGGUANG": {
+   "na": {
+    "file": "Skill_A_Catalyst_MD",
+    "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+    "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+    "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1916,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Ningguang_01",
+    "path": "assets/icons/ui/Skill_S_Ningguang_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Ningguang_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "9da18a79a2565dfc1c16acbd89a2163138aebe93426256557a0d82de375890d2",
+    "source_sha256": "9fc7a8211e4860a30b88ba35eaf4a8366f0efa3a4ab0fdda93ae1022205adb73",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2684,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Ningguang_01",
+    "path": "assets/icons/ui/Skill_E_Ningguang_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Ningguang_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "c43005085ef8218912e5d8e1c86d9a50bc053c6ca164769a37e410cfb264a6c5",
+    "source_sha256": "a0717ca0e1f666606bbd017c1a3a383757b32a04aeaa0cf99221995e4cbdcdc6",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1666,
+    "label": "원소폭발"
+   },
+   "amber": "10000027"
+  },
+  "LIYUE_QIQI": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Qiqi_01",
+    "path": "assets/icons/ui/Skill_S_Qiqi_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Qiqi_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "d0fe5dbf656b3997cbdb159505b5b15cd10521c9c53c58f0f4814adbe1734146",
+    "source_sha256": "dd97e99e230b8fbbce1589aa38093a8e5fc2d593a702403776dcb15cdb18c2c2",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3640,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Qiqi_01",
+    "path": "assets/icons/ui/Skill_E_Qiqi_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Qiqi_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "15604c4f1e688378cecf91a69fcb62f0826ea762449bfa81cc570990dbbc1e61",
+    "source_sha256": "d09be764a6b424b919606a72a86a57b4d248d3774762a5e0a60bf85baebdcc90",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1328,
+    "label": "원소폭발"
+   },
+   "amber": "10000035"
+  },
+  "LIYUE_SHENHE": {
+   "na": {
+    "file": "Skill_A_03",
+    "path": "assets/icons/ui/Skill_A_03.webp",
+    "source": "https://enka.network/ui/Skill_A_03.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+    "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1970,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Shenhe_01",
+    "path": "assets/icons/ui/Skill_S_Shenhe_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Shenhe_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "36d907010237f7922538406a29a8cc1ad3999a00842038ede91ec68dbe12230a",
+    "source_sha256": "b6da7d9800797c22b84038c1dd867f28026be4ea59b3357005602fe994cf769e",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3572,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Shenhe_01",
+    "path": "assets/icons/ui/Skill_E_Shenhe_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Shenhe_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "34e62ee0fe38034169db67fd81e85a281bfd038dc0991d4e441e5454d73b1a00",
+    "source_sha256": "6fa8270bc708af2f256ae49d54b3398d62da3f1ee77df53404b0006aedc9b90e",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2004,
+    "label": "원소폭발"
+   },
+   "amber": "10000063"
+  },
+  "LIYUE_TARTAGLIA": {
+   "na": {
+    "file": "Skill_A_02",
+    "path": "assets/icons/ui/Skill_A_02.webp",
+    "source": "https://enka.network/ui/Skill_A_02.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b1fe2d449bb39d779f520ba2d400677aa8b89a493d161d866c2574dc13da1a54",
+    "source_sha256": "0e6b40ac7f2e4051a9967572194cc99a4451eaa898c4d6efae0f3680eb9e403f",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 4660,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Tartaglia_01",
+    "path": "assets/icons/ui/Skill_S_Tartaglia_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Tartaglia_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "ca20697ed5b0f1e32766508855de03b2e025c8c37edf81913da5dff7a99c49e5",
+    "source_sha256": "ac5593e41ae43afce6361b2ef3623985bf3e385b9b0063088b198872c608e70f",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3828,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Tartaglia_01",
+    "path": "assets/icons/ui/Skill_E_Tartaglia_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Tartaglia_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "20cb7d8b68f88e0586346d2c3f9ea802f6842eb30c333220faa3ee20ebd0743b",
+    "source_sha256": "8411217bc30f81ca0c548acc9085421d7907c994f6e8966be5bc5343094adf48",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1856,
+    "label": "원소폭발"
+   },
+   "amber": "10000033"
+  },
+  "LIYUE_XIANGLING": {
+   "na": {
+    "file": "Skill_A_03",
+    "path": "assets/icons/ui/Skill_A_03.webp",
+    "source": "https://enka.network/ui/Skill_A_03.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+    "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1970,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Xiangling_01",
+    "path": "assets/icons/ui/Skill_S_Xiangling_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Xiangling_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "52750c6d96c8c0b528d42270ba886a13d1a828d4853cca66b998771c32fe25af",
+    "source_sha256": "8bbd0292a616afb145092a6af8aec8d21c12489123412cb83e0fe1007320b158",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2722,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Xiangling_01",
+    "path": "assets/icons/ui/Skill_E_Xiangling_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Xiangling_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "08573beaa50760e6eb53ad23b26d7b211ba6344a9e4a32ea7c32b9b7e0b74db5",
+    "source_sha256": "860549361b49c9e6a0e5f19e014d3fe9ef704c814fc41f326f8973867c116574",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1904,
+    "label": "원소폭발"
+   },
+   "amber": "10000023"
+  },
+  "LIYUE_XIANYUN": {
+   "na": {
+    "file": "Skill_A_Catalyst_MD",
+    "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+    "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+    "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1916,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Liuyun_01",
+    "path": "assets/icons/ui/Skill_S_Liuyun_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Liuyun_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "5dc1dbc2ee697c7a384906f5dcc0793215ab81eb156f301f8c10324fd8c7474a",
+    "source_sha256": "806f20b8cf91cea817f2f618447df3093d1864d316172704e89dc22842e99fb4",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 4270,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Liuyun_01",
+    "path": "assets/icons/ui/Skill_E_Liuyun_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Liuyun_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "87a37d98d52f6a31ddef3e69c37025063700b49da6719a7fc8ba79a8f7dc0918",
+    "source_sha256": "289cf9623934f0b289f3f53d5d4f9ba74977d503412b774eb4956badb3adea5f",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2388,
+    "label": "원소폭발"
+   },
+   "amber": "10000093"
+  },
+  "LIYUE_XIAO": {
+   "na": {
+    "file": "Skill_A_03",
+    "path": "assets/icons/ui/Skill_A_03.webp",
+    "source": "https://enka.network/ui/Skill_A_03.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+    "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1970,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Xiao_01",
+    "path": "assets/icons/ui/Skill_S_Xiao_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Xiao_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "453237b9c3a4ca01e68ff0a4ab89b38dfcb515a0080c0b9d03400da98fa81ac1",
+    "source_sha256": "5681d7eacd3e26a327b3f0fb6421d614b0ef64ceb9219be1baa72978241c7a52",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3054,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Xiao_01",
+    "path": "assets/icons/ui/Skill_E_Xiao_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Xiao_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b40209d5176076063865110885e74d9be67f28ead232ace574509c78b85b6933",
+    "source_sha256": "9f14af83c296adc59256287f5db5eb02a38a2ef4b6cd786e1e5090eb8ddfc627",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 3110,
+    "label": "원소폭발"
+   },
+   "amber": "10000026"
+  },
+  "LIYUE_XINGQIU": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Xingqiu_01",
+    "path": "assets/icons/ui/Skill_S_Xingqiu_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Xingqiu_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "4215ffdac6b02e9bf2348af6017960273e15ffb4d2dcbf66a9fa5a5de11e6b7b",
+    "source_sha256": "afd3a7a6d87b3eae4202dcc1b32b717c244b18da53c1da62121dabdce7b1fabd",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3616,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Xingqiu_01",
+    "path": "assets/icons/ui/Skill_E_Xingqiu_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Xingqiu_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b1ae73003a5263f40e30cfd7fed29814e598b63ba030abafd83660e7f1584eb2",
+    "source_sha256": "327f316f7022569c812526a660560af99e72cb19b9cae70e15f1ec72beabdba9",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2094,
+    "label": "원소폭발"
+   },
+   "amber": "10000025"
+  },
+  "LIYUE_XINYAN": {
+   "na": {
+    "file": "Skill_A_04",
+    "path": "assets/icons/ui/Skill_A_04.webp",
+    "source": "https://enka.network/ui/Skill_A_04.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "373d0767d6d7fb6dc9e03c831a9d08bf7751a93e0b506e882135575a75bc55b6",
+    "source_sha256": "c59a0f2792a527a1fc6f60fb6d6120be57ef936dc523485b3d14d87c416755aa",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5014,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Xinyan_01",
+    "path": "assets/icons/ui/Skill_S_Xinyan_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Xinyan_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "6dd497f5b55dfef503cf3e9ccf146d4acbe17021782a8b07c06ed1b267f3da95",
+    "source_sha256": "bb354606b57caa3fcbe29f5f1983d56d87fe1eaa0ae04402e1f9bb4c377bfdb8",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2346,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Xinyan_01",
+    "path": "assets/icons/ui/Skill_E_Xinyan_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Xinyan_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "5d6939cc1b3c4f1105b55d9ac848782747ea34ef55a396507973cae8f64352ff",
+    "source_sha256": "f62d9fa36d388cef18d0dbf0bd490348e6dabbd8da3da0fa4209f3905cebad61",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2236,
+    "label": "원소폭발"
+   },
+   "amber": "10000044"
+  },
+  "LIYUE_YANFEI": {
+   "na": {
+    "file": "Skill_A_Catalyst_MD",
+    "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+    "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+    "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1916,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Feiyan_01",
+    "path": "assets/icons/ui/Skill_S_Feiyan_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Feiyan_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "241d657e06559f942b6f489884917d464eb9b83be06826496b0a56b5507a24ec",
+    "source_sha256": "b1442d102d2e6d336d754378a8c79f91b2844aead8b659ee9bc4394837da9392",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 4452,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Feiyan_01",
+    "path": "assets/icons/ui/Skill_E_Feiyan_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Feiyan_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "62bcb466850220c0abbbb3e175bb3a0aac4e4535202f8f799fedf825da670e9f",
+    "source_sha256": "4ec539a9eba2c1121c2d727b90abcf26ea697d01dcc2160f98adcc7d8d7d6dde",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1950,
+    "label": "원소폭발"
+   },
+   "amber": "10000048"
+  },
+  "LIYUE_YAOYAO": {
+   "na": {
+    "file": "Skill_A_03",
+    "path": "assets/icons/ui/Skill_A_03.webp",
+    "source": "https://enka.network/ui/Skill_A_03.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+    "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1970,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Yaoyao_01",
+    "path": "assets/icons/ui/Skill_S_Yaoyao_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Yaoyao_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "7c6eb21e705e488e3abf35b8363e5d4ddfbc90ed2cdd0bc59a680e4e2b81196d",
+    "source_sha256": "a490ec7b53c877c62550653e24922e2ab83e8684f6480cadc120846c21d91dba",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2642,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Yaoyao_01",
+    "path": "assets/icons/ui/Skill_E_Yaoyao_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Yaoyao_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "972c2d2c6e192c44e6edd27dc4debf3c039c2aea16ddbe3cd378cc548af0ddd5",
+    "source_sha256": "07cb8d61738bd42f3e18029ce8ba25bf7ae2646e1b29431770ca295086aa3067",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2744,
+    "label": "원소폭발"
+   },
+   "amber": "10000077"
+  },
+  "LIYUE_YELAN": {
+   "na": {
+    "file": "Skill_A_02",
+    "path": "assets/icons/ui/Skill_A_02.webp",
+    "source": "https://enka.network/ui/Skill_A_02.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b1fe2d449bb39d779f520ba2d400677aa8b89a493d161d866c2574dc13da1a54",
+    "source_sha256": "0e6b40ac7f2e4051a9967572194cc99a4451eaa898c4d6efae0f3680eb9e403f",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 4660,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Yelan_01",
+    "path": "assets/icons/ui/Skill_S_Yelan_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Yelan_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "2528815f3548106790d1a5c5a23ffca49bdcbc6887c27d8e7d4fa29f22b47556",
+    "source_sha256": "7b9f9403cac2dc9ab6f4f49c44c4de3d293193f7437c773f2f2de115a12dde5b",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2328,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Yelan_01",
+    "path": "assets/icons/ui/Skill_E_Yelan_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Yelan_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "cbcb5082b352b7bc94d7ceb28878c643a35c24459450f87ffdc6bb02f1c63ff0",
+    "source_sha256": "faab802a6172c6b2a273ca48262fc7ebb64f7e713162dbdb4d7116d453921bf7",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1792,
+    "label": "원소폭발"
+   },
+   "amber": "10000060"
+  },
+  "LIYUE_YUNJIN": {
+   "na": {
+    "file": "Skill_A_03",
+    "path": "assets/icons/ui/Skill_A_03.webp",
+    "source": "https://enka.network/ui/Skill_A_03.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+    "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1970,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Yunjin_01",
+    "path": "assets/icons/ui/Skill_S_Yunjin_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Yunjin_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "d15e4a1ee2381a05563cce9c256cd86c2b0d4383a606eeac5a4b89805eadead6",
+    "source_sha256": "08a5da63c31c9b26b16f42f55544b4a5d42a553b15c82b17b8d0cd55db3e8da6",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3240,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Yunjin_01",
+    "path": "assets/icons/ui/Skill_E_Yunjin_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Yunjin_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "223df049b7e774f5d73f2bee6e9a091afff1d8937480329f5ae541fc3c5351b3",
+    "source_sha256": "9765f65f03c5950026b859d3f7a51b988402217be71b49a1187049edd91c14e8",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2588,
+    "label": "원소폭발"
+   },
+   "amber": "10000064"
+  },
+  "LIYUE_ZHONGLI": {
+   "na": {
+    "file": "Skill_A_03",
+    "path": "assets/icons/ui/Skill_A_03.webp",
+    "source": "https://enka.network/ui/Skill_A_03.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+    "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1970,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Zhongli_01",
+    "path": "assets/icons/ui/Skill_S_Zhongli_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Zhongli_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "f8dbcfe2f96dc521d4b0ab304a7598dc3b546b36531b4dff767e4dd70dffe9e0",
+    "source_sha256": "5ad9fb610b445fd67ecb2556d00ee16a24d5d151f90372766f5a760fc13ba3ad",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2848,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Zhongli_01",
+    "path": "assets/icons/ui/Skill_E_Zhongli_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Zhongli_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "101938217934d986ebb91151106fa7a1a78b54bd1e94b47c93fc68fbe0bf7ef5",
+    "source_sha256": "31ca4dad8745228796932ae78e2048571d6b47d9b15940b22e316a88f4c8270f",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1300,
+    "label": "원소폭발"
+   },
+   "amber": "10000030"
+  },
+  "LIYUE_ZIBAI": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Zibai_01",
+    "path": "assets/icons/ui/Skill_S_Zibai_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Zibai_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "e0fbe70add2f847e3ac9fab99e00e4e5dfe7010aa4777bf220306551cb68a8bc",
+    "source_sha256": "2ffef4d97e4924cb5f846489ad20f57b1404ccfdba34a79f704554ec163bc9b7",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3234,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Zibai_01",
+    "path": "assets/icons/ui/Skill_E_Zibai_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Zibai_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "7bd7af70e8621f4790c5b85e26ed2048d9b36cd5bb44ed5840c88cbf29eba5c7",
+    "source_sha256": "8d162c0e0c02bba6d4a7dd41bc507b72c1149eea38f7c5c4cc350adb1c56426b",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2802,
+    "label": "원소폭발"
+   },
+   "amber": "10000126"
+  },
+  "MOND_ALBEDO": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Albedo_01",
+    "path": "assets/icons/ui/Skill_S_Albedo_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Albedo_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "21c9f48f702e1ac16ee664931fe2688db539a0c7d9026e773e36d7c4974c2a38",
+    "source_sha256": "2371416568919dc687a10b8ca2e9b9662f636f101c2760bbc799fad84ae21227",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3732,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Albedo_01",
+    "path": "assets/icons/ui/Skill_E_Albedo_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Albedo_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "22acb762953a263291a5709fdbaee886b7f9d0cf69e2d6eaf69304bcb612ea80",
+    "source_sha256": "f053d15b2e3fddfc3dce7fadd8c23bc761040cb33e0cc9a568c596e620e3b0b8",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2176,
+    "label": "원소폭발"
+   },
+   "amber": "10000038"
+  },
+  "MOND_AMBER": {
+   "na": {
+    "file": "Skill_A_02",
+    "path": "assets/icons/ui/Skill_A_02.webp",
+    "source": "https://enka.network/ui/Skill_A_02.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b1fe2d449bb39d779f520ba2d400677aa8b89a493d161d866c2574dc13da1a54",
+    "source_sha256": "0e6b40ac7f2e4051a9967572194cc99a4451eaa898c4d6efae0f3680eb9e403f",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 4660,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Ambor_01",
+    "path": "assets/icons/ui/Skill_S_Ambor_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Ambor_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "f8c549599474c39068b6730016c8540e4788b32687698f5db63869d13439af67",
+    "source_sha256": "04cc26c85f3ed86260bfdcad28a64302fe8e4ef0cc1a10d11421a90f528e593e",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 5102,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Ambor",
+    "path": "assets/icons/ui/Skill_E_Ambor.webp",
+    "source": "https://enka.network/ui/Skill_E_Ambor.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "dfaa3a85f42e236fec64179fc92b116355e5993c0db8e27bc050813a7ad91e51",
+    "source_sha256": "81d5163890fad230e34c0efa589553cac86bb14046f375eac8958b382adec1e6",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1884,
+    "label": "원소폭발"
+   },
+   "amber": "10000021"
+  },
+  "MOND_BARBARA": {
+   "na": {
+    "file": "Skill_A_Catalyst_MD",
+    "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+    "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+    "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1916,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Barbara_01",
+    "path": "assets/icons/ui/Skill_S_Barbara_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Barbara_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "c5f52ae0b76d8fdf05326293b2b821a87d6cc1fa45dab2c5cd2402a39dfa4bc4",
+    "source_sha256": "2ddac27e91b683e5cfd1d5ea989273a529dd6cc71b6014130ff4b7b295d2f807",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3478,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Barbara_01",
+    "path": "assets/icons/ui/Skill_E_Barbara_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Barbara_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "bcab3009373a0dc255e5bc6757a5a3fbd5a4fd409ff457f163b7810c29b64534",
+    "source_sha256": "7a7f9d5b0bd9a3df87d7c373d46dde6091c13aaf319e0b9b12b7e313a003e93e",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1642,
+    "label": "원소폭발"
+   },
+   "amber": "10000014"
+  },
+  "MOND_BENNETT": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Bennett_01",
+    "path": "assets/icons/ui/Skill_S_Bennett_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Bennett_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "77e1fc8d04e9de7ec8e17ee28d798d6ba50186f66c6ad5925db74500e078db03",
+    "source_sha256": "dc839a3cc4d1587d3c41ed12f8127a057ea59e0b60519d4e0cfd4b744eb94075",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2512,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Bennett_01",
+    "path": "assets/icons/ui/Skill_E_Bennett_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Bennett_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "9d65f6af12bf1df4534c3aa3a42830b9494dc050056377a1ac1c6add88e35cc6",
+    "source_sha256": "54cca1ad3a813bc1279bc7f1f1ca9425aa70fff1e805ba675ddb852c9143a510",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1846,
+    "label": "원소폭발"
+   },
+   "amber": "10000032"
+  },
+  "MOND_DAHLIA": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Dahlia_01",
+    "path": "assets/icons/ui/Skill_S_Dahlia_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Dahlia_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "c8c76bd18e5bd71dc40ec3639999c889c372985cdfcf559adf0d9cfefe91e866",
+    "source_sha256": "a95b2a8db24554b96e667703f060fab9edcbc21807928842c63b3e20f84431f3",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3002,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Dahlia_01",
+    "path": "assets/icons/ui/Skill_E_Dahlia_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Dahlia_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "d1fce589002415221c5757f817aaa2358125fc958a095650516144a775af9e4f",
+    "source_sha256": "c6ab66877fa8b8145558f5d5499c93b610166ca4a88c9ffd7d2dae2931d9a1e2",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2454,
+    "label": "원소폭발"
+   },
+   "amber": "10000115"
+  },
+  "MOND_DILUC": {
+   "na": {
+    "file": "Skill_A_04",
+    "path": "assets/icons/ui/Skill_A_04.webp",
+    "source": "https://enka.network/ui/Skill_A_04.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "373d0767d6d7fb6dc9e03c831a9d08bf7751a93e0b506e882135575a75bc55b6",
+    "source_sha256": "c59a0f2792a527a1fc6f60fb6d6120be57ef936dc523485b3d14d87c416755aa",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5014,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Diluc_01_01",
+    "path": "assets/icons/ui/Skill_S_Diluc_01_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Diluc_01_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "974f9b9c664531c3bfd87130ea861a6956f7b2cfb874424f08bd71425e9c264d",
+    "source_sha256": "5b5d519ba28f134f9c1cc983116c18c6a65691a1b452f9efaaea8c034325fad0",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3232,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Diluc_01",
+    "path": "assets/icons/ui/Skill_E_Diluc_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Diluc_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "7572679319bdcce35477c29f7d25747b19713670b4e0d9b31595aeeef743a739",
+    "source_sha256": "189c337f4c712b45c6828fa09b30aaf18d00379a9e1fca57c82a6530ee97742a",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2236,
+    "label": "원소폭발"
+   },
+   "amber": "10000016"
+  },
+  "MOND_DIONA": {
+   "na": {
+    "file": "Skill_A_02",
+    "path": "assets/icons/ui/Skill_A_02.webp",
+    "source": "https://enka.network/ui/Skill_A_02.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b1fe2d449bb39d779f520ba2d400677aa8b89a493d161d866c2574dc13da1a54",
+    "source_sha256": "0e6b40ac7f2e4051a9967572194cc99a4451eaa898c4d6efae0f3680eb9e403f",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 4660,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Diona_01",
+    "path": "assets/icons/ui/Skill_S_Diona_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Diona_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "ceb25b1d5e45ebbaa9c921ec0534c308878b29baf8e30bafc257dceb23eeb7b8",
+    "source_sha256": "356de640ec3e9f7904f67d6bf5bb1a6ff8568b643ca7bc665a62bc37ade3a21f",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3070,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Diona_01",
+    "path": "assets/icons/ui/Skill_E_Diona_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Diona_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "58d700068f440de129c0905388cc6f85d9dbe427faff47df3e61e2de6930e174",
+    "source_sha256": "e0d5a0401d49f0b231ef23ea650ab1aee83fc6f2270289915867b83b6d39ec36",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1654,
+    "label": "원소폭발"
+   },
+   "amber": "10000039"
+  },
+  "MOND_EULA": {
+   "na": {
+    "file": "Skill_A_04",
+    "path": "assets/icons/ui/Skill_A_04.webp",
+    "source": "https://enka.network/ui/Skill_A_04.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "373d0767d6d7fb6dc9e03c831a9d08bf7751a93e0b506e882135575a75bc55b6",
+    "source_sha256": "c59a0f2792a527a1fc6f60fb6d6120be57ef936dc523485b3d14d87c416755aa",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5014,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Eula_01",
+    "path": "assets/icons/ui/Skill_S_Eula_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Eula_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "f81ad7e5ce611225257d6f37b5afc86db4b207ef2396f47d68d68f3f97147a2b",
+    "source_sha256": "dd97645aab4b980f5fda50c169c1d9c7e812c966fe30f12fe6da09a9177107f0",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 4158,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Eula_01",
+    "path": "assets/icons/ui/Skill_E_Eula_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Eula_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "8c21210ceafce6f9eceabc67cfc1882a5fb3a7c2aed07d47707b326b1065fcbf",
+    "source_sha256": "a2a998098d079eda4eaf2e330e5bf0c288271697dcb5403fd318e3b3b2c2208d",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1818,
+    "label": "원소폭발"
+   },
+   "amber": "10000051"
+  },
+  "MOND_FISCHL": {
+   "na": {
+    "file": "Skill_A_02",
+    "path": "assets/icons/ui/Skill_A_02.webp",
+    "source": "https://enka.network/ui/Skill_A_02.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b1fe2d449bb39d779f520ba2d400677aa8b89a493d161d866c2574dc13da1a54",
+    "source_sha256": "0e6b40ac7f2e4051a9967572194cc99a4451eaa898c4d6efae0f3680eb9e403f",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 4660,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Fischl_01",
+    "path": "assets/icons/ui/Skill_S_Fischl_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Fischl_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "9a179a1cbabd5a11920e3a34d2df56eee72edeb6318c7d5fcde37baba8d10254",
+    "source_sha256": "6c7d126504dd45a77997e5b927a9742af33032d8091c166e8fa0d9eb8c026d16",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3960,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Fischl_01",
+    "path": "assets/icons/ui/Skill_E_Fischl_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Fischl_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "05b38c9cef5d116654d045e2c60949b910da3739d4fef763f6b97f36eee8893e",
+    "source_sha256": "7105f99a4a1237e1dc21ca45a2937b802e323dc001c183add45ebbe10376d89a",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1640,
+    "label": "원소폭발"
+   },
+   "amber": "10000031"
+  },
+  "MOND_JEAN": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Qin_02",
+    "path": "assets/icons/ui/Skill_S_Qin_02.webp",
+    "source": "https://enka.network/ui/Skill_S_Qin_02.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "cab7cad936e1557eae865196e45a6e5534b3c4f7b622b079de438be6d21850c1",
+    "source_sha256": "6fcc12b725035040db92446deee00fb272ca1fb407e2c7f8eb38f5b2856930af",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3730,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Qin_01",
+    "path": "assets/icons/ui/Skill_E_Qin_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Qin_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "cd73ec49fa105729b70df27f7b851b37aa9d7dcdb2e3df712a0f64892917ee1f",
+    "source_sha256": "57f3dee70bbba4912635a685e99d3fd7de2ef564006a1a3b5a2f54715dd385a3",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1868,
+    "label": "원소폭발"
+   },
+   "amber": "10000003"
+  },
+  "MOND_KAEYA": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Kaeya_01",
+    "path": "assets/icons/ui/Skill_S_Kaeya_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Kaeya_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "2bdd98afef992355bf3b61fe7c8e9472baa357a5916a63c3de7d483d0a31033d",
+    "source_sha256": "7f0d8320a043edffe28c173f59524202599c45cd18b4d1e3ee94c69b788e92ac",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3090,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Kaeya_01",
+    "path": "assets/icons/ui/Skill_E_Kaeya_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Kaeya_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "6fbe587ae1579f210d0815eed566056cf77dd23a4f519cb56f29eaa5069a7019",
+    "source_sha256": "1c53b046de96112f6ba259d6ae2b7a8f931b0d73307951c11666330a9f021405",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1784,
+    "label": "원소폭발"
+   },
+   "amber": "10000015"
+  },
+  "MOND_KLEE": {
+   "na": {
+    "file": "Skill_A_Catalyst_MD",
+    "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+    "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+    "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1916,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Klee_01",
+    "path": "assets/icons/ui/Skill_S_Klee_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Klee_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "76ba9cf596dbbda32335777cb6010b91dd4869651ed6dafcf62fc095efdd0799",
+    "source_sha256": "e65d34195f319b20fec34c16c9f42d824068b691d19b85a6a40893affc34f8f3",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3114,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Klee_01",
+    "path": "assets/icons/ui/Skill_E_Klee_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Klee_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b4b4f896008f37948c8c625fc1df1d9716a8968a414434de3abdc3b9a73e819c",
+    "source_sha256": "3337034c10e95657e6e342604fd2e9c2888185ae6e28379e5d4ce7d5792531f1",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 994,
+    "label": "원소폭발"
+   },
+   "amber": "10000029"
+  },
+  "MOND_LISA": {
+   "na": {
+    "file": "Skill_A_Catalyst_MD",
+    "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+    "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+    "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1916,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Lisa_01",
+    "path": "assets/icons/ui/Skill_S_Lisa_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Lisa_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "9eac412a66009abe4fb3660f4f67a1b5e288f17608210bb6d5682e5a3d87ff58",
+    "source_sha256": "5e043644a3ae30b631e3f635d86e41f670bcdbe1a81541213d2647a5953124e6",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3254,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Lisa_01",
+    "path": "assets/icons/ui/Skill_E_Lisa_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Lisa_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "77c33776a5c8da99df52f9ac4f6d6a18b502f10195bbae252445d276d7af5cbe",
+    "source_sha256": "b5750605fc9bb26c6e14d4cb187e8bc97ead0e22046f0a101c9ab4c4753ea2d5",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2338,
+    "label": "원소폭발"
+   },
+   "amber": "10000006"
+  },
+  "MOND_MIKA": {
+   "na": {
+    "file": "Skill_A_03",
+    "path": "assets/icons/ui/Skill_A_03.webp",
+    "source": "https://enka.network/ui/Skill_A_03.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+    "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1970,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Mika_01",
+    "path": "assets/icons/ui/Skill_S_Mika_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Mika_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "30a92c1b9fb2eed86c1ebdbea59d762d8d838bf2f69f2dbc152f60bf244ecf81",
+    "source_sha256": "482962146803516e2ea8e20090edec5b332f919660516e23426ec3d06d78f44c",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3736,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Mika_01",
+    "path": "assets/icons/ui/Skill_E_Mika_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Mika_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "6a9b5e41cb53d505a17981efd8cf07141afde583e1f06fafb95e8acfe4ae7dc3",
+    "source_sha256": "9bf2253f853fe22eee3249e27450191d3498d7186d4f7202bf0a437ec05ee2b6",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2140,
+    "label": "원소폭발"
+   },
+   "amber": "10000080"
+  },
+  "MOND_MONA": {
+   "na": {
+    "file": "Skill_A_Catalyst_MD",
+    "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+    "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+    "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1916,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Mona_01",
+    "path": "assets/icons/ui/Skill_S_Mona_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Mona_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "e9bddca35a78803e34dd6fdfa081d1e2a0a44024ae4b58a17d6931635f7123b1",
+    "source_sha256": "7703cbabdb1ba9b7cd14e8b31b6534998912bf9baa224a5ec92f1d912d269eba",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3884,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Mona_01",
+    "path": "assets/icons/ui/Skill_E_Mona_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Mona_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "124f75112ae349c64cec1ee7bc89d3c3734347b065301a90bc9636171c48438f",
+    "source_sha256": "98225b9369d52b434d68923ce6da0108fdb002dc48611ee3667dd99392d5d8c1",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2208,
+    "label": "원소폭발"
+   },
+   "amber": "10000041"
+  },
+  "MOND_NOELLE": {
+   "na": {
+    "file": "Skill_A_04",
+    "path": "assets/icons/ui/Skill_A_04.webp",
+    "source": "https://enka.network/ui/Skill_A_04.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "373d0767d6d7fb6dc9e03c831a9d08bf7751a93e0b506e882135575a75bc55b6",
+    "source_sha256": "c59a0f2792a527a1fc6f60fb6d6120be57ef936dc523485b3d14d87c416755aa",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5014,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Noel_01",
+    "path": "assets/icons/ui/Skill_S_Noel_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Noel_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "ab38fcebb798b62b22fd4ab7418f2c22468bc2976c9e83657f751bf070829f38",
+    "source_sha256": "ed3f0a2a58a0f91407ecb71bd74bb9e54195b9e265bd0d4837650353a2614335",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3130,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Noel_01",
+    "path": "assets/icons/ui/Skill_E_Noel_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Noel_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "2c825b45327c6a9c3e526550c3a0b263a57a03d1c35eeca65dbf5adc8f0a5e1b",
+    "source_sha256": "c701092102dfd59e961e48c1f17a159740e1c7279bf5db7edd144a127967eb1f",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1702,
+    "label": "원소폭발"
+   },
+   "amber": "10000034"
+  },
+  "MOND_RAZOR": {
+   "na": {
+    "file": "Skill_A_04",
+    "path": "assets/icons/ui/Skill_A_04.webp",
+    "source": "https://enka.network/ui/Skill_A_04.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "373d0767d6d7fb6dc9e03c831a9d08bf7751a93e0b506e882135575a75bc55b6",
+    "source_sha256": "c59a0f2792a527a1fc6f60fb6d6120be57ef936dc523485b3d14d87c416755aa",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5014,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Razor_01",
+    "path": "assets/icons/ui/Skill_S_Razor_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Razor_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "29a0d2d3ec20e123a6a314925e31df785c60d55a28a7f3745b0bf73f769542f0",
+    "source_sha256": "6947f421f971d4f891b790a8fc9cc15952ad09df3f9be793ee8cc02f906f8d72",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2482,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Razor_01",
+    "path": "assets/icons/ui/Skill_E_Razor_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Razor_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "cc46d955c6bac52b9beaf28571cfd39ddf138e13b9857ae5e153d0528ea20fa2",
+    "source_sha256": "6a635e9b30f6ca926cacdb73ae1c3fbdea143bde4224049d61a115ac1563a1d7",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2118,
+    "label": "원소폭발"
+   },
+   "amber": "10000020"
+  },
+  "MOND_ROSARIA": {
+   "na": {
+    "file": "Skill_A_03",
+    "path": "assets/icons/ui/Skill_A_03.webp",
+    "source": "https://enka.network/ui/Skill_A_03.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "31e44d190e4e4c1e6ddbb1c79db1f100e5df3fc0863140333003af19160de534",
+    "source_sha256": "8f7d51c43471ce5bb076ec7400be65401978e0efd875a32c399f4b4469975801",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1970,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Rosaria_01",
+    "path": "assets/icons/ui/Skill_S_Rosaria_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Rosaria_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1712e9e38f778c91e43fc10b11aa64659fcc8cced59fff414392f6043f8d6af6",
+    "source_sha256": "ff4a97403edc5d1bb6666e58afdb489874cff4c22707727cb20973646c5bb8f2",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 4854,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Rosaria_01",
+    "path": "assets/icons/ui/Skill_E_Rosaria_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Rosaria_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "919e3ecf06f5634f095bfb570d71371e04a5e37feb26d962baaa894a45465f44",
+    "source_sha256": "4221e6e6fbf82b693719facd7cde403dac034d6a23e05dcce1db39e4f1c3e962",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1852,
+    "label": "원소폭발"
+   },
+   "amber": "10000045"
+  },
+  "MOND_SUCROSE": {
+   "na": {
+    "file": "Skill_A_Catalyst_MD",
+    "path": "assets/icons/ui/Skill_A_Catalyst_MD.webp",
+    "source": "https://enka.network/ui/Skill_A_Catalyst_MD.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "1808d0b4767d35f6734b32551882a0b8f557c1034a1dab350ebe3747991b2fb9",
+    "source_sha256": "5d4a9660e2ba95699641d719a9552f6a9ffea418a44c8d8a8e435d22ca16d858",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 1916,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Sucrose_01",
+    "path": "assets/icons/ui/Skill_S_Sucrose_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Sucrose_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "d9d64444e6ab7d9679cf935756cfa37fa032cc9b7d1319368e064cf79f7b99c3",
+    "source_sha256": "54c10efd8af0a1f4a4bc7363f729c2db3bb08aa969a08c00bb59496ef2bf309e",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3732,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Sucrose_01",
+    "path": "assets/icons/ui/Skill_E_Sucrose_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Sucrose_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "27bddd39cc8cfa49adc51dfa04de7468c9c35bfb8b1af18b0efdf79126be652d",
+    "source_sha256": "b3d2b1e40b0542719a08e8e1d3b86ab2e4dc69e2aaae562819391f0cc3fb1981",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1378,
+    "label": "원소폭발"
+   },
+   "amber": "10000043"
+  },
+  "MOND_VENTI": {
+   "na": {
+    "file": "Skill_A_02",
+    "path": "assets/icons/ui/Skill_A_02.webp",
+    "source": "https://enka.network/ui/Skill_A_02.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "b1fe2d449bb39d779f520ba2d400677aa8b89a493d161d866c2574dc13da1a54",
+    "source_sha256": "0e6b40ac7f2e4051a9967572194cc99a4451eaa898c4d6efae0f3680eb9e403f",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 4660,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_Venti_01",
+    "path": "assets/icons/ui/Skill_S_Venti_01.webp",
+    "source": "https://enka.network/ui/Skill_S_Venti_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "e54bba56e77e0661cc8184583cec08a54f2d0496769a1481bd045e31f4da0dbf",
+    "source_sha256": "04117396ff0b7dfd7f396fd3be14c2aa95c06effae1678966d25b3ae6ba7003c",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 2780,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_Venti_01",
+    "path": "assets/icons/ui/Skill_E_Venti_01.webp",
+    "source": "https://enka.network/ui/Skill_E_Venti_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "d4b1a322d01b5792e21222298d7fcf03528ab4b9c27e606327526e1e9d2baf4d",
+    "source_sha256": "b98e2fbeaef5658d76067fe7d06c1014b85739c67807e6116d078e7378ced8d5",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1984,
+    "label": "원소폭발"
+   },
+   "amber": "10000022"
+  },
+  "TRAVELER_ANEMO": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_PlayerWind_01",
+    "path": "assets/icons/ui/Skill_S_PlayerWind_01.webp",
+    "source": "https://enka.network/ui/Skill_S_PlayerWind_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "6eaf5af742f6258ccd232db15e0aa0ffef1832ee8ccaf881a4ce9afbd6edeaec",
+    "source_sha256": "f33359b051a0d7d0966159e264a750ce0497b3108a46f3a49c52f2929f32d12f",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3130,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_PlayerWind_01",
+    "path": "assets/icons/ui/Skill_E_PlayerWind_01.webp",
+    "source": "https://enka.network/ui/Skill_E_PlayerWind_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "00a1594cba0b89e73bd93f7bafed52734363f62dea9afa3e2cc5e8bb891ea63b",
+    "source_sha256": "6178212eb708cc8baf6fa38d664e2f05954038d57da60e2cdef33df3b852497f",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 2114,
+    "label": "원소폭발"
+   },
+   "amber": "10000007-anemo"
+  },
+  "TRAVELER_GEO": {
+   "na": {
+    "file": "Skill_A_01",
+    "path": "assets/icons/ui/Skill_A_01.webp",
+    "source": "https://enka.network/ui/Skill_A_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "3b973ac2aed8679de8220070217e97e29d32aeddc3ceac8fcb6d2ee819755c2e",
+    "source_sha256": "d6798a5340c825a4b361999949e37f0e8ab1d30eb0f07a2c128d738daa1664c5",
+    "source_dimensions": [
+     128,
+     128
+    ],
+    "bytes": 5098,
+    "label": "일반 공격"
+   },
+   "e": {
+    "file": "Skill_S_PlayerRock_01",
+    "path": "assets/icons/ui/Skill_S_PlayerRock_01.webp",
+    "source": "https://enka.network/ui/Skill_S_PlayerRock_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "64d0b039fbeb33d2897ce4ba7cebc73d1f3bca653e7d219eab4985b96ae99167",
+    "source_sha256": "b53df231de6dad178f283870ecf6aebf98ff0b9b1d90f419c33a9a4b49ba22b9",
+    "source_dimensions": [
+     100,
+     100
+    ],
+    "bytes": 3086,
+    "label": "원소전투 스킬"
+   },
+   "q": {
+    "file": "Skill_E_PlayerRock_01",
+    "path": "assets/icons/ui/Skill_E_PlayerRock_01.webp",
+    "source": "https://enka.network/ui/Skill_E_PlayerRock_01.png",
+    "provenance": "original_game_texture_mirror",
+    "sha256": "64b86049d36360d58556c429e9734c7f356925c351a2d4ffad156a72a9e26d19",
+    "source_sha256": "4164a7a03613467d1050aa8b74304d0e63302b9e00470f21d863d2cdf1587236",
+    "source_dimensions": [
+     64,
+     64
+    ],
+    "bytes": 1872,
+    "label": "원소폭발"
+   },
+   "amber": "10000007-geo"
+  }
+ }
 }

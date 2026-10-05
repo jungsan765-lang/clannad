@@ -34,19 +34,10 @@ function rest(board,key,title,after){
  timer=setInterval(tick,250);tick();return true;
 }
 function itemImg(id,cls=''){const p=MAN().itemIcons?.icons?.[id]?.path;if(!p)return mk('span','pz-item fallback '+cls,'◆');const i=mk('img','pz-item '+cls);i.src=p;i.alt='';i.draggable=false;return i;}
-// ---------- elements: colour orbs with a small sign (the game has no element pictures) ----------
-const EL=PZ.elements,KEY=['pyro','hydro','cryo','electro','anemo','geo','dendro'];
-const GLYPH={
- pyro:['M12 2.5c.9 3.4 5.2 5.4 5.2 10.2a5.2 5.2 0 0 1-10.4 0c0-2.5 1.3-4 2.5-5.2.3 1.7 1 2.7 2.2 3.1 0-3.2.1-5.6.5-8.1z','fill'],
- hydro:['M12 3s6.2 7 6.2 11.2a6.2 6.2 0 0 1-12.4 0C5.8 10 12 3 12 3z','fill'],
- cryo:['M12 2.5v19 M3.8 7.2l16.4 9.6 M3.8 16.8l16.4-9.6 M9.4 3.8L12 6.4l2.6-2.6 M9.4 20.2L12 17.6l2.6 2.6','line'],
- electro:['M13.5 2L5 13.5h6.2L10 22l9-12.2h-6.4z','fill'],
- anemo:['M3.5 9.5h11a3 3 0 1 0-3-3 M3.5 13.5h14a3 3 0 1 1-3 3 M3.5 17.5h6','line'],
- geo:['M12 2.5l7.5 9.5-7.5 9.5-7.5-9.5z M12 2.5v19 M4.5 12h15','both'],
- dendro:['M5 19.5c0-8.5 5.2-14.2 15-15-.8 9.8-6.5 15-15 15z M5 19.5l8.5-8.5','both']
-};
-function glyph(k){const [d,mode]=GLYPH[k]||GLYPH.geo,s=svgEl('svg',{viewBox:'0 0 24 24','aria-hidden':'true',class:'pz-glyph '+mode});s.append(svgEl('path',{d}));return s;}
-function orb(i,cls=''){const k=KEY[i]||'geo',o=mk('span','pz-orb el-'+k+(cls?' '+cls:''));o.append(glyph(k));return o;}
+// ---------- elements: colour orbs with a small sign ----------
+// 0.15.21: the orbs and their signs are the whole game's now (app_icons_v01521.js); the puzzles draw the same ones.
+const EL=PZ.elements,ICONS=window.CRPGIcons,KEY=ICONS.ELEMENTS;
+function orb(i,cls=''){return ICONS.orb(KEY[i]||'geo',cls);}
 // A piece of the place picture on a square tile (the picture is about 16:10 and is cropped at the sides).
 function piece(face,src,i,n){
  if(!src){face.classList.add('noimg');return;}

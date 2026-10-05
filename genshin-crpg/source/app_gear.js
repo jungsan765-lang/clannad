@@ -27,14 +27,19 @@ function deltaLine(before,after){return STATS.map(([label,key,unit])=>{const d=M
 function memberCard(id,bench=false){
  const growth=game.growth(id),actor=game.s.runtime?.actors.find(a=>a.source===id)||(id==='PLAYER_CUSTOM'?game.player():game.character(id)),bonus=game.equipmentContribution?.(id)?.bonus||{};
  const card=el('section','card gear-member'+(bench?' bench':'')),head=el('div','gear-member-head'),copy=el('div','gear-member-copy');card.dataset.owner=id;if(bench)card.dataset.bench='1';
- copy.append(el('h2','',growth.name),el('small','muted','Lv. '+growth.level+(growth.max?' · 최대 레벨':' · 다음 레벨까지 경험치 '+fmt(growth.remaining))));meter(copy,'HP',Math.round(actor.hp),Math.round(actor.maxHp));
+ // 0.15.21 (user: 「이쪽에도 아이콘 넣자」, then 「딴데서 에셋을 가져오는게 맞지 않아?」): the element's symbol before the name and the
+ // weapon kind after it, the original game's pictures (app_icons_v01521.js).
+ const name=el('h2','',growth.name),icons=typeof CRPGIcons!=='undefined'?CRPGIcons:null,weapon=icons?.weaponOfCharacter(id)||'';
+ const mark=icons?.element(icons.ofCharacter(id),'gear-element'),arm=icons?.weapon(weapon,'gear-weapon-kind');if(mark)name.prepend(mark);if(arm)name.append(arm);
+ copy.append(name,el('small','muted','Lv. '+growth.level+(growth.max?' · 최대 레벨':' · 다음 레벨까지 경험치 '+fmt(growth.remaining))));meter(copy,'HP',Math.round(actor.hp),Math.round(actor.maxHp));
  if(bench)copy.append(el('small','gear-bench-note','대기 중 · 편성에 넣으면 이 장비 그대로 싸웁니다'));
  head.append(actorPortrait(id,'gear-portrait'),copy);card.append(head);
  const slots=el('div','gear-slots');
  for(const [category,label]of SLOTS){
   const inv=inSlot(id,category),cell=el('div','gear-cell'),b=button('',()=>openPicker(id,category));b.className='gear-slot'+(inv?'':' empty');b.dataset.category=category;
   if(inv){const d=presenter().itemDetail(inv);b.classList.add('tier-'+(d.tier?.rank||1));{const f=typeof enhanceFrameClass==='function'?enhanceFrameClass(inv.enhance):'';if(f)b.classList.add('enh',f);}b.setAttribute('aria-label',label+' · '+itemLabel(inv,d)+' · 바꾸기');b.append(itemGlyph(d),el('small','',label),tierMark(el('strong','',itemLabel(inv,d)),d));cell.append(b,tooltip(inv,d));}
-  else{b.setAttribute('aria-label',label+' · 비어 있음 · 장착하기');b.append(el('span','gear-empty-mark','+'),el('small','',label),el('strong','','비어 있음'));cell.append(b);}
+  // 0.15.21: an empty weapon slot shows the character's weapon kind with a + on it.
+  else{b.setAttribute('aria-label',label+' · 비어 있음 · 장착하기');b.title=label+' · 비어 있음';const mark=el('span','gear-empty-mark','+'),pic=category==='WEAPON'?icons?.weapon(weapon||'한손검'):null;if(pic){pic.removeAttribute('role');pic.removeAttribute('aria-label');pic.removeAttribute('title');mark.textContent='';mark.classList.add('with-icon');mark.append(pic,el('i','','+'));}b.append(mark,el('small','',label),el('strong','','비어 있음'));cell.append(b);}
   slots.append(cell);
  }
  card.append(slots);

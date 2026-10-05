@@ -228,6 +228,10 @@ body.teyvat .shell-loc-main .terrain-travel-dock{flex:0 0 auto;margin-top:10px;p
 body.teyvat .shell-loc-main .terrain-travel-dock .terrain-selection{flex:1 1 220px;font-size:.84rem}
 body.teyvat .shell-loc-main .terrain-provenance{flex:0 0 auto;font-size:.72rem;margin-top:6px;opacity:.75}
 body.teyvat .shell-loc-side{min-height:0;display:flex;flex-direction:column;background:var(--t-glass);border:1px solid var(--t-line);border-radius:16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);overflow:hidden}
+/* 0.15.21 (user: 「이거 짤려」 — 지역 정보 ran off the right edge of a narrow PC column, and the hidden scroll bar gave no hint):
+   the main screen's tabs are equal cells — one row when the column is wide enough, two by two when it is not. */
+body.teyvat .shell-loc-side>.shell-tabbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(136px,1fr));overflow-x:visible;gap:5px}
+body.teyvat .shell-loc-side>.shell-tabbar>.shell-tab{justify-content:center;padding:5px 10px;min-width:0}
 body.teyvat .shell-loc-side>.shell-panes{padding:4px 12px 14px}
 body.teyvat .shell-loc-side .shell-pane>*{margin:0 0 12px}
 body.teyvat .shell-loc-side .shell-pane>h2{font-size:1rem;margin:4px 0 8px}
@@ -2171,11 +2175,6 @@ body.teyvat .battle-turn-face.mark{display:grid;place-items:center;color:var(--t
 body.teyvat .battle-turn-copy{display:flex;flex-direction:column;min-width:0}
 body.teyvat .battle-turn-copy strong{font-size:1.08rem;line-height:1.25;color:var(--t-gold-hi);letter-spacing:.02em}
 body.teyvat .battle-turn-copy small{font-size:.74rem;line-height:1.4;color:var(--t-muted);word-break:keep-all}
-/* 0.15.20 (user: 「전투할 때 차례 부분이 가려져」 · 「불 부착도 가려지네」): the tag sat on the 「○ 부착」 badge in the top-left corner.
-   It is at the top right now, left of an ally's order number (which a phone hides). */
-body.teyvat .combat-panel .shell-turn-badge{position:absolute;top:-9px;right:12px;z-index:4;padding:1px 9px;border-radius:9px;background:var(--t-gold-hi);color:#3b2f15;font:800 .7rem/1.5 system-ui,sans-serif;box-shadow:0 0 0 2px rgba(20,24,40,.85),0 0 12px rgba(243,223,174,.7);pointer-events:none}
-body.teyvat .combat-panel .shell-allies .shell-turn-badge{right:38px}
-@media (max-width:760px){body.teyvat .combat-panel .shell-allies .shell-turn-badge{right:8px}}
 body.teyvat .combat-panel .combatant-row.targetable{cursor:pointer}
 @media (hover:hover){body.teyvat .combat-panel .combatant-row.targetable:not(.selected):hover{box-shadow:0 0 0 2px rgba(255,194,122,.45)}}
 body.teyvat .combat-panel .battle-summons.top{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 8px}
@@ -2924,6 +2923,224 @@ body.teyvat .gear-cols:not(:has(>.shell-col-side)):not(:has(>.shell-col-roster))
  body.teyvat .gear-cols:not(:has(>.shell-col-side)),body.teyvat .gear-cols:not(:has(>.shell-col-roster)){display:flex;flex-direction:column}
 }
 
+/* ---------- 0.15.21 전투 연출 (app_battle_fx_v01521.js) ---------- */
+/* The attached element: an emblem in the badge, a breathing glow and the element's own particles on the card. */
+body.teyvat .shell-aura-badge{display:inline-flex;align-items:center;animation:shellAuraIn .3s ease-out,fxBadgeGlow 2.4s ease-in-out .3s infinite}
+@keyframes fxBadgeGlow{0%,100%{box-shadow:0 0 8px var(--aura,#fff),0 2px 4px rgba(0,0,0,.5)}50%{box-shadow:0 0 16px var(--aura,#fff),0 2px 4px rgba(0,0,0,.5)}}
+body.teyvat .combat-panel .combatant-row>.aura-fx{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:1;animation:fxAuraBreath 2.6s ease-in-out infinite}
+body.teyvat .combat-panel .combatant-row>.aura-fx>i{position:absolute;display:block;left:calc(7% + var(--i)*15%);bottom:-10px;width:6px;height:6px;border-radius:50%;background:var(--aura);opacity:0;filter:drop-shadow(0 0 4px var(--aura));animation:fxRise 2.8s linear infinite;animation-delay:calc(var(--i)*-.47s)}
+body.teyvat .combat-panel .aura-fx.aura-pyro>i{width:5px;height:7px;border-radius:50% 50% 40% 40%;background:radial-gradient(circle at 50% 70%,#fff3c4,#ff9a4a 55%,#ff5a2a);animation-duration:2.2s}
+body.teyvat .combat-panel .aura-fx.aura-hydro>i{width:8px;height:8px;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.9),rgba(76,194,241,.25) 45%,transparent 70%);border:1.5px solid rgba(76,194,241,.85);animation-name:fxBubble;animation-duration:3.2s}
+body.teyvat .combat-panel .aura-fx.aura-cryo>i{top:-10px;bottom:auto;width:8px;height:8px;border-radius:0;background:#e9fbff;clip-path:polygon(50% 0,60% 38%,100% 50%,60% 62%,50% 100%,40% 62%,0 50%,40% 38%);animation-name:fxFall;animation-duration:3.4s}
+body.teyvat .combat-panel .aura-fx.aura-electro>i{top:calc(12% + var(--i)*13%);bottom:auto;width:14px;height:3px;border-radius:2px;background:linear-gradient(90deg,transparent,#f1e2ff 30%,#c79bff 60%,transparent);transform:rotate(calc(var(--i)*47deg));animation-name:fxSpark;animation-duration:1.3s;animation-timing-function:steps(1,end)}
+body.teyvat .combat-panel .aura-fx.aura-dendro>i,body.teyvat .combat-panel .aura-fx.aura-anemo>i{width:9px;height:5px;border-radius:0 80% 0 80%;animation-name:fxLeaf;animation-duration:3.3s}
+body.teyvat .combat-panel .aura-fx.aura-geo>i{top:calc(14% + var(--i)*13%);bottom:auto;width:7px;height:7px;border-radius:1px;background:#ffe9a6;animation-name:fxTwinkle;animation-duration:2.1s}
+@keyframes fxAuraBreath{0%,100%{box-shadow:inset 0 0 14px -6px var(--aura)}50%{box-shadow:inset 0 0 26px -3px var(--aura)}}
+@keyframes fxRise{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.95}70%{opacity:.6}100%{transform:translate(6px,-130px) scale(.2);opacity:0}}
+@keyframes fxBubble{0%{transform:translate(0,0);opacity:0}15%{opacity:.9}50%{transform:translate(5px,-62px)}100%{transform:translate(-4px,-135px);opacity:0}}
+@keyframes fxFall{0%{transform:translate(0,0) rotate(0);opacity:0}15%{opacity:.9}100%{transform:translate(-6px,140px) rotate(180deg);opacity:0}}
+@keyframes fxSpark{0%,100%{opacity:0}8%{opacity:1}16%{opacity:.15}24%{opacity:.9}32%{opacity:0}}
+@keyframes fxLeaf{0%{transform:translate(0,0) rotate(0);opacity:0}15%{opacity:.9}100%{transform:translate(16px,-125px) rotate(240deg);opacity:0}}
+@keyframes fxTwinkle{0%,100%{transform:scale(.3) rotate(45deg);opacity:0}50%{transform:scale(1) rotate(45deg);opacity:1}}
+/* A shield is a glassy bubble inside the card (user: 「그물망 같아」 — no lattice; it stays within the card, so no
+   scroll bar appears), in its element's colour, with a slow sheen; it brightens when it soaks a hit. */
+body.teyvat .combat-panel .combatant-row>.shield-fx{--sh:150,210,255;position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:2;border:1.5px solid rgba(var(--sh),.9);background:radial-gradient(120% 80% at 50% -10%,rgba(255,255,255,.3),transparent 50%),radial-gradient(140% 110% at 50% 120%,rgba(var(--sh),.24),transparent 60%),linear-gradient(rgba(var(--sh),.08),rgba(var(--sh),.08));box-shadow:0 0 12px rgba(var(--sh),.6),inset 0 0 20px rgba(var(--sh),.42);animation:fxShieldPulse 2.8s ease-in-out infinite}
+body.teyvat .combat-panel .combatant-row>.shield-fx::before{content:'';position:absolute;top:-40%;bottom:-40%;left:0;width:34%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.32),transparent);transform:translateX(-140%) skewX(-18deg);animation:fxShieldSheen 3.6s ease-in-out infinite}
+body.teyvat .combat-panel .combatant-row>.shield-fx.shield-geo{--sh:245,197,66}
+body.teyvat .combat-panel .combatant-row>.shield-fx.shield-cryo{--sh:166,228,242}
+body.teyvat .combat-panel .combatant-row>.shield-fx.shield-electro{--sh:199,155,255}
+body.teyvat .combat-panel .combatant-row>.shield-fx.shield-pyro{--sh:255,138,80}
+body.teyvat .combat-panel .combatant-row>.shield-fx.shield-hydro{--sh:76,194,241}
+body.teyvat .combat-panel .combatant-row>.shield-fx.shield-dendro{--sh:165,214,59}
+body.teyvat .combat-panel .combatant-row>.shield-fx.hit{animation:fxShieldHit .45s ease-out}
+body.teyvat .combat-panel .combatant-row>.shield-fx.appear{animation:fxShieldAppear .55s ease-out}
+@keyframes fxShieldPulse{0%,100%{box-shadow:0 0 10px rgba(var(--sh),.5),inset 0 0 16px rgba(var(--sh),.36)}50%{box-shadow:0 0 16px rgba(var(--sh),.75),inset 0 0 26px rgba(var(--sh),.5)}}
+@keyframes fxShieldSheen{0%{transform:translateX(-140%) skewX(-18deg)}55%,100%{transform:translateX(420%) skewX(-18deg)}}
+@keyframes fxShieldHit{0%{filter:brightness(2.4)}100%{filter:brightness(1)}}
+@keyframes fxShieldAppear{0%{opacity:0;filter:brightness(2)}100%{opacity:1;filter:brightness(1)}}
+/* A card flashes red when hit and green when healed (user: 「공격 받은 인원은 잠깐 붉은 색으로, 회복하면 초록색으로」). */
+body.teyvat .combat-panel .combatant-row>.hit-flash{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:3;opacity:0}
+body.teyvat .combat-panel .combatant-row>.hit-flash.damage{background:rgba(255,46,46,.3);box-shadow:inset 0 0 26px rgba(255,40,40,.95)}
+body.teyvat .combat-panel .combatant-row>.hit-flash.heal{background:rgba(60,225,110,.34);box-shadow:inset 0 0 26px rgba(70,255,130,.9)}/* Statuses that change how a fighter looks. */
+body.teyvat .combat-panel .combatant-row>.status-fx{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:1}
+body.teyvat .combat-panel .status-fx>.st{position:absolute;inset:0}
+body.teyvat .combat-panel .status-fx>.st-freeze{background:linear-gradient(140deg,rgba(225,248,255,.55),rgba(140,205,240,.22) 35%,rgba(210,245,255,.48) 60%,rgba(150,210,245,.2));border:2px solid rgba(200,240,255,.85);border-radius:inherit;box-shadow:inset 0 0 22px rgba(190,235,255,.75);clip-path:polygon(0 6%,8% 0,22% 4%,35% 0,52% 5%,66% 0,80% 4%,92% 0,100% 7%,98% 25%,100% 44%,97% 62%,100% 80%,95% 100%,74% 96%,55% 100%,36% 96%,18% 100%,3% 95%,0 76%,3% 55%,0 35%)}
+body.teyvat .combat-panel .status-fx>.st-burn{top:auto;height:46%;background:radial-gradient(ellipse at 20% 100%,rgba(255,140,60,.75),transparent 60%),radial-gradient(ellipse at 55% 100%,rgba(255,90,40,.7),transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(255,170,70,.7),transparent 60%);animation:fxFlicker .5s steps(2,end) infinite alternate}
+body.teyvat .combat-panel .status-fx>.st-charged{border:2px solid rgba(199,155,255,.85);border-radius:inherit;box-shadow:inset 0 0 18px rgba(199,155,255,.65),0 0 12px rgba(199,155,255,.55);animation:fxCharged 1.1s steps(1,end) infinite}
+body.teyvat .combat-panel .status-fx>.st-wet::before,body.teyvat .combat-panel .status-fx>.st-wet::after{content:'';position:absolute;top:-8px;width:4px;height:7px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:rgba(120,205,255,.9);animation:fxDrip 1.6s linear infinite}
+body.teyvat .combat-panel .status-fx>.st-wet::before{left:24%}
+body.teyvat .combat-panel .status-fx>.st-wet::after{left:68%;animation-delay:-.8s}
+body.teyvat .combat-panel .status-fx>.st-poison{box-shadow:inset 0 0 22px rgba(120,210,80,.6);animation:fxAuraBreath 2s ease-in-out infinite;--aura:#7fd04f}
+body.teyvat .combat-panel .status-fx>.st-chill{background:linear-gradient(180deg,rgba(200,240,255,.28),transparent 45%);box-shadow:inset 0 0 16px rgba(190,235,255,.5)}
+body.teyvat .combat-panel .status-fx>.st-corrosion{box-shadow:inset 0 0 20px rgba(150,90,200,.6);background:radial-gradient(circle at 30% 80%,rgba(120,60,170,.3),transparent 50%)}
+body.teyvat .combat-panel .status-fx>.st-taunt{border:2px solid rgba(255,90,80,.85);border-radius:inherit;animation:fxTaunt 1.2s ease-in-out infinite}
+@keyframes fxFlicker{0%{opacity:.75;transform:scaleY(1)}100%{opacity:1;transform:scaleY(1.12)}}
+@keyframes fxCharged{0%,100%{opacity:.25}10%{opacity:1}20%{opacity:.35}35%{opacity:.95}50%{opacity:.3}}
+@keyframes fxDrip{0%{transform:translateY(0);opacity:0}10%{opacity:1}100%{transform:translateY(130px);opacity:0}}
+@keyframes fxTaunt{0%,100%{box-shadow:0 0 0 rgba(255,90,80,0)}50%{box-shadow:0 0 16px rgba(255,90,80,.7)}}
+/* Playback bursts: reactions, a breaking shield and the elemental burst sweep (WAAPI on CombatFX's clock). */
+.combat-light.bfx{width:14px;height:14px;border-radius:50%;margin:0}
+.combat-light.rfx-ring{width:46px;height:46px;border:3px solid currentColor;background:none;box-shadow:0 0 14px currentColor}
+.combat-light.rfx-flash{width:70px;height:70px;background:radial-gradient(circle,#fff6d6,rgba(255,150,60,.85) 40%,rgba(255,80,30,0) 70%)}
+.combat-light.rfx-spark{width:16px;height:4px;border-radius:2px;background:currentColor;box-shadow:0 0 8px currentColor}
+.combat-light.rfx-overload{color:#ff8a3d}
+.combat-light.rfx-vaporize{color:#e8f6ff}
+.combat-light.rfx-puff{width:26px;height:26px;background:radial-gradient(circle,rgba(255,255,255,.85),rgba(220,235,245,.4) 50%,transparent 70%)}
+.combat-light.rfx-melt-a{color:#ff9b54}
+.combat-light.rfx-melt-b{color:#9be6ff}
+.combat-light.rfx-drop{width:8px;height:11px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:currentColor}
+.combat-light.rfx-frozen{color:#bff0ff}
+.combat-light.rfx-crystal{width:12px;height:26px;border-radius:2px;background:linear-gradient(180deg,#f2fdff,#9fdcf5);clip-path:polygon(50% 0,100% 30%,80% 100%,20% 100%,0 30%);box-shadow:0 0 10px #bff0ff}
+.combat-light.rfx-superconduct{color:#d6b8ff}
+.combat-light.rfx-charged{color:#c79bff}
+.combat-light.rfx-arc{width:34px;height:10px;border-radius:0;background:none;border-top:2px solid #e6d2ff;border-bottom:2px solid #b07cff;transform-origin:center;filter:drop-shadow(0 0 6px #c79bff);clip-path:polygon(0 50%,20% 0,40% 100%,60% 0,80% 100%,100% 50%,80% 60%,60% 20%,40% 80%,20% 20%)}
+.combat-light.rfx-swirl{width:60px;height:60px;background:conic-gradient(from 0deg,rgba(116,224,194,0),rgba(116,224,194,.9),rgba(116,224,194,0) 40%,rgba(160,240,215,.85) 70%,rgba(116,224,194,0));-webkit-mask:radial-gradient(circle,transparent 32%,#000 34%,#000 62%,transparent 64%);mask:radial-gradient(circle,transparent 32%,#000 34%,#000 62%,transparent 64%)}
+.combat-light.rfx-leaf{width:10px;height:6px;border-radius:0 80% 0 80%;background:#8ff0cf}
+.combat-light.rfx-gem{width:24px;height:30px;border-radius:0;background:linear-gradient(160deg,#fff6c9,#f5c542 55%,#c98e1a);clip-path:polygon(50% 0,100% 38%,50% 100%,0 38%);filter:drop-shadow(0 0 10px #f5c542)}
+.combat-light.rfx-crystallize{color:#f5c542}
+.combat-light.rfx-flame{width:18px;height:26px;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;background:radial-gradient(ellipse at 50% 75%,#fff2b8,#ffa14a 45%,rgba(255,80,40,.2) 75%,transparent)}
+.combat-light.rfx-orb{width:16px;height:16px;background:radial-gradient(circle at 35% 35%,#f4ffd6,#a5d63b 55%,rgba(120,180,40,.2))}
+.combat-light.rfx-bloom{color:#a5d63b}
+.combat-light.shield-shard{width:10px;height:16px;border-radius:0;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(150,210,255,.7));clip-path:polygon(50% 0,100% 40%,70% 100%,10% 85%,0 30%)}
+.combat-light.shield-shard.shard-geo{background:linear-gradient(180deg,#fff6c9,#f5c542)}
+.combat-light.shard-ring{color:#cfe9ff}.combat-light.shard-ring.shard-geo{color:#f5c542}
+/* Weapon blows, RPG Maker style, drawn where they land (--fx is the hit's element colour, white when physical). */
+.combat-light.wfx-arc{width:170px;height:170px;border-radius:50%;background:none;border-top:8px solid #fff;border-right:3px solid transparent;border-left:3px solid transparent;filter:drop-shadow(0 0 2px rgba(0,0,0,.7)) drop-shadow(0 0 8px var(--fx,#fff)) drop-shadow(0 0 18px var(--fx,#fff));z-index:2}
+.combat-light.wfx-arc.heavy{width:230px;height:230px;border-top-width:13px}
+.combat-light.wfx-dust{width:150px;height:22px;border-radius:50%;background:radial-gradient(ellipse,rgba(230,220,200,.75),rgba(180,160,130,.25) 55%,transparent 72%)}
+.combat-light.wfx-streak{width:150px;height:4px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4) 30%,#fff 80%,var(--fx,#fff));box-shadow:0 0 10px var(--fx,#fff)}
+.combat-light.wfx-spark{width:16px;height:3px;border-radius:2px;background:#fff;box-shadow:0 0 8px var(--fx,#fff)}
+.combat-light.wfx-star{width:80px;height:80px;border-radius:0;background:radial-gradient(circle,#fff 0 18%,var(--fx,#fff) 30%,transparent 62%);clip-path:polygon(50% 0,58% 36%,92% 18%,66% 46%,100% 54%,64% 60%,78% 94%,52% 68%,30% 100%,38% 64%,0 66%,34% 48%,8% 20%,42% 34%)}
+.combat-light.wfx-ring{width:60px;height:60px;border:3px solid var(--fx,#fff);background:none;box-shadow:0 0 12px var(--fx,#fff)}
+/* 약점 간파 (user: 「약점 간파 됐으면 디버프창에 디버프로 적혀있어야 되는거 아니야?」): a red sight locks on as it lands, and stays on
+   the card while the target takes more damage. */
+.combat-light.wfx-sight{width:84px;height:84px;border-radius:50%;border:3px solid #ff5a4a;background:linear-gradient(#ff5a4a,#ff5a4a) center/3px 100% no-repeat,linear-gradient(#ff5a4a,#ff5a4a) center/100% 3px no-repeat;-webkit-mask:radial-gradient(circle,transparent 26%,#000 27%);mask:radial-gradient(circle,transparent 26%,#000 27%);box-shadow:0 0 14px rgba(255,90,74,.8)}
+body.teyvat .combat-panel .status-fx>.st-exposed{border:2px solid rgba(255,90,74,.7);border-radius:inherit;box-shadow:inset 0 0 18px rgba(255,80,66,.4)}
+body.teyvat .combat-panel .status-fx>.st-exposed::before{content:'';position:absolute;left:50%;top:40%;width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,96,84,.9);background:linear-gradient(rgba(255,96,84,.9),rgba(255,96,84,.9)) center/2px 100% no-repeat,linear-gradient(rgba(255,96,84,.9),rgba(255,96,84,.9)) center/100% 2px no-repeat;-webkit-mask:radial-gradient(circle,transparent 30%,#000 31%);mask:radial-gradient(circle,transparent 30%,#000 31%);box-shadow:0 0 10px rgba(255,80,66,.7);transform:translate(-50%,-50%);animation:fxSight 1.8s ease-in-out infinite}
+@keyframes fxSight{0%,100%{transform:translate(-50%,-50%) scale(1) rotate(0deg);opacity:.75}50%{transform:translate(-50%,-50%) scale(.88) rotate(45deg);opacity:1}}
+.st-chip.fresh{animation:fxChipIn .55s cubic-bezier(.2,.8,.3,1.3)}
+@keyframes fxChipIn{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.combat-light.wfx-circle{width:120px;height:120px;background:radial-gradient(circle,transparent 0 46%,var(--fx,#fff) 47% 49%,transparent 50% 58%,var(--fx,#fff) 59% 60%,transparent 61%),repeating-conic-gradient(from 0deg,var(--fx,#fff) 0 4deg,transparent 4deg 30deg);-webkit-mask:radial-gradient(circle,transparent 40%,#000 41% 62%,transparent 63%);mask:radial-gradient(circle,transparent 40%,#000 41% 62%,transparent 63%);filter:drop-shadow(0 0 8px var(--fx,#fff))}
+.combat-light.wfx-orb{width:46px;height:46px;background:radial-gradient(circle,#fff 0 20%,var(--fx,#fff) 45%,transparent 70%)}
+.combat-light.wfx-claw{width:96px;height:5px;border-radius:3px;background:linear-gradient(90deg,transparent,#fff 25%,var(--fx,#ff8a7a) 80%,transparent);transform-origin:left center;box-shadow:0 0 8px rgba(255,90,80,.8)}
+.combat-light.wfx-arrow{width:56px;height:6px;border-radius:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5) 30%,#e8d4a8 60%,#fff 100%);clip-path:polygon(0 35%,80% 35%,80% 0,100% 50%,80% 100%,80% 65%,0 65%);filter:drop-shadow(0 0 6px var(--fx,#fff))}
+.combat-light.wfx-bolt{width:26px;height:26px;background:radial-gradient(circle,#fff 0 25%,var(--fx,#fff) 50%,transparent 72%);box-shadow:0 0 16px var(--fx,#fff)}/* Outside the fight: rewards pop in one by one, rarer ones with a sweep of light, and the level-up banner shines. */
+.loot-grid>.loot-item{animation:fxLootPop .42s cubic-bezier(.2,.9,.3,1.25) both}
+.loot-grid>.loot-item:nth-child(2){animation-delay:.06s}.loot-grid>.loot-item:nth-child(3){animation-delay:.12s}.loot-grid>.loot-item:nth-child(4){animation-delay:.18s}.loot-grid>.loot-item:nth-child(5){animation-delay:.24s}.loot-grid>.loot-item:nth-child(6){animation-delay:.3s}.loot-grid>.loot-item:nth-child(7){animation-delay:.36s}.loot-grid>.loot-item:nth-child(8){animation-delay:.42s}.loot-grid>.loot-item:nth-child(n+9){animation-delay:.48s}
+.loot-grid>.loot-item.tier-4,.loot-grid>.loot-item.tier-5{position:relative;overflow:hidden}
+.loot-grid>.loot-item.tier-4::after,.loot-grid>.loot-item.tier-5::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 48%,transparent 66%);transform:translateX(-120%);animation:fxShine 1.6s ease-out .5s 2}
+@keyframes fxLootPop{0%{opacity:0;transform:translateY(10px) scale(.86)}100%{opacity:1;transform:none}}
+@keyframes fxShine{to{transform:translateX(120%)}}
+.shell-levelup::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 25%,rgba(243,223,174,.42) 50%,transparent 75%);transform:translateX(-110%);animation:fxShine 1.3s ease-out .25s 1 forwards}
+html.reduce-motion body.teyvat .combat-panel .aura-fx,html.reduce-motion body.teyvat .combat-panel .aura-fx>i,html.reduce-motion body.teyvat .combat-panel .shield-fx,html.reduce-motion body.teyvat .combat-panel .shield-fx::before,html.reduce-motion body.teyvat .combat-panel .status-fx>.st,html.reduce-motion body.teyvat .combat-panel .status-fx>.st::before,html.reduce-motion body.teyvat .combat-panel .status-fx>.st::after,html.reduce-motion body.teyvat .shell-aura-badge,html.reduce-motion .loot-grid>.loot-item,html.reduce-motion .loot-grid>.loot-item::after,html.reduce-motion .shell-levelup::after{animation:none!important}
+html.reduce-motion body.teyvat .combat-panel .aura-fx>i{display:none}
+/* The fighter whose turn it is glows as a whole card (user: 「차례인 인원은 아예 그 캐릭터 프로필 전체가 빛나는걸로」). */
+body.teyvat .combat-panel .combatant-row.shell-acting{border-color:rgba(255,236,190,.95)!important;animation:fxActingGlow 1.5s ease-in-out infinite}
+body.teyvat .combat-panel .shell-enemies .combatant-row.shell-acting{animation-name:fxActingGlowFoe}
+@keyframes fxActingGlow{0%,100%{box-shadow:0 0 0 2px rgba(243,223,174,.7),0 0 14px rgba(243,223,174,.4),inset 0 0 16px rgba(243,223,174,.12)}50%{box-shadow:0 0 0 3px rgba(255,238,196,1),0 0 30px rgba(243,223,174,.85),inset 0 0 34px rgba(243,223,174,.32)}}
+@keyframes fxActingGlowFoe{0%,100%{box-shadow:0 0 0 2px rgba(255,170,130,.7),0 0 14px rgba(255,140,100,.4),inset 0 0 16px rgba(255,140,100,.12)}50%{box-shadow:0 0 0 3px rgba(255,200,160,1),0 0 30px rgba(255,140,100,.85),inset 0 0 34px rgba(255,140,100,.3)}}
+/* 「효과」 is an ⓘ button (user: 「글로 써져있는건 왠만하면 아이콘으로」); its name stays in aria-label and the title. */
+body.teyvat .combat-panel .battle-effect-button{font-size:0!important;min-width:30px;padding:0!important;display:inline-grid;place-items:center}
+body.teyvat .combat-panel .battle-effect-button::before{content:'';width:16px;height:16px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1.2 15.5h-2.4v-7h2.4zm0-9h-2.4V6.2h2.4z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1.2 15.5h-2.4v-7h2.4zm0-9h-2.4V6.2h2.4z'/%3E%3C/svg%3E") center/contain no-repeat}
+/* 0.15.21 아이콘 (app_icons_v01521.js; user: 「원래 퍼즐때 쓰던 아이콘 있잖아 여기다가도 넣으면 되잖아」, then 「딴데서 에셋을 가져오는게
+   맞지 않아?」): the original game's element symbols, weapon kinds and talent pictures (content/genshin-ui-assets.json). */
+.el-icon,.weapon-icon,.talent-icon{display:inline-grid;place-items:center;flex:none;vertical-align:-.3em}
+.el-icon>img,.weapon-icon>img,.talent-icon>img{width:100%;height:100%;object-fit:contain;pointer-events:none}
+.el-icon{width:1.3em;height:1.3em}
+.el-icon>img{filter:drop-shadow(0 0 1.5px rgba(0,0,0,.65))}
+.weapon-icon{width:1.6em;height:1.6em;border-radius:50%;background:rgba(14,17,27,.6);border:1px solid rgba(236,229,216,.22)}
+.weapon-icon>img{width:78%;height:78%}
+.talent-icon{width:1.9em;height:1.9em;border-radius:50%;background:rgba(14,17,27,.7);border:1.5px solid color-mix(in srgb,var(--c,#d3bc8e) 70%,transparent);box-shadow:0 0 8px color-mix(in srgb,var(--c,#d3bc8e) 30%,transparent)}
+.talent-icon>img{width:80%;height:80%}
+/* the puzzles' orbs: the element's symbol in white on the coloured ball */
+.pz-orb>img.pz-glyph{width:66%;height:66%;object-fit:contain;filter:brightness(0) invert(1) drop-shadow(0 1px 1px rgba(0,0,0,.35));pointer-events:none}
+.member-pick-meta .el-icon{margin-left:6px;font-size:1.1rem;vertical-align:-.4em}
+.member-pick-meta .pick-weapon{margin-left:4px;font-size:.95rem;vertical-align:-.45em}
+body.teyvat .combat-panel .combatant-copy strong .own-element{margin-right:4px;font-size:1.05em;vertical-align:-.28em}
+/* the aura badge and the floating 「부착」 are the element's colour, so its symbol sits on a dark disc */
+body.teyvat .shell-aura-badge .el-icon,body.teyvat .combat-light.aura-tag .el-icon{width:17px;height:17px;margin:-1px 5px 0 -6px;padding:1.5px;border-radius:50%;background:rgba(21,18,14,.88);box-sizing:border-box}
+body.teyvat .combat-light.aura-tag{display:inline-flex;align-items:center}
+body.teyvat .gear-member-copy h2{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+body.teyvat .gear-member-copy h2 .gear-element{font-size:1.2em;vertical-align:0}
+body.teyvat .gear-member-copy h2 .gear-weapon-kind{font-size:1rem}
+.gear-empty-mark.with-icon{position:relative;font-size:0}
+.gear-empty-mark.with-icon>.weapon-icon{width:30px;height:30px;background:none;border:0;opacity:.6}
+.gear-empty-mark.with-icon>i{position:absolute;right:-3px;bottom:-3px;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--t-gold,#d3bc8e);color:#1b1610;font:800 13px/1 sans-serif;font-style:normal}
+body.teyvat .premium-talent .talent-kind.as-icon{font-size:.95rem}
+body.teyvat .premium-talent span.talent-kind.as-icon:not(.talent-icon){display:inline-grid;place-items:center;width:1.9em;height:1.9em;border-radius:50%;font-size:.8rem;background:rgba(14,17,27,.7);border:1.5px solid color-mix(in srgb,var(--c,#d3bc8e) 70%,transparent)}
+body.teyvat .premium-talent .talent-kind.as-icon b{font-weight:900;color:var(--c,#d3bc8e)}
+body.teyvat .premium-talent .talent-kind.kind-q{border-width:2px}
+/* battle: the skill buttons carry the fighter's own talent pictures, E or Q on the corner */
+body.teyvat .combat-panel .battle-cards button[data-card-id] .talent-icon.shell-card-glyph{position:relative;width:34px;height:34px;padding:0;font-size:1rem}
+body.teyvat .combat-panel .battle-cards button[data-card-id] .talent-icon.shell-card-glyph[data-key]::after{content:attr(data-key);position:absolute;right:-4px;bottom:-4px;display:grid;place-items:center;width:15px;height:15px;border-radius:50%;background:var(--t-cream,#ece5d8);color:#1b1610;font:900 9px/1 sans-serif}
+body.teyvat .shell-roster-item{position:relative}
+body.teyvat .shell-roster-item>.shell-roster-element{position:absolute;left:36px;top:3px;width:19px;height:19px;padding:1px;border-radius:50%;background:rgba(14,17,27,.82);box-sizing:border-box;pointer-events:none}
+/* 0.15.21 버프 · 디버프 칩 (user: 「진형 효과는 뭐임 그냥 버프 디버프란을 좀 개선할 필요가 있어보이는데」): a press lists them. */
+body.teyvat .combat-panel .combatant-copy>.status-chips,body.teyvat .combat-panel .combatant-copy>.status-chips:hover{display:flex;flex-wrap:wrap;gap:3px;width:auto;max-width:100%;min-height:0;margin:3px 0 0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;cursor:pointer;text-align:left}
+body.teyvat .combat-panel .combatant-copy>.status-chips:hover .st-chip{filter:brightness(1.18)}
+.st-chip{display:inline-flex;align-items:center;gap:3px;max-width:100%;padding:1px 6px 1px 5px;border-radius:8px;border:1px solid;font:700 .66rem/1.4 CRPGKorean,sans-serif;white-space:nowrap}
+.st-chip>span{overflow:hidden;text-overflow:ellipsis}
+.st-chip>b{margin-left:1px;padding:0 4px;border-radius:6px;background:rgba(0,0,0,.45);font-size:.6rem}
+.st-chip.buff::before{content:'▲';font-size:.5rem}
+.st-chip.debuff::before{content:'▼';font-size:.5rem}
+.st-chip.buff{color:#c8f5d2;border-color:rgba(126,220,154,.55);background:rgba(34,96,58,.55)}
+.st-chip.debuff{color:#ffcabd;border-color:rgba(240,128,104,.6);background:rgba(110,34,24,.6)}
+.st-chip.hold{color:#e6d0ff;border-color:rgba(190,146,255,.55);background:rgba(66,38,108,.6)}
+.st-chip.element{color:#eaf6ff;border-color:rgba(160,210,240,.5);background:rgba(28,52,78,.6)}
+.st-chip.role{color:#f3dfae;border-color:rgba(243,223,174,.45);background:rgba(84,68,36,.55)}
+.st-chip .el-icon{width:12px;height:12px;vertical-align:0}
+@media (max-width:760px),(min-width:761px) and (max-height:820px){
+ body.teyvat .combat-panel .combatant-copy>.status-chips,body.teyvat .combat-panel .combatant-copy>.status-chips:hover{flex-wrap:nowrap;overflow:hidden;-webkit-mask:linear-gradient(90deg,#000 86%,transparent);mask:linear-gradient(90deg,#000 86%,transparent)}
+}
+.status-details{display:grid;gap:10px;min-width:min(420px,78vw)}
+.status-detail{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start}
+.status-detail>.st-chip{font-size:.78rem}
+.status-details p{margin:0;line-height:1.55;font-size:.9rem}
+/* The formation tag at the top is a button that explains itself; the turn order says 「×2」 for a boss that acts twice and
+   comes in anew when the playback reaches a new round. */
+body.teyvat .combat-panel>.battle-heading button.battle-formation{min-height:0;font:600 .78rem/1.3 CRPGKorean,sans-serif;color:var(--t-muted);cursor:pointer;box-shadow:none}
+body.teyvat .combat-panel>.battle-heading button.battle-formation.synergy{color:#8be39a}
+body.teyvat .combat-panel>.battle-heading button.battle-formation:hover{color:var(--t-cream);border-color:var(--t-gold)}
+body.teyvat .combat-panel>.battle-order li>.order-times{padding:0 6px;border-radius:8px;background:rgba(255,140,100,.25);color:#ffd2c2;font-weight:800;font-size:.7rem}
+body.teyvat .combat-panel>.battle-order li.current>.order-times{color:#7a2a10;background:rgba(255,140,100,.4)}
+body.teyvat .combat-panel>.battle-order.new-round{animation:fxOrderIn .45s ease-out}
+@keyframes fxOrderIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+html.reduce-motion body.teyvat .combat-panel>.battle-order.new-round{animation:none}
+/* PC: the commands are two short rows (whose turn · skills / target · run · speed) and the playback is a band along the
+   bottom, so the fighters stay in view (user: 「사진에 보이듯이 모든것이 다 가려져」). */
+@media (min-width:761px){
+ body.teyvat .combat-panel .compact-battle-stage{min-height:48%}
+ body.teyvat .combat-panel .shell-battle-feed>p:not(:last-child){display:none}
+ body.teyvat .combat-panel .combat-duo>.battle-command:has(>.battle-cards){display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"turn cards cards" "exec note speed";gap:6px 12px;padding:8px 12px;align-items:center}
+ body.teyvat .combat-panel .battle-command>.battle-turn-banner{grid-area:turn;margin:0;padding:3px 12px 3px 3px;align-self:stretch}
+ body.teyvat .combat-panel .battle-command>.battle-turn-banner .battle-turn-copy small{display:none}
+ body.teyvat .combat-panel .battle-command>.battle-turn-banner .battle-turn-face{flex-basis:34px;width:34px;height:34px}
+ body.teyvat .combat-panel .battle-command>.battle-cards{grid-area:cards;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;padding-bottom:2px;min-width:0}
+ body.teyvat .combat-panel .battle-command>.battle-execute{grid-area:exec;display:flex;align-items:center;gap:10px;flex-wrap:nowrap;min-width:0}
+ body.teyvat .combat-panel .battle-command>.battle-target-warning{grid-area:note;margin:0;font-size:.78rem;line-height:1.35;min-width:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ body.teyvat .combat-panel .battle-command>.combat-speed{grid-area:speed;justify-self:end;margin:0}
+ body.teyvat .combat-panel .battle-cards button[data-card-id]{min-height:46px;max-width:230px;padding:4px 12px 4px 4px}
+ body.teyvat .combat-panel .battle-cards button[data-card-id] .shell-card-glyph{width:36px;height:36px}
+ body.teyvat .combat-panel .battle-cards button[data-card-id] small{max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ body.teyvat .combat-playback{left:50%;right:auto;bottom:10px;transform:translateX(-50%);width:min(1060px,calc(100vw - 24px));max-height:none;overflow:visible;padding:8px 12px;display:grid;grid-template-columns:minmax(220px,1.1fr) minmax(0,1.5fr) auto auto;grid-template-rows:auto auto;column-gap:12px;row-gap:2px;align-items:center}
+ body.teyvat .combat-playback>.combat-skill-banner{grid-column:1;grid-row:1/span 2;margin:0;padding:6px 10px;gap:8px}
+ body.teyvat .combat-playback .combat-skill-name{font-size:17px;margin:1px 0}
+ body.teyvat .combat-playback .combat-skill-target{max-height:1.5em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ body.teyvat .combat-playback .combat-skill-banner>button{min-height:32px;padding:4px 10px}
+ body.teyvat .combat-playback>.playback-outcomes{grid-column:2;grid-row:1;max-height:46px;overflow:auto;font-size:.76rem;margin:0}
+ body.teyvat .combat-playback>.playback-message{grid-column:2;grid-row:2;margin:0;font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ body.teyvat .combat-playback>.playback-position{grid-column:3;grid-row:1;font-size:.72rem;white-space:nowrap}
+ body.teyvat .combat-playback>.combat-speed{grid-column:3;grid-row:2;margin:0}
+ body.teyvat .combat-playback>.playback-buttons{grid-column:4;grid-row:1/span 2}
+}
+/* A short PC window: smaller party cards and enemy pictures, so all four allies fit. */
+@media (min-width:761px) and (max-height:820px){
+ body.teyvat .combat-panel .shell-allies .combatant-row{min-height:0;padding:4px 10px 4px 4px}
+ body.teyvat .combat-panel .shell-allies .combat-portrait,body.teyvat .combat-panel .shell-allies .combat-player-mark{width:40px;height:40px;flex-basis:40px}
+ body.teyvat .combat-panel .shell-allies .combatant-copy .battle-position,body.teyvat .combat-panel .shell-allies .combatant-copy>small{display:none}
+ body.teyvat .combat-panel .shell-enemies{--enemy-h:108px}
+}
+
 /* ---------- 리월 색 (generated by tools/gen_liyue_theme.cjs) ---------- */
 /* 리월(몬드와 같은 구성, 남색 바탕 → 같은 밝기의 갈색, 금색 테두리 → 주황빛 금색, 강조색 → 주황). */
 body.teyvat[data-region=liyue]{--acc:#f0a04b;--acc-2:#ffd3a1;--acc-rgb:240,160,75;--acc-deep:#5c3613}
@@ -3103,7 +3320,6 @@ body.teyvat[data-region=liyue] .wish-screen .wish-reveal-info h2.wish-reveal-nam
 body.teyvat[data-region=liyue] .hud-mora .hud-mora-icon{filter:drop-shadow(0 0 3px rgba(243,175,103,.45))}
 body.teyvat[data-region=liyue] .battle-command .battle-turn-banner{background:linear-gradient(90deg,rgba(248,210,169,.24),rgba(248,210,169,.04));border:1px solid rgba(248,210,169,.6)}
 body.teyvat[data-region=liyue] .battle-turn-face{background:#372718}
-body.teyvat[data-region=liyue] .combat-panel .shell-turn-badge{box-shadow:0 0 0 2px rgba(44,30,18,.85),0 0 12px rgba(248,210,169,.7)}
 body.teyvat[data-region=liyue] .combat-panel .battle-summons.top .battle-summon{background:rgba(29,20,12,.82)}
 body.teyvat[data-region=liyue] .member-pick :is(.member-pick-face,.portrait-placeholder){border:2px solid rgba(248,210,169,.45);background:#372718}
 body.teyvat[data-region=liyue] .member-pick-stars.r5{color:#f3af66}
@@ -3140,4 +3356,9 @@ body.teyvat[data-region=liyue] .cp-pin em{background:rgba(42,27,13,.92)}
 body.teyvat[data-region=liyue] .cp-talk-line.host strong{color:#f8d2a9}
 body.teyvat[data-region=liyue] .cp-pill.world{border-color:rgba(248,210,169,.55);color:#f8d2a9}
 body.teyvat[data-region=liyue] .cp-pill.world.news::after{background:#f3b16b;box-shadow:0 0 0 2px rgba(41,28,16,.95)}
+body.teyvat[data-region=liyue] .combat-panel .aura-fx.aura-geo>i{background:#f8d4ad}
+body.teyvat[data-region=liyue] .shell-aura-badge .el-icon,body.teyvat[data-region=liyue] .combat-light.aura-tag .el-icon{background:rgba(21,18,14,.88)}
+body.teyvat[data-region=liyue] .premium-talent span.talent-kind.as-icon:not(.talent-icon){background:rgba(29,20,12,.7);border:1.5px solid color-mix(in srgb,var(--c,#dab287) 70%,transparent)}
+body.teyvat[data-region=liyue] .premium-talent .talent-kind.as-icon b{color:var(--c,#dab287)}
+body.teyvat[data-region=liyue] .shell-roster-item>.shell-roster-element{background:rgba(29,20,12,.82)}
 /* ---------- /리월 색 ---------- */

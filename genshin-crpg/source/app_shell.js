@@ -131,12 +131,17 @@ S.focusGear=id=>{S.gearOwner=id||null;};
 // 0.15.17 (user: 「결과 바로 보기가 전투스킵이잖아」): no battle skip. The playback keeps 일시정지 and the speed setting, and loses
 // 「결과 바로 보기」 and 「다음 표시」 (app_av.js builds them; its dock exists as soon as play() returns its promise).
 if(typeof GameEffects!=='undefined'&&typeof GameEffects.play==='function'){const priorPlay=GameEffects.play;GameEffects.play=function(...args){const out=priorPlay.apply(this,args);for(const b of this.dock?.querySelectorAll('.playback-buttons button')||[])if(['다음 표시','결과 바로 보기'].includes(b.textContent.trim()))b.remove();return out;};}
-// The 「차례」 tag on the card of the fighter whose turn it is (one per battle screen).
-function turnBadge(row,scope=row.closest('.combat-panel')||document){for(const old of $$('.shell-turn-badge',scope))old.remove();for(const r of $$('.combatant-row.shell-acting',scope))r.classList.remove('shell-acting');row.classList.add('shell-acting');row.append(mk('span','shell-turn-badge','차례'));}
+// The card of the fighter whose turn it is glows as a whole (one per battle screen). 0.15.21 (user: 「차례부분이랑 보호막이랑
+// 겹치는 느낌이라 차례인 인원은 아예 그 캐릭터 프로필 전체가 빛나는걸로」): no 「차례」 tag any more.
+function turnBadge(row,scope=row.closest('.combat-panel')||document){for(const old of $$('.shell-turn-badge',scope))old.remove();for(const r of $$('.combatant-row.shell-acting',scope))r.classList.remove('shell-acting');row.classList.add('shell-acting');}
 // 0.15.20 (user: 「전투할 때 차례 부분이 가려져」): while a round plays out, the tag goes to whoever is acting; it stayed on the
 // fighter whose command started the playback (app_av.js marks the acting card with .acting and the order entry with
 // .current). The order's 「현재」 goes along with .current.
 function orderNow(){const order=$('.combat-panel .battle-order'),now=order&&$('li.current',order);if(!now)return;for(const s of $$('li > small',order))if(s.textContent==='현재'&&s.parentElement!==now)s.remove();if(![...now.children].some(c=>c.tagName==='SMALL'&&c.textContent==='현재'))now.append(mk('small','','현재'));}
+// 0.15.21 (user: 「여전히 제 턴이 오면서 같이 공격하는 느낌」): the battle effects light the card as the action begins, before the
+// pause and the blow (app_battle_fx_v01521.js); these two lived only in this closure, so the early glow never happened and
+// the card lit up with the blow.
+S.turnBadge=turnBadge;S.orderNow=orderNow;
 if(typeof GameEffects!=='undefined'&&typeof GameEffects.showAction==='function'){const priorShow=GameEffects.showAction;GameEffects.showAction=function(frame,...args){const out=priorShow.call(this,frame,...args);const row=frame?.actorId&&$('.combat-panel .combatant-row.acting[data-actor-id="'+CSS.escape(frame.actorId)+'"]');if(row)turnBadge(row);orderNow();return out;};}
 if(typeof GameEffects!=='undefined'&&typeof GameEffects.show==='function'){const priorEvent=GameEffects.show;GameEffects.show=function(...args){const out=priorEvent.apply(this,args);orderNow();return out;};}
 function openScreen(screen){const b=navButton(screen);if(b){if(b.disabled){toast(b.title||b.getAttribute('aria-description')||'지금은 이 메뉴를 열 수 없습니다.');return false;}b.click();return true;}if(game&&!busy){act('MENU',{screen});return true;}return false;}
@@ -399,17 +404,28 @@ function layoutCombat(content,p){
  // Level beside an enemy's name and a coloured mark for the element on each fighter, as in the original.
  const b=game.s.runtime;if(b){for(const row of $$('.combatant-row[data-actor-id]',p)){const a=b.actors.find(x=>x.id===row.dataset.actorId);if(!a)continue;
   const name=$('.combatant-copy strong',row);if(a.side==='ENEMY'&&a.level&&name&&!$('.shell-level',name))name.prepend(mk('small','shell-level','Lv.'+a.level));
+  // 0.15.21 (user: 「전투할때도 아군, 적 원소같은것도 넣어두면 편하겠지?」): each fighter's own element is an orb before its name.
+  const own=typeof CRPGIcons!=='undefined'?CRPGIcons.ofActor(a):null;if(own&&name&&!$('.own-element',name))name.prepend(CRPGIcons.element(own,'own-element'));
   // 0.14.11: the element on a fighter is a labelled badge on the card (it was a small dot after the name).
+  // 0.15.21: the orb says which element, the word only that it is attached.
   const aura=AURA[a.aura]||AURA[String(a.aura||'').toUpperCase()];$(':scope > .shell-aura-badge',row)?.remove();
-  if(aura){row.dataset.aura=aura;const badge=mk('span','shell-aura-badge aura-'+aura,AURA_LABEL[aura]+' 부착');badge.title=AURA_LABEL[aura]+' 원소가 붙어 있습니다';row.append(badge);}else delete row.dataset.aura;}
+  if(aura){row.dataset.aura=aura;const pic=typeof CRPGIcons!=='undefined'?CRPGIcons.element(aura):null,badge=mk('span','shell-aura-badge aura-'+aura,pic?'부착':AURA_LABEL[aura]+' 부착');if(pic)badge.prepend(pic);badge.title=AURA_LABEL[aura]+' 원소가 붙어 있습니다';row.append(badge);}else delete row.dataset.aura;}
   const order=$('.battle-order',p);if(order)for(const li of $$('li[data-actor-id]',order)){const a=b.actors.find(x=>x.id===li.dataset.actorId);if(a&&a.hp<=0)li.classList.add('down');}}
  // Skill buttons: a round glyph (E/Q, attack, guard or a card), and the turns left on a cooldown.
+ // 0.15.21: the fighter's own talent pictures from the original game (app_icons_v01521.js) — normal attack, skill, burst —
+ // with E or Q on the corner.
+ const actingId=$('.battle-order li.current',p)?.dataset.actorId,acting=actingId&&b?.actors.find(x=>x.id===actingId);
  for(const btn of $$('.battle-cards button[data-card-id]',p)){
-  let glyph=$('.skill-key',btn);if(glyph)glyph.classList.add('shell-card-glyph');
+  const cid=btn.dataset.cardId,slot=cid==='PLAYER_BASIC_ATTACK'?'na':/_Q$/.test(cid)?'q':/_E(_CHARGE)?$/.test(cid)?'e':null;
+  const owner=slot==='na'?acting?.source:(game.tables['08_SKILL_CARD_DB']?.get(cid)?.[2]||acting?.source),pic=slot&&owner&&typeof CRPGIcons!=='undefined'?CRPGIcons.talent(owner,slot,'shell-card-glyph'):null;
+  if(pic){$('.skill-key',btn)?.remove();if(slot!=='na')pic.dataset.key=slot.toUpperCase();btn.prepend(pic);}
+  let glyph=pic||$('.skill-key',btn);if(glyph)glyph.classList.add('shell-card-glyph');
   else{const id=btn.dataset.cardId;glyph=mk('span','shell-card-glyph');glyph.setAttribute('aria-hidden','true');glyph.append(icon(id==='PLAYER_BASIC_ATTACK'?'SWORD':id==='PLAYER_BASIC_GUARD'?'SHIELD':'DIAMOND'));btn.prepend(glyph);}
   const m=(btn.querySelector('small')?.textContent||'').match(/(\d+)\s*차례/);if(btn.disabled&&m)btn.dataset.cd=m[1];
   if(btn.classList.contains('skill-q'))btn.closest('.battle-card-choice')?.classList.add('shell-burst');
  }
+ // 0.15.21: the living element aura, shield bubble and status overlays on each card (app_battle_fx_v01521.js).
+ if(typeof BattleFX!=='undefined')BattleFX.decorate(p);
 }
 const AURA={'불':'pyro','물':'hydro','얼음':'cryo','번개':'electro','바람':'anemo','바위':'geo','풀':'dendro',PYRO:'pyro',HYDRO:'hydro',CRYO:'cryo',ELECTRO:'electro',ANEMO:'anemo',GEO:'geo',DENDRO:'dendro'};
 const AURA_LABEL={pyro:'불',hydro:'물',cryo:'얼음',electro:'번개',anemo:'바람',geo:'바위',dendro:'풀'};
@@ -450,7 +466,10 @@ const MENU_LAYOUT={
    if(cards.length>1){const list=mk('div','shell-roster');list.setAttribute('role','tablist');list.setAttribute('aria-label','캐릭터');let cur=wanted>=0?wanted:Math.min(S.gearIndex||0,cards.length-1);
     const show=(i,user)=>{if(user&&S.gearIndex!==i)sound('tab');S.gearIndex=i;cards.forEach((c,j)=>{c.hidden=j!==i;});[...list.children].forEach((b,j)=>{b.setAttribute('aria-selected',String(j===i));b.classList.toggle('active',j===i);});paint(cards[i]);};
     // 0.15.19: everyone the player has is listed; the ones on the bench say so.
-    cards.forEach((c,i)=>{const b=mk('button','shell-roster-item');b.type='button';b.setAttribute('role','tab');const face=$('.gear-portrait',c);const pic=face?face.cloneNode(true):mk('span','gear-portrait portrait-placeholder','✧');pic.classList.add('shell-roster-face');b.append(pic,mk('span','',$('h2',c)?.textContent||'캐릭터'));if(c.dataset.bench){b.classList.add('bench');b.append(mk('small','shell-roster-bench','대기'));}b.onclick=()=>show(i,true);list.append(b);});
+    cards.forEach((c,i)=>{const b=mk('button','shell-roster-item');b.type='button';b.setAttribute('role','tab');const face=$('.gear-portrait',c);const pic=face?face.cloneNode(true):mk('span','gear-portrait portrait-placeholder','✧');pic.classList.add('shell-roster-face');b.append(pic,mk('span','',$('h2',c)?.textContent||'캐릭터'));
+     // 0.15.21: the element's orb on the picture's corner, as in the original's character list.
+     const orb=typeof CRPGIcons!=='undefined'?CRPGIcons.element(CRPGIcons.ofCharacter(c.dataset.owner),'shell-roster-element'):null;if(orb)b.append(orb);
+     if(c.dataset.bench){b.classList.add('bench');b.append(mk('small','shell-roster-bench','대기'));}b.onclick=()=>show(i,true);list.append(b);});
     show(cur);body.append(region('shell-col-roster',[list]));
     // A member further down the (now long) list is brought into view when the screen opens on them.
     if(cur>0)requestAnimationFrame(()=>list.children[cur]?.scrollIntoView({block:'nearest',inline:'nearest'}));}

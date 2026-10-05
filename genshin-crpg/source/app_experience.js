@@ -265,8 +265,13 @@ slotsUI=async function(container){
 function combatDisplayName(b,a){const same=b.actors.filter(x=>x.name===a.name&&x.side===a.side);return a.name+(same.length>1?' '+(same.indexOf(a)+1):'');}
 function battleOrder(p,b){
   const order=el('ol','battle-order compact-order');order.setAttribute('aria-label','이번 라운드 행동 순서');
-  for(const [i,x]of b.order.entries()){const a=b.actors.find(t=>t.id===x.id);if(!a||a.hp<=0)continue;const entry=el('li',(a.side==='ALLY'?'ally':'enemy')+(i===b.cursor?' current':''));entry.dataset.actorId=a.id;entry.append(el('small','',String(i+1)),el('span','',combatDisplayName(b,a)));if(i===b.cursor&&!b.opening?.state?.includes('PENDING'))entry.append(el('small','','현재'));order.append(entry);}p.append(order);
+  // 0.15.21 (user: 「위에 적혀있는 순서가 공격 순서 아니야? 왜 누구는 그냥 넘어가는거야?」): the order is drawn anew every round
+  // (speed and a little luck), so the playback rebuilds this list when a new round begins (app_battle_fx_v01521.js);
+  // a boss that acts more than once a turn says so.
+  order.dataset.round=String(b.round);order.title='라운드마다 속도(와 약간의 운)로 순서를 새로 정합니다.';
+  for(const [i,x]of b.order.entries()){const a=b.actors.find(t=>t.id===x.id);if(!a||a.hp<=0)continue;const entry=el('li',(a.side==='ALLY'?'ally':'enemy')+(i===b.cursor?' current':''));entry.dataset.actorId=a.id;entry.append(el('small','',String(i+1)),el('span','',combatDisplayName(b,a)));battleOrderTimes(entry,a);if(i===b.cursor&&!b.opening?.state?.includes('PENDING'))entry.append(el('small','','현재'));order.append(entry);}p.append(order);
 }
+function battleOrderTimes(entry,a){const n=game.fieldBossActions?.(a)||1;if(n<=1)return;const tag=el('small','order-times','×'+n);tag.title='한 차례에 '+n+'번 행동합니다';entry.append(tag);}
 function combatPortraitSrc(a){if(a.side==='ENEMY')return enemyPortraitFor(a.source);const profile=game.rows('04_CHAR_DB').find(r=>r[1]===a.source);return profile&&portraitFor(profile[0]);}
 // 0.15.18 (user: 「전투할때 누구 차례인지 잘 모르겠으니까 그것도 좀 잘 보이게 해주고」): whose turn it is, in big letters over
 // the commands, with the fighter's face.
@@ -276,11 +281,65 @@ function battleTurnBanner(b){
   const src=showArt?combatPortraitSrc(a):null;if(src){const img=el('img','battle-turn-face');img.src=src;img.alt='';box.append(img);}else box.append(el('span','battle-turn-face mark',a.side==='ALLY'?'✦':'!'));
   const copy=el('div','battle-turn-copy');copy.append(el('strong','',combatDisplayName(b,a)+'의 차례'),el('small','',a.side==='ALLY'?'행동을 고르고 적을 눌러 대상을 정한 뒤 실행하세요.':'적이 행동합니다.'));box.append(copy);return box;
 }
+// 0.15.21 (user: 「진형 효과는 뭐임 그냥 버프 디버프란을 좀 개선할 필요가 있어보이는데」): what is on a fighter, as chips — a buff
+// green with ▲, a debuff red with ▼, a hold (빙결 · 도발 …) violet, an element state with the element's symbol, a
+// companion's role gold — with the rounds left on the corner; a press lists what each one does. The party's formation
+// works on everyone, so it is the battle's own tag at the top (battleFormationTag), not a chip on every card.
+const STATUS_ELEMENT={STATUS_WET:'hydro',STATUS_FREEZE:'cryo',STATUS_BURN:'pyro',STATUS_ELECTROCHARGED:'electro',STATUS_CHILL:'cryo',DILUC_INFUSION:'pyro',NOELLE_SWEEP:'geo',QUICKEN:'dendro'};
+// Statuses the table does not type, by what the code does with them (docs/STATUS_EFFECTS_KO.md): holds first, then
+// the harmful ones (a constellation's 「받는 피해 +」 included), the rest are buffs.
+const STATUS_KIND={LIFTED:'hold',BOSS_CONTROL:'hold',ILLUSORY_BUBBLE:'hold',STATUS_STUN:'hold',LIYUE_PETRIFY:'hold',LIYUE_BOSS_PETRIFY:'hold',QUICKEN:'element'};
+const STATUS_DEBUFF=new Set(['ANEMO_VULN','PHYS_VULN','OMEN','EULA_CRYO_PHYSICAL_VULN','STATUS_ISEKAI_HP_WINDOW','ENCOURAGEMENT_TAG','HAZARD_WET','HAZARD_CORRODED','ENEMY_CHARGE_EXPOSED','BLOOD_BLOSSOM','RIPTIDE','RUIN_VARIANT_CORE_EXPOSED','FORTUNE_TALISMAN','CONS_VENTI_2','CONS_VENTI_6','CONS_MIKA_2','CONS_ROSARIA_6','CONS_GANYU_1','CONS_XINGQIU_2','CONS_HUTAO_BLOSSOM','CONS_XIANGLING_1','CONS_XIANGLING_2','CONS_XINYAN_4','CONS_TRAVELER_A6']);
+const STAT_WORD={atk:'공격력',def:'방어력',maxHp:'최대 HP',spd:'속도',crit:'치명타 확률',critDmg:'치명타 피해',hit:'명중',eva:'회피',resist:'상태 저항'};
+function statusModsText(s){
+  const out=[],sign=v=>(v>0?'+':'')+v;
+  for(const [k,m] of Object.entries(s?.mods||{})){const w=STAT_WORD[k];if(!w||!m)continue;if(m.pct)out.push(w+' '+sign(m.pct)+'%');if(m.flat)out.push(w+' '+sign(m.flat)+(k==='crit'||k==='critDmg'?'%p':''));}
+  if(Number(s?.taken)&&s.taken!==1)out.push('받는 피해 '+(s.taken<1?'−':'+')+Math.round(Math.abs(1-s.taken)*100)+'%');
+  if(Number(s?.reactionOut)&&s.reactionOut!==1)out.push('원소 반응 피해 +'+Math.round((s.reactionOut-1)*100)+'%');
+  if(Number(s?.supportOut)&&s.supportOut!==1)out.push('치유·보호막 효과 +'+Math.round((s.supportOut-1)*100)+'%');
+  return out.join(' · ');
+}
+function battleStatusList(a){
+  const list=[];if(a.airborne)list.push({id:'AIRBORNE',name:'공중',kind:'hold',text:'공중에 떠 있어 공중을 노릴 수 있는 공격만 닿습니다.',rounds:null});
+  for(const s of a.statuses||[]){
+    if(s.id==='FORMATION'||Number.isFinite(s.rounds)&&s.rounds<=0)continue;
+    if(s.id==='ROLE'){const R=window.CRPGRuntime?.formationConfig?.roles?.[s.role];if(R)list.push({id:'ROLE',name:R.label,kind:'role',text:R.text,rounds:null});continue;}
+    const db=game.tables['13_STATUS_EFFECT_DB']?.get(s.id),type=String(db?.[2]||''),name=safeName('13_STATUS_EFFECT_DB',s.id);
+    const kind=STATUS_KIND[s.id]||(/원소/.test(type)?'element':/제어/.test(type)?'hold':STATUS_DEBUFF.has(s.id)||/디버프|지속 피해|저하/.test(type)?'debuff':'buff');
+    list.push({id:s.id,name,kind,text:[db?.[3]||'',statusModsText(s)].filter(Boolean).join(' · '),rounds:Number.isFinite(s.rounds)?s.rounds:null,element:STATUS_ELEMENT[s.id]||null});
+  }
+  return list;
+}
+function statusChip(x){
+  const chip=el('span','st-chip '+x.kind),pic=x.element&&typeof CRPGIcons!=='undefined'?CRPGIcons.element(x.element):null;chip.dataset.id=x.id;
+  if(pic){pic.removeAttribute('role');pic.removeAttribute('aria-label');pic.removeAttribute('title');chip.append(pic);}
+  chip.append(el('span','',x.name));if(x.rounds!==null)chip.append(el('b','',String(x.rounds)));
+  chip.title=x.name+(x.text?' · '+x.text:'')+(x.rounds!==null?' · '+x.rounds+'라운드 남음':'');return chip;
+}
+function battleStatusChips(a){
+  const list=battleStatusList(a);if(!list.length)return null;
+  const row=button('',()=>battleStatusDetails(a,list));row.className='status-chips';row.setAttribute('aria-label',a.name+'의 효과 '+list.length+'개 · '+list.map(x=>x.name).join(', ')+' · 눌러서 자세히 보기');
+  for(const x of list)row.append(statusChip(x));return row;
+}
+function battleStatusDetails(a,list){
+  const box=el('div','status-details');
+  for(const x of list){const row=el('div','status-detail');row.append(statusChip(x),el('p','',(x.text||'설명이 없는 효과입니다.')+(x.rounds!==null?' · '+x.rounds+'라운드 남음':' · 전투 내내')));box.append(row);}
+  showModal(a.name+' · 효과',box);
+}
+// The formation tag at the top says what it does (on the pointer, and in a window when pressed).
+function battleFormationTag(b){
+  const fm=b.formationV1&&window.CRPGRuntime?.formationConfig?.formations?.[b.formationV1.id];if(!fm)return null;
+  const on=!!b.formationV1.synergy,text=fm.text+' · '+(on?'시너지 발동 · ':'시너지 조건 · ')+fm.synergy.text+(on?'':' (지금은 꺼짐)');
+  const tag=button('진형 · '+fm.name+(on?' · 시너지 발동':''),()=>{const box=el('div','status-details');box.append(el('p','','편성에서 고른 진형입니다. 이 전투에서 파티 전원에게 적용됩니다.'),el('p','',text));showModal('진형 · '+fm.name,box);});
+  tag.className='battle-formation'+(on?' synergy':'');tag.title=text;tag.setAttribute('aria-label','진형 · '+fm.name+' · '+text);return tag;
+}
 function battleActorRow(a,chosen,index){
   const c=el('div','actor combatant-row'+(a.hp<=0?' dead':'')+(a.id===selectedTarget?' selected':''));c.dataset.actorId=a.id;c.dataset.maxHp=a.maxHp;c.dataset.side=a.side;
   if(showArt){const src=combatPortraitSrc(a);if(src){const image=el('img','combat-portrait');image.src=src;image.alt='';c.append(image);}else if(a.id==='PLAYER_CUSTOM')c.append(el('span','combat-player-mark','✦'));}
   const copy=el('div','combatant-copy');copy.append(el('strong','',a.name+(index>0?' '+index:'')));meter(copy,'HP',a.hp,a.maxHp);const shieldValue=(a.shields||[]).reduce((n,s)=>n+Math.max(0,Number(s.value||0)),0),shieldMax=(a.shields||[]).reduce((n,s)=>n+Math.max(Number(s.initialValue||s.value||0),Number(s.value||0)),0);c.dataset.shieldMax=Math.max(1,Math.round(shieldMax||shieldValue||1));if(shieldValue>0){const shieldBox=el('div','shield-meter');shieldBox.dataset.shieldMax=c.dataset.shieldMax;meter(shieldBox,'보호막',Math.round(shieldValue),Math.max(1,Math.round(shieldMax)));copy.append(shieldBox);}
-  const status=[a.aura&&({PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',ANEMO:'바람',GEO:'바위',DENDRO:'풀'}[a.aura]||a.aura),shieldValue>0?'보호막 '+Math.round(shieldValue):null,a.airborne?'공중':null,...(a.statuses||[]).map(s=>safeName('13_STATUS_EFFECT_DB',s.id))].filter(Boolean);if(status.length)copy.append(el('small','',status.join(' · ')));c.append(copy);
+  // 0.15.21 (user: 「글로 써져있는건 왠만하면 아이콘으로」, 「진형 효과는 뭐임 그냥 버프 디버프란을 좀 개선할 필요가 있어보이는데」):
+  // the element is its badge and the shield its own meter and bubble; what else is on the fighter is a row of chips.
+  const chips=battleStatusChips(a);if(chips)copy.append(chips);c.append(copy);
   if(chosen?.targets?.some(t=>t.id===a.id)){
     // 0.15.18 (user: 적 누르면 타겟): a press anywhere on the card chooses it. 0.15.20 (user: 「선택됨 저걸 없애고 정보를
     // 넣어야지」): so the card has no 선택/선택됨 button; the gold frame marks the target and 「정보」 stands in its place.
@@ -335,7 +394,7 @@ combat=function(p){
   if(!cards.some(c=>c.id===selectedCard&&!c.reason))selectedCard=cards.find(c=>!c.reason)?.id||cards[0]?.id;
   const chosen=cards.find(c=>c.id===selectedCard);if(!chosen?.targets?.some(x=>x.id===selectedTarget))selectedTarget=chosen?.targets?.[0]?.id||null;
   p.classList.add('combat-panel');const head=el('div','battle-heading');head.append(el('span','eyebrow',opening?'전투 시작 전':'ROUND '+b.round),el('h1','',safeName('33_ENCOUNTER_GROUP_DB',b.group)));
-  const fm=b.formationV1&&window.CRPGRuntime?.formationConfig?.formations?.[b.formationV1.id];if(fm)head.append(el('small','battle-formation'+(b.formationV1.synergy?' synergy':''),'진형 · '+fm.name+(b.formationV1.synergy?' · 시너지 발동':'')));p.append(head);
+  const fm=battleFormationTag(b);if(fm)head.append(fm);p.append(head);
   if(opening?.encounter){const e=opening.encounter,card=el('section','encounter-intro');card.setAttribute('aria-label','전투에 들어온 이유');card.append(el('small','eyebrow',e.label+' · '+mapName(e.map)),el('p','encounter-reason',displayText(e.text)));const foes=b.actors.filter(a=>a.side==='ENEMY'),preview=el('div','encounter-opponents');for(const name of [...new Set(foes.map(a=>a.name))]){const group=foes.filter(a=>a.name===name);preview.append(el('span','',name+' × '+group.length));}card.append(preview);p.append(card);}
   battleOrder(p,b);
   const controls=el('section','battle-command');controls.setAttribute('aria-label','전투 행동');
