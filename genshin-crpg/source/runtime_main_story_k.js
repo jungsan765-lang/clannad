@@ -1,22 +1,28 @@
-/* Main story manuscript edition (K route and traveler route): authored scenes replace the port-entry prose
-   while every effect, event, gate and route choice of the original rows stays in place. */
+/* Manuscript edition (main story K/traveler routes and the personal legend/affection stories): authored scenes
+   replace the port-entry prose while every effect, event, gate and route choice of the original rows stays in place. */
 (function(root){
 'use strict';
 const api=root.CRPGRuntime,P=api.Runtime.prototype,M=root.CRPGMainStoryK;
 if(!M||!root.CRPGLocalStory){api.mainStoryEdition={version:0,chains:[]};return;}
-const previous=P.storyIndex,TABLE='55_MAIN_STORY_DB',NOTE='CRPG_V0148_MAIN_STORY_K';
+const previous=P.storyIndex,TABLE_MAIN='55_MAIN_STORY_DB',TABLE_PERSONAL='57_MOND_STORY_SCENE_DB',NOTE='CRPG_V0148_MAIN_STORY_K';
+// Personal-story rows of these types carry the event structure (free-action pauses, condition forks, endings) and must be kept.
+const STRUCTURAL=new Set(['MENU_GATE','SYSTEM','CONDITIONAL','EVENT_END','LEGEND_END','AFFECTION_END','END','META']);
 const TRANSPARENT=/^(V141_|R39_FIELD_)/;
-// Chains are named after their route: TRV_* rows belong to the traveler route, everything else to the isekai route.
-const routeOf=id=>/^TRV_/.test(id)?'ROUTE_TRAVELER':'ROUTE_ISEKAI';
+// Chains are named after their route: TRV_* main-story chains and LEG_/AFF_/ARC_ personal chains without _ISK_ belong to
+// the traveler route, everything else to the isekai route.
+const routeOf=id=>/^TRV_/.test(id)||(/^(LEG|AFF|ARC)_/.test(id)&&!/_ISK_/.test(id))?'ROUTE_TRAVELER':'ROUTE_ISEKAI';
 const PLAYER_REF={ROUTE_ISEKAI:'PLAYER_ISEKAI',ROUTE_TRAVELER:'PLAYER_TRAVELER'};
 P.storyIndex=function(){
  const ix=previous.call(this);if(ix.mainStoryK)return ix;
  const report={installed:[],failed:[]};
- const all=ix.byTable[TABLE],nodes=ix.nodes;
+ const nodes=ix.nodes;
  const charRefs=new Map(this.rows('04_CHAR_DB').map(r=>[r[2],r[0]]));
  const contexts=new Map();
- const contextOf=ROUTE=>{
-  if(contexts.has(ROUTE))return contexts.get(ROUTE);
+ // A chain lives in the table of its entry row: the main story (55) or the personal legend/affection stories (57).
+ const tableOf=(entry,ROUTE)=>{const row=nodes.get(ROUTE+':'+entry);return row&&(ix.byTable[TABLE_PERSONAL]||[]).includes(row)?TABLE_PERSONAL:TABLE_MAIN;};
+ const contextOf=(ROUTE,table)=>{
+  const key=ROUTE+'|'+table;if(contexts.has(key))return contexts.get(key);
+  const all=ix.byTable[table]||[];
   const get=id=>nodes.get(ROUTE+':'+id);
   const refs=new Map(charRefs);
   for(const r of all)if(r[0]===ROUTE&&r[7]&&r[6]&&r[7]!=='{PLAYER_NAME}')refs.set(r[7],r[6]);
@@ -25,10 +31,11 @@ P.storyIndex=function(){
   const isCondMember=r=>r[5]!=='CHOICE'&&r[14]&&condGroups.has(r[14]);
   const origNext=new Map();for(const r of all)if(r[0]===ROUTE)origNext.set(r[4],r[13]);
   const origGroups=groups();
-  const ctx={ROUTE,get,refs,groups,isCondMember,origNext,origGroups};contexts.set(ROUTE,ctx);return ctx;
+  const ctx={ROUTE,table,all,get,refs,groups,isCondMember,origNext,origGroups};contexts.set(key,ctx);return ctx;
  };
  for(const chain of M.chains){
-  const {ROUTE,get,refs,groups,isCondMember,origNext,origGroups}=contextOf(routeOf(chain.id));
+  const ROUTE=routeOf(chain.id),table=tableOf(chain.entry,ROUTE);
+  const {all,get,refs,groups,isCondMember,origNext,origGroups}=contextOf(ROUTE,table);
   try{
    // reach(): rows of the original graph behind an entry. Frozen choice options (??=) are not
    // followed, and stopAt rows are counted but not expanded.
@@ -53,19 +60,20 @@ P.storyIndex=function(){
    check(chain.items);
    for(const id of gotos)if(!keeps.has(id))throw Error('@goto target must be kept in this chain: '+id);
    for(const e of chain.edits)if(!get(e.id))throw Error('missing edit target '+e.id);
-   for(const id of old){const r=get(id);if(r[12]&&!keeps.has(id)&&!TRANSPARENT.test(id))throw Error('row with effects not kept: '+id);}
+   for(const id of old){const r=get(id);if(r[12]&&!keeps.has(id)&&!TRANSPARENT.test(id))throw Error('row with effects not kept: '+id);if(table===TABLE_PERSONAL&&STRUCTURAL.has(r[5])&&!keeps.has(id))throw Error('structural row not kept: '+id);}
    // A frozen branch that flows back into this chain's rows must do so through a kept row.
    if(frozen.size){const shared=reach([...frozen].map(id=>origNext.get(id)),new Set(),keeps);for(const id of shared)if(old.has(id)&&!keeps.has(id)&&!TRANSPARENT.test(id))throw Error('row shared with a frozen branch must be kept: '+id);}
    // Choice rows that a later event checks as a receipt (treatment consent, reward acceptance) must stay too.
    for(const e of this.storyEventDefinitions()){let p;try{p=JSON.parse(e.EXEC_PAYLOAD_JSON||'{}');}catch(_){continue;}for(const id of [p.consent_node,...(p.consent_choice_candidates||[]),...(p.reward_acceptance_choice_candidates||[])])if(id&&old.has(id)&&!keeps.has(id))throw Error('receipt choice not kept: '+id);}
    // Base attributes for new rows: the most common precondition of the old prose rows.
    const count=new Map();for(const id of old){const r=get(id);if(['NARRATION','DIALOGUE'].includes(r[5])&&r[11])count.set(r[11],(count.get(r[11])||0)+1);}
-   const pre=chain.pre!==undefined?chain.pre:([...count.entries()].sort((a,b)=>b[1]-a[1])[0]?.[0]||entry[11]);
+   // Personal-story prose rows carry no precondition (the entry row gates the whole event), so new rows get none either.
+   const pre=chain.pre!==undefined?chain.pre:([...count.entries()].sort((a,b)=>b[1]-a[1])[0]?.[0]||(table===TABLE_MAIN?entry[11]:''));
    let order=Number(entry[17])||0;
    const make=(id,type,speaker,text,label,group,map,scene,cond)=>{
     const row=entry.slice();const player=speaker==='나';
     Object.assign(row,{3:'PRO_'+scene,4:id,5:type,6:player?PLAYER_REF[ROUTE]:speaker?refs.get(speaker)||'':null,7:player?'{PLAYER_NAME}':speaker||null,8:map,9:type==='CHOICE'?null:text,10:type==='CHOICE'?label:null,11:cond?(pre?pre+' AND '+cond:cond):pre,12:'',13:'',14:group||null,15:null,17:order+=0.001,19:NOTE});
-    Object.defineProperties(row,{table:{value:TABLE},sourceRow:{value:0}});
+    Object.defineProperties(row,{table:{value:table},sourceRow:{value:0}});
     nodes.set(ROUTE+':'+id,row);all.push(row);return row;
    };
    // Edits first, so transparent chains are followed in their edited shape.
@@ -79,7 +87,7 @@ P.storyIndex=function(){
      if(it.k==='keep'){
       const r=get(it.id);if(it.as)r[5]=it.as;if(it.text!=null&&r[5]!=='CHOICE')r[9]=it.text;if(r[8])map=r[8];
       link(it.id);
-      if(r[5]==='STORY_PAUSE'||r[5]==='CHAPTER_END'||r[13]==='SCREEN:CRPG_MAIN'){open=[];continue;}
+      if(r[5]==='STORY_PAUSE'||r[5]==='CHAPTER_END'||String(r[13]).startsWith('SCREEN:')){open=[];continue;}
       if(it.hold){open=[id=>{r[13]=id;}];continue;}
       open=tails(r).map(t=>id=>{t[13]=id;});
      }else if(it.k==='goto'){link(it.id);open=[];
@@ -110,12 +118,12 @@ P.storyIndex=function(){
     return {first,open};
    };
    const result=wire(chain.items,chain.id.replace(/^ISK_/,''));
-   if(result.open.length)throw Error('chain '+chain.id+' does not end at a story pause');
+   if(result.open.length)throw Error('chain '+chain.id+' does not end at a story pause or screen return');
    // Old rows that were bypassed still load as save cursors and continue at the next kept node.
    const current=groups();
    const forward=id=>{const seen=new Set();while(id&&!seen.has(id)){seen.add(id);if(id.startsWith('SCREEN:'))return id;if(id.startsWith('CHOICE_GROUP:')){const opts=origGroups.get(id.slice(13))||[];if(opts.some(c=>keeps.has(c[4])))return id;id=opts[0]?.[13];continue;}if(id.startsWith('CONDITION_GROUP:')){const opts=origGroups.get(id.slice(16))||[];if(opts.some(c=>keeps.has(c[4])))return id;id=opts[0]?.[4];continue;}if(keeps.has(id))return id;id=origNext.get(id);}return null;};
    for(const id of old){if(keeps.has(id)||TRANSPARENT.test(id))continue;const r=get(id);const target=forward(origNext.get(id));if(target)r[13]=target;}
-   report.installed.push({chain:chain.id,kept:keeps.size,added:newIds.length,frozen:frozen.size});
+   report.installed.push({chain:chain.id,table,kept:keeps.size,added:newIds.length,frozen:frozen.size});
   }catch(e){report.failed.push({chain:chain.id,error:e.message});console.error('[main story K] '+chain.id+': '+e.message);}
  }
  Object.defineProperty(ix,'mainStoryK',{value:report});return ix;
