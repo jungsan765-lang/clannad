@@ -29,6 +29,7 @@
 ## 합류(두 선택지가 한 흐름으로 돌아오기)
 - 효과 없는 원래 행 하나(`*_JOIN`, `*_CONVERGE_N01`, `N017` 등)를 첫 선택지 안에서 `@keep ID` + `> 새 글`로 지키고, 다른 선택지 끝에서 `@goto ID`. 끝으로 바로 가면 `@goto *_END`.
 - 새 선택지(`??` 새 라벨)도 자유롭게 추가할 수 있다. 새 선택지 묶음(`??` 여러 줄)은 새 그룹이 되고, 각 선택지의 들여쓴 줄이 그 결과다. 합류는 위와 같이 `@goto`.
+- **같은 들여쓰기에서 `??` 줄이 연달아 오면 한 선택 묶음이 된다.** 새 선택지(`??`) 묶음 바로 뒤에 지킨 선택지(`??@`) 묶음을 붙이면 하나로 합쳐져 설치가 실패한다(「does not end at a story pause」). 두 묶음 사이에 지문이나 대사 한 줄을 넣는다.
 - `@map`은 **파일 순서대로 이어진다**(블록을 벗어나도 유지). 첫 선택지 안에서 지도를 바꿨으면 둘째 선택지 첫 줄에 `@map`을 다시 쓴다. 지도가 바뀌면 게임이 이동을 요구하므로, 한 사건 안에서 지도를 바꾸는 건 원본이 바꾸는 자리(성 안→초원)에서만.
 - 전투: `@combat EG_ID` 다음 줄 `> 전투 전 한 줄`. 그룹은 `33_ENCOUNTER_GROUP_DB`에 있는 것만(몬드: EG_MOND_SLIME_SMALL, EG_MOND_HILI_PATROL, EG_MOND_HILI_ELITE, EG_MOND_ABYSS_MAGE, EG_TREASURE_PATROL, EG_FATUI_PATROL · 리월: EG_LIYUE_HILI_ROCK, EG_LIYUE_VISHAP, EG_LIYUE_RUIN, EG_TREASURE_PATROL, EG_FATUI_PATROL). 전설 임무에 한 번, 호감도에는 보통 넣지 않는다(넣어도 한 번).
 

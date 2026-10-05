@@ -74,6 +74,11 @@ function play(route,def,ix){
   paths++;maxDepth=Math.max(maxDepth,picks.length);
  };
  try{run(start,[],null);}catch(e){problems.push(`${def.id}: ${e.message}`);}
+ // Endings behind a flag the base state lacks (e.g. "already recruited" options) get a second play with those flags set.
+ if(ends.some(e=>!reachedEnds.has(e))){
+  const flags=new Set(),groups=groupCache.get(route),rows=[...within].flatMap(id=>id.startsWith('CHOICE_GROUP:')?groups.get(id.slice(13))||[]:id.startsWith('CONDITION_GROUP:')?groups.get(id.slice(16))||[]:[get(id)]);for(const x of rows){for(const m of String(x?.[11]||'').matchAll(/FLAG\((FLAG_[A-Z0-9_]+)\)=TRUE|\b(FLAG_[A-Z0-9_]+)=TRUE/g))flags.add(m[1]||m[2]);}
+  if(flags.size){const st=JSON.parse(start);for(const f of flags)st.flags[f]=true;try{run(JSON.stringify(st),['+flags'],null);}catch(e){problems.push(`${def.id}: ${e.message}`);}}
+ }
  for(const e of ends)if(!reachedEnds.has(e))problems.push(`${def.id}: ending ${e} never reached`);
  summary.push({id:def.id,route,paths,nodes:seenNodes.size,ends:reachedEnds.size+'/'+ends.length});
 }

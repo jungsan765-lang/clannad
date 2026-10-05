@@ -27,7 +27,7 @@ for(const x of ix.byTable[TABLE])if(x[0]===ROUTE&&x[14]){if(!groups.has(x[14]))g
 const frozen=new Set();const fz=items=>{for(const it of items)if(it.k==='choice')for(const o of it.options){if(o.freeze)frozen.add(o.freeze);else fz(o.items);}};content.chains.forEach(c=>fz(c.items));
 const clean=t=>String(t).replace(/\{PLAYER_NAME\}/g,'(이름)').replace(/\{PLAYER\}/g,'(이름)').trim();
 // Conditions that gate the whole event are explained once in the event header, not on every line.
-const EVENTWIDE=/^(ROUTE_ID=|HEART\(|BOND_SCORE\(|DONE\(|AFTER_PRIOR_DAILY\(|WORLD_DAY_AFTER|FLAG\(FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR\)|FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR=|SCENE_MEMORY\(|ADULT_ROUTE_ENABLED\(|ADULT_CONTENT_ELIGIBLE\(|PROJECT_AGE_CLASS\(|CE_155_|QUEST_COST_COMMITTED=|LIYUE_PERSONAL_READY=|MENU_ACCESS=|CURRENT_MAP_ID=|PLAYER_LEVEL_STATE|FLAG_TRV_[A-Z_]*CLEAR=|FLAG_ISK_[A-Z_]*(CLEAR|UNLOCKED)=|FUTURE_PERSONAL)/;
+const EVENTWIDE=/^(!?ROUTE_ID=|HEART\(|BOND_SCORE\(|!?DONE\(|AFTER_PRIOR_DAILY\(|WORLD_DAY_AFTER|FLAG\(FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR\)|FLAG_(LEG|ISK_LEG)_[A-Z_]+_CLEAR=|SCENE_MEMORY\(|ADULT_ROUTE_ENABLED\(|ADULT_CONTENT_ELIGIBLE\(|PROJECT_AGE_CLASS\(|CE_155_|QUEST_COST_COMMITTED=|LIYUE_PERSONAL_READY=|MENU_ACCESS=|CURRENT_MAP_ID=|PLAYER_LEVEL_STATE|FLAG_TRV_[A-Z_]*CLEAR=|FLAG_ISK_[A-Z_]*(CLEAR|UNLOCKED)=|FUTURE_PERSONAL)/;
 const condOne=c=>{let m;
  if((m=/^ITEM\(([A-Z0-9_]+)\)>=(\d+)$/.exec(c)))return `${itemName.get(m[1])||m[1]} ${m[2]}개가 있을 때`;
  if((m=/^MORA>=(\d+)$/.exec(c)))return `모라 ${m[1]} 이상일 때`;
