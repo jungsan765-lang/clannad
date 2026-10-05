@@ -1,29 +1,40 @@
-/* Main story manuscript edition (K route): authored scenes replace the port-entry prose
+/* Main story manuscript edition (K route and traveler route): authored scenes replace the port-entry prose
    while every effect, event, gate and route choice of the original rows stays in place. */
 (function(root){
 'use strict';
 const api=root.CRPGRuntime,P=api.Runtime.prototype,M=root.CRPGMainStoryK;
 if(!M||!root.CRPGLocalStory){api.mainStoryEdition={version:0,chains:[]};return;}
-const previous=P.storyIndex,ROUTE='ROUTE_ISEKAI',TABLE='55_MAIN_STORY_DB',NOTE='CRPG_V0148_MAIN_STORY_K';
+const previous=P.storyIndex,TABLE='55_MAIN_STORY_DB',NOTE='CRPG_V0148_MAIN_STORY_K';
 const TRANSPARENT=/^(V141_|R39_FIELD_)/;
+// Chains are named after their route: TRV_* rows belong to the traveler route, everything else to the isekai route.
+const routeOf=id=>/^TRV_/.test(id)?'ROUTE_TRAVELER':'ROUTE_ISEKAI';
+const PLAYER_REF={ROUTE_ISEKAI:'PLAYER_ISEKAI',ROUTE_TRAVELER:'PLAYER_TRAVELER'};
 P.storyIndex=function(){
  const ix=previous.call(this);if(ix.mainStoryK)return ix;
  const report={installed:[],failed:[]};
- const all=ix.byTable[TABLE],nodes=ix.nodes,get=id=>nodes.get(ROUTE+':'+id);
- const refs=new Map(this.rows('04_CHAR_DB').map(r=>[r[2],r[0]]));
- for(const r of all)if(r[0]===ROUTE&&r[7]&&r[6]&&r[7]!=='{PLAYER_NAME}')refs.set(r[7],r[6]);
- const groups=()=>{const g=new Map();for(const r of all)if(r[0]===ROUTE&&r[14]){if(!g.has(r[14]))g.set(r[14],[]);g.get(r[14]).push(r);}return g;};
- const condGroups=new Set();for(const r of all)if(r[0]===ROUTE&&String(r[13]||'').startsWith('CONDITION_GROUP:'))condGroups.add(r[13].slice(16));
- const isCondMember=r=>r[5]!=='CHOICE'&&r[14]&&condGroups.has(r[14]);
- const origNext=new Map();for(const r of all)if(r[0]===ROUTE)origNext.set(r[4],r[13]);
- const origGroups=groups();
- // reach(): rows of the original graph behind an entry. Frozen choice options (??=) are not
- // followed, and stopAt rows are counted but not expanded.
- const reach=(entry,frozen=new Set(),stopAt=new Set())=>{const seen=new Set(),stack=[].concat(entry);while(stack.length){const id=stack.pop();if(!id||id.startsWith('SCREEN:'))continue;if(id.startsWith('CHOICE_GROUP:')){for(const c of origGroups.get(id.slice(13))||[])if(!frozen.has(c[4]))stack.push(c[4]);continue;}if(id.startsWith('CONDITION_GROUP:')){for(const c of origGroups.get(id.slice(16))||[])stack.push(c[4]);continue;}if(seen.has(id)||!get(id))continue;seen.add(id);const row=get(id);if(!stopAt.has(id)&&row[5]!=='STORY_PAUSE'&&row[5]!=='CHAPTER_END')stack.push(origNext.get(id));}return seen;};
- // Rows reached through a FIELD_GATE anchor (ensemble chain and gate) stay as a unit.
- const tails=row=>{const set=new Set([row[4]]),out=[],stack=[row];while(stack.length){const r=stack.pop();const n=r[13];if(n&&n.startsWith('CHOICE_GROUP:')&&n.slice(13).startsWith('V141_')){for(const c of origGroups.get(n.slice(13))||[]){set.add(c[4]);stack.push(c);}continue;}const t=n&&get(n);if(t&&TRANSPARENT.test(n)&&!set.has(n)){set.add(n);stack.push(t);}else out.push(r);}return out;};
+ const all=ix.byTable[TABLE],nodes=ix.nodes;
+ const charRefs=new Map(this.rows('04_CHAR_DB').map(r=>[r[2],r[0]]));
+ const contexts=new Map();
+ const contextOf=ROUTE=>{
+  if(contexts.has(ROUTE))return contexts.get(ROUTE);
+  const get=id=>nodes.get(ROUTE+':'+id);
+  const refs=new Map(charRefs);
+  for(const r of all)if(r[0]===ROUTE&&r[7]&&r[6]&&r[7]!=='{PLAYER_NAME}')refs.set(r[7],r[6]);
+  const groups=()=>{const g=new Map();for(const r of all)if(r[0]===ROUTE&&r[14]){if(!g.has(r[14]))g.set(r[14],[]);g.get(r[14]).push(r);}return g;};
+  const condGroups=new Set();for(const r of all)if(r[0]===ROUTE&&String(r[13]||'').startsWith('CONDITION_GROUP:'))condGroups.add(r[13].slice(16));
+  const isCondMember=r=>r[5]!=='CHOICE'&&r[14]&&condGroups.has(r[14]);
+  const origNext=new Map();for(const r of all)if(r[0]===ROUTE)origNext.set(r[4],r[13]);
+  const origGroups=groups();
+  const ctx={ROUTE,get,refs,groups,isCondMember,origNext,origGroups};contexts.set(ROUTE,ctx);return ctx;
+ };
  for(const chain of M.chains){
+  const {ROUTE,get,refs,groups,isCondMember,origNext,origGroups}=contextOf(routeOf(chain.id));
   try{
+   // reach(): rows of the original graph behind an entry. Frozen choice options (??=) are not
+   // followed, and stopAt rows are counted but not expanded.
+   const reach=(entry,frozen=new Set(),stopAt=new Set())=>{const seen=new Set(),stack=[].concat(entry);while(stack.length){const id=stack.pop();if(!id||id.startsWith('SCREEN:'))continue;if(id.startsWith('CHOICE_GROUP:')){for(const c of origGroups.get(id.slice(13))||[])if(!frozen.has(c[4]))stack.push(c[4]);continue;}if(id.startsWith('CONDITION_GROUP:')){for(const c of origGroups.get(id.slice(16))||[])stack.push(c[4]);continue;}if(seen.has(id)||!get(id))continue;seen.add(id);const row=get(id);if(!stopAt.has(id)&&row[5]!=='STORY_PAUSE'&&row[5]!=='CHAPTER_END')stack.push(origNext.get(id));}return seen;};
+   // Rows reached through a FIELD_GATE anchor (ensemble chain and gate) stay as a unit.
+   const tails=row=>{const set=new Set([row[4]]),out=[],stack=[row];while(stack.length){const r=stack.pop();const n=r[13];if(n&&n.startsWith('CHOICE_GROUP:')&&n.slice(13).startsWith('V141_')){for(const c of origGroups.get(n.slice(13))||[]){set.add(c[4]);stack.push(c);}continue;}const t=n&&get(n);if(t&&TRANSPARENT.test(n)&&!set.has(n)){set.add(n);stack.push(t);}else out.push(r);}return out;};
    const entry=get(chain.entry);if(!entry)throw Error('missing entry '+chain.entry);
    // Resolve every reference before mutating anything.
    const keeps=new Set(),frozen=new Set(),newIds=[],gotos=[];
@@ -53,7 +64,7 @@ P.storyIndex=function(){
    let order=Number(entry[17])||0;
    const make=(id,type,speaker,text,label,group,map,scene,cond)=>{
     const row=entry.slice();const player=speaker==='나';
-    Object.assign(row,{3:'PRO_'+scene,4:id,5:type,6:player?'PLAYER_ISEKAI':speaker?refs.get(speaker)||'':null,7:player?'{PLAYER_NAME}':speaker||null,8:map,9:type==='CHOICE'?null:text,10:type==='CHOICE'?label:null,11:cond?(pre?pre+' AND '+cond:cond):pre,12:'',13:'',14:group||null,15:null,17:order+=0.001,19:NOTE});
+    Object.assign(row,{3:'PRO_'+scene,4:id,5:type,6:player?PLAYER_REF[ROUTE]:speaker?refs.get(speaker)||'':null,7:player?'{PLAYER_NAME}':speaker||null,8:map,9:type==='CHOICE'?null:text,10:type==='CHOICE'?label:null,11:cond?(pre?pre+' AND '+cond:cond):pre,12:'',13:'',14:group||null,15:null,17:order+=0.001,19:NOTE});
     Object.defineProperties(row,{table:{value:TABLE},sourceRow:{value:0}});
     nodes.set(ROUTE+':'+id,row);all.push(row);return row;
    };

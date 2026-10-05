@@ -19,15 +19,16 @@ const r=fresh('MAP_MOND_CITY','ROUTE_ISEKAI'),ix=r.storyIndex(),content=compiler
 assert.equal(JSON.stringify(ix.mainStoryK.failed),'[]','every chain installs');
 assert.equal(JSON.stringify(ix.mainStoryK.installed.map(c=>c.chain)),JSON.stringify(content.chains.map(c=>c.id)));
 
-const ROUTE='ROUTE_ISEKAI';
-const graph=index=>{
+// TRV_* chains rewrite the traveler route; every other chain the isekai route.
+const routeOf=id=>/^TRV_/.test(id)?'ROUTE_TRAVELER':'ROUTE_ISEKAI';
+const graph=(index,ROUTE)=>{
  const rows=index.byTable['55_MAIN_STORY_DB'].filter(x=>x[0]===ROUTE),get=id=>index.nodes.get(ROUTE+':'+id),groups=new Map();
  for(const x of rows)if(x[14]){if(!groups.has(x[14]))groups.set(x[14],[]);groups.get(x[14]).push(x);}
  return {rows,get,groups};
 };
-const oldG=graph(oldIx),newG=graph(ix);
+const graphs={};for(const ROUTE of ['ROUTE_ISEKAI','ROUTE_TRAVELER'])graphs[ROUTE]={oldG:graph(oldIx,ROUTE),newG:graph(ix,ROUTE)};
 // Effects of every original row are untouched.
-for(const x of oldG.rows){const y=newG.get(x[4]);assert.ok(y,'original node still exists '+x[4]);assert.equal(y[12],x[12],'effect unchanged '+x[4]);assert.equal(y[11],x[11],'precondition unchanged '+x[4]);}
+for(const {oldG,newG}of Object.values(graphs))for(const x of oldG.rows){const y=newG.get(x[4]);assert.ok(y,'original node still exists '+x[4]);assert.equal(y[12],x[12],'effect unchanged '+x[4]);assert.equal(y[11],x[11],'precondition unchanged '+x[4]);}
 
 function walk(g,entry,skip=new Set(),stop=new Set()){
  const seen=new Set(),order=[],stack=[entry],edges=new Map();
@@ -56,6 +57,7 @@ const ancestors=(g,entry,pick)=>{
 };
 const isEvent=row=>/EVENT:/.test(row[12]||'');
 for(const chain of content.chains){
+ const {oldG,newG}=graphs[routeOf(chain.id)];
  const {seen,order}=walk(newG,chain.entry);
  const expect=new Set();const collect=items=>{for(const it of items){if(it.k==='keep'||it.k==='combat')expect.add(it.id);if(it.k==='line'){expect.add(it.id);if(it.alt)expect.add(it.alt.id);}if(it.k==='choice')for(const o of it.options){expect.add(o.keep||o.freeze||o.id);collect(o.items||[]);}}};collect(chain.items);
  for(const id of expect)assert.ok(seen.has(id),chain.id+' reaches '+id);
@@ -73,7 +75,7 @@ for(const chain of content.chains){
  console.log(JSON.stringify({chain:chain.id,nodes:order.length,events:newEvents.length}));
 }
 // Each new row has a resolvable speaker, text and a valid map.
-for(const x of newG.rows.filter(x=>x[19]==='CRPG_V0148_MAIN_STORY_K')){
+for(const x of ix.byTable['55_MAIN_STORY_DB'].filter(x=>x[19]==='CRPG_V0148_MAIN_STORY_K')){
  assert.ok(x[18]==='ACTIVE');
  if(x[5]==='CHOICE'){assert.ok(x[10]&&x[14],'choice label/group '+x[4]);assert.equal(x[9],null);}
  else{assert.ok(x[9],'text '+x[4]);if(x[5]==='DIALOGUE')assert.ok(x[7],'speaker '+x[4]);if(x[5]==='COMBAT_GATE'){const m=/^START_FIXED_COMBAT:(EG_[A-Z0-9_]+);ON_DEFEAT:RETRY_SAME_NODE$/.exec(x[12]);assert.ok(m,'combat effect '+x[4]);assert.ok(db['49_ENCOUNTER_MEMBER_DB'].some(e=>e[1]===m[1]),'encounter members '+m[1]);}else assert.equal(x[12],'','no effect on new prose row '+x[4]);}
