@@ -439,10 +439,13 @@ const MENU_LAYOUT={
    // 0.15.17 (user: a character's gear opened on the member picked last time): a screen that opens this one for a member
    // (편성's member picture, 가방's 「캐릭터 화면에서 장착하기」) shows that member first (S.focusGear).
    const wanted=S.gearOwner?cards.findIndex(c=>c.dataset.owner===S.gearOwner):-1;S.gearOwner=null;
-   if(cards.length>1){const list=mk('div','shell-roster');list.setAttribute('role','tablist');list.setAttribute('aria-label','파티원');let cur=wanted>=0?wanted:Math.min(S.gearIndex||0,cards.length-1);
+   if(cards.length>1){const list=mk('div','shell-roster');list.setAttribute('role','tablist');list.setAttribute('aria-label','캐릭터');let cur=wanted>=0?wanted:Math.min(S.gearIndex||0,cards.length-1);
     const show=(i,user)=>{if(user&&S.gearIndex!==i)sound('tab');S.gearIndex=i;cards.forEach((c,j)=>{c.hidden=j!==i;});[...list.children].forEach((b,j)=>{b.setAttribute('aria-selected',String(j===i));b.classList.toggle('active',j===i);});paint(cards[i]);};
-    cards.forEach((c,i)=>{const b=mk('button','shell-roster-item');b.type='button';b.setAttribute('role','tab');const face=$('.gear-portrait',c);const pic=face?face.cloneNode(true):mk('span','gear-portrait portrait-placeholder','✧');pic.classList.add('shell-roster-face');b.append(pic,mk('span','',$('h2',c)?.textContent||'파티원'));b.onclick=()=>show(i,true);list.append(b);});
-    show(cur);body.append(region('shell-col-roster',[list]));}
+    // 0.15.19: everyone the player has is listed; the ones on the bench say so.
+    cards.forEach((c,i)=>{const b=mk('button','shell-roster-item');b.type='button';b.setAttribute('role','tab');const face=$('.gear-portrait',c);const pic=face?face.cloneNode(true):mk('span','gear-portrait portrait-placeholder','✧');pic.classList.add('shell-roster-face');b.append(pic,mk('span','',$('h2',c)?.textContent||'캐릭터'));if(c.dataset.bench){b.classList.add('bench');b.append(mk('small','shell-roster-bench','대기'));}b.onclick=()=>show(i,true);list.append(b);});
+    show(cur);body.append(region('shell-col-roster',[list]));
+    // A member further down the (now long) list is brought into view when the screen opens on them.
+    if(cur>0)requestAnimationFrame(()=>list.children[cur]?.scrollIntoView({block:'nearest',inline:'nearest'}));}
    else if(cards[0])paint(cards[0]);
    body.append(region('shell-col-main gear-stage',[splash,members,...rest]));}
   else body.append(region('shell-col-main',rest));

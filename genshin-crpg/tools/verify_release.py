@@ -47,7 +47,7 @@ TESTS = [
     'tests/test_server_load_boundaries_v01513.mjs',
     'tests/test_story_asset_bindings.cjs',
     'tests/test_server_remaining_audit_v01513.mjs', 'tests/test_enemy_text_v01514.cjs',
-    'tests/test_story_named_text_v01514.cjs', 'tests/test_v01515.cjs', 'tests/test_map_v01516.cjs', 'tests/test_v01517.cjs', 'tests/test_v01518.cjs',
+    'tests/test_story_named_text_v01514.cjs', 'tests/test_v01515.cjs', 'tests/test_map_v01516.cjs', 'tests/test_v01517.cjs', 'tests/test_v01518.cjs', 'tests/test_v01519.cjs',
     'tests/v013/test_recruitment_cost_consistency.cjs',
 ]
 def run(test):

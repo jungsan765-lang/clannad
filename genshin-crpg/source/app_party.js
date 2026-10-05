@@ -8,12 +8,26 @@ function returnToJourney(p){p.append(actionButton(game.playPhase()==='PREPARATIO
 function actorPortrait(id,cls){const profile=game.rows('04_CHAR_DB').find(r=>r[1]===id),src=profile&&portraitFor(profile[0]);if(!src)return el('div',cls+' portrait-placeholder','✧');const img=el('img',cls);img.src=src;img.alt=ownerName(id);return img;}
 // Korean particle for a name: 이/가, 은/는, 을/를 by the last syllable's final consonant.
 function withJosa(word,consonant,vowel){const last=String(word||'').trim().slice(-1),code=last.charCodeAt(0)-0xAC00;return word+(code>=0&&code<11172?(code%28?consonant:vowel):consonant+'('+vowel+')');}
-// Leaving the party returns that member's gear to the bag; say so before it happens.
-function confirmPartyRemoval(id,run){
-  const gear=game.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===id);if(!gear.length){run();return;}
-  const box=el('div','party-remove-confirm'),list=el('ul'),row=el('div','row');for(const i of gear)list.append(el('li','',safeName('16_EQUIP_DB',i.equip)+(i.enhance?' +'+i.enhance:'')));
-  row.append(button('취소',()=>{document.getElementById('modal').close();render();}),button('장비를 풀고 편성에서 빼기',()=>{document.getElementById('modal').close();run();},false,true));
-  box.append(el('p','',withJosa(ownerName(id),'이','가')+' 편성에서 빠지면 착용 중인 장비 '+gear.length+'개가 해제되어 가방으로 돌아갑니다.'),list,row);showModal('편성에서 빼기',box);
+// 0.15.19: a member leaving the party keeps their gear (runtime_party.js), so there is nothing to warn about any more.
+function confirmPartyRemoval(id,run){run();}
+// 0.15.19 (user: 편성에서 멤버를 누르면 캐릭터를 바꿀 수 있게, 이름만 말고 그림으로): the companions as picture tiles.
+// A companion already in another slot trades places with this one; anyone else joins here (the one leaving keeps their gear).
+const ELEMENT_OF=id=>(/\[(불|물|얼음|번개|바람|바위|풀)\]/.exec(String(game.row('07_CHAR_DB',id)?.[3]||''))||[])[1]||'';
+function pickCompanion(n,current){
+  const box=el('div','member-picker'),grid=el('div','member-pick-grid'),close=()=>document.getElementById('modal').close();
+  box.append(el('p','muted',current?withJosa(ownerName(current),'과','와')+' 바꿀 동료를 고르세요. 편성에서 빠져도 장비는 각자 그대로 갖고 있습니다.':'이 칸에 넣을 동료를 고르세요.'));
+  const list=game.ownedActors().filter(x=>x.id!=='PLAYER_CUSTOM'&&x.id!==current)
+   .sort((a,b)=>Number(a.active)-Number(b.active)||(game.premiumRarity?.(b.id)||4)-(game.premiumRarity?.(a.id)||4)||Number(b.level)-Number(a.level)||a.name.localeCompare(b.name,'ko'));
+  for(const x of list){
+   const type=x.active?'PARTY_SWAP':current?'PARTY_REPLACE':'PARTY',params=x.active?{from:x.slot,to:n}:{char:x.id,slot:n},why=game.actionReason(type,params);
+   const b=button('',()=>{close();act(type,params);},busy||!!why);b.className='member-pick'+(x.active?' in-party':'');if(why)b.title=why;
+   const stars=game.premiumRarity?.(x.id)>=5?5:4,element=ELEMENT_OF(x.id);
+   b.append(actorPortrait(x.id,'member-pick-face'),el('strong','',x.name),el('small','member-pick-meta','Lv.'+x.level+(element?' · '+element:'')),el('span','member-pick-stars r'+stars,'★'.repeat(stars)));
+   if(x.active)b.append(el('small','member-pick-state',(x.slot-1)+'번 칸과 자리 바꾸기'));
+   b.setAttribute('aria-label',x.name+' · Lv.'+x.level+(x.active?' · '+(x.slot-1)+'번 칸과 자리 바꾸기':''));grid.append(b);
+  }
+  if(!list.length)grid.append(el('p','empty','함께할 수 있는 동료가 아직 없습니다. 기원이나 동료의 이야기에서 만날 수 있습니다.'));
+  box.append(grid);showModal(current?'동료 바꾸기 · 동료 칸 '+(n-1):'동료 넣기 · 동료 칸 '+(n-1),box);
 }
 // v0.13.33: the battle line is its own order (the protagonist can stand anywhere); party slots only hold members.
 const POSITIONS=['선두 · 전열','전열 · 치명타 확률 +5%','후열 · 최대 HP +5%','후미 · 받는 최종 피해 −20%'];
@@ -45,7 +59,7 @@ function formationChoice(p){
   box.append(grid);p.append(box);
 }
 function partyScreen(p){
-  p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료와 진형, 전투 대열, 동료 역할을 정합니다. 장비는 캐릭터 화면에서 바꾸며, 편성에서 빠진 동료의 장비는 가방으로 돌아갑니다.'));
+  p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료와 진형, 전투 대열, 동료 역할을 정합니다. 동료 칸을 누르면 그림을 보며 바꿀 수 있고, 편성에서 빠져도 동료의 장비는 그대로 남습니다.'));
   const owners=game.ownedActors(),reason=game.actionReason('PARTY');
   if(reason)p.append(el('p','phase-note','현재 장면에서는 편성을 확인만 할 수 있습니다. 변경은 장면을 마친 뒤 가능합니다.'));
   // v0.14.5: the party itself comes first; formation and battle line follow below it.
@@ -54,12 +68,12 @@ function partyScreen(p){
   for(let n=1;n<=4;n++){
     const member=game.s.party.find(x=>x.slot==='PARTY_'+n&&x.active),id=member?.source,c=el('section','formation-slot');
     c.append(el('small','slot-label',n===1?'주인공':'동료 칸 '+(n-1)));
-    if(id){const worn=game.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===id).length,who=button('',()=>{window.CRPGShell?.focusGear?.(id);act('MENU',{screen:'STATUS'});});who.className='member-select';who.setAttribute('aria-label',ownerName(id)+' 장비 보기');who.append(actorPortrait(id,'party-portrait'),el('strong','',ownerName(id)),el('small','muted','장비 '+worn+'개'));c.append(who);}
-    else c.append(el('div','empty-slot','비어 있음'));
+    // The protagonist's picture opens the character screen; a companion's opens the picker (장비 변경 is its own button).
+    if(id){const worn=game.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===id).length,swap=n>1,who=button('',swap?()=>pickCompanion(n,id):()=>{window.CRPGShell?.focusGear?.(id);act('MENU',{screen:'STATUS'});},swap&&(busy||!!reason));who.className='member-select'+(swap?' swappable':'');if(swap&&reason)who.title=reason;
+     who.setAttribute('aria-label',ownerName(id)+(swap?' · 다른 동료로 바꾸기':' 장비 보기'));who.append(actorPortrait(id,'party-portrait'),el('strong','',ownerName(id)),el('small','muted',swap?'눌러서 동료 바꾸기 · 장비 '+worn+'개':'장비 '+worn+'개'));c.append(who);}
+    else{const add=button('',()=>pickCompanion(n,null),busy||!!reason);add.className='empty-slot member-add';if(reason)add.title=reason;add.setAttribute('aria-label','동료 칸 '+(n-1)+' · 동료 넣기');add.append(el('span','member-add-plus','+'),el('strong','','동료 넣기'));c.append(add);}
     if(n>1){
-      const controls=el('div','formation-controls'),select=el('select');select.setAttribute('aria-label',n+'번 슬롯 동료');select.append(new Option('동료를 선택하세요',''));
-      for(const owner of owners.filter(x=>x.id!=='PLAYER_CUSTOM'&&(!x.active||x.id===id)))select.append(new Option(owner.name,owner.id));select.value=id||'';
-      select.onchange=()=>{if(!select.value)return;const go=()=>act(id?'PARTY_REPLACE':'PARTY',{char:select.value,slot:n});if(id&&select.value!==id)confirmPartyRemoval(id,go);else go();};controls.append(select);
+      const controls=el('div','formation-controls');
       if(id){
         const tactic=el('select');tactic.setAttribute('aria-label',ownerName(id)+' 역할');for(const t of game.partyTactics())tactic.append(new Option(roleLabel(t),t));tactic.value=member.tactic;tactic.onchange=()=>act('PARTY_TACTIC',{slot:n,tactic:tactic.value});controls.append(tactic);
         const effect=window.CRPGRuntime?.formationConfig?.roles?.[member.tactic||'균형']?.text;if(effect)controls.append(el('small','role-effect',effect));

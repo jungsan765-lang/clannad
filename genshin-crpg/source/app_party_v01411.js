@@ -86,7 +86,7 @@ function battleLine(p){
 const prior=partyScreen;
 partyScreen=function(p){
  prior(p);
- try{battleLine(p);const bar=presetBar(p);if(bar){const head=$('h2',p);(head||p.firstChild)?.before(bar);}const intro=$$('p.muted',p).find(x=>/전투 대열/.test(x.textContent));if(intro)intro.textContent='함께 싸울 동료와 전투 대열, 진형, 동료 역할을 정합니다. 장비는 캐릭터 화면에서 바꾸며, 편성에서 빠진 동료의 장비는 가방으로 돌아갑니다.';}catch(e){console.error('[party]',e);}
+ try{battleLine(p);const bar=presetBar(p);if(bar){const head=$('h2',p);(head||p.firstChild)?.before(bar);}const intro=$$('p.muted',p).find(x=>/전투 대열/.test(x.textContent));if(intro)intro.textContent='함께 싸울 동료와 전투 대열, 진형, 동료 역할을 정합니다. 동료 칸을 누르면 그림을 보며 바꿀 수 있고, 편성에서 빠져도 동료의 장비는 그대로 남습니다.';}catch(e){console.error('[party]',e);}
 };
 // Battle preparation: the presets are one press away.
 if(typeof battlePrepare==='function'){const priorPrep=battlePrepare;battlePrepare=function(p,...rest){priorPrep(p,...rest);try{if(game.presetList?.().some(x=>!x.empty)){const bar=presetBar(p,{compact:true});if(bar)p.append(bar);}}catch(e){console.error('[party presets]',e);}};}

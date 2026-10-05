@@ -24,10 +24,11 @@ function traitShort(inv){return traitLines(inv).filter(t=>!t.innate).map(t=>t.la
 // Touch screens have no hover, so the picker also prints the effect under the name there.
 function effectNote(inv,d){const traits=traitLines(inv).map(t=>t.text).join(' · '),text=[artifactLine(inv),traits||(d.effect&&d.effect!=='없음'?d.effect:'')].filter(Boolean).join(' · ');return text?el('small','gear-effect',text):'';}
 function deltaLine(before,after){return STATS.map(([label,key,unit])=>{const d=Math.round(((after?.[key]||0)-(before?.[key]||0))*10)/10;return d?label+' '+(d>0?'+':'')+fmt(d)+unit:'';}).filter(Boolean).join(' · ');}
-function memberCard(id){
+function memberCard(id,bench=false){
  const growth=game.growth(id),actor=game.s.runtime?.actors.find(a=>a.source===id)||(id==='PLAYER_CUSTOM'?game.player():game.character(id)),bonus=game.equipmentContribution?.(id)?.bonus||{};
- const card=el('section','card gear-member'),head=el('div','gear-member-head'),copy=el('div','gear-member-copy');card.dataset.owner=id;
+ const card=el('section','card gear-member'+(bench?' bench':'')),head=el('div','gear-member-head'),copy=el('div','gear-member-copy');card.dataset.owner=id;if(bench)card.dataset.bench='1';
  copy.append(el('h2','',growth.name),el('small','muted','Lv. '+growth.level+(growth.max?' · 최대 레벨':' · 다음 레벨까지 경험치 '+fmt(growth.remaining))));meter(copy,'HP',Math.round(actor.hp),Math.round(actor.maxHp));
+ if(bench)copy.append(el('small','gear-bench-note','대기 중 · 편성에 넣으면 이 장비 그대로 싸웁니다'));
  head.append(actorPortrait(id,'gear-portrait'),copy);card.append(head);
  const slots=el('div','gear-slots');
  for(const [category,label]of SLOTS){
@@ -44,7 +45,7 @@ function memberCard(id){
 }
 function openPicker(owner,category){
  const label=SLOTS.find(s=>s[0]===category)[1],current=inSlot(owner,category),box=el('div','gear-picker'),close=()=>document.getElementById('modal').close();
- box.append(el('p','muted',(canHover()?'마우스를 올리면 장비 효과가 보입니다. ':'')+'다른 파티원이 쓰던 장비를 고르면 옮겨서 장착합니다.'));
+ box.append(el('p','muted',(canHover()?'마우스를 올리면 장비 효과가 보입니다. ':'')+'다른 캐릭터가 쓰던 장비를 고르면 옮겨서 장착합니다.'));
  const locked=game.actionReason('EQUIP');if(locked)box.append(el('p','phase-note','지금은 확인만 할 수 있습니다. '+locked));
  if(current){const d=presenter().itemDetail(current),row=el('div','gear-current'),copy=el('div','gear-option-copy');copy.append(tierMark(el('strong','',itemLabel(current,d)+' · 장착 중'),d),effectNote(current,d));row.append(itemGlyph(d),copy,button('해제',()=>{close();act('UNEQUIP',{slot:current.slot,owner});},busy||!!game.actionReason('UNEQUIP',{slot:current.slot,owner})));box.append(row);}
  // 0.15.6 (user: 「장비 좋은거랑 자기 전무를 맨 위로 올려서 보여지게 해. 기원 하면서 많이 나오면 장비 찾기도 힘들어」):
@@ -100,9 +101,12 @@ for(const name of ['pointerout','focusout'])document.addEventListener(name,e=>{c
 window.addEventListener('resize',()=>document.querySelectorAll('.gear-tip:popover-open').forEach(t=>t.hidePopover()));
 
 growthScreen=function(p){
- p.classList.add('gear-screen');p.append(el('div','eyebrow','CHARACTER'),el('h1','','캐릭터'),el('p','muted','편성된 파티원의 장비와 능력치입니다. 칸을 누르면 장비를 바꾸고'+(canHover()?', 마우스를 올리면 효과가 보입니다.':' 효과를 확인할 수 있습니다.')+' 편성에서 빠진 동료의 장비는 가방으로 돌아갑니다.'));
+ p.classList.add('gear-screen');p.append(el('div','eyebrow','CHARACTER'),el('h1','','캐릭터'),el('p','muted','함께하는 모든 캐릭터의 장비와 능력치입니다. 칸을 누르면 장비를 바꾸고'+(canHover()?', 마우스를 올리면 효과가 보입니다.':' 효과를 확인할 수 있습니다.')+' 편성에서 빠져도 장비는 그대로 남습니다.'));
  const locked=game.actionReason('EQUIP');if(locked)p.append(el('p','phase-note','지금은 장비를 확인만 할 수 있습니다. '+locked));
- const grid=el('div','gear-members');for(const id of (game.formationOrder?game.formationOrder():game.s.party.filter(x=>x.active).map(x=>x.source)))grid.append(memberCard(id));p.append(grid);
+ // 0.15.19 (user: 캐릭터 메뉴에 모든 캐릭터): the party first in battle order, then everyone else the player has.
+ const party=game.formationOrder?game.formationOrder():game.s.party.filter(x=>x.active).map(x=>x.source);
+ const bench=game.ownedActors().filter(a=>!party.includes(a.id)).sort((a,b)=>(game.premiumRarity?.(b.id)||4)-(game.premiumRarity?.(a.id)||4)||Number(b.level)-Number(a.level)||a.name.localeCompare(b.name,'ko')).map(a=>a.id);
+ const grid=el('div','gear-members');for(const id of party)grid.append(memberCard(id));for(const id of bench)grid.append(memberCard(id,true));p.append(grid);
  books(p);
  const links=el('div','row gear-links');links.append(actionButton('편성 바꾸기','MENU',{screen:'PARTY'}));if(window.openEquipmentHelp)links.append(button('장비 사용법',()=>window.openEquipmentHelp()));p.append(links);
  p.append(actionButton(game.s.runtime?'전투로 돌아가기':'이야기로 돌아가기','MENU',{screen:game.s.runtime&&!game.s.runtime.interlude?'COMBAT':'STORY'},true));
@@ -113,7 +117,7 @@ growthScreen=function(p){
 // Other screens open the gear screen with one item's slot already chosen.
 window.openGear=function(slot,owner){
  const inv=game?.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)return act('MENU',{screen:'STATUS'});
- const party=game.s.party.filter(x=>x.active).map(x=>x.source);pendingPick={owner:party.includes(owner)?owner:inv.equipped&&party.includes(inv.owner)?inv.owner:'PLAYER_CUSTOM',category:itemCategory(inv)};
+ const owned=game.ownedActors().map(a=>a.id);pendingPick={owner:owned.includes(owner)?owner:inv.equipped&&owned.includes(inv.owner)?inv.owner:'PLAYER_CUSTOM',category:itemCategory(inv)};
  // 0.15.17: the screen shows the member whose slot opens, not the one picked last time.
  window.CRPGShell?.focusGear?.(pendingPick.owner);
  return act('MENU',{screen:'STATUS'});

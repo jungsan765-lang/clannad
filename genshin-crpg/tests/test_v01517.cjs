@@ -156,7 +156,8 @@ check('screens: the character screen opens on its member, 장비 변경 sits abo
  const shell=src('app_shell.js'),party=src('app_party.js'),gear=src('app_gear.js'),exp=src('app_experience.js');
  assert(shell.includes("S.focusGear=id=>{S.gearOwner=id||null;};")&&shell.includes("const wanted=S.gearOwner?cards.findIndex(c=>c.dataset.owner===S.gearOwner):-1;S.gearOwner=null;"),'the shell picks the asked member');
  assert(shell.includes('let cur=wanted>=0?wanted:Math.min(S.gearIndex||0,cards.length-1);'));
- assert(party.includes("who=button('',()=>{window.CRPGShell?.focusGear?.(id);act('MENU',{screen:'STATUS'});});"),'편성\'s member picture');
+ // 0.15.19: the protagonist's picture opens the character screen on them; a companion's opens the picture picker.
+ assert(party.includes("swap?()=>pickCompanion(n,id):()=>{window.CRPGShell?.focusGear?.(id);act('MENU',{screen:'STATUS'});}"),'편성\'s member picture');
  assert(gear.includes('window.CRPGShell?.focusGear?.(pendingPick.owner);'),'가방\'s 「캐릭터 화면에서 장착하기」');
  const i=party.indexOf("button('장비 변경'"),j=party.indexOf("button('편성 해제'");assert(i>0&&j>i,'장비 변경 comes first');
  assert(exp.includes("const stella=/^STELLA_(?!FORTUNA_)(.+)$/.exec(d.id||'')")&&exp.includes("'STELLA_FORTUNA_'+((game?.premiumRarity?.(stella[1])||4)>=5?5:4)"),'4★ or 5★ star by the companion');
