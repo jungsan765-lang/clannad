@@ -4,7 +4,8 @@
 //   node tools/editorial/dump_main_story_k.cjs ISK_L01_K [out.txt]
 const path=require('path'),root=path.resolve(__dirname,'../..');
 const {fs,fresh}=require(root+'/tests/helpers_v011.cjs');
-const r=fresh('MAP_MOND_CITY','ROUTE_ISEKAI'),ix=r.storyIndex(),ROUTE='ROUTE_ISEKAI';
+const chainId=process.argv[2]||'',ROUTE=/^TRV_/.test(chainId)?'ROUTE_TRAVELER':'ROUTE_ISEKAI';
+const r=fresh('MAP_MOND_CITY',ROUTE),ix=r.storyIndex();
 const content=require(root+'/tools/editorial/compile_main_story_k.cjs').compile();
 const chain=content.chains.find(c=>c.id===process.argv[2])||content.chains[0];
 const get=id=>ix.nodes.get(ROUTE+':'+id),groups=new Map();
