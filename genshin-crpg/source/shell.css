@@ -704,7 +704,6 @@ body.teyvat .combat-panel .shell-enemies .meter{width:100%;height:7px;background
 body.teyvat .combat-panel .meter i{transition:width .6s cubic-bezier(.2,.8,.2,1)}
 body.teyvat .combat-panel .shell-enemies .combatant-copy .stat{font-size:.72rem;color:var(--t-muted);text-shadow:0 1px 4px #000}
 body.teyvat .combat-panel .shell-enemies .combatant-row>button{min-height:30px;padding:2px 12px;font-size:.74rem;border-radius:15px;background:rgba(10,12,20,.72)}
-body.teyvat .combat-panel .shell-enemies .combatant-row.selected>button:not(.enemy-info-button){background:#ffc27a;color:#3a2410;border-color:#ffc27a;font-weight:700}
 body.teyvat .combat-panel .combatant-row[data-aura]::marker{content:none}
 body.teyvat .combatant-row[data-aura=pyro]{--aura:#ff7a45}body.teyvat .combatant-row[data-aura=hydro]{--aura:#4cc2f1}body.teyvat .combatant-row[data-aura=cryo]{--aura:#a6e4f2}body.teyvat .combatant-row[data-aura=electro]{--aura:#c79bff}body.teyvat .combatant-row[data-aura=anemo]{--aura:#74e0c2}body.teyvat .combatant-row[data-aura=geo]{--aura:#f5c542}body.teyvat .combatant-row[data-aura=dendro]{--aura:#a5d63b}
 body.teyvat .combat-panel .shell-allies{counter-reset:ally}
@@ -815,6 +814,8 @@ body.teyvat .settings-row input[type=checkbox]{accent-color:var(--acc);width:22p
 .terrain-navigation .terrain-node.near{width:18px;height:18px;background:#ffe39a;border-color:#3b2f15;z-index:3}
 .terrain-navigation .terrain-node.faded{background:rgba(255,255,255,.16);border:2px solid rgba(255,246,222,.8);box-shadow:0 0 0 1.5px rgba(0,0,0,.5),inset 0 0 0 1px rgba(0,0,0,.35)}
 .terrain-navigation .terrain-node.unknown:not(.faded){background:#d9dfd9}
+/* 0.15.20: a place several roads away is see-through; it turns solid under the pointer, when chosen or on the trip. */
+.terrain-navigation .terrain-node.far{opacity:.45;box-shadow:none}
 .terrain-navigation .terrain-node.on-route{background:#ffd76a;border-color:#3b2f15;opacity:1;z-index:4}
 .terrain-navigation .terrain-node.selected{width:22px;height:22px;background:#ffd76a;border:2px solid #3b2f15;opacity:1;box-shadow:0 0 0 3px rgba(255,237,158,.9),0 0 14px rgba(255,215,106,.9);z-index:5}
 .terrain-navigation .terrain-node.current{width:26px;height:26px;display:grid;place-items:center;background:#93f3df;border:2px solid #f1fff7;color:#063f3b;font-size:.78rem;font-weight:800;line-height:1;box-shadow:0 0 0 3px #043c35b0,0 2px 10px #000b;pointer-events:none;z-index:6}
@@ -833,6 +834,7 @@ body.teyvat .terrain-navigation button.terrain-node:active:not(:disabled){transf
 .terrain-key-item{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .terrain-key-item::before{content:'';flex:0 0 auto;box-sizing:border-box;width:11px;height:11px;border-radius:50%;border:2px solid #3b2f15;background:#ffe39a}
 .terrain-key-item.here::before{background:#93f3df;border-color:#f1fff7}
+.terrain-key-item.far::before{opacity:.45}
 .terrain-key-item.faded::before{background:rgba(255,255,255,.16);border:2px solid rgba(255,246,222,.8);box-shadow:0 0 0 1.5px rgba(0,0,0,.5)}
 .terrain-key-item.route::before{width:16px;height:4px;border:0;border-radius:2px;background:#ffd76a}
 /* A card's dot is its place's circle on the map. */
@@ -2169,7 +2171,11 @@ body.teyvat .battle-turn-face.mark{display:grid;place-items:center;color:var(--t
 body.teyvat .battle-turn-copy{display:flex;flex-direction:column;min-width:0}
 body.teyvat .battle-turn-copy strong{font-size:1.08rem;line-height:1.25;color:var(--t-gold-hi);letter-spacing:.02em}
 body.teyvat .battle-turn-copy small{font-size:.74rem;line-height:1.4;color:var(--t-muted);word-break:keep-all}
-body.teyvat .combat-panel .shell-turn-badge{position:absolute;top:-9px;left:10px;z-index:4;padding:1px 9px;border-radius:9px;background:var(--t-gold-hi);color:#3b2f15;font:800 .7rem/1.5 system-ui,sans-serif;box-shadow:0 0 0 2px rgba(20,24,40,.85),0 0 12px rgba(243,223,174,.7);pointer-events:none}
+/* 0.15.20 (user: 「전투할 때 차례 부분이 가려져」 · 「불 부착도 가려지네」): the tag sat on the 「○ 부착」 badge in the top-left corner.
+   It is at the top right now, left of an ally's order number (which a phone hides). */
+body.teyvat .combat-panel .shell-turn-badge{position:absolute;top:-9px;right:12px;z-index:4;padding:1px 9px;border-radius:9px;background:var(--t-gold-hi);color:#3b2f15;font:800 .7rem/1.5 system-ui,sans-serif;box-shadow:0 0 0 2px rgba(20,24,40,.85),0 0 12px rgba(243,223,174,.7);pointer-events:none}
+body.teyvat .combat-panel .shell-allies .shell-turn-badge{right:38px}
+@media (max-width:760px){body.teyvat .combat-panel .shell-allies .shell-turn-badge{right:8px}}
 body.teyvat .combat-panel .combatant-row.targetable{cursor:pointer}
 @media (hover:hover){body.teyvat .combat-panel .combatant-row.targetable:not(.selected):hover{box-shadow:0 0 0 2px rgba(255,194,122,.45)}}
 body.teyvat .combat-panel .battle-summons.top{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 8px}

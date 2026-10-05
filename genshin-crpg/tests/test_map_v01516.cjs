@@ -101,14 +101,14 @@ check('fading: the map fades exactly the places no open road reaches from here',
 check('screen: circles for all places, faded when out of reach, no numbers, names hidden until seen, hover only with a pointer',()=>{
  const nav=src('app_navigation.js'),css=src('shell.css');
  assert(nav.includes("const places=game.rows('32_MAP_DB').map(m=>m[0]).filter(id=>id&&this.point(id)?.[0]===atlas);"),'every place on this picture');
- assert(nav.includes("(isHere?' current':open?' open':' faded')")&&/\.terrain-node\.faded\{background:rgba\(255,255,255,\.16\);border:2px solid/.test(css),'out of reach is a see-through ring (still visible on a bright picture)');
+ assert(nav.includes("(isHere?' current':!open?' faded':near.has(id)?' open near':' far')")&&/\.terrain-node\.far\{opacity:\.45/.test(css)&&/\.terrain-node\.faded\{background:rgba\(255,255,255,\.16\);border:2px solid/.test(css),'out of reach is a see-through ring (still visible on a bright picture)');
  assert(nav.includes("'terrain-link'+(l.open?'':' locked')")&&/\.terrain-link\.locked\{[^}]*stroke-dasharray/.test(css),'a road not usable yet is a faint dashed line');
  assert(!/terrain-number|String\(n\.number\)|terrain-route-tag|terrain-leader|cluster/.test(nav),'no numbers, tags, leader lines or clusters');
  assert(nav.includes("placeName(id){const known=this.known||new Set();return id===game.s.global.CURRENT_MAP_ID||known.has(id)?mapName(id):'';}"),'a place not seen yet keeps its name');
  assert(nav.includes("route.maps.map(id=>this.placeName(id)||'가 보지 않은 곳')")&&nav.includes("targetName=target&&(this.placeName(target)||'아직 가 보지 않은 곳')"),'nor does the trip bar spoil it');
  assert(nav.includes("const hoverable=!!window.matchMedia?.('(hover: hover)').matches;")&&nav.includes("if(window.matchMedia?.('(hover: hover)').matches){b.addEventListener('pointerenter',highlight);"),'hover only where a pointer hovers');
  assert(nav.includes("if(best&&shown)taken.push(best);else{t.classList.add('quiet');")&&css.includes('.terrain-label.quiet{display:none}'),'a name never covers another name');
- assert(nav.includes("['faded','지금은 못 가는 곳']")&&!/\.terrain-key\{[^}]*display:none/.test(css),'the key under the map says what faded means');
+ assert(nav.includes("['far','한 번에는 못 가는 곳'],['faded','아직 막힌 곳']")&&!/\.terrain-key\{[^}]*display:none/.test(css),'the key under the map says what faded means');
  assert(!/번호/.test(nav.match(/지도 보는 법[^\n]*/)[0]),'the help text no longer talks about numbers');
  return {};
 });

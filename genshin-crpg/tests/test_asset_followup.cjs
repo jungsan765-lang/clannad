@@ -16,7 +16,9 @@ assert.equal(portrait('BOSS_ISK_L04_OSIAL'),portrait('BOSS_OSIAL'));
 assert.equal(portrait('BOSS_ISK_L04_OSIAL'),'assets/enemy_19.webp');
 assert(fs.existsSync(path.join(root,portrait('BOSS_ISK_L04_OSIAL'))),'the canonical image is shipped locally');
 assert.equal(portrait('MON_SLIME'),'assets/enemy_1.webp','existing enemy art wins');
-assert.equal(portrait('FB_ANEMO_HYPOSTASIS'),null,'an enemy without a verified image does not borrow unrelated art');
+// 0.15.20: the nine field bosses wear the pictures the user supplied; their summoned forms still have none.
+for(const id of Object.keys(c.CRPGRuntime.fieldBosses.bosses)){const src=portrait(id);assert.equal(src,'assets/enemy_'+id.toLowerCase()+'.webp',id);assert(fs.existsSync(path.join(root,src)),src);}
+assert.equal(portrait('FB_MIMIC_BOAR'),null,'an enemy without a verified image does not borrow unrelated art');
 assert.equal(portrait('UNKNOWN_ENEMY'),null);
 const before=g.serialize();portrait('BOSS_ISK_L04_OSIAL');assert.equal(g.serialize(),before,'art lookup is read-only');
 console.log('PASS existing enemy art and exact Osial encounter alias, without state changes');

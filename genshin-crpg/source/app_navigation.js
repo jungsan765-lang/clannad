@@ -30,7 +30,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   controls.append(zoom,view('주변 보기','near'),view('지역 전체','full'));
   // What the circles and lines mean, under the map on every screen size.
   const key=el('div','terrain-key');key.setAttribute('aria-hidden','true');
-  for(const [k,text] of [['here','현재 위치'],['open','갈 수 있는 곳'],['faded','지금은 못 가는 곳'],['route','고른 목적지까지']])key.append(el('span','terrain-key-item '+k,text));
+  for(const [k,text] of [['here','현재 위치'],['open','바로 갈 수 있는 곳'],['far','한 번에는 못 가는 곳'],['faded','아직 막힌 곳'],['route','고른 목적지까지']])key.append(el('span','terrain-key-item '+k,text));
   left.append(controls,key);
   const note=this.point(current)?.[3];if(note)left.append(el('p','terrain-location-note',note));
   left.append(el('small','terrain-help','지도는 끌어서 움직이고 + / −로 확대합니다. 오른쪽 목적지 카드는 누르는 즉시 출발합니다.'));
@@ -59,7 +59,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
    const destAtlas=this.atlasFor(target);if(destAtlas&&destAtlas!==this.atlas){const b=this.control(T.atlases[destAtlas].name+' 지도 미리보기',()=>{this.atlas=destAtlas;const p=this.point(target);this.camera=p?{mode:'custom',zoom:1.7,cx:p[1],cy:p[2]}:{mode:'full'};this.refresh();},'preview');dock.append(b);}
   }else{detail.append(el('strong','','지도에서 동그라미를 누르면 그곳까지 가는 길을 미리 봅니다.'),el('span','','목적지 카드는 누르는 즉시 출발합니다.'));dock.append(detail,this.disabledTravel('지도에서 목적지를 선택하세요'));}
   section.append(dock);
-  const footer=el('details','terrain-provenance');footer.append(el('summary','','지도 보는 법'),el('p','','동그라미 하나가 장소 하나이고, 선은 두 장소를 바로 잇는 길입니다. 흐린 동그라미는 지금 걸어서 갈 수 없는 곳, 흐린 점선은 아직 지날 수 없는 길입니다. 동그라미를 누르면 그곳까지 가는 길이 금색으로 바뀝니다. 아직 가 보지 않은 곳은 이름을 숨기고, 넓은 지역과 실내·지하는 대표 위치 한 곳으로 표시합니다. 다른 지역으로 가는 길은 목적지 카드에서 고릅니다.'));section.append(footer);
+  const footer=el('details','terrain-provenance');footer.append(el('summary','','지도 보는 법'),el('p','','동그라미 하나가 장소 하나이고, 선은 두 장소를 바로 잇는 길입니다. 또렷한 동그라미는 바로 갈 수 있는 곳, 속이 비치는 동그라미는 한 번에는 못 가는 곳(누르면 가는 길이 나옵니다), 빈 고리와 흐린 점선은 아직 막힌 곳과 길입니다. 동그라미를 누르면 그곳까지 가는 길이 금색으로 바뀝니다. 아직 가 보지 않은 곳은 이름을 숨기고, 넓은 지역과 실내·지하는 대표 위치 한 곳으로 표시합니다. 다른 지역으로 가는 길은 목적지 카드에서 고릅니다.'));section.append(footer);
   return section;
  },
  control(text,fn,key,label){const b=button(text,fn);b.dataset.navFocus=key;if(label)b.setAttribute('aria-label',label);return b;},
@@ -110,9 +110,11 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
    const near=new Set(local.map(n=>n.id)),dots=new Map();
    for(const id of places){const p=this.point(id),name=this.placeName(id),isHere=id===here,open=reach.maps.has(id);
     const node=isHere?el('span'):this.control('',()=>this.choose(id),'node-'+id);
-    node.className='terrain-node'+(isHere?' current':open?' open':' faded')+(near.has(id)?' near':'')+(stops.includes(id)&&!isHere?' on-route':'')+(this.target===id?' selected':'')+(name?'':' unknown');
+    // 0.15.20 (user: 「지도에 나머지 동그라미들은 투명화를 좀 넣어줘. 지금 당장은 못 가는 곳이니까」): only here and the places
+    // one road away are solid; a place several roads away is see-through, and one no open road reaches is a hollow ring.
+    node.className='terrain-node'+(isHere?' current':!open?' faded':near.has(id)?' open near':' far')+(stops.includes(id)&&!isHere?' on-route':'')+(this.target===id?' selected':'')+(name?'':' unknown');
     node.dataset.mapId=id;node.style.left=(p[1]/T.width*100)+'%';node.style.top=(p[2]/T.height*100)+'%';
-    node.title=(name||'아직 가 보지 않은 곳')+(isHere?' · 현재 위치':open?'':' · 지금은 갈 수 없는 곳');
+    node.title=(name||'아직 가 보지 않은 곳')+(isHere?' · 현재 위치':!open?' · 아직 막힌 곳':near.has(id)?'':' · 한 번에는 못 가는 곳');
     if(isHere)node.append(el('span','terrain-node-core','◆'));
     else{node.tabIndex=-1;node.setAttribute('aria-hidden','true');if(hoverable){node.addEventListener('pointerenter',()=>this.hover(id));node.addEventListener('pointerleave',()=>this.hover(null));}}
     overlays.append(node);dots.set(id,[p[1]*scale,p[2]*scale,isHere?13:this.target===id?11:near.has(id)?9:7]);}

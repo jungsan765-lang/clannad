@@ -61,6 +61,9 @@ const BOSSES={
   summary:'층암거연 지하를 헤엄치는 유적 기계 뱀. 땅속에 숨어 후미를 기습하고 침식 파동을 퍼뜨린다. 돌진 뒤에는 머리가 드러난다.',
   gimmicks:{BURROW:G('잠행','땅속에 숨은 동안 피해를 받지 않고 다음 차례 후미를 기습','후미에 튼튼한 동료·보호막'),WAVE:G('침식 파동','전원 부식 지형 2라운드(방어력 −15%)','해독·정화 장비'),CHARGE:G('돌진 관통','예고 후 전열 강한 단타 · 뒤이어 머리가 1라운드 드러남','중장 장비 · 약점 공략으로 몰아치기'),BIND:G('휘감기','선두를 휘감아 기절시킴','행동 방해 저항·정화')}}
 };
+// 0.15.20 (user: 「무상의 바람 사진은 왜 없지?」): the battle pictures the user supplied for all nine, as
+// assets/enemy_fb_<boss>.webp (content/asset-manifest.json binds them to these monster rows).
+for(const [id,d]of Object.entries(BOSSES))d.img=id.toLowerCase();
 // Summoned bodies (their own monster rows so every table lookup stays valid).
 const SUMMONS={
  FB_SUMMON_PRISM:{name:'뇌광 프리즘',element:'번개',range:'원거리',hp:.1,atk:.5,def:40,spd:40,airborne:false},

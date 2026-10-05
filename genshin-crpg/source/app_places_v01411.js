@@ -1,4 +1,4 @@
-/* 0.14.11 시설 화면: the places you talk in (모험가 길드, 천사의 몫, 리월의 상회·관청, 일곱 신상…).
+/* 0.14.11 시설 화면: the places you talk in (모험가 길드, 천사의 몫, 리월의 상회·관청, 일곱신상…).
  * The host stands on the left (portrait, or the place's picture) with a greeting and the place's buttons; what the
  * place offers sits on the right as tabs: commissions per region, the companion missions it introduces, and the rest.
  * Nothing is drawn above the page any more (the scenery banner pushed Katheryne down) and only the list scrolls.

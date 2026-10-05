@@ -94,9 +94,29 @@ boss=function(p){
   const row=game.row('35_BOSS_ROUTE_DB',entry.route);p.append(el('p','','이 장소에서 시작하는 현장 도전입니다. 보스별로 하루에 한 번(현실 시간, 한국 시간 자정 기준) 입장하며, 패배·이탈해도 그날 입장은 쓴 것으로 칩니다. 완료한 도전은 재료 재도전 메뉴를 이용하세요.'));
   for(const mode of ['DIRECT','GAUNTLET']){if(mode==='GAUNTLET'&&row[3]==='DIRECT')continue;const reason=game.placeBossReason(entry.route,mode),b=actionButton(mode==='DIRECT'?'보스에게 도전':'전초전부터 도전','BOSS_ROUTE',{route:entry.route,entry:mode},true);b.disabled=b.disabled||!!reason;p.append(b);if(reason)p.append(el('small','choice-note',reason));}
 };
+// 0.15.20 (found on the battle screen check): a lost boss step leaves its entrance (runtime_adventure.js ends the visit with
+// every field defeat), so 「해당 단계 재도전」 only answered 「장소 화면에서 먼저 들어가기를 선택해 주세요.」. The button now steps
+// back through the entrance on this map first, and whatever still blocks it (rest, recovery) is written under it.
+bossProgressControls=function(p){
+  const progress=game.s.bossRouteProgress;if(!progress||!['AWAIT_NEXT','RETRY'].includes(progress.phase))return;
+  p.append(el('h2','','진행 중인 보스 도전'),el('p','',safeName('35_BOSS_ROUTE_DB',progress.route)+' · '+progress.step+'단계'));
+  const recovery=game.bossRecoveryReason?.();if(recovery)p.append(el('p','muted',recovery));
+  const place='BOSS:'+progress.route,reenter=!game.s.placeVisit&&!game.actionReason('PLACE_ENTER',{place,mode:'BOSS'});
+  const blocked=reenter?'':game.actionReason('BOSS_CONTINUE');
+  const go=async()=>{if(reenter&&!game.s.placeVisit){await act('PLACE_ENTER',{place,mode:'BOSS'});if(!game.s.placeVisit)return;}await act('BOSS_CONTINUE');};
+  actions(p,[button(progress.phase==='RETRY'?'해당 단계 재도전':'다음 전투로',go,false,true),button('도전에서 나가기',()=>act('BOSS_LEAVE'))]);
+  if(blocked&&blocked!==recovery)p.append(el('p','muted boss-continue-reason',blocked));
+};
+// 0.15.20 (user: 「장비칸에서 이야기로 돌아가기 란이 … 스토리 다 깬 입장에서는 너무 무쓸모」): a menu goes back to the battle, to
+// the battle preparation, to a story scene that holds the screen, or — with nothing waiting — to the main screen.
+function journeyReturn(){
+  if(game.s.runtime&&!game.s.runtime.interlude)return {label:'전투로 돌아가기',screen:'COMBAT'};
+  if(game.playPhase?.()==='PREPARATION')return {label:'전투 준비로 돌아가기',screen:'STORY'};
+  return game.actionReason('MENU',{screen:'LOCATION'})?{label:'이야기로 돌아가기',screen:'STORY'}:{label:'메인 화면으로',screen:'LOCATION'};
+}
 returnToJourney=function(p){
   const visit=game.currentPlace?.();if(visit?.valid){p.append(actionButton(placeName(visit.entry)+' · 돌아가기','MENU',{screen:{SHOP:'SHOP',CRAFT:'CRAFT',BOSS:'BOSS_INTRO',TALK:'DIALOGUE'}[visit.mode]},true));return;}
-  p.append(actionButton(game.playPhase()==='PREPARATION'?'전투 준비로 돌아가기':'이야기로 돌아가기','MENU',{screen:'STORY'},true));
+  const back=journeyReturn();p.append(actionButton(back.label,'MENU',{screen:back.screen},true));
 };
 let bagCategory='전체',bagSelection=null,bagTrade='전체';
 // 0.14.12: equipment frames by enhancement (user: 「강화수치가 높을수록 테두리, 운명의 자리처럼 간지나게는 말고, 10강부터 조금 간지」).
@@ -261,8 +281,9 @@ function battleActorRow(a,chosen,index){
   if(showArt){const src=combatPortraitSrc(a);if(src){const image=el('img','combat-portrait');image.src=src;image.alt='';c.append(image);}else if(a.id==='PLAYER_CUSTOM')c.append(el('span','combat-player-mark','✦'));}
   const copy=el('div','combatant-copy');copy.append(el('strong','',a.name+(index>0?' '+index:'')));meter(copy,'HP',a.hp,a.maxHp);const shieldValue=(a.shields||[]).reduce((n,s)=>n+Math.max(0,Number(s.value||0)),0),shieldMax=(a.shields||[]).reduce((n,s)=>n+Math.max(Number(s.initialValue||s.value||0),Number(s.value||0)),0);c.dataset.shieldMax=Math.max(1,Math.round(shieldMax||shieldValue||1));if(shieldValue>0){const shieldBox=el('div','shield-meter');shieldBox.dataset.shieldMax=c.dataset.shieldMax;meter(shieldBox,'보호막',Math.round(shieldValue),Math.max(1,Math.round(shieldMax)));copy.append(shieldBox);}
   const status=[a.aura&&({PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',ANEMO:'바람',GEO:'바위',DENDRO:'풀'}[a.aura]||a.aura),shieldValue>0?'보호막 '+Math.round(shieldValue):null,a.airborne?'공중':null,...(a.statuses||[]).map(s=>safeName('13_STATUS_EFFECT_DB',s.id))].filter(Boolean);if(status.length)copy.append(el('small','',status.join(' · ')));c.append(copy);
-  if(chosen?.targets?.some(t=>t.id===a.id)){c.append(button(a.id===selectedTarget?'선택됨':'선택',()=>{selectedTarget=a.id;render();}));
-    // 0.15.18 (user: 적 누르면 타겟): a press anywhere on the card chooses it, not only its small button.
+  if(chosen?.targets?.some(t=>t.id===a.id)){
+    // 0.15.18 (user: 적 누르면 타겟): a press anywhere on the card chooses it. 0.15.20 (user: 「선택됨 저걸 없애고 정보를
+    // 넣어야지」): so the card has no 선택/선택됨 button; the gold frame marks the target and 「정보」 stands in its place.
     c.classList.add('targetable');c.addEventListener('click',e=>{if(e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});}
   return c;
 }

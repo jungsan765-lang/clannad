@@ -131,6 +131,14 @@ S.focusGear=id=>{S.gearOwner=id||null;};
 // 0.15.17 (user: 「결과 바로 보기가 전투스킵이잖아」): no battle skip. The playback keeps 일시정지 and the speed setting, and loses
 // 「결과 바로 보기」 and 「다음 표시」 (app_av.js builds them; its dock exists as soon as play() returns its promise).
 if(typeof GameEffects!=='undefined'&&typeof GameEffects.play==='function'){const priorPlay=GameEffects.play;GameEffects.play=function(...args){const out=priorPlay.apply(this,args);for(const b of this.dock?.querySelectorAll('.playback-buttons button')||[])if(['다음 표시','결과 바로 보기'].includes(b.textContent.trim()))b.remove();return out;};}
+// The 「차례」 tag on the card of the fighter whose turn it is (one per battle screen).
+function turnBadge(row,scope=row.closest('.combat-panel')||document){for(const old of $$('.shell-turn-badge',scope))old.remove();for(const r of $$('.combatant-row.shell-acting',scope))r.classList.remove('shell-acting');row.classList.add('shell-acting');row.append(mk('span','shell-turn-badge','차례'));}
+// 0.15.20 (user: 「전투할 때 차례 부분이 가려져」): while a round plays out, the tag goes to whoever is acting; it stayed on the
+// fighter whose command started the playback (app_av.js marks the acting card with .acting and the order entry with
+// .current). The order's 「현재」 goes along with .current.
+function orderNow(){const order=$('.combat-panel .battle-order'),now=order&&$('li.current',order);if(!now)return;for(const s of $$('li > small',order))if(s.textContent==='현재'&&s.parentElement!==now)s.remove();if(![...now.children].some(c=>c.tagName==='SMALL'&&c.textContent==='현재'))now.append(mk('small','','현재'));}
+if(typeof GameEffects!=='undefined'&&typeof GameEffects.showAction==='function'){const priorShow=GameEffects.showAction;GameEffects.showAction=function(frame,...args){const out=priorShow.call(this,frame,...args);const row=frame?.actorId&&$('.combat-panel .combatant-row.acting[data-actor-id="'+CSS.escape(frame.actorId)+'"]');if(row)turnBadge(row);orderNow();return out;};}
+if(typeof GameEffects!=='undefined'&&typeof GameEffects.show==='function'){const priorEvent=GameEffects.show;GameEffects.show=function(...args){const out=priorEvent.apply(this,args);orderNow();return out;};}
 function openScreen(screen){const b=navButton(screen);if(b){if(b.disabled){toast(b.title||b.getAttribute('aria-description')||'지금은 이 메뉴를 열 수 없습니다.');return false;}b.click();return true;}if(game&&!busy){act('MENU',{screen});return true;}return false;}
 S.open=openScreen;
 function toast(text){if(!text)return;let t=$('#shell-toast');if(!t){t=mk('div','shell-toast');t.id='shell-toast';t.setAttribute('role','status');document.body.append(t);}t.textContent=text;t.classList.remove('show');void t.offsetWidth;t.classList.add('show');clearTimeout(S.toastTimer);S.toastTimer=setTimeout(()=>t.classList.remove('show'),2600);window.CRPGSound?.play('toast');}
@@ -387,7 +395,7 @@ function layoutCombat(content,p){
  const teams=$('.battle-teams',p);if(teams){const [ally,enemy]=teams.children;ally?.classList.add('shell-allies');enemy?.classList.add('shell-enemies');}
  const log=$('.battle-details',p),cmd=$('.combat-duo > .battle-command',p);if(log&&cmd){const lines=$$('.log p',log).slice(-3);const feed=mk('div','shell-battle-feed');feed.setAttribute('aria-hidden','true');for(const l of lines)feed.append(mk('p','',l.textContent));if(lines.length)cmd.before(feed);}
  // 0.15.18: the fighter whose turn it is also wears a 「차례」 tag on its card.
- const cur=$('.battle-order li.current',p);if(cur){const id=cur.dataset.actorId;const row=id&&$('.combatant-row[data-actor-id="'+CSS.escape(id)+'"]',p);if(row){row.classList.add('shell-acting');if(!$(':scope > .shell-turn-badge',row))row.append(mk('span','shell-turn-badge','차례'));}}
+ const cur=$('.battle-order li.current',p);if(cur){const id=cur.dataset.actorId;const row=id&&$('.combatant-row[data-actor-id="'+CSS.escape(id)+'"]',p);if(row)turnBadge(row,p);}
  // Level beside an enemy's name and a coloured mark for the element on each fighter, as in the original.
  const b=game.s.runtime;if(b){for(const row of $$('.combatant-row[data-actor-id]',p)){const a=b.actors.find(x=>x.id===row.dataset.actorId);if(!a)continue;
   const name=$('.combatant-copy strong',row);if(a.side==='ENEMY'&&a.level&&name&&!$('.shell-level',name))name.prepend(mk('small','shell-level','Lv.'+a.level));

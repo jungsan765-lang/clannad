@@ -16,7 +16,7 @@ check('whose turn: a banner with the fighter\'s face over the commands, and a ta
  assert(banner.includes("el('strong','',combatDisplayName(b,a)+'의 차례')"),'「…의 차례」');
  assert(banner.includes("'행동을 고르고 적을 눌러 대상을 정한 뒤 실행하세요.'")&&banner.includes("'적이 행동합니다.'"));
  assert(exp.includes("if(!opening){const turn=battleTurnBanner(b);if(turn)controls.append(turn);}"),'shown once the fight has begun, first in the commands');
- assert(shell.includes("row.classList.add('shell-acting');if(!$(':scope > .shell-turn-badge',row))row.append(mk('span','shell-turn-badge','차례'));"),'the card wears 「차례」');
+ assert(shell.includes("row.classList.add('shell-acting');row.append(mk('span','shell-turn-badge','차례'));")&&shell.includes("if(row)turnBadge(row,p);"),'the card wears 「차례」 (0.15.20: one tag per battle screen)');
  assert(/body\.teyvat \.battle-command \.battle-turn-banner\{[^}]*animation:shellGlow/.test(css)&&/\.combat-panel \.shell-turn-badge\{[^}]*pointer-events:none/.test(css));
  return {};
 });
@@ -24,7 +24,7 @@ check('whose turn: a banner with the fighter\'s face over the commands, and a ta
 check('targets: a press anywhere on a card that can be targeted chooses it',()=>{
  const row=fnBody(exp,'battleActorRow');
  assert(row.includes("c.classList.add('targetable');c.addEventListener('click',e=>{if(e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});"),'the card itself, its own buttons keep their jobs');
- assert(row.includes("button(a.id===selectedTarget?'선택됨':'선택'"),'the small button stays');
+ assert(!row.includes("'선택됨'"),'0.15.20: the card is the only way, its small 선택/선택됨 button is gone');
  assert(/\.combatant-row\.targetable\{cursor:pointer\}/.test(css)&&/@media \(hover:hover\)\{[^}]*targetable/.test(css),'a pointer, and a ring only where the pointer hovers');
  return {};
 });

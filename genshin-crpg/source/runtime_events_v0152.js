@@ -34,7 +34,7 @@ const K={
   LIYUE:['부러진 창과 방패가 흩어져 있다. 여러 모험가를 물리친 거친 마물이 근처를 배회한다.','「저 녀석 때문에 짐을 못 옮기고 있어요…」 짐꾼이 가리키는 곳에 유난히 강한 마물이 버티고 있다.']},
   choices:{FIGHT:{label:'도전한다 (강해진 마물)',battle:true,elite:true,reward:{primogem:15,mora:450,drop:2,items:{MAT_CHAR_EXP_ADVENTURER:2}}},LEAVE:{label:'물러난다'}}},
  INJURED:{name:'다친 여행자',weight:12,text:{
-  MOND:['나무 밑에 기대앉은 여행자가 다리를 감싸 쥐고 있다. 「마물에게 쫓기다가 그만… 먹을 거라도 있으면 좋겠는데.」','서풍 기사단 견습 기사가 지친 얼굴로 앉아 있다. 「순찰 중에 다쳤어요. 잠깐만 쉬면 될 거예요…」'],
+  MOND:['나무 밑에 기대앉은 여행자가 다리를 감싸 쥐고 있다. 「마물에게 쫓기다가 그만… 먹을 거라도 있으면 좋겠는데.」','페보니우스 기사단 견습 기사가 지친 얼굴로 앉아 있다. 「순찰 중에 다쳤어요. 잠깐만 쉬면 될 거예요…」'],
   LIYUE:['짐을 잔뜩 진 짐꾼이 길가에 주저앉아 있다. 「산길에서 미끄러졌지 뭐요. 기운 날 만한 게 있으면…」','약초를 캐던 아이가 무릎을 다쳐 울고 있다. 「불복려까지 가야 하는데 너무 아파요…」']},
   choices:{GIVE:{label:'음식이나 치료품을 건넨다',gift:true,reward:{primogem:10,mora:200,gather:3}},AID:{label:'응급처치를 해 준다 (30분)',minutes:30,reward:{primogem:5,mora:150}},LEAVE:{label:'지나친다'}}},
  CHEST:{name:'수상한 상자',weight:12,text:{

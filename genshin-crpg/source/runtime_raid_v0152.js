@@ -15,7 +15,7 @@ const weekOf=api.premiumV0148.weekOf,KST=9*3600000,DAY=86400000,WEEK=7*DAY;
 // TARGET: a sortie lands about 60-90 hits, so three adventurers who sortie every day finish the week's boss.
 const ROUNDS=8,SORTIES=3,MIN_LEVEL=10,TARGET=4000,BOSS_HP=1000000,ORIGIN='RAID:';
 const BOSSES=[
- {id:'MON_RAID_GRADER',base:'MON_RUIN_GRADER',name:'폭주한 파멸의 유적 가디언',text:'설산에서 내려온 오래된 기계가 멈추지 않고 몬드 들판을 헤집는다. 서풍 기사단이 모든 모험가에게 도움을 청했다.'},
+ {id:'MON_RAID_GRADER',base:'MON_RUIN_GRADER',name:'폭주한 파멸의 유적 가디언',text:'설산에서 내려온 오래된 기계가 멈추지 않고 몬드 들판을 헤집는다. 페보니우스 기사단이 모든 모험가에게 도움을 청했다.'},
  {id:'MON_RAID_FROSTLORD',base:'MON_LAWACHURL_FROST',name:'얼음 왕관의 츄츄 서리왕',text:'서리왕이 츄츄족 큰 무리를 모아 바람맞이 산길을 막았다. 한 사람의 힘으로는 물리칠 수 없다.'},
  {id:'MON_RAID_HERALD',base:'MON_ABYSS_HERALD',name:'끝없는 물결의 심연 사도',text:'심연 교단의 사도가 지맥을 흐려 놓고 사라지지 않는다. 모두가 조금씩 힘을 보태야 한다.'},
  {id:'MON_RAID_MAIDEN',base:'MON_MIRROR_MAIDEN',name:'우인단 거울의 여인 집행대',text:'우인단 집행대가 리월의 길을 막고 통행세를 거둔다. 천암군이 모험가 길드에 협력을 요청했다.'},
