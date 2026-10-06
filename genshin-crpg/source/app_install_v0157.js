@@ -53,7 +53,7 @@ I.open=openInstall;I.toggleFull=toggleFull;
 // The title screen: 「앱으로 설치」 next to 나선비경 랭킹 · 설정 (phones, not already installed).
 function decorateTitle(){
  const footer=document.querySelector('.title-footer');if(!footer||footer.querySelector('.title-install'))return;
- if(!phone()||standalone()||I.installed)return;
+ if(!phone()||standalone()||I.installed||I.testApp?.())return;
  const b=mk('button','title-install','앱으로 설치');b.type='button';b.onclick=openInstall;footer.append(b);
 }
 // Paimon's menu: 전체 화면 / 전체 화면 끄기 (where the browser allows it).

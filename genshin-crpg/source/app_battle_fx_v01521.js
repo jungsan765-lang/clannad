@@ -99,7 +99,7 @@ function followRound(order,round){
  const b=game.s.runtime,ids=roundOrder(round);if(!ids.length)return;
  const items=[];
  for(const id of ids){const a=b.actors.find(x=>x.id===id);if(!a)continue;const li=document.createElement('li');li.className=(a.side==='ALLY'?'ally':'enemy')+(a.hp<=0?' down':'');li.dataset.actorId=a.id;
-  const num=document.createElement('small');num.textContent=String(items.length+1);const name=document.createElement('span');name.textContent=typeof combatDisplayName==='function'?combatDisplayName(b,a):a.name;li.append(num,name);
+  const num=document.createElement('small');num.textContent=String(items.length+1);const name=document.createElement('span');name.textContent=typeof combatDisplayName==='function'?combatDisplayName(b,a):a.name;li.append(num);if(typeof battleOrderFace==='function')battleOrderFace(li,a);li.append(name);
   if(typeof battleOrderTimes==='function')battleOrderTimes(li,a);items.push(li);}
  order.replaceChildren(...items);order.dataset.round=String(round);
  order.classList.remove('new-round');void order.offsetWidth;order.classList.add('new-round');

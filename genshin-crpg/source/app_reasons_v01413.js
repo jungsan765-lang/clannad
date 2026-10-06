@@ -6,6 +6,9 @@
 (function(){'use strict';
 const NOTE='.choice-note,.lack,.wish-warn,.phase-note';
 function reasonOf(b){
+ // 0.15.24 (user: 「이것도 시간이 안맞아」 — the HUD said 39초 while the bubble said 59초): a button that knows its action asks
+ // for the reason again when pressed; the one written on it is the second the screen was drawn.
+ const act=b.crpgAction;if(act?.type&&typeof game!=='undefined'&&game?.actionReason){try{const fresh=game.actionReason(act.type,act.params||{});if(fresh)return fresh;}catch{}}
  const own=b.getAttribute('data-reason')||b.getAttribute('aria-description');if(own)return own;
  const title=(b.title||'').trim();if(title&&title!==b.textContent.trim()&&title!==b.getAttribute('aria-label'))return title;
  for(const n of [b.nextElementSibling,b.previousElementSibling])if(n?.matches?.(NOTE)&&n.textContent.trim())return n.textContent.trim();
@@ -23,7 +26,10 @@ function place(){
 function explain(b,text){
  if(!tip){tip=document.createElement('div');tip.className='locked-reason-tip';tip.setAttribute('role','status');if('popover' in tip)tip.popover='manual';document.body.append(tip);}
  if(!tip.showPopover){if(typeof say==='function')say(text);return;}
- hide();tip.textContent=text;try{tip.showPopover();}catch{return;}
+ // The seconds of the defeat rest keep counting with the HUD's clock (app_gear.js ticks [data-defeat-countdown]).
+ hide();const clock=/^(.*정신을 차리는 중입니다 · )(\d+)초( 남음.*)$/.exec(text);
+ if(clock){const t=document.createElement('strong');t.textContent=clock[2]+'초';t.dataset.defeatCountdown='1';tip.replaceChildren(clock[1],t,clock[3]);}else tip.textContent=text;
+ try{tip.showPopover();}catch{return;}
  anchor=b;place();timer=setTimeout(hide,4000);
 }
 document.addEventListener('click',e=>{

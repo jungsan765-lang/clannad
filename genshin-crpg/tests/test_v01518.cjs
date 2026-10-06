@@ -41,7 +41,8 @@ check('summons: at the top of the battlefield, a lane only for a side that has o
 
 check('phone playback: a short window (speed and pause on one line) that leaves the fight in view',()=>{
  const phone=css.slice(css.indexOf('/* 0.15.18 battle screen'));
- assert(/@media \(max-width:760px\)\{[\s\S]*body\.teyvat \.combat-playback\{max-height:min\(30dvh,250px\);[^}]*display:grid/.test(phone));
+ // 0.15.24: the upright-phone rules stop at sideways phones (at most 500 px tall), which have landscape_v01524.css.
+ assert(/@media \(max-width:760px\) and \(min-height:501px\)\{[\s\S]*body\.teyvat \.combat-playback\{max-height:min\(30dvh,250px\);[^}]*display:grid/.test(phone));
  assert(phone.includes('body.teyvat .combat-playback .combat-speed{grid-column:1}')&&phone.includes('body.teyvat .combat-playback .playback-buttons{grid-column:2;flex-wrap:nowrap}'));
  return {};
 });

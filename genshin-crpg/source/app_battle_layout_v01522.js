@@ -1,24 +1,44 @@
-/* The whole battle board scales as one frame. No viewport or battlefield scroll. */
+/* Battle layout. 0.15.24 (user, 2026-10-06 13:25: 「0.15.22 이전에 쓰던 전투 구도를 선호한다 … 원래 구도와 그림 비율을 유지」, and the
+ * hand-over docs/handoffs/UI_INSTALLED_LANDSCAPE_KO.md): the 0.15.22 fixed 1180×700 board scaled as one picture is gone.
+ * The 0.15.21 composition stays — enemies in the middle with their big pictures, the party down the right, the
+ * commands along the bottom — and space goes to the fighters that are actually there:
+ * - up to 8 enemies in at most two rows (1–4: one row; 5–8: two), the cards growing or shrinking with the count;
+ * - 아군 소환체 / 적 소환체 each in its own strip, only while a side has one (at most 3 each);
+ * - the battle screen fits the window, so a fight never scrolls the page;
+ * - the battle record and the extra battle notes open in windows from the heading.
+ * View-only: no rule, action or save changes here. */
 (function(){
 'use strict';
 const previousSummons=battleSummons;
-battleSummons=function(stage,b){previousSummons(stage,b);let wrap=stage.querySelector('.battle-summons');if(!wrap){wrap=el('div','battle-summons top');stage.append(wrap);}for(const side of ['ENEMY','ALLY']){let lane=wrap.querySelector('.summon-lane.'+side.toLowerCase());if(!lane){lane=el('section','summon-lane '+side.toLowerCase());lane.append(el('h3','',side==='ALLY'?'아군 소환체':'적 소환체'));wrap.append(lane);}const cards=game.combatCards?.()||[],chosen=cards.find(c=>c.id===selectedCard);for(const a of b.actors.filter(a=>a.side===side&&a.fbSummon&&a.hp>0)){const row=battleActorRow(a,chosen,0);row.classList.add('battle-summon','summon-actor');row.dataset.summonId=a.id;lane.append(row);}for(const f of (b.fields||[]).filter(f=>f.side===side&&['MAN_CHAI','PHANTOM','BAMBOO_STAR'].includes(f.kind)&&!f.done&&f.rounds>0)){const row=el('div','battle-summon');row.dataset.summonId=f.id;row.append(el('strong','',f.name||({MAN_CHAI:'만차이',PHANTOM:'허영',BAMBOO_STAR:'대나무 별'})[f.kind]),el('small','',Math.ceil(f.rounds)+'라운드'));lane.append(row);}const count=lane.querySelectorAll('.battle-summon').length;lane.querySelector('h3').textContent=(side==='ALLY'?'아군 소환체':'적 소환체')+' '+count+' / 3';if(!count)lane.append(el('span','summon-empty','소환체 없음'));}};
-let observer=null;
-function fitPlayback(){const dock=GameEffects.dock,command=document.querySelector('.battle-fit-frame .battle-command');if(!dock||!command)return;const rect=command.getBoundingClientRect(),scale=rect.width/command.offsetWidth;dock.classList.add('battle-frame-playback');dock.classList.toggle('portrait-playback',innerWidth<760);Object.assign(dock.style,{left:rect.left+'px',top:rect.top+'px',right:'auto',bottom:'auto',width:command.offsetWidth+'px',height:command.offsetHeight+'px',transform:'scale('+scale+')',transformOrigin:'0 0'});}
-function fit(){const frame=document.querySelector('.battle-fit-frame'),board=frame?.querySelector('.combat-panel');if(!board)return;const mobile=innerWidth<760,w=mobile?440:1180,h=mobile?800:700,rect=frame.getBoundingClientRect(),scale=Math.min(rect.width/w,rect.height/h);board.classList.toggle('portrait-stage',mobile);board.style.setProperty('--board-width',w+'px');board.style.setProperty('--board-height',h+'px');board.style.transform='translate('+Math.max(0,(rect.width-w*scale)/2)+'px,'+Math.max(0,(rect.height-h*scale)/2)+'px) scale('+scale+')';fitPlayback();}
-function layout(){observer?.disconnect();const p=document.querySelector('.combat-panel'),content=p?.closest('.content');document.body.classList.toggle('battle-fit',!!p);if(!p||!content)return;
- const frame=el('div','battle-fit-frame');p.before(frame);frame.append(p);const b=game.s.runtime,head=p.querySelector('.battle-heading');
- const objective=el('div','battle-objective-strip');if(b.liyueObjective){const o=b.liyueObjective;objective.append(el('strong','','진법 HP '+Math.max(0,Math.round(o.hp))+' / '+o.maxHp),el('span','','충전 '+o.charge+' / '+o.target));}
- else if(b.fieldObjective){const o=b.fieldObjective;objective.append(el('strong','',o.kind==='DESTROY'?'구조물 파괴':o.kind==='BATTLE'?'습격자 제압':'보호 대상 '+o.integrity+' / '+o.maxIntegrity));}
- else if(b.fieldBoss){const foe=b.actors.find(a=>a.source===b.fieldBoss.boss);objective.append(el('strong','',foe?.name||'보스'),el('span','',game.fieldBossView?.()?.hint||b.fieldBoss.telegraph?.name||'적의 예고와 원소를 확인하세요.'));}
- else objective.append(el('span','',b.tutorialDrill?'전투 실습 · 실제 행동으로 진행':b.growthDomain?'성장 비경 · Lv. '+b.growthDomain.level:'일반 적 '+b.actors.filter(a=>a.side==='ENEMY'&&!a.fbSummon&&a.hp>0).length+' / 8'));
- if(b.enemyReserve?.length)objective.append(el('small','','증원 대기 '+b.enemyReserve.length));if(b.terrain!==null&&b.terrain!==undefined)objective.append(el('small','','지형 '+b.terrain+' / '+(b.terrainMax||4)));p.append(objective);
- const details=p.querySelector('.battle-details');if(details){details.hidden=true;head?.append(button('기록',()=>{const box=details.querySelector('.log').cloneNode(true);showModal('전투 기록',box);}));}
- const info=p.querySelector('.shell-battle-info');if(info){info.hidden=true;head?.append(button('전투 정보',()=>{const box=info.querySelector('.shell-battle-info-body').cloneNode(true);showModal('전투 정보',box);}));}
- // Keep playback outside the inert game root, positioned exactly over the reserved command area.
- observer=new ResizeObserver(fit);observer.observe(frame);fit();
+// Enemy summons that are fighters (a field boss's summons) join the existing summon strips; no strip for a side with none.
+battleSummons=function(stage,b){
+ previousSummons(stage,b);
+ const cards=game.combatCards?.()||[],chosen=cards.find(c=>c.id===selectedCard),fighters=b.actors.filter(a=>a.fbSummon&&a.hp>0);if(!fighters.length)return;
+ let wrap=stage.querySelector('.battle-summons');if(!wrap){wrap=el('div','battle-summons top');wrap.setAttribute('aria-label','전투 소환물');stage.prepend(wrap);}
+ for(const side of ['ALLY','ENEMY']){
+  const list=fighters.filter(a=>a.side===side);if(!list.length)continue;
+  let lane=wrap.querySelector('.summon-lane.'+side.toLowerCase());if(!lane){lane=el('section','summon-lane '+side.toLowerCase());lane.append(el('h3','',side==='ALLY'?'아군 소환체':'적 소환체'));wrap.append(lane);}
+  for(const a of list){const row=battleActorRow(a,chosen,0);row.classList.add('battle-summon','summon-actor');row.dataset.summonId=a.id;lane.append(row);}
+ }
+};
+function objectiveLine(b){
+ const line=el('div','battle-objective-strip');
+ if(b.liyueObjective){const o=b.liyueObjective;line.append(el('strong','','진법 HP '+Math.max(0,Math.round(o.hp))+' / '+o.maxHp),el('span','','충전 '+o.charge+' / '+o.target));}
+ else if(b.fieldObjective){const o=b.fieldObjective;line.append(el('strong','',o.kind==='DESTROY'?'구조물 파괴':o.kind==='BATTLE'?'습격자 제압':'보호 대상 '+o.integrity+' / '+o.maxIntegrity));}
+ else if(b.fieldBoss){const hint=game.fieldBossView?.()?.hint||b.fieldBoss.telegraph?.name;if(hint)line.append(el('span','',hint));}
+ if(b.enemyReserve?.length)line.append(el('small','','증원 대기 '+b.enemyReserve.length));
+ if(b.terrain!==null&&b.terrain!==undefined)line.append(el('small','','지형 '+b.terrain+' / '+(b.terrainMax||4)));
+ return line.childElementCount?line:null;
 }
-const previousRender=render;render=function(){observer?.disconnect();previousRender();renderTutorial();layout();};
-const previousPlay=GameEffects.play;GameEffects.play=function(...args){const result=previousPlay.apply(this,args);fitPlayback();return result;};
-window.addEventListener('resize',fit,{passive:true});window.visualViewport?.addEventListener('resize',fit,{passive:true});
+function layout(){
+ const p=document.querySelector('.combat-panel');document.body.classList.toggle('battle-screen',!!p);if(!p)return;
+ const b=game.s.runtime;if(!b)return;const head=p.querySelector('.battle-heading');
+ // Count-based enemy grid (CSS reads data-count): the cards share the width the fighters really need.
+ const enemies=p.querySelector('.shell-enemies');if(enemies){const n=enemies.querySelectorAll(':scope > .combatant-row').length;enemies.dataset.count=String(n);enemies.dataset.rows=n>4?'2':'1';enemies.style.setProperty('--cols',String(n>4?Math.ceil(n/2):Math.max(1,n)));}
+ const allies=p.querySelector('.shell-allies');if(allies)allies.dataset.count=String(allies.querySelectorAll(':scope > .combatant-row').length);
+ const line=objectiveLine(b);if(line&&head)head.after(line);
+ const details=p.querySelector('.battle-details');if(details&&head){details.hidden=true;const rec=button('기록',()=>{const box=details.querySelector('.log').cloneNode(true);showModal('전투 기록',box);});rec.className='battle-head-button';rec.title='전투 기록 '+b.log.length+'건';head.append(rec);}
+ const info=p.querySelector('.shell-battle-info');if(info&&head){info.hidden=true;const n=info.querySelector('.shell-battle-info-body')?.childElementCount||0;const more=button('전투 정보'+(n?' '+n:''),()=>{const box=info.querySelector('.shell-battle-info-body').cloneNode(true);showModal('전투 정보',box);});more.className='battle-head-button';head.append(more);}
+}
+const previousRender=render;render=function(){previousRender();renderTutorial();layout();};
 })();

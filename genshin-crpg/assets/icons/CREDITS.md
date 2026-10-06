@@ -233,3 +233,13 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 - 캐릭터와 특성 아이콘의 짝: Project Amber API https://gi.yatta.moe/api/v2/kr/avatar 의 캐릭터별 `talent` 목록. 캐릭터는 운명의 자리 아이콘 파일 이름에 든 원작 내부 이름(예: 엠버 = Ambor)으로 대조했다(45명 전원 일치).
 
 이 자료는 자산의 출처 · 일치 여부를 기록한다. 재배포 사용 조건 전체를 검토했다거나 모든 원신 자산에 제한이 없다고 주장하지 않는다.
+# v0.15.24 튜토리얼 말풍선 얼굴
+
+사용자 승인(2026-10-06)으로 튜토리얼 안내 말풍선에 쓰는 원작 동그란 얼굴 아이콘 2개를 받았다. 원본 PNG(256×256)를 192px 이내 WebP(q90)로 바꿨고, `content/genshin-ui-assets.json`의 `avatars`에 출처 · 지문을 적었다.
+
+| 파일 | 인물 | 원본 크기 → WebP |
+|---|---|---|
+| `ui/UI_AvatarIcon_Paimon.webp` | 페이몬 | 66,663 → 15,214바이트 |
+| `ui/UI_AvatarIcon_Ambor.webp` | 엠버 | 62,853 → 13,900바이트 |
+
+출처: https://enka.network/ui/ (`original_game_texture_mirror`). 이 자료는 자산의 출처 · 일치 여부를 기록한다. 재배포 사용 조건 전체를 검토했다거나 모든 원신 자산에 제한이 없다고 주장하지 않는다.

@@ -269,8 +269,12 @@ function battleOrder(p,b){
   // (speed and a little luck), so the playback rebuilds this list when a new round begins (app_battle_fx_v01521.js);
   // a boss that acts more than once a turn says so.
   order.dataset.round=String(b.round);order.title='라운드마다 속도(와 약간의 운)로 순서를 새로 정합니다.';
-  for(const [i,x]of b.order.entries()){const a=b.actors.find(t=>t.id===x.id);if(!a||a.hp<=0)continue;const entry=el('li',(a.side==='ALLY'?'ally':'enemy')+(i===b.cursor?' current':''));entry.dataset.actorId=a.id;entry.append(el('small','',String(i+1)),el('span','',combatDisplayName(b,a)));battleOrderTimes(entry,a);if(i===b.cursor&&!b.opening?.state?.includes('PENDING'))entry.append(el('small','','현재'));order.append(entry);}p.append(order);
+  for(const [i,x]of b.order.entries()){const a=b.actors.find(t=>t.id===x.id);if(!a||a.hp<=0)continue;const entry=el('li',(a.side==='ALLY'?'ally':'enemy')+(i===b.cursor?' current':''));entry.dataset.actorId=a.id;entry.append(el('small','',String(i+1)));battleOrderFace(entry,a);entry.append(el('span','',combatDisplayName(b,a)));battleOrderTimes(entry,a);if(i===b.cursor&&!b.opening?.state?.includes('PENDING'))entry.append(el('small','','현재'));order.append(entry);}p.append(order);
 }
+// 0.15.24 (docs/handoffs/UI_INSTALLED_LANDSCAPE_KO.md: 「행동 순서를 1·2·3 숫자만으로 표시하지 않는다 … 그림과 이름으로」): each turn shows
+// the fighter's face beside the name (the position number stays for screen readers).
+// A fighter without a picture (the isekai hero) gets the same ✦ mark as on the party card.
+function battleOrderFace(entry,a){if(!showArt)return;const src=combatPortraitSrc(a);if(src){const img=el('img','order-face');img.src=src;img.alt='';img.decoding='async';entry.append(img);}else entry.append(el('span','order-face mark','✦'));entry.classList.add('with-face');}
 function battleOrderTimes(entry,a){const n=game.fieldBossActions?.(a)||1;if(n<=1)return;const tag=el('small','order-times','×'+n);tag.title='한 차례에 '+n+'번 행동합니다';entry.append(tag);}
 function combatPortraitSrc(a){if(a.side==='ENEMY')return enemyPortraitFor(a.source);const profile=game.rows('04_CHAR_DB').find(r=>r[1]===a.source);return profile&&portraitFor(profile[0]);}
 // 0.15.18 (user: 「전투할때 누구 차례인지 잘 모르겠으니까 그것도 좀 잘 보이게 해주고」): whose turn it is, in big letters over

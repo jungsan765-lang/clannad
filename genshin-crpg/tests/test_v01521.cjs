@@ -62,7 +62,8 @@ check('text that has a picture becomes the picture',()=>{
 // 맞아? 그냥 딴데서 에셋을 가져오는게 맞지 않아?」 and the choice 「전부 공식 아이콘으로」).
 const ui=JSON.parse(fs.readFileSync(path.join(root,'content/genshin-ui-assets.json'),'utf8')),icons=src('app_icons_v01521.js');
 check('the original game\'s element, weapon and talent pictures are listed with their sources and hashes',()=>{
- const crypto=require('node:crypto'),all=[...Object.values(ui.elements),...Object.values(ui.weaponTypes),...Object.values(ui.normalAttacks),...Object.values(ui.skills).flatMap(s=>[s.na,s.e,s.q])];
+ // 0.15.24 adds the tutorial speakers' round avatars (ui.avatars) to the same folder.
+ const crypto=require('node:crypto'),all=[...Object.values(ui.elements),...Object.values(ui.weaponTypes),...Object.values(ui.normalAttacks),...Object.values(ui.skills).flatMap(s=>[s.na,s.e,s.q]),...Object.values(ui.avatars||{})];
  assert.deepEqual(Object.keys(ui.elements),['pyro','hydro','cryo','electro','anemo','geo','dendro']);
  assert.deepEqual(Object.keys(ui.weaponTypes),['한손검','양손검','장병기','활','법구']);assert.deepEqual(Object.keys(ui.normalAttacks),['한손검','양손검','장병기','활','법구']);
  assert.deepEqual(Object.keys(ui.skills).sort(),Object.keys(ui.constellations).sort(),'every character with constellations has its talents');

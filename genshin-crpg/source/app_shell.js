@@ -73,8 +73,11 @@ const RELABEL={'소리 시작':'소리 켜기','게임 시작 화면':'시작 �
 const relabel=s=>RELABEL[String(s||'').trim()]||String(s||'').trim();
 const HOTKEYS={t:'STORY',l:'PARTY',c:'STATUS',b:'INVENTORY',j:'QUEST',o:'RELATIONS'};
 const MENU_SCREENS=new Set(['PARTY','STATUS','INVENTORY','QUEST','RELATIONS','SYSTEM','SHOP','CRAFT','COOKING','MARKET','RECRUITMENT','ABYSS','ENHANCE','FORGE']);
-const isMobile=()=>matchMedia('(max-width: 760px)').matches;
-try{matchMedia('(max-width: 760px)').addEventListener('change',()=>{if(game){S.restoreView=S.lastView?.screen===screenKey()?S.lastView:captureView();render();}});}catch{}
+// 0.15.24: an upright phone only. A phone held sideways (at most 500 px tall) uses the wide screens with the short layout
+// of landscape_v01524.css, so turning the phone redraws the screen too.
+const MOBILE_QUERY='(max-width: 760px) and (min-height: 501px)';
+const isMobile=()=>matchMedia(MOBILE_QUERY).matches;
+try{matchMedia(MOBILE_QUERY).addEventListener('change',()=>{if(game){S.restoreView=S.lastView?.screen===screenKey()?S.lastView:captureView();render();}});}catch{}
 // Custom windows share the same input boundary as a native modal. Visibility must not depend on body.teyvat.
 function topOverlay(){
  const native=document.querySelector('dialog[open]');if(native)return native;

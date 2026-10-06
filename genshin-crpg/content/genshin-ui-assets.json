@@ -6114,5 +6114,36 @@
    },
    "amber": "10000007-geo"
   }
- }
+ },
+ "avatars": {
+  "PAIMON": {
+   "file": "UI_AvatarIcon_Paimon",
+   "path": "assets/icons/ui/UI_AvatarIcon_Paimon.webp",
+   "source": "https://enka.network/ui/UI_AvatarIcon_Paimon.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "737943d4e64109090f79953eb4e985f542c9529e1a3bfc680af4a0a212346fcb",
+   "source_sha256": "fd72c44c53979a5e8d6c5461e5244d713a6e9f8efb85bb18c85b73238d530dc4",
+   "source_dimensions": [
+    256,
+    256
+   ],
+   "bytes": 15214,
+   "label": "페이몬"
+  },
+  "MOND_AMBER": {
+   "file": "UI_AvatarIcon_Ambor",
+   "path": "assets/icons/ui/UI_AvatarIcon_Ambor.webp",
+   "source": "https://enka.network/ui/UI_AvatarIcon_Ambor.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "9312c1a7a19520002011ae089f6b22d594483ee0dc0fa26484fc04b8acb5e686",
+   "source_sha256": "069b0001d64a0a5d45d4c07fe7226acf2c345318a14b69f75246cb0503b9cc89",
+   "source_dimensions": [
+    256,
+    256
+   ],
+   "bytes": 13900,
+   "label": "엠버"
+  }
+ },
+ "avatarsNote": "0.15.24: 튜토리얼 말풍선의 페이몬 · 엠버 얼굴(사용자 승인 2026-10-06). 원본 PNG는 enka.network/ui."
 }

@@ -151,6 +151,14 @@ reward=function(p){
  if(r.defeatPenalty&&game.s.defeatPenalty&&!p.querySelector('.recovery-card')){const box=el('section','card defeat-card');box.append(el('p','defeat-penalty','패배로 모라를 '+fmt(r.defeatPenalty.mora)+' 잃었습니다.'));countdown(box,'다시 도전하거나 회복할 수 있을 때까지');p.insertBefore(box,anchor);}
 };
 function tick(){const left=game?.defeatLockRemaining?.()||0;for(const n of document.querySelectorAll('[data-defeat-countdown]'))n.textContent=Math.ceil(left/1000)+'초';if(left<=0){clearInterval(lockTimer);lockTimer=null;render();}}
+// 0.15.24 (user: 「이것도 시간이 안맞아」): a locked action's note printed on screen (「…정신을 차리는 중입니다 · N초 남음」) counts
+// down with the same clock as the HUD instead of keeping the second it was drawn at.
+const DEFEAT_NOTE=/정신을 차리는 중입니다 · (\d+초) 남음/;
+function liveDefeatNotes(){
+ const root=document.getElementById('root');if(!root)return;const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),hits=[];
+ while(walker.nextNode()){const n=walker.currentNode;if(DEFEAT_NOTE.test(n.nodeValue)&&!n.parentElement?.closest('[data-defeat-countdown]'))hits.push(n);}
+ for(const n of hits){const m=DEFEAT_NOTE.exec(n.nodeValue),start=m.index+m[0].indexOf(m[1]),mid=n.splitText(start);mid.splitText(m[1].length);const t=el('strong','',m[1]);t.dataset.defeatCountdown='1';mid.replaceWith(t);}
+}
 const gearRender=render;
-render=function(){gearRender();if(!lockTimer&&(game?.defeatLockRemaining?.()||0)>0)lockTimer=setInterval(tick,1000);};
+render=function(){gearRender();if((game?.defeatLockRemaining?.()||0)>0){liveDefeatNotes();if(!lockTimer)lockTimer=setInterval(tick,1000);}};
 })();
