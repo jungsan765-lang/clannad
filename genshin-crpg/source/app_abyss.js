@@ -33,7 +33,7 @@ function breakPanel(p,v){
 function floorCard(f,v){
  const d=el('details','card abyss-floor'),s=el('summary');
  s.append(el('strong','',f.floor+'층 · '+f.name),el('span','abyss-badges',[f.cleared?'정복 '+f.best+'라운드':'',f.claimed?'보상 수령':f.cleared?'보상 대기':''].filter(Boolean).join(' · ')));
- d.append(s,el('p','muted','권장 Lv. '+f.level+(f.floor>=10?' · 파티 전원 Lv. 20 필요':'')),roomList(f.rooms,v.active?.floor===f.floor?v.active.chamber:0),el('p','abyss-reward','첫 정복 보상: '+f.reward.text));
+ d.append(s,el('p','muted','권장 Lv. '+f.level+(f.floor>=10?' · 파티 전원 Lv. 60 필요':'')),roomList(f.rooms,v.active?.floor===f.floor?v.active.chamber:0),el('p','abyss-reward','첫 정복 보상: '+f.reward.text));
  if(!v.active){const b=button(f.cleared?'다시 도전':'입장',async()=>{document.getElementById('modal').close();await act('ABYSS_ENTER',{floor:f.floor});},!!f.reason,!f.cleared);b.title=f.reason;d.append(b);if(f.reason)d.append(el('small','muted',f.reason));}
  if(f.owed)d.append(el('p','abyss-owed','지난 시즌에 정복한 층입니다. 첫 정복 보상을 아직 받지 않았습니다.'));
  if((f.cleared||f.owed)&&!f.claimed&&!v.active){

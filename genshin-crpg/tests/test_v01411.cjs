@@ -7,7 +7,7 @@ const assert=require('node:assert/strict'),path=require('path'),{fs,root,fresh,c
 const results=[],src=f=>fs.readFileSync(path.join(root,'source',f),'utf8'),json=f=>JSON.parse(fs.readFileSync(path.join(root,f),'utf8'));
 function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evidence:evidence??null});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 const plain=x=>JSON.parse(JSON.stringify(x));
-const party=(g,ids)=>{for(const [i,id]of ids.entries()){g.unlockCharacter(id);g.action('PARTY',{char:id,slot:i+2});}return g;};
+const party=(g,ids)=>{for(const [i,id]of ids.entries()){g.adminApply({op:'recruit',char:id});g.action('PARTY',{char:id,slot:i+2});}return g;};
 const admin=g=>{g.serverAdmin=true;return g;};
 function battle(g){g.startBattle('EG_MOND_HILI_PATROL','EXPLICIT');if(g.s.runtime?.opening?.state==='PENDING')g.beginCombat(g.s.runtime.id);return g.s.runtime;}
 const actor=(g,id)=>g.s.runtime.actors.find(a=>a.source===id&&a.side==='ALLY');
@@ -122,7 +122,7 @@ check('exchanges: fates for 원석, a chosen 운명의 별 by rarity, boss mater
  assert.match(g.premiumOfferReason({offer:'FATE_ACQUAINT'}),/원석이\(가\) 부족/);
  assert.equal(g.premiumStellaPrice('LIYUE_ZHONGLI'),40);assert.equal(g.premiumStellaPrice('MOND_AMBER'),25);assert.equal(g.premiumStellaPrice('PLAYER_CUSTOM'),40);
  assert.equal(g.premiumOwns('MOND_AMBER'),false,'a companion who has not joined is not offered');assert(!g.premiumFighters().includes('MOND_AMBER'));
- g.unlockCharacter('MOND_AMBER');assert(g.premiumFighters().includes('MOND_AMBER'));
+ g.adminApply({op:'recruit',char:'MOND_AMBER'});assert(g.premiumFighters().includes('MOND_AMBER'));
  g.action('OPERATOR_DEBUG',{op:'premium',currency:'STARGLITTER',value:25});g.action('PREMIUM_BUY',{offer:'GLITTER_STELLA',char:'MOND_AMBER'});assert.equal(g.itemCount('STELLA_MOND_AMBER'),1);
  g.giveItem('MAT_FB_HURRICANE_SEED',40);for(let i=0;i<5;i++)g.action('PREMIUM_BUY',{offer:'BOSS_GLITTER',item:'MAT_FB_HURRICANE_SEED'});
  assert.equal(g.premiumBalance().STARGLITTER,5);assert.match(g.premiumOfferReason({offer:'BOSS_GLITTER',item:'MAT_FB_HURRICANE_SEED'}),/이번 주에는/);
@@ -154,7 +154,7 @@ check('기원: rates and pity, the weekly banner, the 10-wish companion, weapons
  const x=h.wishGrant({kind:'weapon',rarity:3,id:'EQ_SWORD_HARBINGER'});assert.equal(x.converted,true);assert.equal(h.s.inventory.length,bag);assert.equal(h.premiumBalance().STARDUST-dust,15,'the copy comes as its 15 alone (0.15.1)');
  const y=h.wishGrant({kind:'weapon',rarity:4,id:'EQ_BOW_FAVONIUS'});assert(y.slot&&h.s.inventory.some(i=>i.slot===y.slot));
  // A companion whose six 운명의 자리 are covered gives 스타라이트 instead of another 별.
- h.s.constellations={LIYUE_ZHONGLI:6};const z=h.wishGrant({kind:'char',rarity:5,id:'LIYUE_ZHONGLI'});assert.equal(z.stella,false);assert.equal(z.glitter,25);
+ h.adminApply({op:'recruit',char:'LIYUE_ZHONGLI'});h.s.constellations={LIYUE_ZHONGLI:6};const z=h.wishGrant({kind:'char',rarity:5,id:'LIYUE_ZHONGLI'});assert.equal(z.stella,false);assert.equal(z.glitter,25);
  // The record is checked; the draw mixes in the server's action time.
  g.validateSave(plain(g.s));assert.throws(()=>g.validateSave({...plain(g.s),wish:{...plain(g.s.wish),EVENT:{...plain(g.s.wish.EVENT),pity5:95}}}),/기원 기록/);
  const save=plain(g.s),a1=new c.CRPGRuntime.Runtime(g.db,plain(save)),a2=new c.CRPGRuntime.Runtime(g.db,plain(save));a1.actionStartedAt=1790000000000;a2.actionStartedAt=1790000000777;

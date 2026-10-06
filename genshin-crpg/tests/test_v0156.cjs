@@ -6,7 +6,7 @@ const assert=require('node:assert/strict'),{R,db,fresh,c,fs,path,vm,root}=requir
 const results=[];
 function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evidence:evidence??null});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 const src=f=>fs.readFileSync(path.join(root,'source',f),'utf8');
-const party=(g,ids)=>{for(const [i,id]of ids.entries()){g.unlockCharacter(id);g.action('PARTY',{char:id,slot:i+2});}return g;};
+const party=(g,ids)=>{for(const [i,id]of ids.entries()){g.adminApply({op:'recruit',char:id});g.action('PARTY',{char:id,slot:i+2});}return g;};
 function battle(g){g.startBattle('EG_MOND_HILI_PATROL','EXPLICIT');if(g.s.runtime?.opening?.state==='PENDING')g.beginCombat(g.s.runtime.id);return g.s.runtime;}
 const actor=(g,id)=>g.s.runtime.actors.find(a=>a.source===id&&a.side==='ALLY');
 

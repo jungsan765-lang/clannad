@@ -77,7 +77,7 @@ check('the nine field bosses wear the pictures the user supplied',()=>{
 check('「해당 단계 재도전」 after a lost boss step: the button steps back through the entrance on this map',()=>{
  const exp=src('app_experience.js');assert(exp.includes("const go=async()=>{if(reenter&&!game.s.placeVisit){await act('PLACE_ENTER',{place,mode:'BOSS'});if(!game.s.placeVisit)return;}await act('BOSS_CONTINUE');};"));
  const FB=c.CRPGRuntime.fieldBosses,boss='FB_ANEMO_HYPOSTASIS',route=FB.route(boss),place='BOSS:'+route;
- const r=fresh(FB.bosses[boss].map);Object.assign(r.s.global,{SCREEN_MODE:'LOCATION',PLAYER_LEVEL_STATE:20});r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;
+ const r=fresh(FB.bosses[boss].map);Object.assign(r.s.global,{SCREEN_MODE:'LOCATION',PLAYER_LEVEL_STATE:20});r.s.ascensions.PLAYER_CUSTOM=1;r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;
  r.action('PLACE_ENTER',{place,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT'});assert(r.s.runtime);
  r.action('COMBAT_FORFEIT',{reason:'SESSION_RESUME'});
  assert.equal(r.s.bossRouteProgress.phase,'RETRY');assert.equal(r.s.placeVisit,null,'the defeat ended the visit');

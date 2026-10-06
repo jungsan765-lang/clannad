@@ -165,7 +165,7 @@ await check('a stat line on a narrow phone breaks between stats, never inside �
 
 await check('the phone’s 「지도 열기」 always lands on 「이동」; a browser without the offline pack says nothing; 「정보」 has the operator’s note',async()=>{
  const shell=src('app_shell.js');
- assert(shell.includes("if(S.tabs.LOCATION_MOBILE==='move')S.tabs[mkey]='move';else if(!S.tabs[mkey])S.tabs[mkey]='here';"),'openMap wins over the tab shown before');
+ assert(shell.includes('mobile-main-map')&&shell.includes('mobile-map-toggle'),'the map is always visible and can expand');
  assert(!src('app_revision.js').includes('오프라인 기능을 시작하지 못했습니다'),'no English browser error over the title');
  assert(shell.includes('원신(HoYoverse) 고객센터에 미리 문의했고, 공식 가이드라인과 비영리 범위 안에서 판단해 활동하라는 안내를 받았습니다. 공식 허가나 제휴를 뜻하지 않으며'));
  assert.match(shell,/p\.append\(head,note,guide,link\)/);

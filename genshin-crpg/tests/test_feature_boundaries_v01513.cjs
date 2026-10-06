@@ -78,7 +78,7 @@ check('crafting: cooking and alchemy use their own facility, reject invalid batc
 check('lodging: both regional inns enforce funds, quantity and locality, then heal active members once across midnight',()=>{
  for(const [map,place,stock]of [['MAP_MOND_CITY','EVT_SCHEDULE_MRC_MOND_INN','STK_INN_MOND'],['MAP_LIYUE_HARBOR','EVT_SCHEDULE_MRC_LIYUE_INN','STK_INN_LIYUE']]){
   let r=world(map);if(map==='MAP_LIYUE_HARBOR')r.s.flags.FLAG_CRPG_LIYUE_HARBOR_VISITED=true;
-  r.unlockCharacter('MOND_AMBER');r.unlockCharacter('MOND_LISA');r.action('PARTY',{char:'MOND_AMBER',slot:2});
+  r.adminApply({op:'recruit',char:'MOND_AMBER'});r.adminApply({op:'recruit',char:'MOND_LISA'});r.action('PARTY',{char:'MOND_AMBER',slot:2});
   rejected(r,'BUY',{stock,quantity:1});r.s.global.WORLD_TIME='20:30';enter(r,place,'SHOP');
   const price=r.row('19_SHOP_STOCK_DB',stock)[5];r.s.global.MORA=price-1;rejected(r,'BUY',{stock,quantity:1},/부족/);r.s.global.MORA=price;
   for(const quantity of [0,-1,2])rejected(r,'BUY',{stock,quantity});
@@ -112,7 +112,7 @@ check('premium exchanges: weekly and monthly caps reset only at the exact Korean
 });
 
 check('constellations and wishes: missing ownership, maximum rank, insufficient currency and reload never consume twice',()=>{
- let r=world();r.s.global.STARGLITTER=1000;rejected(r,'PREMIUM_BUY',{offer:'GLITTER_STELLA',char:'MOND_AMBER'},/동료/);r.unlockCharacter('MOND_AMBER');
+ let r=world();r.s.global.STARGLITTER=1000;rejected(r,'PREMIUM_BUY',{offer:'GLITTER_STELLA',char:'MOND_AMBER'},/동료/);r.adminApply({op:'recruit',char:'MOND_AMBER'});
  for(let i=0;i<6;i++)once(r,intent(r,'PREMIUM_BUY',{offer:'GLITTER_STELLA',char:'MOND_AMBER'}));rejected(r,'PREMIUM_BUY',{offer:'GLITTER_STELLA',char:'MOND_AMBER'},/더 이상/);
  for(let i=0;i<6;i++)once(r,intent(r,'CONSTELLATION_UNLOCK',{char:'MOND_AMBER'}));r=reload(r);assert.equal(r.constellationLevel('MOND_AMBER'),6);rejected(r,'CONSTELLATION_UNLOCK',{char:'MOND_AMBER'},/모두/);
  r=world();r.s.global.INTERTWINED_FATE=9;rejected(r,'WISH',{banner:'EVENT',count:10},/부족/);r.s.global.INTERTWINED_FATE=10;
@@ -145,7 +145,7 @@ check('hourly challenge: entry gates, restored defeat, old-hour victory and next
  r.serverAdmin=true;r.action('OPERATOR_DEBUG',{op:'level',value:10});r.actionStartedAt=hour*3600000+3599999;
  enter(r,'BOSS:'+route,'BOSS');rejected(r,'BOSS_ROUTE',{route,entry:'DIRECT',tier:5},/Lv/);r.action('BOSS_ROUTE',{route,entry:'DIRECT',tier:2});r=reload(r);
  const before=r.itemCount('MAT_CHAR_EXP_HERO');r.actionStartedAt++;const result=settleOpening(r,true);
- assert(result.leyLine.claimed);assert.equal(r.itemCount('MAT_CHAR_EXP_HERO')-before,1);assert.equal(r.s.leyLine.REVELATION,hour);assert.equal(r.leyLineClaimed('REVELATION'),false);
+ assert(result.leyLine.claimed);assert.equal(r.itemCount('MAT_CHAR_EXP_HERO')-before,4);assert.equal(r.s.leyLine.REVELATION,hour);assert.equal(r.leyLineClaimed('REVELATION'),false);
  r=reload(r);assert.equal(r.leyLineClaimed('REVELATION'),false);site=r.leyLineStatus().blossoms.find(x=>x.region==='몬드'&&x.kind==='REVELATION');r.s.global.CURRENT_MAP_ID=site.map;r.s.placeVisit=null;
  assert.equal(r.placeBossReason(site.route,'DIRECT'),'');enter(r,'BOSS:'+site.route,'BOSS');r.action('BOSS_ROUTE',{route:site.route,entry:'DIRECT',tier:2});r=reload(r);settleOpening(r,false);
  assert.equal(r.s.leyLine.REVELATION,hour,'a defeat never claims the next window');r=reload(r);advance(60001);r.action('RECOVER');r.s.global.CURRENT_MAP_ID=site.map;assert.equal(r.placeBossReason(site.route,'DIRECT'),'');

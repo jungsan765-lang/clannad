@@ -69,6 +69,7 @@
    let last=-1;for(const c of a.controls){if(!Number.isInteger(c.at)||c.at<0||c.at>Math.min(a.elapsed,job.duration)||c.at<last||typeof c.hold!=='boolean')fail('FISH_INPUT','낚시 조작 시간이 올바르지 않습니다.');last=c.at;}
    const result=root.CRPGFishing.simulate(job,a.controls,a.elapsed);caught=result.caught;if(!caught&&a.elapsed<job.duration)fail('FISH_WAIT','낚싯줄의 장력을 맞춰 물고기를 끌어올려 주세요.');
   }else if(elapsed<job.duration)fail('LIFE_WAIT','작업 게이지가 찰 때까지 기다려 주세요.');
+  if(job.minigame){if(a.elapsed!==job.duration||a.elapsed>elapsed+100)fail('LIFE_WAIT','작업을 마칠 때까지 기다려 주세요.');caught=api.lifeMinigame.simulate(job,a.inputs,a.elapsed).caught;}
   const items={};if(caught){const pool=this.lifePool(job.kind,job.map),draw=()=>{let n=this.random()*pool.reduce((sum,x)=>sum+x.weight,0);for(const d of pool){n-=d.weight;if(n<0)return d;}return pool[pool.length-1];};
    const d=draw();items[d.item]=d.min+Math.floor(this.random()*(d.max-d.min+1));
    if(job.kind==='GATHER'){const other=draw();items[other.item]=(items[other.item]||0)+other.min+Math.floor(this.random()*(other.max-other.min+1));}

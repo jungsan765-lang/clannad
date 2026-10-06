@@ -99,7 +99,7 @@ function abyss(box){
  if(!v){box.append(mk('p','hb-note','나선비경 기록이 없습니다.'));return;}
  const cleared=v.floors.filter(f=>f.cleared).length;
  const mark=v.markName||'나선 각인';
- const s=section('나선비경 기록','층마다 방 세 개를 연달아 공략합니다. 층을 정복하면 함께 싸운 동료에게 「'+mark+'」이 새겨지고, 각인된 동료는 도전을 전부 초기화하기 전까지 다른 층에 나설 수 없습니다(주인공은 새겨지지 않습니다). 10~12층은 파티 전원이 Lv. 20이어야 도전할 수 있습니다.');
+ const s=section('나선비경 기록','층마다 방 세 개를 연달아 공략합니다. 층을 정복하면 함께 싸운 동료에게 「'+mark+'」이 새겨지고, 각인된 동료는 도전을 전부 초기화하기 전까지 다른 층에 나설 수 없습니다(주인공은 새겨지지 않습니다). 10~12층은 파티 전원이 Lv. 60이어야 도전할 수 있습니다.');
  const hero=mk('div','hb-grid');hero.append(stat('클리어한 층',cleared+' / '+v.floors.length,cleared?'최고 기록을 갱신해 보세요.':'1층부터 도전할 수 있습니다.'));
  if(v.active)hero.append(stat('진행 중',v.active.floor+'층 '+v.active.chamber+'번 방',v.active.floorName||''));
  // 0.14.15: the running season, and the 나선 문장 (one per season at floor 10+).

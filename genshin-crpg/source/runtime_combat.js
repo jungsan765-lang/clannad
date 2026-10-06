@@ -115,7 +115,7 @@ P.executeCard=function(a,c,target,branch){const b=this.s.runtime,allies=b.actors
  case'MOND_FISCHL_Q':many(1.1,'ELECTRO',4);this.addField('OZ',a,99,{name:'오즈',asset:'summon_oz.webp',summonTurns:2,summonTicks:0});break;
  case'MOND_RAZOR_E':if(branch==='HOLD'){many(1.4,'ELECTRO',3);if((a.razorSigils||0)>=2)a.cooldowns.MOND_RAZOR_Q=Math.max(0,(a.cooldowns.MOND_RAZOR_Q||0)-1);a.razorSigils=0;}else {if(ts[0])damage(ts[0],.9,'ELECTRO');a.razorSigils=Math.min(3,(a.razorSigils||0)+1);}break;
  case'MOND_RAZOR_Q':many(.8,'ELECTRO',3);this.addCombatStatus(a,'THUNDERWOLF',2,{mods:{spd:{flat:10}}});break;
- case'MOND_BENNETT_Q':this.addField('ENCOURAGEMENT',a,2);for(const t of allies)if((t.tags||[]).includes('[불]'))this.addCombatStatus(t,'ENCOURAGEMENT_ATK',2,{mods:{atk:{pct:20}}});for(const t of enemies)this.addCombatStatus(t,'ENCOURAGEMENT_TAG',2,{removeTags:['[광계]']});break;
+ case'MOND_BENNETT_Q':{const field=this.addField('ENCOURAGEMENT',a,2,{attack:a.baseAttack||a.atk,sourceMaxHp:a.maxHp,c1:this.constellationLevel(a.source)>=1});for(const t of allies){this.addCombatStatus(t,'ENCOURAGEMENT_TAG',2,{actor:a.id,fieldId:field.id});this.setAura(t,'불');}break;}
  case'MOND_DAHLIA_Q':many(.9,'HYDRO',Infinity);b.hymn=b.hymn||{};b.hymn[a.side]=2;for(const t of allies)this.shield(t,a.maxHp*.16,c.id,2,{hymnSide:a.side,initialValue:round(a.maxHp*.16)});break;
  case'MOND_KLEE_Q':this.addField('BOMBARD',a,2);break;
  case'MOND_MONA_Q':for(const t of ts.slice(0,4)){if(!t.nativeAura)t.aura='물';this.addCombatStatus(t,'ILLUSORY_BUBBLE',1,{actor:a.id});}break;

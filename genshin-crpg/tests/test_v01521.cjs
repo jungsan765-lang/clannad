@@ -135,7 +135,7 @@ check('buffs and debuffs are chips with what they do; the formation is the battl
  // Harmful statuses the table does not type must not look like buffs (docs/STATUS_EFFECTS_KO.md).
  const kinds=plain(vm.runInContext("battleStatusList({statuses:['LIFTED','BOSS_CONTROL','LIYUE_PETRIFY','QUICKEN','RIPTIDE','HAZARD_CORRODED','CONS_VENTI_6','CHILI_BUFF'].map(id=>({id,rounds:1}))}).map(x=>x.kind)",ctx));
  assert.deepEqual(kinds,['hold','hold','hold','element','debuff','debuff','debuff','buff']);
- assert(exp.includes("const row=button('',()=>battleStatusDetails(a,list));row.className='status-chips';"),'a press lists them');
+ assert(exp.includes("const row=button('',()=>battleStatusDetails(a,row._statusList));row._statusList=list;row.className='status-chips';"),'a press lists them');
  assert(exp.includes('const fm=battleFormationTag(b);if(fm)head.append(fm);')&&exp.includes("box.append(el('p','','편성에서 고른 진형입니다. 이 전투에서 파티 전원에게 적용됩니다.'),el('p','',text));"),'the formation explains itself');
  for(const k of ['buff','debuff','hold','element','role'])assert(css.includes('.st-chip.'+k+'{'),k);
 });
@@ -155,8 +155,8 @@ check('blows grow with what was won for the fighter: the weapon\'s grade and enh
 });
 
 check('약점 간파 shows on the target the moment it lands: a debuff chip and a red sight',()=>{
- assert(fx.includes("const APPLIES={PLAYER_ISEKAI_E:()=>({id:'STATUS_ISEKAI_EXPOSED',rounds:Number(game.protagonistConfig?.()?.isekai?.e?.rounds)||2})};"));
- assert(fx.includes("if(applies&&t.targetId!==frame.actorId&&(t.events||[]).some(e=>e.kind==='damage'||e.kind==='guard')){liveStatus(node,applies);if(p&&motion)lockOn(layer,p);}"));
+ assert(src('runtime_status_v01522.js').includes('statusApplied:JSON.parse(JSON.stringify(result))'),'only successful, actual status applications enter playback');
+ assert(fx.includes('if(e.statusApplied){liveStatus(node,e.statusApplied)'));assert(!fx.includes('APPLIES['),'removed prediction table must have no live references');
  assert(fx.includes("['STATUS_ISEKAI_EXPOSED','exposed']"),'the sight stays while it lasts');
  assert(src('runtime_combat_v0148.js').includes("statuses.push([EXPOSED,'약점 간파','디버프','파티에게 받는 피해가 늘어난다(일반 '"),'listed as a 디버프 with what it does');
  assert(css.includes('.combat-panel .status-fx>.st-exposed::before{')&&css.includes('.combat-light.wfx-sight{')&&css.includes('.st-chip.fresh{'));

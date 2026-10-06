@@ -171,11 +171,12 @@ function strike(layer,style,p,o,pw){
 // 0.15.21 (user: 「약점 간파 됐으면 디버프창에 디버프로 적혀있어야 되는거 아니야?」): the playback has no 「a debuff landed」 entry,
 // only the blow, so the card showed 약점 간파 only once the whole playback was over. Its debuff chip and red sight now
 // appear on the target as the blow lands; a sight locks on as well.
-const APPLIES={PLAYER_ISEKAI_E:()=>({id:'STATUS_ISEKAI_EXPOSED',rounds:Number(game.protagonistConfig?.()?.isekai?.e?.rounds)||2})};
+
 function liveStatus(node,status){
  if(!node||typeof battleStatusList!=='function'||typeof statusChip!=='function')return;
  const entry=battleStatusList({statuses:[status]})[0],copy=node.querySelector('.combatant-copy');if(!entry||!copy)return;
- let row=copy.querySelector(':scope > .status-chips');if(!row){row=document.createElement('button');row.type='button';row.className='status-chips';copy.append(row);}
+ let row=copy.querySelector(':scope > .status-chips');if(!row){row=document.createElement('button');row.type='button';row.className='status-chips';row._statusList=[];row.addEventListener('click',()=>battleStatusDetails({name:node.querySelector('strong')?.textContent||'전투원'},row._statusList));copy.append(row);}
+ row._statusList=(row._statusList||[]).filter(s=>s.id!==status.id);row._statusList.push(entry);
  row.querySelector('.st-chip[data-id="'+status.id+'"]')?.remove();const chip=statusChip(entry);chip.classList.add('fresh');row.append(chip);
  const cls=STATUS.find(([id])=>id===status.id)?.[1];if(cls){let fx=node.querySelector(':scope > .status-fx');if(!fx){fx=span('status-fx');node.append(fx);}if(!fx.querySelector('.st-'+cls))fx.append(span('st st-'+cls));}
 }
@@ -185,12 +186,12 @@ function onFrame(frame,effects){
  const layer=effects?.layerNode?.();if(!layer)return;const motion=!reduced();
  const auxiliary=frame.periodic||(frame.events||[]).every(e=>(e.sourceKind&&e.sourceKind!=='JOINT_ATTACK')||e.kind==='reaction');
  const actorNode=effects.actorNode?.(frame.actorId),from=CombatFX.point(actorNode),style=auxiliary?null:attackStyle(frame),burst=/_Q$/.test(String(frame.cardId||''));
- const pw=powerOf(actorOf(frame.actorId)),applies=!auxiliary&&APPLIES[frame.cardId]?.();
+ const pw=powerOf(actorOf(frame.actorId));
  let blows=0;
  for(const t of frame.targets||[]){
   const node=effects.actorNode?.(t.targetId),p=CombatFX.point(node);
   if(Number(t.damage)>0||Number(t.absorbed)>0)flash(node,'damage');else if(Number(t.heal)>0)flash(node,'heal');
-  if(applies&&t.targetId!==frame.actorId&&(t.events||[]).some(e=>e.kind==='damage'||e.kind==='guard')){liveStatus(node,applies);if(p&&motion)lockOn(layer,p);}
+  for(const e of t.events||[])if(e.statusApplied){liveStatus(node,e.statusApplied);if(e.statusApplied.id==='STATUS_ISEKAI_EXPOSED'&&p&&motion)lockOn(layer,p);}
   const before=Number(t.shieldBefore),after=Number(t.shieldAfter);
   if(node&&Number.isFinite(before)&&Number.isFinite(after)){
    const fx=node.querySelector(':scope > .shield-fx'),kind=fx?.className.match(/shield-(\w+)/)?.[1]||'plain';

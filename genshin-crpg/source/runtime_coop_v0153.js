@@ -63,8 +63,8 @@ P.coopSnapshot=function(char){
  const probe={...a,side:'ALLY',source:char,...(player?{protagonist:{version:1,route,skillIds}}:{})};
  const cards=[...new Set(this.actorCards(probe).map(c=>c.id))];
  const talents=this.talentLevels?this.talentLevels(char):{na:1,e:1,q:1};
- const snap={version:VERSION,char,name:text(this.coopCharName(char),24)||'모험가',level:Math.max(1,Math.min(20,Number(a.level)||1)),
-  actor:{...Object.fromEntries(STAT_KEYS.map(k=>[k,k==='maxHp'?Math.max(1,Math.round(Number(a.maxHp)||1)):num(a[k])])),range:String(a.range||'근접').slice(0,8),tags:(a.tags||[]).map(String).slice(0,10)},
+ const snap={version:VERSION,char,name:text(this.coopCharName(char),24)||'모험가',level:Math.max(1,Math.min(60,Number(a.level)||1)),
+  actor:{...Object.fromEntries(STAT_KEYS.map(k=>[k,k==='maxHp'?Math.max(1,Math.round(Number(a.maxHp)||1)):num(a[k])])),baseAttack:num(a.baseAttack??a.atk),range:String(a.range||'근접').slice(0,8),tags:(a.tags||[]).map(String).slice(0,10)},
   cards,skillIds,route:player?route:null,tactic:TACTICS.includes(this.s.party?.find(p=>p.active&&p.source===char)?.tactic)?this.s.party.find(p=>p.active&&p.source===char).tactic:'균형',
   traits:this.actorTraits?copy(this.actorTraits(char)):{},cons:{key:this.constellationKey?.(char)||null,level:this.constellationLevel?.(char)||0},
   talents:{na:Number(talents.na)||1,e:Number(talents.e)||1,q:Number(talents.q)||1},resonance:num(this.resonanceChance?.(char)||0)};
@@ -82,11 +82,11 @@ P.coopCheckSnapshot=function(s){
  if(!s||typeof s!=='object'||s.version!==VERSION)return null;
  const char=String(s.char||'');if(!(char===PLAYER||this.tables['07_CHAR_DB']?.has(char)))return null;
  const x=s.actor;if(!x||typeof x!=='object'||!STAT_KEYS.every(k=>Number.isFinite(x[k])&&Math.abs(x[k])<1e7)||!(x.maxHp>=1))return null;
- const level=Number(s.level);if(!Number.isInteger(level)||level<1||level>20)return null;
+ const level=Number(s.level);if(!Number.isInteger(level)||level<1||level>60)return null;
  const table=this.tables['08_SKILL_CARD_DB'],cards=(Array.isArray(s.cards)?s.cards:[]).filter(id=>typeof id==='string'&&table?.has(id)).slice(0,24);
  const skillIds=char===PLAYER?(Array.isArray(s.skillIds)?s.skillIds:[]).filter(id=>typeof id==='string'&&table?.has(id)).slice(0,6):[];
  const lv=Number(s.cons?.level),tal=k=>{const v=Number(s.talents?.[k]);return Number.isInteger(v)&&v>=1&&v<=13?v:1;};
- return {version:VERSION,char,name:text(s.name,24)||'모험가',level,actor:{...Object.fromEntries(STAT_KEYS.map(k=>[k,k==='maxHp'?Math.round(x.maxHp):num(x[k])])),range:text(x.range,8)||'근접',tags:(Array.isArray(x.tags)?x.tags:[]).map(t=>text(t,12)).filter(Boolean).slice(0,10)},
+ return {version:VERSION,char,name:text(s.name,24)||'모험가',level,actor:{...Object.fromEntries(STAT_KEYS.map(k=>[k,k==='maxHp'?Math.round(x.maxHp):num(x[k])])),baseAttack:Number.isFinite(x.baseAttack)&&x.baseAttack>=0&&x.baseAttack<1e7?num(x.baseAttack):num(x.atk),range:text(x.range,8)||'근접',tags:(Array.isArray(x.tags)?x.tags:[]).map(t=>text(t,12)).filter(Boolean).slice(0,10)},
   cards,skillIds,route:char===PLAYER&&['ROUTE_TRAVELER','ROUTE_ISEKAI'].includes(s.route)?s.route:null,tactic:TACTICS.includes(s.tactic)?s.tactic:'균형',traits:cleanTraits(s.traits),
   cons:{key:typeof s.cons?.key==='string'&&s.cons.key.length<=40?s.cons.key:null,level:Number.isInteger(lv)&&lv>=0&&lv<=6?lv:0},talents:{na:tal('na'),e:tal('e'),q:tal('q')},
   resonance:Math.max(0,Math.min(.9,Number(s.resonance)||0))};

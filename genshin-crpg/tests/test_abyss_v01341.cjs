@@ -14,7 +14,7 @@ for(const f of CFG.floors)for(const room of f.rooms)assert.doesNotMatch(room.hin
 assert(!JSON.stringify(CFG).includes('딱지'),'the floor mark has its own name');
 assert.throws(()=>fixture(6).action('ABYSS_ENTER',{floor:1}),/Lv\. 10/);
 assert.throws(()=>fresh().action('ABYSS_ENTER',{floor:1}),/머스크 암초/);
-{const r=fixture(19);r.action('OPERATOR_DEBUG',{op:'abyss_unlock',value:10});assert.match(r.abyssFloorReason(10),/Lv\. 20/);assert.equal(r.abyssFloorReason(9),'');}
+{const r=fixture(59);r.action('OPERATOR_DEBUG',{op:'abyss_unlock',value:10});assert.match(r.abyssFloorReason(10),/Lv\. 60/);assert.equal(r.abyssFloorReason(9),'');}
 
 // Every floor is solvable through native combat with its reference party, and each clear marks the companions.
 for(let f=1;f<=12;f++){
@@ -44,9 +44,13 @@ for(let f=1;f<=12;f++){
 }
 
 // Gates: from floor 4 the party needs real builds, and from floor 8 the room's own approach.
-for(const [f,o,why] of [[4,{lv:15,enh:7,art:0},'Lv.15 with +7 gear'],[6,{lv:18,enh:9,art:0},'no artifacts'],[8,{gear:{},swapBack:0,team:['MOND_EULA','LIYUE_XIAO','LIYUE_NINGGUANG']},'no fixed or lingering damage'],[10,{enh:9},'weapons below +10']]){
+for(const [f,o,why] of [[4,{lv:25,enh:7,art:0},'Lv.25 with +7 gear'],[8,{gear:{},swapBack:0,team:['MOND_EULA','LIYUE_XIAO','LIYUE_NINGGUANG']},'no fixed or lingering damage'],[10,{enh:9},'weapons below +10']]){
  const {r,s,breakHook}=buildSetup(f,o);r.action('OPERATOR_DEBUG',{op:'abyss_unlock',value:f});const out=runFloor(r,f,{food:s.food||{},breakHook});
  assert(!out.cleared,'floor '+f+' must not fall to '+why);report.push({floor:f,gate:why,rooms:out.rooms.map(({chamber,outcome,rounds})=>({chamber,outcome,rounds}))});
+}
+{ // Growth can compensate for an incomplete build; it must still cost more combat time.
+ const {r,s,breakHook}=buildSetup(6,{lv:35,enh:9,art:0});r.action('OPERATOR_DEBUG',{op:'abyss_unlock',value:6});const out=runFloor(r,6,{food:s.food||{},breakHook}),prepared=report.find(x=>x.floor===6&&!x.gate);
+ assert(!out.cleared||out.rooms.reduce((n,x)=>n+x.rounds,0)>prepared.rooms.reduce((n,x)=>n+x.rounds,0),'the prepared build clears more efficiently');
 }
 { // Floor 8 has two answers: the leyline stake, or lingering reaction damage from a hydro + electro party.
  const {r,s}=buildSetup(8,{gear:{},swapBack:0});r.action('OPERATOR_DEBUG',{op:'abyss_unlock',value:8});assert(runFloor(r,8,{food:s.food||{}}).cleared);
@@ -86,12 +90,12 @@ for(const [f,o,why] of [[4,{lv:15,enh:7,art:0},'Lv.15 with +7 gear'],[6,{lv:18,e
  const {r}=buildSetup(1);r.action('OPERATOR_DEBUG',{op:'abyss_unlock',value:1});assert(runFloor(r,1).cleared);
  if(r.needsRecovery())r.action('RECOVER');r.action('MENU',{screen:'LOCATION'});r.action('OPERATOR_DEBUG',{op:'heal'});
  assert.match(r.abyssFloorReason(2),/나선 각인/);assert.equal(r.abyssFloorReason(1),'');
- for(const [i,id] of ['MOND_FISCHL','LIYUE_XINGQIU','MOND_DIONA'].entries()){r.unlockCharacter(id);r.action('PARTY_REPLACE',{char:id,slot:i+2});}
- r.action('OPERATOR_DEBUG',{op:'level',value:12});assert.equal(r.abyssFloorReason(2),'');
+ for(const [i,id] of ['MOND_FISCHL','LIYUE_XINGQIU','MOND_DIONA'].entries()){r.adminApply({op:'recruit',char:id});r.action('PARTY_REPLACE',{char:id,slot:i+2});}
+ r.action('OPERATOR_DEBUG',{op:'level',value:20});assert.equal(r.abyssFloorReason(2),'');
  r.action('ABYSS_RESET',{confirm:true});assert.deepEqual(plain(r.s.abyss.tags),{});assert.equal(r.s.abyss.run,2);
 }
 // Room rules. Each rule blocks ordinary hits until it is satisfied.
-function enter(f,chamber,team,lv=20){
+function enter(f,chamber,team,lv=CFG.floors[f-1].level){
  const r=fixture(lv,team||SETUPS[f].team,10);r.action('OPERATOR_DEBUG',{op:'abyss_unlock',value:f});r.s.abyss.active={floor:f,chamber,phase:'BREAK',party:r.abyssParty(),attempt:1,run:1,rounds:Array(chamber-1).fill(5)};
  r.action('ABYSS_ENTER',{floor:f});r.action('COMBAT_BEGIN');return r;
 }
@@ -113,7 +117,7 @@ const pair=r=>{const b=r.s.runtime;return [b.actors.find(x=>x.side==='ALLY'&&x.s
  const r=enter(8,3),[a,t]=pair(r),hp=t.hp;r.applyDamage(a,t,300,{critical:false});assert.equal(t.hp,hp);r.applyDamage(a,t,300,{critical:true});assert(t.hp<hp);
 }
 { // 5-1: allies below 100 accuracy always miss in the fog, shown as an ordinary miss.
- const r=enter(5,1,['MOND_DILUC','MOND_NOELLE','MOND_JEAN']),[a,t]=pair(r);assert(r.combatStat(a,'hit')<100);const hp=t.hp;assert.equal(r.damage(a,t,1,'PHYSICAL',{sureHit:true}),false);assert.equal(t.hp,hp);assert.equal(r.s.runtime.log.at(-1).text,undefined);
+ const r=enter(5,1,['MOND_DILUC','MOND_NOELLE','MOND_JEAN']),[a,t]=pair(r);a.hit=60;assert(r.combatStat(a,'hit')<100);const hp=t.hp;assert.equal(r.damage(a,t,1,'PHYSICAL',{sureHit:true}),false);assert.equal(t.hp,hp);assert.equal(r.s.runtime.log.at(-1).text,undefined);
 }
 { // 2-3: a lone fallen twin returns with half of its partner's HP.
  const r=enter(2,3,null,12),b=r.s.runtime,[x,y]=b.actors.filter(a=>a.side==='ENEMY');x.hp=0;y.hp=1000;b.abyss.settled=[];r.roundEnd();assert.equal(x.hp,500);
@@ -126,7 +130,7 @@ const pair=r=>{const b=r.s.runtime;return [b.actors.find(x=>x.side==='ALLY'&&x.s
  r.applyDamage(a,t,300,{});assert.equal(t.hp,hp);r.aiTurn(t,[]);assert.equal(pc.hp,pcHp,'the protagonist is spared before the barrier breaks');
  mates[1].hp=0;mates[2].hp=0;r.applyDamage(a,t,300,{});assert.equal(t.hp,hp-600);
 }
-{ // 12: the peak needs level 20, full +12 gear and artifacts of quality 90% or more with the right stats.
+{ // 12: the peak needs level 60, full +12 gear and artifacts of quality 90% or more with the right stats.
  const {r}=buildSetup(12);r.action('OPERATOR_DEBUG',{op:'abyss_unlock',value:12});r.action('ABYSS_ENTER',{floor:12});assert(r.abyssMasteryReady());
  const ar=r.s.inventory.find(x=>x.artifact&&x.equipped);ar.artifact.quality=899;assert(!r.abyssMasteryReady());ar.artifact.quality=999;
  const w=r.s.inventory.find(x=>x.equipped&&x.category==='WEAPON');w.enhance=11;assert(!r.abyssMasteryReady());

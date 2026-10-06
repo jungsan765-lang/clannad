@@ -9,7 +9,7 @@ function actionButton(label,type,params={},primary=false){
 }
 function xpMeter(parent,owner='PLAYER_CUSTOM'){
   const growth=game.growth(owner),box=el('div','xp-block');
-  if(growth.max)box.append(el('div','stat','Lv. 20 · 최대 레벨'));
+  if(growth.max)box.append(el('div','stat','Lv. '+growth.level+(growth.final?' · 최대 레벨':' · 돌파로 상한을 열어 주세요')));
   else {box.append(el('div','stat','경험치 '+growth.xp.toLocaleString()+' / '+growth.next.toLocaleString()));
     const bar=el('progress','xp-progress');bar.max=growth.next;bar.value=growth.xp;bar.setAttribute('aria-label','다음 레벨까지의 경험치');box.append(bar);}
   parent.append(box);
@@ -121,6 +121,7 @@ window.CRPG_APP={get game(){return game;},begin:(...a)=>begin(...a),act:(...a)=>
 // Boot runs after the formation and presentation modules have installed.
 // Player-facing status names cover runtime effects as well as database rows.
 const combatStatusNames={LIFTED:'띄워짐',LEVITATION:'부양',ANEMO_VULN:'바람 피해 취약',REACTION_BOOST:'반응 강화',BOSS_CONTROL:'행동 둔화',PHYS_VULN:'물리 피해 취약',ILLUSORY_BUBBLE:'포영',OMEN:'성이',QUICKEN:'활성',SKILL_COEFF:'스킬 강화',DILUC_INFUSION:'불 원소 부여',FALLBACK_DEFENSE:'피해 감소',NOELLE_SWEEP:'대청소',MIKA_SPEED:'속도 증가',HAWK_FEATHER:'매의 깃털',THUNDERWOLF:'늑대의 영혼',ENCOURAGEMENT_ATK:'공격력 격려',ENCOURAGEMENT_TAG:'격려',ROSARIA_NIGHT:'밤의 은혜',ROSARIA_BEHIND:'후방 치명타 증가',ROSARIA_CRIT_SHARE:'치명타 공유',EULA_GRIMHEART:'냉혹한 마음',EULA_CRYO_PHYSICAL_VULN:'얼음·물리 피해 취약',STATUS_ELECTROCHARGED:'감전',STATUS_BURN:'연소'};
+Object.assign(combatStatusNames,Object.fromEntries(Object.entries(CRPGRuntime.statusCatalog||{}).map(([id,v])=>[id,v.name])));
 const safeNameRevision=safeName;
 safeName=function(table,id,col=1){return table==='13_STATUS_EFFECT_DB'&&combatStatusNames[id]?combatStatusNames[id]:safeNameRevision(table,id,col);};
 const growthRevision=growthScreen;

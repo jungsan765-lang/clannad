@@ -3,7 +3,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
  point(id){return window.CRPGTerrainMap?.points[id]||null;},
  atlasFor(id){return this.point(id)?.[0]||({'몬드':'mond','리월':'liyue'})[game.tables['32_MAP_DB'].get(id)?.[1]]||null;},
  nearby(){return game.rows('47_MAP_EDGE_DB').filter(r=>r[1]===game.s.global.CURRENT_MAP_ID&&r[8]==='Y'&&r[11]==='ACTIVE'&&game.tables['32_MAP_DB'].has(r[2])).map((r,i)=>({row:r,id:r[2],number:i+1,reason:game.edgeReason(r),point:this.point(r[2])}));},
- risk(id){const m=game.tables['32_MAP_DB'].get(id);if(!m)return '';return m[12]==='Y'?'안전한 거점':m[4]==='BOSS'?'보스 도전 구역':Number(m[7])>0?'권장 Lv.'+m[6]+'–'+m[7]:'이동 구역';},
+ risk(id){const m=game.tables['32_MAP_DB'].get(id);if(!m)return '';return m[12]==='Y'?'안전한 거점':m[4]==='BOSS'?'보스 도전 구역':Number(m[7])>0?(m[6]===m[7]?'고정 Lv.'+m[6]:'권장 Lv.'+m[6]+'–'+m[7]):'이동 구역';},
  direction(id){const a=this.point(game.s.global.CURRENT_MAP_ID),b=this.point(id);if(!a||!b||a[0]!==b[0])return '지역 간 이동';const dx=b[1]-a[1],dy=b[2]-a[2];if(Math.hypot(dx,dy)<38)return '같은 구역 주변';return ['동쪽','남동쪽','남쪽','남서쪽','서쪽','북서쪽','북쪽','북동쪽'][(Math.round(Math.atan2(dy,dx)/(Math.PI/4))+8)%8];},
  choose(id){this.target=id;this.refresh();if(id&&window.innerWidth<=600){const dock=document.querySelector('.terrain-travel-dock'),b=dock?.getBoundingClientRect();if(b&&(b.top<0||b.bottom>window.innerHeight))dock.scrollIntoView({block:'nearest',behavior:'instant'});}},
  cameraMode(mode){this.camera={mode};this.view=mode;this.refresh();},

@@ -165,7 +165,7 @@ check('rewards: the guest\'s fighter gets the battle experience, the guest the M
  assert.equal(h.s.relations?.PROFILE_MOND_AMBER?.BOND_SCORE,amberBond,'the host\'s bond with Amber did not move for the guest\'s Amber');
  const g=guest();g.s.constellations={MOND_AMBER:2};const lv0=g.s.chars.MOND_AMBER.xp,mora0=g.s.global.MORA;
  const pay=g.coopApplyReward({battle:res.battleId,char:'MOND_AMBER',xp:c0.xp,mora:c0.mora,loot:{ORE_IRON:2},host:'방장'});
- assert.equal(pay.xp,c0.xp);assert.equal(g.s.global.MORA-mora0,c0.mora);assert.equal(pay.items.ORE_IRON,2);assert(g.s.chars.MOND_AMBER.xp!==lv0||g.s.chars.MOND_AMBER.level>10,'Amber grew');
+ assert.equal(pay.xp,c0.xp);assert.equal(g.s.global.MORA-mora0,c0.mora);assert.equal(pay.items.ORE_IRON,2);assert.equal(g.s.chars.MOND_AMBER.level,10);assert.equal(g.s.chars.MOND_AMBER.xp,0,'capped companion waits for ascension');
  const again=g.coopApplyReward({battle:res.battleId,char:'MOND_AMBER',xp:c0.xp,mora:c0.mora,loot:{ORE_IRON:2}});assert.equal(again.duplicate,true);assert.equal(g.s.global.MORA-mora0,c0.mora,'never twice');
  assert.equal(JSON.parse(g.serialize()).coop.received[res.battleId]>0,true,'the guest\'s save records it');
  // A lost fight: the host pays the defeat penalty, the result names no reward.

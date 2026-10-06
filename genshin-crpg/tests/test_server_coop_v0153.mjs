@@ -188,7 +188,7 @@ await check('the win pays every guest still in the fight into their own save, on
   const res=JSON.parse(rt(H).s.global.LAST_BATTLE_RESULT_JSON);assert.equal(res.battleId,FIRST);assert.equal(res.victory,true);
   assert.deepEqual(res.coop.guests.map(g=>g.owner).sort(),[G1.pid,G3.pid].sort(),'G2 left (G3 took that place)');
   const rows=store.db.prepare('SELECT * FROM coop_rewards WHERE battle_id=? ORDER BY account_id').all(FIRST);assert.equal(rows.length,2,'G1 and G3');assert(rows.every(r=>r.status==='PAID'));
-  assert.equal(rt(G1).s.global.MORA-before.g1.mora,res.coop.mora,'the battle Mora');const a=rt(G1).s.chars.MOND_AMBER;assert(a.level>before.g1.lv||a.xp===before.g1.xp+res.coop.xp,'the battle experience on the guest\'s Amber');
+  assert.equal(rt(G1).s.global.MORA-before.g1.mora,res.coop.mora,'the battle Mora');const a=rt(G1).s.chars.MOND_AMBER;assert.equal(a.level,10);assert.equal(a.xp,0,'level-10 cap stops guest XP until ascension');
   for(const [id,n] of Object.entries(res.coop.loot))assert(rt(G1).itemCount(id)>=n,'loot '+id);
   assert.equal(rt(G2).s.global.MORA,before.g2,'nothing for the one who left');assert(rt(G1).s.coop.received[FIRST]>0);
   const ev=await s1.wait(e=>e.type==='coop'&&e.kind==='reward');assert.equal(ev.rewards[0].battle,FIRST);assert.equal(ev.sync,true);
@@ -206,7 +206,7 @@ await check('the win pays every guest still in the fight into their own save, on
 });
 
 await check('field bosses count against the guest\'s own 12-hour limit: with none left the guest gets experience only, and the result says why',async()=>{
- await edit(G1,r=>{r.s.fieldBossWindow={window:r.fieldBossWindow(),wins:3};});await room(G1);await room(G3);
+ await edit(G1,r=>{r.adminApply({op:'level',target:'MOND_AMBER',value:11});r.s.fieldBossWindow={window:r.fieldBossWindow(),wins:3};});await room(G1);await room(G3);
  const FB=globalThis.CRPGRuntime.fieldBosses,boss='FB_CRYO_REGISVINE',route=FB.route(boss);
  await edit(H,[{op:'teleport',map:FB.bosses[boss].map}]);
  assert.equal((await act(H,'PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'})).status,200);const go=await act(H,'BOSS_ROUTE',{route,entry:'DIRECT'});assert.equal(go.status,200,JSON.stringify(go.json).slice(0,300));

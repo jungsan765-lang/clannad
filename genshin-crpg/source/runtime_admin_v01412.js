@@ -68,10 +68,10 @@ P.adminApply=function(op={}){
    this.s.inventory=this.s.inventory.filter(x=>x!==inv);if(wasPlayer){this.recalculate();g.PLAYER_HP_CURRENT=Math.min(g.PLAYER_HP_CURRENT,g.PLAYER_HP_MAX);}
    return name+(inv.enhance?' +'+inv.enhance:'')+' 회수';}
   case 'level':{
-   const value=whole(op.value,1,20,'레벨');if(this.s.runtime)fail('전투 중에는 레벨을 바꿀 수 없습니다.');
+   const value=whole(op.value,1,60,'레벨');if(this.s.runtime)fail('전투 중에는 레벨을 바꿀 수 없습니다.');
    if(op.target==='ALL'){this.adminViaOperator({op:'level',value});return '파티 전원 Lv.'+value;}
-   if(op.target===PLAYER){g.PLAYER_LEVEL_STATE=value;g.PLAYER_XP=0;this.recalculate();g.PLAYER_HP_CURRENT=g.PLAYER_HP_MAX;return this.adminCharName(PLAYER)+' Lv.'+value;}
-   const c=this.s.chars?.[op.target];if(!c||!this.tables['07_CHAR_DB']?.has(op.target))fail('캐릭터를 찾을 수 없습니다.');c.level=value;c.xp=0;c.hp=this.character(op.target).maxHp;return this.adminCharName(op.target)+' Lv.'+value;}
+   if(op.target===PLAYER){g.PLAYER_LEVEL_STATE=value;(this.s.ascensions??={})[PLAYER]=api.growthV01522.phaseFor(value);g.PLAYER_XP_STATE=0;this.recalculate();g.PLAYER_HP_CURRENT=g.PLAYER_HP_MAX;return this.adminCharName(PLAYER)+' Lv.'+value;}
+   const c=this.s.chars?.[op.target];if(!c||!this.tables['07_CHAR_DB']?.has(op.target))fail('캐릭터를 찾을 수 없습니다.');c.level=value;(this.s.ascensions??={})[op.target]=api.growthV01522.phaseFor(value);c.xp=0;c.hp=this.character(op.target).maxHp;return this.adminCharName(op.target)+' Lv.'+value;}
   case 'heal':this.adminViaOperator({op:'heal'});return '파티 전원 HP 회복';
   case 'teleport':{
    const map=this.tables['32_MAP_DB']?.get(op.map);if(!map)fail('지역을 골라 주세요.');this.adminViaOperator({op:'travel',map:op.map});return map[2]+'(으)로 이동 · 자유행동';}

@@ -21,9 +21,7 @@ function press(key,overlay,screen='STORY'){
  vm.runInNewContext(keyCode,box);listener({key,target:{tagName:'BUTTON',closest:()=>b},preventDefault(){}});return {clicks,menus};
 }
 test('a trade/modal window blocks hidden story choices and navigation shortcuts',()=>{assert.equal(press('1',{}).clicks,0);assert.equal(press('b',{},'LOCATION').menus,0);assert.equal(press('1',null).clicks,1);assert.equal(press('b',null,'LOCATION').menus,1);});
-const tutorial=source('app_tutorial.js'),present=tutorial.slice(tutorial.indexOf('function tutorialPresentation('),tutorial.indexOf('function renderTutorial('));
-function lesson({locked='',inventory=[],unusable=false}={}){const box={game:{s:{party:[],inventory},actionReason:()=>locked,equipmentPreview:()=>({reason:unusable?'장착 레벨 부족':''})},itemCategory:i=>i.category};vm.runInNewContext(present,box);return box.tutorialPresentation({id:'equip',title:'직접 무기를 장착해 보세요',target:'.gear-slot',screen:'STATUS'});}
-test('equipment lesson waits for both story permission and a usable weapon',()=>{assert.equal(lesson({locked:'대화와 선택을 마친 뒤 사용할 수 있습니다.'}).screen,null);assert.equal(lesson().target,null);const inventory=[{equip:'TEST',category:'WEAPON',slot:'EQI_1'}];assert.equal(lesson({inventory,unusable:true}).screen,null);assert.equal(lesson({inventory}).screen,'STATUS');});
+test('the scenario guide waits during story and requires actual successful movement',()=>{const {fresh}=require('./helpers_v011.cjs'),r=fresh();assert.equal(r.tutorialDirective().id,'move');r.action('MENU',{screen:'STATUS'});assert.equal(r.tutorialDirective().id,'move');assert(source('app_tutorial.js').includes("['STORY','CUTIN','STORY_LOCKED']"));});
 // The actual scroll restoration selects the new layout's scroll container, not the detached old one.
 test('breakpoint restore follows the same recruitment card into a different scroll container',()=>{
  const newHost={parentElement:null,scrollTop:0,scrollHeight:2000,clientHeight:500,getBoundingClientRect:()=>({top:100})};const card={dataset:{viewKey:'recruit:NPC_XIANGLING'},parentElement:newHost,getBoundingClientRect:()=>({top:600})};

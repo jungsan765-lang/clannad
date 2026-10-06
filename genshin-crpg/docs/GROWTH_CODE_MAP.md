@@ -1,3 +1,13 @@
+# 0.15.22 implemented code map
+
+Current authoritative rules: `runtime_growth_v01522.js` (levels, ascension, talents, domains, XP/books, receipts), `runtime_growth_data_v01522.js` (fixed regional/boss levels), `runtime_roster_v01522.js` (ownership/migration/rewards), `runtime_tutorial_v01522.js` (movement first, real action completion), `runtime_battle_capacity_v01522.js` (8+3+3 and reserves), `runtime_life_v01522.js` (input replay), `runtime_status_v01522.js` (status events/Bennett/native aura).
+
+UI: `app_growth_v01522.js`, `app_tutorial.js`, `app_life_v01522.js`, `app_battle_layout_v01522.js`, `growth_v01522.css`; map placement is in `app_shell.js`. New actions are allowlisted in `server/game-core.mjs`. Load order is in `source/index.html`; packaging list is in `tools/build.py`. New regressions are `tests/test_growth{,_online,_balance}_v01522.*`; browser inputs/layout: `tools/check_ui_v01522.cjs`.
+
+The following survey is historical. Its “not implemented / cap20” statements describe 0.15.21, not the new runtime. Current numbers, gates and deferred features: `GROWTH_BALANCE_V01522_KO.md`.
+
+---
+
 # Growth, recruitment and affection — code map (survey of 2026-10-06, at 0.15.20/0.15.21)
 
 Implementer notes for the overhaul designed in `docs/DESIGN_GROWTH_KO.md` (the decisions live there; this file only says

@@ -20,8 +20,8 @@ const fail=(c,m)=>{throw new api.RuleError(c,m);},copy=x=>JSON.parse(JSON.string
 const BASE={BOSS_TARTAGLIA:[1.5,2.9,1.15],BOSS_ISK_L03_GOLDEN:[10,6.5,1.8],BOSS_AZHDAHA:[1.8,1.45,1.1],MON_GEOVISHAP_HATCHLING:[.55,1,1],MON_HUSK_BOW:[1.7,1,1]};
 // The repeat challenges, on top of the story numbers: level, protagonist level to enter, health/attack/defence.
 const FARM={
- LIYUE_TARTAGLIA_FARM:{kind:'TARTAGLIA',boss:'BOSS_TARTAGLIA',level:19,minLevel:17,mult:[1.6,1.52,1.3]},
- LIYUE_AZHDAHA_FARM:{kind:'AZHDAHA',boss:'BOSS_AZHDAHA',level:20,minLevel:18,mult:[2,1.66,1.18]}
+ LIYUE_TARTAGLIA_FARM:{kind:'TARTAGLIA',boss:'BOSS_TARTAGLIA',level:50,minLevel:45,mult:[1.6,1.52,1.3]},
+ LIYUE_AZHDAHA_FARM:{kind:'AZHDAHA',boss:'BOSS_AZHDAHA',level:60,minLevel:55,mult:[2,1.66,1.18]}
 };
 api.balanceV0152={base:copy(BASE),farm:copy(FARM)};
 const old=Object.fromEntries(['startBattle','liyueArtifactFarmReason','validateSave'].map(k=>[k,P[k]]));

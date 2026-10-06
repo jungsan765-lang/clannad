@@ -31,7 +31,7 @@ const invalid=await f.action('WAIT',{minutes:10},{uiActions:['LOCATION','SHOP'],
 assert.equal(invalid.status,409);assert.equal(f.read().state,beforeInvalid.state);assert.equal(f.read().revision,beforeInvalid.revision,'invalid navigation cannot partially commit');
 const malformed=await f.action('WAIT',{minutes:10},{uiActions:['OPERATOR_DEBUG']});assert.equal(malformed.status,400);assert.equal(f.read().state,beforeInvalid.state);
 console.log('PASS ordered local menu context, inaccessible service rejection and atomic rollback');
-navigation.action('PLACE_LEAVE');navigation.unlockCharacter('MOND_KAEYA');
+navigation.action('PLACE_LEAVE');navigation.adminApply({op:'recruit',char:'MOND_KAEYA'});
 const weapon=navigation.giveEquipment('EQ_SWORD_HARBINGER');f.seed(navigation.s);
 const party=await f.action('PARTY',{char:'MOND_KAEYA',slot:2},{uiActions:['PARTY'],uiScreen:'PARTY'});
 assert.equal(party.status,200,party.error);assert(JSON.parse(f.read().state).party.some(p=>p.source==='MOND_KAEYA'&&p.active));

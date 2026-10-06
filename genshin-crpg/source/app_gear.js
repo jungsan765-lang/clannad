@@ -80,13 +80,13 @@ function bookDialog(id,owner){
  const preview=el('p','book-preview'),shortcuts=el('div','row'),use=button('사용',()=>{const quantity=Number(input.value);if(!Number.isSafeInteger(quantity)||quantity<1||quantity>max)return;document.getElementById('modal').close();act('USE_ITEM',{item:id,quantity,owner});},busy,true);
  const refresh=()=>{const n=Number(input.value),valid=Number.isSafeInteger(n)&&n>=1&&n<=max;use.disabled=busy||!valid;preview.textContent=valid?'경험치 +'+fmt(n*BOOKS[id])+' · '+n+'개 사용':'1~'+max+'개 사이의 정수를 입력하세요.';};
  for(const [text,n]of [['1개',1],['5개',Math.min(5,max)],['10개',Math.min(10,max)],['최대',max]])shortcuts.append(button(text,()=>{input.value=String(n);refresh();}));
- input.oninput=refresh;box.append(shortcuts,preview,el('small','muted','최대 레벨에 필요한 수량까지만 사용합니다. 마지막 책의 남는 경험치는 사라집니다.'),use);refresh();showModal('경험치 책 일괄 사용',box);
+ input.oninput=refresh;box.append(shortcuts,preview,el('small','muted','현재 돌파 상한에 필요한 수량까지만 사용합니다. 마지막 책의 남는 경험치는 사라집니다.'),use);refresh();showModal('경험치 책 일괄 사용',box);
 }
 function books(p){
- const owners=game.activePartyActors().map(x=>x.id),rows=Object.keys(BOOKS).filter(id=>game.itemCount(id));if(!rows.length)return;
+ const owners=game.premiumFighters(),rows=Object.keys(BOOKS).filter(id=>game.itemCount(id));if(!rows.length)return;
  const box=el('section','gear-books');box.append(el('h2','','경험치 책'));
  for(const id of rows){const row=el('div','gear-book');row.append(el('strong','',safeName('14_ITEM_DB',id)+' · '+game.itemCount(id)+'개'),el('small','muted','1개당 경험치 '+fmt(BOOKS[id])));
-  for(const owner of owners){const g=game.growth(owner),b=button(g.name+' · 수량 선택',()=>bookDialog(id,owner),busy||g.max);if(g.max)b.title='최대 레벨입니다.';row.append(b);}box.append(row);}
+  for(const owner of owners){const g=game.growth(owner),b=button(g.name+' · 수량 선택',()=>bookDialog(id,owner),busy||g.max);if(g.max)b.title='현재 돌파 상한입니다.';row.append(b);}box.append(row);}
  p.append(box);
 }
 // Native popovers occupy the top layer, including above an equipment picker dialog.

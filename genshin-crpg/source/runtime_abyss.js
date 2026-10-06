@@ -87,6 +87,8 @@ const ROOM_HP=[.8,.9,1],ROOM_ATK=[.9,.95,1],ELEMENT_KO={PYRO:'불',HYDRO:'물',C
 // wardens, so a mixed party stands where it stood and an all-5★ party keeps only part of its new margin.
 // Floor 10 stays as it was: it is already the tightest damage race, and its reference party clears it only with a meal.
 const POWER={hp:1.07,atk:1.05},powerOf=f=>f===10?{hp:1,atk:1}:POWER;
+// 0.15.22: level ranges and explicit room tuning, independent of party size or average level.
+for(const [i,f]of FLOORS.entries()){const prior=f.level,l=[15,20,25,30,35,40,45,50,55,60,60,60][i],p=[10,20,30,40,50,55,60].findIndex(x=>x>=l),hp=1+.13*(l-1)+.002*(l-1)**2,ad=1+.12*(l-1)+.003*(l-1)**2;f.level=l;f.hp=Math.round(f.hp*(1+Math.max(0,l-20)*.04)*(1+p*.10)*[1.2,1.2,1.6,1,1.3,1.3,1.2,1.5,1.8,1.5,2.2,3][i]);f.atk=Math.round(f.atk*hp/(1+.04*(prior-1))*(1+p*.10)*Math.sqrt(ad)/2);f.def=Math.round(f.def*ad/(1+.025*(prior-1)));}
 // 0.14.12 (user): Inazuma gear from floor 9 on; floors 1–8 pay Primogems instead, 1,600 for all eight.
 const PRIMOGEM_TOTAL=1600;
 api.abyssConfig={season:'MONTHLY',version:VERSION,markName:MARK,rewards:INAZUMA.slice(),floors:cp(FLOORS)};
@@ -155,8 +157,8 @@ P.abyssFloorReason=function(floor){
   return hpOf(this,'PLAYER_CUSTOM')>0?'':'주인공이 쓰러져 더 나아갈 수 없습니다.';
  }
  const levelOf=id=>id==='PLAYER_CUSTOM'?this.s.global.PLAYER_LEVEL_STATE:this.s.chars[id]?.level;
- if(party.some(id=>levelOf(id)<10))return '나선비경은 파티 전원 Lv. 10부터 입장할 수 있습니다.';
- if(floor>=10&&party.some(id=>levelOf(id)<20))return '10층부터는 파티 전원이 Lv. 20이어야 입장할 수 있습니다.';
+ if(party.some(id=>levelOf(id)<Math.max(10,f.level-5)))return '이 층은 파티 전원 Lv. '+Math.max(10,f.level-5)+'부터 입장할 수 있습니다.';
+ if(floor>=10&&party.some(id=>levelOf(id)<60))return '10층부터는 파티 전원이 Lv. 60이어야 입장할 수 있습니다.';
  if(floor>1&&!s.clears[floor-1])return '앞선 층을 먼저 정복해야 합니다.';
  if(party.length!==4)return '주인공과 동료 세 명을 편성해 주세요.';
  if(party.some(id=>hpOf(this,id)<=0))return '전투불능 파티원을 회복해 주세요.';
@@ -218,7 +220,7 @@ P.abyssMasteryReady=function(){
  return party.every(a=>{
   const gear=this.s.inventory.filter(i=>i.equipped&&i.owner===a.source),art=gear.find(i=>i.artifact);
   const stats=art?this.artifactStats(art):{};
-  return a.level===20&&['WEAPON','ARMOR','ACCESSORY'].every(c=>gear.some(i=>i.category===c&&i.enhance===12&&i.enhancementCap===12))&&art?.artifact.quality>=900&&art.artifact.level===5&&(a.source==='LIYUE_ZHONGLI'?stats.MAX_HP>=200&&stats.DEF>=20:a.source==='MOND_JEAN'?stats.ATK>=25&&stats.MAX_HP>=100:stats.ATK>=35&&(stats.CRIT||0)>=2);
+  return a.level===60&&['WEAPON','ARMOR','ACCESSORY'].every(c=>gear.some(i=>i.category===c&&i.enhance===12&&i.enhancementCap===12))&&art?.artifact.quality>=900&&art.artifact.level===5&&(a.source==='LIYUE_ZHONGLI'?stats.MAX_HP>=200&&stats.DEF>=20:a.source==='MOND_JEAN'?stats.ATK>=25&&stats.MAX_HP>=100:stats.ATK>=35&&(stats.CRIT||0)>=2);
  });
 };
 /* Returns why an ally's hit does nothing to a warden, or '' when the room's rule is satisfied. */

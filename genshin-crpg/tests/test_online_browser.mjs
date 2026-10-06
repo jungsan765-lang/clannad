@@ -12,6 +12,7 @@ await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.
 const fixture=onlineFixture();await fixture.start();
 const browser=await chromium.launch({headless:true,executablePath:process.env.CRPG_CHROMIUM_EXECUTABLE||undefined,args:['--no-sandbox']}),page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[],calls=[];
 page.on('pageerror',e=>errors.push(e.message));
+page.on('console',m=>{if(m.type()==='warning'&&m.text().startsWith('battle fx'))errors.push(m.text());});
 let delay=0,drops=0,arrivalDelay=0;
 await page.route('https://genshin-crpg-online.jungsan765.workers.dev/**',async route=>{
  const req=route.request(),body=req.postDataJSON(),path=new URL(req.url()).pathname;
@@ -146,14 +147,14 @@ try{
  fixture.seed(free().s);await start();
  // Dedicated test fixture installs a server battle response using the real sync path, without simulating a reconnect.
  fixture.seed(battle.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
- assert.equal(await page.locator('#tutorial-tour').count(),0,'the free-play guide must not cover a battle');
+ assert.equal(await page.locator('.content > #tutorial-tour').count(),0,'the free-play guide must not cover a battle');assert.equal(await page.locator('.combat-panel > #tutorial-tour.battle-lesson').count(),1,'the current battle lesson stays in its reserved board row');
  delay=1800;await page.getByRole('button',{name:'전투 시작',exact:true}).click();await page.waitForTimeout(250);assert(await page.locator('.action-save-cover').isVisible());await idle();delay=0;await same('combat begin');
  assert.equal(await page.evaluate(()=>game.combatActor().id),'PLAYER_CUSTOM');
  const guard=page.locator('.battle-cards button').filter({hasText:'방어'}).first();if(await guard.count())await guard.click();
  delay=1800;await page.getByRole('button',{name:'선택한 행동 실행',exact:true}).click();await page.waitForTimeout(750);assert(await page.evaluate(()=>[...CombatFX.animations].some(a=>a.playState==='running')),'preparation stays animated while waiting for the authoritative result');assert.equal(await page.locator('.combat-playback').count(),0,'unconfirmed damage must not play');await page.screenshot({path:resolve(evidence,'combat-pending.png')});await page.waitForSelector('.combat-playback');delay=0;
  await page.waitForFunction(()=>document.querySelector('.playback-outcomes')?.textContent.includes('→'));
  await page.getByRole('button',{name:'일시정지',exact:true}).click();await page.waitForTimeout(150);
- assert.equal(await page.locator('.battle-command').evaluate(n=>getComputedStyle(n).visibility),'hidden','duplicate progress strip must not protrude behind the replay dock');
+ assert.equal(await page.locator('.battle-command').evaluate(n=>getComputedStyle(n).visibility),'hidden','duplicate progress strip must not protrude behind the replay dock');assert(await page.locator('.combat-playback').evaluate(n=>{const r=n.getBoundingClientRect(),c=document.querySelector('.battle-command').getBoundingClientRect();return Math.abs(r.top-c.top)<2&&Math.abs(r.left-c.left)<2&&r.bottom<=c.bottom+2&&r.right<=c.right+2;}),'playback controls occupy the reserved command area');
  assert(await page.getByRole('button',{name:'계속 재생',exact:true}).isVisible());assert.equal(await page.getByRole('button',{name:'결과 바로 보기',exact:true}).count(),0,'no battle skip in the playback (0.15.17)');
  const during=await page.evaluate(()=>({outcome:document.querySelector('.playback-outcomes').textContent,player:document.querySelector('[data-actor-id="PLAYER_CUSTOM"] .stat')?.textContent}));
  const transition=during.outcome.match(/(?:HP|체력) (\d+) → (\d+)/);assert(transition,'real playback must display the acknowledged HP transition');assert(during.player.includes(transition[2]),'HP must already update during playback, before skipping or final render');results.push({playbackHP:during});

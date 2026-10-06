@@ -110,7 +110,7 @@ P.analyzeEnemyLineup=function(b){
 };
 P.applyEnemyTiers=function(b){
  const risk=this.enemyTierRisk(b),map=this.tables['32_MAP_DB'].get(this.s.global.CURRENT_MAP_ID),allies=b.actors.filter(a=>a.side==='ALLY');
- const party=allies.length?allies.reduce((n,a)=>n+(Number(a.level)||1),0)/allies.length:1,over=Math.max(0,Math.round(party-(Number(map?.[7])||party)));
+ const party=allies.length?allies.reduce((n,a)=>n+(Number(a.level)||1),0)/allies.length:1,over=0;
  const c=CONFIG.chance,enemies=b.actors.filter(a=>a.side==='ENEMY');
  const chance=(spec)=>Math.min(spec.max,spec.perRisk*risk+spec.perOver*over);
  const state={version:1,risk,over,promoted:[],danger:null,lineup:null};

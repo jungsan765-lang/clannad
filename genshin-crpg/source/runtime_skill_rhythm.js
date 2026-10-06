@@ -13,7 +13,7 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.skillRhythmVersion)retur
 const copy=x=>JSON.parse(JSON.stringify(x));
 // [E, Q] rhythm in the character's own turns.
 const RHYTHM={
- MOND_ALBEDO:[2,3],MOND_BARBARA:[4,5],MOND_BENNETT:[2,4],MOND_VENTI:[2,4],MOND_DIONA:[2,5],MOND_DAHLIA:[3,4],MOND_DILUC:[3,3],
+ MOND_ALBEDO:[2,3],MOND_BARBARA:[4,6],MOND_BENNETT:[2,5],MOND_VENTI:[2,4],MOND_DIONA:[2,5],MOND_DAHLIA:[3,4],MOND_DILUC:[3,3],
  MOND_AMBER:[3,3],MOND_JEAN:[2,5],MOND_KAEYA:[2,4],MOND_KLEE:[3,4],MOND_MIKA:[3,5],MOND_MONA:[3,4],MOND_NOELLE:[4,4],
  MOND_FISCHL:[4,4],MOND_LISA:[2,5],MOND_RAZOR:[2,5],MOND_ROSARIA:[2,4],MOND_SUCROSE:[3,5],MOND_EULA:[2,5],
  LIYUE_BAIZHU:[3,5],LIYUE_BEIDOU:[2,5],LIYUE_QIQI:[4,5],LIYUE_NINGGUANG:[3,3],LIYUE_KEQING:[2,3],LIYUE_GAMING:[2,4],
@@ -21,7 +21,7 @@ const RHYTHM={
  LIYUE_XIAO:[2,5],LIYUE_SHENHE:[3,5],LIYUE_XINYAN:[3,4],LIYUE_TARTAGLIA:[3,4],LIYUE_YANFEI:[2,5],LIYUE_YELAN:[3,5],
  LIYUE_YUNJIN:[2,4],LIYUE_YAOYAO:[3,5],LIYUE_ZHONGLI:[2,3],LIYUE_CHONGYUN:[3,3],LIYUE_ZIBAI:[3,4]
 };
-const POWER={E:{2:1,3:1.3,4:1.6},Q:{3:1,4:1.25,5:1.5}};
+const POWER={E:{2:1,3:1.3,4:1.6},Q:{3:1,4:1.25,5:1.5,6:1.5}};
 const AWAKEN={base:.3,perEnhance:.02,damage:1.5,support:1.3};
 api.skillRhythm={version:1,rhythm:copy(RHYTHM),power:copy(POWER),awaken:copy(AWAKEN)};
 const slot=c=>c&&c.owner&&RHYTHM[c.owner]?(c.id===c.owner+'_E'?'E':c.id===c.owner+'_Q'?'Q':null):null;

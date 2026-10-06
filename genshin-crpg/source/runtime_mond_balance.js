@@ -63,7 +63,7 @@
   if(m.version!==VERSION||!['FIELD','BOSS'].includes(m.kind)||!Number.isInteger(m.risk)||m.risk<0||m.risk>6||!m.rewards||!Array.isArray(m.rewards.parts))throw new api.RuleError('MOND_BALANCE_SAVE','몬드 전투 보상 기록이 올바르지 않습니다.');
   const v=m.rewards;
   for(const k of ['xp','mora'])if(!Number.isSafeInteger(v[k])||v[k]<0||v[k]>1000000)throw new api.RuleError('MOND_BALANCE_SAVE','몬드 보상 수치가 올바르지 않습니다.');
-  if(v.parts.some(p=>!b.actors.some(a=>a.side==='ENEMY'&&a.source===p.source)||!Number.isInteger(p.level)||p.level<1||p.level>20||!Number.isSafeInteger(p.xp)||p.xp<0||!Number.isSafeInteger(p.mora)||p.mora<0)||v.xp!==v.parts.reduce((n,p)=>n+p.xp,0)||v.mora!==v.parts.reduce((n,p)=>n+p.mora,0))throw new api.RuleError('MOND_BALANCE_SAVE','몬드 보상 상세가 합계와 일치하지 않습니다.');
+  if(v.parts.some(p=>!b.actors.some(a=>a.side==='ENEMY'&&a.source===p.source)||!Number.isInteger(p.level)||p.level<1||p.level>60||!Number.isSafeInteger(p.xp)||p.xp<0||!Number.isSafeInteger(p.mora)||p.mora<0)||v.xp!==v.parts.reduce((n,p)=>n+p.xp,0)||v.mora!==v.parts.reduce((n,p)=>n+p.mora,0))throw new api.RuleError('MOND_BALANCE_SAVE','몬드 보상 상세가 합계와 일치하지 않습니다.');
   return s;
  };
  api.mondIntegratedBalanceVersion=VERSION;

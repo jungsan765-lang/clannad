@@ -289,7 +289,7 @@ const STATUS_ELEMENT={STATUS_WET:'hydro',STATUS_FREEZE:'cryo',STATUS_BURN:'pyro'
 // Statuses the table does not type, by what the code does with them (docs/STATUS_EFFECTS_KO.md): holds first, then
 // the harmful ones (a constellation's 「받는 피해 +」 included), the rest are buffs.
 const STATUS_KIND={LIFTED:'hold',BOSS_CONTROL:'hold',ILLUSORY_BUBBLE:'hold',STATUS_STUN:'hold',LIYUE_PETRIFY:'hold',LIYUE_BOSS_PETRIFY:'hold',QUICKEN:'element'};
-const STATUS_DEBUFF=new Set(['ANEMO_VULN','PHYS_VULN','OMEN','EULA_CRYO_PHYSICAL_VULN','STATUS_ISEKAI_HP_WINDOW','ENCOURAGEMENT_TAG','HAZARD_WET','HAZARD_CORRODED','ENEMY_CHARGE_EXPOSED','BLOOD_BLOSSOM','RIPTIDE','RUIN_VARIANT_CORE_EXPOSED','FORTUNE_TALISMAN','CONS_VENTI_2','CONS_VENTI_6','CONS_MIKA_2','CONS_ROSARIA_6','CONS_GANYU_1','CONS_XINGQIU_2','CONS_HUTAO_BLOSSOM','CONS_XIANGLING_1','CONS_XIANGLING_2','CONS_XINYAN_4','CONS_TRAVELER_A6']);
+const STATUS_DEBUFF=new Set(['ANEMO_VULN','PHYS_VULN','OMEN','EULA_CRYO_PHYSICAL_VULN','STATUS_ISEKAI_HP_WINDOW','HAZARD_WET','HAZARD_CORRODED','ENEMY_CHARGE_EXPOSED','BLOOD_BLOSSOM','RIPTIDE','RUIN_VARIANT_CORE_EXPOSED','FORTUNE_TALISMAN','CONS_VENTI_2','CONS_VENTI_6','CONS_MIKA_2','CONS_ROSARIA_6','CONS_GANYU_1','CONS_XINGQIU_2','CONS_HUTAO_BLOSSOM','CONS_XIANGLING_1','CONS_XIANGLING_2','CONS_XINYAN_4','CONS_TRAVELER_A6']);
 const STAT_WORD={atk:'공격력',def:'방어력',maxHp:'최대 HP',spd:'속도',crit:'치명타 확률',critDmg:'치명타 피해',hit:'명중',eva:'회피',resist:'상태 저항'};
 function statusModsText(s){
   const out=[],sign=v=>(v>0?'+':'')+v;
@@ -306,7 +306,7 @@ function battleStatusList(a){
     if(s.id==='ROLE'){const R=window.CRPGRuntime?.formationConfig?.roles?.[s.role];if(R)list.push({id:'ROLE',name:R.label,kind:'role',text:R.text,rounds:null});continue;}
     const db=game.tables['13_STATUS_EFFECT_DB']?.get(s.id),type=String(db?.[2]||''),name=safeName('13_STATUS_EFFECT_DB',s.id);
     const kind=STATUS_KIND[s.id]||(/원소/.test(type)?'element':/제어/.test(type)?'hold':STATUS_DEBUFF.has(s.id)||/디버프|지속 피해|저하/.test(type)?'debuff':'buff');
-    list.push({id:s.id,name,kind,text:[db?.[3]||'',statusModsText(s)].filter(Boolean).join(' · '),rounds:Number.isFinite(s.rounds)?s.rounds:null,element:STATUS_ELEMENT[s.id]||null});
+    list.push({id:s.id,name,kind,text:globalThis.CRPGRuntime?.statusCatalog?.[s.id]?.text||[db?.[3]||'',statusModsText(s)].filter(Boolean).join(' · '),rounds:Number.isFinite(s.rounds)?s.rounds:null,element:STATUS_ELEMENT[s.id]||null});
   }
   return list;
 }
@@ -318,7 +318,7 @@ function statusChip(x){
 }
 function battleStatusChips(a){
   const list=battleStatusList(a);if(!list.length)return null;
-  const row=button('',()=>battleStatusDetails(a,list));row.className='status-chips';row.setAttribute('aria-label',a.name+'의 효과 '+list.length+'개 · '+list.map(x=>x.name).join(', ')+' · 눌러서 자세히 보기');
+  const row=button('',()=>battleStatusDetails(a,row._statusList));row._statusList=list;row.className='status-chips';row.setAttribute('aria-label',a.name+'의 효과 '+list.length+'개 · '+list.map(x=>x.name).join(', ')+' · 눌러서 자세히 보기');
   for(const x of list)row.append(statusChip(x));return row;
 }
 function battleStatusDetails(a,list){
@@ -408,6 +408,6 @@ combat=function(p){
   }const blockedAttack=!opening&&game.combatCards().find(c=>c.id==='PLAYER_BASIC_ATTACK'&&/공중/.test(c.reason));if(blockedAttack)controls.append(el('p','battle-target-warning',blockedAttack.reason));if(!opening&&game.combatFleeReason?.()===''){const retreat=el('div','battle-retreat');retreat.append(el('p','muted','전투가 길어졌습니다. 도망치면 현재 체력은 유지되며 보상은 받지 못합니다.'),actionButton('도망치기','COMBAT_FLEE',{},false));controls.append(retreat);}controls.append(combatSpeedControl());p.append(controls);
   const stage=el('div','compact-battle-stage'),foes=b.actors.filter(a=>a.side==='ENEMY'),representative=foes.find(a=>a.hp>0)||foes[0];
 
-  const teams=el('div','battle-teams compact-teams');for(const side of ['ALLY','ENEMY']){const col=el('section');col.append(el('h2','',side==='ALLY'?'우리 파티':'적'));const actors=b.actors.filter(a=>a.side===side);for(const a of actors){const same=actors.filter(x=>x.name===a.name);col.append(battleActorRow(a,chosen,same.length>1?same.indexOf(a)+1:0));}teams.append(col);}stage.append(teams);battleSummons(stage,b);p.append(stage);
+  const teams=el('div','battle-teams compact-teams');for(const side of ['ALLY','ENEMY']){const col=el('section');col.append(el('h2','',side==='ALLY'?'우리 파티':'적'));col.className=side==='ALLY'?'shell-allies':'shell-enemies';const actors=b.actors.filter(a=>a.side===side&&(side==='ALLY'||a.hp>0&&!a.fbSummon));for(const a of actors){const same=actors.filter(x=>x.name===a.name);col.append(battleActorRow(a,chosen,same.length>1?same.indexOf(a)+1:0));}teams.append(col);}stage.append(teams);battleSummons(stage,b);p.append(stage);
   if(b.terrain!==null&&b.terrain!==undefined)p.append(el('p','muted','남은 지형 '+b.terrain+' / '+(b.terrainMax||4)));battleDetails(p,b);
 };

@@ -6,8 +6,8 @@
  const api=root.CRPGRuntime,P=api.Runtime.prototype,copy=x=>JSON.parse(JSON.stringify(x));
  const VERSION=1,WIND='SYS_MOND_WIND_ROUTE',ACCESS='EXPLICIT_ACCESS_TO_BOSS_DVALIN';
  const PROFILES={
-  BOSS_DVALIN:{name:'드발린',level:7,hp:3800,atk:300,def:85,recommended:7,terrain:4},
-  BOSS_ANDRIUS:{name:'안드리우스',level:7,hp:2100,atk:110,def:75,recommended:7}
+  BOSS_DVALIN:{name:'드발린',level:28,hp:3800,atk:300,def:85,recommended:28,terrain:4},
+  BOSS_ANDRIUS:{name:'안드리우스',level:25,hp:2100,atk:110,def:75,recommended:25}
  };
  const old=Object.fromEntries(['startBattle','combatCards','executeCombatSystem','enemyIntel','validateSave'].map(k=>[k,P[k]]));
  P.mondBossProfiles=function(){return copy(PROFILES);};
@@ -44,7 +44,7 @@
  };
  P.validateSave=function(s){old.validateSave.call(this,s);const b=s.runtime,m=b?.mondBossBalance;if(!m)return s;
   if(m.version!==VERSION||typeof m.windRoute!=='boolean'||!Array.isArray(m.bosses)||!m.bosses.length||m.bosses.some(id=>!PROFILES[id]||!b.actors.some(a=>a.side==='ENEMY'&&a.source===id)))throw new api.RuleError('BOSS_BALANCE_SAVE','보스 전투 규칙 저장이 올바르지 않습니다.');
-  if(b.actors.some(a=>m.bosses.includes(a.source)&&(!Number.isInteger(a.rewardLevel)||a.rewardLevel<1||a.rewardLevel>20)))throw new api.RuleError('BOSS_REWARD_SAVE','보스 보상 기준 기록이 올바르지 않습니다.');
+  if(b.actors.some(a=>m.bosses.includes(a.source)&&(!Number.isInteger(a.rewardLevel)||a.rewardLevel<1||a.rewardLevel>60)))throw new api.RuleError('BOSS_REWARD_SAVE','보스 보상 기준 기록이 올바르지 않습니다.');
   if(m.bosses.includes('BOSS_DVALIN')&&(!Number.isInteger(b.terrain)||b.terrain<0||b.terrain>4))throw new api.RuleError('BOSS_TERRAIN_SAVE','드발린 지형 기록이 올바르지 않습니다.');return s;
  };
  api.mondBossBalanceVersion=VERSION;

@@ -18,6 +18,7 @@
       let e;
       if(entry.charging||entry.interrupted||entry.released)e={kind:'skill',label:entry.text||entry.cardName||'기술 사용',cue:null};
       else if(Number.isFinite(entry.maxHpChange))e={kind:'capacity',label:entry.maxHpChange<0?'최대 HP '+entry.maxHpChange:'최대 HP 복원',cue:null};
+      else if(entry.statusApplied)e={kind:'status',label:root.CRPGRuntime?.statusCatalog?.[entry.statusApplied.id]?.name||'상태 변화',statusApplied:entry.statusApplied,cue:null};
       else if(entry.jointSkipped)e={kind:'notice',label:entry.text||'합동 공격 불참',cue:null};
       else if(entry.immune)e={kind:'immune',label:'면역',cue:null};
       else if(entry.miss)e={kind:'miss',label:'빗나감',cue:null};

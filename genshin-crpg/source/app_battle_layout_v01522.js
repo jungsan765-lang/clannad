@@ -1,0 +1,24 @@
+/* The whole battle board scales as one frame. No viewport or battlefield scroll. */
+(function(){
+'use strict';
+const previousSummons=battleSummons;
+battleSummons=function(stage,b){previousSummons(stage,b);let wrap=stage.querySelector('.battle-summons');if(!wrap){wrap=el('div','battle-summons top');stage.append(wrap);}for(const side of ['ENEMY','ALLY']){let lane=wrap.querySelector('.summon-lane.'+side.toLowerCase());if(!lane){lane=el('section','summon-lane '+side.toLowerCase());lane.append(el('h3','',side==='ALLY'?'우리 소환체':'적 소환체'));wrap.append(lane);}const cards=game.combatCards?.()||[],chosen=cards.find(c=>c.id===selectedCard);for(const a of b.actors.filter(a=>a.side===side&&a.fbSummon&&a.hp>0)){const row=battleActorRow(a,chosen,0);row.classList.add('battle-summon','summon-actor');row.dataset.summonId=a.id;lane.append(row);}for(const f of (b.fields||[]).filter(f=>f.side===side&&['MAN_CHAI','PHANTOM','BAMBOO_STAR'].includes(f.kind)&&!f.done&&f.rounds>0)){const row=el('div','battle-summon');row.dataset.summonId=f.id;row.append(el('strong','',f.name||({MAN_CHAI:'만차이',PHANTOM:'허영',BAMBOO_STAR:'대나무 별'})[f.kind]),el('small','',Math.ceil(f.rounds)+'라운드'));lane.append(row);}const count=lane.querySelectorAll('.battle-summon').length;lane.querySelector('h3').textContent=(side==='ALLY'?'우리 소환체':'적 소환체')+' '+count+' / 3';if(!count)lane.append(el('span','summon-empty','소환체 없음'));}};
+let observer=null;
+function fitPlayback(){const dock=GameEffects.dock,command=document.querySelector('.battle-fit-frame .battle-command');if(!dock||!command)return;const rect=command.getBoundingClientRect(),scale=rect.width/command.offsetWidth;dock.classList.add('battle-frame-playback');dock.classList.toggle('portrait-playback',innerWidth<760);Object.assign(dock.style,{left:rect.left+'px',top:rect.top+'px',right:'auto',bottom:'auto',width:command.offsetWidth+'px',height:command.offsetHeight+'px',transform:'scale('+scale+')',transformOrigin:'0 0'});}
+function fit(){const frame=document.querySelector('.battle-fit-frame'),board=frame?.querySelector('.combat-panel');if(!board)return;const mobile=innerWidth<760,w=mobile?440:1180,h=mobile?800:700,rect=frame.getBoundingClientRect(),scale=Math.min(rect.width/w,rect.height/h);board.classList.toggle('portrait-stage',mobile);board.style.setProperty('--board-width',w+'px');board.style.setProperty('--board-height',h+'px');board.style.transform='translate('+Math.max(0,(rect.width-w*scale)/2)+'px,'+Math.max(0,(rect.height-h*scale)/2)+'px) scale('+scale+')';fitPlayback();}
+function layout(){observer?.disconnect();const p=document.querySelector('.combat-panel'),content=p?.closest('.content');document.body.classList.toggle('battle-fit',!!p);if(!p||!content)return;
+ const frame=el('div','battle-fit-frame');p.before(frame);frame.append(p);const b=game.s.runtime,head=p.querySelector('.battle-heading');
+ const objective=el('div','battle-objective-strip');if(b.liyueObjective){const o=b.liyueObjective;objective.append(el('strong','','진법 HP '+Math.max(0,Math.round(o.hp))+' / '+o.maxHp),el('span','','충전 '+o.charge+' / '+o.target));}
+ else if(b.fieldObjective){const o=b.fieldObjective;objective.append(el('strong','',o.kind==='DESTROY'?'구조물 파괴':o.kind==='BATTLE'?'습격자 제압':'보호 대상 '+o.integrity+' / '+o.maxIntegrity));}
+ else if(b.fieldBoss){const foe=b.actors.find(a=>a.source===b.fieldBoss.boss);objective.append(el('strong','',foe?.name||'보스'),el('span','',game.fieldBossView?.()?.hint||b.fieldBoss.telegraph?.name||'적의 예고와 원소를 확인하세요.'));}
+ else objective.append(el('span','',b.tutorialDrill?'전투 실습 · 실제 행동으로 진행':b.growthDomain?'성장 비경 · Lv. '+b.growthDomain.level:'일반 적 '+b.actors.filter(a=>a.side==='ENEMY'&&!a.fbSummon&&a.hp>0).length+' / 8'));
+ if(b.enemyReserve?.length)objective.append(el('small','','증원 대기 '+b.enemyReserve.length));if(b.terrain!==null&&b.terrain!==undefined)objective.append(el('small','','지형 '+b.terrain+' / '+(b.terrainMax||4)));p.append(objective);
+ const details=p.querySelector('.battle-details');if(details){details.hidden=true;head?.append(button('기록',()=>{const box=details.querySelector('.log').cloneNode(true);showModal('전투 기록',box);}));}
+ const info=p.querySelector('.shell-battle-info');if(info){info.hidden=true;head?.append(button('전투 정보',()=>{const box=info.querySelector('.shell-battle-info-body').cloneNode(true);showModal('전투 정보',box);}));}
+ // Keep playback outside the inert game root, positioned exactly over the reserved command area.
+ observer=new ResizeObserver(fit);observer.observe(frame);fit();
+}
+const previousRender=render;render=function(){observer?.disconnect();previousRender();renderTutorial();layout();};
+const previousPlay=GameEffects.play;GameEffects.play=function(...args){const result=previousPlay.apply(this,args);fitPlayback();return result;};
+window.addEventListener('resize',fit,{passive:true});window.visualViewport?.addEventListener('resize',fit,{passive:true});
+})();

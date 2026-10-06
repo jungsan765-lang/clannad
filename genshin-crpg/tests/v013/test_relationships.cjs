@@ -17,7 +17,7 @@ function provision(def){const r=new R(db);r.newGame({name:'QA일상교류',route
  for(const q of ['Q_ISK_MOND_01','Q_ISK_MOND_02','Q_ISK_MOND_03','Q_TRV_MOND_01','Q_TRV_MOND_02','Q_ISK_LIYUE_01','Q_ISK_LIYUE_02','Q_ISK_LIYUE_03','Q_ISK_LIYUE_04','Q_TRV_LIYUE_01','Q_TRV_LIYUE_02','Q_TRV_LIYUE_03','Q_TRV_LIYUE_04',def.REQUIRED_QUEST_ID].filter(Boolean))Object.assign(r.questState(q),{state:'완료',claimed:true,completedTurn:0,acceptedTurn:0});
  const l=r.ensureLiyue();l.access={phase:'OPEN'};
  if(def.ROUTE_SCOPE==='ROUTE_ISEKAI'){const e=r.liyueDefinitions().get('EVT_ISK_L04_AB1_END');const receipt={event:e.EVENT_ID,resolvedNode:e.SOURCE_ID_OR_FILTER,saveId:g.SAVE_ID,route:g.STORY_ROUTE_ID,quest:e.p.quest_id,branch:'AB',leaf:'AB1',kind:'gate',day:g.WORLD_DAY,turn:0};l.events[e.EVENT_ID]=receipt;l.regionReceipt=cp(receipt);}
- const char=def.CHAR_ID||r.row('04_CHAR_DB',def.PROFILE_ID)[1];r.unlockCharacter(char);r.markContact(def.PROFILE_ID);r.changeBond(def.PROFILE_ID,Number(def.BOND_SCORE_MIN));
+ const char=def.CHAR_ID||r.row('04_CHAR_DB',def.PROFILE_ID)[1];r.adminApply({op:'recruit',char:char});r.markContact(def.PROFILE_ID);r.changeBond(def.PROFILE_ID,Number(def.BOND_SCORE_MIN));
  r.s.storyEventReceipts||={};let prev=def.PREV_EVENT_ID;while(prev){r.s.storyEventReceipts[prev]={turn:0,day:1};const relation=r.relation(def.PROFILE_ID);relation.events[prev]='COMPLETE';relation.events[prev.match(/_(H0[1-5])$/)[1]]='COMPLETE';prev=r.storyDefinition(prev)?.PREV_EVENT_ID;}
  r.rollEncounter=()=>null;r.prepareStory();return r;
 }

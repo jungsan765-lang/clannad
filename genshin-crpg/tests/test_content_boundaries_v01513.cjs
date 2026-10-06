@@ -104,7 +104,7 @@ check('event-only recruitment rejects new entries while retaining already joined
   for(const [type,payload]of [['LEGEND_REGISTER',{quest:d.id}],['LEGEND_ENTER',{quest:d.id}],['ZIBAI_RETURN_CHECK',{step:0}]]){
    const before=r.serialize();assert.throws(()=>r.action(type,payload),type+' entered a closed story');assert.equal(r.serialize(),before,'rejected '+type+' changed state');
   }
-  r.unlockCharacter('LIYUE_ZIBAI');
+  r.adminApply({op:'recruit',char:'LIYUE_ZIBAI'});
   const restored=new R(db,JSON.parse(r.serialize()));
   assert.equal(JSON.parse(restored.s.global.COMPANION_ELIGIBILITY_JSON).LIYUE_ZIBAI.state,'JOINED');
  }

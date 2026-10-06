@@ -143,15 +143,15 @@ check("Amber's personal mission opens by itself once she has joined and the prol
   const again=new R(db,JSON.parse(r.serialize()));assert(again.legendRegistered(id),'the record survives a save');
   out[route]=plain(r.s.guildLegends[id]);
  }
- const tut=src('app_tutorial.js');assert(tut.includes("{id:'personal',title:'동료의 개인 임무'")&&tut.includes('personalNotice()'));
+ const tut=src('app_tutorial.js');assert(tut.includes('game.tutorialDirective()'));
  return out;
 });
 
 check('원석·스타라이트·스타더스트, 특성, 운명의 자리: present, nothing earned yet, unchanged combat at the start',()=>{
  const r=fresh('MAP_MOND_CITY','ROUTE_TRAVELER'),g=r.s.global;
  // 0.14.11 adds the two fates; a chosen 운명의 별 is for a companion who has joined (4★ 25, 5★ and the protagonist 40).
- assert.deepEqual(plain(r.premiumBalance()),{PRIMOGEM:0,STARGLITTER:0,STARDUST:0,INTERTWINED_FATE:0,ACQUAINT_FATE:0});
- r.unlockCharacter('MOND_AMBER');
+ assert.deepEqual(plain(r.premiumBalance()),{PRIMOGEM:0,STARGLITTER:0,STARDUST:0,INTERTWINED_FATE:0,ACQUAINT_FATE:20});
+ r.adminApply({op:'recruit',char:'MOND_AMBER'});
  assert.equal(r.actionReason('PREMIUM_BUY',{offer:'GLITTER_STELLA',char:'MOND_AMBER'}),'스타라이트가 부족합니다.');
  assert.equal(r.constellationLevel('MOND_AMBER'),0);assert.deepEqual(plain(r.talentLevels('MOND_AMBER')),{na:1,e:1,q:1,base:{na:1,e:1,q:1},kinds:{c3:'q',c5:'e'}});
  assert.match(r.constellationReason('MOND_AMBER'),/운명의 별/);
@@ -164,6 +164,7 @@ check('원석·스타라이트·스타더스트, 특성, 운명의 자리: prese
  // Effects (0.14.11: each fighter's own): Amber C2 makes 토끼 백작's explosion three times as strong, C3 raises
  // 화살비 by three talent levels (Lv.4 = 127%), her skill and attack stay; nothing at 0.
  const f=battle('ROUTE_TRAVELER'),b=f.s.runtime,amber=b.actors.find(a=>a.source==='MOND_AMBER'),enemy=b.actors.find(a=>a.side==='ENEMY'&&a.hp>0);
+ f.s.talents.MOND_AMBER={na:1,e:1,q:1};
  const m=card=>f.combatDamageMultiplier(amber,enemy,'불',{card});const e0=m('MOND_AMBER_E'),q0=m('MOND_AMBER_Q'),atk0=f.combatStat(amber,'atk'),o0=f.combatDamageMultiplier(amber,enemy,'불',{sourceKind:'OBJECT'});
  f.s.constellations={MOND_AMBER:4};
  assert.equal(Math.round(m('MOND_AMBER_E')/e0*1000),1000,'skill unchanged');assert.equal(Math.round(m('MOND_AMBER_Q')/q0*1000),1270,'C3: 화살비 Lv.4');

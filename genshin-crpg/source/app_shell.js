@@ -207,6 +207,7 @@ window.addEventListener('resize',syncGuideBoundary);
 // The learning guide lives behind a HUD pill; its popover opens once per step.
 function placeGuide(){
  const guide=$('#tutorial-tour'),slot=$('main > aside .hud-guide-slot');
+ if(guide?.classList.contains('scenario-guide')){slot?.replaceChildren();$$('.hud-guide-pop').forEach(n=>n.remove());return;}
  $$('.hud-guide-pop').forEach(n=>{if(!guide||!n.contains(guide))n.remove();});
  if(!guide||!document.body.classList.contains('teyvat')&&!slot){slot?.replaceChildren();return;}
  const step=(guide.querySelector('h2')||guide.querySelector('strong'))?.textContent.trim()||'여행 안내',count=guide.querySelector('.eyebrow')?.textContent.replace('직접 해 보기 · ','').trim()||'';
@@ -340,7 +341,7 @@ function layoutLocation(content,p){
   {name:'map',sel:['#journey-map','.terrain-navigation']},
   {name:'wait',sel:['.wait-controls']},
   {name:'places',sel:['.location-places','.liyue-city-directory','.city-directory','.place-directory']},
-  {name:'activity',sel:['.ley-line-card','.material-challenge','.liyue-artifact-farm','.field-boss-card','.field-boss-entry','.boss-entry','.traveler-statue','.statue-card']},
+  {name:'activity',sel:['.growth-domains','.growth-elite','.ley-line-card','.material-challenge','.liyue-artifact-farm','.field-boss-card','.field-boss-entry','.boss-entry','.traveler-statue','.statue-card']},
   {name:'info',sel:['.mond-region-guide','.liyue-region-guide','.geo-trail','.region-guide']}
  ],'todo');
  // A muted line right under the header describes the place.
@@ -357,10 +358,10 @@ function layoutLocation(content,p){
  const tabs=[{id:'todo',label:'할 일',icon:'STAR',nodes:todo},{id:'places',label:'시설',icon:'PIN',nodes:places,badge:placeCount?String(placeCount):''},{id:'activity',label:'지맥·보스',icon:'SWORDS',nodes:activity},{id:'info',label:'지역 정보',icon:'HANDBOOK',nodes:info}];
  const key='LOC:'+mapId;if(!S.tabs[key])S.tabs[key]=hub&&places.length?'places':todo.length?'todo':places.length?'places':'activity';
  if(isMobile()){
-  // 「지도 열기」 (openMap) always lands on the 이동 tab, also when this place's tabs were already shown (0.15.9).
-  const mkey='LOCM:'+mapId;if(S.tabs.LOCATION_MOBILE==='move')S.tabs[mkey]='move';else if(!S.tabs[mkey])S.tabs[mkey]='here';S.tabs.LOCATION_MOBILE=null;
+  const mini=region('mobile-main-map',groups.get('map')),expand=button('지도 펼치기',()=>{mini.classList.toggle('expanded');expand.textContent=mini.classList.contains('expanded')?'지도 접기':'지도 펼치기';});expand.className='mobile-map-toggle';mini.append(expand);p.append(mini);
+  const mkey='LOCM:'+mapId;if(!S.tabs[mkey]||S.tabs[mkey]==='move')S.tabs[mkey]='here';S.tabs.LOCATION_MOBILE=null;
   const here=[header,...groups.get('objective'),...(hub?[]:todo),...groups.get('wait')];
-  const t=tabset(mkey,[{id:'here',label:'주변',icon:'LOCATION',nodes:here},{id:'move',label:'이동',icon:'MAP',nodes:groups.get('map')},...(hub?[{id:'todo',label:'할 일',icon:'STAR',nodes:todo}]:[]),...tabs.slice(1)],'shell-loc-tabs');if(t)p.append(t);return;
+  const t=tabset(mkey,[{id:'here',label:'주변',icon:'LOCATION',nodes:here},...(hub?[{id:'todo',label:'할 일',icon:'STAR',nodes:todo}]:[]),...tabs.slice(1).map(x=>x.id==='activity'?{...x,label:'비경·토벌'}:x)],'shell-loc-tabs');if(t)p.append(t);return;
  }
  const side=tabset(key,tabs,'shell-loc-side');
  const left=region('shell-loc-left',[header,...groups.get('objective'),...(side?[side]:[]),...groups.get('wait')]),main=region('shell-loc-main',groups.get('map'));

@@ -14,9 +14,9 @@ check('formations use plain in-world names and the chosen one reaches the battle
  assert.equal(r.s.runtime.formationV1.id,'LINE_AHEAD');return {formation:r.s.runtime.formationV1};
 });
 
-check('field bosses: one fixed level each (Mond 10-13, Liyue 14-20), in a clear order',()=>{
+check('field bosses: one fixed level each (Mond 18-30, Liyue 38-56), in a clear order',()=>{
  const FB=api.fieldBosses,r=fresh();const lv=Object.fromEntries(Object.entries(FB.bosses).map(([id,d])=>[id,d.level]));
- for(const [id,d]of Object.entries(FB.bosses)){assert.equal(Number(r.row('09_MONSTER_DB',id)[18]),d.level,id);if(d.region==='몬드')assert(d.level>=10&&d.level<=13,id);else assert(d.level>=14&&d.level<=20,id);}
+ for(const [id,d]of Object.entries(FB.bosses)){assert.equal(Number(r.row('09_MONSTER_DB',id)[18]),d.level,id);if(d.region==='몬드')assert(d.level>=18&&d.level<=30,id);else assert(d.level>=38&&d.level<=56,id);}
  assert.equal(new Set(Object.values(lv)).size,9,'every boss has its own level');
  assert(Number(r.row('09_MONSTER_DB','FB_RUIN_SERPENT')[7])>Number(r.row('09_MONSTER_DB','FB_CRYO_REGISVINE')[7]),'higher level hits harder');
  return lv;
@@ -42,7 +42,7 @@ check('ley line blossoms: two per region each real hour, steps opened by level, 
  const L=api.leyLines;
  for(let h=500000;h<500048;h++){const s=L.sitesAt(h);assert.equal(s.length,4);for(const region of ['몬드','리월']){const x=s.filter(b=>b.region===region);assert.deepEqual(plain(x.map(b=>b.kind).sort()),['REVELATION','WEALTH']);assert.notEqual(x[0].map,x[1].map);}}
  assert.deepEqual(plain(L.sitesAt(424242)),plain(L.sitesAt(424242)),'the same hour gives the same places');
- assert.deepEqual(plain(L.tiers.map(t=>t.level)),[6,10,12,16,20]);
+ assert.deepEqual(plain(L.tiers.map(t=>t.level)),[6,10,15,20,28]);
  let h=500000;while(!L.sitesAt(h).some(b=>b.kind==='REVELATION'&&b.map==='MAP_MOND_PLAINS'))h++;
  const r=fixture(12,TEAM,8),id=L.route('REVELATION','MAP_MOND_PLAINS');r.actionStartedAt=h*L.hourMs+60000;Object.assign(r.s.global,{CURRENT_MAP_ID:'MAP_MOND_PLAINS',SCREEN_MODE:'LOCATION'});
  const ley=r.placeEntries().filter(e=>String(e.route||'').startsWith('BRT_LEY_'));assert.deepEqual(plain(ley.map(e=>e.route)),[id],'only this hour\'s blossom is listed');
@@ -51,7 +51,7 @@ check('ley line blossoms: two per region each real hour, steps opened by level, 
  r.action('PLACE_ENTER',{place:'BOSS:'+id,mode:'BOSS'});r.action('BOSS_ROUTE',{route:id,entry:'DIRECT',tier:2});
  let b=r.s.runtime;assert.equal(b.leyLine.tier,2);assert(b.actors.filter(a=>a.side==='ENEMY').every(a=>a.level===10),'enemies at the step level');assert.equal(r.s.bossRouteProgress.leyTier,2,'a retry fights the same step');
  const hero=r.itemCount('MAT_CHAR_EXP_HERO'),adv=r.itemCount('MAT_CHAR_EXP_ADVENTURER');for(const a of b.actors.filter(x=>x.side==='ENEMY'))a.hp=0;r.finishBattle(true);
- assert.equal(r.itemCount('MAT_CHAR_EXP_HERO'),hero+1);assert.equal(r.itemCount('MAT_CHAR_EXP_ADVENTURER'),adv+2);assert(r.leyLineClaimed('REVELATION'));
+ assert.equal(r.itemCount('MAT_CHAR_EXP_HERO'),hero+4);assert.equal(r.itemCount('MAT_CHAR_EXP_ADVENTURER'),adv);assert(r.leyLineClaimed('REVELATION'));
  assert.match(r.placeBossReason(id,'DIRECT'),/이미 받았습니다/);
  r.actionStartedAt+=L.hourMs;assert.equal(r.leyLineClaimed('REVELATION'),false,'a new hour, a new blossom');
  const bad=JSON.parse(r.serialize());bad.leyLine={version:1,REVELATION:-1};assert.throws(()=>new api.Runtime(require(path.join(root,'content/db.json')),bad),/지맥의 꽃/);
@@ -59,11 +59,11 @@ check('ley line blossoms: two per region each real hour, steps opened by level, 
 });
 
 check('two-day boss rematches: Lv.15 Andrius and Lv.18 Dvalin, opened a little lower, paying Hero books',()=>{
- const cfg=api.enhancementConfig.bosses,M=api.bossRematch;assert.deepEqual([M.BOSS_ANDRIUS.level,M.BOSS_DVALIN.level],[15,18]);
- const r=fixture(12,TEAM,8),c0=cfg.BOSS_ANDRIUS,row=r.row('35_BOSS_ROUTE_DB',c0.route);r.s.flags[row[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});
- assert.match(r.materialChallengeReason('BOSS_ANDRIUS'),/Lv\. 13/);r.action('OPERATOR_DEBUG',{op:'level',value:13});assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'');
+ const cfg=api.enhancementConfig.bosses,M=api.bossRematch;assert.deepEqual([M.BOSS_ANDRIUS.level,M.BOSS_DVALIN.level],[25,28]);
+ const r=fixture(21,TEAM,8),c0=cfg.BOSS_ANDRIUS,row=r.row('35_BOSS_ROUTE_DB',c0.route);r.s.flags[row[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});
+ assert.match(r.materialChallengeReason('BOSS_ANDRIUS'),/Lv\. 22/);r.action('OPERATOR_DEBUG',{op:'level',value:22});assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'');
  r.action('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_ANDRIUS'});const b=r.s.runtime,boss=b.actors.find(a=>a.source==='BOSS_ANDRIUS');
- assert.equal(boss.level,15);assert.equal(b.rematch.level,15);assert.equal(b.mondBalance.rewards.xp,120+25*15);
+ assert.equal(boss.level,25);assert.equal(b.rematch.level,25);assert.equal(b.mondBalance.rewards.xp,120+25*25);
  const books=r.itemCount('MAT_CHAR_EXP_HERO');for(const a of b.actors.filter(x=>x.side==='ENEMY'))a.hp=0;r.finishBattle(true);assert.equal(r.itemCount('MAT_CHAR_EXP_HERO'),books+2);
  return {boss:{level:boss.level,hp:boss.maxHp,atk:boss.atk}};
 });
@@ -72,7 +72,7 @@ check('skill rhythm: companions keep their own E/Q periods, and slower cards lan
  const r=fresh(),def=id=>r.cardDefinition(r.row('08_SKILL_CARD_DB',id));
  assert.deepEqual([def('MOND_BENNETT_E').cooldown,def('MOND_BARBARA_E').cooldown,def('LIYUE_XIANGLING_Q').cooldown,def('LIYUE_ZHONGLI_Q').cooldown],[2,4,5,3]);
  const pairs=Object.values(api.skillRhythm.rhythm).map(x=>x.join('/'));assert.equal(pairs.length,43);assert(new Set(pairs).size>=7,'no longer one shared pair');
- assert.deepEqual(plain(r.skillRhythm('MOND_BARBARA')),{e:4,q:5,ePower:1.6,qPower:1.5});
+ assert.deepEqual(plain(r.skillRhythm('MOND_BARBARA')),{e:4,q:6,ePower:1.6,qPower:1.5});
  return {distinct:new Set(pairs).size};
 });
 
@@ -128,7 +128,7 @@ check('screens: new scripts are wired in order and the UI shows the new rules',(
 
 // ---- 0.14.5 ----
 check('0.14.5 two-day bosses open once per real day (Korean midnight), win or lose',()=>{
- const cfg=api.enhancementConfig.bosses,r=fixture(16,TEAM,9),c0=cfg.BOSS_ANDRIUS,row=r.row('35_BOSS_ROUTE_DB',c0.route);r.s.flags[row[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});
+ const cfg=api.enhancementConfig.bosses,r=fixture(25,TEAM,9),c0=cfg.BOSS_ANDRIUS,row=r.row('35_BOSS_ROUTE_DB',c0.route);r.s.flags[row[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});
  const noonKst=Date.UTC(2026,8,29,3,0,0);r.actionStartedAt=noonKst;assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'');
  r.action('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_ANDRIUS'});const b=r.s.runtime;for(const a of b.actors.filter(x=>x.side==='ALLY'))a.hp=0;r.finishBattle(false);
  r.actionStartedAt=noonKst+11*3600000;assert.match(r.bossAdmission('BOSS_ANDRIUS').reason,/하루에 한 번.*1시간/,'a defeat still used the day');

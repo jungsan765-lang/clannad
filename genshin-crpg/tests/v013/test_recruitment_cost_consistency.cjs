@@ -5,7 +5,7 @@ const {c,db,R,fresh}=require('../helpers_v011.cjs');
 c.CRPGRelationships.install(c.CRPGRuntime,{events:c.CRPGRelationships.catalogFromDB(db),activities:c.CRPGRelationships.activitiesFromDB(db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});
 const cp=x=>JSON.parse(JSON.stringify(x));let seq=0;
 function provision(def){let r=new R(db);r.newGame({name:'QA개인임무',route:def.ROUTE_SCOPE,seed:7733,saveId:'V013-RECRUIT-'+(++seq)});const g=r.s.global,f=r.s.flags;
- Object.assign(g,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:r.storyDefinition(def.id).MAP_ID,STORY_MENU_POLICY:'',STORY_WAITING:true,STORY_NEXT_PREPARED:'',SCREEN_MODE:'LOCATION',WORLD_TIME:'12:00',MORA:100000,PLAYER_LEVEL:20,PLAYER_LEVEL_STATE:20});
+ Object.assign(g,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:r.storyDefinition(def.id).MAP_ID,STORY_MENU_POLICY:'',STORY_WAITING:true,STORY_NEXT_PREPARED:'',SCREEN_MODE:'LOCATION',WORLD_TIME:'12:00',MORA:100000,PLAYER_LEVEL:20,PLAYER_LEVEL_STATE:20});r.s.ascensions.PLAYER_CUSTOM=1;
  for(const k of ['storyJourney','storyBreak','storyArrival','storyMenuFrame','storyContext','battlePreparation','storyRecovery'])delete r.s[k];
  Object.assign(f,{FLAG_TRV_MON_CH2_CLEAR:true,FLAG_ISK_M05_CLEAR:true,FLAG_ISK_MON_PROLOGUE_CLEAR:true,FLAG_ISK_MAIN_UNLOCKED:true,FLAG_TRV_LIYUE_CLEAR:true,FLAG_ISK_L04_REGION_CLEAR:true,FLAG_ACCESS_REGION_LIYUE:true,FLAG_MOND_MIKA_RETURNED:true,FLAG_MOND_MONA_PRESENT:true,FLAG_WORLD_ZIBAI_RETURNED:true,FLAG_ISK_META_KNOWLEDGE:'UNKNOWN',FLAG_ISK_MOND_BRANCH:'EXPEDITION',FLAG_ISK_EXPEDITION_FORK:'RETURN',FLAG_ISK_A_SUBBRANCH:'AB',FLAG_ISK_L01_LEAF:'AB1',FLAG_ISK_L02_LEAF:'AB1',FLAG_ISK_L03_LEAF:'AB1',FLAG_ISK_L04_LEAF:'AB1',FLAG_TRV_LY_GOLDEN_ROUTE:'B',FLAG_TRV_LY_GOLDEN_EVIDENCE_SENT:true});
  for(const m of String(def.START_CONDITION||'').matchAll(/(FLAG_\w+)\s*=TRUE/g))if(m[1]!==def.COMPLETE_FLAG_ID)f[m[1]]=true;
@@ -13,7 +13,7 @@ function provision(def){let r=new R(db);r.newGame({name:'QA개인임무',route:d
  const l=r.ensureLiyue();l.access={phase:'OPEN'};
  if(def.ROUTE_SCOPE==='ROUTE_ISEKAI'){const e=r.liyueDefinitions().get('EVT_ISK_L04_AB1_END');const receipt={event:e.EVENT_ID,resolvedNode:e.SOURCE_ID_OR_FILTER,saveId:g.SAVE_ID,route:g.STORY_ROUTE_ID,quest:e.p.quest_id,branch:'AB',leaf:'AB1',kind:'gate',day:g.WORLD_DAY,turn:0};l.events[e.EVENT_ID]=receipt;l.regionReceipt=cp(receipt);}
  r.s.guildLegends={[def.id]:{day:g.WORLD_DAY}};
- if(def.RECRUIT_MODE==='STORY_ALREADY_JOINED')r.unlockCharacter(def.CHAR_ID);
+ if(def.RECRUIT_MODE==='STORY_ALREADY_JOINED')r.adminApply({op:'recruit',char:def.CHAR_ID});
  r.s.inventory=r.s.inventory.filter(x=>!x.item);const cost=r.legendEffectiveCost(def);g.MORA=cost.mora;for(const [id,n]of Object.entries(cost.items))r.giveItem(id,n);
  g.LAST_COMMITTED_ACTION_SEQ=1;
  if(def.RARITY_OCULI){const w=r.ensureExplorationState();for(const pt of c.CRPGRuntime.explorationCatalog.points){w.oculi[pt.id]={map:pt.map,day:g.WORLD_DAY,action:g.SAVE_ID+':1'};w.visitedMaps[pt.map]=true;r.giveItem('KEY_CRPG_ANEMOCULUS',1);}

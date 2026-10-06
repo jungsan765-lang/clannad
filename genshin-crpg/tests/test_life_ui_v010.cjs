@@ -30,7 +30,7 @@ function fresh(map='MAP_MOND_CITY'){const r=new R(db);r.newGame({name:'UI 회귀
 function test(name,fn){try{fn();results.push({name,ok:true});console.log('PASS '+name);}catch(error){results.push({name,ok:false,error:error.stack});console.error('FAIL '+name+'\n'+error.stack);}}
 
 test('actual guest and off-party combatant growth appears once in the earned-reward summary',()=>{
- const r=fresh(),gate='UI_GUEST_GATE';r.unlockCharacter('MOND_KAEYA');assert(!r.s.party.some(p=>p.active&&p.source==='MOND_KAEYA'));
+ const r=fresh(),gate='UI_GUEST_GATE';r.adminApply({op:'recruit',char:'MOND_KAEYA'});assert(!r.s.party.some(p=>p.active&&p.source==='MOND_KAEYA'));
  const guest=r.character('MOND_AMBER');r.s.guestSnapshots={[gate]:{MOND_AMBER:{...guest,level:1}}};
  r.s.runtime={id:'UI_BATTLE',storyConfig:{node_id:gate},actors:[r.player(),r.character('MOND_KAEYA'),{...guest,guest:true}]};
  const before=ctx.adventureSnapshot(),snapshot=copy(before.growth);assert.equal(snapshot['GUEST:MOND_AMBER'].guestGate,gate);assert.equal(snapshot.MOND_KAEYA.level,1);
@@ -63,7 +63,7 @@ test('Katheryne resolves her schedule from a profile with no playable owner even
 test('Kaeya resolves his authored field contact and active party location takes precedence',()=>{
  const r=fresh('MAP_MOND_CITY'),event=r.rows('51_EVENT_DB').map(row=>ctx.parseUI(row[13])).find(d=>d.kind==='personal_event'&&d.profile_id==='PROFILE_MOND_KAEYA'&&d.map_id);
  assert(event);const meeting=ctx.characterMeetingPlace('PROFILE_MOND_KAEYA',[]);assert.equal(meeting.map,event.map_id);assert.equal(meeting.label,'현장 대화 장소');
- r.unlockCharacter('MOND_KAEYA');r.action('PARTY',{char:'MOND_KAEYA',slot:2});const together=ctx.characterMeetingPlace('PROFILE_MOND_KAEYA',[]);assert.equal(together.map,'MAP_MOND_CITY');assert.match(together.label,/함께 이동/);
+ r.adminApply({op:'recruit',char:'MOND_KAEYA'});r.action('PARTY',{char:'MOND_KAEYA',slot:2});const together=ctx.characterMeetingPlace('PROFILE_MOND_KAEYA',[]);assert.equal(together.map,'MAP_MOND_CITY');assert.match(together.label,/함께 이동/);
 });
 
 test('save labels resolve old and new maps both during a game and on the title screen',()=>{

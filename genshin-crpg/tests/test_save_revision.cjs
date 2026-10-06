@@ -17,7 +17,7 @@ async function test(name,fn){try{await fn();results.push({name,ok:true});console
  await test('prior released pack imports under stable compatibility and preserves progress',()=>{
   const r=fresh();r.addXp('PLAYER_CUSTOM',250);r.s.flags.REGRESSION_PRESERVE=true;r.s.processed.regression={claimed:true};
   const original=JSON.parse(r.serialize()),adapter=new SaveAdapter({indexedDB:null,contentVersion:stableVersion,compatibleContentVersions:[oldVersion],migrate:ctx.CRPGRelationships.migrateState,validate:s=>new Runtime(db,s).s});
-  try{const parsed=adapter.parseImport(JSON.stringify({envelopeSchema:1,contentVersion:oldVersion,state:original}));assert.deepEqual(copy(parsed.state),original);assert.equal(parsed.state.global.PLAYER_XP_STATE,250);}finally{adapter.close();}
+  try{const parsed=adapter.parseImport(JSON.stringify({envelopeSchema:1,contentVersion:oldVersion,state:original}));assert.deepEqual(copy(parsed.state),original);assert.equal(parsed.state.global.PLAYER_XP_STATE,20);}finally{adapter.close();}
  });
  await test('future unknown content is rejected without mutating caller save',()=>{
   const original=JSON.parse(fresh().serialize()),before=JSON.stringify(original),adapter=new SaveAdapter({indexedDB:null,contentVersion:stableVersion,compatibleContentVersions:[oldVersion]});
@@ -26,16 +26,16 @@ async function test(name,fn){try{await fn();results.push({name,ok:true});console
  await test('validator returned normalized state is actually used',()=>{
   const state=JSON.parse(fresh().serialize());state.global.PLAYER_XP_NEXT=999;
   const adapter=new SaveAdapter({indexedDB:null,contentVersion:stableVersion,migrate:ctx.CRPGRelationships.migrateState,validate:s=>new Runtime(db,s).s});
-  try{assert.equal(adapter.prepare(state).global.PLAYER_XP_NEXT,300);assert.equal(state.global.PLAYER_XP_NEXT,999);}finally{adapter.close();}
+  try{assert.equal(adapter.prepare(state).global.PLAYER_XP_NEXT,230);assert.equal(state.global.PLAYER_XP_NEXT,999);}finally{adapter.close();}
  });
  await test('main story SYSTEM checkpoint restores exact cursor RNG and XP',()=>{
   const r=fresh();r.addXp('PLAYER_CUSTOM',250);const node=r.storyActiveNodeId(),rng=r.s.global.PRNG_STATE;r.action('MENU',{screen:'SYSTEM'});
   const loaded=new Runtime(db,JSON.parse(r.serialize()));assert.equal(loaded.s.global.SCREEN_MODE,'SYSTEM');loaded.action('MENU',{screen:'STORY'});
-  assert.equal(loaded.storyActiveNodeId(),node);assert.equal(loaded.s.global.PRNG_STATE,rng);assert.equal(loaded.s.global.PLAYER_XP_STATE,250);
+  assert.equal(loaded.storyActiveNodeId(),node);assert.equal(loaded.s.global.PRNG_STATE,rng);assert.equal(loaded.s.global.PLAYER_XP_STATE,20);
  });
  await test('experience carries across threshold and max level has no division target',()=>{
-  const r=fresh();r.addXp('PLAYER_CUSTOM',350);assert.equal(r.growth().level,2);assert.equal(r.growth().xp,50);assert.equal(r.growth().next,600);
-  r.addXp('PLAYER_CUSTOM',1000000);assert.equal(r.growth().level,20);assert.equal(r.growth().xp,0);assert.equal(r.growth().next,0);assert.equal(r.growth().max,true);
+  const r=fresh();r.addXp('PLAYER_CUSTOM',350);assert.equal(r.growth().level,2);assert.equal(r.growth().xp,120);assert.equal(r.growth().next,360);
+  r.addXp('PLAYER_CUSTOM',1000000);assert.equal(r.growth().level,10);assert.equal(r.growth().xp,0);assert.equal(r.growth().next,0);assert.equal(r.growth().max,true);
  });
  await test('invalid XP increments leave state unchanged',()=>{
   const r=fresh();for(const amount of [-1,'50',NaN,Infinity,0.5]){const before=r.serialize();assert.throws(()=>r.addXp('PLAYER_CUSTOM',amount),e=>e.code==='XP_VALUE');assert.equal(r.serialize(),before);}
@@ -46,10 +46,10 @@ async function test(name,fn){try{await fn();results.push({name,ok:true});console
  await test('invalid companion fractional or overthreshold XP checkpoints are rejected',()=>{
   for(const [level,xp] of [[1,0.5],[1,300],[20,1]]){const state=JSON.parse(fresh().serialize());Object.assign(state.chars.MOND_AMBER,{level,xp});assert.throws(()=>new Runtime(db,state),e=>e.code==='GROWTH_SAVE');}
  });
- await test('only active companion can use XP book; inactive and unowned targets roll back',()=>{
+ await test('owned bench and active companions can use books; unowned targets roll back',()=>{
   const r=free(fresh());r.s.global.COMPANION_ELIGIBILITY_JSON=JSON.stringify({MOND_AMBER:{state:'JOINED'}});r.giveItem('MAT_CHAR_EXP_WANDERER',2);
-  assert.equal(r.s.party.some(p=>p.active&&p.source==='MOND_AMBER'),false);const unchanged=r.serialize();assert.throws(()=>r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_AMBER'}),e=>e.code==='OWNER');assert.equal(r.serialize(),unchanged);r.action('PARTY',{char:'MOND_AMBER',slot:2});
-  r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_AMBER'});assert.equal(r.s.chars.MOND_AMBER.xp,50);assert.equal(r.itemCount('MAT_CHAR_EXP_WANDERER'),1);
+  assert.equal(r.s.party.some(p=>p.active&&p.source==='MOND_AMBER'),false);r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_AMBER'});r.action('PARTY',{char:'MOND_AMBER',slot:2});
+  r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_AMBER'});assert.equal(r.s.chars.MOND_AMBER.xp,100);assert.equal(r.itemCount('MAT_CHAR_EXP_WANDERER'),0);
   const before=r.serialize();assert.throws(()=>r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_LISA'}));assert.equal(r.serialize(),before);
  });
  await test('free NPC visit persists an exact dialogue target',()=>{

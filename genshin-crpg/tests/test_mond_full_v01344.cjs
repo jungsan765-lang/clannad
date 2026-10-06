@@ -3,7 +3,7 @@
 const assert=require('node:assert/strict'),{fs,path,root,R,db}=require('./helpers_v011.cjs');
 const runs=[];fs.mkdirSync(path.join(root,'reports/mond-v01344'),{recursive:true});
 const copy=x=>JSON.parse(JSON.stringify(x));
-function boost(r){Object.assign(r.s.global,{PLAYER_LEVEL_STATE:20,PLAYER_XP_STATE:0,PLAYER_BASE_HP:100000,PLAYER_BASE_ATK:10000,PLAYER_BASE_DEF:1000});r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;}
+function boost(r){Object.assign(r.s.global,{PLAYER_LEVEL_STATE:60,PLAYER_XP_STATE:0,PLAYER_BASE_HP:100000,PLAYER_BASE_ATK:10000,PLAYER_BASE_DEF:1000});r.s.ascensions.PLAYER_CUSTOM=6;r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;}
 function restore(r,run){const before=JSON.stringify({g:r.s.global,party:r.s.party,inventory:r.s.inventory,flags:r.s.flags,rng:r.s.global.PRNG_STATE});const next=new R(db,JSON.parse(r.serialize()));assert.equal(JSON.stringify({g:next.s.global,party:next.s.party,inventory:next.s.inventory,flags:next.s.flags,rng:next.s.global.PRNG_STATE}),before);run.restores++;return next;}
 for(const leaf of (process.env.MOND_LEAVES||'K,AA,AA_DIRECT,AB,B,TRV_MALE,TRV_FEMALE').split(',')){
  let r=new R(db);const trv=leaf.startsWith('TRV'),run={leaf,actions:0,restores:0,battles:[],choices:[],status:'RUNNING'};runs.push(run);
@@ -14,7 +14,7 @@ for(const leaf of (process.env.MOND_LEAVES||'K,AA,AA_DIRECT,AB,B,TRV_MALE,TRV_FE
   if(r.s.runtime){const b=r.s.runtime;
    if(b.opening?.state==='PENDING'){r=restore(r,run);r.action('COMBAT_BEGIN');continue;}
    if(b.interlude){const n=r.storyNode(),cs=r.storyChoices();if(cs.length)r.action('STORY_CHOICE',{node:cs[0][4]});else r.action('STORY_NEXT',{node:n[4]});continue;}
-   const cards=r.combatCards(),mechanic=cards.find(c=>c.system&&!c.reason&&c.id===b.storyConfig?.orb_action?.id)||cards.find(c=>c.system&&!c.reason&&c.id===b.storyConfig?.field_access_action?.id)||cards.find(c=>c.system&&!c.reason&&c.id==='SYS_MOND_WIND_ROUTE'),attack=cards.find(c=>c.id==='PLAYER_BASIC_ATTACK'&&!c.reason),guard=cards.find(c=>c.id==='PLAYER_BASIC_GUARD'&&!c.reason),target=attack?.targets?.[0];
+   const cards=r.combatCards(),mechanic=cards.find(c=>c.system&&!c.reason&&c.id===b.storyConfig?.orb_action?.id)||cards.find(c=>c.system&&!c.reason&&c.id===b.storyConfig?.field_access_action?.id)||cards.find(c=>c.system&&!c.reason&&c.id==='SYS_MOND_WIND_ROUTE'),attack=cards.find(c=>/_(E|Q)$/.test(c.id)&&!c.reason&&c.targets?.some(t=>b.actors.some(a=>a.id===t.id&&a.side==='ENEMY'&&a.hp>0)))||cards.find(c=>c.id==='PLAYER_BASIC_ATTACK'&&!c.reason),guard=cards.find(c=>c.id==='PLAYER_BASIC_GUARD'&&!c.reason),target=attack?.targets?.[0];
    if(mechanic){r.action('COMBAT',{card:mechanic.id,target:mechanic.targets?.[0]?.id});continue;}
    r.action('COMBAT',target?{card:attack.id,target:target.id}:{card:guard.id});
    if(!r.s.runtime){const result=JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON);assert(result.victory,'fixture lost '+b.group);run.battles.push({group:b.group,rounds:result.rounds});r=restore(r,run);}continue;

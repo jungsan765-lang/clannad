@@ -28,41 +28,41 @@ function runs(profile,enter,seeds=[717,9031,4242]){return seeds.map(seed=>{const
 const wins=list=>list.filter(x=>x.victory);
 const avgHp=list=>{const w=wins(list);return w.length?Math.round(w.reduce((a,x)=>a+x.hp,0)/w.length):0;};
 
-check('타르탈리아 (Liyue act 3, Lv.12): a Lv.12 boss now; a Lv.12 party wins after a long fight with real damage',()=>{
- const r=party({level:12,team:'four',enh:6});ENTER.story('EG_BOSS_TARTAGLIA')(r);const b=boss(r,'BOSS_TARTAGLIA');
+check('타르탈리아 (Liyue act 3, Lv.50): a fixed Lv.50 boss; a Lv.50 party wins after a long fight with real damage',()=>{
+ const r=party({level:50,team:'four',enh:6});ENTER.story('EG_BOSS_TARTAGLIA')(r);const b=boss(r,'BOSS_TARTAGLIA');
  assert(b.maxHp>=7000&&b.atk>=500,'the numbers of a Lv.12 boss: '+b.maxHp+'/'+b.atk);
- const out=runs({level:12,team:'four',enh:6},ENTER.story('EG_BOSS_TARTAGLIA'));
- assert.equal(wins(out).length,3,JSON.stringify(out));assert(out.every(x=>x.rounds>=9),'no quick win: '+JSON.stringify(out));assert(avgHp(out)<=60,'the party takes real damage: '+avgHp(out));
+ const out=runs({level:50,team:'four',enh:6},ENTER.story('EG_BOSS_TARTAGLIA'));
+ assert.equal(wins(out).length,3,JSON.stringify(out));assert(out.every(x=>x.rounds>=5),'no quick win: '+JSON.stringify(out));assert(avgHp(out)<=60,'the party takes real damage: '+avgHp(out));
  return {stats:{hp:b.maxHp,atk:b.atk,def:b.def},fights:out};
 });
-check('타르탈리아 of the 이세계 route (Lv.6 subdue fight): no longer falls in one round',()=>{
- const out=runs({level:6,team:'mond',enh:3},ENTER.story('EG_ISK_L03_GOLDEN'));
- assert.equal(wins(out).length,3,JSON.stringify(out));assert(out.every(x=>x.rounds>=6),'a real fight: '+JSON.stringify(out));assert(avgHp(out)<=85);
+check('타르탈리아 of the 이세계 route (Lv.50 subdue fight): no longer falls in one round',()=>{
+ const out=runs({level:50,team:'mond',enh:3},ENTER.story('EG_ISK_L03_GOLDEN'));
+ assert.equal(wins(out).length,3,JSON.stringify(out));assert(out.every(x=>x.rounds>=4),'a real fight: '+JSON.stringify(out));assert(avgHp(out)<=85);
  return out;
 });
-check('야타용왕 (Lv.15): a Lv.15 party wins most fights and has to work for it',()=>{
- const out=runs({level:15,team:'four',enh:8},ENTER.story('EG_BOSS_AZHDAHA'));
+check('야타용왕 (Lv.60): a Lv.60 party wins most fights and has to work for it',()=>{
+ const out=runs({level:60,team:'four',enh:8},ENTER.story('EG_BOSS_AZHDAHA'));
  assert(wins(out).length>=2,JSON.stringify(out));assert(avgHp(out)<=50,'not a stroll: '+avgHp(out));
  return out;
 });
-check('repeat challenges: Tartaglia Lv.19 from protagonist Lv.17, Azhdaha Lv.20 from Lv.18; +12 gear wins and a 5★ team clearly does better than a 4★ one',()=>{
- const low=party({level:16,team:'four',enh:9});low.s.flags.FLAG_TRV_LY_TARTAGLIA_WON=true;Object.assign(low.s.global,{CURRENT_MAP_ID:'MAP_LIYUE_GOLDEN_HOUSE',SCREEN_MODE:'LOCATION'});
- assert.match(low.actionReason('LIYUE_ARTIFACT_CHALLENGE',{kind:'TARTAGLIA'}),/권장 Lv\. 19.*Lv\. 17/);
- const lowA=party({level:17,team:'four',enh:9});lowA.s.flags[lowA.row('35_BOSS_ROUTE_DB','BRT_AZHDAHA')[13]]=true;Object.assign(lowA.s.global,{CURRENT_MAP_ID:'MAP_AZHDAHA_DOMAIN',SCREEN_MODE:'LOCATION'});
- assert.match(lowA.actionReason('LIYUE_ARTIFACT_CHALLENGE',{kind:'AZHDAHA'}),/권장 Lv\. 20.*Lv\. 18/);
- const strong={level:20,team:'four',enh:12,ex:true,art:[60,5]},best={level:20,team:'five',enh:12,ex:true,art:[60,5]};
- const r=party(strong);ENTER.farm('TARTAGLIA')(r);const t=boss(r,'BOSS_TARTAGLIA');assert.equal(t.level,19);assert(t.maxHp>=11000,'an endgame fight: '+t.maxHp);
+check('repeat challenges: Tartaglia Lv.50 from protagonist Lv.45, Azhdaha Lv.60 from Lv.55; +12 gear wins and a 5★ team clearly does better than a 4★ one',()=>{
+ const low=party({level:44,team:'four',enh:9});low.s.flags.FLAG_TRV_LY_TARTAGLIA_WON=true;Object.assign(low.s.global,{CURRENT_MAP_ID:'MAP_LIYUE_GOLDEN_HOUSE',SCREEN_MODE:'LOCATION'});
+ assert.match(low.actionReason('LIYUE_ARTIFACT_CHALLENGE',{kind:'TARTAGLIA'}),/권장 Lv\. 50.*Lv\. 45/);
+ const lowA=party({level:54,team:'four',enh:9});lowA.s.flags[lowA.row('35_BOSS_ROUTE_DB','BRT_AZHDAHA')[13]]=true;Object.assign(lowA.s.global,{CURRENT_MAP_ID:'MAP_AZHDAHA_DOMAIN',SCREEN_MODE:'LOCATION'});
+ assert.match(lowA.actionReason('LIYUE_ARTIFACT_CHALLENGE',{kind:'AZHDAHA'}),/권장 Lv\. 60.*Lv\. 55/);
+ const strong={level:50,team:'four',enh:12,ex:true,art:[60,5]},best={level:50,team:'five',enh:12,ex:true,art:[60,5]};
+ const r=party(strong);ENTER.farm('TARTAGLIA')(r);const t=boss(r,'BOSS_TARTAGLIA');assert.equal(t.level,50);assert(t.maxHp>=11000,'an endgame fight: '+t.maxHp);
  const four=runs(strong,ENTER.farm('TARTAGLIA')),five=runs(best,ENTER.farm('TARTAGLIA'));
  assert.equal(wins(four).length,3,JSON.stringify(four));assert.equal(wins(five).length,3,JSON.stringify(five));
  assert(avgHp(four)<=65,'the 4★ party has to work for it: '+avgHp(four));assert(avgHp(five)-avgHp(four)>=15,'5★ clearly ahead: '+avgHp(five)+' vs '+avgHp(four));
- const a=party(best);ENTER.farm('AZHDAHA')(a);assert.equal(boss(a,'BOSS_AZHDAHA').level,20);
- const az=runs(best,ENTER.farm('AZHDAHA'));assert.equal(wins(az).length,3,JSON.stringify(az));
+ const a=party({...best,level:60});ENTER.farm('AZHDAHA')(a);assert.equal(boss(a,'BOSS_AZHDAHA').level,60);
+ const az=runs({...best,level:60},ENTER.farm('AZHDAHA'));assert.equal(wins(az).length,3,JSON.stringify(az));
  return {tartaglia:{four,five,stats:{hp:t.maxHp,atk:t.atk,def:t.def}},azhdaha:az};
 });
-check('two-day rematches: a party at the recommended level wins most fights (Andrius Lv.15, Dvalin Lv.18 with the wind route)',()=>{
- const an=runs({level:15,team:'four',enh:8},ENTER.rematch('BOSS_ANDRIUS')),dv=runs({level:18,team:'mond',enh:9,art:[10,3]},ENTER.rematch('BOSS_DVALIN'));
+check('two-day rematches: a party at the recommended level wins most fights (Andrius Lv.25, Dvalin Lv.28 with the wind route)',()=>{
+ const an=runs({level:25,team:'four',enh:8},ENTER.rematch('BOSS_ANDRIUS')),dv=runs({level:28,team:'mond',enh:9,art:[10,3]},ENTER.rematch('BOSS_DVALIN'));
  assert(wins(an).length>=2,JSON.stringify(an));assert(wins(dv).length>=2,JSON.stringify(dv));
- assert.deepEqual([api.bossRematch.BOSS_ANDRIUS.level,api.bossRematch.BOSS_DVALIN.level],[15,18]);
+ assert.deepEqual([api.bossRematch.BOSS_ANDRIUS.level,api.bossRematch.BOSS_DVALIN.level],[25,28]);
  return {andrius:an,dvalin:dv};
 });
 check('stat outliers: the hatchlings and the husk archers are brought into line; saved fights keep their numbers',()=>{

@@ -80,7 +80,7 @@ const ROUTE=id=>'BRT_'+id,GROUP=id=>'EG_'+id,FLAG=id=>'FLAG_'+id+'_CLEAR',LOOT=i
 // generalist party should usually lose, a prepared one should usually win. Bosses act twice a turn.
 // v0.14.4: each boss has its own fixed level, so there is an order to take them in: Mond Lv.10-13, Liyue Lv.14-20.
 // Stats were tuned at Lv.10; every level above adds HP, attack and defence (LEVEL_GROWTH).
-const LEVELS={FB_CRYO_REGISVINE:10,FB_ANEMO_HYPOSTASIS:11,FB_ELECTRO_HYPOSTASIS:12,FB_CRYO_HYPOSTASIS:13,FB_GEO_HYPOSTASIS:14,FB_OCEANID:15,FB_PYRO_REGISVINE:16,FB_PRIMO_GEOVISHAP:18,FB_RUIN_SERPENT:20};
+const LEVELS={FB_CRYO_REGISVINE:22,FB_ANEMO_HYPOSTASIS:18,FB_ELECTRO_HYPOSTASIS:20,FB_CRYO_HYPOSTASIS:30,FB_GEO_HYPOSTASIS:45,FB_OCEANID:40,FB_PYRO_REGISVINE:38,FB_PRIMO_GEOVISHAP:48,FB_RUIN_SERPENT:56};
 const LEVEL_GROWTH={hp:.08,atk:.2,def:.03},grown=(level,key)=>1+LEVEL_GROWTH[key]*Math.max(0,level-10);
 for(const [id,d]of Object.entries(BOSSES))d.level=LEVELS[id]||Math.max(10,d.level);
 BOSSES.FB_ANEMO_HYPOSTASIS.gimmicks.REVIVE.counter='원거리·대공 공격으로 떠오른 핵 집중 공격';

@@ -8,10 +8,10 @@ function restore(r){return new R(db,JSON.parse(r.serialize()));}
 function guild(r){r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});}
 function sameRetry(r,type,params){const g=r.s.global,a={id:g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1),revision:g.SAVE_REVISION,type,...params};r.transact(a);const save=r.serialize();r.transact(a);assert.equal(r.serialize(),save,'duplicate action is exactly once');}
 test('commission XP reaches each active member once, excludes bench and survives retry',()=>{
- let r=fixture([6,6,6,6]);r.unlockCharacter('MOND_LISA');guild(r);const id='Q_MOND_EXP_PLAINS_CART';r.action('COMMISSION_ACCEPT',{quest:id});r.questState(id).node='READY_TO_CLAIM';
+ let r=fixture([6,6,6,6]);r.adminApply({op:'recruit',char:'MOND_LISA'});guild(r);const id='Q_MOND_EXP_PLAINS_CART';r.action('COMMISSION_ACCEPT',{quest:id});r.questState(id).node='READY_TO_CLAIM';
  const reward=JSON.parse(r.row('22_QUEST_DB',id)[11]),owners=r.s.party.filter(x=>x.active).map(x=>x.source),xp=id=>id==='PLAYER_CUSTOM'?r.s.global.PLAYER_XP_STATE:r.s.chars[id].xp;
  const before=Object.fromEntries([...owners,'MOND_LISA'].map(id=>[id,xp(id)]));sameRetry(r,'CLAIM_QUEST',{quest:id});
- for(const id of owners)assert.equal(xp(id)-before[id],reward.xp,id);assert.equal(xp('MOND_LISA'),before.MOND_LISA);r=restore(r);assert(r.questState(id).claimed);
+ for(const id of owners)assert.equal(xp(id)-before[id],Math.round(reward.xp*6/5),id);assert.equal(xp('MOND_LISA'),before.MOND_LISA);r=restore(r);assert(r.questState(id).claimed);
 });
 test('pinned commission replaces main destination and clears after reward',()=>{
  let r=fixture([6,6,6,6]);guild(r);r.action('COMMISSION_ACCEPT',{quest:'Q_MOND_EXP_PLAINS_CART'});r.action('PLACE_LEAVE');
@@ -19,8 +19,8 @@ test('pinned commission replaces main destination and clears after reward',()=>{
  guild(r);r.questState('Q_MOND_EXP_PLAINS_CART').node='READY_TO_CLAIM';r.action('CLAIM_QUEST',{quest:'Q_MOND_EXP_PLAINS_CART'});assert.equal(r.s.pinnedObjective,undefined);
 });
 test('bulk books consume the selected amount once and reject overflow atomically',()=>{
- let r=fresh();r.unlockCharacter('MOND_AMBER');r.action('PARTY',{char:'MOND_AMBER',slot:2});r.giveItem('MAT_CHAR_EXP_WANDERER',30);const n=r.itemCount('MAT_CHAR_EXP_WANDERER');sameRetry(r,'USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:5,owner:'MOND_AMBER'});assert.equal(r.itemCount('MAT_CHAR_EXP_WANDERER'),n-5);assert(r.s.chars.MOND_AMBER.level>1||r.s.chars.MOND_AMBER.xp>0);assert(r.s.learningGuide.done.books);r=restore(r);
- r.s.global.PLAYER_LEVEL_STATE=19;r.s.global.PLAYER_XP_STATE=Number(r.row('26_LEVEL_RULES',19)[2])-1;assert.equal(r.experienceBookLimit('MAT_CHAR_EXP_WANDERER'),1);
+ let r=fresh();r.adminApply({op:'recruit',char:'MOND_AMBER'});r.action('PARTY',{char:'MOND_AMBER',slot:2});r.giveItem('MAT_CHAR_EXP_WANDERER',30);const n=r.itemCount('MAT_CHAR_EXP_WANDERER');sameRetry(r,'USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:5,owner:'MOND_AMBER'});assert.equal(r.itemCount('MAT_CHAR_EXP_WANDERER'),n-5);assert(r.s.chars.MOND_AMBER.level>1||r.s.chars.MOND_AMBER.xp>0);assert(r.s.learningGuide.done.books);r=restore(r);
+ r.s.ascensions.PLAYER_CUSTOM=1;r.s.global.PLAYER_LEVEL_STATE=19;r.s.global.PLAYER_XP_STATE=Number(r.row('26_LEVEL_RULES',19)[2])-1;assert.equal(r.experienceBookLimit('MAT_CHAR_EXP_WANDERER'),1);
  const before=r.serialize();assert.throws(()=>r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:2}));assert.equal(r.serialize(),before);r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1});assert.equal(r.s.global.PLAYER_LEVEL_STATE,20);assert.equal(r.experienceBookLimit('MAT_CHAR_EXP_WANDERER'),0);
 });
 test('ordinary fight offers escape on round 10, no rewards, defeat fee, warp or double settlement',()=>{

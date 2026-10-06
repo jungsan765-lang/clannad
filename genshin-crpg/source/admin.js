@@ -214,15 +214,15 @@ function subGear(body,d,s){
 }
 // ----- 캐릭터 -----
 function subChars(body,d,s){
- const all=h('input',{type:'number',min:'1',max:'20',step:'1',value:'20',class:'adm-num'});
- body.append(card('한 번에',h('div',{class:'adm-form-row'},button('모든 동료 합류',()=>change([{op:'recruit',char:'ALL'}],'몬드·리월의 모든 동료를 합류시킬까요?'),'ok'),button('모두 HP 회복',()=>change([{op:'heal'}]),'ok'),field('모두의 레벨',all),button('모두 이 레벨로',()=>{const v=int(all);if(v>=1&&v<=20)change([{op:'level',target:'ALL',value:v}],'주인공과 모든 동료를 Lv.'+v+'(으)로 바꿀까요?');else toast('레벨은 1~20입니다.','error');},'ghost'))));
+ const all=h('input',{type:'number',min:'1',max:'60',step:'1',value:'60',class:'adm-num'});
+ body.append(card('한 번에',h('div',{class:'adm-form-row'},button('모든 동료 합류',()=>change([{op:'recruit',char:'ALL'}],'몬드·리월의 모든 동료를 합류시킬까요?'),'ok'),button('모두 HP 회복',()=>change([{op:'heal'}]),'ok'),field('모두의 레벨',all),button('모두 이 레벨로',()=>{const v=int(all);if(v>=1&&v<=60)change([{op:'level',target:'ALL',value:v}],'주인공과 모든 동료를 Lv.'+v+'(으)로 바꿀까요?');else toast('레벨은 1~60입니다.','error');},'ghost'))));
  const onlyJoined=h('input',{type:'checkbox',checked:true}),filter=h('input',{type:'search',placeholder:'이름으로 찾기',class:'adm-filter'}),tbody=h('tbody');
  const sel=(n,from,to,prefix)=>h('select',{},Array.from({length:to-from+1},(_,i)=>h('option',{value:String(from+i),selected:from+i===n,text:prefix+(from+i)})));
  const row=c=>{
-  const lv=h('input',{type:'number',min:'1',max:'20',step:'1',value:String(c.level),class:'adm-num small'}),cons=sel(c.constellation,0,6,'C'),tal={na:sel(c.talents.na||1,1,10,''),e:sel(c.talents.e||1,1,10,''),q:sel(c.talents.q||1,1,10,'')};
+  const lv=h('input',{type:'number',min:'1',max:'60',step:'1',value:String(c.level),class:'adm-num small'}),cons=sel(c.constellation,0,6,'C'),tal={na:sel(c.talents.na||1,1,10,''),e:sel(c.talents.e||1,1,10,''),q:sel(c.talents.q||1,1,10,'')};
   const save=async()=>{
    const ops=[];if(!c.joined&&c.id!=='PLAYER_CUSTOM'&&join.checked)ops.push({op:'recruit',char:c.id});
-   const v=int(lv);if(v!==c.level){if(!(v>=1&&v<=20)){toast('레벨은 1~20입니다.','error');return;}ops.push({op:'level',target:c.id,value:v});}
+   const v=int(lv);if(v!==c.level){if(!(v>=1&&v<=60)){toast('레벨은 1~60입니다.','error');return;}ops.push({op:'level',target:c.id,value:v});}
    if(Number(cons.value)!==c.constellation)ops.push({op:'constellation',char:c.id,value:Number(cons.value)});
    for(const k of Object.keys(TALENT))if(Number(tal[k].value)!==(c.talents[k]||1))ops.push({op:'talent',char:c.id,kind:k,value:Number(tal[k].value)});
    if(!ops.length){toast('바뀐 내용이 없습니다.');return;}await change(ops);

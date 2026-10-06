@@ -7,7 +7,7 @@ const api=c.CRPGRuntime,results=[];
 function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evidence:evidence??null});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 const copy=x=>JSON.parse(JSON.stringify(x));
 const gear=r=>r.s.inventory.filter(i=>i.equip).map(i=>({equip:i.equip,equipped:!!i.equipped,owner:i.owner}));
-const join=(r,id)=>{r.storySetCompanion(id,'JOINED');r.action('MENU',{screen:'STATUS'});};
+const join=(r,id)=>{r.adminApply({op:'recruit',char:id});r.action('MENU',{screen:'STATUS'});};
 const fight=r=>{for(let i=0;i<600&&r.s.runtime;i++){const b=r.s.runtime;if(b.opening?.state==='PENDING'){r.action('COMBAT_BEGIN');continue;}if(b.interlude){const n=r.storyNode(),cs=r.storyChoices();if(cs.length)r.action('STORY_CHOICE',{node:cs[0][4]});else r.action('STORY_NEXT',{node:n[4]});continue;}for(const a of b.actors)if(a.side==='ALLY')a.control='AI';r.autoUntilPlayer();}return JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON||'{}');};
 
 check('a new journey starts with the Traveler\'s Handy Sword and a travel coat in the bag, two of each dish, and the equipment guide',()=>{
@@ -27,7 +27,7 @@ check('a companion who joins brings one plain weapon of their kind, once; leavin
  assert.deepEqual(copy(r.s.starterKit.companions),{MOND_AMBER:'EQ_BOW_SLINGSHOT',MOND_KAEYA:'EQ_SWORD_HARBINGER',MOND_LISA:'EQ_CATALYST_MAGIC_GUIDE',MOND_NOELLE:'EQ_CLAYMORE_DEBATE',MOND_MIKA:'EQ_POLEARM_WHITE_TASSEL'});
  r.storySetCompanion('MOND_AMBER','DEPARTED');r.action('MENU',{screen:'STATUS'});r.storySetCompanion('MOND_AMBER','JOINED');r.action('MENU',{screen:'STATUS'});
  assert.equal(r.s.inventory.filter(i=>i.equip==='EQ_BOW_SLINGSHOT').length,1,'one bow only');
- r.unlockCharacter('LIYUE_XIANGLING');assert.equal(r.s.starterKit.companions.LIYUE_XIANGLING,'EQ_POLEARM_WHITE_TASSEL','unlockCharacter path too');
+ r.adminApply({op:'recruit',char:'LIYUE_XIANGLING'});assert.equal(r.s.starterKit.companions.LIYUE_XIANGLING,'EQ_POLEARM_WHITE_TASSEL','unlockCharacter path too');
  return copy(r.s.starterKit.companions);
 });
 check('gifts are put on once: when the owner first stands in the active party or a battle starts; taking them off is respected',()=>{
@@ -57,21 +57,7 @@ check('save validation rejects a malformed starter kit record',()=>{
   const s=copy(good);bad(s);assert.throws(()=>new R(db,s),/시작 장비 기록이 올바르지 않습니다/);
  }
 });
-check('story hilichurl patrols shrink with the party size like the temple waves and bring at most one more than the allies; other origins keep their numbers',()=>{
- const out=[];
- for(const seed of [4242,77,1301,9]){
-  const run=(origin,withAmber)=>{const r=fresh('MAP_MOND_PLAINS','ROUTE_ISEKAI');if(withAmber){join(r,'MOND_AMBER');r.action('PARTY',{char:'MOND_AMBER',slot:2});}r.s.global.PRNG_STATE=seed;
-   r.startBattle('EG_MOND_HILI_PATROL',origin,origin.startsWith('STORY:')?{confirmed:true,companions:withAmber?['MOND_AMBER']:[]}:{});const b=r.s.runtime;return {kind:b.balanceProfile?.kind,enemies:b.actors.filter(a=>a.side==='ENEMY').map(a=>[a.source,a.maxHp,a.atk])};};
-  for(const [withAmber,allies,hp,atk] of [[true,2,.3,.6],[false,1,.2,.35]]){
-   const story=run('STORY:TEST_PATROL',withAmber),plain=run('EXPLICIT',withAmber),stat=new Map(plain.enemies.map(e=>[e[0],e]));
-   assert.equal(story.kind,'STORY_PATROL');assert.notEqual(plain.kind,'STORY_PATROL');
-   assert(story.enemies.length<=allies+1&&story.enemies.length<=plain.enemies.length,'at most '+(allies+1)+': '+story.enemies.length);
-   for(const e of story.enemies){const p=stat.get(e[0]);assert(p,'the same kinds stay');assert(Math.abs(e[1]-Math.round(p[1]*hp))<=1,'health ×'+hp+': '+e[1]+' vs '+p[1]);assert(Math.abs(e[2]-Math.round(p[2]*atk))<=1,'attack ×'+atk);}
-   out.push([seed,allies,plain.enemies.length,story.enemies.length]);
-  }
- }
- return out;
-});
+check('story hilichurl patrols keep the authored count and fixed regional stats for solo and party',()=>{const out=[];for(const withAmber of [false,true])for(const origin of ['STORY:TEST_PATROL','EXPLICIT']){const r=fresh('MAP_MOND_PLAINS','ROUTE_ISEKAI');if(withAmber){join(r,'MOND_AMBER');r.action('PARTY',{char:'MOND_AMBER',slot:2});}r.s.global.PRNG_STATE=77;r.startBattle('EG_MOND_HILI_PATROL',origin,{confirmed:true,companions:withAmber?['MOND_AMBER']:[]});out.push(copy(r.s.runtime.actors.filter(a=>a.side==='ENEMY').map(a=>[a.source,a.level,a.maxHp,a.atk])));}for(const row of out)assert.deepEqual(row,out[0]);return out[0];});
 check('the 이세계 route\'s first story fight is won at Lv.1 by the AI-played party on both opening branches',()=>{
  const out=[];
  for(const [branch,pick] of [['K','ISK_M01_A031'],['UNKNOWN','ISK_M01_A030']])for(const seed of [11,58214,90210]){
@@ -91,8 +77,8 @@ check('the 이세계 route\'s first story fight is won at Lv.1 by the AI-played 
  return out;
 });
 check('the Dvalin preparation note shows the real recommended level, not the old 「권장 Lv. 4」',()=>{
- const src=fs.readFileSync(path.join(root,'source/app_party.js'),'utf8');assert(!src.includes("'권장 Lv. 4'"));assert(/mondBossProfiles\?\.\(\)\.BOSS_DVALIN\?\.recommended/.test(src));
- assert.equal(fresh().mondBossProfiles().BOSS_DVALIN.recommended,7);
+ const src=fs.readFileSync(path.join(root,'source/app_party.js'),'utf8');assert(!src.includes("'권장 Lv. 4'"));assert(src.includes('growthRegionData?.bosses?.[m[3]]'));
+ assert.equal(fresh().mondBossProfiles().BOSS_DVALIN.recommended,28);
 });
 check('journal rows (호감도 임무 and the rest) wrap by their own width: the text keeps 200 px and the buttons drop below',()=>{
  // 0.15.4, user: 「이거 고치라고 했잖아」 — on PC the 호감도 임무 column squeezed the text to one letter a line.
@@ -109,7 +95,7 @@ check('the modules are wired into the page and the build in load order (early st
 // the story shows between two stops (user: 「단어 하나만 나오고 휴식 취하고 이딴게 있어서 이걸 바꿔야됨」).
 function walkSegments(leaf){
  const r=new R(db);r.newGame({name:'새벽하늘',route:'ROUTE_ISEKAI',seed:58214,saveId:'PACE-'+leaf});
- Object.assign(r.s.global,{PLAYER_LEVEL_STATE:20,PLAYER_XP_STATE:0,PLAYER_BASE_HP:100000,PLAYER_BASE_ATK:10000,PLAYER_BASE_DEF:1000});r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;
+ Object.assign(r.s.global,{PLAYER_LEVEL_STATE:20,PLAYER_XP_STATE:0,PLAYER_BASE_HP:100000,PLAYER_BASE_ATK:10000,PLAYER_BASE_DEF:1000});r.s.ascensions.PLAYER_CUSTOM=1;r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;
  const g=()=>r.s.global,segs=[];let cur={lines:0,from:'START'},inBattle=false,lastStop='';
  // One stop per travel leg or rest, however many map steps it takes to reach it.
  const close=(to,key=to+':'+i)=>{if(key===lastStop)return;lastStop=key;segs.push({...cur,to});cur={lines:0,from:to};};let i=0;

@@ -101,7 +101,7 @@ check('스타더스트: a spare 3★ weapon gives 15, not 30; 75 buys a fate, fi
  assert.deepEqual(plain(offers.map(o=>o.id+':'+o.price+':'+(o.monthly||'')+':'+(o.weekly||''))),['DUST_ACQUAINT:75:5:','DUST_INTERTWINED:75:5:','DUST_HERO_EXP:20::5','DUST_MORA:10::5']);
  const KST=9*3600000,start=Date.UTC(2026,9,10,3)-KST;g.actionStartedAt=start;g.s.global.STARDUST=1000;
  for(let i=0;i<5;i++)g.action('PREMIUM_BUY',{offer:'DUST_ACQUAINT'});
- assert.equal(g.premiumBalance().ACQUAINT_FATE,5);assert.equal(g.premiumBalance().STARDUST,1000-375);
+ assert.equal(g.premiumBalance().ACQUAINT_FATE,25);assert.equal(g.premiumBalance().STARDUST,1000-375);
  assert.match(g.premiumOfferReason({offer:'DUST_ACQUAINT'}),/이번 달에는/);assert.equal(g.premiumOfferReason({offer:'DUST_INTERTWINED'}),'','each kind has its own five');
  g.actionStartedAt=Date.UTC(2026,9,31,14,59)-0;assert.match(g.premiumOfferReason({offer:'DUST_ACQUAINT'}),/이번 달에는/,'still October in Korea at 23:59');
  g.actionStartedAt=Date.UTC(2026,9,31,15,0);assert.equal(g.premiumOfferReason({offer:'DUST_ACQUAINT'}),'','November 1st 00:00 in Korea starts a new month');
