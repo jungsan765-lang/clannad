@@ -6,7 +6,12 @@ const live=f=>!f.done&&(f.hp===undefined||f.hp>0)&&(!Number.isFinite(f.rounds)||
 P.limitSummonFields=function(b=this.s.runtime){if(!b)return;for(const side of ['ALLY','ENEMY']){const list=(b.fields||[]).filter(f=>f.side===side&&SUMMONS.has(f.kind)&&live(f));while(list.length>3){const f=list.shift();f.done=true;f.rounds=0;b.log.push({text:(f.name||'소환체')+'이(가) 새 소환체와 교대했습니다.',round:b.round});}}};
 P.limitBattleEnemies=function(b=this.s.runtime){if(!b)return;this.limitSummonFields(b);b.enemyReserve??=[];const fields=(b.fields||[]).filter(f=>f.side==='ENEMY'&&SUMMONS.has(f.kind)&&live(f)).length;
  for(const [summon,cap]of [[false,8],[true,Math.max(0,3-fields)]]){const active=b.actors.filter(a=>a.side==='ENEMY'&&!!a.fbSummon===summon&&a.hp>0),excess=active.slice(cap);if(excess.length){const ids=new Set(excess.map(a=>a.id));b.enemyReserve.push(...excess);b.actors=b.actors.filter(a=>!ids.has(a.id));const removedBefore=(b.order||[]).slice(0,b.cursor).filter(t=>ids.has(typeof t==='string'?t:t.id)).length;b.order=b.order?.filter(t=>!ids.has(typeof t==='string'?t:t.id))||[];b.cursor=Math.max(0,Math.min(b.cursor-removedBefore,b.order.length));}
- let free=cap-Math.min(active.length,cap);for(let i=0;i<b.enemyReserve.length&&free>0;){const a=b.enemyReserve[i];if(!!a.fbSummon!==summon){i++;continue;}b.enemyReserve.splice(i,1);b.actors.push(a);if(!b.order.some(t=>(typeof t==='string'?t:t.id)===a.id))b.order.push({id:a.id,score:this.combatStat(a,'spd')});free--;}}
+ // 0.15.24 tutorial waves (runtime_tutorial_v01522.js): a held body joins only when its side of the field is clear,
+ // one wave at a time, and only while a lesson is still waiting.
+ if(b.tutorialWaves?.stop)b.enemyReserve=b.enemyReserve.filter(a=>!a.waveHold);
+ const held=b.enemyReserve.filter(a=>!!a.fbSummon===summon&&a.waveHold),nextWave=held.length&&!active.length?Math.min(...held.map(a=>a.waveHold)):null;let arrived=false;
+ let free=cap-Math.min(active.length,cap);for(let i=0;i<b.enemyReserve.length&&free>0;){const a=b.enemyReserve[i];if(!!a.fbSummon!==summon||a.waveHold&&a.waveHold!==nextWave){i++;continue;}b.enemyReserve.splice(i,1);if(a.waveHold){delete a.waveHold;arrived=true;}b.actors.push(a);if(!b.order.some(t=>(typeof t==='string'?t:t.id)===a.id))b.order.push({id:a.id,score:this.combatStat(a,'spd')});free--;}
+ if(arrived){b.tutorialWaves.arrived=b.round;b.tutorialWaves.released=(b.tutorialWaves.released||0)+1;b.log.push({text:'적이 더 몰려왔다!',round:b.round,tutorialWave:b.tutorialWaves.released});}}
  if(b.opening?.state==='PENDING')b.opening.initialOrder=JSON.parse(JSON.stringify(b.order));b.capacityVersion=1;
 };
 P.startBattle=function(...a){const out=old.startBattle.apply(this,a);this.limitBattleEnemies();return out;};

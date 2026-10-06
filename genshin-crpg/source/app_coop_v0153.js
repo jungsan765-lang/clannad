@@ -124,8 +124,9 @@ function keepTalk(box,parts,live,fresh){
 }
 function rulesBox(){
  const s=mk('section','cp-rules');const R=C.status?.rules;
+ // 0.15.25: short lines instead of a paragraph (user: no screens explained by walls of text).
  s.append(mk('p','','함께 싸우는 전투 · '+(R?.shared||RULES.text.shared)),mk('p','','혼자 하는 전투 · '+(R?.solo||RULES.text.solo)),
-  mk('p','','방장의 주인공과 손님 최대 3명이 각자 데려온 캐릭터 하나로 싸웁니다. 손님의 차례에는 '+(RULES.turnMs/1000)+'초 안에 고르고, 넘기면 스스로 싸웁니다. 보상은 각자의 여정에 들어가고, 패배해도 손님은 잃는 것이 없습니다.'));
+  mk('p','','방장 + 손님 최대 3명 · 각자 캐릭터 1명 · 손님 차례 '+(RULES.turnMs/1000)+'초(넘기면 자동) · 보상은 각자 · 패배해도 손님 손해 없음'));
  return s;
 }
 // ---------- 0.15.9 함께 다니기: the host's world, suggestions and the room's talk ----------
@@ -300,65 +301,94 @@ function pill(){
  if(fresh||C.pillSig!==sig){C.pillSig=sig;p.classList.remove('compact');clearTimeout(C.pillFold);C.pillFold=setTimeout(()=>document.querySelector('body > .cp-pill.world')?.classList.add('compact'),5000);}
 }
 const left=t=>t?.deadline?Math.max(0,Math.ceil((t.deadline-(C.battle?.now||0)-(Date.now()-C.battleAt))/1000)):null;
-function unitRow(u,me){
- const row=mk('div','cp-unit'+(u.hp<=0?' down':'')+(u.guest?.mine?' mine':'')+(C.battle?.turn?.actor===u.id?' acting':'')+(C.target===u.id?' targeted':''));row.dataset.id=u.id;
- const top=mk('div','cp-unit-top');top.append(mk('strong','',u.name),mk('small','','Lv.'+u.level));
- if(u.guest)top.append(mk('em','cp-tag'+(u.guest.mine?' me':''),u.guest.mine?'나':u.guest.name));else if(u.host)top.append(mk('em','cp-tag host',u.protagonist?'방장':'방장 동료'));
- if(u.guest?.left)top.append(mk('em','cp-tag auto','스스로 싸움'));if(u.grade==='보스')top.append(mk('em','cp-tag boss','보스'));
- const bar=mk('div','cp-hp');const fill=mk('span','');fill.style.width=Math.max(0,Math.min(100,u.hp/u.maxHp*100)).toFixed(1)+'%';bar.append(fill);
- const nums=mk('small','cp-hp-num',fmt(u.hp)+' / '+fmt(u.maxHp)+(u.shield?' · 보호막 '+fmt(u.shield):''));
- row.append(top,bar,nums);if(u.statuses?.length)row.append(mk('small','cp-unit-st',u.statuses.join(' · ')));
- return row;
+// 0.15.25 (user: 「왜 얘만 다른 화면이야? 그냥 화면 다 똑같이 하면 안되는거야?」): a guest's fight is drawn with the battle screen's
+// own parts — the round's order with faces, the enemies' pictures, the party down the side, the skills along the bottom
+// with their pictures — and a target is chosen by touching the enemy, as in one's own fights. The same style sheet
+// lays it out (the panel is a .combat-panel); only what the server sends about the fight is shown.
+const SLOT=id=>id==='PLAYER_BASIC_ATTACK'?'na':/_Q$/.test(id)?'q':/_E(_CHARGE)?$/.test(id)?'e':null;
+const unitOf=(v,id)=>v.allies.find(u=>u.id===id)||v.enemies.find(u=>u.id===id)||null;
+function portraitSrc(u){try{return typeof combatPortraitSrc==='function'&&(typeof showArt==='undefined'||showArt)?combatPortraitSrc({side:u.side,source:u.source}):null;}catch{return null;}}
+function faceOf(u,cls){const src=portraitSrc(u);if(src){const i=mk('img',cls);i.src=src;i.alt='';i.decoding='async';i.draggable=false;return i;}return mk('span',cls+' mark','✦');}
+function fighterCard(v,u,targets){
+ const target=targets.has(u.id),c=mk('div','actor combatant-row'+(u.hp<=0?' dead':'')+(target&&C.target===u.id?' selected':'')+(v.turn?.actor===u.id?' shell-acting':''));c.dataset.actorId=u.id;c.dataset.side=u.side;c.dataset.maxHp=u.maxHp;
+ const src=portraitSrc(u);if(src){const img=mk('img','combat-portrait');img.src=src;img.alt='';img.decoding='async';c.append(img);}else c.append(mk('span','combat-player-mark','✦'));
+ const copy=mk('div','combatant-copy'),name=mk('strong','');
+ const own=typeof CRPGIcons!=='undefined'?CRPGIcons.element(CRPGIcons.ofActor({side:u.side,source:u.source,element:u.element}),'own-element'):null;if(own)name.append(own);
+ name.append(mk('small','shell-level','Lv.'+u.level),document.createTextNode(u.name));copy.append(name);
+ if(typeof meter==='function')meter(copy,'HP',u.hp,u.maxHp);
+ if(u.shield>0&&typeof meter==='function'){const sb=mk('div','shield-meter');meter(sb,'보호막',u.shield,u.shield);copy.append(sb);}
+ const tags=[];if(u.guest)tags.push([u.guest.mine?'나':u.guest.name,'cp-tag'+(u.guest.mine?' me':'')]);else if(u.host)tags.push([u.protagonist?'방장':'방장 동료','cp-tag host']);if(u.guest?.left)tags.push(['스스로 싸움','cp-tag auto']);if(u.grade==='보스')tags.push(['보스','cp-tag boss']);
+ if(tags.length){const row=mk('span','cp-tags');for(const [t,cls]of tags)row.append(mk('em',cls,t));copy.append(row);}
+ if(u.statuses?.length||u.airborne){const row=mk('span','status-chips');if(u.airborne)row.append(mk('span','st-chip hold','공중'));for(const s of u.statuses||[])row.append(mk('span','st-chip',s));copy.append(row);}
+ c.append(copy);
+ const aura=typeof CRPGIcons!=='undefined'?CRPGIcons.kindOf(u.aura):null;if(aura){const badge=mk('span','shell-aura-badge aura-'+aura),pic=CRPGIcons.element(aura);if(pic)badge.append(pic);badge.append('부착');c.append(badge);}
+ if(target){c.classList.add('targetable');c.tabIndex=0;c.setAttribute('role','button');c.setAttribute('aria-pressed',String(C.target===u.id));c.setAttribute('aria-label',u.name+' 대상으로 고르기');
+  c.addEventListener('click',e=>{if(e.target.closest('button')||C.target===u.id)return;C.target=u.id;drawBattle();});c.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===c){e.preventDefault();c.click();}});}
+ return c;
+}
+function fightOrder(v){
+ if(!v.order?.length)return null;const ol=mk('ol','battle-order compact-order');ol.setAttribute('aria-label','이번 라운드 행동 순서');
+ v.order.forEach((id,i)=>{const u=unitOf(v,id);if(!u)return;const now=v.turn?.actor===id,li=mk('li',(u.side==='ALLY'?'ally':'enemy')+(now?' current':'')+' with-face');li.dataset.actorId=id;li.append(mk('small','',String(i+1)),faceOf(u,'order-face'),mk('span','',u.name));if(now)li.append(mk('small','','현재'));ol.append(li);});
+ return ol;
+}
+function fightCommand(v,chosen){
+ const s=mk('section','battle-command'),t=v.turn,who=t?unitOf(v,t.actor):null,banner=mk('div','battle-turn-banner '+(who?.side==='ENEMY'?'enemy':'ally'));
+ banner.append(who?faceOf(who,'battle-turn-face'):mk('span','battle-turn-face mark','✦'));
+ const copy=mk('div','battle-turn-copy');copy.append(mk('strong','',v.opening?'전투 시작 전':t?.mine?'내 차례 · '+(v.me?.name||''):t?.host?'방장 '+(t.name||'')+'의 차례':t?(t.ownerName+' 님의 차례 · '+t.name):'진행 중…'),
+  mk('small','',v.opening?'방장이 「전투 시작」을 누르면 시작합니다':!v.me?'다음 라운드가 시작되면 내 캐릭터가 들어갑니다':v.me.left?'자리를 비운 동안 '+v.me.name+'이(가) 스스로 싸웁니다':!v.me.alive?v.me.name+'이(가) 쓰러졌습니다':t?.mine?'기술을 고르고 적을 눌러 대상을 정한 뒤 실행':'차례를 기다리는 중'));
+ banner.append(copy);const tl=left(t);if(tl!==null)banner.append(mk('span','cp-count'+(tl<=5?' hurry':''),tl+'초'));s.append(banner);
+ if(!(t?.mine&&v.cards?.length))return s;
+ const cards=mk('div','battle-cards');
+ for(const c of v.cards){const slot=SLOT(c.id),wrap=mk('div','battle-card-choice'+(slot==='q'?' shell-burst':'')),b=mk('button',(c.id===C.card?'selected':'')+(slot==='e'||slot==='q'?' skill-'+slot:''));b.type='button';b.dataset.cardId=c.id;
+  const owner=slot==='na'?v.me?.source:(game?.tables?.['08_SKILL_CARD_DB']?.get(c.id)?.[2]||v.me?.source),pic=slot&&owner&&typeof CRPGIcons!=='undefined'?CRPGIcons.talent(owner,slot,'shell-card-glyph'):null;
+  if(pic)b.append(pic);else{const g=mk('span','shell-card-glyph');g.setAttribute('aria-hidden','true');g.append(SHELL.icon(c.id==='PLAYER_BASIC_ATTACK'?'SWORD':c.id==='PLAYER_BASIC_GUARD'?'SHIELD':'DIAMOND','shell-icon'));b.append(g);}
+  b.append(mk('strong','',c.name),mk('small','',c.reason||(c.cooldown?'재사용 '+c.cooldown+'차례':'사용 가능')));
+  if(c.reason){b.disabled=true;b.title=c.reason;b.dataset.reason=c.reason;}else{b.onclick=()=>{C.card=c.id;C.branch='';drawBattle();};if(c.description)b.title=c.description;}
+  wrap.append(b);cards.append(wrap);}
+ s.append(cards);
+ const go=mk('div','battle-execute');
+ if(chosen?.branches?.length)go.append(choiceTiles({label:'스킬 방식',className:'battle-branches',options:chosen.branches.map(x=>({value:x,label:({TAP:'짧게',HOLD:'길게',CHARGE:'차지',PURSUIT:'추격',EXPLOSION:'폭발'})[x]||x})),value:C.branch,onChange:val=>{C.branch=val;}}));
+ go.append(btn(C.busy?'보내는 중…':'실행',()=>command(),'primary cp-run',!chosen?'쓸 수 있는 행동이 없습니다.':C.busy?'잠시 기다려 주세요.':''),btn('자동으로 맡기기',()=>auto(true),'',C.busy?'잠시 기다려 주세요.':''));
+ s.append(go);return s;
+}
+function fightPanel(v,r){
+ if(v.turn?.mine&&v.cards?.length){if(!v.cards.some(c=>c.id===C.card&&!c.reason))C.card=v.cards.find(c=>!c.reason)?.id||'';}
+ const chosen=v.turn?.mine?v.cards.find(c=>c.id===C.card):null;if(chosen&&!chosen.targets?.some(t=>t.id===C.target))C.target=chosen.targets?.[0]?.id||'';
+ if(chosen?.branches?.length&&!chosen.branches.includes(C.branch))C.branch=chosen.branches[0];
+ const targets=new Set((chosen?.targets||[]).map(t=>t.id)),p=mk('section','panel combat-panel coop-combat');
+ const head=mk('div','battle-heading');head.append(mk('span','eyebrow',v.opening?'전투 시작 전':'ROUND '+v.round),mk('h1','',v.title||v.encounter||'함께 싸우는 전투'));if(r?.host?.name)head.append(mk('span','cp-head-host','방장 '+r.host.name));
+ const rec=btn('기록',()=>{const box=mk('div','log');for(const line of v.log||[])box.append(mk('p','',line));if(!box.children.length)box.append(mk('p','','아직 기록이 없습니다.'));showModal('전투 기록',box);},'battle-head-button');
+ const mini=btn('작게 보기',minimize,'battle-head-button'),out=btn('방 나가기',leave,'battle-head-button cp-danger',C.busy?'잠시 기다려 주세요.':'');head.append(rec,mini,out);p.append(head);
+ const order=fightOrder(v);if(order)p.append(order);
+ const duo=mk('div','combat-duo'),stage=mk('div','compact-battle-stage'),teams=mk('div','battle-teams compact-teams'),allies=mk('section','shell-allies'),enemies=mk('section','shell-enemies');
+ allies.append(mk('h2','','우리 파티'));enemies.append(mk('h2','','적'));
+ for(const u of v.allies)allies.append(fighterCard(v,u,targets));
+ const n=v.enemies.length;enemies.dataset.count=String(n);enemies.dataset.rows=n>4?'2':'1';enemies.style.setProperty('--cols',String(n>4?Math.ceil(n/2):Math.max(1,n)));for(const u of v.enemies)enemies.append(fighterCard(v,u,targets));
+ teams.append(allies,enemies);stage.append(teams);duo.append(stage,fightCommand(v,chosen));p.append(duo);
+ if(C.msg){const m=mk('p','cp-msg',C.msg);m.setAttribute('role','alert');p.append(m);}
+ return p;
 }
 function drawBattle(){
  pill();const wrap=C.shown;if(!wrap)return;const box=wrap.querySelector('.cp-bbox'),v=C.battle,r=room(),parts=[];
+ wrap.classList.toggle('coop-fight',!!v);
+ if(v){box.replaceChildren(fightPanel(v,r));return;}
  const h=mk('header','cp-bhead');const t=mk('div','cp-head-copy');
- const sub=[r?'방장 '+r.host.name:'',v?(v.opening?'전투 시작 전':'라운드 '+v.round):C.ended?'전투 결과':''].filter(Boolean).join(' · ');
- t.append(mk('strong','',v?.title||v?.encounter||(C.ended&&C.lastTitle)||'함께 싸우는 전투'),mk('small','',sub));h.append(SHELL.icon('COOP','shell-icon cp-head-icon'),t);
+ const sub=[r?'방장 '+r.host.name:'',C.ended?'전투 결과':''].filter(Boolean).join(' · ');
+ t.append(mk('strong','',(C.ended&&C.lastTitle)||'함께 싸우는 전투'),mk('small','',sub));h.append(SHELL.icon('COOP','shell-icon cp-head-icon'),t);
  const mini=mk('button','cp-close');mini.type='button';mini.setAttribute('aria-label','작게 보기');mini.append(SHELL.icon('BACK','shell-icon'));mini.onclick=minimize;mini.title='작게 보기';h.append(mini);parts.push(h);
  const body=mk('div','cp-bbody');
- if(C.ended&&!v){
+ if(C.ended){
   const res=mk('section','cp-result '+(C.ended.victory?'win':'lose'));res.append(mk('h2','',C.ended.victory?'승리':'패배'));
   if(C.ended.victory){res.append(mk('p','','전투 보상 · 경험치 '+fmt(C.ended.xp)+' · '+fmt(C.ended.mora)+' 모라'+(Object.keys(C.ended.loot||{}).length?' · '+Object.entries(C.ended.loot).map(([id,n])=>itemName(id)+' '+n+'개').join(', '):'')));
    res.append(mk('p','cp-note',C.rewards?.length?'내 여정에 들어온 보상 · '+C.rewards.map(rewardLine).join(' / '):'보상을 내 여정에 넣는 중입니다…'));
    for(const w of C.rewards||[])for(const n of w.notes||[])res.append(mk('p','cp-why',n));}
   else res.append(mk('p','','방장의 파티가 쓰러졌습니다. 손님은 잃는 것이 없습니다.'));
   res.append(btn('닫기',()=>{C.ended=null;closeBattle(false);},'primary'));body.append(res);
- }else if(!v){body.append(mk('p','cp-empty',r?.battle?.running&&!r.battle.shared?r.battle.solo:'함께 싸우는 전투가 없습니다.'));body.append(btn('닫기',()=>closeBattle(false),'primary'));}
- else{
-  const turn=mk('section','cp-turn'+(v.turn?.mine?' mine':''));const tl=left(v.turn);
-  turn.append(mk('strong','cp-turn-who',v.opening?'방장이 「전투 시작」을 누르면 시작합니다':v.turn?.mine?'내 차례 · '+(v.me?.name||''):v.turn?.host?'방장 '+(v.turn.name||'')+'의 차례':v.turn?(v.turn.ownerName+' 님의 차례 · '+v.turn.name):'진행 중…'));
-  if(tl!==null)turn.append(mk('span','cp-count'+(tl<=5?' hurry':''),tl+'초'));
-  if(!v.me)turn.append(mk('small','cp-note','다음 라운드가 시작되면 내 캐릭터가 전투에 들어갑니다.'));
-  else if(v.me.left)turn.append(mk('small','cp-note','자리를 비운 동안 '+v.me.name+'이(가) 스스로 싸웁니다. 다음 라운드부터 다시 이끕니다.'));
-  else if(!v.me.alive)turn.append(mk('small','cp-note',v.me.name+'이(가) 쓰러졌습니다. 동료들을 응원해 주세요.'));
-  body.append(turn);
-  // On my turn the cards come first, so a phone shows them without scrolling past the fighters.
-  if(v.turn?.mine&&v.cards?.length)body.append(commands(v));
-  const sides=mk('div','cp-sides');const a=mk('section','cp-side allies'),e=mk('section','cp-side enemies');a.append(mk('h3','','우리 편'));e.append(mk('h3','','적'));
-  for(const u of v.allies)a.append(unitRow(u));for(const u of v.enemies)e.append(unitRow(u));sides.append(a,e);body.append(sides);
-  if(v.log?.length){const log=mk('section','cp-log');log.append(mk('h3','','전투 기록'));for(const line of v.log.slice(-8))log.append(mk('p','',line));body.append(log);}
- }
+ }else{body.append(mk('p','cp-empty',r?.battle?.running&&!r.battle.shared?r.battle.solo:'함께 싸우는 전투가 없습니다.'));body.append(btn('닫기',()=>closeBattle(false),'primary'));}
  const foot=mk('footer','cp-bfoot');foot.append(btn('작게 보기',minimize),btn('방 나가기',leave,'cp-danger',C.busy?'잠시 기다려 주세요.':''));
  box.replaceChildren(...parts,body,foot);
  if(C.msg&&C.shown){const m=mk('p','cp-msg',C.msg);m.setAttribute('role','alert');box.insertBefore(m,foot);}
-}
-function commands(v){
- const s=mk('section','cp-commands');const cards=v.cards;
- if(!cards.some(c=>c.id===C.card&&!c.reason))C.card=cards.find(c=>!c.reason)?.id||'';
- const chosen=cards.find(c=>c.id===C.card);if(!chosen?.targets?.some(t=>t.id===C.target))C.target=chosen?.targets?.[0]?.id||'';
- if(chosen?.branches?.length&&!chosen.branches.includes(C.branch))C.branch=chosen.branches[0];
- const row=mk('div','cp-cards');
- for(const c of cards){const b=mk('button','cp-card'+(c.id===C.card?' selected':''));b.type='button';b.append(mk('strong','',c.name),mk('small','',c.reason||(c.cooldown?'재사용 '+c.cooldown+'차례':c.key?c.key+' 기술':'사용 가능')));
-  if(c.reason){b.disabled=true;b.title=c.reason;b.dataset.reason=c.reason;}else b.onclick=()=>{C.card=c.id;C.branch='';drawBattle();};if(c.description&&!c.reason)b.title=c.description;row.append(b);}
- s.append(row);
- const go=mk('div','cp-go');
- if(chosen?.targets?.length){const sel=mk('select','cp-select');sel.setAttribute('aria-label','대상');for(const t of chosen.targets)sel.append(new Option(t.name+' · HP '+fmt(t.hp),t.id));sel.value=C.target;sel.onchange=()=>{C.target=sel.value;drawBattle();};go.append(sel);}
- if(chosen?.branches?.length){const sel=mk('select','cp-select');sel.setAttribute('aria-label','스킬 방식');for(const x of chosen.branches)sel.append(new Option(({TAP:'짧게',HOLD:'길게',CHARGE:'차지',PURSUIT:'추격',EXPLOSION:'폭발'})[x]||x,x));sel.value=C.branch;sel.onchange=()=>{C.branch=sel.value;};go.append(sel);}
- go.append(btn(C.busy?'보내는 중…':'실행',()=>command(),'primary cp-run',!chosen?'쓸 수 있는 행동이 없습니다.':C.busy?'잠시 기다려 주세요.':''),btn('자동으로 맡기기',()=>auto(true),'',C.busy?'잠시 기다려 주세요.':''));
- s.append(go);return s;
-}
-let pendingCommand=null;
+}let pendingCommand=null;
 async function command(){
  if(C.busy||!C.battle?.turn?.mine)return;const session=O.sessionStamp();C.busy=true;C.msg='';drawBattle();
  const payload={card:C.card,target:C.target||undefined,branch:C.branch||undefined,battle:C.battle.battle,turn:{actor:C.battle.turn.actor,deadline:C.battle.turn.deadline,round:C.battle.round}},intent=JSON.stringify(payload);

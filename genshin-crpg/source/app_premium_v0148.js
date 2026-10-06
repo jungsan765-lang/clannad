@@ -44,9 +44,11 @@ function openShop(tab,done){
   if(o.stella)goods.append(itemIcon('STELLA_FORTUNA_5','premium-goods-icon stella'));
   card.append(goods,mk('strong','',o.label));if(o.note)card.append(mk('small','muted',o.note));
   let pick=null,count=null;
-  if(o.stella){pick=mk('select','premium-pick');pick.append(new Option('동료 고르기',''));for(const id of owned)pick.append(new Option(game.premiumCharName(id)+' · '+game.premiumRarity(id)+'★ · 운명의 자리 '+game.constellationLevel(id)+'/6 · 스타라이트 '+game.premiumStellaPrice(id),id));card.append(pick);}
-  if(o.boss){pick=mk('select','premium-pick');pick.append(new Option('필드 보스 재료 고르기',''));for(const id of info.bossMaterials){const n=game.itemCount(id);pick.append(new Option((game.tables['14_ITEM_DB']?.get(id)?.[1]||id)+' · 보유 '+n,id));}card.append(pick);}
-  if(o.bulk>1){count=mk('select','premium-count');for(const n of [1,5,10])count.append(new Option(n+'개',String(n)));card.append(count);}
+  // 0.15.25: companions by face, materials by picture, counts as buttons (no drop-down in the game, AGENTS.md).
+  // Nothing is picked at first, so an exchange never goes to someone by accident.
+  if(o.stella){pick=choiceTiles({label:'운명의 별을 받을 동료',className:'premium-pick face-choice',value:null,onChange:()=>sync(),options:owned.map(id=>({value:id,label:game.premiumCharName(id)+' '+game.constellationLevel(id)+'/6',title:game.premiumCharName(id)+' · '+game.premiumRarity(id)+'★ · 운명의 자리 '+game.constellationLevel(id)+'/6 · 스타라이트 '+game.premiumStellaPrice(id),icon:typeof actorPortrait==='function'?actorPortrait(id,'choice-face'):null}))});card.append(pick);}
+  if(o.boss){pick=choiceTiles({label:'바꿀 필드 보스 재료',className:'premium-pick',value:null,onChange:()=>sync(),options:info.bossMaterials.map(id=>({value:id,label:'×'+game.itemCount(id),title:(game.tables['14_ITEM_DB']?.get(id)?.[1]||id)+' · 보유 '+game.itemCount(id),icon:MAN().itemIcons?.icons?.[id]?.path||null}))});card.append(pick);}
+  if(o.bulk>1){count=choiceTiles({label:'교환 횟수',className:'premium-count',value:'1',onChange:()=>sync(),options:[1,5,10].map(n=>({value:String(n),label:n+'개'}))});card.append(count);}
   const price=mk('span','premium-price');
   const priceIcon=o.shop==='BOSS'?itemIcon(info.bossMaterials?.[0],'premium-cur'):curIcon(o.shop);
   const amount=mk('b','');price.append(priceIcon,amount);card.append(price);
@@ -55,7 +57,6 @@ function openShop(tab,done){
   const buy=mk('button','premium-buy','교환');buy.type='button';
   const params=()=>({offer:o.id,...(o.stella&&pick?.value?{char:pick.value}:{}),...(o.boss&&pick?.value?{item:pick.value}:{}),...(count?{count:Number(count.value)}:{})});
   const sync=()=>{const n=count?Number(count.value):1;stellaArt(goods,o,pick);if(o.boss&&pick?.value){const ip=MAN().itemIcons?.icons?.[pick.value]?.path;if(ip&&priceIcon.tagName==='IMG')priceIcon.src=ip;}amount.textContent=o.stella?(pick?.value?fmt(game.premiumStellaPrice(pick.value)):'25~40'):o.boss?o.price*n+'개':fmt(o.price*n);const r=game.premiumOfferReason(params());buy.disabled=!!r||busy;buy.title=r||'';};sync();
-  pick?.addEventListener('change',sync);count?.addEventListener('change',sync);
   buy.onclick=async()=>{
    const p=params(),n=p.count||1,out=await act('PREMIUM_BUY',p);if(out===undefined)return;
    if(out?.ok===false){openShop(undefined,{error:true,text:out.error||'교환하지 못했습니다.'});return;}

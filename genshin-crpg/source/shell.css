@@ -1100,6 +1100,7 @@ body.teyvat .hud-badge{position:absolute;top:-2px;right:-4px;min-width:18px;heig
 body.teyvat .hud-chat.active{background:var(--t-cream);color:var(--t-ink)}
 .chat-window{position:fixed;z-index:330;right:16px;bottom:16px;width:min(380px,calc(100vw - 32px));height:min(520px,calc(100dvh - var(--hud-h,62px) - 40px));display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:rgba(12,15,26,.94);border:1px solid rgba(211,188,142,.4);box-shadow:0 24px 60px rgba(0,0,0,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#f3eee4;transform:translateY(16px);opacity:0;transition:transform .2s cubic-bezier(.2,.8,.2,1),opacity .18s}
 .chat-window.open{transform:none;opacity:1}
+.chat-window>.chat-head{height:auto;min-height:0} /* 0.15.25: not the old 84px page header (style.css `header`) */
 .chat-window .shell-icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .chat-head{display:flex;align-items:center;gap:8px;padding:10px 12px 10px 14px;border-bottom:1px solid rgba(211,188,142,.18);background:linear-gradient(90deg,rgba(211,188,142,.12),transparent)}
 .chat-head strong{font-family:'Gowun Batang',serif;font-size:1rem}
@@ -3155,6 +3156,9 @@ body.teyvat .combat-panel .shell-enemies[data-rows="1"]{--enemy-h:clamp(110px,30
 body.teyvat .combat-panel .shell-enemies[data-rows="2"]{--enemy-h:clamp(70px,15vh,150px);--enemy-w:200px;gap:6px 10px}
 body.teyvat .combat-panel>.battle-objective-strip{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 4px;padding:4px 12px;border-radius:10px;background:rgba(10,13,21,.62);border:1px solid var(--t-line);font-size:.8rem;color:var(--t-cream)}
 body.teyvat .combat-panel>.battle-objective-strip small{color:var(--t-muted)}
+body.teyvat .combat-panel .battle-heading>.battle-objective-strip{display:flex;gap:8px;align-items:center;flex:0 1 auto;min-width:0;flex-wrap:nowrap;margin:0;padding:2px 10px;border-radius:10px;background:rgba(10,13,21,.62);border:1px solid var(--t-line);font-size:.78rem;color:var(--t-cream);white-space:nowrap;overflow:hidden}
+body.teyvat .combat-panel .battle-heading>.battle-objective-strip>*{overflow:hidden;text-overflow:ellipsis}
+body.teyvat .combat-panel .battle-heading>.battle-objective-strip small{color:var(--t-muted)}
 body.teyvat .combat-panel>.battle-heading .battle-head-button{min-height:0;padding:3px 12px;font-size:.78rem;border-radius:10px;box-shadow:none}
 /* Turn order: the fighter's face and name (the position number is kept for screen readers only). */
 body.teyvat .combat-panel>.battle-order li.with-face{padding-left:3px}
@@ -3165,6 +3169,153 @@ body.teyvat .combat-panel>.battle-order li.ally>.order-face{border-color:rgba(14
 body.teyvat .combat-panel>.battle-order li.current>.order-face{border-color:var(--t-gold)}
 body.teyvat .combat-panel>.battle-order li>.order-face.mark{display:grid;place-items:center;box-sizing:border-box;font-size:.8rem;line-height:1;color:var(--t-gold-hi);background:rgba(236,229,216,.14)}
 body.teyvat .combat-panel>.battle-order li.current>.order-face.mark{color:var(--t-ink);background:rgba(57,64,79,.12)}
+/* ---------- 0.15.25 비경 입구 (app_growth_v01522.js domainGate): pictures to press, no lists, no paragraphs ---------- */
+body.teyvat .domain-gate{--dg:185,162,255;display:grid;gap:10px;padding:12px 14px;border-radius:16px;background:radial-gradient(ellipse at 100% 0%,rgba(var(--dg),.18),transparent 60%),linear-gradient(160deg,rgba(26,32,52,.94),rgba(12,15,26,.94));border:1px solid rgba(var(--dg),.42);box-shadow:inset 0 0 0 1px rgba(255,255,255,.04),0 10px 24px rgba(0,0,0,.3)}
+body.teyvat .domain-gate[data-kind=ASCENSION]{--dg:127,224,200}
+body.teyvat .domain-gate[data-kind=GEAR]{--dg:240,196,106}
+body.teyvat .domain-gate-head{display:flex;align-items:center;gap:10px;height:auto;padding:0;background:none;border:0}
+body.teyvat .domain-gate-name{display:flex;flex-direction:column;min-width:0;flex:1}
+body.teyvat .domain-gate-name h2{margin:0;font-size:1.14rem;color:#fff;font-family:var(--font-display);text-shadow:0 0 14px rgba(var(--dg),.45)}
+body.teyvat .domain-gate-name small{color:rgb(var(--dg));font-size:.72rem;letter-spacing:.08em}
+body.teyvat .domain-gate-bonus{flex:0 0 auto;padding:2px 10px;border-radius:12px;background:linear-gradient(90deg,#f3dfae,#e9c26a);color:#3b2f15;font-weight:800;font-size:.86rem;white-space:nowrap}
+body.teyvat .domain-gate-bonus small{color:#5a4515;font-size:.7rem;font-weight:700}
+body.teyvat .domain-stages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+body.teyvat :where(#root) button.domain-stage{min-height:50px;padding:4px 2px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(236,229,216,.18)}
+body.teyvat .domain-stage b{font-family:var(--font-latin);font-size:1.05rem;line-height:1.15}
+body.teyvat .domain-stage small{font-size:.66rem;color:var(--t-muted)}
+body.teyvat :where(#root) button.domain-stage.selected{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-cream);box-shadow:0 0 0 2px rgba(var(--dg),.55)}
+body.teyvat :where(#root) button.domain-stage.selected small{color:var(--t-ink-2)}
+body.teyvat :where(#root) button.domain-stage.locked{opacity:.38;border-style:dashed}
+body.teyvat .domain-elements{display:flex;flex-wrap:wrap;gap:6px}
+body.teyvat :where(#root) button.domain-element{width:38px;height:38px;min-height:38px;padding:0;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(236,229,216,.18)}
+body.teyvat :where(#root) button.domain-element.selected{background:rgba(236,229,216,.2);border-color:var(--t-gold-hi);box-shadow:0 0 0 2px rgba(243,223,174,.45)}
+body.teyvat .domain-element-icon{width:24px;height:24px;object-fit:contain}
+body.teyvat .domain-element-icon.mark{display:grid;place-items:center;color:var(--t-gold-hi);font-size:1rem;line-height:1}
+body.teyvat .domain-gate-body{display:grid;gap:8px}
+body.teyvat :is(.domain-foes,.domain-rewards){display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+body.teyvat :is(.domain-foe,.domain-reward){position:relative;display:inline-grid;place-items:center}
+body.teyvat .domain-foe-face{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:50% 30%;background:rgba(255,120,90,.12);border:1.5px solid rgba(255,155,138,.5)}
+body.teyvat .domain-foe-face.blank{display:grid;place-items:center;color:#ffd2c2;font-weight:700}
+body.teyvat :is(.domain-foe,.domain-reward)>b{position:absolute;right:-5px;bottom:-5px;padding:0 5px;border-radius:8px;background:rgba(10,12,20,.92);color:#fff;font-size:.66rem;line-height:1.5;border:1px solid rgba(236,229,216,.25);font-variant-numeric:tabular-nums}
+body.teyvat .domain-reward{width:46px;height:46px;border-radius:10px;background:linear-gradient(160deg,#7a64a8,#3d3160);border:1px solid rgba(243,223,174,.35)}
+body.teyvat .domain-reward.mora{width:auto;padding:0 10px 0 6px;display:inline-flex;gap:4px;background:rgba(255,255,255,.06)}
+body.teyvat .domain-reward.mora>b{position:static;border:0;background:none;font-size:.8rem}
+body.teyvat .domain-reward-icon{width:36px;height:36px;object-fit:contain}
+body.teyvat .domain-reward.mora .domain-reward-icon{width:26px;height:26px}
+body.teyvat .domain-gate-body>.domain-go{width:100%;min-height:44px;margin:0}
+/* The map marks a place where a domain stands. */
+body.teyvat .terrain-node.domain-host::after{content:'';position:absolute;right:-5px;top:-5px;width:9px;height:9px;transform:rotate(45deg);border-radius:2px;background:#b9a2ff;box-shadow:0 0 0 1.5px rgba(10,12,20,.85),0 0 8px rgba(185,162,255,.8);pointer-events:none}
+/* ---------- 0.15.25 no drop-down lists (app_choice_v01525.js): what a <select> offered, as buttons ---------- */
+.choice-tiles{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0}
+.choice-tiles.many{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));max-height:220px;overflow:auto;padding:2px}
+.choice-tiles>button.choice-tile{min-height:36px;width:auto;margin:0;padding:4px 12px;border-radius:18px;text-align:center;font-size:.86rem;line-height:1.3;white-space:normal;word-break:keep-all}
+.choice-tiles>button.choice-tile.selected{background:#ece5d8;color:#39404f;border-color:#ece5d8;font-weight:700}
+/* A choice with a picture: the face, element or item first, the name beside it. */
+.choice-tiles>button.choice-tile.pictured{display:inline-flex;align-items:center;gap:6px;padding:3px 12px 3px 4px;border-radius:22px}
+.choice-tiles .choice-tile-icon{flex:0 0 auto;width:30px;height:30px;object-fit:contain}
+.choice-tiles .choice-tile-icon.choice-face,.choice-tiles.face-choice .choice-tile-icon{border-radius:50%;object-fit:cover;object-position:top;background:rgba(236,229,216,.12)}
+.choice-tiles .choice-tile-icon.portrait-placeholder{display:grid;place-items:center;color:#e9cf8d}
+.choice-tiles.element-choice .choice-tile-icon{width:24px;height:24px}
+.choice-tiles.cp-targets .choice-tile-icon{border-radius:8px;object-fit:cover;object-position:top}
+.choice-tiles.role-choice{gap:4px}
+.choice-tiles.role-choice>button.choice-tile{min-height:30px;padding:2px 9px;font-size:.76rem}
+.abyss-pick{display:grid;gap:4px}
+/* Field-boss summons that fight (물 형상, 뇌광 프리즘, 현암 기둥) in the 적 소환체 strip: slim pills with name, HP and a small
+   info badge. As full enemy cards they were taller than the strip and pushed the boss's own card out of the board. */
+body.teyvat .combat-panel .battle-summons.top .battle-summon.summon-actor{position:relative;display:grid;grid-template-columns:minmax(0,1fr);align-content:center;gap:1px;width:clamp(120px,16vw,180px);min-height:0;padding:4px 30px 5px 10px}
+body.teyvat .combat-panel .battle-summon.summon-actor .combatant-copy{display:grid;gap:1px;min-width:0}
+body.teyvat .combat-panel .battle-summon.summon-actor .combatant-copy strong{display:block;font-size:.76rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.teyvat .combat-panel .battle-summon.summon-actor .combatant-copy strong .shell-level{display:inline;font-size:.6rem;margin:0 4px 0 0}
+body.teyvat .combat-panel .battle-summon.summon-actor .combatant-copy .el-icon{width:14px;height:14px;vertical-align:-2px}
+body.teyvat .combat-panel .battle-summon.summon-actor .stat{font-size:.62rem;margin:0;line-height:1.3}
+body.teyvat .combat-panel .battle-summon.summon-actor .meter{height:4px}
+body.teyvat .combat-panel .battle-summon.summon-actor>button.enemy-info-button{position:absolute;top:50%;right:5px;transform:translateY(-50%);width:20px;height:20px;min-width:0;min-height:0;margin:0;padding:0!important;border-radius:50%;font-size:0!important;display:grid;place-items:center}
+body.teyvat .combat-panel .battle-summon.summon-actor>button.enemy-info-button::after{content:'i';font:700 11px/1 var(--font-ui,sans-serif);color:var(--t-cream,#ece5d8)}
+body.teyvat .combat-panel .compact-battle-stage:has(>.battle-summons) .battle-teams.compact-teams{min-height:0}
+/* 0.15.25 a guest's co-op fight (app_coop_v0153.js fightPanel): the battle screen's own panel in the window, as large as the
+   screen allows, so it looks and works like one's own fights. */
+body.teyvat .cp-battle.coop-fight{padding:10px}
+body.teyvat .cp-battle.coop-fight .cp-bbox{width:min(1280px,100%);height:calc(100dvh - var(--crpg-top-inset,0px) - 20px);max-height:none;padding:10px 12px;background:radial-gradient(ellipse at 50% 30%,rgba(60,80,110,.35),transparent 70%),linear-gradient(180deg,#141b2b,#0d1220)}
+body.teyvat .cp-bbox>.combat-panel.coop-combat{flex:1 1 auto;min-height:0;height:auto}
+body.teyvat .coop-combat>.battle-heading .cp-head-host{font-size:.78rem;color:var(--t-muted,#b9b2a5)}
+body.teyvat .coop-combat>.battle-heading>.battle-head-button{margin:0}
+body.teyvat .coop-combat>.battle-heading>.battle-head-button:nth-of-type(1){margin-left:auto}
+body.teyvat .coop-combat .combatant-copy .cp-tags{display:flex;flex-wrap:wrap;gap:4px}
+body.teyvat .coop-combat .battle-turn-banner{position:relative}body.teyvat .coop-combat .battle-turn-banner .cp-count{position:absolute;z-index:2;top:-8px;left:18px;margin:0;padding:0 6px;border-radius:8px;font-size:.62rem;line-height:1.5;background:#ece5d8;color:#39404f;font-weight:800}body.teyvat .coop-combat .battle-turn-banner .cp-count.hurry{background:#ff9d84;color:#3a1208}
+body.teyvat .coop-combat .battle-command:not(:has(>.battle-cards))>.battle-turn-banner{max-width:none;flex:1 1 auto}
+body.teyvat .coop-combat>.cp-msg{grid-column:1/-1;margin:0}
+/* A summon's own turn in the order list (토끼 백작's blast): dashed, with what it does. */
+body.teyvat .combat-panel .battle-order li.summon{border-style:dashed}
+body.teyvat .combat-panel .battle-order li .order-what{font-size:.62rem;color:var(--t-gold-hi,#f3dfae);margin-left:2px;white-space:nowrap}
+body.teyvat .combat-panel .battle-order li.summon.next{opacity:.82}
+/* 아군 소환체 (토끼 백작, 오즈…): the same slim pill: picture, name, HP. */
+body.teyvat .combat-panel .battle-summons.top .battle-summon:not(.summon-actor){max-width:240px}
+body.teyvat .combat-panel .battle-summons.top .battle-summon .summon-copy{display:grid;gap:1px;min-width:0}
+body.teyvat .combat-panel .battle-summons.top .battle-summon .summon-copy strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.teyvat .combat-panel .battle-summons.top .battle-summon .summon-copy .stat{font-size:.64rem;margin:0;line-height:1.3}
+body.teyvat .combat-panel .battle-summons.top .battle-summon .summon-copy .meter{height:4px}
+/* Its states (공중, 보호막…) ride on the pill's top edge instead of adding a line. */
+body.teyvat .combat-panel .battle-summon.summon-actor .status-chips{position:absolute;z-index:2;top:-8px;right:28px;max-width:calc(100% - 40px);min-height:0;margin:0;padding:0;flex-wrap:nowrap;overflow:hidden;background:none;border:0}
+body.teyvat .combat-panel .battle-summon.summon-actor .status-chips .st-chip{font-size:.58rem;padding:0 5px;line-height:1.5}
+/* 나선비경 (app_abyss.js): floor numbers in a row, the chosen floor's three rooms side by side, short rule lines. */
+.abyss-list .abyss-rule-line{margin:2px 0;font-size:.8rem;line-height:1.5;color:#c3c9d4}
+.abyss-floors{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 8px}
+.abyss-list :where(button).abyss-floor-tab{display:grid;place-items:center;align-content:center;gap:0;width:54px;height:54px;min-height:0;margin:0;padding:2px;border-radius:12px;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(236,229,216,.22)}
+.abyss-floor-tab b{font-size:1.15rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.abyss-floor-tab small{font-size:.6rem;line-height:1.2;color:#b9b2a5;white-space:nowrap}
+.abyss-floor-tab.cleared small{color:#a8d8a0}.abyss-floor-tab.active small{color:#ffe08a}.abyss-floor-tab.locked{opacity:.62}
+.abyss-list :where(button).abyss-floor-tab.selected{background:#ece5d8;color:#39404f;border-color:#ece5d8;box-shadow:0 0 0 2px rgba(236,229,216,.25)}
+.abyss-floor-tab.selected small{color:#5b6070}
+.abyss-floor-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.abyss-floor-head h3{margin:0;color:var(--gold,#e9cf8d)}
+.abyss-floor-level{font-size:.8rem;color:#c3c9d4}
+.abyss-list .abyss-rooms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;list-style:none;margin:10px 0;padding:0}
+.abyss-list .abyss-rooms li{position:relative;display:grid;align-content:start;gap:2px;margin:0;padding:8px 10px 8px 38px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(236,229,216,.14);min-width:0}
+.abyss-list .abyss-rooms li.current{border-color:var(--gold,#e9cf8d);box-shadow:0 0 0 1px rgba(233,207,141,.35)}
+.abyss-room-no{position:absolute;left:8px;top:8px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.76rem;background:rgba(236,229,216,.16)}
+.abyss-list .abyss-rooms li strong{font-size:.86rem;overflow-wrap:anywhere}
+.abyss-list .abyss-rooms li small{font-size:.72rem}
+.abyss-list .abyss-rooms li p{margin:2px 0 0;font-size:.74rem;line-height:1.45;color:#a9b0bc;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.abyss-floor-actions{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-left:auto}
+.abyss-floor-actions:empty{display:none}
+.abyss-list .abyss-floor-actions button{margin:0}
+.abyss-floor-actions small{max-width:240px;font-size:.72rem}
+.abyss-marks{margin-top:10px}.abyss-marks h2{font-size:.95rem;margin:0 0 4px}.abyss-marks p{margin:2px 0}
+@media (max-width:620px) and (min-height:501px){.abyss-list .abyss-rooms{grid-template-columns:minmax(0,1fr)}}
+/* 지맥의 꽃: the reward as a picture (experience book or Mora) instead of a paragraph. */
+.ley-line-icon{flex:0 0 auto;width:34px;height:34px;object-fit:contain}
+.ley-line-icon.mark{display:grid;place-items:center;color:#e9cf8d}
+.ley-line-item{justify-content:flex-start;flex-wrap:wrap}.ley-line-item>.ley-line-icon{width:28px;height:28px}.ley-line-item>.ley-line-copy{flex:1 1 5em;min-width:5em}.ley-line-item>:is(button,.ley-line-here){margin-left:auto}
+.ley-line-rewards{display:flex;gap:6px;margin-left:auto}
+.ley-line-chip{position:relative;display:inline-flex;align-items:center;gap:3px;padding:2px 8px 2px 2px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(236,229,216,.18)}
+.ley-line-chip .ley-line-icon{width:28px;height:28px}.ley-line-chip>b{font-size:.78rem;font-variant-numeric:tabular-nums}
+.ley-line-tier>.ley-line-copy{flex:1 1 auto}
+body.teyvat .item-use-targets{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+body.teyvat :where(#root,#modal) button.item-use-target{display:flex;align-items:center;gap:6px;width:auto;min-height:40px;margin:0;padding:3px 12px 3px 3px;border-radius:22px}
+body.teyvat :where(#root,#modal) button.item-use-target.selected{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-cream);font-weight:700}
+body.teyvat .item-use-face{width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:top;background:rgba(236,229,216,.12)}
+body.teyvat .item-use-face.mark{display:grid;place-items:center;color:var(--t-gold-hi)}
+body.teyvat .battle-branches{display:inline-flex;border-radius:18px;overflow:hidden;border:1px solid rgba(236,229,216,.25)}
+body.teyvat :where(#root) .battle-branches>button.battle-branch{min-height:36px;margin:0;padding:2px 12px;border:0;border-radius:0;background:transparent;font-size:.8rem}
+body.teyvat :where(#root) .battle-branches>button.battle-branch.selected{background:var(--t-cream);color:var(--t-ink);font-weight:700}
+/* ---------- 0.15.25 새 동료 합류 (app_story_companions_v01525.js): who joined, as character cards in the reward window ---------- */
+.sc-joined{display:flex;flex-direction:column;align-items:center;gap:12px;margin:2px 0 12px}
+.sc-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,132px));justify-content:center;gap:12px;width:100%}
+.sc-card{--i:0;display:flex;flex-direction:column;border-radius:8px;overflow:hidden;background:#ece5d8;box-shadow:0 4px 14px rgba(0,0,0,.42);animation:sc-pop .42s calc(var(--i) * 70ms) both}
+.sc-art{position:relative;aspect-ratio:1/1.08;border-top-right-radius:22px;overflow:hidden;background:linear-gradient(180deg,#5e5694,#9c75b7)}
+.sc-card.rarity-5 .sc-art{background:linear-gradient(180deg,#945c2c,#b27330)}
+.sc-art>img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.sc-initial{display:grid;place-items:center;height:100%;font-size:2.4rem;font-weight:700;color:rgba(255,255,255,.85)}
+.sc-badges{position:absolute;left:4px;top:4px;display:flex;flex-direction:column;gap:3px}
+.sc-badges>span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(10,12,20,.45)}
+.sc-badges>span>img{width:19px;height:19px;object-fit:contain}
+.sc-stars{position:absolute;left:0;right:0;bottom:3px;text-align:center;font-size:.85rem;letter-spacing:1px;color:#ffcc32;text-shadow:0 1px 2px rgba(0,0,0,.65)}
+.sc-info{display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 6px 6px;color:#495366;line-height:1.2}
+.sc-info>strong{font-size:.95rem;text-align:center}
+.sc-info>small{font-size:.72rem;color:#6d7385}
+:where(#modal) button.sc-party{min-width:140px}
+@keyframes sc-pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.sc-card{animation:none}}
 
 /* ---------- 리월 색 (generated by tools/gen_liyue_theme.cjs) ---------- */
 /* 리월(몬드와 같은 구성, 남색 바탕 → 같은 밝기의 갈색, 금색 테두리 → 주황빛 금색, 강조색 → 주황). */
@@ -3387,5 +3538,15 @@ body.teyvat[data-region=liyue] .premium-talent span.talent-kind.as-icon:not(.tal
 body.teyvat[data-region=liyue] .premium-talent .talent-kind.as-icon b{color:var(--c,#dab287)}
 body.teyvat[data-region=liyue] .shell-roster-item>.shell-roster-element{background:rgba(29,20,12,.82)}
 body.teyvat[data-region=liyue] .combat-panel>.battle-objective-strip{background:rgba(23,15,9,.62)}
+body.teyvat[data-region=liyue] .combat-panel .battle-heading>.battle-objective-strip{background:rgba(23,15,9,.62)}
 body.teyvat[data-region=liyue] .combat-panel>.battle-order li.current>.order-face.mark{background:rgba(85,68,54,.12)}
+body.teyvat[data-region=liyue] .domain-gate{background:radial-gradient(ellipse at 100% 0%,rgba(var(--dg),.18),transparent 60%),linear-gradient(160deg,rgba(57,39,23,.94),rgba(28,19,10,.94))}
+body.teyvat[data-region=liyue] .domain-gate-bonus{background:linear-gradient(90deg,#f8d2a9,#f2ac61)}
+body.teyvat[data-region=liyue] :where(#root) button.domain-element.selected{box-shadow:0 0 0 2px rgba(248,210,169,.45)}
+body.teyvat[data-region=liyue] :is(.domain-foe,.domain-reward)>b{background:rgba(22,15,9,.92)}
+body.teyvat[data-region=liyue] .domain-reward{background:linear-gradient(160deg,#7a64a8,#68482b);border:1px solid rgba(248,210,169,.35)}
+body.teyvat[data-region=liyue] .terrain-node.domain-host::after{box-shadow:0 0 0 1.5px rgba(22,15,9,.85),0 0 8px rgba(185,162,255,.8)}
+body.teyvat[data-region=liyue] .cp-battle.coop-fight .cp-bbox{background:radial-gradient(ellipse at 50% 30%,rgba(119,85,54,.35),transparent 70%),linear-gradient(180deg,#2f1f11,#23160b)}
+body.teyvat[data-region=liyue] .coop-combat .battle-turn-banner .cp-count{color:#554436}
+body.teyvat[data-region=liyue] .combat-panel .battle-order li .order-what{color:var(--t-gold-hi,#f8d2a9)}
 /* ---------- /리월 색 ---------- */

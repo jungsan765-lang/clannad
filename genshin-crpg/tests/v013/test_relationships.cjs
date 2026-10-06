@@ -13,6 +13,9 @@ function provision(def){const r=new R(db);r.newGame({name:'QA일상교류',route
  Object.assign(g,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:r.storyDefinition(def.id).MAP_ID,STORY_MENU_POLICY:'',STORY_WAITING:true,STORY_NEXT_PREPARED:'',SCREEN_MODE:'LOCATION',WORLD_TIME:'12:00',MORA:100000});
  for(const k of ['storyJourney','storyBreak','storyArrival','storyMenuFrame','storyContext','battlePreparation','storyRecovery'])delete r.s[k];
  Object.assign(f,{FLAG_TRV_MON_CH2_CLEAR:true,FLAG_ISK_M05_CLEAR:true,FLAG_ISK_MON_PROLOGUE_CLEAR:true,FLAG_ISK_MAIN_UNLOCKED:true,FLAG_TRV_LIYUE_CLEAR:true,FLAG_ISK_L04_REGION_CLEAR:true,FLAG_ACCESS_REGION_LIYUE:true,FLAG_MOND_MIKA_RETURNED:true,FLAG_MOND_MONA_PRESENT:true,FLAG_WORLD_ZIBAI_RETURNED:true,FLAG_ISK_META_KNOWLEDGE:'UNKNOWN',FLAG_ISK_MOND_BRANCH:'EXPEDITION',FLAG_ISK_EXPEDITION_FORK:'RETURN',FLAG_ISK_A_SUBBRANCH:'AB',FLAG_ISK_L01_LEAF:'AB1',FLAG_ISK_L02_LEAF:'AB1',FLAG_ISK_L03_LEAF:'AB1',FLAG_ISK_L04_LEAF:'AB1',FLAG_TRV_LY_GOLDEN_ROUTE:'B',FLAG_TRV_LY_GOLDEN_EVIDENCE_SENT:true});
+ // 0.15.25: the chapters these flags stand for have already brought their 4★ (runtime_story_companions_v01525.js), so a scene
+ // read here gives nothing (tests/test_v01525.cjs checks the chapters themselves).
+ r.s.storyCompanions={version:1,steps:Object.fromEntries(['AMBER','MOND_START','MOND_END','LIYUE_1','LIYUE_2','LIYUE_3','LIYUE_END'].map(k=>[k,true])),joined:{}};
  for(const flag of JSON.parse(def.REQUIRED_FLAGS||'[]'))f[flag]=true;
  for(const q of ['Q_ISK_MOND_01','Q_ISK_MOND_02','Q_ISK_MOND_03','Q_TRV_MOND_01','Q_TRV_MOND_02','Q_ISK_LIYUE_01','Q_ISK_LIYUE_02','Q_ISK_LIYUE_03','Q_ISK_LIYUE_04','Q_TRV_LIYUE_01','Q_TRV_LIYUE_02','Q_TRV_LIYUE_03','Q_TRV_LIYUE_04',def.REQUIRED_QUEST_ID].filter(Boolean))Object.assign(r.questState(q),{state:'완료',claimed:true,completedTurn:0,acceptedTurn:0});
  const l=r.ensureLiyue();l.access={phase:'OPEN'};

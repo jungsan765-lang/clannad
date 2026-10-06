@@ -4,7 +4,21 @@ const bossStatusName=safeName;safeName=function(table,id,col=1){if(table==='13_S
 const BattleTechnique={
  actors:new Map(),current:null,banner:null,dialog:null,resumeToken:null,
  capture(){const b=game?.s.runtime;if(b)this.actors=new Map(b.actors.map(a=>[a.id,{id:a.id,name:a.name,side:a.side,source:a.source}]));},
+ // 0.15.25 (user: 「이거 그냥 격동의 바람에 힐이 붙어있는겨? 머라머라 씨부려싸고 있는 글만 적혀있으니 못알아쳐먹겠네」): a heal or hit
+ // that is not a fighter's own action — a gear trait such as 처치 회복, a lasting status — says plainly what it is, where it
+ // comes from and what it did this time, instead of a paragraph about the playback.
+ results(events){return events.map(e=>Number(e.heal)>0?e.target+' 체력 +'+e.heal:Number(e.damage)>0?e.target+' 피해 '+e.damage:Number(e.shield)>0?e.target+' 보호막 +'+e.shield:'').filter(Boolean);},
+ effect(frame,events){
+  const label=String(frame.actor||''),catalog=globalThis.CRPGRuntime?.traitCatalog||{},key=Object.keys(catalog).find(k=>catalog[k].label===label);
+  const names=[...new Set(events.map(e=>e.target).filter(Boolean))],who=[...this.actors.values()].find(a=>a.name===names[0]);
+  if(key&&who){const gear=game.s.inventory.filter(i=>i.equipped&&i.owner===who.source&&i.equip).map(i=>({i,line:(game.gearTraitLines?.(i.equip)||[]).find(l=>l.key===key)})).find(x=>x.line);
+   return {frame,effect:true,cardId:null,name:label,state:'발동',actor:who,side:who.side,owner:who.name,source:gear?safeName('16_EQUIP_DB',gear.i.equip):'장비 효과',description:gear?gear.line.text.replace(/^[^·]*·\s*/,''):label,trigger:frame.cardName||'',results:this.results(events),targets:names,events,cooldown:0,coefficient:''};}
+  const status=game.rows?.('13_STATUS_EFFECT_DB')?.find(r=>r[1]===label);
+  if(status)return {frame,effect:true,cardId:null,name:label,state:'지속 효과',actor:who||null,side:who?.side||'EFFECT',owner:who?.name||'전장',source:'상태 효과',description:status[3]||'',trigger:'',results:this.results(events),targets:names,events,cooldown:0,coefficient:''};
+  return null;
+ },
  definition(frame){const events=frame.events||[frame],actor=this.actors.get(frame.actorId),cardId=events.find(e=>e.cardId)?.cardId||frame.cardId;
+  if(!actor&&frame.actor&&![...this.actors.values()].some(a=>a.name===frame.actor)){const fx=this.effect(frame,events);if(fx)return fx;}
   const own=game?.combatRows('08_SKILL_CARD_DB').find(r=>r[0]===cardId),enemy=own?null:game?.combatRows('12_ENEMY_CARD_DB').find(r=>r[0]===cardId);
   let name=frame.cardName||own?.[3]||enemy?.[2];
   if(cardId==='SYS_MOND_WIND_ROUTE')name='상승 기류 · 바람길 확보';
@@ -18,9 +32,9 @@ const BattleTechnique={
   const box=this.banner;box.dataset.side=d.side;box.replaceChildren();
   const caption=el('div','combat-skill-heading');caption.append(el('span','combat-skill-side',(d.side==='ALLY'?'아군':d.side==='ENEMY'?'적':'효과')+' · '+d.owner+' · '+d.state),el('strong','combat-skill-name',d.name));
   const bonus=d.events.find(e=>Number.isFinite(e.jointBonusPct))?.jointBonusPct;
-  let meta=d.targets.length?'대상 · '+d.targets.join(', '):d.state==='준비'?'다음 차례 발동을 준비합니다.':'기술 효과 적용';
+  let meta=d.effect?d.source+' · '+d.description:d.targets.length?'대상 · '+d.targets.join(', '):d.state==='준비'?'다음 차례 발동을 준비합니다.':'기술 효과 적용';
   if(bonus!==undefined)meta='합동 공격 · 추가 배율 +'+bonus+'%'+(d.targets.length?' · '+d.targets.join(', '):'');
-  caption.append(el('small','combat-skill-target',meta));box.append(caption,button(d.side==='ENEMY'?'적 기술 정보':'기술 정보',()=>this.open()));
+  caption.append(el('small','combat-skill-target',meta));box.append(caption,button(d.effect?'효과 정보':d.side==='ENEMY'?'적 기술 정보':'기술 정보',()=>this.open()));
   // The heading occupies layout space inside the dock; floating damage stays
   // above its top. If not enough room remains, dock outcome text is the fallback.
   this.keepDamageSeparate();
@@ -32,11 +46,19 @@ const BattleTechnique={
   if(!this.dialog){const dialog=el('dialog','enemy-intel-dialog combat-technique-dialog');dialog.id='combat-technique-dialog';dialog.setAttribute('aria-labelledby','combat-technique-title');document.body.append(dialog);this.dialog=dialog;dialog.addEventListener('close',()=>{const t=this.resumeToken;this.resumeToken=null;if(t&&GameEffects.active&&GameEffects.generation===t.generation&&!t.wasPaused){GameEffects.paused=false;CombatFX.pause(false);GameEffects.reschedule();}});}
   if(GameEffects.active&&!this.dialog.open){this.resumeToken={generation:GameEffects.generation,wasPaused:GameEffects.paused};GameEffects.paused=true;CombatFX.pause(true);GameEffects.reschedule();}
   const head=el('header','intel-dialog-head'),title=el('h2','',d.name);title.id='combat-technique-title';const close=button('닫기',()=>this.dialog.close());close.setAttribute('aria-label','기술 정보 닫기');head.append(title,close);
-  const body=el('div','intel-dialog-scroll');body.append(el('p','',d.owner+' · '+(d.side==='ALLY'?'아군 기술':'전장 효과')));
-  if(d.coefficient)body.append(el('p','',d.coefficient));
-  body.append(el('p','',d.cardId==='SYS_MOND_WIND_ROUTE'?'전장에 생긴 상승 기류를 이용하는 행동이며 주인공의 새 원소 기술이 아닙니다. 1행동으로 생존 아군 전체의 이번 전투 공중 접근을 확보합니다. 근접·중거리 공격은 최종 피해가 15% 감소합니다. 지형 파괴와 제한시간은 그대로입니다.':d.description||'현재 행동의 피해·회복·방어 결과는 아래 전투 결과 영역에 별도로 표시됩니다.'));
-  if(Number(d.cooldown)>0)body.append(el('p','','재사용 · '+d.cooldown+'차례'));
-  body.append(el('p','intel-replay-note','이번 행동은 이미 계산된 결과를 재생 중입니다. 확인을 닫으면 이어서 표시하며, 다음 조작 차례에 대응할 수 있습니다.'));
+  const body=el('div','intel-dialog-scroll');
+  if(d.effect){
+   // Where it comes from, what it does, what it did now: three short lines.
+   body.append(el('p','technique-source',d.owner+' · '+d.source),el('p','technique-does',d.description));
+   const now=d.results.join(' · ');if(now)body.append(el('p','technique-now','이번 · '+(d.trigger?d.trigger+' → ':'')+now));
+  }else{
+   body.append(el('p','technique-source',d.owner+' · '+(d.side==='ALLY'?'아군 기술':d.side==='ENEMY'?'적 기술':'전장 효과')));
+   const text=d.cardId==='SYS_MOND_WIND_ROUTE'?'전장에 생긴 상승 기류를 이용하는 행동이며 주인공의 새 원소 기술이 아닙니다. 1행동으로 생존 아군 전체의 이번 전투 공중 접근을 확보합니다. 근접·중거리 공격은 최종 피해가 15% 감소합니다. 지형 파괴와 제한시간은 그대로입니다.':d.description;
+   if(text)body.append(el('p','technique-does',text));if(d.coefficient)body.append(el('p','technique-coefficient',d.coefficient));
+   const now=this.results(d.events).join(' · ');if(now)body.append(el('p','technique-now','이번 · '+now));
+   if(Number(d.cooldown)>0)body.append(el('p','technique-cooldown','재사용 · '+d.cooldown+'차례'));
+  }
+  body.append(el('small','intel-replay-note','닫으면 이어서 재생합니다.'));
   this.dialog.replaceChildren(head,body);if(!this.dialog.open)this.dialog.showModal();close.focus({preventScroll:true});
  },
  clear(){this.banner?.remove();this.banner=null;this.current=null;this.resumeToken=null;if(this.dialog?.open)this.dialog.close();}

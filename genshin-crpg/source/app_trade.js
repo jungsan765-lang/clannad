@@ -106,7 +106,8 @@ function drawMarket(body){
  const f=T.filter,tools=mk('div','mk-tools');
  const s=mk('input','tr-search');s.type='search';s.placeholder='물건이나 상점 이름';s.value=f.q;s.onkeydown=e=>{if(e.key==='Enter'){f.q=s.value.trim();load();}};s.onchange=()=>{f.q=s.value.trim();load();};
  const kinds=mk('div','tr-cats');for(const [k,label]of [['','전체'],['ITEM','아이템'],['GEAR','장비']])kinds.append(btn(label,()=>{f.kind=k;load();},'tr-cat'+(f.kind===k?' active':'')));
- const sort=mk('select','mk-sort');sort.setAttribute('aria-label','정렬');for(const [k,label]of [['','최신순'],['price','개당 가격 낮은 순'],['expensive','비싼 순']]){const o=mk('option','',label);o.value=k;sort.append(o);}sort.value=f.sort;sort.onchange=()=>{f.sort=sort.value;load();};
+ // 0.15.25: the order as buttons like the kinds beside it (no drop-down in the game, AGENTS.md).
+ const sort=mk('div','tr-cats mk-sort');sort.setAttribute('role','group');sort.setAttribute('aria-label','정렬');for(const [k,label]of [['','최신순'],['price','싼 순'],['expensive','비싼 순']])sort.append(btn(label,()=>{f.sort=k;load();},'tr-cat'+((f.sort||'')===k?' active':'')));
  tools.append(s,kinds,sort);
  if(f.seller)tools.append(btn((f.sellerName||'모험가')+'의 상점 ✕',()=>{f.seller='';f.sellerName='';load();},'tr-cat active mk-seller'));
  body.append(tools);
@@ -143,7 +144,8 @@ function drawShop(body){
  const take=btn('받기',collect,'primary');if(!wallet.mora){take.disabled=true;take.title='받을 판매 대금이 없습니다.';}else if(!free()){take.disabled=true;take.title='자유행동 중에만 받을 수 있습니다.';}
  purse.append(moraIcon(),purseInfo,take);body.append(purse);
  const cols=mk('div','mk-shop');const left=mk('section','mk-sell'),right=mk('section','mk-mine-list');
- left.append(mk('h3','','상점에 올리기'),mk('p','trade-note small','물건을 고르고 수량과 값을 정하세요. 팔리면 값에서 수수료 '+Math.round(rules.fee*100)+'%를 뺀 모라가 판매 대금으로 쌓입니다. 한 번에 '+rules.maxListings+'개까지 올릴 수 있습니다.'));
+ // 0.15.25: the rule in one line (no paragraph): what it costs and how many fit.
+ left.append(mk('h3','','상점에 올리기'),mk('p','trade-note small','팔리면 수수료 '+Math.round(rules.fee*100)+'%를 뺀 모라가 판매 대금에 쌓임 · 최대 '+rules.maxListings+'개'));
  const entries=myEntries(),S=T.sell,picked=entries.find(d=>entryKey(d)===S.key);
  left.append(bagGrid(entries,{picked:d=>entryKey(d)===S.key?'✓':'',onPick:d=>{T.sell={key:entryKey(d),qty:d.kind==='EQUIPMENT'?1:Math.min(game.itemCount(d.id),T.sell.key===entryKey(d)?T.sell.qty:1),price:T.sell.key===entryKey(d)?T.sell.price:''};SND('tab');redraw();}}));
  if(picked){
@@ -174,7 +176,8 @@ async function cancel(x){if(T.busy)return;const session=O.sessionStamp();T.busy=
 async function collect(){if(T.busy)return;const session=O.sessionStamp();T.busy=true;try{const out=await O.request('/market/collect',{});SND('item_receive');say('판매 대금 '+fmt(out.mora)+' 모라를 받았습니다.');try{await O.sync();}catch{}}catch(e){if(!O.sameSession(session))return;say(e.message);SND('error');}finally{if(O.sameSession(session)){T.busy=false;load(true);}}}
 // ---------- 직접 거래 ----------
 function drawDirect(body){
- body.append(mk('p','trade-note','접속 중인 모험가와 그 자리에서 물건을 주고받습니다. 두 사람 모두 「확정」한 뒤 「거래하기」를 눌러야 바뀌고, 한쪽이 물건을 바꾸면 확정이 풀립니다. 모라·경험치 책·보스 재료·전용 무기·장착 중인 장비는 거래할 수 없습니다(모라는 시장을 이용하세요).'));
+ // 0.15.25: the rules in one line (no paragraph).
+ body.append(mk('p','trade-note','둘 다 「확정」 → 「거래하기」 · 물건을 바꾸면 확정이 풀림 · 모라·경험치 책·보스 재료·전용 무기·장착 장비는 직접 거래 불가'));
  if(T.deal){const c=mk('section','mk-deal-now');c.append(mk('strong','',T.deal.status==='INVITED'?(T.deal.inviter?T.deal.other.name+' 님의 수락을 기다리는 중':T.deal.other.name+' 님이 거래를 신청했습니다'):T.deal.other.name+' 님과 거래 중'));
   if(T.deal.status==='OPEN')c.append(btn('거래 창 열기',openDeal,'primary'));else if(!T.deal.inviter)c.append(btn('수락',()=>respond(true),'primary'),btn('거절',()=>respond(false)));else c.append(btn('신청 취소',cancelDeal));body.append(c);}
  body.append(mk('h3','','접속 중인 모험가'));const list=mk('div','mk-online');

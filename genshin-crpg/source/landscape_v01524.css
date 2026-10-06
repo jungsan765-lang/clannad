@@ -185,6 +185,7 @@ body.teyvat .combat-panel>.battle-heading .eyebrow{font-size:.6rem;padding:1px 8
 body.teyvat .combat-panel>.battle-heading h1{font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}
 body.teyvat .combat-panel>.battle-heading :is(button.battle-formation,.battle-head-button){flex:0 0 auto;font-size:.66rem;padding:1px 8px;min-height:22px}
 body.teyvat .combat-panel>.battle-objective-strip{margin:0;padding:2px 10px;font-size:.7rem;gap:8px}
+body.teyvat .combat-panel .battle-heading>.battle-objective-strip{padding:1px 8px;font-size:.64rem;gap:6px}
 body.teyvat .combat-panel>.battle-order{padding:0 0 2px;gap:4px;scrollbar-width:none}
 body.teyvat .combat-panel>.battle-order li{font-size:.7rem;padding:2px 9px 2px 2px;gap:4px}
 body.teyvat .combat-panel>.battle-order li>small:first-child{width:18px;height:18px;font-size:.6rem}
@@ -198,6 +199,10 @@ body.teyvat .combat-panel .shell-enemies>h2{display:none}
 body.teyvat .combat-panel .shell-enemies[data-count]{align-content:center;min-height:100%}
 body.teyvat .combat-panel .shell-enemies[data-rows="1"]{--enemy-h:clamp(80px,calc(100dvh - 246px),190px);--enemy-w:210px;gap:6px 10px}
 body.teyvat .combat-panel .shell-enemies[data-rows="2"]{--enemy-h:clamp(40px,calc((100dvh - 282px) / 2),92px);--enemy-w:170px;gap:4px 8px}
+/* A summon strip above takes its height from the enemy cards (0.15.25: the boss card was pushed off the board). */
+body.teyvat .combat-panel .compact-battle-stage:has(>.battle-summons) .shell-enemies[data-rows="1"]{--enemy-h:clamp(56px,calc(100dvh - 300px),170px)}
+body.teyvat .combat-panel .compact-battle-stage:has(>.battle-summons) .shell-enemies[data-rows="2"]{--enemy-h:clamp(32px,calc((100dvh - 336px) / 2),80px)}
+body.teyvat .combat-panel .battle-summons.top .battle-summon.summon-actor{width:150px;padding:2px 28px 3px 8px}
 body.teyvat .combat-panel .shell-enemies .combatant-copy strong .shell-level{display:inline;margin:0 4px 0 0;font-size:.62rem}
 body.teyvat .combat-panel .shell-enemies .combatant-copy strong .el-icon{vertical-align:-2px}
 /* The last-action line repeats what the playback band already said; the fighters get its room. */
@@ -228,6 +233,10 @@ body.teyvat .combat-panel .shell-allies .combatant-copy :is(.battle-position,sma
 body.teyvat .combat-panel .shell-allies .meter{height:5px}
 body.teyvat .combat-panel .battle-summons.top{margin:0 0 4px;gap:4px 10px}
 body.teyvat .combat-panel .battle-summons.top .battle-summon{padding:2px 8px 2px 2px}
+body.teyvat .combat-panel .battle-summons.top .battle-summon .summon-copy small{display:none}
+body.teyvat .combat-panel .battle-summons.top .battle-summon .summon-portrait{flex-basis:28px;width:28px;height:26px}
+body.teyvat .combat-panel .battle-summons.top .battle-summon .summon-copy strong{font-size:.72rem}
+body.teyvat .combat-panel .battle-summons.top .summon-lane h3{font-size:.6rem}
 /* Commands: whose turn · the skills · target and run, in one row along the bottom. */
 body.teyvat .combat-panel .battle-command{padding:5px 8px;gap:6px 8px;border-radius:14px}
 body.teyvat .combat-panel .battle-command>h2{font-size:.86rem}
@@ -350,6 +359,19 @@ body.teyvat .wish-screen h2.wish-banner-name{font-size:1.4rem}
 .wish-screen button.wish-pull strong{font-size:.86rem}
 .wish-cost{font-size:.72rem}
 .wish-lock{bottom:calc(100% + 6px);padding:5px 14px;font-size:.76rem}
+/* ---------- 0.15.25 domain gate and the buttons that replace lists ---------- */
+body.teyvat .domain-gate{padding:8px 10px;gap:7px;border-radius:13px}
+body.teyvat .domain-gate-name h2{font-size:.98rem}
+body.teyvat :where(#root) button.domain-stage{min-height:42px}
+body.teyvat .domain-stage b{font-size:.94rem}
+body.teyvat :where(#root) button.domain-element{width:31px;height:31px;min-height:31px}
+body.teyvat .domain-element-icon{width:20px;height:20px}
+body.teyvat .domain-foe-face{width:34px;height:34px}
+body.teyvat .domain-reward{width:38px;height:38px}
+body.teyvat .domain-reward-icon{width:29px;height:29px}
+body.teyvat .domain-reward.mora .domain-reward-icon{width:22px;height:22px}
+body.teyvat .domain-gate-body>.domain-go{min-height:38px}
+.choice-tiles>button.choice-tile{min-height:32px;padding:2px 10px;font-size:.78rem}
 /* ---------- tutorial bubble: a little narrower so it does not cover the map ---------- */
 #tutorial-tour.tutorial-callout{max-width:min(360px,calc(100vw - 24px))}
 }
@@ -426,4 +448,236 @@ html.crpg-gate-rotate #tutorial-spotlight{display:none!important}
  #crpg-gate h1{font-size:1.1rem}
  #crpg-gate .gate-steps li{padding:7px 10px 7px 40px;font-size:.82rem}
  #crpg-gate .gate-steps li::before{top:7px}
+}
+/* ---------- 0.15.25 the windows 0.15.24 left (handoff 「남은 것」 2): shop, market, co-op, raid, chat, crafting and cooking,
+   the Spiral Abyss, gear comparison. Same idea as the main screens: thin rows of controls, the content fills the rest
+   and scrolls inside its own box, nothing pushed below the screen. ---------- */
+@media (orientation:landscape) and (max-height:500px){
+/* 상점: the work tabs and tools in the header, one sliding row of filters, the goods and the chosen item side by side. */
+body.teyvat .shell-page-head :is(.shell-workbar,.shell-worktabs){min-width:0}
+body.teyvat .shell-page-head .shell-worktabs{padding:2px;gap:2px}
+body.teyvat .shell-page-head button.shell-worktab{min-height:30px;padding:2px 10px;font-size:.74rem;gap:5px}
+body.teyvat .shell-page-head button.shell-worktab svg{width:15px;height:15px}
+body.teyvat .shell-page-head .market-tabs{margin:0;gap:4px}
+body.teyvat .shell-page-head .market-tabs .shop-balance{font-size:.74rem}
+body.teyvat .shell-page-body.shop-cols{display:flex;flex-direction:column;overflow:hidden;padding-top:6px}
+body.teyvat .shop-cols>.shop-main{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;gap:6px}
+body.teyvat .shop-cols.with-side>.shell-col-side{display:none}
+body.teyvat .shop-main>.market-filter{display:flex;flex-wrap:nowrap;align-items:center;gap:4px;margin:0;flex:0 0 auto;overflow-x:auto;scrollbar-width:none}
+body.teyvat .shop-main>.market-filter>label{width:auto;flex:0 0 auto;gap:4px;font-size:.72rem;white-space:nowrap}
+body.teyvat .shop-main>.market-filter input{width:16px;height:16px}
+body.teyvat .shop-main>.market-filter>button{flex:0 0 auto;min-height:28px;padding:2px 10px;font-size:.72rem}
+body.teyvat .shop-main>.market-filter>.shell-hint,body.teyvat .shop-main>p.muted{display:none}
+body.teyvat .shop-main>.market-layout{flex:1 1 auto;min-height:0;grid-template-columns:minmax(0,1fr) minmax(210px,264px);grid-template-rows:minmax(0,1fr);gap:8px;align-items:stretch}
+body.teyvat .shop-main .market-grid{max-height:none;min-height:0;overflow:auto;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));grid-auto-rows:max-content;gap:6px;align-content:start}
+body.teyvat .shop-main .market-item{min-height:0;padding:6px 4px;gap:3px}
+body.teyvat .shop-main .market-item .item-icon{width:40px;height:40px}
+body.teyvat .shop-main .market-item strong{font-size:.74rem;line-height:1.3}
+body.teyvat .shop-main .market-item :is(span,small){font-size:.64rem;line-height:1.3}
+body.teyvat .shop-main .market-detail{position:static;min-height:0;overflow:auto;padding:8px 10px;margin:0}
+body.teyvat .shop-main .market-detail>h2{font-size:.96rem;margin:0 0 4px}
+body.teyvat .shop-main .market-detail>.item-icon{width:44px;height:44px;float:right;margin:0 0 4px 6px}
+body.teyvat .shop-main .market-detail p{margin:3px 0;font-size:.76rem;line-height:1.45}
+body.teyvat .shop-main .market-detail .market-price{font-size:.96rem}
+body.teyvat .shop-main .market-controls{position:sticky;bottom:-8px;z-index:2;margin:6px -10px -8px;padding:6px 10px 8px;gap:6px;background:linear-gradient(180deg,rgba(20,24,36,.4),rgba(20,24,36,.96) 30%)}
+body.teyvat .shop-main .market-controls{flex-wrap:nowrap}body.teyvat .shop-main .market-controls button{flex:1 1 0;min-width:0;min-height:34px;padding:3px 8px;font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}body.teyvat .shop-main .market-controls button.primary{padding-left:32px}
+body.teyvat .shop-main .market-compare-label{margin-top:8px;gap:4px;font-size:.74rem}
+body.teyvat .shop-main .item-detail-fields{font-size:.74rem}
+/* 제작·요리 (forge and cooking): the categories in one sliding row, then the recipes and the chosen recipe side by side
+   (the ≤1100px rule stacks the recipe over the list, which left the list a few pixels on a short screen). */
+body.teyvat .panel.shell-workshop .shell-forge-tabs>.shell-panes>.shell-pane{gap:5px}
+body.teyvat .shell-forge-tabs .shell-pane>.craft-tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:4px;flex:0 0 auto;scrollbar-width:none}
+body.teyvat .shell-forge-tabs .shell-pane>.craft-tabs>button{flex:0 0 auto;min-height:28px;padding:2px 10px;font-size:.72rem}
+body.teyvat .shell-forge-tabs .shell-pane>.forge-filters{flex:0 0 auto;gap:8px}
+body.teyvat .shell-forge-tabs .forge-toggle{font-size:.72rem;gap:4px;min-height:0}
+body.teyvat .shell-forge-tabs .forge-toggle input{width:16px;height:16px}
+body.teyvat .shell-forge{grid-template-columns:minmax(0,1fr) minmax(220px,280px);grid-template-rows:minmax(0,1fr);gap:8px}
+body.teyvat .shell-forge-detail{order:0;max-height:none;border-radius:12px}
+body.teyvat .shell-forge-list{grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px}
+body.teyvat .shell-forge-tile-name{font-size:.66rem;line-height:1.3}
+body.teyvat .shell-forge-scroll{padding:8px 10px;gap:6px;font-size:.76rem}
+body.teyvat .shell-forge-scroll h2,body.teyvat .shell-forge-scroll h3{font-size:.92rem;margin:0}
+body.teyvat .shell-forge-foot{padding:6px 8px;gap:6px}
+body.teyvat .shell-forge-foot>button,body.teyvat .shell-forge-foot>.cook-foot>button{flex-basis:96px;min-height:36px;font-size:.8rem}
+body.teyvat .shell-forge-foot>.cook-foot>small{font-size:.66rem}/* 강화·돌파: the same thin rows; the rules box stays a one-line summary at the bottom and scrolls inside when opened. */
+body.teyvat .enhance-panel{gap:4px}
+body.teyvat .enhance-panel>.forge-tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:4px;flex:0 0 auto;scrollbar-width:none}
+body.teyvat .enhance-panel>.forge-tabs>button{flex:0 0 auto;min-height:28px;padding:2px 10px;font-size:.72rem}
+body.teyvat .enhance-panel>.forge-filters{flex:0 0 auto}
+body.teyvat .enhance-panel .forge-toggle{font-size:.72rem;gap:4px;min-height:0}
+body.teyvat .enhance-panel .forge-toggle input{width:16px;height:16px}
+body.teyvat .enhance-panel>.choice-note{margin:0;font-size:.7rem;line-height:1.35;flex:0 0 auto}
+body.teyvat .enhance-panel>.shell-forge{flex:1 1 auto;min-height:0}
+body.teyvat .enhance-panel>.enhance-rules{flex:0 0 auto;margin:0;padding:0 10px;border-radius:10px}
+body.teyvat .enhance-panel>.enhance-rules>summary{min-height:26px;padding:3px 0;font-size:.72rem}
+body.teyvat .enhance-panel>.enhance-rules[open]{max-height:55%;overflow:auto;font-size:.74rem}/* The chosen recipe or piece: a smaller picture so its cost shows without scrolling. */
+body.teyvat .shell-forge-hero{gap:8px}
+body.teyvat .shell-forge-hero>.shell-forge-art{width:56px;height:56px;flex:0 0 56px}
+body.teyvat .shell-forge-hero>.shell-forge-art>img.item-icon{width:42px;height:42px}
+body.teyvat .shell-forge-hero>.shell-forge-art>.shell-forge-stars{font-size:.56rem;line-height:1.2}
+body.teyvat .shell-forge-hero h3{font-size:.86rem;line-height:1.3}
+body.teyvat .shell-forge-hero .shell-forge-kind{font-size:.62rem}/* The category row and its tick boxes share one line; the list and the chosen piece take every row left. */
+body.teyvat .panel.shell-workshop .shell-forge-tabs>.shell-panes>.shell-pane:has(>.craft-tabs){display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"tabs filters" "forge forge";align-items:center}
+body.teyvat .shell-forge-tabs .shell-pane:has(>.craft-tabs)>.craft-tabs{grid-area:tabs;min-width:0}
+body.teyvat .shell-forge-tabs .shell-pane:has(>.craft-tabs)>.forge-filters{grid-area:filters}
+body.teyvat .shell-forge-tabs .shell-pane:has(>.craft-tabs)>.shell-forge{grid-area:forge;align-self:stretch}
+body.teyvat .panel.shell-workshop .enhance-panel{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto minmax(0,1fr) auto;grid-template-areas:"tabs filters" "note note" "forge forge" "rules rules";align-items:center;gap:4px 8px}
+body.teyvat .enhance-panel>.forge-tabs{grid-area:tabs;min-width:0}
+body.teyvat .enhance-panel>.forge-filters{grid-area:filters;flex-wrap:nowrap}
+body.teyvat .enhance-panel>.choice-note{grid-area:note}
+body.teyvat .enhance-panel>.shell-forge{grid-area:forge;align-self:stretch}
+body.teyvat .enhance-panel>.enhance-rules{grid-area:rules}/* 요리: the region row and 「지금 만들 수 있는 것만」 on one line, the effect row under it, then the dishes. */
+body.teyvat .shell-page-head .shell-workstats{gap:4px}
+body.teyvat .shell-page-head .shell-workstats>span{min-height:0;padding:2px 9px;font-size:.66rem;line-height:1.5}
+body.teyvat .panel.shell-workshop .shell-workarea:has(>.cook-tabs){display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto minmax(0,1fr);grid-template-areas:"tabs ready" "effects effects" "forge forge";align-items:center;gap:4px 8px}
+body.teyvat .shell-workarea>.cook-tabs{grid-area:tabs;display:flex;flex-wrap:nowrap;overflow-x:auto;gap:4px;margin:0;min-width:0;scrollbar-width:none}
+body.teyvat .shell-workarea>.cook-effects{grid-area:effects;display:flex;flex-wrap:nowrap;overflow-x:auto;gap:4px;margin:0;min-width:0;scrollbar-width:none}
+body.teyvat .shell-workarea>:is(.cook-tabs,.cook-effects)>button{flex:0 0 auto;min-height:28px;padding:2px 10px;font-size:.72rem}
+body.teyvat .shell-workarea>.cook-effects>button{min-height:24px;font-size:.68rem}
+body.teyvat .shell-workarea>.cook-ready{grid-area:ready;font-size:.72rem;gap:4px;min-height:0;width:auto}
+body.teyvat .shell-workarea>.cook-ready input{width:16px;height:16px}
+body.teyvat .shell-workarea>.shell-forge{grid-area:forge;align-self:stretch}/* 거래소: a thin title bar and tab row, then three columns of compact cards (two wide cards showed two goods at a time). */
+.trade-overlay{padding:6px max(8px,env(safe-area-inset-right)) 6px max(8px,env(safe-area-inset-left))}
+.trade-box,body.teyvat .trade-box{width:100%;height:calc(100dvh - 12px);max-height:none;border-radius:16px}
+.trade-head{padding:5px 8px 5px 12px;gap:8px}
+.trade-head strong{font-size:1rem}
+.trade-head small{display:none}
+.trade-head .trade-close{width:32px;height:32px;min-height:32px}
+.trade-tabs{padding:5px 12px;gap:5px}
+.trade-tabs .trade-tab{min-height:28px;padding:2px 14px;font-size:.76rem}
+.trade-body{padding:8px 12px 10px;gap:6px}
+.mk-tools{gap:6px;flex-wrap:nowrap}
+.mk-tools .tr-search{min-height:30px;min-width:120px;font-size:.78rem}
+.mk-tools .tr-cats{flex-wrap:nowrap}
+.tr-cat{min-height:28px;padding:2px 10px;font-size:.72rem;white-space:nowrap}
+.mk-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px}
+.mk-card{grid-template-columns:52px minmax(0,1fr);gap:3px 8px;padding:6px 8px;border-radius:12px}
+.mk-card .tr-tile{width:52px}
+.mk-card .tr-art{height:46px;flex-basis:46px}
+.mk-card .tr-name{display:none}
+.mk-name{font-size:.8rem}
+.mk-price{font-size:.74rem}.mk-price b{font-size:.84rem}
+.mk-seller-name{font-size:.68rem}
+.mk-card :is(.mk-buy,.mk-cancel){min-height:28px;padding:2px 12px;font-size:.74rem}
+.mk-wallet{padding:6px 10px;gap:8px}
+.mk-shop{gap:8px}
+.mk-sell,.mk-mine-list{padding:8px;gap:6px}
+.tr-bag .tr-grid{max-height:calc(100dvh - 250px)}
+.mk-form{grid-template-columns:52px minmax(0,1fr);gap:8px;padding:8px}
+.mk-form .tr-tile{width:52px}.mk-wallet>div{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:2px 10px}
+.mk-wallet span{font-size:.74rem}
+.mk-wallet button{min-height:30px;padding:2px 14px}
+.tr-grid{grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+.tr-art{height:52px;flex-basis:52px}
+.tr-name{font-size:.62rem}
+.mk-sell h3,.mk-mine-list h3,.trade-body.tab-direct h3{font-size:.84rem}
+.trade-note{font-size:.74rem}
+.trade-head .trade-close{margin-right:2px}}
+/* ---------- 0.15.25 다인 모드 · 공동 토벌전 windows on a sideways phone: thin title bars (the old page `header` rule made
+   them 84 px), the window as tall as the screen, the rules in two short lines. ---------- */
+@media (orientation:landscape) and (max-height:500px){
+body.teyvat :is(.cp-overlay,.cp-battle,.rd-overlay){padding:6px max(8px,env(safe-area-inset-right)) 6px max(8px,env(safe-area-inset-left))}
+body.teyvat :is(.cp-box,.rd-box){width:min(860px,100%);max-height:calc(100dvh - 12px);border-radius:16px}
+body.teyvat .cp-bbox{width:100%;height:calc(100dvh - 12px);border-radius:16px}
+body.teyvat :is(.cp-head,.cp-bhead,.rd-head){flex:0 0 auto;height:auto;min-height:0;padding:5px 8px 5px 12px;gap:8px}body.teyvat .rd-head-icon{width:26px!important;height:26px!important;padding:4px}body.teyvat .rd-head-copy{flex-direction:row;align-items:baseline;gap:10px}body.teyvat .rd-head-copy strong{font-size:.98rem;white-space:nowrap}body.teyvat .rd-head-copy small{font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}body.teyvat .rd-close{width:30px;height:30px;min-height:30px}body.teyvat .rd-body{padding:8px 12px 10px;gap:8px}body.teyvat .rd-hero{gap:10px;padding:8px}body.teyvat .rd-hero .rd-boss-art{max-height:84px;width:auto}body.teyvat .rd-hero-copy h2{font-size:1rem}body.teyvat .rd-hero-copy p{font-size:.76rem;line-height:1.45;margin:0 0 3px}body.teyvat .rd-hero-copy .rd-rule{font-size:.7rem}body.teyvat .rd-progress h3,body.teyvat .rd-rewards h3,body.teyvat .rd-top h3{font-size:.84rem;margin:0 0 4px}body.teyvat .rd-fact{padding:5px 8px}body.teyvat .rd-fact strong{font-size:.92rem}body.teyvat .rd-go{min-height:40px;padding:4px 26px;font-size:.9rem}body.teyvat .rd-top-list li{padding:4px 8px;font-size:.76rem}body.teyvat .rd-reward-list{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px}body.teyvat .rd-reward{padding:5px 8px}body.teyvat .rd-reward strong{font-size:.76rem}body.teyvat .rd-reward span{font-size:.7rem}body.teyvat .rd-reward small{font-size:.62rem;max-width:104px}body.teyvat .rd-reward button{min-height:28px;padding:2px 12px;font-size:.74rem}body.teyvat .rd-bar{height:12px;margin:0 6px 18px}body.teyvat .rd-mark{font-size:.6rem}body.teyvat .rd-mark::before{height:12px}
+body.teyvat .cp-head-icon{width:26px!important;height:26px!important;padding:4px}
+body.teyvat .cp-head-copy{flex-direction:row;align-items:baseline;gap:10px}
+body.teyvat .cp-head-copy strong{font-size:.98rem;white-space:nowrap}
+body.teyvat .cp-head-copy small{font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.teyvat :is(.cp-close,.cp-back){width:30px;height:30px}
+body.teyvat .cp-rules{padding:6px 10px;gap:2px}
+body.teyvat .cp-rules p{font-size:.7rem;line-height:1.45}
+body.teyvat .cp-empty{padding:8px;font-size:.78rem}
+/* A guest's room: two columns (where the party is | who is along and the room's talk); the members as small faces. */
+body.teyvat .cp-box>.cp-body:has(>.cp-world){display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-areas:"state team" "world team" "world talk" "actions talk" "rules rules";align-items:start;gap:8px;padding:8px 10px 10px}
+body.teyvat .cp-body:has(>.cp-world)>.cp-state{grid-area:state;padding:6px 10px}
+body.teyvat .cp-body:has(>.cp-world)>.cp-world{grid-area:world;padding:8px 10px;gap:5px}
+body.teyvat .cp-body:has(>.cp-world)>.cp-talk{grid-area:talk;padding:8px 10px;gap:5px}
+body.teyvat .cp-body:has(>.cp-world)>.cp-team{grid-area:team;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+body.teyvat .cp-body:has(>.cp-world)>.cp-actions{grid-area:actions}
+body.teyvat .cp-body:has(>.cp-world)>.cp-rules{grid-area:rules}
+body.teyvat .cp-body h3{font-size:.84rem;margin:0 0 4px}
+body.teyvat .cp-state small,body.teyvat .cp-where small{font-size:.7rem}
+body.teyvat .cp-where strong{font-size:.88rem}
+body.teyvat .cp-minimap{height:110px}
+body.teyvat .cp-chips .cp-chip,body.teyvat .cp-actions .cp-btn{min-height:28px;padding:2px 10px;font-size:.72rem}
+body.teyvat .cp-talk-log{max-height:84px;overflow:auto}
+body.teyvat .cp-talk-form input{min-height:32px}
+body.teyvat .cp-team .cp-member{padding:3px;gap:2px;border-radius:12px}
+body.teyvat .cp-team .cp-member .cp-char{flex-direction:column;gap:2px;padding:4px;text-align:center}
+body.teyvat .cp-team .cp-member :is(.cp-char-stats,.cp-char-gear){display:none}
+body.teyvat .cp-team .cp-member .cp-char-copy small{font-size:.6rem}
+body.teyvat .cp-team .cp-member .cp-char-copy strong{font-size:.74rem}
+body.teyvat .cp-team .cp-member-who{font-size:.64rem;justify-content:center}
+body.teyvat .cp-team .cp-member.empty{min-height:44px;font-size:.66rem}
+/* A guest's fight: the battle screen's own sideways layout, the window edge to edge. */
+body.teyvat .cp-battle.coop-fight{padding:4px max(6px,env(safe-area-inset-right)) 4px max(6px,env(safe-area-inset-left))}
+body.teyvat .cp-battle.coop-fight .cp-bbox{width:100%;height:calc(100dvh - 8px);padding:4px 6px;border-radius:12px}
+body.teyvat .coop-combat>.battle-heading .cp-head-host{font-size:.62rem}
+}/* 나선비경 window on a sideways phone: the twelve floors fit one row, the season in two lines. */
+@media (orientation:landscape) and (max-height:500px){
+.abyss-list .abyss-season{padding:6px 10px;gap:2px}
+.abyss-list .abyss-season-head strong{font-size:.9rem}
+.abyss-list .abyss-season-line{font-size:.78rem}
+.abyss-list .abyss-rule-line{font-size:.7rem;line-height:1.4}
+.abyss-floors{gap:4px;margin:6px 0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.abyss-list :where(button).abyss-floor-tab{flex:0 0 auto;width:44px;height:42px;border-radius:10px}
+.abyss-floor-tab b{font-size:.98rem}
+.abyss-floor-tab small{font-size:.54rem}
+.abyss-list .abyss-floor{padding:8px 10px}
+.abyss-floor-head h3{font-size:.92rem}
+.abyss-list .abyss-rooms{gap:6px;margin:6px 0}
+.abyss-list .abyss-rooms li{padding:6px 8px 6px 32px}
+.abyss-room-no{left:6px;top:6px;width:20px;height:20px;font-size:.68rem}
+.abyss-list .abyss-rooms li strong{font-size:.78rem}
+.abyss-list .abyss-rooms li small{font-size:.64rem}
+.abyss-list .abyss-rooms li p{font-size:.66rem}
+.abyss-list .abyss-reward{font-size:.74rem;margin:4px 0}
+.abyss-list .abyss-floor-actions button{min-height:34px;font-size:.8rem}
+.abyss-marks h2{font-size:.84rem}
+.abyss-list .abyss-break{padding:8px 10px}
+.abyss-list .abyss-party{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px;margin:6px 0}
+.abyss-list .abyss-member{padding:6px 8px}
+body.teyvat .abyss-result{padding:8px 12px;margin:6px 0}body.teyvat .abyss-result h2{font-size:1.02rem;margin:0 0 4px}body.teyvat .abyss-result p{font-size:.8rem;margin:2px 0}body.teyvat .abyss-result button{min-height:34px;font-size:.8rem}
+}/* 장비 비교 (the gear picker window): two pieces side by side, each with its change of numbers and its button. */
+@media (orientation:landscape) and (max-height:500px){
+.gear-picker>p.muted{margin:0 0 6px;font-size:.72rem}
+.gear-picker .gear-current{padding:6px 10px;gap:8px}
+.gear-picker .gear-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.gear-picker .gear-options>.gear-cell{min-width:0}
+.gear-picker .gear-option{padding:6px 8px;gap:8px;min-height:0}
+.gear-picker :is(.gear-option,.gear-current) .item-icon{width:40px;height:40px}
+.gear-picker .gear-option-copy strong{font-size:.82rem}
+.gear-picker .gear-option-copy small{font-size:.68rem;line-height:1.4}
+.gear-picker :is(.gear-option,.gear-current) button{min-height:32px;padding:2px 12px 2px 32px;font-size:.76rem}
+}/* ---------- 0.15.25 the on-screen keyboard on a sideways phone (handoff 「남은 것」 4) ----------
+   Android shrinks the page itself (interactive-widget=resizes-content), leaving 150–250 px: the windows with a text box
+   then use the whole height. iOS keeps the page and shrinks only the visible part: app_install_v01524.js marks it
+   (html.kb-open, --vv-top, --vv-h) and the same windows sit inside that part. */
+@media (orientation:landscape) and (max-height:280px){
+.chat-window{top:4px;bottom:4px;height:auto;right:max(8px,env(safe-area-inset-right))}
+.chat-head{height:auto;padding:3px 6px 3px 10px;min-height:0}.chat-close{width:28px;height:28px;min-height:28px}
+.chat-form{padding:4px 8px}
+.chat-form input{min-height:32px;padding:4px 10px}
+.ml-box{height:calc(100dvh - 8px)}
+.ml-overlay,.trade-overlay,.deal-overlay{padding:4px}
+.trade-box,body.teyvat .trade-box{height:calc(100dvh - 8px)}
+body.teyvat dialog#modal,#modal:has(.account-form){max-height:calc(100dvh - 8px);padding:8px 14px}
+}
+html.kb-open .chat-window{top:calc(var(--vv-top,0px) + 4px);bottom:auto;height:calc(var(--vv-h,100dvh) - 8px);max-height:none}
+html.kb-open dialog#modal[open]{top:calc(var(--vv-top,0px) + 4px);bottom:auto;margin:0 auto;max-height:calc(var(--vv-h,100dvh) - 8px)}
+html.kb-open :is(.ml-overlay,.trade-overlay,.deal-overlay){top:var(--vv-top,0px);bottom:auto;height:var(--vv-h,100dvh);padding:4px}
+html.kb-open :is(.ml-box,.trade-box,.deal-box){height:auto;max-height:calc(var(--vv-h,100dvh) - 8px)}
+/* ---------- 0.15.25 새 동료 합류 (app_story_companions_v01525.js) on a sideways phone: smaller cards in one short row, 「편성」 beside them. ---------- */
+@media (orientation:landscape) and (max-height:500px){
+.sc-joined{flex-direction:row;gap:12px;margin:0 0 4px}
+#modal:has(.sc-joined) #modal-body>h1{margin-bottom:4px}#modal:has(.sc-joined)>button.ghost{margin-top:6px}
+.sc-cards{flex:1 1 0;min-width:0;grid-template-columns:repeat(auto-fit,minmax(76px,96px));gap:8px}
+.sc-art{aspect-ratio:1/.86}
+:where(#modal) button.sc-party{flex:0 0 auto;min-width:96px}
+/* The reward window's items (chests, rewards, the companions' weapons): smaller tiles, so the window's 「닫기」 stays near. */
+body.teyvat .loot-grid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px}
+body.teyvat .loot-item strong{padding:4px 4px 5px;font-size:.7rem}
+body.teyvat .loot-item .loot-count{top:3px;right:3px;padding:0 6px;font-size:.78rem}
+.sc-info{padding:3px 4px 4px}.sc-info>strong{font-size:.82rem}
 }

@@ -116,8 +116,13 @@ check('the turn order on screen is the order they act in: a new round brings its
  const game={s:{runtime:{round:3,order:[{id:'B'},{id:'A'}],actors:[]}}};
  const ctx=load({game,GameEffects:{play(){return 'played';}}});
  assert.equal(ctx.GameEffects.play([{kind:'action',round:2,actorId:'A'},{kind:'impact'},{kind:'action',round:2,actorId:'SUMMON:X'},{kind:'action',round:2,actorId:'C'},{kind:'action',round:2,actorId:'A'},{kind:'action',round:3,actorId:'B'}]),'played','the playback itself is untouched');
- assert.deepEqual(plain(ctx.BattleFX.roundOrder(2)),['A','C'],'an earlier round: the fighters as they acted');
+ // 0.15.25 (user: 「토끼백작 … 공격을 연속 세번 하노? … 위에 X3 적혀있어야」): a summon's own turn is part of the order, and a
+ // fighter acting twice in a round says ×2.
+ assert.deepEqual(plain(ctx.BattleFX.roundOrder(2)),['A','SUMMON:X','C'],'an earlier round: everyone as they acted, a summon\'s own turn included');
+ assert.deepEqual(plain(ctx.BattleFX.roundTimes(2)),{A:2,'SUMMON:X':1,C:1},'A acted twice');
  assert.deepEqual(plain(ctx.BattleFX.roundOrder(3)),['B','A'],'the round the battle stands in: its own order');
+ ctx.GameEffects.play([{kind:'action',round:3,actorId:'SUMMON:BUNNY:A',periodic:true},{kind:'action',round:3,actorId:'B'}]);
+ assert.deepEqual(plain(ctx.BattleFX.roundOrder(3)),['SUMMON:BUNNY:A','B','A'],'a blast at the start of the round leads it');
  assert(fx.includes('if(order){followRound(order,frame.round);'),'rebuilt as each action begins');
  const exp=src('app_experience.js');assert(exp.includes("order.dataset.round=String(b.round);")&&exp.includes("const n=game.fieldBossActions?.(a)||1;if(n<=1)return;const tag=el('small','order-times','×'+n);"));
  assert(src('runtime_field_bosses.js').includes('P.fieldBossActions=function(a){'),'a read-only count that does not mark the enrage as seen');

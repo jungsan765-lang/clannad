@@ -353,7 +353,9 @@ P.coopBattleView=function(pid){
  const b=this.s.runtime;if(!b?.coop)return null;
  const t=b.coop.turn,cur=b.order?.[b.cursor],curActor=cur&&b.actors.find(a=>a.id===cur.id),mine=b.actors.find(a=>a.coop?.owner===pid)||null;
  const statusName=s=>this.tables['13_STATUS_EFFECT_DB']?.get(s.id)?.[1]||'';
- const unit=a=>({id:a.id,name:a.name,level:a.level||1,hp:Math.max(0,Math.round(a.hp)),maxHp:Math.max(1,Math.round(a.maxHp)),shield:Math.round((a.shields||[]).reduce((n,s)=>n+Math.max(0,Number(s.value)||0),0)),
+ // 0.15.25 (user: 「왜 얘만 다른 화면이야? 그냥 화면 다 똑같이」): what the guest's screen needs to draw the fight like the battle
+ // screen — whose picture (source), which side, the element — and the round's order below.
+ const unit=a=>({id:a.id,name:a.name,source:a.source,side:a.side==='ALLY'?'ALLY':'ENEMY',element:a.element||null,level:a.level||1,hp:Math.max(0,Math.round(a.hp)),maxHp:Math.max(1,Math.round(a.maxHp)),shield:Math.round((a.shields||[]).reduce((n,s)=>n+Math.max(0,Number(s.value)||0),0)),
   aura:a.aura||null,statuses:(a.statuses||[]).filter(live).map(statusName).filter(Boolean).slice(0,4),
   ...(a.side==='ALLY'?{host:!a.coop,guest:a.coop?{pid:a.coop.owner,name:a.coop.ownerName,left:!!a.coop.left,mine:a.coop.owner===pid}:null,protagonist:a.source===PLAYER}:{grade:a.grade||'',airborne:!!a.airborne})});
  let cards=[];
@@ -364,7 +366,8 @@ P.coopBattleView=function(pid){
   allies:b.actors.filter(a=>a.side==='ALLY').map(unit),enemies:b.actors.filter(a=>a.side!=='ALLY').map(unit),
   turn:t?{actor:t.actor,name:turnName,owner:t.owner,ownerName:b.actors.find(a=>a.id===t.actor)?.coop?.ownerName||'',deadline:t.deadline,mine:t.owner===pid}
    :(curActor&&b.phase==='WAIT_PLAYER'&&curActor.control==='PLAYER'&&b.opening?.state!=='PENDING'?{actor:curActor.id,name:curActor.name,host:true}:null),
-  me:mine?{id:mine.id,name:mine.name,left:!!mine.coop.left,alive:mine.hp>0}:null,cards,
+  me:mine?{id:mine.id,name:mine.name,source:mine.source,left:!!mine.coop.left,alive:mine.hp>0}:null,cards,
+  order:(b.order||[]).map(x=>x.id).filter(id=>b.actors.some(a=>a.id===id&&a.hp>0)),
   log:b.log.slice(-40).map(logText).filter(Boolean).slice(-10),now:this.coopNow()};
 };
 // For the host's own screen.

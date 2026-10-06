@@ -16,7 +16,7 @@ function recruitmentIntroductionGuide(parent,d){
 }
 function recruitmentScreen(p){
  const all=game.recruitmentEntries(),controls=el('div','bag-tabs');
- p.append(el('h2','','동료와 개인 임무'),el('p','muted','합류 '+all.filter(e=>e.owned).length+' / '+all.length+'명 · 캐릭터는 기원으로 얻습니다. 개인 임무 조건과 보상을 확인하세요.'));
+ p.append(el('h2','','동료와 개인 임무'),el('p','muted','합류 '+all.filter(e=>e.owned).length+' / '+all.length+'명 · 이야기에서 만난 4★은 장이 끝나면 합류, 나머지는 기원'));
  for(const label of ['전체','몬드','리월']){const b=button(label,()=>{recruitmentRegion=label;render();});b.classList.toggle('selected',recruitmentRegion===label);b.setAttribute('aria-pressed',String(recruitmentRegion===label));controls.append(b);}
  const only=button(recruitmentOnlyMissing?'미획득만 표시 중':'미획득만 보기',()=>{recruitmentOnlyMissing=!recruitmentOnlyMissing;render();});only.setAttribute('aria-pressed',String(recruitmentOnlyMissing));controls.append(only);p.append(controls);
  for(const e of all.filter(e=>(recruitmentRegion==='전체'||e.region===recruitmentRegion)&&(!recruitmentOnlyMissing||!e.owned))){

@@ -3,7 +3,10 @@
  * Load after app_field_bosses.js and app_navigation.js. */
 (function(){'use strict';
 const L=globalThis.CRPGRuntime?.leyLines;if(!L)return;
-const itemsText=items=>Object.entries(items||{}).map(([id,n])=>safeName('14_ITEM_DB',id)+' '+n+'개').join(' · ');
+function rewardIcon(id,cls){const p=typeof MANIFEST!=='undefined'&&MANIFEST.itemIcons?.icons?.[id]?.path;if(!p)return el('span',cls+' mark','✦');const i=el('img',cls);i.src=p;i.alt='';i.draggable=false;return i;}
+// A step's reward as pictures with counts (the names stay in the tooltip).
+function rewardChips(t){const row=el('span','ley-line-rewards'),add=(id,n,label)=>{const c=el('span','ley-line-chip');c.title=label;c.append(rewardIcon(id,'ley-line-icon'),el('b','',n));row.append(c);};
+ if(t.books)for(const [id,n]of Object.entries(t.books))add(id,'×'+n,safeName('14_ITEM_DB',id)+' '+n+'개');else if(t.mora)add('CUR_MORA',t.mora.toLocaleString(),'모라 '+t.mora.toLocaleString());return row;}
 const guide=map=>{if(typeof NavigationUI==='undefined')return;NavigationUI.choose(map);document.getElementById('journey-map')?.scrollIntoView({block:'start',behavior:'instant'});};
 const priorLocation=drawLocation;
 drawLocation=function(p,v){
@@ -14,9 +17,10 @@ drawLocation=function(p,v){
  // 0.14.13: below the level the card says so plainly, with the level now, instead of a grey line.
  if(!st.unlocked){box.append(el('p','ley-line-locked','⚠ 아직 도전할 수 없습니다 · 주인공 Lv. '+st.minLevel+'부터 (지금 Lv. '+(Number(game.s.global.PLAYER_LEVEL_STATE)||1)+')'),el('p','muted','매시 정각마다 몬드·리월 곳곳에 핍니다. 레벨을 올린 뒤 다시 찾아오세요.'));}
  else{
-  box.append(el('p','muted ley-line-help','매시 정각에 자리를 옮기며, 계시의 꽃(경험치 책)과 부의 꽃(모라)은 한 시간에 한 번씩 받을 수 있습니다. 적은 파티 레벨에 맞춰 강해집니다.'));
+  // 0.15.25: no paragraph (the old one also said the enemies follow the party's level; they are fixed by region and step).
+  box.append(el('small','muted ley-line-help','꽃마다 한 시간에 한 번 · 정각에 자리를 옮김'));
   const item=b=>{const li=el('li','ley-line-item '+b.kind.toLowerCase()+(b.claimed?' claimed':'')+(b.here?' here':''));
-   const copy=el('span','ley-line-copy');copy.append(el('strong','',b.name),el('small','',b.region+' · '+b.mapName+(b.claimed?' · 이번 시간 받음':'')));li.append(copy);
+   const copy=el('span','ley-line-copy');copy.append(el('strong','',b.name),el('small','',b.region+' · '+b.mapName+(b.claimed?' · 이번 시간 받음':'')));li.append(rewardIcon(b.kind==='REVELATION'?'MAT_CHAR_EXP_HERO':'CUR_MORA','ley-line-icon'),copy);
    if(b.here)li.append(el('span','ley-line-here',b.claimed?'받음':'이 구역'));
    else if(!b.claimed)li.append(button('길 안내',()=>guide(b.map)));
    return li;};
@@ -33,7 +37,7 @@ function leyRoute(){const v=game.currentPlace?.();const id=v?.valid&&v.entry?.ki
 const priorBoss=boss;
 boss=function(p,...args){
  priorBoss(p,...args);const id=leyRoute(),info=id&&game.leyLineRouteInfo?.(id);if(!info)return;
- for(const x of p.querySelectorAll('p'))if(/48시간|하루에 한 번\(현실 시간/.test(x.textContent)){x.textContent='지맥의 꽃을 지키는 적과 싸웁니다. 단계를 고를 수 있고, 높은 단계일수록 적이 강한 대신 보상이 큽니다. 매시 정각에 꽃이 자리를 옮기며, '+info.name+' 보상은 단계와 관계없이 한 시간에 한 번 받습니다. 지면 이번 시간 안에 다시 도전할 수 있습니다.';break;}
+ for(const x of p.querySelectorAll('p'))if(/48시간|하루에 한 번\(현실 시간/.test(x.textContent)){x.textContent='높은 단계일수록 적이 강하고 보상이 큽니다 · 보상은 한 시간에 한 번 · 지면 다시 도전 가능';break;}
  // The single challenge button becomes one button per difficulty step.
  const single=[...p.querySelectorAll('button')].find(b=>b.textContent==='보스에게 도전'),note=single?.nextElementSibling?.classList.contains('choice-note')?single.nextElementSibling:null;
  const box=el('section','ley-line-info');box.setAttribute('aria-label','지맥의 꽃 단계');
@@ -42,8 +46,8 @@ boss=function(p,...args){
  const list=el('div','ley-line-tiers');
  for(const t of info.tiers){
   const row=el('div','ley-line-tier'+(t.recommended?' recommended':'')+(t.reason?' locked':'')),copy=el('span','ley-line-copy');
-  copy.append(el('strong','',t.tier+'단계 · 적 Lv. '+t.level+(t.recommended?' · 추천':'')),el('small',t.reason?'lack':'',t.reason||('보상 · '+(t.books?itemsText(t.books):t.mora.toLocaleString()+' 모라'))));
-  row.append(copy,actionButton('도전','BOSS_ROUTE',{route:id,entry:'DIRECT',tier:t.tier},t.recommended));list.append(row);
+  copy.append(el('strong','',t.tier+'단계 · 적 Lv. '+t.level+(t.recommended?' · 추천':'')));if(t.reason)copy.append(el('small','lack',t.reason));
+  row.append(copy,rewardChips(t),actionButton('도전','BOSS_ROUTE',{route:id,entry:'DIRECT',tier:t.tier},t.recommended));list.append(row);
  }
  box.append(list);if(note)box.append(note);
  if(single)single.replaceWith(box);else{const h=p.querySelector('h1');if(h)h.after(box);else p.prepend(box);}

@@ -34,18 +34,16 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   left.append(controls,key);
   const note=this.point(current)?.[3];if(note)left.append(el('p','terrain-location-note',note));
   left.append(el('small','terrain-help','지도는 끌어서 움직이고 + / −로 확대합니다. 오른쪽 목적지 카드는 누르는 즉시 출발합니다.'));
-  right.append(el('h3','','어디로 갈까?'),el('p','terrain-select-help','목적지 카드를 누르면 바로 이동합니다. 먼 곳은 아래 「목적지 찾기」로 고르면 도착할 때까지 길을 안내합니다.'));
+  right.append(el('h3','','어디로 갈까?'),el('p','terrain-select-help','목적지 카드를 누르면 바로 이동합니다. 먼 곳은 지도에서 동그라미를 누르면 길이 이어집니다.'));
   const findSlot=el('div','terrain-find-slot');right.append(findSlot);
   const domestic=nearby.filter(n=>!n.reason&&n.point?.[0]===this.atlas),other=nearby.filter(n=>!domestic.includes(n));
   // Long lists fold after five cards (the selected destination always stays visible).
   const cards=el('div','terrain-destination-list'),shown=domestic.length>6?domestic.filter((n,i)=>i<5||n.id===target):domestic,folded=domestic.filter(n=>!shown.includes(n));for(const n of shown)cards.append(this.card(n));if(!domestic.length)cards.append(el('p','muted','이어지는 길은 아래 다른 지역 목록에서도 확인할 수 있습니다.'));right.append(cards);
   if(folded.length){const more=el('details','terrain-more-routes');more.append(el('summary','','주변 목적지 '+folded.length+'곳 더 보기'));const list=el('div','terrain-destination-list');for(const n of folded)list.append(this.card(n));more.append(list);right.append(more);}
   if(other.length){const details=el('details','terrain-other-routes');details.open=other.some(n=>!n.reason||n.id===target);details.append(el('summary','','다른 지역·잠긴 길 ('+other.length+')'));for(const n of other)details.append(this.card(n));right.append(details);}
-  const find=el('details','terrain-search');find.open=!!target&&!nearby.some(n=>n.id===target);find.append(el('summary','',target&&!nearby.some(n=>n.id===target)?'목적지 찾기 · '+targetName:'목적지 찾기 · 먼 곳·귀환로'));
-  const discovered=this.known;
-  const select=el('select');select.id='journey-map-target';select.setAttribute('aria-label','찾아갈 장소');const empty=el('option','','목적지를 선택하세요');empty.value='';select.append(empty);
-  for(const m of game.rows('32_MAP_DB').filter(m=>m[0]&&discovered.has(m[0])&&['몬드','리월'].includes(m[1]))){const o=el('option','',m[2]);o.value=m[0];select.append(o);}select.value=target||'';select.onchange=()=>this.choose(select.value||null);find.append(select);
-  if(current!=='MAP_MOND_CITY')find.append(this.control('몬드로 돌아가는 길 찾기',()=>this.choose('MAP_MOND_CITY'),'return'));findSlot.append(find);body.append(left,right);section.append(body);
+  // 0.15.25 (user: 「찾아서 누르는 형식의 저거 v 눌러서 고르는거 그거 아예 쓰지 말라」): a far place is chosen by pressing its circle on
+  // the map (the route is drawn and the move button follows it), so the list of every place is gone; the way home stays.
+  if(current!=='MAP_MOND_CITY')findSlot.append(this.control('몬드성으로 가는 길',()=>this.choose('MAP_MOND_CITY'),'return'));body.append(left,right);section.append(body);
   const dock=el('div','terrain-travel-dock');dock.setAttribute('aria-live','polite');const detail=el('div','terrain-selection');
   if(target){detail.append(el('small','','선택한 목적지'),el('strong','',targetName),el('span','',this.placeName(target)?this.risk(target):'가 보면 이름을 알 수 있습니다'));
    const direct=nearby.find(n=>n.id===target);
@@ -112,9 +110,11 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
     const node=isHere?el('span'):this.control('',()=>this.choose(id),'node-'+id);
     // 0.15.20 (user: 「지도에 나머지 동그라미들은 투명화를 좀 넣어줘. 지금 당장은 못 가는 곳이니까」): only here and the places
     // one road away are solid; a place several roads away is see-through, and one no open road reaches is a hollow ring.
-    node.className='terrain-node'+(isHere?' current':!open?' faded':near.has(id)?' open near':' far')+(stops.includes(id)&&!isHere?' on-route':'')+(this.target===id?' selected':'')+(name?'':' unknown');
+    // 0.15.25: a place where a domain stands carries a small mark (the domains are no longer entered from anywhere).
+    const domain=name&&Object.values(globalThis.CRPGRuntime?.growthV01522?.domains||{}).find(d=>d.map===id);
+    node.className='terrain-node'+(isHere?' current':!open?' faded':near.has(id)?' open near':' far')+(stops.includes(id)&&!isHere?' on-route':'')+(this.target===id?' selected':'')+(name?'':' unknown')+(domain?' domain-host':'');
     node.dataset.mapId=id;node.style.left=(p[1]/T.width*100)+'%';node.style.top=(p[2]/T.height*100)+'%';
-    node.title=(name||'아직 가 보지 않은 곳')+(isHere?' · 현재 위치':!open?' · 아직 막힌 곳':near.has(id)?'':' · 한 번에는 못 가는 곳');
+    node.title=(name||'아직 가 보지 않은 곳')+(domain?' · 비경 「'+domain.name+'」':'')+(isHere?' · 현재 위치':!open?' · 아직 막힌 곳':near.has(id)?'':' · 한 번에는 못 가는 곳');
     if(isHere)node.append(el('span','terrain-node-core','◆'));
     else{node.tabIndex=-1;node.setAttribute('aria-hidden','true');if(hoverable){node.addEventListener('pointerenter',()=>this.hover(id));node.addEventListener('pointerleave',()=>this.hover(null));}}
     overlays.append(node);dots.set(id,[p[1]*scale,p[2]*scale,isHere?13:this.target===id?11:near.has(id)?9:7]);}

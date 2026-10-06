@@ -142,7 +142,7 @@ function panel(p,v,bal){
   const table=mk('ol','wish-history');for(const h of rows){const li=mk('li','rarity-'+h.rarity);const d=new Date(h.at);li.append(mk('time','',(d.getMonth()+1)+'/'+d.getDate()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')),mk('span','wish-history-banner',v.banners[h.banner]?.name||h.banner),mk('span','wish-stars',stars(h.rarity)),mk('strong','',nameOf(h)+(h.featured?' · UP':'')));table.append(li);}box.append(table);
  }else if(p.kind==='grant'){
   head.append(mk('h3','','운영자 · 재화 지급'),x);box.append(head);box.append(mk('p','muted','시험 기원용입니다. 도구를 쓴 여정은 랭킹에서 제외됩니다.'));
-  const sel=mk('select','');for(const key of ['PRIMOGEM','INTERTWINED_FATE','ACQUAINT_FATE','STARGLITTER','STARDUST'])sel.append(new Option(CUR[key][0],key));
+  const sel=choiceTiles({label:'지급할 재화',options:['PRIMOGEM','INTERTWINED_FATE','ACQUAINT_FATE','STARGLITTER','STARDUST'].map(key=>({value:key,label:CUR[key][0],icon:MAN().itemIcons?.icons?.[CUR[key][1]]?.path||null}))});
   const num=mk('input','');num.type='number';num.min='0';num.max='1000000';num.value='16000';
   const go=mk('button','wish-primary','지급');go.type='button';go.disabled=UI.busy;go.onclick=async()=>{if(UI.busy)return;const root=UI.root,value=Math.floor(Number(num.value)||0),currency=sel.value;UI.busy=true;refreshBusy();try{await attempt('OPERATOR_DEBUG',{op:'premium',currency,value});}finally{UI.busy=false;}if(UI.root!==root||UI.panel!==p){refreshBusy();return;}UI.panel=null;draw();};
   box.append(sel,num,go);

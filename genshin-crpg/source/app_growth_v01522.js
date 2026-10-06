@@ -2,18 +2,54 @@
 (function(){
 'use strict';
 const fmt=n=>Number(n||0).toLocaleString('ko-KR'),name=id=>safeName('14_ITEM_DB',id);
-function costs(box,cost){const list=el('ul','growth-costs');list.append(el('li',game.s.global.MORA<cost.mora?'lack':'','모라 '+fmt(game.s.global.MORA)+' / '+fmt(cost.mora)));for(const [id,n]of Object.entries(cost.items))list.append(el('li',game.itemCount(id)<n?'lack':'',name(id)+' '+game.itemCount(id)+' / '+n));box.append(list);}
+// 0.15.25: materials as pictures with 보유/필요 under them (the name stays in a small caption and the tooltip).
+function costTile(icon,label,have,need,count){const t=el('div','growth-cost'+(have<need?' lack':''));t.title=label+' · 보유 '+fmt(have)+' / 필요 '+fmt(need);t.setAttribute('aria-label',t.title);t.append(icon||el('span','growth-cost-icon mark','✦'),el('b','',count),el('small','',label));return t;}
+function costs(box,cost){const list=el('div','growth-costs'),mora=game.s.global.MORA;list.append(costTile(window.currencyIcon?.('MORA','growth-cost-icon'),'모라',mora,cost.mora,fmt(cost.mora)));
+ for(const [id,n]of Object.entries(cost.items))list.append(costTile(picture(MANIFEST.itemIcons?.icons?.[id]?.path||MANIFEST.itemIcons?.categories?.CATEGORY_MATERIAL?.path,'growth-cost-icon'),name(id),game.itemCount(id),n,fmt(game.itemCount(id))+'/'+fmt(n)));box.append(list);}
 function close(){document.getElementById('modal').close();}
 window.openCharacterAscension=function(owner='PLAYER_CUSTOM'){const d=game.ascensionInfo(owner),box=el('div','growth-dialog');box.append(el('p','',d.name+' · Lv. '+d.level+' / '+d.cap),el('h3','','돌파 후 Lv. '+d.nextCap+'까지 성장'),el('p','','돌파 단계 '+d.phase+' → '+Math.min(6,d.phase+1)+' · 능력치와 특성 상한 증가'),el('p','',d.gate.label+' · '+(d.gate.ready?'완료':'미완료')));costs(box,d.cost);if(d.reason)box.append(el('p','choice-note',d.reason));const why=game.actionReason('CHAR_ASCEND',{owner});box.append(button('캐릭터 돌파',()=>{close();act('CHAR_ASCEND',{owner});},busy||!!why,true));showModal('캐릭터 돌파 · '+d.name,box);};
 window.openCharacterTalent=function(owner='PLAYER_CUSTOM'){const box=el('div','growth-dialog');for(const [kind,label]of [['na','일반 공격'],['e','원소전투 스킬'],['q','원소폭발']]){const d=game.talentUpgradeInfo(owner,kind),card=el('section','card');card.append(el('h3','',label+' · Lv. '+d.level+' / '+d.cap));costs(card,d.cost);if(d.reason)card.append(el('p','choice-note',d.reason));card.append(button('특성 강화',()=>{close();act('TALENT_UPGRADE',{owner,kind});},busy||!!game.actionReason('TALENT_UPGRADE',{owner,kind}),true));box.append(card);}showModal('특성 강화 · '+game.growth(owner).name,box);};
 const priorGrowth=growthScreen;growthScreen=function(p,...args){priorGrowth(p,...args);for(const card of p.querySelectorAll('.gear-member[data-owner]')){const owner=card.dataset.owner,g=game.growth(owner),line=el('div','growth-controls');line.append(el('small','','Lv. '+g.level+' / '+g.cap+' · 돌파 '+g.phase+' / 6'),button('캐릭터 돌파',()=>openCharacterAscension(owner)),button('특성 강화',()=>openCharacterTalent(owner)));card.append(line);}};
-window.openGrowthDomain=function(selected){const entries=game.growthDomainEntries(),box=el('div','domain-picker');if(!entries.length){box.append(el('p','','몬드성이나 리월항의 비경 입구로 이동해 주세요.'));showModal('성장 비경',box);return;}
- const kind=el('select'),level=el('select'),element=el('select'),preview=el('section','domain-preview'),party=el('p','domain-party');kind.setAttribute('aria-label','비경 종류');level.setAttribute('aria-label','비경 단계');element.setAttribute('aria-label','돌파 원소');
- for(const [id,label]of [['EXP','경험치'],['ASCENSION','돌파'],['TALENT','특성'],['GEAR','장비']])kind.append(new Option(label+' 비경',id));for(const l of [...new Set(entries.map(d=>d.level))])level.append(new Option('Lv. '+l,String(l)));for(const [ko,[id]]of Object.entries(CRPGRuntime.growthV01522.gems))element.append(new Option(ko==='물리'?'주인공 돌파 재료':ko+' 원소',id));
- if(selected){const [k,l]=selected.split(':');kind.value=k;level.value=l;}
- const enter=button('비경 입장',()=>{const params={domain:kind.value+':'+level.value,element:element.value};close();act('DOMAIN_START',params);},false,true);enter.dataset.tutorial='domain-enter';
- const draw=()=>{const d=entries.find(x=>x.id===kind.value+':'+level.value),rw=game.growthDomainRewards(d,element.value),group=game.growthDomainGroup(d,element.value),members=game.rows('49_ENCOUNTER_MEMBER_DB').filter(x=>x[1]===group);element.hidden=kind.value!=='ASCENSION';preview.replaceChildren(el('h3','',d.name+' · 고정 Lv. '+d.level),el('p','','적: '+members.map(m=>safeName('09_MONSTER_DB',m[3])+' '+m[4]+(m[4]!==m[5]?'–'+m[5]:'')+'마리').join(' · ')),el('p','','승리 재료: '+Object.entries(rw.items).map(([id,n])=>name(id)+' ×'+n).join(' · ')),el('p','','추가 모라 '+fmt(rw.mora)+' · 전투 경험치와 전리품 별도'),el('p','',rw.bonus?'오늘 첫 3승 재료·추가 모라 2배 · '+rw.remaining+'회 남음':'오늘의 추가 보상 완료 · 기본 보상으로 계속 도전 가능'));if(d.reason)preview.append(el('p','choice-note',d.reason));enter.disabled=busy||!!game.actionReason('DOMAIN_START',{domain:d.id});party.textContent='출전: '+game.s.party.filter(x=>x.active).map(x=>game.growth(x.source).name+' Lv.'+game.growth(x.source).level).join(' · ');};
- kind.onchange=level.onchange=element.onchange=draw;box.append(el('p','','종류·단계를 고르고 편성을 확인하세요. 적 레벨과 수는 파티를 따라 오르지 않습니다.'),kind,level,element,preview,party,button('편성·프리셋 바꾸기',()=>{close();act('MENU',{screen:'PARTY'});}),enter);draw();showModal('성장 비경 준비',box);};
-const priorLocation=drawLocation;drawLocation=function(p,...a){priorLocation(p,...a);if(game.s.placeVisit||game.s.runtime)return;const entries=game.growthDomainEntries();if(entries.length){const box=el('section','card growth-domains');box.append(el('h2','','성장 비경'),el('p','','경험치 · 돌파 · 특성 · 장비 · 하루 첫 3승 추가 보상'),button('비경 종류·단계 선택',()=>openGrowthDomain(),busy,true));p.append(box);}const elite=game.growthEliteEntry();if(elite){const box=el('section','card growth-elite');box.append(el('h2','','지역 정예 토벌 · Lv. '+elite.level),el('p','',elite.reason||'한국 시간 하루 한 번 승리 보상'),actionButton('정예 토벌','ELITE_START',{},true));p.append(box);}};
-const priorReward=reward;reward=function(p,...a){priorReward(p,...a);const last=game.s.lastGrowthDomain,r=parseUI(game.s.global.LAST_BATTLE_RESULT_JSON);if(!last||r.origin!=='DOMAIN:'+last.domain)return;const box=el('section','domain-retry');if(r.domain)box.append(el('p','','비경 재료 지급 완료'+(r.domain.bonus?' · 오늘의 2배 보상':'')));box.append(actionButton('같은 비경 다시 도전','DOMAIN_START',{domain:last.domain,element:last.element},true),button('편성·육성 후 도전',()=>act('MENU',{screen:'PARTY'})));p.append(box);};
+// ---------- 비경 입구 ----------
+// 0.15.25 (user: 「비경 준비 이거 다 없애고 그냥 네가 만들어라 글만 적혀있고, 비경은 비경 같지도 않고 … 이런 그지같이 찾아서
+// 누르는거 다 없애버려 그냥 편성이나 이런것도 일부러 없앴는데 글씨 좆같이도 써대네」; 「v 눌러서 고르는거 그거 아예 쓰지 말라」):
+// no window, no lists to open, no party step. Where a domain stands, its gate shows the four stages and (ascension) the
+// elements as pictures to press, the enemies' faces, the reward pictures and 「도전」.
+const KIND={TALENT:'특성 비경',ASCENSION:'돌파 비경',GEAR:'장비 비경'};
+const ELEMENTS=[['NEUTRAL','주인공',null],['PYRO','불','pyro'],['HYDRO','물','hydro'],['ANEMO','바람','anemo'],['ELECTRO','번개','electro'],['CRYO','얼음','cryo'],['GEO','바위','geo'],['DENDRO','풀','dendro']];
+const picks={};
+function picture(path,cls){if(!path)return null;const i=el('img',cls);i.src=path;i.alt='';i.draggable=false;i.decoding='async';return i;}
+function elementPicture(key,cls){return picture(key&&MANIFEST.uiAssets?.elements?.[key]?.path,cls)||el('span',cls+' mark','✦');}
+function rewardPicture(id,element){const own=picture(MANIFEST.itemIcons?.icons?.[id]?.path,'domain-reward-icon');if(own)return own;
+ // Growth materials without their own picture yet: the element for a gem, the game's material-category icon otherwise.
+ if(id.startsWith('GROWTH_GEM_'))return elementPicture(ELEMENTS.find(e=>e[0]===element)?.[2],'domain-reward-icon');return picture(MANIFEST.itemIcons?.categories?.CATEGORY_MATERIAL?.path,'domain-reward-icon')||el('span','domain-reward-icon mark','✦');}
+function domainGate(entries){
+ const first=entries[0],key=first.key,last=game.s.lastGrowthDomain;
+ const pick=picks[key]??={stage:(entries.filter(d=>!d.reason).at(-1)||first).stage,element:last?.domain?.startsWith(key+':')&&last.element||'NEUTRAL'};
+ const d=entries.find(x=>x.stage===pick.stage)||first,element=first.kind==='ASCENSION'?pick.element:'NEUTRAL',redraw=()=>card.replaceWith(domainGate(entries));
+ const card=el('section','card growth-domains domain-gate');card.dataset.domain=key;card.dataset.kind=first.kind;
+ const rw=game.growthDomainRewards(d,element),head=el('div','domain-gate-head'),title=el('div','domain-gate-name');title.append(el('h2','',first.name),el('small','',KIND[first.kind]||''));head.append(title);
+ if(rw.bonus){const bonus=el('span','domain-gate-bonus','×2');bonus.append(el('small','',' '+rw.remaining));bonus.title='오늘 첫 3번의 승리는 보상 2배 · '+rw.remaining+'번 남음';head.append(bonus);}
+ const stages=el('div','domain-stages');stages.setAttribute('role','radiogroup');stages.setAttribute('aria-label',first.name+' 단계');
+ for(const x of entries){const b=button('',()=>{pick.stage=x.stage;redraw();},!!x.reason);b.className='domain-stage'+(x.stage===d.stage?' selected':'')+(x.reason?' locked':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(x.stage===d.stage));b.setAttribute('aria-label',first.name+' '+x.stageName+'단계 · Lv. '+x.level);b.append(el('b','',x.stageName),el('small','','Lv.'+x.level));if(x.reason){b.dataset.reason=x.reason;b.title=x.reason;}stages.append(b);}
+ card.append(head,stages);
+ if(first.kind==='ASCENSION'){const row=el('div','domain-elements');row.setAttribute('role','radiogroup');row.setAttribute('aria-label','돌파 재료 원소');
+  // The protagonist's own material has no element: its diamond picture stands for it.
+  for(const [id,label,icon]of ELEMENTS){const b=button('',()=>{pick.element=id;redraw();});b.className='domain-element'+(id===element?' selected':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(id===element));b.setAttribute('aria-label',label+(id==='NEUTRAL'?' 돌파 재료':' 원소 돌파 재료'));b.title=b.getAttribute('aria-label');b.append(icon?elementPicture(icon,'domain-element-icon'):picture(MANIFEST.itemIcons?.icons?.GROWTH_GEM_NEUTRAL?.path,'domain-element-icon')||elementPicture(null,'domain-element-icon'));row.append(b);}
+  card.append(row);}
+ const foes=el('div','domain-foes');foes.setAttribute('aria-label','나오는 적');
+ for(const f of game.growthDomainFoes(d,element)){const box=el('span','domain-foe');box.title=f.name+' ×'+f.n;box.append(picture(enemyPortraitFor(f.id),'domain-foe-face')||el('span','domain-foe-face blank',f.name.slice(0,1)),el('b','','×'+f.n));foes.append(box);}
+ const rewards=el('div','domain-rewards');rewards.setAttribute('aria-label','보상');
+ for(const [id,n]of Object.entries(rw.items)){const chip=el('span','domain-reward');chip.title=name(id)+' ×'+n;chip.append(rewardPicture(id,element),el('b','','×'+n));rewards.append(chip);}
+ const mora=el('span','domain-reward mora');mora.title='모라 '+fmt(rw.mora);mora.append(window.currencyIcon?.('MORA','domain-reward-icon')||el('span','domain-reward-icon','◈'),el('b','',fmt(rw.mora)));rewards.append(mora);
+ const go=actionButton('도전','DOMAIN_START',{domain:d.id,element},true);go.classList.add('domain-go');
+ const body=el('div','domain-gate-body');body.append(foes,rewards,go);card.append(body);return card;
+}
+window.domainGate=domainGate;
+const priorLocation=drawLocation;drawLocation=function(p,...a){priorLocation(p,...a);if(game.s.placeVisit||game.s.runtime)return;
+ // The domain comes first in its tab, before the ley lines.
+ const byKey=new Map();for(const d of game.growthDomainEntries())(byKey.get(d.key)||byKey.set(d.key,[]).get(d.key)).push(d);const ley=p.querySelector('.ley-line-card');for(const entries of byKey.values()){const gate=domainGate(entries);if(ley)ley.before(gate);else p.append(gate);}
+ const elite=game.growthEliteEntry();if(elite){const box=el('section','card growth-elite');box.append(el('h2','','지역 정예 토벌 · Lv. '+elite.level),el('p','',elite.reason||'한국 시간 하루 한 번 승리 보상'),actionButton('정예 토벌','ELITE_START',{},true));p.append(box);}};
+// After a domain win or loss: the same stage again, one press (no party step).
+const priorReward=reward;reward=function(p,...a){priorReward(p,...a);const last=game.s.lastGrowthDomain,r=parseUI(game.s.global.LAST_BATTLE_RESULT_JSON);if(!last||r.origin!=='DOMAIN:'+last.domain||!game.growthDomainEntries().some(x=>x.id===last.domain))return;const box=el('section','domain-retry');box.append(actionButton('같은 비경 다시 도전','DOMAIN_START',{domain:last.domain,element:last.element},true));p.append(box);};
 })();

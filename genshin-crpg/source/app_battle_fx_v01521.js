@@ -76,7 +76,11 @@ function windupShot(frame,effects,from,auxiliary,summonSource,timing={}){
 // 0.15.21 (user: 「차례가 나오기 전에 공격이 나오는건 좀 아닌데. 차례가 나온 뒤 0.몇초정도 뜸을 주고」): the playback lights the
 // fighter's card (and the order's 현재) as its action begins; CombatFX.windup then waits windupLead before the blow.
 function turnTo(frame,effects){
- if(!frame||frame.kind!=='action'||frame.periodic)return;
+ if(!frame||frame.kind!=='action')return;
+ // 0.15.25 (user: 「토끼백작 … 공격을 연속 세번 하노? 세 번 공격하게 되면 위에 X3 적혀있어야」): a summon's own action (토끼 백작's
+ // blast at the start of a round) takes its place in the order list and lights up there; it has no fighter card to badge.
+ if(String(frame.actorId||'').startsWith('SUMMON:')){const order=document.querySelector('.combat-panel .battle-order');if(order){followRound(order,frame.round);for(const li of order.querySelectorAll('li[data-actor-id]'))li.classList.toggle('current',li.dataset.actorId===frame.actorId);window.CRPGShell?.orderNow?.();}return;}
+ if(frame.periodic)return;
  const row=effects?.actorNode?.(frame.actorId);if(!row?.classList?.contains('combatant-row'))return;
  const shell=window.CRPGShell;if(typeof shell?.turnBadge==='function')shell.turnBadge(row);
  const order=document.querySelector('.combat-panel .battle-order');
@@ -88,19 +92,37 @@ function turnTo(frame,effects){
 // that round's order: the battle's own order for the round it now stands in, otherwise the fighters as they act.
 let playFrames=[];
 if(typeof GameEffects!=='undefined'&&typeof GameEffects.play==='function'){const priorPlay=GameEffects.play;GameEffects.play=function(events,...rest){playFrames=Array.isArray(events)?events.filter(e=>e&&e.kind==='action'):[];return priorPlay.call(this,events,...rest);};}
+const summonActor=id=>String(id||'').startsWith('SUMMON:');
 function roundOrder(round){
  const b=game?.s?.runtime;if(!b)return [];
- if(b.round===round&&Array.isArray(b.order))return b.order.map(x=>x.id);
- const ids=[];for(const f of playFrames)if(f.round===round&&!f.periodic&&f.actorId&&!String(f.actorId).startsWith('SUMMON:')&&!ids.includes(f.actorId))ids.push(f.actorId);
+ const frames=playFrames.filter(f=>f.round===round&&f.actorId);
+ // Summons that act before anyone in the round (토끼 백작's blast) lead it.
+ const lead=[];for(const f of frames){if(!summonActor(f.actorId))break;if(!lead.includes(f.actorId))lead.push(f.actorId);}
+ if(b.round===round&&Array.isArray(b.order))return [...lead,...b.order.map(x=>x.id)];
+ const ids=[];for(const f of frames)if((!f.periodic||summonActor(f.actorId))&&!ids.includes(f.actorId))ids.push(f.actorId);
  return ids;
+}
+// How many times each fighter acts in the round as played (a second action shows as ×2 beside the name).
+function roundTimes(round){const n={};for(const f of playFrames)if(f.round===round&&f.actorId&&(!f.periodic||summonActor(f.actorId)))n[f.actorId]=(n[f.actorId]||0)+1;return n;}
+function summonEntry(b,id,frame){
+ const li=document.createElement('li');li.className='summon '+(String(frame?.actorSide||'ALLY')==='ENEMY'?'enemy':'ally');li.dataset.actorId=id;
+ const field=(b.fields||[]).find(f=>'SUMMON:'+f.kind+':'+f.actor===id),asset=field?.asset||({BUNNY:'summon_baron_bunny.webp'})[field?.kind||String(id).split(':')[1]];
+ if(asset&&typeof showArt!=='undefined'&&showArt){const img=document.createElement('img');img.className='order-face';img.src='assets/summons/'+asset;img.alt='';img.decoding='async';li.append(img);li.classList.add('with-face');}
+ const name=document.createElement('span');name.textContent=frame?.actor||field?.name||'소환물';li.append(name);
+ if(frame?.cardName){const what=document.createElement('small');what.className='order-what';what.textContent=frame.cardName;li.append(what);}
+ return li;
 }
 function followRound(order,round){
  if(!order||!Number.isFinite(round)||order.dataset.round===String(round))return;
- const b=game.s.runtime,ids=roundOrder(round);if(!ids.length)return;
+ const b=game.s.runtime,ids=roundOrder(round),times=roundTimes(round);if(!ids.length)return;
  const items=[];
- for(const id of ids){const a=b.actors.find(x=>x.id===id);if(!a)continue;const li=document.createElement('li');li.className=(a.side==='ALLY'?'ally':'enemy')+(a.hp<=0?' down':'');li.dataset.actorId=a.id;
+ for(const id of ids){
+  if(summonActor(id)){const li=summonEntry(b,id,playFrames.find(f=>f.round===round&&f.actorId===id));const num=document.createElement('small');num.textContent=String(items.length+1);li.prepend(num);items.push(li);continue;}
+  const a=b.actors.find(x=>x.id===id);if(!a)continue;const li=document.createElement('li');li.className=(a.side==='ALLY'?'ally':'enemy')+(a.hp<=0?' down':'');li.dataset.actorId=a.id;
   const num=document.createElement('small');num.textContent=String(items.length+1);const name=document.createElement('span');name.textContent=typeof combatDisplayName==='function'?combatDisplayName(b,a):a.name;li.append(num);if(typeof battleOrderFace==='function')battleOrderFace(li,a);li.append(name);
-  if(typeof battleOrderTimes==='function')battleOrderTimes(li,a);items.push(li);}
+  if(typeof battleOrderTimes==='function')battleOrderTimes(li,a);
+  if((times[id]||0)>1&&!li.querySelector('.order-times')){const tag=document.createElement('small');tag.className='order-times';tag.textContent='×'+times[id];tag.title='이번 라운드에 '+times[id]+'번 행동';li.append(tag);}
+  items.push(li);}
  order.replaceChildren(...items);order.dataset.round=String(round);
  order.classList.remove('new-round');void order.offsetWidth;order.classList.add('new-round');
 }
@@ -220,5 +242,5 @@ function migrateSpeed(){
 if(typeof combatSpeedControl==='function'){const prior=combatSpeedControl;combatSpeedControl=function(){migrateSpeed();const row=prior();const out=row.querySelector('output'),range=row.querySelector('input');if(range){range.max=String(SPEED_MAX);if(Number(range.value)>SPEED_MAX)range.value=String(SPEED_MAX);}if(out&&range)out.textContent=speedLabel(range.value);return row;};}
 document.addEventListener('input',e=>{const range=e.target;if(!range?.closest?.('.combat-speed'))return;for(const o of document.querySelectorAll('.combat-speed output'))o.textContent=speedLabel(range.value);});
 
-window.BattleFX={decorate,roundOrder,powerOf,reactionOf,shieldKind,attackStyle,weaponOf,windupShot,onFrame,speedLabel,migrateSpeed};
+window.BattleFX={decorate,roundOrder,roundTimes,powerOf,reactionOf,shieldKind,attackStyle,weaponOf,windupShot,onFrame,speedLabel,migrateSpeed};
 })();

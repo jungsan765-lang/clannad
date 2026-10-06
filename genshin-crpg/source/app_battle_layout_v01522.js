@@ -36,7 +36,9 @@ function layout(){
  // Count-based enemy grid (CSS reads data-count): the cards share the width the fighters really need.
  const enemies=p.querySelector('.shell-enemies');if(enemies){const n=enemies.querySelectorAll(':scope > .combatant-row').length;enemies.dataset.count=String(n);enemies.dataset.rows=n>4?'2':'1';enemies.style.setProperty('--cols',String(n>4?Math.ceil(n/2):Math.max(1,n)));}
  const allies=p.querySelector('.shell-allies');if(allies)allies.dataset.count=String(allies.querySelectorAll(':scope > .combatant-row').length);
- const line=objectiveLine(b);if(line&&head)head.after(line);
+ // 0.15.25: the objective (증원 대기, 진법 HP…) sits in the heading row after the title; as a row of its own it took a whole
+ // line from the fighters on a short screen.
+ const line=objectiveLine(b);if(line&&head){const title=head.querySelector('h1');if(title)title.after(line);else head.append(line);}
  const details=p.querySelector('.battle-details');if(details&&head){details.hidden=true;const rec=button('기록',()=>{const box=details.querySelector('.log').cloneNode(true);showModal('전투 기록',box);});rec.className='battle-head-button';rec.title='전투 기록 '+b.log.length+'건';head.append(rec);}
  const info=p.querySelector('.shell-battle-info');if(info&&head){info.hidden=true;const n=info.querySelector('.shell-battle-info-body')?.childElementCount||0;const more=button('전투 정보'+(n?' '+n:''),()=>{const box=info.querySelector('.shell-battle-info-body').cloneNode(true);showModal('전투 정보',box);});more.className='battle-head-button';head.append(more);}
 }

@@ -39,7 +39,7 @@ const EnemyIntel={
   if(!this.panel?.isConnected)return;
   const info=this.cache.get(this.selected);this.panel.replaceChildren();
   const top=el('div','intel-panel-top');top.append(el('h2','','적 기술 정보'),button(this.pinned?'고정 해제':'정보 고정',()=>{this.pinned=!this.pinned;this.refreshPanel();}));
-  this.panel.append(top,el('p','intel-help',this.pinned?'정보 고정 중 · 다른 적은 정보 버튼으로 선택':'적 이름에 마우스를 올리면 미리보기 · 클릭하면 고정'));
+  this.panel.append(top,el('p','intel-help',this.pinned?'정보 고정 중 · 다른 적은 정보 버튼으로 선택':(window.matchMedia?.('(hover:hover)').matches?'적 이름에 마우스를 올리면 미리보기 · 클릭하면 고정':'적 카드의 정보 버튼을 누르면 고정')));
   const body=el('div','intel-panel-scroll');body.append(this.detail(info));this.panel.append(body);this.highlight();
  },
  highlight(){for(const n of root.querySelectorAll('.combatant-row[data-side="ENEMY"]'))n.classList.toggle('intel-selected',n.dataset.actorId===this.selected);},

@@ -358,8 +358,10 @@ function layoutLocation(content,p){
  for(const box of places)for(const entry of $$('.place-entry',box)){const btns=$$(':scope > button',entry);if(btns.length!==1)continue;
   const name=$('h3',entry)?.textContent.trim()||'',b=btns[0];entry.classList.add('shell-place-tile');entry.classList.toggle('locked',b.disabled&&!!$('.choice-note',entry));b.setAttribute('aria-label',(name?name+' · ':'')+b.textContent.trim());
   entry.title=$$('.place-entry-copy > *',entry).map(n=>n.textContent.trim()).filter(Boolean).join(' · ');}
- const tabs=[{id:'todo',label:'할 일',icon:'STAR',nodes:todo},{id:'places',label:'시설',icon:'PIN',nodes:places,badge:placeCount?String(placeCount):''},{id:'activity',label:'지맥·보스',icon:'SWORDS',nodes:activity},{id:'info',label:'지역 정보',icon:'HANDBOOK',nodes:info}];
- const key='LOC:'+mapId;if(!S.tabs[key])S.tabs[key]=hub&&places.length?'places':todo.length?'todo':places.length?'places':'activity';
+ // 0.15.25: where a domain stands, its tab says so and opens first.
+ const domain=activity.some(n=>n.matches?.('.domain-gate'));
+ const tabs=[{id:'todo',label:'할 일',icon:'STAR',nodes:todo},{id:'places',label:'시설',icon:'PIN',nodes:places,badge:placeCount?String(placeCount):''},{id:'activity',label:domain?'비경·지맥':'지맥·보스',icon:'SWORDS',nodes:activity},{id:'info',label:'지역 정보',icon:'HANDBOOK',nodes:info}];
+ const key='LOC:'+mapId;if(!S.tabs[key])S.tabs[key]=domain?'activity':hub&&places.length?'places':todo.length?'todo':places.length?'places':'activity';
  if(isMobile()){
   const mini=region('mobile-main-map',groups.get('map')),expand=button('지도 펼치기',()=>{mini.classList.toggle('expanded');expand.textContent=mini.classList.contains('expanded')?'지도 접기':'지도 펼치기';});expand.className='mobile-map-toggle';mini.append(expand);p.append(mini);
   const mkey='LOCM:'+mapId;if(!S.tabs[mkey]||S.tabs[mkey]==='move')S.tabs[mkey]='here';S.tabs.LOCATION_MOBILE=null;
@@ -641,23 +643,21 @@ function soundGallery(){
 if(typeof settingsControls==='function'){const priorSettings=settingsControls;settingsControls=function(p){priorSettings(p);try{
  // 화면 크기 (PC frame only): how much page the frame shows, read by the frame host in index.html.
  if(document.documentElement.classList.contains('crpg-framed')){
-  const row=mk('label','settings-row shell-ui-scale'),copy=mk('div','copy'),select=mk('select'),hint=mk('small','shell-ui-scale-hint');
+  const row=mk('div','settings-row shell-ui-scale'),copy=mk('div','copy'),hint=mk('small','shell-ui-scale-hint');
   copy.append(mk('p','','화면 크기'),mk('small','','컴퓨터에서 게임 화면 전체의 크기입니다. 작게 할수록 한 화면에 더 많이 보입니다.'),hint);
   // Each choice shows what it gives in this window: a small window cannot grow the game and a huge one has a limit.
   const NAMES=[['small','작게'],['normal','보통'],['large','크게']];
   const measure=n=>{try{return window.parent.CRPGFrameMeasure?.(n)||null;}catch{return null;}};
+  const select=choiceTiles({label:'화면 크기',options:NAMES.map(([value,label])=>({value,label})),value:['small','large'].includes(settings.uiScale)?settings.uiScale:'normal',onChange:v=>{settings.uiScale=v;persistSettings();try{window.parent.CRPGFrameFit?.();}catch{}label();}});
   const label=()=>{const m=Object.fromEntries(NAMES.map(([v])=>[v,measure(v)])),pct=x=>Math.round(x.s*100);
-   for(const o of select.options){const name=NAMES.find(n=>n[0]===o.value)[1];o.textContent=m[o.value]?name+' · '+pct(m[o.value])+'%':name;}
+   for(const b of select.children){const name=NAMES.find(n=>n[0]===b.dataset.value)[1];b.textContent=m[b.dataset.value]?name+' · '+pct(m[b.dataset.value])+'%':name;}
    const cur=m[select.value];if(!cur){hint.textContent='';return;}
    let t='지금 창에서는 '+pct(cur)+'% 크기로 보입니다.';
    if(m.large&&m.normal&&pct(m.large)===pct(m.normal))t+=' 창이 작아 「크게」로 더 키울 수 없습니다. 창을 넓히거나 글자 크기를 올려 보세요.';
    else if(m.small&&m.normal&&pct(m.small)===pct(m.normal))t+=' 창이 아주 커서 「작게」로 더 줄일 수 없습니다.';
    hint.textContent=t;};
-  for(const [v,t]of NAMES){const o=mk('option','',t);o.value=v;select.append(o);}
-  select.value=['small','large'].includes(settings.uiScale)?settings.uiScale:'normal';label();
-  select.onchange=()=>{settings.uiScale=select.value;persistSettings();try{window.parent.CRPGFrameFit?.();}catch{}label();};
-  row.append(copy,select);
-  const font=[...p.querySelectorAll('label.settings-row')].find(r=>/글자 크기/.test(r.textContent));
+  label();row.append(copy,select);
+  const font=[...p.querySelectorAll('.settings-row')].find(r=>/글자 크기/.test(r.textContent));
   if(font)font.after(row);else p.prepend(row);
  }
 }catch{}try{

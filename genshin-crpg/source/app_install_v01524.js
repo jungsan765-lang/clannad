@@ -130,3 +130,19 @@ render=function(...args){const out=prior.apply(this,args);try{update();if(gate&&
 try{if(isPhone()&&I.standalone()&&!localStorage.getItem('crpg-app-opened')){localStorage.setItem('crpg-app-opened','1');setTimeout(()=>{try{if(typeof say==='function')say('설치한 앱으로 열었습니다. 휴대폰을 가로로 들고 플레이해 주세요.');}catch{}},600);}}catch{}
 try{update();lock();}catch{}
 })();
+/* 0.15.25 휴대폰 자판 (handoff 「남은 것」 4): with the keyboard up a sideways phone keeps about 150 px. Android shrinks the
+   page itself (index.html: interactive-widget=resizes-content), so 100dvh and the fixed windows follow. iOS only shrinks
+   the visible area: its top and height go to --vv-top / --vv-h and html.kb-open lets the windows with a text box (chat,
+   letters, sign-in, prices) sit inside it, with the box being typed in kept in view. */
+(function(){'use strict';
+const vv=typeof window!=='undefined'&&window.visualViewport;if(!vv||typeof document==='undefined'||!document.documentElement)return;
+const root=document.documentElement;let raf=0;
+const typing=()=>{const a=document.activeElement;return !!a&&(a.tagName==='TEXTAREA'||a.isContentEditable||a.tagName==='INPUT'&&!/^(checkbox|radio|range|button|submit|reset|color|file|image)$/i.test(a.type||'text'));};
+function sync(){raf=0;const h=Math.round(vv.height),top=Math.max(0,Math.round(vv.offsetTop)),gap=Math.max(0,Math.round(window.innerHeight-vv.height-vv.offsetTop));
+ root.style.setProperty('--vv-h',h+'px');root.style.setProperty('--vv-top',top+'px');root.style.setProperty('--kb',gap+'px');
+ const open=typing()&&gap>80;root.classList.toggle('kb-open',open);if(open)document.activeElement?.scrollIntoView?.({block:'nearest',inline:'nearest'});}
+const later=()=>{if(!raf)raf=requestAnimationFrame(sync);};
+vv.addEventListener('resize',later,{passive:true});vv.addEventListener('scroll',later,{passive:true});
+document.addEventListener('focusin',later);document.addEventListener('focusout',()=>setTimeout(later,80));sync();
+window.CRPGKeyboard={sync};
+})();

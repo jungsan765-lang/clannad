@@ -243,3 +243,22 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 | `ui/UI_AvatarIcon_Ambor.webp` | 엠버 | 62,853 → 13,900바이트 |
 
 출처: https://enka.network/ui/ (`original_game_texture_mirror`). 이 자료는 자산의 출처 · 일치 여부를 기록한다. 재배포 사용 조건 전체를 검토했다거나 모든 원신 자산에 제한이 없다고 주장하지 않는다.
+
+# v0.15.25 성장 재료 아이콘
+
+사용자 승인(2026-10-06, 「10개 모두 받기」)으로 비경 보상 · 가방 · 돌파 · 특성 창의 임시 표시를 원작 재료 그림으로 바꿨다. 원본 PNG(256×256) 10개 252,040바이트 → WebP(q90) 65,722바이트. `content/item-icons.json`의 `icons`에 출처 · 지문을 적었다(`matchType: crpg_visual_mapping`). 이 게임의 재료는 한 단계짜리 자체 재료라서 **원작의 같은 이름 아이템이 아니라 그 그림을 빌려 표시**한다.
+
+| 파일 | 원작 그림 | 이 게임의 재료 |
+|---|---|---|
+| `UI_ItemIcon_104301.webp` | 「자유」의 가르침 | 몬드 특성 수련서 |
+| `UI_ItemIcon_104310.webp` | 「번영」의 가르침 | 리월 특성 수련서 |
+| `UI_ItemIcon_104101.webp` | 휘황찬란한 다이아몬드 파편 | 돌파 재료(주인공) |
+| `UI_ItemIcon_104111.webp` | 불타오르는 마노 가루 | 불 원소 돌파 재료 |
+| `UI_ItemIcon_104121.webp` | 순수한 청금석 가루 | 물 원소 돌파 재료 |
+| `UI_ItemIcon_104151.webp` | 자유로운 터키석 가루 | 바람 원소 돌파 재료 |
+| `UI_ItemIcon_104141.webp` | 승리의 자수정 가루 | 번개 원소 돌파 재료 |
+| `UI_ItemIcon_104161.webp` | 서늘한 빙옥 가루 | 얼음 원소 돌파 재료 |
+| `UI_ItemIcon_104171.webp` | 단단한 황옥 가루 | 바위 원소 돌파 재료 |
+| `UI_ItemIcon_104131.webp` | 자라나는 비취 가루 | 풀 원소 돌파 재료 |
+
+출처: https://enka.network/ui/ (`original_game_texture_mirror`). 그림과 이름의 짝은 Project Amber API https://gi.yatta.moe/api/v2/kr/material/{번호} 의 한국어 이름으로 확인했다. 이 자료는 자산의 출처 · 일치 여부를 기록한다. 재배포 사용 조건 전체를 검토했다거나 모든 원신 자산에 제한이 없다고 주장하지 않는다.

@@ -13,8 +13,15 @@
     const resolve=(name,explicit)=>explicit&&actors.find(a=>a.id===explicit)||((actors.filter(a=>a.name===name).length===1)?actors.find(a=>a.name===name):null);
     const display=a=>{if(!a)return '';const same=actors.filter(x=>x.name===a.name&&x.side===a.side);return a.name+(same.length>1?' '+(same.indexOf(a)+1):'');};
     const events=[];
+    // 0.15.25 (user: 「토끼백작 도대체 얼마나 빠르면 공격을 연속 세번 하노?」): a summon's blow can set off a reaction that the log
+    // writes under the summon's owner (토끼 백작's blast → 확산 under 엠버). Those lines belong to the summon's one action, so the
+    // playback shows one blast with its targets instead of 토끼 백작 · 엠버 · 토끼 백작.
+    let summonHit=null;
     logs.slice(start).forEach((entry,n)=>{
-      const target=resolve(entry.target,entry.targetId),actor=resolve(entry.actor,entry.actorId),virtualTarget=String(entry.targetId||'').startsWith('SUMMON:')?entry.targetId:null,visualActor=entry.presentationActorId||null,base={key:s.global.SAVE_ID+':'+id+':'+(start+n)+':'+s.global.LAST_COMMITTED_ACTION_ID,targetId:target?.id||virtualTarget||null,actorId:visualActor||actor?.id||null,actorSide:actor?.side||entry.actorSide||null,side:target?.side||entry.targetSide||null,target:display(target)||entry.target||'',actor:entry.presentationActorName||display(actor)||entry.actor||'',element:elements[entry.element]||'hit',hpBefore:entry.hpBefore,hpAfter:entry.hpAfter,maxHp:entry.maxHp,round:entry.round,action:entry.actionSequence,cardName:entry.cardName||'',cardId:entry.card||entry.presentationCardId||null,sourceKind:entry.sourceKind||entry.presentationSourceKind||null,absorbed:Number(entry.absorbed)||0,shieldBefore:Number.isFinite(entry.shieldBefore)?Number(entry.shieldBefore):null,shieldAfter:Number.isFinite(entry.shieldAfter)?Number(entry.shieldAfter):null,reactionId:entry.reaction||null,jointAttack:!!entry.jointAttack,jointSkipped:!!entry.jointSkipped,jointBonusPct:entry.jointBonusPct,jointIndex:entry.jointIndex,enemySkill:!!entry.enemySkill,charging:!!entry.charging,interrupted:!!entry.interrupted,released:!!entry.released,skillText:entry.text||''};
+      if(entry.presentationActorId)summonHit={id:entry.presentationActorId,name:entry.presentationActorName,owner:entry.actorId,round:entry.round,action:entry.actionSequence,kind:entry.sourceKind||entry.presentationSourceKind||null};
+      else if(summonHit&&!(entry.actorId===summonHit.owner&&entry.round===summonHit.round&&entry.actionSequence===summonHit.action&&(entry.sourceKind==='REACTION'||entry.reaction&&!Object.hasOwn(entry,'damage'))))summonHit=null;
+      const inherit=!entry.presentationActorId&&summonHit?summonHit:null;
+      const target=resolve(entry.target,entry.targetId),actor=resolve(entry.actor,entry.actorId),virtualTarget=String(entry.targetId||'').startsWith('SUMMON:')?entry.targetId:null,visualActor=entry.presentationActorId||inherit?.id||null,base={key:s.global.SAVE_ID+':'+id+':'+(start+n)+':'+s.global.LAST_COMMITTED_ACTION_ID,targetId:target?.id||virtualTarget||null,actorId:visualActor||actor?.id||null,actorSide:actor?.side||entry.actorSide||null,side:target?.side||entry.targetSide||null,target:display(target)||entry.target||'',actor:entry.presentationActorName||inherit?.name||display(actor)||entry.actor||'',element:elements[entry.element]||'hit',hpBefore:entry.hpBefore,hpAfter:entry.hpAfter,maxHp:entry.maxHp,round:entry.round,action:entry.actionSequence,cardName:entry.cardName||'',cardId:entry.card||entry.presentationCardId||null,sourceKind:inherit?inherit.kind:entry.sourceKind||entry.presentationSourceKind||null,absorbed:Number(entry.absorbed)||0,shieldBefore:Number.isFinite(entry.shieldBefore)?Number(entry.shieldBefore):null,shieldAfter:Number.isFinite(entry.shieldAfter)?Number(entry.shieldAfter):null,reactionId:entry.reaction||null,jointAttack:!!entry.jointAttack,jointSkipped:!!entry.jointSkipped,jointBonusPct:entry.jointBonusPct,jointIndex:entry.jointIndex,enemySkill:!!entry.enemySkill,charging:!!entry.charging,interrupted:!!entry.interrupted,released:!!entry.released,skillText:entry.text||''};
       let e;
       if(entry.charging||entry.interrupted||entry.released)e={kind:'skill',label:entry.text||entry.cardName||'기술 사용',cue:null};
       else if(Number.isFinite(entry.maxHpChange))e={kind:'capacity',label:entry.maxHpChange<0?'최대 HP '+entry.maxHpChange:'최대 HP 복원',cue:null};
@@ -77,7 +84,8 @@
   const amount=events.filter(e=>e.kind==='damage').reduce((sum,e)=>sum+(Number(e.amount)||0),0),heal=events.filter(e=>e.kind==='heal').reduce((sum,e)=>sum+(Number(e.amount)||0),0);
   return {...first,key:first.key+'..'+last.key,kind:'action',events:events.slice(),targets,reactions,amount,heal,
    hitCount:Math.max(0,...targets.map(t=>t.hitCount)),attemptCount:Math.max(0,...targets.map(t=>t.attemptCount)),
-   cardName:events.find(e=>e.cardName)?.cardName||first.cardName||'',
+   // 0.15.25: a companion's plain hit is logged without a card; it is shown as what it is instead of a nameless action.
+   cardName:events.find(e=>e.cardName)?.cardName||first.cardName||(!periodic(first)&&!first.sourceKind&&!first.cardId&&events.some(e=>['damage','miss'].includes(e.kind))?'기본 공격':''),
    critical:events.some(e=>e.critical),periodic:periodic(first),sourceKind:first.sourceKind||null};
  }
  function actionFrames(events){

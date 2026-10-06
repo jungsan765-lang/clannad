@@ -80,7 +80,8 @@ function partyScreen(p){
     if(n>1){
       const controls=el('div','formation-controls');
       if(id){
-        const tactic=el('select');tactic.setAttribute('aria-label',ownerName(id)+' 역할');for(const t of game.partyTactics())tactic.append(new Option(roleLabel(t),t));tactic.value=member.tactic;tactic.onchange=()=>act('PARTY_TACTIC',{slot:n,tactic:tactic.value});controls.append(tactic);
+        // 0.15.25: the roles are buttons to press (no drop-down in the game, AGENTS.md).
+        controls.append(choiceTiles({label:ownerName(id)+' 역할',className:'role-choice',options:game.partyTactics().map(t=>({value:t,label:roleLabel(t)})),value:member.tactic,onChange:v=>act('PARTY_TACTIC',{slot:n,tactic:v})}));
         const effect=window.CRPGRuntime?.formationConfig?.roles?.[member.tactic||'균형']?.text;if(effect)controls.append(el('small','role-effect',effect));
         // v0.14.4: how often this companion's E/Q come back, and the awakening chance with the exclusive weapon.
         const rhythm=game.skillRhythm?.(id);if(rhythm){const ch=game.resonanceChance?.(id)||0;controls.append(el('small','skill-rhythm','원소전투 스킬 '+rhythm.e+'차례 · 원소폭발 '+rhythm.q+'차례마다'+(ch?' · 공명 각성 '+Math.round(ch*100)+'%':'')));}
@@ -100,7 +101,7 @@ inventory=function(p){
   const reason=game.actionReason('USE_ITEM'),content=el('div');if(reason)p.append(el('p','phase-note','현재 장면에서는 가방 확인만 가능합니다.'));
   const items=game.s.inventory.filter(x=>x.item&&x.quantity>0),grid=el('div','grid');
   for(const item of items){const row=game.row('14_ITEM_DB',item.item),c=el('section','card');c.append(el('small','',row[2]||'물건'),el('h3','',row[1]),el('p','',item.quantity.toLocaleString()+'개'));
-    if(row[2]==='음식'){let spec;try{spec=game.foodSpec(item.item);}catch{}if(spec){const select=el('select');select.setAttribute('aria-label',row[1]+' 사용 대상');for(const member of game.s.party.filter(x=>x.active))select.append(new Option(ownerName(member.source),member.source));c.append(select,button('1개 사용',()=>act('USE_ITEM',{item:item.item,quantity:1,owner:select.value}),!!reason));}}
+    if(row[2]==='음식'){let spec;try{spec=game.foodSpec(item.item);}catch{}if(spec){const select=choiceTiles({label:row[1]+' 사용 대상',options:game.s.party.filter(x=>x.active).map(member=>({value:member.source,label:ownerName(member.source)}))});c.append(select,button('1개 사용',()=>act('USE_ITEM',{item:item.item,quantity:1,owner:select.value}),!!reason));}}
     if(item.item.startsWith('MAT_CHAR_EXP_'))c.append(actionButton('캐릭터 화면에서 사용','MENU',{screen:'STATUS'}));grid.append(c);
   }
   if(!items.length)grid.append(el('p','empty','가방이 비어 있습니다.'));content.append(grid);const tools=el('section');toolPreparation(tools);lockControls(tools,game.actionReason('TOOL_PREPARE'));content.append(tools);p.append(content);

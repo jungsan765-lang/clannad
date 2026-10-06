@@ -50,10 +50,16 @@ const TUTORIAL_LINES={
   'attack.target':'노릴 상대를 눌러 줘. 금색 테두리가 네가 고른 상대야.',
   'attack.run':'좋아, 실행! 나머지는 차례대로 움직일 거야.',
   'guard.card':'이번엔 방어해 보자. 받는 피해가 줄어들어.',
+  'guard.wave':'또 몰려온다! 이번엔 방어해 보자. 받는 피해가 줄어들어.',
+  'skill.wave':'아직 더 있어! 원소전투 스킬로 한 번에 몰아붙이자. 쓰고 나면 몇 차례 기다려야 해.',
   'guard.run':'실행하면 이번 차례는 막기만 해.',
   'skill.card':'원소전투 스킬도 써 봐! 한 번 쓰면 몇 차례 기다려야 해.',
   'skill.target':'스킬로 노릴 상대를 눌러 줘.',
   'skill.run':'실행! 어떤 기술인지 잘 봐 둬.',
+  'burst.card':'마지막은 원소폭발! 제일 센 기술이야. 한 번 쓰면 한참 기다려야 해.',
+  'burst.wave':'아직 끝이 아니야! 이번엔 원소폭발로 한꺼번에 날려 버리자!',
+  'burst.target':'원소폭발로 노릴 상대를 눌러 줘.',
+  'burst.run':'실행! 이게 원소폭발이야.',
   'life':'채집은 표시된 걸 고르면 되고, 채광이랑 사냥은 금색 칸에 맞춰 눌러! 세 번 중 두 번이면 성공이야.'
  }
 };
@@ -114,13 +120,15 @@ function tutorialBattleTarget(step){
  const key=game.s.runtime.id+':'+step.id+':'+cardId;
  if(tutorialBattlePick?.key!==key)tutorialBattlePick={key,card:false,target:false};
  const selected=game.combatCards().find(c=>c.id===cardId),button=tutorialFind('[data-card-id="'+cardId+'"]:not(:disabled)');if(!button)return null;
- const kind=cardId==='PLAYER_BASIC_GUARD'?'guard':cardId==='PLAYER_BASIC_ATTACK'?'attack':step.id==='skill'||step.id==='combatSkill'?'skill':null;
+ const kind=cardId==='PLAYER_BASIC_GUARD'?'guard':cardId==='PLAYER_BASIC_ATTACK'?'attack':step.id==='skill'||step.id==='combatSkill'?'skill':step.id==='combatBurst'?'burst':null;
  if(!button.tutorialTracked){button.tutorialTracked=true;button.addEventListener('click',()=>{tutorialBattlePick.card=true;scheduleTutorial();},{capture:true});}
- if(!tutorialBattlePick.card||selectedCard!==cardId)return {...step,target:button,title:step.title,text:'먼저 밝게 표시된 「'+selected.name+'」을 누르세요.',say:kind&&kind+'.card'};
+ // A new wave of slimes (runtime tutorial waves) is announced by the line that asks for the next lesson.
+ const wave=game.s.runtime.tutorialWaves?.released>0&&kind!=='attack';
+ if(!tutorialBattlePick.card||selectedCard!==cardId)return {...step,target:button,title:step.title,text:'먼저 밝게 표시된 「'+selected.name+'」을 누르세요.',say:kind&&kind+(wave?'.wave':'.card')};
  if(cardId!=='PLAYER_BASIC_GUARD'&&selected.targets?.length&&!tutorialBattlePick.target){
   const target=tutorialFind('.combatant-row[data-actor-id="'+CSS.escape(selected.targets[0].id)+'"]');if(!target)return null;
   if(!target.tutorialTracked){target.tutorialTracked=true;target.addEventListener('click',e=>{if(e.target.closest('button'))return;tutorialBattlePick.target=true;scheduleTutorial();},{capture:true});}
-  return {...step,target,title:'공격할 대상을 고르세요',text:'밝게 표시된 적의 그림을 누르세요. 금색 테두리가 선택한 대상입니다.',say:kind==='skill'?'skill.target':'attack.target'};
+  return {...step,target,title:'공격할 대상을 고르세요',text:'밝게 표시된 적의 그림을 누르세요. 금색 테두리가 선택한 대상입니다.',say:kind==='skill'||kind==='burst'?kind+'.target':'attack.target'};
  }
  return {...step,target:tutorialAction('COMBAT'),title:'선택한 행동을 실행하세요',text:cardId==='PLAYER_BASIC_GUARD'?'실행을 누르면 방어하고 차례를 마칩니다.':'실행을 누르면 선택한 대상에게 행동합니다. 동료와 적의 차례는 자동으로 이어집니다.',say:kind&&kind+'.run'};
 }

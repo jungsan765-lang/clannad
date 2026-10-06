@@ -59,9 +59,9 @@ function costBlock(card,cost){
 }
 // v0.13.40: a forge can hold many recipes. Tabs by output kind and a "craftable now" filter keep it scannable;
 // each card says what the item is FOR and lists its traits, so gear is chosen by purpose rather than by numbers.
-const CRAFT_TABS=[['ALL','전체'],['EXCLUSIVE','전용 무기'],['WEAPON','무기'],['ARMOR','방어구'],['ACCESSORY','장신구'],['SPECIAL','특수'],['ITEM','소모품·재료']];
+const CRAFT_TABS=[['ALL','전체'],['EXCLUSIVE','전용 무기'],['WEAPON','무기'],['ARMOR','방어구'],['ACCESSORY','장신구'],['SPECIAL','특수'],['SYNTH','재료 합성'],['ITEM','소모품·재료']];
 const craftView={tab:'ALL',ready:false};
-function craftKind(r){if(r[2]!=='EQUIP')return 'ITEM';if(game.exclusiveOwner?.(r[3]))return 'EXCLUSIVE';const type=game.tables['16_EQUIP_DB'].get(r[3])?.[2];return {방어구:'ARMOR',장신구:'ACCESSORY',특수:'SPECIAL'}[type]||'WEAPON';}
+function craftKind(r){if(r[1]==='재료 합성')return 'SYNTH';if(r[2]!=='EQUIP')return 'ITEM';if(game.exclusiveOwner?.(r[3]))return 'EXCLUSIVE';const type=game.tables['16_EQUIP_DB'].get(r[3])?.[2];return {방어구:'ARMOR',장신구:'ACCESSORY',특수:'SPECIAL'}[type]||'WEAPON';}
 crafting=function(p){
   const entry=placeHeader(p,'CRAFT');if(!entry)return;
   if(presenterDB!==game.db){itemPresenter=CRPGInventoryPresenter.create(game.db,MANIFEST);presenterDB=game.db;}
@@ -84,7 +84,10 @@ crafting=function(p){
       c.append(stages,el('small','muted','각 시설에서 준비한 뒤 제작합니다. 재료·모라·시간은 완성할 때 한 번만 소비합니다.'));
       if(recipe.canStage)c.append(actionButton('이 시설에서 준비','CRAFT_STAGE',{recipe:r[0]}));
     }
-    if(blocked)c.append(el('p','choice-note',blocked));const b=actionButton(recipe.stages?'공동 제작 완료':'제작','CRAFT',{recipe:r[0]});b.disabled=b.disabled||!!blocked;c.append(b);grid.append(c);
+    if(blocked)c.append(el('p','choice-note',blocked));const b=actionButton(recipe.stages?'공동 제작 완료':recipe.kind==='SYNTH'?'합성':'제작','CRAFT',{recipe:r[0]});b.disabled=b.disabled||!!blocked;c.append(b);
+    // 0.15.25 재료 합성: as many at once as the bag and purse allow (up to 10), so converting a pile is one press.
+    if(recipe.kind==='SYNTH'&&!blocked){try{const cost=game.recipeCost(r,1),can=Math.min(10,...Object.entries(cost.items).map(([id,n])=>Math.floor(game.itemCount(id)/n)),cost.mora?Math.floor(game.s.global.MORA/cost.mora):10);if(can>1)c.append(actionButton(can+'개 한 번에','CRAFT',{recipe:r[0],quantity:can}));}catch{}}
+    grid.append(c);
   }
   if(!grid.children.length)grid.append(el('p','muted',recipes.length?'조건에 맞는 제작법이 없습니다. 분류나 필터를 바꿔 보세요.':'이 시설에서 사용할 제작법이 없습니다.'));p.append(grid);
 };
@@ -140,9 +143,13 @@ function itemDetailView(box,d){
   const dl=el('dl','item-detail-fields');for(const s of d.stats)dl.append(el('dt','',s.label),el('dd','',s.value+s.unit));
   for(const f of d.fields.filter(f=>!['설명','효과','기본 고유 효과','획득처','판매가','구매가'].includes(f.label)))dl.append(el('dt','',f.label),el('dd','',f.value.replace(/지정 CHAR_ID/g,'선택한 캐릭터')));box.append(dl);
   if(['FOOD','EXPERIENCE'].includes(d.actionHint)){
-    const select=el('select');select.setAttribute('aria-label','아이템 사용 대상');for(const member of game.s.party.filter(x=>x.active))select.append(new Option(ownerName(member.source),member.source));
-    const use=button('1개 사용',()=>act('USE_ITEM',{item:d.id,quantity:1,owner:select.value,variant:d.variant||undefined}),false,true),reason=el('p','choice-note');
-    const refresh=()=>{let message=game.actionReason('USE_ITEM')||'';if(!message)try{if(d.actionHint==='FOOD'){const spec=game.foodSpec(d.id,{variant:d.variant}),a=game.economyOwner(select.value);if(a.hp<=0)message='전투불능 대상은 일반 음식을 먹을 수 없습니다.';else if(spec.heal&&a.lastMeal===d.id)message='직전에 먹은 회복 음식과 다른 음식을 골라 주세요.';else if(!spec.status&&a.hp>=a.maxHp&&!a.statuses.some(s=>s.id==='STATUS_BOND_OF_LIFE'))message='이미 HP가 가득 찬 대상입니다.';}else if(game.growth(select.value).max)message='최대 레벨입니다.';}catch(e){message=e.message;}use.disabled=busy||!!message;use.title=message;reason.textContent=message;};select.onchange=refresh;refresh();box.append(select,use,reason,el('small','muted','현재 파티에 편성된 캐릭터만 사용할 수 있습니다.'));
+    // 0.15.25 (user: 「v 눌러서 고르는거 그거 아예 쓰지 말라」): who eats or reads it is a row of faces to press.
+    const members=game.s.party.filter(x=>x.active);let target=members[0]?.source;
+    const who=el('div','item-use-targets');who.setAttribute('role','radiogroup');who.setAttribute('aria-label','아이템 사용 대상');
+    const use=button('1개 사용',()=>act('USE_ITEM',{item:d.id,quantity:1,owner:target,variant:d.variant||undefined}),false,true),reason=el('p','choice-note');
+    const refresh=()=>{let message=game.actionReason('USE_ITEM')||'';if(!message)try{if(d.actionHint==='FOOD'){const spec=game.foodSpec(d.id,{variant:d.variant}),a=game.economyOwner(target);if(a.hp<=0)message='전투불능 대상은 일반 음식을 먹을 수 없습니다.';else if(spec.heal&&a.lastMeal===d.id)message='직전에 먹은 회복 음식과 다른 음식을 골라 주세요.';else if(!spec.status&&a.hp>=a.maxHp&&!a.statuses.some(s=>s.id==='STATUS_BOND_OF_LIFE'))message='이미 HP가 가득 찬 대상입니다.';}else if(game.growth(target).max)message='최대 레벨입니다.';}catch(e){message=e.message;}use.disabled=busy||!!message;use.title=message;reason.textContent=message;};
+    const draw=()=>who.replaceChildren(...members.map(m=>{const b=button('',()=>{target=m.source;draw();refresh();});b.className='item-use-target'+(m.source===target?' selected':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(m.source===target));const src=showArt&&combatPortraitSrc({side:'ALLY',source:m.source});if(src){const i=el('img','item-use-face');i.src=src;i.alt='';b.append(i);}else b.append(el('span','item-use-face mark','✦'));b.append(el('span','',ownerName(m.source)));return b;}));
+    draw();refresh();box.append(who,use,reason);
   }else if(d.kind==='EQUIPMENT'){const why=game.actionReason('MENU',{screen:'STATUS'}),b=button('캐릭터 화면에서 장착하기',()=>openGear(d.slot,d.owner),!!why);if(why)b.title=why;box.append(b);}
   else if(d.actionHint==='COMBAT_MEDICINE')box.append(el('p','muted','전투 중 행동 카드에서 사용합니다.'));
   else if(d.actionHint==='TACTICAL_PREPARATION')box.append(el('p','muted','아래 전투 도구 준비에서 선택할 수 있습니다.'));
@@ -269,7 +276,12 @@ function battleOrder(p,b){
   // (speed and a little luck), so the playback rebuilds this list when a new round begins (app_battle_fx_v01521.js);
   // a boss that acts more than once a turn says so.
   order.dataset.round=String(b.round);order.title='라운드마다 속도(와 약간의 운)로 순서를 새로 정합니다.';
-  for(const [i,x]of b.order.entries()){const a=b.actors.find(t=>t.id===x.id);if(!a||a.hp<=0)continue;const entry=el('li',(a.side==='ALLY'?'ally':'enemy')+(i===b.cursor?' current':''));entry.dataset.actorId=a.id;entry.append(el('small','',String(i+1)));battleOrderFace(entry,a);entry.append(el('span','',combatDisplayName(b,a)));battleOrderTimes(entry,a);if(i===b.cursor&&!b.opening?.state?.includes('PENDING'))entry.append(el('small','','현재'));order.append(entry);}p.append(order);
+  for(const [i,x]of b.order.entries()){const a=b.actors.find(t=>t.id===x.id);if(!a||a.hp<=0)continue;const entry=el('li',(a.side==='ALLY'?'ally':'enemy')+(i===b.cursor?' current':''));entry.dataset.actorId=a.id;entry.append(el('small','',String(i+1)));battleOrderFace(entry,a);entry.append(el('span','',combatDisplayName(b,a)));battleOrderTimes(entry,a);if(i===b.cursor&&!b.opening?.state?.includes('PENDING'))entry.append(el('small','','현재'));order.append(entry);}
+  // 0.15.25 (user: 「토끼백작 … 공격을 연속 세번 하노?」): 토끼 백작 bursts once when the next round begins, hitting up to three foes;
+  // the list says so after this round's fighters instead of the blast arriving out of nowhere.
+  for(const f of (b.fields||[]).filter(f=>f.kind==='BUNNY'&&!f.done&&f.hp>0&&f.explodeAt===b.round+1)){const li=el('li','summon next '+(f.side==='ENEMY'?'enemy':'ally'));li.dataset.actorId='SUMMON:BUNNY:'+f.actor;li.title='다음 라운드가 시작될 때 한 번 터져 적 최대 3명에게 피해';
+    if(showArt){const img=el('img','order-face');img.src='assets/summons/'+(f.asset||'summon_baron_bunny.webp');img.alt='';img.decoding='async';li.append(img);li.classList.add('with-face');}li.append(el('span','',f.name||'토끼 백작'),el('small','order-what','다음 라운드 · 폭발'));order.append(li);}
+  p.append(order);
 }
 // 0.15.24 (docs/handoffs/UI_INSTALLED_LANDSCAPE_KO.md: 「행동 순서를 1·2·3 숫자만으로 표시하지 않는다 … 그림과 이름으로」): each turn shows
 // the fighter's face beside the name (the position number stays for screen readers).
@@ -347,7 +359,11 @@ function battleActorRow(a,chosen,index){
   if(chosen?.targets?.some(t=>t.id===a.id)){
     // 0.15.18 (user: 적 누르면 타겟): a press anywhere on the card chooses it. 0.15.20 (user: 「선택됨 저걸 없애고 정보를
     // 넣어야지」): so the card has no 선택/선택됨 button; the gold frame marks the target and 「정보」 stands in its place.
-    c.classList.add('targetable');c.addEventListener('click',e=>{if(e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});}
+    c.classList.add('targetable');c.addEventListener('click',e=>{if(e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});
+    // 0.15.25 (user: 「v 눌러서 고르는거 그거 아예 쓰지 말라」): the card is the only way to choose — no list under the skills — so
+    // a keyboard reaches it too (Tab, then Enter or Space).
+    c.tabIndex=0;c.setAttribute('role','button');c.setAttribute('aria-pressed',String(selectedTarget===a.id));c.setAttribute('aria-label',(a.name||'대상')+(index?' '+index:'')+' 대상으로 고르기');
+    c.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===c){e.preventDefault();c.click();}});}
   return c;
 }
 function battleSummons(p,b){
@@ -369,6 +385,8 @@ function battleSummons(p,b){
       cp.append(el('strong','',f.name||m.name));
       if(f.kind==='BUNNY'){meter(cp,'HP',Math.max(0,Math.round(f.hp)),Math.max(1,Math.round(f.maxHp||f.hp)));cp.append(el('small','', '단일 공격 도발 '+Math.round(f.tauntChance||30)+'% · 파괴 또는 시간 종료 시 폭발'));}
       else cp.append(el('small','', '자동 행동 · 남은 '+remaining+'회'));
+      // 0.15.25: a short screen folds the line under the name; the card still says it on hover and to screen readers.
+      card.title=[...cp.querySelectorAll('strong,small')].map(n=>n.textContent).join(' · ');
       card.append(cp);lane.append(card);
     }wrap.append(lane);
   }p.prepend(wrap);
@@ -406,8 +424,10 @@ combat=function(p){
   if(opening){controls.append(el('h2','','준비되면 전투를 시작하세요'),el('p','','아직 누구도 공격하지 않았습니다. 시작하면 위 순서대로 행동합니다. 주인공의 차례에는 행동 → 대상 → 실행을 선택하세요.'),actionButton('전투 시작','COMBAT_BEGIN',{battle:b.id},true));}
   else{
     const buttons=el('div','battle-cards');for(const card of cards){const slot=el('div','battle-card-choice'),btn=button('',()=>{selectedCard=card.id;selectedBranch=card.branches?.[0]||'';render();},!!card.reason||busy);btn.dataset.cardId=card.id;btn.classList.toggle('selected',selectedCard===card.id);btn.append(el('strong','',card.name),el('small','',card.reason||(card.cooldown?'재사용 '+card.cooldown+'차례':'사용 가능')));const effect=button('효과',()=>combatCardEffect(card,b));effect.className='battle-effect-button';effect.setAttribute('aria-label',(card.name||'행동')+' 효과 보기');slot.append(btn,effect);buttons.append(slot);}controls.append(buttons);
-    const execute=el('div','battle-execute');if(chosen?.branches?.length){const select=el('select');select.setAttribute('aria-label','스킬 방식');for(const branch of chosen.branches)select.append(new Option(({TAP:'짧게 사용',HOLD:'길게 사용',CHARGE:'차지'})[branch]||branch,branch));if(!chosen.branches.includes(selectedBranch))selectedBranch=chosen.branches[0];select.value=selectedBranch;select.onchange=()=>{selectedBranch=select.value;};execute.append(select);}
-    if(chosen?.targets?.length){const targetSelect=el('select');targetSelect.setAttribute('aria-label','행동 대상');for(const t of chosen.targets){const a=b.actors.find(a=>a.id===t.id);targetSelect.append(new Option((a?combatDisplayName(b,a):t.name)+' · HP '+(a?.hp??''),t.id));}targetSelect.value=selectedTarget;targetSelect.onchange=()=>{selectedTarget=targetSelect.value;render();};execute.append(targetSelect);}
+    // 0.15.25 (user: 「v 눌러서 고르는거 그거 아예 쓰지 말라」): the way to use a skill is two or three buttons side by side; the
+    // target is chosen on the fighters' cards (the list under the skills is gone).
+    const execute=el('div','battle-execute');if(chosen?.branches?.length){if(!chosen.branches.includes(selectedBranch))selectedBranch=chosen.branches[0];const seg=el('div','battle-branches');seg.setAttribute('role','radiogroup');seg.setAttribute('aria-label','스킬 방식');
+      for(const branch of chosen.branches){const bb=button(({TAP:'짧게',HOLD:'길게',CHARGE:'차지'})[branch]||branch,()=>{selectedBranch=branch;render();});bb.className='battle-branch'+(branch===selectedBranch?' selected':'');bb.setAttribute('role','radio');bb.setAttribute('aria-checked',String(branch===selectedBranch));seg.append(bb);}execute.append(seg);}
     const run=actionButton(chosen?.id==='PLAYER_BASIC_ATTACK'?'공격 실행':'선택한 행동 실행','COMBAT',{card:selectedCard,target:selectedTarget,branch:selectedBranch},true);run.disabled=run.disabled||!chosen||!!chosen.reason;execute.append(run);controls.append(execute);
   }const blockedAttack=!opening&&game.combatCards().find(c=>c.id==='PLAYER_BASIC_ATTACK'&&/공중/.test(c.reason));if(blockedAttack)controls.append(el('p','battle-target-warning',blockedAttack.reason));if(!opening&&game.combatFleeReason?.()===''){const retreat=el('div','battle-retreat');retreat.append(el('p','muted','전투가 길어졌습니다. 도망치면 현재 체력은 유지되며 보상은 받지 못합니다.'),actionButton('도망치기','COMBAT_FLEE',{},false));controls.append(retreat);}controls.append(combatSpeedControl());p.append(controls);
   const stage=el('div','compact-battle-stage'),foes=b.actors.filter(a=>a.side==='ENEMY'),representative=foes.find(a=>a.hp>0)||foes[0];

@@ -36,7 +36,8 @@ check('화면 크기: the height limit follows the chosen size, so 작게 and �
  assert.deepEqual(sizes(1920,953),[85,100,120],'1080p');
  assert.deepEqual(sizes(1366,650),[85,90,90],'small laptop: 크게 cannot grow the 1280x720 minimum');
  assert(html.includes('window.CRPGFrameMeasure=function(name){return measure(SIZES[name]||1);};'));
- assert(shell.includes("o.textContent=m[o.value]?name+' · '+pct(m[o.value])+'%':name;")&&shell.includes("창이 작아 「크게」로 더 키울 수 없습니다."),'the setting shows each size and explains a window limit');
+ // 0.15.25: the sizes are buttons now (no drop-down in the game); each still shows what it gives in this window.
+ assert(shell.includes("b.textContent=m[b.dataset.value]?name+' · '+pct(m[b.dataset.value])+'%':name;")&&shell.includes("창이 작아 「크게」로 더 키울 수 없습니다."),'the setting shows each size and explains a window limit');
  return {big:sizes(2560,1300),laptop:sizes(1366,650)};
 });
 
@@ -48,7 +49,8 @@ check('글자 크기: 100% (16px) stays the base, 80% and 90% are added, earlier
  assert.deepEqual(run({fontScale:100}),{scale:100,px:16},'the default is unchanged');
  for(const [scale,px]of [[80,12.8],[90,14.4],[112,17.92],[125,20],[150,24]])assert.deepEqual(run({fontScale:scale}),{scale,px},scale+'%');
  assert.deepEqual(run({fontScale:117}),{scale:100,px:16},'an unknown value falls back to 100%');
- assert(app.includes("for(const n of FONT_STEPS){const o=el('option','',n+'%'+(n===100?' (기본)':''))"));
+ // 0.15.25: the steps are buttons now (no dropdown anywhere in the game), with the same labels.
+ assert(app.includes("options:FONT_STEPS.map(n=>({value:n,label:n+'%'+(n===100?' (기본)':'')}))"));
  return {steps:[80,90,100,112,125,150]};
 });
 

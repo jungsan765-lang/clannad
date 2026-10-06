@@ -1,18 +1,21 @@
 /* Spiral Abyss screen (0.14.3): three chambers per floor, rest breaks, the floor mark and first-clear rewards. */
 (function(){
 'use strict';
-function pick(p,label,rows){const l=el('label','form-label',label),s=el('select');for(const [id,name]of rows){const o=el('option','',name);o.value=id;s.append(o);}l.append(s);p.append(l);return s;}
+// 0.15.25: choices are pictures to press, never a drop-down (AGENTS.md). rows: [value, label, picture path?]
+function pick(p,label,rows){const l=el('div','form-label abyss-pick');l.append(el('span','',label));const s=choiceTiles({label,options:rows.map(([value,text,icon])=>({value,label:text,icon:icon||null}))});l.append(s);p.append(l);return s;}
+const iconOf=id=>typeof MANIFEST!=='undefined'&&(MANIFEST.itemIcons?.icons?.[id]?.path)||null;
 const who=id=>id==='PLAYER_CUSTOM'?(game.s.global.PLAYER_NAME||'주인공'):safeName('07_CHAR_DB',id);
 const hpOf=id=>id==='PLAYER_CUSTOM'?[game.s.global.PLAYER_HP_CURRENT,game.s.global.PLAYER_HP_MAX]:[game.s.chars[id]?.hp||0,game.character(id).maxHp];
 const n=v=>String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g,',');
 function foodLabel(row){const heal=Number(row[8]||0),status=game.tables['13_STATUS_EFFECT_DB']?.get(row[9]);return row[1]+' ('+game.itemCount(row[0])+'개) · '+(heal?'HP '+heal+' 회복':(status?.[1]||'전투 효과'));}
 function foods(){return [...game.tables['14_ITEM_DB'].values()].filter(r=>r[2]==='음식'&&(Number(r[8]||0)>0||r[9])&&game.itemCount(r[0])>0).sort((a,b)=>Number(b[8]||0)-Number(a[8]||0));}
-function roomList(rooms,current){const ol=el('ol','abyss-rooms');for(const r of rooms){const li=el('li',current===r.chamber?'current':'');li.append(el('strong','',r.chamber+'번 방 「'+r.name+'」'),el('small','muted',' 제한 '+r.limit+'라운드 · 적 '+r.foes+'명'),el('p','',r.hint));ol.append(li);}return ol;}
+// 0.15.25: the three rooms side by side as cards (number, name, limit and foes, a short line about them).
+function roomList(rooms,current){const ol=el('ol','abyss-rooms');for(const r of rooms){const li=el('li',current===r.chamber?'current':'');li.append(el('b','abyss-room-no',r.chamber),el('strong','','「'+r.name+'」'),el('small','muted','제한 '+r.limit+'라운드 · 적 '+r.foes+'명'),el('p','',r.hint));ol.append(li);}return ol;}
 function confirmBox(title,text,label,run){const box=el('div');box.append(el('p','',text),button(label,run,false,true),button('돌아가기',abyssScreen));showModal(title,box);}
 function breakPanel(p,v){
  const a=v.active,room=a.room,c=el('section','card abyss-break');
  c.append(el('h2','',a.floor+'층 · '+a.floorName+' — '+a.chamber+'번 방 앞에서 숨 고르기'),
-  el('p','','지난 방에서 잃은 HP는 그대로입니다. 음식은 한 사람당 한 번에 하나씩 먹을 수 있고, 같은 회복 음식을 연달아 먹을 수는 없습니다. 장비와 진형은 바꿀 수 있지만 파티원은 바꿀 수 없습니다.'),
+  el('p','abyss-rule-line','HP는 그대로 · 음식은 한 사람당 하나씩(같은 회복 음식 연달아 불가) · 장비·진형은 바꿀 수 있고 파티원은 그대로'),
   el('h3','','다음: '+a.chamber+'번 방 「'+room.name+'」'),el('p','abyss-hint',room.hint),el('small','muted','제한 '+room.limit+'라운드'));
  const list=el('div','abyss-party'),menu=foods(),pending=game.s.pendingCombatEffects||{};
  for(const id of a.party){
@@ -21,7 +24,7 @@ function breakPanel(p,v){
   const bar=el('div','abyss-hp');bar.style.setProperty('--hp',Math.max(0,Math.min(1,hp/max)));row.append(bar);
   const buffs=(pending[id]||[]).map(e=>game.tables['13_STATUS_EFFECT_DB']?.get(e.id)?.[1]||e.id);
   if(buffs.length)row.append(el('small','abyss-buffs','다음 방 효과: '+buffs.join(', ')));
-  if(hp>0&&menu.length){const s=pick(row,'먹을 음식',menu.map(r=>[r[0],foodLabel(r)]));row.append(button('먹기',async()=>{await act('USE_ITEM',{item:s.value,owner:id});abyssScreen();}));}
+  if(hp>0&&menu.length){const s=pick(row,'먹을 음식',menu.map(r=>[r[0],foodLabel(r),iconOf(r[0])]));row.append(button('먹기',async()=>{await act('USE_ITEM',{item:s.value,owner:id});abyssScreen();}));}
   list.append(row);
  }
  if(!menu.length)list.append(el('p','muted','가방에 먹을 수 있는 음식이 없습니다.'));
@@ -30,40 +33,54 @@ function breakPanel(p,v){
  const why=game.actionReason('ABYSS_ENTER',{floor:a.floor});if(why)c.append(el('small','muted',why));
  p.append(c);
 }
-function floorCard(f,v){
- const d=el('details','card abyss-floor'),s=el('summary');
- s.append(el('strong','',f.floor+'층 · '+f.name),el('span','abyss-badges',[f.cleared?'정복 '+f.best+'라운드':'',f.claimed?'보상 수령':f.cleared?'보상 대기':''].filter(Boolean).join(' · ')));
- d.append(s,el('p','muted','권장 Lv. '+f.level+(f.floor>=10?' · 파티 전원 Lv. 60 필요':'')),roomList(f.rooms,v.active?.floor===f.floor?v.active.chamber:0),el('p','abyss-reward','첫 정복 보상: '+f.reward.text));
- if(!v.active){const b=button(f.cleared?'다시 도전':'입장',async()=>{document.getElementById('modal').close();await act('ABYSS_ENTER',{floor:f.floor});},!!f.reason,!f.cleared);b.title=f.reason;d.append(b);if(f.reason)d.append(el('small','muted',f.reason));}
+// 0.15.25 (user: no screens explained by walls of text): one floor at a time. The floor numbers are buttons in a row;
+// the chosen floor shows its three rooms, the first-clear reward and its button.
+function floorPanel(f,v){
+ const d=el('section','card abyss-floor'),head=el('div','abyss-floor-head');
+ head.append(el('h3','',f.floor+'층 · '+f.name),el('span','abyss-floor-level','권장 Lv. '+f.level+(f.floor>=10?' · 파티 전원 Lv. 60 필요':'')));
+ const badges=[f.cleared?'정복 '+f.best+'라운드':'',f.claimed?'보상 수령':f.cleared?'보상 대기':''].filter(Boolean);if(badges.length)head.append(el('span','abyss-badges',badges.join(' · ')));
+ // The floor's button sits on its title line, so it is in view without scrolling.
+ const acts=el('div','abyss-floor-actions');head.append(acts);
+ d.append(head,roomList(f.rooms,v.active?.floor===f.floor?v.active.chamber:0),el('p','abyss-reward','첫 정복 보상 · '+f.reward.text));
  if(f.owed)d.append(el('p','abyss-owed','지난 시즌에 정복한 층입니다. 첫 정복 보상을 아직 받지 않았습니다.'));
+ if(!v.active){const b=button(f.cleared?'다시 도전':'입장',async()=>{document.getElementById('modal').close();await act('ABYSS_ENTER',{floor:f.floor});},!!f.reason,!f.cleared);b.title=f.reason||'';if(f.reason)b.dataset.reason=f.reason;acts.append(b);if(f.reason)acts.append(el('small','muted',f.reason));}
  if((f.cleared||f.owed)&&!f.claimed&&!v.active){
-  if(f.reward.artifact||!f.reward.choice)d.append(button('보상 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor});abyssScreen();},false,true));
-  else{const s=pick(d,'받을 이나즈마 장비',f.reward.choice.map(id=>[id,rewardEquipLabel(id)+' · '+safeName('16_EQUIP_DB',id,2)]));d.append(button('보상 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor,equipment:s.value});abyssScreen();},false,true));}
+  if(f.reward.artifact||!f.reward.choice)acts.append(button('보상 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor});abyssScreen();},false,true));
+  else{const s=pick(d,'받을 이나즈마 장비',f.reward.choice.map(id=>[id,rewardEquipLabel(id)+' · '+safeName('16_EQUIP_DB',id,2),iconOf(id)]));d.append(button('보상 받기',async()=>{await act('ABYSS_REWARD',{floor:f.floor,equipment:s.value});abyssScreen();},false,true));}
  }
  return d;
+}
+let picked=null;
+function floorTabs(v,onPick){
+ const row=el('div','abyss-floors');row.setAttribute('role','tablist');row.setAttribute('aria-label','층');
+ for(const f of v.floors){const here=v.active?.floor===f.floor,b=button('',()=>onPick(f.floor));b.className='abyss-floor-tab'+(f.cleared?' cleared':'')+(here?' active':'')+(f.reason&&!f.cleared&&!here?' locked':'');b.dataset.floor=f.floor;b.setAttribute('role','tab');
+  b.setAttribute('aria-label',f.floor+'층 '+f.name+(f.cleared?' · 정복':here?' · 도전 중':''));b.title=f.floor+'층 · '+f.name+' · 권장 Lv. '+f.level;b.append(el('b','',f.floor),el('small','',f.cleared?(f.claimed?'정복':'보상'):here?'도전 중':'Lv.'+f.level));row.append(b);}
+ return row;
 }
 // 0.14.15 seasons: this month's season, its time left, last season's best and the 나선 문장 (one per season at floor 10+).
 function seasonCard(v){
  const c=el('section','card abyss-season'),head=el('div','abyss-season-head');
  head.append(el('strong','',v.seasonLabel),el('span','abyss-season-left',v.seasonEnds?left(v.seasonEnds):'시즌 기록 집계 전'));c.append(head);
- c.append(el('p','muted','시즌은 매달 1일 0시(한국 시간)에 바뀝니다. 새 시즌이 되면 층 정복 기록과 '+v.markName+'이 처음부터 시작하고, 이미 받은 첫 정복 보상은 다시 받지 않습니다. 시즌 안에 '+CRPGRuntime.abyssSeason.medalFloor+'층 이상을 정복하면 그 시즌의 나선 문장(10층 은빛 · 11층 보랏빛 · 12층 금빛)을 받고, 다음 시즌 동안 채팅에 테두리가 생깁니다.'));
  const last=v.history.at(-1);c.append(el('p','abyss-season-line','이번 시즌 최고 · '+(v.best.floor?v.best.floor+'층':'아직 없음')+(last?' · 지난 기록 · '+last.label+' '+last.floor+'층':'')));
+ c.append(el('small','abyss-rule-line','매달 1일 0시 새 시즌 · '+CRPGRuntime.abyssSeason.medalFloor+'층 이상 정복하면 그 시즌의 나선 문장(10층 은빛 · 11층 보랏빛 · 12층 금빛)'));
  if(v.medals.length){const row=el('div','abyss-medals');for(const m of v.medals){const text=m.label.replace(/ 시즌$/,'')+' · '+m.floor+'층',b=window.CRPGProfile?.medal?window.CRPGProfile.medal(m.floor,text,'wide'):el('span','abyss-medal',text);b.removeAttribute('aria-hidden');b.title='나선 문장 · '+m.label+' '+m.floor+'층 정복'+(m.current?' (이번 시즌)':'');row.append(b);}c.append(row);}
  return c;
 }
 function left(at){const ms=at-Date.now();if(ms<=0)return '곧 새 시즌';const d=Math.floor(ms/86400000),h=Math.floor(ms%86400000/3600000);return '남은 기간 '+(d?d+'일 ':'')+h+'시간';}
 function abyssScreen(){
  if(!game)return;const v=game.abyssView(),p=el('div','abyss-list');
- p.append(seasonCard(v));
- p.append(el('p','','층마다 방이 세 개 있고, 방마다 전투를 한 번씩 치릅니다. 방과 방 사이에는 음식을 먹으며 숨을 고를 수 있고, HP는 다음 방까지 이어집니다. 한 방이라도 지거나 제한 라운드를 넘기면 그 층은 1번 방부터 다시 도전해야 합니다.'),
-  el('p','','세 방을 모두 돌파하면 함께 싸운 동료에게 그 층의 '+v.markName+'이 새겨집니다. '+v.markName+'이 새겨진 동료는 도전을 전부 초기화하기 전까지 다른 층에 나설 수 없습니다. 주인공은 각인이 새겨지지 않습니다.'));
+ p.append(seasonCard(v),el('p','abyss-rule-line','층마다 방 3개 · HP는 다음 방까지 이어짐 · 지거나 제한 라운드를 넘기면 그 층 1번 방부터'));
  if(v.active?.phase==='BREAK')breakPanel(p,v);
- const next=Math.min(12,(Object.keys(v.progress.clears).map(Number).sort((a,b)=>b-a)[0]||0)+1);
- for(const f of v.floors){const card=floorCard(f,v);if(f.floor===(v.active?.floor||next)||(f.cleared||f.owed)&&!f.claimed)card.open=true;p.append(card);}
- const marks=Object.entries(v.progress.tags);
- p.append(el('h2','',v.markName+' · 다른 층에 나설 수 없는 동료'),el('p','muted','층을 정복할 때 함께 싸운 동료에게 새겨지는 표시입니다. 도전 전체 초기화로 지울 수 있습니다.'),el('p',marks.length?'':'muted',marks.length?marks.sort((a,b)=>a[1]-b[1]).map(([id,f])=>who(id)+' '+f+'층').join(' · '):'아직 각인이 새겨진 동료가 없습니다.'));
- p.append(button('도전 전체 초기화',()=>confirmBox('도전 전체 초기화','모든 층의 정복 기록과 '+v.markName+'이 한꺼번에 지워지고 1층부터 다시 시작합니다. 층 하나만 골라 초기화할 수는 없습니다. 이미 받은 첫 정복 보상은 다시 받을 수 없습니다.','전체 초기화',async()=>{await act('ABYSS_RESET',{confirm:true});abyssScreen();}),!!game.actionReason('ABYSS_RESET',{confirm:true})));
- showModal('나선비경',p);
+ // The floor shown first: the one being challenged, then one with a reward waiting, then the next to clear.
+ const next=Math.min(12,(Object.keys(v.progress.clears).map(Number).sort((a,b)=>b-a)[0]||0)+1),owed=v.floors.find(f=>(f.cleared||f.owed)&&!f.claimed);
+ if(v.active)picked=v.active.floor;else if(!v.floors.some(f=>f.floor===picked))picked=owed?.floor||next;
+ const slot=el('div','abyss-floor-slot'),tabs=floorTabs(v,floor=>{picked=floor;show();});
+ const show=()=>{for(const b of tabs.children){const on=Number(b.dataset.floor)===picked;b.classList.toggle('selected',on);b.setAttribute('aria-selected',String(on));}slot.replaceChildren(floorPanel(v.floors.find(f=>f.floor===picked)||v.floors[0],v));};
+ show();p.append(tabs,slot);
+ const marks=Object.entries(v.progress.tags),markBox=el('section','abyss-marks');
+ markBox.append(el('h2','',v.markName+' · 다른 층에 나설 수 없는 동료'),el('p','abyss-rule-line','정복할 때 함께 싸운 동료에게 새겨짐 · 새겨진 동료는 전체 초기화 전까지 다른 층 불가 · 주인공 제외'),el('p',marks.length?'':'muted',marks.length?marks.sort((a,b)=>a[1]-b[1]).map(([id,f])=>who(id)+' '+f+'층').join(' · '):'아직 각인이 새겨진 동료가 없습니다.'));
+ markBox.append(button('도전 전체 초기화',()=>confirmBox('도전 전체 초기화','모든 층의 정복 기록과 '+v.markName+'이 한꺼번에 지워지고 1층부터 다시 시작합니다. 층 하나만 골라 초기화할 수는 없습니다. 이미 받은 첫 정복 보상은 다시 받을 수 없습니다.','전체 초기화',async()=>{await act('ABYSS_RESET',{confirm:true});abyssScreen();}),!!game.actionReason('ABYSS_RESET',{confirm:true})));
+ p.append(markBox);showModal('나선비경',p);
 }
 window.CRPGAbyssScreen=abyssScreen;
 const abyssLocation=drawLocation;

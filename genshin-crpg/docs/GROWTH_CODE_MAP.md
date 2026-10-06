@@ -119,13 +119,20 @@ where the code is). Line numbers drift; search for the names when they no longer
   `runtime_geo_oculi.js:53` (check `:62`).
 - Story joins: `TRV_M02_JOIN_{AMBER,KAEYA,LISA}_ACCEPT` → `_02` (`UNLOCK_CARD` + `FLAG_TRV_CARD_*`); `ISK_M01_T_JOIN` →
   `EVT_ISK_RECRUIT_AMBER` (`runtime_story.js:14`; guard `:15` `FLAG_ISK_RECRUIT_AMBER`); `ISK_M03_AB_202` (Diluc), `ISK_M04_K_077` (Jean)
-  through `storyEvent` recruit `runtime_events.js:62`.
+  through `storyEvent` recruit `runtime_events.js:62`. Since 0.15.22 these leave an acquaintance (`runtime_roster_v01522.js:9`).
+- 0.15.25 이야기 동료 `runtime_story_companions_v01525.js`: after every action outside a fight (outside the roster's wish-only guard)
+  a chapter's end (`FLAG_TRV_MON_PROLOGUE_CLEAR`, `_MON_CH2_CLEAR`, `_LY1_CLEAR`, `_LY2_CLEAR`, `_LIYUE_CLEAR`; Isekai
+  `FLAG_ISK_RECRUIT_AMBER`, `_MON_PROLOGUE_CLEAR`, `_M05_CLEAR`, `_L01`–`_L04_CONTENT_GATE` by branch and `FLAG_ISK_L01_LEAF`) gives the
+  4★ met in it through `wishGrant` (joins, no Stella), then fills Mond 4★ to 3/5 and Liyue 4★ to 3/5 (`MOND_FILL`, `LIYUE_FILL`).
+  Once per step, never while Amber is lent for the first fight; `s.storyCompanions{version:1,steps,joined,news≤12}` checked in
+  `validateSave`. Cards on screen: `app_story_companions_v01525.js`. Wishes are unchanged.
 - Admin recruit `runtime_admin_v01412.js:79-82` → `unlockCharacter`; the ALL list `adminCompanions` `:17` = `recruitmentEntries()`.
 - Wishes `runtime_wish_v01411.js`: pools `:18-24` (5 standard 5★, 13 rotating limited 5★ including Venti/Zhongli, 24 4★ companions,
   13 4★ weapons, 10 3★ weapons); rates `:25-26`; `wishRoll` `:47-73` (0.6%, soft pity 74 +6%, hard 90; 4★ 5.1%, ≤10; 50/50 +
   guarantee; 4★ half featured; every 10-pull has ≥1 companion `:67-71`); `wishFeatured` `:31` weekly; `wishState` `:32`
   (`s.wish{EVENT,STANDARD,history≤60,seq}`); save check `:102-110`; `wishGrant` `:74-80` = `STELLA_<id>` + Starglitter (4★ 2, 5★ 10;
-  5/25 when C + held ≥ 6) — never joins; weapons `:81-84`.
+  5/25 when C + held ≥ 6) — never joins by itself (the roster's wrapper `runtime_roster_v01522.js:11` joins the first copy);
+  weapons `:81-84`.
 - Constellations `runtime_premium_v0148.js`: `constellationReason` `:80-86` needs JOINED; Stella items `:156-164`; offers `:29-41`.
 - Affection: `s.relations[PROFILE]` `BOND_SCORE` 0–120, hearts `floor(/20)` max 5, events, `eventCompletedAt`, unlocked, firstContact,
   companion (`runtime_relationships.js:40-69`, migrate `:81`). `changeBond` `:90-94`; +10 at `storyCompleteLegend`
