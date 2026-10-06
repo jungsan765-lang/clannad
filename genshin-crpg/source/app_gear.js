@@ -32,6 +32,7 @@ function memberCard(id,bench=false){
  const name=el('h2','',growth.name),icons=typeof CRPGIcons!=='undefined'?CRPGIcons:null,weapon=icons?.weaponOfCharacter(id)||'';
  const mark=icons?.element(icons.ofCharacter(id),'gear-element'),arm=icons?.weapon(weapon,'gear-weapon-kind');if(mark)name.prepend(mark);if(arm)name.append(arm);
  copy.append(name,el('small','muted','Lv. '+growth.level+(growth.max?' · 최대 레벨':' · 다음 레벨까지 경험치 '+fmt(growth.remaining))));meter(copy,'HP',Math.round(actor.hp),Math.round(actor.maxHp));
+ if(game.s.tutorialV2?.loan?.id===id)copy.append(el('small','gear-bench-note','이번 이야기 전투에만 동행합니다'));
  if(bench)copy.append(el('small','gear-bench-note','대기 중 · 편성에 넣으면 이 장비 그대로 싸웁니다'));
  head.append(actorPortrait(id,'gear-portrait'),copy);card.append(head);
  const slots=el('div','gear-slots');

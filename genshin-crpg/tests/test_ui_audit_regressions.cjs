@@ -21,7 +21,7 @@ function press(key,overlay,screen='STORY'){
  vm.runInNewContext(keyCode,box);listener({key,target:{tagName:'BUTTON',closest:()=>b},preventDefault(){}});return {clicks,menus};
 }
 test('a trade/modal window blocks hidden story choices and navigation shortcuts',()=>{assert.equal(press('1',{}).clicks,0);assert.equal(press('b',{},'LOCATION').menus,0);assert.equal(press('1',null).clicks,1);assert.equal(press('b',null,'LOCATION').menus,1);});
-test('the scenario guide waits during story and requires actual successful movement',()=>{const {fresh}=require('./helpers_v011.cjs'),r=fresh();assert.equal(r.tutorialDirective().id,'move');r.action('MENU',{screen:'STATUS'});assert.equal(r.tutorialDirective().id,'move');assert(source('app_tutorial.js').includes("['STORY','CUTIN','STORY_LOCKED']"));});
+test('the spotlight waits during story and never invents a free-play journey',()=>{const {fresh}=require('./helpers_v011.cjs'),r=fresh();assert.equal(r.tutorialDirective(),null);r.action('MENU',{screen:'STATUS'});assert.equal(r.tutorialDirective(),null);assert(!r.tutorialState().done.move);assert(source('app_tutorial.js').includes("['STORY','CUTIN','STORY_LOCKED']"));});
 // The actual scroll restoration selects the new layout's scroll container, not the detached old one.
 test('breakpoint restore follows the same recruitment card into a different scroll container',()=>{
  const newHost={parentElement:null,scrollTop:0,scrollHeight:2000,clientHeight:500,getBoundingClientRect:()=>({top:100})};const card={dataset:{viewKey:'recruit:NPC_XIANGLING'},parentElement:newHost,getBoundingClientRect:()=>({top:600})};

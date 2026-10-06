@@ -142,15 +142,16 @@ try{
  await page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first().click();await page.waitForTimeout(300);
  assert(await page.locator('.pending-activity').isVisible());assert(Number(await page.locator('.pending-activity progress').getAttribute('value'))>0);await idle();delay=0;await same('world work start');
  await page.waitForFunction(()=>!game.s.worldJob&&!busy,{},{timeout:20000});await same('world work finish');results.push({worldWorkOverlapsSaving:true});
- const battle=free();battle.startBattle('EG_MOND_HILI_PATROL','RANDOM');
+ const battle=free();battle.tutorialState().done.combatAttack=true; // Playback fixture has already learned the basic attack; this turn teaches guard.
+ battle.startBattle('EG_MOND_HILI_PATROL','RANDOM');
  // Load without startGame, which intentionally forfeits a battle on reconnect: start in free play, then enter via real action.
  fixture.seed(free().s);await start();
  // Dedicated test fixture installs a server battle response using the real sync path, without simulating a reconnect.
  fixture.seed(battle.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
- assert.equal(await page.locator('.content > #tutorial-tour').count(),0,'the free-play guide must not cover a battle');assert.equal(await page.locator('.combat-panel > #tutorial-tour.battle-lesson').count(),1,'the current battle lesson stays in its reserved board row');
+ assert.equal(await page.locator('.content > #tutorial-tour').count(),0,'the free-play guide must not cover a battle');assert.equal(await page.locator('.combat-panel > #tutorial-tour').count(),0,'tutorial text never reserves a board row');
  delay=1800;await page.getByRole('button',{name:'전투 시작',exact:true}).click();await page.waitForTimeout(250);assert(await page.locator('.action-save-cover').isVisible());await idle();delay=0;await same('combat begin');
- assert.equal(await page.evaluate(()=>game.combatActor().id),'PLAYER_CUSTOM');
- const guard=page.locator('.battle-cards button').filter({hasText:'방어'}).first();if(await guard.count())await guard.click();
+ assert.equal(await page.evaluate(()=>game.combatActor().id),'PLAYER_CUSTOM');await page.waitForSelector('#tutorial-spotlight[data-step="combatGuard"]');
+ const guard=page.locator('.battle-cards button').filter({hasText:'방어'}).first();await guard.click();await page.waitForSelector('[data-action="COMBAT"].tutorial-target');
  delay=1800;await page.getByRole('button',{name:'선택한 행동 실행',exact:true}).click();await page.waitForTimeout(750);assert(await page.evaluate(()=>[...CombatFX.animations].some(a=>a.playState==='running')),'preparation stays animated while waiting for the authoritative result');assert.equal(await page.locator('.combat-playback').count(),0,'unconfirmed damage must not play');await page.screenshot({path:resolve(evidence,'combat-pending.png')});await page.waitForSelector('.combat-playback');delay=0;
  await page.waitForFunction(()=>document.querySelector('.playback-outcomes')?.textContent.includes('→'));
  await page.getByRole('button',{name:'일시정지',exact:true}).click();await page.waitForTimeout(150);

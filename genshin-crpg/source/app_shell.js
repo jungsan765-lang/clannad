@@ -207,7 +207,7 @@ window.addEventListener('resize',syncGuideBoundary);
 // The learning guide lives behind a HUD pill; its popover opens once per step.
 function placeGuide(){
  const guide=$('#tutorial-tour'),slot=$('main > aside .hud-guide-slot');
- if(guide?.classList.contains('scenario-guide')){slot?.replaceChildren();$$('.hud-guide-pop').forEach(n=>n.remove());return;}
+ if(guide?.closest('#tutorial-spotlight')||guide?.classList.contains('scenario-guide')){slot?.replaceChildren();$$('.hud-guide-pop').forEach(n=>n.remove());return;}
  $$('.hud-guide-pop').forEach(n=>{if(!guide||!n.contains(guide))n.remove();});
  if(!guide||!document.body.classList.contains('teyvat')&&!slot){slot?.replaceChildren();return;}
  const step=(guide.querySelector('h2')||guide.querySelector('strong'))?.textContent.trim()||'여행 안내',count=guide.querySelector('.eyebrow')?.textContent.replace('직접 해 보기 · ','').trim()||'';
@@ -467,7 +467,7 @@ const MENU_LAYOUT={
    if(cards.length>1){const list=mk('div','shell-roster');list.setAttribute('role','tablist');list.setAttribute('aria-label','캐릭터');let cur=wanted>=0?wanted:Math.min(S.gearIndex||0,cards.length-1);
     const show=(i,user)=>{if(user&&S.gearIndex!==i)sound('tab');S.gearIndex=i;cards.forEach((c,j)=>{c.hidden=j!==i;});[...list.children].forEach((b,j)=>{b.setAttribute('aria-selected',String(j===i));b.classList.toggle('active',j===i);});paint(cards[i]);};
     // 0.15.19: everyone the player has is listed; the ones on the bench say so.
-    cards.forEach((c,i)=>{const b=mk('button','shell-roster-item');b.type='button';b.setAttribute('role','tab');const face=$('.gear-portrait',c);const pic=face?face.cloneNode(true):mk('span','gear-portrait portrait-placeholder','✧');pic.classList.add('shell-roster-face');b.append(pic,mk('span','',$('h2',c)?.textContent||'캐릭터'));
+    cards.forEach((c,i)=>{const b=mk('button','shell-roster-item');b.type='button';b.dataset.owner=c.dataset.owner;b.setAttribute('role','tab');const face=$('.gear-portrait',c);const pic=face?face.cloneNode(true):mk('span','gear-portrait portrait-placeholder','✧');pic.classList.add('shell-roster-face');b.append(pic,mk('span','',$('h2',c)?.textContent||'캐릭터'));
      // 0.15.21: the element's orb on the picture's corner, as in the original's character list.
      const orb=typeof CRPGIcons!=='undefined'?CRPGIcons.element(CRPGIcons.ofCharacter(c.dataset.owner),'shell-roster-element'):null;if(orb)b.append(orb);
      if(c.dataset.bench){b.classList.add('bench');b.append(mk('small','shell-roster-bench','대기'));}b.onclick=()=>show(i,true);list.append(b);});

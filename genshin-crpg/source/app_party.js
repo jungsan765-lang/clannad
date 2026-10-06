@@ -20,13 +20,14 @@ function pickCompanion(n,current){
    .sort((a,b)=>Number(a.active)-Number(b.active)||(game.premiumRarity?.(b.id)||4)-(game.premiumRarity?.(a.id)||4)||Number(b.level)-Number(a.level)||a.name.localeCompare(b.name,'ko'));
   for(const x of list){
    const type=x.active?'PARTY_SWAP':current?'PARTY_REPLACE':'PARTY',params=x.active?{from:x.slot,to:n}:{char:x.id,slot:n},why=game.actionReason(type,params);
-   const b=button('',()=>{close();act(type,params);},busy||!!why);b.className='member-pick'+(x.active?' in-party':'');if(why)b.title=why;
+   const b=button('',()=>{close();act(type,params);},busy||!!why);b.className='member-pick'+(x.active?' in-party':'');b.dataset.owner=x.id;if(why)b.title=why;
    const stars=game.premiumRarity?.(x.id)>=5?5:4,element=ELEMENT_OF(x.id),icons=typeof CRPGIcons!=='undefined'?CRPGIcons:null,weapon=icons?.weaponOfCharacter(x.id)||'';
    // 0.15.21 (user: 「동료칸에 불 번개 바람 얼음 뭐 이런거 적혀있는거 가능하면 아이콘으로」): the element's symbol and the weapon
    // kind, the original game's pictures (app_icons_v01521.js).
    const meta=el('small','member-pick-meta','Lv.'+x.level),mark=icons?.element(element),arm=icons?.weapon(weapon,'pick-weapon');
    if(mark)meta.append(mark);else if(element)meta.append(' · '+element);if(arm)meta.append(arm);
    b.append(actorPortrait(x.id,'member-pick-face'),el('strong','',x.name),meta,el('span','member-pick-stars r'+stars,'★'.repeat(stars)));
+   if(game.s.tutorialV2?.loan?.id===x.id)b.append(el('small','member-pick-state','이번 이야기 동행'));
    if(x.active)b.append(el('small','member-pick-state',(x.slot-1)+'번 칸과 자리 바꾸기'));
    b.setAttribute('aria-label',x.name+' · Lv.'+x.level+(element?' · '+element+' 원소':'')+(weapon?' · '+weapon:'')+(x.active?' · '+(x.slot-1)+'번 칸과 자리 바꾸기':''));grid.append(b);
   }
@@ -108,9 +109,9 @@ inventory=function(p){
 // Keep preparation choices in the save, including an intentionally empty selection.
 battlePrepare=function(p){
   const prep=game.view().battlePreparation||game.s.battlePreparation;if(!prep)return;
-  const raw=game.s.battlePreparation,owned=game.ownedActors().filter(x=>x.id!=='PLAYER_CUSTOM'&&x.state==='JOINED'),choices=new Map(owned.map(o=>[o.id,{id:o.id,name:o.name,owned:true}]));
+  const raw=game.s.battlePreparation,owned=game.ownedActors().filter(x=>x.id!=='PLAYER_CUSTOM'&&x.state==='JOINED'),choices=new Map(owned.map(o=>[o.id,{id:o.id,name:o.name,owned:game.s.tutorialV2?.loan?.id!==o.id}]));
   const selected=new Set((raw.selectedCompanions??prep.active??[]).filter(id=>choices.has(id))),limit=(prep.max||4)-1;
-  p.append(el('div','eyebrow','BEFORE THE BATTLE'),el('h1','','전투 준비'),el('p','',withJosa(game.s.global.PLAYER_NAME,'과','와')+' 함께 싸울 동료를 '+limit+'명까지 선택하세요. 정식으로 합류한 동료만 참가합니다.'));
+  p.append(el('div','eyebrow','BEFORE THE BATTLE'),el('h1','','전투 준비'),el('p','',withJosa(game.s.global.PLAYER_NAME,'과','와')+' 함께 싸울 동료를 '+limit+'명까지 선택하세요. '+(game.s.tutorialV2?.loan?'엠버는 이번 이야기 전투에 동행합니다.':'소유한 동료를 선택할 수 있습니다.')));
   const group=game.row('33_ENCOUNTER_GROUP_DB',prep.group),members=game.combatRows('49_ENCOUNTER_MEMBER_DB').filter(r=>r[1]===prep.group);
   p.append(el('p','phase-note',members.map(m=>{const e=game.row('09_MONSTER_DB',m[3]);return e[1]+' · '+('고정 Lv. '+(CRPGRuntime.growthRegionData?.bosses?.[m[3]]||Number(game.row('32_MAP_DB',game.s.global.CURRENT_MAP_ID)[6])||e[18]));}).join(' / ')));
   for(const choice of choices.values()){const row=el('label','settings-row'),check=el('input');check.type='checkbox';check.checked=selected.has(choice.id);check.disabled=busy||(!check.checked&&selected.size>=limit);check.onchange=()=>{const next=new Set(selected);check.checked?next.add(choice.id):next.delete(choice.id);act('PREP_SELECT',{group:prep.group,companions:[...next]});};row.append(check,el('span','',choice.name+(choice.owned?' · 합류한 동료':' · 이번 전투 동행')));p.append(row);}

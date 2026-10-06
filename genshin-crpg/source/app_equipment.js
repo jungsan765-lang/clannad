@@ -27,6 +27,8 @@
   if(goGear&&!game.actionReason('MENU',{screen:'STATUS'}))await openGear(slot,owner);
  }
  function showPending(){
+  // The spotlight teaches equipment on the actual controls. Do not stack the legacy popup on it.
+  if(game?.s.tutorialV2?.style==='SPOTLIGHT')return;
   // 0.14.11: a weapon from a wish waits until the wish screen is closed.
   if(!game||busy||game.s.runtime||activeTutorial||!['FREE','PREPARATION'].includes(game.playPhase())||document.getElementById('modal').open||document.querySelector('.wish-screen'))return;
   const p=game.equipmentGuidePending();if(!p)return;const saveId=game.s.global.SAVE_ID;

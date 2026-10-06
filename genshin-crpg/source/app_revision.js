@@ -4,6 +4,7 @@ function withReason(b,reason){if(reason){b.setAttribute('data-reason',reason);if
 function actionButton(label,type,params={},primary=false){
   const reason=game?.actionReason(type,params)||'';
   const b=button(label,()=>act(type,params),!!reason||busy,primary);
+  b.dataset.action=type;b.crpgAction={type,params};
   if(reason){b.title=reason;b.setAttribute('aria-description',reason);b.setAttribute('data-reason',reason);}
   return b;
 }

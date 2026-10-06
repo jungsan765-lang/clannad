@@ -358,7 +358,7 @@ function battleSummons(p,b){
   // has one, so a phone sees them without scrolling past both teams.
   const wrap=el('div','battle-summons top');wrap.setAttribute('aria-label','전투 소환물');
   for(const side of ['ALLY','ENEMY']){
-    const lane=el('section','summon-lane '+side.toLowerCase()),list=fields.filter(f=>f.side===side);if(!list.length)continue;lane.append(el('h3','',side==='ALLY'?'우리 소환물':'적 소환물'));
+    const lane=el('section','summon-lane '+side.toLowerCase()),list=fields.filter(f=>f.side===side);if(!list.length)continue;lane.append(el('h3','',side==='ALLY'?'아군 소환체':'적 소환체'));
     for(const f of list){const m=spec[f.kind],card=el('div','battle-summon');card.dataset.summonId=m.id(f);card.dataset.side=side;if(f.kind==='BUNNY')card.dataset.maxHp=Math.max(1,Math.round(f.maxHp||f.hp));
       if(showArt){const img=el('img','summon-portrait');img.src='assets/summons/'+(f.asset||m.asset);img.alt='';card.append(img);}
       const cp=el('div','summon-copy'),remaining=Number.isFinite(f.summonTurns)?Math.max(0,f.summonTurns-Number(f.summonTicks||0)):Math.max(1,Number(f.rounds||1));

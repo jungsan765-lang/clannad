@@ -1,0 +1,13 @@
+/* The tutorial floats above the actual control; it never consumes a row of game space. */
+#tutorial-spotlight{position:fixed;inset:0;margin:0;width:100vw;height:100dvh;max-width:none;max-height:none;padding:0;border:0;background:transparent;color:#fff;overflow:visible;pointer-events:none;z-index:2147483600;box-sizing:border-box}
+#tutorial-spotlight::backdrop{background:transparent;pointer-events:none}
+#tutorial-spotlight .tutorial-veil{position:fixed;background:rgba(3,8,15,.79);pointer-events:auto;touch-action:none}
+#tutorial-spotlight .tutorial-ring{position:fixed;box-sizing:border-box;border:2px solid #f7d588;border-radius:9px;box-shadow:0 0 0 3px #f7d58825,0 0 22px #f7d58845;pointer-events:none}
+#tutorial-tour.tutorial-callout{position:fixed;margin:0;padding:0;border:0;background:none;box-shadow:none;pointer-events:none;color:#fff;text-align:left;font-family:var(--font-ui);text-shadow:0 2px 5px #000;box-sizing:border-box}
+#tutorial-tour.tutorial-callout>small{display:block;margin-bottom:6px;font-size:11px;color:#f3cf82;letter-spacing:.04em}
+#tutorial-tour.tutorial-callout>strong{display:block;font-size:18px;line-height:1.4;color:#fff}
+#tutorial-tour.tutorial-callout>p{font-size:13px;line-height:1.6;margin:6px 0 0;color:#e6e9ee}
+@media(max-height:500px){#tutorial-tour.tutorial-callout>strong{font-size:15px}#tutorial-tour.tutorial-callout>p{font-size:12px;margin-top:3px}#tutorial-tour.tutorial-callout>small{margin-bottom:3px}}
+
+
+#tutorial-tour.tutorial-callout>p{white-space:normal!important;overflow:visible!important;max-height:none!important;text-overflow:clip!important}

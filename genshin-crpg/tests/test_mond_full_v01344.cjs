@@ -19,7 +19,9 @@ for(const leaf of (process.env.MOND_LEAVES||'K,AA,AA_DIRECT,AB,B,TRV_MALE,TRV_FE
    r.action('COMBAT',target?{card:attack.id,target:target.id}:{card:guard.id});
    if(!r.s.runtime){const result=JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON);assert(result.victory,'fixture lost '+b.group);run.battles.push({group:b.group,rounds:result.rounds});r=restore(r,run);}continue;
   }
-  if(r.s.battlePreparation){const prep=r.s.battlePreparation,view=r.battlePreparation(prep.group);const guests=(view?.guests||[]).map(x=>x.id).slice(0,3);r.action('COMBAT_PREPARE',{group:prep.group,companions:guests});continue;}
+  if(r.s.battlePreparation){const prep=r.s.battlePreparation,view=r.battlePreparation(prep.group);const guests=(view?.guests||[]).map(x=>x.id).slice(0,3);
+   if(r.tutorialState().intro?.group===prep.group){const id='MOND_AMBER';if(!r.s.party.some(p=>p.active&&p.source===id))r.action('PARTY',{char:id,slot:2});if(!r.s.inventory.some(i=>i.owner===id&&i.equipped&&i.category==='WEAPON')){const bow=r.s.inventory.find(i=>i.equip==='EQ_BOW_SLINGSHOT');assert(bow);r.action('EQUIP',{slot:bow.slot,owner:id});}guests.push(id);}
+   r.action('COMBAT_PREPARE',{group:prep.group,companions:[...new Set(guests)]});continue;}
   if(r.s.storyRecovery)throw Error('unexpected defeat');
   if(r.s.storyJourney){const j=r.s.storyJourney;if(j.scripted)r.action('STORY_SCRIPTED_TRAVEL');else if(r.s.global.CURRENT_MAP_ID===j.target)r.action('JOURNEY_RESUME');else if(j.special)r.action('STORY_RIDE');else{const nav=r.navigationRoute(j.target);assert(nav?.edges?.length,'no route to '+j.target);r.action('MOVE',{edge:nav.edges[0][0]});}continue;}
   if(r.s.storyBreak){if(r.s.global.CURRENT_MAP_ID!==r.s.storyBreak.map){const nav=r.navigationRoute(r.s.storyBreak.map);assert(nav?.edges?.length,'no break path');r.action('MOVE',{edge:nav.edges[0][0]});}else r.action('JOURNEY_RESUME');continue;}

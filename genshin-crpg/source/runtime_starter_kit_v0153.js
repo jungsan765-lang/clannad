@@ -35,6 +35,8 @@ P.wearStarterKits=function(owners){
  const k=this.s?.starterKit;if(!k||this.s.runtime)return [];
  const worn=[];k.worn??={};
  for(const id of owners){
+  // The first story fight teaches equipping Amber's borrowed bow explicitly.
+  if(this.s.tutorialV2?.loan?.id===id)continue;
   if(k.worn[id])continue;
   const gifts=id===PLAYER?(k.player?PLAYER_GEAR:[]):[k.companions[id]].filter(x=>x&&x!=='NONE');if(!gifts.length)continue;
   for(const eq of gifts){
@@ -53,7 +55,7 @@ const activeOwners=r=>r.s.party.filter(p=>p.active).map(p=>p.type==='PLAYER'?PLA
 P.syncCompanionKits=function(){
  const k=this.s?.starterKit;if(!k)return;
  let owned={};try{owned=JSON.parse(this.s.global.COMPANION_ELIGIBILITY_JSON||'{}');}catch{}
- for(const [id,v] of Object.entries(owned))if(v?.state==='JOINED'&&!k.companions[id]&&this.tables['07_CHAR_DB'].has(id)&&this.s.chars[id])this.grantCompanionKit(id);
+ for(const [id,v] of Object.entries(owned))if(v?.state==='JOINED'&&!v.tutorialLoan&&!k.companions[id]&&this.tables['07_CHAR_DB'].has(id)&&this.s.chars[id])this.grantCompanionKit(id);
 };
 P.newGame=function(...args){old.newGame.apply(this,args);this.grantStarterKit();return copy(this.s);};
 P.unlockCharacter=function(id){const out=old.unlockCharacter.call(this,id);if(this.s.starterKit)this.syncCompanionKits();return out;};
