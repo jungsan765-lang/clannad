@@ -1656,7 +1656,7 @@
     "liyueFlowUsesSyntheticPreparedFourPersonFixture": true,
     "nativeNaturalNewGameIsekaiFirstFightCases": 6,
     "vpsInstalled": false,
-    "vpsInstallBlocker": "SSH port 22 was unreachable from the execution environment; only source publication is authorized and performed here."
+    "vpsInstallBlocker": "Test installation is authorized, but SSH port 22 was unreachable from the execution environment. Source publication is complete; the actual VPS installation has not been performed."
   },
   "limitations": [
     "Synthetic ownership/gear/unlocked story flags, not an unmodified natural new journey.",
