@@ -41,7 +41,11 @@ const REGIONS=['몬드','리월'];
 // level above 5 so that geared parties still have to pay attention.
 const SCALE={hp:.7,atk:2.8},GROWTH={hp:.03,atk:.1,def:.03};
 const BOOK_XP={MAT_CHAR_EXP_WANDERER:50,MAT_CHAR_EXP_ADVENTURER:250,MAT_CHAR_EXP_HERO:1000};
-const tierOf=(n,region='몬드')=>{const base=TIERS.find(t=>t.tier===Number(n));if(!base)return null;const level=(region==='리월'?[30,38,44,50,58]:[6,10,15,20,28])[base.tier-1];return {...base,level,minLevel:Math.max(5,level-5),books:{MAT_CHAR_EXP_HERO:Math.ceil(level/3)},mora:Math.round(600+level*80+level*level*2)};};
+// Both regions use the same five level-selected difficulties, with the existing selection flow.
+const LEVELS=[6,15,30,45,60],HERO_BOOKS=[6,18,50,100,180],DIRECT_XP=[20,50,90,220,400],WEALTH_MORA=[1800,5000,14000,27000,40000];
+const tierOf=n=>{const base=TIERS.find(t=>t.tier===Number(n));if(!base)return null;const i=base.tier-1,level=LEVELS[i];return {...base,level,minLevel:Math.max(5,level-5),books:{MAT_CHAR_EXP_HERO:HERO_BOOKS[i]},mora:WEALTH_MORA[i],directXp:DIRECT_XP[i]};};
+// Battles already saved by 0.16.0 retain the difficulty and blossom payout they entered with.
+const legacyTierOf=(n,region)=>{const base=TIERS.find(t=>t.tier===Number(n));if(!base)return null;const level=(region==='리월'?[30,38,44,50,58]:[6,10,15,20,28])[base.tier-1];return {...base,level,minLevel:Math.max(5,level-5),books:{MAT_CHAR_EXP_HERO:Math.ceil(level/3)},mora:Math.round(600+level*80+level*level*2)};};
 const regionalTiers=region=>TIERS.map(t=>tierOf(t.tier,region));
 const route=(kind,map)=>'BRT_LEY_'+kind+'_'+map.replace(/^MAP_/,''),group=map=>'EG_LEY_'+map.replace(/^MAP_/,'');
 const ROUTES=Object.fromEntries(SITES.flatMap(s=>Object.keys(KINDS).map(k=>[route(k,s.map),{kind:k,map:s.map,region:s.region}])));
@@ -53,7 +57,7 @@ function sitesAt(hour){
   out.push({kind:'REVELATION',map:list[a].map,region},{kind:'WEALTH',map:list[b].map,region});}
  return out;
 }
-api.leyLines={version:1,hourMs:HOUR,minLevel:MIN_LEVEL,kinds:copy(KINDS),tiers:copy(regionalTiers('몬드')),regionalTiers,sites:copy(SITES),scale:copy(SCALE),growth:copy(GROWTH),bookXp:copy(BOOK_XP),route,sitesAt};
+api.leyLines={version:2,hourMs:HOUR,minLevel:MIN_LEVEL,kinds:copy(KINDS),tiers:copy(regionalTiers('몬드')),regionalTiers,sites:copy(SITES),scale:copy(SCALE),growth:copy(GROWTH),bookXp:copy(BOOK_XP),route,sitesAt};
 
 const old=Object.fromEntries(['installMarketContent','placeBossReason','placeEntries','actionReason','apply','startBattle','finishBattle','validateSave'].map(k=>[k,P[k]]));
 P.installLeyLines=function(){
@@ -122,15 +126,15 @@ P.startBattle=function(group,origin='EXPLICIT',...rest){
  const p=this.s.bossRouteProgress,t=tierOf(this._leyTier,r.region)||(p?.route===id&&tierOf(p.leyTier,r.region))||tierOf(this.leyLineTopTier(r.region),r.region),level=t.level,k=level-MIN_LEVEL,foes=b.actors.filter(a=>a.side==='ENEMY');
  for(const a of foes){relevel(this,a,level);a.maxHp=Math.max(1,Math.round(a.maxHp*SCALE.hp*(1+GROWTH.hp*k)));a.hp=a.maxHp;a.atk=Math.round(a.atk*SCALE.atk*(1+GROWTH.atk*k));a.def=Math.round(a.def*(1+GROWTH.def*k));
   for(const s of a.shields||[])if(Number.isFinite(s.value))s.value=Math.round(s.value*SCALE.hp*(1+GROWTH.hp*k));}
- b.leyLine={version:1,kind:r.kind,route:id,map:r.map,hour:this.leyLineHour(),tier:t.tier,level};
- const parts=foes.map(a=>({source:a.source,level:a.level,grade:a.grade,xp:Math.round((30+15*a.level)*({일반:1,정예:2,강적:4}[a.grade]||1)*.45),mora:Math.round((8+5*a.level)*({일반:1,정예:2,강적:4}[a.grade]||1))}));
+ b.leyLine={version:2,kind:r.kind,route:id,map:r.map,hour:this.leyLineHour(),tier:t.tier,level};
+ const parts=foes.map((a,i)=>({source:a.source,level:a.level,grade:a.grade,xp:Math.floor(t.directXp/foes.length)+(i<t.directXp%foes.length?1:0),mora:0}));
  if(!b.storyConfig?.noRewards)b.mondBalance={version:1,kind:'BOSS',risk:0,rewards:{xp:parts.reduce((n,x)=>n+x.xp,0),mora:parts.reduce((n,x)=>n+x.mora,0),parts}};
  return out;
 };
 P.finishBattle=function(victory){
  const b=this.s.runtime,ley=b?.leyLine?copy(b.leyLine):null,result=old.finishBattle.call(this,victory);
  if(!ley||!result||typeof result!=='object')return result;
- const t=tierOf(ley.tier,ROUTES[ley.route].region);result.leyLine={kind:ley.kind,name:KINDS[ley.kind].name,tier:ley.tier,level:ley.level,claimed:false};
+ const t=ley.version===1?legacyTierOf(ley.tier,ROUTES[ley.route].region):tierOf(ley.tier);result.leyLine={kind:ley.kind,name:KINDS[ley.kind].name,tier:ley.tier,level:ley.level,claimed:false};
  if(victory&&t&&!b.storyConfig?.noRewards&&this.s.leyLine?.[ley.kind]!==ley.hour){
   (this.s.leyLine??={version:1})[ley.kind]=ley.hour;const loot={};
   if(ley.kind==='REVELATION')for(const [id,n]of Object.entries(t.books)){this.giveItem(id,n);loot[id]=n;}
@@ -145,8 +149,8 @@ P.finishBattle=function(victory){
 P.validateSave=function(s){
  const out=old.validateSave.call(this,s)||s,l=out.leyLine;
  if(l!==undefined&&(!l||typeof l!=='object'||Array.isArray(l)||l.version!==1||Object.entries(l).some(([k,v])=>k!=='version'&&(!KINDS[k]||!Number.isSafeInteger(v)||v<0))))fail('LEYLINE_SAVE','지맥의 꽃 기록이 올바르지 않습니다.');
- const b=out.runtime?.leyLine;if(b&&(b.version!==1||!KINDS[b.kind]||!ROUTES[b.route]||!Number.isSafeInteger(b.hour)||!tierOf(b.tier)||b.level!==tierOf(b.tier,ROUTES[b.route].region).level))fail('LEYLINE_SAVE','지맥의 꽃 전투 기록이 올바르지 않습니다.');
+ const b=out.runtime?.leyLine,t=b&&(b.version===1?legacyTierOf(b.tier,ROUTES[b.route]?.region):tierOf(b.tier));if(b&&(![1,2].includes(b.version)||!KINDS[b.kind]||!ROUTES[b.route]||!Number.isSafeInteger(b.hour)||!t||b.level!==t.level))fail('LEYLINE_SAVE','지맥의 꽃 전투 기록이 올바르지 않습니다.');
  return out;
 };
-P.leyLineVersion=1;
+P.leyLineVersion=2;
 })(globalThis);

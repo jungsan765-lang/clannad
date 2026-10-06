@@ -68,7 +68,8 @@ check('two-day rematches: a party at the recommended level wins most fights (And
 check('stat outliers: the hatchlings and the husk archers are brought into line; saved fights keep their numbers',()=>{
  const B=JSON.parse(JSON.stringify(api.balanceV0152.base));assert.deepEqual(B.MON_GEOVISHAP_HATCHLING,[.55,1,1]);assert.deepEqual(B.MON_HUSK_BOW,[1.7,1,1]);
  const r=party({level:14,team:'four',enh:7});r.s.global.CURRENT_MAP_ID='MAP_LIYUE_MOUNTAINS';r.startBattle('EG_LIYUE_VISHAP','RANDOM');
- const h=r.s.runtime.actors.find(a=>a.source==='MON_GEOVISHAP_HATCHLING');assert(h.maxHp<2000,'hatchling health '+h.maxHp);assert.equal(r.s.runtime.balanceV0152.kind,'BASE');
+ // 0.16.1: a fixed Lv42 normal enemy for four characters; the old <2000 bound used the pre-four-party HP budget.
+ const h=r.s.runtime.actors.find(a=>a.source==='MON_GEOVISHAP_HATCHLING');assert.equal(h.level,42);assert(h.maxHp>=3500&&h.maxHp<6000,'four-party hatchling health '+h.maxHp);assert.equal(r.s.runtime.balanceV0152.kind,'BASE');
  const saved=JSON.parse(r.serialize());saved.runtime.balanceV0152={version:1,kind:'FARM',boss:'BOSS_TARTAGLIA',level:3};
  assert.throws(()=>new api.Runtime(r.db,saved,true),/전투 밸런스 기록/);
  return {hatchling:h.maxHp};

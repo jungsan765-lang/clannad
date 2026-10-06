@@ -45,13 +45,13 @@
  };
  P.mondRewardPlan=function(b){return enabled(b)?b.mondBalance.rewards:null;};
  P.mondLootSourceMatches=function(b,a,d){
-  if(!enabled(b)||b.mondBalance.kind!=='FIELD')return false;
+  if(!(enabled(b)&&b.mondBalance.kind==='FIELD'||b?.growthBalance)||b.storyConfig)return false;
   // Explicit parent-species aliases only, not arbitrary conditional loot.
   return d[0]==='LT_SLIME'&&d[1]==='MON_SLIME'&&/^MON_SLIME_/.test(a.source)||
    d[0]==='LT_WHOPPER'&&d[1]==='MON_WHOPPERFLOWER'&&/^MON_WHOPPER_/.test(a.source);
  };
  P.mondLootConditionAllowed=function(b,a,d){
-  if(!enabled(b)||b.mondBalance.kind!=='FIELD')return false;
+  if(!(enabled(b)&&b.mondBalance.kind==='FIELD'||b?.growthBalance)||b.storyConfig)return false;
   if(d[0]!==this.row('09_MONSTER_DB',a.source)[14])return false;
   return (CONFIG.dropConditions[d[0]]||[]).includes(d[6]||'없음');
  };

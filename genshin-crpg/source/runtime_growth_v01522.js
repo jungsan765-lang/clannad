@@ -5,10 +5,17 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype,PLAYER='PLAYER_CUSTOM',copy=x
 const old=Object.fromEntries(['newGame','validateSave','recalculate','character','combatStat','reactionBase','startBattle','finishBattle','roundEnd','apply','actionReason','useItem','mondRewardPlan','rollEncounter','claimQuest','tradeRule','adminApply','fbSummon','spawnLiyueWave'].map(k=>[k,P[k]]));
 const fail=(c,m)=>{throw new api.RuleError(c,m);},CAPS=[10,20,30,40,50,55,60],TALENTS=[1,2,4,6,8,9,10];
 const hpCurve=l=>1+.13*(l-1)+.002*(l-1)**2,adCurve=l=>1+.12*(l-1)+.003*(l-1)**2;
-const xpNext=l=>l===60?0:Math.round((l<=10?160+60*l+10*l**3:8000+1800*(l-10)+35*(l-10)**2)/10)*10;
+const legacyXpNext=l=>l===60?0:Math.round((l<=10?160+60*l+10*l**3:8000+1800*(l-10)+35*(l-10)**2)/10)*10;
+// 4-character, 2x presentation + declared input/re-entry budget; two routes, 3 seeds per level.
+const XP_PACING_V0161=[200,350,580,860,1170,1510,1870,2260,2660,4520,4700,4880,5060,5240,5430,5610,5790,5970,6150,14640,15230,15820,16400,16990,17570,18160,18750,19330,19920,100810,104840,108870,112900,116930,120970,125000,129030,133060,137090,170470,177290,184110,190930,197750,204570,211390,218200,225020,231840,268750,279500,290250,301000,311750,322500,333250,344000,354750,365510,0];
+const xpNext=l=>XP_PACING_V0161[l-1];
 const phaseFor=l=>Math.max(0,CAPS.findIndex(n=>n>=l)),dayOf=n=>Math.floor((n+9*3600000)/86400000);
 const GEMS={물리:['NEUTRAL','돌파 재료'],불:['PYRO','불 원소 돌파 재료'],물:['HYDRO','물 원소 돌파 재료'],바람:['ANEMO','바람 원소 돌파 재료'],번개:['ELECTRO','번개 원소 돌파 재료'],얼음:['CRYO','얼음 원소 돌파 재료'],바위:['GEO','바위 원소 돌파 재료'],풀:['DENDRO','풀 원소 돌파 재료']};
 const BOOKS={MAT_CHAR_EXP_WANDERER:50,MAT_CHAR_EXP_ADVENTURER:250,MAT_CHAR_EXP_HERO:1000};
+// Per participant XP, shared Mora. Material domains never supply XP books.
+const DOMAIN_XP={5:200,10:450,20:1100,30:1800,40:2500,50:4500,60:8000};
+const DOMAIN_MORA={5:20,10:30,20:50,30:70,40:100,50:140,60:200};
+const FORMATION_HP=70000;
 // 0.15.25 재료 합성 (docs/BALANCE_AUDIT_V01523_KO.md 「하위→상위 합성」: the higher masks, slime and the like came only from
 // some field drops): at a forge or an alchemist, three of a monster material make one of the next tier, as in the original.
 const SYNTH=[['MAT_SLIME_CONDENSATE','MAT_SLIME_SECRETIONS','MAT_SLIME_CONCENTRATE'],['MAT_DAMAGED_MASK','MAT_STAINED_MASK','MAT_OMINOUS_MASK'],['MAT_WHOPPER_NECTAR','MAT_SHIMMERING_NECTAR','MAT_ENERGY_NECTAR'],['MAT_FUNGAL_SPORE','MAT_LUMINESCENT_POLLEN','MAT_CRYSTALLINE_CYST_DUST'],['MAT_TREASURE_INSIGNIA','MAT_SILVER_INSIGNIA','MAT_GOLDEN_INSIGNIA'],['MAT_OLD_HANDGUARD','MAT_KAGEUCHI_HANDGUARD','MAT_FAMED_HANDGUARD'],['MAT_RECRUIT_INSIGNIA','MAT_SERGEANT_INSIGNIA','MAT_LIEUTENANT_INSIGNIA'],['MAT_MIST_GRASS_POLLEN','MAT_MIST_GRASS','MAT_MIST_GRASS_WICK'],['MAT_CHAOS_DEVICE','MAT_CHAOS_CIRCUIT','MAT_CHAOS_CORE'],['MAT_CONCEALED_CLAW','MAT_CONCEALED_UNGUIS','MAT_CONCEALED_TALON'],['MAT_TRANSOCEANIC_PEARL','MAT_TRANSOCEANIC_CHUNK','MAT_XENOCHROMATIC_CRYSTAL'],['MAT_FADED_RED_SATIN','MAT_TRIMMED_RED_SILK','MAT_RICH_RED_BROCADE'],['MAT_DEAD_LEY_LINE_BRANCH','MAT_DEAD_LEY_LINE_LEAVES','MAT_LEY_LINE_SPROUT']];
@@ -108,14 +115,19 @@ P.fieldBattlePolicy=function(){return null;};
 P.limitFieldBattle=function(){};
 P.tuneGrowthEnemy=function(a,b,level){
  if(a.growthScaled)return;const grade=a.grade||'일반',i={일반:0,정예:1,강적:2,보스:3}[grade]??0,p=phaseFor(level),source=this.row('09_MONSTER_DB',a.source),original=Number(source[6])||1;
- const variant=(a.variant?.tier===5?1.6:1)*(a.variant?.affixes.includes('STURDY')?1.35:1);const prev=a.maxHp,hp=([105,340,900,3000][i])*(a.source==='BOSS_DVALIN'?.45:a.source==='BOSS_ANDRIUS'?.55:1)*hpCurve(level)*(1+.16*p)*variant;
- a.hp=a.maxHp=Math.round(hp);a.atk=Math.round([24,38,52,a.source==='BOSS_ANDRIUS'?55:65][i]*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level)));a.def=Math.round([20,28,35,42][i]*adCurve(level));a.level=level;a.spd=Number(source[19])+Math.floor(level/5)+(a.variant?.affixes.includes('SWIFT')?8:0);a.hit=Math.min(95,80+Math.floor(level/5));if(a.variant?.tier===5){a.atk=Math.round(a.atk*1.15);a.def=Math.round(a.def*1.1);}if(a.variant?.affixes.includes('FEROCIOUS'))a.atk=Math.round(a.atk*1.2);if(a.variant?.affixes.includes('ARMORED'))a.def=Math.round(a.def*1.35);
+ // Fixed four-character baseline. Never consult the current party size or level.
+ // A non-attacking objective is not an enemy party: keep its previous durability budget.
+ // The first Lv.1–4 areas stay forgiving before the authored story has supplied a full team.
+ // This is a fixed enemy-level curve, never a check of the player's party or rarity.
+ const partyHp=i===3||a.fieldStructure?1:2+.025*level,partyAtk=i===3?1:Math.min(1.7,1+.2*(level-1));
+ const variant=(a.variant?.tier===5?1.6:1)*(a.variant?.affixes.includes('STURDY')?1.35:1);const prev=a.maxHp,hp=([105,340,900,3000][i])*(a.source==='BOSS_DVALIN'?.45:a.source==='BOSS_ANDRIUS'?.55:1)*hpCurve(level)*(1+.16*p)*variant*partyHp;
+ a.hp=a.maxHp=Math.round(hp);a.atk=Math.round([24,38,52,a.source==='BOSS_ANDRIUS'?55:65][i]*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*partyAtk);a.def=Math.round([20,28,35,42][i]*adCurve(level));a.level=level;a.spd=Number(source[19])+Math.floor(level/5)+(a.variant?.affixes.includes('SWIFT')?8:0);a.hit=Math.min(95,80+Math.floor(level/5));if(a.variant?.tier===5){a.atk=Math.round(a.atk*1.15);a.def=Math.round(a.def*1.1);}if(a.variant?.affixes.includes('FEROCIOUS'))a.atk=Math.round(a.atk*1.2);if(a.variant?.affixes.includes('ARMORED'))a.def=Math.round(a.def*1.35);
  for(const s of a.shields||[]){s.value=Math.round(s.value*hp/prev);if(s.initialValue)s.initialValue=Math.round(s.initialValue*hp/prev);}a.growthScaled=true;
 };
 P.startBattle=function(group,origin='EXPLICIT',...rest){
  this.installGrowthContent();const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;if(!b||b===before||b.abyss||b.raid||String(origin).startsWith('RAID'))return out;
  const region=this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID),level=this._growthDomain?.level||b.leyLine?.level||Number(region[6])||1;
- for(const a of b.actors.filter(x=>x.side==='ENEMY'&&!x.fbSummon))this.tuneGrowthEnemy(a,b,api.growthRegionData.bosses[a.source]||level);
+ for(const a of [...b.actors,...(b.enemyReserve||[])].filter(x=>x.side==='ENEMY'&&!x.fbSummon))this.tuneGrowthEnemy(a,b,api.growthRegionData.bosses[a.source]||level);
  for(const a of b.actors.filter(x=>x.fbSummon))this.tuneGrowthSummon(a,b);
  b.growthBalance={version:1,level,field:origin==='RANDOM'||origin.startsWith('QUEST:')||origin.startsWith('ELITE:'),roundLimit:30};
  if(this._growthDomain)b.growthDomain=copy(this._growthDomain);if(this._growthElite)b.growthElite=copy(this._growthElite);
@@ -123,11 +135,17 @@ P.startBattle=function(group,origin='EXPLICIT',...rest){
 };
 P.tuneGrowthSummon=function(a,b){const owner=b.actors.find(x=>x.id===a.fbSummon?.owner),spec=api.fieldBosses.summons[a.source];if(!owner?.growthScaled||!spec)return;const prev=a.maxHp,p=phaseFor(owner.level);a.hp=a.maxHp=Math.max(1,Math.round(spec.hp<=1?owner.maxHp*spec.hp:spec.hp/5*hpCurve(owner.level)*(1+.16*p)));a.atk=Math.round(owner.atk*(spec.atk||0));a.def=Math.round(spec.def*adCurve(owner.level));a.level=owner.level;for(const s of a.shields||[])s.value=Math.round(s.value*a.maxHp/prev);a.growthScaled=true;};
 P.fbSummon=function(...args){const a=old.fbSummon.apply(this,args);this.tuneGrowthSummon(a,args[0]);return a;};
-P.spawnLiyueWave=function(...args){const out=old.spawnLiyueWave.apply(this,args),b=this.s.runtime;if(!b)return out;const level=Number(this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID)[6]);for(const a of b.actors.filter(a=>a.siege&&!a.growthScaled)){this.tuneGrowthEnemy(a,b,level);a.hp=a.maxHp=Math.round(a.maxHp*(b.liyueObjective?.waveHp||1));}const o=b.liyueObjective;if(o&&!o.growthScaled){o.hp=o.maxHp=35000;o.def=220;o.growthScaled=true;}this.limitBattleEnemies?.(b);return out;};
+P.spawnLiyueWave=function(...args){const out=old.spawnLiyueWave.apply(this,args),b=this.s.runtime;if(!b)return out;const level=Number(this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID)[6]);for(const a of b.actors.filter(a=>a.siege&&!a.growthScaled)){this.tuneGrowthEnemy(a,b,level);a.hp=a.maxHp=Math.round(a.maxHp*(b.liyueObjective?.waveHp||1));}const o=b.liyueObjective;if(o&&!o.growthScaled){o.hp=o.maxHp=FORMATION_HP;o.def=220;o.growthScaled=true;}this.limitBattleEnemies?.(b);return out;};
 P.combatStat=function(a,key){const n=old.combatStat.call(this,a,key);return key==='def'?n/Math.sqrt(adCurve(Math.max(1,Math.min(60,Number(a.level)||1)))):n;};
 P.reactionBase=function(a){return old.reactionBase.call(this,a)*Math.max(1,hpCurve(a.level)/3);};
 
-P.mondRewardPlan=function(b){if(!b?.growthBalance)return old.mondRewardPlan.call(this,b);const parts=b.actors.filter(a=>a.side==='ENEMY'&&!a.fbSummon).map(a=>{const n={일반:1,정예:2.5,강적:5,보스:10}[a.grade]||1;return {source:a.source,level:a.level,grade:a.grade,xp:Math.round((35+13*a.level+1.8*a.level*a.level)*n),mora:Math.round((8+2*a.level+.3*a.level*a.level)*n)};});return {xp:parts.reduce((n,x)=>n+x.xp,0),mora:parts.reduce((n,x)=>n+x.mora,0),parts};};
+P.mondRewardPlan=function(b){
+ if(b?.leyLine||!b?.growthBalance)return old.mondRewardPlan.call(this,b);
+ const enemies=b.actors.filter(a=>a.side==='ENEMY'&&!a.fbSummon);
+ if(b.growthDomain){const xp=DOMAIN_XP[b.growthDomain.level];return {xp,mora:0,parts:enemies.map((a,i)=>({source:a.source,level:a.level,grade:a.grade,xp:Math.floor(xp/enemies.length)+(i<xp%enemies.length?1:0),mora:0}))};}
+ const parts=enemies.map(a=>{const n={일반:1,정예:2.5,강적:5,보스:10}[a.grade]||1;return {source:a.source,level:a.level,grade:a.grade,xp:Math.round((20+3*a.level+.1*a.level*a.level)*n),mora:Math.round((2+.45*a.level+.003*a.level*a.level)*n)};});
+ return {xp:parts.reduce((n,x)=>n+x.xp,0),mora:parts.reduce((n,x)=>n+x.mora,0),parts};
+};
 // The domains standing at a place: one entry per stage. A stage opens at protagonist Lv. (stage level − 5) and, past
 // Lv. 10, once the story reaches that ascension.
 P.growthDomainEntries=function(map=this.s.global.CURRENT_MAP_ID){
@@ -136,7 +154,7 @@ P.growthDomainEntries=function(map=this.s.global.CURRENT_MAP_ID){
 };
 P.growthDomainSites=function(){return Object.entries(DOMAINS).map(([key,d])=>({key,name:d.name,kind:d.kind,region:d.region,map:d.map}));};
 P.growthDomainFoes=function(d,element='NEUTRAL'){return d.key?domainStageFoes(d.key,d.stage,element).map(([id,n])=>({id,n,name:this.row('09_MONSTER_DB',id)?.[1]||id})):[];};
-P.growthDomainRewards=function(d,element='NEUTRAL',day=dayOf(now(this))){const count=this.s.domainDaily?.day===day?this.s.domainDaily.wins:0,mult=count<3?2:1,base=Math.ceil(d.level/5),items={};if(d.kind==='EXP')items.MAT_CHAR_EXP_HERO=base*mult;else if(d.kind==='ASCENSION')items['GROWTH_GEM_'+element]=base*mult;else if(d.kind==='TALENT')items[d.region==='몬드'?'GROWTH_TALENT_MOND':'GROWTH_TALENT_LIYUE']=base*mult;else{items[d.level<20?'ORE_WHITE_IRON':'ORE_CRYSTAL']=base*mult;if(d.level>=40)items.TRPG_BOSS_ESSENCE=mult;}return {items,bonus:mult===2,remaining:Math.max(0,3-count),mora:Math.round((60+8*d.level+d.level*d.level*.5)*mult)};};
+P.growthDomainRewards=function(d,element='NEUTRAL',day=dayOf(now(this))){const count=this.s.domainDaily?.day===day?this.s.domainDaily.wins:0,mult=count<3?2:1,base=Math.ceil(d.level/5),items={};if(d.kind==='EXP')items.MAT_CHAR_EXP_HERO=base*mult;else if(d.kind==='ASCENSION')items['GROWTH_GEM_'+element]=base*mult;else if(d.kind==='TALENT')items[d.region==='몬드'?'GROWTH_TALENT_MOND':'GROWTH_TALENT_LIYUE']=base*mult;else{items[d.level<20?'ORE_WHITE_IRON':'ORE_CRYSTAL']=base*mult;if(d.level>=40)items.TRPG_BOSS_ESSENCE=mult;}return {items,bonus:mult===2,remaining:Math.max(0,3-count),mora:DOMAIN_MORA[d.level]*mult};};
 P.growthDomainGroup=function(d,element='NEUTRAL'){
  if(d.key){const id='EG_DOMAIN_'+d.key+'_'+d.stage+(d.kind==='ASCENSION'?'_'+element:'');if(this.tables['33_ENCOUNTER_GROUP_DB'].has(id))return id;
   const group=this.row('33_ENCOUNTER_GROUP_DB',d.region==='리월'?'EG_LIYUE_HILI_ROCK':'EG_MOND_HILI_PATROL').slice();group[0]=id;group[1]=d.name+' · '+ROMAN[d.stage-1];group[4]=group[5]=d.level;group[6]='FIXED';
@@ -171,7 +189,20 @@ P.apply=function(a){
 P.rollEncounter=function(map,...rest){if(this._encounterAction?.type==='WAIT'){map=map.slice();map[9]=Number(map[9])*.25;}return old.rollEncounter.call(this,map,...rest);};
 P.claimQuest=function(...args){const level=this.s.global.PLAYER_LEVEL_STATE,out=old.claimQuest.apply(this,args),reward=out?.rewards;if(!reward)return out;const xp=Math.round((reward.xp||0)*(Math.max(1,level/5)-1)),mora=Math.round((reward.mora||0)*(Math.max(1,level/10)-1));if(xp)for(const id of out.xpRecipients||this.s.party.filter(p=>p.active).map(p=>p.source))this.addXp(id,xp);this.s.global.MORA+=mora;out.rewards={...reward,xp:(reward.xp||0)+xp,mora:(reward.mora||0)+mora};return out;};
 P.tradeRule=function(entry){const inv=typeof entry==='string'?{item:entry}:entry||{};if(inv.equip&&((inv.enhancementCap||10)>10||(inv.enhance||0)>10||/^(EQ_BOSS_|EQ_ABYSS_)/.test(inv.equip)||this.rows('17_RECIPE_DB').some(r=>r[3]===inv.equip&&r.some(x=>/^TRPG_BOSS_|^MAT_FB_/.test(String(x))))))return {ok:false,reason:'보스·나선비경 장비와 돌파한 장비는 거래할 수 없습니다.'};return old.tradeRule.call(this,entry);};
-function migrate(r,s){if(s.growthVersion===1)return;const g=s.global;s.ascensions={};for(const [id,l]of [[PLAYER,g.PLAYER_LEVEL_STATE],...Object.entries(s.chars||{}).map(([id,c])=>[id,c.level])]){s.ascensions[id]=phaseFor(l);const cap=CAPS[s.ascensions[id]],xp=id===PLAYER?g.PLAYER_XP_STATE:s.chars[id].xp,normalized=l>=cap?0:Math.min(xp,xpNext(l)-1);if(id===PLAYER)g.PLAYER_XP_STATE=normalized;else s.chars[id].xp=normalized;}s.growthVersion=1;}
+function migrate(r,s){
+ if(s.growthPacingVersion!==undefined&&s.growthPacingVersion!==1)fail('GROWTH_SAVE','경험치 곡선 저장 버전을 확인해 주세요.');
+ if(s.growthPacingVersion===undefined&&s.growthVersion===1){
+  // Preserve earned levels, ascensions and the fraction of the current XP bar, exactly once.
+  for(const [id,level]of [[PLAYER,s.global.PLAYER_LEVEL_STATE],...Object.entries(s.chars||{}).map(([id,c])=>[id,c.level])]){
+   const xp=id===PLAYER?s.global.PLAYER_XP_STATE:s.chars[id].xp,cap=CAPS[s.ascensions?.[id]??phaseFor(level)],oldNext=legacyXpNext(level);
+   if(!Number.isSafeInteger(xp)||xp<0||level<cap&&xp>=oldNext||level>=cap&&xp!==0)fail('GROWTH_SAVE','이전 경험치 저장값을 확인해 주세요.');
+   const normalized=level>=cap?0:Math.floor(xp*xpNext(level)/oldNext);
+   if(id===PLAYER)s.global.PLAYER_XP_STATE=normalized;else s.chars[id].xp=normalized;
+  }
+ }
+ s.growthPacingVersion=1;
+ if(s.growthVersion===1)return;const g=s.global;s.ascensions={};for(const [id,l]of [[PLAYER,g.PLAYER_LEVEL_STATE],...Object.entries(s.chars||{}).map(([id,c])=>[id,c.level])]){s.ascensions[id]=phaseFor(l);const cap=CAPS[s.ascensions[id]],xp=id===PLAYER?g.PLAYER_XP_STATE:s.chars[id].xp,normalized=l>=cap?0:Math.min(xp,xpNext(l)-1);if(id===PLAYER)g.PLAYER_XP_STATE=normalized;else s.chars[id].xp=normalized;}s.growthVersion=1;
+}
 P.newGame=function(o){this.installGrowthContent();old.newGame.call(this,o);migrate(this,this.s);this.installRegionalLevels();this.recalculate();this.s.global.PLAYER_HP_CURRENT=this.s.global.PLAYER_HP_MAX;return copy(this.s);};
 P.validateSave=function(s){this.installGrowthContent();migrate(this,s);
  const d=s.runtime?.growthDomain;if(d){
@@ -184,5 +215,5 @@ P.validateSave=function(s){this.installGrowthContent();migrate(this,s);
  s.global.PLAYER_XP_NEXT=s.global.PLAYER_LEVEL_STATE>=CAPS[s.ascensions.PLAYER_CUSTOM]?0:xpNext(s.global.PLAYER_LEVEL_STATE);
  if(s.domainDaily&&(!Number.isSafeInteger(s.domainDaily.day)||!Number.isSafeInteger(s.domainDaily.wins)||s.domainDaily.wins<0))fail('GROWTH_SAVE','비경 일일 기록을 확인해 주세요.');if(s.eliteClaims&&(Array.isArray(s.eliteClaims)||Object.entries(s.eliteClaims).some(([m,d])=>!ELITES[m]||!Number.isSafeInteger(d))))fail('GROWTH_SAVE','정예 토벌 기록을 확인해 주세요.');return s;
 };
-api.growthV01522={caps:CAPS,talentCaps:TALENTS,hpCurve,adCurve,xpNext,phaseFor,gems:GEMS,domainMaps:DOMAIN_MAPS,domains:copy(DOMAINS),domainLevels:copy(DOMAIN_LEVELS),specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
+api.growthV01522={caps:CAPS,talentCaps:TALENTS,hpCurve,adCurve,xpNext,legacyXpNext,pacingCurve:XP_PACING_V0161.slice(),phaseFor,gems:GEMS,domainMaps:DOMAIN_MAPS,domains:copy(DOMAINS),domainLevels:copy(DOMAIN_LEVELS),domainXp:copy(DOMAIN_XP),domainMora:copy(DOMAIN_MORA),partyBaseline:4,formationHp:FORMATION_HP,specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
 })(globalThis);

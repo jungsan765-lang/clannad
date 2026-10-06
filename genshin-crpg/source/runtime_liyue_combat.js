@@ -81,7 +81,7 @@ P.newRound=function(){
  for(const a of b.actors)if(['MON_FATUI_CRYO','MON_FATUI_ELECTRO'].includes(a.source)&&!a.fatuiArmorInitialized){a.fatuiArmorInitialized=true;const cryo=a.source==='MON_FATUI_CRYO';this.shield(a,a.maxHp*.3,cryo?'ECARD_FATUI_CRYO_ARMOR':'ECARD_FATUI_ELECTRO_ARMOR',null,{element:cryo?'얼음':'번개',damageMultipliers:cryo?{불:2}:{얼음:2}});}
  return old.newRound.call(this);
 };
-P.liyueBattleOutcome=function(b){const evac=b.liyueEvacuation;if(evac){if(!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return false;if(evac.completedRounds>=4&&!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0)){if(this.combatActor()?.hp<=0){b.defenseAwaitingRecovery=true;b.phase='WAIT_PLAYER';return 'HOLD';}return true;}return undefined;}const o=b.liyueObjective;if(!o)return undefined;if(o.hp<=0)return false;if(o.charge>=8&&!b.actors.some(a=>a.side==='ENEMY'&&!isOsial(a)&&a.hp>0)){if(this.combatActor()?.hp<=0){b.defenseAwaitingRecovery=true;b.phase='WAIT_PLAYER';this.s.global.COMBAT_ACTION_PHASE='WAIT_PLAYER';return 'HOLD';}return true;}return undefined;};
+P.liyueBattleOutcome=function(b){const evac=b.liyueEvacuation;if(evac){if(!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return false;if(evac.completedRounds>=4&&!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0)){if(this.combatActor()?.hp<=0){b.defenseAwaitingRecovery=true;b.phase='WAIT_PLAYER';return 'HOLD';}return true;}return undefined;}const o=b.liyueObjective;if(!o)return undefined;if(o.hp<=0)return false;if(o.charge>=8&&!b.actors.some(a=>a.side==='ENEMY'&&!isOsial(a)&&a.hp>0)){/* No legal action can revive a KO protagonist here. Settle a retryable defeat instead of waiting forever. */return !(this.combatActor()?.hp<=0);}return undefined;};
 P.combatStat=function(a,key){let n=old.combatStat.call(this,a,key);if(isAzhdaha(a)&&a.azhdaha?.zhongliBound&&['atk','def'].includes(key))n*=.85;return key==='eva'&&a.statuses?.some(s=>s.id==='AGENT_STEALTH')&&!this._fatuiAttack?.aoe?n+20:n;};
 P.combatDamageMultiplier=function(a,t,e,o={}){let n=old.combatDamageMultiplier.call(this,a,t,e,o);if(isAzhdaha(t)&&t.azhdaha?.current!=='GEO'&&elementCode(e)===t.azhdaha.current&&!o.neutralConverted)n=0;return !o.sourceKind&&this._fatuiAttack?.actor===a.id&&this._fatuiAttack.stealth?n*1.25:n;};
 P.damage=function(a,t,k,e,o={}){
@@ -109,7 +109,9 @@ P.aiTurn=function(a,targets){
 P.roundEnd=function(){
  const b=this.s.runtime,o=b?.liyueObjective;if(b?.liyueEvacuation)b.liyueEvacuation.completedRounds=Math.max(b.liyueEvacuation.completedRounds,b.round);if(o&&!o.settled.includes(b.round)){
   o.settled.push(b.round);o.charge=Math.min(8,o.charge+1);b.log.push({objective:'FORMATION_CHARGE',charge:o.charge,target:8,round:b.round});
-  if(b.round%3===0){const boss=b.actors.find(isOsial),proxy={...boss,atk:Math.max(230,Math.min(340,boss.atk))};for(const a of b.actors.filter(a=>a.side==='ALLY'&&a.hp>0))if(this.damage(proxy,a,1.75,'HYDRO',{range:'전장',card:'OSIAL_DELUGE',noAura:false}))a.nextScorePenalty=(a.nextScorePenalty||0)+12;}
+  // Growth-scaled bosses must not retain the pre-growth 340 ATK ceiling. The wide-area
+  // attack uses a fixed fraction of the boss's regional ATK; old unscaled saves keep their rule.
+  if(b.round%3===0){const boss=b.actors.find(isOsial),proxy={...boss,atk:boss.growthScaled?Math.round(boss.atk*.85):Math.max(230,Math.min(340,boss.atk))};for(const a of b.actors.filter(a=>a.side==='ALLY'&&a.hp>0))if(this.damage(proxy,a,1.75,'HYDRO',{range:'전장',card:'OSIAL_DELUGE',noAura:false}))a.nextScorePenalty=(a.nextScorePenalty||0)+12;}
  }
  const azh=b?.actors.find(a=>isAzhdaha(a)&&a.hp>0);if(azh?.azhdaha?.current&&azh.azhdaha.current!=='GEO')for(const ally of b.actors.filter(x=>x.side==='ALLY'&&x.hp>0))this.damage(azh,ally,.35,azh.azhdaha.current,{range:'전장',card:'ECARD_AZHDAHA_ELEMENT_CORE',sourceKind:'AZHDAHA_LEYLINE',aoe:true});
  return old.roundEnd.call(this);

@@ -145,7 +145,7 @@ check('hourly challenge: entry gates, restored defeat, old-hour victory and next
  r.serverAdmin=true;r.action('OPERATOR_DEBUG',{op:'level',value:10});r.actionStartedAt=hour*3600000+3599999;
  enter(r,'BOSS:'+route,'BOSS');rejected(r,'BOSS_ROUTE',{route,entry:'DIRECT',tier:5},/Lv/);r.action('BOSS_ROUTE',{route,entry:'DIRECT',tier:2});r=reload(r);
  const before=r.itemCount('MAT_CHAR_EXP_HERO');r.actionStartedAt++;const result=settleOpening(r,true);
- assert(result.leyLine.claimed);assert.equal(r.itemCount('MAT_CHAR_EXP_HERO')-before,4);assert.equal(r.s.leyLine.REVELATION,hour);assert.equal(r.leyLineClaimed('REVELATION'),false);
+ assert(result.leyLine.claimed);assert.equal(r.itemCount('MAT_CHAR_EXP_HERO')-before,18);assert.equal(r.s.leyLine.REVELATION,hour);assert.equal(r.leyLineClaimed('REVELATION'),false);
  r=reload(r);assert.equal(r.leyLineClaimed('REVELATION'),false);site=r.leyLineStatus().blossoms.find(x=>x.region==='몬드'&&x.kind==='REVELATION');r.s.global.CURRENT_MAP_ID=site.map;r.s.placeVisit=null;
  assert.equal(r.placeBossReason(site.route,'DIRECT'),'');enter(r,'BOSS:'+site.route,'BOSS');r.action('BOSS_ROUTE',{route:site.route,entry:'DIRECT',tier:2});r=reload(r);settleOpening(r,false);
  assert.equal(r.s.leyLine.REVELATION,hour,'a defeat never claims the next window');r=reload(r);advance(60001);r.action('RECOVER');r.s.global.CURRENT_MAP_ID=site.map;assert.equal(r.placeBossReason(site.route,'DIRECT'),'');

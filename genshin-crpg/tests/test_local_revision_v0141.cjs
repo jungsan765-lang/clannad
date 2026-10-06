@@ -24,7 +24,8 @@ test('bulk books consume the selected amount once and reject overflow atomically
  const before=r.serialize();assert.throws(()=>r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:2}));assert.equal(r.serialize(),before);r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1});assert.equal(r.s.global.PLAYER_LEVEL_STATE,20);assert.equal(r.experienceBookLimit('MAT_CHAR_EXP_WANDERER'),0);
 });
 test('ordinary fight offers escape on round 10, no rewards, defeat fee, warp or double settlement',()=>{
- let r=fixture([10],[],9);r.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';r.startBattle('EG_MOND_SLIME_SMALL','RANDOM');r.action('COMBAT_BEGIN');
+ // Begin at native full HP: the legacy helper heals a stale global object after EQUIP clones the save.
+ let r=fixture([10],[],9);r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;r.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';r.startBattle('EG_MOND_SLIME_SMALL','RANDOM');r.action('COMBAT_BEGIN');
  for(let i=0;r.s.runtime?.round<10&&i<60;i++){assert(r.combatFleeReason());r.action('COMBAT',{card:'PLAYER_BASIC_GUARD'});}
  assert(r.s.runtime,'party must survive to test real tenth round');assert.equal(r.s.runtime.round,10);assert.equal(r.combatFleeReason(),'');r=restore(r);
  const before={mora:r.s.global.MORA,hp:r.s.global.PLAYER_HP_CURRENT,xp:r.s.global.PLAYER_XP_STATE,inventory:cp(r.s.inventory)},id=r.s.runtime.id;sameRetry(r,'COMBAT_FLEE',{});

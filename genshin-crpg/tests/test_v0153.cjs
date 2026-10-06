@@ -96,6 +96,14 @@ check('the modules are wired into the page and the build in load order (early st
 function walkSegments(leaf){
  const r=new R(db);r.newGame({name:'새벽하늘',route:'ROUTE_ISEKAI',seed:58214,saveId:'PACE-'+leaf});
  Object.assign(r.s.global,{PLAYER_LEVEL_STATE:20,PLAYER_XP_STATE:0,PLAYER_BASE_HP:100000,PLAYER_BASE_ATK:10000,PLAYER_BASE_DEF:1000});r.s.ascensions.PLAYER_CUSTOM=1;r.recalculate();r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;
+ // Narrative pacing QA uses a fixed four-fighter fixture; these synthetic companions are not difficulty evidence.
+ const flowTeam=['MOND_FISCHL','LIYUE_XIANGLING','MOND_BARBARA'],weapons=['EQ_BOW_CRESCENT','EQ_POLEARM_CRESCENT','EQ_CATALYST_MAPPA'];
+ const owned=JSON.parse(r.s.global.COMPANION_ELIGIBILITY_JSON||'{}');
+ for(const [i,id]of flowTeam.entries()){
+  owned[id]={state:'JOINED'};Object.assign(r.s.chars[id],{level:60,xp:0});r.s.ascensions[id]=6;(r.s.talents??={})[id]={na:8,e:8,q:8};r.s.party[i+1]={slot:'PARTY_'+(i+2),type:'CHAR',source:id,control:'AI',active:true,tactic:'균형'};
+  for(const eq of [weapons[i],'EQ_ARMOR_REINFORCED_LEATHER','EQ_ACC_HEALER_BROOCH']){const slot=r.giveEquipment(eq);Object.assign(r.s.inventory.find(x=>x.slot===slot),{owner:id,equipped:true,enhance:10});}
+ }
+ r.s.global.COMPANION_ELIGIBILITY_JSON=JSON.stringify(owned);r.recalculate();for(const id of flowTeam)r.s.chars[id].hp=r.character(id).maxHp;
  const g=()=>r.s.global,segs=[];let cur={lines:0,from:'START'},inBattle=false,lastStop='';
  // One stop per travel leg or rest, however many map steps it takes to reach it.
  const close=(to,key=to+':'+i)=>{if(key===lastStop)return;lastStop=key;segs.push({...cur,to});cur={lines:0,from:to};};let i=0;

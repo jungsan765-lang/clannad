@@ -1,0 +1,1668 @@
+{
+  "version": "0.16.1",
+  "baseCommit": "ef11863ea619c6276523621d8433b03818827102",
+  "sourceHashes": {
+    "runtime_growth_v01522.js": "26da3497ba6f0e54e40ca216510f5fc3cc44482655ca0f40ea0a44972f5d6259",
+    "runtime_growth_data_v01522.js": "87b4b952f1dc8801081766bc6ba5759806f2f04aa457efbfff174df6469af0fb",
+    "runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+    "runtime_mond_balance.js": "f8a4e16f6c6a0e34155d31d50dd98f3e4e80ee40f1b6d56e42a15c31b7ed6426",
+    "runtime_liyue_combat.js": "c8671fe25a19463b227cca6fe387465d097ff1e85484d73d102a808341587037",
+    "runtime_combat.js": "dee1d50d2ccad47782007be46c2cfd7616901f3ac66cb9fc2988b8172bb14db1",
+    "presentation.js": "99ac585532b83d6cca19d17f43443c13a233fd9694c222e76894b24b690ae844"
+  },
+  "nativeAudits": {
+    "uniquePrimaryCases": 808,
+    "growthTimingCases": 354,
+    "rarityCases": 264,
+    "ceilingCases": 54,
+    "leyCases": 100,
+    "osialCases": 36,
+    "excludes": "10 comparator domains, repeated audits and synthetic settlement/flow fixtures"
+  },
+  "rarity": {
+    "teams": {
+      "story4": [
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "support4": [
+        "MOND_FISCHL",
+        "LIYUE_XIANGLING",
+        "MOND_BARBARA"
+      ],
+      "standard5": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "MOND_JEAN"
+      ],
+      "limited5": [
+        "LIYUE_HUTAO",
+        "LIYUE_YELAN",
+        "LIYUE_ZHONGLI"
+      ]
+    },
+    "identicalEnemySnapshots": 66,
+    "summaries": [
+      {
+        "profile": {
+          "name": "story4",
+          "level": 30,
+          "domain": "VALLEY_OF_REMEMBRANCE:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.167,
+        "meanCycleSeconds": 33.22,
+        "meanHpRatio": 0.9484,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 30,
+          "domain": "VALLEY_OF_REMEMBRANCE:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.167,
+        "meanCycleSeconds": 42.74,
+        "meanHpRatio": 0.9104,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 30,
+          "domain": "VALLEY_OF_REMEMBRANCE:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 33.307,
+        "meanHpRatio": 0.9923,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 30,
+          "domain": "VALLEY_OF_REMEMBRANCE:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.167,
+        "meanCycleSeconds": 37.245,
+        "meanHpRatio": 0.9886,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 30,
+          "domain": "FORSAKEN_RIFT:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 42.208,
+        "meanHpRatio": 0.8538,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 30,
+          "domain": "FORSAKEN_RIFT:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.5,
+        "meanCycleSeconds": 50.063,
+        "meanHpRatio": 0.791,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 30,
+          "domain": "FORSAKEN_RIFT:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 35.157,
+        "meanHpRatio": 0.9762,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 30,
+          "domain": "FORSAKEN_RIFT:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.167,
+        "meanCycleSeconds": 42.848,
+        "meanHpRatio": 0.9728,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 30,
+          "domain": "CECILIA_GARDEN:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 44.753,
+        "meanHpRatio": 0.9396,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 30,
+          "domain": "CECILIA_GARDEN:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.833,
+        "meanCycleSeconds": 59.455,
+        "meanHpRatio": 0.7842,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 30,
+          "domain": "CECILIA_GARDEN:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 40.827,
+        "meanHpRatio": 0.9894,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 30,
+          "domain": "CECILIA_GARDEN:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.667,
+        "meanCycleSeconds": 48.192,
+        "meanHpRatio": 0.9846,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 50,
+          "domain": "ZHOU_FORMULA:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.5,
+        "meanCycleSeconds": 34.393,
+        "meanHpRatio": 0.9737,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 50,
+          "domain": "ZHOU_FORMULA:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.167,
+        "meanCycleSeconds": 36.885,
+        "meanHpRatio": 0.9764,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 50,
+          "domain": "ZHOU_FORMULA:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 1.667,
+        "meanCycleSeconds": 22.578,
+        "meanHpRatio": 0.998,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 50,
+          "domain": "ZHOU_FORMULA:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 31.64,
+        "meanHpRatio": 0.9764,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 50,
+          "domain": "TAISHAN_MANSION:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.5,
+        "meanCycleSeconds": 36.69,
+        "meanHpRatio": 0.9578,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 50,
+          "domain": "TAISHAN_MANSION:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.5,
+        "meanCycleSeconds": 41.26,
+        "meanHpRatio": 0.9705,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 50,
+          "domain": "TAISHAN_MANSION:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 29.292,
+        "meanHpRatio": 1.0,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 50,
+          "domain": "TAISHAN_MANSION:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.333,
+        "meanCycleSeconds": 35.525,
+        "meanHpRatio": 0.9843,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 50,
+          "domain": "LIANSHAN_FORMULA:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.333,
+        "meanCycleSeconds": 32.23,
+        "meanHpRatio": 0.953,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 50,
+          "domain": "LIANSHAN_FORMULA:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.5,
+        "meanCycleSeconds": 40.585,
+        "meanHpRatio": 0.8972,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 50,
+          "domain": "LIANSHAN_FORMULA:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 1.833,
+        "meanCycleSeconds": 26.8,
+        "meanHpRatio": 1.0,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 50,
+          "domain": "LIANSHAN_FORMULA:3",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.167,
+        "meanCycleSeconds": 35.405,
+        "meanHpRatio": 0.9885,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 60,
+          "domain": "ZHOU_FORMULA:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.5,
+        "meanCycleSeconds": 33.155,
+        "meanHpRatio": 0.9487,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 60,
+          "domain": "ZHOU_FORMULA:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 35.198,
+        "meanHpRatio": 0.9484,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 60,
+          "domain": "ZHOU_FORMULA:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 1.167,
+        "meanCycleSeconds": 22.425,
+        "meanHpRatio": 0.998,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 60,
+          "domain": "ZHOU_FORMULA:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 30.193,
+        "meanHpRatio": 0.9818,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 60,
+          "domain": "TAISHAN_MANSION:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.5,
+        "meanCycleSeconds": 42.098,
+        "meanHpRatio": 0.9539,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 60,
+          "domain": "TAISHAN_MANSION:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.667,
+        "meanCycleSeconds": 44.405,
+        "meanHpRatio": 0.9638,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 60,
+          "domain": "TAISHAN_MANSION:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.167,
+        "meanCycleSeconds": 37.583,
+        "meanHpRatio": 0.995,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 60,
+          "domain": "TAISHAN_MANSION:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.5,
+        "meanCycleSeconds": 39.41,
+        "meanHpRatio": 0.9873,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 60,
+          "domain": "LIANSHAN_FORMULA:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 37.072,
+        "meanHpRatio": 0.9791,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 60,
+          "domain": "LIANSHAN_FORMULA:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 3.167,
+        "meanCycleSeconds": 57.823,
+        "meanHpRatio": 0.7503,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 60,
+          "domain": "LIANSHAN_FORMULA:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 44.537,
+        "meanHpRatio": 0.9505,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 60,
+          "domain": "LIANSHAN_FORMULA:4",
+          "group": ""
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 3.0,
+        "meanCycleSeconds": 52.175,
+        "meanHpRatio": 0.9838,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 50,
+          "domain": "",
+          "group": "EG_BOSS_TARTAGLIA"
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 4.5,
+        "meanCycleSeconds": 57.525,
+        "meanHpRatio": 0.6604,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 50,
+          "domain": "",
+          "group": "EG_BOSS_TARTAGLIA"
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 3.833,
+        "meanCycleSeconds": 61.028,
+        "meanHpRatio": 0.7336,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 50,
+          "domain": "",
+          "group": "EG_BOSS_TARTAGLIA"
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 3.167,
+        "meanCycleSeconds": 41.835,
+        "meanHpRatio": 0.9463,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 50,
+          "domain": "",
+          "group": "EG_BOSS_TARTAGLIA"
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 3.667,
+        "meanCycleSeconds": 44.325,
+        "meanHpRatio": 0.9582,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 60,
+          "domain": "",
+          "group": "EG_BOSS_AZHDAHA"
+        },
+        "samples": 6,
+        "wins": 5,
+        "meanRounds": 6.0,
+        "meanCycleSeconds": 76.698,
+        "meanHpRatio": 0.3044,
+        "failedSeeds": [
+          4242
+        ]
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 60,
+          "domain": "",
+          "group": "EG_BOSS_AZHDAHA"
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 5.0,
+        "meanCycleSeconds": 84.772,
+        "meanHpRatio": 0.3996,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 60,
+          "domain": "",
+          "group": "EG_BOSS_AZHDAHA"
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 4.333,
+        "meanCycleSeconds": 60.117,
+        "meanHpRatio": 0.8808,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 60,
+          "domain": "",
+          "group": "EG_BOSS_AZHDAHA"
+        },
+        "samples": 6,
+        "wins": 6,
+        "meanRounds": 4.833,
+        "meanCycleSeconds": 65.14,
+        "meanHpRatio": 0.9385,
+        "failedSeeds": []
+      }
+    ]
+  },
+  "ceiling": {
+    "profile": "Lv60, all three crafted slots +12, base talents 10, three companions C6, protagonist C0, no food",
+    "summaries": [
+      {
+        "profile": {
+          "name": "support4",
+          "domain": "LIANSHAN_FORMULA:4",
+          "group": "",
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 1.333,
+        "meanCycleSeconds": 25.637,
+        "meanHpRatio": 0.9815,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "domain": "LIANSHAN_FORMULA:4",
+          "group": "",
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 1.333,
+        "meanCycleSeconds": 16.147,
+        "meanHpRatio": 0.9881,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "domain": "LIANSHAN_FORMULA:4",
+          "group": "",
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 45.353,
+        "meanHpRatio": 0.9925,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "domain": "LIANSHAN_FORMULA:4",
+          "group": "",
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 33.797,
+        "meanHpRatio": 0.9697,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "domain": "LIANSHAN_FORMULA:4",
+          "group": "",
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 1.333,
+        "meanCycleSeconds": 27.18,
+        "meanHpRatio": 0.9724,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "domain": "LIANSHAN_FORMULA:4",
+          "group": "",
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 54.82,
+        "meanHpRatio": 0.9974,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "domain": "",
+          "group": "EG_BOSS_TARTAGLIA",
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 2.333,
+        "meanCycleSeconds": 26.57,
+        "meanHpRatio": 0.9911,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "domain": "",
+          "group": "EG_BOSS_TARTAGLIA",
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 1.0,
+        "meanCycleSeconds": 21.0,
+        "meanHpRatio": 0.9939,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "domain": "",
+          "group": "EG_BOSS_TARTAGLIA",
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 29.203,
+        "meanHpRatio": 0.9896,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "domain": "",
+          "group": "EG_BOSS_TARTAGLIA",
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 1.667,
+        "meanCycleSeconds": 28.4,
+        "meanHpRatio": 1.0,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "domain": "",
+          "group": "EG_BOSS_TARTAGLIA",
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 1.0,
+        "meanCycleSeconds": 24.09,
+        "meanHpRatio": 0.9915,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "domain": "",
+          "group": "EG_BOSS_TARTAGLIA",
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 2.333,
+        "meanCycleSeconds": 27.247,
+        "meanHpRatio": 0.9823,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "domain": "",
+          "group": "EG_BOSS_AZHDAHA",
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 2.667,
+        "meanCycleSeconds": 47.507,
+        "meanHpRatio": 0.6268,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "domain": "",
+          "group": "EG_BOSS_AZHDAHA",
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 2.0,
+        "meanCycleSeconds": 32.883,
+        "meanHpRatio": 0.9731,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "domain": "",
+          "group": "EG_BOSS_AZHDAHA",
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 3.333,
+        "meanCycleSeconds": 67.66,
+        "meanHpRatio": 0.9882,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "domain": "",
+          "group": "EG_BOSS_AZHDAHA",
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 2.333,
+        "meanCycleSeconds": 58.497,
+        "meanHpRatio": 0.5963,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "domain": "",
+          "group": "EG_BOSS_AZHDAHA",
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 1.667,
+        "meanCycleSeconds": 35.363,
+        "meanHpRatio": 0.9641,
+        "failedSeeds": []
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "domain": "",
+          "group": "EG_BOSS_AZHDAHA",
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 2.333,
+        "meanCycleSeconds": 63.09,
+        "meanHpRatio": 0.9891,
+        "failedSeeds": []
+      }
+    ]
+  },
+  "ley": {
+    "potentialXpDefinition": "books*1000 + 4*directXP; comparator 4*domain directXP; excludes benchXP, waiting/travel and ascension spending",
+    "tierEfficiencies": {
+      "1": {
+        "samples": 20,
+        "wins": 20,
+        "potentialPartyXpEfficiencyMin": 1.957,
+        "potentialPartyXpEfficiencyMax": 3.7479,
+        "timeSecondsMin": 20,
+        "timeSecondsMax": 38.8
+      },
+      "2": {
+        "samples": 20,
+        "wins": 20,
+        "potentialPartyXpEfficiencyMin": 2.6452,
+        "potentialPartyXpEfficiencyMax": 6.3589,
+        "timeSecondsMin": 22.09,
+        "timeSecondsMax": 57.34
+      },
+      "3": {
+        "samples": 20,
+        "wins": 20,
+        "potentialPartyXpEfficiencyMin": 6.7217,
+        "potentialPartyXpEfficiencyMax": 13.1875,
+        "timeSecondsMin": 22.09,
+        "timeSecondsMax": 48.46
+      },
+      "4": {
+        "samples": 20,
+        "wins": 20,
+        "potentialPartyXpEfficiencyMin": 3.0373,
+        "potentialPartyXpEfficiencyMax": 6.9146,
+        "timeSecondsMin": 24.7,
+        "timeSecondsMax": 56.23
+      },
+      "5": {
+        "samples": 20,
+        "wins": 20,
+        "potentialPartyXpEfficiencyMin": 4.2388,
+        "potentialPartyXpEfficiencyMax": 10.1039,
+        "timeSecondsMin": 23.59,
+        "timeSecondsMax": 56.23
+      }
+    }
+  },
+  "osial": {
+    "nativeBossLevel": 58,
+    "nativeBossAtk": 8453,
+    "delugeAtkFactor": 0.85,
+    "delugeMultiplier": 1.75,
+    "formationHp": 70000,
+    "chargeRounds": 8,
+    "attackEveryRounds": 3,
+    "hitNextScorePenalty": 12,
+    "summaries": [
+      {
+        "profile": {
+          "name": "support4",
+          "level": 55,
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 12.333,
+        "meanCycleSeconds": 182.72,
+        "meanHpRatio": 0.8419,
+        "failedSeeds": [],
+        "delugeRatioMean": 0.1562,
+        "delugeRatioMax": 0.3364,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 58,
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 2,
+        "meanRounds": 10.667,
+        "meanCycleSeconds": 142.62,
+        "meanHpRatio": 0.8221,
+        "failedSeeds": [
+          4242
+        ],
+        "delugeRatioMean": 0.109,
+        "delugeRatioMax": 0.2156,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 60,
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 10.667,
+        "meanCycleSeconds": 146.62,
+        "meanHpRatio": 0.9077,
+        "failedSeeds": [],
+        "delugeRatioMean": 0.1031,
+        "delugeRatioMax": 0.2022,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 60,
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 10.0,
+        "meanCycleSeconds": 130.127,
+        "meanHpRatio": 0.5394,
+        "failedSeeds": [],
+        "delugeRatioMean": 0.0993,
+        "delugeRatioMax": 0.2047,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 60,
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 9.0,
+        "meanCycleSeconds": 108.777,
+        "meanHpRatio": 1.0,
+        "failedSeeds": [],
+        "delugeRatioMean": 0.0586,
+        "delugeRatioMax": 0.1208,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 60,
+          "route": "ROUTE_TRAVELER"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 10.0,
+        "meanCycleSeconds": 118.307,
+        "meanHpRatio": 0.9331,
+        "failedSeeds": [],
+        "delugeRatioMean": 0.0728,
+        "delugeRatioMax": 0.2065,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 55,
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 1,
+        "meanRounds": 10.667,
+        "meanCycleSeconds": 177.807,
+        "meanHpRatio": 0.6823,
+        "failedSeeds": [
+          717,
+          4242
+        ],
+        "delugeRatioMean": 0.1596,
+        "delugeRatioMax": 0.3826,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 58,
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 10.0,
+        "meanCycleSeconds": 155.237,
+        "meanHpRatio": 0.8099,
+        "failedSeeds": [],
+        "delugeRatioMean": 0.1224,
+        "delugeRatioMax": 0.3165,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "support4",
+          "level": 60,
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 10.0,
+        "meanCycleSeconds": 154.497,
+        "meanHpRatio": 0.8842,
+        "failedSeeds": [],
+        "delugeRatioMean": 0.1085,
+        "delugeRatioMax": 0.1774,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "story4",
+          "level": 60,
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 2,
+        "meanRounds": 12.0,
+        "meanCycleSeconds": 132.13,
+        "meanHpRatio": 0.4642,
+        "failedSeeds": [
+          4242
+        ],
+        "delugeRatioMean": 0.1056,
+        "delugeRatioMax": 0.2361,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "standard5",
+          "level": 60,
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 9.0,
+        "meanCycleSeconds": 110.363,
+        "meanHpRatio": 1.0,
+        "failedSeeds": [],
+        "delugeRatioMean": 0.0717,
+        "delugeRatioMax": 0.2976,
+        "stalls": 0
+      },
+      {
+        "profile": {
+          "name": "limited5",
+          "level": 60,
+          "route": "ROUTE_ISEKAI"
+        },
+        "samples": 3,
+        "wins": 3,
+        "meanRounds": 9.0,
+        "meanCycleSeconds": 117.0,
+        "meanHpRatio": 0.9524,
+        "failedSeeds": [],
+        "delugeRatioMean": 0.0574,
+        "delugeRatioMax": 0.1748,
+        "stalls": 0
+      }
+    ]
+  },
+  "pacing": {
+    "version": "0.16.1",
+    "party": [
+      "PLAYER_CUSTOM",
+      "MOND_AMBER",
+      "MOND_KAEYA",
+      "MOND_LISA"
+    ],
+    "timingAssumptions": {
+      "displaySpeed": 2,
+      "inputSeconds": 3,
+      "reentrySeconds": 6
+    },
+    "targets": [
+      {
+        "start": 1,
+        "end": 10,
+        "seconds": 600
+      },
+      {
+        "start": 10,
+        "end": 20,
+        "seconds": 1800
+      },
+      {
+        "start": 20,
+        "end": 30,
+        "seconds": 3600
+      },
+      {
+        "start": 30,
+        "end": 40,
+        "seconds": 12600
+      },
+      {
+        "start": 40,
+        "end": 50,
+        "seconds": 14400
+      },
+      {
+        "start": 50,
+        "end": 60,
+        "seconds": 18000
+      }
+    ],
+    "routes": {
+      "ROUTE_TRAVELER": [
+        {
+          "start": 1,
+          "end": 10,
+          "clears": 32,
+          "seconds": 591.97,
+          "tiers": {
+            "5": 10,
+            "10": 22
+          },
+          "xp": 11460,
+          "capOverflow": 440
+        },
+        {
+          "start": 10,
+          "end": 20,
+          "clears": 81,
+          "seconds": 1443,
+          "tiers": {
+            "10": 55,
+            "20": 26
+          },
+          "xp": 53350,
+          "capOverflow": 0
+        },
+        {
+          "start": 20,
+          "end": 30,
+          "clears": 125,
+          "seconds": 2926.79,
+          "tiers": {
+            "20": 72,
+            "30": 53
+          },
+          "xp": 172810,
+          "capOverflow": 1790
+        },
+        {
+          "start": 30,
+          "end": 40,
+          "clears": 561,
+          "seconds": 11384.59,
+          "tiers": {
+            "30": 303,
+            "40": 258
+          },
+          "xp": 1189500,
+          "capOverflow": 900
+        },
+        {
+          "start": 40,
+          "end": 50,
+          "clears": 612,
+          "seconds": 12493.6,
+          "tiers": {
+            "40": 369,
+            "50": 243
+          },
+          "xp": 2011570,
+          "capOverflow": 4430
+        },
+        {
+          "start": 50,
+          "end": 60,
+          "clears": 539,
+          "seconds": 15649.13,
+          "tiers": {
+            "50": 323,
+            "60": 216
+          },
+          "xp": 3171260,
+          "capOverflow": 10240
+        }
+      ],
+      "ROUTE_ISEKAI": [
+        {
+          "start": 1,
+          "end": 10,
+          "clears": 32,
+          "seconds": 615.93,
+          "tiers": {
+            "5": 10,
+            "10": 22
+          },
+          "xp": 11460,
+          "capOverflow": 440
+        },
+        {
+          "start": 10,
+          "end": 20,
+          "clears": 81,
+          "seconds": 2127.73,
+          "tiers": {
+            "10": 55,
+            "20": 26
+          },
+          "xp": 53350,
+          "capOverflow": 0
+        },
+        {
+          "start": 20,
+          "end": 30,
+          "clears": 125,
+          "seconds": 4288.67,
+          "tiers": {
+            "20": 72,
+            "30": 53
+          },
+          "xp": 172810,
+          "capOverflow": 1790
+        },
+        {
+          "start": 30,
+          "end": 40,
+          "clears": 561,
+          "seconds": 13817.5,
+          "tiers": {
+            "30": 303,
+            "40": 258
+          },
+          "xp": 1189500,
+          "capOverflow": 900
+        },
+        {
+          "start": 40,
+          "end": 50,
+          "clears": 612,
+          "seconds": 16307.35,
+          "tiers": {
+            "40": 369,
+            "50": 243
+          },
+          "xp": 2011570,
+          "capOverflow": 4430
+        },
+        {
+          "start": 50,
+          "end": 60,
+          "clears": 539,
+          "seconds": 20382.66,
+          "tiers": {
+            "50": 323,
+            "60": 216
+          },
+          "xp": 3171260,
+          "capOverflow": 10240
+        }
+      ],
+      "REFERENCE_MEAN": [
+        {
+          "start": 1,
+          "end": 10,
+          "clears": 32,
+          "seconds": 603.95,
+          "tiers": {
+            "5": 10,
+            "10": 22
+          },
+          "xp": 11460,
+          "capOverflow": 440
+        },
+        {
+          "start": 10,
+          "end": 20,
+          "clears": 81,
+          "seconds": 1785.37,
+          "tiers": {
+            "10": 55,
+            "20": 26
+          },
+          "xp": 53350,
+          "capOverflow": 0
+        },
+        {
+          "start": 20,
+          "end": 30,
+          "clears": 125,
+          "seconds": 3607.73,
+          "tiers": {
+            "20": 72,
+            "30": 53
+          },
+          "xp": 172810,
+          "capOverflow": 1790
+        },
+        {
+          "start": 30,
+          "end": 40,
+          "clears": 561,
+          "seconds": 12601.05,
+          "tiers": {
+            "30": 303,
+            "40": 258
+          },
+          "xp": 1189500,
+          "capOverflow": 900
+        },
+        {
+          "start": 40,
+          "end": 50,
+          "clears": 612,
+          "seconds": 14400.47,
+          "tiers": {
+            "40": 369,
+            "50": 243
+          },
+          "xp": 2011570,
+          "capOverflow": 4430
+        },
+        {
+          "start": 50,
+          "end": 60,
+          "clears": 539,
+          "seconds": 18015.9,
+          "tiers": {
+            "50": 323,
+            "60": 216
+          },
+          "xp": 3171260,
+          "capOverflow": 10240
+        }
+      ]
+    }
+  },
+  "costs": {
+    "version": "0.16.1",
+    "rows": [
+      {
+        "id": "MOND_AMBER",
+        "rarity": 4,
+        "ascensionMora": 93200,
+        "talent8Mora": 105000,
+        "phases": [
+          {
+            "phase": 0,
+            "cost": {
+              "mora": 800,
+              "items": {
+                "GROWTH_GEM_PYRO": 3,
+                "ING_LAMP_GRASS": 2,
+                "MAT_DAMAGED_MASK": 2
+              }
+            }
+          },
+          {
+            "phase": 1,
+            "cost": {
+              "mora": 2400,
+              "items": {
+                "GROWTH_GEM_PYRO": 6,
+                "ING_LAMP_GRASS": 4,
+                "MAT_DAMAGED_MASK": 3
+              }
+            }
+          },
+          {
+            "phase": 2,
+            "cost": {
+              "mora": 6000,
+              "items": {
+                "GROWTH_GEM_PYRO": 12,
+                "ING_LAMP_GRASS": 6,
+                "MAT_STAINED_MASK": 3
+              }
+            }
+          },
+          {
+            "phase": 3,
+            "cost": {
+              "mora": 14000,
+              "items": {
+                "GROWTH_GEM_PYRO": 20,
+                "ING_LAMP_GRASS": 8,
+                "MAT_STAINED_MASK": 4,
+                "TRPG_BOSS_ESSENCE": 1
+              }
+            }
+          },
+          {
+            "phase": 4,
+            "cost": {
+              "mora": 28000,
+              "items": {
+                "GROWTH_GEM_PYRO": 32,
+                "ING_LAMP_GRASS": 10,
+                "MAT_OMINOUS_MASK": 4,
+                "MAT_FB_EVERFLAME_SEED": 2
+              }
+            }
+          },
+          {
+            "phase": 5,
+            "cost": {
+              "mora": 42000,
+              "items": {
+                "GROWTH_GEM_PYRO": 45,
+                "ING_LAMP_GRASS": 12,
+                "MAT_OMINOUS_MASK": 6,
+                "MAT_FB_EVERFLAME_SEED": 3
+              }
+            }
+          }
+        ],
+        "gear3Expected": 48228.98728438744,
+        "fullTotalExpected": 246428.98728438743,
+        "catchup55TotalExpected": 195228.98728438743,
+        "fullWealthClaims": 7,
+        "catchupWealthClaims": 5
+      },
+      {
+        "id": "MOND_DILUC",
+        "rarity": 5,
+        "ascensionMora": 167760,
+        "talent8Mora": 157500,
+        "phases": [
+          {
+            "phase": 0,
+            "cost": {
+              "mora": 1440,
+              "items": {
+                "GROWTH_GEM_PYRO": 6,
+                "ING_LAMP_GRASS": 4,
+                "MAT_DAMAGED_MASK": 4
+              }
+            }
+          },
+          {
+            "phase": 1,
+            "cost": {
+              "mora": 4320,
+              "items": {
+                "GROWTH_GEM_PYRO": 12,
+                "ING_LAMP_GRASS": 8,
+                "MAT_DAMAGED_MASK": 6
+              }
+            }
+          },
+          {
+            "phase": 2,
+            "cost": {
+              "mora": 10800,
+              "items": {
+                "GROWTH_GEM_PYRO": 24,
+                "ING_LAMP_GRASS": 12,
+                "MAT_STAINED_MASK": 6
+              }
+            }
+          },
+          {
+            "phase": 3,
+            "cost": {
+              "mora": 25200,
+              "items": {
+                "GROWTH_GEM_PYRO": 40,
+                "ING_LAMP_GRASS": 16,
+                "MAT_STAINED_MASK": 8,
+                "TRPG_BOSS_ESSENCE": 2
+              }
+            }
+          },
+          {
+            "phase": 4,
+            "cost": {
+              "mora": 50400,
+              "items": {
+                "GROWTH_GEM_PYRO": 64,
+                "ING_LAMP_GRASS": 20,
+                "MAT_OMINOUS_MASK": 8,
+                "MAT_FB_EVERFLAME_SEED": 4
+              }
+            }
+          },
+          {
+            "phase": 5,
+            "cost": {
+              "mora": 75600,
+              "items": {
+                "GROWTH_GEM_PYRO": 90,
+                "ING_LAMP_GRASS": 24,
+                "MAT_OMINOUS_MASK": 12,
+                "MAT_FB_EVERFLAME_SEED": 6
+              }
+            }
+          }
+        ],
+        "gear3Expected": 48228.98728438744,
+        "fullTotalExpected": 373488.98728438746,
+        "catchup55TotalExpected": 281328.98728438746,
+        "fullWealthClaims": 10,
+        "catchupWealthClaims": 8
+      }
+    ],
+    "gear3MaxExpected": 157743.74028438743,
+    "xp55": 1720010,
+    "books55": 1721,
+    "revelationClaims55": 10,
+    "assumptions": "one character; zero stock; na/e/q 8; three equips +10; native ascension/talent costs and analytic success/hold/down enhancement expectation; excludes crafting, material conversion, travel, story and opportunity costs; hourly limits unchanged"
+  },
+  "verification": {
+    "status": "passed",
+    "releaseGate": {
+      "scripts": 119,
+      "passed": 119,
+      "failed": 0,
+      "newScripts": 4,
+      "generatedServerFromFinalSource": true
+    },
+    "browser": {
+      "sqlite": {
+        "passed": 17,
+        "failed": 0,
+        "builtClient": true,
+        "reconnectForfeit": true
+      },
+      "durableSqlite": {
+        "passed": 17,
+        "failed": 0,
+        "builtClient": true,
+        "reconnectForfeit": true
+      }
+    },
+    "builtRelease": {
+      "appVersion": "0.16.1",
+      "engineFingerprint": "engine3-eebed7b64804e9927aa4484ea11f13993b47e672f6291bfea9b8b95a95a022fc",
+      "serverBuild": "server-6fc161e07f766368958e",
+      "serverClientFingerprintMatches": true,
+      "sourceIsolationPythonChecks": 7,
+      "composedContentChecks": 7
+    },
+    "liyueFlowBranches": 10,
+    "liyueFlowUsesSyntheticPreparedFourPersonFixture": true,
+    "nativeNaturalNewGameIsekaiFirstFightCases": 6,
+    "vpsInstalled": false,
+    "vpsInstallBlocker": "SSH port 22 was unreachable from the execution environment; only source publication is authorized and performed here."
+  },
+  "limitations": [
+    "Synthetic ownership/gear/unlocked story flags, not an unmodified natural new journey.",
+    "Presentation model at displayed 2x with 3 seconds/input and 6 seconds/re-entry; excludes story/travel/material and real latency variability.",
+    "Native bot victory rates are not measured human victory rates.",
+    "Not a certification of future unreleased five-star characters or long-run market/stock balance.",
+    "No direct test VPS installation: SSH is network-unreachable in this execution environment."
+  ]
+}

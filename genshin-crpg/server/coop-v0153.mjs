@@ -266,7 +266,7 @@ export const coopMethods={
      const receipt=this.db.prepare('SELECT * FROM coop_commands WHERE account_id=? AND request_id=?').get(command.accountId,command.requestId);
      if(receipt){
       if(receipt.host_id!==hostId||receipt.room!==room.id||receipt.intent!==command.intent)throw err(409,'이미 처리한 요청 번호입니다. 현재 차례에서 행동을 다시 골라 주세요.','REQUEST_ID_REUSED');
-      const r=this.coopHostRuntime(room);this.db.exec('COMMIT');
+      const r=ownerId===room.host.id?this.coopHostRuntime(room):this.coopRuntimeOf(ownerId);this.db.exec('COMMIT');
       return {replayed:true,result:{result:JSON.parse(receipt.result)},r};
      }
     }

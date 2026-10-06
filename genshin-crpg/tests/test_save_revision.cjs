@@ -17,7 +17,7 @@ async function test(name,fn){try{await fn();results.push({name,ok:true});console
  await test('prior released pack imports under stable compatibility and preserves progress',()=>{
   const r=fresh();r.addXp('PLAYER_CUSTOM',250);r.s.flags.REGRESSION_PRESERVE=true;r.s.processed.regression={claimed:true};
   const original=JSON.parse(r.serialize()),adapter=new SaveAdapter({indexedDB:null,contentVersion:stableVersion,compatibleContentVersions:[oldVersion],migrate:ctx.CRPGRelationships.migrateState,validate:s=>new Runtime(db,s).s});
-  try{const parsed=adapter.parseImport(JSON.stringify({envelopeSchema:1,contentVersion:oldVersion,state:original}));assert.deepEqual(copy(parsed.state),original);assert.equal(parsed.state.global.PLAYER_XP_STATE,20);}finally{adapter.close();}
+  try{const parsed=adapter.parseImport(JSON.stringify({envelopeSchema:1,contentVersion:oldVersion,state:original}));assert.deepEqual(copy(parsed.state),original);assert.equal(parsed.state.global.PLAYER_XP_STATE,50);}finally{adapter.close();}
  });
  await test('future unknown content is rejected without mutating caller save',()=>{
   const original=JSON.parse(fresh().serialize()),before=JSON.stringify(original),adapter=new SaveAdapter({indexedDB:null,contentVersion:stableVersion,compatibleContentVersions:[oldVersion]});
@@ -26,15 +26,15 @@ async function test(name,fn){try{await fn();results.push({name,ok:true});console
  await test('validator returned normalized state is actually used',()=>{
   const state=JSON.parse(fresh().serialize());state.global.PLAYER_XP_NEXT=999;
   const adapter=new SaveAdapter({indexedDB:null,contentVersion:stableVersion,migrate:ctx.CRPGRelationships.migrateState,validate:s=>new Runtime(db,s).s});
-  try{assert.equal(adapter.prepare(state).global.PLAYER_XP_NEXT,230);assert.equal(state.global.PLAYER_XP_NEXT,999);}finally{adapter.close();}
+  try{assert.equal(adapter.prepare(state).global.PLAYER_XP_NEXT,200);assert.equal(state.global.PLAYER_XP_NEXT,999);}finally{adapter.close();}
  });
  await test('main story SYSTEM checkpoint restores exact cursor RNG and XP',()=>{
   const r=fresh();r.addXp('PLAYER_CUSTOM',250);const node=r.storyActiveNodeId(),rng=r.s.global.PRNG_STATE;r.action('MENU',{screen:'SYSTEM'});
   const loaded=new Runtime(db,JSON.parse(r.serialize()));assert.equal(loaded.s.global.SCREEN_MODE,'SYSTEM');loaded.action('MENU',{screen:'STORY'});
-  assert.equal(loaded.storyActiveNodeId(),node);assert.equal(loaded.s.global.PRNG_STATE,rng);assert.equal(loaded.s.global.PLAYER_XP_STATE,20);
+  assert.equal(loaded.storyActiveNodeId(),node);assert.equal(loaded.s.global.PRNG_STATE,rng);assert.equal(loaded.s.global.PLAYER_XP_STATE,50);
  });
  await test('experience carries across threshold and max level has no division target',()=>{
-  const r=fresh();r.addXp('PLAYER_CUSTOM',350);assert.equal(r.growth().level,2);assert.equal(r.growth().xp,120);assert.equal(r.growth().next,360);
+  const r=fresh();r.addXp('PLAYER_CUSTOM',350);assert.equal(r.growth().level,2);assert.equal(r.growth().xp,150);assert.equal(r.growth().next,350);
   r.addXp('PLAYER_CUSTOM',1000000);assert.equal(r.growth().level,10);assert.equal(r.growth().xp,0);assert.equal(r.growth().next,0);assert.equal(r.growth().max,true);
  });
  await test('invalid XP increments leave state unchanged',()=>{
