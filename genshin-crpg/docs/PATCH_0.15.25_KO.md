@@ -119,6 +119,13 @@
 - 서버가 보내는 보기(`coopBattleView`)에 그림을 고를 `source`, 편(`side`), 원소, 행동 순서(`order`)를 더했다.
 - 다음 큰 일(0.16): 손님이 방장의 세계를 원작처럼 따로 돌아다니다가, 방장이나 손님의 전투가 시작되기 전에 끼어들고, 상자 퍼즐을 대신 풀어 줄 수 있게(상자는 방장 몫).
 
+## GitHub 검사 실패 수정 (재생 막대 자리)
+
+- 0.15.24와 처음 올린 0.15.25가 GitHub 「CRPG Verify and Publish Artifact」의 `tests/test_online_browser.mjs`(실제 서버에 붙여 화면을 누르는 검사)에서 막혀 테스트 판이 만들어지지 않았다 — 「playback controls occupy the reserved command area」.
+- 원인: 0.15.24에서 0.15.21 전투 구도로 돌아가며 0.15.23의 고정 보드와 함께 재생 막대를 명령 칸에 맞추던 `fitPlayback()`도 빠졌다. 막대는 화면 아래 가운데에 떠 있고, 명령 칸은 오른쪽 칸 아래에서 재생 중 49px로 줄었다.
+- 수정(`app_battle_layout_v01522.js`, `shell.css` `.combat-playback.command-docked`): 재생이 시작될 때 명령 칸 높이를 그대로 붙잡아 두고, 막대를 그 칸에 꼭 맞춰 얹는다. 라운드가 바뀌어 위쪽 순서 줄이 다시 그려지거나 창 크기가 바뀌어도 따라간다. 전투가 끝나 명령 칸이 숨으면 막대는 원래 자리로. 전투원 그림이 재생 중에 출렁이지 않고, 막대가 그림을 가리지 않는다.
+- 이 PC의 크롬으로 GitHub과 같은 검사를 돌렸다(소스·빌드 묶음 × 두 서버 방식). 1440×1000, 1024×600, 가로 휴대폰 740×360에서 막대와 명령 칸이 같은 자리.
+
 ## 확인한 것
 
 - `python tools/verify_release.py`: 111개 중 108개 통과. 실패 3개는 이 Windows PC에서 늘 실패하는 리눅스 전용 시험(`test_test_release_pin.cjs`·`test_test_release_transaction.cjs`의 bash/심볼릭 링크, `test_release_isolation_v01513.py`의 심볼릭 링크 권한)이다.

@@ -43,4 +43,29 @@ function layout(){
  const info=p.querySelector('.shell-battle-info');if(info&&head){info.hidden=true;const n=info.querySelector('.shell-battle-info-body')?.childElementCount||0;const more=button('전투 정보'+(n?' '+n:''),()=>{const box=info.querySelector('.shell-battle-info-body').cloneNode(true);showModal('전투 정보',box);});more.className='battle-head-button';head.append(more);}
 }
 const previousRender=render;render=function(){previousRender();renderTutorial();layout();};
+// 0.15.25 (the GitHub check tests/test_online_browser.mjs 「playback controls occupy the reserved command area」 failed
+// since 0.15.24, which dropped 0.15.23's fitting along with the fixed board): the playback band lies exactly on the
+// command area it replaces, and that area keeps its height while the round plays, so the fighters above do not jump and
+// the band never covers them. app_av.js builds the band in <body> and empties the commands when play() starts.
+let reserved=0,following=0;
+const SIDES=['left','top','right','bottom','width','height','transform'];
+function fitPlayback(){
+ const dock=GameEffects.dock;if(!dock?.isConnected)return;
+ const command=document.querySelector('.combat-panel .battle-command');
+ // At the end of a fight app_av.js hides the commands: the band goes back to its own place along the bottom.
+ if(!command||command.hidden||!command.getClientRects().length){if(dock.classList.contains('command-docked')){dock.classList.remove('command-docked');delete dock.dataset.fit;for(const k of SIDES)dock.style[k]='';}return;}
+ if(reserved&&command.offsetHeight<reserved)command.style.minHeight=reserved+'px';
+ const r=command.getBoundingClientRect(),key=[r.left,r.top,r.width,r.height].map(v=>Math.round(v)).join(',');if(dock.dataset.fit===key)return;
+ dock.dataset.fit=key;dock.classList.add('command-docked');
+ Object.assign(dock.style,{left:r.left+'px',top:r.top+'px',right:'auto',bottom:'auto',width:r.width+'px',height:r.height+'px',transform:'none'});
+}
+// Follow the area while the band is up (a new round redraws the order above it; the window can change size).
+function followDock(){
+ if(following)return;
+ const step=()=>{if(!GameEffects.dock?.isConnected){following=0;reserved=0;const c=document.querySelector('.combat-panel .battle-command');if(c)c.style.minHeight='';return;}fitPlayback();following=requestAnimationFrame(step);};
+ fitPlayback();following=requestAnimationFrame(step);
+}
+if(typeof GameEffects!=='undefined'&&typeof GameEffects.play==='function'){const priorPlay=GameEffects.play;GameEffects.play=function(...args){const c=document.querySelector('.combat-panel .battle-command');reserved=c?.offsetHeight||0;const out=priorPlay.apply(this,args);try{followDock();}catch(e){console.error('[battle layout]',e);}return out;};}
+addEventListener('resize',()=>{try{fitPlayback();}catch{}});
+window.CRPGBattleLayout={fitPlayback};
 })();

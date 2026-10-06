@@ -81,6 +81,10 @@ check('sideways phone: the windows 0.15.24 left fit the screen; the keyboard kee
  const install=src('app_install_v01524.js');assert(install.includes("root.classList.toggle('kb-open',open)")&&install.includes("root.style.setProperty('--vv-h',h+'px')"));
  const abyss=src('app_abyss.js');assert(abyss.includes("function floorTabs(v,onPick)")&&!abyss.includes('층마다 방이 세 개 있고, 방마다 전투를 한 번씩 치릅니다'),'floors as buttons, no rule paragraphs');
  assert(src('app_battle_layout_v01522.js').includes("if(title)title.after(line)"),'the objective rides in the heading row');
+ // The GitHub check tests/test_online_browser.mjs failed from 0.15.24 on (「playback controls occupy the reserved command
+ // area」): the band lies on the command area again and that area keeps its height while a round plays.
+ const fit=src('app_battle_layout_v01522.js');assert(fit.includes("dock.classList.add('command-docked')")&&fit.includes("if(reserved&&command.offsetHeight<reserved)command.style.minHeight=reserved+'px'")&&fit.includes("reserved=c?.offsetHeight||0;const out=priorPlay.apply(this,args)"),'the playback band is fitted to the commands');
+ assert(shell.includes('body.teyvat .combat-playback.command-docked{position:fixed;'));
 });
 
 check('a guest\'s co-op fight is the battle screen (pictures, order faces, skills, a target by touching the enemy), not a list',()=>{

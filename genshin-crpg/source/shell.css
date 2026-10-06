@@ -2890,6 +2890,8 @@ body.teyvat.shell-overlay-open>.cp-pill,body.teyvat.shell-overlay-open>.chat-fab
 body.teyvat .shell-dialogue p.story{word-break:keep-all;overflow-wrap:anywhere}
 /* The replay dock already contains progress and controls; its old command placeholder was visible behind it. */
 .av-running body.teyvat .combat-panel .battle-command{visibility:hidden}
+/* 0.15.25: the band lies exactly on that command area (app_battle_layout_v01522.js fitPlayback sets its box). */
+body.teyvat .combat-playback.command-docked{position:fixed;box-sizing:border-box;margin:0;max-height:none;overflow:auto;overscroll-behavior:contain}
 body.teyvat .relationship-card .relationship-next{word-break:keep-all;overflow-wrap:anywhere}
 body.teyvat .quest-cols .quest-list{grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr))}
 /* A missing illustration must not reserve an illustration-sized empty column or a 38vh mobile panel. */
