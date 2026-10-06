@@ -4,7 +4,11 @@
    road's line (사냥터, 낚시터 셋, 검무덤, 야타용왕 입구) moved a little within their place, so a line never runs through a circle
    it does not reach. */
 window.CRPGTerrainMap={version:2,width:880,height:786,atlases:{
- mond:{name:'몬드',url:'assets/terrain/mond.png'},liyue:{name:'리월',url:'assets/terrain/liyue.png'}
+ mond:{name:'몬드',url:'assets/terrain/mond.png'},
+ // 0.16.2 (user: 「왜 수메르가 찍혀있고 … 침옥협곡은 아예 있지도 않은데 교영마을은 무엇? 로카팔라숲인데 저기」): the picture's left edge
+ // shows Sumeru (its forest and a cut-off name), so a mist covers it; 침옥 협곡 is the misted block north-west of 경책 산장
+ // (the picture predates it) and carries its name there.
+ liyue:{name:'리월',url:'assets/terrain/liyue.png',mists:[[0,286,58,320]],captions:[['침옥 협곡',66,112]]}
 },points:{
  MAP_MOND_CITY:['mond',363,285],
  MAP_MOND_PLAINS:["mond", 426, 328, '몬드성 다리 동쪽의 초원'],
@@ -62,9 +66,10 @@ window.CRPGTerrainMap={version:2,width:880,height:786,atlases:{
  MAP_V141_CHASM_CAMP:['liyue',236,681],
  MAP_V141_GUYUN_WRECK:['liyue',752,571],
  MAP_V141_GUYUN_CHANNEL:['liyue',797,601],
- // 침옥 골짜기(교영 마을 · 유롱항) lies west of this picture: their dots sit on its western edge.
- MAP_CHENYU_QIAOYING:['liyue',20,430],
- MAP_CHENYU_YILONG:['liyue',28,478],
+ // 침옥 협곡 (교영 마을 · 유롱항) is north-west Liyue, west of 경책 산장: the misted top-left block of this picture. Their dots
+ // used to sit on the Sumeru forest at the left edge.
+ MAP_CHENYU_QIAOYING:['liyue',60,200,'침옥 협곡 위쪽 골짜기'],
+ MAP_CHENYU_YILONG:['liyue',95,265,'침옥 협곡 남쪽 나루'],
  MAP_AZHDAHA_DOMAIN:['liyue',207,427,'바위 결계 입구'],
  MAP_OSIAL_BATTLE:['liyue',658,610,'먼바다 전투 해역'],
  MAP_LIYUE_GOLDEN_HOUSE:['liyue',511,709,'황금옥 입구'],

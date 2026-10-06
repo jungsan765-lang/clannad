@@ -182,7 +182,8 @@ P.apply=function(a){
   if(!counted)return out;const st=this.achievementStats();st.puzzles??={};
   const solved=t==='CHEST_OPEN'?(api.chestRules?.chests||[]).find(c=>c.id===out?.chest)?.game:t==='REGION_EVENT'?out?.game:null;if(solved)st.puzzles[solved]=num(st.puzzles[solved])+1;
   if(t==='CRAFT'){if(this.tables['17_RECIPE_DB'].get(a.recipe)?.[1]==='요리')st.cooked++;else st.crafted++;}
-  if(t==='LIFE_FINISH'&&LIFE[out?.kind])st.life[out.kind]=num(st.life[out.kind])+1;
+  // 0.16.2: leaving a resource scene with nothing spends no try and does not count (runtime_life_v0162.js).
+  if(t==='LIFE_FINISH'&&LIFE[out?.kind]&&!out.empty)st.life[out.kind]=num(st.life[out.kind])+1;
   if(t==='MEAL_BATCH')st.meals+=Array.isArray(a.meals)?Math.min(10,a.meals.length):1;
  }catch{}
  return out;

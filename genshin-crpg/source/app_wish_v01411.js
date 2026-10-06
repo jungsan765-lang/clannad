@@ -104,7 +104,7 @@ function eventBanner(v){
  info.append(mk('small','wish-sub','4★ 확률 UP'),fours);
  const days=Math.floor(v.hoursLeft/24),hours=v.hoursLeft%24;
  info.append(mk('p','wish-time','남은 기간 · '+(days?days+'일 ':'')+hours+'시간 (매주 월요일 0시 교대)'),mk('p','wish-next','다음 주 확률 UP · '+game.premiumCharName(v.nextFeatured.five)));
- info.append(mk('p','wish-note','동료는 운명의 별로 나옵니다. 동료는 각자의 이야기로 합류하고, 운명의 별은 그때까지 가방에서 기다립니다.'));
+ // 0.16.2: the 「동료는 운명의 별로 나옵니다 …」 note is gone (user: 「기원란에 동료는 운명의 별로 나옵니다 이거 싹 다 지워버려」).
  box.append(info);return box;
 }
 function standardBanner(v){

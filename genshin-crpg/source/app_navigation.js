@@ -30,7 +30,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   controls.append(zoom,view('주변 보기','near'),view('지역 전체','full'));
   // What the circles and lines mean, under the map on every screen size.
   const key=el('div','terrain-key');key.setAttribute('aria-hidden','true');
-  for(const [k,text] of [['here','현재 위치'],['open','바로 갈 수 있는 곳'],['far','한 번에는 못 가는 곳'],['faded','아직 막힌 곳'],['route','고른 목적지까지']])key.append(el('span','terrain-key-item '+k,text));
+  for(const [k,text] of [['here','현재 위치'],['open','바로 갈 수 있는 곳'],['far','한 번에는 못 가는 곳'],['faded','아직 막힌 곳'],['route','고른 목적지까지'],['domain','비경'],['boss','필드 보스']])key.append(el('span','terrain-key-item '+k,text));
   left.append(controls,key);
   const note=this.point(current)?.[3];if(note)left.append(el('p','terrain-location-note',note));
   left.append(el('small','terrain-help','지도는 끌어서 움직이고 + / −로 확대합니다. 오른쪽 목적지 카드는 누르는 즉시 출발합니다.'));
@@ -45,7 +45,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   // the map (the route is drawn and the move button follows it), so the list of every place is gone; the way home stays.
   if(current!=='MAP_MOND_CITY')findSlot.append(this.control('몬드성으로 가는 길',()=>this.choose('MAP_MOND_CITY'),'return'));body.append(left,right);section.append(body);
   const dock=el('div','terrain-travel-dock');dock.setAttribute('aria-live','polite');const detail=el('div','terrain-selection');
-  if(target){detail.append(el('small','','선택한 목적지'),el('strong','',targetName),el('span','',this.placeName(target)?this.risk(target):'가 보면 이름을 알 수 있습니다'));
+  if(target){detail.append(el('small','','선택한 목적지'),el('strong','',targetName),el('span','',this.placeName(target)?this.risk(target):'가 보면 이름을 알 수 있습니다'));for(const [kind,text] of this.marks(target))detail.append(el('span','terrain-detail-'+kind,text));
    const direct=nearby.find(n=>n.id===target);
    if(direct?.reason){detail.append(el('p','terrain-lock-reason','이동 불가 · '+direct.reason));dock.append(detail,this.disabledTravel());}
    else if(route?.edges.length){const edge=route.edges[0];detail.append(el('span','',route.edges.length===1?'이동 시간 '+route.minutes+'분':route.edges.length+'구역 경유 · 총 '+route.minutes+'분'));
@@ -66,6 +66,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   // The card's dot matches the place's circle on the map (no number: 0.15.16).
   const dot=el('span','terrain-dot'+(n.reason?' locked':'')),copy=el('span','terrain-card-copy');dot.setAttribute('aria-hidden','true');copy.append(el('strong','',mapName(n.id)),el('small','',this.direction(n.id)+' · '+n.row[5]+'분 · '+this.risk(n.id)));
   const boss=game.rows('35_BOSS_ROUTE_DB').find(r=>r[2]===n.id&&String(r[0]).startsWith('BRT_FB_'));if(boss)copy.append(el('small','terrain-boss-note','필드보스 · '+boss[1]+' · 권장 Lv.'+(CRPGRuntime.fieldBosses?.bosses?.[String(boss[0]).slice(4)]?.level||10)));
+  const domain=this.domainAt(n.id);if(domain)copy.append(el('small','terrain-domain-note','비경 · '+domain.name+' Lv.'+domain.level));
   if(n.point?.[3])copy.append(el('small','terrain-point-note',n.point[3]));
   if(n.reason)copy.append(el('small','terrain-lock-reason','잠김 · '+n.reason));else if(!n.point)copy.append(el('small','','주변 세부 지역 · 경로로 이동'));
   b.append(dot,copy,el('span','terrain-card-state',n.reason?'잠김':'이동'));
@@ -80,10 +81,18 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
  },
  // A place the party has not seen yet keeps its name to itself (the map does not spoil where the story goes).
  placeName(id){const known=this.known||new Set();return id===game.s.global.CURRENT_MAP_ID||known.has(id)?mapName(id):'';},
+ // 0.16.2 (user: 「그게 비경 표시인지 어떻게 아는데...? 그리고 어떤 비경인지도 어떻게 아는데?」, 「고운각에는 왜 무상의 바위 있는 장소가
+ // 안찍혀있고」): the domain and the field boss standing at a place, shown on the map whether or not the place is known yet.
+ domainAt(id){return Object.values(globalThis.CRPGRuntime?.growthV01522?.domains||{}).find(d=>d.map===id)||null;},
+ bossAt(id){const hit=Object.entries(globalThis.CRPGRuntime?.fieldBosses?.bosses||{}).find(([,b])=>b.map===id);return hit?{key:hit[0],...hit[1]}:null;},
+ marks(id){const d=this.domainAt(id),b=this.bossAt(id),out=[];if(d)out.push(['domain','비경 · '+d.name+' Lv.'+d.level]);if(b)out.push(['boss','필드 보스 · '+b.name+' Lv.'+b.level]);return out;},
  drawMap(nearby){
   const T=CRPGTerrainMap,atlas=this.atlas,viewport=el('div','terrain-viewport'),canvas=el('div','terrain-canvas'),sheet=el('div','terrain-sheet'),img=el('img','terrain-raster');
   viewport.setAttribute('aria-label',T.atlases[atlas].name+' 지형 지도');img.src=T.atlases[atlas].url;img.alt=T.atlases[atlas].name+' 원본 보존 지형 지도';img.width=T.width;img.height=T.height;img.draggable=false;
   sheet.append(img);canvas.append(sheet);viewport.append(canvas);
+  // 0.16.2: mist over the parts of the picture that belong to another region, and the names of areas the picture predates.
+  for(const [x,y,w,h] of T.atlases[atlas].mists||[]){const m=el('span','terrain-mist');Object.assign(m.style,{left:x/T.width*100+'%',top:y/T.height*100+'%',width:w/T.width*100+'%',height:h/T.height*100+'%'});m.setAttribute('aria-hidden','true');sheet.append(m);}
+  for(const [text,x,y] of T.atlases[atlas].captions||[]){const c=el('span','terrain-caption',text);c.style.left=x/T.width*100+'%';c.style.top=y/T.height*100+'%';c.setAttribute('aria-hidden','true');sheet.append(c);}
   const overlays=el('div','terrain-pins');sheet.append(overlays);const banner=el('div','terrain-map-status');banner.setAttribute('aria-live','polite');viewport.append(banner);
   const here=game.s.global.CURRENT_MAP_ID,current=this.point(here),local=nearby.filter(n=>n.point?.[0]===atlas);
   // 0.15.16: every place on this map is a circle and every road a straight line between two circles (user: 「그냥 아예 맵에
@@ -111,20 +120,26 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
     // 0.15.20 (user: 「지도에 나머지 동그라미들은 투명화를 좀 넣어줘. 지금 당장은 못 가는 곳이니까」): only here and the places
     // one road away are solid; a place several roads away is see-through, and one no open road reaches is a hollow ring.
     // 0.15.25: a place where a domain stands carries a small mark (the domains are no longer entered from anywhere).
-    const domain=name&&Object.values(globalThis.CRPGRuntime?.growthV01522?.domains||{}).find(d=>d.map===id);
-    node.className='terrain-node'+(isHere?' current':!open?' faded':near.has(id)?' open near':' far')+(stops.includes(id)&&!isHere?' on-route':'')+(this.target===id?' selected':'')+(name?'':' unknown')+(domain?' domain-host':'');
+    // 0.16.2: shown before the place is known too, and a field boss's place carries the boss's face.
+    const domain=this.domainAt(id),boss=this.bossAt(id);
+    node.className='terrain-node'+(isHere?' current':!open?' faded':near.has(id)?' open near':' far')+(stops.includes(id)&&!isHere?' on-route':'')+(this.target===id?' selected':'')+(name?'':' unknown')+(domain?' domain-host':'')+(boss?' boss-host':'');
     node.dataset.mapId=id;node.style.left=(p[1]/T.width*100)+'%';node.style.top=(p[2]/T.height*100)+'%';
-    node.title=(name||'아직 가 보지 않은 곳')+(domain?' · 비경 「'+domain.name+'」':'')+(isHere?' · 현재 위치':!open?' · 아직 막힌 곳':near.has(id)?'':' · 한 번에는 못 가는 곳');
+    node.title=(name||'아직 가 보지 않은 곳')+this.marks(id).map(([,t])=>' · '+t).join('')+(isHere?' · 현재 위치':!open?' · 아직 막힌 곳':near.has(id)?'':' · 한 번에는 못 가는 곳');
+    if(boss){const src=typeof enemyPortraitFor==='function'?enemyPortraitFor('FB_'+boss.key):null;if(src){const face=el('img','terrain-boss-face');face.src=src;face.alt='';face.draggable=false;face.decoding='async';node.append(face);}else node.classList.add('boss-plain');}
     if(isHere)node.append(el('span','terrain-node-core','◆'));
     else{node.tabIndex=-1;node.setAttribute('aria-hidden','true');if(hoverable){node.addEventListener('pointerenter',()=>this.hover(id));node.addEventListener('pointerleave',()=>this.hover(null));}}
     overlays.append(node);dots.set(id,[p[1]*scale,p[2]*scale,isHere?13:this.target===id?11:near.has(id)?9:7]);}
    // Names: here, the chosen place, the trip's stops and the places one road away always (only the first two on the whole
    // region at a glance, where names would cover the circles); every other known place once the map is zoomed in far
    // enough. A name never covers another name; one with no room shows only under the pointer.
-   const first=[here,this.target,...(scale<.6?[]:[...stops,...local.map(n=>n.id)])].filter((id,i,a)=>id&&a.indexOf(id)===i&&dots.has(id));
+   // 0.16.2 (user: 「주요 지점들은 안찍혀있고」): domains and field bosses are always named, and the towns once the map is closer.
+   const marked=places.filter(id=>this.marks(id).length||scale>=.6&&this.placeName(id)&&game.row('32_MAP_DB',id)?.[12]==='Y');
+   const first=[here,this.target,...marked,...(scale<.6?[]:[...stops,...local.map(n=>n.id)])].filter((id,i,a)=>id&&a.indexOf(id)===i&&dots.has(id));
    const tags=[];
-   for(const id of [...first,...places.filter(id=>!first.includes(id))]){const name=this.placeName(id);if(!name)continue;
-    const t=el('span','terrain-label'+(id===here?' current':'')+(id===this.target?' selected':'')+(first.includes(id)?'':' extra'),name);t.dataset.mapId=id;t.setAttribute('aria-hidden','true');overlays.append(t);tags.push({id,t,shown:first.includes(id)||scale>=1.5});}
+   for(const id of [...first,...places.filter(id=>!first.includes(id))]){const name=this.placeName(id),marks=this.marks(id);if(!name&&!marks.length)continue;
+    const t=el('span','terrain-label'+(id===here?' current':'')+(id===this.target?' selected':'')+(first.includes(id)?'':' extra')+(marks.length?' marked':''),marks.length?'':name);t.dataset.mapId=id;t.setAttribute('aria-hidden','true');
+    if(marks.length){if(name)t.append(el('span','terrain-label-name',name));for(const [kind,text] of marks)t.append(el('small','terrain-label-'+kind,text));}
+    overlays.append(t);tags.push({id,t,shown:first.includes(id)||scale>=1.5});}
    const W=T.width*scale,H=T.height*scale,taken=[],hits=r=>taken.some(o=>r[0]<o[2]+3&&r[2]+3>o[0]&&r[1]<o[3]+3&&r[3]+3>o[1]);
    for(const {id,t,shown} of tags){const [x,y,rad]=dots.get(id),w=t.offsetWidth,h=t.offsetHeight;let best=null,score=Infinity;
     // Beside, above and below the circle first, then a little further out.

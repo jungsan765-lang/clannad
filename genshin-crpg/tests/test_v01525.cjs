@@ -30,14 +30,21 @@ check('the waves leave once the lessons are learned, never come to a later fight
  let x=prologue();ready(x);for(const forge of [s=>{s.runtime.tutorialWaves.released=5;},s=>{s.runtime.enemyReserve[0].waveHold=9;},s=>{s.runtime.origin='RANDOM';},s=>{delete s.runtime.tutorialWaves;}]){const s=cp(x.s);forge(s);assert.throws(()=>new R(db,s));}
 });
 
-check('domains stand at their places in the original (official names), one material each, four stages, own enemies; experience is the ley lines\' job',()=>{
- const sites=api.growthV01522.domains,names=Object.fromEntries(Object.entries(sites).map(([k,d])=>[k,d.name+'@'+d.map+':'+d.kind]));
- assert.deepEqual(names,{FORSAKEN_RIFT:'잊혀진 협곡@MAP_MOND_SPRINGVALE:TALENT',VALLEY_OF_REMEMBRANCE:'각인의 골짜기@MAP_MOND_DAWN_WINERY:ASCENSION',CECILIA_GARDEN:'세실리아의 모밭@MAP_MOND_WOLVENDOM:GEAR',TAISHAN_MANSION:'태산부@MAP_LIYUE_JUEYUN:TALENT',ZHOU_FORMULA:'무망 인구 밀궁@MAP_LY_DETAIL_WANGSHU:ASCENSION',LIANSHAN_FORMULA:'천둥 연산 밀궁@MAP_LY_DETAIL_MINGYUN:GEAR'});
+// 0.16.2: one domain every five levels at the original's own place (user: 「레벨별 비경 위치를 다르게 해서 여기저기 이동하게」), each with
+// the talent, ascension and experience trials; no ore domain (「장비 비경이 있으면은... 채광이 무슨 의미가」).
+check('domains stand at the original places (official names), one every five levels, three trials each, own enemies; no ore domain',()=>{
+ const sites=api.growthV01522.domains,names=Object.fromEntries(Object.entries(sites).map(([k,d])=>[k,d.name+'@'+d.map+':'+d.level]));
+ assert.deepEqual(names,{FORSAKEN_RIFT:'잊혀진 협곡@MAP_MOND_SPRINGVALE:5',VALLEY_OF_REMEMBRANCE:'각인의 골짜기@MAP_MOND_DAWN_WINERY:10',MIDSUMMER_COURTYARD:'한 여름의 정원@MAP_MOND_STARSNATCH_CLIFF:15',CECILIA_GARDEN:'세실리아의 모밭@MAP_MOND_WOLVENDOM:20',PEAK_OF_VINDAGNYR:'빈다그니르의 정상@MAP_CRPG_SKYFROST_NAIL:25',
+  RIDGE_WATCH:'산등성이의 파수꾼@MAP_LY_DETAIL_SHIMEN:30',ZHOU_FORMULA:'무망 인구 밀궁@MAP_LY_DETAIL_WUWANG:35',LIANSHAN_FORMULA:'천둥 연산 밀궁@MAP_LY_DETAIL_MINGYUN:40',TAISHAN_MANSION:'태산부@MAP_LIYUE_JUEYUN:45',CLEAR_POOL:'화지 산굴@MAP_LY_DETAIL_AOCANG:50',DOMAIN_OF_GUYUN:'하늘을 찌르는 땅@MAP_LY_DETAIL_GUYUN:55',LOST_VALLEY:'암중협곡@MAP_CHASM_DEEP:60'});
+ assert.deepEqual([...api.growthV01522.domainTrials],['TALENT','ASCENSION','EXP']);
  const seen=new Set();
- for(const [key,d]of Object.entries(sites))for(const stage of [1,4])for(const element of d.kind==='ASCENSION'?['NEUTRAL','PYRO','ELECTRO','DENDRO']:['NEUTRAL']){
+ for(const [key,d]of Object.entries(sites))for(const kind of ['TALENT','ASCENSION','EXP'])for(const element of kind==='ASCENSION'?['NEUTRAL','PYRO','ELECTRO','DENDRO']:['NEUTRAL']){
   const r=fresh(d.map);r.adminApply({op:'level',target:'ALL',value:60});for(const k of ['FLAG_TRV_MON_CH1_CLEAR','FLAG_TRV_MON_CH2_CLEAR'])r.s.flags[k]=true;for(let n=1;n<=3;n++){for(const q of ['Q_TRV_MOND_0'+n,'Q_TRV_LIYUE_0'+n])if(r.tables['22_QUEST_DB'].has(q))r.questState(q).claimed=true;}
-  r.s.global.SCREEN_MODE='LOCATION';r.action('DOMAIN_START',{domain:key+':'+stage,element});const foes=r.s.runtime.actors.filter(a=>a.side==='ENEMY');assert(foes.length>=2&&foes.length<=8);seen.add(foes.map(a=>a.source).sort().join(','));new R(db,cp(r.s));}
- assert(seen.size>=12,'every stage has its own lineup');
+  r.s.global.SCREEN_MODE='LOCATION';assert.deepEqual([...r.growthDomainEntries().map(x=>x.id)],['TALENT','ASCENSION','EXP'].map(t=>key+':'+t));
+  r.action('DOMAIN_START',{domain:key+':'+kind,element});const foes=r.s.runtime.actors.filter(a=>a.side==='ENEMY');assert(foes.length>=2&&foes.length<=8);assert(foes.every(a=>a.level===d.level),key+' fights at Lv.'+d.level);
+  const rw=r.growthDomainRewards(r.s.runtime.growthDomain,element);assert.equal(rw.mora,0);assert(!Object.keys(rw.items).some(id=>/^ORE_|^MAT_CHAR_EXP_/.test(id)),'no ore, no books');assert.equal(kind==='EXP',!Object.keys(rw.items).length);
+  seen.add(foes.map(a=>a.source).sort().join(','));new R(db,cp(r.s));}
+ assert(seen.size>=12,'every place has its own lineup');
  const ley=api.leyLines.regionalTiers('몬드');assert(ley.every(t=>t.books.MAT_CHAR_EXP_HERO>0),'계시의 꽃 still pays experience books');
  return {lineups:seen.size};
 });
@@ -45,7 +52,7 @@ check('domains stand at their places in the original (official names), one mater
 check('no drop-down list in the game: the domain gate, the battle commands and a safety net that turns any <select> into buttons',()=>{
  const growth=src('app_growth_v01522.js'),exp=src('app_experience.js'),choice=src('app_choice_v01525.js'),html=src('index.html'),build=fs.readFileSync(path.join(root,'tools/build.py'),'utf8');
  assert(!/el\('select'\)|new Option|showModal\('성장 비경/.test(growth),'the domain window and its lists are gone');
- assert(growth.includes("const go=actionButton('도전','DOMAIN_START',{domain:d.id,element},true)")&&growth.includes("b.className='domain-stage'")&&growth.includes("b.className='domain-element'"),'stages and elements are pictures to press');
+ assert(growth.includes("const go=actionButton('도전','DOMAIN_START',{domain:d.id,element},true)")&&growth.includes("b.className='domain-trial'")&&growth.includes("b.className='domain-element'"),'trials and elements are pictures to press');
  assert(!growth.includes('편성·육성 후 도전')&&!growth.includes('편성·프리셋 바꾸기'),'no party step');
  assert(!/el\('select'\)/.test(exp),'battle: target on the cards, skill ways as buttons');assert(exp.includes("c.tabIndex=0;c.setAttribute('role','button')"));
  assert(choice.includes("box.className='choice-tiles'")&&choice.includes("sel.dispatchEvent(new Event('change',{bubbles:true}))"));

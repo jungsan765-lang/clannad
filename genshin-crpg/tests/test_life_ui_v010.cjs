@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'..'),db=JSON.parse(fs.readFileSync(path.join(
 let now=1900000000000,sequence=0,frame=0,restoreCalls=0,ordinaryCalls=0;
 const cancelled=[],actions=[];
 class Element {
- constructor(tag,cls='',text=''){this.tag=tag;this.className=cls;this.textContent=text;this.children=[];this.style={};this.attributes={};this.isConnected=true;this.classList={add(){},remove(){},toggle(){}};}
+ constructor(tag,cls='',text=''){this.tag=tag;this.className=cls;this.textContent=text;this.children=[];this.style={setProperty(k,v){this[k]=v;}};this.attributes={};this.isConnected=true;this.classList={add(){},remove(){},toggle(){}};}
  append(...children){this.children.push(...children);} prepend(...children){this.children.unshift(...children);} replaceChildren(...children){this.children=children;}
  setAttribute(k,v){this.attributes[k]=v;} remove(){this.isConnected=false;} focus(){} setPointerCapture(){} scrollIntoView(){}
  querySelector(){return null;}
@@ -48,7 +48,8 @@ test('XP book level-up produces a notice with full HP; sub-threshold XP does not
 
 test('restoring the same fishing cast clears unsaved input and delegates to the normal restore hook',()=>{
  const r=fresh('MAP_CRPG_CIDER_BANK');r.giveItem('TRPG_FISHING_ROD',1);r.giveItem(ctx.CRPGRuntime.lifeCatalog.bait,2);r.action('LIFE_START',{kind:'FISH'});now+=2200;
- ctx.updateLifeUI();const hold=walk(content).find(n=>n.tag==='button'&&n.textContent==='길게 눌러 당기기');assert(hold);hold.onpointerdown({preventDefault(){},pointerId:1});
+ // 0.16.2: fishing is a window over the page (app_life.js lifeWindow) with one «당기기» button.
+ ctx.updateLifeUI();const hold=walk(ctx.document.body).find(n=>n.tag==='button'&&n.textContent==='당기기');assert(hold);hold.onpointerdown({preventDefault(){},pointerId:1});
  assert.equal(run('fishingSession.controls.length'),1);assert.equal(run('fishingSession.holding'),true);const previousFrame=run('fishingFrame'),previousRestores=restoreCalls,job=copy(r.s.lifeJob),bait=r.itemCount(ctx.CRPGRuntime.lifeCatalog.bait);
  ctx.game=new R(db,JSON.parse(r.serialize()));ctx.restoreUIState();assert.equal(restoreCalls,previousRestores+1);assert(cancelled.includes(previousFrame));assert.equal(run('fishingSession'),null);assert.equal(run('fishingFrame'),null);
  ctx.updateLifeUI();assert.equal(run('fishingSession.id'),job.id);assert.equal(run('fishingSession.controls.length'),0);assert.equal(run('fishingSession.holding'),false);assert.equal(ctx.game.s.lifeJob.startedAt,job.startedAt);assert.equal(ctx.game.itemCount(ctx.CRPGRuntime.lifeCatalog.bait),bait);assert.equal(actions.length,0);

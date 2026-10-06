@@ -62,8 +62,13 @@
  P.lifeJobDuration=function(kind){return kind==='FISH'?20000:10000;};
  P.lifeEntries=function(){return old.lifeEntries.call(this).map(e=>({...e,seconds:e.kind==='FISH'?20:10,interactive:e.kind==='FISH'}));};
  P.startLife=function(kind){const result=old.startLife.call(this,kind);if(kind==='FISH'){this.pay({items:{[BAIT]:1}});Object.assign(this.s.lifeJob,{duration:20000,fishing:{version:1,seed:Math.floor(this.random()*0x100000000),bait:BAIT}});}return copy(this.s.lifeJob);};
+ // One try of a place's resources for the day, and the 5 % encounter that ends gathering or hunting (also 0.16.2 scenes).
+ P.spendLifeResource=function(job){this.s.lifeResources??={};const key=job.map+':'+job.kind,prior=this.s.lifeResources[key];this.s.lifeResources[key]={day:job.day,used:(prior?.day===job.day?prior.used:0)+1};};
+ P.lifeEncounter=function(job){if(!['GATHER','HUNT'].includes(job.kind))return null;const map=this.row('32_MAP_DB',job.map).slice();if(map[12]==='Y')return null;map[8]='Y';map[9]=5;return this.rows('34_MAP_ENCOUNTER_POOL').some(r=>r[1]===map[0]&&r[5])?this.rollEncounter(map):null;};
  P.finishLife=function(id,a={}){
   const reason=this.actionReason('LIFE_FINISH',{job:id});if(reason)fail('LIFE',reason);const job=this.s.lifeJob,elapsed=Date.now()-job.startedAt;let caught=true;
+  // 0.16.2: a resource scene pays what was collected in it (runtime_life_v0162.js).
+  if(job.scene)return this.finishLifeScene(job,a);
   if(job.kind==='FISH'){
    if(!Number.isFinite(a.elapsed)||a.elapsed<0||a.elapsed>job.duration||a.elapsed>elapsed+100||!Array.isArray(a.controls)||a.controls.length>400)fail('FISH_INPUT','낚시 진행 기록을 확인해 주세요.');
    let last=-1;for(const c of a.controls){if(!Number.isInteger(c.at)||c.at<0||c.at>Math.min(a.elapsed,job.duration)||c.at<last||typeof c.hold!=='boolean')fail('FISH_INPUT','낚시 조작 시간이 올바르지 않습니다.');last=c.at;}
@@ -75,9 +80,8 @@
    if(job.kind==='GATHER'){const other=draw();items[other.item]=(items[other.item]||0)+other.min+Math.floor(this.random()*(other.max-other.min+1));}
    for(const [item,n]of Object.entries(items))this.giveItem(item,n);
   }
-  this.s.lifeResources??={};const key=job.map+':'+job.kind,prior=this.s.lifeResources[key];this.s.lifeResources[key]={day:job.day,used:(prior?.day===job.day?prior.used:0)+1};
-  delete this.s.lifeJob;this.advanceTime(10);this.s.global.SCREEN_MODE='LOCATION';let encounter=null;
-  if(['GATHER','HUNT'].includes(job.kind)){const map=this.row('32_MAP_DB',job.map).slice();if(map[12]!=='Y'){map[8]='Y';map[9]=5;if(this.rows('34_MAP_ENCOUNTER_POOL').some(r=>r[1]===map[0]&&r[5]))encounter=this.rollEncounter(map);}}
+  this.spendLifeResource(job);
+  delete this.s.lifeJob;this.advanceTime(10);this.s.global.SCREEN_MODE='LOCATION';const encounter=this.lifeEncounter(job);
   return {job:job.id,kind:job.kind,items,minutes:10,caught,encounter};
  };
  P.legendContactAllowed=function(d,place=this.currentPlace()){

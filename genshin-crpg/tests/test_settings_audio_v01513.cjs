@@ -25,7 +25,7 @@ function audio(){
  vm.runInContext(source('app_av.js').split('const avSettings=settingsControls;')[0]+'\nthis.GameAudio=GameAudio;',ctx);
  ctx.GameAudio.context=context;ctx.GameAudio.armed=true;
  // The real buffer's whitelist is built from a finite manifest, as in production.
- vm.runInContext("soundFiles.push('prev_hit','ig_hover_nav','ig_tab_click2','ig_click_general2','ig_wish_reveal5','ig_wish_execute5','ig_paimon_open','quest_complete');",ctx);
+ vm.runInContext("soundFiles.push('ig_pot_hit','ig_hover_nav','ig_tab_click2','ig_click_general2','ig_wish_reveal5','ig_wish_execute5','ig_paimon_open','quest_complete');",ctx);
  vm.runInContext(source('app_sound.js'),ctx);
  const resolveFetch=index=>fetches[index].d.resolve({ok:true,arrayBuffer:async()=>new ArrayBuffer(1)});
  return{ctx,A:ctx.GameAudio,S:ctx.CRPGSound,context,sources,gains,tracks,fetches,timers,saved,resolveFetch,resume:d=>resume=d,fetchError:v=>fetchError=v,startError:v=>startError=v,advance:ms=>clock+=ms};
@@ -55,18 +55,18 @@ function motion({canvasAvailable=true}={}){
   h.ctx.settings.audioRevision=1;h.ctx.settings.musicVolume=.8;h.ctx.applySettings();assert.equal(h.ctx.settings.musicVolume,.25);
  });
  await test('malformed sound-choice storage is repaired and unknown candidate IDs are not saved',()=>{
-  const h=audio();h.ctx.settings.sfxChoice='corrupt';assert.equal(h.S.choice('hit'),'prev_hit');assert.equal(typeof h.ctx.settings.sfxChoice,'object');
-  h.S.setChoice('hit','unknown');assert.equal(h.ctx.settings.sfxChoice.hit,undefined);h.S.setChoice('hit','prev_hit');assert.equal(h.ctx.settings.sfxChoice.hit,'prev_hit');
+  const h=audio();h.ctx.settings.sfxChoice='corrupt';assert.equal(h.S.choice('hit'),'ig_pot_hit');assert.equal(typeof h.ctx.settings.sfxChoice,'object');
+  h.S.setChoice('hit','unknown');assert.equal(h.ctx.settings.sfxChoice.hit,undefined);h.S.setChoice('hit','ig_pot_hit');assert.equal(h.ctx.settings.sfxChoice.hit,'ig_pot_hit');
  });
  await test('candidate preview respects both sound switch and zero effect volume',async()=>{
-  const h=audio();h.ctx.settings.audioEnabled=false;await h.S.audition('hit','prev_hit');h.ctx.settings.audioEnabled=true;h.ctx.settings.sfxVolume=0;await h.S.audition('hit','prev_hit');assert.equal(h.fetches.length,0);assert.equal(h.sources.length,0);
+  const h=audio();h.ctx.settings.audioEnabled=false;await h.S.audition('hit','ig_pot_hit');h.ctx.settings.audioEnabled=true;h.ctx.settings.sfxVolume=0;await h.S.audition('hit','ig_pot_hit');assert.equal(h.fetches.length,0);assert.equal(h.sources.length,0);
  });
  await test('stopping a preview cancels work waiting for audio unlock or audio download',async()=>{
-  const h=audio(),resume=deferred();h.resume(resume);const p=h.S.audition('hit','prev_hit');h.S.stopAudition();resume.resolve();await p;assert.equal(h.fetches.length,0);
-  h.resume(null);const q=h.S.audition('hit','prev_hit');await flush();assert.equal(h.fetches.length,1);h.S.stopAudition();h.resolveFetch(0);await q;assert.equal(h.sources.length,0);
+  const h=audio(),resume=deferred();h.resume(resume);const p=h.S.audition('hit','ig_pot_hit');h.S.stopAudition();resume.resolve();await p;assert.equal(h.fetches.length,0);
+  h.resume(null);const q=h.S.audition('hit','ig_pot_hit');await flush();assert.equal(h.fetches.length,1);h.S.stopAudition();h.resolveFetch(0);await q;assert.equal(h.sources.length,0);
  });
  await test('rapid preview choices play only the newest selection despite reverse download order',async()=>{
-  const h=audio(),a=h.S.audition('hit','prev_hit');await flush();const b=h.S.audition('hover','ig_hover_nav');await flush();h.resolveFetch(1);await b;h.resolveFetch(0);await a;assert.equal(h.sources.length,1);assert.equal(h.sources[0].started,1);
+  const h=audio(),a=h.S.audition('hit','ig_pot_hit');await flush();const b=h.S.audition('hover','ig_hover_nav');await flush();h.resolveFetch(1);await b;h.resolveFetch(0);await a;assert.equal(h.sources.length,1);assert.equal(h.sources[0].started,1);
  });
  await test('global stop cancels a preview and its pending replacement, while preview stop preserves game effects',async()=>{
   const h=audio(),p=h.A.play('hit');h.resolveFetch(0);await p;const gameVoice=h.sources[0];
@@ -83,7 +83,7 @@ function motion({canvasAvailable=true}={}){
  });
  await test('muting effects during download prevents playback; muting active effects stops them immediately',async()=>{
   const h=audio(),p=h.A.play('hit');h.ctx.settings.sfxVolume=0;h.resolveFetch(0);await p;assert.equal(h.sources.length,0);
-  h.ctx.settings.sfxVolume=.6;await h.A.play('hit');const q=h.S.audition('hit','prev_hit');await q;assert.equal(h.sources.length,2);
+  h.ctx.settings.sfxVolume=.6;await h.A.play('hit');const q=h.S.audition('hit','ig_pot_hit');await q;assert.equal(h.sources.length,2);
   h.ctx.settings.sfxVolume=0;h.A.sync();assert(h.sources.every(s=>s.stopped===1));assert.equal(h.A.voices.size,0);
  });
  await test('fetch and media start failures resolve without escaping or retaining failed voices, and retry works',async()=>{

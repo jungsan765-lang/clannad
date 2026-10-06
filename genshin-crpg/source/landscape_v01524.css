@@ -699,3 +699,9 @@ body.teyvat .cw-panel button.cw-btn{min-height:32px;padding:2px 8px;font-size:.7
 body.teyvat .cw-panel button.cw-mini{min-height:28px;padding:1px 9px;font-size:.7rem}
 body.teyvat .hud-place .cw-hud-tag{font-size:.6rem;line-height:14px;padding:0 5px}
 }
+/* 0.16.2 domain trials on a sideways phone */
+@media (orientation:landscape) and (max-height:500px){
+ body.teyvat :where(#root) button.domain-trial{min-height:42px}
+ body.teyvat .domain-trial-icon{width:24px;height:24px}
+ body.teyvat .domain-reward-icon.exp{width:24px;height:24px}
+}

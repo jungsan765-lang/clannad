@@ -2,7 +2,7 @@
 // A pacing model, not a real-player stopwatch. Combat timings are native seeded observations.
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {setup,G,PLAYER}=require('./audit_balance_v01522.cjs');
-const {REFERENCE_TEAM,recommendedDomain}=require('./audit_balance_v0161.cjs');
+const {REFERENCE_TEAM}=require('./audit_balance_v0161.cjs');
 const DEFAULT=path.join(__dirname,'../docs/data/balance_v0161_timings.json');
 const BANDS=[[1,10,600],[10,20,1800],[20,30,3600],[30,40,12600],[40,50,14400],[50,60,18000]];
 function replay(start,end,route,data){
@@ -15,8 +15,8 @@ function replay(start,end,route,data){
  ascendReady();
  while(r.growth().level<end){
   assert(clears<10000,'XP progression must terminate');
-  const level=r.growth().level,domain=recommendedDomain(level),stage=Number(domain.split(':')[1]);
-  const dl=G.domainLevels[G.domains[domain.split(':')[0]].region][stage-1],xp=G.domainXp[dl];
+  // 0.16.2: the experience trial of the highest open band of 0.16.1's ladder (the domains between them pay the same).
+  const level=r.growth().level,dl=[5,10,20,30,40,50,60].filter(n=>n<=level+5).at(-1),xp=G.domainXp[dl];
   const samples=route==='REFERENCE_MEAN'?['ROUTE_TRAVELER','ROUTE_ISEKAI']: [route];
   const time=samples.reduce((n,k)=>{const t=timings.get(k+':'+level);assert(t&&t.wins===t.samples,'all timing samples must be actual wins');return n+t.cycleSeconds;},0)/samples.length;
   const beforeXp=r.growth().xp;for(const id of owners)r.addXp(id,xp);

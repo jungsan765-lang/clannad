@@ -71,3 +71,11 @@
 - 받은 곳: 공개 팬 기원 시뮬레이터 저장소 https://github.com/Mantan21/Genshin-Impact-Wish-Simulator 의 `static/sfx/reveal-3star.ogg`·`reveal-4star.ogg`·`reveal-5star.ogg`·`result-list.ogg`(저작권 miHoYo / HoYoverse). 공식 CDN 직접 배포본이 아니다.
 - 앞 무음을 자르고, 세 등급의 원래 크기 차이는 그대로 둔 채 5★가 다른 녹음과 같은 크기(150 Hz 위 50 ms 최대 -24 dBFS)가 되도록 모두 약 2 dB 키운 뒤 Windows 내장 인코더로 MP3 128 kbps로 바꿨다. 원본 SHA-256과 자른 구간은 `catalog.json`에 있다.
 - 기원 유성 소리는 이제 기원 영상(`assets/video/wish/`)에 들어 있는 원작 소리를 쓴다. `ig_wish_execute3~5`는 「효과음 고르기」에 남아 있다.
+
+## v0.16.2 전투 기술 소리, 이 게임에서 만든 소리 빼기
+
+- 사용자가 「원신에 있는 SE 써. 합성 다 없애버려」라고 정한 대로, 이 게임에서 만든 소리 다섯 개(`prev_battle_start`, `prev_hit`, `made_dendro_slice`, `made_dendro_slice2`, `made_dendro_whirl`)를 목록과 파일에서 뺐다. 무엇이었는지는 `catalog.json`의 `retired`에 남겼다. 전투 시작은 본편 비경 입장, 타격은 본편 항아리 깨짐·나무 상자 타격의 첫 충격, 풀은 본편 석화된 나무 깨우기(앞부분·종소리)가 기본이다.
+- 전투 기술 소리 18개(`ig_skill_switch`, `ig_burst_ready`, `ig_venti_skill`, `ig_venti_burst`, `ig_zhongli_burst`, `ig_hutao_burst`, `ig_summon_granum`, `ig_leyline_bloom`, `ig_reinforce`, `ig_large_hint`, `ig_env_info`, `ig_wing`, `ig_plate`, `ig_swim_stroke`, `ig_tree_rustle`, `ig_tree_bloom`, `ig_pot_hit`, `ig_box_hit`)를 같은 녹음 모음(ZIP SHA-256 `d922980840c5bc78…fd0f45100` 일치 확인)에서 골라 잘랐다. 원본 파일명, 자른 구간, 적용한 음량, 해시는 `catalog.json`에 있다. 합성하거나 여러 소리를 섞지 않았다.
+- 원소전투 스킬은 원소마다 소리가 다르고, 원소폭발은 「원소폭발 준비 완료」 소리를 쓴다. 벤티(원소전투 스킬·원소폭발)·종려·호두(원소폭발)는 그 캐릭터 자신의 녹음을 쓴다. 호두 원소폭발 녹음에는 말소리 무늬가 보여 호두 본인의 대사가 섞였을 수 있으므로 호두에게만 쓰고, 「효과음 고르기」에서 일반 원소폭발 소리로 바꿀 수 있다.
+- 모음의 변경 기록에서 「Leaked」(출시 전 유출)로 표시된 나히다 녹음 4개는 쓰지 않았다.
+- 사람이 직접 들어 본 검증은 하지 못했다. 모든 새 소리는 「효과음 고르기」의 「전투 기술」·「원소전투 스킬 (원소별)」·「지속 효과 (원소별)」·「적 기술」에서 들어 보고 바꿀 수 있다.

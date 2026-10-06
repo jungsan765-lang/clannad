@@ -23,7 +23,9 @@
       const inherit=!entry.presentationActorId&&summonHit?summonHit:null;
       const target=resolve(entry.target,entry.targetId),actor=resolve(entry.actor,entry.actorId),virtualTarget=String(entry.targetId||'').startsWith('SUMMON:')?entry.targetId:null,visualActor=entry.presentationActorId||inherit?.id||null,base={key:s.global.SAVE_ID+':'+id+':'+(start+n)+':'+s.global.LAST_COMMITTED_ACTION_ID,targetId:target?.id||virtualTarget||null,actorId:visualActor||actor?.id||null,actorSide:actor?.side||entry.actorSide||null,side:target?.side||entry.targetSide||null,target:display(target)||entry.target||'',actor:entry.presentationActorName||inherit?.name||display(actor)||entry.actor||'',element:elements[entry.element]||'hit',hpBefore:entry.hpBefore,hpAfter:entry.hpAfter,maxHp:entry.maxHp,round:entry.round,action:entry.actionSequence,cardName:entry.cardName||'',cardId:entry.card||entry.presentationCardId||null,sourceKind:inherit?inherit.kind:entry.sourceKind||entry.presentationSourceKind||null,absorbed:Number(entry.absorbed)||0,shieldBefore:Number.isFinite(entry.shieldBefore)?Number(entry.shieldBefore):null,shieldAfter:Number.isFinite(entry.shieldAfter)?Number(entry.shieldAfter):null,reactionId:entry.reaction||null,jointAttack:!!entry.jointAttack,jointSkipped:!!entry.jointSkipped,jointBonusPct:entry.jointBonusPct,jointIndex:entry.jointIndex,enemySkill:!!entry.enemySkill,charging:!!entry.charging,interrupted:!!entry.interrupted,released:!!entry.released,skillText:entry.text||''};
       let e;
-      if(entry.charging||entry.interrupted||entry.released)e={kind:'skill',label:entry.text||entry.cardName||'기술 사용',cue:null};
+      // 0.16.2: a line spoken during a story fight (runtime_battle_lines_v0162.js) is its own beat.
+      if(entry.battleLine)e={kind:'line',label:String(entry.text||''),speaker:String(entry.speaker||''),face:entry.face||null,lineId:entry.battleLine,cue:null};
+      else if(entry.charging||entry.interrupted||entry.released)e={kind:'skill',label:entry.text||entry.cardName||'기술 사용',cue:null};
       else if(Number.isFinite(entry.maxHpChange))e={kind:'capacity',label:entry.maxHpChange<0?'최대 HP '+entry.maxHpChange:'최대 HP 복원',cue:null};
       else if(entry.statusApplied)e={kind:'status',label:root.CRPGRuntime?.statusCatalog?.[entry.statusApplied.id]?.name||'상태 변화',statusApplied:entry.statusApplied,cue:null};
       else if(entry.jointSkipped)e={kind:'notice',label:entry.text||'합동 공격 불참',cue:null};
@@ -56,10 +58,10 @@
    periodic=e=>/^(FIELD|OBJECT|REACTION_DOT)$/.test(e.sourceKind||''),
    impact=e=>['damage','miss','immune'].includes(e.kind)||(e.kind==='guard'&&e.absorbed>0),
    category=e=>periodic(e)?e.sourceKind+':'+(e.cardId||e.cardName||''):'ACTION',
-   same=(a,b)=>a&&b&&Number.isInteger(a.round)&&Number.isInteger(a.action)&&a.actorId&&a.round===b.round&&a.action===b.action&&a.actorId===b.actorId&&(!a.cardId||!b.cardId||a.cardId===b.cardId)&&category(a)===category(b)&&!['victory','defeat'].includes(a.kind)&&!['victory','defeat'].includes(b.kind);
+   same=(a,b)=>a&&b&&Number.isInteger(a.round)&&Number.isInteger(a.action)&&a.actorId&&a.round===b.round&&a.action===b.action&&a.actorId===b.actorId&&(!a.cardId||!b.cardId||a.cardId===b.cardId)&&category(a)===category(b)&&!['victory','defeat','line'].includes(a.kind)&&b.kind!=='line'&&!['victory','defeat'].includes(b.kind);
  function summarize(events){
   const first=events[0],last=events[events.length-1];
-  if(['victory','defeat'].includes(first.kind))return {...first,events:events.slice(),targets:[],reactions:[]};
+  if(['victory','defeat','line'].includes(first.kind))return {...first,events:events.slice(),targets:[],reactions:[]};
   const targets=[],reactions=[];
   for(const event of events){
    if(event.kind==='reaction'&&!reactions.includes(event.label))reactions.push(event.label);

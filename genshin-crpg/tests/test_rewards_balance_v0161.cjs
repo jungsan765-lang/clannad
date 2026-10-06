@@ -7,28 +7,33 @@ let count=0;function check(name,fn){fn();count++;console.log('PASS '+name);}
 function ready(map){const r=fresh(map);r.adminApply({op:'level',target:'ALL',value:60});flags(r);r.s.domainDaily={day:api.growthV01522.dayOf(r.leyLineNow()),wins:3};return r;}
 // Only settlement tests force enemies to zero HP; difficulty tests use native combat in audit_balance_v0161.
 function settle(r){for(const a of r.s.runtime.actors.filter(a=>a.side==='ENEMY'))a.hp=0;return r.finishBattle(true);}
-check('all material domain types at Lv60 pay the same XP/Mora budget and zero XP books',()=>{
- for(const [map,id,element]of [['MAP_LIYUE_JUEYUN','TAISHAN_MANSION:4','NEUTRAL'],['MAP_LY_DETAIL_WANGSHU','ZHOU_FORMULA:4','NEUTRAL'],['MAP_LY_DETAIL_WANGSHU','ZHOU_FORMULA:4','PYRO'],['MAP_LY_DETAIL_MINGYUN','LIANSHAN_FORMULA:4','NEUTRAL']]){
-  const r=ready(map);r.action('DOMAIN_START',{domain:id,element});const x=settle(r);
-  assert.equal(x.xp,8000);assert.equal(x.mora,200);for(const book of Object.keys(api.leyLines.bookXp))assert.equal(x.loot[book]||0,0);
+// 0.16.2 (user: 「다른 비경들 경험치나 모라가 너무 비정상적으로 많이 나와서 모라는 없애고, 경험치는 좀 팍 줄여야 할 것 같아. 경험치
+// 비경을 대신 만들고」): the experience trial keeps 0.16.1's per-run experience; talent and ascension pay a fifth of it; no Mora.
+check('at Lv60 the talent and ascension trials pay a fifth of the experience trial, no Mora and no books; the experience trial pays only experience',()=>{
+ for(const [id,element,xp]of [['LOST_VALLEY:TALENT','NEUTRAL',1600],['LOST_VALLEY:ASCENSION','NEUTRAL',1600],['LOST_VALLEY:ASCENSION','PYRO',1600],['LOST_VALLEY:EXP','NEUTRAL',8000]]){
+  const r=ready('MAP_CHASM_DEEP');r.action('DOMAIN_START',{domain:id,element});const x=settle(r);
+  assert.equal(x.xp,xp,id);assert.equal(x.mora,0,id);for(const book of Object.keys(api.leyLines.bookXp))assert.equal(x.loot[book]||0,0);
+  if(id.endsWith(':EXP'))assert.equal(Object.keys(x.domain.items).length,0);
   const state=r.serialize();r.finishBattle(true);assert.equal(r.serialize(),state,'duplicate settlement cannot pay');
  }
 });
-check('daily first-three bonus doubles materials and the small shared Mora, never direct XP',()=>{
- const r=ready('MAP_MOND_SPRINGVALE');delete r.s.domainDaily;r.action('DOMAIN_START',{domain:'FORSAKEN_RIFT:1'});const x=settle(r);
- assert.equal(x.xp,200);assert.equal(x.mora,40);assert.equal(x.domain.items.GROWTH_TALENT_MOND,2);assert.equal(r.s.domainDaily.wins,1);
+check('daily first-three bonus doubles materials only; the experience trial neither doubles nor uses one of the three',()=>{
+ const r=ready('MAP_MOND_SPRINGVALE');delete r.s.domainDaily;r.action('DOMAIN_START',{domain:'FORSAKEN_RIFT:TALENT'});const x=settle(r);
+ assert.equal(x.xp,40);assert.equal(x.mora,0);assert.equal(x.domain.items.GROWTH_TALENT_MOND,2);assert.equal(r.s.domainDaily.wins,1);
+ r.s.global.SCREEN_MODE='LOCATION';r.action('DOMAIN_START',{domain:'FORSAKEN_RIFT:EXP'});const y=settle(r);
+ assert.equal(y.xp,200);assert.equal(y.mora,0);assert.equal(Object.keys(y.domain.items).length,0);assert.equal(y.domain.bonus,false);assert.equal(r.s.domainDaily.wins,1);
 });
 check('upper masks drop in domains at their authored probability and unknown conditions stay denied',()=>{
  for(const [roll,stained,ominous]of [[1,true,true],[50,true,false],[51,false,false]]){
-  const r=ready('MAP_MOND_SPRINGVALE');r.action('DOMAIN_START',{domain:'FORSAKEN_RIFT:4'});r.die=()=>roll;const x=settle(r);
+  const r=ready('MAP_MOND_WOLVENDOM');r.action('DOMAIN_START',{domain:'CECILIA_GARDEN:TALENT'});r.die=()=>roll;const x=settle(r);
   assert.equal((x.loot.MAT_STAINED_MASK||0)>0,stained);assert.equal((x.loot.MAT_OMINOUS_MASK||0)>0,ominous);
  }
- const r=ready('MAP_MOND_SPRINGVALE');r.action('DOMAIN_START',{domain:'FORSAKEN_RIFT:2'});const b=r.s.runtime,a=b.actors.find(x=>x.source==='MON_HILI_FIGHTER');
+ const r=ready('MAP_MOND_WOLVENDOM');r.action('DOMAIN_START',{domain:'CECILIA_GARDEN:TALENT'});const b=r.s.runtime,a=b.actors.find(x=>x.source==='MON_HILI_FIGHTER');
  assert(!r.mondLootConditionAllowed(b,a,['LT_HILICHURL',null,'MAT_OMINOUS_MASK',1,1,100,'unrecognised condition']));
  assert(!r.mondLootConditionAllowed({...b,storyConfig:{noRewards:true}},a,['LT_HILICHURL',null,'MAT_OMINOUS_MASK',1,1,100,'일반 츄츄족 매우 희귀']));
 });
 check('elemental small and large slimes supply their own matched material rows in a domain',()=>{
- const r=ready('MAP_MOND_DAWN_WINERY');r.action('DOMAIN_START',{domain:'VALLEY_OF_REMEMBRANCE:4',element:'HYDRO'});r.die=()=>1;const x=settle(r);
+ const r=ready('MAP_CRPG_SKYFROST_NAIL');r.action('DOMAIN_START',{domain:'PEAK_OF_VINDAGNYR:ASCENSION',element:'HYDRO'});r.die=()=>1;const x=settle(r);
  for(const id of ['MAT_SLIME_CONDENSATE','MAT_SLIME_SECRETIONS','MAT_SLIME_CONCENTRATE'])assert(x.loot[id]>0,id);
 });
 check('the same level-selected ley difficulties and payouts exist in both regions',()=>{

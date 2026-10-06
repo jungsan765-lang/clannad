@@ -3,9 +3,11 @@
  * official web-event sounds. Nothing is synthesised at run time. Each game sound has one or more candidates; the
  * first is the default and the player can audition and pick another in 설정 → 소리 · 효과음 고르기
  * (settings.sfxChoice). Plain hits take the attacker's colour where a recording exists (a bow user's shot, a
- * hilichurl's blow), and artifacts sound different from gear when equipped. Sounds made by this project are offered as
- * recorded files: the earlier battle start and hit (prev_*, the player asked for the old battle start back) and the
- * dendro leaf slices (made_*, the player asked for a new grass slicing sound).
+ * hilichurl's blow), and artifacts sound different from gear when equipped.
+ * 0.16.2 (user: 「원신에 있는 SE 써. 합성 다 없애버려」, then 「캐릭터마다 스킬 쓰면 그에 해당하는 이펙트랑 SE들을 다 만들어야」): the
+ * five sounds this project once made (prev_*, made_*) are gone, replaced by recordings, and battle skills have their own
+ * sounds (app_skill_fx_v0162.js plays them): an elemental skill by its element, a burst (Venti, Zhongli and Hu Tao with
+ * their own recordings), a summon, a shield, a boss's wind-up, terrain, reinforcements and a field's tick.
  * Volume and on/off follow the existing 소리 settings. Load after app_av.js. */
 (function(){
 'use strict';
@@ -38,9 +40,9 @@ const CHOICES={
  level_up:[['ig_battlepass_levelup','본편 기행 레벨업']],
  victory:[['quest_complete','본편 임무 완료']],
  defeat:[['defeat','본편 도전 실패']],
- battle_start:[['prev_battle_start','이전 전투 시작음'],['ig_abyss_deepen','본편 나선비경 진입'],['ig_domain_enter','본편 비경 입장'],['ig_countdown','본편 카운트다운']],
+ battle_start:[['ig_domain_enter','본편 비경 입장'],['ig_abyss_deepen','본편 나선비경 진입'],['ig_countdown','본편 카운트다운']],
  encounter_hilichurl:[['encounter_hilichurl','본편 츄츄족 발견']],
- hit:[['prev_hit','이전 타격음'],['ig_unarm2','본편 무기 넣기']],
+ hit:[['ig_pot_hit','본편 항아리 깨짐 (첫 충격)'],['ig_box_hit','본편 나무 상자 타격 (첫 충격)'],['ig_unarm2','본편 무기 넣기']],
  bow_hit:[['ig_bow_shot','본편 활 공격']],
  hili_hit:[['ig_hilichurl_attack','본편 츄츄족 공격'],['ig_box_break','본편 나무 상자 타격']],
  slime_hit:[['slime_hit','본편 슬라임 공격']],
@@ -52,7 +54,7 @@ const CHOICES={
  lightning:[['ig_thunder_sphere','본편 번개 구체']],
  wind:[['wind','웹 이벤트 바람']],
  rock:[['ig_door_rise_early','본편 비경 문이 솟는 소리(앞부분)']],
- dendro:[['made_dendro_slice','새로 만든 풀 베기 (서걱)'],['made_dendro_slice2','새로 만든 풀 베기 (서걱서걱)'],['made_dendro_whirl','새로 만든 풀 베기 (휘익-서걱)']],
+ dendro:[['ig_tree_rustle','본편 석화된 나무 깨우기 (앞부분)'],['ig_tree_bloom','본편 석화된 나무 깨우기 (종소리)'],['ig_wing','본편 날개 펼치기']],
  melt:[['fire','웹 이벤트 불']],
  vaporize:[['ig_swim_splash_b','본편 물보라 2']],
  overload:[['ig_thunder_sphere2','본편 번개 구체 2']],
@@ -79,7 +81,33 @@ const CHOICES={
  chest_open:[['ig_chest_open','본편 보물상자 열기']],
  chest_reward:[['ig_reward_popup','본편 보상 표시'],['ig_battlepass_levelup','본편 기행 레벨업']],
  puzzle_light:[['ig_torch_activate','본편 유적 횃불 점화'],['ig_click_general2','본편 클릭']],
- puzzle_step:[['ig_click_general2','본편 클릭'],['ig_tab_click2','본편 탭']]
+ puzzle_step:[['ig_click_general2','본편 클릭'],['ig_tab_click2','본편 탭']],
+ // 0.16.2 전투 기술 (app_skill_fx_v0162.js).
+ skill_e:[['ig_skill_switch','본편 캐릭터 교체'],['ig_wing','본편 날개 펼치기'],['none','소리 없음']],
+ skill_q:[['ig_burst_ready','본편 원소폭발 준비 완료'],['ig_large_hint','본편 큰 알림']],
+ skill_e_venti:[['ig_venti_skill','본편 벤티 원소전투 스킬'],['ig_wing','본편 날개 펼치기']],
+ skill_q_venti:[['ig_venti_burst','본편 벤티 원소폭발'],['ig_burst_ready','본편 원소폭발 준비 완료']],
+ skill_q_zhongli:[['ig_zhongli_burst','본편 종려 원소폭발'],['ig_burst_ready','본편 원소폭발 준비 완료']],
+ skill_q_hutao:[['ig_hutao_burst','본편 호두 원소폭발 (대사가 섞였을 수 있음)'],['ig_burst_ready','본편 원소폭발 준비 완료']],
+ cast_fire:[['ig_torch_activate','본편 유적 횃불 점화'],['fire','웹 이벤트 불']],
+ cast_water:[['ig_swim_stroke','본편 수영 (한 번 젓기)'],['ig_swim_splash_b','본편 물보라 2']],
+ cast_ice:[['ice','웹 이벤트 얼음'],['ig_skill_switch','본편 캐릭터 교체']],
+ cast_lightning:[['ig_summon_granum','본편 소환 장치 (번개)'],['ig_thunder_sphere','본편 번개 구체']],
+ cast_wind:[['ig_wing','본편 날개 펼치기'],['wind','웹 이벤트 바람']],
+ cast_rock:[['ig_plate','본편 발판 작동'],['ig_door_rise_early','본편 비경 문이 솟는 소리(앞부분)']],
+ cast_dendro:[['ig_tree_rustle','본편 석화된 나무 깨우기 (앞부분)'],['ig_tree_bloom','본편 석화된 나무 깨우기 (종소리)']],
+ summon:[['ig_summon_granum','본편 소환 장치 (번개)'],['ig_leyline_bloom','본편 지맥의 꽃']],
+ shield_up:[['ig_plate','본편 발판 작동'],['ig_door_rise_early','본편 비경 문이 솟는 소리(앞부분)'],['ig_chest_unlock','본편 퍼즐 해결 · 봉인 해제']],
+ telegraph:[['ig_large_hint','본편 큰 알림'],['ig_countdown','본편 카운트다운'],['ig_env_info','본편 특수 환경 안내']],
+ hazard:[['ig_env_info','본편 특수 환경 안내'],['ig_large_hint','본편 큰 알림']],
+ reinforce:[['ig_reinforce','본편 적 증원'],['ig_large_hint','본편 큰 알림']],
+ tick_fire:[['fire','웹 이벤트 불'],['ig_torch_activate','본편 유적 횃불 점화']],
+ tick_water:[['ig_swim_splash_b','본편 물보라 2'],['ig_swim_splash_a','본편 물보라']],
+ tick_ice:[['ice','웹 이벤트 얼음']],
+ tick_lightning:[['ig_thunder_sphere2','본편 번개 구체 2'],['ig_thunder_sphere','본편 번개 구체']],
+ tick_wind:[['wind','웹 이벤트 바람'],['ig_wing','본편 날개 펼치기']],
+ tick_rock:[['ig_door_rise_early','본편 비경 문이 솟는 소리(앞부분)'],['ig_plate','본편 발판 작동']],
+ tick_dendro:[['ig_tree_bloom','본편 석화된 나무 깨우기 (종소리)'],['ig_tree_rustle','본편 석화된 나무 깨우기 (앞부분)']]
 };
 // Playback level per sound. Every recording is first brought to the same loudness (see normal()); 0.45 is the
 // level the game always used for recordings, and interface ticks sit a little under the rest.

@@ -3423,6 +3423,55 @@ body.teyvat .terrain-navigation button.cw-pin.fight:disabled{opacity:.75;cursor:
 .chat-head .chat-tab-dot{position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#ff8a5c}
 .chat-head .chat-tab-dot[hidden]{display:none}
 
+
+/* ---- 0.16.2 travel map: domains and field bosses always marked and named, mist over another region, names of areas the
+   picture predates (user: 「그게 비경 표시인지 어떻게 아는데...? 그리고 어떤 비경인지도 어떻게 아는데?」, 「고운각에는 왜 무상의 바위
+   있는 장소가 안찍혀있고」, 「왜 수메르가 찍혀있고」). ---- */
+body.teyvat .terrain-mist{position:absolute;z-index:0;pointer-events:none;backdrop-filter:blur(7px) saturate(.7);-webkit-backdrop-filter:blur(7px) saturate(.7);background:rgba(126,176,182,.22);-webkit-mask-image:linear-gradient(90deg,#000 62%,transparent);mask-image:linear-gradient(90deg,#000 62%,transparent)}
+body.teyvat .terrain-caption{position:absolute;z-index:1;transform:translate(-50%,-50%);pointer-events:none;color:#fff;font:700 15px/1.1 system-ui,sans-serif;letter-spacing:.02em;text-shadow:0 1px 3px rgba(0,0,0,.75),0 0 8px rgba(0,0,0,.45);white-space:nowrap;opacity:.92}
+body.teyvat .terrain-node.boss-host .terrain-boss-face{position:absolute;left:-14px;top:-14px;width:17px;height:17px;border-radius:50%;object-fit:cover;background:#2a1a1a;box-shadow:0 0 0 1.5px #ff8e7a,0 0 6px rgba(255,90,70,.75);pointer-events:none}
+body.teyvat .terrain-node.boss-host.boss-plain::before{content:'';position:absolute;left:-6px;top:-6px;width:9px;height:9px;border-radius:50%;background:#ff7a64;box-shadow:0 0 0 1.5px rgba(10,12,20,.85);pointer-events:none}
+body.teyvat .terrain-label.marked{display:flex;flex-direction:column;align-items:flex-start;line-height:15px}
+body.teyvat .terrain-label.marked.quiet{display:none}
+body.teyvat .terrain-label.marked.hovered{display:flex}
+body.teyvat .terrain-label-domain{color:#d9ccff;font:700 10px/14px system-ui,sans-serif}
+body.teyvat .terrain-label-boss{color:#ffb3a6;font:700 10px/14px system-ui,sans-serif}
+body.teyvat .terrain-label:is(.selected,.hovered) .terrain-label-domain{color:#4b2fa0}
+body.teyvat .terrain-label:is(.selected,.hovered) .terrain-label-boss{color:#8a2414}
+body.teyvat .terrain-key-item.domain::before{width:9px;height:9px;border:0;border-radius:2px;transform:rotate(45deg);background:#b9a2ff;box-shadow:0 0 0 1.5px rgba(10,12,20,.85)}
+body.teyvat .terrain-key-item.boss::before{border:0;background:#ff7a64;box-shadow:0 0 0 1.5px #ffd2c8}
+body.teyvat :is(.terrain-detail-domain,.terrain-domain-note){color:#cbbcff}
+body.teyvat .terrain-detail-boss{color:#ffb3a6}
+
+/* ---- 0.16.2 domain gate: three trials (특성 · 돌파 · 경험치) as pictures; experience is paid as EXP, no Mora. ---- */
+body.teyvat .domain-trials{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+body.teyvat :where(#root) button.domain-trial{min-height:56px;padding:4px 2px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(236,229,216,.18)}
+body.teyvat .domain-trial b{font-size:.8rem;line-height:1.1}
+body.teyvat :where(#root) button.domain-trial.selected{background:var(--t-cream);color:var(--t-ink);border-color:var(--t-cream);box-shadow:0 0 0 2px rgba(var(--dg),.55)}
+body.teyvat .domain-trial-icon{width:30px;height:30px;object-fit:contain}
+body.teyvat .domain-trial-icon.exp,body.teyvat .domain-reward-icon.exp{display:inline-grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff4c4,#e8b85a 60%,#a97624);color:#3b2a0b;font:800 .62rem/1 var(--font-latin,system-ui);letter-spacing:.02em;box-shadow:0 0 0 1px rgba(59,42,11,.4)}
+body.teyvat .domain-reward-icon.exp{width:30px;height:30px}
+body.teyvat .domain-reward.xp{width:auto;padding:0 10px 0 6px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.06)}
+body.teyvat .domain-reward.xp>b{position:static;border:0;background:none;font-size:.82rem}
+body.teyvat .domain-reward.xp.main{background:rgba(232,184,90,.18);box-shadow:inset 0 0 0 1px rgba(232,184,90,.45)}
+
+/* ---- 0.16.2 lines spoken during a story fight: a subtitle with the speaker's face above the playback band. ---- */
+body.teyvat .battle-line{position:fixed;left:50%;bottom:132px;z-index:430;transform:translateX(-50%);display:flex;align-items:center;gap:10px;max-width:min(680px,calc(100vw - 32px));padding:8px 16px 8px 8px;border-radius:14px;background:linear-gradient(90deg,rgba(18,22,34,.92),rgba(24,30,44,.86));box-shadow:0 0 0 1px rgba(236,215,160,.45),0 8px 24px rgba(0,0,0,.45);color:#fff8e6;pointer-events:none;animation:battle-line-in .26s ease-out both}
+body.teyvat .battle-line.no-face{padding-left:16px}
+body.teyvat .battle-line.leaving{animation:battle-line-out .26s ease-in both}
+body.teyvat .battle-line-face{flex:0 0 auto;width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:top;background:#2b3245;box-shadow:0 0 0 2px rgba(236,215,160,.75)}
+body.teyvat .battle-line-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+body.teyvat .battle-line-copy b{font-size:.78rem;color:#f2d68c;letter-spacing:.02em}
+body.teyvat .battle-line-copy span{font-size:.95rem;line-height:1.45;word-break:keep-all}
+@keyframes battle-line-in{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes battle-line-out{from{opacity:1}to{opacity:0;transform:translate(-50%,6px)}}
+html.reduce-motion body.teyvat .battle-line{animation:none}
+@media (orientation:landscape) and (max-height:500px){
+ body.teyvat .battle-line{gap:8px;padding:5px 12px 5px 5px;max-width:min(560px,calc(100vw - 24px))}
+ body.teyvat .battle-line-face{width:34px;height:34px}
+ body.teyvat .battle-line-copy span{font-size:.8rem;line-height:1.35}
+}
+
 /* ---------- 리월 색 (generated by tools/gen_liyue_theme.cjs) ---------- */
 /* 리월(몬드와 같은 구성, 남색 바탕 → 같은 밝기의 갈색, 금색 테두리 → 주황빛 금색, 강조색 → 주황). */
 body.teyvat[data-region=liyue]{--acc:#f0a04b;--acc-2:#ffd3a1;--acc-rgb:240,160,75;--acc-deep:#5c3613}
@@ -3658,4 +3707,12 @@ body.teyvat[data-region=liyue] .combat-panel .battle-order li .order-what{color:
 body.teyvat[data-region=liyue] .cp-battle .combatant-row.cp-fx-acting{box-shadow:0 0 0 2px #f8d2a9,0 0 20px rgba(248,210,169,.6)}
 body.teyvat[data-region=liyue] .cw-host{background:rgba(248,210,169,.18)}
 body.teyvat[data-region=liyue] .cw-panel.cw-mobile{background:rgba(26,18,11,.55)}
+body.teyvat[data-region=liyue] .terrain-node.boss-host.boss-plain::before{box-shadow:0 0 0 1.5px rgba(22,15,9,.85)}
+body.teyvat[data-region=liyue] .terrain-label:is(.selected,.hovered) .terrain-label-domain{color:#ab6528}
+body.teyvat[data-region=liyue] .terrain-key-item.domain::before{box-shadow:0 0 0 1.5px rgba(22,15,9,.85)}
+body.teyvat[data-region=liyue] .domain-trial-icon.exp,body.teyvat[data-region=liyue] .domain-reward-icon.exp{background:radial-gradient(circle at 35% 30%,#fff4c4,#f1a451 60%,#a97624)}
+body.teyvat[data-region=liyue] .domain-reward.xp.main{background:rgba(241,164,81,.18);box-shadow:inset 0 0 0 1px rgba(241,164,81,.45)}
+body.teyvat[data-region=liyue] .battle-line{background:linear-gradient(90deg,rgba(37,26,16,.92),rgba(48,34,22,.86));box-shadow:0 0 0 1px rgba(244,200,152,.45),0 8px 24px rgba(0,0,0,.45)}
+body.teyvat[data-region=liyue] .battle-line-face{background:#4a3828;box-shadow:0 0 0 2px rgba(244,200,152,.75)}
+body.teyvat[data-region=liyue] .battle-line-copy b{color:#f5c189}
 /* ---------- /리월 색 ---------- */

@@ -8,7 +8,8 @@ OUT = ROOT / 'evidence/release'
 OUT.mkdir(parents=True, exist_ok=True)
 subprocess.run([sys.executable, 'tools/build_server.py'], cwd=ROOT, check=True)
 TESTS = [
-    'tests/test_rewards_balance_v0161.cjs', 'tests/test_growth_pacing_v0161.cjs', 'tests/test_server_coop_retry_v0161.mjs', 'tests/test_osial_pattern_v0161.cjs',
+    'tests/test_skill_fx_v0162.cjs', 'tests/test_rewards_balance_v0161.cjs', 'tests/test_growth_pacing_v0161.cjs', 'tests/test_server_coop_retry_v0161.mjs', 'tests/test_osial_pattern_v0161.cjs',
+    'tests/test_life_v0162.cjs', 'tests/test_life_v010.cjs',
     'tests/test_v01525.cjs', 'tests/test_v01524.cjs', 'tests/test_combat_stalemate_v01523.cjs', 'tests/test_tutorial_v01523.cjs', 'tests/test_tutorial_online_v01523.mjs', 'tests/test_growth_v01522.cjs', 'tests/test_growth_online_v01522.mjs', 'tests/test_growth_balance_v01522.cjs',
     'tests/test_durable_account.mjs', 'tests/test_durable_migration.mjs', 'tests/test_online_server.mjs', 'tests/test_authoritative_flow.mjs',
     'tests/test_reading_checkpoint.mjs', 'tests/test_action_recovery.mjs', 'tests/test_update_recovery.cjs', 'tests/test_engine_identity.py',
@@ -30,7 +31,7 @@ TESTS = [
     'tests/test_v0152.cjs', 'tests/test_balance_v0152.cjs', 'tests/test_server_v0152.mjs',
     'tests/test_v0153.cjs', 'tests/test_server_v0153.mjs',
     'tests/test_coop_v0153.cjs', 'tests/test_server_coop_v0153.mjs', 'tests/test_server_coop_world_v0159.mjs', 'tests/test_coop_world_ui_v0159.cjs',
-    'tests/test_coop_world_v0160.cjs', 'tests/test_server_coop_roam_v0160.mjs', 'tests/test_coop_world_screen_v0160.cjs', 'tests/test_freeze_v0160.cjs',
+    'tests/test_coop_world_v0160.cjs', 'tests/test_server_coop_roam_v0160.mjs', 'tests/test_coop_world_screen_v0160.cjs', 'tests/test_freeze_v0160.cjs', 'tests/test_battle_lines_v0162.cjs',
     'tests/test_v0156.cjs', 'tests/test_v0157.cjs', 'tests/test_v0158.mjs',
     'tests/test_osial_v01341.cjs', 'tools/test_story_cleanup_v0140.cjs',
     'tests/test_main_story_k_v0148.cjs',

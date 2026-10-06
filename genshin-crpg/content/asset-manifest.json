@@ -17836,6 +17836,23 @@
         1024,
         512
       ]
+    },
+    "MAP_LY_DETAIL_WUWANG": {
+      "map_id": "MAP_LY_DETAIL_WUWANG",
+      "label": "무망의 언덕",
+      "asset_id": "ASSET_BG_LIYUE_HUAGUANG_FOREST_01",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.2 무망의 언덕 추가 · 전용 사진 전까지 리월 숲 그림을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "무망의 언덕 전용 공식 사진이 없어 화광림 숲 그림을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1024,
+        512
+      ]
     }
   },
   "policy": {

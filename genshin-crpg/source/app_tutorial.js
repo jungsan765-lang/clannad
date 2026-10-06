@@ -60,7 +60,11 @@ const TUTORIAL_LINES={
   'burst.wave':'아직 끝이 아니야! 이번엔 원소폭발로 한꺼번에 날려 버리자!',
   'burst.target':'원소폭발로 노릴 상대를 눌러 줘.',
   'burst.run':'실행! 이게 원소폭발이야.',
-  'life':'채집은 표시된 걸 고르면 되고, 채광이랑 사냥은 금색 칸에 맞춰 눌러! 세 번 중 두 번이면 성공이야.'
+  'life':'채집은 표시된 걸 고르면 되고, 채광이랑 사냥은 금색 칸에 맞춰 눌러! 세 번 중 두 번이면 성공이야.',
+  // 0.16.2 resource scenes (app_life_v0162.js): the first plant or vein, or the field the animals cross.
+  'life.GATHER':'반짝이는 걸 눌러서 주워 봐! 시간 안에 다 모으면 돼.',
+  'life.MINE':'광맥은 몇 번 두드려야 깨져. 연달아 눌러 봐!',
+  'life.HUNT':'동물이 지나가면 그쪽을 눌러! 놓치기 전에 빨리!'
  }
 };
 function tutorialSpeaker(step){
@@ -164,7 +168,11 @@ function tutorialControl(step){
 function renderTutorial(){
  removeTutorialSpotlight();if(!game){activeTutorial=null;return;}const step=game.tutorialDirective();activeTutorial=step;if(!step)return;
  if(busy||['STORY','CUTIN','STORY_LOCKED'].includes(game.playPhase()))return;
- if(game.s.lifeJob){const target=tutorialFind('.life-mini');if(target)showTutorialSpotlight(target,step,'밝은 영역에서 직접 조작하세요','채집은 표시된 대상을 고르고, 채광·사냥은 금색 구간에 맞춰 누릅니다.','life');return;}
+ if(game.s.lifeJob){
+  // 0.16.2: the scene marks what to press first (app_life_v0162.js) and drops the mark once something is collected.
+  const scene=tutorialFind('[data-life-guide]');if(scene){showTutorialSpotlight(scene,step,step.title,'','life.'+game.s.lifeJob.kind);return;}
+  const target=tutorialFind('.life-mini');if(target)showTutorialSpotlight(target,step,'밝은 영역에서 직접 조작하세요','채집은 표시된 대상을 고르고, 채광·사냥은 금색 구간에 맞춰 누릅니다.','life');return;
+ }
  const focus=tutorialControl(step);if(focus?.target)showTutorialSpotlight(focus.target,step,focus.title,focus.text,focus.say);
 }
 async function openTutorial(){if(!game)return;await act('TUTORIAL_GUIDE',{enabled:true});renderTutorial();}
@@ -174,7 +182,7 @@ for(const type of ['pointerdown','click','change','keydown'])document.addEventLi
  const inside=(tutorialTarget===e.target||tutorialTarget.contains(e.target))&&!e.target.closest?.('.enemy-info-button');
  if(type==='keydown'){
   if(e.key==='Tab'){e.preventDefault();e.stopImmediatePropagation();const f=tutorialTarget.matches('button,select,input,[tabindex]')?[tutorialTarget]:[...tutorialTarget.querySelectorAll('button:not(:disabled),select,input,[tabindex]')];if(f.length)f[(Math.max(-1,f.indexOf(document.activeElement))+(e.shiftKey?f.length-1:1))%f.length].focus();return;}
-  if(inside&&['Enter',' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.stopPropagation();if(['Enter',' '].includes(e.key)&&e.target===tutorialTarget&&tutorialTarget.matches('.combatant-row')){e.preventDefault();tutorialTarget.click();}return;}
+  if(inside&&['Enter',' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.stopPropagation();if(['Enter',' '].includes(e.key)&&e.target===tutorialTarget&&tutorialTarget.matches('.combatant-row,.life-node,.life-field')){e.preventDefault();tutorialTarget.click();}return;}
  }
  if(!inside||type==='keydown'){e.preventDefault();e.stopImmediatePropagation();return;}
  if(type==='click'||type==='change')scheduleTutorial();

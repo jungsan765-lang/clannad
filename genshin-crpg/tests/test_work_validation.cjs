@@ -20,9 +20,11 @@ for(const kind of ['life','world'])test('personal legend travel '+kind+' work re
  let r=personalTravel();const context=copy(r.s.storyContext),journey=copy(r.s.storyJourney);const key=startWork(r,kind),job=copy(r.s[key]);assert.equal(r.s[key].id,job.id);
  rejectAction(r,kind==='life'?'LIFE_FINISH':'WORLD_WORK_FINISH',{job:job.id});
  r=new R(db,JSON.parse(r.serialize()));assert.deepEqual(copy(r.s[key]),job);assert.deepEqual(copy(r.s.storyContext),context);assert.deepEqual(copy(r.s.storyJourney),journey);
- if(kind==='life')r.die=()=>100;advance(job.duration);const output=r.action(kind==='life'?'LIFE_FINISH':'WORLD_WORK_FINISH',{job:job.id,...(kind==='life'?{elapsed:job.duration,inputs:[0,1,2].map(round=>({round,at:1700+round*3000,choice:c.CRPGRuntime.lifeMinigame.target(job.minigame.seed,round)}))}:{})}).result;
+ // 0.16.2: gathering is a scene (runtime_life_v0162.js); picking every plant pays every plant.
+ const scene=kind==='life'?r.lifeScene():null;
+ if(kind==='life')r.die=()=>100;advance(job.duration);const output=r.action(kind==='life'?'LIFE_FINISH':'WORLD_WORK_FINISH',{job:job.id,...(kind==='life'?{elapsed:job.duration,inputs:scene.nodes.map((n,i)=>({at:600+i*300,node:i}))}:{})}).result;
  assert(!r.s[key]);assert.deepEqual(copy(r.s.storyContext),context);assert.deepEqual(copy(r.s.storyJourney),journey);assert.equal(r.playPhase(),'FREE');
- if(kind==='life'){assert(Object.values(output.items).reduce((a,b)=>a+b,0)>=6);assert.equal(r.s.lifeResources['MAP_MOND_PLAINS:GATHER'].used,1);}else assert.equal(r.s.worldProgress.oculi.ANEMO_PLAINS_CART,1);
+ if(kind==='life'){assert.equal(Object.values(output.items).reduce((a,b)=>a+b,0),scene.nodes.reduce((a,n)=>a+n.n,0));assert.equal(r.s.lifeResources['MAP_MOND_PLAINS:GATHER'].used,1);}else assert.equal(r.s.worldProgress.oculi.ANEMO_PLAINS_CART,1);
  rejectAction(r,kind==='life'?'LIFE_FINISH':'WORLD_WORK_FINISH',{job:job.id});
  r=new R(db,JSON.parse(r.serialize()));r.action('JOURNEY_RESUME');assert(!r.s.storyJourney);assert.equal(r.s.storyContext.entry,context.entry);assert.equal(r.playPhase(),'STORY');return {job:kind,legend:context.entry,phaseAfterResume:r.playPhase()};
 });

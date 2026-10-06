@@ -623,12 +623,17 @@ if(typeof itemDetailView==='function'){const priorDetail=itemDetailView;itemDeta
 function soundGallery(){
  // 0.15.1: folded until opened (user: 「설정 부분에 효과음 고르기 너무 길어서 접어놔」).
  const SND=window.CRPGSound,gallery=mk('details','card shell-sound-gallery'),sum=mk('summary','shell-sound-summary');sum.append(mk('strong','','효과음 고르기'),mk('small','','눌러서 펼치기 · 소리마다 후보를 들어 보고 고릅니다'));
- gallery.append(sum,mk('p','muted','효과음은 원신 본편 녹음과 공식 웹 이벤트 소리입니다(「이전」·「새로 만든」이라고 적힌 것은 이 게임에서 만든 소리). 후보를 누르면 바로 들리고 그 소리로 정해집니다. 고른 소리는 이 기기에 저장됩니다.'));
+ gallery.append(sum,mk('p','muted','효과음은 원신 본편 녹음과 공식 웹 이벤트 소리입니다. 후보를 누르면 바로 들리고 그 소리로 정해집니다. 고른 소리는 이 기기에 저장됩니다.'));
  const groups=[['전투 결과',[['승리','victory'],['패배','defeat']]],
   ['결과·보상',[['레벨업','level_up'],['임무 완료','quest_complete'],['의뢰 수락','commission_accept'],['의뢰 완료','commission_complete'],['획득','item_receive'],['해금','unlock'],['장착 (장비)','equip'],['장착 (성유물)','equip_artifact'],['요리 완료','cook_complete'],['단조 완료','forge_complete'],['합성 완료','craft_complete']]],
   ['전투',[['전투 시작','battle_start'],['타격 (검·창)','hit'],['활 공격','bow_hit'],['츄츄족 공격','hili_hit'],['슬라임 공격','slime_hit'],['방어 (피격)','guard'],['회복','heal'],['츄츄족 조우','encounter_hilichurl']]],
   ['원소',[['불','fire'],['물','water'],['얼음','ice'],['번개','lightning'],['바람','wind'],['바위','rock'],['풀','dendro']]],
   ['원소 반응',[['융해','melt'],['증발','vaporize'],['과부하','overload'],['빙결','freeze']]],
+  // 0.16.2 전투 기술 (app_skill_fx_v0162.js).
+  ['전투 기술',[['원소전투 스킬','skill_e'],['원소폭발','skill_q'],['벤티 원소전투 스킬','skill_e_venti'],['벤티 원소폭발','skill_q_venti'],['종려 원소폭발','skill_q_zhongli'],['호두 원소폭발','skill_q_hutao'],['소환','summon'],['보호막','shield_up']]],
+  ['원소전투 스킬 (원소별)',[['불','cast_fire'],['물','cast_water'],['얼음','cast_ice'],['번개','cast_lightning'],['바람','cast_wind'],['바위','cast_rock'],['풀','cast_dendro']]],
+  ['지속 효과 (원소별)',[['불','tick_fire'],['물','tick_water'],['얼음','tick_ice'],['번개','tick_lightning'],['바람','tick_wind'],['바위','tick_rock'],['풀','tick_dendro']]],
+  ['적 기술',[['예고 (…준비)','telegraph'],['지형 효과','hazard'],['증원','reinforce']]],
   ['메뉴',[['버튼','click'],['마우스 올림','hover'],['탭','tab'],['선택지','choice'],['알림','toast'],['메뉴 열기','menu_open'],['메뉴 닫기','menu_close'],['쪽 넘김','page'],['핸드북','handbook_open'],['이동','travel'],['안 될 때','error']]],
   ['기원·운명의 자리',[['기원 화면 열기','wish_open'],['기원 버튼','wish_click'],['유성 (3★)','wish_3'],['유성 (4★)','wish_4'],['유성 (5★)','wish_5'],['결과 등장 (3★)','wish_reveal3'],['결과 등장 (4★)','wish_reveal4'],['결과 등장 (5★)','wish_reveal5'],['결과 목록','wish_result'],['결과에서 돌아가기','wish_return'],['기원 화면 닫기','wish_close'],['운명의 자리 활성화','constellation'],['운명의 자리 열기','constellation_open'],['운명의 자리 고르기','constellation_node']]]];
  for(const [title,list]of groups){const box=mk('div','shell-sound-group');box.append(mk('h4','',title));
@@ -662,7 +667,7 @@ if(typeof settingsControls==='function'){const priorSettings=settingsControls;se
  }
 }catch{}try{
  // The sound credits say where the sounds come from, and the gallery follows the sound section.
- for(const n of p.querySelectorAll('p.muted'))if(/공식 웹 이벤트 원소 효과음/.test(n.textContent))n.textContent='원신 OST · 지역별 순환 재생 · 효과음은 원신 본편 녹음과 공식 웹 이벤트 소리를 씁니다(「이전」·「새로 만든」이라고 적힌 전투 시작·타격·풀 소리는 이 게임에서 만든 소리). 아래 「효과음 고르기」에서 소리마다 후보를 들어 보고 바꿀 수 있습니다.';
+ for(const n of p.querySelectorAll('p.muted'))if(/공식 웹 이벤트 원소 효과음/.test(n.textContent))n.textContent='원신 OST · 지역별 순환 재생 · 효과음은 원신 본편 녹음과 공식 웹 이벤트 소리를 씁니다. 아래 「효과음 고르기」에서 소리마다 후보를 들어 보고 바꿀 수 있습니다.';
  const credit=[...p.querySelectorAll('a')].find(a=>/genshin-sfx\/CREDITS/.test(a.getAttribute('href')||''));
  if(credit&&window.CRPGSound){const note=credit.nextElementSibling?.matches?.('.choice-note')?credit.nextElementSibling:credit;note.after(soundGallery());}
 }catch{}try{const head=mk('h2','','정보'),note=mk('p','shell-disclaimer','본 게임은 비영리 비공식 팬 프로젝트이며 HoYoverse의 공식 게임이 아닙니다. 원신 및 관련 캐릭터, 음악, 이미지 등의 권리는 각 권리자에게 있습니다. 권리자의 요청이 있는 경우 해당 콘텐츠는 즉시 제거 또는 교체될 수 있습니다.'),link=mk('a','shell-official','원신 공식 홈페이지 바로가기');link.href='https://genshin.hoyoverse.com/ko/';link.target='_blank';link.rel='noopener noreferrer';

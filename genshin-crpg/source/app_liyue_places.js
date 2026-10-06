@@ -14,10 +14,14 @@
   EVT_CRPG_LIYUE_ARTISAN:'장인들이 도구와 공예품을 손보는 작업장.',
   EVT_CRPG_LIYUE_WANGSHU_INN:'벽수원 길목의 객잔. 하룻밤 묵어 가며 객잔에 얽힌 부탁을 들을 수 있다.'
  };
- function liyueIntroductions(parent){
+ // 0.16.2 (user: 「제작이 다 가린다」, 불복려): a shop or a workshop is sized to the screen, so the introductions appended under it
+ // squeezed its list to nothing. There they open in their own window from 「동료 영입 임무 소개」; a place that only talks
+ // keeps them on the page.
+ function liyueIntroductions(parent,mode='inline'){
   const place=game.currentPlace?.();if(!place?.valid||!game.liyueIntroductionPlace?.(place.place))return;
   const offers=game.legendContactEntries?.()||[],section=el('section','contact-stories liyue-introductions');section.id='liyue-introductions';
-  section.append(el('h2','','이곳에서 들을 수 있는 부탁'));
+  const windowed=mode==='window';if(windowed&&!offers.length)return;
+  if(!windowed)section.append(el('h2','','이곳에서 들을 수 있는 부탁'));
   if(FLAVOR[place.place])section.append(el('p','story',FLAVOR[place.place]));
   section.append(el('p','muted','소개만 받을 때는 재화를 쓰지 않습니다. 준비 비용은 개인 임무를 시작할 때 사용합니다.'));
   for(const entry of offers){
@@ -31,13 +35,19 @@
    section.append(c);
   }
   if(!offers.length)section.append(el('p','muted','이곳에서 소개하는 개인 임무를 모두 마쳤습니다. 임무의 동료 획득 화면에서 다른 소개처를 확인할 수 있습니다.'));
+  const shortcut=el('div','contact-entry-link');
+  if(windowed){
+   // A press inside the window closes it first, so the page under it redraws with the result.
+   section.addEventListener('click',e=>{if(e.target.closest?.('button'))document.getElementById('modal')?.close?.();},true);
+   shortcut.append(button('동료 영입 임무 소개 · '+offers.length+'개',()=>showModal('이곳에서 들을 수 있는 부탁',section),false,true));parent.insertBefore(shortcut,parent.firstChild);return;
+  }
   parent.append(section);
-  if(offers.length){const shortcut=el('div','contact-entry-link');shortcut.append(button('동료 영입 임무 소개 · '+offers.length+'개',()=>section.scrollIntoView({block:'start',behavior:'smooth'}),false,true));parent.insertBefore(shortcut,parent.firstChild);}
+  if(offers.length){shortcut.append(button('동료 영입 임무 소개 · '+offers.length+'개',()=>section.scrollIntoView({block:'start',behavior:'smooth'}),false,true));parent.insertBefore(shortcut,parent.firstChild);}
  }
  const priorShop=shop,priorDialogue=dialogue,priorCrafting=crafting;
- shop=function(...args){priorShop.apply(this,args);liyueIntroductions(args[0]);};
+ shop=function(...args){priorShop.apply(this,args);liyueIntroductions(args[0],'window');};
  dialogue=function(...args){priorDialogue.apply(this,args);liyueIntroductions(args[0]);};
- crafting=function(...args){priorCrafting.apply(this,args);liyueIntroductions(args[0]);};
+ crafting=function(...args){priorCrafting.apply(this,args);liyueIntroductions(args[0],'window');};
  const priorLocation=drawLocation;
  drawLocation=function(p,v){
   priorLocation(p,v);if(game.s.runtime||game.s.placeVisit||game.needsRecovery?.())return;
