@@ -184,6 +184,9 @@ slotsUI=async function(container){
 function adventureSnapshot(){return {map:game.s.global.CURRENT_MAP_ID,place:game.s.placeVisit?.place,inventory:JSON.parse(JSON.stringify(game.s.inventory)),mora:game.s.global.MORA,level:game.growth(),growth:growthSnapshot(),relations:Object.fromEntries(Object.entries(game.s.relations).map(([id,r])=>[id,r.BOND_SCORE??r.heart*20])),completed:Object.keys(game.s.quests).filter(id=>game.s.quests[id].claimed),battle:game.s.runtime?.id,joined:joinedCompanions()};}
 function joinedCompanions(){try{return Object.entries(JSON.parse(game.s.global.COMPANION_ELIGIBILITY_JSON||'{}')).filter(([,e])=>e?.state==='JOINED').map(([id])=>id);}catch{return [];}}
 function receivedLoot(before,type){
+ // 0.16 (user: 「뽑기에서 뽑았을 때 이 화면이 먼저 나오는 문제」): a wish shows what it brought on the wish screen itself (the
+ // falling star, each result, the list), so the reward window never opens over it — not even for a companion who joined.
+ if(type==='WISH')return null;
  const joins=before.joined?joinedCompanions().filter(id=>!before.joined.includes(id)):[];
  if(!joins.length&&!['USE_ITEM','CRAFT','BUY','OCULUS_COLLECT','OCULUS_OFFER','CLAIM_QUEST','LIFE_FINISH','STORY_NEXT','STORY_CHOICE','COMBAT','COMBAT_BEGIN'].includes(type))return null;
  const entries=[],prior=new Map(before.inventory.filter(i=>i.item).map(i=>[i.item+'|'+(i.variant||''),0]));for(const i of before.inventory)if(i.item){const key=i.item+'|'+(i.variant||'');prior.set(key,(prior.get(key)||0)+i.quantity);}

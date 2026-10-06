@@ -1,5 +1,9 @@
 /* Audited CRPG effect descriptions; see docs/STATUS_EFFECTS_KO.md. */
 (function(root){"use strict";root.CRPGRuntime.statusCatalog={
+  "STATUS_FREEZE": {
+    "name": "빙결",
+    "text": "행동 차례를 쉰다. 아군은 다음 차례 한 번만 쉬고, 풀린 뒤 두 차례는 다시 얼지 않는다. 바위 원소·강공에 깨진다(쇄빙)."
+  },
   "PHYS_VULN": {
     "name": "물리 피해 취약",
     "text": "받는 물리 피해가 25% 늘어난다."

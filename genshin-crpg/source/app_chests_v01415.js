@@ -16,12 +16,13 @@ const SND=n=>{try{window.CRPGSound?.play(n);}catch{}};
 const MAN=()=>typeof MANIFEST!=='undefined'?MANIFEST:(window.CRPG_MANIFEST||{});
 const chestImg=k=>'assets/icons/chests/chest_'+k+'.webp';
 const curIcon=(key,cls)=>{const p=MAN().itemIcons?.icons?.['CUR_'+key]?.path;if(!p)return mk('span',cls+' fallback','◆');const i=mk('img',cls);i.src=p;i.alt='';i.draggable=false;return i;};
-const placeImage=()=>{try{const m=MAN().maps?.[game.s.global.CURRENT_MAP_ID];return m?.url||(m?.file_name&&typeof assetPath==='function'?assetPath(m.file_name):null);}catch{return null;}};
+// 0.16: a guest solving the host's chest (app_coop_v0153.js) sees the picture of the place in the host's world (C.play spec.map).
+const placeImage=()=>{try{const m=MAN().maps?.[C.mapOverride||game.s.global.CURRENT_MAP_ID];return m?.url||(m?.file_name&&typeof assetPath==='function'?assetPath(m.file_name):null);}catch{return null;}};
 const fmt=n=>Number(n||0).toLocaleString('ko-KR');
 const ready=()=>typeof game!=='undefined'&&!!game&&typeof game.chestsHere==='function';
 const ICON_ITEMS=['ING_APPLE','ING_SUNSETTIA','ING_SWEET_FLOWER','ING_MUSHROOM','ING_CARROT','ING_MINT','ING_RADISH','ING_PINECONE','ING_BERRY'];
 // ---------- the overlay ----------
-function close(){if(!C.node)return;const n=C.node;C.node=null;clearInterval(C.timer);n.classList.remove('open');setTimeout(()=>n.remove(),220);}
+function close(){if(!C.node)return;const n=C.node;C.node=null;clearInterval(C.timer);n.classList.remove('open');setTimeout(()=>n.remove(),220);try{C.onClose?.(n);}catch{}}
 C.close=close;
 function overlay(chest){
  close();const wrap=mk('div','ch-overlay region-'+chest.region.toLowerCase());wrap.setAttribute('role','dialog');wrap.setAttribute('aria-modal','true');wrap.setAttribute('aria-label',chest.tierName);
@@ -76,18 +77,25 @@ function rewardRow(w,always=false){
 C.rewardRow=rewardRow;
 // ---------- the games ----------
 function start(chest){
- if(!ready())return;const why=game.chestReason(chest.id);if(why){SHELL.toast?.(why);SND('error');return;}
+ C.mapOverride=null;if(!ready())return;const why=game.chestReason(chest.id);if(why){SHELL.toast?.(why);SND('error');return;}
+ // 0.16 같이 풀기: in a room, the host's puzzle is a board shared with whoever stands here (app_coop_puzzle_v0160.js joins it
+ // first and opens it again through C.startSolo).
+ if(!C.solo&&chest.game&&!chest.unsealed&&C.together?.(chest))return;
  const body=overlay(chest);
+ // 0.16 (user: 「(손님)님이 상자의 암호를 풀어냈다 이런식으로 적어두고 먹게」): a chest someone in the room unsealed opens at once.
+ if(chest.unsealed){reveal(chest,undefined,body);body.querySelector('.ch-open')?.before(mk('p','ch-note by-friend',chest.unsealed.by+' 님이 '+(chest.game?'상자의 암호를 풀어냈다':'이 상자를 찾아냈다')));return;}
  if(!chest.game){note(body,chest.how==='SCENERY'?'풍경 속에 놓여 있던 보물상자입니다.':'아무도 모르는 곳에 숨겨져 있던 보물상자입니다.');reveal(chest,undefined,body);return;}
  const p=game.chestPuzzle(chest.id);if(!p){close();return;}
  const play=C.games[p.game];if(!play){note(body,'이 퍼즐을 표시하지 못했습니다. 게임을 새로 고친 뒤 다시 열어 주세요.','warn');return;}
  play(p,body,answer=>solved(chest,answer,body));
 }
 C.start=start;
+C.startSolo=function(chest){C.solo=true;try{start(chest);}finally{C.solo=false;}return C.node?.querySelector('.ch-body')||null;};
 // 0.15.2: the regional events play the same games in the same window (app_events_v0152.js). spec: {title, sub, region,
 // glyph | icon, puzzle, solvedText, done(answer, body)}; done settles the event and draws what it paid.
 C.play=function(spec){
  const body=overlay({region:spec.region||'MOND',tierName:spec.title,icon:spec.icon||'common',glyph:spec.glyph,game:spec.puzzle.game,gameName:spec.puzzle.name,mapName:spec.sub||'',hidden:false});
+ C.mapOverride=spec.map||null;if(spec.map){const bg=placeImage();if(bg)C.node?.style.setProperty('--ch-bg','url("'+bg+'")');}
  const play=C.games[spec.puzzle.game];if(!play){note(body,'이 퍼즐을 표시하지 못했습니다.','warn');return;}
  play(spec.puzzle,body,answer=>{
   SND('chest_unlock');body.querySelector('.ch-game')?.classList.add('solved');body.append(mk('div','ch-solved',spec.solvedText||'봉인이 풀렸다!'));
@@ -249,9 +257,11 @@ function sudokuLesson(n,br,bc){
 SHELL.sceneryHooks.push((stage,{close:closeView})=>{
  if(!ready())return;
  for(const c of game.chestsHere('SCENERY')){if(c.how!=='SCENERY'&&c.how!=='SCENERY_NIGHT')continue;
-  const b=mk('button','scenery-chest tier-'+c.icon+(c.how==='SCENERY_NIGHT'?' night':''));b.type='button';b.style.left=c.pos.x+'%';b.style.top=c.pos.y+'%';
-  b.setAttribute('aria-label',c.how==='SCENERY_NIGHT'?'어둠 속에서 무언가 일렁인다':c.tierName+' 살펴보기');
-  if(c.how!=='SCENERY_NIGHT'){const i=mk('img','');i.src=chestImg(c.icon);i.alt='';i.draggable=false;b.append(i);}
+  const b=mk('button','scenery-chest tier-'+c.icon+(c.how==='SCENERY_NIGHT'&&!c.unsealed?' night':'')+(c.unsealed?' unsealed':''));b.type='button';b.style.left=c.pos.x+'%';b.style.top=c.pos.y+'%';
+  b.setAttribute('aria-label',c.unsealed?c.unsealed.by+' 님이 암호를 풀어낸 '+c.tierName+' 열기':c.how==='SCENERY_NIGHT'?'어둠 속에서 무언가 일렁인다':c.tierName+' 살펴보기');
+  if(c.how!=='SCENERY_NIGHT'||c.unsealed){const i=mk('img','');i.src=chestImg(c.icon);i.alt='';i.draggable=false;b.append(i);}
+  // 0.16: the name of whoever in the room unsealed it, on the chest.
+  if(c.unsealed)b.append(mk('em','scenery-chest-note',c.unsealed.by+' 님이 '+(c.game?'암호를 풀어냈다':'찾아냈다')));
   b.onclick=e=>{e.stopPropagation();closeView();setTimeout(()=>start(c),120);};stage.append(b);}
 });
 // a small glint used by the hidden chests inside interface screens

@@ -55,9 +55,9 @@ assert(appOnline.includes("button('로컬 테스트 로그인'"),'local title mu
 assert(appOnline.includes("localDev=isLocal&&window.CRPG_ONLINE_CONFIG?.localDev===true"),'local login helper must be gated behind the generated local config');
 assert(reset.includes('.local\\wrangler'),'reset command must only clear isolated local state');
 assert(!reset.includes('--remote'),'reset command must not include a remote operation');
-// Local isolation applies to both the 0.14 test line and the approved 0.15 release line.
+// Local isolation applies to the 0.14 test line and the approved 0.15 and 0.16 release lines.
 // A version bump must not bypass any of the production-safety checks above.
-assert.match(pkg.version,/^0\.(?:14|15)\.\d+$/,'local development must support the 0.14 test and 0.15 release lines');
+assert.match(pkg.version,/^0\.(?:14|15|16)\.\d+$/,'local development must support the 0.14 test and 0.15/0.16 release lines');
 assert.equal(lock.version,pkg.version,'package-lock version must match package.json');
 assert.equal(lock.packages?.['']?.version,pkg.version,'package-lock root package version must match package.json');
 assert.equal(release.version,pkg.version,'release notes version must match package.json');

@@ -349,6 +349,15 @@ const logText=e=>{
  if(e.guard)return who+' · 방어';if(e.skipped)return who+' · 행동 불가';if(e.cardName&&who)return who+' · '+e.cardName;
  return '';
 };
+// 0.16 (user: 「전투 모션이 손님한테는 거의 없는 수준」, 「모든 모션이 다 나오는건 아닌 것 같은데」, 「모션이 나오기도 전에 승리판정이
+// 나오네」): the fight's own log as presentation.js stamps it in every engine (each blow with its target, element, skill,
+// reaction, HP before and after), so the window of someone who joined plays it exactly like the battle screen. The last
+// forty lines, with where they start; the end of a fight sends its last log the same way.
+const FX_KEYS=['actor','actorId','actorSide','target','targetId','targetSide','damage','critical','element','reaction','reactionName','heal','guard','reshield','miss','immune','skipped','card','cardName','round','actionSequence','hpBefore','hpAfter','maxHp','maxHpChange','absorbed','shieldBefore','shieldAfter','sourceKind','presentationSourceKind','presentationCardId','presentationActorId','presentationActorName','statusApplied','charging','interrupted','released','text','jointAttack','jointSkipped','jointBonusPct','jointIndex','enemySkill'];
+P.coopFx=function(log,keep=40){
+ const list=Array.isArray(log)?log:[],from=Math.max(0,list.length-keep);
+ return {len:list.length,from,entries:list.slice(from).map(e=>{const o={};if(e&&typeof e==='object')for(const k of FX_KEYS){const v=e[k];if(v===undefined||v===null)continue;o[k]=k==='statusApplied'?{id:String(v?.id||'')}:typeof v==='string'?text(v,160):v;}return o;})};
+};
 P.coopBattleView=function(pid){
  const b=this.s.runtime;if(!b?.coop)return null;
  const t=b.coop.turn,cur=b.order?.[b.cursor],curActor=cur&&b.actors.find(a=>a.id===cur.id),mine=b.actors.find(a=>a.coop?.owner===pid)||null;
@@ -368,7 +377,11 @@ P.coopBattleView=function(pid){
    :(curActor&&b.phase==='WAIT_PLAYER'&&curActor.control==='PLAYER'&&b.opening?.state!=='PENDING'?{actor:curActor.id,name:curActor.name,host:true}:null),
   me:mine?{id:mine.id,name:mine.name,source:mine.source,left:!!mine.coop.left,alive:mine.hp>0}:null,cards,
   order:(b.order||[]).map(x=>x.id).filter(id=>b.actors.some(a=>a.id===id&&a.hp>0)),
-  log:b.log.slice(-40).map(logText).filter(Boolean).slice(-10),now:this.coopNow()};
+  log:b.log.slice(-40).map(logText).filter(Boolean).slice(-10),fx:this.coopFx(b.log),now:this.coopNow(),
+  // 0.16 (user: 「왜 전투 부분만 다른거야? … 그냥 모든 부분을 다 똑같이 하면 되는거 아니야?」): the fight itself, so the screen of
+  // someone in it is the battle screen drawn from it (the place behind it, the fighters, order, statuses, summons and the
+  // rest): a copy of the fight (its last forty lines of log), and where and when it is.
+  state:{runtime:{...copy({...b,log:[]}),log:copy(b.log.slice(-40))},map:String(this.s.global.CURRENT_MAP_ID||''),day:Number(this.s.global.WORLD_DAY)||1,time:String(this.s.global.WORLD_TIME||'12:00')}};
 };
 // For the host's own screen.
 P.coopTurnInfo=function(){const b=this.s.runtime,t=b?.coop?.turn;if(!t)return null;const a=b.actors.find(x=>x.id===t.actor);return a?{actor:a.id,name:a.name,owner:t.owner,ownerName:a.coop?.ownerName||'',deadline:t.deadline}:null;};

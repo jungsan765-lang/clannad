@@ -23,6 +23,8 @@ const itemName=id=>{try{return game.tables['14_ITEM_DB'].get(id)?.[1]||id;}catch
 const toast=t=>{try{SHELL.toast?.(t);}catch{}};
 const room=()=>C.status?.room||null;
 const host=()=>room()?.you==='HOST';
+// 0.16: the room's battle speed as last taken (see 「one battle speed for the room」 below).
+const SPEED={want:null,flight:false,room:null,rev:-1};
 // Why one cannot take part right now (shown on locked buttons and in the window).
 function reason(){
  if(!ready())return '게임을 불러오는 중입니다.';
@@ -100,7 +102,7 @@ function charCard(c,{onPick,picked,why}={}){
  card.append(copy);if(why&&onPick)card.append(mk('em','cp-char-why',why));return card;
 }
 function draw(){
- pill();const wrap=C.node;if(!wrap)return;const box=wrap.querySelector('.cp-box'),parts=[];
+ speedFromRoom();pill();const wrap=C.node;if(!wrap)return;const box=wrap.querySelector('.cp-box'),parts=[];
  const why=reason(),r=room();
  if(C.view==='pick'){parts.push(...pickView());}
  else if(r){parts.push(head('다인 모드',(r.you==='HOST'?'내 방':'방장 '+r.host.name)+' · '+(r.visibility==='INVITE'?'초대 전용':'공개 모집')+' · '+r.count+' / '+r.max+'명'),roomView(r));}
@@ -132,38 +134,126 @@ function rulesBox(){
 // ---------- 0.15.9 함께 다니기: the host's world, suggestions and the room's talk ----------
 const mapName=id=>{try{return game.tables['32_MAP_DB'].get(id)?.[2]||id;}catch{return id;}};
 const muted=pid=>{try{return !!window.CRPGChat?.muted?.has(pid);}catch{return false;}};
-// The places one step away from the host (the same map data every journey has); the host decides whether the way is open.
-function neighbors(id){
- const out=new Map();try{for(const e of game.rows('47_MAP_EDGE_DB'))if(e[1]===id&&e[8]!=='N'&&(e[11]||'ACTIVE')==='ACTIVE'&&e[2]!==id&&game.tables['32_MAP_DB'].has(e[2]))out.set(e[2],{id:e[2],name:mapName(e[2])});}catch{}
- return [...out.values()];
-}
 function doingText(w,r){
  if(w.doing==='BATTLE')return r.battle?.shared===false?'방장이 혼자 싸우는 중':'전투 중';
  if(w.doing==='STORY')return '이야기 진행 중 · 이야기 전투는 방장 혼자 합니다';
  if(w.doing==='PLACE')return (w.place||'시설')+' 이용 중';
  return (w.safe?'안전한 거점':'야외 · 이동 중 적과 마주칠 수 있음')+(w.levels?' · 권장 Lv.'+w.levels[0]+'~'+w.levels[1]:'');
 }
-// The region's map with the party's pin (and the suggested place), centred on the party.
-function miniMap(id,suggestId){
- const T=window.CRPGTerrainMap,pt=T?.points?.[id];if(!pt)return null;const A=T.atlases?.[pt[0]];if(!A)return null;
- const box=mk('div','cp-minimap');box.setAttribute('role','img');box.setAttribute('aria-label',A.name+' 지도 · 지금 파티가 있는 곳');
+// 0.16 함께 돌아다니기 (user: 「그냥 손님이 방장 맵에 아예 들어가는 원신처럼 맵 알아서 돌아다니다가 방장이나 손님이 쌈 나면 전투
+// 시작 전에 끼고 그런거 안돼?」, 「그래야 상자도 대신 좀 퍼즐같은것도 풀어줄 수 있고」): the host's world with everyone in it. A guest
+// walks it one step at a time (the pins one step away) and goes back to the host; anyone steps into a fight going on
+// (「참가」). My own fight there is drawn by my own battle screen. The host's chests are found in 풍경 보기 on one's own main
+// screen standing in the host's world (app_coop_world_v0160.js), never listed here: where a chest lies is for the eyes.
+const myPos=r=>(r.positions||[]).find(p=>p.me)||null;
+function stepWhy(r){
+ if(C.busy)return '잠시 기다려 주세요.';const me=myPos(r);if(me?.fight)return '함께 싸우는 동안에는 움직일 수 없습니다.';
+ let why='';try{why=game.coopRoamReason?.()||'';}catch{}return why;
+}
+function fightWhy(f){
+ const r=room();if(C.busy)return '잠시 기다려 주세요.';if(!r)return '방이 닫혔습니다.';
+ const me=myPos(r);if(me?.fight&&!(f&&me.fight.pid===f.owner.pid))return '다른 전투에 함께하는 중입니다.';
+ try{if(game?.s?.runtime)return '진행 중인 내 전투를 먼저 마쳐 주세요.';}catch{}
+ if(r.you==='GUEST'&&!(r.members||[]).find(m=>m.me)?.ready)return '「준비 완료」로 바꾼 뒤 함께할 수 있습니다.';
+ // 0.16 (user: 「다른 사람 전투는 그쪽으로 가야 할 수 있는것으로」): one stands where the fight is.
+ if(farFrom(f))return (f.mapName||'전투가 벌어진 곳')+'에 가야 함께 싸울 수 있습니다.';
+ return '';
+}
+function farFrom(f){const me=myPos(room()||{});return !!(f&&me&&me.map!==f.map);}
+// The way to a place: the travel map with the route drawn (a guest's in the host's world, entered first if need be).
+function goTo(map){
+ closePrompt();const W=window.CRPGCoopWorld,r=room();
+ if(r?.you==='GUEST'&&W&&!W.shown){W.enter?.();setTimeout(()=>showOnMap(map),250);return;}
+ showOnMap(map);
+}
+function worldMap(r,center){
+ const T=window.CRPGTerrainMap,pt=T?.points?.[center];if(!pt)return null;const A=T.atlases?.[pt[0]];if(!A)return null;
+ const box=mk('div','cp-minimap cp-worldmap');box.setAttribute('aria-label',A.name+' 지도');
  const W=T.width||880,H=T.height||786,layer=mk('div','cp-minimap-layer');layer.style.transform='translate('+(-pt[1]/W*100).toFixed(2)+'%,'+(-pt[2]/H*100).toFixed(2)+'%)';
  const img=mk('img');img.src=A.url;img.alt='';img.decoding='async';layer.append(img);
- const pin=(p,cls,label)=>{const d=mk('span','cp-pin '+cls);d.style.left=(p[1]/W*100).toFixed(2)+'%';d.style.top=(p[2]/H*100).toFixed(2)+'%';d.append(mk('em','',label));layer.append(d);};
- const sp=suggestId&&suggestId!==id?T.points[suggestId]:null;if(sp&&sp[0]===pt[0])pin(sp,'suggest','제안');
- pin(pt,'party','함께');box.append(layer);return box;
+ const put=(id,node)=>{const p=T.points[id];if(!p||p[0]!==pt[0])return;node.style.left=(p[1]/W*100).toFixed(2)+'%';node.style.top=(p[2]/H*100).toFixed(2)+'%';layer.append(node);};
+ // One step away: pins to press (a guest walks; the host walks their own world by playing).
+ if(r.you==='GUEST'){const why=stepWhy(r);for(const n of r.near||[]){const b=mk('button','cp-step');b.type='button';b.setAttribute('aria-label',n.name+'(으)로 이동');b.title=why||n.name+'(으)로 이동';b.append(mk('em','',n.name));if(why){b.disabled=true;b.dataset.reason=why;}else b.onclick=()=>move(n.map);put(n.map,b);}}
+ const sug=r.suggest&&r.suggest.map!==r.world?.map?r.suggest:null;if(sug){const d=mk('span','cp-pin suggest');d.append(mk('em','','제안'));put(sug.map,d);}
+ for(const f of r.fights||[]){const d=mk('span','cp-pin fight');d.append(mk('em','','⚔ '+f.owner.name));put(f.map,d);}
+ const at=new Map();for(const p of r.positions||[])(at.get(p.map)||at.set(p.map,[]).get(p.map)).push(p);
+ for(const [id,list] of at){const d=mk('span','cp-pin '+(list.some(p=>p.me)?'me':list.some(p=>p.host)?'party':'other'));d.append(mk('em','',list.map(p=>p.me?'나':p.host?'방장':p.name).join(' · ')));put(id,d);}
+ box.append(layer);return box;
 }
-function worldSection(r){
- const w=r.world,s=mk('section','cp-world');s.append(mk('h3','',r.you==='HOST'?'함께 다니기 · 내 세계':'함께 다니기 · '+r.host.name+' 님의 세계'));
- if(!w){s.append(mk('p','cp-empty','방장의 위치를 불러오는 중…'));return s;}
- const where=mk('div','cp-where');where.append(mk('strong','',(w.region?w.region+' · ':'')+w.name),mk('small','',doingText(w,r)+(w.time?' · '+w.day+'일차 '+w.time:'')));s.append(where);
- const sug=r.suggest&&r.suggest.map!==w.map?r.suggest:null,map=miniMap(w.map,sug?.map);if(map)s.append(map);
- if(sug){const p=mk('div','cp-suggested');p.append(mk('span','',sug.from.name+' 님 · 「'+sug.name+'」(으)로 가요'));if(r.you==='HOST')p.append(btn('지도에서 보기',()=>showOnMap(sug.map),'cp-mini'));s.append(p);}
- if(r.you==='GUEST'){const near=neighbors(w.map);if(near.length&&w.doing!=='BATTLE'){const row=mk('div','cp-chips');row.setAttribute('aria-label','가자고 하기');row.append(mk('small','cp-chips-label','가자고 하기'));
-  for(const n of near.slice(0,8))row.append(btn(n.name,()=>suggest(n.id),'cp-chip'+(sug?.map===n.id?' on':''),C.busy?'잠시 기다려 주세요.':''));s.append(row);}}
- s.append(mk('small','cp-note',r.you==='HOST'?'내가 이동하면 손님들도 함께 이동합니다. 손님이 가고 싶은 곳을 고르면 여기와 지도에 보입니다.':'방장이 파티를 이끕니다. 방장이 이동하면 함께 이동하고, 가고 싶은 곳은 「가자고 하기」로 알려 주세요. 내 여정의 위치는 그대로입니다.'));
+function fightRows(r){
+ const list=(r.fights||[]).filter(f=>!f.mine);if(!list.length)return null;const s=mk('div','cp-fights');s.setAttribute('aria-label','진행 중인 전투');
+ for(const f of list){const row=mk('div','cp-fight'+(f.joined?' joined':'')),copy=mk('span','cp-fight-copy');
+  copy.append(mk('strong','',f.owner.name+(f.owner.host?' · 방장':'')+(f.title?' · '+f.title:'')),mk('small','',f.mapName+' · '+(f.opening?'시작 전':'라운드 '+f.round)+(f.count?' · 함께 '+f.count+'명':'')));
+  row.append(SHELL.icon('SWORD','shell-icon'),copy,f.joined?btn('전투 보기',()=>{C.minimized=false;openBattle();},'cp-mini primary'):farFrom(f)?btn('가는 길',()=>goTo(f.map),'cp-mini'):btn('참가',()=>joinFight(f),'cp-mini primary',fightWhy(f)));s.append(row);}
  return s;
 }
+function worldSection(r){
+ const w=r.world,s=mk('section','cp-world'),guest=r.you==='GUEST';s.append(mk('h3','',guest?'함께 다니기 · '+r.host.name+' 님의 세계':'함께 다니기 · 내 세계'));
+ if(!w){s.append(mk('p','cp-empty','방장의 위치를 불러오는 중…'));return s;}
+ const at=r.at||{map:w.map,name:w.name,follow:true},where=mk('div','cp-where');
+ if(guest)where.append(mk('strong','',(at.follow?'방장과 함께 · ':'혼자 둘러보는 중 · ')+at.name),mk('small','','방장 · '+w.name+' · '+doingText(w,r)+(w.time?' · '+w.day+'일차 '+w.time:'')));
+ else where.append(mk('strong','',(w.region?w.region+' · ':'')+w.name),mk('small','',doingText(w,r)+(w.time?' · '+w.day+'일차 '+w.time:'')));
+ s.append(where);
+ const map=worldMap(r,guest?at.map:w.map);if(map)s.append(map);
+ const fights=fightRows(r);if(fights)s.append(fights);
+ // 0.16 같이 풀기: a chest's board someone is on where one stands (app_coop_puzzle_v0160.js).
+ const here=myPos(r)?.map,boards=(r.boards||[]).filter(b=>!b.mine&&b.map===here);
+ if(boards.length){const list=mk('div','cp-fights cp-boards');for(const b of boards){const row=mk('div','cp-fight cp-board'),copy=mk('span','cp-fight-copy');copy.append(mk('strong','',b.players.join(' · ')),mk('small','',b.mapName+' · 보물상자 퍼즐을 푸는 중'));row.append(SHELL.icon('PUZZLE','shell-icon'),copy,btn('같이 풀기',()=>{close();window.CRPGCoopPuzzle?.join?.(b.chest);},'cp-mini primary'));list.append(row);}s.append(list);}
+ const sug=r.suggest&&r.suggest.map!==w.map?r.suggest:null;
+ if(sug){const p=mk('div','cp-suggested');p.append(mk('span','',sug.from.name+' 님 · 「'+sug.name+'」(으)로 가요'));if(!guest)p.append(btn('지도에서 보기',()=>showOnMap(sug.map),'cp-mini'));s.append(p);}
+ if(guest){
+  const why=stepWhy(r),row=mk('div','cp-row cp-walk');
+  // 0.16: one's own main screen stands in the host's world (app_coop_world_v0160.js); this button goes there or back.
+  const world=window.CRPGCoopWorld?.button?.();if(world)row.append(world);
+  if(!at.follow)row.append(btn('방장에게 가기',follow,'primary',why));
+  if(!at.follow&&at.map!==w.map)row.append(btn('여기로 오자고 하기',()=>suggest(at.map),'cp-mini',C.busy?'잠시 기다려 주세요.':''));
+  if(row.childElementCount)s.append(row);
+ }
+ return s;
+}
+// ---------- 0.16: walking, stepping into fights, the host's chests ----------
+async function move(map){
+ const out=await call('/coop/move',{map});if(!out)return;
+ if(out.room)C.status={...C.status,room:out.room};SND('click');
+ if(out.encounter){toast('적과 마주쳤습니다! 내 전투가 시작됩니다.');SND('notice');close();wantSync();return;}
+ draw();
+}
+async function follow(){const out=await call('/coop/follow',{},'방장에게 왔습니다.');if(out?.room)C.status={...C.status,room:out.room};draw();return out;}
+async function joinFight(f){
+ const out=await call('/coop/fight',{owner:f.owner.pid},f.opening?'전투에 함께합니다.':'다음 라운드부터 함께 싸웁니다.');closePrompt(f.owner.pid);if(!out)return;
+ if(out.room)C.status={...C.status,room:out.room};if(out.battle){C.minimized=false;setBattle(out.battle);openBattle();}draw();
+ return out;
+}
+function openChest(ch){
+ const CH=window.CRPGChests;if(!CH)return;const host=room()?.host?.name||'방장';
+ if(!ch.game||!ch.puzzle){claimChest(ch,undefined,null);return;}
+ close();
+ // 0.16 같이 풀기: the board is shared with whoever stands here (app_coop_puzzle_v0160.js); the clock games stay one's own.
+ if(window.CRPGCoopPuzzle?.wants?.(ch)){window.CRPGCoopPuzzle.open(ch);return;}
+ CH.play({title:ch.tierName,sub:ch.mapName+' · '+host+' 님의 상자',region:ch.region,icon:ch.icon,puzzle:ch.puzzle,map:ch.map,solvedText:'봉인이 풀렸다!',done:(answer,body)=>claimChest(ch,answer,body)});
+}
+// 0.16 (user: 「보물상자 클리어 하는건 클리어 따로, 상자 먹는거 따로 … (손님)님이 상자의 암호를 풀어냈다 이런식으로 적어두고 먹게」): solving
+// unseals the chest where it lies; the host comes and opens it themselves, and the chest says who solved it.
+async function claimChest(ch,answer,body){
+ const CH=window.CRPGChests,host=room()?.host?.name||'방장';
+ try{const out=(await O.request('/coop/chest',{chest:ch.id,answer})).result||{};SND('chest_unlock');
+  const what=ch.game?'상자의 암호를 풀어냈습니다':'보물상자를 찾아냈습니다',where=host+' 님이 '+(out.mapName||ch.mapName)+'에 오면 열 수 있습니다';
+  if(body){body.replaceChildren();body.className='ch-body ch-reveal';const stage=mk('div','ch-stage tier-'+ch.icon),img=mk('img','ch-chest');img.src='assets/icons/chests/chest_'+ch.icon+'.webp';img.alt=ch.tierName;stage.append(mk('div','ch-glow'),img);
+   const ok=mk('button','ch-btn primary ch-done','확인');ok.type='button';ok.onclick=()=>CH?.close();body.append(stage,mk('p','ch-progress',what),mk('p','ch-note',where),ok);}
+  else toast(what+' · '+where);
+  load(true);
+ }catch(e){toast(e.message);SND('error');if(body)body.append(mk('p','ch-note warn',e.message));}
+}
+// 「참가」 on a fight one hears of (kind 'fight'): a small note that goes away by itself.
+function showFightPrompt(f){
+ closePrompt();const n=mk('div','cp-invite-pop cp-fight-pop');n.setAttribute('role','alertdialog');n.setAttribute('aria-label','전투 참가');
+ n.append(mk('strong','',f.owner.name+' 님이 싸움을 시작합니다'),mk('small','',f.title&&f.mapName&&f.title.startsWith(f.mapName)?f.title:[f.mapName,f.title].filter(Boolean).join(' · ')));
+ const why=fightWhy(f),row=mk('div','cp-row');row.append(farFrom(f)?btn('가는 길',()=>goTo(f.map),'primary'):btn('참가',()=>joinFight(f),'primary',why),btn('닫기',()=>closePrompt()));n.append(row);if(why)n.append(mk('p','cp-why',why));
+ document.body.append(n);C.promptNode=n;C.promptOwner=f.owner.pid;SND('notice');setTimeout(()=>{if(C.promptNode===n)closePrompt();},20000);
+}
+function closePrompt(owner){if(owner&&C.promptOwner!==owner)return;C.promptNode?.remove();C.promptNode=null;C.promptOwner=null;}
+// The note goes once that fight is over or one is in it.
+function closePromptFor(r){if(!C.promptOwner)return;const f=(r?.fights||[]).find(x=>x.owner.pid===C.promptOwner);if(!f||f.joined)closePrompt();}
 function talkSection(r){
  const s=mk('section','cp-talk');s.dataset.room=r.id;s.append(mk('h3','','방 대화'));
  const log=mk('div','cp-talk-log');log.setAttribute('aria-live','polite');const lines=(r.log||[]).filter(l=>!muted(l.from.pid)).slice(-8);
@@ -182,7 +272,17 @@ async function say(text){
  try{const out=await O.request('/coop/say',{text});if(out?.line)addLine(out.line);}
  catch(e){C.msg=e.message;SND('error');draw();}
 }
-function addLine(line){const r=room();if(!r)return;const log=r.log||[];if(log.some(l=>l.at===line.at&&l.from.pid===line.from.pid&&l.text===line.text))return;r.log=[...log,line].slice(-20);draw();}
+function addLine(line){const r=room();if(!r)return;const log=r.log||[];if(log.some(l=>l.at===line.at&&l.from.pid===line.from.pid&&l.text===line.text))return;r.log=[...log,line].slice(-20);draw();try{window.CRPGChat?.coopLine?.(line);}catch{}}
+// 0.16: the chat window's 「다인」 tab (app_chat.js) shows and sends the room's talk.
+C.say=text=>say(text);C.roomLog=()=>room()?.log||[];C.inRoom=()=>!!room();
+// 0.16: walking the host's world from one's own field screen (app_coop_world_v0160.js) uses the same steps, fights and
+// chests as this window.
+C.api={follow,joinFight,openChest,claim:claimChest,fightWhy,farFrom,goTo,stepWhy,suggest,myPos:()=>myPos(room()||{}),wantSync:()=>wantSync(),msg:()=>C.msg,
+ // 0.16: the battle screen of a fight one is in that is someone else's (app_coop_world_v0160.js) acts through these.
+ command:p=>{C.card=String(p?.card||'');C.target=p?.target?String(p.target):'';C.branch=p?.branch?String(p.branch):'';return command();},
+ minimize:()=>minimize(),leave:()=>leave(),board:()=>C.fxBoard||C.battle,
+ openBattle:()=>{C.minimized=false;openBattle();},
+ step:async map=>{const out=await call('/coop/move',{map});if(!out)return null;if(out.room)C.status={...C.status,room:out.room};if(out.encounter)wantSync();draw();return out;}};
 // The host's own travel map shows the suggested place (app_navigation.js; on a phone the main screen's 「이동」 tab).
 function showOnMap(map){
  close();try{const pt=window.CRPGTerrainMap?.points?.[map];if(typeof NavigationUI!=='undefined'){if(pt){NavigationUI.atlas=pt[0];NavigationUI.camera={mode:'custom',zoom:2,cx:pt[1],cy:pt[2]};}NavigationUI.choose(map);}
@@ -219,10 +319,11 @@ function pickView(){
 }
 function roomView(r){
  const body=mk('div','cp-body');const me=r.members.find(m=>m.me),why=reason();
- const b=r.battle;const state=mk('section','cp-state'+(b?.running?' running':''));
- state.append(mk('strong','',b?.running?(b.shared?'전투 중 · '+(b.opening?'시작 전':'라운드 '+b.round):'방장이 혼자 싸우는 중'):'전투를 기다리는 중'),
-  mk('small','',b?.running?(b.shared?(b.title||'함께 싸우는 전투')+(r.you==='GUEST'?' · '+(me&&C.battle?.me?'내 캐릭터가 싸우고 있습니다':'다음 라운드부터 함께 싸웁니다'):''):b.solo):(r.you==='HOST'?'필드에서 전투가 시작되면 손님들이 함께 싸웁니다.':'방장이 필드에서 싸움을 시작하면 함께 싸웁니다.')));
- if(r.you==='GUEST'&&b?.shared&&C.battle)state.append(btn('전투 화면 보기',()=>{C.minimized=false;openBattle();},'primary'));
+ // 0.16: what I am doing — fighting in someone's fight, my own fight, or waiting (short lines, no paragraph).
+ const b=r.battle,mePos=myPos(r),inFight=mePos?.fight||null,state=mk('section','cp-state'+(inFight||b?.running?' running':''));
+ if(inFight&&!inFight.own){state.append(mk('strong','',inFight.name+' 님의 전투에 함께하는 중'),mk('small','',C.battle?(C.battle.opening?'시작 전':'라운드 '+C.battle.round)+(C.battle.title?' · '+C.battle.title:''):'곧 들어갑니다'));if(C.battle)state.append(btn('전투 화면 보기',()=>{C.minimized=false;openBattle();},'primary'));}
+ else if(inFight){const f=(r.fights||[]).find(x=>x.mine);state.append(mk('strong','','내 전투 중'+(f?' · '+(f.opening?'시작 전':'라운드 '+f.round):'')),mk('small','',f?.count?'함께 싸우는 모험가 '+f.count+'명':'다른 모험가가 「참가」로 함께할 수 있습니다'));}
+ else state.append(mk('strong','',b?.running&&!b.shared?'방장이 혼자 싸우는 중':'전투를 기다리는 중'),mk('small','',b?.running&&!b.shared?b.solo:r.you==='HOST'?'따라오는 손님은 함께 싸우고, 다른 손님은 「참가」로 끼어듭니다':'방장을 따라가면 함께 싸우고, 혼자 다니다 만난 싸움은 내 전투입니다'));
  body.append(state,worldSection(r),talkSection(r));
  const team=mk('section','cp-team');team.append(mk('h3','','함께하는 모험가'));
  const hostRow=mk('div','cp-member host');hostRow.append(charCard(r.host.char),mk('span','cp-member-who',r.host.name+' · 방장'+(r.host.online?'':' · 접속 끊김')));team.append(hostRow);
@@ -257,19 +358,112 @@ function rewardLine(w){const parts=[];if(w.xp)parts.push(w.charName+' 경험치 
 function showRewards(list){C.rewards=list;for(const w of list)toast('다인 모드 보상 · '+rewardLine(w));SND('chest_reward');drawBattle();draw();}
 // ---------- the guest's battle window ----------
 function setBattle(view){
+ // The last blows of a fight that ended are playing: the window keeps that fight until they are done.
+ if(!view&&C.holdBattle)return;
  const before=C.battle;C.battle=view;C.battleAt=Date.now();if(view)C.lastTitle=view.title||view.encounter||'';
- if(view&&(!before||before.battle!==view.battle)){C.ended=null;C.rewards=null;C.card='';C.target='';C.branch='';C.autoAsked='';if(room()?.you==='GUEST'&&!C.minimized)openBattle();}
+ if(view&&(!before||before.battle!==view.battle)){C.ended=null;C.rewards=null;C.card='';C.target='';C.branch='';C.autoAsked='';if(!C.minimized)openBattle();}
+ if(view?.owner)C.lastOwner=view.owner;
+ // The last view of a fight is kept for its end (its final blows come with the result).
+ if(view)C.lastFight=view;
  if(view&&view.turn?.mine&&before?.turn?.actor!==view.turn.actor){SND('notice');if(C.minimized)toast('내 차례입니다 · '+(RULES.turnMs/1000)+'초 안에 골라 주세요.');}
- drawBattle();schedule();
+ // 0.16: what the fight did since the last view plays on the board as it was (the fallen still standing until their blow),
+ // then the board is drawn as it is now.
+ const watching=!C.minimized&&(C.shown||view?.state);
+ if(before&&view&&before.battle===view.battle&&watching){const frames=framesFor(before,view);
+  if(frames===null){drawBattle();playChanges(before,view);}
+  else if(frames.length){if(!C.fxPlaying)C.fxBoard=before;fxChain=fxChain.then(()=>runFrames(frames)).catch(()=>{});}
+  else drawBattle();}
+ else{if(view)C.fxSeen={battle:view.battle,len:view.fx?.len||0};drawBattle();}
+ schedule();
+}
+// ---------- 0.16: the battle screen's own playback in this window (user: 「모든 모션이 다 나오는건 아닌 것 같은데」, 「버벅이는 것
+// 같기도 하고 … 모션이 나오기도 전에 승리판정이 나오네」) ----------
+// What the fight's log added since the last view (view.fx, stamped by presentation.js in the server's engine) becomes the
+// battle screen's frames (CRPGPresentation) and plays through its player (GameEffects: the band over the commands, the
+// one acting, every number, crit, reaction, shield and status, the shakes and the sounds). The window is not drawn again
+// while it plays (no stutter), and a fight's result waits for its last blows.
+let fxChain=Promise.resolve();
+function framesFor(a,b){
+ const PR=window.CRPGPresentation,fx=b?.fx;if(!PR?.delta||!PR.actionFrames||!fx||!Array.isArray(fx.entries))return null;
+ const seen=C.fxSeen?.battle===b.battle?C.fxSeen.len:(a?.battle===b.battle&&a.fx?a.fx.len:fx.len),start=Math.max(seen,fx.from);
+ C.fxSeen={battle:b.battle,len:Math.max(seen,fx.len)};if(fx.len<=start)return [];
+ const log=new Array(fx.len);fx.entries.forEach((e,i)=>{log[fx.from+i]=e;});
+ const actors=v=>unitsOf(v).map(u=>({id:u.id,name:u.name,side:u.side,hp:u.hp,maxHp:u.maxHp})),save='coop:'+b.battle;
+ let events=[];try{events=PR.delta({saveId:save,battleId:b.battle,count:start,actors:actors(a||b),resultId:null},{global:{SAVE_ID:save,LAST_BATTLE_RESULT_JSON:'{}',LAST_COMMITTED_ACTION_ID:String(fx.len)},runtime:{id:b.battle,log,actors:actors(b)}});}catch{return null;}
+ // A long stretch (the others' turns while one waited) keeps its last part, so one's own turn is not held back for long.
+ return PR.actionFrames(events).slice(-8);
+}
+function queueFx(a,b){
+ const frames=framesFor(a,b);if(frames===null){playChanges(a,b);return;}if(!frames.length)return;
+ fxChain=fxChain.then(()=>runFrames(frames)).catch(()=>{});
+}
+async function runFrames(frames){
+ const GE=typeof GameEffects!=='undefined'?GameEffects:null;
+ if(!GE?.play||C.minimized||!(C.shown||C.battle?.state)){C.fxBoard=null;drawBattle();return;}
+ C.fxPlaying=true;document.body.classList.add('cp-fx-on');
+ try{const run=GE.play(frames);if(GE.dock&&C.shown)C.shown.append(GE.dock);await run;}
+ finally{C.fxPlaying=false;C.fxBoard=null;document.body.classList.remove('cp-fx-on');drawBattle();}
+}
+// The player finds the fighters in this window while it plays here, and lights the one acting.
+if(typeof GameEffects!=='undefined'){
+ const node=GameEffects.actorNode,show=GameEffects.showAction;
+ if(typeof node==='function')GameEffects.actorNode=function(id){if(C.fxPlaying&&C.shown&&id){const n=C.shown.querySelector('.combatant-row[data-actor-id="'+CSS.escape(id)+'"]');if(n)return n;}return node.call(this,id);};
+ if(typeof show==='function')GameEffects.showAction=function(frame,...rest){if(C.fxPlaying&&C.shown)for(const row of C.shown.querySelectorAll('.combatant-row[data-actor-id]'))row.classList.toggle('acting',row.dataset.actorId===frame?.actorId);return show.call(this,frame,...rest);};
+}
+// ---------- 0.16: the fight plays out in this window too (user: 「전투 모션이 손님한테는 거의 없는 수준인데?」) ----------
+// Between two views of the same fight, what changed plays out like the battle screen: the new lines one after another,
+// the one acting lit, the numbers rising from whoever was hit or healed (the battle screen's .impact pictures), the HP bar
+// running down with each blow, a shake and the hit sounds.
+const ELEMENT_FX={'불':'fire','물':'water','얼음':'ice','번개':'lightning','바람':'wind','바위':'rock','풀':'dendro',PYRO:'fire',HYDRO:'water',CRYO:'ice',ELECTRO:'lightning',ANEMO:'wind',GEO:'rock',DENDRO:'dendro'};
+const fxSettings=()=>{try{return typeof settings!=='undefined'?settings:{};}catch{return {};}};
+let fxRun=0;
+const unitsOf=v=>[...(v.allies||[]),...(v.enemies||[])];
+// The lines added since the last view (the view keeps the last ten).
+function newLines(a,b){const x=a.log||[],y=b.log||[];for(let k=Math.min(x.length,y.length);k>0;k--){let same=true;for(let i=0;i<k;i++)if(x[x.length-k+i]!==y[i]){same=false;break;}if(same)return y.slice(k);}return y.slice(-5);}
+function fxCard(id){return C.shown?.querySelector('.combatant-row[data-actor-id="'+CSS.escape(id)+'"]')||null;}
+function fxLayer(){const w=C.shown;if(!w)return null;let l=w.querySelector(':scope > .cp-fx');if(!l){l=mk('div','combat-effects cp-fx');l.setAttribute('aria-hidden','true');w.append(l);}return l;}
+function fxBar(id,hp,max){const card=fxCard(id);if(!card)return;const stat=card.querySelector('.combatant-copy > .stat'),bar=card.querySelector('.combatant-copy > .meter i');if(stat)stat.textContent='HP  '+hp+' / '+max;if(bar)bar.style.width=Math.max(0,Math.min(100,hp/(max||1)*100))+'%';card.classList.toggle('dead',hp<=0);}
+function fxPop(id,text,cls){
+ const card=fxCard(id),layer=fxLayer();if(!card||!layer)return;const r=card.getBoundingClientRect();if(!r.width)return;
+ const item=mk('div','impact kind-action '+cls);item.style.left=Math.round(r.left+r.width/2)+'px';item.style.top=Math.round(r.top+r.height/2)+'px';item.append(mk('strong','impact-label',text));layer.append(item);setTimeout(()=>item.remove(),1150);
+ if(!fxSettings().reducedMotion)card.animate?.([{transform:'translateX(0)'},{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'translateX(0)'}],{duration:160,easing:'ease-out'});
+}
+function fxLine(text){const layer=fxLayer();if(!layer||!text)return;layer.querySelector(':scope > .cp-fx-line')?.remove();const n=mk('div','cp-fx-line',text);layer.append(n);setTimeout(()=>n.remove(),1400);}
+function playChanges(a,b){
+ const old=new Map(unitsOf(a).map(u=>[u.id,u])),now=unitsOf(b),lines=newLines(a,b).slice(-6);
+ const hp=new Map(now.filter(u=>old.has(u.id)&&old.get(u.id).hp!==u.hp).map(u=>[u.id,old.get(u.id).hp]));
+ if(!hp.size&&!lines.length)return;
+ const run=++fxRun,final=new Map(now.map(u=>[u.id,u]));
+ for(const [id,v] of hp)fxBar(id,v,final.get(id).maxHp);
+ // A name may be on more than one fighter: the one whose HP still has that change to come.
+ const pick=(name,dir)=>{const list=now.filter(u=>u.name===name);return list.find(u=>hp.has(u.id)&&(dir<0?hp.get(u.id)>u.hp:hp.get(u.id)<u.hp))||list[0]||null;};
+ const steps=lines.map(line=>()=>{
+  const m=line.match(/^(?:(.+?) → )?(.+?) · (.+)$/),actorName=m?(m[1]||m[2]):'',actor=actorName?now.find(u=>u.name===actorName):null;
+  if(actor){const c=fxCard(actor.id);if(c){c.classList.add('cp-fx-acting');setTimeout(()=>c.classList.remove('cp-fx-acting'),560);}}
+  fxLine(line);if(!m||!m[1]&&!/회복/.test(m[3]))return;
+  const what=m[3],fx='effect-'+(ELEMENT_FX[actor?.element]||'hit'),heal=what.match(/회복 (\d+)/),dmg=heal?null:what.match(/^(\d+)/);
+  if(/빗나감/.test(what)){const t=pick(m[2],-1);if(t)fxPop(t.id,'빗나감','worded');return;}
+  const t=pick(m[2],heal?1:-1);if(!t)return;
+  if(dmg){const n=Number(dmg[1]);if(hp.has(t.id)){hp.set(t.id,Math.max(t.hp,hp.get(t.id)-n));fxBar(t.id,hp.get(t.id),t.maxHp);}fxPop(t.id,'HP -'+fmt(n),fx+(/치명타/.test(what)?' critical':''));SND('hit');}
+  else if(heal){const n=Number(heal[1]);if(hp.has(t.id)){hp.set(t.id,Math.min(t.hp,hp.get(t.id)+n));fxBar(t.id,hp.get(t.id),t.maxHp);}fxPop(t.id,'+'+fmt(n),'healing');SND('heal');}
+ });
+ // What changed without a line of its own (a burn, a field) shows at the end, and every bar lands where it is now.
+ steps.push(()=>{for(const [id,v] of hp){const u=final.get(id),d=u.hp-v;if(d)fxPop(id,d<0?'HP -'+fmt(-d):'+'+fmt(d),d<0?'effect-hit':'healing');fxBar(id,u.hp,u.maxHp);}});
+ const s=fxSettings(),gap=s.reducedMotion?80:Math.round(520/(Number(s.combatSpeed)||1));
+ steps.forEach((fn,i)=>setTimeout(()=>{if(run!==fxRun||!C.shown)return;try{fn();}catch{}},i*gap));
 }
 function openBattle(){
- if(room()?.you!=='GUEST')return;C.minimized=false;
+ // 0.16: anyone fighting in someone else's fight (the host too, in a guest's fight) gets this window.
+ if(!room())return;C.minimized=false;
+ // 0.16 (user: 「왜 전투 부분만 다른거야? … 그냥 모든 부분을 다 똑같이」): a fight the server sends whole is one's own battle screen
+ // (app_coop_world_v0160.js draws it from the fight); this window keeps the result and older servers' fights.
+ if(C.battle?.state&&!C.ended){if(C.shown){const n=C.shown;C.shown=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}document.querySelector('body > .cp-pill')?.remove();render();return;}
  if(!C.shown){const wrap=mk('div','cp-battle');wrap.setAttribute('role','dialog');wrap.setAttribute('aria-modal','true');wrap.setAttribute('aria-label','다인 모드 전투');
   wrap.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();minimize();}});
   wrap.append(mk('div','cp-bbox'));document.body.append(wrap);C.shown=wrap;requestAnimationFrame(()=>wrap.classList.add('open'));}
  document.querySelector('body > .cp-pill')?.remove();drawBattle();
 }
-function minimize(){C.minimized=true;if(C.shown){const n=C.shown;C.shown=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}pill();}
+function minimize(){C.minimized=true;if(C.shown){const n=C.shown;C.shown=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}pill();if(C.battle?.state)render();}
 function closeBattle(all){if(C.shown){const n=C.shown;C.shown=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}if(all){C.battle=null;C.ended=null;document.querySelector('body > .cp-pill')?.remove();}}
 // A small button to go back to the fight after minimizing it.
 // 0.15.9: outside a fight the same corner shows where the party is (guests) or who is along (the host), and opens the room.
@@ -281,7 +475,7 @@ function roaming(){
 }
 function pill(){
  let p=document.querySelector('body > .cp-pill');const r=room();
- const fight=C.minimized&&!!C.battle&&r?.you==='GUEST';
+ const fight=C.minimized&&!!C.battle&&!!r;
  const world=!fight&&!!r?.world&&!C.node&&!C.shown&&roaming()&&(r.you==='GUEST'||r.count>0);
  document.body.classList.toggle('cp-world-on',world);
  if(!fight&&!world){p?.remove();return;}
@@ -289,15 +483,19 @@ function pill(){
  p.onclick=fight?openBattle:()=>C.open();p.classList.toggle('world',world);
  if(fight){const t=C.battle.turn;p.classList.toggle('mine',!!t?.mine);p.classList.remove('compact','news');p.removeAttribute('title');p.removeAttribute('aria-label');p.replaceChildren(SHELL.icon('COOP','shell-icon'),mk('span','',t?.mine?'내 차례! · 전투로 돌아가기':'다인 전투 · 라운드 '+C.battle.round));return;}
  p.classList.remove('mine');
- // Two short lines: who one is with, and where (or, for the host, the guests' suggestion).
- const w=r.world,sug=r.suggest&&r.suggest.map!==w.map?r.suggest:null,lines=r.you==='HOST'
-  ?['함께 다니는 중 · 손님 '+r.count+'명',sug?'제안 · '+sug.name+' ('+sug.from.name+')':'내 세계 · '+w.name]
-  :[r.host.name+' 님과 함께',w.name+({STORY:' · 이야기 진행 중',BATTLE:' · 전투 중'}[w.doing]||(w.doing==='PLACE'&&w.place?' · '+w.place:''))];
+ // Two short lines: who one is with, and where (or, for the host, the guests' suggestion). 0.16: a fight one can step
+ // into comes first; a guest who walks alone says so.
+ const w=r.world,sug=r.suggest&&r.suggest.map!==w.map?r.suggest:null,at=r.at,open=(r.fights||[]).find(f=>!f.mine&&!f.joined);
+ // A fight elsewhere says where it is: one goes there to step in.
+ const fightLine=open?'⚔ '+open.owner.name+' 님 전투 · '+(farFrom(open)?open.mapName:'참가'):'';
+ const lines=r.you==='HOST'
+  ?['함께 다니는 중 · 손님 '+r.count+'명',fightLine||(sug?'제안 · '+sug.name+' ('+sug.from.name+')':'내 세계 · '+w.name)]
+  :[r.host.name+(at&&!at.follow?' 님의 세계':' 님과 함께'),fightLine||(at&&!at.follow?'혼자 · '+at.name:w.name+({STORY:' · 이야기 진행 중',BATTLE:' · 전투 중'}[w.doing]||(w.doing==='PLACE'&&w.place?' · '+w.place:'')))];
  const copy=mk('span','cp-pill-copy');copy.append(mk('strong','',lines[0]),mk('small','',lines[1]));
  p.title=lines.join(' · ')+' · 눌러서 방 열기';p.setAttribute('aria-label','다인 모드 · '+lines.join(' · '));
  p.replaceChildren(SHELL.icon('COOP','shell-icon'),copy);
  // Folded to a round button like the chat's, so it covers nothing; it opens for a few seconds when something changes.
- const sig=lines.join('|');p.classList.toggle('news',!!sug&&r.you==='HOST');
+ const sig=lines.join('|');p.classList.toggle('news',!!open||!!sug&&r.you==='HOST');
  if(fresh||C.pillSig!==sig){C.pillSig=sig;p.classList.remove('compact');clearTimeout(C.pillFold);C.pillFold=setTimeout(()=>document.querySelector('body > .cp-pill.world')?.classList.add('compact'),5000);}
 }
 const left=t=>t?.deadline?Math.max(0,Math.ceil((t.deadline-(C.battle?.now||0)-(Date.now()-C.battleAt))/1000)):null;
@@ -317,7 +515,9 @@ function fighterCard(v,u,targets){
  name.append(mk('small','shell-level','Lv.'+u.level),document.createTextNode(u.name));copy.append(name);
  if(typeof meter==='function')meter(copy,'HP',u.hp,u.maxHp);
  if(u.shield>0&&typeof meter==='function'){const sb=mk('div','shield-meter');meter(sb,'보호막',u.shield,u.shield);copy.append(sb);}
- const tags=[];if(u.guest)tags.push([u.guest.mine?'나':u.guest.name,'cp-tag'+(u.guest.mine?' me':'')]);else if(u.host)tags.push([u.protagonist?'방장':'방장 동료','cp-tag host']);if(u.guest?.left)tags.push(['스스로 싸움','cp-tag auto']);if(u.grade==='보스')tags.push(['보스','cp-tag boss']);
+ // 0.16: the side of the save the fight is in — the host's, or the guest's whose fight it is.
+ const side=v.owner&&!v.owner.host?v.owner.name:'방장';
+ const tags=[];if(u.guest)tags.push([u.guest.mine?'나':u.guest.name,'cp-tag'+(u.guest.mine?' me':'')]);else if(u.host)tags.push([u.protagonist?side:side+' 동료','cp-tag host']);if(u.guest?.left)tags.push(['스스로 싸움','cp-tag auto']);if(u.grade==='보스')tags.push(['보스','cp-tag boss']);
  if(tags.length){const row=mk('span','cp-tags');for(const [t,cls]of tags)row.append(mk('em',cls,t));copy.append(row);}
  if(u.statuses?.length||u.airborne){const row=mk('span','status-chips');if(u.airborne)row.append(mk('span','st-chip hold','공중'));for(const s of u.statuses||[])row.append(mk('span','st-chip',s));copy.append(row);}
  c.append(copy);
@@ -334,8 +534,10 @@ function fightOrder(v){
 function fightCommand(v,chosen){
  const s=mk('section','battle-command'),t=v.turn,who=t?unitOf(v,t.actor):null,banner=mk('div','battle-turn-banner '+(who?.side==='ENEMY'?'enemy':'ally'));
  banner.append(who?faceOf(who,'battle-turn-face'):mk('span','battle-turn-face mark','✦'));
- const copy=mk('div','battle-turn-copy');copy.append(mk('strong','',v.opening?'전투 시작 전':t?.mine?'내 차례 · '+(v.me?.name||''):t?.host?'방장 '+(t.name||'')+'의 차례':t?(t.ownerName+' 님의 차례 · '+t.name):'진행 중…'),
-  mk('small','',v.opening?'방장이 「전투 시작」을 누르면 시작합니다':!v.me?'다음 라운드가 시작되면 내 캐릭터가 들어갑니다':v.me.left?'자리를 비운 동안 '+v.me.name+'이(가) 스스로 싸웁니다':!v.me.alive?v.me.name+'이(가) 쓰러졌습니다':t?.mine?'기술을 고르고 적을 눌러 대상을 정한 뒤 실행':'차례를 기다리는 중'));
+ // 0.16: the fight may be a guest's; its owner starts it and plays its own side.
+ const own=v.owner&&!v.owner.host?v.owner.name+' 님':'방장';
+ const copy=mk('div','battle-turn-copy');copy.append(mk('strong','',v.opening?'전투 시작 전':t?.mine?'내 차례 · '+(v.me?.name||''):t?.host?own+' '+(t.name||'')+'의 차례':t?(t.ownerName+' 님의 차례 · '+t.name):'진행 중…'),
+  mk('small','',v.opening?own+'이(가) 「전투 시작」을 누르면 시작합니다':!v.me?'다음 라운드가 시작되면 내 캐릭터가 들어갑니다':v.me.left?'자리를 비운 동안 '+v.me.name+'이(가) 스스로 싸웁니다':!v.me.alive?v.me.name+'이(가) 쓰러졌습니다':t?.mine?'기술을 고르고 적을 눌러 대상을 정한 뒤 실행':'차례를 기다리는 중'));
  banner.append(copy);const tl=left(t);if(tl!==null)banner.append(mk('span','cp-count'+(tl<=5?' hurry':''),tl+'초'));s.append(banner);
  if(!(t?.mine&&v.cards?.length))return s;
  const cards=mk('div','battle-cards');
@@ -356,7 +558,7 @@ function fightPanel(v,r){
  const chosen=v.turn?.mine?v.cards.find(c=>c.id===C.card):null;if(chosen&&!chosen.targets?.some(t=>t.id===C.target))C.target=chosen.targets?.[0]?.id||'';
  if(chosen?.branches?.length&&!chosen.branches.includes(C.branch))C.branch=chosen.branches[0];
  const targets=new Set((chosen?.targets||[]).map(t=>t.id)),p=mk('section','panel combat-panel coop-combat');
- const head=mk('div','battle-heading');head.append(mk('span','eyebrow',v.opening?'전투 시작 전':'ROUND '+v.round),mk('h1','',v.title||v.encounter||'함께 싸우는 전투'));if(r?.host?.name)head.append(mk('span','cp-head-host','방장 '+r.host.name));
+ const head=mk('div','battle-heading');head.append(mk('span','eyebrow',v.opening?'전투 시작 전':'ROUND '+v.round),mk('h1','',v.title||v.encounter||'함께 싸우는 전투'));if(v.owner&&!v.owner.host)head.append(mk('span','cp-head-host',v.owner.name+' 님의 전투'));else if(r?.host?.name)head.append(mk('span','cp-head-host','방장 '+r.host.name));
  const rec=btn('기록',()=>{const box=mk('div','log');for(const line of v.log||[])box.append(mk('p','',line));if(!box.children.length)box.append(mk('p','','아직 기록이 없습니다.'));showModal('전투 기록',box);},'battle-head-button');
  const mini=btn('작게 보기',minimize,'battle-head-button'),out=btn('방 나가기',leave,'battle-head-button cp-danger',C.busy?'잠시 기다려 주세요.':'');head.append(rec,mini,out);p.append(head);
  const order=fightOrder(v);if(order)p.append(order);
@@ -369,11 +571,15 @@ function fightPanel(v,r){
  return p;
 }
 function drawBattle(){
+ // 0.16: while the fight's blows play, the board stays as the player leaves it; it is drawn once they are done. A fight on
+ // one's own battle screen is drawn by the screen (render).
+ if(C.fxPlaying){pill();return;}
+ if(!C.shown&&C.battle?.state&&!C.minimized){pill();render();return;}
  pill();const wrap=C.shown;if(!wrap)return;const box=wrap.querySelector('.cp-bbox'),v=C.battle,r=room(),parts=[];
  wrap.classList.toggle('coop-fight',!!v);
  if(v){box.replaceChildren(fightPanel(v,r));return;}
  const h=mk('header','cp-bhead');const t=mk('div','cp-head-copy');
- const sub=[r?'방장 '+r.host.name:'',C.ended?'전투 결과':''].filter(Boolean).join(' · ');
+ const owner=C.endedOwner||C.lastOwner,sub=[owner&&!owner.host?owner.name+' 님의 전투':r?'방장 '+r.host.name:'',C.ended?'전투 결과':''].filter(Boolean).join(' · ');
  t.append(mk('strong','',(C.ended&&C.lastTitle)||'함께 싸우는 전투'),mk('small','',sub));h.append(SHELL.icon('COOP','shell-icon cp-head-icon'),t);
  const mini=mk('button','cp-close');mini.type='button';mini.setAttribute('aria-label','작게 보기');mini.append(SHELL.icon('BACK','shell-icon'));mini.onclick=minimize;mini.title='작게 보기';h.append(mini);parts.push(h);
  const body=mk('div','cp-bbody');
@@ -382,7 +588,7 @@ function drawBattle(){
   if(C.ended.victory){res.append(mk('p','','전투 보상 · 경험치 '+fmt(C.ended.xp)+' · '+fmt(C.ended.mora)+' 모라'+(Object.keys(C.ended.loot||{}).length?' · '+Object.entries(C.ended.loot).map(([id,n])=>itemName(id)+' '+n+'개').join(', '):'')));
    res.append(mk('p','cp-note',C.rewards?.length?'내 여정에 들어온 보상 · '+C.rewards.map(rewardLine).join(' / '):'보상을 내 여정에 넣는 중입니다…'));
    for(const w of C.rewards||[])for(const n of w.notes||[])res.append(mk('p','cp-why',n));}
-  else res.append(mk('p','','방장의 파티가 쓰러졌습니다. 손님은 잃는 것이 없습니다.'));
+  else res.append(mk('p','',(owner&&!owner.host?owner.name+' 님':'방장')+'의 파티가 쓰러졌습니다. 함께한 모험가는 잃는 것이 없습니다.'));
   res.append(btn('닫기',()=>{C.ended=null;closeBattle(false);},'primary'));body.append(res);
  }else{body.append(mk('p','cp-empty',r?.battle?.running&&!r.battle.shared?r.battle.solo:'함께 싸우는 전투가 없습니다.'));body.append(btn('닫기',()=>closeBattle(false),'primary'));}
  const foot=mk('footer','cp-bfoot');foot.append(btn('작게 보기',minimize),btn('방 나가기',leave,'cp-danger',C.busy?'잠시 기다려 주세요.':''));
@@ -405,23 +611,28 @@ async function auto(mine=false){
  catch(e){if(mine){C.msg=e.message;drawBattle();}}
 }
 // ---------- the host's own battle screen ----------
-function hostTurn(){try{return game?.s?.runtime?.coop?game.coopTurnInfo():null;}catch{return null;}}
+// 0.16: a fight one is in that is someone else's is drawn on one's own battle screen too (app_coop_world_v0160.js).
+const fightGame=()=>{try{return game?.s?.runtime?game:window.CRPGCoopWorld?.fightGame?.()||null;}catch{return null;}};
+function hostTurn(){try{const g=fightGame();return g?.s?.runtime?.coop?g.coopTurnInfo():null;}catch{return null;}}
 async function hostAuto(){
- const t=hostTurn(),key=t?game.s.runtime.id+':'+t.actor+':'+t.deadline:'';if(!t||C.autoAsked===key||isBusy())return;C.autoAsked=key;
+ const g=fightGame(),t=hostTurn(),key=t?g.s.runtime.id+':'+t.actor+':'+t.deadline:'';if(!t||C.autoAsked===key||isBusy())return;C.autoAsked=key;
  try{await O.request('/coop/auto',{});}
  catch(e){
   // The room is gone (a server restart): the host's own action moves the fight on (the rules check the time).
-  if(e.status===404&&!isBusy()&&typeof act==='function'){try{await act('COOP_AUTO',{});}catch{}}
+  if(e.status===404&&!isBusy()&&game?.s?.runtime&&typeof act==='function'){try{await act('COOP_AUTO',{});}catch{}}
  }
 }
 if(typeof combat==='function'){const prior=combat;combat=function(p,...args){
  const out=prior(p,...args);
  try{
   const b=game.s.runtime;if(!b?.coop)return out;
-  for(const row of p.querySelectorAll('.combatant-row[data-actor-id]')){const a=b.actors.find(x=>x.id===row.dataset.actorId);if(!a?.coop)continue;
-   const tag=mk('span','cp-host-tag'+(a.coop.left?' away':''),'동료 모험가 · '+a.coop.ownerName+(a.coop.left?' · 스스로 싸움':''));tag.title=a.coop.ownerName+' 님이 데려온 캐릭터입니다.';(row.querySelector('.combatant-copy')||row).append(tag);}
+  const me=C.status?.me?.pid||'';
+  for(const row of p.querySelectorAll('.combatant-row[data-actor-id]')){const a=b.actors.find(x=>x.id===row.dataset.actorId);if(!a?.coop)continue;const own=a.coop.owner===me;
+   // A protagonist someone brought has the protagonist's mark, as one's own does.
+   if(a.source==='PLAYER_CUSTOM'&&(typeof showArt==='undefined'||showArt)&&!row.querySelector(':scope > .combat-portrait,:scope > .combat-player-mark'))row.prepend(mk('span','combat-player-mark','✦'));
+   const tag=mk('span','cp-host-tag'+(a.coop.left?' away':'')+(own?' me':''),(own?'나':'동료 모험가 · '+a.coop.ownerName)+(a.coop.left?' · 스스로 싸움':''));tag.title=own?'내가 데려온 캐릭터입니다.':a.coop.ownerName+' 님이 데려온 캐릭터입니다.';(row.querySelector('.combatant-copy')||row).append(tag);}
   const t=hostTurn(),cmd=p.querySelector('.battle-command');
-  if(t&&cmd){const w=mk('div','cp-host-wait');w.setAttribute('role','status');w.append(SHELL.icon('COOP','shell-icon'),mk('strong','',t.ownerName+' 님의 차례'),mk('span','cp-host-count',''),mk('small','','고르지 않으면 시간이 지난 뒤 스스로 싸웁니다.'));cmd.prepend(w);}
+  if(t&&cmd){const own=t.owner===me,w=mk('div','cp-host-wait'+(own?' mine':''));w.setAttribute('role','status');w.append(SHELL.icon('COOP','shell-icon'),mk('strong','',own?'내 차례':t.ownerName+' 님의 차례'),mk('span','cp-host-count',''),mk('small','','고르지 않으면 시간이 지난 뒤 스스로 싸웁니다.'));cmd.prepend(w);}
   else if(b.actors.some(a=>a.coop)){const n=b.actors.filter(a=>a.coop&&!a.coop.left).length;if(cmd)cmd.prepend(mk('p','cp-host-note','다인 모드 · 함께 싸우는 모험가 '+n+'명'));}
   tickHost();
  }catch{}
@@ -451,20 +662,88 @@ function tick(){
 let syncing=false,syncWanted=false;
 async function wantSync(){
  syncWanted=true;if(syncing)return;const session=O.sessionStamp();syncing=true;
- try{for(let i=0;i<60&&syncWanted&&O.sameSession(session);i++){if(isBusy()){await sleep(400);continue;}syncWanted=false;try{await O.sync();}catch{}}}finally{syncing=false;}
+ try{for(let i=0;i<60&&syncWanted&&O.sameSession(session);i++){if(isBusy()){await sleep(400);continue;}syncWanted=false;const keep=screenNow();try{await O.sync();}catch{}await keepScreen(keep);}}finally{syncing=false;}
 }
+// 0.16 (user: 「한 쪽이 승리했을 때 보상창이 나오고 … 이동할때마다 계속 보상창이 나오는 버그」): a sync brings the save as the server
+// has it, and a screen one moved to on this device (「계속」 after a fight's result, a menu) is saved only with the next
+// action. The room's syncs keep that screen, unless the sync brings something new (a fight, a new result, a story).
+const LOCAL_SCREENS=new Set(['LOCATION','HUB','MAIN_MENU','PARTY','STATUS','INVENTORY','QUEST','RELATIONS','SYSTEM']);
+function resultId(){try{const x=JSON.parse(game.s.global.LAST_BATTLE_RESULT_JSON||'null');return String(x?.battleId||x?.id||'');}catch{return '';}}
+function screenNow(){try{if(!ready()||game.s.runtime)return null;const g=game.s.global;return {screen:String(g.SCREEN_MODE||''),result:resultId(),save:g.SAVE_ID};}catch{return null;}}
+async function keepScreen(k){
+ try{
+  if(!k||!LOCAL_SCREENS.has(k.screen)||!ready()||game.s.runtime||game.s.global.SAVE_ID!==k.save||resultId()!==k.result)return;
+  const now=String(game.s.global.SCREEN_MODE||'');if(now===k.screen||(now!=='REWARD'&&!LOCAL_SCREENS.has(now)))return;
+  if(typeof act==='function'&&!isBusy()&&!game.actionReason('MENU',{screen:k.screen}))await act('MENU',{screen:k.screen});
+ }catch{}
+}
+// ---------- 0.16: one battle speed for the room (user: 「배속도 공유하게 해야겠는데」) ----------
+// Whoever moves 「전투 속도」 while in a room moves it for everyone in it; the room's speed is taken on entering it. The
+// room counts its changes (speedRev), so an older snapshot of the room never puts back an earlier speed (SPEED is at the top).
+const speedLabel=v=>window.BattleFX?.speedLabel?.(v)||Number(v).toFixed(2).replace(/0$/,'')+'×';
+function setSpeed(v){
+ try{
+  if(typeof settings==='undefined')return false;v=Math.min(Number(window.BattleFX?.SPEED_MAX)||2,Math.max(.5,Number(v)));
+  if(!Number.isFinite(v)||Number(settings.combatSpeed)===v)return false;settings.combatSpeed=v;
+  for(const r of document.querySelectorAll('.combat-speed input'))r.value=String(v);
+  for(const o of document.querySelectorAll('.combat-speed output'))o.textContent=speedLabel(v);
+  try{GameEffects.reschedule();}catch{}try{persistSettings();}catch{}return true;
+ }catch{return false;}
+}
+function speedFromRoom(){
+ const r=room();if(!r?.id){SPEED.room=null;SPEED.rev=-1;return;}
+ if(SPEED.room!==r.id){SPEED.room=r.id;SPEED.rev=-1;}
+ if(!Number.isFinite(r.speed)||SPEED.flight||SPEED.want!==null||!(Number(r.speedRev)>SPEED.rev))return;
+ SPEED.rev=Number(r.speedRev);setSpeed(r.speed);
+}
+function speedNews(ev){
+ const r=room();if(!r||r.id!==ev.room||!Number.isFinite(ev.speed))return;
+ if(SPEED.room!==r.id){SPEED.room=r.id;SPEED.rev=-1;}if(!(Number(ev.rev)>SPEED.rev))return;
+ SPEED.rev=Number(ev.rev);r.speed=ev.speed;r.speedRev=ev.rev;
+ if(setSpeed(ev.speed)&&ev.by?.pid!==C.status?.me?.pid)toast((ev.by?.name||'모험가')+' 님이 전투 속도를 '+speedLabel(ev.speed)+'로 바꿨습니다.');
+}
+async function sendSpeed(v){
+ SPEED.want=v;if(SPEED.flight)return;SPEED.flight=true;
+ try{while(SPEED.want!==null){const x=SPEED.want;SPEED.want=null;
+  try{const out=await O.request('/coop/speed',{speed:x}),r=room();if(r&&Number(out?.rev)>SPEED.rev){SPEED.room=r.id;SPEED.rev=Number(out.rev);r.speed=out.speed;r.speedRev=out.rev;}}
+  catch(e){toast(e.message||'전투 속도를 함께 바꾸지 못했습니다.');}}}
+ finally{SPEED.flight=false;}
+}
+document.addEventListener('change',e=>{const r=e.target;if(!r?.closest?.('.combat-speed')||!room()||!online())return;const v=Number(r.value);if(Number.isFinite(v))sendSpeed(v);},true);
 window.CRPGChat?.on?.(ev=>{
- if(ev?.type!=='coop')return;roomNews++;
+ if(ev?.type==='coop'&&ev.kind==='speed'){speedNews(ev);return;}
+ if(ev?.type!=='coop'||ev.kind==='puzzle')return;roomNews++;
  if(['kicked','left','closed'].includes(ev.kind)){const was=!!room();C.status={...(C.status||{}),room:null,battle:null};if(ev.kind!=='left'||was)toast(ev.reason||'방이 닫혔습니다.');C.msg=ev.reason||'';closeBattle(true);draw();schedule();return;}
  if(ev.kind==='invite'){C.invites=[...C.invites.filter(x=>x.room!==ev.invite.room),{room:ev.invite.room,from:ev.invite.from,at:Date.now()}];showInvite(ev.invite);draw();return;}
  if(ev.kind==='declined'){toast(ev.from.name+' 님이 초대를 거절했습니다.');return;}
  if(ev.kind==='reward'){showRewards(ev.rewards||[]);if(ev.sync)wantSync();return;}
  if(ev.kind==='sync'){wantSync();return;}
  // 0.15.9: the room's talk, a suggestion for the host, the host moving for a guest (a note when the window is closed).
- if(ev.kind==='say'){if(ev.line&&room()?.id===ev.room){addLine(ev.line);if(!C.node&&ev.line.from.pid!==C.status?.me?.pid&&!muted(ev.line.from.pid)){toast(ev.line.from.name+' · '+ev.line.text);SND('notice');}}return;}
+ if(ev.kind==='say'){if(ev.line&&room()?.id===ev.room){addLine(ev.line);if(!C.node&&!window.CRPGChat?.coopVisible?.()&&ev.line.from.pid!==C.status?.me?.pid&&!muted(ev.line.from.pid)){toast(ev.line.from.name+' · '+ev.line.text);SND('notice');}}return;}
  if(ev.kind==='suggest'&&ev.room?.you==='HOST'&&ev.room.suggest){toast(ev.room.suggest.from.name+' 님이 「'+ev.room.suggest.name+'」(으)로 가자고 합니다.');SND('notice');}
- if(ev.kind==='moved'&&ev.room?.you==='GUEST'&&ev.room.world&&!C.node)toast('방장이 「'+ev.room.world.name+'」(으)로 이동했습니다. 함께 이동합니다.');
- if(ev.room!==undefined){C.status={...(C.status||{enabled:true}),room:ev.room};if(ev.kind==='ended'&&ev.ended&&ev.room?.you==='GUEST'){C.ended=ev.ended;SND(ev.ended.victory?'victory':'defeat');if(!C.minimized)openBattle();}setBattle(ev.battle||null);draw();}
+ // 0.16: only those who follow the host move with them.
+ if(ev.kind==='moved'&&ev.room?.you==='GUEST'&&ev.room.world&&ev.room.at?.follow!==false&&!C.node)toast('방장이 「'+ev.room.world.name+'」(으)로 이동했습니다. 함께 이동합니다.');
+ // 0.16: someone's fight one can step into; a chest a guest opened for the host.
+ if(ev.kind==='fight'&&ev.fight){if(ev.fight.owner.pid!==C.status?.me?.pid)showFightPrompt(ev.fight);return;}
+ // 0.16: a chest someone unsealed stays where it is; the host goes there and opens it.
+ if(ev.kind==='chest'&&ev.chest){const mine=room()?.you==='HOST',by=ev.chest.by?.name||'모험가',what=ev.chest.puzzle===false?'보물상자를 찾아냈습니다':'보물상자의 암호를 풀어냈습니다';
+  if(ev.chest.by?.pid!==C.status?.me?.pid){toast(mine?by+' 님이 '+(ev.chest.mapName||'')+'에서 '+what+' · 가서 열 수 있습니다':by+' 님이 방장의 '+what);SND('chest_unlock');}if(mine)wantSync();draw();return;}
+ // 0.16: news that carries only the room's id (the shared boards' are read in app_coop_puzzle_v0160.js) never replaces it.
+ if(ev.room!==undefined&&(ev.room===null||typeof ev.room==='object')){C.status={...(C.status||{enabled:true}),room:ev.room};
+  // The server sends a fight's result only to those who fought in it (0.16: in anyone's fight). 0.16: its last blows play
+  // first (ev.ended.fx), then the result.
+  if(ev.kind==='ended'&&ev.ended){
+   const show=()=>{C.holdBattle=false;C.fxBoard=null;C.ended=ev.ended;C.endedOwner=ev.ended.owner?{name:ev.ended.owner.name,host:ev.ended.owner.pid===ev.room?.host?.pid}:C.lastOwner||null;SND(ev.ended.victory?'victory':'defeat');if(!C.minimized)openBattle();setBattle(ev.battle||null);draw();
+    // The battle screen of that fight gives way to one's own screen under the result.
+    if(!ev.battle&&typeof render==='function')render();};
+   // (user: 「손님쪽이 마지막에 모션 없이 종료가 되는문제」) The fight one watched — on the battle screen or in this window — even if
+   // a room update already cleared it; its last blows play on its board as it was, then the result.
+   closePromptFor(ev.room);const last=C.battle||(C.lastFight&&(!ev.ended.battle||C.lastFight.battle===ev.ended.battle)?C.lastFight:null);
+   const frames=last&&ev.ended.fx&&(C.shown||last.state)&&!C.minimized?framesFor(last,{...last,fx:ev.ended.fx}):null;
+   if(frames?.length){C.holdBattle=true;if(C.battle!==last){C.battle=last;C.fxBoard=last;}fxChain=fxChain.then(()=>runFrames(frames)).catch(()=>{}).then(show);draw();if(!C.shown)render();return;}
+   show();return;
+  }
+  closePromptFor(ev.room);setBattle(ev.battle||null);draw();}
 });
 // ---------- where it is opened ----------
 SHELL.extraTiles.push({icon:'COOP',label:'다인 모드',show:()=>ready()&&online()&&C.enabled!==false,run:()=>C.open()});

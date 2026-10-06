@@ -14,6 +14,23 @@
 //    turns PAID in the same transaction as the save write (receipt 'coop-reward-<time>-<random>', so it survives an
 //    operator rollback; coopUndo lets a rolled-back reward be paid again). The guest's save also records the battle.
 // Follows the server's 'coop' switch (CRPG_FEATURES); the table is made only when it is on.
+// 0.16 함께 돌아다니기 (user: 「그냥 손님이 방장 맵에 아예 들어가는 원신처럼 맵 알아서 돌아다니다가 방장이나 손님이 쌈 나면 전투
+// 시작 전에 끼고 그런거 안돼?」, 「그래야 상자도 대신 좀 퍼즐같은것도 풀어줄 수 있고」; rules in source/runtime_coop_world_v0160.js):
+//  - Each guest stands somewhere in the host's world (member.at, memory only). A guest who follows the host (the default,
+//    as in 0.15.9) walks with them and fights the host's fights; /coop/move takes one step through the host's world (the
+//    way is checked with the host's own map and flags) and stops following. The step's dice are the guest's own save's.
+//  - A fight is whoever's it is: the host's fights in the host's save, a fight a guest meets on the way in the guest's own
+//    save. room.fights tracks them by owner. Everyone else in the room is told (kind 'fight') and may step in with
+//    /coop/fight: at once before 「전투 시작」 (COOP_ADMIT), else at the next round. Commands and auto turns go to the save
+//    of the fight they belong to (coopOwnerAction, the former coopHostAction for any owner); rewards go out as before.
+//  - /coop/chests lists the host's chests where a guest stands (the host's puzzles); /coop/chest unseals one: the puzzle is
+//    solved, the chest stays there for the host to open themselves (CHEST_OPEN without the puzzle).
+//  - Stepping into someone's fight needs one to stand where it is (user: 「다른 사람 전투는 그쪽으로 가야 할 수 있는것으로」):
+//    a guest walks there in the host's world, the host walks there in their own.
+//  - /coop/puzzle 같이 풀기 (user: 「상자를 기회는 공유하고, 같이 풀 수도 있게」): one board per chest of the host's for everyone in
+//    the room standing at its place. What each one does on the board is kept in one order (memory only) and sent to everyone
+//    on it, so every board plays the same moves and the same chances; someone joining later gets them all. The answer is
+//    still checked by the rules when the chest is unsealed (/coop/chest) or opened (the host's CHEST_OPEN).
 import {randomBytes,randomUUID} from 'node:crypto';
 import {R,DB as GAME_DB} from './generated/engine.mjs';
 import {pidOf} from './social-v01415.mjs';
@@ -27,7 +44,9 @@ const PLAYER='PLAYER_CUSTOM',ROOM=/^R[a-f0-9]{8,16}$/,PID=/^[a-f0-9]{12}$/,RID=/
 // the AI); goneMs: after five minutes they leave the room. The host's room closes two minutes after the host is gone.
 export const COOP={maxGuests:3,minLevel:5,turnMs:20000,inviteMs:120000,awayMs:60000,goneMs:300000,hostGoneMs:120000,idleMs:30*60000,list:30,rewardsPerPay:10,
  // 0.15.9: a suggestion shows for ten minutes; the room keeps its last twenty lines of talk (memory only).
- suggestMs:10*60000,logKeep:20,sayMax:80};
+ suggestMs:10*60000,logKeep:20,sayMax:80,
+ // 0.16 같이 풀기: a chest's shared board keeps ten minutes after its last move; at most this many moves on one board.
+ puzzleMs:10*60000,puzzleMoves:3000};
 const clean=v=>[...String(v??'')].map(ch=>{const c=ch.codePointAt(0);return c<32||c===127||(c>=0x200b&&c<=0x200f)||(c>=0x2028&&c<=0x202e)||(c>=0x2060&&c<=0x206f)||c===0xfeff?' ':ch;}).join('').replace(/\s+/g,' ').trim();
 const rules=()=>globalThis.CRPGRuntime?.coopV0153||null;
 const short=s=>s?{id:s.id,name:s.name,level:s.level,rarity:s.rarity,constellation:s.constellation,element:s.element||'',route:s.route||'',player:!!s.player,
@@ -56,10 +75,31 @@ export const coopMethods={
  coopTouch(room,accountId){const t=now();if(room.host.id===accountId)room.hostSeen=t;const m=room.members.find(x=>x.id===accountId);if(m)m.seen=t;},
  coopHere(m){return this.isOnline(m.id)||now()-m.seen<COOP.awayMs;},
  coopPresent(m){return !!m.ready&&this.coopHere(m);},
- // The room as the game rules see it, on every action on the host's save (fixed-region-live.mjs and coopHostAction).
- coopContextFor(hostId){
-  if(!this.coopOn())return null;const room=this.coopRoomOf(hostId);if(!room||room.host.id!==hostId)return null;room.hostSeen=now();
-  return {version:1,room:room.id,members:room.members.filter(m=>this.coopPresent(m)).map(m=>({pid:m.pid,name:m.name,snap:m.snap}))};
+ // 0.16: everyone in the room, the host first (the host brings their protagonist when they step into someone's fight).
+ coopPeople(room){
+  const out=[{id:room.host.id,pid:room.host.pid,name:room.host.name,host:true,snap:room.hostSnap||null,follow:true,m:null}];
+  for(const m of room.members)out.push({id:m.id,pid:m.pid,name:m.name,host:false,snap:m.snap,follow:m.follow!==false,m});
+  return out;
+ },
+ coopPersonReady(room,p){return p.host?(this.isOnline(room.host.id)||now()-room.hostSeen<COOP.awayMs):this.coopPresent(p.m);},
+ coopFightsOf(room){return room.fights??=new Map();},
+ // The fight someone fights in with their one character (not their own fight): {owner, f}.
+ coopFightWith(room,pid){for(const [owner,f] of this.coopFightsOf(room))if(f.owner.pid!==pid&&f.joined.has(pid))return {owner,f};return null;},
+ // In a fight other than the one of `ownerId` (their own, or one they stepped into).
+ coopBusyElsewhere(room,pid,ownerId){for(const [owner,f] of this.coopFightsOf(room)){if(owner===ownerId)continue;if(f.owner.pid===pid||f.joined.has(pid))return true;}return false;},
+ // The room as the game rules see it, on every action on a save whose fight the room shares (fixed-region-live.mjs and
+ // coopOwnerAction): who may fight in it now — whoever stepped into it, and (the host's fights) the guests who follow the
+ // host. A guest's own journey stays solo except for the fight they met in the host's world.
+ coopContextFor(accountId){
+  if(!this.coopOn())return null;const room=this.coopRoomOf(accountId);if(!room||room.closed)return null;
+  const isHost=room.host.id===accountId;if(isHost)room.hostSeen=now();
+  const fight=this.coopFightsOf(room).get(accountId)||null;if(!isHost&&!fight)return null;
+  const members=[];
+  for(const p of this.coopPeople(room)){
+   if(p.id===accountId||!p.snap||!this.coopPersonReady(room,p)||this.coopBusyElsewhere(room,p.pid,accountId))continue;
+   if(fight?.joined.has(p.pid)||(isHost&&!p.host&&p.follow))members.push({pid:p.pid,name:p.name,snap:p.snap});
+  }
+  return {version:1,room:room.id,members};
  },
  // Lazy cleanup (no timers): expired invites, members long gone, rooms whose host is gone or that stood empty too long.
  coopSweep(){
@@ -88,56 +128,135 @@ export const coopMethods={
   let place=null;try{const p=r.currentPlace?.();if(p?.valid)place=String(p.entry?.name||'').replace(/\(시스템\)/g,'').trim()||null;}catch{}
   let phase='FREE';try{phase=r.playPhase?.()||'FREE';}catch{}
   const screen=String(g.SCREEN_MODE||''),doing=r.s.runtime?'BATTLE':phase!=='FREE'||['STORY','DIALOGUE','STORY_WAIT','COMBAT_PREP'].includes(screen)?'STORY':place?'PLACE':'FIELD';
-  return {map:id,name:row?.[2]||id,region:row?.[1]||'',safe:row?.[12]==='Y',levels:row?[Number(row[6])||0,Number(row[7])||0]:null,doing,place,day:Number(g.WORLD_DAY)||0,time:String(g.WORLD_TIME||'')};
+  // 0.16: `rev` changes when the host's known places, open flags or chests change, so a guest walking the host's world
+  // fetches its ways again (/coop/world).
+  const flags=r.s.flags||{},rev=[Object.keys(r.s.exploration?.visitedMaps||{}).length,Object.keys(flags).filter(k=>flags[k]===true||flags[k]==='TRUE').length,Object.keys(r.s.chests?.opened||{}).length,r.s.liyue?.access?.phase||''].join(':');
+  return {map:id,name:row?.[2]||id,region:row?.[1]||'',safe:row?.[12]==='Y',levels:row?[Number(row[6])||0,Number(row[7])||0]:null,doing,place,day:Number(g.WORLD_DAY)||0,time:String(g.WORLD_TIME||''),rev};
+ },
+ // 0.16: where everyone stands. The host is where their save is; a guest who follows walks with the host.
+ coopAt(room,p){const hostMap=room.world?.map||'';if(p.host||p.follow)return hostMap;return p.m?.at?.map||hostMap;},
+ // One step from `from` in the host's world: the host's own map rows and flags decide which ways are open
+ // (runtime_navigation.js does the same with a view standing elsewhere).
+ coopNear(r,from){
+  const out=new Map();if(!r?.tables?.['32_MAP_DB']?.has(from))return [];
+  const view=Object.create(r);view.s={...r.s,global:{...r.s.global,CURRENT_MAP_ID:from}};
+  for(const e of r.rows('47_MAP_EDGE_DB')){if(e[1]!==from||e[2]===from||out.has(e[2]))continue;let why='';try{why=view.edgeReason(e);}catch{why='x';}if(why)continue;const row=r.tables['32_MAP_DB'].get(e[2]);if(!row)continue;out.set(e[2],{map:e[2],name:row[2]||e[2],region:row[1]||'',minutes:Math.max(0,Number(e[5])||0),safe:row[12]==='Y'});}
+  return [...out.values()];
+ },
+ coopRuntimeOf(id){try{const m=this.meta(id);if(!m||m.revision==null)return null;const e=this.cached(id,m.revision);return e?.r||this.profileRuntime(id);}catch{return null;}},
+ coopFacade(r){return r?.s?.runtime?.coop?Object.assign(Object.create(r),{s:JSON.parse(JSON.stringify(r.s)),coopContext:null}):null;},
+ // Keeps room.fights in step with one save's fight: made when it starts, the people in it, gone when it ends.
+ // Returns 'new', 'changed', 'ended' or false.
+ coopTrackFight(room,acct,r){
+  const fights=this.coopFightsOf(room),b=r?.s?.runtime,cur=fights.get(acct.id)||null;
+  if(b&&b.coop?.room===room.id){
+   let owner=null;if(acct.id===room.host.id)owner={id:acct.id,pid:room.host.pid,name:room.host.name};else{const m=room.members.find(x=>x.id===acct.id);if(m)owner={id:m.id,pid:m.pid,name:m.name};}
+   if(!owner)return false;
+   let f=cur&&cur.battle===b.id?cur:null;const fresh=!f;
+   if(!f)f={owner,battle:b.id,map:String(r.s.global.CURRENT_MAP_ID||''),joined:new Set(),created:now(),sig:''};
+   for(const a of b.actors)if(a.coop&&!a.coop.left)f.joined.add(a.coop.owner);
+   f.opening=b.opening?.state==='PENDING';f.round=Number(b.round)||1;f.title=r.tables['33_ENCOUNTER_GROUP_DB']?.get(b.group)?.[1]||'';f.mapName=r.tables['32_MAP_DB']?.get(f.map)?.[2]||f.map;
+   const sig=[f.round,f.opening,b.actors.filter(a=>a.coop&&!a.coop.left).map(a=>a.coop.owner).join(',')].join(':'),changed=fresh||sig!==f.sig;f.sig=sig;fights.set(acct.id,f);
+   return fresh?'new':changed?'changed':false;
+  }
+  if(cur){fights.delete(acct.id);return 'ended';}
+  return false;
+ },
+ // A fight one is not in: everyone else in the room hears of it once (the 「참가」 note).
+ coopAnnounce(room,ownerId){
+  const f=this.coopFightsOf(room).get(ownerId);if(!f)return;
+  const fight={owner:{pid:f.owner.pid,name:f.owner.name,host:ownerId===room.host.id},map:f.map,mapName:f.mapName,title:f.title,opening:!!f.opening,round:f.round};
+  for(const p of this.coopPeople(room))if(p.id!==ownerId&&!f.joined.has(p.pid))this.broadcast({type:'coop',kind:'fight',fight},s=>s.account===p.id);
  },
  coopView(room,viewer,r=undefined){
-  if(r===undefined)r=this.coopHostRuntime(room);if(r){room.battle=this.coopBattleState(room,r);room.world=this.coopWorld(r);}
-  const host=room.host.id===viewer,t=now();
+  if(r===undefined)r=this.coopHostRuntime(room);if(r){room.battle=this.coopBattleState(room,r);room.world=this.coopWorld(r);this.coopTrackFight(room,{id:room.host.id},r);}
+  const host=room.host.id===viewer,t=now(),people=this.coopPeople(room),me=people.find(p=>p.id===viewer)||null,mapName=id=>r?.tables?.['32_MAP_DB']?.get(id)?.[2]||id;
+  const fightOf=pid=>{for(const [owner,f] of this.coopFightsOf(room))if(f.owner.pid===pid||f.joined.has(pid))return {pid:f.owner.pid,name:f.owner.name,own:f.owner.pid===pid};return null;};
+  const at=me?this.coopAt(room,me):'';
   return {id:room.id,visibility:room.visibility,you:host?'HOST':'GUEST',max:COOP.maxGuests,count:room.members.length,created:room.created,
    host:{name:room.host.name,pid:room.host.pid,char:short(room.hostSummary),online:this.isOnline(room.host.id)},
-   members:room.members.map(m=>({pid:m.pid,name:m.name,char:short(m.summary),ready:!!m.ready,present:this.coopPresent(m),here:this.coopHere(m),me:m.id===viewer,joined:m.joined})),
+   members:room.members.map(m=>({pid:m.pid,name:m.name,char:short(m.summary),ready:!!m.ready,present:this.coopPresent(m),here:this.coopHere(m),me:m.id===viewer,joined:m.joined,follow:m.follow!==false})),
    invites:host?[...room.invites.values()].map(x=>({pid:x.pid,name:x.name})):[],battle:room.battle?{...room.battle}:null,
-   world:room.world?{...room.world}:null,suggest:room.suggest&&t-room.suggest.at<COOP.suggestMs?{...room.suggest}:null,log:(room.log||[]).slice(-COOP.logKeep),now:t};
+   world:room.world?{...room.world}:null,suggest:room.suggest&&t-room.suggest.at<COOP.suggestMs?{...room.suggest}:null,log:(room.log||[]).slice(-COOP.logKeep),now:t,
+   // 0.16: where everyone stands, the fights going on, and (for a guest) the ways one step from where they stand.
+   positions:people.map(p=>{const map=this.coopAt(room,p);return {pid:p.pid,name:p.name,host:p.host,map,mapName:mapName(map),follow:p.host||p.follow,fight:fightOf(p.pid),me:p.id===viewer};}),
+   fights:[...this.coopFightsOf(room)].map(([owner,f])=>({owner:{pid:f.owner.pid,name:f.owner.name,host:owner===room.host.id},map:f.map,mapName:f.mapName,title:f.title,opening:!!f.opening,round:f.round||1,count:[...f.joined].filter(x=>x!==f.owner.pid).length,mine:owner===viewer,joined:!!me&&f.joined.has(me.pid)})),
+   at:at?{map:at,name:mapName(at),follow:!!me&&(me.host||me.follow)}:null,
+   near:!host&&r&&at?this.coopNear(r,at):[],
+   // 0.16: the room's battle playback speed (null until someone changes it).
+   speed:Number.isFinite(room.speed)?room.speed:null,speedRev:room.speedRev||0,
+   // 0.16 같이 풀기: the boards someone is on, so whoever comes to that place can join.
+   boards:[...this.coopPuzzles(room).values()].filter(p=>p.players.size).map(p=>({chest:p.chest,map:p.map,mapName:p.mapName,players:[...p.players.values()].map(x=>x.name),mine:!!me&&p.players.has(me.pid)}))};
  },
- // What one member sees of the host's fight: made from a copy of the state (views never touch the cached runtime).
+ // What one member sees of a fight: made from a copy of the state (views never touch the cached runtime). `r` is the
+ // runtime of the save the fight is in (the host's before 0.16; kept for the older callers).
  coopBattleFor(room,r,viewer,facade=null){
   const b=r?.s?.runtime;if(!b?.coop||b.coop.room!==room.id)return null;
-  const f=facade||Object.assign(Object.create(r),{s:JSON.parse(JSON.stringify(r.s)),coopContext:null});
+  const f=facade||this.coopFacade(r);
   try{return f.coopBattleView(pidOf(viewer));}catch{return null;}
  },
- // Everyone in the room gets the room, and their own view of the fight.
+ // 0.16: the fight `viewer` fights in with their one character, wherever it is (not their own fight, which their own game
+ // screen shows); with whose fight it is.
+ coopBattleOf(room,viewer,facades=null){
+  const pid=pidOf(viewer);
+  for(const [owner,f] of this.coopFightsOf(room)){
+   if(owner===viewer||!f.joined.has(pid))continue;
+   const facade=facades?.get(owner)||this.coopFacade(owner===room.host.id?this.coopHostRuntime(room):this.coopRuntimeOf(owner));if(!facade)continue;
+   let v=null;try{v=facade.coopBattleView(pid);}catch{}
+   if(v&&v.room===room.id){v.owner={pid:f.owner.pid,name:f.owner.name,host:owner===room.host.id};return v;}
+  }
+  return null;
+ },
+ // Everyone in the room gets the room, and their own view of the fight they are in. `extra.endedFor` limits a fight's
+ // result to the people who fought it.
  coopPush(room,r=undefined,extra={}){
-  if(r===undefined)r=this.coopHostRuntime(room);const people=[room.host.id,...room.members.map(m=>m.id)];
-  const f=r?.s?.runtime?.coop?Object.assign(Object.create(r),{s:JSON.parse(JSON.stringify(r.s)),coopContext:null}):null;
-  for(const id of people){const ev={type:'coop',kind:extra.kind||'room',room:this.coopView(room,id,r),battle:f?this.coopBattleFor(room,r,id,f):null};if(extra.ended)ev.ended=extra.ended;this.broadcast(ev,s=>s.account===id);}
+  if(r===undefined)r=this.coopHostRuntime(room);if(r)this.coopTrackFight(room,{id:room.host.id},r);
+  const facades=new Map();for(const owner of this.coopFightsOf(room).keys()){const f=this.coopFacade(owner===room.host.id?r:this.coopRuntimeOf(owner));if(f)facades.set(owner,f);}
+  for(const p of this.coopPeople(room)){
+   const ev={type:'coop',kind:extra.kind||'room',room:this.coopView(room,p.id,r),battle:this.coopBattleOf(room,p.id,facades)};
+   if(extra.ended&&(!extra.endedFor||extra.endedFor.has(p.pid)))ev.ended=extra.ended;if(extra.owner)ev.owner=extra.owner;
+   this.broadcast(ev,s=>s.account===p.id);
+  }
  },
  // ---------- leaving and closing ----------
  coopRemove(room,m,reason,kind='left'){
   room.members=room.members.filter(x=>x!==m);this.coopWhere().delete(m.id);room.updated=now();
+  // 0.16: their fighters in others' fights fight on by the AI; their own fight in the host's world goes on alone.
+  const fights=this.coopFightsOf(room),own=fights.get(m.id);for(const f of fights.values())f.joined.delete(m.pid);fights.delete(m.id);
+  for(const p of this.coopPuzzles(room).values())if(p.players.delete(m.pid))this.coopPuzzleTell(room,p,{op:'leave',by:{pid:m.pid}},true);
   this.broadcast({type:'coop',kind,room:null,reason},s=>s.account===m.id);
-  this.coopPush(room);this.coopRelease(room);
+  this.coopPush(room);this.coopRelease(room,own?[m.id]:[]);
  },
  coopEnd(room,reason){
   if(!this.coopRooms().has(room.id))return;this.coopRooms().delete(room.id);
   for(const id of [room.host.id,...room.members.map(m=>m.id)])if(this.coopWhere().get(id)===room.id)this.coopWhere().delete(id);
   for(const m of room.members)this.broadcast({type:'coop',kind:'closed',room:null,reason},s=>s.account===m.id);
   this.broadcast({type:'coop',kind:'closed',room:null,reason},s=>s.account===room.host.id);
-  room.closed=true;room.members=[];this.coopRelease(room);
+  const owners=[...this.coopFightsOf(room).keys()];
+  room.closed=true;room.members=[];this.coopRelease(room,owners);room.fights=new Map();
  },
- // A fight that waits on someone who is no longer in the room moves on at once (the rules let them fight by the AI).
- coopRelease(room){
+ // A fight that waits on someone who is no longer in it moves on at once (the rules let them fight by the AI). Every
+ // fight of the room (0.16: not only the host's), and `more` owners whose fight left the room's list.
+ coopRelease(room,more=[]){
   this.coopJob((async()=>{
-   const r=this.coopHostRuntime(room),t=r?.s?.runtime?.coop?.turn;if(!t||r.s.runtime.coop.room!==room.id)return;
-   const ctx=this.coopContextFor(room.host.id);if(ctx?.members.some(x=>x.pid===t.owner))return;
-   await this.coopHostAction(room,'COOP_AUTO',{room:room.id},null);
+   const owners=new Set([room.host.id,...this.coopFightsOf(room).keys(),...more]);
+   for(const owner of owners){
+    try{
+     const r=owner===room.host.id?this.coopHostRuntime(room):this.coopRuntimeOf(owner),t=r?.s?.runtime?.coop?.turn;if(!t||r.s.runtime.coop.room!==room.id)continue;
+     const ctx=this.coopContextFor(owner);if(ctx?.members.some(x=>x.pid===t.owner))continue;
+     await this.coopOwnerAction(room,owner,'COOP_AUTO',{room:room.id},null);
+    }catch{}
+   }
   })());
  },
  coopJob(p){this.coopJobs??=new Set();const q=Promise.resolve(p).catch(()=>{}).finally(()=>this.coopJobs.delete(q));this.coopJobs.add(q);return q;},
  // Tests (and a clean shutdown) wait for the background work.
  async coopSettled(){for(let i=0;i<20&&this.coopJobs?.size;i++)await Promise.all([...this.coopJobs]);},
- // ---------- the host's save, changed by someone else ----------
- async coopHostAction(room,type,params,caller,command=null){
-  const hostId=room.host.id,host=this.db.prepare('SELECT * FROM accounts WHERE id=?').get(hostId);if(!host)throw err(404,'방장을 찾을 수 없습니다.');
+ // ---------- a save whose fight the room shares (the host's, or since 0.16 a guest's), changed by someone else ----------
+ coopHostAction(room,type,params,caller,command=null){return this.coopOwnerAction(room,room.host.id,type,params,caller,command);},
+ // `extra` adds what only the server may say to the rules: the way of a step (away), where a guest opens a chest (chest).
+ async coopOwnerAction(room,ownerId,type,params,caller,command=null,extra=null){
+  const hostId=ownerId,host=this.db.prepare('SELECT * FROM accounts WHERE id=?').get(hostId);if(!host)throw err(404,ownerId===room.host.id?'방장을 찾을 수 없습니다.':'전투의 주인을 찾을 수 없습니다.');
   const out=await this.serial(hostId,async()=>{
    this.db.exec('BEGIN IMMEDIATE');
    try{
@@ -156,7 +275,7 @@ export const coopMethods={
     try{r=entry?.r||new R(GAME_DB,joinState(before),true);}catch{throw err(503,'방장의 저장 기록을 열지 못했습니다.');}
     const hadBattle=!!r.s.runtime,battleId=r.s.runtime?.id||'',turn=r.s.runtime?.coop?.turn;
     if(command?.expected&&(command.expected.battle!==battleId||command.expected.actor!==turn?.actor||command.expected.deadline!==turn?.deadline||(command.expected.round!==undefined&&command.expected.round!==r.s.runtime?.round)))throw err(409,'전투 차례가 바뀌었습니다. 현재 차례에서 행동을 다시 골라 주세요.','COOP_STALE_TURN');
-    r.actionStartedAt=Math.max(now(),m.updated_at||0);r.coopContext={...(this.coopContextFor(hostId)||{version:1,room:room.id,members:[]}),caller:caller||null};
+    r.actionStartedAt=Math.max(now(),m.updated_at||0);r.coopContext={...(this.coopContextFor(hostId)||{version:1,room:room.id,members:[]}),...(extra||{}),caller:caller||null};
     let result;try{result=r.action(type,params);}finally{delete r.actionStartedAt;r.coopContext=null;}
     compact(r.s);const after=splitState(r.s),d=diffParts(before,after),t=now(),requestId='coop-'+type.toLowerCase().replace(/_/g,'')+'-'+randomUUID();
     const del=this.db.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=this.db.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
@@ -186,25 +305,41 @@ export const coopMethods={
    const payload={battle:id,room:c.room,host:host.display_name,hostPid:pidOf(host.id),char:g.char,name:g.name,xp:c.xp,mora:c.mora,loot:c.loot||{},fieldBoss:c.fieldBoss||null,leyLine:c.leyLine||null,origin:c.origin};
    if(Number(this.db.prepare("INSERT OR IGNORE INTO coop_rewards(battle_id,account_id,host_id,room,payload,status,created_at) VALUES(?,?,?,?,?,'PENDING',?)").run(id,acc.id,host.id,c.room,JSON.stringify(payload),t).changes))accounts.push(acc.id);
   }
-  return {battle:id,room:c.room,victory:!!c.victory,accounts,info:{victory:!!c.victory,xp:c.xp,mora:c.mora,loot:c.loot||{},guests:(c.guests||[]).map(g=>({name:g.ownerName,char:g.name,left:!!g.left}))}};
+  // 0.16: the fight's last blows (its final log) go with the result, so the joined window plays them before 「승리」.
+  let fx=null;try{fx=r.coopFx?.(r.s.lastCombatLog)||null;}catch{}
+  return {battle:id,room:c.room,victory:!!c.victory,accounts,info:{battle:id,victory:!!c.victory,xp:c.xp,mora:c.mora,loot:c.loot||{},guests:(c.guests||[]).map(g=>({name:g.ownerName,char:g.name,left:!!g.left,pid:PID.test(String(g.owner))?g.owner:''})),owner:{name:host.display_name,pid:pidOf(host.id)},fx}};
  },
  // After any change to the host's save (its own action, or a guest's): tell the room, and pay what is due.
  coopAfter(host,r,done,{byOther=false,revision=null}={}){
   if(!this.coopOn())return;
   const room=this.coopRoomOf(host.id);
-  if(room&&room.host.id===host.id){
-   // 0.15.9: the host's place, what they are doing and the hour are part of what the room is told about.
-   const b=r?.s?.runtime,w=this.coopWorld(r),ended=done&&done.room===room.id?done.info:null;
-   const sig=(b?[b.id,b.round,b.cursor,b.log.length,b.coop?.turn?.actor||'',b.actors.filter(a=>a.coop).length].join(':'):'none')+'#'+(w?[w.map,w.doing,w.place||'',w.day,w.time].join('|'):'');
-   const moved=!!w&&!!room.world&&room.world.map!==w.map;
-   // Once the party is at the suggested place, the suggestion is done.
-   if(room.suggest&&w&&room.suggest.map===w.map)room.suggest=null;
-   if(sig!==room.sig||ended||byOther){room.sig=sig;room.updated=now();this.coopPush(room,r,ended?{kind:'ended',ended}:moved?{kind:'moved'}:{});}
+  if(room&&!room.closed){
+   // 0.16: whoever's save it is, its fight joins the room's list (and the others hear of a new one).
+   const ended=done&&done.room===room.id?done.info:null,endedFor=ended?new Set((ended.guests||[]).map(g=>g.pid).filter(Boolean)):null;
+   if(room.host.id===host.id){
+    // 0.15.9: the host's place, what they are doing and the hour are part of what the room is told about.
+    const b=r?.s?.runtime,w=this.coopWorld(r),tracked=this.coopTrackFight(room,host,r);
+    if(!b)this.coopRefreshHost(room,r);
+    const sig=(b?[b.id,b.round,b.cursor,b.log.length,b.coop?.turn?.actor||'',b.actors.filter(a=>a.coop).length].join(':'):'none')+'#'+(w?[w.map,w.doing,w.place||'',w.day,w.time].join('|'):'');
+    const moved=!!w&&!!room.world&&room.world.map!==w.map;
+    // Once the party is at the suggested place, the suggestion is done.
+    if(room.suggest&&w&&room.suggest.map===w.map)room.suggest=null;
+    // 0.16: a chest the host opened ends its shared board.
+    for(const id of [...this.coopPuzzles(room).keys()])if(r?.chestOpened?.(id))this.coopPuzzleEnd(room,id,{opened:true,by:{name:room.host.name,pid:room.host.pid}});
+    if(sig!==room.sig||ended||byOther||tracked){room.sig=sig;room.updated=now();this.coopPush(room,r,ended?{kind:'ended',ended,endedFor,owner:room.host.pid}:moved?{kind:'moved'}:{});}
+    if(tracked==='new')this.coopAnnounce(room,host.id);
+   }else{
+    if(!byOther)this.coopRefresh(host.id,r);
+    const tracked=this.coopTrackFight(room,host,r);
+    if(tracked||ended){room.updated=now();this.coopPush(room,undefined,ended?{kind:'ended',ended,endedFor,owner:pidOf(host.id)}:{});}
+    if(tracked==='new')this.coopAnnounce(room,host.id);
+   }
   }
-  else if(room&&!byOther)this.coopRefresh(host.id,r);
   if(byOther)this.broadcast({type:'coop',kind:'sync',revision},s=>s.account===host.id);
   for(const id of done?.accounts||[])this.coopJob(this.coopPay(id));
  },
+ // The host's protagonist as they would step into a guest's fight, kept up to date outside their own fights.
+ coopRefreshHost(room,r){if(!r?.s||r.s.runtime)return;try{room.hostSnap=r.coopSnapshot(PLAYER);room.hostSummary=r.coopCharSummary(PLAYER);}catch{}},
  // A guest's fighter follows their own save: after their own actions and after a reward, the next fight (or the next
  // round they step into) uses the new level and gear. A fighter already in a fight keeps what it came with.
  coopRefresh(accountId,r){
@@ -251,8 +386,8 @@ export const coopMethods={
   this.coopNeed();this.rate('coop-view:'+a.id,300,60000);this.coopSweep();
   const room=this.coopRoomOf(a.id);if(room)this.coopTouch(room,a.id);
   let rewards=[];try{rewards=await this.coopPay(a.id);}catch{}
-  const r=room?this.coopHostRuntime(room):null;
-  return {enabled:true,rules:this.coopRules(),me:{pid:pidOf(a.id)},room:room?this.coopView(room,a.id,r):null,battle:room&&r?this.coopBattleFor(room,r,a.id):null,rewards,invites:this.coopInvitesFor(a.id)};
+  const r=room?this.coopHostRuntime(room):null,view=room?this.coopView(room,a.id,r):null;
+  return {enabled:true,rules:this.coopRules(),me:{pid:pidOf(a.id)},room:view,battle:room?this.coopBattleOf(room,a.id):null,rewards,invites:this.coopInvitesFor(a.id)};
  },
  coopList(a){
   this.coopNeed();this.rate('coop-view:'+a.id,300,60000);this.coopSweep();
@@ -276,8 +411,9 @@ export const coopMethods={
   // turn behind COOP_ROOM. Restore only the room's identity; the saved fighters, difficulty and rewards stay intact.
   const id=ROOM.test(String(savedRoom||''))?savedRoom:'R'+randomBytes(6).toString('hex'),t=now();
   if(this.coopRooms().has(id))throw err(409,'이전 전투의 방을 복원하지 못했습니다. 잠시 뒤 다시 시도해 주세요.','COOP_ROOM_CONFLICT');
-  const room={id,host:{id:a.id,name:a.display_name,pid:pidOf(a.id)},hostSummary:r.coopCharSummary(PLAYER),visibility,invites:new Map(),members:[],created:t,updated:t,hostSeen:t,sig:'',battle:null,closed:false,
-   world:this.coopWorld(r),suggest:null,log:[]};
+  let hostSnap=null;try{hostSnap=r.coopSnapshot(PLAYER);}catch{}
+  const room={id,host:{id:a.id,name:a.display_name,pid:pidOf(a.id)},hostSummary:r.coopCharSummary(PLAYER),hostSnap,visibility,invites:new Map(),members:[],created:t,updated:t,hostSeen:t,sig:'',battle:null,closed:false,
+   world:this.coopWorld(r),suggest:null,log:[],fights:new Map()};
   this.coopRooms().set(id,room);this.coopWhere().set(a.id,id);
   return {room:this.coopView(room,a.id,r)};
  },
@@ -299,7 +435,8 @@ export const coopMethods={
   if(room.visibility!=='PUBLIC'&&!room.invites.has(a.id))throw err(403,'초대받은 모험가만 들어갈 수 있는 방입니다.');
   if(room.members.length>=COOP.maxGuests)throw err(409,'방이 가득 찼습니다. (최대 '+COOP.maxGuests+'명)');
   const {snap,summary}=this.coopSnapFor(a,b?.char,room),t=now();
-  room.members.push({id:a.id,name:a.display_name,pid:pidOf(a.id),snap,summary,ready:true,joined:t,seen:t});
+  // 0.16: a guest arrives where the host is and follows them until they take a step of their own.
+  room.members.push({id:a.id,name:a.display_name,pid:pidOf(a.id),snap,summary,ready:true,joined:t,seen:t,at:{map:room.world?.map||'',at:t},follow:true});
   room.invites.delete(a.id);this.coopWhere().set(a.id,room.id);room.updated=t;this.coopPush(room);
   return {room:this.coopView(room,a.id)};
  },
@@ -337,9 +474,19 @@ export const coopMethods={
   this.coopNeed();const room=this.coopFind(b);if(!room||!room.invites.has(a.id))throw err(404,'받은 초대가 없습니다.');room.invites.delete(a.id);
   this.broadcast({type:'coop',kind:'declined',from:{name:a.display_name,pid:pidOf(a.id)}},s=>s.account===room.host.id);return {declined:true};
  },
- // A guest's command for their own fighter, applied to the host's save (only on that fighter's turn; the rules check it).
+ // 0.16: the host or a guest, with the fight they fight in: the one they stepped into, else (a guest) the host's.
+ coopPerson(a){
+  const room=this.coopRoomOf(a.id);if(!room||room.closed)throw err(404,'들어가 있는 방이 없습니다.','NO_ROOM');
+  const isHost=room.host.id===a.id,m=isHost?null:room.members.find(x=>x.id===a.id);if(!isHost&&!m)throw err(404,'들어가 있는 방이 없습니다.','NO_ROOM');
+  if(m)m.seen=now();else room.hostSeen=now();return {room,m,isHost,pid:pidOf(a.id)};
+ },
+ coopOwnerFor(room,pid,isHost){const w=this.coopFightWith(room,pid);if(w)return w.owner;return isHost?null:room.host.id;},
+ coopWithOwner(room,owner,v){if(!v)return v;const f=this.coopFightsOf(room).get(owner),name=f?.owner.name||(owner===room.host.id?room.host.name:room.members.find(x=>x.id===owner)?.name||'');v.owner={pid:pidOf(owner),name,host:owner===room.host.id};return v;},
+ // A guest's command for their own fighter, applied to the save the fight is in (only on that fighter's turn; the rules
+ // check it).
  async coopAct(a,b){
-  this.coopNeed();this.rate('coop-act:'+a.id,90,60000);const {room,m}=this.coopMember(a);
+  this.coopNeed();this.rate('coop-act:'+a.id,90,60000);const {room,m,isHost,pid}=this.coopPerson(a);
+  const owner=this.coopOwnerFor(room,pid,isHost);if(!owner)throw err(409,'함께 싸우는 전투가 없습니다.','NO_FIGHT');
   const rid=b?.requestId===undefined||b?.requestId===null?null:b.requestId;
   if(rid!==null&&(typeof rid!=='string'||!RID.test(rid)))throw err(400,'행동 요청 번호가 올바르지 않습니다. 다시 시도해 주세요.','REQUEST_ID');
   const params={room:room.id,card:String(b?.card||'').slice(0,64)};
@@ -355,20 +502,153 @@ export const coopMethods={
   // Capture this membership, not just the account: leaving and rejoining creates a new member while an old
   // command may still be waiting on the host's lock. That old intent must not act in the new membership.
   const command={accountId:a.id,member:m,requestId:rid,expected,intent:JSON.stringify({params,expected})};
-  const res=await this.coopHostAction(room,'COOP_COMBAT',params,m.pid,command);
-  return {ok:true,result:res.result?.result??null,battle:this.coopBattleFor(room,res.r,a.id),...(res.replayed?{replayed:true}:{})};
+  const res=await this.coopOwnerAction(room,owner,'COOP_COMBAT',params,pid,command);
+  return {ok:true,result:res.result?.result??null,battle:this.coopWithOwner(room,owner,this.coopBattleFor(room,res.r,a.id)),...(res.replayed?{replayed:true}:{})};
  },
  // The 20-second auto turn: any room member (or the host) may ask; the rules check the deadline on the server clock.
+ // 0.16: for the fight one fights in; the one whose fight it is asks for their own.
  async coopAutoTurn(a){
   this.coopNeed();this.rate('coop-auto:'+a.id,60,60000);const room=this.coopRoomOf(a.id);if(!room)throw err(404,'들어가 있는 방이 없습니다.','NO_ROOM');this.coopTouch(room,a.id);
   const member=room.host.id===a.id?null:room.members.find(m=>m.id===a.id);
   if(room.host.id!==a.id&&!member)throw err(404,'들어가 있는 방이 없습니다.','NO_ROOM');
+  const pid=pidOf(a.id),joined=this.coopFightWith(room,pid),owner=joined?joined.owner:this.coopFightsOf(room).has(a.id)?a.id:room.host.id;
   // User requests obey the same queued membership check as manual cards. Internal departure fallback calls
-  // coopHostAction without a command guard so it can still release a fighter after its room has closed.
-  const res=await this.coopHostAction(room,'COOP_AUTO',{room:room.id},member?member.pid:null,{accountId:a.id,member});
-  return {ok:true,battle:this.coopBattleFor(room,res.r,a.id)};
+  // coopOwnerAction without a command guard so it can still release a fighter after its room has closed.
+  const res=await this.coopOwnerAction(room,owner,'COOP_AUTO',{room:room.id},owner===a.id?null:pid,{accountId:a.id,member});
+  return {ok:true,battle:this.coopWithOwner(room,owner,this.coopBattleFor(room,res.r,a.id))};
+ },
+ // ---------- 0.16 함께 돌아다니기 ----------
+ // One step through the host's world: the way must be open from where the guest stands (the host's own map and flags);
+ // the dice of the way are the guest's own save's (COOP_ROAM), and a fight met there is the guest's own.
+ async coopMove(a,b){
+  this.coopNeed();this.rate('coop-move:'+a.id,40,60000);const {room,m,isHost}=this.coopPerson(a);if(isHost)throw err(400,'방장은 직접 이동합니다.');
+  const r=this.coopHostRuntime(room);if(!r)throw err(409,'방장의 세계를 불러오지 못했습니다.');room.world=this.coopWorld(r);
+  const from=this.coopAt(room,{host:false,follow:m.follow!==false,m}),to=String(b?.map||'').slice(0,80);
+  if(!to||to===from)throw err(400,'갈 곳을 골라 주세요.');
+  const step=this.coopNear(r,from).find(x=>x.map===to);if(!step)throw err(409,'지금 있는 곳에서 바로 갈 수 없는 곳입니다.','COOP_WAY');
+  if(this.coopBusyElsewhere(room,m.pid,null))throw err(409,'함께 싸우는 동안에는 움직일 수 없습니다.','COOP_BUSY');
+  const res=await this.coopOwnerAction(room,a.id,'COOP_ROAM',{room:room.id},null,{accountId:a.id,member:m},{away:{room:room.id,from,to,host:room.host.name}});
+  m.at={map:to,at:now()};m.follow=false;room.updated=now();this.coopPush(room,r);
+  const out=res.result?.result||{};
+  return {at:{map:to,name:step.name},encounter:out.encounter||null,battle:out.battle||null,room:this.coopView(room,a.id,r)};
+ },
+ // Back to the host's side, following them again.
+ coopFollow(a){
+  this.coopNeed();this.rate('coop-move:'+a.id,40,60000);const {room,m,isHost}=this.coopPerson(a);if(isHost)throw err(400,'방장은 직접 이동합니다.');
+  if(this.coopBusyElsewhere(room,m.pid,null))throw err(409,'함께 싸우는 동안에는 움직일 수 없습니다.','COOP_BUSY');
+  m.follow=true;m.at={map:room.world?.map||'',at:now()};room.updated=now();this.coopPush(room);return {room:this.coopView(room,a.id)};
+ },
+ // 「참가」: step into someone's fight with one's character (the host brings their protagonist). Before 「전투 시작」 at once,
+ // after it at the next round. One must stand where the fight is: a guest walks there in the host's world (following the
+ // host keeps them there), the host walks there in their own; stepping into the host's fight, a guest follows the host again.
+ async coopJoinFight(a,b){
+  this.coopNeed();this.rate('coop-fight:'+a.id,30,60000);const {room,m,isHost,pid}=this.coopPerson(a);
+  const ownerPid=String(b?.owner||''),owner=this.coopPeople(room).find(p=>p.pid===ownerPid);if(!owner)throw err(404,'함께할 전투를 찾을 수 없습니다.','NO_FIGHT');
+  if(owner.id===a.id)throw err(400,'내 전투입니다.');
+  const r0=owner.host?this.coopHostRuntime(room):this.coopRuntimeOf(owner.id);if(r0)this.coopTrackFight(room,{id:owner.id},r0);
+  const f=this.coopFightsOf(room).get(owner.id);if(!f)throw err(404,'이미 끝난 전투입니다.','NO_FIGHT');
+  if(f.joined.has(pid))return {ok:true,already:true,room:this.coopView(room,a.id),battle:this.coopBattleOf(room,a.id)};
+  const snap=isHost?room.hostSnap:m.snap;if(!snap)throw err(409,'함께 데려갈 캐릭터를 불러오지 못했습니다.');
+  if(this.coopBusyElsewhere(room,pid,owner.id))throw err(409,'다른 전투에 함께하는 중입니다.','COOP_BUSY');
+  if(!isHost&&!this.coopPresent(m))throw err(409,'「준비 완료」로 바꾼 뒤 함께할 수 있습니다.');
+  const mine=isHost?this.coopHostRuntime(room):this.coopRuntimeOf(a.id);if(mine?.s?.runtime)throw err(409,'진행 중인 내 전투를 먼저 마쳐 주세요.','COOP_BUSY');
+  const at=isHost?String(mine?.s?.global?.CURRENT_MAP_ID||room.world?.map||''):this.coopAt(room,{host:false,follow:m.follow!==false,m});
+  if(at!==f.map)throw err(409,(f.mapName||'전투가 벌어진 곳')+'에 가야 함께 싸울 수 있습니다.','COOP_FAR');
+  if([...f.joined].filter(x=>x!==f.owner.pid).length>=COOP.maxGuests)throw err(409,'함께 싸우는 모험가가 가득 찼습니다.','COOP_FULL');
+  f.joined.add(pid);
+  if(m&&owner.host)m.follow=true;
+  let admitted=null;
+  if(f.opening){try{const res=await this.coopOwnerAction(room,owner.id,'COOP_ADMIT',{room:room.id,pid},null);admitted=res.result?.result||null;}catch(e){f.joined.delete(pid);throw e;}}
+  room.updated=now();this.coopPush(room);
+  return {ok:true,admitted:!!admitted?.admitted||!!admitted?.already,nextRound:!f.opening||!!admitted?.nextRound,room:this.coopView(room,a.id),battle:this.coopBattleOf(room,a.id)};
+ },
+ // 0.16 (user: 「전투만 하는게 아니라 시발 그냥 맵을 같이 돌아다녀야된다고 아예」): what a guest's own field screen needs to stand in
+ // the host's world and walk it with the travel map — where they stand, the host's day and hour, the places the host has
+ // been, every way that is open in the host's world (the host's own map rows and flags decide, from each place), the
+ // host's chests already opened, and where everyone is. Never the host's save itself.
+ coopWorldFor(a){
+  this.coopNeed();this.rate('coop-world:'+a.id,120,60000);const {room,m,isHost}=this.coopPerson(a);
+  const r=this.coopHostRuntime(room);if(!r)throw err(409,'방장의 세계를 불러오지 못했습니다.');room.world=this.coopWorld(r);
+  const at=isHost?room.world.map:this.coopAt(room,{host:false,follow:m.follow!==false,m}),g=r.s.global,open=[],views=new Map();
+  for(const e of r.rows('47_MAP_EDGE_DB')){
+   let view=views.get(e[1]);if(!view){view=Object.create(r);view.s={...r.s,global:{...g,CURRENT_MAP_ID:e[1]}};views.set(e[1],view);}
+   let why='';try{why=view.edgeReason(e);}catch{why='x';}if(!why)open.push(e[0]);
+  }
+  const visited=Object.keys(r.s.exploration?.visitedMaps||{}).filter(id=>r.tables['32_MAP_DB']?.has(id));if(!visited.includes(room.world.map))visited.push(room.world.map);
+  const view=this.coopView(room,a.id,r);
+  return {room:room.id,host:{name:room.host.name,pid:room.host.pid,map:room.world.map},at:{map:at,name:r.tables['32_MAP_DB']?.get(at)?.[2]||at,follow:isHost||m.follow!==false},
+   day:Number(g.WORLD_DAY)||1,time:String(g.WORLD_TIME||'12:00'),route:String(g.STORY_ROUTE_ID||''),open,visited,opened:Object.keys(r.s.chests?.opened||{}),
+   positions:view.positions,fights:view.fights,near:view.near,rev:room.world.rev||''};
+ },
+ // The host's chests where a guest stands, with the host's puzzles (the host's seed): the ones lying in the place itself.
+ coopChests(a){
+  this.coopNeed();this.rate('coop-chest:'+a.id,60,60000);const {room,m,isHost}=this.coopPerson(a);if(isHost)throw err(400,'방장은 직접 찾습니다.');
+  const r=this.coopHostRuntime(room);if(!r)throw err(409,'방장의 세계를 불러오지 못했습니다.');room.world=this.coopWorld(r);
+  const at=this.coopAt(room,{host:false,follow:m.follow!==false,m}),f=Object.assign(Object.create(r),{s:JSON.parse(JSON.stringify(r.s))});
+  let chests=[];try{chests=f.coopChestsAt(at);}catch{}
+  return {map:at,name:r.tables['32_MAP_DB']?.get(at)?.[2]||at,chests};
+ },
+ async coopChest(a,b){
+  this.coopNeed();this.rate('coop-chest:'+a.id,60,60000);const {room,m,isHost}=this.coopPerson(a);if(isHost)throw err(400,'방장은 직접 엽니다.');
+  const chest=String(b?.chest||'').slice(0,24),answer=b?.answer;if(JSON.stringify(answer??null).length>8000)throw err(400,'퍼즐 답이 너무 깁니다.');
+  room.world=this.coopWorld(this.coopHostRuntime(room));const at=this.coopAt(room,{host:false,follow:m.follow!==false,m});
+  const res=await this.coopOwnerAction(room,room.host.id,'COOP_CHEST_UNSEAL',{room:room.id,chest,answer},m.pid,{accountId:a.id,member:m},{chest:{map:at,pid:m.pid,name:m.name}});
+  const out=res.result?.result||{},mapName=res.r?.tables?.['32_MAP_DB']?.get(out.map)?.[2]||out.map||'';
+  // The chest stays there, unsealed, for the host to open (everyone in the room hears who solved it, and where).
+  for(const p of this.coopPeople(room))this.broadcast({type:'coop',kind:'chest',room:room.id,chest:{by:{name:m.name,pid:m.pid},id:out.chest,tier:out.tier,unsealed:true,puzzle:!!out.puzzle,map:out.map,mapName,region:out.region}},s=>s.account===p.id);
+  this.coopPuzzleEnd(room,out.chest,{unsealed:true,by:{name:m.name,pid:m.pid}});
+  return {ok:true,result:{...out,mapName}};
+ },
+ // ---------- 0.16 같이 풀기: a chest's board shared by everyone at its place ----------
+ coopPuzzles(room){return room.puzzles??=new Map();},
+ coopPuzzleSweep(room){const t=now();for(const [id,p] of this.coopPuzzles(room))if(!p.players.size&&t-p.updated>COOP.puzzleMs)this.coopPuzzles(room).delete(id);},
+ // The chest, seen from where one stands: the host in their own world (as CHEST_OPEN would see it), a guest in the host's.
+ coopPuzzleChest(room,isHost,m,chest){
+  const r=this.coopHostRuntime(room);if(!r)throw err(409,'방장의 세계를 불러오지 못했습니다.');
+  const def=(globalThis.CRPGRuntime?.chestRules?.chests||[]).find(c=>c.id===chest);if(!def?.game)throw err(400,'함께 풀 퍼즐이 없는 상자입니다.','NO_PUZZLE');
+  const f=Object.assign(Object.create(r),{s:JSON.parse(JSON.stringify(r.s)),coopContext:null});
+  const at=isHost?String(r.s.global.CURRENT_MAP_ID||''):this.coopAt(room,{host:false,follow:m.follow!==false,m});
+  const why=isHost?f.chestReason(chest):f.coopChestReason(chest,at);if(why)throw err(409,why,'COOP_CHEST');
+  if(isHost&&f.s.chests?.unsealed?.[chest])throw err(409,'이미 암호를 풀어 둔 상자입니다. 바로 열 수 있습니다.','COOP_CHEST');
+  const view=f.chestView(def);delete view.reason;view.puzzle=f.chestPuzzle(chest);return {at,view};
+ },
+ coopPuzzleView(p,pid){return {chest:p.chest,map:p.map,seq:p.seq,events:p.events,players:[...p.players].map(([id,x])=>({pid:id,name:x.name,host:x.host,me:id===pid}))};},
+ // Everyone on the board hears each move; a new board is told to the whole room (the ones standing there may join).
+ coopPuzzleTell(room,p,msg,all=false){
+  const players=[...p.players].map(([pid,x])=>({pid,name:x.name,host:x.host}));
+  for(const person of this.coopPeople(room)){if(!all&&!p.players.has(person.pid))continue;this.broadcast({type:'coop',kind:'puzzle',room:room.id,chest:p.chest,map:p.map,mapName:p.mapName,players,...msg},s=>s.account===person.id);}
+ },
+ coopPuzzleEnd(room,chest,how){const p=this.coopPuzzles(room).get(chest);if(!p)return;this.coopPuzzles(room).delete(chest);this.coopPuzzleTell(room,p,{op:'end',...how},true);},
+ async coopPuzzle(a,b){
+  this.coopNeed();this.rate('coop-puzzle:'+a.id,900,60000);const {room,m,isHost,pid}=this.coopPerson(a);this.coopPuzzleSweep(room);
+  const op=String(b?.op||''),chest=String(b?.chest||'').slice(0,24),boards=this.coopPuzzles(room);let p=boards.get(chest)||null;
+  if(op==='join'){
+   const {at,view}=this.coopPuzzleChest(room,isHost,m,chest),fresh=!p;
+   if(!p){p={chest,map:at,mapName:view.mapName,events:[],seq:0,players:new Map(),created:now(),updated:now()};boards.set(chest,p);}
+   const name=isHost?room.host.name:m.name;p.players.set(pid,{name,host:isHost});p.updated=now();
+   this.coopPuzzleTell(room,p,{op:'join',by:{pid,name,host:isHost},fresh},true);
+   return {session:this.coopPuzzleView(p,pid),chest:view};
+  }
+  if(!p)throw err(404,'함께 풀던 퍼즐이 끝났습니다.','NO_PUZZLE');
+  if(op==='leave'){if(p.players.delete(pid)){p.updated=now();this.coopPuzzleTell(room,p,{op:'leave',by:{pid}},true);}return {left:true};}
+  if(!p.players.has(pid))throw err(409,'퍼즐에 먼저 들어와 주세요.','NO_PUZZLE');
+  if(op==='event'){
+   const ev=b?.ev,size=JSON.stringify(ev??null).length;if(!ev||typeof ev!=='object'||Array.isArray(ev)||size>400)throw err(400,'퍼즐 조작을 확인하지 못했습니다.');
+   if(p.events.length>=COOP.puzzleMoves)throw err(409,'이 퍼즐은 조작이 너무 많았습니다. 닫았다가 다시 열어 주세요.');
+   const e={seq:++p.seq,pid,at:now(),ev};p.events.push(e);p.updated=e.at;this.coopPuzzleTell(room,p,{op:'event',event:e});
+   return {event:e};
+  }
+  throw err(400,'알 수 없는 요청입니다.');
  },
  async coopClaim(a){this.coopNeed();this.rate('coop-misc:'+a.id,60,60000);return {rewards:await this.coopPay(a.id)};},
+ // 0.16 (user: 「배속도 공유하게 해야겠는데」): the battle playback's speed is the room's: whoever changes it changes it for all.
+ coopSpeed(a,b){
+  this.coopNeed();this.rate('coop-speed:'+a.id,60,60000);const {room,m,isHost,pid}=this.coopPerson(a);
+  const v=Number(b?.speed);if(!Number.isFinite(v)||v<0.5||v>2||Math.round(v*4)!==v*4)throw err(400,'전투 속도를 확인하지 못했습니다.');
+  room.speed=v;room.speedRev=(room.speedRev||0)+1;room.updated=now();const by={name:isHost?room.host.name:m.name,pid},rev=room.speedRev;
+  for(const p of this.coopPeople(room))this.broadcast({type:'coop',kind:'speed',room:room.id,speed:v,rev,by},s=>s.account===p.id);
+  return {speed:v,rev};
+ },
  // 0.15.9: a guest suggests where the party goes next (any place on the host's map list); the host decides and moves.
  coopSuggest(a,b){
   this.coopNeed();this.rate('coop-suggest:'+a.id,10,60000);if(this.coopRoomOf(a.id)?.host.id===a.id)throw err(400,'방장은 직접 이동합니다.');const {room,m}=this.coopMember(a);
@@ -397,11 +677,13 @@ export const coopMethods={
 
 export async function coopRoute(store,a,path,req,url,body){
  if(!path.startsWith('/coop/'))return undefined;
- if(req.method==='GET'){if(path==='/coop/room')return await store.coopStatus(a);if(path==='/coop/list')return store.coopList(a);return undefined;}
+ if(req.method==='GET'){if(path==='/coop/room')return await store.coopStatus(a);if(path==='/coop/list')return store.coopList(a);if(path==='/coop/world')return store.coopWorldFor(a);return undefined;}
  if(req.method!=='POST')return undefined;
  const call={'/coop/open':'coopOpen','/coop/join':'coopJoin','/coop/char':'coopChar','/coop/ready':'coopReady','/coop/leave':'coopLeave','/coop/close':'coopClose','/coop/kick':'coopKick',
   '/coop/invite':'coopInvite','/coop/decline':'coopDecline','/coop/act':'coopAct','/coop/auto':'coopAutoTurn','/coop/claim':'coopClaim',
-  '/coop/suggest':'coopSuggest','/coop/say':'coopSay'}[path];
+  '/coop/suggest':'coopSuggest','/coop/say':'coopSay',
+  // 0.16 함께 돌아다니기
+  '/coop/move':'coopMove','/coop/follow':'coopFollow','/coop/fight':'coopJoinFight','/coop/chests':'coopChests','/coop/chest':'coopChest','/coop/puzzle':'coopPuzzle','/coop/speed':'coopSpeed'}[path];
  if(!call)return undefined;
  return await store[call](a,await body(req));
 }

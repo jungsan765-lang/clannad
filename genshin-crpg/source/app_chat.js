@@ -7,7 +7,11 @@
 const O=window.CRPGOnline,SHELL=window.CRPGShell;if(!O||!SHELL)return;
 const isLocal=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
 const base=String(window.CRPG_ONLINE_CONFIG?.apiBase||'').replace(/\/$/,'')||(!isLocal?'https://genshin-crpg-online.jungsan765.workers.dev':'');
-const C=window.CRPGChat={enabled:null,open:false,lines:[],last:0,unread:0,muted:new Set(),node:null,ctrl:null,fails:0,poll:null,probing:false,max:140,handlers:[]};
+const C=window.CRPGChat={enabled:null,open:false,lines:[],last:0,unread:0,muted:new Set(),node:null,ctrl:null,fails:0,poll:null,probing:false,max:140,handlers:[],
+ // 0.16: the 「다인」 tab holds the co-op room's talk (app_coop_v0153.js) while one is in a room.
+ channel:'world',coopUnread:0};
+const coop=()=>window.CRPGCoop?.inRoom?.()?window.CRPGCoop:null;
+const onCoop=()=>C.channel==='coop'&&!!coop();
 try{for(const x of JSON.parse(localStorage.getItem('crpg-chat-muted')||'[]'))C.muted.add(String(x));}catch{}
 const mk=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined&&text!==null)e.textContent=String(text);return e;};
 const online=()=>!!(O.token&&O.account&&base);
@@ -77,23 +81,33 @@ function toggle(open=!C.open){
 C.toggle=toggle;
 function build(){
  const box=mk('section','chat-window');box.setAttribute('aria-label','채팅');box.hidden=true;
- const head=mk('header','chat-head');head.append(SHELL.icon('CHAT','shell-icon'),mk('strong','','채팅'),mk('small','','전체'));
+ const head=mk('header','chat-head');head.append(SHELL.icon('CHAT','shell-icon'),mk('strong','','채팅'));
+ // 전체 · 다인 tabs (다인 only while in a co-op room).
+ const tabs=mk('div','chat-tabs');tabs.setAttribute('role','tablist');
+ for(const [id,label] of [['world','전체'],['coop','다인']]){const t=mk('button','chat-tab','');t.type='button';t.dataset.channel=id;t.setAttribute('role','tab');t.append(mk('span','',label),mk('em','chat-tab-dot'));t.onclick=()=>{C.channel=id;if(id==='coop')C.coopUnread=0;draw();setTimeout(()=>C.node?.querySelector('input')?.focus(),30);};tabs.append(t);}
+ head.append(tabs);
  const close=mk('button','chat-close');close.type='button';close.setAttribute('aria-label','채팅 닫기');close.append(SHELL.icon('CLOSE','shell-icon'));close.onclick=()=>toggle(false);head.append(close);
  const list=mk('div','chat-list');list.setAttribute('role','log');list.setAttribute('aria-live','polite');
  const form=mk('form','chat-form'),input=mk('input');input.type='text';input.maxLength=C.max;input.placeholder='모두에게 보내기 · Enter';input.setAttribute('aria-label','채팅 입력');input.autocomplete='off';
  const send=mk('button','chat-send','보내기');send.type='submit';const count=mk('small','chat-count','0/'+C.max);
- input.oninput=()=>{count.textContent=[...input.value].length+'/'+C.max;};
+ input.oninput=()=>{count.textContent=[...input.value].length+'/'+input.maxLength;};
  // 0.14.13: Enter on an empty line closes the window again, as in the game it imitates (Enter opens it).
  input.onkeydown=e=>{if(e.key==='Escape'||e.key==='Enter'&&!e.isComposing&&!input.value.trim()){e.preventDefault();e.stopPropagation();toggle(false);}};
  form.onsubmit=async e=>{e.preventDefault();const text=input.value.trim();if(!text||send.disabled)return;send.disabled=true;
-  try{const out=await O.request('/chat/send',{text});ingest([out.message],true);input.value='';count.textContent='0/'+C.max;}catch(err){SHELL.toast?.(err.message);}finally{send.disabled=false;input.focus();}};
+  try{if(onCoop()){await coop().say(text);input.value='';count.textContent='0/'+input.maxLength;draw();}else{const out=await O.request('/chat/send',{text});ingest([out.message],true);input.value='';count.textContent='0/'+C.max;}}catch(err){SHELL.toast?.(err.message);}finally{send.disabled=false;input.focus();}};
  form.append(input,count,send);
  const muted=mk('button','chat-muted');muted.type='button';muted.onclick=()=>{C.muted.clear();saveMuted();draw();};
  box.append(head,list,muted,form);document.body.append(box);C.node=box;
 }
 function saveMuted(){try{localStorage.setItem('crpg-chat-muted',JSON.stringify([...C.muted]));}catch{}}
 function draw(){
- if(!C.node)return;const list=C.node.querySelector('.chat-list'),stick=list.scrollTop+list.clientHeight>=list.scrollHeight-24;list.replaceChildren();
+ if(!C.node)return;
+ if(C.channel==='coop'&&!coop())C.channel='world';
+ for(const t of C.node.querySelectorAll('.chat-tab')){const on=t.dataset.channel===C.channel;t.classList.toggle('on',on);t.setAttribute('aria-selected',String(on));if(t.dataset.channel==='coop')t.hidden=!coop();const dot=t.querySelector('.chat-tab-dot');if(dot)dot.hidden=!(t.dataset.channel==='coop'&&C.coopUnread>0&&!on);}
+ const input=C.node.querySelector('.chat-form input'),count=C.node.querySelector('.chat-count');
+ if(onCoop()){if(input){input.maxLength=80;input.placeholder='방 사람들에게 보내기 · Enter';input.setAttribute('aria-label','다인 대화 입력');}if(count)count.textContent=[...(input?.value||'')].length+'/80';drawCoop();return;}
+ if(input){input.maxLength=C.max;input.placeholder='모두에게 보내기 · Enter';input.setAttribute('aria-label','채팅 입력');}if(count)count.textContent=[...(input?.value||'')].length+'/'+C.max;
+ const list=C.node.querySelector('.chat-list'),stick=list.scrollTop+list.clientHeight>=list.scrollHeight-24;list.replaceChildren();
  const me=O.account,shown=C.lines.filter(m=>!C.muted.has(m.pid));
  if(!shown.length)list.append(mk('p','chat-empty',C.enabled===false?'이 서버에서는 채팅을 사용할 수 없습니다.':'아직 대화가 없습니다. 먼저 인사해 보세요.'));
  for(const m of shown){
@@ -112,6 +126,19 @@ function draw(){
  const muted=C.node.querySelector('.chat-muted');muted.hidden=!C.muted.size;muted.textContent='숨긴 모험가 '+C.muted.size+'명 · 다시 보기';
  if(stick)list.scrollTop=list.scrollHeight;
 }
+// 0.16: the co-op room's talk in the 「다인」 tab (only the room's people see it; same hiding as the world chat).
+function drawCoop(){
+ const list=C.node.querySelector('.chat-list'),stick=list.scrollTop+list.clientHeight>=list.scrollHeight-24;list.replaceChildren();
+ const lines=(coop()?.roomLog()||[]).filter(l=>!C.muted.has(l.from.pid));
+ if(!lines.length)list.append(mk('p','chat-empty','방 사람에게만 보이는 대화입니다. 먼저 인사해 보세요.'));
+ for(const l of lines){const own=!!C.me&&l.from.pid===C.me,row=mk('div','chat-line coop'+(own?' own':''));
+  const who=mk('button','chat-author',l.from.name+(l.from.host?' · 방장':''));who.type='button';who.style.setProperty('--h',hue(l.from.pid));who.title=l.from.name+' · 모험가 정보 보기';who.onclick=()=>window.CRPGProfile?.open(l.from.pid,l.from.name);
+  row.append(who,mk('time','chat-time',time(l.at)),mk('p','chat-text',l.text));list.append(row);}
+ const muted=C.node.querySelector('.chat-muted');if(muted)muted.hidden=true;
+ if(stick)list.scrollTop=list.scrollHeight;
+}
+C.coopLine=line=>{if(C.open&&onCoop()){draw();return;}if(line?.from?.pid!==C.me&&!C.muted.has(line?.from?.pid)){C.coopUnread++;if(C.node)draw();}};
+C.coopVisible=()=>C.open&&onCoop();
 // 0.14.13: a phone's top bar has no room for the chat button, so a round one waits above the bottom dock (shell.css
 // shows it on phones only) and the window opens from the bottom.
 function fab(){let b=document.querySelector('body > .chat-fab');if(!b){b=mk('button','chat-fab');b.type='button';b.setAttribute('aria-label','채팅 열기');b.append(SHELL.icon('CHAT','shell-icon'),mk('span','hud-badge'));b.onclick=()=>toggle(true);document.body.append(b);}return b;}

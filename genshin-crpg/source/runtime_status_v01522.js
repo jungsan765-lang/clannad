@@ -9,10 +9,27 @@ const EL={PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',ANEMO:'바람',G
 const elem=e=>EL[e]||e,live=s=>!Number.isFinite(s.rounds)||s.rounds>0;
 const NATIVE={FB_ANEMO_HYPOSTASIS:'바람',FB_ELECTRO_HYPOSTASIS:'번개',FB_CRYO_HYPOSTASIS:'얼음',FB_GEO_HYPOSTASIS:'바위',FB_OCEANID:'물'};
 function native(a){return NATIVE[a?.source]||(/^FB_MIMIC_/.test(a?.source)?'물':a?.nativeAura)||null;}
+// 0.16.0 (user: 「빙결 뭐냐 원래 이렇게 오래 얼어붙어? 장난없이 쳐맞다가 죽네」): on our side 빙결 takes one turn, the next one
+// the character would take, and after it two turns of their own come before it can freeze them again. It used to last to
+// the end of the next round (two turns when it came before their turn) and each new freeze refreshed it, so a water slime
+// and an ice slime froze a party round after round to the end. The enemies' side keeps the rule as it was: freezing them
+// is the players' own play, as in the original.
+const FREEZE='STATUS_FREEZE';
 P.addCombatStatus=function(a,id,rounds,extra={}){
  // C1 is represented by the field's conditional flat ATK bonus, not an unrelated +20% team multiplier.
  if(id==='CONS_BENNETT_1')extra={...extra,mods:{}};
- const result=old.addCombatStatus.call(this,a,id,rounds,extra),b=this.s.runtime,source=extra.actor||extra.caster||a?.id;
+ const b=this.s.runtime;let guard=0;
+ if(id===FREEZE&&b&&a?.side==='ALLY'){
+  const turns=Number(a.turns)||0;
+  if(turns<(Number(a.freezeGuard)||0)){
+   if(!a.statuses?.some(s=>s.id===FREEZE&&live(s)))b.log.push({target:a.name,targetId:a.id,resisted:FREEZE,text:a.name+' · 막 풀려나 다시 얼지 않는다',round:b.round});
+   return null;
+  }
+  // untilTurn: gone when their turn after the next one begins (runtime_combat.js), whichever round that falls in.
+  rounds=1;extra={...extra,untilTurn:turns+2};guard=turns+3;
+ }
+ const result=old.addCombatStatus.call(this,a,id,rounds,extra),source=extra.actor||extra.caster||a?.id;
+ if(guard&&result&&a.statuses?.includes(result))a.freezeGuard=guard;
  if(result&&b&&a?.statuses?.includes(result)&&id!=='FORMATION'&&id!=='ROLE')b.log.push({target:a.name,targetId:a.id,actorId:source,actor:b.actors.find(x=>x.id===source)?.name||a.name,round:b.round,actionSequence:b.actionSequence||0,statusApplied:JSON.parse(JSON.stringify(result))});
  return result;
 };

@@ -242,5 +242,5 @@ function migrateSpeed(){
 if(typeof combatSpeedControl==='function'){const prior=combatSpeedControl;combatSpeedControl=function(){migrateSpeed();const row=prior();const out=row.querySelector('output'),range=row.querySelector('input');if(range){range.max=String(SPEED_MAX);if(Number(range.value)>SPEED_MAX)range.value=String(SPEED_MAX);}if(out&&range)out.textContent=speedLabel(range.value);return row;};}
 document.addEventListener('input',e=>{const range=e.target;if(!range?.closest?.('.combat-speed'))return;for(const o of document.querySelectorAll('.combat-speed output'))o.textContent=speedLabel(range.value);});
 
-window.BattleFX={decorate,roundOrder,roundTimes,powerOf,reactionOf,shieldKind,attackStyle,weaponOf,windupShot,onFrame,speedLabel,migrateSpeed};
+window.BattleFX={decorate,roundOrder,roundTimes,powerOf,reactionOf,shieldKind,attackStyle,weaponOf,windupShot,onFrame,speedLabel,migrateSpeed,SPEED_MAX};
 })();

@@ -1856,6 +1856,16 @@ button:disabled{pointer-events:none}
 .scenery-chest::before{content:'';position:absolute;inset:-35%;border-radius:50%;background:radial-gradient(circle,rgba(255,240,180,.55),transparent 62%);z-index:-1;animation:chestHalo 2.4s ease-in-out infinite}
 .scenery-chest.night{width:38px;filter:none;animation:none;background:radial-gradient(circle,rgba(190,220,255,.9) 0 8%,rgba(150,190,255,.35) 22%,transparent 62%);border-radius:50%;opacity:.55}
 .scenery-chest.night::before{animation:nightShimmer 1.8s ease-in-out infinite;background:radial-gradient(circle,rgba(170,205,255,.45),transparent 60%)}
+/* 0.16: a chest someone in the room unsealed — a cooler glow and their name under it (app_coop_v0153.js). */
+.scenery-chest.unsealed{filter:drop-shadow(0 6px 10px rgba(0,0,0,.55)) drop-shadow(0 0 16px rgba(160,232,255,.95))}
+.scenery-chest-note{position:absolute;left:50%;top:100%;margin-top:2px;padding:1px 8px;border-radius:9px;transform:translateX(-50%);background:rgba(16,24,38,.9);color:#dff4ff;font:700 11px/16px system-ui,sans-serif;font-style:normal;white-space:nowrap;pointer-events:none}
+.ch-note.by-friend{color:#bfeaff;font-weight:700}
+/* 0.16 같이 풀기 (app_coop_puzzle_v0160.js): who is on the board, and a partner's press with their name. */
+.ch-head .ch-together{display:block;margin-top:2px;color:#9fe8b8;font-weight:700}
+.ch-peer{position:fixed;z-index:9;padding:1px 8px;border-radius:9px;transform:translate(-50%,-150%);background:rgba(127,224,160,.95);color:#123020;font:700 11px/16px system-ui,sans-serif;white-space:nowrap;pointer-events:none;animation:chPeer .9s ease-out both}
+@keyframes chPeer{0%{opacity:0;transform:translate(-50%,-110%)}15%{opacity:1;transform:translate(-50%,-150%)}75%{opacity:1}100%{opacity:0}}
+.cp-puzzle-pop{border-color:rgba(127,224,160,.75)}
+@media (prefers-reduced-motion:reduce){.ch-peer{animation:none}}
 @keyframes chestBob{50%{translate:-50% -66%}}
 @keyframes chestHalo{50%{opacity:.55;transform:scale(1.12)}}
 @keyframes nightShimmer{0%,100%{opacity:.2;transform:scale(.85)}50%{opacity:.9;transform:scale(1.15)}}
@@ -3319,6 +3329,100 @@ body.teyvat :where(#root) .battle-branches>button.battle-branch.selected{backgro
 @keyframes sc-pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.sc-card{animation:none}}
 
+/* ---------- 0.16 함께 돌아다니기 (app_coop_v0153.js): the host's world with everyone in it, steps, fights, chests ---------- */
+.cp-worldmap{height:clamp(190px,34vh,300px)}
+.cp-pin.me{z-index:3;background:#7fe0a0;box-shadow:0 0 0 3px rgba(127,224,160,.5),0 2px 6px rgba(0,0,0,.5)}
+.cp-pin.other{background:#c9b3ff;box-shadow:0 0 0 3px rgba(201,179,255,.45),0 2px 6px rgba(0,0,0,.5)}
+.cp-pin.fight{z-index:2;width:14px;height:14px;background:#ff7a5c;box-shadow:0 0 0 3px rgba(255,122,92,.5),0 2px 6px rgba(0,0,0,.5)}
+.cp-pin.fight em{bottom:auto;top:calc(100% + 4px);background:rgba(90,20,12,.92)}
+.cp-worldmap button.cp-step{position:absolute;z-index:1;transform:translate(-50%,-50%);width:26px;height:26px;min-width:0;min-height:0;margin:0;padding:0;border-radius:50%;border:2px dashed rgba(236,229,216,.85);background:rgba(16,24,38,.55);cursor:pointer;box-shadow:none}
+.cp-worldmap button.cp-step em{position:absolute;left:50%;top:calc(100% + 3px);transform:translateX(-50%);padding:1px 7px;border-radius:9px;background:rgba(236,229,216,.95);color:#2a3142;font-style:normal;font-size:.7rem;font-weight:700;white-space:nowrap;cursor:pointer}
+.cp-worldmap button.cp-step:disabled{opacity:.45;cursor:not-allowed}
+@media (hover:hover){.cp-worldmap button.cp-step:not(:disabled):hover{background:rgba(127,224,160,.35);border-style:solid}}
+.cp-fights{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.cp-fight{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:10px;background:rgba(255,122,92,.12);border:1px solid rgba(255,122,92,.4)}
+.cp-fight.joined{background:rgba(127,224,160,.12);border-color:rgba(127,224,160,.4)}
+.cp-fight>.shell-icon{flex:0 0 auto;width:18px;height:18px}
+.cp-fight-copy{display:flex;flex:1 1 auto;flex-direction:column;min-width:0}
+.cp-fight-copy strong{font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cp-fight-copy small{font-size:.74rem;color:#b9c0cc}
+.cp-walk{margin-top:8px;align-items:center}
+.cp-fight-pop{border-color:rgba(255,122,92,.75)}
+/* The fight's motion in the window of someone who joined it (app_coop_v0153.js playChanges): the battle screen's numbers,
+   the line being played, the one acting lit. */
+.cp-battle>.cp-fx{z-index:5}
+/* 0.16: the battle screen's own playback (app_av.js) over the window of someone who joined: its numbers above the window. */
+body.cp-fx-on .combat-effects{z-index:2170}
+body.teyvat .cp-battle>.combat-playback{z-index:6}
+/* 0.16: someone else's fight one is in, on one's own battle screen (app_coop_world_v0160.js). */
+body.teyvat .combat-panel>.battle-heading .cw-fight-tools{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-left:auto}
+body.teyvat .cw-fight-tools .cp-head-host{padding:2px 10px;border-radius:12px;background:rgba(var(--acc-rgb),.18);border:1px solid rgba(var(--acc-rgb),.5);color:var(--acc-2);font-size:.78rem;font-weight:700;white-space:nowrap}
+body.teyvat .cw-fight-tools button.cw-btn{min-width:0;min-height:30px;margin:0;padding:2px 12px;font-size:.78rem}
+body.teyvat .cw-fight-tools button.cw-leave{border-color:rgba(255,122,92,.55);color:#ffb3a0}
+body.teyvat .cw-fight-panel .cw-wait{margin:8px 0 0;padding:12px;border-radius:12px;background:rgba(255,255,255,.05);color:var(--t-muted);font-size:.86rem;text-align:center}
+body.teyvat .cp-host-tag.me{background:rgba(127,224,160,.2);border-color:rgba(127,224,160,.5);color:#9fe8b8}
+body.teyvat .cp-host-wait.mine{border-color:rgba(127,224,160,.55)}
+.cp-fx-line{position:absolute;left:50%;top:13%;max-width:min(560px,86vw);padding:6px 16px;border-radius:18px;transform:translateX(-50%);background:rgba(8,12,22,.88);border:1px solid rgba(243,223,174,.45);color:#f3eee4;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:cpFxLine 1.4s ease-out both}
+@keyframes cpFxLine{0%{opacity:0;transform:translate(-50%,6px)}12%{opacity:1;transform:translate(-50%,0)}80%{opacity:1}100%{opacity:0}}
+body.teyvat .cp-battle .combatant-row.cp-fx-acting{box-shadow:0 0 0 2px #f3dfae,0 0 20px rgba(243,223,174,.6)}
+@media (prefers-reduced-motion:reduce){.cp-fx-line{animation:none}}
+/* 0.16: below 1150 px wide the base style splits the destination cards in two columns for a map stacked above them; the
+   field screen keeps the map and the cards side by side, so the side column holds one card a row (names were breaking
+   letter by letter). */
+body.teyvat .shell-loc-main .terrain-destination-list{grid-template-columns:minmax(0,1fr)}
+/* A guest's own main screen standing in the host's world (app_coop_world_v0160.js): the side shows the room there. */
+body.teyvat .cw-panel{display:flex;flex-direction:column;gap:10px;min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;padding:0 2px 0 0}
+body.teyvat .cw-panel>*{margin:0;flex:0 0 auto}
+body.teyvat .cw-head .cw-tag{display:inline-flex;align-items:center;gap:6px;padding:3px 12px 3px 8px;border-radius:14px;background:rgba(var(--acc-rgb),.18);border:1px solid rgba(var(--acc-rgb),.55);color:var(--acc-2);font-size:.78rem;font-weight:700;letter-spacing:.03em;text-shadow:none}
+body.teyvat .cw-head .cw-tag .shell-icon{width:16px;height:16px}
+body.teyvat .cw-head h1{margin:6px 0 6px}
+body.teyvat .cw-panel>:is(.cw-people,.cw-fights){display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:16px;background:var(--t-glass);border:1px solid var(--t-line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body.teyvat .cw-person{display:flex;align-items:center;gap:10px;padding:5px 8px;border-radius:12px;border:1px solid transparent;background:rgba(255,255,255,.04)}
+body.teyvat .cw-person.me{border-color:rgba(127,224,160,.45);background:rgba(127,224,160,.08)}
+body.teyvat .cw-face{flex:0 0 auto;width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:top;background:rgba(255,255,255,.08);border:1px solid var(--t-line)}
+body.teyvat .cw-face.glyph{display:grid;place-items:center;box-sizing:border-box;color:var(--t-gold);font-size:1.1rem}
+body.teyvat .cw-person-copy{display:flex;flex:1 1 auto;flex-direction:column;min-width:0}
+body.teyvat .cw-person-copy strong{display:flex;align-items:center;gap:6px;font-size:.92rem}
+body.teyvat .cw-person-copy small{font-size:.76rem;color:var(--t-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.teyvat .cw-person.here .cw-person-copy small{color:#9fe8b8}
+body.teyvat .cw-host{padding:0 7px;border-radius:8px;background:rgba(243,223,174,.18);color:var(--t-gold-hi);font-style:normal;font-size:.68rem;font-weight:700}
+body.teyvat .cw-fight{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:12px;background:rgba(255,122,92,.12);border:1px solid rgba(255,122,92,.45)}
+body.teyvat .cw-fight.joined{background:rgba(127,224,160,.1);border-color:rgba(127,224,160,.45)}
+body.teyvat :is(.cw-fight,.cp-fight).cw-board,body.teyvat .cp-fight.cp-board{background:rgba(127,224,160,.1);border-color:rgba(127,224,160,.45)}
+body.teyvat :is(.cw-board,.cp-board)>.shell-icon{color:#9fe8b8}
+body.teyvat .cw-fight>.shell-icon{flex:0 0 auto;width:18px;height:18px;color:#ff9a80}
+body.teyvat .cw-fight-copy{display:flex;flex:1 1 auto;flex-direction:column;min-width:0}
+body.teyvat .cw-fight-copy strong{font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.teyvat .cw-fight-copy small{font-size:.74rem;color:var(--t-muted)}
+body.teyvat .cw-panel button.cw-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:0;min-height:40px;margin:0;padding:4px 12px;font-size:.84rem;line-height:1.25;word-break:keep-all}
+body.teyvat .cw-panel button.cw-btn .shell-icon{flex:0 0 auto;width:18px;height:18px}
+body.teyvat .cw-panel button.cw-mini{flex:0 0 auto;min-height:32px;padding:2px 12px;font-size:.78rem}
+body.teyvat .cw-panel button.cw-go{background:var(--t-cream);border-color:var(--t-cream);color:var(--t-ink);font-weight:700}
+body.teyvat .cw-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px;border-radius:16px;background:var(--t-glass);border:1px solid var(--t-line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+body.teyvat .cw-tools button.cw-leave{border-color:rgba(var(--acc-rgb),.55)}
+body.teyvat .cw-panel.cw-mobile{flex:1 1 auto;padding:8px;border-radius:16px;background:rgba(12,15,24,.55)}
+body.teyvat .hud-place .cw-hud-tag{flex:0 0 auto;padding:0 7px;border-radius:9px;background:rgba(var(--acc-rgb),.22);border:1px solid rgba(var(--acc-rgb),.55);color:var(--acc-2);font-style:normal;font-size:.66rem;line-height:16px;white-space:nowrap}
+/* Everyone else in the room on the travel map (the guest's view of the host's world, and the host's own map), and the
+   fights one can step into. */
+.cw-pins{position:absolute;inset:0;z-index:5;pointer-events:none}
+.cw-pin{position:absolute;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,calc(-100% - 10px));pointer-events:none}
+.cw-pin em{padding:1px 8px;border-radius:9px;background:#ffd76a;color:#1d2433;font:700 11px/16px system-ui,sans-serif;font-style:normal;white-space:nowrap;box-shadow:0 1px 5px rgba(0,0,0,.55)}
+.cw-pin::after{content:'';margin-top:-1px;border:5px solid transparent;border-top-color:#ffd76a}
+.cw-pin.other em{background:#c9b3ff}.cw-pin.other::after{border-top-color:#c9b3ff}
+.cw-pin.fight{z-index:1}
+.cw-pin.fight em{background:#ff7a5c;color:#fff}.cw-pin.fight::after{border-top-color:#ff7a5c}
+.cw-pin.fight.joined em{background:#7fe0a0;color:#1d2433}.cw-pin.fight.joined::after{border-top-color:#7fe0a0}
+body.teyvat .terrain-navigation button.cw-pin.fight{min-width:0;min-height:0;margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;cursor:pointer;pointer-events:auto}
+body.teyvat .terrain-navigation button.cw-pin.fight:disabled{opacity:.75;cursor:not-allowed}
+@media (hover:hover){body.teyvat .terrain-navigation button.cw-pin.fight:hover:not(:disabled) em{box-shadow:0 0 0 2px #fff,0 1px 5px rgba(0,0,0,.55)}}
+/* The chat window's 「전체 · 다인」 tabs. */
+.chat-head .chat-tabs{display:flex;gap:4px}
+.chat-head button.chat-tab{position:relative;min-width:0;min-height:26px;margin:0;padding:1px 10px;border-radius:13px;border:1px solid rgba(211,188,142,.35);background:transparent;color:#d3bc8e;font:inherit;font-size:.74rem;cursor:pointer;box-shadow:none}
+.chat-head button.chat-tab.on{background:#ece5d8;border-color:#ece5d8;color:#3b4255;font-weight:700}
+.chat-head button.chat-tab[hidden]{display:none}
+.chat-head .chat-tab-dot{position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#ff8a5c}
+.chat-head .chat-tab-dot[hidden]{display:none}
+
 /* ---------- 리월 색 (generated by tools/gen_liyue_theme.cjs) ---------- */
 /* 리월(몬드와 같은 구성, 남색 바탕 → 같은 밝기의 갈색, 금색 테두리 → 주황빛 금색, 강조색 → 주황). */
 body.teyvat[data-region=liyue]{--acc:#f0a04b;--acc-2:#ffd3a1;--acc-rgb:240,160,75;--acc-deep:#5c3613}
@@ -3551,4 +3655,7 @@ body.teyvat[data-region=liyue] .terrain-node.domain-host::after{box-shadow:0 0 0
 body.teyvat[data-region=liyue] .cp-battle.coop-fight .cp-bbox{background:radial-gradient(ellipse at 50% 30%,rgba(119,85,54,.35),transparent 70%),linear-gradient(180deg,#2f1f11,#23160b)}
 body.teyvat[data-region=liyue] .coop-combat .battle-turn-banner .cp-count{color:#554436}
 body.teyvat[data-region=liyue] .combat-panel .battle-order li .order-what{color:var(--t-gold-hi,#f8d2a9)}
+body.teyvat[data-region=liyue] .cp-battle .combatant-row.cp-fx-acting{box-shadow:0 0 0 2px #f8d2a9,0 0 20px rgba(248,210,169,.6)}
+body.teyvat[data-region=liyue] .cw-host{background:rgba(248,210,169,.18)}
+body.teyvat[data-region=liyue] .cw-panel.cw-mobile{background:rgba(26,18,11,.55)}
 /* ---------- /리월 색 ---------- */

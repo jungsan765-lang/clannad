@@ -681,3 +681,21 @@ body.teyvat .loot-item strong{padding:4px 4px 5px;font-size:.7rem}
 body.teyvat .loot-item .loot-count{top:3px;right:3px;padding:0 6px;font-size:.78rem}
 .sc-info{padding:3px 4px 4px}.sc-info>strong{font-size:.82rem}
 }
+/* ---------- 0.16 함께 돌아다니기 on a sideways phone: a shorter map; the steps keep their size. In the host's world
+   (app_coop_world_v0160.js) the side is shorter rows and smaller faces. ---------- */
+@media (orientation:landscape) and (max-height:500px){
+.cp-worldmap{height:130px}
+.cp-fight{padding:4px 6px}.cp-fight-copy strong{font-size:.78rem}.cp-fight-copy small{font-size:.68rem}
+body.teyvat .cw-panel{gap:6px}
+body.teyvat .cw-head .cw-tag{padding:1px 9px 1px 6px;font-size:.68rem}
+body.teyvat .cw-head h1{margin:3px 0}
+body.teyvat .cw-panel>:is(.cw-people,.cw-fights){gap:4px;padding:6px;border-radius:12px}
+body.teyvat .cw-person{gap:7px;padding:3px 6px}
+body.teyvat .cw-face{width:28px;height:28px}
+body.teyvat .cw-person-copy strong{font-size:.8rem}body.teyvat .cw-person-copy small{font-size:.68rem}
+body.teyvat .cw-fight{padding:3px 6px}body.teyvat .cw-fight-copy strong{font-size:.76rem}body.teyvat .cw-fight-copy small{font-size:.66rem}
+body.teyvat .cw-tools{gap:4px;padding:6px;border-radius:12px}
+body.teyvat .cw-panel button.cw-btn{min-height:32px;padding:2px 8px;font-size:.74rem}
+body.teyvat .cw-panel button.cw-mini{min-height:28px;padding:1px 9px;font-size:.7rem}
+body.teyvat .hud-place .cw-hud-tag{font-size:.6rem;line-height:14px;padding:0 5px}
+}
