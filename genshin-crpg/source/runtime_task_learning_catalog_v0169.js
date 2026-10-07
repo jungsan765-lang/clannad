@@ -165,4 +165,17 @@ c.stats={...c.stats,daily:c.daily.length,weekly:c.weekly.length,chains:c.chains.
 c.notes={...c.notes,successors:'ALL_PREREQUISITES_CLAIMED',dailySlots:11,weeklySlots:28,totalDailyCandidates:11,totalWeeklyCandidates:28,
  recurringProgress:'Only unlocked targets count; successors start after prerequisite rewards are claimed in the same period.',
  acceptancePractice:'Accept this native root commission, then report it. Self-acceptance credits only this root.'};
+// 0.16.12: retain the entire strict 171 branch catalogue before also retiring
+// the matching Liyue regional weekly patrol. Existing period payouts survive.
+c.snapshotV01611=JSON.parse(JSON.stringify({
+ version:c.version,branchVersion:c.branchVersion,daily:[...c.legacyDaily,...c.daily],weekly:[...c.legacyWeekly,...c.weekly],chains:c.chains,
+ dailyBranches:c.dailyBranches,weeklyBranches:c.weeklyBranches,oneTimeBranches:c.oneTimeBranches,
+ stats:c.stats,notes:c.notes,removedRecurringIds:c.removedRecurringIds
+}));
+c.weekly=c.weekly.filter(t=>t.id!=='W_V168_LIYUE_PATROL');
+delete c.weeklyBranches.W_V168_LIYUE_PATROL;
+c.version='0.16.12';c.branchVersion=172;
+c.removedRecurringIds=[...c.removedRecurringIds,'W_V168_LIYUE_PATROL'];
+c.stats={...c.stats,weekly:c.weekly.length};
+c.notes={...c.notes,weeklySlots:27,totalWeeklyCandidates:27};
 })(globalThis);

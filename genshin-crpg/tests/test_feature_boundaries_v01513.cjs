@@ -6,7 +6,14 @@ const api=c.CRPGRuntime,plain=x=>JSON.parse(JSON.stringify(x)),checks=[];
 const DAY=86400000,KST=9*3600000,BASE=Date.UTC(2026,9,3,3);
 function check(name,fn){try{const evidence=fn();checks.push({name,ok:true,evidence});console.log('PASS '+name);}catch(e){checks.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 function world(map='MAP_MOND_CITY'){const r=fresh(map);r.actionStartedAt=BASE;return r;}
-function reload(r){const next=new R(db,JSON.parse(r.serialize()));next.actionStartedAt=r.actionStartedAt;return next;}
+function restore(save,at){
+ // Restore under the same simulated request clock; constructor migration must not
+ // advance to the real run date before this boundary test resumes its past clock.
+ const now=c.Date.now;let next;c.Date.now=()=>at;
+ try{next=new R(db,save);}finally{c.Date.now=now;}
+ next.actionStartedAt=at;return next;
+}
+function reload(r){return restore(JSON.parse(r.serialize()),r.actionStartedAt);}
 function rejected(r,type,params={},pattern){const before=r.serialize();assert.throws(()=>r.action(type,params),e=>!pattern||pattern.test(e.message));assert.equal(r.serialize(),before,'rejection changes neither resources nor progress');}
 function intent(r,type,params={}){return {id:r.s.global.SAVE_ID+':'+(r.s.global.LAST_COMMITTED_ACTION_SEQ+1),revision:r.s.global.SAVE_REVISION,type,...params};}
 function once(r,a){const receipt=r.transact(a),after=r.serialize();assert.deepEqual(plain(r.transact(a)),plain(receipt));assert.equal(r.serialize(),after,'retrying the receipt pays/consumes once');const restored=reload(r),saved=restored.serialize();assert.deepEqual(plain(restored.transact(a)),plain(receipt));assert.equal(restored.serialize(),saved,'the same receipt after reload stays inert');return receipt.result;}
@@ -35,8 +42,8 @@ check('escort: stopping travel, old settled saves, and Korean midnight cannot le
  assert.equal(r.s.global.MORA,money);assert.equal(r.s.regionEvents.count,0);assert.equal(r.s.regionEvents.escort,null);
  r=reload(r);r.s.global.CURRENT_MAP_ID=ev.to;rejected(r,'REGION_EVENT',{choice:'ARRIVE'});
  for(const outcome of ['DONE','LEFT']){const s=plain(accepted);s.regionEvents.done[ev.map]={kind:'LOST',choice:outcome==='DONE'?'POINT':'LEAVE',outcome};
-  const priorMoney=s.global.MORA,restored=new R(db,s);restored.actionStartedAt=r.actionStartedAt;assert.equal(restored.s.regionEvents.escort,null);assert.equal(restored.s.global.MORA,priorMoney);restored.s.global.CURRENT_MAP_ID=ev.to;rejected(restored,'REGION_EVENT',{choice:'ARRIVE'});}
- r=new R(db,plain(accepted));r.actionStartedAt=(Math.floor((BASE+KST)/DAY)+1)*DAY-KST;
+  const priorMoney=s.global.MORA,restored=restore(s,r.actionStartedAt);assert.equal(restored.s.regionEvents.escort,null);assert.equal(restored.s.global.MORA,priorMoney);restored.s.global.CURRENT_MAP_ID=ev.to;rejected(restored,'REGION_EVENT',{choice:'ARRIVE'});}
+ r=restore(plain(accepted),r.actionStartedAt);
  // The generated event may come from a later fixture day; advance from that event's own date.
  r.actionStartedAt=(ev.day+1)*DAY-KST-1;assert(r.regionToday()?.escort);r.actionStartedAt++;
  assert.equal(r.regionEventHere().escort,null);r.s.global.CURRENT_MAP_ID=ev.to;rejected(r,'REGION_EVENT',{choice:'ARRIVE'});
@@ -162,3 +169,4 @@ check('field boss: a restored fight crossing the 12-hour reset counts the comple
 });
 
 console.log(JSON.stringify({suite:'feature-boundaries-v01513',total:checks.length,passed:checks.filter(x=>x.ok).length,checks},null,2));
+

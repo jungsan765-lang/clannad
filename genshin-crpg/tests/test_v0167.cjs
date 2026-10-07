@@ -23,7 +23,7 @@ check('이전 저장의 목표·보상 보존과 갈래 집계: 성공한 실제
  const r=legacyBoard(fresh('MAP_D163_VALLEY_OF_REMEMBRANCE'));let v=r.taskView(),box=r.s.tasks;
  assert.deepEqual(plain(v.daily.map(x=>x.id)),['D_WIN','D_LIFE']);assert.equal(v.bonus.id,'D_BONUS');
  for(const [id,goal]of [['D_WIN',3],['D_LEY',1],['D_DOMAIN',1],['D_LIFE',2]]){assert.equal(box.dailyDefinitions[id].goal,goal);assert.equal(box.dailyDefinitions[id].revision,168);}
- assert.equal(box.weeklyDefinitions.W_BOSS.goal,3);assert.equal(box.weeklyDefinitions.W_BOSS.minLevel,15);assert(box.weeklyIds.length>4&&box.weeklyIds.length<=28);assert.equal(v.ready,0);assert.equal(v.bonus.goal,box.dailyIds.length);assert(!v.bonus.done);
+ assert.equal(box.weeklyDefinitions.W_BOSS.goal,3);assert.equal(box.weeklyDefinitions.W_BOSS.minLevel,15);assert(box.weeklyIds.length>4&&box.weeklyIds.length<=27);assert.equal(v.ready,0);assert.equal(v.bonus.goal,box.dailyIds.length);assert(!v.bonus.done);
  // The earned predecessor is reported natively; a still-locked blossom remains unfinished.
  unlockDaily(r,'D_LEY');v=r.taskView();assert.equal(v.daily.find(x=>x.id==='D_LEY').lock,'주인공 Lv.5부터');assert(!v.bonus.done);
  r.adminApply({op:'level',target:'ALL',value:20});r.s.global.PLAYER_LEVEL_STATE=20;v=r.taskView();assert.equal(v.daily.find(x=>x.id==='D_LEY').lock,'');assert.equal(v.bonus.goal,box.dailyIds.length);

@@ -9,7 +9,7 @@ const copy=x=>JSON.parse(JSON.stringify(x)),C=c.CRPGTaskCatalogV0168,T=c.CRPGRun
 function fresh(...args){const r=baseFresh(...args),map=r.s.global.CURRENT_MAP_ID;guild(r);r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});leave(r);r.s.global.CURRENT_MAP_ID=map;delete r.s.tasks;return r;}
 function expose(r,id){
  // Explicit validated completed-ancestor fixtures isolate downstream goal mechanics.
- const seen=new Set();function visit(key){for(const parent of c.CRPGTaskCatalogV0168.oneTimeBranches[key]||[]){visit(parent);if(!r.s.quests[parent]?.claimed&&!seen.has(parent)){seen.add(parent);const t=c.CRPGTaskCatalogV0168.chains.find(t=>t.id===parent),d=copy(t);d.reward=copy(c.CRPGRuntime.tasksV01611.rewardAt(t,r.s.global.PLAYER_LEVEL_STATE));d.assignedLevel=r.s.global.PLAYER_LEVEL_STATE;d.revision=171;d.individual=true;r.s.quests[parent]={guildAccepted:true,claimed:true,state:'완료',node:'COMPLETE',taskObjective:{version:2,progress:t.goal,acceptedSeq:r.s.global.LAST_COMMITTED_ACTION_SEQ,definition:d,...(d.reward.primogem?{primogemPaid:d.reward.primogem}:{})}};}}}visit(id);
+ const seen=new Set();function visit(key){for(const parent of c.CRPGTaskCatalogV0168.oneTimeBranches[key]||[]){visit(parent);if(!r.s.quests[parent]?.claimed&&!seen.has(parent)){seen.add(parent);const t=c.CRPGTaskCatalogV0168.chains.find(t=>t.id===parent),d=copy(t);d.reward=copy(c.CRPGRuntime.tasksV01611.rewardAt(t,r.s.global.PLAYER_LEVEL_STATE));d.assignedLevel=r.s.global.PLAYER_LEVEL_STATE;d.revision=172;d.individual=true;r.s.quests[parent]={guildAccepted:true,claimed:true,state:'완료',node:'COMPLETE',taskObjective:{version:2,progress:t.goal,acceptedSeq:r.s.global.LAST_COMMITTED_ACTION_SEQ,definition:d,...(d.reward.primogem?{primogemPaid:d.reward.primogem}:{})}};}}}visit(id);
 }
 function unlockRecurring(r,scope,id){const box=r.tasksBox(true),branches=c.CRPGTaskCatalogV0168[scope+'Branches'];function visit(key){for(const parent of branches[key]||[]){visit(parent);if(!r.s.tasks.claimed[parent]){const live=r.tasksBox(true),d=live[scope+'Definitions'][parent];assert(d,'assigned ancestor '+parent);live[scope+'Progress'][parent]=d.goal;guild(r);r.action('TASK_CLAIM',{task:parent});}}}visit(id);}
 let passed=0;
@@ -25,14 +25,14 @@ function report(r,id){guild(r);return r.action('CLAIM_QUEST',{quest:id});}
 function legacyDaily(r,ids){const old=c.CRPGRuntime.tasksV0167,box=r.tasksBox(true);r.s.tasks={version:1,day:old.dayOf(r.tasksNow()),week:old.weekOf(r.tasksNow()),daily:{},weekly:copy(box.weekly),claimed:{},dailyIds:ids};r.tasksBox(true);}
 function currentDaily(r,ids){r.tasksBox(true);for(const id of ids){assert(r.s.tasks.dailyDefinitions[id],'assigned current objective '+id);unlockRecurring(r,'daily',id);}r.validateSave(copy(r.s));}
 
-check('일일11·주간28 후보: 열린 갈래만 표시하고 기존 기본 연속 의뢰240개 보존',()=>{
- assert(C&&C.legacyChains.length===240&&C.chains.length===288&&C.daily.length===7&&C.weekly.length===24&&T.daily.length===11&&T.weekly.length===28);
+check('일일11·주간27 후보: 열린 갈래만 표시하고 기존 기본 연속 의뢰240개 보존',()=>{
+ assert(C&&C.legacyChains.length===240&&C.chains.length===288&&C.daily.length===7&&C.weekly.length===23&&T.daily.length===11&&T.weekly.length===27);
  const ids=[...C.chains,...C.daily,...C.weekly].map(t=>t.id);assert.equal(new Set(ids).size,ids.length);
  assert(C.chains.some(t=>t.reward.primogem>=300),'finite chain finales have substantial one-time rewards');assert(C.daily.every(t=>!t.reward.primogem));assert(C.weekly.some(t=>t.reward.primogem>0),'weekly targets have distinct Primogem priorities');
  const r=fresh();const offered=r.commissionEntries().filter(q=>q.row[0].startsWith('Q_TASK_'));
  assert(offered.length>0&&offered.length<=C.families.length,'hundreds are not offered together');
  for(const q of offered){const def=C.chains.find(t=>t.id===q.row[0]);assert((C.oneTimeBranches[def.id]||[]).every(id=>r.s.quests[id]?.claimed));assert(r.isCommission(def.id));assert.equal(q.definition.authorship,'CRPG_TASK_V0168');assert.deepEqual(copy(q.definition.choices),[]);}
- assert.equal(r.taskView().daily.length,2);assert(r.taskView().weekly.length>=4&&r.taskView().weekly.length<=5);assert(r.s.tasks.weeklyIds.length<=28);assert.equal(r.taskView().bonus.id,'D_BONUS');assert.equal(r.taskView().weeklyBonus.reward.primogem,200);
+ assert.equal(r.taskView().daily.length,2);assert(r.taskView().weekly.length>=4&&r.taskView().weekly.length<=5);assert(r.s.tasks.weeklyIds.length<=27);assert.equal(r.taskView().bonus.id,'D_BONUS');assert.equal(r.taskView().weeklyBonus.reward.primogem,200);
 });
 
 check('accepted objective starts at zero; real qualifying victory and report reveal its successor once',()=>{
@@ -113,7 +113,7 @@ check('saved branch manifests are deterministic, keep reward brackets, and ignor
  assert.deepEqual(copy(r.taskView().daily.map(t=>t.id)),ids);level(r,60);assert.deepEqual(copy(r.taskView().daily.map(t=>t.id)),ids,'level/roster changes cannot reroll the saved day');
  const restored=new R(db,saved);assert.deepEqual(copy(restored.taskView().daily.map(t=>t.id)),ids);
  assert.equal(view.daily.reduce((n,t)=>n+(t.reward.primogem||0),0)+(view.bonus.reward.primogem||0),20);
- assert(view.weekly.length>=4&&view.weekly.length<=5);assert(r.s.tasks.weeklyIds.length<=28);assert.equal(view.weeklyBonus.reward.primogem,200);const budget=copy(view.daily.map(t=>t.reward));assert.deepEqual(copy(restored.taskView().daily.map(t=>t.reward)),budget,'the saved assignment keeps its original reward bracket after level changes');
+ assert(view.weekly.length>=4&&view.weekly.length<=5);assert(r.s.tasks.weeklyIds.length<=27);assert.equal(view.weeklyBonus.reward.primogem,200);const budget=copy(view.daily.map(t=>t.reward));assert.deepEqual(copy(restored.taskView().daily.map(t=>t.reward)),budget,'the saved assignment keeps its original reward bracket after level changes');
  const bad=copy(saved);bad.tasks.dailyIds.push(bad.tasks.dailyIds[0]);assert.throws(()=>r.validateSave(bad),/임무 기록/);
  const badFuture=copy(saved);badFuture.tasks.day+=20;assert.throws(()=>r.validateSave(badFuture),/임무 기록/);
 });

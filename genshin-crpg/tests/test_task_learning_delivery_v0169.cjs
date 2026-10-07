@@ -19,8 +19,8 @@ function report(r,id){guild(r);return r.action('CLAIM_QUEST',{quest:id});}
 function expose(r,id){
  if(!r.s.global.LAST_COMMITTED_ACTION_SEQ)r.action('MENU',{screen:'LOCATION'});
  // Explicit completed-ancestor fixture isolates a deep native lesson or delivery.
- // Current 171 definitions still undergo the full save validator, including joins.
- const seen=new Set();function visit(key){for(const parent of C.oneTimeBranches[key]||[]){visit(parent);if(!r.s.quests[parent]?.claimed&&!seen.has(parent)){seen.add(parent);const t=C.chains.find(t=>t.id===parent),d=copy(t);d.reward=copy(c.CRPGRuntime.tasksV01611.rewardAt(t,r.s.global.PLAYER_LEVEL_STATE));d.assignedLevel=r.s.global.PLAYER_LEVEL_STATE;d.revision=171;d.individual=true;r.s.quests[t.id]={guildAccepted:true,claimed:true,state:'완료',node:'COMPLETE',taskObjective:{version:2,progress:t.goal,acceptedSeq:r.s.global.LAST_COMMITTED_ACTION_SEQ,definition:d,...(d.reward.primogem?{primogemPaid:d.reward.primogem}:{})}};}}}visit(id);
+ // Current 172 definitions still undergo the full save validator, including joins.
+ const seen=new Set();function visit(key){for(const parent of C.oneTimeBranches[key]||[]){visit(parent);if(!r.s.quests[parent]?.claimed&&!seen.has(parent)){seen.add(parent);const t=C.chains.find(t=>t.id===parent),d=copy(t);d.reward=copy(c.CRPGRuntime.tasksV01611.rewardAt(t,r.s.global.PLAYER_LEVEL_STATE));d.assignedLevel=r.s.global.PLAYER_LEVEL_STATE;d.revision=172;d.individual=true;r.s.quests[t.id]={guildAccepted:true,claimed:true,state:'완료',node:'COMPLETE',taskObjective:{version:2,progress:t.goal,acceptedSeq:r.s.global.LAST_COMMITTED_ACTION_SEQ,definition:d,...(d.reward.primogem?{primogemPaid:d.reward.primogem}:{})}};}}}visit(id);
 }
 function progress(r,id){return r.s.quests[id]?.taskObjective?.progress||0;}
 function daily(r,kind){return r.s.tasks?.daily?.[kind]||0;}

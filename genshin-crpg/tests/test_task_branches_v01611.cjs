@@ -5,7 +5,7 @@
 const assert=require('node:assert/strict');
 const {fresh,R,db,c,advance}=require('./helpers_v011.cjs');
 const C=c.CRPGTaskCatalogV0168,copy=x=>JSON.parse(JSON.stringify(x)),DAY=86400000;
-const ROOT='Q_TASK_LEARN_01',removed=['D_V168_HILI','W_V168_MOND_PATROL','W_V169_REPORT','W_V168_CRYO_VINE'];
+const ROOT='Q_TASK_LEARN_01',removed=['D_V168_HILI','W_V168_MOND_PATROL','W_V169_REPORT','W_V168_CRYO_VINE','W_V168_LIYUE_PATROL'];
 let passed=0;
 function check(name,fn){try{fn();passed++;console.log('PASS '+name);}catch(e){process.exitCode=1;console.error('FAIL '+name+'\n'+e.stack);}}
 function leave(r){if(r.s.placeVisit)r.action('PLACE_LEAVE');}
@@ -30,13 +30,13 @@ function win(r){
 }
 function definitionFixture(r,t,revision){const d=copy(t);d.reward=copy(c.CRPGRuntime.tasksV0169.rewardAt(t,r.s.global.PLAYER_LEVEL_STATE));d.assignedLevel=r.s.global.PLAYER_LEVEL_STATE;d.revision=revision;d.individual=true;return d;}
 function completedAncestorsFixture(r,id){
- const seen=new Set();function mark(id){if(seen.has(id))return;seen.add(id);for(const p of C.oneTimeBranches[id]||[])mark(p);const t=C.chains.find(t=>t.id===id),d=definitionFixture(r,t,171);r.s.quests[id]={guildAccepted:true,claimed:true,node:'COMPLETE',state:'완료',taskObjective:{version:2,progress:d.goal,acceptedSeq:r.s.global.LAST_COMMITTED_ACTION_SEQ,definition:d,...(d.reward.primogem?{primogemPaid:d.reward.primogem}:{})}};}
+ const seen=new Set();function mark(id){if(seen.has(id))return;seen.add(id);for(const p of C.oneTimeBranches[id]||[])mark(p);const t=C.chains.find(t=>t.id===id),d=definitionFixture(r,t,172);r.s.quests[id]={guildAccepted:true,claimed:true,node:'COMPLETE',state:'완료',taskObjective:{version:2,progress:d.goal,acceptedSeq:r.s.global.LAST_COMMITTED_ACTION_SEQ,definition:d,...(d.reward.primogem?{primogemPaid:d.reward.primogem}:{})}};}
  for(const p of C.oneTimeBranches[id]||[])mark(p);
 }
 
-check('only the specified four are retired, every other objective and payout remains',()=>{
+check('only the specified five are retired, every other objective and payout remains',()=>{
  const old=C.snapshotV0169,current=[...C.legacyDaily,...C.daily,...C.legacyWeekly,...C.weekly],previous=[...old.daily,...old.weekly];
- assert.equal(C.legacyDaily.length+C.daily.length,11);assert.equal(C.legacyWeekly.length+C.weekly.length,28);assert.equal(C.chains.length,288);
+ assert.equal(C.legacyDaily.length+C.daily.length,11);assert.equal(C.legacyWeekly.length+C.weekly.length,27);assert.equal(C.chains.length,288);
  assert.deepEqual(previous.filter(t=>!current.some(n=>n.id===t.id)).map(t=>t.id).sort(),removed.slice().sort());
  for(const t of current){const prior=previous.find(x=>x.id===t.id);assert.equal(t.goal,prior.goal);assert.deepEqual(copy(t.reward),copy(prior.reward));}
  for(const t of C.chains){const prior=old.chains.find(x=>x.id===t.id);assert.equal(t.goal,prior.goal);assert.deepEqual(copy(t.reward),copy(prior.reward));}
@@ -110,10 +110,28 @@ check('period assignment and rewards do not change when level or inventory chang
 
 check('legacy removed assignments disappear while earned currency and valid snapshots survive',()=>{
  const r=fresh();guild(r);const stamp=r.taskActivitySnapshot(),old=C.snapshotV0169;
- const dailyIds=['D_WIN','D_V168_HILI','D_LEY','D_LIFE'],weeklyIds=['W_WIN','W_V168_MOND_PATROL','W_V169_REPORT','W_V168_CRYO_VINE'];
- r.s.tasks={version:1,revision:169,day:stamp.day,week:stamp.week,daily:{},weekly:{},claimed:{D_V168_HILI:1,W_V168_CRYO_VINE:1},dailyIds,weeklyIds,dailyProgress:{D_WIN:2,D_V168_HILI:5},weeklyProgress:{W_WIN:7},dailyDefinitions:Object.fromEntries(dailyIds.map(id=>[id,definitionFixture(r,old.daily.find(t=>t.id===id),169)])),weeklyDefinitions:Object.fromEntries(weeklyIds.map(id=>[id,definitionFixture(r,old.weekly.find(t=>t.id===id),169)])),weeklyExpansionVersion:169};
- const mora=r.s.global.MORA,primo=r.s.global.PRIMOGEM;let restored=new R(db,copy(r.s));restored.taskView();assert.equal(restored.s.global.MORA,mora);assert.equal(restored.s.global.PRIMOGEM,primo);assert.equal(progress(restored,'D_WIN'),2);assert.equal(progress(restored,'W_WIN'),7);assert(restored.s.tasks.claimed.D_V168_HILI&&restored.s.tasks.claimed.W_V168_CRYO_VINE);
+ const dailyIds=['D_WIN','D_V168_HILI','D_LEY','D_LIFE'],weeklyIds=['W_WIN','W_V168_MOND_PATROL','W_V169_REPORT','W_V168_CRYO_VINE','W_V168_LIYUE_PATROL'];
+ r.s.tasks={version:1,revision:169,day:stamp.day,week:stamp.week,daily:{},weekly:{},claimed:{D_V168_HILI:1,W_V168_CRYO_VINE:1,W_V168_LIYUE_PATROL:1},dailyIds,weeklyIds,dailyProgress:{D_WIN:2,D_V168_HILI:5},weeklyProgress:{W_WIN:7},dailyDefinitions:Object.fromEntries(dailyIds.map(id=>[id,definitionFixture(r,old.daily.find(t=>t.id===id),169)])),weeklyDefinitions:Object.fromEntries(weeklyIds.map(id=>[id,definitionFixture(r,old.weekly.find(t=>t.id===id),169)])),weeklyExpansionVersion:169};
+ const mora=r.s.global.MORA,primo=r.s.global.PRIMOGEM;let restored=new R(db,copy(r.s));restored.taskView();assert.equal(restored.s.global.MORA,mora);assert.equal(restored.s.global.PRIMOGEM,primo);assert.equal(progress(restored,'D_WIN'),2);assert.equal(progress(restored,'W_WIN'),7);assert(restored.s.tasks.claimed.D_V168_HILI&&restored.s.tasks.claimed.W_V168_CRYO_VINE&&restored.s.tasks.claimed.W_V168_LIYUE_PATROL);
  for(const id of removed)assert(![...restored.s.tasks.dailyIds,...restored.s.tasks.weeklyIds].includes(id));for(const id of removed)assert.throws(()=>restored.action('TASK_CLAIM',{task:id}));restored=new R(db,copy(restored.s));assert.equal(restored.s.global.MORA,mora);
+});
+
+check('a strict 171 Liyue assignment retires while other frozen branch records survive',()=>{
+ for(const alreadyClaimed of [false,true]){
+  const r=high();quotaFixture(r,'W_V168_REACTION');r.action('TASK_CLAIM',{task:'W_V168_REACTION'});win(r);
+  const saved=copy(r.s),box=saved.tasks,old=C.snapshotV01611,id='W_V168_LIYUE_PATROL';box.revision=171;
+  for(const scope of ['daily','weekly'])for(const d of Object.values(box[scope+'Definitions']))if(d.revision===172)d.revision=171;
+  for(const q of Object.values(saved.quests))if(q.taskObjective?.definition?.revision===172)q.taskObjective.definition.revision=171;
+  // Labelled historical 171 fixture reconstructs the one removed child only;
+  // native root acceptance, reaction payout and unrelated victory remain real.
+  box.weeklyIds.push(id);box.weeklyDefinitions[id]=definitionFixture(r,old.weekly.find(t=>t.id===id),171);box.weeklyActiveSeq[id]=box.weeklyActiveSeq.W_WIN;
+  box.weeklyProgress[id]=alreadyClaimed?box.weeklyDefinitions[id].goal:13;if(alreadyClaimed)box.claimed[id]=1;
+  const definitions=copy(box.weeklyDefinitions),active=copy(box.weeklyActiveSeq),daily=Object.fromEntries(['dailyIds','dailyDefinitions','dailyProgress','dailyActiveSeq'].map(key=>[key,copy(box[key])])),total=box.weeklyIds.length-1,period=[box.day,box.week],wins=box.weeklyProgress.W_WIN,mora=saved.global.MORA,primo=saved.global.PRIMOGEM;
+  for(const mutate of [s=>s.tasks.weeklyProgress.W_V168_EXPERIENCE=s.tasks.weeklyDefinitions.W_V168_EXPERIENCE.goal,s=>s.tasks.weeklyActiveSeq[id]=Number.MAX_SAFE_INTEGER,s=>s.tasks.weeklyDefinitions[id].reward.mora=99999999]){const bad=copy(saved);mutate(bad);assert.throws(()=>new R(db,bad),/임무 기록/,'archived 171 validation remains strict before retirement');}
+  const restored=new R(db,saved);restored.taskView();assert.equal(restored.s.tasks.revision,172);assert(!restored.s.tasks.weeklyIds.includes(id));assert(!restored.s.tasks.weeklyDefinitions[id]);assert(!restored.s.tasks.weeklyProgress[id]);assert(!restored.s.tasks.weeklyActiveSeq[id]);
+  assert.equal(restored.s.tasks.weeklyIds.length,total);assert.deepEqual([restored.s.tasks.day,restored.s.tasks.week],period);for(const [key,value] of Object.entries(daily))assert.deepEqual(copy(restored.s.tasks[key]),value);assert.equal(progress(restored,'W_WIN'),wins);for(const kept of box.weeklyIds.filter(key=>key!==id)){assert.deepEqual(copy(restored.s.tasks.weeklyDefinitions[kept]),definitions[kept]);assert.equal(restored.s.tasks.weeklyActiveSeq[kept],active[kept]);}
+  assert.equal(restored.s.global.MORA,mora);assert.equal(restored.s.global.PRIMOGEM,primo);assert.equal(!!restored.s.tasks.claimed[id],alreadyClaimed);assert.throws(()=>restored.action('TASK_CLAIM',{task:id}));new R(db,copy(restored.s));
+ }
 });
 
 check('a genuinely accepted old reception lesson becomes reportable without inventing another quest',()=>{

@@ -1,4 +1,4 @@
-/* Existing task board, revised in 0.16.11: reported acceptance practice opens task branches.
+/* Existing task board, revised in 0.16.12: reported acceptance practice opens task branches.
  * Assignments and accepted commissions snapshot objectives/rewards; migration retains prior payouts.
  * Only committed successful native activities advance objectives; reporting and deliveries pay once. */
 (function(root){'use strict';
@@ -21,19 +21,23 @@ const WEEKLY=[
  {id:'W_DOMAIN',kind:'domain',goal:8,name:'비경 8번 이기기',icon:'domain',reward:{items:{[BOOK3]:3}}},
  {id:'W_BONUS',kind:'bonus',goal:5,name:'오늘의 임무 보너스 5번',icon:'bonus',reward:{primogem:40,mora:3000}}
 ];
-const catalog=root.CRPGTaskCatalogV0168||{},snapshot169=catalog.snapshotV0169||catalog,REVISION=171,ROOT_TASK='Q_TASK_LEARN_01',replace=(base,updates)=>base.map(t=>({...t,...(updates||[]).find(x=>x.id===t.id)}));
+const catalog=root.CRPGTaskCatalogV0168||{},snapshot169=catalog.snapshotV0169||catalog,snapshot171=catalog.snapshotV01611||catalog,REVISION=172,ROOT_TASK='Q_TASK_LEARN_01',replace=(base,updates)=>base.map(t=>({...t,...(updates||[]).find(x=>x.id===t.id)}));
 const DAILY_POOL=[...replace(DAILY,catalog.legacyDaily),...(catalog.daily||[])],WEEKLY_POOL=[...replace(WEEKLY,catalog.legacyWeekly),...(catalog.weekly||[])];
 const WEEKLY_BONUS={id:'W_ALL',name:'이번 주 임무 모두 달성',short:'모두 달성',icon:'bonus',reward:{primogem:200},report:true,...catalog.weeklyAllBonus};
 const CHAINS=catalog.chains||[],CHAIN_BY=Object.assign(Object.create(null),Object.fromEntries(CHAINS.map(t=>[t.id,t])));
 const LEGACY_CHAINS=snapshot169.legacyChains||catalog.legacyChains||catalog.chains||[],LEGACY_CHAIN_BY=Object.fromEntries(LEGACY_CHAINS.map(t=>[t.id,t]));
 const BY169=Object.fromEntries([...(snapshot169.daily||[]),...(snapshot169.weekly||[]),DAILY_BONUS,WEEKLY_BONUS].map(t=>[t.id,t])),CHAIN169_BY=Object.fromEntries((snapshot169.chains||CHAINS).map(t=>[t.id,t]));
+// Rebuild legacy roots with the original spread order. Native 171 definitions
+// are compared byte-for-byte, including their JSON field order.
+const DAILY171=[...replace(DAILY,snapshot171.daily),...(snapshot171.daily||[]).filter(t=>!DAILY.some(base=>base.id===t.id))],WEEKLY171=[...replace(WEEKLY,snapshot171.weekly),...(snapshot171.weekly||[]).filter(t=>!WEEKLY.some(base=>base.id===t.id))];
+const BY171=Object.fromEntries([...DAILY171,...WEEKLY171,DAILY_BONUS,WEEKLY_BONUS].map(t=>[t.id,t])),CHAIN171_BY=Object.fromEntries((snapshot171.chains||CHAINS).map(t=>[t.id,t]));
 const LEGACY_BY=Object.fromEntries([...DAILY,...(snapshot169.legacyDailyDefinitions||catalog.daily||[]),...WEEKLY,...(snapshot169.legacyWeeklyDefinitions||catalog.weekly||[])].map(t=>[t.id,t]));
 const BY=Object.assign(Object.create(null),Object.fromEntries([...DAILY_POOL,DAILY_BONUS,...WEEKLY_POOL,WEEKLY_BONUS].map(t=>[t.id,t]))),ACCEPT_CAP=5,WEEKLY_COUNT=WEEKLY_POOL.length,DAILY_COUNT=DAILY_POOL.length;
 const BRANCHES={daily:catalog.dailyBranches||{},weekly:catalog.weeklyBranches||{}};
 const rootReady=rt=>!!rt.s.quests[ROOT_TASK]?.claimed;
 const actionSeq=rt=>num(rt.s.global.LAST_COMMITTED_ACTION_SEQ)+(rt._taskApplying?1:0);
 const branchNeeds=(scope,id)=>BRANCHES[scope][id]||[];
-function branchReady(box,scope,id){return branchNeeds(scope,id).every(pre=>!!box.claimed[pre]);}
+function branchReady(box,scope,id){const branches=box.revision===171?(snapshot171[scope+'Branches']||{}):BRANCHES[scope];return (branches[id]||[]).every(pre=>!!box.claimed[pre]);}
 const old=Object.fromEntries(['newGame','apply','actionReason','validateSave','startBattle','finishBattle','startLife','acceptCommission','questVisible','questUnlockReason','questConditions','questChoice','claimQuest','commissionEntries'].map(k=>[k,P[k]]));
 const E={불:'PYRO',물:'HYDRO',얼음:'CRYO',번개:'ELECTRO',바람:'ANEMO',바위:'GEO',풀:'DENDRO',물리:'PHYSICAL'},element=e=>E[e]||e||'PHYSICAL';
 const KINDS=['win','ley','domain','boss','abyss','life','gather','mine','fish','hunt','cook','forge','bonus','commission','chest','oculus','oculusOffer','sleep','process','enhance','equip','bond','encounter','handbook','acquire','achievement','delivery','meal','artifactEnhance'];
@@ -143,9 +147,9 @@ P.tasksBox=function(write=false){
    box[scope+'Definitions']=Object.fromEntries(box[scope+'Ids'].map(id=>{const d=LEGACY_BY[id]||BY169[id]||BY[id];return [id,definition(this,d,{legacy:true,individual:!!d.filter,period})];}));changed=true;
   }
   if(box.revision!==REVISION){
-   const prior=box[scope+'Ids'].filter(id=>BY[id]),defs=box[scope+'Definitions'],progress=Object.fromEntries(prior.map(id=>[id,Math.min(defs[id].goal,progressOf(box,scope,defs[id]))])),ids=rootReady(this)?rotate(this,scope,period,prior):prior;
+   const strict171=box.revision===171,prior=box[scope+'Ids'].filter(id=>BY[id]),defs=box[scope+'Definitions'],priorActive=box[scope+'ActiveSeq']||{},progress=Object.fromEntries(prior.map(id=>[id,Math.min(defs[id].goal,progressOf(box,scope,defs[id]))])),ids=strict171?prior:rootReady(this)?rotate(this,scope,period,prior):prior;
    box[scope+'Ids']=ids;box[scope+'Definitions']=Object.fromEntries(ids.map(id=>[id,defs[id]||definition(this,BY[id],{period})]));
-   box[scope+'Progress']=Object.fromEntries(ids.map(id=>[id,progress[id]||0]));box[scope+'ActiveSeq']={};box[scope+'Opened']=rootReady(this);if(scope==='weekly')box.weeklyExpansionVersion=REVISION;changed=true;
+   box[scope+'Progress']=Object.fromEntries(ids.map(id=>[id,progress[id]||0]));box[scope+'ActiveSeq']=strict171?Object.fromEntries(ids.filter(id=>Object.hasOwn(priorActive,id)).map(id=>[id,priorActive[id]])):{};box[scope+'Opened']=rootReady(this);if(scope==='weekly')box.weeklyExpansionVersion=REVISION;changed=true;
   }
   if(rootReady(this)&&box[scope+'Opened']!==true){
    const prior=box[scope+'Ids'],defs=box[scope+'Definitions'],ids=rotate(this,scope,period,prior);
@@ -275,21 +279,21 @@ P.validateSave=function(s){
  this.installTaskCommissions();const out=old.validateSave.call(this,s)||s,t=out.tasks,bad=()=>fail('TASK_SAVE','임무 기록이 올바르지 않습니다.');
  const facade=Object.create(this);facade.s=out;
  const validDefinition=(d,id,isChain=false)=>{
-  if(!plain(d)||d.id!==id||![168,169,REVISION].includes(d.revision)||!ok(d.assignedLevel)||d.assignedLevel<1||d.assignedLevel>60||typeof d.individual!=='boolean')return false;
-  const base=isChain?(d.revision===168?LEGACY_CHAIN_BY[id]:d.revision===169?CHAIN169_BY[id]:CHAIN_BY[id]):(d.revision===168?LEGACY_BY[id]:d.revision===169?BY169[id]:BY[id]);
+  if(!plain(d)||d.id!==id||![168,169,171,REVISION].includes(d.revision)||!ok(d.assignedLevel)||d.assignedLevel<1||d.assignedLevel>60||typeof d.individual!=='boolean')return false;
+  const base=isChain?(d.revision===168?LEGACY_CHAIN_BY[id]:d.revision===169?CHAIN169_BY[id]:d.revision===171?CHAIN171_BY[id]:CHAIN_BY[id]):(d.revision===168?LEGACY_BY[id]:d.revision===169?BY169[id]:d.revision===171?BY171[id]:BY[id]);
   if(!base||d.individual!==(d.revision===168&&!isChain?!!base.filter:true))return false;
   if(d.selectedElements!==undefined&&(!base.dynamicElements||!Array.isArray(d.selectedElements)||d.selectedElements.length>2||new Set(d.selectedElements).size!==d.selectedElements.length||d.selectedElements.some(e=>!['PYRO','HYDRO','CRYO','ELECTRO','ANEMO','GEO','DENDRO'].includes(e))))return false;
   const expected=definition(facade,base,{legacy:d.revision===168,revision:d.revision,individual:d.individual,selectedElements:d.selectedElements,period:t?.day||dayOf(this.tasksNow()),level:d.assignedLevel});return JSON.stringify(d)===JSON.stringify(expected);
  };
  if(t!==undefined){
-  if(!plain(t)||t.version!==1||t.revision!==undefined&&![169,REVISION].includes(t.revision)||!ok(t.day)||!ok(t.week)||t.day>dayOf(this.tasksNow())||t.week>weekOf(this.tasksNow())||!plain(t.daily)||!plain(t.weekly)||!plain(t.claimed))bad();
+  if(!plain(t)||t.version!==1||t.revision!==undefined&&![169,171,REVISION].includes(t.revision)||!ok(t.day)||!ok(t.week)||t.day>dayOf(this.tasksNow())||t.week>weekOf(this.tasksNow())||!plain(t.daily)||!plain(t.weekly)||!plain(t.claimed))bad();
   for(const counts of [t.daily,t.weekly])for(const[kind,n]of Object.entries(counts))if(!KINDS.includes(kind)||!ok(n))bad();
-  for(const[k,v]of Object.entries(t.claimed))if(!(BY[k]||BY169[k]||LEGACY_BY[k])||v!==1)bad();
+  for(const[k,v]of Object.entries(t.claimed))if(!(BY[k]||BY171[k]||BY169[k]||LEGACY_BY[k])||v!==1)bad();
   for(const scope of ['daily','weekly']){
-   const ids=t[scope+'Ids'],progress=t[scope+'Progress'],defs=t[scope+'Definitions'],active=t[scope+'ActiveSeq'],current=t.revision===REVISION,limit=current?(scope==='daily'?DAILY_COUNT:WEEKLY_COUNT):(scope==='daily'?4:20);
+   const ids=t[scope+'Ids'],progress=t[scope+'Progress'],defs=t[scope+'Definitions'],active=t[scope+'ActiveSeq'],current=[171,REVISION].includes(t.revision),periodBy=t.revision===171?BY171:BY,limit=current?(t.revision===171?snapshot171[scope].length:(scope==='daily'?DAILY_COUNT:WEEKLY_COUNT)):(scope==='daily'?4:20);
    if(current&&(!Array.isArray(ids)||!plain(defs)||!plain(progress)||!plain(active)||t[scope+'Opened']!==rootReady(facade)))bad();
-   if(ids!==undefined&&(!Array.isArray(ids)||ids.length>limit||!current&&scope==='daily'&&ids.length!==4||new Set(ids).size!==ids.length||ids.some(id=>!(BY[id]||!current&&(BY169[id]||LEGACY_BY[id]))||id==='D_BONUS'||id==='W_ALL'||!id.startsWith(scope==='daily'?'D_':'W_'))))bad();
-   if(defs!==undefined){if(!plain(defs)||!ids||Object.keys(defs).length!==ids.length)bad();for(const id of ids){if(!validDefinition(defs[id],id))bad();if(current&&defs[id].revision===REVISION&&(num(progress?.[id])>0||t.claimed[id])&&(!rootReady(facade)||!branchReady(t,scope,id)||active[id]===undefined))bad();}}
+   if(ids!==undefined&&(!Array.isArray(ids)||ids.length>limit||!current&&scope==='daily'&&ids.length!==4||new Set(ids).size!==ids.length||ids.some(id=>!(periodBy[id]||!current&&(BY169[id]||LEGACY_BY[id]))||id==='D_BONUS'||id==='W_ALL'||!id.startsWith(scope==='daily'?'D_':'W_'))))bad();
+   if(defs!==undefined){if(!plain(defs)||!ids||Object.keys(defs).length!==ids.length)bad();for(const id of ids){if(!validDefinition(defs[id],id))bad();if(current&&[171,REVISION].includes(defs[id].revision)&&(num(progress?.[id])>0||t.claimed[id])&&(!rootReady(facade)||!branchReady(t,scope,id)||active[id]===undefined))bad();}}
    if(progress!==undefined){if(!plain(progress))bad();for(const[id,n]of Object.entries(progress)){const goal=defs?.[id]?.goal??(!t.revision?LEGACY_BY[id]?.goal:undefined)??BY169[id]?.goal??BY[id]?.goal;if(!ids?.includes(id)||!ok(n)||n>goal)bad();}}
    if(active!==undefined){if(!current||!plain(active))bad();for(const[id,seq]of Object.entries(active))if(!ids?.includes(id)||!ok(seq)||seq>out.global.LAST_COMMITTED_ACTION_SEQ||!branchReady(t,scope,id)||!rootReady(facade))bad();}
    if(current&&rootReady(facade)&&ids.some(id=>!t.claimed[id]&&branchReady(t,scope,id)&&active[id]===undefined))bad();
@@ -300,12 +304,12 @@ P.validateSave=function(s){
   const current=CHAIN_BY[id];if(!current)continue;const c=q.taskObjective;if(!plain(c))bad();
   if(c.version===1){const legacy=LEGACY_CHAIN_BY[id];if(!legacy)bad();c.definition=definition(facade,legacy,{legacy:true});c.version=2;}
   const def=c.definition;if(!q.guildAccepted||c.version!==2||!validDefinition(def,id,true)||!ok(c.progress)||c.progress>def.goal||!ok(c.acceptedSeq)||c.acceptedSeq<1||c.acceptedSeq>out.global.LAST_COMMITTED_ACTION_SEQ)bad();
-  const needs=def.revision===REVISION?(catalog.oneTimeBranches?.[id]||[def.predecessor,...(def.prerequisites||[])].filter(Boolean)):[def.predecessor].filter(Boolean);
+  const needs=[171,REVISION].includes(def.revision)?((def.revision===171?snapshot171:catalog).oneTimeBranches?.[id]||[def.predecessor,...(def.prerequisites||[])].filter(Boolean)):[def.predecessor].filter(Boolean);
   if(needs.some(pre=>!out.quests[pre]?.claimed))bad();
   if(c.primogemPaid!==undefined&&(!q.claimed||c.primogemPaid!==num(def.reward?.primogem))||q.claimed&&num(def.reward?.primogem)>0&&c.primogemPaid!==num(def.reward.primogem))bad();
   if((q.node==='READY_TO_CLAIM'||q.claimed)&&c.progress!==def.goal||q.claimed&&q.node!=='COMPLETE'||!q.claimed&&q.node!==(c.progress===def.goal?'READY_TO_CLAIM':'INVESTIGATE'))bad();
   // Genuine old acceptance is enough evidence for the revised first reception exercise.
-  if(id===ROOT_TASK&&!q.claimed&&def.revision!==REVISION&&c.progress<def.goal){c.progress=def.goal;q.node='READY_TO_CLAIM';q.state='진행중';}
+  if(id===ROOT_TASK&&!q.claimed&&[168,169].includes(def.revision)&&c.progress<def.goal){c.progress=def.goal;q.node='READY_TO_CLAIM';q.state='진행중';}
  }
  const reportLesson=out.quests.Q_TASK_LEARN_16,reportObjective=reportLesson?.taskObjective;
  if(reportLesson?.guildAccepted&&!reportLesson.claimed&&reportObjective?.definition?.revision===169&&reportObjective.progress<reportObjective.definition.goal&&Object.entries(out.quests).some(([id,q])=>q.claimed&&q.node==='COMPLETE'&&facade.isCommission(id)&&!id.startsWith('Q_TASK_LEARN_'))){
@@ -320,4 +324,5 @@ api.tasksV0167={daily:copy(DAILY),bonus:copy(DAILY_BONUS),weekly:copy(WEEKLY),da
 api.tasksV0168={daily:copy(DAILY_POOL),weekly:copy(WEEKLY_POOL),chains:copy(CHAINS),partyMatch,partyAchievable,eventMatch};
 api.tasksV0169={daily:copy(DAILY_POOL),weekly:copy(WEEKLY_POOL),chains:copy(CHAINS),weeklyBonus:copy(WEEKLY_BONUS),acceptCap:ACCEPT_CAP,weeklyCount:WEEKLY_COUNT,rewardAt,elementalChoices};
 api.tasksV01611={daily:copy(DAILY_POOL),weekly:copy(WEEKLY_POOL),chains:copy(CHAINS),weeklyBonus:copy(WEEKLY_BONUS),acceptCap:ACCEPT_CAP,weeklyCount:WEEKLY_COUNT,dailyCount:DAILY_COUNT,rewardAt,elementalChoices,branches:copy(BRANCHES),snapshotV0169:copy(snapshot169),rootId:ROOT_TASK};
+api.tasksV01612={...api.tasksV01611,snapshotV01611:copy(snapshot171),revision:REVISION};
 })(globalThis);
