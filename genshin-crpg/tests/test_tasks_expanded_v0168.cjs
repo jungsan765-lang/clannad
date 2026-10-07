@@ -2,8 +2,16 @@
 // Native public actions exercise acceptance/reporting and successful work. Enemy HP is settled by these
 // fixtures to isolate task bookkeeping; combat balance remains covered by its separate native-play tests.
 const assert=require('node:assert/strict');
-const {fresh,R,db,c,advance}=require('./helpers_v011.cjs');
+const {fresh:baseFresh,R,db,c,advance}=require('./helpers_v011.cjs');
 const copy=x=>JSON.parse(JSON.stringify(x)),C=c.CRPGTaskCatalogV0168,T=c.CRPGRuntime.tasksV0168,DAY=86400000;
+// The branch root is reported through its real native actions. Clearing only this
+// fixture's empty task box lets each check choose its assignment-time level/roster.
+function fresh(...args){const r=baseFresh(...args),map=r.s.global.CURRENT_MAP_ID;guild(r);r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});leave(r);r.s.global.CURRENT_MAP_ID=map;delete r.s.tasks;return r;}
+function expose(r,id){
+ // Explicit validated completed-ancestor fixtures isolate downstream goal mechanics.
+ const seen=new Set();function visit(key){for(const parent of c.CRPGTaskCatalogV0168.oneTimeBranches[key]||[]){visit(parent);if(!r.s.quests[parent]?.claimed&&!seen.has(parent)){seen.add(parent);const t=c.CRPGTaskCatalogV0168.chains.find(t=>t.id===parent),d=copy(t);d.reward=copy(c.CRPGRuntime.tasksV01611.rewardAt(t,r.s.global.PLAYER_LEVEL_STATE));d.assignedLevel=r.s.global.PLAYER_LEVEL_STATE;d.revision=171;d.individual=true;r.s.quests[parent]={guildAccepted:true,claimed:true,state:'완료',node:'COMPLETE',taskObjective:{version:2,progress:t.goal,acceptedSeq:r.s.global.LAST_COMMITTED_ACTION_SEQ,definition:d,...(d.reward.primogem?{primogemPaid:d.reward.primogem}:{})}};}}}visit(id);
+}
+function unlockRecurring(r,scope,id){const box=r.tasksBox(true),branches=c.CRPGTaskCatalogV0168[scope+'Branches'];function visit(key){for(const parent of branches[key]||[]){visit(parent);if(!r.s.tasks.claimed[parent]){const live=r.tasksBox(true),d=live[scope+'Definitions'][parent];assert(d,'assigned ancestor '+parent);live[scope+'Progress'][parent]=d.goal;guild(r);r.action('TASK_CLAIM',{task:parent});}}}visit(id);}
 let passed=0;
 function check(name,fn){try{fn();passed++;console.log('PASS '+name);}catch(e){process.exitCode=1;console.error('FAIL '+name+'\n'+e.stack);}}
 function leave(r){if(r.s.placeVisit)r.action('PLACE_LEAVE',{});}
@@ -12,19 +20,19 @@ function level(r,n=30){r.adminApply({op:'level',target:'ALL',value:n});}
 function roster(r,ids){const own=JSON.parse(r.s.global.COMPANION_ELIGIBILITY_JSON||'{}');for(const id of ids)own[id]={state:'JOINED'};r.s.global.COMPANION_ELIGIBILITY_JSON=JSON.stringify(own);r.s.party=[{slot:'PARTY_1',type:'PLAYER',source:'PLAYER_CUSTOM',control:'PLAYER',active:true,tactic:'균형'},...Array.from({length:3},(_,i)=>ids[i]?{slot:'PARTY_'+(i+2),type:'CHAR',source:ids[i],control:'AI',active:true,tactic:'균형'}:{slot:'PARTY_'+(i+2),active:false})];r.s.formation=r.s.party.filter(p=>p.active).map(p=>p.source);for(const id of ids)r.s.chars[id].hp=r.character(id).maxHp;}
 function battle(r,map='MAP_MOND_PLAINS',settle=true){leave(r);r.s.global.CURRENT_MAP_ID=map;r.action('MENU',{screen:'LOCATION'});r.startBattle('EG_MOND_HILI_PATROL','RANDOM');const b=r.s.runtime;assert(b,'native battle started');if(settle){for(const a of b.actors)if(a.side==='ENEMY')a.hp=0;r.finishBattle(true);}return b;}
 function gather(r,inputs=true){leave(r);r.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';r.action('LIFE_START',{kind:'GATHER'});const j=r.s.lifeJob,scene=r.lifeScene(j);advance(j.duration+100);const picks=inputs?scene.nodes.map((n,i)=>({at:600+i*300,node:i})):[];return r.action('LIFE_FINISH',{job:j.id,elapsed:j.duration,inputs:picks}).result;}
-function accept(r,id){guild(r);return r.action('COMMISSION_ACCEPT',{quest:id});}
+function accept(r,id){expose(r,id);guild(r);return r.action('COMMISSION_ACCEPT',{quest:id});}
 function report(r,id){guild(r);return r.action('CLAIM_QUEST',{quest:id});}
 function legacyDaily(r,ids){const old=c.CRPGRuntime.tasksV0167,box=r.tasksBox(true);r.s.tasks={version:1,day:old.dayOf(r.tasksNow()),week:old.weekOf(r.tasksNow()),daily:{},weekly:copy(box.weekly),claimed:{},dailyIds:ids};r.tasksBox(true);}
-function currentDaily(r,ids){const box=r.tasksBox(true),lv=Number(r.s.global.PLAYER_LEVEL_STATE)||1;box.dailyIds=ids;box.dailyProgress={};box.dailyDefinitions=Object.fromEntries(ids.map(id=>{const t=T.daily.find(t=>t.id===id);assert(t);return[id,{...copy(t),reward:c.CRPGRuntime.tasksV0169.rewardAt(t,lv),assignedLevel:lv,revision:169,individual:true}];}));r.validateSave(copy(r.s));}
+function currentDaily(r,ids){r.tasksBox(true);for(const id of ids){assert(r.s.tasks.dailyDefinitions[id],'assigned current objective '+id);unlockRecurring(r,'daily',id);}r.validateSave(copy(r.s));}
 
-check('일일 후보12·주간 후보24 이상: 최대20개 주간 목표와 240개 기본 연속 의뢰',()=>{
- assert(C&&C.legacyChains.length===240&&C.chains.length===288&&C.daily.length===8&&C.weekly.length===27&&T.daily.length===12&&T.weekly.length===31);
+check('일일11·주간28 후보: 열린 갈래만 표시하고 기존 기본 연속 의뢰240개 보존',()=>{
+ assert(C&&C.legacyChains.length===240&&C.chains.length===288&&C.daily.length===7&&C.weekly.length===24&&T.daily.length===11&&T.weekly.length===28);
  const ids=[...C.chains,...C.daily,...C.weekly].map(t=>t.id);assert.equal(new Set(ids).size,ids.length);
  assert(C.chains.some(t=>t.reward.primogem>=300),'finite chain finales have substantial one-time rewards');assert(C.daily.every(t=>!t.reward.primogem));assert(C.weekly.some(t=>t.reward.primogem>0),'weekly targets have distinct Primogem priorities');
  const r=fresh();const offered=r.commissionEntries().filter(q=>q.row[0].startsWith('Q_TASK_'));
  assert(offered.length>0&&offered.length<=C.families.length,'hundreds are not offered together');
- for(const q of offered){const def=C.chains.find(t=>t.id===q.row[0]);assert.equal(def.predecessor,'');assert(r.isCommission(def.id));assert.equal(q.definition.authorship,'CRPG_TASK_V0168');assert.deepEqual(copy(q.definition.choices),[]);}
- assert.equal(r.taskView().daily.length,4);assert(r.taskView().weekly.length>4&&r.taskView().weekly.length<=20);assert.equal(r.taskView().bonus.id,'D_BONUS');assert.equal(r.taskView().weeklyBonus.reward.primogem,200);
+ for(const q of offered){const def=C.chains.find(t=>t.id===q.row[0]);assert((C.oneTimeBranches[def.id]||[]).every(id=>r.s.quests[id]?.claimed));assert(r.isCommission(def.id));assert.equal(q.definition.authorship,'CRPG_TASK_V0168');assert.deepEqual(copy(q.definition.choices),[]);}
+ assert.equal(r.taskView().daily.length,2);assert(r.taskView().weekly.length>=4&&r.taskView().weekly.length<=5);assert(r.s.tasks.weeklyIds.length<=28);assert.equal(r.taskView().bonus.id,'D_BONUS');assert.equal(r.taskView().weeklyBonus.reward.primogem,200);
 });
 
 check('accepted objective starts at zero; real qualifying victory and report reveal its successor once',()=>{
@@ -37,7 +45,7 @@ check('accepted objective starts at zero; real qualifying victory and report rev
  assert(!r.questVisible(next),'completion alone does not reveal the successor');const primo=r.s.global.PRIMOGEM,mora=r.s.global.MORA;report(r,id);
  assert(r.s.quests[id].claimed&&r.questVisible(next));assert(r.s.global.MORA>mora);assert.equal(r.s.global.PRIMOGEM,primo);
  assert.throws(()=>r.action('CLAIM_QUEST',{quest:id}),/이미/);accept(r,next);assert.equal(r.s.quests[next].taskObjective.progress,0,'new objective gets its own fresh counter');
- const restored=new R(db,copy(r.s));assert(restored.s.quests[id].claimed);assert.equal(restored.s.quests[next].taskObjective.progress,0);assert.equal(restored.taskView().daily.length,4);
+ const restored=new R(db,copy(r.s));assert(restored.s.quests[id].claimed);assert.equal(restored.s.quests[next].taskObjective.progress,0);assert.equal(restored.taskView().daily.length,2);
 });
 
 check('named four-star companions use the actual four-person party captured at battle start',()=>{
@@ -76,15 +84,15 @@ check('cooking counts only successful paid CRAFT batches and blocks menu-choice 
 
 check('native DOMAIN_START preserves selected difficulty and type for filtered objectives',()=>{
  const r=fresh();level(r,20);r.s.flags.FLAG_TRV_MON_CH1_CLEAR=true;accept(r,'Q_TASK_TALENT_01');leave(r);
- legacyDaily(r,['D_WIN','D_LEY','D_V168_TALENT15','D_LIFE']);
- function win(map,kind,lv){r.s.global.CURRENT_MAP_ID=map;const d=r.growthDomainEntries().find(d=>d.kind===kind&&d.level===lv&&!d.reason);assert(d,'selected native domain is unlocked');r.action('DOMAIN_START',{domain:d.id,element:'NEUTRAL'});assert.equal(r.s.runtime.growthDomain.level,lv);for(const a of r.s.runtime.actors)if(a.side==='ENEMY')a.hp=0;r.finishBattle(true);}
+ legacyDaily(r,['D_WIN','D_LEY','D_V168_TALENT15','D_LIFE']);unlockRecurring(r,'daily','D_V168_TALENT15');
+ function win(map,kind,lv){leave(r);r.s.global.CURRENT_MAP_ID=map;const d=r.growthDomainEntries().find(d=>d.kind===kind&&d.level===lv&&!d.reason);assert(d,'selected native domain is unlocked');r.action('DOMAIN_START',{domain:d.id,element:'NEUTRAL'});assert.equal(r.s.runtime.growthDomain.level,lv);for(const a of r.s.runtime.actors)if(a.side==='ENEMY')a.hp=0;r.finishBattle(true);}
  win('MAP_D163_VALLEY_OF_REMEMBRANCE','ASCENSION',15);assert.equal(r.s.quests.Q_TASK_TALENT_01.taskObjective.progress,0);assert.equal(r.taskView().daily.find(t=>t.id==='D_V168_TALENT15').progress,0);
  win('MAP_D163_FORSAKEN_RIFT','TALENT',10);assert.equal(r.s.quests.Q_TASK_TALENT_01.taskObjective.progress,1);assert.equal(r.taskView().daily.find(t=>t.id==='D_V168_TALENT15').progress,0,'below selected difficulty counts nothing');
  win('MAP_D163_FORSAKEN_RIFT','TALENT',15);assert.equal(r.taskView().daily.find(t=>t.id==='D_V168_TALENT15').progress,1);
 });
 
 check('native ley routes distinguish blossom type and chosen tier, and field bosses match their real ID',()=>{
- const r=fresh();level(r,30);accept(r,'Q_TASK_REVELATION_01');leave(r);legacyDaily(r,['D_WIN','D_V168_REVELATION15','D_DOMAIN','D_LIFE']);
+ const r=fresh();level(r,30);accept(r,'Q_TASK_REVELATION_01');leave(r);legacyDaily(r,['D_WIN','D_V168_REVELATION15','D_DOMAIN','D_LIFE']);unlockRecurring(r,'daily','D_V168_REVELATION15');
  function blossom(kind,tier){leave(r);const site=r.leyLineStatus().blossoms.find(x=>x.region==='몬드'&&x.kind===kind);assert(site);r.s.global.CURRENT_MAP_ID=site.map;r.action('PLACE_ENTER',{place:'BOSS:'+site.route,mode:'BOSS'});r.action('BOSS_ROUTE',{route:site.route,entry:'DIRECT',tier});assert.equal(r.s.runtime.leyLine.kind,kind);for(const a of r.s.runtime.actors)if(a.side==='ENEMY')a.hp=0;r.finishBattle(true);}
  blossom('WEALTH',2);assert.equal(r.s.quests.Q_TASK_REVELATION_01.taskObjective.progress,0);assert.equal(r.taskView().daily.find(t=>t.id==='D_V168_REVELATION15').progress,0);
  blossom('REVELATION',1);assert.equal(r.s.quests.Q_TASK_REVELATION_01.taskObjective.progress,1);assert.equal(r.taskView().daily.find(t=>t.id==='D_V168_REVELATION15').progress,0);
@@ -98,20 +106,20 @@ check('native Abyss room victories count their actual floor and all three rooms 
  assert.equal(r.s.quests.Q_TASK_ABYSS_01.node,'READY_TO_CLAIM');assert(r.s.abyss.clears[1]);report(r,'Q_TASK_ABYSS_01');assert(r.s.quests.Q_TASK_ABYSS_01.claimed);
 });
 
-check('saved rotations are deterministic, eligible, four rows, retain budgets, and ignore WORLD_DAY changes',()=>{
- const r=fresh('MAP_MOND_CITY','ROUTE_ISEKAI');r.taskView();const old=copy(r.s.tasks);r.advanceTime(1440);assert.deepEqual(copy(r.taskView().daily.map(t=>t.id)),old.dailyIds,'game-day waiting cannot refresh real daily rewards');
- advance(DAY);const view=r.taskView(),ids=copy(view.daily.map(t=>t.id)),saved=copy(r.s);assert.equal(ids.length,4);assert.equal(new Set(ids).size,4);assert(view.daily.every(t=>!t.lock),'a beginner rotation has four achievable assignments');
+check('saved branch manifests are deterministic, keep reward brackets, and ignore WORLD_DAY changes',()=>{
+ const r=fresh('MAP_MOND_CITY','ROUTE_ISEKAI');r.taskView();const old=copy(r.s.tasks);r.advanceTime(1440);assert.deepEqual(copy(r.s.tasks.dailyIds),old.dailyIds,'game-day waiting cannot refresh real daily rewards');
+ advance(DAY);const view=r.taskView(),ids=copy(view.daily.map(t=>t.id)),saved=copy(r.s);assert.equal(ids.length,2);assert.equal(new Set(ids).size,2);assert(view.daily.every(t=>!t.lock),'a beginner rotation has four achievable assignments');
  assert(!ids.some(id=>C.daily.find(t=>t.id===id)?.filter?.party?.mono),'isekai receives no impossible mono-element assignment');
  assert.deepEqual(copy(r.taskView().daily.map(t=>t.id)),ids);level(r,60);assert.deepEqual(copy(r.taskView().daily.map(t=>t.id)),ids,'level/roster changes cannot reroll the saved day');
  const restored=new R(db,saved);assert.deepEqual(copy(restored.taskView().daily.map(t=>t.id)),ids);
  assert.equal(view.daily.reduce((n,t)=>n+(t.reward.primogem||0),0)+(view.bonus.reward.primogem||0),20);
- assert(view.weekly.length>4&&view.weekly.length<=20);assert.equal(view.weeklyBonus.reward.primogem,200);const budget=copy(view.daily.map(t=>t.reward));assert.deepEqual(copy(restored.taskView().daily.map(t=>t.reward)),budget,'the saved assignment keeps its original reward bracket after level changes');
- const bad=copy(saved);bad.tasks.dailyIds=['D_V168_MONO','D_V168_MONO','D_DOMAIN','D_LIFE'];assert.throws(()=>r.validateSave(bad),/임무 기록/);
+ assert(view.weekly.length>=4&&view.weekly.length<=5);assert(r.s.tasks.weeklyIds.length<=28);assert.equal(view.weeklyBonus.reward.primogem,200);const budget=copy(view.daily.map(t=>t.reward));assert.deepEqual(copy(restored.taskView().daily.map(t=>t.reward)),budget,'the saved assignment keeps its original reward bracket after level changes');
+ const bad=copy(saved);bad.tasks.dailyIds.push(bad.tasks.dailyIds[0]);assert.throws(()=>r.validateSave(bad),/임무 기록/);
  const badFuture=copy(saved);badFuture.tasks.day+=20;assert.throws(()=>r.validateSave(badFuture),/임무 기록/);
 });
 
 check('새 일일 비경은 열린 단계 모두 집계하고 일반 채집은 획득 개수가 아닌 성공 행동 3번을 요구한다',()=>{
- const r=fresh();level(r,20);currentDaily(r,['D_WIN','D_LEY','D_V168_TALENT15','D_V168_APPLE']);
+ const r=fresh();level(r,20);/* Farming availability is assigned next day; the root-report day's plan remains fixed. */advance(DAY);currentDaily(r,['D_WIN','D_LEY','D_V168_TALENT15','D_V168_APPLE']);
  leave(r);r.s.global.CURRENT_MAP_ID='MAP_D163_FORSAKEN_RIFT';
  for(const lv of [5,10]){const d=r.growthDomainEntries().find(d=>d.kind==='TALENT'&&d.level===lv&&!d.reason);assert(d);r.action('DOMAIN_START',{domain:d.id,element:'NEUTRAL'});for(const a of r.s.runtime.actors)if(a.side==='ENEMY')a.hp=0;r.finishBattle(true);}
  assert.equal(r.taskView().daily.find(t=>t.id==='D_V168_TALENT15').progress,2,'both lower open stages count');
@@ -124,7 +132,7 @@ check('보유 원소 목표는 하루 동안 고정하고 다음 날 다른 보�
  const r=fresh();level(r,20);roster(r,['MOND_AMBER','MOND_KAEYA','MOND_LISA']);advance(DAY);const first=r.taskView();
  const id='D_V168_PYRO_HYDRO',def=copy(r.s.tasks.dailyDefinitions[id]);assert(def?.selectedElements?.length);
  const options=copy(c.CRPGRuntime.tasksV0169.elementalChoices(r));assert(options.some(x=>JSON.stringify(x)===JSON.stringify(def.selectedElements)));
- assert.deepEqual(copy(r.taskView().daily.find(t=>t.id===id)),copy(first.daily.find(t=>t.id===id)));
+ assert.deepEqual(copy(r.s.tasks.dailyDefinitions[id]),def);
  const saved=copy(r.s),loaded=new R(db,saved);assert.deepEqual(copy(loaded.s.tasks.dailyDefinitions[id]),def);
  advance(DAY);loaded.taskView();assert.notDeepEqual(copy(loaded.s.tasks.dailyDefinitions[id].selectedElements),def.selectedElements);r.validateSave(copy(r.s));
 });
@@ -134,6 +142,6 @@ check('an action started before reset cannot finish a newly assigned objective r
  assert(!r.s.tasks.daily.win);assert(Object.values(r.s.tasks.dailyProgress||{}).every(n=>n===0));
  advance(7*DAY);const v=r.taskView();assert(v.daily.every(t=>t.progress===0&&!t.claimed));assert(v.weekly.every(t=>t.progress===0&&!t.claimed));
  const legacy=fresh(),sv=copy(legacy.s),now=c.CRPGRuntime.tasksV0167;sv.tasks={version:1,day:now.dayOf(legacy.tasksNow()),week:now.weekOf(legacy.tasksNow()),daily:{win:2},weekly:{win:7},claimed:{D_LIFE:1}};const loaded=new R(db,sv);
- assert.equal(loaded.taskView().daily.find(t=>t.id==='D_WIN').progress,2);assert(loaded.taskView().daily.find(t=>t.id==='D_LIFE').claimed);
+ assert.equal(loaded.taskView().daily.find(t=>t.id==='D_WIN').progress,2);assert.equal(loaded.s.tasks.claimed.D_LIFE,1);
 });
 console.log(JSON.stringify({ok:!process.exitCode,checks:passed,catalog:C?.stats}));

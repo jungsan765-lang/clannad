@@ -11,17 +11,16 @@ for(const[,file]of index.matchAll(/<script src="((?:world_content|liyue_card_con
  if(!wired&&file==='runtime_tasks_v0167.js')vm.runInContext(fs.readFileSync(path.join(root,'source/runtime_task_learning_v0169.js'),'utf8'),c,{filename:'runtime_task_learning_v0169.js'});
 }
 const db=JSON.parse(fs.readFileSync(path.join(root,'content/db.json'),'utf8')),R=c.CRPGRuntime.Runtime,C=c.CRPGTaskCatalogV0168,copy=x=>JSON.parse(JSON.stringify(x));
-function fresh(){const r=new R(db);r.newGame({name:'임무 검사',route:'ROUTE_TRAVELER',seed:71247,saveId:'TASK169-'+(++serial)});Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:'MAP_MOND_CITY',STORY_MENU_POLICY:'',WORLD_TIME:'12:00',MORA:100000});delete r.s.storyJourney;delete r.s.storyBreak;r.prepareStory();return r;}
+function fresh(bootstrap=true){const r=new R(db);r.newGame({name:'임무 검사',route:'ROUTE_TRAVELER',seed:71247,saveId:'TASK169-'+(++serial)});Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',PENDING_INPUT_JSON:'{}',CURRENT_MAP_ID:'MAP_MOND_CITY',STORY_MENU_POLICY:'',WORLD_TIME:'12:00',MORA:100000});delete r.s.storyJourney;delete r.s.storyBreak;r.prepareStory();if(bootstrap){guild(r);r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});}return r;}
 function leave(r){if(r.s.placeVisit)r.action('PLACE_LEAVE',{});}
 function guild(r){leave(r);r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.s.global.WORLD_TIME='12:00';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});}
-function accept(r,id){guild(r);r.action('COMMISSION_ACCEPT',{quest:id});}
+function accept(r,id){if(id!=='Q_TASK_LEARN_01')expose(r,id);guild(r);r.action('COMMISSION_ACCEPT',{quest:id});}
 function report(r,id){guild(r);return r.action('CLAIM_QUEST',{quest:id});}
 function expose(r,id){
  if(!r.s.global.LAST_COMMITTED_ACTION_SEQ)r.action('MENU',{screen:'LOCATION'});
- const ancestors=[];let t=C.chains.find(t=>t.id===id);while(t?.predecessor){t=C.chains.find(x=>x.id===t.predecessor);ancestors.unshift(t);}
- // Completed predecessor records isolate the lesson under test; their exact frozen
- // definitions still go through the same save validator as real player records.
- for(const t of ancestors){const d=copy(t);d.reward=copy(c.CRPGRuntime.tasksV0169.rewardAt(t,r.s.global.PLAYER_LEVEL_STATE));d.assignedLevel=r.s.global.PLAYER_LEVEL_STATE;d.revision=169;d.individual=true;r.s.quests[t.id]={guildAccepted:true,claimed:true,state:'완료',node:'COMPLETE',taskObjective:{version:2,progress:t.goal,acceptedSeq:r.s.global.LAST_COMMITTED_ACTION_SEQ,definition:d,...(d.reward.primogem?{primogemPaid:d.reward.primogem}:{})}};}
+ // Explicit completed-ancestor fixture isolates a deep native lesson or delivery.
+ // Current 171 definitions still undergo the full save validator, including joins.
+ const seen=new Set();function visit(key){for(const parent of C.oneTimeBranches[key]||[]){visit(parent);if(!r.s.quests[parent]?.claimed&&!seen.has(parent)){seen.add(parent);const t=C.chains.find(t=>t.id===parent),d=copy(t);d.reward=copy(c.CRPGRuntime.tasksV01611.rewardAt(t,r.s.global.PLAYER_LEVEL_STATE));d.assignedLevel=r.s.global.PLAYER_LEVEL_STATE;d.revision=171;d.individual=true;r.s.quests[t.id]={guildAccepted:true,claimed:true,state:'완료',node:'COMPLETE',taskObjective:{version:2,progress:t.goal,acceptedSeq:r.s.global.LAST_COMMITTED_ACTION_SEQ,definition:d,...(d.reward.primogem?{primogemPaid:d.reward.primogem}:{})}};}}}visit(id);
 }
 function progress(r,id){return r.s.quests[id]?.taskObjective?.progress||0;}
 function daily(r,kind){return r.s.tasks?.daily?.[kind]||0;}
@@ -31,14 +30,13 @@ let passed=0;function check(name,fn){try{fn();passed++;console.log('PASS '+name)
 check('24 learning lessons and 24 finite deliveries append only native task definitions',()=>{
  const learn=C.chains.filter(t=>t.learning),delivery=C.chains.filter(t=>t.delivery);assert.equal(learn.length,24);assert.equal(delivery.length,24);assert.equal(new Set(C.chains.map(t=>t.id)).size,C.chains.length);
  const r=fresh();for(const t of delivery){for(const id of Object.keys(t.delivery.items||{}))assert(r.tables['14_ITEM_DB'].has(id));for(const id of Object.keys(t.delivery.equipment||{}))assert(r.tables['16_EQUIP_DB'].has(id));assert.equal(t.rewardScale,'absolute');assert.equal(t.kind,'delivery');}
- for(let i=0;i<learn.length;i++){assert.equal(learn[i].predecessor,i?learn[i-1].id:'');assert.equal(learn[i].successor,i+1<learn.length?learn[i+1].id:'');}
+ const seen=new Set(),visiting=new Set();function visit(id){assert(!visiting.has(id),'learning graph has no cycle');if(seen.has(id))return;visiting.add(id);for(const parent of C.oneTimeBranches[id]){assert(C.chains.some(t=>t.id===parent));visit(parent);}visiting.delete(id);seen.add(id);}for(const t of C.chains)visit(t.id);assert.equal(seen.size,288);assert.equal(C.chains.filter(t=>!C.oneTimeBranches[t.id].length).length,1);assert.equal(C.chains.find(t=>!C.oneTimeBranches[t.id].length).id,'Q_TASK_LEARN_01');assert(learn.some(t=>(t.successors||[]).length>1),'learning expands across several activity branches');
  assert(C.weekly.some(t=>t.kind==='sleep'));assert(C.weekly.some(t=>t.kind==='meal'));assert(C.weekly.some(t=>t.kind==='artifactEnhance'));
- assert.equal(r.commissionEntries().filter(q=>q.row[0].startsWith('Q_TASK_LEARN_')).length,1);
+ const beginner=fresh(false);assert.deepEqual(beginner.commissionEntries().filter(q=>q.row[0].startsWith('Q_TASK_')).map(q=>q.row[0]),['Q_TASK_LEARN_01']);
 });
 
-check('acceptance lesson excludes its own acceptance and unrelated menu clicks',()=>{
- const r=fresh(),id='Q_TASK_LEARN_01';accept(r,id);assert.equal(progress(r,id),0);r.action('MENU',{screen:'QUEST'});r.action('MENU',{screen:'LOCATION'});assert.equal(progress(r,id),0);
- const other=r.commissionEntries().find(q=>q.row[0]!==id&&!q.accepted&&!r.questUnlockReason(q.row[0])&&q.row[0].startsWith('Q_TASK_'));assert(other);guild(r);r.action('COMMISSION_ACCEPT',{quest:other.row[0]});assert.equal(progress(r,id),1);
+check('acceptance lesson counts its own native acceptance and opens other work only after report',()=>{
+ const r=fresh(false),id='Q_TASK_LEARN_01';assert.deepEqual(r.commissionEntries().filter(q=>q.row[0].startsWith('Q_TASK_')).map(q=>q.row[0]),[id]);accept(r,id);assert.equal(progress(r,id),1);assert.equal(r.s.quests[id].node,'READY_TO_CLAIM');r.action('MENU',{screen:'QUEST'});r.action('MENU',{screen:'LOCATION'});assert.equal(progress(r,id),1);assert(!r.questVisible('Q_TASK_LEARN_02'));assert.throws(()=>r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_02'}),/선행|먼저 보고/);
  report(r,id);assert(r.questVisible('Q_TASK_LEARN_02'));assert.throws(()=>r.action('COMMISSION_ACCEPT',{quest:id}));assert.equal(progress(r,id),1);
  const restored=new R(db,copy(r.s));assert(restored.s.quests[id].claimed);assert.equal(progress(restored,id),1);r.validateSave(copy(r.s));
 });
@@ -71,7 +69,7 @@ check('effective healing and real equip changes count; repeated full healing and
 
 check('real incident resolution counts; leaving or merely entering an incident does not',()=>{
  const r=fresh();let event;for(const row of r.rows('32_MAP_DB')){const e=r.regionEventAt(row[0]);if(e?.choices.some(t=>!t.battle&&!t.puzzle&&!t.escort&&!t.buy&&!t.gift&&!t.deliver&&t.id!=='LEAVE')){event=e;break;}}assert(event);leave(r);r.s.global.CURRENT_MAP_ID=event.map;const choice=event.choices.find(t=>!t.battle&&!t.puzzle&&!t.escort&&!t.buy&&!t.gift&&!t.deliver&&t.id!=='LEAVE');r.action('REGION_EVENT',{choice:choice.id});assert.equal(daily(r,'encounter'),1);assert.throws(()=>r.action('REGION_EVENT',{choice:choice.id}));assert.equal(daily(r,'encounter'),1);
- const r2=fresh();for(const row of r2.rows('32_MAP_DB')){const e=r2.regionEventAt(row[0]);if(e?.choices.some(t=>t.id==='LEAVE')){r2.s.global.CURRENT_MAP_ID=e.map;r2.action('REGION_EVENT',{choice:'LEAVE'});break;}}assert.equal(daily(r2,'encounter'),0);
+ const r2=fresh();leave(r2);for(const row of r2.rows('32_MAP_DB')){const e=r2.regionEventAt(row[0]);if(e?.choices.some(t=>t.id==='LEAVE')){r2.s.global.CURRENT_MAP_ID=e.map;r2.action('REGION_EVENT',{choice:'LEAVE'});break;}}assert.equal(daily(r2,'encounter'),0);
 });
 
 check('item delivery consumes exactly required stock and pays a fixed reward exactly once',()=>{

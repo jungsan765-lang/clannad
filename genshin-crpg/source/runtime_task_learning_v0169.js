@@ -1,10 +1,11 @@
-/* Existing native outcomes feed the existing task counters. Displaying a menu is
+/* Existing native outcomes feed the existing task counters (0.16.11 branches). Displaying a menu is
  * never evidence. This bridge owns no separate save state or new gameplay action. */
 (function(root){'use strict';
 const api=root.CRPGRuntime,P=api?.Runtime?.prototype;if(!P||P.taskLearningV0169)return;P.taskLearningV0169=true;
 const old={apply:P.apply,finishBattle:P.finishBattle,acceptCommission:P.acceptCommission};
 const num=n=>Number(n)||0,keys=o=>new Set(Object.keys(o||{})),copy=o=>JSON.parse(JSON.stringify(o));
-const nativeFacts=rt=>({chests:keys(rt.s.chests?.opened),oculi:new Set([...Object.keys(rt.s.exploration?.oculi||{}),...Object.keys(rt.s.geoOculi?.receipts||{})]),offers:num(rt.s.exploration?.tiers?.length)+num(rt.s.geoOculi?.tiers?.length),events:num(rt.s.regionEvents?.count),achievements:keys(rt.s.achievements?.claimed),trails:keys(rt.s.geoTrail?.claims),bonds:bondFacts(rt),legends:legendFacts(rt)});
+const nativeFacts=rt=>({chests:keys(rt.s.chests?.opened),oculi:new Set([...Object.keys(rt.s.exploration?.oculi||{}),...Object.keys(rt.s.geoOculi?.receipts||{})]),offers:num(rt.s.exploration?.tiers?.length)+num(rt.s.geoOculi?.tiers?.length),events:num(rt.s.regionEvents?.count),achievements:keys(rt.s.achievements?.claimed),trails:keys(rt.s.geoTrail?.claims),bonds:bondFacts(rt),legends:legendFacts(rt),commissions:commissionFacts(rt)});
+function commissionFacts(rt){return new Set(Object.entries(rt.s.quests||{}).filter(([id,q])=>q.claimed&&q.node==='COMPLETE'&&rt.isCommission?.(id)&&!id.startsWith('Q_TASK_LEARN_')).map(([id])=>id));}
 function bondFacts(rt){const set=new Set();for(const[profile,r]of Object.entries(rt.s.relations||{}))for(const[event,v]of Object.entries(r.events||{}))if(v==='COMPLETE'&&!/^H0[1-5]$/.test(event)&&(r.eventCompletedAt?.[event]||rt.s.storyEventReceipts?.[event]))set.add(profile+':'+event);return set;}
 function legendFacts(rt){const set=new Set();for(const[id,receipt]of Object.entries(rt.s.storyEventReceipts||{}))if(receipt?.legend===id&&rt.storyDone?.(id))set.add(id);return set;}
 function snapshot(rt){return rt.taskActivitySnapshot?.()||null;}
@@ -29,6 +30,8 @@ P.apply=function(a){
  const result=old.apply.call(this,a);
  // Native receipt deltas include final eye acquisition and story completions nested in these actions.
  recordedFacts(this,before,nativeFacts(this),stamp);
+ // Reception practice completes directly on its own successful acceptance in the task engine.
+ // Its receipt must not also advance another commission objective.
  if(a.type==='COMMISSION_ACCEPT'&&result?.accepted&&!priorAccepted&&this.s.quests[a.quest]?.guildAccepted&&!String(a.quest).startsWith('Q_TASK_LEARN_'))record(this,'commission',stamp,{action:'COMMISSION_ACCEPT',entity:a.quest});
  if(a.type==='CLAIM_QUEST'&&!priorQuest&&this.s.quests[a.quest]?.claimed&&this.isCommission?.(a.quest)&&!String(a.quest).startsWith('Q_TASK_LEARN_'))record(this,'commission',stamp,{action:'CLAIM_QUEST',entity:a.quest});
  if(a.type==='BUY'&&result?.service==='INN_REST'&&result.recovered&&num(result.cost)>0&&num(result.minutes)>=480)record(this,'sleep',stamp,{action:'INN_REST',entity:result.stock});
@@ -57,6 +60,7 @@ P.acceptCommission=function(id){
   const f=nativeFacts(this),kind=def.kind,action=def.filter.actions?.[0];
   let evidence=[];
   if(kind==='chest')evidence=[...f.chests];if(kind==='oculus')evidence=[...f.oculi];if(kind==='oculusOffer')evidence=Array.from({length:f.offers},(_,i)=>String(i));
+  if(def.id==='Q_TASK_LEARN_16'&&kind==='commission'&&action==='CLAIM_QUEST')evidence=[...f.commissions];
   if(kind==='bond')evidence=[...(action==='LEGEND_COMPLETE'?f.legends:f.bonds)];if(kind==='handbook'&&action==='ACHIEVEMENT_CLAIM')evidence=[...f.achievements];
   // Credit only this accepted learning objective. A prior receipt cannot advance any
   // recurring task or unrelated objective. The engine's shared counter path is not used.

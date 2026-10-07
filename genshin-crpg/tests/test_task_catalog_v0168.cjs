@@ -118,4 +118,4 @@ for(const [key,prefix]of [['daily','D_V168_'],['weekly','W_V168_']])for(const t 
 assert(catalog.weekly.some(t=>t.goal>=150)||catalog.legacyWeekly.some(t=>t.goal>=150),'the weekly board has a substantial victory target');
 assert(catalog.weekly.some(t=>t.kind==='forge')&&catalog.weekly.some(t=>t.kind==='fish')&&catalog.weekly.some(t=>t.kind==='mine'),'weekly goals include distinct noncombat work');
 assert.equal(catalog.notes.dailySlots,4);assert.equal(catalog.notes.weeklySlots,20);assert.equal(catalog.notes.dailyPrimogems,20);assert.equal(catalog.notes.weeklyAllPrimogems,200);
-console.log('PASS 개별 의뢰 240개: 실제 목표/장소/재료/선행 조건, 보상 차등, 기존 보상 정의 보존, 일일4/주간최대20');
+console.log('PASS 보존한 0.16.8/0.16.9 기본 카탈로그 의뢰240개: 실제 목표/장소/재료/선행 조건, 보상 차등, 기존 보상 정의 보존, 일일4/주간최대20');

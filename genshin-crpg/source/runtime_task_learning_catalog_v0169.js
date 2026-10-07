@@ -94,4 +94,75 @@ const weekly=[
 c.weekly.push(...weekly);
 c.stats={...c.stats,daily:c.daily.length,weekly:c.weekly.length,chains:c.chains.length,families:c.families.length};
 c.learningV0169Info={lessons:learning.length,deliveries:delivery.length,weekly:weekly.length,finiteEvidence:'native receipts only; flagged learning objectives',equipmentPolicy:'Only unequipped, unlocked, unenhanced, unascended spare gear',learningMora:learning.reduce((n,t)=>n+(t.reward.mora||0),0),learningPrimogems:learning.reduce((n,t)=>n+(t.reward.primogem||0),0),deliveryMora:delivery.reduce((n,t)=>n+(t.reward.mora||0),0),deliveryPrimogems:delivery.reduce((n,t)=>n+(t.reward.primogem||0),0)};
+// 0.16.11: retain the exact former definitions for validation of accepted 0.16.9
+// objectives before applying the user-requested removals and prerequisite links.
+c.snapshotV0169=JSON.parse(JSON.stringify({
+ version:c.version,daily:[...c.legacyDaily,...c.daily],weekly:[...c.legacyWeekly,...c.weekly],chains:c.chains,
+ legacyDaily:c.legacyDaily,legacyWeekly:c.legacyWeekly,legacyChains:c.legacyChains,
+ legacyDailyDefinitions:c.legacyDailyDefinitions,legacyWeeklyDefinitions:c.legacyWeeklyDefinitions,
+ stats:c.stats,notes:c.notes,learningV0169Info:c.learningV0169Info
+}));
+const removedRecurringIds=['D_V168_HILI','W_V168_MOND_PATROL','W_V169_REPORT','W_V168_CRYO_VINE'];
+c.daily=c.daily.filter(t=>!removedRecurringIds.includes(t.id));
+c.weekly=c.weekly.filter(t=>!removedRecurringIds.includes(t.id));
+const acceptanceRoot='Q_TASK_LEARN_01',byId=new Map(c.chains.map(t=>[t.id,t]));
+const setPrerequisites=(t,ids)=>{t.predecessor=ids[0]||'';if(ids.length>1)t.prerequisites=ids.slice();else delete t.prerequisites;};
+const lessonBranches={
+ 1:[],2:[1],3:[1],4:[3],5:[2],6:[2],7:[6],8:[7],9:[2],10:[6],11:[5],12:[11],
+ 13:[12],14:[1],15:[14],16:[2],17:[16],18:[17],19:[1],20:[4],21:[1],22:[14,12],23:[15,13],24:[14,12]
+};
+const lessonId=n=>'Q_TASK_LEARN_'+String(n).padStart(2,'0');
+for(const[n,ids]of Object.entries(lessonBranches))setPrerequisites(byId.get(lessonId(n)),ids.map(lessonId));
+const rootLesson=byId.get(acceptanceRoot);
+rootLesson.acceptancePractice=true;
+rootLesson.description='이 의뢰를 수락한 뒤 캐서린에게 보고하세요. 접수와 보고를 마치면 다른 임무 갈래가 열립니다.';
+rootLesson.filter={actions:['COMMISSION_ACCEPT'],entities:[acceptanceRoot]};
+// Ordinary commissions are finite. An account that has already reported all of
+// them can demonstrate its real claimed receipt instead of needing a new one.
+const reportLesson=byId.get('Q_TASK_LEARN_16');
+reportLesson.filter={...reportLesson.filter,completedBeforeAccept:true};
+reportLesson.description+=' 이미 보고를 마친 일반 의뢰 기록도 인정합니다.';
+// Each existing activity chain starts after its matching lesson. Its later ten
+// parts keep the original predecessor, roster, native unlock and reward rules.
+const familyLesson={
+ MOND_PATROL:16,LIYUE_PATROL:16,SLIME:16,HILICHURL:16,BANDITS:16,RUINS:16,
+ MOND_GATHER:2,LIYUE_GATHER:2,MINING:5,FISH_HUNT:9,COOKING:6,FORGING:11,
+ REVELATION:15,WEALTH:23,TALENT:14,ASCENSION:14,EXPERIENCE:14,
+ MOND_BOSSES:22,LIYUE_BOSSES:22,ABYSS:24,MONO_ANEMO:17,DOUBLE_PAIRS:17,MOND_SQUADS:17,LIYUE_SQUADS:17,
+ SUPPLIES:2,PROVISIONS:10,KITCHEN_DELIVERY:6,GEAR_DELIVERY:11
+};
+for(const t of c.chains)if(t.tier===1&&t.family!=='LEARN')setPrerequisites(t,[lessonId(familyLesson[t.family])]);
+c.oneTimeBranches=Object.fromEntries(c.chains.map(t=>[t.id,t.prerequisites?.slice()||(t.predecessor?[t.predecessor]:[])]));
+for(const t of c.chains){
+ const children=c.chains.filter(next=>c.oneTimeBranches[next.id].includes(t.id)).map(next=>next.id);
+ t.successors=children;if(children.length===1)t.successor=children[0];else delete t.successor;
+}
+// These maps select the visible frontier of the existing recurring catalogs.
+// Successors start counting after every predecessor reward is claimed in the
+// same period; siblings may still share a successful native activity.
+c.dailyBranches={
+ D_WIN:[],D_LIFE:[],D_V168_PYRO_HYDRO:['D_WIN'],D_LEY:['D_WIN'],
+ D_V168_REVELATION15:['D_LEY'],D_V168_WEALTH30:['D_LEY'],D_DOMAIN:['D_WIN'],
+ D_V168_TALENT15:['D_DOMAIN'],D_V168_ASCENSION40:['D_DOMAIN'],
+ D_V168_APPLE:['D_LIFE'],D_V168_STEAK:['D_V168_APPLE']
+};
+c.weeklyBranches={
+ W_V168_REACTION:[],W_DOMAIN:[],W_V168_GATHER:[],W_V168_MINE:[],W_BONUS:[],
+ W_WIN:['W_V168_REACTION'],W_BOSS:['W_V168_REACTION'],W_V168_OCEANID:['W_BOSS'],
+ W_V168_LIYUE_PATROL:['W_V168_REACTION'],W_V168_REVELATION:['W_V168_REACTION'],W_V168_WEALTH:['W_V168_REVELATION'],
+ W_V168_EXPERIENCE:['W_DOMAIN'],W_V168_TALENT30:['W_V168_EXPERIENCE'],W_V168_ASCENSION:['W_V168_EXPERIENCE'],
+ W_V168_DOMAIN_CIRCUIT:['W_V168_TALENT30','W_V168_ASCENSION'],W_V168_ABYSS:['W_DOMAIN'],
+ W_V168_FISH:['W_V168_GATHER'],W_V168_HUNT:['W_V168_GATHER'],W_V168_COOK:['W_V168_GATHER'],
+ W_V168_FORGE:['W_V168_MINE'],W_V168_ORE_SUPPLY:['W_V168_MINE'],W_V168_LIFE_SUPPLY:['W_V168_GATHER','W_V168_MINE'],
+ W_V169_INN:['W_V168_REACTION'],W_V169_PROCESS:['W_V168_COOK'],W_V169_INCIDENT:['W_V168_REACTION'],
+ W_V169_ENHANCE:['W_V168_FORGE'],W_V169_ARTIFACT_ENHANCE:['W_V169_ENHANCE'],W_V169_RECOVERY_MEAL:['W_V168_COOK']
+};
+const elementalDaily=c.daily.find(t=>t.id==='D_V168_PYRO_HYDRO');
+elementalDaily.fallbackName='추가 전투 5번 이기기';elementalDaily.fallbackShort='추가 5승';
+c.version='0.16.11';c.branchVersion=171;c.removedRecurringIds=removedRecurringIds;
+c.branchRoot=acceptanceRoot;
+c.stats={...c.stats,daily:c.daily.length,weekly:c.weekly.length,chains:c.chains.length};
+c.notes={...c.notes,successors:'ALL_PREREQUISITES_CLAIMED',dailySlots:11,weeklySlots:28,totalDailyCandidates:11,totalWeeklyCandidates:28,
+ recurringProgress:'Only unlocked targets count; successors start after prerequisite rewards are claimed in the same period.',
+ acceptancePractice:'Accept this native root commission, then report it. Self-acceptance credits only this root.'};
 })(globalThis);

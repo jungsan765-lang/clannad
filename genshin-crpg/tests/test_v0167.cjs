@@ -10,59 +10,55 @@ const plain=x=>JSON.parse(JSON.stringify(x));
 let passed=0;
 function check(name,fn){try{fn();passed++;console.log('PASS '+name);}catch(e){process.exitCode=1;console.error('FAIL '+name+'\n'+e.stack);}}
 const DAY=86400000;
-// This old-version suite deliberately loads a pre-0.16.8 saved board. New assignment rules are covered separately.
-function legacyBoard(r){const t=require('./helpers_v011.cjs').c.CRPGRuntime.tasksV0167;r.s.tasks={version:1,day:t.dayOf(r.tasksNow()),week:t.weekOf(r.tasksNow()),daily:{},weekly:{},claimed:{}};r.tasksBox(true);return r;}
+// Preserve the real pre-0.16.8 definitions; only explicit earned-quota fixtures
+// skip unrelated predecessor work. Root acceptance and every reward claim stay native.
+function legacyBoard(r){const t=require('./helpers_v011.cjs').c.CRPGRuntime.tasksV0167,map=r.s.global.CURRENT_MAP_ID;r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.s.global.WORLD_TIME='12:00';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});r.action('PLACE_LEAVE');r.s.global.CURRENT_MAP_ID=map;r.s.tasks={version:1,day:t.dayOf(r.tasksNow()),week:t.weekOf(r.tasksNow()),daily:{},weekly:{},claimed:{},dailyIds:['D_WIN','D_LEY','D_DOMAIN','D_LIFE'],weeklyIds:['W_WIN','W_BOSS','W_DOMAIN','W_BONUS']};r.tasksBox(true);return r;}
+function unlockDaily(r,id){const c=require('./helpers_v011.cjs').c.CRPGTaskCatalogV0168;function visit(key){for(const parent of c.dailyBranches[key]||[]){visit(parent);if(!r.s.tasks.claimed[parent]){const box=r.tasksBox(true);box.dailyProgress[parent]=box.dailyDefinitions[parent].goal;r.action('TASK_CLAIM',{task:parent});}}}visit(id);}
+function completeDaily(r){const ids=r.tasksBox(true).dailyIds;for(let n=0;n<=ids.length;n++){const frontier=r.taskView().daily;for(const row of frontier){const box=r.tasksBox(true);box.dailyProgress[row.id]=box.dailyDefinitions[row.id].goal;}if(ids.every(id=>r.s.tasks.claimed[id]||r.s.tasks.dailyProgress[id]>=r.s.tasks.dailyDefinitions[id].goal))break;for(const row of frontier)r.action('TASK_CLAIM',{task:row.id});}}
 function leyWin(r){if(r.s.placeVisit)r.action('PLACE_LEAVE',{});const x=r.leyLineStatus().blossoms.find(x=>x.region==='몬드'&&x.kind==='REVELATION');r.s.global.CURRENT_MAP_ID=x.map;r.action('PLACE_ENTER',{place:'BOSS:'+x.route,mode:'BOSS'});r.action('BOSS_ROUTE',{route:x.route,entry:'DIRECT',tier:1});r.finishBattle(true);r.action('PLACE_LEAVE',{});}
 function domainWin(r){const open=r.growthDomainEntries().find(x=>!x.reason);r.action('DOMAIN_START',{domain:open.id,element:'NEUTRAL'});assert(r.s.runtime?.growthDomain,'a domain fight');r.finishBattle(true);}
 function gather(r){r.action('LIFE_START',{kind:'GATHER'});const job=r.s.lifeJob,scene=r.lifeScene(job),picks=scene.nodes.map((n,i)=>({at:600+i*300,node:i}));advance((job.duration||10000)+100);return r.action('LIFE_FINISH',{job:job.id,elapsed:job.duration,inputs:picks});}
 
-check('이전 저장의 목표·보상 보존과 새 주간 목표 확장: 성공한 실제 행동만 집계',()=>{
- const r=legacyBoard(fresh('MAP_D163_VALLEY_OF_REMEMBRANCE'));let v=r.taskView();
- assert.deepEqual(plain(v.daily.map(x=>x.id)),['D_WIN','D_LEY','D_DOMAIN','D_LIFE']);assert.equal(v.bonus.id,'D_BONUS');
- assert.deepEqual(plain(v.weekly.slice(0,4).map(x=>x.id)),['W_WIN','W_BOSS','W_DOMAIN','W_BONUS']);assert(v.weekly.length>4&&v.weekly.length<=20);assert.equal(v.ready,0);
- // Existing locked goals remain locked. The bonus cannot bypass an unfinished locked goal.
- assert.equal(v.daily.find(x=>x.id==='D_LEY').lock,'주인공 Lv.5부터');assert.equal(v.weekly.find(x=>x.id==='W_BOSS').lock,'주인공 Lv.15부터');assert.equal(v.bonus.goal,4);assert(!v.bonus.done);
- r.adminApply({op:'level',target:'ALL',value:20});r.s.global.PLAYER_LEVEL_STATE=20;
- v=r.taskView();assert.equal(v.daily.find(x=>x.id==='D_LEY').lock,'');assert.equal(v.weekly.find(x=>x.id==='W_BOSS').lock,'');assert.equal(v.bonus.goal,4);
+check('이전 저장의 목표·보상 보존과 갈래 집계: 성공한 실제 행동만 집계',()=>{
+ const r=legacyBoard(fresh('MAP_D163_VALLEY_OF_REMEMBRANCE'));let v=r.taskView(),box=r.s.tasks;
+ assert.deepEqual(plain(v.daily.map(x=>x.id)),['D_WIN','D_LIFE']);assert.equal(v.bonus.id,'D_BONUS');
+ for(const [id,goal]of [['D_WIN',3],['D_LEY',1],['D_DOMAIN',1],['D_LIFE',2]]){assert.equal(box.dailyDefinitions[id].goal,goal);assert.equal(box.dailyDefinitions[id].revision,168);}
+ assert.equal(box.weeklyDefinitions.W_BOSS.goal,3);assert.equal(box.weeklyDefinitions.W_BOSS.minLevel,15);assert(box.weeklyIds.length>4&&box.weeklyIds.length<=28);assert.equal(v.ready,0);assert.equal(v.bonus.goal,box.dailyIds.length);assert(!v.bonus.done);
+ // The earned predecessor is reported natively; a still-locked blossom remains unfinished.
+ unlockDaily(r,'D_LEY');v=r.taskView();assert.equal(v.daily.find(x=>x.id==='D_LEY').lock,'주인공 Lv.5부터');assert(!v.bonus.done);
+ r.adminApply({op:'level',target:'ALL',value:20});r.s.global.PLAYER_LEVEL_STATE=20;v=r.taskView();assert.equal(v.daily.find(x=>x.id==='D_LEY').lock,'');assert.equal(v.bonus.goal,box.dailyIds.length);
  domainWin(r);
  // A lost fight counts nothing.
  const open=r.growthDomainEntries().find(x=>!x.reason);r.action('DOMAIN_START',{domain:open.id,element:'NEUTRAL'});r.finishBattle(false);advance(61000);
  assert.deepEqual(plain(r.s.tasks.daily),{win:1,domain:1});assert.deepEqual(plain(r.s.tasks.weekly),{win:1,domain:1});
  r.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';gather(r);gather(r);assert.equal(r.s.tasks.daily.life,2,'gathering that brings something home counts');
- v=r.taskView();assert(v.daily.find(x=>x.id==='D_DOMAIN').done&&v.daily.find(x=>x.id==='D_LIFE').done&&!v.daily.find(x=>x.id==='D_WIN').done);assert.equal(v.ready,2);
+ v=r.taskView();assert(v.daily.find(x=>x.id==='D_DOMAIN').done&&v.daily.find(x=>x.id==='D_LIFE').done);assert.equal(r.s.tasks.claimed.D_WIN,1);assert.equal(v.ready,2);
  const src0=src('runtime_tasks_v0167.js');
  assert(src0.includes("if(kind.ley)this.tasksCount('ley',1,event);if(kind.domain)this.tasksCount('domain',1,event);if(kind.boss)this.tasksCount('boss',1,event);"),'ley lines, domains and field bosses count from the battle that ended');
  assert(src0.includes("['GATHER','MINE','FISH','HUNT'].includes(out.kind)")&&src0.includes('!out.empty'),'an empty trip counts nothing');
 });
 
-check('받기 pays once; 모두 받기 takes every finished one; the day’s bonus counts toward the week',()=>{
- const r=legacyBoard(fresh('MAP_D163_VALLEY_OF_REMEMBRANCE'));
- const book=()=>r.itemCount('MAT_CHAR_EXP_ADVENTURER'),before=book();
- domainWin(r);const out=r.action('TASK_CLAIM',{task:'D_DOMAIN'});
- assert.deepEqual(plain(out.result),{claimed:['D_DOMAIN'],names:['비경 1번 이기기'],mora:0,primogem:0,items:{MAT_CHAR_EXP_ADVENTURER:2}});
- assert.equal(book(),before+2);
- assert.throws(()=>r.action('TASK_CLAIM',{task:'D_DOMAIN'}),/이미 받은 보상/);
+check('받기 pays frozen rewards once; 모두 받기 claims the frontier; the day bonus counts toward the week',()=>{
+ const r=legacyBoard(fresh('MAP_D163_VALLEY_OF_REMEMBRANCE'));domainWin(r);
  assert.throws(()=>r.action('TASK_CLAIM',{task:'D_WIN'}),/아직 달성하지 않았습니다 \(1\/3\)/);
- assert.throws(()=>r.action('TASK_CLAIM',{task:'NOPE'}),/임무를 찾을 수 없습니다/);
- // Finish every assigned old goal; a locked blossom cannot count as completed.
- domainWin(r);domainWin(r);r.adminApply({op:'level',target:'ALL',value:20});leyWin(r);r.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';gather(r);gather(r);
- const mora=r.s.global.MORA,primo=Number(r.s.global.PRIMOGEM)||0;let v=r.taskView();assert(v.bonus.done,'the bonus');assert.equal(v.ready,4);assert.equal(v.here,3,'the bonus waits for Catherine');
+ unlockDaily(r,'D_DOMAIN');const book=()=>r.itemCount('MAT_CHAR_EXP_ADVENTURER'),before=book();domainWin(r);const out=r.action('TASK_CLAIM',{task:'D_DOMAIN'});
+ assert.deepEqual(plain(out.result),{claimed:['D_DOMAIN'],names:['비경 1번 이기기'],mora:0,primogem:0,items:{MAT_CHAR_EXP_ADVENTURER:2}});assert.equal(book(),before+2);
+ assert.throws(()=>r.action('TASK_CLAIM',{task:'D_DOMAIN'}),/이미 받은 보상/);assert.throws(()=>r.action('TASK_CLAIM',{task:'NOPE'}),/임무를 찾을 수 없습니다/);
+ assert.equal(r.s.tasks.dailyDefinitions.D_LEY.reward.mora,800);assert.equal(r.s.tasks.dailyDefinitions.D_LIFE.reward.mora,600);
+ r.adminApply({op:'level',target:'ALL',value:20});leyWin(r);assert.equal(r.s.tasks.daily.ley,1);assert.equal(r.s.tasks.dailyProgress.D_LEY,1,'the real blossom victory fulfils its retained original goal');
+ // Explicit completed-activity quotas let the complete finite manifest be reported
+ // without replaying unrelated farming loops. Required predecessor claims remain native.
+ completeDaily(r);let v=r.taskView();assert(v.bonus.done,'all assigned goals, including hidden branches');assert.equal(v.ready,v.daily.length+1);assert.equal(v.here,v.daily.length,'the bonus waits for Catherine');
+ const mora=r.s.global.MORA,primo=Number(r.s.global.PRIMOGEM)||0,expectedIds=v.daily.filter(x=>x.here).map(x=>x.id),expectedMora=v.daily.filter(x=>x.here).reduce((n,x)=>n+(x.reward.mora||0),0);
  assert.throws(()=>r.action('TASK_CLAIM',{task:'D_BONUS'}),/캐서린에게 보고해야 받을 수 있습니다/);
- const all=r.action('TASK_CLAIM',{task:'ALL'}).result;
- assert.deepEqual(new Set(all.claimed),new Set(['D_WIN','D_LEY','D_LIFE']));assert.equal(all.mora,1400);assert.equal(all.primogem,0);
+ const all=r.action('TASK_CLAIM',{task:'ALL'}).result;assert.deepEqual(new Set(all.claimed),new Set(expectedIds));assert.equal(all.mora,expectedMora);assert.equal(all.primogem,0);
  assert.throws(()=>r.action('TASK_CLAIM',{task:'ALL'}),/캐서린에게 보고해야/);
- // 「모두 달성」 is reported at Catherine's desk.
  r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});assert(r.taskView().bonus.here);
- const rep=r.action('TASK_CLAIM',{task:'ALL'}).result;assert.deepEqual(plain(rep.claimed),['D_BONUS']);assert.equal(rep.primogem,20);
- assert.equal(r.s.global.MORA,mora+1400);assert.equal(r.s.global.PRIMOGEM,primo+20);assert.equal(r.s.tasks.weekly.bonus,1,'one day toward the week');
- assert.throws(()=>r.action('TASK_CLAIM',{task:'ALL'}),/받을 임무 보상이 없습니다/);
- r.action('PLACE_LEAVE',{});r.s.global.CURRENT_MAP_ID='MAP_D163_VALLEY_OF_REMEMBRANCE';
- // A new day starts the day's counters and claims again; the week keeps its own.
- advance(DAY);v=r.taskView();assert.equal(v.ready,0);assert(v.daily.every(x=>!x.claimed&&x.progress===0));assert.equal(v.weekly.find(x=>x.id==='W_DOMAIN').progress,3);
+ const rep=r.action('TASK_CLAIM',{task:'ALL'}).result;assert.deepEqual(plain(rep.claimed),['D_BONUS']);assert.equal(rep.primogem,20);assert.equal(r.s.global.MORA,mora+expectedMora);assert.equal(r.s.global.PRIMOGEM,primo+20);assert.equal(r.s.tasks.weekly.bonus,1,'one day toward the week');assert.throws(()=>r.action('TASK_CLAIM',{task:'ALL'}),/받을 임무 보상이 없습니다/);
+ r.action('PLACE_LEAVE',{});r.s.global.CURRENT_MAP_ID='MAP_D163_VALLEY_OF_REMEMBRANCE';const weeklyProgress=r.s.tasks.weeklyProgress.W_DOMAIN;
+ advance(DAY);v=r.taskView();assert.equal(v.ready,0);assert(v.daily.every(x=>!x.claimed&&x.progress===0));assert.equal(v.weekly.find(x=>x.id==='W_DOMAIN').progress,weeklyProgress);
  domainWin(r);assert.equal(r.s.tasks.daily.domain,1);assert(!r.s.tasks.claimed.D_DOMAIN);
- // A new week (Monday, Korean time) starts the week's.
  advance(7*DAY);v=r.taskView();assert(v.weekly.every(x=>x.progress===0&&!x.claimed));
- // During a fight nothing is taken.
  const open=r.growthDomainEntries().find(x=>!x.reason);r.action('DOMAIN_START',{domain:open.id,element:'NEUTRAL'});assert.equal(r.taskReason('ALL'),'전투가 끝난 뒤 받을 수 있습니다.');
 });
 

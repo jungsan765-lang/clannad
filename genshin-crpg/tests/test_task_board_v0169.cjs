@@ -27,7 +27,7 @@ class Node{
  getBoundingClientRect(){const prior=this.parentElement?.children.slice(0,this.parentElement.children.indexOf(this))||[];return {top:(this.parentElement?.getBoundingClientRect().top||0)+prior.reduce((n,k)=>n+k.intrinsicHeight,0),height:this.intrinsicHeight};}
 }
 function screen(){
- const r=fresh();r.adminApply({op:'level',target:'ALL',value:30});advance(7*86400000);assert.equal(r.taskView().weekly.length,20);
+ const r=fresh();r.adminApply({op:'level',target:'ALL',value:60});r.s.global.COMPANION_ELIGIBILITY_JSON=JSON.stringify(Object.fromEntries(['MOND_AMBER','MOND_KAEYA','MOND_LISA'].map(id=>[id,{state:'JOINED'}])));r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.s.global.WORLD_TIME='12:00';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});assert(r.taskView().weekly.length>1);assert(r.taskView().weekly.length<r.s.tasks.weeklyIds.length);
  const body=new Node('body'),page=new Node('section'),pane=new Node('div');page.className='shell-page-quest';pane.className='quest-list';pane._height=200;body.append(page);page.append(pane);
  const calls=[],toasts=[],timers=[],events=[];
  const doc={body,createElement:t=>new Node(t),querySelector:s=>body.querySelector(s),querySelectorAll:s=>s.includes('.quest-list:has(.task-board)')&&pane.querySelector('.task-board')?[pane]:[],addEventListener:(type,fn)=>events.push({type,fn})};
@@ -36,24 +36,33 @@ function screen(){
  for(const f of ['app_mainscreen_v0167.js','app_tasks_v0167.js','app_pages_v0167.js'])vm.runInContext(source(f),context,{filename:f});
  context.render();return {r,body,pane,context,calls,toasts,timers};
 }
-check('실제 임무판은 일일4+보고와 주간20+모두달성200원석을 별도로 표시한다',()=>{
- const p=screen();assert.equal(p.pane.querySelectorAll('.task-row').length,5);
- const tabs=p.pane.querySelectorAll('.task-scope');tabs[1].onclick();const rows=p.pane.querySelectorAll('.task-row');assert.equal(rows.length,21);assert.equal(new Set(rows.map(n=>n.dataset.task)).size,21);
- const all=rows.find(n=>n.dataset.task==='W_ALL');assert(all);assert(all.textContent.includes('200'));assert.equal(p.r.taskView().weeklyBonus.goal,20);
+check('실제 임무판은 일일·주간의 열린 갈래와 모두달성 보상을 별도로 표시한다',()=>{
+ const p=screen();assert.equal(p.pane.querySelectorAll('.task-row').length,p.r.taskView().daily.length+1);
+ const tabs=p.pane.querySelectorAll('.task-scope');tabs[1].onclick();const rows=p.pane.querySelectorAll('.task-row');assert.equal(rows.length,p.r.taskView().weekly.length+1);assert.equal(new Set(rows.map(n=>n.dataset.task)).size,rows.length);
+ const all=rows.find(n=>n.dataset.task==='W_ALL');assert(all);assert(all.textContent.includes('200'));assert.equal(p.r.taskView().weeklyBonus.goal,p.r.s.tasks.weeklyIds.length);
  const bonus=p.r.taskView().weeklyBonus;assert(!bonus.done);assert(p.pane.querySelector('.task-scope.active b').textContent==='주간');
 });
-check('기존 쪽 넘기기로 주간21행을 모두 접근하고 주간·일일 쪽 기억을 구분한다',()=>{
+check('기존 쪽 넘기기로 열린 주간 갈래·보너스에 접근하고 주간·일일 쪽 기억을 구분한다',()=>{
  const p=screen();p.pane.querySelectorAll('.task-scope')[1].onclick();const reached=new Set();let pages=0;
  for(;;){for(const row of p.pane.querySelectorAll('.task-row'))if(!row.hidden)reached.add(row.dataset.task);assert(p.pane.scrollHeight<=p.pane.clientHeight+1,'each modeled page fits');pages++;const buttons=p.pane.querySelectorAll('.pane-page');assert.equal(buttons.length,2);if(buttons[1].disabled)break;buttons[1].onclick();assert(pages<30);}
- assert(pages>1);assert.equal(reached.size,21);assert(reached.has('W_ALL'),'the last bonus is reachable');
- p.pane.querySelectorAll('.task-scope')[0].onclick();assert.equal(p.pane.querySelector('.pane-page-no').textContent.split('/')[0].trim(),'1','daily starts on its own page');
+ assert(pages>1);assert.equal(reached.size,p.r.taskView().weekly.length+1);assert(reached.has('W_ALL'),'the last bonus is reachable');
+ p.pane.querySelectorAll('.task-scope')[0].onclick();assert.equal((p.pane.querySelector('.pane-page-no')?.textContent||'1 / 1').split('/')[0].trim(),'1','daily starts on its own page');
  p.pane.querySelectorAll('.task-scope')[1].onclick();const pager=p.pane.querySelectorAll('.pane-page');assert(pager[1].disabled,'weekly retains its previous last page');
 });
 check('주간 모두달성 버튼은 정확한 기존 TASK_CLAIM 경로와 수령 알림에 연결된다',()=>{
- const p=screen(),box=p.r.tasksBox(true);for(const id of box.weeklyIds){const def=box.weeklyDefinitions[id];(box.weeklyProgress??={})[id]=def.goal;}
+ const p=screen(),box=p.r.tasksBox(true);
+ // Explicit completed-activity quotas isolate the board binding; real claims unlock each next frontier.
+ for(let count=0;count<box.weeklyIds.length+1;count++){const frontier=p.r.taskView().weekly;if(!frontier.length)break;for(const row of frontier){const live=p.r.tasksBox(true),def=live.weeklyDefinitions[row.id];live.weeklyProgress[row.id]=def.goal;p.r.action('TASK_CLAIM',{task:row.id});}}assert(p.r.s.tasks.weeklyIds.every(id=>p.r.s.tasks.claimed[id]));
  p.r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';p.r.s.global.WORLD_TIME='12:00';p.r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});
  p.context.render();p.pane.querySelectorAll('.task-scope')[1].onclick();const row=p.pane.querySelectorAll('.task-row').find(n=>n.dataset.task==='W_ALL');assert(row);row.querySelector('.task-claim').onclick();assert.deepEqual(JSON.parse(JSON.stringify(p.calls.at(-1))),{type:'TASK_CLAIM',params:{task:'W_ALL'}});
  const out=p.r.action('TASK_CLAIM',{task:'W_ALL'}).result;assert.equal(out.primogem,200);assert.deepEqual(JSON.parse(JSON.stringify(out.claimed)),['W_ALL']);p.context.CRPGTaskBoard.gained(out);const gain=p.body.querySelector('.task-gain');assert(gain&&gain.textContent.includes('200'));
  p.context.render();assert(p.pane.querySelectorAll('.task-row').find(n=>n.dataset.task==='W_ALL').classList.contains('claimed'));assert.throws(()=>p.r.action('TASK_CLAIM',{task:'W_ALL'}),/이미/);
+});
+check('메인 일일 완료 숫자는 새 갈래가 열려도 고정된 전체 목표와 완료 기록을 유지한다',()=>{
+ const p=screen(),box=p.r.tasksBox(true),total=box.dailyIds.length+1;
+ const number=()=>{const host=new Node('section');p.context.CRPGTaskBoard.mini(host);return host.querySelector('.task-mini-head small').textContent;};
+ assert.equal(number(),'0 / '+total);box.dailyProgress.D_WIN=box.dailyDefinitions.D_WIN.goal;p.r.action('TASK_CLAIM',{task:'D_WIN'});assert.equal(number(),'1 / '+total);assert(!p.r.taskView().daily.some(t=>t.id==='D_WIN'));
+ for(let n=0;n<box.dailyIds.length+1;n++){const frontier=p.r.taskView().daily;if(!frontier.length)break;for(const row of frontier){const live=p.r.tasksBox(true);live.dailyProgress[row.id]=live.dailyDefinitions[row.id].goal;p.r.action('TASK_CLAIM',{task:row.id});}}
+ assert(p.r.taskView().bonus.done);assert.equal(number(),total+' / '+total);
 });
 console.log(JSON.stringify({ok:!process.exitCode,checks:passed,scope:'real board/module bindings + deterministic layout; browser media sizing excluded'}));

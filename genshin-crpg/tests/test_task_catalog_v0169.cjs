@@ -60,9 +60,9 @@ assert.equal(c.notes.commissionRepeatable,false);assert.equal(c.notes.commission
 assert(c.families.find(t=>t.id==='WEALTH').mora>c.families.find(t=>t.id==='MOND_GATHER').mora*8,'the cash-oriented chain materially outpays low-risk gathering');
 assert(c.families.find(t=>t.id==='ABYSS').primogem>c.families.find(t=>t.id==='MOND_GATHER').primogem*40,'high-risk challenge rewards are not the same as gathering');
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../source/runtime_task_learning_catalog_v0169.js'),'utf8'),context);
-const combined=JSON.parse(JSON.stringify(context.CRPGTaskCatalogV0168));
-assert.equal(combined.chains.length,288);assert.equal(combined.weekly.length+combined.legacyWeekly.length,31);
-assert.equal(combined.families.length,29);
+const active=JSON.parse(JSON.stringify(context.CRPGTaskCatalogV0168)),combined=active.snapshotV0169;assert.equal(active.version,'0.16.11');assert.equal(active.branchVersion,171);assert(combined&&combined.version==='0.16.9');
+assert.equal(combined.chains.length,288);assert.equal(combined.weekly.length,31);
+assert.equal(active.families.length,29);
 assert.equal(combined.chains.reduce((n,t)=>n+(t.reward.mora||0),0),2671660);
 assert.equal(combined.chains.reduce((n,t)=>n+(t.reward.primogem||0),0),17875);
 assert.equal(hash(combined.legacyChains),hash(c.legacyChains),'learning additions do not overwrite old accepted definitions');
@@ -71,5 +71,9 @@ assert.equal(report.finiteTotals.mora,2671660);assert.equal(report.finiteTotals.
 assert.equal(report.policy.totalWeeklyCandidates,31);
 assert.equal(report.objectives.length,288);
 assert.equal(report.source.sha256,crypto.createHash('sha256').update(fs.readFileSync(path.join(__dirname,'../source/runtime_task_catalog_v0168.js'))).digest('hex'));
-assert.equal(report.source.learningCatalogue.sha256,crypto.createHash('sha256').update(fs.readFileSync(path.join(__dirname,'../source/runtime_task_learning_catalog_v0169.js'))).digest('hex'));
-console.log('통과: 0.16.9 임무 목록 · 기존 수락목표 보존 · 일일 후보12/통합 주간 후보31 · 주간 최대20 · 개별 기본보상240+학습·납품48');
+const learningSource=fs.readFileSync(path.join(__dirname,'../source/runtime_task_learning_catalog_v0169.js'),'utf8'),archiveMarker=learningSource.indexOf('// 0.16.11: retain');assert(archiveMarker>0);const originalLearningSource=learningSource.slice(0,archiveMarker)+'})(globalThis);\n';assert.equal(report.source.learningCatalogue.sha256,crypto.createHash('sha256').update(originalLearningSource).digest('hex'),'the complete original 169 overlay bytes remain intact before the appended 171 rules');
+const activeDaily=[...active.legacyDaily,...active.daily],activeWeekly=[...active.legacyWeekly,...active.weekly];assert.equal(activeDaily.length,11);assert.equal(activeWeekly.length,28);assert.equal(active.chains.length,288);
+const oldRecurring=[...combined.daily,...combined.weekly],activeRecurring=[...activeDaily,...activeWeekly];assert.deepEqual(oldRecurring.filter(t=>!activeRecurring.some(x=>x.id===t.id)).map(t=>t.id).sort(),['D_V168_HILI','W_V168_MOND_PATROL','W_V168_CRYO_VINE','W_V169_REPORT'].sort(),'only the four user-requested recurring definitions retire');
+for(const [rows,branches]of [[activeDaily,active.dailyBranches],[activeWeekly,active.weeklyBranches],[active.chains,active.oneTimeBranches]]){assert.deepEqual(Object.keys(branches).sort(),rows.map(t=>t.id).sort());for(const t of rows)assert(Array.isArray(branches[t.id]));}
+assert.equal(hash(combined.legacyChains),hash(c.legacyChains));assert.equal(active.chains.reduce((n,t)=>n+(t.reward.mora||0),0),2671660);assert.equal(active.chains.reduce((n,t)=>n+(t.reward.primogem||0),0),17875);
+console.log('통과: frozen 0.16.9 definitions/rewards · 0.16.11 active daily11/weekly28/finite288 · exactly four requested retirements');

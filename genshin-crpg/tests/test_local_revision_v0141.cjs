@@ -5,7 +5,7 @@ const {fixture}=require('./helpers_balance_v0141.cjs');
 const cp=x=>JSON.parse(JSON.stringify(x)),results=[];
 function test(name,fn){try{fn();results.push({name,ok:true});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 function restore(r){return new R(db,JSON.parse(r.serialize()));}
-function guild(r){r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});}
+function guild(r){r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});/* Native prerequisite bootstrap preserves the historical mechanic under test. */if(!r.s.quests.Q_TASK_LEARN_01?.claimed){r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});}}
 function sameRetry(r,type,params){const g=r.s.global,a={id:g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1),revision:g.SAVE_REVISION,type,...params};r.transact(a);const save=r.serialize();r.transact(a);assert.equal(r.serialize(),save,'duplicate action is exactly once');}
 test('commission XP reaches each active member once, excludes bench and survives retry',()=>{
  let r=fixture([6,6,6,6]);r.adminApply({op:'recruit',char:'MOND_LISA'});guild(r);const id='Q_MOND_EXP_PLAINS_CART';r.action('COMMISSION_ACCEPT',{quest:id});r.questState(id).node='READY_TO_CLAIM';
@@ -50,3 +50,4 @@ test('new investigation persists clues without quiz or sequence and old mission 
  const clues=e.steps[0].clues;r.action('LIYUE_FIELD_INSPECT',{clue:clues[0].id});r=restore(r);assert.equal(r.s.liyueField.clues.length,1);for(const clue of clues.slice(1))r.action('LIYUE_FIELD_INSPECT',{clue:clue.id});assert(r.s.liyueField.done);assert.equal(r.s.liyueField.sequence.length,0);r=restore(r);assert.equal(r.s.liyueField.mission,'v141_'+anchor);
 });
 fs.mkdirSync(root+'/reports/local-v0141',{recursive:true});fs.writeFileSync(root+'/reports/local-v0141/mechanics.json',JSON.stringify({results},null,2)+'\n');
+

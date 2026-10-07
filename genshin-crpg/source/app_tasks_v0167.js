@@ -56,7 +56,8 @@ function board(parent){
 // The day's four on the main screen's 「할 일」: one line each.
 function mini(parent){
  const v=view();if(!v)return;const sec=mk('section','card task-mini'),head=mk('div','task-mini-head');
- head.append(mk('strong','','오늘의 임무'),mk('small','',[...v.daily,v.bonus].filter(x=>x.claimed||x.done).length+' / '+(v.daily.length+1)));
+ const done=Number.isFinite(v.dailyTotal)?v.bonus.progress+Number(!!(v.bonus.claimed||v.bonus.done)):[...v.daily,v.bonus].filter(x=>x.claimed||x.done).length,total=Number.isFinite(v.dailyTotal)?v.dailyTotal+1:v.daily.length+1;
+ head.append(mk('strong','','오늘의 임무'),mk('small','',done+' / '+total));
  const more=button('임무판',()=>{showBoard=true;scope='daily';act('MENU',{screen:'QUEST'});});more.className='task-mini-open';head.append(more);sec.append(head);
  const list=mk('ul','task-mini-list');for(const x of [...v.daily,v.bonus]){const li=mk('li','task-mini-row '+(x.claimed?'claimed':x.lock?'locked':x.done?'ready':'progress'));const [label,cls]=KIND[x.icon]||['',''];li.title=x.name;li.append(mk('span','task-kind '+cls,label),mk('span','task-mini-name',x.short||x.name),mk('b','task-count',x.claimed?'받음':x.lock?x.lock:x.progress+'/'+x.goal));
   if(x.done&&!x.claimed){const b=claimButton(x);if(!x.here)b.textContent='보고';li.append(b);}list.append(li);}
