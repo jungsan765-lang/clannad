@@ -18,7 +18,8 @@ function load(extra={}){
 check('the module is shipped and loads after the shell, the combat effects and the playback',()=>{
  const html=src('index.html'),at=f=>html.indexOf('<script src="'+f+'"');
  assert(at('app_battle_fx_v01521.js')>at('app_shell.js')&&at('app_battle_fx_v01521.js')>at('app_combat_fx.js')&&at('app_battle_fx_v01521.js')>at('app_av.js'));
- assert(fs.readFileSync(path.join(root,'tools/build.py'),'utf8').includes("'app_motion.js','app_battle_fx_v01521.js',"),'the build ships it');
+ // 0.16.5: the canvas light (app_vfx_v0165.js) loads just before it (tests/test_vfx_v0165.cjs).
+ assert(fs.readFileSync(path.join(root,'tools/build.py'),'utf8').includes("'app_motion.js','app_vfx_v0165.js','app_battle_fx_v01521.js',"),'the build ships it');
  assert(src('app_shell.js').includes("if(typeof BattleFX!=='undefined')BattleFX.decorate(p);"),'every battle render decorates the cards');
 });
 
@@ -156,7 +157,8 @@ check('blows grow with what was won for the fighter: the weapon\'s grade and enh
  inv.push({equipped:true,owner:'MOND_C',equip:'W5',enhance:10});assert.deepEqual(pw('MOND_C'),{power:3,grade:5},'C6 with a +10 5★ weapon: everything, in gold');
  assert.deepEqual(plain(ctx.BattleFX.powerOf({side:'ENEMY'})),{power:0,grade:0});
  assert(!/level>=10|growth\?\.\(/.test(fx),'the level does not count');
- assert(fx.includes("const GRADE_GLOW={4:'#c79bff',5:'#ffd36b'};")&&fx.includes('strike(layer,style,p,{tint:TINT[hit.element]||\'#ffffff\',size:burst?1.3:1,angle},pw);'));
+ // 0.16.5: a critical hit is a little larger as well.
+ assert(fx.includes("const GRADE_GLOW={4:'#c79bff',5:'#ffd36b'};")&&fx.includes('strike(layer,style,p,{tint:TINT[hit.element]||\'#ffffff\',size:(burst?1.3:1)*(t.critical?1.15:1),angle},pw);'));
  assert(fx.includes('if(pw.power>=.5)')&&fx.includes('if(pw.power>=1.5)')&&fx.includes('if(pw.power>=2.5)'),'sparks, an afterimage, then a shockwave');
 });
 

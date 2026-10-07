@@ -61,6 +61,20 @@ const MOTION={
  blunt(l,p,o){star(l,p,o.tint,1.25*o.size);const r=mote(l,'wfx-ring',p,o.tint);CombatFX.animate(r,[{transform:'translate(-50%,-50%) scale(.3)',opacity:1},{transform:'translate(-50%,-50%) scale(1.9)',opacity:0}],{duration:420,fill:'both'});},
  slam(l,p,o){const r=mote(l,'wfx-ring',{x:p.x,y:p.y+20},o.tint);CombatFX.animate(r,[{transform:'translate(-50%,-50%) scale(.3,.15)',opacity:1},{transform:'translate(-50%,-50%) scale(2.1,.9)',opacity:0}],{duration:440,fill:'both'});sparks(l,{x:p.x,y:p.y-6},o.tint,7,46,420);}
 };
+// 0.16.5 (user: 「전투 이펙트도 좀... 전체적으로 퀄이 낮아서... 외부 에셋을 쓰던지 뭐 어떻게든 해봐...」): the same blows drawn as
+// light on app_vfx_v0165.js's canvas — blade crescents, thrust trails, sparks thrown the way the blow went, glows and
+// shock rings; the page pieces above stay for when it is missing. o.dir/o.alpha: a later afterimage.
+const VFX=()=>{const v=window.CRPGVFX;return v&&v.on()?v:null;};
+const LIGHT={
+ slash(v,p,o){v.slash(p.x,p.y,o.tint,{size:60*o.size,angle:-.55,dur:320,delay:o.delay});v.slash(p.x,p.y,o.tint,{size:56*o.size,angle:.6,flip:true,dur:320,delay:(o.delay||0)+120});v.flash(p.x,p.y,o.tint,{size:70*o.size,dur:300,alpha:.6,delay:(o.delay||0)+60});},
+ cleave(v,p,o){v.slash(p.x,p.y-10,o.tint,{size:74*o.size,heavy:true,angle:.85,dur:460,delay:o.delay});v.flash(p.x,p.y,o.tint,{size:120*o.size,dur:420,delay:(o.delay||0)+150});v.ring(p.x,p.y+34,o.tint,{size:130*o.size,flat:.3,dur:520,delay:(o.delay||0)+200});v.motes(p.x,p.y+30,'physical',{n:5,r:46*o.size,delay:(o.delay||0)+200});},
+ thrust(v,p,o){const dx=Math.cos(o.angle),dy=Math.sin(o.angle);[0,95,190].forEach((d,i)=>{const off=(i-1)*13,x=p.x-dy*off,y=p.y+dx*off;v.beam(x-dx*90,y-dy*90,x+dx*16,y+dy*16,o.tint,{width:5*o.size,dur:250,delay:(o.delay||0)+d});});v.sparks(p.x,p.y,o.tint,{n:10,dir:o.angle,spread:1.3,delay:(o.delay||0)+190});v.flash(p.x,p.y,o.tint,{size:72*o.size,dur:300,alpha:.7,delay:(o.delay||0)+190});},
+ arrow(v,p,o){v.flash(p.x,p.y,o.tint,{size:84*o.size,dur:320,delay:o.delay});v.sparks(p.x,p.y,o.tint,{n:9,dir:o.angle,spread:1.7,delay:o.delay});},
+ magic(v,p,o){v.flash(p.x,p.y,o.tint,{size:104*o.size,dur:460,delay:(o.delay||0)+220});v.ring(p.x,p.y,o.tint,{size:96*o.size,dur:560,delay:(o.delay||0)+220});v.motes(p.x,p.y,o.tint,{n:7,r:48*o.size,delay:(o.delay||0)+240});},
+ claw(v,p,o){const a=58*Math.PI/180,l=46*o.size;[-15,0,15].forEach((off,i)=>v.beam(p.x+off-Math.cos(a)*l,p.y-Math.sin(a)*l,p.x+off+Math.cos(a)*l,p.y+Math.sin(a)*l,o.tint,{width:4,dur:300,delay:(o.delay||0)+i*50,head:false}));v.sparks(p.x,p.y,o.tint,{n:7,delay:(o.delay||0)+110});},
+ blunt(v,p,o){v.flash(p.x,p.y,o.tint,{size:116*o.size,dur:380,delay:o.delay});v.ring(p.x,p.y,o.tint,{size:96*o.size,dur:420,delay:o.delay});v.sparks(p.x,p.y,o.tint,{n:11,delay:o.delay});},
+ slam(v,p,o){v.ring(p.x,p.y+20,o.tint,{size:126*o.size,flat:.35,dur:440,delay:o.delay});v.sparks(p.x,p.y-6,o.tint,{n:10,dir:-Math.PI/2,spread:2.4,delay:o.delay});v.motes(p.x,p.y+20,'physical',{n:4,r:48,delay:o.delay});}
+};
 // Called by CombatFX.windup (app_combat_fx.js) while the attacker steps in: only arrows and spells travel; a melee
 // weapon sends nothing ahead, its blow is drawn when it lands.
 function windupShot(frame,effects,from,auxiliary,summonSource,timing={}){
@@ -159,8 +173,23 @@ const REACTION_FX={
  burning(l,p){for(let i=0;i<5;i++)fly(l,p,'rfx-flame',{dx:(i-2)*18,dy:-60-(i%2)*20,from:.6,to:1.3,dur:800,delay:i*60});},
  bloom(l,p){for(const v of around(5,58,.5))fly(l,p,'rfx-orb',{dx:v.dx,dy:v.dy,from:.3,to:1.1,dur:820});fly(l,p,'rfx-ring rfx-bloom',{from:.3,to:2.2,dur:700});}
 };
+// 0.16.5: each reaction's blast as light (app_vfx_v0165.js) when the canvas is there.
+const LIGHT_REACTION={
+ overload(v,p,node){v.flash(p.x,p.y,'pyro',{size:200,dur:560});v.flash(p.x,p.y,'electro',{size:130,dur:420,delay:60,alpha:.8});v.ring(p.x,p.y,'pyro',{size:220,dur:640});v.sparks(p.x,p.y,'pyro',{n:18,speed:560,gravity:320});v.motes(p.x,p.y,'pyro',{n:9,r:70});v.shake(node?.closest?.('.shell-enemies,.shell-allies'),6,320);},
+ vaporize(v,p){v.flash(p.x,p.y,'hydro',{size:150,dur:520});v.flash(p.x,p.y,'pyro',{size:110,dur:420,delay:60,alpha:.7});v.motes(p.x,p.y,'hydro',{n:9,r:56});v.motes(p.x,p.y-20,'neutral',{n:6,r:40,fall:-90,dur:900});},
+ melt(v,p){v.flash(p.x,p.y,'pyro',{size:160,dur:540});v.ring(p.x,p.y,'cryo',{size:150,dur:620,delay:80});v.motes(p.x,p.y,'pyro',{n:8,r:52});v.motes(p.x,p.y,'cryo',{n:6,r:52,delay:80});},
+ frozen(v,p){v.motes(p.x,p.y,'cryo',{n:12,r:74,inward:true,dur:700});v.ring(p.x,p.y,'cryo',{size:160,dur:700,delay:300});v.flash(p.x,p.y,'cryo',{size:130,dur:460,delay:420});},
+ superconduct(v,p){v.ring(p.x,p.y,'cryo',{size:190,dur:700});v.ring(p.x,p.y,'electro',{size:150,dur:640,delay:80});v.sparks(p.x,p.y,'electro',{n:14,speed:480});v.motes(p.x,p.y,'cryo',{n:8,r:62});},
+ charged(v,p){for(let i=0;i<3;i++){const a=Math.random()*Math.PI*2,r=56;v.bolt(p.x,p.y,p.x+Math.cos(a)*r,p.y+Math.sin(a)*r,'electro',{branches:1,w:2,dur:300,delay:i*90,size:50});}v.motes(p.x,p.y,'hydro',{n:6,r:40});},
+ swirl(v,p){v.vortex(p.x,p.y,'anemo',{size:170,dur:900});v.motes(p.x,p.y,'anemo',{n:10,r:84});},
+ crystallize(v,p){v.ring(p.x,p.y,'geo',{size:140,hex:true,dur:660});v.motes(p.x,p.y-30,'geo',{n:9,r:52});v.flash(p.x,p.y-40,'geo',{size:96,dur:420,delay:200});},
+ shatter(v,p,node){v.motes(p.x,p.y,'cryo',{n:16,r:104});v.flash(p.x,p.y,'cryo',{size:140,dur:420});v.sparks(p.x,p.y,'cryo',{n:10,speed:460});v.shake(node?.closest?.('.shell-enemies,.shell-allies'),5,280);},
+ burning(v,p){v.motes(p.x,p.y+12,'pyro',{n:14,r:42,dur:800});},
+ bloom(v,p){v.flash(p.x,p.y,'dendro',{size:150,dur:600});v.ring(p.x,p.y,'dendro',{size:160,dur:700});v.motes(p.x,p.y,'dendro',{n:12,r:74});}
+};
+const SHIELD_EL={cryo:'cryo',electro:'electro',pyro:'pyro',hydro:'hydro',dendro:'dendro',geo:'geo'};
 function reactionOf(id){id=String(id||'');return REACT.find(([re])=>re.test(id))?.[1]||null;}
-function shatter(layer,p,kind){fly(layer,p,'rfx-ring shard-ring shard-'+kind,{from:.6,to:2.2,dur:520});for(const v of around(10,92,.2))fly(layer,p,'shield-shard shard-'+kind,{dx:v.dx,dy:v.dy,from:1,to:.4,rot:v.deg*3,dur:620});}
+function shatter(layer,p,kind){const v=VFX();if(v){const el=SHIELD_EL[kind]||'neutral';v.ring(p.x,p.y,el,{size:150,dur:520,hex:el==='geo'});v.motes(p.x,p.y,el==='neutral'?'cryo':el,{n:14,r:96});v.flash(p.x,p.y,el,{size:120,dur:380,alpha:.8});return;}fly(layer,p,'rfx-ring shard-ring shard-'+kind,{from:.6,to:2.2,dur:520});for(const v of around(10,92,.2))fly(layer,p,'shield-shard shard-'+kind,{dx:v.dx,dy:v.dy,from:1,to:.4,rot:v.deg*3,dur:620});}
 // A short red (hit) or green (heal) flash over the card itself.
 function flash(node,kind){
  if(!node)return;node.querySelector(':scope > .hit-flash.'+kind)?.remove();const f=span('hit-flash '+kind);node.append(f);
@@ -185,6 +214,15 @@ function powerOf(a){
 function blow(layer,style,p,o){const before=layer.childElementCount;MOTION[style](layer,p,o);return [...layer.children].slice(before);}
 function strike(layer,style,p,o,pw){
  const size=o.size*(1+Math.min(.3,pw.power*.1)),glow=GRADE_GLOW[pw.grade],opt={...o,size};
+ const v=VFX();
+ if(v&&LIGHT[style]){
+  LIGHT[style](v,p,opt);
+  if(glow)v.flash(p.x,p.y,glow,{size:96*size,dur:420,alpha:.6,delay:80});
+  if(pw.power>=.5)v.sparks(p.x,p.y,glow||o.tint,{n:4+Math.round(pw.power*3),speed:480,delay:60});
+  if(pw.power>=1.5)LIGHT[style](v,{x:p.x+7,y:p.y-5},{...opt,size:size*.88,tint:glow||o.tint,delay:110});
+  if(pw.power>=2.5)v.ring(p.x,p.y,glow||o.tint,{size:170,dur:560,delay:120});
+  return;
+ }
  const made=blow(layer,style,p,opt);if(glow)for(const n of made)n.style.filter='drop-shadow(0 0 7px '+glow+') drop-shadow(0 0 2px '+glow+')';
  if(pw.power>=.5)sparks(layer,p,glow||o.tint,3+Math.round(pw.power*2),40+pw.power*10,360);
  if(pw.power>=1.5){const speed=typeof settings!=='undefined'?settings.combatSpeed||1:1;setTimeout(()=>{if(!layer.isConnected)return;for(const n of blow(layer,style,{x:p.x+7,y:p.y-5},{...opt,size:size*.88}))n.style.filter=(glow?'drop-shadow(0 0 6px '+glow+') ':'')+'opacity(.5)';},Math.round(110/speed));}
@@ -223,9 +261,11 @@ function onFrame(frame,effects){
   }
   if(!p||!motion)continue;
   const hit=(t.events||[]).find(e=>e.kind==='damage');
-  if(style&&hit&&t.targetId!==frame.actorId&&blows<5){blows++;const angle=from?Math.atan2(p.y-from.y,p.x-from.x):0;strike(layer,style,p,{tint:TINT[hit.element]||'#ffffff',size:burst?1.3:1,angle},pw);}
+  if(style&&hit&&t.targetId!==frame.actorId&&blows<5){blows++;const angle=from?Math.atan2(p.y-from.y,p.x-from.x):0;strike(layer,style,p,{tint:TINT[hit.element]||'#ffffff',size:(burst?1.3:1)*(t.critical?1.15:1),angle},pw);
+   // 0.16.5: a critical hit flares gold and jolts the side it struck
+   if(t.critical){const v=VFX();if(v){v.flash(p.x,p.y,'#ffd36b',{size:150,dur:420,alpha:.85,delay:60});v.sparks(p.x,p.y,'geo',{n:10,speed:520,delay:60});v.shake(node.closest?.('.shell-enemies,.shell-allies'),4,260);}}}
   const kinds=new Set();for(const e of t.events||[]){const k=reactionOf(e.kind==='reaction'?(e.reactionId||e.label):e.reactionId);if(k)kinds.add(k);}
-  for(const k of [...kinds].slice(0,2))REACTION_FX[k](layer,p);
+  const v=VFX();for(const k of [...kinds].slice(0,2)){if(v&&LIGHT_REACTION[k])LIGHT_REACTION[k](v,p,node);else REACTION_FX[k](layer,p);}
  }
 }
 if(typeof GameEffects!=='undefined'&&typeof GameEffects.showAction==='function'){const prior=GameEffects.showAction;GameEffects.showAction=function(frame,...args){const out=prior.call(this,frame,...args);try{onFrame(frame,this);}catch(e){console.warn('battle fx',e);}return out;};}
