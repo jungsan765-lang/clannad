@@ -133,7 +133,9 @@ check('the turn order on screen is the order they act in: a new round brings its
 check('buffs and debuffs are chips with what they do; the formation is the battle\'s own tag',()=>{
  const exp=src('app_experience.js'),from=exp.indexOf('const STATUS_ELEMENT='),to=exp.indexOf('function statusChip(');assert(from>0&&to>from);
  const rows=new Map([['STATUS_WET',['STATUS_WET','습윤','원소 상태','물·얼음·번개 연계 조건으로 취급. 단독 피해 없음']],['STATUS_DEF_DOWN',['STATUS_DEF_DOWN','방어력 감소','디버프','DEF 감소']],['STATUS_FREEZE',['STATUS_FREEZE','빙결','제어','행동 제한']]]);
- const names={DILUC_INFUSION:'불 원소 부여',OMEN:'성이'};
+ // Names now come from audited catalog/DB rows, not a safeName-only alias stub.
+ const names={DILUC_INFUSION:c.CRPGRuntime.statusCatalog.DILUC_INFUSION.name,OMEN:c.CRPGRuntime.statusCatalog.OMEN.name};
+ for(const [id,name]of Object.entries(names))rows.set(id,[id,name,id==='OMEN'?'디버프':'버프','']);
  const ctx=vm.createContext({game:{tables:{'13_STATUS_EFFECT_DB':rows}},safeName:(t,id)=>rows.get(id)?.[1]||names[id]||id,window:{CRPGRuntime:{formationConfig:{roles:{공격우선:{label:'공격 담당',text:'공격력 +6% · 받는 피해 +6%'}}}}}});
  vm.runInContext(exp.slice(from,to),ctx);
  const list=plain(vm.runInContext("battleStatusList({airborne:true,statuses:[{id:'FORMATION',rounds:null,mods:{atk:{pct:6}}},{id:'ROLE',role:'공격우선',rounds:null},{id:'STATUS_WET',rounds:2},{id:'STATUS_DEF_DOWN',rounds:1},{id:'STATUS_FREEZE',rounds:1},{id:'DILUC_INFUSION',rounds:2,mods:{atk:{pct:20},crit:{flat:5}}},{id:'OMEN',rounds:2},{id:'OLD',rounds:0}]})",ctx));
@@ -164,7 +166,13 @@ check('blows grow with what was won for the fighter: the weapon\'s grade and enh
 
 check('약점 간파 shows on the target the moment it lands: a debuff chip and a red sight',()=>{
  assert(src('runtime_status_v01522.js').includes('statusApplied:JSON.parse(JSON.stringify(result))'),'only successful, actual status applications enter playback');
- assert(fx.includes('if(e.statusApplied){liveStatus(node,e.statusApplied)'));assert(!fx.includes('APPLIES['),'removed prediction table must have no live references');
+ assert(fx.includes('if(e.statusApplied){if(!e.presentationActorsAfter?.length)liveStatus(node,e.statusApplied)'));assert(!fx.includes('APPLIES['),'removed prediction table must have no live references');
+ // Current snapshot-bearing events are applied by playback at their impact callback.
+ // Legacy events still use the old liveStatus path. Execute the real hook for both.
+ let applications=0;const ctx=load({game:{s:{runtime:{actors:[]}}},CombatFX:{point:()=>null},battleStatusList(){applications++;return [];},statusChip(){}});
+ const e={kind:'status',sourceKind:'STATUS_APPLY',statusApplied:{id:'STATUS_ISEKAI_EXPOSED'},presentationActorsAfter:[{id:'TARGET',statuses:[{id:'STATUS_ISEKAI_EXPOSED'}]}]},frame={kind:'action',sourceKind:'STATUS_APPLY',events:[e],targets:[{targetId:'TARGET',events:[e]}]},effects={layerNode:()=>({}),actorNode:()=>({querySelector:()=>null})};
+ ctx.BattleFX.onFrame(frame,effects);assert.equal(applications,0,'snapshot events must not apply future effects at frame start');
+ delete e.presentationActorsAfter;ctx.BattleFX.onFrame(frame,effects);assert.equal(applications,1,'legacy effect events remain visible');
  assert(fx.includes("['STATUS_ISEKAI_EXPOSED','exposed']"),'the sight stays while it lasts');
  assert(src('runtime_combat_v0148.js').includes("statuses.push([EXPOSED,'약점 간파','디버프','파티에게 받는 피해가 늘어난다(일반 '"),'listed as a 디버프 with what it does');
  assert(css.includes('.combat-panel .status-fx>.st-exposed::before{')&&css.includes('.combat-light.wfx-sight{')&&css.includes('.st-chip.fresh{'));
@@ -223,3 +231,4 @@ check('every reaction kind has a burst',()=>{
 
 const out=path.join(root,'reports','test_v01521.json');fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(results,null,2));
 console.log(JSON.stringify({ok:results.every(r=>r.ok),checks:results.length}));
+

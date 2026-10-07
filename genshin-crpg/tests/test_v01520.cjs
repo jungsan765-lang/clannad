@@ -58,7 +58,7 @@ check('battle: the 「차례」 tag and the 「○ 부착」 badge never share a
 check('enemy cards: pressing the card chooses the target; 선택/선택됨 is gone and 「정보」 remains',()=>{
  const row=fnBody(src('app_experience.js'),'battleActorRow'),css=src('shell.css');
  assert(!row.includes("'선택됨'")&&!row.includes("'선택'"));
- assert(row.includes("c.classList.add('targetable');c.addEventListener('click',e=>{if(e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});"));
+ assert(row.includes("c.classList.add('targetable');c.addEventListener('click',e=>{if(busy||window.ActorPlayback?.active||e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});"));
  assert(src('app_enemy_intel.js').includes("const info=button('정보',()=>EnemyIntel.open(a.id));"));
  assert(!css.includes('.combatant-row.selected>button:not(.enemy-info-button)'),'no style left for the removed button');
 });
@@ -91,3 +91,4 @@ check('「해당 단계 재도전」 after a lost boss step: the button steps ba
 
 const out=path.join(root,'reports','test_v01520.json');fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(results,null,2));
 console.log(JSON.stringify({ok:results.every(r=>r.ok),checks:results.length}));
+

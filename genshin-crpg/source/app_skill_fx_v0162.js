@@ -165,13 +165,17 @@ function cardOfFrame(f){
  return byName(f?.cardName);
 }
 const elementOfFrame=f=>{for(const t of f.targets||[])for(const e of t.events||[])if(e.kind==='damage'&&FRAME_EL[e.element])return FRAME_EL[e.element];return null;};
-const NOT_CAST=new Set(['FIELD','OBJECT','REACTION','REACTION_DOT','FOLLOWUP','SUMMON','HAZARD','SHIELD_BREAK','COUNTER','ASSIST','BUBBLE','SPREAD','SPLASH','CONSTELLATION','TRAIT_PROC','ENEMY_SUMMON','LIGHTFALL_EXPLOSION','AZHDAHA_LEYLINE','AZHDAHA_PHASE','BOSS_ARENA','ELEMENT_ABSORPTION','JOINT_SKIPPED','TEMP_MAX_HP']);
+const NOT_CAST=new Set(['STATUS_APPLY','FIELD','OBJECT','REACTION','REACTION_DOT','FOLLOWUP','SUMMON','HAZARD','SHIELD_BREAK','COUNTER','ASSIST','BUBBLE','SPREAD','SPLASH','CONSTELLATION','TRAIT_PROC','ENEMY_SUMMON','LIGHTFALL_EXPLOSION','AZHDAHA_LEYLINE','AZHDAHA_PHASE','BOSS_ARENA','ELEMENT_ABSORPTION','JOINT_SKIPPED','TEMP_MAX_HP']);
 // One cast is one skill used once (round · action · card) within one playback; its first frame draws the cast, later
 // frames only their hits. A cast that damages nobody (a buff, a debuff) draws its hit on whoever it marked.
 const seen=new Map(),damaging=new Set();
 function castKey(f){
  if(!f||f.kind!=='action'||f.periodic||NOT_CAST.has(f.sourceKind||''))return null;
- const id=cardOfFrame(f);if(!SPEC[id])return null;return {id,key:[f.round,f.action,id].join('|')};
+ const id=cardOfFrame(f),spec=SPEC[id];if(!spec)return null;
+ // A recipient's status log can carry the source skill's name. That never makes the recipient its caster.
+ const actor=window.ActorPlayback?.currentActor?.(f.actorId)||actorIn(battle(),f.actorId);
+ if(f.actorSide==='ENEMY'||actor&&(actor.side!=='ALLY'||actor.source!==spec.owner&&actor.id!==spec.owner))return null;
+ return {id,key:[f.round,f.action,id].join('|')};
 }
 function castOf(f){
  const k=castKey(f);if(!k)return null;
@@ -432,10 +436,12 @@ function placeField(panel,f,b,fresh){
  else if(where==='allies'){for(const row of rows(side)){if(row.classList.contains('dead'))continue;const n=addLook(row,kind,el);if(fresh)appear(n);}}
  else{const foe=where==='foe'?(side==='ENEMY'?'ALLY':'ENEMY'):side;const n=addZone(panel.querySelector(foe==='ENEMY'?'.shell-enemies':'.shell-allies'),kind,el);if(fresh)appear(n);}
 }
-function placeStatus(row,s,a){const look=STATUS_LOOK[s.id];if(!look)return null;let [kind,el]=look;if(s.id==='LIYUE_COUNTER')el=s.card==='LIYUE_YUNJIN_E'?'geo':'electro';return addLook(row,kind,el);}
+function placeStatus(row,s,a){const look=STATUS_LOOK[s.id];if(!look)return null;let [kind,el]=look;if(s.id==='LIYUE_COUNTER')el=s.card==='LIYUE_YUNJIN_E'?'geo':'electro';const n=addLook(row,kind,el);n?.classList.add('sfx-status-look');return n;}
 function placeHazards(col,b,fresh){for(const h of b?.hazards||[]){const kind=HAZARD_LOOK[h.kind];if(kind&&(!Number.isFinite(h.rounds)||h.rounds>0)){const n=addZone(col,kind,HAZARD_EL[kind]);if(fresh)appear(n);}}}
-function decorateBoard(p){
- const b=battle();if(!b||!p)return;
+function decorateBoard(p,shownActor){
+ if(!p)return;
+ if(shownActor){for(const old of p.querySelectorAll('.sfx-status-look'))old.remove();if(shownActor.hp>0)for(const s of shownActor.statuses||[])if(live(s))placeStatus(p,s,shownActor);return;}
+ const b=battle();if(!b)return;
  for(const old of p.querySelectorAll('.sfx-card,.sfx-zone'))old.remove();
  for(const row of p.querySelectorAll('.combatant-row[data-actor-id]')){const a=actorIn(b,row.dataset.actorId);if(!a||a.hp<=0)continue;
   for(const s of a.statuses||[])if(live(s))placeStatus(row,s,a);
@@ -585,7 +591,7 @@ if(typeof GameEffects!=='undefined'){
  // Skipped or replaced, everything stops; at the playback's own end the last effects finish (unless the fight is over).
  if(typeof GameEffects.cancel==='function'){const prior=GameEffects.cancel;GameEffects.cancel=function(...args){const natural=this.active&&!this.resolve&&!!battle();unstretch();current=null;linger=0;if(held){held=false;for(const a of running){try{a.play();}catch{}}}if(!natural)stopAll();return prior.apply(this,args);};}
 }
-if(typeof BattleFX!=='undefined'&&typeof BattleFX.decorate==='function'){const prior=BattleFX.decorate;BattleFX.decorate=function(p,...args){const out=prior.call(this,p,...args);try{decorateBoard(p);}catch(e){console.warn('skill fx',e);}return out;};}
+if(typeof BattleFX!=='undefined'&&typeof BattleFX.decorate==='function'){const prior=BattleFX.decorate;BattleFX.decorate=function(p,...args){const out=prior.call(this,p,...args);try{decorateBoard(p,args[0]);}catch(e){console.warn('skill fx',e);}return out;};}
 // Presentation: Osial's round-end deluge logs a card id the card table does not have, so its name is given here (the
 // playback said 「기본 공격」); a field's tick has its own sound.
 if(window.CRPGPresentation?.actionFrames){

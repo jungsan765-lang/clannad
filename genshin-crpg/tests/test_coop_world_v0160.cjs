@@ -8,7 +8,7 @@ const {fs,root,c,db,R}=require('./helpers_v011.cjs'),{fixture}=require('./helper
 const api=c.CRPGRuntime,results=[],cp=x=>JSON.parse(JSON.stringify(x));
 function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evidence:evidence??null});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 const refused=(fn,pattern)=>{try{fn();}catch(e){if(pattern)assert.match(e.message,pattern);return true;}return false;};
-const ROOM='Rabcdef1234',G1='aaaaaaaaaaaa',G2='bbbbbbbbbbbb',T0=Date.UTC(2026,9,6,3,0,0),PLAYER='PLAYER_CUSTOM';
+const ROOM='Rabcdef1234',G1='aaaaaaaaaaaa',G2='bbbbbbbbbbbb',T0=c.Date.now(),PLAYER='PLAYER_CUSTOM';
 const ctx=(extra={},members=[],caller=null)=>({version:1,room:ROOM,members,caller,...extra});
 const reload=r=>{const x=new R(db,cp(r.s));x.actionStartedAt=r.actionStartedAt;x.coopContext=r.coopContext;return x;};
 function guest(){const g=fixture(12,['MOND_AMBER','MOND_KAEYA'],6,'ROUTE_ISEKAI');Object.assign(g.s.global,{CURRENT_MAP_ID:'MAP_MOND_CITY',LOCATION:'몬드성',LAST_SAFE_MAP_ID:'MAP_MOND_CITY',SCREEN_MODE:'LOCATION'});g.actionStartedAt=T0;g.ensureExplorationState();return g;}

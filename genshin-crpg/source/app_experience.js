@@ -323,9 +323,9 @@ function battleStatusList(a){
   for(const s of a.statuses||[]){
     if(s.id==='FORMATION'||Number.isFinite(s.rounds)&&s.rounds<=0)continue;
     if(s.id==='ROLE'){const R=window.CRPGRuntime?.formationConfig?.roles?.[s.role];if(R)list.push({id:'ROLE',name:R.label,kind:'role',text:R.text,rounds:null});continue;}
-    const db=game.tables['13_STATUS_EFFECT_DB']?.get(s.id),type=String(db?.[2]||''),name=safeName('13_STATUS_EFFECT_DB',s.id);
+    const db=game.tables['13_STATUS_EFFECT_DB']?.get(s.id),catalog=globalThis.CRPGRuntime?.statusCatalog?.[s.id],type=String(db?.[2]||''),name=catalog?.name||db?.[1]||s.name||'알 수 없는 효과';
     const kind=STATUS_KIND[s.id]||(/원소/.test(type)?'element':/제어/.test(type)?'hold':STATUS_DEBUFF.has(s.id)||/디버프|지속 피해|저하/.test(type)?'debuff':'buff');
-    list.push({id:s.id,name,kind,text:globalThis.CRPGRuntime?.statusCatalog?.[s.id]?.text||[db?.[3]||'',statusModsText(s)].filter(Boolean).join(' · '),rounds:Number.isFinite(s.rounds)?s.rounds:null,element:STATUS_ELEMENT[s.id]||null});
+    list.push({id:s.id,name,kind,text:catalog?.text||[db?.[3]||'',statusModsText(s)].filter(Boolean).join(' · '),rounds:Number.isFinite(s.rounds)?s.rounds:null,element:STATUS_ELEMENT[s.id]||null});
   }
   return list;
 }
@@ -337,20 +337,32 @@ function statusChip(x){
 }
 function battleStatusChips(a){
   const list=battleStatusList(a);if(!list.length)return null;
-  const row=button('',()=>battleStatusDetails(a,row._statusList));row._statusList=list;row.className='status-chips';row.setAttribute('aria-label',a.name+'의 효과 '+list.length+'개 · '+list.map(x=>x.name).join(', ')+' · 눌러서 자세히 보기');
+  const row=button('',()=>battleStatusDetails(a,row._statusList));row._statusList=list;row.className='status-chips';row.dataset.battleInspection='status';row.setAttribute('aria-label',a.name+'의 효과 '+list.length+'개 · '+list.map(x=>x.name).join(', ')+' · 눌러서 자세히 보기');
   for(const x of list)row.append(statusChip(x));return row;
 }
+// Inspection follows the actor currently visible in playback. The runtime may already contain the end of the round.
+let battleStatusUnsubscribe=null;
 function battleStatusDetails(a,list){
-  const box=el('div','status-details');
-  for(const x of list){const row=el('div','status-detail');row.append(statusChip(x),el('p','',(x.text||'설명이 없는 효과입니다.')+(x.rounds!==null?' · '+x.rounds+'라운드 남음':' · 전투 내내')));box.append(row);}
-  showModal(a.name+' · 효과',box);
+  battleStatusUnsubscribe?.();battleStatusUnsubscribe=null;
+  const box=el('div','status-details'),dialog=document.getElementById('modal');
+  const update=()=>{
+    const playback=window.ActorPlayback,shown=playback?.currentActor?.(a.id),actor=shown||(!playback?.active&&game.s.runtime?.actors?.find(x=>x.id===a.id))||a;
+    const current=shown||Array.isArray(actor.statuses)?battleStatusList(actor):(list||[]);box.replaceChildren();
+    if(!current.length)box.append(el('p','muted','현재 적용된 효과가 없습니다.'));
+    for(const x of current){const row=el('div','status-detail');row.append(statusChip(x),el('p','',(x.text||'설명이 없는 효과입니다.')+(x.rounds!==null?' · '+x.rounds+'라운드 남음':' · 전투 내내')));box.append(row);}
+  };
+  update();showModal(a.name+' · 효과',box);
+  if(window.ActorPlayback?.subscribe){
+    battleStatusUnsubscribe=window.ActorPlayback.subscribe(()=>{if(!dialog?.open||!box.isConnected){battleStatusUnsubscribe?.();battleStatusUnsubscribe=null;return;}update();});
+    dialog?.addEventListener('close',()=>{battleStatusUnsubscribe?.();battleStatusUnsubscribe=null;},{once:true});
+  }
 }
 // The formation tag at the top says what it does (on the pointer, and in a window when pressed).
 function battleFormationTag(b){
   const fm=b.formationV1&&window.CRPGRuntime?.formationConfig?.formations?.[b.formationV1.id];if(!fm)return null;
   const on=!!b.formationV1.synergy,text=fm.text+' · '+(on?'시너지 발동 · ':'시너지 조건 · ')+fm.synergy.text+(on?'':' (지금은 꺼짐)');
   const tag=button('진형 · '+fm.name+(on?' · 시너지 발동':''),()=>{const box=el('div','status-details');box.append(el('p','','편성에서 고른 진형입니다. 이 전투에서 파티 전원에게 적용됩니다.'),el('p','',text));showModal('진형 · '+fm.name,box);});
-  tag.className='battle-formation'+(on?' synergy':'');tag.title=text;tag.setAttribute('aria-label','진형 · '+fm.name+' · '+text);return tag;
+  tag.dataset.battleInspection='effect';tag.className='battle-formation'+(on?' synergy':'');tag.title=text;tag.setAttribute('aria-label','진형 · '+fm.name+' · '+text);return tag;
 }
 function battleActorRow(a,chosen,index){
   const c=el('div','actor combatant-row'+(a.hp<=0?' dead':'')+(a.id===selectedTarget?' selected':''));c.dataset.actorId=a.id;c.dataset.maxHp=a.maxHp;c.dataset.side=a.side;
@@ -362,7 +374,7 @@ function battleActorRow(a,chosen,index){
   if(chosen?.targets?.some(t=>t.id===a.id)){
     // 0.15.18 (user: 적 누르면 타겟): a press anywhere on the card chooses it. 0.15.20 (user: 「선택됨 저걸 없애고 정보를
     // 넣어야지」): so the card has no 선택/선택됨 button; the gold frame marks the target and 「정보」 stands in its place.
-    c.classList.add('targetable');c.addEventListener('click',e=>{if(e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});
+    c.classList.add('targetable');c.addEventListener('click',e=>{if(busy||window.ActorPlayback?.active||e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});
     // 0.15.25 (user: 「v 눌러서 고르는거 그거 아예 쓰지 말라」): the card is the only way to choose — no list under the skills — so
     // a keyboard reaches it too (Tab, then Enter or Space).
     c.tabIndex=0;c.setAttribute('role','button');c.setAttribute('aria-pressed',String(selectedTarget===a.id));c.setAttribute('aria-label',(a.name||'대상')+(index?' '+index:'')+' 대상으로 고르기');
@@ -436,11 +448,11 @@ combat=function(p){
   if(!opening){const turn=battleTurnBanner(b);if(turn)controls.append(turn);}
   if(opening){controls.append(el('h2','','준비되면 전투를 시작하세요'),el('p','','아직 누구도 공격하지 않았습니다. 시작하면 위 순서대로 행동합니다. 주인공의 차례에는 행동 → 대상 → 실행을 선택하세요.'),actionButton('전투 시작','COMBAT_BEGIN',{battle:b.id},true));}
   else{
-    const buttons=el('div','battle-cards');for(const card of cards){const slot=el('div','battle-card-choice'),btn=button('',()=>{selectedCard=card.id;selectedBranch=card.branches?.[0]||'';render();},!!card.reason||busy);btn.dataset.cardId=card.id;btn.classList.toggle('selected',selectedCard===card.id);btn.append(el('strong','',card.name),el('small','',card.reason||(card.cooldown?'재사용 '+card.cooldown+'차례':'사용 가능')));const effect=button('효과',()=>combatCardEffect(card,b));effect.className='battle-effect-button';effect.setAttribute('aria-label',(card.name||'행동')+' 효과 보기');slot.append(btn,effect);buttons.append(slot);}controls.append(buttons);
+    const buttons=el('div','battle-cards');for(const card of cards){const slot=el('div','battle-card-choice'),btn=button('',()=>{if(busy||window.ActorPlayback?.active)return;selectedCard=card.id;selectedBranch=card.branches?.[0]||'';render();},!!card.reason||busy);btn.dataset.cardId=card.id;btn.classList.toggle('selected',selectedCard===card.id);btn.append(el('strong','',card.name),el('small','',card.reason||(card.cooldown?'재사용 '+card.cooldown+'차례':'사용 가능')));const effect=button('효과',()=>combatCardEffect(card,b));effect.dataset.battleInspection='effect';effect.className='battle-effect-button';effect.setAttribute('aria-label',(card.name||'행동')+' 효과 보기');slot.append(btn,effect);buttons.append(slot);}controls.append(buttons);
     // 0.15.25 (user: 「v 눌러서 고르는거 그거 아예 쓰지 말라」): the way to use a skill is two or three buttons side by side; the
     // target is chosen on the fighters' cards (the list under the skills is gone).
     const execute=el('div','battle-execute');if(chosen?.branches?.length){if(!chosen.branches.includes(selectedBranch))selectedBranch=chosen.branches[0];const seg=el('div','battle-branches');seg.setAttribute('role','radiogroup');seg.setAttribute('aria-label','스킬 방식');
-      for(const branch of chosen.branches){const bb=button(({TAP:'짧게',HOLD:'길게',CHARGE:'차지'})[branch]||branch,()=>{selectedBranch=branch;render();});bb.className='battle-branch'+(branch===selectedBranch?' selected':'');bb.setAttribute('role','radio');bb.setAttribute('aria-checked',String(branch===selectedBranch));seg.append(bb);}execute.append(seg);}
+      for(const branch of chosen.branches){const bb=button(({TAP:'짧게',HOLD:'길게',CHARGE:'차지'})[branch]||branch,()=>{if(busy||window.ActorPlayback?.active)return;selectedBranch=branch;render();});bb.className='battle-branch'+(branch===selectedBranch?' selected':'');bb.setAttribute('role','radio');bb.setAttribute('aria-checked',String(branch===selectedBranch));seg.append(bb);}execute.append(seg);}
     const run=actionButton(chosen?.id==='PLAYER_BASIC_ATTACK'?'공격 실행':'선택한 행동 실행','COMBAT',{card:selectedCard,target:selectedTarget,branch:selectedBranch},true);run.disabled=run.disabled||!chosen||!!chosen.reason;execute.append(run);controls.append(execute);
   }const blockedAttack=!opening&&game.combatCards().find(c=>c.id==='PLAYER_BASIC_ATTACK'&&/공중/.test(c.reason));if(blockedAttack)controls.append(el('p','battle-target-warning',blockedAttack.reason));if(!opening&&game.combatFleeReason?.()===''){const retreat=el('div','battle-retreat');retreat.append(el('p','muted','전투가 길어졌습니다. 도망치면 현재 체력은 유지되며 보상은 받지 못합니다.'),actionButton('도망치기','COMBAT_FLEE',{},false));controls.append(retreat);}controls.append(combatSpeedControl());p.append(controls);
   const stage=el('div','compact-battle-stage'),foes=b.actors.filter(a=>a.side==='ENEMY'),representative=foes.find(a=>a.hp>0)||foes[0];

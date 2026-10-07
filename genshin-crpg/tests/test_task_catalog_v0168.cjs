@@ -6,10 +6,10 @@ vm.runInContext(fs.readFileSync(path.join(root,'source/runtime_task_catalog_v016
 const catalog=JSON.parse(JSON.stringify(ctx.CRPGTaskCatalogV0168));
 const {fresh,c}=require('./helpers_v011.cjs'),r=fresh();
 const rows=[...catalog.daily,...catalog.weekly,...catalog.chains],by=new Map(rows.map(t=>[t.id,t]));
-assert.deepEqual(catalog.stats,{daily:8,weekly:4,chains:240,families:24});
+assert.deepEqual(catalog.stats,{daily:8,weekly:20,chains:240,families:24});
 assert.equal(by.size,rows.length,'every stable task and commission ID is unique');
 assert.equal(catalog.families.length,24);
-const kinds=new Set(['win','ley','domain','boss','abyss','gather','mine','fish','hunt','cook','forge']);
+const kinds=new Set(['win','ley','domain','boss','abyss','gather','mine','fish','hunt','cook','forge','life']);
 const elements=new Set(['PYRO','HYDRO','CRYO','ELECTRO','ANEMO','GEO','DENDRO','PHYSICAL']);
 const domainSites=r.growthDomainSites(),leyLevels=new Set([6,15,30,45,60]);
 const materialKinds={gather:'GATHER',mine:'MINE',fish:'FISH',hunt:'HUNT'};
@@ -50,16 +50,16 @@ for(const t of rows){
   assert(t.kind==='cook'?q[1]==='요리':q[2]==='EQUIP',at+': successful craft has required type');
   assert(!/이나즈마|수메르|폰타인|나타|노드크라이|스네즈나야/.test(String(q[18])),at+': no future-region recipe unlock');
  }
- if(t.kind==='domain'){
+ if(t.kind==='domain'&&t.filter.domainTypes){
   assert(t.filter.domainTypes.every(x=>['TALENT','ASCENSION','EXP'].includes(x)),at+': actual current domain kind');
-  assert(domainSites.some(s=>t.filter.domainTypes.includes(s.kind)&&(!t.filter.maps||t.filter.maps.includes(s.map))&&s.levels.some(l=>l>=t.filter.minStage)),at+': selected difficulty exists at required site');
+  assert(domainSites.some(s=>t.filter.domainTypes.includes(s.kind)&&(!t.filter.maps||t.filter.maps.includes(s.map))&&s.levels.some(l=>!t.filter.minStage||l>=t.filter.minStage)),at+': selected difficulty exists at required site');
  }
- if(t.kind==='ley'){
+ if(t.kind==='ley'&&t.filter.leyTypes){
   assert(t.filter.leyTypes.every(x=>['REVELATION','WEALTH'].includes(x)),at+': actual blossom kind');
-  assert(leyLevels.has(t.filter.minStage),at+': selected blossom level exists');
+  if(t.filter.minStage)assert(leyLevels.has(t.filter.minStage),at+': selected blossom level exists');
   if(t.filter.maps)assert(t.filter.maps.every(m=>c.CRPGRuntime.leyLines.sites.some(s=>s.map===m)),at+': real blossom ground');
  }
- if(t.kind==='abyss')assert(t.filter.stages.every(n=>Number.isInteger(n)&&n>=1&&n<=12),at+': actual Abyss floors');
+ if(t.kind==='abyss'&&t.filter.stages)assert(t.filter.stages.every(n=>Number.isInteger(n)&&n>=1&&n<=12),at+': actual Abyss floors');
  const party=t.filter.party;
  if(party){
   assert.equal(party.full,true,at+': fixed four participants');
@@ -73,9 +73,21 @@ for(const t of rows){
   }
   assert((party.companions||[]).length<=3,at+': fixed hero leaves three companion slots');
  }
- assert(Object.keys(t.reward).every(k=>k==='mora'||(t.tier&&k==='primogem')),at+': only one-time commissions can add Primogems; no XP books');
- if(!t.tier)assert.deepEqual(Object.keys(t.reward),['mora'],at+': recurring task budgets are owned by the existing board');
- assert(Number.isInteger(t.reward.mora)&&t.reward.mora>0&&t.reward.mora<=600,at+': small task reward');
+ if(t.tier){
+  assert(Object.keys(t.reward).every(k=>['mora','primogem'].includes(k)),at+': commission grants only explicit cash/finite Primogems');
+  assert.equal(t.rewardScale,'absolute',at+': cash reward is not multiplied by character level');
+  assert(Number.isSafeInteger(t.reward.mora)&&t.reward.mora>=0,at+': nonnegative fixed cash');
+  assert((t.reward.mora||0)+(t.reward.primogem||0)>0,at+': meaningful reward');
+ }else{
+  assert(Array.isArray(t.reward.moraByLevel),at+': recurring cash uses assignment-time level brackets');
+  assert(t.reward.moraByLevel.every(x=>Number.isSafeInteger(x.mora)&&x.mora>=0),at+': whole cash brackets');
+ }
+ if(t.id.startsWith('D_')&&['domain','ley'].includes(t.kind)){
+  assert.equal(t.minLevel,1,at+': no objective-imposed character level');
+  assert(!t.filter.minStage&&!t.filter.stages&&!t.filter.party,at+': any actually open farming stage/party qualifies');
+ }
+ if(t.id==='D_V168_APPLE'){assert.deepEqual(t.filter,{});assert.equal(t.goal,3);assert.equal(t.countMode,'actions');}
+
 }
 for(const family of catalog.families){
  const list=catalog.chains.filter(t=>t.family===family.id);assert.equal(list.length,10);
@@ -84,27 +96,26 @@ for(const family of catalog.families){
   const t=list[i];assert.equal(t.id,'Q_TASK_'+family.id+'_'+String(i+1).padStart(2,'0'));
   assert.equal(t.predecessor,i?list[i-1].id:'',t.id+': exactly the immediately previous claim unlocks it');
   assert.equal(t.tier,i+1);assert.equal(t.map,family.map);assert(regionalIds.has(t.map));
-  assert.equal(t.reward.mora,125+25*i);assert.equal(t.reward.primogem||0,[0,0,0,20,30,40,60,80,120,300][i]);assert(t.description.includes('수락 이후'));
+  assert(t.description.includes('수락 이후'));const legacy=catalog.legacyChains.find(q=>q.id===t.id);assert.equal(legacy.reward.mora,125+25*i);assert.equal(legacy.reward.primogem||0,[0,0,0,20,30,40,60,80,120,300][i]);
   const installed=r.row('22_QUEST_DB',t.id),definition=JSON.parse(installed[10]),reward=JSON.parse(installed[11]);
   assert.deepEqual(reward,t.reward,t.id+': installed commission preserves the existing Mora/Primogem reward fields');
   assert.equal(definition.conditions.unclaimed,true,t.id+': normal claimed state permanently closes this commission');
   assert(!definition.repeat&&!definition.daily&&!definition.weekly,t.id+': no recurring commission flag');
  }
 }
-assert.equal(catalog.chains.reduce((n,t)=>n+t.reward.mora,0),57000);
-assert.equal(catalog.chains.reduce((n,t)=>n+(t.reward.primogem||0),0),15600);
-assert.equal(catalog.notes.commissionPrimogems,15600);assert.equal(catalog.notes.commissionPrimogemsPerChain,650);
-assert.deepEqual(catalog.notes.commissionRewardSchedule,[0,0,0,20,30,40,60,80,120,300]);
-assert.equal(catalog.notes.commissionRepeatable,false);
+assert.equal(catalog.chains.reduce((n,t)=>n+t.reward.mora,0),2618700);
+assert.equal(catalog.chains.reduce((n,t)=>n+(t.reward.primogem||0),0),17625);
+assert.equal(catalog.notes.commissionMora,2618700);assert.equal(catalog.notes.commissionPrimogems,17625);
+assert.equal(catalog.notes.commissionRewardSchedule,'PER_OBJECTIVE_ABSOLUTE');assert.equal(catalog.notes.commissionRepeatable,false);
 assert.equal(catalog.notes.totalDailyCandidates,catalog.daily.length+4);assert.equal(catalog.notes.totalWeeklyCandidates,catalog.weekly.length+4);
+assert(catalog.chains.filter(t=>t.reward.mora===0&&t.reward.primogem>=80).length>=15,'several demanding objectives prioritize Primogems over cash');
+assert(new Set(catalog.chains.map(t=>JSON.stringify(t.reward))).size>100,'rewards distinguish actual objectives instead of repeating a tier formula');
 assert.deepEqual(catalog.daily.map(t=>t.id),['D_V168_HILI','D_V168_PYRO_HYDRO','D_V168_REVELATION15','D_V168_WEALTH30','D_V168_TALENT15','D_V168_ASCENSION40','D_V168_APPLE','D_V168_STEAK']);
-assert.deepEqual(catalog.weekly.map(t=>t.id),['W_V168_REACTION','W_V168_CRYO_VINE','W_V168_OCEANID','W_V168_TALENT30']);
+assert.equal(catalog.daily.filter(t=>t.dynamicElements).length,1,'one daily objective is assigned from owned elements');
 assert.deepEqual(catalog.daily.reduce((slots,t)=>(slots[t.slot]=(slots[t.slot]||0)+1,slots),{}),{win:2,ley:2,domain:2,life:2});
-assert.deepEqual(catalog.weekly.reduce((slots,t)=>(slots[t.slot]=(slots[t.slot]||0)+1,slots),{}),{win:1,boss:2,domain:1});
-assert.deepEqual([...new Set(catalog.chains.map(t=>t.kind))].sort(),[...kinds].sort(),'all eleven action kinds have one-time commissions');
-for(const [key,prefix,slots]of [['daily','D_V168_',['win','ley','domain','life']],['weekly','W_V168_',['win','boss','domain']]]){
- for(const t of catalog[key]){assert(t.id.startsWith(prefix));assert(slots.includes(t.slot));assert(t.short.length<=8);}
- assert.deepEqual([...new Set(catalog[key].map(t=>t.slot))].sort(),slots.sort());
-}
-assert.equal(catalog.notes.dailyPrimogems,20);assert.equal(catalog.notes.weeklyPrimogems,70);
-console.log('PASS 0.16.8 catalog: 240 one-time sequential commissions, 12 daily/8 weekly candidates including legacy; real IDs, reachable objectives, 15,600 finite Primogems');
+assert.deepEqual([...new Set(catalog.chains.map(t=>t.kind))].sort(),[...kinds].filter(k=>k!=='life').sort(),'all eleven action kinds have one-time commissions');
+for(const [key,prefix]of [['daily','D_V168_'],['weekly','W_V168_']])for(const t of catalog[key]){assert(t.id.startsWith(prefix));assert(t.short.length<=8);}
+assert(catalog.weekly.some(t=>t.goal>=150)||catalog.legacyWeekly.some(t=>t.goal>=150),'the weekly board has a substantial victory target');
+assert(catalog.weekly.some(t=>t.kind==='forge')&&catalog.weekly.some(t=>t.kind==='fish')&&catalog.weekly.some(t=>t.kind==='mine'),'weekly goals include distinct noncombat work');
+assert.equal(catalog.notes.dailySlots,4);assert.equal(catalog.notes.weeklySlots,20);assert.equal(catalog.notes.dailyPrimogems,20);assert.equal(catalog.notes.weeklyAllPrimogems,200);
+console.log('PASS 개별 의뢰 240개: 실제 목표/장소/재료/선행 조건, 보상 차등, 기존 보상 정의 보존, 일일4/주간최대20');

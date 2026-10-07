@@ -37,20 +37,20 @@ check('chests: a main story in progress no longer keeps them shut; a battle or w
  delete h.s.lifeJob;h.s.runtime={actors:[]};assert.match(h.chestReason(y.id),/전투를 마친 뒤/);
 });
 check('mutated bosses: two or three rules per boss each week, the same for every journey; 변이 도전 applies them and pays 30% more',()=>{
- const a=fresh(),b=fresh();a.actionStartedAt=b.actionStartedAt=Date.UTC(2026,9,1,1,0,0);
+ const at=c.Date.now(),a=fresh(),b=fresh();a.actionStartedAt=b.actionStartedAt=at;
  const la=plain(a.mutationList()),lb=plain(b.mutationList());assert.equal(la.length,13);assert.deepEqual(la.map(x=>x.mods),lb.map(x=>x.mods),'the same rules for everyone');
  assert(la.every(x=>x.mods.length>=2&&x.mods.length<=3));a.actionStartedAt+=7*DAY;assert.notDeepEqual(plain(a.mutationList()).map(x=>x.mods),la.map(x=>x.mods),'another week, other rules');
- const FB=api.fieldBosses,id='FB_CRYO_REGISVINE',route=FB.route(id),r=fixture(12,TEAM,8);r.actionStartedAt=Date.UTC(2026,9,1,1,0,0);Object.assign(r.s.global,{CURRENT_MAP_ID:FB.bosses[id].map,SCREEN_MODE:'LOCATION'});
+ const FB=api.fieldBosses,id='FB_CRYO_REGISVINE',route=FB.route(id),r=fixture(12,TEAM,8);r.actionStartedAt=at;Object.assign(r.s.global,{CURRENT_MAP_ID:FB.bosses[id].map,SCREEN_MODE:'LOCATION'});
  assert.match(r.actionReason('BOSS_ROUTE',{route,entry:'DIRECT',mutation:'yes'}),/변이 도전 여부/);
  r.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT',mutation:true});const bt=r.s.runtime;assert(bt.mutation&&bt.actors.some(x=>x.mutant));
  for(const x of bt.actors.filter(x=>x.side==='ENEMY'))x.hp=0;r.finishBattle(true);const res=JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON);
  assert(res.mutation.bonus.mora>0&&res.mutation.bonus.xp>0);assert.equal(Object.values(res.mutation.bonus.items)[0],1);assert.equal(r.s.mutations.wins[id],1);
- const plainFight=fixture(12,TEAM,8);plainFight.actionStartedAt=Date.UTC(2026,9,1,1,0,0);Object.assign(plainFight.s.global,{CURRENT_MAP_ID:FB.bosses[id].map,SCREEN_MODE:'LOCATION'});plainFight.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});plainFight.action('BOSS_ROUTE',{route,entry:'DIRECT'});assert(!plainFight.s.runtime.mutation,'the usual fight stays usual');
+ const plainFight=fixture(12,TEAM,8);plainFight.actionStartedAt=at;Object.assign(plainFight.s.global,{CURRENT_MAP_ID:FB.bosses[id].map,SCREEN_MODE:'LOCATION'});plainFight.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});plainFight.action('BOSS_ROUTE',{route,entry:'DIRECT'});assert(!plainFight.s.runtime.mutation,'the usual fight stays usual');
  return {mods:bt.mutation.mods,bonus:res.mutation.bonus};
 });
 function eventWorld(kind,extra){
- const probe=fresh();const maps=probe.rows('32_MAP_DB').filter(m=>['몬드','리월'].includes(m[1])&&m[8]==='Y'&&m[12]!=='Y').map(m=>m[0]);
- for(let day=20400;day<20600;day++)for(const map of maps){const ev=probe.regionEventAt(map,day);if(ev?.kind===kind&&(!extra||extra(ev))){const r=fixture(12,TEAM,8);r.s.global.SAVE_ID=probe.s.global.SAVE_ID;r.actionStartedAt=day*DAY-KST+3600000;Object.assign(r.s.global,{CURRENT_MAP_ID:map,SCREEN_MODE:'LOCATION'});return {r,ev:r.regionEventAt(map,day),map,day};}}
+ const probe=fresh(),firstDay=Math.floor((c.Date.now()+KST)/DAY);const maps=probe.rows('32_MAP_DB').filter(m=>['몬드','리월'].includes(m[1])&&m[8]==='Y'&&m[12]!=='Y').map(m=>m[0]);
+ for(let day=firstDay;day<firstDay+200;day++)for(const map of maps){const ev=probe.regionEventAt(map,day);if(ev?.kind===kind&&(!extra||extra(ev))){const r=fixture(12,TEAM,8);r.s.global.SAVE_ID=probe.s.global.SAVE_ID;r.actionStartedAt=day*DAY-KST+3600000;Object.assign(r.s.global,{CURRENT_MAP_ID:map,SCREEN_MODE:'LOCATION'});return {r,ev:r.regionEventAt(map,day),map,day};}}
  throw Error('no '+kind+' event found');
 }
 check('regional events: about a third of the wild maps each day, nine kinds, the same for one journey and day',()=>{
@@ -75,7 +75,7 @@ check('regional events: each kind settles once; fights settle on victory; a devi
 });
 check('공동 토벌전: closed unless an event is open; then Lv.10 to sortie, three a day, eight rounds where every hit counts 1 and the boss never falls',()=>{
  // 0.15.4: the account server hands the engine the event the operator opened (user: 「공동 토벌전은 이벤트로 열거였는데」).
- const at=Date.UTC(2026,9,1,1,0,0),event={id:'RAID_1000001',boss:'MON_RAID_GRADER',startsAt:at-3600000,endsAt:at+7*86400000,target:4000};
+ const at=c.Date.now(),event={id:'RAID_1000001',boss:'MON_RAID_GRADER',startsAt:at-3600000,endsAt:at+7*86400000,target:4000};
  const shut=fixture(12,TEAM,8);shut.installMarketContent();shut.actionStartedAt=at;shut.s.global.SCREEN_MODE='LOCATION';
  assert.equal(shut.raidReason(),api.raidV0152.closed);assert.equal(shut.raidView().open,false);assert(refused(()=>shut.action('RAID_ENTER',{}),/열린 공동 토벌전이 없습니다/));
  shut.raidServerEvent={...event,endsAt:at};assert.equal(shut.raidReason(),api.raidV0152.closed,'an event that has ended is closed');
@@ -135,3 +135,4 @@ check('phone screens (user photos of 0.15.0): party cards swipe sideways with �
 });
 const out=path.join(root,'reports/v0152');fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'runtime-tests.json'),JSON.stringify({version:'0.15.2',total:results.length,passed:results.filter(r=>r.ok).length,results},null,1));
 console.log(JSON.stringify({total:results.length,passed:results.filter(r=>r.ok).length}));
+

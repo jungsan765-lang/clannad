@@ -8,6 +8,7 @@ if(typeof render!=='function')return;
 // Where · what it is called for remembering its page.
 const SPOTS=[
  ['.shell-col-side:has(>.formation-choice),.shell-col-side:has(>.shell-presets)',()=>'party-side'],
+ ['.shell-page-quest .quest-list:has(.task-board)',el=>'task-board|'+(el.querySelector('.task-scope.active b')?.textContent||'daily')],
  ['.bag-layout>.bag-detail',el=>'bag-detail|'+(el.querySelector('h2')?.textContent||'')]
 ];
 function pageAll(){const page=window.CRPGMainScreen?.pagePane;if(!page)return;

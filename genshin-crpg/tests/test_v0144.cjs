@@ -6,6 +6,7 @@ const {fixture}=require('./helpers_abyss.cjs'),{equip}=require('./helpers_abyss_
 const api=c.CRPGRuntime,plain=x=>JSON.parse(JSON.stringify(x)),results=[];
 function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evidence:evidence??null});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 const TEAM=['MOND_AMBER','MOND_KAEYA','MOND_LISA'];
+const kstAt=hour=>Math.floor((c.Date.now()+9*3600000)/86400000)*86400000-9*3600000+hour*3600000;
 
 check('formations use plain in-world names and the chosen one reaches the battle',()=>{
  const F=api.formationConfig;assert.deepEqual(Object.values(F.formations).map(f=>f.name),['돌격 진형','연계 진형','수호 진형','기동 진형','균형 진형']);
@@ -24,7 +25,7 @@ check('field bosses: one fixed level each (Mond 18-30, Liyue 38-56), in a clear 
 
 check('field bosses: all together pay out three times in every 12 real hours (KST 00:00/12:00); defeats never count',()=>{
  const FB=api.fieldBosses,boss='FB_CRYO_REGISVINE',route=FB.route(boss),r=fixture(10,TEAM,7);
- r.actionStartedAt=Date.UTC(2026,9,1,1,0,0); // 10:00 Korean time: the 00:00-12:00 window
+ const morningKst=kstAt(10);r.actionStartedAt=morningKst; // 10:00 Korean time: the 00:00-12:00 window
  r.s.global.CURRENT_MAP_ID=FB.bosses[boss].map;r.s.global.SCREEN_MODE='LOCATION';const w=r.fieldBossWindow();assert.equal(w%2,0);assert.equal(r.fieldBossDaily().resetAt,'12:00');
  r.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT'});let b=r.s.runtime;
  for(const a of b.actors.filter(x=>x.side==='ENEMY'))a.hp=0;r.finishBattle(true);assert.deepEqual(plain(r.s.fieldBossWindow),{window:w,wins:1});
@@ -33,7 +34,7 @@ check('field bosses: all together pay out three times in every 12 real hours (KS
  r.s.fieldBossWindow={window:w,wins:3};assert.match(r.placeBossReason(route,'DIRECT'),/12시간마다 3번/);
  assert.equal(r.fieldBossRouteInfo(route).daily.left,0);
  r.s.global.WORLD_DAY+=1;assert.match(r.placeBossReason(route,'DIRECT'),/12시간마다/,'an in-game day no longer resets the count');
- r.actionStartedAt=Date.UTC(2026,9,1,3,0,0);assert.equal(r.fieldBossWindow(),w+1);assert.equal(r.fieldBossDaily().resetAt,'00:00');assert.equal(r.placeBossReason(route,'DIRECT'),'','12:00 Korean time opens a new count');
+ r.actionStartedAt=morningKst+2*3600000;assert.equal(r.fieldBossWindow(),w+1);assert.equal(r.fieldBossDaily().resetAt,'00:00');assert.equal(r.placeBossReason(route,'DIRECT'),'','12:00 Korean time opens a new count');
  const bad=JSON.parse(r.serialize());bad.fieldBossWindow={window:-1,wins:1};assert.throws(()=>new api.Runtime(require(path.join(root,'content/db.json')),bad),/12시간 토벌/);
  return {limit:api.fieldBossLimits.dailyLimit,hours:api.fieldBossLimits.windowHours};
 });
@@ -129,7 +130,7 @@ check('screens: new scripts are wired in order and the UI shows the new rules',(
 // ---- 0.14.5 ----
 check('0.14.5 two-day bosses open once per real day (Korean midnight), win or lose',()=>{
  const cfg=api.enhancementConfig.bosses,r=fixture(25,TEAM,9),c0=cfg.BOSS_ANDRIUS,row=r.row('35_BOSS_ROUTE_DB',c0.route);r.s.flags[row[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});
- const noonKst=Date.UTC(2026,8,29,3,0,0);r.actionStartedAt=noonKst;assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'');
+ const noonKst=kstAt(12);r.actionStartedAt=noonKst;assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'');
  r.action('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_ANDRIUS'});const b=r.s.runtime;for(const a of b.actors.filter(x=>x.side==='ALLY'))a.hp=0;r.finishBattle(false);
  r.actionStartedAt=noonKst+11*3600000;assert.match(r.bossAdmission('BOSS_ANDRIUS').reason,/하루에 한 번.*1시간/,'a defeat still used the day');
  assert.equal(r.bossAdmission('BOSS_DVALIN').reason,'','each boss has its own day');
@@ -152,3 +153,4 @@ check('0.14.5 the party screen shows the party first, then formation and battle 
 
 fs.mkdirSync(path.join(root,'reports/v0144'),{recursive:true});fs.writeFileSync(path.join(root,'reports/v0144/checks.json'),JSON.stringify({version:'0.14.4',results},null,2)+'\n');
 console.log(JSON.stringify({total:results.length,passed:results.filter(x=>x.ok).length}));
+

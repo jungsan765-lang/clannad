@@ -166,7 +166,7 @@ returnToJourney=function(p){if(game.currentPlace()?.valid||game.playPhase()!=='F
 reward=function(p){
  if(game.needsRecovery()){recoveryCard(p);return;}const r=parseUI(game.s.global.LAST_BATTLE_RESULT_JSON);p.append(el('h1','',r.victory?'전투 승리':'전투 종료'));
  if(r.victory){p.append(el('p','','참가 캐릭터 경험치 +'+(r.xp||0)));rewardPreview(p,{mora:r.mora||0,items:r.loot||{}});}
- if(game.s.storyRecovery)p.append(actionButton('전투 직전부터 다시 준비','STORY_RETRY',{},true));else if(r.origin?.startsWith('STORY:'))p.append(actionButton('이야기 계속','MENU',{screen:'STORY'},true));else p.append(actionButton('메인 화면으로','MENU',{screen:'LOCATION'},true));
+ if(game.s.storyRecovery)p.append(actionButton('전투 직전부터 다시 준비','STORY_RETRY',{},true));else if(r.victory&&r.origin?.startsWith('STORY:'))p.append(actionButton('이야기 계속','MENU',{screen:'STORY'},true));else p.append(actionButton('메인 화면으로','MENU',{screen:'LOCATION'},true));
  if(r.victory&&r.origin?.startsWith('QUEST:'))p.append(actionButton('완료한 의뢰 확인','MENU',{screen:'QUEST'},true));bossProgressControls(p);
 };
 let saveListTab='자동 저장';

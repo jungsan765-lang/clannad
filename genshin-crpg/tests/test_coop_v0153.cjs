@@ -7,7 +7,7 @@ const {fs,root,c,fresh}=require('./helpers_v011.cjs'),{fixture}=require('./helpe
 const api=c.CRPGRuntime,results=[],plain=x=>JSON.parse(JSON.stringify(x));
 function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evidence:evidence??null});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 const refused=(fn,pattern)=>{try{fn();}catch(e){if(pattern)assert.match(e.message,pattern);return true;}return false;};
-const ROOM='Rabcdef1234',G1='aaaaaaaaaaaa',G2='bbbbbbbbbbbb',G3='cccccccccccc',T0=Date.UTC(2026,9,1,3,0,0),PLAYER='PLAYER_CUSTOM';
+const ROOM='Rabcdef1234',G1='aaaaaaaaaaaa',G2='bbbbbbbbbbbb',G3='cccccccccccc',T0=c.Date.now(),PLAYER='PLAYER_CUSTOM';
 const ctx=(members,caller=null)=>({version:1,room:ROOM,members,caller});
 // The host: Traveler Lv.12 with Amber, Kaeya and Lisa. A guest: Isekai Lv.10 with Amber (C2, E talent 4) and Diluc.
 function host(){const h=fixture(12,['MOND_AMBER','MOND_KAEYA','MOND_LISA'],6,'ROUTE_TRAVELER');h.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';h.actionStartedAt=T0;return h;}

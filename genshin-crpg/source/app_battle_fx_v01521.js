@@ -94,7 +94,7 @@ function turnTo(frame,effects){
  // 0.15.25 (user: 「토끼백작 … 공격을 연속 세번 하노? 세 번 공격하게 되면 위에 X3 적혀있어야」): a summon's own action (토끼 백작's
  // blast at the start of a round) takes its place in the order list and lights up there; it has no fighter card to badge.
  if(String(frame.actorId||'').startsWith('SUMMON:')){const order=document.querySelector('.combat-panel .battle-order');if(order){followRound(order,frame.round);for(const li of order.querySelectorAll('li[data-actor-id]'))li.classList.toggle('current',li.dataset.actorId===frame.actorId);window.CRPGShell?.orderNow?.();}return;}
- if(frame.periodic)return;
+ if(frame.periodic||frame.sourceKind==='STATUS_APPLY')return;
  const row=effects?.actorNode?.(frame.actorId);if(!row?.classList?.contains('combatant-row'))return;
  const shell=window.CRPGShell;if(typeof shell?.turnBadge==='function')shell.turnBadge(row);
  const order=document.querySelector('.combat-panel .battle-order');
@@ -113,11 +113,11 @@ function roundOrder(round){
  // Summons that act before anyone in the round (토끼 백작's blast) lead it.
  const lead=[];for(const f of frames){if(!summonActor(f.actorId))break;if(!lead.includes(f.actorId))lead.push(f.actorId);}
  if(b.round===round&&Array.isArray(b.order))return [...lead,...b.order.map(x=>x.id)];
- const ids=[];for(const f of frames)if((!f.periodic||summonActor(f.actorId))&&!ids.includes(f.actorId))ids.push(f.actorId);
+ const ids=[];for(const f of frames)if(f.sourceKind!=='STATUS_APPLY'&&(!f.periodic||summonActor(f.actorId))&&!ids.includes(f.actorId))ids.push(f.actorId);
  return ids;
 }
 // How many times each fighter acts in the round as played (a second action shows as ×2 beside the name).
-function roundTimes(round){const n={};for(const f of playFrames)if(f.round===round&&f.actorId&&(!f.periodic||summonActor(f.actorId)))n[f.actorId]=(n[f.actorId]||0)+1;return n;}
+function roundTimes(round){const n={};for(const f of playFrames)if(f.round===round&&f.actorId&&f.sourceKind!=='STATUS_APPLY'&&(!f.periodic||summonActor(f.actorId)))n[f.actorId]=(n[f.actorId]||0)+1;return n;}
 function summonEntry(b,id,frame){
  const li=document.createElement('li');li.className='summon '+(String(frame?.actorSide||'ALLY')==='ENEMY'?'enemy':'ally');li.dataset.actorId=id;
  const field=(b.fields||[]).find(f=>'SUMMON:'+f.kind+':'+f.actor===id),asset=field?.asset||({BUNNY:'summon_baron_bunny.webp'})[field?.kind||String(id).split(':')[1]];
@@ -143,13 +143,14 @@ function followRound(order,round){
 if(typeof CombatFX!=='undefined'&&typeof CombatFX.windup==='function'){const priorWindup=CombatFX.windup;CombatFX.windup=function(frame,effects){try{turnTo(frame,effects);}catch(e){console.warn('battle fx',e);}return priorWindup.call(this,frame,effects);};}
 
 // ---- the cards ------------------------------------------------------------------------------------------------
-function decorate(p){
- const b=game?.s?.runtime;if(!b||!p)return;
- for(const row of p.querySelectorAll('.combatant-row[data-actor-id]')){
-  const a=b.actors.find(x=>x.id===row.dataset.actorId);if(!a)continue;
+function decorate(p,shownActor){
+ const b=game?.s?.runtime;if(!p||!shownActor&&!b)return;
+ for(const row of shownActor?[p]:p.querySelectorAll('.combatant-row[data-actor-id]')){
+  const a=shownActor||b.actors.find(x=>x.id===row.dataset.actorId);if(!a)continue;
   for(const old of row.querySelectorAll(':scope > .aura-fx, :scope > .shield-fx, :scope > .status-fx'))old.remove();
   if(a.hp<=0)continue;
-  const kind=row.dataset.aura;
+  const kind=shownActor?({'불':'pyro','물':'hydro','얼음':'cryo','번개':'electro','바람':'anemo','바위':'geo','풀':'dendro'}[a.aura]||null):row.dataset.aura;
+  if(shownActor){if(kind)row.dataset.aura=kind;else delete row.dataset.aura;}
   if(kind){const fx=span('aura-fx aura-'+kind);for(let i=0;i<6;i++){const m=document.createElement('i');m.style.setProperty('--i',i);fx.append(m);}row.append(fx);}
   const shields=(a.shields||[]).filter(s=>Number(s.value)>0);if(shields.length)row.append(bubble(shieldKind(shields)));
   const now=new Set((a.statuses||[]).filter(s=>!Number.isFinite(s.rounds)||s.rounds>0).map(s=>s.id)),shown=STATUS.filter(([id])=>now.has(id));
@@ -235,7 +236,7 @@ function strike(layer,style,p,o,pw){
 function liveStatus(node,status){
  if(!node||typeof battleStatusList!=='function'||typeof statusChip!=='function')return;
  const entry=battleStatusList({statuses:[status]})[0],copy=node.querySelector('.combatant-copy');if(!entry||!copy)return;
- let row=copy.querySelector(':scope > .status-chips');if(!row){row=document.createElement('button');row.type='button';row.className='status-chips';row._statusList=[];row.addEventListener('click',()=>battleStatusDetails({name:node.querySelector('strong')?.textContent||'전투원'},row._statusList));copy.append(row);}
+ let row=copy.querySelector(':scope > .status-chips');if(!row){row=document.createElement('button');row.type='button';row.className='status-chips';row.dataset.battleInspection='status';row._statusList=[];row.addEventListener('click',()=>battleStatusDetails({id:node.dataset.actorId,name:node.querySelector('strong')?.textContent||'전투원'},row._statusList));copy.append(row);}
  row._statusList=(row._statusList||[]).filter(s=>s.id!==status.id);row._statusList.push(entry);
  row.querySelector('.st-chip[data-id="'+status.id+'"]')?.remove();const chip=statusChip(entry);chip.classList.add('fresh');row.append(chip);
  const cls=STATUS.find(([id])=>id===status.id)?.[1];if(cls){let fx=node.querySelector(':scope > .status-fx');if(!fx){fx=span('status-fx');node.append(fx);}if(!fx.querySelector('.st-'+cls))fx.append(span('st st-'+cls));}
@@ -251,7 +252,7 @@ function onFrame(frame,effects){
  for(const t of frame.targets||[]){
   const node=effects.actorNode?.(t.targetId),p=CombatFX.point(node);
   if(Number(t.damage)>0||Number(t.absorbed)>0)flash(node,'damage');else if(Number(t.heal)>0)flash(node,'heal');
-  for(const e of t.events||[])if(e.statusApplied){liveStatus(node,e.statusApplied);if(e.statusApplied.id==='STATUS_ISEKAI_EXPOSED'&&p&&motion)lockOn(layer,p);}
+  for(const e of t.events||[])if(e.statusApplied){if(!e.presentationActorsAfter?.length)liveStatus(node,e.statusApplied);if(e.statusApplied.id==='STATUS_ISEKAI_EXPOSED'&&p&&motion)lockOn(layer,p);}
   const before=Number(t.shieldBefore),after=Number(t.shieldAfter);
   if(node&&Number.isFinite(before)&&Number.isFinite(after)){
    const fx=node.querySelector(':scope > .shield-fx'),kind=fx?.className.match(/shield-(\w+)/)?.[1]||'plain';

@@ -24,7 +24,7 @@ check('whose turn: a banner with the fighter\'s face over the commands, and a ta
 
 check('targets: a press anywhere on a card that can be targeted chooses it',()=>{
  const row=fnBody(exp,'battleActorRow');
- assert(row.includes("c.classList.add('targetable');c.addEventListener('click',e=>{if(e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});"),'the card itself, its own buttons keep their jobs');
+ assert(row.includes("c.classList.add('targetable');c.addEventListener('click',e=>{if(busy||window.ActorPlayback?.active||e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});"),'the card itself, its own buttons keep their jobs; selection stays locked during playback');
  assert(!row.includes("'선택됨'"),'0.15.20: the card is the only way, its small 선택/선택됨 button is gone');
  assert(/\.combatant-row\.targetable\{cursor:pointer\}/.test(css)&&/@media \(hover:hover\)\{[^}]*targetable/.test(css),'a pointer, and a ring only where the pointer hovers');
  return {};
@@ -49,3 +49,4 @@ check('phone playback: a short window (speed and pause on one line) that leaves 
 
 const out=path.join(root,'reports','test_v01518.json');fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(results,null,2));
 console.log(JSON.stringify({ok:results.every(r=>r.ok),checks:results.length}));
+

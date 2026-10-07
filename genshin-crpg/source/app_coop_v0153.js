@@ -388,10 +388,12 @@ function framesFor(a,b){
  const seen=C.fxSeen?.battle===b.battle?C.fxSeen.len:(a?.battle===b.battle&&a.fx?a.fx.len:fx.len),start=Math.max(seen,fx.from);
  C.fxSeen={battle:b.battle,len:Math.max(seen,fx.len)};if(fx.len<=start)return [];
  const log=new Array(fx.len);fx.entries.forEach((e,i)=>{log[fx.from+i]=e;});
- const actors=v=>unitsOf(v).map(u=>({id:u.id,name:u.name,side:u.side,hp:u.hp,maxHp:u.maxHp})),save='coop:'+b.battle;
+ const actors=v=>v.state?.runtime?.actors?.map(a=>PR.actorSnapshot?PR.actorSnapshot(a):a)||unitsOf(v).map(u=>({...u,shields:u.shields||(u.shield>0?[{value:u.shield,initialValue:u.shield}]:[]),statuses:(u.statuses||[]).filter(s=>typeof s==='object')})),save='coop:'+b.battle;
  let events=[];try{events=PR.delta({saveId:save,battleId:b.battle,count:start,actors:actors(a||b),resultId:null},{global:{SAVE_ID:save,LAST_BATTLE_RESULT_JSON:'{}',LAST_COMMITTED_ACTION_ID:String(fx.len)},runtime:{id:b.battle,log,actors:actors(b)}});}catch{return null;}
  // A long stretch (the others' turns while one waited) keeps its last part, so one's own turn is not held back for long.
- return PR.actionFrames(events).slice(-8);
+ const all=PR.actionFrames(events),frames=all.slice(-8),initial=new Map(actors(a||b).map(actor=>[actor.id,JSON.parse(JSON.stringify(actor))]));
+ for(const frame of all.slice(0,Math.max(0,all.length-8)))for(const event of frame.events||[frame])for(const actor of event.presentationActorsAfter||[])initial.set(actor.id,{...(initial.get(actor.id)||{}),...actor});
+ frames.actors=[...initial.values()];return frames;
 }
 function queueFx(a,b){
  const frames=framesFor(a,b);if(frames===null){playChanges(a,b);return;}if(!frames.length)return;
@@ -401,7 +403,7 @@ async function runFrames(frames){
  const GE=typeof GameEffects!=='undefined'?GameEffects:null;
  if(!GE?.play||C.minimized||!(C.shown||C.battle?.state)){C.fxBoard=null;drawBattle();return;}
  C.fxPlaying=true;document.body.classList.add('cp-fx-on');
- try{const run=GE.play(frames);if(GE.dock&&C.shown)C.shown.append(GE.dock);await run;}
+ try{const run=GE.play(frames,{actors:frames.actors});if(GE.dock&&C.shown)C.shown.append(GE.dock);await run;}
  finally{C.fxPlaying=false;C.fxBoard=null;document.body.classList.remove('cp-fx-on');drawBattle();}
 }
 // The player finds the fighters in this window while it plays here, and lights the one acting.
@@ -409,6 +411,7 @@ if(typeof GameEffects!=='undefined'){
  const node=GameEffects.actorNode,show=GameEffects.showAction;
  if(typeof node==='function')GameEffects.actorNode=function(id){if(C.fxPlaying&&C.shown&&id){const n=C.shown.querySelector('.combatant-row[data-actor-id="'+CSS.escape(id)+'"]');if(n)return n;}return node.call(this,id);};
  if(typeof show==='function')GameEffects.showAction=function(frame,...rest){if(C.fxPlaying&&C.shown)for(const row of C.shown.querySelectorAll('.combatant-row[data-actor-id]'))row.classList.toggle('acting',row.dataset.actorId===frame?.actorId);return show.call(this,frame,...rest);};
+ const lock=GameEffects.lockCommands;if(typeof lock==='function')GameEffects.lockCommands=function(){lock.call(this);if(C.fxPlaying&&C.shown)for(const control of C.shown.querySelectorAll('button,input,select,textarea,a')){if(control.dataset?.battleInspection||control.closest?.('[data-battle-inspection]'))continue;this.lockedControls.set(control,{disabled:control.disabled,tabIndex:control.tabIndex});if('disabled'in control)control.disabled=true;else control.tabIndex=-1;}};
 }
 // ---------- 0.16: the fight plays out in this window too (user: 「전투 모션이 손님한테는 거의 없는 수준인데?」) ----------
 // Between two views of the same fight, what changed plays out like the battle screen: the new lines one after another,
@@ -463,7 +466,7 @@ function openBattle(){
   wrap.append(mk('div','cp-bbox'));document.body.append(wrap);C.shown=wrap;requestAnimationFrame(()=>wrap.classList.add('open'));}
  document.querySelector('body > .cp-pill')?.remove();drawBattle();
 }
-function minimize(){C.minimized=true;if(C.shown){const n=C.shown;C.shown=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}pill();if(C.battle?.state)render();}
+function minimize(){if(C.fxPlaying||typeof GameEffects!=='undefined'&&GameEffects.active)return;C.minimized=true;if(C.shown){const n=C.shown;C.shown=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}pill();if(C.battle?.state)render();}
 function closeBattle(all){if(C.shown){const n=C.shown;C.shown=null;n.classList.remove('open');setTimeout(()=>n.remove(),160);}if(all){C.battle=null;C.ended=null;document.querySelector('body > .cp-pill')?.remove();}}
 // A small button to go back to the fight after minimizing it.
 // 0.15.9: outside a fight the same corner shows where the party is (guests) or who is along (the host), and opens the room.
@@ -520,10 +523,10 @@ function fighterCard(v,u,targets){
  const tags=[];if(u.guest)tags.push([u.guest.mine?'나':u.guest.name,'cp-tag'+(u.guest.mine?' me':'')]);else if(u.host)tags.push([u.protagonist?side:side+' 동료','cp-tag host']);if(u.guest?.left)tags.push(['스스로 싸움','cp-tag auto']);if(u.grade==='보스')tags.push(['보스','cp-tag boss']);
  if(tags.length){const row=mk('span','cp-tags');for(const [t,cls]of tags)row.append(mk('em',cls,t));copy.append(row);}
  if(u.statuses?.length||u.airborne){const row=mk('span','status-chips');if(u.airborne)row.append(mk('span','st-chip hold','공중'));for(const s of u.statuses||[])row.append(mk('span','st-chip',s));copy.append(row);}
- c.append(copy);
+ const info=btn('정보',()=>{const displayed=window.ActorPlayback?.currentActor?.(u.id)||v.state?.runtime?.actors?.find(a=>a.id===u.id)||{...u,statuses:[]};if(typeof battleStatusDetails==='function'&&typeof battleStatusList==='function')battleStatusDetails(displayed,battleStatusList(displayed));},'battle-info-button');info.dataset.battleInspection='status';copy.append(info);c.append(copy);
  const aura=typeof CRPGIcons!=='undefined'?CRPGIcons.kindOf(u.aura):null;if(aura){const badge=mk('span','shell-aura-badge aura-'+aura),pic=CRPGIcons.element(aura);if(pic)badge.append(pic);badge.append('부착');c.append(badge);}
  if(target){c.classList.add('targetable');c.tabIndex=0;c.setAttribute('role','button');c.setAttribute('aria-pressed',String(C.target===u.id));c.setAttribute('aria-label',u.name+' 대상으로 고르기');
-  c.addEventListener('click',e=>{if(e.target.closest('button')||C.target===u.id)return;C.target=u.id;drawBattle();});c.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===c){e.preventDefault();c.click();}});}
+  c.addEventListener('click',e=>{if(C.fxPlaying||typeof GameEffects!=='undefined'&&GameEffects.active||e.target.closest('button')||C.target===u.id)return;C.target=u.id;drawBattle();});c.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===c){e.preventDefault();c.click();}});}
  return c;
 }
 function fightOrder(v){
@@ -596,7 +599,7 @@ function drawBattle(){
  if(C.msg&&C.shown){const m=mk('p','cp-msg',C.msg);m.setAttribute('role','alert');box.insertBefore(m,foot);}
 }let pendingCommand=null;
 async function command(){
- if(C.busy||!C.battle?.turn?.mine)return;const session=O.sessionStamp();C.busy=true;C.msg='';drawBattle();
+ if(C.busy||C.fxPlaying||typeof GameEffects!=='undefined'&&GameEffects.active||!C.battle?.turn?.mine)return;const session=O.sessionStamp();C.busy=true;C.msg='';drawBattle();
  const payload={card:C.card,target:C.target||undefined,branch:C.branch||undefined,battle:C.battle.battle,turn:{actor:C.battle.turn.actor,deadline:C.battle.turn.deadline,round:C.battle.round}},intent=JSON.stringify(payload);
  if(pendingCommand?.intent!==intent)pendingCommand={intent,payload:{...payload,requestId:'coop-'+crypto.randomUUID()}};
  try{const out=await O.request('/coop/act',pendingCommand.payload);pendingCommand=null;if(out&&'battle' in out)setBattle(out.battle);SND('click');}

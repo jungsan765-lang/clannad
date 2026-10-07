@@ -13,6 +13,7 @@ const MAN=()=>typeof MANIFEST!=='undefined'?MANIFEST:(window.CRPG_MANIFEST||{});
 const KIND={battle:['전투','k-battle'],ley:['지맥','k-ley'],domain:['비경','k-domain'],life:['생활','k-life'],boss:['토벌','k-boss'],bonus:['보너스','k-bonus']};
 let scope='daily',showBoard=true;
 function view(){try{return game?.taskView?.()||null;}catch{return null;}}
+const weeklyRows=v=>[...v.weekly,...(v.weeklyBonus?[v.weeklyBonus]:[])];
 function left(ms){const m=Math.max(0,Math.round((ms-Date.now())/60000));if(m>=1440)return Math.floor(m/1440)+'일 '+Math.floor(m%1440/60)+'시간';if(m>=60)return Math.floor(m/60)+'시간 '+m%60+'분';return m+'분';}
 function rewardChips(r){
  const box=mk('span','task-reward');
@@ -46,10 +47,10 @@ function claimButton(x){
 function board(parent){
  const v=view();if(!v)return null;const sec=mk('section','task-board');
  const head=mk('div','task-head'),tabs=mk('div','task-scopes');
- for(const [key,label,ends] of [['daily','일일',v.dayEndsAt],['weekly','주간',v.weekEndsAt]]){const list=key==='daily'?[...v.daily,v.bonus]:v.weekly,ready=list.filter(x=>x.done&&!x.claimed).length;
+ for(const [key,label,ends] of [['daily','일일',v.dayEndsAt],['weekly','주간',v.weekEndsAt]]){const list=key==='daily'?[...v.daily,v.bonus]:weeklyRows(v),ready=list.filter(x=>x.done&&!x.claimed).length;
   const b=button('',()=>{scope=key;render();});b.className='task-scope'+(scope===key?' active':'');b.setAttribute('aria-pressed',String(scope===key));b.append(mk('b','',label),mk('small','','새로 · '+left(ends)));if(ready)b.append(mk('span','task-dot',String(ready)));tabs.append(b);}
  head.append(tabs);if(v.here>1)head.append(actionButton('모두 받기 · '+v.here,'TASK_CLAIM',{task:'ALL'},true));sec.append(head);
- const list=mk('ul','task-list'),items=scope==='daily'?[...v.daily,v.bonus]:v.weekly;for(const x of items)list.append(row(x));sec.append(list);
+ const list=mk('ul','task-list'),items=scope==='daily'?[...v.daily,v.bonus]:weeklyRows(v);for(const x of items)list.append(row(x));sec.append(list);
  parent.append(sec);return sec;
 }
 // The day's four on the main screen's 「할 일」: one line each.
@@ -95,7 +96,7 @@ if(typeof act==='function'){const priorAct=act;act=async function(type,params={}
  return out;};}
 // A task that has just been done says so once, so the reward is not missed.
 let doneBefore=null,doneSave=null,doneTimer=0;
-function noticeDone(){doneTimer=0;const v=view();if(!v){doneBefore=null;return;}const all=[...v.daily,v.bonus,...v.weekly],now=new Set(all.filter(x=>x.done).map(x=>x.id)),save=game?.s?.global?.SAVE_ID;
+function noticeDone(){doneTimer=0;const v=view();if(!v){doneBefore=null;return;}const all=[...v.daily,v.bonus,...weeklyRows(v)],now=new Set(all.filter(x=>x.done).map(x=>x.id)),save=game?.s?.global?.SAVE_ID;
  if(doneBefore&&doneSave===save&&!game.s.runtime){const fresh=all.filter(x=>x.done&&!x.claimed&&!doneBefore.has(x.id));if(fresh.length)window.CRPGShell?.toast?.('임무 달성 · '+fresh[0].name+(fresh.length>1?' 외 '+(fresh.length-1)+'개':'')+(fresh.every(x=>x.report)?' · 캐서린에게 보고':' · 임무에서 보상 받기'));}
  if(!game?.s?.runtime){doneBefore=now;doneSave=save;}}
 {const prior=render;render=function(){prior();try{if(!doneTimer)doneTimer=setTimeout(noticeDone,700);}catch{}};}

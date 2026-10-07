@@ -10,15 +10,18 @@ const plain=x=>JSON.parse(JSON.stringify(x));
 let passed=0;
 function check(name,fn){try{fn();passed++;console.log('PASS '+name);}catch(e){process.exitCode=1;console.error('FAIL '+name+'\n'+e.stack);}}
 const DAY=86400000;
+// This old-version suite deliberately loads a pre-0.16.8 saved board. New assignment rules are covered separately.
+function legacyBoard(r){const t=require('./helpers_v011.cjs').c.CRPGRuntime.tasksV0167;r.s.tasks={version:1,day:t.dayOf(r.tasksNow()),week:t.weekOf(r.tasksNow()),daily:{},weekly:{},claimed:{}};r.tasksBox(true);return r;}
+function leyWin(r){if(r.s.placeVisit)r.action('PLACE_LEAVE',{});const x=r.leyLineStatus().blossoms.find(x=>x.region==='몬드'&&x.kind==='REVELATION');r.s.global.CURRENT_MAP_ID=x.map;r.action('PLACE_ENTER',{place:'BOSS:'+x.route,mode:'BOSS'});r.action('BOSS_ROUTE',{route:x.route,entry:'DIRECT',tier:1});r.finishBattle(true);r.action('PLACE_LEAVE',{});}
 function domainWin(r){const open=r.growthDomainEntries().find(x=>!x.reason);r.action('DOMAIN_START',{domain:open.id,element:'NEUTRAL'});assert(r.s.runtime?.growthDomain,'a domain fight');r.finishBattle(true);}
 function gather(r){r.action('LIFE_START',{kind:'GATHER'});const job=r.s.lifeJob,scene=r.lifeScene(job),picks=scene.nodes.map((n,i)=>({at:600+i*300,node:i}));advance((job.duration||10000)+100);return r.action('LIFE_FINISH',{job:job.id,elapsed:job.duration,inputs:picks});}
 
-check('일일·주간 임무: four for the day, a bonus, four for the week, each counted from what is played',()=>{
- const r=fresh('MAP_D163_VALLEY_OF_REMEMBRANCE');let v=r.taskView();
+check('이전 저장의 목표·보상 보존과 새 주간 목표 확장: 성공한 실제 행동만 집계',()=>{
+ const r=legacyBoard(fresh('MAP_D163_VALLEY_OF_REMEMBRANCE'));let v=r.taskView();
  assert.deepEqual(plain(v.daily.map(x=>x.id)),['D_WIN','D_LEY','D_DOMAIN','D_LIFE']);assert.equal(v.bonus.id,'D_BONUS');
- assert.deepEqual(plain(v.weekly.map(x=>x.id)),['W_WIN','W_BOSS','W_DOMAIN','W_BONUS']);assert.equal(v.ready,0);
- // A beginner: the ley line and the field bosses say from which level, and the bonus asks only for the open ones.
- assert.equal(v.daily.find(x=>x.id==='D_LEY').lock,'주인공 Lv.5부터');assert.equal(v.weekly.find(x=>x.id==='W_BOSS').lock,'주인공 Lv.15부터');assert.equal(v.bonus.goal,3);
+ assert.deepEqual(plain(v.weekly.slice(0,4).map(x=>x.id)),['W_WIN','W_BOSS','W_DOMAIN','W_BONUS']);assert(v.weekly.length>4&&v.weekly.length<=20);assert.equal(v.ready,0);
+ // Existing locked goals remain locked. The bonus cannot bypass an unfinished locked goal.
+ assert.equal(v.daily.find(x=>x.id==='D_LEY').lock,'주인공 Lv.5부터');assert.equal(v.weekly.find(x=>x.id==='W_BOSS').lock,'주인공 Lv.15부터');assert.equal(v.bonus.goal,4);assert(!v.bonus.done);
  r.adminApply({op:'level',target:'ALL',value:20});r.s.global.PLAYER_LEVEL_STATE=20;
  v=r.taskView();assert.equal(v.daily.find(x=>x.id==='D_LEY').lock,'');assert.equal(v.weekly.find(x=>x.id==='W_BOSS').lock,'');assert.equal(v.bonus.goal,4);
  domainWin(r);
@@ -33,7 +36,7 @@ check('일일·주간 임무: four for the day, a bonus, four for the week, each
 });
 
 check('받기 pays once; 모두 받기 takes every finished one; the day’s bonus counts toward the week',()=>{
- const r=fresh('MAP_D163_VALLEY_OF_REMEMBRANCE');
+ const r=legacyBoard(fresh('MAP_D163_VALLEY_OF_REMEMBRANCE'));
  const book=()=>r.itemCount('MAT_CHAR_EXP_ADVENTURER'),before=book();
  domainWin(r);const out=r.action('TASK_CLAIM',{task:'D_DOMAIN'});
  assert.deepEqual(plain(out.result),{claimed:['D_DOMAIN'],names:['비경 1번 이기기'],mora:0,primogem:0,items:{MAT_CHAR_EXP_ADVENTURER:2}});
@@ -41,17 +44,17 @@ check('받기 pays once; 모두 받기 takes every finished one; the day’s bon
  assert.throws(()=>r.action('TASK_CLAIM',{task:'D_DOMAIN'}),/이미 받은 보상/);
  assert.throws(()=>r.action('TASK_CLAIM',{task:'D_WIN'}),/아직 달성하지 않았습니다 \(1\/3\)/);
  assert.throws(()=>r.action('TASK_CLAIM',{task:'NOPE'}),/임무를 찾을 수 없습니다/);
- // The rest of the day (a beginner: the ley line is shut, so three make the bonus).
- domainWin(r);domainWin(r);r.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';gather(r);gather(r);
- const mora=r.s.global.MORA,primo=Number(r.s.global.PRIMOGEM)||0;let v=r.taskView();assert(v.bonus.done,'the bonus');assert.equal(v.ready,3);assert.equal(v.here,2,'the bonus waits for Catherine');
+ // Finish every assigned old goal; a locked blossom cannot count as completed.
+ domainWin(r);domainWin(r);r.adminApply({op:'level',target:'ALL',value:20});leyWin(r);r.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';gather(r);gather(r);
+ const mora=r.s.global.MORA,primo=Number(r.s.global.PRIMOGEM)||0;let v=r.taskView();assert(v.bonus.done,'the bonus');assert.equal(v.ready,4);assert.equal(v.here,3,'the bonus waits for Catherine');
  assert.throws(()=>r.action('TASK_CLAIM',{task:'D_BONUS'}),/캐서린에게 보고해야 받을 수 있습니다/);
  const all=r.action('TASK_CLAIM',{task:'ALL'}).result;
- assert.deepEqual(new Set(all.claimed),new Set(['D_WIN','D_LIFE']));assert.equal(all.mora,600);assert.equal(all.primogem,0);
+ assert.deepEqual(new Set(all.claimed),new Set(['D_WIN','D_LEY','D_LIFE']));assert.equal(all.mora,1400);assert.equal(all.primogem,0);
  assert.throws(()=>r.action('TASK_CLAIM',{task:'ALL'}),/캐서린에게 보고해야/);
  // 「모두 달성」 is reported at Catherine's desk.
  r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});assert(r.taskView().bonus.here);
  const rep=r.action('TASK_CLAIM',{task:'ALL'}).result;assert.deepEqual(plain(rep.claimed),['D_BONUS']);assert.equal(rep.primogem,20);
- assert.equal(r.s.global.MORA,mora+600);assert.equal(r.s.global.PRIMOGEM,primo+20);assert.equal(r.s.tasks.weekly.bonus,1,'one day toward the week');
+ assert.equal(r.s.global.MORA,mora+1400);assert.equal(r.s.global.PRIMOGEM,primo+20);assert.equal(r.s.tasks.weekly.bonus,1,'one day toward the week');
  assert.throws(()=>r.action('TASK_CLAIM',{task:'ALL'}),/받을 임무 보상이 없습니다/);
  r.action('PLACE_LEAVE',{});r.s.global.CURRENT_MAP_ID='MAP_D163_VALLEY_OF_REMEMBRANCE';
  // A new day starts the day's counters and claims again; the week keeps its own.
@@ -73,7 +76,7 @@ check('the day turns at Korean midnight and the week on Monday',()=>{
 });
 
 check('a save with a broken board is refused; the server lets 「받기」 through',()=>{
- const r=fresh('MAP_D163_VALLEY_OF_REMEMBRANCE');domainWin(r);const good=plain(r.s);r.validateSave(plain(good));
+ const r=legacyBoard(fresh('MAP_D163_VALLEY_OF_REMEMBRANCE'));domainWin(r);const good=plain(r.s);r.validateSave(plain(good));
  for(const bad of [{...good.tasks,version:2},{...good.tasks,daily:{win:-1}},{...good.tasks,claimed:{D_FAKE:1}},{...good.tasks,claimed:{D_WIN:true}},null])
   assert.throws(()=>r.validateSave({...plain(good),tasks:bad}),/임무 기록이 올바르지 않습니다/);
  const core=src('server/game-core.mjs');assert(core.includes('"ACHIEVEMENT_CLAIM", "TASK_CLAIM"')||/"TASK_CLAIM"/.test(core),'TASK_CLAIM is an allowed action');
