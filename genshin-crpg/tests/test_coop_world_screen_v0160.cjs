@@ -81,7 +81,7 @@ await check('the screen stays the guest\'s own while their journey is busy (a fi
 });
 
 await check('wired last, with no drop-down list; the reward window never opens over a wish',async()=>{
- const html=src('index.html'),scripts=[...html.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]),at=f=>scripts.indexOf(f);assert(at('app_coop_world_v0160.js')>at('app_choice_v01525.js')&&at('app_coop_world_v0160.js')>at('app_coop_v0153.js'),'after every screen');assert.equal(scripts.at(-1),'app_coop_puzzle_v0160.js','같이 풀기 last');
+ const html=src('index.html'),scripts=[...html.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]),at=f=>scripts.indexOf(f);assert(at('app_coop_world_v0160.js')>at('app_choice_v01525.js')&&at('app_coop_world_v0160.js')>at('app_coop_v0153.js'),'after every screen');{const after=scripts.slice(at('app_coop_puzzle_v0160.js')+1);assert(at('app_coop_puzzle_v0160.js')>at('app_coop_world_v0160.js')&&after.every(f=>/^app_[a-z]+_v01(6[7-9]|[7-9]\d)\.js$/.test(f)),'같이 풀기 last, but for the 0.16.7+ presentation layers: '+after.join(' '));}
  {const build=fs.readFileSync(path.join(root,'tools/build.py'),'utf8');assert(build.includes("'app_coop_world_v0160.js'")&&build.includes("'app_coop_puzzle_v0160.js'"));}
  assert(!/createElement\(\s*['"]select['"]|mk\(\s*['"]select['"]|<select/.test(src('app_coop_world_v0160.js')),'no drop-down');
  assert.match(src('app_adventure.js'),/function receivedLoot\(before,type\)\{[\s\S]{0,400}if\(type==='WISH'\)return null;/,'a wish shows what it brought on the wish screen');

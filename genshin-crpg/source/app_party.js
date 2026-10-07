@@ -112,13 +112,26 @@ battlePrepare=function(p){
   const prep=game.view().battlePreparation||game.s.battlePreparation;if(!prep)return;
   const raw=game.s.battlePreparation,owned=game.ownedActors().filter(x=>x.id!=='PLAYER_CUSTOM'&&x.state==='JOINED'),choices=new Map(owned.map(o=>[o.id,{id:o.id,name:o.name,owned:game.s.tutorialV2?.loan?.id!==o.id}]));
   const selected=new Set((raw.selectedCompanions??prep.active??[]).filter(id=>choices.has(id))),limit=(prep.max||4)-1;
-  p.append(el('div','eyebrow','BEFORE THE BATTLE'),el('h1','','전투 준비'),el('p','',withJosa(game.s.global.PLAYER_NAME,'과','와')+' 함께 싸울 동료를 '+limit+'명까지 선택하세요. '+(game.s.tutorialV2?.loan?'엠버는 이번 이야기 전투에 동행합니다.':'소유한 동료를 선택할 수 있습니다.')));
-  const group=game.row('33_ENCOUNTER_GROUP_DB',prep.group),members=game.combatRows('49_ENCOUNTER_MEMBER_DB').filter(r=>r[1]===prep.group);
-  p.append(el('p','phase-note',members.map(m=>{const e=game.row('09_MONSTER_DB',m[3]);return e[1]+' · '+('고정 Lv. '+(CRPGRuntime.growthRegionData?.bosses?.[m[3]]||Number(game.row('32_MAP_DB',game.s.global.CURRENT_MAP_ID)[6])||e[18]));}).join(' / ')));
-  for(const choice of choices.values()){const row=el('label','settings-row'),check=el('input');check.type='checkbox';check.checked=selected.has(choice.id);check.disabled=busy||(!check.checked&&selected.size>=limit);check.onchange=()=>{const next=new Set(selected);check.checked?next.add(choice.id):next.delete(choice.id);act('PREP_SELECT',{group:prep.group,companions:[...next]});};row.append(check,el('span','',choice.name+(choice.owned?' · 합류한 동료':' · 이번 전투 동행')));p.append(row);}
-  if(!choices.size)p.append(el('p','muted','현재 함께할 수 있는 동료가 없습니다. 주인공이 전투에 참가합니다.'));
-  p.append(el('p','muted','선택한 동료 '+selected.size+' / '+limit+'명 · 메뉴를 오가거나 저장해도 선택이 유지됩니다.'));
-  const buttons=el('div','row');buttons.append(actionButton('편성','MENU',{screen:'PARTY'}),actionButton('캐릭터','MENU',{screen:'STATUS'}),actionButton('가방','MENU',{screen:'INVENTORY'}));p.append(buttons);
-  if(game.combatStoryConfig(prep.group))p.append(el('p','muted','공중의 적에게는 원거리 공격 또는 부양·발판이 필요합니다. 지형이 모두 무너지기 전에 전투를 마쳐야 합니다.'));
-  p.append(actionButton('이 편성으로 전투 순서 확인','COMBAT_PREPARE',{group:prep.group,companions:[...selected]},true),el('p','muted','패배하면 전투 직전 상태로 돌아가 다시 준비할 수 있습니다.'));
+  // 0.16.7 (user: 「폰에서 볼 때 저 메인퀘스트에서의 편성 체크할때 또 캐릭 많아지면 스크롤 내려야되고 이런거 너무 불편할 것 같고」): no
+  // rows of check boxes. The foes and the companions are faces; pressing a companion's face takes them along (a number
+  // shows the order picked) or leaves them; everything stands on one screen with 「전투 순서 확인」 always in sight.
+  p.append(el('div','eyebrow','BEFORE THE BATTLE'),el('h1','','전투 준비'));
+  const members=game.combatRows('49_ENCOUNTER_MEMBER_DB').filter(r=>r[1]===prep.group),foes=el('div','prep-foes');foes.setAttribute('aria-label','상대');
+  for(const m of members){const e=game.row('09_MONSTER_DB',m[3]),lv=CRPGRuntime.growthRegionData?.bosses?.[m[3]]||Number(game.row('32_MAP_DB',game.s.global.CURRENT_MAP_ID)[6])||e[18],box=el('div','prep-foe'),src=typeof enemyPortraitFor==='function'?enemyPortraitFor(m[3]):null;box.title=e[1]+' · 고정 Lv.'+lv;
+   if(src){const i=el('img','prep-foe-face');i.src=src;i.alt='';i.decoding='async';box.append(i);}else box.append(el('span','prep-foe-face blank',String(e[1]).slice(0,1)));
+   box.append(el('b','',e[1]),el('small','','Lv.'+lv+(Number(m[4])>1?' ×'+m[4]:'')));foes.append(box);}
+  const order=[...selected],grid=el('div','prep-grid');grid.setAttribute('role','group');grid.setAttribute('aria-label',withJosa(game.s.global.PLAYER_NAME,'과','와')+' 함께 싸울 동료 · '+limit+'명까지');
+  for(const choice of choices.values()){const on=selected.has(choice.id),full=!on&&selected.size>=limit;
+   const b=button('',()=>{const next=new Set(selected);on?next.delete(choice.id):next.add(choice.id);act('PREP_SELECT',{group:prep.group,companions:[...next]});},busy||full);
+   b.className='prep-pick'+(on?' on':'')+(full?' full':'');b.setAttribute('aria-pressed',String(on));b.title=choice.name+(choice.owned?'':' · 이번 이야기 전투에 동행')+(full?' · 이미 '+limit+'명을 골랐습니다':'');
+   b.append(actorPortrait(choice.id,'prep-face'),el('span','prep-name',choice.name));
+   const orb=typeof CRPGIcons!=='undefined'?CRPGIcons.element(CRPGIcons.ofCharacter(choice.id),'prep-element'):null;if(orb)b.append(orb);
+   if(on)b.append(el('b','prep-order',String(order.indexOf(choice.id)+1)));if(!choice.owned)b.append(el('small','prep-loan','동행'));grid.append(b);}
+  if(!choices.size)grid.append(el('p','prep-empty','함께할 수 있는 동료가 없습니다 · 주인공이 혼자 싸웁니다'));
+  const head=el('div','prep-head');head.append(el('strong','','동료 '+selected.size+' / '+limit),el('small','','눌러서 넣고 빼기 · 저장해도 그대로'));
+  const links=el('div','prep-links');links.append(actionButton('편성','MENU',{screen:'PARTY'}),actionButton('캐릭터','MENU',{screen:'STATUS'}),actionButton('가방','MENU',{screen:'INVENTORY'}));
+  const go=el('div','prep-go');go.append(actionButton('이 편성으로 전투 순서 확인','COMBAT_PREPARE',{group:prep.group,companions:[...selected]},true));
+  if(game.combatStoryConfig(prep.group))go.append(el('small','prep-note','공중의 적 · 원거리 공격이나 부양·발판 필요 · 지형이 무너지기 전에'));
+  go.append(el('small','prep-note','지면 전투 직전부터 다시 준비'));
+  const box=el('section','prep-board');box.append(foes,head,grid,links,go);p.append(box);
 };

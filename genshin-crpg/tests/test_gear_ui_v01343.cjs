@@ -25,10 +25,10 @@ c.window.openGear(slot);assert.equal(modals.length,1);const equip=walk(modals[0]
 assert.equal(r.s.inventory.find(i=>i.slot===slot).equipped,true);assert.equal(r.s.inventory.find(i=>i.slot===slot).owner,'PLAYER_CUSTOM');
 console.log('PASS actual acquisition/bag → gear picker → enabled equip button → native EQUIP');
 
-// Drive the shipped quantity picker, not a duplicate of its logic.
-r.giveItem('MAT_CHAR_EXP_WANDERER',20);const page=new Element('section');c.growthScreen(page);
-const select=walk(page).find(x=>x.tag==='button'&&x.textContent===r.growth('PLAYER_CUSTOM').name+' · 수량 선택');assert(select);select.onclick();
-const dialog=modals.at(-1),five=walk(dialog.content).find(x=>x.textContent==='5개');five.onclick();
-const input=walk(dialog.content).find(x=>x.tag==='input'),use=walk(dialog.content).find(x=>x.tag==='button'&&x.textContent==='사용');assert.equal(input.value,'5');assert.equal(use.disabled,false);
-input.value='1.5';input.oninput();assert.equal(use.disabled,true);five.onclick();const count=r.itemCount('MAT_CHAR_EXP_WANDERER');use.onclick();assert.equal(r.itemCount('MAT_CHAR_EXP_WANDERER'),count-5);
-console.log('PASS shipped book quantity modal: 5-book selection, invalid input guard and native batch use');
+// 0.16.7 (user: 「캐릭터마다 경험치 책 사용을 만들어두는게 좋아보인다. 오른쪽에꺼 지우고.」): books are used from each character's own
+// row — 1개 · 레벨 업 ×n · 최대 ×n — not from a quantity window. Drive the shipped row.
+r.giveItem('MAT_CHAR_EXP_WANDERER',20);assert.equal(typeof c.bookDialog,'undefined','the book window is gone');
+let row=c.window.bookRow('PLAYER_CUSTOM');const one=walk(row).find(x=>x.tag==='button'&&x.textContent==='1개');assert(one);assert.equal(one.disabled,false);
+const count=r.itemCount('MAT_CHAR_EXP_WANDERER');one.onclick();assert.equal(r.itemCount('MAT_CHAR_EXP_WANDERER'),count-1);
+row=c.window.bookRow('PLAYER_CUSTOM');const more=walk(row).find(x=>x.tag==='button'&&/^(레벨 업|최대) ×\d+$/.test(x.textContent));assert(more,'a button for several at once');const n=Number(more.textContent.match(/\d+$/)[0]),before=r.itemCount('MAT_CHAR_EXP_WANDERER');more.onclick();assert.equal(r.itemCount('MAT_CHAR_EXP_WANDERER'),before-n);
+console.log('PASS book row: one book, then several at once, each through native USE_ITEM');

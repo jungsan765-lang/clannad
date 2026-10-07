@@ -1,5 +1,12 @@
 # 다음 AI에게 전달할 프롬프트
 
+## 2026-10-07 · 0.16.7 일일·주간 임무 · 의뢰 한 줄 · 쪽 넘기기 (Claude) — 아래 모든 기록보다 우선
+
+- 읽기: `docs/PATCH_0.16.7_KO.md`. 화면(UI)은 Claude 담당 그대로, 드롭다운 금지.
+- **ChatGPT 예외(사용자 지시)**: 일일·주간 임무 종류·집계와 캐서린 의뢰 내용(데이터)을 늘리는 일은 ChatGPT가 한다. 방법은 `docs/TASKS_GUIDE_KO.md` (임무는 `runtime_tasks_v0167.js`의 `DAILY`/`WEEKLY` 목록에 한 줄, 새로 셀 것은 `this.tasksCount('kind')`).
+- 「모두 달성」(D_BONUS)은 캐서린에게 보고해야 받는다(`report:true`, `atGuild()`).
+- 남은 일: 임무 화면 「진행 중 · 동료 획득 · 완료」 탭 스크롤 → 쪽 넘기기(`CRPGMainScreen.pagePane`).
+
 ## 0.16.6 — 버그·전체 전투·경제 점검 인수인계
 
 기준은 0.16.5 `f89b2a750b7181044aadefd09fb6cba2744a1711`이다. 세부 수치와 검증 조건은 `docs/PATCH_0.16.6_KO.md`를 먼저 읽는다.

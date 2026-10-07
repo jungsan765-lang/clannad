@@ -26,18 +26,31 @@ const BattleTechnique={
   const state=events.some(e=>e.interrupted)?'중단':events.some(e=>e.charging)?'준비':events.some(e=>e.released)?'발동':frame.periodic?'지속 효과':'사용';
   return {frame,cardId,name,state,actor,side:actor?.side||events.find(e=>e.actorSide)?.actorSide||'EFFECT',owner:actor?.name||frame.actor||'전장 효과',description:own?.[16]||enemy?.[17]||'',coefficient:own?.[7]||enemy?.[6]||'',cooldown:own?(game.cardDefinition?.(own)?.cooldown??own[9]):enemy?.[8],targets:[...new Set((frame.targets||[]).map(t=>t.target).filter(Boolean))],events};
  },
- show(frame){if(!frame||['victory','defeat'].includes(frame.kind)){this.banner?.remove();this.banner=null;return;}const dock=GameEffects.dock;if(!dock)return;
-  const d=this.definition(frame);this.current=d;
-  if(!this.banner||this.banner.parentElement!==dock){this.banner=el('section','combat-skill-banner');this.banner.setAttribute('aria-label','현재 사용 기술');this.banner.setAttribute('role','status');this.banner.setAttribute('aria-live','polite');dock.prepend(this.banner);}
-  const box=this.banner;box.dataset.side=d.side;box.replaceChildren();
-  const caption=el('div','combat-skill-heading');caption.append(el('span','combat-skill-side',(d.side==='ALLY'?'아군':d.side==='ENEMY'?'적':'효과')+' · '+d.owner+' · '+d.state),el('strong','combat-skill-name',d.name));
-  const bonus=d.events.find(e=>Number.isFinite(e.jointBonusPct))?.jointBonusPct;
-  let meta=d.effect?d.source+' · '+d.description:d.targets.length?'대상 · '+d.targets.join(', '):d.state==='준비'?'다음 차례 발동을 준비합니다.':'기술 효과 적용';
-  if(bonus!==undefined)meta='합동 공격 · 추가 배율 +'+bonus+'%'+(d.targets.length?' · '+d.targets.join(', '):'');
-  caption.append(el('small','combat-skill-target',meta));box.append(caption,button(d.effect?'효과 정보':d.side==='ENEMY'?'적 기술 정보':'기술 정보',()=>this.open()));
-  // The heading occupies layout space inside the dock; floating damage stays
-  // above its top. If not enough room remains, dock outcome text is the fallback.
-  this.keepDamageSeparate();
+ // 0.16.7 (user: 「전투 로그중에, 지금 당장 아군이나 적이 어떤 기술을 쓰는지 보여주는 그거 있잖아. 그것도 좀 없애고, 차라리 기술명만 탁
+ // 나오고 어떤 기술인지 확인하는건 정보창에서 보게 하자. 기술명 나오는건 전투화면에서 나오는게 더 좋아보여.」): the box at the left of
+ // the playback dock (who · 사용 · name · 대상 · 「기술 정보」) is gone. A skill's name pops up over the battlefield for a
+ // moment — the ally's in teal, the foe's in red, 「…준비」 when it is wound up — and what it does is read in the
+ // fighter's 「정보」 window. Plain attacks, guarding and lasting ticks say nothing.
+ // (user: 「전투할때 추가적인 효과라던지 이런게 전투표현에 들어가니 적 쪽에서 공격을 하는것으로 착각하게끔 보이는 것 같기도 해.」) Only a
+ // fighter's own chosen skill is named, over its own side: follow-up hits, fields, summons, hazards, reactions, gear traits
+ // and lasting effects say nothing, and an ally's name never shows over the foes.
+ extra(frame){const ev=frame.events||[],id=String(frame.actorId||'');
+  return !!frame.periodic||['FOLLOWUP','FIELD','OBJECT','SUMMON','HAZARD','SHIELD_BREAK','REACTION','TRAIT','STATUS'].includes(frame.sourceKind)||/^(SUMMON|HAZARD):/.test(id)||ev.length>0&&ev.every(e=>(e.sourceKind&&e.sourceKind!=='JOINT_ATTACK')||e.kind==='reaction');},
+ show(frame){if(!frame||['victory','defeat'].includes(frame.kind)){this.callout?.remove();this.callout=null;return;}
+  const d=this.definition(frame);this.current=d;this.banner?.remove();this.banner=null;
+  if(d.effect||!d.actor||!['ALLY','ENEMY'].includes(d.side)||this.extra(frame)||['기본 공격','방어 태세','회복 효과','지속 효과'].includes(d.name))return;
+  this.pop(d);
+ },
+ pop(d){
+  const panel=document.querySelector('.combat-panel'),field=panel?.querySelector(d.side==='ENEMY'?'.shell-enemies':'.shell-allies');if(!field)return;
+  this.callout?.remove();const box=el('div','skill-callout '+(d.side==='ENEMY'?'enemy':'ally')+(d.state==='준비'?' ready':''));box.setAttribute('role','status');box.setAttribute('aria-live','polite');
+  box.append(el('strong','skill-callout-name',d.name+(d.state==='준비'?' · 준비':'')),el('small','skill-callout-who',d.owner));
+  // Over the side that uses it: the top of the foes' half, or the top of the party's.
+  const r=field.getBoundingClientRect();box.style.left=Math.round(r.left+r.width/2)+'px';box.style.top=Math.round(Math.max(d.side==='ENEMY'?56:4,r.top+6))+'px';
+  document.body.append(box);this.callout=box;
+  const speed=Number(typeof settings!=='undefined'&&settings.combatSpeed)||1,reduce=document.documentElement.classList.contains('reduce-motion')||(typeof settings!=='undefined'&&!!settings.reducedMotion);
+  if(box.animate&&!reduce){const a=box.animate([{opacity:0,transform:'translate(-50%,-6px) scale(.86)'},{offset:.12,opacity:1,transform:'translate(-50%,0) scale(1.04)'},{offset:.2,transform:'translate(-50%,0) scale(1)'},{offset:.82,opacity:1},{opacity:0,transform:'translate(-50%,-4px) scale(1)'}],{duration:1500/speed,easing:'ease-out',fill:'both'});a.finished.then(()=>{if(this.callout===box){box.remove();this.callout=null;}},()=>{});}
+  else setTimeout(()=>{if(this.callout===box){box.remove();this.callout=null;}},1400/speed);
  },
  keepDamageSeparate(){const dock=GameEffects.dock;if(!dock)return;const bounds=dock.getBoundingClientRect();
   for(const impact of document.querySelectorAll('.combat-effects .impact')){const r=impact.getBoundingClientRect();if(r.bottom>bounds.top-18){const y=bounds.top-24-r.height/2;if(y<115)impact.hidden=true;else impact.style.top=y+'px';}}
@@ -61,7 +74,7 @@ const BattleTechnique={
   body.append(el('small','intel-replay-note','닫으면 이어서 재생합니다.'));
   this.dialog.replaceChildren(head,body);if(!this.dialog.open)this.dialog.showModal();close.focus({preventScroll:true});
  },
- clear(){this.banner?.remove();this.banner=null;this.current=null;this.resumeToken=null;if(this.dialog?.open)this.dialog.close();}
+ clear(){this.banner?.remove();this.banner=null;this.callout?.remove();this.callout=null;this.current=null;this.resumeToken=null;if(this.dialog?.open)this.dialog.close();}
 };
 const bossIntelCapture=EnemyIntel.capture;EnemyIntel.capture=function(){bossIntelCapture.call(this);BattleTechnique.capture();};
 // Replaces the old enemy-only floating toast; no duplicate layer over damage.

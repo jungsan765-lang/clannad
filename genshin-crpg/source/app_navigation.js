@@ -55,7 +55,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
    else{detail.append(el('p','terrain-lock-reason','지금 연결된 길이 없습니다. 본편 안내 이동이나 출입 조건을 확인하세요.'));dock.append(detail,this.disabledTravel());}
    dock.append(this.control('목적지 해제',()=>this.choose(null),'clear-target'));
    const destAtlas=this.atlasFor(target);if(destAtlas&&destAtlas!==this.atlas){const b=this.control(T.atlases[destAtlas].name+' 지도 미리보기',()=>{this.atlas=destAtlas;const p=this.point(target);this.camera=p?{mode:'custom',zoom:1.7,cx:p[1],cy:p[2]}:{mode:'full'};this.refresh();},'preview');dock.append(b);}
-  }else{detail.append(el('strong','','지도에서 동그라미를 누르면 그곳까지 가는 길을 미리 봅니다.'),el('span','','목적지 카드는 누르는 즉시 출발합니다.'));dock.append(detail,this.disabledTravel('지도에서 목적지를 선택하세요'));}
+  }else{detail.append(el('strong','','지도에서 동그라미를 누르면 그곳까지 가는 길을 미리 봅니다.'),el('span','','목적지 카드는 누르는 즉시 출발합니다.'));dock.append(detail,this.disabledTravel('지도에서 목적지를 선택하세요'));dock.classList.add('idle');}
   section.append(dock);
   const footer=el('details','terrain-provenance');footer.append(el('summary','','지도 보는 법'),el('p','','동그라미 하나가 장소 하나이고, 선은 두 장소를 바로 잇는 길입니다. 또렷한 동그라미는 바로 갈 수 있는 곳, 속이 비치는 동그라미는 한 번에는 못 가는 곳(누르면 가는 길이 나옵니다), 빈 고리와 흐린 점선은 아직 막힌 곳과 길입니다. 동그라미를 누르면 그곳까지 가는 길이 금색으로 바뀝니다. 아직 가 보지 않은 곳은 이름을 숨기고, 넓은 지역과 실내·지하는 대표 위치 한 곳으로 표시합니다. 다른 지역으로 가는 길은 목적지 카드에서 고릅니다.'));section.append(footer);
   return section;

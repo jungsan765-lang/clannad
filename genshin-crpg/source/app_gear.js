@@ -47,6 +47,7 @@ function memberCard(id,bench=false){
  const stats=el('dl','gear-stats');for(const [label,key,unit]of STATS){const dd=el('dd','',fmt(actor[key])+unit),plus=Math.round((bonus[key]||0)*10)/10;if(plus)dd.append(el('span',plus>0?'stat-up':'stat-down',' '+(plus>0?'+':'')+fmt(plus)));stats.append(el('dt','',label),dd);}
  card.append(stats);
  const summary=game.traitSummary?.(id)||[];if(summary.length){const chips=el('ul','gear-trait-chips');chips.setAttribute('aria-label','장비 특성');for(const t of summary){const chip=el('li','trait-'+(t.group||''),t.label);chip.title=t.text;chips.append(chip);}card.append(chips);}
+ if(game.experienceBookLimit)card.append(bookRow(id));
  return card;
 }
 function openPicker(owner,category){
@@ -73,22 +74,25 @@ function openPicker(owner,category){
  if(!options.length)list.append(el('p','empty','바꿔 낄 '+label+'이(가) 없습니다. 상점이나 제작 시설에서 구할 수 있습니다.'));
  box.append(list);showModal(ownerName(owner)+' · '+label,box);
 }
-function bookDialog(id,owner){
- const growth=game.growth(owner),max=game.experienceBookLimit(id,owner),box=el('div','book-batch');
- box.append(el('p','',growth.name+' · Lv. '+growth.level),el('p','',safeName('14_ITEM_DB',id)+' · 보유 '+game.itemCount(id)+'개'));
- if(!max){box.append(el('p','','최대 레벨입니다.'));showModal('경험치 책',box);return;}
- const label=el('label','','사용할 수량'),input=el('input');input.type='number';input.min='1';input.max=String(max);input.step='1';input.value='1';input.setAttribute('aria-label','경험치 책 사용 수량');label.append(input);box.append(label);
- const preview=el('p','book-preview'),shortcuts=el('div','row'),use=button('사용',()=>{const quantity=Number(input.value);if(!Number.isSafeInteger(quantity)||quantity<1||quantity>max)return;document.getElementById('modal').close();act('USE_ITEM',{item:id,quantity,owner});},busy,true);
- const refresh=()=>{const n=Number(input.value),valid=Number.isSafeInteger(n)&&n>=1&&n<=max;use.disabled=busy||!valid;preview.textContent=valid?'경험치 +'+fmt(n*BOOKS[id])+' · '+n+'개 사용':'1~'+max+'개 사이의 정수를 입력하세요.';};
- for(const [text,n]of [['1개',1],['5개',Math.min(5,max)],['10개',Math.min(10,max)],['최대',max]])shortcuts.append(button(text,()=>{input.value=String(n);refresh();}));
- input.oninput=refresh;box.append(shortcuts,preview,el('small','muted','현재 돌파 상한에 필요한 수량까지만 사용합니다. 마지막 책의 남는 경험치는 사라집니다.'),use);refresh();showModal('경험치 책 일괄 사용',box);
-}
-function books(p){
- const owners=game.premiumFighters(),rows=Object.keys(BOOKS).filter(id=>game.itemCount(id));if(!rows.length)return;
- const box=el('section','gear-books');box.append(el('h2','','경험치 책'));
- for(const id of rows){const row=el('div','gear-book');row.append(el('strong','',safeName('14_ITEM_DB',id)+' · '+game.itemCount(id)+'개'),el('small','muted','1개당 경험치 '+fmt(BOOKS[id])));
-  for(const owner of owners){const g=game.growth(owner),b=button(g.name+' · 수량 선택',()=>bookDialog(id,owner),busy||g.max);if(g.max)b.title='현재 돌파 상한입니다.';row.append(b);}box.append(row);}
- p.append(box);
+// 0.16.7 (user: 「경험치책, 캐릭터 많으면 너무 복잡해지니까 캐릭터마다 경험치 책 사용을 만들어두는게 좋아보인다. 오른쪽에꺼 지우고.」):
+// each member uses its own books — a picture per kind with how many are held, and 「1개」 · 「레벨 업」 · 「최대」 to press.
+// The 「수량 선택」 list of every member on the right side and its number box are gone. 「최대」 stops at the current
+// ascension cap (experienceBookLimit), as the old window did.
+// One line: the kinds held as pictures to pick (the count on each), then 「1개」 · 「레벨 업 ×n」 · 「최대 ×n」 for the picked one.
+const bookPick={};
+function bookRow(owner){
+ const g=game.growth(owner),row=el('div','gear-exp');row.dataset.owner=owner;
+ const head=el('div','gear-exp-head');head.append(el('strong','','경험치 책'),el('small','',g.max?'지금 돌파 상한입니다':'다음 레벨까지 '+fmt(g.remaining)));row.append(head);
+ const kinds=Object.keys(BOOKS).filter(id=>game.itemCount(id)>0);
+ if(!kinds.length){row.append(el('small','gear-exp-none','경험치 책이 없습니다 · 계시의 꽃(지맥)에서 얻습니다'));return row;}
+ const id=kinds.includes(bookPick[owner])?bookPick[owner]:kinds[0],line=el('div','gear-exp-line'),faces=el('div','gear-exp-books');faces.setAttribute('role','radiogroup');faces.setAttribute('aria-label','경험치 책 종류');
+ for(const k of kinds){const name=safeName('14_ITEM_DB',k),path=(typeof MANIFEST!=='undefined'?MANIFEST:window.CRPG_MANIFEST)?.itemIcons?.icons?.[k]?.path,face=button('',()=>{bookPick[owner]=k;render();});
+  face.className='gear-exp-face'+(k===id?' on':'');face.setAttribute('role','radio');face.setAttribute('aria-checked',String(k===id));face.title=name+' · 1개당 경험치 '+fmt(BOOKS[k]);face.setAttribute('aria-label',name+' '+fmt(game.itemCount(k))+'개');
+  if(path){const pic=el('img','gear-exp-icon');pic.src=path;pic.alt='';pic.draggable=false;face.append(pic);}else face.append(el('span','gear-exp-icon mark','EXP'));face.append(el('b','','×'+fmt(game.itemCount(k))));faces.append(face);}
+ const have=game.itemCount(id),max=g.max?0:Math.min(have,Number(game.experienceBookLimit(id,owner))||0),next=Math.max(1,Math.min(max,Math.ceil((Number(g.remaining)||0)/BOOKS[id]))),name=safeName('14_ITEM_DB',id);
+ const use=(q,label)=>{const why=max?game.actionReason('USE_ITEM',{item:id,quantity:q,owner}):'지금 돌파 상한입니다.';const b=button(label,()=>act('USE_ITEM',{item:id,quantity:q,owner}),busy||!max||!!why);b.title=why||name+' '+q+'개 · 경험치 +'+fmt(q*BOOKS[id]);return b;};
+ const buttons=el('div','gear-exp-use');buttons.append(use(1,'1개'));if(next>1)buttons.append(use(next,'레벨 업 ×'+next));if(max>next)buttons.append(use(max,'최대 ×'+max));
+ line.append(faces,buttons);row.append(line);return row;
 }
 // Native popovers occupy the top layer, including above an equipment picker dialog.
 // Position against the viewport so neither the scrolling list nor the mobile edge clips them.
@@ -113,7 +117,6 @@ growthScreen=function(p){
  const party=game.formationOrder?game.formationOrder():game.s.party.filter(x=>x.active).map(x=>x.source);
  const bench=game.ownedActors().filter(a=>!party.includes(a.id)).sort((a,b)=>(game.premiumRarity?.(b.id)||4)-(game.premiumRarity?.(a.id)||4)||Number(b.level)-Number(a.level)||a.name.localeCompare(b.name,'ko')).map(a=>a.id);
  const grid=el('div','gear-members');for(const id of party)grid.append(memberCard(id));for(const id of bench)grid.append(memberCard(id,true));p.append(grid);
- books(p);
  const links=el('div','row gear-links');links.append(actionButton('편성 바꾸기','MENU',{screen:'PARTY'}));if(window.openEquipmentHelp)links.append(button('장비 사용법',()=>window.openEquipmentHelp()));p.append(links);
  // 0.15.20: back to the battle, a waiting story scene, or the main screen (app_experience.js journeyReturn).
  {const back=typeof journeyReturn==='function'?journeyReturn():{label:game.s.runtime?'전투로 돌아가기':'이야기로 돌아가기',screen:game.s.runtime&&!game.s.runtime.interlude?'COMBAT':'STORY'};p.append(back.retry?actionButton(back.label,'STORY_RETRY',{},true):actionButton(back.label,'MENU',{screen:back.screen},true));}
@@ -122,6 +125,7 @@ growthScreen=function(p){
  if(pendingPick&&!busy){const x=pendingPick;pendingPick=null;queueMicrotask(()=>openPicker(x.owner,x.category));}
 };
 // Other screens open the gear screen with one item's slot already chosen.
+window.bookRow=bookRow;
 window.openGear=function(slot,owner){
  const inv=game?.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)return act('MENU',{screen:'STATUS'});
  const owned=game.ownedActors().map(a=>a.id);pendingPick={owner:owned.includes(owner)?owner:inv.equipped&&owned.includes(inv.owner)?inv.owner:'PLAYER_CUSTOM',category:itemCategory(inv)};
