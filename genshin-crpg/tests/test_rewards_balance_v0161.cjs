@@ -1,17 +1,16 @@
 'use strict';
 const assert=require('node:assert/strict');
-const {fresh,c,R,db}=require('./helpers_v011.cjs');
+const {fresh,c,R,db,advance}=require('./helpers_v011.cjs');
 const {flags}=require('../tools/audit_balance_v01522.cjs');
 const api=c.CRPGRuntime,cp=x=>JSON.parse(JSON.stringify(x));
 let count=0;function check(name,fn){fn();count++;console.log('PASS '+name);}
 function ready(map){const r=fresh(map);r.adminApply({op:'level',target:'ALL',value:60});flags(r);r.s.domainDaily={day:api.growthV01522.dayOf(r.leyLineNow()),wins:3};return r;}
 // Only settlement tests force enemies to zero HP; difficulty tests use native combat in audit_balance_v0161.
 function settle(r){for(const a of r.s.runtime.actors.filter(a=>a.side==='ENEMY'))a.hp=0;return r.finishBattle(true);}
-// 0.16.2 (user: 「다른 비경들 경험치나 모라가 너무 비정상적으로 많이 나와서 모라는 없애고, 경험치는 좀 팍 줄여야 할 것 같아. 경험치
-// 비경을 대신 만들고」): the experience domains keep 0.16.1's per-run experience; talent and ascension pay a fifth of it; no Mora.
+// Current EXP has its own increasing table; the earlier material XP table is retained independently. No Mora.
 // 0.16.3: the three kinds stand at different places (태산부 · 천둥 연산 밀궁 · 암중협곡 at Lv60).
-check('at Lv60 the talent and ascension domains pay a fifth of the experience domain, no Mora and no books; the experience domain pays only experience',()=>{
- for(const [map,id,element,xp]of [['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',1600],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','NEUTRAL',1600],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',1600],['MAP_CHASM_DEEP','LOST_VALLEY:60','NEUTRAL',8000]]){
+check('Lv60 material domains retain their XP and EXP domains pay their current XP, no Mora or books',()=>{
+ for(const [map,id,element,xp]of [['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',1600],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','NEUTRAL',1600],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',1600],['MAP_CHASM_DEEP','LOST_VALLEY:60','NEUTRAL',10000]]){
   const r=ready(map);r.action('DOMAIN_START',{domain:id,element});const x=settle(r);
   assert.equal(x.xp,xp,id);assert.equal(x.mora,0,id);for(const book of Object.keys(api.leyLines.bookXp))assert.equal(x.loot[book]||0,0);
   if(id.startsWith('LOST_VALLEY'))assert.equal(Object.keys(x.domain.items).length,0);
@@ -42,14 +41,14 @@ check('the same level-selected ley difficulties and payouts exist in both region
  assert.deepEqual(cp(api.leyLines.tiers.map(x=>x.level)),[6,15,30,45,60]);
 });
 function ley(r,kind,tier){const map=r.s.global.CURRENT_MAP_ID;let hour=r.leyLineHour();while(!api.leyLines.sitesAt(hour).some(s=>s.map===map&&s.kind===kind))hour++;
- r.actionStartedAt=hour*3600000+60000;const route=api.leyLines.route(kind,map);r.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT',tier});return {hour,route};}
+ const at=hour*3600000+60000;advance(Math.max(0,at-c.Date.now()));r.actionStartedAt=at;const route=api.leyLines.route(kind,map);r.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT',tier});return {hour,route};}
 check('ley settlement uses its low direct-XP plan, books/Mora dominate, and claims cannot be repeated',()=>{
  for(const kind of ['REVELATION','WEALTH']){
   let r=ready('MAP_MOND_PLAINS');const {hour,route}=ley(r,kind,5),expected=cp(r.s.runtime.mondBalance.rewards);
   assert.equal(r.s.runtime.leyLine.level,60);assert.deepEqual(cp(r.mondRewardPlan(r.s.runtime)),expected);r=new R(db,cp(r.s));r.actionStartedAt=hour*3600000+60000;
   const x=settle(r);assert.equal(x.xp,expected.xp);assert.equal(r.s.leyLine[kind],hour);
   assert.equal(x.xp,400);assert.equal(expected.mora,0);
-  if(kind==='REVELATION'){assert.equal(x.loot.MAT_CHAR_EXP_HERO,180);assert(180000>4*8000);assert.equal(x.mora,0);}
+  if(kind==='REVELATION'){assert.equal(x.loot.MAT_CHAR_EXP_HERO,180);assert(180000>4*10000);assert.equal(x.mora,0);}
   else {assert.equal(x.mora,40000);assert.equal(x.loot.MAT_CHAR_EXP_HERO||0,0);}
   assert(r.placeBossReason(route,r.placeEntries().find(e=>e.route===route)));const state=r.serialize();r.finishBattle(true);assert.equal(r.serialize(),state);
  }

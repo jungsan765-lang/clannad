@@ -140,9 +140,24 @@ function combatSpeedControl(){
 }
 const GameEffects={
   generation:0,timer:null,resolve:null,layer:null,dock:null,seen:new Set(),hitTimers:new Set(),lastFlash:0,paused:false,active:false,prewound:null,
-  cancel(){CombatFX.clear();this.prewound=null;this.generation++;clearTimeout(this.timer);for(const id of this.hitTimers)clearTimeout(id);this.hitTimers.clear();this.resolve?.();this.resolve=null;this.layer?.replaceChildren();this.dock?.remove();this.dock=null;this.active=false;this.paused=false;document.documentElement.classList.remove('av-running');root.inert=busy;},
-  reschedule(){clearTimeout(this.timer);if(this.resolve&&!this.paused)this.timer=setTimeout(()=>this.advance(),(this.beatDuration||1400)/(settings.combatSpeed||1));},
-  advance(){clearTimeout(this.timer);const done=this.resolve;this.resolve=null;done?.();},
+  clearHits(){for(const hit of this.hitTimers)clearTimeout(hit.timer);this.hitTimers.clear();},
+  queueHit(show,delay){this.hitTimers.add({show,remaining:delay,timer:null,startedAt:0,speed:1,generation:this.generation});},
+  scheduleHits(){
+    // Store the unplayed interval at 1x speed; paused wall time never consumes it.
+    const now=performance.now(),speed=settings.combatSpeed||1;
+    for(const hit of this.hitTimers){
+      if(hit.timer!==null){clearTimeout(hit.timer);hit.remaining=Math.max(0,hit.remaining-(now-hit.startedAt)*hit.speed);hit.timer=null;}
+      if(this.paused)continue;
+      hit.startedAt=now;hit.speed=speed;hit.timer=setTimeout(()=>{
+        hit.timer=null;if(!this.hitTimers.has(hit)||hit.generation!==this.generation)return;
+        if(this.paused){hit.remaining=0;return;}
+        this.hitTimers.delete(hit);hit.show();
+      },Math.round(hit.remaining/speed));
+    }
+  },
+  cancel(){CombatFX.clear();this.prewound=null;this.generation++;clearTimeout(this.timer);this.clearHits();this.resolve?.();this.resolve=null;this.layer?.replaceChildren();this.dock?.remove();this.dock=null;this.active=false;this.paused=false;document.documentElement.classList.remove('av-running');root.inert=busy;},
+  reschedule(){clearTimeout(this.timer);this.scheduleHits();if(this.resolve&&!this.paused)this.timer=setTimeout(()=>this.advance(),(this.beatDuration||1400)/(settings.combatSpeed||1));},
+  advance(){clearTimeout(this.timer);this.clearHits();const done=this.resolve;this.resolve=null;done?.();},
   layerNode(){if(!this.layer){this.layer=el('div','combat-effects');this.layer.setAttribute('aria-hidden','true');document.body.append(this.layer);}return this.layer;},
   actorNode(id){if(!id)return null;const actor=[...root.querySelectorAll('.combatant-row[data-actor-id]')].find(n=>n.dataset.actorId===id);if(actor)return actor;return [...root.querySelectorAll('.battle-summon[data-summon-id]')].find(n=>n.dataset.summonId===id)||null;},
   primeCombat(type,params={}){
@@ -155,7 +170,7 @@ const GameEffects={
     const phase=root.querySelector('.phase-note');if(phase)phase.textContent=actor.name+' · '+(card?.name||'행동')+' 준비';return this.prewound;
   },
   showAction(frame){
-    const layer=this.layerNode();layer.replaceChildren();CombatFX.clear();
+    this.clearHits();const layer=this.layerNode();layer.replaceChildren();CombatFX.clear();
     const auxiliary=frame.periodic||frame.events.every(e=>(e.sourceKind&&e.sourceKind!=='JOINT_ATTACK')||e.kind==='reaction');
     const heading=root.querySelector('.battle-heading .eyebrow');if(heading)heading.textContent='ROUND '+frame.round;
     for(const order of root.querySelectorAll('.battle-order li'))order.classList.toggle('current',order.dataset.actorId===frame.actorId);
@@ -180,14 +195,14 @@ const GameEffects={
       if(Number.isFinite(t.hpBefore))hp(t.hpBefore,t.maxHp);if(Number.isFinite(t.shieldBefore))shield(t.shieldBefore);
       const impact=(event,index,total)=>{if(!rect||rect.bottom<=100||rect.top>=innerHeight-240)return;const item=el('div','impact effect-'+(event?.element||hit?.element||'hit')+' kind-action'+(event?.critical?' critical':''));const spread=total>1?(index-(total-1)/2)*10:0;item.style.left=Math.max(80,Math.min(innerWidth-80,rect.left+rect.width/2+spread))+'px';item.style.top=Math.max(140,Math.min(innerHeight-250,rect.top+rect.height/2-(index%2)*12))+'px';const packet=event?[event.absorbed?'보호막 -'+event.absorbed:'',Number(event.amount)>0?'HP -'+event.amount:''].filter(Boolean).join(' · '):'';item.append(el('strong','impact-label',packet||(t.damage?'HP -'+t.damage:t.heal?'+'+t.heal:t.immuneCount?'면역':t.missCount?'빗나감':t.events.find(e=>e.kind==='capacity')?.label||'방어')));if(total>1&&index===total-1)item.append(el('small','impact-target',total+'연타'));if(event?.critical)item.append(el('small','impact-target','치명타'));layer.append(item);if(!settings.reducedMotion&&target)target.animate?.([{transform:'translateX(0)'},{transform:'translateX(-3px)'},{transform:'translateX(3px)'},{transform:'translateX(0)'}],{duration:140,easing:'ease-out'});};
       if(hitEvents.length>1){
-        hitEvents.forEach((event,index)=>{const delay=Math.round(index*32/(settings.combatSpeed||1)),id=setTimeout(()=>{this.hitTimers.delete(id);hp(event.hpAfter,event.maxHp||t.maxHp);shield(event.shieldAfter);impact(event,index,hitEvents.length);},delay);this.hitTimers.add(id);});
+        hitEvents.forEach((event,index)=>this.queueHit(()=>{hp(event.hpAfter,event.maxHp||t.maxHp);shield(event.shieldAfter);impact(event,index,hitEvents.length);},index*32));
       }else{
         hp(t.hpAfter,t.maxHp);shield(t.shieldAfter);impact(hitEvents[0]||null,0,1);
       }
       if(t.damage&&t.side==='ALLY')flashed=true;
       cue=cue||hit?.cue;
     }
-    CombatFX.impact(frame,this);
+    this.scheduleHits();CombatFX.impact(frame,this);
     if(flashed&&!settings.reducedMotion&&settings.damageFlash&&performance.now()-this.lastFlash>=450){this.lastFlash=performance.now();const flash=el('div','damage-flash');layer.append(flash);setTimeout(()=>flash.remove(),280);}
     if(cue)GameAudio.play(cue==='hit'&&/SLIME/i.test(frame.actorId)?'slime_hit':cue);
   },

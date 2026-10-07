@@ -41,6 +41,8 @@ const TRAITS={
  WEAK_POINT:{label:'약점 공략',group:'공략',text:v=>'약점·코어가 드러난 적 대상 피해 +'+pct(v)},
  SLAYER:{label:'특공',group:'공략',keyed:true,text:(v,k)=>k+' 대상 피해 +'+pct(v)},
  AURA_HUNTER:{label:'원소 표적',group:'공략',keyed:true,text:(v,k)=>k.split('/').join('·')+' 원소가 묻은 적 대상 피해 +'+pct(v)},
+ NORMAL_DAMAGE:{label:'일반 공격 강화',group:'공략',text:v=>'일반 공격 피해 +'+pct(v)},
+ CLOSE_SHOT:{label:'근거리 사격',group:'공략',text:v=>'근거리 일반 사격 피해 +'+pct(v)},
  ELEMENT_BOOST:{label:'원소 강화',group:'공략',keyed:true,text:(v,k)=>(k==='ALL'?'원소':k)+' 피해 +'+pct(v)},
  FIRST_STRIKE:{label:'선제',group:'공략',text:v=>'전투 중 첫 공격 피해 +'+pct(v)},
  HIGH_HP_CRIT:{label:'여유',group:'공략',text:v=>'HP 90% 이상이면 치명타 확률 +'+v+'%p'},
@@ -111,13 +113,25 @@ const RULES={SPREAD:'고르게',FRONT:'전열 우선',BACK:'후열 우선',LEAD:
 api.gearTraits={version:1,catalog:Object.fromEntries(Object.entries(TRAITS).map(([k,t])=>[k,{label:t.label,group:t.group,keyed:!!t.keyed}])),gear:copy(GEAR),classTraits:copy(CLASS_TRAITS),liyueWeapons:copy(LIYUE_WEAPONS),hazards:copy(HAZARDS),rules:copy(RULES),caps:copy(CAPS)};
 api.traitCatalog=TRAITS;api.traitGroups=GROUPS;
 
-const old=Object.fromEntries(['equipmentProficiencies','initCombatActor','startBattle','hasAirAccess','damage','combatDamageMultiplier','applyDamage','heal','shield','addCombatStatus','applyCombatControl','newRound','onCombatTurnStart','roundEnd','combatStat','player','apply','actionReason','validateSave','enemyIntel'].map(k=>[k,P[k]]));
+const old=Object.fromEntries(['equipmentProficiencies','initCombatActor','startBattle','hasAirAccess','basicHit','damage','combatDamageMultiplier','applyDamage','heal','shield','addCombatStatus','applyCombatControl','newRound','onCombatTurnStart','roundEnd','combatStat','player','apply','actionReason','validateSave','enemyIntel'].map(k=>[k,P[k]]));
 
 // ---- trait lookup -------------------------------------------------------------------------------
 P.equipmentProficiencies=function(owner){const list=old.equipmentProficiencies.call(this,owner);if(list?.length||!LIYUE_WEAPONS[owner])return list;return [LIYUE_WEAPONS[owner]];};
 P.gearTraitsFor=function(equipId){const row=this.tables['16_EQUIP_DB']?.get(equipId);const out=(GEAR[equipId]||[]).map(x=>x.slice());if(row&&CLASS_TRAITS[row[2]])out.push(...CLASS_TRAITS[row[2]].map(x=>[...x,'CLASS']));const extra=this.extraGearTraits?.(equipId);if(extra)out.push(...extra.map(x=>x.slice()));return out;};
 function addTrait(bag,entry){const [key,a,b]=entry,def=TRAITS[key];if(!def)return;if(def.keyed){const k=String(a),v=Number(b)||0;bag[key]=bag[key]||{};bag[key][k]=(bag[key][k]||0)+v;}else{bag[key]=Math.min(CAPS[key]??999,(bag[key]||0)+(Number(a)||0));}}
-P.actorTraits=function(owner){const bag={};for(const inv of this.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===owner))for(const t of this.gearTraitsFor(inv.equip))addTrait(bag,t);return bag;};
+P.enhancedGearTraits=function(inv){
+ const out=this.gearTraitsFor(inv.equip),effects={};let profile={};try{profile=JSON.parse(this.row('16_EQUIP_DB',inv.equip)[32]||'{}');}catch{}
+ for(const [level,m]of Object.entries(profile.milestones||{}))if(inv.enhance>=Number(level))Object.assign(effects,m.effect_override||{});
+ const legacy={normal_damage_bonus:['NORMAL_DAMAGE'],close_shot_damage_bonus:['CLOSE_SHOT'],wet_cryo_damage_bonus:['AURA_HUNTER','물/얼음'],received_heal_bonus:['HEAL_BOOST']};
+ for(const [effect,trait]of Object.entries(legacy))if(Number(effects[effect])>0){
+  const value=Math.round(Number(effects[effect])*10000)/100,key=trait[0],keyed=TRAITS[key].keyed,index=out.findIndex(t=>t[0]===key&&(!keyed||t[1]===trait[1]));
+  // Milestones are absolute replacements. The newer authored trait remains a
+  // floor; do not add an old same-trigger bonus on top of it or reduce it.
+  if(index<0)out.push([...trait,value]);else{const col=keyed?2:1;out[index][col]=Math.max(Number(out[index][col])||0,value);}
+ }
+ return out;
+};
+P.actorTraits=function(owner){const bag={};for(const inv of this.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===owner))for(const t of this.enhancedGearTraits(inv))addTrait(bag,t);return bag;};
 P.traitLine=function(entry){const [key,a,b]=entry,def=TRAITS[key];if(!def)return '';return def.label+' · '+(def.keyed?def.text(Number(b)||0,String(a)):def.text(Number(a)||0));};
 P.gearTraitLines=function(equipId){return this.gearTraitsFor(equipId).map(t=>({key:t[0],label:TRAITS[t[0]]?.label||t[0],group:TRAITS[t[0]]?.group||'',text:this.traitLine(t),innate:t[t.length-1]==='CLASS'}));};
 P.traitSummary=function(owner){const bag=this.actorTraits(owner),out=[];for(const [key,v]of Object.entries(bag)){const def=TRAITS[key];if(!def)continue;if(def.keyed)for(const [k,n]of Object.entries(v))out.push({key,label:def.label,text:this.traitLine([key,k,n]),group:def.group});else out.push({key,label:def.label,text:this.traitLine([key,v]),group:def.group});}return out.sort((a,b)=>GROUPS.indexOf(a.group)-GROUPS.indexOf(b.group));};
@@ -158,6 +172,7 @@ P.enemyTargetWeight=function(a,t,alive){
 
 // ---- combat hooks ---------------------------------------------------------------------------------
 P.hasAirAccess=function(a,t,range){return old.hasAirAccess.call(this,a,t,range)||(!!t?.airborne&&tv(a,'AIR_ACCESS')>0);};
+P.basicHit=function(a,t,k){const prior=this._gearNormalActor;this._gearNormalActor=a;try{return old.basicHit.call(this,a,t,k);}finally{this._gearNormalActor=prior;}};
 const singleCard=(r,o)=>{if(o.aoe)return false;if(!o.card)return true;const row=r.tables['12_ENEMY_CARD_DB']?.get(o.card)||r.tables['08_SKILL_CARD_DB']?.get(o.card);const mode=String(row?.[31]||'');return !mode||/^(ALLY_1|ENEMY_1|PRIMARY|LOWEST_HP|HIGHEST_HP|SINGLE|TARGET)/.test(mode);};
 const heavyHit=(r,k,o)=>{if(o.heavy)return true;if(Number(k)>=1.3)return true;const row=o.card&&(r.tables['12_ENEMY_CARD_DB']?.get(o.card));return /강공|돌진|충돌/.test(String(row?.[4]||'')+String(row?.[25]||''));};
 P.coverFor=function(a,t,o){
@@ -182,6 +197,7 @@ P.damage=function(a,t,k,e,o={}){
 P.combatDamageMultiplier=function(a,t,e,o={}){
  let n=old.combatDamageMultiplier.call(this,a,t,e,o);const element=el(e);
  if(a?.side==='ALLY'&&t?.side!=='ALLY'){
+  if(this._gearNormalActor===a&&!o.card&&!o.sourceKind){n*=1+tv(a,'NORMAL_DAMAGE')/100;if(this.combatDistance(a,t)<=1)n*=1+tv(a,'CLOSE_SHOT')/100;}
   const fam=familyOf(this,t);for(const [k,v]of Object.entries(a.traits?.SLAYER||{}))if(fam.includes(k)||String(t.name||'').includes(k))n*=1+v/100;
   if(['LARGE','BOSS'].includes(this.combatSize?.(t)||t.size))n*=1+tv(a,'GIANT')/100;
   if(t.airborne)n*=1+tv(a,'ANTI_AIR')/100;
@@ -206,7 +222,7 @@ P.applyDamage=function(a,t,n,details={}){
  if(b&&hadHp&&t.hp<=0&&a?.side==='ALLY'&&t.side!=='ALLY'){const heal=tv(a,'ON_KILL_HEAL');if(heal&&a.hp>0)this.heal(a,heal,'처치 회복');}
  return result;
 };
-P.heal=function(a,amount,source=''){const boost=a?.side==='ALLY'?tv(a,'HEAL_BOOST'):0;return old.heal.call(this,a,boost?amount*(1+boost/100):amount,source);};
+P.heal=function(a,amount,source='',...rest){const boost=a?.side==='ALLY'?tv(a,'HEAL_BOOST'):0;return old.heal.call(this,a,boost?amount*(1+boost/100):amount,source,...rest);};
 P.shield=function(a,value,source,rounds,extra={}){const boost=a?.side==='ALLY'?tv(a,'SHIELD_BOOST'):0;return old.shield.call(this,a,boost?value*(1+boost/100):value,source,rounds,extra);};
 const CONTROL=new Set(['STATUS_FREEZE','STATUS_STUN','LIFTED','STATUS_SLOW']);
 P.addCombatStatus=function(a,id,rounds,extra={}){

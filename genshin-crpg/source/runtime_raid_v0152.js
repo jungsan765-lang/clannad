@@ -29,7 +29,7 @@ const TIERS=[{key:'P100',hits:100,reward:{mora:3000}},{key:'P300',hits:300,rewar
 const eventFrom=e=>{if(!e||typeof e!=='object'||!/^RAID_\d+$/.test(String(e.id)))return null;const boss=BOSSES.find(b=>b.id===e.boss);if(!boss)return null;const endsAt=Number(e.endsAt),startsAt=Number(e.startsAt)||0,target=Number.isInteger(e.target)&&e.target>0?e.target:TARGET;if(!Number.isFinite(endsAt))return null;return {id:String(e.id),boss:boss.id,name:boss.name,text:boss.text,startsAt,endsAt,target};};
 const CLOSED='지금은 열린 공동 토벌전이 없습니다. 운영자가 이벤트로 열면 참여할 수 있습니다.';
 api.raidV0152={rounds:ROUNDS,sorties:SORTIES,minLevel:MIN_LEVEL,target:TARGET,stages:copy(STAGES),tiers:copy(TIERS),bosses:BOSSES.map(b=>({id:b.id,name:b.name,text:b.text})),eventFrom,closed:CLOSED};
-const old=Object.fromEntries(['installMarketContent','supportsLiyueBoss','apply','actionReason','startBattle','applyDamage','roundEnd','liyueBattleOutcome','finishBattle','validateSave'].map(k=>[k,P[k]]));
+const old=Object.fromEntries(['installMarketContent','supportsLiyueBoss','apply','actionReason','startBattle','roundEnd','liyueBattleOutcome','finishBattle','validateSave'].map(k=>[k,P[k]]));
 function table(r,key){const rows=r.db[key].map(x=>x.slice());r.db={...r.db,[key]:rows};r.tables[key]=new Map(rows.slice(1).filter(x=>x[0]).map(x=>[x[0],x]));}
 // One boss row and one fight per raid boss, copied from the monster it is built on.
 P.installRaidContent=function(){
@@ -87,12 +87,7 @@ P.startBattle=function(group,origin='EXPLICIT',...rest){
  if(b.encounter){b.encounter.label='공동 토벌전 · '+e.name;b.encounter.text='모든 모험가와 함께 '+e.name+'에 맞섭니다. '+ROUNDS+'라운드 동안 최대한 많이 맞히세요. 공격의 세기와 상관없이 한 번 맞힐 때마다 1이고, 쓰러지지 않는 적입니다.';}
  return out;
 };
-// Every hit on the raid boss is 1, and counts (damage over time from a reaction still lands, but is not a hit).
-P.applyDamage=function(a,t,n,d={}){
- const b=this.s.runtime;if(!b?.raid||!t?.raidBoss||a?.side!=='ALLY'||!(n>0))return old.applyDamage.call(this,a,t,n,d);
- if(d.sourceKind!=='REACTION_DOT')b.raid.hits++;
- const out=old.applyDamage.call(this,a,t,1,d);if(t.hp<1)t.hp=1;return out;
-};
+// runtime_combat's final damage sink normalizes accepted packets and counts hits after all modifiers and immunities.
 P.roundEnd=function(...args){const out=old.roundEnd.apply(this,args),b=this.s.runtime;if(b?.raid&&b.round>b.raid.limit)b.raid.ended=true;return out;};
 P.liyueBattleOutcome=function(b){if(b?.raid){if(b.raid.ended)return true;if(!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return false;}return old.liyueBattleOutcome?.call(this,b);};
 P.finishBattle=function(victory){

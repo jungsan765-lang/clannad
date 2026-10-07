@@ -81,7 +81,7 @@ P.newRound=function(){
  for(const a of b.actors)if(['MON_FATUI_CRYO','MON_FATUI_ELECTRO'].includes(a.source)&&!a.fatuiArmorInitialized){a.fatuiArmorInitialized=true;const cryo=a.source==='MON_FATUI_CRYO';this.shield(a,a.maxHp*.3,cryo?'ECARD_FATUI_CRYO_ARMOR':'ECARD_FATUI_ELECTRO_ARMOR',null,{element:cryo?'얼음':'번개',damageMultipliers:cryo?{불:2}:{얼음:2}});}
  return old.newRound.call(this);
 };
-P.liyueBattleOutcome=function(b){const evac=b.liyueEvacuation;if(evac){if(!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return false;if(evac.completedRounds>=4&&!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0)){if(this.combatActor()?.hp<=0){b.defenseAwaitingRecovery=true;b.phase='WAIT_PLAYER';return 'HOLD';}return true;}return undefined;}const o=b.liyueObjective;if(!o)return undefined;if(o.hp<=0)return false;if(o.charge>=8&&!b.actors.some(a=>a.side==='ENEMY'&&!isOsial(a)&&a.hp>0)){/* No legal action can revive a KO protagonist here. Settle a retryable defeat instead of waiting forever. */return !(this.combatActor()?.hp<=0);}return undefined;};
+P.liyueBattleOutcome=function(b){const evac=b.liyueEvacuation;if(evac){if(!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return false;if(evac.completedRounds>=4&&!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0))return true;return undefined;}const o=b.liyueObjective;if(!o)return undefined;if(o.hp<=0)return false;if(o.charge>=8&&!b.actors.some(a=>a.side==='ENEMY'&&!isOsial(a)&&a.hp>0)){/* No legal action can revive a KO protagonist here. Settle a retryable defeat instead of waiting forever. */return !(this.combatActor()?.hp<=0);}return undefined;};
 P.combatStat=function(a,key){let n=old.combatStat.call(this,a,key);if(isAzhdaha(a)&&a.azhdaha?.zhongliBound&&['atk','def'].includes(key))n*=.85;return key==='eva'&&a.statuses?.some(s=>s.id==='AGENT_STEALTH')&&!this._fatuiAttack?.aoe?n+20:n;};
 P.combatDamageMultiplier=function(a,t,e,o={}){let n=old.combatDamageMultiplier.call(this,a,t,e,o);if(isAzhdaha(t)&&t.azhdaha?.current!=='GEO'&&elementCode(e)===t.azhdaha.current&&!o.neutralConverted)n=0;return !o.sourceKind&&this._fatuiAttack?.actor===a.id&&this._fatuiAttack.stealth?n*1.25:n;};
 P.damage=function(a,t,k,e,o={}){
@@ -118,7 +118,7 @@ P.roundEnd=function(){
 };
 P.resolveEnemyPhases=function(){
  const result=old.resolveEnemyPhases?.call(this),b=this.s.runtime;if(!b||b.opening?.state==='PENDING')return result;
- for(const a of b.actors.filter(isAzhdaha)){
+ for(const a of b.actors.filter(a=>isAzhdaha(a)&&a.hp>0)){
   if(!a.azhdaha)continue;const ratio=a.hp/a.maxHp,shift=(phase,element)=>{a.azhdaha.phase=phase;a.azhdaha.current=element;b.log.push({actor:a.name,actorId:a.id,phase,card:'ECARD_AZHDAHA_PHASE_SHIFT',cardName:'지맥의 원소 전환',text:'야타용왕이 '+elementKo(element)+' 원소를 흡수했다. 해당 원소 피해에 완전면역이 된다.',round:b.round,actionSequence:b.actionSequence||0});for(const ally of b.actors.filter(x=>x.side==='ALLY'&&x.hp>0))this.damage(a,ally,.75,element,{range:'전장',card:'ECARD_AZHDAHA_PHASE_SHIFT',sourceKind:'AZHDAHA_PHASE',aoe:true});};
   if(ratio<=.70&&a.azhdaha.phase<2)shift(2,a.azhdaha.element1);if(ratio<=.40&&a.azhdaha.phase<3)shift(3,a.azhdaha.element2);
  }

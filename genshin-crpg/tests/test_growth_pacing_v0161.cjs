@@ -21,14 +21,14 @@ check('0.16.0 saves preserve levels, phases and current XP-bar fractions for pla
  assert.equal(x.s.chars.MOND_AMBER.xp,Math.floor(expected.chars.MOND_AMBER.xp*G.xpNext(37)/G.legacyXpNext(37)));
  assert.deepEqual(cp(x.s.inventory),expected.inventory);assert.equal(JSON.stringify(x.s.wish),JSON.stringify(expected.wish));
  const again=new R(db,cp(x.s));assert.equal(again.s.global.PLAYER_XP_STATE,x.s.global.PLAYER_XP_STATE);
- assert.equal(again.s.chars.MOND_AMBER.xp,x.s.chars.MOND_AMBER.xp);assert.equal(again.s.growthPacingVersion,2);
+ assert.equal(again.s.chars.MOND_AMBER.xp,x.s.chars.MOND_AMBER.xp);assert.equal(again.s.growthPacingVersion,3);
 });
 check('an in-flight old battle reloads without recalculating or healing its actors',()=>{
  const r=fresh('MAP_MOND_PLAINS');r.adminApply({op:'level',target:'ALL',value:37});r.startBattle('EG_MOND_HILI_PATROL','RANDOM');
  const s=cp(r.s);delete s.growthPacingVersion;s.global.PLAYER_XP_STATE=Math.floor(G.legacyXpNext(37)/2);
  const actors=cp(s.runtime.actors),expected=Math.floor(s.global.PLAYER_XP_STATE*G.xpNext(37)/G.legacyXpNext(37)),x=new R(db,s);assert.deepEqual(cp(x.s.runtime.actors),actors);
  assert.equal(x.s.global.PLAYER_XP_STATE,expected);
- assert.equal(x.s.growthPacingVersion,2);
+ assert.equal(x.s.growthPacingVersion,3);
 });
 check('capped old saves remain capped and malformed old XP or versions are rejected',()=>{
  for(const level of G.caps){const r=fresh();r.adminApply({op:'level',target:'ALL',value:level});const s=cp(r.s);delete s.growthPacingVersion;
@@ -37,7 +37,7 @@ check('capped old saves remain capped and malformed old XP or versions are rejec
  }
  const r=fresh();r.adminApply({op:'level',target:'ALL',value:37});const s=cp(r.s);delete s.growthPacingVersion;
  for(const xp of [-1,.5,G.legacyXpNext(37),Number.MAX_SAFE_INTEGER]){const bad=cp(s);bad.global.PLAYER_XP_STATE=xp;assert.throws(()=>new R(db,bad));}
- const bad=cp(r.s);bad.growthPacingVersion=3;assert.throws(()=>new R(db,bad));
+ const bad=cp(r.s);bad.growthPacingVersion=4;assert.throws(()=>new R(db,bad));
 });
 check('native XP carries through multiple levels and discards overflow only at ascension caps',()=>{
  const r=fresh();r.addXp('PLAYER_CUSTOM',G.xpNext(1)+G.xpNext(2)+17);

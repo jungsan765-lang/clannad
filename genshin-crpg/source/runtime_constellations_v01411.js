@@ -334,7 +334,7 @@ const elMatch=(spec,el)=>spec===undefined||spec===null?true:spec==='elem'?ELEMS.
 const kindsOf=k=>[].concat(k);
 function matchHit(f,ctx){
  if(!f)return true;
- if(f.kind){const kinds=kindsOf(f.kind);if(kinds.includes('reaction')){if(!ctx?.reaction&&ctx?.o?.sourceKind!=='REACTION')return false;}else if(!kinds.includes(ctx?.kind))return false;}
+ if(f.kind){const kinds=kindsOf(f.kind);if(kinds.includes('reaction')){if(!/^REACTION/.test(ctx?.o?.sourceKind||''))return false;}else if(!kinds.includes(ctx?.kind))return false;}
  if(f.src&&!(f.src==='summon'?SUMMON.test(ctx?.o?.sourceKind||''):ctx?.o?.sourceKind===f.src))return false;
  if(f.el!==undefined&&!elMatch(f.el,ctx?.el))return false;
  if(f.card&&ctx?.o?.card!==f.card)return false;
@@ -342,7 +342,7 @@ function matchHit(f,ctx){
 }
 const needsHit=f=>!!(f&&(f.kind||f.src||f.el!==undefined||f.card));
 const cardKind=id=>!id?null:id==='PLAYER_BASIC_ATTACK'?'na':/_E(_CHARGE)?$/.test(id)?'e':/_Q$/.test(id)?'q':null;
-const old=Object.fromEntries(['combatDamageMultiplier','combatStat','damage','applyDamage','executeCard','basicHit','heal','shield','newRound','roundEnd'].map(k=>[k,P[k]]));
+const old=Object.fromEntries(['combatDamageMultiplier','combatStat','damage','applyDamage','executeCard','basicHit','heal','shield','newRound','roundEnd','addCombatStatus'].map(k=>[k,P[k]]));
 P.consAllies=function(side='ALLY'){return (this.s.runtime?.actors||[]).filter(x=>x.side===side&&x.hp>0&&x.source);};
 P.consCardOwner=function(id){return /^PLAYER_/.test(String(id))?PLAYER:this.tables['08_SKILL_CARD_DB']?.get(id)?.[2]||null;};
 P.consCond=function(c,ctx,subject,owner){
@@ -372,7 +372,7 @@ P.consTop=function(a){const s=this._consStack;const top=s?.[s.length-1];return t
 // damage the target's side takes less of.
 P.combatDamageMultiplier=function(a,t,e,o={}){
  let n=old.combatDamageMultiplier.call(this,a,t,e,o);const b=this.s.runtime;if(!b||!a||!t)return n;
- const ctx=this.consTop(a)||{a,t,el:elName(e),o,kind:this.premiumHitKind(a,o)};
+ const ctx=/^REACTION/.test(o.sourceKind||'')?{a,t,el:elName(e),o,kind:null,reaction:true}:this.consTop(a)||{a,t,el:elName(e),o,kind:this.premiumHitKind(a,o)};
  if(a.side==='ALLY'&&a.source){
   let add=0;
   for(const fx of this.consFx(a))if(fx.t==='dmg'&&matchHit(fx,ctx)&&this.consCond(fx.if,ctx,a,a))add+=fx.perStack?fx.perStack*(Number(st(a,fx.stackId)?.stacks)||0):fx.pct;
@@ -410,13 +410,20 @@ P.consOnce=function(fx,owner,ctx){
 };
 P.consChance=function(fx){return !fx.chance||this.die()<=fx.chance;};
 P.consStatValue=function(owner,spec){return this.combatStat(owner,spec.stat||'atk')*Number(spec.k||0);};
+P.consWeaponType=function(a){
+ if(a?.weaponType)return a.weaponType;
+ // A guest's equipment belongs to its own save, never the host's protagonist.
+ if(a?.coop)return a.source===PLAYER?null:this.equipmentProficiencies?.(a.source)?.[0]||null;
+ const weapon=this.s.inventory.find(i=>i.equip&&i.equipped&&i.owner===a?.source&&i.category==='WEAPON');
+ return (weapon&&this.tables['16_EQUIP_DB']?.get(weapon.equip)?.[2])||(a?.source===PLAYER?'한손검':this.equipmentProficiencies?.(a?.source)?.[0])||null;
+};
 P.consWho=function(owner,who,env={}){
  const allies=this.consAllies(owner.side);
  if(who==='self')return owner.hp>0?[owner]:[];
  if(who==='others')return allies.filter(x=>x!==owner);
  if(who==='lowest')return allies.slice().sort((x,y)=>x.hp/x.maxHp-y.hp/y.maxHp).slice(0,1);
  if(who==='attacker')return env.attacker&&env.attacker.hp>0?[env.attacker]:[];
- if(who==='melee')return allies.filter(x=>{const kinds=x.source===PLAYER?['한손검']:(this.equipmentProficiencies?.(x.source)||[]);return kinds.some(k=>['한손검','양손검','장병기'].includes(k));});
+ if(who==='melee')return allies.filter(x=>['한손검','양손검','장병기'].includes(this.consWeaponType(x)));
  return allies;
 };
 P.consLog=function(owner,fx,extra={}){const b=this.s.runtime,N=NAMES[fx.ck];if(!b||!N)return;b.log.push({actor:owner.name,actorId:owner.id,constellation:true,consLevel:fx.n,text:'운명의 자리 · '+N[6][fx.n-1],...extra});};
@@ -462,7 +469,7 @@ P.consRun=function(fx,owner,env={}){
  if(fx.status){const s=st(owner,fx.status.id);if(s){if(fx.status.rounds&&Number.isFinite(s.rounds))s.rounds+=fx.status.rounds;for(const [k,v]of Object.entries(fx.status.add||{}))s[k]=(Number(s[k])||0)+v;for(const [k,v]of Object.entries(fx.status.max||{}))s[k]=Math.min(v,Number(s[k])||0);Object.assign(s,fx.status.set||{});}}
  // 0.16.4: a turn-taking status (runtime_status_v01522.js) ends by turns, so the extension adds turns, and the two free turns
  // after it move back with it.
- if(fx.statusExtend){for(const x of enemies())for(const s of x.statuses||[])if(s.id===fx.statusExtend.id&&live(s)&&Number.isFinite(s.rounds)){s.rounds+=fx.statusExtend.rounds;if(s.untilTurn){s.untilTurn+=fx.statusExtend.rounds;if(Number.isFinite(x.controlGuard))x.controlGuard+=fx.statusExtend.rounds;}}}
+ if(fx.statusExtend){for(const x of enemies())for(const s of x.statuses||[])if(s.id===fx.statusExtend.id&&env.appliedStatuses?.some(v=>v.actor===x&&v.status===s)&&live(s)&&Number.isFinite(s.rounds)){s.rounds+=fx.statusExtend.rounds;if(s.untilTurn){s.untilTurn+=fx.statusExtend.rounds;if(Number.isFinite(x.controlGuard))x.controlGuard+=fx.statusExtend.rounds;}}}
  if(fx.shieldExtend){for(const x of this.consAllies(owner.side))for(const sh of x.shields||[])if(sh.source===fx.shieldExtend.source&&Number.isFinite(sh.rounds))sh.rounds+=fx.shieldExtend.rounds;}
  if(fx.shieldRefresh){const x=env.attacker,sh=(x?.shields||[]).find(s=>s.source===fx.shieldRefresh.source&&s.value>0);if(sh){const cap=Number(sh.initialValue||sh.value);sh.value=Math.min(cap,round(sh.value+cap*fx.shieldRefresh.pct/100));}}
  if(fx.reviveAll){const used=b.consUsed||(b.consUsed={}),key='reviveAll:'+fx.uid;if(!used[key]){const down=b.actors.filter(x=>x.side===owner.side&&x.hp<=0&&x.maxHp>0);if(down.length){used[key]=true;for(const x of down){x.hp=Math.max(1,round(x.maxHp*fx.reviveAll.pct/100));b.log.push({actor:owner.name,actorId:owner.id,target:x.name,targetId:x.id,heal:x.hp,revived:true});}}}}
@@ -492,16 +499,8 @@ P.consAfterHit=function(ctx){
  for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))
   if(fx.t==='teamHit'&&(fx.self||owner!==a)&&matchHit(fx,ctx)&&this.consCond(fx.while,ctx,owner,owner)&&this.consCond(fx.if,ctx,a,owner)&&this.consOnce(fx,owner,ctx)&&this.consChance(fx))this.consRun(fx,owner,{target:t,attacker:a});
 };
-P.consReactionBonus=function(a){
- const b=this.s.runtime,ctx={a,o:{sourceKind:'REACTION'},reaction:true};let add=0;
- for(const fx of this.consFx(a))if(fx.t==='dmg'&&kindsOf(fx.kind||[]).includes('reaction')&&this.consCond(fx.if,ctx,a,a))add+=fx.pct;
- for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))if(fx.t==='team'&&fx.dmg&&kindsOf(fx.dmg.kind||[]).includes('reaction')&&this.consCond(fx.while,ctx,owner,owner))add+=fx.dmg.pct;
- for(const s of a.statuses||[])if(s.consDmg&&live(s)&&kindsOf(s.consDmg.kind||[]).includes('reaction'))add+=s.consDmg.pct;
- return add;
-};
 P.applyDamage=function(a,t,amount,details={}){
  const b=this.s.runtime;if(!b||!t)return old.applyDamage.call(this,a,t,amount,details);
- if(a?.side==='ALLY'&&a.source&&details?.sourceKind==='REACTION'){const add=this.consReactionBonus(a);if(add)amount=amount*(1+add/100);}
  const hp=t.hp,shields=(t.shields||[]).map(s=>({source:s.source,value:Number(s.value)||0}));
  const out=old.applyDamage.call(this,a,t,amount,details);
  if(this.s.runtime!==b||t.side!=='ALLY')return out;
@@ -527,17 +526,17 @@ P.applyDamage=function(a,t,amount,details={}){
  }
  return out;
 };
-P.heal=function(a,amount,source=''){
- const b=this.s.runtime;if(!b||!a||a.hp<=0)return old.heal.call(this,a,amount,source);
+P.heal=function(a,amount,source='',...rest){
+ const b=this.s.runtime;if(!b||!a||a.hp<=0)return old.heal.call(this,a,amount,source,...rest);
  let n=Number(amount)||0;
- const healer=this._consCast?.a?.name===source?this._consCast.a:b.actors.find(x=>x.side==='ALLY'&&x.name===source);
+ const healer=rest[0]?b.actors.find(x=>x.id===rest[0]):this._consCast?.a?.name===source?this._consCast.a:b.actors.find(x=>x.side==='ALLY'&&x.name===source);
  if(healer?.source&&healer.side===a.side){
   let add=0;for(const fx of this.consFx(healer))if(fx.t==='heal'&&this.consCond(fx.if,null,healer,healer))add+=fx.pct;
   if(this._consCast?.a===healer&&this._consCast.kind&&this._consCast.kind!=='na')n*=this.premiumTalentMultiplier?.(healer,this._consCast.kind)||1;
   if(add)n*=1+add/100;
  }
  if(a.side==='ALLY'){let inc=0;for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner))if(fx.t==='team'&&fx.healIn&&this.consCond(fx.while,null,owner,owner)&&this.consCond(fx.if,null,a,owner))inc+=fx.healIn;if(inc)n*=1+inc/100;}
- const want=Math.max(0,round(n)),missing=a.maxHp-a.hp,applied=old.heal.call(this,a,n,source);
+ const want=Math.max(0,round(n)),missing=a.maxHp-a.hp,applied=old.heal.call(this,a,n,source,...rest);
  if(a.side==='ALLY'&&a.source&&want>missing&&missing>=0)for(const fx of this.consFx(a))if(fx.t==='onHealed'&&fx.overflow)this.consRun(fx,a,{attacker:a});
  return applied;
 };
@@ -567,14 +566,19 @@ P.consAfterCast=function(a,card,kind,env={}){
   for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))if(fx.t==='teamCast'&&kindsOf(fx.kind).includes(kind)&&this.consCond(fx.while,ctx,owner,owner)&&Number(a.cooldowns[card])>0)cut(fx);
  }
  const target=env.targetActor&&env.targetActor.hp>0?env.targetActor:b.actors.find(x=>x.side!==a.side&&x.hp>0)||null;
- for(const fx of fxs)if(fx.t==='onCast'&&(fx.kind==='any'||kindsOf(fx.kind).includes(kind))&&(!fx.card||fx.card===card)&&this.consCond(fx.if,{...ctx,t:target},a,a)&&this.consChance(fx))this.consRun(fx,a,{target,attacker:a,card});
+ for(const fx of fxs)if(fx.t==='onCast'&&(fx.kind==='any'||kindsOf(fx.kind).includes(kind))&&(!fx.card||fx.card===card)&&this.consCond(fx.if,{...ctx,t:target},a,a)&&this.consChance(fx))this.consRun(fx,a,{target,attacker:a,card,appliedStatuses:env.appliedStatuses});
+};
+P.addCombatStatus=function(a,id,rounds,extra={}){
+ const added=old.addCombatStatus.call(this,a,id,rounds,extra);
+ if(added&&this._consCast?.appliedStatuses)this._consCast.appliedStatuses.push({actor:a,status:st(a,id)||added});
+ return added;
 };
 P.executeCard=function(a,c,target,branch){
  const b=this.s.runtime;if(!b||!a||a.side!=='ALLY')return old.executeCard.call(this,a,c,target,branch);
  const kind=cardKind(c?.id),pre=new Set((a.statuses||[]).filter(live).map(s=>s.id)),prior=this._consCast;
- this._consCastSeq=(this._consCastSeq||0)+1;this._consCast={a,kind,card:c?.id};
+ this._consCastSeq=(this._consCastSeq||0)+1;const cast=this._consCast={a,kind,card:c?.id,appliedStatuses:[]};
  let out;try{out=old.executeCard.call(this,a,c,target,branch);}finally{this._consCast=prior;}
- if(this.s.runtime===b&&kind&&kind!=='na'){const t=b.actors.find(x=>x.id===target)||null;this.consAfterCast(a,c.id,kind,{targetActor:t&&t.side!==a.side?t:null,pre});}
+ if(this.s.runtime===b&&kind&&kind!=='na'){const t=b.actors.find(x=>x.id===target)||null;this.consAfterCast(a,c.id,kind,{targetActor:t&&t.side!==a.side?t:null,pre,appliedStatuses:cast.appliedStatuses});}
  return out;
 };
 P.basicHit=function(a,t,k){

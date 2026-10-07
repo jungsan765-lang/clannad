@@ -68,11 +68,18 @@ P.enhancementStatsAt=function(inv,level){
  for(const [lv,m]of Object.entries(profile.milestones||{}))if(Number(lv)<=level)for(const [key,val]of Object.entries(m.stats_add||{}))stats[key]=(stats[key]||0)+val;
  return stats;
 };
+P.enhancementHasGain=function(inv){
+ const profile=parse(this.row('16_EQUIP_DB',inv.equip)[32]);
+ // Some support equipment has only fixed secondary stats and traits. Keep its
+ // existing saved enhancement levels valid, but never charge for a useless path.
+ return Object.values(profile.milestones||{}).some(m=>Object.values(m.stats_add||{}).some(v=>Number(v)!==0)||Object.keys(m.effect_override||{}).length>0);
+};
 P.enhancementQuote=function(slot,kind='ENHANCE'){
  const inv=this.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)return {supported:false,reason:'소지한 개별 장비를 선택해 주세요.'};
  const row=this.row('16_EQUIP_DB',inv.equip),supported=this.isMondEnhanceable(inv.equip),target=inv.enhance+1,cap=this.enhancementCap(inv);
  const q={slot,name:row[1],equip:inv.equip,level:inv.enhance,cap,instanceRevision:inv.instanceRevision||0,supported,kind,target,reason:'',cost:null};
  if(!supported){q.reason=row[35]||'이 장비는 확률 강화·돌파 대상이 아닙니다.';return q;}
+ if(!this.enhancementHasGain(inv)){q.supported=false;q.reason='이 장비는 강화로 증가하는 능력치·효과가 없어 강화·돌파할 수 없습니다.';return q;}
  q.statsBefore=this.enhancementStatsAt(inv,inv.enhance);
  if(kind==='ASCEND'){
   q.target=12;q.cost=copy(CONFIG.ascensionCost);q.success=10000;q.hold=q.down=0;q.statsAfter=copy(q.statsBefore);

@@ -72,7 +72,7 @@ P.executeCard=function(a,c,target,branch){this.initCombatPositions();const prior
  case'MOND_JEAN_E':for(const t of targets.slice(0,3)){this.applyCombatControl(a,t,'PULL',{bossImmune:true,element:'바람'});hit(t,1.2,'바람');this.applyCombatControl(a,t,'PUSH',{bossImmune:true,element:'바람',chance:this.combatSize(t)==='SMALL'?100:50});}break;
  case'MOND_JEAN_Q':for(const t of allies)this.heal(t,this.combatStat(a,'atk')*1.2,a.name);for(const t of targets.slice(0,4)){this.applyCombatControl(a,t,'PUSH',{element:'바람'});hit(t,.7,'바람');}this.addField('DANDELION',a,2,{sourceCardId:c.id});break;
  case'MOND_MONA_Q':for(const t of targets.slice(0,4)){this.setAura(t,'물');this.addCombatStatus(t,'ILLUSORY_BUBBLE',1,{actor:a.id});if(t.grade==='보스')this.applyCombatControl(a,t,'BUBBLE',{element:'물'});}break;
- case'MOND_FISCHL_Q':for(const t of targets.slice(0,4)){hit(t,1.1,'번개');this.moveCombatActor(a,t.position,{cause:'밤의 환영'});}this.addField('OZ',a,2,{sourceCardId:c.id});break;
+ case'MOND_FISCHL_Q':for(const t of targets.slice(0,4)){hit(t,1.1,'번개');this.moveCombatActor(a,t.position,{cause:'밤의 환영'});}this.addField('OZ',a,99,{name:'오즈',asset:'summon_oz.webp',sourceCardId:c.id,summonTurns:2,summonTicks:0});break;
  }
  a.cooldowns[c.id]=c.cooldown;b.log.push({actor:a.name,card:c.id,cardName:c.name});
  }finally{this._executingCard=prior;}};

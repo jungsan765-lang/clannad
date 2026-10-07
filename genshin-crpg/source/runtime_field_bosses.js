@@ -297,6 +297,7 @@ P.combatDamageMultiplier=function(a,t,e,o={}){
 P.applyDamage=function(a,t,n,details={}){
  const b=this.s.runtime;if(!b?.fieldBoss||!t)return old.applyDamage.call(this,a,t,n,details);
  const barrier=this.fieldBossBarrierReason(a,t,details.element);if(barrier)return this.fieldBossBlockedHit(a,t,barrier);
+ if(t.fb?.revival?.guarded&&a?.side==='ALLY')return this.fieldBossBlockedHit(a,t,'부활을 지키는 '+(BOSSES[t.source].kind==='ELECTRO'?'프리즘':'기둥')+'을 먼저 부숴야 한다');
  const had=t.hp,shell=(t.shields||[]).some(s=>s.source==='FB_SHELL'&&s.value>0);
  if(t.fb?.revival&&BOSSES[t.source].kind==='ANEMO'&&a?.side==='ALLY'){const r=t.fb.revival,take=Math.max(0,Math.round(n));r.core=Math.max(0,r.core-take);b.log.push({actor:a.name,target:t.name,targetId:t.id,damage:take,core:r.core,text:'드러난 핵 · 남은 핵 '+r.core,round:b.round});if(r.core<=0){t.fb.revival=null;t.hp=0;this.fbLog(t,'CORE_BROKEN','핵 파괴',t.name+'의 핵이 부서졌다');}return take;}
  const result=old.applyDamage.call(this,a,t,n,details);

@@ -486,7 +486,6 @@ export const coopMethods={
  // check it).
  async coopAct(a,b){
   this.coopNeed();this.rate('coop-act:'+a.id,90,60000);const {room,m,isHost,pid}=this.coopPerson(a);
-  const owner=this.coopOwnerFor(room,pid,isHost);if(!owner)throw err(409,'함께 싸우는 전투가 없습니다.','NO_FIGHT');
   const rid=b?.requestId===undefined||b?.requestId===null?null:b.requestId;
   if(rid!==null&&(typeof rid!=='string'||!RID.test(rid)))throw err(400,'행동 요청 번호가 올바르지 않습니다. 다시 시도해 주세요.','REQUEST_ID');
   const params={room:room.id,card:String(b?.card||'').slice(0,64)};
@@ -502,8 +501,22 @@ export const coopMethods={
   // Capture this membership, not just the account: leaving and rejoining creates a new member while an old
   // command may still be waiting on the host's lock. That old intent must not act in the new membership.
   const command={accountId:a.id,member:m,requestId:rid,expected,intent:JSON.stringify({params,expected})};
+  const battleFor=(owner,r)=>{
+   const battle=r?.s?.runtime;
+   if(this.coopRoomOf(owner)!==room||battle?.coop?.room!==room.id||!battle.actors.some(x=>x.coop?.owner===pid&&!x.coop.left))return null;
+   return this.coopWithOwner(room,owner,this.coopBattleFor(room,r,a.id));
+  };
+  // The final action removes the fight's ownership link. Its account-scoped receipt must still be replayable before
+  // looking for a current fight, and must never be routed to a different owner's save after a later room/fight change.
+  const receipt=rid&&this.db.prepare('SELECT * FROM coop_commands WHERE account_id=? AND request_id=?').get(a.id,rid);
+  if(receipt){
+   if(receipt.room!==room.id||receipt.intent!==command.intent)throw err(409,'이미 처리한 요청 번호입니다. 현재 차례에서 행동을 다시 골라 주세요.','REQUEST_ID_REUSED');
+   const owner=receipt.host_id,r=owner===room.host.id?this.coopHostRuntime(room):this.coopRuntimeOf(owner);
+   return {ok:true,result:JSON.parse(receipt.result),battle:battleFor(owner,r),replayed:true};
+  }
+  const owner=this.coopOwnerFor(room,pid,isHost);if(!owner)throw err(409,'함께 싸우는 전투가 없습니다.','NO_FIGHT');
   const res=await this.coopOwnerAction(room,owner,'COOP_COMBAT',params,pid,command);
-  return {ok:true,result:res.result?.result??null,battle:this.coopWithOwner(room,owner,this.coopBattleFor(room,res.r,a.id)),...(res.replayed?{replayed:true}:{})};
+  return {ok:true,result:res.result?.result??null,battle:battleFor(owner,res.r),...(res.replayed?{replayed:true}:{})};
  },
  // The 20-second auto turn: any room member (or the host) may ask; the rules check the deadline on the server clock.
  // 0.16: for the fight one fights in; the one whose fight it is asks for their own.

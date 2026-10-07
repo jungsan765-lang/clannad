@@ -60,9 +60,9 @@ function dishInfo(x){
 }
 function effectLine(d){
   if(d.tab==='PROCESS')return d.item[2]==='낚시 도구'?'낚시에 쓰는 미끼':'다른 요리에 쓰는 재료';
-  if(d.heal&&!d.status)return 'HP '+d.heal+' 회복';
+  if(d.heal&&!d.status)return 'HP '+game.foodHealingAmount(d.heal)+' 회복 · 주인공 기준';
   const text=String(d.item[7]||'').replace(/^지정 캐릭터\s*/,'');
-  return (d.heal?'HP '+d.heal+' 회복 · ':'')+text;
+  return (d.heal?'HP '+game.foodHealingAmount(d.heal)+' 회복 · 주인공 기준 · ':'')+text;
 }
 function chip(id,need){
   const have=game.itemCount(id),box=el('span','cook-chip'+(have>=need?' ok':' short'));

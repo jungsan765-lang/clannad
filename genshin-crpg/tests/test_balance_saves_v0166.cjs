@@ -8,7 +8,7 @@ check('0.16.5 XP migrates once for player, owned companion and bench without cha
  const r=fresh();r.wishGrant({kind:'char',id:'MOND_AMBER',rarity:4});r.wishGrant({kind:'char',id:'MOND_BARBARA',rarity:4});r.adminApply({op:'level',target:'ALL',value:37});
  r.s.party=r.s.party.map(p=>p.source==='MOND_BARBARA'?{...p,active:false}:p);
  const old=G.previousPacingCurve[36],s=cp(r.s);s.growthPacingVersion=1;s.global.PLAYER_XP_STATE=Math.floor(old*.63);s.chars.MOND_AMBER.xp=Math.floor(old*.29);s.chars.MOND_BARBARA.xp=Math.floor(old*.71);
- const before=cp(s),x=new R(db,s);assert.equal(x.s.growthPacingVersion,2);assert.equal(x.s.global.PLAYER_LEVEL_STATE,37);
+ const before=cp(s),x=new R(db,s);assert.equal(x.s.growthPacingVersion,3);assert.equal(x.s.global.PLAYER_LEVEL_STATE,37);
  assert.equal(x.s.global.PLAYER_XP_STATE,Math.floor(before.global.PLAYER_XP_STATE*G.xpNext(37)/old));
  for(const id of ['MOND_AMBER','MOND_BARBARA']){assert.equal(x.s.chars[id].level,37);assert.equal(x.s.chars[id].xp,Math.floor(before.chars[id].xp*G.xpNext(37)/old));}
  assert.deepEqual(cp(x.s.ascensions),before.ascensions);assert.deepEqual(cp(x.s.inventory),before.inventory);assert.deepEqual(cp(x.s.wish),before.wish);

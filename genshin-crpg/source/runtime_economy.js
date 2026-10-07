@@ -53,6 +53,15 @@
     return { item: id, heal, status };
   };
 
+  // Recovery meals keep their Lv.1 strength as the recipient grows. Percentage
+  // combat medicine and ordinary economyHeal callers already scale themselves.
+  P.foodHealingAmount = function (amount, owner = 'PLAYER_CUSTOM') {
+    const growth = this.growth?.(owner);
+    if (!growth || !api.growthV01522) return Math.round(amount);
+    const five = owner !== 'PLAYER_CUSTOM' && this.rarityOf?.(owner) === 5;
+    return Math.round(amount * api.growthV01522.hpCurve(growth.level) * (1 + (five ? .24 : .16) * growth.phase));
+  };
+
   P.economyHeal = function (owner, amount) {
     const a = this.economyOwner(owner), statuses = clone(a.statuses);
     let left = amount, absorbed = 0;
@@ -91,7 +100,8 @@
     for (const [id, n] of Object.entries(needed)) if (this.itemCount(id) < n) fail('QUANTITY', '식사에 필요한 음식이 부족합니다.');
     // Public action transactions make the whole multi-person meal atomic, including healing restrictions.
     const results = entries.map(e => {
-      const result = e.heal ? this.economyHeal(e.owner, e.heal) : { healed: 0, absorbed: 0 };
+      const requestedHealing = this.foodHealingAmount(e.heal, e.owner);
+      const result = e.heal ? this.economyHeal(e.owner, requestedHealing) : { healed: 0, absorbed: 0 };
       if (e.heal) {
         if (e.owner === 'PLAYER_CUSTOM') this.s.global.LAST_RECOVERY_MEAL_ITEM_ID = e.item;
         else this.s.chars[e.owner].lastRecoveryMeal = e.item;
@@ -103,7 +113,7 @@
         const index = list.findIndex(x => x.id === e.status);
         if (index < 0) list.push(effect); else list[index] = effect;
       }
-      return { item: e.item, owner: e.owner, quantity: 1, status: e.status, ...result };
+      return { item: e.item, owner: e.owner, quantity: 1, status: e.status, requestedHealing, ...result };
     });
     this.consumeMealFoods(entries, needed);
     this.advanceTime(10); // LIFE_MEAL / CE_091 / CE_095, one shared meal.

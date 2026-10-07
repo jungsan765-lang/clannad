@@ -47,12 +47,12 @@ P.startBattle=function(...args){
 const product=(actor,key)=>(actor?.statuses||[]).reduce((m,s)=>m*(Number.isFinite(s[key])?s[key]:1),1);
 P.applyDamage=function(a,t,n,d={}){
  if(this.s.runtime&&t?.side==='ALLY')n*=product(t,'taken');
- if(this.s.runtime&&a?.side==='ALLY'&&t?.side!=='ALLY'&&(d.reaction||/^REACTION/.test(d.sourceKind||'')))n*=product(a,'reactionOut');
+ if(this.s.runtime&&a?.side==='ALLY'&&t?.side!=='ALLY'&&/^REACTION/.test(d.sourceKind||''))n*=product(a,'reactionOut');
  return old.applyDamage.call(this,a,t,n,d);
 };
-P.heal=function(a,amount,source=''){
- const b=this.s.runtime;if(b&&a?.side==='ALLY'&&source){const healer=b.actors.find(x=>x.side==='ALLY'&&x.name===source);if(healer)amount*=product(healer,'supportOut');}
- return old.heal.call(this,a,amount,source);
+P.heal=function(a,amount,source='',sourceActorId=''){
+ const b=this.s.runtime;if(b&&a?.side==='ALLY'&&(source||sourceActorId)){const healer=b.actors.find(x=>x.side==='ALLY'&&(sourceActorId?x.id===sourceActorId:x.name===source));if(healer)amount*=product(healer,'supportOut');}
+ return old.heal.call(this,a,amount,source,sourceActorId);
 };
 P.shield=function(a,value,source,rounds,extra={}){
  const b=this.s.runtime;if(b&&a?.side==='ALLY'&&typeof source==='string'){const caster=b.actors.find(x=>x.side==='ALLY'&&source.startsWith(x.source+'_'));if(caster)value*=product(caster,'supportOut');}

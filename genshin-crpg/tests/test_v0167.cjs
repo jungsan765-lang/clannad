@@ -28,7 +28,7 @@ check('일일·주간 임무: four for the day, a bonus, four for the week, each
  r.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';gather(r);gather(r);assert.equal(r.s.tasks.daily.life,2,'gathering that brings something home counts');
  v=r.taskView();assert(v.daily.find(x=>x.id==='D_DOMAIN').done&&v.daily.find(x=>x.id==='D_LIFE').done&&!v.daily.find(x=>x.id==='D_WIN').done);assert.equal(v.ready,2);
  const src0=src('runtime_tasks_v0167.js');
- assert(src0.includes("if(kind.ley)this.tasksCount('ley');if(kind.domain)this.tasksCount('domain');if(kind.boss)this.tasksCount('boss');"),'ley lines, domains and field bosses count from the battle that ended');
+ assert(src0.includes("if(kind.ley)this.tasksCount('ley',1,event);if(kind.domain)this.tasksCount('domain',1,event);if(kind.boss)this.tasksCount('boss',1,event);"),'ley lines, domains and field bosses count from the battle that ended');
  assert(src0.includes("['GATHER','MINE','FISH','HUNT'].includes(out.kind)")&&src0.includes('!out.empty'),'an empty trip counts nothing');
 });
 
@@ -144,3 +144,4 @@ check('version 0.16.7 with its notes on top of the full chain',()=>{
 });
 
 console.log(JSON.stringify({ok:!process.exitCode,checks:passed}));
+

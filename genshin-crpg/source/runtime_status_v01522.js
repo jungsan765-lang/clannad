@@ -4,7 +4,7 @@
 (function(root){
 'use strict';
 const api=root.CRPGRuntime,P=api.Runtime.prototype;
-const old=Object.fromEntries(['addCombatStatus','combatActionLocked','cardReason','combatStat','tickFields','auraList','setAura','syncAura','reactionFor','applyCombatAura','newRound','damage'].map(k=>[k,P[k]]));
+const old=Object.fromEntries(['addCombatStatus','combatActionLocked','cardReason','combatStat','tickFields','auraList','setAura','syncAura','reactionFor','applyCombatAura','newRound','damage','installMarketContent'].map(k=>[k,P[k]]));
 const EL={PYRO:'불',HYDRO:'물',CRYO:'얼음',ELECTRO:'번개',ANEMO:'바람',GEO:'바위',DENDRO:'풀',PHYSICAL:'물리'};
 const elem=e=>EL[e]||e,live=s=>!Number.isFinite(s.rounds)||s.rounds>0;
 const NATIVE={FB_ANEMO_HYPOSTASIS:'바람',FB_ELECTRO_HYPOSTASIS:'번개',FB_CRYO_HYPOSTASIS:'얼음',FB_GEO_HYPOSTASIS:'바위',FB_OCEANID:'물'};
@@ -25,18 +25,26 @@ P.addCombatStatus=function(a,id,rounds,extra={}){
  if(id==='CONS_BENNETT_1')extra={...extra,mods:{}};
  const b=this.s.runtime;let guard=0;
  if(HARD[id]&&b&&a&&(a.side==='ALLY'||a.side==='ENEMY')&&!(id==='ILLUSORY_BUBBLE'&&a.side==='ENEMY'&&a.grade!=='일반')){
-  const turns=Number(a.turns)||0,held=a.statuses?.some(s=>HARD[s.id]&&live(s));
-  if(turns<(Number(a.controlGuard??a.freezeGuard)||0)){
+  const turns=Number(a.turns)||0,starting=this._combatTurnStartingActorId===a.id,held=a.statuses?.some(s=>HARD[s.id]&&live(s));
+  // A protected turn must finish before a contact at its own start can take another one away.
+  if(turns<(Number(a.controlGuard??a.freezeGuard)||0)+(starting?1:0)){
    if(!held)b.log.push({target:a.name,targetId:a.id,resisted:id,text:a.name+' · 막 풀려나 '+HARD[id],round:b.round});
    return null;
   }
-  // untilTurn: gone when their turn after the next one begins (runtime_combat.js), whichever round that falls in.
-  rounds=1;extra={...extra,untilTurn:turns+2};guard=turns+3;
+  // Turn-start contact happens after this turn was counted; it takes this turn, not the following one as well.
+  const next=starting?1:2;
+  rounds=1;extra={...extra,untilTurn:turns+next};guard=turns+next+1;
  }
  const result=old.addCombatStatus.call(this,a,id,rounds,extra),source=extra.actor||extra.caster||a?.id;
  if(guard&&result&&a.statuses?.includes(result)){a.controlGuard=guard;delete a.freezeGuard;}
  if(result&&b&&a?.statuses?.includes(result)&&id!=='FORMATION'&&id!=='ROLE')b.log.push({target:a.name,targetId:a.id,actorId:source,actor:b.actors.find(x=>x.id===source)?.name||a.name,round:b.round,actionSequence:b.actionSequence||0,statusApplied:JSON.parse(JSON.stringify(result))});
  return result;
+};
+P.installMarketContent=function(...args){
+ const out=old.installMarketContent?.apply(this,args);if(this._bennettStatusRows)return out;this._bennettStatusRows=true;
+ const text='2라운드 동안 격려의 영역을 만든다. 라운드 종료에 HP 70% 이하인 아군은 베넷 최대 HP의 6%를 회복하고, HP 70% 초과인 아군은 베넷 기초 공격력의 40%만큼 공격력이 증가한다. 1돌은 HP 조건 없이 60%를 더한다. 영역 안의 아군에게 불 원소를 부착한다.';
+ const rows=this.db['08_SKILL_CARD_DB'].map(r=>{if(r[0]!=='MOND_BENNETT_Q')return r;const x=r.slice();x[7]=x[16]=text;x[32]='FIELD:ENCOURAGEMENT:2;HEAL_IF_HP_LTE_70:SOURCE_MAX_HP*0.06;ATK_FLAT_IF_HP_GT_70:SOURCE_BASE_ATK*0.40;C1:ATK_FLAT_ALL:SOURCE_BASE_ATK*0.60;AURA:PYRO:ALLY_ALL';return x;});
+ this.db={...this.db,'08_SKILL_CARD_DB':rows};this.tables['08_SKILL_CARD_DB']=new Map(rows.slice(1).filter(r=>r[0]).map(r=>[r[0],r]));return out;
 };
 P.combatActionLocked=function(a){return !!a?.statuses?.some(s=>s.id==='STATUS_STUN'&&live(s))||old.combatActionLocked.call(this,a);};
 P.cardReason=function(a,c){if(a?.statuses?.some(s=>s.id==='STATUS_STUN'&&live(s)))return '기절해 행동할 수 없습니다.';return old.cardReason.call(this,a,c);};

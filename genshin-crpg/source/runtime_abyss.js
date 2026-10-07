@@ -291,13 +291,14 @@ P.roundEnd=function(){
   if(r.sequence&&b.round%2===0)ab.marks=[];
   const flyers=foes.filter(x=>x.abyssAir&&x.hp>0);for(const x of flyers)x.airborne=(b.round+1)%3!==0;
   if(flyers.length&&(b.round+1)%3===0)b.log.push({text:'떠 있던 적들이 잠시 땅으로 내려왔다.'});
-  if(b.round>=ab.limit&&foes.some(x=>x.hp>0)){ab.expired=true;b.log.push({text:'나선의 문이 닫혔다.'});}
  }
  return old.roundEnd.call(this);
 };
-P.liyueBattleOutcome=function(b){if(b?.abyss){if(b.abyss.expired||!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return false;if(!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0))return true;}return old.liyueBattleOutcome?.call(this,b);};
+// The last allowed round includes its END damage, but no next-round START effects.
+P.abyssRoundExpired=function(b){const ab=b?.abyss;if(!ab||b.round<ab.limit||!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0))return false;ab.expired=true;return true;};
+P.liyueBattleOutcome=function(b){if(b?.abyss){if(!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return false;if(!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0))return true;if(b.abyss.expired)return false;}return old.liyueBattleOutcome?.call(this,b);};
 P.finishBattle=function(win){
- const b=this.s.runtime,ab=b?.abyss,act=this.s.abyss?.active;const result=old.finishBattle.call(this,win);
+ const b=this.s.runtime,ab=b?.abyss,act=this.s.abyss?.active;if(ab?.expired&&!win)b.log.push({text:'나선의 문이 닫혔다.'});const result=old.finishBattle.call(this,win);
  if(ab&&act){
   const s=this.ensureAbyss(),F=FLOORS[ab.floor-1],info={floor:ab.floor,chamber:ab.chamber,room:F.rooms[ab.chamber-1].name,rounds:b.round};
   s.totalRounds+=b.round;act.rounds.push(b.round);

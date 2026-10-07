@@ -14,7 +14,10 @@ const legacyXpNext=l=>l===60?0:Math.round((l<=10?160+60*l+10*l**3:8000+1800*(l-1
 const XP_PACING_V0161=[200,350,580,860,1170,1510,1870,2260,2660,4520,4700,4880,5060,5240,5430,5610,5790,5970,6150,14640,15230,15820,16400,16990,17570,18160,18750,19330,19920,100810,104840,108870,112900,116930,120970,125000,129030,133060,137090,170470,177290,184110,190930,197750,204570,211390,218200,225020,231840,268750,279500,290250,301000,311750,322500,333250,344000,354750,365510,0];
 // 0.16.6: actual current EXP-domain stages, native fights at 2x, with failed higher stages falling back.
 const XP_PACING_V0166=[60,110,180,270,370,470,580,710,830,1110,1160,1200,1250,1290,1340,1380,1430,1470,1510,5520,5740,5960,6180,6410,6620,6850,7070,7290,7510,33950,35310,36660,38020,39380,40740,42100,43450,44810,46170,46180,46190,46200,46210,46220,46230,46240,46250,46260,46270,101330,105390,109440,113490,117540,121600,125650,129700,133760,137810,0];
-const xpNext=l=>XP_PACING_V0166[l-1];
+// 0.16.8: all unlocked native EXP stages compared by XP/time at every Lv1–59, two routes and three seeds.
+// Final late requirements remain below 200,000/level; Lv55→60 books fit six existing Revelation claims.
+const XP_PACING_V0168=[80,150,250,380,520,660,820,1000,1170,2080,2170,2250,2340,2410,2510,2580,2680,2750,2830,9300,9680,10050,10420,10800,11160,11550,11920,12290,12660,55530,57760,59970,62190,64420,66640,68860,71070,73300,75520,105650,105670,105690,105720,105740,105760,105780,105810,105830,105850,189000,189950,190890,191840,192780,193730,194670,195620,196560,197510,0];
+const xpNext=l=>XP_PACING_V0168[l-1];
 const phaseFor=l=>Math.max(0,CAPS.findIndex(n=>n>=l)),dayOf=n=>Math.floor((n+9*3600000)/86400000);
 const GEMS={물리:['NEUTRAL','돌파 재료'],불:['PYRO','불 원소 돌파 재료'],물:['HYDRO','물 원소 돌파 재료'],바람:['ANEMO','바람 원소 돌파 재료'],번개:['ELECTRO','번개 원소 돌파 재료'],얼음:['CRYO','얼음 원소 돌파 재료'],바위:['GEO','바위 원소 돌파 재료'],풀:['DENDRO','풀 원소 돌파 재료']};
 const BOOKS={MAT_CHAR_EXP_WANDERER:50,MAT_CHAR_EXP_ADVENTURER:250,MAT_CHAR_EXP_HERO:1000};
@@ -88,11 +91,12 @@ const SITES_V3={
 const TRIALS_V3=['TALENT','ASCENSION','EXP'];
 // The ascension domains' slimes grow with the level band (stages of GEM_FOES).
 const GEM_STAGE={5:1,10:2,15:2,20:3,25:4,30:1,35:2,40:2,45:3,50:3,55:4,60:4};
-// Per participant. An experience domain pays what 0.16.1's material domains paid, so the leveling times the user set
-// (PATCH_0.16.1_KO.md: 1→10 10분 … 50→60 5시간) still hold; a level between two of 0.16.1's levels pays the lower one's.
-// A talent or ascension run pays a fifth of it.
-const EXP_XP={5:200,10:450,15:450,20:1100,25:1100,30:1800,35:1800,40:2500,45:2500,50:4500,55:4500,60:8000};
-const MATERIAL_XP=Object.fromEntries(Object.entries(EXP_XP).map(([l,n])=>[l,Math.round(n/5)]));
+// 0.16.8: current version-4 EXP stages each pay more than the preceding stage. A version-4 fight already
+// in a save settles using the current table; versions 1/2/3 retain the payout of their original rules.
+// Talent/ascension XP is an independent immutable table, so EXP tuning cannot change material rewards.
+const EXP_XP_V3={5:200,10:450,15:450,20:1100,25:1100,30:1800,35:1800,40:2500,45:2500,50:4500,55:4500,60:8000};
+const EXP_XP={5:200,10:450,15:1000,20:1100,25:1250,30:1500,35:1800,40:2100,45:4500,50:5400,55:8000,60:10000};
+const MATERIAL_XP={5:40,10:90,15:90,20:220,25:220,30:360,35:360,40:500,45:500,50:900,55:900,60:1600};
 const isTrialV3=d=>!!d&&!!SITES_V3[d.key]&&TRIALS_V3.includes(d.kind)&&d.id===d.key+':'+d.kind;
 function trialFoesV3(d,element){const s=SITES_V3[d.key];return d.kind==='ASCENSION'?gemFoes(s.region,element,GEM_STAGE[s.level]):s.foes;}
 // 0.16.3 (user: 「비경 네가 잘못이해했어. 특성비경 따로 돌파 비경 따로 경험치 비경 따로 하고, 세실리아의 모밭은 크라운 협곡에 있어」):
@@ -118,7 +122,7 @@ const SITES={
 const TALENT_STAGE={5:1,10:2,15:3,20:4,25:4,30:1,35:1,40:2,45:2,50:3,55:3,60:4};
 const isDomain=d=>!!d&&!!SITES[d.key]&&d.kind===SITES[d.key].kind&&SITES[d.key].levels.includes(d.level)&&d.id===d.key+':'+d.level;
 function siteFoes(d,element){const s=SITES[d.key];if(s.kind==='ASCENSION')return gemFoes(s.region,element,GEM_STAGE[d.level]);if(s.kind==='TALENT')return DOMAINS[d.key].stages[TALENT_STAGE[d.level]-1];return Array.isArray(s.foes)?s.foes:s.foes[d.level];}
-const domainXp=d=>(d.kind==='EXP'?EXP_XP:MATERIAL_XP)[d.level];
+const domainXp=d=>(d.kind==='EXP'?(isTrialV3(d)?EXP_XP_V3:EXP_XP):MATERIAL_XP)[d.level];
 const SPECIALTIES={MOND_AMBER:'ING_LAMP_GRASS',MOND_DILUC:'ING_LAMP_GRASS',MOND_FISCHL:'ING_LAMP_GRASS',MOND_LISA:'ING_LAMP_GRASS',MOND_BENNETT:'ING_LAMP_GRASS',LIYUE_BAIZHU:'MAT_LIYUE_VIOLETGRASS',LIYUE_QIQI:'MAT_LIYUE_VIOLETGRASS',LIYUE_XINYAN:'MAT_LIYUE_VIOLETGRASS',LIYUE_HUTAO:'MAT_LIYUE_SILK_FLOWER',LIYUE_XINGQIU:'MAT_LIYUE_SILK_FLOWER',LIYUE_XIANGLING:'MAT_LIYUE_JUEYUN_CHILI',LIYUE_YAOYAO:'MAT_LIYUE_JUEYUN_CHILI',LIYUE_ZHONGLI:'MAT_LIYUE_COR_LAPIS',LIYUE_KEQING:'MAT_LIYUE_COR_LAPIS',LIYUE_CHONGYUN:'MAT_LIYUE_COR_LAPIS',LIYUE_BEIDOU:'MAT_LIYUE_NOCTILUCOUS_JADE',LIYUE_YANFEI:'MAT_LIYUE_NOCTILUCOUS_JADE',LIYUE_NINGGUANG:'MAT_LIYUE_GLAZE_LILY',LIYUE_YUNJIN:'MAT_LIYUE_GLAZE_LILY',LIYUE_GAMING:'MAT_LIYUE_STARCONCH',LIYUE_YELAN:'MAT_LIYUE_STARCONCH',LIYUE_TARTAGLIA:'MAT_LIYUE_STARCONCH'};
 const BOSS_MATERIAL={불:'MAT_FB_EVERFLAME_SEED',물:'MAT_FB_CLEANSING_HEART',바람:'MAT_FB_HURRICANE_SEED',번개:'MAT_FB_LIGHTNING_PRISM',얼음:'MAT_FB_HOARFROST_CORE',바위:'MAT_FB_BASALT_PILLAR',풀:'TRPG_BOSS_ESSENCE',물리:'TRPG_BOSS_ESSENCE'};
 const ELITES={MAP_MOND_WOLVENDOM:'EG_MOND_HILI_ELITE',MAP_MOND_EAGLES_GATE:'EG_MOND_ABYSS_MAGE',MAP_DRAGONSPINE:'EG_MOND_HILI_ELITE',MAP_LIYUE_PLAINS:'EG_LIYUE_HILI_ROCK',MAP_LIYUE_MOUNTAINS:'EG_LIYUE_VISHAP',MAP_CHASM_DEEP:'EG_LIYUE_RUIN'};
@@ -267,17 +271,17 @@ P.rollEncounter=function(map,...rest){if(this._encounterAction?.type==='WAIT'){m
 P.claimQuest=function(...args){const level=this.s.global.PLAYER_LEVEL_STATE,out=old.claimQuest.apply(this,args),reward=out?.rewards;if(!reward)return out;const xp=Math.round((reward.xp||0)*(Math.max(1,level/5)-1)),mora=Math.round((reward.mora||0)*(Math.max(1,level/10)-1));if(xp)for(const id of out.xpRecipients||this.s.party.filter(p=>p.active).map(p=>p.source))this.addXp(id,xp);this.s.global.MORA+=mora;out.rewards={...reward,xp:(reward.xp||0)+xp,mora:(reward.mora||0)+mora};return out;};
 P.tradeRule=function(entry){const inv=typeof entry==='string'?{item:entry}:entry||{};if(inv.equip&&((inv.enhancementCap||10)>10||(inv.enhance||0)>10||/^(EQ_BOSS_|EQ_ABYSS_)/.test(inv.equip)||this.rows('17_RECIPE_DB').some(r=>r[3]===inv.equip&&r.some(x=>/^TRPG_BOSS_|^MAT_FB_/.test(String(x))))))return {ok:false,reason:'보스·나선비경 장비와 돌파한 장비는 거래할 수 없습니다.'};return old.tradeRule.call(this,entry);};
 function migrate(r,s){
- if(s.growthPacingVersion!==undefined&&s.growthPacingVersion!==1&&s.growthPacingVersion!==2)fail('GROWTH_SAVE','경험치 곡선 저장 버전을 확인해 주세요.');
- if(s.growthPacingVersion!==2&&s.growthVersion===1){
+ if(s.growthPacingVersion!==undefined&&s.growthPacingVersion!==1&&s.growthPacingVersion!==2&&s.growthPacingVersion!==3)fail('GROWTH_SAVE','경험치 곡선 저장 버전을 확인해 주세요.');
+ if(s.growthPacingVersion!==3&&s.growthVersion===1){
   // Preserve earned levels, ascensions and the fraction of the current XP bar, exactly once.
   for(const [id,level]of [[PLAYER,s.global.PLAYER_LEVEL_STATE],...Object.entries(s.chars||{}).map(([id,c])=>[id,c.level])]){
-   const xp=id===PLAYER?s.global.PLAYER_XP_STATE:s.chars[id].xp,cap=CAPS[s.ascensions?.[id]??phaseFor(level)],oldNext=s.growthPacingVersion===1?XP_PACING_V0161[level-1]:legacyXpNext(level);
+   const xp=id===PLAYER?s.global.PLAYER_XP_STATE:s.chars[id].xp,cap=CAPS[s.ascensions?.[id]??phaseFor(level)],oldNext=s.growthPacingVersion===2?XP_PACING_V0166[level-1]:s.growthPacingVersion===1?XP_PACING_V0161[level-1]:legacyXpNext(level);
    if(!Number.isSafeInteger(xp)||xp<0||level<cap&&xp>=oldNext||level>=cap&&xp!==0)fail('GROWTH_SAVE','이전 경험치 저장값을 확인해 주세요.');
    const normalized=level>=cap?0:Math.floor(xp*xpNext(level)/oldNext);
    if(id===PLAYER)s.global.PLAYER_XP_STATE=normalized;else s.chars[id].xp=normalized;
   }
  }
- s.growthPacingVersion=2;
+ s.growthPacingVersion=3;
  if(s.growthVersion===1)return;const g=s.global;s.ascensions={};for(const [id,l]of [[PLAYER,g.PLAYER_LEVEL_STATE],...Object.entries(s.chars||{}).map(([id,c])=>[id,c.level])]){s.ascensions[id]=phaseFor(l);const cap=CAPS[s.ascensions[id]],xp=id===PLAYER?g.PLAYER_XP_STATE:s.chars[id].xp,normalized=l>=cap?0:Math.min(xp,xpNext(l)-1);if(id===PLAYER)g.PLAYER_XP_STATE=normalized;else s.chars[id].xp=normalized;}s.growthVersion=1;
 }
 P.newGame=function(o){this.installGrowthContent();old.newGame.call(this,o);migrate(this,this.s);this.installRegionalLevels();this.recalculate();this.s.global.PLAYER_HP_CURRENT=this.s.global.PLAYER_HP_MAX;return copy(this.s);};
@@ -296,6 +300,6 @@ P.validateSave=function(s){this.installGrowthContent();migrate(this,s);
  s.global.PLAYER_XP_NEXT=s.global.PLAYER_LEVEL_STATE>=CAPS[s.ascensions.PLAYER_CUSTOM]?0:xpNext(s.global.PLAYER_LEVEL_STATE);
  if(s.domainDaily&&(!Number.isSafeInteger(s.domainDaily.day)||!Number.isSafeInteger(s.domainDaily.wins)||s.domainDaily.wins<0))fail('GROWTH_SAVE','비경 일일 기록을 확인해 주세요.');if(s.eliteClaims&&(Array.isArray(s.eliteClaims)||Object.entries(s.eliteClaims).some(([m,d])=>!ELITES[m]||!Number.isSafeInteger(d))))fail('GROWTH_SAVE','정예 토벌 기록을 확인해 주세요.');return s;
 };
-api.growthV01522={caps:CAPS,talentCaps:TALENTS,hpCurve,adCurve,xpNext,legacyXpNext,pacingCurve:XP_PACING_V0166.slice(),previousPacingCurve:XP_PACING_V0161.slice(),phaseFor,gems:GEMS,domainMaps:DOMAIN_MAPS,domains:copy(Object.fromEntries(Object.entries(SITES).map(([k,d])=>[k,{name:d.name,kind:d.kind,region:d.region,map:d.map,levels:d.levels.slice(),level:d.levels[0],foes:d.foes||null}]))),domainKinds:{TALENT:KINDS.TALENT,ASCENSION:KINDS.ASCENSION,EXP:KINDS.EXP},domainGemStage:copy(GEM_STAGE),domainTalentStage:copy(TALENT_STAGE),
- legacyTrialSites:copy(SITES_V3),legacyTrials:TRIALS_V3.slice(),domainXp:copy(EXP_XP),domainMaterialXp:copy(MATERIAL_XP),legacyDomains:copy(DOMAINS),legacyDomainLevels:copy(DOMAIN_LEVELS),legacyDomainXp:copy(DOMAIN_XP),legacyDomainMora:copy(DOMAIN_MORA),partyBaseline:4,formationHp:FORMATION_HP,specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
+api.growthV01522={caps:CAPS,talentCaps:TALENTS,hpCurve,adCurve,xpNext,legacyXpNext,pacingVersion:3,pacingCurve:XP_PACING_V0168.slice(),previousPacingCurve:XP_PACING_V0161.slice(),previousPacingCurveVersion2:XP_PACING_V0166.slice(),phaseFor,gems:GEMS,domainMaps:DOMAIN_MAPS,domains:copy(Object.fromEntries(Object.entries(SITES).map(([k,d])=>[k,{name:d.name,kind:d.kind,region:d.region,map:d.map,levels:d.levels.slice(),level:d.levels[0],foes:d.foes||null}]))),domainKinds:{TALENT:KINDS.TALENT,ASCENSION:KINDS.ASCENSION,EXP:KINDS.EXP},domainGemStage:copy(GEM_STAGE),domainTalentStage:copy(TALENT_STAGE),
+ legacyTrialSites:copy(SITES_V3),legacyTrials:TRIALS_V3.slice(),domainXp:copy(EXP_XP),domainMaterialXp:copy(MATERIAL_XP),legacyTrialXp:copy(EXP_XP_V3),legacyDomains:copy(DOMAINS),legacyDomainLevels:copy(DOMAIN_LEVELS),legacyDomainXp:copy(DOMAIN_XP),legacyDomainMora:copy(DOMAIN_MORA),partyBaseline:4,formationHp:FORMATION_HP,specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
 })(globalThis);
