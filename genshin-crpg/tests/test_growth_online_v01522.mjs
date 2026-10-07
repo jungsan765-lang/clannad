@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+const balance=createRequire(import.meta.url)('../tools/audit_balance_v01522.cjs');
 import {onlineFixture,R,DB} from './helpers_online.mjs';
 const f=onlineFixture();await f.start();
 const read=()=>new R(DB,JSON.parse(f.read().state));
@@ -9,12 +11,14 @@ let r=free();r.addXp('PLAYER_CUSTOM',10000000);for(const [id,n]of Object.entries
 await reject('CHAR_ASCEND',{owner:'PLAYER_CUSTOM'});r.s.flags.FLAG_TRV_MON_CH1_CLEAR=true;f.seed(r.s);r=await once('CHAR_ASCEND',{owner:'PLAYER_CUSTOM'});assert.equal(r.growth().cap,20);
 r.giveItem('GROWTH_TALENT_MOND',4);f.seed(r.s);r=await once('TALENT_UPGRADE',{kind:'na'});assert.equal(r.talentLevels('PLAYER_CUSTOM').base.na,2);await reject('TALENT_UPGRADE',{kind:'na'});
 r=await once('TUTORIAL_GUIDE',{enabled:true});assert.equal(r.tutorialDirective(),null);const edge=r.view().edges.find(e=>e.row[2]==='MAP_MOND_PLAINS');r.s.global.ENCOUNTER_COOLDOWN=3;f.seed(r.s);r=await once('MOVE',{edge:edge.row[0]});assert(r.tutorialState().done.move);
+// The authoritative domain fixture uses a declared, prepared native four-person party.
+r=new R(DB,JSON.parse(JSON.stringify(balance.setup({level:10,team:['MOND_AMBER','MOND_KAEYA','MOND_LISA'],gear:'craft',enhance:3,talent:'mid',saveId:'SERVER-DOMAIN-RECEIPT'}).s)));
 // 0.15.25: domains stand at their own places; 0.16.3: each gives one kind, on a place of its own, at several levels.
 r.s.global.CURRENT_MAP_ID='MAP_D163_VALLEY_OF_REMEMBRANCE';f.seed(r.s);await reject('DOMAIN_START',{domain:'EXP:60'});await reject('DOMAIN_START',{domain:'FORSAKEN_RIFT:10'});await reject('DOMAIN_START',{domain:'VALLEY_OF_REMEMBRANCE:ASCENSION',element:'PYRO'});r=await once('DOMAIN_START',{domain:'VALLEY_OF_REMEMBRANCE:10',element:'PYRO'});assert(r.s.runtime.growthDomain);
-// Isolated fixture lowers health only to exercise authoritative settlement and its HTTP receipt quickly.
+// Isolated fixture lowers enemy health only to exercise authoritative settlement and HTTP retries quickly; it does not measure combat balance.
 for(const a of r.s.runtime.actors.filter(a=>a.side==='ENEMY'))a.hp=1;f.seed(r.s);r=await once('COMBAT_BEGIN');
 for(let n=0;r.s.runtime&&n<15;n++){const card=r.combatCards().find(x=>!x.reason&&x.targets.some(t=>r.s.runtime.actors.find(a=>a.id===t.id)?.side==='ENEMY'));assert(card);r=await once('COMBAT',{card:card.id,target:card.targets[0].id});}
-assert(!r.s.runtime);assert.equal(r.itemCount('GROWTH_GEM_PYRO'),4,'Lv.10 domain: 2 gems, doubled');assert.equal(r.s.domainDaily.wins,1);
+assert(!r.s.runtime);assert.equal(JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON).victory,true);assert.equal(r.itemCount('GROWTH_GEM_PYRO'),4,'Lv.10 domain: 2 gems, doubled');assert.equal(r.s.domainDaily.wins,1);
 assert.equal(JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON).domain.bonus,true);
 // 0.16.2: gathering is a scene drawn from the job's seed; the server replays the presses (runtime_life_v0162.js).
 r=free();r.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';f.seed(r.s);r=await once('LIFE_START',{kind:'GATHER'});const job=r.s.lifeJob,scene=r.lifeScene(job),picks=scene.nodes.map((n,i)=>({at:600+i*300,node:i}));

@@ -3,7 +3,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {fixture,run}=require('./helpers_balance_v0141.cjs');
 const team=['MOND_AMBER','MOND_KAEYA','MOND_NOELLE'],report=[];
-for(const [map,group,levels]of [['MAP_MOND_WOLVENDOM','EG_MOND_HILI_ELITE',[10,17,30]],['MAP_LIYUE_PLAINS','EG_LIYUE_HILI_ROCK',[20,32,50]]]){
+for(const [map,group,levels]of [['MAP_MOND_WOLVENDOM','EG_MOND_HILI_ELITE',[17,30,45]],['MAP_LIYUE_PLAINS','EG_LIYUE_HILI_ROCK',[32,45,60]]]){
  const byLevel=[];
  for(const level of levels){const battles=[];
   for(const seed of [11,22,33]){const r=fixture(Array(4).fill(level),team,3);Object.assign(r.s.global,{CURRENT_MAP_ID:map,SAVE_ID:'GROWTH-FEEL-'+seed,LAST_COMMITTED_ACTION_SEQ:0});const out=run(r,group,seed);assert(out.result.victory,JSON.stringify({map,level,seed,result:out.result}));battles.push({seed,rounds:out.result.rounds,enemies:out.stats.filter(a=>!['PLAYER_CUSTOM',...team].includes(a[0]))});}
@@ -15,3 +15,4 @@ for(const [map,group,levels]of [['MAP_MOND_WOLVENDOM','EG_MOND_HILI_ELITE',[10,1
  report.push({map,group,byLevel});console.log(JSON.stringify({map,rounds:byLevel.map(x=>({level:x.level,average:x.averageRounds}))}));
 }
 const out=path.resolve(__dirname,'../evidence/v01522');fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'growth-balance.json'),JSON.stringify(report,null,2));
+

@@ -1,0 +1,740 @@
+{
+  "version": "0.16.6",
+  "baselineCommit": "f89b2a750b7181044aadefd09fb6cba2744a1711",
+  "recovery": {
+    "status": "summary_restored_after_workspace_cleanup",
+    "createdAt": "2026-10-07T10:05:19.263928+00:00",
+    "originalRawCaseVectorsRecovered": false,
+    "currentRestoredSourceReverified": true,
+    "sourceNotes": "Recovered surviving /tmp logs plus values retained in the work-session summary. Summary entries are not a new execution. Final restored-source checks must be recorded separately.",
+    "logs": [
+      {
+        "name": "crpg-economy-final.log",
+        "sha256": "b411016195fa58ec09f9bbc269e938d55445cfd287911c2ed62fdc77661eacd8"
+      },
+      {
+        "name": "crpg-economy-catalog-final.log",
+        "sha256": "8911c4fcc1e240bacb1e52ad1e370a3f606c47505d5a955bbbf651a05f9bc178"
+      }
+    ],
+    "currentVerificationScope": "Native economy cost quotes and analytic expectations, catalog buy/craft/resale scan, WORLD_DAY mine catalog. Does not verify live market prices or natural full-account playtime."
+  },
+  "policy": {
+    "gameDayResourceAndRestockRule": "WORLD_DAY unchanged",
+    "newCalendarDayResourceLimit": false,
+    "newQuestAdmissionLevelLock": false,
+    "enhancementLevels1To3Unchanged": true,
+    "existingLeyBossAndEventLimitsUnchanged": true
+  },
+  "enhancement": {
+    "method": "Exact expected cumulative cost including success, hold and level downgrade; +12 includes equipment ascension Mora. Actual spending varies.",
+    "rows": [
+      {
+        "target": 3,
+        "oldMora": 406.3157894736842,
+        "newMora": 406.3157894736842
+      },
+      {
+        "target": 6,
+        "oldMora": 1972.9124281291465,
+        "newMora": 3779.4250331711637
+      },
+      {
+        "target": 10,
+        "oldMora": 16076.329094795814,
+        "newMora": 76068.09169983784
+      },
+      {
+        "target": 12,
+        "oldMora": 52581.24676146248,
+        "newMora": 385845.92903317115
+      }
+    ]
+  },
+  "newCharacterInvestment": [
+    {
+      "character": "MOND_AMBER",
+      "rarity": 4,
+      "startingLevel": 55,
+      "startingPhase": 5,
+      "reason": "Existing Lv60-account gacha catch-up remains unchanged. No prior ascensions charged again.",
+      "gearItems": 3,
+      "enhancement": 10,
+      "talentTarget": 8,
+      "expectedMora": 375204.2750995135,
+      "expectedEnhancementOres": {
+        "ORE_IRON": 142.2779743476338,
+        "ORE_WHITE_IRON": 724.9185714285715,
+        "ORE_CRYSTAL": 419.86999999999995
+      },
+      "talentBooks": 168,
+      "talentCost": {
+        "mora": 105000,
+        "items": {
+          "GROWTH_TALENT_MOND": 168,
+          "MAT_SLIME_SECRETIONS": 15,
+          "MAT_SLIME_CONCENTRATE": 30
+        }
+      },
+      "finalAscMora": 42000,
+      "finalAscCost": {
+        "mora": 42000,
+        "items": {
+          "GROWTH_GEM_PYRO": 45,
+          "ING_LAMP_GRASS": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "MAT_FB_EVERFLAME_SEED": 3
+        }
+      },
+      "xp55to60": 648520,
+      "xp1to60": 2140420,
+      "revelationTier5Claims": 4,
+      "wealthTier5Claims": 10,
+      "materialDomainsWithoutDailyBonus": {
+        "ascension": {
+          "id": "LIANSHAN_FORMULA:60",
+          "perClear": 12,
+          "clears": 4
+        },
+        "talent": {
+          "id": "FORSAKEN_RIFT:25",
+          "perClear": 5,
+          "clears": 34
+        },
+        "note": "Current Mond talent books come only from Forsaken Rift (maximum Lv25); Liyue books from Taishan Mansion (maximum Lv60). The first three shared material wins per Korean day double rewards and reduce these unbonused counts."
+      },
+      "assumptions": "Three newly made +0 pieces; no reserved books, Mora, ore, discounts, existing gear, gifts or trade. Expected costs include holds/down; forging and artifact costs are extra."
+    },
+    {
+      "character": "MOND_AMBER",
+      "rarity": 4,
+      "startingLevel": 55,
+      "startingPhase": 5,
+      "reason": "Existing Lv60-account gacha catch-up remains unchanged. No prior ascensions charged again.",
+      "gearItems": 3,
+      "enhancement": 12,
+      "talentTarget": 10,
+      "expectedMora": 1413287.7870995135,
+      "expectedEnhancementOres": {
+        "ORE_IRON": 142.2779743476338,
+        "ORE_WHITE_IRON": 3141.8172514285716,
+        "ORE_CRYSTAL": 2209.2968399999995,
+        "TRPG_BOSS_ESSENCE": 9,
+        "TRPG_BOSS_CORE": 3
+      },
+      "talentBooks": 270,
+      "talentCost": {
+        "mora": 213750,
+        "items": {
+          "GROWTH_TALENT_MOND": 270,
+          "MAT_SLIME_SECRETIONS": 15,
+          "MAT_SLIME_CONCENTRATE": 57
+        }
+      },
+      "finalAscMora": 42000,
+      "finalAscCost": {
+        "mora": 42000,
+        "items": {
+          "GROWTH_GEM_PYRO": 45,
+          "ING_LAMP_GRASS": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "MAT_FB_EVERFLAME_SEED": 3
+        }
+      },
+      "xp55to60": 648520,
+      "xp1to60": 2140420,
+      "revelationTier5Claims": 4,
+      "wealthTier5Claims": 36,
+      "materialDomainsWithoutDailyBonus": {
+        "ascension": {
+          "id": "LIANSHAN_FORMULA:60",
+          "perClear": 12,
+          "clears": 4
+        },
+        "talent": {
+          "id": "FORSAKEN_RIFT:25",
+          "perClear": 5,
+          "clears": 54
+        },
+        "note": "Current Mond talent books come only from Forsaken Rift (maximum Lv25); Liyue books from Taishan Mansion (maximum Lv60). The first three shared material wins per Korean day double rewards and reduce these unbonused counts."
+      },
+      "assumptions": "Three newly made +0 pieces; no reserved books, Mora, ore, discounts, existing gear, gifts or trade. Expected costs include holds/down; forging and artifact costs are extra."
+    },
+    {
+      "character": "MOND_DILUC",
+      "rarity": 5,
+      "startingLevel": 55,
+      "startingPhase": 5,
+      "reason": "Existing Lv60-account gacha catch-up remains unchanged. No prior ascensions charged again.",
+      "gearItems": 3,
+      "enhancement": 10,
+      "talentTarget": 8,
+      "expectedMora": 461304.2750995135,
+      "expectedEnhancementOres": {
+        "ORE_IRON": 142.2779743476338,
+        "ORE_WHITE_IRON": 724.9185714285715,
+        "ORE_CRYSTAL": 419.86999999999995
+      },
+      "talentBooks": 168,
+      "talentCost": {
+        "mora": 157500,
+        "items": {
+          "GROWTH_TALENT_MOND": 168,
+          "MAT_SLIME_SECRETIONS": 15,
+          "MAT_SLIME_CONCENTRATE": 30
+        }
+      },
+      "finalAscMora": 75600,
+      "finalAscCost": {
+        "mora": 75600,
+        "items": {
+          "GROWTH_GEM_PYRO": 90,
+          "ING_LAMP_GRASS": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "MAT_FB_EVERFLAME_SEED": 6
+        }
+      },
+      "xp55to60": 648520,
+      "xp1to60": 2140420,
+      "revelationTier5Claims": 4,
+      "wealthTier5Claims": 12,
+      "materialDomainsWithoutDailyBonus": {
+        "ascension": {
+          "id": "LIANSHAN_FORMULA:60",
+          "perClear": 12,
+          "clears": 8
+        },
+        "talent": {
+          "id": "FORSAKEN_RIFT:25",
+          "perClear": 5,
+          "clears": 34
+        },
+        "note": "Current Mond talent books come only from Forsaken Rift (maximum Lv25); Liyue books from Taishan Mansion (maximum Lv60). The first three shared material wins per Korean day double rewards and reduce these unbonused counts."
+      },
+      "assumptions": "Three newly made +0 pieces; no reserved books, Mora, ore, discounts, existing gear, gifts or trade. Expected costs include holds/down; forging and artifact costs are extra."
+    },
+    {
+      "character": "MOND_DILUC",
+      "rarity": 5,
+      "startingLevel": 55,
+      "startingPhase": 5,
+      "reason": "Existing Lv60-account gacha catch-up remains unchanged. No prior ascensions charged again.",
+      "gearItems": 3,
+      "enhancement": 12,
+      "talentTarget": 10,
+      "expectedMora": 1553762.7870995135,
+      "expectedEnhancementOres": {
+        "ORE_IRON": 142.2779743476338,
+        "ORE_WHITE_IRON": 3141.8172514285716,
+        "ORE_CRYSTAL": 2209.2968399999995,
+        "TRPG_BOSS_ESSENCE": 9,
+        "TRPG_BOSS_CORE": 3
+      },
+      "talentBooks": 270,
+      "talentCost": {
+        "mora": 320625,
+        "items": {
+          "GROWTH_TALENT_MOND": 270,
+          "MAT_SLIME_SECRETIONS": 15,
+          "MAT_SLIME_CONCENTRATE": 57
+        }
+      },
+      "finalAscMora": 75600,
+      "finalAscCost": {
+        "mora": 75600,
+        "items": {
+          "GROWTH_GEM_PYRO": 90,
+          "ING_LAMP_GRASS": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "MAT_FB_EVERFLAME_SEED": 6
+        }
+      },
+      "xp55to60": 648520,
+      "xp1to60": 2140420,
+      "revelationTier5Claims": 4,
+      "wealthTier5Claims": 39,
+      "materialDomainsWithoutDailyBonus": {
+        "ascension": {
+          "id": "LIANSHAN_FORMULA:60",
+          "perClear": 12,
+          "clears": 8
+        },
+        "talent": {
+          "id": "FORSAKEN_RIFT:25",
+          "perClear": 5,
+          "clears": 54
+        },
+        "note": "Current Mond talent books come only from Forsaken Rift (maximum Lv25); Liyue books from Taishan Mansion (maximum Lv60). The first three shared material wins per Korean day double rewards and reduce these unbonused counts."
+      },
+      "assumptions": "Three newly made +0 pieces; no reserved books, Mora, ore, discounts, existing gear, gifts or trade. Expected costs include holds/down; forging and artifact costs are extra."
+    }
+  ],
+  "miningSummary": {
+    "earlierMondLiyueCircuit": {
+      "mines": 24,
+      "tries": 144,
+      "maxSceneSeconds": 4320,
+      "expectedItems": {
+        "ORE_STARSILVER": 27,
+        "ORE_IRON": 241.03434065934067,
+        "ORE_WHITE_IRON": 191.49587912087912,
+        "ORE_CRYSTAL": 96.36312576312577,
+        "MAT_LIYUE_NOCTILUCOUS_JADE": 12.906593406593405,
+        "MAT_LIYUE_COR_LAPIS": 19.43223443223443
+      }
+    },
+    "catalogSummary": {
+      "mines": 31,
+      "dailyOre": 724.3571733821734
+    },
+    "scopeCaveat": "These two counts cover different catalog/filter scopes. Do not present either as a verified current reachable-map count without rechecking closed regions. The 30-second life scene is a ceiling, not a mandatory mining duration. WORLD_DAY activity repetition remains allowed.",
+    "currentReachableMondLiyueNativeAudit": {
+      "mines": 24,
+      "triesPerWorldDayCircuit": 144,
+      "retiredChenyuMapIdsIncluded": false,
+      "note": "Analytic full-vein collection expectation. Six existing attempts per map per WORLD_DAY; early completion is allowed. Maximum scene duration is not mandatory playtime. Excludes companion bonuses and travel."
+    }
+  },
+  "economyCatalog": {
+    "enabledStockRows": 322,
+    "recipeRows": 288,
+    "resaleArbitragePathsFound": [],
+    "questRewardDefinitions": 158,
+    "scopeCaveat": "Catalog scan of purchase/craft/NPC resale; catalog is wider than currently reachable regions. No operating market prices, transaction history, player stockpiles or population were supplied."
+  },
+  "existingMarketRules": {
+    "feePercent": 5,
+    "feeRounding": "ceil, minimum 1 Mora",
+    "maxListings": 8,
+    "directTradeMaxEntries": 6,
+    "directTradeMaxQuantityPerEntry": 999,
+    "minimumTradeLevel": 10,
+    "changeInThisPatch": false,
+    "provenance": "Recorded current-engine rules from the work-session audit; validate independently after restoration."
+  },
+  "leyInvestmentModel": {
+    "wealthHighestTierMoraPerClaim": 40000,
+    "revelationHighestTierSharedBookXp": 180000,
+    "directXpPerParticipant": 400,
+    "wealthClaimsPerDayAssumption": 2,
+    "plus10DaysFromMoraOnly": {
+      "fourStar": 5,
+      "fiveStar": 6
+    },
+    "plus12DaysFromMoraOnly": {
+      "fourStar": 18,
+      "fiveStar": 20
+    },
+    "caveat": "Budget model, not mandatory elapsed days. Field income, prior stockpiles, commissions and trades can shorten it. Materials, forging and artifacts require additional work."
+  },
+  "currentRestoredAudit": {
+    "executed": true,
+    "recordedAt": "2026-10-07T10:15:41.509655+00:00",
+    "evidencePath": "evidence/balance-audit-v0166/economy_v0166.json",
+    "sha256": "bc97c2481b92a52ce5a01617c2a3968d936d10314b4b5306b2f597dd12b15703",
+    "matchesPriorEnhancementAndInvestmentExpectedMora": true,
+    "results": {
+      "schema": 1,
+      "version": "0.16.6",
+      "method": "Native cost quotes and analytic expectation; observational only",
+      "enhancement": [
+        {
+          "target": 3,
+          "oldMora": 406.3157894736842,
+          "mora": 406.3157894736842,
+          "items": {
+            "ORE_IRON": 6.43859649122807
+          },
+          "newMora": 406.3157894736842
+        },
+        {
+          "target": 6,
+          "oldMora": 1972.9124281291465,
+          "mora": 3779.4250331711637,
+          "items": {
+            "ORE_IRON": 47.42599144921127,
+            "ORE_WHITE_IRON": 9.642857142857142
+          },
+          "newMora": 3779.4250331711637
+        },
+        {
+          "target": 10,
+          "oldMora": 16076.329094795814,
+          "mora": 76068.09169983784,
+          "items": {
+            "ORE_IRON": 47.42599144921127,
+            "ORE_WHITE_IRON": 241.6395238095238,
+            "ORE_CRYSTAL": 139.95666666666665
+          },
+          "newMora": 76068.09169983784
+        },
+        {
+          "target": 12,
+          "oldMora": 52581.24676146248,
+          "mora": 385845.92903317115,
+          "items": {
+            "ORE_IRON": 47.42599144921127,
+            "ORE_WHITE_IRON": 1047.2724171428572,
+            "ORE_CRYSTAL": 736.4322799999999,
+            "TRPG_BOSS_ESSENCE": 3,
+            "TRPG_BOSS_CORE": 1
+          },
+          "newMora": 385845.92903317115
+        }
+      ],
+      "investment": [
+        {
+          "character": "MOND_AMBER",
+          "rarity": 4,
+          "startingLevel": 55,
+          "startingPhase": 5,
+          "gearItems": 3,
+          "enhancement": 10,
+          "talentTarget": 8,
+          "expectedMora": 375204.2750995135,
+          "expectedEnhancementOres": {
+            "ORE_IRON": 142.2779743476338,
+            "ORE_WHITE_IRON": 724.9185714285715,
+            "ORE_CRYSTAL": 419.86999999999995
+          },
+          "talentBooks": 168,
+          "talentCost": {
+            "mora": 105000,
+            "items": {
+              "GROWTH_TALENT_MOND": 168,
+              "MAT_SLIME_SECRETIONS": 15,
+              "MAT_SLIME_CONCENTRATE": 30
+            }
+          },
+          "finalAscMora": 42000,
+          "finalAscCost": {
+            "mora": 42000,
+            "items": {
+              "GROWTH_GEM_PYRO": 45,
+              "ING_LAMP_GRASS": 12,
+              "MAT_OMINOUS_MASK": 6,
+              "MAT_FB_EVERFLAME_SEED": 3
+            }
+          },
+          "xp55to60": 648520,
+          "xp1to60": 2140420,
+          "revelationTier5Claims": 4,
+          "wealthTier5Claims": 10,
+          "materialDomainsWithoutDailyBonus": {
+            "ascension": {
+              "id": "LIANSHAN_FORMULA:60",
+              "perClear": 12,
+              "clears": 4
+            },
+            "talent": {
+              "id": "FORSAKEN_RIFT:25",
+              "perClear": 5,
+              "clears": 34
+            }
+          },
+          "assumptions": "Lv60-account catch-up starts at Lv55 phase5; prior ascensions are not charged. Three new +0 pieces, no stocks, gifts, discounts or trade; forging/artifact costs and travel are extra. Shared first-three material bonuses are excluded."
+        },
+        {
+          "character": "MOND_AMBER",
+          "rarity": 4,
+          "startingLevel": 55,
+          "startingPhase": 5,
+          "gearItems": 3,
+          "enhancement": 12,
+          "talentTarget": 10,
+          "expectedMora": 1413287.7870995135,
+          "expectedEnhancementOres": {
+            "ORE_IRON": 142.2779743476338,
+            "ORE_WHITE_IRON": 3141.8172514285716,
+            "ORE_CRYSTAL": 2209.2968399999995,
+            "TRPG_BOSS_ESSENCE": 9,
+            "TRPG_BOSS_CORE": 3
+          },
+          "talentBooks": 270,
+          "talentCost": {
+            "mora": 213750,
+            "items": {
+              "GROWTH_TALENT_MOND": 270,
+              "MAT_SLIME_SECRETIONS": 15,
+              "MAT_SLIME_CONCENTRATE": 57
+            }
+          },
+          "finalAscMora": 42000,
+          "finalAscCost": {
+            "mora": 42000,
+            "items": {
+              "GROWTH_GEM_PYRO": 45,
+              "ING_LAMP_GRASS": 12,
+              "MAT_OMINOUS_MASK": 6,
+              "MAT_FB_EVERFLAME_SEED": 3
+            }
+          },
+          "xp55to60": 648520,
+          "xp1to60": 2140420,
+          "revelationTier5Claims": 4,
+          "wealthTier5Claims": 36,
+          "materialDomainsWithoutDailyBonus": {
+            "ascension": {
+              "id": "LIANSHAN_FORMULA:60",
+              "perClear": 12,
+              "clears": 4
+            },
+            "talent": {
+              "id": "FORSAKEN_RIFT:25",
+              "perClear": 5,
+              "clears": 54
+            }
+          },
+          "assumptions": "Lv60-account catch-up starts at Lv55 phase5; prior ascensions are not charged. Three new +0 pieces, no stocks, gifts, discounts or trade; forging/artifact costs and travel are extra. Shared first-three material bonuses are excluded."
+        },
+        {
+          "character": "MOND_DILUC",
+          "rarity": 5,
+          "startingLevel": 55,
+          "startingPhase": 5,
+          "gearItems": 3,
+          "enhancement": 10,
+          "talentTarget": 8,
+          "expectedMora": 461304.2750995135,
+          "expectedEnhancementOres": {
+            "ORE_IRON": 142.2779743476338,
+            "ORE_WHITE_IRON": 724.9185714285715,
+            "ORE_CRYSTAL": 419.86999999999995
+          },
+          "talentBooks": 168,
+          "talentCost": {
+            "mora": 157500,
+            "items": {
+              "GROWTH_TALENT_MOND": 168,
+              "MAT_SLIME_SECRETIONS": 15,
+              "MAT_SLIME_CONCENTRATE": 30
+            }
+          },
+          "finalAscMora": 75600,
+          "finalAscCost": {
+            "mora": 75600,
+            "items": {
+              "GROWTH_GEM_PYRO": 90,
+              "ING_LAMP_GRASS": 24,
+              "MAT_OMINOUS_MASK": 12,
+              "MAT_FB_EVERFLAME_SEED": 6
+            }
+          },
+          "xp55to60": 648520,
+          "xp1to60": 2140420,
+          "revelationTier5Claims": 4,
+          "wealthTier5Claims": 12,
+          "materialDomainsWithoutDailyBonus": {
+            "ascension": {
+              "id": "LIANSHAN_FORMULA:60",
+              "perClear": 12,
+              "clears": 8
+            },
+            "talent": {
+              "id": "FORSAKEN_RIFT:25",
+              "perClear": 5,
+              "clears": 34
+            }
+          },
+          "assumptions": "Lv60-account catch-up starts at Lv55 phase5; prior ascensions are not charged. Three new +0 pieces, no stocks, gifts, discounts or trade; forging/artifact costs and travel are extra. Shared first-three material bonuses are excluded."
+        },
+        {
+          "character": "MOND_DILUC",
+          "rarity": 5,
+          "startingLevel": 55,
+          "startingPhase": 5,
+          "gearItems": 3,
+          "enhancement": 12,
+          "talentTarget": 10,
+          "expectedMora": 1553762.7870995135,
+          "expectedEnhancementOres": {
+            "ORE_IRON": 142.2779743476338,
+            "ORE_WHITE_IRON": 3141.8172514285716,
+            "ORE_CRYSTAL": 2209.2968399999995,
+            "TRPG_BOSS_ESSENCE": 9,
+            "TRPG_BOSS_CORE": 3
+          },
+          "talentBooks": 270,
+          "talentCost": {
+            "mora": 320625,
+            "items": {
+              "GROWTH_TALENT_MOND": 270,
+              "MAT_SLIME_SECRETIONS": 15,
+              "MAT_SLIME_CONCENTRATE": 57
+            }
+          },
+          "finalAscMora": 75600,
+          "finalAscCost": {
+            "mora": 75600,
+            "items": {
+              "GROWTH_GEM_PYRO": 90,
+              "ING_LAMP_GRASS": 24,
+              "MAT_OMINOUS_MASK": 12,
+              "MAT_FB_EVERFLAME_SEED": 6
+            }
+          },
+          "xp55to60": 648520,
+          "xp1to60": 2140420,
+          "revelationTier5Claims": 4,
+          "wealthTier5Claims": 39,
+          "materialDomainsWithoutDailyBonus": {
+            "ascension": {
+              "id": "LIANSHAN_FORMULA:60",
+              "perClear": 12,
+              "clears": 8
+            },
+            "talent": {
+              "id": "FORSAKEN_RIFT:25",
+              "perClear": 5,
+              "clears": 54
+            }
+          },
+          "assumptions": "Lv60-account catch-up starts at Lv55 phase5; prior ascensions are not charged. Three new +0 pieces, no stocks, gifts, discounts or trade; forging/artifact costs and travel are extra. Shared first-three material bonuses are excluded."
+        }
+      ],
+      "mines": 24,
+      "mapIds": [
+        "MAP_DRAGONSPINE",
+        "MAP_STORMTERROR_LAIR",
+        "MAP_CHASM_SURFACE",
+        "MAP_CHASM_DEEP",
+        "MAP_CRPG_MOND_QUARRY",
+        "MAP_CRPG_STORMBEARER_MOUNTAINS",
+        "MAP_CRPG_BRIGHTCROWN_CANYON",
+        "MAP_CRPG_WYRMREST_VALLEY",
+        "MAP_CRPG_ENTOMBED_PALACE",
+        "MAP_CRPG_STARGLOW_CAVERN",
+        "MAP_CRPG_LAIR_WEST_RUINS",
+        "MAP_LY_DETAIL_MINGYUN",
+        "MAP_LY_DETAIL_HULAO",
+        "MAP_LY_DETAIL_TIANQIU",
+        "MAP_LY_DETAIL_DUNYU",
+        "MAP_LY_DETAIL_LINGJU",
+        "MAP_LY_DETAIL_TIANHENG",
+        "MAP_LY_DETAIL_GUYUN",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        "MAP_LY_DETAIL_CHASM_RIM",
+        "MAP_V141_GUYUN_WRECK",
+        "MAP_V141_GUYUN_CHANNEL",
+        "MAP_V141_CHASM_CAMP",
+        "MAP_V141_STORMBEARER_PASS"
+      ],
+      "circuit": {
+        "tries": 144,
+        "maxSceneSeconds": 4320,
+        "expectedItems": {
+          "ORE_STARSILVER": 27,
+          "ORE_IRON": 241.03434065934064,
+          "ORE_WHITE_IRON": 191.49587912087912,
+          "ORE_CRYSTAL": 96.36312576312577,
+          "MAT_LIYUE_NOCTILUCOUS_JADE": 12.906593406593409,
+          "MAT_LIYUE_COR_LAPIS": 19.432234432234434
+        }
+      },
+      "note": "Analytic full-vein collection expectation. Six existing attempts per map per WORLD_DAY; early completion is allowed. Maximum scene duration is not mandatory playtime. Excludes companion bonuses and travel.",
+      "catalog": {
+        "enabledStockRows": 322,
+        "recipeRows": 288,
+        "pricedAcquisitionRoutes": 212,
+        "relaxationIterations": 3,
+        "npcBuyCraftResaleArbitrage": [],
+        "questRewardDefinitions": 158,
+        "commissionDefinitions": 62,
+        "commissionBaseMora": 21600,
+        "tradeRules": {
+          "version": 1,
+          "open": [
+            "음식",
+            "몬스터 재료",
+            "식재료",
+            "가공 식재료",
+            "광물",
+            "제작 재료",
+            "지역 특산물",
+            "기계 부품",
+            "연금 재료",
+            "소모품",
+            "전투 치료품",
+            "탐험 도구",
+            "전술 도구"
+          ],
+          "limit": {
+            "entries": 6,
+            "quantity": 999
+          },
+          "minLevel": 10
+        },
+        "limitations": "Static catalog includes future regions and conditional recipes; unavailable routes are a conservative price lower bound. No live player prices, stockpiles, population or continuous field farming assumptions."
+      },
+      "leyLines": {
+        "tiers": [
+          {
+            "tier": 1,
+            "level": 6,
+            "minLevel": 5,
+            "books": {
+              "MAT_CHAR_EXP_HERO": 6
+            },
+            "mora": 1800,
+            "directXp": 20
+          },
+          {
+            "tier": 2,
+            "level": 15,
+            "minLevel": 10,
+            "books": {
+              "MAT_CHAR_EXP_HERO": 18
+            },
+            "mora": 5000,
+            "directXp": 50
+          },
+          {
+            "tier": 3,
+            "level": 30,
+            "minLevel": 25,
+            "books": {
+              "MAT_CHAR_EXP_HERO": 50
+            },
+            "mora": 14000,
+            "directXp": 90
+          },
+          {
+            "tier": 4,
+            "level": 45,
+            "minLevel": 40,
+            "books": {
+              "MAT_CHAR_EXP_HERO": 100
+            },
+            "mora": 27000,
+            "directXp": 220
+          },
+          {
+            "tier": 5,
+            "level": 60,
+            "minLevel": 55,
+            "books": {
+              "MAT_CHAR_EXP_HERO": 180
+            },
+            "mora": 40000,
+            "directXp": 400
+          }
+        ],
+        "hourMs": 3600000,
+        "bookXp": {
+          "MAT_CHAR_EXP_WANDERER": 50,
+          "MAT_CHAR_EXP_ADVENTURER": 250,
+          "MAT_CHAR_EXP_HERO": 1000
+        }
+      },
+      "policy": "Existing WORLD_DAY resource/shop refills and repeat travel/combat/rest remain unchanged. No new real-calendar resource limits or quest admission locks."
+    }
+  },
+  "currentRestoredValidation": {
+    "testFiles": 11,
+    "passedFiles": 11,
+    "allExitCodesZero": true,
+    "scope": "Changed-code targeted checks only; not a final full 128-file suite or full 118-timing replay.",
+    "evidence": "docs/data/release_v0166_checks.json",
+    "full128ExactTreeRerun": false
+  }
+}

@@ -10,8 +10,8 @@ const TEAMS={basic:['MOND_AMBER','MOND_KAEYA','MOND_NOELLE'],attack:['MOND_FISCH
 const WEAPONS={starter:{'한손검':'EQ_SWORD_COOL_STEEL','양손검':'EQ_CLAYMORE_DEBATE','장병기':'EQ_POLEARM_BLACK_TASSEL','활':'EQ_BOW_SLINGSHOT','법구':'EQ_CATALYST_MAGIC_GUIDE'},craft:{'한손검':'EQ_SWORD_RANCOUR','양손검':'EQ_CLAYMORE_WHITEBLIND','장병기':'EQ_POLEARM_CRESCENT','활':'EQ_BOW_CRESCENT','법구':'EQ_CATALYST_MAPPA'}};
 function write(name,data){fs.writeFileSync(path.join(OUT,name+'.json'),JSON.stringify(data,null,2)+'\n');console.log(JSON.stringify({stage:name,rows:Array.isArray(data)?data.length:Object.keys(data).length,file:path.join(OUT,name+'.json')}));}
 function flags(r){for(const k of ['FLAG_TRV_ANEMO_UNLOCKED','FLAG_TRV_MON_CH1_CLEAR','FLAG_TRV_MON_CH2_CLEAR','FLAG_ISK_M03_CLEAR','FLAG_ISK_M05_CLEAR','FLAG_ACCESS_REGION_LIYUE'])r.s.flags[k]=true;for(const route of ['TRV','ISK'])for(const region of ['MOND','LIYUE'])for(let n=1;n<=4;n++){const id=`Q_${route}_${region}_0${n}`;if(r.tables['22_QUEST_DB'].has(id))r.questState(id).claimed=true;}}
-function setup({level=10,team='basic',gear='craft',enhance=3,talent='mid',route='ROUTE_ISEKAI',map='MAP_MOND_CITY',formation=null}={}){
- const r=fresh(map,route),ids=Array.isArray(team)?team:TEAMS[team];flags(r);
+function setup({level=10,team='basic',gear='craft',enhance=3,talent='mid',route='ROUTE_ISEKAI',map='MAP_MOND_CITY',formation=null,saveId}={}){
+ const r=fresh(map,route),ids=Array.isArray(team)?team:TEAMS[team];if(saveId)r.s.global.SAVE_ID=saveId;flags(r);
  r.s.inventory=[];r.s.global.MORA=0;const owned={};r.s.party=r.s.party.map((p,i)=>i?{slot:'PARTY_'+(i+1),active:false}:p);
  for(const [i,id]of [PLAYER,...ids].entries()){
   const l=Array.isArray(level)?level[i]:level;
@@ -91,3 +91,4 @@ function lootEligibility(){const rows=[];for(const [map,group,origin]of [['MAP_M
 const runners={static:statics,domains,fields,bosses,characters,healing,wish,parties,singles,loot:lootEligibility};
 if(require.main===module){for(const s of process.argv.slice(2).length?process.argv.slice(2):['static','domains','wish']){if(!runners[s])throw Error(s);runners[s]();}}
 module.exports={setup,observe,play,battle,summarize,write,flags,heal,TEAMS,SEEDS,OUT,G,api,PLAYER};
+

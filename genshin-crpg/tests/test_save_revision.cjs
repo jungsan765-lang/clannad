@@ -7,7 +7,7 @@ const oldVersion='2026-09-24-4d2a266ee290-d6279e592bc5',stableVersion='schema2-4
 const files=[...fs.readFileSync(path.join(src,'index.html'),'utf8').matchAll(/<script\s+src="([^"]+)"/g)].map(x=>x[1]).filter(n=>/^(?:world_content|runtime.*)\.js$/.test(n));
 const ctx=vm.createContext({console});for(const f of files)vm.runInContext(fs.readFileSync(path.join(src,f),'utf8'),ctx,{filename:f});
 ctx.CRPGRelationships.install(ctx.CRPGRuntime,{events:ctx.CRPGRelationships.catalogFromDB(db),activities:ctx.CRPGRelationships.activitiesFromDB(db)});
-const Runtime=ctx.CRPGRuntime.Runtime,{SaveAdapter}=require(path.join(src,'save_adapter.js'));
+const G=ctx.CRPGRuntime.growthV01522,Runtime=ctx.CRPGRuntime.Runtime,{SaveAdapter}=require(path.join(src,'save_adapter.js'));
 const copy=x=>JSON.parse(JSON.stringify(x));
 let seq=0;const fresh=()=>{const r=new Runtime(db);r.newGame({name:'독립 저장 검증',route:'ROUTE_TRAVELER',seed:72831,saveId:'REGRESSION-'+(++seq)});return r;};
 function free(r){Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'HUB',STORY_CURSOR_NODE_ID:'HUB',SCREEN_MODE:'LOCATION',CURRENT_MAP_ID:'MAP_MOND_CITY',STORY_WAITING:true,STORY_MENU_POLICY:'',PENDING_CHOICE_GROUP_ID:''});r.s.storyContext=null;r.s.storyMenuFrame=null;return r;}
@@ -15,7 +15,7 @@ const results=[];
 async function test(name,fn){try{await fn();results.push({name,ok:true});console.log('PASS '+name);}catch(error){results.push({name,ok:false,error:error.code||error.message,detail:error.message});console.error('FAIL '+name+' :: '+error.message);}}
 (async()=>{
  await test('prior released pack imports under stable compatibility and preserves progress',()=>{
-  const r=fresh();r.addXp('PLAYER_CUSTOM',250);r.s.flags.REGRESSION_PRESERVE=true;r.s.processed.regression={claimed:true};
+  const r=fresh();r.addXp('PLAYER_CUSTOM',G.xpNext(1)+50);r.s.flags.REGRESSION_PRESERVE=true;r.s.processed.regression={claimed:true};
   const original=JSON.parse(r.serialize()),adapter=new SaveAdapter({indexedDB:null,contentVersion:stableVersion,compatibleContentVersions:[oldVersion],migrate:ctx.CRPGRelationships.migrateState,validate:s=>new Runtime(db,s).s});
   try{const parsed=adapter.parseImport(JSON.stringify({envelopeSchema:1,contentVersion:oldVersion,state:original}));assert.deepEqual(copy(parsed.state),original);assert.equal(parsed.state.global.PLAYER_XP_STATE,50);}finally{adapter.close();}
  });
@@ -26,30 +26,30 @@ async function test(name,fn){try{await fn();results.push({name,ok:true});console
  await test('validator returned normalized state is actually used',()=>{
   const state=JSON.parse(fresh().serialize());state.global.PLAYER_XP_NEXT=999;
   const adapter=new SaveAdapter({indexedDB:null,contentVersion:stableVersion,migrate:ctx.CRPGRelationships.migrateState,validate:s=>new Runtime(db,s).s});
-  try{assert.equal(adapter.prepare(state).global.PLAYER_XP_NEXT,200);assert.equal(state.global.PLAYER_XP_NEXT,999);}finally{adapter.close();}
+  try{assert.equal(adapter.prepare(state).global.PLAYER_XP_NEXT,G.xpNext(1));assert.equal(state.global.PLAYER_XP_NEXT,999);}finally{adapter.close();}
  });
  await test('main story SYSTEM checkpoint restores exact cursor RNG and XP',()=>{
-  const r=fresh();r.addXp('PLAYER_CUSTOM',250);const node=r.storyActiveNodeId(),rng=r.s.global.PRNG_STATE;r.action('MENU',{screen:'SYSTEM'});
+  const r=fresh();r.addXp('PLAYER_CUSTOM',G.xpNext(1)+50);const node=r.storyActiveNodeId(),rng=r.s.global.PRNG_STATE;r.action('MENU',{screen:'SYSTEM'});
   const loaded=new Runtime(db,JSON.parse(r.serialize()));assert.equal(loaded.s.global.SCREEN_MODE,'SYSTEM');loaded.action('MENU',{screen:'STORY'});
   assert.equal(loaded.storyActiveNodeId(),node);assert.equal(loaded.s.global.PRNG_STATE,rng);assert.equal(loaded.s.global.PLAYER_XP_STATE,50);
  });
  await test('experience carries across threshold and max level has no division target',()=>{
-  const r=fresh();r.addXp('PLAYER_CUSTOM',350);assert.equal(r.growth().level,2);assert.equal(r.growth().xp,150);assert.equal(r.growth().next,350);
+  const r=fresh();r.addXp('PLAYER_CUSTOM',G.xpNext(1)+Math.floor(G.xpNext(2)/2));assert.equal(r.growth().level,2);assert.equal(r.growth().xp,Math.floor(G.xpNext(2)/2));assert.equal(r.growth().next,G.xpNext(2));
   r.addXp('PLAYER_CUSTOM',1000000);assert.equal(r.growth().level,10);assert.equal(r.growth().xp,0);assert.equal(r.growth().next,0);assert.equal(r.growth().max,true);
  });
  await test('invalid XP increments leave state unchanged',()=>{
   const r=fresh();for(const amount of [-1,'50',NaN,Infinity,0.5]){const before=r.serialize();assert.throws(()=>r.addXp('PLAYER_CUSTOM',amount),e=>e.code==='XP_VALUE');assert.equal(r.serialize(),before);}
  });
  await test('invalid protagonist XP checkpoints are rejected',()=>{
-  for(const xp of [-1,'50',null,0.5,300]){const state=JSON.parse(fresh().serialize());state.global.PLAYER_XP_STATE=xp;assert.throws(()=>new Runtime(db,state),e=>e.code==='GROWTH_SAVE');}
+  for(const xp of [-1,'50',null,0.5,G.xpNext(1)]){const state=JSON.parse(fresh().serialize());state.global.PLAYER_XP_STATE=xp;assert.throws(()=>new Runtime(db,state),e=>e.code==='GROWTH_SAVE');}
  });
  await test('invalid companion fractional or overthreshold XP checkpoints are rejected',()=>{
-  for(const [level,xp] of [[1,0.5],[1,300],[20,1]]){const state=JSON.parse(fresh().serialize());Object.assign(state.chars.MOND_AMBER,{level,xp});assert.throws(()=>new Runtime(db,state),e=>e.code==='GROWTH_SAVE');}
+  for(const [level,xp] of [[1,0.5],[1,G.xpNext(1)],[20,1]]){const state=JSON.parse(fresh().serialize());Object.assign(state.chars.MOND_AMBER,{level,xp});assert.throws(()=>new Runtime(db,state),e=>e.code==='GROWTH_SAVE');}
  });
  await test('owned bench and active companions can use books; unowned targets roll back',()=>{
   const r=free(fresh());r.s.global.COMPANION_ELIGIBILITY_JSON=JSON.stringify({MOND_AMBER:{state:'JOINED'}});r.giveItem('MAT_CHAR_EXP_WANDERER',2);
   assert.equal(r.s.party.some(p=>p.active&&p.source==='MOND_AMBER'),false);r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_AMBER'});r.action('PARTY',{char:'MOND_AMBER',slot:2});
-  r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_AMBER'});assert.equal(r.s.chars.MOND_AMBER.xp,100);assert.equal(r.itemCount('MAT_CHAR_EXP_WANDERER'),0);
+  r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_AMBER'});assert.equal(r.s.chars.MOND_AMBER.level,2);assert.equal(r.s.chars.MOND_AMBER.xp,100-G.xpNext(1));assert.equal(r.itemCount('MAT_CHAR_EXP_WANDERER'),0);
   const before=r.serialize();assert.throws(()=>r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_LISA'}));assert.equal(r.serialize(),before);
  });
  await test('free NPC visit persists an exact dialogue target',()=>{
@@ -67,3 +67,4 @@ async function test(name,fn){try{await fn();results.push({name,ok:true});console
  });
  const failed=results.filter(r=>!r.ok);console.log(JSON.stringify({passed:results.length-failed.length,failed:failed.length,results},null,2));if(failed.length)process.exitCode=1;
 })().catch(error=>{console.error(error);process.exitCode=1});
+

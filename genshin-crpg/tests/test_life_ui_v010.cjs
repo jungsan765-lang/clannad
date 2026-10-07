@@ -34,7 +34,7 @@ test('actual guest and off-party combatant growth appears once in the earned-rew
  const guest=r.character('MOND_AMBER');r.s.guestSnapshots={[gate]:{MOND_AMBER:{...guest,level:1}}};
  r.s.runtime={id:'UI_BATTLE',storyConfig:{node_id:gate},actors:[r.player(),r.character('MOND_KAEYA'),{...guest,guest:true}]};
  const before=ctx.adventureSnapshot(),snapshot=copy(before.growth);assert.equal(snapshot['GUEST:MOND_AMBER'].guestGate,gate);assert.equal(snapshot.MOND_KAEYA.level,1);
- const permanentAmber=r.s.chars.MOND_AMBER.level;r.addXp('MOND_KAEYA',300);r.s.guestSnapshots[gate].MOND_AMBER.level=2;r.s.runtime=null;
+ const permanentAmber=r.s.chars.MOND_AMBER.level;r.addXp('MOND_KAEYA',ctx.CRPGRuntime.growthV01522.xpNext(1));r.s.guestSnapshots[gate].MOND_AMBER.level=2;r.s.runtime=null;
  const loot=ctx.receivedLoot(before,'COMBAT');assert.equal(loot.title,'레벨 업!');assert.deepEqual(copy(loot.levelUps).map(x=>[x.owner,x.from,x.to]).sort(),[['GUEST:MOND_AMBER',1,2],['MOND_KAEYA',1,2]]);
  assert.equal(r.s.chars.MOND_AMBER.level,permanentAmber);assert.equal(snapshot['GUEST:MOND_AMBER'].level,1);assert.equal(ctx.receivedLoot(ctx.adventureSnapshot(),'COMBAT'),null);
 });
@@ -42,7 +42,7 @@ test('actual guest and off-party combatant growth appears once in the earned-rew
 test('XP book level-up produces a notice with full HP; sub-threshold XP does not invent one',()=>{
  const r=fresh();r.giveItem('MAT_CHAR_EXP_WANDERER',2);r.s.global.PLAYER_HP_CURRENT=1;let before=ctx.adventureSnapshot();
  ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'PLAYER_CUSTOM'});let loot=ctx.receivedLoot(before,'USE_ITEM');assert.equal(loot.levelUps.length,0);assert.equal(r.s.global.PLAYER_HP_CURRENT,1);
- r.s.global.PLAYER_XP_STATE=299;before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'PLAYER_CUSTOM'});loot=ctx.receivedLoot(before,'USE_ITEM');
+ r.s.global.PLAYER_XP_STATE=ctx.CRPGRuntime.growthV01522.xpNext(1)-1;before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'PLAYER_CUSTOM'});loot=ctx.receivedLoot(before,'USE_ITEM');
  assert.deepEqual(copy(loot.levelUps).map(x=>[x.from,x.to]),[[1,2]]);assert.equal(r.s.global.PLAYER_HP_CURRENT,r.s.global.PLAYER_HP_MAX);
 });
 
@@ -73,3 +73,4 @@ test('save labels resolve old and new maps both during a game and on the title s
 });
 
 console.log(JSON.stringify({total:results.length,passed:results.filter(r=>r.ok).length,results},null,2));if(results.some(r=>!r.ok))process.exitCode=1;
+

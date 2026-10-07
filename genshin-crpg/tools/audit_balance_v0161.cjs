@@ -27,8 +27,9 @@ function policy(r){
  const allies=end?.actors.filter(a=>a.side==='ALLY')||[];
  return {...x,hpRatio:allies.reduce((n,a)=>n+Math.max(0,a.hp),0)/allies.reduce((n,a)=>n+a.maxHp,0),deaths:allies.filter(a=>a.hp<=0).length};
 }
-function measure({level,domain,element='NEUTRAL',route='ROUTE_TRAVELER',seed=717,team=REFERENCE_TEAM,group,map,kind,tier,gear,enhance,talent='mid',origin,constellations=0,earningXp=false,storyNode,storyLeaf}={}){
- const spec=domain&&api.growthV01522.domains[domain.split(':')[0]],r=setup({level,route,team,map:map||spec?.map,gear:gear||(level<10?'starter':'craft'),enhance:enhance??(level<10?0:level<30?3:6),talent});
+function measure({level,domain,element='NEUTRAL',route='ROUTE_TRAVELER',seed=717,team=REFERENCE_TEAM,group,map,kind,tier,gear,enhance,talent='mid',origin,constellations=0,earningXp=false,storyNode,storyLeaf,saveId}={}){
+ const spec=domain&&api.growthV01522.domains[domain.split(':')[0]],r=setup({level,route,team,map:map||spec?.map,gear:gear||(level<10?'starter':'craft'),enhance:enhance??(level<10?0:level<30?3:6),talent,saveId});
+ Object.assign(r.tutorialState().done,{combatAttack:true,combatGuard:true,combatSkill:true,combatBurst:true});
  if(earningXp){for(const id of [PLAYER,...(Array.isArray(team)?team:TEAMS[team])]){const g=r.growth(id);if(g.max&&!g.final)r.s.ascensions[id]=g.phase+1;const cap=r.growth(id).talentCap,t=talent==='cap'?cap:talent==='mid'?Math.max(1,Math.floor(cap*.65)):Number(talent)||1;r.s.talents[id]={na:Math.min(t,cap),e:Math.min(t,cap),q:Math.min(t,cap)};}r.recalculate();heal(r);}
  if(constellations)r.s.constellations=Object.fromEntries((Array.isArray(team)?team:TEAMS[team]).map(id=>[id,constellations]));
  if(storyNode){if(storyLeaf)r.s.flags.FLAG_ISK_L01_LEAF=storyLeaf;r.storySetCursor(storyNode);}
@@ -44,14 +45,15 @@ function measure({level,domain,element='NEUTRAL',route='ROUTE_TRAVELER',seed=717
   r.action('PLACE_ENTER',{place:'BOSS:'+id,mode:'BOSS'});r.action('BOSS_ROUTE',{route:id,entry:'DIRECT',tier});
  }else r.startBattle(group,origin||(storyNode?'STORY:'+storyNode:/^(EG_BOSS_|EG_FB_|EG_ISK_)/.test(group)?'EXPLICIT':'RANDOM'),...(storyNode?[{confirmed:true,companions:Array.isArray(team)?team:TEAMS[team]}]:[]));
  const initial=r.s.runtime.actors.filter(a=>a.side==='ENEMY').map(a=>({source:a.source,grade:a.grade,level:a.level,hp:a.maxHp,atk:a.atk,def:a.def}));
+ const initialAllies=r.s.runtime.actors.filter(a=>a.side==='ALLY').map(a=>({source:a.source,guest:!!a.coop,level:a.level,hp:a.maxHp,atk:a.atk,def:a.def}));
  const expectedRewards=r.mondRewardPlan(r.s.runtime),result=policy(r),end=r._auditLast||r.s.runtime;
  const deluge=storyNode?end.log.filter(x=>x.card==='OSIAL_DELUGE'&&(Object.hasOwn(x,'damage')||x.miss)).map(x=>({round:x.round,target:x.targetId,damage:x.damage??0,absorbed:x.absorbed??0,maxHp:x.maxHp,critical:!!x.critical,reaction:x.reaction,miss:!!x.miss})):undefined;
  // 2x label is internal rate 1. Inputs (3 s) and receipt/re-entry (6 s) are declared model assumptions.
- return {level,domain,element,route,seed,team,group,map:map||spec?.map,kind,tier,gear:gear||(level<10?'starter':'craft'),enhance:enhance??(level<10?0:level<30?3:6),talent,constellations,earningXp,storyNode,phases:Object.fromEntries([PLAYER,...(Array.isArray(team)?team:TEAMS[team])].map(id=>[id,r.growthPhase(id)])),initial,expectedRewards,result,objective:end?.objective||end?.liyueObjective,deluge,presentationMs,playerInputs,cycleSeconds:presentationMs/1000+3*playerInputs+6};
+ return {level,domain,element,route,seed,team,group,map:map||spec?.map,kind,tier,gear:gear||(level<10?'starter':'craft'),enhance:enhance??(level<10?0:level<30?3:6),talent,constellations,earningXp,storyNode,phases:Object.fromEntries([PLAYER,...(Array.isArray(team)?team:TEAMS[team])].map(id=>[id,r.growthPhase(id)])),initial,initialAllies,expectedRewards,result,objective:end?.objective||end?.liyueObjective,deluge,presentationMs,playerInputs,cycleSeconds:presentationMs/1000+3*playerInputs+6};
 }
-// 0.16.3: one kind per domain; the experience domain of each level of 0.16.1's pacing ladder.
-const LADDER_SITE={5:'MIDSUMMER_COURTYARD',10:'MIDSUMMER_COURTYARD',20:'PEAK_OF_VINDAGNYR',30:'RIDGE_WATCH',40:'ZHOU_FORMULA',50:'DOMAIN_OF_GUYUN',60:'LOST_VALLEY'};
-function recommendedDomain(level){const dl=[5,10,20,30,40,50,60].filter(n=>n<=level+5).at(-1);return LADDER_SITE[dl]+':'+dl;}
+// Current EXP sites have a stage every five levels. Calibrate each actual stage.
+function recommendedDomain(level){const ds=Object.entries(G.domains).filter(([,d])=>d.kind==='EXP').flatMap(([key,d])=>d.levels.filter(n=>n<=level+5).map(n=>({id:key+':'+n,level:n}))).sort((a,b)=>b.level-a.level);return ds[0].id;}
+
 if(require.main===module){
  const out=process.env.CRPG_BALANCE_OUT||path.join(root,'evidence/v0161/balance-samples.json');fs.mkdirSync(path.dirname(out),{recursive:true});
  const modes=process.argv.filter(x=>['--rarity','--ceiling','--ley','--osial'].includes(x));if(modes.length>1)throw Error('Choose one audit mode');
