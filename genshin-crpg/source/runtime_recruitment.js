@@ -34,7 +34,7 @@ const liyueContactPlaces=[
  ['EVT_CRPG_LIYUE_NORTHLAND','북국 은행',['MAP_LIYUE_HARBOR']],['EVT_CRPG_LIYUE_DOCKS','리월항 부두',['MAP_LIYUE_HARBOR']],['EVT_CRPG_LIYUE_YANSHANG','암상 찻집',['MAP_LIYUE_HARBOR']],
  ['EVT_CRPG_LIYUE_QINGCE_CONTACT','경책 산장',['MAP_LIYUE_QINGCE']],['EVT_CRPG_LIYUE_JUEYUN_CONTACT','절운간 산길',['MAP_LIYUE_JUEYUN']],
  ['EVT_CRPG_LIYUE_MOUNTAIN_EXORCIST','리월 산악지대 · 퇴마 의뢰지',['MAP_LIYUE_MOUNTAINS']],['EVT_CRPG_LIYUE_MOUNTAIN_RETURN','리월 산악지대 · 귀환 흔적',['MAP_LIYUE_MOUNTAINS']],
- ['EVT_CRPG_LIYUE_ARTISAN','공예 작업장',['MAP_LIYUE_HARBOR','MAP_CHENYU_QIAOYING']]
+ ['EVT_CRPG_LIYUE_ARTISAN','공예 작업장',['MAP_LIYUE_HARBOR']]
 ].map(([id,name,maps])=>({id,name,maps,kind:'FACILITY',entity:null,merchant:null,facility:name,from:0,to:1440,merchantMaps:null,merchantFrom:null,merchantTo:null,merchantType:'',merchantName:'',modes:['TALK']}));
 const liyueContactOwners={
  LIYUE_ZHONGLI:['EVT_CRPG_LIYUE_WANGSHENG'],

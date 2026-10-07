@@ -17853,6 +17853,278 @@
         1024,
         512
       ]
+    },
+    "MAP_D163_FORSAKEN_RIFT": {
+      "map_id": "MAP_D163_FORSAKEN_RIFT",
+      "label": "잊혀진 협곡",
+      "asset_id": "ASSET_BG_PLACE_SPRINGVALE",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 샘물 연못 낚시터 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "잊혀진 협곡 전용 공식 사진이 없어 샘물 연못 낚시터 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_D163_VALLEY_OF_REMEMBRANCE": {
+      "map_id": "MAP_D163_VALLEY_OF_REMEMBRANCE",
+      "label": "각인의 골짜기",
+      "asset_id": "ASSET_BG_MONDSTADT_SPRINGVALE_DAY",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 샘물 마을 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "각인의 골짜기 전용 공식 사진이 없어 샘물 마을 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1024,
+        512
+      ]
+    },
+    "MAP_D163_MIDSUMMER_COURTYARD": {
+      "map_id": "MAP_D163_MIDSUMMER_COURTYARD",
+      "label": "한 여름의 정원",
+      "asset_id": "ASSET_BG_MONDSTADT_STARFELL_LAKE_01",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 별이 떨어지는 호수 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "한 여름의 정원 전용 공식 사진이 없어 별이 떨어지는 호수 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1024,
+        512
+      ]
+    },
+    "MAP_D163_CECILIA_GARDEN": {
+      "map_id": "MAP_D163_CECILIA_GARDEN",
+      "label": "세실리아의 모밭",
+      "asset_id": "ASSET_BG_PLACE_BRIGHTCROWN_CANYON",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 크라운 협곡 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "세실리아의 모밭 전용 공식 사진이 없어 크라운 협곡 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_D163_PEAK_OF_VINDAGNYR": {
+      "map_id": "MAP_D163_PEAK_OF_VINDAGNYR",
+      "label": "빈다그니르의 정상",
+      "asset_id": "ASSET_BG_PLACE_SKYFROST_NAIL",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 한천의 못 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "빈다그니르의 정상 전용 공식 사진이 없어 한천의 못 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_D163_RIDGE_WATCH": {
+      "map_id": "MAP_D163_RIDGE_WATCH",
+      "label": "산등성이의 파수꾼",
+      "asset_id": "ASSET_BG_MONDSTADT_DAWN_WINERY_NIGHT",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 다운 와이너리 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "산등성이의 파수꾼 전용 공식 사진이 없어 다운 와이너리 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        2383,
+        1325
+      ]
+    },
+    "MAP_D163_ELECTRO_HYPOSTASIS": {
+      "map_id": "MAP_D163_ELECTRO_HYPOSTASIS",
+      "label": "맹세의 갑각 · 남서쪽 언덕",
+      "asset_id": "ASSET_BG_PLACE_CAPE_OATH",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 맹세의 갑각 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "맹세의 갑각 · 남서쪽 언덕 전용 공식 사진이 없어 맹세의 갑각 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_D163_CRYO_HYPOSTASIS": {
+      "map_id": "MAP_D163_CRYO_HYPOSTASIS",
+      "label": "드래곤 스파인 · 얼음 분지",
+      "asset_id": "ASSET_BG_PLACE_ENTOMBED_OUTSKIRTS",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 눈에 묻힌 도시 · 근교 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "드래곤 스파인 · 얼음 분지 전용 공식 사진이 없어 눈에 묻힌 도시 · 근교 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_D163_ZHOU_FORMULA": {
+      "map_id": "MAP_D163_ZHOU_FORMULA",
+      "label": "무망 인구 밀궁",
+      "asset_id": "ASSET_BG_LIYUE_HUAGUANG_FOREST_01",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 무망의 언덕 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "무망 인구 밀궁 전용 공식 사진이 없어 무망의 언덕 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1024,
+        512
+      ]
+    },
+    "MAP_D163_OCEANID": {
+      "map_id": "MAP_D163_OCEANID",
+      "label": "무망의 언덕 · 북쪽 호수",
+      "asset_id": "ASSET_BG_LIYUE_HUAGUANG_FOREST_01",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 무망의 언덕 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "무망의 언덕 · 북쪽 호수 전용 공식 사진이 없어 무망의 언덕 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1024,
+        512
+      ]
+    },
+    "MAP_D163_LIANSHAN_FORMULA": {
+      "map_id": "MAP_D163_LIANSHAN_FORMULA",
+      "label": "천둥 연산 밀궁",
+      "asset_id": "ASSET_BG_PLACE_MINGYUN_VILLAGE",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 명온 마을 · 폐광 주변 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "천둥 연산 밀궁 전용 공식 사진이 없어 명온 마을 · 폐광 주변 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_D163_TAISHAN_MANSION": {
+      "map_id": "MAP_D163_TAISHAN_MANSION",
+      "label": "태산부",
+      "asset_id": "ASSET_BG_LIYUE_JUEYUN_01",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 멋진 산과 구름의 땅 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "태산부 전용 공식 사진이 없어 멋진 산과 구름의 땅 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1024,
+        512
+      ]
+    },
+    "MAP_D163_CLEAR_POOL": {
+      "map_id": "MAP_D163_CLEAR_POOL",
+      "label": "화지 산굴",
+      "asset_id": "ASSET_BG_PLACE_MT_AOCANG",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 오장산 · 정상 호숫가 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "화지 산굴 전용 공식 사진이 없어 오장산 · 정상 호숫가 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_D163_DOMAIN_OF_GUYUN": {
+      "map_id": "MAP_D163_DOMAIN_OF_GUYUN",
+      "label": "하늘을 찌르는 땅",
+      "asset_id": "ASSET_BG_PLACE_GUYUN_STONE_FOREST",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 고운각 · 서북쪽 섬 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "하늘을 찌르는 땅 전용 공식 사진이 없어 고운각 · 서북쪽 섬 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_D163_GEO_HYPOSTASIS": {
+      "map_id": "MAP_D163_GEO_HYPOSTASIS",
+      "label": "고운각 · 북쪽 섬",
+      "asset_id": "ASSET_BG_PLACE_GUYUN_STONE_FOREST",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 고운각 · 서북쪽 섬 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "고운각 · 북쪽 섬 전용 공식 사진이 없어 고운각 · 서북쪽 섬 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1600,
+        900
+      ]
+    },
+    "MAP_D163_PYRO_REGISVINE": {
+      "map_id": "MAP_D163_PYRO_REGISVINE",
+      "label": "천주 골짜기 · 동쪽 고원",
+      "asset_id": "ASSET_BG_PLACE_LUHUA_POOL",
+      "status": "BOUND_REFERENCE",
+      "source": "0.16.3 원작 위치의 비경·필드 보스 · 전용 사진 전까지 녹화 연못 · 물가 사진을 빌림",
+      "presentation": "LOCATION_REFERENCE",
+      "automatic_scene_selection": false,
+      "world_state_match_required": true,
+      "fit": "contain",
+      "allow_upscale": false,
+      "visible_state_note": "천주 골짜기 · 동쪽 고원 전용 공식 사진이 없어 녹화 연못 · 물가 사진을 빌려 쓴다. 전용 사진으로 바꿀 것.",
+      "native_size": [
+        1600,
+        900
+      ]
     }
   },
   "policy": {

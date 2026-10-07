@@ -32,19 +32,25 @@ check('the waves leave once the lessons are learned, never come to a later fight
 
 // 0.16.2: one domain every five levels at the original's own place (user: 「레벨별 비경 위치를 다르게 해서 여기저기 이동하게」), each with
 // the talent, ascension and experience trials; no ore domain (「장비 비경이 있으면은... 채광이 무슨 의미가」).
-check('domains stand at the original places (official names), one every five levels, three trials each, own enemies; no ore domain',()=>{
- const sites=api.growthV01522.domains,names=Object.fromEntries(Object.entries(sites).map(([k,d])=>[k,d.name+'@'+d.map+':'+d.level]));
- assert.deepEqual(names,{FORSAKEN_RIFT:'잊혀진 협곡@MAP_MOND_SPRINGVALE:5',VALLEY_OF_REMEMBRANCE:'각인의 골짜기@MAP_MOND_DAWN_WINERY:10',MIDSUMMER_COURTYARD:'한 여름의 정원@MAP_MOND_STARSNATCH_CLIFF:15',CECILIA_GARDEN:'세실리아의 모밭@MAP_MOND_WOLVENDOM:20',PEAK_OF_VINDAGNYR:'빈다그니르의 정상@MAP_CRPG_SKYFROST_NAIL:25',
-  RIDGE_WATCH:'산등성이의 파수꾼@MAP_LY_DETAIL_SHIMEN:30',ZHOU_FORMULA:'무망 인구 밀궁@MAP_LY_DETAIL_WUWANG:35',LIANSHAN_FORMULA:'천둥 연산 밀궁@MAP_LY_DETAIL_MINGYUN:40',TAISHAN_MANSION:'태산부@MAP_LIYUE_JUEYUN:45',CLEAR_POOL:'화지 산굴@MAP_LY_DETAIL_AOCANG:50',DOMAIN_OF_GUYUN:'하늘을 찌르는 땅@MAP_LY_DETAIL_GUYUN:55',LOST_VALLEY:'암중협곡@MAP_CHASM_DEEP:60'});
- assert.deepEqual([...api.growthV01522.domainTrials],['TALENT','ASCENSION','EXP']);
+// 0.16.3 (user: 「비경 네가 잘못이해했어. 특성비경 따로 돌파 비경 따로 경험치 비경 따로 하고, 세실리아의 모밭은 크라운 협곡에 있어」, 「아예
+// 새로운 위치를 만들어도 돼 비경 전용 위치같은걸로」): one kind per domain, each on a place of its own named after it, and every kind
+// covers Lv.5–60 once while moving to other places as the levels rise.
+check('domains stand on their own places (official names), one kind each, every level once per kind, own enemies; no ore domain',()=>{
+ const sites=api.growthV01522.domains,names=Object.fromEntries(Object.entries(sites).map(([k,d])=>[k,d.name+'@'+d.map+':'+d.kind+':'+d.levels.join('/')]));
+ assert.deepEqual(names,{FORSAKEN_RIFT:'잊혀진 협곡@MAP_D163_FORSAKEN_RIFT:TALENT:5/10/15/20/25',VALLEY_OF_REMEMBRANCE:'각인의 골짜기@MAP_D163_VALLEY_OF_REMEMBRANCE:ASCENSION:5/10/15',MIDSUMMER_COURTYARD:'한 여름의 정원@MAP_D163_MIDSUMMER_COURTYARD:EXP:5/10/15',
+  CECILIA_GARDEN:'세실리아의 모밭@MAP_D163_CECILIA_GARDEN:ASCENSION:20/25',PEAK_OF_VINDAGNYR:'빈다그니르의 정상@MAP_D163_PEAK_OF_VINDAGNYR:EXP:20/25',RIDGE_WATCH:'산등성이의 파수꾼@MAP_D163_RIDGE_WATCH:EXP:30',ZHOU_FORMULA:'무망 인구 밀궁@MAP_D163_ZHOU_FORMULA:EXP:35/40',
+  LIANSHAN_FORMULA:'천둥 연산 밀궁@MAP_D163_LIANSHAN_FORMULA:ASCENSION:30/35/40/45/50/55/60',TAISHAN_MANSION:'태산부@MAP_D163_TAISHAN_MANSION:TALENT:30/35/40/45/50/55/60',CLEAR_POOL:'화지 산굴@MAP_D163_CLEAR_POOL:EXP:45',DOMAIN_OF_GUYUN:'하늘을 찌르는 땅@MAP_D163_DOMAIN_OF_GUYUN:EXP:50/55',LOST_VALLEY:'암중협곡@MAP_CHASM_DEEP:EXP:60'});
+ const every=Array.from({length:12},(_,i)=>5+5*i);for(const kind of ['TALENT','ASCENSION','EXP']){const own=Object.values(sites).filter(d=>d.kind===kind);assert.deepEqual(own.flatMap(d=>d.levels).sort((a,b)=>a-b),every,kind+' covers every level once');assert(own.length>=2,kind+' moves to another place as the levels rise');}
+ const g=fresh('MAP_MOND_CITY');for(const d of Object.values(sites))if(d.map!=='MAP_CHASM_DEEP')assert.equal(g.row('32_MAP_DB',d.map)[2],d.name,'the place is named after its domain');
  const seen=new Set();
- for(const [key,d]of Object.entries(sites))for(const kind of ['TALENT','ASCENSION','EXP'])for(const element of kind==='ASCENSION'?['NEUTRAL','PYRO','ELECTRO','DENDRO']:['NEUTRAL']){
+ for(const [key,d]of Object.entries(sites))for(const level of d.levels)for(const element of d.kind==='ASCENSION'?['NEUTRAL','PYRO','ELECTRO','DENDRO']:['NEUTRAL']){
   const r=fresh(d.map);r.adminApply({op:'level',target:'ALL',value:60});for(const k of ['FLAG_TRV_MON_CH1_CLEAR','FLAG_TRV_MON_CH2_CLEAR'])r.s.flags[k]=true;for(let n=1;n<=3;n++){for(const q of ['Q_TRV_MOND_0'+n,'Q_TRV_LIYUE_0'+n])if(r.tables['22_QUEST_DB'].has(q))r.questState(q).claimed=true;}
-  r.s.global.SCREEN_MODE='LOCATION';assert.deepEqual([...r.growthDomainEntries().map(x=>x.id)],['TALENT','ASCENSION','EXP'].map(t=>key+':'+t));
-  r.action('DOMAIN_START',{domain:key+':'+kind,element});const foes=r.s.runtime.actors.filter(a=>a.side==='ENEMY');assert(foes.length>=2&&foes.length<=8);assert(foes.every(a=>a.level===d.level),key+' fights at Lv.'+d.level);
-  const rw=r.growthDomainRewards(r.s.runtime.growthDomain,element);assert.equal(rw.mora,0);assert(!Object.keys(rw.items).some(id=>/^ORE_|^MAT_CHAR_EXP_/.test(id)),'no ore, no books');assert.equal(kind==='EXP',!Object.keys(rw.items).length);
+  r.s.global.SCREEN_MODE='LOCATION';assert.deepEqual([...r.growthDomainEntries().map(x=>x.id)],[...d.levels].map(l=>key+':'+l));
+  r.action('DOMAIN_START',{domain:key+':'+level,element});const foes=r.s.runtime.actors.filter(a=>a.side==='ENEMY');assert(foes.length>=2&&foes.length<=8);assert(foes.every(a=>a.level===level),key+' fights at Lv.'+level);
+  const rw=r.growthDomainRewards(r.s.runtime.growthDomain,element);assert.equal(rw.mora,0);assert(!Object.keys(rw.items).some(id=>/^ORE_|^MAT_CHAR_EXP_/.test(id)),'no ore, no books');assert.equal(d.kind==='EXP',!Object.keys(rw.items).length);
+  if(d.kind==='TALENT')assert(rw.items[d.region==='몬드'?'GROWTH_TALENT_MOND':'GROWTH_TALENT_LIYUE']>0,'talent books of the domain\'s region');
   seen.add(foes.map(a=>a.source).sort().join(','));new R(db,cp(r.s));}
- assert(seen.size>=12,'every place has its own lineup');
+ assert(seen.size>=12,'the domains have their own lineups');
  const ley=api.leyLines.regionalTiers('몬드');assert(ley.every(t=>t.books.MAT_CHAR_EXP_HERO>0),'계시의 꽃 still pays experience books');
  return {lineups:seen.size};
 });
@@ -52,7 +58,7 @@ check('domains stand at the original places (official names), one every five lev
 check('no drop-down list in the game: the domain gate, the battle commands and a safety net that turns any <select> into buttons',()=>{
  const growth=src('app_growth_v01522.js'),exp=src('app_experience.js'),choice=src('app_choice_v01525.js'),html=src('index.html'),build=fs.readFileSync(path.join(root,'tools/build.py'),'utf8');
  assert(!/el\('select'\)|new Option|showModal\('성장 비경/.test(growth),'the domain window and its lists are gone');
- assert(growth.includes("const go=actionButton('도전','DOMAIN_START',{domain:d.id,element},true)")&&growth.includes("b.className='domain-trial'")&&growth.includes("b.className='domain-element'"),'trials and elements are pictures to press');
+ assert(growth.includes("const go=actionButton('도전','DOMAIN_START',{domain:d.id,element},true)")&&growth.includes("b.className='domain-stage'")&&growth.includes("b.className='domain-element'"),'trials and elements are pictures to press');
  assert(!growth.includes('편성·육성 후 도전')&&!growth.includes('편성·프리셋 바꾸기'),'no party step');
  assert(!/el\('select'\)/.test(exp),'battle: target on the cards, skill ways as buttons');assert(exp.includes("c.tabIndex=0;c.setAttribute('role','button')"));
  assert(choice.includes("box.className='choice-tiles'")&&choice.includes("sel.dispatchEvent(new Event('change',{bubbles:true}))"));

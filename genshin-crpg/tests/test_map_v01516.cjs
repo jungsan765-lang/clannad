@@ -11,7 +11,9 @@ const results=[];
 function check(name,fn){try{const evidence=fn();results.push({name,ok:true,evidence:evidence??null});console.log('PASS '+name);}catch(e){results.push({name,ok:false,error:e.stack});console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}}
 // The circles as the page has them: terrain_map.js plus the Liyue detail areas (app_liyue_areas.js copies their points).
 const T=(()=>{const box={window:{}};vm.runInNewContext(src('terrain_map.js'),box);const t=box.window.CRPGTerrainMap;for(const a of c.CRPGRuntime.liyueAreaCatalog.areas)t.points[a.id]=['liyue',a.point[0],a.point[1]];return t;})();
-const g=fresh('MAP_MOND_CITY'),places=g.rows('32_MAP_DB').filter(m=>m[0]&&['몬드','리월'].includes(m[1])),name=id=>g.tables['32_MAP_DB'].get(id)?.[2]||id;
+// 0.16.3 (user: 「교영마을을 … 거긴 빼도 된다고」): the closed Chenyu Vale places have no circle and no road.
+const retired=new Set(c.CRPGRuntime.landmarksV0163.retired);
+const g=fresh('MAP_MOND_CITY'),places=g.rows('32_MAP_DB').filter(m=>m[0]&&['몬드','리월'].includes(m[1])&&!retired.has(m[0])),name=id=>g.tables['32_MAP_DB'].get(id)?.[2]||id;
 const roads=g.rows('47_MAP_EDGE_DB').filter(r=>r[8]==='Y'&&r[11]==='ACTIVE'&&g.tables['32_MAP_DB'].has(r[1])&&g.tables['32_MAP_DB'].has(r[2]));
 const pairs=new Set(roads.map(r=>[r[1],r[2]].sort().join('|')));
 // Plain walking distance over the roads, ignoring story conditions (where the roads themselves lead).
@@ -26,6 +28,7 @@ check('circles: every place of 몬드 and 리월 has its own circle on its own p
  for(const a of places)for(const b of places){if(a[0]>=b[0])continue;const p=T.points[a[0]],q=T.points[b[0]];if(p[0]!==q[0])continue;const d=Math.hypot(p[1]-q[1],p[2]-q[2]);if(d<closest[0])closest=[d,a[0]+' / '+b[0]];}
  assert(closest[0]>=9,'two circles nearly on top of each other: '+closest[1]);
  assert(!('roads' in T)&&!('unmapped' in T),'no traced waypoints, no place left without a circle');
+ for(const id of retired){assert(!T.points[id],id+' has no circle');assert(!g.rows('47_MAP_EDGE_DB').some(r=>r[11]==='ACTIVE'&&(r[1]===id||r[2]===id)),id+' has no open road');}
  return {places:places.length,closest:[+closest[0].toFixed(1),closest[1]]};
 });
 

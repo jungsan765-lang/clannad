@@ -231,6 +231,18 @@ body.teyvat .combat-panel .shell-allies .combatant-copy strong{font-size:.78rem}
 body.teyvat .combat-panel .shell-allies .combatant-copy .stat{font-size:.62rem;margin:0}
 body.teyvat .combat-panel .shell-allies .combatant-copy :is(.battle-position,small){display:none}
 body.teyvat .combat-panel .shell-allies .meter{height:5px}
+/* 0.16.3: a party that would run under the commands (app_battle_layout_v01522.js fitFighters) gets smaller faces and type. */
+body.teyvat .combat-panel .shell-allies.tight{gap:3px}
+body.teyvat .combat-panel .shell-allies.tight>h2{display:none}
+body.teyvat .combat-panel .shell-allies.tight .combatant-row{padding:2px 6px 2px 2px;gap:5px}
+body.teyvat .combat-panel .shell-allies.tight :is(.combat-portrait,.combat-player-mark){width:26px;height:26px;flex-basis:26px}
+body.teyvat .combat-panel .shell-allies.tight .combatant-copy strong{font-size:.7rem;line-height:1.15}
+body.teyvat .combat-panel .shell-allies.tight .combatant-copy .stat{font-size:.56rem;line-height:1.15}
+body.teyvat .combat-panel .shell-allies.tight .meter{height:4px}
+body.teyvat .combat-panel .shell-allies.tighter{gap:2px}
+body.teyvat .combat-panel .shell-allies.tighter .combatant-copy .stat{display:none}
+/* The version button sat on 「공격 실행」 during a fight. */
+body.teyvat.battle-screen #game-version{display:none}
 body.teyvat .combat-panel .battle-summons.top{margin:0 0 4px;gap:4px 10px}
 body.teyvat .combat-panel .battle-summons.top .battle-summon{padding:2px 8px 2px 2px}
 body.teyvat .combat-panel .battle-summons.top .battle-summon .summon-copy small{display:none}
@@ -256,6 +268,10 @@ body.teyvat .combat-panel .battle-card-choice{position:relative;flex:0 0 auto}
 body.teyvat .combat-panel .battle-cards button[data-card-id]{border-radius:14px;border-right:1px solid rgba(236,229,216,.22);padding-right:28px}
 body.teyvat .combat-panel .battle-effect-button{position:absolute;z-index:2;top:50%;right:5px;transform:translateY(-50%);width:20px;height:20px;min-height:0;padding:0;border-radius:50%;display:grid;place-items:center;font-size:0;background:rgba(20,24,36,.95);border:1px solid rgba(236,229,216,.4)}
 body.teyvat .combat-panel .battle-effect-button::after{content:'i';font:700 11px/1 var(--font-ui);color:var(--t-cream)}
+/* 0.16.3 (the user's phone picture): a button minimum made the badge 30 px wide, over the end of the skill's name; it is
+   20 px again, and a name too long for its card ends in … before the badge instead of running under it. */
+body.teyvat .combat-panel .battle-effect-button{min-width:0}
+body.teyvat .combat-panel .battle-cards button[data-card-id] strong{min-width:0;overflow:hidden;text-overflow:ellipsis}
 body.teyvat .combat-panel .battle-effect-button :is(svg,img,.shell-icon){display:none}
 body.teyvat .combat-panel .battle-cards button[data-card-id].selected+.battle-effect-button{background:var(--t-ink);border-color:var(--t-ink)}
 body.teyvat .combat-panel .battle-command>.battle-execute{grid-area:exec;display:flex;align-items:center;gap:6px;flex-wrap:nowrap;margin:0;min-width:0}

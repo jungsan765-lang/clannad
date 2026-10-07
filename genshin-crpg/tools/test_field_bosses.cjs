@@ -22,7 +22,8 @@ test('nine field bosses are installed on their original places with their origin
  for(const [id,d]of Object.entries(FB.bosses)){const m=r.row('09_MONSTER_DB',id),route=r.row('35_BOSS_ROUTE_DB',FB.route(id));assert.equal(m[3],'보스');assert.equal(route[2],d.map);assert.equal(route[3],'DIRECT');assert(r.tables['32_MAP_DB'].has(d.map),d.map);
   assert(r.supportsLiyueBoss(id));const drop=r.rows('20_LOOT_TABLE').find(x=>x[0]==='LT_'+id&&x[2]===d.material);assert(drop&&Number(drop[5])===100);out[d.name]=r.row('14_ITEM_DB',d.material)[1];}
  assert.deepEqual(out,{'무상의 바람':'폭풍의 씨앗','무상의 뇌전':'뇌광 프리즘','얼음 나무':'서리의 핵','무상의 얼음':'응결의 꽃','무상의 바위':'현암의 탑','폭염 나무':'꺼지지 않는 불씨','물의 정령':'물처럼 맑은 마음','고대 바위 용 도마뱀':'설익은 옥','유적의 뱀':'룬 무늬 이빨'});
- const q=fresh('MAP_LY_DETAIL_GUYUN');assert(q.placeEntries().some(e=>e.id==='BOSS:BRT_FB_GEO_HYPOSTASIS'&&e.open));return out;});
+ // 0.16.3: 무상의 바위 has its own arena on the north island of 고운각 (runtime_landmarks_v0163.js).
+ const q=fresh(FB.bosses.FB_GEO_HYPOSTASIS.map);assert.equal(FB.bosses.FB_GEO_HYPOSTASIS.map,'MAP_D163_GEO_HYPOSTASIS');assert(q.placeEntries().some(e=>e.id==='BOSS:BRT_FB_GEO_HYPOSTASIS'&&e.open));return out;});
 test('victory drops the material and records notes; the 12-hour count is the only wait; defeat can be retried at once',()=>{const {r,b,boss,d}=start('FB_ANEMO_HYPOSTASIS');
  for(const a of b.actors.filter(x=>x.side==='ENEMY'))a.hp=0;boss.fb.revived=true;const before=r.itemCount(d.material);r.finishBattle(true);const got=r.itemCount(d.material)-before;assert(got>=3&&got<=4,'2~3 + first clear 1: '+got);
  r.s.global.SCREEN_MODE='LOCATION';assert.equal(r.placeBossReason(FB.route('FB_ANEMO_HYPOSTASIS'),'DIRECT'),'','no in-game respawn wait since 0.14.8');

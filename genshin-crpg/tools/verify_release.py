@@ -31,7 +31,7 @@ TESTS = [
     'tests/test_v0152.cjs', 'tests/test_balance_v0152.cjs', 'tests/test_server_v0152.mjs',
     'tests/test_v0153.cjs', 'tests/test_server_v0153.mjs',
     'tests/test_coop_v0153.cjs', 'tests/test_server_coop_v0153.mjs', 'tests/test_server_coop_world_v0159.mjs', 'tests/test_coop_world_ui_v0159.cjs',
-    'tests/test_coop_world_v0160.cjs', 'tests/test_server_coop_roam_v0160.mjs', 'tests/test_coop_world_screen_v0160.cjs', 'tests/test_freeze_v0160.cjs', 'tests/test_battle_lines_v0162.cjs',
+    'tests/test_coop_world_v0160.cjs', 'tests/test_server_coop_roam_v0160.mjs', 'tests/test_coop_world_screen_v0160.cjs', 'tests/test_freeze_v0160.cjs', 'tests/test_battle_lines_v0162.cjs', 'tests/test_landmarks_v0163.cjs',
     'tests/test_v0156.cjs', 'tests/test_v0157.cjs', 'tests/test_v0158.mjs',
     'tests/test_osial_v01341.cjs', 'tools/test_story_cleanup_v0140.cjs',
     'tests/test_main_story_k_v0148.cjs',

@@ -41,6 +41,22 @@ function layout(){
  const line=objectiveLine(b);if(line&&head){const title=head.querySelector('h1');if(title)title.after(line);else head.append(line);}
  const details=p.querySelector('.battle-details');if(details&&head){details.hidden=true;const rec=button('기록',()=>{const box=details.querySelector('.log').cloneNode(true);showModal('전투 기록',box);});rec.className='battle-head-button';rec.title='전투 기록 '+b.log.length+'건';head.append(rec);}
  const info=p.querySelector('.shell-battle-info');if(info&&head){info.hidden=true;const n=info.querySelector('.shell-battle-info-body')?.childElementCount||0;const more=button('전투 정보'+(n?' '+n:''),()=>{const box=info.querySelector('.shell-battle-info-body').cloneNode(true);showModal('전투 정보',box);});more.className='battle-head-button';head.append(more);}
+ fitFighters();
+}
+// 0.16.3 (user: 「내가 휴대폰으로 했을 때 저런식으로 몬스터 체력도 가리고 좀 불편해」): on a sideways phone the enemy pictures took their
+// height from the window height minus a fixed allowance, so a taller heading or a full party on another phone pushed the
+// names, HP and HP bars under the commands. The pictures now shrink to the room really left above the commands, and a
+// party that does not fit tightens its rows, so every name and HP bar stays in view.
+const sideways=()=>!!window.matchMedia?.('(orientation:landscape) and (max-height:500px)').matches;
+function fitFighters(){
+ const p=document.querySelector('.combat-panel');if(!p)return;const enemies=p.querySelector('.shell-enemies'),allies=p.querySelector('.shell-allies');
+ enemies?.style.removeProperty('--enemy-h');allies?.classList.remove('tight','tighter');if(!sideways())return;
+ const c=p.querySelector('.combat-duo>.battle-command')?.getBoundingClientRect(),floor=(c&&c.height?c.top:p.getBoundingClientRect().bottom)-4;
+ // The party first: its column sets the height of the row the enemy cards are centred in.
+ for(const k of ['tight','tighter']){const last=allies?.querySelector(':scope>.combatant-row:last-of-type');if(!last||last.getBoundingClientRect().bottom<=floor)break;allies.classList.add(k);}
+ // Then shrink the pictures by what still runs past the commands (centred cards move as they shrink, so measure again).
+ const cards=[...(enemies?.querySelectorAll(':scope>.combatant-row')||[])],pic=cards[0]?.querySelector('.combat-portrait');
+ if(pic){const lines=Number(enemies.dataset.rows)||1;for(let i=0;i<6;i++){const over=Math.max(...cards.map(r=>r.getBoundingClientRect().bottom))-floor;if(over<=0)break;enemies.style.setProperty('--enemy-h',Math.max(lines>1?24:36,pic.offsetHeight-Math.ceil(over/lines)-1)+'px');}}
 }
 const previousRender=render;render=function(){previousRender();renderTutorial();layout();};
 // 0.15.25 (the GitHub check tests/test_online_browser.mjs 「playback controls occupy the reserved command area」 failed
@@ -66,6 +82,6 @@ function followDock(){
  fitPlayback();following=requestAnimationFrame(step);
 }
 if(typeof GameEffects!=='undefined'&&typeof GameEffects.play==='function'){const priorPlay=GameEffects.play;GameEffects.play=function(...args){const c=document.querySelector('.combat-panel .battle-command');reserved=c?.offsetHeight||0;const out=priorPlay.apply(this,args);try{followDock();}catch(e){console.error('[battle layout]',e);}return out;};}
-addEventListener('resize',()=>{try{fitPlayback();}catch{}});
-window.CRPGBattleLayout={fitPlayback};
+addEventListener('resize',()=>{try{fitFighters();fitPlayback();}catch{}});
+window.CRPGBattleLayout={fitPlayback,fitFighters};
 })();

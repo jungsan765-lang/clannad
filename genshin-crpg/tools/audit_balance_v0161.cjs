@@ -49,9 +49,9 @@ function measure({level,domain,element='NEUTRAL',route='ROUTE_TRAVELER',seed=717
  // 2x label is internal rate 1. Inputs (3 s) and receipt/re-entry (6 s) are declared model assumptions.
  return {level,domain,element,route,seed,team,group,map:map||spec?.map,kind,tier,gear:gear||(level<10?'starter':'craft'),enhance:enhance??(level<10?0:level<30?3:6),talent,constellations,earningXp,storyNode,phases:Object.fromEntries([PLAYER,...(Array.isArray(team)?team:TEAMS[team])].map(id=>[id,r.growthPhase(id)])),initial,expectedRewards,result,objective:end?.objective||end?.liyueObjective,deluge,presentationMs,playerInputs,cycleSeconds:presentationMs/1000+3*playerInputs+6};
 }
-// 0.16.2: domains stand one per five levels and hold three trials; the pacing ladder keeps 0.16.1's levels.
-const LADDER_SITE={5:'FORSAKEN_RIFT',10:'VALLEY_OF_REMEMBRANCE',20:'CECILIA_GARDEN',30:'RIDGE_WATCH',40:'LIANSHAN_FORMULA',50:'CLEAR_POOL',60:'LOST_VALLEY'};
-function recommendedDomain(level){const dl=[5,10,20,30,40,50,60].filter(n=>n<=level+5).at(-1);return LADDER_SITE[dl]+':EXP';}
+// 0.16.3: one kind per domain; the experience domain of each level of 0.16.1's pacing ladder.
+const LADDER_SITE={5:'MIDSUMMER_COURTYARD',10:'MIDSUMMER_COURTYARD',20:'PEAK_OF_VINDAGNYR',30:'RIDGE_WATCH',40:'ZHOU_FORMULA',50:'DOMAIN_OF_GUYUN',60:'LOST_VALLEY'};
+function recommendedDomain(level){const dl=[5,10,20,30,40,50,60].filter(n=>n<=level+5).at(-1);return LADDER_SITE[dl]+':'+dl;}
 if(require.main===module){
  const out=process.env.CRPG_BALANCE_OUT||path.join(root,'evidence/v0161/balance-samples.json');fs.mkdirSync(path.dirname(out),{recursive:true});
  const modes=process.argv.filter(x=>['--rarity','--ceiling','--ley','--osial'].includes(x));if(modes.length>1)throw Error('Choose one audit mode');
@@ -65,8 +65,8 @@ if(require.main===module){
   }
   else if(mode==='--ley')for(const route of ['ROUTE_TRAVELER','ROUTE_ISEKAI'])for(const tier of [1,2,3,4,5]){const level=api.leyLines.tiers[tier-1].minLevel;collect('domain',{route,level,domain:recommendedDomain(level)},[717]);for(const site of api.leyLines.sites)collect('ley',{route,level,map:site.map,kind:'REVELATION',tier},[717]);}
   else{
-   const scenarios=mode==='--ceiling'?[{level:60,domain:'LOST_VALLEY:ASCENSION',map:'MAP_CHASM_DEEP'},{level:60,group:'EG_BOSS_TARTAGLIA',map:'MAP_LIYUE_GOLDEN_HOUSE'},{level:60,group:'EG_BOSS_AZHDAHA',map:'MAP_AZHDAHA_DOMAIN'}]:[
-    ...[30,50,60].flatMap(level=>[{level,domain:recommendedDomain(level)},{level,domain:level===30?'RIDGE_WATCH:TALENT':level===50?'CLEAR_POOL:TALENT':'LOST_VALLEY:TALENT'},{level,domain:level===30?'RIDGE_WATCH:ASCENSION':level===50?'CLEAR_POOL:ASCENSION':'LOST_VALLEY:ASCENSION'}]),
+   const scenarios=mode==='--ceiling'?[{level:60,domain:'LIANSHAN_FORMULA:60'},{level:60,group:'EG_BOSS_TARTAGLIA',map:'MAP_LIYUE_GOLDEN_HOUSE'},{level:60,group:'EG_BOSS_AZHDAHA',map:'MAP_AZHDAHA_DOMAIN'}]:[
+    ...[30,50,60].flatMap(level=>[{level,domain:recommendedDomain(level)},{level,domain:'TAISHAN_MANSION:'+level},{level,domain:'LIANSHAN_FORMULA:'+level}]),
     {level:50,group:'EG_BOSS_TARTAGLIA',map:'MAP_LIYUE_GOLDEN_HOUSE',enhance:10,talent:8},{level:60,group:'EG_BOSS_AZHDAHA',map:'MAP_AZHDAHA_DOMAIN',enhance:10,talent:8}];
    for(const scenario of scenarios)for(const route of ['ROUTE_TRAVELER','ROUTE_ISEKAI'])for(const [name,team]of Object.entries(teams)){if(mode==='--ceiling'&&name==='story4')continue;collect(name,{...scenario,route,team,...(mode==='--ceiling'?{enhance:12,talent:10,constellations:6}:{})});}
   }

@@ -15,7 +15,7 @@ function replay(start,end,route,data){
  ascendReady();
  while(r.growth().level<end){
   assert(clears<10000,'XP progression must terminate');
-  // 0.16.2: the experience trial of the highest open band of 0.16.1's ladder (the domains between them pay the same).
+  // 0.16.2/0.16.3: the experience domain of the highest open band of 0.16.1's ladder (the levels between them pay the same).
   const level=r.growth().level,dl=[5,10,20,30,40,50,60].filter(n=>n<=level+5).at(-1),xp=G.domainXp[dl];
   const samples=route==='REFERENCE_MEAN'?['ROUTE_TRAVELER','ROUTE_ISEKAI']: [route];
   const time=samples.reduce((n,k)=>{const t=timings.get(k+':'+level);assert(t&&t.wins===t.samples,'all timing samples must be actual wins');return n+t.cycleSeconds;},0)/samples.length;

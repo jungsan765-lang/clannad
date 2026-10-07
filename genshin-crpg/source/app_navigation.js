@@ -66,7 +66,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   // The card's dot matches the place's circle on the map (no number: 0.15.16).
   const dot=el('span','terrain-dot'+(n.reason?' locked':'')),copy=el('span','terrain-card-copy');dot.setAttribute('aria-hidden','true');copy.append(el('strong','',mapName(n.id)),el('small','',this.direction(n.id)+' · '+n.row[5]+'분 · '+this.risk(n.id)));
   const boss=game.rows('35_BOSS_ROUTE_DB').find(r=>r[2]===n.id&&String(r[0]).startsWith('BRT_FB_'));if(boss)copy.append(el('small','terrain-boss-note','필드보스 · '+boss[1]+' · 권장 Lv.'+(CRPGRuntime.fieldBosses?.bosses?.[String(boss[0]).slice(4)]?.level||10)));
-  const domain=this.domainAt(n.id);if(domain)copy.append(el('small','terrain-domain-note','비경 · '+domain.name+' Lv.'+domain.level));
+  const domain=this.domainAt(n.id);if(domain)copy.append(el('small','terrain-domain-note',this.domainLabel(domain,mapName(n.id))));
   if(n.point?.[3])copy.append(el('small','terrain-point-note',n.point[3]));
   if(n.reason)copy.append(el('small','terrain-lock-reason','잠김 · '+n.reason));else if(!n.point)copy.append(el('small','','주변 세부 지역 · 경로로 이동'));
   b.append(dot,copy,el('span','terrain-card-state',n.reason?'잠김':'이동'));
@@ -85,7 +85,9 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
  // 안찍혀있고」): the domain and the field boss standing at a place, shown on the map whether or not the place is known yet.
  domainAt(id){return Object.values(globalThis.CRPGRuntime?.growthV01522?.domains||{}).find(d=>d.map===id)||null;},
  bossAt(id){const hit=Object.entries(globalThis.CRPGRuntime?.fieldBosses?.bosses||{}).find(([,b])=>b.map===id);return hit?{key:hit[0],...hit[1]}:null;},
- marks(id){const d=this.domainAt(id),b=this.bossAt(id),out=[];if(d)out.push(['domain','비경 · '+d.name+' Lv.'+d.level]);if(b)out.push(['boss','필드 보스 · '+b.name+' Lv.'+b.level]);return out;},
+ // 0.16.3: which kind of domain it is, and its levels; the domain's name only where the place's own name does not say it.
+ domainLabel(d,shown){const L=d.levels||[d.level],kind=globalThis.CRPGRuntime?.growthV01522?.domainKinds?.[d.kind];return (kind?kind+' 비경':'비경')+' · '+(shown===d.name?'':d.name+' ')+'Lv.'+(L.length>1?L[0]+'–'+L[L.length-1]:L[0]);},
+ marks(id){const d=this.domainAt(id),b=this.bossAt(id),out=[];if(d)out.push(['domain',this.domainLabel(d,this.placeName(id))]);if(b)out.push(['boss','필드 보스 · '+b.name+' Lv.'+b.level]);return out;},
  drawMap(nearby){
   const T=CRPGTerrainMap,atlas=this.atlas,viewport=el('div','terrain-viewport'),canvas=el('div','terrain-canvas'),sheet=el('div','terrain-sheet'),img=el('img','terrain-raster');
   viewport.setAttribute('aria-label',T.atlases[atlas].name+' 지형 지도');img.src=T.atlases[atlas].url;img.alt=T.atlases[atlas].name+' 원본 보존 지형 지도';img.width=T.width;img.height=T.height;img.draggable=false;

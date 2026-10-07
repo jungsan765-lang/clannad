@@ -15,8 +15,9 @@ const priorGrowth=growthScreen;growthScreen=function(p,...args){priorGrowth(p,..
 // 누르는거 다 없애버려 그냥 편성이나 이런것도 일부러 없앴는데 글씨 좆같이도 써대네」; 「v 눌러서 고르는거 그거 아예 쓰지 말라」):
 // no window, no lists to open, no party step. Where a domain stands, its gate shows the four stages and (ascension) the
 // elements as pictures to press, the enemies' faces, the reward pictures and 「도전」.
-// 0.16.2: one domain per level band at its own place, each holding three trials chosen by picture (user: 「레벨별 비경 위치를
-// 다르게 해서 여기저기 이동하게」, 「경험치 비경(경험치책 나오는거 아님)」, 「모라는 없애고」).
+// 0.16.3 (user: 「특성비경 따로 돌파 비경 따로 경험치 비경 따로」, 「비경 두배 표시 조금 이해가 잘 안가는 느낌이라 그거도 살짝 바꿔줘 글로
+// 써도 될듯」): a domain gives one kind, its levels are pressed like the original's stages, and the daily double is one short
+// line of words instead of a ×2 badge.
 const KIND={TALENT:'특성',ASCENSION:'돌파',EXP:'경험치'};
 const ELEMENTS=[['NEUTRAL','주인공',null],['PYRO','불','pyro'],['HYDRO','물','hydro'],['ANEMO','바람','anemo'],['ELECTRO','번개','electro'],['CRYO','얼음','cryo'],['GEO','바위','geo'],['DENDRO','풀','dendro']];
 const picks={};
@@ -31,15 +32,17 @@ function trialPicture(kind,region){
  return el('span','domain-trial-icon exp','EXP');
 }
 function domainGate(entries){
- const first=entries[0],key=first.key,last=game.s.lastGrowthDomain,lastHere=last?.domain?.startsWith(key+':');
- const pick=picks[key]??={kind:lastHere?last.domain.slice(key.length+1):'TALENT',element:lastHere&&last.element||'NEUTRAL'};
- const d=entries.find(x=>x.kind===pick.kind)||first,element=d.kind==='ASCENSION'?pick.element:'NEUTRAL',redraw=()=>card.replaceWith(domainGate(entries));
+ const first=entries[0],key=first.key,last=game.s.lastGrowthDomain,lastHere=!!last&&entries.some(x=>x.id===last.domain);
+ // The level last played here, else the highest one already open.
+ const open=entries.filter(x=>!x.reason),pick=picks[key]??={id:lastHere?last.domain:(open[open.length-1]||first).id,element:lastHere&&last.element||'NEUTRAL'};
+ const d=entries.find(x=>x.id===pick.id)||first,element=d.kind==='ASCENSION'?pick.element:'NEUTRAL',redraw=()=>card.replaceWith(domainGate(entries));
  const card=el('section','card growth-domains domain-gate');card.dataset.domain=key;card.dataset.kind=d.kind;
- const rw=game.growthDomainRewards(d,element),head=el('div','domain-gate-head'),title=el('div','domain-gate-name');title.append(el('h2','',first.name),el('small','','비경 · Lv.'+first.level));head.append(title);
- if(rw.bonus){const bonus=el('span','domain-gate-bonus','×2');bonus.append(el('small','',' '+rw.remaining));bonus.title='오늘 첫 3번의 재료 비경 승리는 재료 2배 · '+rw.remaining+'번 남음';head.append(bonus);}
- const trials=el('div','domain-trials');trials.setAttribute('role','radiogroup');trials.setAttribute('aria-label',first.name+' 시련');
- for(const x of entries){const b=button('',()=>{pick.kind=x.kind;redraw();});b.className='domain-trial'+(x.kind===d.kind?' selected':'');b.dataset.kind=x.kind;b.setAttribute('role','radio');b.setAttribute('aria-checked',String(x.kind===d.kind));b.setAttribute('aria-label',KIND[x.kind]+' 비경');b.title=b.getAttribute('aria-label');b.append(trialPicture(x.kind,x.region),el('b','',KIND[x.kind]));trials.append(b);}
- card.append(head,trials);
+ const levels=first.levels||[first.level],range=levels.length>1?levels[0]+'–'+levels[levels.length-1]:levels[0];
+ const rw=game.growthDomainRewards(d,element),head=el('div','domain-gate-head'),title=el('div','domain-gate-name');title.append(el('h2','',first.name),el('small','',KIND[first.kind]+' 비경 · Lv.'+range));head.append(trialPicture(first.kind,first.region),title);card.append(head);
+ if(rw.doubles)card.append(el('p','domain-gate-double'+(rw.remaining?'':' spent'),rw.remaining?'오늘 첫 3번 승리는 재료 2배 · 남은 '+rw.remaining+'번':'오늘 재료 2배는 다 썼습니다 · 0시에 다시 3번'));
+ if(entries.length>1){const tiers=el('div','domain-stages');tiers.setAttribute('role','radiogroup');tiers.setAttribute('aria-label',first.name+' 단계');
+  for(const x of entries){const b=button('',()=>{pick.id=x.id;redraw();});b.className='domain-stage'+(x.id===d.id?' selected':'')+(x.reason?' locked':'');b.dataset.level=x.level;b.setAttribute('role','radio');b.setAttribute('aria-checked',String(x.id===d.id));b.setAttribute('aria-label','Lv.'+x.level+(x.reason?' · '+x.reason:''));b.title=b.getAttribute('aria-label');b.append(el('b','','Lv.'+x.level));if(x.lock)b.append(el('small','',x.lock));tiers.append(b);}
+  card.append(tiers);}
  if(d.kind==='ASCENSION'){const row=el('div','domain-elements');row.setAttribute('role','radiogroup');row.setAttribute('aria-label','돌파 재료 원소');
   // The protagonist's own material has no element: its diamond picture stands for it.
   for(const [id,label,icon]of ELEMENTS){const b=button('',()=>{pick.element=id;redraw();});b.className='domain-element'+(id===element?' selected':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(id===element));b.setAttribute('aria-label',label+(id==='NEUTRAL'?' 돌파 재료':' 원소 돌파 재료'));b.title=b.getAttribute('aria-label');b.append(icon?elementPicture(icon,'domain-element-icon'):picture(MANIFEST.itemIcons?.icons?.GROWTH_GEM_NEUTRAL?.path,'domain-element-icon')||elementPicture(null,'domain-element-icon'));row.append(b);}

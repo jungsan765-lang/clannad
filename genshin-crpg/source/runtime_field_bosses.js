@@ -30,28 +30,29 @@ const MATERIALS={
 };
 
 // ---- the bosses --------------------------------------------------------------------------------------------
+// 0.16.3: each boss stands where the original has it (HoYoLAB map; runtime_landmarks_v0163.js gives the new arenas their circles).
 // gimmicks: id → what the player sees in the battle log / boss notes and the counter that answers it.
 const G=(label,text,counter)=>({label,text,counter});
 const BOSSES={
- FB_ANEMO_HYPOSTASIS:{kind:'ANEMO',name:'무상의 바람',map:'MAP_CRPG_STORMBEARER_MOUNTAINS',region:'몬드',level:5,hp:2300,atk:120,def:70,spd:64,element:'바람',immune:['바람'],range:'중거리',material:'MAT_FB_HURRICANE_SEED',
+ FB_ANEMO_HYPOSTASIS:{kind:'ANEMO',name:'무상의 바람',map:'MAP_V141_STORMBEARER_PASS',region:'몬드',level:5,hp:2300,atk:120,def:70,spd:64,element:'바람',immune:['바람'],range:'중거리',material:'MAT_FB_HURRICANE_SEED',
   summary:'바람이 뭉친 정육면체. 떠올라 전열을 내려찍고 후열을 끌어당기며, 쓰러지면 핵을 드러내고 다시 조립하려 한다.',
   gimmicks:{GUST:G('돌풍 탄환','무작위 동료 3회 바람 피해','바람 외 원소 공격 · 회복'),PULL:G('흡인 회오리','예고 후 후열을 끌어당겨 피해 · 다음 행동 지연','경직 저항·중장 장비'),RISE:G('상승 기류','떠오른 동안 원거리·대공·공중 접근만 닿음, 다음 차례 전열 내려찍기','활·법구, 공중 접근 장비, 보호막'),REVIVE:G('재조립','쓰러지면 핵이 2라운드 동안 드러남 · 핵을 부수지 못하면 HP 40%로 부활','약점 공략·집중 공격'),IMMUNE:G('바람 면역','바람 원소 피해를 받지 않음','다른 원소·물리')}},
- FB_ELECTRO_HYPOSTASIS:{kind:'ELECTRO',name:'무상의 뇌전',map:'MAP_CRPG_CAPE_OATH',region:'몬드',level:6,hp:2500,atk:130,def:75,spd:64,element:'번개',immune:['번개'],range:'중거리',material:'MAT_FB_LIGHTNING_PRISM',
+ FB_ELECTRO_HYPOSTASIS:{kind:'ELECTRO',name:'무상의 뇌전',map:'MAP_D163_ELECTRO_HYPOSTASIS',region:'몬드',level:6,hp:2500,atk:130,def:75,spd:64,element:'번개',immune:['번개'],range:'중거리',material:'MAT_FB_LIGHTNING_PRISM',
   summary:'번개 원소의 정육면체. 후열에 낙뢰를 떨어뜨리고, 프리즘을 불러 자신을 보호하며, 쓰러지면 프리즘으로 부활하려 한다.',
   gimmicks:{SPIKES:G('뇌광 가시','무작위 동료 2명 번개 피해','절연·번개 내성'),HAMMER:G('뇌전 망치','선두에 강한 단타','중장 장비·보호막'),STORM:G('낙뢰 지대','예고 후 후열에 낙뢰 지형 2라운드','절연 장비 · 후열 배치 조정'),PRISM:G('뇌광 프리즘','HP 50% 이하에서 프리즘 2개 · 프리즘이 있으면 본체 피해 절반','광역 공격·프리즘 먼저 파괴'),REVIVE:G('프리즘 부활','쓰러지면 프리즘 3개 · 3라운드 안에 모두 부수지 못하면 HP 40%로 부활','광역 공격·집중 공격'),IMMUNE:G('번개 면역','번개 원소 피해를 받지 않음','다른 원소·물리')}},
- FB_CRYO_REGISVINE:{kind:'CRYO_VINE',name:'얼음 나무',map:'MAP_MOND_THOUSAND_WINDS',region:'몬드',level:5,hp:2300,atk:115,def:70,spd:56,element:'얼음',immune:[],range:'중거리',material:'MAT_FB_HOARFROST_CORE',enrage:true,
+ FB_CRYO_REGISVINE:{kind:'CRYO_VINE',name:'얼음 나무',map:'MAP_V141_THOUSAND_RAVINE',region:'몬드',level:5,hp:2300,atk:115,def:70,spd:56,element:'얼음',immune:[],range:'중거리',material:'MAT_FB_HOARFROST_CORE',enrage:true,
   summary:'얼음 결정막으로 핵을 감싼 거대한 덩굴. 전열에 냉기를 퍼뜨리고, 결정막이 깨지면 잠시 무방비가 된다.',
   gimmicks:{SHELL:G('서리 결정막','HP 30% 보호막 · 불 피해 3배, 그 밖의 피해는 약하게 들어감 · 깨지면 행동 불능과 핵 노출 · 3라운드 뒤 재생','불 원소 동료·보호막 파괴 장비'),WHIP:G('얼음 덩굴 채찍','전열 전원 얼음 피해','방한·얼음 내성'),SPREAD:G('냉기 확산','전열에 냉기 지형(감속) 2라운드','방한 장비(50 이상이면 감속 무시)'),ORBS:G('빙구 회전','예고 후 무작위 3회 · 빙결 확률','행동 방해 저항·방한'),ENRAGE:G('광폭','HP 30% 이하에서 한 차례에 한 번 더 행동','결정막이 깨진 틈에 몰아치기')}},
- FB_CRYO_HYPOSTASIS:{kind:'CRYO_HYPO',name:'무상의 얼음',map:'MAP_CRPG_WYRMREST_VALLEY',region:'몬드',level:8,hp:2800,atk:145,def:85,spd:64,element:'얼음',immune:['얼음'],range:'중거리',material:'MAT_FB_CRYSTALLINE_BLOOM',
+ FB_CRYO_HYPOSTASIS:{kind:'CRYO_HYPO',name:'무상의 얼음',map:'MAP_D163_CRYO_HYPOSTASIS',region:'몬드',level:8,hp:2800,atk:145,def:85,spd:64,element:'얼음',immune:['얼음'],range:'중거리',material:'MAT_FB_CRYSTALLINE_BLOOM',
   summary:'얼음 원소의 정육면체. 한 줄을 꿰뚫는 창으로 얼리고, 쓰러지면 냉기의 핵이 되어 여러 번 맞아야 부서진다.',
   gimmicks:{LANCE:G('빙결 창','HP가 더 많은 줄(전열·후열)을 꿰뚫음 · 빙결 확률','행동 방해 저항 · 대열 분산'),BLAST:G('한기 방출','예고 후 전원 피해 + 냉기 지형 2라운드','방한 장비'),WALL:G('얼음 가시 방벽','얼음 보호막(불에 약함)','불 원소·보호막 파괴'),REVIVE:G('냉기 핵','쓰러지면 2라운드 동안 핵 · 서로 다른 공격 4번을 맞히지 못하면 HP 50%로 부활','여러 번 때리는 공격·파티 4인'),IMMUNE:G('얼음 면역','얼음 원소 피해를 받지 않음','다른 원소·물리')}},
- FB_GEO_HYPOSTASIS:{kind:'GEO_HYPO',name:'무상의 바위',map:'MAP_LY_DETAIL_GUYUN',region:'리월',level:5,hp:2400,atk:125,def:85,spd:58,element:'바위',immune:['바위'],range:'중거리',material:'MAT_FB_BASALT_PILLAR',
+ FB_GEO_HYPOSTASIS:{kind:'GEO_HYPO',name:'무상의 바위',map:'MAP_D163_GEO_HYPOSTASIS',region:'리월',level:5,hp:2400,atk:125,def:85,spd:58,element:'바위',immune:['바위'],range:'중거리',material:'MAT_FB_BASALT_PILLAR',
   summary:'바위 원소의 정육면체. 바위를 떨어뜨리고 땅을 솟구치게 하며, 현암 기둥으로 자신을 회복한다. 쓰러지면 기둥에 기대어 부활하려 한다.',
   gimmicks:{ROCKFALL:G('바위 낙하','무작위 2명에게 강한 단타','중장 장비'),UPHEAVAL:G('지면 융기','예고 후 전열 피해 · 행동 지연','경직 저항·중장'),PILLARS:G('현암 기둥','HP 60% 이하에서 기둥 3개 · 기둥마다 라운드 끝 본체 회복','파쇄·양손검·바위 원소(기둥 피해 2배)'),REVIVE:G('기둥 부활','쓰러지면 기둥이 다시 서고 3라운드 안에 모두 부수지 못하면 HP 40%로 부활','파쇄 장비·광역 공격'),IMMUNE:G('바위 면역','바위 원소 피해를 받지 않음','다른 원소·물리')}},
- FB_PYRO_REGISVINE:{kind:'PYRO_VINE',name:'폭염 나무',map:'MAP_LY_DETAIL_LUHUA',region:'리월',level:6,hp:2500,atk:125,def:75,spd:56,element:'불',immune:[],range:'중거리',material:'MAT_FB_EVERFLAME_SEED',enrage:true,
+ FB_PYRO_REGISVINE:{kind:'PYRO_VINE',name:'폭염 나무',map:'MAP_D163_PYRO_REGISVINE',region:'리월',level:6,hp:2500,atk:125,def:75,spd:56,element:'불',immune:[],range:'중거리',material:'MAT_FB_EVERFLAME_SEED',enrage:true,
   summary:'화염 결정막을 두른 거대한 덩굴. 세 라운드마다 전장을 불태우는 폭염을 일으킨다. 준비 없이 버티기 어렵다.',
   gimmicks:{SHELL:G('화염 결정막','HP 30% 보호막 · 얼음 3배·물 2.5배, 그 밖의 피해는 약하게 들어감 · 깨지면 행동 불능과 핵 노출','얼음·물 원소 동료·보호막 파괴 장비'),VINE:G('화염 덩굴','전열 전원 불 피해','내열·불 내성'),BOMBS:G('화염 폭탄 비','무작위 3회 불 피해','불 내성·회복'),LASH:G('덩굴 내려치기','선두에 강한 물리 단타 · 내열 장비로는 줄지 않음','중장 장비·보호막'),HEATWAVE:G('폭염 확산','3라운드마다 라운드 끝 전원 최대 HP 12% 화염 지형 (광폭 시 2라운드마다)','내열 장비 · 보호막 · 미리 회복'),ENRAGE:G('광폭','HP 30% 이하에서 한 차례에 한 번 더 행동','결정막이 깨진 틈에 몰아치기')}},
- FB_OCEANID:{kind:'OCEANID',name:'물의 정령',map:'MAP_LY_DETAIL_DIHUA',region:'리월',level:6,hp:800,atk:120,def:60,spd:60,element:'물',immune:['ALL'],range:'중거리',material:'MAT_FB_CLEANSING_HEART',
+ FB_OCEANID:{kind:'OCEANID',name:'물의 정령',map:'MAP_D163_OCEANID',region:'리월',level:6,hp:800,atk:120,def:60,spd:60,element:'물',immune:['ALL'],range:'중거리',material:'MAT_FB_CLEANSING_HEART',
   summary:'물의 정령은 직접 공격이 닿지 않는다. 계속 불러내는 물의 형상을 8번 쓰러뜨리면 형체가 흩어진다.',
   gimmicks:{FORMS:G('물의 형상','멧돼지·학·개구리·게·매 모양의 형상을 두 마리씩 불러냄 · 8번 쓰러뜨리면 승리','광역 공격 · 대공(학·매는 떠 있다가 공격 뒤 잠깐 내려앉음)'),WAVE:G('침수 파도','2차례마다 전원 침수 지형(젖음) 2라운드','방수 장비'),SPOUT:G('물줄기','무작위 동료 물 피해','물 내성'),BODY:G('닿지 않는 본체','정령 본체는 피해를 받지 않음','형상부터 처치'),FROG:G('개구리의 물폭탄','개구리 형상은 쓰러질 때 전열을 적심','방수 장비·후열 공격')}},
  FB_PRIMO_GEOVISHAP:{kind:'PRIMO',name:'고대 바위 용 도마뱀',map:'MAP_LY_DETAIL_TIANQIU',region:'리월',level:7,hp:2900,atk:140,def:90,spd:58,element:'바위',immune:[],range:'근접',material:'MAT_FB_JUVENILE_JADE',enrage:true,
