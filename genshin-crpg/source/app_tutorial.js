@@ -73,7 +73,7 @@ function tutorialSpeaker(step){
 }
 function tutorialLine(speaker,say,step){
  const line=say&&TUTORIAL_LINES[speaker]?.[say];if(!line)return null;
- return line.replace('{place}',step.destination&&typeof mapName==='function'?mapName(step.destination):'목적지');
+ return line.replace('{place}',step.destination&&typeof mapName==='function'?mapName(step.destination):'목적지').replace('몬드성야','몬드성이야');
 }
 function tutorialAvatar(speaker){
  const rec=(typeof MANIFEST!=='undefined'?MANIFEST:{}).uiAssets?.avatars?.[TUTORIAL_SPEAKERS[speaker].avatar];

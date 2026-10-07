@@ -1,5 +1,14 @@
 /* Fixed regional levels, independent of party. */
 CRPGRuntime.growthRegionData={
+  "story": {
+    "TRV_M02_N330": 22,
+    "ISK_L04_AA1_058": 52,
+    "ISK_L04_AA2_057": 52,
+    "ISK_L04_AB1_066": 54,
+    "ISK_L04_AB2_065": 54,
+    "ISK_L04_B1_051": 56,
+    "ISK_L04_B2_047": 56
+  },
   "maps": {
     "MAP_MOND_PLAINS": 2,
     "MAP_MOND_FOREST": 5,

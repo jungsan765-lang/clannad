@@ -5,10 +5,16 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype,PLAYER='PLAYER_CUSTOM',copy=x
 const old=Object.fromEntries(['newGame','validateSave','recalculate','character','combatStat','reactionBase','startBattle','finishBattle','roundEnd','apply','actionReason','useItem','mondRewardPlan','rollEncounter','claimQuest','tradeRule','adminApply','fbSummon','spawnLiyueWave'].map(k=>[k,P[k]]));
 const fail=(c,m)=>{throw new api.RuleError(c,m);},CAPS=[10,20,30,40,50,55,60],TALENTS=[1,2,4,6,8,9,10];
 const hpCurve=l=>1+.13*(l-1)+.002*(l-1)**2,adCurve=l=>1+.12*(l-1)+.003*(l-1)**2;
+// Ordinary enemies follow a fixed four-character budget; elite/strong grades retain their native differences.
+const FIELD_HP_V0166=[[5,900],[8,2100],[10,2800],[12,3200],[15,3600],[20,4300],[25,5200],[30,6500],[40,9000],[50,12500],[60,17000]];
+const FIELD_ATK_V0166=[[5,180],[8,650],[10,870],[12,940],[15,1060],[20,1250],[25,1440],[30,1750],[40,2500],[50,3500],[60,4900]];
+function enemyBudget(points,level){if(level<=points[0][0])return points[0][1];for(let i=1;i<points.length;i++){const [l,n]=points[i];if(level<=l){const [before,value]=points[i-1];return value+(n-value)*(level-before)/(l-before);}}return points.at(-1)[1];}
 const legacyXpNext=l=>l===60?0:Math.round((l<=10?160+60*l+10*l**3:8000+1800*(l-10)+35*(l-10)**2)/10)*10;
 // 4-character, 2x presentation + declared input/re-entry budget; two routes, 3 seeds per level.
 const XP_PACING_V0161=[200,350,580,860,1170,1510,1870,2260,2660,4520,4700,4880,5060,5240,5430,5610,5790,5970,6150,14640,15230,15820,16400,16990,17570,18160,18750,19330,19920,100810,104840,108870,112900,116930,120970,125000,129030,133060,137090,170470,177290,184110,190930,197750,204570,211390,218200,225020,231840,268750,279500,290250,301000,311750,322500,333250,344000,354750,365510,0];
-const xpNext=l=>XP_PACING_V0161[l-1];
+// 0.16.6: actual current EXP-domain stages, native fights at 2x, with failed higher stages falling back.
+const XP_PACING_V0166=[60,110,180,270,370,470,580,710,830,1110,1160,1200,1250,1290,1340,1380,1430,1470,1510,5520,5740,5960,6180,6410,6620,6850,7070,7290,7510,33950,35310,36660,38020,39380,40740,42100,43450,44810,46170,46180,46190,46200,46210,46220,46230,46240,46250,46260,46270,101330,105390,109440,113490,117540,121600,125650,129700,133760,137810,0];
+const xpNext=l=>XP_PACING_V0166[l-1];
 const phaseFor=l=>Math.max(0,CAPS.findIndex(n=>n>=l)),dayOf=n=>Math.floor((n+9*3600000)/86400000);
 const GEMS={물리:['NEUTRAL','돌파 재료'],불:['PYRO','불 원소 돌파 재료'],물:['HYDRO','물 원소 돌파 재료'],바람:['ANEMO','바람 원소 돌파 재료'],번개:['ELECTRO','번개 원소 돌파 재료'],얼음:['CRYO','얼음 원소 돌파 재료'],바위:['GEO','바위 원소 돌파 재료'],풀:['DENDRO','풀 원소 돌파 재료']};
 const BOOKS={MAT_CHAR_EXP_WANDERER:50,MAT_CHAR_EXP_ADVENTURER:250,MAT_CHAR_EXP_HERO:1000};
@@ -172,13 +178,17 @@ P.tuneGrowthEnemy=function(a,b,level){
  // The first Lv.1–4 areas stay forgiving before the authored story has supplied a full team.
  // This is a fixed enemy-level curve, never a check of the player's party or rarity.
  const partyHp=i===3||a.fieldStructure?1:2+.025*level,partyAtk=i===3?1:Math.min(1.7,1+.2*(level-1));
- const variant=(a.variant?.tier===5?1.6:1)*(a.variant?.affixes.includes('STURDY')?1.35:1);const prev=a.maxHp,hp=([105,340,900,3000][i])*(a.source==='BOSS_DVALIN'?.45:a.source==='BOSS_ANDRIUS'?.55:1)*hpCurve(level)*(1+.16*p)*variant*partyHp;
- a.hp=a.maxHp=Math.round(hp);a.atk=Math.round([24,38,52,a.source==='BOSS_ANDRIUS'?55:65][i]*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*partyAtk);a.def=Math.round([20,28,35,42][i]*adCurve(level));a.level=level;a.spd=Number(source[19])+Math.floor(level/5)+(a.variant?.affixes.includes('SWIFT')?8:0);a.hit=Math.min(95,80+Math.floor(level/5));if(a.variant?.tier===5){a.atk=Math.round(a.atk*1.15);a.def=Math.round(a.def*1.1);}if(a.variant?.affixes.includes('FEROCIOUS'))a.atk=Math.round(a.atk*1.2);if(a.variant?.affixes.includes('ARMORED'))a.def=Math.round(a.def*1.35);
+ const calibrated=level>4&&i!==3&&!a.fieldStructure;
+ const hpBudget=calibrated?1+(enemyBudget(FIELD_HP_V0166,level)/(105*hpCurve(level)*(1+.16*p)*(2+.025*level))-1)*(i===0?1:i===1?.7:.3):1;
+ const atkBudget=calibrated?1+(enemyBudget(FIELD_ATK_V0166,level)/(24*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*Math.min(1.7,1+.2*(level-1)))-1)*(i===0?1:i===1?.8:.35):1;
+ const variant=(a.variant?.tier===5?1.6:1)*(a.variant?.affixes.includes('STURDY')?1.35:1);const prev=a.maxHp,hp=([105,340,900,3000][i])*(a.source==='BOSS_DVALIN'?.45:a.source==='BOSS_ANDRIUS'?.55:1)*hpCurve(level)*(1+.16*p)*variant*partyHp*hpBudget;
+ a.hp=a.maxHp=Math.round(hp);a.atk=Math.round([24,38,52,a.source==='BOSS_ANDRIUS'?55:65][i]*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*partyAtk*atkBudget);a.def=Math.round([20,28,35,42][i]*adCurve(level));a.level=level;a.spd=Number(source[19])+Math.floor(level/5)+(a.variant?.affixes.includes('SWIFT')?8:0);a.hit=Math.min(95,80+Math.floor(level/5));if(a.variant?.tier===5){a.atk=Math.round(a.atk*1.15);a.def=Math.round(a.def*1.1);}if(a.variant?.affixes.includes('FEROCIOUS'))a.atk=Math.round(a.atk*1.2);if(a.variant?.affixes.includes('ARMORED'))a.def=Math.round(a.def*1.35);
  for(const s of a.shields||[]){s.value=Math.round(s.value*hp/prev);if(s.initialValue)s.initialValue=Math.round(s.initialValue*hp/prev);}a.growthScaled=true;
 };
+P.growthEncounterLevel=function(origin){return api.growthRegionData.story?.[String(origin).replace(/^STORY:/,'')]||Number(this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID)[6])||1;};
 P.startBattle=function(group,origin='EXPLICIT',...rest){
  this.installGrowthContent();const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;if(!b||b===before||b.abyss||b.raid||String(origin).startsWith('RAID'))return out;
- const region=this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID),level=this._growthDomain?.level||b.leyLine?.level||Number(region[6])||1;
+ const level=this._growthDomain?.level||b.leyLine?.level||this.growthEncounterLevel(origin);
  for(const a of [...b.actors,...(b.enemyReserve||[])].filter(x=>x.side==='ENEMY'&&!x.fbSummon))this.tuneGrowthEnemy(a,b,api.growthRegionData.bosses[a.source]||level);
  for(const a of b.actors.filter(x=>x.fbSummon))this.tuneGrowthSummon(a,b);
  b.growthBalance={version:1,level,field:origin==='RANDOM'||origin.startsWith('QUEST:')||origin.startsWith('ELITE:'),roundLimit:30};
@@ -187,7 +197,7 @@ P.startBattle=function(group,origin='EXPLICIT',...rest){
 };
 P.tuneGrowthSummon=function(a,b){const owner=b.actors.find(x=>x.id===a.fbSummon?.owner),spec=api.fieldBosses.summons[a.source];if(!owner?.growthScaled||!spec)return;const prev=a.maxHp,p=phaseFor(owner.level);a.hp=a.maxHp=Math.max(1,Math.round(spec.hp<=1?owner.maxHp*spec.hp:spec.hp/5*hpCurve(owner.level)*(1+.16*p)));a.atk=Math.round(owner.atk*(spec.atk||0));a.def=Math.round(spec.def*adCurve(owner.level));a.level=owner.level;for(const s of a.shields||[])s.value=Math.round(s.value*a.maxHp/prev);a.growthScaled=true;};
 P.fbSummon=function(...args){const a=old.fbSummon.apply(this,args);this.tuneGrowthSummon(a,args[0]);return a;};
-P.spawnLiyueWave=function(...args){const out=old.spawnLiyueWave.apply(this,args),b=this.s.runtime;if(!b)return out;const level=Number(this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID)[6]);for(const a of b.actors.filter(a=>a.siege&&!a.growthScaled)){this.tuneGrowthEnemy(a,b,level);a.hp=a.maxHp=Math.round(a.maxHp*(b.liyueObjective?.waveHp||1));}const o=b.liyueObjective;if(o&&!o.growthScaled){o.hp=o.maxHp=FORMATION_HP;o.def=220;o.growthScaled=true;}this.limitBattleEnemies?.(b);return out;};
+P.spawnLiyueWave=function(...args){const out=old.spawnLiyueWave.apply(this,args),b=this.s.runtime;if(!b)return out;const level=this.growthEncounterLevel(b.origin);for(const a of b.actors.filter(a=>a.siege&&!a.growthScaled)){this.tuneGrowthEnemy(a,b,level);a.hp=a.maxHp=Math.round(a.maxHp*(b.liyueObjective?.waveHp||1));}const o=b.liyueObjective;if(o&&!o.growthScaled){o.hp=o.maxHp=FORMATION_HP;o.def=220;o.growthScaled=true;}this.limitBattleEnemies?.(b);return out;};
 P.combatStat=function(a,key){const n=old.combatStat.call(this,a,key);return key==='def'?n/Math.sqrt(adCurve(Math.max(1,Math.min(60,Number(a.level)||1)))):n;};
 P.reactionBase=function(a){return old.reactionBase.call(this,a)*Math.max(1,hpCurve(a.level)/3);};
 
@@ -257,17 +267,17 @@ P.rollEncounter=function(map,...rest){if(this._encounterAction?.type==='WAIT'){m
 P.claimQuest=function(...args){const level=this.s.global.PLAYER_LEVEL_STATE,out=old.claimQuest.apply(this,args),reward=out?.rewards;if(!reward)return out;const xp=Math.round((reward.xp||0)*(Math.max(1,level/5)-1)),mora=Math.round((reward.mora||0)*(Math.max(1,level/10)-1));if(xp)for(const id of out.xpRecipients||this.s.party.filter(p=>p.active).map(p=>p.source))this.addXp(id,xp);this.s.global.MORA+=mora;out.rewards={...reward,xp:(reward.xp||0)+xp,mora:(reward.mora||0)+mora};return out;};
 P.tradeRule=function(entry){const inv=typeof entry==='string'?{item:entry}:entry||{};if(inv.equip&&((inv.enhancementCap||10)>10||(inv.enhance||0)>10||/^(EQ_BOSS_|EQ_ABYSS_)/.test(inv.equip)||this.rows('17_RECIPE_DB').some(r=>r[3]===inv.equip&&r.some(x=>/^TRPG_BOSS_|^MAT_FB_/.test(String(x))))))return {ok:false,reason:'보스·나선비경 장비와 돌파한 장비는 거래할 수 없습니다.'};return old.tradeRule.call(this,entry);};
 function migrate(r,s){
- if(s.growthPacingVersion!==undefined&&s.growthPacingVersion!==1)fail('GROWTH_SAVE','경험치 곡선 저장 버전을 확인해 주세요.');
- if(s.growthPacingVersion===undefined&&s.growthVersion===1){
+ if(s.growthPacingVersion!==undefined&&s.growthPacingVersion!==1&&s.growthPacingVersion!==2)fail('GROWTH_SAVE','경험치 곡선 저장 버전을 확인해 주세요.');
+ if(s.growthPacingVersion!==2&&s.growthVersion===1){
   // Preserve earned levels, ascensions and the fraction of the current XP bar, exactly once.
   for(const [id,level]of [[PLAYER,s.global.PLAYER_LEVEL_STATE],...Object.entries(s.chars||{}).map(([id,c])=>[id,c.level])]){
-   const xp=id===PLAYER?s.global.PLAYER_XP_STATE:s.chars[id].xp,cap=CAPS[s.ascensions?.[id]??phaseFor(level)],oldNext=legacyXpNext(level);
+   const xp=id===PLAYER?s.global.PLAYER_XP_STATE:s.chars[id].xp,cap=CAPS[s.ascensions?.[id]??phaseFor(level)],oldNext=s.growthPacingVersion===1?XP_PACING_V0161[level-1]:legacyXpNext(level);
    if(!Number.isSafeInteger(xp)||xp<0||level<cap&&xp>=oldNext||level>=cap&&xp!==0)fail('GROWTH_SAVE','이전 경험치 저장값을 확인해 주세요.');
    const normalized=level>=cap?0:Math.floor(xp*xpNext(level)/oldNext);
    if(id===PLAYER)s.global.PLAYER_XP_STATE=normalized;else s.chars[id].xp=normalized;
   }
  }
- s.growthPacingVersion=1;
+ s.growthPacingVersion=2;
  if(s.growthVersion===1)return;const g=s.global;s.ascensions={};for(const [id,l]of [[PLAYER,g.PLAYER_LEVEL_STATE],...Object.entries(s.chars||{}).map(([id,c])=>[id,c.level])]){s.ascensions[id]=phaseFor(l);const cap=CAPS[s.ascensions[id]],xp=id===PLAYER?g.PLAYER_XP_STATE:s.chars[id].xp,normalized=l>=cap?0:Math.min(xp,xpNext(l)-1);if(id===PLAYER)g.PLAYER_XP_STATE=normalized;else s.chars[id].xp=normalized;}s.growthVersion=1;
 }
 P.newGame=function(o){this.installGrowthContent();old.newGame.call(this,o);migrate(this,this.s);this.installRegionalLevels();this.recalculate();this.s.global.PLAYER_HP_CURRENT=this.s.global.PLAYER_HP_MAX;return copy(this.s);};
@@ -286,6 +296,6 @@ P.validateSave=function(s){this.installGrowthContent();migrate(this,s);
  s.global.PLAYER_XP_NEXT=s.global.PLAYER_LEVEL_STATE>=CAPS[s.ascensions.PLAYER_CUSTOM]?0:xpNext(s.global.PLAYER_LEVEL_STATE);
  if(s.domainDaily&&(!Number.isSafeInteger(s.domainDaily.day)||!Number.isSafeInteger(s.domainDaily.wins)||s.domainDaily.wins<0))fail('GROWTH_SAVE','비경 일일 기록을 확인해 주세요.');if(s.eliteClaims&&(Array.isArray(s.eliteClaims)||Object.entries(s.eliteClaims).some(([m,d])=>!ELITES[m]||!Number.isSafeInteger(d))))fail('GROWTH_SAVE','정예 토벌 기록을 확인해 주세요.');return s;
 };
-api.growthV01522={caps:CAPS,talentCaps:TALENTS,hpCurve,adCurve,xpNext,legacyXpNext,pacingCurve:XP_PACING_V0161.slice(),phaseFor,gems:GEMS,domainMaps:DOMAIN_MAPS,domains:copy(Object.fromEntries(Object.entries(SITES).map(([k,d])=>[k,{name:d.name,kind:d.kind,region:d.region,map:d.map,levels:d.levels.slice(),level:d.levels[0],foes:d.foes||null}]))),domainKinds:{TALENT:KINDS.TALENT,ASCENSION:KINDS.ASCENSION,EXP:KINDS.EXP},domainGemStage:copy(GEM_STAGE),domainTalentStage:copy(TALENT_STAGE),
+api.growthV01522={caps:CAPS,talentCaps:TALENTS,hpCurve,adCurve,xpNext,legacyXpNext,pacingCurve:XP_PACING_V0166.slice(),previousPacingCurve:XP_PACING_V0161.slice(),phaseFor,gems:GEMS,domainMaps:DOMAIN_MAPS,domains:copy(Object.fromEntries(Object.entries(SITES).map(([k,d])=>[k,{name:d.name,kind:d.kind,region:d.region,map:d.map,levels:d.levels.slice(),level:d.levels[0],foes:d.foes||null}]))),domainKinds:{TALENT:KINDS.TALENT,ASCENSION:KINDS.ASCENSION,EXP:KINDS.EXP},domainGemStage:copy(GEM_STAGE),domainTalentStage:copy(TALENT_STAGE),
  legacyTrialSites:copy(SITES_V3),legacyTrials:TRIALS_V3.slice(),domainXp:copy(EXP_XP),domainMaterialXp:copy(MATERIAL_XP),legacyDomains:copy(DOMAINS),legacyDomainLevels:copy(DOMAIN_LEVELS),legacyDomainXp:copy(DOMAIN_XP),legacyDomainMora:copy(DOMAIN_MORA),partyBaseline:4,formationHp:FORMATION_HP,specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
 })(globalThis);
