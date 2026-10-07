@@ -45,9 +45,17 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  verify:
+  # The full regression catalog is deliberately preserved, but it is split across
+  # four independent runners. Each shard keeps the existing two-process limit so
+  # tests that use local servers/SQLite do not suddenly contend inside one runner.
+  regression:
+    name: regression shard ${{ matrix.shard }}
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -63,20 +71,104 @@ jobs:
           node-version: '24'
           cache: npm
           cache-dependency-path: genshin-crpg/package-lock.json
-      - name: Install dependencies
+      - name: Install regression dependencies
+        working-directory: genshin-crpg
+        run: |
+          python -m pip install pillow
+          npm ci
+      - name: Source and authoritative server regression shard
+        working-directory: genshin-crpg
+        env:
+          CRPG_TEST_SHARD_COUNT: '4'
+          CRPG_TEST_SHARD_INDEX: ${{ matrix.shard }}
+        run: npm test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: crpg-regression-evidence-${{ github.sha }}-${{ matrix.shard }}
+          path: genshin-crpg/evidence/release
+          retention-days: 14
+
+  # Browser source checks are independent of the regression catalog, so run them
+  # at the same time instead of making them wait behind ~150 regression tests.
+  source-ui:
+    name: source UI
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          sparse-checkout: |
+            genshin-crpg
+            .github
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: genshin-crpg/package-lock.json
+      - name: Install browser dependencies
         working-directory: genshin-crpg
         run: |
           python -m pip install pillow
           npm ci
           npx playwright install --with-deps chromium
-      - name: Source and authoritative server regression gates
+      - name: Build authoritative server for source browser checks
         working-directory: genshin-crpg
-        run: npm test
+        run: npm run build:server
       - name: Source UI against actual Worker and SQLite
         working-directory: genshin-crpg
         run: |
           npm run test:browser
           CRPG_TEST_BACKEND=do npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: crpg-source-ui-evidence-${{ github.sha }}
+          path: genshin-crpg/evidence/online-flow
+          retention-days: 14
+
+  # Keep the historical required check name "verify". It only starts after every
+  # source gate above succeeds, then performs the release build and shipped-UI gate.
+  verify:
+    needs: [regression, source-ui]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          sparse-checkout: |
+            genshin-crpg
+            .github
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: genshin-crpg/package-lock.json
+      - name: Install release verification dependencies
+        working-directory: genshin-crpg
+        run: |
+          python -m pip install pillow
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Recover regression evidence
+        uses: actions/download-artifact@v4
+        with:
+          pattern: crpg-regression-evidence-${{ github.sha }}-*
+          path: genshin-crpg/evidence/release
+          merge-multiple: true
+      - name: Recover source browser evidence
+        uses: actions/download-artifact@v4
+        with:
+          name: crpg-source-ui-evidence-${{ github.sha }}
+          path: genshin-crpg/evidence/source-ui
       - name: Build production pack after source gates pass
         working-directory: genshin-crpg
         run: |
@@ -123,7 +215,6 @@ jobs:
           name: crpg-evidence-${{ github.sha }}
           path: genshin-crpg/evidence
           retention-days: 14
-
 
   # Test release for test.clannad.shop: any PR (drafts included) from a test/* or release/* branch of this repository.
   # Builds and tests happen only in the verify job above; this job packages the verified results.
