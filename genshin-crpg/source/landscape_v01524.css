@@ -1176,6 +1176,13 @@ body.teyvat .shell-loc-left .main-objective h2{display:none}
 body.teyvat .shell-loc-left .main-objective .eyebrow{display:none}
 body.teyvat :where(#root) .shell-loc-left .main-objective button{flex:1 1 auto;min-width:0;margin:0;min-height:26px;padding:2px 6px 2px 24px!important;font-size:.64rem;line-height:1.15;word-break:keep-all}
 body.teyvat :where(#root) .shell-loc-left .main-objective button::before{left:6px!important;width:12px!important;height:12px!important;margin-top:-6px!important}
+/* Journey cards can have both travel and resume actions. Keep their destination and actions in this narrow phone
+   column; the repeated preparation/footer copy remains on the story screen and on taller screens. */
+body.teyvat .shell-loc-left .journey-objective{flex-direction:column;align-items:stretch;gap:3px}
+body.teyvat :where(#root) .shell-loc-left .journey-objective>button{flex:0 0 auto}
+body.teyvat .shell-loc-left .journey-objective>small.muted:last-child{display:none}
+body.teyvat .shell-loc-left .journey-objective:has(>.objective-location)>p:not(.objective-location):not(.choice-note){display:none}
+body.teyvat .shell-loc-left .journey-objective:not(:has(>.objective-location)):has(>p.muted)>p:not(.muted):not(.choice-note){display:none}
 /* the map's travel bar waits out of sight until a place is chosen (its words only told how to use the map) */
 body.teyvat .terrain-travel-dock.idle{display:none}
 body.teyvat .shell-loc-side>.shell-tabbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;padding:3px}
@@ -1286,3 +1293,4 @@ body.teyvat :where(#root) .task-head button.primary::before{left:6px!important;w
 body.teyvat :where(#root) button.primary.task-claim{padding-left:18px!important}
 body.teyvat :where(#root) button.primary.task-claim::before{left:5px!important;width:9px!important;height:9px!important;margin-top:-4.5px!important}
 }
+
