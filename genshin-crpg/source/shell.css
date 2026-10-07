@@ -37,6 +37,8 @@ body.teyvat[data-mode=battle] .world-backdrop{filter:brightness(.62) saturate(1.
 /* ---------- frame ---------- */
 /* The game screen never scrolls as a page; every long list scrolls inside its own panel. */
 html:has(>body.teyvat){overflow:hidden}
+/* 0.16.4: the page reaches under a phone's camera hole (viewport-fit=cover); what shows there is the game's dark, not white. */
+html:has(>body.teyvat){background-color:#070a12}
 body.teyvat #root{height:100%;overflow:hidden}
 body.teyvat #root>main{max-width:none;margin:0;height:100%;display:block;padding:calc(var(--hud-h) + 8px) 18px 14px;box-sizing:border-box}
 body.teyvat .content.shell-content{height:100%;min-height:0;display:flex;flex-direction:column;gap:10px;position:relative}
@@ -3455,6 +3457,21 @@ body.teyvat .domain-reward.xp{width:auto;padding:0 10px 0 6px;display:inline-fle
 body.teyvat .domain-reward.xp>b{position:static;border:0;background:none;font-size:.82rem}
 body.teyvat .domain-reward.xp.main{background:rgba(232,184,90,.18);box-shadow:inset 0 0 0 1px rgba(232,184,90,.45)}
 
+/* ---- 0.16.4 (user: 「종려 기둥을 저딴식으로 설계한다고...?」): a thing set down on the field stands in the summon lane, its skill's
+   official picture in a round of its element. ---- */
+body.teyvat .combat-panel .battle-summons.top .battle-summon.construct .construct-icon{flex:0 0 34px;width:34px;height:34px;padding:5px;box-sizing:border-box;border-radius:50%;object-fit:contain;background:radial-gradient(circle at 40% 35%,#6a5530,#241b0d);border:1.5px solid rgba(243,200,110,.75);box-shadow:0 0 10px rgba(243,200,110,.35)}
+body.teyvat .combat-panel .battle-summons.top .battle-summon.construct[data-construct=ICE_LOTUS] .construct-icon{background:radial-gradient(circle at 40% 35%,#2f5468,#0e1d27);border-color:rgba(160,220,255,.75);box-shadow:0 0 10px rgba(160,220,255,.35)}
+body.teyvat .combat-panel .battle-summon.construct{position:relative}
+/* The stone pillar of 석주 stands by its picture, inside its card (it rose the whole height of the board when it lived on 종려's card). */
+body.teyvat .battle-summon.construct .sfx-k-stele>i{left:calc(var(--ax) + 15px);bottom:6%;width:9px;height:88%}
+body.teyvat .combat-panel .battle-summons.top .battle-summon.construct[data-construct=ROSE] .construct-icon{background:radial-gradient(circle at 40% 35%,#4c3466,#190f27);border-color:rgba(205,165,255,.75);box-shadow:0 0 10px rgba(205,165,255,.35)}
+
+/* ---- 0.16.4 (the user's recording: after resizing, the map shook and took no presses): the map's own thin scrollbars came
+   and went as the picture was fitted, each one changing the map's size and redrawing every circle. The map is dragged and
+   zoomed with its buttons, so it shows none. ---- */
+body.teyvat .terrain-viewport{scrollbar-width:none}
+body.teyvat .terrain-viewport::-webkit-scrollbar{display:none}
+
 /* ---- 0.16.3 domain gate: one kind per domain (its picture by the name), its levels as stage buttons, the daily double in words. ---- */
 body.teyvat .domain-gate[data-kind=EXP]{--dg:232,184,90}
 body.teyvat .domain-gate-head>.domain-trial-icon{width:38px;height:38px;flex:0 0 auto}
@@ -3720,6 +3737,9 @@ body.teyvat[data-region=liyue] .terrain-label:is(.selected,.hovered) .terrain-la
 body.teyvat[data-region=liyue] .terrain-key-item.domain::before{box-shadow:0 0 0 1.5px rgba(22,15,9,.85)}
 body.teyvat[data-region=liyue] .domain-trial-icon.exp,body.teyvat[data-region=liyue] .domain-reward-icon.exp{background:radial-gradient(circle at 35% 30%,#fff4c4,#f1a451 60%,#a97624)}
 body.teyvat[data-region=liyue] .domain-reward.xp.main{background:rgba(241,164,81,.18);box-shadow:inset 0 0 0 1px rgba(241,164,81,.45)}
+body.teyvat[data-region=liyue] .combat-panel .battle-summons.top .battle-summon.construct .construct-icon{border:1.5px solid rgba(243,179,110,.75);box-shadow:0 0 10px rgba(243,179,110,.35)}
+body.teyvat[data-region=liyue] .combat-panel .battle-summons.top .battle-summon.construct[data-construct=ICE_LOTUS] .construct-icon{background:radial-gradient(circle at 40% 35%,#724b28,#2b1a0b)}
+body.teyvat[data-region=liyue] .combat-panel .battle-summons.top .battle-summon.construct[data-construct=ROSE] .construct-icon{background:radial-gradient(circle at 40% 35%,#6f4c2e,#2b1b0c)}
 body.teyvat[data-region=liyue] .domain-gate-double{background:rgba(248,210,169,.12);border:1px solid rgba(248,210,169,.35);color:#f8d2a9}
 body.teyvat[data-region=liyue] .battle-line{background:linear-gradient(90deg,rgba(37,26,16,.92),rgba(48,34,22,.86));box-shadow:0 0 0 1px rgba(244,200,152,.45),0 8px 24px rgba(0,0,0,.45)}
 body.teyvat[data-region=liyue] .battle-line-face{background:#4a3828;box-shadow:0 0 0 2px rgba(244,200,152,.75)}

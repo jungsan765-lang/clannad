@@ -155,7 +155,9 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
     t.style.left=best[0]+'px';t.style.top=best[1]+'px';}
    if(current?.[0]!==atlas){banner.hidden=false;banner.replaceChildren(el('strong','','지도 미리보기 · 현재 위치 '+mapName(here)));}
   };
-  const layout=()=>{if(!viewport.isConnected)return;initializing=true;const w=viewport.clientWidth,h=viewport.clientHeight,fit=Math.min(w/T.width,h/T.height);if(!fit)return;
+  // 0.16.4: the same size and view as the last layout are not laid out (and every circle redrawn) again.
+  let laidOut='';
+  const layout=()=>{if(!viewport.isConnected)return;const w=viewport.clientWidth,h=viewport.clientHeight,fit=Math.min(w/T.width,h/T.height);if(!fit)return;const size=w+'x'+h+':'+JSON.stringify(this.camera);if(size===laidOut)return;laidOut=size;initializing=true;
    if(this.camera.mode!=='custom'){
     const points=[...(current?.[0]===atlas?[current]:[]),...local.filter(n=>!n.reason).map(n=>n.point)];
     if(this.camera.mode==='full'||!points.length)this.camera={mode:'custom',zoom:1,cx:T.width/2,cy:T.height/2};

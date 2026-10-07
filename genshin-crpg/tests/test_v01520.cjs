@@ -19,7 +19,8 @@ check('the way back from a menu: the battle, its preparation, a scene that holds
  assert.deepEqual(back({s:{runtime:{}},playPhase:()=>'COMBAT',actionReason:()=>''}),{label:'전투로 돌아가기',screen:'COMBAT'});
  assert.deepEqual(back({s:{},playPhase:()=>'PREPARATION',actionReason:()=>'x'}),{label:'전투 준비로 돌아가기',screen:'STORY'});
  assert(gear.includes("const back=typeof journeyReturn==='function'?journeyReturn():"),'the 캐릭터 screen asks the same question');
- assert(fnBody(exp,'journeyReturn')&&exp.includes('const back=journeyReturn();p.append(actionButton(back.label,'),'and so does every other menu');
+ // 0.16.4: a lost story fight answers with the retry (tests/test_v0164.cjs); every other answer is still a 'MENU' button.
+ assert(fnBody(exp,'journeyReturn')&&exp.includes("const back=journeyReturn();p.append(back.retry?actionButton(back.label,'STORY_RETRY',{},true):actionButton(back.label,'MENU',{screen:back.screen},true));"),'and so does every other menu');
 });
 
 check('official Korean names in the data, the story and the code; 타타우파 협곡 stays',()=>{

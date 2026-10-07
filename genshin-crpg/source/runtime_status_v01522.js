@@ -12,24 +12,29 @@ function native(a){return NATIVE[a?.source]||(/^FB_MIMIC_/.test(a?.source)?'물'
 // 0.16.0 (user: 「빙결 뭐냐 원래 이렇게 오래 얼어붙어? 장난없이 쳐맞다가 죽네」): on our side 빙결 takes one turn, the next one
 // the character would take, and after it two turns of their own come before it can freeze them again. It used to last to
 // the end of the next round (two turns when it came before their turn) and each new freeze refreshed it, so a water slime
-// and an ice slime froze a party round after round to the end. The enemies' side keeps the rule as it was: freezing them
-// is the players' own play, as in the original.
+// and an ice slime froze a party round after round to the end. (0.16.4 extends the rule to every turn-taking status and
+// to the enemies' side, below.)
 const FREEZE='STATUS_FREEZE';
+// 0.16.4 (user: 「종려의 무한 석화 버그.(이건 좀 전체적으로 바꿀 필요가 있어보인다)」): with 4돌 (석화 one round longer) and 천성's
+// three-round cooldown an enemy stayed stone to the end, and freezing, stunning and 물방울 could chain the same way. Every
+// status that takes a whole turn away now follows the freeze rule above, on both sides: it takes the next turn only, and two
+// turns of the fighter's own come before any of them can take one again.
+const HARD={STATUS_FREEZE:'다시 얼지 않는다',LIYUE_PETRIFY:'다시 굳지 않는다',STATUS_STUN:'다시 기절하지 않는다',ILLUSORY_BUBBLE:'다시 갇히지 않는다'};
 P.addCombatStatus=function(a,id,rounds,extra={}){
  // C1 is represented by the field's conditional flat ATK bonus, not an unrelated +20% team multiplier.
  if(id==='CONS_BENNETT_1')extra={...extra,mods:{}};
  const b=this.s.runtime;let guard=0;
- if(id===FREEZE&&b&&a?.side==='ALLY'){
-  const turns=Number(a.turns)||0;
-  if(turns<(Number(a.freezeGuard)||0)){
-   if(!a.statuses?.some(s=>s.id===FREEZE&&live(s)))b.log.push({target:a.name,targetId:a.id,resisted:FREEZE,text:a.name+' · 막 풀려나 다시 얼지 않는다',round:b.round});
+ if(HARD[id]&&b&&a&&(a.side==='ALLY'||a.side==='ENEMY')&&!(id==='ILLUSORY_BUBBLE'&&a.side==='ENEMY'&&a.grade!=='일반')){
+  const turns=Number(a.turns)||0,held=a.statuses?.some(s=>HARD[s.id]&&live(s));
+  if(turns<(Number(a.controlGuard??a.freezeGuard)||0)){
+   if(!held)b.log.push({target:a.name,targetId:a.id,resisted:id,text:a.name+' · 막 풀려나 '+HARD[id],round:b.round});
    return null;
   }
   // untilTurn: gone when their turn after the next one begins (runtime_combat.js), whichever round that falls in.
   rounds=1;extra={...extra,untilTurn:turns+2};guard=turns+3;
  }
  const result=old.addCombatStatus.call(this,a,id,rounds,extra),source=extra.actor||extra.caster||a?.id;
- if(guard&&result&&a.statuses?.includes(result))a.freezeGuard=guard;
+ if(guard&&result&&a.statuses?.includes(result)){a.controlGuard=guard;delete a.freezeGuard;}
  if(result&&b&&a?.statuses?.includes(result)&&id!=='FORMATION'&&id!=='ROLE')b.log.push({target:a.name,targetId:a.id,actorId:source,actor:b.actors.find(x=>x.id===source)?.name||a.name,round:b.round,actionSequence:b.actionSequence||0,statusApplied:JSON.parse(JSON.stringify(result))});
  return result;
 };

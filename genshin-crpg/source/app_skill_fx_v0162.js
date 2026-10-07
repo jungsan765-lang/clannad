@@ -94,7 +94,7 @@ const impactCue=s=>s.summon?'summon':SHIELDS[s.id]?'shield_up':s.slot==='q'||s.f
 
 // What a field, summon or status looks like while it lasts. card: on the caster's card · allies: on every card of its
 // side · zone: over a side of the board (foe: the opponents of its owner).
-const FIELD_LOOK={ICE:['card','blades','cryo'],PYRONADO:['card','pyronado','pyro'],RAIN_SWORDS:['card','rainswords','hydro'],EXQUISITE_THROW:['card','dice','hydro'],HERALD_OF_FROST:['card','herald','cryo'],ICY_QUILL:['card','quills','cryo'],STONE_STELE:['card','stele','geo'],BAIZHU_SEAMLESS_SHIELD:['card','seamless','dendro'],MIST_TRACE:['card','mist','hydro'],
+const FIELD_LOOK={ICE:['card','blades','cryo'],PYRONADO:['card','pyronado','pyro'],RAIN_SWORDS:['card','rainswords','hydro'],EXQUISITE_THROW:['card','dice','hydro'],HERALD_OF_FROST:['card','herald','cryo'],ICY_QUILL:['card','quills','cryo'],STONE_STELE:['construct','stele','geo'],BAIZHU_SEAMLESS_SHIELD:['card','seamless','dendro'],MIST_TRACE:['card','mist','hydro'],
  STORMBREAKER:['allies','arcs','electro'],FLYING_CLOUD_FLAG:['allies','banner','geo'],ENCOURAGEMENT:['allies','encourage','pyro'],CHONGYUN_FROST:['allies','frost','cryo'],BAMBOO_STAR:['allies','stars','anemo'],RAINCUTTER:['allies','raincut','hydro'],DANDELION:['allies','seeds','anemo'],
  CELESTIAL_SHOWER:['foe','hail','cryo'],BOMBARD:['foe','sparks','pyro'],WIND_SPIRIT:['foe','vortex','anemo'],ROSE:['foe','rose','electro'],FROST_MIST:['foe','fog','cryo'],DIVINE_MAIDEN:['foe','talismans','cryo'],ICE_LANCE:['foe','lance','cryo'],FIRE_STAGE:['foe','fire','pyro'],KLEE_MINE:['foe','mines','pyro'],PHANTOM:['foe','phantom','hydro'],LIGHTFALL_SWORD:['foe','sword','cryo'],ANDRIUS_GHOST_WOLVES:['foe','wolves','cryo'],
  JADE_SCREEN:['own','jade','geo'],ICE_LOTUS:['own','lotus','cryo']};
@@ -424,6 +424,8 @@ function placeField(panel,f,b,fresh){
  if(f.kind==='RAIN_SWORDS'&&!(Number(f.stacks)>0))return;
  const rows=(s)=>[...panel.querySelectorAll((s==='ENEMY'?'.shell-enemies':'.shell-allies')+' > .combatant-row')];
  if(where==='card'){const row=panel.querySelector('.combatant-row[data-actor-id="'+CSS.escape(owner)+'"]');const n=addLook(row,kind,el);if(fresh)appear(n);}
+ // 0.16.4: a thing set down on the field (종려's 석주) glows on its own card in the summon lane (app_experience.js battleSummons).
+ else if(where==='construct'){const card=panel.querySelector('.battle-summon[data-summon-id="'+CSS.escape('SUMMON:'+f.kind+':'+owner)+'"]');const n=addLook(card,kind,el);if(fresh)appear(n);}
  else if(where==='allies'){for(const row of rows(side)){if(row.classList.contains('dead'))continue;const n=addLook(row,kind,el);if(fresh)appear(n);}}
  else{const foe=where==='foe'?(side==='ENEMY'?'ALLY':'ENEMY'):side;const n=addZone(panel.querySelector(foe==='ENEMY'?'.shell-enemies':'.shell-allies'),kind,el);if(fresh)appear(n);}
 }
@@ -550,6 +552,8 @@ function showEnemy(move,frame,effects,motion){
  if(s.hazard&&r){const wash=part('sfx-wash',{x:r.left,y:r.top},{c,w:r.width,h:r.height});anim(wash,[{opacity:0},{offset:.3,opacity:.85},{opacity:0}],{duration:900});}
  if(!frameHasCue(frame))sound(s.cue||(s.hazard?'hazard':s.self==='armour'?'shield_up':null));
 }
+// The field ticks that come from a thing on the field start at its card.
+const CONSTRUCT_OF={LIYUE_ZHONGLI_E:'STONE_STELE',MOND_LISA_Q:'ROSE'};
 function showTick(frame,effects,motion){
  if(!motion)return;const id=frame.cardId||(frame.events||[]).find(e=>e.cardId)?.cardId||'';
  const summon=String(frame.actorId||'').startsWith('SUMMON:')?String(frame.actorId).split(':')[1]:null;
@@ -559,7 +563,7 @@ function showTick(frame,effects,motion){
  else if(frame.sourceKind==='LIGHTFALL_EXPLOSION')kind='swordfall';
  else if(frame.sourceKind==='FOLLOWUP'||frame.sourceKind==='SHIELD_BREAK'){const a=actorIn(battle(),frame.actorId);kind=FOLLOW[a?.source||String(frame.actorId).split('#')[0]];}
  else if(frame.sourceKind==='HAZARD'||String(frame.actorId||'').startsWith('HAZARD:')){for(const t of frame.targets||[]){const p=faceOf(effects.actorNode(t.targetId));const e=FRAME_EL[(t.events||[]).find(x=>x.kind==='damage')?.element]||'neutral';if(onScreen(p)){flash(p,TINT[e],{size:80,alpha:.7});motes(p,e,{n:5,r:36,fall:-20});}}return;}
- if(!kind)return;const from=faceOf(effects.actorNode(frame.actorId));
+ if(!kind)return;const built=CONSTRUCT_OF[id]&&document.querySelector('.battle-summon[data-summon-id="'+CSS.escape('SUMMON:'+CONSTRUCT_OF[id]+':'+frame.actorId)+'"]'),from=faceOf(built||effects.actorNode(frame.actorId));
  hitAll(frame,effects,kind,null,{from,k:.9});
 }
 

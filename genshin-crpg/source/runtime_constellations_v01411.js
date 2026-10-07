@@ -269,7 +269,7 @@ const EFFECTS={
  LIYUE_ZHONGLI:{
   1:['지핵의 석주가 둘이 되어 석주의 피해가 100% 증가한다.',dmg(100,{src:'FIELD'})],
   2:['천성이 떨어질 때 파티 전체에게 옥홀 방패(종려 최대 HP 20%, 2라운드)를 씌운다.',cast('q',{shield:{stat:'maxHp',k:.2,who:'all',rounds:2,source:'LIYUE_ZHONGLI_E',extra:{ignoreForcedMove:true}}})],
-  4:['천성의 석화가 1라운드 더 이어진다.',cast('q',{statusExtend:{id:'LIYUE_PETRIFY',rounds:1}})],
+  4:['천성의 석화가 한 차례 더 이어진다.',cast('q',{statusExtend:{id:'LIYUE_PETRIFY',rounds:1}})],
   6:['옥홀 방패가 피해를 받으면 받은 피해의 40%만큼 그 파티원의 HP를 회복시킨다(한 번에 최대 HP의 8%까지).',{t:'shieldHeal',source:'LIYUE_ZHONGLI_E',pct:40,cap:8}]},
  LIYUE_CHONGYUN:{
   1:['일반 공격이 명중하면 얼음 칼날 3개가 날아가 적 최대 3명에게 각각 공격력 50%의 얼음 원소 피해를 준다(턴마다 1회).',hit({kind:'na',once:'turn',hit:{k:.5,el:'얼음',max:3,pick:'all'}})],
@@ -460,7 +460,9 @@ P.consRun=function(fx,owner,env={}){
  if(fx.cdTeam){for(const x of this.consAllies(owner.side))if(x!==owner)for(const id of Object.keys(x.cooldowns||{}))if(cardKind(id)===fx.cdTeam.kind)x.cooldowns[id]=Math.max(0,x.cooldowns[id]-(fx.cdTeam.n||1));}
  if(fx.field){const f=b.fields.find(f=>f.kind===fx.field.kind&&f.actor===owner.id&&!f.done);if(f){if(fx.field.rounds&&Number.isFinite(f.rounds))f.rounds+=fx.field.rounds;for(const [k,v]of Object.entries(fx.field.add||{}))f[k]=(Number(f[k])||0)+v;Object.assign(f,fx.field.set||{});}}
  if(fx.status){const s=st(owner,fx.status.id);if(s){if(fx.status.rounds&&Number.isFinite(s.rounds))s.rounds+=fx.status.rounds;for(const [k,v]of Object.entries(fx.status.add||{}))s[k]=(Number(s[k])||0)+v;for(const [k,v]of Object.entries(fx.status.max||{}))s[k]=Math.min(v,Number(s[k])||0);Object.assign(s,fx.status.set||{});}}
- if(fx.statusExtend){for(const x of enemies())for(const s of x.statuses||[])if(s.id===fx.statusExtend.id&&live(s)&&Number.isFinite(s.rounds))s.rounds+=fx.statusExtend.rounds;}
+ // 0.16.4: a turn-taking status (runtime_status_v01522.js) ends by turns, so the extension adds turns, and the two free turns
+ // after it move back with it.
+ if(fx.statusExtend){for(const x of enemies())for(const s of x.statuses||[])if(s.id===fx.statusExtend.id&&live(s)&&Number.isFinite(s.rounds)){s.rounds+=fx.statusExtend.rounds;if(s.untilTurn){s.untilTurn+=fx.statusExtend.rounds;if(Number.isFinite(x.controlGuard))x.controlGuard+=fx.statusExtend.rounds;}}}
  if(fx.shieldExtend){for(const x of this.consAllies(owner.side))for(const sh of x.shields||[])if(sh.source===fx.shieldExtend.source&&Number.isFinite(sh.rounds))sh.rounds+=fx.shieldExtend.rounds;}
  if(fx.shieldRefresh){const x=env.attacker,sh=(x?.shields||[]).find(s=>s.source===fx.shieldRefresh.source&&s.value>0);if(sh){const cap=Number(sh.initialValue||sh.value);sh.value=Math.min(cap,round(sh.value+cap*fx.shieldRefresh.pct/100));}}
  if(fx.reviveAll){const used=b.consUsed||(b.consUsed={}),key='reviveAll:'+fx.uid;if(!used[key]){const down=b.actors.filter(x=>x.side===owner.side&&x.hp<=0&&x.maxHp>0);if(down.length){used[key]=true;for(const x of down){x.hp=Math.max(1,round(x.maxHp*fx.reviveAll.pct/100));b.log.push({actor:owner.name,actorId:owner.id,target:x.name,targetId:x.id,heal:x.hp,revived:true});}}}}

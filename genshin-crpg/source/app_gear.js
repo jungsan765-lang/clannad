@@ -116,7 +116,7 @@ growthScreen=function(p){
  books(p);
  const links=el('div','row gear-links');links.append(actionButton('편성 바꾸기','MENU',{screen:'PARTY'}));if(window.openEquipmentHelp)links.append(button('장비 사용법',()=>window.openEquipmentHelp()));p.append(links);
  // 0.15.20: back to the battle, a waiting story scene, or the main screen (app_experience.js journeyReturn).
- {const back=typeof journeyReturn==='function'?journeyReturn():{label:game.s.runtime?'전투로 돌아가기':'이야기로 돌아가기',screen:game.s.runtime&&!game.s.runtime.interlude?'COMBAT':'STORY'};p.append(actionButton(back.label,'MENU',{screen:back.screen},true));}
+ {const back=typeof journeyReturn==='function'?journeyReturn():{label:game.s.runtime?'전투로 돌아가기':'이야기로 돌아가기',screen:game.s.runtime&&!game.s.runtime.interlude?'COMBAT':'STORY'};p.append(back.retry?actionButton(back.label,'STORY_RETRY',{},true):actionButton(back.label,'MENU',{screen:back.screen},true));}
  // Open after the MENU action has finished. A picker built during the busy render
  // keeps its disabled buttons even when the underlying page is rendered again.
  if(pendingPick&&!busy){const x=pendingPick;pendingPick=null;queueMicrotask(()=>openPicker(x.owner,x.category));}

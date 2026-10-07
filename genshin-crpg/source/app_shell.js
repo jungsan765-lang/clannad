@@ -313,7 +313,7 @@ function region(cls,nodes){const r=mk('div','shell-region '+cls);for(const n of 
 // Split a flat panel into tabs at its h2 headings (the part before the first h2 keeps the page title).
 function sectionsByHeading(nodes,firstLabel){const groups=[];let cur={label:firstLabel,nodes:[]};for(const n of nodes){if(n.tagName==='H2'){if(cur.nodes.length)groups.push(cur);cur={label:n.textContent.trim(),nodes:[n]};}else cur.nodes.push(n);}if(cur.nodes.length)groups.push(cur);return groups;}
 // ---------- page frame for menu screens ----------
-const BACK_LABELS=/^(메인 화면으로|이야기로 돌아가기|전투로 돌아가기|장소로 돌아가기|돌아가기)$/;
+const BACK_LABELS=/^(메인 화면으로|이야기로 돌아가기|전투로 돌아가기|장소로 돌아가기|돌아가기|전투 직전부터 다시 준비)$/;
 function pageHead(key,p,{title,iconName}={}){
  const head=mk('header','shell-page-head'),h1=[...p.children].find(c=>c.tagName==='H1');const eyebrow=[...p.children].find(c=>c.classList?.contains('eyebrow'));
  if(h1&&['STATUS','INVENTORY','SYSTEM'].includes(key))h1.textContent=NAV[key].label;
@@ -321,6 +321,8 @@ function pageHead(key,p,{title,iconName}={}){
  const tools=mk('div','shell-page-tools');head.append(tools);
  let back=[...p.children].filter(c=>c.tagName==='BUTTON'&&BACK_LABELS.test(c.textContent.trim())).at(-1);
  if(back){back.classList.add('shell-back');back.setAttribute('aria-label',back.textContent.trim()+' (Esc)');const label=back.textContent.trim();back.replaceChildren(icon('CLOSE'),mk('span','shell-back-label',label));tools.append(back);}
+ // 0.16.4 (user: 「전투 패배하면 이야기로 돌아가기 버튼 있는거 없애주고」): after a lost story fight a menu leads back to the retry.
+ else if(game?.s?.storyRecovery&&!game.s.runtime&&key!=='REWARD'){const why=game.actionReason('STORY_RETRY',{});back=mk('button','shell-back');back.type='button';back.append(icon('CLOSE'),mk('span','shell-back-label','전투 직전부터 다시 준비'));back.setAttribute('aria-label','전투 직전부터 다시 준비 (Esc)');back.disabled=!!why;if(why)back.title=why;back.onclick=()=>act('STORY_RETRY',{});tools.append(back);}
  else{const target=returnScreen();if(target&&target!==key){const src=navButton(target);back=mk('button','shell-back');back.type='button';back.append(icon('CLOSE'),mk('span','shell-back-label',target==='STORY'?'이야기로 돌아가기':target==='COMBAT'?'전투로 돌아가기':'메인 화면으로'));back.setAttribute('aria-label',back.textContent+' (Esc)');back.disabled=!!src?.disabled&&target!=='COMBAT';back.onclick=()=>target==='COMBAT'?act('MENU',{screen:'COMBAT'}):openScreen(target);tools.append(back);}}
  // 0.14.12: inside a facility (바그너의 대장간 and the rest) 「메인 화면으로」 and Esc leave it exactly like 「밖으로 나가기」,
  // with the same exit and save, instead of switching screens on the spot.

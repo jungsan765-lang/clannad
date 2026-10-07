@@ -112,14 +112,17 @@ bossProgressControls=function(p){
 };
 // 0.15.20 (user: 「장비칸에서 이야기로 돌아가기 란이 … 스토리 다 깬 입장에서는 너무 무쓸모」): a menu goes back to the battle, to
 // the battle preparation, to a story scene that holds the screen, or — with nothing waiting — to the main screen.
+// 0.16.4 (user: 「전투 패배하면 이야기로 돌아가기 버튼 있는거 없애주고」): after a lost story fight the way back is the retry, not
+// 「이야기로 돌아가기」.
 function journeyReturn(){
   if(game.s.runtime&&!game.s.runtime.interlude)return {label:'전투로 돌아가기',screen:'COMBAT'};
   if(game.playPhase?.()==='PREPARATION')return {label:'전투 준비로 돌아가기',screen:'STORY'};
+  if(game.s.storyRecovery)return {label:'전투 직전부터 다시 준비',retry:true};
   return game.actionReason('MENU',{screen:'LOCATION'})?{label:'이야기로 돌아가기',screen:'STORY'}:{label:'메인 화면으로',screen:'LOCATION'};
 }
 returnToJourney=function(p){
   const visit=game.currentPlace?.();if(visit?.valid){p.append(actionButton(placeName(visit.entry)+' · 돌아가기','MENU',{screen:{SHOP:'SHOP',CRAFT:'CRAFT',BOSS:'BOSS_INTRO',TALK:'DIALOGUE'}[visit.mode]},true));return;}
-  const back=journeyReturn();p.append(actionButton(back.label,'MENU',{screen:back.screen},true));
+  const back=journeyReturn();p.append(back.retry?actionButton(back.label,'STORY_RETRY',{},true):actionButton(back.label,'MENU',{screen:back.screen},true));
 };
 let bagCategory='전체',bagSelection=null,bagTrade='전체';
 // 0.14.12: equipment frames by enhancement (user: 「강화수치가 높을수록 테두리, 운명의 자리처럼 간지나게는 말고, 10강부터 조금 간지」).
@@ -371,19 +374,29 @@ function battleSummons(p,b){
     BUNNY:{name:'토끼 백작',asset:'summon_baron_bunny.webp',id:f=>'SUMMON:BUNNY:'+f.actor},
     OZ:{name:'오즈',asset:'summon_oz.webp',id:f=>'SUMMON:OZ:'+f.actor},
     GOU_BA:{name:'누룽지',asset:'summon_guoba.webp',id:f=>'SUMMON:GOU_BA:'+f.actor},
-    YUEGUI_THROWING:{name:'월계',asset:'summon_yuegui.webp',id:f=>'SUMMON:YUEGUI_THROWING:'+f.actor}
+    YUEGUI_THROWING:{name:'월계',asset:'summon_yuegui.webp',id:f=>'SUMMON:YUEGUI_THROWING:'+f.actor},
+    // 0.16.4 (user: 「종려 기둥을 저딴식으로 설계한다고...? 전체적으로 이것도 좀 체크좀」): what a skill sets down on the field — 종려's
+    // 석주, 응광's 병풍, 감우's 연꽃, 리사's 장미 — stands in the lane as a thing of its own, with the skill's official picture and
+    // the rounds it stays, instead of a glow on the card of the one who set it.
+    STONE_STELE:{name:'지핵의 석주',icon:['LIYUE_ZHONGLI','e'],line:'라운드 끝 바위 피해',id:f=>'SUMMON:STONE_STELE:'+f.actor},
+    JADE_SCREEN:{name:'선기 병풍',icon:['LIYUE_NINGGUANG','e'],line:'원거리 피해 40% 막음',id:f=>'SUMMON:JADE_SCREEN:'+f.actor},
+    ICE_LOTUS:{name:'얼음 연꽃',icon:['LIYUE_GANYU','e'],line:'적을 끌어들여 터짐',id:f=>'SUMMON:ICE_LOTUS:'+f.actor},
+    ROSE:{name:'번개 장미',icon:['MOND_LISA','q'],line:'라운드 끝 번개 피해',id:f=>'SUMMON:ROSE:'+f.actor}
   };
-  const fields=(b.fields||[]).filter(f=>spec[f.kind]&&!f.done&&(f.kind!=='BUNNY'||f.hp>0));if(!fields.length)return;
+  const fields=(b.fields||[]).filter(f=>{const m=spec[f.kind];if(!m||f.done)return false;if(f.kind==='BUNNY')return f.hp>0;return !m.icon||(!Number.isFinite(f.end)||b.round<=f.end)&&(!Number.isFinite(f.rounds)||f.rounds>0);});if(!fields.length)return;
   // 0.15.18 (user: 소환물이 맨 밑에 묻혀 있음): the summons stand at the top of the battlefield, a lane only for a side that
   // has one, so a phone sees them without scrolling past both teams.
   const wrap=el('div','battle-summons top');wrap.setAttribute('aria-label','전투 소환물');
   for(const side of ['ALLY','ENEMY']){
     const lane=el('section','summon-lane '+side.toLowerCase()),list=fields.filter(f=>f.side===side);if(!list.length)continue;lane.append(el('h3','',side==='ALLY'?'아군 소환체':'적 소환체'));
-    for(const f of list){const m=spec[f.kind],card=el('div','battle-summon');card.dataset.summonId=m.id(f);card.dataset.side=side;if(f.kind==='BUNNY')card.dataset.maxHp=Math.max(1,Math.round(f.maxHp||f.hp));
-      if(showArt){const img=el('img','summon-portrait');img.src='assets/summons/'+(f.asset||m.asset);img.alt='';card.append(img);}
-      const cp=el('div','summon-copy'),remaining=Number.isFinite(f.summonTurns)?Math.max(0,f.summonTurns-Number(f.summonTicks||0)):Math.max(1,Number(f.rounds||1));
+    for(const f of list){const m=spec[f.kind],card=el('div','battle-summon'+(m.icon?' construct':''));card.dataset.summonId=m.id(f);if(m.icon)card.dataset.construct=f.kind;card.dataset.side=side;if(f.kind==='BUNNY')card.dataset.maxHp=Math.max(1,Math.round(f.maxHp||f.hp));
+      const icon=m.icon&&MANIFEST.uiAssets?.skills?.[m.icon[0]]?.[m.icon[1]]?.path;
+      if(icon){const img=el('img','summon-portrait construct-icon');img.src=icon;img.alt='';img.decoding='async';card.append(img);}
+      else if(showArt&&!m.icon){const img=el('img','summon-portrait');img.src='assets/summons/'+(f.asset||m.asset);img.alt='';card.append(img);}
+      const cp=el('div','summon-copy'),remaining=Number.isFinite(f.summonTurns)?Math.max(0,f.summonTurns-Number(f.summonTicks||0)):Number.isFinite(f.expires)?Math.max(1,f.expires-b.round+1):Number.isFinite(f.end)?Math.max(1,f.end-b.round+1):Math.max(1,Number(f.rounds||1));
       cp.append(el('strong','',f.name||m.name));
       if(f.kind==='BUNNY'){meter(cp,'HP',Math.max(0,Math.round(f.hp)),Math.max(1,Math.round(f.maxHp||f.hp)));cp.append(el('small','', '단일 공격 도발 '+Math.round(f.tauntChance||30)+'% · 파괴 또는 시간 종료 시 폭발'));}
+      else if(m.line)cp.append(el('small','',m.line+' · 남은 '+remaining+'라운드'));
       else cp.append(el('small','', '자동 행동 · 남은 '+remaining+'회'));
       // 0.15.25: a short screen folds the line under the name; the card still says it on hover and to screen readers.
       card.title=[...cp.querySelectorAll('strong,small')].map(n=>n.textContent).join(' · ');

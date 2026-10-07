@@ -42,11 +42,13 @@ function run({speed,rounds,tries}){
  assert.deepEqual(out.results.map(x=>x.frozen),[true]);assert.deepEqual(out.acted,[1,3,4]);assert.equal(out.skipped,1);
  console.log('PASS a freeze before one’s turn in the same round takes only that turn');
 }
-// The enemies' side keeps the rule as it was: by rounds, refreshed by a new freeze.
+// 0.16.4 (user: 「종려의 무한 석화 버그.(이건 좀 전체적으로 바꿀 필요가 있어보인다)」): the enemies' side follows the same rule
+// now — one turn taken, no refresh while it holds, then two turns of their own (it used to refresh round after round).
 {
- const r=fresh('MAP_MOND_PLAINS');r.startBattle('EG_MOND_SLIME_SMALL','EXPLICIT');const foe=r.s.runtime.actors.find(a=>a.side==='ENEMY');
- const s=r.addCombatStatus(foe,'STATUS_FREEZE',1,{});assert(s);assert.equal(s.untilTurn,undefined);assert.equal(s.rounds,1);
- assert(r.addCombatStatus(foe,'STATUS_FREEZE',1,{}),'an enemy can be frozen again');assert.equal(foe.freezeGuard,undefined);
- console.log('PASS enemies keep the round rule');
+ const r=fresh('MAP_MOND_PLAINS');r.startBattle('EG_MOND_SLIME_SMALL','EXPLICIT');const foe=r.s.runtime.actors.find(a=>a.side==='ENEMY'),t=Number(foe.turns)||0;
+ const s=r.addCombatStatus(foe,'STATUS_FREEZE',1,{});assert(s);assert.equal(s.untilTurn,t+2);assert.equal(foe.controlGuard,t+3);
+ assert.equal(r.addCombatStatus(foe,'STATUS_FREEZE',1,{}),null,'no refresh while it holds');
+ assert.equal(r.addCombatStatus(foe,'LIYUE_PETRIFY',2,{}),null,'nor another turn-taking status on top');
+ console.log('PASS enemies: one turn taken, then two of their own (0.16.4)');
 }
 console.log(JSON.stringify({ok:true}));

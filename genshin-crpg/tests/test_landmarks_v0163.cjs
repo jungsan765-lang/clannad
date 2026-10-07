@@ -67,9 +67,11 @@ check('sideways phone battle: enemy pictures shrink to the room above the comman
  return {};
 });
 
-check('version 0.16.3 with its notes on top of the full chain',()=>{
- const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')),notes=JSON.parse(fs.readFileSync(path.join(root,'content/release-notes.json'),'utf8'));
- assert.equal(pkg.version,'0.16.3');assert.equal(notes.version,'0.16.3');assert.equal(notes.previous.version,'0.16.2');assert.equal(notes.previous.previous.version,'0.16.1');
+check('version 0.16.3 with its notes in the full chain (later versions sit on top)',()=>{
+ const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')),top=JSON.parse(fs.readFileSync(path.join(root,'content/release-notes.json'),'utf8'));
+ const [maj,min,pat]=pkg.version.split('.').map(Number);assert(maj>0||min>16||(min===16&&pat>=3),pkg.version);
+ let notes=top;while(notes&&notes.version!=='0.16.3')notes=notes.previous;assert(notes,'0.16.3 is in the chain');
+ assert.equal(notes.previous.version,'0.16.2');assert.equal(notes.previous.previous.version,'0.16.1');
  assert(notes.changes.some(x=>x.includes('특성 비경'))&&notes.changes.some(x=>x.includes('교영 마을'))&&notes.changes.some(x=>x.includes('무상의 바위')));
  return {changes:notes.changes.length};
 });
