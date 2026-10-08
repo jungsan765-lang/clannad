@@ -226,12 +226,21 @@ P.finishBattle=function(victory){
 P.installTaskCommissions=function(){
  if(this._taskCommissionsInstalled||!CHAINS.length)return;const rows=this.db['22_QUEST_DB'].map(r=>r.slice());
  for(const t of CHAINS){if(rows.some(r=>r[0]===t.id))continue;const map=t.map||t.filter?.maps?.[0]||'MAP_MOND_CITY',region=t.region||this.tables['32_MAP_DB']?.get(map)?.[1]||(map.startsWith('MAP_L')?'리월':'몬드');
-  const d={schema:1,kind:'exploration',map_id:map,conditions:{min_level:t.minLevel||1,unclaimed:true},start:'INVESTIGATE',text:t.description||t.name,choices:[],claim_node:'READY_TO_CLAIM',revisit:'보고를 마친 의뢰입니다.',authorship:'CRPG_TASK_V0168'};
-  rows.push([t.id,t.name,region,region==='리월'?'NPC_LIYUE_KATHERYNE':'NPC_MOND_KATHERYNE','',t.description||t.name,'',null,'','수락 이후 실제 활동만 집계',JSON.stringify(d),JSON.stringify(t.reward||{}), 'READY','CRPG_TASK_V0168']);}
+  const display=this.taskPresentation(t),d={schema:1,kind:'exploration',map_id:map,conditions:{min_level:t.minLevel||1,unclaimed:true},start:'INVESTIGATE',text:display.description,choices:[],claim_node:'READY_TO_CLAIM',revisit:'보고를 마친 의뢰입니다.',authorship:'CRPG_TASK_V0168'};
+  rows.push([t.id,display.name,region,region==='리월'?'NPC_LIYUE_KATHERYNE':'NPC_MOND_KATHERYNE','',display.description,'',null,'','수락 이후 실제 활동만 집계',JSON.stringify(d),JSON.stringify(t.reward||{}), 'READY','CRPG_TASK_V0168']);}
  this.db={...this.db,'22_QUEST_DB':rows};this.tables['22_QUEST_DB']=new Map(rows.slice(1).filter(r=>r?.[0]).map(r=>[r[0],r]));this._taskCommissionsInstalled=true;
 };
 P.newGame=function(...args){const out=old.newGame.apply(this,args);this.installTaskCommissions();return out;};
 function objectiveOf(rt,id){return rt.s.quests[id]?.taskObjective?.definition||CHAIN_BY[id];}
+// Cosmetic wording uses the accepted objective's own content and conditions.
+// It never changes that stored definition, its quota, prerequisites or payout.
+P.taskPresentation=function(t){
+ const words=catalog.displayWordingsV01613?.[t.id]||{},name=words.name||t.name;
+ let description=t.description||t.name;
+ if(t.id===ROOT_TASK)description=CHAIN_BY[ROOT_TASK].description;
+ else if(!t.learning&&t.kind!=='delivery')description=description.replace(' (수락 이후의 성공한 행동만 집계)','')+' · 수락 후 집계, 캐서린에게 보고';
+ return {name,category:words.category||'길드 의뢰',description};
+};
 P.questUnlockReason=function(id){
  const accepted=this.commissionAccepted(id),t=objectiveOf(this,id);
  if(id!==ROOT_TASK&&this.isCommission(id)&&!accepted&&!rootReady(this))return '의뢰 접수 연습을 먼저 보고해 주세요.';
@@ -246,9 +255,9 @@ P.taskDeliveryPlan=function(t){
  if(!Object.keys(items).length&&!slots.length)fail('QUEST_DELIVERY','납품 목표가 없습니다.');return {items,slots};
 };
 P.taskRefreshDeliveryObjectives=function(){for(const current of CHAINS){const q=this.s.quests[current.id],c=q?.taskObjective,t=c?.definition||current;if(t.kind!=='delivery'||!q?.guildAccepted||q.claimed||!c)continue;let ready=false;try{this.taskDeliveryPlan(t);ready=true;}catch{}c.progress=ready?t.goal:0;q.node=ready?'READY_TO_CLAIM':'INVESTIGATE';q.state='진행중';}};
-P.commissionEntries=function(){this.installTaskCommissions();this.taskRefreshDeliveryObjectives();return old.commissionEntries.call(this).filter(q=>!CHAIN_BY[q.row[0]]||this.questVisible(q.row[0])).map(q=>{const t=objectiveOf(this,q.row[0]);if(!t)return q;const row=q.row.slice();row[1]=t.name;row[11]=JSON.stringify(t.reward||{});return {...q,row,reward:copy(t.reward||{}),taskObjective:copy(this.s.quests[t.id]?.taskObjective||{})};});};
+P.commissionEntries=function(){this.installTaskCommissions();this.taskRefreshDeliveryObjectives();return old.commissionEntries.call(this).filter(q=>!CHAIN_BY[q.row[0]]||this.questVisible(q.row[0])).map(q=>{const t=objectiveOf(this,q.row[0]);if(!t)return q;const row=q.row.slice(),display=this.taskPresentation(t);row[1]=display.name;row[5]=display.description;row[11]=JSON.stringify(t.reward||{});return {...q,row,definition:{...q.definition,text:display.description},reward:copy(t.reward||{}),taskDisplay:display,taskObjective:copy(this.s.quests[t.id]?.taskObjective||{})};});};
 P.acceptCommission=function(id){const unlock=this.questUnlockReason(id);if(unlock)fail('QUEST_UNLOCK',unlock);if(this.taskAcceptedCount()>=ACCEPT_CAP)fail('COMMISSION_CAP','의뢰는 동시에 5개까지 받을 수 있습니다. 완료한 의뢰를 보고한 뒤 받아 주세요.');const out=old.acceptCommission.call(this,id);if(CHAIN_BY[id])this.s.quests[id].taskObjective={version:2,progress:0,acceptedSeq:num(this.s.global.LAST_COMMITTED_ACTION_SEQ)+1,definition:definition(this,CHAIN_BY[id])};if(id===ROOT_TASK&&out?.accepted&&this.s.quests[id]?.taskObjective){const q=this.s.quests[id];q.taskObjective.progress=q.taskObjective.definition.goal;q.node='READY_TO_CLAIM';}this.taskRefreshDeliveryObjectives();return out;};
-P.questConditions=function(id){const t=objectiveOf(this,id);if(!t)return old.questConditions.call(this,id);if(t.kind==='delivery')this.taskRefreshDeliveryObjectives();const why=this.questUnlockReason(id);if(why)return why;const q=this.s.quests[id];if(!q?.guildAccepted)return '안내원에게 의뢰를 먼저 받아 주세요.';if(q.claimed||q.taskObjective?.progress>=t.goal)return '';return t.name+' ('+num(q.taskObjective?.progress)+'/'+t.goal+')';};
+P.questConditions=function(id){const t=objectiveOf(this,id);if(!t)return old.questConditions.call(this,id);if(t.kind==='delivery')this.taskRefreshDeliveryObjectives();const why=this.questUnlockReason(id);if(why)return why;const q=this.s.quests[id];if(!q?.guildAccepted)return '안내원에게 의뢰를 먼저 받아 주세요.';if(q.claimed||q.taskObjective?.progress>=t.goal)return '';return this.taskPresentation(t).name+' ('+num(q.taskObjective?.progress)+'/'+t.goal+')';};
 P.questChoice=function(id,choice){if(CHAIN_BY[id])fail('QUEST_OBJECTIVE',this.questConditions(id)||'실제 활동을 마친 뒤 캐서린에게 보고해 주세요.');return old.questChoice.call(this,id,choice);};
 P.claimQuest=function(id,...args){
  const t=objectiveOf(this,id);if(!t)return old.claimQuest.call(this,id,...args);const before=copy(this.s),q=this.s.quests[id],row=this.tables['22_QUEST_DB'].get(id);

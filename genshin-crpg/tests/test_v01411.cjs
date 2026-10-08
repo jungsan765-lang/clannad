@@ -120,7 +120,7 @@ check('exchanges: fates for 원석, a chosen 운명의 별 by rarity, boss mater
  const g=admin(fresh());g.action('OPERATOR_DEBUG',{op:'premium',currency:'PRIMOGEM',value:1600});
  g.action('PREMIUM_BUY',{offer:'FATE_INTERTWINED',count:10});assert.deepEqual([g.premiumBalance().PRIMOGEM,g.premiumBalance().INTERTWINED_FATE],[0,10]);
  assert.match(g.premiumOfferReason({offer:'FATE_ACQUAINT'}),/원석이\(가\) 부족/);
- assert.equal(g.premiumStellaPrice('LIYUE_ZHONGLI'),40);assert.equal(g.premiumStellaPrice('MOND_AMBER'),25);assert.equal(g.premiumStellaPrice('PLAYER_CUSTOM'),40);
+ assert.equal(g.premiumStellaPrice('LIYUE_ZHONGLI'),100);assert.equal(g.premiumStellaPrice('MOND_AMBER'),25);assert.equal(g.premiumStellaPrice('PLAYER_CUSTOM'),100);
  assert.equal(g.premiumOwns('MOND_AMBER'),false,'a companion who has not joined is not offered');assert(!g.premiumFighters().includes('MOND_AMBER'));
  g.adminApply({op:'recruit',char:'MOND_AMBER'});assert(g.premiumFighters().includes('MOND_AMBER'));
  g.action('OPERATOR_DEBUG',{op:'premium',currency:'STARGLITTER',value:25});g.action('PREMIUM_BUY',{offer:'GLITTER_STELLA',char:'MOND_AMBER'});assert.equal(g.itemCount('STELLA_MOND_AMBER'),1);
@@ -196,3 +196,4 @@ check('screens: the wish screen and its presentation, the constellation chart an
 
 const out=path.join(root,'reports/v01411');fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'runtime-tests.json'),JSON.stringify({version:'0.14.11',total:results.length,passed:results.filter(r=>r.ok).length,results},null,1));
 console.log(JSON.stringify({total:results.length,passed:results.filter(r=>r.ok).length}));
+

@@ -4,7 +4,7 @@
  * - Currencies live next to Mora: global PRIMOGEM, STARGLITTER, STARDUST, INTERTWINED_FATE (뒤얽힌 인연, event wish)
  *   and ACQUAINT_FATE (만남의 인연, standard wish) — whole numbers, 0 by default. Wishes are in runtime_wish_v01411.js.
  * - PREMIUM_BUY offers: 원석 160 → one fate of either kind (1-10 at a time); 스타라이트 → the 운명의 별 of a chosen
- *   fighter (5★ and the protagonist 40, 4★ 25, about a hundred wishes' worth); four field boss materials → 1 스타라이트;
+ *   fighter (5★ and the protagonist 100, 4★ 25; 0.16.13); four field boss materials → 1 스타라이트;
  *   스타더스트 → 인연 (75 each, five of each kind a month; 0.15.1), 영웅의 경험 or Mora. The boss exchange and the other
  *   stardust offers have weekly limits (Korean time, the week turns on Monday 00:00, the month on the 1st; the server's action
  *   clock decides online).
@@ -29,7 +29,7 @@ const BOSS_MATERIALS=['MAT_FB_HURRICANE_SEED','MAT_FB_LIGHTNING_PRISM','MAT_FB_B
 const OFFERS=[
  {id:'FATE_INTERTWINED',shop:'PRIMOGEM',price:160,label:'뒤얽힌 인연',give:{INTERTWINED_FATE:1},bulk:10,note:'이벤트 기원에 쓰는 인연'},
  {id:'FATE_ACQUAINT',shop:'PRIMOGEM',price:160,label:'만남의 인연',give:{ACQUAINT_FATE:1},bulk:10,note:'상시 기원에 쓰는 인연'},
- {id:'GLITTER_STELLA',shop:'STARGLITTER',price:40,label:'운명의 별 · 원하는 동료 1명',stella:true,note:'5★ 동료와 주인공 40, 4★ 동료 25'},
+ {id:'GLITTER_STELLA',shop:'STARGLITTER',price:100,label:'운명의 별 · 원하는 동료 1명',stella:true,note:'5★ 동료와 주인공 100, 4★ 동료 25'},
  {id:'BOSS_GLITTER',shop:'BOSS',price:4,label:'스타라이트 ×1',give:{STARGLITTER:1},boss:true,weekly:5,note:'같은 필드 보스 재료 4개'},
  // 0.15.1: 스타더스트 buys fates as in the original, five of each a month (user: 「스타더스트도 좀 과하게 나오거나,
  // 쓸데가 없다거나 그런 경우가 있는것 같아서」). The month turns on the 1st at 00:00, Korean time.
@@ -52,7 +52,7 @@ P.premiumMonth=function(){return monthOf(this.premiumNow());};
 P.premiumMonthlyUsed=function(offer){const m=this.s.premiumMonthly;return m&&m.month===this.premiumMonth()?int(m.bought?.[offer]):0;};
 P.constellationLevel=function(id){return Math.max(0,Math.min(6,int(this.s.constellations?.[id])));};
 P.premiumRarity=function(id){if(id===PLAYER)return 5;return this.constellationInfo?.(id)?.rarity||4;};
-P.premiumStellaPrice=function(id){return this.premiumRarity(id)>=5?40:25;};
+P.premiumStellaPrice=function(id){return this.premiumRarity(id)>=5?100:25;};
 P.talentLevels=function(id){
  const t=this.s.talents?.[id]||{},c=this.constellationLevel(id),kinds=this.constellationTalentKinds?.(id)||{c3:'e',c5:'q'},lv=k=>Math.max(1,Math.min(TALENT.MAX,int(t[k])||1));
  const base={na:lv('na'),e:lv('e'),q:lv('q')},out={...base};

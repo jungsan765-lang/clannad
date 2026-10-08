@@ -8,6 +8,10 @@ OUT = ROOT / 'evidence/release'
 OUT.mkdir(parents=True, exist_ok=True)
 subprocess.run([sys.executable, 'tools/build_server.py'], cwd=ROOT, check=True)
 TESTS = [
+    'tests/test_ascension_efficiency_v01613.cjs',
+    'tests/test_starlight_price_v01613.cjs',
+    'tests/test_katheryne_facility_v01613.cjs',
+    'tests/test_task_wording_v01613.cjs',
     'tests/test_task_branches_v01612.cjs',
     'tests/test_task_branches_v01611.cjs',
     'tests/test_tasks_v0169.cjs', 'tests/test_task_catalog_v0169.cjs',

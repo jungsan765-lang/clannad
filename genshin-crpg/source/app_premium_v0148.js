@@ -56,7 +56,7 @@ function openShop(tab,done){
   if(o.monthly){const used=game.premiumMonthlyUsed?.(o.id)||0;card.append(mk('small','premium-weekly','이번 달 '+used+' / '+o.monthly+' · 매달 1일 0시 초기화'));}
   const buy=mk('button','premium-buy','교환');buy.type='button';
   const params=()=>({offer:o.id,...(o.stella&&pick?.value?{char:pick.value}:{}),...(o.boss&&pick?.value?{item:pick.value}:{}),...(count?{count:Number(count.value)}:{})});
-  const sync=()=>{const n=count?Number(count.value):1;stellaArt(goods,o,pick);if(o.boss&&pick?.value){const ip=MAN().itemIcons?.icons?.[pick.value]?.path;if(ip&&priceIcon.tagName==='IMG')priceIcon.src=ip;}amount.textContent=o.stella?(pick?.value?fmt(game.premiumStellaPrice(pick.value)):'25~40'):o.boss?o.price*n+'개':fmt(o.price*n);const r=game.premiumOfferReason(params());buy.disabled=!!r||busy;buy.title=r||'';};sync();
+  const sync=()=>{const n=count?Number(count.value):1;stellaArt(goods,o,pick);if(o.boss&&pick?.value){const ip=MAN().itemIcons?.icons?.[pick.value]?.path;if(ip&&priceIcon.tagName==='IMG')priceIcon.src=ip;}amount.textContent=o.stella?(pick?.value?fmt(game.premiumStellaPrice(pick.value)):'25~100'):o.boss?o.price*n+'개':fmt(o.price*n);const r=game.premiumOfferReason(params());buy.disabled=!!r||busy;buy.title=r||'';};sync();
   buy.onclick=async()=>{
    const p=params(),n=p.count||1,out=await act('PREMIUM_BUY',p);if(out===undefined)return;
    if(out?.ok===false){openShop(undefined,{error:true,text:out.error||'교환하지 못했습니다.'});return;}

@@ -97,6 +97,9 @@ const GEM_STAGE={5:1,10:2,15:2,20:3,25:4,30:1,35:2,40:2,45:3,50:3,55:4,60:4};
 const EXP_XP_V3={5:200,10:450,15:450,20:1100,25:1100,30:1800,35:1800,40:2500,45:2500,50:4500,55:4500,60:8000};
 const EXP_XP={5:200,10:450,15:1000,20:1100,25:1250,30:1500,35:1800,40:2100,45:4500,50:5400,55:8000,60:10000};
 const MATERIAL_XP={5:40,10:90,15:90,20:220,25:220,30:360,35:360,40:500,45:500,50:900,55:900,60:1600};
+// 0.16.13: late ascension enemies take longer than the lower-stage farm. Increase only their gems,
+// retaining the early drops, all XP/talent rewards and existing 441/882 total ascension requirements.
+const ASCENSION_GEMS={5:1,10:2,15:3,20:4,25:5,30:6,35:7,40:8,45:9,50:10,55:20,60:32};
 const isTrialV3=d=>!!d&&!!SITES_V3[d.key]&&TRIALS_V3.includes(d.kind)&&d.id===d.key+':'+d.kind;
 function trialFoesV3(d,element){const s=SITES_V3[d.key];return d.kind==='ASCENSION'?gemFoes(s.region,element,GEM_STAGE[s.level]):s.foes;}
 // 0.16.3 (user: 「비경 네가 잘못이해했어. 특성비경 따로 돌파 비경 따로 경험치 비경 따로 하고, 세실리아의 모밭은 크라운 협곡에 있어」):
@@ -226,7 +229,7 @@ P.growthDomainSites=function(){return Object.entries(SITES).map(([key,d])=>({key
 P.growthDomainFoes=function(d,element='NEUTRAL'){const list=isDomain(d)?siteFoes(d,element):isTrialV3(d)?trialFoesV3(d,element):d.key&&DOMAINS[d.key]?domainStageFoes(d.key,d.stage,element):[];return list.map(([id,n])=>({id,n,name:this.row('09_MONSTER_DB',id)?.[1]||id}));};
 // Materials are doubled for the first three material wins of the Korean day; experience never is; no domain pays Mora.
 P.growthDomainRewards=function(d,element='NEUTRAL',day=dayOf(now(this))){const count=this.s.domainDaily?.day===day?this.s.domainDaily.wins:0,mult=count<3?2:1,base=Math.ceil(d.level/5),items={};
- if(isDomain(d)||isTrialV3(d)){if(d.kind==='ASCENSION')items['GROWTH_GEM_'+element]=base*mult;else if(d.kind==='TALENT')items[d.region==='몬드'?'GROWTH_TALENT_MOND':'GROWTH_TALENT_LIYUE']=base*mult;
+ if(isDomain(d)||isTrialV3(d)){if(d.kind==='ASCENSION')items['GROWTH_GEM_'+element]=(isDomain(d)&&d.ascensionRewardVersion!==0?ASCENSION_GEMS[d.level]:base)*mult;else if(d.kind==='TALENT')items[d.region==='몬드'?'GROWTH_TALENT_MOND':'GROWTH_TALENT_LIYUE']=base*mult;
   return {items,bonus:d.kind!=='EXP'&&mult===2,doubles:d.kind!=='EXP',remaining:Math.max(0,3-count),mora:0,xp:domainXp(d)};}
  if(d.kind==='EXP')items.MAT_CHAR_EXP_HERO=base*mult;else if(d.kind==='ASCENSION')items['GROWTH_GEM_'+element]=base*mult;else if(d.kind==='TALENT')items[d.region==='몬드'?'GROWTH_TALENT_MOND':'GROWTH_TALENT_LIYUE']=base*mult;else{items[d.level<20?'ORE_WHITE_IRON':'ORE_CRYSTAL']=base*mult;if(d.level>=40)items.TRPG_BOSS_ESSENCE=mult;}return {items,bonus:mult===2,remaining:Math.max(0,3-count),mora:DOMAIN_MORA[d.level]*mult,xp:DOMAIN_XP[d.level]};};
 P.growthDomainGroup=function(d,element='NEUTRAL'){
@@ -251,7 +254,7 @@ P.growthDomainGroup=function(d,element='NEUTRAL'){
  if(d.kind==='ASCENSION'&&elemental.length)members=elemental.map((m,i)=>['EM_'+id+'_'+i,id,i+1,m,2,2,'MON'+(i+1),'GROWTH','원소 시련']);
  table(this,'33_ENCOUNTER_GROUP_DB',[...this.db['33_ENCOUNTER_GROUP_DB'],group]);table(this,'49_ENCOUNTER_MEMBER_DB',[...this.db['49_ENCOUNTER_MEMBER_DB'],...members]);return id;
 };
-P.startGrowthDomain=function(a){const d=this.growthDomainEntries().find(x=>x.id===a.domain),element=d?.kind==='ASCENSION'?a.element||'NEUTRAL':'NEUTRAL';if(!d||d.reason)fail('DOMAIN',d?.reason||'이곳의 비경 입구를 이용해 주세요.');if(!Object.values(GEMS).some(x=>x[0]===element))fail('DOMAIN','원소 재료를 골라 주세요.');const {reason,levels,lock,...entry}=d;this._growthDomain={...entry,version:4,element,day:dayOf(now(this)),map:this.s.global.CURRENT_MAP_ID};try{return this.startBattle(this.growthDomainGroup(d,element),'DOMAIN:'+d.id);}finally{delete this._growthDomain;}};
+P.startGrowthDomain=function(a){const d=this.growthDomainEntries().find(x=>x.id===a.domain),element=d?.kind==='ASCENSION'?a.element||'NEUTRAL':'NEUTRAL';if(!d||d.reason)fail('DOMAIN',d?.reason||'이곳의 비경 입구를 이용해 주세요.');if(!Object.values(GEMS).some(x=>x[0]===element))fail('DOMAIN','원소 재료를 골라 주세요.');const {reason,levels,lock,...entry}=d;this._growthDomain={...entry,version:4,...(d.kind==='ASCENSION'?{ascensionRewardVersion:1}:{}),element,day:dayOf(now(this)),map:this.s.global.CURRENT_MAP_ID};try{return this.startBattle(this.growthDomainGroup(d,element),'DOMAIN:'+d.id);}finally{delete this._growthDomain;}};
 P.growthEliteEntry=function(){const map=this.s.global.CURRENT_MAP_ID,group=ELITES[map];return group?{map,group,level:Number(this.row('32_MAP_DB',map)[6]),reason:this.s.eliteClaims?.[map]===dayOf(now(this))?'오늘의 토벌을 마쳤습니다. 한국 시간 자정에 다시 나타납니다.':''}:null;};
 P.finishBattle=function(win){const b=this.s.runtime,active=new Set(b?.actors.filter(a=>a.side==='ALLY').map(a=>a.source)),out=old.finishBattle.call(this,win);if(!b||!out)return out;const recorded=JSON.parse(this.s.global.LAST_BATTLE_RESULT_JSON||'{}');if((recorded.battleId||recorded.id)===b.id)Object.assign(out,recorded);
  if(b.growthDomain)this.s.lastGrowthDomain={domain:b.growthDomain.id,element:b.growthDomain.element,map:b.growthDomain.map};
@@ -298,11 +301,17 @@ P.validateSave=function(s){this.installGrowthContent();migrate(this,s);
   // A fight begun under the 0.15.22–0.15.24 domains is checked by its own rules and may finish.
   else if(!['몬드','리월'].includes(d.region)||!Object.hasOwn(KINDS,d.kind)||!(d.region==='몬드'?[5,10,20,30]:[30,40,50,60]).includes(d.level)||d.id!==d.kind+':'+d.level||DOMAIN_MAPS[d.map]!==d.region||!Object.values(GEMS).some(x=>x[0]===d.element)||!Number.isSafeInteger(d.day)||s.runtime.origin!=='DOMAIN:'+d.id)fail('GROWTH_SAVE','비경 저장값이 잘못되었습니다.');
   if(this.growthDomainGroup(d,d.element)!==s.runtime.group)fail('GROWTH_SAVE','비경 편성이 일치하지 않습니다.');}
+ if(d){
+  if(d.ascensionRewardVersion!==undefined&&(d.version!==4||d.kind!=='ASCENSION'||![0,1].includes(d.ascensionRewardVersion)))fail('GROWTH_SAVE','돌파 비경 보상 저장값이 잘못되었습니다.');
+  // A pre-0.16.13 version-4 fight has no marker. Freeze its original reward once on loading;
+  // fresh entries/previews use the current table, and new battles explicitly carry version 1.
+  if(d.version===4&&d.kind==='ASCENSION'&&d.ascensionRewardVersion===undefined)d.ascensionRewardVersion=0;
+ }
  old.validateSave.call(this,s);this.installRegionalLevels();if(s.growthVersion!==1||!s.ascensions||typeof s.ascensions!=='object'||Array.isArray(s.ascensions))fail('GROWTH_SAVE','성장 단계 저장값이 잘못되었습니다.');
  for(const [id,l]of [[PLAYER,s.global.PLAYER_LEVEL_STATE],...Object.entries(s.chars||{}).map(([id,c])=>[id,c.level])]){const p=s.ascensions[id]??0,xp=id===PLAYER?s.global.PLAYER_XP_STATE:s.chars[id].xp;if(!Number.isInteger(p)||p<0||p>6||p>0&&l<CAPS[p-1]||l>CAPS[p]||l>=CAPS[p]&&xp!==0)fail('GROWTH_SAVE','레벨과 돌파 상한이 일치하지 않습니다.');}
  s.global.PLAYER_XP_NEXT=s.global.PLAYER_LEVEL_STATE>=CAPS[s.ascensions.PLAYER_CUSTOM]?0:xpNext(s.global.PLAYER_LEVEL_STATE);
  if(s.domainDaily&&(!Number.isSafeInteger(s.domainDaily.day)||!Number.isSafeInteger(s.domainDaily.wins)||s.domainDaily.wins<0))fail('GROWTH_SAVE','비경 일일 기록을 확인해 주세요.');if(s.eliteClaims&&(Array.isArray(s.eliteClaims)||Object.entries(s.eliteClaims).some(([m,d])=>!ELITES[m]||!Number.isSafeInteger(d))))fail('GROWTH_SAVE','정예 토벌 기록을 확인해 주세요.');return s;
 };
 api.growthV01522={caps:CAPS,talentCaps:TALENTS,hpCurve,adCurve,xpNext,legacyXpNext,pacingVersion:3,pacingCurve:XP_PACING_V0168.slice(),previousPacingCurve:XP_PACING_V0161.slice(),previousPacingCurveVersion2:XP_PACING_V0166.slice(),phaseFor,gems:GEMS,domainMaps:DOMAIN_MAPS,domains:copy(Object.fromEntries(Object.entries(SITES).map(([k,d])=>[k,{name:d.name,kind:d.kind,region:d.region,map:d.map,levels:d.levels.slice(),level:d.levels[0],foes:d.foes||null}]))),domainKinds:{TALENT:KINDS.TALENT,ASCENSION:KINDS.ASCENSION,EXP:KINDS.EXP},domainGemStage:copy(GEM_STAGE),domainTalentStage:copy(TALENT_STAGE),
- legacyTrialSites:copy(SITES_V3),legacyTrials:TRIALS_V3.slice(),domainXp:copy(EXP_XP),domainMaterialXp:copy(MATERIAL_XP),legacyTrialXp:copy(EXP_XP_V3),legacyDomains:copy(DOMAINS),legacyDomainLevels:copy(DOMAIN_LEVELS),legacyDomainXp:copy(DOMAIN_XP),legacyDomainMora:copy(DOMAIN_MORA),partyBaseline:4,formationHp:FORMATION_HP,specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
+ legacyTrialSites:copy(SITES_V3),legacyTrials:TRIALS_V3.slice(),domainXp:copy(EXP_XP),domainMaterialXp:copy(MATERIAL_XP),domainAscensionGems:copy(ASCENSION_GEMS),ascensionRewardVersion:1,legacyTrialXp:copy(EXP_XP_V3),legacyDomains:copy(DOMAINS),legacyDomainLevels:copy(DOMAIN_LEVELS),legacyDomainXp:copy(DOMAIN_XP),legacyDomainMora:copy(DOMAIN_MORA),partyBaseline:4,formationHp:FORMATION_HP,specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
 })(globalThis);

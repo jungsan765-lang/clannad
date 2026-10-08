@@ -31,10 +31,11 @@ function mainObjective(parent){
  }
  parent.append(box);
 }
+function isGuildReception(entry){return ['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(entry.entity);}
 function placeVisual(entry){
  const map=game.tables['32_MAP_DB'].get(game.s.global.CURRENT_MAP_ID),region=map?.[1]||'',text=(entry.id||'')+' '+(entry.name||'')+' '+(entry.facility||'')+' '+(entry.merchantType||'')+' '+(entry.merchantName||'');
  const base='assets/icons/facility/';let icon=base+'UI_Icon_Intee_Shop.png',kind='이용 시설';
- if(['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(entry.entity)){icon=base+'UI_Icon_Intee_DailyEvent_0.png';kind='의뢰 접수';}
+ if(isGuildReception(entry)){icon=base+'UI_Icon_Intee_DailyEvent_0.png';kind='의뢰 접수';}
  else if(isInn(entry)){icon=base+'UI_Icon_Intee_Comfort.png';kind='숙박시설';}
  else if(/디어 헌터|만민당|식당/.test(text)){icon=base+'UI_Icon_Intee_Restaurant.png';kind='식당';}
  else if(/공용 조리|조리시설/.test(text)){icon=base+'UI_Icon_Intee_Cooking.png';kind='조리시설';}
@@ -60,7 +61,8 @@ drawLocation=function(p,v){
  p.classList.add('adventure-main');p.append(el('div','eyebrow','메인 화면'),el('h1','',v.map[2]),el('p','area-level',levelLabel(v.map[0])+(v.map[12]==='Y'?' · 안전지대':' · 야외 구역')));
  if(game.needsRecovery()){recoveryCard(p);return;}mainObjective(p);
  p.append(el('h2','','주변 시설'));const grid=el('div','grid location-places');
- for(const entry of game.placeEntries()){const visual=placeVisual(entry),card=el('section','card place-entry region-'+(visual.region==='리월'?'liyue':visual.region==='몬드'?'mond':'other')),body=el('div','place-entry-copy'),icon=el('img','place-entry-icon');icon.src=visual.icon;icon.alt='';icon.loading='lazy';body.append(el('small','place-entry-kind',(visual.region?visual.region+' · ':'')+visual.kind),el('h3','',placeName(entry)));if(entry.facility&&entry.facility!==v.map[2])body.append(el('p','muted',entry.facility));if(entry.reason)body.append(el('small','choice-note',entry.reason));card.append(icon,body,actionButton(entry.kind==='BOSS'?'입구로 가기':isInn(entry)?'숙박 안내':entry.modes[0]==='TALK'?'찾아가기':'들어가기','PLACE_ENTER',{place:entry.id}));grid.append(card);}
+ const places=game.placeEntries(),ordered=[...places.filter(isGuildReception),...places.filter(entry=>!isGuildReception(entry))];
+ for(const entry of ordered){const visual=placeVisual(entry),card=el('section','card place-entry region-'+(visual.region==='리월'?'liyue':visual.region==='몬드'?'mond':'other')+(isGuildReception(entry)?' place-entry-guild':'')),body=el('div','place-entry-copy'),icon=el('img','place-entry-icon');icon.src=visual.icon;icon.alt='';icon.loading='lazy';body.append(el('small','place-entry-kind',(visual.region?visual.region+' · ':'')+visual.kind),el('h3','',placeName(entry)));if(entry.facility&&entry.facility!==v.map[2])body.append(el('p','muted',entry.facility));if(entry.reason)body.append(el('small','choice-note',entry.reason));card.append(icon,body,actionButton(entry.kind==='BOSS'?'입구로 가기':isInn(entry)?'숙박 안내':entry.modes[0]==='TALK'?'찾아가기':'들어가기','PLACE_ENTER',{place:entry.id}));grid.append(card);}
  if(grid.children.length)p.append(grid);else p.append(el('p','muted','이곳에는 이용할 시설이 없습니다.'));
  lifePanel(p);const waiting=el('section','wait-controls');waiting.append(actionButton('1시간 기다리기','WAIT',{minutes:60}));if(v.map[12]!=='Y')waiting.append(el('small','muted','기다리는 동안 '+v.map[9]+'% 확률로 적과 조우합니다. 전투 직후에는 한 번 보호됩니다.'));p.append(waiting);bossProgressControls(p);
 };
@@ -82,7 +84,7 @@ function rewardPreview(parent,rewards){
  const box=el('div','reward-preview');const withCur=(key,cls,text,glyph)=>{const s=el('span',cls),ic=typeof currencyIcon==='function'&&currencyIcon(key,'reward-cur');if(ic)s.append(ic,text);else s.textContent=glyph+' '+text;return s;};if(rewards.primogem)box.append(withCur('PRIMOGEM','reward-primogem','원석 '+rewards.primogem+'개','✧'));if(rewards.mora)box.append(withCur('MORA','reward-mora',rewards.mora+' 모라','◈'));if(rewards.xp)box.append(el('span','','✦ 편성 중인 파티원 각각 경험치 +'+rewards.xp));for(const [id,n]of Object.entries(rewards.items||{}))box.append(tierMark(el('span','',safeName('14_ITEM_DB',id)+' ×'+n),id));if(rewards.equipment_choice)box.append(el('span','',rewards.equipment_choice.every(id=>game?.weaponBlueprintId?.(id))?'단조 도면 1개 선택':'장비 1개 선택'));parent.append(box);
 }
 function commissionCard(parent,q,guild=false){
- const c=el('section','card commission-card'),r=q.row,d=q.definition,state=q.state;c.append(el('small','',state?.claimed?'완료':q.accepted?'진행 중':'미수락'),el('h3','',r[1]),el('p','',r[5]||d.text));travelGuide(c,d.map_id);rewardPreview(c,q.reward);
+ const c=el('section','card commission-card'),r=q.row,d=q.definition,state=q.state,label=state?.claimed?'완료':q.accepted?'진행 중':'미수락';c.append(el('small','',(q.taskDisplay?.category||'길드 의뢰')+' · '+label),el('h3','',r[1]),el('p','',r[5]||d.text));travelGuide(c,d.map_id);rewardPreview(c,q.reward);
  const tale=game.commissionStory?.(r[0]);if(tale)c.append(el('p','commission-story',state?.claimed||state?.node==='READY_TO_CLAIM'?tale.after:tale.before));
  if(state?.claimed){c.append(el('p','muted','보상을 수령했습니다.'));}
  else if(!q.accepted){if(guild)c.append(actionButton('의뢰 수락','COMMISSION_ACCEPT',{quest:r[0]},true));else c.append(el('p','muted','안내원에게 찾아가 의뢰를 받아 주세요.'));}

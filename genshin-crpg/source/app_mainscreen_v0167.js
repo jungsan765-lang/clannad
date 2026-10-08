@@ -16,7 +16,7 @@ function compact(left){
  // Facilities: what each is, without the region, under its picture (the full name stays on the tile and its button).
  for(const tile of left.querySelectorAll('.shell-place-tile')){if(tile.querySelector('.place-entry-short'))continue;
   const kind=(tile.querySelector('.place-entry-kind')?.textContent||'').replace(REGION,'').trim(),name=tile.querySelector('h3')?.textContent?.trim()||'';
-  tile.querySelector('.place-entry-copy')?.append(mk('small','place-entry-short',kind||name));}
+  tile.querySelector('.place-entry-copy')?.append(mk('small','place-entry-short',tile.classList.contains('place-entry-guild')?'캐서린':kind||name));}
  // Waiting: one small button on the place's name row; how likely a fight is rides on its title.
  const wait=left.querySelector(':scope>.wait-controls'),head=left.querySelector(':scope>.shell-loc-head');
  if(wait&&!wait.classList.contains('compact')){wait.classList.add('compact');const note=wait.querySelector(':scope>small'),b=wait.querySelector('button');if(note&&b){b.title=note.textContent.trim();note.hidden=true;}
@@ -90,3 +90,4 @@ document.addEventListener('toggle',e=>{if(e.target?.closest?.('.shell-loc-side .
 let resizeTimer=0;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{const left=document.querySelector('.shell-loc-left');if(left)paginate(left);},120);});
 window.CRPGMainScreen={arrange,paginate,pagePane};
 })();
+

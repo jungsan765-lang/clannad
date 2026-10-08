@@ -178,4 +178,28 @@ c.version='0.16.12';c.branchVersion=172;
 c.removedRecurringIds=[...c.removedRecurringIds,'W_V168_LIYUE_PATROL'];
 c.stats={...c.stats,weekly:c.weekly.length};
 c.notes={...c.notes,weeklySlots:27,totalWeeklyCandidates:27};
+// 0.16.13: names and purpose labels are presentation metadata, separate from
+// the exact objective definitions used to validate accepted 169/171/172 saves.
+// A commission explains its actual activity; these are not additional stories.
+const learningNames=[
+ '의뢰 접수 연습','들길에서 찾은 재료','풍경 속 보물상자','신의 눈동자 조사',
+ '제작을 위한 채광','여행의 한 끼','회복의 한 끼','여정 중의 휴식',
+ '낚시의 첫걸음','식재료 손질','장비 제작의 첫걸음','동료에게 맞는 장비',
+ '장비를 다듬는 손길','비경에서 쌓는 경험','계시의 꽃을 찾아서','길드에 전하는 성과',
+ '새로운 동료와의 만남','동료와 쌓은 인연','길 위의 돌발상황','모아 온 눈동자 공양',
+ '모험의 발자취','강적을 찾아서','강화를 위한 밑천','나선비경 첫 공략'
+];
+const familyNames={
+ MOND_PATROL:'몬드 순찰',LIYUE_PATROL:'리월 순찰',SLIME:'슬라임 소탕',HILICHURL:'츄츄족 소탕',
+ BANDITS:'도적과 우인단 추적',RUINS:'유적의 위협',MOND_GATHER:'몬드 재료 조사',LIYUE_GATHER:'리월 재료 조사',
+ MINING:'광맥 조사',FISH_HUNT:'낚시와 사냥',COOKING:'원정 음식 준비',FORGING:'대장간의 일감',
+ REVELATION:'계시의 꽃 수련',WEALTH:'부의 꽃 수련',TALENT:'특성을 갈고닦는 수련',ASCENSION:'돌파를 위한 수련',
+ EXPERIENCE:'비경 순회 수련',MOND_BOSSES:'몬드 강적 토벌',LIYUE_BOSSES:'리월 강적 토벌',ABYSS:'나선비경 공략',
+ MONO_ANEMO:'같은 원소로 맞서는 도전',DOUBLE_PAIRS:'두 원소의 협동',MOND_SQUADS:'몬드 동료 협동 작전',LIYUE_SQUADS:'리월 동료 협동 작전'
+};
+const battleKinds=new Set(['win','ley','domain','boss','abyss']);
+c.displayWordingsV01613=Object.fromEntries(c.chains.map(t=>[t.id,{
+ name:t.learning?learningNames[t.tier-1]:(familyNames[t.family]?familyNames[t.family]+' · 제'+t.tier+'차':t.name),
+ category:t.learning?'모험 길잡이':t.kind==='delivery'?'물자 의뢰':battleKinds.has(t.kind)?'전투 의뢰':'생활 의뢰'
+}]));
 })(globalThis);

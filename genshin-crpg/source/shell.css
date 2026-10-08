@@ -3996,3 +3996,10 @@ body.teyvat[data-region=liyue] .task-gain-pic.g-purple{background:linear-gradien
 body.teyvat[data-region=liyue] :where(#root) button.gear-exp-face.on{background:rgba(248,210,169,.14);box-shadow:0 0 0 2px rgba(248,210,169,.3)}
 body.teyvat[data-region=liyue] .track-chip{background:rgba(244,181,113,.12);border:1px solid rgba(244,181,113,.45)}
 /* ---------- /리월 색 ---------- */
+
+/* 0.16.13: the existing guild reception tile leads the facility list; keep its frame and hit area. */
+body.teyvat .location-places>.place-entry.shell-place-tile.place-entry-guild:not(.locked){background:linear-gradient(140deg,rgba(46,97,82,.94),rgba(24,58,50,.96));border-color:var(--t-gold-hi,#f3dfae);color:#fff6de;box-shadow:inset 0 0 0 1px rgba(243,223,174,.14)}
+body.teyvat .location-places>.place-entry.shell-place-tile.place-entry-guild:not(.locked):hover{background:linear-gradient(140deg,rgba(58,113,95,.96),rgba(30,70,60,.98));box-shadow:inset 0 0 0 1px rgba(243,223,174,.2),0 0 10px rgba(243,223,174,.16)}
+body.teyvat .location-places>.place-entry.shell-place-tile.place-entry-guild:not(.locked):has(>button:focus-visible){outline:2px solid var(--t-gold-hi,#f3dfae);outline-offset:2px}
+body.teyvat .place-entry.shell-place-tile.place-entry-guild:not(.locked) .place-entry-kind{color:#e4d8b8}
+
