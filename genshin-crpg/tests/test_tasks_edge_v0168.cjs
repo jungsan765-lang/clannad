@@ -5,6 +5,8 @@
 const assert=require('node:assert/strict');
 const {fresh:baseFresh,R,db,c,advance}=require('./helpers_v011.cjs');
 const copy=x=>JSON.parse(JSON.stringify(x)),DAY=86400000,MAX=Number.MAX_SAFE_INTEGER;
+// Keep the one-day reset inside a week; the separate bulk-claim case chooses its own next Monday.
+advance(Date.UTC(2026,9,5,3)-c.Date.now());
 // The branch root is reported through its real native actions. Clearing only this
 // fixture's empty task box lets each check choose its assignment-time level/roster.
 function fresh(...args){const r=baseFresh(...args),map=r.s.global.CURRENT_MAP_ID;guild(r);r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});leave(r);r.s.global.CURRENT_MAP_ID=map;delete r.s.tasks;return r;}
@@ -22,6 +24,7 @@ function startDomain(r){leave(r);r.s.global.CURRENT_MAP_ID='MAP_D163_VALLEY_OF_R
 function settleOpening(r){const id=r.s.runtime.id;for(const a of r.s.runtime.actors)if(a.side==='ENEMY')a.hp=0;const action={id:r.s.global.SAVE_ID+':'+(r.s.global.LAST_COMMITTED_ACTION_SEQ+1),revision:r.s.global.SAVE_REVISION,type:'COMBAT_BEGIN',battle:id};const out=r.transact(action);assert(!r.s.runtime);assert(r.s.combatReceipts[id].victory);return {action,out};}
 function finishGather(r,inputs=true){const j=r.s.lifeJob,scene=r.lifeScene(j);advance(j.duration+100);return r.action('LIFE_FINISH',{job:j.id,elapsed:j.duration,inputs:inputs?scene.nodes.map((n,i)=>({at:600+i*300,node:i})):[]}).result;}
 function legacyDaily(r,ids){const old=c.CRPGRuntime.tasksV0167; r.s.tasks={version:1,day:old.dayOf(r.tasksNow()),week:old.weekOf(r.tasksNow()),daily:{},weekly:{},claimed:{},dailyIds:ids};r.tasksBox(true);}
+function rejectObjectiveChoice(r,id){const t=c.CRPGTaskCatalogV0168.chains.find(t=>t.id===id),before=r.serialize();assert.throws(()=>r.action('QUEST_CHOICE',{quest:id,choice:'careful'}),{code:'ACTION_LOCK',message:r.taskPresentation(t).name+' (0/'+t.goal+')'});assert.equal(r.serialize(),before,'a refused menu choice cannot change objective progress, rewards or saved state');}
 function completeAssigned(r,scope,leaveReady=false){guild(r);const ids=r.tasksBox(true)[scope+'Ids'];
  // Explicit earned activity quotas; predecessor rewards are claimed through native actions.
  for(let n=0;n<=ids.length;n++){const frontier=r.taskView()[scope];if(!frontier.length)break;for(const row of frontier){const box=r.tasksBox(true),d=box[scope+'Definitions'][row.id];box[scope+'Progress'][row.id]=d.goal;}if(leaveReady&&ids.every(id=>r.s.tasks.claimed[id]||r.s.tasks[scope+'Progress'][id]>=r.s.tasks[scope+'Definitions'][id].goal))break;for(const row of frontier)r.action('TASK_CLAIM',{task:row.id});}}
@@ -73,7 +76,7 @@ check('일괄 수령은 한 번만 지급하며 일일 보고5회와 주간 모�
 
 check('mid-chain Primogems require real new work and a successful claim; failed reports, reload and duplicate claims cannot mint extra',()=>{
  let r=fresh();r.adminApply({op:'level',target:'ALL',value:30});const cooking=c.CRPGTaskCatalogV0168.chains.filter(t=>t.family==='COOKING'&&t.tier<=5),target=cooking.at(-1);assert(target.reward.primogem>0);let expected=Number(r.s.global.PRIMOGEM)||0;
- for(const t of cooking){expose(r,t.id);guild(r);r.action('COMMISSION_ACCEPT',{quest:t.id});assert.equal(r.s.quests[t.id].taskObjective.progress,0);assert.equal(Number(r.s.global.PRIMOGEM)||0,expected);assert.throws(()=>r.action('CLAIM_QUEST',{quest:t.id}),/목표 활동/);assert.throws(()=>r.action('QUEST_CHOICE',{quest:t.id,choice:'careful'}),/실제|수락|요리/);cookObjective(r,t);assert.equal(Number(r.s.global.PRIMOGEM)||0,expected,'completion alone never pays Primogems');
+ for(const t of cooking){expose(r,t.id);guild(r);r.action('COMMISSION_ACCEPT',{quest:t.id});assert.equal(r.s.quests[t.id].taskObjective.progress,0);assert.equal(Number(r.s.global.PRIMOGEM)||0,expected);assert.throws(()=>r.action('CLAIM_QUEST',{quest:t.id}),/목표 활동/);rejectObjectiveChoice(r,t.id);cookObjective(r,t);assert.equal(Number(r.s.global.PRIMOGEM)||0,expected,'completion alone never pays Primogems');
   if(t===target){guild(r,'리월');const before=r.serialize();assert.throws(()=>r.action('CLAIM_QUEST',{quest:t.id}),/몬드의 캐서린/);assert.equal(r.serialize(),before,'the failed report leaves progress, claims and currencies unchanged');const fake=copy(r.s);fake.quests[t.id].taskObjective.primogemPaid=t.reward.primogem;assert.throws(()=>r.validateSave(fake),/임무 기록/);}
   guild(r);const action={id:r.s.global.SAVE_ID+':'+(r.s.global.LAST_COMMITTED_ACTION_SEQ+1),revision:r.s.global.SAVE_REVISION,type:'CLAIM_QUEST',quest:t.id};const out=r.transact(action);expected+=t.reward.primogem||0;assert.equal(Number(r.s.global.PRIMOGEM)||0,expected);assert.equal(out.result.rewards.primogem||0,t.reward.primogem||0);assert.equal(r.s.quests[t.id].taskObjective.primogemPaid,t.reward.primogem||0);const claimed=r.serialize();assert.deepEqual(copy(r.transact(action)),copy(out));assert.equal(r.serialize(),claimed);r=new R(db,JSON.parse(claimed));const after=r.serialize();assert.throws(()=>r.action('CLAIM_QUEST',{quest:t.id}),/이미/);assert.equal(r.serialize(),after);
  }

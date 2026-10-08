@@ -4,6 +4,8 @@
 const assert=require('node:assert/strict');
 const {fresh:baseFresh,R,db,c,advance}=require('./helpers_v011.cjs');
 const copy=x=>JSON.parse(JSON.stringify(x)),C=c.CRPGTaskCatalogV0168,T=c.CRPGRuntime.tasksV0168,DAY=86400000;
+// Assignment/reset expectations use Monday noon KST, independent of the CI runner's weekday.
+advance(Date.UTC(2026,9,5,3)-c.Date.now());
 // The branch root is reported through its real native actions. Clearing only this
 // fixture's empty task box lets each check choose its assignment-time level/roster.
 function fresh(...args){const r=baseFresh(...args),map=r.s.global.CURRENT_MAP_ID;guild(r);r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});leave(r);r.s.global.CURRENT_MAP_ID=map;delete r.s.tasks;return r;}
@@ -22,6 +24,7 @@ function battle(r,map='MAP_MOND_PLAINS',settle=true){leave(r);r.s.global.CURRENT
 function gather(r,inputs=true){leave(r);r.s.global.CURRENT_MAP_ID='MAP_MOND_PLAINS';r.action('LIFE_START',{kind:'GATHER'});const j=r.s.lifeJob,scene=r.lifeScene(j);advance(j.duration+100);const picks=inputs?scene.nodes.map((n,i)=>({at:600+i*300,node:i})):[];return r.action('LIFE_FINISH',{job:j.id,elapsed:j.duration,inputs:picks}).result;}
 function accept(r,id){expose(r,id);guild(r);return r.action('COMMISSION_ACCEPT',{quest:id});}
 function report(r,id){guild(r);return r.action('CLAIM_QUEST',{quest:id});}
+function rejectObjectiveChoice(r,id){const t=C.chains.find(t=>t.id===id),before=r.serialize();assert.throws(()=>r.action('QUEST_CHOICE',{quest:id,choice:'careful'}),{code:'ACTION_LOCK',message:r.taskPresentation(t).name+' (0/'+t.goal+')'});assert.equal(r.serialize(),before,'a refused menu choice cannot change objective progress, rewards or saved state');}
 function legacyDaily(r,ids){const old=c.CRPGRuntime.tasksV0167,box=r.tasksBox(true);r.s.tasks={version:1,day:old.dayOf(r.tasksNow()),week:old.weekOf(r.tasksNow()),daily:{},weekly:copy(box.weekly),claimed:{},dailyIds:ids};r.tasksBox(true);}
 function currentDaily(r,ids){r.tasksBox(true);for(const id of ids){assert(r.s.tasks.dailyDefinitions[id],'assigned current objective '+id);unlockRecurring(r,'daily',id);}r.validateSave(copy(r.s));}
 
@@ -37,7 +40,7 @@ check('일일11·주간27 후보: 열린 갈래만 표시하고 기존 기본 �
 
 check('accepted objective starts at zero; real qualifying victory and report reveal its successor once',()=>{
  const r=fresh();level(r);const id='Q_TASK_MOND_PATROL_01',next='Q_TASK_MOND_PATROL_02';battle(r);assert(!r.s.quests[id],'past wins are not credited');
- accept(r,id);assert.equal(r.s.quests[id].taskObjective.progress,0);assert.throws(()=>r.action('QUEST_CHOICE',{quest:id,choice:'careful'}),/실제|수락|승리/);
+ accept(r,id);assert.equal(r.s.quests[id].taskObjective.progress,0);rejectObjectiveChoice(r,id);
  assert.throws(()=>r.action('CLAIM_QUEST',{quest:id}),/목표 활동/);assert(!r.questVisible(next));
  leave(r);r.action('WAIT',{minutes:1});assert.equal(r.s.quests[id].taskObjective.progress,0,'waiting is not a victory');
  battle(r,'MAP_MOND_FOREST');assert.equal(r.s.quests[id].taskObjective.progress,0,'wrong map is not credited');battle(r);assert.equal(r.s.quests[id].node,'READY_TO_CLAIM');
