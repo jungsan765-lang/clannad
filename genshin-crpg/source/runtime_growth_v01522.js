@@ -169,11 +169,12 @@ P.growthStoryGate=function(phase){
  const gates=[tr?(done('Q_TRV_MOND_01')||flag('FLAG_TRV_MON_CH1_CLEAR')):(done('Q_ISK_MOND_01')||flag('FLAG_ISK_M03_CLEAR')),tr?(['진행중','진행 중'].includes(this.s.quests.Q_TRV_MOND_02?.state)||done('Q_TRV_MOND_02')||flag('FLAG_TRV_MON_CH2_CLEAR')):done('Q_ISK_MOND_02'),tr?flag('FLAG_TRV_MON_CH2_CLEAR'):flag('FLAG_ISK_M05_CLEAR'),...[1,2,3].map(n=>done('Q_'+(tr?'TRV':'ISK')+'_LIYUE_0'+n))];
  return {ready:!!gates[phase],label:['몬드 본편 1장',tr?'몬드 본편 2장 진입':'몬드 본편 2장','몬드 본편 완료','리월 본편 1장','리월 본편 2장','리월 본편 3장'][phase]||'모든 돌파 완료'};
 };
-// 0.16.9: shared weekly material goals supply one late 4-star ascension, not six cheap rerolls.
-// Early gems stay 3/6/12; existing ascensions and trained talents are never charged again.
+// 0.16.14: couple the 0.16.13 top-tier yield (32) to its demand (800).
+// Final 4/5-star ascensions retain 25/50 unboosted top-tier runs and the prior weekly supply burden.
+// Earlier gems stay 3/6/12/40/80; completed ascensions and trained talents are never charged again.
 P.ascensionInfo=function(owner=PLAYER){
  const g=this.growth(owner),p=g.phase,five=owner!==PLAYER&&this.rarityOf?.(owner)===5,mult=five?2:1,element=this.growthElement(owner),gate=this.growthStoryGate(p),cost={mora:p<6?Math.round([800,2400,6000,14000,28000,42000][p]*(five?1.8:1)):0,items:{}};
- if(p<6){cost.items['GROWTH_GEM_'+GEMS[element][0]]=[3,6,12,40,80,300][p]*mult;cost.items[SPECIALTIES[owner]||(owner.startsWith('LIYUE_')?'MAT_LIYUE_QINGXIN':'ING_CALLA_LILY')]=[2,4,6,8,10,12][p]*mult;cost.items[['MAT_DAMAGED_MASK','MAT_STAINED_MASK','MAT_OMINOUS_MASK'][Math.min(2,Math.floor(p/2))]]=[2,3,3,4,4,6][p]*mult;if(p>=3)cost.items[p===3?'TRPG_BOSS_ESSENCE':BOSS_MATERIAL[element]]=(p-2)*mult;}
+ if(p<6){cost.items['GROWTH_GEM_'+GEMS[element][0]]=[3,6,12,40,80,800][p]*mult;cost.items[SPECIALTIES[owner]||(owner.startsWith('LIYUE_')?'MAT_LIYUE_QINGXIN':'ING_CALLA_LILY')]=[2,4,6,8,10,12][p]*mult;cost.items[['MAT_DAMAGED_MASK','MAT_STAINED_MASK','MAT_OMINOUS_MASK'][Math.min(2,Math.floor(p/2))]]=[2,3,3,4,4,6][p]*mult;if(p>=3)cost.items[p===3?'TRPG_BOSS_ESSENCE':BOSS_MATERIAL[element]]=(p-2)*mult;}
  const reason=!this.premiumOwns(owner)?'소유한 동료를 골라 주세요.':p>=6?'마지막 돌파를 마쳤습니다.':g.level<g.cap?'Lv. '+g.cap+'에 도달하면 돌파할 수 있습니다.':!gate.ready?gate.label+'을 먼저 진행해 주세요.':this.s.global.MORA<cost.mora?'모라가 부족합니다.':Object.entries(cost.items).some(([id,n])=>this.itemCount(id)<n)?'돌파 재료가 부족합니다.':'';
  return {...g,cost,gate,nextCap:CAPS[Math.min(6,p+1)],reason};
 };
