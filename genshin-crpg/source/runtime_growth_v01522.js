@@ -25,6 +25,13 @@ const BOOKS={MAT_CHAR_EXP_WANDERER:50,MAT_CHAR_EXP_ADVENTURER:250,MAT_CHAR_EXP_H
 const DOMAIN_XP={5:200,10:450,20:1100,30:1800,40:2500,50:4500,60:8000};
 const DOMAIN_MORA={5:20,10:30,20:50,30:70,40:100,50:140,60:200};
 const FORMATION_HP=70000;
+// 0.16.15: a material trial receives one fixed stage budget for the whole enemy
+// formation, rather than the field budget once for every elite/body. Durability
+// includes native DEF and initial shields; native cards/control/SPD stay intact.
+// These are four-character reference budgets, never scaled by a player's party,
+// level, ownership, rarity, current HP, equipment or selected route.
+const MATERIAL_DURABILITY_V01615={5:3400,10:5800,15:7500,20:9200,25:10900,30:30000,35:32000,40:34000,45:36000,50:38000,55:46000,60:48000};
+const MATERIAL_PRESSURE_V01615={5:525,10:730,15:880,20:1070,25:1270,30:5120,35:5460,40:5750,45:6040,50:6340,55:6630,60:6920};
 // 0.15.25 재료 합성 (docs/BALANCE_AUDIT_V01523_KO.md 「하위→상위 합성」: the higher masks, slime and the like came only from
 // some field drops): at a forge or an alchemist, three of a monster material make one of the next tier, as in the original.
 const SYNTH=[['MAT_SLIME_CONDENSATE','MAT_SLIME_SECRETIONS','MAT_SLIME_CONCENTRATE'],['MAT_DAMAGED_MASK','MAT_STAINED_MASK','MAT_OMINOUS_MASK'],['MAT_WHOPPER_NECTAR','MAT_SHIMMERING_NECTAR','MAT_ENERGY_NECTAR'],['MAT_FUNGAL_SPORE','MAT_LUMINESCENT_POLLEN','MAT_CRYSTALLINE_CYST_DUST'],['MAT_TREASURE_INSIGNIA','MAT_SILVER_INSIGNIA','MAT_GOLDEN_INSIGNIA'],['MAT_OLD_HANDGUARD','MAT_KAGEUCHI_HANDGUARD','MAT_FAMED_HANDGUARD'],['MAT_RECRUIT_INSIGNIA','MAT_SERGEANT_INSIGNIA','MAT_LIEUTENANT_INSIGNIA'],['MAT_MIST_GRASS_POLLEN','MAT_MIST_GRASS','MAT_MIST_GRASS_WICK'],['MAT_CHAOS_DEVICE','MAT_CHAOS_CIRCUIT','MAT_CHAOS_CORE'],['MAT_CONCEALED_CLAW','MAT_CONCEALED_UNGUIS','MAT_CONCEALED_TALON'],['MAT_TRANSOCEANIC_PEARL','MAT_TRANSOCEANIC_CHUNK','MAT_XENOCHROMATIC_CRYSTAL'],['MAT_FADED_RED_SATIN','MAT_TRIMMED_RED_SILK','MAT_RICH_RED_BROCADE'],['MAT_DEAD_LEY_LINE_BRANCH','MAT_DEAD_LEY_LINE_LEAVES','MAT_LEY_LINE_SPROUT']];
@@ -196,6 +203,26 @@ P.tuneGrowthEnemy=function(a,b,level){
  a.hp=a.maxHp=Math.round(hp);a.atk=Math.round([24,38,52,a.source==='BOSS_ANDRIUS'?55:65][i]*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*partyAtk*atkBudget);a.def=Math.round([20,28,35,42][i]*adCurve(level));a.level=level;a.spd=Number(source[19])+Math.floor(level/5)+(a.variant?.affixes.includes('SWIFT')?8:0);a.hit=Math.min(95,80+Math.floor(level/5));if(a.variant?.tier===5){a.atk=Math.round(a.atk*1.15);a.def=Math.round(a.def*1.1);}if(a.variant?.affixes.includes('FEROCIOUS'))a.atk=Math.round(a.atk*1.2);if(a.variant?.affixes.includes('ARMORED'))a.def=Math.round(a.def*1.35);
  for(const s of a.shields||[]){s.value=Math.round(s.value*hp/prev);if(s.initialValue)s.initialValue=Math.round(s.initialValue*hp/prev);}a.growthScaled=true;
 };
+P.tuneMaterialDomain=function(b,d){
+ if(d?.version!==4||d.materialBudgetVersion!==1||!['TALENT','ASCENSION'].includes(d.kind)||b.materialBudget)return;
+ const foes=[...b.actors,...(b.enemyReserve||[])].filter(a=>a.side==='ENEMY'&&!a.fbSummon),durability=MATERIAL_DURABILITY_V01615[d.level],pressure=MATERIAL_PRESSURE_V01615[d.level];
+ if(!foes.length||!durability||!pressure)return;
+ // Square-root weighting retains an elite's greater share without charging a
+ // full field-party HP budget for every elite. Wood mitigation is preserved;
+ // the Geo support's native repeatable 20% shield is budgeted once, not removed.
+ const hpWeights=foes.map(a=>Math.sqrt(a.maxHp)),atkWeights=foes.map(a=>Math.sqrt(a.atk)),hpWeight=hpWeights.reduce((n,x)=>n+x,0),atkWeight=atkWeights.reduce((n,x)=>n+x,0);
+ for(const [i,a]of foes.entries()){
+  // Native opening shields were rounded before the field override. Normalize
+  // their percent to avoid inherited one-HP party-size rounding differences.
+  const previous=a.maxHp,shieldFractions=(a.shields||[]).map(s=>({value:Math.round(Math.max(0,s.value||0)/previous*100)/100,initial:Math.round(Math.max(0,s.initialValue||0)/previous*100)/100})),shieldFraction=Math.max(shieldFractions.reduce((n,s)=>n+s.value,0),a.source==='MON_FATUI_GEO'?.2:0),factor=(1+shieldFraction)*(1+this.combatStat(a,'def')/100)/(a.source==='MON_MITACHURL_WOOD'?.65:1);
+  // Fixed cadence weights account for large slimes' two-target attacks and axe
+  // sweeps. They change the budget only, never AI choices or damage coefficients.
+  const cadence=a.source.startsWith('MON_SLIME_LARGE_')?1.9:a.source==='MON_MITACHURL_AXE'?1.675:.975,hp=Math.max(1,Math.round(durability*hpWeights[i]/hpWeight/factor));
+  a.hp=a.maxHp=hp;a.atk=Math.max(1,Math.round(pressure*atkWeights[i]/atkWeight/cadence));
+  for(const [j,s]of (a.shields||[]).entries()){s.value=Math.round(shieldFractions[j].value*hp);if(s.initialValue)s.initialValue=Math.round(shieldFractions[j].initial*hp);}
+ }
+ b.materialBudget={version:1,durability,pressure};
+};
 P.growthEncounterLevel=function(origin){return api.growthRegionData.story?.[String(origin).replace(/^STORY:/,'')]||Number(this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID)[6])||1;};
 P.startBattle=function(group,origin='EXPLICIT',...rest){
  this.installGrowthContent();const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;if(!b||b===before||b.abyss||b.raid||String(origin).startsWith('RAID'))return out;
@@ -203,7 +230,8 @@ P.startBattle=function(group,origin='EXPLICIT',...rest){
  for(const a of [...b.actors,...(b.enemyReserve||[])].filter(x=>x.side==='ENEMY'&&!x.fbSummon))this.tuneGrowthEnemy(a,b,api.growthRegionData.bosses[a.source]||level);
  for(const a of b.actors.filter(x=>x.fbSummon))this.tuneGrowthSummon(a,b);
  b.growthBalance={version:1,level,field:origin==='RANDOM'||origin.startsWith('QUEST:')||origin.startsWith('ELITE:'),roundLimit:30};
- if(this._growthDomain)b.growthDomain=copy(this._growthDomain);if(this._growthElite)b.growthElite=copy(this._growthElite);
+ if(this._growthDomain){b.growthDomain=copy(this._growthDomain);this.tuneMaterialDomain(b,b.growthDomain);}if(this._growthElite)b.growthElite=copy(this._growthElite);
+ if(b.materialBudget&&out?.order&&this.combatOrderView)out.order=this.combatOrderView();
  return out;
 };
 P.tuneGrowthSummon=function(a,b){const owner=b.actors.find(x=>x.id===a.fbSummon?.owner),spec=api.fieldBosses.summons[a.source];if(!owner?.growthScaled||!spec)return;const prev=a.maxHp,p=phaseFor(owner.level);a.hp=a.maxHp=Math.max(1,Math.round(spec.hp<=1?owner.maxHp*spec.hp:spec.hp/5*hpCurve(owner.level)*(1+.16*p)));a.atk=Math.round(owner.atk*(spec.atk||0));a.def=Math.round(spec.def*adCurve(owner.level));a.level=owner.level;for(const s of a.shields||[])s.value=Math.round(s.value*a.maxHp/prev);a.growthScaled=true;};
@@ -255,7 +283,7 @@ P.growthDomainGroup=function(d,element='NEUTRAL'){
  if(d.kind==='ASCENSION'&&elemental.length)members=elemental.map((m,i)=>['EM_'+id+'_'+i,id,i+1,m,2,2,'MON'+(i+1),'GROWTH','원소 시련']);
  table(this,'33_ENCOUNTER_GROUP_DB',[...this.db['33_ENCOUNTER_GROUP_DB'],group]);table(this,'49_ENCOUNTER_MEMBER_DB',[...this.db['49_ENCOUNTER_MEMBER_DB'],...members]);return id;
 };
-P.startGrowthDomain=function(a){const d=this.growthDomainEntries().find(x=>x.id===a.domain),element=d?.kind==='ASCENSION'?a.element||'NEUTRAL':'NEUTRAL';if(!d||d.reason)fail('DOMAIN',d?.reason||'이곳의 비경 입구를 이용해 주세요.');if(!Object.values(GEMS).some(x=>x[0]===element))fail('DOMAIN','원소 재료를 골라 주세요.');const {reason,levels,lock,...entry}=d;this._growthDomain={...entry,version:4,...(d.kind==='ASCENSION'?{ascensionRewardVersion:1}:{}),element,day:dayOf(now(this)),map:this.s.global.CURRENT_MAP_ID};try{return this.startBattle(this.growthDomainGroup(d,element),'DOMAIN:'+d.id);}finally{delete this._growthDomain;}};
+P.startGrowthDomain=function(a){const d=this.growthDomainEntries().find(x=>x.id===a.domain),element=d?.kind==='ASCENSION'?a.element||'NEUTRAL':'NEUTRAL';if(!d||d.reason)fail('DOMAIN',d?.reason||'이곳의 비경 입구를 이용해 주세요.');if(!Object.values(GEMS).some(x=>x[0]===element))fail('DOMAIN','원소 재료를 골라 주세요.');const {reason,levels,lock,...entry}=d;this._growthDomain={...entry,version:4,...(d.kind==='ASCENSION'?{ascensionRewardVersion:1}:{}),...(['TALENT','ASCENSION'].includes(d.kind)?{materialBudgetVersion:1}:{}),element,day:dayOf(now(this)),map:this.s.global.CURRENT_MAP_ID};try{return this.startBattle(this.growthDomainGroup(d,element),'DOMAIN:'+d.id);}finally{delete this._growthDomain;}};
 P.growthEliteEntry=function(){const map=this.s.global.CURRENT_MAP_ID,group=ELITES[map];return group?{map,group,level:Number(this.row('32_MAP_DB',map)[6]),reason:this.s.eliteClaims?.[map]===dayOf(now(this))?'오늘의 토벌을 마쳤습니다. 한국 시간 자정에 다시 나타납니다.':''}:null;};
 P.finishBattle=function(win){const b=this.s.runtime,active=new Set(b?.actors.filter(a=>a.side==='ALLY').map(a=>a.source)),out=old.finishBattle.call(this,win);if(!b||!out)return out;const recorded=JSON.parse(this.s.global.LAST_BATTLE_RESULT_JSON||'{}');if((recorded.battleId||recorded.id)===b.id)Object.assign(out,recorded);
  if(b.growthDomain)this.s.lastGrowthDomain={domain:b.growthDomain.id,element:b.growthDomain.element,map:b.growthDomain.map};
@@ -293,6 +321,7 @@ function migrate(r,s){
 }
 P.newGame=function(o){this.installGrowthContent();old.newGame.call(this,o);migrate(this,this.s);this.installRegionalLevels();this.recalculate();this.s.global.PLAYER_HP_CURRENT=this.s.global.PLAYER_HP_MAX;return copy(this.s);};
 P.validateSave=function(s){this.installGrowthContent();migrate(this,s);
+ if(s.runtime?.materialBudget&&!s.runtime.growthDomain)fail('GROWTH_SAVE','재료 비경 난이도 저장값이 잘못되었습니다.');
  const d=s.runtime?.growthDomain;if(d){
   if(d.version===4){const spec=SITES[d.key];if(!spec||!isDomain(d)||d.region!==spec.region||d.map!==spec.map||d.name!==spec.name||!Object.values(GEMS).some(x=>x[0]===d.element)||d.kind!=='ASCENSION'&&d.element!=='NEUTRAL'||!Number.isSafeInteger(d.day)||s.runtime.origin!=='DOMAIN:'+d.id)fail('GROWTH_SAVE','비경 저장값이 잘못되었습니다.');}
   // A fight begun under the 0.16.2 domains is checked by its own rules and may finish.
@@ -303,6 +332,8 @@ P.validateSave=function(s){this.installGrowthContent();migrate(this,s);
   else if(!['몬드','리월'].includes(d.region)||!Object.hasOwn(KINDS,d.kind)||!(d.region==='몬드'?[5,10,20,30]:[30,40,50,60]).includes(d.level)||d.id!==d.kind+':'+d.level||DOMAIN_MAPS[d.map]!==d.region||!Object.values(GEMS).some(x=>x[0]===d.element)||!Number.isSafeInteger(d.day)||s.runtime.origin!=='DOMAIN:'+d.id)fail('GROWTH_SAVE','비경 저장값이 잘못되었습니다.');
   if(this.growthDomainGroup(d,d.element)!==s.runtime.group)fail('GROWTH_SAVE','비경 편성이 일치하지 않습니다.');}
  if(d){
+  if(d.materialBudgetVersion!==undefined&&(d.version!==4||!['TALENT','ASCENSION'].includes(d.kind)||d.materialBudgetVersion!==1))fail('GROWTH_SAVE','재료 비경 난이도 저장값이 잘못되었습니다.');
+  const budget=s.runtime.materialBudget;if(d.materialBudgetVersion===1&&!budget||budget&&(d.materialBudgetVersion!==1||budget.version!==1||budget.durability!==MATERIAL_DURABILITY_V01615[d.level]||budget.pressure!==MATERIAL_PRESSURE_V01615[d.level]))fail('GROWTH_SAVE','재료 비경 난이도 저장값이 일치하지 않습니다.');
   if(d.ascensionRewardVersion!==undefined&&(d.version!==4||d.kind!=='ASCENSION'||![0,1].includes(d.ascensionRewardVersion)))fail('GROWTH_SAVE','돌파 비경 보상 저장값이 잘못되었습니다.');
   // A pre-0.16.13 version-4 fight has no marker. Freeze its original reward once on loading;
   // fresh entries/previews use the current table, and new battles explicitly carry version 1.
@@ -314,5 +345,5 @@ P.validateSave=function(s){this.installGrowthContent();migrate(this,s);
  if(s.domainDaily&&(!Number.isSafeInteger(s.domainDaily.day)||!Number.isSafeInteger(s.domainDaily.wins)||s.domainDaily.wins<0))fail('GROWTH_SAVE','비경 일일 기록을 확인해 주세요.');if(s.eliteClaims&&(Array.isArray(s.eliteClaims)||Object.entries(s.eliteClaims).some(([m,d])=>!ELITES[m]||!Number.isSafeInteger(d))))fail('GROWTH_SAVE','정예 토벌 기록을 확인해 주세요.');return s;
 };
 api.growthV01522={caps:CAPS,talentCaps:TALENTS,hpCurve,adCurve,xpNext,legacyXpNext,pacingVersion:3,pacingCurve:XP_PACING_V0168.slice(),previousPacingCurve:XP_PACING_V0161.slice(),previousPacingCurveVersion2:XP_PACING_V0166.slice(),phaseFor,gems:GEMS,domainMaps:DOMAIN_MAPS,domains:copy(Object.fromEntries(Object.entries(SITES).map(([k,d])=>[k,{name:d.name,kind:d.kind,region:d.region,map:d.map,levels:d.levels.slice(),level:d.levels[0],foes:d.foes||null}]))),domainKinds:{TALENT:KINDS.TALENT,ASCENSION:KINDS.ASCENSION,EXP:KINDS.EXP},domainGemStage:copy(GEM_STAGE),domainTalentStage:copy(TALENT_STAGE),
- legacyTrialSites:copy(SITES_V3),legacyTrials:TRIALS_V3.slice(),domainXp:copy(EXP_XP),domainMaterialXp:copy(MATERIAL_XP),domainAscensionGems:copy(ASCENSION_GEMS),ascensionRewardVersion:1,legacyTrialXp:copy(EXP_XP_V3),legacyDomains:copy(DOMAINS),legacyDomainLevels:copy(DOMAIN_LEVELS),legacyDomainXp:copy(DOMAIN_XP),legacyDomainMora:copy(DOMAIN_MORA),partyBaseline:4,formationHp:FORMATION_HP,specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
+ legacyTrialSites:copy(SITES_V3),legacyTrials:TRIALS_V3.slice(),domainXp:copy(EXP_XP),domainMaterialXp:copy(MATERIAL_XP),domainAscensionGems:copy(ASCENSION_GEMS),ascensionRewardVersion:1,materialBudgetVersion:1,materialDurabilityBudgets:copy(MATERIAL_DURABILITY_V01615),materialAttackPressureBudgets:copy(MATERIAL_PRESSURE_V01615),legacyTrialXp:copy(EXP_XP_V3),legacyDomains:copy(DOMAINS),legacyDomainLevels:copy(DOMAIN_LEVELS),legacyDomainXp:copy(DOMAIN_XP),legacyDomainMora:copy(DOMAIN_MORA),partyBaseline:4,formationHp:FORMATION_HP,specialties:SPECIALTIES,eliteSites:ELITES,dayOf,synthesis:copy(SYNTH),synthMora:SYNTH_MORA.slice(),imports:IMPORTS.slice()};
 })(globalThis);

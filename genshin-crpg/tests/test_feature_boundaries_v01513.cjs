@@ -87,9 +87,9 @@ check('lodging: both regional inns enforce funds, quantity and locality, then he
   let r=world(map);if(map==='MAP_LIYUE_HARBOR')r.s.flags.FLAG_CRPG_LIYUE_HARBOR_VISITED=true;
   r.adminApply({op:'recruit',char:'MOND_AMBER'});r.adminApply({op:'recruit',char:'MOND_LISA'});r.action('PARTY',{char:'MOND_AMBER',slot:2});
   rejected(r,'BUY',{stock,quantity:1});r.s.global.WORLD_TIME='20:30';enter(r,place,'SHOP');
-  const price=r.row('19_SHOP_STOCK_DB',stock)[5];r.s.global.MORA=price-1;rejected(r,'BUY',{stock,quantity:1},/부족/);r.s.global.MORA=price;
+  let price=r.stockPrice(r.row('19_SHOP_STOCK_DB',stock));r.s.global.MORA=price-1;rejected(r,'BUY',{stock,quantity:1},/부족/);r.s.global.MORA=price;
   for(const quantity of [0,-1,2])rejected(r,'BUY',{stock,quantity});
-  r.s.global.PLAYER_HP_CURRENT=1;r.s.chars.MOND_AMBER.hp=2;r.s.chars.MOND_LISA.hp=3;const day=r.s.global.WORLD_DAY;
+  r.s.global.PLAYER_HP_CURRENT=1;r.s.chars.MOND_AMBER.hp=2;r.s.chars.MOND_LISA.hp=3;const day=r.s.global.WORLD_DAY;price=r.stockPrice(r.row('19_SHOP_STOCK_DB',stock));r.s.global.MORA=price;
   once(r,intent(r,'BUY',{stock,quantity:1}));assert.equal(r.s.global.MORA,0);assert.equal(r.s.global.WORLD_DAY,day+1);assert.equal(r.s.global.WORLD_TIME,'04:30');
   assert.equal(r.s.global.PLAYER_HP_CURRENT,r.s.global.PLAYER_HP_MAX);assert.equal(r.s.chars.MOND_AMBER.hp,r.character('MOND_AMBER').maxHp);assert.equal(r.s.chars.MOND_LISA.hp,3);
   assert.equal(r.s.placeVisit,null);assert.equal(r.s.global.CURRENT_MAP_ID,map);r=reload(r);rejected(r,'BUY',{stock,quantity:1});
