@@ -11,6 +11,24 @@
   const tactics = ['균형', '공격우선', '생존우선', '지원우선', '연계우선'];
   const foodStatuses = ['STATUS_FOOD_ATK', 'STATUS_FOOD_FEAST', 'STATUS_FOOD_RESIST', 'STATUS_FOOD_SPEED', 'STATUS_FOOD_DEF', 'STATUS_FOOD_CRIT'];
   const shiftedRecipes = new Set(['REC_PROCESS_BUTTER', 'REC_PROCESS_CHEESE', 'REC_PROCESS_HAM', 'REC_PROCESS_SAUSAGE', 'REC_ALCH_HEALING_POTION', 'REC_MEDICAL_BANDAGE']);
+  // Fixed per-craft charges: cooking early or on another account has the same
+  // cost. Recovery strength, ingredients, unlocks and non-recovery recipes stay
+  // under their existing definitions.
+  const recoveryCookingMora = Object.fromEntries(Object.entries({
+    TEA_BREAK_PANCAKE: 4, SWEET_MADAME: 4, HASH_BROWN: 2, MATSUTAKE_ROLL: 2,
+    UNIVERSAL_PEACE: 3, PIZZA: 4, SAKURA_MOCHI: 3, TAHCHIN: 3,
+    SNEZ_GLUPOV_RYE_BREAD: 3, SNEZ_BERRY_ICE_CREAM: 3, SNEZ_OLD_GARDEN_SAUSAGE: 4,
+    SNEZ_MEDOVIK: 3, SNEZ_ZHARKOYE: 3, STEAK: 4, CHICKEN_SKEWER: 3,
+    MOND_GRILLED_FISH: 3, RADISH_SOUP: 4, MINT_JELLY: 4, PANCAKE_TEA_BREAK: 3,
+    BOLOGNESE: 4, APPLE_STEW: 3, CHICKEN_BURGER: 4, MORA_MEAT: 4,
+    STIR_FRIED_FILET: 3, CRYSTAL_SHRIMP: 4, VEGETARIAN_ABALONE: 2,
+    SQUIRREL_FISH: 3, SHRIMP_BALLS: 3, BAMBOO_SOUP: 3, PERCH_STEW: 2,
+    CRAB_HAM_BAKE: 3, POTATO_SHRIMP_PLATTER: 4, GRILLED_TIGER_FISH: 3,
+    RICE_BUNS: 3, FINE_TEA_FULL_MOON: 3, JADEVEIN_TEA_EGGS: 3,
+    TEA_SMOKED_SQUAB: 3, CHENYU_BREW: 3, CRAB_ROE_TOFU: 3, FULLMOON_EGG: 3,
+    FISH_NOODLES: 3, HUMBLY_ENOUGH: 3, HONEY_CHAR_SIU: 3,
+    LUCKY_SNOW_DELIGHT: 2, GOLDEN_TEMPERED_JADE: 4
+  }).map(([id, mora]) => ['FOOD_' + id, mora]));
   const old = Object.fromEntries(['apply', 'useItem', 'buy', 'finishBattle', 'bossRoute', 'move', 'equip', 'setParty', 'validateSave'].map(k => [k, P[k]]));
 
   P.apply = function (a) {
@@ -171,10 +189,13 @@
   };
 
   P.recipeDefinition = function (id) {
-    const r = this.row('17_RECIPE_DB', id);
+    let r = this.row('17_RECIPE_DB', id);
     // Six audited source rows contain one extra blank at column P. Adapt only the exact known shape.
     if (shiftedRecipes.has(id) && r[15] == null && Number.isFinite(r[16]) && /^\d+(분|시간)$/.test(r[20] || '') && Number(r[21]) === 100) {
-      const fixed = r.slice(); fixed.splice(15, 1); return fixed;
+      const fixed = r.slice(); fixed.splice(15, 1); r = fixed;
+    }
+    if (r[1] === '요리' && r[2] === 'ITEM' && own(recoveryCookingMora, r[3])) {
+      r = r.slice(); r[15] = recoveryCookingMora[r[3]];
     }
     return r;
   };
@@ -234,6 +255,7 @@
     return { recipe: id, result: r[3], quantity: r[4] * quantity, crafts: quantity, minutes, cost };
   };
   P.recipeCost = function (r, quantity = 1) {
+    r = this.recipeDefinition(r[0]);
     const ingredients = this.rows('48_RECIPE_INGREDIENT_DB').filter(i => i[1] === r[0]).sort((a, b) => a[2] - b[2]);
     const seq = new Set(), cost = { mora: r[15] * quantity, items: {} };
     if (!ingredients.length) fail('RECIPE', '제작 재료 정의가 없습니다.');

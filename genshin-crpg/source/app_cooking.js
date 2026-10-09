@@ -55,7 +55,7 @@ function dishInfo(x){
   const effect=tab==='PROCESS'?'PROCESS':status?STATUS_KIND[status]||'ATK':heal?'HEAL':'PROCESS';
   let cost=null,missing='';try{cost=game.recipeCost(r,1);missing=Object.entries(cost.items).filter(([id,n])=>game.itemCount(id)<n).map(([id])=>id).join(',');}catch(e){missing='?';}
   const locked=/제작법을 먼저 구매/.test(x.reason||'');
-  const canMake=cost?Math.min(...Object.entries(cost.items).map(([id,n])=>Math.floor(game.itemCount(id)/n)),game.s.global.MORA>=cost.mora?99:0):0;
+  const canMake=cost?Math.min(...Object.entries(cost.items).map(([id,n])=>Math.floor(game.itemCount(id)/n)),cost.mora>0?Math.floor(game.s.global.MORA/cost.mora):99):0;
   return {x,r,item,tab,effect,heal,status,cost,missing:missing?missing.split(','):[],locked,ready:!x.reason&&canMake>0,canMake,stars:STARS[item[3]]||1,region};
 }
 function effectLine(d){
@@ -77,7 +77,9 @@ function card(d){
   head.append(title,el('span','cook-badge effect-'+d.effect.toLowerCase(),EFFECT_LABEL[d.effect]||''));c.append(head);
   if(d.item[5])c.append(el('p','cook-desc',d.item[5]));
   c.append(el('p','cook-effect',effectLine(d)));
-  const chips=el('div','cook-chips');for(const [id,n]of Object.entries(d.cost?.items||{}))chips.append(chip(id,n));c.append(chips);
+  const chips=el('div','cook-chips');for(const [id,n]of Object.entries(d.cost?.items||{}))chips.append(chip(id,n));
+  if(d.cost?.mora){const have=game.s.global.MORA,box=el('span','cook-chip'+(have>=d.cost.mora?' ok':' short')),icon=typeof currencyIcon==='function'&&currencyIcon('MORA','cook-chip-icon');if(icon)box.append(icon);box.append(el('span','cook-chip-name','모라'),el('span','cook-chip-count',have+'/'+d.cost.mora));chips.append(box);}
+  c.append(chips);
   if(d.missing.length&&!d.locked){
     const where=el('div','cook-where');
     for(const id of d.missing)where.append(el('p','',safeName('14_ITEM_DB',id)+' — '+whereText(id)));
