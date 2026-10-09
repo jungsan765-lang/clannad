@@ -1,0 +1,228 @@
+{
+  "issue": "Existing HTTP first tutorial regression assumed that twenty basic attacks finish the first authored fight.",
+  "cause": "Own-element slime immunity removes illegal Amber Pyro damage against Pyro slimes. The old test also ignored the guard/E/Q lessons, so all three existing held reinforcement waves are eventually consumed.",
+  "classification": "Test action policy was stale; no tutorial battle impossibility or softlock was reproduced. No enemy stats, growth, UI, or tutorial runtime changed.",
+  "baselineScope": "Only the three immunity source files reverted to HEAD for baseline; shared current DB and all other code remain fixed. Native actual story progression and legal actions; no enemy/party stat edits or forced RNG.",
+  "nativeComparison": {
+    "currentSpam": {
+      "combatActions": 28,
+      "finished": true,
+      "victory": true,
+      "rounds": 28,
+      "playerHPAfter": 1031,
+      "completed": {
+        "move": true,
+        "arrival": true,
+        "party": true,
+        "equip": true,
+        "combatAttack": true,
+        "amberIntro": true
+      }
+    },
+    "baselineSpam": {
+      "combatActions": 9,
+      "finished": true,
+      "victory": true,
+      "rounds": 10,
+      "playerHPAfter": 1031,
+      "completed": {
+        "move": true,
+        "arrival": true,
+        "party": true,
+        "equip": true,
+        "combatAttack": true,
+        "amberIntro": true
+      }
+    },
+    "currentGuide": {
+      "combatActions": 4,
+      "finished": true,
+      "victory": true,
+      "rounds": 4,
+      "playerHPAfter": 679,
+      "completed": {
+        "move": true,
+        "arrival": true,
+        "party": true,
+        "equip": true,
+        "combatAttack": true,
+        "combatGuard": true,
+        "combatSkill": true,
+        "amberIntro": true,
+        "combatBurst": true
+      }
+    },
+    "baselineGuide": {
+      "combatActions": 4,
+      "finished": true,
+      "victory": true,
+      "rounds": 4,
+      "playerHPAfter": 949,
+      "completed": {
+        "move": true,
+        "arrival": true,
+        "party": true,
+        "equip": true,
+        "combatAttack": true,
+        "combatGuard": true,
+        "combatSkill": true,
+        "amberIntro": true,
+        "combatBurst": true
+      }
+    }
+  },
+  "currentAfterTwentyBasicAttacks": {
+    "round": 21,
+    "actors": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "hp": 583,
+        "maxHp": 870,
+        "side": "ALLY"
+      },
+      {
+        "id": "MOND_AMBER",
+        "hp": 157,
+        "maxHp": 650,
+        "side": "ALLY"
+      },
+      {
+        "id": "MON_SLIME_ANEMO#1",
+        "hp": 0,
+        "maxHp": 244,
+        "side": "ENEMY",
+        "element": "바람",
+        "nativeAura": "바람"
+      },
+      {
+        "id": "MON_SLIME_PYRO#1",
+        "hp": 0,
+        "maxHp": 244,
+        "side": "ENEMY",
+        "element": "불",
+        "nativeAura": "불"
+      },
+      {
+        "id": "MON_SLIME_PYRO#2",
+        "hp": 0,
+        "maxHp": 244,
+        "side": "ENEMY",
+        "element": "불",
+        "nativeAura": "불"
+      },
+      {
+        "id": "MON_SLIME_ANEMO#T1_1",
+        "hp": 0,
+        "maxHp": 244,
+        "side": "ENEMY",
+        "element": "바람",
+        "nativeAura": "바람"
+      },
+      {
+        "id": "MON_SLIME_PYRO#T1_1",
+        "hp": 0,
+        "maxHp": 244,
+        "side": "ENEMY",
+        "element": "불",
+        "nativeAura": "불"
+      },
+      {
+        "id": "MON_SLIME_PYRO#T1_2",
+        "hp": 0,
+        "maxHp": 244,
+        "side": "ENEMY",
+        "element": "불",
+        "nativeAura": "불"
+      },
+      {
+        "id": "MON_SLIME_ANEMO#T2_1",
+        "hp": 0,
+        "maxHp": 244,
+        "side": "ENEMY",
+        "element": "바람",
+        "nativeAura": "바람"
+      },
+      {
+        "id": "MON_SLIME_PYRO#T2_1",
+        "hp": 0,
+        "maxHp": 244,
+        "side": "ENEMY",
+        "element": "불",
+        "nativeAura": "불"
+      },
+      {
+        "id": "MON_SLIME_PYRO#T2_2",
+        "hp": 34,
+        "maxHp": 244,
+        "side": "ENEMY",
+        "element": "불",
+        "nativeAura": "불"
+      }
+    ],
+    "reserve": [
+      {
+        "id": "MON_SLIME_ANEMO#T3_1",
+        "hp": 244,
+        "waveHold": 3
+      },
+      {
+        "id": "MON_SLIME_PYRO#T3_1",
+        "hp": 244,
+        "waveHold": 3
+      },
+      {
+        "id": "MON_SLIME_PYRO#T3_2",
+        "hp": 244,
+        "waveHold": 3
+      }
+    ],
+    "waves": {
+      "version": 1,
+      "waves": 3,
+      "released": 2,
+      "arrived": 15
+    },
+    "done": {
+      "move": true,
+      "arrival": true,
+      "party": true,
+      "equip": true,
+      "combatAttack": true
+    },
+    "directive": {
+      "id": "combatGuard",
+      "title": "이번에는 방어하세요",
+      "text": "방어는 이번 행동 동안 받는 피해를 줄입니다.",
+      "battle": true,
+      "card": "PLAYER_BASIC_GUARD"
+    }
+  },
+  "actualHttpComparison": {
+    "spam": {
+      "combatActions": 28,
+      "victory": true,
+      "allOriginalReceiptAndOwnershipChecksPassed": true,
+      "log": "/tmp/crpg_v01618/tutorial_analysis/online_spam.log"
+    },
+    "followDirective": {
+      "combatActions": 4,
+      "victory": true,
+      "lessons": [
+        "combatAttack",
+        "combatGuard",
+        "combatSkill",
+        "combatBurst"
+      ],
+      "allOriginalReceiptAndOwnershipChecksPassed": true,
+      "log": "/tmp/crpg_v01618/tutorial_analysis/online_guide.log"
+    }
+  },
+  "testChange": {
+    "file": "tests/test_tutorial_online_v01523.mjs",
+    "scope": "Prefer the currently available tutorialDirective.card, then basic attack. Retain the twenty-action limit and all original rejected preparation, equip, duplicate request/state, victory and borrowed/permanent ownership assertions. Add four explicit real lesson completion assertions.",
+    "updatedExactTestExit": 0,
+    "updatedExactTestLog": "/tmp/crpg_v01618/tutorial_analysis/online_updated_test.log"
+  },
+  "nativeEvidence": "/tmp/crpg_v01618/tutorial_analysis/native_results.json",
+  "followUp": "No product fix is needed for this test failure; normal guided first combat wins in four legal manual inputs at the unchanged seed. This single-seed comparison is not a general early-game balance study."
+}

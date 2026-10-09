@@ -1,0 +1,1768 @@
+{
+  "version": "0.16.18",
+  "scope": {
+    "validCampaigns": 12,
+    "additionalMainBattleCount": 72,
+    "additionalRoadBattleCount": 6,
+    "seeds": [
+      717
+    ],
+    "mainBattlesAndIntermediateRecoveriesExactlyMatchEarlierCampaigns": true,
+    "allTwelveCampaignsEndFullHp": true,
+    "sameInnAcrossBothRoutesAndCoefficientArmsWithinEachScenario": true,
+    "endpointPolicy": "Keep the existing six native DOMAIN_START fights and intermediate HP<50%/KO round-trip recovery. Then use the same shortest-roundtrip/price-ranked legal inn selection and actual MOVE/road combats; BUY only if HP is missing, and stop at that inn without return travel.",
+    "alreadyFullHpPolicy": "Already-full party still MOVE/PLACE_ENTER to the selected inn, but does not BUY unnecessary lodging. No lodging transaction input/fee is charged; move inputs are charged.",
+    "originalReturnPolicyPreserved": "Existing --final-recovery still returns to the farming map and can take new road damage after its last inn BUY. These earlier observed rows and costs are preserved, but are not an identical full-HP endpoint comparison.",
+    "assumptions": {
+      "enemy": "Native fixed four-person rule; no enemy stat/action edits.",
+      "fixtures": "Owned allies, equal levels/legal phase and talents, equal weapon/armor/accessory enhancement; no constellations or artifacts. One initial full HP only.",
+      "actions": "Native public COMBAT actions. Traveler Q then hold E; Isekai E marks a fresh highest-HP target then Q; alternate Q-first can be requested.",
+      "recovery": "Native MOVE with incidental battles and BUY lodging at HP below 50% or death; HP/PRNG carried between all fights.",
+      "time": "Displayed 2x uses internal rate 1 and presentationMs / 1000; 3 seconds per combat input, 6 seconds receipt/reentry, 4 seconds per move, 10 seconds lodging input/processing.",
+      "limits": "Human/network latency and acquisition grind excluded. Starting money is diagnostic funding, not income. Exact matchup outcomes are sampled, not a promise every composition wins.",
+      "endpoint": "After the six native main fights, MOVE to the same selected legal inn and BUY only if HP is missing; stop there with actual full HP, without return travel. Intermediate recovery and input/time policy are unchanged."
+    }
+  },
+  "rows": [
+    {
+      "name": "story4",
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "route": "ROUTE_TRAVELER",
+      "seed": 717,
+      "team": [
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "old": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 17,
+        "seconds": 264.62,
+        "lodgingMora": 322,
+        "healing": 0,
+        "ownDamage": 306966,
+        "allyDamage": 639144,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_AMBER",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 22185
+          },
+          {
+            "owner": "MOND_LISA",
+            "level": 60,
+            "hp": 20347,
+            "maxHp": 20347
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 3658495814,
+          "worldDay": 2,
+          "worldTime": "09:05"
+        }
+      },
+      "new": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 17,
+        "seconds": 264.62,
+        "lodgingMora": 322,
+        "healing": 0,
+        "ownDamage": 306966,
+        "allyDamage": 639144,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 19122,
+            "maxHp": 19122
+          },
+          {
+            "owner": "MOND_AMBER",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 22185
+          },
+          {
+            "owner": "MOND_LISA",
+            "level": 60,
+            "hp": 20347,
+            "maxHp": 20347
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 3658495814,
+          "worldDay": 2,
+          "worldTime": "09:05"
+        }
+      },
+      "oldRecoveries": 2,
+      "newRecoveries": 2,
+      "oldRoadBattles": 0,
+      "newRoadBattles": 0,
+      "allOldNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 258,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 240,
+              "weightedHpLoss": 49.646240942199775,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 9485,
+                  "maxHp": 19122,
+                  "lostHpRatio": 0.5039744796569396,
+                  "recoveryCost": 142
+                },
+                {
+                  "owner": "MOND_AMBER",
+                  "level": 60,
+                  "hp": 16238,
+                  "maxHp": 20654,
+                  "lostHpRatio": 0.21380846325167038,
+                  "recoveryCost": 60
+                },
+                {
+                  "owner": "MOND_KAEYA",
+                  "level": 60,
+                  "hp": 20352,
+                  "maxHp": 22185,
+                  "lostHpRatio": 0.08262339418526031,
+                  "recoveryCost": 24
+                },
+                {
+                  "owner": "MOND_LISA",
+                  "level": 60,
+                  "hp": 19797,
+                  "maxHp": 20347,
+                  "lostHpRatio": 0.02703101194279255,
+                  "recoveryCost": 8
+                }
+              ]
+            },
+            "cost": 258
+          }
+        ],
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 64,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 240,
+              "weightedHpLoss": 8.483809821776058,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 17561,
+                  "maxHp": 19122,
+                  "lostHpRatio": 0.08163372032214204,
+                  "recoveryCost": 23
+                },
+                {
+                  "owner": "MOND_AMBER",
+                  "level": 60,
+                  "hp": 20654,
+                  "maxHp": 20654,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "MOND_KAEYA",
+                  "level": 60,
+                  "hp": 22185,
+                  "maxHp": 22185,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "MOND_LISA",
+                  "level": 60,
+                  "hp": 19131,
+                  "maxHp": 20347,
+                  "lostHpRatio": 0.05976311004079225,
+                  "recoveryCost": 17
+                }
+              ]
+            },
+            "cost": 64
+          }
+        ]
+      ],
+      "allNewNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 258,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 240,
+              "weightedHpLoss": 49.646240942199775,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 9485,
+                  "maxHp": 19122,
+                  "lostHpRatio": 0.5039744796569396,
+                  "recoveryCost": 142
+                },
+                {
+                  "owner": "MOND_AMBER",
+                  "level": 60,
+                  "hp": 16238,
+                  "maxHp": 20654,
+                  "lostHpRatio": 0.21380846325167038,
+                  "recoveryCost": 60
+                },
+                {
+                  "owner": "MOND_KAEYA",
+                  "level": 60,
+                  "hp": 20352,
+                  "maxHp": 22185,
+                  "lostHpRatio": 0.08262339418526031,
+                  "recoveryCost": 24
+                },
+                {
+                  "owner": "MOND_LISA",
+                  "level": 60,
+                  "hp": 19797,
+                  "maxHp": 20347,
+                  "lostHpRatio": 0.02703101194279255,
+                  "recoveryCost": 8
+                }
+              ]
+            },
+            "cost": 258
+          }
+        ],
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 64,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 240,
+              "weightedHpLoss": 8.483809821776058,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 17561,
+                  "maxHp": 19122,
+                  "lostHpRatio": 0.08163372032214204,
+                  "recoveryCost": 23
+                },
+                {
+                  "owner": "MOND_AMBER",
+                  "level": 60,
+                  "hp": 20654,
+                  "maxHp": 20654,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "MOND_KAEYA",
+                  "level": 60,
+                  "hp": 22185,
+                  "maxHp": 22185,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "MOND_LISA",
+                  "level": 60,
+                  "hp": 19131,
+                  "maxHp": 20347,
+                  "lostHpRatio": 0.05976311004079225,
+                  "recoveryCost": 17
+                }
+              ]
+            },
+            "cost": 64
+          }
+        ]
+      ]
+    },
+    {
+      "name": "story4",
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "route": "ROUTE_ISEKAI",
+      "seed": 717,
+      "team": [
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "old": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 16,
+        "seconds": 323.02,
+        "lodgingMora": 385,
+        "healing": 0,
+        "ownDamage": 37809,
+        "allyDamage": 908301,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 17897,
+            "maxHp": 17897
+          },
+          {
+            "owner": "MOND_AMBER",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 22185
+          },
+          {
+            "owner": "MOND_LISA",
+            "level": 60,
+            "hp": 20347,
+            "maxHp": 20347
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 4035675043,
+          "worldDay": 2,
+          "worldTime": "09:05"
+        }
+      },
+      "new": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 12,
+        "seconds": 236.44000000000003,
+        "lodgingMora": 264,
+        "healing": 0,
+        "ownDamage": 40750,
+        "allyDamage": 905360,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 60,
+            "hp": 17897,
+            "maxHp": 17897
+          },
+          {
+            "owner": "MOND_AMBER",
+            "level": 60,
+            "hp": 20654,
+            "maxHp": 20654
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "level": 60,
+            "hp": 22185,
+            "maxHp": 22185
+          },
+          {
+            "owner": "MOND_LISA",
+            "level": 60,
+            "hp": 20347,
+            "maxHp": 20347
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 3966118203,
+          "worldDay": 1,
+          "worldTime": "21:45"
+        }
+      },
+      "oldRecoveries": 2,
+      "newRecoveries": 1,
+      "oldRoadBattles": 2,
+      "newRoadBattles": 1,
+      "allOldNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 288,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 240,
+              "weightedHpLoss": 56.28256131191283,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 6225,
+                  "maxHp": 17897,
+                  "lostHpRatio": 0.6521763424037548,
+                  "recoveryCost": 183
+                },
+                {
+                  "owner": "MOND_AMBER",
+                  "level": 60,
+                  "hp": 15793,
+                  "maxHp": 20654,
+                  "lostHpRatio": 0.2353539266001743,
+                  "recoveryCost": 66
+                },
+                {
+                  "owner": "MOND_KAEYA",
+                  "level": 60,
+                  "hp": 21615,
+                  "maxHp": 22185,
+                  "lostHpRatio": 0.025693035835023664,
+                  "recoveryCost": 8
+                },
+                {
+                  "owner": "MOND_LISA",
+                  "level": 60,
+                  "hp": 19842,
+                  "maxHp": 20347,
+                  "lostHpRatio": 0.024819383692927705,
+                  "recoveryCost": 7
+                }
+              ]
+            },
+            "cost": 288
+          },
+          {
+            "type": "TRAVEL_COMBAT",
+            "victory": true,
+            "seconds": 14.71
+          }
+        ],
+        [
+          {
+            "type": "TRAVEL_COMBAT",
+            "victory": true,
+            "seconds": 16.93
+          },
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 97,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 240,
+              "weightedHpLoss": 15.377669735516896,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 15653,
+                  "maxHp": 17897,
+                  "lostHpRatio": 0.1253841425937308,
+                  "recoveryCost": 36
+                },
+                {
+                  "owner": "MOND_AMBER",
+                  "level": 60,
+                  "hp": 18611,
+                  "maxHp": 20654,
+                  "lostHpRatio": 0.09891546431683935,
+                  "recoveryCost": 28
+                },
+                {
+                  "owner": "MOND_KAEYA",
+                  "level": 60,
+                  "hp": 22185,
+                  "maxHp": 22185,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "MOND_LISA",
+                  "level": 60,
+                  "hp": 19696,
+                  "maxHp": 20347,
+                  "lostHpRatio": 0.03199488868137809,
+                  "recoveryCost": 9
+                }
+              ]
+            },
+            "cost": 97
+          }
+        ]
+      ],
+      "allNewNativeRecoveryQuotes": [
+        [
+          {
+            "type": "TRAVEL_COMBAT",
+            "victory": true,
+            "seconds": 14.71
+          },
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 264,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 240,
+              "weightedHpLoss": 51.02164476626355,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 10264,
+                  "maxHp": 17897,
+                  "lostHpRatio": 0.42649606079231156,
+                  "recoveryCost": 120
+                },
+                {
+                  "owner": "MOND_AMBER",
+                  "level": 60,
+                  "hp": 16236,
+                  "maxHp": 20654,
+                  "lostHpRatio": 0.2139052967948097,
+                  "recoveryCost": 60
+                },
+                {
+                  "owner": "MOND_KAEYA",
+                  "level": 60,
+                  "hp": 21063,
+                  "maxHp": 22185,
+                  "lostHpRatio": 0.05057471264367816,
+                  "recoveryCost": 15
+                },
+                {
+                  "owner": "MOND_LISA",
+                  "level": 60,
+                  "hp": 17104,
+                  "maxHp": 20347,
+                  "lostHpRatio": 0.15938467587359315,
+                  "recoveryCost": 45
+                }
+              ]
+            },
+            "cost": 264
+          }
+        ]
+      ]
+    },
+    {
+      "name": "support4",
+      "level": 30,
+      "domain": "RIDGE_WATCH:30",
+      "route": "ROUTE_TRAVELER",
+      "seed": 717,
+      "team": [
+        "MOND_FISCHL",
+        "LIYUE_XIANGLING",
+        "MOND_BARBARA"
+      ],
+      "old": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 15,
+        "seconds": 260.23,
+        "lodgingMora": 0,
+        "healing": 22387,
+        "ownDamage": 66202,
+        "allyDamage": 89798,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 30,
+            "hp": 5607,
+            "maxHp": 5607
+          },
+          {
+            "owner": "MOND_FISCHL",
+            "level": 30,
+            "hp": 5863,
+            "maxHp": 5863
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 30,
+            "hp": 6118,
+            "maxHp": 6118
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 30,
+            "hp": 6034,
+            "maxHp": 6034
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_MOND_CITY",
+          "place": "EVT_SCHEDULE_MRC_MOND_INN",
+          "stock": "STK_INN_MOND",
+          "allFullHp": true,
+          "prng": 2849988328,
+          "worldDay": 1,
+          "worldTime": "13:40"
+        }
+      },
+      "new": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 15,
+        "seconds": 260.23,
+        "lodgingMora": 0,
+        "healing": 22387,
+        "ownDamage": 66202,
+        "allyDamage": 89798,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 30,
+            "hp": 5607,
+            "maxHp": 5607
+          },
+          {
+            "owner": "MOND_FISCHL",
+            "level": 30,
+            "hp": 5863,
+            "maxHp": 5863
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 30,
+            "hp": 6118,
+            "maxHp": 6118
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 30,
+            "hp": 6034,
+            "maxHp": 6034
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_MOND_CITY",
+          "place": "EVT_SCHEDULE_MRC_MOND_INN",
+          "stock": "STK_INN_MOND",
+          "allFullHp": true,
+          "prng": 2849988328,
+          "worldDay": 1,
+          "worldTime": "13:40"
+        }
+      },
+      "oldRecoveries": 0,
+      "newRecoveries": 0,
+      "oldRoadBattles": 0,
+      "newRoadBattles": 0,
+      "allOldNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN_NOT_NEEDED",
+            "quote": {
+              "cost": 20,
+              "roomCost": 20,
+              "regionalRate": 1,
+              "totalLevel": 120,
+              "weightedHpLoss": 0,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 30,
+                  "hp": 5607,
+                  "maxHp": 5607,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "MOND_FISCHL",
+                  "level": 30,
+                  "hp": 5863,
+                  "maxHp": 5863,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 30,
+                  "hp": 6118,
+                  "maxHp": 6118,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "MOND_BARBARA",
+                  "level": 30,
+                  "hp": 6034,
+                  "maxHp": 6034,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                }
+              ]
+            },
+            "cost": 0
+          }
+        ]
+      ],
+      "allNewNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN_NOT_NEEDED",
+            "quote": {
+              "cost": 20,
+              "roomCost": 20,
+              "regionalRate": 1,
+              "totalLevel": 120,
+              "weightedHpLoss": 0,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 30,
+                  "hp": 5607,
+                  "maxHp": 5607,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "MOND_FISCHL",
+                  "level": 30,
+                  "hp": 5863,
+                  "maxHp": 5863,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 30,
+                  "hp": 6118,
+                  "maxHp": 6118,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                },
+                {
+                  "owner": "MOND_BARBARA",
+                  "level": 30,
+                  "hp": 6034,
+                  "maxHp": 6034,
+                  "lostHpRatio": 0,
+                  "recoveryCost": 0
+                }
+              ]
+            },
+            "cost": 0
+          }
+        ]
+      ]
+    },
+    {
+      "name": "support4",
+      "level": 30,
+      "domain": "RIDGE_WATCH:30",
+      "route": "ROUTE_ISEKAI",
+      "seed": 717,
+      "team": [
+        "MOND_FISCHL",
+        "LIYUE_XIANGLING",
+        "MOND_BARBARA"
+      ],
+      "old": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 17,
+        "seconds": 363.92,
+        "lodgingMora": 63,
+        "healing": 25031,
+        "ownDamage": 8410,
+        "allyDamage": 147590,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 30,
+            "hp": 5267,
+            "maxHp": 5267
+          },
+          {
+            "owner": "MOND_FISCHL",
+            "level": 30,
+            "hp": 5863,
+            "maxHp": 5863
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 30,
+            "hp": 6118,
+            "maxHp": 6118
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 30,
+            "hp": 6034,
+            "maxHp": 6034
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_MOND_CITY",
+          "place": "EVT_SCHEDULE_MRC_MOND_INN",
+          "stock": "STK_INN_MOND",
+          "allFullHp": true,
+          "prng": 4178381597,
+          "worldDay": 1,
+          "worldTime": "21:40"
+        }
+      },
+      "new": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 18,
+        "seconds": 346.15999999999997,
+        "lodgingMora": 87,
+        "healing": 25686,
+        "ownDamage": 8569,
+        "allyDamage": 147431,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 30,
+            "hp": 5267,
+            "maxHp": 5267
+          },
+          {
+            "owner": "MOND_FISCHL",
+            "level": 30,
+            "hp": 5863,
+            "maxHp": 5863
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 30,
+            "hp": 6118,
+            "maxHp": 6118
+          },
+          {
+            "owner": "MOND_BARBARA",
+            "level": 30,
+            "hp": 6034,
+            "maxHp": 6034
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_MOND_CITY",
+          "place": "EVT_SCHEDULE_MRC_MOND_INN",
+          "stock": "STK_INN_MOND",
+          "allFullHp": true,
+          "prng": 4119923574,
+          "worldDay": 1,
+          "worldTime": "21:40"
+        }
+      },
+      "oldRecoveries": 1,
+      "newRecoveries": 1,
+      "oldRoadBattles": 0,
+      "newRoadBattles": 0,
+      "allOldNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 63,
+              "roomCost": 20,
+              "regionalRate": 1,
+              "totalLevel": 120,
+              "weightedHpLoss": 10.447251901015415,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 30,
+                  "hp": 4624,
+                  "maxHp": 5267,
+                  "lostHpRatio": 0.12208088095690146,
+                  "recoveryCost": 15
+                },
+                {
+                  "owner": "MOND_FISCHL",
+                  "level": 30,
+                  "hp": 5482,
+                  "maxHp": 5863,
+                  "lostHpRatio": 0.06498379669111376,
+                  "recoveryCost": 8
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 30,
+                  "hp": 5939,
+                  "maxHp": 6118,
+                  "lostHpRatio": 0.02925792742726381,
+                  "recoveryCost": 4
+                },
+                {
+                  "owner": "MOND_BARBARA",
+                  "level": 30,
+                  "hp": 5238,
+                  "maxHp": 6034,
+                  "lostHpRatio": 0.1319191249585681,
+                  "recoveryCost": 16
+                }
+              ]
+            },
+            "cost": 63
+          }
+        ]
+      ],
+      "allNewNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 87,
+              "roomCost": 20,
+              "regionalRate": 1,
+              "totalLevel": 120,
+              "weightedHpLoss": 16.34342390851874,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 30,
+                  "hp": 3638,
+                  "maxHp": 5267,
+                  "lostHpRatio": 0.30928422251756216,
+                  "recoveryCost": 38
+                },
+                {
+                  "owner": "MOND_FISCHL",
+                  "level": 30,
+                  "hp": 5478,
+                  "maxHp": 5863,
+                  "lostHpRatio": 0.06566604127579738,
+                  "recoveryCost": 8
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 30,
+                  "hp": 5372,
+                  "maxHp": 6118,
+                  "lostHpRatio": 0.12193527296502125,
+                  "recoveryCost": 15
+                },
+                {
+                  "owner": "MOND_BARBARA",
+                  "level": 30,
+                  "hp": 5745,
+                  "maxHp": 6034,
+                  "lostHpRatio": 0.04789526019224395,
+                  "recoveryCost": 6
+                }
+              ]
+            },
+            "cost": 87
+          }
+        ]
+      ]
+    },
+    {
+      "name": "vape4",
+      "level": 50,
+      "domain": "TAISHAN_MANSION:50",
+      "route": "ROUTE_TRAVELER",
+      "seed": 717,
+      "team": [
+        "LIYUE_XIANGLING",
+        "LIYUE_XINGQIU",
+        "MOND_BENNETT"
+      ],
+      "old": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 37,
+        "seconds": 517.77,
+        "lodgingMora": 311,
+        "healing": 38536,
+        "ownDamage": 311444,
+        "allyDamage": 311302.5,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 50,
+            "hp": 12595,
+            "maxHp": 12595
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 50,
+            "hp": 13794,
+            "maxHp": 13794
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 50,
+            "hp": 14193,
+            "maxHp": 14193
+          },
+          {
+            "owner": "MOND_BENNETT",
+            "level": 50,
+            "hp": 14991,
+            "maxHp": 14991
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 2783438677,
+          "worldDay": 1,
+          "worldTime": "21:45"
+        }
+      },
+      "new": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 37,
+        "seconds": 517.77,
+        "lodgingMora": 311,
+        "healing": 38536,
+        "ownDamage": 311444,
+        "allyDamage": 311302.5,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 50,
+            "hp": 12595,
+            "maxHp": 12595
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 50,
+            "hp": 13794,
+            "maxHp": 13794
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 50,
+            "hp": 14193,
+            "maxHp": 14193
+          },
+          {
+            "owner": "MOND_BENNETT",
+            "level": 50,
+            "hp": 14991,
+            "maxHp": 14991
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 2783438677,
+          "worldDay": 1,
+          "worldTime": "21:45"
+        }
+      },
+      "oldRecoveries": 1,
+      "newRecoveries": 1,
+      "oldRoadBattles": 0,
+      "newRoadBattles": 0,
+      "allOldNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 311,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 200,
+              "weightedHpLoss": 61.040021644606995,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 6598,
+                  "maxHp": 12595,
+                  "lostHpRatio": 0.4761413259229853,
+                  "recoveryCost": 112
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 50,
+                  "hp": 9494,
+                  "maxHp": 13794,
+                  "lostHpRatio": 0.31172973756705813,
+                  "recoveryCost": 73
+                },
+                {
+                  "owner": "LIYUE_XINGQIU",
+                  "level": 50,
+                  "hp": 10973,
+                  "maxHp": 14193,
+                  "lostHpRatio": 0.22687240188825478,
+                  "recoveryCost": 53
+                },
+                {
+                  "owner": "MOND_BENNETT",
+                  "level": 50,
+                  "hp": 11902,
+                  "maxHp": 14991,
+                  "lostHpRatio": 0.20605696751384164,
+                  "recoveryCost": 49
+                }
+              ]
+            },
+            "cost": 311
+          }
+        ]
+      ],
+      "allNewNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 311,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 200,
+              "weightedHpLoss": 61.040021644606995,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 6598,
+                  "maxHp": 12595,
+                  "lostHpRatio": 0.4761413259229853,
+                  "recoveryCost": 112
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 50,
+                  "hp": 9494,
+                  "maxHp": 13794,
+                  "lostHpRatio": 0.31172973756705813,
+                  "recoveryCost": 73
+                },
+                {
+                  "owner": "LIYUE_XINGQIU",
+                  "level": 50,
+                  "hp": 10973,
+                  "maxHp": 14193,
+                  "lostHpRatio": 0.22687240188825478,
+                  "recoveryCost": 53
+                },
+                {
+                  "owner": "MOND_BENNETT",
+                  "level": 50,
+                  "hp": 11902,
+                  "maxHp": 14991,
+                  "lostHpRatio": 0.20605696751384164,
+                  "recoveryCost": 49
+                }
+              ]
+            },
+            "cost": 311
+          }
+        ]
+      ]
+    },
+    {
+      "name": "vape4",
+      "level": 50,
+      "domain": "TAISHAN_MANSION:50",
+      "route": "ROUTE_ISEKAI",
+      "seed": 717,
+      "team": [
+        "LIYUE_XIANGLING",
+        "LIYUE_XINGQIU",
+        "MOND_BENNETT"
+      ],
+      "old": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 39,
+        "seconds": 702.1300000000001,
+        "lodgingMora": 632,
+        "healing": 38526,
+        "ownDamage": 102361.75,
+        "allyDamage": 539308.75,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 50,
+            "hp": 11797,
+            "maxHp": 11797
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 50,
+            "hp": 13794,
+            "maxHp": 13794
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 50,
+            "hp": 14193,
+            "maxHp": 14193
+          },
+          {
+            "owner": "MOND_BENNETT",
+            "level": 50,
+            "hp": 14991,
+            "maxHp": 14991
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 2235348033,
+          "worldDay": 2,
+          "worldTime": "09:05"
+        }
+      },
+      "new": {
+        "wins": 6,
+        "losses": 0,
+        "rounds": 35,
+        "seconds": 726.8900000000001,
+        "lodgingMora": 836,
+        "healing": 22717,
+        "ownDamage": 93407,
+        "allyDamage": 544012,
+        "finalHp": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "level": 50,
+            "hp": 11797,
+            "maxHp": 11797
+          },
+          {
+            "owner": "LIYUE_XIANGLING",
+            "level": 50,
+            "hp": 13794,
+            "maxHp": 13794
+          },
+          {
+            "owner": "LIYUE_XINGQIU",
+            "level": 50,
+            "hp": 14193,
+            "maxHp": 14193
+          },
+          {
+            "owner": "MOND_BENNETT",
+            "level": 50,
+            "hp": 14991,
+            "maxHp": 14991
+          }
+        ],
+        "stopReason": "RUNS_COMPLETED",
+        "endpoint": {
+          "map": "MAP_LIYUE_HARBOR",
+          "place": "EVT_SCHEDULE_MRC_LIYUE_INN",
+          "stock": "STK_INN_LIYUE",
+          "allFullHp": true,
+          "prng": 2289923307,
+          "worldDay": 2,
+          "worldTime": "20:25"
+        }
+      },
+      "oldRecoveries": 2,
+      "newRecoveries": 3,
+      "oldRoadBattles": 1,
+      "newRoadBattles": 2,
+      "allOldNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 392,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 200,
+              "weightedHpLoss": 78.42277938726099,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 3749,
+                  "maxHp": 11797,
+                  "lostHpRatio": 0.6822073408493685,
+                  "recoveryCost": 160
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 50,
+                  "hp": 8669,
+                  "maxHp": 13794,
+                  "lostHpRatio": 0.37153835000724955,
+                  "recoveryCost": 87
+                },
+                {
+                  "owner": "LIYUE_XINGQIU",
+                  "level": 50,
+                  "hp": 10849,
+                  "maxHp": 14193,
+                  "lostHpRatio": 0.23560910307898258,
+                  "recoveryCost": 55
+                },
+                {
+                  "owner": "MOND_BENNETT",
+                  "level": 50,
+                  "hp": 10807,
+                  "maxHp": 14991,
+                  "lostHpRatio": 0.2791007938096191,
+                  "recoveryCost": 66
+                }
+              ]
+            },
+            "cost": 392
+          },
+          {
+            "type": "TRAVEL_COMBAT",
+            "victory": true,
+            "seconds": 38.93
+          }
+        ],
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 240,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 200,
+              "weightedHpLoss": 45.74792861033004,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 8430,
+                  "maxHp": 11797,
+                  "lostHpRatio": 0.2854115453081292,
+                  "recoveryCost": 67
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 50,
+                  "hp": 9770,
+                  "maxHp": 13794,
+                  "lostHpRatio": 0.29172103813252137,
+                  "recoveryCost": 69
+                },
+                {
+                  "owner": "LIYUE_XINGQIU",
+                  "level": 50,
+                  "hp": 11181,
+                  "maxHp": 14193,
+                  "lostHpRatio": 0.2122172902134855,
+                  "recoveryCost": 50
+                },
+                {
+                  "owner": "MOND_BENNETT",
+                  "level": 50,
+                  "hp": 13108,
+                  "maxHp": 14991,
+                  "lostHpRatio": 0.12560869855246481,
+                  "recoveryCost": 30
+                }
+              ]
+            },
+            "cost": 240
+          }
+        ]
+      ],
+      "allNewNativeRecoveryQuotes": [
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 369,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 200,
+              "weightedHpLoss": 73.59398104817619,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 3222,
+                  "maxHp": 11797,
+                  "lostHpRatio": 0.7268797151818259,
+                  "recoveryCost": 170
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 50,
+                  "hp": 7273,
+                  "maxHp": 13794,
+                  "lostHpRatio": 0.472741771784834,
+                  "recoveryCost": 111
+                },
+                {
+                  "owner": "LIYUE_XINGQIU",
+                  "level": 50,
+                  "hp": 12567,
+                  "maxHp": 14193,
+                  "lostHpRatio": 0.11456351722680194,
+                  "recoveryCost": 27
+                },
+                {
+                  "owner": "MOND_BENNETT",
+                  "level": 50,
+                  "hp": 12627,
+                  "maxHp": 14991,
+                  "lostHpRatio": 0.15769461677006202,
+                  "recoveryCost": 37
+                }
+              ]
+            },
+            "cost": 369
+          }
+        ],
+        [
+          {
+            "type": "TRAVEL_COMBAT",
+            "victory": true,
+            "seconds": 41.15
+          },
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 263,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 200,
+              "weightedHpLoss": 50.78453972698138,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 7011,
+                  "maxHp": 11797,
+                  "lostHpRatio": 0.40569636348224125,
+                  "recoveryCost": 95
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 50,
+                  "hp": 9357,
+                  "maxHp": 13794,
+                  "lostHpRatio": 0.3216615919965202,
+                  "recoveryCost": 76
+                },
+                {
+                  "owner": "LIYUE_XINGQIU",
+                  "level": 50,
+                  "hp": 13350,
+                  "maxHp": 14193,
+                  "lostHpRatio": 0.05939547664341577,
+                  "recoveryCost": 14
+                },
+                {
+                  "owner": "MOND_BENNETT",
+                  "level": 50,
+                  "hp": 11559,
+                  "maxHp": 14991,
+                  "lostHpRatio": 0.22893736241745047,
+                  "recoveryCost": 54
+                }
+              ]
+            },
+            "cost": 263
+          },
+          {
+            "type": "TRAVEL_COMBAT",
+            "victory": true,
+            "seconds": 34.489999999999995
+          }
+        ],
+        [
+          {
+            "type": "INN",
+            "quote": {
+              "cost": 204,
+              "roomCost": 24,
+              "regionalRate": 1.1666666666666667,
+              "totalLevel": 200,
+              "weightedHpLoss": 37.94428841681932,
+              "targets": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 8399,
+                  "maxHp": 11797,
+                  "lostHpRatio": 0.28803933203356785,
+                  "recoveryCost": 68
+                },
+                {
+                  "owner": "LIYUE_XIANGLING",
+                  "level": 50,
+                  "hp": 8756,
+                  "maxHp": 13794,
+                  "lostHpRatio": 0.3652312599681021,
+                  "recoveryCost": 86
+                },
+                {
+                  "owner": "LIYUE_XINGQIU",
+                  "level": 50,
+                  "hp": 13032,
+                  "maxHp": 14193,
+                  "lostHpRatio": 0.0818008877615726,
+                  "recoveryCost": 20
+                },
+                {
+                  "owner": "MOND_BENNETT",
+                  "level": 50,
+                  "hp": 14634,
+                  "maxHp": 14991,
+                  "lostHpRatio": 0.023814288573143886,
+                  "recoveryCost": 6
+                }
+              ]
+            },
+            "cost": 204
+          }
+        ]
+      ]
+    }
+  ],
+  "exactRerunChecks": [
+    {
+      "coefficientArm": "previous",
+      "name": "story4",
+      "route": "ROUTE_TRAVELER",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "previous",
+      "name": "story4",
+      "route": "ROUTE_ISEKAI",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "previous",
+      "name": "support4",
+      "route": "ROUTE_TRAVELER",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "previous",
+      "name": "support4",
+      "route": "ROUTE_ISEKAI",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "previous",
+      "name": "vape4",
+      "route": "ROUTE_TRAVELER",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "previous",
+      "name": "vape4",
+      "route": "ROUTE_ISEKAI",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "final",
+      "name": "story4",
+      "route": "ROUTE_TRAVELER",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "final",
+      "name": "story4",
+      "route": "ROUTE_ISEKAI",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "final",
+      "name": "support4",
+      "route": "ROUTE_TRAVELER",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "final",
+      "name": "support4",
+      "route": "ROUTE_ISEKAI",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "final",
+      "name": "vape4",
+      "route": "ROUTE_TRAVELER",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    },
+    {
+      "coefficientArm": "final",
+      "name": "vape4",
+      "route": "ROUTE_ISEKAI",
+      "mainBattlesExactlyEqualPriorRecord": true,
+      "intermediateRecoveriesExactlyEqualPriorRecord": true,
+      "fixtureEquipmentAndTalentsEqual": true,
+      "actualFullHpEndpoint": true,
+      "sixWins": true
+    }
+  ],
+  "originalReturnResidualDamage": [
+    {
+      "name": "story4",
+      "level": 60,
+      "domain": "TAISHAN_MANSION:60",
+      "route": "ROUTE_ISEKAI",
+      "seed": 717,
+      "oldMissingHp": [],
+      "newMissingHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "missingHp": 519,
+          "maxHp": 17897
+        }
+      ]
+    },
+    {
+      "name": "vape4",
+      "level": 50,
+      "domain": "TAISHAN_MANSION:50",
+      "route": "ROUTE_TRAVELER",
+      "seed": 717,
+      "oldMissingHp": [
+        {
+          "owner": "LIYUE_XIANGLING",
+          "missingHp": 295,
+          "maxHp": 13794
+        }
+      ],
+      "newMissingHp": [
+        {
+          "owner": "LIYUE_XIANGLING",
+          "missingHp": 295,
+          "maxHp": 13794
+        }
+      ]
+    },
+    {
+      "name": "vape4",
+      "level": 50,
+      "domain": "TAISHAN_MANSION:50",
+      "route": "ROUTE_ISEKAI",
+      "seed": 717,
+      "oldMissingHp": [
+        {
+          "owner": "LIYUE_XIANGLING",
+          "missingHp": 433,
+          "maxHp": 13794
+        }
+      ],
+      "newMissingHp": []
+    }
+  ],
+  "successTimeCorrection": {
+    "oldProse": 73.9,
+    "actualSeconds": 73.59,
+    "correctOneDecimal": 73.6
+  },
+  "rawArchive": {
+    "path": "docs/data/protagonist_native_v01618.json.gz",
+    "beforeSha256": "5b2d0f16c00830bd87e3e7b7d26cca0076c2ded651e99fe965f67aa3326516de",
+    "afterSha256": "916e1a09c0c1364200e7b0cdff6feaafdd400ffff09fb43dd4199afc2c1423a6",
+    "originalEightMembersPreservedExactly": true,
+    "appendedMembers": [
+      "protagonist_common_inn_previous.json",
+      "protagonist_common_inn_final.json"
+    ]
+  },
+  "toolSha256": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9",
+  "productSourceSha256Unchanged": "40e41b7fc1a0ac0c3d5c36a3e5963060207b48fc9581ffa613e3d1382f67e76e"
+}

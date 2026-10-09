@@ -17,11 +17,11 @@ const ISEKAI_V2={
  // Defence stays where it was: a light, quick tactician (Abyss foes from floor 6 aim at the lowest defence).
  profile:{BASE_HP:560,BASE_ATK:62,BASE_DEF:30,BASE_SPD:63},
  before:{BASE_HP:480,BASE_ATK:40,BASE_DEF:30,BASE_SPD:55},
- e:{coefficient:1.5,rounds:2,vulnerable_pct:20,boss_pct:12,cooldown:2},
+ e:{coefficient:1.5,rounds:2,vulnerable_pct:30,boss_pct:18,cooldown:2},
  q:{base_bonus_pct:20,atk_factor:.1,level_bonus_pct:1.5,cap_pct:60,cooldown:3}
 };
 api.isekaiRework=copy(ISEKAI_V2);
-const old=Object.fromEntries(['damage','protagonistConfig','migrateProtagonist','cardTargets','executeCard','combatDamageMultiplier','protagonistCombatView','installMarketContent'].map(k=>[k,P[k]]));
+const old=Object.fromEntries(['damage','applyDamage','protagonistConfig','migrateProtagonist','cardTargets','executeCard','combatDamageMultiplier','protagonistCombatView','installMarketContent'].map(k=>[k,P[k]]));
 const live=s=>!!s&&(s.rounds===null||s.rounds===undefined||s.rounds>0);
 // A companion's element is the vision tag on the fighter, e.g. "[불]".
 const visionOf=a=>ELEMENTS.includes(a?.element)?a.element:(a?.tags||[]).map(t=>String(t).replace(/[[\]]/g,'')).find(x=>ELEMENTS.includes(x))||null;
@@ -51,8 +51,16 @@ P.cardTargets=function(a,c){
  return this.s.runtime.actors.filter(t=>t.side==='ENEMY'&&t.hp>0&&(!this.hasAirAccess||this.hasAirAccess(a,t,c.range)));
 };
 P.combatDamageMultiplier=function(a,t,e,o={}){
+ const mark=t?.statuses?.find(x=>x.id===EXPOSED),owner=mark&&this.s.runtime?.actors.find(x=>x.id===(mark.caster||PLAYER)&&x.source===PLAYER);
+ // Keeping the tactician alive is part of the support: expired/orphaned marks cannot power C1 either.
+ if(mark&&!(owner?.hp>0))t.statuses=t.statuses.filter(x=>x!==mark);
  let n=old.combatDamageMultiplier.call(this,a,t,e,o);
  const s=t?.statuses?.find(x=>x.id===EXPOSED);if(a?.side==='ALLY'&&live(s))n*=1+(Number(s.pct)||0)/100;return n;
+};
+P.applyDamage=function(a,t,amount,...args){
+ const out=old.applyDamage.call(this,a,t,amount,...args);
+ if(t?.source===PLAYER&&t.hp<=0)for(const actor of this.s.runtime?.actors||[])actor.statuses=(actor.statuses||[]).filter(s=>s.id!==EXPOSED||(s.caster||PLAYER)!==t.id);
+ return out;
 };
 P.executeCard=function(a,c,target,branch){
  if(c?.id!==IE&&c?.id!==IQ)return old.executeCard.call(this,a,c,target,branch);
@@ -63,7 +71,7 @@ P.executeCard=function(a,c,target,branch){
   const pct=this.isekaiExposedPct(t);
   this.protagonistLog(a,c.id,t.name+' · 약점 간파 · '+cfg.e.rounds+'라운드 동안 받는 피해 +'+pct+'%',{targetId:t.id,target:t.name,protagonistSkill:true,exposedPct:pct});
   this.damage(a,t,cfg.e.coefficient,'PHYSICAL',{range:c.range,card:c.id});
-  if(t.hp>0)this.addCombatStatus(t,EXPOSED,cfg.e.rounds,{caster:a.id,pct});
+  if(t.hp>0&&a.hp>0)this.addCombatStatus(t,EXPOSED,cfg.e.rounds,{caster:a.id,pct});
   a.cooldowns[c.id]=cfg.e.cooldown;return {card:c.id,target,cooldown:cfg.e.cooldown};
  }
  // Q: every able member strikes once, a companion with their own element, the protagonist without one.
@@ -76,7 +84,7 @@ P.executeCard=function(a,c,target,branch){
   const legal=b.actors.filter(x=>x.side==='ENEMY'&&x.hp>0&&this.hasAirAccess(member,x,member.range)),picked=legal.find(x=>x.id===target)||legal[0];
   if(!picked){this.protagonistLog(member,c.id,'합동 공격 불참 · 사거리 내 생존 적 없음',{jointAttack:true,jointSkipped:true,sourceKind:'JOINT_SKIPPED',cardName:'합동 공격 불참'});continue;}
   index++;const start=b.log.length;
-  let base=.65;if(member.source===PLAYER){try{base=JSON.parse(this.row('08_SKILL_CARD_DB','PLAYER_BASIC_ATTACK')[36]).coefficient||.65;}catch{}}
+  let base=member.source===PLAYER ? .65 : .85;if(member.source===PLAYER){try{base=JSON.parse(this.row('08_SKILL_CARD_DB','PLAYER_BASIC_ATTACK')[36]).coefficient||.65;}catch{}}
   const element=member.source===PLAYER?'PHYSICAL':visionOf(member)||'PHYSICAL';
   this.damage(member,picked,base*(1+bonus/100),element,{range:member.range,card:c.id});
   for(const event of b.log.slice(start)){event.actorId=event.actorId||member.id;event.card=event.card||c.id;event.cardName=c.name;event.sourceKind=event.sourceKind||'JOINT_ATTACK';event.jointAttack=true;event.jointIndex=index;event.jointBonusPct=bonus;event.round=b.round;event.actionSequence=b.actionSequence;}

@@ -1,0 +1,242 @@
+{
+  "version": "0.16.18",
+  "status": "implemented_and_verified",
+  "scope": "기존 상점 판매 종류·재고·재입고만 좁게 조정. 새 시스템/아이템/화면/제한 없음.",
+  "sourceFiles": [
+    "source/runtime_economy_v0148.js"
+  ],
+  "testFiles": [
+    "tests/test_shop_supply_v01618.cjs",
+    "tests/test_food_economy_v0168.cjs"
+  ],
+  "tools": [
+    "tools/audit_shop_supply_v01618.cjs"
+  ],
+  "counts": {
+    "itemStockRows": 162,
+    "removedStockRows": 31,
+    "actualRemovedIngredients": 16,
+    "blockedPolicyIngredients": 17,
+    "foodRecipeRows": 108,
+    "legacyFoodRecipeRows": 2,
+    "activeFoodRecipes": 106,
+    "requiresNonpurchaseIngredient": 94,
+    "recoveryFoodRecipes": 45,
+    "recoveryRequiresNonpurchaseIngredient": 39,
+    "noCurrentSupply": 7,
+    "currentIngredientSupplied": 99,
+    "currentRequiresNonpurchase": 88,
+    "currentRecoverySupplied": 43,
+    "currentRecoveryRequiresNonpurchase": 38,
+    "importedSpecialtyRows": 8,
+    "gemOrFieldBossMaterialStocks": 0
+  },
+  "before": {
+    "foodPurchaseAndProcess": 84,
+    "recoveryFoodPurchaseAndProcess": 38,
+    "noCurrentSupply": [
+      "REC_FOOD_SNEZ_GLUPOV_RYE_BREAD",
+      "REC_FOOD_SNEZ_BERRY_ICE_CREAM",
+      "REC_FOOD_SNEZ_SNOWBALL_FLOWER",
+      "REC_FOOD_SNEZ_COLD_SOUP",
+      "REC_FOOD_SNEZ_BORSCHT",
+      "REC_FOOD_SNEZ_SKEWER",
+      "REC_FOOD_GOULASH"
+    ]
+  },
+  "policy": {
+    "removed": {
+      "ingredients": [
+        "ING_APPLE",
+        "ING_BACON",
+        "ING_BAMBOO_SHOOT",
+        "ING_BIRD_EGG",
+        "ING_CARROT",
+        "ING_FISH",
+        "ING_FOWL",
+        "ING_HAM",
+        "ING_LOTUS_HEAD",
+        "ING_MINT",
+        "ING_MUSHROOM",
+        "ING_RADISH",
+        "ING_RAW_MEAT",
+        "ING_SAUSAGE",
+        "ING_SUNSETTIA",
+        "ING_SWEET_FLOWER"
+      ],
+      "stockRows": 31,
+      "meaning": "기존에 판매되던16개식재료31행을비판매로변경. 짐승고기·새고기·범용생선살코기 및 햄/소시지/베이컨 구매경로 제거. 달걀/과일/채집풀/버섯/당근/무/연꽃받침/죽순 일부도 직접수급. 훈제새고기는 원래 판매행0이므로 실제제거 수에 넣지 않고17개 정책목록에만 포함.",
+      "actualIngredientCount": 16,
+      "blockedPolicyIngredientCount": 17,
+      "alreadyNotSoldButKeptBlocked": [
+        "ING_SMOKED_FOWL"
+      ]
+    },
+    "preserved": "우유·쌀·밀가루·설탕·소금·후추·양파·토마토·감자·양배추·생새우살·꽃게·두부·유제품·낚싯대·미끼·기존 완성 음식은 유지.",
+    "specialties": {
+      "importRows": 8,
+      "before": "각4/매일, 개당240모라",
+      "after": "각2/3일, 가격240모라 보존",
+      "localSilkFlower": "5/매일→5/3일, 가격60 보존",
+      "localCorLapis": "5/3일·가격120 기존 보존",
+      "reason": "해당 지역이 열리기 전에 획득한 동료의 돌파를 막지 않는 보조 수급."
+    },
+    "growthMaterialClarification": "현재 NPC 상점에 돌파 보석·필드보스 전리품·일반 적 소재 판매는 없었음. 관련 판매는 지역 특산물10행(수입8+현지2)임. 희귀 낚시 어종은 판매되지 않음."
+  },
+  "comparison": {
+    "originalGame": "원작도 일부 짐승고기/새고기/생선/꽃게·가공육·특산물을 판매한다. 본 CRPG의 직접 수급 재료 판매 제외는 사용자 의도에 따른 더 엄격한 경제 선택이며 원작 미판매라는 주장 아님.",
+    "craftingDirectMaterialCoverage": "구매+가공만 가능한 활성 요리84/106→12/106. 전체106중94가 직접 수급 재료 필요. 회복 요리45중39 필요. 현행 몬드·리월 수급 가능한99중88, 회복43중38. 레거시2개 및 기존 공급 불가7개 별도 분리.",
+    "readyFoodException": "완성 음식12판매행(10종) 유지. 9종은 재료로 제작하려면 직접 수급해야 하지만 완성품 구매는 가능하며 제작·채집 진척을 대신하지 않는다.",
+    "importWait": {
+      "quantity": 12,
+      "mora": 2880,
+      "worldDaysWait": 15,
+      "waitActions": 15,
+      "purchaseActions": 6,
+      "actionCount": 22,
+      "inputSecondsAssumingThreeSecondsPerAction": 66,
+      "travelExcluded": true,
+      "syntheticFunding": 10000,
+      "notClaimedSlowerThanHarvest": true
+    },
+    "fieldSamples": [
+      {
+        "map": "MAP_LY_DETAIL_QINGYUN",
+        "kind": "GATHER",
+        "nativeSamples": 16,
+        "meanElapsedSeconds": 2.490625,
+        "meanItems": {
+          "MAT_LIYUE_QINGXIN": 2.8125,
+          "MAT_LIYUE_JUEYUN_CHILI": 2.5,
+          "ING_MINT": 1.25
+        },
+        "meanInputs": 4.3125
+      },
+      {
+        "map": "MAP_LY_DETAIL_QINGCE_FIELDS",
+        "kind": "GATHER",
+        "nativeSamples": 16,
+        "meanElapsedSeconds": 2.490625,
+        "meanItems": {
+          "ING_RADISH": 1.75,
+          "MAT_LIYUE_SILK_FLOWER": 2.5,
+          "ING_SWEET_FLOWER": 0.9375,
+          "ING_CARROT": 1.375
+        },
+        "meanInputs": 4.3125
+      },
+      {
+        "map": "MAP_LY_DETAIL_HULAO",
+        "kind": "MINE",
+        "nativeSamples": 16,
+        "meanElapsedSeconds": 3.071874999999999,
+        "meanItems": {
+          "ORE_WHITE_IRON": 1.4375,
+          "MAT_LIYUE_COR_LAPIS": 1.4375,
+          "ORE_CRYSTAL": 0.4375
+        },
+        "meanInputs": 9.6875
+      }
+    ],
+    "interpretation": "WORLD_DAY 대기는 그대로여서 수입12개를15일 WAIT+6번BUY로2880모라에 구매할 수 있다(이동 제외22입력,3초 가정66초). 실시간 제한이 아님. 현지 특산 채집은 여러 재료 동시 획득·모라0이고 준비 장소 기준16표본 평균 고추2.5/회·예상꽃2.5/회·콜 라피스1.4375/회. 왕복/전투 제외 표본이며 완전한 파밍 시간으로 홍보하지 않는다."
+  },
+  "verification": {
+    "shopRegression": {
+      "passed": 5
+    },
+    "foodEconomyRegression": {
+      "passed": 9,
+      "nativeRemainingRoutes": "행인두부의 재료 및 제작법 실제 구매→향릉 추가 생산 포함 요리→NPC 판매; 완성 닭고기 구매→판매; 우유 구매→버터 가공→판매; 보수적 모든 상점/가공/요리 차익 검사0"
+    },
+    "foodLodgingRegression": {
+      "passed": 10
+    },
+    "nativeSupplyCampaigns": {
+      "foods": 45,
+      "resourceConditions": 12,
+      "resourceSamples": 192,
+      "campaigns": 18,
+      "failedCampaigns": 0,
+      "nativeCampaignHarvests": 210,
+      "campaignEncounters": 53,
+      "npcArbitrageViolations": 0
+    },
+    "specialtySamples": 48,
+    "npcArbitrageViolations": 0,
+    "resalePriceChanges": 0,
+    "legacyReceipt": "기존 구매 조건을 복원한 명시적 호환성 fixture에서 진짜 BUY영수증을 생성→정책 적용 후 저장/불러오기→같은행동 재시도 무차감/무중복 지급 확인. 과거 서버 세이브 파일 재연은 아님.",
+    "newlyUnsuppliedFoodRecipes": [],
+    "newlyUnsuppliedFoodCount": 0,
+    "coverageIndependentRecalculation": {
+      "seed": "actual stillSold stock rows",
+      "processingDefinitions": 288,
+      "policyListCountUsed": false,
+      "activeFoodRecipes": 106,
+      "foodNeedsField": 94,
+      "recoveryFoodRecipes": 45,
+      "recoveryNeedsField": 39,
+      "sameAsCatalog": true
+    }
+  },
+  "preserved": [
+    "원시 DB/기존 아이템/요리 재료와 제작비/회복량/숙박비/레시피 해금/거래시장/이전 소지품·NPC 판매값/구매 영수증/동일 BUY재시도/기존 이동·WAIT"
+  ],
+  "knownLimits": [
+    "기존 공급 불가7개 음식은 미래 지역 재료6개 및 냉동 고기1개 계열; 이번 변경으로 새로 수급 불가가 된 음식은 없음.",
+    "기존 사냥/낚시 이외 일부 필드 채집으로 고기·생선이 나오는 경로도 보존. 모든 해당 요리에 반드시 특정 미니게임만 강제된다는 주장은 아님.",
+    "수입 특산물은 값비싼 구매 대안으로 남음. 빠른 WAIT를 통한 재고 확보가 완전히 불가능하다고 주장하지 않음.",
+    "기존 완성 음식·순수 구매 재료 요리의 편의 역할은 유지한다.",
+    "가격·재고 검사만으로 플레이어 시장 인플레/실제 유통가격 안정까지 입증하지 않음."
+  ],
+  "sourceURLs": [
+    "https://wiki.hoyolab.com/m/genshin/entry/2481?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/3717?lang=ja-jp",
+    "https://wiki.hoyolab.com/pc/genshin/entry/3717?lang=en-us",
+    "https://wiki.hoyolab.com/pc/genshin/entry/3426?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/300?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1284?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/2463?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/3433?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1556?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/2478?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1556?lang=fr-fr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/4411?lang=id-id",
+    "https://wiki.hoyolab.com/pc/genshin/entry/2543?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/2543?lang=zh-tw",
+    "https://wiki.hoyolab.com/pc/genshin/entry/2516?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1100?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/396?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/4069?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1930?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1349?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1730?lang=ko-kr",
+    "https://wiki.hoyolab.com/m/genshin/entry/1242?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1242?lang=en-us",
+    "https://wiki.hoyolab.com/pc/genshin/entry/471?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/471?lang=en-us",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1183?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1184?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/891?lang=ko-kr",
+    "https://wiki.hoyolab.com/pc/genshin/entry/1048?lang=ko-kr",
+    "https://genshin.hoyoverse.com/ko/news/detail/20827"
+  ],
+  "evidenceFiles": [
+    "/tmp/crpg_v01618/shop_catalog_v01618.json",
+    "/tmp/crpg_v01618/shop_canon_research.json",
+    "/tmp/crpg_v01618/shop_native_supply_v01618.json",
+    "/tmp/crpg_v01618/shop_native_supply_v01618.json.gz",
+    "/tmp/crpg_v01618/shop_baseline.json"
+  ],
+  "sourceFingerprint": {
+    "dbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "economySha256": "ab69d2021d7a706b5996c9e8648722f060794a5667126d71215fe5662ed1a096",
+    "toolSha256": "da24a2623999618ea1704a0003e1a09f642bf7732ab047094584cd6adbd3a664",
+    "loadedRuntimeDigest": "95902d7b300863b1743a88e2a190d1f5cf53175d18f583dbf5354906314125c8"
+  },
+  "supplyFingerprint": {
+    "loadedSourceDigest": "6c23467b7eaca4f4e1638e238c1fc762a80ef627bf10cbcad5cc516db39f4c92",
+    "dbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "toolSha256": "23f30cd9bbc7cdfac5093ac6358d43e3f74ad648aa47bedc8f0783f91a3a8e18",
+    "packageVersion": "0.16.18"
+  }
+}

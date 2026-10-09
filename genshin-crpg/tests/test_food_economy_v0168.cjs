@@ -57,19 +57,35 @@ test('attack and feast cooking both grant one extra dish per action, not per bat
   r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_SERVICE_MOND_COOK',mode:'CRAFT'});const out=r.action('CRAFT',{recipe,quantity:2}).result;assert.equal(out.quantity,3);
  }
 });
-test('buy, cook with bonus, and NPC resale no longer generates profit',()=>{
+test('old meat/fish purchase, bonus cooking and resale routes cannot start from NPC ingredients',()=>{
  for(const recipe of ['REC_FOOD_NATLAN_STEW','REC_FOOD_SNEZ_SLICED_SASHIMI'])for(const passive of [false,true]){
   const r=fresh();if(passive){r.s.global.COMPANION_ELIGIBILITY_JSON=JSON.stringify({LIYUE_XIANGLING:{state:'JOINED'}});r.action('PARTY',{char:'LIYUE_XIANGLING',slot:2});}
-  const rec=r.recipeDefinition(recipe),cost=r.recipeCost(rec),cash=r.s.global.MORA;
-  for(const [id,n]of Object.entries(cost.items)){
-   const stocks=r.rows('19_SHOP_STOCK_DB').filter(x=>x[2]==='ITEM'&&x[3]===id&&Number(x[5])>0&&r.merchantOpen(x[1])&&!/SYSTEM_DISABLED/.test(x[8]||'')).sort((a,b)=>a[5]-b[5]);
-   const stock=stocks[0],place=r.placeCatalog().find(x=>x.modes.includes('SHOP')&&r.placeStockMerchants(x).includes(stock[1])&&!r.placeAvailability(x));
-   if(r.s.placeVisit)r.action('PLACE_LEAVE');r.action('PLACE_ENTER',{place:place.id,mode:'SHOP'});r.action('BUY',{stock:stock[0],quantity:n});
-  }
-  r.action('PLACE_LEAVE');r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_SERVICE_MOND_COOK',mode:'CRAFT'});const out=r.action('CRAFT',{recipe,quantity:1}).result;
-  r.action('PLACE_LEAVE');r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_MRC_MOND_GENERAL',mode:'SHOP'});r.action('SELL',{item:rec[3],quantity:out.quantity});
-  assert(r.s.global.MORA<=cash);if(passive)assert.equal(r.s.global.MORA,cash);
+  const rec=r.recipeDefinition(recipe),cost=r.recipeCost(rec),field=Object.keys(cost.items).find(id=>['ING_RAW_MEAT','ING_FISH'].includes(id));assert(field);
+  assert.equal(r.rows('19_SHOP_STOCK_DB').filter(x=>x[2]==='ITEM'&&x[3]===field&&!/SYSTEM_DISABLED/.test(x[8]||'')).length,0);
+  const stock=r.rows('19_SHOP_STOCK_DB').find(x=>x[2]==='ITEM'&&x[3]===field&&x[1]==='MRC_MOND_GENERAL');assert(stock);
+  r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_MRC_MOND_GENERAL',mode:'SHOP'});const before=r.serialize();
+  assert.throws(()=>r.action('BUY',{stock:stock[0],quantity:cost.items[field]}),e=>e.code==='BUY');assert.equal(r.serialize(),before);
+  assert.equal(r.itemCount(rec[3]),0);
  }
+});
+test('remaining ingredient cooking with bonus, ready meals, and dairy processing retain nonprofitable native resale paths',()=>{
+ for(const passive of [false,true]){
+  const r=fresh('MAP_LIYUE_HARBOR');if(passive){r.s.global.COMPANION_ELIGIBILITY_JSON=JSON.stringify({LIYUE_XIANGLING:{state:'JOINED'}});r.action('PARTY',{char:'LIYUE_XIANGLING',slot:2});}
+  const wallet=r.s.global.MORA;
+  r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_MRC_LIYUE_GENERAL',mode:'SHOP'});
+  for(const [stock,n]of [['STK_LIYUE_FOOD_005',3],['STK_V014_LIYUE_SUGAR',1],['STK_V014_LIYUE_ALMOND',1]])r.action('BUY',{stock,quantity:n});
+  r.action('PLACE_LEAVE');const restaurant=r.placeCatalog().find(p=>p.merchant==='MRC_LIYUE_WANMIN');
+  // Location/ownership are fixtures; ingredients and the recipe are really bought.
+  r.s.global.CURRENT_MAP_ID=restaurant.maps[0];r.action('PLACE_ENTER',{place:restaurant.id,mode:'SHOP'});r.action('BUY',{stock:'STK_V014_LIYUE_REC_01',quantity:1});r.action('PLACE_LEAVE');
+  r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_SERVICE_LIYUE_COOK',mode:'CRAFT'});const out=r.action('CRAFT',{recipe:'REC_FOOD_ALMOND_TOFU'}).result;assert.equal(out.quantity,passive?2:1);
+  r.action('PLACE_LEAVE');r.action('PLACE_ENTER',{place:restaurant.id,mode:'SHOP'});r.action('SELL',{item:'FOOD_ALMOND_TOFU',quantity:out.quantity});assert(r.s.global.MORA<wallet);
+ }
+ const r=fresh(),wallet=r.s.global.MORA;r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_SARA',mode:'SHOP'});r.action('BUY',{stock:'STK_MOND_SARA_CHICKEN',quantity:1});r.action('SELL',{item:'FOOD_SWEET_MADAME',quantity:1});assert(r.s.global.MORA<wallet);
+ r.action('PLACE_LEAVE');r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_MRC_MOND_GENERAL',mode:'SHOP'});const beforeDairy=r.s.global.MORA;r.action('BUY',{stock:'STK_MOND_FOOD_001',quantity:2});r.action('PLACE_LEAVE');
+ r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_SERVICE_MOND_COOK',mode:'CRAFT'});r.action('CRAFT',{recipe:'REC_PROCESS_BUTTER'});r.action('PLACE_LEAVE');r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_MRC_MOND_GENERAL',mode:'SHOP'});r.action('SELL',{item:'ING_BUTTER',quantity:1});assert(r.s.global.MORA<beforeDairy);
+ // Keep the conservative all-stock/all-recipe closure too, including future
+ // catalog rows and the best existing material/food bonuses, not just examples.
+ const scan=require('../tools/audit_economy_v0168.cjs').audit();assert.equal(scan.violations.length,0);
 });
 test('Xiangling cooking bonus leaves a non-food fishing bait recipe usable',()=>{
  const r=fresh();r.s.global.COMPANION_ELIGIBILITY_JSON=JSON.stringify({LIYUE_XIANGLING:{state:'JOINED'}});r.action('PARTY',{char:'LIYUE_XIANGLING',slot:2});

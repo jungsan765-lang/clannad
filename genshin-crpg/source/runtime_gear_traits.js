@@ -177,7 +177,13 @@ const singleCard=(r,o)=>{if(o.aoe)return false;if(!o.card)return true;const row=
 const heavyHit=(r,k,o)=>{if(o.heavy)return true;if(Number(k)>=1.3)return true;const row=o.card&&(r.tables['12_ENEMY_CARD_DB']?.get(o.card));return /강공|돌진|충돌/.test(String(row?.[4]||'')+String(row?.[25]||''));};
 P.coverFor=function(a,t,o){
  const b=this.s.runtime;if(!b||t.side!=='ALLY'||a.side==='ALLY'||o.sourceKind||o.covered||!singleCard(this,o))return null;
- const key=a.id+':'+(b.actionSequence||0)+':'+t.id;b.coverDecisions=b.coverDecisions||{};if(key in b.coverDecisions)return b.actors.find(x=>x.id===b.coverDecisions[key])||null;
+ const key=a.id+':'+(b.actionSequence||0)+':'+t.id;b.coverDecisions=b.coverDecisions||{};
+ if(key in b.coverDecisions){
+  // A multi-hit action keeps its first cover roll; later hits still require a living, able neighbor.
+  const mate=b.actors.find(x=>x.id===b.coverDecisions[key]&&x.hp>0&&this.combatDistance(x,t)<=1&&!this.combatActionLocked?.(x));
+  if(!mate)b.coverDecisions[key]=null;
+  return mate||null;
+ }
  let pick=null;const mates=b.actors.filter(x=>x.side==='ALLY'&&x.id!==t.id&&x.hp>0&&this.combatDistance(x,t)<=1&&!this.combatActionLocked?.(x));
  for(const m of mates.sort((x,y)=>tv(y,'COVER')-tv(x,'COVER')||(x.slot||0)-(y.slot||0))){const shielded=(m.shields||[]).some(s=>s.value>0),chance=Math.min(75,tv(m,'COVER')+(shielded?30:0));if(chance>0&&this.random()*100<chance){pick=m;break;}}
  b.coverDecisions[key]=pick?.id||null;if(Object.keys(b.coverDecisions).length>60)b.coverDecisions={[key]:pick?.id||null};
@@ -263,7 +269,7 @@ P.tickHazards=function(){const b=this.s.runtime;if(!b?.hazards?.length)return;
   for(const t of this.hazardTargets(h)){const mit=this.hazardMitigation(t,h.kind),dmg=Math.max(1,Math.round(t.maxHp*h.power*(1-mit/100)));this.applyDamage(src,t,dmg,{element:def.element,sourceKind:'HAZARD',hazard:h.kind,mitigated:mit});
    if(!h.status||t.hp<=0)continue;const steady=tv(t,'TERRAIN_STEADY')>0;
    if(h.kind==='FROST'&&!steady&&tv(t,'COLD')<50)this.addCombatStatus(t,'STATUS_SLOW',1,{value:-10,hazard:true});
-   if(h.kind==='FLOOD'&&!steady&&tv(t,'WATERPROOF')<50){this.addCombatStatus(t,'HAZARD_WET',1,{mods:{spd:{flat:-6},eva:{flat:-5}},hazard:true});t.aura='물';}
+   if(h.kind==='FLOOD'&&!steady&&tv(t,'WATERPROOF')<50){this.addCombatStatus(t,'HAZARD_WET',1,{mods:{spd:{flat:-6},eva:{flat:-5}},hazard:true});this.setAura(t,'물');}
    if(h.kind==='CORROSION'&&tv(t,'ANTITOXIN')<50)this.addCombatStatus(t,'HAZARD_CORRODED',2,{mods:{def:{pct:-15}},hazard:true});}}
  for(const h of b.hazards)if(Number.isFinite(h.rounds)&&h.startsRound<=b.round)h.rounds--;
  b.hazards=b.hazards.filter(h=>!Number.isFinite(h.rounds)||h.rounds>0);

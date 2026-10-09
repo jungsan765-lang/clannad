@@ -276,13 +276,16 @@ P.fieldBossBarrierReason=function(a,t,element){
  return '';
 };
 P.fieldBossBlockedHit=function(a,t,reason){const b=this.s.runtime;b.log.push({actor:a.name,actorId:a.id,target:t.name,targetId:t.id,damage:0,immune:reason,text:reason,round:b.round});return 0;};
-P.hasElementImmunity=function(t,el){const d=t?.fb&&BOSSES[t.source];if(d&&(d.immune.includes(ko(el))||d.immune.includes('ALL')))return true;return !!old.hasElementImmunity?.call(this,t,el);};
+P.hasElementImmunity=function(t,el){const d=t?.fb&&BOSSES[t.source];if(d&&(d.immune.includes(ko(el))||d.immune.includes('ALL')))return true;if(MIMIC_ORDER.includes(t?.source)&&ko(el)==='물')return true;return !!old.hasElementImmunity?.call(this,t,el);};
+// The exposed Cryo core is a hit-count objective, never a one-HP damage target.
+// Direct attacks and delayed native packets use the same existing Pyro/armor-break gate.
+P.fbHitCryoCore=function(t){const b=this.s.runtime,r=t.fb.revival;r.hits=(r.hits||0)+1;b.log.push({target:t.name,targetId:t.id,text:'냉기 핵에 금이 갔다 · '+r.hits+'/'+r.need,round:b.round});if(r.hits>=r.need){t.fb.revival=null;t.hp=0;this.fbLog(t,'CORE_BROKEN','핵 파괴',t.name+'의 냉기 핵이 부서졌다');}return true;};
 P.damage=function(a,t,k,e,o={}){
  const b=this.s.runtime;if(!b?.fieldBoss||!t)return old.damage.call(this,a,t,k,e,o);
  const barrier=this.fieldBossBarrierReason(a,t,e);if(barrier)return this.fieldBossBlockedHit(a,t,barrier);
  if(this.fbUntouchable(t)&&a.side==='ALLY'){const why=t.fb.untouchable?'본체에는 닿지 않는다 · 형상을 쓰러뜨려야 한다':t.fb.burrowed?'땅속에 있어 닿지 않는다':'부활을 지키는 '+(BOSSES[t.source].kind==='ELECTRO'?'프리즘':'기둥')+'을 먼저 부숴야 한다';b.log.push({actor:a.name,actorId:a.id,target:t.name,targetId:t.id,damage:0,immune:why,round:b.round});return false;}
  if(t.fb&&a.side==='ALLY'&&this.hasElementImmunity(t,e))this.fieldBossSeen(b,'IMMUNE');
- if(t.fb?.revival&&a.side==='ALLY'&&BOSSES[t.source].kind==='CRYO_HYPO'&&!o.sourceKind){t.fb.revival.hits=(t.fb.revival.hits||0)+1;b.log.push({target:t.name,targetId:t.id,text:'냉기 핵에 금이 갔다 · '+t.fb.revival.hits+'/'+t.fb.revival.need,round:b.round});if(t.fb.revival.hits>=t.fb.revival.need){t.fb.revival=null;t.hp=0;this.fbLog(t,'CORE_BROKEN','핵 파괴',t.name+'의 냉기 핵이 부서졌다');return true;}return true;}
+ if(t.hp>0&&t.fb?.revival&&a.side==='ALLY'&&BOSSES[t.source].kind==='CRYO_HYPO')return k>0||Number(o.rawAdd)>0?this.fbHitCryoCore(t):false;
  return old.damage.call(this,a,t,k,e,o);
 };
 P.combatDamageMultiplier=function(a,t,e,o={}){
@@ -298,6 +301,7 @@ P.applyDamage=function(a,t,n,details={}){
  const b=this.s.runtime;if(!b?.fieldBoss||!t)return old.applyDamage.call(this,a,t,n,details);
  const barrier=this.fieldBossBarrierReason(a,t,details.element);if(barrier)return this.fieldBossBlockedHit(a,t,barrier);
  if(t.fb?.revival?.guarded&&a?.side==='ALLY')return this.fieldBossBlockedHit(a,t,'부활을 지키는 '+(BOSSES[t.source].kind==='ELECTRO'?'프리즘':'기둥')+'을 먼저 부숴야 한다');
+ if(t.hp>0&&t.fb?.revival&&BOSSES[t.source].kind==='CRYO_HYPO'){if(a?.side==='ALLY'&&Math.round(Math.max(0,n))>0)this.fbHitCryoCore(t);return 0;}
  const had=t.hp,shell=(t.shields||[]).some(s=>s.source==='FB_SHELL'&&s.value>0);
  if(t.fb?.revival&&BOSSES[t.source].kind==='ANEMO'&&a?.side==='ALLY'){const r=t.fb.revival,take=Math.max(0,Math.round(n));r.core=Math.max(0,r.core-take);b.log.push({actor:a.name,target:t.name,targetId:t.id,damage:take,core:r.core,text:'드러난 핵 · 남은 핵 '+r.core,round:b.round});if(r.core<=0){t.fb.revival=null;t.hp=0;this.fbLog(t,'CORE_BROKEN','핵 파괴',t.name+'의 핵이 부서졌다');}return take;}
  const result=old.applyDamage.call(this,a,t,n,details);

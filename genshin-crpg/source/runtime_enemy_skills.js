@@ -80,7 +80,7 @@ P.cancelEnemyCharge=function(a,reason){
 P.addCombatStatus=function(a,id,rounds,extra={}){
  if(isLocal(this,a)&&a.source==='MON_LAWACHURL_FROST'&&id==='STATUS_SLOW'&&(a.shields||[]).some(s=>s.source==='ECARD_LAWA_FROST_ARMOR'&&s.value>0))return null;
  const result=old.addCombatStatus.call(this,a,id,rounds,extra);
- if(active(this)&&a.enemyCharge&&result&&['STATUS_FREEZE','LIFTED','STATUS_STUN'].includes(id))this.cancelEnemyCharge(a,label[id]||'행동 제어');
+ if(active(this)&&a.enemyCharge&&result&&['STATUS_FREEZE','LIFTED','STATUS_STUN','LIYUE_PETRIFY'].includes(id))this.cancelEnemyCharge(a,label[id]||'행동 제어');
  return result;
 };
 P.applyCombatControl=function(a,t,kind,options={}){

@@ -7,6 +7,8 @@ async function once(type,params={}){const requestId=crypto.randomUUID(),revision
 async function rejected(type,params){const before=f.read();const out=await f.action(type,params);assert(out.status>=400,JSON.stringify(out));assert.equal(f.read().state,before.state);}
 const group=r.s.battlePreparation.group;
 await rejected('COMBAT_PREPARE',{group,companions:[]});await once('PARTY',{char:'MOND_AMBER',slot:2});assert.equal(r.tutorialDirective().id,'equip');await rejected('COMBAT_PREPARE',{group,companions:['MOND_AMBER']});await once('EQUIP',{owner:'MOND_AMBER',slot:r.tutorialState().loan.weaponSlot});await once('COMBAT_PREPARE',{group,companions:['MOND_AMBER']});await once('COMBAT_BEGIN');
-for(let n=0;r.s.runtime&&n<20;n++){const card=r.combatCards().find(c=>!c.reason&&c.id==='PLAYER_BASIC_ATTACK');assert(card);await once('COMBAT',{card:card.id,target:card.targets[0]?.id});}
+for(let n=0;r.s.runtime&&n<20;n++){const available=r.combatCards().filter(c=>!c.reason),card=available.find(c=>c.id===r.tutorialDirective()?.card)||available.find(c=>c.id==='PLAYER_BASIC_ATTACK');assert(card);await once('COMBAT',{card:card.id,target:card.targets[0]?.id});}
 assert(!r.s.runtime);assert(r.tutorialState().done.amberIntro);assert(!r.premiumOwns('MOND_AMBER'));assert(!r.tutorialState().loan);assert.equal(JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON).victory,true);
+for(const lesson of ['combatAttack','combatGuard','combatSkill','combatBurst'])assert.equal(r.tutorialState().done[lesson],true,lesson+' completed through the actual tutorial directive');
 console.log('PASS real Worker + SQLite first-story Amber selection, equipment, combat, permanent ownership boundary and duplicate request receipts');
+

@@ -1,8 +1,8 @@
 /* v0.14.8 economy. Load at the end, after runtime_places.js, runtime_abyss.js and the claimQuest wrappers.
  * 1. Liyue Harbor has one smith, as Mondstadt does: the common smith (대장장이) is folded into 리월 장비점, which then
  *    also sells its stock and counts as that smith for recipes.
- * 2. Liyue shops carry what Mondstadt's do (fish, meat, dairy, bandages, every 3★ weapon) at Liyue prices, and sell
- *    Liyue's own lotus heads and bamboo shoots.
+ * 2. Liyue shops carry common groceries, dairy, bandages and every 3★ weapon.
+ *    v0.16.18 keeps field ingredients and processed meat on their existing activity/processing routes.
  * 3. Purple (4★) and gold (5★) weapons come only from the forge. No shop sells one, and the rewards that used to hand
  *    one over (기사단 장비 보급, 나선비경 첫 정복) give its 단조 도면 instead; the Mondstadt or Liyue smith turns the
  *    blueprint, ore and Mora into the weapon. Weapons already owned stay as they are.
@@ -48,7 +48,41 @@ const LIYUE_STOCK=[
  ['STK_V0148_LY_LEATHER','MRC_LIYUE_GENERAL','ITEM','TRPG_REFINED_LEATHER',48,8,'매일'],
  ['STK_V0148_LY_CLOTH','MRC_LIYUE_GENERAL','ITEM','TRPG_STURDY_CLOTH',36,8,'매일']
 ];
-const old=Object.fromEntries(['placeMergedInto','placeStockMerchants','installMarketContent','claimQuest','claimAbyss','abyssView'].map(k=>[k,P[k]]));
+// The original game also sells some meat/fish and specialties. This narrower
+// CRPG assortment is intentional: WORLD_DAY can advance through existing WAIT
+// actions, so a smaller daily stock alone would still replace field activity.
+// Keep basic groceries, bait, ready meals and the low-volume imported
+// specialties needed by characters obtained before Liyue opens.
+const FIELD_INGREDIENTS=new Set([
+ 'ING_RAW_MEAT','ING_FOWL','ING_FISH','ING_HAM','ING_SAUSAGE','ING_BACON','ING_SMOKED_FOWL',
+ 'ING_BIRD_EGG','ING_APPLE','ING_SUNSETTIA','ING_SWEET_FLOWER','ING_MINT',
+ 'ING_MUSHROOM','ING_CARROT','ING_RADISH','ING_LOTUS_HEAD','ING_BAMBOO_SHOOT'
+]);
+const old=Object.fromEntries(['placeMergedInto','placeStockMerchants','installMarketContent','claimQuest','claimAbyss','abyssView','newGame','validateSave','saleUnitPrice'].map(k=>[k,P[k]]));
+P.installFieldSupplyAssortment=function(){
+ const source=this.db['19_SHOP_STOCK_DB'];
+ if(!source)return;
+ const rows=source.map(r=>r.slice());let changed=false;
+ for(const row of rows.slice(1)){
+  if(row[2]==='ITEM'&&FIELD_INGREDIENTS.has(row[3])&&row[8]!=='SYSTEM_DISABLED'){row[8]='SYSTEM_DISABLED';changed=true;}
+  // Growth installs the imports after installMarketContent. The lifecycle
+  // wrappers below apply this same table edit to both new and loaded games.
+  if(row[2]==='ITEM'&&row[0].startsWith('STK_MOND_IMPORT_')){
+   if(row[6]!==2||row[7]!=='3일'){row[6]=2;row[7]='3일';changed=true;}
+  }
+  if(row[0]==='STK_LIYUE_FOOD_SILK_FLOWER'&&(row[6]!==5||row[7]!=='3일')){row[6]=5;row[7]='3일';changed=true;}
+ }
+ if(changed){this.db={...this.db,'19_SHOP_STOCK_DB':rows};this.tables['19_SHOP_STOCK_DB']=new Map(rows.slice(1).filter(r=>r?.[0]).map(r=>[r[0],r]));}
+};
+P.newGame=function(...args){this.installFieldSupplyAssortment();return old.newGame.apply(this,args);};
+P.validateSave=function(...args){this.installFieldSupplyAssortment();return old.validateSave.apply(this,args);};
+// Removing retail rows must not raise the resale price of ingredients already
+// owned. Their old price cap remains, and selling/player market access is intact.
+P.saleUnitPrice=function(inv){
+ const price=old.saleUnitPrice.call(this,inv);if(!FIELD_INGREDIENTS.has(inv.item))return price;
+ const retail=this.rows('19_SHOP_STOCK_DB').filter(r=>r[2]==='ITEM'&&r[3]===inv.item&&Number(r[5])>0).map(r=>Number(r[5]));
+ return retail.length?Math.min(price,Math.floor(Math.min(...retail)/4)):price;
+};
 // ---- 1. one smith in Liyue Harbor ----
 P.placeMergedInto=function(entry,map=this.s?.global?.CURRENT_MAP_ID){
  const base=old.placeMergedInto.call(this,entry,map);if(base)return base;
@@ -104,7 +138,8 @@ P.installMarketContent=function(...args){
   const items=this.tables['14_ITEM_DB'];
   for(const [sid,m,kind,id,price,stock,restock]of LIYUE_STOCK){if(rows.some(r=>r[0]===sid))continue;const name=(kind==='EQUIP'?equip.get(id):items.get(id))?.[1];if(!name)continue;rows.push([sid,m,kind,id,name,price,stock,restock,'없음','v0.14.8 리월 상점 보강']);}
  });
+ this.installFieldSupplyAssortment();
  return out;
 };
-P.economyV0148=true;api.economyV0148={blueprints:Object.keys(BLUEPRINTS),liyueStock:LIYUE_STOCK.map(x=>x[0])};
+P.economyV0148=true;api.economyV0148={blueprints:Object.keys(BLUEPRINTS),liyueStock:LIYUE_STOCK.map(x=>x[0]),fieldIngredientAssortment:Array.from(FIELD_INGREDIENTS)};
 })(typeof window!=='undefined'?window:globalThis);

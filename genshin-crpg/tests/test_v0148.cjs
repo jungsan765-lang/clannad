@@ -94,8 +94,8 @@ check('이세계인: new base stats for new and older saves (once), 약점 간�
  const m0=f.combatDamageMultiplier(amber,enemy,'불',{});
  b.order=[me.id,...b.order.filter(x=>x!==me.id)];b.cursor=0;
  const hp=enemy.hp;f.executeCard(me,E,enemy.id);assert(enemy.hp<hp,'the strike lands');
- const mark=enemy.statuses.find(s=>s.id==='STATUS_ISEKAI_EXPOSED');assert(mark&&mark.rounds===2&&mark.pct===20);
- assert.equal(Math.round(f.combatDamageMultiplier(amber,enemy,'불',{})/m0*100),120,'the party deals 20% more to it');
+ const mark=enemy.statuses.find(s=>s.id==='STATUS_ISEKAI_EXPOSED');assert(mark&&mark.rounds===2&&mark.pct===30);
+ assert.equal(Math.round(f.combatDamageMultiplier(amber,enemy,'불',{})/m0*100),130,'the party deals 30% more to it');
  assert.equal(me.cooldowns.PLAYER_ISEKAI_E,2);
  const start=b.log.length;me.cooldowns.PLAYER_ISEKAI_Q=0;f.executeCard(me,Q,enemy.id);
  const hits=b.log.slice(start).filter(e=>e.jointAttack&&Object.hasOwn(e,'damage'));
@@ -111,7 +111,8 @@ check('Liyue: one smith in the harbour, fuller shops, and 4★+ weapons only fro
  assert.deepEqual(plain(r.placeStockMerchants(r.placeCatalog().find(e=>e.id==='EVT_SCHEDULE_MRC_LIYUE_EQUIP'))),['MRC_LIYUE_EQUIP','MRC_BLACKSMITH_COMMON']);
  assert(!fresh('MAP_MOND_CITY').placeEntries().some(e=>e.id==='EVT_SCHEDULE_MRC_BLACKSMITH_COMMON'),'Mondstadt keeps its one smith');
  const stock=m=>r.rows('19_SHOP_STOCK_DB').filter(s=>s[1]===m&&!String(s[8]).includes('SYSTEM_DISABLED')).map(s=>s[3]);
- for(const id of ['ING_FISH','ING_RAW_MEAT','ING_CHEESE','TRPG_BANDAGE','ING_LOTUS_HEAD','ING_BAMBOO_SHOOT'])assert(stock('MRC_LIYUE_GENERAL').includes(id),id);
+ for(const id of ['ING_CHEESE','TRPG_BANDAGE','ING_SALT','ING_SHRIMP','ING_MILK','ING_TOFU'])assert(stock('MRC_LIYUE_GENERAL').includes(id),id);
+ for(const id of ['ING_FISH','ING_RAW_MEAT','ING_LOTUS_HEAD','ING_BAMBOO_SHOOT'])assert(!stock('MRC_LIYUE_GENERAL').includes(id),id+' requires a field source');
  const weapons3=[...new Set(stock('MRC_LIYUE_EQUIP').filter(id=>r.tables['16_EQUIP_DB'].get(id)?.[13]==='3성'))];assert.equal(weapons3.length,12,'every 3★ weapon');
  assert.equal(r.rows('19_SHOP_STOCK_DB').filter(s=>s[2]==='EQUIP'&&r.isForgeOnlyWeapon(s[3])&&!String(s[8]).includes('SYSTEM_DISABLED')).length,0,'no shop sells a 4★ or 5★ weapon');
  assert(r.rows('16_EQUIP_DB').filter(e=>r.isForgeOnlyWeapon(e[0])).every(e=>e[16]==='N'));
@@ -193,3 +194,4 @@ check('travel map: every connection on an atlas is a straight line between its t
 
 fs.mkdirSync(path.join(root,'reports/v0148'),{recursive:true});fs.writeFileSync(path.join(root,'reports/v0148/checks.json'),JSON.stringify({version:JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')).version,results},null,2)+'\n');
 console.log(JSON.stringify({total:results.length,passed:results.filter(x=>x.ok).length}));
+

@@ -41,9 +41,10 @@ test('C04: native AI C4 + cooldown reduction never takes three consecutive foe t
 
 test('C05: actual Dahlia turn-start contact freezes only that turn, including after restore',()=>{
  for(const restore of [false,true]){
-  let r=fresh('MAP_DRAGONSPINE');recruit(r,['MOND_DAHLIA']);r.startBattle('EG_DRAGON_CRYO','EXPLICIT');r.die=()=>1;r.random=()=>.5;
-  let b=r.s.runtime,e=b.actors.find(a=>a.source==='MON_SLIME_CRYO'),d=owner(b,'MOND_DAHLIA');cast(r,d,'MOND_DAHLIA_E',e);
-  if(restore){r=new R(db,JSON.parse(r.serialize()));r.die=()=>1;r.random=()=>.5;b=r.s.runtime;e=b.actors.find(a=>a.source==='MON_SLIME_CRYO');}
+  let r=fresh('MAP_DRAGONSPINE');recruit(r,['MOND_DAHLIA','MOND_KAEYA']);r.startBattle('EG_DRAGON_CRYO','EXPLICIT');r.die=()=>1;r.random=()=>.5;
+  // Use the native nonimmune shooter with actual Kaeya-applied Cryo; an elemental body cannot freeze itself.
+  let b=r.s.runtime,e=b.actors.find(a=>a.source==='MON_HILI_CRYO_SHOOTER'),d=owner(b,'MOND_DAHLIA'),k=owner(b,'MOND_KAEYA');assert.equal(r.cardReason(k,card(r,k,'MOND_KAEYA_E')),'');cast(r,k,'MOND_KAEYA_E',e);cast(r,d,'MOND_DAHLIA_E',e);
+  if(restore){r=new R(db,JSON.parse(r.serialize()));r.die=()=>1;r.random=()=>.5;b=r.s.runtime;e=b.actors.find(a=>a.source==='MON_HILI_CRYO_SHOOTER');}
   r.aiTurn=a=>{a.guard=true;};const before=e.turns;enemyTurn(r,e);const s=e.statuses.find(s=>s.id==='STATUS_FREEZE');assert(s);assert.equal(s.untilTurn,before+2,'current turn counted once');assert(r.combatActionLocked(e));assert.equal(r._combatTurnStartingActorId,undefined,'turn-start context does not leak');
   const skips=b.log.filter(x=>x.actor===e.name&&x.skipped).length;enemyTurn(r,e);assert(!r.combatActionLocked(e));assert.equal(b.log.filter(x=>x.actor===e.name&&x.skipped).length,skips,'next turn is free');assert.equal(r.addCombatStatus(e,'LIYUE_PETRIFY',1),null);enemyTurn(r,e);assert(r.addCombatStatus(e,'LIYUE_PETRIFY',1),'guard ends after two free turns begin');
  }

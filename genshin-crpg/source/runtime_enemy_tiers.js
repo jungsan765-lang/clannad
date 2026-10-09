@@ -147,7 +147,13 @@ P.startBattle=function(...args){
 const singleAttack=(r,o)=>{if(o.aoe||o.sourceKind)return false;if(!o.card)return true;const row=r.tables['08_SKILL_CARD_DB']?.get(o.card)||r.tables['12_ENEMY_CARD_DB']?.get(o.card);const mode=String(row?.[31]||''),script=String(row?.[32]||'');if(/DMG_AOE|ENEMY_(?:ALL|MAX[2-9])|(?:^|:)MAX[2-9]/.test(mode+';'+script))return false;return !mode||/^(ALLY_1|ENEMY_1|PRIMARY|LOWEST_HP|HIGHEST_HP|SINGLE|TARGET)/.test(mode);};
 P.enemyGuardFor=function(a,t,o){
  const b=this.s.runtime;if(!b?.enemyTiers||a.side!=='ALLY'||t.side!=='ENEMY'||o.covered||!ranged(t)||!singleAttack(this,o))return null;
- const key='G:'+a.id+':'+(b.actionSequence||0)+':'+t.id;b.guardDecisions=b.guardDecisions||{};if(key in b.guardDecisions)return b.actors.find(x=>x.id===b.guardDecisions[key])||null;
+ const key='G:'+a.id+':'+(b.actionSequence||0)+':'+t.id;b.guardDecisions=b.guardDecisions||{};
+ if(key in b.guardDecisions){
+  // Keep the action's one probability roll, but a fallen/disabled guard cannot take later hits.
+  const guard=b.actors.find(x=>x.id===b.guardDecisions[key]&&x.hp>0&&has(x,'GUARDIAN')&&!this.combatActionLocked?.(x));
+  if(!guard)b.guardDecisions[key]=null;
+  return guard||null;
+ }
  const guard=b.actors.find(x=>x.side==='ENEMY'&&x.id!==t.id&&x.hp>0&&has(x,'GUARDIAN')&&!this.combatActionLocked?.(x));
  const pick=guard&&this.random()*100<CONFIG.guardianChance?guard:null;
  b.guardDecisions[key]=pick?.id||null;if(Object.keys(b.guardDecisions).length>60)b.guardDecisions={[key]:pick?.id||null};return pick;

@@ -162,7 +162,7 @@
   },
   "STATUS_ISEKAI_EXPOSED": {
     "name": "약점 간파",
-    "text": "우리 파티에게 받는 피해가 20%(보스 12%) 늘어난다."
+    "text": "우리 파티에게 받는 피해가 30%(보스 18%) 늘어난다."
   },
   "EXPLICIT_ACCESS_TO_BOSS_DVALIN": {
     "name": "공중 접근",
