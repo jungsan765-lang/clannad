@@ -1,0 +1,213 @@
+{
+  "schema": "native-food-evidence-manifest-v01620-1",
+  "version": "0.16.20",
+  "status": "complete",
+  "scope": "Docs-only archiving and matched analysis of already-completed before/after native food runs; frozen product and tests untouched.",
+  "before": {
+    "version": "0.16.19",
+    "counts": {
+      "foodRecipes": 45,
+      "nativeMeals": 2856,
+      "hpConditions": 14,
+      "uncappedRows": 2520,
+      "cappedRows": 336,
+      "boundaries": 11
+    },
+    "loadedSourceDigest": "6fd58231b7efd170ca979c58a877bd6486b5b48b8c26e87c3cee07eca64d21cc",
+    "loadedFiles": 118,
+    "originalArchivedRunnerSHA256": "1ff0c4e472d21389d9665f50ae7dcb62539aa5c3cc9f3f9550eb5424388cd8e3",
+    "runnerHashEmbeddedInOriginalRaw": false,
+    "productManifestFiles": 233,
+    "restoredSnapshotFiles": 235
+  },
+  "after": {
+    "version": "0.16.20",
+    "counts": {
+      "foodRecipes": 45,
+      "nativeMeals": 2856,
+      "hpConditions": 14,
+      "uncappedRows": 2520,
+      "cappedRows": 336,
+      "boundaries": 11
+    },
+    "loadedSourceDigest": "b8a0df770a0ee89bcf8896689460e0dab3b70d6597ab48f783186012e9e32875",
+    "loadedFiles": 118,
+    "portableRunnerSHA256": "728167ec340906c9478fe3761656f2aadb4e90f56f3a5bcf45a3a0ef55896b31",
+    "runnerHashEmbeddedInRaw": true,
+    "productManifestFiles": 233
+  },
+  "comparablePairs": 2856,
+  "changedHealingFoods": 39,
+  "unchangedHealingFoods": 6,
+  "identicalActorHPAndLoadouts": true,
+  "boundaryRulesPassedBothVersions": 11,
+  "identicalBoundaryOutputs": 10,
+  "boundaryOutputChange": "Alternation intermediate hash-brown healing1070→1653; original food remains eligible at875.",
+  "newRegression": {
+    "file": "new_test_v01620_complete.log",
+    "reportedPasses": 14,
+    "observedTestSource": "tests/test_food_balance_v01620.cjs",
+    "observedTestSourceSHA256": "95f64f5c24008dc37d285b72a283c9e89ce7b7577304d20b139ec89825296316",
+    "alreadyCompleteLogReused": true,
+    "rerunPerformed": false
+  },
+  "productChangedFiles": [
+    {
+      "file": "source/app_abyss.js",
+      "beforeSHA256": "78b9b6dcfed07fdc25d2291712984cd2d9e2f30c3d6016cc4efde6b3df5eb275",
+      "afterSHA256": "5f46a08f37c609e7330fdc44cb367ee378707728429c68c0a45346c5203c78d2"
+    },
+    {
+      "file": "source/runtime_economy.js",
+      "beforeSHA256": "ec7fe052ab138e7d2e917a31745b8c07346430b3c2950eb103869e3676371174",
+      "afterSHA256": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140"
+    },
+    {
+      "file": "source/runtime_growth_v01522.js",
+      "beforeSHA256": "abf89fdc47b57023cdf33ff4b4b3be9cd95e2684de13bf07deb0582b594fbf1b",
+      "afterSHA256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5"
+    }
+  ],
+  "sameContentDBSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "sameAuditClockMs": 1791529200000,
+  "packWorkPerformedNativeRerun": false,
+  "packWorkPerformedTestRerun": false,
+  "everyArchivedRawDecompressedByteVerified": true,
+  "files": [
+    {
+      "file": "CONDITIONS.json",
+      "bytes": 36794,
+      "sha256": "60cceb117047684e93b639ce512e4fbb98f746fcab23473231c1425772834135"
+    },
+    {
+      "file": "README_KO.md",
+      "bytes": 9698,
+      "sha256": "017fe9c0f65a76fe3edebb7f4cb8b01b49ab6f26ab8aeb9ecc82e1aad2f4ea7a"
+    },
+    {
+      "file": "after_catalog.json.gz",
+      "bytes": 5663,
+      "sha256": "07ce22be6a05d480482aa6942d4691a14077035ef4324397e5b84b49db459c6d",
+      "uncompressedBytes": 46970,
+      "uncompressedSHA256": "8aa717ce2e1b27436153ae4a3bd34da61eee667c1ec8a41256df4c59cb6dbc42",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "after_equal_base_groups.json.gz",
+      "bytes": 2090,
+      "sha256": "e588ddaeee82fb169a9f9dc585cb40f40a777e4f15e38ee8a2353109ad0c88bf",
+      "uncompressedBytes": 13338,
+      "uncompressedSHA256": "fd5d680a122a66af4d87cb24eda1aecca3c0d12e1d35172df7401f9cad0915db",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "after_native_effects.json.gz",
+      "bytes": 121904,
+      "sha256": "288978b7d888498607eda7bd4a365d4e8dd2e33c0538894c22d0edf62e6964fa",
+      "uncompressedBytes": 2091475,
+      "uncompressedSHA256": "f7eccaa0eeb69b10ff76916bf5fc1a81c9aa35f38e5d3328c67956cce0633f2f",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "after_native_run.log",
+      "bytes": 921,
+      "sha256": "271a79ca58a2df686d9ea16dc0e2c1a79235e5d120c0494054d6600f01985dfd",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "after_product_manifest.json",
+      "bytes": 31004,
+      "sha256": "382f04f7fcb969b72022c537f8a870046d99eb9d8ed84168a117671b1e52e455",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "audit_native_food_v01620.cjs",
+      "bytes": 9728,
+      "sha256": "728167ec340906c9478fe3761656f2aadb4e90f56f3a5bcf45a3a0ef55896b31"
+    },
+    {
+      "file": "before_catalog.json.gz",
+      "bytes": 5650,
+      "sha256": "01d25ce1b61ecfaf633e62ba5d695affa83a32771b68793ff26028c2a4ddcde7",
+      "uncompressedBytes": 46961,
+      "uncompressedSHA256": "b206d326e939c65f527899bbe0b5ed0008a778125fb88338cd47c16e5081a761",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "before_equal_base_groups.json.gz",
+      "bytes": 2100,
+      "sha256": "0292a096ab0bcafbe976c2e11ec52e5f2a060d53b98a4745ed2b907592d9eb0a",
+      "uncompressedBytes": 13625,
+      "uncompressedSHA256": "d29a7082b05396cb0589b4f17253413577c6f8fe31e6ce09a2675c13394e3210",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "before_native_effects.csv.gz",
+      "bytes": 27408,
+      "sha256": "0d9a77d852a1002d2c891b1cc0fa8b213418b1c0b2f6d305d3e68ad9f3fe205b",
+      "uncompressedBytes": 211401,
+      "uncompressedSHA256": "62ae57559f8dfa748617023eeb238f84f58d5d79aac402ec7cc9f89490710ee1",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "before_native_effects.json.gz",
+      "bytes": 113024,
+      "sha256": "ffe49855024c2c66ad9c5294847d40d804fa5da464b443a10b33f2c99b6b8586",
+      "uncompressedBytes": 2090021,
+      "uncompressedSHA256": "423164c610ba990820072ea553d86622163dde885000c36036eb17f93bd705d5",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "before_original_AUTHORITY_AND_FINDINGS_KO.md.gz",
+      "bytes": 4006,
+      "sha256": "4b36fc20dddedde31a602e496de45799fb38dbd3a81fe8df5a5f70c0e7523cd5",
+      "uncompressedBytes": 7925,
+      "uncompressedSHA256": "58b20e1e86ac06e5861946e95752995c045a39f460d5258961d8a3884207bd75",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "before_original_MANIFEST.json",
+      "bytes": 1914,
+      "sha256": "f5e831b2ad46dac6ae57bd180bc118941d322d4f943da1b8f116f4e95e23bc1b",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "before_product_manifest.json",
+      "bytes": 31004,
+      "sha256": "7ca123049e793f4d4429711f8901a48d762a32682372ed060d96cd16bdce5c7b",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "matched_native_meals.csv.gz",
+      "bytes": 57063,
+      "sha256": "50bf2f3c763e2d01e61690f12719a50a892eb283ef5ab65e978bd6ce81a599d7",
+      "uncompressedBytes": 447347,
+      "uncompressedSHA256": "38d0321e75abf32b230690889429cf0384c627a7445eb40cdbd308200b2d4a7f"
+    },
+    {
+      "file": "native_comparison.json",
+      "bytes": 32098,
+      "sha256": "7500bfdc6971b34a5c0cadcc507947143f610395fc2bcf1a68f0d4f34b827754"
+    },
+    {
+      "file": "new_test_v01620_complete.log",
+      "bytes": 1341,
+      "sha256": "37009c13a6df23e98130fe83f271f5eac6b1124514a8a0f7caee2313dfce007e",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "original_audit_native_food_v01619.cjs.txt.gz",
+      "bytes": 4002,
+      "sha256": "1ef778538d8cc2929aa8d2b8980bfd99cbd1d43af56e2e6dd60245e4111ce90f",
+      "uncompressedBytes": 9987,
+      "uncompressedSHA256": "1ff0c4e472d21389d9665f50ae7dcb62539aa5c3cc9f3f9550eb5424388cd8e3",
+      "preservesExactOriginalBytes": true
+    },
+    {
+      "file": "representative_matched_values.csv",
+      "bytes": 72148,
+      "sha256": "e8fe224bd7aa952b4843a4ae68af9a6a6a6a4ae77f117e95f6f24b6f4304661f"
+    }
+  ],
+  "selfHashExcluded": true
+}

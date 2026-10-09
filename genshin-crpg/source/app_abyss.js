@@ -7,7 +7,7 @@ const iconOf=id=>typeof MANIFEST!=='undefined'&&(MANIFEST.itemIcons?.icons?.[id]
 const who=id=>id==='PLAYER_CUSTOM'?(game.s.global.PLAYER_NAME||'주인공'):safeName('07_CHAR_DB',id);
 const hpOf=id=>id==='PLAYER_CUSTOM'?[game.s.global.PLAYER_HP_CURRENT,game.s.global.PLAYER_HP_MAX]:[game.s.chars[id]?.hp||0,game.character(id).maxHp];
 const n=v=>String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g,',');
-function foodLabel(row){const heal=Number(row[8]||0),status=game.tables['13_STATUS_EFFECT_DB']?.get(row[9]);return row[1]+' ('+game.itemCount(row[0])+'개) · '+(heal?'HP '+heal+' 회복':(status?.[1]||'전투 효과'));}
+function foodLabel(row,owner){const heal=game.foodSpec(row[0]).heal,status=game.tables['13_STATUS_EFFECT_DB']?.get(row[9]);return row[1]+' ('+game.itemCount(row[0])+'개) · '+(heal?'HP '+game.foodHealingAmount(heal,owner)+' 회복':(status?.[1]||'전투 효과'));}
 function foods(){return [...game.tables['14_ITEM_DB'].values()].filter(r=>r[2]==='음식'&&(Number(r[8]||0)>0||r[9])&&game.itemCount(r[0])>0).sort((a,b)=>Number(b[8]||0)-Number(a[8]||0));}
 // 0.15.25: the three rooms side by side as cards (number, name, limit and foes, a short line about them).
 function roomList(rooms,current){const ol=el('ol','abyss-rooms');for(const r of rooms){const li=el('li',current===r.chamber?'current':'');li.append(el('b','abyss-room-no',r.chamber),el('strong','','「'+r.name+'」'),el('small','muted','제한 '+r.limit+'라운드 · 적 '+r.foes+'명'),el('p','',r.hint));ol.append(li);}return ol;}
@@ -24,7 +24,7 @@ function breakPanel(p,v){
   const bar=el('div','abyss-hp');bar.style.setProperty('--hp',Math.max(0,Math.min(1,hp/max)));row.append(bar);
   const buffs=(pending[id]||[]).map(e=>game.tables['13_STATUS_EFFECT_DB']?.get(e.id)?.[1]||e.id);
   if(buffs.length)row.append(el('small','abyss-buffs','다음 방 효과: '+buffs.join(', ')));
-  if(hp>0&&menu.length){const s=pick(row,'먹을 음식',menu.map(r=>[r[0],foodLabel(r),iconOf(r[0])]));row.append(button('먹기',async()=>{await act('USE_ITEM',{item:s.value,owner:id});abyssScreen();}));}
+  if(hp>0&&menu.length){const s=pick(row,'먹을 음식',menu.map(r=>[r[0],foodLabel(r,id),iconOf(r[0])]));row.append(button('먹기',async()=>{await act('USE_ITEM',{item:s.value,owner:id});abyssScreen();}));}
   list.append(row);
  }
  if(!menu.length)list.append(el('p','muted','가방에 먹을 수 있는 음식이 없습니다.'));

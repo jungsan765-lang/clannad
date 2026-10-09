@@ -1,0 +1,884 @@
+{
+  "intentEvidence": {
+    "file": "docs/PATCH_0.16.16_KO.md",
+    "policy": "주인공·4성 기본 요구량; 동료5성 재료2배, 모라1.8배. 주인공 재료도 자기 최고단계 기본보상25배의 최종수요. 기존 원소별 편성/면역/보호막/숙박 시간 표본에 따라 보상과 수요를 함께 달리 둔 표이다.",
+    "runtimeConditions": "five = owner !== PLAYER && rarityOf(owner) === 5; growthElement(PLAYER) = 물리 -> NEUTRAL; 여행자 원소 전환은 여기서 읽지 않음",
+    "protagonistPremiumRarityWarning": "운명의 별 교환/운명의 자리에서는 주인공5성 표기가 쓰이나, 돌파비용은 별도 명시 제외로 기본값이다."
+  },
+  "allRoutesNativeQuotesEqual": true,
+  "allChecks": {
+    "quotes": 210,
+    "rewards": 96,
+    "protagonistNativePaymentsWithReloadAndReceiptRetry": 12,
+    "baselineAscensionPartsIdentical": {
+      "gemRewards": true,
+      "gemCosts": true,
+      "growthElement": true,
+      "ascensionInfo": true
+    }
+  },
+  "tables": [
+    {
+      "owner": "PLAYER_CUSTOM",
+      "gemElement": "NEUTRAL",
+      "gemRequirements": [
+        3,
+        6,
+        12,
+        45,
+        192,
+        1250
+      ],
+      "allAscensionGemTotal": 1508,
+      "moraRequirements": [
+        800,
+        2400,
+        6000,
+        14000,
+        28000,
+        42000
+      ],
+      "allAscensionMoraTotal": 93200,
+      "level60BaseGemPay": 50,
+      "unboostedFinalWins": 25,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 22,
+      "otherMaterialsByPhase": [
+        {
+          "ING_CALLA_LILY": 2,
+          "MAT_DAMAGED_MASK": 2
+        },
+        {
+          "ING_CALLA_LILY": 4,
+          "MAT_DAMAGED_MASK": 3
+        },
+        {
+          "ING_CALLA_LILY": 6,
+          "MAT_STAINED_MASK": 3
+        },
+        {
+          "ING_CALLA_LILY": 8,
+          "MAT_STAINED_MASK": 4,
+          "TRPG_BOSS_ESSENCE": 1
+        },
+        {
+          "ING_CALLA_LILY": 10,
+          "MAT_OMINOUS_MASK": 4,
+          "TRPG_BOSS_ESSENCE": 2
+        },
+        {
+          "ING_CALLA_LILY": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "TRPG_BOSS_ESSENCE": 3
+        }
+      ]
+    },
+    {
+      "owner": "MOND_AMBER",
+      "gemElement": "PYRO",
+      "gemRequirements": [
+        3,
+        6,
+        36,
+        285,
+        1072,
+        29725
+      ],
+      "allAscensionGemTotal": 31127,
+      "moraRequirements": [
+        800,
+        2400,
+        6000,
+        14000,
+        28000,
+        42000
+      ],
+      "allAscensionMoraTotal": 93200,
+      "level60BaseGemPay": 1189,
+      "unboostedFinalWins": 25,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 22,
+      "otherMaterialsByPhase": [
+        {
+          "ING_LAMP_GRASS": 2,
+          "MAT_DAMAGED_MASK": 2
+        },
+        {
+          "ING_LAMP_GRASS": 4,
+          "MAT_DAMAGED_MASK": 3
+        },
+        {
+          "ING_LAMP_GRASS": 6,
+          "MAT_STAINED_MASK": 3
+        },
+        {
+          "ING_LAMP_GRASS": 8,
+          "MAT_STAINED_MASK": 4,
+          "TRPG_BOSS_ESSENCE": 1
+        },
+        {
+          "ING_LAMP_GRASS": 10,
+          "MAT_OMINOUS_MASK": 4,
+          "MAT_FB_EVERFLAME_SEED": 2
+        },
+        {
+          "ING_LAMP_GRASS": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "MAT_FB_EVERFLAME_SEED": 3
+        }
+      ]
+    },
+    {
+      "owner": "MOND_DILUC",
+      "gemElement": "PYRO",
+      "gemRequirements": [
+        6,
+        12,
+        72,
+        570,
+        2144,
+        59450
+      ],
+      "allAscensionGemTotal": 62254,
+      "moraRequirements": [
+        1440,
+        4320,
+        10800,
+        25200,
+        50400,
+        75600
+      ],
+      "allAscensionMoraTotal": 167760,
+      "level60BaseGemPay": 1189,
+      "unboostedFinalWins": 50,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 47,
+      "otherMaterialsByPhase": [
+        {
+          "ING_LAMP_GRASS": 4,
+          "MAT_DAMAGED_MASK": 4
+        },
+        {
+          "ING_LAMP_GRASS": 8,
+          "MAT_DAMAGED_MASK": 6
+        },
+        {
+          "ING_LAMP_GRASS": 12,
+          "MAT_STAINED_MASK": 6
+        },
+        {
+          "ING_LAMP_GRASS": 16,
+          "MAT_STAINED_MASK": 8,
+          "TRPG_BOSS_ESSENCE": 2
+        },
+        {
+          "ING_LAMP_GRASS": 20,
+          "MAT_OMINOUS_MASK": 8,
+          "MAT_FB_EVERFLAME_SEED": 4
+        },
+        {
+          "ING_LAMP_GRASS": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "MAT_FB_EVERFLAME_SEED": 6
+        }
+      ]
+    },
+    {
+      "owner": "MOND_BARBARA",
+      "gemElement": "HYDRO",
+      "gemRequirements": [
+        3,
+        6,
+        34,
+        340,
+        1248,
+        11325
+      ],
+      "allAscensionGemTotal": 12956,
+      "moraRequirements": [
+        800,
+        2400,
+        6000,
+        14000,
+        28000,
+        42000
+      ],
+      "allAscensionMoraTotal": 93200,
+      "level60BaseGemPay": 453,
+      "unboostedFinalWins": 25,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 22,
+      "otherMaterialsByPhase": [
+        {
+          "ING_CALLA_LILY": 2,
+          "MAT_DAMAGED_MASK": 2
+        },
+        {
+          "ING_CALLA_LILY": 4,
+          "MAT_DAMAGED_MASK": 3
+        },
+        {
+          "ING_CALLA_LILY": 6,
+          "MAT_STAINED_MASK": 3
+        },
+        {
+          "ING_CALLA_LILY": 8,
+          "MAT_STAINED_MASK": 4,
+          "TRPG_BOSS_ESSENCE": 1
+        },
+        {
+          "ING_CALLA_LILY": 10,
+          "MAT_OMINOUS_MASK": 4,
+          "MAT_FB_CLEANSING_HEART": 2
+        },
+        {
+          "ING_CALLA_LILY": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "MAT_FB_CLEANSING_HEART": 3
+        }
+      ]
+    },
+    {
+      "owner": "LIYUE_YELAN",
+      "gemElement": "HYDRO",
+      "gemRequirements": [
+        6,
+        12,
+        68,
+        680,
+        2496,
+        22650
+      ],
+      "allAscensionGemTotal": 25912,
+      "moraRequirements": [
+        1440,
+        4320,
+        10800,
+        25200,
+        50400,
+        75600
+      ],
+      "allAscensionMoraTotal": 167760,
+      "level60BaseGemPay": 453,
+      "unboostedFinalWins": 50,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 47,
+      "otherMaterialsByPhase": [
+        {
+          "MAT_LIYUE_STARCONCH": 4,
+          "MAT_DAMAGED_MASK": 4
+        },
+        {
+          "MAT_LIYUE_STARCONCH": 8,
+          "MAT_DAMAGED_MASK": 6
+        },
+        {
+          "MAT_LIYUE_STARCONCH": 12,
+          "MAT_STAINED_MASK": 6
+        },
+        {
+          "MAT_LIYUE_STARCONCH": 16,
+          "MAT_STAINED_MASK": 8,
+          "TRPG_BOSS_ESSENCE": 2
+        },
+        {
+          "MAT_LIYUE_STARCONCH": 20,
+          "MAT_OMINOUS_MASK": 8,
+          "MAT_FB_CLEANSING_HEART": 4
+        },
+        {
+          "MAT_LIYUE_STARCONCH": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "MAT_FB_CLEANSING_HEART": 6
+        }
+      ]
+    },
+    {
+      "owner": "MOND_SUCROSE",
+      "gemElement": "ANEMO",
+      "gemRequirements": [
+        3,
+        6,
+        12,
+        70,
+        128,
+        2100
+      ],
+      "allAscensionGemTotal": 2319,
+      "moraRequirements": [
+        800,
+        2400,
+        6000,
+        14000,
+        28000,
+        42000
+      ],
+      "allAscensionMoraTotal": 93200,
+      "level60BaseGemPay": 84,
+      "unboostedFinalWins": 25,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 22,
+      "otherMaterialsByPhase": [
+        {
+          "ING_CALLA_LILY": 2,
+          "MAT_DAMAGED_MASK": 2
+        },
+        {
+          "ING_CALLA_LILY": 4,
+          "MAT_DAMAGED_MASK": 3
+        },
+        {
+          "ING_CALLA_LILY": 6,
+          "MAT_STAINED_MASK": 3
+        },
+        {
+          "ING_CALLA_LILY": 8,
+          "MAT_STAINED_MASK": 4,
+          "TRPG_BOSS_ESSENCE": 1
+        },
+        {
+          "ING_CALLA_LILY": 10,
+          "MAT_OMINOUS_MASK": 4,
+          "MAT_FB_HURRICANE_SEED": 2
+        },
+        {
+          "ING_CALLA_LILY": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "MAT_FB_HURRICANE_SEED": 3
+        }
+      ]
+    },
+    {
+      "owner": "MOND_JEAN",
+      "gemElement": "ANEMO",
+      "gemRequirements": [
+        6,
+        12,
+        24,
+        140,
+        256,
+        4200
+      ],
+      "allAscensionGemTotal": 4638,
+      "moraRequirements": [
+        1440,
+        4320,
+        10800,
+        25200,
+        50400,
+        75600
+      ],
+      "allAscensionMoraTotal": 167760,
+      "level60BaseGemPay": 84,
+      "unboostedFinalWins": 50,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 47,
+      "otherMaterialsByPhase": [
+        {
+          "ING_CALLA_LILY": 4,
+          "MAT_DAMAGED_MASK": 4
+        },
+        {
+          "ING_CALLA_LILY": 8,
+          "MAT_DAMAGED_MASK": 6
+        },
+        {
+          "ING_CALLA_LILY": 12,
+          "MAT_STAINED_MASK": 6
+        },
+        {
+          "ING_CALLA_LILY": 16,
+          "MAT_STAINED_MASK": 8,
+          "TRPG_BOSS_ESSENCE": 2
+        },
+        {
+          "ING_CALLA_LILY": 20,
+          "MAT_OMINOUS_MASK": 8,
+          "MAT_FB_HURRICANE_SEED": 4
+        },
+        {
+          "ING_CALLA_LILY": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "MAT_FB_HURRICANE_SEED": 6
+        }
+      ]
+    },
+    {
+      "owner": "MOND_LISA",
+      "gemElement": "ELECTRO",
+      "gemRequirements": [
+        3,
+        6,
+        12,
+        50,
+        248,
+        4400
+      ],
+      "allAscensionGemTotal": 4719,
+      "moraRequirements": [
+        800,
+        2400,
+        6000,
+        14000,
+        28000,
+        42000
+      ],
+      "allAscensionMoraTotal": 93200,
+      "level60BaseGemPay": 176,
+      "unboostedFinalWins": 25,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 22,
+      "otherMaterialsByPhase": [
+        {
+          "ING_LAMP_GRASS": 2,
+          "MAT_DAMAGED_MASK": 2
+        },
+        {
+          "ING_LAMP_GRASS": 4,
+          "MAT_DAMAGED_MASK": 3
+        },
+        {
+          "ING_LAMP_GRASS": 6,
+          "MAT_STAINED_MASK": 3
+        },
+        {
+          "ING_LAMP_GRASS": 8,
+          "MAT_STAINED_MASK": 4,
+          "TRPG_BOSS_ESSENCE": 1
+        },
+        {
+          "ING_LAMP_GRASS": 10,
+          "MAT_OMINOUS_MASK": 4,
+          "MAT_FB_LIGHTNING_PRISM": 2
+        },
+        {
+          "ING_LAMP_GRASS": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "MAT_FB_LIGHTNING_PRISM": 3
+        }
+      ]
+    },
+    {
+      "owner": "LIYUE_KEQING",
+      "gemElement": "ELECTRO",
+      "gemRequirements": [
+        6,
+        12,
+        24,
+        100,
+        496,
+        8800
+      ],
+      "allAscensionGemTotal": 9438,
+      "moraRequirements": [
+        1440,
+        4320,
+        10800,
+        25200,
+        50400,
+        75600
+      ],
+      "allAscensionMoraTotal": 167760,
+      "level60BaseGemPay": 176,
+      "unboostedFinalWins": 50,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 47,
+      "otherMaterialsByPhase": [
+        {
+          "MAT_LIYUE_COR_LAPIS": 4,
+          "MAT_DAMAGED_MASK": 4
+        },
+        {
+          "MAT_LIYUE_COR_LAPIS": 8,
+          "MAT_DAMAGED_MASK": 6
+        },
+        {
+          "MAT_LIYUE_COR_LAPIS": 12,
+          "MAT_STAINED_MASK": 6
+        },
+        {
+          "MAT_LIYUE_COR_LAPIS": 16,
+          "MAT_STAINED_MASK": 8,
+          "TRPG_BOSS_ESSENCE": 2
+        },
+        {
+          "MAT_LIYUE_COR_LAPIS": 20,
+          "MAT_OMINOUS_MASK": 8,
+          "MAT_FB_LIGHTNING_PRISM": 4
+        },
+        {
+          "MAT_LIYUE_COR_LAPIS": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "MAT_FB_LIGHTNING_PRISM": 6
+        }
+      ]
+    },
+    {
+      "owner": "MOND_KAEYA",
+      "gemElement": "CRYO",
+      "gemRequirements": [
+        3,
+        6,
+        12,
+        70,
+        304,
+        2825
+      ],
+      "allAscensionGemTotal": 3220,
+      "moraRequirements": [
+        800,
+        2400,
+        6000,
+        14000,
+        28000,
+        42000
+      ],
+      "allAscensionMoraTotal": 93200,
+      "level60BaseGemPay": 113,
+      "unboostedFinalWins": 25,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 22,
+      "otherMaterialsByPhase": [
+        {
+          "ING_CALLA_LILY": 2,
+          "MAT_DAMAGED_MASK": 2
+        },
+        {
+          "ING_CALLA_LILY": 4,
+          "MAT_DAMAGED_MASK": 3
+        },
+        {
+          "ING_CALLA_LILY": 6,
+          "MAT_STAINED_MASK": 3
+        },
+        {
+          "ING_CALLA_LILY": 8,
+          "MAT_STAINED_MASK": 4,
+          "TRPG_BOSS_ESSENCE": 1
+        },
+        {
+          "ING_CALLA_LILY": 10,
+          "MAT_OMINOUS_MASK": 4,
+          "MAT_FB_HOARFROST_CORE": 2
+        },
+        {
+          "ING_CALLA_LILY": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "MAT_FB_HOARFROST_CORE": 3
+        }
+      ]
+    },
+    {
+      "owner": "LIYUE_QIQI",
+      "gemElement": "CRYO",
+      "gemRequirements": [
+        6,
+        12,
+        24,
+        140,
+        608,
+        5650
+      ],
+      "allAscensionGemTotal": 6440,
+      "moraRequirements": [
+        1440,
+        4320,
+        10800,
+        25200,
+        50400,
+        75600
+      ],
+      "allAscensionMoraTotal": 167760,
+      "level60BaseGemPay": 113,
+      "unboostedFinalWins": 50,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 47,
+      "otherMaterialsByPhase": [
+        {
+          "MAT_LIYUE_VIOLETGRASS": 4,
+          "MAT_DAMAGED_MASK": 4
+        },
+        {
+          "MAT_LIYUE_VIOLETGRASS": 8,
+          "MAT_DAMAGED_MASK": 6
+        },
+        {
+          "MAT_LIYUE_VIOLETGRASS": 12,
+          "MAT_STAINED_MASK": 6
+        },
+        {
+          "MAT_LIYUE_VIOLETGRASS": 16,
+          "MAT_STAINED_MASK": 8,
+          "TRPG_BOSS_ESSENCE": 2
+        },
+        {
+          "MAT_LIYUE_VIOLETGRASS": 20,
+          "MAT_OMINOUS_MASK": 8,
+          "MAT_FB_HOARFROST_CORE": 4
+        },
+        {
+          "MAT_LIYUE_VIOLETGRASS": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "MAT_FB_HOARFROST_CORE": 6
+        }
+      ]
+    },
+    {
+      "owner": "MOND_NOELLE",
+      "gemElement": "GEO",
+      "gemRequirements": [
+        3,
+        6,
+        12,
+        50,
+        160,
+        2175
+      ],
+      "allAscensionGemTotal": 2406,
+      "moraRequirements": [
+        800,
+        2400,
+        6000,
+        14000,
+        28000,
+        42000
+      ],
+      "allAscensionMoraTotal": 93200,
+      "level60BaseGemPay": 87,
+      "unboostedFinalWins": 25,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 22,
+      "otherMaterialsByPhase": [
+        {
+          "ING_CALLA_LILY": 2,
+          "MAT_DAMAGED_MASK": 2
+        },
+        {
+          "ING_CALLA_LILY": 4,
+          "MAT_DAMAGED_MASK": 3
+        },
+        {
+          "ING_CALLA_LILY": 6,
+          "MAT_STAINED_MASK": 3
+        },
+        {
+          "ING_CALLA_LILY": 8,
+          "MAT_STAINED_MASK": 4,
+          "TRPG_BOSS_ESSENCE": 1
+        },
+        {
+          "ING_CALLA_LILY": 10,
+          "MAT_OMINOUS_MASK": 4,
+          "MAT_FB_BASALT_PILLAR": 2
+        },
+        {
+          "ING_CALLA_LILY": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "MAT_FB_BASALT_PILLAR": 3
+        }
+      ]
+    },
+    {
+      "owner": "LIYUE_ZHONGLI",
+      "gemElement": "GEO",
+      "gemRequirements": [
+        6,
+        12,
+        24,
+        100,
+        320,
+        4350
+      ],
+      "allAscensionGemTotal": 4812,
+      "moraRequirements": [
+        1440,
+        4320,
+        10800,
+        25200,
+        50400,
+        75600
+      ],
+      "allAscensionMoraTotal": 167760,
+      "level60BaseGemPay": 87,
+      "unboostedFinalWins": 50,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 47,
+      "otherMaterialsByPhase": [
+        {
+          "MAT_LIYUE_COR_LAPIS": 4,
+          "MAT_DAMAGED_MASK": 4
+        },
+        {
+          "MAT_LIYUE_COR_LAPIS": 8,
+          "MAT_DAMAGED_MASK": 6
+        },
+        {
+          "MAT_LIYUE_COR_LAPIS": 12,
+          "MAT_STAINED_MASK": 6
+        },
+        {
+          "MAT_LIYUE_COR_LAPIS": 16,
+          "MAT_STAINED_MASK": 8,
+          "TRPG_BOSS_ESSENCE": 2
+        },
+        {
+          "MAT_LIYUE_COR_LAPIS": 20,
+          "MAT_OMINOUS_MASK": 8,
+          "MAT_FB_BASALT_PILLAR": 4
+        },
+        {
+          "MAT_LIYUE_COR_LAPIS": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "MAT_FB_BASALT_PILLAR": 6
+        }
+      ]
+    },
+    {
+      "owner": "LIYUE_YAOYAO",
+      "gemElement": "DENDRO",
+      "gemRequirements": [
+        3,
+        6,
+        14,
+        55,
+        128,
+        1750
+      ],
+      "allAscensionGemTotal": 1956,
+      "moraRequirements": [
+        800,
+        2400,
+        6000,
+        14000,
+        28000,
+        42000
+      ],
+      "allAscensionMoraTotal": 93200,
+      "level60BaseGemPay": 70,
+      "unboostedFinalWins": 25,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 22,
+      "otherMaterialsByPhase": [
+        {
+          "MAT_LIYUE_JUEYUN_CHILI": 2,
+          "MAT_DAMAGED_MASK": 2
+        },
+        {
+          "MAT_LIYUE_JUEYUN_CHILI": 4,
+          "MAT_DAMAGED_MASK": 3
+        },
+        {
+          "MAT_LIYUE_JUEYUN_CHILI": 6,
+          "MAT_STAINED_MASK": 3
+        },
+        {
+          "MAT_LIYUE_JUEYUN_CHILI": 8,
+          "MAT_STAINED_MASK": 4,
+          "TRPG_BOSS_ESSENCE": 1
+        },
+        {
+          "MAT_LIYUE_JUEYUN_CHILI": 10,
+          "MAT_OMINOUS_MASK": 4,
+          "TRPG_BOSS_ESSENCE": 2
+        },
+        {
+          "MAT_LIYUE_JUEYUN_CHILI": 12,
+          "MAT_OMINOUS_MASK": 6,
+          "TRPG_BOSS_ESSENCE": 3
+        }
+      ]
+    },
+    {
+      "owner": "LIYUE_BAIZHU",
+      "gemElement": "DENDRO",
+      "gemRequirements": [
+        6,
+        12,
+        28,
+        110,
+        256,
+        3500
+      ],
+      "allAscensionGemTotal": 3912,
+      "moraRequirements": [
+        1440,
+        4320,
+        10800,
+        25200,
+        50400,
+        75600
+      ],
+      "allAscensionMoraTotal": 167760,
+      "level60BaseGemPay": 70,
+      "unboostedFinalWins": 50,
+      "finalWinsIfAllThreeDailyBonusClaimsAvailable": 47,
+      "otherMaterialsByPhase": [
+        {
+          "MAT_LIYUE_VIOLETGRASS": 4,
+          "MAT_DAMAGED_MASK": 4
+        },
+        {
+          "MAT_LIYUE_VIOLETGRASS": 8,
+          "MAT_DAMAGED_MASK": 6
+        },
+        {
+          "MAT_LIYUE_VIOLETGRASS": 12,
+          "MAT_STAINED_MASK": 6
+        },
+        {
+          "MAT_LIYUE_VIOLETGRASS": 16,
+          "MAT_STAINED_MASK": 8,
+          "TRPG_BOSS_ESSENCE": 2
+        },
+        {
+          "MAT_LIYUE_VIOLETGRASS": 20,
+          "MAT_OMINOUS_MASK": 8,
+          "TRPG_BOSS_ESSENCE": 4
+        },
+        {
+          "MAT_LIYUE_VIOLETGRASS": 24,
+          "MAT_OMINOUS_MASK": 12,
+          "TRPG_BOSS_ESSENCE": 6
+        }
+      ]
+    }
+  ],
+  "notAProductionChange": true,
+  "historicalMeasuredNeutralComparisons": [
+    {
+      "kind": "ASCENSION",
+      "route": "ROUTE_TRAVELER",
+      "element": "NEUTRAL",
+      "item": "GROWTH_GEM_NEUTRAL",
+      "target": 1250,
+      "highestStage": 60,
+      "bestLowerStage": 55,
+      "highestWins": 25,
+      "lowerWins": 44,
+      "highestMaterials": 1250,
+      "lowerMaterials": 1276,
+      "highestSeconds": 1123.19,
+      "lowerSeconds": 1552.6599999999996,
+      "highestLodgingCount": 7,
+      "lowerLodgingCount": 8,
+      "highestLodgingMora": 2261,
+      "lowerLodgingMora": 2452,
+      "completionTimeRatio": 1.3823662959962246,
+      "materialsPerMinuteRatio": 1.3541989576765523,
+      "highestActualTargetTimeLower": true
+    },
+    {
+      "kind": "ASCENSION",
+      "route": "ROUTE_ISEKAI",
+      "element": "NEUTRAL",
+      "item": "GROWTH_GEM_NEUTRAL",
+      "target": 1250,
+      "highestStage": 60,
+      "bestLowerStage": 55,
+      "highestWins": 25,
+      "lowerWins": 44,
+      "highestMaterials": 1250,
+      "lowerMaterials": 1276,
+      "highestSeconds": 1596.5300000000002,
+      "lowerSeconds": 2191.8599999999997,
+      "highestLodgingCount": 9,
+      "lowerLodgingCount": 12,
+      "highestLodgingMora": 2955,
+      "lowerLodgingMora": 3763,
+      "completionTimeRatio": 1.3728899550901013,
+      "materialsPerMinuteRatio": 1.3449157083562904,
+      "highestActualTargetTimeLower": true
+    }
+  ],
+  "historicalMeasurementLimits": "0.16.16 시드/고정 편성/장비/특성/실제 숙박 검사의 당시 결과만 보존. 0.16.19 반응·회복·보호막 조정 이후 현재 시간·숙박·동료효율을 보장하지 않는다. 25/50 기본 승수는 보석만의 수요 비율이며 모라/특산물/가면/보스재료/해금/실패를 포함한 실제 육성시간이 아니다.",
+  "oldSavePolicy": "materialRequirementVersion1은 exported config 값이며 저장의 캐릭터별 marker가 없다. 미완료 다음 돌파는 현재 ascensionInfo 요구량 적용. 완료 phase와 결제 receipt 재시도 유지. 진행 중 비경만 ASC reward marker0/1/2에 따라 당시 보상 보존.",
+  "displayPolicy": "기존 돌파 비용 타일은 ascensionInfo().cost를 표시하고 결제는 같은 함수를 읽는다. 별도 주인공 요구량 display overwrite/caching branch는 찾지 못함. 실물 브라우저/사용자 저장/캐시 버전은 이 읽기 검사에서 확인하지 않음.",
+  "confirmedBugCount": 0,
+  "scope": "읽기 전용, source/DB/UI/문서 수정 없음. 선언한 합성 성장상태는 견적/결제 확인용이며 자연 플레이 시간 실험이 아님."
+}

@@ -1,0 +1,352 @@
+{
+  "schema": 1,
+  "version": "0.16.20",
+  "notWhole174ReleaseSuite": true,
+  "selectedPrograms": 21,
+  "passed": 20,
+  "failed": 1,
+  "workers": 4,
+  "newFood14GateNotDuplicated": true,
+  "historicalInputGapsNotRunOrCountedPass": [
+    "tests/test_save_v01344.cjs",
+    "tests/test_release_isolation_v01513.py"
+  ],
+  "rows": [
+    {
+      "test": "tests/test_food_lodging_v01617.cjs",
+      "reason": "All45 recovery recipe fees, paid cooking, old settled receipts, early meals and native small cooking renderer",
+      "command": [
+        "node",
+        "tests/test_food_lodging_v01617.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:07:51.778317+00:00",
+      "elapsedSeconds": 89.672,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_food_lodging_v01617.cjs.log",
+      "rawLogSHA256": "286ee78ee0efb80cf340019970fac2a77fc9b520e53a403708d013c589d4131f"
+    },
+    {
+      "test": "tests/test_food_economy_v0168.cjs",
+      "reason": "Owner-specific food scaling, special lots, bond/KO/repeat locks, attack cooking passive and purchase/craft/resale",
+      "command": [
+        "node",
+        "tests/test_food_economy_v0168.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:07:51.779970+00:00",
+      "elapsedSeconds": 44.772,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_food_economy_v0168.cjs.log",
+      "rawLogSHA256": "839355da76352185b3d37104240fa99b736b576acb177f150c20944fd14eea7b"
+    },
+    {
+      "test": "tests/test_economy.cjs",
+      "reason": "Native public single/batch meals, atomic invalid requests, inventory/equipment/field pack, cooking processing and boss recovery restriction",
+      "command": [
+        "node",
+        "tests/test_economy.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:07:51.781690+00:00",
+      "elapsedSeconds": 1.04,
+      "exitCode": 1,
+      "passed": false,
+      "timeout": false,
+      "rawLog": "tests__test_economy.cjs.log",
+      "rawLogSHA256": "6495edb65c781bbd1e87722e86f6d83b1359c9a35776d9be64b44327fb0ed871"
+    },
+    {
+      "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+      "reason": "Each-target level/injury lodging quote, exact debit, both regions and old receipts",
+      "command": [
+        "node",
+        "tests/test_inn_recovery_pricing_v01615.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:07:51.782885+00:00",
+      "elapsedSeconds": 29.369,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_inn_recovery_pricing_v01615.cjs.log",
+      "rawLogSHA256": "db4e773fbaf942e6e9bb89e2444426ec6f8572e9df582dd851fabedccfe53ba5"
+    },
+    {
+      "test": "tests/test_shop_supply_v01618.cjs",
+      "reason": "Forbidden field ingredients, legal groceries/ready meals, grandfathered receipts, native gathering/hunting/fishing",
+      "command": [
+        "node",
+        "tests/test_shop_supply_v01618.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:07:52.821485+00:00",
+      "elapsedSeconds": 13.735,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_shop_supply_v01618.cjs.log",
+      "rawLogSHA256": "c885be844f621da2c32cdff5f88a1f50858abc699ac4617051e15d4c3f60e887"
+    },
+    {
+      "test": "tools/audit_economy_v0168.cjs",
+      "reason": "Conservative all-catalog NPC purchase/craft/resale scan with best eligible processing/cooking passives",
+      "command": [
+        "node",
+        "tools/audit_economy_v0168.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:08:06.556442+00:00",
+      "elapsedSeconds": 3.228,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tools__audit_economy_v0168.cjs.log",
+      "rawLogSHA256": "a9b90d9a41414478cf81cd5b00ebecb91e7a76140ca1d93dd69390c61ac7ca3f"
+    },
+    {
+      "test": "tests/test_life_v010.cjs",
+      "reason": "Native resource production/fishing and legacy life saves; XP books remain separate from food",
+      "command": [
+        "node",
+        "tests/test_life_v010.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:08:09.784896+00:00",
+      "elapsedSeconds": 27.415,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_life_v010.cjs.log",
+      "rawLogSHA256": "9b45f55fda976c7e36028303953490656a2734abef995d38b8fb4b9b814bbf0f"
+    },
+    {
+      "test": "tests/test_life_v0162.cjs",
+      "reason": "Gather/mine/hunt/fish challenge outputs and saved in-flight activity rules",
+      "command": [
+        "node",
+        "tests/test_life_v0162.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:08:21.153610+00:00",
+      "elapsedSeconds": 59.435,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_life_v0162.cjs.log",
+      "rawLogSHA256": "79f5ebff9f03da91872f9504883cdce50062e3e0a783ddd355990e00a955550b"
+    },
+    {
+      "test": "tests/test_feature_boundaries_v01513.cjs",
+      "reason": "Native public crafting/lodging/merchant resource rollback and receipt/reload boundaries",
+      "command": [
+        "node",
+        "tests/test_feature_boundaries_v01513.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:08:36.552403+00:00",
+      "elapsedSeconds": 120.056,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_feature_boundaries_v01513.cjs.log",
+      "rawLogSHA256": "675cd1a241898d60a966be700d7afdc2dd8012111fb73c535e40540e106c321f"
+    },
+    {
+      "test": "tests/test_balance_saves_v0166.cjs",
+      "reason": "Food-hook Runtime initialization retains combat balance saves and one settlement",
+      "command": [
+        "node",
+        "tests/test_balance_saves_v0166.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:08:37.200105+00:00",
+      "elapsedSeconds": 35.934,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_balance_saves_v0166.cjs.log",
+      "rawLogSHA256": "6ad2aba6007cb16155dcaf29710ee3bbdca3f3c66d6e67ee0083825ae3243a3f"
+    },
+    {
+      "test": "tests/test_save_revision.cjs",
+      "reason": "Current save schema/revision and restored state invariants",
+      "command": [
+        "node",
+        "tests/test_save_revision.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:09:13.134447+00:00",
+      "elapsedSeconds": 39.435,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_save_revision.cjs.log",
+      "rawLogSHA256": "5c0e43fb6a9247cee4f630c561ca655ef4d4fb5f998448dc9e44c1e73f434788"
+    },
+    {
+      "test": "tests/test_work_validation.cjs",
+      "reason": "Life-job save/input validation and resource effects",
+      "command": [
+        "node",
+        "tests/test_work_validation.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:09:20.588323+00:00",
+      "elapsedSeconds": 27.458,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_work_validation.cjs.log",
+      "rawLogSHA256": "df02d0964365641279e463dc051975152f8fa89afd19e9a5ced5120304382260"
+    },
+    {
+      "test": "tests/test_fixed_region_live.mjs",
+      "reason": "Real isolated HTTP account service, inventory/trade/market actions and public save paths",
+      "command": [
+        "node",
+        "tests/test_fixed_region_live.mjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:09:21.450088+00:00",
+      "elapsedSeconds": 17.816,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_fixed_region_live.mjs.log",
+      "rawLogSHA256": "b23054d7a932646dacc7ca1e6f741a3a4ec6ecebef82c0778afb4c0f092cd58e"
+    },
+    {
+      "test": "tests/test_server_account_audit_fixes.mjs",
+      "reason": "Native persistent market wallets, rollback/retry protection and inventory/trade ownership",
+      "command": [
+        "node",
+        "tests/test_server_account_audit_fixes.mjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:09:39.266020+00:00",
+      "elapsedSeconds": 58.277,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_server_account_audit_fixes.mjs.log",
+      "rawLogSHA256": "e63d1ae49ad0b42bb903497175b4c6e0692309303f278cac1843b62628e26faf"
+    },
+    {
+      "test": "tests/test_server_social_audit_fixes.mjs",
+      "reason": "Market catalog sorting/search and persistent transfer retry invariants",
+      "command": [
+        "node",
+        "tests/test_server_social_audit_fixes.mjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:09:48.046400+00:00",
+      "elapsedSeconds": 26.976,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_server_social_audit_fixes.mjs.log",
+      "rawLogSHA256": "6635973b926630aa088ca6460859b2b6d69959b65c212656ae06925fa3aaee70"
+    },
+    {
+      "test": "tests/test_online_server.mjs",
+      "reason": "Shared Runtime DB indexes, public-state shaping, authority/version gate, idempotent requests and backups",
+      "command": [
+        "node",
+        "tests/test_online_server.mjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:09:52.569278+00:00",
+      "elapsedSeconds": 17.145,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_online_server.mjs.log",
+      "rawLogSHA256": "bab200dca31a053e4c69b00b7cffa235038f5ff3d9ad92d49ab47e7c8f35a91f"
+    },
+    {
+      "test": "tests/test_durable_account.mjs",
+      "reason": "Durable partitioned saves, receipts, failed persistence and rollback",
+      "command": [
+        "node",
+        "tests/test_durable_account.mjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:10:09.714094+00:00",
+      "elapsedSeconds": 7.002,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_durable_account.mjs.log",
+      "rawLogSHA256": "fd22989e95f82dcb2995cf8e58d23d67f76251f5a5c54f1b21428d2f1d85f863"
+    },
+    {
+      "test": "tests/test_authoritative_flow.mjs",
+      "reason": "Authoritative public action state, ordered UI context and inventory/equipment mutations",
+      "command": [
+        "node",
+        "tests/test_authoritative_flow.mjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:10:15.022027+00:00",
+      "elapsedSeconds": 8.939,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_authoritative_flow.mjs.log",
+      "rawLogSHA256": "e9c188de8e15f75fd4ea9b7ab214eaebaf3dacda7a1d55c06b8c0a99571a2b8e"
+    },
+    {
+      "test": "tests/test_coop_receipt_v0168.mjs",
+      "reason": "Authenticated/native battle receipts and replay ownership after shared Runtime initialization",
+      "command": [
+        "node",
+        "tests/test_coop_receipt_v0168.mjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:10:16.716337+00:00",
+      "elapsedSeconds": 69.584,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_coop_receipt_v0168.mjs.log",
+      "rawLogSHA256": "30f2f633405380393c52d1f455da99111bda5846c29a6df598e397c460a03df8"
+    },
+    {
+      "test": "tests/test_server_v0152.mjs",
+      "reason": "Native authenticated market/trade level gates, reward credit and rollback",
+      "command": [
+        "node",
+        "tests/test_server_v0152.mjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:10:23.960853+00:00",
+      "elapsedSeconds": 43.61,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_server_v0152.mjs.log",
+      "rawLogSHA256": "23dc9dad12de885cda2dd61953a2f7e9f105172738abe917a2652bee9042c04d"
+    },
+    {
+      "test": "tests/test_access_gear_v01343.cjs",
+      "reason": "Inventory/gear ownership and atomic equipment permissions are unchanged",
+      "command": [
+        "node",
+        "tests/test_access_gear_v01343.cjs"
+      ],
+      "cwd": "/tmp/crpg_v01620_regressions/checkout/genshin-crpg",
+      "startedUTC": "2026-10-09T19:10:36.608239+00:00",
+      "elapsedSeconds": 18.441,
+      "exitCode": 0,
+      "passed": true,
+      "timeout": false,
+      "rawLog": "tests__test_access_gear_v01343.cjs.log",
+      "rawLogSHA256": "fb8765c3999a01259f69047222f3ae4cfc8d3417b302f00b061bc864d39b3f3c"
+    }
+  ]
+}

@@ -152,7 +152,7 @@ P.installGrowthContent=function(){
  table(this,'00_CORE',this.db['00_CORE'].map(r=>r[3]==='LEVEL_MAX'?Object.assign(r.slice(),{4:60}):r));
  const materials=Object.values(GEMS).map(([id,name])=>['GROWTH_GEM_'+id,name]);materials.push(['GROWTH_TALENT_MOND','몬드 특성 수련서'],['GROWTH_TALENT_LIYUE','리월 특성 수련서']);
  const items=this.db['14_ITEM_DB'].map(r=>r.slice());for(const [id,name]of materials)if(!items.some(r=>r[0]===id))items.push([id,name,'성장 재료','고급','','캐릭터 돌파와 특성 훈련에 사용하는 재료.','비전투','성장 재료','','','N','공용','','',0,0,9999,'성장 비경','Y','N','몬드·리월','CRPG 0.15.22','']);
- table(this,'14_ITEM_DB',items);this.installSynthesis();this._growthInstalled=true;this.installRegionalLevels();
+ table(this,'14_ITEM_DB',items);this.installFoodBalance();this.installSynthesis();this._growthInstalled=true;this.installRegionalLevels();
 };
 P.installSynthesis=function(){
  const recipes=this.db['17_RECIPE_DB'].map(r=>r.slice()),parts=this.db['48_RECIPE_INGREDIENT_DB'].map(r=>r.slice()),width=recipes[0].length,has=new Set(recipes.map(r=>r[0]));

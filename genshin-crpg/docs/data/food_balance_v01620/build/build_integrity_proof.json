@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "passed": true,
+  "builds": {
+    "browser": {
+      "command": [
+        "python",
+        "tools/build.py"
+      ],
+      "cwd": "project root",
+      "environment": {
+        "CRPG_BUILD_DIR": "/tmp/crpg_food_v01620/browser_build_final",
+        "CRPG_BUILD_REPORT": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/food_balance_v01620/build/browser_build_report.json"
+      },
+      "startedUTC": "2026-10-09T18:50:45.336143+00:00",
+      "finishedUTC": "2026-10-09T18:50:49.605648+00:00",
+      "seconds": 4.269505999996909,
+      "exitCode": 0,
+      "log": "browser_build.log"
+    },
+    "server": {
+      "command": [
+        "python",
+        "tools/build_server.py"
+      ],
+      "cwd": "project root",
+      "startedUTC": "2026-10-09T18:51:01.972095+00:00",
+      "finishedUTC": "2026-10-09T18:51:06.984732+00:00",
+      "seconds": 5.012776807998307,
+      "exitCode": 0,
+      "log": "server_build.log",
+      "source235DriftAfterBrowser": []
+    },
+    "browserReport": {
+      "version": "2026-09-24-c3d5eef26ac2-87f4e97de2e9",
+      "sourceTabs": 64,
+      "excludedSaveTables": [
+        "15_INVENTORY_STATE",
+        "25_CURRENT_ROSTER",
+        "28_CANON_AUDIT",
+        "98_BACKUP_CHAR_STATS_20260917",
+        "38_ELEMENTAL_RUNTIME",
+        "39_CARD_RUNTIME",
+        "40_CRPG_MIGRATION_PLAN",
+        "41_SAVE_CHAR_STATE",
+        "42_SAVE_QUEST_STATE",
+        "43_SAVE_FLAG_STATE",
+        "44_SAVE_PARTY_STATE",
+        "52_COMBAT_VAR_RUNTIME",
+        "54_SAVE_RELATION_STATE"
+      ],
+      "assets": 314,
+      "fileCount": 1888,
+      "bytes": 128067981,
+      "contentSha256": "c3d5eef26ac21e19136131ba3ab24ab542c1dbe63d428f6e47ab7743d1e75aa1"
+    },
+    "serverReport": {
+      "version": "0.16.20",
+      "runtime_files": 119,
+      "bytes": 28354948,
+      "sha256": "eba5a87634ae96aaf1b9cf8259f14fb2b8c101a9ca5a2be5c969476ce68940cf",
+      "gzip_bytes_build_log": 5378932,
+      "gzipNote": "Build log reports Python default gzip level9, including its timestamp header. Archived gzip uses level9 and mtime0; byte count and decompressed engine are identical.",
+      "archivedGzip": "server_engine_executed.mjs.gz",
+      "archivedGzipBytes": 5378932,
+      "archivedGzipSha256": "16374c70fb0feb2dd4958b6ecfba80e86b036735a8bfa1f0559669e1b4daf3ab",
+      "archivedOriginalBytes": 28354948,
+      "archivedOriginalSha256": "eba5a87634ae96aaf1b9cf8259f14fb2b8c101a9ca5a2be5c969476ce68940cf",
+      "engineFingerprint": "engine3-ddba236da0175f088b1a4d2d7931df2755f0db6f9d6b54b10c0aa5e6af213ba4",
+      "serverBuild": "server-f7fdd9a5a3f0bd871a70"
+    },
+    "browserPackIntegrity": {
+      "listedFilesChecked": 1888,
+      "listedBytes": 128067981,
+      "actualReleaseFilesIncludingTwoIndexes": 1890,
+      "actualReleaseBytesIncludingTwoIndexes": 129270760,
+      "excludedFromPackFileList": [
+        "offline-pack.json",
+        "asset-manifest.json"
+      ],
+      "missing": [],
+      "hashOrSizeMismatch": [],
+      "passed": true,
+      "offlinePackOriginalSha256": "0ca81de58e5fdb1606f7bf246b4bf65a64a5e19279a7da7fdeca3df8290c0f0b",
+      "assetManifestOriginalSha256": "8974c45e0933952e07188e84350f97fe1bff2e9ce60bf81ebef5365f289f6b87",
+      "releaseOriginalSha256": "e7ad2f26b7582029461e5ccf37b129db14b5d6227df2d808d687902ff7be77be"
+    }
+  },
+  "parity": {
+    "checks": {
+      "engines": 3,
+      "foodRowsPerEngine": 45,
+      "preparedRecoveryStockRowsPerEngine": 8,
+      "nativeMeals": 54,
+      "checks": 204,
+      "passed": 204,
+      "failed": 0
+    },
+    "engineFingerprint": "engine3-ddba236da0175f088b1a4d2d7931df2755f0db6f9d6b54b10c0aa5e6af213ba4",
+    "recomputedEngineFingerprint": "engine3-ddba236da0175f088b1a4d2d7931df2755f0db6f9d6b54b10c0aa5e6af213ba4",
+    "serverBuild": "server-f7fdd9a5a3f0bd871a70",
+    "cleanBrowserServerDbSerializedSha256": "c3d5eef26ac21e19136131ba3ab24ab542c1dbe63d428f6e47ab7743d1e75aa1",
+    "canonicalFoodRowsSha256": "e5332661f80e24e99db9270bf361b6c6dd2ae1a387987c4dba33b83acfddfc6c",
+    "preparedRecoveryStockRowsSha256": "89ba423dcd49b681d8638844e039692a71dfd18aaf3e85d7fe8684d8400b319b",
+    "allShopStockRowsSha256": "813915f5ff4c18d67cb784a976cd6de62962b25d8ffaa6192ccf8eacd5933b7c",
+    "sharedInputObjectsUnchanged": true,
+    "normalizedSecondRuntimeUnchanged": true
+  },
+  "scope": {
+    "productFilesChecked": 235,
+    "changedPathsVersusBaseline": [
+      "package-lock.json",
+      "package.json",
+      "source/app_abyss.js",
+      "source/runtime_economy.js",
+      "source/runtime_growth_v01522.js"
+    ],
+    "sourceChangedOnly": [
+      "source/app_abyss.js",
+      "source/runtime_economy.js",
+      "source/runtime_growth_v01522.js"
+    ],
+    "productDriftVersusFrozenBuildInput": [],
+    "localAssetsContentFilesChecked": 1670,
+    "assetsContentBytes": 121891394,
+    "assetsContentDrift": [],
+    "rawDbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "checks": {
+      "baseline235FilesChecked": true,
+      "onlyExpectedFiveBaselineDifferences": true,
+      "frozenProductDriftZero": true,
+      "fixedThreeSourceHashes": true,
+      "sourcePathsUnchanged": true,
+      "assetsContent1670PathsChecked": true,
+      "assetsContentPathSetUnchanged": true,
+      "assetsContentHashDriftZero": true,
+      "rawDbUnchanged": true,
+      "growthExactAfterRemovingOnlyInstallCall": true,
+      "abyssExactAfterRemovingOnlyExistingNumericLabelEdits": true,
+      "economyExactAfterRemovingOnlyFoodBalanceInsertion": true
+    }
+  },
+  "limits": [
+    "Native engine/data parity uses a VM for published browser scripts and a real ESM import for the generated server; it is not a graphical browser UI or deployed server test.",
+    "Exactly 8 prepared recovery SKUs occur in table19. Table19 means 19_SHOP_STOCK_DB, not 19 recovery SKU rows. All table19 rows also match across engines.",
+    "The earlier build checkpoint and final frozen scope are independently saved; no duplicate build was run during checkpoint completion."
+  ]
+}

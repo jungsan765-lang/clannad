@@ -1,0 +1,1554 @@
+{
+  "schema": "native-food-conditions-v01620-1",
+  "owners": [
+    "PLAYER_CUSTOM",
+    "MOND_AMBER",
+    "MOND_JEAN",
+    "LIYUE_ZHONGLI"
+  ],
+  "levels": [
+    5,
+    10,
+    20,
+    30,
+    40,
+    50,
+    60
+  ],
+  "gear": [
+    false,
+    true
+  ],
+  "gearRule": "Native legal equipment only; minimum level enforced; +3 below Lv.30, +6 at/above Lv.30. Complete actual equipment IDs and maxHP retained in raw hp[].",
+  "fullDeficit": {
+    "foods": 45,
+    "levels": 7,
+    "owners": 4,
+    "gearStates": 2,
+    "rows": 2520,
+    "startHp": 1,
+    "quantity": 1,
+    "variant": "NORMAL"
+  },
+  "capProbe": {
+    "foods": [
+      "FOOD_PANCAKE_TEA_BREAK",
+      "FOOD_CRAB_ROE_TOFU",
+      "FOOD_FISH_NOODLES",
+      "FOOD_SWEET_MADAME",
+      "FOOD_PERCH_STEW",
+      "FOOD_LUCKY_SNOW_DELIGHT"
+    ],
+    "levels": 7,
+    "owners": 4,
+    "gearStates": 2,
+    "rows": 336,
+    "startHpRule": "maxHp - ceil(maxHp * 0.25)",
+    "quantity": 1,
+    "variant": "NORMAL"
+  },
+  "auditClockMs": 1791529200000,
+  "sameClock": true,
+  "sameContentDBSHA256": true,
+  "contentDBSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "hpConditions": [
+    {
+      "level": 5,
+      "gear": false,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 5,
+          "xp": 0,
+          "next": 520,
+          "remaining": 520,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false,
+          "hp": 931,
+          "maxHp": 931,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 5,
+          "xp": 0,
+          "next": 520,
+          "remaining": 520,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false,
+          "hp": 1009,
+          "maxHp": 1009,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 5,
+          "xp": 0,
+          "next": 520,
+          "remaining": 520,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false,
+          "hp": 1297,
+          "maxHp": 1297,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 5,
+          "xp": 0,
+          "next": 520,
+          "remaining": 520,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false,
+          "hp": 1997,
+          "maxHp": 1997,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        }
+      ]
+    },
+    {
+      "level": 5,
+      "gear": true,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 5,
+          "xp": 0,
+          "next": 520,
+          "remaining": 520,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false,
+          "hp": 1265,
+          "maxHp": 1265,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 5,
+          "xp": 0,
+          "next": 520,
+          "remaining": 520,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false,
+          "hp": 1343,
+          "maxHp": 1343,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_BOW_CRESCENT",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 5,
+          "xp": 0,
+          "next": 520,
+          "remaining": 520,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false,
+          "hp": 1631,
+          "maxHp": 1631,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 5,
+          "xp": 0,
+          "next": 520,
+          "remaining": 520,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false,
+          "hp": 2331,
+          "maxHp": 2331,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_POLEARM_CRESCENT",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "gear": false,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "hp": 1399,
+          "maxHp": 1399,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "hp": 1516,
+          "maxHp": 1516,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "hp": 1950,
+          "maxHp": 1950,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "hp": 3001,
+          "maxHp": 3001,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "gear": true,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "hp": 1733,
+          "maxHp": 1733,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "hp": 1850,
+          "maxHp": 1850,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_BOW_CRESCENT",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "hp": 2284,
+          "maxHp": 2284,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false,
+          "hp": 3335,
+          "maxHp": 3335,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_POLEARM_CRESCENT",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "gear": false,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 20,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": true,
+          "final": false,
+          "hp": 2917,
+          "maxHp": 2917,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 20,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": true,
+          "final": false,
+          "hp": 3161,
+          "maxHp": 3161,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 20,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": true,
+          "final": false,
+          "hp": 4346,
+          "maxHp": 4346,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 20,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": true,
+          "final": false,
+          "hp": 6690,
+          "maxHp": 6690,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "gear": true,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 20,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": true,
+          "final": false,
+          "hp": 3305,
+          "maxHp": 3305,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 20,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": true,
+          "final": false,
+          "hp": 3548,
+          "maxHp": 3548,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_BOW_CRESCENT",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 20,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": true,
+          "final": false,
+          "hp": 4760,
+          "maxHp": 4760,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 20,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 20,
+          "phase": 1,
+          "talentCap": 2,
+          "max": true,
+          "final": false,
+          "hp": 7104,
+          "maxHp": 7104,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_POLEARM_CRESCENT",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 3
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "gear": false,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 30,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 30,
+          "phase": 2,
+          "talentCap": 4,
+          "max": true,
+          "final": false,
+          "hp": 5110,
+          "maxHp": 5110,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 30,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 30,
+          "phase": 2,
+          "talentCap": 4,
+          "max": true,
+          "final": false,
+          "hp": 5536,
+          "maxHp": 5536,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 30,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 30,
+          "phase": 2,
+          "talentCap": 4,
+          "max": true,
+          "final": false,
+          "hp": 7983,
+          "maxHp": 7983,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 30,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 30,
+          "phase": 2,
+          "talentCap": 4,
+          "max": true,
+          "final": false,
+          "hp": 12290,
+          "maxHp": 12290,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "gear": true,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 30,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 30,
+          "phase": 2,
+          "talentCap": 4,
+          "max": true,
+          "final": false,
+          "hp": 5607,
+          "maxHp": 5607,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 30,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 30,
+          "phase": 2,
+          "talentCap": 4,
+          "max": true,
+          "final": false,
+          "hp": 6034,
+          "maxHp": 6034,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_BOW_CRESCENT",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 30,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 30,
+          "phase": 2,
+          "talentCap": 4,
+          "max": true,
+          "final": false,
+          "hp": 8541,
+          "maxHp": 8541,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 30,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 30,
+          "phase": 2,
+          "talentCap": 4,
+          "max": true,
+          "final": false,
+          "hp": 12848,
+          "maxHp": 12848,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_POLEARM_CRESCENT",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 40,
+      "gear": false,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 40,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 40,
+          "phase": 3,
+          "talentCap": 6,
+          "max": true,
+          "final": false,
+          "hp": 8091,
+          "maxHp": 8091,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 40,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 40,
+          "phase": 3,
+          "talentCap": 6,
+          "max": true,
+          "final": false,
+          "hp": 8766,
+          "maxHp": 8766,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 40,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 40,
+          "phase": 3,
+          "talentCap": 6,
+          "max": true,
+          "final": false,
+          "hp": 13103,
+          "maxHp": 13103,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 40,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 40,
+          "phase": 3,
+          "talentCap": 6,
+          "max": true,
+          "final": false,
+          "hp": 20170,
+          "maxHp": 20170,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        }
+      ]
+    },
+    {
+      "level": 40,
+      "gear": true,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 40,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 40,
+          "phase": 3,
+          "talentCap": 6,
+          "max": true,
+          "final": false,
+          "hp": 8649,
+          "maxHp": 8649,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 40,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 40,
+          "phase": 3,
+          "talentCap": 6,
+          "max": true,
+          "final": false,
+          "hp": 9324,
+          "maxHp": 9324,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_BOW_CRESCENT",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 40,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 40,
+          "phase": 3,
+          "talentCap": 6,
+          "max": true,
+          "final": false,
+          "hp": 13751,
+          "maxHp": 13751,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 40,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 40,
+          "phase": 3,
+          "talentCap": 6,
+          "max": true,
+          "final": false,
+          "hp": 20819,
+          "maxHp": 20819,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_POLEARM_CRESCENT",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "gear": false,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 50,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 50,
+          "phase": 4,
+          "talentCap": 8,
+          "max": true,
+          "final": false,
+          "hp": 11977,
+          "maxHp": 11977,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 50,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 50,
+          "phase": 4,
+          "talentCap": 8,
+          "max": true,
+          "final": false,
+          "hp": 12976,
+          "maxHp": 12976,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 50,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 50,
+          "phase": 4,
+          "talentCap": 8,
+          "max": true,
+          "final": false,
+          "hp": 19945,
+          "maxHp": 19945,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 50,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 50,
+          "phase": 4,
+          "talentCap": 8,
+          "max": true,
+          "final": false,
+          "hp": 30703,
+          "maxHp": 30703,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "gear": true,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 50,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 50,
+          "phase": 4,
+          "talentCap": 8,
+          "max": true,
+          "final": false,
+          "hp": 12595,
+          "maxHp": 12595,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 50,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 50,
+          "phase": 4,
+          "talentCap": 8,
+          "max": true,
+          "final": false,
+          "hp": 13594,
+          "maxHp": 13594,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_BOW_CRESCENT",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 50,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 50,
+          "phase": 4,
+          "talentCap": 8,
+          "max": true,
+          "final": false,
+          "hp": 20684,
+          "maxHp": 20684,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 50,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 50,
+          "phase": 4,
+          "talentCap": 8,
+          "max": true,
+          "final": false,
+          "hp": 31442,
+          "maxHp": 31442,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_POLEARM_CRESCENT",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 60,
+      "gear": false,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 60,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 60,
+          "phase": 6,
+          "talentCap": 10,
+          "max": true,
+          "final": true,
+          "hp": 18383,
+          "maxHp": 18383,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 60,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 60,
+          "phase": 6,
+          "talentCap": 10,
+          "max": true,
+          "final": true,
+          "hp": 19916,
+          "maxHp": 19916,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 60,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 60,
+          "phase": 6,
+          "talentCap": 10,
+          "max": true,
+          "final": true,
+          "hp": 31886,
+          "maxHp": 31886,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 60,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 60,
+          "phase": 6,
+          "talentCap": 10,
+          "max": true,
+          "final": true,
+          "hp": 49088,
+          "maxHp": 49088,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": []
+        }
+      ]
+    },
+    {
+      "level": 60,
+      "gear": true,
+      "actors": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "name": "음식 숙박 감사",
+          "level": 60,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 60,
+          "phase": 6,
+          "talentCap": 10,
+          "max": true,
+          "final": true,
+          "hp": 19122,
+          "maxHp": 19122,
+          "statuses": [],
+          "lastMeal": "",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 60,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 60,
+          "phase": 6,
+          "talentCap": 10,
+          "max": true,
+          "final": true,
+          "hp": 20654,
+          "maxHp": 20654,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_BOW_CRESCENT",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "MOND_JEAN",
+          "name": "진",
+          "level": 60,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 60,
+          "phase": 6,
+          "talentCap": 10,
+          "max": true,
+          "final": true,
+          "hp": 32806,
+          "maxHp": 32806,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_SWORD_RANCOUR",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "name": "종려",
+          "level": 60,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 60,
+          "phase": 6,
+          "talentCap": 10,
+          "max": true,
+          "final": true,
+          "hp": 50008,
+          "maxHp": 50008,
+          "statuses": [],
+          "lastMeal": "NONE",
+          "equipment": [
+            {
+              "equip": "EQ_POLEARM_CRESCENT",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ARMOR_REINFORCED_LEATHER",
+              "enhance": 6
+            },
+            {
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "enhance": 6
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assumptions": {
+    "synthetic": [
+      "Character ownership/levels/ascension phases/learned story flags",
+      "Legal +3 gear below Lv.30 and +6 above; alternatively naked",
+      "One serving of the exact food is explicitly granted to test consumption only",
+      "HP damage is an imposed setup, not a combat damage claim"
+    ],
+    "native": [
+      "Authoritative actor HP including equipped gear, phase and rarity",
+      "USE_ITEM public transaction, inventory debit, requestedHealing/healed receipts, HP clamping, 10 game-minute advance",
+      "No healing/runtime methods replaced",
+      "Lv.1 raw food base × native level HP curve × native rarity/phase multiplier; no invented ingredient weighting"
+    ],
+    "limits": [
+      "This audit measures effects, not acquisition/campaign wall-clock time",
+      "Food granted here is not evidence ingredients are free",
+      "Lv.5 has only gear permitted by item minimum level; loadout list retained"
+    ]
+  },
+  "boundaries": [
+    "KO:FOOD_TEA_BREAK_PANCAKE",
+    "KO:FOOD_STEAK",
+    "KO:FOOD_MORA_MEAT",
+    "KO:FOOD_CRAB_HAM_BAKE",
+    "sameFoodImmediateRepeat",
+    "alternationRestoresOriginalFoodEligibility",
+    "foodDuringCombat",
+    "BarbaraSpecialOneScaling",
+    "BondOfLifeFoodAbsorption",
+    "BuffFoodOnlyNextBattleNoRegen",
+    "fourRecipientsDifferentLevelOwnScaling"
+  ],
+  "nativeTransactionChecks": [
+    "requestedHealing == native foodHealingAmount(base,owner)",
+    "healed == min(requestedHealing,maxHp-startHp) without Bond in grid",
+    "endHp == startHp + healed",
+    "one-serving inventory consumption verified by runner",
+    "receipt.minutes == 10"
+  ],
+  "syntheticSetupOnly": true,
+  "noHealingOrRuntimeMethodReplacement": true,
+  "scope": "2856 grid meals per version plus 11 boundary checks; not ingredient acquisition or campaign wall-clock benchmark"
+}
