@@ -1,3 +1,70 @@
+# 0.16.21 복구 후보 — 전체 밸런스 작업 중단 지점
+
+**정식 배포 미완료. 기존 테스트 브랜치에 0.16.21을 게시했다고 말하지 않는다.** 실행 서버 연결이 끊겼다. 일부 QA가 메모리 한도로 SIGKILL/exit137 종료됐고 병렬 실행을 줄였지만 이후 새 exec/기존세션/apply_patch 연결도 복구되지 않았다. Git API를 통해 마지막 확인 소스와 같은 핵심7파일을 복구 브랜치에 보존했다. 각 파일 SHA256은 [source_manifest.json](data/full_balance_v01621/recovery/source_manifest.json)에 있다. 모든 다른 제품 파일은 게시0.16.20 기준이다.
+
+## 가장 먼저 읽을 것
+
+1. [PATCH_0.16.21_KO.md](PATCH_0.16.21_KO.md): 실제6수정·최종 표·연결 영향·완료/미완료.
+2. [GROWTH_AUDIT_V01621_KO.md](GROWTH_AUDIT_V01621_KO.md): 새 공통보상·요구량·장기 실패·기존 재고 구매력.
+3. [COMBAT_AUDIT_V01621_KO.md](COMBAT_AUDIT_V01621_KO.md),[ECONOMY_AUDIT_V01621_KO.md](ECONOMY_AUDIT_V01621_KO.md).
+4. 아래 재개 위치. 완료한 전체 장기XP/보스/음식 검사를 처음부터 무조건 반복하지 않는다.
+
+## 현재 사용자 승인
+
+사용자는 전투·회복·장비·경제·임무·경험치·돌파·특성 등 모든 기존 시스템을 서로 연결해 다시 검사하고 확정 문제를 수정·검증·게시 및 적용 소스까지 제공하도록 승인했다. 이전 항목의 부분 읽기 전용 제한은 이번 범위에서 대체된다. 새 시스템·UI 배치·이야기를 만들지 않는다. 실제VPS설치·운영승격·main병합은 하지 않고 최종 테스트 브랜치 소스를 게시한다. 워크플로 완료는 기다리지 말고 고정SHA 테스트/본서버 기존 적용 명령을 제공한다.
+
+## 재개할 파일과 세션
+
+실제 로컬 저장소: `/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg`. 작업 임시 기준: `/tmp/crpg_full_balance_v01621/`. 이 복구 브랜치에는 로컬의 새 tests/QA tools/전체 raw evidence를 업로드하지 못했으므로 로컬이 존재하면 먼저 사용한다. GitHEAD가 오래되고 다른 변경이 섞여 있으므로 전체 dirty checkout을 push하지 않는다.
+
+### 1. 전체177회귀의 남은 결과
+
+`tools/verify_release.py`의 최종 목록은177개다. 초기87완료를 `/tmp/crpg_full_balance_v01621/release_resume/initial_results.json`과 `initial_logs/`에 보존했다. 처음 full process가 종료 확인 없이 사라져 남은90개만 두 고정 복사본으로 나눴다. 오래된 `evidence/release/results.json`의165행은 이번 결과가 아니다.
+
+- shard0:52개 목록/진행 결과 `release_resume/shard0_tests.json`,`shard0_journal.jsonl`,`shard0_results.json`,`shard0_logs/`. 마지막세션41374,전체완료미확인.
+- shard1:38개완료/최초34PASS,결과 `shard1_results.json`,원문 `shard1_logs/`.
+- shard1실패4: `test_server_load_boundaries_v01513.mjs` 통신ECONNRESET, `test_coop_v0153.cjs` SIGKILL, `tools/test_field_bosses.cjs` SIGKILL, `test_release_isolation_v01513.py` 로컬 저작용 입력 부족.
+- 앞의3개를 순차 재검하는 `release_resume/shard1_isolated_retries/results.json`과 stdout 확인. 세션17138,완료미확인. 이미 결과가 있는 것은 보존하고 없는 항목만 재개.
+- 초기87에서 의도적으로 바뀐 정책과 옛 기대값 때문에 실패한5프로그램은 로컬에서 기대값을 실제 정책에 맞췄다: ascension_balance,ascension_efficiency,task_branches,task_materials,life. 과거 영수증/입장 가드를 삭제해 통과시키지 않았다.
+- 87+52+38의 union을177개로 검사하고 중복/누락0을 확인. 원본 실패와 재검 통과를 따로 남긴다.
+
+### 2. 최종 성장 재검
+
+성장 파일 최종 SHA256 `84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a`. 이전후보ef07과 공통보상literal1개만 차이다. 최종35~60공통20/35/80/180/600/1500,요구3/6/16/175/1440/37500,5성2배.
+
+- `docs/data/full_balance_v01621/growth/ascension_final_readable_partial/`:30조건완료후OOM137 보존.
+- `/tmp/crpg_full_balance_v01621/ascension_final_readable_remaining/summary.json`:나머지225조건 재개. 세션95246의완료미확인. rows=225/counts인지확인. 부분진행이면누락조건만재개한뒤255원문을합친다.
+- `growth/material_rewards_final_readable.log`:13검사 마지막완료미확인(세션4502).
+- `growth/oom_interrupted_*`:ascension_balance/ascension_efficiency/task_materials의OOM 원문. 각1개씩순차재검.
+- `growth/source_change_impact_assertion.json`:최종표1literal만바뀌었고HP/XP/전투/특성상수7표동일.
+- `growth/full_final_gem_readable_high/`:최종55전투54승1패 완료. seed71725승37500개94.23분,42426승9000개뒤1패26.96분,903125승37500개94.85분. 다시완주성공으로고치지말기.
+- `growth/growth_accounting_final_readable.json` 비용4원장/`growth_compat_final_readable.json`옛전투3조건/`growth_hp_final_readable.log`10PASS 완료.
+- `growth/whole_character_cost_projection.json`:총39140/78280gem반영. `book_growth_projection.json`최종quote재검과 최종growthmanifest는미완료.
+- 기존소스/옛케이스/초기후보/최종후보 원문hash를 새SHA로 소급덮어쓰지 않는다.
+
+### 3. 기존 재고 구매력 판단
+
+새공통수량은 신규 반복25/50승을 유지하지만 옛재료 수량을변환하지않아 기존 재고의 미돌파완료비율은 달라진다. 특히중립1250→37500요구,새보상50→1500. 수량/영수증보존과재고가치보존은다르다. 어떤보존정책을쓸지 명시적으로판단하고,그대로둘때도보고서에사실을남긴다. 새아이템/재고강제초기화/거래환급시스템을 임의로만들지않는다.
+
+### 4. 증거/DB 계약/최종 게시
+
+원격 기준커밋 `df1d2c48b630bf8a152481bcc4bcc3e5b8b37785`,트리 `fcac1bfc28e17031d9e592d90b2c8d81c530ed3e`.
+DB `cc3996929c885d41289038ff501640039a4cc71e`23098055B/assets tree `c8e23881af963b1eea026ba8d0e559f9df0f2181`/source index `b6f9d690b7573c0e9e8b4ff1654c2e615d41d918`/plannedDB `03d51f8a019f46dbb043f7b28d014548f448c68d` 보존.
+
+로컬canonicalQA DB는23049439B SHA256 `254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962`다. 원격 저작용 행이 포함된DB를 이것으로덮지않는다. `baseline_v01620.tar.gz`에는 기준235비DB파일과canonicalDB가 있으며baseline_manifest에구분되어있다.
+
+로컬 `tools/verify_balance_evidence_v01621.py`수정용apply_patch 호출이연결장애중대기해실제반영여부불명. 열어확인한다. product_manifest의일반exact-byte목록에서DB를분리하고다음dbContract를검사한다: knowncanonicalraw SHA256/bytes 또는knownauthoredGitblob/bytes 중정확1종만허용; 두경로모두 `runtime_data.clean_runtime_db(raw)[0]`의빌드직렬화값(ensure_ascii=False,separators=(',',':'),sort_keys없음)을검사. expectedclean23049438B SHA256 `c3d5eef26ac21e19136131ba3ab24ab542c1dbe63d428f6e47ab7743d1e75aa1`. 원격raw다운로드는실패했으므로원격정제동등성을현지PASS로말하지않는다.
+
+최종브라우저 `dist/` 1888파일/314assets/128.1MB,pack `2026-09-24-c3d5eef26ac2-5507ca747104`, engine `engine3-ffde69915bca895b0b04ccc22defebb9fc4a8d36dbd80aeeb5ced73af181a9c5`,serverBuild `server-e00da1e5edf9a9e633e0`. 실제3엔진218검사/최종음식213검사는완료됐으나 최종전체MANIFEST·상품235비DB해시 갱신·seal은미완료.
+
+빌드는 `CRPG_BUILD_DIR`/`CRPG_BUILD_REPORT` 환경변수로위치지정한다. `--out`인자는build.py가사용하지않는다. Node네이티브QA를8GiB한도에서과도하게동시실행하지않고무거운검사는1~2개씩,원문종료코드를그대로보존한다. shellstdout524288char제한때문에큰파일base64는raw150000B단위읽기/길이확인 후APIblob생성한다. 동일경로Delete+Add를한apply_patch에쓰지말고Update나직렬원자저장을쓴다.
+
+옛저장검사 정확commit `f0c08d6abd5941cf72be9ef1a472f28bb4d2c96b`,DB blob `75626bf50ac3417feb33ac65a49fa268db9a34b6`가필요하다. 큰blob취득실패를현재DB대체나가짜gitobject로감추지않는다. 저작용행을요구하는검사도fake행으로통과시키지않는다.
+
+기준최신테스트HEAD를다시읽고선별filewhitelistoverlay로게시한다. 로컬전체dirty를push하지않는다. 새tests/QA도구/관련기대값·docs·rawevidence를함께게시하고선택밖treepath 변경0·DB/assets보존을읽어확인한다. 마지막고정40자리SHA로테스트/본서버기존설치명령제공. CI완료를대신기다리지않는다.
+
+---
+
 # 다음 AI에게 전달할 프롬프트
 
 ## 0.16.20 · 회복 요리 재검증과 원소별 돌파 읽기 검토 — 먼저 읽기

@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "status": "RECOVERY_CANDIDATE_NOT_RELEASE_VALIDATED",
+  "baselineCommit": "df1d2c48b630bf8a152481bcc4bcc3e5b8b37785",
+  "baselineTree": "fcac1bfc28e17031d9e592d90b2c8d81c530ed3e",
+  "verifiedCandidateTree": "6256537008677153b70bc64fd23fa106b0e5f102",
+  "expectedPaths": 20,
+  "baselineEntries": 7932,
+  "candidateEntries": 7944,
+  "unexpectedChanges": [],
+  "changedExistingPaths": [
+    "genshin-crpg/AGENTS.md",
+    "genshin-crpg/content/release-notes.json",
+    "genshin-crpg/docs/AI_HANDOFF.md",
+    "genshin-crpg/docs/NEXT_STEPS_KO.md",
+    "genshin-crpg/package-lock.json",
+    "genshin-crpg/package.json",
+    "genshin-crpg/source/app_adventure.js",
+    "genshin-crpg/source/runtime_constellations_v01411.js",
+    "genshin-crpg/source/runtime_growth_v01522.js",
+    "genshin-crpg/source/runtime_tasks_v0167.js"
+  ],
+  "addedPaths": [
+    "genshin-crpg/docs/APPLY_0.16.21_KO.md",
+    "genshin-crpg/docs/COMBAT_AUDIT_V01621_KO.md",
+    "genshin-crpg/docs/ECONOMY_AUDIT_V01621_KO.md",
+    "genshin-crpg/docs/GROWTH_AUDIT_V01621_KO.md",
+    "genshin-crpg/docs/PATCH_0.16.21_KO.md",
+    "genshin-crpg/docs/data/full_balance_v01621/baseline_manifest.json",
+    "genshin-crpg/docs/data/full_balance_v01621/baseline_v01620.tar.gz",
+    "genshin-crpg/docs/data/full_balance_v01621/recovery/README_KO.md",
+    "genshin-crpg/docs/data/full_balance_v01621/recovery/source_changes.patch",
+    "genshin-crpg/docs/data/full_balance_v01621/recovery/source_manifest.json"
+  ],
+  "preserved": {
+    "db": true,
+    "assets": true,
+    "sourceIndex": true,
+    "plannedDB": true
+  }
+}

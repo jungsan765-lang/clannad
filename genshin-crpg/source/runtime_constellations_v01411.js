@@ -112,7 +112,7 @@ const EFFECTS={
   4:['벤티가 주는 바람 원소 피해가 25% 증가한다.',dmg(25,{el:'바람'})],
   6:['바람신의 시에 맞은 적은 3라운드 동안 받는 바람·불·물·얼음·번개 피해가 40% 증가한다.',cast('q',{debuff:{who:'all',id:'CONS_VENTI_6',rounds:3,vuln:{pct:40,el:ELEMENTAL}}})]},
  MOND_NOELLE:{
-  1:['대청소 중 일반 공격이 명중하면 호심경의 치유가 반드시 일어나 파티 전체를 노엘 방어력 25%만큼 회복시킨다(라운드마다 1회).',hit({kind:'na',once:'round',if:{status:'NOELLE_SWEEP'},heal:{stat:'def',k:.25,who:'all'}})],
+  1:['호심경 보호막과 대청소가 함께 있는 동안 일반 공격이 명중하면 파티 전체를 노엘 방어력 25%만큼 회복시킨다(라운드마다 1회).',hit({kind:'na',once:'round',if:{status:'NOELLE_SWEEP'},heal:{stat:'def',k:.25,who:'all'}})],
   2:['일반 공격 피해가 35% 증가한다.',dmg(35,{kind:'na'})],
   4:['호심경 보호막이 깨지면 적 최대 3명에게 노엘 방어력 200%의 바위 원소 피해를 준다.',{t:'shieldBreak',source:'MOND_NOELLE_E',hit:{k:2,el:'바위',max:3,stat:'def',pick:'all'}}],
   6:['대청소가 1라운드 더 오래 이어지고, 대청소 중 공격력이 방어력의 80%만큼 증가한다.',cast('q',{status:{id:'NOELLE_SWEEP',rounds:1}}),stat('atk',{from:'def',k:.8},{if:{status:'NOELLE_SWEEP'}})]},
@@ -494,7 +494,15 @@ P.damage=function(a,t,k,el,o={}){
 };
 P.consAfterHit=function(ctx){
  const {a,t}=ctx;
- for(const fx of this.consFx(a))if(fx.t==='onHit'&&matchHit(fx,ctx)&&this.consCond(fx.if,ctx,a,a)&&this.consOnce(fx,a,ctx)&&this.consChance(fx))this.consRun(fx,a,{target:t,attacker:a,card:ctx.o?.card});
+ for(const fx of this.consFx(a)){
+  if(fx.t!=='onHit'||!matchHit(fx,ctx)||!this.consCond(fx.if,ctx,a,a))continue;
+  // C1 makes Breastplate's existing heal certain; both hooks share its round gate.
+  const noelleHeal=fx.uid==='MOND_NOELLE:1:0';
+  if(noelleHeal&&(!(a.shields||[]).some(sh=>sh.source==='MOND_NOELLE_E')||a.noelleHealRound===this.s.runtime.round))continue;
+  if(!this.consOnce(fx,a,ctx)||!this.consChance(fx))continue;
+  if(noelleHeal)a.noelleHealRound=this.s.runtime.round;
+  this.consRun(fx,a,{target:t,attacker:a,card:ctx.o?.card});
+ }
  if(ctx.killed)for(const fx of this.consFx(a))if(fx.t==='onKill'&&this.consCond(fx.if,ctx,a,a))this.consRun(fx,a,{target:t,attacker:a});
  for(const owner of this.consAllies(a.side))for(const fx of this.consFx(owner))
   if(fx.t==='teamHit'&&(fx.self||owner!==a)&&matchHit(fx,ctx)&&this.consCond(fx.while,ctx,owner,owner)&&this.consCond(fx.if,ctx,a,owner)&&this.consOnce(fx,owner,ctx)&&this.consChance(fx))this.consRun(fx,owner,{target:t,attacker:a});
