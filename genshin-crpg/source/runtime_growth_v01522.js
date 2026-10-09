@@ -8,6 +8,9 @@ const hpCurve=l=>1+.13*(l-1)+.002*(l-1)**2,adCurve=l=>1+.12*(l-1)+.003*(l-1)**2;
 // Ordinary enemies follow a fixed four-character budget; elite/strong grades retain their native differences.
 const FIELD_HP_V0166=[[5,900],[8,2100],[10,2800],[12,3200],[15,3600],[20,4300],[25,5200],[30,6500],[40,9000],[50,12500],[60,17000]];
 const FIELD_ATK_V0166=[[5,180],[8,650],[10,870],[12,940],[15,1060],[20,1250],[25,1440],[30,1750],[40,2500],[50,3500],[60,4900]];
+// These early bosses had authored attack pressure that the shared boss curve
+// accidentally reduced. Restore attack only; retain the newer HP/DEF budgets.
+const FIELD_BOSS_ATK_FLOOR_V01619=new Set(['FB_ANEMO_HYPOSTASIS','FB_ELECTRO_HYPOSTASIS','FB_CRYO_REGISVINE']);
 function enemyBudget(points,level){if(level<=points[0][0])return points[0][1];for(let i=1;i<points.length;i++){const [l,n]=points[i];if(level<=l){const [before,value]=points[i-1];return value+(n-value)*(level-before)/(l-before);}}return points.at(-1)[1];}
 const legacyXpNext=l=>l===60?0:Math.round((l<=10?160+60*l+10*l**3:8000+1800*(l-10)+35*(l-10)**2)/10)*10;
 // 4-character, 2x presentation + declared input/re-entry budget; two routes, 3 seeds per level.
@@ -205,7 +208,8 @@ P.tuneGrowthEnemy=function(a,b,level){
  const hpBudget=calibrated?1+(enemyBudget(FIELD_HP_V0166,level)/(105*hpCurve(level)*(1+.16*p)*(2+.025*level))-1)*(i===0?1:i===1?.7:.3):1;
  const atkBudget=calibrated?1+(enemyBudget(FIELD_ATK_V0166,level)/(24*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*Math.min(1.7,1+.2*(level-1)))-1)*(i===0?1:i===1?.8:.35):1;
  const variant=(a.variant?.tier===5?1.6:1)*(a.variant?.affixes.includes('STURDY')?1.35:1);const prev=a.maxHp,hp=([105,340,900,3000][i])*(a.source==='BOSS_DVALIN'?.45:a.source==='BOSS_ANDRIUS'?.55:1)*hpCurve(level)*(1+.16*p)*variant*partyHp*hpBudget;
- a.hp=a.maxHp=Math.round(hp);a.atk=Math.round([24,38,52,a.source==='BOSS_ANDRIUS'?55:65][i]*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*partyAtk*atkBudget);a.def=Math.round([20,28,35,42][i]*adCurve(level));a.level=level;a.spd=Number(source[19])+Math.floor(level/5)+(a.variant?.affixes.includes('SWIFT')?8:0);a.hit=Math.min(95,80+Math.floor(level/5));if(a.variant?.tier===5){a.atk=Math.round(a.atk*1.15);a.def=Math.round(a.def*1.1);}if(a.variant?.affixes.includes('FEROCIOUS'))a.atk=Math.round(a.atk*1.2);if(a.variant?.affixes.includes('ARMORED'))a.def=Math.round(a.def*1.35);
+ const authoredBossAtk=a.fb&&FIELD_BOSS_ATK_FLOOR_V01619.has(a.source)?a.atk:0;
+ a.hp=a.maxHp=Math.round(hp);a.atk=Math.max(authoredBossAtk,Math.round([24,38,52,a.source==='BOSS_ANDRIUS'?55:65][i]*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*partyAtk*atkBudget));a.def=Math.round([20,28,35,42][i]*adCurve(level));a.level=level;a.spd=Number(source[19])+Math.floor(level/5)+(a.variant?.affixes.includes('SWIFT')?8:0);a.hit=Math.min(95,80+Math.floor(level/5));if(a.variant?.tier===5){a.atk=Math.round(a.atk*1.15);a.def=Math.round(a.def*1.1);}if(a.variant?.affixes.includes('FEROCIOUS'))a.atk=Math.round(a.atk*1.2);if(a.variant?.affixes.includes('ARMORED'))a.def=Math.round(a.def*1.35);
  for(const s of a.shields||[]){s.value=Math.round(s.value*hp/prev);if(s.initialValue)s.initialValue=Math.round(s.initialValue*hp/prev);}a.growthScaled=true;
 };
 P.growthEncounterLevel=function(origin){return api.growthRegionData.story?.[String(origin).replace(/^STORY:/,'')]||Number(this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID)[6])||1;};

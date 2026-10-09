@@ -1,0 +1,908 @@
+{
+  "version": "0.16.19",
+  "mode": "current",
+  "fingerprint": "d778635c61b79976873553c92ce99b1dc21e27c9604551845a88907a5ac19b1d",
+  "assumptions": {
+    "party": "Fixed four-person; protagonist plus three companions, equal initial levels/legal ascensions, native craft weapon/leather armor/healer brooch. Early +3; Lv30+ +6. Base talents65%cap, optional legal cap. FOUR_C6_HEAL only companions C6; protagonist C0.",
+    "combat": "Public PLACE_ENTER/BOSS_ROUTE and native COMBAT actions, native enemy states, HP/XP/RNG persist across requested runs; one initial full-HP only. No food/inn midrun. Final HP report separates win/loss.",
+    "limits": "Representative declared ownership fixtures, not natural acquisition or every composition; quantities are per condition."
+  },
+  "rows": [
+    {
+      "boss": "FB_CRYO_REGISVINE",
+      "team": "PREPARED_TWO_PYRO_MAX",
+      "ids": [
+        "LIYUE_XIANGLING",
+        "MOND_AMBER",
+        "MOND_BARBARA"
+      ],
+      "level": 22,
+      "seed": 717,
+      "enhance": 6,
+      "talent": 4,
+      "initialHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 22,
+          "hp": 4150,
+          "maxHp": 4150
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 22,
+          "hp": 4516,
+          "maxHp": 4516
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 22,
+          "hp": 4455,
+          "maxHp": 4455
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 22,
+          "hp": 4455,
+          "maxHp": 4455
+        }
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "LIYUE_XIANGLING": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "MOND_AMBER": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "MOND_BARBARA": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        }
+      },
+      "effectiveTalents": {
+        "PLAYER_CUSTOM": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "LIYUE_XIANGLING": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "MOND_AMBER": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "MOND_BARBARA": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        }
+      },
+      "constellations": null,
+      "battles": [
+        {
+          "number": 1,
+          "victory": true,
+          "rounds": 12,
+          "initial": {
+            "hp": 18264,
+            "maxHp": 18264,
+            "atk": 1689,
+            "def": 203,
+            "level": 22,
+            "fb": {
+              "version": 1,
+              "kind": "CRYO_VINE",
+              "acts": 0,
+              "next": null,
+              "stunned": false,
+              "exposedUntil": 0,
+              "revived": false,
+              "revival": null,
+              "shieldBreaks": 0,
+              "shieldReturn": 0,
+              "summoned": 0,
+              "burrowed": false,
+              "phase": 1
+            },
+            "fieldBoss": {
+              "version": 1,
+              "challengeRevision": 1,
+              "behaviorRevision": 2,
+              "boss": "FB_CRYO_REGISVINE",
+              "route": "BRT_FB_CRYO_REGISVINE",
+              "seen": [
+                "SHELL"
+              ],
+              "telegraph": null,
+              "defeated": 0,
+              "target": 0,
+              "spawned": 0,
+              "heatwave": null,
+              "offset": 1
+            }
+          },
+          "coreHits": 0,
+          "coreBreaks": 0,
+          "revives": 0,
+          "actualKo": [],
+          "beforeRewardHp": [
+            {
+              "source": "PLAYER_CUSTOM",
+              "level": 22,
+              "hp": 493,
+              "maxHp": 4150
+            },
+            {
+              "source": "LIYUE_XIANGLING",
+              "level": 22,
+              "hp": 277,
+              "maxHp": 4516
+            },
+            {
+              "source": "MOND_AMBER",
+              "level": 22,
+              "hp": 4421,
+              "maxHp": 4678
+            },
+            {
+              "source": "MOND_BARBARA",
+              "level": 22,
+              "hp": 4201,
+              "maxHp": 4455
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 22,
+              "hp": 493,
+              "maxHp": 4150
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 22,
+              "hp": 277,
+              "maxHp": 4516
+            },
+            {
+              "owner": "MOND_AMBER",
+              "level": 22,
+              "hp": 4421,
+              "maxHp": 4455
+            },
+            {
+              "owner": "MOND_BARBARA",
+              "level": 22,
+              "hp": 4201,
+              "maxHp": 4455
+            }
+          ],
+          "receipt": {
+            "mora": 134,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-22-717:B14",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-22-717:B14",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-22-717",
+            "group": "EG_FB_CRYO_REGISVINE",
+            "origin": "BOSS:BRT_FB_CRYO_REGISVINE",
+            "gate": "BOSS:BRT_FB_CRYO_REGISVINE",
+            "branch": null,
+            "victory": true,
+            "xp": 1344,
+            "loot": {
+              "MAT_FB_HOARFROST_CORE": 4,
+              "TRPG_BOSS_ESSENCE": 1
+            },
+            "rounds": 12,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "firstClear": true,
+            "fieldBoss": {
+              "boss": "FB_CRYO_REGISVINE",
+              "name": "얼음 나무",
+              "seen": [
+                "SHELL",
+                "WHIP",
+                "SPREAD",
+                "ORBS",
+                "ENRAGE"
+              ],
+              "victory": true
+            }
+          }
+        }
+      ],
+      "wins": 1,
+      "losses": 0,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 22,
+          "hp": 493,
+          "maxHp": 4150
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 22,
+          "hp": 277,
+          "maxHp": 4516
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 22,
+          "hp": 4421,
+          "maxHp": 4455
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 22,
+          "hp": 4201,
+          "maxHp": 4455
+        }
+      ],
+      "finalHpRatio": 0.5343650432407829,
+      "meter": {
+        "ms": 120830,
+        "inputs": 12,
+        "ownDamage": 5954,
+        "allyDamage": 28747,
+        "jointDamage": 0,
+        "exposureDamage": 0,
+        "heal": 3851,
+        "actions": 0
+      }
+    },
+    {
+      "boss": "FB_CRYO_REGISVINE",
+      "team": "PREPARED_TWO_PYRO_MAX",
+      "ids": [
+        "LIYUE_XIANGLING",
+        "MOND_AMBER",
+        "MOND_BARBARA"
+      ],
+      "level": 22,
+      "seed": 925,
+      "enhance": 6,
+      "talent": 4,
+      "initialHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 22,
+          "hp": 4150,
+          "maxHp": 4150
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 22,
+          "hp": 4516,
+          "maxHp": 4516
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 22,
+          "hp": 4455,
+          "maxHp": 4455
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 22,
+          "hp": 4455,
+          "maxHp": 4455
+        }
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "LIYUE_XIANGLING": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "MOND_AMBER": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "MOND_BARBARA": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        }
+      },
+      "effectiveTalents": {
+        "PLAYER_CUSTOM": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "LIYUE_XIANGLING": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "MOND_AMBER": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "MOND_BARBARA": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        }
+      },
+      "constellations": null,
+      "battles": [
+        {
+          "number": 1,
+          "victory": true,
+          "rounds": 10,
+          "initial": {
+            "hp": 18264,
+            "maxHp": 18264,
+            "atk": 1689,
+            "def": 203,
+            "level": 22,
+            "fb": {
+              "version": 1,
+              "kind": "CRYO_VINE",
+              "acts": 0,
+              "next": null,
+              "stunned": false,
+              "exposedUntil": 0,
+              "revived": false,
+              "revival": null,
+              "shieldBreaks": 0,
+              "shieldReturn": 0,
+              "summoned": 0,
+              "burrowed": false,
+              "phase": 1
+            },
+            "fieldBoss": {
+              "version": 1,
+              "challengeRevision": 1,
+              "behaviorRevision": 2,
+              "boss": "FB_CRYO_REGISVINE",
+              "route": "BRT_FB_CRYO_REGISVINE",
+              "seen": [
+                "SHELL"
+              ],
+              "telegraph": null,
+              "defeated": 0,
+              "target": 0,
+              "spawned": 0,
+              "heatwave": null,
+              "offset": 1
+            }
+          },
+          "coreHits": 0,
+          "coreBreaks": 0,
+          "revives": 0,
+          "actualKo": [],
+          "beforeRewardHp": [
+            {
+              "source": "PLAYER_CUSTOM",
+              "level": 22,
+              "hp": 131,
+              "maxHp": 4150
+            },
+            {
+              "source": "LIYUE_XIANGLING",
+              "level": 22,
+              "hp": 1481,
+              "maxHp": 4516
+            },
+            {
+              "source": "MOND_AMBER",
+              "level": 22,
+              "hp": 4678,
+              "maxHp": 4678
+            },
+            {
+              "source": "MOND_BARBARA",
+              "level": 22,
+              "hp": 3833,
+              "maxHp": 4455
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 22,
+              "hp": 131,
+              "maxHp": 4150
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 22,
+              "hp": 1481,
+              "maxHp": 4516
+            },
+            {
+              "owner": "MOND_AMBER",
+              "level": 22,
+              "hp": 4455,
+              "maxHp": 4455
+            },
+            {
+              "owner": "MOND_BARBARA",
+              "level": 22,
+              "hp": 3833,
+              "maxHp": 4455
+            }
+          ],
+          "receipt": {
+            "mora": 134,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-22-925:B14",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-22-925:B14",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-22-925",
+            "group": "EG_FB_CRYO_REGISVINE",
+            "origin": "BOSS:BRT_FB_CRYO_REGISVINE",
+            "gate": "BOSS:BRT_FB_CRYO_REGISVINE",
+            "branch": null,
+            "victory": true,
+            "xp": 1344,
+            "loot": {
+              "MAT_FB_HOARFROST_CORE": 4,
+              "TRPG_BOSS_ESSENCE": 1
+            },
+            "rounds": 10,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "firstClear": true,
+            "fieldBoss": {
+              "boss": "FB_CRYO_REGISVINE",
+              "name": "얼음 나무",
+              "seen": [
+                "SHELL",
+                "WHIP",
+                "SPREAD",
+                "ORBS",
+                "ENRAGE"
+              ],
+              "victory": true
+            }
+          }
+        }
+      ],
+      "wins": 1,
+      "losses": 0,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 22,
+          "hp": 131,
+          "maxHp": 4150
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 22,
+          "hp": 1481,
+          "maxHp": 4516
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 22,
+          "hp": 4455,
+          "maxHp": 4455
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 22,
+          "hp": 3833,
+          "maxHp": 4455
+        }
+      ],
+      "finalHpRatio": 0.5632680928538917,
+      "meter": {
+        "ms": 101110,
+        "inputs": 10,
+        "ownDamage": 4844,
+        "allyDamage": 24378,
+        "jointDamage": 0,
+        "exposureDamage": 0,
+        "heal": 3083,
+        "actions": 0
+      }
+    },
+    {
+      "boss": "FB_CRYO_REGISVINE",
+      "team": "PREPARED_TWO_PYRO_MAX",
+      "ids": [
+        "LIYUE_XIANGLING",
+        "MOND_AMBER",
+        "MOND_BARBARA"
+      ],
+      "level": 22,
+      "seed": 4242,
+      "enhance": 6,
+      "talent": 4,
+      "initialHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 22,
+          "hp": 4150,
+          "maxHp": 4150
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 22,
+          "hp": 4516,
+          "maxHp": 4516
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 22,
+          "hp": 4455,
+          "maxHp": 4455
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 22,
+          "hp": 4455,
+          "maxHp": 4455
+        }
+      ],
+      "talents": {
+        "PLAYER_CUSTOM": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "LIYUE_XIANGLING": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "MOND_AMBER": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "MOND_BARBARA": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        }
+      },
+      "effectiveTalents": {
+        "PLAYER_CUSTOM": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "LIYUE_XIANGLING": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "MOND_AMBER": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        },
+        "MOND_BARBARA": {
+          "na": 4,
+          "e": 4,
+          "q": 4,
+          "base": {
+            "na": 4,
+            "e": 4,
+            "q": 4
+          },
+          "kinds": {
+            "c3": "q",
+            "c5": "e"
+          }
+        }
+      },
+      "constellations": null,
+      "battles": [
+        {
+          "number": 1,
+          "victory": true,
+          "rounds": 12,
+          "initial": {
+            "hp": 18264,
+            "maxHp": 18264,
+            "atk": 1689,
+            "def": 203,
+            "level": 22,
+            "fb": {
+              "version": 1,
+              "kind": "CRYO_VINE",
+              "acts": 0,
+              "next": null,
+              "stunned": false,
+              "exposedUntil": 0,
+              "revived": false,
+              "revival": null,
+              "shieldBreaks": 0,
+              "shieldReturn": 0,
+              "summoned": 0,
+              "burrowed": false,
+              "phase": 1
+            },
+            "fieldBoss": {
+              "version": 1,
+              "challengeRevision": 1,
+              "behaviorRevision": 2,
+              "boss": "FB_CRYO_REGISVINE",
+              "route": "BRT_FB_CRYO_REGISVINE",
+              "seen": [
+                "SHELL"
+              ],
+              "telegraph": null,
+              "defeated": 0,
+              "target": 0,
+              "spawned": 0,
+              "heatwave": null,
+              "offset": 1
+            }
+          },
+          "coreHits": 0,
+          "coreBreaks": 0,
+          "revives": 0,
+          "actualKo": [
+            "PLAYER_CUSTOM",
+            "LIYUE_XIANGLING"
+          ],
+          "beforeRewardHp": [
+            {
+              "source": "PLAYER_CUSTOM",
+              "level": 22,
+              "hp": 0,
+              "maxHp": 4150
+            },
+            {
+              "source": "LIYUE_XIANGLING",
+              "level": 22,
+              "hp": 0,
+              "maxHp": 4516
+            },
+            {
+              "source": "MOND_AMBER",
+              "level": 22,
+              "hp": 4678,
+              "maxHp": 4678
+            },
+            {
+              "source": "MOND_BARBARA",
+              "level": 22,
+              "hp": 4455,
+              "maxHp": 4455
+            }
+          ],
+          "after": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 22,
+              "hp": 415,
+              "maxHp": 4150
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 22,
+              "hp": 0,
+              "maxHp": 4516
+            },
+            {
+              "owner": "MOND_AMBER",
+              "level": 22,
+              "hp": 4455,
+              "maxHp": 4455
+            },
+            {
+              "owner": "MOND_BARBARA",
+              "level": 22,
+              "hp": 4455,
+              "maxHp": 4455
+            }
+          ],
+          "receipt": {
+            "mora": 134,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-22-4242:B14",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-22-4242:B14",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-22-4242",
+            "group": "EG_FB_CRYO_REGISVINE",
+            "origin": "BOSS:BRT_FB_CRYO_REGISVINE",
+            "gate": "BOSS:BRT_FB_CRYO_REGISVINE",
+            "branch": null,
+            "victory": true,
+            "xp": 1344,
+            "loot": {
+              "MAT_FB_HOARFROST_CORE": 3,
+              "TRPG_BOSS_ESSENCE": 1
+            },
+            "rounds": 12,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "protagonistRevived": 415,
+            "firstClear": true,
+            "fieldBoss": {
+              "boss": "FB_CRYO_REGISVINE",
+              "name": "얼음 나무",
+              "seen": [
+                "SHELL",
+                "WHIP",
+                "SPREAD",
+                "ORBS",
+                "ENRAGE"
+              ],
+              "victory": true
+            }
+          }
+        }
+      ],
+      "wins": 1,
+      "losses": 0,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 22,
+          "hp": 415,
+          "maxHp": 4150
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 22,
+          "hp": 0,
+          "maxHp": 4516
+        },
+        {
+          "owner": "MOND_AMBER",
+          "level": 22,
+          "hp": 4455,
+          "maxHp": 4455
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 22,
+          "hp": 4455,
+          "maxHp": 4455
+        }
+      ],
+      "finalHpRatio": 0.530553026854802,
+      "meter": {
+        "ms": 115280,
+        "inputs": 9,
+        "ownDamage": 4567,
+        "allyDamage": 30134,
+        "jointDamage": 0,
+        "exposureDamage": 0,
+        "heal": 3650,
+        "actions": 0
+      }
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "conditions": 3,
+    "firstWins": 3,
+    "complete": 3,
+    "fights": 3,
+    "wins": 3,
+    "losses": 0,
+    "errors": 0
+  }
+}

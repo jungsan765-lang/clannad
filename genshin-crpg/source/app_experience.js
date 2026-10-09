@@ -325,7 +325,7 @@ function battleStatusList(a){
     if(s.id==='ROLE'){const R=window.CRPGRuntime?.formationConfig?.roles?.[s.role];if(R)list.push({id:'ROLE',name:R.label,kind:'role',text:R.text,rounds:null});continue;}
     const db=game.tables['13_STATUS_EFFECT_DB']?.get(s.id),catalog=globalThis.CRPGRuntime?.statusCatalog?.[s.id],type=String(db?.[2]||''),name=catalog?.name||db?.[1]||s.name||'알 수 없는 효과';
     const kind=STATUS_KIND[s.id]||(/원소/.test(type)?'element':/제어/.test(type)?'hold':STATUS_DEBUFF.has(s.id)||/디버프|지속 피해|저하/.test(type)?'debuff':'buff');
-    list.push({id:s.id,name,kind,text:catalog?.text||[db?.[3]||'',statusModsText(s)].filter(Boolean).join(' · '),rounds:Number.isFinite(s.rounds)?s.rounds:null,element:STATUS_ELEMENT[s.id]||null});
+    list.push({id:s.id,name,kind,text:game.combatHealingStatusText?.(s)||catalog?.text||[db?.[3]||'',statusModsText(s)].filter(Boolean).join(' · '),rounds:Number.isFinite(s.rounds)?s.rounds:null,element:STATUS_ELEMENT[s.id]||null});
   }
   return list;
 }
@@ -367,7 +367,7 @@ function battleFormationTag(b){
 function battleActorRow(a,chosen,index){
   const c=el('div','actor combatant-row'+(a.hp<=0?' dead':'')+(a.id===selectedTarget?' selected':''));c.dataset.actorId=a.id;c.dataset.maxHp=a.maxHp;c.dataset.side=a.side;
   if(showArt){const src=combatPortraitSrc(a);if(src){const image=el('img','combat-portrait');image.src=src;image.alt='';c.append(image);}else if(a.id==='PLAYER_CUSTOM')c.append(el('span','combat-player-mark','✦'));}
-  const copy=el('div','combatant-copy');copy.append(el('strong','',a.name+(index>0?' '+index:'')));meter(copy,'HP',a.hp,a.maxHp);const shieldValue=(a.shields||[]).reduce((n,s)=>n+Math.max(0,Number(s.value||0)),0),shieldMax=(a.shields||[]).reduce((n,s)=>n+Math.max(Number(s.initialValue||s.value||0),Number(s.value||0)),0);c.dataset.shieldMax=Math.max(1,Math.round(shieldMax||shieldValue||1));if(shieldValue>0){const shieldBox=el('div','shield-meter');shieldBox.dataset.shieldMax=c.dataset.shieldMax;meter(shieldBox,'보호막',Math.round(shieldValue),Math.max(1,Math.round(shieldMax)));copy.append(shieldBox);}
+  const copy=el('div','combatant-copy');copy.append(el('strong','',a.name+(index>0?' '+index:'')));meter(copy,'HP',a.hp,a.maxHp);const shieldValue=(a.shields||[]).reduce((n,s)=>a.side==='ALLY'?Math.max(n,Number(s.value||0)):n+Math.max(0,Number(s.value||0)),0),shieldMax=(a.shields||[]).reduce((n,s)=>a.side==='ALLY'?Math.max(n,Number(s.initialValue||s.value||0),Number(s.value||0)):n+Math.max(Number(s.initialValue||s.value||0),Number(s.value||0)),0);c.dataset.shieldMax=Math.max(1,Math.round(shieldMax||shieldValue||1));if(shieldValue>0){const shieldBox=el('div','shield-meter');shieldBox.dataset.shieldMax=c.dataset.shieldMax;meter(shieldBox,'보호막',Math.round(shieldValue),Math.max(1,Math.round(shieldMax)));copy.append(shieldBox);}
   // 0.15.21 (user: 「글로 써져있는건 왠만하면 아이콘으로」, 「진형 효과는 뭐임 그냥 버프 디버프란을 좀 개선할 필요가 있어보이는데」):
   // the element is its badge and the shield its own meter and bubble; what else is on the fighter is a row of chips.
   const chips=battleStatusChips(a);if(chips)copy.append(chips);c.append(copy);

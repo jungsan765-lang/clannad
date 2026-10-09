@@ -1,0 +1,429 @@
+{
+  "checked_at": "2026-10-09 UTC / 2026-10-09 Asia/Seoul",
+  "scope": "원작 고증 읽기 전용. 제품·DB·원격·문서 변경 없음. 7.1 공식 배포 확인, KQM 현행 연구·원본 실험을 확인. 버전 표시는 각 문서의 범위이지 모든 7.1 캐릭터 실험 완료라는 뜻이 아님.",
+  "sources": [
+    {
+      "id": "official_52",
+      "ref": "turn91search0",
+      "url": "https://genshin.hoyoverse.com/ko/news/detail/126992",
+      "date": "2024-11-20 버전 5.2",
+      "supports": "과부하·초전도·감전·쇄빙 기본 피해 상향. 정확한 계수는 공지에 없음."
+    },
+    {
+      "id": "amplifying",
+      "ref": "turn90view1",
+      "url": "https://library.keqingmains.com/combat-mechanics/elemental-effects/amplifying-reactions",
+      "date": "현재 웹 페이지 2026-10-09 확인",
+      "supports": "융해·증발 2/1.5, 발동 공격 피해를 증폭."
+    },
+    {
+      "id": "transformative",
+      "ref": "turn89view0",
+      "url": "https://library.keqingmains.com/combat-mechanics/elemental-effects/transformative-reactions",
+      "date": "현재 웹 페이지 2026-10-09 확인",
+      "supports": "현행 격변 계수·빙결·쇄빙·물 확산 예외·부착 소비."
+    },
+    {
+      "id": "damage_formula",
+      "ref": "turn99view3",
+      "url": "https://library.keqingmains.com/combat-mechanics/damage/damage-formula",
+      "date": "현재 웹 페이지 2026-10-09 확인",
+      "supports": "촉진·발산 가산량은 특성 원피해 이후 합산. 그 뒤 피해보너스·치명타·방어·내성 적용. 최신 격변 계수 표도 일치."
+    },
+    {
+      "id": "additive",
+      "ref": "turn90view0",
+      "url": "https://library.keqingmains.com/combat-mechanics/elemental-effects/additive-reactions",
+      "date": "현재 웹 페이지 2026-10-09 확인",
+      "supports": "활성·촉진·발산과 1.15/1.25, 활성 원소 공존."
+    },
+    {
+      "id": "gauge",
+      "ref": "turn103view1",
+      "url": "https://library.keqingmains.com/combat-mechanics/elemental-effects/elemental-gauge-theory",
+      "date": "현재 웹 페이지 2026-10-09 확인",
+      "supports": "강한 증폭 2배 부착 소비, 약한 증폭 0.5배 소비. 감전 물·번개 공존/틱 소모. 원래 원작의 2배와 1.5배에는 공급 유지 난도의 차이가 있다."
+    },
+    {
+      "id": "priority",
+      "ref": "turn102view1",
+      "url": "https://library.keqingmains.com/combat-mechanics/elemental-effects/simultaneous-reaction-priority",
+      "date": "현재 웹 페이지 2026-10-09 확인",
+      "supports": "실제 반응 순서는 사례별 검증. 단일 전역 우선순위만으로 모든 상황을 원작과 같다고 주장할 수 없음."
+    },
+    {
+      "id": "shields",
+      "ref": "turn99view2",
+      "url": "https://library.keqingmains.com/combat-mechanics/damage/shields",
+      "date": "현재 웹 페이지 2026-10-09 확인",
+      "supports": "결정 보호막의 원소·2.5배 동종 흡수·레벨/원소마스터리·현재 캐릭터·비중첩."
+    },
+    {
+      "id": "transformative_evidence",
+      "ref": "turn103view2",
+      "url": "https://library.keqingmains.com/evidence/combat-mechanics/elemental-effects/transformative-reactions",
+      "date": "개별 실험 2020~2022. 현재 개요와 교차 확인",
+      "supports": "쇄빙은 원소 피해보다 먼저 판정. 둔중 공격. 빙결 아래 물/얼음 유지 가능. 감전 틱과 오너 변화 직접 영상."
+    },
+    {
+      "id": "dendro",
+      "ref": "turn106view0",
+      "url": "https://keqingmains.com/misc/dendro/",
+      "date": "3.0 기반 문서, 계수 표는 5.2 이전 값이라 최신 수치에는 사용 금지",
+      "supports": "원핵 최대 5, 6번째에서 가장 오래된 원핵 폭발, 6초, 적도 변환 가능, 같은 소스의 원핵 반응 0.5초 2회, 자해 5%, 변환 오너."
+    },
+    {
+      "id": "enemy_interactions",
+      "ref": "turn105view0",
+      "url": "https://library.keqingmains.com/evidence/combat-mechanics/enemy-mechanics/enemy-interactions",
+      "date": "땅속 풀 슬라임 2022-05-12; 보스 빙결 2021-05-11",
+      "supports": "반응 피해 면역과 부가 디버프 면역은 별개 사례. 보스는 빙결 생성 없이 물·얼음 부착 소비."
+    },
+    {
+      "id": "kaveh",
+      "ref": "turn101search8",
+      "url": "https://keqingmains.com/q/kaveh-quickguide/",
+      "date": "5.2 이상 갱신 표시",
+      "supports": "양손검 일반·강공·낙하 공격 쇄빙 사례."
+    },
+    {
+      "id": "amber",
+      "ref": "turn102search15",
+      "url": "https://library.keqingmains.com/characters/pyro/amber",
+      "date": "현재 웹 페이지 2026-10-09 확인",
+      "supports": "토끼 백작 폭발에 별도 둔중 속성이 있어 쇄빙. 활 캐릭터라는 것만으로 모든 공격을 일괄 제외할 수도 없음."
+    },
+    {
+      "id": "gaming",
+      "ref": "turn102search16",
+      "url": "https://library.keqingmains.com/characters/pyro/gaming",
+      "date": "현재 웹 페이지 2026-10-09 확인",
+      "supports": "양손검 캐릭터라도 원소폭발은 쇄빙 불가 사례. 강공/무기분류만으로 모든 카드 쇄빙 일반화 금지."
+    },
+    {
+      "id": "lunar",
+      "ref": "turn99view1",
+      "url": "https://keqingmains.com/misc/lunar/",
+      "date": "Luna VI 기준, 현행 2026-10-09 열람",
+      "supports": "달 감전/개화/결정. 특수 캐릭터 조건, 반응 피해와 직접 달 피해 구분. 방어 무시·치명타·해당 원소 내성."
+    },
+    {
+      "id": "stellar",
+      "ref": "turn103view0",
+      "url": "https://keqingmains.com/misc/stellar/",
+      "date": "7.0 기준, 현행 2026-10-09 열람",
+      "supports": "별 초전도·별 확산의 필드/강화·기여자·치명타·방어 무시·계수."
+    },
+    {
+      "id": "official_dendro_names",
+      "ref": "turn102search2",
+      "url": "https://genshin.hoyoverse.com/ko/news/detail/23269",
+      "date": "3.0 공식 한국 공지",
+      "supports": "연소·활성·촉진·발산·개화·만개·발화 공식 표기."
+    },
+    {
+      "id": "official_lunar_names",
+      "ref": "turn92search5",
+      "url": "https://genshin.hoyoverse.com/ko/news/detail/162159",
+      "date": "2026-01-14 네 번째 달 버전",
+      "supports": "달 개화·달 감전·달 결정 공식 한국 표기."
+    },
+    {
+      "id": "official_stellar_names",
+      "ref": "turn91search1",
+      "url": "https://genshin.hoyoverse.com/ko/news/detail/165478",
+      "date": "7.0 별 확산 소개, 공개 날짜 검색으로는 확인 못 함",
+      "supports": "별 확산·별 초전도 공식 한국 표기."
+    },
+    {
+      "id": "official_stellar_release",
+      "ref": "turn105search0",
+      "url": "https://genshin.hoyoverse.com/m/ko/news/detail/165076",
+      "date": "2026-07-01",
+      "supports": "별 초전도 도입·극지의 별영역 공식 이름."
+    },
+    {
+      "id": "latest_release",
+      "ref": "turn103search0",
+      "url": "https://genshin.hoyoverse.com/ko/news/397",
+      "date": "2026-09-23 7.1 배포",
+      "supports": "오늘 최신 배포는 7.1 확인. 향후 수치 유출·추측 사용 없음."
+    }
+  ],
+  "coefficient_note": "격변의 2.75·3 등은 일반 공격 피해 배율이 아니라 반응 전용 레벨 기본값의 계수. CRPG의 공통 반응 기본값은 자체 성장곡선으로 크게 다르므로 원작 계수만 곧바로 이식하면 균형을 보장하지 못함.",
+  "base_reactions": [
+    {
+      "name": "융해",
+      "elements": "얼음→불 2.0, 불→얼음 1.5",
+      "role": "준비한 부착을 강한 한 방으로 교환",
+      "cost": "2배 쪽은 원작 부착 소모 2배, 1.5배 쪽은 0.5배",
+      "sources": [
+        "amplifying",
+        "gauge"
+      ]
+    },
+    {
+      "name": "증발",
+      "elements": "불→물 2.0, 물→불 1.5",
+      "role": "발동 공격 증폭",
+      "cost": "높은 배율 쪽의 부착 공급 유지가 어렵다",
+      "sources": [
+        "amplifying",
+        "gauge"
+      ]
+    },
+    {
+      "name": "빙결",
+      "elements": "물+얼음",
+      "role": "피해 없는 행동 억제",
+      "cost": "보스 면역·둔중 쇄빙·불의 빙결 부착 소모; 원작은 연속 빙결에서 지속 감소",
+      "sources": [
+        "transformative",
+        "enemy_interactions"
+      ]
+    },
+    {
+      "name": "쇄빙",
+      "elements": "빙결+둔중/바위",
+      "coefficient": 3,
+      "role": "제어 상태를 추가 물리 피해로 교환",
+      "cost": "빙결 소모, 물리 내성 적용, 공격별 둔중 판정 필요",
+      "sources": [
+        "transformative",
+        "transformative_evidence",
+        "kaveh",
+        "amber",
+        "gaming"
+      ]
+    },
+    {
+      "name": "과부하",
+      "elements": "불+번개",
+      "coefficient": 2.75,
+      "role": "즉시 불 범위 피해·경직·바위 방패 파괴",
+      "cost": "밀침은 근접 적 추격 손실; 불 면역에게 피해 없음",
+      "sources": [
+        "transformative"
+      ]
+    },
+    {
+      "name": "초전도",
+      "elements": "얼음+번개",
+      "coefficient": 1.5,
+      "role": "얼음 범위 피해·물리 내성 40% 감소 12초",
+      "cost": "원소 공격만 하는 편성에는 주된 디버프 이득 없음",
+      "sources": [
+        "transformative"
+      ]
+    },
+    {
+      "name": "감전",
+      "elements": "물+번개",
+      "coefficient_per_tick": 2,
+      "role": "지속 번개 피해·젖은 인접 적 전이·물/번개 공존",
+      "cost": "두 부착이 유지되어야 지속, 최초 반응자/이후 재부착자로 오너 변화",
+      "sources": [
+        "transformative",
+        "gauge",
+        "transformative_evidence"
+      ]
+    },
+    {
+      "name": "확산",
+      "elements": "불/물/얼음/번개→바람",
+      "coefficient": 0.6,
+      "role": "원소 전파와 후속 반응",
+      "cost": "적 수·부착 조건. 물은 주변에게 전파하되 물 확산 범위 피해는 없음. 같은 원소 확산 피해 대상당 0.5초 2회 상한",
+      "sources": [
+        "transformative",
+        "gauge"
+      ]
+    },
+    {
+      "name": "결정",
+      "elements": "불/물/얼음/번개→바위",
+      "role": "반응 원소 보호막·동종 원소 흡수 2.5배",
+      "cost": "피해 없는 반응, 조각 줍기, 같은 결정 보호막은 덧셈 누적 아님",
+      "sources": [
+        "shields",
+        "transformative_evidence"
+      ]
+    },
+    {
+      "name": "연소",
+      "elements": "불+풀",
+      "coefficient_per_tick": 0.25,
+      "role": "짧은 간격 불 지속 피해와 불 부착 공급",
+      "cost": "풀 유지 필요, 다른 원소로 소화 가능",
+      "sources": [
+        "dendro",
+        "transformative"
+      ]
+    },
+    {
+      "name": "개화",
+      "elements": "물+풀",
+      "coefficient": 2,
+      "role": "추가 원소 없이 지연 풀 범위 피해",
+      "cost": "원핵 대기·최대 5·아군 자해·오너·폭발 상한",
+      "sources": [
+        "dendro"
+      ]
+    },
+    {
+      "name": "만개",
+      "elements": "원핵+번개",
+      "coefficient": 3,
+      "role": "가장 가까운 적 추적 풀 피해",
+      "cost": "세 원소·원핵·번개 발동자의 레벨/원소 마스터리",
+      "sources": [
+        "dendro",
+        "transformative"
+      ]
+    },
+    {
+      "name": "발화",
+      "elements": "원핵+불",
+      "coefficient": 3,
+      "role": "원핵 즉시 풀 범위 피해",
+      "cost": "세 원소·아군 5% 자해·불 과공급 시 연소로 원핵 생성 방해",
+      "sources": [
+        "dendro",
+        "transformative"
+      ]
+    },
+    {
+      "name": "활성",
+      "elements": "풀+번개",
+      "role": "촉진·발산의 사전 상태, 자체 피해 없음",
+      "cost": "물/불이 풀처럼 취급해 활성 부착을 소비 가능",
+      "sources": [
+        "additive"
+      ]
+    },
+    {
+      "name": "촉진",
+      "elements": "활성+번개",
+      "coefficient_additive": 1.15,
+      "role": "번개 공격의 고정 가산 피해, 빠른 부착·치명타와 상성",
+      "cost": "공격 부착 ICD·활성 유지. 특성 피해 배율은 가산액 자체에 곱하지 않음",
+      "sources": [
+        "additive",
+        "damage_formula"
+      ]
+    },
+    {
+      "name": "발산",
+      "elements": "활성+풀",
+      "coefficient_additive": 1.25,
+      "role": "풀 공격의 고정 가산 피해",
+      "cost": "같은 조건. 가산량만 촉진보다 높고 파티 전체 성능 순위는 별개",
+      "sources": [
+        "additive",
+        "damage_formula"
+      ]
+    }
+  ],
+  "important_distinctions": [
+    "융해 때 원작 빙결 게이지가 소비되지만 충분한 잔여 게이지/동시 부착/일부 실험 예외가 있다. 모든 불타격은 무조건 즉시 완전 해동한다는 강한 주장은 피하고 CRPG 단순 모델에서 융해 후 STATUS_FREEZE가 전혀 소비되지 않는 경로를 분리해 고친다.",
+    "쇄빙은 제대로 발동하면 빙결을 깬다. 현재 문제는 양손검 평타에서 발동을 못 하거나 다른 반응이 우선 선택하는 경로다. 빙결 후 제어 보호기간은 재빙결 방지 규칙이지 쇄빙 뒤 얼음을 유지시키는 규칙이 아니다.",
+    "초전도 원작 물리 내성 -40%는 받는 물리 피해 +40%와 같지 않다. 기본 물리 내성 10%를 예로 들면 0.9→1.15로 실제 이득 27.8%. CRPG의 +25%는 별도 단순화 수치이며 +35~40%는 고증이 아니라 균형 후보.",
+    "반응의 피해 면역과 디버프 면역은 독립 검사. 직접 1차 실험은 땅속 풀 슬라임이며 모든 종류를 일괄 단정하지 않는다.",
+    "원작 적도 아군이 만든 원핵을 변환할 수 있다. 따라서 CRPG 원핵에 아군 오너만 붙이지 않았다는 것을 그 자체로 오류라 부르면 안 된다.",
+    "KQM Dendro Guide의 과부하2·감전1.2·초전도0.5·쇄빙1.5 표는 오래된 표다. 최신 수치에는 현재 Transformative/Damage Formula를 사용. 현재 두 표의 쇄빙은 3으로 일치하며 4라는 최신 1차 근거는 찾지 못함."
+  ],
+  "special_reactions": [
+    {
+      "name": "달 감전",
+      "role": "특정 해금자 있을 때 물+번개가 번개구름 생성, 약2초 틱. 물/번개 기여자 피해를 큰순서 가중 합산",
+      "numbers": "원작 반응 계수3. 최고 기여자1, 다음1/2, 나머지1/12 가중. 직접 달 피해는 캐릭터 특성값 기준",
+      "sources": [
+        "lunar",
+        "official_lunar_names"
+      ]
+    },
+    {
+      "name": "달 개화",
+      "role": "물+풀 원핵 생성은 유지하고 풀 이슬 자원을 쌓는다. 달 개화 자체 즉시 피해가 아니라 이를 소비하는 특성의 직접 피해",
+      "numbers": "하나의 고정 일반 반응 계수로 설명하지 않는다",
+      "sources": [
+        "lunar",
+        "official_lunar_names"
+      ]
+    },
+    {
+      "name": "달 결정",
+      "role": "물 부착에 바위, 월석 세 개를 만들고 세 번 발동 후 공격; 물·바위 기여자로 계산",
+      "numbers": "원작 반응 및 직접 피해 계수1.6. 물 결정 보호막을 그대로 복제하는 반응은 아님",
+      "sources": [
+        "lunar",
+        "official_lunar_names"
+      ]
+    },
+    {
+      "name": "별 초전도",
+      "role": "번개+얼음으로 극지의 별영역, 물리 내성 -40%, 얼음/번개 피해 보너스20~40%, 특정 캐릭터 특성 강화",
+      "numbers": "반응 자체 피해 없음; 직접 별 피해의 필드 배율1~2는 4초간 유효 원소 부착 횟수에 따름",
+      "sources": [
+        "stellar",
+        "official_stellar_names",
+        "official_stellar_release"
+      ]
+    },
+    {
+      "name": "별 확산",
+      "role": "얼음 부착에 바람, 처음 바람 피해 이후 3초 뒤 얼음 범위 폭발, 반복으로 소용돌이 강화",
+      "numbers": "첫 바람 반응0.75, 얼음 폭발 Lv1 2/Lv2 3. 기여자 가중합 및 직접 별 피해 별도",
+      "sources": [
+        "stellar",
+        "official_stellar_names"
+      ]
+    }
+  ],
+  "special_note": "원작 달·별은 조건부 특수 반응이며 일반 반응에 자동 통합할 필요 없음. 현재 CRPG 일반 선택기는 달·별 DB행 제외, 살아 있는 자백 물+바위 경로만 별도 달 결정. 비활성 DB행을 새 시스템으로 켜는 것은 현 요청의 검사 범위를 넘는 작업.",
+  "local_map": [
+    {
+      "path": "source/runtime_rules.js:29",
+      "issue": "한 반응 전역 우선순위 선택. 쇄빙에 강공 태그를 둔중과 동급 처리; 양손검 평타 태그 없는 경우 누락 가능."
+    },
+    {
+      "path": "source/runtime_rules.js:31-46",
+      "issue": "융해/증발은 기존 원소 부착 삭제, 융해가 빙결 상태를 삭제/약화하지 않는다. 감전·연소 상태와 부착 소멸이 별개."
+    },
+    {
+      "path": "source/runtime_rules.js:38",
+      "issue": "초전도 얼음 피해 면역이면 PHYS_VULN를 주지 않음. 고증상 피해 면역과 부가 디버프를 별개 점검."
+    },
+    {
+      "path": "source/runtime_rules.js:39",
+      "issue": "물 확산도 다른 원소와 동일 범위 피해, 원작 물 예외 없음; 동일 시전 대상별 확산 중복 상한 없음."
+    },
+    {
+      "path": "source/runtime_rules.js:40",
+      "issue": "결정은 본인 즉시 보호막, 반응 원소의 2.5배 흡수 속성 없음."
+    },
+    {
+      "path": "source/runtime_rules.js:45-46,59",
+      "issue": "원핵 최대 5 상한·자해·동일 소스 대상별 동시 피해 상한 없음. 원핵 위치와 공격 대상 위치가 완전히 일치해야 변환되어 적이 이동하면 활용 어려움."
+    },
+    {
+      "path": "source/runtime_rules.js:56 + source/runtime_growth_v01522.js",
+      "issue": "촉진/발산 가산량이 나중 특성 피해 보정에도 곱해지는 것은 원작 계산 순서와 다름; 다른 에이전트 실측 필요."
+    },
+    {
+      "path": "source/runtime_growth_v01522.js:225",
+      "issue": "반응 기본값 자체 HP 성장곡선 보정 존재. 계수 상향 전 원작값과 CRPG값을 구분해 체력 대비 실제 수치 비교 필수."
+    },
+    {
+      "path": "source/runtime_liyue_cards.js:91,192-193",
+      "issue": "살아 있는 자백이 물 결정 치환. 현재는 단발 바위 피해+적방어 감쇄, 원작 달결정의 월석/기여자/방어무시와는 별도 축약. 새시스템도입 없이 현행수치만큼 범위를 제한한다."
+    }
+  ],
+  "recommendation_order": [
+    "지속 제어 무한화·빙결 소비·쇄빙 발동/순서",
+    "촉진발산 특성 중복 및 피해면역/디버프 독립",
+    "연소 소화·감전 첫틱/기간·확산 중복상한·결정 원소흡수",
+    "원핵5개/폭발상한/변환범위/소량자해",
+    "그 뒤 Lv10/20/30/40/50/60, 소수/다수/보스/면역 적·장비·특성 차이에서 기회비용 포함 계수 후보를 비교"
+  ]
+}

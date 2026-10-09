@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "oldTestSha256": "f462a763469f4759309653b257ef3debf58bb745e067676fc8ad9e316927fd99",
+  "newTestSha256": "552b5ddba01fde3e5a38f8fcf1ba54c2a186b42bf729a63cc7cb701b3684d3f0",
+  "command": [
+    "node",
+    "tests/test_growth_balance_v01522.cjs"
+  ],
+  "nativeRuns": 1,
+  "exitCode": 0,
+  "log": "updated_test_native.log",
+  "logSha256": "f6f15c8af5e143ed11415b0d4203051d855d61c57a268fdcb85e0c13d2e5ce19",
+  "productSourceModified": false,
+  "fixturesChanged": false,
+  "conditions": 18,
+  "productFixedManifest": "docs/data/qa_v01619/final/product_fixed_manifest.json",
+  "productPathsChecked": 233,
+  "productDrift": [],
+  "productDriftCount": 0,
+  "testChangedOnly": "tests/test_growth_balance_v01522.cjs",
+  "unchangedFixtureHelperSha256": "ae6fd750d98895a98b88ea91858d7f6ba08960a633cd274be21d4e4fe44630c1",
+  "failureSettlementChecks": [
+    "native last allies all HP0",
+    "native enemy alive",
+    "runtime null",
+    "XP and other rewards0",
+    "one battle receipt/log",
+    "save restore",
+    "duplicate settlement no changes"
+  ],
+  "averagesExcludeDefeats": true
+}

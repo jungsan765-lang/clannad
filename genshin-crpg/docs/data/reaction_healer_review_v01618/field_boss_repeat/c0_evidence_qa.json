@@ -1,0 +1,632 @@
+{
+  "generatedUtc": "2026-10-09T15:58:38.383528+00:00",
+  "qaScope": "C0 only read-only independent recomputation",
+  "sourceCommit": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "inputFiles": {
+    "e3.json": {
+      "bytes": 75549375,
+      "mtime_ns": 1791560271839096304,
+      "sha256": "d1af0e95ce88dfc5117e1d022e71903c17b844248d7315ebd2c2bb81b1c59a1c"
+    },
+    "e6.json": {
+      "bytes": 75639537,
+      "mtime_ns": 1791560271791095296,
+      "sha256": "f31a5f36f39c55c608342c2dde3295156e66b50449709fa0f9703fb10b4b7503"
+    },
+    "summary.json": {
+      "bytes": 3044973,
+      "mtime_ns": 1791560829690998140,
+      "sha256": "080a711ecf6c7467169a82d09a54f46dfa11855376bcd0751f546b6441ec1148"
+    },
+    "native.json.gz": {
+      "bytes": 3620629,
+      "mtime_ns": 1791560837791171601,
+      "sha256": "3341389949ee3af90b8f875307724acb902da4d3e7122d9a3027dd4e20d608c6"
+    },
+    "manifest.json": {
+      "bytes": 25362,
+      "mtime_ns": 1791560837814990677,
+      "sha256": "bbceb20b519cd4a18fc0ae26d851a958ddd55cc920c18ed48b551e873d184bf0"
+    },
+    "actual_fixture.json": {
+      "bytes": 94596,
+      "mtime_ns": 1791560609038252027,
+      "sha256": "060e4e9af43b855e6dbc3635505c177f360a225c463e18fa97a1428d59fa839f"
+    },
+    "aggregate.py": {
+      "bytes": 11724,
+      "mtime_ns": 1791560825875784068,
+      "sha256": "0cf9a9dd545c1fdcad35d48f48263f1704917381913dd98981dab52d0890e382"
+    },
+    "audit.cjs": {
+      "bytes": 10259,
+      "mtime_ns": 1791560087575515537,
+      "sha256": "57884eeb9c6bada04e920266290d638de6a09d7128be9e1908b0805489af9efc"
+    },
+    "conditions.csv": {
+      "bytes": 8453,
+      "mtime_ns": 1791560829699594287,
+      "sha256": "c3826084d9767c1ef01a1da1b1bc068d0c5849c770b08f04c44a6f184f275a8f"
+    }
+  },
+  "inputsUnchanged": true,
+  "checks": {
+    "unique 60 condition keys": 1,
+    "full expected design": 1,
+    "unique 20 actual fixtures": 1,
+    "team IDs": 60,
+    "actual talent scalar": 60,
+    "actual saved talents": 60,
+    "actual equipment enhancement": 60,
+    "no equipped artifacts": 60,
+    "four actors x three gear pieces": 60,
+    "initial full HP Lv25": 60,
+    "actual fixture party": 60,
+    "legal actual level phase cap": 240,
+    "actual effective talents C0": 240,
+    "actual fixture equipment": 240,
+    "row win count": 60,
+    "row loss count": 60,
+    "stop after defeat": 60,
+    "at most three boss attempts": 60,
+    "inn successful-three-win denominator": 60,
+    "failed inn zero excluded": 24,
+    "native four ally actors": 142,
+    "all native allies Lv25": 142,
+    "native boss Lv30": 142,
+    "ordered packet/log count": 142,
+    "ordered target card round matches": 11605,
+    "ordered actor matches": 11605,
+    "bounded actual HP damage": 11605,
+    "native damage with actual pre-hit HP gives after": 11605,
+    "corrected battle damage summary": 142,
+    "observed outer packet sum": 142,
+    "actual healing sum": 142,
+    "HP balance summary": 568,
+    "non Xiao HP balance reconciles zero": 546,
+    "core counts": 142,
+    "corrected condition damage": 60,
+    "actual native revival HP exactly50pct": 117,
+    "victory without four core hits requires timeout revival": 111,
+    "second kill boss HP zero": 111,
+    "persistent HP before next boss no inn": 82,
+    "native core needs four": 237,
+    "core hit increments one": 230,
+    "completed four hit cores are victories": 7,
+    "fourth hit clears completed core state": 7,
+    "Xiao isolated direct-cost fixture has no healing": 22,
+    "Xiao exact 8pct END gap before next packet": 155,
+    "Xiao exact 8pct plus minimum1 final balance": 22,
+    "compressed native exactly equals independently corrected raw chunks": 1,
+    "all independently recomputed summary counts": 1,
+    "all independently recomputed manifest counts": 1,
+    "independent entire group aggregation": 20,
+    "actual runtime companion rarity": 5,
+    "manifest artifact hash": 4,
+    "manifest script hash": 2,
+    "233 product source plus DB files": 1,
+    "product source plus DB baseline unchanged": 1,
+    "manifest current product file hashes": 1,
+    "unchanged boolean flags": 1,
+    "published source and native fingerprint": 1,
+    "native VM no candidate substitution": 1,
+    "recovery only after main boss campaign": 1,
+    "no fixture constellation grant": 1,
+    "all audit inputs hashes sizes mtimes unchanged": 1
+  },
+  "recomputedCounts": {
+    "campaigns": 60,
+    "uniqueConditionKeys": 60,
+    "nativeMainFights": 142,
+    "mainWins": 118,
+    "mainLosses": 24,
+    "firstFightWins": 46,
+    "allThreeWinCampaigns": 36,
+    "nativeRecoveryFailures": 24,
+    "matchedNativeDamagePackets": 11605,
+    "nonXiaoUnreconciledHpBalance": 0,
+    "fourCoreHitCompletions": 7,
+    "coreTimeout50PercentRevivals": 117,
+    "executionErrors": []
+  },
+  "extra": {
+    "correctedDamageChangedPackets": 41,
+    "outerZeroNetButActualDamagePackets": 32,
+    "sampleHealBeforeHitCorrections": [
+      {
+        "condition": [
+          "FOUR_ATTACK",
+          3,
+          "MODERATE",
+          717
+        ],
+        "fight": 1,
+        "packet": 24,
+        "outerBefore": 2788,
+        "actualBefore": 3147,
+        "outerAfter": 2905,
+        "outerNetLoss": 0,
+        "actualDamage": 242
+      },
+      {
+        "condition": [
+          "FOUR_ATTACK",
+          3,
+          "MODERATE",
+          925
+        ],
+        "fight": 1,
+        "packet": 48,
+        "outerBefore": 310,
+        "actualBefore": 669,
+        "outerAfter": 418,
+        "outerNetLoss": 0,
+        "actualDamage": 251
+      },
+      {
+        "condition": [
+          "FOUR_ATTACK",
+          3,
+          "MAX",
+          717
+        ],
+        "fight": 1,
+        "packet": 24,
+        "outerBefore": 2788,
+        "actualBefore": 3147,
+        "outerAfter": 2905,
+        "outerNetLoss": 0,
+        "actualDamage": 242
+      },
+      {
+        "condition": [
+          "FOUR_ATTACK",
+          3,
+          "MAX",
+          925
+        ],
+        "fight": 1,
+        "packet": 48,
+        "outerBefore": 310,
+        "actualBefore": 669,
+        "outerAfter": 418,
+        "outerNetLoss": 0,
+        "actualDamage": 251
+      },
+      {
+        "condition": [
+          "FOUR_HEAL",
+          3,
+          "MODERATE",
+          717
+        ],
+        "fight": 2,
+        "packet": 50,
+        "outerBefore": 3527,
+        "actualBefore": 3886,
+        "outerAfter": 3615,
+        "outerNetLoss": 0,
+        "actualDamage": 271
+      },
+      {
+        "condition": [
+          "FOUR_HEAL",
+          3,
+          "MODERATE",
+          717
+        ],
+        "fight": 2,
+        "packet": 75,
+        "outerBefore": 4844,
+        "actualBefore": 5203,
+        "outerAfter": 4848,
+        "outerNetLoss": 0,
+        "actualDamage": 355
+      },
+      {
+        "condition": [
+          "FOUR_HEAL",
+          3,
+          "MODERATE",
+          925
+        ],
+        "fight": 1,
+        "packet": 110,
+        "outerBefore": 3210,
+        "actualBefore": 3569,
+        "outerAfter": 3316,
+        "outerNetLoss": 0,
+        "actualDamage": 253
+      },
+      {
+        "condition": [
+          "FOUR_HEAL",
+          3,
+          "MODERATE",
+          925
+        ],
+        "fight": 1,
+        "packet": 135,
+        "outerBefore": 4114,
+        "actualBefore": 4473,
+        "outerAfter": 4117,
+        "outerNetLoss": 0,
+        "actualDamage": 356
+      }
+    ],
+    "nonXiaoActorBalances": 546,
+    "XiaoBalances": 22,
+    "XiaoDirectLossSum": 48460,
+    "XiaoExpected8pctDirectLossSum": 48460,
+    "XiaoEvidence": [
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MODERATE",
+          717
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 700,
+        "actualDirectLoss": 3620,
+        "reconstructedDirectLoss": 3620
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MODERATE",
+          717
+        ],
+        "fight": 2,
+        "qRounds": [],
+        "tickCount": 0,
+        "fixed8pct": 700,
+        "actualDirectLoss": 0,
+        "reconstructedDirectLoss": 0
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MODERATE",
+          925
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 700,
+        "actualDirectLoss": 4200,
+        "reconstructedDirectLoss": 4200
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MODERATE",
+          4242
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 700,
+        "actualDirectLoss": 4169,
+        "reconstructedDirectLoss": 4169
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MODERATE",
+          4242
+        ],
+        "fight": 2,
+        "qRounds": [],
+        "tickCount": 0,
+        "fixed8pct": 700,
+        "actualDirectLoss": 0,
+        "reconstructedDirectLoss": 0
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MAX",
+          717
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 700,
+        "actualDirectLoss": 3615,
+        "reconstructedDirectLoss": 3615
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MAX",
+          717
+        ],
+        "fight": 2,
+        "qRounds": [
+          2
+        ],
+        "tickCount": 0,
+        "fixed8pct": 700,
+        "actualDirectLoss": 0,
+        "reconstructedDirectLoss": 0
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MAX",
+          925
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 700,
+        "actualDirectLoss": 4060,
+        "reconstructedDirectLoss": 4060
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MAX",
+          925
+        ],
+        "fight": 2,
+        "qRounds": [],
+        "tickCount": 0,
+        "fixed8pct": 700,
+        "actualDirectLoss": 0,
+        "reconstructedDirectLoss": 0
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MAX",
+          4242
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 700,
+        "actualDirectLoss": 4200,
+        "reconstructedDirectLoss": 4200
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          3,
+          "MAX",
+          4242
+        ],
+        "fight": 2,
+        "qRounds": [
+          2
+        ],
+        "tickCount": 0,
+        "fixed8pct": 700,
+        "actualDirectLoss": 0,
+        "reconstructedDirectLoss": 0
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MODERATE",
+          717
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 705,
+        "actualDirectLoss": 4012,
+        "reconstructedDirectLoss": 4012
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MODERATE",
+          717
+        ],
+        "fight": 2,
+        "qRounds": [
+          2
+        ],
+        "tickCount": 0,
+        "fixed8pct": 705,
+        "actualDirectLoss": 0,
+        "reconstructedDirectLoss": 0
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MODERATE",
+          925
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 705,
+        "actualDirectLoss": 4230,
+        "reconstructedDirectLoss": 4230
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MODERATE",
+          4242
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 705,
+        "actualDirectLoss": 4230,
+        "reconstructedDirectLoss": 4230
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MODERATE",
+          4242
+        ],
+        "fight": 2,
+        "qRounds": [],
+        "tickCount": 0,
+        "fixed8pct": 705,
+        "actualDirectLoss": 0,
+        "reconstructedDirectLoss": 0
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MAX",
+          717
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 705,
+        "actualDirectLoss": 3672,
+        "reconstructedDirectLoss": 3672
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MAX",
+          717
+        ],
+        "fight": 2,
+        "qRounds": [
+          2
+        ],
+        "tickCount": 0,
+        "fixed8pct": 705,
+        "actualDirectLoss": 0,
+        "reconstructedDirectLoss": 0
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MAX",
+          925
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 705,
+        "actualDirectLoss": 4230,
+        "reconstructedDirectLoss": 4230
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MAX",
+          925
+        ],
+        "fight": 2,
+        "qRounds": [
+          2
+        ],
+        "tickCount": 0,
+        "fixed8pct": 705,
+        "actualDirectLoss": 0,
+        "reconstructedDirectLoss": 0
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MAX",
+          4242
+        ],
+        "fight": 1,
+        "qRounds": [
+          2,
+          7
+        ],
+        "tickCount": 6,
+        "fixed8pct": 705,
+        "actualDirectLoss": 4222,
+        "reconstructedDirectLoss": 4222
+      },
+      {
+        "condition": [
+          "FIVE_ATTACK",
+          6,
+          "MAX",
+          4242
+        ],
+        "fight": 2,
+        "qRounds": [],
+        "tickCount": 0,
+        "fixed8pct": 705,
+        "actualDirectLoss": 0,
+        "reconstructedDirectLoss": 0
+      }
+    ],
+    "comparableThreeWinInnCampaigns": 36,
+    "winsWithoutFourHitCoreCompletions": 111,
+    "lossesWithoutFourHitCoreCompletions": 24,
+    "mainRecoveryPolicy": "No intermediate recovery; final native inn attempt only"
+  },
+  "errors": [],
+  "warnings": [
+    "C0 condition data have no saved constellation object. C0 is supported by fresh newGame/no constellation-grant code and actual base=effective talent equality; not a user save claim.",
+    "All main repeats have no intermediate lodging. Recovery denominator is 36 successful three-win campaigns; 24 defeat recovery failures have lodgingMora=0 but comparable inn cost=null.",
+    "FIVE_* and FOUR_* designate companion rarity, not party size: all native parties contain Traveler plus three companions. Fixed 5-star artifact/weapon premium is not tested.",
+    "2x seconds are presentation model plus input budget, not measured browser wall time. Native recovery may include road battles and healing; finale inn cost differs from a boss-location quote.",
+    "Core wins without four hits are native timeout + 50pct HP revival + second kills, not a successful four-hit core mechanic. Do not aggregate them as core destruction.",
+    "Inputs and source hashes are checked read-only. No runtime experiment or product, DB, Git, or documentation mutation performed."
+  ],
+  "passed": true
+}

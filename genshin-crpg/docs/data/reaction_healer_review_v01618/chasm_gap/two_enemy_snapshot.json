@@ -1,0 +1,851 @@
+{
+  "readOnly": true,
+  "selection": "native seed3=2 ordinary husks; seed318012461=2 husks, standard rare FEROCIOUS+CORROSIVE, matching HP but not user SWIFT+CORROSIVE. All companions Lv25 representative only.",
+  "metricsNote": "Cast counts deduplicate direct skill log packets by actor/round/actionSequence/card, exclude triggered sourceKind/presentationSourceKind; not number of hits. Ice lotus records a completely redirected enemy AI turn and explosion, no numeric decoy HP damage exists in this path; report taunt interceptions as count only.",
+  "rows": [
+    {
+      "name": "SCREENSHOT_C0",
+      "enhance": 6,
+      "talent": 4,
+      "seed": 3,
+      "victory": true,
+      "rounds": 12,
+      "initialEnemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        }
+      ],
+      "actualHeals": 22970,
+      "actualHealsByActor": {
+        "진": 22970
+      },
+      "damageLogTotalToAllies": 23461,
+      "actualHpLossInDamageLogs": 23461,
+      "shieldAbsorption": 0,
+      "netHpLossAfterReward": 491,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 4673,
+          "maxHp": 4673
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 7080,
+          "maxHp": 7080
+        },
+        {
+          "owner": "LIYUE_GANYU",
+          "level": 25,
+          "hp": 7650,
+          "maxHp": 8141
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 7080,
+          "maxHp": 7080
+        }
+      ],
+      "beforeRewardHp": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 4673,
+          "maxHp": 4673
+        },
+        {
+          "source": "MOND_DILUC",
+          "hp": 7080,
+          "maxHp": 7080
+        },
+        {
+          "source": "LIYUE_GANYU",
+          "hp": 7650,
+          "maxHp": 8548
+        },
+        {
+          "source": "MOND_JEAN",
+          "hp": 7080,
+          "maxHp": 7080
+        }
+      ],
+      "nativeProtagonistRevivedHp": null,
+      "tauntInterceptions": 4,
+      "enemyActionSkipped": 0,
+      "directSkillActionGroups": {
+        "PLAYER_TRAVELER_ANEMO_Q": 3,
+        "LIYUE_GANYU_E": 4,
+        "MOND_DILUC_Q": 4,
+        "MOND_JEAN_Q": 3,
+        "MOND_JEAN_E": 5,
+        "LIYUE_GANYU_Q": 3,
+        "PLAYER_TRAVELER_ANEMO_E": 3,
+        "MOND_DILUC_E": 4,
+        "PLAYER_BASIC_ATTACK": 5
+      },
+      "reactionCounts": {
+        "RX_MELT_CRYO": 8,
+        "RX_SWIRL": 23,
+        "RX_MELT_PYRO": 14
+      },
+      "campaignWins": 1,
+      "campaignLosses": 1
+    },
+    {
+      "name": "SCREENSHOT_C0",
+      "enhance": 6,
+      "talent": 4,
+      "seed": 318012461,
+      "victory": true,
+      "rounds": 16,
+      "initialEnemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 70569,
+          "atk": 9737,
+          "variant": {
+            "version": 1,
+            "tier": 5,
+            "label": "지역 위험 개체",
+            "affixes": [
+              "FEROCIOUS",
+              "CORROSIVE"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        }
+      ],
+      "actualHeals": 32645,
+      "actualHealsByActor": {
+        "진": 32645
+      },
+      "damageLogTotalToAllies": 38584,
+      "actualHpLossInDamageLogs": 37299,
+      "shieldAbsorption": 0,
+      "netHpLossAfterReward": 4205,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 468,
+          "maxHp": 4673
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 7080,
+          "maxHp": 7080
+        },
+        {
+          "owner": "LIYUE_GANYU",
+          "level": 25,
+          "hp": 8141,
+          "maxHp": 8141
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 7080,
+          "maxHp": 7080
+        }
+      ],
+      "beforeRewardHp": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 0,
+          "maxHp": 4673
+        },
+        {
+          "source": "MOND_DILUC",
+          "hp": 7080,
+          "maxHp": 7080
+        },
+        {
+          "source": "LIYUE_GANYU",
+          "hp": 8160,
+          "maxHp": 8548
+        },
+        {
+          "source": "MOND_JEAN",
+          "hp": 7080,
+          "maxHp": 7080
+        }
+      ],
+      "nativeProtagonistRevivedHp": 468,
+      "tauntInterceptions": 6,
+      "enemyActionSkipped": 0,
+      "directSkillActionGroups": {
+        "PLAYER_TRAVELER_ANEMO_Q": 4,
+        "LIYUE_GANYU_E": 6,
+        "MOND_DILUC_Q": 6,
+        "MOND_JEAN_Q": 4,
+        "LIYUE_GANYU_Q": 4,
+        "MOND_JEAN_E": 6,
+        "PLAYER_TRAVELER_ANEMO_E": 4,
+        "MOND_DILUC_E": 5,
+        "PLAYER_BASIC_ATTACK": 7
+      },
+      "reactionCounts": {
+        "RX_MELT_PYRO": 20,
+        "RX_MELT_CRYO": 12,
+        "RX_SWIRL": 21
+      },
+      "campaignWins": 1,
+      "campaignLosses": 1
+    },
+    {
+      "name": "SCREENSHOT_C232",
+      "enhance": 6,
+      "talent": 4,
+      "seed": 3,
+      "victory": true,
+      "rounds": 8,
+      "initialEnemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        }
+      ],
+      "actualHeals": 13861,
+      "actualHealsByActor": {
+        "진": 13861
+      },
+      "damageLogTotalToAllies": 16774,
+      "actualHpLossInDamageLogs": 16774,
+      "shieldAbsorption": 0,
+      "netHpLossAfterReward": 2913,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 3798,
+          "maxHp": 4673
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 7080,
+          "maxHp": 7080
+        },
+        {
+          "owner": "LIYUE_GANYU",
+          "level": 25,
+          "hp": 6103,
+          "maxHp": 8141
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 7080,
+          "maxHp": 7080
+        }
+      ],
+      "beforeRewardHp": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 3798,
+          "maxHp": 4673
+        },
+        {
+          "source": "MOND_DILUC",
+          "hp": 7080,
+          "maxHp": 7080
+        },
+        {
+          "source": "LIYUE_GANYU",
+          "hp": 6103,
+          "maxHp": 8548
+        },
+        {
+          "source": "MOND_JEAN",
+          "hp": 7080,
+          "maxHp": 7080
+        }
+      ],
+      "nativeProtagonistRevivedHp": null,
+      "tauntInterceptions": 3,
+      "enemyActionSkipped": 0,
+      "directSkillActionGroups": {
+        "PLAYER_TRAVELER_ANEMO_Q": 3,
+        "LIYUE_GANYU_E": 3,
+        "MOND_DILUC_Q": 3,
+        "MOND_JEAN_Q": 2,
+        "MOND_JEAN_E": 3,
+        "LIYUE_GANYU_Q": 2,
+        "PLAYER_TRAVELER_ANEMO_E": 2,
+        "MOND_DILUC_E": 3,
+        "PLAYER_BASIC_ATTACK": 2
+      },
+      "reactionCounts": {
+        "RX_MELT_CRYO": 10,
+        "RX_MELT_PYRO": 8,
+        "RX_SWIRL": 6
+      },
+      "campaignWins": 2,
+      "campaignLosses": 1
+    },
+    {
+      "name": "SCREENSHOT_C232",
+      "enhance": 6,
+      "talent": 4,
+      "seed": 318012461,
+      "victory": true,
+      "rounds": 11,
+      "initialEnemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 70569,
+          "atk": 9737,
+          "variant": {
+            "version": 1,
+            "tier": 5,
+            "label": "지역 위험 개체",
+            "affixes": [
+              "FEROCIOUS",
+              "CORROSIVE"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        }
+      ],
+      "actualHeals": 16976,
+      "actualHealsByActor": {
+        "진": 16976
+      },
+      "damageLogTotalToAllies": 24606,
+      "actualHpLossInDamageLogs": 24606,
+      "shieldAbsorption": 0,
+      "netHpLossAfterReward": 7630,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 288,
+          "maxHp": 4673
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 7080,
+          "maxHp": 7080
+        },
+        {
+          "owner": "LIYUE_GANYU",
+          "level": 25,
+          "hp": 4896,
+          "maxHp": 8141
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 7080,
+          "maxHp": 7080
+        }
+      ],
+      "beforeRewardHp": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 288,
+          "maxHp": 4673
+        },
+        {
+          "source": "MOND_DILUC",
+          "hp": 7080,
+          "maxHp": 7080
+        },
+        {
+          "source": "LIYUE_GANYU",
+          "hp": 4896,
+          "maxHp": 8548
+        },
+        {
+          "source": "MOND_JEAN",
+          "hp": 7080,
+          "maxHp": 7080
+        }
+      ],
+      "nativeProtagonistRevivedHp": null,
+      "tauntInterceptions": 4,
+      "enemyActionSkipped": 0,
+      "directSkillActionGroups": {
+        "PLAYER_TRAVELER_ANEMO_Q": 4,
+        "LIYUE_GANYU_E": 4,
+        "MOND_DILUC_Q": 4,
+        "MOND_JEAN_Q": 2,
+        "LIYUE_GANYU_Q": 3,
+        "MOND_JEAN_E": 4,
+        "PLAYER_TRAVELER_ANEMO_E": 3,
+        "MOND_DILUC_E": 4,
+        "PLAYER_BASIC_ATTACK": 3
+      },
+      "reactionCounts": {
+        "RX_MELT_PYRO": 14,
+        "RX_MELT_CRYO": 8,
+        "RX_SWIRL": 24
+      },
+      "campaignWins": 2,
+      "campaignLosses": 1
+    },
+    {
+      "name": "SCREENSHOT_C0",
+      "enhance": 10,
+      "talent": 4,
+      "seed": 3,
+      "victory": true,
+      "rounds": 11,
+      "initialEnemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        }
+      ],
+      "actualHeals": 22737,
+      "actualHealsByActor": {
+        "진": 22737
+      },
+      "damageLogTotalToAllies": 22898,
+      "actualHpLossInDamageLogs": 22898,
+      "shieldAbsorption": 0,
+      "netHpLossAfterReward": 572,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 4749,
+          "maxHp": 4749
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 6594,
+          "maxHp": 7166
+        },
+        {
+          "owner": "LIYUE_GANYU",
+          "level": 25,
+          "hp": 8227,
+          "maxHp": 8227
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 7166,
+          "maxHp": 7166
+        }
+      ],
+      "beforeRewardHp": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 4749,
+          "maxHp": 4749
+        },
+        {
+          "source": "MOND_DILUC",
+          "hp": 6594,
+          "maxHp": 7166
+        },
+        {
+          "source": "LIYUE_GANYU",
+          "hp": 8638,
+          "maxHp": 8638
+        },
+        {
+          "source": "MOND_JEAN",
+          "hp": 7166,
+          "maxHp": 7166
+        }
+      ],
+      "nativeProtagonistRevivedHp": null,
+      "tauntInterceptions": 4,
+      "enemyActionSkipped": 0,
+      "directSkillActionGroups": {
+        "PLAYER_TRAVELER_ANEMO_Q": 3,
+        "LIYUE_GANYU_E": 4,
+        "MOND_DILUC_Q": 4,
+        "MOND_JEAN_Q": 3,
+        "MOND_JEAN_E": 4,
+        "LIYUE_GANYU_Q": 3,
+        "PLAYER_TRAVELER_ANEMO_E": 3,
+        "MOND_DILUC_E": 4,
+        "PLAYER_BASIC_ATTACK": 5
+      },
+      "reactionCounts": {
+        "RX_MELT_CRYO": 8,
+        "RX_SWIRL": 18,
+        "RX_MELT_PYRO": 16
+      },
+      "campaignWins": 1,
+      "campaignLosses": 1
+    },
+    {
+      "name": "SCREENSHOT_C0",
+      "enhance": 10,
+      "talent": 4,
+      "seed": 318012461,
+      "victory": true,
+      "rounds": 16,
+      "initialEnemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 70569,
+          "atk": 9737,
+          "variant": {
+            "version": 1,
+            "tier": 5,
+            "label": "지역 위험 개체",
+            "affixes": [
+              "FEROCIOUS",
+              "CORROSIVE"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        }
+      ],
+      "actualHeals": 28733,
+      "actualHealsByActor": {
+        "진": 28733
+      },
+      "damageLogTotalToAllies": 36434,
+      "actualHpLossInDamageLogs": 36434,
+      "shieldAbsorption": 0,
+      "netHpLossAfterReward": 7701,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 1749,
+          "maxHp": 4749
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 5268,
+          "maxHp": 7166
+        },
+        {
+          "owner": "LIYUE_GANYU",
+          "level": 25,
+          "hp": 6985,
+          "maxHp": 8227
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 5605,
+          "maxHp": 7166
+        }
+      ],
+      "beforeRewardHp": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 1749,
+          "maxHp": 4749
+        },
+        {
+          "source": "MOND_DILUC",
+          "hp": 5268,
+          "maxHp": 7166
+        },
+        {
+          "source": "LIYUE_GANYU",
+          "hp": 6985,
+          "maxHp": 8638
+        },
+        {
+          "source": "MOND_JEAN",
+          "hp": 5605,
+          "maxHp": 7166
+        }
+      ],
+      "nativeProtagonistRevivedHp": null,
+      "tauntInterceptions": 5,
+      "enemyActionSkipped": 0,
+      "directSkillActionGroups": {
+        "PLAYER_TRAVELER_ANEMO_Q": 4,
+        "LIYUE_GANYU_E": 6,
+        "MOND_DILUC_Q": 6,
+        "MOND_JEAN_Q": 3,
+        "LIYUE_GANYU_Q": 4,
+        "MOND_JEAN_E": 6,
+        "PLAYER_TRAVELER_ANEMO_E": 4,
+        "MOND_DILUC_E": 5,
+        "PLAYER_BASIC_ATTACK": 7
+      },
+      "reactionCounts": {
+        "RX_MELT_PYRO": 16,
+        "RX_MELT_CRYO": 12,
+        "RX_SWIRL": 30
+      },
+      "campaignWins": 1,
+      "campaignLosses": 1
+    },
+    {
+      "name": "SCREENSHOT_C232",
+      "enhance": 10,
+      "talent": 4,
+      "seed": 3,
+      "victory": true,
+      "rounds": 8,
+      "initialEnemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        }
+      ],
+      "actualHeals": 12003,
+      "actualHealsByActor": {
+        "진": 12003
+      },
+      "damageLogTotalToAllies": 18665,
+      "actualHpLossInDamageLogs": 18090,
+      "shieldAbsorption": 0,
+      "netHpLossAfterReward": 5612,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 6005,
+          "maxHp": 7166
+        },
+        {
+          "owner": "LIYUE_GANYU",
+          "level": 25,
+          "hp": 8050,
+          "maxHp": 8227
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 7166,
+          "maxHp": 7166
+        }
+      ],
+      "beforeRewardHp": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 0,
+          "maxHp": 4749
+        },
+        {
+          "source": "MOND_DILUC",
+          "hp": 6005,
+          "maxHp": 7166
+        },
+        {
+          "source": "LIYUE_GANYU",
+          "hp": 8050,
+          "maxHp": 8638
+        },
+        {
+          "source": "MOND_JEAN",
+          "hp": 7166,
+          "maxHp": 7166
+        }
+      ],
+      "nativeProtagonistRevivedHp": 475,
+      "tauntInterceptions": 3,
+      "enemyActionSkipped": 0,
+      "directSkillActionGroups": {
+        "PLAYER_TRAVELER_ANEMO_Q": 2,
+        "LIYUE_GANYU_E": 3,
+        "MOND_DILUC_Q": 3,
+        "MOND_JEAN_Q": 2,
+        "MOND_JEAN_E": 3,
+        "LIYUE_GANYU_Q": 2,
+        "PLAYER_TRAVELER_ANEMO_E": 2,
+        "MOND_DILUC_E": 3,
+        "PLAYER_BASIC_ATTACK": 1
+      },
+      "reactionCounts": {
+        "RX_MELT_CRYO": 10,
+        "RX_MELT_PYRO": 8,
+        "RX_SWIRL": 6
+      },
+      "campaignWins": 2,
+      "campaignLosses": 1
+    },
+    {
+      "name": "SCREENSHOT_C232",
+      "enhance": 10,
+      "talent": 4,
+      "seed": 318012461,
+      "victory": true,
+      "rounds": 9,
+      "initialEnemies": [
+        {
+          "source": "MON_HUSK_STANDARD",
+          "level": 56,
+          "hp": 70569,
+          "atk": 9737,
+          "variant": {
+            "version": 1,
+            "tier": 5,
+            "label": "지역 위험 개체",
+            "affixes": [
+              "FEROCIOUS",
+              "CORROSIVE"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HUSK_BOW",
+          "level": 56,
+          "hp": 44105,
+          "atk": 7056,
+          "variant": null
+        }
+      ],
+      "actualHeals": 15812,
+      "actualHealsByActor": {
+        "진": 15812
+      },
+      "damageLogTotalToAllies": 17927,
+      "actualHpLossInDamageLogs": 17927,
+      "shieldAbsorption": 0,
+      "netHpLossAfterReward": 2115,
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 4749,
+          "maxHp": 4749
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 7166,
+          "maxHp": 7166
+        },
+        {
+          "owner": "LIYUE_GANYU",
+          "level": 25,
+          "hp": 6112,
+          "maxHp": 8227
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 7166,
+          "maxHp": 7166
+        }
+      ],
+      "beforeRewardHp": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 4749,
+          "maxHp": 4749
+        },
+        {
+          "source": "MOND_DILUC",
+          "hp": 7166,
+          "maxHp": 7166
+        },
+        {
+          "source": "LIYUE_GANYU",
+          "hp": 6112,
+          "maxHp": 8638
+        },
+        {
+          "source": "MOND_JEAN",
+          "hp": 7166,
+          "maxHp": 7166
+        }
+      ],
+      "nativeProtagonistRevivedHp": null,
+      "tauntInterceptions": 3,
+      "enemyActionSkipped": 0,
+      "directSkillActionGroups": {
+        "PLAYER_TRAVELER_ANEMO_Q": 3,
+        "LIYUE_GANYU_E": 3,
+        "MOND_DILUC_Q": 3,
+        "MOND_JEAN_Q": 2,
+        "LIYUE_GANYU_Q": 2,
+        "MOND_JEAN_E": 4,
+        "PLAYER_TRAVELER_ANEMO_E": 3,
+        "MOND_DILUC_E": 3,
+        "PLAYER_BASIC_ATTACK": 3
+      },
+      "reactionCounts": {
+        "RX_MELT_PYRO": 14,
+        "RX_MELT_CRYO": 6,
+        "RX_SWIRL": 18
+      },
+      "campaignWins": 1,
+      "campaignLosses": 1
+    }
+  ]
+}

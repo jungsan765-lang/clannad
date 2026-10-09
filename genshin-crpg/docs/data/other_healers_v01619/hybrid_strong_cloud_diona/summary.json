@@ -1,0 +1,608 @@
+{
+  "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+  "candidate": "HYBRID_CLOUD_STRONG_DIONA",
+  "conditions": 12,
+  "errors": [],
+  "battles": 36,
+  "wins": 35,
+  "losses": 1,
+  "groups": [
+    {
+      "support": "LIYUE_XIANYUN",
+      "level": 25,
+      "conditions": 2,
+      "wins": 5,
+      "losses": 1,
+      "completeAllAlive": 1,
+      "completeAllFull": 0,
+      "hp": [
+        0,
+        0.7025259262446749
+      ],
+      "ko": 2,
+      "heal": [
+        15740,
+        19080
+      ],
+      "quotes": [
+        null,
+        {
+          "cost": 158,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 100,
+          "weightedHpLoss": 34.32317249525538,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 1133,
+              "maxHp": 4673,
+              "lostHpRatio": 0.757543334046651,
+              "recoveryCost": 76
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 2307,
+              "maxHp": 5091,
+              "lostHpRatio": 0.5468473777253977,
+              "recoveryCost": 55
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 4881,
+              "maxHp": 4881,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 25,
+              "hp": 8005,
+              "maxHp": 8594,
+              "lostHpRatio": 0.06853618803816616,
+              "recoveryCost": 7
+            }
+          ]
+        }
+      ],
+      "seconds": [
+        302.81,
+        225.36
+      ]
+    },
+    {
+      "support": "LIYUE_XIANYUN",
+      "level": 50,
+      "conditions": 2,
+      "wins": 6,
+      "losses": 0,
+      "completeAllAlive": 2,
+      "completeAllFull": 0,
+      "hp": [
+        0.9641569328443308,
+        0.984359108700342
+      ],
+      "ko": 0,
+      "heal": [
+        17878,
+        13936
+      ],
+      "quotes": [
+        {
+          "cost": 57,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 200,
+          "weightedHpLoss": 8.873230117771602,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 50,
+              "hp": 11314,
+              "maxHp": 12595,
+              "lostHpRatio": 0.1017070265978563,
+              "recoveryCost": 21
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 50,
+              "hp": 12749,
+              "maxHp": 13794,
+              "lostHpRatio": 0.07575757575757576,
+              "recoveryCost": 16
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 50,
+              "hp": 13194,
+              "maxHp": 13194,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 50,
+              "hp": 25311,
+              "maxHp": 25311,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            }
+          ]
+        },
+        {
+          "cost": 34,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 200,
+          "weightedHpLoss": 3.1942302824631916,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 50,
+              "hp": 12595,
+              "maxHp": 12595,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 50,
+              "hp": 13073,
+              "maxHp": 13794,
+              "lostHpRatio": 0.05226910250833696,
+              "recoveryCost": 11
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 50,
+              "hp": 13194,
+              "maxHp": 13194,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 50,
+              "hp": 25017,
+              "maxHp": 25311,
+              "lostHpRatio": 0.01161550314092687,
+              "recoveryCost": 3
+            }
+          ]
+        }
+      ],
+      "seconds": [
+        158.57,
+        154.46
+      ]
+    },
+    {
+      "support": "LIYUE_XIANYUN",
+      "level": 60,
+      "conditions": 2,
+      "wins": 6,
+      "losses": 0,
+      "completeAllAlive": 2,
+      "completeAllFull": 0,
+      "hp": [
+        0.996541378863539,
+        0.9812716163821029
+      ],
+      "ko": 0,
+      "heal": [
+        14908,
+        13661
+      ],
+      "quotes": [
+        {
+          "cost": 24,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 240,
+          "weightedHpLoss": 0.9933206106870229,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 19122,
+              "maxHp": 19122,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 20613,
+              "maxHp": 20960,
+              "lostHpRatio": 0.016555343511450382,
+              "recoveryCost": 4
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            }
+          ]
+        },
+        {
+          "cost": 44,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 240,
+          "weightedHpLoss": 5.792644917208986,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 17618,
+              "maxHp": 19122,
+              "lostHpRatio": 0.0786528605794373,
+              "recoveryCost": 19
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 20585,
+              "maxHp": 20960,
+              "lostHpRatio": 0.0178912213740458,
+              "recoveryCost": 5
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "LIYUE_XIANYUN",
+              "level": 60,
+              "hp": 40206,
+              "maxHp": 40206,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            }
+          ]
+        }
+      ],
+      "seconds": [
+        133.76999999999998,
+        138.20999999999998
+      ]
+    },
+    {
+      "support": "MOND_DIONA",
+      "level": 25,
+      "conditions": 2,
+      "wins": 6,
+      "losses": 0,
+      "completeAllAlive": 2,
+      "completeAllFull": 0,
+      "hp": [
+        0.6544192692386201,
+        0.7263727291283936
+      ],
+      "ko": 0,
+      "heal": [
+        11662,
+        13580
+      ],
+      "quotes": [
+        {
+          "cost": 160,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 100,
+          "weightedHpLoss": 34.65840051437208,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 1493,
+              "maxHp": 4673,
+              "lostHpRatio": 0.6805050288893645,
+              "recoveryCost": 69
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 1548,
+              "maxHp": 5091,
+              "lostHpRatio": 0.6959340011785504,
+              "recoveryCost": 70
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 4881,
+              "maxHp": 4881,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "MOND_DIONA",
+              "level": 25,
+              "hp": 4902,
+              "maxHp": 4951,
+              "lostHpRatio": 0.00989699050696829,
+              "recoveryCost": 1
+            }
+          ]
+        },
+        {
+          "cost": 131,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 100,
+          "weightedHpLoss": 27.502610116757694,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 25,
+              "hp": 2770,
+              "maxHp": 4673,
+              "lostHpRatio": 0.4072330408731008,
+              "recoveryCost": 41
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 25,
+              "hp": 3222,
+              "maxHp": 5091,
+              "lostHpRatio": 0.3671184443134944,
+              "recoveryCost": 37
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 25,
+              "hp": 3291,
+              "maxHp": 4881,
+              "lostHpRatio": 0.3257529194837124,
+              "recoveryCost": 33
+            },
+            {
+              "owner": "MOND_DIONA",
+              "level": 25,
+              "hp": 4951,
+              "maxHp": 4951,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            }
+          ]
+        }
+      ],
+      "seconds": [
+        253.76999999999998,
+        255.66000000000003
+      ]
+    },
+    {
+      "support": "MOND_DIONA",
+      "level": 50,
+      "conditions": 2,
+      "wins": 6,
+      "losses": 0,
+      "completeAllAlive": 2,
+      "completeAllFull": 0,
+      "hp": [
+        0.9816146629669479,
+        0.9842573192139985
+      ],
+      "ko": 0,
+      "heal": [
+        14728,
+        11980
+      ],
+      "quotes": [
+        {
+          "cost": 36,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 200,
+          "weightedHpLoss": 3.7448058234293375,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 50,
+              "hp": 11974,
+              "maxHp": 12595,
+              "lostHpRatio": 0.049305279872965464,
+              "recoveryCost": 10
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 50,
+              "hp": 13441,
+              "maxHp": 13794,
+              "lostHpRatio": 0.025590836595621284,
+              "recoveryCost": 6
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 50,
+              "hp": 13194,
+              "maxHp": 13194,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "MOND_DIONA",
+              "level": 50,
+              "hp": 13394,
+              "maxHp": 13394,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            }
+          ]
+        },
+        {
+          "cost": 33,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 200,
+          "weightedHpLoss": 3.023053501522401,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 50,
+              "hp": 12595,
+              "maxHp": 12595,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 50,
+              "hp": 12960,
+              "maxHp": 13794,
+              "lostHpRatio": 0.06046107003044802,
+              "recoveryCost": 13
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 50,
+              "hp": 13194,
+              "maxHp": 13194,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "MOND_DIONA",
+              "level": 50,
+              "hp": 13394,
+              "maxHp": 13394,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            }
+          ]
+        }
+      ],
+      "seconds": [
+        163.99,
+        165.1
+      ]
+    },
+    {
+      "support": "MOND_DIONA",
+      "level": 60,
+      "conditions": 2,
+      "wins": 6,
+      "losses": 0,
+      "completeAllAlive": 2,
+      "completeAllFull": 0,
+      "hp": [
+        0.9923076923076923,
+        0.9978874114576861
+      ],
+      "ko": 0,
+      "heal": [
+        12236,
+        8703
+      ],
+      "quotes": [
+        {
+          "cost": 30,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 240,
+          "weightedHpLoss": 1.9120572288027229,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 18702,
+              "maxHp": 19122,
+              "lostHpRatio": 0.021964229683087543,
+              "recoveryCost": 6
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 20948,
+              "maxHp": 20960,
+              "lostHpRatio": 0.0005725190839694657,
+              "recoveryCost": 1
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 19854,
+              "maxHp": 20041,
+              "lostHpRatio": 0.009330871712988374,
+              "recoveryCost": 3
+            },
+            {
+              "owner": "MOND_DIONA",
+              "level": 60,
+              "hp": 20347,
+              "maxHp": 20347,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            }
+          ]
+        },
+        {
+          "cost": 23,
+          "roomCost": 20,
+          "regionalRate": 1,
+          "totalLevel": 240,
+          "weightedHpLoss": 0.5334170065892689,
+          "targets": [
+            {
+              "owner": "PLAYER_CUSTOM",
+              "level": 60,
+              "hp": 18952,
+              "maxHp": 19122,
+              "lostHpRatio": 0.008890283443154482,
+              "recoveryCost": 3
+            },
+            {
+              "owner": "LIYUE_XIANGLING",
+              "level": 60,
+              "hp": 20960,
+              "maxHp": 20960,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "MOND_FISCHL",
+              "level": 60,
+              "hp": 20041,
+              "maxHp": 20041,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            },
+            {
+              "owner": "MOND_DIONA",
+              "level": 60,
+              "hp": 20347,
+              "maxHp": 20347,
+              "lostHpRatio": 0,
+              "recoveryCost": 0
+            }
+          ]
+        }
+      ],
+      "seconds": [
+        140.43,
+        141.54
+      ]
+    }
+  ],
+  "nativeSha256": "eaaf3a998823fed4a1b82a58db478c7cb0a22b94c4e20b291514a2941acf3e15"
+}

@@ -1,0 +1,619 @@
+{
+  "pairedConditions": 24,
+  "beforeBattles": 72,
+  "beforeWins": 70,
+  "beforeLosses": 2,
+  "afterBattles": 72,
+  "afterWins": 69,
+  "afterLosses": 3,
+  "beforeFirstWins": 24,
+  "afterFirstWins": 24,
+  "beforeCompleteThree": 22,
+  "afterCompleteThree": 21,
+  "beforeLv50And60FullHpConditions": 9,
+  "afterLv50And60FullHpConditions": 2,
+  "lv50And60Conditions": 16,
+  "pairs": [
+    {
+      "support": "LIYUE_XIANYUN",
+      "level": 25,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "firstWin": true,
+        "koBattles": 2,
+        "finalHpRatio": 0,
+        "hypotheticalInnCost": null
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 1,
+        "finalHpRatio": 0.6313524678342441,
+        "hypotheticalInnCost": 198
+      }
+    },
+    {
+      "support": "LIYUE_XIANYUN",
+      "level": 25,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.7386290287878136,
+        "hypotheticalInnCost": 141
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.8015405137914713,
+        "hypotheticalInnCost": 116
+      }
+    },
+    {
+      "support": "LIYUE_XIANYUN",
+      "level": 50,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9891823589237834,
+        "hypotheticalInnCost": 31
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9891823589237834,
+        "hypotheticalInnCost": 31
+      }
+    },
+    {
+      "support": "LIYUE_XIANYUN",
+      "level": 50,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9888895737664499,
+        "hypotheticalInnCost": 31
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9888895737664499,
+        "hypotheticalInnCost": 31
+      }
+    },
+    {
+      "support": "LIYUE_XIANYUN",
+      "level": 60,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      }
+    },
+    {
+      "support": "LIYUE_XIANYUN",
+      "level": 60,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      }
+    },
+    {
+      "support": "LIYUE_QIQI",
+      "level": 25,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 2,
+        "finalHpRatio": 0.24837744533947065,
+        "hypotheticalInnCost": 326
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 2,
+        "finalHpRatio": 0.09675489067894132,
+        "hypotheticalInnCost": 387
+      }
+    },
+    {
+      "support": "LIYUE_QIQI",
+      "level": 25,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 2,
+        "losses": 1,
+        "firstWin": true,
+        "koBattles": 3,
+        "finalHpRatio": 0,
+        "hypotheticalInnCost": null
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "firstWin": true,
+        "koBattles": 2,
+        "finalHpRatio": 0,
+        "hypotheticalInnCost": null
+      }
+    },
+    {
+      "support": "LIYUE_QIQI",
+      "level": 50,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9900940813380457,
+        "hypotheticalInnCost": 26
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.8889110126603282,
+        "hypotheticalInnCost": 120
+      }
+    },
+    {
+      "support": "LIYUE_QIQI",
+      "level": 50,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9651716528116548,
+        "hypotheticalInnCost": 53
+      }
+    },
+    {
+      "support": "LIYUE_QIQI",
+      "level": 60,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9973420568390922,
+        "hypotheticalInnCost": 22
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9155376685426508,
+        "hypotheticalInnCost": 113
+      }
+    },
+    {
+      "support": "LIYUE_QIQI",
+      "level": 60,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9834389695358823,
+        "hypotheticalInnCost": 35
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9177544146606549,
+        "hypotheticalInnCost": 109
+      }
+    },
+    {
+      "support": "LIYUE_YAOYAO",
+      "level": 25,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 1,
+        "finalHpRatio": 0.44193023492321776,
+        "hypotheticalInnCost": 247
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "firstWin": true,
+        "koBattles": 2,
+        "finalHpRatio": 0,
+        "hypotheticalInnCost": null
+      }
+    },
+    {
+      "support": "LIYUE_YAOYAO",
+      "level": 25,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 1,
+        "finalHpRatio": 0.1445642225160175,
+        "hypotheticalInnCost": 363
+      },
+      "after": {
+        "wins": 2,
+        "losses": 1,
+        "firstWin": true,
+        "koBattles": 2,
+        "finalHpRatio": 0,
+        "hypotheticalInnCost": null
+      }
+    },
+    {
+      "support": "LIYUE_YAOYAO",
+      "level": 50,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.8924911145796115,
+        "hypotheticalInnCost": 108
+      }
+    },
+    {
+      "support": "LIYUE_YAOYAO",
+      "level": 50,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9894503262688756,
+        "hypotheticalInnCost": 29
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.8825808150140099,
+        "hypotheticalInnCost": 117
+      }
+    },
+    {
+      "support": "LIYUE_YAOYAO",
+      "level": 60,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9655347438008344,
+        "hypotheticalInnCost": 56
+      }
+    },
+    {
+      "support": "LIYUE_YAOYAO",
+      "level": 60,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9987744036049866,
+        "hypotheticalInnCost": 22
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.956497517857806,
+        "hypotheticalInnCost": 64
+      }
+    },
+    {
+      "support": "MOND_DIONA",
+      "level": 25,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.6516636048173097,
+        "hypotheticalInnCost": 162
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.4964788732394366,
+        "hypotheticalInnCost": 223
+      }
+    },
+    {
+      "support": "MOND_DIONA",
+      "level": 25,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.722545417432129,
+        "hypotheticalInnCost": 134
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.6071647274954072,
+        "hypotheticalInnCost": 180
+      }
+    },
+    {
+      "support": "MOND_DIONA",
+      "level": 50,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9629650603091908,
+        "hypotheticalInnCost": 50
+      }
+    },
+    {
+      "support": "MOND_DIONA",
+      "level": 50,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9573211016101327,
+        "hypotheticalInnCost": 54
+      }
+    },
+    {
+      "support": "MOND_DIONA",
+      "level": 60,
+      "seed": 717,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.9740772958866658,
+        "hypotheticalInnCost": 46
+      }
+    },
+    {
+      "support": "MOND_DIONA",
+      "level": 60,
+      "seed": 925,
+      "sameFixtureHp": true,
+      "sameEquipment": true,
+      "sameTalents": true,
+      "sameFirstBattleActors": true,
+      "before": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 1,
+        "hypotheticalInnCost": 20
+      },
+      "after": {
+        "wins": 3,
+        "losses": 0,
+        "firstWin": true,
+        "koBattles": 0,
+        "finalHpRatio": 0.992792344973282,
+        "hypotheticalInnCost": 27
+      }
+    }
+  ],
+  "caution": "Whole baseline-to-final engine comparison includes reaction corrections. Same initial seed and first enemy actors do not force subsequent RNG or authored enemy lotteries to be identical. Do not attribute all outcome changes to healing."
+}

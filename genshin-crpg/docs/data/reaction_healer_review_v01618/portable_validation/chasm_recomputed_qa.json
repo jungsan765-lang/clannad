@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "scope": "Portable copy data-only recomputation using preserved native aggregate; no new battle experiment",
+  "conditionFiles": 10,
+  "conditions": 160,
+  "fights": 257,
+  "wins": 128,
+  "losses": 129,
+  "comparisons": [
+    {
+      "name": "summary.json",
+      "sameBytes": true,
+      "sameJson": true,
+      "originalSha256": "3191f826d7b214796077288d9995d6a4e16c58d14f25c431504a48bd355dc10d",
+      "recomputedSha256": "3191f826d7b214796077288d9995d6a4e16c58d14f25c431504a48bd355dc10d"
+    },
+    {
+      "name": "native_all.json.gz",
+      "sameBytes": true,
+      "sameJson": true,
+      "originalSha256": "b3ead5e1583ae3270e3f299b073e68ca724799ec7eac92f00c33bd93dbfafe3f",
+      "recomputedSha256": "b3ead5e1583ae3270e3f299b073e68ca724799ec7eac92f00c33bd93dbfafe3f"
+    },
+    {
+      "name": "two_enemy_snapshot.json",
+      "sameBytes": true,
+      "sameJson": true,
+      "originalSha256": "f41001a68df6a23d2c00e8660b21e61ba3d3fde6b347672d16dbdcc9d44986c3",
+      "recomputedSha256": "f41001a68df6a23d2c00e8660b21e61ba3d3fde6b347672d16dbdcc9d44986c3"
+    }
+  ]
+}

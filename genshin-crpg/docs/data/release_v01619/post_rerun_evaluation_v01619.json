@@ -1,0 +1,119 @@
+{
+  "updatedUTC": "2026-10-09T18:12:50.676697+00:00",
+  "rawFirstCompleted173": {
+    "passed": 168,
+    "failed": [
+      "tests/test_combat_stalemate_v01523.cjs",
+      "tests/test_growth_balance_v01522.cjs",
+      "tests/test_save_v01344.cjs",
+      "tests/test_test_banner_v01510.cjs",
+      "tests/test_release_isolation_v01513.py"
+    ]
+  },
+  "reruns": [
+    {
+      "test": "tests/test_test_banner_v01510.cjs",
+      "ok": true,
+      "seconds": 0.1,
+      "reason": "isolated checkout parent .github workflow files restored verbatim from original; no test or product edits"
+    },
+    {
+      "test": "tests/test_combat_stalemate_v01523.cjs",
+      "ok": true,
+      "nativeChecks": 4,
+      "programExitCode": 0,
+      "originalTestSha256": "5ffd36efb46b33d805874f5725146af2ee35a50002a241441952eabaa8a2a835",
+      "updatedTestSha256": "c093a0f91e7cef77145efd480c79805ada86bb5257dfd448dfaadc64fb755e7e",
+      "productChanged": false,
+      "rootAuthorizedTestOnly": true,
+      "evidence": "../qa_v01619/stalemate_regression_validation/updated_test_result.json",
+      "log": "../qa_v01619/stalemate_regression_validation/updated_test.log",
+      "reason": "The two natural boss fixtures now reach ordinary total-party death under corrected healing, so their checks require native terminal settlement. Added stable Hydro-immune Barbara fixture with native AI and zero authored fixture enemy attack strictly checks STALEMATE, living NPC HP preservation, one receipt, restore, and idempotent duplicate settlement. Negative control without the native guard produces COMBAT_LOOP. No product or AI replacement."
+    },
+    {
+      "test": "tests/test_growth_balance_v01522.cjs",
+      "ok": true,
+      "nativeRuns": 1,
+      "nativeCombatConditions": 18,
+      "nativeBattleWins": 17,
+      "nativeBattleLosses": 1,
+      "programExitCode": 0,
+      "originalTestSha256": "f462a763469f4759309653b257ef3debf58bb745e067676fc8ad9e316927fd99",
+      "updatedTestSha256": "552b5ddba01fde3e5a38f8fcf1ba54c2a186b42bf729a63cc7cb701b3684d3f0",
+      "productChanged": false,
+      "fixturesChanged": false,
+      "rootAuthorizedTestOnly": true,
+      "evidence": "../qa_v01619/growth_regression_validation/updated_test_result.json",
+      "log": "../qa_v01619/growth_regression_validation/updated_test_native.log",
+      "combatResults": "../qa_v01619/growth_regression_validation/updated_growth_balance.json",
+      "averageWinningRounds": [
+        {
+          "map": "MAP_MOND_WOLVENDOM",
+          "levels": [
+            {
+              "level": 17,
+              "wins": 2,
+              "losses": 1,
+              "averageWinningRounds": 15.5
+            },
+            {
+              "level": 30,
+              "wins": 3,
+              "losses": 0,
+              "averageWinningRounds": 5.666666666666667
+            },
+            {
+              "level": 45,
+              "wins": 3,
+              "losses": 0,
+              "averageWinningRounds": 3.3333333333333335
+            }
+          ]
+        },
+        {
+          "map": "MAP_LIYUE_PLAINS",
+          "levels": [
+            {
+              "level": 32,
+              "wins": 3,
+              "losses": 0,
+              "averageWinningRounds": 14.0
+            },
+            {
+              "level": 45,
+              "wins": 3,
+              "losses": 0,
+              "averageWinningRounds": 8.333333333333334
+            },
+            {
+              "level": 60,
+              "wins": 3,
+              "losses": 0,
+              "averageWinningRounds": 5.666666666666667
+            }
+          ]
+        }
+      ],
+      "averagesExcludeDefeats": true,
+      "reason": "The same original18 level/party/gear/talent/seed inputs are retained. Higher levels must win all cases, enemy stats stay fixed, winning seeds must not take more rounds with growth, and the late Liyue at-most-half guarantee remains. The low-level loss now strictly validates native ally total-party death, living enemy, zero rewards, one receipt/log, cleared runtime, save restore, and idempotent duplicate settlement. The changed loss was traced to corrected simultaneous shield depletion, not an enemy-stat change; original sequential shield consumption counterfactual recovers the old win. Product and fixture helper unchanged."
+    }
+  ],
+  "latestEvaluation": {
+    "programs": 173,
+    "passed": 171,
+    "failed": [
+      "tests/test_save_v01344.cjs",
+      "tests/test_release_isolation_v01513.py"
+    ],
+    "knownUnavailableInputs": [
+      "tests/test_save_v01344.cjs",
+      "tests/test_release_isolation_v01513.py"
+    ],
+    "requiresDiagnosis": []
+  },
+  "noFailedRowOverwritten": true,
+  "rawEvidenceSHA256": {
+    "results.json": "31f396a236f7a99abe3ece2d6e0ffb1da7c3b480324d51a0622bc57ffc5dc870",
+    "release_logs_v01619.tar.gz": "a45b49383c97d82f3ac2a1c011b34338d52984eb533a43d912cd3dc380f63707"
+  }
+}

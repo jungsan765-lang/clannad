@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "battle": {
+    "stats": [
+      [
+        "PLAYER_CUSTOM",
+        17,
+        2721,
+        436.8,
+        186
+      ],
+      [
+        "MOND_AMBER",
+        17,
+        3096,
+        466.79999999999995,
+        296.4
+      ],
+      [
+        "MOND_KAEYA",
+        17,
+        3469,
+        522,
+        336
+      ],
+      [
+        "MOND_NOELLE",
+        17,
+        3804,
+        487.2,
+        486
+      ],
+      [
+        "MON_HILI_FIGHTER",
+        17,
+        3880,
+        1136,
+        74
+      ],
+      [
+        "MON_MITACHURL_AXE",
+        17,
+        9825,
+        1544,
+        103
+      ],
+      [
+        "MON_HILI_SHOOTER",
+        17,
+        3880,
+        1136,
+        74
+      ]
+    ],
+    "result": {
+      "mora": 0,
+      "rewardPolicy": "MOND_BALANCE_V1",
+      "bond": null,
+      "id": "GROWTH-FEEL-22:B1",
+      "battleId": "GROWTH-FEEL-22:B1",
+      "saveId": "GROWTH-FEEL-22",
+      "group": "EG_MOND_HILI_ELITE",
+      "origin": "EXPLICIT",
+      "gate": "EXPLICIT",
+      "branch": null,
+      "victory": false,
+      "xp": 0,
+      "loot": {},
+      "rounds": 25,
+      "result": "DEFEAT",
+      "unsupportedEffects": [],
+      "defeatPenalty": {
+        "mora": 300,
+        "seconds": 60
+      }
+    }
+  },
+  "afterDefeat": {
+    "runtime": false,
+    "map": "MAP_MOND_WOLVENDOM",
+    "mode": "NORMAL",
+    "screen": "REWARD",
+    "phase": "DOWNED",
+    "mora": 2700,
+    "lock": 60000,
+    "hp": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "hp": 0,
+        "maxHp": 2721
+      },
+      {
+        "id": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 3096
+      },
+      {
+        "id": "MOND_KAEYA",
+        "hp": 0,
+        "maxHp": 3304
+      },
+      {
+        "id": "MOND_NOELLE",
+        "hp": 0,
+        "maxHp": 3804
+      }
+    ]
+  },
+  "errors": [],
+  "assumptions": "Same fixture/run as the historical test; wall-clock advanced inside the isolated VM only to examine the existing 60-second defeat lock. No product source or save file is modified.",
+  "saveRestores": true,
+  "restoredBeforeRecovery": {
+    "runtime": false,
+    "map": "MAP_MOND_WOLVENDOM",
+    "mode": "NORMAL",
+    "screen": "REWARD",
+    "phase": "DOWNED",
+    "mora": 2700,
+    "lock": 60000,
+    "hp": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "hp": 0,
+        "maxHp": 2721
+      },
+      {
+        "id": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 3096
+      },
+      {
+        "id": "MOND_KAEYA",
+        "hp": 0,
+        "maxHp": 3304
+      },
+      {
+        "id": "MOND_NOELLE",
+        "hp": 0,
+        "maxHp": 3804
+      }
+    ]
+  },
+  "beforeLockRecoverReason": "전투에서 패배해 정신을 차리는 중입니다 · 60초 남음",
+  "afterLock": {
+    "snapshot": {
+      "runtime": false,
+      "map": "MAP_MOND_WOLVENDOM",
+      "mode": "NORMAL",
+      "screen": "REWARD",
+      "phase": "DOWNED",
+      "mora": 2700,
+      "lock": 0,
+      "hp": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "hp": 0,
+          "maxHp": 2721
+        },
+        {
+          "id": "MOND_AMBER",
+          "hp": 0,
+          "maxHp": 3096
+        },
+        {
+          "id": "MOND_KAEYA",
+          "hp": 0,
+          "maxHp": 3304
+        },
+        {
+          "id": "MOND_NOELLE",
+          "hp": 0,
+          "maxHp": 3804
+        }
+      ]
+    },
+    "recoverReason": ""
+  },
+  "recoverAction": {
+    "ok": true,
+    "type": "RECOVER",
+    "result": {
+      "recovered": true,
+      "map": "MAP_MOND_CITY",
+      "minutes": 60
+    },
+    "revision": 14
+  },
+  "afterRecovery": {
+    "runtime": false,
+    "map": "MAP_MOND_CITY",
+    "mode": "NORMAL",
+    "screen": "LOCATION",
+    "phase": "FREE",
+    "mora": 2700,
+    "lock": 0,
+    "hp": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "hp": 2721,
+        "maxHp": 2721
+      },
+      {
+        "id": "MOND_AMBER",
+        "hp": 3096,
+        "maxHp": 3096
+      },
+      {
+        "id": "MOND_KAEYA",
+        "hp": 3304,
+        "maxHp": 3304
+      },
+      {
+        "id": "MOND_NOELLE",
+        "hp": 3804,
+        "maxHp": 3804
+      }
+    ]
+  },
+  "fullHp": true,
+  "noExtraMoraCost": true,
+  "freePhase": true,
+  "safeMap": true
+}

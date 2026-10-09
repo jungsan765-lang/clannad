@@ -149,7 +149,7 @@ P.premiumHitKind=function(a,o={}){
 };
 P.combatDamageMultiplier=function(a,t,e,o={}){
  let n=old.combatDamageMultiplier.call(this,a,t,e,o);if(a?.side!=='ALLY'||!a.source)return n;
- const kind=this.premiumHitKind(a,o);if(kind)n*=this.premiumTalentMultiplier(a,kind);
+ const kind=this.premiumHitKind(a,o);if(kind&&!o.skipTalentMultiplier)n*=this.premiumTalentMultiplier(a,kind);
  return n;
 };
 // ---- tables: one 운명의 별 per fighter ----

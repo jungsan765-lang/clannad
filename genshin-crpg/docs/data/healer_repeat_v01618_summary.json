@@ -1,0 +1,2673 @@
+{
+  "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+  "conditions": 144,
+  "battles": 1108,
+  "wins": 1093,
+  "losses": 15,
+  "groups": [
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 10,
+      "kind": "ASCENSION",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 1,
+      "fourAliveEveryWin": 1,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.609450337512054,
+        0.6888001102080177
+      ],
+      "meanMainSeconds": 418.615,
+      "meanTotalSeconds": 440.615,
+      "meanMainRounds": 25.0,
+      "mainKoEvents": 2,
+      "meanEffectiveHealing": 14242.5,
+      "meanAllyHpDamage": 16783.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        84,
+        72
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 10,
+      "kind": "ASCENSION",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.5770340450086555,
+      "afterMainHpRatioRange": [
+        0.9507344339009489,
+        0.9955803977642013
+      ],
+      "meanMainSeconds": 305.475,
+      "meanTotalSeconds": 327.475,
+      "meanMainRounds": 17.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 11168.5,
+      "meanAllyHpDamage": 10842.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        30,
+        21
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 10,
+      "kind": "ASCENSION",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 9,
+      "plannedFights": 16,
+      "losses": 2,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0,
+        0
+      ],
+      "meanMainSeconds": 280.17,
+      "meanTotalSeconds": 280.17,
+      "meanMainRounds": 11.0,
+      "mainKoEvents": 13,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 7601.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 2,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 10,
+      "kind": "EXP",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 9,
+      "plannedFights": 16,
+      "losses": 2,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0,
+        0
+      ],
+      "meanMainSeconds": 487.835,
+      "meanTotalSeconds": 487.835,
+      "meanMainRounds": 25.5,
+      "mainKoEvents": 9,
+      "meanEffectiveHealing": 14007.0,
+      "meanAllyHpDamage": 21308.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 2,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 10,
+      "kind": "EXP",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.6563109320161186,
+        0.7159755621994021
+      ],
+      "meanMainSeconds": 426.26500000000004,
+      "meanTotalSeconds": 448.26500000000004,
+      "meanMainRounds": 26.0,
+      "mainKoEvents": 4,
+      "meanEffectiveHealing": 16903.0,
+      "meanAllyHpDamage": 19128.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        78,
+        70
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 10,
+      "kind": "EXP",
+      "support": "Sucrose",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 6,
+      "plannedFights": 16,
+      "losses": 2,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0,
+        0
+      ],
+      "meanMainSeconds": 289.97,
+      "meanTotalSeconds": 289.97,
+      "meanMainRounds": 11.5,
+      "mainKoEvents": 12,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 7514.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 2,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 10,
+      "kind": "TALENT",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 7,
+      "plannedFights": 16,
+      "losses": 2,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0,
+        0
+      ],
+      "meanMainSeconds": 364.155,
+      "meanTotalSeconds": 364.155,
+      "meanMainRounds": 22.5,
+      "mainKoEvents": 15,
+      "meanEffectiveHealing": 8431.5,
+      "meanAllyHpDamage": 16299.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 2,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 10,
+      "kind": "TALENT",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 1,
+      "fourAliveEveryWin": 1,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.7284544391004809,
+        0.8836604705576498
+      ],
+      "meanMainSeconds": 448.52,
+      "meanTotalSeconds": 474.52,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 1,
+      "meanEffectiveHealing": 17094.0,
+      "meanAllyHpDamage": 18349.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        41,
+        68
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 10,
+      "kind": "TALENT",
+      "support": "Sucrose",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 6,
+      "plannedFights": 16,
+      "losses": 2,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0,
+        0
+      ],
+      "meanMainSeconds": 283.3,
+      "meanTotalSeconds": 283.3,
+      "meanMainRounds": 10.5,
+      "mainKoEvents": 8,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 7166.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 2,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 30,
+      "kind": "ASCENSION",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8819875776397516,
+      "afterMainHpRatioRange": [
+        0.978748624163915,
+        1
+      ],
+      "meanMainSeconds": 258.855,
+      "meanTotalSeconds": 271.855,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 16708.5,
+      "meanAllyHpDamage": 15055.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        37
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 1
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 30,
+      "kind": "ASCENSION",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.9058515854854527,
+      "afterMainHpRatioRange": [
+        0.9822802250373148,
+        0.9824333116460637
+      ],
+      "meanMainSeconds": 200.46499999999997,
+      "meanTotalSeconds": 226.46499999999997,
+      "meanMainRounds": 15.5,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 15547.5,
+      "meanAllyHpDamage": 13811.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        35,
+        35
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 30,
+      "kind": "ASCENSION",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.4863622696619561,
+        0.49207508268545164
+      ],
+      "meanMainSeconds": 234.78500000000003,
+      "meanTotalSeconds": 260.78499999999997,
+      "meanMainRounds": 11.5,
+      "mainKoEvents": 2,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 12172.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        306,
+        312
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 30,
+      "kind": "EXP",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.6750490458355627,
+      "afterMainHpRatioRange": [
+        0.9514859029718059,
+        0.9810769621539243
+      ],
+      "meanMainSeconds": 307.69500000000005,
+      "meanTotalSeconds": 333.69500000000005,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 24748.5,
+      "meanAllyHpDamage": 23933.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        29,
+        45
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 30,
+      "kind": "EXP",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8883622098725074,
+      "afterMainHpRatioRange": [
+        0.9738604615561254,
+        0.9837345478204295
+      ],
+      "meanMainSeconds": 245.085,
+      "meanTotalSeconds": 271.08500000000004,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 21935.0,
+      "meanAllyHpDamage": 20731.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        34,
+        30
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 30,
+      "kind": "EXP",
+      "support": "Sucrose",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 14,
+      "plannedFights": 16,
+      "losses": 1,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0,
+        0.2828057214037198
+      ],
+      "meanMainSeconds": 344.84999999999997,
+      "meanTotalSeconds": 357.84999999999997,
+      "meanMainRounds": 16.5,
+      "mainKoEvents": 8,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 21111.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        366,
+        0
+      ],
+      "finalRecoveryFailures": 1,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 30,
+      "kind": "TALENT",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8349133703824779,
+      "afterMainHpRatioRange": [
+        0.9764202861739056,
+        0.9972906612479892
+      ],
+      "meanMainSeconds": 256.63500000000005,
+      "meanTotalSeconds": 350.27500000000003,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 15978.5,
+      "meanAllyHpDamage": 14531.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        30,
+        95
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 30,
+      "kind": "TALENT",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.9060103442125914,
+      "afterMainHpRatioRange": [
+        0.9807110872976387,
+        1
+      ],
+      "meanMainSeconds": 207.125,
+      "meanTotalSeconds": 222.125,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 14040.0,
+      "meanAllyHpDamage": 11948.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        37
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 1
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 30,
+      "kind": "TALENT",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.23542001070090957,
+      "afterMainHpRatioRange": [
+        0.48202396804260983,
+        0.529702332374039
+      ],
+      "meanMainSeconds": 238.505,
+      "meanTotalSeconds": 316.12,
+      "meanMainRounds": 12.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 11504.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        419,
+        358
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 50,
+      "kind": "ASCENSION",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.7865819769749901,
+      "afterMainHpRatioRange": [
+        0.9732215055381086,
+        0.9929104688117043
+      ],
+      "meanMainSeconds": 345.345,
+      "meanTotalSeconds": 371.345,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 42640.0,
+      "meanAllyHpDamage": 39090.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        50,
+        32
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 50,
+      "kind": "ASCENSION",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 1.0,
+      "afterMainHpRatioRange": [
+        1,
+        1
+      ],
+      "meanMainSeconds": 296.595,
+      "meanTotalSeconds": 296.595,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 23561.5,
+      "meanAllyHpDamage": 18281.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 2
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 50,
+      "kind": "ASCENSION",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.43856199167589444,
+        0.4609950742678224
+      ],
+      "meanMainSeconds": 350.79499999999996,
+      "meanTotalSeconds": 390.025,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 6,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 31969.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        547,
+        525
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 50,
+      "kind": "EXP",
+      "support": "Barbara",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.4990575612585182,
+      "afterMainHpRatioRange": [
+        0.8781428061003818,
+        0.9255317148391222
+      ],
+      "meanMainSeconds": 577.3050000000001,
+      "meanTotalSeconds": 599.3050000000001,
+      "meanMainRounds": 32.5,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 96904.0,
+      "meanAllyHpDamage": 97843.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        96,
+        140
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 50,
+      "kind": "EXP",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8947201270345375,
+      "afterMainHpRatioRange": [
+        0.9881195347370866,
+        1
+      ],
+      "meanMainSeconds": 529.515,
+      "meanTotalSeconds": 540.515,
+      "meanMainRounds": 32.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 86519.0,
+      "meanAllyHpDamage": 81597.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        37,
+        0
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 1
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 50,
+      "kind": "EXP",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 8,
+      "plannedFights": 16,
+      "losses": 2,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0,
+        0
+      ],
+      "meanMainSeconds": 406.29999999999995,
+      "meanTotalSeconds": 406.29999999999995,
+      "meanMainRounds": 22.0,
+      "mainKoEvents": 11,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 54268.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 2,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 50,
+      "kind": "TALENT",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.6598650258038904,
+      "afterMainHpRatioRange": [
+        0.9482106925926622,
+        0.9705511781409256
+      ],
+      "meanMainSeconds": 367.71,
+      "meanTotalSeconds": 431.385,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 52611.5,
+      "meanAllyHpDamage": 51054.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        61,
+        92
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 50,
+      "kind": "TALENT",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 1.0,
+      "afterMainHpRatioRange": [
+        1,
+        1
+      ],
+      "meanMainSeconds": 325.03,
+      "meanTotalSeconds": 325.03,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 33832.0,
+      "meanAllyHpDamage": 28552.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 2
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 50,
+      "kind": "TALENT",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.28926266753217,
+        0.39230211157356143
+      ],
+      "meanMainSeconds": 400.88,
+      "meanTotalSeconds": 430.88,
+      "meanMainRounds": 27.0,
+      "mainKoEvents": 10,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 39568.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        685,
+        588
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 60,
+      "kind": "ASCENSION",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8176445978454137,
+      "afterMainHpRatioRange": [
+        0.9359842529432884,
+        0.9468289240749224
+      ],
+      "meanMainSeconds": 285.495,
+      "meanTotalSeconds": 311.495,
+      "meanMainRounds": 23.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 46746.0,
+      "meanAllyHpDamage": 45967.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        98,
+        85
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 60,
+      "kind": "ASCENSION",
+      "support": "Jean",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 1.0,
+      "afterMainHpRatioRange": [
+        1,
+        1
+      ],
+      "meanMainSeconds": 241.23000000000002,
+      "meanTotalSeconds": 241.23000000000002,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 36794.5,
+      "meanAllyHpDamage": 28778.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 2
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 60,
+      "kind": "ASCENSION",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.07828679008471917,
+      "afterMainHpRatioRange": [
+        0.46389782783588096,
+        0.48785699919549474
+      ],
+      "meanMainSeconds": 324.345,
+      "meanTotalSeconds": 360.475,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 41695.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        636,
+        597
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 60,
+      "kind": "EXP",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.2516996130111913,
+      "afterMainHpRatioRange": [
+        0.6495784691186848,
+        0.7500402342250888
+      ],
+      "meanMainSeconds": 706.815,
+      "meanTotalSeconds": 768.175,
+      "meanMainRounds": 39.5,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 232354.0,
+      "meanAllyHpDamage": 254256.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        445,
+        55
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 60,
+      "kind": "EXP",
+      "support": "Jean",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.6785901056374856,
+      "afterMainHpRatioRange": [
+        0.9353484918593765,
+        0.9796296097020306
+      ],
+      "meanMainSeconds": 446.80000000000007,
+      "meanTotalSeconds": 507.4150000000001,
+      "meanMainRounds": 26.5,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 155509.5,
+      "meanAllyHpDamage": 155802.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        112
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 60,
+      "kind": "EXP",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 10,
+      "plannedFights": 16,
+      "losses": 2,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0,
+        0
+      ],
+      "meanMainSeconds": 489.02000000000004,
+      "meanTotalSeconds": 489.02000000000004,
+      "meanMainRounds": 20.0,
+      "mainKoEvents": 12,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 83378.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 2,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 60,
+      "kind": "TALENT",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8027925949168497,
+      "afterMainHpRatioRange": [
+        0.9381754707404335,
+        0.9485249514094358
+      ],
+      "meanMainSeconds": 349.935,
+      "meanTotalSeconds": 407.505,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 48551.5,
+      "meanAllyHpDamage": 47185.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        28,
+        29
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 60,
+      "kind": "TALENT",
+      "support": "Jean",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 1.0,
+      "afterMainHpRatioRange": [
+        1,
+        1
+      ],
+      "meanMainSeconds": 323.23499999999996,
+      "meanTotalSeconds": 323.23499999999996,
+      "meanMainRounds": 18.5,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 35331.5,
+      "meanAllyHpDamage": 27315.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 2
+    },
+    {
+      "policy": "NO_INTERMEDIATE_RECOVERY",
+      "level": 60,
+      "kind": "TALENT",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.4751986122284795,
+        0.5013576025744167
+      ],
+      "meanMainSeconds": 380.53499999999997,
+      "meanTotalSeconds": 410.53499999999997,
+      "meanMainRounds": 17.0,
+      "mainKoEvents": 3,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 43578.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        583,
+        612
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 10,
+      "kind": "ASCENSION",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.09667194928684628,
+      "afterMainHpRatioRange": [
+        0.8313817330210773,
+        0.929466868714699
+      ],
+      "meanMainSeconds": 420.765,
+      "meanTotalSeconds": 540.255,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 11769.0,
+      "meanAllyHpDamage": 17578.5,
+      "intermediateInnCounts": [
+        4,
+        1
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        290,
+        128
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 10,
+      "kind": "ASCENSION",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.5770340450086555,
+      "afterMainHpRatioRange": [
+        0.9507344339009489,
+        0.9955803977642013
+      ],
+      "meanMainSeconds": 305.475,
+      "meanTotalSeconds": 327.475,
+      "meanMainRounds": 17.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 11168.5,
+      "meanAllyHpDamage": 10842.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        30,
+        21
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 10,
+      "kind": "ASCENSION",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.14628937533368927,
+      "afterMainHpRatioRange": [
+        0.60466089868825,
+        0.7947250907061122
+      ],
+      "meanMainSeconds": 331.56,
+      "meanTotalSeconds": 478.25,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 10515.5,
+      "intermediateInnCounts": [
+        3,
+        4
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        280,
+        381
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 10,
+      "kind": "EXP",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 1,
+      "fourAliveEveryWin": 1,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.7350874776139964,
+        0.8592092574734812
+      ],
+      "meanMainSeconds": 661.1099999999999,
+      "meanTotalSeconds": 834.9299999999998,
+      "meanMainRounds": 32.5,
+      "mainKoEvents": 1,
+      "meanEffectiveHealing": 17445.5,
+      "meanAllyHpDamage": 27883.5,
+      "intermediateInnCounts": [
+        3,
+        5
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        305,
+        381
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 10,
+      "kind": "EXP",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.172533179457588,
+      "afterMainHpRatioRange": [
+        0.8619524242818146,
+        0.9321461068503835
+      ],
+      "meanMainSeconds": 419.475,
+      "meanTotalSeconds": 517.385,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 16135.5,
+      "meanAllyHpDamage": 19495.5,
+      "intermediateInnCounts": [
+        2,
+        2
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        144,
+        145
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 10,
+      "kind": "EXP",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.5944739045492604,
+        0.7245325146525258
+      ],
+      "meanMainSeconds": 531.655,
+      "meanTotalSeconds": 748.4950000000001,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 6,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 17786.5,
+      "intermediateInnCounts": [
+        5,
+        5
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        518,
+        515
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 10,
+      "kind": "TALENT",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.6634522661523626,
+        0.8338614134178262
+      ],
+      "meanMainSeconds": 598.995,
+      "meanTotalSeconds": 873.065,
+      "meanMainRounds": 31.5,
+      "mainKoEvents": 4,
+      "meanEffectiveHealing": 14175.0,
+      "meanAllyHpDamage": 27565.5,
+      "intermediateInnCounts": [
+        5,
+        6
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        407,
+        467
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 10,
+      "kind": "TALENT",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.3929601846508944,
+      "afterMainHpRatioRange": [
+        0.8787209151176394,
+        0.9535941765241128
+      ],
+      "meanMainSeconds": 443.85,
+      "meanTotalSeconds": 511.85,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 15669.0,
+      "meanAllyHpDamage": 17161.0,
+      "intermediateInnCounts": [
+        1,
+        1
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        81,
+        89
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 10,
+      "kind": "TALENT",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 0,
+      "fourAliveEveryWin": 0,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.6169411108010048,
+        0.7823053307284399
+      ],
+      "meanMainSeconds": 473.54,
+      "meanTotalSeconds": 705.61,
+      "meanMainRounds": 19.0,
+      "mainKoEvents": 2,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 15137.0,
+      "intermediateInnCounts": [
+        4,
+        5
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        406,
+        498
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 30,
+      "kind": "ASCENSION",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8819875776397516,
+      "afterMainHpRatioRange": [
+        0.978748624163915,
+        1
+      ],
+      "meanMainSeconds": 258.855,
+      "meanTotalSeconds": 271.855,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 16708.5,
+      "meanAllyHpDamage": 15055.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        37
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 1
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 30,
+      "kind": "ASCENSION",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.9058515854854527,
+      "afterMainHpRatioRange": [
+        0.9822802250373148,
+        0.9824333116460637
+      ],
+      "meanMainSeconds": 200.46499999999997,
+      "meanTotalSeconds": 226.46499999999997,
+      "meanMainRounds": 15.5,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 15547.5,
+      "meanAllyHpDamage": 13811.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        35,
+        35
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 30,
+      "kind": "ASCENSION",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.34929715593331156,
+      "afterMainHpRatioRange": [
+        0.6867402602980972,
+        0.7651733172973669
+      ],
+      "meanMainSeconds": 234.23000000000002,
+      "meanTotalSeconds": 415.845,
+      "meanMainRounds": 11.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 11699.0,
+      "intermediateInnCounts": [
+        2,
+        1
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        618,
+        407
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 30,
+      "kind": "EXP",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.6750490458355627,
+      "afterMainHpRatioRange": [
+        0.9514859029718059,
+        0.9810769621539243
+      ],
+      "meanMainSeconds": 307.69500000000005,
+      "meanTotalSeconds": 333.69500000000005,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 24748.5,
+      "meanAllyHpDamage": 23933.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        29,
+        45
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 30,
+      "kind": "EXP",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8883622098725074,
+      "afterMainHpRatioRange": [
+        0.9738604615561254,
+        0.9837345478204295
+      ],
+      "meanMainSeconds": 245.085,
+      "meanTotalSeconds": 271.08500000000004,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 21935.0,
+      "meanAllyHpDamage": 20731.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        34,
+        30
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 30,
+      "kind": "EXP",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.10968432316746923,
+      "afterMainHpRatioRange": [
+        0.5774666036682273,
+        0.6868261672608565
+      ],
+      "meanMainSeconds": 331.245,
+      "meanTotalSeconds": 453.79999999999995,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 21950.5,
+      "intermediateInnCounts": [
+        2,
+        2
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        494,
+        546
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 30,
+      "kind": "TALENT",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8349133703824779,
+      "afterMainHpRatioRange": [
+        0.9764202861739056,
+        0.9972906612479892
+      ],
+      "meanMainSeconds": 256.63500000000005,
+      "meanTotalSeconds": 350.27500000000003,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 15978.5,
+      "meanAllyHpDamage": 14531.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        30,
+        95
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 30,
+      "kind": "TALENT",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.9060103442125914,
+      "afterMainHpRatioRange": [
+        0.9807110872976387,
+        1
+      ],
+      "meanMainSeconds": 207.125,
+      "meanTotalSeconds": 222.125,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 14040.0,
+      "meanAllyHpDamage": 11948.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        37
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 1
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 30,
+      "kind": "TALENT",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.36580581889506375,
+      "afterMainHpRatioRange": [
+        0.8201537734633392,
+        0.9262488724711138
+      ],
+      "meanMainSeconds": 235.175,
+      "meanTotalSeconds": 534.33,
+      "meanMainRounds": 11.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 11579.5,
+      "intermediateInnCounts": [
+        1,
+        2
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        451,
+        822
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 50,
+      "kind": "ASCENSION",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.7865819769749901,
+      "afterMainHpRatioRange": [
+        0.9732215055381086,
+        0.9929104688117043
+      ],
+      "meanMainSeconds": 345.345,
+      "meanTotalSeconds": 371.345,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 42640.0,
+      "meanAllyHpDamage": 39090.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        50,
+        32
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 50,
+      "kind": "ASCENSION",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 1.0,
+      "afterMainHpRatioRange": [
+        1,
+        1
+      ],
+      "meanMainSeconds": 296.595,
+      "meanTotalSeconds": 296.595,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 23561.5,
+      "meanAllyHpDamage": 18281.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 2
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 50,
+      "kind": "ASCENSION",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.3306510076845005,
+      "afterMainHpRatioRange": [
+        0.7310512047042651,
+        0.9186108671579671
+      ],
+      "meanMainSeconds": 357.645,
+      "meanTotalSeconds": 540.13,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 35208.0,
+      "intermediateInnCounts": [
+        2,
+        2
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        681,
+        912
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 50,
+      "kind": "EXP",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.4990575612585182,
+      "afterMainHpRatioRange": [
+        0.8934313707053801,
+        0.9255317148391222
+      ],
+      "meanMainSeconds": 575.6400000000001,
+      "meanTotalSeconds": 614.6400000000001,
+      "meanMainRounds": 32.5,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 91524.0,
+      "meanAllyHpDamage": 97227.5,
+      "intermediateInnCounts": [
+        1,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        341,
+        96
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 50,
+      "kind": "EXP",
+      "support": "Jean",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8947201270345375,
+      "afterMainHpRatioRange": [
+        0.9881195347370866,
+        1
+      ],
+      "meanMainSeconds": 529.515,
+      "meanTotalSeconds": 540.515,
+      "meanMainRounds": 32.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 86519.0,
+      "meanAllyHpDamage": 81597.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        37
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 1
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 50,
+      "kind": "EXP",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.0852719333068678,
+      "afterMainHpRatioRange": [
+        0.5783344152124938,
+        0.7994959715911261
+      ],
+      "meanMainSeconds": 592.38,
+      "meanTotalSeconds": 796.8199999999999,
+      "meanMainRounds": 29.5,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 81586.5,
+      "intermediateInnCounts": [
+        4,
+        4
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        1582,
+        1675
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 50,
+      "kind": "TALENT",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.6598650258038904,
+      "afterMainHpRatioRange": [
+        0.9482106925926622,
+        0.9705511781409256
+      ],
+      "meanMainSeconds": 367.71,
+      "meanTotalSeconds": 431.385,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 52611.5,
+      "meanAllyHpDamage": 51054.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        61,
+        92
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 50,
+      "kind": "TALENT",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 1.0,
+      "afterMainHpRatioRange": [
+        1,
+        1
+      ],
+      "meanMainSeconds": 325.03,
+      "meanTotalSeconds": 325.03,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 33832.0,
+      "meanAllyHpDamage": 28552.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 2
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 50,
+      "kind": "TALENT",
+      "support": "Sucrose",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.34942437475188565,
+      "afterMainHpRatioRange": [
+        0.7845660391767536,
+        0.7964985299171408
+      ],
+      "meanMainSeconds": 394.8299999999999,
+      "meanTotalSeconds": 600.8299999999999,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 38669.5,
+      "intermediateInnCounts": [
+        2,
+        2
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        838,
+        852
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 60,
+      "kind": "ASCENSION",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8176445978454137,
+      "afterMainHpRatioRange": [
+        0.9359842529432884,
+        0.9468289240749224
+      ],
+      "meanMainSeconds": 285.495,
+      "meanTotalSeconds": 311.495,
+      "meanMainRounds": 23.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 46746.0,
+      "meanAllyHpDamage": 45967.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        98,
+        85
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 60,
+      "kind": "ASCENSION",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 1.0,
+      "afterMainHpRatioRange": [
+        1,
+        1
+      ],
+      "meanMainSeconds": 241.23000000000002,
+      "meanTotalSeconds": 241.23000000000002,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 36794.5,
+      "meanAllyHpDamage": 28778.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 2
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 60,
+      "kind": "ASCENSION",
+      "support": "Sucrose",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.3802949482271729,
+      "afterMainHpRatioRange": [
+        0.7579696299275945,
+        0.7770766291230893
+      ],
+      "meanMainSeconds": 332.115,
+      "meanTotalSeconds": 415.93500000000006,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 44188.5,
+      "intermediateInnCounts": [
+        1,
+        1
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        689,
+        668
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 60,
+      "kind": "EXP",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 1,
+      "fourAliveEveryWin": 1,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.72708815628211,
+        0.795436819886849
+      ],
+      "meanMainSeconds": 704.465,
+      "meanTotalSeconds": 1031.315,
+      "meanMainRounds": 39.5,
+      "mainKoEvents": 1,
+      "meanEffectiveHealing": 183177.5,
+      "meanAllyHpDamage": 248565.5,
+      "intermediateInnCounts": [
+        1,
+        3
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        715,
+        742
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 60,
+      "kind": "EXP",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.6785901056374856,
+      "afterMainHpRatioRange": [
+        0.9353484918593765,
+        0.9796296097020306
+      ],
+      "meanMainSeconds": 446.80000000000007,
+      "meanTotalSeconds": 507.4150000000001,
+      "meanMainRounds": 26.5,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 155509.5,
+      "meanAllyHpDamage": 155802.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        112,
+        0
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 60,
+      "kind": "EXP",
+      "support": "Sucrose",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 1,
+      "fourAliveEveryWin": 1,
+      "minimumHpRatioBeforeReward": 0.0,
+      "afterMainHpRatioRange": [
+        0.6269484111021721,
+        0.7729158286403862
+      ],
+      "meanMainSeconds": 595.895,
+      "meanTotalSeconds": 1139.9250000000002,
+      "meanMainRounds": 24.5,
+      "mainKoEvents": 1,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 119928.5,
+      "intermediateInnCounts": [
+        3,
+        4
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        2090,
+        2359
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 60,
+      "kind": "TALENT",
+      "support": "Barbara",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.8027925949168497,
+      "afterMainHpRatioRange": [
+        0.9381754707404335,
+        0.9485249514094358
+      ],
+      "meanMainSeconds": 349.935,
+      "meanTotalSeconds": 407.505,
+      "meanMainRounds": 24.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 48551.5,
+      "meanAllyHpDamage": 47185.0,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        28,
+        29
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 60,
+      "kind": "TALENT",
+      "support": "Jean",
+      "seeds": [
+        717,
+        925
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 1.0,
+      "afterMainHpRatioRange": [
+        1,
+        1
+      ],
+      "meanMainSeconds": 323.23499999999996,
+      "meanTotalSeconds": 323.23499999999996,
+      "meanMainRounds": 18.5,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 35331.5,
+      "meanAllyHpDamage": 27315.5,
+      "intermediateInnCounts": [
+        0,
+        0
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        0,
+        0
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 2
+    },
+    {
+      "policy": "REST_BELOW_HALF",
+      "level": 60,
+      "kind": "TALENT",
+      "support": "Sucrose",
+      "seeds": [
+        925,
+        717
+      ],
+      "campaigns": 2,
+      "wins": 16,
+      "plannedFights": 16,
+      "losses": 0,
+      "eightWinsNoKO": 2,
+      "fourAliveEveryWin": 2,
+      "minimumHpRatioBeforeReward": 0.38573370986298505,
+      "afterMainHpRatioRange": [
+        0.7030872888173774,
+        0.7165124698310539
+      ],
+      "meanMainSeconds": 368.745,
+      "meanTotalSeconds": 500.34000000000003,
+      "meanMainRounds": 16.0,
+      "mainKoEvents": 0,
+      "meanEffectiveHealing": 0.0,
+      "meanAllyHpDamage": 42768.0,
+      "intermediateInnCounts": [
+        1,
+        1
+      ],
+      "moraForFinalFullHPAndIntermediate": [
+        684,
+        673
+      ],
+      "finalRecoveryFailures": 0,
+      "allFullHpAfterEightWithoutFinalInn": 0
+    }
+  ]
+}

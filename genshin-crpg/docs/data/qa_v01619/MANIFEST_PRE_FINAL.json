@@ -1,0 +1,240 @@
+{
+  "schema": "independent-qa-v01619-1",
+  "createdAt": "2026-10-09T17:11:28.662082+00:00",
+  "remoteBase": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "stage": "Evidence collected before final joint coefficients; final evidence will be added separately.",
+  "artifacts": [
+    {
+      "path": "baseline_readiness_v01619.json",
+      "original": "/tmp/crpg_v01619_qa/baseline_readiness_v01619.json",
+      "originalSha256": "d66dd3999cec67bdfa50a52af22adb01b5731ae98725f5f19831d84f58880948",
+      "copySha256": "d66dd3999cec67bdfa50a52af22adb01b5731ae98725f5f19831d84f58880948",
+      "bytes": 72988,
+      "portabilityEdits": false
+    },
+    {
+      "path": "baseline_release_known_gaps_v01619.json",
+      "original": "/tmp/crpg_v01619_qa/baseline_release_known_gaps_v01619.json",
+      "originalSha256": "4de8d2942ab80641017368879d17313507c6b63b41a1c7dfa7b384fb222c4c7a",
+      "copySha256": "4de8d2942ab80641017368879d17313507c6b63b41a1c7dfa7b384fb222c4c7a",
+      "bytes": 2187,
+      "portabilityEdits": false
+    },
+    {
+      "path": "db_runtime_semantic_parity_v01619.json",
+      "original": "/tmp/crpg_v01619_qa/db_runtime_semantic_parity_v01619.json",
+      "originalSha256": "d84c4b5b125e0c3e34d7d5feec4f3ecd74101f380de07fd616c538df791c1312",
+      "copySha256": "d84c4b5b125e0c3e34d7d5feec4f3ecd74101f380de07fd616c538df791c1312",
+      "bytes": 13350,
+      "portabilityEdits": false
+    },
+    {
+      "path": "meaningful_checks_v01619.json",
+      "original": "/tmp/crpg_v01619_qa/meaningful_checks_v01619.json",
+      "originalSha256": "1f255d68684a39ca4fc6330a7f150005c19108d347c87efdf88cf7a26c973af4",
+      "copySha256": "1f255d68684a39ca4fc6330a7f150005c19108d347c87efdf88cf7a26c973af4",
+      "bytes": 3432,
+      "portabilityEdits": false
+    },
+    {
+      "path": "source_scope_pre_final_v01619.json",
+      "original": "/tmp/crpg_v01619_qa/source_scope_pre_final_v01619.json",
+      "originalSha256": "8733248ff9086a357d2cc579c16545110670efd079d17da7e05755a7194206b2",
+      "copySha256": "8733248ff9086a357d2cc579c16545110670efd079d17da7e05755a7194206b2",
+      "bytes": 59897,
+      "portabilityEdits": false
+    },
+    {
+      "path": "legacy_combat_healing_shield.json",
+      "original": "/tmp/crpg_v01619_qa/legacy_combat_healing_shield.json",
+      "originalSha256": "d86bf0e5c0bc743f189e9c6551090757ee36df8261f5d76d31a1dd88a98009e0",
+      "copySha256": "d86bf0e5c0bc743f189e9c6551090757ee36df8261f5d76d31a1dd88a98009e0",
+      "bytes": 1438,
+      "portabilityEdits": false
+    },
+    {
+      "path": "serpent_burrow_independent.json",
+      "original": "/tmp/crpg_v01619_qa/serpent_burrow_independent.json",
+      "originalSha256": "c28748f94f7219b154dd77e521a65228b9f6e213cd652ca0b4538547c6a7b39a",
+      "copySha256": "c28748f94f7219b154dd77e521a65228b9f6e213cd652ca0b4538547c6a7b39a",
+      "bytes": 2250,
+      "portabilityEdits": false
+    },
+    {
+      "path": "shield_concurrent_independent.json",
+      "original": "/tmp/crpg_v01619_qa/shield_concurrent_independent.json",
+      "originalSha256": "e03a611858420ca489668080610b956d6b8df6cd5ab4f998919f2b0cb6f3f9f6",
+      "copySha256": "e03a611858420ca489668080610b956d6b8df6cd5ab4f998919f2b0cb6f3f9f6",
+      "bytes": 53979,
+      "portabilityEdits": false
+    },
+    {
+      "path": "boss_boundaries_independent_rerun.json",
+      "original": "/tmp/crpg_v01619_qa/boss_boundaries_independent_rerun.json",
+      "originalSha256": "243d47f6ad968db931c4e2253c8709da934b2ad2547abe0e44639c9f48fadb7d",
+      "copySha256": "243d47f6ad968db931c4e2253c8709da934b2ad2547abe0e44639c9f48fadb7d",
+      "bytes": 6087,
+      "portabilityEdits": false
+    },
+    {
+      "path": "other_healers_baseline/native.json.gz",
+      "original": "/tmp/crpg_v01619_qa/other_healers_baseline/native.json.gz",
+      "originalSha256": "328a41ca035777ebb607b2ddf2a013d264cb65b99f1d386cbff201a852d3953d",
+      "copySha256": "328a41ca035777ebb607b2ddf2a013d264cb65b99f1d386cbff201a852d3953d",
+      "bytes": 747576,
+      "portabilityEdits": false
+    },
+    {
+      "path": "other_healers_baseline/summary.json",
+      "original": "/tmp/crpg_v01619_qa/other_healers_baseline/summary.json",
+      "originalSha256": "33da2679b93572bc66e408edfc17bc30e6f00adb3158a3ebce00ad94b823f223",
+      "copySha256": "33da2679b93572bc66e408edfc17bc30e6f00adb3158a3ebce00ad94b823f223",
+      "bytes": 52679,
+      "portabilityEdits": false
+    },
+    {
+      "path": "other_healers_baseline/independent_qa.json",
+      "original": "/tmp/crpg_v01619_qa/other_healers_baseline/independent_qa.json",
+      "originalSha256": "1e50ee9a618c514c80715fe5d4ad90ee2181dde4549df68b21ba45e6e7c04858",
+      "copySha256": "1e50ee9a618c514c80715fe5d4ad90ee2181dde4549df68b21ba45e6e7c04858",
+      "bytes": 2119,
+      "portabilityEdits": false
+    },
+    {
+      "path": "other_healers_noinn_screen.cjs",
+      "original": "/tmp/crpg_v01619_qa/other_healers_noinn_screen.cjs",
+      "originalSha256": "a7aa3b7bc2d11d81e8310a89ee1414edbf855f45cfbc3e141006e42396d38e76",
+      "originalGzipPath": "original_scripts/other_healers_noinn_screen.cjs.gz",
+      "originalGzipSha256": "23bdd3dcb186118533394e5f8b8e55d91319a449b539ca4a19f1e9132f9646d3",
+      "copySha256": "495bc6a263c0f42e4a91443965302ad8b6568ead58114044059b80511c52806f",
+      "bytes": 5695,
+      "portabilityEdits": "Only default root/baseline/output paths and console verbosity. Fixtures and numeric expectations unchanged."
+    },
+    {
+      "path": "legacy_combat_healing_shield.cjs",
+      "original": "/tmp/crpg_v01619_qa/legacy_combat_healing_shield.cjs",
+      "originalSha256": "2e1576538da570d43ff7cb0c85f99b91b37287084c13e76063f9407ca649a44e",
+      "originalGzipPath": "original_scripts/legacy_combat_healing_shield.cjs.gz",
+      "originalGzipSha256": "92ef81d40f14223478c14e6728ac5b3e07eb37464d7796b89f8bbfa38892ea71",
+      "copySha256": "e9228ff38cb95aacd295c405880f4a09068addc4bb1a95b28ed5230449c32dc5",
+      "bytes": 3711,
+      "portabilityEdits": "Only default root/baseline/output paths and console verbosity. Fixtures and numeric expectations unchanged."
+    },
+    {
+      "path": "serpent_burrow_independent.cjs",
+      "original": "/tmp/crpg_v01619_qa/serpent_burrow_independent.cjs",
+      "originalSha256": "9211fc5fca9fac6d95efbbd017d71f117856207f93342591af325e14db6abe68",
+      "originalGzipPath": "original_scripts/serpent_burrow_independent.cjs.gz",
+      "originalGzipSha256": "39b90fd6c584564c17cecf3f182286c916f78fe92b4375c99564eb02955f5798",
+      "copySha256": "26f05c203c8c50f2995391c4fabb71e5b93b01d186a0929770283a70dffc2a4f",
+      "bytes": 3446,
+      "portabilityEdits": "Only default root/baseline/output paths and console verbosity. Fixtures and numeric expectations unchanged."
+    },
+    {
+      "path": "shield_concurrent_independent.cjs",
+      "original": "/tmp/crpg_v01619_qa/shield_concurrent_independent.cjs",
+      "originalSha256": "e5cf078f6ddaa8d00300fa1e9987c7c0e2367b193c701f3427c4999c7d7c1eaf",
+      "originalGzipPath": "original_scripts/shield_concurrent_independent.cjs.gz",
+      "originalGzipSha256": "2b7cca403211738b72a869ee20fee2e19252e844b38a5166fce88e1dd1a2ac74",
+      "copySha256": "0140442bff8d36bd1e2bfc6b6c142f97c04ded6bab01832dc60cc1a24ecc7953",
+      "bytes": 4400,
+      "portabilityEdits": "Only default root/baseline/output paths and console verbosity. Fixtures and numeric expectations unchanged."
+    },
+    {
+      "path": "control_grace/results.json",
+      "original": "/tmp/crpg_reaction_plan/control_grace_v01619/results.json",
+      "originalSha256": "49a4b9839b4587045031ac6a22c5bd8a4a23cd052b8ff2e06405188b31d0f214",
+      "copySha256": "49a4b9839b4587045031ac6a22c5bd8a4a23cd052b8ff2e06405188b31d0f214",
+      "bytes": 15364,
+      "portabilityEdits": false
+    },
+    {
+      "path": "reaction_fixes/results.json",
+      "original": "/tmp/crpg_reaction_plan/reaction_fixes_v01619/results.json",
+      "originalSha256": "a97a217181461992f0cc25c57aeae088609736d70ce7ed842a33c7c1d88e7215",
+      "copySha256": "a97a217181461992f0cc25c57aeae088609736d70ce7ed842a33c7c1d88e7215",
+      "bytes": 16743,
+      "portabilityEdits": false
+    },
+    {
+      "path": "reaction_fixes/summary.json",
+      "original": "/tmp/crpg_reaction_plan/reaction_fixes_v01619/summary.json",
+      "originalSha256": "8e55e3fedd1fba5f555a240ad64c91a21ba851599345dc4627dc0e8e1c986672",
+      "copySha256": "8e55e3fedd1fba5f555a240ad64c91a21ba851599345dc4627dc0e8e1c986672",
+      "bytes": 17262,
+      "portabilityEdits": false
+    },
+    {
+      "path": "reaction_fixes/sourcehash.json",
+      "original": "/tmp/crpg_reaction_plan/reaction_fixes_v01619/sourcehash.json",
+      "originalSha256": "74168adb8e7f852a9fc1bd7d48aec0bcc638a7da074db0d1b4d680f2e0a4f894",
+      "copySha256": "74168adb8e7f852a9fc1bd7d48aec0bcc638a7da074db0d1b4d680f2e0a4f894",
+      "bytes": 590,
+      "portabilityEdits": false
+    },
+    {
+      "path": "reaction_fixes/eula_followup.json",
+      "original": "/tmp/crpg_reaction_plan/reaction_fixes_v01619/eula_followup.json",
+      "originalSha256": "ffa34a7768348488c027ae263717c4abdc37ac44f440eb61cf0bb334a540b773",
+      "copySha256": "ffa34a7768348488c027ae263717c4abdc37ac44f440eb61cf0bb334a540b773",
+      "bytes": 186,
+      "portabilityEdits": false
+    },
+    {
+      "path": "reaction_fixes/counterfactual_additive.log",
+      "original": "/tmp/crpg_reaction_plan/reaction_fixes_v01619/counterfactual_additive.log",
+      "originalSha256": "b1dd7a2d3a03047ac4484d1f54c1cca74c48ed64dbaab67df59442741f0bd7ee",
+      "copySha256": "b1dd7a2d3a03047ac4484d1f54c1cca74c48ed64dbaab67df59442741f0bd7ee",
+      "bytes": 1159,
+      "portabilityEdits": false
+    },
+    {
+      "path": "reaction_fixes/IMPLEMENTATION_KO.md",
+      "original": "/tmp/crpg_reaction_plan/reaction_fixes_v01619/IMPLEMENTATION_KO.md",
+      "originalSha256": "b1aed63ad79b1c7c019e1872040b72a653235e3f9db689bc8a82a8c2b93a883c",
+      "copySha256": "b1aed63ad79b1c7c019e1872040b72a653235e3f9db689bc8a82a8c2b93a883c",
+      "bytes": 7803,
+      "portabilityEdits": false
+    },
+    {
+      "path": "qa_helpers_v01619.cjs",
+      "copySha256": "467814c8abffe8db843500f82302b863888283f3f10c72b21f6ecec6a8ad8c15",
+      "bytes": 1704,
+      "original": "Generated QA helper/README or aggregate verification"
+    },
+    {
+      "path": "baseline_runtime_snapshot.json.gz",
+      "copySha256": "af63bcd9ad996c7219f4f66fb6047f3096b23fedc26e7fd74f3b416d0f2256f1",
+      "bytes": 1481963,
+      "original": "/tmp/crpg_v01619_qa/baseline_runtime_snapshot.json.gz",
+      "originalSha256": "7dcbe2c2144d5c88778c53ca09f8c76dcb47a882aebd3fcf3a8fe7d7f8c0089f",
+      "portabilityEdits": "Original120 source text+SHA preserved; extra JS-runtime semantic DB hash metadata added."
+    },
+    {
+      "path": "README_KO.md",
+      "copySha256": "59ce4399e34d7d38d0ced623d6b8657ad8a9bf6c35be8085974d7bcebc6c05c3",
+      "bytes": 5923,
+      "original": "Generated QA helper/README or aggregate verification"
+    },
+    {
+      "path": "reaction_evidence_independent.json",
+      "copySha256": "b5fd3d8ab961962c18f3b4b6683e17f4ea16da6e003476660c1d3d84851ae09c",
+      "bytes": 17107,
+      "original": "Generated QA helper/README or aggregate verification"
+    },
+    {
+      "path": "portable_validation.json",
+      "copySha256": "cdffcf8e1eb16939929813388de28613da28ca2b1092da1f62aeff214b8d2751",
+      "bytes": 898,
+      "original": "Generated independent preservation validation"
+    }
+  ],
+  "totals": {
+    "entries": 28,
+    "bytesExcludingManifest": 2609347,
+    "syntaxFiles": 5,
+    "syntaxFailed": 0,
+    "copyHashErrors": 0,
+    "snapshotSourceErrors": 0
+  }
+}

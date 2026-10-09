@@ -1,0 +1,185 @@
+{
+  "version": "0.16.19",
+  "collectedUTC": "2026-10-09T18:14:28.885126+00:00",
+  "baselinePublishedSHA": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "finalRuntimeRawFingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "fingerprintMeaning": "Runtime/local raw DB identity; not Git SHA. Remote authored raw DB retained; all64 runtime tables semantically equal.",
+  "productFileCount": 233,
+  "productFixedHashMismatches": [],
+  "sourceChanges": [
+    "source/app_av.js",
+    "source/app_experience.js",
+    "source/runtime_combat.js",
+    "source/runtime_constellations_v01411.js",
+    "source/runtime_field_bosses.js",
+    "source/runtime_growth_v01522.js",
+    "source/runtime_liyue_cards.js",
+    "source/runtime_mond_cards.js",
+    "source/runtime_premium_v0148.js",
+    "source/runtime_rules.js"
+  ],
+  "dbUnchanged": true,
+  "remotePublicationImmutable": {
+    "genshin-crpg/content/db.json": "cc3996929c885d41289038ff501640039a4cc71e",
+    "genshin-crpg/assets": "c8e23881af963b1eea026ba8d0e559f9df0f2181",
+    "genshin-crpg/source/index.html": "b6f9d690b7573c0e9e8b4ff1654c2e615d41d918"
+  },
+  "dbSemanticParityEvidence": "qa_v01619/db_runtime_semantic_parity_v01619.json",
+  "releaseRegression": {
+    "programs": 173,
+    "initialPassed": 168,
+    "initialFailed": 5,
+    "latest": {
+      "programs": 173,
+      "passed": 171,
+      "failed": [
+        "tests/test_save_v01344.cjs",
+        "tests/test_release_isolation_v01513.py"
+      ],
+      "knownUnavailableInputs": [
+        "tests/test_save_v01344.cjs",
+        "tests/test_release_isolation_v01513.py"
+      ],
+      "requiresDiagnosis": []
+    },
+    "originalResults": "release_v01619/results.json",
+    "reruns": "release_v01619/post_rerun_evaluation_v01619.json",
+    "originalLogs": "release_v01619/release_logs_v01619.tar.gz",
+    "rawFailuresNeverOverwritten": true
+  },
+  "testExpectationRevisions": [
+    {
+      "collectedUTC": "2026-10-09T18:01:34.426603+00:00",
+      "productFixedHashMismatches": [],
+      "test": "tests/test_combat_stalemate_v01523.cjs",
+      "originalTestSha256": "5ffd36efb46b33d805874f5725146af2ee35a50002a241441952eabaa8a2a835",
+      "updatedTestSha256": "c093a0f91e7cef77145efd480c79805ada86bb5257dfd448dfaadc64fb755e7e",
+      "programExitCode": 0,
+      "passLines": 4,
+      "log": "updated_test.log",
+      "rootAuthorizedTestOnly": true,
+      "tests": [
+        "nativePrimoHistoricalTerminalDefeat",
+        "nativeSerpentHistoricalTerminalDefeat",
+        "nativeStableImmuneStalemateSettlement",
+        "livingPlayerManualControl"
+      ],
+      "negativeGuardCounterfactual": "summary.json rows: after STABLE_IMMUNITY_NO_GUARD is expected COMBAT_LOOP; no product mutation",
+      "limitations": "Natural boss examples may end in ordinary total-party death or STALEMATE. Any ordinary defeat must have all four native allies at HP 0 and a living enemy. Stable immunity input strictly requires STALEMATE with unchanged living NPC HP, zero rewards, cleared runtime, one receipt, valid restore and idempotent duplicate settlement. No exact round500 assertion or AI stub."
+    },
+    {
+      "schemaVersion": 1,
+      "oldTestSha256": "f462a763469f4759309653b257ef3debf58bb745e067676fc8ad9e316927fd99",
+      "newTestSha256": "552b5ddba01fde3e5a38f8fcf1ba54c2a186b42bf729a63cc7cb701b3684d3f0",
+      "command": [
+        "node",
+        "tests/test_growth_balance_v01522.cjs"
+      ],
+      "nativeRuns": 1,
+      "exitCode": 0,
+      "log": "updated_test_native.log",
+      "logSha256": "f6f15c8af5e143ed11415b0d4203051d855d61c57a268fdcb85e0c13d2e5ce19",
+      "productSourceModified": false,
+      "fixturesChanged": false,
+      "conditions": 18,
+      "productFixedManifest": "docs/data/qa_v01619/final/product_fixed_manifest.json",
+      "productPathsChecked": 233,
+      "productDrift": [],
+      "productDriftCount": 0,
+      "testChangedOnly": "tests/test_growth_balance_v01522.cjs",
+      "unchangedFixtureHelperSha256": "ae6fd750d98895a98b88ea91858d7f6ba08960a633cd274be21d4e4fe44630c1",
+      "failureSettlementChecks": [
+        "native last allies all HP0",
+        "native enemy alive",
+        "runtime null",
+        "XP and other rewards0",
+        "one battle receipt/log",
+        "save restore",
+        "duplicate settlement no changes"
+      ],
+      "averagesExcludeDefeats": true
+    }
+  ],
+  "independentBehaviorChecks": {
+    "passed": 88,
+    "scope": "Final saved5/burrow9/shield7/control10/otherhealers14/reactions43; fixture reruns are separate."
+  },
+  "builds": {
+    "browser": {
+      "appVersion": "0.16.19",
+      "packVersion": "2026-09-24-c3d5eef26ac2-eaf9eafacdbe",
+      "engineVersion": "engine3-b945aa25eca449f00830f7f647a02c2367e7cdd6f04470246f0316ebb177f829"
+    },
+    "browserBuildPassed": true,
+    "serverBuildPassed": true,
+    "serverGeneratedBytes": 28351181,
+    "serverGeneratedSha256": "f15dc997c027232e6f03bfbf98fa5576f713fe94916f8d6f6da94e0ad623ab8b",
+    "serverTail": "export const ENGINE_VERSION=\"0.16.19\";\nexport const ENGINE_FINGERPRINT=\"engine3-b945aa25eca449f00830f7f647a02c2367e7cdd6f04470246f0316ebb177f829\";\nexport const ENGINE_COMPATIBILITY=[ENGINE_FINGERPRINT];\nexport const SERVER_BUILD=\"server-344a223caddc4c4a8dae\";",
+    "generatedBuildsPublished": false
+  },
+  "manifestChecks": [
+    {
+      "path": "docs/data/qa_v01619/MANIFEST.json",
+      "entries": 75,
+      "sha256": "ea7c97e0f4058adb19931c08b736ad7bf71a7805531e5330b742cc2c64fdc23b",
+      "errors": []
+    },
+    {
+      "path": "docs/data/shield_balance_v01619/MANIFEST.json",
+      "entries": 20,
+      "sha256": "b60a44576503535619b398cdd9d6ccd2636760bfd773d1f8498420c627af7de5",
+      "errors": []
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/completion_manifest.json",
+      "entries": 29,
+      "sha256": "8383f15603396f0121e98d0f6cab2e32dc12c39f18464d6172d6de1948333cab",
+      "errors": []
+    },
+    {
+      "path": "docs/data/other_healers_v01619/manifest.json",
+      "entries": 28,
+      "sha256": "3ac32ea5440b599a81edb68c5f655904bdaf4a9432a012ba25be3516f40f4593",
+      "errors": []
+    },
+    {
+      "path": "docs/data/other_healers_v01619/manifest.json",
+      "entries": 3,
+      "sha256": "3ac32ea5440b599a81edb68c5f655904bdaf4a9432a012ba25be3516f40f4593",
+      "errors": []
+    },
+    {
+      "path": "docs/data/reaction_healer_review_v01618/MANIFEST.json",
+      "entries": 203,
+      "sha256": "121b4a39894932f39479c0100e371f5e7cf12aaebffe89cadcd1af890b8f7b25",
+      "errors": []
+    },
+    {
+      "path": "docs/data/reaction_healer_review_v01618/MANIFEST.json",
+      "entries": 8,
+      "sha256": "121b4a39894932f39479c0100e371f5e7cf12aaebffe89cadcd1af890b8f7b25",
+      "errors": []
+    },
+    {
+      "path": "docs/data/healer_audit_v01618_manifest.json",
+      "entries": 12,
+      "sha256": "8c1d75273177cd332535f4de68c8a506b6789842e81ed2f81f7623b3062a7df9",
+      "errors": []
+    }
+  ],
+  "publication": {
+    "branch": "test/crpg-v01414-story",
+    "mode": "Selected overlay onto remote baseline tree, expected-head lease; do not push restored local HEAD.",
+    "manifest": "publication_v01619_manifest.json",
+    "VPSInstalled": false,
+    "productionPromoted": false,
+    "mainMerged": false,
+    "workflowWaited": false
+  },
+  "limits": [
+    "173 programs executed; latest171 pass and2 historical/editorial input gaps remain unverified locally.",
+    "Native automatic combat samples do not prove all player accounts/seeds or physical phone behavior.",
+    "Prepared5star supports and some easy late-game encounters still permit full HP and zero lodging.",
+    "Stored legacy pool amounts preserved; concurrent allied shield consumption also applies to old active battles."
+  ]
+}

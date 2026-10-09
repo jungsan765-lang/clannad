@@ -1,0 +1,13 @@
+FAIL direct talent scales but RX_AGGRAVATE addition does not at level 60
+AssertionError [ERR_ASSERTION]: {"expected":3600.66660665764,"actual":4452,"direct":633.4947960000001,"addition":4464.238666666666,"common":0.706326965312561,"talent":1.27}
+    at measuredFormula (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_reaction_fixes_v01619.cjs:122:2)
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_reaction_fixes_v01619.cjs:131:184
+    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_reaction_fixes_v01619.cjs:11:127)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_reaction_fixes_v01619.cjs:128:3)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1617:12)
+{"ok":false,"total":1,"passed":0}

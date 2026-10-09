@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "mode": "LEGACY_YAOYAO_ON_CURRENT",
+  "conditions": 2,
+  "battles": 6,
+  "wins": 4,
+  "losses": 2,
+  "errors": 0,
+  "substitutions": [
+    {
+      "name": "runtime_liyue_cards.js",
+      "from": "yaoyaoQRatio:.025,yaoyaoQFlat:380,yaoyaoFieldRatio:.015,yaoyaoFieldFlat:180",
+      "to": "yaoyaoQRatio:.1,yaoyaoQFlat:0,yaoyaoFieldRatio:.05,yaoyaoFieldFlat:0"
+    }
+  ],
+  "lv25MaxHp": 5021,
+  "nativeFormulaBeforeQ": 502.1,
+  "nativeFormulaAfterQ": 505.525,
+  "nativeFormulaBeforeField": 251.05,
+  "nativeFormulaAfterField": 255.315,
+  "rows": [
+    {
+      "seed": 717,
+      "oldHealingWins": 2,
+      "oldHealingLosses": 1,
+      "currentHealingWins": 2,
+      "currentHealingLosses": 1,
+      "sameFirstActors": true,
+      "oldHealingRounds": [
+        4,
+        4,
+        6
+      ],
+      "currentHealingRounds": [
+        4,
+        4,
+        6
+      ],
+      "oldHealingFinalHp": 0,
+      "currentHealingFinalHp": 0,
+      "oldEffectiveHeal": 13319,
+      "currentEffectiveHeal": 13430
+    },
+    {
+      "seed": 925,
+      "oldHealingWins": 2,
+      "oldHealingLosses": 1,
+      "currentHealingWins": 2,
+      "currentHealingLosses": 1,
+      "sameFirstActors": true,
+      "oldHealingRounds": [
+        3,
+        4,
+        7
+      ],
+      "currentHealingRounds": [
+        3,
+        4,
+        7
+      ],
+      "oldHealingFinalHp": 0,
+      "currentHealingFinalHp": 0,
+      "oldEffectiveHeal": 11177,
+      "currentEffectiveHeal": 11260
+    }
+  ],
+  "conclusion": "With all current engine rules held fixed, restoring only old Yaoyao healing does not prevent either third-fight defeat. The Lv25 raw healing formula is slightly higher after adjustment. This does not isolate which other reaction correction accounts for the whole baseline-to-final outcome."
+}

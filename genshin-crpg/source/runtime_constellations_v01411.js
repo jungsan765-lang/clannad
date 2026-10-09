@@ -268,7 +268,7 @@ const EFFECTS={
   6:['월계가 있는 동안 라운드가 끝날 때마다 초특대·짱짱무가 떨어져 모든 적에게 공격력 75%의 풀 원소 피해를 주고, 파티 전체를 요요 최대 HP 7.5%만큼 회복시킨다.',{t:'roundEnd',while:{field:'YUEGUI_THROWING'},hit:{k:.75,el:'풀',max:99,pick:'all'},heal:{stat:'maxHp',k:.075,who:'all'}}]},
  LIYUE_ZHONGLI:{
   1:['지핵의 석주가 둘이 되어 석주의 피해가 100% 증가한다.',dmg(100,{src:'FIELD'})],
-  2:['천성이 떨어질 때 파티 전체에게 옥홀 방패(종려 최대 HP 20%, 2라운드)를 씌운다.',cast('q',{shield:{stat:'maxHp',k:.2,who:'all',rounds:2,source:'LIYUE_ZHONGLI_E',extra:{ignoreForcedMove:true}}})],
+  2:['천성이 떨어질 때 파티 전체에게 옥홀 방패(종려 최대 HP 13%, 2라운드)를 씌운다.',cast('q',{shield:{stat:'maxHp',k:.2,who:'all',rounds:2,source:'LIYUE_ZHONGLI_E',extra:{ignoreForcedMove:true}}})],
   4:['천성의 석화가 한 차례 더 이어진다.',cast('q',{statusExtend:{id:'LIYUE_PETRIFY',rounds:1}})],
   6:['옥홀 방패가 피해를 받으면 받은 피해의 40%만큼 그 파티원의 HP를 회복시킨다(한 번에 최대 HP의 8%까지).',{t:'shieldHeal',source:'LIYUE_ZHONGLI_E',pct:40,cap:8}]},
  LIYUE_CHONGYUN:{

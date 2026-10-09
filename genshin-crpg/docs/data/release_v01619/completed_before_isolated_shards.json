@@ -1,0 +1,152 @@
+[
+  {
+    "test": "tests/test_control_grace_v01619.cjs",
+    "ok": true,
+    "seconds": 19.5
+  },
+  {
+    "test": "tests/test_healing_v01619.cjs",
+    "ok": true,
+    "seconds": 31.4
+  },
+  {
+    "test": "tests/test_shield_balance_v01619.cjs",
+    "ok": true,
+    "seconds": 23.7
+  },
+  {
+    "test": "tests/test_shield_meter_v01619.cjs",
+    "ok": true,
+    "seconds": 0.1
+  },
+  {
+    "test": "tests/test_shield_playback_v01619.cjs",
+    "ok": true,
+    "seconds": 0.1
+  },
+  {
+    "test": "tests/test_reaction_fixes_v01619.cjs",
+    "ok": true,
+    "seconds": 107.8
+  },
+  {
+    "test": "tools/test_boss_boundaries_v01619.cjs",
+    "ok": true,
+    "seconds": 47.7
+  },
+  {
+    "test": "tools/test_other_healers_v01619.cjs",
+    "ok": true,
+    "seconds": 31.1
+  },
+  {
+    "test": "tests/test_monster_control_fixes_v01618.cjs",
+    "ok": true,
+    "seconds": 24.1
+  },
+  {
+    "test": "tests/test_element_immunity_v01618.cjs",
+    "ok": true,
+    "seconds": 62.3
+  },
+  {
+    "test": "tests/test_shop_supply_v01618.cjs",
+    "ok": true,
+    "seconds": 11.0
+  },
+  {
+    "test": "tests/test_protagonist_support_v01618.cjs",
+    "ok": true,
+    "seconds": 24.9
+  },
+  {
+    "test": "tools/test_field_boss_immunity_v01618.cjs",
+    "ok": true,
+    "seconds": 76.1
+  },
+  {
+    "test": "tests/test_food_lodging_v01617.cjs",
+    "ok": true,
+    "seconds": 79.1
+  },
+  {
+    "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+    "ok": true,
+    "seconds": 27.9
+  },
+  {
+    "test": "tests/test_material_budget_v01615.cjs",
+    "ok": true,
+    "seconds": 45.8
+  },
+  {
+    "test": "tests/test_material_rewards_v01616.cjs",
+    "ok": true,
+    "seconds": 233.4
+  },
+  {
+    "test": "tests/test_ascension_balance_v01614.cjs",
+    "ok": true,
+    "seconds": 117.7
+  },
+  {
+    "test": "tests/test_ascension_efficiency_v01613.cjs",
+    "ok": true,
+    "seconds": 47.2
+  },
+  {
+    "test": "tests/test_starlight_price_v01613.cjs",
+    "ok": true,
+    "seconds": 13.7
+  },
+  {
+    "test": "tests/test_katheryne_facility_v01613.cjs",
+    "ok": true,
+    "seconds": 11.1
+  },
+  {
+    "test": "tests/test_task_wording_v01613.cjs",
+    "ok": true,
+    "seconds": 10.2
+  },
+  {
+    "test": "tests/test_task_branches_v01612.cjs",
+    "ok": true,
+    "seconds": 42.4
+  },
+  {
+    "test": "tests/test_task_branches_v01611.cjs",
+    "ok": true,
+    "seconds": 76.1
+  },
+  {
+    "test": "tests/test_task_catalog_v0169.cjs",
+    "ok": true,
+    "seconds": 0.2
+  },
+  {
+    "test": "tests/test_tasks_v0169.cjs",
+    "ok": true,
+    "seconds": 54.7
+  },
+  {
+    "test": "tests/test_task_learning_delivery_v0169.cjs",
+    "ok": true,
+    "seconds": 25.3
+  },
+  {
+    "test": "tests/test_task_board_v0169.cjs",
+    "ok": true,
+    "seconds": 6.6
+  },
+  {
+    "test": "tests/test_battle_inspection_v0169.cjs",
+    "ok": true,
+    "seconds": 20.7
+  },
+  {
+    "test": "tests/test_live_actor_playback_v0169.cjs",
+    "ok": true,
+    "seconds": 6.6
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "report": {
+    "ok": true,
+    "total": 43,
+    "passed": 43
+  },
+  "logPassLines": 43,
+  "sourceAttribution": {
+    "fixedManifest": "product_fixed_manifest.json",
+    "fixedCollectedUTC": "2026-10-09T17:14:40.533435+00:00",
+    "releaseReceipt": "completed_release_before_stream_error.json",
+    "releaseLog": "completed_release_before_stream_error.log",
+    "fixedProductFiles": 233,
+    "productHashMismatchesAfterCollection": [],
+    "executionOrdering": "Root confirmed that these eight release programs started after the fixed product snapshot. Current file hashes still equal that snapshot.",
+    "limitations": "Final release stdout preserves names and totals, not detailed per-check objects. Older detailed43 results in docs/data/reaction_fixes_v01619 were collected before two later runtime changes and stay separate."
+  }
+}
