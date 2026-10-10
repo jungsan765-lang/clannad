@@ -1,0 +1,8 @@
+PASS composed story destinations and definition references resolve within the same route
+PASS composed story conditions and effects parse and their effect references exist
+PASS displayed composed story text and choice labels contain no internal markers
+PASS all item and equipment detail text has no internal markers or raw IDs after DOM formatting
+PASS every named story profile resolves to this release art, including both Katheryne references
+PASS every shipped manifest media reference and every story-map background exists
+PASS event-only recruitment rejects new entries while retaining already joined saves
+{"passed":7,"builtDir":"/workspace/scratch/a62414469990/workflow-authoritative-final/dist","nodes":27531,"legends":86,"affections":458,"guardedGreetings":14,"scope":"Static composed-content and synthetic boundary checks; no full story traversal, prose review or browser interaction."}

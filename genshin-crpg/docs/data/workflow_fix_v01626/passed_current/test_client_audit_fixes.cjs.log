@@ -1,0 +1,25 @@
+PASS simultaneous /me callers share one request and install once
+PASS same-journey /me with a lower revision is ignored even without a pending action
+PASS late /me cannot overwrite an action committed after its request started
+PASS sync begun during an action cannot roll back its later acknowledgement
+PASS sync cannot replace unacknowledged local presentation while an active action is pending
+PASS new action generation receives a fresh /me instead of an obsolete flight
+PASS admin reset and replacement journey may restart revision without weakening same-save order checks
+PASS a /me requested before new journey creation cannot erase its completed response
+PASS late /me cannot reopen a journey after returning to title; explicit start still works
+PASS logout rejects a late /me and cannot restore token/account/game
+PASS late action after logout preserves its original account retry journal
+PASS routed session token from a slower concurrent response cannot replace a newer token
+PASS same-save sync reuses Runtime indexes, validates and restores UI; invalid save rolls back atomically
+PASS balance revision changes replace Runtime indexes; repeated revision reuses them and invalid metadata is atomic
+PASS closing fallback chat replaces 3-second timer with 15-second timer
+PASS chat catch-up calls share the in-flight request and can retry when finished
+PASS chat slash shortcut is blocked by an existing custom overlay
+PASS worker retains current/previous release and foreign scopes, deletes older own full and partial packs
+PASS worker cleanup failure does not prevent client claim
+PASS lost letter response retries the same request ID even after fee reduced the balance
+PASS editing a failed letter creates a new intent and restores normal affordability checks
+PASS co-op lost response retains ID and exact battle/actor/deadline/round identity
+PASS co-op replay reporting ended battle clears obsolete combat view
+PASS raid claim visibility includes older ended events and retains legacy fallback
+PASS 24 client audit regression checks

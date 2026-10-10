@@ -8,6 +8,7 @@ async function test(name,fn){await fn();passed++;console.log('PASS '+name);}
 const state=(revision,id='fixture-save')=>({global:{SAVE_ID:id,SCREEN_MODE:'STORY',MORA:revision*10}});
 function online(){
  const storage=new Map([['crpg-online-session-v1',JSON.stringify({account:{id:'fixture-account'},token:'fixture-token'})]]),requests=[],calls={construct:0,validate:0,restore:0};
+ const profiles=new WeakMap();
  const element=()=>({append:noop,prepend:noop,setAttribute:noop,classList:{add:noop},close:noop});
  const s={console,URLSearchParams,AbortController,crypto,setTimeout,clearTimeout,JSON,Date,location:{hostname:'fixture.invalid',search:''},
   document:{hidden:false,addEventListener:noop,querySelectorAll:()=>[],getElementById:element},localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},
@@ -16,6 +17,8 @@ function online(){
   applySettings:noop,restoreUIState:()=>calls.restore++,activeSaveSlot:null,say:noop,sceneHistory:[],selectedNPC:null,
   Runtime:class{constructor(db,s){calls.construct++;this.s=this.validateSave(s);}validateSave(s){calls.validate++;if(s.invalid)throw Error('invalid fixture save');return s;}actionReason(){return '';}menu(screen){this.s.global.SCREEN_MODE=screen;}serialize(){return JSON.stringify(this.s);}},
   fetch:(url,options)=>new Promise((resolve,reject)=>requests.push({url,options,resolve,reject}))};
+ // Match the shipped namespace and revision-aware factory while keeping transport/save doubles deterministic.
+ s.CRPGRuntime={Runtime:s.Runtime,adminBalance:{emptyConfig:()=>({}),profileOf:r=>profiles.get(r),createRuntime:(db,save,profile)=>{assert.equal(db,s.DB);const runtime=new s.Runtime(db,save);profiles.set(runtime,profile);return runtime;}}};
  s.window=s;s.addEventListener=noop;s.CRPG_ONLINE_CONFIG={apiBase:'https://fixture.invalid'};vm.createContext(s);vm.runInContext(src('app_online.js'),s);
  const answer=(r,revision,extra={},headers={})=>r.resolve({ok:true,status:200,headers:{get:k=>headers[k]||null},json:async()=>({account:{id:'fixture-account'},engineVersion:'fixture-engine',revision,state:state(revision),result:{ok:true},...extra})});
  const start=async()=>{const p=s.CRPGOnline.sync();answer(requests.at(-1),10);await p;return s.CRPGOnline;};
@@ -94,6 +97,9 @@ function coop(){
  });
  await test('same-save sync reuses Runtime indexes, validates and restores UI; invalid save rolls back atomically',async()=>{
   const h=online(),O=await h.start(),runtime=h.s.game,p=O.sync();h.answer(h.requests.at(-1),11);await p;assert.equal(h.s.game,runtime);assert.equal(h.calls.construct,1);assert.equal(h.calls.validate,2);assert.equal(h.calls.restore,2);const previous=h.s.game.s,invalid=O.sync();h.answer(h.requests.at(-1),12,{state:{...state(12),invalid:true}});await assert.rejects(invalid,/invalid fixture save/);assert.equal(h.s.game.s,previous);assert.equal(O.revision,11);const other=O.sync();h.answer(h.requests.at(-1),12,{state:state(12,'other-save')});await other;assert.notEqual(h.s.game,runtime);assert.equal(h.calls.construct,2);
+ });
+ await test('balance revision changes replace Runtime indexes; repeated revision reuses them and invalid metadata is atomic',async()=>{
+  const h=online(),O=await h.start(),original=h.s.game,changed=O.sync();h.answer(h.requests.at(-1),11,{balance:{revision:1,config:{}}});await changed;const replacement=h.s.game;assert.notEqual(replacement,original);assert.equal(O.balanceRevision,1);assert.equal(h.calls.construct,2);const repeat=O.sync();h.answer(h.requests.at(-1),12,{balance:{revision:1,config:{}}});await repeat;assert.equal(h.s.game,replacement);assert.equal(h.calls.construct,2);const previous=replacement.s,invalid=O.sync();h.answer(h.requests.at(-1),13,{balance:{revision:-1,config:{}}});await assert.rejects(invalid,/밸런스 버전/);assert.equal(h.s.game,replacement);assert.equal(replacement.s,previous);assert.equal(O.revision,12);assert.equal(O.balanceRevision,1);assert.equal(h.calls.construct,2);
  });
  await test('closing fallback chat replaces 3-second timer with 15-second timer',async()=>{
   const h=chat();h.C.enabled=true;h.C.open=true;h.C.fails=3;h.C.node={classList:{remove:noop}};h.C.test.startPoll();h.C.toggle(false);assert.equal(h.intervals[0].ms,3000);assert.equal(h.intervals.at(-1).ms,15000);assert.ok(h.clears.includes(h.intervals[0].id));

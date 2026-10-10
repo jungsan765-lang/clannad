@@ -1,0 +1,40 @@
+PASS Dvalin: geared 4/4/3/3 loses, prepared level 28 party wins, five seeds each
+PASS FB_ANEMO_HYPOSTASIS: a prepared party at the boss level can win
+FAIL FB_ELECTRO_HYPOSTASIS: a prepared party at the boss level can win
+AssertionError [ERR_ASSERTION]: {"mora":0,"rewardPolicy":"MOND_BALANCE_V1","bond":null,"id":"V011-12:B31","battleId":"V011-12:B31","saveId":"V011-12","group":"EG_FB_ELECTRO_HYPOSTASIS","origin":"EXPLICIT","gate":"EXPLICIT","branch":null,"victory":false,"xp":0,"loot":{},"rounds":587,"result":"DEFEAT","defeatReason":"STALEMATE","defeatMessage":"주인공이 쓰러진 뒤 동료들의 전투가 장시간 결착 없이 이어져 후퇴했습니다.","unsupportedEffects":[],"defeatPenalty":{"mora":300,"seconds":60},"fieldBoss":{"boss":"FB_ELECTRO_HYPOSTASIS","name":"무상의 뇌전","seen":["SPIKES","HAMMER","STORM","REVIVE","PRISM"],"victory":false}}
+
+false !== true
+
+    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0141.cjs:22:739
+    at check (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0141.cjs:6:44)
+    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0141.cjs:22:42)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+PASS FB_CRYO_REGISVINE: a prepared party at the boss level can win
+PASS FB_CRYO_HYPOSTASIS: a prepared party at the boss level can win
+FAIL FB_GEO_HYPOSTASIS: a prepared party at the boss level can win
+AssertionError [ERR_ASSERTION]: {"mora":0,"rewardPolicy":"MOND_BALANCE_V1","bond":null,"id":"V011-15:B28","battleId":"V011-15:B28","saveId":"V011-15","group":"EG_FB_GEO_HYPOSTASIS","origin":"EXPLICIT","gate":"EXPLICIT","branch":null,"victory":false,"xp":0,"loot":{},"rounds":275,"result":"DEFEAT","defeatReason":"STALEMATE","defeatMessage":"주인공이 쓰러진 뒤 동료들의 전투가 장시간 결착 없이 이어져 후퇴했습니다.","unsupportedEffects":[],"defeatPenalty":{"mora":300,"seconds":60},"fieldBoss":{"boss":"FB_GEO_HYPOSTASIS","name":"무상의 바위","seen":["ROCKFALL","UPHEAVAL","IMMUNE","PILLARS","REVIVE"],"victory":false}}
+
+false !== true
+
+    at /home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0141.cjs:22:739
+    at check (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0141.cjs:6:44)
+    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_v0141.cjs:22:42)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+PASS FB_PYRO_REGISVINE: a prepared party at the boss level can win
+PASS FB_OCEANID: a prepared party at the boss level can win
+PASS FB_PRIMO_GEOVISHAP: a prepared party at the boss level can win
+PASS FB_RUIN_SERPENT: a prepared party at the boss level can win
+PASS Liyue ESCORT: native level 6 solo fails; regional-level equipped party survives
+PASS Liyue DEFEND: native level 6 solo fails; regional-level equipped party survives

@@ -1,0 +1,1733 @@
+{
+  "provenance": "Current 0.16.26 reference: three native chambers per floor. Ownership, level, legal enhancement and talents are granted; no combat stats are edited. Natural artifacts are selected from 1500 rolls per actor and upgraded +5. Floors 1-2 retain the historical basic/guard fixture. Floors 3+ use public E/Q, guard and per-battle medicine actions, with a finite initial stock of 12 each of listed meals and 3 each of medkit/potion; no rest-break items are granted or HP reset/revived during a run. Their armor is Jade Bulwark except floor 10, which keeps the historical armor and prioritizes E/Q for its damage race; exact owners/armor are recorded. Floor 3 now has +9 equipment and a natural artifact, floor 6 Lv45, and floor 8 Lv60/+12. Floors 3-6 remain C0; from floor 7 the protagonist and four-star companions are C6 through public unlocks. Floor 12 retains the fixed Diluc/Jean/Zhongli party at C6 and mastery gear. Medicines/food consume real inventory; settled protagonist HP and KO are observed before generic exit recovery. Each floor is tested independently; marks are checked separately. This proves these declared references are solvable, not a natural acquisition time, C0 clear rate or full-season roster.",
+  "runs": [
+    {
+      "floor": 1,
+      "level": 15,
+      "enhance": 7,
+      "artifacts": false,
+      "team": [
+        "MOND_AMBER",
+        "MOND_KLEE",
+        "MOND_ALBEDO"
+      ],
+      "armor": "historical highest-score legal armor",
+      "constellations": {},
+      "policy": "BASIC_AND_GUARD",
+      "itemStock": {},
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              3169,
+              3374
+            ],
+            [
+              "MOND_AMBER",
+              2104,
+              3334
+            ],
+            [
+              "MOND_KLEE",
+              3870,
+              4049
+            ],
+            [
+              "MOND_ALBEDO",
+              3954,
+              3954
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 6,
+          "xp": 0,
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              2723,
+              3374
+            ],
+            [
+              "MOND_AMBER",
+              31,
+              3334
+            ],
+            [
+              "MOND_KLEE",
+              3503,
+              4049
+            ],
+            [
+              "MOND_ALBEDO",
+              3954,
+              3954
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 4,
+          "xp": 0,
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              1466,
+              3374
+            ],
+            [
+              "MOND_AMBER",
+              3029,
+              3334
+            ],
+            [
+              "MOND_KLEE",
+              3311,
+              4049
+            ],
+            [
+              "MOND_ALBEDO",
+              3954,
+              3954
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 2,
+      "level": 20,
+      "enhance": 7,
+      "artifacts": false,
+      "team": [
+        "MOND_FISCHL",
+        "LIYUE_XINGQIU",
+        "MOND_DIONA"
+      ],
+      "armor": "historical highest-score legal armor",
+      "constellations": {},
+      "policy": "BASIC_AND_GUARD",
+      "itemStock": {},
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 4,
+          "xp": 0,
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              4011,
+              4011
+            ],
+            [
+              "MOND_FISCHL",
+              3042,
+              3975
+            ],
+            [
+              "LIYUE_XINGQIU",
+              4219,
+              4219
+            ],
+            [
+              "MOND_DIONA",
+              3542,
+              4212
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 6,
+          "xp": 0,
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              4011,
+              4011
+            ],
+            [
+              "MOND_FISCHL",
+              2910,
+              3975
+            ],
+            [
+              "LIYUE_XINGQIU",
+              3378,
+              4219
+            ],
+            [
+              "MOND_DIONA",
+              3550,
+              4212
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 5,
+          "xp": 0,
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              2991,
+              4011
+            ],
+            [
+              "MOND_FISCHL",
+              3975,
+              3975
+            ],
+            [
+              "LIYUE_XINGQIU",
+              3844,
+              4219
+            ],
+            [
+              "MOND_DIONA",
+              3952,
+              4212
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 3,
+      "level": 25,
+      "enhance": 9,
+      "artifacts": true,
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_NOELLE",
+        "MOND_LISA"
+      ],
+      "armor": {
+        "PLAYER_CUSTOM": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_XIANGLING": "EQ_FB_ARMOR_JADE_BULWARK",
+        "MOND_NOELLE": "EQ_FB_ARMOR_JADE_BULWARK",
+        "MOND_LISA": "EQ_FB_ARMOR_JADE_BULWARK"
+      },
+      "constellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_XIANGLING": 0,
+        "MOND_NOELLE": 0,
+        "MOND_LISA": 0
+      },
+      "policy": "E_Q_AND_TREAT",
+      "itemStock": {
+        "FOOD_SWEET_MADAME": 14,
+        "FOOD_HASH_BROWN": 14,
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "TRPG_MEDKIT": 3,
+        "TRPG_HEALING_POTION": 3
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 2,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [],
+          "protagonistHp": 5793,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              5793,
+              6021
+            ],
+            [
+              "LIYUE_XIANGLING",
+              4269,
+              5968
+            ],
+            [
+              "MOND_NOELLE",
+              6820,
+              6820
+            ],
+            [
+              "MOND_LISA",
+              6391,
+              6644
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 2,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [],
+          "protagonistHp": 6021,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 3,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              6021,
+              6021
+            ],
+            [
+              "LIYUE_XIANGLING",
+              3049,
+              5968
+            ],
+            [
+              "MOND_NOELLE",
+              6820,
+              6820
+            ],
+            [
+              "MOND_LISA",
+              6644,
+              6644
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 3,
+          "actualKo": [],
+          "protagonistHp": 5445,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              5445,
+              6021
+            ],
+            [
+              "LIYUE_XIANGLING",
+              2287,
+              5968
+            ],
+            [
+              "MOND_NOELLE",
+              6820,
+              6820
+            ],
+            [
+              "MOND_LISA",
+              6266,
+              6644
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 4,
+      "level": 30,
+      "enhance": 9,
+      "artifacts": true,
+      "team": [
+        "LIYUE_GAMING",
+        "LIYUE_YUNJIN",
+        "MOND_ROSARIA"
+      ],
+      "armor": {
+        "PLAYER_CUSTOM": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_GAMING": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_YUNJIN": "EQ_FB_ARMOR_JADE_BULWARK",
+        "MOND_ROSARIA": "EQ_FB_ARMOR_JADE_BULWARK"
+      },
+      "constellations": {
+        "PLAYER_CUSTOM": 0,
+        "LIYUE_GAMING": 0,
+        "LIYUE_YUNJIN": 0,
+        "MOND_ROSARIA": 0
+      },
+      "policy": "E_Q_AND_TREAT",
+      "itemStock": {
+        "FOOD_SWEET_MADAME": 14,
+        "FOOD_HASH_BROWN": 14,
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "TRPG_MEDKIT": 3,
+        "TRPG_HEALING_POTION": 3
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 3,
+          "actualKo": [],
+          "protagonistHp": 5262,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              5262,
+              6894
+            ],
+            [
+              "LIYUE_GAMING",
+              6992,
+              7506
+            ],
+            [
+              "LIYUE_YUNJIN",
+              6991,
+              6991
+            ],
+            [
+              "MOND_ROSARIA",
+              7608,
+              7608
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [],
+          "protagonistHp": 3600,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 2,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              3600,
+              6894
+            ],
+            [
+              "LIYUE_GAMING",
+              7506,
+              7506
+            ],
+            [
+              "LIYUE_YUNJIN",
+              6991,
+              6991
+            ],
+            [
+              "MOND_ROSARIA",
+              7608,
+              7608
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 4,
+          "xp": 0,
+          "inputs": 4,
+          "actualKo": [],
+          "protagonistHp": 2129,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              2129,
+              6894
+            ],
+            [
+              "LIYUE_GAMING",
+              5737,
+              7506
+            ],
+            [
+              "LIYUE_YUNJIN",
+              6991,
+              6991
+            ],
+            [
+              "MOND_ROSARIA",
+              6958,
+              7608
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 5,
+      "level": 35,
+      "enhance": 9,
+      "artifacts": true,
+      "team": [
+        "MOND_VENTI",
+        "LIYUE_CHONGYUN",
+        "LIYUE_YAOYAO"
+      ],
+      "armor": {
+        "PLAYER_CUSTOM": "EQ_FB_ARMOR_JADE_BULWARK",
+        "MOND_VENTI": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_CHONGYUN": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_YAOYAO": "EQ_FB_ARMOR_JADE_BULWARK"
+      },
+      "constellations": {
+        "PLAYER_CUSTOM": 0,
+        "MOND_VENTI": 0,
+        "LIYUE_CHONGYUN": 0,
+        "LIYUE_YAOYAO": 0
+      },
+      "policy": "E_Q_AND_TREAT",
+      "itemStock": {
+        "FOOD_SWEET_MADAME": 14,
+        "FOOD_HASH_BROWN": 14,
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "TRPG_MEDKIT": 3,
+        "TRPG_HEALING_POTION": 3
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 5,
+          "xp": 0,
+          "inputs": 4,
+          "actualKo": [],
+          "protagonistHp": 2151,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              2151,
+              8099
+            ],
+            [
+              "MOND_VENTI",
+              9743,
+              10643
+            ],
+            [
+              "LIYUE_CHONGYUN",
+              8174,
+              8683
+            ],
+            [
+              "LIYUE_YAOYAO",
+              7753,
+              8989
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [],
+          "protagonistHp": 8099,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 4,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              8099,
+              8099
+            ],
+            [
+              "MOND_VENTI",
+              10643,
+              10643
+            ],
+            [
+              "LIYUE_CHONGYUN",
+              8683,
+              8683
+            ],
+            [
+              "LIYUE_YAOYAO",
+              8989,
+              8989
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 5,
+          "xp": 0,
+          "inputs": 5,
+          "actualKo": [],
+          "protagonistHp": 1700,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              1700,
+              8099
+            ],
+            [
+              "MOND_VENTI",
+              9687,
+              10643
+            ],
+            [
+              "LIYUE_CHONGYUN",
+              8063,
+              8683
+            ],
+            [
+              "LIYUE_YAOYAO",
+              8989,
+              8989
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 6,
+      "level": 45,
+      "enhance": 10,
+      "artifacts": true,
+      "team": [
+        "MOND_EULA",
+        "LIYUE_XIAO",
+        "LIYUE_BAIZHU"
+      ],
+      "armor": {
+        "PLAYER_CUSTOM": "EQ_FB_ARMOR_JADE_BULWARK",
+        "MOND_EULA": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_XIAO": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_BAIZHU": "EQ_FB_ARMOR_JADE_BULWARK"
+      },
+      "constellations": {
+        "PLAYER_CUSTOM": 0,
+        "MOND_EULA": 0,
+        "LIYUE_XIAO": 0,
+        "LIYUE_BAIZHU": 0
+      },
+      "policy": "E_Q_AND_TREAT",
+      "itemStock": {
+        "FOOD_SWEET_MADAME": 14,
+        "FOOD_HASH_BROWN": 14,
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "TRPG_MEDKIT": 3,
+        "TRPG_HEALING_POTION": 3
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [],
+          "protagonistHp": 3944,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              3944,
+              12430
+            ],
+            [
+              "MOND_EULA",
+              18282,
+              19448
+            ],
+            [
+              "LIYUE_XIAO",
+              21372,
+              23669
+            ],
+            [
+              "LIYUE_BAIZHU",
+              17934,
+              19078
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 3,
+          "actualKo": [],
+          "protagonistHp": 8514,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 4,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              8514,
+              12430
+            ],
+            [
+              "MOND_EULA",
+              17415,
+              19448
+            ],
+            [
+              "LIYUE_XIAO",
+              17554,
+              23669
+            ],
+            [
+              "LIYUE_BAIZHU",
+              19078,
+              19078
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 3,
+          "actualKo": [],
+          "protagonistHp": 7810,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_HASH_BROWN": 3,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1,
+            "TRPG_HEALING_POTION": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              7810,
+              12430
+            ],
+            [
+              "MOND_EULA",
+              19448,
+              19448
+            ],
+            [
+              "LIYUE_XIAO",
+              22864,
+              23669
+            ],
+            [
+              "LIYUE_BAIZHU",
+              19078,
+              19078
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 7,
+      "level": 45,
+      "enhance": 10,
+      "artifacts": true,
+      "team": [
+        "LIYUE_YANFEI",
+        "MOND_MIKA",
+        "LIYUE_BEIDOU"
+      ],
+      "armor": {
+        "PLAYER_CUSTOM": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_YANFEI": "EQ_FB_ARMOR_JADE_BULWARK",
+        "MOND_MIKA": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_BEIDOU": "EQ_FB_ARMOR_JADE_BULWARK"
+      },
+      "constellations": {
+        "PLAYER_CUSTOM": 6,
+        "LIYUE_YANFEI": 6,
+        "MOND_MIKA": 6,
+        "LIYUE_BEIDOU": 6
+      },
+      "policy": "E_Q_AND_TREAT",
+      "itemStock": {
+        "FOOD_SWEET_MADAME": 14,
+        "FOOD_HASH_BROWN": 14,
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_ALMOND_TOFU": 12,
+        "TRPG_MEDKIT": 3,
+        "TRPG_HEALING_POTION": 3
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [],
+          "protagonistHp": 4227,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              4227,
+              12430
+            ],
+            [
+              "LIYUE_YANFEI",
+              12777,
+              15978
+            ],
+            [
+              "MOND_MIKA",
+              12892,
+              12892
+            ],
+            [
+              "LIYUE_BEIDOU",
+              15917,
+              15917
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 2,
+          "xp": 0,
+          "inputs": 1,
+          "actualKo": [],
+          "protagonistHp": 12430,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 2,
+            "FOOD_HASH_BROWN": 2,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "FOOD_ALMOND_TOFU": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              12430,
+              12430
+            ],
+            [
+              "LIYUE_YANFEI",
+              10827,
+              15978
+            ],
+            [
+              "MOND_MIKA",
+              12892,
+              12892
+            ],
+            [
+              "LIYUE_BEIDOU",
+              15917,
+              15917
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 6,
+          "xp": 0,
+          "inputs": 5,
+          "actualKo": [
+            "MOND_MIKA",
+            "LIYUE_BEIDOU"
+          ],
+          "protagonistHp": 7604,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              7604,
+              12430
+            ],
+            [
+              "LIYUE_YANFEI",
+              15188,
+              15978
+            ],
+            [
+              "MOND_MIKA",
+              0,
+              12892
+            ],
+            [
+              "LIYUE_BEIDOU",
+              0,
+              15917
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 8,
+      "level": 60,
+      "enhance": 12,
+      "artifacts": true,
+      "team": [
+        "MOND_RAZOR",
+        "LIYUE_TARTAGLIA",
+        "LIYUE_XIANYUN"
+      ],
+      "armor": {
+        "PLAYER_CUSTOM": "EQ_FB_ARMOR_JADE_BULWARK",
+        "MOND_RAZOR": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_TARTAGLIA": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_XIANYUN": "EQ_FB_ARMOR_JADE_BULWARK"
+      },
+      "constellations": {
+        "PLAYER_CUSTOM": 6,
+        "MOND_RAZOR": 6,
+        "LIYUE_TARTAGLIA": 0,
+        "LIYUE_XIANYUN": 0
+      },
+      "policy": "GUARD_AND_TREAT",
+      "itemStock": {
+        "FOOD_SWEET_MADAME": 14,
+        "FOOD_HASH_BROWN": 14,
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_PILE_EM_UP": 12,
+        "TRPG_MEDKIT": 3,
+        "TRPG_HEALING_POTION": 3
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 3,
+          "actualKo": [],
+          "protagonistHp": 13742,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              13742,
+              20251
+            ],
+            [
+              "MOND_RAZOR",
+              21502,
+              24919
+            ],
+            [
+              "LIYUE_TARTAGLIA",
+              34717,
+              35522
+            ],
+            [
+              "LIYUE_XIANYUN",
+              39980,
+              42083
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 3,
+          "actualKo": [],
+          "protagonistHp": 10983,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 4,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              10983,
+              20251
+            ],
+            [
+              "MOND_RAZOR",
+              19370,
+              24919
+            ],
+            [
+              "LIYUE_TARTAGLIA",
+              33440,
+              35522
+            ],
+            [
+              "LIYUE_XIANYUN",
+              37028,
+              42083
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 2,
+          "xp": 0,
+          "inputs": 1,
+          "actualKo": [],
+          "protagonistHp": 18276,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_HASH_BROWN": 4,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "FOOD_PILE_EM_UP": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              18276,
+              20834
+            ],
+            [
+              "MOND_RAZOR",
+              25071,
+              25071
+            ],
+            [
+              "LIYUE_TARTAGLIA",
+              35229,
+              35229
+            ],
+            [
+              "LIYUE_XIANYUN",
+              42931,
+              42931
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 9,
+      "level": 55,
+      "enhance": 10,
+      "artifacts": true,
+      "team": [
+        "MOND_DAHLIA",
+        "LIYUE_XINYAN",
+        "LIYUE_LANYAN"
+      ],
+      "armor": {
+        "PLAYER_CUSTOM": "EQ_FB_ARMOR_JADE_BULWARK",
+        "MOND_DAHLIA": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_XINYAN": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_LANYAN": "EQ_FB_ARMOR_JADE_BULWARK"
+      },
+      "constellations": {
+        "PLAYER_CUSTOM": 6,
+        "MOND_DAHLIA": 6,
+        "LIYUE_XINYAN": 6,
+        "LIYUE_LANYAN": 6
+      },
+      "policy": "E_Q_AND_TREAT",
+      "itemStock": {
+        "FOOD_SWEET_MADAME": 14,
+        "FOOD_HASH_BROWN": 14,
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "TRPG_MEDKIT": 3,
+        "TRPG_HEALING_POTION": 3
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 2,
+          "xp": 0,
+          "inputs": 1,
+          "actualKo": [],
+          "protagonistHp": 16064,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              16064,
+              16064
+            ],
+            [
+              "MOND_DAHLIA",
+              18087,
+              18087
+            ],
+            [
+              "LIYUE_XINYAN",
+              19402,
+              19402
+            ],
+            [
+              "LIYUE_LANYAN",
+              18768,
+              18768
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [],
+          "protagonistHp": 15313,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              15313,
+              15313
+            ],
+            [
+              "MOND_DAHLIA",
+              17732,
+              17732
+            ],
+            [
+              "LIYUE_XINYAN",
+              19402,
+              19402
+            ],
+            [
+              "LIYUE_LANYAN",
+              17926,
+              17926
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 2,
+          "xp": 0,
+          "inputs": 1,
+          "actualKo": [],
+          "protagonistHp": 16064,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 3,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              16064,
+              16064
+            ],
+            [
+              "MOND_DAHLIA",
+              18087,
+              18087
+            ],
+            [
+              "LIYUE_XINYAN",
+              19402,
+              19402
+            ],
+            [
+              "LIYUE_LANYAN",
+              18768,
+              18768
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 10,
+      "level": 60,
+      "enhance": 12,
+      "artifacts": true,
+      "team": [
+        "MOND_MONA",
+        "LIYUE_KEQING",
+        "MOND_SUCROSE"
+      ],
+      "armor": {
+        "PLAYER_CUSTOM": "EQ_ARMOR_IRON_GUARD",
+        "MOND_MONA": "EQ_ARMOR_IRON_GUARD",
+        "LIYUE_KEQING": "EQ_ARMOR_IRON_GUARD",
+        "MOND_SUCROSE": "EQ_ARMOR_IRON_GUARD"
+      },
+      "constellations": {
+        "PLAYER_CUSTOM": 6,
+        "MOND_MONA": 0,
+        "LIYUE_KEQING": 0,
+        "MOND_SUCROSE": 6
+      },
+      "policy": "E_Q_DAMAGE_RACE",
+      "itemStock": {
+        "FOOD_SWEET_MADAME": 14,
+        "FOOD_HASH_BROWN": 14,
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "TRPG_MEDKIT": 3,
+        "TRPG_HEALING_POTION": 3
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 2,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [],
+          "protagonistHp": 5819,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              5819,
+              19881
+            ],
+            [
+              "MOND_MONA",
+              22912,
+              27812
+            ],
+            [
+              "LIYUE_KEQING",
+              30268,
+              30268
+            ],
+            [
+              "MOND_SUCROSE",
+              20665,
+              20665
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 2,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [],
+          "protagonistHp": 5280,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 2,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              5280,
+              19881
+            ],
+            [
+              "MOND_MONA",
+              22973,
+              27812
+            ],
+            [
+              "LIYUE_KEQING",
+              30268,
+              30268
+            ],
+            [
+              "MOND_SUCROSE",
+              20665,
+              20665
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [
+            "PLAYER_CUSTOM"
+          ],
+          "protagonistHp": 0,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_HASH_BROWN": 2,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              1989,
+              19881
+            ],
+            [
+              "MOND_MONA",
+              22410,
+              27812
+            ],
+            [
+              "LIYUE_KEQING",
+              30268,
+              30268
+            ],
+            [
+              "MOND_SUCROSE",
+              20665,
+              20665
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 11,
+      "level": 60,
+      "enhance": 12,
+      "artifacts": true,
+      "team": [
+        "LIYUE_HUTAO",
+        "LIYUE_GANYU",
+        "LIYUE_NINGGUANG"
+      ],
+      "armor": {
+        "PLAYER_CUSTOM": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_HUTAO": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_GANYU": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_NINGGUANG": "EQ_FB_ARMOR_JADE_BULWARK"
+      },
+      "constellations": {
+        "PLAYER_CUSTOM": 6,
+        "LIYUE_HUTAO": 0,
+        "LIYUE_GANYU": 0,
+        "LIYUE_NINGGUANG": 6
+      },
+      "policy": "E_Q_AND_TREAT",
+      "itemStock": {
+        "FOOD_SWEET_MADAME": 14,
+        "FOOD_HASH_BROWN": 14,
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "TRPG_MEDKIT": 3,
+        "TRPG_HEALING_POTION": 3
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 3,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [],
+          "protagonistHp": 4615,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              4615,
+              20093
+            ],
+            [
+              "LIYUE_HUTAO",
+              32273,
+              32273
+            ],
+            [
+              "LIYUE_GANYU",
+              38654,
+              38654
+            ],
+            [
+              "LIYUE_NINGGUANG",
+              22102,
+              22102
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 2,
+          "xp": 0,
+          "inputs": 1,
+          "actualKo": [],
+          "protagonistHp": 12265,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_HASH_BROWN": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              12265,
+              20093
+            ],
+            [
+              "LIYUE_HUTAO",
+              16099,
+              32273
+            ],
+            [
+              "LIYUE_GANYU",
+              38654,
+              38654
+            ],
+            [
+              "LIYUE_NINGGUANG",
+              16624,
+              22102
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 4,
+          "xp": 0,
+          "inputs": 2,
+          "actualKo": [
+            "PLAYER_CUSTOM"
+          ],
+          "protagonistHp": 0,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 3,
+            "FOOD_HASH_BROWN": 2,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4,
+            "TRPG_MEDKIT": 1
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              2010,
+              20093
+            ],
+            [
+              "LIYUE_HUTAO",
+              25914,
+              32273
+            ],
+            [
+              "LIYUE_GANYU",
+              37225,
+              38654
+            ],
+            [
+              "LIYUE_NINGGUANG",
+              22102,
+              22102
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 12,
+      "level": 60,
+      "enhance": 12,
+      "artifacts": true,
+      "team": [
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "LIYUE_ZHONGLI"
+      ],
+      "armor": {
+        "PLAYER_CUSTOM": "EQ_FB_ARMOR_JADE_BULWARK",
+        "MOND_DILUC": "EQ_FB_ARMOR_JADE_BULWARK",
+        "MOND_JEAN": "EQ_FB_ARMOR_JADE_BULWARK",
+        "LIYUE_ZHONGLI": "EQ_FB_ARMOR_JADE_BULWARK"
+      },
+      "constellations": {
+        "PLAYER_CUSTOM": 6,
+        "MOND_DILUC": 6,
+        "MOND_JEAN": 6,
+        "LIYUE_ZHONGLI": 6
+      },
+      "policy": "GUARD_AND_TREAT",
+      "itemStock": {
+        "FOOD_SWEET_MADAME": 14,
+        "FOOD_HASH_BROWN": 14,
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "TRPG_MEDKIT": 3,
+        "TRPG_HEALING_POTION": 3
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "NEXT",
+          "rounds": 4,
+          "xp": 0,
+          "inputs": 4,
+          "actualKo": [],
+          "protagonistHp": 19987,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              19987,
+              19987
+            ],
+            [
+              "MOND_DILUC",
+              34871,
+              34871
+            ],
+            [
+              "MOND_JEAN",
+              35329,
+              35329
+            ],
+            [
+              "LIYUE_ZHONGLI",
+              52140,
+              52140
+            ]
+          ]
+        },
+        {
+          "chamber": 2,
+          "outcome": "NEXT",
+          "rounds": 4,
+          "xp": 0,
+          "inputs": 4,
+          "actualKo": [],
+          "protagonistHp": 19343,
+          "consumed": {
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              19343,
+              19987
+            ],
+            [
+              "MOND_DILUC",
+              34871,
+              34871
+            ],
+            [
+              "MOND_JEAN",
+              35329,
+              35329
+            ],
+            [
+              "LIYUE_ZHONGLI",
+              52140,
+              52140
+            ]
+          ]
+        },
+        {
+          "chamber": 3,
+          "outcome": "CLEARED",
+          "rounds": 4,
+          "xp": 0,
+          "inputs": 4,
+          "actualKo": [],
+          "protagonistHp": 19987,
+          "consumed": {
+            "FOOD_SWEET_MADAME": 1,
+            "FOOD_ADEPTUS_TEMPTATION": 4,
+            "FOOD_JADE_PARCELS": 4,
+            "FOOD_SATISFYING_SALAD": 4
+          },
+          "party": [
+            [
+              "PLAYER_CUSTOM",
+              19987,
+              19987
+            ],
+            [
+              "MOND_DILUC",
+              34871,
+              34871
+            ],
+            [
+              "MOND_JEAN",
+              35329,
+              35329
+            ],
+            [
+              "LIYUE_ZHONGLI",
+              52140,
+              52140
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "floor": 4,
+      "gate": "Lv.25 with +7 gear",
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "DOWNED",
+          "rounds": 5
+        }
+      ]
+    },
+    {
+      "floor": 8,
+      "gate": "no fixed or lingering damage",
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "TIMEOUT",
+          "rounds": 14
+        }
+      ]
+    },
+    {
+      "floor": 10,
+      "gate": "weapons below +10",
+      "rooms": [
+        {
+          "chamber": 1,
+          "outcome": "DEFEAT",
+          "rounds": 9
+        }
+      ]
+    }
+  ]
+}

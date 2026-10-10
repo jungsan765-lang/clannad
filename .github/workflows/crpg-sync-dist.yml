@@ -8,10 +8,9 @@ on:
       - '!genshin-crpg/content/archive/**'
       - 'genshin-crpg/assets/**'
       - 'genshin-crpg/audio/**'
-      - 'genshin-crpg/tools/build.py'
-      - 'genshin-crpg/tools/engine_identity.py'
-      - 'genshin-crpg/server/protocol.json'
-      - 'genshin-crpg/server/compatibility.json'
+      - 'genshin-crpg/tests/**'
+      - 'genshin-crpg/tools/**'
+      - 'genshin-crpg/server/**'
       - 'genshin-crpg/package.json'
       - 'genshin-crpg/package-lock.json'
       - '.github/workflows/crpg-sync-dist.yml'
@@ -23,10 +22,9 @@ on:
       - '!genshin-crpg/content/archive/**'
       - 'genshin-crpg/assets/**'
       - 'genshin-crpg/audio/**'
-      - 'genshin-crpg/tools/build.py'
-      - 'genshin-crpg/tools/engine_identity.py'
-      - 'genshin-crpg/server/protocol.json'
-      - 'genshin-crpg/server/compatibility.json'
+      - 'genshin-crpg/tests/**'
+      - 'genshin-crpg/tools/**'
+      - 'genshin-crpg/server/**'
       - 'genshin-crpg/package.json'
       - 'genshin-crpg/package-lock.json'
       - '.github/workflows/crpg-sync-dist.yml'
@@ -59,6 +57,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          # Build the exact source SHA recorded in the test release manifest.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           sparse-checkout: |
             genshin-crpg
@@ -98,6 +98,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          # Build the exact source SHA recorded in the test release manifest.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           sparse-checkout: |
             genshin-crpg
@@ -140,6 +142,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          # Build the exact source SHA recorded in the test release manifest.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
           sparse-checkout: |
             genshin-crpg

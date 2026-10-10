@@ -1,7 +1,7 @@
 'use strict';
 // Spiral Abyss (0.14.3 rules): three rooms per floor, rest breaks, floor marks, full reset only, fixed reward table.
 const assert=require('node:assert/strict'),{fresh,R,db,fs,root,c}=require('./helpers_v011.cjs');
-const {fixture,runFloor,buildSetup,SETUPS,fight,hpOf}=require('./helpers_abyss.cjs'),{artifacts}=require('./helpers_abyss_artifacts.cjs');
+const {fixture,runFloor,buildSetup,SETUPS,fight,hpOf}=require('./helpers_abyss_ci_v01626.cjs'),{artifacts}=require('./helpers_abyss_artifacts.cjs');
 const CFG=c.CRPGRuntime.abyssConfig,report=[],plain=x=>JSON.parse(JSON.stringify(x));
 assert.equal(CFG.version,2);assert.equal(CFG.markName,'나선 각인');assert.equal(CFG.floors.length,12);
 assert.equal(CFG.floors.reduce((n,f)=>n+(f.reward.primogem||0),0),1600,'floors 1–8 pay 1,600 Primogems in all');assert(CFG.floors.slice(8).every(f=>!f.reward.primogem));
@@ -20,8 +20,11 @@ assert.throws(()=>fresh().action('ABYSS_ENTER',{floor:1}),/머스크 암초/);
 for(let f=1;f<=12;f++){
  const {r,s,breakHook}=buildSetup(f),ids=r.abyssParty();r.action('OPERATOR_DEBUG',{op:'abyss_unlock',value:f});
  const out=runFloor(r,f,{food:s.food||{},breakHook});
- report.push({floor:f,level:s.lv,enhance:s.enh,artifacts:!!s.art,team:s.team,rooms:out.rooms.map(({chamber,outcome,rounds})=>({chamber,outcome,rounds}))});
+ report.push({floor:f,level:s.lv,enhance:s.enh,artifacts:!!s.art,team:s.team,armor:s.armor||'historical highest-score legal armor',constellations:s.constellations||{},policy:s.policy||'BASIC_AND_GUARD',itemStock:s.itemStock||{},rooms:out.rooms});
  assert(out.cleared,'floor '+f+' clears with its reference party: '+JSON.stringify(out.rooms.map(x=>[x.outcome,x.rounds])));
+ assert.equal(out.rooms.length,3,'a clear completes all three native chambers');
+ for(const room of out.rooms)if(room.outcome==='NEXT'&&room.actualKo)assert(!room.actualKo.includes('PLAYER_CUSTOM'),'a downed protagonist cannot continue to the next chamber');
+ for(const [item,n] of Object.entries(s.itemStock||{}))assert(out.rooms.reduce((sum,room)=>sum+(room.consumed?.[item]||0),0)<=n,item+' stays within the declared finite stock');
  assert(out.rooms.every(x=>x.xp===0),'no battle XP inside the Abyss');
  for(const id of ids.slice(1))assert.equal(r.s.abyss.tags[id],f,id+' carries the floor '+f+' mark');
  assert.equal(r.s.abyss.tags.PLAYER_CUSTOM,undefined);assert.equal(r.s.abyss.active,null);
@@ -63,7 +66,8 @@ for(const [f,o,why] of [[4,{lv:25,enh:7,art:0},'Lv.25 with +7 gear'],[8,{gear:{}
  r.action('MENU',{screen:'LOCATION'});
  const edge=r.rows('47_MAP_EDGE_DB').find(e=>e[1]==='MAP_V141_MUSK_REEF'&&e[11]==='ACTIVE');
  assert.match(r.actionReason('MOVE',{edge:edge[0]}),/나선비경 1층 도전 중/);assert.throws(()=>r.action('MOVE',{edge:edge[0]}),/나선비경 1층 도전 중/);
- r.giveItem('MAT_CHAR_EXP_HERO',1);assert.throws(()=>r.action('USE_ITEM',{item:'MAT_CHAR_EXP_HERO',owner:'MOND_AMBER'}),/음식과 치료품/);
+ r.giveItem('MAT_CHAR_EXP_HERO',1);assert.throws(()=>r.action('USE_ITEM',{item:'MAT_CHAR_EXP_HERO',owner:'MOND_AMBER'}),err=>err.code==='ACTION_LOCK'&&/방 사이에서는 음식만/.test(err.message));
+ r.giveItem('TRPG_MEDKIT',1);assert.throws(()=>r.action('USE_ITEM',{item:'TRPG_MEDKIT',owner:'MOND_AMBER'}),err=>err.code==='ACTION_LOCK'&&/전투 치료품은 전투 중에만/.test(err.message));
  assert.throws(()=>r.action('PARTY',{char:'MOND_NOELLE',slot:2}),/나선비경/);
  assert.throws(()=>r.action('ABYSS_REWARD',{floor:1,equipment:CFG.rewards[0]}));
  assert.match(r.abyssFloorReason(2),/1층 도전이 진행 중/);
@@ -147,5 +151,5 @@ const pair=r=>{const b=r.s.runtime;return [b.actors.find(x=>x.side==='ALLY'&&x.s
  m.finishBattle(true);assert.equal(m.s.abyss.active.phase,'BREAK');assert.equal(m.s.abyss.active.chamber,2);
 }
 fs.mkdirSync(root+'/reports/abyss',{recursive:true});
-fs.writeFileSync(root+'/reports/abyss/balance-v0143.json',JSON.stringify({provenance:'Spiral Abyss 0.14.4: three rooms per floor with rest breaks. Synthetic level/gear setup with native stat formulas; natural artifact rolls selected from 1500 drops per actor. The protagonist only uses basic attacks, companions follow their own AI, heal food is eaten between rooms when HP is below 75%. Each floor is tested on its own; the mark lifecycle is tested separately. This proves solvability, not a player clear rate.',runs:report},null,2)+'\n');
-console.log('PASS Spiral Abyss 0.14.4: 12 floors x 3 rooms through native combat, rest-break locks, HP carry-over, room rules, floor marks, full reset only, reward table, 0.14.2 save migration');
+fs.writeFileSync(root+'/reports/abyss/balance-current-v01626.json',JSON.stringify({provenance:'Current 0.16.26 reference: three native chambers per floor. Ownership, level, legal enhancement and talents are granted; no combat stats are edited. Natural artifacts are selected from 1500 rolls per actor and upgraded +5. Floors 1-2 retain the historical basic/guard fixture. Floors 3+ use public E/Q, guard and per-battle medicine actions, with a finite initial stock of 12 each of listed meals and 3 each of medkit/potion; no rest-break items are granted or HP reset/revived during a run. Their armor is Jade Bulwark except floor 10, which keeps the historical armor and prioritizes E/Q for its damage race; exact owners/armor are recorded. Floor 3 now has +9 equipment and a natural artifact, floor 6 Lv45, and floor 8 Lv60/+12. Floors 3-6 remain C0; from floor 7 the protagonist and four-star companions are C6 through public unlocks. Floor 12 retains the fixed Diluc/Jean/Zhongli party at C6 and mastery gear. Medicines/food consume real inventory; settled protagonist HP and KO are observed before generic exit recovery. Each floor is tested independently; marks are checked separately. This proves these declared references are solvable, not a natural acquisition time, C0 clear rate or full-season roster.',runs:report},null,2)+'\n');
+console.log('PASS current Spiral Abyss: 12 floors x 3 native chambers, declared legal investment and public actions, rest-break locks, HP carry-over, room rules, floor marks, full reset only, reward table, 0.14.2 save migration');

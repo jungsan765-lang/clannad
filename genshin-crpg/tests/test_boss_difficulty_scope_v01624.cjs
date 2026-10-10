@@ -2,20 +2,24 @@
 // Scope/save contracts only. Declared ownership, story access and ordinary gear
 // are entry fixtures; no damage, RNG, enemy stats, victories or rewards are forced.
 // The old engine is reconstructed from verified published blobs plus before-source
-// overlays, or --baseline-root. Missing/mismatched proof is a hard failure.
+// overlays and authentic supplemental blobs, or --baseline-root.
+// The complete published source manifest remains mandatory: no unverified
+// fallback can impersonate a historical engine after another source change.
+// Missing/mismatched proof is a hard failure.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict'),crypto=require('node:crypto');
 const H=require('../tools/audit_protagonist_v01618.cjs'),ROOT=path.resolve(__dirname,'..'),copy=x=>JSON.parse(JSON.stringify(x));
 const arg=k=>{const i=process.argv.indexOf(k);return i<0?undefined:process.argv[i+1];};
 const BEFORE=path.resolve(arg('--before')||path.join(ROOT,'docs/data/balance_v01624/source_before'));
 const MANIFEST=path.resolve(arg('--manifest')||path.join(BEFORE,'published_source_manifest.json'));
 const BASELINE=arg('--baseline-root')?path.resolve(arg('--baseline-root')):null;
+const SUPPLEMENT=path.join(ROOT,'tests/fixtures/boss_scope_v01623');
 const output=arg('--out'),requireRecordedQa=process.argv.includes('--require-recorded-qa'),sha=x=>crypto.createHash('sha256').update(x).digest('hex');
 const blob=b=>crypto.createHash('sha1').update(Buffer.from('blob '+b.length+'\0')).update(b).digest('hex');
 const NOW=1791615600000,FixedDate=class extends Date{constructor(...args){super(...(args.length?args:[NOW]));}static now(){return NOW;}};
 const report={version:'0.16.24',scope:'Fresh public boss entry, baseline catalog and exact numeric override precedence; nonchallenge scopes and genuine 0.16.23 PENDING/WAIT_PLAYER saved-battle preservation. No fight difficulty, natural acquisition or full-campaign claim.',fixturePolicy:'One Traveler and three owned 4-star allies, equal native boss level/legal phase/max base talents, ordinary crafted gear +3 below Lv30 or +6 thereafter, base cap10 and no artifacts/exclusive weapons/boss material gear. Story/first-clear flags and initial Mora/HP are declared entry preparation. Old WAIT saves follow native COMBAT_BEGIN and one legal player skill; no forced victory or roll.',checks:[]};
 function check(id,fn){try{const evidence=fn();report.checks.push({id,passed:true,evidence});console.log('PASS '+id);}catch(e){report.checks.push({id,passed:false,error:e.stack});console.error('FAIL '+id+' '+e.message);}}
 function equal(a,b,label){assert.deepEqual(copy(a),copy(b),label);}
-function oldFile(relative){if(BASELINE)return path.join(BASELINE,relative);const overlay=path.join(BEFORE,relative);return fs.existsSync(overlay)?overlay:path.join(ROOT,relative);}
+function oldFile(relative){if(BASELINE)return path.join(BASELINE,relative);const supplement=path.join(SUPPLEMENT,relative);if(fs.existsSync(supplement))return supplement;const overlay=path.join(BEFORE,relative);return fs.existsSync(overlay)?overlay:path.join(ROOT,relative);}
 let proof,oldEnv,env,specs,catalog,dbBefore;
 const preparedFixtures=new WeakMap();
 function load(old){const read=relative=>fs.readFileSync(old?oldFile(relative):path.join(ROOT,relative)),context=vm.createContext({console,Date:FixedDate,setTimeout,clearTimeout}),hash=crypto.createHash('sha256');
@@ -43,10 +47,10 @@ function mock(e,spec){const r=new e.R(e.db);r.installGrowthContent();const row=r
  if(spec.kind==='FIELD'){a.fb={};a.atk=Math.round(a.atk*(e.api.formationConfig.enemyAtk??1));}return{r,a};
 }
 
-check('genuine_published_baseline_and_qa_db_identity',()=>{proof=JSON.parse(fs.readFileSync(MANIFEST));assert.match(proof.commit,/^[a-f0-9]{40}$/);assert(Array.isArray(proof.entries)&&proof.entries.length>100,'full published source proof');let files=0;
+check('genuine_published_baseline_and_qa_db_identity',()=>{proof=JSON.parse(fs.readFileSync(MANIFEST));assert.match(proof.commit,/^[a-f0-9]{40}$/);assert(Array.isArray(proof.entries)&&proof.entries.length>100,'full published source proof');if(!BASELINE){const supplement=JSON.parse(fs.readFileSync(path.join(SUPPLEMENT,'provenance.json')));assert.equal(supplement.baselineCommit,proof.commit,'supplement belongs to the immutable published baseline');for(const entry of supplement.files){const original=proof.entries.find(e=>e.path.endsWith('/'+entry.path));assert(original,'supplement is part of the published source manifest');assert.equal(entry.sha,original.sha,'supplement records the genuine published blob');assert.equal(blob(fs.readFileSync(path.join(SUPPLEMENT,entry.path))),entry.sha,'authentic supplemental blob: '+entry.path);}}let files=0;
  for(const entry of proof.entries){const at=entry.path.indexOf('/source/');if(at<0||entry.type!=='blob')continue;const relative=entry.path.slice(at+1),content=fs.readFileSync(oldFile(relative));assert.equal(blob(content),entry.sha,'published old blob: '+relative);files++;}
  assert(files>100);equal(fs.readFileSync(oldFile('source/index.html')).toString(),fs.readFileSync(path.join(ROOT,'source/index.html')).toString(),'unchanged engine load order');equal(fs.readFileSync(oldFile('source/presentation.js')).toString(),fs.readFileSync(path.join(ROOT,'source/presentation.js')).toString(),'unchanged presentation');
- oldEnv=load(true);env=load(false);assert.equal(oldEnv.rawDbSHA256,env.rawDbSHA256,'same actual DB for old/new engine comparison');if(requireRecordedQa){assert.equal(oldEnv.rawDbSHA256,proof.qaDbSHA256,'old recorded QA database fixture');assert.equal(env.rawDbSHA256,proof.qaDbSHA256,'current recorded QA database fixture');}equal(oldEnv.db,env.db,'same actual diagnostic DB, not production-authored equality');dbBefore=sha(JSON.stringify(env.db));report.baseline={commit:proof.commit,sourceFiles:files,fingerprint:oldEnv.fingerprint,dbSHA256:env.rawDbSHA256,recordedQADbSHA256:proof.qaDbSHA256,matchesRecordedQA:env.rawDbSHA256===proof.qaDbSHA256,requiresRecordedQA:requireRecordedQa,caveat:'Published source identity is verified. Actual old/new DB equality is required; recorded local QA DB identity is enforced only with --require-recorded-qa. This does not assert authored production DB equals the QA fixture.',mode:BASELINE?'full baseline root':'verified before-source overlay'};report.fingerprint=env.fingerprint;return report.baseline;
+ oldEnv=load(true);env=load(false);assert.equal(oldEnv.rawDbSHA256,env.rawDbSHA256,'same actual DB for old/new engine comparison');if(requireRecordedQa){assert.equal(oldEnv.rawDbSHA256,proof.qaDbSHA256,'old recorded QA database fixture');assert.equal(env.rawDbSHA256,proof.qaDbSHA256,'current recorded QA database fixture');}equal(oldEnv.db,env.db,'same actual diagnostic DB, not production-authored equality');dbBefore=sha(JSON.stringify(env.db));report.baseline={commit:proof.commit,sourceFiles:files,fingerprint:oldEnv.fingerprint,dbSHA256:env.rawDbSHA256,recordedQADbSHA256:proof.qaDbSHA256,matchesRecordedQA:env.rawDbSHA256===proof.qaDbSHA256,requiresRecordedQA:requireRecordedQa,caveat:'Published source identity is verified. Actual old/new DB equality is required; recorded local QA DB identity is enforced only with --require-recorded-qa. This does not assert authored production DB equals the QA fixture.',mode:BASELINE?'full baseline root':'verified before-source overlay and historical blob supplement'};report.fingerprint=env.fingerprint;return report.baseline;
 });
 if(!oldEnv||!env){report.total=report.checks.length;report.failed=report.total;report.passed=0;if(output){fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');}process.exitCode=1;}
 else{
