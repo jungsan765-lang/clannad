@@ -1,0 +1,24 @@
+{
+  "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+  "command": [
+    "node",
+    "tests/test_inn_recovery_pricing_v01615.cjs"
+  ],
+  "startedAt": "2026-10-10T10:12:44.798938+00:00",
+  "endedAt": "2026-10-10T10:13:18.367152+00:00",
+  "seconds": 33.274,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "tests/test_skill_rhythm_ownership_v01625.cjs": {
+      "before": "1fe4773bdbccfe5c39763fb5815ebefac12a066ccc134a08c35459d3faa707ee",
+      "after": "85b391115db56ebaedab0bca1eb4a0fc1fec469680a828cda5603d003352b381"
+    }
+  },
+  "testSha256": "60f175020b68ac97d929e17d53741e19b1c97bf3317fa7b72134b04063b40332",
+  "generatedEngineSha256": "94375793eb78c78d83eacf38759cccf1b1bca3060aec0fe3268acdab14842409",
+  "stdoutSha256": "db4e773fbaf942e6e9bb89e2444426ec6f8572e9df582dd851fabedccfe53ba5",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_inn_recovery_pricing_v01615.stdout.log",
+  "stderrLog": "test_inn_recovery_pricing_v01615.stderr.log"
+}

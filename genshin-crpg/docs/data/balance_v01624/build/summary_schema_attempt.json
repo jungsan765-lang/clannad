@@ -1,0 +1,8 @@
+{
+  "exitCode": 1,
+  "directory": "three_engines_final",
+  "productContractFailures": 0,
+  "failure": "Aggregator expected numeric failed/total keys; pressure contract intentionally stored checks array and printed its summary. All159field+51targeting+21sourcepressure contracts passed.",
+  "fix": "Aggregate the actual checks array when numeric summary keys are absent; keep the same failure assertions, no product or contract-test changes.",
+  "finalDirectory": "three_engines_frozen"
+}

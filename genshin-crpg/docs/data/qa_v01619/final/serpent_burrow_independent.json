@@ -1,0 +1,93 @@
+{
+  "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "scope": "Opened armor is a declared boundary fixture. BURROW/EMERGE, damage, status END and serialization are native. No combat outcome claimed.",
+  "checks": [
+    {
+      "name": "new_open_armor_burrow_blocks_applyDamage_FIELD",
+      "passed": true,
+      "evidence": {
+        "before": 83496,
+        "after": 83496,
+        "sourceKind": "FIELD",
+        "element": "불"
+      }
+    },
+    {
+      "name": "new_open_armor_burrow_blocks_applyDamage_REACTION_DOT",
+      "passed": true,
+      "evidence": {
+        "before": 83496,
+        "after": 83496,
+        "sourceKind": "REACTION_DOT",
+        "element": "번개"
+      }
+    },
+    {
+      "name": "new_open_armor_burrow_blocks_applyDamage_REACTION",
+      "passed": true,
+      "evidence": {
+        "before": 83496,
+        "after": 83496,
+        "sourceKind": "REACTION",
+        "element": "풀"
+      }
+    },
+    {
+      "name": "new_open_armor_burrow_blocks_applyDamage_OBJECT",
+      "passed": true,
+      "evidence": {
+        "before": 83496,
+        "after": 83496,
+        "sourceKind": "OBJECT",
+        "element": "물"
+      }
+    },
+    {
+      "name": "new_open_armor_burrow_blocks_applyDamage_DIRECT",
+      "passed": true,
+      "evidence": {
+        "before": 83496,
+        "after": 83496,
+        "sourceKind": null,
+        "element": "물리"
+      }
+    },
+    {
+      "name": "native_typed_damage_and_END_dot_cannot_hit_new_burrow",
+      "passed": true,
+      "evidence": {
+        "before": 83496,
+        "after": 83496,
+        "roundAfter": 2
+      }
+    },
+    {
+      "name": "new_burrow_immunity_survives_native_save_reload",
+      "passed": true,
+      "evidence": {
+        "before": 83496,
+        "after": 83496,
+        "revision": 2
+      }
+    },
+    {
+      "name": "legacy_open_armor_direct_DOT_rule_remains",
+      "passed": true,
+      "evidence": {
+        "before": 83496,
+        "after": 83396,
+        "legacyRevisionAbsent": true
+      }
+    },
+    {
+      "name": "emerge_restores_normal_native_damage",
+      "passed": true,
+      "evidence": {
+        "before": 83496,
+        "after": 83396
+      }
+    }
+  ],
+  "total": 9,
+  "failed": 0
+}

@@ -1,0 +1,10 @@
+{"leaf":"K1","status":"PASS","actions":695,"terminal":"SCREEN:CRPG_MAIN","battles":[["EG_ISK_L03_GOLDEN",3],["EG_ISK_L04_OSIAL",10]],"restores":58}
+{"leaf":"K2","status":"PASS","actions":791,"terminal":"SCREEN:CRPG_MAIN","battles":[["EG_ISK_L03_GOLDEN",3],["EG_ISK_L04_OSIAL",10]],"restores":59}
+{"leaf":"AA1","status":"PASS","actions":507,"terminal":"SCREEN:CRPG_MAIN","battles":[["EG_ISK_L04_AA1_EVAC",5]],"restores":29}
+{"leaf":"AA2","status":"PASS","actions":534,"terminal":"SCREEN:CRPG_MAIN","battles":[["EG_ISK_L04_AA2_CART",5]],"restores":27}
+{"leaf":"AB1","status":"PASS","actions":528,"terminal":"SCREEN:CRPG_MAIN","battles":[["EG_ISK_L04_AB1_STREET",5]],"restores":25}
+{"leaf":"AB2","status":"PASS","actions":567,"terminal":"SCREEN:CRPG_MAIN","battles":[["EG_ISK_L04_AB2_STORE",5]],"restores":38}
+{"leaf":"B1","status":"PASS","actions":465,"terminal":"SCREEN:CRPG_MAIN","battles":[["EG_ISK_L04_B1_ROAD",5]],"restores":30}
+{"leaf":"B2","status":"PASS","actions":461,"terminal":"SCREEN:CRPG_MAIN","battles":[["EG_ISK_L04_B2_BOAT",5]],"restores":32}
+{"leaf":"TRV_A","status":"FAIL","actions":733,"battles":[["EG_LIYUE_HILI_ROCK",2],["EG_LIYUE_LOCAL_LY_DETAIL_GUILI_2",1],["EG_LIYUE_LOCAL_LY_DETAIL_LUHUA_1",1],["EG_TREASURE_PATROL",2],["EG_LIYUE_LOCAL_LIYUE_PLAINS_1",1],["EG_FATUI_PATROL",26]],"restores":38,"error":{"code":"ERR_ASSERTION","message":"real battle lost","stack":["AssertionError [ERR_ASSERTION]: real battle lost","    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_liyue_rework_flow.cjs:36:85)","    at Module._compile (node:internal/modules/cjs/loader:1872:14)","    at Object..js (node:internal/modules/cjs/loader:2003:10)","    at Module.load (node:internal/modules/cjs/loader:1594:32)"]},"last":{"battle":"EG_BOSS_OSIAL","node":"TRV_LY4_OSIAL_COMBAT","round":7,"phase":"WAIT_PLAYER","objective":{"hp":6578,"maxHp":70000,"def":220,"charge":6,"target":8,"spawned":[1,3,5,7],"settled":[1,2,3,4,5,6],"waveHp":0.8,"growthScaled":true}}}
+{"leaf":"TRV_B","status":"PASS","actions":848,"terminal":"TRV_LY4_END","battles":[["EG_FATUI_PATROL",4],["EG_BOSS_OSIAL",13]],"restores":42}

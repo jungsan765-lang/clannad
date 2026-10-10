@@ -1,0 +1,22 @@
+{
+  "command": [
+    "node",
+    "docs/data/food_balance_v01620/build/audit_build_parity.cjs",
+    "--source-root",
+    ".",
+    "--browser-root",
+    "/tmp/crpg_food_v01620/browser_build_final",
+    "--server-file",
+    "server/generated/engine.mjs",
+    "--out",
+    "docs/data/food_balance_v01620/build/parity_raw.json"
+  ],
+  "cwd": "project root",
+  "completedUTC": "2026-10-09T19:09:32.142Z",
+  "startedUTC": null,
+  "timingNote": "Start time and duration were not recorded for this parity invocation. Completion time comes from the executed raw result.",
+  "exitCode": 0,
+  "log": "parity.log",
+  "raw": "parity_raw.json",
+  "gzip": "parity_raw.json.gz"
+}

@@ -1,0 +1,27 @@
+PASS completed authored evacuation settles with a KO protagonist: ISK_L04_AA1_058
+PASS completed authored evacuation settles with a KO protagonist: ISK_L04_AA2_057
+PASS completed authored evacuation settles with a KO protagonist: ISK_L04_AB1_066
+PASS completed authored evacuation settles with a KO protagonist: ISK_L04_AB2_065
+PASS completed authored evacuation settles with a KO protagonist: ISK_L04_B1_051
+PASS completed authored evacuation settles with a KO protagonist: ISK_L04_B2_047
+PASS an old saved evacuation HOLD resumes to victory with living allies
+PASS completed evacuation remains a defeat when the whole party is KO
+PASS evacuation still requires four completed rounds and no living enemy
+PASS a native lethal basic attack cannot trigger a dead Azhdaha phase 1
+PASS a native lethal basic attack cannot trigger a dead Azhdaha phase 2
+PASS living Azhdaha still resolves both crossed phase boundaries
+PASS native Oz END kill wins on permitted Abyss round -1
+PASS native Oz END kill wins on permitted Abyss round 0
+PASS native burning END kill wins on the last allowed Abyss round
+PASS native Klee C4 field-expiry END explosion can win on the last allowed Abyss round
+PASS native direct attack wins on the last allowed Abyss round
+PASS Abyss timeout excludes a native Ice START kill from the next round
+PASS ordinary living enemies still cause timeout at the last allowed Abyss END
+PASS Abyss all-party KO remains defeat rather than victory or timeout
+PASS guarded revival rejects indirect DOT damage: FB_GEO_HYPOSTASIS
+PASS saved guarded revival retains DOT protection: FB_GEO_HYPOSTASIS
+PASS guarded revival countdown and one-time revival remain intact: FB_GEO_HYPOSTASIS
+PASS guarded revival rejects indirect DOT damage: FB_ELECTRO_HYPOSTASIS
+PASS saved guarded revival retains DOT protection: FB_ELECTRO_HYPOSTASIS
+PASS guarded revival countdown and one-time revival remain intact: FB_ELECTRO_HYPOSTASIS
+{"passed":26,"nativeBoundaryRegression":true}

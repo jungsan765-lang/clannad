@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-10T08:09:15.640407+00:00",
+  "initialTargetedPrograms": {
+    "passed": 29,
+    "failed": 1,
+    "total": 30,
+    "artifact": "verification/results.json",
+    "unexecutedQaInputChanged": "tests/test_daily_boss_targeting_v01623.cjs"
+  },
+  "legacyFixtureRecheck": {
+    "checks": 22,
+    "passed": 22,
+    "artifact": "verification/boss_boundaries_recheck.json",
+    "productCodeChange": false
+  },
+  "finalCatalog": {
+    "runtimeChecks": 81,
+    "serverApiChecks": 76,
+    "growthApiChecks": 20,
+    "threeEngineBossContracts": 147,
+    "existingParityChecks": 219,
+    "browserApiChecks": 13,
+    "buildInputs": 254,
+    "inputDrift": [],
+    "primoResults": [
+      {
+        "outcome": "DEFEAT",
+        "round": 21
+      },
+      {
+        "outcome": "WIN",
+        "round": 11
+      }
+    ]
+  },
+  "scope": "Source/build/operator/targeted regression verification on local QA content. Manual requirement for all bosses remains unachieved; no live VPS deployment."
+}

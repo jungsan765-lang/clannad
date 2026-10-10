@@ -1,0 +1,62 @@
+{
+  "engine": "server",
+  "fingerprint": "engine3-9161b50c708ba80f3d770774c9ba5ffa9132c5efe8e6d62369c9324c10426d2d",
+  "rawDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "rows": [
+    {
+      "test": "test_abyss_fixes_v01626.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-9161b50c708ba80f3d770774c9ba5ffa9132c5efe8e6d62369c9324c10426d2d",
+      "toolSHA256": "c4385faa902d0255322169df96d5f6546b095372274dece6ff70eff14677a145",
+      "output": "server-abyss-contracts/contracts.json",
+      "outputSHA256": "4a933f85a72bd58fac7ead5284b3c9ed0251f445a8e03b9fad038217be9c209c",
+      "checks": 35,
+      "passed": 35,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_character_balance_v01625.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-9161b50c708ba80f3d770774c9ba5ffa9132c5efe8e6d62369c9324c10426d2d",
+      "toolSHA256": "1f17e24e6cdab263a4f33b6729e4ab3e01f0f51264b6fe6c19b87fb3dcc565db",
+      "output": "server-test_character_balance_v01625.cjs.json",
+      "outputSHA256": "493651e3abafd09fbfced42099d5a6d6c63cff6c0a4b364949e548566d2f99ec",
+      "checks": 48,
+      "passed": 48,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_skill_rhythm_ownership_v01625.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-9161b50c708ba80f3d770774c9ba5ffa9132c5efe8e6d62369c9324c10426d2d",
+      "toolSHA256": "a9986d0753c7b432f82df345080b072d3c7292154761e65d24e65f55f209b268",
+      "output": "server-test_skill_rhythm_ownership_v01625.cjs.json",
+      "outputSHA256": "559878755cb5acde9dd07ffc2e7dccdf6d329e18467efa46a33cfd69ddf3baf1",
+      "checks": 18,
+      "passed": 18,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_daily_pressure_v01624.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-9161b50c708ba80f3d770774c9ba5ffa9132c5efe8e6d62369c9324c10426d2d",
+      "toolSHA256": "9c6460d02d82caf4342ed1c827033f8d204fcad143b7847da73cc106ea3c4d5a",
+      "output": "server-test_daily_pressure_v01624.cjs.json",
+      "outputSHA256": "a8ddf8e8e09c7ef5f0a0c6ffaf064b42e6e03f0e57fd734d7519303e5cc165c9",
+      "checks": 21,
+      "passed": 21,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_basic_air_range_v01624.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-9161b50c708ba80f3d770774c9ba5ffa9132c5efe8e6d62369c9324c10426d2d",
+      "toolSHA256": "3b51998b2c31387f2f757d0c9c5ce0f142594ed14addb320bb089ef706f89b08",
+      "output": "server-test_basic_air_range_v01624.cjs.json",
+      "outputSHA256": "83ce0eed0b47a5f973c42ea3f80cee31f408e9ce141d3742cbf86e36ef7fc165",
+      "checks": 5,
+      "passed": 5,
+      "rawDbObjectUnchanged": true
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "status": "STOP_REQUESTED_NOT_YET_CONFIRMED",
+  "scope": "Actual completed final-policy suite rows and their native logs before the declared-clock/historical-closure QA-only repair; not final release validation",
+  "completed": 8,
+  "passed": 6,
+  "failed": [
+    "tests/test_abyss_fixes_v01626.cjs",
+    "tests/test_character_balance_v01625.cjs"
+  ],
+  "rows": [
+    {
+      "test": "tests/test_field_preparation_v01627.cjs",
+      "ok": true,
+      "seconds": 6.9
+    },
+    {
+      "test": "tests/test_abyss_fixes_v01626.cjs",
+      "ok": false,
+      "seconds": 89.2
+    },
+    {
+      "test": "tests/test_character_balance_v01625.cjs",
+      "ok": false,
+      "seconds": 0.2
+    },
+    {
+      "test": "tests/test_skill_rhythm_ownership_v01625.cjs",
+      "ok": true,
+      "seconds": 18.3
+    },
+    {
+      "test": "tests/test_basic_air_range_v01624.cjs",
+      "ok": true,
+      "seconds": 6.0
+    },
+    {
+      "test": "tests/test_enemy_balance_v01627.cjs",
+      "ok": true,
+      "seconds": 289.7
+    },
+    {
+      "test": "tests/test_daily_pressure_v01624.cjs",
+      "ok": true,
+      "seconds": 43.7
+    },
+    {
+      "test": "tests/test_boss_difficulty_scope_v01624.cjs",
+      "ok": true,
+      "seconds": 239.8
+    }
+  ],
+  "logs": [
+    {
+      "test": "tests/test_field_preparation_v01627.cjs",
+      "path": "evidence/release/test_field_preparation_v01627.cjs.log",
+      "sha256": "16591649faa61168580ae6a6385108d2f85b4f20e937f4792db345a82a9c4cb8",
+      "bytes": 34
+    },
+    {
+      "test": "tests/test_abyss_fixes_v01626.cjs",
+      "path": "evidence/release/test_abyss_fixes_v01626.cjs.log",
+      "sha256": "b543457c825e3ef896d630b404100c7e0f182084f344f0067af4b318d933409e",
+      "bytes": 65536
+    },
+    {
+      "test": "tests/test_character_balance_v01625.cjs",
+      "path": "evidence/release/test_character_balance_v01625.cjs.log",
+      "sha256": "00f4b28f27f8b2ddc9031bc05820b9d91acbcbf23fbd6aae7d92177c2822ec16",
+      "bytes": 332
+    },
+    {
+      "test": "tests/test_skill_rhythm_ownership_v01625.cjs",
+      "path": "evidence/release/test_skill_rhythm_ownership_v01625.cjs.log",
+      "sha256": "55f5ab1cf45b713ceda075d29e591c7fae6da1dfd53d334bf01c2efa4ed853ea",
+      "bytes": 1699
+    },
+    {
+      "test": "tests/test_basic_air_range_v01624.cjs",
+      "path": "evidence/release/test_basic_air_range_v01624.cjs.log",
+      "sha256": "597ba1f816081b4cc3b3f9a724dc7f99752b64b420327452658bce77623c62b4",
+      "bytes": 350
+    },
+    {
+      "test": "tests/test_enemy_balance_v01627.cjs",
+      "path": "evidence/release/test_enemy_balance_v01627.cjs.log",
+      "sha256": "55b506ac62deb2918ee7980af4d44c34e22b3c2e4dd07c8399c9a53a743703ae",
+      "bytes": 38
+    },
+    {
+      "test": "tests/test_daily_pressure_v01624.cjs",
+      "path": "evidence/release/test_daily_pressure_v01624.cjs.log",
+      "sha256": "36d637dc2dfa74069c5f326056146ce56a10124611ed54675ab45788c5588c3e",
+      "bytes": 2070
+    },
+    {
+      "test": "tests/test_boss_difficulty_scope_v01624.cjs",
+      "path": "evidence/release/test_boss_difficulty_scope_v01624.cjs.log",
+      "sha256": "f6beec37fd022ad9aac3121744fe25c58a3be71b29d2c3f5646289bd811ea77e",
+      "bytes": 7636
+    }
+  ],
+  "suitePrefixSHA256": "c251d1b8d8ad72755408791e3ca32dd26b07b0a5fa6216aa1fe753760c69ae81",
+  "tarSHA256": "f4a59fcb8d8f7805214dd98b573a29d1eab62177c9da6e6107433bc276cd62b9",
+  "abyssStandaloneFailureSHA256": "ac5eadcddfb1f6ce7618248be621375a5aaeaf320dfc792e1f9694fcd745e4ee",
+  "productEditsByQARepair": 0
+}

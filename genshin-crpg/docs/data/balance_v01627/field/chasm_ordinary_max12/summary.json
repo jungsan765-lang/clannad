@@ -1,0 +1,411 @@
+{
+  "fingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+  "rows": [
+    {
+      "level": 25,
+      "seed": 717,
+      "state": "WIN",
+      "round": 7,
+      "hp": 0.9477787504103293,
+      "ko": 0,
+      "inputs": 7,
+      "meter": {
+        "hpDamage": 9128,
+        "shieldDamage": 14764,
+        "healing": 7657,
+        "hits": 13,
+        "minHpRatio": 0.8000054710581026
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+      "initialEnemy": [
+        {
+          "source": "MON_TH_SCOUT",
+          "name": "보물 사냥단·척후병",
+          "grade": "일반",
+          "level": 50,
+          "hp": 22275,
+          "atk": 5180,
+          "def": 691,
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "STURDY"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "name": "보물 사냥단·척후병",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 6216,
+          "def": 691,
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "name": "보물 사냥단·척후병",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 5180,
+          "def": 691,
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "VANGUARD"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_POTION_PYRO",
+          "name": "보물 사냥단·불의 약제사",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 5180,
+          "def": 691,
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "WARDED"
+            ],
+            "acts": 0
+          }
+        }
+      ]
+    },
+    {
+      "level": 25,
+      "seed": 19,
+      "state": "WIN",
+      "round": 7,
+      "hp": 0.9392227867257594,
+      "ko": 0,
+      "inputs": 6,
+      "meter": {
+        "hpDamage": 9659,
+        "shieldDamage": 13492.400000000001,
+        "healing": 7899,
+        "hits": 11,
+        "minHpRatio": 0.8192898065074046
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+      "initialEnemy": [
+        {
+          "source": "MON_TH_SCOUT",
+          "name": "보물 사냥단·척후병",
+          "grade": "일반",
+          "level": 50,
+          "hp": 26400,
+          "atk": 5957,
+          "def": 1027,
+          "variant": {
+            "version": 1,
+            "tier": 5,
+            "label": "지역 위험 개체",
+            "affixes": [
+              "ARMORED",
+              "SCORCH"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "name": "보물 사냥단·척후병",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 5180,
+          "def": 691
+        },
+        {
+          "source": "MON_TH_POTION_PYRO",
+          "name": "보물 사냥단·불의 약제사",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 5180,
+          "def": 691
+        }
+      ]
+    },
+    {
+      "level": 25,
+      "seed": 43,
+      "state": "WIN",
+      "round": 15,
+      "hp": 1,
+      "ko": 0,
+      "inputs": 15,
+      "meter": {
+        "hpDamage": 4155,
+        "shieldDamage": 17747,
+        "healing": 4609,
+        "hits": 7,
+        "minHpRatio": 0.9114376383370223
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_3",
+      "initialEnemy": [
+        {
+          "source": "MON_MITACHURL_ROCK",
+          "name": "돌방패 츄츄 폭도",
+          "grade": "정예",
+          "level": 50,
+          "hp": 46135,
+          "atk": 8063,
+          "def": 966,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "WARDED",
+              "VANGUARD"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "name": "츄츄 싸움꾼",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 5180,
+          "def": 691,
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "VANGUARD"
+            ],
+            "acts": 0
+          }
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "seed": 717,
+      "state": "WIN",
+      "round": 2,
+      "hp": 0.9875669633441599,
+      "ko": 0,
+      "inputs": 1,
+      "meter": {
+        "hpDamage": 5127,
+        "shieldDamage": 1300,
+        "healing": 5094,
+        "hits": 4,
+        "minHpRatio": 0.9338486522967899
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+      "initialEnemy": [
+        {
+          "source": "MON_TH_SCOUT",
+          "name": "보물 사냥단·척후병",
+          "grade": "일반",
+          "level": 50,
+          "hp": 22275,
+          "atk": 5180,
+          "def": 691,
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "STURDY"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "name": "보물 사냥단·척후병",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 6216,
+          "def": 691,
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "FEROCIOUS"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "name": "보물 사냥단·척후병",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 5180,
+          "def": 691,
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "VANGUARD"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_POTION_PYRO",
+          "name": "보물 사냥단·불의 약제사",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 5180,
+          "def": 691,
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "WARDED"
+            ],
+            "acts": 0
+          }
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "seed": 19,
+      "state": "WIN",
+      "round": 2,
+      "hp": 0.9987210935698262,
+      "ko": 0,
+      "inputs": 1,
+      "meter": {
+        "hpDamage": 3712,
+        "shieldDamage": 2494,
+        "healing": 4802,
+        "hits": 3,
+        "minHpRatio": 0.9483824978510179
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_1",
+      "initialEnemy": [
+        {
+          "source": "MON_TH_SCOUT",
+          "name": "보물 사냥단·척후병",
+          "grade": "일반",
+          "level": 50,
+          "hp": 26400,
+          "atk": 5957,
+          "def": 1027,
+          "variant": {
+            "version": 1,
+            "tier": 5,
+            "label": "지역 위험 개체",
+            "affixes": [
+              "ARMORED",
+              "SCORCH"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_TH_SCOUT",
+          "name": "보물 사냥단·척후병",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 5180,
+          "def": 691
+        },
+        {
+          "source": "MON_TH_POTION_PYRO",
+          "name": "보물 사냥단·불의 약제사",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 5180,
+          "def": 691
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "seed": 43,
+      "state": "WIN",
+      "round": 3,
+      "hp": 1,
+      "ko": 0,
+      "inputs": 2,
+      "meter": {
+        "hpDamage": 350,
+        "shieldDamage": 1718,
+        "healing": 1517,
+        "hits": 1,
+        "minHpRatio": 0.9963578846594102
+      },
+      "group": "EG_LIYUE_LOCAL_CHASM_SURFACE_3",
+      "initialEnemy": [
+        {
+          "source": "MON_MITACHURL_ROCK",
+          "name": "돌방패 츄츄 폭도",
+          "grade": "정예",
+          "level": 50,
+          "hp": 46135,
+          "atk": 8063,
+          "def": 966,
+          "variant": {
+            "version": 1,
+            "tier": 4,
+            "label": "강한 정예",
+            "affixes": [
+              "WARDED",
+              "VANGUARD"
+            ],
+            "acts": 0
+          }
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "name": "츄츄 싸움꾼",
+          "grade": "일반",
+          "level": 50,
+          "hp": 16500,
+          "atk": 5180,
+          "def": 691,
+          "variant": {
+            "version": 1,
+            "tier": 2,
+            "label": "강화 일반",
+            "affixes": [
+              "VANGUARD"
+            ],
+            "acts": 0
+          }
+        }
+      ]
+    }
+  ]
+}

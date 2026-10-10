@@ -701,7 +701,7 @@ const CONFIG={
       ]
     },
     "WHOPPER_ICE": {
-      "name": "얼음 구라구라꽃의 기습",
+      "name": "얼어붙은 구라구라꽃의 기습",
       "members": [
         [
           "MON_WHOPPER_CRYO",
@@ -1230,7 +1230,7 @@ const CONFIG={
       "maxLevel": 8,
       "risk": 6,
       "biome": "설산 폐허",
-      "notes": "폐허 기계·방패·도굴 세력의 혼합. 얼음 구라구라꽃의 차지를 주의한다.",
+      "notes": "폐허 기계·방패·도굴 세력의 혼합. 얼어붙은 구라구라꽃의 차지를 주의한다.",
       "encounters": [
         {
           "template": "SNOW_GUARD",

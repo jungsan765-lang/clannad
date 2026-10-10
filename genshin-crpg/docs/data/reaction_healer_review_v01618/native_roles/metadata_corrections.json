@@ -1,0 +1,14 @@
+{
+  "sourceRawSha256": "d73f54620747693ba685dc6330c058200138278d1146515496ab995e20790083",
+  "numericResultsChanged": false,
+  "rawEvidencePreserved": true,
+  "correction": [
+    {
+      "where": "rows/physicalComparisons: level=20, gear=craft, talent=3",
+      "requestedTalent": 3,
+      "actualTalent": 2,
+      "reason": "H.setup clamps requested talent to native legal phase cap2."
+    }
+  ],
+  "otherProfiles": "Lv10 requested1 actual1; Lv40 requested5 actual5; Lv60 requested7 actual7."
+}

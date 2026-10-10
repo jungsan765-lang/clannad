@@ -1,0 +1,75 @@
+{
+  "version": "0.16.26",
+  "scope": "Independent review, no product edits. 13 narrow mechanism contract families and 39 paired native opening observations. Separate existing legacy drill issue and intermediate final2 artifacts are not included in final pass totals.",
+  "qaDBSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "productHashes": {
+    "source/runtime_abyss.js": "bfe0d10cde798b29b91e13db7feb3d74da3c5e5b6561f63af523eba751eb9d84",
+    "source/runtime_formations.js": "b8990bbc326902afd1e4d3d80ff5c472825a629e5d35c7fa2fa9184fb58b74dd",
+    "source/runtime_growth_v01522.js": "0cfbce046bdcc77df245bb8cd43dd24340bd898827aec8e8db33276bba8800ed",
+    "source/runtime_balance_admin_v01623.js": "838f10fab7738ece5ad232ad606cbf2ed952bf1098416132e5e9a5ddc6db015f"
+  },
+  "contractFamilies": {
+    "passed": 13,
+    "total": 13
+  },
+  "startupPairs": {
+    "passed": 39,
+    "total": 39
+  },
+  "files": [
+    {
+      "path": "docs/data/abyss_fixes_v01626/review/INDEPENDENT_REVIEW.json",
+      "bytes": 52316,
+      "sha256": "1d12d942e47b0a1eb04a5e42106f7e81db2abf0610ab10900282205231196156",
+      "stage": "final four-source review"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/review/INDEPENDENT_REVIEW_FINAL2.json",
+      "bytes": 49977,
+      "sha256": "0ffb0156c31f78baf6a31a558c4820564d047ed4c36d821a09947ecf25de3f65",
+      "stage": "intermediate two-source stage"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/review/OPTIONAL_LEGACY_DRILL.json",
+      "bytes": 1671,
+      "sha256": "14811355f97325b2b873ddeb002de32ccb058760665c9a2f4c446e6092bbce29",
+      "stage": "separate existing hidden API observation"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/review/README_KO.md",
+      "bytes": 9304,
+      "sha256": "f1b78c572dea0db9c78051920329e97d5f1e68648b80473b4aa219cbff9c6b5a",
+      "stage": "final four-source review"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/review/STARTUP_ORIGINS.json",
+      "bytes": 110118,
+      "sha256": "cad0de272d25892ff11bc0e67bb1c6f5e23ee775981fae4e4c8886a1bca091e8",
+      "stage": "final four-source review"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/review/independent_review.cjs",
+      "bytes": 15078,
+      "sha256": "03ead6d32aae382b9fcb9cc29761083284bae35fb65bb4b998514d7dc2f39db8",
+      "stage": "final four-source review"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/review/independent_review_final2.cjs",
+      "bytes": 14594,
+      "sha256": "cc79c8c4fc6522fa7d77a437a229e0ce5d0dd9ae85cfec234af32fb68346396a",
+      "stage": "intermediate two-source stage"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/review/legacy_drill_probe.cjs",
+      "bytes": 2078,
+      "sha256": "9203ddb3a631cb8143fbf5b015d4c9fd8d2a784a6601a24e2b3424a16811d8f1",
+      "stage": "separate existing hidden API observation"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/review/startup_origins.cjs",
+      "bytes": 10241,
+      "sha256": "fe95ceb14354356ae9501e1d3afd8934693c754e13fd221da1ed0223b1fb923c",
+      "stage": "final four-source review"
+    }
+  ]
+}

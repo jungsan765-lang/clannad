@@ -1,0 +1,322 @@
+{
+ "version": "0.16.26",
+ "scope": "Historical story and level-gate contracts plus current daily-boss prepared public counterplay; diagnostic ownership/investment, not natural acquisition or every composition.",
+ "total": 6,
+ "passed": 6,
+ "results": [
+  {
+   "name": "타르탈리아 (Liyue act 3, Lv.50): a fixed Lv.50 boss; a Lv.50 party wins after a long fight with real damage",
+   "ok": true,
+   "evidence": {
+    "stats": {
+     "hp": 59886,
+     "atk": 5107,
+     "def": 591
+    },
+    "fights": [
+     {
+      "victory": true,
+      "rounds": 7,
+      "hp": 47
+     },
+     {
+      "victory": true,
+      "rounds": 7,
+      "hp": 58
+     },
+     {
+      "victory": true,
+      "rounds": 7,
+      "hp": 42
+     }
+    ]
+   }
+  },
+  {
+   "name": "타르탈리아 of the 이세계 route (Lv.50 subdue fight): no longer falls in one round",
+   "ok": true,
+   "evidence": [
+    {
+     "victory": true,
+     "rounds": 4,
+     "hp": 82
+    },
+    {
+     "victory": true,
+     "rounds": 5,
+     "hp": 81
+    },
+    {
+     "victory": true,
+     "rounds": 5,
+     "hp": 79
+    }
+   ]
+  },
+  {
+   "name": "야타용왕 (Lv.60): a Lv.60 party wins most fights and has to work for it",
+   "ok": true,
+   "evidence": [
+    {
+     "victory": true,
+     "rounds": 5,
+     "hp": 18
+    },
+    {
+     "victory": true,
+     "rounds": 6,
+     "hp": 19
+    },
+    {
+     "victory": true,
+     "rounds": 6,
+     "hp": 12
+    }
+   ]
+  },
+  {
+   "name": "repeat challenges: level gates remain; prepared 4★ C6 and 5★ C0 parties win through public protagonist skills",
+   "ok": true,
+   "evidence": {
+    "tartaglia": {
+     "fourC6": [
+      {
+       "victory": true,
+       "rounds": 4,
+       "hp": 72,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E",
+        "PLAYER_BASIC_ATTACK"
+       ]
+      },
+      {
+       "victory": true,
+       "rounds": 5,
+       "hp": 61,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E"
+       ]
+      },
+      {
+       "victory": true,
+       "rounds": 5,
+       "hp": 47,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E"
+       ]
+      }
+     ],
+     "fiveC0": [
+      {
+       "victory": true,
+       "rounds": 4,
+       "hp": 76,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E",
+        "PLAYER_BASIC_ATTACK"
+       ]
+      },
+      {
+       "victory": true,
+       "rounds": 4,
+       "hp": 76,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E",
+        "PLAYER_BASIC_ATTACK"
+       ]
+      },
+      {
+       "victory": true,
+       "rounds": 5,
+       "hp": 62,
+       "inputs": [
+        "PLAYER_ISEKAI_E",
+        "PLAYER_ISEKAI_Q",
+        "PLAYER_ISEKAI_E",
+        "PLAYER_BASIC_ATTACK",
+        "PLAYER_ISEKAI_Q"
+       ]
+      }
+     ],
+     "uninvestedAutomatic": [
+      {
+       "victory": false,
+       "rounds": 13,
+       "hp": 0
+      },
+      {
+       "victory": false,
+       "rounds": 15,
+       "hp": 0
+      },
+      {
+       "victory": false,
+       "rounds": 12,
+       "hp": 0
+      }
+     ],
+     "stats": {
+      "hp": 125761,
+      "atk": 9703,
+      "def": 591
+     }
+    },
+    "azhdaha": [
+     {
+      "victory": true,
+      "rounds": 3,
+      "hp": 72,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ]
+     },
+     {
+      "victory": true,
+      "rounds": 3,
+      "hp": 68,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ]
+     },
+     {
+      "victory": true,
+      "rounds": 2,
+      "hp": 83,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "daily rematches: recommended-level public counterplay wins; Dvalin uses an invested 4★ C6 party and the wind route",
+   "ok": true,
+   "evidence": {
+    "andrius": [
+     {
+      "victory": true,
+      "rounds": 4,
+      "hp": 11,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ]
+     },
+     {
+      "victory": true,
+      "rounds": 5,
+      "hp": 23,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ]
+     },
+     {
+      "victory": true,
+      "rounds": 4,
+      "hp": 7,
+      "inputs": [
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ]
+     }
+    ],
+    "dvalin": [
+     {
+      "victory": true,
+      "rounds": 5,
+      "hp": 56,
+      "inputs": [
+       "SYS_MOND_WIND_ROUTE",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ]
+     },
+     {
+      "victory": true,
+      "rounds": 5,
+      "hp": 44,
+      "inputs": [
+       "SYS_MOND_WIND_ROUTE",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q"
+      ]
+     },
+     {
+      "victory": true,
+      "rounds": 4,
+      "hp": 58,
+      "inputs": [
+       "SYS_MOND_WIND_ROUTE",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ]
+     }
+    ],
+    "inadequateDvalin": [
+     {
+      "victory": false,
+      "rounds": 8,
+      "hp": 0,
+      "inputs": [
+       "SYS_MOND_WIND_ROUTE",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ]
+     },
+     {
+      "victory": false,
+      "rounds": 8,
+      "hp": 0,
+      "inputs": [
+       "SYS_MOND_WIND_ROUTE",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ]
+     },
+     {
+      "victory": false,
+      "rounds": 8,
+      "hp": 0,
+      "inputs": [
+       "SYS_MOND_WIND_ROUTE",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E",
+       "PLAYER_BASIC_ATTACK",
+       "PLAYER_ISEKAI_Q",
+       "PLAYER_ISEKAI_E"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "stat outliers: the hatchlings and the husk archers are brought into line; saved fights keep their numbers",
+   "ok": true,
+   "evidence": {
+    "hatchling": 9700
+   }
+  }
+ ]
+}

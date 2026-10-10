@@ -1,0 +1,19 @@
+{
+  "test": "tests/test_reaction_fixes_v01619.cjs",
+  "command": [
+    "node",
+    "tests/test_reaction_fixes_v01619.cjs"
+  ],
+  "startedAt": "2026-10-10T10:12:51.705066+00:00",
+  "endedAt": "2026-10-10T10:14:13.892350+00:00",
+  "seconds": 81.914,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {},
+  "testSha256": "cc4b50dd56108e12ac150987b43b9c026b3d6d89e652f9af4cc1a6b8c7c20bff",
+  "generatedEngineSha256": "94375793eb78c78d83eacf38759cccf1b1bca3060aec0fe3268acdab14842409",
+  "stdoutSha256": "b358c801b81da7ddf1fbce48f2da11f8231178f0f96d5fbd77595857ea2e4156",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_reaction_fixes_v01619.stdout.log",
+  "stderrLog": "test_reaction_fixes_v01619.stderr.log"
+}

@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "rows": [
+    {
+      "program": "tests/test_material_rewards_v01616.cjs",
+      "log": "material_rewards_final_readable.log",
+      "exitCode": 0,
+      "seconds": 132.246,
+      "passLines": 13,
+      "loadedProductFilesAtStart": {
+        "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "runtime_combat.js": "009c7c7a347f7eca9a301d41dfa75799d5cc67d70e5ff82da135274c33cec32e"
+      },
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "logSHA256": "eb817331370d3c9907f167b7cdc4a980c13bfaed92054560bc86b45d5a06a962"
+    },
+    {
+      "program": "tests/test_ascension_balance_v01614.cjs",
+      "log": "ascension_balance_final_readable.log",
+      "exitCode": 0,
+      "seconds": 61.071,
+      "passLines": 9,
+      "loadedProductFilesAtStart": {
+        "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "runtime_combat.js": "009c7c7a347f7eca9a301d41dfa75799d5cc67d70e5ff82da135274c33cec32e"
+      },
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "logSHA256": "f2dd09d262c20d47e6c0edcc0952990e969a86014384c31588738595eee57393"
+    },
+    {
+      "program": "tests/test_ascension_efficiency_v01613.cjs",
+      "log": "ascension_efficiency_final_readable.log",
+      "exitCode": 0,
+      "seconds": 25.915,
+      "passLines": 6,
+      "loadedProductFilesAtStart": {
+        "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "runtime_combat.js": "009c7c7a347f7eca9a301d41dfa75799d5cc67d70e5ff82da135274c33cec32e"
+      },
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "logSHA256": "582128cae9d9353c2c53d845cd317eaca3c016277a6dd1fc9615d21ec18265b6"
+    },
+    {
+      "program": "tests/test_task_materials_v0169.cjs",
+      "log": "task_materials_final_readable.log",
+      "exitCode": 0,
+      "seconds": 30.009,
+      "passLines": 8,
+      "loadedProductFilesAtStart": {
+        "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "runtime_combat.js": "009c7c7a347f7eca9a301d41dfa75799d5cc67d70e5ff82da135274c33cec32e"
+      },
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "logSHA256": "1b57c199209e66bd122adf67f6bf9b38972ee392b02318575dd270c611672c9a"
+    },
+    {
+      "program": "tests/test_growth_balance_v01621.cjs",
+      "log": "growth_hp_regression_final.log",
+      "exitCode": 0,
+      "seconds": 21.036,
+      "passLines": 10,
+      "loadedProductFilesAtStart": {
+        "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "runtime_combat.js": "544b8ffcdafcc55d686f757026a25fc940bc08bbdc235115ab71a29894ffcdaa"
+      },
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "logSHA256": "59696e0f102a84c04cb4505ea5e6d1f32dd7dcbdbcc12b936381faf3c317ee2d"
+    },
+    {
+      "program": "docs/data/full_balance_v01621/growth/project_book_growth_v01621.cjs",
+      "log": "book_growth_projection_final_readable.log",
+      "exitCode": 0,
+      "seconds": 3.329,
+      "passLines": 0,
+      "loadedProductFilesAtStart": {
+        "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "runtime_combat.js": "544b8ffcdafcc55d686f757026a25fc940bc08bbdc235115ab71a29894ffcdaa"
+      },
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "logSHA256": "0a4c6595ef7475ba7f572fdf9075a260245400a35041656067915fc15beea754"
+    },
+    {
+      "program": "docs/data/full_balance_v01621/growth/audit_early_electro_limit_v01621.cjs",
+      "log": "early_electro_limit.log",
+      "exitCode": 0,
+      "seconds": 3.373,
+      "passLines": 0,
+      "loadedProductFilesAtStart": {
+        "runtime_growth_v01522.js": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+        "runtime_combat.js": "544b8ffcdafcc55d686f757026a25fc940bc08bbdc235115ab71a29894ffcdaa"
+      },
+      "growthSourceSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+      "logSHA256": "2ddfc0ab23a0e2198365e5205187987b205b080f1b2d5d8436c33bfcc9d9d9c2"
+    }
+  ]
+}

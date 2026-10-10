@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "reason": "Root authorized up to3 after other native work ended; modify runner capacity only with4/6GiB memory launch guard. Product and177 test inputs unchanged.",
+  "initialRunnerSha256": "0c5a87f8ef6a95303790452feb49e7fa16338e96f69c723a3340cb6ac7cbf623",
+  "initialSnapshotRunnerSha256": "0c5a87f8ef6a95303790452feb49e7fa16338e96f69c723a3340cb6ac7cbf623",
+  "pauseRequestedAt": "2026-10-10T03:03:02.432770+00:00",
+  "initialWorkerCeiling": 2,
+  "initialSessionId": 63449,
+  "initialRunStart": "2026-10-10T02:50:21.665571+00:00",
+  "initialCompleted": 61,
+  "initialPassed": 61,
+  "initialInputDrift": [],
+  "initialSegmentSummary": "summary_initial_workers2.json",
+  "resumedAt": "2026-10-10T03:05:52.759448+00:00",
+  "resumedRunnerSha256": "edf1842c20ff29babcacd05678e6b5a6e679be6dce4539d26c5119e41227fd3a",
+  "resumedWorkerCeiling": 3,
+  "memoryGuardBytes": {
+    "launchCeiling2At": 4294967296,
+    "launchCeiling1At": 6442450944
+  },
+  "noGateRerunOrResultReplacement": true
+}

@@ -1,0 +1,795 @@
+{
+  "version": "0.16.14",
+  "baseline": "d30304dfcf3186e34f6fe44cceb8acccbb610882",
+  "runtimeGrowthSha256": "5ed4fdca03d4ccebc8cf315775d79bc8eef5e73b3c87708eaca4fbcbdf5b541d",
+  "lastAscension": {
+    "fourStarAndPlayer": 800,
+    "fiveStar": 1600,
+    "topTierBaseGems": 32,
+    "baseWins": [
+      25,
+      50
+    ],
+    "threeBonusesRemainingWins": [
+      22,
+      47
+    ]
+  },
+  "earlyFourStarGems": [
+    3,
+    6,
+    12,
+    40,
+    80
+  ],
+  "wholeAscensionGems": [
+    941,
+    1882
+  ],
+  "weeklyAllocation": {
+    "ascensionWins": 20,
+    "talentWins": 20,
+    "experienceWins": 20,
+    "totalWins": 60,
+    "dailyOverlapNotAddedAgain": true,
+    "sharedBonusExamples": [
+      6,
+      9
+    ],
+    "oldSupply": [
+      312,
+      348
+    ],
+    "newSupply": [
+      832,
+      928
+    ],
+    "oldFinalNeed": [
+      300,
+      600
+    ],
+    "newFinalNeed": [
+      800,
+      1600
+    ]
+  },
+  "wholeGrowthMora": {
+    "fourStar": 426404,
+    "fiveStar": 553464,
+    "includes": [
+      "allAscensions",
+      "threeTalentsTo8",
+      "threeGearTo10Expected"
+    ],
+    "gearThreeTo10ExpectedMora": 228204,
+    "gearThreeTo10ExpectedOres": {
+      "iron": 142.28,
+      "whiteIron": 724.92,
+      "crystal": 419.87
+    },
+    "gearThreeTo12Talents10AllAscensions": [
+      1464488,
+      1645923
+    ]
+  },
+  "currentPeriodBudgetExample": {
+    "level": 60,
+    "tasksUnchangedFromBaseline": true,
+    "dailyCandidateCount": 11,
+    "weeklyCandidateCount": 27,
+    "actualDailyCount": 11,
+    "actualWeeklyCount": 25,
+    "dailyMora": 51900,
+    "weeklyMora": 490300,
+    "dailySevenDaysPlusWeeklyMora": 853600,
+    "notAutomaticIncome": true,
+    "excludes": [
+      "flowers",
+      "battleLoot",
+      "sales",
+      "oneTimeChains"
+    ],
+    "weeklyEligibility": [
+      "remainingKSTDays",
+      "unlockedActivities"
+    ],
+    "observedDailyDefinitions": {
+      "D_WIN": {
+        "id": "D_WIN",
+        "kind": "win",
+        "goal": 5,
+        "name": "전투 5번 이기기",
+        "short": "5승",
+        "icon": "battle",
+        "reward": {
+          "items": {
+            "MAT_CHAR_EXP_ADVENTURER": 2
+          },
+          "mora": 4200
+        },
+        "minLevel": 1,
+        "filter": {},
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "D_LEY": {
+        "id": "D_LEY",
+        "kind": "ley",
+        "goal": 2,
+        "name": "지맥의 꽃 2번 이기기",
+        "short": "꽃 2승",
+        "icon": "ley",
+        "reward": {
+          "mora": 4500
+        },
+        "minLevel": 1,
+        "filter": {},
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "D_DOMAIN": {
+        "id": "D_DOMAIN",
+        "kind": "domain",
+        "goal": 3,
+        "name": "비경 3번 이기기",
+        "short": "비경 3승",
+        "icon": "domain",
+        "reward": {
+          "items": {
+            "MAT_CHAR_EXP_ADVENTURER": 2
+          },
+          "mora": 4800
+        },
+        "minLevel": 1,
+        "filter": {},
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "D_LIFE": {
+        "id": "D_LIFE",
+        "kind": "life",
+        "goal": 3,
+        "name": "채집·채광·사냥·낚시 3번",
+        "short": "생활 3회",
+        "icon": "life",
+        "reward": {
+          "mora": 2700
+        },
+        "minLevel": 1,
+        "filter": {},
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "D_V168_PYRO_HYDRO": {
+        "kind": "win",
+        "name": "불 원소 캐릭터 포함 5승",
+        "goal": 5,
+        "minLevel": 1,
+        "filter": {
+          "party": {
+            "elements": [
+              "PYRO"
+            ]
+          }
+        },
+        "id": "D_V168_PYRO_HYDRO",
+        "slot": "win",
+        "short": "원소 편성 5승",
+        "icon": "battle",
+        "reward": {
+          "mora": 3000
+        },
+        "dynamicElements": true,
+        "fallbackName": "추가 전투 5번 이기기",
+        "fallbackShort": "추가 5승",
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true,
+        "selectedElements": [
+          "PYRO"
+        ]
+      },
+      "D_V168_REVELATION15": {
+        "kind": "ley",
+        "name": "계시의 꽃 1번 이기기",
+        "goal": 1,
+        "minLevel": 1,
+        "filter": {
+          "leyTypes": [
+            "REVELATION"
+          ]
+        },
+        "id": "D_V168_REVELATION15",
+        "slot": "ley",
+        "short": "꽃 도전",
+        "icon": "ley",
+        "reward": {
+          "mora": 4600
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "D_V168_WEALTH30": {
+        "kind": "ley",
+        "name": "부의 꽃 1번 이기기",
+        "goal": 1,
+        "minLevel": 1,
+        "filter": {
+          "leyTypes": [
+            "WEALTH"
+          ]
+        },
+        "id": "D_V168_WEALTH30",
+        "slot": "ley",
+        "short": "꽃 도전",
+        "icon": "ley",
+        "reward": {
+          "mora": 6500
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "D_V168_TALENT15": {
+        "kind": "domain",
+        "name": "특성 비경 3번 이기기",
+        "goal": 3,
+        "minLevel": 1,
+        "filter": {
+          "domainTypes": [
+            "TALENT"
+          ]
+        },
+        "id": "D_V168_TALENT15",
+        "slot": "domain",
+        "short": "비경 도전",
+        "icon": "domain",
+        "reward": {
+          "mora": 7000
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "D_V168_ASCENSION40": {
+        "kind": "domain",
+        "name": "돌파 비경 3번 이기기",
+        "goal": 3,
+        "minLevel": 1,
+        "filter": {
+          "domainTypes": [
+            "ASCENSION"
+          ]
+        },
+        "id": "D_V168_ASCENSION40",
+        "slot": "domain",
+        "short": "비경 도전",
+        "icon": "domain",
+        "reward": {
+          "mora": 8000
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "D_V168_APPLE": {
+        "kind": "gather",
+        "name": "채집 3번 하기",
+        "goal": 3,
+        "minLevel": 1,
+        "filter": {},
+        "id": "D_V168_APPLE",
+        "slot": "life",
+        "short": "생활 목표",
+        "icon": "life",
+        "reward": {
+          "mora": 2700
+        },
+        "countMode": "actions",
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "D_V168_STEAK": {
+        "kind": "cook",
+        "name": "요리 3개 만들기",
+        "goal": 3,
+        "minLevel": 1,
+        "filter": {},
+        "id": "D_V168_STEAK",
+        "slot": "life",
+        "short": "생활 목표",
+        "icon": "life",
+        "reward": {
+          "mora": 3900
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      }
+    },
+    "observedWeeklyDefinitions": {
+      "W_WIN": {
+        "id": "W_WIN",
+        "kind": "win",
+        "goal": 150,
+        "name": "전투 150번 이기기",
+        "icon": "battle",
+        "reward": {
+          "items": {
+            "MAT_CHAR_EXP_HERO": 2
+          },
+          "mora": 20800
+        },
+        "minLevel": 1,
+        "filter": {},
+        "short": "150승",
+        "weeklyCore": true,
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_BOSS": {
+        "id": "W_BOSS",
+        "kind": "boss",
+        "goal": 10,
+        "name": "필드 보스 10번 토벌",
+        "icon": "boss",
+        "reward": {
+          "primogem": 50,
+          "mora": 32500
+        },
+        "minLevel": 1,
+        "filter": {},
+        "short": "보스 10승",
+        "weeklyCore": true,
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_DOMAIN": {
+        "id": "W_DOMAIN",
+        "kind": "domain",
+        "goal": 30,
+        "name": "비경 30번 이기기",
+        "icon": "domain",
+        "reward": {
+          "items": {
+            "MAT_CHAR_EXP_HERO": 3
+          },
+          "mora": 26000
+        },
+        "minLevel": 1,
+        "filter": {},
+        "short": "비경 30승",
+        "weeklyCore": true,
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_REACTION": {
+        "kind": "win",
+        "name": "불 원소 캐릭터 포함 30승",
+        "goal": 30,
+        "minLevel": 1,
+        "filter": {
+          "party": {
+            "elements": [
+              "PYRO"
+            ]
+          }
+        },
+        "id": "W_V168_REACTION",
+        "slot": "win",
+        "short": "원소 편성 30승",
+        "icon": "battle",
+        "reward": {
+          "primogem": 30,
+          "mora": 10400
+        },
+        "dynamicElements": true,
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true,
+        "selectedElements": [
+          "PYRO"
+        ]
+      },
+      "W_V168_OCEANID": {
+        "kind": "boss",
+        "name": "물의 정령 3번 토벌",
+        "goal": 3,
+        "minLevel": 1,
+        "filter": {
+          "enemies": [
+            "FB_OCEANID"
+          ]
+        },
+        "id": "W_V168_OCEANID",
+        "slot": "boss",
+        "short": "보스 토벌",
+        "icon": "boss",
+        "reward": {
+          "primogem": 40,
+          "mora": 16200
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_TALENT30": {
+        "kind": "domain",
+        "name": "특성 비경 20번 이기기",
+        "goal": 20,
+        "minLevel": 1,
+        "filter": {
+          "domainTypes": [
+            "TALENT"
+          ]
+        },
+        "id": "W_V168_TALENT30",
+        "slot": "domain",
+        "short": "비경 도전",
+        "icon": "domain",
+        "reward": {
+          "mora": 32500
+        },
+        "weeklyCore": true,
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_ASCENSION": {
+        "kind": "domain",
+        "name": "돌파 비경 20번 이기기",
+        "goal": 20,
+        "minLevel": 1,
+        "filter": {
+          "domainTypes": [
+            "ASCENSION"
+          ]
+        },
+        "id": "W_V168_ASCENSION",
+        "slot": "domain",
+        "short": "비경 도전",
+        "icon": "domain",
+        "reward": {
+          "mora": 35800
+        },
+        "weeklyCore": true,
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_EXPERIENCE": {
+        "kind": "domain",
+        "name": "경험치 비경 20번 이기기",
+        "goal": 20,
+        "minLevel": 1,
+        "filter": {
+          "domainTypes": [
+            "EXP"
+          ]
+        },
+        "id": "W_V168_EXPERIENCE",
+        "slot": "domain",
+        "short": "비경 도전",
+        "icon": "domain",
+        "reward": {
+          "primogem": 30,
+          "mora": 19500
+        },
+        "weeklyCore": true,
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_REVELATION": {
+        "kind": "ley",
+        "name": "계시의 꽃 10번 이기기",
+        "goal": 10,
+        "minLevel": 1,
+        "filter": {
+          "leyTypes": [
+            "REVELATION"
+          ]
+        },
+        "id": "W_V168_REVELATION",
+        "slot": "ley",
+        "short": "꽃 도전",
+        "icon": "ley",
+        "reward": {
+          "mora": 15600
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_WEALTH": {
+        "kind": "ley",
+        "name": "부의 꽃 10번 이기기",
+        "goal": 10,
+        "minLevel": 1,
+        "filter": {
+          "leyTypes": [
+            "WEALTH"
+          ]
+        },
+        "id": "W_V168_WEALTH",
+        "slot": "ley",
+        "short": "꽃 도전",
+        "icon": "ley",
+        "reward": {
+          "mora": 45000
+        },
+        "weeklyCore": true,
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_GATHER": {
+        "kind": "gather",
+        "name": "채집 30번 하기",
+        "goal": 30,
+        "minLevel": 1,
+        "filter": {},
+        "id": "W_V168_GATHER",
+        "slot": "life",
+        "short": "생활 목표",
+        "icon": "life",
+        "reward": {
+          "mora": 10400
+        },
+        "countMode": "actions",
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_MINE": {
+        "kind": "mine",
+        "name": "채광 20번 하기",
+        "goal": 20,
+        "minLevel": 1,
+        "filter": {},
+        "id": "W_V168_MINE",
+        "slot": "life",
+        "short": "생활 목표",
+        "icon": "life",
+        "reward": {
+          "mora": 14300
+        },
+        "countMode": "actions",
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_FISH": {
+        "kind": "fish",
+        "name": "낚시 20번 하기",
+        "goal": 20,
+        "minLevel": 1,
+        "filter": {},
+        "id": "W_V168_FISH",
+        "slot": "life",
+        "short": "생활 목표",
+        "icon": "life",
+        "reward": {
+          "primogem": 20,
+          "mora": 9100
+        },
+        "countMode": "actions",
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_HUNT": {
+        "kind": "hunt",
+        "name": "사냥 20번 하기",
+        "goal": 20,
+        "minLevel": 1,
+        "filter": {},
+        "id": "W_V168_HUNT",
+        "slot": "life",
+        "short": "생활 목표",
+        "icon": "life",
+        "reward": {
+          "mora": 11700
+        },
+        "countMode": "actions",
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_COOK": {
+        "kind": "cook",
+        "name": "요리 20개 만들기",
+        "goal": 20,
+        "minLevel": 1,
+        "filter": {},
+        "id": "W_V168_COOK",
+        "slot": "life",
+        "short": "생활 목표",
+        "icon": "life",
+        "reward": {
+          "mora": 14300
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_FORGE": {
+        "kind": "forge",
+        "name": "장비 3개 제작하기",
+        "goal": 3,
+        "minLevel": 1,
+        "filter": {
+          "equipmentOutput": true
+        },
+        "id": "W_V168_FORGE",
+        "slot": "life",
+        "short": "생활 목표",
+        "icon": "life",
+        "reward": {
+          "primogem": 20,
+          "mora": 22100
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_ABYSS": {
+        "kind": "abyss",
+        "name": "나선비경 전투 9번 이기기",
+        "goal": 9,
+        "minLevel": 1,
+        "filter": {},
+        "id": "W_V168_ABYSS",
+        "slot": "abyss",
+        "short": "나선 도전",
+        "icon": "abyss",
+        "reward": {
+          "primogem": 80,
+          "mora": 11700
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_DOMAIN_CIRCUIT": {
+        "kind": "domain",
+        "name": "비경 50번 이기기",
+        "goal": 50,
+        "minLevel": 1,
+        "filter": {},
+        "id": "W_V168_DOMAIN_CIRCUIT",
+        "slot": "domain",
+        "short": "비경 도전",
+        "icon": "domain",
+        "reward": {
+          "primogem": 60,
+          "mora": 39000
+        },
+        "weeklyCore": true,
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_LIFE_SUPPLY": {
+        "kind": "life",
+        "name": "채집·채광·낚시·사냥 60번 하기",
+        "goal": 60,
+        "minLevel": 1,
+        "filter": {},
+        "id": "W_V168_LIFE_SUPPLY",
+        "slot": "life",
+        "short": "생활 목표",
+        "icon": "life",
+        "reward": {
+          "mora": 19500
+        },
+        "weeklyCore": true,
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V168_ORE_SUPPLY": {
+        "kind": "mine",
+        "name": "광석 60개 새로 채광하기",
+        "goal": 60,
+        "minLevel": 1,
+        "filter": {},
+        "id": "W_V168_ORE_SUPPLY",
+        "slot": "life",
+        "short": "생활 목표",
+        "icon": "life",
+        "reward": {
+          "mora": 16900
+        },
+        "countMode": "units",
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V169_INN": {
+        "id": "W_V169_INN",
+        "kind": "sleep",
+        "goal": 5,
+        "name": "숙박시설에서 5번 숙박",
+        "icon": "life",
+        "reward": {
+          "mora": 5000
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V169_PROCESS": {
+        "id": "W_V169_PROCESS",
+        "kind": "process",
+        "goal": 12,
+        "name": "식재료 12회 가공",
+        "icon": "life",
+        "reward": {
+          "mora": 14000
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V169_INCIDENT": {
+        "id": "W_V169_INCIDENT",
+        "kind": "encounter",
+        "goal": 8,
+        "name": "지역 돌발상황 8번 해결",
+        "icon": "life",
+        "reward": {
+          "primogem": 35,
+          "mora": 11000
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V169_ENHANCE": {
+        "id": "W_V169_ENHANCE",
+        "kind": "enhance",
+        "goal": 4,
+        "name": "장비 강화 4번 시도",
+        "icon": "forge",
+        "reward": {
+          "mora": 27000
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      },
+      "W_V169_RECOVERY_MEAL": {
+        "id": "W_V169_RECOVERY_MEAL",
+        "kind": "meal",
+        "goal": 12,
+        "name": "회복 음식으로 캐릭터 12번 회복",
+        "icon": "life",
+        "reward": {
+          "mora": 10000
+        },
+        "assignedLevel": 60,
+        "revision": 172,
+        "individual": true
+      }
+    }
+  },
+  "legalCombatReport": "ascension_legal_stage_v01614.json",
+  "currentNativeMaterialReport": "task_materials_v01614.json",
+  "limits": [
+    "Restores final top-tier run count and weekly allocation ratio, not old fastest lower-stage farming time",
+    "Whole catch-up top-tier base run count30/59, old37/74; early costs stay intact",
+    "No new entry limit or weekly hard wait",
+    "No live market price history measured",
+    "Old XP timing formula requires separate fresh measurement"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "before": "../final_protect_formation_healing/repeated.json.gz",
+  "after": "repeated.json.gz",
+  "beforeFingerprint": "88b8d478b7370208f7a325e4d1a42735e0b5a1668e00181438afda5801fde3b9",
+  "afterFingerprint": "9e9595e890bc483ff1df43b2d5ac8ec17e78d4a523cf7223e17f84d47c6dbdcb",
+  "beforeCountsFromNativeSummary": {
+    "conditions": 56,
+    "battles": 202,
+    "wins": 182,
+    "losses": 20,
+    "errors": 0,
+    "stalled": 0,
+    "completeNoKo": 32,
+    "completeAllFull": 4
+  },
+  "afterCounts": {
+    "conditions": 56,
+    "battles": 202,
+    "wins": 182,
+    "losses": 20,
+    "errors": 0,
+    "stalled": 0,
+    "completeNoKo": 32,
+    "completeAllFull": 4
+  },
+  "conditions": 56,
+  "comparedFields": [
+    "wins",
+    "losses",
+    "finalHp",
+    "hpRatio",
+    "allFull",
+    "koBattles",
+    "healApplied",
+    "healNominal",
+    "overCap",
+    "quote",
+    "battles"
+  ],
+  "differentConditions": [],
+  "wholeConditionsEqual": true,
+  "nativeFooterReadBackAssertPassed": true,
+  "rawReportHasCountsFooter": true
+}

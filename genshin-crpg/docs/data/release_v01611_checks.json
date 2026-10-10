@@ -1,0 +1,409 @@
+{
+  "version": "0.16.11",
+  "task_revision": 171,
+  "recorded_at_utc": "2026-10-07T18:38:03.901727+00:00",
+  "game_baseline_commit": "d29b1238ef7d5ab4a3e40b9889b9b50f230163f2",
+  "publish_parent_commit": "100876cedf0989f4123fc36482ac9c992bf93993",
+  "baseline_project_tree": "9fe4fac689ce8a148eb2abc6b846806806c7fa45",
+  "scope": {
+    "removed_ids": [
+      "D_V168_HILI",
+      "W_V168_MOND_PATROL",
+      "W_V169_REPORT",
+      "W_V168_CRYO_VINE"
+    ],
+    "daily": 11,
+    "weekly": 28,
+    "one_time": 288,
+    "unchanged_remaining_goals_and_rewards": true,
+    "ui_change": "One existing daily-summary numeric expression; no DOM/layout/CSS changes."
+  },
+  "checks": [
+    {
+      "test": "tests/test_tasks_v0169.cjs",
+      "exit": 0,
+      "log": "finalfix171-test_tasks_v0169.cjs.log",
+      "initial_log": "final171-test_tasks_v0169.cjs.log",
+      "fixture_correction": "Use genuine prerequisite reports and begin a fresh eligible period before asserting the newly assigned plan.",
+      "log_sha256": "4f18e99b235813379ec9cf72ae6394d0f3f3e4a49c2525f6ad9b61833d62e9e7",
+      "pass_lines": [
+        "PASS daily farming objectives are generic and expose only the new branch roots",
+        "PASS new weekly assignment fixes its eligible manifest and honours definition Primogems",
+        "PASS every eligible weekly core objective stays in the fixed manifest across distinct accounts",
+        "PASS same-period legacy assignments preserve goals, progress, payouts and boss-slot Primogems",
+        "PASS next day adopts new definitions and increasing level cannot rewrite the assigned reward",
+        "PASS owned elemental daily varies by day and excludes dead, loan and remote characters",
+        "PASS daily elemental assignment avoids yesterday even when the owned roster changes",
+        "PASS native victory advances snapshot objectives exactly once after transaction reload",
+        "PASS three successful native gathers count actions independently of resource type/quantity",
+        "PASS locked daily quotas never produce a free all-complete reward",
+        "PASS daily all-complete and weekly all-complete pay separately once through real reports",
+        "PASS five simultaneous legacy/new commissions include ready work and completed reports free slots",
+        "PASS old accepted/paid chain records keep their original finite reward and multiplier",
+        "PASS grandfathered six accepted old objectives survive load but cannot add another",
+        "PASS real borrowed story companion cannot satisfy owned squad or elemental objectives; generic victory remains credited",
+        "PASS snapshot tampering cannot inflate goal, currency reward or accepted time",
+        "{\"ok\":true,\"checks\":16}"
+      ],
+      "initial_log_sha256": "428362615b370ca644e4f61b8cb58473d9bb79f3defaf5a149a679f2981b5f40"
+    },
+    {
+      "test": "tests/test_task_catalog_v0169.cjs",
+      "exit": 0,
+      "log": "final171-test_task_catalog_v0169.cjs.log",
+      "log_sha256": "a98b77f83c1733d6906006b16d4bfbf557705ca5a94438409b2fbdf06882474b",
+      "pass_lines": []
+    },
+    {
+      "test": "tests/test_task_learning_delivery_v0169.cjs",
+      "exit": 0,
+      "log": "final171-test_task_learning_delivery_v0169.cjs.log",
+      "log_sha256": "737cdd04bb75e7dabdd384855c4e8e108d01d6f1d8781779820378bf5a5d4a1d",
+      "pass_lines": [
+        "PASS 24 learning lessons and 24 finite deliveries append only native task definitions",
+        "PASS acceptance lesson counts its own native acceptance and opens other work only after report",
+        "PASS generic gathering lesson counts successful activities, not a particular item or empty exit",
+        "PASS chest learning records actual opens; prior native evidence only advances flagged learning",
+        "PASS sleep counts paid inn services; recovery and wait do not count",
+        "PASS processing and equipment crafting count only committed recipes, not preparation",
+        "PASS effective healing and real equip changes count; repeated full healing and same equip roll back",
+        "PASS real incident resolution counts; leaving or merely entering an incident does not",
+        "PASS item delivery consumes exactly required stock and pays a fixed reward exactly once",
+        "PASS delivery rechecks stock at report and atomically refuses an insufficient inventory",
+        "PASS equipment delivery preserves equipped, enhanced and locked copies; consumes only the spare",
+        "PASS earned achievement receipts teach handbook use; menu open and rejected claims count nothing",
+        "PASS eye investigation counts only the final native receipt and survives a mid-job reload",
+        "PASS native paid reinforcement attempts count once and rejected attempts preserve counters",
+        "PASS incident battle settlement nested in a public action counts exactly once"
+      ]
+    },
+    {
+      "test": "tests/test_task_board_v0169.cjs",
+      "exit": 0,
+      "log": "final171-test_task_board_v0169.cjs.log",
+      "log_sha256": "52b4a148ac21609eb4ca21a4faf3114e444201fba878fe403263397268c99c9f",
+      "pass_lines": [
+        "PASS 실제 임무판은 일일·주간의 열린 갈래와 모두달성 보상을 별도로 표시한다",
+        "PASS 기존 쪽 넘기기로 열린 주간 갈래·보너스에 접근하고 주간·일일 쪽 기억을 구분한다",
+        "PASS 주간 모두달성 버튼은 정확한 기존 TASK_CLAIM 경로와 수령 알림에 연결된다",
+        "PASS 메인 일일 완료 숫자는 새 갈래가 열려도 고정된 전체 목표와 완료 기록을 유지한다",
+        "{\"ok\":true,\"checks\":4,\"scope\":\"real board/module bindings + deterministic layout; browser media sizing excluded\"}"
+      ]
+    },
+    {
+      "test": "tests/test_task_catalog_v0168.cjs",
+      "exit": 0,
+      "log": "final171-test_task_catalog_v0168.cjs.log",
+      "log_sha256": "365831773cf15257ec1c7b15ad6f866612eb8696fca40949c75ad1210dd7b84a",
+      "pass_lines": [
+        "PASS 보존한 0.16.8/0.16.9 기본 카탈로그 의뢰240개: 실제 목표/장소/재료/선행 조건, 보상 차등, 기존 보상 정의 보존, 일일4/주간최대20"
+      ]
+    },
+    {
+      "test": "tests/test_tasks_expanded_v0168.cjs",
+      "exit": 0,
+      "log": "finalfix171-test_tasks_expanded_v0168.cjs.log",
+      "initial_log": "final171-test_tasks_expanded_v0168.cjs.log",
+      "fixture_correction": "Use genuine prerequisite reports and begin a fresh eligible period before asserting the newly assigned plan.",
+      "log_sha256": "91449c7b0bf394c2c50315bb18404cc602edcd3dd1e59d38f990f6d853243e1c",
+      "pass_lines": [
+        "PASS 일일11·주간28 후보: 열린 갈래만 표시하고 기존 기본 연속 의뢰240개 보존",
+        "PASS accepted objective starts at zero; real qualifying victory and report reveal its successor once",
+        "PASS named four-star companions use the actual four-person party captured at battle start",
+        "PASS element composition respects the fixed hero, rarity, all four members, and actual resonance",
+        "PASS gathering counts newly acquired matching resources; inventory and empty work do not advance it",
+        "PASS cooking counts only successful paid CRAFT batches and blocks menu-choice completion",
+        "PASS native DOMAIN_START preserves selected difficulty and type for filtered objectives",
+        "PASS native ley routes distinguish blossom type and chosen tier, and field bosses match their real ID",
+        "PASS native Abyss room victories count their actual floor and all three rooms precede reporting",
+        "PASS saved branch manifests are deterministic, keep reward brackets, and ignore WORLD_DAY changes",
+        "PASS 새 일일 비경은 열린 단계 모두 집계하고 일반 채집은 획득 개수가 아닌 성공 행동 3번을 요구한다",
+        "PASS 보유 원소 목표는 하루 동안 고정하고 다음 날 다른 보유 원소 조합으로 바뀐다",
+        "PASS an action started before reset cannot finish a newly assigned objective retroactively",
+        "{\"ok\":true,\"checks\":13,\"catalog\":{\"daily\":7,\"weekly\":24,\"chains\":288,\"families\":29}}"
+      ],
+      "initial_log_sha256": "f427532a77f5354ca8e3fe43264e72f2916012e0187d851eb89f9024edeaea77"
+    },
+    {
+      "test": "tests/test_tasks_edge_v0168.cjs",
+      "exit": 0,
+      "log": "final171-test_tasks_edge_v0168.cjs.log",
+      "log_sha256": "31e49b32ccd9358e700182a76d93bf52162c7cf8ac48729307a8c3583efbf6d2",
+      "pass_lines": [
+        "PASS legacy commission battle and new accepted objective share one native receipt across reload",
+        "PASS cooperative guest and displaced host companion never complete the host elemental party objective",
+        "PASS native Liyue gathering reports only at Liyue Catherine and preserves the predecessor gate",
+        "PASS reload retains old life start day; cancellation and work crossing midnight do not credit the new daily board",
+        "PASS rotation excludes blocked Abyss stages while saved assignments survive ownership changes",
+        "PASS extreme valid counters saturate on public victory and bonus claim without blocking the action",
+        "PASS 일괄 수령은 한 번만 지급하며 일일 보고5회와 주간 모두달성은 별개로 지급한다",
+        "PASS mid-chain Primogems require real new work and a successful claim; failed reports, reload and duplicate claims cannot mint extra",
+        "PASS saved task snapshots reject future, malformed and fabricated participant data",
+        "{\"ok\":true,\"checks\":9}"
+      ]
+    },
+    {
+      "test": "tests/test_v0167.cjs",
+      "exit": 0,
+      "log": "final171-test_v0167.cjs.log",
+      "log_sha256": "aedca8616b888c61d59ef3cb6ff9c7f0933abda9a3a7100a6ca44636a676ba25",
+      "pass_lines": [
+        "PASS 이전 저장의 목표·보상 보존과 갈래 집계: 성공한 실제 행동만 집계",
+        "PASS 받기 pays frozen rewards once; 모두 받기 claims the frontier; the day bonus counts toward the week",
+        "PASS the day turns at Korean midnight and the week on Monday",
+        "PASS a save with a broken board is refused; the server lets 「받기」 through",
+        "PASS 임무 보상 획득: what a claim paid shows itself; a finished task says so once",
+        "PASS 의뢰 한 줄: state, name, place, reward pictures, one small button; the row opens the whole card",
+        "PASS 메인 화면: no scrolling — pages filled by the real layout, tall cards paged by their rows, nothing cut",
+        "PASS 전투: only a fighter’s own skill is named, over its own side; the dock box is gone",
+        "PASS 캐릭터: books in one line per character, four tabs, where materials come from, nothing scrolls",
+        "PASS version 0.16.7 with its notes on top of the full chain",
+        "{\"ok\":true,\"checks\":10}"
+      ]
+    },
+    {
+      "test": "tests/test_task_materials_v0169.cjs",
+      "exit": 0,
+      "log": "final171-test_task_materials_v0169.cjs.log",
+      "log_sha256": "1a19fe2d231bbc5e7faee096850794c5d191d78fb8ceb964aecb909809951805",
+      "pass_lines": [
+        "PASS native six-phase demands are 441/882 gems with unchanged Mora and other materials",
+        "PASS native talent book totals preserve MOND 168/270 and increase LIYUE to 336/540",
+        "PASS 299/599 final ascension gems reject atomically; 300/600 spend exactly once and survive reload",
+        "PASS first MOND talent consumes 2 books and LIYUE consumes 4; missing one book rejects atomically",
+        "PASS native three-talent upgrades to 8 pay the exact regional totals and preserve trained saves",
+        "PASS weekly daily overlap is 60 payouts; EXP never spends the shared material bonus",
+        "PASS early and regional highest payouts use actual 1/5/12 drops without cloning books",
+        "PASS material payout/EXP tables and entire XP curve remain the existing 0.16.8 tables"
+      ]
+    },
+    {
+      "test": "tests/test_update_recovery.cjs",
+      "exit": 0,
+      "log": "final171-test_update_recovery.cjs.log",
+      "log_sha256": "2fb9484e03e96dd588021d945fbb3c732c2b8e5b234f7dc72ec0643225bafcac",
+      "pass_lines": [
+        "{\"ok\":true,\"engineMismatchUpdateRecovery\":true,\"realSaveFailurePreserved\":true}"
+      ]
+    },
+    {
+      "test": "tests/test_engine_identity.py",
+      "exit": 0,
+      "log": "final171-test_engine_identity.py.log",
+      "log_sha256": "fc637f1cb55b50ff745c23ee3652f65060ed3d80190cb582c77bb52715a80afc",
+      "pass_lines": []
+    },
+    {
+      "test": "tests/test_combat_boundaries_v0168.cjs",
+      "exit": 0,
+      "log": "final171-test_combat_boundaries_v0168.cjs.log",
+      "log_sha256": "29483e79c865d5ec7549789643dff5e23d5bb4385f21441e8fc67475d8d70ff6",
+      "pass_lines": [
+        "PASS completed authored evacuation settles with a KO protagonist: ISK_L04_AA1_058",
+        "PASS completed authored evacuation settles with a KO protagonist: ISK_L04_AA2_057",
+        "PASS completed authored evacuation settles with a KO protagonist: ISK_L04_AB1_066",
+        "PASS completed authored evacuation settles with a KO protagonist: ISK_L04_AB2_065",
+        "PASS completed authored evacuation settles with a KO protagonist: ISK_L04_B1_051",
+        "PASS completed authored evacuation settles with a KO protagonist: ISK_L04_B2_047",
+        "PASS an old saved evacuation HOLD resumes to victory with living allies",
+        "PASS completed evacuation remains a defeat when the whole party is KO",
+        "PASS evacuation still requires four completed rounds and no living enemy",
+        "PASS a native lethal basic attack cannot trigger a dead Azhdaha phase 1",
+        "PASS a native lethal basic attack cannot trigger a dead Azhdaha phase 2",
+        "PASS living Azhdaha still resolves both crossed phase boundaries",
+        "PASS native Oz END kill wins on permitted Abyss round -1",
+        "PASS native Oz END kill wins on permitted Abyss round 0",
+        "PASS native burning END kill wins on the last allowed Abyss round",
+        "PASS native Klee C4 field-expiry END explosion can win on the last allowed Abyss round",
+        "PASS native direct attack wins on the last allowed Abyss round",
+        "PASS Abyss timeout excludes a native Ice START kill from the next round",
+        "PASS ordinary living enemies still cause timeout at the last allowed Abyss END",
+        "PASS Abyss all-party KO remains defeat rather than victory or timeout",
+        "PASS guarded revival rejects indirect DOT damage: FB_GEO_HYPOSTASIS",
+        "PASS saved guarded revival retains DOT protection: FB_GEO_HYPOSTASIS",
+        "PASS guarded revival countdown and one-time revival remain intact: FB_GEO_HYPOSTASIS",
+        "PASS guarded revival rejects indirect DOT damage: FB_ELECTRO_HYPOSTASIS",
+        "PASS saved guarded revival retains DOT protection: FB_ELECTRO_HYPOSTASIS",
+        "PASS guarded revival countdown and one-time revival remain intact: FB_ELECTRO_HYPOSTASIS"
+      ]
+    },
+    {
+      "test": "tests/test_task_branches_v01611.cjs",
+      "exit": 0,
+      "log": "tasks-branches-v01611-final23.log",
+      "log_sha256": "5dd6ab9cf255f6ac9147af9c61493304c8fb0ffe9662a68916dac05c847100d2",
+      "pass_lines": [
+        "PASS only the specified four are retired, every other objective and payout remains",
+        "PASS a new account sees only reception practice, with no empty-board bonus",
+        "PASS native reception followed by report unlocks siblings and replay cannot pay twice",
+        "PASS direct acceptance cannot bypass an unreported one-time predecessor",
+        "PASS daily successors receive only new victories after the first payout",
+        "PASS weekly long operations stay hidden until predecessor rewards are collected",
+        "PASS a two-parent operation opens only after both reports",
+        "PASS an event captured before unlock cannot leak progress into a successor",
+        "PASS bulk payout cannot clear hidden branches or pay an early all-complete bonus",
+        "PASS all-complete is paid once only after the entire fixed branch manifest",
+        "PASS daily reset closes daily successors but retains weekly progress and claims",
+        "PASS weekly reset restarts its roots and rejects delayed prior-week events",
+        "PASS period assignment and rewards do not change when level or inventory changes",
+        "PASS legacy removed assignments disappear while earned currency and valid snapshots survive",
+        "PASS a genuinely accepted old reception lesson becomes reportable without inventing another quest",
+        "PASS a legacy accepted activity retains its frozen goal and can finish before reception practice",
+        "PASS two one-time prerequisites are both required and cannot be bypassed by direct API",
+        "PASS tampered branch rewards, prerequisites and activation times are rejected",
+        "PASS prior genuine ordinary report teaches reporting without refilling weekly counters",
+        "PASS an accepted 169 reporting lesson uses prior native report and preserves its frozen definition",
+        "PASS five daily reports remains a weekly root only when enough reporting days remain",
+        "PASS the first native battle after midnight counts without opening the task screen",
+        "PASS the first public gathering activity after midnight counts before any task view",
+        "{\"ok\":true,\"checks\":23}"
+      ]
+    },
+    {
+      "test": "tests/test_durable_migration.mjs",
+      "exit": 0,
+      "log": "final171-test_durable_migration.mjs.log",
+      "log_sha256": "35eca67c8e608d6a4827581646e6256637a8bb527f2168554d4163f6ad2499b9",
+      "pass_lines": [
+        "{\"ok\":true,\"migrationFailureRecovery\":true,\"originalPreserved\":true,\"zeroD1RoutedAuth\":true,\"legacyRevocationTombstone\":true,\"expiry\":true,\"accountDeletion\":true}",
+        "PASS activated-object loss cannot overwrite a save with the stale D1 original"
+      ]
+    },
+    {
+      "test": "tests/test_online_server.mjs",
+      "exit": 0,
+      "log": "final171-test_online_server.mjs.log",
+      "log_sha256": "bc107389fb7e62fad1bb8b6bcabf85ebeca0ac11a3334c2e4d53b482db5bcf13",
+      "pass_lines": [
+        "PASS accounts/passwords, actions, forgery, retries across deployment, version gate, recent backups, corrupt-save preservation, cleanup failure, revisions, operator exclusion, top20, account deletion"
+      ]
+    },
+    {
+      "test": "tests/test_quality_fixes_v01335.cjs",
+      "exit": 0,
+      "log": "fixedbranch-test_quality_fixes_v01335.cjs.log",
+      "log_sha256": "50ca509d630d34072cf4a1b55cf17636005786d5324fb165d8fc8106a6b5766f",
+      "pass_lines": [
+        "PASS field commission scene lives on location and reward requires Katheryne",
+        "PASS field quest view includes all accepted exploration objectives at their actual map",
+        "PASS Barbara legend output has full clinic scene instead of terse summary",
+        "PASS Eula legend restores the vengeance mannerism repeatedly",
+        "PASS regional report gate does not accept a Mond commission at Liyue Katheryne",
+        "PASS UI routes field actions to main screen and reports at Katheryne"
+      ]
+    },
+    {
+      "test": "tests/test_quality_fixes_v01336.cjs",
+      "exit": 0,
+      "log": "fixedbranch-test_quality_fixes_v01336.cjs.log",
+      "log_sha256": "4513a4c0ddbb0b55523da4c0d45cb9a96ed9718b953179eb45e24867061d90a2",
+      "pass_lines": [
+        "PASS forge weapons, white iron and crystal chunks are absent from every shop",
+        "PASS mystery orb player text contains no branch or CE implementation codes",
+        "PASS accepted commission can be pinned and becomes navigation goal",
+        "PASS affection objective kind can be pinned without changing its story state",
+        "PASS Barbara catalyst basic attack deals Hydro instead of physical",
+        "PASS free Mondstadt-Liyue direct transit is once per in-game day and marked for 30 second UI wait",
+        "PASS Stone Gate and Dawn Winery have a normal unrestricted overland return road",
+        "PASS Razor introduction is in Wolvendom and no longer assigned to a Mondstadt city contact",
+        "PASS joined characters are treated as known and future joins mark first contact",
+        "PASS Venti identity reveals visibly surprise Jean and Diluc before they refocus",
+        "PASS UI exposes pin controls for commission legend and affection and a 30 second region transit overlay"
+      ]
+    },
+    {
+      "test": "tests/test_update_v01341.cjs",
+      "exit": 0,
+      "log": "fixedbranch-test_update_v01341.cjs.log",
+      "log_sha256": "353ecab7d1dc2f92738220e8b5218ddf87fbe1bd777740a812529efc9260014f",
+      "pass_lines": [
+        "PASS mail search/sort/delivery and beginner supply through native actions",
+        "PASS all 15 rewritten personal quests × 2 choice paths, first-meeting greeting, save/reload, original cost and recruitment",
+        "PASS saves paused inside the older incident nodes finish and recruit"
+      ]
+    },
+    {
+      "test": "tests/test_local_revision_v0141.cjs",
+      "exit": 0,
+      "log": "fixedbranch-test_local_revision_v0141.cjs.log",
+      "log_sha256": "2cc4e5d4f9e00513d47fe4dffdb973a6386b09fb43fe2aa088376bf965da994c",
+      "pass_lines": [
+        "PASS commission XP reaches each active member once, excludes bench and survives retry",
+        "PASS pinned commission replaces main destination and clears after reward",
+        "PASS bulk books consume the selected amount once and reject overflow atomically",
+        "PASS ordinary fight offers escape on round 10, no rewards, defeat fee, warp or double settlement",
+        "PASS story/field/boss/abyss battles never gain ordinary escape",
+        "PASS Dvalin airborne message states the obstacle and legal ranged alternatives",
+        "PASS every new map has two-way edges and an encounter pool or safe stop; gear previews survive expanded database",
+        "PASS new investigation persists clues without quiz or sequence and old mission receipt stays intact"
+      ]
+    },
+    {
+      "test": "tests/test_local_revision_online_v0141.mjs",
+      "exit": 0,
+      "log": "fixedbranch-test_local_revision_online_v0141.mjs.log",
+      "log_sha256": "f1e8be642ea9b7600f17176bcc4ac1355a8bd8af504bf7ae03ff1101f2bd6742",
+      "pass_lines": [
+        "PASS isolated Worker + SQLite: bulk books, tutorial, pin/clear, party quest XP and escape; duplicate requests settle exactly once"
+      ]
+    },
+    {
+      "test": "tests/test_life_v010.cjs",
+      "exit": 0,
+      "log": "prebranch-test_life_v010.cjs.log",
+      "log_sha256": "9b45f55fda976c7e36028303953490656a2734abef995d38b8fb4b9b814bbf0f",
+      "pass_lines": [
+        "PASS all maps expose at most one kind and new dedicated sites have return routes",
+        "PASS gathering no longer permits mining; quarry permits only mining",
+        "PASS old in-flight mining save migrates safely with its spent quotas carried to quarry",
+        "PASS gathering pays the plants picked, Mond keeps its eggs and a high encounter roll stays peaceful",
+        "PASS hunt and gather encounter chance is one exact 5% roll and opens before any attack",
+        "PASS mining and fishing never trigger additional life encounters",
+        "PASS regional mining retains Starsilver and the Mond ore weights; a mine pays its broken veins",
+        "PASS rod and bait enforced, bait spent exactly once, cancelling keeps rod and grants no fish",
+        "PASS fishing timing, future inputs, dishonest success flags and repeated completions cannot grant fish",
+        "PASS actual tension controls catch fish, persist save and do not consume extra bait",
+        "PASS level increases fully heal protagonist and companion, non-level XP does not",
+        "PASS XP book action levels and heals its active owner",
+        "PASS Sara offers authored gated legends without accepting general commissions or other routes",
+        "PASS Angel Share is a new scoped facility and keeps old smith identity for saves",
+        "PASS contact registration obeys story/combat locks"
+      ]
+    }
+  ],
+  "summary": {
+    "programs_passed": 21,
+    "new_branch_checks_passed": 23,
+    "full_release_gate_executed_this_turn": false,
+    "real_browser_or_phone_pixel_qa_executed": false,
+    "actual_vps_install_executed": false
+  },
+  "build": {
+    "command": "python tools/build_server.py",
+    "exit": 0,
+    "result": {
+      "version": "0.16.11",
+      "runtime_files": 119,
+      "bytes": 28318522,
+      "gzip_bytes": 5367003
+    },
+    "log_sha256": "ec030e21ac48520daee483dd483573198ea5e856fb4ad1b5c8fe02abe4ced96c"
+  },
+  "source_sha256": {
+    "source/app_tasks_v0167.js": "77694794e1ee8a61a0a90d215fc9869f6291f5e17adc731318564114fbe4aecc",
+    "source/runtime_task_learning_catalog_v0169.js": "9cf171b0ce3c346c5e6767976233f6c2fb74d27a567d30a833b0138a6de240b5",
+    "source/runtime_task_learning_v0169.js": "9e559eaf162280c88313bb8ae582792f10a1224061dbb6406fc4b05d205a5748",
+    "source/runtime_tasks_v0167.js": "4e9e9d0348244b887b10372782f74bb7cb992f1d746b7bf3fbaf0405db045a42"
+  },
+  "preserved_remote_content": {
+    "content/db.json": "cc3996929c885d41289038ff501640039a4cc71e",
+    "content/asset-manifest.json": "344b801e7e7d88b86e2a36ef696baeb3e76c7d2a",
+    "assets_tree": "c8e23881af963b1eea026ba8d0e559f9df0f2181"
+  },
+  "test_limits": [
+    "Some quota/ancestor cases explicitly construct goal or claimed-parent fixtures; the suite does not pretend to execute 150 fights or five real reporting dates.",
+    "Board tests execute the existing module with a deterministic DOM model; they are not browser pixel tests.",
+    "Prior full-release missing-input evidence remains in release_v0169_checks.json; remote authoring DB and assets are preserved."
+  ],
+  "known_legacy_period_limit": "An already assigned old W_BONUS retains its definition and earned progress this week; an account without enough remaining daily-report dates may still be unable to receive the whole-week bonus. Next-period manifests apply the sufficient-days rule."
+}

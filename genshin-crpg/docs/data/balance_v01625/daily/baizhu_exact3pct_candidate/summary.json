@@ -1,0 +1,327 @@
+{
+  "fingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+  "conditions": 4,
+  "wins": 4,
+  "defeats": 0,
+  "limits": 0,
+  "entryBlocked": 0,
+  "errors": [],
+  "inputs": 123,
+  "drift": [],
+  "rows": [
+    {
+      "candidate": "BAIZHU_E_HEAL_MULT_0.375",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "LIYUE_BAIZHU_E": {
+            "healingMultiplier": 0.375
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmFingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_BAIZHU"
+      ],
+      "state": "WIN",
+      "rounds": 11,
+      "inputs": 10,
+      "seconds": 124.25,
+      "cpuSeconds": 0.311567112,
+      "hp": 0.711781738779579,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 605,
+      "operatorProfile": {
+        "revision": 605,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "LIYUE_BAIZHU_E": {
+              "healingMultiplier": 0.375
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "BAIZHU_E_HEAL_MULT_0.375",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "LIYUE_BAIZHU_E": {
+            "healingMultiplier": 0.375
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmFingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+      "boss": "BOSS_TARTAGLIA",
+      "level": 50,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_BAIZHU"
+      ],
+      "state": "WIN",
+      "rounds": 11,
+      "inputs": 10,
+      "seconds": 124.25,
+      "cpuSeconds": 0.222798238,
+      "hp": 0.711781738779579,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_TARTAGLIA",
+          "level": 50,
+          "hp": 125761,
+          "maxHp": 125761,
+          "atk": 9703,
+          "def": 591
+        }
+      ],
+      "terrain": null,
+      "dailyTargetingRevision": 1,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 605,
+      "operatorProfile": {
+        "revision": 605,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "LIYUE_BAIZHU_E": {
+              "healingMultiplier": 0.375
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_TARTAGLIA": 20736
+      },
+      "admissionAfter": {
+        "FARM_TARTAGLIA": 20736
+      }
+    },
+    {
+      "candidate": "BAIZHU_E_HEAL_MULT_0.375",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "LIYUE_BAIZHU_E": {
+            "healingMultiplier": 0.375
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmFingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_BAIZHU"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 97.03,
+      "cpuSeconds": 0.266545461,
+      "hp": 0.8267137681432327,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 605,
+      "operatorProfile": {
+        "revision": 605,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "LIYUE_BAIZHU_E": {
+              "healingMultiplier": 0.375
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "candidate": "BAIZHU_E_HEAL_MULT_0.375",
+      "profileConfig": {
+        "tables": [],
+        "enemies": {},
+        "characters": {},
+        "cards": {
+          "LIYUE_BAIZHU_E": {
+            "healingMultiplier": 0.375
+          }
+        },
+        "economy": {},
+        "encounters": {},
+        "growth": {
+          "domains": {},
+          "ascension": {},
+          "talents": {}
+        }
+      },
+      "vmFingerprint": "0450c3d529910b3f318a6d5950c7af07e3b62387651be788ab10ea456bf701f2",
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_BAIZHU"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 92.46000000000001,
+      "cpuSeconds": 0.370222258,
+      "hp": 0.8359708653766487,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 605,
+      "operatorProfile": {
+        "revision": 605,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {
+            "LIYUE_BAIZHU_E": {
+              "healingMultiplier": 0.375
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    }
+  ]
+}

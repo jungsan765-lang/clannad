@@ -10,8 +10,11 @@ const root=resolve(import.meta.dirname,'..'),version=JSON.parse(readFileSync(res
 const server=createServer((req,res)=>{let path=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';if(path.includes('..')){res.writeHead(403).end();return;}const source=resolve(root,'source',path),file=!process.env.CRPG_TEST_DIST&&/\.(js|css|html)$/.test(path)&&existsSync(source)?source:resolve(root,'dist',path);try{res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.webp':'image/webp'})[extname(file)]||'application/octet-stream');let data=readFileSync(file);if(!process.env.CRPG_TEST_DIST&&path==='assets.js')data=data.toString().replace(/"appVersion":\s*"[^"]*"/,'"appVersion":'+JSON.stringify(version))+'\nwindow.CRPG_MANIFEST.engineVersion='+JSON.stringify(ENGINE_FINGERPRINT)+';';res.end(data);}catch{res.writeHead(404).end();}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
 const fixture=onlineFixture();await fixture.start();
+// 0.16.7: the main screen's left column turns pages (◀ ▶) instead of scrolling; a card on a later page is shown first.
+async function reveal(target){const pager=page.locator('.shell-loc-side .shell-pane:not([hidden]) > .pane-pager');if(!(await pager.count()))return;const [prev,next]=[pager.locator('button').first(),pager.locator('button').last()];while(!(await prev.isDisabled()))await prev.click();for(let i=0;i<12&&!(await target.isVisible())&&!(await next.isDisabled());i++){await next.click();await page.waitForTimeout(60);}}
 const browser=await chromium.launch({headless:true,executablePath:process.env.CRPG_CHROMIUM_EXECUTABLE||undefined,args:['--no-sandbox']}),page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[],calls=[];
 page.on('pageerror',e=>errors.push(e.message));
+page.on('console',m=>{if(m.type()==='warning'&&m.text().startsWith('battle fx'))errors.push(m.text());});
 let delay=0,drops=0,arrivalDelay=0;
 await page.route('https://genshin-crpg-online.jungsan765.workers.dev/**',async route=>{
  const req=route.request(),body=req.postDataJSON(),path=new URL(req.url()).pathname;
@@ -46,7 +49,7 @@ try{
  assert.equal(await page.evaluate(()=>game.s.global.SCREEN_MODE),'SYSTEM');
  assert(await page.evaluate(()=>CRPGOnline.pending?.type==='STORY_READ'),'menu opens before the outstanding reading response');
  await page.evaluate(()=>window.readFlush);assert.equal(await page.evaluate(()=>game.s.global.SCREEN_MODE),'SYSTEM','reading acknowledgement must not close the menu');
- await page.locator('[data-screen="STORY"]').click();await idle();delay=0;
+ await page.evaluate(()=>document.querySelector('main > aside nav [data-screen="STORY"]').click());await idle();delay=0;
  assert.equal(await page.evaluate(()=>game.storyActiveNodeId()),readNodes.at(-1),'returning from menus preserves the visible reading position');
  results.push({menuDuringReadingSave:true,menuPreservedOnAcknowledgement:true});
  await same('background reading');assert.equal(fixture.read().revision,storyRevision+2,'five lines are two checkpoints while reading during an in-flight batch');
@@ -71,7 +74,7 @@ try{
  assert(visited.length>=1);results.push({storyNodes:visited});
  await page.screenshot({path:resolve(evidence,'story.png')});
  const count=calls.length,rev=fixture.read().revision;
- await page.locator('[data-screen="SYSTEM"]').click();await idle();await page.locator('[data-screen="STORY"]').click();await idle();await page.evaluate(async()=>{for(let i=0;i<150;i++){await CRPGOnline.execute('MENU',{screen:'SYSTEM'});await CRPGOnline.execute('MENU',{screen:'STORY'});}render();});assert.equal(calls.length,count);assert.equal(fixture.read().revision,rev);results.push({menuRequests:0,repeatedMenuCycles:150});
+ await page.locator('[data-screen="SYSTEM"]').click();await idle();await page.evaluate(()=>document.querySelector('main > aside nav [data-screen="STORY"]').click());await idle();await page.evaluate(async()=>{for(let i=0;i<150;i++){await CRPGOnline.execute('MENU',{screen:'SYSTEM'});await CRPGOnline.execute('MENU',{screen:'STORY'});}render();});assert.equal(calls.length,count);assert.equal(fixture.read().revision,rev);results.push({menuRequests:0,repeatedMenuCycles:150});
  // A committed reading checkpoint whose two responses are lost survives reload without replaying lines.
  fixture.seed(restart.s);await start();drops=2;
  for(let i=0;i<3;i++)await readButton().click();const lostReadNode=await page.evaluate(()=>game.storyActiveNodeId());
@@ -109,6 +112,7 @@ try{
  // v0.14.0 removed daily exchange activities; the locked next affection stage still explains its blocker in red.
  assert.equal(await card.locator('.relationship-activities').count(),0,'daily exchange activities were removed');
  const unmet=card.locator('.relationship-next.requirement-unmet');assert((await unmet.innerText()).includes('개인'));assert.equal(await unmet.evaluate(n=>getComputedStyle(n).color),'rgb(255, 155, 155)');
+ assert.equal(await unmet.evaluate(n=>getComputedStyle(n).wordBreak),'keep-all','relationship prerequisites keep Korean words together');
  const lockedActivity=Object.values(globalThis.CRPGRelationships.activitiesFromDB(DB)).find(x=>x.profileId==='PROFILE_MOND_AMBER'&&x.route===relations.s.global.STORY_ROUTE_ID);assert(relations.actionReason('RELATION_ACTIVITY',{activityId:lockedActivity.id}));
  const beforeLocked=fixture.read().revision;await page.evaluate(id=>act('RELATION_ACTIVITY',{activityId:id}),lockedActivity.id);await idle();assert.equal(fixture.read().revision,beforeLocked);assert.equal(await page.evaluate(()=>CRPGOnline.pending),null);
  const dismiss=page.getByRole('button',{name:'나중에 보기',exact:true});if(await dismiss.count())await dismiss.click();await card.scrollIntoViewIfNeeded();await page.screenshot({path:resolve(evidence,'relationship-locked.png')});
@@ -119,9 +123,13 @@ try{
  try{await page.evaluate(()=>act('WAIT',{minutes:1}));await idle();assert.equal(await page.evaluate(()=>CRPGOnline.pending),null,'a definitely rejected server failure must release the UI');}finally{R.prototype.action=originalAction;}
  await page.evaluate(()=>act('WAIT',{minutes:1}));await idle();await same('play after server rejection');results.push({relationshipLocked:true,requirementRed:true,legacyPendingRecovered:true,precommitFailureRecovered:true});
  fixture.seed(free().s);await start();
- delay=1800;arrivalDelay=500;const activityClickedAt=Date.now();const life=page.getByRole('button',{name:/채집 시작 · 10초/});await life.click();await page.waitForTimeout(300);const pendingLife=page.locator('.pending-activity');assert(await pendingLife.isVisible());assert((await pendingLife.innerText()).includes('채집 중'));assert(Number(await pendingLife.locator('progress').getAttribute('value'))>0,'life timer visibly progresses while its start request is pending');await page.screenshot({path:resolve(evidence,'life-pending.png')});await idle();arrivalDelay=0;
+ delay=1800;arrivalDelay=500;const activityClickedAt=Date.now();const life=page.getByRole('button',{name:'채집하기',exact:true});await reveal(life);await life.click();await page.waitForTimeout(300);const pendingLife=page.locator('.pending-activity');assert(await pendingLife.isVisible());assert((await pendingLife.innerText()).includes('채집 중'));assert(Number(await pendingLife.locator('progress').getAttribute('value'))>0,'life timer visibly progresses while its start request is pending');await page.screenshot({path:resolve(evidence,'life-pending.png')});await idle();arrivalDelay=0;
  const lifeState=await same('life start');assert(lifeState.lifeJob);const elapsed=await page.evaluate(()=>CRPGOnline.now()-game.s.lifeJob.startedAt);assert(elapsed>=1700,'response wait must already count toward life timer');
  await page.screenshot({path:resolve(evidence,'life.png')});delay=0;
+ // 0.16.2 resource scene: pick every plant (the first is the lesson's); the scene then settles itself with one LIFE_FINISH.
+ // A job made by a server from before 0.16.2 (its 0.15.22 minigame) finishes on its own after ten seconds.
+ const scene=await page.evaluate(()=>!!game.s.lifeJob?.scene);
+ if(scene){const plants=page.locator('.life-scene .life-node.plant');await plants.first().waitFor();const count=await plants.count();assert(count>=4&&count<=5,'four or five plants');for(let i=0;i<count;i++)await plants.nth(i).click();await page.screenshot({path:resolve(evidence,'life-scene-picked.png')});}
  await page.waitForFunction(()=>!game.s.lifeJob&&!busy,{},{timeout:20000});await same('life finish');assert.equal(calls.filter(c=>c.type==='LIFE_START').length,1);assert.equal(calls.filter(c=>c.type==='LIFE_FINISH').length,1);results.push({lifeElapsedOnAcknowledgement:elapsed,visibleBeforeAcknowledgement:true,activityTotalMilliseconds:Date.now()-activityClickedAt});
  fixture.seed(free().s);await start();delay=1800;
  const move=page.locator('.terrain-destination:not([disabled])').first();assert(await move.count());await move.click();await page.waitForTimeout(1200);const progress=page.locator('.action-save-cover progress');assert.equal(await progress.getAttribute('value'),null,'expired travel animation must show indeterminate confirmation, never stuck 94%');await idle();delay=0;await same('move');
@@ -137,25 +145,28 @@ try{
  for(const label of ['안내 확인 · 나중에 장착','장착 확인']){const guide=page.getByRole('button',{name:label,exact:true});if(await guide.count()){await guide.click();await idle();await same('equipment guide dismissal '+label);}}assert.equal(await page.locator('.equipment-guide').isVisible(),false,'acknowledged guide must release the play screen');
  const world=free(),point=globalThis.CRPGWorldContent.oculi.find(p=>p.steps[0].duration>0&&p.method!=='HIDDEN'&&p.level<=1&&!Object.keys(p.requirements||{}).length&&!p.place);
  assert(point);world.action('OPERATOR_DEBUG',{op:'travel',map:point.map});fixture.seed(world.s);await start();delay=1800;
- await page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first().click();await page.waitForTimeout(300);
+ await reveal(page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first());await page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first().click();await page.waitForTimeout(300);
  assert(await page.locator('.pending-activity').isVisible());assert(Number(await page.locator('.pending-activity progress').getAttribute('value'))>0);await idle();delay=0;await same('world work start');
  await page.waitForFunction(()=>!game.s.worldJob&&!busy,{},{timeout:20000});await same('world work finish');results.push({worldWorkOverlapsSaving:true});
- const battle=free();battle.startBattle('EG_MOND_HILI_PATROL','RANDOM');
+ const battle=free();battle.tutorialState().done.combatAttack=true; // Playback fixture has already learned the basic attack; this turn teaches guard.
+ battle.startBattle('EG_MOND_HILI_PATROL','RANDOM');
  // Load without startGame, which intentionally forfeits a battle on reconnect: start in free play, then enter via real action.
  fixture.seed(free().s);await start();
  // Dedicated test fixture installs a server battle response using the real sync path, without simulating a reconnect.
  fixture.seed(battle.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
- assert.equal(await page.locator('#tutorial-tour').count(),0,'the free-play guide must not cover a battle');
+ assert.equal(await page.locator('.content > #tutorial-tour').count(),0,'the free-play guide must not cover a battle');assert.equal(await page.locator('.combat-panel > #tutorial-tour').count(),0,'tutorial text never reserves a board row');
  delay=1800;await page.getByRole('button',{name:'전투 시작',exact:true}).click();await page.waitForTimeout(250);assert(await page.locator('.action-save-cover').isVisible());await idle();delay=0;await same('combat begin');
- assert.equal(await page.evaluate(()=>game.combatActor().id),'PLAYER_CUSTOM');
- const guard=page.locator('.battle-cards button').filter({hasText:'방어'}).first();if(await guard.count())await guard.click();
+ assert.equal(await page.evaluate(()=>game.combatActor().id),'PLAYER_CUSTOM');await page.waitForSelector('#tutorial-spotlight[data-step="combatGuard"]');
+ const guard=page.locator('.battle-cards button').filter({hasText:'방어'}).first();await guard.click();await page.waitForSelector('[data-action="COMBAT"].tutorial-target');
  delay=1800;await page.getByRole('button',{name:'선택한 행동 실행',exact:true}).click();await page.waitForTimeout(750);assert(await page.evaluate(()=>[...CombatFX.animations].some(a=>a.playState==='running')),'preparation stays animated while waiting for the authoritative result');assert.equal(await page.locator('.combat-playback').count(),0,'unconfirmed damage must not play');await page.screenshot({path:resolve(evidence,'combat-pending.png')});await page.waitForSelector('.combat-playback');delay=0;
  await page.waitForFunction(()=>document.querySelector('.playback-outcomes')?.textContent.includes('→'));
  await page.getByRole('button',{name:'일시정지',exact:true}).click();await page.waitForTimeout(150);
+ assert.equal(await page.locator('.battle-command').evaluate(n=>getComputedStyle(n).visibility),'hidden','duplicate progress strip must not protrude behind the replay dock');assert(await page.locator('.combat-playback').evaluate(n=>{const r=n.getBoundingClientRect(),c=document.querySelector('.battle-command').getBoundingClientRect();return Math.abs(r.top-c.top)<2&&Math.abs(r.left-c.left)<2&&r.bottom<=c.bottom+2&&r.right<=c.right+2;}),'playback controls occupy the reserved command area');
+ assert(await page.getByRole('button',{name:'계속 재생',exact:true}).isVisible());assert.equal(await page.getByRole('button',{name:'결과 바로 보기',exact:true}).count(),0,'no battle skip in the playback (0.15.17)');
  const during=await page.evaluate(()=>({outcome:document.querySelector('.playback-outcomes').textContent,player:document.querySelector('[data-actor-id="PLAYER_CUSTOM"] .stat')?.textContent}));
  const transition=during.outcome.match(/(?:HP|체력) (\d+) → (\d+)/);assert(transition,'real playback must display the acknowledged HP transition');assert(during.player.includes(transition[2]),'HP must already update during playback, before skipping or final render');results.push({playbackHP:during});
  await page.screenshot({path:resolve(evidence,'combat.png')});
- await page.getByRole('button',{name:'결과 바로 보기',exact:true}).click();await idle();const after=await same('combat result');
+ await page.getByRole('button',{name:'계속 재생',exact:true}).click();await page.waitForSelector('.combat-playback',{state:'detached',timeout:90000});await idle();const after=await same('combat result');
  const rows=await page.locator('.combatant-row').evaluateAll(nodes=>nodes.map(n=>({id:n.dataset.actorId,hp:n.querySelector('.stat')?.textContent})));
  for(const a of after.runtime?.actors||[])assert(rows.find(n=>n.id===a.id)?.hp.includes(String(a.hp)),'visible HP matches '+a.id);
  results.push({combatActors:rows});

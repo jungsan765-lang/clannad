@@ -1,0 +1,11 @@
+PASS only the additional regional weekly retires from the exact frozen 171 catalogue
+PASS new 172 assignment excludes both regional patrol weeklies and preserves reception gate
+PASS a real pending 171 regional patrol removes only its assignment while other progress and watermarks survive
+PASS a previously paid native 171 regional reward stays paid without refund or replay
+PASS an in-flight native 171 battle counts toward already-open remaining targets after migration
+PASS closed native 171 period still opens only after the genuine reception report
+PASS the strict 171 validator rejects locked regional credit and missing or forged watermarks before migration
+PASS frozen 171 definitions in a migrated 172 period retain all branch barriers
+PASS already accepted native 171 one-time joins still require both original predecessors
+PASS the current whole-week bonus counts only remaining targets while an already-paid bonus cannot replay
+{"ok":true,"checks":10,"native171SourceHashes":{"runtime_tasks_v0167.js":"4e9e9d0348244b887b10372782f74bb7cb992f1d746b7bf3fbaf0405db045a42","runtime_task_learning_catalog_v0169.js":"9cf171b0ce3c346c5e6767976233f6c2fb74d27a567d30a833b0138a6de240b5"}}

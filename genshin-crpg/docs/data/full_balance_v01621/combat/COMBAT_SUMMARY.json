@@ -1,0 +1,244 @@
+{
+  "schema": 1,
+  "baselineCommit": "df1d2c48b630bf8a152481bcc4bcc3e5b8b37785",
+  "baselineArchive": "../baseline_v01620.tar.gz",
+  "registeredMonsters": 228,
+  "monsterStatus": {
+    "REGISTERED_WITHOUT_INITIAL_ENCOUNTER": 75,
+    "DYNAMIC_WITNESS": 100,
+    "REJECTED_GROUP_OWNER": 53
+  },
+  "initialGroups": {
+    "monsters": 228,
+    "initialGroups": 331,
+    "groupStatus": {
+      "INITIALIZED": 245,
+      "REJECTED": 86
+    },
+    "enemyCardsRegistered": 414,
+    "uniqueCardsExecuted": 96,
+    "cardWitnesses": 119,
+    "errors": 0,
+    "capacityFailures": 0,
+    "numericFailures": 0
+  },
+  "boundedNativePhaseGroups": {
+    "selectedGroups": 62,
+    "encounters": 62,
+    "dynamicMonsterOwners": 78,
+    "uniqueCards": 76,
+    "events": 312,
+    "errors": 0,
+    "capacityFailures": 0,
+    "numericFailures": 0
+  },
+  "registeredCards": 414,
+  "cardStatus": {
+    "SUPPORTED_LOG_ONLY": 6,
+    "EXECUTED": 104,
+    "SUPPORTED_NOT_EXECUTED": 87,
+    "REGISTERED_UNSUPPORTED": 217
+  },
+  "majorBosses": {
+    "conditions": 12,
+    "wins": 12,
+    "losses": 0,
+    "stalled": 0,
+    "errors": 0,
+    "uniqueCardsExecuted": 14
+  },
+  "specialOwners": {
+    "cases": 6,
+    "errors": 0,
+    "stalled": 0
+  },
+  "fieldBosses": {
+    "conditions": 48,
+    "firstWins": 25,
+    "complete": 25,
+    "fights": 48,
+    "wins": 25,
+    "losses": 23,
+    "errors": 0
+  },
+  "observedGapCounts": {
+    "0": 27,
+    "10": 9,
+    "20": 7,
+    "30": 5
+  },
+  "repeatBefore": {
+    "conditions": 56,
+    "battles": 201,
+    "wins": 181,
+    "losses": 20,
+    "errors": 0,
+    "stalled": 0,
+    "completeNoKo": 33,
+    "completeAllFull": 5
+  },
+  "repeatAfter": {
+    "conditions": 56,
+    "battles": 202,
+    "wins": 182,
+    "losses": 20,
+    "errors": 0,
+    "stalled": 0,
+    "completeNoKo": 33,
+    "completeAllFull": 6
+  },
+  "changedRepeatConditions": 6,
+  "repeatUnaffectedConditions": 50,
+  "noelleLifecycleBefore": {
+    "False": 5,
+    "True": 2
+  },
+  "noelleLifecycleAfter": {
+    "False": 0,
+    "True": 7
+  },
+  "rawDbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "fingerprints": {
+    "enemy_catalog_before.json": "c549452cbfe07e45d362e6d0865efbddb8dffc07307b9e09502617c22d1a801a",
+    "enemy_phases_after.json": "3ae6546ed22b09127ff8bd61213a66fa286c0614b989da6268131ede2d979ea0",
+    "major_bosses_after.json": "e62312eb8b55832f7483c9676e4b3a6400bf4175250cac82789bd067fb162eaf",
+    "special_owners_after.json": "6095344c74d938dd787b75344bea77137b5afe9e8c82d82f137e17338c942340",
+    "boss_conditions_after.json": "3ae6546ed22b09127ff8bd61213a66fa286c0614b989da6268131ede2d979ea0",
+    "repeated_before.json.gz": "c549452cbfe07e45d362e6d0865efbddb8dffc07307b9e09502617c22d1a801a",
+    "repeated_after.json.gz": "3ae6546ed22b09127ff8bd61213a66fa286c0614b989da6268131ede2d979ea0",
+    "recovery_settlement_before.json": "c549452cbfe07e45d362e6d0865efbddb8dffc07307b9e09502617c22d1a801a",
+    "recovery_settlement_after.json": "1d9ad1f02d89deca1f64ce933837862ff77a753e503adab4eca6c7012d96fa51"
+  },
+  "afterContracts": {
+    "PASS": 16,
+    "FAIL": 0,
+    "MISSING": 0
+  },
+  "afterContractsInputDrift": [
+    "content/release-notes.json",
+    "package-lock.json",
+    "package.json",
+    "source/app_adventure.js",
+    "source/runtime_growth_v01522.js"
+  ],
+  "activeAiRefInspection": {
+    "groups": 62,
+    "ownerCount": 95,
+    "allCards": 414,
+    "unsupported": 217,
+    "unsupportedActive": 125,
+    "unsupportedReady": 217,
+    "unsupportedDeckRefCards": 0,
+    "unsupportedSelectableRefs": 0,
+    "risk": {
+      "SUPPORTED": 197,
+      "UNSUPPORTED_NOT_CURRENT_AI_REF": 140,
+      "PASSIVE_UNSUPPORTED": 35,
+      "READY_ENTRY_REJECTED": 42
+    },
+    "errors": 0
+  },
+  "monsterReferenceClassification": {
+    "NO_GROUP_OR_MEMBER_REFERENCE": 75,
+    "HAS_DYNAMIC_WITNESS": 100,
+    "ENTRY_GUARD_REJECTED": 53
+  },
+  "frozenContracts": {
+    "PASS": 14,
+    "FAIL": 2,
+    "MISSING": 0
+  },
+  "frozenContractsInputDrift": [],
+  "frozenContractsFinal": {
+    "PASS": 16,
+    "FAIL": 0,
+    "MISSING": 0
+  },
+  "frozenContractsFinalInputDrift": [],
+  "capacityNative": {
+    "checks": 3,
+    "pass": 3,
+    "fail": 0
+  },
+  "additionalUnderlevelFieldBosses": {
+    "conditions": 24,
+    "firstWins": 8,
+    "complete": 8,
+    "fights": 24,
+    "wins": 8,
+    "losses": 16,
+    "errors": 0
+  },
+  "combinedFieldBosses": {
+    "conditions": 72,
+    "fights": 72,
+    "wins": 33,
+    "losses": 39,
+    "errors": 0
+  },
+  "fieldBossTeamAndGapBreakdown": {
+    "enemy_plus_0:PREPARED_C0": {
+      "conditions": 9,
+      "wins": 6,
+      "losses": 3
+    },
+    "enemy_plus_10:PREPARED_C0": {
+      "conditions": 9,
+      "wins": 2,
+      "losses": 7
+    },
+    "enemy_plus_0:PREPARED_C6": {
+      "conditions": 9,
+      "wins": 9,
+      "losses": 0
+    },
+    "enemy_plus_0:FIVE_DEFENSIVE": {
+      "conditions": 9,
+      "wins": 8,
+      "losses": 1
+    },
+    "enemy_plus_20:PREPARED_C0": {
+      "conditions": 7,
+      "wins": 0,
+      "losses": 7
+    },
+    "enemy_plus_30:PREPARED_C0": {
+      "conditions": 5,
+      "wins": 0,
+      "losses": 5
+    },
+    "enemy_plus_20:PREPARED_C6": {
+      "conditions": 7,
+      "wins": 2,
+      "losses": 5
+    },
+    "enemy_plus_20:FIVE_DEFENSIVE": {
+      "conditions": 7,
+      "wins": 5,
+      "losses": 2
+    },
+    "enemy_plus_30:PREPARED_C6": {
+      "conditions": 5,
+      "wins": 0,
+      "losses": 5
+    },
+    "enemy_plus_30:FIVE_DEFENSIVE": {
+      "conditions": 5,
+      "wins": 1,
+      "losses": 4
+    }
+  },
+  "bossSnapshotDifferences": [
+    {
+      "path": "source/runtime_growth_v01522.js",
+      "initial48Sha256": "1daa9a224ae7e4117bbba24657fef40e2c0cab66688493f9d81477014e4112ec",
+      "extra24Sha256": "ef07b08757a96a540f508b29da854a271f5ff3b3db4fc990bc0ee4f8320bde6c"
+    },
+    {
+      "path": "source/runtime_tasks_v0167.js",
+      "initial48Sha256": "96693e121fda781dda2f0af07b96d9bff4b1bf5eaa524114301ce39494c691c7",
+      "extra24Sha256": "cc21ab26ac16a7b6265e04a6cf38543170e9a0bdbff01489174006f99e232bb9"
+    }
+  ],
+  "additionalBossScope": "Initial48 and additional24 are separate preserved input fingerprints; only growth/tasks hashes differ, all other source hashes match. Initial48 growth hash is linked to after_growth_hp.json native HP-policy-after evidence; extra24 uses ef07 frozen source. Prepared gear/public BOSS_ROUTE/fixed seed717. Different elemental/support teams, not a rarity-only causal comparison. Some five-star survival clears remain at enemy +20/+30 and take up to95 rounds."
+}

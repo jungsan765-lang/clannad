@@ -8358,6 +8358,317 @@
         256
       ],
       "bytes": 9104
+    },
+    "CUR_PRIMOGEM": {
+      "id": "CUR_PRIMOGEM",
+      "name": "원석",
+      "path": "assets/icons/UI_ItemIcon_201.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_201.png",
+      "sourceName": "원석",
+      "sourceKey": "primogem",
+      "assetId": 201,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "d196ec88b78eb87ad311c4e93c9583a0234b5fc6e755578db052519b60fd3729",
+      "source_sha256": "60e222508b151d1320d1a6d483733087275710b6c0fc41776c0e8dfba1b0a7c3",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "bytes": 1864,
+      "addedIn": "0.14.11"
+    },
+    "CUR_STARGLITTER": {
+      "id": "CUR_STARGLITTER",
+      "name": "스타라이트",
+      "path": "assets/icons/UI_ItemIcon_221.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_221.png",
+      "sourceName": "스타라이트",
+      "sourceKey": "masterlessstarglitter",
+      "assetId": 221,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "d5c1468b5ff07cfab716027282d427a1fec5b5ee14b7c19e7dc6ec49c1c7afda",
+      "source_sha256": "b252343e1001a8f0d64cc089d0e4618ddfec9f1fb5fdd61627c95fc73bb51f3a",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 21134,
+      "addedIn": "0.14.11"
+    },
+    "CUR_STARDUST": {
+      "id": "CUR_STARDUST",
+      "name": "스타더스트",
+      "path": "assets/icons/UI_ItemIcon_222.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_222.png",
+      "sourceName": "스타더스트",
+      "sourceKey": "masterlessstardust",
+      "assetId": 222,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "a84f9496b599943faee072e48e51190b3d064180baa478b8fd7afae7d8d2046d",
+      "source_sha256": "dd84e81b6237b6ecb0ce20135f2d7504e0d3cc3726af477ec49447a742e07afc",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "bytes": 2106,
+      "addedIn": "0.14.11"
+    },
+    "CUR_INTERTWINED_FATE": {
+      "id": "CUR_INTERTWINED_FATE",
+      "name": "뒤얽힌 인연",
+      "path": "assets/icons/UI_ItemIcon_223.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_223.png",
+      "sourceName": "뒤얽힌 인연",
+      "sourceKey": "intertwinedfate",
+      "assetId": 223,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "9b5dd197e994d3dc304f5ce6c3f645d7614b51c8b5183c5a610c97ba87737302",
+      "source_sha256": "5b2cb416e62f67e9b58f71bb5bc5e664b7a0d9f945d92ff5db61023583270b09",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "bytes": 2998,
+      "addedIn": "0.14.11"
+    },
+    "CUR_ACQUAINT_FATE": {
+      "id": "CUR_ACQUAINT_FATE",
+      "name": "만남의 인연",
+      "path": "assets/icons/UI_ItemIcon_224.webp",
+      "source": "https://raw.githubusercontent.com/ylyking/GenshinTextures-full/master/Texture2D/UI/ItemIcon/UI_ItemIcon_224.png",
+      "sourceName": "만남의 인연",
+      "sourceKey": "acquaintfate",
+      "assetId": 224,
+      "matchType": "exact_name",
+      "provenance": "original_game_texture_archive",
+      "sha256": "350cb5a1437d4f123f3f9e0beefdc3846b26fe4f25dc1821e91d935f5a2b27ce",
+      "source_sha256": "11ce04faf3ca15908739ce9ccd9f00f267889e4ca03ce642e8187ffd86a1a495",
+      "source_dimensions": [
+        64,
+        64
+      ],
+      "bytes": 3028,
+      "addedIn": "0.14.11"
+    },
+    "STELLA_FORTUNA_4": {
+      "id": "STELLA_FORTUNA_4",
+      "name": "운명의 별 (4★)",
+      "path": "assets/icons/UI_ItemIcon_StellaFortuna4.webp",
+      "source": "https://static.wikia.nocookie.net/gensin-impact/images/2/27/Item_Stella_Fortuna_%284_Star%29.png",
+      "sourceName": "Item Stella Fortuna (4 Star).png",
+      "sourceKey": "stellafortuna",
+      "matchType": "exact_name",
+      "provenance": "genshin_impact_wiki_file",
+      "sha256": "ddae3fc8d9bbc5da85b6ee39828b6bb9a2551cf3f8ac702d94806dd47ce13545",
+      "source_sha256": "06614b8a367782e3c9b17f7bb7323a5efef630d7c03f132029dc5dd0c6f7b3a0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 18540,
+      "addedIn": "0.15.1"
+    },
+    "STELLA_FORTUNA_5": {
+      "id": "STELLA_FORTUNA_5",
+      "name": "운명의 별 (5★)",
+      "path": "assets/icons/UI_ItemIcon_StellaFortuna5.webp",
+      "source": "https://static.wikia.nocookie.net/gensin-impact/images/a/a9/Item_Stella_Fortuna_%285_Star%29.png",
+      "sourceName": "Item Stella Fortuna (5 Star).png",
+      "sourceKey": "stellafortuna",
+      "matchType": "exact_name",
+      "provenance": "genshin_impact_wiki_file",
+      "sha256": "d7354d671137b6dd9d3712e9907e3ab86e069aaf40f97b68f3aee1eea5f71954",
+      "source_sha256": "3bb77dd3fd3f0ce3e52569cbccd4d150c357c8b1af5c3d3a5527f4d63eb20e72",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 16544,
+      "addedIn": "0.15.1"
+    },
+    "GROWTH_TALENT_MOND": {
+      "id": "GROWTH_TALENT_MOND",
+      "name": "몬드 특성 수련서",
+      "path": "assets/icons/UI_ItemIcon_104301.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_104301.png",
+      "sourceName": "「자유」의 가르침",
+      "assetId": 104301,
+      "matchType": "crpg_visual_mapping",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "bc189c1f974a166f586a7fd89fec9332f8926d701bc1831f837769bcf6b8374f",
+      "source_sha256": "08c8eff51a4de4537d459307648f954674b9fd910b670ca50b78f240268a22c4",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11974,
+      "note": "0.15.25 사용자 승인 다운로드. CRPG 자체 재료 「몬드 특성 수련서」를 원작 「「자유」의 가르침」 그림으로 표시한다(원작 같은 이름의 아이템이 아님)."
+    },
+    "GROWTH_TALENT_LIYUE": {
+      "id": "GROWTH_TALENT_LIYUE",
+      "name": "리월 특성 수련서",
+      "path": "assets/icons/UI_ItemIcon_104310.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_104310.png",
+      "sourceName": "「번영」의 가르침",
+      "assetId": 104310,
+      "matchType": "crpg_visual_mapping",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "7c3a05a8bc259d15a698977076601e5a3b0999a0a3b9d91eced8319f99f4b53b",
+      "source_sha256": "ddb856d277535ae7c6be8ebd6b09aed68befb625a8170a922a4dccf60abf1440",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 12364,
+      "note": "0.15.25 사용자 승인 다운로드. CRPG 자체 재료 「리월 특성 수련서」를 원작 「「번영」의 가르침」 그림으로 표시한다(원작 같은 이름의 아이템이 아님)."
+    },
+    "GROWTH_GEM_NEUTRAL": {
+      "id": "GROWTH_GEM_NEUTRAL",
+      "name": "돌파 재료",
+      "path": "assets/icons/UI_ItemIcon_104101.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_104101.png",
+      "sourceName": "휘황찬란한 다이아몬드 파편",
+      "assetId": 104101,
+      "matchType": "crpg_visual_mapping",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "4c77341bde433e944e9361e2cefcda9f8e96296d8bb041b7f8b02472a700c034",
+      "source_sha256": "709cf165b537b18928aadc61c99d73d20ba832d4e9680a49bb5c1d45a7898e80",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 11726,
+      "note": "0.15.25 사용자 승인 다운로드. CRPG 자체 재료 「돌파 재료」를 원작 「휘황찬란한 다이아몬드 파편」 그림으로 표시한다(원작 같은 이름의 아이템이 아님)."
+    },
+    "GROWTH_GEM_PYRO": {
+      "id": "GROWTH_GEM_PYRO",
+      "name": "불 원소 돌파 재료",
+      "path": "assets/icons/UI_ItemIcon_104111.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_104111.png",
+      "sourceName": "불타오르는 마노 가루",
+      "assetId": 104111,
+      "matchType": "crpg_visual_mapping",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "46774d6b1a85aad036c3e110ee30cf9cad1b4e7f645b3434d9b8569f1ca3ceb0",
+      "source_sha256": "fa801132de91a6a4c37f333589696e8986b634ddea197c55dd86d48568f9c246",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 4100,
+      "note": "0.15.25 사용자 승인 다운로드. CRPG 자체 재료 「불 원소 돌파 재료」를 원작 「불타오르는 마노 가루」 그림으로 표시한다(원작 같은 이름의 아이템이 아님)."
+    },
+    "GROWTH_GEM_HYDRO": {
+      "id": "GROWTH_GEM_HYDRO",
+      "name": "물 원소 돌파 재료",
+      "path": "assets/icons/UI_ItemIcon_104121.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_104121.png",
+      "sourceName": "순수한 청금석 가루",
+      "assetId": 104121,
+      "matchType": "crpg_visual_mapping",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "3243f6b6f624cde6fda108d3b05733403a516e9aa4db0e1e0219abcff0c384ed",
+      "source_sha256": "a4ddc44bd43738c2753b13a92bf5a2b9f318fe6c9b18cbce79afe92d8fdf08a0",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 4476,
+      "note": "0.15.25 사용자 승인 다운로드. CRPG 자체 재료 「물 원소 돌파 재료」를 원작 「순수한 청금석 가루」 그림으로 표시한다(원작 같은 이름의 아이템이 아님)."
+    },
+    "GROWTH_GEM_ANEMO": {
+      "id": "GROWTH_GEM_ANEMO",
+      "name": "바람 원소 돌파 재료",
+      "path": "assets/icons/UI_ItemIcon_104151.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_104151.png",
+      "sourceName": "자유로운 터키석 가루",
+      "assetId": 104151,
+      "matchType": "crpg_visual_mapping",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "c5539ca769e686069800d14400801c1d3a019351e60548bf0a093e8b1a31620f",
+      "source_sha256": "756e4b38788607724bfaba3b30b265c28a87e7f2ebc9b34dc5c27eb83cbfc5e4",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 4088,
+      "note": "0.15.25 사용자 승인 다운로드. CRPG 자체 재료 「바람 원소 돌파 재료」를 원작 「자유로운 터키석 가루」 그림으로 표시한다(원작 같은 이름의 아이템이 아님)."
+    },
+    "GROWTH_GEM_ELECTRO": {
+      "id": "GROWTH_GEM_ELECTRO",
+      "name": "번개 원소 돌파 재료",
+      "path": "assets/icons/UI_ItemIcon_104141.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_104141.png",
+      "sourceName": "승리의 자수정 가루",
+      "assetId": 104141,
+      "matchType": "crpg_visual_mapping",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "11f640a7c718ce4f693a44ff131afce7de7b70c24a024c0cfcf19324bdbb2c6b",
+      "source_sha256": "dff3d6d937bbb092343556650947122f0d1c1819b9ac2891362ef4a7e50b94be",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 4474,
+      "note": "0.15.25 사용자 승인 다운로드. CRPG 자체 재료 「번개 원소 돌파 재료」를 원작 「승리의 자수정 가루」 그림으로 표시한다(원작 같은 이름의 아이템이 아님)."
+    },
+    "GROWTH_GEM_CRYO": {
+      "id": "GROWTH_GEM_CRYO",
+      "name": "얼음 원소 돌파 재료",
+      "path": "assets/icons/UI_ItemIcon_104161.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_104161.png",
+      "sourceName": "서늘한 빙옥 가루",
+      "assetId": 104161,
+      "matchType": "crpg_visual_mapping",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "14b6312202ac378b32a02bb448511bf8891ca70af1fb5001f5ee735c972a54d2",
+      "source_sha256": "7c663000656ff60e58263580b499787109b0cd777ed7ddc4791979840814a9c3",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 4364,
+      "note": "0.15.25 사용자 승인 다운로드. CRPG 자체 재료 「얼음 원소 돌파 재료」를 원작 「서늘한 빙옥 가루」 그림으로 표시한다(원작 같은 이름의 아이템이 아님)."
+    },
+    "GROWTH_GEM_GEO": {
+      "id": "GROWTH_GEM_GEO",
+      "name": "바위 원소 돌파 재료",
+      "path": "assets/icons/UI_ItemIcon_104171.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_104171.png",
+      "sourceName": "단단한 황옥 가루",
+      "assetId": 104171,
+      "matchType": "crpg_visual_mapping",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "88e8c483ad89fbbfff6b37d6eaffd63b16f2028e928496c191d28dd2c01884b6",
+      "source_sha256": "b6f5088e617312ebda4d9b3a434124fd59ea77eb233456d5e0c3354c010e568b",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 4076,
+      "note": "0.15.25 사용자 승인 다운로드. CRPG 자체 재료 「바위 원소 돌파 재료」를 원작 「단단한 황옥 가루」 그림으로 표시한다(원작 같은 이름의 아이템이 아님)."
+    },
+    "GROWTH_GEM_DENDRO": {
+      "id": "GROWTH_GEM_DENDRO",
+      "name": "풀 원소 돌파 재료",
+      "path": "assets/icons/UI_ItemIcon_104131.webp",
+      "source": "https://enka.network/ui/UI_ItemIcon_104131.png",
+      "sourceName": "자라나는 비취 가루",
+      "assetId": 104131,
+      "matchType": "crpg_visual_mapping",
+      "provenance": "original_game_texture_mirror",
+      "sha256": "d5532244b71ecf4d9812af0f6bd7657ce70e8632fefeb904baada1ef73ce9db7",
+      "source_sha256": "e7aed2ce43f2d8c95fdaab065aa092a2d7b5899b75ea60a072268a900fece0e4",
+      "source_dimensions": [
+        256,
+        256
+      ],
+      "bytes": 4080,
+      "note": "0.15.25 사용자 승인 다운로드. CRPG 자체 재료 「풀 원소 돌파 재료」를 원작 「자라나는 비취 가루」 그림으로 표시한다(원작 같은 이름의 아이템이 아님)."
     }
   },
   "categories": {

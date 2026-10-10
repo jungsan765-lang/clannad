@@ -1,0 +1,3358 @@
+{
+  "generatedUtc": "2026-10-09T16:06:47.181820+00:00",
+  "qaScope": "read-only native victory/condition metadata/counts and metric limitations",
+  "inputFiles": {
+    "REVIEW_KO.md": {
+      "bytes": 9014,
+      "mtime_ns": 1791561879277214296,
+      "sha256": "1f12a32c4927aa475a281df21d9aff8ee3d37931ddbb6a31400a2b7867f0ca16"
+    },
+    "campaign.cjs": {
+      "bytes": 6656,
+      "mtime_ns": 1791561500756504270,
+      "sha256": "181496282791a41d8e2e4613ed9336f81385294e370861b4b5158abc7d1c372b"
+    },
+    "campaign_MAP_CHASM_DEEP_10_extra10.json.gz": {
+      "bytes": 107449,
+      "mtime_ns": 1791561222391338612,
+      "sha256": "bead3560f24a5a530338b01e056b3943153b8621001dd1115dba57f058459218"
+    },
+    "campaign_MAP_CHASM_DEEP_10_extra10_summary.json": {
+      "bytes": 112782,
+      "mtime_ns": 1791561222395338685,
+      "sha256": "d30dada42b87d3b17a466f2cb8fa8241331ff72602777e3c678df943aff766b2"
+    },
+    "campaign_MAP_CHASM_DEEP_10_native_extra.json.gz": {
+      "bytes": 150986,
+      "mtime_ns": 1791561315145231589,
+      "sha256": "58b46fbaab71019b74b3f53247e3562f4df98e2cda554b6225cab59d37c23cf5"
+    },
+    "campaign_MAP_CHASM_DEEP_10_native_extra_summary.json": {
+      "bytes": 167546,
+      "mtime_ns": 1791561315145231589,
+      "sha256": "ff56b2ca19567c4419f8ffb3716bdc24bcffad8642ecf1ce9b05bda30702e5c3"
+    },
+    "campaign_MAP_CHASM_DEEP_3.json.gz": {
+      "bytes": 785444,
+      "mtime_ns": 1791561092580632199,
+      "sha256": "02fcfd54a9e1a7f671ea3f914ff0d22f575eba878fcebcf7046191b25e3a8d67"
+    },
+    "campaign_MAP_CHASM_DEEP_3_pilot.json.gz": {
+      "bytes": 23467,
+      "mtime_ns": 1791560963741871029,
+      "sha256": "1aecdaf5158924da3f8d5688f0136c49b007b4682e715c90fc2b35fc6126d40d"
+    },
+    "campaign_MAP_CHASM_DEEP_3_pilot_summary.json": {
+      "bytes": 32219,
+      "mtime_ns": 1791560963741871029,
+      "sha256": "08c2081d4ace99cd7c5d5484219b42139a0a67d133725f8a42da7ed355e1e84e"
+    },
+    "campaign_MAP_CHASM_DEEP_3_summary.json": {
+      "bytes": 776025,
+      "mtime_ns": 1791561092588632370,
+      "sha256": "a35209b97122e132a9bd1a87ab7171012e46d2ab1fce3aaa73e37477a8214fc5"
+    },
+    "campaign_MAP_CHASM_DEEP_6.json.gz": {
+      "bytes": 765193,
+      "mtime_ns": 1791561091580610778,
+      "sha256": "c53f13a433d33db4bf6b7831d3e9e5418be2bdc3ff60ee5a5192c843da24e1f7"
+    },
+    "campaign_MAP_CHASM_DEEP_6_fourC6.json.gz": {
+      "bytes": 58777,
+      "mtime_ns": 1791561369946371266,
+      "sha256": "2462d1fe404135c2bd514ad0ca918c252d083807925e428c46b84d9525fc8951"
+    },
+    "campaign_MAP_CHASM_DEEP_6_fourC6_summary.json": {
+      "bytes": 96008,
+      "mtime_ns": 1791561369950371348,
+      "sha256": "8f166abfe078ac2236e2465662af0572a153b9e60cbfc5cc11b5a48646010159"
+    },
+    "campaign_MAP_CHASM_DEEP_6_native_extra.json.gz": {
+      "bytes": 150199,
+      "mtime_ns": 1791561314709222639,
+      "sha256": "02faf829ae989fd6bb7bd0c94d0dc700b4f3a5266952231bb25420c3443db12d"
+    },
+    "campaign_MAP_CHASM_DEEP_6_native_extra_summary.json": {
+      "bytes": 174283,
+      "mtime_ns": 1791561314713222721,
+      "sha256": "6d9dfda2dfd0db1df305c2cde98aff447827cc1bb00a982df093bafb1f7ff575"
+    },
+    "campaign_MAP_CHASM_DEEP_6_summary.json": {
+      "bytes": 774854,
+      "mtime_ns": 1791561091588610949,
+      "sha256": "c5d3ff6e34fbb758a30a2fee717ef68ed3d11a3e9b49d2a0d04c88d4c17fb4b7"
+    },
+    "campaign_MAP_CHASM_SURFACE_3.json.gz": {
+      "bytes": 191668,
+      "mtime_ns": 1791561114653104998,
+      "sha256": "3411df2a4bec52c7cbfbf55a734033f0e1b981095a6d5decdaf60dd40aadd18c"
+    },
+    "campaign_MAP_CHASM_SURFACE_3_summary.json": {
+      "bytes": 311069,
+      "mtime_ns": 1791561114657105083,
+      "sha256": "b2a7fb4e19fe960d23791bbc8138e8e8edc2c4536b3478c0ce1f3b23babaebfb"
+    },
+    "campaign_MAP_CHASM_SURFACE_6.json.gz": {
+      "bytes": 186041,
+      "mtime_ns": 1791561115801129602,
+      "sha256": "724cd386c7ce97317d278bf3e64e934d9f1a843285b7021279d2eeb8b531b0ca"
+    },
+    "campaign_MAP_CHASM_SURFACE_6_summary.json": {
+      "bytes": 305902,
+      "mtime_ns": 1791561115805129686,
+      "sha256": "1caeb80216ebab4b3dca72ff4fd8125852f043e71373e78e9759384d1df23843"
+    },
+    "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz": {
+      "bytes": 204815,
+      "mtime_ns": 1791561137417592762,
+      "sha256": "7e3346509cb12d65d44f3e77225963f1b2d5a7e6c8e14f1c354a7a5dd45965a6"
+    },
+    "campaign_MAP_LY_DETAIL_CHASM_GATE_3_summary.json": {
+      "bytes": 326433,
+      "mtime_ns": 1791561137421592848,
+      "sha256": "9e66f7eef86de7228b2a6c73e65554f6a74b851e85ad6be02291ca25c7bf7dd0"
+    },
+    "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz": {
+      "bytes": 196728,
+      "mtime_ns": 1791561138465615214,
+      "sha256": "fb09d290162bac959ad6aa4d892a17ebd4949cd56fa8124a88a55fc051c42f9f"
+    },
+    "campaign_MAP_LY_DETAIL_CHASM_GATE_6_summary.json": {
+      "bytes": 322205,
+      "mtime_ns": 1791561138469615299,
+      "sha256": "a16aa5c6adb2012eb346ec521a82c38c1d7d6d8474ea7e58d8f07bccec8cf8e2"
+    },
+    "catalog.cjs": {
+      "bytes": 2103,
+      "mtime_ns": 1791560617870441133,
+      "sha256": "da9437eabb4a793836412e16d8fc7e060981acb6751abd9e4df658b6b18c88a8"
+    },
+    "catalog.json": {
+      "bytes": 149758,
+      "mtime_ns": 1791560622738545170,
+      "sha256": "bf818e45d4f31bd0d41f82359455c42e5a6e691f5b15dfeeafadb4ecb147bfb1"
+    },
+    "native_all.json.gz": {
+      "bytes": 2695065,
+      "mtime_ns": 1791561928838276899,
+      "sha256": "b3ead5e1583ae3270e3f299b073e68ca724799ec7eac92f00c33bd93dbfafe3f"
+    },
+    "product_unchanged.json": {
+      "bytes": 54610,
+      "mtime_ns": 1791561925277601651,
+      "sha256": "51eb3ebcaeb1cbd8bdbc1b424d8ab37a588add344dd4ba83e4c5e8603fce469d"
+    },
+    "routes_and_seeds.cjs": {
+      "bytes": 3324,
+      "mtime_ns": 1791561099196293423,
+      "sha256": "4537602c4abd0e8dbf5f0b860565de482a1d8e5221524d52aec737308c9d2a13"
+    },
+    "routes_and_seeds.json": {
+      "bytes": 91001,
+      "mtime_ns": 1791561227927441757,
+      "sha256": "50380e1cf99ac961d33b3e398550bf17bfaeb76cdf92e14ad5705c7d65b4105b"
+    },
+    "run_campaigns.py": {
+      "bytes": 578,
+      "mtime_ns": 1791561010243460399,
+      "sha256": "baa346b4a51b52d58abfd258f9dfdae13a954e51a110fbf1edbe2a1464e0ba1d"
+    },
+    "scattered_seeds.cjs": {
+      "bytes": 3459,
+      "mtime_ns": 1791561209332428099,
+      "sha256": "64e5334e3436481892d3d4c2d18d495dedcbba3cc6e733b0f85d9e4c56c94c60"
+    },
+    "scattered_seeds.json": {
+      "bytes": 26577,
+      "mtime_ns": 1791561250863913564,
+      "sha256": "773011456d6e6295c77863749f75dcf06ba739151e3135fe63bf2204ff2ce78a"
+    },
+    "summarize.py": {
+      "bytes": 4874,
+      "mtime_ns": 1791561925278291308,
+      "sha256": "941dec826b410558bb4fb52a2a891bba58e0a593d141dc423016825da193d593"
+    },
+    "summary.json": {
+      "bytes": 1857472,
+      "mtime_ns": 1791561929482290705,
+      "sha256": "3191f826d7b214796077288d9995d6a4e16c58d14f25c431504a48bd355dc10d"
+    },
+    "two_enemy_snapshot.json": {
+      "bytes": 19586,
+      "mtime_ns": 1791561786018752263,
+      "sha256": "f41001a68df6a23d2c00e8660b21e61ba3d3fde6b347672d16dbdcc9d44986c3"
+    },
+    "two_enemy_snapshot.py": {
+      "bytes": 3200,
+      "mtime_ns": 1791561785434871760,
+      "sha256": "d25ce1233a6be61241e747de500de402ca78a405a218f1a82c398a7ae0f936db"
+    },
+    "manifest.json": {
+      "bytes": 5828,
+      "mtime_ns": 1791561929502862870,
+      "sha256": "a049004f4ac0ea9213caf7d23c6a8b0a8744fe527cf626efc9d79625400a84fd"
+    }
+  },
+  "additionalMeterSourceInputs": {
+    "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tools/audit_protagonist_v01618.cjs": {
+      "bytes": 16352,
+      "mtime_ns": 1791545891744298894,
+      "sha256": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9"
+    },
+    "/tmp/crpg_reaction_plan/dendro/campaign.cjs": {
+      "bytes": 4732,
+      "mtime_ns": 1791558735141331627,
+      "sha256": "13a86b5e96d944143b5ef394543dbea78dc360e854f6ba1f99bc00d89bc352b0"
+    },
+    "/tmp/crpg_reaction_plan/dendro/probe.cjs": {
+      "bytes": 8441,
+      "mtime_ns": 1791558441484402954,
+      "sha256": "f06d3275c60fedf856ffdcf3c703de9cef2fcd483646ee826d9c58e5f82ba189"
+    }
+  },
+  "inputsUnchanged": true,
+  "checks": {
+    "metadata correction preserved": 1,
+    "ten completed campaign files excludes pilot": 1,
+    "pilot excluded from aggregate": 1,
+    "compressed aggregate matches individual native file": 10,
+    "native H.play victory actual row summary counts": 160,
+    "native summary victory sequence": 160,
+    "finishBattle native win agrees public reward": 160,
+    "stop at first defeat maxthree": 160,
+    "no victory after defeat": 160,
+    "threeNoInn requires three native wins": 160,
+    "base versus supplemental metadata": 160,
+    "no lodging in native campaign": 160,
+    "actual initial Lv25 phase2 talentcap4": 160,
+    "actual saved base talent": 160,
+    "actual enhancement": 160,
+    "summary native state/result preserve": 257,
+    "native four ally slots": 257,
+    "reported incoming is native damage log sum": 257,
+    "reported shield absorption log sum": 257,
+    "effective initial constellation levels from native source": 257,
+    "HP XP carry without intermediate heal": 97,
+    "160 unique full condition keys": 1,
+    "summary rows keys unique": 1,
+    "independently recomputed completed total counts": 1,
+    "base132 supplemental28 separate denominators": 1,
+    "all 15 group counts round sequences recomputed": 1,
+    "actual Traveler C3 Q not E and phase2 witness": 4,
+    "manifest every original artifact hash": 37,
+    "all native fingerprints same": 1,
+    "233 source DB baseline hash unchanged": 1,
+    "outgoing H.observe is outer HP shield net delta": 1,
+    "chasm campaign uses inherited outgoing net meter": 1,
+    "Dendro reaction damage sums native log fields not purified reaction extra": 1,
+    "all original input hashes mtimes sizes unchanged": 1,
+    "helper Dendro sources hashes mtimes unchanged": 1
+  },
+  "recomputedTotals": {
+    "conditions": 160,
+    "battles": 257,
+    "wins": 128,
+    "losses": 129,
+    "firstWins": 58,
+    "threeNoInn": 31,
+    "errors": 0
+  },
+  "cohorts": {
+    "base": {
+      "conditions": 132,
+      "battles": 216,
+      "wins": 115,
+      "losses": 101,
+      "firstWins": 48,
+      "threeNoInn": 31
+    },
+    "supplemental": {
+      "conditions": 28,
+      "battles": 41,
+      "wins": 13,
+      "losses": 28,
+      "firstWins": 10,
+      "threeNoInn": 0
+    }
+  },
+  "perFileScopes": [
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "cohort": "supplemental",
+      "conditions": 6,
+      "battles": 8,
+      "wins": 2,
+      "losses": 6,
+      "errors": 0,
+      "seeds": [
+        717,
+        925,
+        4242
+      ],
+      "baseTalents": [
+        4
+      ],
+      "enhancements": [
+        10
+      ],
+      "teamNames": [
+        "SCREENSHOT_C0",
+        "SCREENSHOT_C232"
+      ]
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_native_extra.json.gz",
+      "cohort": "supplemental",
+      "conditions": 8,
+      "battles": 13,
+      "wins": 5,
+      "losses": 8,
+      "errors": 0,
+      "seeds": [
+        3,
+        53,
+        251,
+        318012461
+      ],
+      "baseTalents": [
+        4
+      ],
+      "enhancements": [
+        10
+      ],
+      "teamNames": [
+        "SCREENSHOT_C0",
+        "SCREENSHOT_C232"
+      ]
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "cohort": "base",
+      "conditions": 42,
+      "battles": 55,
+      "wins": 17,
+      "losses": 38,
+      "errors": 0,
+      "seeds": [
+        717,
+        925,
+        4242
+      ],
+      "baseTalents": [
+        2,
+        4
+      ],
+      "enhancements": [
+        3
+      ],
+      "teamNames": [
+        "FIVE_ATTACK",
+        "FIVE_DEFENSIVE",
+        "FIVE_HYBRID",
+        "FOUR_ATTACK",
+        "FOUR_HEAL",
+        "SCREENSHOT_C0",
+        "SCREENSHOT_C232"
+      ]
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "cohort": "base",
+      "conditions": 42,
+      "battles": 55,
+      "wins": 16,
+      "losses": 39,
+      "errors": 0,
+      "seeds": [
+        717,
+        925,
+        4242
+      ],
+      "baseTalents": [
+        2,
+        4
+      ],
+      "enhancements": [
+        6
+      ],
+      "teamNames": [
+        "FIVE_ATTACK",
+        "FIVE_DEFENSIVE",
+        "FIVE_HYBRID",
+        "FOUR_ATTACK",
+        "FOUR_HEAL",
+        "SCREENSHOT_C0",
+        "SCREENSHOT_C232"
+      ]
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_fourC6.json.gz",
+      "cohort": "supplemental",
+      "conditions": 6,
+      "battles": 6,
+      "wins": 0,
+      "losses": 6,
+      "errors": 0,
+      "seeds": [
+        717,
+        925,
+        4242
+      ],
+      "baseTalents": [
+        4
+      ],
+      "enhancements": [
+        6
+      ],
+      "teamNames": [
+        "FOUR_ATTACK_C6",
+        "FOUR_HEAL_C6"
+      ]
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_native_extra.json.gz",
+      "cohort": "supplemental",
+      "conditions": 8,
+      "battles": 14,
+      "wins": 6,
+      "losses": 8,
+      "errors": 0,
+      "seeds": [
+        3,
+        53,
+        251,
+        318012461
+      ],
+      "baseTalents": [
+        4
+      ],
+      "enhancements": [
+        6
+      ],
+      "teamNames": [
+        "SCREENSHOT_C0",
+        "SCREENSHOT_C232"
+      ]
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "cohort": "base",
+      "conditions": 12,
+      "battles": 26,
+      "wins": 20,
+      "losses": 6,
+      "errors": 0,
+      "seeds": [
+        717,
+        925,
+        4242
+      ],
+      "baseTalents": [
+        2,
+        4
+      ],
+      "enhancements": [
+        3
+      ],
+      "teamNames": [
+        "FOUR_ATTACK",
+        "SCREENSHOT_C232"
+      ]
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "cohort": "base",
+      "conditions": 12,
+      "battles": 26,
+      "wins": 20,
+      "losses": 6,
+      "errors": 0,
+      "seeds": [
+        717,
+        925,
+        4242
+      ],
+      "baseTalents": [
+        2,
+        4
+      ],
+      "enhancements": [
+        6
+      ],
+      "teamNames": [
+        "FOUR_ATTACK",
+        "SCREENSHOT_C232"
+      ]
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "cohort": "base",
+      "conditions": 12,
+      "battles": 27,
+      "wins": 21,
+      "losses": 6,
+      "errors": 0,
+      "seeds": [
+        717,
+        925,
+        4242
+      ],
+      "baseTalents": [
+        2,
+        4
+      ],
+      "enhancements": [
+        3
+      ],
+      "teamNames": [
+        "FOUR_ATTACK",
+        "SCREENSHOT_C232"
+      ]
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "cohort": "base",
+      "conditions": 12,
+      "battles": 27,
+      "wins": 21,
+      "losses": 6,
+      "errors": 0,
+      "seeds": [
+        717,
+        925,
+        4242
+      ],
+      "baseTalents": [
+        2,
+        4
+      ],
+      "enhancements": [
+        6
+      ],
+      "teamNames": [
+        "FOUR_ATTACK",
+        "SCREENSHOT_C232"
+      ]
+    }
+  ],
+  "nativeVictorySequences": [
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        3,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        318012461,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        53,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        251,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        3,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        318012461,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        53,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        251,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        3,
+        2,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        3,
+        4,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FOUR_HEAL",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_HYBRID",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_DEFENSIVE",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "FIVE_ATTACK",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        6,
+        2,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_fourC6.json.gz",
+      "key": [
+        "FOUR_ATTACK_C6",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        717,
+        "{\"LIYUE_XIANGLING\": 6, \"LIYUE_XINGQIU\": 6, \"MOND_FISCHL\": 6}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_fourC6.json.gz",
+      "key": [
+        "FOUR_ATTACK_C6",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        925,
+        "{\"LIYUE_XIANGLING\": 6, \"LIYUE_XINGQIU\": 6, \"MOND_FISCHL\": 6}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_fourC6.json.gz",
+      "key": [
+        "FOUR_ATTACK_C6",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        4242,
+        "{\"LIYUE_XIANGLING\": 6, \"LIYUE_XINGQIU\": 6, \"MOND_FISCHL\": 6}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_fourC6.json.gz",
+      "key": [
+        "FOUR_HEAL_C6",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        717,
+        "{\"LIYUE_XIANGLING\": 6, \"LIYUE_XINGQIU\": 6, \"MOND_BARBARA\": 6}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_fourC6.json.gz",
+      "key": [
+        "FOUR_HEAL_C6",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        925,
+        "{\"LIYUE_XIANGLING\": 6, \"LIYUE_XINGQIU\": 6, \"MOND_BARBARA\": 6}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_fourC6.json.gz",
+      "key": [
+        "FOUR_HEAL_C6",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        4242,
+        "{\"LIYUE_XIANGLING\": 6, \"LIYUE_XINGQIU\": 6, \"MOND_BARBARA\": 6}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        3,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        318012461,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        53,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        251,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        3,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        318012461,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        53,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_6_native_extra.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_DEEP",
+        6,
+        4,
+        251,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        3,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        3,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        3,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        3,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        3,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        3,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        3,
+        2,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        3,
+        2,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        3,
+        2,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        3,
+        4,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        3,
+        4,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        3,
+        4,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        6,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        6,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        6,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        6,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        6,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_CHASM_SURFACE",
+        6,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        6,
+        2,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        6,
+        2,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        6,
+        2,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        6,
+        4,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        6,
+        4,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_CHASM_SURFACE",
+        6,
+        4,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        2,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        2,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        2,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        4,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        4,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        3,
+        4,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        2,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        2,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        2,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        4,
+        717,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        true,
+        false
+      ],
+      "firstWin": true,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        4,
+        925,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "FOUR_ATTACK",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        4,
+        4242,
+        "{}"
+      ],
+      "nativeWinSequence": [
+        false
+      ],
+      "firstWin": false,
+      "threeNoInn": false
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        2,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        2,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        2,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        4,
+        717,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        4,
+        925,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    },
+    {
+      "file": "campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "key": [
+        "SCREENSHOT_C232",
+        "MAP_LY_DETAIL_CHASM_GATE",
+        6,
+        4,
+        4242,
+        "{\"LIYUE_GANYU\": 0, \"MOND_DILUC\": 2, \"MOND_JEAN\": 2, \"PLAYER_CUSTOM\": 3}"
+      ],
+      "nativeWinSequence": [
+        true,
+        true,
+        true
+      ],
+      "firstWin": true,
+      "threeNoInn": true
+    }
+  ],
+  "travelerActualTalentWitnesses": [
+    {
+      "file": "routes_and_seeds.json",
+      "base": 2,
+      "effectiveNaEQ": [
+        2,
+        2,
+        5
+      ],
+      "phase": 2
+    },
+    {
+      "file": "routes_and_seeds.json",
+      "base": 4,
+      "effectiveNaEQ": [
+        4,
+        4,
+        7
+      ],
+      "phase": 2
+    },
+    {
+      "file": "scattered_seeds.json",
+      "base": 2,
+      "effectiveNaEQ": [
+        2,
+        2,
+        5
+      ],
+      "phase": 2
+    },
+    {
+      "file": "scattered_seeds.json",
+      "base": 4,
+      "effectiveNaEQ": [
+        4,
+        4,
+        7
+      ],
+      "phase": 2
+    }
+  ],
+  "damageAccountingDiagnostic": {
+    "incomingNativeDamageLogs": 4907,
+    "nativeDamageLogSum": 5508226,
+    "logsWithAnyPreHp": 4907,
+    "sumBoundedByPreHp": 5052135,
+    "nativeDamageGreaterThanPreHpPackets": 521
+  },
+  "overkillSamples": [
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "condition": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        717,
+        "{}"
+      ],
+      "fight": 0,
+      "round": 5,
+      "nativeDamageLog": 1279,
+      "preHp": 672,
+      "hpAfter": 0
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "condition": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        717,
+        "{}"
+      ],
+      "fight": 0,
+      "round": 8,
+      "nativeDamageLog": 1421,
+      "preHp": 510,
+      "hpAfter": 0
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "condition": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        717,
+        "{}"
+      ],
+      "fight": 0,
+      "round": 9,
+      "nativeDamageLog": 1834,
+      "preHp": 1155,
+      "hpAfter": 0
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "condition": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        717,
+        "{}"
+      ],
+      "fight": 0,
+      "round": 10,
+      "nativeDamageLog": 1168,
+      "preHp": 477,
+      "hpAfter": 0
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "condition": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        925,
+        "{}"
+      ],
+      "fight": 0,
+      "round": 5,
+      "nativeDamageLog": 1232,
+      "preHp": 264,
+      "hpAfter": 0
+    },
+    {
+      "file": "campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "condition": [
+        "SCREENSHOT_C0",
+        "MAP_CHASM_DEEP",
+        10,
+        4,
+        925,
+        "{}"
+      ],
+      "fight": 0,
+      "round": 11,
+      "nativeDamageLog": 1081,
+      "preHp": 201,
+      "hpAfter": 0
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "Base matrix132 and supplemental28 are distinct. Supplemental seeds/gear/constellations were purpose-selected and cannot be pooled into unbiased win-rate averages or a general character rarity verdict.",
+    "Native H.play reward victory, finishBattle win, raw victory flags and first/three-win sequences agree. These outcomes do not depend on the damage accounting caveat.",
+    "H.observe ownDamage/allyDamage records per-applyDamage outer HP net decline plus shield decline; heal-before-hit can change net loss. Chasm/Dendro campaign outgoing totals have no packet-to-native-log/pre-hit HP reconciliation comparable to boss C0 QA. Do not label those totals verified true damage or infer exact damage superiority from them.",
+    "Chasm damageLogTotalToAllies (formerly hpDamageToAllies) is instead an unbounded sum of native log.damage, not the outgoing net meter. Native log.damage can include overkill; this summary did not cap every packet to actual pre-hit HP. The provided bounded-log diagnostic is not a replacement fully reconciled damage meter.",
+    "Dendro reaction damage includes full hit for amplification/additive reactions and separate packet for transformative reactions; the totals cannot all be called pure reaction bonus damage.",
+    "Actual initial Lv25/phase2 is observed; old legal phase1 prose and Traveler C3 E+3 prose were corrected in metadata. Traveler native C3 buffs Q; initial companion levels/gear are diagnostic assumptions, not a recovered user save.",
+    "Native XP and level-up full healing carry between fights. Three wins without inn therefore does not imply three fights without any native healing.",
+    "Public WAIT60min is a natural encounter witness, not measured travel or farming time. Diagnostic ownership/gear/acquisition time excluded.",
+    "Pilot compressed data are preserved as an artifact but excluded from completed aggregate counts.",
+    "No new runtime experiments or product, DB, Git, or documentation changes."
+  ],
+  "passed": true
+}

@@ -11,8 +11,8 @@ const CONFIG={version:1,baseCap:10,ascendedCap:12,
  success:[0,10000,9500,9000,8500,8000,7000,6000,5000,4000,3000,2500,2000],
  down:[0,0,0,0,0,0,0,0,0,50,100,200,300],
  primaryGrowth:[0,.05,.10,.15,.20,.25,.30,.35,.40,.45,.50,.65,.80],
- mora:[0,80,120,180,260,380,550,800,1100,1500,2000,2800,4000],
- ores:[{}, {ORE_IRON:1},{ORE_IRON:2},{ORE_IRON:3},{ORE_IRON:4},{ORE_IRON:5,ORE_WHITE_IRON:1},{ORE_IRON:6,ORE_WHITE_IRON:2},{ORE_WHITE_IRON:3,ORE_CRYSTAL:1},{ORE_WHITE_IRON:4,ORE_CRYSTAL:2},{ORE_WHITE_IRON:5,ORE_CRYSTAL:3},{ORE_WHITE_IRON:6,ORE_CRYSTAL:4},{ORE_WHITE_IRON:8,ORE_CRYSTAL:5},{ORE_WHITE_IRON:10,ORE_CRYSTAL:8}],
+ mora:[0,80,120,180,390,760,1375,2400,4400,7500,12000,14000,18000],
+ ores:[{}, {ORE_IRON:1},{ORE_IRON:2},{ORE_IRON:3},{ORE_IRON:6},{ORE_IRON:10,ORE_WHITE_IRON:2},{ORE_IRON:15,ORE_WHITE_IRON:5},{ORE_WHITE_IRON:9,ORE_CRYSTAL:3},{ORE_WHITE_IRON:16,ORE_CRYSTAL:8},{ORE_WHITE_IRON:25,ORE_CRYSTAL:15},{ORE_WHITE_IRON:36,ORE_CRYSTAL:24},{ORE_WHITE_IRON:40,ORE_CRYSTAL:28},{ORE_WHITE_IRON:48,ORE_CRYSTAL:36}],
  ascensionCost:{mora:3000,items:{TRPG_BOSS_ESSENCE:3,TRPG_BOSS_CORE:1,ORE_CRYSTAL:5}},
  bosses:{BOSS_DVALIN:{route:'BRT_DVALIN',map:'MAP_STORMTERROR_LAIR',group:'EG_BOSS_DVALIN'},BOSS_ANDRIUS:{route:'BRT_ANDRIUS',map:'MAP_WOLF_ARENA',group:'EG_BOSS_ANDRIUS'}},
 };
@@ -68,11 +68,18 @@ P.enhancementStatsAt=function(inv,level){
  for(const [lv,m]of Object.entries(profile.milestones||{}))if(Number(lv)<=level)for(const [key,val]of Object.entries(m.stats_add||{}))stats[key]=(stats[key]||0)+val;
  return stats;
 };
+P.enhancementHasGain=function(inv){
+ const profile=parse(this.row('16_EQUIP_DB',inv.equip)[32]);
+ // Some support equipment has only fixed secondary stats and traits. Keep its
+ // existing saved enhancement levels valid, but never charge for a useless path.
+ return Object.values(profile.milestones||{}).some(m=>Object.values(m.stats_add||{}).some(v=>Number(v)!==0)||Object.keys(m.effect_override||{}).length>0);
+};
 P.enhancementQuote=function(slot,kind='ENHANCE'){
  const inv=this.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)return {supported:false,reason:'소지한 개별 장비를 선택해 주세요.'};
  const row=this.row('16_EQUIP_DB',inv.equip),supported=this.isMondEnhanceable(inv.equip),target=inv.enhance+1,cap=this.enhancementCap(inv);
  const q={slot,name:row[1],equip:inv.equip,level:inv.enhance,cap,instanceRevision:inv.instanceRevision||0,supported,kind,target,reason:'',cost:null};
  if(!supported){q.reason=row[35]||'이 장비는 확률 강화·돌파 대상이 아닙니다.';return q;}
+ if(!this.enhancementHasGain(inv)){q.supported=false;q.reason='이 장비는 강화로 증가하는 능력치·효과가 없어 강화·돌파할 수 없습니다.';return q;}
  q.statsBefore=this.enhancementStatsAt(inv,inv.enhance);
  if(kind==='ASCEND'){
   q.target=12;q.cost=copy(CONFIG.ascensionCost);q.success=10000;q.hold=q.down=0;q.statsAfter=copy(q.statsBefore);

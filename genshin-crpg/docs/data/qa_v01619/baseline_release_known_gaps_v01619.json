@@ -1,0 +1,56 @@
+{
+  "checkedAt": "2026-10-09T16:33:58.525068+00:00",
+  "baselineVersion": "0.16.18",
+  "originalProgramCount": 165,
+  "originalPassed": 158,
+  "originalFailures": [
+    "tests/test_skill_fx_v0162.cjs",
+    "tests/test_life_v010.cjs",
+    "tests/test_tutorial_online_v01523.mjs",
+    "tests/test_save_v01344.cjs",
+    "tests/test_v01415.cjs",
+    "tests/test_test_banner_v01510.cjs",
+    "tests/test_release_isolation_v01513.py"
+  ],
+  "laterRecovered": [
+    {
+      "test": "tests/test_skill_fx_v0162.cjs",
+      "proof": "/tmp/crpg_v01618/skill-fx-rerun.log"
+    },
+    {
+      "test": "tests/test_life_v010.cjs",
+      "proof": "/tmp/crpg_v01618/life-rerun.log"
+    },
+    {
+      "test": "tests/test_tutorial_online_v01523.mjs",
+      "proof": "/tmp/crpg_v01618/tutorial_online_immunity_summary.json"
+    },
+    {
+      "test": "tests/test_v01415.cjs",
+      "proof": "/tmp/crpg_v01618/place-photos-rerun.log"
+    },
+    {
+      "test": "tests/test_test_banner_v01510.cjs",
+      "proof": "/tmp/crpg_v01618/test-banner-rerun.log"
+    }
+  ],
+  "confirmedReleasePassAfterReruns": 163,
+  "knownUnavailablePrograms": [
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "category": "missing exact historical fixture",
+      "originalFailure": "git object f0c08d6 unavailable; verified v0.13.43 DB blob75626bf50ac3417feb33ac65a49fa268db9a34b6 required",
+      "evidence": "/tmp/crpg_v01618/compat_recovery_review.json",
+      "action": "Retain unchanged test; classify as unavailable historical input if it fails identically. Never replace historical DB with current fixture."
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "category": "local raw-editorial input already sanitized",
+      "originalFailure": "EDITORIAL_TABLES rows are header-only in local runtime DB; test requires authored rows greater than1",
+      "evidence": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/evidence/release/test_release_isolation_v01513.py.log",
+      "action": "Retain unchanged test; report raw fixture absence separately from runtime checks. Remote raw DB preserved."
+    }
+  ],
+  "baselineRerunPerformed": false,
+  "finalFullSuiteRequired": true
+}

@@ -1,0 +1,16 @@
+PASS a guest brings one of their own characters with its real level, gear, constellation and talents (snapshot from their save)
+PASS Lv.5 rule: a protagonist under Lv.5 cannot take part; the reason says so
+PASS random encounter: the guest joins with its own stats; the host keeps the protagonist and fills the rest in slot order
+PASS three guests at most; with three guests the host fights with the protagonist alone
+PASS a guest's turn stops the fight like the protagonist's; only that guest may act, only on that turn
+PASS a guest leading a companion can always strike or guard (the strike and guard the AI makes); the AI's own choices stay as they are
+PASS after 20 seconds anyone in the room may let the waiting guest act by the AI; the owner may hand over at once; the clock is the server's
+PASS a guest who leaves (or whose room closes) fights on by the AI for the rest of the fight and gets no reward; coming back takes control again
+PASS joining in the middle of a fight: the fighter enters at the start of the next round; with four fighting, the host's last companion steps back and is settled at the end
+PASS solo content: the Abyss, story, the raid, daily bosses, a mutated field boss and quests take no guests; field bosses, ley lines and region events do
+PASS rewards: the guest's fighter gets the battle experience, the guest the Mora and loot, once; defeat penalties stay with the host
+PASS field bosses count against the guest's own 12-hour limit; without a win left the guest gets experience only and the result says why
+PASS a guest protagonist uses its own route's skills next to the host's protagonist
+PASS the saved co-op state is checked: malformed fighters, turns and reward records are refused
+PASS the account server accepts the co-op actions; the scripts are loaded last
+{"total":15,"passed":15}

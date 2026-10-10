@@ -1,0 +1,143 @@
+{
+  "scope": "Exact new character/ownership, prior daily-pressure and bow-range contracts on actual source/browser/server engines. Each current engine runs in a separate process, with the genuine seven-module previous engine loaded for compatibility comparisons.",
+  "rawDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "engineFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+  "serverEngineSHA256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+  "rows": [
+    {
+      "test": "test_character_balance_v01625.cjs",
+      "engine": "source",
+      "engineFingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+      "toolSHA256": "1f17e24e6cdab263a4f33b6729e4ab3e01f0f51264b6fe6c19b87fb3dcc565db",
+      "output": "source-test_character_balance_v01625.cjs.json",
+      "outputSHA256": "80030522bbeed6d4d140963d049431f149839e35ba3064c49a93d5f5a5da9251",
+      "checks": 48,
+      "passed": 48,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_skill_rhythm_ownership_v01625.cjs",
+      "engine": "source",
+      "engineFingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+      "toolSHA256": "a9986d0753c7b432f82df345080b072d3c7292154761e65d24e65f55f209b268",
+      "output": "source-test_skill_rhythm_ownership_v01625.cjs.json",
+      "outputSHA256": "ea26df0ff707d0d6fbb002207be988cf5a0ff7ceb867800cbdd0dbd9df412b7d",
+      "checks": 18,
+      "passed": 18,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_daily_pressure_v01624.cjs",
+      "engine": "source",
+      "engineFingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+      "toolSHA256": "9c6460d02d82caf4342ed1c827033f8d204fcad143b7847da73cc106ea3c4d5a",
+      "output": "source-test_daily_pressure_v01624.cjs.json",
+      "outputSHA256": "3b9b128c9c0a21934fe942a7c0334536840a1993f40c7553af4f8668833aa8c0",
+      "checks": 21,
+      "passed": 21,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_basic_air_range_v01624.cjs",
+      "engine": "source",
+      "engineFingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+      "toolSHA256": "3b51998b2c31387f2f757d0c9c5ce0f142594ed14addb320bb089ef706f89b08",
+      "output": "source-test_basic_air_range_v01624.cjs.json",
+      "outputSHA256": "5abc70a60b85f646f76d0ffdf724c769caef4eba09a250ac506e97ff583cefa9",
+      "checks": 5,
+      "passed": 5,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_character_balance_v01625.cjs",
+      "engine": "browser",
+      "engineFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+      "toolSHA256": "1f17e24e6cdab263a4f33b6729e4ab3e01f0f51264b6fe6c19b87fb3dcc565db",
+      "output": "browser-test_character_balance_v01625.cjs.json",
+      "outputSHA256": "456aef2b56279e28bc8c33e727e08f1cdcee691bac1bcbb47e45033334250929",
+      "checks": 48,
+      "passed": 48,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_skill_rhythm_ownership_v01625.cjs",
+      "engine": "browser",
+      "engineFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+      "toolSHA256": "a9986d0753c7b432f82df345080b072d3c7292154761e65d24e65f55f209b268",
+      "output": "browser-test_skill_rhythm_ownership_v01625.cjs.json",
+      "outputSHA256": "ad072797d8022f07c88c0b5ca2e4c5989b8c38f1f7b457893a507f94d8c1b5a2",
+      "checks": 18,
+      "passed": 18,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_daily_pressure_v01624.cjs",
+      "engine": "browser",
+      "engineFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+      "toolSHA256": "9c6460d02d82caf4342ed1c827033f8d204fcad143b7847da73cc106ea3c4d5a",
+      "output": "browser-test_daily_pressure_v01624.cjs.json",
+      "outputSHA256": "4fc056adbd69808e6e63997282e120392694fc5d99a2dc598e66936887102845",
+      "checks": 21,
+      "passed": 21,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_basic_air_range_v01624.cjs",
+      "engine": "browser",
+      "engineFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+      "toolSHA256": "3b51998b2c31387f2f757d0c9c5ce0f142594ed14addb320bb089ef706f89b08",
+      "output": "browser-test_basic_air_range_v01624.cjs.json",
+      "outputSHA256": "5ae9dc601a7f606ded99bcb26c3a304efc14a8882d1842dbfb9b40c955fc1278",
+      "checks": 5,
+      "passed": 5,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_character_balance_v01625.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+      "toolSHA256": "1f17e24e6cdab263a4f33b6729e4ab3e01f0f51264b6fe6c19b87fb3dcc565db",
+      "output": "server-test_character_balance_v01625.cjs.json",
+      "outputSHA256": "456aef2b56279e28bc8c33e727e08f1cdcee691bac1bcbb47e45033334250929",
+      "checks": 48,
+      "passed": 48,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_skill_rhythm_ownership_v01625.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+      "toolSHA256": "a9986d0753c7b432f82df345080b072d3c7292154761e65d24e65f55f209b268",
+      "output": "server-test_skill_rhythm_ownership_v01625.cjs.json",
+      "outputSHA256": "ad072797d8022f07c88c0b5ca2e4c5989b8c38f1f7b457893a507f94d8c1b5a2",
+      "checks": 18,
+      "passed": 18,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_daily_pressure_v01624.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+      "toolSHA256": "9c6460d02d82caf4342ed1c827033f8d204fcad143b7847da73cc106ea3c4d5a",
+      "output": "server-test_daily_pressure_v01624.cjs.json",
+      "outputSHA256": "4fc056adbd69808e6e63997282e120392694fc5d99a2dc598e66936887102845",
+      "checks": 21,
+      "passed": 21,
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "test": "test_basic_air_range_v01624.cjs",
+      "engine": "server",
+      "engineFingerprint": "engine3-cd865c08c6376fb436b7103bc55d170218962cced05dbf641902a7b24996a307",
+      "toolSHA256": "3b51998b2c31387f2f757d0c9c5ce0f142594ed14addb320bb089ef706f89b08",
+      "output": "server-test_basic_air_range_v01624.cjs.json",
+      "outputSHA256": "5ae9dc601a7f606ded99bcb26c3a304efc14a8882d1842dbfb9b40c955fc1278",
+      "checks": 5,
+      "passed": 5,
+      "rawDbObjectUnchanged": true
+    }
+  ],
+  "total": 276,
+  "passed": 276,
+  "failed": 0
+}

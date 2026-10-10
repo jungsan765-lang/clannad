@@ -1,0 +1,28 @@
+{
+  "test": "tests/test_noelle_healing_v01621.cjs",
+  "command": [
+    "node",
+    "tests/test_noelle_healing_v01621.cjs"
+  ],
+  "startedAt": "2026-10-10T10:12:00.519972+00:00",
+  "endedAt": "2026-10-10T10:12:42.217190+00:00",
+  "seconds": 41.004,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "tests/test_character_balance_v01625.cjs": {
+      "before": "2d2263af0da450c603a9be484574601e9de4c3bdff52200a9482eb8e89f80d59",
+      "after": "6c2bd3125827ffa1ffc1f6571f581d5a5e9f25f9c6093b9e3b29be2430f571e4"
+    },
+    "tools/audit_daily_v01625.cjs": {
+      "before": "f5cc10dbcf2c10e78605a8725b58316e1119e0d0aabbdb1f42e18530b3526d25",
+      "after": "a8b7decd791a8f19c683f6edbd69eb0b4de526a6c998f95a70d8d13db68108e5"
+    }
+  },
+  "testSha256": "0bb42e60110c466f1a0af6f15a6b15473427fae082260d84d7d97d3c9b3859ed",
+  "generatedEngineSha256": "94375793eb78c78d83eacf38759cccf1b1bca3060aec0fe3268acdab14842409",
+  "stdoutSha256": "428de569bc15dd86170d8fe5ae88378ecf8cda51a231cd97d224e889e1ecaff0",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_noelle_healing_v01621.stdout.log",
+  "stderrLog": "test_noelle_healing_v01621.stderr.log"
+}

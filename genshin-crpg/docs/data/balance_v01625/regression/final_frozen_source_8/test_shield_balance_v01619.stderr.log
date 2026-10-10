@@ -1,0 +1,15 @@
+FAIL Baizhu native field shield breaks and heals even while Jade Shield blocks the same hit
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(jadeBefore>packet)
+
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_shield_balance_v01619.cjs:65:149
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_shield_balance_v01619.cjs:4:78)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_shield_balance_v01619.cjs:63:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47

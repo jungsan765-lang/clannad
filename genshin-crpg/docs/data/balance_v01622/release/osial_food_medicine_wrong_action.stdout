@@ -1,0 +1,19 @@
+runtime.js:51
+  this.s=clone(before);try{if(this.assertActionAllowed)this.assertActionAllowed(a);const result=this.apply(a);this.s.global.SAVE_REVISION++;this.s.global.LAST_COMMITTED_ACTION_SEQ++;this.s.global.LAST_COMMITTED_ACTION_ID=a.id;this.s.global.TURN++;const receipt={ok:true,type:a.type,result:result??null,revision:this.s.global.SAVE_REVISION};this.s.global.LAST_ACTION_RECEIPT_JSON=JSON.stringify(receipt);this.validateSave(this.s);return clone(receipt);}catch(e){this.s=before;throw e;}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+
+RuleError: 지원하지 않는 행동입니다.
+    at fail (runtime.js:18:26)
+    at Runtime.apply (runtime.js:53:969)
+    at P.apply (runtime_extensions.js:10:287)
+    at P.apply (runtime_story.js:7:472)
+    at P.apply (runtime_nodes.js:296:1056)
+    at P.apply (runtime_events.js:113:18)
+    at P.apply (runtime_combat.js:253:139)
+    at P.apply (runtime_economy.js:109:33)
+    at P.apply (runtime_passives.js:141:22)
+    at P.apply (runtime_flow.js:79:33) {
+  code: 'ACTION'
+}
+
+Node.js v24.19.0

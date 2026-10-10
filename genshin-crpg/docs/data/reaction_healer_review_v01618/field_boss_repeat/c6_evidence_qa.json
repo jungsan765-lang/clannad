@@ -1,0 +1,116 @@
+{
+  "generatedUtc": "2026-10-09T15:58:31.241252+00:00",
+  "qaScope": "C6 separate exploratory supplement only",
+  "sourceCommit": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "inputFiles": {
+    "c6_e3.json": {
+      "bytes": 10222583,
+      "mtime_ns": 1791560937273301784,
+      "sha256": "8f4407864fe98f314dbb7dcb66896fcc276a3c298b8f2bf277f0a773e975e274"
+    },
+    "c6_e6.json": {
+      "bytes": 10170867,
+      "mtime_ns": 1791560955013683084,
+      "sha256": "208ad50b6b6b0b4c9d6c35257abbd676aad6fec9882be636f853c87202ec71a9"
+    },
+    "c6_summary.json": {
+      "bytes": 818459,
+      "mtime_ns": 1791561024024711786,
+      "sha256": "40dae3fc718faf2500fc77e8d2b8445566785a656cd52b4933e331a6259ce351"
+    },
+    "c6_native.json.gz": {
+      "bytes": 561008,
+      "mtime_ns": 1791561025219191319,
+      "sha256": "d240b6e39a5b2062313c29fa9b7204a7b8d11700c4715fb39f4b79d41e52aefe"
+    },
+    "c6_manifest.json": {
+      "bytes": 25368,
+      "mtime_ns": 1791561025226275948,
+      "sha256": "382c7a88786676d1cfa6b950c73a6e30bfe774ef61ba494e96579352ad2ce88c"
+    },
+    "aggregate_c6.py": {
+      "bytes": 12086,
+      "mtime_ns": 1791561023271159856,
+      "sha256": "fb415c640b3e291b8c5367df65c153cf1da0256fffb8439590b88e68dbb3fa28"
+    },
+    "audit_c6.cjs": {
+      "bytes": 10798,
+      "mtime_ns": 1791560919614834867,
+      "sha256": "1059a7460efce01030acc64ead78e3b6e8db955959ae0be552047de2dcc7272a"
+    },
+    "c6_conditions.csv": {
+      "bytes": 2062,
+      "mtime_ns": 1791561024027651407,
+      "sha256": "476e71a5fd98f140c7ecf32cfe5293855e7765a6d0776373f40917552f0015b2"
+    },
+    "actual_fixture.json": {
+      "bytes": 94596,
+      "mtime_ns": 1791560609038252027,
+      "sha256": "060e4e9af43b855e6dbc3635505c177f360a225c463e18fa97a1428d59fa839f"
+    }
+  },
+  "inputsUnchanged": true,
+  "checks": {
+    "12 unique conditions": 1,
+    "expected independent C6 design": 1,
+    "actual saved companion6 Traveler0": 12,
+    "summary saved constellation and talents": 12,
+    "effective na4 e7 q7 except Traveler4": 48,
+    "base talents4": 48,
+    "Lv25 phase2 legal cap4": 48,
+    "actual same enhancement twelve gear": 12,
+    "first full HP once Lv25": 12,
+    "native win loss counts": 12,
+    "attack all six win first lose second": 6,
+    "comparable inn only successful three wins": 12,
+    "defeat zero cost null": 6,
+    "native party four": 30,
+    "packet native ordered count": 30,
+    "ordered native target card round": 1542,
+    "native actual before less bounded damage after": 1542,
+    "summary corrected native damage": 30,
+    "actual native revival exactly50pct": 30,
+    "all actors actual HP balance zero": 120,
+    "persistent HP no intermediate inn": 18,
+    "condition corrected native damage": 12,
+    "healing all six campaigns three wins": 6,
+    "compressed native exactly corrected source chunks": 1,
+    "independent C6 summary manifest counts": 1,
+    "manifest artifact hash": 4,
+    "manifest script hash": 2,
+    "all 233 product DB unchanged": 1,
+    "no candidate runtime substitution": 1,
+    "native saved fixture grants correctly written": 1,
+    "all read-only inputs hash size mtime unchanged": 1
+  },
+  "recomputedCounts": {
+    "campaigns": 12,
+    "uniqueConditionKeys": 12,
+    "nativeMainFights": 30,
+    "mainWins": 24,
+    "mainLosses": 6,
+    "firstFightWins": 12,
+    "allThreeWinCampaigns": 6,
+    "nativeRecoveryFailures": 6,
+    "matchedNativeDamagePackets": 1542,
+    "nonXiaoUnreconciledHpBalance": 0,
+    "fourCoreHitCompletions": 0,
+    "coreTimeout50PercentRevivals": 30,
+    "executionErrors": []
+  },
+  "extra": {
+    "correctedDamageChangedPackets": 11,
+    "allActorHpBalances": 120,
+    "healingThreeWinCampaigns": 6,
+    "attackFirstWinSecondLossCampaigns": 6
+  },
+  "errors": [],
+  "warnings": [
+    "C6 is diagnostic ownership/constellation grant, not measured acquisition cost; Traveler is C0.",
+    "C6 evidence must remain separate from C0 60-condition denominator.",
+    "Only two four-star companion teams, six conditions each. No five-star C6 test or all-team balance claim.",
+    "No intermediate lodging; final failed recovery zeros excluded from successful three-win cost denominator.",
+    "No new runtime experiment or product, DB, Git, or documentation changes."
+  ],
+  "passed": true
+}

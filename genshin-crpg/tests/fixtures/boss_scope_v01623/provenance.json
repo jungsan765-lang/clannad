@@ -1,0 +1,27 @@
+{
+  "baselineCommit": "1bf0ee5fb35f5fba371466e2e29f01ef7fa4ed59",
+  "repository": "jungsan765-lang/clannad",
+  "purpose": "Supplement the immutable published 0.16.23 source manifest when later releases change formerly shared files. Each file was fetched by its historical Git blob SHA; the scope test verifies the complete 233-file source closure against the original published manifest, including this supplement.",
+  "files": [
+    {
+      "path": "source/runtime_abyss.js",
+      "sha": "3e387fbeab929f2b2b28c9542a0ef18ac380bc14",
+      "source": "https://api.github.com/repos/jungsan765-lang/clannad/git/blobs/3e387fbeab929f2b2b28c9542a0ef18ac380bc14"
+    },
+    {
+      "path": "source/runtime_exclusive_weapons.js",
+      "sha": "434b0a473b558d9832d78c24df542e1020354731",
+      "source": "https://api.github.com/repos/jungsan765-lang/clannad/git/blobs/434b0a473b558d9832d78c24df542e1020354731"
+    },
+    {
+      "path": "source/runtime_formations.js",
+      "sha": "94418cdbe5d5f52f13bee090a14b09011a022f70",
+      "source": "https://api.github.com/repos/jungsan765-lang/clannad/git/blobs/94418cdbe5d5f52f13bee090a14b09011a022f70"
+    },
+    {
+      "path": "source/runtime_skill_rhythm.js",
+      "sha": "98481137fbed454477df5dcbd0b89d850d5d3305",
+      "source": "https://api.github.com/repos/jungsan765-lang/clannad/git/blobs/98481137fbed454477df5dcbd0b89d850d5d3305"
+    }
+  ]
+}

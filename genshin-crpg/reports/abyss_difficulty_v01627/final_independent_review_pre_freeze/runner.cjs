@@ -1,0 +1,74 @@
+'use strict';
+// Independent policy/save/supply review. No enemy edits, forced wins or settlement.
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const H=require('./audit_protagonist_v01618.cjs'),N=require('../tests/test_enemy_balance_v01627.cjs');
+const ROOT=path.resolve(__dirname,'..'),arg=k=>{const i=process.argv.indexOf(k);return i<0?undefined:process.argv[i+1];};
+const OUT=path.resolve(arg('--out')||path.join(ROOT,'reports/abyss_difficulty_v01627/final_independent_review'));
+const cp=v=>JSON.parse(JSON.stringify(v)),sha=v=>crypto.createHash('sha256').update(v).digest('hex');
+const before=N.productionBootstrap(N.loadBefore(ROOT)),env=N.productionBootstrap(H.load(ROOT));env.c.Date=before.c.Date;
+const team=['MOND_AMBER','MOND_KAEYA','MOND_NOELLE'],checks=[],raw=[];
+const prepare=(e,opts={})=>H.setup(e,{level:60,team,route:'ROUTE_TRAVELER',seed:717,map:'MAP_MOND_CITY',gear:'craft',enhance:6,talent:10,...opts});
+const stats=b=>cp([...b.actors,...(b.enemyReserve||[])].map(a=>({id:a.id,source:a.source,side:a.side,level:a.level,hp:a.hp,maxHp:a.maxHp,atk:a.atk,def:a.def,spd:a.spd,shields:a.shields||[],statuses:a.statuses||[]})));
+const check=(id,fn)=>{try{const evidence=fn();checks.push({id,passed:true,evidence});console.log('PASS '+id);}catch(e){checks.push({id,passed:false,error:e.stack});console.error('FAIL '+id+' '+e.message);}};
+const manifest=JSON.parse(fs.readFileSync(path.join(ROOT,'docs/data/balance_v01627/before/source_manifest.json'))),changed=manifest.entries.filter(e=>sha(fs.readFileSync(path.join(ROOT,e.path)))!==e.sha256).map(e=>e.path),sourceHashes=Object.fromEntries(changed.map(p=>[p,sha(fs.readFileSync(path.join(ROOT,p)))]));
+check('authored_database_and_protected_sources_unchanged',()=>{
+ assert.equal(sha(fs.readFileSync(path.join(ROOT,'content/db.json'))),N.AUTHORED_DB_SHA256);
+ const protectedPaths=['source/runtime_raid_v0152.js','source/runtime_abyss.js','source/runtime_liyue_combat.js','source/runtime_operator.js','source/runtime_enhancement.js','source/runtime_liyue_artifacts.js','source/runtime_gear_traits.js','source/runtime_combat_v0148.js'];
+ for(const p of protectedPaths){const e=manifest.entries.find(e=>e.path===p);assert(e);assert.equal(sha(fs.readFileSync(path.join(ROOT,p))),e.sha256);}
+ const allowed=['source/runtime_economy.js','source/runtime_rules.js','source/runtime_mond_boss_balance.js','source/runtime_field_bosses.js','source/runtime_growth_v01522.js','source/runtime_balance_admin_v01623.js','source/runtime_local_revision.js'];
+ assert.deepEqual(changed.slice().sort(),allowed.slice().sort());return{changed,protectedPaths,rawDbSHA256:N.AUTHORED_DB_SHA256};
+});
+for(const f of [1,6,9])check('native_abyss_public_scope_'+f,()=>{
+ const runs=[before,env].map(e=>{const r=prepare(e,{level:f===1?15:f===6?40:55,map:'MAP_V141_MUSK_REEF'}),ab=r.ensureAbyss();for(let n=1;n<f;n++)ab.clears[n]={rounds:1,chambers:[1,1,1],party:[],run:ab.run};r.action('ABYSS_ENTER',{floor:f});return r;});
+ const[a,b]=runs;assert.equal(b.s.runtime.enemyBalanceRevision,undefined);assert.deepEqual(stats(b.s.runtime),stats(a.s.runtime));assert.deepEqual(cp(b.s.runtime.order),cp(a.s.runtime.order));assert.equal(b.s.global.PRNG_STATE,a.s.global.PRNG_STATE);return{floor:f,actors:stats(b.s.runtime)};
+});
+for(const event of env.api.raidV0152.bosses)check('native_raid_public_scope_'+event.id,()=>{
+ const runs=[before,env].map(e=>{const r=prepare(e,{map:'MAP_MOND_PLAINS'});r.raidServerEvent={id:'RAID_627_REVIEW',boss:event.id,startsAt:0,endsAt:4102444800000,target:4000};r.action('RAID_ENTER');return r;});
+ const[a,b]=runs;assert.equal(b.s.runtime.enemyBalanceRevision,undefined);assert.deepEqual(stats(b.s.runtime),stats(a.s.runtime));assert.deepEqual(cp(b.s.runtime.order),cp(a.s.runtime.order));assert.equal(b.s.global.PRNG_STATE,a.s.global.PRNG_STATE);return{origin:b.s.runtime.origin,actors:stats(b.s.runtime)};
+});
+for(const route of ['ROUTE_TRAVELER','ROUTE_ISEKAI'])check('native_osial_public_and_future_waves_'+route,()=>{
+ const node=route==='ROUTE_TRAVELER'?'TRV_LY4_OSIAL_COMBAT':'ISK_L04_K1_040',group=route==='ROUTE_TRAVELER'?'EG_BOSS_OSIAL':'EG_ISK_L04_OSIAL';
+ const runs=[before,env].map(e=>{const r=prepare(e,{route,map:'MAP_OSIAL_BATTLE'});r.s.flags.FLAG_ISK_L01_LEAF='K1';r.storySetCursor(node);r.startBattle(group,'STORY:'+node,{confirmed:true,companions:team});return r;});
+ const[a,b]=runs;assert.equal(b.s.runtime.storyConfig.objective.kind,'PROTECT_FORMATION');assert.equal(b.s.runtime.enemyBalanceRevision,undefined);assert.deepEqual(stats(b.s.runtime),stats(a.s.runtime));assert.deepEqual(cp(b.s.runtime.order),cp(a.s.runtime.order));assert.deepEqual(cp(b.s.runtime.liyueObjective),cp(a.s.runtime.liyueObjective));
+ const waves=[];for(const round of [3,5,7]){for(const r of runs)r.spawnLiyueWave(round);assert.deepEqual(stats(b.s.runtime),stats(a.s.runtime));assert.equal(b.s.runtime.enemyBalanceRevision,undefined);waves.push({round,actors:stats(b.s.runtime)});}return{route,waves,probe:'native future-wave construction; no victory claim'};
+});
+const expStart=(e,profile)=>{const base=prepare(e,{level:56,map:'MAP_CHASM_DEEP'}),r=profile?e.api.adminBalance.createRuntime(e.db,cp(base.s),profile):base,entry=r.growthDomainEntries().find(d=>d.id==='LOST_VALLEY:60');assert(entry&&!entry.reason);const preview=r.growthDomainRewards(entry,'NEUTRAL');r.action('DOMAIN_START',{domain:entry.id});return{r,entry,preview};};
+for(const boundary of ['PENDING','STARTED'])check('genuine_026_EXP_promise_native_reload_and_action_'+boundary,()=>{
+ const {r:old,entry,preview}=expStart(before);if(boundary==='STARTED')old.action('COMBAT_BEGIN');const saved=JSON.parse(old.serialize()),loaded=new env.R(env.db,cp(saved)),legacy=new before.R(before.db,cp(saved));
+ assert.equal(saved.runtime.enemyBalanceRevision,undefined);assert.equal(saved.runtime.growthDomain.expRewardVersion,undefined);assert.equal(preview.xp,10000);assert.equal(loaded.mondRewardPlan(loaded.s.runtime).xp,10000);assert.equal(loaded.growthDomainRewards(loaded.s.runtime.growthDomain).xp,10000);assert.deepEqual(cp(loaded.s.runtime),cp(saved.runtime));assert.deepEqual(JSON.parse(loaded.serialize()),JSON.parse(legacy.serialize()));
+ for(const r of [legacy,loaded])r.action(boundary==='PENDING'?'COMBAT_BEGIN':'COMBAT',boundary==='PENDING'?undefined:{card:'PLAYER_BASIC_GUARD'});assert.deepEqual(JSON.parse(loaded.serialize()),JSON.parse(legacy.serialize()));raw.push({id:'old_exp_'+boundary,saved,after:JSON.parse(loaded.serialize())});return{boundary,oldXp:10000,reloadedXp:loaded.s.runtime&&loaded.mondRewardPlan(loaded.s.runtime).xp,entry:cp(entry),nativeActionCompared:true};
+});
+check('new_EXP_entry_preview_reward_catalog_and_exact_admin_override',()=>{
+ const {r,entry,preview}=expStart(env),amount=env.api.growthV01522.domainXp[60],catalog=env.api.adminBalance.catalog(r),field=catalog.growth.find(v=>v.id==='DOMAIN:LOST_VALLEY:60').fields.find(v=>v.key==='xp');
+ assert.equal(entry.expRewardVersion,1);assert.equal(r.s.runtime.enemyBalanceRevision,1);assert.equal(r.s.runtime.growthDomain.expRewardVersion,1);assert.equal(preview.xp,amount);assert.equal(field.base,amount);assert.equal(r.mondRewardPlan(r.s.runtime).xp,amount);const saved=JSON.parse(r.serialize()),loaded=new env.R(env.db,cp(saved));assert.deepEqual(cp(loaded.s.runtime),cp(saved.runtime));
+ const config=env.api.adminBalance.emptyConfig();config.growth.domains['LOST_VALLEY:60']={xp:12345};const custom=expStart(env,{revision:162701,config});assert.equal(custom.preview.xp,12345);assert.equal(custom.r.mondRewardPlan(custom.r.s.runtime).xp,12345);
+ const oldConfig=before.api.adminBalance.emptyConfig();oldConfig.growth.domains['LOST_VALLEY:60']={xp:12345};const old=expStart(before,{revision:162702,config:oldConfig}),legacySave=JSON.parse(old.r.serialize()),preserved=env.api.adminBalance.createRuntime(env.db,cp(legacySave),{revision:162702,config:oldConfig});assert.equal(preserved.mondRewardPlan(preserved.s.runtime).xp,12345);assert.deepEqual(cp(preserved.s.runtime),cp(legacySave.runtime));
+ return{newAmount:amount,catalogBase:field.base,exactAdminAmount:12345,genuineOldAdminAmount:12345,probe:'reward projection only; no forced or actual victory'};
+});
+check('current_domain_entries_mark_only_EXP_and_material_rewards_preserved',()=>{
+ const runs=[before,env].map(e=>prepare(e)),catalog=env.api.adminBalance.catalog(runs[1]),rows=[];
+ for(const[key,site]of Object.entries(env.api.growthV01522.domains))for(const level of site.levels){const entries=runs.map(r=>r.growthDomainEntries(site.map).find(v=>v.id===key+':'+level));assert(entries.every(Boolean));const[a,b]=entries,rewards=runs.map((r,i)=>r.growthDomainRewards(entries[i],'NEUTRAL'));
+  if(site.kind==='EXP'){assert.equal(b.expRewardVersion,1);assert.equal(catalog.growth.find(d=>d.id==='DOMAIN:'+b.id).fields.find(d=>d.key==='xp').base,rewards[1].xp);}
+  else{assert.equal(b.expRewardVersion,undefined);assert.deepEqual(cp(rewards[1]),cp(rewards[0]));}rows.push({id:b.id,kind:b.kind,oldXp:rewards[0].xp,newXp:rewards[1].xp,marker:b.expRewardVersion??null});}
+ return{rows};
+});
+const dvalin=e=>{const r=prepare(e,{level:28,map:'MAP_STORMTERROR_LAIR'}),route=e.api.enhancementConfig.bosses.BOSS_DVALIN.route;r.s.flags[r.row('35_BOSS_ROUTE_DB',route)[13]]=true;r.action('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_DVALIN'});return r;};
+check('Dvalin_rematch_no_wind_is_fresh_only_and_invalid_action_atomic',()=>{
+ const r=dvalin(env);assert.equal(r.s.runtime.mondBossBalance.rematchNoWindRevision,1);assert(!r.combatCards().some(c=>c.id==='SYS_MOND_WIND_ROUTE'));r.action('COMBAT_BEGIN');const saved=JSON.parse(r.serialize()),loaded=new env.R(env.db,cp(saved));assert.deepEqual(cp(loaded.s.runtime),cp(saved.runtime));const original=loaded.serialize();assert.throws(()=>loaded.action('COMBAT',{card:'SYS_MOND_WIND_ROUTE',target:'PLAYER_CUSTOM'}));assert.equal(loaded.serialize(),original);
+ const nonrematch=prepare(env,{level:28,map:'MAP_STORMTERROR_LAIR'});nonrematch.startBattle('EG_BOSS_DVALIN','EXPLICIT',{confirmed:true,companions:team});assert.equal(nonrematch.s.runtime.mondBossBalance.rematchNoWindRevision,undefined);assert(nonrematch.combatCards().some(c=>c.id==='SYS_MOND_WIND_ROUTE'));return{marker:1,newRematchHasWind:false,nonrematchHasWind:true,rejectedActionAtomic:true};
+});
+for(const used of [false,true])check('genuine_026_Dvalin_rematch_wind_save_and_native_resume_'+used,()=>{
+ const old=dvalin(before);old.action('COMBAT_BEGIN');if(used)old.action('COMBAT',{card:'SYS_MOND_WIND_ROUTE',target:'PLAYER_CUSTOM'});const saved=JSON.parse(old.serialize()),legacy=new before.R(before.db,cp(saved)),loaded=new env.R(env.db,cp(saved));assert.equal(saved.runtime.mondBossBalance.rematchNoWindRevision,undefined);assert.deepEqual(cp(loaded.s.runtime),cp(saved.runtime));assert(loaded.combatCards().some(c=>c.id==='SYS_MOND_WIND_ROUTE'));for(const r of [legacy,loaded])r.action('COMBAT',{card:'PLAYER_BASIC_GUARD'});assert.deepEqual(JSON.parse(loaded.serialize()),JSON.parse(legacy.serialize()));raw.push({id:'old_dvalin_'+used,saved,after:JSON.parse(loaded.serialize())});return{used,windRoute:saved.runtime.mondBossBalance.windRoute,nativeResumeMatches:true};
+});
+for(const id of ['FB_GEO_HYPOSTASIS','FB_OCEANID'])check('genuine_026_field_future_summon_policy_'+id,()=>{
+ const spec=before.api.fieldBosses.bosses[id],old=prepare(before,{level:before.api.growthRegionData.bosses[id],map:spec.map}),route=before.api.fieldBosses.route(id);old.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});old.action('BOSS_ROUTE',{route,entry:'DIRECT'});const saved=JSON.parse(old.serialize()),loaded=new env.R(env.db,cp(saved));assert.equal(saved.runtime.enemyBalanceRevision,undefined);assert.equal(saved.runtime.fieldBoss.pressureRevision,undefined);assert.deepEqual(cp(loaded.s.runtime),cp(saved.runtime));const kind=id==='FB_GEO_HYPOSTASIS'?'FB_SUMMON_PILLAR':'FB_MIMIC_CRANE';for(const r of [old,loaded])r.fbSummon(r.s.runtime,r.s.runtime.actors.find(a=>a.source===id),kind);assert.deepEqual(JSON.parse(loaded.serialize()),JSON.parse(old.serialize()));return{id,kind,actorStats:stats(loaded.s.runtime),nativeFutureSummonMatches:true};
+});
+check('protective_gear_has_no_boss_loot_recipe_cycle_and_frost_cost_stays_exact',()=>{
+ const runs=[before,env].map(e=>prepare(e,{level:30})),gear=['EQ_ARMOR_IRON_GUARD','EQ_ARMOR_FROSTWARD','EQ_LY_ARMOR_THUNDERWARD','EQ_LY_ARMOR_JADEFLAME','EQ_LY_ARMOR_TIDEWARD','EQ_LY_ARMOR_BEDROCK'],rows=[];
+ for(const id of gear){const rec=runs[1].rows('17_RECIPE_DB').find(r=>r[2]==='EQUIP'&&r[3]===id);assert(rec);const a=runs[0].recipeCost(rec),b=runs[1].recipeCost(rec);assert.deepEqual(cp(b),cp(a));assert(!Object.keys(b.items).some(v=>/^MAT_FB_|^TRPG_BOSS_|^MAT_AZHDAHA_ARTIFACT_CRYSTAL$/.test(v)));rows.push({equip:id,recipe:rec[0],place:rec[16],merchant:rec[17],cost:cp(b),levelCondition:runs[1].recipeDefinition(rec[0])[18]});}
+ const r=runs[1],recipe=r.row('17_RECIPE_DB','REC_ARMOR_FROST'),untouched=cp(recipe);assert.equal(recipe[18],'LEVEL>=5 / 설산 소재 확보');assert.equal(r.recipeDefinition(recipe[0])[18],'LEVEL>=5');assert.deepEqual(cp(recipe),untouched);const cost=r.recipeCost(recipe),mora=r.s.global.MORA;for(const[id,n]of Object.entries(cost.items))r.giveItem(id,n);r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_MRC_BLACKSMITH_COMMON',mode:'CRAFT'});const receipt=r.action('CRAFT',{recipe:recipe[0]}).result;assert.equal(receipt.result,'EQ_ARMOR_FROSTWARD');assert.equal(mora-r.s.global.MORA,cost.mora);for(const[id]of Object.entries(cost.items))assert.equal(r.itemCount(id),0);
+ return{rows,frostCraftReceipt:cp(receipt),limits:'Inputs and money are granted for a paid public-craft contract, not natural gathering-time proof. Thunderward is Liyue Harbor only and cannot establish a pre-Liyue Lv20 first-clear guarantee.'};
+});
+const finish=H.load(ROOT).fingerprint;check('source_input_did_not_change_during_review',()=>{assert.equal(finish,env.fingerprint);return{fingerprint:finish};});
+const data={schema:1,scope:'Independent final source/policy/save/admin/supply review. No difficulty or natural-acquisition guarantee, forced wins, enemy modification or product edits.',beforeFingerprint:before.fingerprint,currentFingerprint:env.fingerprint,sourceHashes,changed,rawDbSHA256:N.AUTHORED_DB_SHA256,total:checks.length,passed:checks.filter(c=>c.passed).length,failed:checks.filter(c=>!c.passed).length,checks};
+fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'summary.json'),JSON.stringify(data,null,2)+'\n');fs.writeFileSync(path.join(OUT,'raw.json'),JSON.stringify(raw,null,2)+'\n');fs.copyFileSync(__filename,path.join(OUT,'runner.cjs'));console.log(JSON.stringify({total:data.total,passed:data.passed,failed:data.failed,fingerprint:env.fingerprint}));if(data.failed)process.exitCode=1;

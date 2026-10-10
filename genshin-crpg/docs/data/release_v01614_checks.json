@@ -1,0 +1,97 @@
+{
+  "version": "0.16.14",
+  "baseline": "d30304dfcf3186e34f6fe44cceb8acccbb610882",
+  "scope": "Related local regression; not all 156 programs or completed CI",
+  "serverBuild": {
+    "command": "python tools/build_server.py",
+    "exitCode": 0,
+    "runtimeFiles": 119
+  },
+  "programs": [
+    {
+      "program": "tests/test_ascension_balance_v01614.cjs",
+      "exitCode": 0,
+      "seconds": 80.505,
+      "log": "evidence/release-v01614/test_ascension_balance_v01614.cjs.log"
+    },
+    {
+      "program": "tests/test_task_materials_v0169.cjs",
+      "exitCode": 0,
+      "seconds": 49.726,
+      "log": "evidence/release-v01614/test_task_materials_v0169.cjs.log"
+    },
+    {
+      "program": "tests/test_ascension_efficiency_v01613.cjs",
+      "exitCode": 0,
+      "seconds": 43.292,
+      "log": "evidence/release-v01614/test_ascension_efficiency_v01613.cjs.log"
+    },
+    {
+      "program": "tests/test_growth_v01522.cjs",
+      "exitCode": 0,
+      "seconds": 61.251,
+      "log": "evidence/release-v01614/test_growth_v01522.cjs.log"
+    },
+    {
+      "program": "tests/test_growth_balance_v01522.cjs",
+      "exitCode": 0,
+      "seconds": 18.284,
+      "log": "evidence/release-v01614/test_growth_balance_v01522.cjs.log"
+    },
+    {
+      "program": "tests/test_balance_saves_v0166.cjs",
+      "exitCode": 0,
+      "seconds": 29.794,
+      "log": "evidence/release-v01614/test_balance_saves_v0166.cjs.log"
+    },
+    {
+      "program": "tests/test_growth_online_v01522.mjs",
+      "exitCode": 0,
+      "seconds": 23.363,
+      "log": "evidence/release-v01614/test_growth_online_v01522.mjs.log"
+    },
+    {
+      "program": "tests/test_engine_identity.py",
+      "exitCode": 0,
+      "seconds": 0.045,
+      "log": "evidence/release-v01614/test_engine_identity.py.log"
+    },
+    {
+      "program": "tests/test_task_branches_v01612.cjs",
+      "exitCode": 0,
+      "seconds": 37.096,
+      "log": "evidence/release-v01614/test_task_branches_v01612.cjs.log"
+    },
+    {
+      "program": "tests/test_task_learning_delivery_v0169.cjs",
+      "exitCode": 0,
+      "seconds": 22.444,
+      "log": "evidence/release-v01614/test_task_learning_delivery_v0169.cjs.log"
+    },
+    {
+      "program": "tests/test_version.cjs",
+      "exitCode": 0,
+      "seconds": 0.106,
+      "log": "evidence/release-v01614/test_version.cjs.log"
+    },
+    {
+      "program": "tools/audit_task_materials_v0169.cjs",
+      "exitCode": 0,
+      "seconds": 14.403,
+      "log": "evidence/release-v01614/audit_task_materials_v0169.cjs.log"
+    }
+  ],
+  "releaseGate": {
+    "programCount": 156,
+    "unique": true,
+    "allFilesPresent": true,
+    "old155Preserved": true
+  },
+  "legalCombat": "ascension_legal_stage_v01614.json",
+  "limitations": [
+    "Native VM and HTTP tests, no physical phone check",
+    "64 deterministic combat wins with seed717; no all-seed guarantee",
+    "No VPS installation, production promotion, or main merge",
+    "Remote authored DB/assets are preserved; local recovered data is not published"
+  ]
+}

@@ -1,0 +1,756 @@
+{
+  "scope": "Native public BUY_RECIPE + CRAFT60 buffs and processing from granted raw materials. No natural material acquisition or elapsed real playtime claim. All five buff recipes quote0 direct cooking Mora. NPC arithmetic assumes repeated restocks and visits, never one simultaneous buy.",
+  "foods": {
+    "FOOD_ADEPTUS_TEMPTATION": 12,
+    "FOOD_JADE_PARCELS": 12,
+    "FOOD_SATISFYING_SALAD": 12,
+    "FOOD_FISHERMANS_TOAST": 12,
+    "FOOD_CREAM_STEW": 12
+  },
+  "immediateIngredients": {
+    "ING_HAM": 36,
+    "ING_CRAB": 24,
+    "ING_SHRIMP": 24,
+    "ING_MATSUTAKE": 24,
+    "ING_LOTUS_HEAD": 24,
+    "MAT_LIYUE_JUEYUN_CHILI": 12,
+    "ING_CABBAGE": 48,
+    "ING_APPLE": 24,
+    "ING_BIRD_EGG": 12,
+    "ING_POTATO": 12,
+    "ING_FLOUR": 36,
+    "ING_TOMATO": 24,
+    "ING_ONION": 12,
+    "ING_MILK": 12,
+    "ING_RAW_MEAT": 24,
+    "ING_CREAM": 24,
+    "ING_SNAPDRAGON": 12
+  },
+  "processedFromRaw": {
+    "ING_RAW_MEAT": 96,
+    "ING_SALT": 36,
+    "ING_CRAB": 24,
+    "ING_SHRIMP": 24,
+    "ING_MATSUTAKE": 24,
+    "ING_LOTUS_HEAD": 24,
+    "MAT_LIYUE_JUEYUN_CHILI": 12,
+    "ING_CABBAGE": 48,
+    "ING_APPLE": 24,
+    "ING_BIRD_EGG": 12,
+    "ING_POTATO": 12,
+    "ING_FLOUR": 36,
+    "ING_TOMATO": 24,
+    "ING_ONION": 12,
+    "ING_MILK": 36,
+    "ING_SNAPDRAGON": 12
+  },
+  "retail": [
+    {
+      "id": "ING_RAW_MEAT",
+      "name": "짐승고기",
+      "quantity": 96,
+      "npc": null,
+      "fieldSources": [
+        {
+          "item": "ING_RAW_MEAT",
+          "min": 3,
+          "max": 5,
+          "weight": 75,
+          "kind": "HUNT",
+          "map": "MAP_LIYUE_MOUNTAINS",
+          "mapName": "리월 산악지대"
+        },
+        {
+          "item": "ING_RAW_MEAT",
+          "min": 3,
+          "max": 5,
+          "weight": 55,
+          "kind": "HUNT",
+          "map": "MAP_MOND_SPRINGVALE",
+          "mapName": "샘물 마을"
+        },
+        {
+          "item": "ING_RAW_MEAT",
+          "min": 3,
+          "max": 5,
+          "weight": 80,
+          "kind": "HUNT",
+          "map": "MAP_MOND_WOLVENDOM",
+          "mapName": "울프 영지"
+        }
+      ]
+    },
+    {
+      "id": "ING_SALT",
+      "name": "소금",
+      "quantity": 36,
+      "npc": {
+        "unitPrice": 10,
+        "minimumTotal": 360,
+        "stock": "STK_MOND_FOOD_003",
+        "merchant": "MRC_MOND_GENERAL",
+        "restock": "매일",
+        "quantityPerRestock": 20
+      },
+      "fieldSources": []
+    },
+    {
+      "id": "ING_CRAB",
+      "name": "꽃게",
+      "quantity": 24,
+      "npc": {
+        "unitPrice": 48,
+        "minimumTotal": 1152,
+        "stock": "STK_CRPG_V011_MOND_GENERAL_ING_CRAB",
+        "merchant": "MRC_MOND_GENERAL",
+        "restock": "매일",
+        "quantityPerRestock": 6
+      },
+      "fieldSources": [
+        {
+          "item": "ING_CRAB",
+          "min": 3,
+          "max": 5,
+          "weight": 30,
+          "kind": "GATHER",
+          "map": "MAP_INAZ_WATATSUMI",
+          "mapName": "와타츠미섬"
+        },
+        {
+          "item": "ING_CRAB",
+          "min": 3,
+          "max": 5,
+          "weight": 30,
+          "kind": "GATHER",
+          "map": "MAP_FONT_LIFFEY",
+          "mapName": "리피 구역"
+        },
+        {
+          "item": "ING_CRAB",
+          "min": 3,
+          "max": 5,
+          "weight": 40,
+          "kind": "GATHER",
+          "map": "MAP_FONT_BYGONE_SEA",
+          "mapName": "지난날의 바다"
+        }
+      ]
+    },
+    {
+      "id": "ING_SHRIMP",
+      "name": "생새우살",
+      "quantity": 24,
+      "npc": {
+        "unitPrice": 60,
+        "minimumTotal": 1440,
+        "stock": "STK_LIYUE_FOOD_002",
+        "merchant": "MRC_LIYUE_GENERAL",
+        "restock": "매일",
+        "quantityPerRestock": 6
+      },
+      "fieldSources": [
+        {
+          "item": "ING_SHRIMP",
+          "min": 3,
+          "max": 5,
+          "weight": 30,
+          "kind": "GATHER",
+          "map": "MAP_FONT_BYGONE_SEA",
+          "mapName": "지난날의 바다"
+        }
+      ]
+    },
+    {
+      "id": "ING_MATSUTAKE",
+      "name": "송이버섯",
+      "quantity": 24,
+      "npc": null,
+      "fieldSources": [
+        {
+          "item": "ING_MATSUTAKE",
+          "min": 3,
+          "max": 5,
+          "weight": 15,
+          "kind": "GATHER",
+          "map": "MAP_MOND_FOREST",
+          "mapName": "속삭임의 숲"
+        },
+        {
+          "item": "ING_MATSUTAKE",
+          "min": 3,
+          "max": 5,
+          "weight": 15,
+          "kind": "GATHER",
+          "map": "MAP_LIYUE_JUEYUN",
+          "mapName": "절운간"
+        }
+      ]
+    },
+    {
+      "id": "ING_LOTUS_HEAD",
+      "name": "연꽃받침",
+      "quantity": 24,
+      "npc": null,
+      "fieldSources": [
+        {
+          "item": "ING_LOTUS_HEAD",
+          "min": 3,
+          "max": 5,
+          "weight": 25,
+          "kind": "GATHER",
+          "map": "MAP_LIYUE_PLAINS",
+          "mapName": "리월 평야·도로"
+        }
+      ]
+    },
+    {
+      "id": "MAT_LIYUE_JUEYUN_CHILI",
+      "name": "절운고추",
+      "quantity": 12,
+      "npc": {
+        "unitPrice": 240,
+        "minimumTotal": 2880,
+        "stock": "STK_MOND_IMPORT_JUEYUN_CHILI",
+        "merchant": "MRC_MOND_GENERAL",
+        "restock": "3일",
+        "quantityPerRestock": 2
+      },
+      "fieldSources": [
+        {
+          "item": "MAT_LIYUE_JUEYUN_CHILI",
+          "min": 3,
+          "max": 5,
+          "weight": 25,
+          "kind": "GATHER",
+          "map": "MAP_LIYUE_JUEYUN",
+          "mapName": "절운간"
+        },
+        {
+          "item": "MAT_LIYUE_JUEYUN_CHILI",
+          "min": 2,
+          "max": 3,
+          "weight": 35,
+          "kind": "GATHER",
+          "map": "MAP_LY_DETAIL_QINGYUN",
+          "mapName": "경운봉 · 산길"
+        },
+        {
+          "item": "MAT_LIYUE_JUEYUN_CHILI",
+          "min": 2,
+          "max": 3,
+          "weight": 30,
+          "kind": "GATHER",
+          "map": "MAP_LY_DETAIL_HUAGUANG",
+          "mapName": "화광림 · 계곡길"
+        }
+      ]
+    },
+    {
+      "id": "ING_CABBAGE",
+      "name": "양배추",
+      "quantity": 48,
+      "npc": {
+        "unitPrice": 16,
+        "minimumTotal": 768,
+        "stock": "STK_MOND_FOOD_008",
+        "merchant": "MRC_MOND_GENERAL",
+        "restock": "매일",
+        "quantityPerRestock": 20
+      },
+      "fieldSources": [
+        {
+          "item": "ING_CABBAGE",
+          "min": 3,
+          "max": 5,
+          "weight": 20,
+          "kind": "GATHER",
+          "map": "MAP_NARUKAMI_WILD",
+          "mapName": "나루카미섬 야외"
+        },
+        {
+          "item": "ING_CABBAGE",
+          "min": 3,
+          "max": 5,
+          "weight": 25,
+          "kind": "GATHER",
+          "map": "MAP_FONTAINE_WILD",
+          "mapName": "폰타인 지상 야외"
+        },
+        {
+          "item": "ING_CABBAGE",
+          "min": 3,
+          "max": 5,
+          "weight": 20,
+          "kind": "GATHER",
+          "map": "MAP_NODKRAI_HISHI",
+          "mapName": "히시섬"
+        }
+      ]
+    },
+    {
+      "id": "ING_APPLE",
+      "name": "사과",
+      "quantity": 24,
+      "npc": null,
+      "fieldSources": [
+        {
+          "item": "ING_APPLE",
+          "min": 3,
+          "max": 5,
+          "weight": 25,
+          "kind": "GATHER",
+          "map": "MAP_MOND_PLAINS",
+          "mapName": "몬드 외곽 초원"
+        },
+        {
+          "item": "ING_APPLE",
+          "min": 3,
+          "max": 5,
+          "weight": 20,
+          "kind": "GATHER",
+          "map": "MAP_MOND_FOREST",
+          "mapName": "속삭임의 숲"
+        }
+      ]
+    },
+    {
+      "id": "ING_BIRD_EGG",
+      "name": "새알",
+      "quantity": 12,
+      "npc": null,
+      "fieldSources": [
+        {
+          "item": "ING_BIRD_EGG",
+          "min": 3,
+          "max": 5,
+          "weight": 35,
+          "kind": "GATHER",
+          "map": "MAP_MOND_PLAINS",
+          "mapName": "몬드 외곽 초원"
+        },
+        {
+          "item": "ING_BIRD_EGG",
+          "min": 3,
+          "max": 5,
+          "weight": 35,
+          "kind": "GATHER",
+          "map": "MAP_MOND_FOREST",
+          "mapName": "속삭임의 숲"
+        },
+        {
+          "item": "ING_BIRD_EGG",
+          "min": 3,
+          "max": 5,
+          "weight": 35,
+          "kind": "GATHER",
+          "map": "MAP_MOND_DAWN_WINERY",
+          "mapName": "다운 와이너리"
+        }
+      ]
+    },
+    {
+      "id": "ING_POTATO",
+      "name": "감자",
+      "quantity": 12,
+      "npc": {
+        "unitPrice": 16,
+        "minimumTotal": 192,
+        "stock": "STK_MOND_FOOD_007",
+        "merchant": "MRC_MOND_GENERAL",
+        "restock": "매일",
+        "quantityPerRestock": 20
+      },
+      "fieldSources": [
+        {
+          "item": "ING_POTATO",
+          "min": 3,
+          "max": 5,
+          "weight": 25,
+          "kind": "GATHER",
+          "map": "MAP_SNEZ_FRONTIER",
+          "mapName": "스네즈나야 변경 군사구역"
+        },
+        {
+          "item": "ING_POTATO",
+          "min": 3,
+          "max": 5,
+          "weight": 20,
+          "kind": "GATHER",
+          "map": "MAP_SNEZ_BEAST_PLAINS",
+          "mapName": "고대 야수 벌판"
+        },
+        {
+          "item": "ING_POTATO",
+          "min": 3,
+          "max": 5,
+          "weight": 20,
+          "kind": "GATHER",
+          "map": "MAP_SNEZ_SNOWGRAVE",
+          "mapName": "하얀 자작나무 무덤"
+        }
+      ]
+    },
+    {
+      "id": "ING_FLOUR",
+      "name": "밀가루",
+      "quantity": 36,
+      "npc": {
+        "unitPrice": 18,
+        "minimumTotal": 648,
+        "stock": "STK_MOND_FOOD_002",
+        "merchant": "MRC_MOND_GENERAL",
+        "restock": "매일",
+        "quantityPerRestock": 20
+      },
+      "fieldSources": []
+    },
+    {
+      "id": "ING_TOMATO",
+      "name": "토마토",
+      "quantity": 24,
+      "npc": {
+        "unitPrice": 16,
+        "minimumTotal": 384,
+        "stock": "STK_MOND_FOOD_006",
+        "merchant": "MRC_MOND_GENERAL",
+        "restock": "매일",
+        "quantityPerRestock": 20
+      },
+      "fieldSources": []
+    },
+    {
+      "id": "ING_ONION",
+      "name": "양파",
+      "quantity": 12,
+      "npc": {
+        "unitPrice": 16,
+        "minimumTotal": 192,
+        "stock": "STK_MOND_FOOD_005",
+        "merchant": "MRC_MOND_GENERAL",
+        "restock": "매일",
+        "quantityPerRestock": 20
+      },
+      "fieldSources": []
+    },
+    {
+      "id": "ING_MILK",
+      "name": "우유",
+      "quantity": 36,
+      "npc": {
+        "unitPrice": 20,
+        "minimumTotal": 720,
+        "stock": "STK_MOND_FOOD_001",
+        "merchant": "MRC_MOND_GENERAL",
+        "restock": "매일",
+        "quantityPerRestock": 20
+      },
+      "fieldSources": []
+    },
+    {
+      "id": "ING_SNAPDRAGON",
+      "name": "금어초",
+      "quantity": 12,
+      "npc": null,
+      "fieldSources": [
+        {
+          "item": "ING_SNAPDRAGON",
+          "min": 3,
+          "max": 5,
+          "weight": 15,
+          "kind": "GATHER",
+          "map": "MAP_MOND_PLAINS",
+          "mapName": "몬드 외곽 초원"
+        },
+        {
+          "item": "ING_SNAPDRAGON",
+          "min": 3,
+          "max": 5,
+          "weight": 15,
+          "kind": "GATHER",
+          "map": "MAP_LIYUE_PLAINS",
+          "mapName": "리월 평야·도로"
+        }
+      ]
+    }
+  ],
+  "recipePurchaseMora": 1160,
+  "retailQuotes": {
+    "buyingEveryNpcAvailableIngredient": {
+      "mora": 8736,
+      "fieldCount": 192,
+      "jueyunImportWarning": "12pieces, 2per3WORLD_DAY, costly optional import; actual stock availability/restocks not simulated"
+    },
+    "gatheringJueyunInsteadOfImport": {
+      "mora": 5856,
+      "fieldCount": 204
+    }
+  },
+  "craftingWorldMinutes": 4020,
+  "foodIngestionWorldMinutesIf60UseItem": 600,
+  "worldDay": 4,
+  "worldTime": "07:00",
+  "timeline": [
+    {
+      "action": "BUY_RECIPE",
+      "stock": "STK_V014_MOND_REC_01",
+      "quantity": 1,
+      "cost": 360
+    },
+    {
+      "action": "BUY_RECIPE",
+      "stock": "STK_V014_MOND_REC_03",
+      "quantity": 1,
+      "cost": 400
+    },
+    {
+      "action": "BUY_RECIPE",
+      "stock": "STK_V014_MOND_REC_04",
+      "quantity": 1,
+      "cost": 400
+    },
+    {
+      "action": "CRAFT",
+      "before": {
+        "day": 1,
+        "time": "12:00",
+        "mora": 98840
+      },
+      "response": {
+        "recipe": "REC_PROCESS_HAM",
+        "result": "ING_HAM",
+        "quantity": 24,
+        "crafts": 24,
+        "minutes": 1440,
+        "cost": {
+          "mora": 0,
+          "items": {
+            "ING_RAW_MEAT": 48,
+            "ING_SALT": 24
+          }
+        }
+      },
+      "after": {
+        "day": 2,
+        "time": "12:00",
+        "mora": 98840
+      }
+    },
+    {
+      "action": "CRAFT",
+      "before": {
+        "day": 2,
+        "time": "12:00",
+        "mora": 98840
+      },
+      "response": {
+        "recipe": "REC_PROCESS_HAM",
+        "result": "ING_HAM",
+        "quantity": 12,
+        "crafts": 12,
+        "minutes": 720,
+        "cost": {
+          "mora": 0,
+          "items": {
+            "ING_RAW_MEAT": 24,
+            "ING_SALT": 12
+          }
+        }
+      },
+      "after": {
+        "day": 3,
+        "time": "00:00",
+        "mora": 98840
+      }
+    },
+    {
+      "action": "CRAFT",
+      "before": {
+        "day": 3,
+        "time": "00:00",
+        "mora": 98840
+      },
+      "response": {
+        "recipe": "REC_PROCESS_CREAM",
+        "result": "ING_CREAM",
+        "quantity": 24,
+        "crafts": 24,
+        "minutes": 240,
+        "cost": {
+          "mora": 0,
+          "items": {
+            "ING_MILK": 24
+          }
+        }
+      },
+      "after": {
+        "day": 3,
+        "time": "04:00",
+        "mora": 98840
+      }
+    },
+    {
+      "action": "CRAFT",
+      "before": {
+        "day": 3,
+        "time": "04:00",
+        "mora": 98840
+      },
+      "response": {
+        "recipe": "REC_FOOD_ADEPTUS_TEMPTATION",
+        "result": "FOOD_ADEPTUS_TEMPTATION",
+        "quantity": 12,
+        "crafts": 12,
+        "minutes": 540,
+        "cost": {
+          "mora": 0,
+          "items": {
+            "ING_HAM": 24,
+            "ING_CRAB": 24,
+            "ING_SHRIMP": 24,
+            "ING_MATSUTAKE": 24
+          }
+        }
+      },
+      "after": {
+        "day": 3,
+        "time": "13:00",
+        "mora": 98840
+      }
+    },
+    {
+      "action": "CRAFT",
+      "before": {
+        "day": 3,
+        "time": "13:00",
+        "mora": 98840
+      },
+      "response": {
+        "recipe": "REC_FOOD_JADE_PARCELS",
+        "result": "FOOD_JADE_PARCELS",
+        "quantity": 12,
+        "crafts": 12,
+        "minutes": 360,
+        "cost": {
+          "mora": 0,
+          "items": {
+            "ING_LOTUS_HEAD": 24,
+            "MAT_LIYUE_JUEYUN_CHILI": 12,
+            "ING_CABBAGE": 24,
+            "ING_HAM": 12
+          }
+        }
+      },
+      "after": {
+        "day": 3,
+        "time": "19:00",
+        "mora": 98840
+      }
+    },
+    {
+      "action": "CRAFT",
+      "before": {
+        "day": 3,
+        "time": "19:00",
+        "mora": 98840
+      },
+      "response": {
+        "recipe": "REC_FOOD_SATISFYING_SALAD",
+        "result": "FOOD_SATISFYING_SALAD",
+        "quantity": 12,
+        "crafts": 12,
+        "minutes": 240,
+        "cost": {
+          "mora": 0,
+          "items": {
+            "ING_CABBAGE": 24,
+            "ING_APPLE": 24,
+            "ING_BIRD_EGG": 12,
+            "ING_POTATO": 12
+          }
+        }
+      },
+      "after": {
+        "day": 3,
+        "time": "23:00",
+        "mora": 98840
+      }
+    },
+    {
+      "action": "CRAFT",
+      "before": {
+        "day": 3,
+        "time": "23:00",
+        "mora": 98840
+      },
+      "response": {
+        "recipe": "REC_FOOD_FISHERMANS_TOAST",
+        "result": "FOOD_FISHERMANS_TOAST",
+        "quantity": 12,
+        "crafts": 12,
+        "minutes": 240,
+        "cost": {
+          "mora": 0,
+          "items": {
+            "ING_FLOUR": 36,
+            "ING_TOMATO": 24,
+            "ING_ONION": 12,
+            "ING_MILK": 12
+          }
+        }
+      },
+      "after": {
+        "day": 4,
+        "time": "03:00",
+        "mora": 98840
+      }
+    },
+    {
+      "action": "CRAFT",
+      "before": {
+        "day": 4,
+        "time": "03:00",
+        "mora": 98840
+      },
+      "response": {
+        "recipe": "REC_FOOD_CREAM_STEW",
+        "result": "FOOD_CREAM_STEW",
+        "quantity": 12,
+        "crafts": 12,
+        "minutes": 240,
+        "cost": {
+          "mora": 0,
+          "items": {
+            "ING_RAW_MEAT": 24,
+            "ING_CREAM": 24,
+            "ING_SNAPDRAGON": 12
+          }
+        }
+      },
+      "after": {
+        "day": 4,
+        "time": "07:00",
+        "mora": 98840
+      }
+    }
+  ],
+  "remaining": {
+    "ING_RAW_MEAT": 0,
+    "ING_SALT": 0,
+    "ING_CRAB": 0,
+    "ING_SHRIMP": 0,
+    "ING_MATSUTAKE": 0,
+    "ING_LOTUS_HEAD": 0,
+    "MAT_LIYUE_JUEYUN_CHILI": 0,
+    "ING_CABBAGE": 0,
+    "ING_APPLE": 0,
+    "ING_BIRD_EGG": 0,
+    "ING_POTATO": 0,
+    "ING_FLOUR": 0,
+    "ING_TOMATO": 0,
+    "ING_ONION": 0,
+    "ING_MILK": 0,
+    "ING_SNAPDRAGON": 0,
+    "ING_HAM": 0,
+    "ING_CREAM": 0
+  }
+}

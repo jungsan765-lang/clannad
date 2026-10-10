@@ -1,0 +1,269 @@
+{
+  "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+  "assumptions": "Diagnostic ownership/level only; no enemy/action/stat override. Public USE_ITEM then ABYSS_ENTER floor1; this probe verifies food status, not floor12 victory.",
+  "definitions": [
+    {
+      "item": "FOOD_ADEPTUS_TEMPTATION",
+      "heal": 0,
+      "status": "STATUS_FOOD_FEAST",
+      "variant": "NORMAL",
+      "name": "선도장"
+    },
+    {
+      "item": "FOOD_JADE_PARCELS",
+      "heal": 0,
+      "status": "STATUS_FOOD_ATK",
+      "variant": "NORMAL",
+      "name": "비옥야채쌈"
+    },
+    {
+      "item": "FOOD_SATISFYING_SALAD",
+      "heal": 0,
+      "status": "STATUS_FOOD_CRIT",
+      "variant": "NORMAL",
+      "name": "만족 샐러드"
+    },
+    {
+      "item": "FOOD_FISHERMANS_TOAST",
+      "heal": 0,
+      "status": "STATUS_FOOD_DEF",
+      "variant": "NORMAL",
+      "name": "어부 토스트"
+    },
+    {
+      "item": "FOOD_CREAM_STEW",
+      "heal": 0,
+      "status": "STATUS_FOOD_SPEED",
+      "variant": "NORMAL",
+      "name": "크림 스튜"
+    }
+  ],
+  "actions": [
+    {
+      "id": "FOOD_ADEPTUS_TEMPTATION",
+      "consumed": 1,
+      "pending": [
+        {
+          "id": "STATUS_FOOD_FEAST",
+          "sourceItem": "FOOD_ADEPTUS_TEMPTATION"
+        }
+      ]
+    },
+    {
+      "id": "FOOD_JADE_PARCELS",
+      "consumed": 1,
+      "pending": [
+        {
+          "id": "STATUS_FOOD_FEAST",
+          "sourceItem": "FOOD_ADEPTUS_TEMPTATION"
+        },
+        {
+          "id": "STATUS_FOOD_ATK",
+          "sourceItem": "FOOD_JADE_PARCELS"
+        }
+      ]
+    },
+    {
+      "id": "FOOD_SATISFYING_SALAD",
+      "consumed": 1,
+      "pending": [
+        {
+          "id": "STATUS_FOOD_FEAST",
+          "sourceItem": "FOOD_ADEPTUS_TEMPTATION"
+        },
+        {
+          "id": "STATUS_FOOD_ATK",
+          "sourceItem": "FOOD_JADE_PARCELS"
+        },
+        {
+          "id": "STATUS_FOOD_CRIT",
+          "sourceItem": "FOOD_SATISFYING_SALAD"
+        }
+      ]
+    },
+    {
+      "id": "FOOD_FISHERMANS_TOAST",
+      "consumed": 1,
+      "pending": [
+        {
+          "id": "STATUS_FOOD_FEAST",
+          "sourceItem": "FOOD_ADEPTUS_TEMPTATION"
+        },
+        {
+          "id": "STATUS_FOOD_ATK",
+          "sourceItem": "FOOD_JADE_PARCELS"
+        },
+        {
+          "id": "STATUS_FOOD_CRIT",
+          "sourceItem": "FOOD_SATISFYING_SALAD"
+        },
+        {
+          "id": "STATUS_FOOD_DEF",
+          "sourceItem": "FOOD_FISHERMANS_TOAST"
+        }
+      ]
+    },
+    {
+      "id": "FOOD_CREAM_STEW",
+      "consumed": 1,
+      "pending": [
+        {
+          "id": "STATUS_FOOD_FEAST",
+          "sourceItem": "FOOD_ADEPTUS_TEMPTATION"
+        },
+        {
+          "id": "STATUS_FOOD_ATK",
+          "sourceItem": "FOOD_JADE_PARCELS"
+        },
+        {
+          "id": "STATUS_FOOD_CRIT",
+          "sourceItem": "FOOD_SATISFYING_SALAD"
+        },
+        {
+          "id": "STATUS_FOOD_DEF",
+          "sourceItem": "FOOD_FISHERMANS_TOAST"
+        },
+        {
+          "id": "STATUS_FOOD_SPEED",
+          "sourceItem": "FOOD_CREAM_STEW"
+        }
+      ]
+    }
+  ],
+  "beforeRepeat": [
+    {
+      "id": "STATUS_FOOD_FEAST",
+      "sourceItem": "FOOD_ADEPTUS_TEMPTATION"
+    },
+    {
+      "id": "STATUS_FOOD_ATK",
+      "sourceItem": "FOOD_JADE_PARCELS"
+    },
+    {
+      "id": "STATUS_FOOD_CRIT",
+      "sourceItem": "FOOD_SATISFYING_SALAD"
+    },
+    {
+      "id": "STATUS_FOOD_DEF",
+      "sourceItem": "FOOD_FISHERMANS_TOAST"
+    },
+    {
+      "id": "STATUS_FOOD_SPEED",
+      "sourceItem": "FOOD_CREAM_STEW"
+    }
+  ],
+  "afterRepeat": [
+    {
+      "id": "STATUS_FOOD_FEAST",
+      "sourceItem": "FOOD_ADEPTUS_TEMPTATION"
+    },
+    {
+      "id": "STATUS_FOOD_ATK",
+      "sourceItem": "FOOD_JADE_PARCELS"
+    },
+    {
+      "id": "STATUS_FOOD_CRIT",
+      "sourceItem": "FOOD_SATISFYING_SALAD"
+    },
+    {
+      "id": "STATUS_FOOD_DEF",
+      "sourceItem": "FOOD_FISHERMANS_TOAST"
+    },
+    {
+      "id": "STATUS_FOOD_SPEED",
+      "sourceItem": "FOOD_CREAM_STEW"
+    }
+  ],
+  "initialFoodStatuses": [
+    {
+      "id": "STATUS_FOOD_FEAST",
+      "rounds": null,
+      "createdRound": 0,
+      "mods": {
+        "atk": {
+          "pct": 12
+        },
+        "crit": {
+          "flat": 5
+        }
+      },
+      "sourceItem": "FOOD_ADEPTUS_TEMPTATION"
+    },
+    {
+      "id": "STATUS_FOOD_ATK",
+      "rounds": null,
+      "createdRound": 0,
+      "mods": {
+        "atk": {
+          "pct": 8
+        }
+      },
+      "sourceItem": "FOOD_JADE_PARCELS"
+    },
+    {
+      "id": "STATUS_FOOD_CRIT",
+      "rounds": null,
+      "createdRound": 0,
+      "mods": {
+        "crit": {
+          "flat": 5
+        }
+      },
+      "sourceItem": "FOOD_SATISFYING_SALAD"
+    },
+    {
+      "id": "STATUS_FOOD_DEF",
+      "rounds": null,
+      "createdRound": 0,
+      "mods": {
+        "def": {
+          "pct": 8
+        }
+      },
+      "sourceItem": "FOOD_FISHERMANS_TOAST"
+    },
+    {
+      "id": "STATUS_FOOD_SPEED",
+      "rounds": null,
+      "createdRound": 0,
+      "mods": {
+        "spd": {
+          "flat": 4
+        }
+      },
+      "sourceItem": "FOOD_CREAM_STEW"
+    }
+  ],
+  "pendingAfterEntry": {},
+  "effectiveFoodOnly": {
+    "atk": {
+      "rawActorStat": 3334.7999999999997,
+      "withoutFood": 3334.7999999999997,
+      "withFood": 4033.7740800000006,
+      "ratio": 1.2096000000000002,
+      "delta": 698.9740800000009
+    },
+    "def": {
+      "rawActorStat": 1373,
+      "withoutFood": 319.0177692455753,
+      "withFood": 344.5391907852214,
+      "ratio": 1.0800000000000003,
+      "delta": 25.5214215396461
+    },
+    "crit": {
+      "rawActorStat": 5,
+      "withoutFood": 5,
+      "withFood": 15,
+      "ratio": 3,
+      "delta": 10
+    },
+    "spd": {
+      "rawActorStat": 74,
+      "withoutFood": 74,
+      "withFood": 78,
+      "ratio": 1.054054054054054,
+      "delta": 4
+    }
+  },
+  "passed": true
+}

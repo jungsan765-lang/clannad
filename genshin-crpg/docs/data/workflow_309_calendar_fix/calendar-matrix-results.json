@@ -1,0 +1,98 @@
+[
+  {
+    "test": "tests/test_v0167.cjs",
+    "startup_kst": "2026-10-10T23:59:59+09:00",
+    "TZ": "UTC",
+    "exit": 0,
+    "seconds": 4.38,
+    "log": "test_v0167-date-0.log",
+    "summary": {
+      "ok": true,
+      "checks": 10
+    }
+  },
+  {
+    "test": "tests/test_task_branches_v01611.cjs",
+    "startup_kst": "2026-10-10T23:59:59+09:00",
+    "TZ": "UTC",
+    "exit": 0,
+    "seconds": 63.2,
+    "log": "test_task_branches_v01611-date-0.log",
+    "summary": {
+      "ok": true,
+      "checks": 24
+    }
+  },
+  {
+    "test": "tests/test_v0167.cjs",
+    "startup_kst": "2026-10-11T00:00:00+09:00",
+    "TZ": "UTC",
+    "exit": 0,
+    "seconds": 4.58,
+    "log": "test_v0167-date-1.log",
+    "summary": {
+      "ok": true,
+      "checks": 10
+    }
+  },
+  {
+    "test": "tests/test_task_branches_v01611.cjs",
+    "startup_kst": "2026-10-11T00:00:00+09:00",
+    "TZ": "UTC",
+    "exit": 0,
+    "seconds": 61.97,
+    "log": "test_task_branches_v01611-date-1.log",
+    "summary": {
+      "ok": true,
+      "checks": 24
+    }
+  },
+  {
+    "test": "tests/test_v0167.cjs",
+    "startup_kst": "2026-10-11T23:59:59+09:00",
+    "TZ": "UTC",
+    "exit": 0,
+    "seconds": 3.74,
+    "log": "test_v0167-date-2.log",
+    "summary": {
+      "ok": true,
+      "checks": 10
+    }
+  },
+  {
+    "test": "tests/test_task_branches_v01611.cjs",
+    "startup_kst": "2026-10-11T23:59:59+09:00",
+    "TZ": "UTC",
+    "exit": 0,
+    "seconds": 63.09,
+    "log": "test_task_branches_v01611-date-2.log",
+    "summary": {
+      "ok": true,
+      "checks": 24
+    }
+  },
+  {
+    "test": "tests/test_v0167.cjs",
+    "startup_kst": "2026-10-12T00:00:00+09:00",
+    "TZ": "UTC",
+    "exit": 0,
+    "seconds": 3.64,
+    "log": "test_v0167-date-3.log",
+    "summary": {
+      "ok": true,
+      "checks": 10
+    }
+  },
+  {
+    "test": "tests/test_task_branches_v01611.cjs",
+    "startup_kst": "2026-10-12T00:00:00+09:00",
+    "TZ": "UTC",
+    "exit": 0,
+    "seconds": 60.24,
+    "log": "test_task_branches_v01611-date-3.log",
+    "summary": {
+      "ok": true,
+      "checks": 24
+    }
+  }
+]

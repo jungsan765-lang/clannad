@@ -1,0 +1,499 @@
+{
+  "schemaVersion": 1,
+  "baselinePublishedCommit": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "baselineFingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+  "currentFingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "fingerprintMeaning": "audit_protagonist helper hashes loaded runtime source names/bytes and exact local cleaned content/db.json bytes; it does not hash presentation.js. VM fingerprints describe unmodified source with substitutions recorded separately.",
+  "files": [
+    {
+      "path": "cloud_exp_base/native.json.gz",
+      "bytes": 245256,
+      "sha256": "3dbb9d37953572572df87c2d474ba0872deef4ac34a043a7322e846508b3d6db"
+    },
+    {
+      "path": "cloud_exp_base/summary.json",
+      "bytes": 5653,
+      "sha256": "0a33db28e2c7fe6f485c3a8d02407c98441b95be6d63d63622d2aaf1f165b3a9"
+    },
+    {
+      "path": "cloud_exp_focused/native.json.gz",
+      "bytes": 185566,
+      "sha256": "293d4cf37fc2605975ca2806e01eb98bfdbeaacd8194368488eaad1749192900"
+    },
+    {
+      "path": "cloud_exp_focused/summary.json",
+      "bytes": 3389,
+      "sha256": "ba92cf46d01d34e947c711aa268943d3770e3419e348167d2aca3f034713adbe"
+    },
+    {
+      "path": "cloud_exp_strong/native.json.gz",
+      "bytes": 185475,
+      "sha256": "04b9890d72f1383bb69d4751efcd70c0f45c3fced68b82f163c1f584ff6e046d"
+    },
+    {
+      "path": "cloud_exp_strong/summary.json",
+      "bytes": 3397,
+      "sha256": "1414c0a7575368fc2668bc10e20e25aa75bad7bb5e4222a43832d9e47bf5ef2d"
+    },
+    {
+      "path": "current_final_exp/native.json.gz",
+      "bytes": 185169,
+      "sha256": "b93a41b6e0a8d50c477ca0de85aaacd476b81138ad09220a4448a51c47d3fdbc"
+    },
+    {
+      "path": "current_final_exp/summary.json",
+      "bytes": 3375,
+      "sha256": "a2b9451e42aa86eb737288af3f07ab4b16ad751abd400d311e0ad8ce1f95094b"
+    },
+    {
+      "path": "current_final_talent/native.json.gz",
+      "bytes": 460579,
+      "sha256": "2971b46120e14e69f6f38f8c763eb629ec0fc2ef3fca92d9a827f9e9ccffdfc7"
+    },
+    {
+      "path": "current_final_talent/summary.json",
+      "bytes": 28589,
+      "sha256": "99b3a6e2e2751ca6d70b01540f596dd614d0206c350f64967aa5e370ccb5d612"
+    },
+    {
+      "path": "current_legacy_yaoyao_only/native.json.gz",
+      "bytes": 52265,
+      "sha256": "74e07c04c5c63586063c523e98d22a365c4174b9129550c3ca60f0c93816cde4"
+    },
+    {
+      "path": "current_legacy_yaoyao_only/summary.json",
+      "bytes": 720,
+      "sha256": "b060fa3f944764fecc12541dd6ed52d65f415241ba89b0cb5817ecdb10c5d504"
+    },
+    {
+      "path": "hybrid_before/native.json.gz",
+      "bytes": 693806,
+      "sha256": "3fef92b7a036e0c45f79ed4424ebd5eb4ba34d5ecc0b5bc886891e1f737d5002"
+    },
+    {
+      "path": "hybrid_before/summary.json",
+      "bytes": 42601,
+      "sha256": "cfe1831028cce54f64219a05666649a2fd2603520a661e6a58bfdcaf30a48cc5"
+    },
+    {
+      "path": "hybrid_candidate/native.json.gz",
+      "bytes": 699218,
+      "sha256": "0758e7c5aba2bc419a70ffd2b6c4184b6bc03ac86ee0421e0240d063705ec1d0"
+    },
+    {
+      "path": "hybrid_candidate/summary.json",
+      "bytes": 43124,
+      "sha256": "a3a63ec1eae73ab450e1a3b422ce5088812d85bb435a2d2db15bd93dc5019c79"
+    },
+    {
+      "path": "hybrid_focused_cloud/native.json.gz",
+      "bytes": 106813,
+      "sha256": "4040cf4c9b74d328722426b516c19d6aae2f2df314a4e767422eaf9ce0fa13ff"
+    },
+    {
+      "path": "hybrid_focused_cloud/summary.json",
+      "bytes": 8101,
+      "sha256": "8780aa170cbb763c9ad1ef5c75ab5b2e2f230812077b0347a77c6a80a0179102"
+    },
+    {
+      "path": "hybrid_focused_diona/native.json.gz",
+      "bytes": 116718,
+      "sha256": "8ba768a3af2e9431d4be368526f4a46a205203be31a38bd10d83a131a3e07f9f"
+    },
+    {
+      "path": "hybrid_focused_diona/summary.json",
+      "bytes": 8272,
+      "sha256": "a147b1305eced17ad8b2ee962e047aadc33698e6664da1c445e9a40d1ae7348b"
+    },
+    {
+      "path": "hybrid_strong_cloud_diona/native.json.gz",
+      "bytes": 232040,
+      "sha256": "eaaf3a998823fed4a1b82a58db478c7cb0a22b94c4e20b291514a2941acf3e15"
+    },
+    {
+      "path": "hybrid_strong_cloud_diona/summary.json",
+      "bytes": 15055,
+      "sha256": "6d88068a742b4c7bbd36bb82c451688530e5f1ae5b095bc69b95f48c6a52fbc2"
+    },
+    {
+      "path": "native_checks.json",
+      "bytes": 15462,
+      "sha256": "da5775ec313b688baf3540a7c3b918fc8ec7ea8face25b107a00d33eaf1d8c3e"
+    },
+    {
+      "path": "baseline_loaded_sources.json",
+      "bytes": 20124,
+      "sha256": "7a219de56dcddb75aafe31811f5410bcdc5657a58400851d72cbb5b48afa8ab2"
+    },
+    {
+      "path": "final_loaded_sources.json",
+      "bytes": 20160,
+      "sha256": "2992f6928b14a806282c8c87033124fa1eb8d6c0eb63cd6ea2af22e5f823169d"
+    },
+    {
+      "path": "paired_talent_summary.json",
+      "bytes": 14629,
+      "sha256": "8745c8c52e734fd7114acc781af6cf60593a22bb5531cdc46e41eb54aff0f1b6"
+    },
+    {
+      "path": "yaoyao_legacy_isolation.json",
+      "bytes": 1885,
+      "sha256": "9a16cdfdc69be88d175bfed8f19746bae38722c1f0b7a01d533708d51b1a28db"
+    },
+    {
+      "path": "README_KO.md",
+      "bytes": 12391,
+      "sha256": "96f687d9e9984b1a46f11b2d6ab11492d4340ab890b10b6b31bb2cf0cfe363ed"
+    }
+  ],
+  "datasets": [
+    {
+      "directory": "cloud_exp_base",
+      "role": "0.16.18 한운의 어려운 경험치 비경 최대 8연전",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "mode": "NATIVE",
+      "conditions": 4,
+      "battles": 32,
+      "wins": 32,
+      "losses": 0,
+      "errors": 0,
+      "substitutions": []
+    },
+    {
+      "directory": "cloud_exp_focused",
+      "role": "채택 한운 1명 지속 회복 후보의 어려운 경험치 비경",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "mode": "HYBRID_CLOUD_FOCUSED",
+      "conditions": 4,
+      "battles": 25,
+      "wins": 23,
+      "losses": 2,
+      "errors": 0,
+      "substitutions": [
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.8));add('BAMBOO_STAR');",
+          "to": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.03+1250));add('BAMBOO_STAR');"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.25,source.name));",
+          "to": "const healTarget=lowest(active(b,a.side));if(healTarget)this.heal(healTarget,this.combatStat(source,'atk')*.08+600,source.name);"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,atk*.55*(a.liyueDirectRound===b.round?1.25:1));",
+          "to": "if(low)heal(low,(atk*.13+350)*(a.liyueDirectRound===b.round?1.25:1));"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(source)this.heal(a,this.combatStat(source,'atk')*.45,source.name);",
+          "to": "if(source)this.heal(a,this.combatStat(source,'atk')*.1+295,source.name);"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "allies.forEach(t=>heal(t,hp*.1));const f=field(b,'YUEGUI_THROWING'",
+          "to": "allies.forEach(t=>heal(t,hp*.025+380));const f=field(b,'YUEGUI_THROWING'"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,a.maxHp*.05);hit(.35,'DENDRO'",
+          "to": "if(low)heal(low,a.maxHp*.015+180);hit(.35,'DENDRO'"
+        }
+      ]
+    },
+    {
+      "directory": "cloud_exp_strong",
+      "role": "미채택 한운 전체 회복 후보의 어려운 경험치 비경",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "mode": "HYBRID_CLOUD_STRONG",
+      "conditions": 4,
+      "battles": 24,
+      "wins": 22,
+      "losses": 2,
+      "errors": 0,
+      "substitutions": [
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.8));add('BAMBOO_STAR');",
+          "to": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.04+905));add('BAMBOO_STAR');"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.25,source.name));",
+          "to": "active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.015+280,source.name));"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,atk*.55*(a.liyueDirectRound===b.round?1.25:1));",
+          "to": "if(low)heal(low,(atk*.13+350)*(a.liyueDirectRound===b.round?1.25:1));"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(source)this.heal(a,this.combatStat(source,'atk')*.45,source.name);",
+          "to": "if(source)this.heal(a,this.combatStat(source,'atk')*.1+295,source.name);"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "allies.forEach(t=>heal(t,hp*.1));const f=field(b,'YUEGUI_THROWING'",
+          "to": "allies.forEach(t=>heal(t,hp*.025+380));const f=field(b,'YUEGUI_THROWING'"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,a.maxHp*.05);hit(.35,'DENDRO'",
+          "to": "if(low)heal(low,a.maxHp*.015+180);hit(.35,'DENDRO'"
+        }
+      ]
+    },
+    {
+      "directory": "current_final_exp",
+      "role": "최종 제품: 한운의 어려운 경험치 비경 최대 8연전",
+      "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+      "mode": "NATIVE",
+      "conditions": 4,
+      "battles": 25,
+      "wins": 23,
+      "losses": 2,
+      "errors": 0,
+      "substitutions": []
+    },
+    {
+      "directory": "current_final_talent",
+      "role": "최종 제품: 특성 비경 3연전",
+      "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+      "mode": "NATIVE",
+      "conditions": 24,
+      "battles": 72,
+      "wins": 69,
+      "losses": 3,
+      "errors": 0,
+      "substitutions": []
+    },
+    {
+      "directory": "current_legacy_yaoyao_only",
+      "role": "최종 엔진에서 요요 회복식만 이전 수치로 되돌린 격리 VM",
+      "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+      "mode": "LEGACY_YAOYAO_ON_CURRENT",
+      "conditions": 2,
+      "battles": 6,
+      "wins": 4,
+      "losses": 2,
+      "errors": 0,
+      "substitutions": [
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "yaoyaoQRatio:.025,yaoyaoQFlat:380,yaoyaoFieldRatio:.015,yaoyaoFieldFlat:180",
+          "to": "yaoyaoQRatio:.1,yaoyaoQFlat:0,yaoyaoFieldRatio:.05,yaoyaoFieldFlat:0"
+        }
+      ]
+    },
+    {
+      "directory": "hybrid_before",
+      "role": "0.16.18 기준 6명 비교",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "mode": "NATIVE",
+      "conditions": 36,
+      "battles": 108,
+      "wins": 104,
+      "losses": 4,
+      "errors": 0,
+      "substitutions": []
+    },
+    {
+      "directory": "hybrid_candidate",
+      "role": "미채택: 전체 회복의 비례 계수만 낮춘 초기 후보",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "mode": "HYBRID",
+      "conditions": 36,
+      "battles": 108,
+      "wins": 104,
+      "losses": 4,
+      "errors": 0,
+      "substitutions": [
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.8));add('BAMBOO_STAR');",
+          "to": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.15+775));add('BAMBOO_STAR');"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.25,source.name));",
+          "to": "active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.04+250,source.name));"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,atk*.55*(a.liyueDirectRound===b.round?1.25:1));",
+          "to": "if(low)heal(low,(atk*.13+350)*(a.liyueDirectRound===b.round?1.25:1));"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(source)this.heal(a,this.combatStat(source,'atk')*.45,source.name);",
+          "to": "if(source)this.heal(a,this.combatStat(source,'atk')*.1+295,source.name);"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "allies.forEach(t=>heal(t,hp*.1));const f=field(b,'YUEGUI_THROWING'",
+          "to": "allies.forEach(t=>heal(t,hp*.025+380));const f=field(b,'YUEGUI_THROWING'"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,a.maxHp*.05);hit(.35,'DENDRO'",
+          "to": "if(low)heal(low,a.maxHp*.015+180);hit(.35,'DENDRO'"
+        }
+      ]
+    },
+    {
+      "directory": "hybrid_focused_cloud",
+      "role": "채택 수치의 한운 1명 지속 회복 사전 VM 후보",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "mode": "HYBRID_CLOUD_FOCUSED",
+      "conditions": 6,
+      "battles": 18,
+      "wins": 18,
+      "losses": 0,
+      "errors": 0,
+      "substitutions": [
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.8));add('BAMBOO_STAR');",
+          "to": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.03+1250));add('BAMBOO_STAR');"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.25,source.name));",
+          "to": "const healTarget=lowest(active(b,a.side));if(healTarget)this.heal(healTarget,this.combatStat(source,'atk')*.08+600,source.name);"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,atk*.55*(a.liyueDirectRound===b.round?1.25:1));",
+          "to": "if(low)heal(low,(atk*.13+350)*(a.liyueDirectRound===b.round?1.25:1));"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(source)this.heal(a,this.combatStat(source,'atk')*.45,source.name);",
+          "to": "if(source)this.heal(a,this.combatStat(source,'atk')*.1+295,source.name);"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "allies.forEach(t=>heal(t,hp*.1));const f=field(b,'YUEGUI_THROWING'",
+          "to": "allies.forEach(t=>heal(t,hp*.025+380));const f=field(b,'YUEGUI_THROWING'"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,a.maxHp*.05);hit(.35,'DENDRO'",
+          "to": "if(low)heal(low,a.maxHp*.015+180);hit(.35,'DENDRO'"
+        }
+      ]
+    },
+    {
+      "directory": "hybrid_focused_diona",
+      "role": "채택 수치의 디오나 1명 지속 회복 사전 VM 후보",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "mode": "HYBRID_DIONA_FOCUSED",
+      "conditions": 6,
+      "battles": 18,
+      "wins": 18,
+      "losses": 0,
+      "errors": 0,
+      "substitutions": [
+        {
+          "name": "runtime_combat.js",
+          "from": "if(f.kind==='FROST_MIST'){hit(.45,'CRYO',3,'중거리');allies.forEach(t=>this.heal(t,a.maxHp*.08,a.name));}",
+          "to": "if(f.kind==='FROST_MIST'){hit(.45,'CRYO',3,'중거리');const target=allies.slice().sort((x,y)=>x.hp/x.maxHp-y.hp/y.maxHp||b.actors.indexOf(x)-b.actors.indexOf(y))[0];if(target)this.heal(target,a.maxHp*.02+1200,a.name);}"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.8));add('BAMBOO_STAR');",
+          "to": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.15+775));add('BAMBOO_STAR');"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.25,source.name));",
+          "to": "active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.04+250,source.name));"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,atk*.55*(a.liyueDirectRound===b.round?1.25:1));",
+          "to": "if(low)heal(low,(atk*.13+350)*(a.liyueDirectRound===b.round?1.25:1));"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(source)this.heal(a,this.combatStat(source,'atk')*.45,source.name);",
+          "to": "if(source)this.heal(a,this.combatStat(source,'atk')*.1+295,source.name);"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "allies.forEach(t=>heal(t,hp*.1));const f=field(b,'YUEGUI_THROWING'",
+          "to": "allies.forEach(t=>heal(t,hp*.025+380));const f=field(b,'YUEGUI_THROWING'"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,a.maxHp*.05);hit(.35,'DENDRO'",
+          "to": "if(low)heal(low,a.maxHp*.015+180);hit(.35,'DENDRO'"
+        }
+      ]
+    },
+    {
+      "directory": "hybrid_strong_cloud_diona",
+      "role": "미채택: 한운·디오나 전체 회복의 비례 계수만 더 낮춘 후보",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "mode": "HYBRID_CLOUD_STRONG_DIONA",
+      "conditions": 12,
+      "battles": 36,
+      "wins": 35,
+      "losses": 1,
+      "errors": 0,
+      "substitutions": [
+        {
+          "name": "runtime_combat.js",
+          "from": "if(f.kind==='FROST_MIST'){hit(.45,'CRYO',3,'중거리');allies.forEach(t=>this.heal(t,a.maxHp*.08,a.name));}",
+          "to": "if(f.kind==='FROST_MIST'){hit(.45,'CRYO',3,'중거리');allies.forEach(t=>this.heal(t,a.maxHp*.02+300,a.name));}"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.8));add('BAMBOO_STAR');",
+          "to": "case'XIANYUN_Q':allies.forEach(t=>heal(t,stat('atk')*.04+905));add('BAMBOO_STAR');"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.25,source.name));",
+          "to": "active(b,a.side).forEach(v=>this.heal(v,this.combatStat(source,'atk')*.015+280,source.name));"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,atk*.55*(a.liyueDirectRound===b.round?1.25:1));",
+          "to": "if(low)heal(low,(atk*.13+350)*(a.liyueDirectRound===b.round?1.25:1));"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(source)this.heal(a,this.combatStat(source,'atk')*.45,source.name);",
+          "to": "if(source)this.heal(a,this.combatStat(source,'atk')*.1+295,source.name);"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "allies.forEach(t=>heal(t,hp*.1));const f=field(b,'YUEGUI_THROWING'",
+          "to": "allies.forEach(t=>heal(t,hp*.025+380));const f=field(b,'YUEGUI_THROWING'"
+        },
+        {
+          "name": "runtime_liyue_cards.js",
+          "from": "if(low)heal(low,a.maxHp*.05);hit(.35,'DENDRO'",
+          "to": "if(low)heal(low,a.maxHp*.015+180);hit(.35,'DENDRO'"
+        }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "path": "tools/audit_other_healers_v01619.cjs",
+      "sha256": "67703251afff830bc0b3030a577555b8e3ee25d2d7b9dd82c4077a75e29cb665"
+    },
+    {
+      "path": "tools/test_other_healers_v01619.cjs",
+      "sha256": "62d4ce69c1eed6626a55545e89795befa77039bd5da2c5a6a5b475c2ebcbb0c1"
+    },
+    {
+      "path": "tools/audit_protagonist_v01618.cjs",
+      "sha256": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9"
+    }
+  ]
+}

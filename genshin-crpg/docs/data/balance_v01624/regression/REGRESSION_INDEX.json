@@ -1,0 +1,1035 @@
+{
+  "schema": 1,
+  "createdAt": "2026-10-10T09:21:52.645738+00:00",
+  "uniqueSelectedPrograms": 17,
+  "latestSelectedPassed": 17,
+  "latestSelectedFailed": 0,
+  "retainedExecutions": 24,
+  "retainedInitialFailures": 2,
+  "finalFrozenPrograms": 7,
+  "finalFrozenPassed": 7,
+  "finalFrozenProductDrift": {},
+  "latestResults": [
+    {
+      "test": "tests/test_growth_balance_v01621.cjs",
+      "command": [
+        "node",
+        "tests/test_growth_balance_v01621.cjs"
+      ],
+      "startedAt": "2026-10-10T09:09:54.277426+00:00",
+      "endedAt": "2026-10-10T09:10:27.563075+00:00",
+      "seconds": 32.976,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "505e7120962b6c868aa49e7a9079acc266df4797d8e22a473cdace3db8a5cb76",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "59696e0f102a84c04cb4505ea5e6d1f32dd7dcbdbcc12b936381faf3c317ee2d",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_growth_balance_v01621.stdout.log",
+      "stderrLog": "test_growth_balance_v01621.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_growth_balance_v01621.result.json"
+    },
+    {
+      "test": "tests/test_liyue_growth_gate_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_liyue_growth_gate_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T09:09:54.277733+00:00",
+      "endedAt": "2026-10-10T09:10:24.258206+00:00",
+      "seconds": 29.656,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "4faef73e2d84ae2b8fcd527bd527ce4dede030a3f39adf267846568f5cfa999b",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "9e7ddc97680ffa1e2d7d162495f2bde31c28b5735c48e048ebd6b99ca4702cb7",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_liyue_growth_gate_v01622.stdout.log",
+      "stderrLog": "test_liyue_growth_gate_v01622.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_liyue_growth_gate_v01622.result.json"
+    },
+    {
+      "test": "tests/test_material_efficiency_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_material_efficiency_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T09:19:44.245348+00:00",
+      "endedAt": "2026-10-10T09:19:45.187536+00:00",
+      "seconds": 0.738,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "fca1f377cffbb0a2eeb17b521a997c03bd7fe32bc81ea250c5b4fccb8c9fd2df",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "178c701451b58f8c0867d07d8875dcdbaf57745d1326e5943fcac635605995db",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_material_efficiency_v01622.stdout.log",
+      "stderrLog": "test_material_efficiency_v01622.stderr.log",
+      "run": "final_historical_provenance",
+      "resultFile": "final_historical_provenance/test_material_efficiency_v01622.result.json"
+    },
+    {
+      "test": "tests/test_material_rewards_v01616.cjs",
+      "command": [
+        "node",
+        "tests/test_material_rewards_v01616.cjs"
+      ],
+      "startedAt": "2026-10-10T09:16:58.431156+00:00",
+      "endedAt": "2026-10-10T09:20:33.214031+00:00",
+      "seconds": 214.584,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0",
+          "after": "acea6d7452b0b667110c60cd992968f5cd866adf873bfa271cf4bca5162354f9"
+        },
+        "tests/test_field_boss_strategy_v01623.cjs": {
+          "before": "fe4b3263d9423be322537f362074a1a3d397a438b8e4b357ae192069f318479b",
+          "after": "3c5cb3a561491aa0eca520dca4a224429d8ad16119b9537c2651984bbb5d5777"
+        },
+        "tools/test_field_boss_strategy_v01622.cjs": {
+          "before": "189f774d70375a1a1f6417726f5ab54dd097162d3dd47cda86b7b8b1f381e7f6",
+          "after": "5fb88fa2c2fd04ba2221886330df914b22de2ce31b328db3d149a6b79cbb020f"
+        }
+      },
+      "testSha256": "0e8451fc50905ab0d643c97c9ea402c5a8863993343f6d2f6a4c28dd633c3d83",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "7c642438aabbdda946380aaf915baa88fd2633fab016596e9cfb4218a9041e24",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_material_rewards_v01616.stdout.log",
+      "stderrLog": "test_material_rewards_v01616.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_material_rewards_v01616.result.json"
+    },
+    {
+      "test": "tests/test_incoming_defense_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_incoming_defense_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T09:10:24.259258+00:00",
+      "endedAt": "2026-10-10T09:10:33.406866+00:00",
+      "seconds": 8.939,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "00578059251f57211d69f617448e59611d64271e1dc6dc0812a3ad6ac63ccbb6",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "775e9a37816a9836e3c2e88972a1dd715dab59ba32d2e7dea26c5f82f473b9ea",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_incoming_defense_v01622.stdout.log",
+      "stderrLog": "test_incoming_defense_v01622.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_incoming_defense_v01622.result.json"
+    },
+    {
+      "test": "tests/test_healing_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_healing_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T09:10:27.563565+00:00",
+      "endedAt": "2026-10-10T09:10:57.719208+00:00",
+      "seconds": 29.978,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "84ebc0f1a46525681b89098d880563958d6a04910f2cb5faf91a383ca4dd22c7",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "d78fd750c086aaec0928cbf9c9a549fd9a469728d0ce8b8c7f4b1d736499fc16",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_healing_v01619.stdout.log",
+      "stderrLog": "test_healing_v01619.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_healing_v01619.result.json"
+    },
+    {
+      "test": "tests/test_noelle_healing_v01621.cjs",
+      "command": [
+        "node",
+        "tests/test_noelle_healing_v01621.cjs"
+      ],
+      "startedAt": "2026-10-10T09:10:33.407455+00:00",
+      "endedAt": "2026-10-10T09:10:59.046274+00:00",
+      "seconds": 25.456,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "0bb42e60110c466f1a0af6f15a6b15473427fae082260d84d7d97d3c9b3859ed",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "428de569bc15dd86170d8fe5ae88378ecf8cda51a231cd97d224e889e1ecaff0",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_noelle_healing_v01621.stdout.log",
+      "stderrLog": "test_noelle_healing_v01621.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_noelle_healing_v01621.result.json"
+    },
+    {
+      "test": "tests/test_xianyun_balance_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_xianyun_balance_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T09:10:57.719662+00:00",
+      "endedAt": "2026-10-10T09:11:04.833557+00:00",
+      "seconds": 6.953,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "b66f1b41b9e2ac0a1beb60a96c065c87dc916299c6c116484959b5af98167038",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "676d51aacf782a1a4b273bdc04cf7e5600ca9223445a7977f79dc4c702e17ffb",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_xianyun_balance_v01622.stdout.log",
+      "stderrLog": "test_xianyun_balance_v01622.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_xianyun_balance_v01622.result.json"
+    },
+    {
+      "test": "tests/test_shield_balance_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_shield_balance_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T09:10:59.046725+00:00",
+      "endedAt": "2026-10-10T09:11:13.615224+00:00",
+      "seconds": 14.431,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "9b4f89114f8ca5e1b0e4d0710f1dbc2a74bfcf3f1ffd8cf9a2dbc97b93ded37f",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "d2c95bce77ae8891863436ec613977a8fe63260f0578e5a41a0e300032ef7052",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_shield_balance_v01619.stdout.log",
+      "stderrLog": "test_shield_balance_v01619.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_shield_balance_v01619.result.json"
+    },
+    {
+      "test": "tests/test_shield_meter_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_shield_meter_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T09:11:04.834036+00:00",
+      "endedAt": "2026-10-10T09:11:05.053911+00:00",
+      "seconds": 0.073,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "73fc1a5094673350e13e26465514bbec56af00cb3e0c309879acf32f2258f8d0",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "066e7c1f39a4959b6b30bfe6180648e6fc897852d711c93cccd3c00ee3c44f3f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_shield_meter_v01619.stdout.log",
+      "stderrLog": "test_shield_meter_v01619.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_shield_meter_v01619.result.json"
+    },
+    {
+      "test": "tests/test_food_balance_v01620.cjs",
+      "command": [
+        "node",
+        "tests/test_food_balance_v01620.cjs"
+      ],
+      "startedAt": "2026-10-10T09:11:05.054546+00:00",
+      "endedAt": "2026-10-10T09:11:30.383096+00:00",
+      "seconds": 25.18,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "b219475def808141cc23ae112351dccde252954221ad5cdcc768663a7c7e07b7",
+          "after": "2808775a3dd78dbe7ec64e4b7f1690795c1cbf322de75a2f9c78ae0155304c63"
+        },
+        "tests/test_field_boss_strategy_v01623.cjs": {
+          "before": "ac1bf2342e3a157110667d5dfc28820d9b8cfd0ffc241b9e806b84c3132b8992",
+          "after": "fe4b3263d9423be322537f362074a1a3d397a438b8e4b357ae192069f318479b"
+        }
+      },
+      "testSha256": "95f64f5c24008dc37d285b72a283c9e89ce7b7577304d20b139ec89825296316",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "37009c13a6df23e98130fe83f271f5eac6b1124514a8a0f7caee2313dfce007e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_food_balance_v01620.stdout.log",
+      "stderrLog": "test_food_balance_v01620.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_food_balance_v01620.result.json"
+    },
+    {
+      "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+      "command": [
+        "node",
+        "tests/test_inn_recovery_pricing_v01615.cjs"
+      ],
+      "startedAt": "2026-10-10T09:11:13.615661+00:00",
+      "endedAt": "2026-10-10T09:11:33.777392+00:00",
+      "seconds": 20.015,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "b219475def808141cc23ae112351dccde252954221ad5cdcc768663a7c7e07b7",
+          "after": "2808775a3dd78dbe7ec64e4b7f1690795c1cbf322de75a2f9c78ae0155304c63"
+        },
+        "tests/test_field_boss_strategy_v01623.cjs": {
+          "before": "ac1bf2342e3a157110667d5dfc28820d9b8cfd0ffc241b9e806b84c3132b8992",
+          "after": "fe4b3263d9423be322537f362074a1a3d397a438b8e4b357ae192069f318479b"
+        }
+      },
+      "testSha256": "60f175020b68ac97d929e17d53741e19b1c97bf3317fa7b72134b04063b40332",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "db4e773fbaf942e6e9bb89e2444426ec6f8572e9df582dd851fabedccfe53ba5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_inn_recovery_pricing_v01615.stdout.log",
+      "stderrLog": "test_inn_recovery_pricing_v01615.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_inn_recovery_pricing_v01615.result.json"
+    },
+    {
+      "test": "tests/test_reaction_fixes_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_reaction_fixes_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T09:16:58.431607+00:00",
+      "endedAt": "2026-10-10T09:18:11.584996+00:00",
+      "seconds": 72.824,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0",
+          "after": "6d8722a4859674dfcf853777e4b8940052c6bcc8fbb16588abf8f8bedb910da9"
+        },
+        "tools/test_field_boss_strategy_v01622.cjs": {
+          "before": "189f774d70375a1a1f6417726f5ab54dd097162d3dd47cda86b7b8b1f381e7f6",
+          "after": "5fb88fa2c2fd04ba2221886330df914b22de2ce31b328db3d149a6b79cbb020f"
+        }
+      },
+      "testSha256": "cc4b50dd56108e12ac150987b43b9c026b3d6d89e652f9af4cc1a6b8c7c20bff",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "b358c801b81da7ddf1fbce48f2da11f8231178f0f96d5fbd77595857ea2e4156",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_reaction_fixes_v01619.stdout.log",
+      "stderrLog": "test_reaction_fixes_v01619.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_reaction_fixes_v01619.result.json"
+    },
+    {
+      "test": "tests/test_control_reactions_v0168.cjs",
+      "command": [
+        "node",
+        "tests/test_control_reactions_v0168.cjs"
+      ],
+      "startedAt": "2026-10-10T09:16:58.431963+00:00",
+      "endedAt": "2026-10-10T09:17:54.258697+00:00",
+      "seconds": 55.536,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0",
+          "after": "6d8722a4859674dfcf853777e4b8940052c6bcc8fbb16588abf8f8bedb910da9"
+        },
+        "tools/test_field_boss_strategy_v01622.cjs": {
+          "before": "189f774d70375a1a1f6417726f5ab54dd097162d3dd47cda86b7b8b1f381e7f6",
+          "after": "5fb88fa2c2fd04ba2221886330df914b22de2ce31b328db3d149a6b79cbb020f"
+        }
+      },
+      "testSha256": "1c6afca984fd6164450c60d7d08d7b79b616a30c9923c3025d76042cdd45535f",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "47be5b52ed2c86b32f5c7730928becb2a58c2a93fc9206a98f2d34047a4c3663",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_control_reactions_v0168.stdout.log",
+      "stderrLog": "test_control_reactions_v0168.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_control_reactions_v0168.result.json"
+    },
+    {
+      "test": "tools/test_admin_balance_runtime_v01623.cjs",
+      "command": [
+        "node",
+        "tools/test_admin_balance_runtime_v01623.cjs"
+      ],
+      "startedAt": "2026-10-10T09:17:54.259635+00:00",
+      "endedAt": "2026-10-10T09:18:14.791166+00:00",
+      "seconds": 20.349,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "b0a39d5aa223cb26ad9f0c5956a6e99e508f5744f85fb1a7ec474a1e3642c813",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "a6aedfc02d0cf92f314186779d6fd531dfdfd74f6c72cea69227852e809757bc",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_admin_balance_runtime_v01623.stdout.log",
+      "stderrLog": "test_admin_balance_runtime_v01623.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_admin_balance_runtime_v01623.result.json"
+    },
+    {
+      "test": "tests/test_admin_balance_v01623.mjs",
+      "command": [
+        "node",
+        "tests/test_admin_balance_v01623.mjs"
+      ],
+      "startedAt": "2026-10-10T09:18:11.586049+00:00",
+      "endedAt": "2026-10-10T09:18:34.284219+00:00",
+      "seconds": 22.541,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "b6105e8d47242a08e2e5ca190d2eeeee0bc83b7ca714bec6bbb304948c10311f",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "419e104245074c2f1db43b50ac7aed3e7b932eb0c36c421f97124c29a624b2fb",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_admin_balance_v01623.stdout.log",
+      "stderrLog": "test_admin_balance_v01623.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_admin_balance_v01623.result.json"
+    },
+    {
+      "test": "tests/test_admin_balance_growth_v01623.mjs",
+      "command": [
+        "node",
+        "tests/test_admin_balance_growth_v01623.mjs"
+      ],
+      "startedAt": "2026-10-10T09:18:14.791617+00:00",
+      "endedAt": "2026-10-10T09:18:21.335684+00:00",
+      "seconds": 6.374,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "4e8f0306c6c27965c1430c59dbd11c54f6d67456846e11e4558f775ce5ed4918",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "bc9e7bb37db503decfc6e4414df639ad295a4cf2f0e33f2fe920d890a3e6e087",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_admin_balance_growth_v01623.stdout.log",
+      "stderrLog": "test_admin_balance_growth_v01623.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_admin_balance_growth_v01623.result.json"
+    }
+  ],
+  "allAttempts": [
+    {
+      "test": "tests/test_growth_balance_v01621.cjs",
+      "command": [
+        "node",
+        "tests/test_growth_balance_v01621.cjs"
+      ],
+      "startedAt": "2026-10-10T09:09:54.277426+00:00",
+      "endedAt": "2026-10-10T09:10:27.563075+00:00",
+      "seconds": 32.976,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "505e7120962b6c868aa49e7a9079acc266df4797d8e22a473cdace3db8a5cb76",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "59696e0f102a84c04cb4505ea5e6d1f32dd7dcbdbcc12b936381faf3c317ee2d",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_growth_balance_v01621.stdout.log",
+      "stderrLog": "test_growth_balance_v01621.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_growth_balance_v01621.result.json"
+    },
+    {
+      "test": "tests/test_liyue_growth_gate_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_liyue_growth_gate_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T09:09:54.277733+00:00",
+      "endedAt": "2026-10-10T09:10:24.258206+00:00",
+      "seconds": 29.656,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "4faef73e2d84ae2b8fcd527bd527ce4dede030a3f39adf267846568f5cfa999b",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "9e7ddc97680ffa1e2d7d162495f2bde31c28b5735c48e048ebd6b99ca4702cb7",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_liyue_growth_gate_v01622.stdout.log",
+      "stderrLog": "test_liyue_growth_gate_v01622.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_liyue_growth_gate_v01622.result.json"
+    },
+    {
+      "test": "tests/test_material_efficiency_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_material_efficiency_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T09:09:54.278031+00:00",
+      "endedAt": "2026-10-10T09:09:55.436794+00:00",
+      "seconds": 0.855,
+      "exitCode": 1,
+      "passed": false,
+      "inputDrift": {},
+      "testSha256": "a0be0ddb73f354bad0f6cd4a94273f4461aa883317b9e6a62fb553c8eff324f0",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "1c86dabbe161b10f5f9e263e5dbec71ad9cb5e5174f2c0d0fc5d34943468faa8",
+      "stderrSha256": "f7e1d3ebddff73e80880b35fdc282e47f16667223e39f21a6add760e5b61b2bc",
+      "stdoutLog": "test_material_efficiency_v01622.stdout.log",
+      "stderrLog": "test_material_efficiency_v01622.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_material_efficiency_v01622.result.json"
+    },
+    {
+      "test": "tests/test_material_rewards_v01616.cjs",
+      "command": [
+        "node",
+        "tests/test_material_rewards_v01616.cjs"
+      ],
+      "startedAt": "2026-10-10T09:09:55.437477+00:00",
+      "endedAt": "2026-10-10T09:13:19.768809+00:00",
+      "seconds": 204.145,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "source/runtime_balance_admin_v01623.js": {
+          "before": "d62f86e2b64b20604d48e1c348c7c677b03c87ee630a207c9788eba59f5235df",
+          "after": "34fe63170c899dd5d8702efa286d7296f7035beafae5e8d2fb46b27829e9e811"
+        },
+        "source/runtime_growth_v01522.js": {
+          "before": "8e0bb024a3a4586b5457b09a4ef81baea6c5dcf264f7edd255efee202e774632",
+          "after": "b701e4eb59718acbdb6ff31067d0d02bacab6576edc1b82a9a06ad427acd2ee7"
+        },
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "b219475def808141cc23ae112351dccde252954221ad5cdcc768663a7c7e07b7",
+          "after": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0"
+        },
+        "tests/test_daily_pressure_v01624.cjs": {
+          "before": null,
+          "after": "b430c2032dc3190644462aaf2a4af0b0f85a53a032c8cbe07973369edccce8d1"
+        },
+        "tests/test_field_boss_strategy_v01623.cjs": {
+          "before": "ac1bf2342e3a157110667d5dfc28820d9b8cfd0ffc241b9e806b84c3132b8992",
+          "after": "fe4b3263d9423be322537f362074a1a3d397a438b8e4b357ae192069f318479b"
+        },
+        "tests/test_material_efficiency_v01622.cjs": {
+          "before": "a0be0ddb73f354bad0f6cd4a94273f4461aa883317b9e6a62fb553c8eff324f0",
+          "after": "fca1f377cffbb0a2eeb17b521a997c03bd7fe32bc81ea250c5b4fccb8c9fd2df"
+        }
+      },
+      "testSha256": "0e8451fc50905ab0d643c97c9ea402c5a8863993343f6d2f6a4c28dd633c3d83",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "5d9f65e58c32f881c0774384950468ba7c16c159a50e6b39ce636c96a9136e28",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_material_rewards_v01616.stdout.log",
+      "stderrLog": "test_material_rewards_v01616.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_material_rewards_v01616.result.json"
+    },
+    {
+      "test": "tests/test_incoming_defense_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_incoming_defense_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T09:10:24.259258+00:00",
+      "endedAt": "2026-10-10T09:10:33.406866+00:00",
+      "seconds": 8.939,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "00578059251f57211d69f617448e59611d64271e1dc6dc0812a3ad6ac63ccbb6",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "775e9a37816a9836e3c2e88972a1dd715dab59ba32d2e7dea26c5f82f473b9ea",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_incoming_defense_v01622.stdout.log",
+      "stderrLog": "test_incoming_defense_v01622.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_incoming_defense_v01622.result.json"
+    },
+    {
+      "test": "tests/test_healing_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_healing_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T09:10:27.563565+00:00",
+      "endedAt": "2026-10-10T09:10:57.719208+00:00",
+      "seconds": 29.978,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "84ebc0f1a46525681b89098d880563958d6a04910f2cb5faf91a383ca4dd22c7",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "d78fd750c086aaec0928cbf9c9a549fd9a469728d0ce8b8c7f4b1d736499fc16",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_healing_v01619.stdout.log",
+      "stderrLog": "test_healing_v01619.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_healing_v01619.result.json"
+    },
+    {
+      "test": "tests/test_noelle_healing_v01621.cjs",
+      "command": [
+        "node",
+        "tests/test_noelle_healing_v01621.cjs"
+      ],
+      "startedAt": "2026-10-10T09:10:33.407455+00:00",
+      "endedAt": "2026-10-10T09:10:59.046274+00:00",
+      "seconds": 25.456,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "0bb42e60110c466f1a0af6f15a6b15473427fae082260d84d7d97d3c9b3859ed",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "428de569bc15dd86170d8fe5ae88378ecf8cda51a231cd97d224e889e1ecaff0",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_noelle_healing_v01621.stdout.log",
+      "stderrLog": "test_noelle_healing_v01621.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_noelle_healing_v01621.result.json"
+    },
+    {
+      "test": "tests/test_xianyun_balance_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_xianyun_balance_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T09:10:57.719662+00:00",
+      "endedAt": "2026-10-10T09:11:04.833557+00:00",
+      "seconds": 6.953,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "b66f1b41b9e2ac0a1beb60a96c065c87dc916299c6c116484959b5af98167038",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "676d51aacf782a1a4b273bdc04cf7e5600ca9223445a7977f79dc4c702e17ffb",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_xianyun_balance_v01622.stdout.log",
+      "stderrLog": "test_xianyun_balance_v01622.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_xianyun_balance_v01622.result.json"
+    },
+    {
+      "test": "tests/test_shield_balance_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_shield_balance_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T09:10:59.046725+00:00",
+      "endedAt": "2026-10-10T09:11:13.615224+00:00",
+      "seconds": 14.431,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "9b4f89114f8ca5e1b0e4d0710f1dbc2a74bfcf3f1ffd8cf9a2dbc97b93ded37f",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "d2c95bce77ae8891863436ec613977a8fe63260f0578e5a41a0e300032ef7052",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_shield_balance_v01619.stdout.log",
+      "stderrLog": "test_shield_balance_v01619.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_shield_balance_v01619.result.json"
+    },
+    {
+      "test": "tests/test_shield_meter_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_shield_meter_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T09:11:04.834036+00:00",
+      "endedAt": "2026-10-10T09:11:05.053911+00:00",
+      "seconds": 0.073,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "73fc1a5094673350e13e26465514bbec56af00cb3e0c309879acf32f2258f8d0",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "066e7c1f39a4959b6b30bfe6180648e6fc897852d711c93cccd3c00ee3c44f3f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_shield_meter_v01619.stdout.log",
+      "stderrLog": "test_shield_meter_v01619.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_shield_meter_v01619.result.json"
+    },
+    {
+      "test": "tests/test_food_balance_v01620.cjs",
+      "command": [
+        "node",
+        "tests/test_food_balance_v01620.cjs"
+      ],
+      "startedAt": "2026-10-10T09:11:05.054546+00:00",
+      "endedAt": "2026-10-10T09:11:30.383096+00:00",
+      "seconds": 25.18,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "b219475def808141cc23ae112351dccde252954221ad5cdcc768663a7c7e07b7",
+          "after": "2808775a3dd78dbe7ec64e4b7f1690795c1cbf322de75a2f9c78ae0155304c63"
+        },
+        "tests/test_field_boss_strategy_v01623.cjs": {
+          "before": "ac1bf2342e3a157110667d5dfc28820d9b8cfd0ffc241b9e806b84c3132b8992",
+          "after": "fe4b3263d9423be322537f362074a1a3d397a438b8e4b357ae192069f318479b"
+        }
+      },
+      "testSha256": "95f64f5c24008dc37d285b72a283c9e89ce7b7577304d20b139ec89825296316",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "37009c13a6df23e98130fe83f271f5eac6b1124514a8a0f7caee2313dfce007e",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_food_balance_v01620.stdout.log",
+      "stderrLog": "test_food_balance_v01620.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_food_balance_v01620.result.json"
+    },
+    {
+      "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+      "command": [
+        "node",
+        "tests/test_inn_recovery_pricing_v01615.cjs"
+      ],
+      "startedAt": "2026-10-10T09:11:13.615661+00:00",
+      "endedAt": "2026-10-10T09:11:33.777392+00:00",
+      "seconds": 20.015,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "b219475def808141cc23ae112351dccde252954221ad5cdcc768663a7c7e07b7",
+          "after": "2808775a3dd78dbe7ec64e4b7f1690795c1cbf322de75a2f9c78ae0155304c63"
+        },
+        "tests/test_field_boss_strategy_v01623.cjs": {
+          "before": "ac1bf2342e3a157110667d5dfc28820d9b8cfd0ffc241b9e806b84c3132b8992",
+          "after": "fe4b3263d9423be322537f362074a1a3d397a438b8e4b357ae192069f318479b"
+        }
+      },
+      "testSha256": "60f175020b68ac97d929e17d53741e19b1c97bf3317fa7b72134b04063b40332",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "db4e773fbaf942e6e9bb89e2444426ec6f8572e9df582dd851fabedccfe53ba5",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_inn_recovery_pricing_v01615.stdout.log",
+      "stderrLog": "test_inn_recovery_pricing_v01615.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_inn_recovery_pricing_v01615.result.json"
+    },
+    {
+      "test": "tests/test_reaction_fixes_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_reaction_fixes_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T09:11:30.383607+00:00",
+      "endedAt": "2026-10-10T09:12:41.993250+00:00",
+      "seconds": 71.45,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "source/runtime_growth_v01522.js": {
+          "before": "8e0bb024a3a4586b5457b09a4ef81baea6c5dcf264f7edd255efee202e774632",
+          "after": "b701e4eb59718acbdb6ff31067d0d02bacab6576edc1b82a9a06ad427acd2ee7"
+        },
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "2808775a3dd78dbe7ec64e4b7f1690795c1cbf322de75a2f9c78ae0155304c63",
+          "after": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0"
+        },
+        "tests/test_daily_pressure_v01624.cjs": {
+          "before": null,
+          "after": "b430c2032dc3190644462aaf2a4af0b0f85a53a032c8cbe07973369edccce8d1"
+        },
+        "tests/test_material_efficiency_v01622.cjs": {
+          "before": "a0be0ddb73f354bad0f6cd4a94273f4461aa883317b9e6a62fb553c8eff324f0",
+          "after": "fca1f377cffbb0a2eeb17b521a997c03bd7fe32bc81ea250c5b4fccb8c9fd2df"
+        }
+      },
+      "testSha256": "cc4b50dd56108e12ac150987b43b9c026b3d6d89e652f9af4cc1a6b8c7c20bff",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "b358c801b81da7ddf1fbce48f2da11f8231178f0f96d5fbd77595857ea2e4156",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_reaction_fixes_v01619.stdout.log",
+      "stderrLog": "test_reaction_fixes_v01619.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_reaction_fixes_v01619.result.json"
+    },
+    {
+      "test": "tests/test_control_reactions_v0168.cjs",
+      "command": [
+        "node",
+        "tests/test_control_reactions_v0168.cjs"
+      ],
+      "startedAt": "2026-10-10T09:11:33.778195+00:00",
+      "endedAt": "2026-10-10T09:12:34.203182+00:00",
+      "seconds": 60.259,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "source/runtime_growth_v01522.js": {
+          "before": "8e0bb024a3a4586b5457b09a4ef81baea6c5dcf264f7edd255efee202e774632",
+          "after": "b701e4eb59718acbdb6ff31067d0d02bacab6576edc1b82a9a06ad427acd2ee7"
+        },
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "2808775a3dd78dbe7ec64e4b7f1690795c1cbf322de75a2f9c78ae0155304c63",
+          "after": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0"
+        },
+        "tests/test_daily_pressure_v01624.cjs": {
+          "before": null,
+          "after": "b430c2032dc3190644462aaf2a4af0b0f85a53a032c8cbe07973369edccce8d1"
+        },
+        "tests/test_material_efficiency_v01622.cjs": {
+          "before": "a0be0ddb73f354bad0f6cd4a94273f4461aa883317b9e6a62fb553c8eff324f0",
+          "after": "fca1f377cffbb0a2eeb17b521a997c03bd7fe32bc81ea250c5b4fccb8c9fd2df"
+        }
+      },
+      "testSha256": "1c6afca984fd6164450c60d7d08d7b79b616a30c9923c3025d76042cdd45535f",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "47be5b52ed2c86b32f5c7730928becb2a58c2a93fc9206a98f2d34047a4c3663",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_control_reactions_v0168.stdout.log",
+      "stderrLog": "test_control_reactions_v0168.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_control_reactions_v0168.result.json"
+    },
+    {
+      "test": "tools/test_admin_balance_runtime_v01623.cjs",
+      "command": [
+        "node",
+        "tools/test_admin_balance_runtime_v01623.cjs"
+      ],
+      "startedAt": "2026-10-10T09:12:34.203856+00:00",
+      "endedAt": "2026-10-10T09:12:43.597528+00:00",
+      "seconds": 9.239,
+      "exitCode": 1,
+      "passed": false,
+      "inputDrift": {},
+      "testSha256": "6bab598026b29c4519bd88fdbf59f0c9e064a7518b5ce458f5c7324acf5c6b61",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "3ab7ad860fe124b5cd2f21efdc8c901e00f5b8c56b8b326ea58964fd026712d8",
+      "stdoutLog": "test_admin_balance_runtime_v01623.stdout.log",
+      "stderrLog": "test_admin_balance_runtime_v01623.stderr.log",
+      "run": "initial_source_15",
+      "resultFile": "initial_source_15/test_admin_balance_runtime_v01623.result.json"
+    },
+    {
+      "test": "tests/test_material_efficiency_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_material_efficiency_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T09:12:39.613990+00:00",
+      "endedAt": "2026-10-10T09:12:40.474616+00:00",
+      "seconds": 0.682,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "fca1f377cffbb0a2eeb17b521a997c03bd7fe32bc81ea250c5b4fccb8c9fd2df",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "9c55049ef8eca455e18e2d08449f4ba0621a90e2ceab95732c82038afb21cf61",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_material_efficiency_v01622.stdout.log",
+      "stderrLog": "test_material_efficiency_v01622.stderr.log",
+      "run": "historical_hash_corrected",
+      "resultFile": "historical_hash_corrected/test_material_efficiency_v01622.result.json"
+    },
+    {
+      "test": "tools/test_admin_balance_runtime_v01623.cjs",
+      "command": [
+        "node",
+        "tools/test_admin_balance_runtime_v01623.cjs"
+      ],
+      "startedAt": "2026-10-10T09:13:52.080790+00:00",
+      "endedAt": "2026-10-10T09:14:06.940152+00:00",
+      "seconds": 14.7,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "b0a39d5aa223cb26ad9f0c5956a6e99e508f5744f85fb1a7ec474a1e3642c813",
+      "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+      "stdoutSha256": "a6aedfc02d0cf92f314186779d6fd531dfdfd74f6c72cea69227852e809757bc",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_admin_balance_runtime_v01623.stdout.log",
+      "stderrLog": "test_admin_balance_runtime_v01623.stderr.log",
+      "run": "canonical_admin_boss_origin_corrected",
+      "resultFile": "canonical_admin_boss_origin_corrected/test_admin_balance_runtime_v01623.result.json"
+    },
+    {
+      "test": "tests/test_material_rewards_v01616.cjs",
+      "command": [
+        "node",
+        "tests/test_material_rewards_v01616.cjs"
+      ],
+      "startedAt": "2026-10-10T09:16:58.431156+00:00",
+      "endedAt": "2026-10-10T09:20:33.214031+00:00",
+      "seconds": 214.584,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0",
+          "after": "acea6d7452b0b667110c60cd992968f5cd866adf873bfa271cf4bca5162354f9"
+        },
+        "tests/test_field_boss_strategy_v01623.cjs": {
+          "before": "fe4b3263d9423be322537f362074a1a3d397a438b8e4b357ae192069f318479b",
+          "after": "3c5cb3a561491aa0eca520dca4a224429d8ad16119b9537c2651984bbb5d5777"
+        },
+        "tools/test_field_boss_strategy_v01622.cjs": {
+          "before": "189f774d70375a1a1f6417726f5ab54dd097162d3dd47cda86b7b8b1f381e7f6",
+          "after": "5fb88fa2c2fd04ba2221886330df914b22de2ce31b328db3d149a6b79cbb020f"
+        }
+      },
+      "testSha256": "0e8451fc50905ab0d643c97c9ea402c5a8863993343f6d2f6a4c28dd633c3d83",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "7c642438aabbdda946380aaf915baa88fd2633fab016596e9cfb4218a9041e24",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_material_rewards_v01616.stdout.log",
+      "stderrLog": "test_material_rewards_v01616.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_material_rewards_v01616.result.json"
+    },
+    {
+      "test": "tests/test_reaction_fixes_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_reaction_fixes_v01619.cjs"
+      ],
+      "startedAt": "2026-10-10T09:16:58.431607+00:00",
+      "endedAt": "2026-10-10T09:18:11.584996+00:00",
+      "seconds": 72.824,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0",
+          "after": "6d8722a4859674dfcf853777e4b8940052c6bcc8fbb16588abf8f8bedb910da9"
+        },
+        "tools/test_field_boss_strategy_v01622.cjs": {
+          "before": "189f774d70375a1a1f6417726f5ab54dd097162d3dd47cda86b7b8b1f381e7f6",
+          "after": "5fb88fa2c2fd04ba2221886330df914b22de2ce31b328db3d149a6b79cbb020f"
+        }
+      },
+      "testSha256": "cc4b50dd56108e12ac150987b43b9c026b3d6d89e652f9af4cc1a6b8c7c20bff",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "b358c801b81da7ddf1fbce48f2da11f8231178f0f96d5fbd77595857ea2e4156",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_reaction_fixes_v01619.stdout.log",
+      "stderrLog": "test_reaction_fixes_v01619.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_reaction_fixes_v01619.result.json"
+    },
+    {
+      "test": "tests/test_control_reactions_v0168.cjs",
+      "command": [
+        "node",
+        "tests/test_control_reactions_v0168.cjs"
+      ],
+      "startedAt": "2026-10-10T09:16:58.431963+00:00",
+      "endedAt": "2026-10-10T09:17:54.258697+00:00",
+      "seconds": 55.536,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {
+        "tests/test_boss_difficulty_scope_v01624.cjs": {
+          "before": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0",
+          "after": "6d8722a4859674dfcf853777e4b8940052c6bcc8fbb16588abf8f8bedb910da9"
+        },
+        "tools/test_field_boss_strategy_v01622.cjs": {
+          "before": "189f774d70375a1a1f6417726f5ab54dd097162d3dd47cda86b7b8b1f381e7f6",
+          "after": "5fb88fa2c2fd04ba2221886330df914b22de2ce31b328db3d149a6b79cbb020f"
+        }
+      },
+      "testSha256": "1c6afca984fd6164450c60d7d08d7b79b616a30c9923c3025d76042cdd45535f",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "47be5b52ed2c86b32f5c7730928becb2a58c2a93fc9206a98f2d34047a4c3663",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_control_reactions_v0168.stdout.log",
+      "stderrLog": "test_control_reactions_v0168.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_control_reactions_v0168.result.json"
+    },
+    {
+      "test": "tools/test_admin_balance_runtime_v01623.cjs",
+      "command": [
+        "node",
+        "tools/test_admin_balance_runtime_v01623.cjs"
+      ],
+      "startedAt": "2026-10-10T09:17:54.259635+00:00",
+      "endedAt": "2026-10-10T09:18:14.791166+00:00",
+      "seconds": 20.349,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "b0a39d5aa223cb26ad9f0c5956a6e99e508f5744f85fb1a7ec474a1e3642c813",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "a6aedfc02d0cf92f314186779d6fd531dfdfd74f6c72cea69227852e809757bc",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_admin_balance_runtime_v01623.stdout.log",
+      "stderrLog": "test_admin_balance_runtime_v01623.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_admin_balance_runtime_v01623.result.json"
+    },
+    {
+      "test": "tests/test_admin_balance_v01623.mjs",
+      "command": [
+        "node",
+        "tests/test_admin_balance_v01623.mjs"
+      ],
+      "startedAt": "2026-10-10T09:18:11.586049+00:00",
+      "endedAt": "2026-10-10T09:18:34.284219+00:00",
+      "seconds": 22.541,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "b6105e8d47242a08e2e5ca190d2eeeee0bc83b7ca714bec6bbb304948c10311f",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "419e104245074c2f1db43b50ac7aed3e7b932eb0c36c421f97124c29a624b2fb",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_admin_balance_v01623.stdout.log",
+      "stderrLog": "test_admin_balance_v01623.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_admin_balance_v01623.result.json"
+    },
+    {
+      "test": "tests/test_admin_balance_growth_v01623.mjs",
+      "command": [
+        "node",
+        "tests/test_admin_balance_growth_v01623.mjs"
+      ],
+      "startedAt": "2026-10-10T09:18:14.791617+00:00",
+      "endedAt": "2026-10-10T09:18:21.335684+00:00",
+      "seconds": 6.374,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "4e8f0306c6c27965c1430c59dbd11c54f6d67456846e11e4558f775ce5ed4918",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "bc9e7bb37db503decfc6e4414df639ad295a4cf2f0e33f2fe920d890a3e6e087",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_admin_balance_growth_v01623.stdout.log",
+      "stderrLog": "test_admin_balance_growth_v01623.stderr.log",
+      "run": "final_frozen_native_6",
+      "resultFile": "final_frozen_native_6/test_admin_balance_growth_v01623.result.json"
+    },
+    {
+      "test": "tests/test_material_efficiency_v01622.cjs",
+      "command": [
+        "node",
+        "tests/test_material_efficiency_v01622.cjs"
+      ],
+      "startedAt": "2026-10-10T09:19:44.245348+00:00",
+      "endedAt": "2026-10-10T09:19:45.187536+00:00",
+      "seconds": 0.738,
+      "exitCode": 0,
+      "passed": true,
+      "inputDrift": {},
+      "testSha256": "fca1f377cffbb0a2eeb17b521a997c03bd7fe32bc81ea250c5b4fccb8c9fd2df",
+      "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+      "stdoutSha256": "178c701451b58f8c0867d07d8875dcdbaf57745d1326e5943fcac635605995db",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutLog": "test_material_efficiency_v01622.stdout.log",
+      "stderrLog": "test_material_efficiency_v01622.stderr.log",
+      "run": "final_historical_provenance",
+      "resultFile": "final_historical_provenance/test_material_efficiency_v01622.result.json"
+    }
+  ],
+  "scope": "Selected peripheral regressions; 7 rerun on final frozen source/build. Initial historical-source and canonical-boss-origin test failures retained and corrected with parent authorization. Historical recorded fights are not fresh 0.16.24 fights. Native growth settlement test injects victory to isolate payment; no difficulty claim."
+}

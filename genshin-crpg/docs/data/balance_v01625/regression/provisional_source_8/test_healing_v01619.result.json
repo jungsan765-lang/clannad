@@ -1,0 +1,19 @@
+{
+  "test": "tests/test_healing_v01619.cjs",
+  "command": [
+    "node",
+    "tests/test_healing_v01619.cjs"
+  ],
+  "startedAt": "2026-10-10T10:03:38.376784+00:00",
+  "endedAt": "2026-10-10T10:03:49.003124+00:00",
+  "seconds": 10.325,
+  "exitCode": 1,
+  "passed": false,
+  "inputDrift": {},
+  "testSha256": "84ebc0f1a46525681b89098d880563958d6a04910f2cb5faf91a383ca4dd22c7",
+  "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+  "stdoutSha256": "4fbae6ed19cb572782772cabac448f0aab30b002eaf237804cf5fa8a9d63a60c",
+  "stderrSha256": "a3e5778fb1c2f8d85a4f44af4e89836081b0c33de57f5a5243160eb76516bd78",
+  "stdoutLog": "test_healing_v01619.stdout.log",
+  "stderrLog": "test_healing_v01619.stderr.log"
+}

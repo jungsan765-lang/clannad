@@ -1,0 +1,33 @@
+{
+  "authorizedBy": "root final economic cashmargin adoption; growth reward/request numeric table and release notes only",
+  "beforeSealedManifest": "../final_protect_formation/MANIFEST.json",
+  "beforeSealedManifestSha256": "d20aed3fa843a19c40a0ea96d8f772cbfe818c6c6c0a334bb9fcf4670834483a",
+  "changes": [
+    {
+      "path": "content/release-notes.json",
+      "before": {
+        "path": "content/release-notes.json",
+        "bytes": 322167,
+        "sha256": "adaa3cc4c17e5926562f7ca62e6e171c5dde5bda0bfc2dcda222e7ade9383f5b"
+      },
+      "after": {
+        "path": "content/release-notes.json",
+        "bytes": 322210,
+        "sha256": "bc5013378715251ad80da29279ff0434142f421ea51eff45b22974d5997d8690"
+      }
+    },
+    {
+      "path": "source/runtime_growth_v01522.js",
+      "before": {
+        "path": "source/runtime_growth_v01522.js",
+        "bytes": 58938,
+        "sha256": "d9a346144ead6918b79e53193fbd78c95d29f8ba51496fb9ad181af67adb661b"
+      },
+      "after": {
+        "path": "source/runtime_growth_v01522.js",
+        "bytes": 58939,
+        "sha256": "5bd15d7cc7428c34a0affc04c41dd1b9dcc8f21fc71c5c15405d687358415e03"
+      }
+    }
+  ]
+}

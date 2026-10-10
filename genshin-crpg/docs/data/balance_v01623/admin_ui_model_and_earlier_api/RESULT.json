@@ -1,0 +1,531 @@
+{
+  "ok": true,
+  "checks": [
+    "New balance UI contains no dropdowns",
+    "Enemy editor shows final numeric fields and actual defaults",
+    "Korean name search filters native catalog",
+    "Draft survives item selection changes",
+    "Draft survives leaving the balance tab",
+    "Apply requires validated preview",
+    "Preview shows Korean field labels and concrete before-after values",
+    "Editing after preview invalidates apply",
+    "Apply sends reviewed draft and saves operator note",
+    "Edits made while apply is pending remain as an unsaved draft",
+    "Revision conflict preserves draft",
+    "Refresh rebases local edits without losing concurrent unrelated edits",
+    "Invalid numeric values are rejected by real runtime validator",
+    "Encounter edits select monsters by Korean name, not ID",
+    "Formation shows eight-enemy total limit",
+    "Over-limit formation is rejected and cannot apply",
+    "JSON import only previews and does not apply",
+    "JSON import uses server-normalized config",
+    "Rollback first displays concrete changes without changing live settings",
+    "Editing a draft cancels its historical restore preview",
+    "Explicit rollback restores historical configuration",
+    "Growth material reward editor previews a named native tier",
+    "Growth nested path applies a domain material quantity",
+    "Blank growth field removes its override and restores the default",
+    "Card owner uses a Korean catalog name",
+    "Phone can search, edit, preview, and apply actual numeric fields",
+    "Phone can review and restore an historical profile",
+    "Phone layout has no horizontal page overflow",
+    "Phone numeric fields use a single column",
+    "Browser has no uncaught script errors"
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "source/admin.js": "b9286ce6de826b57834ede4cf8a6d2550332adef2ac97af706e72fa47456f314",
+    "source/admin.css": "f4d64e045a1625d7b52b79c19e2a14d1827ba882b6c237eb1b2ecc4ffde5b073"
+  },
+  "nativeRuntimeFingerprint": "93be8b72003825122ef21ab1233eba91a60fdac5f9a22729c0bf9a17ae32ab71",
+  "requests": [
+    {
+      "path": "/admin/balance",
+      "method": "GET",
+      "body": null
+    },
+    {
+      "path": "/admin/balance/preview",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 2000
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      }
+    },
+    {
+      "path": "/admin/balance/preview",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 2200
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      }
+    },
+    {
+      "path": "/admin/balance/apply",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 2200
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        },
+        "note": "체력 조정 확인"
+      }
+    },
+    {
+      "path": "/admin/balance/preview",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 2500
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      }
+    },
+    {
+      "path": "/admin/balance/apply",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 2500
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        },
+        "note": ""
+      }
+    },
+    {
+      "path": "/admin/balance",
+      "method": "GET",
+      "body": null
+    },
+    {
+      "path": "/admin/balance/preview",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 2,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 2500
+            },
+            "MON_HILICHURL": {
+              "atk": 99
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      }
+    },
+    {
+      "path": "/admin/balance/apply",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 2,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 2500
+            },
+            "MON_HILICHURL": {
+              "atk": 99
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        },
+        "note": ""
+      }
+    },
+    {
+      "path": "/admin/balance/preview",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 3,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 0
+            },
+            "MON_HILICHURL": {
+              "atk": 99
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      }
+    },
+    {
+      "path": "/admin/balance/preview",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 3,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 2500
+            },
+            "MON_HILICHURL": {
+              "atk": 99
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {
+            "EG_MOND_SLIME_SMALL": [
+              {
+                "monster": "MON_ABYSS_MAGE",
+                "min": 1,
+                "max": 8
+              },
+              {
+                "monster": "MON_SLIME_PYRO",
+                "min": 1,
+                "max": 2
+              }
+            ]
+          },
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      }
+    },
+    {
+      "path": "/admin/balance/preview",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 3,
+        "config": {
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 3000
+            }
+          }
+        }
+      }
+    },
+    {
+      "path": "/admin/balance/apply",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 3,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 3000
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        },
+        "note": ""
+      }
+    },
+    {
+      "path": "/admin/balance",
+      "method": "GET",
+      "body": null
+    },
+    {
+      "path": "/admin/balance",
+      "method": "GET",
+      "body": null
+    },
+    {
+      "path": "/admin/balance/rollback",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 4,
+        "targetRevision": 0,
+        "note": ""
+      }
+    },
+    {
+      "path": "/admin/balance/preview",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 5,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {
+              "FORSAKEN_RIFT:5": {
+                "materialQuantity": 77
+              }
+            },
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      }
+    },
+    {
+      "path": "/admin/balance/apply",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 5,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {
+              "FORSAKEN_RIFT:5": {
+                "materialQuantity": 77
+              }
+            },
+            "ascension": {},
+            "talents": {}
+          }
+        },
+        "note": ""
+      }
+    },
+    {
+      "path": "/admin/balance/preview",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 6,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      }
+    },
+    {
+      "path": "/admin/balance/apply",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 6,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        },
+        "note": ""
+      }
+    },
+    {
+      "path": "/admin/balance",
+      "method": "GET",
+      "body": null
+    },
+    {
+      "path": "/admin/balance/preview",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 7,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 5000
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      }
+    },
+    {
+      "path": "/admin/balance/apply",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 7,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "MON_SLIME": {
+              "hp": 5000
+            }
+          },
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        },
+        "note": ""
+      }
+    },
+    {
+      "path": "/admin/balance",
+      "method": "GET",
+      "body": null
+    },
+    {
+      "path": "/admin/balance/rollback",
+      "method": "POST",
+      "body": {
+        "expectedRevision": 8,
+        "targetRevision": 0,
+        "note": ""
+      }
+    },
+    {
+      "path": "/admin/balance",
+      "method": "GET",
+      "body": null
+    }
+  ],
+  "catalogCounts": {
+    "enemies": 221,
+    "characters": 120,
+    "cards": 246,
+    "tables": 2001,
+    "encounters": 331,
+    "growth": 60
+  },
+  "screenshots": [
+    "desktop.png",
+    "phone.png",
+    "phone_preview.png"
+  ],
+  "scope": "Real admin.js/admin.css and native runtime catalog+validator. QA-only Noto Sans KR loads for screenshots because container OS lacks Korean fonts; product font stack remains unchanged. Local HTTP fixture does not prove server persistence or live deployment."
+}

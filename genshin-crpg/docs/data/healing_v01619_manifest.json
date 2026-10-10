@@ -1,0 +1,58 @@
+{
+  "schema": "healing-v01619-manifest-1",
+  "baselineRemote": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "baselineFingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+  "after144Fingerprint": "859dcb16503d48b94c4463c7554eab6021e7a4e9d24da126a5fd727c95cda5e5",
+  "numeric450MatchingFingerprint": "d5faf6759c19e87565c846a645726d14fb73c56177bab8fff7bbf9cab941900b",
+  "isolatedFinalFingerprint": "321b1b33d066885d4737c97ed45822b2f8cdd55c9e7ce0396bafdf9a7f40b5d5",
+  "after144Cases": 144,
+  "nativeConsistencyBattles": 1781,
+  "sourceChanges": "Final shared constants and skill/status metadata do not change tested 450/60 numeric profile. Further shield/other-healer implementation is tested by the parent joint suite. Fingerprints are each load-time state, not silently unified.",
+  "currentSha256AtPackaging": {
+    "tools/audit_healing_helpers_v01619.cjs": "b6976b721410d2a1acbebbdf74b7d2b462717b69efd997c40ce4306d945e991d",
+    "tools/audit_healing_v01619.cjs": "0d3c022bf7f4c085856c3007a636ddf3174a1860a2fb866ff40ec43a1c1ce17f",
+    "tools/summarize_healing_v01619.cjs": "0d995756921479e5049548d938482284759133d4ef5175e142cadcc7b4463554",
+    "tests/test_healing_v01619.cjs": "20d43a02ee7878311b35be22a9c5fe532d35506cb5047b361f061534e067e9f0",
+    "source/runtime_combat.js": "f0c82f4ead98718f16eeb36eb0c450707e5ee0389363091f09df618284968beb",
+    "source/runtime_rules.js": "a94d27081898b5fa60e19caef212b06ee8cd5127d140d58f0aff2710e0fd7f9e",
+    "source/app_experience.js": "0598133a1421411dbc11eac55545cd66dee5d439312556f319c54e927e85fa51",
+    "content/db.json": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "tools/materialize_healing_snapshot_v01619.cjs": "e6215dcd2ae58dbc94feceb76e970b4968cdb774d77086b135f92b6756ef42d3",
+    "docs/HEALING_BALANCE_V01619_KO.md": "1394d4d4800c969cb7ce8d7cf13b639eba2e27d3dabb9812f7d9e6e67430b7ab"
+  },
+  "dataFiles": {
+    "healing_v01619_vm_candidates.json": {
+      "bytes": 1911,
+      "sha256": "f0181020809300abd383bf9e172a7ce1c81d3e2621e742fcf4fc55ce383f6074"
+    },
+    "healing_v01619_summary.json": {
+      "bytes": 49674,
+      "sha256": "df47dcec5d452ef1ff78db7005903a1b7edaf7a2a33dfc9995a837db7e357c5a"
+    },
+    "healing_v01619_native.json.gz": {
+      "bytes": 997502,
+      "sha256": "2cfcc0fa6b764db262a975bb846de233613dffff81ba1fdb5e3919046a9613d2"
+    },
+    "healing_v01619_isolated.json": {
+      "bytes": 14978,
+      "sha256": "2ed032b44740e0b7ea5629de2592c578e8498cb47a835f578d55f643d15191a5"
+    },
+    "healing_v01619_conditions.csv": {
+      "bytes": 45182,
+      "sha256": "79d0053f5fd3f9f516aebc214a0e8368d1c70c3c394b17fdef258cbcefd4ec90"
+    },
+    "healing_v01619_cases.json": {
+      "bytes": 26973,
+      "sha256": "a472ebcb8a37e17b83d92018f51e653d34ea5c44d00d821bfa018a5f44be090a"
+    },
+    "healing_v01619_runtime_snapshots.json.gz": {
+      "bytes": 235917,
+      "sha256": "a6df54df04dbac65909f40b175896ebcc9c7a200a27e37b4b037dddc8cd845cf"
+    },
+    "healing_v01619_flat_cases.json": {
+      "bytes": 3733,
+      "sha256": "8b5c990ccf1ca53b53623c61dc323c365e03076adc663d4f4c99e524ed7653aa"
+    }
+  },
+  "isolatedChecks": 5
+}

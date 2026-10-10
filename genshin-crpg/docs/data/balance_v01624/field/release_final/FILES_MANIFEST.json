@@ -1,0 +1,75 @@
+{
+  "count": 14,
+  "files": [
+    {
+      "file": "NATIVE_MANIFEST.json",
+      "sha256": "fa6fb832200ad17ab6aa206de1c83be77496afabab4d2f0a9be10b7559db8715",
+      "bytes": 1302
+    },
+    {
+      "file": "README_KO.md",
+      "sha256": "14206fbb5ca58388c2bbc5d782a39e59dc91564d631bd1c63c60bcf7912aa1f5",
+      "bytes": 3286
+    },
+    {
+      "file": "harness/QA_DB_MANIFEST.json",
+      "sha256": "65fbbd49db5d266591c679e03e1017666d90cec4fa62ed569a8e8592b60f3b0d",
+      "bytes": 342
+    },
+    {
+      "file": "harness/audit_electro_product.cjs",
+      "sha256": "aec4acf4254b36a799b610ec315e49dabe329068f3c9930b9be40350b5acd7e6",
+      "bytes": 13715
+    },
+    {
+      "file": "harness/audit_field_product.cjs",
+      "sha256": "5a94cd6d01d4138106c0d94224a832d33578f0a1858241f4c65917f709fa2544",
+      "bytes": 12939
+    },
+    {
+      "file": "harness/audit_trees_product.cjs",
+      "sha256": "3d61a52412d70f79ccb8ef7c447f5661efadba71de1e05e8be3ee223e13b374b",
+      "bytes": 13737
+    },
+    {
+      "file": "harness/qa_db.json.gz",
+      "sha256": "c5796e004e6b68fd71fbd6b9c1a7f6200d525c541c2b340184e52cf4c4c15128",
+      "bytes": 3926670
+    },
+    {
+      "file": "harness/run_product_replay.cjs",
+      "sha256": "80a462f372d9819dbcb962b52dee6a939f0faf38d9576b67bdb3f1c1ab70eb74",
+      "bytes": 3398
+    },
+    {
+      "file": "input_manifest.json",
+      "sha256": "389961c0a1c8adc92f312b08783dc56c27ea2269003f1661e73121ba67bb395e",
+      "bytes": 72475
+    },
+    {
+      "file": "intermediate_to_release_comparison.json",
+      "sha256": "d81c3635c830bcdcc71e620349a2ba483d7dca8c609272a56df1d08aaaa861dc",
+      "bytes": 457
+    },
+    {
+      "file": "native/electro-rows.json.gz",
+      "sha256": "1df1ee68c910ca23eab9fb79883fad9480ebfd7794787c74a4a30f6d9069c29c",
+      "bytes": 336417
+    },
+    {
+      "file": "native/six-rows.json.gz",
+      "sha256": "8d748b9f85abb720778faf2772ea6431c272d1c16e93af2f250992b3d49f8c0a",
+      "bytes": 1740772
+    },
+    {
+      "file": "native/trees-rows.json.gz",
+      "sha256": "7dcddf5a79fd2add08eec33ffd1d06f3582e1d311239600426214ce046024e24",
+      "bytes": 454949
+    },
+    {
+      "file": "summary.json",
+      "sha256": "d4bfcc9ce2d2a59e11b8f7d733db0ca31a536a9dab004506c8df53e15b724496",
+      "bytes": 163922
+    }
+  ]
+}

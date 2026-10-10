@@ -1,0 +1,540 @@
+{
+  "engine": "server",
+  "fingerprint": "engine3-c70d3eb7f1d4cb36a320ddd9ef18c0da1f8f9d8b927ce5e4ba504856ae31e208",
+  "rawDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "databaseProof": {
+    "policy": "production-release-header-only-authoring",
+    "tables": 64,
+    "headerOnlyTables": [
+      "28_CANON_AUDIT",
+      "40_CRPG_MIGRATION_PLAN",
+      "98_BACKUP_CHAR_STATS_20260917"
+    ],
+    "runtimeDataToolSHA256": "409b9f244325af4e0f00857d05c71d6885907f874c7bcfa7556e61d9549c5691",
+    "semanticSHA256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea"
+  },
+  "sourceProof": {
+    "sha256": "fdb3aecf2ab41cdac859572233d8c79026711cebaac366048c0315ff2ac0a3b3",
+    "files": [
+      {
+        "path": "source/index.html",
+        "sha256": "91509d6f145191483fff4a5c3c474f60de12fff6e696f87d2a3d599532365cc8"
+      },
+      {
+        "path": "source/world_content.js",
+        "sha256": "89d9fbc842cde7b934db6c5ffbf51b3e24219ef91b3c3423fecb2f1370eeb2d0"
+      },
+      {
+        "path": "source/runtime.js",
+        "sha256": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7"
+      },
+      {
+        "path": "source/runtime_extensions.js",
+        "sha256": "69cfb084c45ca667ace391f2a052ce1282d86c101058b52e6a67adf3741b2b69"
+      },
+      {
+        "path": "source/runtime_story.js",
+        "sha256": "e776d6aec6b0b5941ce0455285353372f6f70a5f9610ccd48fea23d6aea0f798"
+      },
+      {
+        "path": "source/runtime_nodes.js",
+        "sha256": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322"
+      },
+      {
+        "path": "source/runtime_events.js",
+        "sha256": "17feadef2a5fb08a78d85cdee53b7403d7fa9e836acf25c3fcb7984c9e039fe9"
+      },
+      {
+        "path": "source/runtime_relationships.js",
+        "sha256": "7d8d84884d29fe6e771f6f6bcd94e3fcf64d793f296356f5a5a6261d8713078b"
+      },
+      {
+        "path": "source/runtime_combat.js",
+        "sha256": "00e7257c98ab788b9eb8c3ca15783d45441f9869d83b1430b420b4dfdf339125"
+      },
+      {
+        "path": "source/runtime_mond_cards.js",
+        "sha256": "7d8c6c7e74673ddfd11344af29011ca03121778f21b36c5c64e15d2ede2a2cc0"
+      },
+      {
+        "path": "source/runtime_economy.js",
+        "sha256": "a1bc7b85cfa18d5553d90c197a10d637aaa4f58fff733442aa36546827c4a6b8"
+      },
+      {
+        "path": "source/runtime_passives.js",
+        "sha256": "662fc78757cf5cc70260b04e74064bff0a425989f4088d7e612afd87890263e7"
+      },
+      {
+        "path": "source/runtime_rules.js",
+        "sha256": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586"
+      },
+      {
+        "path": "source/runtime_andrius.js",
+        "sha256": "dcb505716d41cdf3dcb09e13e95e2c55b9c26dde4d9e719615114eb9b124dcf4"
+      },
+      {
+        "path": "source/runtime_flow.js",
+        "sha256": "67ce2690c3ef530f68f0393c0790972979fe358ebc6679d57df7ab6f3463785d"
+      },
+      {
+        "path": "source/runtime_party.js",
+        "sha256": "905c8d0eec7f2f7495af9aa3d738150298e93fd3be2f81a39a4ecb213fd9eb39"
+      },
+      {
+        "path": "source/runtime_opening.js",
+        "sha256": "f4db094db0cfd8341603bdf6ffe6cad0877434bacb8786082c6a5849f836918b"
+      },
+      {
+        "path": "source/runtime_places.js",
+        "sha256": "b18bbf96d7f0b75e93d4ad5f1afdfb0d9b7bf15ff11fc803588688071a29993a"
+      },
+      {
+        "path": "source/runtime_places_joint.js",
+        "sha256": "79ab52fa26c88100a0d6cd1b46714f49b2816f0c88591fe656e751173acfa91f"
+      },
+      {
+        "path": "source/runtime_adventure.js",
+        "sha256": "05e9d029eee1f22e8ce8a7e2466291cd790dcdc59649f309592e8d32fd577db5"
+      },
+      {
+        "path": "source/runtime_exploration.js",
+        "sha256": "d6c37806bd15b4549986adf1af3e345cfd045ed5efa58edfbb56a9dd016b9e6c"
+      },
+      {
+        "path": "source/runtime_life.js",
+        "sha256": "00e73cb849f2260b69289bea6f403f75a96f7e57ba44d7585c79da0d22783a3b"
+      },
+      {
+        "path": "source/runtime_world.js",
+        "sha256": "152b57e546ffea056fb280ca59cb189fae0bd9e2b5da37f3b17cd6cfd91c3cd8"
+      },
+      {
+        "path": "source/runtime_journey.js",
+        "sha256": "1f37aba9a6a238132aa57f5c2ec7a33ba0f2a976b65624c43c1ed40365a5206e"
+      },
+      {
+        "path": "source/runtime_market.js",
+        "sha256": "6373387b466a7f49cce93df5ebbe1b7f294ae58202c110aa3423f6e94e7b39bb"
+      },
+      {
+        "path": "source/runtime_geography.js",
+        "sha256": "d10a82b2d6e7bf44529b5754b6ff5e7b6e943b453c6b8d241afe32a8fb757a8c"
+      },
+      {
+        "path": "source/runtime_liyue.js",
+        "sha256": "9f2ec45728012fcac19a5d02f1adeb0da18cabd60276a88ed56eefdeecda0163"
+      },
+      {
+        "path": "source/runtime_liyue_card_content.js",
+        "sha256": "d1ce3973380c6a27eda671cfefaaa79b219930c757999b5820cc83eb174312e0"
+      },
+      {
+        "path": "source/runtime_liyue_cards.js",
+        "sha256": "e0f10bb88666c9247b33345f9bca3bc51ce5893b1f3c16eae4db3a81340c1a39"
+      },
+      {
+        "path": "source/runtime_liyue_combat.js",
+        "sha256": "444a369277d88f9fa2f5f2cf04698050554ffdcdd2ba3a4a7dc905b83061790f"
+      },
+      {
+        "path": "source/runtime_geo_oculi.js",
+        "sha256": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb"
+      },
+      {
+        "path": "source/runtime_encounter.js",
+        "sha256": "2dec3e4cee8731447c740da5e0ae709e29b198a1deed267b011860b1c3ae7311"
+      },
+      {
+        "path": "source/runtime_recruitment.js",
+        "sha256": "b70dc86096de812df02639131dce5aece06afdc9ed6c2016df3008fd4a758951"
+      },
+      {
+        "path": "source/runtime_protagonist.js",
+        "sha256": "9e639f663c999552853c8b916522705eba970cfa3d59c1f9586da5429b223f2b"
+      },
+      {
+        "path": "source/runtime_equipment.js",
+        "sha256": "e721bbcf5d88560965fce5f1dc2c648aad73e75000f40b287345ee03e5224524"
+      },
+      {
+        "path": "source/runtime_liyue_equipment.js",
+        "sha256": "7cc0765130a2b1e14ccd7cfc0150d2215ddfff18bfa55a15f47f54c884b216d8"
+      },
+      {
+        "path": "source/runtime_liyue_forge.js",
+        "sha256": "eca640279d4ed05eebc61d63ae3f4c9a1c179288984ce67274712301e98f0fad"
+      },
+      {
+        "path": "source/runtime_exclusive_weapons.js",
+        "sha256": "fb3a5580a1feefe0990f3520de15b70b711b7c69b4a3e6e732490c5f330c8649"
+      },
+      {
+        "path": "source/runtime_enhancement.js",
+        "sha256": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b"
+      },
+      {
+        "path": "source/runtime_liyue_artifacts.js",
+        "sha256": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0"
+      },
+      {
+        "path": "source/runtime_mond_encounters.js",
+        "sha256": "6507f112d215b0d862f1a9d940cf5b07e6e26f531c533af6de950c8d7adcc0c6"
+      },
+      {
+        "path": "source/runtime_enemy_content.js",
+        "sha256": "62455dd799a0078be597486124b1caa9b6157868ac1aa77a18c09fece8e22358"
+      },
+      {
+        "path": "source/runtime_enemy_skills.js",
+        "sha256": "8e3235afce2283d266e51dde2023ae35ce4e34a873968b23870f2dafd2dee8d3"
+      },
+      {
+        "path": "source/runtime_mond_boss_balance.js",
+        "sha256": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a"
+      },
+      {
+        "path": "source/runtime_mond_balance.js",
+        "sha256": "f8a4e16f6c6a0e34155d31d50dd98f3e4e80ee40f1b6d56e42a15c31b7ed6426"
+      },
+      {
+        "path": "source/runtime_navigation.js",
+        "sha256": "e4f4c6182761c3827e0832e666d948452e8b65de7223b2ca0022eefab316ec4c"
+      },
+      {
+        "path": "source/runtime_liyue_area_content.js",
+        "sha256": "c5a530db67e3cedbc6054e91933cce6f6e398c7e78dd60e07720afa7603cc6df"
+      },
+      {
+        "path": "source/runtime_liyue_areas.js",
+        "sha256": "49e3946e533d4ae06fa1d36d6e5b205d8cb0dbbabe999ad074253ac944137f85"
+      },
+      {
+        "path": "source/runtime_chasm_skills.js",
+        "sha256": "de8131644c84fb360c95d43628e7d6043ac46602521ef3fd75636395a0ba3638"
+      },
+      {
+        "path": "source/runtime_liyue_encounters.js",
+        "sha256": "f991de65ef2698f5ff2c645fe5d229abf0bc251fe47b6b94d0312a169278ce5f"
+      },
+      {
+        "path": "source/runtime_play_fixes.js",
+        "sha256": "df89bb7070867b44773c5f7c5169abc7407c58066c4ef730e79cc394f1415c97"
+      },
+      {
+        "path": "source/runtime_gear_traits.js",
+        "sha256": "6d1413b7f43f717572b75608a70939ec8d10bb6c2e2d31ce519e7ab2d14af3af"
+      },
+      {
+        "path": "source/runtime_enemy_tiers.js",
+        "sha256": "91355d8ccdbc13e0fca5f0a733c605e2b143735e07054681ed6587052c90dc31"
+      },
+      {
+        "path": "source/runtime_field_bosses.js",
+        "sha256": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250"
+      },
+      {
+        "path": "source/runtime_quality_fixes.js",
+        "sha256": "b9584bd0b17ee1576c31d5d64c0241ec2f7a357367ee545b1cba52a8f6ffd664"
+      },
+      {
+        "path": "source/runtime_field_scenes.js",
+        "sha256": "c796fb5abe65f3f50719dcea13d0c4b6901164c29625a17da4960d982e02618d"
+      },
+      {
+        "path": "source/runtime_liyue_rework_content.js",
+        "sha256": "5378ea8efee50f9c9cd0f24af8aa2eec570bf6fe17863b528804bcaf47e47363"
+      },
+      {
+        "path": "source/runtime_liyue_rework.js",
+        "sha256": "d198f6104a06ac9b23521ed8d6006b97c0dce4734be88ae77c912c6d77079c45"
+      },
+      {
+        "path": "source/runtime_liyue_places.js",
+        "sha256": "6d26a981d1f7f928c5611a09b0c651410d0651da43cfc6f0b6001548f6e407e4"
+      },
+      {
+        "path": "source/runtime_liyue_region_guide.js",
+        "sha256": "ad0d5069eb2b46e1e3bd357242872add908ca421e0f7fca2f3e059638cd3aa3a"
+      },
+      {
+        "path": "source/runtime_traveler_geo.js",
+        "sha256": "6ddd53490775c4dc8b33be8d29332e9247525a0cd9ab060cae8effecb1f23658"
+      },
+      {
+        "path": "source/runtime_geo_trails.js",
+        "sha256": "9cbb8b0d4289061660876ded26fa6a1b5b5148712c360d572791526711f4ef26"
+      },
+      {
+        "path": "source/runtime_abyss.js",
+        "sha256": "bfe0d10cde798b29b91e13db7feb3d74da3c5e5b6561f63af523eba751eb9d84"
+      },
+      {
+        "path": "source/runtime_formations.js",
+        "sha256": "b8990bbc326902afd1e4d3d80ff5c472825a629e5d35c7fa2fa9184fb58b74dd"
+      },
+      {
+        "path": "source/runtime_field_boss_limits.js",
+        "sha256": "d478a4b56861a89d31bec2d0d43f517a5d7b92d2b2d4475d8c7e374636e393fb"
+      },
+      {
+        "path": "source/runtime_ley_lines.js",
+        "sha256": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f"
+      },
+      {
+        "path": "source/runtime_boss_rematch.js",
+        "sha256": "f72f1512d020ca22e49ab559a5b46c57de4c2ed282107b6ab10ce32d8772aa44"
+      },
+      {
+        "path": "source/runtime_skill_rhythm.js",
+        "sha256": "f7c92f32f6ae9206b71a7cba4df47665b471c6ea11adfb56cdbb08f243036485"
+      },
+      {
+        "path": "source/runtime_trade.js",
+        "sha256": "b4d7f62e92a54b7f3d782e87f3ea88ea299a28d855a6e413bf75dfdba4fb0cba"
+      },
+      {
+        "path": "source/runtime_personal_expansion.js",
+        "sha256": "65f6b3dff130d4a09c7c2bc937e982f526658f97804d3aa48496c9be62d94a43"
+      },
+      {
+        "path": "source/runtime_operator.js",
+        "sha256": "dc9678ff6dfe369831d8f05cc0045c3da4ffa991a87345f8cd0911be835f0e04"
+      },
+      {
+        "path": "source/runtime_mond_revision.js",
+        "sha256": "38ff880e1d37676e678b7fef99cc0b3c5fc91fd99c11e987c5419cd25480ee4e"
+      },
+      {
+        "path": "source/runtime_local_revision.js",
+        "sha256": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9"
+      },
+      {
+        "path": "source/runtime_local_story_content.js",
+        "sha256": "686ceb18e110e99576c8cd4e769432a216cf702837e1b7c2dd611a47998405ab"
+      },
+      {
+        "path": "source/runtime_local_story.js",
+        "sha256": "6bfec6e2b3a9f0faf895198feca88457c79a10af5b3c5163bd1426bf83bfab4e"
+      },
+      {
+        "path": "source/runtime_main_story_k_content.js",
+        "sha256": "de352534027feb6ce6403b8062b01f27ec5d56dbc9aac3c8ba1e4c9cba096616"
+      },
+      {
+        "path": "source/runtime_main_story_k.js",
+        "sha256": "fdd467dbf919a1ffc01f3932c34ee3de064335db7d0fa2bec6e9de6edbe3ebf3"
+      },
+      {
+        "path": "source/runtime_commission_stories.js",
+        "sha256": "a0403da53190d47bd5d54d6906a5fa738cf116d787f429fe4ce7c2b8641ae2e5"
+      },
+      {
+        "path": "source/runtime_combat_v0148.js",
+        "sha256": "40e41b7fc1a0ac0c3d5c36a3e5963060207b48fc9581ffa613e3d1382f67e76e"
+      },
+      {
+        "path": "source/runtime_economy_v0148.js",
+        "sha256": "ab69d2021d7a706b5996c9e8648722f060794a5667126d71215fe5662ed1a096"
+      },
+      {
+        "path": "source/runtime_personal_v0148.js",
+        "sha256": "ce887aefb0ef91cea85538e9e8f747fddbf3ce9a06d78490dd86c4058f843635"
+      },
+      {
+        "path": "source/runtime_premium_v0148.js",
+        "sha256": "78a9ab3a6a4d08d83d89c1f599af12d3e8f7d37bcca1262adf61dc286b532b22"
+      },
+      {
+        "path": "source/runtime_constellations_v01411.js",
+        "sha256": "cd8297ea56598788b531102d1cc07cab956e6ce716ea1d69dbeb25031a87a19a"
+      },
+      {
+        "path": "source/runtime_wish_v01411.js",
+        "sha256": "efa7c337cb92a4846a34249f3888a656300d0c194f01c4e0129f25de2c680c95"
+      },
+      {
+        "path": "source/runtime_admin_v01412.js",
+        "sha256": "d8a0db507f5a7801e070aeb3f4cb5ddd605363bbefc6a53e3afc28cf44e1248e"
+      },
+      {
+        "path": "source/runtime_rarity_v01412.js",
+        "sha256": "2b064ba6a440223aa283ae849f27cb625f6d9fa255722284120a5dcf39389240"
+      },
+      {
+        "path": "source/runtime_presets_v01411.js",
+        "sha256": "a403e640adab386537868e2a4b2b03ddb3e3f7310bb65ec67ce15b8eb0172128"
+      },
+      {
+        "path": "source/runtime_chests_v01415.js",
+        "sha256": "648e07370d6893cb61f8912f9c9ad8be4b3b70c8ee7b5b7294a7fb1fa199f721"
+      },
+      {
+        "path": "source/runtime_offerings_v01415.js",
+        "sha256": "c5e9b9cd72f8c31a892ef6eaabd4cddf5b91b32235f6adb17d11351756dd33e7"
+      },
+      {
+        "path": "source/runtime_mail_v0151.js",
+        "sha256": "d4c67dda613facf06247d9b4bbf3465ebf87811f0545edd8b9c508d3a4da4c74"
+      },
+      {
+        "path": "source/runtime_puzzles_v0152.js",
+        "sha256": "8ae19e5f7520263f9875443a6efa8674dad851ff8a2cb62f3115666ae3393069"
+      },
+      {
+        "path": "source/runtime_balance_v0152.js",
+        "sha256": "b77b65efca9b03277abb3353aaaa766018ead9ac353ab5f91403e10582def3a1"
+      },
+      {
+        "path": "source/runtime_mutations_v0152.js",
+        "sha256": "95ed7f6c86e85f7a98504ea66fc4e700f8cbcc474fb01a14a642ff3d1c3adeb0"
+      },
+      {
+        "path": "source/runtime_events_v0152.js",
+        "sha256": "e05194be62d47f656c5d1052c28901e437afcfe9aeaed678b99b2eb4a8f9c78e"
+      },
+      {
+        "path": "source/runtime_raid_v0152.js",
+        "sha256": "2afd25074af07356679c55f2df782f49fee30f99c472cae9baab67babbd4c3c9"
+      },
+      {
+        "path": "source/runtime_achievements_v0152.js",
+        "sha256": "e5642dfe3addfc59d5e6471ed410e586179fcad5f20f40c37cf6891ab2cd9b3b"
+      },
+      {
+        "path": "source/runtime_early_story_v0153.js",
+        "sha256": "0832bf65dbdff163986067fd182cf57e5db3f3b5d6b358fb285650eea0ab0ceb"
+      },
+      {
+        "path": "source/runtime_story_pacing_v0153.js",
+        "sha256": "6419745dd35de413cb4bc50c0a7711d134bb01f8bf748771e79f6f9d25a89ad8"
+      },
+      {
+        "path": "source/runtime_starter_kit_v0153.js",
+        "sha256": "f540f60cb507b8cf08fab6949fd6a339f50b8c37968a74460eb5de959d0433d0"
+      },
+      {
+        "path": "source/runtime_map_v01516.js",
+        "sha256": "8a23e528501ad06fab460d3f4ce83538cedc1786523306818518b32f4bbf4b3e"
+      },
+      {
+        "path": "source/runtime_coop_v0153.js",
+        "sha256": "ef4f0ed8b58601746ea35b9857be17cda28338777f373c63bf535e2320149321"
+      },
+      {
+        "path": "source/runtime_status_catalog_v01522.js",
+        "sha256": "9edfa00369436a9e20053d7719f4dd4f4f7579d1291e16302fbcba9791d0d300"
+      },
+      {
+        "path": "source/runtime_status_v01522.js",
+        "sha256": "949e5d4bbabb898a8fdb59fbb783feb1de67e53c8d5ef559158058ed020fffee"
+      },
+      {
+        "path": "source/runtime_life_v01522.js",
+        "sha256": "70de3b0ed42575b51a90409b96e26f6524565ebf7732962e6a265ea0d5df6902"
+      },
+      {
+        "path": "source/runtime_life_v0162.js",
+        "sha256": "90d258284c4939d4b0ab7c053ee573609125a1a634821e50817e00d1a3274708"
+      },
+      {
+        "path": "source/runtime_growth_data_v01522.js",
+        "sha256": "0e735990e52ad77df7378ea3f9c827b083a0d5d0f6f511c683ce2a12fc27992c"
+      },
+      {
+        "path": "source/runtime_growth_v01522.js",
+        "sha256": "5280d8c6a32e8a7424c1a76b835cb345d264a8cec8c675b11b74a44737b5872d"
+      },
+      {
+        "path": "source/runtime_roster_v01522.js",
+        "sha256": "6c63da79db88ff96eba7d7236d7f40212dfab9eededb25bda6c6fb691450e7b6"
+      },
+      {
+        "path": "source/runtime_tutorial_v01522.js",
+        "sha256": "419d39f9d8a75940e5e5740205790c0abf5656e99ffcb0e2f385bfe2a8a8932d"
+      },
+      {
+        "path": "source/runtime_battle_capacity_v01522.js",
+        "sha256": "bbcac0b4e5697647aa8732d379c6e320581cdad595d69670570eedfcdb74d0e7"
+      },
+      {
+        "path": "source/runtime_story_companions_v01525.js",
+        "sha256": "07cd6386355656cd87ee4edcde43ff5e473489618f831664575a5663dddc53cc"
+      },
+      {
+        "path": "source/runtime_coop_world_v0160.js",
+        "sha256": "a472af8514b3205a3c1ffa3258f5875269d43457eee12c1325759c5f957297bc"
+      },
+      {
+        "path": "source/runtime_battle_lines_v0162.js",
+        "sha256": "92a891ba42166a705f743b3ffd8e969bfd333a9157ff4f208ea29ed27d87dd8e"
+      },
+      {
+        "path": "source/runtime_landmarks_v0163.js",
+        "sha256": "bc79318b4f7d89e90908382fa757c87fd6f5f6853ce2553a5a2904b9f311a1c8"
+      },
+      {
+        "path": "source/runtime_task_catalog_v0168.js",
+        "sha256": "d99f6aef2eb3f78ec1c33d8be303ac748dddc3cd194d29f9c4cc07c99cfd0bf8"
+      },
+      {
+        "path": "source/runtime_task_learning_catalog_v0169.js",
+        "sha256": "c9205a89ce9d358dc1c1fa6bd791fd07eef9b99917e68a78d5d1f981c17c4b18"
+      },
+      {
+        "path": "source/runtime_tasks_v0167.js",
+        "sha256": "cc21ab26ac16a7b6265e04a6cf38543170e9a0bdbff01489174006f99e232bb9"
+      },
+      {
+        "path": "source/runtime_task_learning_v0169.js",
+        "sha256": "9e559eaf162280c88313bb8ae582792f10a1224061dbb6406fc4b05d205a5748"
+      },
+      {
+        "path": "source/runtime_balance_admin_v01623.js",
+        "sha256": "0c2e4c4c57e6fb2b40f5c9a7d83e18a7f0463c30437619008850d440acf67b6c"
+      },
+      {
+        "path": "source/runtime_reading.js",
+        "sha256": "e217a239e3b63a8f38e994d0a344ddce6c42fa771aa4f82aafa9347314d24633"
+      },
+      {
+        "path": "source/presentation.js",
+        "sha256": "fea749080ee1d5ac0a38c7595199a63f758bc47ecdece1ec8bd66f17b914e4a3"
+      }
+    ]
+  },
+  "beforeFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "baselineProof": {
+    "version": "0.16.26",
+    "commit": "7f33d2b34c48834c67c9134e2548d48932782e5c",
+    "files": 121,
+    "manifestSHA256": "7cedeee72c9df7c66e391a6e0335aeae8058326bbe01abc5df05b19408d8902d"
+  },
+  "loadedModules": null,
+  "rows": [
+    {
+      "engine": "server",
+      "test": "tests/test_enemy_balance_v01627.cjs",
+      "checks": 131,
+      "passed": 131,
+      "failed": 0,
+      "toolSHA256": "df5e5880f7428ec30a81e6582246d31f24254e3c9921b0800a77246e98f1660e",
+      "output": "server-test_enemy_balance_v01627.cjs.json",
+      "outputSHA256": "8883245ea40c78edd6ca1acb178b65ef879cfa462d07731abe9a9b7762f55207",
+      "rawDbObjectUnchanged": true
+    },
+    {
+      "engine": "server",
+      "test": "tests/test_field_preparation_v01627.cjs",
+      "checks": 6,
+      "passed": 6,
+      "failed": 0,
+      "toolSHA256": "2fdff2a28d0f2dd089b0eb6b4906b561ea4c7e54a0630f915a9f72526b9a2ef4",
+      "output": "server-test_field_preparation_v01627.cjs.json",
+      "outputSHA256": "f7c95916038e43e8e7f511b03f328996a87ebaa0a4483273fedee6a01a53e9bf",
+      "rawDbObjectUnchanged": true
+    }
+  ],
+  "total": 137,
+  "passed": 137,
+  "failed": 0
+}

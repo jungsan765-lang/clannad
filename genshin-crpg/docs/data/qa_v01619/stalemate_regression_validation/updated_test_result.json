@@ -1,0 +1,19 @@
+{
+  "collectedUTC": "2026-10-09T18:01:34.426603+00:00",
+  "productFixedHashMismatches": [],
+  "test": "tests/test_combat_stalemate_v01523.cjs",
+  "originalTestSha256": "5ffd36efb46b33d805874f5725146af2ee35a50002a241441952eabaa8a2a835",
+  "updatedTestSha256": "c093a0f91e7cef77145efd480c79805ada86bb5257dfd448dfaadc64fb755e7e",
+  "programExitCode": 0,
+  "passLines": 4,
+  "log": "updated_test.log",
+  "rootAuthorizedTestOnly": true,
+  "tests": [
+    "nativePrimoHistoricalTerminalDefeat",
+    "nativeSerpentHistoricalTerminalDefeat",
+    "nativeStableImmuneStalemateSettlement",
+    "livingPlayerManualControl"
+  ],
+  "negativeGuardCounterfactual": "summary.json rows: after STABLE_IMMUNITY_NO_GUARD is expected COMBAT_LOOP; no product mutation",
+  "limitations": "Natural boss examples may end in ordinary total-party death or STALEMATE. Any ordinary defeat must have all four native allies at HP 0 and a living enemy. Stable immunity input strictly requires STALEMATE with unchanged living NPC HP, zero rewards, cleared runtime, one receipt, valid restore and idempotent duplicate settlement. No exact round500 assertion or AI stub."
+}

@@ -1,0 +1,160 @@
+{
+  "checks": [
+    "All six stored runner snapshots match their input manifests.",
+    "Every selected case spec and all three combat seeds match recorded inputs.",
+    "All bundles contain identical 120 product source hashes, six frozen source hashes, QA DB SHA256 and loader fingerprint.",
+    "Current 120 product files and QA DB still match the recorded frozen inputs.",
+    "147 selected executions; native KO and actual COMBAT medicinal consumption are aggregated separately from persistent HP and food."
+  ],
+  "bundles": {
+    "floor12_preparation": {
+      "runnerSHA256": "593b324345ca0da97af120123bf82c5dde1df77d830163aa5aeda4f01e09ef58",
+      "snapshotMatchesManifest": true,
+      "nodeSyntaxCheck": true,
+      "casesFile": "final12_cases.json",
+      "casesSHA256": "504559298d260132f264f792284abd9374c6ae49a2cf4feb6ec2700811a62647",
+      "selectedIds": [
+        "f12_c0_guard_all_healing",
+        "f12_c0_guard_attack_buffonly",
+        "f12_c0_guard_attack_healing",
+        "f12_c0_guard_crit_buffonly",
+        "f12_c0_guard_crit_healing",
+        "f12_c0_guard_defense_healing",
+        "f12_c0_guard_feast_buffonly",
+        "f12_c0_guard_feast_healing",
+        "f12_c0_guard_none_buffonly",
+        "f12_c0_guard_none_healing",
+        "f12_c1_guard_feast",
+        "f12_c2_guard_feast",
+        "f12_c6_guard_feast",
+        "f12_craft_guard_all"
+      ],
+      "seeds": [
+        717,
+        4242,
+        9031
+      ],
+      "sourceHashes120Identical": true,
+      "productFrozen6Identical": true
+    },
+    "counter_preparation": {
+      "runnerSHA256": "c3da61f43785aabbbf3c2b4dba263c7ea0898a961df787f5995a26ba5b839ae2",
+      "snapshotMatchesManifest": true,
+      "nodeSyntaxCheck": true,
+      "casesFile": "counter_cases.json",
+      "casesSHA256": "c1c411a8bd0f9edc9ccabb7a76f1f05693dabd563722e65fdbf6e3438fb27014",
+      "selectedIds": [
+        "f10_four_c0_guard_crit",
+        "f10_four_c6_guard_crit",
+        "f10_mixed_five_c0_guard_crit",
+        "f11_four_c0_guard_crit",
+        "f11_four_c6_guard_crit",
+        "f11_mixed_five_c0_guard_crit",
+        "f12_counter_all",
+        "f12_counter_crit",
+        "f12_counter_crit_medicines",
+        "f12_counter_feast",
+        "f12_counter_none"
+      ],
+      "seeds": [
+        717,
+        4242,
+        9031
+      ],
+      "sourceHashes120Identical": true,
+      "productFrozen6Identical": true
+    },
+    "roles_preparation": {
+      "runnerSHA256": "c3da61f43785aabbbf3c2b4dba263c7ea0898a961df787f5995a26ba5b839ae2",
+      "snapshotMatchesManifest": true,
+      "nodeSyntaxCheck": true,
+      "casesFile": "roles_cases.json",
+      "casesSHA256": "2ada2e0fd2dfee12919733b3f3c093cb62e7fcec90cb0b59c649cb03237e2b68",
+      "selectedIds": [
+        "f12_c0_balanced",
+        "f12_c0_diluc_attack",
+        "f12_c0_jean_support"
+      ],
+      "seeds": [
+        717,
+        4242,
+        9031
+      ],
+      "sourceHashes120Identical": true,
+      "productFrozen6Identical": true
+    },
+    "fixed_preparation": {
+      "runnerSHA256": "192aefa975695080eba0e80ea08a0d764be20b1dd35cbebb90428d9bf745051d",
+      "snapshotMatchesManifest": true,
+      "nodeSyntaxCheck": true,
+      "casesFile": "fixed_preparation_cases.json",
+      "casesSHA256": "c2b8ee740ae5e1aa35465b5c6e6a5c60d9ce9e0bb1060015c94d4d371edae0f6",
+      "selectedIds": [
+        "fixed_f12_c0_guard_all_healing",
+        "fixed_f12_c0_guard_attack_healing",
+        "fixed_f12_c0_guard_crit_healing",
+        "fixed_f12_c0_guard_feast_healing",
+        "fixed_f12_c0_guard_none_buffonly",
+        "fixed_f12_c0_guard_none_healing"
+      ],
+      "seeds": [
+        717,
+        4242,
+        9031
+      ],
+      "sourceHashes120Identical": true,
+      "productFrozen6Identical": true
+    },
+    "release_floor10_11": {
+      "runnerSHA256": "192aefa975695080eba0e80ea08a0d764be20b1dd35cbebb90428d9bf745051d",
+      "snapshotMatchesManifest": true,
+      "nodeSyntaxCheck": true,
+      "casesFile": "cases.json",
+      "casesSHA256": "8f7e8646ea57df69c3b7f682d5c2625f036e3cc3ec4dc0c9d24a112b51b440ca",
+      "selectedIds": [
+        "f10_four_c0_exclusive_meals",
+        "f10_four_c6_exclusive_meals",
+        "f10_mixed_exclusive_buff_only",
+        "f10_mixed_exclusive_meals",
+        "f10_mixed_exclusive_none",
+        "f10_mixed_poor_none",
+        "f11_four_c0_exclusive_meals",
+        "f11_four_c6_exclusive_meals",
+        "f11_mixed_exclusive_buff_only",
+        "f11_mixed_exclusive_meals",
+        "f11_mixed_exclusive_none",
+        "f11_mixed_poor_none"
+      ],
+      "seeds": [
+        717,
+        4242,
+        9031
+      ],
+      "sourceHashes120Identical": true,
+      "productFrozen6Identical": true
+    },
+    "last_pyro": {
+      "runnerSHA256": "23e642e72054bd062a524399e2d6d402a7d55bef9affc5a0f4b08dcc34e47944",
+      "snapshotMatchesManifest": true,
+      "nodeSyntaxCheck": true,
+      "casesFile": "last_pyro_cases.json",
+      "casesSHA256": "730d954b1ea77441d282652d5b74d7b3110bded86e5bad44d733f5d050c93637",
+      "selectedIds": [
+        "f12_hutao_crit_healing",
+        "f12_hutao_none",
+        "f12_xiangling_c6_crit_healing"
+      ],
+      "seeds": [
+        717,
+        4242,
+        9031
+      ],
+      "sourceHashes120Identical": true,
+      "productFrozen6Identical": true
+    }
+  },
+  "scope": "Product source/DB read-only; aggregator output only.",
+  "helperSHA256": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9",
+  "liveHelperMatchesStoredFinalSnapshot": true,
+  "pass": true
+}

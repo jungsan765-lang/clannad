@@ -1,0 +1,736 @@
+{
+  "rows": [
+    {
+      "version": "before",
+      "diagnosticFixture": "Equal25 craft+6 baseTalent4; wounded Noelle selected by actual skill; initial enemy aura is explicit controlled fixture, not a public campaign.",
+      "jade": false,
+      "element": "불",
+      "lanAtk": 823.62,
+      "lanTalent": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "beforeHp": 3102,
+      "incoming": 7780,
+      "beforeShields": [
+        {
+          "source": "LIYUE_LANYAN_E",
+          "value": 1945,
+          "initialValue": 1945,
+          "rounds": 2,
+          "createdRound": 1,
+          "converted": "불",
+          "actor": "LIYUE_LANYAN"
+        }
+      ],
+      "afterHp": 1157,
+      "afterShields": [],
+      "packet": {
+        "actor": "암흑의 빈 갑주·기수",
+        "target": "노엘",
+        "damage": 1945,
+        "absorbed": 1945,
+        "shieldBefore": 1945,
+        "shieldAfter": 0,
+        "brokenShields": [
+          "LIYUE_LANYAN_E"
+        ],
+        "element": "불",
+        "sourceKind": "TEST_FINAL_PACKET",
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 3102,
+            "shields": [
+              {
+                "source": "LIYUE_LANYAN_E",
+                "value": 1945,
+                "initialValue": 1945,
+                "rounds": 2,
+                "createdRound": 1,
+                "converted": "불",
+                "actor": "LIYUE_LANYAN"
+              }
+            ]
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 1157,
+            "shields": []
+          }
+        ],
+        "targetId": "MOND_NOELLE",
+        "actorId": "MON_HUSK_STANDARD#1",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 3102,
+        "hpAfter": 1157,
+        "maxHp": 6204
+      }
+    },
+    {
+      "version": "candidate",
+      "diagnosticFixture": "Equal25 craft+6 baseTalent4; wounded Noelle selected by actual skill; initial enemy aura is explicit controlled fixture, not a public campaign.",
+      "jade": false,
+      "element": "불",
+      "lanAtk": 823.62,
+      "lanTalent": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "beforeHp": 3102,
+      "incoming": 7780,
+      "beforeShields": [
+        {
+          "source": "LIYUE_LANYAN_E",
+          "value": 1945,
+          "initialValue": 1945,
+          "rounds": 2,
+          "createdRound": 1,
+          "converted": "불",
+          "actor": "LIYUE_LANYAN",
+          "element": "불",
+          "damageMultipliers": {
+            "불": 0.4
+          }
+        }
+      ],
+      "afterHp": 184,
+      "afterShields": [],
+      "packet": {
+        "actor": "암흑의 빈 갑주·기수",
+        "target": "노엘",
+        "damage": 2918,
+        "absorbed": 4863,
+        "shieldBefore": 1945,
+        "shieldAfter": 0,
+        "brokenShields": [
+          "LIYUE_LANYAN_E"
+        ],
+        "element": "불",
+        "sourceKind": "TEST_FINAL_PACKET",
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 3102,
+            "shields": [
+              {
+                "source": "LIYUE_LANYAN_E",
+                "value": 1945,
+                "initialValue": 1945,
+                "rounds": 2,
+                "createdRound": 1,
+                "converted": "불",
+                "actor": "LIYUE_LANYAN",
+                "element": "불",
+                "damageMultipliers": {
+                  "불": 0.4
+                }
+              }
+            ]
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 184,
+            "shields": []
+          }
+        ],
+        "targetId": "MOND_NOELLE",
+        "actorId": "MON_HUSK_STANDARD#1",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 3102,
+        "hpAfter": 184,
+        "maxHp": 6204
+      }
+    },
+    {
+      "version": "before",
+      "diagnosticFixture": "Equal25 craft+6 baseTalent4; wounded Noelle selected by actual skill; initial enemy aura is explicit controlled fixture, not a public campaign.",
+      "jade": true,
+      "element": "불",
+      "lanAtk": 823.62,
+      "lanTalent": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "beforeHp": 3102,
+      "incoming": 7780,
+      "beforeShields": [
+        {
+          "source": "LIYUE_ZHONGLI_E",
+          "value": 1925,
+          "initialValue": 1925,
+          "rounds": 2,
+          "createdRound": 1,
+          "ignoreForcedMove": true
+        },
+        {
+          "source": "LIYUE_LANYAN_E",
+          "value": 1945,
+          "initialValue": 1945,
+          "rounds": 2,
+          "createdRound": 1,
+          "converted": "불",
+          "actor": "LIYUE_LANYAN"
+        }
+      ],
+      "afterHp": 1157,
+      "afterShields": [],
+      "packet": {
+        "actor": "암흑의 빈 갑주·기수",
+        "target": "노엘",
+        "damage": 1945,
+        "absorbed": 1945,
+        "shieldBefore": 3870,
+        "shieldAfter": 0,
+        "brokenShields": [
+          "LIYUE_ZHONGLI_E",
+          "LIYUE_LANYAN_E"
+        ],
+        "element": "불",
+        "sourceKind": "TEST_FINAL_PACKET",
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 3102,
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 1925,
+                "initialValue": 1925,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              },
+              {
+                "source": "LIYUE_LANYAN_E",
+                "value": 1945,
+                "initialValue": 1945,
+                "rounds": 2,
+                "createdRound": 1,
+                "converted": "불",
+                "actor": "LIYUE_LANYAN"
+              }
+            ]
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 1157,
+            "shields": []
+          }
+        ],
+        "targetId": "MOND_NOELLE",
+        "actorId": "MON_HUSK_STANDARD#1",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 3102,
+        "hpAfter": 1157,
+        "maxHp": 6204
+      }
+    },
+    {
+      "version": "candidate",
+      "diagnosticFixture": "Equal25 craft+6 baseTalent4; wounded Noelle selected by actual skill; initial enemy aura is explicit controlled fixture, not a public campaign.",
+      "jade": true,
+      "element": "불",
+      "lanAtk": 823.62,
+      "lanTalent": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "beforeHp": 3102,
+      "incoming": 7780,
+      "beforeShields": [
+        {
+          "source": "LIYUE_ZHONGLI_E",
+          "value": 1925,
+          "initialValue": 1925,
+          "rounds": 2,
+          "createdRound": 1,
+          "ignoreForcedMove": true
+        },
+        {
+          "source": "LIYUE_LANYAN_E",
+          "value": 1945,
+          "initialValue": 1945,
+          "rounds": 2,
+          "createdRound": 1,
+          "converted": "불",
+          "actor": "LIYUE_LANYAN",
+          "element": "불",
+          "damageMultipliers": {
+            "불": 0.4
+          }
+        }
+      ],
+      "afterHp": 184,
+      "afterShields": [],
+      "packet": {
+        "actor": "암흑의 빈 갑주·기수",
+        "target": "노엘",
+        "damage": 2918,
+        "absorbed": 4863,
+        "shieldBefore": 3870,
+        "shieldAfter": 0,
+        "brokenShields": [
+          "LIYUE_ZHONGLI_E",
+          "LIYUE_LANYAN_E"
+        ],
+        "element": "불",
+        "sourceKind": "TEST_FINAL_PACKET",
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 3102,
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 1925,
+                "initialValue": 1925,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              },
+              {
+                "source": "LIYUE_LANYAN_E",
+                "value": 1945,
+                "initialValue": 1945,
+                "rounds": 2,
+                "createdRound": 1,
+                "converted": "불",
+                "actor": "LIYUE_LANYAN",
+                "element": "불",
+                "damageMultipliers": {
+                  "불": 0.4
+                }
+              }
+            ]
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 184,
+            "shields": []
+          }
+        ],
+        "targetId": "MOND_NOELLE",
+        "actorId": "MON_HUSK_STANDARD#1",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 3102,
+        "hpAfter": 184,
+        "maxHp": 6204
+      }
+    },
+    {
+      "version": "before",
+      "diagnosticFixture": "Equal25 craft+6 baseTalent4; wounded Noelle selected by actual skill; initial enemy aura is explicit controlled fixture, not a public campaign.",
+      "jade": false,
+      "element": "바람",
+      "lanAtk": 823.62,
+      "lanTalent": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "beforeHp": 3102,
+      "incoming": 7780,
+      "beforeShields": [
+        {
+          "source": "LIYUE_LANYAN_E",
+          "value": 1945,
+          "initialValue": 1945,
+          "rounds": 2,
+          "createdRound": 1,
+          "actor": "LIYUE_LANYAN"
+        }
+      ],
+      "afterHp": 0,
+      "afterShields": [],
+      "packet": {
+        "actor": "암흑의 빈 갑주·기수",
+        "target": "노엘",
+        "damage": 5835,
+        "absorbed": 1945,
+        "shieldBefore": 1945,
+        "shieldAfter": 0,
+        "brokenShields": [
+          "LIYUE_LANYAN_E"
+        ],
+        "element": "바람",
+        "sourceKind": "TEST_FINAL_PACKET",
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 3102,
+            "shields": [
+              {
+                "source": "LIYUE_LANYAN_E",
+                "value": 1945,
+                "initialValue": 1945,
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "LIYUE_LANYAN"
+              }
+            ]
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 0,
+            "shields": []
+          }
+        ],
+        "targetId": "MOND_NOELLE",
+        "actorId": "MON_HUSK_STANDARD#1",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 3102,
+        "hpAfter": 0,
+        "maxHp": 6204
+      }
+    },
+    {
+      "version": "candidate",
+      "diagnosticFixture": "Equal25 craft+6 baseTalent4; wounded Noelle selected by actual skill; initial enemy aura is explicit controlled fixture, not a public campaign.",
+      "jade": false,
+      "element": "바람",
+      "lanAtk": 823.62,
+      "lanTalent": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "beforeHp": 3102,
+      "incoming": 7780,
+      "beforeShields": [
+        {
+          "source": "LIYUE_LANYAN_E",
+          "value": 1945,
+          "initialValue": 1945,
+          "rounds": 2,
+          "createdRound": 1,
+          "actor": "LIYUE_LANYAN",
+          "element": "바람",
+          "damageMultipliers": {
+            "바람": 0.4
+          }
+        }
+      ],
+      "afterHp": 184,
+      "afterShields": [],
+      "packet": {
+        "actor": "암흑의 빈 갑주·기수",
+        "target": "노엘",
+        "damage": 2918,
+        "absorbed": 4863,
+        "shieldBefore": 1945,
+        "shieldAfter": 0,
+        "brokenShields": [
+          "LIYUE_LANYAN_E"
+        ],
+        "element": "바람",
+        "sourceKind": "TEST_FINAL_PACKET",
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 3102,
+            "shields": [
+              {
+                "source": "LIYUE_LANYAN_E",
+                "value": 1945,
+                "initialValue": 1945,
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "LIYUE_LANYAN",
+                "element": "바람",
+                "damageMultipliers": {
+                  "바람": 0.4
+                }
+              }
+            ]
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 184,
+            "shields": []
+          }
+        ],
+        "targetId": "MOND_NOELLE",
+        "actorId": "MON_HUSK_STANDARD#1",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 3102,
+        "hpAfter": 184,
+        "maxHp": 6204
+      }
+    },
+    {
+      "version": "before",
+      "diagnosticFixture": "Equal25 craft+6 baseTalent4; wounded Noelle selected by actual skill; initial enemy aura is explicit controlled fixture, not a public campaign.",
+      "jade": true,
+      "element": "바람",
+      "lanAtk": 823.62,
+      "lanTalent": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "beforeHp": 3102,
+      "incoming": 7780,
+      "beforeShields": [
+        {
+          "source": "LIYUE_ZHONGLI_E",
+          "value": 1925,
+          "initialValue": 1925,
+          "rounds": 2,
+          "createdRound": 1,
+          "ignoreForcedMove": true
+        },
+        {
+          "source": "LIYUE_LANYAN_E",
+          "value": 1945,
+          "initialValue": 1945,
+          "rounds": 2,
+          "createdRound": 1,
+          "actor": "LIYUE_LANYAN"
+        }
+      ],
+      "afterHp": 0,
+      "afterShields": [],
+      "packet": {
+        "actor": "암흑의 빈 갑주·기수",
+        "target": "노엘",
+        "damage": 5835,
+        "absorbed": 1945,
+        "shieldBefore": 3870,
+        "shieldAfter": 0,
+        "brokenShields": [
+          "LIYUE_ZHONGLI_E",
+          "LIYUE_LANYAN_E"
+        ],
+        "element": "바람",
+        "sourceKind": "TEST_FINAL_PACKET",
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 3102,
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 1925,
+                "initialValue": 1925,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              },
+              {
+                "source": "LIYUE_LANYAN_E",
+                "value": 1945,
+                "initialValue": 1945,
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "LIYUE_LANYAN"
+              }
+            ]
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 0,
+            "shields": []
+          }
+        ],
+        "targetId": "MOND_NOELLE",
+        "actorId": "MON_HUSK_STANDARD#1",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 3102,
+        "hpAfter": 0,
+        "maxHp": 6204
+      }
+    },
+    {
+      "version": "candidate",
+      "diagnosticFixture": "Equal25 craft+6 baseTalent4; wounded Noelle selected by actual skill; initial enemy aura is explicit controlled fixture, not a public campaign.",
+      "jade": true,
+      "element": "바람",
+      "lanAtk": 823.62,
+      "lanTalent": {
+        "na": 4,
+        "e": 4,
+        "q": 4,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "kinds": {
+          "c3": "e",
+          "c5": "q"
+        }
+      },
+      "beforeHp": 3102,
+      "incoming": 7780,
+      "beforeShields": [
+        {
+          "source": "LIYUE_ZHONGLI_E",
+          "value": 1925,
+          "initialValue": 1925,
+          "rounds": 2,
+          "createdRound": 1,
+          "ignoreForcedMove": true
+        },
+        {
+          "source": "LIYUE_LANYAN_E",
+          "value": 1945,
+          "initialValue": 1945,
+          "rounds": 2,
+          "createdRound": 1,
+          "actor": "LIYUE_LANYAN",
+          "element": "바람",
+          "damageMultipliers": {
+            "바람": 0.4
+          }
+        }
+      ],
+      "afterHp": 184,
+      "afterShields": [],
+      "packet": {
+        "actor": "암흑의 빈 갑주·기수",
+        "target": "노엘",
+        "damage": 2918,
+        "absorbed": 4863,
+        "shieldBefore": 3870,
+        "shieldAfter": 0,
+        "brokenShields": [
+          "LIYUE_ZHONGLI_E",
+          "LIYUE_LANYAN_E"
+        ],
+        "element": "바람",
+        "sourceKind": "TEST_FINAL_PACKET",
+        "presentationActorsBefore": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 3102,
+            "shields": [
+              {
+                "source": "LIYUE_ZHONGLI_E",
+                "value": 1925,
+                "initialValue": 1925,
+                "rounds": 2,
+                "createdRound": 1,
+                "ignoreForcedMove": true
+              },
+              {
+                "source": "LIYUE_LANYAN_E",
+                "value": 1945,
+                "initialValue": 1945,
+                "rounds": 2,
+                "createdRound": 1,
+                "actor": "LIYUE_LANYAN",
+                "element": "바람",
+                "damageMultipliers": {
+                  "바람": 0.4
+                }
+              }
+            ]
+          }
+        ],
+        "presentationActorsAfter": [
+          {
+            "id": "MOND_NOELLE",
+            "hp": 184,
+            "shields": []
+          }
+        ],
+        "targetId": "MOND_NOELLE",
+        "actorId": "MON_HUSK_STANDARD#1",
+        "round": 1,
+        "actionSequence": 0,
+        "hpBefore": 3102,
+        "hpAfter": 184,
+        "maxHp": 6204
+      }
+    }
+  ]
+}

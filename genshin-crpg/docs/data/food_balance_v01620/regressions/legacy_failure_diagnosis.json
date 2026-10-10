@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "selectedProgramCount": 21,
+  "passed": 20,
+  "failedNotCountedPass": 1,
+  "failedTest": "tests/test_economy.cjs",
+  "failure": "TypeError: r.adminApply is not a function",
+  "newFailureCausedByFoodPatch": false,
+  "sameFailureReproducedAgainstExactBefore235": true,
+  "beforeAndAfterLoadOnlyLegacyFiveScripts": true,
+  "notIncludedInCurrent174ReleaseTESTS": true,
+  "noProductOrTestExpectedValueEdits": true,
+  "rawBeforeFailureLog": "legacy_baseline_failure.log.gz",
+  "rawAfterFailureLog": "tests__test_economy.cjs.log.gz",
+  "modernNativeCoverage": "tests/test_food_balance_v01620.cjs14passed + food/lodging/economy/inn/authoritative/co-opexistinggates20passed",
+  "limits": "The legacy fixture is still blocked. Same before failure is a diagnosis, not a passing result."
+}

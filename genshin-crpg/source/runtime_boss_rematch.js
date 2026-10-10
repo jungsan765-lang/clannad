@@ -8,9 +8,12 @@
 const api=root.CRPGRuntime,P=api.Runtime.prototype,copy=x=>JSON.parse(JSON.stringify(x)),fail=(c,m)=>{throw new api.RuleError(c,m);};
 if(!P.materialChallengeReason)throw Error('runtime_enhancement.js must be loaded first');
 // hp/atk/def multiply the story profile (runtime_mond_boss_balance.js) after the formation offset.
+// 0.15.2 balance check (runtime_balance_v0152.js): at the recommended level both rematches were lost every time (Andrius
+// grows stronger each round, Dvalin's ruins fall after eight rounds) and only maxed +12 parties beat Dvalin. Now a party
+// at the recommended level wins most fights, and broken-through gear wins them comfortably.
 const REMATCH={
- BOSS_ANDRIUS:{level:15,minLevel:13,hp:3.4,atk:2.6,def:1.6,books:{MAT_CHAR_EXP_HERO:2}},
- BOSS_DVALIN:{level:18,minLevel:16,hp:2.2,atk:2.2,def:1.8,books:{MAT_CHAR_EXP_HERO:3}}
+ BOSS_ANDRIUS:{level:25,minLevel:22,hp:2.2,atk:1.8,def:1.35,books:{MAT_CHAR_EXP_HERO:2}},
+ BOSS_DVALIN:{level:28,minLevel:25,hp:1.65,atk:1.85,def:1.6,books:{MAT_CHAR_EXP_HERO:3}}
 };
 api.bossRematch=copy(REMATCH);
 const old=Object.fromEntries(['materialChallengeReason','startBattle','finishBattle','validateSave'].map(k=>[k,P[k]]));

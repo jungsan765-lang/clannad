@@ -1,0 +1,34 @@
+{
+  "schema": 2,
+  "passed": true,
+  "checks": 6456,
+  "failed": [],
+  "database": {
+    "mode": "canonical_qa",
+    "path": "content/db.json",
+    "bytes": 23049439,
+    "sha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "gitBlob": "37f324d493b8038ce130e84aeb4f9d8e8cb2c338",
+    "cleanRuntime": {
+      "bytes": 23049438,
+      "sha256": "c3d5eef26ac21e19136131ba3ab24ab542c1dbe63d428f6e47ab7743d1e75aa1"
+    },
+    "sanitizedTables": [
+      "15_INVENTORY_STATE",
+      "25_CURRENT_ROSTER",
+      "28_CANON_AUDIT",
+      "98_BACKUP_CHAR_STATS_20260917",
+      "38_ELEMENTAL_RUNTIME",
+      "39_CARD_RUNTIME",
+      "40_CRPG_MIGRATION_PLAN",
+      "41_SAVE_CHAR_STATE",
+      "42_SAVE_QUEST_STATE",
+      "43_SAVE_FLAG_STATE",
+      "44_SAVE_PARTY_STATE",
+      "52_COMBAT_VAR_RUNTIME",
+      "54_SAVE_RELATION_STATE"
+    ],
+    "cleanParityPassed": true
+  },
+  "assumption": "The exact canonical QA or published authored DB must also produce the recorded native clean runtime DB. Authored raw blob preservation alone is not clean parity evidence."
+}

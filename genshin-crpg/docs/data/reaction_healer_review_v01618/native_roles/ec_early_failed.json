@@ -1,0 +1,347 @@
+{
+  "expectedSameTotal": true,
+  "assertionFailed": true,
+  "baseline": 1566,
+  "candidate": 2610,
+  "reason": "Neighbor expires earlier; original seed DOT spreads EC onto that wet neighbor again, producing extra future ticks. Candidate rejected.",
+  "rows": [
+    {
+      "level": 10,
+      "n": 4,
+      "candidate": "base",
+      "phases": [
+        {
+          "name": "cast",
+          "damage": 0,
+          "absorption": 0,
+          "packets": []
+        },
+        {
+          "name": "END1",
+          "damage": 174,
+          "absorption": 0,
+          "packets": [
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 0",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            }
+          ]
+        },
+        {
+          "name": "END2",
+          "damage": 696,
+          "absorption": 0,
+          "packets": [
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 0",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 1",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 2",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 3",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            }
+          ]
+        },
+        {
+          "name": "END3",
+          "damage": 696,
+          "absorption": 0,
+          "packets": [
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 0",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 1",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 2",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 3",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            }
+          ]
+        },
+        {
+          "name": "END4",
+          "damage": 0,
+          "absorption": 0,
+          "packets": []
+        },
+        {
+          "name": "END5",
+          "damage": 0,
+          "absorption": 0,
+          "packets": []
+        }
+      ],
+      "total": 1566,
+      "base": 145
+    },
+    {
+      "level": 10,
+      "n": 4,
+      "candidate": "same_total_early_first_and_spread",
+      "phases": [
+        {
+          "name": "cast",
+          "damage": 696,
+          "absorption": 0,
+          "packets": [
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 0",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 1",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 2",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 3",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            }
+          ]
+        },
+        {
+          "name": "END1",
+          "damage": 0,
+          "absorption": 0,
+          "packets": []
+        },
+        {
+          "name": "END2",
+          "damage": 696,
+          "absorption": 0,
+          "packets": [
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 0",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 1",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 2",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 3",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            }
+          ]
+        },
+        {
+          "name": "END3",
+          "damage": 174,
+          "absorption": 0,
+          "packets": [
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 0",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            }
+          ]
+        },
+        {
+          "name": "END4",
+          "damage": 522,
+          "absorption": 0,
+          "packets": [
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 1",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 2",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 3",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            }
+          ]
+        },
+        {
+          "name": "END5",
+          "damage": 522,
+          "absorption": 0,
+          "packets": [
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 1",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 2",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            },
+            {
+              "actor": "케이아",
+              "target": "동일 방어력 대상 3",
+              "damage": 174,
+              "absorbed": 0,
+              "reaction": "RX_ELECTROCHARGED",
+              "element": "번개",
+              "sourceKind": "REACTION_DOT",
+              "immune": false
+            }
+          ]
+        }
+      ],
+      "total": 2610,
+      "base": 145
+    }
+  ]
+}

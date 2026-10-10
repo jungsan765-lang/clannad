@@ -1,0 +1,36 @@
+{
+  "test": "tests/test_reaction_fixes_v01619.cjs",
+  "command": [
+    "node",
+    "tests/test_reaction_fixes_v01619.cjs"
+  ],
+  "startedAt": "2026-10-10T09:11:30.383607+00:00",
+  "endedAt": "2026-10-10T09:12:41.993250+00:00",
+  "seconds": 71.45,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "source/runtime_growth_v01522.js": {
+      "before": "8e0bb024a3a4586b5457b09a4ef81baea6c5dcf264f7edd255efee202e774632",
+      "after": "b701e4eb59718acbdb6ff31067d0d02bacab6576edc1b82a9a06ad427acd2ee7"
+    },
+    "tests/test_boss_difficulty_scope_v01624.cjs": {
+      "before": "2808775a3dd78dbe7ec64e4b7f1690795c1cbf322de75a2f9c78ae0155304c63",
+      "after": "4e832e7cb8b16d66479c0ba8a96a222c1bbeb3b8da000043ad5546fb2ef441a0"
+    },
+    "tests/test_daily_pressure_v01624.cjs": {
+      "before": null,
+      "after": "b430c2032dc3190644462aaf2a4af0b0f85a53a032c8cbe07973369edccce8d1"
+    },
+    "tests/test_material_efficiency_v01622.cjs": {
+      "before": "a0be0ddb73f354bad0f6cd4a94273f4461aa883317b9e6a62fb553c8eff324f0",
+      "after": "fca1f377cffbb0a2eeb17b521a997c03bd7fe32bc81ea250c5b4fccb8c9fd2df"
+    }
+  },
+  "testSha256": "cc4b50dd56108e12ac150987b43b9c026b3d6d89e652f9af4cc1a6b8c7c20bff",
+  "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+  "stdoutSha256": "b358c801b81da7ddf1fbce48f2da11f8231178f0f96d5fbd77595857ea2e4156",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_reaction_fixes_v01619.stdout.log",
+  "stderrLog": "test_reaction_fixes_v01619.stderr.log"
+}

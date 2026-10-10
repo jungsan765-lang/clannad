@@ -1,0 +1,5534 @@
+{
+  "schema": 1,
+  "root": "/tmp/crpg_full_balance_v01621/baseline",
+  "fingerprint": "c549452cbfe07e45d362e6d0865efbddb8dffc07307b9e09502617c22d1a801a",
+  "assumptions": {
+    "native": "Uses current public USE_ITEM/DOMAIN_START/COMBAT transactions and native addXp for isolated lifecycle boundaries. No combat/heal/XP behavior is replaced.",
+    "fixtures": "Declared ownership, legal level/phase/talents/gear, HP and XP immediately before a level boundary are diagnostic fixtures. No real player save or live account is changed.",
+    "labels": "Native combat heals, combat-end HP clipping, level-up HP, explicit protagonist victory revival and inn quotation are kept separate. A book is an item cost and not described as free."
+  },
+  "isolated": [
+    {
+      "action": "public experience book",
+      "owner": "PLAYER_CUSTOM",
+      "hp": 0,
+      "boundary": false,
+      "before": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 0,
+        "maxHp": 1635,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 9,
+          "xp": 0,
+          "next": 1170,
+          "remaining": 1170,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "error": {
+        "code": "ACTION_LOCK",
+        "message": "전투불능 상태입니다. 먼저 회복해 주세요."
+      },
+      "after": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 0,
+        "maxHp": 1635,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 9,
+          "xp": 0,
+          "next": 1170,
+          "remaining": 1170,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "remainingBooks": 1,
+      "fullHeal": false,
+      "revived": false
+    },
+    {
+      "action": "public experience book",
+      "owner": "PLAYER_CUSTOM",
+      "hp": 0,
+      "boundary": true,
+      "before": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 0,
+        "maxHp": 1635,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 9,
+          "xp": 1169,
+          "next": 1170,
+          "remaining": 1,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "error": {
+        "code": "ACTION_LOCK",
+        "message": "전투불능 상태입니다. 먼저 회복해 주세요."
+      },
+      "after": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 0,
+        "maxHp": 1635,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 9,
+          "xp": 1169,
+          "next": 1170,
+          "remaining": 1,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "remainingBooks": 1,
+      "fullHeal": false,
+      "revived": false
+    },
+    {
+      "action": "public experience book",
+      "owner": "PLAYER_CUSTOM",
+      "hp": 1,
+      "boundary": false,
+      "before": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 1,
+        "maxHp": 1635,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 9,
+          "xp": 0,
+          "next": 1170,
+          "remaining": 1170,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "receipt": {
+        "item": "MAT_CHAR_EXP_WANDERER",
+        "quantity": 1,
+        "xp": 50,
+        "owner": "PLAYER_CUSTOM"
+      },
+      "after": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 1,
+        "maxHp": 1635,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 9,
+          "xp": 50,
+          "next": 1170,
+          "remaining": 1120,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "remainingBooks": 0,
+      "fullHeal": false,
+      "revived": false
+    },
+    {
+      "action": "public experience book",
+      "owner": "PLAYER_CUSTOM",
+      "hp": 1,
+      "boundary": true,
+      "before": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 1,
+        "maxHp": 1635,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 9,
+          "xp": 1169,
+          "next": 1170,
+          "remaining": 1,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "receipt": {
+        "item": "MAT_CHAR_EXP_WANDERER",
+        "quantity": 1,
+        "xp": 50,
+        "owner": "PLAYER_CUSTOM"
+      },
+      "after": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 1733,
+        "maxHp": 1733,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        }
+      },
+      "remainingBooks": 0,
+      "fullHeal": true,
+      "revived": false
+    },
+    {
+      "action": "public experience book",
+      "owner": "MOND_AMBER",
+      "hp": 0,
+      "boundary": false,
+      "before": {
+        "owner": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 1743,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 9,
+          "xp": 0,
+          "next": 1170,
+          "remaining": 1170,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "receipt": {
+        "item": "MAT_CHAR_EXP_WANDERER",
+        "quantity": 1,
+        "xp": 50,
+        "owner": "MOND_AMBER"
+      },
+      "after": {
+        "owner": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 1743,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 9,
+          "xp": 50,
+          "next": 1170,
+          "remaining": 1120,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "remainingBooks": 0,
+      "fullHeal": false,
+      "revived": false
+    },
+    {
+      "action": "public experience book",
+      "owner": "MOND_AMBER",
+      "hp": 0,
+      "boundary": true,
+      "before": {
+        "owner": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 1743,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 9,
+          "xp": 1169,
+          "next": 1170,
+          "remaining": 1,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "receipt": {
+        "item": "MAT_CHAR_EXP_WANDERER",
+        "quantity": 1,
+        "xp": 50,
+        "owner": "MOND_AMBER"
+      },
+      "after": {
+        "owner": "MOND_AMBER",
+        "hp": 1850,
+        "maxHp": 1850,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        }
+      },
+      "remainingBooks": 0,
+      "fullHeal": true,
+      "revived": true
+    },
+    {
+      "action": "public experience book",
+      "owner": "MOND_AMBER",
+      "hp": 1,
+      "boundary": false,
+      "before": {
+        "owner": "MOND_AMBER",
+        "hp": 1,
+        "maxHp": 1743,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 9,
+          "xp": 0,
+          "next": 1170,
+          "remaining": 1170,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "receipt": {
+        "item": "MAT_CHAR_EXP_WANDERER",
+        "quantity": 1,
+        "xp": 50,
+        "owner": "MOND_AMBER"
+      },
+      "after": {
+        "owner": "MOND_AMBER",
+        "hp": 1,
+        "maxHp": 1743,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 9,
+          "xp": 50,
+          "next": 1170,
+          "remaining": 1120,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "remainingBooks": 0,
+      "fullHeal": false,
+      "revived": false
+    },
+    {
+      "action": "public experience book",
+      "owner": "MOND_AMBER",
+      "hp": 1,
+      "boundary": true,
+      "before": {
+        "owner": "MOND_AMBER",
+        "hp": 1,
+        "maxHp": 1743,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 9,
+          "xp": 1169,
+          "next": 1170,
+          "remaining": 1,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "receipt": {
+        "item": "MAT_CHAR_EXP_WANDERER",
+        "quantity": 1,
+        "xp": 50,
+        "owner": "MOND_AMBER"
+      },
+      "after": {
+        "owner": "MOND_AMBER",
+        "hp": 1850,
+        "maxHp": 1850,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        }
+      },
+      "remainingBooks": 0,
+      "fullHeal": true,
+      "revived": false
+    },
+    {
+      "action": "authoritative addXp lifecycle",
+      "callerClass": "combat",
+      "before": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 0,
+        "maxHp": 1635,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 9,
+          "xp": 1169,
+          "next": 1170,
+          "remaining": 1,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "after": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 1733,
+        "maxHp": 1733,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        }
+      },
+      "revived": true
+    },
+    {
+      "action": "authoritative addXp lifecycle",
+      "callerClass": "combat",
+      "before": {
+        "owner": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 1743,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 9,
+          "xp": 1169,
+          "next": 1170,
+          "remaining": 1,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "after": {
+        "owner": "MOND_AMBER",
+        "hp": 1850,
+        "maxHp": 1850,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        }
+      },
+      "revived": true
+    },
+    {
+      "action": "authoritative addXp lifecycle",
+      "callerClass": "quest/book via addXp",
+      "before": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 0,
+        "maxHp": 1635,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 9,
+          "xp": 1169,
+          "next": 1170,
+          "remaining": 1,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "after": {
+        "owner": "PLAYER_CUSTOM",
+        "hp": 1733,
+        "maxHp": 1733,
+        "growth": {
+          "owner": "PLAYER_CUSTOM",
+          "name": "동일 조건 비교",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        }
+      },
+      "revived": true
+    },
+    {
+      "action": "authoritative addXp lifecycle",
+      "callerClass": "quest/book via addXp",
+      "before": {
+        "owner": "MOND_AMBER",
+        "hp": 0,
+        "maxHp": 1743,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 9,
+          "xp": 1169,
+          "next": 1170,
+          "remaining": 1,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": false,
+          "final": false
+        }
+      },
+      "after": {
+        "owner": "MOND_AMBER",
+        "hp": 1850,
+        "maxHp": 1850,
+        "growth": {
+          "owner": "MOND_AMBER",
+          "name": "엠버",
+          "level": 10,
+          "xp": 0,
+          "next": 0,
+          "remaining": 0,
+          "cap": 10,
+          "phase": 0,
+          "talentCap": 1,
+          "max": true,
+          "final": false
+        }
+      },
+      "revived": true
+    }
+  ],
+  "battles": [
+    {
+      "domain": "FORSAKEN_RIFT:5",
+      "seed": 717,
+      "initialDownCompanion": "MOND_AMBER",
+      "boundary": false,
+      "before": [
+        {
+          "owner": "MOND_AMBER",
+          "hp": 0,
+          "maxHp": 1743,
+          "growth": {
+            "owner": "MOND_AMBER",
+            "name": "엠버",
+            "level": 9,
+            "xp": 0,
+            "next": 1170,
+            "remaining": 1170,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "hp": 1765,
+          "maxHp": 1765,
+          "growth": {
+            "owner": "LIYUE_XIANGLING",
+            "name": "향릉",
+            "level": 9,
+            "xp": 0,
+            "next": 1170,
+            "remaining": 1170,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "hp": 1743,
+          "maxHp": 1743,
+          "growth": {
+            "owner": "MOND_BARBARA",
+            "name": "바바라",
+            "level": 9,
+            "xp": 0,
+            "next": 1170,
+            "remaining": 1170,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        }
+      ],
+      "initial": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 1635,
+          "maxHp": 1635,
+          "level": 9
+        },
+        {
+          "source": "MOND_AMBER",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 1743,
+          "level": 9
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "hp": 1765,
+          "maxHp": 1853,
+          "level": 9
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 1743,
+          "maxHp": 1743,
+          "level": 9
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 900,
+          "maxHp": 900,
+          "level": 5
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 900,
+          "maxHp": 900,
+          "level": 5
+        },
+        {
+          "source": "MON_SLIME_ANEMO",
+          "side": "ENEMY",
+          "hp": 900,
+          "maxHp": 900,
+          "level": 5
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-9-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-9-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-9-717",
+        "group": "EG_DOMAIN4_FORSAKEN_RIFT_5",
+        "origin": "DOMAIN:FORSAKEN_RIFT:5",
+        "gate": "DOMAIN:FORSAKEN_RIFT:5",
+        "branch": null,
+        "victory": true,
+        "xp": 40,
+        "loot": {
+          "MAT_SLIME_SECRETIONS": 1,
+          "GROWTH_TALENT_MOND": 1
+        },
+        "rounds": 2,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "domain": {
+          "id": "FORSAKEN_RIFT:5",
+          "level": 5,
+          "bonus": false,
+          "items": {
+            "GROWTH_TALENT_MOND": 1
+          }
+        }
+      },
+      "hpBeforeSettlement": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 1635,
+          "maxHp": 1635
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 0,
+          "maxHp": 1743
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 1762,
+          "maxHp": 1853
+        },
+        {
+          "source": "MOND_BARBARA",
+          "hp": 1683,
+          "maxHp": 1743
+        }
+      ],
+      "after": [
+        {
+          "owner": "MOND_AMBER",
+          "hp": 0,
+          "maxHp": 1743,
+          "growth": {
+            "owner": "MOND_AMBER",
+            "name": "엠버",
+            "level": 9,
+            "xp": 40,
+            "next": 1170,
+            "remaining": 1130,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "hp": 1762,
+          "maxHp": 1765,
+          "growth": {
+            "owner": "LIYUE_XIANGLING",
+            "name": "향릉",
+            "level": 9,
+            "xp": 40,
+            "next": 1170,
+            "remaining": 1130,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "hp": 1683,
+          "maxHp": 1743,
+          "growth": {
+            "owner": "MOND_BARBARA",
+            "name": "바바라",
+            "level": 9,
+            "xp": 40,
+            "next": 1170,
+            "remaining": 1130,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        }
+      ],
+      "combatLog": [
+        {
+          "actor": "동일 조건 비교",
+          "actorId": "PLAYER_CUSTOM",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "cardName": "격동의 바람",
+          "round": 1,
+          "actionSequence": 0,
+          "text": "격동의 바람 · 전진하는 돌풍 · 물 원소 전환",
+          "absorbedElement": "물",
+          "protagonistSkill": true,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "name": "동일 조건 비교",
+              "side": "ALLY",
+              "level": 9,
+              "hp": 1635,
+              "maxHp": 1635,
+              "atk": 282,
+              "def": 141,
+              "spd": 61,
+              "crit": 5,
+              "critDmg": 50,
+              "hit": 81,
+              "eva": 7,
+              "resist": 8,
+              "range": "근접",
+              "aura": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 1,
+              "guard": false,
+              "guest": false,
+              "protagonist": {
+                "version": 1,
+                "route": "ROUTE_TRAVELER",
+                "skillIds": [
+                  "PLAYER_TRAVELER_ANEMO_E",
+                  "PLAYER_TRAVELER_ANEMO_Q"
+                ]
+              }
+            },
+            {
+              "id": "MOND_AMBER",
+              "source": "MOND_AMBER",
+              "name": "엠버",
+              "side": "ALLY",
+              "level": 9,
+              "hp": 0,
+              "maxHp": 1743,
+              "atk": 257,
+              "def": 162,
+              "spd": 73,
+              "crit": 21,
+              "critDmg": 60,
+              "hit": 85,
+              "eva": 8,
+              "resist": 16,
+              "range": "원거리",
+              "aura": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "guest": false,
+              "tags": [
+                "[광계]",
+                "[불]"
+              ]
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "name": "향릉",
+              "side": "ALLY",
+              "level": 9,
+              "hp": 1765,
+              "maxHp": 1853,
+              "atk": 296,
+              "def": 165,
+              "spd": 66,
+              "crit": 16,
+              "critDmg": 65,
+              "hit": 83,
+              "eva": 8,
+              "resist": 16,
+              "range": "중거리",
+              "aura": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "guest": false,
+              "tags": [
+                "[광계]",
+                "[불]"
+              ]
+            },
+            {
+              "id": "MOND_BARBARA",
+              "source": "MOND_BARBARA",
+              "name": "바바라",
+              "side": "ALLY",
+              "level": 9,
+              "hp": 1743,
+              "maxHp": 1743,
+              "atk": 210,
+              "def": 169,
+              "spd": 61,
+              "crit": 10,
+              "critDmg": 50,
+              "hit": 83,
+              "eva": 7,
+              "resist": 16,
+              "range": "중거리",
+              "aura": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "guest": false,
+              "tags": [
+                "[광계]",
+                "[물]"
+              ]
+            },
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "source": "MON_SLIME_HYDRO",
+              "name": "물 슬라임",
+              "side": "ENEMY",
+              "level": 5,
+              "hp": 900,
+              "maxHp": 900,
+              "atk": 180,
+              "def": 31,
+              "spd": 65,
+              "crit": 5,
+              "critDmg": 50,
+              "hit": 81,
+              "eva": 4,
+              "resist": 5,
+              "range": "중거리",
+              "grade": "일반",
+              "element": "물",
+              "aura": "물",
+              "nativeAura": "물",
+              "airborne": false,
+              "statuses": [],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "tags": [
+                "[광계]",
+                "[물]"
+              ]
+            },
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "source": "MON_SLIME_HYDRO",
+              "name": "물 슬라임",
+              "side": "ENEMY",
+              "level": 5,
+              "hp": 900,
+              "maxHp": 900,
+              "atk": 180,
+              "def": 31,
+              "spd": 65,
+              "crit": 5,
+              "critDmg": 50,
+              "hit": 81,
+              "eva": 4,
+              "resist": 5,
+              "range": "중거리",
+              "grade": "일반",
+              "element": "물",
+              "aura": "물",
+              "nativeAura": "물",
+              "airborne": false,
+              "statuses": [],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "tags": [
+                "[광계]",
+                "[물]"
+              ]
+            },
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "source": "MON_SLIME_ANEMO",
+              "name": "바람 슬라임",
+              "side": "ENEMY",
+              "level": 5,
+              "hp": 900,
+              "maxHp": 900,
+              "atk": 180,
+              "def": 31,
+              "spd": 65,
+              "crit": 5,
+              "critDmg": 50,
+              "hit": 81,
+              "eva": 4,
+              "resist": 5,
+              "range": "중거리",
+              "grade": "일반",
+              "element": "바람",
+              "aura": "바람",
+              "nativeAura": "바람",
+              "airborne": false,
+              "statuses": [],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "tags": [
+                "[광계]",
+                "[바람]"
+              ]
+            }
+          ]
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 187,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 900
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 713
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 900,
+          "hpAfter": 713,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "reaction": "RX_SWIRL",
+          "sourceKind": "REACTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 713,
+          "hpAfter": 713,
+          "maxHp": 900,
+          "presentationCardId": "PLAYER_TRAVELER_ANEMO_Q",
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "cardName": "격동의 바람"
+        },
+        {
+          "target": "동일 조건 비교",
+          "targetId": "PLAYER_CUSTOM",
+          "actorId": "PLAYER_CUSTOM",
+          "actor": "동일 조건 비교",
+          "round": 1,
+          "actionSequence": 0,
+          "statusApplied": {
+            "id": "TRAIT_STACK_ATK",
+            "rounds": 2,
+            "createdRound": 1,
+            "stacks": 1,
+            "mods": {
+              "atk": {
+                "pct": 3
+              }
+            },
+            "traitStatus": true
+          },
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ]
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 3
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "presentationActorId": "PLAYER_CUSTOM",
+          "presentationActorName": "동일 조건 비교",
+          "presentationCardId": "PLAYER_TRAVELER_ANEMO_Q",
+          "presentationSourceKind": "STATUS_APPLY",
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 713,
+          "hpAfter": 713,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 205,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 713
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 3
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 508
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 2,
+                  "mods": {
+                    "atk": {
+                      "pct": 6
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 713,
+          "hpAfter": 508,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 508,
+          "hpAfter": 508,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 197,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 508
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 2,
+                  "mods": {
+                    "atk": {
+                      "pct": 6
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 311
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 3,
+                  "mods": {
+                    "atk": {
+                      "pct": 9
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 508,
+          "hpAfter": 311,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": true,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 311,
+          "hpAfter": 311,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "target": "물 슬라임",
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "MON_SLIME_HYDRO#1",
+          "actor": "물 슬라임",
+          "round": 1,
+          "actionSequence": 0,
+          "statusApplied": {
+            "id": "LIFTED",
+            "rounds": 1,
+            "createdRound": 1
+          },
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "statuses": []
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "statuses": [
+                {
+                  "id": "LIFTED",
+                  "rounds": 1,
+                  "createdRound": 1
+                }
+              ]
+            }
+          ],
+          "presentationActorId": "PLAYER_CUSTOM",
+          "presentationActorName": "동일 조건 비교",
+          "presentationCardId": "PLAYER_TRAVELER_ANEMO_Q",
+          "presentationSourceKind": "STATUS_APPLY",
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 200,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 900
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 700
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 900,
+          "hpAfter": 700,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "reaction": "RX_SWIRL",
+          "sourceKind": "REACTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 700,
+          "hpAfter": 700,
+          "maxHp": 900,
+          "presentationCardId": "PLAYER_TRAVELER_ANEMO_Q",
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 80,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "reaction": "RX_SWIRL",
+          "sourceKind": "REACTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 900
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 820
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 900,
+          "hpAfter": 820,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 700,
+          "hpAfter": 700,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 212,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 700
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 488
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 700,
+          "hpAfter": 488,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 488,
+          "hpAfter": 488,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 218,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 488
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 270
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 488,
+          "hpAfter": 270,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 270,
+          "hpAfter": 270,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "target": "물 슬라임",
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "MON_SLIME_HYDRO#2",
+          "actor": "물 슬라임",
+          "round": 1,
+          "actionSequence": 0,
+          "statusApplied": {
+            "id": "LIFTED",
+            "rounds": 1,
+            "createdRound": 1
+          },
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "statuses": []
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "statuses": [
+                {
+                  "id": "LIFTED",
+                  "rounds": 1,
+                  "createdRound": 1
+                }
+              ]
+            }
+          ],
+          "presentationActorId": "PLAYER_CUSTOM",
+          "presentationActorName": "동일 조건 비교",
+          "presentationCardId": "PLAYER_TRAVELER_ANEMO_Q",
+          "presentationSourceKind": "STATUS_APPLY",
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 820,
+          "hpAfter": 820,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 65,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 820
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 755
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 820,
+          "hpAfter": 755,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 755,
+          "hpAfter": 755,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 63,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 755
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 692
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 755,
+          "hpAfter": 692,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 692,
+          "hpAfter": 692,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 66,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 692
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "cooldowns": {}
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 626
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "cooldowns": {
+                "PLAYER_TRAVELER_ANEMO_Q": 4
+              }
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 692,
+          "hpAfter": 626,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "향릉",
+          "card": "LIYUE_XIANGLING_E",
+          "cardName": "누룽지 출격",
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "cooldowns": {},
+              "turns": 0,
+              "guard": null
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "cooldowns": {
+                "LIYUE_XIANGLING_E": 3
+              },
+              "turns": 1,
+              "guard": false
+            }
+          ],
+          "actorId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 1
+        },
+        {
+          "actor": "물 슬라임",
+          "target": "바바라",
+          "miss": true,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "turns": 0,
+              "guard": null
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "turns": 1,
+              "guard": false
+            }
+          ],
+          "targetId": "MOND_BARBARA",
+          "actorId": "MON_SLIME_HYDRO#1",
+          "round": 1,
+          "actionSequence": 2,
+          "presentationCardId": "ECARD_MOND_SLIME_HYDRO_SPECIAL",
+          "cardName": "도약 강타"
+        },
+        {
+          "actor": "물 슬라임",
+          "card": "ECARD_MOND_SLIME_HYDRO_SPECIAL",
+          "cardName": "도약 강타",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "cooldowns": {}
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_HYDRO_SPECIAL": 2
+              }
+            }
+          ],
+          "actorId": "MON_SLIME_HYDRO#1",
+          "round": 1,
+          "actionSequence": 2
+        },
+        {
+          "actor": "물 슬라임",
+          "target": "동일 조건 비교",
+          "miss": true,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "turns": 0,
+              "guard": null
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "turns": 1,
+              "guard": false
+            }
+          ],
+          "targetId": "PLAYER_CUSTOM",
+          "actorId": "MON_SLIME_HYDRO#2",
+          "round": 1,
+          "actionSequence": 3,
+          "presentationCardId": "ECARD_MOND_SLIME_HYDRO_SPECIAL",
+          "cardName": "도약 강타"
+        },
+        {
+          "actor": "물 슬라임",
+          "card": "ECARD_MOND_SLIME_HYDRO_SPECIAL",
+          "cardName": "도약 강타",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "cooldowns": {}
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_HYDRO_SPECIAL": 2
+              }
+            }
+          ],
+          "actorId": "MON_SLIME_HYDRO#2",
+          "round": 1,
+          "actionSequence": 3
+        },
+        {
+          "actor": "바바라",
+          "target": "동일 조건 비교",
+          "heal": 0,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_BARBARA",
+              "turns": 0,
+              "guard": null
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_BARBARA",
+              "turns": 1,
+              "guard": false
+            }
+          ],
+          "targetId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 4,
+          "hpBefore": 1635,
+          "hpAfter": 1635,
+          "maxHp": 1635,
+          "actorId": "MOND_BARBARA",
+          "cardName": "빛나는기적♪"
+        },
+        {
+          "actor": "바바라",
+          "target": "향릉",
+          "heal": 88,
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 1765
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 1853
+            }
+          ],
+          "targetId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 4,
+          "hpBefore": 1765,
+          "hpAfter": 1853,
+          "maxHp": 1853,
+          "actorId": "MOND_BARBARA",
+          "cardName": "빛나는기적♪"
+        },
+        {
+          "actor": "바바라",
+          "target": "바바라",
+          "heal": 0,
+          "targetId": "MOND_BARBARA",
+          "round": 1,
+          "actionSequence": 4,
+          "hpBefore": 1743,
+          "hpAfter": 1743,
+          "maxHp": 1743,
+          "actorId": "MOND_BARBARA",
+          "cardName": "빛나는기적♪"
+        },
+        {
+          "actor": "바바라",
+          "card": "MOND_BARBARA_Q",
+          "cardName": "빛나는기적♪",
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_BARBARA",
+              "cooldowns": {}
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_BARBARA",
+              "cooldowns": {
+                "MOND_BARBARA_Q": 6
+              }
+            }
+          ],
+          "actorId": "MOND_BARBARA",
+          "round": 1,
+          "actionSequence": 4
+        },
+        {
+          "actor": "바람 슬라임",
+          "target": "바바라",
+          "damage": 60,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "ECARD_MOND_SLIME_ANEMO_SPECIAL",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_BARBARA",
+              "hp": 1743
+            },
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "turns": 0,
+              "guard": null
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_BARBARA",
+              "hp": 1683
+            },
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "turns": 1,
+              "guard": false
+            }
+          ],
+          "targetId": "MOND_BARBARA",
+          "actorId": "MON_SLIME_ANEMO#1",
+          "round": 1,
+          "actionSequence": 5,
+          "hpBefore": 1743,
+          "hpAfter": 1683,
+          "maxHp": 1743,
+          "cardName": "도약 강타"
+        },
+        {
+          "actor": "바람 슬라임",
+          "card": "ECARD_MOND_SLIME_ANEMO_SPECIAL",
+          "cardName": "도약 강타",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {}
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_ANEMO_SPECIAL": 2
+              }
+            }
+          ],
+          "actorId": "MON_SLIME_ANEMO#1",
+          "round": 1,
+          "actionSequence": 5
+        },
+        {
+          "actor": "향릉",
+          "target": "물 슬라임",
+          "damage": 271,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "불",
+          "critical": true,
+          "reaction": "RX_VAPORIZE_PYRO",
+          "card": "LIYUE_XIANGLING_E",
+          "sourceKind": "FIELD",
+          "presentationActorId": "SUMMON:GOU_BA:LIYUE_XIANGLING",
+          "presentationActorName": "누룽지",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 311
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 40
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 6,
+          "hpBefore": 311,
+          "hpAfter": 40,
+          "maxHp": 900
+        },
+        {
+          "actor": "향릉",
+          "target": "물 슬라임",
+          "reaction": "RX_VAPORIZE_PYRO",
+          "reactionName": "증발",
+          "text": "증발 반응",
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 6
+        },
+        {
+          "actor": "향릉",
+          "target": "물 슬라임",
+          "damage": 293,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "불",
+          "critical": true,
+          "reaction": "RX_VAPORIZE_PYRO",
+          "card": "LIYUE_XIANGLING_E",
+          "sourceKind": "FIELD",
+          "presentationActorId": "SUMMON:GOU_BA:LIYUE_XIANGLING",
+          "presentationActorName": "누룽지",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 270
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 0
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 6,
+          "hpBefore": 270,
+          "hpAfter": 0,
+          "maxHp": 900
+        },
+        {
+          "actor": "향릉",
+          "target": "물 슬라임",
+          "reaction": "RX_VAPORIZE_PYRO",
+          "reactionName": "증발",
+          "text": "증발 반응",
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 6
+        },
+        {
+          "target": "바바라",
+          "targetId": "MOND_BARBARA",
+          "actorId": "MOND_BARBARA",
+          "actor": "바바라",
+          "round": 2,
+          "actionSequence": 6,
+          "statusApplied": {
+            "id": "STATUS_BARBARA_MELODY_LOOP",
+            "rounds": 2,
+            "createdRound": 2,
+            "healRatio": 0.012,
+            "healFlat": 60
+          },
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_BARBARA",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ],
+              "cooldowns": {
+                "MOND_BARBARA_Q": 6
+              },
+              "turns": 1
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_BARBARA",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "STATUS_BARBARA_MELODY_LOOP",
+                  "rounds": 2,
+                  "createdRound": 2,
+                  "healRatio": 0.012,
+                  "healFlat": 60
+                }
+              ],
+              "cooldowns": {
+                "MOND_BARBARA_Q": 5
+              },
+              "turns": 2
+            }
+          ],
+          "presentationActorId": "MOND_BARBARA",
+          "presentationActorName": "바바라",
+          "presentationCardId": "MOND_BARBARA_E",
+          "presentationSourceKind": "STATUS_APPLY",
+          "cardName": "공연시작♪"
+        },
+        {
+          "actor": "바바라",
+          "card": "MOND_BARBARA_E",
+          "cardName": "공연시작♪",
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_BARBARA",
+              "cooldowns": {
+                "MOND_BARBARA_Q": 5
+              }
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_BARBARA",
+              "cooldowns": {
+                "MOND_BARBARA_Q": 5,
+                "MOND_BARBARA_E": 4
+              }
+            }
+          ],
+          "actorId": "MOND_BARBARA",
+          "round": 2,
+          "actionSequence": 6
+        },
+        {
+          "actor": "향릉",
+          "card": "LIYUE_XIANGLING_Q",
+          "cardName": "화륜",
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "cooldowns": {
+                "LIYUE_XIANGLING_E": 3
+              },
+              "turns": 1
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "cooldowns": {
+                "LIYUE_XIANGLING_E": 2,
+                "LIYUE_XIANGLING_Q": 5
+              },
+              "turns": 2
+            }
+          ],
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 7
+        },
+        {
+          "actor": "바람 슬라임",
+          "target": "향릉",
+          "damage": 91,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": true,
+          "reaction": null,
+          "card": "ECARD_MOND_SLIME_ANEMO_BASIC",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 1853
+            },
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_ANEMO_SPECIAL": 2
+              },
+              "turns": 1
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 1762
+            },
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_ANEMO_SPECIAL": 1
+              },
+              "turns": 2
+            }
+          ],
+          "targetId": "LIYUE_XIANGLING",
+          "actorId": "MON_SLIME_ANEMO#1",
+          "round": 2,
+          "actionSequence": 8,
+          "hpBefore": 1853,
+          "hpAfter": 1762,
+          "maxHp": 1853,
+          "cardName": "몸통 공격"
+        },
+        {
+          "actor": "바람 슬라임",
+          "card": "ECARD_MOND_SLIME_ANEMO_BASIC",
+          "cardName": "몸통 공격",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_ANEMO_SPECIAL": 1
+              }
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_ANEMO_SPECIAL": 1,
+                "ECARD_MOND_SLIME_ANEMO_BASIC": 0
+              }
+            }
+          ],
+          "actorId": "MON_SLIME_ANEMO#1",
+          "round": 2,
+          "actionSequence": 8
+        },
+        {
+          "actor": "동일 조건 비교",
+          "actorId": "PLAYER_CUSTOM",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "cardName": "회오리 검",
+          "round": 2,
+          "actionSequence": 9,
+          "text": "회오리 검 · 길게 · 물 원소 전환",
+          "absorbedElement": "물",
+          "protagonistSkill": true
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 53,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 40
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 0
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 40,
+          "hpAfter": 0,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 3,
+                  "mods": {
+                    "atk": {
+                      "pct": 9
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 2,
+                  "stacks": 3,
+                  "mods": {
+                    "atk": {
+                      "pct": 9
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 626,
+          "hpAfter": 626,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 68,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 626
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 558
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 626,
+          "hpAfter": 558,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 558,
+          "hpAfter": 558,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 93,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": true,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 558
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 465
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 558,
+          "hpAfter": 465,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 465,
+          "hpAfter": 465,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 66,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 465
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 399
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 465,
+          "hpAfter": 399,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 399,
+          "hpAfter": 399,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 63,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 399
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "cooldowns": {
+                "PLAYER_TRAVELER_ANEMO_Q": 3
+              }
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 336
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "cooldowns": {
+                "PLAYER_TRAVELER_ANEMO_Q": 3,
+                "PLAYER_TRAVELER_ANEMO_E": 3
+              }
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 399,
+          "hpAfter": 336,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "향릉",
+          "target": "바람 슬라임",
+          "damage": 192,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "불",
+          "critical": true,
+          "reaction": "RX_SWIRL",
+          "card": "LIYUE_XIANGLING_E",
+          "sourceKind": "FIELD",
+          "presentationActorId": "SUMMON:GOU_BA:LIYUE_XIANGLING",
+          "presentationActorName": "누룽지",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 336
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 144
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 10,
+          "hpBefore": 336,
+          "hpAfter": 144,
+          "maxHp": 900
+        },
+        {
+          "actor": "향릉",
+          "target": "바람 슬라임",
+          "damage": 80,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "불",
+          "reaction": "RX_SWIRL",
+          "sourceKind": "REACTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 144
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 64
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 10,
+          "hpBefore": 144,
+          "hpAfter": 64,
+          "maxHp": 900
+        },
+        {
+          "actor": "향릉",
+          "target": "바람 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 10
+        },
+        {
+          "actor": "향릉",
+          "target": "바람 슬라임",
+          "damage": 135,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "불",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "LIYUE_XIANGLING_Q",
+          "sourceKind": "FIELD",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 64
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 0
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 10,
+          "hpBefore": 64,
+          "hpAfter": 0,
+          "maxHp": 900
+        },
+        {
+          "actor": "향릉",
+          "target": "바람 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 10
+        }
+      ]
+    },
+    {
+      "domain": "FORSAKEN_RIFT:5",
+      "seed": 717,
+      "initialDownCompanion": "MOND_AMBER",
+      "boundary": true,
+      "before": [
+        {
+          "owner": "MOND_AMBER",
+          "hp": 0,
+          "maxHp": 1743,
+          "growth": {
+            "owner": "MOND_AMBER",
+            "name": "엠버",
+            "level": 9,
+            "xp": 1169,
+            "next": 1170,
+            "remaining": 1,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "hp": 1765,
+          "maxHp": 1765,
+          "growth": {
+            "owner": "LIYUE_XIANGLING",
+            "name": "향릉",
+            "level": 9,
+            "xp": 0,
+            "next": 1170,
+            "remaining": 1170,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "hp": 1743,
+          "maxHp": 1743,
+          "growth": {
+            "owner": "MOND_BARBARA",
+            "name": "바바라",
+            "level": 9,
+            "xp": 0,
+            "next": 1170,
+            "remaining": 1170,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        }
+      ],
+      "initial": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "hp": 1635,
+          "maxHp": 1635,
+          "level": 9
+        },
+        {
+          "source": "MOND_AMBER",
+          "side": "ALLY",
+          "hp": 0,
+          "maxHp": 1743,
+          "level": 9
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "side": "ALLY",
+          "hp": 1765,
+          "maxHp": 1853,
+          "level": 9
+        },
+        {
+          "source": "MOND_BARBARA",
+          "side": "ALLY",
+          "hp": 1743,
+          "maxHp": 1743,
+          "level": 9
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 900,
+          "maxHp": 900,
+          "level": 5
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "side": "ENEMY",
+          "hp": 900,
+          "maxHp": 900,
+          "level": 5
+        },
+        {
+          "source": "MON_SLIME_ANEMO",
+          "side": "ENEMY",
+          "hp": 900,
+          "maxHp": 900,
+          "level": 5
+        }
+      ],
+      "result": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-9-717:B13",
+        "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-9-717:B13",
+        "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-9-717",
+        "group": "EG_DOMAIN4_FORSAKEN_RIFT_5",
+        "origin": "DOMAIN:FORSAKEN_RIFT:5",
+        "gate": "DOMAIN:FORSAKEN_RIFT:5",
+        "branch": null,
+        "victory": true,
+        "xp": 40,
+        "loot": {
+          "MAT_SLIME_SECRETIONS": 1,
+          "GROWTH_TALENT_MOND": 1
+        },
+        "rounds": 2,
+        "result": "VICTORY",
+        "unsupportedEffects": [],
+        "domain": {
+          "id": "FORSAKEN_RIFT:5",
+          "level": 5,
+          "bonus": false,
+          "items": {
+            "GROWTH_TALENT_MOND": 1
+          }
+        }
+      },
+      "hpBeforeSettlement": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "hp": 1635,
+          "maxHp": 1635
+        },
+        {
+          "source": "MOND_AMBER",
+          "hp": 0,
+          "maxHp": 1743
+        },
+        {
+          "source": "LIYUE_XIANGLING",
+          "hp": 1762,
+          "maxHp": 1853
+        },
+        {
+          "source": "MOND_BARBARA",
+          "hp": 1683,
+          "maxHp": 1743
+        }
+      ],
+      "after": [
+        {
+          "owner": "MOND_AMBER",
+          "hp": 1850,
+          "maxHp": 1850,
+          "growth": {
+            "owner": "MOND_AMBER",
+            "name": "엠버",
+            "level": 10,
+            "xp": 0,
+            "next": 0,
+            "remaining": 0,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": true,
+            "final": false
+          }
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "hp": 1762,
+          "maxHp": 1765,
+          "growth": {
+            "owner": "LIYUE_XIANGLING",
+            "name": "향릉",
+            "level": 9,
+            "xp": 40,
+            "next": 1170,
+            "remaining": 1130,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "hp": 1683,
+          "maxHp": 1743,
+          "growth": {
+            "owner": "MOND_BARBARA",
+            "name": "바바라",
+            "level": 9,
+            "xp": 40,
+            "next": 1170,
+            "remaining": 1130,
+            "cap": 10,
+            "phase": 0,
+            "talentCap": 1,
+            "max": false,
+            "final": false
+          }
+        }
+      ],
+      "combatLog": [
+        {
+          "actor": "동일 조건 비교",
+          "actorId": "PLAYER_CUSTOM",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "cardName": "격동의 바람",
+          "round": 1,
+          "actionSequence": 0,
+          "text": "격동의 바람 · 전진하는 돌풍 · 물 원소 전환",
+          "absorbedElement": "물",
+          "protagonistSkill": true,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "source": "PLAYER_CUSTOM",
+              "name": "동일 조건 비교",
+              "side": "ALLY",
+              "level": 9,
+              "hp": 1635,
+              "maxHp": 1635,
+              "atk": 282,
+              "def": 141,
+              "spd": 61,
+              "crit": 5,
+              "critDmg": 50,
+              "hit": 81,
+              "eva": 7,
+              "resist": 8,
+              "range": "근접",
+              "aura": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 1,
+              "guard": false,
+              "guest": false,
+              "protagonist": {
+                "version": 1,
+                "route": "ROUTE_TRAVELER",
+                "skillIds": [
+                  "PLAYER_TRAVELER_ANEMO_E",
+                  "PLAYER_TRAVELER_ANEMO_Q"
+                ]
+              }
+            },
+            {
+              "id": "MOND_AMBER",
+              "source": "MOND_AMBER",
+              "name": "엠버",
+              "side": "ALLY",
+              "level": 9,
+              "hp": 0,
+              "maxHp": 1743,
+              "atk": 257,
+              "def": 162,
+              "spd": 73,
+              "crit": 21,
+              "critDmg": 60,
+              "hit": 85,
+              "eva": 8,
+              "resist": 16,
+              "range": "원거리",
+              "aura": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "guest": false,
+              "tags": [
+                "[광계]",
+                "[불]"
+              ]
+            },
+            {
+              "id": "LIYUE_XIANGLING",
+              "source": "LIYUE_XIANGLING",
+              "name": "향릉",
+              "side": "ALLY",
+              "level": 9,
+              "hp": 1765,
+              "maxHp": 1853,
+              "atk": 296,
+              "def": 165,
+              "spd": 66,
+              "crit": 16,
+              "critDmg": 65,
+              "hit": 83,
+              "eva": 8,
+              "resist": 16,
+              "range": "중거리",
+              "aura": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "guest": false,
+              "tags": [
+                "[광계]",
+                "[불]"
+              ]
+            },
+            {
+              "id": "MOND_BARBARA",
+              "source": "MOND_BARBARA",
+              "name": "바바라",
+              "side": "ALLY",
+              "level": 9,
+              "hp": 1743,
+              "maxHp": 1743,
+              "atk": 210,
+              "def": 169,
+              "spd": 61,
+              "crit": 10,
+              "critDmg": 50,
+              "hit": 83,
+              "eva": 7,
+              "resist": 16,
+              "range": "중거리",
+              "aura": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "guest": false,
+              "tags": [
+                "[광계]",
+                "[물]"
+              ]
+            },
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "source": "MON_SLIME_HYDRO",
+              "name": "물 슬라임",
+              "side": "ENEMY",
+              "level": 5,
+              "hp": 900,
+              "maxHp": 900,
+              "atk": 180,
+              "def": 31,
+              "spd": 65,
+              "crit": 5,
+              "critDmg": 50,
+              "hit": 81,
+              "eva": 4,
+              "resist": 5,
+              "range": "중거리",
+              "grade": "일반",
+              "element": "물",
+              "aura": "물",
+              "nativeAura": "물",
+              "airborne": false,
+              "statuses": [],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "tags": [
+                "[광계]",
+                "[물]"
+              ]
+            },
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "source": "MON_SLIME_HYDRO",
+              "name": "물 슬라임",
+              "side": "ENEMY",
+              "level": 5,
+              "hp": 900,
+              "maxHp": 900,
+              "atk": 180,
+              "def": 31,
+              "spd": 65,
+              "crit": 5,
+              "critDmg": 50,
+              "hit": 81,
+              "eva": 4,
+              "resist": 5,
+              "range": "중거리",
+              "grade": "일반",
+              "element": "물",
+              "aura": "물",
+              "nativeAura": "물",
+              "airborne": false,
+              "statuses": [],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "tags": [
+                "[광계]",
+                "[물]"
+              ]
+            },
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "source": "MON_SLIME_ANEMO",
+              "name": "바람 슬라임",
+              "side": "ENEMY",
+              "level": 5,
+              "hp": 900,
+              "maxHp": 900,
+              "atk": 180,
+              "def": 31,
+              "spd": 65,
+              "crit": 5,
+              "critDmg": 50,
+              "hit": 81,
+              "eva": 4,
+              "resist": 5,
+              "range": "중거리",
+              "grade": "일반",
+              "element": "바람",
+              "aura": "바람",
+              "nativeAura": "바람",
+              "airborne": false,
+              "statuses": [],
+              "shields": [],
+              "cooldowns": {},
+              "turns": 0,
+              "tags": [
+                "[광계]",
+                "[바람]"
+              ]
+            }
+          ]
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 187,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 900
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 713
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 900,
+          "hpAfter": 713,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "reaction": "RX_SWIRL",
+          "sourceKind": "REACTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 713,
+          "hpAfter": 713,
+          "maxHp": 900,
+          "presentationCardId": "PLAYER_TRAVELER_ANEMO_Q",
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "cardName": "격동의 바람"
+        },
+        {
+          "target": "동일 조건 비교",
+          "targetId": "PLAYER_CUSTOM",
+          "actorId": "PLAYER_CUSTOM",
+          "actor": "동일 조건 비교",
+          "round": 1,
+          "actionSequence": 0,
+          "statusApplied": {
+            "id": "TRAIT_STACK_ATK",
+            "rounds": 2,
+            "createdRound": 1,
+            "stacks": 1,
+            "mods": {
+              "atk": {
+                "pct": 3
+              }
+            },
+            "traitStatus": true
+          },
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ]
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 3
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "presentationActorId": "PLAYER_CUSTOM",
+          "presentationActorName": "동일 조건 비교",
+          "presentationCardId": "PLAYER_TRAVELER_ANEMO_Q",
+          "presentationSourceKind": "STATUS_APPLY",
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 713,
+          "hpAfter": 713,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 205,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 713
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 3
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 508
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 2,
+                  "mods": {
+                    "atk": {
+                      "pct": 6
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 713,
+          "hpAfter": 508,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 508,
+          "hpAfter": 508,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 197,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 508
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 2,
+                  "mods": {
+                    "atk": {
+                      "pct": 6
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 311
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 3,
+                  "mods": {
+                    "atk": {
+                      "pct": 9
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 508,
+          "hpAfter": 311,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": true,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 311,
+          "hpAfter": 311,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "target": "물 슬라임",
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "MON_SLIME_HYDRO#1",
+          "actor": "물 슬라임",
+          "round": 1,
+          "actionSequence": 0,
+          "statusApplied": {
+            "id": "LIFTED",
+            "rounds": 1,
+            "createdRound": 1
+          },
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "statuses": []
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "statuses": [
+                {
+                  "id": "LIFTED",
+                  "rounds": 1,
+                  "createdRound": 1
+                }
+              ]
+            }
+          ],
+          "presentationActorId": "PLAYER_CUSTOM",
+          "presentationActorName": "동일 조건 비교",
+          "presentationCardId": "PLAYER_TRAVELER_ANEMO_Q",
+          "presentationSourceKind": "STATUS_APPLY",
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 200,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 900
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 700
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 900,
+          "hpAfter": 700,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "reaction": "RX_SWIRL",
+          "sourceKind": "REACTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 700,
+          "hpAfter": 700,
+          "maxHp": 900,
+          "presentationCardId": "PLAYER_TRAVELER_ANEMO_Q",
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 80,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "reaction": "RX_SWIRL",
+          "sourceKind": "REACTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 900
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 820
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 900,
+          "hpAfter": 820,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 700,
+          "hpAfter": 700,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 212,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 700
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 488
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 700,
+          "hpAfter": 488,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 488,
+          "hpAfter": 488,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 218,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 488
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 270
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 488,
+          "hpAfter": 270,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "element": "물",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 270,
+          "hpAfter": 270,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "target": "물 슬라임",
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "MON_SLIME_HYDRO#2",
+          "actor": "물 슬라임",
+          "round": 1,
+          "actionSequence": 0,
+          "statusApplied": {
+            "id": "LIFTED",
+            "rounds": 1,
+            "createdRound": 1
+          },
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "statuses": []
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "statuses": [
+                {
+                  "id": "LIFTED",
+                  "rounds": 1,
+                  "createdRound": 1
+                }
+              ]
+            }
+          ],
+          "presentationActorId": "PLAYER_CUSTOM",
+          "presentationActorName": "동일 조건 비교",
+          "presentationCardId": "PLAYER_TRAVELER_ANEMO_Q",
+          "presentationSourceKind": "STATUS_APPLY",
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 820,
+          "hpAfter": 820,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 65,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 820
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 755
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 820,
+          "hpAfter": 755,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 755,
+          "hpAfter": 755,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 63,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 755
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 692
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 755,
+          "hpAfter": 692,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 692,
+          "hpAfter": 692,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 66,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 692
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "cooldowns": {}
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 626
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "cooldowns": {
+                "PLAYER_TRAVELER_ANEMO_Q": 4
+              }
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 0,
+          "hpBefore": 692,
+          "hpAfter": 626,
+          "maxHp": 900,
+          "cardName": "격동의 바람"
+        },
+        {
+          "actor": "향릉",
+          "card": "LIYUE_XIANGLING_E",
+          "cardName": "누룽지 출격",
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "cooldowns": {},
+              "turns": 0,
+              "guard": null
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "cooldowns": {
+                "LIYUE_XIANGLING_E": 3
+              },
+              "turns": 1,
+              "guard": false
+            }
+          ],
+          "actorId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 1
+        },
+        {
+          "actor": "물 슬라임",
+          "target": "바바라",
+          "miss": true,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "turns": 0,
+              "guard": null
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "turns": 1,
+              "guard": false
+            }
+          ],
+          "targetId": "MOND_BARBARA",
+          "actorId": "MON_SLIME_HYDRO#1",
+          "round": 1,
+          "actionSequence": 2,
+          "presentationCardId": "ECARD_MOND_SLIME_HYDRO_SPECIAL",
+          "cardName": "도약 강타"
+        },
+        {
+          "actor": "물 슬라임",
+          "card": "ECARD_MOND_SLIME_HYDRO_SPECIAL",
+          "cardName": "도약 강타",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "cooldowns": {}
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_HYDRO_SPECIAL": 2
+              }
+            }
+          ],
+          "actorId": "MON_SLIME_HYDRO#1",
+          "round": 1,
+          "actionSequence": 2
+        },
+        {
+          "actor": "물 슬라임",
+          "target": "동일 조건 비교",
+          "miss": true,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "turns": 0,
+              "guard": null
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "turns": 1,
+              "guard": false
+            }
+          ],
+          "targetId": "PLAYER_CUSTOM",
+          "actorId": "MON_SLIME_HYDRO#2",
+          "round": 1,
+          "actionSequence": 3,
+          "presentationCardId": "ECARD_MOND_SLIME_HYDRO_SPECIAL",
+          "cardName": "도약 강타"
+        },
+        {
+          "actor": "물 슬라임",
+          "card": "ECARD_MOND_SLIME_HYDRO_SPECIAL",
+          "cardName": "도약 강타",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "cooldowns": {}
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_HYDRO_SPECIAL": 2
+              }
+            }
+          ],
+          "actorId": "MON_SLIME_HYDRO#2",
+          "round": 1,
+          "actionSequence": 3
+        },
+        {
+          "actor": "바바라",
+          "target": "동일 조건 비교",
+          "heal": 0,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_BARBARA",
+              "turns": 0,
+              "guard": null
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_BARBARA",
+              "turns": 1,
+              "guard": false
+            }
+          ],
+          "targetId": "PLAYER_CUSTOM",
+          "round": 1,
+          "actionSequence": 4,
+          "hpBefore": 1635,
+          "hpAfter": 1635,
+          "maxHp": 1635,
+          "actorId": "MOND_BARBARA",
+          "cardName": "빛나는기적♪"
+        },
+        {
+          "actor": "바바라",
+          "target": "향릉",
+          "heal": 88,
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 1765
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 1853
+            }
+          ],
+          "targetId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 4,
+          "hpBefore": 1765,
+          "hpAfter": 1853,
+          "maxHp": 1853,
+          "actorId": "MOND_BARBARA",
+          "cardName": "빛나는기적♪"
+        },
+        {
+          "actor": "바바라",
+          "target": "바바라",
+          "heal": 0,
+          "targetId": "MOND_BARBARA",
+          "round": 1,
+          "actionSequence": 4,
+          "hpBefore": 1743,
+          "hpAfter": 1743,
+          "maxHp": 1743,
+          "actorId": "MOND_BARBARA",
+          "cardName": "빛나는기적♪"
+        },
+        {
+          "actor": "바바라",
+          "card": "MOND_BARBARA_Q",
+          "cardName": "빛나는기적♪",
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_BARBARA",
+              "cooldowns": {}
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_BARBARA",
+              "cooldowns": {
+                "MOND_BARBARA_Q": 6
+              }
+            }
+          ],
+          "actorId": "MOND_BARBARA",
+          "round": 1,
+          "actionSequence": 4
+        },
+        {
+          "actor": "바람 슬라임",
+          "target": "바바라",
+          "damage": 60,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "ECARD_MOND_SLIME_ANEMO_SPECIAL",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_BARBARA",
+              "hp": 1743
+            },
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "turns": 0,
+              "guard": null
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_BARBARA",
+              "hp": 1683
+            },
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "turns": 1,
+              "guard": false
+            }
+          ],
+          "targetId": "MOND_BARBARA",
+          "actorId": "MON_SLIME_ANEMO#1",
+          "round": 1,
+          "actionSequence": 5,
+          "hpBefore": 1743,
+          "hpAfter": 1683,
+          "maxHp": 1743,
+          "cardName": "도약 강타"
+        },
+        {
+          "actor": "바람 슬라임",
+          "card": "ECARD_MOND_SLIME_ANEMO_SPECIAL",
+          "cardName": "도약 강타",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {}
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_ANEMO_SPECIAL": 2
+              }
+            }
+          ],
+          "actorId": "MON_SLIME_ANEMO#1",
+          "round": 1,
+          "actionSequence": 5
+        },
+        {
+          "actor": "향릉",
+          "target": "물 슬라임",
+          "damage": 271,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "불",
+          "critical": true,
+          "reaction": "RX_VAPORIZE_PYRO",
+          "card": "LIYUE_XIANGLING_E",
+          "sourceKind": "FIELD",
+          "presentationActorId": "SUMMON:GOU_BA:LIYUE_XIANGLING",
+          "presentationActorName": "누룽지",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 311
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 40
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 6,
+          "hpBefore": 311,
+          "hpAfter": 40,
+          "maxHp": 900
+        },
+        {
+          "actor": "향릉",
+          "target": "물 슬라임",
+          "reaction": "RX_VAPORIZE_PYRO",
+          "reactionName": "증발",
+          "text": "증발 반응",
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 6
+        },
+        {
+          "actor": "향릉",
+          "target": "물 슬라임",
+          "damage": 293,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "불",
+          "critical": true,
+          "reaction": "RX_VAPORIZE_PYRO",
+          "card": "LIYUE_XIANGLING_E",
+          "sourceKind": "FIELD",
+          "presentationActorId": "SUMMON:GOU_BA:LIYUE_XIANGLING",
+          "presentationActorName": "누룽지",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 270
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#2",
+              "hp": 0
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 6,
+          "hpBefore": 270,
+          "hpAfter": 0,
+          "maxHp": 900
+        },
+        {
+          "actor": "향릉",
+          "target": "물 슬라임",
+          "reaction": "RX_VAPORIZE_PYRO",
+          "reactionName": "증발",
+          "text": "증발 반응",
+          "targetId": "MON_SLIME_HYDRO#2",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 1,
+          "actionSequence": 6
+        },
+        {
+          "target": "바바라",
+          "targetId": "MOND_BARBARA",
+          "actorId": "MOND_BARBARA",
+          "actor": "바바라",
+          "round": 2,
+          "actionSequence": 6,
+          "statusApplied": {
+            "id": "STATUS_BARBARA_MELODY_LOOP",
+            "rounds": 2,
+            "createdRound": 2,
+            "healRatio": 0.012,
+            "healFlat": 60
+          },
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_BARBARA",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                }
+              ],
+              "cooldowns": {
+                "MOND_BARBARA_Q": 6
+              },
+              "turns": 1
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_BARBARA",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "STATUS_BARBARA_MELODY_LOOP",
+                  "rounds": 2,
+                  "createdRound": 2,
+                  "healRatio": 0.012,
+                  "healFlat": 60
+                }
+              ],
+              "cooldowns": {
+                "MOND_BARBARA_Q": 5
+              },
+              "turns": 2
+            }
+          ],
+          "presentationActorId": "MOND_BARBARA",
+          "presentationActorName": "바바라",
+          "presentationCardId": "MOND_BARBARA_E",
+          "presentationSourceKind": "STATUS_APPLY",
+          "cardName": "공연시작♪"
+        },
+        {
+          "actor": "바바라",
+          "card": "MOND_BARBARA_E",
+          "cardName": "공연시작♪",
+          "presentationActorsBefore": [
+            {
+              "id": "MOND_BARBARA",
+              "cooldowns": {
+                "MOND_BARBARA_Q": 5
+              }
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MOND_BARBARA",
+              "cooldowns": {
+                "MOND_BARBARA_Q": 5,
+                "MOND_BARBARA_E": 4
+              }
+            }
+          ],
+          "actorId": "MOND_BARBARA",
+          "round": 2,
+          "actionSequence": 6
+        },
+        {
+          "actor": "향릉",
+          "card": "LIYUE_XIANGLING_Q",
+          "cardName": "화륜",
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "cooldowns": {
+                "LIYUE_XIANGLING_E": 3
+              },
+              "turns": 1
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "cooldowns": {
+                "LIYUE_XIANGLING_E": 2,
+                "LIYUE_XIANGLING_Q": 5
+              },
+              "turns": 2
+            }
+          ],
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 7
+        },
+        {
+          "actor": "바람 슬라임",
+          "target": "향릉",
+          "damage": 91,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": true,
+          "reaction": null,
+          "card": "ECARD_MOND_SLIME_ANEMO_BASIC",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 1853
+            },
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_ANEMO_SPECIAL": 2
+              },
+              "turns": 1
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "LIYUE_XIANGLING",
+              "hp": 1762
+            },
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_ANEMO_SPECIAL": 1
+              },
+              "turns": 2
+            }
+          ],
+          "targetId": "LIYUE_XIANGLING",
+          "actorId": "MON_SLIME_ANEMO#1",
+          "round": 2,
+          "actionSequence": 8,
+          "hpBefore": 1853,
+          "hpAfter": 1762,
+          "maxHp": 1853,
+          "cardName": "몸통 공격"
+        },
+        {
+          "actor": "바람 슬라임",
+          "card": "ECARD_MOND_SLIME_ANEMO_BASIC",
+          "cardName": "몸통 공격",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_ANEMO_SPECIAL": 1
+              }
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "cooldowns": {
+                "ECARD_MOND_SLIME_ANEMO_SPECIAL": 1,
+                "ECARD_MOND_SLIME_ANEMO_BASIC": 0
+              }
+            }
+          ],
+          "actorId": "MON_SLIME_ANEMO#1",
+          "round": 2,
+          "actionSequence": 8
+        },
+        {
+          "actor": "동일 조건 비교",
+          "actorId": "PLAYER_CUSTOM",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "cardName": "회오리 검",
+          "round": 2,
+          "actionSequence": 9,
+          "text": "회오리 검 · 길게 · 물 원소 전환",
+          "absorbedElement": "물",
+          "protagonistSkill": true
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "damage": 53,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "바람",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": null,
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 40
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_HYDRO#1",
+              "hp": 0
+            }
+          ],
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 40,
+          "hpAfter": 0,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "물 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_HYDRO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "presentationActorsBefore": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 1,
+                  "stacks": 3,
+                  "mods": {
+                    "atk": {
+                      "pct": 9
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "PLAYER_CUSTOM",
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    },
+                    "hit": {
+                      "pct": 0,
+                      "flat": 10
+                    }
+                  },
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "formation": "DOUBLE_LINE"
+                },
+                {
+                  "id": "TRAIT_STACK_ATK",
+                  "rounds": 2,
+                  "createdRound": 2,
+                  "stacks": 3,
+                  "mods": {
+                    "atk": {
+                      "pct": 9
+                    }
+                  },
+                  "traitStatus": true
+                }
+              ]
+            }
+          ],
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 626,
+          "hpAfter": 626,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 68,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 626
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 558
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 626,
+          "hpAfter": 558,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 558,
+          "hpAfter": 558,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 93,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": true,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 558
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 465
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 558,
+          "hpAfter": 465,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 465,
+          "hpAfter": 465,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 66,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 465
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 399
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 465,
+          "hpAfter": 399,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "element": "바람",
+          "critical": false,
+          "reaction": null,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": null,
+          "immune": true,
+          "damage": 0,
+          "absorbed": 0,
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 399,
+          "hpAfter": 399,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "동일 조건 비교",
+          "target": "바람 슬라임",
+          "damage": 63,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "물",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "sourceKind": "ELEMENT_ABSORPTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 399
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "cooldowns": {
+                "PLAYER_TRAVELER_ANEMO_Q": 3
+              }
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 336
+            },
+            {
+              "id": "PLAYER_CUSTOM",
+              "cooldowns": {
+                "PLAYER_TRAVELER_ANEMO_Q": 3,
+                "PLAYER_TRAVELER_ANEMO_E": 3
+              }
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "PLAYER_CUSTOM",
+          "round": 2,
+          "actionSequence": 9,
+          "hpBefore": 399,
+          "hpAfter": 336,
+          "maxHp": 900,
+          "cardName": "회오리 검"
+        },
+        {
+          "actor": "향릉",
+          "target": "바람 슬라임",
+          "damage": 192,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "불",
+          "critical": true,
+          "reaction": "RX_SWIRL",
+          "card": "LIYUE_XIANGLING_E",
+          "sourceKind": "FIELD",
+          "presentationActorId": "SUMMON:GOU_BA:LIYUE_XIANGLING",
+          "presentationActorName": "누룽지",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 336
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 144
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 10,
+          "hpBefore": 336,
+          "hpAfter": 144,
+          "maxHp": 900
+        },
+        {
+          "actor": "향릉",
+          "target": "바람 슬라임",
+          "damage": 80,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "불",
+          "reaction": "RX_SWIRL",
+          "sourceKind": "REACTION",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 144
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 64
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 10,
+          "hpBefore": 144,
+          "hpAfter": 64,
+          "maxHp": 900
+        },
+        {
+          "actor": "향릉",
+          "target": "바람 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 10
+        },
+        {
+          "actor": "향릉",
+          "target": "바람 슬라임",
+          "damage": 135,
+          "absorbed": 0,
+          "shieldBefore": 0,
+          "shieldAfter": 0,
+          "element": "불",
+          "critical": false,
+          "reaction": "RX_SWIRL",
+          "card": "LIYUE_XIANGLING_Q",
+          "sourceKind": "FIELD",
+          "presentationActorsBefore": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 64
+            }
+          ],
+          "presentationActorsAfter": [
+            {
+              "id": "MON_SLIME_ANEMO#1",
+              "hp": 0
+            }
+          ],
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 10,
+          "hpBefore": 64,
+          "hpAfter": 0,
+          "maxHp": 900
+        },
+        {
+          "actor": "향릉",
+          "target": "바람 슬라임",
+          "reaction": "RX_SWIRL",
+          "reactionName": "확산",
+          "text": "확산 반응",
+          "targetId": "MON_SLIME_ANEMO#1",
+          "actorId": "LIYUE_XIANGLING",
+          "round": 2,
+          "actionSequence": 10
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "toolSha256": "c24c22469f8c21ae25088f4c3cb5a97988365338a0c84abd8489c7dbfbecea56",
+    "helperSha256": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9",
+    "rawDbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962"
+  },
+  "counts": {
+    "isolated": 12,
+    "bookRevives": 1,
+    "nativeBattles": 2,
+    "wins": 2,
+    "stalled": 0
+  }
+}

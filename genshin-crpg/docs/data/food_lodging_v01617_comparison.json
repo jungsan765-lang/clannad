@@ -1,0 +1,6791 @@
+{
+  "version": "0.16.17",
+  "baselineVersion": "0.16.16",
+  "gameplayChanged": [
+    "Fixed 2–4 Mora cooking charge on 45 existing recovery foods"
+  ],
+  "preserved": [
+    "Healing",
+    "Ingredients",
+    "Combat",
+    "Inn pricing",
+    "Recipe availability",
+    "Food repeat/KO restrictions",
+    "Trading and passive mechanics"
+  ],
+  "source": {
+    "sourceRoot": "/workspace/scratch/a62414469990/crpg-v0169-work/genshin-crpg",
+    "packageVersion": "0.16.17",
+    "dbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "loadedSource": [
+      {
+        "file": "world_content.js",
+        "sha256": "89d9fbc842cde7b934db6c5ffbf51b3e24219ef91b3c3423fecb2f1370eeb2d0"
+      },
+      {
+        "file": "runtime.js",
+        "sha256": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7"
+      },
+      {
+        "file": "runtime_extensions.js",
+        "sha256": "69cfb084c45ca667ace391f2a052ce1282d86c101058b52e6a67adf3741b2b69"
+      },
+      {
+        "file": "runtime_story.js",
+        "sha256": "e776d6aec6b0b5941ce0455285353372f6f70a5f9610ccd48fea23d6aea0f798"
+      },
+      {
+        "file": "runtime_nodes.js",
+        "sha256": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322"
+      },
+      {
+        "file": "runtime_events.js",
+        "sha256": "17feadef2a5fb08a78d85cdee53b7403d7fa9e836acf25c3fcb7984c9e039fe9"
+      },
+      {
+        "file": "runtime_relationships.js",
+        "sha256": "7d8d84884d29fe6e771f6f6bcd94e3fcf64d793f296356f5a5a6261d8713078b"
+      },
+      {
+        "file": "runtime_combat.js",
+        "sha256": "fab30dcc74903c5970f19053a497e64bbfcc3b14344f1c3ddfc821c2690a4628"
+      },
+      {
+        "file": "runtime_mond_cards.js",
+        "sha256": "a92c805db4c09fe1a6d0583a53e837a46980778dc522fa472edff0c3c585a74f"
+      },
+      {
+        "file": "runtime_economy.js",
+        "sha256": "ec7fe052ab138e7d2e917a31745b8c07346430b3c2950eb103869e3676371174"
+      },
+      {
+        "file": "runtime_passives.js",
+        "sha256": "662fc78757cf5cc70260b04e74064bff0a425989f4088d7e612afd87890263e7"
+      },
+      {
+        "file": "runtime_rules.js",
+        "sha256": "e7cfdb435f01f3ebe188a432007a1d3ac60fcbec89f2eb6f09f83381307e3efc"
+      },
+      {
+        "file": "runtime_andrius.js",
+        "sha256": "2cf16bc46ff15ef3b7fa5df621fe0bcabe1665f7211c03915a75f0550f380196"
+      },
+      {
+        "file": "runtime_flow.js",
+        "sha256": "67ce2690c3ef530f68f0393c0790972979fe358ebc6679d57df7ab6f3463785d"
+      },
+      {
+        "file": "runtime_party.js",
+        "sha256": "905c8d0eec7f2f7495af9aa3d738150298e93fd3be2f81a39a4ecb213fd9eb39"
+      },
+      {
+        "file": "runtime_opening.js",
+        "sha256": "f4db094db0cfd8341603bdf6ffe6cad0877434bacb8786082c6a5849f836918b"
+      },
+      {
+        "file": "runtime_places.js",
+        "sha256": "b18bbf96d7f0b75e93d4ad5f1afdfb0d9b7bf15ff11fc803588688071a29993a"
+      },
+      {
+        "file": "runtime_places_joint.js",
+        "sha256": "79ab52fa26c88100a0d6cd1b46714f49b2816f0c88591fe656e751173acfa91f"
+      },
+      {
+        "file": "runtime_adventure.js",
+        "sha256": "05e9d029eee1f22e8ce8a7e2466291cd790dcdc59649f309592e8d32fd577db5"
+      },
+      {
+        "file": "runtime_exploration.js",
+        "sha256": "d6c37806bd15b4549986adf1af3e345cfd045ed5efa58edfbb56a9dd016b9e6c"
+      },
+      {
+        "file": "runtime_life.js",
+        "sha256": "00e73cb849f2260b69289bea6f403f75a96f7e57ba44d7585c79da0d22783a3b"
+      },
+      {
+        "file": "runtime_world.js",
+        "sha256": "152b57e546ffea056fb280ca59cb189fae0bd9e2b5da37f3b17cd6cfd91c3cd8"
+      },
+      {
+        "file": "runtime_journey.js",
+        "sha256": "1f37aba9a6a238132aa57f5c2ec7a33ba0f2a976b65624c43c1ed40365a5206e"
+      },
+      {
+        "file": "runtime_market.js",
+        "sha256": "6373387b466a7f49cce93df5ebbe1b7f294ae58202c110aa3423f6e94e7b39bb"
+      },
+      {
+        "file": "runtime_geography.js",
+        "sha256": "d10a82b2d6e7bf44529b5754b6ff5e7b6e943b453c6b8d241afe32a8fb757a8c"
+      },
+      {
+        "file": "runtime_liyue.js",
+        "sha256": "ba77931c8191e681cd627b2199934a55b8d37915d339f1ac9e2ab50d5f2d610a"
+      },
+      {
+        "file": "runtime_liyue_card_content.js",
+        "sha256": "d1ce3973380c6a27eda671cfefaaa79b219930c757999b5820cc83eb174312e0"
+      },
+      {
+        "file": "runtime_liyue_cards.js",
+        "sha256": "ee419351b880ef35a20141ebe7481579fdb76699714459ac9585327d4aeeee11"
+      },
+      {
+        "file": "runtime_liyue_combat.js",
+        "sha256": "ad0485097504d1c5104065e7d483e59874dfb4c2bdf51b54ff5c0a8a537f5004"
+      },
+      {
+        "file": "runtime_geo_oculi.js",
+        "sha256": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb"
+      },
+      {
+        "file": "runtime_encounter.js",
+        "sha256": "2dec3e4cee8731447c740da5e0ae709e29b198a1deed267b011860b1c3ae7311"
+      },
+      {
+        "file": "runtime_recruitment.js",
+        "sha256": "b70dc86096de812df02639131dce5aece06afdc9ed6c2016df3008fd4a758951"
+      },
+      {
+        "file": "runtime_protagonist.js",
+        "sha256": "9e639f663c999552853c8b916522705eba970cfa3d59c1f9586da5429b223f2b"
+      },
+      {
+        "file": "runtime_equipment.js",
+        "sha256": "e721bbcf5d88560965fce5f1dc2c648aad73e75000f40b287345ee03e5224524"
+      },
+      {
+        "file": "runtime_liyue_equipment.js",
+        "sha256": "7cc0765130a2b1e14ccd7cfc0150d2215ddfff18bfa55a15f47f54c884b216d8"
+      },
+      {
+        "file": "runtime_liyue_forge.js",
+        "sha256": "eca640279d4ed05eebc61d63ae3f4c9a1c179288984ce67274712301e98f0fad"
+      },
+      {
+        "file": "runtime_exclusive_weapons.js",
+        "sha256": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817"
+      },
+      {
+        "file": "runtime_enhancement.js",
+        "sha256": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b"
+      },
+      {
+        "file": "runtime_liyue_artifacts.js",
+        "sha256": "b4d9d525cb69722766d6ef8c3e49967b90112bbbcd4a402f4b22ed3a3124e733"
+      },
+      {
+        "file": "runtime_mond_encounters.js",
+        "sha256": "6507f112d215b0d862f1a9d940cf5b07e6e26f531c533af6de950c8d7adcc0c6"
+      },
+      {
+        "file": "runtime_enemy_content.js",
+        "sha256": "62455dd799a0078be597486124b1caa9b6157868ac1aa77a18c09fece8e22358"
+      },
+      {
+        "file": "runtime_enemy_skills.js",
+        "sha256": "a7d1270e13f1c399afebbef64521dc4de5f78d1bdaafaceb182e6fc0ebacc0ac"
+      },
+      {
+        "file": "runtime_mond_boss_balance.js",
+        "sha256": "01ccd595edb27a6ba582fc28e1a9eee129b29ccaf101f6354f27f6a8d29976cb"
+      },
+      {
+        "file": "runtime_mond_balance.js",
+        "sha256": "f8a4e16f6c6a0e34155d31d50dd98f3e4e80ee40f1b6d56e42a15c31b7ed6426"
+      },
+      {
+        "file": "runtime_navigation.js",
+        "sha256": "e4f4c6182761c3827e0832e666d948452e8b65de7223b2ca0022eefab316ec4c"
+      },
+      {
+        "file": "runtime_liyue_area_content.js",
+        "sha256": "c5a530db67e3cedbc6054e91933cce6f6e398c7e78dd60e07720afa7603cc6df"
+      },
+      {
+        "file": "runtime_liyue_areas.js",
+        "sha256": "49e3946e533d4ae06fa1d36d6e5b205d8cb0dbbabe999ad074253ac944137f85"
+      },
+      {
+        "file": "runtime_chasm_skills.js",
+        "sha256": "de8131644c84fb360c95d43628e7d6043ac46602521ef3fd75636395a0ba3638"
+      },
+      {
+        "file": "runtime_liyue_encounters.js",
+        "sha256": "f991de65ef2698f5ff2c645fe5d229abf0bc251fe47b6b94d0312a169278ce5f"
+      },
+      {
+        "file": "runtime_play_fixes.js",
+        "sha256": "df89bb7070867b44773c5f7c5169abc7407c58066c4ef730e79cc394f1415c97"
+      },
+      {
+        "file": "runtime_gear_traits.js",
+        "sha256": "27331e4d2d94e2e87f558949765522fc40359d4dc9ab2e56de73c8f736dd3233"
+      },
+      {
+        "file": "runtime_enemy_tiers.js",
+        "sha256": "b75056f153f6834c1ef9b5109d6e03a39797c6eaa953cedcb4f9c5d768a476e4"
+      },
+      {
+        "file": "runtime_field_bosses.js",
+        "sha256": "b69d400ea6852acc3edd7aa3227d013cc972dc21e6045d6d99a085e5eb409368"
+      },
+      {
+        "file": "runtime_quality_fixes.js",
+        "sha256": "b9584bd0b17ee1576c31d5d64c0241ec2f7a357367ee545b1cba52a8f6ffd664"
+      },
+      {
+        "file": "runtime_field_scenes.js",
+        "sha256": "c796fb5abe65f3f50719dcea13d0c4b6901164c29625a17da4960d982e02618d"
+      },
+      {
+        "file": "runtime_liyue_rework_content.js",
+        "sha256": "5378ea8efee50f9c9cd0f24af8aa2eec570bf6fe17863b528804bcaf47e47363"
+      },
+      {
+        "file": "runtime_liyue_rework.js",
+        "sha256": "d198f6104a06ac9b23521ed8d6006b97c0dce4734be88ae77c912c6d77079c45"
+      },
+      {
+        "file": "runtime_liyue_places.js",
+        "sha256": "6d26a981d1f7f928c5611a09b0c651410d0651da43cfc6f0b6001548f6e407e4"
+      },
+      {
+        "file": "runtime_liyue_region_guide.js",
+        "sha256": "ad0d5069eb2b46e1e3bd357242872add908ca421e0f7fca2f3e059638cd3aa3a"
+      },
+      {
+        "file": "runtime_traveler_geo.js",
+        "sha256": "6ddd53490775c4dc8b33be8d29332e9247525a0cd9ab060cae8effecb1f23658"
+      },
+      {
+        "file": "runtime_geo_trails.js",
+        "sha256": "9cbb8b0d4289061660876ded26fa6a1b5b5148712c360d572791526711f4ef26"
+      },
+      {
+        "file": "runtime_abyss.js",
+        "sha256": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb"
+      },
+      {
+        "file": "runtime_formations.js",
+        "sha256": "5420ed7683f9effcbd1977d7344186903682d9ef5129519c5f84373285309d4c"
+      },
+      {
+        "file": "runtime_field_boss_limits.js",
+        "sha256": "d478a4b56861a89d31bec2d0d43f517a5d7b92d2b2d4475d8c7e374636e393fb"
+      },
+      {
+        "file": "runtime_ley_lines.js",
+        "sha256": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f"
+      },
+      {
+        "file": "runtime_boss_rematch.js",
+        "sha256": "f72f1512d020ca22e49ab559a5b46c57de4c2ed282107b6ab10ce32d8772aa44"
+      },
+      {
+        "file": "runtime_skill_rhythm.js",
+        "sha256": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5"
+      },
+      {
+        "file": "runtime_trade.js",
+        "sha256": "b4d7f62e92a54b7f3d782e87f3ea88ea299a28d855a6e413bf75dfdba4fb0cba"
+      },
+      {
+        "file": "runtime_personal_expansion.js",
+        "sha256": "65f6b3dff130d4a09c7c2bc937e982f526658f97804d3aa48496c9be62d94a43"
+      },
+      {
+        "file": "runtime_operator.js",
+        "sha256": "dc9678ff6dfe369831d8f05cc0045c3da4ffa991a87345f8cd0911be835f0e04"
+      },
+      {
+        "file": "runtime_mond_revision.js",
+        "sha256": "38ff880e1d37676e678b7fef99cc0b3c5fc91fd99c11e987c5419cd25480ee4e"
+      },
+      {
+        "file": "runtime_local_revision.js",
+        "sha256": "f03c1961bdb54b5b5e2afd4605b164d81d511acc377bfa269e16af86c09a1730"
+      },
+      {
+        "file": "runtime_local_story_content.js",
+        "sha256": "686ceb18e110e99576c8cd4e769432a216cf702837e1b7c2dd611a47998405ab"
+      },
+      {
+        "file": "runtime_local_story.js",
+        "sha256": "6bfec6e2b3a9f0faf895198feca88457c79a10af5b3c5163bd1426bf83bfab4e"
+      },
+      {
+        "file": "runtime_main_story_k_content.js",
+        "sha256": "de352534027feb6ce6403b8062b01f27ec5d56dbc9aac3c8ba1e4c9cba096616"
+      },
+      {
+        "file": "runtime_main_story_k.js",
+        "sha256": "fdd467dbf919a1ffc01f3932c34ee3de064335db7d0fa2bec6e9de6edbe3ebf3"
+      },
+      {
+        "file": "runtime_commission_stories.js",
+        "sha256": "a0403da53190d47bd5d54d6906a5fa738cf116d787f429fe4ce7c2b8641ae2e5"
+      },
+      {
+        "file": "runtime_combat_v0148.js",
+        "sha256": "3c3cb185fdb57a94be3d3f1f84fdf6ecd19ddd55e8665209e6a4bdf0113fd945"
+      },
+      {
+        "file": "runtime_economy_v0148.js",
+        "sha256": "04a4d5071f6fd028d66a61810a69ced8041aa64787b80c8179f8643e86ae297f"
+      },
+      {
+        "file": "runtime_personal_v0148.js",
+        "sha256": "ce887aefb0ef91cea85538e9e8f747fddbf3ce9a06d78490dd86c4058f843635"
+      },
+      {
+        "file": "runtime_premium_v0148.js",
+        "sha256": "8edbccf1b110ae9ce9be79fc4e74b78986a83e6ba41ad38604ddfe2dddd02ac2"
+      },
+      {
+        "file": "runtime_constellations_v01411.js",
+        "sha256": "5a285e9697554c637804b5e53f77bc99fb52ee15ce231fe966da920d49af0918"
+      },
+      {
+        "file": "runtime_wish_v01411.js",
+        "sha256": "efa7c337cb92a4846a34249f3888a656300d0c194f01c4e0129f25de2c680c95"
+      },
+      {
+        "file": "runtime_admin_v01412.js",
+        "sha256": "d8a0db507f5a7801e070aeb3f4cb5ddd605363bbefc6a53e3afc28cf44e1248e"
+      },
+      {
+        "file": "runtime_rarity_v01412.js",
+        "sha256": "2b064ba6a440223aa283ae849f27cb625f6d9fa255722284120a5dcf39389240"
+      },
+      {
+        "file": "runtime_presets_v01411.js",
+        "sha256": "a403e640adab386537868e2a4b2b03ddb3e3f7310bb65ec67ce15b8eb0172128"
+      },
+      {
+        "file": "runtime_chests_v01415.js",
+        "sha256": "648e07370d6893cb61f8912f9c9ad8be4b3b70c8ee7b5b7294a7fb1fa199f721"
+      },
+      {
+        "file": "runtime_offerings_v01415.js",
+        "sha256": "c5e9b9cd72f8c31a892ef6eaabd4cddf5b91b32235f6adb17d11351756dd33e7"
+      },
+      {
+        "file": "runtime_mail_v0151.js",
+        "sha256": "d4c67dda613facf06247d9b4bbf3465ebf87811f0545edd8b9c508d3a4da4c74"
+      },
+      {
+        "file": "runtime_puzzles_v0152.js",
+        "sha256": "8ae19e5f7520263f9875443a6efa8674dad851ff8a2cb62f3115666ae3393069"
+      },
+      {
+        "file": "runtime_balance_v0152.js",
+        "sha256": "b77b65efca9b03277abb3353aaaa766018ead9ac353ab5f91403e10582def3a1"
+      },
+      {
+        "file": "runtime_mutations_v0152.js",
+        "sha256": "95ed7f6c86e85f7a98504ea66fc4e700f8cbcc474fb01a14a642ff3d1c3adeb0"
+      },
+      {
+        "file": "runtime_events_v0152.js",
+        "sha256": "e05194be62d47f656c5d1052c28901e437afcfe9aeaed678b99b2eb4a8f9c78e"
+      },
+      {
+        "file": "runtime_raid_v0152.js",
+        "sha256": "2afd25074af07356679c55f2df782f49fee30f99c472cae9baab67babbd4c3c9"
+      },
+      {
+        "file": "runtime_achievements_v0152.js",
+        "sha256": "e5642dfe3addfc59d5e6471ed410e586179fcad5f20f40c37cf6891ab2cd9b3b"
+      },
+      {
+        "file": "runtime_early_story_v0153.js",
+        "sha256": "0832bf65dbdff163986067fd182cf57e5db3f3b5d6b358fb285650eea0ab0ceb"
+      },
+      {
+        "file": "runtime_story_pacing_v0153.js",
+        "sha256": "6419745dd35de413cb4bc50c0a7711d134bb01f8bf748771e79f6f9d25a89ad8"
+      },
+      {
+        "file": "runtime_starter_kit_v0153.js",
+        "sha256": "f540f60cb507b8cf08fab6949fd6a339f50b8c37968a74460eb5de959d0433d0"
+      },
+      {
+        "file": "runtime_map_v01516.js",
+        "sha256": "8a23e528501ad06fab460d3f4ce83538cedc1786523306818518b32f4bbf4b3e"
+      },
+      {
+        "file": "runtime_coop_v0153.js",
+        "sha256": "ef4f0ed8b58601746ea35b9857be17cda28338777f373c63bf535e2320149321"
+      },
+      {
+        "file": "runtime_status_catalog_v01522.js",
+        "sha256": "9eccfc3520d2a11f14cd5fbe759e3342281a3fabf997c8571af32dc54c178457"
+      },
+      {
+        "file": "runtime_status_v01522.js",
+        "sha256": "949e5d4bbabb898a8fdb59fbb783feb1de67e53c8d5ef559158058ed020fffee"
+      },
+      {
+        "file": "runtime_life_v01522.js",
+        "sha256": "70de3b0ed42575b51a90409b96e26f6524565ebf7732962e6a265ea0d5df6902"
+      },
+      {
+        "file": "runtime_life_v0162.js",
+        "sha256": "90d258284c4939d4b0ab7c053ee573609125a1a634821e50817e00d1a3274708"
+      },
+      {
+        "file": "runtime_growth_data_v01522.js",
+        "sha256": "0e735990e52ad77df7378ea3f9c827b083a0d5d0f6f511c683ce2a12fc27992c"
+      },
+      {
+        "file": "runtime_growth_v01522.js",
+        "sha256": "f62c64529a8244e23f4ffce75f3bf6bc08027172da1b775c1aa1168210501247"
+      },
+      {
+        "file": "runtime_roster_v01522.js",
+        "sha256": "6c63da79db88ff96eba7d7236d7f40212dfab9eededb25bda6c6fb691450e7b6"
+      },
+      {
+        "file": "runtime_tutorial_v01522.js",
+        "sha256": "419d39f9d8a75940e5e5740205790c0abf5656e99ffcb0e2f385bfe2a8a8932d"
+      },
+      {
+        "file": "runtime_battle_capacity_v01522.js",
+        "sha256": "bbcac0b4e5697647aa8732d379c6e320581cdad595d69670570eedfcdb74d0e7"
+      },
+      {
+        "file": "runtime_story_companions_v01525.js",
+        "sha256": "07cd6386355656cd87ee4edcde43ff5e473489618f831664575a5663dddc53cc"
+      },
+      {
+        "file": "runtime_coop_world_v0160.js",
+        "sha256": "a472af8514b3205a3c1ffa3258f5875269d43457eee12c1325759c5f957297bc"
+      },
+      {
+        "file": "runtime_battle_lines_v0162.js",
+        "sha256": "92a891ba42166a705f743b3ffd8e969bfd333a9157ff4f208ea29ed27d87dd8e"
+      },
+      {
+        "file": "runtime_landmarks_v0163.js",
+        "sha256": "bc79318b4f7d89e90908382fa757c87fd6f5f6853ce2553a5a2904b9f311a1c8"
+      },
+      {
+        "file": "runtime_task_catalog_v0168.js",
+        "sha256": "d99f6aef2eb3f78ec1c33d8be303ac748dddc3cd194d29f9c4cc07c99cfd0bf8"
+      },
+      {
+        "file": "runtime_task_learning_catalog_v0169.js",
+        "sha256": "c9205a89ce9d358dc1c1fa6bd791fd07eef9b99917e68a78d5d1f981c17c4b18"
+      },
+      {
+        "file": "runtime_tasks_v0167.js",
+        "sha256": "a71a30aa7139c4f5e82aaab766b98cb02a5b96c94e504b24f4d0c063aa0c030e"
+      },
+      {
+        "file": "runtime_task_learning_v0169.js",
+        "sha256": "9e559eaf162280c88313bb8ae582792f10a1224061dbb6406fc4b05d205a5748"
+      },
+      {
+        "file": "runtime_reading.js",
+        "sha256": "e217a239e3b63a8f38e994d0a344ddce6c42fa771aa4f82aafa9347314d24633"
+      }
+    ],
+    "loadedSourceDigest": "269b15436e80c291cb65a24ffde1255763233e411f3f146e63fc990ca3a6a392",
+    "toolSha256": "7390be54d5543e78c041b3fc8addc15ed5e8e26f30e6d8b22cbaf92ac8709b8b",
+    "auditClockMs": 1791529200000
+  },
+  "counts": {
+    "baselineMenus": {
+      "conditions": 96,
+      "rows": 1116,
+      "menuExecutions": 1116,
+      "blockedMenus": 0,
+      "exceptions": 0,
+      "foodRecipes": 45,
+      "nativeCraftActions": 3031,
+      "nativeMealBatchActions": 2780
+    },
+    "finalMenus": {
+      "conditions": 96,
+      "rows": 1116,
+      "menuExecutions": 1116,
+      "blockedMenus": 0,
+      "exceptions": 0,
+      "foodRecipes": 45,
+      "nativeCraftActions": 3003,
+      "nativeMealBatchActions": 2698
+    },
+    "allFoodMenus": {
+      "conditions": 30,
+      "rows": 90,
+      "menuExecutions": 90,
+      "blockedMenus": 0,
+      "exceptions": 0,
+      "foodRecipes": 45,
+      "nativeCraftActions": 352,
+      "nativeMealBatchActions": 312
+    },
+    "supply": {
+      "foods": 45,
+      "resourceConditions": 12,
+      "resourceSamples": 384,
+      "campaigns": 18,
+      "failedCampaigns": 0,
+      "nativeCampaignHarvests": 220,
+      "campaignEncounters": 46,
+      "npcArbitrageViolations": 0
+    },
+    "campaign": {
+      "conditions": 24,
+      "domainBattles": 144,
+      "domainWins": 144,
+      "domainLosses": 0,
+      "mealActions": 90,
+      "foodsConsumed": 210,
+      "lodgingReceipts": 32,
+      "travelEncounters": 31,
+      "terminalLodgingReceipts": 24,
+      "terminalTravelEncounters": 4,
+      "terminalFullHpCityEndpoints": 24
+    }
+  },
+  "easyMenuHalfHpFourPartyTable": [
+    {
+      "level": 1,
+      "region": "MOND",
+      "innMora": 28,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_TEA_BREAK_PANCAKE": 8,
+        "FOOD_RADISH_SOUP": 8
+      },
+      "ingredients": {
+        "ING_BIRD_EGG": 8,
+        "ING_RADISH": 8,
+        "ING_MINT": 8
+      },
+      "craftedServings": 16,
+      "craftActions": 4,
+      "mealBatchActions": 4,
+      "inputBudgetSeconds": 30,
+      "gameMinutes": 200,
+      "craftMora": 64,
+      "ingredientNpcOpportunityMora": 72,
+      "ownedIngredientTotalMora": 136,
+      "purchasedIngredientMoraLowerBound": 288,
+      "allNpcMoraLowerBound": 352,
+      "minimumNpcMoraLowerBound": 352,
+      "requestedHealing": 1440,
+      "actualHealed": 1295,
+      "overheal": 145,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 1,
+      "region": "LIYUE",
+      "innMora": 36,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_CHICKEN_SKEWER": 8,
+        "FOOD_TEA_BREAK_PANCAKE": 8
+      },
+      "ingredients": {
+        "ING_MUSHROOM": 8,
+        "ING_FOWL": 8,
+        "ING_BIRD_EGG": 8
+      },
+      "craftedServings": 16,
+      "craftActions": 4,
+      "mealBatchActions": 4,
+      "inputBudgetSeconds": 30,
+      "gameMinutes": 200,
+      "craftMora": 56,
+      "ingredientNpcOpportunityMora": 104,
+      "ownedIngredientTotalMora": 160,
+      "purchasedIngredientMoraLowerBound": 624,
+      "allNpcMoraLowerBound": 680,
+      "minimumNpcMoraLowerBound": 680,
+      "requestedHealing": 1520,
+      "actualHealed": 1295,
+      "overheal": 225,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 10,
+      "region": "MOND",
+      "innMora": 101,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_TEA_BREAK_PANCAKE": 12,
+        "FOOD_RADISH_SOUP": 8
+      },
+      "ingredients": {
+        "ING_BIRD_EGG": 12,
+        "ING_RADISH": 8,
+        "ING_MINT": 8
+      },
+      "craftedServings": 20,
+      "craftActions": 5,
+      "mealBatchActions": 5,
+      "inputBudgetSeconds": 36,
+      "gameMinutes": 250,
+      "craftMora": 80,
+      "ingredientNpcOpportunityMora": 84,
+      "ownedIngredientTotalMora": 164,
+      "purchasedIngredientMoraLowerBound": 336,
+      "allNpcMoraLowerBound": 416,
+      "minimumNpcMoraLowerBound": 416,
+      "requestedHealing": 4200,
+      "actualHealed": 3688,
+      "overheal": 512,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 10,
+      "region": "LIYUE",
+      "innMora": 120,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_CHICKEN_SKEWER": 8,
+        "FOOD_TEA_BREAK_PANCAKE": 11
+      },
+      "ingredients": {
+        "ING_MUSHROOM": 8,
+        "ING_FOWL": 8,
+        "ING_BIRD_EGG": 11
+      },
+      "craftedServings": 19,
+      "craftActions": 5,
+      "mealBatchActions": 5,
+      "inputBudgetSeconds": 36,
+      "gameMinutes": 240,
+      "craftMora": 68,
+      "ingredientNpcOpportunityMora": 113,
+      "ownedIngredientTotalMora": 181,
+      "purchasedIngredientMoraLowerBound": 678,
+      "allNpcMoraLowerBound": 746,
+      "minimumNpcMoraLowerBound": 746,
+      "requestedHealing": 4174,
+      "actualHealed": 3688,
+      "overheal": 486,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 20,
+      "region": "MOND",
+      "innMora": 182,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_TEA_BREAK_PANCAKE": 9,
+        "FOOD_RADISH_SOUP": 7,
+        "FOOD_CHICKEN_SKEWER": 1
+      },
+      "ingredients": {
+        "ING_BIRD_EGG": 9,
+        "ING_RADISH": 7,
+        "ING_MINT": 7,
+        "ING_MUSHROOM": 1,
+        "ING_FOWL": 1
+      },
+      "craftedServings": 17,
+      "craftActions": 5,
+      "mealBatchActions": 5,
+      "inputBudgetSeconds": 36,
+      "gameMinutes": 220,
+      "craftMora": 67,
+      "ingredientNpcOpportunityMora": 79,
+      "ownedIngredientTotalMora": 146,
+      "purchasedIngredientMoraLowerBound": 316,
+      "allNpcMoraLowerBound": 383,
+      "minimumNpcMoraLowerBound": 383,
+      "requestedHealing": 7494,
+      "actualHealed": 7073,
+      "overheal": 421,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 20,
+      "region": "LIYUE",
+      "innMora": 212,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_CHICKEN_SKEWER": 8,
+        "FOOD_TEA_BREAK_PANCAKE": 9
+      },
+      "ingredients": {
+        "ING_MUSHROOM": 8,
+        "ING_FOWL": 8,
+        "ING_BIRD_EGG": 9
+      },
+      "craftedServings": 17,
+      "craftActions": 4,
+      "mealBatchActions": 5,
+      "inputBudgetSeconds": 33,
+      "gameMinutes": 220,
+      "craftMora": 60,
+      "ingredientNpcOpportunityMora": 107,
+      "ownedIngredientTotalMora": 167,
+      "purchasedIngredientMoraLowerBound": 642,
+      "allNpcMoraLowerBound": 702,
+      "minimumNpcMoraLowerBound": 702,
+      "requestedHealing": 7830,
+      "actualHealed": 7073,
+      "overheal": 757,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 30,
+      "region": "MOND",
+      "innMora": 262,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_TEA_BREAK_PANCAKE": 9,
+        "FOOD_RADISH_SOUP": 8
+      },
+      "ingredients": {
+        "ING_BIRD_EGG": 9,
+        "ING_RADISH": 8,
+        "ING_MINT": 8
+      },
+      "craftedServings": 17,
+      "craftActions": 4,
+      "mealBatchActions": 5,
+      "inputBudgetSeconds": 33,
+      "gameMinutes": 220,
+      "craftMora": 68,
+      "ingredientNpcOpportunityMora": 75,
+      "ownedIngredientTotalMora": 143,
+      "purchasedIngredientMoraLowerBound": 300,
+      "allNpcMoraLowerBound": 368,
+      "minimumNpcMoraLowerBound": 368,
+      "requestedHealing": 13022,
+      "actualHealed": 12025,
+      "overheal": 997,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 30,
+      "region": "LIYUE",
+      "innMora": 306,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_CHICKEN_SKEWER": 8,
+        "FOOD_TEA_BREAK_PANCAKE": 8
+      },
+      "ingredients": {
+        "ING_MUSHROOM": 8,
+        "ING_FOWL": 8,
+        "ING_BIRD_EGG": 8
+      },
+      "craftedServings": 16,
+      "craftActions": 4,
+      "mealBatchActions": 4,
+      "inputBudgetSeconds": 30,
+      "gameMinutes": 200,
+      "craftMora": 56,
+      "ingredientNpcOpportunityMora": 104,
+      "ownedIngredientTotalMora": 160,
+      "purchasedIngredientMoraLowerBound": 624,
+      "allNpcMoraLowerBound": 680,
+      "minimumNpcMoraLowerBound": 680,
+      "requestedHealing": 12944,
+      "actualHealed": 12025,
+      "overheal": 919,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 40,
+      "region": "MOND",
+      "innMora": 343,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_TEA_BREAK_PANCAKE": 9,
+        "FOOD_RADISH_SOUP": 8
+      },
+      "ingredients": {
+        "ING_BIRD_EGG": 9,
+        "ING_RADISH": 8,
+        "ING_MINT": 8
+      },
+      "craftedServings": 17,
+      "craftActions": 4,
+      "mealBatchActions": 5,
+      "inputBudgetSeconds": 33,
+      "gameMinutes": 220,
+      "craftMora": 68,
+      "ingredientNpcOpportunityMora": 75,
+      "ownedIngredientTotalMora": 143,
+      "purchasedIngredientMoraLowerBound": 300,
+      "allNpcMoraLowerBound": 368,
+      "minimumNpcMoraLowerBound": 368,
+      "requestedHealing": 20638,
+      "actualHealed": 18581,
+      "overheal": 2057,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 40,
+      "region": "LIYUE",
+      "innMora": 400,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_CHICKEN_SKEWER": 8,
+        "FOOD_TEA_BREAK_PANCAKE": 8
+      },
+      "ingredients": {
+        "ING_MUSHROOM": 8,
+        "ING_FOWL": 8,
+        "ING_BIRD_EGG": 8
+      },
+      "craftedServings": 16,
+      "craftActions": 4,
+      "mealBatchActions": 4,
+      "inputBudgetSeconds": 30,
+      "gameMinutes": 200,
+      "craftMora": 56,
+      "ingredientNpcOpportunityMora": 104,
+      "ownedIngredientTotalMora": 160,
+      "purchasedIngredientMoraLowerBound": 624,
+      "allNpcMoraLowerBound": 680,
+      "minimumNpcMoraLowerBound": 680,
+      "requestedHealing": 20504,
+      "actualHealed": 18581,
+      "overheal": 1923,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 50,
+      "region": "MOND",
+      "innMora": 422,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_TEA_BREAK_PANCAKE": 8,
+        "FOOD_RADISH_SOUP": 7,
+        "FOOD_CHICKEN_SKEWER": 1
+      },
+      "ingredients": {
+        "ING_BIRD_EGG": 8,
+        "ING_RADISH": 7,
+        "ING_MINT": 7,
+        "ING_MUSHROOM": 1,
+        "ING_FOWL": 1
+      },
+      "craftedServings": 16,
+      "craftActions": 5,
+      "mealBatchActions": 4,
+      "inputBudgetSeconds": 33,
+      "gameMinutes": 200,
+      "craftMora": 63,
+      "ingredientNpcOpportunityMora": 76,
+      "ownedIngredientTotalMora": 139,
+      "purchasedIngredientMoraLowerBound": 304,
+      "allNpcMoraLowerBound": 367,
+      "minimumNpcMoraLowerBound": 367,
+      "requestedHealing": 28951,
+      "actualHealed": 27088,
+      "overheal": 1863,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 50,
+      "region": "LIYUE",
+      "innMora": 492,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_CHICKEN_SKEWER": 8,
+        "FOOD_TEA_BREAK_PANCAKE": 8
+      },
+      "ingredients": {
+        "ING_MUSHROOM": 8,
+        "ING_FOWL": 8,
+        "ING_BIRD_EGG": 8
+      },
+      "craftedServings": 16,
+      "craftActions": 4,
+      "mealBatchActions": 4,
+      "inputBudgetSeconds": 30,
+      "gameMinutes": 200,
+      "craftMora": 56,
+      "ingredientNpcOpportunityMora": 104,
+      "ownedIngredientTotalMora": 160,
+      "purchasedIngredientMoraLowerBound": 624,
+      "allNpcMoraLowerBound": 680,
+      "minimumNpcMoraLowerBound": 680,
+      "requestedHealing": 30344,
+      "actualHealed": 27088,
+      "overheal": 3256,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 55,
+      "region": "MOND",
+      "innMora": 461,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_TEA_BREAK_PANCAKE": 8,
+        "FOOD_RADISH_SOUP": 7,
+        "FOOD_CHICKEN_SKEWER": 1
+      },
+      "ingredients": {
+        "ING_BIRD_EGG": 8,
+        "ING_RADISH": 7,
+        "ING_MINT": 7,
+        "ING_MUSHROOM": 1,
+        "ING_FOWL": 1
+      },
+      "craftedServings": 16,
+      "craftActions": 5,
+      "mealBatchActions": 4,
+      "inputBudgetSeconds": 33,
+      "gameMinutes": 200,
+      "craftMora": 63,
+      "ingredientNpcOpportunityMora": 76,
+      "ownedIngredientTotalMora": 139,
+      "purchasedIngredientMoraLowerBound": 304,
+      "allNpcMoraLowerBound": 367,
+      "minimumNpcMoraLowerBound": 367,
+      "requestedHealing": 36153,
+      "actualHealed": 33646,
+      "overheal": 2507,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 55,
+      "region": "LIYUE",
+      "innMora": 540,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_CHICKEN_SKEWER": 8,
+        "FOOD_TEA_BREAK_PANCAKE": 8
+      },
+      "ingredients": {
+        "ING_MUSHROOM": 8,
+        "ING_FOWL": 8,
+        "ING_BIRD_EGG": 8
+      },
+      "craftedServings": 16,
+      "craftActions": 4,
+      "mealBatchActions": 4,
+      "inputBudgetSeconds": 30,
+      "gameMinutes": 200,
+      "craftMora": 56,
+      "ingredientNpcOpportunityMora": 104,
+      "ownedIngredientTotalMora": 160,
+      "purchasedIngredientMoraLowerBound": 624,
+      "allNpcMoraLowerBound": 680,
+      "minimumNpcMoraLowerBound": 680,
+      "requestedHealing": 37896,
+      "actualHealed": 33646,
+      "overheal": 4250,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 60,
+      "region": "MOND",
+      "innMora": 502,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_TEA_BREAK_PANCAKE": 8,
+        "FOOD_RADISH_SOUP": 7,
+        "FOOD_CHICKEN_SKEWER": 1
+      },
+      "ingredients": {
+        "ING_BIRD_EGG": 8,
+        "ING_RADISH": 7,
+        "ING_MINT": 7,
+        "ING_MUSHROOM": 1,
+        "ING_FOWL": 1
+      },
+      "craftedServings": 16,
+      "craftActions": 5,
+      "mealBatchActions": 4,
+      "inputBudgetSeconds": 33,
+      "gameMinutes": 200,
+      "craftMora": 63,
+      "ingredientNpcOpportunityMora": 76,
+      "ownedIngredientTotalMora": 139,
+      "purchasedIngredientMoraLowerBound": 304,
+      "allNpcMoraLowerBound": 367,
+      "minimumNpcMoraLowerBound": 367,
+      "requestedHealing": 44419,
+      "actualHealed": 41155,
+      "overheal": 3264,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    },
+    {
+      "level": 60,
+      "region": "LIYUE",
+      "innMora": 586,
+      "blocked": null,
+      "foodCounts": {
+        "FOOD_CHICKEN_SKEWER": 8,
+        "FOOD_TEA_BREAK_PANCAKE": 8
+      },
+      "ingredients": {
+        "ING_MUSHROOM": 8,
+        "ING_FOWL": 8,
+        "ING_BIRD_EGG": 8
+      },
+      "craftedServings": 16,
+      "craftActions": 4,
+      "mealBatchActions": 4,
+      "inputBudgetSeconds": 30,
+      "gameMinutes": 200,
+      "craftMora": 56,
+      "ingredientNpcOpportunityMora": 104,
+      "ownedIngredientTotalMora": 160,
+      "purchasedIngredientMoraLowerBound": 624,
+      "allNpcMoraLowerBound": 680,
+      "minimumNpcMoraLowerBound": 680,
+      "requestedHealing": 46568,
+      "actualHealed": 41155,
+      "overheal": 5413,
+      "scope": "EASY six-food menu; catalog lower bound excludes stocks/unlocks/acquisition/travel; not global best menu"
+    }
+  ],
+  "allFoodMenuRows": [
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 25,
+        "LIYUE": 32
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4
+        },
+        "craftedServings": 4,
+        "craftActions": 1,
+        "mealBatchActions": 1,
+        "inputBudgetSeconds": 12,
+        "gameMinutes": 90,
+        "craftMora": 8,
+        "ingredientNpcOpportunityMora": 96,
+        "ownedIngredientTotalMora": 104,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 420,
+        "requestedHealing": 880,
+        "actualHealed": 648,
+        "overheal": 232
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 25,
+        "LIYUE": 32
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RADISH_SOUP": 4,
+          "FOOD_TEA_BREAK_PANCAKE": 4
+        },
+        "ingredients": {
+          "ING_RADISH": 4,
+          "ING_MINT": 4,
+          "ING_BIRD_EGG": 4
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 100,
+        "craftMora": 32,
+        "ingredientNpcOpportunityMora": 36,
+        "ownedIngredientTotalMora": 68,
+        "purchasedIngredientMoraLowerBound": 144,
+        "allNpcMoraLowerBound": 176,
+        "minimumNpcMoraLowerBound": 176,
+        "requestedHealing": 720,
+        "actualHealed": 648,
+        "overheal": 72
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 25,
+        "LIYUE": 32
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RADISH_SOUP": 4
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_RADISH": 4,
+          "ING_MINT": 4
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 100,
+        "craftMora": 32,
+        "ingredientNpcOpportunityMora": 36,
+        "ownedIngredientTotalMora": 68,
+        "purchasedIngredientMoraLowerBound": 144,
+        "allNpcMoraLowerBound": 176,
+        "minimumNpcMoraLowerBound": 176,
+        "requestedHealing": 720,
+        "actualHealed": 648,
+        "overheal": 72
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 28,
+        "LIYUE": 36
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 8
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 180,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 256,
+        "ownedIngredientTotalMora": 272,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 1560,
+        "actualHealed": 1295,
+        "overheal": 265
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 28,
+        "LIYUE": 36
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 8,
+          "FOOD_RADISH_SOUP": 8
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 8,
+          "ING_RADISH": 8,
+          "ING_MINT": 8
+        },
+        "craftedServings": 16,
+        "craftActions": 4,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 30,
+        "gameMinutes": 200,
+        "craftMora": 64,
+        "ingredientNpcOpportunityMora": 72,
+        "ownedIngredientTotalMora": 136,
+        "purchasedIngredientMoraLowerBound": 288,
+        "allNpcMoraLowerBound": 352,
+        "minimumNpcMoraLowerBound": 352,
+        "requestedHealing": 1440,
+        "actualHealed": 1295,
+        "overheal": 145
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 28,
+        "LIYUE": 36
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 1,
+          "FOOD_TEA_BREAK_PANCAKE": 7,
+          "FOOD_RADISH_SOUP": 6
+        },
+        "ingredients": {
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1,
+          "ING_BIRD_EGG": 7,
+          "ING_RADISH": 6,
+          "ING_MINT": 6
+        },
+        "craftedServings": 14,
+        "craftActions": 5,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 190,
+        "craftMora": 54,
+        "ingredientNpcOpportunityMora": 81,
+        "ownedIngredientTotalMora": 135,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 385,
+        "requestedHealing": 1390,
+        "actualHealed": 1295,
+        "overheal": 95
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 33,
+        "LIYUE": 40
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_MATSUTAKE_ROLL": 1,
+          "FOOD_HASH_BROWN": 3,
+          "FOOD_LUCKY_SNOW_DELIGHT": 3,
+          "FOOD_PERCH_STEW": 1
+        },
+        "ingredients": {
+          "ING_MATSUTAKE": 2,
+          "ING_RAW_MEAT": 2,
+          "ING_PINECONE": 6,
+          "ING_POTATO": 3,
+          "ING_JAM": 3,
+          "ING_LOTUS_HEAD": 6,
+          "MAT_LIYUE_QINGXIN": 6,
+          "ING_RICE": 6,
+          "ING_SUGAR": 3,
+          "ING_FISH": 3,
+          "MAT_LIYUE_JUEYUN_CHILI": 1,
+          "ING_SALT": 1,
+          "MAT_LIYUE_VIOLETGRASS": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 4,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 24,
+        "gameMinutes": 250,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 408,
+        "ownedIngredientTotalMora": 424,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 1970,
+        "actualHealed": 1943,
+        "overheal": 27
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 33,
+        "LIYUE": 40
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 12,
+          "FOOD_RADISH_SOUP": 11
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 12,
+          "ING_RADISH": 11,
+          "ING_MINT": 11
+        },
+        "craftedServings": 23,
+        "craftActions": 6,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 42,
+        "gameMinutes": 290,
+        "craftMora": 92,
+        "ingredientNpcOpportunityMora": 102,
+        "ownedIngredientTotalMora": 194,
+        "purchasedIngredientMoraLowerBound": 408,
+        "allNpcMoraLowerBound": 500,
+        "minimumNpcMoraLowerBound": 500,
+        "requestedHealing": 2070,
+        "actualHealed": 1943,
+        "overheal": 127
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 33,
+        "LIYUE": 40
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 10,
+          "FOOD_RADISH_SOUP": 7,
+          "FOOD_HASH_BROWN": 2
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 10,
+          "ING_RADISH": 7,
+          "ING_MINT": 7,
+          "ING_PINECONE": 4,
+          "ING_POTATO": 2,
+          "ING_JAM": 2
+        },
+        "craftedServings": 19,
+        "craftActions": 5,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 39,
+        "gameMinutes": 270,
+        "craftMora": 72,
+        "ingredientNpcOpportunityMora": 120,
+        "ownedIngredientTotalMora": 192,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 566,
+        "requestedHealing": 1970,
+        "actualHealed": 1943,
+        "overheal": 27
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 25,
+        "LIYUE": 32
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4
+        },
+        "craftedServings": 4,
+        "craftActions": 1,
+        "mealBatchActions": 1,
+        "inputBudgetSeconds": 12,
+        "gameMinutes": 90,
+        "craftMora": 8,
+        "ingredientNpcOpportunityMora": 96,
+        "ownedIngredientTotalMora": 104,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 880,
+        "actualHealed": 648,
+        "overheal": 232
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 25,
+        "LIYUE": 32
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RICE_BUNS": 4
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_HORSETAIL": 4,
+          "ING_RICE": 4
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 100,
+        "craftMora": 28,
+        "ingredientNpcOpportunityMora": 52,
+        "ownedIngredientTotalMora": 80,
+        "purchasedIngredientMoraLowerBound": 252,
+        "allNpcMoraLowerBound": 280,
+        "minimumNpcMoraLowerBound": 280,
+        "requestedHealing": 760,
+        "actualHealed": 648,
+        "overheal": 112
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 25,
+        "LIYUE": 32
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RADISH_SOUP": 4
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_RADISH": 4,
+          "ING_MINT": 4
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 100,
+        "craftMora": 32,
+        "ingredientNpcOpportunityMora": 36,
+        "ownedIngredientTotalMora": 68,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 720,
+        "actualHealed": 648,
+        "overheal": 72
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 28,
+        "LIYUE": 36
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 8
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 180,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 256,
+        "ownedIngredientTotalMora": 272,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 1560,
+        "actualHealed": 1295,
+        "overheal": 265
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 28,
+        "LIYUE": 36
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RICE_BUNS": 8,
+          "FOOD_TEA_BREAK_PANCAKE": 8
+        },
+        "ingredients": {
+          "ING_HORSETAIL": 8,
+          "ING_RICE": 8,
+          "ING_BIRD_EGG": 8
+        },
+        "craftedServings": 16,
+        "craftActions": 4,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 30,
+        "gameMinutes": 200,
+        "craftMora": 56,
+        "ingredientNpcOpportunityMora": 104,
+        "ownedIngredientTotalMora": 160,
+        "purchasedIngredientMoraLowerBound": 504,
+        "allNpcMoraLowerBound": 560,
+        "minimumNpcMoraLowerBound": 560,
+        "requestedHealing": 1520,
+        "actualHealed": 1295,
+        "overheal": 225
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 28,
+        "LIYUE": 36
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 1,
+          "FOOD_TEA_BREAK_PANCAKE": 7,
+          "FOOD_RADISH_SOUP": 6
+        },
+        "ingredients": {
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1,
+          "ING_BIRD_EGG": 7,
+          "ING_RADISH": 6,
+          "ING_MINT": 6
+        },
+        "craftedServings": 14,
+        "craftActions": 5,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 190,
+        "craftMora": 54,
+        "ingredientNpcOpportunityMora": 81,
+        "ownedIngredientTotalMora": 135,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 1390,
+        "actualHealed": 1295,
+        "overheal": 95
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 33,
+        "LIYUE": 40
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_MATSUTAKE_ROLL": 1,
+          "FOOD_HASH_BROWN": 3,
+          "FOOD_LUCKY_SNOW_DELIGHT": 3,
+          "FOOD_PERCH_STEW": 1
+        },
+        "ingredients": {
+          "ING_MATSUTAKE": 2,
+          "ING_RAW_MEAT": 2,
+          "ING_PINECONE": 6,
+          "ING_POTATO": 3,
+          "ING_JAM": 3,
+          "ING_LOTUS_HEAD": 6,
+          "MAT_LIYUE_QINGXIN": 6,
+          "ING_RICE": 6,
+          "ING_SUGAR": 3,
+          "ING_FISH": 3,
+          "MAT_LIYUE_JUEYUN_CHILI": 1,
+          "ING_SALT": 1,
+          "MAT_LIYUE_VIOLETGRASS": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 4,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 24,
+        "gameMinutes": 250,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 408,
+        "ownedIngredientTotalMora": 424,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 1970,
+        "actualHealed": 1943,
+        "overheal": 27
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 33,
+        "LIYUE": 40
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 11,
+          "FOOD_RICE_BUNS": 11
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 11,
+          "ING_HORSETAIL": 11,
+          "ING_RICE": 11
+        },
+        "craftedServings": 22,
+        "craftActions": 6,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 42,
+        "gameMinutes": 280,
+        "craftMora": 77,
+        "ingredientNpcOpportunityMora": 143,
+        "ownedIngredientTotalMora": 220,
+        "purchasedIngredientMoraLowerBound": 693,
+        "allNpcMoraLowerBound": 770,
+        "minimumNpcMoraLowerBound": 770,
+        "requestedHealing": 2090,
+        "actualHealed": 1943,
+        "overheal": 147
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 1,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 33,
+        "LIYUE": 40
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 10,
+          "FOOD_RADISH_SOUP": 7,
+          "FOOD_HASH_BROWN": 2
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 10,
+          "ING_RADISH": 7,
+          "ING_MINT": 7,
+          "ING_PINECONE": 4,
+          "ING_POTATO": 2,
+          "ING_JAM": 2
+        },
+        "craftedServings": 19,
+        "craftActions": 5,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 39,
+        "gameMinutes": 270,
+        "craftMora": 72,
+        "ingredientNpcOpportunityMora": 120,
+        "ownedIngredientTotalMora": 192,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 1970,
+        "actualHealed": 1943,
+        "overheal": 27
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 64,
+        "LIYUE": 72
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4
+        },
+        "craftedServings": 4,
+        "craftActions": 1,
+        "mealBatchActions": 1,
+        "inputBudgetSeconds": 12,
+        "gameMinutes": 90,
+        "craftMora": 8,
+        "ingredientNpcOpportunityMora": 96,
+        "ownedIngredientTotalMora": 104,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 420,
+        "requestedHealing": 2052,
+        "actualHealed": 1846,
+        "overheal": 206
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 64,
+        "LIYUE": 72
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_CHICKEN_SKEWER": 1,
+          "FOOD_TEA_BREAK_PANCAKE": 7,
+          "FOOD_RADISH_SOUP": 3
+        },
+        "ingredients": {
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1,
+          "ING_BIRD_EGG": 7,
+          "ING_RADISH": 3,
+          "ING_MINT": 3
+        },
+        "craftedServings": 11,
+        "craftActions": 4,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 27,
+        "gameMinutes": 140,
+        "craftMora": 43,
+        "ingredientNpcOpportunityMora": 49,
+        "ownedIngredientTotalMora": 92,
+        "purchasedIngredientMoraLowerBound": 196,
+        "allNpcMoraLowerBound": 239,
+        "minimumNpcMoraLowerBound": 239,
+        "requestedHealing": 2333,
+        "actualHealed": 1846,
+        "overheal": 487
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 64,
+        "LIYUE": 72
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RICE_BUNS": 1,
+          "FOOD_TEA_BREAK_PANCAKE": 7,
+          "FOOD_RADISH_SOUP": 3
+        },
+        "ingredients": {
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1,
+          "ING_BIRD_EGG": 7,
+          "ING_RADISH": 3,
+          "ING_MINT": 3
+        },
+        "craftedServings": 11,
+        "craftActions": 4,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 27,
+        "gameMinutes": 140,
+        "craftMora": 43,
+        "ingredientNpcOpportunityMora": 49,
+        "ownedIngredientTotalMora": 92,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 2333,
+        "actualHealed": 1846,
+        "overheal": 487
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 101,
+        "LIYUE": 120
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 1,
+          "FOOD_MATSUTAKE_ROLL": 3
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 2,
+          "ING_RAW_MEAT": 6
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 180,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 280,
+        "ownedIngredientTotalMora": 296,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 4128,
+        "actualHealed": 3688,
+        "overheal": 440
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 101,
+        "LIYUE": 120
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 12,
+          "FOOD_RADISH_SOUP": 8
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 12,
+          "ING_RADISH": 8,
+          "ING_MINT": 8
+        },
+        "craftedServings": 20,
+        "craftActions": 5,
+        "mealBatchActions": 5,
+        "inputBudgetSeconds": 36,
+        "gameMinutes": 250,
+        "craftMora": 80,
+        "ingredientNpcOpportunityMora": 84,
+        "ownedIngredientTotalMora": 164,
+        "purchasedIngredientMoraLowerBound": 336,
+        "allNpcMoraLowerBound": 416,
+        "minimumNpcMoraLowerBound": 416,
+        "requestedHealing": 4200,
+        "actualHealed": 3688,
+        "overheal": 512
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 101,
+        "LIYUE": 120
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 9,
+          "FOOD_HASH_BROWN": 3,
+          "FOOD_RADISH_SOUP": 2
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 9,
+          "ING_PINECONE": 6,
+          "ING_POTATO": 3,
+          "ING_JAM": 3,
+          "ING_RADISH": 2,
+          "ING_MINT": 2
+        },
+        "craftedServings": 14,
+        "craftActions": 4,
+        "mealBatchActions": 5,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 220,
+        "craftMora": 50,
+        "ingredientNpcOpportunityMora": 111,
+        "ownedIngredientTotalMora": 161,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 515,
+        "requestedHealing": 3849,
+        "actualHealed": 3688,
+        "overheal": 161
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 144,
+        "LIYUE": 168
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 8,
+          "FOOD_VEGETARIAN_ABALONE": 3,
+          "FOOD_MATSUTAKE_ROLL": 1
+        },
+        "ingredients": {
+          "ING_PINECONE": 16,
+          "ING_POTATO": 8,
+          "ING_JAM": 8,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 6,
+          "ING_RAW_MEAT": 2
+        },
+        "craftedServings": 12,
+        "craftActions": 4,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 27,
+        "gameMinutes": 270,
+        "craftMora": 24,
+        "ingredientNpcOpportunityMora": 360,
+        "ownedIngredientTotalMora": 384,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 5852,
+        "actualHealed": 5533,
+        "overheal": 319
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 144,
+        "LIYUE": 168
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 16,
+          "FOOD_RADISH_SOUP": 11,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 16,
+          "ING_RADISH": 11,
+          "ING_MINT": 11,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 28,
+        "craftActions": 8,
+        "mealBatchActions": 7,
+        "inputBudgetSeconds": 51,
+        "gameMinutes": 350,
+        "craftMora": 111,
+        "ingredientNpcOpportunityMora": 124,
+        "ownedIngredientTotalMora": 235,
+        "purchasedIngredientMoraLowerBound": 496,
+        "allNpcMoraLowerBound": 607,
+        "minimumNpcMoraLowerBound": 607,
+        "requestedHealing": 5903,
+        "actualHealed": 5533,
+        "overheal": 370
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 144,
+        "LIYUE": 168
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 15,
+          "FOOD_HASH_BROWN": 1,
+          "FOOD_RADISH_SOUP": 9,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 15,
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1,
+          "ING_RADISH": 9,
+          "ING_MINT": 9,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 26,
+        "craftActions": 7,
+        "mealBatchActions": 7,
+        "inputBudgetSeconds": 48,
+        "gameMinutes": 340,
+        "craftMora": 101,
+        "ingredientNpcOpportunityMora": 133,
+        "ownedIngredientTotalMora": 234,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 640,
+        "requestedHealing": 5786,
+        "actualHealed": 5533,
+        "overheal": 253
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 64,
+        "LIYUE": 72
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4
+        },
+        "craftedServings": 4,
+        "craftActions": 1,
+        "mealBatchActions": 1,
+        "inputBudgetSeconds": 12,
+        "gameMinutes": 90,
+        "craftMora": 8,
+        "ingredientNpcOpportunityMora": 96,
+        "ownedIngredientTotalMora": 104,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 2052,
+        "actualHealed": 1846,
+        "overheal": 206
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 64,
+        "LIYUE": 72
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 7,
+          "FOOD_RICE_BUNS": 4
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 7,
+          "ING_HORSETAIL": 4,
+          "ING_RICE": 4
+        },
+        "craftedServings": 11,
+        "craftActions": 3,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 24,
+        "gameMinutes": 140,
+        "craftMora": 40,
+        "ingredientNpcOpportunityMora": 61,
+        "ownedIngredientTotalMora": 101,
+        "purchasedIngredientMoraLowerBound": 306,
+        "allNpcMoraLowerBound": 346,
+        "minimumNpcMoraLowerBound": 346,
+        "requestedHealing": 2402,
+        "actualHealed": 1846,
+        "overheal": 556
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 64,
+        "LIYUE": 72
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RICE_BUNS": 1,
+          "FOOD_TEA_BREAK_PANCAKE": 7,
+          "FOOD_RADISH_SOUP": 3
+        },
+        "ingredients": {
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1,
+          "ING_BIRD_EGG": 7,
+          "ING_RADISH": 3,
+          "ING_MINT": 3
+        },
+        "craftedServings": 11,
+        "craftActions": 4,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 27,
+        "gameMinutes": 140,
+        "craftMora": 43,
+        "ingredientNpcOpportunityMora": 49,
+        "ownedIngredientTotalMora": 92,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 2333,
+        "actualHealed": 1846,
+        "overheal": 487
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 101,
+        "LIYUE": 120
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 1,
+          "FOOD_MATSUTAKE_ROLL": 3
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 2,
+          "ING_RAW_MEAT": 6
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 180,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 280,
+        "ownedIngredientTotalMora": 296,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 4128,
+        "actualHealed": 3688,
+        "overheal": 440
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 101,
+        "LIYUE": 120
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RICE_BUNS": 8,
+          "FOOD_TEA_BREAK_PANCAKE": 11
+        },
+        "ingredients": {
+          "ING_HORSETAIL": 8,
+          "ING_RICE": 8,
+          "ING_BIRD_EGG": 11
+        },
+        "craftedServings": 19,
+        "craftActions": 5,
+        "mealBatchActions": 5,
+        "inputBudgetSeconds": 36,
+        "gameMinutes": 240,
+        "craftMora": 68,
+        "ingredientNpcOpportunityMora": 113,
+        "ownedIngredientTotalMora": 181,
+        "purchasedIngredientMoraLowerBound": 558,
+        "allNpcMoraLowerBound": 626,
+        "minimumNpcMoraLowerBound": 626,
+        "requestedHealing": 4174,
+        "actualHealed": 3688,
+        "overheal": 486
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 101,
+        "LIYUE": 120
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 9,
+          "FOOD_HASH_BROWN": 3,
+          "FOOD_RADISH_SOUP": 2
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 9,
+          "ING_PINECONE": 6,
+          "ING_POTATO": 3,
+          "ING_JAM": 3,
+          "ING_RADISH": 2,
+          "ING_MINT": 2
+        },
+        "craftedServings": 14,
+        "craftActions": 4,
+        "mealBatchActions": 5,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 220,
+        "craftMora": 50,
+        "ingredientNpcOpportunityMora": 111,
+        "ownedIngredientTotalMora": 161,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 3849,
+        "actualHealed": 3688,
+        "overheal": 161
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 144,
+        "LIYUE": 168
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 8,
+          "FOOD_VEGETARIAN_ABALONE": 3,
+          "FOOD_MATSUTAKE_ROLL": 1
+        },
+        "ingredients": {
+          "ING_PINECONE": 16,
+          "ING_POTATO": 8,
+          "ING_JAM": 8,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 6,
+          "ING_RAW_MEAT": 2
+        },
+        "craftedServings": 12,
+        "craftActions": 4,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 27,
+        "gameMinutes": 270,
+        "craftMora": 24,
+        "ingredientNpcOpportunityMora": 360,
+        "ownedIngredientTotalMora": 384,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 5852,
+        "actualHealed": 5533,
+        "overheal": 319
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 144,
+        "LIYUE": 168
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 15,
+          "FOOD_RICE_BUNS": 12
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 15,
+          "ING_HORSETAIL": 12,
+          "ING_RICE": 12
+        },
+        "craftedServings": 27,
+        "craftActions": 6,
+        "mealBatchActions": 7,
+        "inputBudgetSeconds": 45,
+        "gameMinutes": 340,
+        "craftMora": 96,
+        "ingredientNpcOpportunityMora": 165,
+        "ownedIngredientTotalMora": 261,
+        "purchasedIngredientMoraLowerBound": 810,
+        "allNpcMoraLowerBound": 906,
+        "minimumNpcMoraLowerBound": 906,
+        "requestedHealing": 5946,
+        "actualHealed": 5533,
+        "overheal": 413
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 10,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 144,
+        "LIYUE": 168
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 15,
+          "FOOD_HASH_BROWN": 1,
+          "FOOD_RADISH_SOUP": 9,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 15,
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1,
+          "ING_RADISH": 9,
+          "ING_MINT": 9,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 26,
+        "craftActions": 7,
+        "mealBatchActions": 7,
+        "inputBudgetSeconds": 48,
+        "gameMinutes": 340,
+        "craftMora": 101,
+        "ingredientNpcOpportunityMora": 133,
+        "ownedIngredientTotalMora": 234,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 5786,
+        "actualHealed": 5533,
+        "overheal": 253
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 143,
+        "LIYUE": 167
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4
+        },
+        "craftedServings": 4,
+        "craftActions": 1,
+        "mealBatchActions": 1,
+        "inputBudgetSeconds": 12,
+        "gameMinutes": 90,
+        "craftMora": 8,
+        "ingredientNpcOpportunityMora": 96,
+        "ownedIngredientTotalMora": 104,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 420,
+        "requestedHealing": 7496,
+        "actualHealed": 6013,
+        "overheal": 1483
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 143,
+        "LIYUE": 167
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RADISH_SOUP": 3,
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_RADISH": 3,
+          "ING_MINT": 3,
+          "ING_BIRD_EGG": 4,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 100,
+        "craftMora": 31,
+        "ingredientNpcOpportunityMora": 40,
+        "ownedIngredientTotalMora": 71,
+        "purchasedIngredientMoraLowerBound": 160,
+        "allNpcMoraLowerBound": 191,
+        "minimumNpcMoraLowerBound": 191,
+        "requestedHealing": 6214,
+        "actualHealed": 6013,
+        "overheal": 201
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 143,
+        "LIYUE": 167
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RADISH_SOUP": 3,
+          "FOOD_RICE_BUNS": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_RADISH": 3,
+          "ING_MINT": 3,
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 100,
+        "craftMora": 31,
+        "ingredientNpcOpportunityMora": 40,
+        "ownedIngredientTotalMora": 71,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 6214,
+        "actualHealed": 6013,
+        "overheal": 201
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 262,
+        "LIYUE": 306
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 8
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 180,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 256,
+        "ownedIngredientTotalMora": 272,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 13288,
+        "actualHealed": 12025,
+        "overheal": 1263
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 262,
+        "LIYUE": 306
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 9,
+          "FOOD_RADISH_SOUP": 8
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 9,
+          "ING_RADISH": 8,
+          "ING_MINT": 8
+        },
+        "craftedServings": 17,
+        "craftActions": 4,
+        "mealBatchActions": 5,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 220,
+        "craftMora": 68,
+        "ingredientNpcOpportunityMora": 75,
+        "ownedIngredientTotalMora": 143,
+        "purchasedIngredientMoraLowerBound": 300,
+        "allNpcMoraLowerBound": 368,
+        "minimumNpcMoraLowerBound": 368,
+        "requestedHealing": 13022,
+        "actualHealed": 12025,
+        "overheal": 997
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 262,
+        "LIYUE": 306
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 8,
+          "FOOD_RADISH_SOUP": 6,
+          "FOOD_HASH_BROWN": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 8,
+          "ING_RADISH": 6,
+          "ING_MINT": 6,
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1
+        },
+        "craftedServings": 15,
+        "craftActions": 5,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 200,
+        "craftMora": 58,
+        "ingredientNpcOpportunityMora": 84,
+        "ownedIngredientTotalMora": 142,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 401,
+        "requestedHealing": 12598,
+        "actualHealed": 12025,
+        "overheal": 573
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 383,
+        "LIYUE": 447
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_MATSUTAKE_ROLL": 1,
+          "FOOD_LUCKY_SNOW_DELIGHT": 2,
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 2,
+          "FOOD_PERCH_STEW": 1
+        },
+        "ingredients": {
+          "ING_MATSUTAKE": 6,
+          "ING_RAW_MEAT": 2,
+          "ING_LOTUS_HEAD": 4,
+          "MAT_LIYUE_QINGXIN": 4,
+          "ING_RICE": 4,
+          "ING_SUGAR": 2,
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_SNAPDRAGON": 4,
+          "ING_FISH": 3,
+          "MAT_LIYUE_JUEYUN_CHILI": 1,
+          "ING_SALT": 1,
+          "MAT_LIYUE_VIOLETGRASS": 1
+        },
+        "craftedServings": 10,
+        "craftActions": 5,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 30,
+        "gameMinutes": 280,
+        "craftMora": 20,
+        "ingredientNpcOpportunityMora": 440,
+        "ownedIngredientTotalMora": 460,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 19248,
+        "actualHealed": 18038,
+        "overheal": 1210
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 383,
+        "LIYUE": 447
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RADISH_SOUP": 12,
+          "FOOD_TEA_BREAK_PANCAKE": 13
+        },
+        "ingredients": {
+          "ING_RADISH": 12,
+          "ING_MINT": 12,
+          "ING_BIRD_EGG": 13
+        },
+        "craftedServings": 25,
+        "craftActions": 6,
+        "mealBatchActions": 7,
+        "inputBudgetSeconds": 45,
+        "gameMinutes": 320,
+        "craftMora": 100,
+        "ingredientNpcOpportunityMora": 111,
+        "ownedIngredientTotalMora": 211,
+        "purchasedIngredientMoraLowerBound": 444,
+        "allNpcMoraLowerBound": 544,
+        "minimumNpcMoraLowerBound": 544,
+        "requestedHealing": 19150,
+        "actualHealed": 18038,
+        "overheal": 1112
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 383,
+        "LIYUE": 447
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RADISH_SOUP": 10,
+          "FOOD_TEA_BREAK_PANCAKE": 12,
+          "FOOD_HASH_BROWN": 1
+        },
+        "ingredients": {
+          "ING_RADISH": 10,
+          "ING_MINT": 10,
+          "ING_BIRD_EGG": 12,
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1
+        },
+        "craftedServings": 23,
+        "craftActions": 6,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 42,
+        "gameMinutes": 300,
+        "craftMora": 90,
+        "ingredientNpcOpportunityMora": 120,
+        "ownedIngredientTotalMora": 210,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 577,
+        "requestedHealing": 18726,
+        "actualHealed": 18038,
+        "overheal": 688
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 143,
+        "LIYUE": 167
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4
+        },
+        "craftedServings": 4,
+        "craftActions": 1,
+        "mealBatchActions": 1,
+        "inputBudgetSeconds": 12,
+        "gameMinutes": 90,
+        "craftMora": 8,
+        "ingredientNpcOpportunityMora": 96,
+        "ownedIngredientTotalMora": 104,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 7496,
+        "actualHealed": 6013,
+        "overheal": 1483
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 143,
+        "LIYUE": 167
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RICE_BUNS": 4
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_HORSETAIL": 4,
+          "ING_RICE": 4
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 100,
+        "craftMora": 28,
+        "ingredientNpcOpportunityMora": 52,
+        "ownedIngredientTotalMora": 80,
+        "purchasedIngredientMoraLowerBound": 252,
+        "allNpcMoraLowerBound": 280,
+        "minimumNpcMoraLowerBound": 280,
+        "requestedHealing": 6472,
+        "actualHealed": 6013,
+        "overheal": 459
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 143,
+        "LIYUE": 167
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RADISH_SOUP": 3,
+          "FOOD_RICE_BUNS": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_RADISH": 3,
+          "ING_MINT": 3,
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 100,
+        "craftMora": 31,
+        "ingredientNpcOpportunityMora": 40,
+        "ownedIngredientTotalMora": 71,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 6214,
+        "actualHealed": 6013,
+        "overheal": 201
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 262,
+        "LIYUE": 306
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 8
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 180,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 256,
+        "ownedIngredientTotalMora": 272,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 13288,
+        "actualHealed": 12025,
+        "overheal": 1263
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 262,
+        "LIYUE": 306
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 8,
+          "FOOD_RICE_BUNS": 8
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 8,
+          "ING_HORSETAIL": 8,
+          "ING_RICE": 8
+        },
+        "craftedServings": 16,
+        "craftActions": 4,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 30,
+        "gameMinutes": 200,
+        "craftMora": 56,
+        "ingredientNpcOpportunityMora": 104,
+        "ownedIngredientTotalMora": 160,
+        "purchasedIngredientMoraLowerBound": 504,
+        "allNpcMoraLowerBound": 560,
+        "minimumNpcMoraLowerBound": 560,
+        "requestedHealing": 12944,
+        "actualHealed": 12025,
+        "overheal": 919
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 262,
+        "LIYUE": 306
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 8,
+          "FOOD_RADISH_SOUP": 6,
+          "FOOD_HASH_BROWN": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 8,
+          "ING_RADISH": 6,
+          "ING_MINT": 6,
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1
+        },
+        "craftedServings": 15,
+        "craftActions": 5,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 200,
+        "craftMora": 58,
+        "ingredientNpcOpportunityMora": 84,
+        "ownedIngredientTotalMora": 142,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 12598,
+        "actualHealed": 12025,
+        "overheal": 573
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 383,
+        "LIYUE": 447
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_MATSUTAKE_ROLL": 1,
+          "FOOD_LUCKY_SNOW_DELIGHT": 2,
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 2,
+          "FOOD_PERCH_STEW": 1
+        },
+        "ingredients": {
+          "ING_MATSUTAKE": 6,
+          "ING_RAW_MEAT": 2,
+          "ING_LOTUS_HEAD": 4,
+          "MAT_LIYUE_QINGXIN": 4,
+          "ING_RICE": 4,
+          "ING_SUGAR": 2,
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_SNAPDRAGON": 4,
+          "ING_FISH": 3,
+          "MAT_LIYUE_JUEYUN_CHILI": 1,
+          "ING_SALT": 1,
+          "MAT_LIYUE_VIOLETGRASS": 1
+        },
+        "craftedServings": 10,
+        "craftActions": 5,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 30,
+        "gameMinutes": 280,
+        "craftMora": 20,
+        "ingredientNpcOpportunityMora": 440,
+        "ownedIngredientTotalMora": 460,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 19248,
+        "actualHealed": 18038,
+        "overheal": 1210
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 383,
+        "LIYUE": 447
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RICE_BUNS": 12,
+          "FOOD_TEA_BREAK_PANCAKE": 12
+        },
+        "ingredients": {
+          "ING_HORSETAIL": 12,
+          "ING_RICE": 12,
+          "ING_BIRD_EGG": 12
+        },
+        "craftedServings": 24,
+        "craftActions": 6,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 42,
+        "gameMinutes": 300,
+        "craftMora": 84,
+        "ingredientNpcOpportunityMora": 156,
+        "ownedIngredientTotalMora": 240,
+        "purchasedIngredientMoraLowerBound": 756,
+        "allNpcMoraLowerBound": 840,
+        "minimumNpcMoraLowerBound": 840,
+        "requestedHealing": 19416,
+        "actualHealed": 18038,
+        "overheal": 1378
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 30,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 383,
+        "LIYUE": 447
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RADISH_SOUP": 10,
+          "FOOD_TEA_BREAK_PANCAKE": 12,
+          "FOOD_HASH_BROWN": 1
+        },
+        "ingredients": {
+          "ING_RADISH": 10,
+          "ING_MINT": 10,
+          "ING_BIRD_EGG": 12,
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1
+        },
+        "craftedServings": 23,
+        "craftActions": 6,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 42,
+        "gameMinutes": 300,
+        "craftMora": 90,
+        "ingredientNpcOpportunityMora": 120,
+        "ownedIngredientTotalMora": 210,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 18726,
+        "actualHealed": 18038,
+        "overheal": 688
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 224,
+        "LIYUE": 260
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4
+        },
+        "craftedServings": 4,
+        "craftActions": 1,
+        "mealBatchActions": 1,
+        "inputBudgetSeconds": 12,
+        "gameMinutes": 90,
+        "craftMora": 8,
+        "ingredientNpcOpportunityMora": 96,
+        "ownedIngredientTotalMora": 104,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 420,
+        "requestedHealing": 17568,
+        "actualHealed": 13545,
+        "overheal": 4023
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 224,
+        "LIYUE": 260
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RADISH_SOUP": 3,
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_RADISH": 3,
+          "ING_MINT": 3,
+          "ING_BIRD_EGG": 4,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 100,
+        "craftMora": 31,
+        "ingredientNpcOpportunityMora": 40,
+        "ownedIngredientTotalMora": 71,
+        "purchasedIngredientMoraLowerBound": 160,
+        "allNpcMoraLowerBound": 191,
+        "minimumNpcMoraLowerBound": 191,
+        "requestedHealing": 14575,
+        "actualHealed": 13545,
+        "overheal": 1030
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 224,
+        "LIYUE": 260
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RADISH_SOUP": 3,
+          "FOOD_RICE_BUNS": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_RADISH": 3,
+          "ING_MINT": 3,
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 100,
+        "craftMora": 31,
+        "ingredientNpcOpportunityMora": 40,
+        "ownedIngredientTotalMora": 71,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 14575,
+        "actualHealed": 13545,
+        "overheal": 1030
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 422,
+        "LIYUE": 492
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 8
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 180,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 256,
+        "ownedIngredientTotalMora": 272,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 31144,
+        "actualHealed": 27088,
+        "overheal": 4056
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 422,
+        "LIYUE": 492
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 8,
+          "FOOD_RADISH_SOUP": 7,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 8,
+          "ING_RADISH": 7,
+          "ING_MINT": 7,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 16,
+        "craftActions": 5,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 200,
+        "craftMora": 63,
+        "ingredientNpcOpportunityMora": 76,
+        "ownedIngredientTotalMora": 139,
+        "purchasedIngredientMoraLowerBound": 304,
+        "allNpcMoraLowerBound": 367,
+        "minimumNpcMoraLowerBound": 367,
+        "requestedHealing": 28951,
+        "actualHealed": 27088,
+        "overheal": 1863
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 422,
+        "LIYUE": 492
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 8,
+          "FOOD_RADISH_SOUP": 7,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 8,
+          "ING_RADISH": 7,
+          "ING_MINT": 7,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 16,
+        "craftActions": 5,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 200,
+        "craftMora": 63,
+        "ingredientNpcOpportunityMora": 76,
+        "ownedIngredientTotalMora": 139,
+        "purchasedIngredientMoraLowerBound": 304,
+        "allNpcMoraLowerBound": 367,
+        "minimumNpcMoraLowerBound": 367,
+        "requestedHealing": 28951,
+        "actualHealed": 27088,
+        "overheal": 1863
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 624,
+        "LIYUE": 728
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_LUCKY_SNOW_DELIGHT": 3,
+          "FOOD_HASH_BROWN": 3,
+          "FOOD_PERCH_STEW": 1,
+          "FOOD_VEGETARIAN_ABALONE": 1,
+          "FOOD_MATSUTAKE_ROLL": 1
+        },
+        "ingredients": {
+          "ING_LOTUS_HEAD": 6,
+          "MAT_LIYUE_QINGXIN": 6,
+          "ING_RICE": 6,
+          "ING_SUGAR": 3,
+          "ING_PINECONE": 6,
+          "ING_POTATO": 3,
+          "ING_JAM": 3,
+          "ING_FISH": 3,
+          "MAT_LIYUE_JUEYUN_CHILI": 1,
+          "ING_SALT": 1,
+          "MAT_LIYUE_VIOLETGRASS": 1,
+          "ING_MATSUTAKE": 4,
+          "ING_SNAPDRAGON": 2,
+          "ING_RAW_MEAT": 2
+        },
+        "craftedServings": 9,
+        "craftActions": 5,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 30,
+        "gameMinutes": 280,
+        "craftMora": 18,
+        "ingredientNpcOpportunityMora": 448,
+        "ownedIngredientTotalMora": 466,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 42721,
+        "actualHealed": 40633,
+        "overheal": 2088
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 624,
+        "LIYUE": 728
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RADISH_SOUP": 11,
+          "FOOD_TEA_BREAK_PANCAKE": 12,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_RADISH": 11,
+          "ING_MINT": 11,
+          "ING_BIRD_EGG": 12,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 24,
+        "craftActions": 7,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 45,
+        "gameMinutes": 300,
+        "craftMora": 95,
+        "ingredientNpcOpportunityMora": 112,
+        "ownedIngredientTotalMora": 207,
+        "purchasedIngredientMoraLowerBound": 448,
+        "allNpcMoraLowerBound": 543,
+        "minimumNpcMoraLowerBound": 543,
+        "requestedHealing": 43327,
+        "actualHealed": 40633,
+        "overheal": 2694
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 624,
+        "LIYUE": 728
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 11,
+          "FOOD_HASH_BROWN": 1,
+          "FOOD_RADISH_SOUP": 9,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 11,
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1,
+          "ING_RADISH": 9,
+          "ING_MINT": 9,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 22,
+        "craftActions": 7,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 45,
+        "gameMinutes": 290,
+        "craftMora": 85,
+        "ingredientNpcOpportunityMora": 121,
+        "ownedIngredientTotalMora": 206,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 576,
+        "requestedHealing": 42328,
+        "actualHealed": 40633,
+        "overheal": 1695
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 224,
+        "LIYUE": 260
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4
+        },
+        "craftedServings": 4,
+        "craftActions": 1,
+        "mealBatchActions": 1,
+        "inputBudgetSeconds": 12,
+        "gameMinutes": 90,
+        "craftMora": 8,
+        "ingredientNpcOpportunityMora": 96,
+        "ownedIngredientTotalMora": 104,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 17568,
+        "actualHealed": 13545,
+        "overheal": 4023
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 224,
+        "LIYUE": 260
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RICE_BUNS": 4
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_HORSETAIL": 4,
+          "ING_RICE": 4
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 100,
+        "craftMora": 28,
+        "ingredientNpcOpportunityMora": 52,
+        "ownedIngredientTotalMora": 80,
+        "purchasedIngredientMoraLowerBound": 252,
+        "allNpcMoraLowerBound": 280,
+        "minimumNpcMoraLowerBound": 280,
+        "requestedHealing": 15172,
+        "actualHealed": 13545,
+        "overheal": 1627
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 224,
+        "LIYUE": 260
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RADISH_SOUP": 3,
+          "FOOD_RICE_BUNS": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_RADISH": 3,
+          "ING_MINT": 3,
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 100,
+        "craftMora": 31,
+        "ingredientNpcOpportunityMora": 40,
+        "ownedIngredientTotalMora": 71,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 14575,
+        "actualHealed": 13545,
+        "overheal": 1030
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 422,
+        "LIYUE": 492
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 8
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 180,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 256,
+        "ownedIngredientTotalMora": 272,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 31144,
+        "actualHealed": 27088,
+        "overheal": 4056
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 422,
+        "LIYUE": 492
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RICE_BUNS": 8,
+          "FOOD_TEA_BREAK_PANCAKE": 8
+        },
+        "ingredients": {
+          "ING_HORSETAIL": 8,
+          "ING_RICE": 8,
+          "ING_BIRD_EGG": 8
+        },
+        "craftedServings": 16,
+        "craftActions": 4,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 30,
+        "gameMinutes": 200,
+        "craftMora": 56,
+        "ingredientNpcOpportunityMora": 104,
+        "ownedIngredientTotalMora": 160,
+        "purchasedIngredientMoraLowerBound": 504,
+        "allNpcMoraLowerBound": 560,
+        "minimumNpcMoraLowerBound": 560,
+        "requestedHealing": 30344,
+        "actualHealed": 27088,
+        "overheal": 3256
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 422,
+        "LIYUE": 492
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 8,
+          "FOOD_RADISH_SOUP": 7,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 8,
+          "ING_RADISH": 7,
+          "ING_MINT": 7,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 16,
+        "craftActions": 5,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 200,
+        "craftMora": 63,
+        "ingredientNpcOpportunityMora": 76,
+        "ownedIngredientTotalMora": 139,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 28951,
+        "actualHealed": 27088,
+        "overheal": 1863
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 624,
+        "LIYUE": 728
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_LUCKY_SNOW_DELIGHT": 3,
+          "FOOD_HASH_BROWN": 3,
+          "FOOD_PERCH_STEW": 1,
+          "FOOD_VEGETARIAN_ABALONE": 1,
+          "FOOD_MATSUTAKE_ROLL": 1
+        },
+        "ingredients": {
+          "ING_LOTUS_HEAD": 6,
+          "MAT_LIYUE_QINGXIN": 6,
+          "ING_RICE": 6,
+          "ING_SUGAR": 3,
+          "ING_PINECONE": 6,
+          "ING_POTATO": 3,
+          "ING_JAM": 3,
+          "ING_FISH": 3,
+          "MAT_LIYUE_JUEYUN_CHILI": 1,
+          "ING_SALT": 1,
+          "MAT_LIYUE_VIOLETGRASS": 1,
+          "ING_MATSUTAKE": 4,
+          "ING_SNAPDRAGON": 2,
+          "ING_RAW_MEAT": 2
+        },
+        "craftedServings": 9,
+        "craftActions": 5,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 30,
+        "gameMinutes": 280,
+        "craftMora": 18,
+        "ingredientNpcOpportunityMora": 448,
+        "ownedIngredientTotalMora": 466,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 42721,
+        "actualHealed": 40633,
+        "overheal": 2088
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 624,
+        "LIYUE": 728
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RICE_BUNS": 12,
+          "FOOD_TEA_BREAK_PANCAKE": 11
+        },
+        "ingredients": {
+          "ING_HORSETAIL": 12,
+          "ING_RICE": 12,
+          "ING_BIRD_EGG": 11
+        },
+        "craftedServings": 23,
+        "craftActions": 6,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 42,
+        "gameMinutes": 290,
+        "craftMora": 80,
+        "ingredientNpcOpportunityMora": 153,
+        "ownedIngredientTotalMora": 233,
+        "purchasedIngredientMoraLowerBound": 738,
+        "allNpcMoraLowerBound": 818,
+        "minimumNpcMoraLowerBound": 818,
+        "requestedHealing": 43719,
+        "actualHealed": 40633,
+        "overheal": 3086
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 50,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 624,
+        "LIYUE": 728
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 11,
+          "FOOD_HASH_BROWN": 1,
+          "FOOD_RADISH_SOUP": 9,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 11,
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1,
+          "ING_RADISH": 9,
+          "ING_MINT": 9,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 22,
+        "craftActions": 7,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 45,
+        "gameMinutes": 290,
+        "craftMora": 85,
+        "ingredientNpcOpportunityMora": 121,
+        "ownedIngredientTotalMora": 206,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 42328,
+        "actualHealed": 40633,
+        "overheal": 1695
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 264,
+        "LIYUE": 308
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4
+        },
+        "craftedServings": 4,
+        "craftActions": 1,
+        "mealBatchActions": 1,
+        "inputBudgetSeconds": 12,
+        "gameMinutes": 90,
+        "craftMora": 8,
+        "ingredientNpcOpportunityMora": 96,
+        "ownedIngredientTotalMora": 104,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": 420,
+        "requestedHealing": 26964,
+        "actualHealed": 20579,
+        "overheal": 6385
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 264,
+        "LIYUE": 308
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RADISH_SOUP": 3,
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_RADISH": 3,
+          "ING_MINT": 3,
+          "ING_BIRD_EGG": 4,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 100,
+        "craftMora": 31,
+        "ingredientNpcOpportunityMora": 40,
+        "ownedIngredientTotalMora": 71,
+        "purchasedIngredientMoraLowerBound": 160,
+        "allNpcMoraLowerBound": 191,
+        "minimumNpcMoraLowerBound": 191,
+        "requestedHealing": 22363,
+        "actualHealed": 20579,
+        "overheal": 1784
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 264,
+        "LIYUE": 308
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RADISH_SOUP": 3,
+          "FOOD_RICE_BUNS": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_RADISH": 3,
+          "ING_MINT": 3,
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 100,
+        "craftMora": 31,
+        "ingredientNpcOpportunityMora": 40,
+        "ownedIngredientTotalMora": 71,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 22363,
+        "actualHealed": 20579,
+        "overheal": 1784
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 502,
+        "LIYUE": 586
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 8
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 180,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 256,
+        "ownedIngredientTotalMora": 272,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 47800,
+        "actualHealed": 41155,
+        "overheal": 6645
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 502,
+        "LIYUE": 586
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 8,
+          "FOOD_RADISH_SOUP": 7,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 8,
+          "ING_RADISH": 7,
+          "ING_MINT": 7,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 16,
+        "craftActions": 5,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 200,
+        "craftMora": 63,
+        "ingredientNpcOpportunityMora": 76,
+        "ownedIngredientTotalMora": 139,
+        "purchasedIngredientMoraLowerBound": 304,
+        "allNpcMoraLowerBound": 367,
+        "minimumNpcMoraLowerBound": 367,
+        "requestedHealing": 44419,
+        "actualHealed": 41155,
+        "overheal": 3264
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 502,
+        "LIYUE": 586
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 8,
+          "FOOD_RADISH_SOUP": 7,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 8,
+          "ING_RADISH": 7,
+          "ING_MINT": 7,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 16,
+        "craftActions": 5,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 200,
+        "craftMora": 63,
+        "ingredientNpcOpportunityMora": 76,
+        "ownedIngredientTotalMora": 139,
+        "purchasedIngredientMoraLowerBound": 304,
+        "allNpcMoraLowerBound": 367,
+        "minimumNpcMoraLowerBound": 367,
+        "requestedHealing": 44419,
+        "actualHealed": 41155,
+        "overheal": 3264
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 744,
+        "LIYUE": 868
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_LUCKY_SNOW_DELIGHT": 3,
+          "FOOD_HASH_BROWN": 3,
+          "FOOD_MATSUTAKE_ROLL": 2,
+          "FOOD_VEGETARIAN_ABALONE": 1
+        },
+        "ingredients": {
+          "ING_LOTUS_HEAD": 6,
+          "MAT_LIYUE_QINGXIN": 6,
+          "ING_RICE": 6,
+          "ING_SUGAR": 3,
+          "ING_PINECONE": 6,
+          "ING_POTATO": 3,
+          "ING_JAM": 3,
+          "ING_MATSUTAKE": 6,
+          "ING_RAW_MEAT": 4,
+          "ING_SNAPDRAGON": 2
+        },
+        "craftedServings": 9,
+        "craftActions": 4,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 27,
+        "gameMinutes": 270,
+        "craftMora": 18,
+        "ingredientNpcOpportunityMora": 424,
+        "ownedIngredientTotalMora": 442,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 64954,
+        "actualHealed": 61733,
+        "overheal": 3221
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 744,
+        "LIYUE": 868
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RADISH_SOUP": 11,
+          "FOOD_TEA_BREAK_PANCAKE": 12,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_RADISH": 11,
+          "ING_MINT": 11,
+          "ING_BIRD_EGG": 12,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 24,
+        "craftActions": 7,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 45,
+        "gameMinutes": 300,
+        "craftMora": 95,
+        "ingredientNpcOpportunityMora": 112,
+        "ownedIngredientTotalMora": 207,
+        "purchasedIngredientMoraLowerBound": 448,
+        "allNpcMoraLowerBound": 543,
+        "minimumNpcMoraLowerBound": 543,
+        "requestedHealing": 66475,
+        "actualHealed": 61733,
+        "overheal": 4742
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "MOND",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 744,
+        "LIYUE": 868
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 12,
+          "FOOD_RICE_BUNS": 1,
+          "FOOD_CHICKEN_SKEWER": 2,
+          "FOOD_RADISH_SOUP": 8
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 12,
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1,
+          "ING_MUSHROOM": 2,
+          "ING_FOWL": 2,
+          "ING_RADISH": 8,
+          "ING_MINT": 8
+        },
+        "craftedServings": 23,
+        "craftActions": 7,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 45,
+        "gameMinutes": 290,
+        "craftMora": 89,
+        "ingredientNpcOpportunityMora": 114,
+        "ownedIngredientTotalMora": 203,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 64332,
+        "actualHealed": 61733,
+        "overheal": 2599
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 264,
+        "LIYUE": 308
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4
+        },
+        "craftedServings": 4,
+        "craftActions": 1,
+        "mealBatchActions": 1,
+        "inputBudgetSeconds": 12,
+        "gameMinutes": 90,
+        "craftMora": 8,
+        "ingredientNpcOpportunityMora": 96,
+        "ownedIngredientTotalMora": 104,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 26964,
+        "actualHealed": 20579,
+        "overheal": 6385
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 264,
+        "LIYUE": 308
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RICE_BUNS": 4
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_HORSETAIL": 4,
+          "ING_RICE": 4
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 100,
+        "craftMora": 28,
+        "ingredientNpcOpportunityMora": 52,
+        "ownedIngredientTotalMora": 80,
+        "purchasedIngredientMoraLowerBound": 252,
+        "allNpcMoraLowerBound": 280,
+        "minimumNpcMoraLowerBound": 280,
+        "requestedHealing": 23284,
+        "actualHealed": 20579,
+        "overheal": 2705
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.25,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 264,
+        "LIYUE": 308
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 4,
+          "FOOD_RADISH_SOUP": 3,
+          "FOOD_RICE_BUNS": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 4,
+          "ING_RADISH": 3,
+          "ING_MINT": 3,
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1
+        },
+        "craftedServings": 8,
+        "craftActions": 3,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 21,
+        "gameMinutes": 100,
+        "craftMora": 31,
+        "ingredientNpcOpportunityMora": 40,
+        "ownedIngredientTotalMora": 71,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 22363,
+        "actualHealed": 20579,
+        "overheal": 1784
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 502,
+        "LIYUE": 586
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_HASH_BROWN": 4,
+          "FOOD_VEGETARIAN_ABALONE": 4
+        },
+        "ingredients": {
+          "ING_PINECONE": 8,
+          "ING_POTATO": 4,
+          "ING_JAM": 4,
+          "ING_MATSUTAKE": 8,
+          "ING_SNAPDRAGON": 8
+        },
+        "craftedServings": 8,
+        "craftActions": 2,
+        "mealBatchActions": 2,
+        "inputBudgetSeconds": 18,
+        "gameMinutes": 180,
+        "craftMora": 16,
+        "ingredientNpcOpportunityMora": 256,
+        "ownedIngredientTotalMora": 272,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 47800,
+        "actualHealed": 41155,
+        "overheal": 6645
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 502,
+        "LIYUE": 586
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_RICE_BUNS": 8,
+          "FOOD_TEA_BREAK_PANCAKE": 8
+        },
+        "ingredients": {
+          "ING_HORSETAIL": 8,
+          "ING_RICE": 8,
+          "ING_BIRD_EGG": 8
+        },
+        "craftedServings": 16,
+        "craftActions": 4,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 30,
+        "gameMinutes": 200,
+        "craftMora": 56,
+        "ingredientNpcOpportunityMora": 104,
+        "ownedIngredientTotalMora": 160,
+        "purchasedIngredientMoraLowerBound": 504,
+        "allNpcMoraLowerBound": 560,
+        "minimumNpcMoraLowerBound": 560,
+        "requestedHealing": 46568,
+        "actualHealed": 41155,
+        "overheal": 5413
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.5,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 502,
+        "LIYUE": 586
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 8,
+          "FOOD_RADISH_SOUP": 7,
+          "FOOD_CHICKEN_SKEWER": 1
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 8,
+          "ING_RADISH": 7,
+          "ING_MINT": 7,
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        },
+        "craftedServings": 16,
+        "craftActions": 5,
+        "mealBatchActions": 4,
+        "inputBudgetSeconds": 33,
+        "gameMinutes": 200,
+        "craftMora": 63,
+        "ingredientNpcOpportunityMora": 76,
+        "ownedIngredientTotalMora": 139,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 44419,
+        "actualHealed": 41155,
+        "overheal": 3264
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "craftCash",
+      "innMora": {
+        "MOND": 744,
+        "LIYUE": 868
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_LUCKY_SNOW_DELIGHT": 3,
+          "FOOD_HASH_BROWN": 3,
+          "FOOD_MATSUTAKE_ROLL": 2,
+          "FOOD_VEGETARIAN_ABALONE": 1
+        },
+        "ingredients": {
+          "ING_LOTUS_HEAD": 6,
+          "MAT_LIYUE_QINGXIN": 6,
+          "ING_RICE": 6,
+          "ING_SUGAR": 3,
+          "ING_PINECONE": 6,
+          "ING_POTATO": 3,
+          "ING_JAM": 3,
+          "ING_MATSUTAKE": 6,
+          "ING_RAW_MEAT": 4,
+          "ING_SNAPDRAGON": 2
+        },
+        "craftedServings": 9,
+        "craftActions": 4,
+        "mealBatchActions": 3,
+        "inputBudgetSeconds": 27,
+        "gameMinutes": 270,
+        "craftMora": 18,
+        "ingredientNpcOpportunityMora": 424,
+        "ownedIngredientTotalMora": 442,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 64954,
+        "actualHealed": 61733,
+        "overheal": 3221
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "allNpc",
+      "innMora": {
+        "MOND": 744,
+        "LIYUE": 868
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 12,
+          "FOOD_RICE_BUNS": 11
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 12,
+          "ING_HORSETAIL": 11,
+          "ING_RICE": 11
+        },
+        "craftedServings": 23,
+        "craftActions": 6,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 42,
+        "gameMinutes": 290,
+        "craftMora": 81,
+        "ingredientNpcOpportunityMora": 146,
+        "ownedIngredientTotalMora": 227,
+        "purchasedIngredientMoraLowerBound": 711,
+        "allNpcMoraLowerBound": 792,
+        "minimumNpcMoraLowerBound": 792,
+        "requestedHealing": 66788,
+        "actualHealed": 61733,
+        "overheal": 5055
+      }
+    },
+    {
+      "mode": "SAME_LEVEL_FOUR",
+      "levels": 60,
+      "route": "ROUTE_TRAVELER",
+      "region": "LIYUE",
+      "hpLoss": 0.75,
+      "menu": "ALL",
+      "priority": "opportunity",
+      "innMora": {
+        "MOND": 744,
+        "LIYUE": 868
+      },
+      "actual": {
+        "blocked": null,
+        "foodCounts": {
+          "FOOD_TEA_BREAK_PANCAKE": 12,
+          "FOOD_RICE_BUNS": 1,
+          "FOOD_CHICKEN_SKEWER": 2,
+          "FOOD_RADISH_SOUP": 8
+        },
+        "ingredients": {
+          "ING_BIRD_EGG": 12,
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1,
+          "ING_MUSHROOM": 2,
+          "ING_FOWL": 2,
+          "ING_RADISH": 8,
+          "ING_MINT": 8
+        },
+        "craftedServings": 23,
+        "craftActions": 7,
+        "mealBatchActions": 6,
+        "inputBudgetSeconds": 45,
+        "gameMinutes": 290,
+        "craftMora": 89,
+        "ingredientNpcOpportunityMora": 114,
+        "ownedIngredientTotalMora": 203,
+        "purchasedIngredientMoraLowerBound": null,
+        "allNpcMoraLowerBound": null,
+        "minimumNpcMoraLowerBound": null,
+        "requestedHealing": 64332,
+        "actualHealed": 61733,
+        "overheal": 2599
+      }
+    }
+  ],
+  "foods": [
+    {
+      "food": "FOOD_TEA_BREAK_PANCAKE",
+      "name": "티바트 달걀 프라이",
+      "baseHealing": 90,
+      "recipe": "REC_FOOD_EGG_FRY",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_BIRD_EGG": 1
+      },
+      "ingredientNpcOpportunityMora": 3,
+      "ownedIngredientTotalMora": 7,
+      "unlock": "전투 중 아님",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 16,
+          "purchaseAndProcessLowerBound": 16,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 22,
+          "purchaseAndProcessLowerBound": 22,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_SWEET_MADAME",
+      "name": "달콤달콤 닭고기 스튜",
+      "baseHealing": 180,
+      "recipe": "REC_FOOD_SWEET_MADAME",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_FOWL": 2,
+        "ING_SWEET_FLOWER": 2
+      },
+      "ingredientNpcOpportunityMora": 20,
+      "ownedIngredientTotalMora": 24,
+      "unlock": "전투 중 아님",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 84,
+          "purchaseAndProcessLowerBound": 84,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SWEET_FLOWER"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_HASH_BROWN",
+      "name": "몬드 감자전",
+      "baseHealing": 220,
+      "recipe": "REC_FOOD_HASH_BROWN",
+      "cookingMora": 2,
+      "ingredients": {
+        "ING_PINECONE": 2,
+        "ING_POTATO": 1,
+        "ING_JAM": 1
+      },
+      "ingredientNpcOpportunityMora": 24,
+      "ownedIngredientTotalMora": 26,
+      "unlock": "전투 중 아님",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_PINECONE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_PINECONE",
+            "ING_JAM"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_MATSUTAKE_ROLL",
+      "name": "버섯고기말이",
+      "baseHealing": 240,
+      "recipe": "REC_FOOD_MATSUTAKE_ROLL",
+      "cookingMora": 2,
+      "ingredients": {
+        "ING_MATSUTAKE": 2,
+        "ING_RAW_MEAT": 2
+      },
+      "ingredientNpcOpportunityMora": 48,
+      "ownedIngredientTotalMora": 50,
+      "unlock": "전투 중 아님",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MATSUTAKE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MATSUTAKE"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_UNIVERSAL_PEACE",
+      "name": "세계 평화",
+      "baseHealing": 160,
+      "recipe": "REC_FOOD_UNIVERSAL_PEACE",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_RICE": 2,
+        "ING_LOTUS_HEAD": 1,
+        "ING_CARROT": 1,
+        "ING_BERRY": 1
+      },
+      "ingredientNpcOpportunityMora": 28,
+      "ownedIngredientTotalMora": 31,
+      "unlock": "전투 중 아님",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RICE",
+            "ING_LOTUS_HEAD",
+            "ING_BERRY"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BERRY"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_PIZZA",
+      "name": "버섯피자",
+      "baseHealing": 130,
+      "recipe": "REC_FOOD_PIZZA",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_MUSHROOM": 3,
+        "ING_FLOUR": 2,
+        "ING_CABBAGE": 1,
+        "ING_CHEESE": 1
+      },
+      "ingredientNpcOpportunityMora": 34,
+      "ownedIngredientTotalMora": 38,
+      "unlock": "전투 중 아님",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 146,
+          "purchaseAndProcessLowerBound": 146,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 223,
+          "purchaseAndProcessLowerBound": 223,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_SAKURA_MOCHI",
+      "name": "벚꽃 모찌",
+      "baseHealing": 170,
+      "recipe": "REC_FOOD_SAKURA_MOCHI",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_RICE": 2,
+        "ING_SUGAR": 1,
+        "ING_SWEET_FLOWER": 1
+      },
+      "ingredientNpcOpportunityMora": 23,
+      "ownedIngredientTotalMora": 26,
+      "unlock": "전투 중 아님",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RICE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SWEET_FLOWER"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_TAHCHIN",
+      "name": "타친",
+      "baseHealing": 145,
+      "recipe": "REC_FOOD_TAHCHIN",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_RICE": 2,
+        "ING_FOWL": 1,
+        "ING_FISH": 1
+      },
+      "ingredientNpcOpportunityMora": 31,
+      "ownedIngredientTotalMora": 34,
+      "unlock": "전투 중 아님",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RICE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 165,
+          "purchaseAndProcessLowerBound": 165,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+      "name": "글루포프 호밀빵",
+      "baseHealing": 200,
+      "recipe": "REC_FOOD_SNEZ_GLUPOV_RYE_BREAD",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_RYE_FLOUR": 2,
+        "ING_SALT": 1,
+        "ING_SUGAR": 1
+      },
+      "ingredientNpcOpportunityMora": 32,
+      "ownedIngredientTotalMora": 35,
+      "unlock": "전투 중 아님",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RYE_FLOUR"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RYE_FLOUR"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_SNEZ_BERRY_ICE_CREAM",
+      "name": "베리 아이스크림",
+      "baseHealing": 200,
+      "recipe": "REC_FOOD_SNEZ_BERRY_ICE_CREAM",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_ICE_STAR_FRUIT": 2,
+        "ING_CREAM": 1,
+        "ING_SWEET_FLOWER": 1
+      },
+      "ingredientNpcOpportunityMora": 41,
+      "ownedIngredientTotalMora": 44,
+      "unlock": "전투 중 아님",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_ICE_STAR_FRUIT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_ICE_STAR_FRUIT",
+            "ING_SWEET_FLOWER"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+      "name": "옛뜰 훈제 소시지",
+      "baseHealing": 120,
+      "recipe": "REC_FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_SAUSAGE": 2,
+        "ING_PEPPER": 1
+      },
+      "ingredientNpcOpportunityMora": 30,
+      "ownedIngredientTotalMora": 34,
+      "unlock": "STK_SNEZ_BUT_001 또는 STK_V014_MOND_SNEZ_REC_01 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 128,
+          "purchaseAndProcessLowerBound": 128,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 190,
+          "purchaseAndProcessLowerBound": 190,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_SNEZ_MEDOVIK",
+      "name": "메도빅",
+      "baseHealing": 220,
+      "recipe": "REC_FOOD_SNEZ_MEDOVIK",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_FLOUR": 2,
+        "ING_SOUR_CREAM": 1,
+        "ING_SWEET_FLOWER": 2
+      },
+      "ingredientNpcOpportunityMora": 29,
+      "ownedIngredientTotalMora": 32,
+      "unlock": "STK_SNEZ_BUT_003 또는 STK_V014_MOND_SNEZ_REC_03 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": 83,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SWEET_FLOWER"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_SNEZ_ZHARKOYE",
+      "name": "자르코예",
+      "baseHealing": 260,
+      "recipe": "REC_FOOD_SNEZ_ZHARKOYE",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_RAW_MEAT": 2,
+        "ING_POTATO": 2,
+        "ING_SOUR_CREAM": 1
+      },
+      "ingredientNpcOpportunityMora": 41,
+      "ownedIngredientTotalMora": 44,
+      "unlock": "STK_SNEZ_TOL_001 또는 STK_V014_MOND_SNEZ_REC_04 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": 127,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": 189,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_STEAK",
+      "name": "스테이크",
+      "baseHealing": 110,
+      "recipe": "REC_FOOD_STEAK",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_RAW_MEAT": 2
+      },
+      "ingredientNpcOpportunityMora": 18,
+      "ownedIngredientTotalMora": 22,
+      "unlock": "기본 해금",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 76,
+          "purchaseAndProcessLowerBound": 76,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 112,
+          "purchaseAndProcessLowerBound": 112,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_CHICKEN_SKEWER",
+      "name": "버섯 닭꼬치",
+      "baseHealing": 100,
+      "recipe": "REC_FOOD_CHICKEN_SKEWER",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_MUSHROOM": 1,
+        "ING_FOWL": 1
+      },
+      "ingredientNpcOpportunityMora": 10,
+      "ownedIngredientTotalMora": 13,
+      "unlock": "기본 해금",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 43,
+          "purchaseAndProcessLowerBound": 43,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 63,
+          "purchaseAndProcessLowerBound": 63,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_MOND_GRILLED_FISH",
+      "name": "몬드 생선구이",
+      "baseHealing": 100,
+      "recipe": "REC_FOOD_MOND_GRILLED_FISH",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_FISH": 1,
+        "ING_PEPPER": 1
+      },
+      "ingredientNpcOpportunityMora": 14,
+      "ownedIngredientTotalMora": 17,
+      "unlock": "기본 해금",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 59,
+          "purchaseAndProcessLowerBound": 59,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 87,
+          "purchaseAndProcessLowerBound": 87,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_RADISH_SOUP",
+      "name": "무 수프",
+      "baseHealing": 90,
+      "recipe": "REC_FOOD_RADISH_SOUP",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_RADISH": 1,
+        "ING_MINT": 1
+      },
+      "ingredientNpcOpportunityMora": 6,
+      "ownedIngredientTotalMora": 10,
+      "unlock": "기본 해금",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 28,
+          "purchaseAndProcessLowerBound": 28,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MINT"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_MINT_JELLY",
+      "name": "민트 젤리",
+      "baseHealing": 90,
+      "recipe": "REC_FOOD_MINT_JELLY",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_MINT": 1,
+        "ING_SUGAR": 1
+      },
+      "ingredientNpcOpportunityMora": 9,
+      "ownedIngredientTotalMora": 13,
+      "unlock": "기본 해금",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 40,
+          "purchaseAndProcessLowerBound": 40,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MINT"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_PANCAKE_TEA_BREAK",
+      "name": "장원 팬케이크",
+      "baseHealing": 170,
+      "recipe": "REC_FOOD_PANCAKE_TEA_BREAK",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_BERRY": 3,
+        "ING_FLOUR": 2,
+        "ING_BIRD_EGG": 1
+      },
+      "ingredientNpcOpportunityMora": 26,
+      "ownedIngredientTotalMora": 29,
+      "unlock": "STK_V014_MOND_REC_02 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BERRY"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BERRY"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_BOLOGNESE",
+      "name": "불꽃 미트 스파게티",
+      "baseHealing": 180,
+      "recipe": "REC_FOOD_BOLOGNESE",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_FLOUR": 2,
+        "ING_RAW_MEAT": 2,
+        "ING_TOMATO": 1
+      },
+      "ingredientNpcOpportunityMora": 30,
+      "ownedIngredientTotalMora": 34,
+      "unlock": "STK_V014_MOND_REC_06 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 128,
+          "purchaseAndProcessLowerBound": 128,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 196,
+          "purchaseAndProcessLowerBound": 196,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_APPLE_STEW",
+      "name": "북극 사과고기찜",
+      "baseHealing": 240,
+      "recipe": "REC_FOOD_APPLE_STEW",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_RAW_MEAT": 3,
+        "ING_APPLE": 3,
+        "ING_BUTTER": 1,
+        "ING_PEPPER": 1
+      },
+      "ingredientNpcOpportunityMora": 50,
+      "ownedIngredientTotalMora": 53,
+      "unlock": "STK_V014_MOND_REC_10 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 205,
+          "purchaseAndProcessLowerBound": 203,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_APPLE"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_CHICKEN_BURGER",
+      "name": "바삭바삭 치킨버거",
+      "baseHealing": 250,
+      "recipe": "REC_FOOD_CHICKEN_BURGER",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_FOWL": 3,
+        "ING_FLOUR": 2,
+        "ING_CABBAGE": 2,
+        "ING_BUTTER": 1
+      },
+      "ingredientNpcOpportunityMora": 47,
+      "ownedIngredientTotalMora": 51,
+      "unlock": "STK_V014_MOND_REC_12 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 198,
+          "purchaseAndProcessLowerBound": 196,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 301,
+          "purchaseAndProcessLowerBound": 298,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_MORA_MEAT",
+      "name": "모라육",
+      "baseHealing": 100,
+      "recipe": "REC_FOOD_MORA_MEAT",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_RAW_MEAT": 1,
+        "ING_FLOUR": 1
+      },
+      "ingredientNpcOpportunityMora": 13,
+      "ownedIngredientTotalMora": 17,
+      "unlock": "기본 해금",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 58,
+          "purchaseAndProcessLowerBound": 58,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 88,
+          "purchaseAndProcessLowerBound": 88,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_STIR_FRIED_FILET",
+      "name": "고기볶음",
+      "baseHealing": 110,
+      "recipe": "REC_FOOD_STIR_FRIED_FILET",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_RAW_MEAT": 1,
+        "MAT_LIYUE_JUEYUN_CHILI": 1
+      },
+      "ingredientNpcOpportunityMora": 29,
+      "ownedIngredientTotalMora": 32,
+      "unlock": "기본 해금",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 279,
+          "purchaseAndProcessLowerBound": 279,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "MAT_LIYUE_JUEYUN_CHILI"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_CRYSTAL_SHRIMP",
+      "name": "수정 새우딤섬",
+      "baseHealing": 190,
+      "recipe": "REC_FOOD_CRYSTAL_SHRIMP",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_RICE": 2,
+        "ING_SHRIMP": 2,
+        "ING_CARROT": 1
+      },
+      "ingredientNpcOpportunityMora": 47,
+      "ownedIngredientTotalMora": 51,
+      "unlock": "STK_V014_LIYUE_REC_05 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RICE",
+            "ING_SHRIMP"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 202,
+          "purchaseAndProcessLowerBound": 202,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_VEGETARIAN_ABALONE",
+      "name": "채식 전복",
+      "baseHealing": 170,
+      "recipe": "REC_FOOD_VEGETARIAN_ABALONE",
+      "cookingMora": 2,
+      "ingredients": {
+        "ING_MATSUTAKE": 2,
+        "ING_SNAPDRAGON": 2
+      },
+      "ingredientNpcOpportunityMora": 40,
+      "ownedIngredientTotalMora": 42,
+      "unlock": "STK_V014_LIYUE_REC_08 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MATSUTAKE",
+            "ING_SNAPDRAGON"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MATSUTAKE",
+            "ING_SNAPDRAGON"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_SQUIRREL_FISH",
+      "name": "탕수어",
+      "baseHealing": 250,
+      "recipe": "REC_FOOD_SQUIRREL_FISH",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_FISH": 3,
+        "ING_TOMATO": 2,
+        "ING_FLOUR": 2,
+        "ING_SUGAR": 1
+      },
+      "ingredientNpcOpportunityMora": 52,
+      "ownedIngredientTotalMora": 55,
+      "unlock": "STK_V014_LIYUE_REC_11 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 215,
+          "purchaseAndProcessLowerBound": 215,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 315,
+          "purchaseAndProcessLowerBound": 315,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_SHRIMP_BALLS",
+      "name": "황금 새우볼",
+      "baseHealing": 240,
+      "recipe": "REC_FOOD_SHRIMP_BALLS",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_SHRIMP": 4,
+        "ING_POTATO": 3,
+        "ING_FLOUR": 2
+      },
+      "ingredientNpcOpportunityMora": 80,
+      "ownedIngredientTotalMora": 83,
+      "unlock": "STK_V014_LIYUE_REC_12 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SHRIMP"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 375,
+          "purchaseAndProcessLowerBound": 375,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_BAMBOO_SOUP",
+      "name": "죽순 수프",
+      "baseHealing": 240,
+      "recipe": "REC_FOOD_BAMBOO_SOUP",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_RAW_MEAT": 2,
+        "ING_HAM": 2,
+        "ING_BAMBOO_SHOOT": 1
+      },
+      "ingredientNpcOpportunityMora": 50,
+      "ownedIngredientTotalMora": 53,
+      "unlock": "STK_V014_LIYUE_REC_13 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BAMBOO_SHOOT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 300,
+          "purchaseAndProcessLowerBound": 300,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_PERCH_STEW",
+      "name": "삶은 검정 농어",
+      "baseHealing": 260,
+      "recipe": "REC_FOOD_PERCH_STEW",
+      "cookingMora": 2,
+      "ingredients": {
+        "ING_FISH": 3,
+        "MAT_LIYUE_JUEYUN_CHILI": 1,
+        "ING_SALT": 1,
+        "MAT_LIYUE_VIOLETGRASS": 1
+      },
+      "ingredientNpcOpportunityMora": 72,
+      "ownedIngredientTotalMora": 74,
+      "unlock": "STK_V014_LIYUE_REC_19 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 612,
+          "purchaseAndProcessLowerBound": 612,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "MAT_LIYUE_JUEYUN_CHILI",
+            "MAT_LIYUE_VIOLETGRASS"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_CRAB_HAM_BAKE",
+      "name": "꽃게알 야채찜",
+      "baseHealing": 230,
+      "recipe": "REC_FOOD_CRAB_HAM_BAKE",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_CABBAGE": 1,
+        "ING_CRAB_ROE": 1,
+        "ING_CREAM": 1,
+        "ING_HAM": 1
+      },
+      "ingredientNpcOpportunityMora": 55,
+      "ownedIngredientTotalMora": 58,
+      "unlock": "STK_V0143_MOND_REC_04 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": 189,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": 282,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_POTATO_SHRIMP_PLATTER",
+      "name": "바삭 쉬림프 카나페",
+      "baseHealing": 230,
+      "recipe": "REC_FOOD_POTATO_SHRIMP_PLATTER",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_MINT": 3,
+        "ING_BERRY": 2,
+        "ING_POTATO": 2,
+        "ING_SHRIMP": 3
+      },
+      "ingredientNpcOpportunityMora": 72,
+      "ownedIngredientTotalMora": 76,
+      "unlock": "STK_V0143_MOND_REC_07 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BERRY",
+            "ING_SHRIMP"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MINT",
+            "ING_BERRY"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_GRILLED_TIGER_FISH",
+      "name": "흘호어 구이",
+      "baseHealing": 100,
+      "recipe": "REC_FOOD_GRILLED_TIGER_FISH",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_PEPPER": 1,
+        "ING_FISH": 1
+      },
+      "ingredientNpcOpportunityMora": 14,
+      "ownedIngredientTotalMora": 17,
+      "unlock": "STK_V0143_WANGSHU_REC_01 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 59,
+          "purchaseAndProcessLowerBound": 59,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 87,
+          "purchaseAndProcessLowerBound": 87,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_RICE_BUNS",
+      "name": "쌀 찐빵",
+      "baseHealing": 100,
+      "recipe": "REC_FOOD_RICE_BUNS",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_HORSETAIL": 1,
+        "ING_RICE": 1
+      },
+      "ingredientNpcOpportunityMora": 10,
+      "ownedIngredientTotalMora": 13,
+      "unlock": "STK_V0143_WANGSHU_REC_02 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_HORSETAIL",
+            "ING_RICE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 48,
+          "purchaseAndProcessLowerBound": 48,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_FINE_TEA_FULL_MOON",
+      "name": "차와 보름달",
+      "baseHealing": 240,
+      "recipe": "REC_FOOD_FINE_TEA_FULL_MOON",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_BIRD_EGG": 2,
+        "ING_CHENYU_ADEPTEA": 2,
+        "ING_FLOUR": 2,
+        "ING_SUGAR": 1
+      },
+      "ingredientNpcOpportunityMora": 32,
+      "ownedIngredientTotalMora": 35,
+      "unlock": "STK_V0143_CHENYU_REC_01 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CHENYU_ADEPTEA"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CHENYU_ADEPTEA"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_JADEVEIN_TEA_EGGS",
+      "name": "옥무늬 찻잎 달걀",
+      "baseHealing": 90,
+      "recipe": "REC_FOOD_JADEVEIN_TEA_EGGS",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_BIRD_EGG": 1,
+        "ING_CHENYU_ADEPTEA": 1
+      },
+      "ingredientNpcOpportunityMora": 9,
+      "ownedIngredientTotalMora": 12,
+      "unlock": "STK_V0143_CHENYU_REC_02 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CHENYU_ADEPTEA"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CHENYU_ADEPTEA"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_TEA_SMOKED_SQUAB",
+      "name": "차향 훈제 비둘기",
+      "baseHealing": 180,
+      "recipe": "REC_FOOD_TEA_SMOKED_SQUAB",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_FOWL": 2,
+        "ING_CHENYU_ADEPTEA": 2
+      },
+      "ingredientNpcOpportunityMora": 26,
+      "ownedIngredientTotalMora": 29,
+      "unlock": "STK_V0143_CHENYU_REC_03 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CHENYU_ADEPTEA"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CHENYU_ADEPTEA"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_CHENYU_BREW",
+      "name": "침옥 차 이슬",
+      "baseHealing": 90,
+      "recipe": "REC_FOOD_CHENYU_BREW",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_CHENYU_ADEPTEA": 2
+      },
+      "ingredientNpcOpportunityMora": 12,
+      "ownedIngredientTotalMora": 15,
+      "unlock": "STK_V0143_CHENYU_REC_05 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CHENYU_ADEPTEA"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CHENYU_ADEPTEA"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_CRAB_ROE_TOFU",
+      "name": "꽃게알 두부",
+      "baseHealing": 170,
+      "recipe": "REC_FOOD_CRAB_ROE_TOFU",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_CRAB_ROE": 1,
+        "ING_TOFU": 1
+      },
+      "ingredientNpcOpportunityMora": 26,
+      "ownedIngredientTotalMora": 29,
+      "unlock": "STK_V0143_WANMIN_REC_01 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_TOFU"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": 171,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_FULLMOON_EGG",
+      "name": "명월 딤섬",
+      "baseHealing": 230,
+      "recipe": "REC_FOOD_FULLMOON_EGG",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_BIRD_EGG": 2,
+        "ING_FISH": 3,
+        "ING_SHRIMP": 2,
+        "ING_FLOUR": 1
+      },
+      "ingredientNpcOpportunityMora": 70,
+      "ownedIngredientTotalMora": 73,
+      "unlock": "STK_V0143_WANMIN_REC_02 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SHRIMP"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 369,
+          "purchaseAndProcessLowerBound": 369,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_FISH_NOODLES",
+      "name": "생선 볶음면",
+      "baseHealing": 170,
+      "recipe": "REC_FOOD_FISH_NOODLES",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_SNAPDRAGON": 2,
+        "ING_FISH": 2,
+        "ING_RICE": 2
+      },
+      "ingredientNpcOpportunityMora": 44,
+      "ownedIngredientTotalMora": 47,
+      "unlock": "STK_V0143_WANMIN_REC_04 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SNAPDRAGON",
+            "ING_RICE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SNAPDRAGON"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_HUMBLY_ENOUGH",
+      "name": "만족의 기쁨",
+      "baseHealing": 230,
+      "recipe": "REC_FOOD_HUMBLY_ENOUGH",
+      "cookingMora": 3,
+      "ingredients": {
+        "MAT_LIYUE_JUEYUN_CHILI": 2,
+        "ING_TOFU": 2,
+        "ING_FLOUR": 1,
+        "ING_SUGAR": 1
+      },
+      "ingredientNpcOpportunityMora": 62,
+      "ownedIngredientTotalMora": 65,
+      "unlock": "STK_V0143_WANMIN_REC_12 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_TOFU"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "MAT_LIYUE_JUEYUN_CHILI"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_HONEY_CHAR_SIU",
+      "name": "꿀 차사오",
+      "baseHealing": 90,
+      "recipe": "REC_FOOD_HONEY_CHAR_SIU",
+      "cookingMora": 3,
+      "ingredients": {
+        "ING_RAW_MEAT": 1,
+        "ING_SUGAR": 1
+      },
+      "ingredientNpcOpportunityMora": 15,
+      "ownedIngredientTotalMora": 18,
+      "unlock": "STK_V0143_WANMIN_REC_17 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 63,
+          "purchaseAndProcessLowerBound": 63,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 81,
+          "purchaseAndProcessLowerBound": 81,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "food": "FOOD_LUCKY_SNOW_DELIGHT",
+      "name": "풍요 백설기",
+      "baseHealing": 270,
+      "recipe": "REC_FOOD_LUCKY_SNOW_DELIGHT",
+      "cookingMora": 2,
+      "ingredients": {
+        "ING_LOTUS_HEAD": 2,
+        "MAT_LIYUE_QINGXIN": 2,
+        "ING_RICE": 2,
+        "ING_SUGAR": 1
+      },
+      "ingredientNpcOpportunityMora": 72,
+      "ownedIngredientTotalMora": 74,
+      "unlock": "STK_V0143_WANMIN_REC_19 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_LOTUS_HEAD",
+            "ING_RICE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "MAT_LIYUE_QINGXIN"
+          ]
+        }
+      }
+    },
+    {
+      "food": "FOOD_GOLDEN_TEMPERED_JADE",
+      "name": "빛나는 냉옥",
+      "baseHealing": 170,
+      "recipe": "REC_FOOD_GOLDEN_TEMPERED_JADE",
+      "cookingMora": 4,
+      "ingredients": {
+        "ING_FOWL": 2,
+        "ING_SALT": 2
+      },
+      "ingredientNpcOpportunityMora": 18,
+      "ownedIngredientTotalMora": 22,
+      "unlock": "STK_V0143_WANMIN_REC_21 구매완료",
+      "regionalPrices": {
+        "MOND": {
+          "directIngredientPurchase": 80,
+          "purchaseAndProcessLowerBound": 80,
+          "missingPurchasable": []
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 118,
+          "purchaseAndProcessLowerBound": 118,
+          "missingPurchasable": []
+        }
+      }
+    }
+  ],
+  "campaignComparisons": [
+    {
+      "level": 10,
+      "stage": 10,
+      "element": "PYRO",
+      "route": "ROUTE_TRAVELER",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 214.1,
+        "food": 233.96999999999997,
+        "saved": -19.869999999999976
+      },
+      "lodgingCount": {
+        "inn": 2,
+        "food": 1
+      },
+      "mora": {
+        "innRecovery": 124,
+        "foodUpfrontRecovery": 85,
+        "foodConsumedRecovery": 76,
+        "foodConsumedWithNpcIngredientOpportunity": 286,
+        "foodConsumedWithGlobalShopIngredientReplacement": 916,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 236.1,
+          "food": 255.96999999999997,
+          "saved": -19.869999999999976
+        },
+        "mora": {
+          "innRecovery": 159,
+          "foodUpfrontRecovery": 144,
+          "foodConsumedRecovery": 135,
+          "foodConsumedWithNpcIngredientOpportunity": 345,
+          "foodConsumedWithGlobalShopIngredientReplacement": 975
+        }
+      },
+      "foods": 13,
+      "mealActions": 6,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 0,
+        "FOOD_CHICKEN_SKEWER": 3
+      },
+      "leftoverFoodNpcSaleValue": 45,
+      "leftoverCookingFeePaid": 9,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": true,
+      "rngAfterPreparationMatches": true,
+      "bothFinished": true
+    },
+    {
+      "level": 10,
+      "stage": 10,
+      "element": "HYDRO",
+      "route": "ROUTE_TRAVELER",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 298.2,
+        "food": 318.7,
+        "saved": -20.5
+      },
+      "lodgingCount": {
+        "inn": 2,
+        "food": 1
+      },
+      "mora": {
+        "innRecovery": 117,
+        "foodUpfrontRecovery": 90,
+        "foodConsumedRecovery": 90,
+        "foodConsumedWithNpcIngredientOpportunity": 330,
+        "foodConsumedWithGlobalShopIngredientReplacement": 1050,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 320.2,
+          "food": 340.7,
+          "saved": -20.5
+        },
+        "mora": {
+          "innRecovery": 198,
+          "foodUpfrontRecovery": 135,
+          "foodConsumedRecovery": 135,
+          "foodConsumedWithNpcIngredientOpportunity": 375,
+          "foodConsumedWithGlobalShopIngredientReplacement": 1095
+        }
+      },
+      "foods": 16,
+      "mealActions": 7,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 0,
+        "FOOD_CHICKEN_SKEWER": 0
+      },
+      "leftoverFoodNpcSaleValue": 0,
+      "leftoverCookingFeePaid": 0,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": true,
+      "rngAfterPreparationMatches": true,
+      "bothFinished": true
+    },
+    {
+      "level": 30,
+      "stage": 30,
+      "element": "PYRO",
+      "route": "ROUTE_TRAVELER",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 130.94,
+        "food": 174.14000000000004,
+        "saved": -43.200000000000045
+      },
+      "lodgingCount": {
+        "inn": 0,
+        "food": 0
+      },
+      "mora": {
+        "innRecovery": 0,
+        "foodUpfrontRecovery": 112,
+        "foodConsumedRecovery": 0,
+        "foodConsumedWithNpcIngredientOpportunity": 0,
+        "foodConsumedWithGlobalShopIngredientReplacement": 0,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 156.94,
+          "food": 200.14000000000004,
+          "saved": -43.200000000000045
+        },
+        "mora": {
+          "innRecovery": 121,
+          "foodUpfrontRecovery": 233,
+          "foodConsumedRecovery": 121,
+          "foodConsumedWithNpcIngredientOpportunity": 121,
+          "foodConsumedWithGlobalShopIngredientReplacement": 121
+        }
+      },
+      "foods": 0,
+      "mealActions": 0,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 16,
+        "FOOD_CHICKEN_SKEWER": 16
+      },
+      "leftoverFoodNpcSaleValue": 560,
+      "leftoverCookingFeePaid": 112,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": true,
+      "rngAfterPreparationMatches": true,
+      "bothFinished": true
+    },
+    {
+      "level": 30,
+      "stage": 30,
+      "element": "HYDRO",
+      "route": "ROUTE_TRAVELER",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 290.61,
+        "food": 235.31000000000003,
+        "saved": 55.29999999999998
+      },
+      "lodgingCount": {
+        "inn": 1,
+        "food": 0
+      },
+      "mora": {
+        "innRecovery": 222,
+        "foodUpfrontRecovery": 112,
+        "foodConsumedRecovery": 21,
+        "foodConsumedWithNpcIngredientOpportunity": 111,
+        "foodConsumedWithGlobalShopIngredientReplacement": 381,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 337.85,
+          "food": 261.31000000000006,
+          "saved": 76.53999999999996
+        },
+        "mora": {
+          "innRecovery": 422,
+          "foodUpfrontRecovery": 219,
+          "foodConsumedRecovery": 128,
+          "foodConsumedWithNpcIngredientOpportunity": 218,
+          "foodConsumedWithGlobalShopIngredientReplacement": 488
+        }
+      },
+      "foods": 6,
+      "mealActions": 3,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 13,
+        "FOOD_CHICKEN_SKEWER": 13
+      },
+      "leftoverFoodNpcSaleValue": 455,
+      "leftoverCookingFeePaid": 91,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": false,
+      "rngAfterPreparationMatches": false,
+      "bothFinished": true
+    },
+    {
+      "level": 55,
+      "stage": 60,
+      "element": "PYRO",
+      "route": "ROUTE_TRAVELER",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 515.26,
+        "food": 399.66,
+        "saved": 115.59999999999997
+      },
+      "lodgingCount": {
+        "inn": 3,
+        "food": 0
+      },
+      "mora": {
+        "innRecovery": 1134,
+        "foodUpfrontRecovery": 168,
+        "foodConsumedRecovery": 59,
+        "foodConsumedWithNpcIngredientOpportunity": 309,
+        "foodConsumedWithGlobalShopIngredientReplacement": 1059,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 554.86,
+          "food": 425.66,
+          "saved": 129.2
+        },
+        "mora": {
+          "innRecovery": 1341,
+          "foodUpfrontRecovery": 569,
+          "foodConsumedRecovery": 460,
+          "foodConsumedWithNpcIngredientOpportunity": 710,
+          "foodConsumedWithGlobalShopIngredientReplacement": 1460
+        }
+      },
+      "foods": 17,
+      "mealActions": 6,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 16,
+        "FOOD_CHICKEN_SKEWER": 15
+      },
+      "leftoverFoodNpcSaleValue": 545,
+      "leftoverCookingFeePaid": 109,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": true,
+      "rngAfterPreparationMatches": false,
+      "bothFinished": true
+    },
+    {
+      "level": 55,
+      "stage": 60,
+      "element": "HYDRO",
+      "route": "ROUTE_TRAVELER",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 632.96,
+        "food": 629.16,
+        "saved": 3.800000000000068
+      },
+      "lodgingCount": {
+        "inn": 3,
+        "food": 0
+      },
+      "mora": {
+        "innRecovery": 1164,
+        "foodUpfrontRecovery": 168,
+        "foodConsumedRecovery": 119,
+        "foodConsumedWithNpcIngredientOpportunity": 629,
+        "foodConsumedWithGlobalShopIngredientReplacement": 2159,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 658.96,
+          "food": 655.16,
+          "saved": 3.800000000000068
+        },
+        "mora": {
+          "innRecovery": 1657,
+          "foodUpfrontRecovery": 493,
+          "foodConsumedRecovery": 444,
+          "foodConsumedWithNpcIngredientOpportunity": 954,
+          "foodConsumedWithGlobalShopIngredientReplacement": 2484
+        }
+      },
+      "foods": 34,
+      "mealActions": 15,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 7,
+        "FOOD_CHICKEN_SKEWER": 7
+      },
+      "leftoverFoodNpcSaleValue": 245,
+      "leftoverCookingFeePaid": 49,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": true,
+      "rngAfterPreparationMatches": false,
+      "bothFinished": true
+    },
+    {
+      "level": 10,
+      "stage": 10,
+      "element": "PYRO",
+      "route": "ROUTE_ISEKAI",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 321.35,
+        "food": 345.49999999999994,
+        "saved": -24.14999999999992
+      },
+      "lodgingCount": {
+        "inn": 2,
+        "food": 1
+      },
+      "mora": {
+        "innRecovery": 143,
+        "foodUpfrontRecovery": 119,
+        "foodConsumedRecovery": 119,
+        "foodConsumedWithNpcIngredientOpportunity": 359,
+        "foodConsumedWithGlobalShopIngredientReplacement": 1079,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 343.35,
+          "food": 367.49999999999994,
+          "saved": -24.14999999999992
+        },
+        "mora": {
+          "innRecovery": 215,
+          "foodUpfrontRecovery": 157,
+          "foodConsumedRecovery": 157,
+          "foodConsumedWithNpcIngredientOpportunity": 397,
+          "foodConsumedWithGlobalShopIngredientReplacement": 1117
+        }
+      },
+      "foods": 16,
+      "mealActions": 8,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 0,
+        "FOOD_CHICKEN_SKEWER": 0
+      },
+      "leftoverFoodNpcSaleValue": 0,
+      "leftoverCookingFeePaid": 0,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": true,
+      "rngAfterPreparationMatches": true,
+      "bothFinished": true
+    },
+    {
+      "level": 10,
+      "stage": 10,
+      "element": "HYDRO",
+      "route": "ROUTE_ISEKAI",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 605.34,
+        "food": 519.56,
+        "saved": 85.78000000000009
+      },
+      "lodgingCount": {
+        "inn": 4,
+        "food": 1
+      },
+      "mora": {
+        "innRecovery": 299,
+        "foodUpfrontRecovery": 142,
+        "foodConsumedRecovery": 142,
+        "foodConsumedWithNpcIngredientOpportunity": 382,
+        "foodConsumedWithGlobalShopIngredientReplacement": 1102,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 627.34,
+          "food": 541.56,
+          "saved": 85.78000000000009
+        },
+        "mora": {
+          "innRecovery": 368,
+          "foodUpfrontRecovery": 241,
+          "foodConsumedRecovery": 241,
+          "foodConsumedWithNpcIngredientOpportunity": 481,
+          "foodConsumedWithGlobalShopIngredientReplacement": 1201
+        }
+      },
+      "foods": 16,
+      "mealActions": 7,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 0,
+        "FOOD_CHICKEN_SKEWER": 0
+      },
+      "leftoverFoodNpcSaleValue": 0,
+      "leftoverCookingFeePaid": 0,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": true,
+      "rngAfterPreparationMatches": true,
+      "bothFinished": true
+    },
+    {
+      "level": 30,
+      "stage": 30,
+      "element": "PYRO",
+      "route": "ROUTE_ISEKAI",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 200.33999999999997,
+        "food": 249.20999999999995,
+        "saved": -48.869999999999976
+      },
+      "lodgingCount": {
+        "inn": 0,
+        "food": 0
+      },
+      "mora": {
+        "innRecovery": 0,
+        "foodUpfrontRecovery": 112,
+        "foodConsumedRecovery": 18,
+        "foodConsumedWithNpcIngredientOpportunity": 98,
+        "foodConsumedWithGlobalShopIngredientReplacement": 338,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 226.33999999999997,
+          "food": 275.2099999999999,
+          "saved": -48.86999999999995
+        },
+        "mora": {
+          "innRecovery": 196,
+          "foodUpfrontRecovery": 208,
+          "foodConsumedRecovery": 114,
+          "foodConsumedWithNpcIngredientOpportunity": 194,
+          "foodConsumedWithGlobalShopIngredientReplacement": 434
+        }
+      },
+      "foods": 5,
+      "mealActions": 3,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 13,
+        "FOOD_CHICKEN_SKEWER": 14
+      },
+      "leftoverFoodNpcSaleValue": 470,
+      "leftoverCookingFeePaid": 94,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": false,
+      "rngAfterPreparationMatches": false,
+      "bothFinished": true
+    },
+    {
+      "level": 30,
+      "stage": 30,
+      "element": "HYDRO",
+      "route": "ROUTE_ISEKAI",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 558.64,
+        "food": 407.06999999999994,
+        "saved": 151.57000000000005
+      },
+      "lodgingCount": {
+        "inn": 2,
+        "food": 0
+      },
+      "mora": {
+        "innRecovery": 512,
+        "foodUpfrontRecovery": 112,
+        "foodConsumedRecovery": 26,
+        "foodConsumedWithNpcIngredientOpportunity": 146,
+        "foodConsumedWithGlobalShopIngredientReplacement": 506,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 609.34,
+          "food": 433.06999999999994,
+          "saved": 176.2700000000001
+        },
+        "mora": {
+          "innRecovery": 770,
+          "foodUpfrontRecovery": 183,
+          "foodConsumedRecovery": 97,
+          "foodConsumedWithNpcIngredientOpportunity": 217,
+          "foodConsumedWithGlobalShopIngredientReplacement": 577
+        }
+      },
+      "foods": 7,
+      "mealActions": 3,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 11,
+        "FOOD_CHICKEN_SKEWER": 14
+      },
+      "leftoverFoodNpcSaleValue": 430,
+      "leftoverCookingFeePaid": 86,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": false,
+      "rngAfterPreparationMatches": false,
+      "bothFinished": true
+    },
+    {
+      "level": 55,
+      "stage": 60,
+      "element": "PYRO",
+      "route": "ROUTE_ISEKAI",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 519.01,
+        "food": 445.98999999999995,
+        "saved": 73.02000000000004
+      },
+      "lodgingCount": {
+        "inn": 3,
+        "food": 0
+      },
+      "mora": {
+        "innRecovery": 1209,
+        "foodUpfrontRecovery": 168,
+        "foodConsumedRecovery": 112,
+        "foodConsumedWithNpcIngredientOpportunity": 592,
+        "foodConsumedWithGlobalShopIngredientReplacement": 2032,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 545.01,
+          "food": 471.98999999999995,
+          "saved": 73.02000000000004
+        },
+        "mora": {
+          "innRecovery": 1452,
+          "foodUpfrontRecovery": 487,
+          "foodConsumedRecovery": 431,
+          "foodConsumedWithNpcIngredientOpportunity": 911,
+          "foodConsumedWithGlobalShopIngredientReplacement": 2351
+        }
+      },
+      "foods": 32,
+      "mealActions": 14,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 8,
+        "FOOD_CHICKEN_SKEWER": 8
+      },
+      "leftoverFoodNpcSaleValue": 280,
+      "leftoverCookingFeePaid": 56,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": false,
+      "rngAfterPreparationMatches": false,
+      "bothFinished": true
+    },
+    {
+      "level": 55,
+      "stage": 60,
+      "element": "HYDRO",
+      "route": "ROUTE_ISEKAI",
+      "domainWins": {
+        "inn": 6,
+        "food": 6
+      },
+      "seconds": {
+        "inn": 1013.9599999999999,
+        "food": 888.22,
+        "saved": 125.7399999999999
+      },
+      "lodgingCount": {
+        "inn": 5,
+        "food": 1
+      },
+      "mora": {
+        "innRecovery": 2446,
+        "foodUpfrontRecovery": 358,
+        "foodConsumedRecovery": 358,
+        "foodConsumedWithNpcIngredientOpportunity": 1078,
+        "foodConsumedWithGlobalShopIngredientReplacement": 3238,
+        "unpricedShopIngredients": []
+      },
+      "sameFullHpCityEndpoint": {
+        "bothFinishedFullHpCity": true,
+        "seconds": {
+          "inn": 1039.96,
+          "food": 944.47,
+          "saved": 95.49000000000001
+        },
+        "mora": {
+          "innRecovery": 2862,
+          "foodUpfrontRecovery": 802,
+          "foodConsumedRecovery": 802,
+          "foodConsumedWithNpcIngredientOpportunity": 1522,
+          "foodConsumedWithGlobalShopIngredientReplacement": 3682
+        }
+      },
+      "foods": 48,
+      "mealActions": 18,
+      "foodLeftover": {
+        "FOOD_SWEET_MADAME": 0,
+        "FOOD_CHICKEN_SKEWER": 0
+      },
+      "leftoverFoodNpcSaleValue": 0,
+      "leftoverCookingFeePaid": 0,
+      "openingEnemiesIdentical": true,
+      "openingHpIdentical": true,
+      "rngAfterPreparationMatches": true,
+      "bothFinished": true
+    }
+  ],
+  "limitations": [
+    "Wallet savings do not equal savings including ingredient resale opportunity or market cost.",
+    "Zero-stock ingredient acquisition is measured separately from prepared stock use.",
+    "Menu stock ownership and learned recipe flags are declared synthetic setup; one-time unlock costs are not recurring costs.",
+    "Catalog purchase alternatives are lower bounds rather than executed unlimited NPC purchases.",
+    "Real-time estimates use native scenes/presentation and declared input time; WORLD_TIME cooking minutes are not real minutes.",
+    "Fixed four-member reference parties and selected seeds do not establish every build or actual player-market price."
+  ]
+}

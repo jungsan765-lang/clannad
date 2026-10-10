@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "sourceFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "status": "Final7147 actual native data and fair endpoints. Arithmetic upper-duration sensitivity is explicitly separate.",
+  "files": [
+    {
+      "path": "README_KO.md",
+      "sha256": "de679ba6211ab04a58f605eea3f77e60bc44954fe10b24c072c2910afca6f086"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "29eaaee1182c9ee8be2d9f6c52a270eb90ceae19263a4b35e53e46d125b18a83"
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "314f245a534b71e06dcf6f15b621d7fa27e7dd00d8040df74684da07939a34a7"
+    },
+    {
+      "path": "pure_policy_reuse.json",
+      "sha256": "5e0838625b55e88351daffd11a212c8b22ee7e82c92842882a2c30fc06fbd114"
+    },
+    {
+      "path": "leyline4c0/README_KO.md",
+      "sha256": "71f7a6c8bb7d3e8732746435895770fbe5f9aea283e4397a4de1c225049bafd0"
+    },
+    {
+      "path": "leyline4c0/summary.json",
+      "sha256": "883656c194483c921470c968d2476964ca32c84039b86ffcb21e6eba6cdee631"
+    },
+    {
+      "path": "leyline4c0/manifest.json",
+      "sha256": "cce75cfefa4caf2482ffbb6c4a9141e9e2150dd5b552d4e15ebbd6a51b1b88da"
+    }
+  ],
+  "reproductionTools": [
+    {
+      "path": "tools/run_ordinary_final_v01627.py",
+      "sha256": "fd865a1f9f5276bc4957def555faeaa38cb083bfe47c7a7a0e67c5e5be18ceab"
+    },
+    {
+      "path": "tools/summarize_ordinary_final_v01627.py",
+      "sha256": "ff7d9b81a83c54cd1318f78a15d4c7b11120cb9154adece88ef5b3134422893f"
+    },
+    {
+      "path": "tools/audit_food_campaign_v01627.cjs",
+      "sha256": "1e0b7ca8d13bb40da8b125956af42c0564b1c2a2943fe525e757baf93fbb87ad"
+    },
+    {
+      "path": "tools/audit_food_bundle_v01627.cjs",
+      "sha256": "450f5cc8e93a122a1d39adbfb0615494334fcfdd3f10ec866ba8c234f763f193"
+    },
+    {
+      "path": "tools/audit_food_supply_v01617.cjs",
+      "sha256": "23f30cd9bbc7cdfac5093ac6358d43e3f74ad648aa47bedc8f0783f91a3a8e18"
+    },
+    {
+      "path": "tools/audit_material_campaign_v01627.cjs",
+      "sha256": "e00979c25f8491867c5c7c477e7bff51249c3fa356d57e4ac6b12bf1e9c64534"
+    },
+    {
+      "path": "tools/audit_material_mora_v01627.cjs",
+      "sha256": "a8c0b6c428e8bf946e032965c8456da6298927071d2dfca43d58aae6d3ae7c3d"
+    },
+    {
+      "path": "tools/audit_leyline_economy_v01621.cjs",
+      "sha256": "538a199413f3ce7e94e7de9e34f7913688e76651735a7525b78be65fb6977535"
+    },
+    {
+      "path": "tools/audit_protagonist_v01618.cjs",
+      "sha256": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9"
+    },
+    {
+      "path": "tools/audit_exp_inn_endpoint_v01627.cjs",
+      "sha256": "9ef45e6a6e17491fd9590b2dd8346e161b18cbd5ac54cd336c38be15a3dc4de6"
+    },
+    {
+      "path": "tools/audit_food_pure_policy_v01627.cjs",
+      "sha256": "55e0e19cf3f206e1facc4aa5dcee337fed774b9edab2508f1b166531bb26be9e"
+    }
+  ],
+  "rawFilesManifest": "manifest.json",
+  "maxEnhancementReference": "../enhancement_final/manifest.json",
+  "independentPriceReference": "../enhancement_price_revision/manifest.json"
+}

@@ -1,0 +1,491 @@
+{
+  "version": "0.16.19",
+  "collectedUTC": "2026-10-09T17:34:04.839183+00:00",
+  "baselinePublishedSHA": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "finalRuntimeFingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "fingerprintRecomputedFromCurrentSourcesAndDb": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+  "dbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "productSourceMatchesFixedManifest": true,
+  "fixedManifestCollectedUTC": "2026-10-09T17:14:40.533435+00:00",
+  "scope": "Documentation-only completion after interrupted message stream; no source changes or repeated native fights. Preserves original denominator and intermediate fingerprints.",
+  "finalNativeComparisons": [
+    {
+      "file": "same_level_current.json",
+      "caseInput": "same_level_cases.json",
+      "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+      "summary": {
+        "conditions": 54,
+        "firstWins": 48,
+        "complete": 48,
+        "fights": 54,
+        "wins": 48,
+        "losses": 6,
+        "errors": 0
+      },
+      "caseInputMatchesRows": true,
+      "uniqueInputConditions": 54,
+      "sourceHashCount": 120,
+      "sourceHashMismatches": [],
+      "teams": {
+        "PREPARED_FIVE_C0": {
+          "conditions": 18,
+          "wins": 18,
+          "losses": 0,
+          "storedFullHpConditions": 7
+        },
+        "PREPARED_FOUR_C0": {
+          "conditions": 18,
+          "wins": 12,
+          "losses": 6,
+          "storedFullHpConditions": 0
+        },
+        "PREPARED_FOUR_C6": {
+          "conditions": 18,
+          "wins": 18,
+          "losses": 0,
+          "storedFullHpConditions": 0
+        }
+      }
+    },
+    {
+      "file": "c0_boss_max_current.json",
+      "caseInput": "c0_boss_max_cases.json",
+      "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+      "summary": {
+        "conditions": 12,
+        "firstWins": 12,
+        "complete": 12,
+        "fights": 12,
+        "wins": 12,
+        "losses": 0,
+        "errors": 0
+      },
+      "caseInputMatchesRows": true,
+      "uniqueInputConditions": 12,
+      "sourceHashCount": 120,
+      "sourceHashMismatches": [],
+      "teams": {
+        "PREPARED_FOUR_C0_MAX": {
+          "conditions": 12,
+          "wins": 12,
+          "losses": 0,
+          "storedFullHpConditions": 0
+        }
+      }
+    },
+    {
+      "file": "geo_balanced_current.json",
+      "caseInput": "geo_balanced_cases.json",
+      "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+      "summary": {
+        "conditions": 3,
+        "firstWins": 3,
+        "complete": 3,
+        "fights": 3,
+        "wins": 3,
+        "losses": 0,
+        "errors": 0
+      },
+      "caseInputMatchesRows": true,
+      "uniqueInputConditions": 3,
+      "sourceHashCount": 120,
+      "sourceHashMismatches": [],
+      "teams": {
+        "BALANCED_BODY_FOUR_C0": {
+          "conditions": 3,
+          "wins": 3,
+          "losses": 0,
+          "storedFullHpConditions": 0
+        }
+      }
+    }
+  ],
+  "finalPrimaryComparisonConditions": 69,
+  "finalPrimaryComparisonFights": 69,
+  "finalPrimaryComparisonWins": 63,
+  "finalPrimaryComparisonLosses": 6,
+  "finalPrimaryComparisonErrors": 0,
+  "finalBoundaryTests": {
+    "file": "boundaries.json",
+    "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+    "total": 22,
+    "passed": 22,
+    "failed": 0
+  },
+  "finalExistingImmunityTests": {
+    "file": "immunity_regression.json",
+    "total": 30,
+    "passed": 30,
+    "failed": 0,
+    "includesFullNativeFights": 18,
+    "provenance": "Existing 0.16.18 test filename/report identifier. Helpers load current source/ and DB. No fingerprint field in the test report; final-run log and unchanged fixed source hashes preserved instead.",
+    "completedLog": "logs/boss_immunity_final.log"
+  },
+  "limits": [
+    "69 are separate declared preparation/composition conditions, not a universal win-rate estimate.",
+    "Existing immunity test contains 18 native fights inside 30 checks; do not count them as 18 extra checks.",
+    "Initial 72-condition integrated result and vine maximum result remain intermediate fingerprint d778635c.",
+    "Five-star defensive full stored HP remains in 7 of 18 final same-level conditions; actual inn cost was not paid in this boss harness.",
+    "Byte-exact fingerprint requires recorded cleaned audit DB; remote original DB is not overwritten."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/data/boss_balance_v01619/boundaries.json",
+      "bytes": 6570,
+      "sha256": "aa1b8f081fd36594cae49fe57a9bcd299a81a7c2b7c74b4a67d82fad58dafdab",
+      "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+      "total": 22,
+      "passed": 22,
+      "failed": 0,
+      "stage": "final"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/c0_boss_max_cases.json",
+      "bytes": 2827,
+      "sha256": "45588f98fc2c23904232908582c7b7c842a7ba6186fd5d51174b731ed4375e85",
+      "caseCount": 12,
+      "stage": "declared_cases"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/c0_boss_max_current.json",
+      "bytes": 95373,
+      "sha256": "e1eb0a1a0f4aff1463013cfa30632f39a8a38f3ed0d24afa2f55710da076db07",
+      "mode": "current",
+      "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+      "summary": {
+        "conditions": 12,
+        "firstWins": 12,
+        "complete": 12,
+        "fights": 12,
+        "wins": 12,
+        "losses": 0,
+        "errors": 0
+      },
+      "stage": "final"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/c0_boss_max_pilot_67f2.json",
+      "bytes": 82636,
+      "sha256": "3f4b0625ecc5596979045bd712e1eda5f4576a651bb84bd6a6b27815f7fcbedd",
+      "mode": "current",
+      "fingerprint": "67f29c1ed195bfdb9f2c7003c716eb0ea4e2ef2685f29814128f91813f6e6a14",
+      "summary": {
+        "conditions": 12,
+        "firstWins": 12,
+        "complete": 12,
+        "fights": 12,
+        "wins": 12,
+        "losses": 0,
+        "errors": 0
+      },
+      "stage": "intermediate_or_reproduction"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/early_baseline.json",
+      "bytes": 362061,
+      "sha256": "53132b8e07f03e947206d414628f899e85e09dc66e86ed0cec1c6d3febcd54fd",
+      "mode": "baseline",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "summary": {
+        "conditions": 72,
+        "firstWins": 65,
+        "complete": 65,
+        "fights": 72,
+        "wins": 65,
+        "losses": 7,
+        "errors": 0
+      },
+      "stage": "baseline"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/early_baseline_initial_harness.json",
+      "bytes": 143727,
+      "sha256": "287a15c6e2cadb9f99b258e5834b27bc370c42557fbd95e9674850669f07c1ae",
+      "mode": "baseline",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "summary": {
+        "conditions": 18,
+        "firstWins": 18,
+        "complete": 18,
+        "fights": 18,
+        "wins": 18,
+        "losses": 0,
+        "errors": 54
+      },
+      "stage": "failed_initial_audit_harness"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/early_current.json",
+      "bytes": 490447,
+      "sha256": "fa117c1ecc825f1edbde8ff3904100fbf1b89970b4b4d6a0efe1f916a09e5dc6",
+      "mode": "current",
+      "fingerprint": "d778635c61b79976873553c92ce99b1dc21e27c9604551845a88907a5ac19b1d",
+      "summary": {
+        "conditions": 72,
+        "firstWins": 53,
+        "complete": 53,
+        "fights": 72,
+        "wins": 53,
+        "losses": 19,
+        "errors": 0
+      },
+      "stage": "intermediate_or_reproduction"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/early_floor_candidate.json",
+      "bytes": 363102,
+      "sha256": "3e40baeb5d4d4841dcdb94962b4cf99d752fd4a6b7fd3be03c9e51c607da72ec",
+      "mode": "floor-candidate",
+      "fingerprint": "6ef1c4f1d5d90772a839b84ecd58ecf5a3dff017e007585fce1cffcf804cdcbb",
+      "summary": {
+        "conditions": 72,
+        "firstWins": 54,
+        "complete": 54,
+        "fights": 72,
+        "wins": 54,
+        "losses": 18,
+        "errors": 0
+      },
+      "stage": "isolated_atk_floor_candidate"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/early_floor_candidate_initial_harness.json",
+      "bytes": 144068,
+      "sha256": "75797864ffac38f397ebd2d930866d583e3fed867fec77bbeb9db7ca4e6d3deb",
+      "mode": "floor-candidate",
+      "fingerprint": "6ef1c4f1d5d90772a839b84ecd58ecf5a3dff017e007585fce1cffcf804cdcbb",
+      "summary": {
+        "conditions": 18,
+        "firstWins": 15,
+        "complete": 15,
+        "fights": 18,
+        "wins": 15,
+        "losses": 3,
+        "errors": 54
+      },
+      "stage": "failed_initial_audit_harness"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/geo_balanced_baseline.json",
+      "bytes": 34076,
+      "sha256": "595a4deb2c0996f1669b08017817c413c1b084c35e529a2c5c6019bbfb8e811f",
+      "mode": "baseline",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "summary": {
+        "conditions": 3,
+        "firstWins": 3,
+        "complete": 3,
+        "fights": 3,
+        "wins": 3,
+        "losses": 0,
+        "errors": 0
+      },
+      "stage": "baseline"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/geo_balanced_cases.json",
+      "bytes": 706,
+      "sha256": "1e3cadc1e47357b264720ce544a82211e9c9c4f229c3cdb44386ab7739e0e58d",
+      "caseCount": 3,
+      "stage": "declared_cases"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/geo_balanced_current.json",
+      "bytes": 34319,
+      "sha256": "f70c85a4b18dbafc5f1b05c7a0a95f7f153de825675a48f798911836d6cb8672",
+      "mode": "current",
+      "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+      "summary": {
+        "conditions": 3,
+        "firstWins": 3,
+        "complete": 3,
+        "fights": 3,
+        "wins": 3,
+        "losses": 0,
+        "errors": 0
+      },
+      "stage": "final"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/geo_balanced_pilot_7768.json",
+      "bytes": 34319,
+      "sha256": "a894af1ee778c21f08a1060cb254a9fb8a2858cce56acf8d65f2a54baad7ee69",
+      "mode": "current",
+      "fingerprint": "5c9771b7b61e48bc5b94a74b288d8c972dcf87bc3cef01e935ba2dd5f1a8b2f9",
+      "summary": {
+        "conditions": 3,
+        "firstWins": 3,
+        "complete": 3,
+        "fights": 3,
+        "wins": 3,
+        "losses": 0,
+        "errors": 0
+      },
+      "stage": "intermediate_or_reproduction"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/immunity_regression.json",
+      "bytes": 12131,
+      "sha256": "c9e07abcaf741f7317ec7af0696c51179e272ec2979c2ee8dab48dfb2a2d7c97",
+      "total": 30,
+      "passed": 30,
+      "failed": 0,
+      "stage": "final"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/logs/boss_boundaries_final.log",
+      "bytes": 1171,
+      "sha256": "0ad38ebb4251542bf4be363a77e1ea025d83ffa297b97ffecee3dc75127aa3b3"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/logs/boss_c0_max_final.log",
+      "bytes": 1795,
+      "sha256": "b8b579cb0052ef9b3cefda27f788aa8b2cb2d183273e49c4d286afdbb61bb006"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/logs/boss_geo_balanced_final.log",
+      "bytes": 561,
+      "sha256": "425d7c9be6305b717460daf6bebb400a837ab9182a9f035f2232a4327ba7fd48"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/logs/boss_immunity_final.log",
+      "bytes": 1385,
+      "sha256": "4072cb54605e020f2f735efce46b81091a92babf136eb0c38abdea6a7d25ed7c"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/logs/boss_samelevel_final.log",
+      "bytes": 7182,
+      "sha256": "3a876aaf527952ad5413767d904856f9d777959de554f95c7dc9b019e45c6106"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/same_level_baseline.json",
+      "bytes": 273658,
+      "sha256": "9cbdfecb82a288759f0aa746e2bf7dbedd80412308be2af1065fe6e328a57269",
+      "mode": "baseline",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "summary": {
+        "conditions": 54,
+        "firstWins": 52,
+        "complete": 52,
+        "fights": 54,
+        "wins": 52,
+        "losses": 2,
+        "errors": 0
+      },
+      "stage": "baseline"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/same_level_cases.json",
+      "bytes": 10673,
+      "sha256": "4532d30157278979a3e76b377726004d242bad6857d5aa0be94dfc0e3ad879e9",
+      "caseCount": 54,
+      "stage": "declared_cases"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/same_level_current.json",
+      "bytes": 382729,
+      "sha256": "09dccc801bc9cf82824c157266f8f40ba52554b6744ab555b72a2f3efb0c92fb",
+      "mode": "current",
+      "fingerprint": "73cd503e06bbde8330651f8847691df2354b2e5545019ce9c81f5fa89f0dbb42",
+      "summary": {
+        "conditions": 54,
+        "firstWins": 48,
+        "complete": 48,
+        "fights": 54,
+        "wins": 48,
+        "losses": 6,
+        "errors": 0
+      },
+      "stage": "final"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/same_level_pilot_d778.json",
+      "bytes": 369989,
+      "sha256": "507a677048b6b345ba526ac405e858e7a0f37ea3781342a11db98100de344115",
+      "mode": "current",
+      "fingerprint": "d778635c61b79976873553c92ce99b1dc21e27c9604551845a88907a5ac19b1d",
+      "summary": {
+        "conditions": 54,
+        "firstWins": 48,
+        "complete": 48,
+        "fights": 54,
+        "wins": 48,
+        "losses": 6,
+        "errors": 0
+      },
+      "stage": "intermediate_or_reproduction"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/serpent_burrow_dot_before_fix.json",
+      "bytes": 1046,
+      "sha256": "de004edff4fd7d3abd1006fbe37fc1485131f8d765133bac609da55c69d5c208",
+      "fingerprint": "bc16f74ab05811da12dff1199047cc215e56a30b0e3730d02707dab6c78ece0a",
+      "stage": "intermediate_or_reproduction"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/vine_max_cases.json",
+      "bytes": 703,
+      "sha256": "8074f1ee3f574c1c617df53058dc45d15e3a212bd025c8c0e5ecfda3012077d9",
+      "caseCount": 3,
+      "stage": "declared_cases"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/vine_max_current.json",
+      "bytes": 21536,
+      "sha256": "362704bfeaa9ba1c9ca7b53ea5a9547a3c018cb36f3dbd784e20e207fa489c93",
+      "mode": "current",
+      "fingerprint": "d778635c61b79976873553c92ce99b1dc21e27c9604551845a88907a5ac19b1d",
+      "summary": {
+        "conditions": 3,
+        "firstWins": 3,
+        "complete": 3,
+        "fights": 3,
+        "wins": 3,
+        "losses": 0,
+        "errors": 0
+      },
+      "stage": "intermediate_or_reproduction"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/vine_prepared_baseline.json",
+      "bytes": 31245,
+      "sha256": "e896e68748eaebbb7df084b8594f88266236d7173d36943775f5917046603402",
+      "mode": "baseline",
+      "fingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+      "summary": {
+        "conditions": 6,
+        "firstWins": 3,
+        "complete": 3,
+        "fights": 6,
+        "wins": 3,
+        "losses": 3,
+        "errors": 0
+      },
+      "stage": "baseline"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/vine_prepared_cases.json",
+      "bytes": 1869,
+      "sha256": "490ef09c0fa25a60511766d3c4b3418a85a67062d4629ce2651c7062603989ca",
+      "caseCount": 9,
+      "stage": "declared_cases"
+    },
+    {
+      "path": "docs/data/boss_balance_v01619/vine_prepared_floor.json",
+      "bytes": 31275,
+      "sha256": "f15fc4efe3dd32a946404b474e925135379283af3922261140ed3df8b631c08d",
+      "mode": "floor-candidate",
+      "fingerprint": "6ef1c4f1d5d90772a839b84ecd58ecf5a3dff017e007585fce1cffcf804cdcbb",
+      "summary": {
+        "conditions": 6,
+        "firstWins": 3,
+        "complete": 3,
+        "fights": 6,
+        "wins": 3,
+        "losses": 3,
+        "errors": 0
+      },
+      "stage": "isolated_atk_floor_candidate"
+    }
+  ]
+}

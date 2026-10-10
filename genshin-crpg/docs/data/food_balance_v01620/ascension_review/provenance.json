@@ -1,0 +1,22 @@
+{
+  "originalExecutedScript": {
+    "file": "original_executed_audit.cjs.gz",
+    "uncompressedSHA256": "73d1ae7987d97c3a2dac595b159e55a7f5a244902b47cf424a4ecadb9403cf88",
+    "compressedSHA256": "67360e600a2094370173b4f681372cb31150d4cc5baf4ff9f159440d786ea47e",
+    "bytes": 5325
+  },
+  "originalRuntimeHelper": {
+    "file": "original_runtime_helper.cjs.gz",
+    "uncompressedSHA256": "8b2bf05f22d44aacf0788e80bb75a013373dd4b3665a521e52976ce39ae01ada",
+    "compressedSHA256": "13364672c3d8494dcf1db6c1cf3f6e5417ee4e2aa44cdec695189a6d35dc63cf",
+    "bytes": 1091
+  },
+  "portableScriptNotExecuted210CasesAgain": true,
+  "nativeOutputPreservedWithoutRewrite": true,
+  "sourceCostPolicyChanges": 0,
+  "scopeExclusions": [
+    "supply_hint_probe: intentionally inconsistent admin/legacy progression only; not a confirmed natural-progression bug",
+    "no current combat duration campaign",
+    "no reward/cost/source/UI/DB modification"
+  ]
+}

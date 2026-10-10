@@ -1,0 +1,950 @@
+{
+  "schema": 1,
+  "version": "0.16.8",
+  "baselineCommit": "971e08623ecfe165fecec74cf11dade785459c4d",
+  "recordedUtc": "2026-10-07T14:25:23.238721+00:00",
+  "fullGateRun": {
+    "command": "python tools/verify_release.py",
+    "exitCode": 1,
+    "total": 140,
+    "passed": 120,
+    "failed": 20,
+    "rawResults": [
+      {
+        "test": "tests/test_combat_boundaries_v0168.cjs",
+        "ok": true,
+        "seconds": 49.1
+      },
+      {
+        "test": "tests/test_control_reactions_v0168.cjs",
+        "ok": true,
+        "seconds": 113.5
+      },
+      {
+        "test": "tests/test_gear_effects_v0168.cjs",
+        "ok": true,
+        "seconds": 11.1
+      },
+      {
+        "test": "tests/test_food_economy_v0168.cjs",
+        "ok": true,
+        "seconds": 53.7
+      },
+      {
+        "test": "tools/audit_economy_v0168.cjs",
+        "ok": true,
+        "seconds": 4.4
+      },
+      {
+        "test": "tests/test_task_catalog_v0168.cjs",
+        "ok": true,
+        "seconds": 3.3
+      },
+      {
+        "test": "tests/test_tasks_expanded_v0168.cjs",
+        "ok": true,
+        "seconds": 23.4
+      },
+      {
+        "test": "tests/test_tasks_edge_v0168.cjs",
+        "ok": true,
+        "seconds": 27.6
+      },
+      {
+        "test": "tests/test_xp_pacing_v0168.cjs",
+        "ok": true,
+        "seconds": 193.3
+      },
+      {
+        "test": "tests/test_coop_receipt_v0168.mjs",
+        "ok": true,
+        "seconds": 96.5
+      },
+      {
+        "test": "tests/test_playback_pause_v0168.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_defeat_settlement_v0166.cjs",
+        "ok": true,
+        "seconds": 17.6
+      },
+      {
+        "test": "tests/test_balance_saves_v0166.cjs",
+        "ok": true,
+        "seconds": 39.9
+      },
+      {
+        "test": "tests/test_skill_fx_v0162.cjs",
+        "ok": false,
+        "seconds": 0.6
+      },
+      {
+        "test": "tests/test_rewards_balance_v0161.cjs",
+        "ok": true,
+        "seconds": 41.1
+      },
+      {
+        "test": "tests/test_growth_pacing_v0161.cjs",
+        "ok": true,
+        "seconds": 67.5
+      },
+      {
+        "test": "tests/test_server_coop_retry_v0161.mjs",
+        "ok": true,
+        "seconds": 26.0
+      },
+      {
+        "test": "tests/test_osial_pattern_v0161.cjs",
+        "ok": true,
+        "seconds": 14.8
+      },
+      {
+        "test": "tests/test_life_v0162.cjs",
+        "ok": true,
+        "seconds": 67.5
+      },
+      {
+        "test": "tests/test_life_v010.cjs",
+        "ok": true,
+        "seconds": 31.8
+      },
+      {
+        "test": "tests/test_v01525.cjs",
+        "ok": false,
+        "seconds": 354.1
+      },
+      {
+        "test": "tests/test_v01524.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_combat_stalemate_v01523.cjs",
+        "ok": true,
+        "seconds": 10.6
+      },
+      {
+        "test": "tests/test_tutorial_v01523.cjs",
+        "ok": true,
+        "seconds": 58.9
+      },
+      {
+        "test": "tests/test_tutorial_online_v01523.mjs",
+        "ok": true,
+        "seconds": 26.8
+      },
+      {
+        "test": "tests/test_growth_v01522.cjs",
+        "ok": true,
+        "seconds": 86.4
+      },
+      {
+        "test": "tests/test_growth_online_v01522.mjs",
+        "ok": true,
+        "seconds": 26.6
+      },
+      {
+        "test": "tests/test_growth_balance_v01522.cjs",
+        "ok": true,
+        "seconds": 25.2
+      },
+      {
+        "test": "tests/test_durable_account.mjs",
+        "ok": true,
+        "seconds": 8.8
+      },
+      {
+        "test": "tests/test_durable_migration.mjs",
+        "ok": true,
+        "seconds": 4.2
+      },
+      {
+        "test": "tests/test_online_server.mjs",
+        "ok": true,
+        "seconds": 18.7
+      },
+      {
+        "test": "tests/test_authoritative_flow.mjs",
+        "ok": true,
+        "seconds": 9.7
+      },
+      {
+        "test": "tests/test_reading_checkpoint.mjs",
+        "ok": true,
+        "seconds": 32.7
+      },
+      {
+        "test": "tests/test_action_recovery.mjs",
+        "ok": true,
+        "seconds": 276.8
+      },
+      {
+        "test": "tests/test_update_recovery.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_engine_identity.py",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_combat_catalog_online.mjs",
+        "ok": true,
+        "seconds": 8.5
+      },
+      {
+        "test": "tests/test_action_feedback.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_online_bootstrap_v01343.cjs",
+        "ok": false,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_online_title_v01344.cjs",
+        "ok": true,
+        "seconds": 6.3
+      },
+      {
+        "test": "tests/test_local_dev_config.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_combat_v0142.cjs",
+        "ok": false,
+        "seconds": 7.2
+      },
+      {
+        "test": "tests/test_v0142_combat_summons.cjs",
+        "ok": false,
+        "seconds": 4.7
+      },
+      {
+        "test": "tests/test_local_revision_v0141.cjs",
+        "ok": true,
+        "seconds": 22.2
+      },
+      {
+        "test": "tests/test_story_edition_v0141.cjs",
+        "ok": true,
+        "seconds": 3.5
+      },
+      {
+        "test": "tests/test_balance_v0141.cjs",
+        "ok": true,
+        "seconds": 35.9
+      },
+      {
+        "test": "tests/test_local_revision_online_v0141.mjs",
+        "ok": true,
+        "seconds": 14.3
+      },
+      {
+        "test": "tests/test_opening.cjs",
+        "ok": true,
+        "seconds": 29.4
+      },
+      {
+        "test": "tests/test_mond_content_v01344.cjs",
+        "ok": true,
+        "seconds": 12.2
+      },
+      {
+        "test": "tests/test_mond_full_v01344.cjs",
+        "ok": true,
+        "seconds": 388.1
+      },
+      {
+        "test": "tests/test_save_v01344.cjs",
+        "ok": false,
+        "seconds": 1.3
+      },
+      {
+        "test": "tests/test_save_revision.cjs",
+        "ok": true,
+        "seconds": 39.8
+      },
+      {
+        "test": "tests/test_work_validation.cjs",
+        "ok": true,
+        "seconds": 29.6
+      },
+      {
+        "test": "tests/test_life_ui_v010.cjs",
+        "ok": true,
+        "seconds": 11.7
+      },
+      {
+        "test": "tests/test_playback_v08.cjs",
+        "ok": true,
+        "seconds": 2.7
+      },
+      {
+        "test": "tests/test_presentation.cjs",
+        "ok": false,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_access_gear_v01343.cjs",
+        "ok": true,
+        "seconds": 19.3
+      },
+      {
+        "test": "tests/test_gear_ui_v01343.cjs",
+        "ok": true,
+        "seconds": 2.2
+      },
+      {
+        "test": "tests/test_quality_fixes_v01335.cjs",
+        "ok": true,
+        "seconds": 6.7
+      },
+      {
+        "test": "tests/test_quality_fixes_v01336.cjs",
+        "ok": true,
+        "seconds": 14.4
+      },
+      {
+        "test": "tests/test_quality_fixes_v01337.cjs",
+        "ok": true,
+        "seconds": 0.6
+      },
+      {
+        "test": "tests/test_quality_fixes_v01338.cjs",
+        "ok": true,
+        "seconds": 6.8
+      },
+      {
+        "test": "tests/test_liyue_rework_mechanics.cjs",
+        "ok": true,
+        "seconds": 89.4
+      },
+      {
+        "test": "tests/test_liyue_rework_flow.cjs",
+        "ok": true,
+        "seconds": 568.8
+      },
+      {
+        "test": "tools/test_field_bosses.cjs",
+        "ok": true,
+        "seconds": 53.4
+      },
+      {
+        "test": "tools/test_exclusive_weapons.cjs",
+        "ok": false,
+        "seconds": 8.7
+      },
+      {
+        "test": "tests/test_update_v01341.cjs",
+        "ok": true,
+        "seconds": 94.6
+      },
+      {
+        "test": "tests/test_abyss_v01341.cjs",
+        "ok": true,
+        "seconds": 58.9
+      },
+      {
+        "test": "tests/test_v0144.cjs",
+        "ok": true,
+        "seconds": 22.1
+      },
+      {
+        "test": "tests/test_v0148.cjs",
+        "ok": true,
+        "seconds": 26.4
+      },
+      {
+        "test": "tests/test_v01410.cjs",
+        "ok": true,
+        "seconds": 0.6
+      },
+      {
+        "test": "tests/test_v01411.cjs",
+        "ok": false,
+        "seconds": 26.9
+      },
+      {
+        "test": "tests/test_admin_v01412.mjs",
+        "ok": true,
+        "seconds": 46.6
+      },
+      {
+        "test": "tests/test_v01413.cjs",
+        "ok": true,
+        "seconds": 10.4
+      },
+      {
+        "test": "tests/test_v01415.cjs",
+        "ok": false,
+        "seconds": 142.5
+      },
+      {
+        "test": "tests/test_social_v01415.mjs",
+        "ok": true,
+        "seconds": 43.0
+      },
+      {
+        "test": "tests/test_v0151.cjs",
+        "ok": false,
+        "seconds": 10.6
+      },
+      {
+        "test": "tests/test_letters_v0151.mjs",
+        "ok": true,
+        "seconds": 84.1
+      },
+      {
+        "test": "tests/test_v0152.cjs",
+        "ok": true,
+        "seconds": 45.9
+      },
+      {
+        "test": "tests/test_balance_v0152.cjs",
+        "ok": true,
+        "seconds": 44.4
+      },
+      {
+        "test": "tests/test_server_v0152.mjs",
+        "ok": true,
+        "seconds": 47.7
+      },
+      {
+        "test": "tests/test_v0153.cjs",
+        "ok": true,
+        "seconds": 66.2
+      },
+      {
+        "test": "tests/test_server_v0153.mjs",
+        "ok": true,
+        "seconds": 6.5
+      },
+      {
+        "test": "tests/test_coop_v0153.cjs",
+        "ok": true,
+        "seconds": 53.5
+      },
+      {
+        "test": "tests/test_server_coop_v0153.mjs",
+        "ok": true,
+        "seconds": 101.7
+      },
+      {
+        "test": "tests/test_server_coop_world_v0159.mjs",
+        "ok": true,
+        "seconds": 22.2
+      },
+      {
+        "test": "tests/test_coop_world_ui_v0159.cjs",
+        "ok": false,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_coop_world_v0160.cjs",
+        "ok": true,
+        "seconds": 29.5
+      },
+      {
+        "test": "tests/test_server_coop_roam_v0160.mjs",
+        "ok": true,
+        "seconds": 92.1
+      },
+      {
+        "test": "tests/test_coop_world_screen_v0160.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_freeze_v0160.cjs",
+        "ok": true,
+        "seconds": 5.3
+      },
+      {
+        "test": "tests/test_battle_lines_v0162.cjs",
+        "ok": true,
+        "seconds": 27.0
+      },
+      {
+        "test": "tests/test_landmarks_v0163.cjs",
+        "ok": true,
+        "seconds": 10.0
+      },
+      {
+        "test": "tests/test_v0164.cjs",
+        "ok": false,
+        "seconds": 5.2
+      },
+      {
+        "test": "tests/test_vfx_v0165.cjs",
+        "ok": true,
+        "seconds": 0.2
+      },
+      {
+        "test": "tests/test_v0167.cjs",
+        "ok": true,
+        "seconds": 4.9
+      },
+      {
+        "test": "tests/test_v0156.cjs",
+        "ok": true,
+        "seconds": 20.3
+      },
+      {
+        "test": "tests/test_v0157.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_v0158.mjs",
+        "ok": true,
+        "seconds": 0.7
+      },
+      {
+        "test": "tests/test_osial_v01341.cjs",
+        "ok": true,
+        "seconds": 13.7
+      },
+      {
+        "test": "tools/test_story_cleanup_v0140.cjs",
+        "ok": true,
+        "seconds": 4.4
+      },
+      {
+        "test": "tests/test_main_story_k_v0148.cjs",
+        "ok": true,
+        "seconds": 4.8
+      },
+      {
+        "test": "tests/test_fixed_region_live.mjs",
+        "ok": true,
+        "seconds": 20.8
+      },
+      {
+        "test": "tests/test_server_account_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 63.9
+      },
+      {
+        "test": "tests/test_server_social_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 29.1
+      },
+      {
+        "test": "tests/test_server_coop_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 87.5
+      },
+      {
+        "test": "tests/test_client_audit_fixes.cjs",
+        "ok": true,
+        "seconds": 0.6
+      },
+      {
+        "test": "tests/test_ui_audit_regressions.cjs",
+        "ok": true,
+        "seconds": 2.5
+      },
+      {
+        "test": "tests/test_test_banner_v01510.cjs",
+        "ok": false,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_version.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_test_release_pin.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_test_release_transaction.cjs",
+        "ok": true,
+        "seconds": 20.1
+      },
+      {
+        "test": "tests/test_server_capacity_audit_fixes.mjs",
+        "ok": true,
+        "seconds": 1.1
+      },
+      {
+        "test": "tests/test_social_concurrency_v01511.mjs",
+        "ok": true,
+        "seconds": 38.2
+      },
+      {
+        "test": "tests/test_asset_followup.cjs",
+        "ok": false,
+        "seconds": 2.3
+      },
+      {
+        "test": "tests/test_client_social_followup.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_wish_ui_audit_fixes.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_puzzle_ui_lifecycle.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_client_connection_recovery.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_popup_lifecycle_v01512.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_server_coop_recovery_v01512.mjs",
+        "ok": true,
+        "seconds": 56.0
+      },
+      {
+        "test": "tests/test_feature_boundaries_v01513.cjs",
+        "ok": true,
+        "seconds": 134.7
+      },
+      {
+        "test": "tests/test_ui_boundaries_v01513.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_settings_audio_v01513.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_content_boundaries_v01513.cjs",
+        "ok": false,
+        "seconds": 2.6
+      },
+      {
+        "test": "tests/test_release_isolation_v01513.cjs",
+        "ok": true,
+        "seconds": 8.5
+      },
+      {
+        "test": "tests/test_release_isolation_v01513.py",
+        "ok": false,
+        "seconds": 1.3
+      },
+      {
+        "test": "tests/test_server_load_boundaries_v01513.mjs",
+        "ok": true,
+        "seconds": 112.0
+      },
+      {
+        "test": "tests/test_story_asset_bindings.cjs",
+        "ok": false,
+        "seconds": 4.6
+      },
+      {
+        "test": "tests/test_server_remaining_audit_v01513.mjs",
+        "ok": true,
+        "seconds": 0.7
+      },
+      {
+        "test": "tests/test_enemy_text_v01514.cjs",
+        "ok": true,
+        "seconds": 2.5
+      },
+      {
+        "test": "tests/test_story_named_text_v01514.cjs",
+        "ok": true,
+        "seconds": 5.2
+      },
+      {
+        "test": "tests/test_v01515.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_map_v01516.cjs",
+        "ok": true,
+        "seconds": 5.4
+      },
+      {
+        "test": "tests/test_v01517.cjs",
+        "ok": true,
+        "seconds": 5.9
+      },
+      {
+        "test": "tests/test_v01518.cjs",
+        "ok": true,
+        "seconds": 0.1
+      },
+      {
+        "test": "tests/test_v01519.cjs",
+        "ok": true,
+        "seconds": 6.3
+      },
+      {
+        "test": "tests/test_v01520.cjs",
+        "ok": false,
+        "seconds": 4.0
+      },
+      {
+        "test": "tests/test_v01521.cjs",
+        "ok": false,
+        "seconds": 3.7
+      },
+      {
+        "test": "tests/v013/test_recruitment_cost_consistency.cjs",
+        "ok": true,
+        "seconds": 32.7
+      }
+    ],
+    "productionSourceWhitespaceChange": {
+      "file": "source/runtime_tasks_v0167.js",
+      "change": "One trailing space removed during verification; no semantic change. Original generated byte count 28259608; current 28259607.",
+      "finalServerRebuildExitCode": 0,
+      "finalEngineIdentityExitCode": 0
+    }
+  },
+  "postRunReruns": [
+    {
+      "test": "tests/test_online_bootstrap_v01343.cjs",
+      "exitCode": 0,
+      "reason": "C12 now preserves remaining base-speed timer duration; obsolete source-string fixture updated. Final production playback code was unchanged by this test fix.",
+      "logSha256": "3d0517f56c7950c27b11016b1fc28d3721288314ff0f02a5cb9ad52fc2c13ffe"
+    },
+    {
+      "test": "tests/test_coop_world_ui_v0159.cjs",
+      "exitCode": 0,
+      "reason": "Restored unchanged upstream docs/FAN_PROJECT_KO.md in reconstructed checkout.",
+      "logSha256": "7507c6320838a12eb1a682959b1924ba1bece32d1dade205a7d596273899942e"
+    },
+    {
+      "test": "tests/test_test_banner_v01510.cjs",
+      "exitCode": 0,
+      "reason": "Restored unchanged upstream root .github/workflows/crpg-sync-dist.yml in reconstructed checkout.",
+      "logSha256": "dea7dceaf99c7daad25e791a4836e4d9a2886663e1232da754dc3d9e919da6be"
+    }
+  ],
+  "finalAssessment": {
+    "passedDistinctGatesAfterReruns": 123,
+    "uncompletedEnvironmentGates": 17,
+    "remainingAssetOrManifestGates": 15,
+    "missingGitHistoryGates": 1,
+    "authoredVsRuntimeDbGates": 1,
+    "confirmedUnresolvedChangedSourceRegressions": 0,
+    "complete140Green": false,
+    "realBrowserUiVerified": false
+  },
+  "failureClassification": [
+    {
+      "test": "tests/test_skill_fx_v0162.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing local assets/audio/genshin-sfx/catalog.json and original media.",
+      "originalLogSha256": "f5c550ebd85f51c3f56fe872eb09050a3d24bdbbee1615a71a0eb453c058e32d",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_v01525.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing original assets/icons/UI_ItemIcon_104301.webp; tutorial and other behavior assertions pass.",
+      "originalLogSha256": "334a2a6ee896afb2e219a7aec1c2aae6d4c320f5d0b42d9bb01904223f78918f",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_online_bootstrap_v01343.cjs",
+      "category": "test_fixture_updated",
+      "reason": "C12 now preserves remaining base-speed timer duration; obsolete source-string fixture updated. Final production playback code was unchanged by this test fix.",
+      "originalLogSha256": "722ff59f4b958297308477cfde2b4e5b22d173d35927a22f1d4206bb127dfb17",
+      "rerunPassed": true
+    },
+    {
+      "test": "tests/test_combat_v0142.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing local summon_baron_bunny.webp. Combat behavior checks pass.",
+      "originalLogSha256": "668ae97162f80c4947a36cccb6f3104e48bf8a2d94e7a5d400f08272f0785862",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_v0142_combat_summons.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing local summon_baron_bunny.webp. Summon behavior checks pass.",
+      "originalLogSha256": "6901a4fc95490a37d8fd8ccd301078d505edb23b361822b7bb9c2eeb038ba49b",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "category": "missing_historical_git_input",
+      "reason": "Historical Git object f0c08d6 is not in this reconstructed local Git checkout.",
+      "originalLogSha256": "20b2fa4cb92950fe4ca4c068049f167bfff65177396a8eb308693e9426484095",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_presentation.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing local assets/audio/audio-manifest.json and original media. Seven preceding presentation behavior checks pass.",
+      "originalLogSha256": "a18f882d8bedf1263baff8c1be0599602a27ef3a66ca69cd5903eacf0e254f0f",
+      "rerunPassed": false
+    },
+    {
+      "test": "tools/test_exclusive_weapons.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing original EQ_EX_MOND_ALBEDO icon asset; preceding native mechanics checks pass.",
+      "originalLogSha256": "1d4fb421950eead7568162272620fc2d39e4d24efd8de5746b28bb495117f9c3",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_v01411.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing original currency/wish media; twelve behavior checks pass.",
+      "originalLogSha256": "dbf819204114621bba323edda8623cf127a573126ea26039a3c05fa2a39df063",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_v01415.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing original crest_10.webp and content/asset-manifest.json; seven gameplay checks pass.",
+      "originalLogSha256": "76ac256ec6e94bef1ebb55f1dba01eaebab87d9963cc9e44e583939cf4e4581d",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_v0151.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing STELLA_FORTUNA_4 icon; other ten checks pass.",
+      "originalLogSha256": "6d8eaf7c9069976f33444f13cb8e66757b38a2ca40d3e27d8cd3e557cceb6f25",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_coop_world_ui_v0159.cjs",
+      "category": "unchanged_baseline_input_restored",
+      "reason": "Restored unchanged upstream docs/FAN_PROJECT_KO.md in reconstructed checkout.",
+      "originalLogSha256": "0a96cd3b33eedc0d5395e0cd842b0ea3618233d1c860f1cf3d0efec5e324dae4",
+      "rerunPassed": true
+    },
+    {
+      "test": "tests/test_v0164.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing assets/icons/ui/Skill_S_Zhongli_01.webp; control and other behavior checks pass.",
+      "originalLogSha256": "230d3c7372a83ff75dbd019b0e92e87285e0bd1d1e54aa41c95375073ac54e60",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_test_banner_v01510.cjs",
+      "category": "unchanged_baseline_input_restored",
+      "reason": "Restored unchanged upstream root .github/workflows/crpg-sync-dist.yml in reconstructed checkout.",
+      "originalLogSha256": "f0f2db9323e6be166d6728af2f92a6ee915911cbf1bc3bde62be80d43738d905",
+      "rerunPassed": true
+    },
+    {
+      "test": "tests/test_asset_followup.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing local content/asset-manifest.json.",
+      "originalLogSha256": "ec1ae51ce5dbfdc9e562fe00df1772d5059c89ac72f93a1cb7458d54bcaff942",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_content_boundaries_v01513.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing local content/asset-manifest.json; preceding story/condition/text checks pass.",
+      "originalLogSha256": "83567d26bc4ad3f1b91f14825ec1d2f0c65c946a394c8a7a77138c79827e840a",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "category": "runtime_only_db_input",
+      "reason": "Recovered runtime-only DB has already removed authored editorial rows; source editorial-sheet assertion requires original authored DB. Upstream content/db.json is preserved.",
+      "originalLogSha256": "4c84a718c8b5c0093e95394ae3bda906d991c73b72ea1a22ea79efd44e13affc",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_story_asset_bindings.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing local content/asset-manifest.json; story graph binding check passes.",
+      "originalLogSha256": "5eca32d6260a46cbae0d55671d77afd1abeee835f6ab16ccd2cabbdd46c96157",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_v01520.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing local content/asset-manifest.json; other behavior checks pass.",
+      "originalLogSha256": "284491bbf933b524ea307448c531b1188913ac118201882f7405927fc4f359e0",
+      "rerunPassed": false
+    },
+    {
+      "test": "tests/test_v01521.cjs",
+      "category": "missing_local_asset_or_manifest",
+      "reason": "Missing assets/icons/ui/UI_Buff_Element_Fire.webp; other behavior checks pass.",
+      "originalLogSha256": "ad86416f0605eda18f806ec1e0dd1c80c723e72649dd37f6f141a39394fc8bcb",
+      "rerunPassed": false
+    }
+  ],
+  "additionalChecks": {
+    "gearTraits": {
+      "command": "node tools/test_gear_traits.cjs",
+      "exitCode": 0,
+      "checks": 15,
+      "fixtureCorrection": "Uses actual post-entry gear stats, full HP after starter gear attachment, and independent actors per freeze attempt."
+    },
+    "growthNative": {
+      "allStageInitialFights": 2334,
+      "finalSelectedFights": 354,
+      "selectedLevelRouteCases": 118,
+      "paidAscensionsCurrentSource": 48,
+      "data": "docs/data/growth_pacing_v0168.json",
+      "originalSelectedAuditCliExitCode": 1,
+      "originalExitCause": "One trailing space removed during audit; exact prior fingerprint reconstructed, no semantic source difference; fresh current-source XP/paid-ascension replay passes."
+    },
+    "optionalBrowserPause": {
+      "file": "tests/test_playback_pause_browser_v0168.mjs",
+      "status": "not_run",
+      "reason": "Chromium executable absent in local environment."
+    },
+    "finalServerBuild": {
+      "command": "python tools/build_server.py",
+      "exitCode": 0,
+      "version": "0.16.8",
+      "runtimeFiles": 117,
+      "bytes": 28259607,
+      "gzipBytes": 5349160,
+      "logSha256": "964cadba67dff7b04a389f90c86455680f34f6c79d98cceb1226679acae63a5f"
+    },
+    "finalEngineIdentity": {
+      "command": "python tests/test_engine_identity.py",
+      "exitCode": 0,
+      "logSha256": "fc637f1cb55b50ff745c23ee3652f65060ed3d80190cb582c77bb52715a80afc"
+    }
+  },
+  "inputProvenance": {
+    "reconstructedCheckout": true,
+    "missingOriginalAssets": true,
+    "runtimeOnlyDb": true,
+    "upstreamAuthoredDbReplaced": false,
+    "publicationPolicy": "Create commit on original remote 0.16.7 tree with explicit changed paths only. Do not publish recovered runtime DB, restored unchanged tests/assets/docs/workflow, or entire reconstructed baseline.",
+    "fingerprintScope": "Local sampling fingerprints include recovered runtime-only DB, not full remote authored tree."
+  },
+  "deployment": {
+    "sourceBranch": "test/crpg-v01414-story",
+    "testServerInstallationExecuted": false,
+    "productionInstallationExecuted": false,
+    "mainMerged": false,
+    "remoteWorkflowWaited": false
+  },
+  "limits": [
+    "120/140 is the original single-run result; 3 passing reruns are recorded separately. Do not claim a single 140/140 run.",
+    "Remaining environment-only classifications do not prove live browser media/UI/PWA validation.",
+    "No live player-market trade/price/inventory data was available.",
+    "Prepared four-person, two-speed combat pacing excludes natural story/travel/recovery/crafting/material/gear farming time."
+  ]
+}

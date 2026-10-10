@@ -1,0 +1,19 @@
+runtime.js:51
+  this.s=clone(before);try{if(this.assertActionAllowed)this.assertActionAllowed(a);const result=this.apply(a);this.s.global.SAVE_REVISION++;this.s.global.LAST_COMMITTED_ACTION_SEQ++;this.s.global.LAST_COMMITTED_ACTION_ID=a.id;this.s.global.TURN++;const receipt={ok:true,type:a.type,result:result??null,revision:this.s.global.SAVE_REVISION};this.s.global.LAST_ACTION_RECEIPT_JSON=JSON.stringify(receipt);this.validateSave(this.s);return clone(receipt);}catch(e){this.s=before;throw e;}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+
+RuleError: 강화도 또는 돌파 기록이 올바르지 않습니다.
+    at fail (runtime_enhancement.js:6:26)
+    at P.enhancementSync (runtime_enhancement.js:50:83)
+    at P.apply (runtime_enhancement.js:148:7)
+    at P.apply (runtime_enhancement.js:227:89)
+    at P.apply (runtime_liyue_artifacts.js:143:182)
+    at P.apply (runtime_navigation.js:50:615)
+    at P.apply (runtime_play_fixes.js:52:25)
+    at P.apply (runtime_gear_traits.js:284:25)
+    at P.apply (runtime_quality_fixes.js:107:117)
+    at P.apply (runtime_quality_fixes.js:244:24) {
+  code: 'ENHANCE_SAVE'
+}
+
+Node.js v24.19.0

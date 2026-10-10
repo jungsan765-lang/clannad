@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "generatedUtc": "2026-10-09T16:14:58.677623+00:00",
+  "archiveRoot": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/reaction_healer_review_v01618",
+  "artifactCountIncludingThisReport": 203,
+  "generatedFiles": 8,
+  "productBaselineFiles": 233,
+  "productChanges": [],
+  "originalQaBytesPreserved": true,
+  "allCopiedAndCompressedHashesValid": true,
+  "cjsSyntaxFilesChecked": 25,
+  "pythonSyntaxFilesChecked": 12,
+  "localRequiresChecked": 28,
+  "portableChasmDataRecomputedByteIdentically": [
+    "summary.json",
+    "native_all.json.gz",
+    "two_enemy_snapshot.json"
+  ],
+  "sourceCommit": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "remote": "jungsan765-lang/clannad test/crpg-v01414-story",
+  "errors": [],
+  "notes": [
+    "Old artifacts and original QA byte hashes are retained.",
+    "Raw repeated battle outcomes and isolated mechanic/rarity diagnostics have separate denominators.",
+    "No product/DB/Git/remote changes or new runtime battle experiments in independent QA."
+  ],
+  "vmSnapshotJsSyntaxFilesChecked": 20
+}

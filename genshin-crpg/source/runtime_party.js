@@ -32,8 +32,12 @@
   // Ownership is for roster selection; equipment and consumables require current membership.
   P.activePartyActors=function(){return this.ownedActors().filter(a=>a.active);};
   P.partyTargetReason=function(owner){return this.activePartyActors().some(a=>a.id===owner)?'':'현재 활성 파티에 편성한 캐릭터를 선택해 주세요.';};
+  // 0.15.19 (user: 편성을 바꿔도 장비가 빠지지 않게): gear belongs to every character the player has, in the party or on the
+  // bench; consumables (food, books) still go to the party.
+  P.gearTargetReason=function(owner){return this.ownedActors().some(a=>a.id===owner)?'':'보유한 캐릭터를 선택해 주세요.';};
+  // Gear comes off only a character the player no longer has (one the story took away), never for sitting on the bench.
   P.releaseInactiveEquipment=function(){
-    const active=new Set(this.activePartyActors().map(a=>a.id));
+    const active=new Set(this.ownedActors().map(a=>a.id));
     const items=this.s.inventory.filter(i=>i.equip&&i.owner&&i.owner!=='공용'&&!active.has(i.owner));
     if(!items.length)return {slots:[],owners:[]};
     const owners=[...new Set(items.map(i=>i.owner))],before=snapshots(this,['PLAYER_CUSTOM',...owners]);
@@ -50,7 +54,7 @@
   P.equipmentDefinition=function(slot,owner){
     if(this.s.runtime)fail('COMBAT','전투 중 장비를 바꿀 수 없습니다.');
     const inv=this.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)fail('EQUIP','소지 장비를 선택해 주세요.');
-    if(this.partyTargetReason(owner))fail('OWNER',this.partyTargetReason(owner));
+    if(this.gearTargetReason(owner))fail('OWNER',this.gearTargetReason(owner));
     const row=this.row('16_EQUIP_DB',inv.equip),kind=category(row);
     if(!kind||/장착 불가/.test(String(row[3])+' '+String(row[30])))fail('EQUIP_CATEGORY','이 물건은 장착할 수 없습니다.');
     const level=owner==='PLAYER_CUSTOM'?this.s.global.PLAYER_LEVEL_STATE:this.s.chars[owner].level;
@@ -88,9 +92,12 @@
   P.equipmentPreview=function(slot,owner='PLAYER_CUSTOM'){
     const result={before:null,after:null,reason:'',displacedOwner:null,displacedSlot:null,category:null};
     try{
-      if(this.partyTargetReason(owner))fail('OWNER',this.partyTargetReason(owner));
+      if(this.gearTargetReason(owner))fail('OWNER',this.gearTargetReason(owner));
       result.before=stats(this,owner);
-      const candidate=new api.Runtime(this.db,copy(this.s)),def=candidate.equipmentDefinition(slot,owner);
+      // 0.15.6: a child of this runtime with its own copy of the save. A whole new runtime (a second copy, the full save
+      // check and its own story index) took about 0.3 s per item, so a long equipment list took seconds to open (user:
+      // 「장비 아직도 렉 있어」; 61 swords: 18 s → 50 ms).
+      const candidate=Object.assign(Object.create(this),{s:copy(this.s)}),def=candidate.equipmentDefinition(slot,owner);
       result.category=def.category;result.displacedOwner=def.inv.equipped&&def.inv.owner!==owner?def.inv.owner:null;
       result.displacedSlot=candidate.s.inventory.find(i=>i.slot!==slot&&i.equipped&&i.owner===owner&&category(candidate.row('16_EQUIP_DB',i.equip))===def.category)?.slot||null;
       candidate.equip(slot,owner);result.after=stats(candidate,owner);

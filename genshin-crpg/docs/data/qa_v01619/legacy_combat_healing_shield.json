@@ -1,0 +1,59 @@
+{
+  "baselineFingerprint": "c56205d73961ba475a0c76643828023e8d6120f71651e7457a2d00ecf14a32cb",
+  "currentFingerprint": "ab460a43e7f5f7a71541d2da49ffb1fa36c04a03266d42738899bc9129787956",
+  "scope": "Original16.18 serialized active field-boss battle with Barbara melody/Jean field/Zhongli shield loaded by19; native callbacks checked without numeric replacement.",
+  "checks": [
+    {
+      "name": "old_fields_statuses_shields_hp_restored_exactly",
+      "passed": true,
+      "evidence": {
+        "fieldCount": 2
+      }
+    },
+    {
+      "name": "old_Jean_field_keeps_all_four_native_end_heals",
+      "passed": true,
+      "evidence": {
+        "effectiveHeal": [
+          1543,
+          1543,
+          1543,
+          1543
+        ]
+      }
+    },
+    {
+      "name": "old_Barbara_melody_keeps_native_six_percent_per_landed_basic",
+      "passed": true,
+      "evidence": {
+        "effectiveHeal": [
+          942,
+          942,
+          942,
+          942
+        ]
+      }
+    },
+    {
+      "name": "old_Jade_shield_has_original_full_stored_strength_until_native_use",
+      "passed": true,
+      "evidence": {
+        "values": [
+          9546,
+          9546,
+          9546,
+          9546
+        ]
+      }
+    },
+    {
+      "name": "legacy_boss_schedule_revision_is_not_added_by_load",
+      "passed": true,
+      "evidence": {
+        "behaviorRevisionAbsent": true
+      }
+    }
+  ],
+  "total": 5,
+  "failed": 0
+}

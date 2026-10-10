@@ -1,0 +1,428 @@
+{
+  "scope": "Isolated native tuneGrowthEnemy formula by fixed enemy level and grade; a common monster source only supplies speed, not HP/ATK/DEF. No actual battle outcome.",
+  "formulas": {
+    "hpCurve": "1 + 0.13*(L-1) + 0.002*(L-1)^2",
+    "adCurve": "1 + 0.12*(L-1) + 0.003*(L-1)^2",
+    "bossAtk": "65 * hpCurve(L) * (1+0.18*phaseFor(L)) * sqrt(adCurve(L)), rounded",
+    "ordinaryAtk": "24 * hpCurve(L) * (1+0.18*phaseFor(L)) * sqrt(adCurve(L)) * min(1.7,1+0.2*(L-1)) * calibratedOrdinaryBudget(L), rounded",
+    "budgetNote": "Lv>4 ordinary final ATK follows FIELD_ATK_V0166; elite interpolates 80% of budget correction, strong 35%, bosses get no such calibration."
+  },
+  "rows": [
+    {
+      "level": 10,
+      "grade": "일반",
+      "hp": 2800,
+      "atk": 870,
+      "def": 46,
+      "effectiveDef": 30.180972302245515
+    },
+    {
+      "level": 10,
+      "grade": "정예",
+      "hp": 6882,
+      "atk": 1148,
+      "def": 65,
+      "effectiveDef": 42.647026079259966
+    },
+    {
+      "level": 10,
+      "grade": "강적",
+      "hp": 10506,
+      "atk": 864,
+      "def": 81,
+      "effectiveDef": 53.14475557569319
+    },
+    {
+      "level": 10,
+      "grade": "보스",
+      "hp": 6996,
+      "atk": 231,
+      "def": 98,
+      "effectiveDef": 64.29859316565349
+    },
+    {
+      "level": 18,
+      "grade": "일반",
+      "hp": 4020,
+      "atk": 1174,
+      "def": 78,
+      "effectiveDef": 39.46143708276228
+    },
+    {
+      "level": 18,
+      "grade": "정예",
+      "hp": 10210,
+      "atk": 1601,
+      "def": 109,
+      "effectiveDef": 55.1448287438601
+    },
+    {
+      "level": 18,
+      "grade": "강적",
+      "hp": 17119,
+      "atk": 1398,
+      "def": 137,
+      "effectiveDef": 69.31047282485169
+    },
+    {
+      "level": 18,
+      "grade": "보스",
+      "hp": 13182,
+      "atk": 574,
+      "def": 164,
+      "effectiveDef": 82.97020104580787
+    },
+    {
+      "level": 20,
+      "grade": "일반",
+      "hp": 4300,
+      "atk": 1250,
+      "def": 87,
+      "effectiveDef": 41.65111635870277
+    },
+    {
+      "level": 20,
+      "grade": "정예",
+      "hp": 10987,
+      "atk": 1717,
+      "def": 122,
+      "effectiveDef": 58.407312594962505
+    },
+    {
+      "level": 20,
+      "grade": "강적",
+      "hp": 18716,
+      "atk": 1542,
+      "def": 153,
+      "effectiveDef": 73.2485149756497
+    },
+    {
+      "level": 20,
+      "grade": "보스",
+      "hp": 14588,
+      "atk": 672,
+      "def": 183,
+      "effectiveDef": 87.61096889244375
+    },
+    {
+      "level": 22,
+      "grade": "일반",
+      "hp": 4660,
+      "atk": 1326,
+      "def": 97,
+      "effectiveDef": 44.07725090200451
+    },
+    {
+      "level": 22,
+      "grade": "정예",
+      "hp": 12146,
+      "atk": 1858,
+      "def": 136,
+      "effectiveDef": 61.79903219250116
+    },
+    {
+      "level": 22,
+      "grade": "강적",
+      "hp": 21763,
+      "atk": 1799,
+      "def": 170,
+      "effectiveDef": 77.24879024062645
+    },
+    {
+      "level": 22,
+      "grade": "보스",
+      "hp": 18264,
+      "atk": 897,
+      "def": 203,
+      "effectiveDef": 92.24414364027747
+    },
+    {
+      "level": 25,
+      "grade": "일반",
+      "hp": 5200,
+      "atk": 1440,
+      "def": 112,
+      "effectiveDef": 47.29486827243814
+    },
+    {
+      "level": 25,
+      "grade": "정예",
+      "hp": 13650,
+      "atk": 2043,
+      "def": 157,
+      "effectiveDef": 66.29727070332846
+    },
+    {
+      "level": 25,
+      "grade": "강적",
+      "hp": 24880,
+      "atk": 2068,
+      "def": 196,
+      "effectiveDef": 82.76601947676674
+    },
+    {
+      "level": 25,
+      "grade": "보스",
+      "hp": 20877,
+      "atk": 1104,
+      "def": 236,
+      "effectiveDef": 99.65704385978036
+    },
+    {
+      "level": 30,
+      "grade": "일반",
+      "hp": 6500,
+      "atk": 1750,
+      "def": 140,
+      "effectiveDef": 52.90369093045778
+    },
+    {
+      "level": 30,
+      "grade": "정예",
+      "hp": 17122,
+      "atk": 2517,
+      "def": 196,
+      "effectiveDef": 74.06516730264089
+    },
+    {
+      "level": 30,
+      "grade": "강적",
+      "hp": 31469,
+      "atk": 2661,
+      "def": 245,
+      "effectiveDef": 92.5814591283011
+    },
+    {
+      "level": 30,
+      "grade": "보스",
+      "hp": 25550,
+      "atk": 1509,
+      "def": 294,
+      "effectiveDef": 111.09775095396134
+    },
+    {
+      "level": 38,
+      "grade": "일반",
+      "hp": 8500,
+      "atk": 2350,
+      "def": 191,
+      "effectiveDef": 61.815858621245454
+    },
+    {
+      "level": 38,
+      "grade": "정예",
+      "hp": 23073,
+      "atk": 3502,
+      "def": 267,
+      "effectiveDef": 86.41274477420176
+    },
+    {
+      "level": 38,
+      "grade": "강적",
+      "hp": 45369,
+      "atk": 4119,
+      "def": 334,
+      "effectiveDef": 108.09684177746587
+    },
+    {
+      "level": 38,
+      "grade": "보스",
+      "hp": 37953,
+      "atk": 2644,
+      "def": 401,
+      "effectiveDef": 129.78093878072997
+    },
+    {
+      "level": 40,
+      "grade": "일반",
+      "hp": 9000,
+      "atk": 2500,
+      "def": 205,
+      "effectiveDef": 64.05311790617148
+    },
+    {
+      "level": 40,
+      "grade": "정예",
+      "hp": 24527,
+      "atk": 3747,
+      "def": 287,
+      "effectiveDef": 89.67436506864006
+    },
+    {
+      "level": 40,
+      "grade": "강적",
+      "hp": 48631,
+      "atk": 4476,
+      "def": 359,
+      "effectiveDef": 112.17106989422224
+    },
+    {
+      "level": 40,
+      "grade": "보스",
+      "hp": 40457,
+      "atk": 2919,
+      "def": 430,
+      "effectiveDef": 134.35532048611577
+    },
+    {
+      "level": 45,
+      "grade": "일반",
+      "hp": 10750,
+      "atk": 3000,
+      "def": 242,
+      "effectiveDef": 69.60463177875631
+    },
+    {
+      "level": 45,
+      "grade": "정예",
+      "hp": 29904,
+      "atk": 4618,
+      "def": 338,
+      "effectiveDef": 97.21638653396543
+    },
+    {
+      "level": 45,
+      "grade": "강적",
+      "hp": 61842,
+      "atk": 5915,
+      "def": 423,
+      "effectiveDef": 121.66429439014017
+    },
+    {
+      "level": 45,
+      "grade": "보스",
+      "hp": 52113,
+      "atk": 4117,
+      "def": 508,
+      "effectiveDef": 146.11220224631492
+    },
+    {
+      "level": 48,
+      "grade": "일반",
+      "hp": 11800,
+      "atk": 3300,
+      "def": 265,
+      "effectiveDef": 72.754441193297
+    },
+    {
+      "level": 48,
+      "grade": "정예",
+      "hp": 32918,
+      "atk": 5113,
+      "def": 371,
+      "effectiveDef": 101.85621767061579
+    },
+    {
+      "level": 48,
+      "grade": "강적",
+      "hp": 68457,
+      "atk": 6652,
+      "def": 464,
+      "effectiveDef": 127.38890835354644
+    },
+    {
+      "level": 48,
+      "grade": "보스",
+      "hp": 56718,
+      "atk": 4694,
+      "def": 557,
+      "effectiveDef": 152.9215990364771
+    },
+    {
+      "level": 50,
+      "grade": "일반",
+      "hp": 12500,
+      "atk": 3500,
+      "def": 282,
+      "effectiveDef": 75.14524741111913
+    },
+    {
+      "level": 50,
+      "grade": "정예",
+      "hp": 34951,
+      "atk": 5448,
+      "def": 394,
+      "effectiveDef": 104.99016836872673
+    },
+    {
+      "level": 50,
+      "grade": "강적",
+      "hp": 73015,
+      "atk": 7169,
+      "def": 493,
+      "effectiveDef": 131.37094671518346
+    },
+    {
+      "level": 50,
+      "grade": "보스",
+      "hp": 59886,
+      "atk": 5107,
+      "def": 591,
+      "effectiveDef": 157.4852525530901
+    },
+    {
+      "level": 56,
+      "grade": "일반",
+      "hp": 15200,
+      "atk": 4340,
+      "def": 334,
+      "effectiveDef": 81.79251183637624
+    },
+    {
+      "level": 56,
+      "grade": "정예",
+      "hp": 44105,
+      "atk": 7056,
+      "def": 467,
+      "effectiveDef": 114.36258391493324
+    },
+    {
+      "level": 56,
+      "grade": "강적",
+      "hp": 98702,
+      "atk": 10221,
+      "def": 584,
+      "effectiveDef": 143.01445183366386
+    },
+    {
+      "level": 56,
+      "grade": "보스",
+      "hp": 83496,
+      "atk": 7840,
+      "def": 700,
+      "effectiveDef": 171.4214319924053
+    },
+    {
+      "level": 60,
+      "grade": "일반",
+      "hp": 17000,
+      "atk": 4900,
+      "def": 370,
+      "effectiveDef": 85.96982856581418
+    },
+    {
+      "level": 60,
+      "grade": "정예",
+      "hp": 49471,
+      "atk": 8015,
+      "def": 519,
+      "effectiveDef": 120.59011088015558
+    },
+    {
+      "level": 60,
+      "grade": "강적",
+      "hp": 111273,
+      "atk": 11757,
+      "def": 648,
+      "effectiveDef": 150.5633754341827
+    },
+    {
+      "level": 60,
+      "grade": "보스",
+      "hp": 91916,
+      "atk": 9096,
+      "def": 778,
+      "effectiveDef": 180.7689908762255
+    }
+  ]
+}

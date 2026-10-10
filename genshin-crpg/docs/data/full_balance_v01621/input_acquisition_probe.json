@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "scope": "Read-only input acquisition investigation. No product/test files changed and no native QA executed.",
+  "localInspection": {
+    "gitCheckouts": 4,
+    "remoteURLsConfigured": 0,
+    "urlRewriteConfigured": 0,
+    "knownAllowedMirrorURLObserved": false,
+    "targetBlobsPresent": false,
+    "targetHistoricalCommitPresent": false,
+    "archiveOriginalDBFound": false,
+    "localQA": {
+      "bytes": 23049439,
+      "lines": 1,
+      "maximumLineBytes": 23049439,
+      "lfCount": 1,
+      "crlfCount": 0,
+      "endsInLF": true
+    }
+  },
+  "probes": [
+    {
+      "input": "published_authored",
+      "request": {
+        "tool": "github_fetch_file",
+        "repository": "jungsan765-lang/clannad",
+        "path": "genshin-crpg/content/db.json",
+        "ref": "df1d2c48b630bf8a152481bcc4bcc3e5b8b37785",
+        "startLine": 1,
+        "endLine": 10
+      },
+      "responseStatus": "fulfilled",
+      "isError": false,
+      "encoding": "utf-8",
+      "returnedSHA": "cc3996929c885d41289038ff501640039a4cc71e",
+      "contentCharacters": 0,
+      "sourceBytesAcquired": 0,
+      "claim": "Metadata matches expected blob. Empty content is not acquisition or native comparison evidence."
+    },
+    {
+      "input": "historical_0.13.43",
+      "request": {
+        "tool": "github_fetch_file",
+        "repository": "jungsan765-lang/clannad",
+        "path": "genshin-crpg/content/db.json",
+        "ref": "f0c08d6abd5941cf72be9ef1a472f28bb4d2c96b",
+        "startLine": 1,
+        "endLine": 10
+      },
+      "responseStatus": "fulfilled",
+      "isError": false,
+      "encoding": "utf-8",
+      "returnedSHA": "75626bf50ac3417feb33ac65a49fa268db9a34b6",
+      "contentCharacters": 0,
+      "sourceBytesAcquired": 0,
+      "claim": "Metadata matches expected blob. Empty content is not acquisition or native comparison evidence."
+    }
+  ],
+  "conclusion": "Official line-range calls returned exact expected SHA metadata with zero content characters for both DBs. One-line 23 MB QA DB cannot be split into bounded line ranges. Do not reconstruct, substitute, or declare either missing raw input verified.",
+  "productOrTestMutations": 0,
+  "newNativeQARuns": 0
+}

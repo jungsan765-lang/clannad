@@ -1,0 +1,904 @@
+{
+  "generatedUtc": "2026-10-09T16:13:18.365267+00:00",
+  "passed": true,
+  "method": "Read-only isolated-row native logs/counters/HP conservation/settlement QA; no new experiments or mutations of any original evidence/product/documents/DB/Git.",
+  "requestPathCorrection": {
+    "initialRequestedSecondPath": "field_boss_repeat FIVE_DEFENSIVE +6 MAX seed717",
+    "clarifiedSecondPath": "chasm_gap Lv56 THREE_HUSK FIVE_DEFENSIVE +6 baseTalent4 seed717 first fight",
+    "reason": "Parent corrected the dataset path; numeric tuple belongs to Chasm, not Cryo Hypostasis. This is a request-context correction, not a source-data/citation numeric error."
+  },
+  "inputs": {
+    "/tmp/crpg_reaction_plan/chasm_gap/two_enemy_snapshot.json": {
+      "sha256": "f41001a68df6a23d2c00e8660b21e61ba3d3fde6b347672d16dbdcc9d44986c3",
+      "bytes": 19586,
+      "mtime_ns": 1791561786018752263
+    },
+    "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_6_native_extra.json.gz": {
+      "sha256": "02faf829ae989fd6bb7bd0c94d0dc700b4f3a5266952231bb25420c3443db12d",
+      "bytes": 150199,
+      "mtime_ns": 1791561314709222639
+    },
+    "/tmp/crpg_reaction_plan/field_boss_repeat/summary.json": {
+      "sha256": "080a711ecf6c7467169a82d09a54f46dfa11855376bcd0751f546b6441ec1148",
+      "bytes": 3044973,
+      "mtime_ns": 1791560829690998140
+    },
+    "/tmp/crpg_reaction_plan/field_boss_repeat/e6.json": {
+      "sha256": "f31a5f36f39c55c608342c2dde3295156e66b50449709fa0f9703fb10b4b7503",
+      "bytes": 75639537,
+      "mtime_ns": 1791560271791095296
+    },
+    "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_6.json.gz": {
+      "sha256": "c53f13a433d33db4bf6b7831d3e9e5418be2bdc3ff60ee5a5192c843da24e1f7",
+      "bytes": 765193,
+      "mtime_ns": 1791561091580610778
+    },
+    "/tmp/crpg_reaction_plan/chasm_gap/summary.json": {
+      "sha256": "3191f826d7b214796077288d9995d6a4e16c58d14f25c431504a48bd355dc10d",
+      "bytes": 1857472,
+      "mtime_ns": 1791561929482290705
+    },
+    "/tmp/crpg_healer_audit/source_before.json": {
+      "sha256": "4ff0e5ac10f0f82fac5f8b665576668e9ed965de48acb6183f199a25b73b955c",
+      "bytes": 23547,
+      "mtime_ns": 1791555942878897727
+    }
+  },
+  "inputsUnchanged": true,
+  "checks": [
+    {
+      "check": "cited chasm HPdamage24606 verified",
+      "passed": true,
+      "details": {
+        "packets": 20,
+        "logDamageTotal": 24606,
+        "boundedHpDamageTotal": 24606,
+        "overkillPackets": 0,
+        "missingPreHpPackets": 0,
+        "perActor": {
+          "MOND_JEAN": 1251,
+          "PLAYER_CUSTOM": 6611,
+          "MOND_DILUC": 5287,
+          "LIYUE_GANYU": 11457
+        }
+      }
+    },
+    {
+      "check": "cited chasm actual healing16976 native log matches",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "cited chasm settlement netloss7630",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "cited chasm logs no overkill no missing actual preHp",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "cited chasm every actor HPbalance0",
+      "passed": true,
+      "details": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "initialCombatHp": 4673,
+          "initialCombatMaxHp": 4673,
+          "damage": 6611,
+          "healing": 2226,
+          "beforeRewardHp": 288,
+          "beforeRewardMaxHp": 4673,
+          "afterRewardHp": 288,
+          "afterRewardMaxHp": 4673,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": 0,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        },
+        {
+          "id": "MOND_DILUC",
+          "initialCombatHp": 7080,
+          "initialCombatMaxHp": 7080,
+          "damage": 5287,
+          "healing": 5287,
+          "beforeRewardHp": 7080,
+          "beforeRewardMaxHp": 7080,
+          "afterRewardHp": 7080,
+          "afterRewardMaxHp": 7080,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": 0,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        },
+        {
+          "id": "LIYUE_GANYU",
+          "initialCombatHp": 8141,
+          "initialCombatMaxHp": 8548,
+          "damage": 11457,
+          "healing": 8212,
+          "beforeRewardHp": 4896,
+          "beforeRewardMaxHp": 8548,
+          "afterRewardHp": 4896,
+          "afterRewardMaxHp": 8141,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": 0,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        },
+        {
+          "id": "MOND_JEAN",
+          "initialCombatHp": 7080,
+          "initialCombatMaxHp": 7080,
+          "damage": 1251,
+          "healing": 1251,
+          "beforeRewardHp": 7080,
+          "beforeRewardMaxHp": 7080,
+          "afterRewardHp": 7080,
+          "afterRewardMaxHp": 7080,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": 0,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        }
+      ]
+    },
+    {
+      "check": "cited chasm no reward heal revive levelup or maxHpclip loss",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "cited chasm all four alive before after settlement",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "cited chasm no protagonist settlement revival",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "cited chasm no Xingqiu prehit healing concern",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "cited chasm native public victory",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "cited chasm no postbattle recovery",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "cited chasm actual C3 C2 C0 C2 saved fixture",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "initial request boss path corrected; separately verified boss actual tuple",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "actual boss tuple native raw agrees final summary",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "actual boss logs no overkill no missing preHp",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "actual boss heal packets match native logs",
+      "passed": true,
+      "details": {
+        "hook": {
+          "PLAYER_CUSTOM": 0,
+          "LIYUE_ZHONGLI": 0,
+          "MOND_DILUC": 354,
+          "MOND_JEAN": 0
+        },
+        "log": {
+          "PLAYER_CUSTOM": 0,
+          "LIYUE_ZHONGLI": 0,
+          "MOND_DILUC": 354,
+          "MOND_JEAN": 0
+        }
+      }
+    },
+    {
+      "check": "actual boss every actor HPbalance0",
+      "passed": true,
+      "details": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "initialCombatHp": 4673,
+          "initialCombatMaxHp": 4673,
+          "damage": 0,
+          "healing": 0,
+          "beforeRewardHp": 4673,
+          "beforeRewardMaxHp": 4673,
+          "afterRewardHp": 4673,
+          "afterRewardMaxHp": 4673,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": 0,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "initialCombatHp": 10600,
+          "initialCombatMaxHp": 10600,
+          "damage": 0,
+          "healing": 0,
+          "beforeRewardHp": 10600,
+          "beforeRewardMaxHp": 10600,
+          "afterRewardHp": 10600,
+          "afterRewardMaxHp": 10600,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": 0,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        },
+        {
+          "id": "MOND_DILUC",
+          "initialCombatHp": 7080,
+          "initialCombatMaxHp": 7434,
+          "damage": 0,
+          "healing": 354,
+          "beforeRewardHp": 7434,
+          "beforeRewardMaxHp": 7434,
+          "afterRewardHp": 7080,
+          "afterRewardMaxHp": 7080,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": -354,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        },
+        {
+          "id": "MOND_JEAN",
+          "initialCombatHp": 7080,
+          "initialCombatMaxHp": 7080,
+          "damage": 0,
+          "healing": 0,
+          "beforeRewardHp": 7080,
+          "beforeRewardMaxHp": 7080,
+          "afterRewardHp": 7080,
+          "afterRewardMaxHp": 7080,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": 0,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        }
+      ]
+    },
+    {
+      "check": "actual boss all alive before after settlement",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "actual boss no protagonist settlement revival",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "actual boss no reward heal or levelup; slot3 clip separately",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "actual boss no Xingqiu prehit healing concern",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "actual boss native public victory",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "actual boss next battle begins without intermediate recovery",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second cited Chasm three husks tuple matches native original",
+      "passed": true,
+      "details": {
+        "expected": {
+          "rounds": 13,
+          "actualHpDamage": 9315,
+          "shieldAbsorbed": 33428,
+          "actualHealing": 9669
+        },
+        "actual": {
+          "rounds": 13,
+          "actualHpDamage": 9315,
+          "shieldAbsorbed": 33428,
+          "actualHealing": 9669
+        }
+      }
+    },
+    {
+      "check": "corrected second chasm native logs no overkill no missing preHp",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm native actual healing counters logs agree",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm every actor HPbalance0",
+      "passed": true,
+      "details": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "initialCombatHp": 4673,
+          "initialCombatMaxHp": 4673,
+          "damage": 6732,
+          "healing": 6732,
+          "beforeRewardHp": 4673,
+          "beforeRewardMaxHp": 4673,
+          "afterRewardHp": 4673,
+          "afterRewardMaxHp": 4673,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": 0,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        },
+        {
+          "id": "LIYUE_ZHONGLI",
+          "initialCombatHp": 10600,
+          "initialCombatMaxHp": 10600,
+          "damage": 0,
+          "healing": 0,
+          "beforeRewardHp": 10600,
+          "beforeRewardMaxHp": 10600,
+          "afterRewardHp": 10600,
+          "afterRewardMaxHp": 10600,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": 0,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        },
+        {
+          "id": "MOND_DILUC",
+          "initialCombatHp": 7080,
+          "initialCombatMaxHp": 7434,
+          "damage": 1906,
+          "healing": 2260,
+          "beforeRewardHp": 7434,
+          "beforeRewardMaxHp": 7434,
+          "afterRewardHp": 7080,
+          "afterRewardMaxHp": 7080,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": -354,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        },
+        {
+          "id": "MOND_JEAN",
+          "initialCombatHp": 7080,
+          "initialCombatMaxHp": 7080,
+          "damage": 677,
+          "healing": 677,
+          "beforeRewardHp": 7080,
+          "beforeRewardMaxHp": 7080,
+          "afterRewardHp": 7080,
+          "afterRewardMaxHp": 7080,
+          "residualInitialMinusDamagePlusHealMinusEnd": 0,
+          "rewardHpDelta": 0,
+          "beforeLevel": 25,
+          "afterLevel": 25
+        }
+      ]
+    },
+    {
+      "check": "corrected second chasm all alive before after settlement",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm no settlement protagonist revival",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm no settlement heal or levelup",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm slot3 clip354 and post reward netloss0",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm no Xingqiu",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm native public victory",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm no intermediate or final forced recovery",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm C0 actual fixture",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm native Lv56 three husks",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "corrected second chasm final summary preserved cited metrics",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "all 233 product DB source baseline unchanged",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "cited original inputs unchanged hash mtime",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "errors": [],
+  "chasm": {
+    "condition": {
+      "name": "SCREENSHOT_C232",
+      "enhance": 6,
+      "talent": 4,
+      "seed": 318012461
+    },
+    "battle": 1,
+    "rounds": 11,
+    "damage": {
+      "packets": 20,
+      "logDamageTotal": 24606,
+      "boundedHpDamageTotal": 24606,
+      "overkillPackets": 0,
+      "missingPreHpPackets": 0,
+      "perActor": {
+        "MOND_JEAN": 1251,
+        "PLAYER_CUSTOM": 6611,
+        "MOND_DILUC": 5287,
+        "LIYUE_GANYU": 11457
+      }
+    },
+    "healsByTarget": {
+      "PLAYER_CUSTOM": 2226,
+      "MOND_DILUC": 5287,
+      "LIYUE_GANYU": 8212,
+      "MOND_JEAN": 1251
+    },
+    "actualHealing": 16976,
+    "netHpLossAfterReward": 7630,
+    "actorBalances": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "initialCombatHp": 4673,
+        "initialCombatMaxHp": 4673,
+        "damage": 6611,
+        "healing": 2226,
+        "beforeRewardHp": 288,
+        "beforeRewardMaxHp": 4673,
+        "afterRewardHp": 288,
+        "afterRewardMaxHp": 4673,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": 0,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      },
+      {
+        "id": "MOND_DILUC",
+        "initialCombatHp": 7080,
+        "initialCombatMaxHp": 7080,
+        "damage": 5287,
+        "healing": 5287,
+        "beforeRewardHp": 7080,
+        "beforeRewardMaxHp": 7080,
+        "afterRewardHp": 7080,
+        "afterRewardMaxHp": 7080,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": 0,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      },
+      {
+        "id": "LIYUE_GANYU",
+        "initialCombatHp": 8141,
+        "initialCombatMaxHp": 8548,
+        "damage": 11457,
+        "healing": 8212,
+        "beforeRewardHp": 4896,
+        "beforeRewardMaxHp": 8548,
+        "afterRewardHp": 4896,
+        "afterRewardMaxHp": 8141,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": 0,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      },
+      {
+        "id": "MOND_JEAN",
+        "initialCombatHp": 7080,
+        "initialCombatMaxHp": 7080,
+        "damage": 1251,
+        "healing": 1251,
+        "beforeRewardHp": 7080,
+        "beforeRewardMaxHp": 7080,
+        "afterRewardHp": 7080,
+        "afterRewardMaxHp": 7080,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": 0,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      }
+    ],
+    "result": {
+      "mora": 184,
+      "rewardPolicy": "MOND_BALANCE_V1",
+      "bond": null,
+      "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-318012461:B17",
+      "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-318012461:B17",
+      "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-318012461",
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+      "origin": "RANDOM",
+      "gate": "RANDOM",
+      "branch": null,
+      "victory": true,
+      "xp": 2508,
+      "loot": {
+        "MAT_LEY_LINE_SPROUT": 2,
+        "TRPG_ABYSS_KNIGHT_FRAGMENT": 1,
+        "TRPG_ABYSS_SHARD": 2
+      },
+      "rounds": 11,
+      "result": "VICTORY",
+      "unsupportedEffects": [],
+      "tierBonus": {
+        "version": 1,
+        "loot": {
+          "TRPG_ABYSS_SHARD": 2
+        },
+        "enemies": [
+          {
+            "name": "암흑의 빈 갑주·기수",
+            "tier": 5,
+            "label": "지역 위험 개체",
+            "affixes": [
+              "사나운",
+              "부식"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "chasmThreeHusks": {
+    "condition": {
+      "name": "FIVE_DEFENSIVE",
+      "enhance": 6,
+      "baseTalent": 4,
+      "seed": 717
+    },
+    "battle": 1,
+    "citedExpected": {
+      "rounds": 13,
+      "actualHpDamage": 9315,
+      "shieldAbsorbed": 33428,
+      "actualHealing": 9669
+    },
+    "actualFinal": {
+      "rounds": 13,
+      "actualHpDamage": 9315,
+      "shieldAbsorbed": 33428,
+      "actualHealing": 9669
+    },
+    "damage": {
+      "packets": 30,
+      "logDamageTotal": 9315,
+      "boundedHpDamageTotal": 9315,
+      "overkillPackets": 0,
+      "missingPreHpPackets": 0,
+      "perActor": {
+        "MOND_JEAN": 677,
+        "LIYUE_ZHONGLI": 0,
+        "PLAYER_CUSTOM": 6732,
+        "MOND_DILUC": 1906
+      }
+    },
+    "healsByTarget": {
+      "PLAYER_CUSTOM": 6732,
+      "LIYUE_ZHONGLI": 0,
+      "MOND_DILUC": 2260,
+      "MOND_JEAN": 677
+    },
+    "actorBalances": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "initialCombatHp": 4673,
+        "initialCombatMaxHp": 4673,
+        "damage": 6732,
+        "healing": 6732,
+        "beforeRewardHp": 4673,
+        "beforeRewardMaxHp": 4673,
+        "afterRewardHp": 4673,
+        "afterRewardMaxHp": 4673,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": 0,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      },
+      {
+        "id": "LIYUE_ZHONGLI",
+        "initialCombatHp": 10600,
+        "initialCombatMaxHp": 10600,
+        "damage": 0,
+        "healing": 0,
+        "beforeRewardHp": 10600,
+        "beforeRewardMaxHp": 10600,
+        "afterRewardHp": 10600,
+        "afterRewardMaxHp": 10600,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": 0,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      },
+      {
+        "id": "MOND_DILUC",
+        "initialCombatHp": 7080,
+        "initialCombatMaxHp": 7434,
+        "damage": 1906,
+        "healing": 2260,
+        "beforeRewardHp": 7434,
+        "beforeRewardMaxHp": 7434,
+        "afterRewardHp": 7080,
+        "afterRewardMaxHp": 7080,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": -354,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      },
+      {
+        "id": "MOND_JEAN",
+        "initialCombatHp": 7080,
+        "initialCombatMaxHp": 7080,
+        "damage": 677,
+        "healing": 677,
+        "beforeRewardHp": 7080,
+        "beforeRewardMaxHp": 7080,
+        "afterRewardHp": 7080,
+        "afterRewardMaxHp": 7080,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": 0,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      }
+    ],
+    "postRewardNetHpLoss": 0,
+    "slot3HpClippingLoss": 354,
+    "result": {
+      "mora": 276,
+      "rewardPolicy": "MOND_BALANCE_V1",
+      "bond": null,
+      "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B14",
+      "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B14",
+      "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717",
+      "group": "EG_LIYUE_LOCAL_CHASM_DEEP_1",
+      "origin": "RANDOM",
+      "gate": "RANDOM",
+      "branch": null,
+      "victory": true,
+      "xp": 3762,
+      "loot": {
+        "MAT_LEY_LINE_SPROUT": 2,
+        "TRPG_ABYSS_KNIGHT_FRAGMENT": 1,
+        "TRPG_ABYSS_SHARD": 1
+      },
+      "rounds": 13,
+      "result": "VICTORY",
+      "unsupportedEffects": []
+    }
+  },
+  "separatelyConfirmedBoss": {
+    "condition": {
+      "team": "FIVE_DEFENSIVE",
+      "enhance": 6,
+      "talentMode": "MAX",
+      "seed": 717
+    },
+    "battle": 1,
+    "actualFinal": {
+      "rounds": 8,
+      "actualHpDamage": 0,
+      "shieldAbsorbed": 12177,
+      "actualHealing": 354
+    },
+    "damage": {
+      "packets": 37,
+      "logDamageTotal": 0,
+      "boundedHpDamageTotal": 0,
+      "overkillPackets": 0,
+      "missingPreHpPackets": 0,
+      "perActor": {
+        "MOND_JEAN": 0,
+        "LIYUE_ZHONGLI": 0,
+        "PLAYER_CUSTOM": 0,
+        "MOND_DILUC": 0
+      }
+    },
+    "healsByTarget": {
+      "PLAYER_CUSTOM": 0,
+      "LIYUE_ZHONGLI": 0,
+      "MOND_DILUC": 354,
+      "MOND_JEAN": 0
+    },
+    "actorBalances": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "initialCombatHp": 4673,
+        "initialCombatMaxHp": 4673,
+        "damage": 0,
+        "healing": 0,
+        "beforeRewardHp": 4673,
+        "beforeRewardMaxHp": 4673,
+        "afterRewardHp": 4673,
+        "afterRewardMaxHp": 4673,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": 0,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      },
+      {
+        "id": "LIYUE_ZHONGLI",
+        "initialCombatHp": 10600,
+        "initialCombatMaxHp": 10600,
+        "damage": 0,
+        "healing": 0,
+        "beforeRewardHp": 10600,
+        "beforeRewardMaxHp": 10600,
+        "afterRewardHp": 10600,
+        "afterRewardMaxHp": 10600,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": 0,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      },
+      {
+        "id": "MOND_DILUC",
+        "initialCombatHp": 7080,
+        "initialCombatMaxHp": 7434,
+        "damage": 0,
+        "healing": 354,
+        "beforeRewardHp": 7434,
+        "beforeRewardMaxHp": 7434,
+        "afterRewardHp": 7080,
+        "afterRewardMaxHp": 7080,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": -354,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      },
+      {
+        "id": "MOND_JEAN",
+        "initialCombatHp": 7080,
+        "initialCombatMaxHp": 7080,
+        "damage": 0,
+        "healing": 0,
+        "beforeRewardHp": 7080,
+        "beforeRewardMaxHp": 7080,
+        "afterRewardHp": 7080,
+        "afterRewardMaxHp": 7080,
+        "residualInitialMinusDamagePlusHealMinusEnd": 0,
+        "rewardHpDelta": 0,
+        "beforeLevel": 25,
+        "afterLevel": 25
+      }
+    ],
+    "reward": {
+      "mora": 182,
+      "rewardPolicy": "MOND_BALANCE_V1",
+      "bond": null,
+      "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B14",
+      "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717:B14",
+      "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-25-717",
+      "group": "EG_FB_CRYO_HYPOSTASIS",
+      "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+      "gate": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+      "branch": null,
+      "victory": true,
+      "xp": 2000,
+      "loot": {
+        "MAT_FB_CRYSTALLINE_BLOOM": 3
+      },
+      "rounds": 8,
+      "result": "VICTORY",
+      "unsupportedEffects": [],
+      "firstClear": true,
+      "fieldBoss": {
+        "boss": "FB_CRYO_HYPOSTASIS",
+        "name": "무상의 얼음",
+        "seen": [
+          "IMMUNE",
+          "LANCE",
+          "BLAST",
+          "WALL",
+          "REVIVE"
+        ],
+        "victory": true
+      }
+    },
+    "rewardHpDelta": [
+      {
+        "owner": "PLAYER_CUSTOM",
+        "levelBefore": 25,
+        "levelAfter": 25,
+        "hpBefore": 4673,
+        "hpAfter": 4673,
+        "maxHpBefore": 4673,
+        "maxHpAfter": 4673,
+        "delta": 0
+      },
+      {
+        "owner": "LIYUE_ZHONGLI",
+        "levelBefore": 25,
+        "levelAfter": 25,
+        "hpBefore": 10600,
+        "hpAfter": 10600,
+        "maxHpBefore": 10600,
+        "maxHpAfter": 10600,
+        "delta": 0
+      },
+      {
+        "owner": "MOND_DILUC",
+        "levelBefore": 25,
+        "levelAfter": 25,
+        "hpBefore": 7434,
+        "hpAfter": 7080,
+        "maxHpBefore": 7434,
+        "maxHpAfter": 7080,
+        "delta": -354
+      },
+      {
+        "owner": "MOND_JEAN",
+        "levelBefore": 25,
+        "levelAfter": 25,
+        "hpBefore": 7080,
+        "hpAfter": 7080,
+        "maxHpBefore": 7080,
+        "maxHpAfter": 7080,
+        "delta": 0
+      }
+    ]
+  },
+  "warnings": [
+    "Initial second-case dataset path was corrected by the parent. Both requested numerical citations are now validated under their actual Chasm source paths.",
+    "The corrected Chasm three-husk fight actual healing9669 covers incoming HPdamage9315 plus slot3 combat-only maxHP bonus354; settlement clips354 and leaves all raw persistent HP full.",
+    "The separately confirmed Cryo Hypostasis first fight heals slot3 combat-only maxHP bonus354 then settlement clips354. It is a separate baseline, not the cited Chasm 13-round example.",
+    "The dangerous two-husk Chasm cited single battle has four alive and no revival/reward healing. Entire condition still later records2wins1loss; do not call it a three-win no-inn success.",
+    "No protagonist settlement revival, level-up heal or postbattle recovery contributed to either cited Chasm first battle.",
+    "Existing official QA originals are preserved unchanged. This file only updates the newly requested isolated-citation QA after path clarification."
+  ]
+}

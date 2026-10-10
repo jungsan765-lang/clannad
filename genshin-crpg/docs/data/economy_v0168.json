@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "version": "0.16.8",
+  "stockRows": 322,
+  "recipeRows": 288,
+  "pricedRoutes": 212,
+  "relaxationIterations": 3,
+  "violations": [],
+  "includedPassives": [
+    "MOND_ALBEDO",
+    "MOND_LISA",
+    "MOND_MONA",
+    "LIYUE_XIANGLING (ATK and FEAST, single-craft extra output)"
+  ],
+  "tradeRules": {
+    "version": 1,
+    "open": [
+      "음식",
+      "몬스터 재료",
+      "식재료",
+      "가공 식재료",
+      "광물",
+      "제작 재료",
+      "지역 특산물",
+      "기계 부품",
+      "연금 재료",
+      "소모품",
+      "전투 치료품",
+      "탐험 도구",
+      "전술 도구"
+    ],
+    "limit": {
+      "entries": 6,
+      "quantity": 999
+    },
+    "minLevel": 10
+  },
+  "limits": "Includes locked/future catalog routes as conservative lower bounds. No live player market prices, trade history, inventories, travel cost or population data. Zero catalog resale arbitrage does not prove zero market inflation."
+}

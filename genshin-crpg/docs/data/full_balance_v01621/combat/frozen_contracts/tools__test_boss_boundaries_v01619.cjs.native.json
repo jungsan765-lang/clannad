@@ -1,0 +1,311 @@
+{
+  "version": "0.16.19",
+  "fingerprint": "6095344c74d938dd787b75344bea77137b5afe9e8c82d82f137e17338c942340",
+  "scope": "New-battle boss ATK floors and Serpent/Cryo scheduling, explicit preservation of legacy saved fights",
+  "checks": [
+    {
+      "id": "final_stats:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "stats": [
+          18,
+          13182,
+          1281,
+          164
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "stats": [
+          20,
+          14588,
+          1053,
+          183
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "stats": [
+          22,
+          18264,
+          1689,
+          203
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "stats": [
+          30,
+          25550,
+          1509,
+          294
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "stats": [
+          45,
+          52113,
+          4117,
+          508
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "stats": [
+          38,
+          37953,
+          2644,
+          401
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "stats": [
+          40,
+          40457,
+          2919,
+          430
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "stats": [
+          48,
+          56718,
+          4694,
+          557
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "stats": [
+          56,
+          83496,
+          7840,
+          700
+        ],
+        "saveReload": true
+      }
+    },
+    {
+      "id": "saved_early_boss_is_not_retuned",
+      "passed": true,
+      "evidence": {
+        "hp": 12861,
+        "maxHp": 13182,
+        "atk": 574,
+        "def": 164
+      }
+    },
+    {
+      "id": "serpent_burrow_holds_all_remaining_actions_until_next_own_turn",
+      "passed": true,
+      "evidence": {
+        "firstOwnTurn": [
+          "FB_BURROW"
+        ],
+        "nextOwnTurn": [
+          "FB_EMERGE"
+        ],
+        "saveReload": true,
+        "burrowDamageBlocked": true
+      }
+    },
+    {
+      "id": "legacy_serpent_turn_schedule_remains",
+      "passed": true,
+      "evidence": {
+        "moves": [
+          "FB_BURROW",
+          "FB_EMERGE"
+        ]
+      }
+    },
+    {
+      "id": "serpent_opened_armor_burrow_blocks_native_fields_and_final_typed_damage",
+      "passed": true,
+      "evidence": {
+        "armorOpened": true,
+        "burrowedHpUnchanged": 83496,
+        "finalTypedKinds": [
+          "FIELD",
+          "OBJECT",
+          "REACTION",
+          "REACTION_DOT"
+        ],
+        "nativeGuobaFieldBlocked": true,
+        "saveReload": true,
+        "nextOwnTurnDamageRestored": true,
+        "blockedPackets": 6
+      }
+    },
+    {
+      "id": "cryo_creation_end_is_free_and_next_two_full_rounds_count",
+      "passed": true,
+      "evidence": {
+        "timeline": [
+          {
+            "endingRound": 1,
+            "hp": 1,
+            "revival": {
+              "rounds": 2,
+              "need": 4,
+              "hits": 0,
+              "startedRound": 1
+            },
+            "nextRound": 2
+          },
+          {
+            "endingRound": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "need": 4,
+              "hits": 0,
+              "startedRound": 1,
+              "lastCountdownRound": 2
+            },
+            "nextRound": 3
+          },
+          {
+            "endingRound": 3,
+            "hp": 12775,
+            "revival": null,
+            "nextRound": 4
+          }
+        ],
+        "oneRevivalOnly": true
+      }
+    },
+    {
+      "id": "cryo_creation_end_native_guoba_keeps_full_two_round_window",
+      "passed": true,
+      "evidence": {
+        "nativeGuobaTicks": 2,
+        "hits": 2,
+        "remaining": 1,
+        "bodyStillAlive": 1
+      }
+    },
+    {
+      "id": "cryo_last_end_native_field_fourth_hit_breaks_before_timeout",
+      "passed": true,
+      "evidence": {
+        "initialHits": 3,
+        "lastEndNativeCard": "LIYUE_XIANGLING_E",
+        "breaks": 1,
+        "revives": 0
+      }
+    },
+    {
+      "id": "cryo_last_end_reaction_dot_fourth_hit_breaks_before_timeout",
+      "passed": true,
+      "evidence": {
+        "lastEndPositiveTypedDot": true,
+        "hp": 0
+      }
+    },
+    {
+      "id": "cryo_timeout_precedes_next_start_bunny_explosion",
+      "passed": true,
+      "evidence": {
+        "timeline": [
+          {
+            "card": "FB_REVIVED",
+            "round": 3
+          },
+          {
+            "card": null,
+            "sourceKind": "OBJECT",
+            "round": 4,
+            "damage": 952
+          }
+        ],
+        "coreFourthHitAtNextStart": false,
+        "hp": 11823
+      }
+    },
+    {
+      "id": "cryo_new_core_save_reload_preserves_created_and_counted_round",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "rounds": 1,
+          "need": 4,
+          "hits": 2,
+          "startedRound": 1,
+          "lastCountdownRound": 2
+        },
+        "after": null,
+        "hp": 12775
+      }
+    },
+    {
+      "id": "cryo_same_end_boundary_is_not_counted_twice",
+      "passed": true,
+      "evidence": {
+        "rounds": 1,
+        "need": 4,
+        "hits": 0,
+        "startedRound": 1,
+        "lastCountdownRound": 2
+      }
+    },
+    {
+      "id": "legacy_cryo_save_keeps_two_old_ends_and_first_timeout_order",
+      "passed": true,
+      "evidence": {
+        "old": {
+          "rounds": 2,
+          "need": 4,
+          "hits": 0
+        },
+        "legacyRevivedBeforeSecondField": true,
+        "afterHp": 12265
+      }
+    },
+    {
+      "id": "new_core_invalid_countdown_save_is_rejected",
+      "passed": true,
+      "evidence": {
+        "futureCreatedRoundRejected": true
+      }
+    }
+  ],
+  "total": 22,
+  "passed": 22,
+  "failed": 0
+}

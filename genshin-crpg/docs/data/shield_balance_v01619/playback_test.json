@@ -1,0 +1,83 @@
+{
+  "checks": [
+    {
+      "name": "single impact updates shield on that impact",
+      "ok": true,
+      "impactSpacingMs": 32,
+      "writes": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 400,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 400,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 400,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 350,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 350,
+          "max": 500
+        }
+      ]
+    },
+    {
+      "name": "both queued impacts update shield without a one-hit delay",
+      "ok": true,
+      "impactSpacingMs": 32,
+      "writes": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 400,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 400,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 400,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 350,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 350,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 350,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 300,
+          "max": 500
+        },
+        {
+          "id": "PLAYER_CUSTOM",
+          "value": 300,
+          "max": 500
+        }
+      ]
+    }
+  ]
+}

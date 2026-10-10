@@ -1,0 +1,12 @@
+{
+  "status": "FAILED_BEFORE_CONTRACT_EXECUTION",
+  "initialSpawnStatus": null,
+  "initialSignalUnavailable": true,
+  "directRecoveryExitCode": 137,
+  "oomKillCounterBefore": 6,
+  "oomKillCounterAfter": 7,
+  "cause": "Harness compared the production-sanitized release DB against the unsanitized authored DB. Its failed whole-database assertion formatting exhausted memory. Production sanitation retains header-only rows for three authoring-only tables.",
+  "changedProductFiles": [],
+  "completedBrowserChecks": 0,
+  "notValidationEvidence": true
+}

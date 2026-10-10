@@ -1,0 +1,232 @@
+{
+  "version": "0.16.27",
+  "authoredDBRawSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "normalizedDBSHA256": "b8d306ce08ad818e9726bbc1ef9f6d37e1bff979def1ee0fe84fb53905a52e2e",
+  "fieldEngineFingerprint": "71d718597e92cc13b8348c877da254737d057722bf0dbfa75718b9aeedc6e429",
+  "sourceSnapshotSHA256": {
+    "runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+    "runtime_growth_v01522.js": "3bca119a37174c8d8729eb2eca76e72e8f83edd6749ebc6978fe52339ab7d30e",
+    "runtime_economy.js": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140",
+    "runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250"
+  },
+  "frozenBeforeNonCombatChanges": [
+    "REC_ARMOR_FROST recipeDefinition correction",
+    "EXP rewardRevision1 / Lv60 13000 XP",
+    "Fresh crab shield.initialValue scaled with value; display maximum, no damage effect"
+  ],
+  "finalFieldAndRulesIdenticalToSnapshot": {
+    "runtime_field_bosses.js": true,
+    "runtime_rules.js": true
+  },
+  "native192": {
+    "sameLevelOriginalGrid": 162,
+    "additionalC0CryoFirePreparation": 6,
+    "runtimeErrors": 0,
+    "profileRevision": 0,
+    "freshEnemyBalanceRevision": 1,
+    "freshFieldPressureRevision": 1,
+    "underlevelEnhancementScope": "24 cases use base enhancement cap10, not ascended maximum12. Additional maximum12/ supplies18 separately.",
+    "baseCap10Underlevel": 24
+  },
+  "chunks": [
+    {
+      "name": "final-c0",
+      "rows": 44,
+      "completed": false,
+      "fingerprint": "71d718597e92cc13b8348c877da254737d057722bf0dbfa75718b9aeedc6e429"
+    },
+    {
+      "name": "final-c0-tail",
+      "rows": 12,
+      "completed": true,
+      "fingerprint": "71d718597e92cc13b8348c877da254737d057722bf0dbfa75718b9aeedc6e429"
+    },
+    {
+      "name": "final-strong",
+      "rows": 86,
+      "completed": false,
+      "fingerprint": "71d718597e92cc13b8348c877da254737d057722bf0dbfa75718b9aeedc6e429"
+    },
+    {
+      "name": "final-strong-tail",
+      "rows": 24,
+      "completed": true,
+      "fingerprint": "71d718597e92cc13b8348c877da254737d057722bf0dbfa75718b9aeedc6e429"
+    },
+    {
+      "name": "final-gap25",
+      "rows": 12,
+      "completed": true,
+      "fingerprint": "71d718597e92cc13b8348c877da254737d057722bf0dbfa75718b9aeedc6e429"
+    },
+    {
+      "name": "final-gap35",
+      "rows": 12,
+      "completed": true,
+      "fingerprint": "71d718597e92cc13b8348c877da254737d057722bf0dbfa75718b9aeedc6e429"
+    }
+  ],
+  "incompleteSessions": [
+    {
+      "name": "final-c0",
+      "exitCode": 137,
+      "completedPrefix": 44,
+      "planned": 54
+    },
+    {
+      "name": "final-strong",
+      "exitCode": 137,
+      "completedPrefix": 86,
+      "planned": 108
+    }
+  ],
+  "continuation": {
+    "c0_tail_completed": 12,
+    "strong_tail_completed": 24,
+    "overlapDuplicateConditions": 4,
+    "overlapInitialFullLogDamageMetersResultsEqual": true,
+    "deduplicatedCombinedConditions": 186
+  },
+  "rawArtifact": {
+    "file": "raw_192_rows.json.gz",
+    "sha256": "abc08a03ef43c731e5ef02c3dec0b3dfb338c72f960d3b47ac28e66a7350397e"
+  },
+  "limitations": [
+    "Native grant of characters, phase/talent funding, access flags, equipment/artifact ownership; not a natural acquisition-time playthrough.",
+    "Three seeds, fixed disclosed parties and input heuristics; does not cover all rosters, C1/C2/C6 five-stars or optimal builds.",
+    "The MANUAL heuristic can perform worse than REPEAT; it is not a proof of optimal strategy.",
+    "All same-level FOUR_C6/FIVE_C0 cases win. Some five-star shield/heal field bosses remain close to full HP.",
+    "Long defeat rounds after the protagonist dies represent remaining native AI rounds, not hundreds of successful player inputs."
+  ],
+  "latestEngineSmoke": {
+    "fingerprint": "f5ac16a649deb3475601de4af5fc7a43f74f50074af279f9c9e34800f3e9b0ed",
+    "sourceFieldSHA256": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+    "sameNativeInitialActorsFullLogMetersOutcome": true,
+    "condition": "CryoRegisvine, C0 fire3 +6, DIAMOND rearPC, seed717, MANUAL"
+  },
+  "targetedRegression": {
+    "bossBoundaries": {
+      "passed": 31,
+      "total": 31
+    },
+    "abyssFixes": {
+      "passed": 35,
+      "total": 35
+    },
+    "fieldPreparation": {
+      "passed": 6,
+      "total": 6
+    },
+    "fieldStrategy": {
+      "passed": 55,
+      "total": 55
+    },
+    "totalPassed": 127,
+    "total": 127
+  },
+  "postDelta": {
+    "report": "post_delta.json",
+    "additionalNativeChecks": 2,
+    "uniqueWithin192": false,
+    "sameInitialActorsPublicInputsMetersOutcome": true,
+    "fullLogDiffOnlyExpectedCrabShellInitialValue": {
+      "recordsPerPolicy": 3,
+      "before": 982,
+      "after": 708
+    }
+  },
+  "additionalFinalRegression": {
+    "balanceV0152": {
+      "passed": 7,
+      "total": 7,
+      "report": "balance_contracts.json"
+    },
+    "ascensionEfficiency": {
+      "passed": 6,
+      "total": 6
+    },
+    "materialRewards": {
+      "passed": 13,
+      "total": 13
+    },
+    "passed": 26,
+    "total": 26,
+    "currentEXP60": 24000,
+    "currentTalent60": 90,
+    "currentTalentRewardVersion": 4,
+    "oldEXP60": 10000,
+    "oldTalentRewardVersion3": 80
+  },
+  "maximum12": {
+    "report": "maximum12/README_KO.md",
+    "manifest": "maximum12/manifest.json",
+    "conditions": 18,
+    "wins": 0,
+    "defeats": 18,
+    "errors": 0,
+    "inputLimits": 0,
+    "preparationSaveValidated": true,
+    "excludedPreparationErrors": 6,
+    "sourceFieldUnmodified": true,
+    "scope": "Same strongest-by-disclosed-score legal equip candidates as+10; declared inherited ascended+12 gear and natural artifacts+5. Four C0; not full acquisition or all optimal builds.",
+    "additionalRearManual": {
+      "conditions": 9,
+      "wins": 2,
+      "defeats": 7,
+      "errors": 0,
+      "inputLimits": 0,
+      "order": "Zhongli/Diluc/Jean/PLAYER_CUSTOM",
+      "Lv35ToSerpent56Wins": 2
+    },
+    "combinedConditions": 27,
+    "warning": "18 original-order losses do not prove every maximum-investment roster fails; Lv35+12 rear protagonist manual wins2/3 after37/40 rounds and oneKO each."
+  },
+  "firstAccessElectro": {
+    "report": "first_access_electro/README_KO.md",
+    "currentConditions": 15,
+    "oldSamePreparationConditions": 9,
+    "warning": "Original192 Electro Thunderward armor is Liyue-region gear; not first Mond-access acquisition proof. Additional ordinary Mond IronGuard+10 Xiangling/Chongyun/Barbara C0 actualtalent2 wins3/3."
+  },
+  "chasmOrdinaryMaximum12": {
+    "directory": "chasm_ordinary_max12",
+    "uniqueOrdinaryConditions": 6,
+    "levels": [
+      25,
+      50
+    ],
+    "map": "MAP_CHASM_SURFACE",
+    "nativeMapEnemyLevel": 50,
+    "lowLevelWins": 3,
+    "lowLevelConditions": 3,
+    "lowLevelRound": [
+      7,
+      7,
+      15
+    ],
+    "lowLevelFinalHpPercent": [
+      94.8,
+      93.9,
+      100
+    ],
+    "lowLevelKo": [
+      0,
+      0,
+      0
+    ],
+    "errors": 0,
+    "inputLimits": 0,
+    "productEdits": 0,
+    "limitations": "Granted gear/ownership/story funding diagnostic; only3native sampled encounter seeds, not natural first access/all formations/all four group pools.",
+    "preOrdinaryAdjustmentCounterexample": true,
+    "originalOrdinaryATK60": 1.6,
+    "followup": {
+      "directory": "chasm_ordinary_max12/candidates",
+      "rootAdopted": 3.2,
+      "candidateConditions": 27,
+      "additionalBaselineFourConditions": 3,
+      "finalNativeRechecks": 9,
+      "representativeFieldRechecks": 3,
+      "remainingLimitation": "All maps/levels/formations not proven; same-level5C0 shield/heal strong by design"
+    }
+  }
+}

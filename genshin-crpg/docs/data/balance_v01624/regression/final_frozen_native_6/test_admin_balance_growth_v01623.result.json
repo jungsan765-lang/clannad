@@ -1,0 +1,19 @@
+{
+  "test": "tests/test_admin_balance_growth_v01623.mjs",
+  "command": [
+    "node",
+    "tests/test_admin_balance_growth_v01623.mjs"
+  ],
+  "startedAt": "2026-10-10T09:18:14.791617+00:00",
+  "endedAt": "2026-10-10T09:18:21.335684+00:00",
+  "seconds": 6.374,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {},
+  "testSha256": "4e8f0306c6c27965c1430c59dbd11c54f6d67456846e11e4558f775ce5ed4918",
+  "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+  "stdoutSha256": "bc9e7bb37db503decfc6e4414df639ad295a4cf2f0e33f2fe920d890a3e6e087",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_admin_balance_growth_v01623.stdout.log",
+  "stderrLog": "test_admin_balance_growth_v01623.stderr.log"
+}

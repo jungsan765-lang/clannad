@@ -1,0 +1,128 @@
+{
+  "scope": "Independent QA planning only; execute after stable source notification, not during concurrent edits",
+  "programCount": 165,
+  "fullReleaseRequiredAfterPatch": true,
+  "selectedExistingChecks": [
+    {
+      "test": "tests/test_element_immunity_v01618.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_monster_control_fixes_v01618.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tools/test_field_boss_immunity_v01618.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tools/test_field_bosses.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_freeze_v0160.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_control_reactions_v0168.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_combat_boundaries_v0168.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_defeat_settlement_v0166.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_growth_balance_v01522.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_protagonist_support_v01618.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_food_lodging_v01617.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_gear_effects_v0168.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_v01411.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_combat_v0142.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_v0142_combat_summons.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_andrius.cjs",
+      "exists": true,
+      "includedInRelease": false
+    },
+    {
+      "test": "tests/test_osial_pattern_v0161.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_balance_saves_v0166.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_combat_stalemate_v01523.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_tutorial_v01523.cjs",
+      "exists": true,
+      "includedInRelease": true
+    },
+    {
+      "test": "tests/test_tutorial_online_v01523.mjs",
+      "exists": true,
+      "includedInRelease": true
+    }
+  ],
+  "additionalNativeScopes": [
+    "C0/C6 fixed4 native Lv25 vsboss30 andchasm50/56, same-levelcontrol withthreefights andcarry",
+    "actualfinalenemyraw/effectiveDEF andfullbranchdamage/status/heal/innreconciliation",
+    "oldactivebattle sourceRuntime load preserving actor snapshot/no retroactiverewards"
+  ],
+  "releaseKnownUnavailable": [
+    "tests/test_save_v01344.cjs",
+    "tests/test_release_isolation_v01513.py"
+  ],
+  "mustNotCountAsPass": [
+    "Skipped/missing historical raw fixtures",
+    "A fight loss classified as engine exception",
+    "DefeatlodgingMora0 compared as free success",
+    "Purpose-selected seeds pooled with base matrix",
+    "Isolatedmove assertions counted as fullbattle wins"
+  ]
+}

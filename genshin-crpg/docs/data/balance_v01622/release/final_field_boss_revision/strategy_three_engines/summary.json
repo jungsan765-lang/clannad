@@ -1,0 +1,198 @@
+{
+  "scope": "Exact frozen18contract program executes against actual source/browser/server engine classes; only environment loader/report destination adapter. Oversized phase-boundary packets declared in originaltool, not fullfight difficulty or winrate proof.",
+  "engines": 3,
+  "programRuns": 3,
+  "contracts": 54,
+  "passed": 54,
+  "failed": 0,
+  "sourceRawDbUnchanged": true,
+  "sourceProductSHA256": "dab1e585bf696116d05affbcc1ceb58420d5fc23144ca0ad85d7742f1dd4b04b",
+  "toolSha256": "888b35444bb51ed98793a99ac9b3aa00af2321017c861795ac0063b83be6d322",
+  "engineFingerprint": "engine3-c6f96ce3d15ca517fc6853efc6d2e544e201c0c9fd315e3b884d4d0230a652b0",
+  "serverEngineSHA256": "660db67fa0967169bdbb4a5963a358d28627cb42eaefda1afbb30fde01206045",
+  "rows": [
+    {
+      "engine": "source",
+      "engineFingerprint": "2a143c669f2e73ee1921e255ae795a9088957da75acafa076de2f0264faf11bc",
+      "toolSha256": "888b35444bb51ed98793a99ac9b3aa00af2321017c861795ac0063b83be6d322",
+      "output": "source.json",
+      "outputBytes": 27664,
+      "outputSha256": "e4394e933a4405ee3111a91f24c2e590b7a47ef4883088ca2b8b9c45941106dc",
+      "contracts": 18,
+      "passed": 18,
+      "failed": 0,
+      "exitCode": 0,
+      "rawDbBeforeSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "rawDbAfterSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "dbObjectChanged": false,
+      "newRepeatRevivalContracts": [
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_ANEMO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        },
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_ELECTRO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        },
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_GEO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        },
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_CRYO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        }
+      ],
+      "checkIds": [
+        "new3_two_timeouts_then_real_counter:FB_ANEMO_HYPOSTASIS",
+        "new3_two_timeouts_then_real_counter:FB_ELECTRO_HYPOSTASIS",
+        "new3_two_timeouts_then_real_counter:FB_GEO_HYPOSTASIS",
+        "new3_two_timeouts_then_real_counter:FB_CRYO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_ANEMO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_ELECTRO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_GEO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_CRYO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_ANEMO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_ELECTRO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_GEO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_CRYO_HYPOSTASIS",
+        "new3_native_air_access_and_typed_delayed_packets",
+        "new3_range_scope_does_not_leak_into_nested_reaction_or_throw",
+        "new3_native_guoba_ranged_field_reaches_anemo_core",
+        "legacy2_air_core_gate_stays_unchanged",
+        "repeated_revival_does_not_multiply_final_rewards_or_wins",
+        "new_and_saved_behavior_versions_and_cryo_countdown_validation"
+      ]
+    },
+    {
+      "engine": "browser",
+      "engineFingerprint": "engine3-c6f96ce3d15ca517fc6853efc6d2e544e201c0c9fd315e3b884d4d0230a652b0",
+      "toolSha256": "888b35444bb51ed98793a99ac9b3aa00af2321017c861795ac0063b83be6d322",
+      "output": "browser.json",
+      "outputBytes": 27672,
+      "outputSha256": "e290f174a440b1d46f949ec3e2bd18cc289e5278c22b99895b071a65530d52f1",
+      "contracts": 18,
+      "passed": 18,
+      "failed": 0,
+      "exitCode": 0,
+      "rawDbBeforeSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "rawDbAfterSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "dbObjectChanged": false,
+      "newRepeatRevivalContracts": [
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_ANEMO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        },
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_ELECTRO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        },
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_GEO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        },
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_CRYO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        }
+      ],
+      "checkIds": [
+        "new3_two_timeouts_then_real_counter:FB_ANEMO_HYPOSTASIS",
+        "new3_two_timeouts_then_real_counter:FB_ELECTRO_HYPOSTASIS",
+        "new3_two_timeouts_then_real_counter:FB_GEO_HYPOSTASIS",
+        "new3_two_timeouts_then_real_counter:FB_CRYO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_ANEMO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_ELECTRO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_GEO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_CRYO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_ANEMO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_ELECTRO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_GEO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_CRYO_HYPOSTASIS",
+        "new3_native_air_access_and_typed_delayed_packets",
+        "new3_range_scope_does_not_leak_into_nested_reaction_or_throw",
+        "new3_native_guoba_ranged_field_reaches_anemo_core",
+        "legacy2_air_core_gate_stays_unchanged",
+        "repeated_revival_does_not_multiply_final_rewards_or_wins",
+        "new_and_saved_behavior_versions_and_cryo_countdown_validation"
+      ]
+    },
+    {
+      "engine": "server",
+      "engineFingerprint": "engine3-c6f96ce3d15ca517fc6853efc6d2e544e201c0c9fd315e3b884d4d0230a652b0",
+      "toolSha256": "888b35444bb51ed98793a99ac9b3aa00af2321017c861795ac0063b83be6d322",
+      "output": "server.json",
+      "outputBytes": 27672,
+      "outputSha256": "e1f75c3840bb1608cd365096c46b1cb638283247bd62beb3660674795c95d2fd",
+      "contracts": 18,
+      "passed": 18,
+      "failed": 0,
+      "exitCode": 0,
+      "rawDbBeforeSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "rawDbAfterSha256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+      "dbObjectChanged": false,
+      "newRepeatRevivalContracts": [
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_ANEMO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        },
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_ELECTRO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        },
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_GEO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        },
+        {
+          "id": "new3_two_timeouts_then_real_counter:FB_CRYO_HYPOSTASIS",
+          "passed": true,
+          "revived": 2,
+          "successAfterThirdCore": true
+        }
+      ],
+      "checkIds": [
+        "new3_two_timeouts_then_real_counter:FB_ANEMO_HYPOSTASIS",
+        "new3_two_timeouts_then_real_counter:FB_ELECTRO_HYPOSTASIS",
+        "new3_two_timeouts_then_real_counter:FB_GEO_HYPOSTASIS",
+        "new3_two_timeouts_then_real_counter:FB_CRYO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_ANEMO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_ELECTRO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_GEO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:2:FB_CRYO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_ANEMO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_ELECTRO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_GEO_HYPOSTASIS",
+        "legacy_one_timeout_then_body_kill:unmarked:FB_CRYO_HYPOSTASIS",
+        "new3_native_air_access_and_typed_delayed_packets",
+        "new3_range_scope_does_not_leak_into_nested_reaction_or_throw",
+        "new3_native_guoba_ranged_field_reaches_anemo_core",
+        "legacy2_air_core_gate_stays_unchanged",
+        "repeated_revival_does_not_multiply_final_rewards_or_wins",
+        "new_and_saved_behavior_versions_and_cryo_countdown_validation"
+      ]
+    }
+  ]
+}

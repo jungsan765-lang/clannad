@@ -1,0 +1,47 @@
+{
+  "productSources": {
+    "source/admin.js": "b9286ce6de826b57834ede4cf8a6d2550332adef2ac97af706e72fa47456f314",
+    "source/admin.css": "f4d64e045a1625d7b52b79c19e2a14d1827ba882b6c237eb1b2ecc4ffde5b073",
+    "source/runtime_balance_admin_v01623.js": "bb6183b915b3261511ea84d0c0ba384e722f56c3651c43c863752955215803f1",
+    "server/admin-api.mjs": "ee4964e98e1f48f84cf91dcfb2f6f9f0896076e7a6f708a7897c43dc044e16d8"
+  },
+  "engineFingerprint": "engine3-1b2c502f4d62bea2247c83625663b76d12b0cb9078373e3cced53f4d0251aab1",
+  "engineVersion": "0.16.23",
+  "checks": 13,
+  "browserErrors": 0,
+  "files": [
+    {
+      "path": "test_native_ui.mjs",
+      "bytes": 10275,
+      "sha256": "65fe5e2864ee54625f6cbe98b21468a53d29c5ab62a3909713a0cd4a48663b62"
+    },
+    {
+      "path": "NATIVE_RESULT.json",
+      "bytes": 2000,
+      "sha256": "3a9f4f103e3f997edc65ddb1f871301227dc85d9d77bb54b4e9b494bea79f267"
+    },
+    {
+      "path": "README_KO.md",
+      "bytes": 2003,
+      "sha256": "ca97af48b3adb6bd5bf31a095c6dfc9c3acd7c81da0bf3e5c1fb01c563787cc9"
+    },
+    {
+      "path": "native_desktop.png",
+      "bytes": 240080,
+      "sha256": "00bdce818566767fbaa5bdb79cc36b9c204c9758cac0a2a3efdcbb8e6c264c0c",
+      "size": [
+        1365,
+        1450
+      ]
+    },
+    {
+      "path": "native_phone.png",
+      "bytes": 235018,
+      "sha256": "80d6682eb12b1602d9f71a77b3e50445585560a02c7a50df30df604449aa3b11",
+      "size": [
+        390,
+        2778
+      ]
+    }
+  ]
+}

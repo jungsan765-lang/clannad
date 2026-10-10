@@ -1,0 +1,51 @@
+{
+  "scope": "Classification of retained unchanged historical test failures against the parent-declared 0.16.25 policy. No test/product edits. Not an exhaustive bug-absence claim.",
+  "failures": [
+    {
+      "test": "tests/test_healing_v01619.cjs",
+      "case": "new Jean/Barbara Q keep all living recipients, native talent/rhythm/gear and cooldown",
+      "actual": 312.8366,
+      "historicalExpected": 468.338,
+      "classification": "expected_policy_amount_change",
+      "oldFormula": "ATK*0.05+450",
+      "newFormula": "ATK*0.035+300",
+      "note": "First Jean Lv10 raw check fails before the complete 16-condition loop; five other healing cases pass."
+    },
+    {
+      "test": "tests/test_shield_balance_v01619.cjs",
+      "case": "Jade Shield protects all living fighters with legal talent/gear modifiers and finite overflow",
+      "actual": 888,
+      "historicalExpected": 1925,
+      "classification": "expected_policy_amount_change",
+      "oldFormula": "round(ownerMaxHP*0.2*talent*gear1.1*0.65)",
+      "newFormula": "round(ownerMaxHP*0.2*talent*gear1.1*0.30)"
+    },
+    {
+      "test": "tests/test_shield_balance_v01619.cjs",
+      "case": "C2 burst refreshes the same Jade Shield without summing E and Q absorption",
+      "actual": 700,
+      "historicalExpected": 1516,
+      "classification": "expected_policy_amount_change",
+      "oldFormula": "round(ownerMaxHP*0.2*gear1.1*0.65)",
+      "newFormula": "round(ownerMaxHP*0.2*gear1.1*0.30)",
+      "note": "Nine other shield cases pass including overflow, concurrent shields, C6, Baizhu, enemy immunity and Lan Yan."
+    },
+    {
+      "test": "tools/test_admin_balance_runtime_v01623.cjs",
+      "case": "shield multiplier reaches final formation and gear absorption",
+      "actual": 66,
+      "historicalExpected": 143,
+      "classification": "expected_policy_amount_change",
+      "oldFormula": "100*operator2*0.65*gear1.1",
+      "newFormula": "100*operator2*0.30*gear1.1",
+      "note": "The test stops at this assertion. Later operator effect contracts are not counted as passed."
+    }
+  ],
+  "provisionalProductDrift": [
+    "source/runtime_constellations_v01411.js",
+    "package.json"
+  ],
+  "sourceLoader": "source/index.html script order; generated engine hash is provenance only for these CJS runs.",
+  "actualBugProvenByTheseFailures": false,
+  "limits": "The policy explanation does not make failed original tests pass. Their errors and partial coverage remain explicit; final owner-attribution/save checks are handled by the parent separate suite."
+}

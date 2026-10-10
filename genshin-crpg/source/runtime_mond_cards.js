@@ -126,7 +126,7 @@
         actor.statuses = actor.statuses.filter(s => s.id !== 'EULA_GRIMHEART');
         for (const t of targets.slice(0, 3)) {
           let landed = hit(t, 1.4);
-          for (let n = 0; n < stacks && t.hp > 0; n++) landed = hit(t, 0.35, { noAura: landed }) || landed;
+          for (let n = 0; n < stacks && t.hp > 0; n++) landed = hit(t, 0.35, { noAura: landed, blunt: false }) || landed;
           if (stacks && landed && t.hp > 0) this.addCombatStatus(t, 'EULA_CRYO_PHYSICAL_VULN', 2);
         }
       }

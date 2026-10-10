@@ -1,0 +1,96 @@
+{"checks":35,"passed":35,"errors":0}
+PASS verified_v01624_before_overlay_and_same_actual_db
+PASS genuine_v01624_late_Azhdaha_Baizhu_save_and_next_action_preserved:PENDING
+PASS genuine_v01624_late_Azhdaha_Baizhu_save_and_next_action_preserved:WAIT_PLAYER
+PASS genuine_v01624_late_Azhdaha_Baizhu_save_and_next_action_preserved:WAIT_AFTER_NATIVE_BAIZHU_E
+PASS genuine_v01624_save_and_next_action_preserved:0:PENDING
+PASS genuine_v01624_save_and_next_action_preserved:0:WAIT_PLAYER
+PASS genuine_v01624_save_and_next_action_preserved:2:PENDING
+PASS genuine_v01624_save_and_next_action_preserved:2:WAIT_PLAYER
+PASS genuine_v01624_save_and_next_action_preserved:6:PENDING
+PASS genuine_v01624_save_and_next_action_preserved:6:WAIT_PLAYER
+PASS new_and_legacy_character_budget_and_healing_contract
+PASS actual_v01624_native_effect_payloads_save_and_next_pulse_preserved:0
+PASS actual_v01624_native_effect_payloads_save_and_next_pulse_preserved:2
+PASS actual_v01624_native_effect_payloads_save_and_next_pulse_preserved:6
+PASS new_revision_pending_started_save_and_native_guard_replay:0
+PASS new_revision_pending_started_save_and_native_guard_replay:2
+PASS new_revision_pending_started_save_and_native_guard_replay:6
+PASS new_character_revision_validation
+PASS description_script_effect_and_constellation_node_match:OUTSIDE_BATTLE
+PASS description_script_effect_and_constellation_node_match:NEW
+PASS description_script_effect_and_constellation_node_match:OLD_SAVED
+PASS zhongli_E_party_shield_native_coefficient:0
+PASS zhongli_E_party_shield_native_coefficient:2
+PASS zhongli_E_party_shield_native_coefficient:6
+PASS zhongli_Q_HP_addend_and_C2_shield_native_contract:0
+PASS zhongli_Q_HP_addend_and_C2_shield_native_contract:2
+PASS zhongli_Q_HP_addend_and_C2_shield_native_contract:6
+PASS jean_Q_party_heal_native_budget_and_recipient_count:0
+PASS jean_Q_party_heal_native_budget_and_recipient_count:2
+PASS jean_Q_party_heal_native_budget_and_recipient_count:6
+PASS jean_stored_field_save_lowest_target_two_END_only:0
+PASS jean_stored_field_save_lowest_target_two_END_only:6
+PASS Jean_C2_attack_speed_and_C6_field_reduction_preserved
+PASS Zhongli_C6_actual_absorbed_damage_heal_and_cap_preserved
+PASS zhongli_first_round_external_damage_is_reduced_not_immune_and_self_cost_unchanged
+PASS admin_shield_multiplier_applies_once_to_E_and_C2:0
+PASS admin_shield_multiplier_applies_once_to_E_and_C2:2
+PASS admin_shield_multiplier_applies_once_to_E_and_C2:6
+PASS admin_Zhongli_Q_damage_multiplier_scales_HP_addend_once
+PASS admin_Jean_healing_multiplier_applies_once_instant_and_stored_field
+PASS Baizhu_E_new_MAX_HP_three_percent_native_four_recipients:10
+PASS Baizhu_E_new_MAX_HP_three_percent_native_four_recipients:30
+PASS Baizhu_E_new_MAX_HP_three_percent_native_four_recipients:60
+PASS Baizhu_E_unmarked_v01624_native_eight_percent_effect_and_save_preserved
+PASS admin_Baizhu_E_healing_multiplier_applies_once:NEW
+PASS admin_Baizhu_E_healing_multiplier_applies_once:OLD_SAVED
+PASS Barbara_Diona_Noelle_base_effects_remain_native_unchanged
+PASS raw_shared_db_and_actual_file_are_unchanged
+{"total":48,"passed":48,"failed":0,"output":"/workspace/scratch/a62414469990/v01626-verification-work/docs/data/abyss_fixes_v01626/engines/final4source/server-test_character_balance_v01625.cjs.json"}
+PASS new cross-caster Xianyun field during Baizhu E uses correct rhythm
+PASS unmarked cross-caster Xianyun field during Baizhu E uses correct rhythm
+PASS new own Baizhu E keeps revision HP ratio and talent/slow-skill support once
+PASS unmarked own Baizhu E keeps revision HP ratio and talent/slow-skill support once
+PASS new Xianyun own normal attack triggers persistent field with declared attribution
+PASS unmarked Xianyun own normal attack triggers persistent field with declared attribution
+PASS new own Qiqi pre-existing talisman during Q does not inherit cast talent/rhythm
+PASS unmarked own Qiqi pre-existing talisman during Q does not inherit cast talent/rhythm
+PASS admin Xianyun stored Q healing scales once when its normal attack triggers field
+PASS admin Qiqi stored Q healing is not scaled a second time during own Q
+PASS explicit actor ID disambiguates same-name healer through exclusive and role wrappers
+PASS direct own heal keeps rhythm while explicit other caster is excluded
+PASS shields resolve declared source owner instead of unrelated active caster
+PASS direct own source E shield retains active caster talent and rhythm
+PASS native public Zhongli C2 unlock and Q place configured E-source shields on every ally
+PASS new native Noelle E crystallize keeps reaction pool separate from skill support
+PASS unmarked native Noelle E crystallize keeps reaction pool separate from skill support
+PASS runtime inputs remain unchanged while testing
+{"checks":18,"passed":18,"failed":0,"fingerprint":"engine3-9161b50c708ba80f3d770774c9ba5ffa9132c5efe8e6d62369c9324c10426d2d","output":"/workspace/scratch/a62414469990/v01626-verification-work/docs/data/abyss_fixes_v01626/engines/final4source/server-test_skill_rhythm_ownership_v01625.cjs.json"}
+PASS BOSS_ANDRIUS public fresh entry marks PENDING before enemy damage and save/reload keeps marker
+PASS BOSS_ANDRIUS old unmarked active save does not receive retroactive pressure
+PASS BOSS_DVALIN public fresh entry marks PENDING before enemy damage and save/reload keeps marker
+PASS BOSS_DVALIN old unmarked active save does not receive retroactive pressure
+PASS BOSS_TARTAGLIA public fresh entry marks PENDING before enemy damage and save/reload keeps marker
+PASS BOSS_TARTAGLIA old unmarked active save does not receive retroactive pressure
+PASS BOSS_AZHDAHA public fresh entry marks PENDING before enemy damage and save/reload keeps marker
+PASS BOSS_AZHDAHA old unmarked active save does not receive retroactive pressure
+PASS fresh/story or other explicit origins do not acquire repeat marker
+PASS ordinary current domain remains outside pressure contract
+PASS invalid new marker versions/origins/boss presence are rejected by native save validation
+PASS exact boss origin, attacker side and matching card are required; basic/reaction/DoT/hazard excluded
+PASS enemy targets and arbitrary cross-boss attacker cannot trigger ally-only pressure
+PASS existing packet shieldDamageMultiplier is multiplied once
+PASS sufficient Jade shield absorbs HP packet while only its pool depletion increases
+PASS partially destroyed shield absorbs pool divided by pressure and spills only remainder into HP
+PASS concurrent character shields take one original packet each and absorption pools are not added
+PASS bare HP damage stays unchanged with fresh pressure marker
+PASS only marked boss dedicated card coefficients change native outgoing attack; old snapshots keep old coefficient
+PASS native Zhongli C6 heals based on consumed Jade pool; sufficient/partial/overlap and cap stay active
+PASS runtime inputs stay unchanged throughout contract checks
+{"checks":21,"passed":21,"failed":0,"fingerprint":"engine3-9161b50c708ba80f3d770774c9ba5ffa9132c5efe8e6d62369c9324c10426d2d","output":"/workspace/scratch/a62414469990/v01626-verification-work/docs/data/abyss_fixes_v01626/engines/final4source/server-test_daily_pressure_v01624.cjs.json"}
+PASS Bow basic attack reaches its publicly advertised airborne target
+PASS Melee basic attack still rejects an airborne target without consuming the turn
+PASS EQ_BOW_CRESCENT ground basic attack remains executable
+PASS EQ_SWORD_RANCOUR ground basic attack remains executable
+PASS A nonbasic whole-field skill retains its card range for a melee actor

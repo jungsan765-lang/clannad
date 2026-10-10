@@ -1,0 +1,3946 @@
+{
+  "createdUTC": "2026-10-09T15:47:10.133117+00:00",
+  "remoteRepository": "jungsan765-lang/clannad",
+  "remoteBranch": "test/crpg-v01414-story",
+  "remoteSourceCommit": "1e1b2442b53d42873d29556898f5f612d52d0c7a",
+  "publishedVersion": "0.16.18",
+  "readOnlyProduct": true,
+  "serverDeployment": false,
+  "preservedExecutionCounts": {
+    "mainHealer": {
+      "executions": 438,
+      "uniqueConditions": 426,
+      "mainFights": 2661,
+      "wins": 2480,
+      "losses": 181
+    },
+    "barbaraSupplement": {
+      "executions": 24,
+      "uniqueConditions": 24,
+      "mainFights": 192,
+      "wins": 192,
+      "losses": 0
+    },
+    "allHealer": {
+      "executions": 462,
+      "uniqueConditions": 450,
+      "mainFights": 2853,
+      "wins": 2672,
+      "losses": 181
+    },
+    "dendro": {
+      "uniqueConditions": 68,
+      "mainFights": 220,
+      "wins": 202,
+      "losses": 18,
+      "includingTravelFights": 241
+    },
+    "fieldBossMechanics": {
+      "bossStats": 9,
+      "isolatedMoves": 26,
+      "isolatedSchedules": 9,
+      "assertions": 11,
+      "assertionsPassed": 11,
+      "actualBattleWins": null,
+      "growthFormulaRows": 52
+    },
+    "fieldBossRepeatC0": {
+      "campaigns": 60,
+      "uniqueConditionKeys": 60,
+      "nativeMainFights": 142,
+      "mainWins": 118,
+      "mainLosses": 24,
+      "firstFightWins": 46,
+      "allThreeWinCampaigns": 36,
+      "nativeRecoveryFailures": 24,
+      "matchedNativeDamagePackets": 11605,
+      "nonXiaoUnreconciledHpBalance": 0,
+      "fourCoreHitCompletions": 7,
+      "coreTimeout50PercentRevivals": 117,
+      "executionErrors": []
+    },
+    "fieldBossRepeatC6": {
+      "campaigns": 12,
+      "uniqueConditionKeys": 12,
+      "nativeMainFights": 30,
+      "mainWins": 24,
+      "mainLosses": 6,
+      "firstFightWins": 12,
+      "allThreeWinCampaigns": 6,
+      "nativeRecoveryFailures": 6,
+      "matchedNativeDamagePackets": 1542,
+      "nonXiaoUnreconciledHpBalance": 0,
+      "fourCoreHitCompletions": 0,
+      "coreTimeout50PercentRevivals": 30,
+      "executionErrors": []
+    },
+    "chasmGap": {
+      "totals": {
+        "conditions": 160,
+        "battles": 257,
+        "wins": 128,
+        "losses": 129,
+        "firstWins": 58,
+        "threeNoInn": 31,
+        "errors": 0
+      },
+      "cohorts": {
+        "base": {
+          "conditions": 132,
+          "battles": 216,
+          "wins": 115,
+          "losses": 101,
+          "firstWins": 48,
+          "threeNoInn": 31
+        },
+        "supplemental": {
+          "conditions": 28,
+          "battles": 41,
+          "wins": 13,
+          "losses": 28,
+          "firstWins": 10,
+          "threeNoInn": 0
+        }
+      },
+      "meanPoolingPermitted": false,
+      "damageMetricLimitationsPreserved": true
+    },
+    "rarityGrowth": {
+      "stats": 344,
+      "uniqueStatRecords": 344,
+      "companions": 43,
+      "fourStar": 24,
+      "fiveStar": 19,
+      "levels": [
+        1,
+        10,
+        20,
+        25,
+        30,
+        40,
+        50,
+        60
+      ],
+      "c6FixtureCount": 43,
+      "c6UnlockReceipts": 258,
+      "baseTalent": 4,
+      "actualEffectiveTalent": {
+        "na": 4,
+        "e": 7,
+        "q": 7
+      },
+      "nameEffectSets": 46,
+      "topLevelEffectTypes": 22,
+      "currentSupported": 43,
+      "dbReadyOwnerCount": 119,
+      "futureUnsupportedReady": 76,
+      "campaignBattleSamplesAddedByThisDataset": 0
+    }
+  },
+  "productBaseline233": {
+    "fileCount": 233,
+    "sha256": {
+      "source/FONT_LICENSE.txt": "3e3555b9536a600252f3ac1622a182c5dda5aeae38734ea2427c4d8f9c87d636",
+      "source/NotoSansKR_subset.woff": "e34bf283113f7155ff86dfee3add16db4aa0beebd091d5c4c66ae6623ca539ce",
+      "source/admin.css": "c949a66f48ae93811fe8140abf26f85de29d4e2a163c44312ad848e0ebbacdd6",
+      "source/admin.html": "c613394184e80e11a6a250463b6cc7410a3d9486d1a117be613e558759e99416",
+      "source/admin.js": "914b883d5159da13a52d9c4737e742c43f3d71c7c9cd12fd60fb65f20aedd220",
+      "source/app.js": "ea010246def25520aaf5ff09c38c6a19b56d395018c4ffa0a2db3dd187e5a2ed",
+      "source/app_abyss.js": "78b9b6dcfed07fdc25d2291712984cd2d9e2f30c3d6016cc4efde6b3df5eb275",
+      "source/app_achievements_v0152.js": "d909fdefd63ec388a60212a3277fc7165f4a3131e93487c7f9d30a0b1310f3f6",
+      "source/app_adventure.js": "e8740d9b5d43923734c7634c63a7f934a0ed16f674c1786bdb2115f5343c95b7",
+      "source/app_av.js": "d9843c5fb2a817a916f85e0479a0b1ade8d8fabc5082b2ef2397d46efe4abde8",
+      "source/app_battle_fx_v01521.js": "64bf38d1f5f5f3626d7ac1635b8a4f822e57aa3a48e8195fc7c8a2632b049490",
+      "source/app_battle_layout_v01522.js": "073021c05c32cd2e1a4bcf9d3f80dd0d881e90aabe579efc8c68d00a33d0d1d1",
+      "source/app_battle_lines_v0162.js": "7252388f661ed0122f3dec96bf34846d533ea685848f0f9d3b30d0fad78ec923",
+      "source/app_battle_traits.js": "604b0756ee9be24b4b7f260b265d1e40f1feffc5982d71f48430b32bec61ba31",
+      "source/app_character_v0167.js": "bf456e15ebf3662ce4c2beeb1a0eab9726dc2a55c06991c2d967b5a20c469a65",
+      "source/app_chat.js": "a0a40dcf2326d084b17d5c2b56086e28803d8c43c37334175031d9fe15b6feee",
+      "source/app_chests_v01415.js": "05c51e5a1a0b36bca6664b08078c23431d2cad42c20ef2e3fc0a380fd0c59358",
+      "source/app_choice_v01525.js": "05433c859d57486fb818b67f15de5bce5640c4343fb9e75facbb6aa54c187ec4",
+      "source/app_combat_fx.js": "7573760b539a329b3662ae3d71c2463071fb36afbc5897f2a6556dae1b6dd2cd",
+      "source/app_cooking.js": "464f8d7b38636b04b8dff44543d42e2ba58b92dbdd7022ebd71a49988bf476ea",
+      "source/app_coop_puzzle_v0160.js": "1c66f76b58ddb6f2d71eb498618b2464bb70479d70d0230d074a28ae497f255d",
+      "source/app_coop_v0153.js": "7c3d2feb2a9574f9907735de57d7e86b5c98a86071dfd7535fcd658333596c4a",
+      "source/app_coop_world_v0160.js": "6bfc347a8120a493b6f8b4de529a8c0efce20638bbf0814b5d420649a20c4197",
+      "source/app_discovery.js": "89cff3d9b9a6fe84987ec7430e9ac164c39aa8c8df9a830cce77b996448c54d6",
+      "source/app_enemy_intel.js": "a2f68c3078fb5b17963b8c5ded9a617ccfaa979e60dbdb9f1960755032e0ebcf",
+      "source/app_enhancement.js": "ca581cfcd2d3d6a2d8e246ffff59d45e321f601fbf59444b466b96347df67726",
+      "source/app_equipment.js": "77e112a4acfddcd0a04e0df039757de3bbccaa8c2b448e47bd1a4bef18ae0b90",
+      "source/app_events_v0152.js": "77b59d51bc3b50f9b6a8381eb17c5d2329d52f23bb6bd537fff0792d2e3ecc83",
+      "source/app_experience.js": "921c8f99b2c57f5b1236ceb85b2ef59fb88cc92e02e207dcefc269a7031ee52e",
+      "source/app_exploration.js": "0d93a0fbd545c1bbd4f427254f5f4f286b7b738288d59cb9f940a221488a73cf",
+      "source/app_field_bosses.js": "9aa86acf0d9006d08bcaa8b05b282e0de07ef3b901e158db73e1ac4e25cff16b",
+      "source/app_field_scenes.js": "26879c0a7b1ab3e843bd8e018bc676d9fd55337f8aa76b111259ce35778e6803",
+      "source/app_forge_v0148.js": "e1a3d89374afb37d8bcdd387c8b0785d69545bfe949a99b075dc42be4fd7c459",
+      "source/app_gear.js": "d06887571f8386881e4db2a3eec9f3eba979c12277b9df2c5f7322b14da87d47",
+      "source/app_geo_trails.js": "0344a6ed9be9cc7d8f00422e00100260c931ad4ca49c4b1fc2d62959b5af9256",
+      "source/app_growth_v01522.js": "f5116fded6ca13cea8fd9041383a76853f64e7117ffa6da06c33f0d6d9145e93",
+      "source/app_guild_v0167.js": "26bb3d64b6c67641cd519948aaae1890a96ea290c2b11cf43a96a13c2f4759cc",
+      "source/app_handbook.js": "54e7f94047ef514bd12fdd7ad2659fd03629b4f9073935c7b77aae105d573264",
+      "source/app_icons_v01521.js": "56c27a7dcdad93e90e6bb89c4a94e2373f1911c992ab78780a887b14e4dabbd6",
+      "source/app_install_v01524.js": "a9081c454197282fd2a58640f0364faada677b5b8ee12c34cdb48847e2624710",
+      "source/app_install_v0157.js": "b71068c3c0971cd5f54a3e63e54f84803ccdf44c5b8fb7e1de98a01cbc2b67ba",
+      "source/app_journey.js": "756be20a4b1ba1937d2a7100a497d518604d815e0a4f3023c691b1e5d7eca727",
+      "source/app_legacy.js": "43f2730d494d4fb9e4786ecae6a3992a3dc0a4d68baa6c70c4c186aeabb0c8ca",
+      "source/app_ley_lines.js": "77fc830bb47b6fb971fa8298f09d6525059bed4996fd5b2cb388f51a6b6c7d10",
+      "source/app_life.js": "ef27a22ba34e274389a19054040a26fd1422cec595bdb94c2ffce2734d1e8b75",
+      "source/app_life_v01522.js": "043741162a7b0dff03ba64af261ed44377730843af53fc723936ad0b82d09c03",
+      "source/app_life_v0162.js": "0715d2aac979f552102de1ec6219f00ea57c78d2d175d0aee5929d942187d32e",
+      "source/app_liyue_areas.js": "6aa917379aa3b43575ce95ea0a188b7e6d77cef9630fc5ae600aa7690c3b5b39",
+      "source/app_liyue_artifacts.js": "07a9b0e12d816f081c7ab8120e2c258b4d827b72d592ee522cceec20a95f363d",
+      "source/app_liyue_equipment.js": "e5b735cc46fb5850eb0d73ac1b5864affd839048bcd7bcf8c8cda264ce1c504a",
+      "source/app_liyue_places.js": "7ced94808a01d270eff585e911349b0a0945a11d84a4597d67f43b97d1be981e",
+      "source/app_liyue_region_guide.js": "0fb57d3d7a8e3b8fc200dfb658ca5672afde4ce7958d41bdf087cc45c8df6f12",
+      "source/app_liyue_rework.js": "a8247b6684ac1efc6c14fb88d1f8e767c9f4766d6e3b726c10384084768176c6",
+      "source/app_mail_v0151.js": "6d51fe18d5de434dd7d204242db0c8b1273bf02ee798ff026e808b2397b56391",
+      "source/app_mainscreen_v0167.js": "d6c972efc3705a20624067b540cad70e27e69a3c748655e7d363616db11d9668",
+      "source/app_market.js": "83571e31d05bab24178a11c76479ea110bc8c11d5a3661ddf3631abbd13d8838",
+      "source/app_mond_boss_balance.js": "ae9b8a35c4c8671389a0779cd55f9164b729191a8f01f5cde0b1495125035b3d",
+      "source/app_mond_encounters.js": "9ebd170fb41fcb43884773e1dd8f3cb0ccb6f63ffbc0be8483f6cf610a20eafa",
+      "source/app_motion.js": "7c4606ccca098808874f4ccd8dcea9756b5431d56b323caf6fb18f60c9071d8d",
+      "source/app_mutations_v0152.js": "7b0c298c7e4cf4f42c22191ac8385db8c5aaf8dbd766877c402de16532860350",
+      "source/app_navigation.js": "9483d5592d2416c36db47a8a59d1d8bdfb668d3c94ca883d341a54aeadb6451c",
+      "source/app_online.js": "8266029ac1aae025481b0da724afb5ba054991a0f4a79e12c05690c811e4bde0",
+      "source/app_pages_v0167.js": "e92c68d6a9a93c0d1d820e758959fc6aca97b2420ff4fc36efb8c6590d56a0f1",
+      "source/app_party.js": "cca3651cf270cb5ac455589a56b0e5d3fefeb968a44d563743fba832f1192d05",
+      "source/app_party_v01411.js": "06535e8268d439463c02de239029b4587127652bbbadd21672159f34803c5794",
+      "source/app_places_v01411.js": "5751400fd61301317953b5eecdb193bfaab77b5943357057bdf32089ca3ba583",
+      "source/app_premium_v0148.js": "b6b25b5a5f099bffcfcb241f267bdd5c3873ca06eb0cebc08ddc9469b79b9f8e",
+      "source/app_profile_v01415.js": "8246747a7df1d9a4751d000e91e354addfa11a1ac41b0f4f24f27052f601a085",
+      "source/app_protagonist.js": "6b0896c7717a4a104cf80866362b28f36df9d343108515753869076afa28abea",
+      "source/app_puzzles_v0152.js": "be9d46924b4ad6fab83953a61b594485fc78e04e50ab5c1a5ebcedb05e2edac1",
+      "source/app_quality_fixes.js": "c6d5b36a63869cd3170a5dd4f18ffaaf091fdae3eb23913297e10f7e859801ff",
+      "source/app_raid_v0152.js": "511decffd2b74b00056346a614a19313aa6284bac51cd9614d7a65f2ca8fb780",
+      "source/app_reasons_v01413.js": "8822f3c644778986f9d175a91cb99b7021d5818fab9493626bb96163566a5472",
+      "source/app_recruitment.js": "51b346f28513fbc08c7b25fe651fc6b37fb3cc904d2d684832107f77d8b9cda1",
+      "source/app_resonance.js": "7446c49e3feda7ef8302f3068ac454d32017fe90234180fe0ec1509e27bef1de",
+      "source/app_revision.js": "1b286041e6906c9e781e802920509342ee7524b724c95f09ff2451e291ff1242",
+      "source/app_shell.js": "fd6b70772c5fdb3ab15495c946dba03c598a38ebe7cd6814a83a0a4a7a32a0ea",
+      "source/app_signup_v0158.js": "a8a431298f25505e87744774deb0ceff356de51cf80865fe2e05bb3b7efdd53a",
+      "source/app_skill_fx_v0162.js": "a25ec13442db4bb7510e5cdf0b5193e18b9bd664223efa28dbe1fe2469875a41",
+      "source/app_sound.js": "c14ec79319419c71dd823312f112c12b83d34ed69b334fbc412c6358c112ed2e",
+      "source/app_story_companions_v01525.js": "ac46867331027bc703f8cafc349e18def6bafb6cf8a7e8ba5a74b44fa5d07a74",
+      "source/app_tasks_v0167.js": "77694794e1ee8a61a0a90d215fc9869f6291f5e17adc731318564114fbe4aecc",
+      "source/app_tiers.js": "6050b89e9a1a7304a2debaf1152b01b6dae52d62b342b2187feba0395d2f731c",
+      "source/app_trade.js": "4bef73829c33ac49a7d9c9182e308c68259182fed23c4281b019fda8c693d932",
+      "source/app_traveler_geo.js": "2329bebf83446ab107ac057385511dc0b13c956df3988816bcabfd02bbc78382",
+      "source/app_tutorial.js": "abc1905bf69332211a366fb25ff2d5f34527bcc7ced797feacaa4a89c1998a36",
+      "source/app_version.js": "5cc437336911fc4f41a644dd1a55a9f4d440784d927dc7b008276c94aaeeb004",
+      "source/app_vfx_v0165.js": "0917531a3e6df46644c3748ffca828d695b7442989bfac362f34f09cd556670e",
+      "source/app_wish_v01411.js": "dc8ccaf2a372da1f47096119e19721f055a5ae89188c556df7a1a2bf0a79309e",
+      "source/audio_playlists.js": "86fc76297055535a76bc5434ca9f52dbd3d0420e7ee845129dd416d5fceab12c",
+      "source/build_ui.py": "2888e26ec7860aa40a353ae168e6ab9449f57bfa443e2fe917b8c3b8310ae4ea",
+      "source/growth_v01522.css": "a15399ab750540b13dbea0b06990ed66d4d543adbbfcc3acf3b991bf668951ee",
+      "source/index.html": "a75e6f516654442a2dd038cdb8f4d8aa0792ff5d92472a9cba38edae79fe98e3",
+      "source/inventory_presenter.js": "f09f1b47441ee31194e0fad0927763e72ab8ff513530ce1d00235b28208a2ee7",
+      "source/journal_presenter.js": "b333c31c2e457d06321041decb4246bdb39e4e4a26509cdf80227734a2fa8e4f",
+      "source/landscape_v01524.css": "0689e98f0616f2db047c613e4d9550a02e07761b4b6b1528f82b4168716a3231",
+      "source/life_v0162.css": "316960c935f7a6184e3a20dcab4e05c7bff0181cdce578978a081f3003601f63",
+      "source/manifest.webmanifest": "cb03b347059e4a1f09b68e5770e3f6dea7f4747e81327ff5dbea7b97a4fceb51",
+      "source/mobile-preview.html": "83b88192bddc8976674adb2765c542f982a7edde3c4ddae1f3617c5294d9c9c0",
+      "source/online_config.js": "e08b80e732711f1b97b7e5fcd95e87f16845b6627288d26811d6f20445b7aa6c",
+      "source/presentation.js": "fea749080ee1d5ac0a38c7595199a63f758bc47ecdece1ec8bd66f17b914e4a3",
+      "source/qa_saves.json": "2792eaf163a198499ad2953c2c491eab53ee58ac6c1fc5bfbd68bd67967de499",
+      "source/readable_text.js": "eb2c3c8c3851299882064a418c5fc2df8369cf3d96ec0aa39b43fb7eba831ef6",
+      "source/runtime.js": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7",
+      "source/runtime_abyss.js": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb",
+      "source/runtime_achievements_v0152.js": "e5642dfe3addfc59d5e6471ed410e586179fcad5f20f40c37cf6891ab2cd9b3b",
+      "source/runtime_admin_v01412.js": "d8a0db507f5a7801e070aeb3f4cb5ddd605363bbefc6a53e3afc28cf44e1248e",
+      "source/runtime_adventure.js": "05e9d029eee1f22e8ce8a7e2466291cd790dcdc59649f309592e8d32fd577db5",
+      "source/runtime_andrius.js": "dcb505716d41cdf3dcb09e13e95e2c55b9c26dde4d9e719615114eb9b124dcf4",
+      "source/runtime_balance_v0152.js": "b77b65efca9b03277abb3353aaaa766018ead9ac353ab5f91403e10582def3a1",
+      "source/runtime_battle_capacity_v01522.js": "bbcac0b4e5697647aa8732d379c6e320581cdad595d69670570eedfcdb74d0e7",
+      "source/runtime_battle_lines_v0162.js": "92a891ba42166a705f743b3ffd8e969bfd333a9157ff4f208ea29ed27d87dd8e",
+      "source/runtime_boss_rematch.js": "f72f1512d020ca22e49ab559a5b46c57de4c2ed282107b6ab10ce32d8772aa44",
+      "source/runtime_chasm_skills.js": "de8131644c84fb360c95d43628e7d6043ac46602521ef3fd75636395a0ba3638",
+      "source/runtime_chests_v01415.js": "648e07370d6893cb61f8912f9c9ad8be4b3b70c8ee7b5b7294a7fb1fa199f721",
+      "source/runtime_combat.js": "91c511ba36fdb2fdae5cb6250aa71412cefabfd9f1265b0eccd777240875dc13",
+      "source/runtime_combat_v0148.js": "40e41b7fc1a0ac0c3d5c36a3e5963060207b48fc9581ffa613e3d1382f67e76e",
+      "source/runtime_commission_stories.js": "a0403da53190d47bd5d54d6906a5fa738cf116d787f429fe4ce7c2b8641ae2e5",
+      "source/runtime_constellations_v01411.js": "5a285e9697554c637804b5e53f77bc99fb52ee15ce231fe966da920d49af0918",
+      "source/runtime_coop_v0153.js": "ef4f0ed8b58601746ea35b9857be17cda28338777f373c63bf535e2320149321",
+      "source/runtime_coop_world_v0160.js": "a472af8514b3205a3c1ffa3258f5875269d43457eee12c1325759c5f957297bc",
+      "source/runtime_early_story_v0153.js": "0832bf65dbdff163986067fd182cf57e5db3f3b5d6b358fb285650eea0ab0ceb",
+      "source/runtime_economy.js": "ec7fe052ab138e7d2e917a31745b8c07346430b3c2950eb103869e3676371174",
+      "source/runtime_economy_v0148.js": "ab69d2021d7a706b5996c9e8648722f060794a5667126d71215fe5662ed1a096",
+      "source/runtime_encounter.js": "2dec3e4cee8731447c740da5e0ae709e29b198a1deed267b011860b1c3ae7311",
+      "source/runtime_enemy_content.js": "62455dd799a0078be597486124b1caa9b6157868ac1aa77a18c09fece8e22358",
+      "source/runtime_enemy_skills.js": "8e3235afce2283d266e51dde2023ae35ce4e34a873968b23870f2dafd2dee8d3",
+      "source/runtime_enemy_tiers.js": "91355d8ccdbc13e0fca5f0a733c605e2b143735e07054681ed6587052c90dc31",
+      "source/runtime_enhancement.js": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+      "source/runtime_equipment.js": "e721bbcf5d88560965fce5f1dc2c648aad73e75000f40b287345ee03e5224524",
+      "source/runtime_events.js": "17feadef2a5fb08a78d85cdee53b7403d7fa9e836acf25c3fcb7984c9e039fe9",
+      "source/runtime_events_v0152.js": "e05194be62d47f656c5d1052c28901e437afcfe9aeaed678b99b2eb4a8f9c78e",
+      "source/runtime_exclusive_weapons.js": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817",
+      "source/runtime_exploration.js": "d6c37806bd15b4549986adf1af3e345cfd045ed5efa58edfbb56a9dd016b9e6c",
+      "source/runtime_extensions.js": "69cfb084c45ca667ace391f2a052ce1282d86c101058b52e6a67adf3741b2b69",
+      "source/runtime_field_boss_limits.js": "d478a4b56861a89d31bec2d0d43f517a5d7b92d2b2d4475d8c7e374636e393fb",
+      "source/runtime_field_bosses.js": "a06cc37300871d06e8028485d865e08c3c8e71378e9f94acea7b81f79d2709b7",
+      "source/runtime_field_scenes.js": "c796fb5abe65f3f50719dcea13d0c4b6901164c29625a17da4960d982e02618d",
+      "source/runtime_flow.js": "67ce2690c3ef530f68f0393c0790972979fe358ebc6679d57df7ab6f3463785d",
+      "source/runtime_formations.js": "5420ed7683f9effcbd1977d7344186903682d9ef5129519c5f84373285309d4c",
+      "source/runtime_gear_traits.js": "6d1413b7f43f717572b75608a70939ec8d10bb6c2e2d31ce519e7ab2d14af3af",
+      "source/runtime_geo_oculi.js": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb",
+      "source/runtime_geo_trails.js": "9cbb8b0d4289061660876ded26fa6a1b5b5148712c360d572791526711f4ef26",
+      "source/runtime_geography.js": "d10a82b2d6e7bf44529b5754b6ff5e7b6e943b453c6b8d241afe32a8fb757a8c",
+      "source/runtime_growth_data_v01522.js": "0e735990e52ad77df7378ea3f9c827b083a0d5d0f6f511c683ce2a12fc27992c",
+      "source/runtime_growth_v01522.js": "f62c64529a8244e23f4ffce75f3bf6bc08027172da1b775c1aa1168210501247",
+      "source/runtime_journey.js": "1f37aba9a6a238132aa57f5c2ec7a33ba0f2a976b65624c43c1ed40365a5206e",
+      "source/runtime_landmarks_v0163.js": "bc79318b4f7d89e90908382fa757c87fd6f5f6853ce2553a5a2904b9f311a1c8",
+      "source/runtime_ley_lines.js": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f",
+      "source/runtime_life.js": "00e73cb849f2260b69289bea6f403f75a96f7e57ba44d7585c79da0d22783a3b",
+      "source/runtime_life_v01522.js": "70de3b0ed42575b51a90409b96e26f6524565ebf7732962e6a265ea0d5df6902",
+      "source/runtime_life_v0162.js": "90d258284c4939d4b0ab7c053ee573609125a1a634821e50817e00d1a3274708",
+      "source/runtime_liyue.js": "ba77931c8191e681cd627b2199934a55b8d37915d339f1ac9e2ab50d5f2d610a",
+      "source/runtime_liyue_area_content.js": "c5a530db67e3cedbc6054e91933cce6f6e398c7e78dd60e07720afa7603cc6df",
+      "source/runtime_liyue_areas.js": "49e3946e533d4ae06fa1d36d6e5b205d8cb0dbbabe999ad074253ac944137f85",
+      "source/runtime_liyue_artifacts.js": "b4d9d525cb69722766d6ef8c3e49967b90112bbbcd4a402f4b22ed3a3124e733",
+      "source/runtime_liyue_card_content.js": "d1ce3973380c6a27eda671cfefaaa79b219930c757999b5820cc83eb174312e0",
+      "source/runtime_liyue_cards.js": "ee419351b880ef35a20141ebe7481579fdb76699714459ac9585327d4aeeee11",
+      "source/runtime_liyue_combat.js": "ad0485097504d1c5104065e7d483e59874dfb4c2bdf51b54ff5c0a8a537f5004",
+      "source/runtime_liyue_encounters.js": "f991de65ef2698f5ff2c645fe5d229abf0bc251fe47b6b94d0312a169278ce5f",
+      "source/runtime_liyue_equipment.js": "7cc0765130a2b1e14ccd7cfc0150d2215ddfff18bfa55a15f47f54c884b216d8",
+      "source/runtime_liyue_forge.js": "eca640279d4ed05eebc61d63ae3f4c9a1c179288984ce67274712301e98f0fad",
+      "source/runtime_liyue_places.js": "6d26a981d1f7f928c5611a09b0c651410d0651da43cfc6f0b6001548f6e407e4",
+      "source/runtime_liyue_region_guide.js": "ad0d5069eb2b46e1e3bd357242872add908ca421e0f7fca2f3e059638cd3aa3a",
+      "source/runtime_liyue_rework.js": "d198f6104a06ac9b23521ed8d6006b97c0dce4734be88ae77c912c6d77079c45",
+      "source/runtime_liyue_rework_content.js": "5378ea8efee50f9c9cd0f24af8aa2eec570bf6fe17863b528804bcaf47e47363",
+      "source/runtime_local_revision.js": "f03c1961bdb54b5b5e2afd4605b164d81d511acc377bfa269e16af86c09a1730",
+      "source/runtime_local_story.js": "6bfec6e2b3a9f0faf895198feca88457c79a10af5b3c5163bd1426bf83bfab4e",
+      "source/runtime_local_story_content.js": "686ceb18e110e99576c8cd4e769432a216cf702837e1b7c2dd611a47998405ab",
+      "source/runtime_mail_v0151.js": "d4c67dda613facf06247d9b4bbf3465ebf87811f0545edd8b9c508d3a4da4c74",
+      "source/runtime_main_story_k.js": "fdd467dbf919a1ffc01f3932c34ee3de064335db7d0fa2bec6e9de6edbe3ebf3",
+      "source/runtime_main_story_k_content.js": "de352534027feb6ce6403b8062b01f27ec5d56dbc9aac3c8ba1e4c9cba096616",
+      "source/runtime_map_v01516.js": "8a23e528501ad06fab460d3f4ce83538cedc1786523306818518b32f4bbf4b3e",
+      "source/runtime_market.js": "6373387b466a7f49cce93df5ebbe1b7f294ae58202c110aa3423f6e94e7b39bb",
+      "source/runtime_mond_balance.js": "f8a4e16f6c6a0e34155d31d50dd98f3e4e80ee40f1b6d56e42a15c31b7ed6426",
+      "source/runtime_mond_boss_balance.js": "01ccd595edb27a6ba582fc28e1a9eee129b29ccaf101f6354f27f6a8d29976cb",
+      "source/runtime_mond_cards.js": "a92c805db4c09fe1a6d0583a53e837a46980778dc522fa472edff0c3c585a74f",
+      "source/runtime_mond_encounters.js": "6507f112d215b0d862f1a9d940cf5b07e6e26f531c533af6de950c8d7adcc0c6",
+      "source/runtime_mond_revision.js": "38ff880e1d37676e678b7fef99cc0b3c5fc91fd99c11e987c5419cd25480ee4e",
+      "source/runtime_mutations_v0152.js": "95ed7f6c86e85f7a98504ea66fc4e700f8cbcc474fb01a14a642ff3d1c3adeb0",
+      "source/runtime_navigation.js": "e4f4c6182761c3827e0832e666d948452e8b65de7223b2ca0022eefab316ec4c",
+      "source/runtime_nodes.js": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322",
+      "source/runtime_offerings_v01415.js": "c5e9b9cd72f8c31a892ef6eaabd4cddf5b91b32235f6adb17d11351756dd33e7",
+      "source/runtime_opening.js": "f4db094db0cfd8341603bdf6ffe6cad0877434bacb8786082c6a5849f836918b",
+      "source/runtime_operator.js": "dc9678ff6dfe369831d8f05cc0045c3da4ffa991a87345f8cd0911be835f0e04",
+      "source/runtime_party.js": "905c8d0eec7f2f7495af9aa3d738150298e93fd3be2f81a39a4ecb213fd9eb39",
+      "source/runtime_passives.js": "662fc78757cf5cc70260b04e74064bff0a425989f4088d7e612afd87890263e7",
+      "source/runtime_personal_expansion.js": "65f6b3dff130d4a09c7c2bc937e982f526658f97804d3aa48496c9be62d94a43",
+      "source/runtime_personal_v0148.js": "ce887aefb0ef91cea85538e9e8f747fddbf3ce9a06d78490dd86c4058f843635",
+      "source/runtime_places.js": "b18bbf96d7f0b75e93d4ad5f1afdfb0d9b7bf15ff11fc803588688071a29993a",
+      "source/runtime_places_joint.js": "79ab52fa26c88100a0d6cd1b46714f49b2816f0c88591fe656e751173acfa91f",
+      "source/runtime_play_fixes.js": "df89bb7070867b44773c5f7c5169abc7407c58066c4ef730e79cc394f1415c97",
+      "source/runtime_premium_v0148.js": "8edbccf1b110ae9ce9be79fc4e74b78986a83e6ba41ad38604ddfe2dddd02ac2",
+      "source/runtime_presets_v01411.js": "a403e640adab386537868e2a4b2b03ddb3e3f7310bb65ec67ce15b8eb0172128",
+      "source/runtime_protagonist.js": "9e639f663c999552853c8b916522705eba970cfa3d59c1f9586da5429b223f2b",
+      "source/runtime_puzzles_v0152.js": "8ae19e5f7520263f9875443a6efa8674dad851ff8a2cb62f3115666ae3393069",
+      "source/runtime_quality_fixes.js": "b9584bd0b17ee1576c31d5d64c0241ec2f7a357367ee545b1cba52a8f6ffd664",
+      "source/runtime_raid_v0152.js": "2afd25074af07356679c55f2df782f49fee30f99c472cae9baab67babbd4c3c9",
+      "source/runtime_rarity_v01412.js": "2b064ba6a440223aa283ae849f27cb625f6d9fa255722284120a5dcf39389240",
+      "source/runtime_reading.js": "e217a239e3b63a8f38e994d0a344ddce6c42fa771aa4f82aafa9347314d24633",
+      "source/runtime_recruitment.js": "b70dc86096de812df02639131dce5aece06afdc9ed6c2016df3008fd4a758951",
+      "source/runtime_relationships.js": "7d8d84884d29fe6e771f6f6bcd94e3fcf64d793f296356f5a5a6261d8713078b",
+      "source/runtime_roster_v01522.js": "6c63da79db88ff96eba7d7236d7f40212dfab9eededb25bda6c6fb691450e7b6",
+      "source/runtime_rules.js": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "source/runtime_skill_rhythm.js": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5",
+      "source/runtime_starter_kit_v0153.js": "f540f60cb507b8cf08fab6949fd6a339f50b8c37968a74460eb5de959d0433d0",
+      "source/runtime_status_catalog_v01522.js": "9edfa00369436a9e20053d7719f4dd4f4f7579d1291e16302fbcba9791d0d300",
+      "source/runtime_status_v01522.js": "949e5d4bbabb898a8fdb59fbb783feb1de67e53c8d5ef559158058ed020fffee",
+      "source/runtime_story.js": "e776d6aec6b0b5941ce0455285353372f6f70a5f9610ccd48fea23d6aea0f798",
+      "source/runtime_story_companions_v01525.js": "07cd6386355656cd87ee4edcde43ff5e473489618f831664575a5663dddc53cc",
+      "source/runtime_story_pacing_v0153.js": "6419745dd35de413cb4bc50c0a7711d134bb01f8bf748771e79f6f9d25a89ad8",
+      "source/runtime_task_catalog_v0168.js": "d99f6aef2eb3f78ec1c33d8be303ac748dddc3cd194d29f9c4cc07c99cfd0bf8",
+      "source/runtime_task_learning_catalog_v0169.js": "c9205a89ce9d358dc1c1fa6bd791fd07eef9b99917e68a78d5d1f981c17c4b18",
+      "source/runtime_task_learning_v0169.js": "9e559eaf162280c88313bb8ae582792f10a1224061dbb6406fc4b05d205a5748",
+      "source/runtime_tasks_v0167.js": "a71a30aa7139c4f5e82aaab766b98cb02a5b96c94e504b24f4d0c063aa0c030e",
+      "source/runtime_trade.js": "b4d7f62e92a54b7f3d782e87f3ea88ea299a28d855a6e413bf75dfdba4fb0cba",
+      "source/runtime_traveler_geo.js": "6ddd53490775c4dc8b33be8d29332e9247525a0cd9ab060cae8effecb1f23658",
+      "source/runtime_tutorial_v01522.js": "419d39f9d8a75940e5e5740205790c0abf5656e99ffcb0e2f385bfe2a8a8932d",
+      "source/runtime_wish_v01411.js": "efa7c337cb92a4846a34249f3888a656300d0c194f01c4e0129f25de2c680c95",
+      "source/runtime_world.js": "152b57e546ffea056fb280ca59cb189fae0bd9e2b5da37f3b17cd6cfd91c3cd8",
+      "source/save_adapter.js": "40f001e09cbd67b4a5f8f57d5f4b0ab0fed2a8a2d16a8a82ab094f1c58aadfb9",
+      "source/shell.css": "9d1289f984487456dd7bb42f68cbddbd6e7520cb68ebbb8c106cc83571fb1a26",
+      "source/skill_fx_v0162.css": "61eca7fae41b3ff388483af052f3442476d61656a0ce7523c7c7163d09c9631a",
+      "source/style.css": "78704f0890c6fd802a7ad54e3226f23fcc31b3166352c73f472ff3fa039da266",
+      "source/sw.js": "469392e4fbdfa77879da8603362ceeb16b7226ed222b690493b37172a20decd9",
+      "source/terrain_map.js": "97e3e25b4262f6dddb4747fa284a5df81266ade4ed8eadc40c9af7659c25ec72",
+      "source/test_results.json": "3a3f719e33538fc266b76e31ed8ab4738d005e289ac95103108a56f39d8a170d",
+      "source/test_runtime.js": "e8a9d1311a0c65649b4a3df4da448e09af933f5e9fba7b270bcf75886dbfafa1",
+      "source/test_ui.js": "9e6033c03ad74b0c957c8ec765a2e910c5c154dbe6abeb4078df86c767ef93d7",
+      "source/tutorial_v01523.css": "c3e26b2fe918fa49b371ab58955ab61e0ddae7e8ea40baa54d616a68adfb5422",
+      "source/ui.html": "0b769ef343dbc468d20b727eaba8ce7ec2670f9c1096d0281302c2f66064bd6c",
+      "source/world_content.js": "89d9fbc842cde7b934db6c5ffbf51b3e24219ef91b3c3423fecb2f1370eeb2d0",
+      "content/db.json": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962"
+    },
+    "currentAllEqual": true
+  },
+  "artifacts": [
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/canon/canon_review.json",
+      "archivedPath": "canon/canon_review.json",
+      "originalSHA256": "7918557b9fa753d81c51e3b8773aa4382f7f6bd4441219910c1edef81792337d",
+      "archivedSHA256": "7918557b9fa753d81c51e3b8773aa4382f7f6bd4441219910c1edef81792337d",
+      "originalBytes": 19228,
+      "archivedBytes": 19228,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/canon_edge_probes.cjs",
+      "archivedPath": "native_roles/canon_edge_probes.cjs",
+      "originalSHA256": "289059f67256d97c5810a732d042f5ddd11d1b38b5c2711a01cadb956cb2675f",
+      "archivedSHA256": "248a9c29563bc7f2469b2fb2b3ae07416f30fb48b84c7fb3bd97bdcf4220bd6c",
+      "originalBytes": 2401,
+      "archivedBytes": 2557,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "H=require((process.env.CRPG_AUDIT_ROOT||require('node:path').resolve(__dirname,'../../../..'))+'/tools/audit_protagonist_v01618.cjs')",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','native_roles');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync(__dirname output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/canon_edge_probes.cjs",
+      "archivedPath": "original_scripts/native_roles/canon_edge_probes.cjs.gz",
+      "originalSHA256": "289059f67256d97c5810a732d042f5ddd11d1b38b5c2711a01cadb956cb2675f",
+      "archivedSHA256": "394d3721f4aa9c274946ac81c7e618d9426d0f8488e0404f5a9472cf5de45dd0",
+      "originalBytes": 2401,
+      "archivedBytes": 1237,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/canon_edges.json",
+      "archivedPath": "native_roles/canon_edges.json",
+      "originalSHA256": "ca160bfd2a8dca69bf8c701675103ed88ef243a09e3bfd6e0e64286950d920c6",
+      "archivedSHA256": "ca160bfd2a8dca69bf8c701675103ed88ef243a09e3bfd6e0e64286950d920c6",
+      "originalBytes": 16652,
+      "archivedBytes": 16652,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/control_grace_native_whopper.cjs",
+      "archivedPath": "native_roles/control_grace_native_whopper.cjs",
+      "originalSHA256": "81b33676681f0ba64e9b48361dfa55f886753db4f472f1ff1d70c84f920dba6a",
+      "archivedSHA256": "ccd68730bd6a3b036ab77925f249d47ac528158ddc8a96a92abe9e1ded6fc8e5",
+      "originalBytes": 1656,
+      "archivedBytes": 1812,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "H=require((process.env.CRPG_AUDIT_ROOT||require('node:path').resolve(__dirname,'../../../..'))+'/tools/audit_protagonist_v01618.cjs')",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','native_roles');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync(__dirname output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/control_grace_native_whopper.cjs",
+      "archivedPath": "original_scripts/native_roles/control_grace_native_whopper.cjs.gz",
+      "originalSHA256": "81b33676681f0ba64e9b48361dfa55f886753db4f472f1ff1d70c84f920dba6a",
+      "archivedSHA256": "3f59b22df6fcdb462b2ec3a3406ae135a14f911bc77a9adae43999ae6bf93ce3",
+      "originalBytes": 1656,
+      "archivedBytes": 931,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/control_grace_native_whopper.json",
+      "archivedPath": "native_roles/control_grace_native_whopper.json",
+      "originalSHA256": "ebfd962d758c4892deab4d4c1d7e2638342ce96256bd929cac8ec397a8d7b79f",
+      "archivedSHA256": "ebfd962d758c4892deab4d4c1d7e2638342ce96256bd929cac8ec397a8d7b79f",
+      "originalBytes": 8307,
+      "archivedBytes": 8307,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/ec_early_failed.cjs",
+      "archivedPath": "native_roles/ec_early_failed.cjs",
+      "originalSHA256": "ca95a34261db4ac5c0301a452ea383f1a501c0f4cbc9702dd6da50057d6848ac",
+      "archivedSHA256": "34526605642bb269a27852d860e6e5104d1d3dc794c4dbb4d93ac3d25b51438e",
+      "originalBytes": 9624,
+      "archivedBytes": 9834,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "H=require(ROOT+'/tools/audit_protagonist_v01618.cjs')",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','native_roles');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "const OUT=__dirname",
+          "to": "const OUT=reviewOutputDir",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/ec_early_failed.cjs",
+      "archivedPath": "original_scripts/native_roles/ec_early_failed.cjs.gz",
+      "originalSHA256": "ca95a34261db4ac5c0301a452ea383f1a501c0f4cbc9702dd6da50057d6848ac",
+      "archivedSHA256": "b4fb288f1260def25acacfe310c69e6da0f8a4a7da86a482a287cb2fcd10b888",
+      "originalBytes": 9624,
+      "archivedBytes": 3663,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/ec_early_failed.json",
+      "archivedPath": "native_roles/ec_early_failed.json",
+      "originalSHA256": "0412b398e1b0ecb2aec60424b21ef109a18047089ddb94a65a8179d209ecb5b5",
+      "archivedSHA256": "0412b398e1b0ecb2aec60424b21ef109a18047089ddb94a65a8179d209ecb5b5",
+      "originalBytes": 10086,
+      "archivedBytes": 10086,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/enemy_shield_packet_probe.cjs",
+      "archivedPath": "native_roles/enemy_shield_packet_probe.cjs",
+      "originalSHA256": "36b69809d0125eeecf261c1eed3e473f8b59cafc85b21b7e23aaf0e1661606bf",
+      "archivedSHA256": "ed197541affbbca99f6b2fea366048e1f0c6b76cd6d106105a1c9ff9fe35aec5",
+      "originalBytes": 1706,
+      "archivedBytes": 1862,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "H=require((process.env.CRPG_AUDIT_ROOT||require('node:path').resolve(__dirname,'../../../..'))+'/tools/audit_protagonist_v01618.cjs')",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','native_roles');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync(__dirname output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/enemy_shield_packet_probe.cjs",
+      "archivedPath": "original_scripts/native_roles/enemy_shield_packet_probe.cjs.gz",
+      "originalSHA256": "36b69809d0125eeecf261c1eed3e473f8b59cafc85b21b7e23aaf0e1661606bf",
+      "archivedSHA256": "1660c636e262db8f83676f149b6c392027f7f321bbf9ee60afa26ce4c9379ac4",
+      "originalBytes": 1706,
+      "archivedBytes": 1051,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/enemy_shield_packets.json",
+      "archivedPath": "native_roles/enemy_shield_packets.json",
+      "originalSHA256": "4278d641700bb473469489bb92316a1e98fe40d456c37ae9da2597c2494d8044",
+      "archivedSHA256": "4278d641700bb473469489bb92316a1e98fe40d456c37ae9da2597c2494d8044",
+      "originalBytes": 2448,
+      "archivedBytes": 2448,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/manifest.json",
+      "archivedPath": "native_roles/manifest.json",
+      "originalSHA256": "7c370546bdbd51ef789bfe389eb6747eaca24fb4eb839aff5b432869931e38df",
+      "archivedSHA256": "7c370546bdbd51ef789bfe389eb6747eaca24fb4eb839aff5b432869931e38df",
+      "originalBytes": 2497,
+      "archivedBytes": 2497,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/metadata_corrections.json",
+      "archivedPath": "native_roles/metadata_corrections.json",
+      "originalSHA256": "6cb3d6cb4e9183cb0ba177147a3cce4badee4ec54bad91cac08a3b8268be8e74",
+      "archivedSHA256": "6cb3d6cb4e9183cb0ba177147a3cce4badee4ec54bad91cac08a3b8268be8e74",
+      "originalBytes": 496,
+      "archivedBytes": 496,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/native_cast_paths.cjs",
+      "archivedPath": "native_roles/native_cast_paths.cjs",
+      "originalSHA256": "4657664829eab7fcc29611074d1cec291086cb6bc01c5209c926db49bfee00a8",
+      "archivedSHA256": "60cc186422c4de56cf9e8c0059406091211e8ed18dab66b886b2e8594c5e0c9d",
+      "originalBytes": 1825,
+      "archivedBytes": 1981,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "H=require((process.env.CRPG_AUDIT_ROOT||require('node:path').resolve(__dirname,'../../../..'))+'/tools/audit_protagonist_v01618.cjs')",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','native_roles');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync(__dirname output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/native_cast_paths.cjs",
+      "archivedPath": "original_scripts/native_roles/native_cast_paths.cjs.gz",
+      "originalSHA256": "4657664829eab7fcc29611074d1cec291086cb6bc01c5209c926db49bfee00a8",
+      "archivedSHA256": "674b85422d2900b917a1f85d68b211eda58ac89ff3857f2df87ebcd13e9a626d",
+      "originalBytes": 1825,
+      "archivedBytes": 978,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/native_cast_paths.json",
+      "archivedPath": "native_roles/native_cast_paths.json",
+      "originalSHA256": "51153a01b750b05131d7f02c2457364914bfd11ac84f51835e278f13835c375a",
+      "archivedSHA256": "51153a01b750b05131d7f02c2457364914bfd11ac84f51835e278f13835c375a",
+      "originalBytes": 2472,
+      "archivedBytes": 2472,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/native_roles.json.gz",
+      "archivedPath": "native_roles/native_roles.json.gz",
+      "originalSHA256": "9bba95d3e50a632baf4ecef96ea58c78f4d2d191d42eb2e655a7b0593dc61cb8",
+      "archivedSHA256": "9bba95d3e50a632baf4ecef96ea58c78f4d2d191d42eb2e655a7b0593dc61cb8",
+      "originalBytes": 22100,
+      "archivedBytes": 22100,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/probe.cjs",
+      "archivedPath": "native_roles/probe.cjs",
+      "originalSHA256": "b50ea045ccfa2243e98b839cde82c5ec8e28b395930423ffc343d4adfe55747b",
+      "archivedSHA256": "6076adf20c01aeb46cfa50bb2c6aa2d25202e1c27a4f17539b78afbaf4b2cb4d",
+      "originalBytes": 11752,
+      "archivedBytes": 11962,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "H=require(ROOT+'/tools/audit_protagonist_v01618.cjs')",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','native_roles');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "const OUT=__dirname",
+          "to": "const OUT=reviewOutputDir",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/probe.cjs",
+      "archivedPath": "original_scripts/native_roles/probe.cjs.gz",
+      "originalSHA256": "b50ea045ccfa2243e98b839cde82c5ec8e28b395930423ffc343d4adfe55747b",
+      "archivedSHA256": "9517c37d673353888bd2245948547f07ff82a8e781aeddf46926416d0227f8ba",
+      "originalBytes": 11752,
+      "archivedBytes": 4427,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/source_hashes.json",
+      "archivedPath": "native_roles/source_hashes.json",
+      "originalSHA256": "0e6f8e89d4ce5bbca24eeab8af7a0b3feb3b488df53fcc4f4e44d0175bf681f0",
+      "archivedSHA256": "0e6f8e89d4ce5bbca24eeab8af7a0b3feb3b488df53fcc4f4e44d0175bf681f0",
+      "originalBytes": 23439,
+      "archivedBytes": 23439,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/summary.json",
+      "archivedPath": "native_roles/summary.json",
+      "originalSHA256": "2db779da60eb17eeacd396dfd1f367e9c4bdc3de75733bbc59726dd391bf2ace",
+      "archivedSHA256": "2db779da60eb17eeacd396dfd1f367e9c4bdc3de75733bbc59726dd391bf2ace",
+      "originalBytes": 15955,
+      "archivedBytes": 15955,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/native_roles/summary.md",
+      "archivedPath": "native_roles/summary.md",
+      "originalSHA256": "43a2561de443d6b02552459daab8e4c2123018101615569315e782c8137117ef",
+      "archivedSHA256": "43a2561de443d6b02552459daab8e4c2123018101615569315e782c8137117ef",
+      "originalBytes": 11622,
+      "archivedBytes": 11622,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/campaign_native.json.gz",
+      "archivedPath": "dendro/campaign_native.json.gz",
+      "originalSHA256": "2491800cd58fa869bc91554b1a95ce25c51eb06a3f8830ac95725f9a583d8472",
+      "archivedSHA256": "2491800cd58fa869bc91554b1a95ce25c51eb06a3f8830ac95725f9a583d8472",
+      "originalBytes": 2732429,
+      "archivedBytes": 2732429,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/campaign_summary.json",
+      "archivedPath": "dendro/campaign_summary.json",
+      "originalSHA256": "2edaa29fdd81bc7ea4899f7dcdcb3ec2e657c2efe3a69d814ef692566d94a057",
+      "archivedSHA256": "2edaa29fdd81bc7ea4899f7dcdcb3ec2e657c2efe3a69d814ef692566d94a057",
+      "originalBytes": 116118,
+      "archivedBytes": 116118,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/probe.json",
+      "archivedPath": "dendro/probe.json",
+      "originalSHA256": "8f16e57d1954a6cc0e53f6809fe26586606b3efd81af892a970ddab63af7e4e6",
+      "archivedSHA256": "8f16e57d1954a6cc0e53f6809fe26586606b3efd81af892a970ddab63af7e4e6",
+      "originalBytes": 89074,
+      "archivedBytes": 89074,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/edges.json",
+      "archivedPath": "dendro/edges.json",
+      "originalSHA256": "78c2c542f01caeabcdc5c226ab9c81a27e60e6be30a2ed99180771358cfd357a",
+      "archivedSHA256": "78c2c542f01caeabcdc5c226ab9c81a27e60e6be30a2ed99180771358cfd357a",
+      "originalBytes": 7784,
+      "archivedBytes": 7784,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/review.md",
+      "archivedPath": "dendro/review.md",
+      "originalSHA256": "514d62b3553300f8c031b4072dddb4ed256761404db27124f00f6459090a8362",
+      "archivedSHA256": "514d62b3553300f8c031b4072dddb4ed256761404db27124f00f6459090a8362",
+      "originalBytes": 13307,
+      "archivedBytes": 13307,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/probe.cjs",
+      "archivedPath": "dendro/probe.cjs",
+      "originalSHA256": "f06d3275c60fedf856ffdcf3c703de9cef2fcd483646ee826d9c58e5f82ba189",
+      "archivedSHA256": "18cb2b26d9b653a56b0f203fb87f70611ccf3fdefa1b7601721f7c0998cbda25",
+      "originalBytes": 8441,
+      "archivedBytes": 8641,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "H=require(path.join(root,'tools/audit_protagonist_v01618.cjs'))",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','dendro');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync original temporary output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/probe.cjs",
+      "archivedPath": "original_scripts/dendro/probe.cjs.gz",
+      "originalSHA256": "f06d3275c60fedf856ffdcf3c703de9cef2fcd483646ee826d9c58e5f82ba189",
+      "archivedSHA256": "f06b3112c7c2e532e279f534558478ae64e2769a883afefbea221196bb484854",
+      "originalBytes": 8441,
+      "archivedBytes": 3581,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/edges.cjs",
+      "archivedPath": "dendro/edges.cjs",
+      "originalSHA256": "8849c73cd8d5349dd5d37caae833bb986bdca9e919c58800eb7ccd68f4b509d6",
+      "archivedSHA256": "1577f883ee4f91ccd5d563b680ae729a639098a595cf62b06e688a2da1833938",
+      "originalBytes": 1790,
+      "archivedBytes": 2011,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','dendro');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync original temporary output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/edges.cjs",
+      "archivedPath": "original_scripts/dendro/edges.cjs.gz",
+      "originalSHA256": "8849c73cd8d5349dd5d37caae833bb986bdca9e919c58800eb7ccd68f4b509d6",
+      "archivedSHA256": "9361f8fdfafb7cfa3dbb785ac36b58f3f3a7e0ad8249e0fc6f30bf051b778a42",
+      "originalBytes": 1790,
+      "archivedBytes": 890,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/campaign.cjs",
+      "archivedPath": "dendro/campaign.cjs",
+      "originalSHA256": "13a86b5e96d944143b5ef394543dbea78dc360e854f6ba1f99bc00d89bc352b0",
+      "archivedSHA256": "95a3a9706219fd2c83bd2980e7ed23c4aad1856f2c6e1c254fcf624b21a23187",
+      "originalBytes": 4732,
+      "archivedBytes": 4916,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "H=require(path.join(root,'tools/audit_protagonist_v01618.cjs'))",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','dendro');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "`/tmp/crpg_reaction_plan/dendro/campaign_${variant?'variant_':''}${mode}_${level}.json`",
+          "to": "path.join(reviewOutputDir,`campaign_${variant?'variant_':''}${mode}_${level}.json`)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/dendro/campaign.cjs",
+      "archivedPath": "original_scripts/dendro/campaign.cjs.gz",
+      "originalSHA256": "13a86b5e96d944143b5ef394543dbea78dc360e854f6ba1f99bc00d89bc352b0",
+      "archivedSHA256": "45b3fa6e86a34fa547b9b06dcf93590aa255a67a1e3d63d8b6e257ec44cf2629",
+      "originalBytes": 4732,
+      "archivedBytes": 2169,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/aggregate.py",
+      "archivedPath": "healer_candidates/aggregate.py",
+      "originalSHA256": "6893aed5df1dda738660e64f26a08096776cb66d0e75a4e3593f079dcf22c38b",
+      "archivedSHA256": "52b97de4509335f06c8b6a3a29c4eab5f4308c416a963621e41f202b7afb676d",
+      "originalBytes": 6384,
+      "archivedBytes": 6405,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "imports",
+          "to": "add os for portable root/output environment",
+          "matches": 1
+        },
+        {
+          "from": "Path('/tmp/crpg_reaction_plan/healer_candidates')",
+          "to": "Path(os.environ.get('CRPG_AUDIT_DATA', Path(__file__).resolve().parent))",
+          "matches": 1
+        },
+        {
+          "from": "Path('/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg')",
+          "to": "Path(os.environ.get('CRPG_AUDIT_ROOT', Path(__file__).resolve().parents[4]))",
+          "matches": 1
+        },
+        {
+          "from": "json.loads((root/'docs/data/healer_audit_v01618_manifest.json').read_text())['gameFilesUnchanged']['sourceFiles']",
+          "to": "json.loads((Path(__file__).resolve().parent.parent/'baseline/source_before.json').read_text())",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/aggregate.py",
+      "archivedPath": "original_scripts/healer_candidates/aggregate.py.gz",
+      "originalSHA256": "6893aed5df1dda738660e64f26a08096776cb66d0e75a4e3593f079dcf22c38b",
+      "archivedSHA256": "0a1f9676715920b8e1953ef5e5e37a4d157689fbb3ef543080b37780f9167cdd",
+      "originalBytes": 6384,
+      "archivedBytes": 2762,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_10.json",
+      "archivedPath": "healer_candidates/broad_10.json",
+      "originalSHA256": "cbaec260d9de868d973462c15ebb62cbb11941bbf88158ec679a130f936cfdc3",
+      "archivedSHA256": "cbaec260d9de868d973462c15ebb62cbb11941bbf88158ec679a130f936cfdc3",
+      "originalBytes": 1694,
+      "archivedBytes": 1694,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_15.json",
+      "archivedPath": "healer_candidates/broad_15.json",
+      "originalSHA256": "4410bba9fadf759d9ca685887d7bd38234a2391d9e10d4d8db1c91eed2a68e23",
+      "archivedSHA256": "4410bba9fadf759d9ca685887d7bd38234a2391d9e10d4d8db1c91eed2a68e23",
+      "originalBytes": 1694,
+      "archivedBytes": 1694,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_20.json",
+      "archivedPath": "healer_candidates/broad_20.json",
+      "originalSHA256": "3f4e9da56d98714b4bcddf6a4a3eec83c5a724c44fd5a51c0f0c161e7c0c0489",
+      "archivedSHA256": "3f4e9da56d98714b4bcddf6a4a3eec83c5a724c44fd5a51c0f0c161e7c0c0489",
+      "originalBytes": 1658,
+      "archivedBytes": 1658,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_25.json",
+      "archivedPath": "healer_candidates/broad_25.json",
+      "originalSHA256": "8955f55622cfc9fed295fa35b549642f5209fe1faf1c35009d44057b0fc1bbb6",
+      "archivedSHA256": "8955f55622cfc9fed295fa35b549642f5209fe1faf1c35009d44057b0fc1bbb6",
+      "originalBytes": 1658,
+      "archivedBytes": 1658,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_30.json",
+      "archivedPath": "healer_candidates/broad_30.json",
+      "originalSHA256": "aa6089b340045f2e1149bd4f9ab45189c7787b5e137c245cd284d3ffd8532286",
+      "archivedSHA256": "aa6089b340045f2e1149bd4f9ab45189c7787b5e137c245cd284d3ffd8532286",
+      "originalBytes": 1650,
+      "archivedBytes": 1650,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_40.json",
+      "archivedPath": "healer_candidates/broad_40.json",
+      "originalSHA256": "24b12789feef681befdd367def0485aac5798324f5bf084f78016e3008643577",
+      "archivedSHA256": "24b12789feef681befdd367def0485aac5798324f5bf084f78016e3008643577",
+      "originalBytes": 1654,
+      "archivedBytes": 1654,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_50.json",
+      "archivedPath": "healer_candidates/broad_50.json",
+      "originalSHA256": "70080acd6515c5c11bdede29800cd9eb760029fe6f3881acb888f8f68a6212e0",
+      "archivedSHA256": "70080acd6515c5c11bdede29800cd9eb760029fe6f3881acb888f8f68a6212e0",
+      "originalBytes": 1666,
+      "archivedBytes": 1666,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_60.json",
+      "archivedPath": "healer_candidates/broad_60.json",
+      "originalSHA256": "4ac3f677b21d52cb5e160575274766927ca6753d82bc16d0f3901521c1ab437b",
+      "archivedSHA256": "4ac3f677b21d52cb5e160575274766927ca6753d82bc16d0f3901521c1ab437b",
+      "originalBytes": 1650,
+      "archivedBytes": 1650,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_BASELINE_10.json",
+      "archivedPath": "healer_candidates/broad_BASELINE_10.json",
+      "originalSHA256": "cbaec260d9de868d973462c15ebb62cbb11941bbf88158ec679a130f936cfdc3",
+      "archivedSHA256": "cbaec260d9de868d973462c15ebb62cbb11941bbf88158ec679a130f936cfdc3",
+      "originalBytes": 1694,
+      "archivedBytes": 1694,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_BASELINE_15.json",
+      "archivedPath": "healer_candidates/broad_BASELINE_15.json",
+      "originalSHA256": "207a613c3f6ce2801af1a836e9897e76523377c2c6029a1dae1cdc52054e0271",
+      "archivedSHA256": "207a613c3f6ce2801af1a836e9897e76523377c2c6029a1dae1cdc52054e0271",
+      "originalBytes": 2550,
+      "archivedBytes": 2550,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_BASELINE_25.json",
+      "archivedPath": "healer_candidates/broad_BASELINE_25.json",
+      "originalSHA256": "2f547533a713bfb4da51cfff7e7a189392aa2e906aa8db85088ed5b8c1a2aaa5",
+      "archivedSHA256": "2f547533a713bfb4da51cfff7e7a189392aa2e906aa8db85088ed5b8c1a2aaa5",
+      "originalBytes": 2496,
+      "archivedBytes": 2496,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_BASELINE_30.json",
+      "archivedPath": "healer_candidates/broad_BASELINE_30.json",
+      "originalSHA256": "aa6089b340045f2e1149bd4f9ab45189c7787b5e137c245cd284d3ffd8532286",
+      "archivedSHA256": "aa6089b340045f2e1149bd4f9ab45189c7787b5e137c245cd284d3ffd8532286",
+      "originalBytes": 1650,
+      "archivedBytes": 1650,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_BASELINE_40.json",
+      "archivedPath": "healer_candidates/broad_BASELINE_40.json",
+      "originalSHA256": "dab04e45d08aadd0c8c057d55b9924deb210caa7560cd9642be24b06053df9c2",
+      "archivedSHA256": "dab04e45d08aadd0c8c057d55b9924deb210caa7560cd9642be24b06053df9c2",
+      "originalBytes": 2490,
+      "archivedBytes": 2490,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_BASELINE_60.json",
+      "archivedPath": "healer_candidates/broad_BASELINE_60.json",
+      "originalSHA256": "4ac3f677b21d52cb5e160575274766927ca6753d82bc16d0f3901521c1ab437b",
+      "archivedSHA256": "4ac3f677b21d52cb5e160575274766927ca6753d82bc16d0f3901521c1ab437b",
+      "originalBytes": 1650,
+      "archivedBytes": 1650,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_LOW_10.json",
+      "archivedPath": "healer_candidates/broad_LOW_10.json",
+      "originalSHA256": "cbaec260d9de868d973462c15ebb62cbb11941bbf88158ec679a130f936cfdc3",
+      "archivedSHA256": "cbaec260d9de868d973462c15ebb62cbb11941bbf88158ec679a130f936cfdc3",
+      "originalBytes": 1694,
+      "archivedBytes": 1694,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_LOW_15.json",
+      "archivedPath": "healer_candidates/broad_LOW_15.json",
+      "originalSHA256": "4410bba9fadf759d9ca685887d7bd38234a2391d9e10d4d8db1c91eed2a68e23",
+      "archivedSHA256": "4410bba9fadf759d9ca685887d7bd38234a2391d9e10d4d8db1c91eed2a68e23",
+      "originalBytes": 1694,
+      "archivedBytes": 1694,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_LOW_25.json",
+      "archivedPath": "healer_candidates/broad_LOW_25.json",
+      "originalSHA256": "8955f55622cfc9fed295fa35b549642f5209fe1faf1c35009d44057b0fc1bbb6",
+      "archivedSHA256": "8955f55622cfc9fed295fa35b549642f5209fe1faf1c35009d44057b0fc1bbb6",
+      "originalBytes": 1658,
+      "archivedBytes": 1658,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_LOW_30.json",
+      "archivedPath": "healer_candidates/broad_LOW_30.json",
+      "originalSHA256": "aa6089b340045f2e1149bd4f9ab45189c7787b5e137c245cd284d3ffd8532286",
+      "archivedSHA256": "aa6089b340045f2e1149bd4f9ab45189c7787b5e137c245cd284d3ffd8532286",
+      "originalBytes": 1650,
+      "archivedBytes": 1650,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_LOW_40.json",
+      "archivedPath": "healer_candidates/broad_LOW_40.json",
+      "originalSHA256": "24b12789feef681befdd367def0485aac5798324f5bf084f78016e3008643577",
+      "archivedSHA256": "24b12789feef681befdd367def0485aac5798324f5bf084f78016e3008643577",
+      "originalBytes": 1654,
+      "archivedBytes": 1654,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/broad_LOW_60.json",
+      "archivedPath": "healer_candidates/broad_LOW_60.json",
+      "originalSHA256": "4ac3f677b21d52cb5e160575274766927ca6753d82bc16d0f3901521c1ab437b",
+      "archivedSHA256": "4ac3f677b21d52cb5e160575274766927ca6753d82bc16d0f3901521c1ab437b",
+      "originalBytes": 1650,
+      "archivedBytes": 1650,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/candidate_conditions.csv",
+      "archivedPath": "healer_candidates/candidate_conditions.csv",
+      "originalSHA256": "16fa372d553fb3403040900ebb15d8e1b53c033b01e757cee8fc662eebbdf6c8",
+      "archivedSHA256": "16fa372d553fb3403040900ebb15d8e1b53c033b01e757cee8fc662eebbdf6c8",
+      "originalBytes": 84567,
+      "archivedBytes": 84567,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/candidate_manifest.json",
+      "archivedPath": "healer_candidates/candidate_manifest.json",
+      "originalSHA256": "49ca5c034c8a1f1d523f5e54401e534eadbd10d88656eff436e0bbf20ad099f0",
+      "archivedSHA256": "49ca5c034c8a1f1d523f5e54401e534eadbd10d88656eff436e0bbf20ad099f0",
+      "originalBytes": 72660,
+      "archivedBytes": 72660,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/candidate_native.json.gz",
+      "archivedPath": "healer_candidates/candidate_native.json.gz",
+      "originalSHA256": "35206a27c93b5d5a32d60a66d94025a07b5a686142dd6bf349d24dd12dad9ae9",
+      "archivedSHA256": "35206a27c93b5d5a32d60a66d94025a07b5a686142dd6bf349d24dd12dad9ae9",
+      "originalBytes": 1074524,
+      "archivedBytes": 1074524,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/candidate_summary.json",
+      "archivedPath": "healer_candidates/candidate_summary.json",
+      "originalSHA256": "6c1e4a499a98cfaefe4fb171ff8e5ea500ed7122e6596378448741f43e5d663d",
+      "archivedSHA256": "6c1e4a499a98cfaefe4fb171ff8e5ea500ed7122e6596378448741f43e5d663d",
+      "originalBytes": 838355,
+      "archivedBytes": 838355,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/candidates.json",
+      "archivedPath": "healer_candidates/candidates.json",
+      "originalSHA256": "634c2d703a6abcf51c46ee5c7fc5d33ad5eefc8d3b5d25362328460562c66638",
+      "archivedSHA256": "634c2d703a6abcf51c46ee5c7fc5d33ad5eefc8d3b5d25362328460562c66638",
+      "originalBytes": 282,
+      "archivedBytes": 282,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/cause_Jean_cases.json",
+      "archivedPath": "healer_candidates/cause_Jean_cases.json",
+      "originalSHA256": "efbcc31d0b34569a5e36852bd5e5644f49867b83de6415bf8c305b10f265e849",
+      "archivedSHA256": "efbcc31d0b34569a5e36852bd5e5644f49867b83de6415bf8c305b10f265e849",
+      "originalBytes": 1112,
+      "archivedBytes": 1112,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/cause_Sucrose_cases.json",
+      "archivedPath": "healer_candidates/cause_Sucrose_cases.json",
+      "originalSHA256": "102f7abadba0df560b02d72d9aa41e85077b5149af5cd038379bbad289aedc84",
+      "archivedSHA256": "102f7abadba0df560b02d72d9aa41e85077b5149af5cd038379bbad289aedc84",
+      "originalBytes": 1136,
+      "archivedBytes": 1136,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/cause_summary.json",
+      "archivedPath": "healer_candidates/cause_summary.json",
+      "originalSHA256": "66e41b2f6e62f73abf36f7a8667013f437e7d11f0f200d758b1dba3f1911c319",
+      "archivedSHA256": "66e41b2f6e62f73abf36f7a8667013f437e7d11f0f200d758b1dba3f1911c319",
+      "originalBytes": 64515,
+      "archivedBytes": 64515,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/cause_summary.py",
+      "archivedPath": "healer_candidates/cause_summary.py",
+      "originalSHA256": "4a6e9c6f12b762f14b5bca65d3ff0a93ecf9645644b15beb71daa00f182bff19",
+      "archivedSHA256": "3115fc8f68cf30c4754cafb0085b4ec8ab7a475fc6e5a3aaaa1f1851d641c364",
+      "originalBytes": 4520,
+      "archivedBytes": 4553,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "imports",
+          "to": "add os for portable root/output environment",
+          "matches": 1
+        },
+        {
+          "from": "Path('/tmp/crpg_reaction_plan/healer_candidates')",
+          "to": "Path(os.environ.get('CRPG_AUDIT_DATA', Path(__file__).resolve().parent))",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/cause_summary.py",
+      "archivedPath": "original_scripts/healer_candidates/cause_summary.py.gz",
+      "originalSHA256": "4a6e9c6f12b762f14b5bca65d3ff0a93ecf9645644b15beb71daa00f182bff19",
+      "archivedSHA256": "ecc4ebedc3b8927b3d453d0f69446282b5a230d852e7751b6fc10779e3f19020",
+      "originalBytes": 4520,
+      "archivedBytes": 2136,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/domain_keys.json",
+      "archivedPath": "healer_candidates/domain_keys.json",
+      "originalSHA256": "31b9d1fd18c47c8821bdcacf0935c9678a83f90a628be4dfe93df2607bc09e8b",
+      "archivedSHA256": "31b9d1fd18c47c8821bdcacf0935c9678a83f90a628be4dfe93df2607bc09e8b",
+      "originalBytes": 527,
+      "archivedBytes": 527,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/extra_baseline_cases.json",
+      "archivedPath": "healer_candidates/extra_baseline_cases.json",
+      "originalSHA256": "bbd9eb9628fae4e25d9c4d086c7f90c2373a49cdbe98835a89af0732c4f2eac0",
+      "archivedSHA256": "bbd9eb9628fae4e25d9c4d086c7f90c2373a49cdbe98835a89af0732c4f2eac0",
+      "originalBytes": 1320,
+      "archivedBytes": 1320,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/extra_candidates.json",
+      "archivedPath": "healer_candidates/extra_candidates.json",
+      "originalSHA256": "0c355b2542c5bc4d1d39308b24f2df5dfb255c5a2e54f33462af6861f9788d2c",
+      "archivedSHA256": "0c355b2542c5bc4d1d39308b24f2df5dfb255c5a2e54f33462af6861f9788d2c",
+      "originalBytes": 194,
+      "archivedBytes": 194,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/extra_cases.json",
+      "archivedPath": "healer_candidates/extra_cases.json",
+      "originalSHA256": "90583653355b893cf81bd773816aec8faa33c88ed79b81eea5aab492ce2669a2",
+      "archivedSHA256": "90583653355b893cf81bd773816aec8faa33c88ed79b81eea5aab492ce2669a2",
+      "originalBytes": 3082,
+      "archivedBytes": 3082,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/highgear.json",
+      "archivedPath": "healer_candidates/highgear.json",
+      "originalSHA256": "28279f8b16b67ac5238dd55c5adc97ad2e07fbf2de679a966c1be57ea9770949",
+      "archivedSHA256": "28279f8b16b67ac5238dd55c5adc97ad2e07fbf2de679a966c1be57ea9770949",
+      "originalBytes": 8994,
+      "archivedBytes": 8994,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/highgear_select.json",
+      "archivedPath": "healer_candidates/highgear_select.json",
+      "originalSHA256": "ad78114fe9c614c07dfe9cb4b2dbcf9e6b462c7b398dfd05e2b73056921d6ef7",
+      "archivedSHA256": "ad78114fe9c614c07dfe9cb4b2dbcf9e6b462c7b398dfd05e2b73056921d6ef7",
+      "originalBytes": 3976,
+      "archivedBytes": 3976,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/isolated.cjs",
+      "archivedPath": "healer_candidates/isolated.cjs",
+      "originalSHA256": "795af00eef9887a799789c9c04bafc0ec119da7c745a74682b95c06178fdccd1",
+      "archivedSHA256": "94ce2adb5b4f8ec5809b4ed667acf2455252a1305bcd55f6ae7a2326234003bd",
+      "originalBytes": 1512,
+      "archivedBytes": 1785,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','healer_candidates');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync(__dirname output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 1
+        },
+        {
+          "from": "root=require('node:path').resolve(__dirname,'../../../..')",
+          "to": "root=(process.env.CRPG_AUDIT_ROOT||require('node:path').resolve(__dirname,'../../../..'))",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/isolated.cjs",
+      "archivedPath": "original_scripts/healer_candidates/isolated.cjs.gz",
+      "originalSHA256": "795af00eef9887a799789c9c04bafc0ec119da7c745a74682b95c06178fdccd1",
+      "archivedSHA256": "60f095074051350509ab33a38bfa12ae7ee13461e8fe4bedccb3e179deebd483",
+      "originalBytes": 1512,
+      "archivedBytes": 846,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/isolated_jean.json",
+      "archivedPath": "healer_candidates/isolated_jean.json.gz",
+      "originalSHA256": "e4aa9260211e686b1ab523fba3fbff2349d3902a4fb7ecd5fa5022fba8dff26d",
+      "archivedSHA256": "c648d9a1f35f838f7eb8cd43a05890733a0f05cc8cf0334ce2bd88c9f4a98772",
+      "originalBytes": 886382,
+      "archivedBytes": 24665,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/last_candidate.json",
+      "archivedPath": "healer_candidates/last_candidate.json",
+      "originalSHA256": "de6872e71962a154e35c220e36808ff9358177a73a8fdc70ae627bfc769a110f",
+      "archivedSHA256": "de6872e71962a154e35c220e36808ff9358177a73a8fdc70ae627bfc769a110f",
+      "originalBytes": 100,
+      "archivedBytes": 100,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/last_cases.json",
+      "archivedPath": "healer_candidates/last_cases.json",
+      "originalSHA256": "efbcc31d0b34569a5e36852bd5e5644f49867b83de6415bf8c305b10f265e849",
+      "archivedSHA256": "efbcc31d0b34569a5e36852bd5e5644f49867b83de6415bf8c305b10f265e849",
+      "originalBytes": 1112,
+      "archivedBytes": 1112,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/native_helper.cjs",
+      "archivedPath": "healer_candidates/native_helper.cjs",
+      "originalSHA256": "5573f0a2af6976fbfb0a3328568cfd9deb8b7548d1ae10249b5b985305f1dff2",
+      "archivedSHA256": "d95f301616ca1a14924bb6d7db851146e5058b53d50ed03c61a804d4ca4cfae3",
+      "originalBytes": 17278,
+      "archivedBytes": 17548,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "path.resolve(__dirname,'..')",
+          "to": "(process.env.CRPG_AUDIT_ROOT||path.resolve(__dirname,'../../../..'))",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','healer_candidates');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "'/tmp/crpg_v01618/protagonist_summary.json'",
+          "to": "path.join(reviewOutputDir,'protagonist_summary.json')",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/native_helper.cjs",
+      "archivedPath": "original_scripts/healer_candidates/native_helper.cjs.gz",
+      "originalSHA256": "5573f0a2af6976fbfb0a3328568cfd9deb8b7548d1ae10249b5b985305f1dff2",
+      "archivedSHA256": "b271675b300567ac46ed358e8b2856d3e124642cda59602611ac789d252b8ebf",
+      "originalBytes": 17278,
+      "archivedBytes": 7251,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/native_repeat.cjs",
+      "archivedPath": "healer_candidates/native_repeat.cjs",
+      "originalSHA256": "461185dabc50af1ceca908b1fad99eb50d9059500f909ab4b3ac4c2226354252",
+      "archivedSHA256": "c75ef78e9aae19f04ebde59ce66b4f52e0714773e710aa3b9d7115812f382ca9",
+      "originalBytes": 9111,
+      "archivedBytes": 9340,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "require('node:path').resolve(__dirname,'../..')",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "require('/tmp/crpg_reaction_plan/healer_candidates/native_helper.cjs')",
+          "to": "require('./native_helper.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','healer_candidates');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "'/tmp/crpg_healer_audit/repeat/results_v2.json'",
+          "to": "path.join(reviewOutputDir,'results_v2.json')",
+          "matches": 1
+        },
+        {
+          "from": "'/tmp/crpg_healer_audit/repeat/results.json'",
+          "to": "(process.env.CRPG_AUDIT_REPAIR_SOURCE||path.join(reviewOutputDir,'original_results.json'))",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/native_repeat.cjs",
+      "archivedPath": "original_scripts/healer_candidates/native_repeat.cjs.gz",
+      "originalSHA256": "461185dabc50af1ceca908b1fad99eb50d9059500f909ab4b3ac4c2226354252",
+      "archivedSHA256": "f10374ae6b0caff657184fcbe3b3de4cc776690fca993554331afd50fd314f61",
+      "originalBytes": 9111,
+      "archivedBytes": 3904,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/native_repeat_broad.cjs",
+      "archivedPath": "healer_candidates/native_repeat_broad.cjs",
+      "originalSHA256": "80d6b91a233af6429de08f1f9543f4363cd1a9644e61b3ae6908ca7c0b6fb4c2",
+      "archivedSHA256": "abcb0e19be70713649af2f3976a21b630f885e2acbdda5295b18f1ee7f06b347",
+      "originalBytes": 9130,
+      "archivedBytes": 9359,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "require('node:path').resolve(__dirname,'../..')",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "require('/tmp/crpg_reaction_plan/healer_candidates/native_helper.cjs')",
+          "to": "require('./native_helper.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','healer_candidates');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "'/tmp/crpg_healer_audit/repeat/results_v2.json'",
+          "to": "path.join(reviewOutputDir,'results_v2.json')",
+          "matches": 1
+        },
+        {
+          "from": "'/tmp/crpg_healer_audit/repeat/results.json'",
+          "to": "(process.env.CRPG_AUDIT_REPAIR_SOURCE||path.join(reviewOutputDir,'original_results.json'))",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/native_repeat_broad.cjs",
+      "archivedPath": "original_scripts/healer_candidates/native_repeat_broad.cjs.gz",
+      "originalSHA256": "80d6b91a233af6429de08f1f9543f4363cd1a9644e61b3ae6908ca7c0b6fb4c2",
+      "archivedSHA256": "75e023bbd35fc0abeb0bbe6ae9b761774d017780c34c161566af24d6bad20505",
+      "originalBytes": 9130,
+      "archivedBytes": 3909,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/native_repeat_cause.cjs",
+      "archivedPath": "healer_candidates/native_repeat_cause.cjs",
+      "originalSHA256": "2b91aa42014e3ce540e1ea272b668d82f6d4bfa1800924c802445e78043fa6c7",
+      "archivedSHA256": "845a242a57b5478141fc526823af78cebf14b9406009d34f6c24e1d16d0826b4",
+      "originalBytes": 9768,
+      "archivedBytes": 9997,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "require('node:path').resolve(__dirname,'../..')",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "require('/tmp/crpg_reaction_plan/healer_candidates/native_helper.cjs')",
+          "to": "require('./native_helper.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','healer_candidates');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "'/tmp/crpg_healer_audit/repeat/results_v2.json'",
+          "to": "path.join(reviewOutputDir,'results_v2.json')",
+          "matches": 1
+        },
+        {
+          "from": "'/tmp/crpg_healer_audit/repeat/results.json'",
+          "to": "(process.env.CRPG_AUDIT_REPAIR_SOURCE||path.join(reviewOutputDir,'original_results.json'))",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/native_repeat_cause.cjs",
+      "archivedPath": "original_scripts/healer_candidates/native_repeat_cause.cjs.gz",
+      "originalSHA256": "2b91aa42014e3ce540e1ea272b668d82f6d4bfa1800924c802445e78043fa6c7",
+      "archivedSHA256": "62d354d073ef4a2fc1c0f8c490874bb21acb37617c55c1c5f925e3247b1c3d07",
+      "originalBytes": 9768,
+      "archivedBytes": 4109,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/pilot_20.json",
+      "archivedPath": "healer_candidates/pilot_20.json",
+      "originalSHA256": "afb7f20f4aae4793070edea70e8c2d76c09ee34d5fc1e13db5d4b68f1b3ad795",
+      "archivedSHA256": "afb7f20f4aae4793070edea70e8c2d76c09ee34d5fc1e13db5d4b68f1b3ad795",
+      "originalBytes": 2496,
+      "archivedBytes": 2496,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/pilot_50.json",
+      "archivedPath": "healer_candidates/pilot_50.json",
+      "originalSHA256": "4f42760f3eafbe8af5d189d8e06e7a2492f44188ea63187764c2dbf93dd72433",
+      "archivedSHA256": "4f42760f3eafbe8af5d189d8e06e7a2492f44188ea63187764c2dbf93dd72433",
+      "originalBytes": 2508,
+      "archivedBytes": 2508,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/zero_candidate.json",
+      "archivedPath": "healer_candidates/zero_candidate.json",
+      "originalSHA256": "3985e039446fbbedc9ebbc7c1bc923fd096c7f8c15642d47c21c217d9fedc0ef",
+      "archivedSHA256": "3985e039446fbbedc9ebbc7c1bc923fd096c7f8c15642d47c21c217d9fedc0ef",
+      "originalBytes": 100,
+      "archivedBytes": 100,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/zero_cases.json",
+      "archivedPath": "healer_candidates/zero_cases.json",
+      "originalSHA256": "e9fb6e434224b1c35e05720c5328f7f446e84f7799876ad18f9496d3b52cd8b3",
+      "archivedSHA256": "e9fb6e434224b1c35e05720c5328f7f446e84f7799876ad18f9496d3b52cd8b3",
+      "originalBytes": 2008,
+      "archivedBytes": 2008,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/JEAN_LATE_Q010_F002/runtime_combat.js",
+      "archivedPath": "healer_candidates/vm_sources/JEAN_LATE_Q010_F002/runtime_combat.js",
+      "originalSHA256": "63a088f643add7edc1ae21bd607f01213595f149a7defbe6c8e5f77fd4e0e3d9",
+      "archivedSHA256": "63a088f643add7edc1ae21bd607f01213595f149a7defbe6c8e5f77fd4e0e3d9",
+      "originalBytes": 62316,
+      "archivedBytes": 62316,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/JEAN_LATE_Q010_F002/runtime_rules.js",
+      "archivedPath": "healer_candidates/vm_sources/JEAN_LATE_Q010_F002/runtime_rules.js",
+      "originalSHA256": "9e7aecbc79dd8c025c13131fb83c664eb3a175a291ed5cdba3d237a91283c5d0",
+      "archivedSHA256": "9e7aecbc79dd8c025c13131fb83c664eb3a175a291ed5cdba3d237a91283c5d0",
+      "originalBytes": 26611,
+      "archivedBytes": 26611,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/JEAN_Q020_F003/runtime_combat.js",
+      "archivedPath": "healer_candidates/vm_sources/JEAN_Q020_F003/runtime_combat.js",
+      "originalSHA256": "0dfe3970138ef2b37272c6b2bf57c7d81f23a530b3dbc128c398beaa0172e22e",
+      "archivedSHA256": "0dfe3970138ef2b37272c6b2bf57c7d81f23a530b3dbc128c398beaa0172e22e",
+      "originalBytes": 62316,
+      "archivedBytes": 62316,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/JEAN_Q020_F003/runtime_rules.js",
+      "archivedPath": "healer_candidates/vm_sources/JEAN_Q020_F003/runtime_rules.js",
+      "originalSHA256": "30dd91d60070075cbe7a7ad84d24d28e71647a2de1372b11adcbc9b5aeace681",
+      "archivedSHA256": "30dd91d60070075cbe7a7ad84d24d28e71647a2de1372b11adcbc9b5aeace681",
+      "originalBytes": 26611,
+      "archivedBytes": 26611,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/JEAN_Q030_F004/runtime_combat.js",
+      "archivedPath": "healer_candidates/vm_sources/JEAN_Q030_F004/runtime_combat.js",
+      "originalSHA256": "5b21cf9031953cb03c5082fc1d09a9c41bbed8eb7a048127310b360f9ccc0b88",
+      "archivedSHA256": "5b21cf9031953cb03c5082fc1d09a9c41bbed8eb7a048127310b360f9ccc0b88",
+      "originalBytes": 62316,
+      "archivedBytes": 62316,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/JEAN_Q030_F004/runtime_rules.js",
+      "archivedPath": "healer_candidates/vm_sources/JEAN_Q030_F004/runtime_rules.js",
+      "originalSHA256": "27271f0d1af32062aaabeee1d13bb4a73d33879b72be47ba3e31765d3004e565",
+      "archivedSHA256": "27271f0d1af32062aaabeee1d13bb4a73d33879b72be47ba3e31765d3004e565",
+      "originalBytes": 26611,
+      "archivedBytes": 26611,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/JEAN_ZERO_COUNTERFACTUAL/runtime_combat.js",
+      "archivedPath": "healer_candidates/vm_sources/JEAN_ZERO_COUNTERFACTUAL/runtime_combat.js",
+      "originalSHA256": "8088f86570bf57d7ce0effa8c09ff44b90c8b7c862b5e3c2b08e77c4c30c193b",
+      "archivedSHA256": "8088f86570bf57d7ce0effa8c09ff44b90c8b7c862b5e3c2b08e77c4c30c193b",
+      "originalBytes": 62311,
+      "archivedBytes": 62311,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/JEAN_ZERO_COUNTERFACTUAL/runtime_rules.js",
+      "archivedPath": "healer_candidates/vm_sources/JEAN_ZERO_COUNTERFACTUAL/runtime_rules.js",
+      "originalSHA256": "1556d8b798d6d38372fc8940a4e6395fe0a00ac777fc2bd54df823e3e9f0eff6",
+      "archivedSHA256": "1556d8b798d6d38372fc8940a4e6395fe0a00ac777fc2bd54df823e3e9f0eff6",
+      "originalBytes": 26609,
+      "archivedBytes": 26609,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/LOW/runtime_combat.js",
+      "archivedPath": "healer_candidates/vm_sources/LOW/runtime_combat.js",
+      "originalSHA256": "22fdf2e7d6cca83f8539366e4623047b0429bffd4258a44cd2d62c8c8ff3e738",
+      "archivedSHA256": "22fdf2e7d6cca83f8539366e4623047b0429bffd4258a44cd2d62c8c8ff3e738",
+      "originalBytes": 62317,
+      "archivedBytes": 62317,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/LOW/runtime_rules.js",
+      "archivedPath": "healer_candidates/vm_sources/LOW/runtime_rules.js",
+      "originalSHA256": "27271f0d1af32062aaabeee1d13bb4a73d33879b72be47ba3e31765d3004e565",
+      "archivedSHA256": "27271f0d1af32062aaabeee1d13bb4a73d33879b72be47ba3e31765d3004e565",
+      "originalBytes": 26611,
+      "archivedBytes": 26611,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/MID/runtime_combat.js",
+      "archivedPath": "healer_candidates/vm_sources/MID/runtime_combat.js",
+      "originalSHA256": "2ef41b80390a8e057f410f05210c737ac74e7f7f2611972f09ac92c729736515",
+      "archivedSHA256": "2ef41b80390a8e057f410f05210c737ac74e7f7f2611972f09ac92c729736515",
+      "originalBytes": 62316,
+      "archivedBytes": 62316,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/MID/runtime_rules.js",
+      "archivedPath": "healer_candidates/vm_sources/MID/runtime_rules.js",
+      "originalSHA256": "e6940d7d210ef5d4536ceb2f2672775b45d2d7a4329f52dc7c74aee35512544f",
+      "archivedSHA256": "e6940d7d210ef5d4536ceb2f2672775b45d2d7a4329f52dc7c74aee35512544f",
+      "originalBytes": 26612,
+      "archivedBytes": 26612,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/MILD/runtime_combat.js",
+      "archivedPath": "healer_candidates/vm_sources/MILD/runtime_combat.js",
+      "originalSHA256": "3a758f00f7353f27c18d7263c62b910f5082ffb7569af021a151a4d20db39566",
+      "archivedSHA256": "3a758f00f7353f27c18d7263c62b910f5082ffb7569af021a151a4d20db39566",
+      "originalBytes": 62316,
+      "archivedBytes": 62316,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/healer_candidates/vm_sources/MILD/runtime_rules.js",
+      "archivedPath": "healer_candidates/vm_sources/MILD/runtime_rules.js",
+      "originalSHA256": "74888d7349c1f9ef56c779e1ade01559d8fe5c550aa37ad2d1004ac9cbdf7e98",
+      "archivedSHA256": "74888d7349c1f9ef56c779e1ade01559d8fe5c550aa37ad2d1004ac9cbdf7e98",
+      "originalBytes": 26611,
+      "archivedBytes": 26611,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/barbara_late/candidate.json",
+      "archivedPath": "barbara_late/candidate.json",
+      "originalSHA256": "6681dc86ba1c3c406f987807461047b571938bf44b7d952a9c82320f289ccfdc",
+      "archivedSHA256": "6681dc86ba1c3c406f987807461047b571938bf44b7d952a9c82320f289ccfdc",
+      "originalBytes": 105,
+      "archivedBytes": 105,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/barbara_late/candidate_lower.json",
+      "archivedPath": "barbara_late/candidate_lower.json",
+      "originalSHA256": "8916381df0f94cf8a7778a2481a56f8a3498166fff18aa4d0f2bc8194e24d596",
+      "archivedSHA256": "8916381df0f94cf8a7778a2481a56f8a3498166fff18aa4d0f2bc8194e24d596",
+      "originalBytes": 103,
+      "archivedBytes": 103,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/barbara_late/candidate_middle.json",
+      "archivedPath": "barbara_late/candidate_middle.json",
+      "originalSHA256": "acdbb2a7695783061320e3fc98f7c030846da437e51929dab7812bfabaf7098c",
+      "archivedSHA256": "acdbb2a7695783061320e3fc98f7c030846da437e51929dab7812bfabaf7098c",
+      "originalBytes": 105,
+      "archivedBytes": 105,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/barbara_late/cases.json",
+      "archivedPath": "barbara_late/cases.json",
+      "originalSHA256": "679dacbde518a9621597ad874cfa734e337cd65fbb844c40384c7340ea44ef1a",
+      "archivedSHA256": "679dacbde518a9621597ad874cfa734e337cd65fbb844c40384c7340ea44ef1a",
+      "originalBytes": 1136,
+      "archivedBytes": 1136,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/barbara_late/native.json",
+      "archivedPath": "barbara_late/native.json.gz",
+      "originalSHA256": "aa53511c130746f37ffb2384bf43fe0a467fc435fa9c2428897b7b40b7031cdd",
+      "archivedSHA256": "3e4f1c8237adb8ae5635f0cc7fd8f41807912752fbe74c8e00e8d284c0d54499",
+      "originalBytes": 1408049,
+      "archivedBytes": 36908,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/barbara_late/native_lower.json",
+      "archivedPath": "barbara_late/native_lower.json.gz",
+      "originalSHA256": "b4b5e759efe899ad0391f86bdbe89020c43f1f662c857e7e3f8c5cd1ef2fcd8b",
+      "archivedSHA256": "47b8ba2e824a07d68abf2456c72563be6923da1fe5a8e516a8d7a3f4444593fd",
+      "originalBytes": 1404789,
+      "archivedBytes": 37799,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/barbara_late/native_middle.json",
+      "archivedPath": "barbara_late/native_middle.json.gz",
+      "originalSHA256": "9774472f9b930bc6a55c6d3f85811c5c5c5c71625ee1f8e0157a5856e412f7d0",
+      "archivedSHA256": "c47c70ad6984329b2346da2a5fdaacbd2cab59868fb5c77e34b5ed5cd4fd8802",
+      "originalBytes": 1407487,
+      "archivedBytes": 36943,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/source/runtime_combat.js",
+      "recordedCandidateSource": "/tmp/crpg_reaction_plan/barbara_late/native.json",
+      "archivedPath": "barbara_late/vm_sources/BARBARA_LATE_Q008_E0015/runtime_combat.js",
+      "originalSHA256": "91c511ba36fdb2fdae5cb6250aa71412cefabfd9f1265b0eccd777240875dc13",
+      "archivedSHA256": "93fc72ad7395c48fb89bd8ffdce1383ca03ff91f3e9ca9c4b3a1be7c829e3f12",
+      "originalBytes": 62313,
+      "archivedBytes": 62317,
+      "compression": null,
+      "pathOnlyChanges": [],
+      "VMSubstitutions": [
+        {
+          "file": "runtime_combat.js",
+          "from": "case'MOND_JEAN_Q':healAll('atk',1.2);",
+          "to": "case'MOND_JEAN_Q':healAll('atk',1.2);"
+        },
+        {
+          "file": "runtime_combat.js",
+          "from": "if(f.kind==='DANDELION')allies.forEach(t=>this.heal(t,this.combatStat(a,'atk')*.35,a.name));",
+          "to": "if(f.kind==='DANDELION')allies.forEach(t=>this.heal(t,this.combatStat(a,'atk')*0.35,a.name));"
+        },
+        {
+          "file": "runtime_combat.js",
+          "from": "case'MOND_BARBARA_Q':healAll('maxHp',.25);",
+          "to": "case'MOND_BARBARA_Q':healAll('maxHp',0.08);"
+        },
+        {
+          "file": "runtime_combat.js",
+          "from": "if(status(a,'STATUS_BARBARA_MELODY_LOOP'))for(const ally of this.s.runtime.actors.filter(x=>x.side===a.side))this.heal(ally,a.maxHp*.06,a.name);",
+          "to": "if(status(a,'STATUS_BARBARA_MELODY_LOOP'))for(const ally of this.s.runtime.actors.filter(x=>x.side===a.side))this.heal(ally,a.maxHp*0.015,a.name);"
+        }
+      ],
+      "purpose": "VM-only source reconstructed from exact recorded substitutions. Never copy into product source or deploy."
+    },
+    {
+      "sourcePath": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/source/runtime_rules.js",
+      "recordedCandidateSource": "/tmp/crpg_reaction_plan/barbara_late/native.json",
+      "archivedPath": "barbara_late/vm_sources/BARBARA_LATE_Q008_E0015/runtime_rules.js",
+      "originalSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "archivedSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "originalBytes": 26611,
+      "archivedBytes": 26611,
+      "compression": null,
+      "pathOnlyChanges": [],
+      "VMSubstitutions": [
+        {
+          "file": "runtime_rules.js",
+          "from": "case'MOND_JEAN_Q':for(const t of allies)this.heal(t,this.combatStat(a,'atk')*1.2,a.name);",
+          "to": "case'MOND_JEAN_Q':for(const t of allies)this.heal(t,this.combatStat(a,'atk')*1.2,a.name);"
+        }
+      ],
+      "purpose": "VM-only source reconstructed from exact recorded substitutions. Never copy into product source or deploy."
+    },
+    {
+      "sourcePath": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/source/runtime_combat.js",
+      "recordedCandidateSource": "/tmp/crpg_reaction_plan/barbara_late/native_lower.json",
+      "archivedPath": "barbara_late/vm_sources/BARBARA_LATE_Q003_E001/runtime_combat.js",
+      "originalSHA256": "91c511ba36fdb2fdae5cb6250aa71412cefabfd9f1265b0eccd777240875dc13",
+      "archivedSHA256": "e7c6470c9467e7672e50c1125ccb6bb05cb8bef9de3b62b23d8be719d556a4f5",
+      "originalBytes": 62313,
+      "archivedBytes": 62316,
+      "compression": null,
+      "pathOnlyChanges": [],
+      "VMSubstitutions": [
+        {
+          "file": "runtime_combat.js",
+          "from": "case'MOND_JEAN_Q':healAll('atk',1.2);",
+          "to": "case'MOND_JEAN_Q':healAll('atk',1.2);"
+        },
+        {
+          "file": "runtime_combat.js",
+          "from": "if(f.kind==='DANDELION')allies.forEach(t=>this.heal(t,this.combatStat(a,'atk')*.35,a.name));",
+          "to": "if(f.kind==='DANDELION')allies.forEach(t=>this.heal(t,this.combatStat(a,'atk')*0.35,a.name));"
+        },
+        {
+          "file": "runtime_combat.js",
+          "from": "case'MOND_BARBARA_Q':healAll('maxHp',.25);",
+          "to": "case'MOND_BARBARA_Q':healAll('maxHp',0.03);"
+        },
+        {
+          "file": "runtime_combat.js",
+          "from": "if(status(a,'STATUS_BARBARA_MELODY_LOOP'))for(const ally of this.s.runtime.actors.filter(x=>x.side===a.side))this.heal(ally,a.maxHp*.06,a.name);",
+          "to": "if(status(a,'STATUS_BARBARA_MELODY_LOOP'))for(const ally of this.s.runtime.actors.filter(x=>x.side===a.side))this.heal(ally,a.maxHp*0.01,a.name);"
+        }
+      ],
+      "purpose": "VM-only source reconstructed from exact recorded substitutions. Never copy into product source or deploy."
+    },
+    {
+      "sourcePath": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/source/runtime_rules.js",
+      "recordedCandidateSource": "/tmp/crpg_reaction_plan/barbara_late/native_lower.json",
+      "archivedPath": "barbara_late/vm_sources/BARBARA_LATE_Q003_E001/runtime_rules.js",
+      "originalSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "archivedSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "originalBytes": 26611,
+      "archivedBytes": 26611,
+      "compression": null,
+      "pathOnlyChanges": [],
+      "VMSubstitutions": [
+        {
+          "file": "runtime_rules.js",
+          "from": "case'MOND_JEAN_Q':for(const t of allies)this.heal(t,this.combatStat(a,'atk')*1.2,a.name);",
+          "to": "case'MOND_JEAN_Q':for(const t of allies)this.heal(t,this.combatStat(a,'atk')*1.2,a.name);"
+        }
+      ],
+      "purpose": "VM-only source reconstructed from exact recorded substitutions. Never copy into product source or deploy."
+    },
+    {
+      "sourcePath": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/source/runtime_combat.js",
+      "recordedCandidateSource": "/tmp/crpg_reaction_plan/barbara_late/native_middle.json",
+      "archivedPath": "barbara_late/vm_sources/BARBARA_LATE_Q005_E0015/runtime_combat.js",
+      "originalSHA256": "91c511ba36fdb2fdae5cb6250aa71412cefabfd9f1265b0eccd777240875dc13",
+      "archivedSHA256": "10d7843c7460736fdbd1256ed64c23282d7f1eae3692492757dac0d028eec9df",
+      "originalBytes": 62313,
+      "archivedBytes": 62317,
+      "compression": null,
+      "pathOnlyChanges": [],
+      "VMSubstitutions": [
+        {
+          "file": "runtime_combat.js",
+          "from": "case'MOND_JEAN_Q':healAll('atk',1.2);",
+          "to": "case'MOND_JEAN_Q':healAll('atk',1.2);"
+        },
+        {
+          "file": "runtime_combat.js",
+          "from": "if(f.kind==='DANDELION')allies.forEach(t=>this.heal(t,this.combatStat(a,'atk')*.35,a.name));",
+          "to": "if(f.kind==='DANDELION')allies.forEach(t=>this.heal(t,this.combatStat(a,'atk')*0.35,a.name));"
+        },
+        {
+          "file": "runtime_combat.js",
+          "from": "case'MOND_BARBARA_Q':healAll('maxHp',.25);",
+          "to": "case'MOND_BARBARA_Q':healAll('maxHp',0.05);"
+        },
+        {
+          "file": "runtime_combat.js",
+          "from": "if(status(a,'STATUS_BARBARA_MELODY_LOOP'))for(const ally of this.s.runtime.actors.filter(x=>x.side===a.side))this.heal(ally,a.maxHp*.06,a.name);",
+          "to": "if(status(a,'STATUS_BARBARA_MELODY_LOOP'))for(const ally of this.s.runtime.actors.filter(x=>x.side===a.side))this.heal(ally,a.maxHp*0.015,a.name);"
+        }
+      ],
+      "purpose": "VM-only source reconstructed from exact recorded substitutions. Never copy into product source or deploy."
+    },
+    {
+      "sourcePath": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/source/runtime_rules.js",
+      "recordedCandidateSource": "/tmp/crpg_reaction_plan/barbara_late/native_middle.json",
+      "archivedPath": "barbara_late/vm_sources/BARBARA_LATE_Q005_E0015/runtime_rules.js",
+      "originalSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "archivedSHA256": "266085a7f47d0f328c3d5548008a163444c77d9eb86aaeca785e707051831d94",
+      "originalBytes": 26611,
+      "archivedBytes": 26611,
+      "compression": null,
+      "pathOnlyChanges": [],
+      "VMSubstitutions": [
+        {
+          "file": "runtime_rules.js",
+          "from": "case'MOND_JEAN_Q':for(const t of allies)this.heal(t,this.combatStat(a,'atk')*1.2,a.name);",
+          "to": "case'MOND_JEAN_Q':for(const t of allies)this.heal(t,this.combatStat(a,'atk')*1.2,a.name);"
+        }
+      ],
+      "purpose": "VM-only source reconstructed from exact recorded substitutions. Never copy into product source or deploy."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/evidence_qa.json",
+      "archivedPath": "evidence_qa.json",
+      "originalSHA256": "c7b702fc32a23975eb9c5b6ed2f5610f84f05a624fe4c858e8ed4bf16c644955",
+      "archivedSHA256": "c7b702fc32a23975eb9c5b6ed2f5610f84f05a624fe4c858e8ed4bf16c644955",
+      "originalBytes": 26654,
+      "archivedBytes": 26654,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/supplement_evidence_qa.json",
+      "archivedPath": "supplement_evidence_qa.json",
+      "originalSHA256": "6d77f6491029ac1e86f894324365d54af82486a247c5a5221a73a1275b9175eb",
+      "archivedSHA256": "6d77f6491029ac1e86f894324365d54af82486a247c5a5221a73a1275b9175eb",
+      "originalBytes": 18604,
+      "archivedBytes": 18604,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/legal_caps_qa.json",
+      "archivedPath": "legal_caps_qa.json",
+      "originalSHA256": "ca50adff675548cf10f30ad9a4e0a5fd8b2fd0e8132dd8e54f179157510c56f6",
+      "archivedSHA256": "ca50adff675548cf10f30ad9a4e0a5fd8b2fd0e8132dd8e54f179157510c56f6",
+      "originalBytes": 995,
+      "archivedBytes": 995,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/check_evidence_qa.py",
+      "archivedPath": "check_evidence_qa.py",
+      "originalSHA256": "76906a9b6bc83d61385ef6c75adf9b7e51f08ba96b123ac2d398271b9e014f94",
+      "archivedSHA256": "e16451ae54cd3ce10c8876db0c93e4260870b9c38072edf49aad5c84dc945bc8",
+      "originalBytes": 13446,
+      "archivedBytes": 13565,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "imports",
+          "to": "add os for portable root/output environment",
+          "matches": 1
+        },
+        {
+          "from": "Path('/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg')",
+          "to": "Path(os.environ.get('CRPG_AUDIT_ROOT', Path(__file__).resolve().parents[3]))",
+          "matches": 1
+        },
+        {
+          "from": "Path('/tmp/crpg_reaction_plan')",
+          "to": "Path(__file__).resolve().parent",
+          "matches": 1
+        },
+        {
+          "from": "'/tmp/crpg_healer_audit/source_before.json'",
+          "to": "OUT/'baseline/source_before.json'",
+          "matches": 1
+        },
+        {
+          "from": "'native_roles/native_roles.json'",
+          "to": "'native_roles/native_roles.json.gz'",
+          "matches": 2
+        },
+        {
+          "from": "(OUT/'evidence_qa.json').write_text",
+          "to": "Path(os.environ.get('CRPG_AUDIT_QA_OUT', OUT/'recomputed_evidence_qa.json')).write_text",
+          "matches": 1
+        },
+        {
+          "from": "'output':str(OUT/'evidence_qa.json')",
+          "to": "'output':str(Path(os.environ.get('CRPG_AUDIT_QA_OUT', OUT/'recomputed_evidence_qa.json')))",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/check_evidence_qa.py",
+      "archivedPath": "original_scripts/check_evidence_qa.py.gz",
+      "originalSHA256": "76906a9b6bc83d61385ef6c75adf9b7e51f08ba96b123ac2d398271b9e014f94",
+      "archivedSHA256": "d8201aafa355757546e9721a66ca283cf970027f4a838892ffd430655f48eb97",
+      "originalBytes": 13446,
+      "archivedBytes": 5097,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/check_supplement_evidence_qa.py",
+      "archivedPath": "check_supplement_evidence_qa.py",
+      "originalSHA256": "1888ec2201d21f323e78ef6b3e4fe333960578781a33ddacbfa885d33fb1d310",
+      "archivedSHA256": "3b3674eedf87d15f1cc21c4434913c2da77cc9af0e8d6e4c8199d75bbc78c0ad",
+      "originalBytes": 7453,
+      "archivedBytes": 7575,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "imports",
+          "to": "add os for portable root/output environment",
+          "matches": 1
+        },
+        {
+          "from": "Path('/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg')",
+          "to": "Path(os.environ.get('CRPG_AUDIT_ROOT', Path(__file__).resolve().parents[3]))",
+          "matches": 1
+        },
+        {
+          "from": "Path('/tmp/crpg_reaction_plan')",
+          "to": "Path(__file__).resolve().parent",
+          "matches": 1
+        },
+        {
+          "from": "'/tmp/crpg_healer_audit/source_before.json'",
+          "to": "OUT/'baseline/source_before.json'",
+          "matches": 1
+        },
+        {
+          "from": "'native.json','native_lower.json','native_middle.json'",
+          "to": "'native.json.gz','native_lower.json.gz','native_middle.json.gz'",
+          "matches": 1
+        },
+        {
+          "from": "(OUT/'supplement_evidence_qa.json').write_text",
+          "to": "Path(os.environ.get('CRPG_AUDIT_QA_OUT', OUT/'recomputed_supplement_evidence_qa.json')).write_text",
+          "matches": 1
+        },
+        {
+          "from": "'output':str(OUT/'supplement_evidence_qa.json')",
+          "to": "'output':str(Path(os.environ.get('CRPG_AUDIT_QA_OUT', OUT/'recomputed_supplement_evidence_qa.json')))",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/check_supplement_evidence_qa.py",
+      "archivedPath": "original_scripts/check_supplement_evidence_qa.py.gz",
+      "originalSHA256": "1888ec2201d21f323e78ef6b3e4fe333960578781a33ddacbfa885d33fb1d310",
+      "archivedSHA256": "32b8ef6ecc29dca0ef550e51bb9c3d6b235c96857edc9a54953bb4216a093e17",
+      "originalBytes": 7453,
+      "archivedBytes": 2871,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_healer_audit/source_before.json",
+      "archivedPath": "baseline/source_before.json",
+      "originalSHA256": "4ff0e5ac10f0f82fac5f8b665576668e9ed965de48acb6183f199a25b73b955c",
+      "archivedSHA256": "4ff0e5ac10f0f82fac5f8b665576668e9ed965de48acb6183f199a25b73b955c",
+      "originalBytes": 23547,
+      "archivedBytes": 23547,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tools/audit_protagonist_v01618.cjs",
+      "archivedPath": "helpers/audit_protagonist_v01618.cjs",
+      "originalSHA256": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9",
+      "archivedSHA256": "15d1aab5c6899d889f6e051be015d57c805aecf4f6c4c1b51eebbab288b92e58",
+      "originalBytes": 16352,
+      "archivedBytes": 16612,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "path.resolve(__dirname,'..')",
+          "to": "(process.env.CRPG_AUDIT_ROOT||path.resolve(__dirname,'../../../..'))",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','helpers');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "'/tmp/crpg_v01618/protagonist_summary.json'",
+          "to": "path.join(reviewOutputDir,'protagonist_summary.json')",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tools/audit_protagonist_v01618.cjs",
+      "archivedPath": "original_scripts/helpers/audit_protagonist_v01618.cjs.gz",
+      "originalSHA256": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9",
+      "archivedSHA256": "ad238593fe6f7e6003efd9211c40639fcc1df998ae615001e3ee4dcb378bd560",
+      "originalBytes": 16352,
+      "archivedBytes": 6983,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/copied_main_qa.json",
+      "archivedPath": "portable_validation/copied_main_qa.json",
+      "originalSHA256": "257b6475f4d9e9cd6bbccfc8d93c00ed491c5e8fc37829de126ac620b73ebb34",
+      "archivedSHA256": "257b6475f4d9e9cd6bbccfc8d93c00ed491c5e8fc37829de126ac620b73ebb34",
+      "originalBytes": 29162,
+      "archivedBytes": 29162,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/copied_supplement_qa.json",
+      "archivedPath": "portable_validation/copied_supplement_qa.json",
+      "originalSHA256": "9bb66c335bb88037f6670bba31af7c705bdd9770c46504e5482176f9018df4aa",
+      "archivedSHA256": "9bb66c335bb88037f6670bba31af7c705bdd9770c46504e5482176f9018df4aa",
+      "originalBytes": 19089,
+      "archivedBytes": 19089,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/copied_helper_load_qa.json",
+      "archivedPath": "portable_validation/copied_helper_load_qa.json",
+      "originalSHA256": "c58be0bce09644aecd7bd1f8dafea15118e573e8fc95d6b12d9ac5d8b02c032b",
+      "archivedSHA256": "c58be0bce09644aecd7bd1f8dafea15118e573e8fc95d6b12d9ac5d8b02c032b",
+      "originalBytes": 414,
+      "archivedBytes": 414,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/baseline_comparison.json",
+      "archivedPath": "field_boss_mechanics/baseline_comparison.json",
+      "originalSHA256": "e7956ee34b1cd4932f32f1f6e7d083e4696f54a77c0163c10ae44eb2fd2a65f9",
+      "archivedSHA256": "e7956ee34b1cd4932f32f1f6e7d083e4696f54a77c0163c10ae44eb2fd2a65f9",
+      "originalBytes": 28798,
+      "archivedBytes": 28798,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/growth_curve.cjs",
+      "archivedPath": "field_boss_mechanics/growth_curve.cjs",
+      "originalSHA256": "6cf0a01fde1c1d42f65332ddbf6b15ce96d0cf8bac9426b3c43f51bb0677975c",
+      "archivedSHA256": "e1585b570daacb7307e7a0ae71bb140226dbef2c19ea41ace2513c105eea7b90",
+      "originalBytes": 1435,
+      "archivedBytes": 1679,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "H=require(ROOT+'/tools/audit_protagonist_v01618.cjs')",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','field_boss_mechanics');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync(__dirname output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/growth_curve.cjs",
+      "archivedPath": "original_scripts/field_boss_mechanics/growth_curve.cjs.gz",
+      "originalSHA256": "6cf0a01fde1c1d42f65332ddbf6b15ce96d0cf8bac9426b3c43f51bb0677975c",
+      "archivedSHA256": "876ad41d73ae7e70927ad7d6def5235fc4cf699aef713a24ade65a214d6cb3da",
+      "originalBytes": 1435,
+      "archivedBytes": 957,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/growth_curve.json",
+      "archivedPath": "field_boss_mechanics/growth_curve.json",
+      "originalSHA256": "5c3c0d336e52b339cea819ea117f30bf1e2954c6efe00c52e639e7f1742cc54b",
+      "archivedSHA256": "5c3c0d336e52b339cea819ea117f30bf1e2954c6efe00c52e639e7f1742cc54b",
+      "originalBytes": 8645,
+      "archivedBytes": 8645,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/manifest.json",
+      "archivedPath": "field_boss_mechanics/manifest.json",
+      "originalSHA256": "53453691bbdba56b46364e860e2ffc1738bcd91f06be9c8272f86169c6ce882a",
+      "archivedSHA256": "53453691bbdba56b46364e860e2ffc1738bcd91f06be9c8272f86169c6ce882a",
+      "originalBytes": 1834,
+      "archivedBytes": 1834,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/native_mechanics.json",
+      "archivedPath": "field_boss_mechanics/native_mechanics.json.gz",
+      "originalSHA256": "f9e87e496edaa4a828ffdedf77b996d134a12489a1ade6a0ca0ade2f3001dba2",
+      "archivedSHA256": "fafff1885e9883dfe63f4a15de9233352da53f811334b80d9216d86f576a227a",
+      "originalBytes": 208056,
+      "archivedBytes": 24260,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/native_mechanics_initial_harness.json",
+      "archivedPath": "field_boss_mechanics/native_mechanics_initial_harness.json.gz",
+      "originalSHA256": "6a2a323831e5ad983a2531bff24965a89c770648ac80adbf67553888ea54fe9c",
+      "archivedSHA256": "8bde3c7c453e6dfbb13579f9b583bda74630cc0f472fec0a86903d67d9c520ad",
+      "originalBytes": 187723,
+      "archivedBytes": 24122,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "superseded": true
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/probe.cjs",
+      "archivedPath": "field_boss_mechanics/probe.cjs",
+      "originalSHA256": "e68ffa8545ff2ece30410c239bcf01d9cb846119d0b2e7849e143cf9e6a210db",
+      "archivedSHA256": "e77510c462b07286545b0ad6e848cdb0426a6d42b31b87241cc39d5fd593891a",
+      "originalBytes": 14011,
+      "archivedBytes": 14229,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "H=require(ROOT+'/tools/audit_protagonist_v01618.cjs')",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','field_boss_mechanics');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "const OUT=__dirname",
+          "to": "const OUT=reviewOutputDir",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/probe.cjs",
+      "archivedPath": "original_scripts/field_boss_mechanics/probe.cjs.gz",
+      "originalSHA256": "e68ffa8545ff2ece30410c239bcf01d9cb846119d0b2e7849e143cf9e6a210db",
+      "archivedSHA256": "f5a8848d73179a7e61302a1c721ff36f81935e3fbf1be0fc539d3b9f4562486f",
+      "originalBytes": 14011,
+      "archivedBytes": 5186,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/source_hashes.json",
+      "archivedPath": "field_boss_mechanics/source_hashes.json",
+      "originalSHA256": "5c44411f04e25c414de139feb02fffe64b52c249df72ea40e4d44040d47d1e04",
+      "archivedSHA256": "5c44411f04e25c414de139feb02fffe64b52c249df72ea40e4d44040d47d1e04",
+      "originalBytes": 25256,
+      "archivedBytes": 25256,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/summary.json",
+      "archivedPath": "field_boss_mechanics/summary.json",
+      "originalSHA256": "f5e23473fba90ae9562fbe74c4583e304736ea20278bb5260bc78fef7769de9e",
+      "archivedSHA256": "f5e23473fba90ae9562fbe74c4583e304736ea20278bb5260bc78fef7769de9e",
+      "originalBytes": 9751,
+      "archivedBytes": 9751,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics/summary.md",
+      "archivedPath": "field_boss_mechanics/summary.md",
+      "originalSHA256": "22a0a022b6de8f91b37a2aa5c456bb7d6ac74f83956380cc3d52e3d1da69ee5f",
+      "archivedSHA256": "22a0a022b6de8f91b37a2aa5c456bb7d6ac74f83956380cc3d52e3d1da69ee5f",
+      "originalBytes": 8648,
+      "archivedBytes": 8648,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_mechanics_evidence_qa.json",
+      "archivedPath": "field_boss_mechanics/evidence_qa.json",
+      "originalSHA256": "4b81f4ea29afc42ec5b221b8bc58e7edf5ef8d4b689220ebf8808bf5711074cb",
+      "archivedSHA256": "4b81f4ea29afc42ec5b221b8bc58e7edf5ef8d4b689220ebf8808bf5711074cb",
+      "originalBytes": 9391,
+      "archivedBytes": 9391,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/check_field_boss_mechanics_qa.py",
+      "archivedPath": "original_scripts/field_boss_mechanics/check_evidence_qa.py.gz",
+      "originalSHA256": "971e17c510f6e2d5c81aa761e49e974066f4dfc42984bd8e0a67c1717bee2544",
+      "archivedSHA256": "a14f5667c70aed77de718673c4ef7ea3d63247cfafd5408fd674a2fa906b98a3",
+      "originalBytes": 8231,
+      "archivedBytes": 3475,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/native.json.gz",
+      "archivedPath": "field_boss_repeat/native.json.gz",
+      "originalSHA256": "3341389949ee3af90b8f875307724acb902da4d3e7122d9a3027dd4e20d608c6",
+      "archivedSHA256": "3341389949ee3af90b8f875307724acb902da4d3e7122d9a3027dd4e20d608c6",
+      "originalBytes": 3620629,
+      "archivedBytes": 3620629,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/summary.json",
+      "archivedPath": "field_boss_repeat/summary.json.gz",
+      "originalSHA256": "080a711ecf6c7467169a82d09a54f46dfa11855376bcd0751f546b6441ec1148",
+      "archivedSHA256": "c97fb00c5400fe92a56b150ba5bb90538048c4485a127aebd431f678b9888f79",
+      "originalBytes": 3044973,
+      "archivedBytes": 147984,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/conditions.csv",
+      "archivedPath": "field_boss_repeat/conditions.csv",
+      "originalSHA256": "c3826084d9767c1ef01a1da1b1bc068d0c5849c770b08f04c44a6f184f275a8f",
+      "archivedSHA256": "c3826084d9767c1ef01a1da1b1bc068d0c5849c770b08f04c44a6f184f275a8f",
+      "originalBytes": 8453,
+      "archivedBytes": 8453,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/actual_fixture.json",
+      "archivedPath": "field_boss_repeat/actual_fixture.json",
+      "originalSHA256": "060e4e9af43b855e6dbc3635505c177f360a225c463e18fa97a1428d59fa839f",
+      "archivedSHA256": "060e4e9af43b855e6dbc3635505c177f360a225c463e18fa97a1428d59fa839f",
+      "originalBytes": 94596,
+      "archivedBytes": 94596,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/manifest.json",
+      "archivedPath": "field_boss_repeat/manifest.json",
+      "originalSHA256": "bbceb20b519cd4a18fc0ae26d851a958ddd55cc920c18ed48b551e873d184bf0",
+      "archivedSHA256": "bbceb20b519cd4a18fc0ae26d851a958ddd55cc920c18ed48b551e873d184bf0",
+      "originalBytes": 25362,
+      "archivedBytes": 25362,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/audit.cjs",
+      "archivedPath": "field_boss_repeat/audit.cjs",
+      "originalSHA256": "57884eeb9c6bada04e920266290d638de6a09d7128be9e1908b0805489af9efc",
+      "archivedSHA256": "ce77708ac33060c33f24740372655e24349ac41de0bc2635b6d2bf7c172c08ba",
+      "originalBytes": 10259,
+      "archivedBytes": 10449,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','field_boss_repeat');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "root=require('node:path').resolve(__dirname,'../../../..')",
+          "to": "root=(process.env.CRPG_AUDIT_ROOT||require('node:path').resolve(__dirname,'../../../..'))",
+          "matches": 1
+        },
+        {
+          "from": "require('/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tools/audit_protagonist_v01618.cjs')",
+          "to": "require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "outfile=opt('--out')||__dirname+'/e'",
+          "to": "outfile=opt('--out')||reviewOutputDir+'/e'",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/audit.cjs",
+      "archivedPath": "original_scripts/field_boss_repeat/audit.cjs.gz",
+      "originalSHA256": "57884eeb9c6bada04e920266290d638de6a09d7128be9e1908b0805489af9efc",
+      "archivedSHA256": "4bc08ec4177bdd50544c9ab6e257ff85d4f408ed91294aec2c9f60f26983f400",
+      "originalBytes": 10259,
+      "archivedBytes": 4203,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/aggregate.py",
+      "archivedPath": "field_boss_repeat/aggregate.py",
+      "originalSHA256": "0cf9a9dd545c1fdcad35d48f48263f1704917381913dd98981dab52d0890e382",
+      "archivedSHA256": "56ff9cfe4ce9ea0ea92dca17e0984ca8fb5c4c136e766db67d170ce2ee43d170",
+      "originalBytes": 11724,
+      "archivedBytes": 11925,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "import collections,csv,gzip,hashlib,json,pathlib,statistics",
+          "to": "import collections,csv,gzip,hashlib,json,pathlib,statistics,os,tempfile",
+          "matches": 1
+        },
+        {
+          "from": "BASE=pathlib.Path('/tmp/crpg_reaction_plan/field_boss_repeat')",
+          "to": "SCRIPT_DIR=pathlib.Path(__file__).resolve().parent\nBASE=pathlib.Path(os.environ.get('CRPG_AUDIT_DATA',os.environ.get('CRPG_AUDIT_OUT',pathlib.Path(tempfile.gettempdir())/'crpg-reaction-healer-review/field_boss_repeat')))\nBASE.mkdir(parents=True,exist_ok=True)",
+          "matches": 1
+        },
+        {
+          "from": "ROOT=pathlib.Path('/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg')",
+          "to": "ROOT=pathlib.Path(os.environ.get('CRPG_AUDIT_ROOT',SCRIPT_DIR.parents[3]))",
+          "matches": 1
+        },
+        {
+          "from": "pathlib.Path('/tmp/crpg_reaction_plan/healer_candidates/candidate_manifest.json')",
+          "to": "(SCRIPT_DIR.parent/'healer_candidates/candidate_manifest.json')",
+          "matches": 1
+        },
+        {
+          "from": "BASE/'audit.cjs'",
+          "to": "SCRIPT_DIR/'audit.cjs'",
+          "matches": 1
+        },
+        {
+          "from": "BASE/'aggregate.py'",
+          "to": "SCRIPT_DIR/'aggregate.py'",
+          "matches": 1
+        },
+        {
+          "from": "BASE/'actual_fixture.json'",
+          "to": "SCRIPT_DIR/'actual_fixture.json'",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/aggregate.py",
+      "archivedPath": "original_scripts/field_boss_repeat/aggregate.py.gz",
+      "originalSHA256": "0cf9a9dd545c1fdcad35d48f48263f1704917381913dd98981dab52d0890e382",
+      "archivedSHA256": "afd4084686094dbf3608b2e734640aa284170b88e6c39c934397046b649d70ae",
+      "originalBytes": 11724,
+      "archivedBytes": 4245,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/c6_native.json.gz",
+      "archivedPath": "field_boss_repeat/c6_native.json.gz",
+      "originalSHA256": "d240b6e39a5b2062313c29fa9b7204a7b8d11700c4715fb39f4b79d41e52aefe",
+      "archivedSHA256": "d240b6e39a5b2062313c29fa9b7204a7b8d11700c4715fb39f4b79d41e52aefe",
+      "originalBytes": 561008,
+      "archivedBytes": 561008,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/c6_summary.json",
+      "archivedPath": "field_boss_repeat/c6_summary.json.gz",
+      "originalSHA256": "40dae3fc718faf2500fc77e8d2b8445566785a656cd52b4933e331a6259ce351",
+      "archivedSHA256": "3334970bbaf50941f00f96468ab06acff22c82c6c13ebccdbff6b654d7632cd7",
+      "originalBytes": 818459,
+      "archivedBytes": 50746,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/c6_conditions.csv",
+      "archivedPath": "field_boss_repeat/c6_conditions.csv",
+      "originalSHA256": "476e71a5fd98f140c7ecf32cfe5293855e7765a6d0776373f40917552f0015b2",
+      "archivedSHA256": "476e71a5fd98f140c7ecf32cfe5293855e7765a6d0776373f40917552f0015b2",
+      "originalBytes": 2062,
+      "archivedBytes": 2062,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/c6_manifest.json",
+      "archivedPath": "field_boss_repeat/c6_manifest.json",
+      "originalSHA256": "382c7a88786676d1cfa6b950c73a6e30bfe774ef61ba494e96579352ad2ce88c",
+      "archivedSHA256": "382c7a88786676d1cfa6b950c73a6e30bfe774ef61ba494e96579352ad2ce88c",
+      "originalBytes": 25368,
+      "archivedBytes": 25368,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/audit_c6.cjs",
+      "archivedPath": "field_boss_repeat/audit_c6.cjs",
+      "originalSHA256": "1059a7460efce01030acc64ead78e3b6e8db955959ae0be552047de2dcc7272a",
+      "archivedSHA256": "e312fb39af8db253ea3e8c6bc71b74cf1a0fda0d31029a98e770f9cd71239a4e",
+      "originalBytes": 10798,
+      "archivedBytes": 10988,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','field_boss_repeat');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "root=require('node:path').resolve(__dirname,'../../../..')",
+          "to": "root=(process.env.CRPG_AUDIT_ROOT||require('node:path').resolve(__dirname,'../../../..'))",
+          "matches": 1
+        },
+        {
+          "from": "require('/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tools/audit_protagonist_v01618.cjs')",
+          "to": "require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "outfile=opt('--out')||__dirname+'/e'",
+          "to": "outfile=opt('--out')||reviewOutputDir+'/e'",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/audit_c6.cjs",
+      "archivedPath": "original_scripts/field_boss_repeat/audit_c6.cjs.gz",
+      "originalSHA256": "1059a7460efce01030acc64ead78e3b6e8db955959ae0be552047de2dcc7272a",
+      "archivedSHA256": "84ac5b2ab17d68d3ba52220c21fe9c61a8f9c3a8ed808470478ff75972197c38",
+      "originalBytes": 10798,
+      "archivedBytes": 4380,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/aggregate_c6.py",
+      "archivedPath": "field_boss_repeat/aggregate_c6.py",
+      "originalSHA256": "fb415c640b3e291b8c5367df65c153cf1da0256fffb8439590b88e68dbb3fa28",
+      "archivedSHA256": "b1e6e21957f0a7e6425e675c10df93bcb481483d91f66ecc8cb536fce4ee0824",
+      "originalBytes": 12086,
+      "archivedBytes": 12287,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "import collections,csv,gzip,hashlib,json,pathlib,statistics",
+          "to": "import collections,csv,gzip,hashlib,json,pathlib,statistics,os,tempfile",
+          "matches": 1
+        },
+        {
+          "from": "BASE=pathlib.Path('/tmp/crpg_reaction_plan/field_boss_repeat')",
+          "to": "SCRIPT_DIR=pathlib.Path(__file__).resolve().parent\nBASE=pathlib.Path(os.environ.get('CRPG_AUDIT_DATA',os.environ.get('CRPG_AUDIT_OUT',pathlib.Path(tempfile.gettempdir())/'crpg-reaction-healer-review/field_boss_repeat')))\nBASE.mkdir(parents=True,exist_ok=True)",
+          "matches": 1
+        },
+        {
+          "from": "ROOT=pathlib.Path('/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg')",
+          "to": "ROOT=pathlib.Path(os.environ.get('CRPG_AUDIT_ROOT',SCRIPT_DIR.parents[3]))",
+          "matches": 1
+        },
+        {
+          "from": "pathlib.Path('/tmp/crpg_reaction_plan/healer_candidates/candidate_manifest.json')",
+          "to": "(SCRIPT_DIR.parent/'healer_candidates/candidate_manifest.json')",
+          "matches": 1
+        },
+        {
+          "from": "BASE/'audit_c6.cjs'",
+          "to": "SCRIPT_DIR/'audit_c6.cjs'",
+          "matches": 1
+        },
+        {
+          "from": "BASE/'aggregate_c6.py'",
+          "to": "SCRIPT_DIR/'aggregate_c6.py'",
+          "matches": 1
+        },
+        {
+          "from": "BASE/'actual_fixture.json'",
+          "to": "SCRIPT_DIR/'actual_fixture.json'",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/aggregate_c6.py",
+      "archivedPath": "original_scripts/field_boss_repeat/aggregate_c6.py.gz",
+      "originalSHA256": "fb415c640b3e291b8c5367df65c153cf1da0256fffb8439590b88e68dbb3fa28",
+      "archivedSHA256": "5415746b469d677bcbaff69fcb01b509f204d808fea98fe2533a56e25121f5bf",
+      "originalBytes": 12086,
+      "archivedBytes": 4401,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/boss_repeat_c0_independent_qa.json",
+      "archivedPath": "field_boss_repeat/c0_evidence_qa.json",
+      "originalSHA256": "51ac9d18e719ec03e6a28cfd6ffb4f0aa17ed51e6e1da106f56b157c0ac5782b",
+      "archivedSHA256": "51ac9d18e719ec03e6a28cfd6ffb4f0aa17ed51e6e1da106f56b157c0ac5782b",
+      "originalBytes": 15727,
+      "archivedBytes": 15727,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/boss_repeat_c0_qa_readonly.py",
+      "archivedPath": "original_scripts/field_boss_repeat/check_c0_evidence_qa.py.gz",
+      "originalSHA256": "00ada6f323fb97943d6b55cd3f97d12ea4947070c3fecf0642e7cf2b317e80c4",
+      "archivedSHA256": "db0a2b46acbafb2470a8dbfded8ceee3dcddc4099c266e6e253116eb342461df",
+      "originalBytes": 17893,
+      "archivedBytes": 6253,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/boss_repeat_c6_independent_qa.json",
+      "archivedPath": "field_boss_repeat/c6_evidence_qa.json",
+      "originalSHA256": "ccfd0618739967d7edf4561b543f6f9963911cf7494285e50a7c32136609a43e",
+      "archivedSHA256": "ccfd0618739967d7edf4561b543f6f9963911cf7494285e50a7c32136609a43e",
+      "originalBytes": 4288,
+      "archivedBytes": 4288,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/boss_repeat_c6_qa_readonly.py",
+      "archivedPath": "original_scripts/field_boss_repeat/check_c6_evidence_qa.py.gz",
+      "originalSHA256": "f11dd9db73146c8bd0e06b0c8ccf7ac53e4adb830824e3cff98a954b3c7493cd",
+      "archivedSHA256": "eb916e962b22b9626044c52bb2a33b0408c1ce7522b7a33e9f579281a4d4bfa0",
+      "originalBytes": 8616,
+      "archivedBytes": 3546,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/REVIEW_KO.md",
+      "archivedPath": "chasm_gap/REVIEW_KO.md",
+      "originalSHA256": "1f12a32c4927aa475a281df21d9aff8ee3d37931ddbb6a31400a2b7867f0ca16",
+      "archivedSHA256": "1f12a32c4927aa475a281df21d9aff8ee3d37931ddbb6a31400a2b7867f0ca16",
+      "originalBytes": 9014,
+      "archivedBytes": 9014,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign.cjs",
+      "archivedPath": "chasm_gap/campaign.cjs",
+      "originalSHA256": "181496282791a41d8e2e4613ed9336f81385294e370861b4b5158abc7d1c372b",
+      "archivedSHA256": "582be8c98a99813ec95b8b726b3af8b1de84e2d9e554fdff802b10b679965076",
+      "originalBytes": 6656,
+      "archivedBytes": 6848,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','chasm_gap');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "require(path.join(E.root,'tools/audit_protagonist_v01618.cjs'))",
+          "to": "require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "const stem=`/tmp/crpg_reaction_plan/chasm_gap/campaign_${map}_${tier}${pilot?'_pilot':''}${suffix?'_'+suffix:''}`",
+          "to": "const stem=path.join(reviewOutputDir,`campaign_${map}_${tier}${pilot?'_pilot':''}${suffix?'_'+suffix:''}`)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign.cjs",
+      "archivedPath": "original_scripts/chasm_gap/campaign.cjs.gz",
+      "originalSHA256": "181496282791a41d8e2e4613ed9336f81385294e370861b4b5158abc7d1c372b",
+      "archivedSHA256": "4178ca348faf77a0d38bd17e671eba39801ef1a7df148b64c134f200fc823ec1",
+      "originalBytes": 6656,
+      "archivedBytes": 3034,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/catalog.cjs",
+      "archivedPath": "chasm_gap/catalog.cjs",
+      "originalSHA256": "da9437eabb4a793836412e16d8fc7e060981acb6751abd9e4df658b6b18c88a8",
+      "archivedSHA256": "e571225f54365d25d968526a7a32dfe97473a0c60d8594e6e323d34d6b8b6752",
+      "originalBytes": 2103,
+      "archivedBytes": 2313,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "H=require(path.join(root,'tools/audit_protagonist_v01618.cjs'))",
+          "to": "H=require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','chasm_gap');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync original temporary output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/catalog.cjs",
+      "archivedPath": "original_scripts/chasm_gap/catalog.cjs.gz",
+      "originalSHA256": "da9437eabb4a793836412e16d8fc7e060981acb6751abd9e4df658b6b18c88a8",
+      "archivedSHA256": "5218f852d241fba9ace6333d48722b42946b343d8f9b343125f17aff4511ea14",
+      "originalBytes": 2103,
+      "archivedBytes": 1225,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/catalog.json",
+      "archivedPath": "chasm_gap/catalog.json",
+      "originalSHA256": "bf818e45d4f31bd0d41f82359455c42e5a6e691f5b15dfeeafadb4ecb147bfb1",
+      "archivedSHA256": "bf818e45d4f31bd0d41f82359455c42e5a6e691f5b15dfeeafadb4ecb147bfb1",
+      "originalBytes": 149758,
+      "archivedBytes": 149758,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/routes_and_seeds.cjs",
+      "archivedPath": "chasm_gap/routes_and_seeds.cjs",
+      "originalSHA256": "4537602c4abd0e8dbf5f0b860565de482a1d8e5221524d52aec737308c9d2a13",
+      "archivedSHA256": "3f4c34451f1782ad13460cf23d8e8be7e7f6aa8cd25edabcc48ec4e0b95dddb9",
+      "originalBytes": 3324,
+      "archivedBytes": 3541,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','chasm_gap');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync original temporary output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 2
+        },
+        {
+          "from": "require(path.join(E.root,'tools/audit_protagonist_v01618.cjs'))",
+          "to": "require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/routes_and_seeds.cjs",
+      "archivedPath": "original_scripts/chasm_gap/routes_and_seeds.cjs.gz",
+      "originalSHA256": "4537602c4abd0e8dbf5f0b860565de482a1d8e5221524d52aec737308c9d2a13",
+      "archivedSHA256": "0032a30f3894728d073efb159a0b26f90d1fcfa3c3aaad44b7fbbc52793b3997",
+      "originalBytes": 3324,
+      "archivedBytes": 1443,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/routes_and_seeds.json",
+      "archivedPath": "chasm_gap/routes_and_seeds.json",
+      "originalSHA256": "50380e1cf99ac961d33b3e398550bf17bfaeb76cdf92e14ad5705c7d65b4105b",
+      "archivedSHA256": "50380e1cf99ac961d33b3e398550bf17bfaeb76cdf92e14ad5705c7d65b4105b",
+      "originalBytes": 91001,
+      "archivedBytes": 91001,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/scattered_seeds.cjs",
+      "archivedPath": "chasm_gap/scattered_seeds.cjs",
+      "originalSHA256": "64e5334e3436481892d3d4c2d18d495dedcbba3cc6e733b0f85d9e4c56c94c60",
+      "archivedSHA256": "5ea233fbbdb9cd30516beb6a942db5aefaee160d6e55665f8a24318928f8f5a0",
+      "originalBytes": 3459,
+      "archivedBytes": 3676,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','chasm_gap');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "writeFileSync original temporary output)",
+          "to": "writeFileSync(reviewOutputDir output)",
+          "matches": 2
+        },
+        {
+          "from": "require(path.join(E.root,'tools/audit_protagonist_v01618.cjs'))",
+          "to": "require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/scattered_seeds.cjs",
+      "archivedPath": "original_scripts/chasm_gap/scattered_seeds.cjs.gz",
+      "originalSHA256": "64e5334e3436481892d3d4c2d18d495dedcbba3cc6e733b0f85d9e4c56c94c60",
+      "archivedSHA256": "d2b3d2b69b8af36ca607f528ab32bfc17cb14103038341235e94fb932d5fc29f",
+      "originalBytes": 3459,
+      "archivedBytes": 1547,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/scattered_seeds.json",
+      "archivedPath": "chasm_gap/scattered_seeds.json",
+      "originalSHA256": "773011456d6e6295c77863749f75dcf06ba739151e3135fe63bf2204ff2ce78a",
+      "archivedSHA256": "773011456d6e6295c77863749f75dcf06ba739151e3135fe63bf2204ff2ce78a",
+      "originalBytes": 26577,
+      "archivedBytes": 26577,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/run_campaigns.py",
+      "archivedPath": "chasm_gap/run_campaigns.py",
+      "originalSHA256": "baa346b4a51b52d58abfd258f9dfdae13a954e51a110fbf1edbe2a1464e0ba1d",
+      "archivedSHA256": "c4a4ec77a6fa4fde4e9e7c1e43aef3083ee792cd7b293775e358866fd8755bd1",
+      "originalBytes": 578,
+      "archivedBytes": 843,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "imports",
+          "to": "add os/tempfile for portable data/output path",
+          "matches": 1
+        },
+        {
+          "from": "p=pathlib.Path('/tmp/crpg_reaction_plan/chasm_gap')",
+          "to": "script_dir=pathlib.Path(__file__).resolve().parent\np=pathlib.Path(os.environ.get('CRPG_AUDIT_DATA',os.environ.get('CRPG_AUDIT_OUT',pathlib.Path(tempfile.gettempdir())/'crpg-reaction-healer-review/chasm_gap')))\np.mkdir(parents=True,exist_ok=True)",
+          "matches": 1
+        },
+        {
+          "from": "str(p/'campaign.cjs')",
+          "to": "str(script_dir/'campaign.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "stdout=f,stderr=subprocess.STDOUT",
+          "to": "stdout=f,stderr=subprocess.STDOUT,env={**os.environ,'CRPG_AUDIT_OUT':str(p)}",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/run_campaigns.py",
+      "archivedPath": "original_scripts/chasm_gap/run_campaigns.py.gz",
+      "originalSHA256": "baa346b4a51b52d58abfd258f9dfdae13a954e51a110fbf1edbe2a1464e0ba1d",
+      "archivedSHA256": "df7311dedf7c2ab61592a5643d8a40b3ee9ee9b92b4425eae326560f4707de9d",
+      "originalBytes": 578,
+      "archivedBytes": 406,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/summarize.py",
+      "archivedPath": "chasm_gap/summarize.py",
+      "originalSHA256": "941dec826b410558bb4fb52a2a891bba58e0a593d141dc423016825da193d593",
+      "archivedSHA256": "81987e84191252e716231ba631edd137985ca57948341ffc74674d859eeac20f",
+      "originalBytes": 4874,
+      "archivedBytes": 5087,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "imports",
+          "to": "add os/tempfile for portable data/output path",
+          "matches": 1
+        },
+        {
+          "from": "p=pathlib.Path('/tmp/crpg_reaction_plan/chasm_gap')",
+          "to": "script_dir=pathlib.Path(__file__).resolve().parent\np=pathlib.Path(os.environ.get('CRPG_AUDIT_DATA',os.environ.get('CRPG_AUDIT_OUT',pathlib.Path(tempfile.gettempdir())/'crpg-reaction-healer-review/chasm_gap')))\np.mkdir(parents=True,exist_ok=True)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/summarize.py",
+      "archivedPath": "original_scripts/chasm_gap/summarize.py.gz",
+      "originalSHA256": "941dec826b410558bb4fb52a2a891bba58e0a593d141dc423016825da193d593",
+      "archivedSHA256": "dd6b7b381006ae1307a902632b844f10d66a06b9dd9ce2218c0ecc409b363451",
+      "originalBytes": 4874,
+      "archivedBytes": 2072,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/two_enemy_snapshot.py",
+      "archivedPath": "chasm_gap/two_enemy_snapshot.py",
+      "originalSHA256": "d25ce1233a6be61241e747de500de402ca78a405a218f1a82c398a7ae0f936db",
+      "archivedSHA256": "fdf6d01bc2621d9f6a3fa9a3ee627cb28b449e0c697ad364c2fc6b0f87a51e87",
+      "originalBytes": 3200,
+      "archivedBytes": 3413,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "imports",
+          "to": "add os/tempfile for portable data/output path",
+          "matches": 1
+        },
+        {
+          "from": "p=pathlib.Path('/tmp/crpg_reaction_plan/chasm_gap')",
+          "to": "script_dir=pathlib.Path(__file__).resolve().parent\np=pathlib.Path(os.environ.get('CRPG_AUDIT_DATA',os.environ.get('CRPG_AUDIT_OUT',pathlib.Path(tempfile.gettempdir())/'crpg-reaction-healer-review/chasm_gap')))\np.mkdir(parents=True,exist_ok=True)",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/two_enemy_snapshot.py",
+      "archivedPath": "original_scripts/chasm_gap/two_enemy_snapshot.py.gz",
+      "originalSHA256": "d25ce1233a6be61241e747de500de402ca78a405a218f1a82c398a7ae0f936db",
+      "archivedSHA256": "4cee4dba31979fedcbe12c8f10f2b4c14c17ede2d907e7ff0ecb0a266a4a94b4",
+      "originalBytes": 3200,
+      "archivedBytes": 1470,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/two_enemy_snapshot.json",
+      "archivedPath": "chasm_gap/two_enemy_snapshot.json",
+      "originalSHA256": "f41001a68df6a23d2c00e8660b21e61ba3d3fde6b347672d16dbdcc9d44986c3",
+      "archivedSHA256": "f41001a68df6a23d2c00e8660b21e61ba3d3fde6b347672d16dbdcc9d44986c3",
+      "originalBytes": 19586,
+      "archivedBytes": 19586,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/product_unchanged.json",
+      "archivedPath": "chasm_gap/product_unchanged.json",
+      "originalSHA256": "51eb3ebcaeb1cbd8bdbc1b424d8ab37a588add344dd4ba83e4c5e8603fce469d",
+      "archivedSHA256": "51eb3ebcaeb1cbd8bdbc1b424d8ab37a588add344dd4ba83e4c5e8603fce469d",
+      "originalBytes": 54610,
+      "archivedBytes": 54610,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/native_all.json.gz",
+      "archivedPath": "chasm_gap/native_all.json.gz",
+      "originalSHA256": "b3ead5e1583ae3270e3f299b073e68ca724799ec7eac92f00c33bd93dbfafe3f",
+      "archivedSHA256": "b3ead5e1583ae3270e3f299b073e68ca724799ec7eac92f00c33bd93dbfafe3f",
+      "originalBytes": 2695065,
+      "archivedBytes": 2695065,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/summary.json",
+      "archivedPath": "chasm_gap/summary.json.gz",
+      "originalSHA256": "3191f826d7b214796077288d9995d6a4e16c58d14f25c431504a48bd355dc10d",
+      "archivedSHA256": "08b1974ed30426f13b1c9a32ad72c51977c2d8e20fcf8b269bafc99198bda875",
+      "originalBytes": 1857472,
+      "archivedBytes": 54842,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/manifest.json",
+      "archivedPath": "chasm_gap/manifest.json",
+      "originalSHA256": "a049004f4ac0ea9213caf7d23c6a8b0a8744fe527cf626efc9d79625400a84fd",
+      "archivedSHA256": "a049004f4ac0ea9213caf7d23c6a8b0a8744fe527cf626efc9d79625400a84fd",
+      "originalBytes": 5828,
+      "archivedBytes": 5828,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/rarity_growth/REVIEW_KO.md",
+      "archivedPath": "rarity_growth/REVIEW_KO.md",
+      "originalSHA256": "665ec011ba9d30010689d36d6b73a146b105d8f2e7eee7cb38a4404f59bf5eef",
+      "archivedSHA256": "665ec011ba9d30010689d36d6b73a146b105d8f2e7eee7cb38a4404f59bf5eef",
+      "originalBytes": 10185,
+      "archivedBytes": 10185,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/rarity_growth/observation.json",
+      "archivedPath": "rarity_growth/observation.json",
+      "originalSHA256": "178fb92352079e3d4b6353703f66dde07c6979196829652ba2fdefce4529842c",
+      "archivedSHA256": "178fb92352079e3d4b6353703f66dde07c6979196829652ba2fdefce4529842c",
+      "originalBytes": 491755,
+      "archivedBytes": 491755,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/rarity_growth/observe.cjs",
+      "archivedPath": "rarity_growth/observe.cjs",
+      "originalSHA256": "607e8a263625228484c3a8824fe239516d88634da0224bb089cfea41ab356bed",
+      "archivedSHA256": "0e3b0d3120727aa9df1929273451bc6e5661ef559a0f7eaa87c575432c216eee",
+      "originalBytes": 7892,
+      "archivedBytes": 8094,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','rarity_growth');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "require(path.join(ROOT,'tools/audit_protagonist_v01618.cjs'))",
+          "to": "require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "ROOT=require('node:path').resolve(__dirname,'../../../..')",
+          "to": "ROOT=(process.env.CRPG_AUDIT_ROOT||require('node:path').resolve(__dirname,'../../../..'))",
+          "matches": 1
+        },
+        {
+          "from": "OUT='/tmp/crpg_reaction_plan/rarity_growth'",
+          "to": "OUT=reviewOutputDir",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/rarity_growth/observe.cjs",
+      "archivedPath": "original_scripts/rarity_growth/observe.cjs.gz",
+      "originalSHA256": "607e8a263625228484c3a8824fe239516d88634da0224bb089cfea41ab356bed",
+      "archivedSHA256": "8ee064ee553882ed601937c0de4cadaf5a3636b978bcac26986f50a145efb3f5",
+      "originalBytes": 7892,
+      "archivedBytes": 3262,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/rarity_growth/supplement.cjs",
+      "archivedPath": "rarity_growth/supplement.cjs",
+      "originalSHA256": "cad0eeabb2552eee5323bb258074c1fbe0fe59fd57e71ef9e28359763b8148c5",
+      "archivedSHA256": "6d1d107156a2c41515b813e995ae7776b9b805a48b7ecfd1cef2cf064d731383",
+      "originalBytes": 3332,
+      "archivedBytes": 3534,
+      "compression": null,
+      "pathOnlyChanges": [
+        {
+          "from": "'/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg'",
+          "to": "require('node:path').resolve(__dirname,'../../../..')",
+          "matches": 1
+        },
+        {
+          "from": "'use strict';",
+          "to": "'use strict';\nconst reviewOutputDir=process.env.CRPG_AUDIT_OUT||require('node:path').join(require('node:os').tmpdir(),'crpg-reaction-healer-review','rarity_growth');require('node:fs').mkdirSync(reviewOutputDir,{recursive:true});\n",
+          "matches": 1
+        },
+        {
+          "from": "require(path.join(ROOT,'tools/audit_protagonist_v01618.cjs'))",
+          "to": "require('../helpers/audit_protagonist_v01618.cjs')",
+          "matches": 1
+        },
+        {
+          "from": "ROOT=require('node:path').resolve(__dirname,'../../../..')",
+          "to": "ROOT=(process.env.CRPG_AUDIT_ROOT||require('node:path').resolve(__dirname,'../../../..'))",
+          "matches": 1
+        },
+        {
+          "from": "OUT='/tmp/crpg_reaction_plan/rarity_growth'",
+          "to": "OUT=reviewOutputDir",
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/rarity_growth/supplement.cjs",
+      "archivedPath": "original_scripts/rarity_growth/supplement.cjs.gz",
+      "originalSHA256": "cad0eeabb2552eee5323bb258074c1fbe0fe59fd57e71ef9e28359763b8148c5",
+      "archivedSHA256": "2569ec466d9821d13f86f6be39117bd473b76f6926111fbb7d9e2f071c0c9ca2",
+      "originalBytes": 3332,
+      "archivedBytes": 1484,
+      "compression": "gzip",
+      "pathOnlyChanges": [],
+      "purpose": "Unmodified original execution/analysis script source; decompressed SHA is originalSHA256."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/rarity_growth/sourcehash.json",
+      "archivedPath": "rarity_growth/sourcehash.json",
+      "originalSHA256": "2396d51c2603a3647e75e34bb6044fa6df020a59d35734c88d03e80e37edee35",
+      "archivedSHA256": "2396d51c2603a3647e75e34bb6044fa6df020a59d35734c88d03e80e37edee35",
+      "originalBytes": 2654,
+      "archivedBytes": 2654,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap_evidence_qa.json",
+      "archivedPath": "chasm_gap/evidence_qa.json",
+      "originalSHA256": "a058f452e12dfbc94e8152726d49d3f9bf352a255971678f615da5c5ff48871b",
+      "archivedSHA256": "a058f452e12dfbc94e8152726d49d3f9bf352a255971678f615da5c5ff48871b",
+      "originalBytes": 72528,
+      "archivedBytes": 72528,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap_readonly_qa.py",
+      "archivedPath": "original_scripts/chasm_gap/check_evidence_qa.py.gz",
+      "originalSHA256": "de1c4e04d3d708e9710ac53b271a7913dc9f1cc3a8cfcb6907f993801dc59923",
+      "archivedSHA256": "61b122b995bd1dacbd56ab28f1462cceffc9e1561a88c9ac195f922d32705c28",
+      "originalBytes": 11552,
+      "archivedBytes": 4590,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/rarity_growth_evidence_qa.json",
+      "archivedPath": "rarity_growth/evidence_qa.json",
+      "originalSHA256": "54db9f73bf900c55a4ce5b984a3084bf7ef829d934d4771857804978d00ee169",
+      "archivedSHA256": "54db9f73bf900c55a4ce5b984a3084bf7ef829d934d4771857804978d00ee169",
+      "originalBytes": 58155,
+      "archivedBytes": 58155,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/rarity_growth_qa.py",
+      "archivedPath": "original_scripts/rarity_growth/check_evidence_qa.py.gz",
+      "originalSHA256": "b5e174bc81b7a7d60ed9625095d37768b24ddeb576117ff1a17515c5b866ac78",
+      "archivedSHA256": "9f9515124324cf0c2a8718baae68467c7b3df0433704625d5d8bc9b2052f1c95",
+      "originalBytes": 12868,
+      "archivedBytes": 5513,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/portable_chasm_recompute_qa.json",
+      "archivedPath": "portable_validation/chasm_recomputed_qa.json",
+      "originalSHA256": "61d62d1c0d257f50bd38129f9f79abde436fd233b869ca0e4992ce6c261a4a71",
+      "archivedSHA256": "61d62d1c0d257f50bd38129f9f79abde436fd233b869ca0e4992ce6c261a4a71",
+      "originalBytes": 1097,
+      "archivedBytes": 1097,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/two_cited_metrics_qa.json",
+      "archivedPath": "chasm_gap/two_cited_metrics_qa.json",
+      "originalSHA256": "b766bd7203636163476e4fb6b1bb99cab38fd3680b13e3533dfbaefbf449ba8d",
+      "archivedSHA256": "b766bd7203636163476e4fb6b1bb99cab38fd3680b13e3533dfbaefbf449ba8d",
+      "originalBytes": 25827,
+      "archivedBytes": 25827,
+      "compression": null,
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/two_cited_metrics_readonly_qa.py",
+      "archivedPath": "original_scripts/chasm_gap/two_cited_metrics_readonly_qa.py.gz",
+      "originalSHA256": "929a10bd13f38f298ccfe14820565769fe621d869772cc8d152f7ad7ae1966a0",
+      "archivedSHA256": "4775d80eb900eb3fa236bfb7b510c1f1af469a08047289cf67d547b5a301f456",
+      "originalBytes": 12995,
+      "archivedBytes": 4306,
+      "compression": "gzip",
+      "pathOnlyChanges": []
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/archive_final_qa.json",
+      "archivedPath": "portable_validation/archive_final_qa.json",
+      "originalSHA256": "cc483daf79dc8ae42dc2bdc91c02d27388f9318082c16cf51261c11191504520",
+      "archivedSHA256": "cc483daf79dc8ae42dc2bdc91c02d27388f9318082c16cf51261c11191504520",
+      "originalBytes": 1083,
+      "archivedBytes": 1083,
+      "compression": null,
+      "pathOnlyChanges": []
+    }
+  ],
+  "generatedFiles": [
+    {
+      "path": "unpack_campaigns.py",
+      "sha256": "2964abc9758290adc235495d99a3072c8dd8db54de51e1c50e9f5ffc33e7152c"
+    },
+    {
+      "path": "verify_archive.py",
+      "sha256": "5820cd975cce8c8d34c61b32e9fd0f10269c141dcf22ce3f814da3fc97089c2c"
+    },
+    {
+      "path": "field_boss_mechanics/README_KO.md",
+      "sha256": "88e828e4f2469081d9f51796d8f0d171eaaccb01b06591d16cedb9223f0c1906"
+    },
+    {
+      "path": "field_boss_repeat/README_KO.md",
+      "sha256": "1d73b5c5ca8e39fc7480ee56a867dcbcff3b6edf554d15b8f286334584c3fbf9"
+    },
+    {
+      "path": "chasm_gap/unpack_campaign_inputs.py",
+      "sha256": "1f808e925be59026f9abeac5de2771ad4b8c0cf38584e3525775f4a220d1238d"
+    },
+    {
+      "path": "rarity_growth/README_KO.md",
+      "sha256": "97fb8ff94c461ac2a8f15a760b6be2c4df7a0a5127e749c40e21d54717d92fd6"
+    },
+    {
+      "path": "README_KO.md",
+      "sha256": "dcf199d067eef7af5d4147089e78385accd27deeee8ddaea9ec4f6ff2f5ce7b8"
+    },
+    {
+      "path": "chasm_gap/README_KO.md",
+      "sha256": "9a7018913f046a1621133ad11b5fff171c1dc37a9ab43a2303846d54456aaf33"
+    }
+  ],
+  "validation": {
+    "nodeSyntax": [
+      {
+        "path": "dendro/campaign.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "dendro/edges.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "dendro/probe.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/isolated.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/native_helper.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/native_repeat.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/native_repeat_broad.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/native_repeat_cause.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "helpers/audit_protagonist_v01618.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "native_roles/canon_edge_probes.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "native_roles/control_grace_native_whopper.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "native_roles/ec_early_failed.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "native_roles/enemy_shield_packet_probe.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "native_roles/native_cast_paths.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "native_roles/probe.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "barbara_late/vm_sources/BARBARA_LATE_Q003_E001/runtime_combat.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "barbara_late/vm_sources/BARBARA_LATE_Q003_E001/runtime_rules.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "barbara_late/vm_sources/BARBARA_LATE_Q005_E0015/runtime_combat.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "barbara_late/vm_sources/BARBARA_LATE_Q005_E0015/runtime_rules.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "barbara_late/vm_sources/BARBARA_LATE_Q008_E0015/runtime_combat.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "barbara_late/vm_sources/BARBARA_LATE_Q008_E0015/runtime_rules.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/JEAN_LATE_Q010_F002/runtime_combat.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/JEAN_LATE_Q010_F002/runtime_rules.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/JEAN_Q020_F003/runtime_combat.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/JEAN_Q020_F003/runtime_rules.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/JEAN_Q030_F004/runtime_combat.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/JEAN_Q030_F004/runtime_rules.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/JEAN_ZERO_COUNTERFACTUAL/runtime_combat.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/JEAN_ZERO_COUNTERFACTUAL/runtime_rules.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/LOW/runtime_combat.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/LOW/runtime_rules.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/MID/runtime_combat.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/MID/runtime_rules.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/MILD/runtime_combat.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "healer_candidates/vm_sources/MILD/runtime_rules.js",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "field_boss_mechanics/growth_curve.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "field_boss_mechanics/probe.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "field_boss_repeat/audit.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "field_boss_repeat/audit_c6.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "chasm_gap/campaign.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "chasm_gap/catalog.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "chasm_gap/routes_and_seeds.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "chasm_gap/scattered_seeds.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "rarity_growth/observe.cjs",
+        "exitCode": 0,
+        "message": ""
+      },
+      {
+        "path": "rarity_growth/supplement.cjs",
+        "exitCode": 0,
+        "message": ""
+      }
+    ],
+    "pythonSyntax": [
+      "check_evidence_qa.py",
+      "check_supplement_evidence_qa.py",
+      "healer_candidates/aggregate.py",
+      "healer_candidates/cause_summary.py",
+      "unpack_campaigns.py",
+      "verify_archive.py",
+      {
+        "path": "field_boss_repeat/aggregate.py",
+        "passed": true
+      },
+      {
+        "path": "field_boss_repeat/aggregate_c6.py",
+        "passed": true
+      },
+      {
+        "path": "chasm_gap/run_campaigns.py",
+        "passed": true
+      },
+      {
+        "path": "chasm_gap/summarize.py",
+        "passed": true
+      },
+      {
+        "path": "chasm_gap/two_enemy_snapshot.py",
+        "passed": true
+      },
+      {
+        "path": "chasm_gap/unpack_campaign_inputs.py",
+        "passed": true
+      }
+    ],
+    "localRequireDependencies": [
+      {
+        "script": "healer_candidates/native_repeat_broad.cjs",
+        "relativeRequire": "./native_helper.cjs",
+        "exists": true
+      },
+      {
+        "script": "healer_candidates/native_repeat.cjs",
+        "relativeRequire": "./native_helper.cjs",
+        "exists": true
+      },
+      {
+        "script": "healer_candidates/native_repeat_cause.cjs",
+        "relativeRequire": "./native_helper.cjs",
+        "exists": true
+      },
+      {
+        "script": "healer_candidates/isolated.cjs",
+        "relativeRequire": "./native_helper.cjs",
+        "exists": true
+      },
+      {
+        "script": "native_roles/probe.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "native_roles/canon_edge_probes.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "native_roles/native_cast_paths.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "native_roles/ec_early_failed.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "native_roles/enemy_shield_packet_probe.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "native_roles/control_grace_native_whopper.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "dendro/probe.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "dendro/campaign.cjs",
+        "relativeRequire": "./probe.cjs",
+        "exists": true
+      },
+      {
+        "script": "dendro/campaign.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "dendro/edges.cjs",
+        "relativeRequire": "./probe.cjs",
+        "exists": true
+      },
+      {
+        "script": "field_boss_mechanics/growth_curve.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "field_boss_mechanics/probe.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "field_boss_repeat/audit.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "field_boss_repeat/audit_c6.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "chasm_gap/campaign.cjs",
+        "relativeRequire": "../dendro/probe.cjs",
+        "exists": true
+      },
+      {
+        "script": "chasm_gap/campaign.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "chasm_gap/catalog.cjs",
+        "relativeRequire": "../dendro/probe.cjs",
+        "exists": true
+      },
+      {
+        "script": "chasm_gap/catalog.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "chasm_gap/routes_and_seeds.cjs",
+        "relativeRequire": "../dendro/probe.cjs",
+        "exists": true
+      },
+      {
+        "script": "chasm_gap/routes_and_seeds.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "chasm_gap/scattered_seeds.cjs",
+        "relativeRequire": "../dendro/probe.cjs",
+        "exists": true
+      },
+      {
+        "script": "chasm_gap/scattered_seeds.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "rarity_growth/observe.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      },
+      {
+        "script": "rarity_growth/supplement.cjs",
+        "relativeRequire": "../helpers/audit_protagonist_v01618.cjs",
+        "exists": true
+      }
+    ],
+    "portableChasmRecompute": {
+      "passed": true,
+      "scope": "Portable copy data-only recomputation using preserved native aggregate; no new battle experiment",
+      "conditionFiles": 10,
+      "conditions": 160,
+      "fights": 257,
+      "wins": 128,
+      "losses": 129,
+      "comparisons": [
+        {
+          "name": "summary.json",
+          "sameBytes": true,
+          "sameJson": true,
+          "originalSha256": "3191f826d7b214796077288d9995d6a4e16c58d14f25c431504a48bd355dc10d",
+          "recomputedSha256": "3191f826d7b214796077288d9995d6a4e16c58d14f25c431504a48bd355dc10d"
+        },
+        {
+          "name": "native_all.json.gz",
+          "sameBytes": true,
+          "sameJson": true,
+          "originalSha256": "b3ead5e1583ae3270e3f299b073e68ca724799ec7eac92f00c33bd93dbfafe3f",
+          "recomputedSha256": "b3ead5e1583ae3270e3f299b073e68ca724799ec7eac92f00c33bd93dbfafe3f"
+        },
+        {
+          "name": "two_enemy_snapshot.json",
+          "sameBytes": true,
+          "sameJson": true,
+          "originalSha256": "f41001a68df6a23d2c00e8660b21e61ba3d3fde6b347672d16dbdcc9d44986c3",
+          "recomputedSha256": "f41001a68df6a23d2c00e8660b21e61ba3d3fde6b347672d16dbdcc9d44986c3"
+        }
+      ]
+    },
+    "twoCitedMetricChecks": {
+      "passed": true,
+      "checks": 39,
+      "executionSamplesAdded": 0,
+      "path": "chasm_gap/two_cited_metrics_qa.json"
+    },
+    "finalArchiveQa": "portable_validation/archive_final_qa.json"
+  },
+  "excluded": "Redundant large per-campaign individual raw JSON, transient partials and most orchestration logs; final compressed aggregates retain native evidence. Initial/superseded fixtures are explicitly marked where preserved.",
+  "lastExtendedUTC": "2026-10-09T16:14:58.677623+00:00",
+  "excludedSourceFiles": [
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/e3.json",
+      "bytes": 75549375,
+      "mtime_ns": 1791560271839096304,
+      "sha256": "d1af0e95ce88dfc5117e1d022e71903c17b844248d7315ebd2c2bb81b1c59a1c",
+      "reason": "Redundant large individual raw input; final compressed native aggregate and original QA preserve all conditions. Aggregate adds corrected packet fields and is not a byte-for-byte raw input restoration."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/e6.json",
+      "bytes": 75639537,
+      "mtime_ns": 1791560271791095296,
+      "sha256": "f31a5f36f39c55c608342c2dde3295156e66b50449709fa0f9703fb10b4b7503",
+      "reason": "Redundant large individual raw input; final compressed native aggregate and original QA preserve all conditions. Aggregate adds corrected packet fields and is not a byte-for-byte raw input restoration."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/c6_e3.json",
+      "bytes": 10222583,
+      "mtime_ns": 1791560937273301784,
+      "sha256": "8f4407864fe98f314dbb7dcb66896fcc276a3c298b8f2bf277f0a773e975e274",
+      "reason": "Redundant large individual raw input; final compressed native aggregate and original QA preserve all conditions. Aggregate adds corrected packet fields and is not a byte-for-byte raw input restoration."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/field_boss_repeat/c6_e6.json",
+      "bytes": 10170867,
+      "mtime_ns": 1791560955013683084,
+      "sha256": "208ad50b6b6b0b4c9d6c35257abbd676aad6fec9882be636f853c87202ec71a9",
+      "reason": "Redundant large individual raw input; final compressed native aggregate and original QA preserve all conditions. Aggregate adds corrected packet fields and is not a byte-for-byte raw input restoration."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_10_extra10.json.gz",
+      "bytes": 107449,
+      "mtime_ns": 1791561222391338612,
+      "sha256": "bead3560f24a5a530338b01e056b3943153b8621001dd1115dba57f058459218",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_10_extra10_summary.json",
+      "bytes": 112782,
+      "mtime_ns": 1791561222395338685,
+      "sha256": "d30dada42b87d3b17a466f2cb8fa8241331ff72602777e3c678df943aff766b2",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_10_native_extra.json.gz",
+      "bytes": 150986,
+      "mtime_ns": 1791561315145231589,
+      "sha256": "58b46fbaab71019b74b3f53247e3562f4df98e2cda554b6225cab59d37c23cf5",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_10_native_extra_summary.json",
+      "bytes": 167546,
+      "mtime_ns": 1791561315145231589,
+      "sha256": "ff56b2ca19567c4419f8ffb3716bdc24bcffad8642ecf1ce9b05bda30702e5c3",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_3.json.gz",
+      "bytes": 785444,
+      "mtime_ns": 1791561092580632199,
+      "sha256": "02fcfd54a9e1a7f671ea3f914ff0d22f575eba878fcebcf7046191b25e3a8d67",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_3_pilot.json.gz",
+      "bytes": 23467,
+      "mtime_ns": 1791560963741871029,
+      "sha256": "1aecdaf5158924da3f8d5688f0136c49b007b4682e715c90fc2b35fc6126d40d",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_3_pilot_summary.json",
+      "bytes": 32219,
+      "mtime_ns": 1791560963741871029,
+      "sha256": "08c2081d4ace99cd7c5d5484219b42139a0a67d133725f8a42da7ed355e1e84e",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_3_summary.json",
+      "bytes": 776025,
+      "mtime_ns": 1791561092588632370,
+      "sha256": "a35209b97122e132a9bd1a87ab7171012e46d2ab1fce3aaa73e37477a8214fc5",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_6.json.gz",
+      "bytes": 765193,
+      "mtime_ns": 1791561091580610778,
+      "sha256": "c53f13a433d33db4bf6b7831d3e9e5418be2bdc3ff60ee5a5192c843da24e1f7",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_6_fourC6.json.gz",
+      "bytes": 58777,
+      "mtime_ns": 1791561369946371266,
+      "sha256": "2462d1fe404135c2bd514ad0ca918c252d083807925e428c46b84d9525fc8951",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_6_fourC6_summary.json",
+      "bytes": 96008,
+      "mtime_ns": 1791561369950371348,
+      "sha256": "8f166abfe078ac2236e2465662af0572a153b9e60cbfc5cc11b5a48646010159",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_6_native_extra.json.gz",
+      "bytes": 150199,
+      "mtime_ns": 1791561314709222639,
+      "sha256": "02faf829ae989fd6bb7bd0c94d0dc700b4f3a5266952231bb25420c3443db12d",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_6_native_extra_summary.json",
+      "bytes": 174283,
+      "mtime_ns": 1791561314713222721,
+      "sha256": "6d9dfda2dfd0db1df305c2cde98aff447827cc1bb00a982df093bafb1f7ff575",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_DEEP_6_summary.json",
+      "bytes": 774854,
+      "mtime_ns": 1791561091588610949,
+      "sha256": "c5d3ff6e34fbb758a30a2fee717ef68ed3d11a3e9b49d2a0d04c88d4c17fb4b7",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_SURFACE_3.json.gz",
+      "bytes": 191668,
+      "mtime_ns": 1791561114653104998,
+      "sha256": "3411df2a4bec52c7cbfbf55a734033f0e1b981095a6d5decdaf60dd40aadd18c",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_SURFACE_3_summary.json",
+      "bytes": 311069,
+      "mtime_ns": 1791561114657105083,
+      "sha256": "b2a7fb4e19fe960d23791bbc8138e8e8edc2c4536b3478c0ce1f3b23babaebfb",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_SURFACE_6.json.gz",
+      "bytes": 186041,
+      "mtime_ns": 1791561115801129602,
+      "sha256": "724cd386c7ce97317d278bf3e64e934d9f1a843285b7021279d2eeb8b531b0ca",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_CHASM_SURFACE_6_summary.json",
+      "bytes": 305902,
+      "mtime_ns": 1791561115805129686,
+      "sha256": "1caeb80216ebab4b3dca72ff4fd8125852f043e71373e78e9759384d1df23843",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_LY_DETAIL_CHASM_GATE_3.json.gz",
+      "bytes": 204815,
+      "mtime_ns": 1791561137417592762,
+      "sha256": "7e3346509cb12d65d44f3e77225963f1b2d5a7e6c8e14f1c354a7a5dd45965a6",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_LY_DETAIL_CHASM_GATE_3_summary.json",
+      "bytes": 326433,
+      "mtime_ns": 1791561137421592848,
+      "sha256": "9e66f7eef86de7228b2a6c73e65554f6a74b851e85ad6be02291ca25c7bf7dd0",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_LY_DETAIL_CHASM_GATE_6.json.gz",
+      "bytes": 196728,
+      "mtime_ns": 1791561138465615214,
+      "sha256": "fb09d290162bac959ad6aa4d892a17ebd4949cd56fa8124a88a55fc051c42f9f",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    },
+    {
+      "sourcePath": "/tmp/crpg_reaction_plan/chasm_gap/campaign_MAP_LY_DETAIL_CHASM_GATE_6_summary.json",
+      "bytes": 322205,
+      "mtime_ns": 1791561138469615299,
+      "sha256": "a16aa5c6adb2012eb346ec521a82c38c1d7d6d8474ea7e58d8f07bccec8cf8e2",
+      "reason": "Redundant individual native campaign or summary. Final aggregate retains completed native condition values; pilot excluded from completed execution counts."
+    }
+  ]
+}

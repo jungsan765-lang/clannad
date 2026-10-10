@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "name": "the actual static fighter row shows max ally pool and sum enemy pools in the existing meter",
+      "ok": true,
+      "evidence": [
+        {
+          "label": "보호막",
+          "value": 400,
+          "max": 500
+        },
+        {
+          "label": "보호막",
+          "value": 700,
+          "max": 900
+        }
+      ]
+    },
+    {
+      "name": "the actual animation state update retains max ally and sum enemy meter values",
+      "ok": true,
+      "evidence": [
+        {
+          "id": "ALLY",
+          "value": 400,
+          "max": 500
+        },
+        {
+          "id": "ENEMY",
+          "value": 700,
+          "max": 900
+        }
+      ]
+    },
+    {
+      "name": "the actual packet update never briefly writes the summed ally after-pool when native snapshots exist",
+      "ok": true,
+      "evidence": [
+        {
+          "id": "ALLY",
+          "value": 300,
+          "max": 500
+        },
+        {
+          "id": "ALLY",
+          "value": 300,
+          "max": 500
+        }
+      ]
+    },
+    {
+      "name": "the actual enemy packet update still shows the authored sequential barrier sum",
+      "ok": true,
+      "evidence": [
+        {
+          "id": "ENEMY",
+          "value": 500,
+          "max": 900
+        },
+        {
+          "id": "ENEMY",
+          "value": 500,
+          "max": 900
+        }
+      ]
+    }
+  ]
+}

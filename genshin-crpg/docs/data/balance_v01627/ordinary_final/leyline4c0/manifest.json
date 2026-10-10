@@ -1,0 +1,23 @@
+[
+  {
+    "batch": 1,
+    "file": "batch_01.json.gz",
+    "rawSHA256": "419191ce680e42fc2c2bbfd2033d3d61afef247fbe97ad1eac437aee5b33f2fd",
+    "gzipSHA256": "cec5d1ba7369628a563f699c41c9a4a53de062e59cf0f0a9dba542a54b700658",
+    "runnerVariant": "original"
+  },
+  {
+    "batch": 2,
+    "file": "batch_02.json.gz",
+    "rawSHA256": "f4e4db4b25ac3c24960956ae308baea8046c5f92636e89483cd150703c7fd64a",
+    "gzipSHA256": "c9822637a4aeb041fdcdcde7c655d613e502746fde614875517aa15e334ced88",
+    "runnerVariant": "original"
+  },
+  {
+    "batch": 3,
+    "file": "batch_03.json.gz",
+    "rawSHA256": "ae41681987fb9b1855c00b23d690236c36a63521f4d3f482c5be83b7a938160e",
+    "gzipSHA256": "466d98a383a3aba57ca4646e14da51ac9222a19562d9cb4032085317871e42a3",
+    "runnerVariant": "adds observational defeatMoraPaid to ledger; native combat unchanged"
+  }
+]

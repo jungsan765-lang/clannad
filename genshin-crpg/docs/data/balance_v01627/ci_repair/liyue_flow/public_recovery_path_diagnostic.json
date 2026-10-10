@@ -1,0 +1,100 @@
+{
+  "checkpoint": true,
+  "phase": "PREPARATION",
+  "map": "MAP_OSIAL_BATTLE",
+  "prep": {
+    "group": "EG_BOSS_OSIAL",
+    "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+    "node": "TRV_LY4_OSIAL_COMBAT"
+  },
+  "allowed": {
+    "PREP_LEAVE{}": "",
+    "MENU{\"screen\":\"LOCATION\"}": "전투 준비를 마치거나 저장해 주세요.",
+    "MENU{\"screen\":\"INVENTORY\"}": "",
+    "JOURNEY_RESUME{}": "진행 중인 전투를 마쳐 주세요.",
+    "MEAL_BATCH{\"meals\":[{\"owner\":\"MOND_BARBARA\",\"item\":\"FOOD_SWEET_MADAME\"}]}": ""
+  },
+  "leave": {
+    "preparationPaused": true
+  },
+  "after": {
+    "phase": "FREE",
+    "map": "MAP_OSIAL_BATTLE",
+    "break": {
+      "node": "TRV_LY4_OSIAL_COMBAT",
+      "next": "TRV_LY4_OSIAL_COMBAT",
+      "map": "MAP_OSIAL_BATTLE",
+      "title": "결전 준비",
+      "prompt": "장비, 식사, 편성을 준비한 뒤 이 장소로 돌아오세요.",
+      "policy": ""
+    }
+  },
+  "activeEdges": [],
+  "harborRoute": null,
+  "nearestInn": [
+    {
+      "id": "EVT_SCHEDULE_MRC_LIYUE_INN",
+      "kind": "FACILITY",
+      "entity": "SERVICE_LIYUE_INN",
+      "merchant": "MRC_LIYUE_INN",
+      "name": "리월 숙박시설(시스템)",
+      "facility": "리월항",
+      "maps": [
+        "MAP_LIYUE_HARBOR"
+      ],
+      "from": 0,
+      "to": 1440,
+      "merchantMaps": [
+        "MAP_LIYUE_HARBOR"
+      ],
+      "merchantFrom": 0,
+      "merchantTo": 1440,
+      "merchantType": "여관",
+      "merchantName": "리월 숙박시설(시스템)",
+      "modes": [
+        "SHOP"
+      ]
+    }
+  ],
+  "innQuote": {
+    "cost": 869,
+    "roomCost": 24,
+    "regionalRate": 1.1666666666666667,
+    "totalLevel": 200,
+    "weightedHpLoss": 180.99793458491322,
+    "targets": [
+      {
+        "owner": "PLAYER_CUSTOM",
+        "level": 20,
+        "hp": 462306,
+        "maxHp": 486585,
+        "lostHpRatio": 0.04989672924566109,
+        "recoveryCost": 5
+      },
+      {
+        "owner": "MOND_FISCHL",
+        "level": 60,
+        "hp": 0,
+        "maxHp": 20155,
+        "lostHpRatio": 1,
+        "recoveryCost": 280
+      },
+      {
+        "owner": "LIYUE_XIANGLING",
+        "level": 60,
+        "hp": 0,
+        "maxHp": 21074,
+        "lostHpRatio": 1,
+        "recoveryCost": 280
+      },
+      {
+        "owner": "MOND_BARBARA",
+        "level": 60,
+        "hp": 0,
+        "maxHp": 20768,
+        "lostHpRatio": 1,
+        "recoveryCost": 280
+      }
+    ]
+  }
+}

@@ -1,0 +1,251 @@
+{
+  "version": "0.16.15",
+  "baseTestCommit": "443d4a2e8b8959ce15a13e7cca4a5e87863e26f8",
+  "scope": "Target-specific lodging pricing and fresh TALENT/ASCENSION fixed four-person budgets only",
+  "primarySuites": {
+    "innRecoveryPricing": {
+      "checks": 13,
+      "passed": 13,
+      "afterIntegerRoundingFix": true
+    },
+    "materialBudgets": {
+      "checks": 9,
+      "passed": 9
+    },
+    "growthLegacyAndProgression": {
+      "checks": 17,
+      "passed": 17
+    },
+    "featureBoundaries": {
+      "checks": 13,
+      "passed": 13,
+      "afterIntegerRoundingFix": true
+    }
+  },
+  "relatedRegressionPrograms": {
+    "selected": 30,
+    "passed": 29,
+    "results": [
+      {
+        "test": "tests/test_inn_recovery_pricing_v01615.cjs",
+        "ok": true,
+        "seconds": 23.6,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_material_budget_v01615.cjs",
+        "ok": true,
+        "seconds": 28.45,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_ascension_balance_v01614.cjs",
+        "ok": true,
+        "seconds": 72.68,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_ascension_efficiency_v01613.cjs",
+        "ok": true,
+        "seconds": 29.19,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_xp_pacing_v0168.cjs",
+        "ok": true,
+        "seconds": 95.8,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_growth_pacing_v0161.cjs",
+        "ok": true,
+        "seconds": 29.89,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_growth_balance_v01522.cjs",
+        "ok": true,
+        "seconds": 22.31,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_growth_online_v01522.mjs",
+        "ok": true,
+        "seconds": 15.83,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_balance_saves_v0166.cjs",
+        "ok": true,
+        "seconds": 25.35,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_food_economy_v0168.cjs",
+        "ok": true,
+        "seconds": 21.21,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_gear_effects_v0168.cjs",
+        "ok": true,
+        "seconds": 9.15,
+        "exitCode": 0
+      },
+      {
+        "test": "tools/audit_economy_v0168.cjs",
+        "ok": true,
+        "seconds": 2.15,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_task_materials_v0169.cjs",
+        "ok": true,
+        "seconds": 31.19,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_task_learning_delivery_v0169.cjs",
+        "ok": true,
+        "seconds": 24.9,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_feature_boundaries_v01513.cjs",
+        "ok": true,
+        "seconds": 90.89,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_combat_boundaries_v0168.cjs",
+        "ok": true,
+        "seconds": 24.15,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_control_reactions_v0168.cjs",
+        "ok": true,
+        "seconds": 65.37,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_defeat_settlement_v0166.cjs",
+        "ok": true,
+        "seconds": 6.74,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_coop_receipt_v0168.mjs",
+        "ok": true,
+        "seconds": 39.9,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_server_coop_retry_v0161.mjs",
+        "ok": true,
+        "seconds": 10.58,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_action_recovery.mjs",
+        "ok": true,
+        "seconds": 181.49,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_version.cjs",
+        "ok": true,
+        "seconds": 0.11,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_test_release_pin.cjs",
+        "ok": true,
+        "seconds": 0.13,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_test_release_transaction.cjs",
+        "ok": true,
+        "seconds": 15.11,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_release_isolation_v01513.cjs",
+        "ok": true,
+        "seconds": 4.82,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_release_isolation_v01513.py",
+        "ok": false,
+        "seconds": 1.07,
+        "exitCode": 1
+      },
+      {
+        "test": "tests/test_engine_identity.py",
+        "ok": true,
+        "seconds": 0.05,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_save_revision.cjs",
+        "ok": true,
+        "seconds": 33.55,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_authoritative_flow.mjs",
+        "ok": true,
+        "seconds": 8.08,
+        "exitCode": 0
+      },
+      {
+        "test": "tests/test_fixed_region_live.mjs",
+        "ok": true,
+        "seconds": 9.3,
+        "exitCode": 0
+      }
+    ],
+    "additionalGrowthProgramPassed": true,
+    "distinctProgramsTotal": 31,
+    "distinctProgramsPassed": 30
+  },
+  "postRoundingFix": {
+    "innPricing13": true,
+    "featureBoundaries13": true,
+    "generatedServerEngineIdentity": true,
+    "latestPlayerReleaseNotesIsolationCase": true,
+    "growthAndMaterialNativeVerification": "Recorded in each simulation summary; source snapshots are kept explicitly"
+  },
+  "knownLocalInputFailure": {
+    "test": "tests/test_release_isolation_v01513.py",
+    "assertion": "Authored editorial tables must have more than a header row",
+    "localRows": {
+      "28_CANON_AUDIT": 1,
+      "40_CRPG_MIGRATION_PLAN": 1
+    },
+    "reason": "Local db was recovered from the cleaned CI runtime artifact, whose editorial rows are already removed",
+    "noTestWeakenedOrDeleted": true,
+    "remoteAuthoredDbRetained": true
+  },
+  "fullCi": {
+    "configuredPrograms": 158,
+    "awaited": false,
+    "claimedPassed": false
+  },
+  "preservedRemoteObjects": {
+    "content/db.json": "cc3996929c885d41289038ff501640039a4cc71e",
+    "assets": "c8e23881af963b1eea026ba8d0e559f9df0f2181",
+    "content/asset-manifest.json": "344b801e7e7d88b86e2a36ef696baeb3e76c7d2a",
+    ".github": "73148827c0c935c6117fed401b224843225e022b"
+  },
+  "sourceSha256": {
+    "source/runtime.js": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7",
+    "source/runtime_places.js": "b18bbf96d7f0b75e93d4ad5f1afdfb0d9b7bf15ff11fc803588688071a29993a",
+    "source/app_experience.js": "921c8f99b2c57f5b1236ceb85b2ef59fb88cc92e02e207dcefc269a7031ee52e",
+    "source/runtime_growth_v01522.js": "7aec037900c70d89382d1474d340a80a14c02986c6336e8a542cd7a62caffd1c"
+  },
+  "actualVpsInstallOrPromotionExecuted": false,
+  "mainMerged": false
+}

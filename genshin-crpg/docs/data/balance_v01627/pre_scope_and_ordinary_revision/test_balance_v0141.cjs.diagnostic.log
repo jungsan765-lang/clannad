@@ -1,0 +1,42 @@
+PASS Dvalin: geared 4/4/3/3 loses, prepared level 28 party wins, five seeds each
+PASS FB_ANEMO_HYPOSTASIS: a prepared party at the boss level can win
+PASS FB_ELECTRO_HYPOSTASIS: a prepared party at the boss level can win
+PASS FB_CRYO_REGISVINE: a prepared party at the boss level can win
+PASS FB_CRYO_HYPOSTASIS: a prepared party at the boss level can win
+TRACE_GEO_FINAL {"result":{"mora":0,"rewardPolicy":"MOND_BALANCE_V1","bond":null,"id":"V011-15:B29","battleId":"V011-15:B29","saveId":"V011-15","group":"EG_FB_GEO_HYPOSTASIS","origin":"BOSS:BRT_FB_GEO_HYPOSTASIS","gate":"BOSS:BRT_FB_GEO_HYPOSTASIS","branch":null,"victory":false,"xp":0,"loot":{},"rounds":35,"result":"DEFEAT","unsupportedEffects":[],"defeatPenalty":{"mora":300,"seconds":60},"fieldBoss":{"boss":"FB_GEO_HYPOSTASIS","name":"무상의 바위","seen":["IMMUNE","ROCKFALL","UPHEAVAL","PILLARS"],"victory":false}},"actors":[{"id":"PLAYER_CUSTOM","hp":0,"maxHp":11938},{"id":"MOND_NOELLE","hp":0,"maxHp":16093},{"id":"LIYUE_NINGGUANG","hp":0,"maxHp":13458},{"id":"MOND_BENNETT","hp":0,"maxHp":15045}],"last":[{"actor":"무상의 바위","target":"베넷","damage":1678,"absorbed":0,"shieldBefore":0,"shieldAfter":0,"element":"바위","critical":false,"reaction":null,"card":"FB_ROCKFALL","sourceKind":null,"shieldDamageMultiplier":3},{"actor":"베넷","target":"무상의 바위","damage":0,"absorbed":1127,"shieldBefore":1995,"shieldAfter":868,"element":"물리","critical":false,"reaction":null,"card":null,"sourceKind":null},{"actor":"베넷","target":"베넷","heal":1170},{"actor":"무상의 바위","actorId":"FB_GEO_HYPOSTASIS#1","card":"FB_UPHEAVAL_READY","cardName":"지면 융기 준비","text":"무상의 바위이(가) 지면 융기을(를) 준비한다 · 대응: 경직 저항·중장","round":34,"actionSequence":162,"fieldBoss":true},{"actor":"베넷","target":"무상의 바위","damage":0,"absorbed":411,"shieldBefore":868,"shieldAfter":457,"element":"불","critical":false,"reaction":null,"card":"MOND_BENNETT_E","sourceKind":null},{"actor":"베넷","card":"MOND_BENNETT_E","cardName":"열정과부하"},{"actor":"무상의 바위","actorId":"FB_GEO_HYPOSTASIS#1","card":"FB_UPHEAVAL","cardName":"지면 융기","text":"지면 융기","round":35,"actionSequence":165,"fieldBoss":true},{"actor":"무상의 바위","target":"베넷","miss":true},{"target":"베넷","targetId":"MOND_BENNETT","resisted":"FB_DELAY","text":"베넷 · 경직 저항","round":35},{"actor":"무상의 바위","actorId":"FB_GEO_HYPOSTASIS#1","card":"FB_ROCKFALL","cardName":"바위 낙하","text":"바위 낙하","round":35,"actionSequence":166,"fieldBoss":true},{"actor":"무상의 바위","target":"베넷","damage":2348,"absorbed":0,"shieldBefore":0,"shieldAfter":0,"element":"바위","critical":true,"reaction":"RX_CRYSTALLIZE","card":"FB_ROCKFALL","sourceKind":null,"shieldDamageMultiplier":3},{"actor":"무상의 바위","target":"베넷","reaction":"RX_CRYSTALLIZE","reactionName":"결정","text":"결정 반응"}]}
+FAIL FB_GEO_HYPOSTASIS: a prepared party at the boss level can win
+AssertionError [ERR_ASSERTION]: the final victory actually interrupts revival
+    at geoCounterplay (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:51:178)
+    at /workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:76:737
+    at check (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:6:44)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:76:42)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+PASS FB_PYRO_REGISVINE: a prepared party at the boss level can win
+PASS FB_OCEANID: a prepared party at the boss level can win
+PASS FB_PRIMO_GEOVISHAP: a prepared party at the boss level can win
+PASS FB_RUIN_SERPENT: a prepared party at the boss level can win
+TRACE_LY_ESCORT {"result":{"mora":0,"rewardPolicy":"MOND_BALANCE_V1","bond":null,"id":"V011-20:B4","battleId":"V011-20:B4","saveId":"V011-20","group":"EG_LY_R39_ESCORT","origin":"LIYUE_FIELD:R39_FIELD_ISK_L01_B_038:0","gate":"LIYUE_FIELD:R39_FIELD_ISK_L01_B_038:0","branch":null,"victory":false,"xp":0,"loot":{},"rounds":2,"result":"DEFEAT","unsupportedEffects":[],"defeatPenalty":{"mora":300,"seconds":60}},"party":0}
+TRACE_LY_ESCORT {"result":{"mora":0,"rewardPolicy":"MOND_BALANCE_V1","bond":null,"id":"V011-21:B13","battleId":"V011-21:B13","saveId":"V011-21","group":"EG_LY_R39_ESCORT","origin":"LIYUE_FIELD:R39_FIELD_ISK_L01_B_038:0","gate":"LIYUE_FIELD:R39_FIELD_ISK_L01_B_038:0","branch":null,"victory":true,"xp":0,"loot":{},"rounds":4,"result":"VICTORY","unsupportedEffects":[]},"party":3}
+PASS Liyue ESCORT: native level 6 solo fails; regional-level equipped party survives
+TRACE_LY_DEFEND {"result":{"mora":0,"rewardPolicy":"MOND_BALANCE_V1","bond":null,"id":"V011-22:B4","battleId":"V011-22:B4","saveId":"V011-22","group":"EG_LY_R39_DEFEND","origin":"LIYUE_FIELD:R39_FIELD_ISK_L02_K1_001:1","gate":"LIYUE_FIELD:R39_FIELD_ISK_L02_K1_001:1","branch":null,"victory":false,"xp":0,"loot":{},"rounds":2,"result":"DEFEAT","unsupportedEffects":[],"defeatPenalty":{"mora":300,"seconds":60}},"party":0}
+TRACE_LY_DEFEND {"result":{"mora":0,"rewardPolicy":"MOND_BALANCE_V1","bond":null,"id":"V011-23:B13","battleId":"V011-23:B13","saveId":"V011-23","group":"EG_LY_R39_DEFEND","origin":"LIYUE_FIELD:R39_FIELD_ISK_L02_K1_001:1","gate":"LIYUE_FIELD:R39_FIELD_ISK_L02_K1_001:1","branch":null,"victory":false,"xp":0,"loot":{},"rounds":5,"result":"DEFEAT","unsupportedEffects":[],"defeatPenalty":{"mora":300,"seconds":60}},"party":3}
+FAIL Liyue DEFEND: native level 6 solo fails; regional-level equipped party survives
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+false !== true
+
+    at /workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:77:1095
+    at check (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:6:44)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tests/test_balance_v0141.cjs:77:39)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47

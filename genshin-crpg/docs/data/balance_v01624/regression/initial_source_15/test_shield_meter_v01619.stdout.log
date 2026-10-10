@@ -1,0 +1,4 @@
+PASS the actual static fighter row shows max ally pool and sum enemy pools in the existing meter
+PASS the actual animation state update retains max ally and sum enemy meter values
+PASS the actual packet update never briefly writes the summed ally after-pool when native snapshots exist
+PASS the actual enemy packet update still shows the authored sequential barrier sum

@@ -13,10 +13,11 @@ function marketItems(){
 }
 function marketComparison(box,id){
  const members=game.ownedActors().filter(x=>x.active);if(!members.some(x=>x.id===marketOwner))marketOwner='PLAYER_CUSTOM';
- const label=el('label','market-compare-label','장착할 인물과 비교'),select=el('select');select.setAttribute('aria-label','장비 비교 대상');
- for(const m of members){const opt=el('option','',ownerName(m.id));opt.value=m.id;select.append(opt);}select.value=marketOwner;label.append(select);box.append(label);const values=el('div','market-comparison');box.append(values);
- const refresh=()=>{values.replaceChildren();const preview=game.shopEquipmentPreview(id,marketOwner);if(preview.after){const table=el('dl','item-detail-fields');for(const [key,name]of [['atk','공격력'],['def','방어력'],['maxHp','최대 HP'],['crit','치명타 확률'],['spd','속도']]){const before=preview.before[key],after=preview.after[key],delta=after-before;table.append(el('dt','',name),el('dd',delta>0?'stat-up':delta<0?'stat-down':'',before+' → '+after+(delta?' ('+(delta>0?'+':'')+Math.round(delta*100)/100+')':'')));}values.append(table);}if(preview.reason)values.append(el('p','market-restriction',preview.reason));};
- select.onchange=()=>{marketOwner=select.value;refresh();};refresh();
+ // 0.15.25: whom to compare with, by face (no drop-down in the game, AGENTS.md).
+ const label=el('div','market-compare-label','장착할 인물과 비교'),select=choiceTiles({label:'장비 비교 대상',className:'face-choice',options:members.map(m=>({value:m.id,label:ownerName(m.id),icon:typeof actorPortrait==='function'?actorPortrait(m.id,'choice-face'):null})),value:marketOwner,onChange:v=>{marketOwner=v;refresh();}});
+ label.append(select);box.append(label);const values=el('div','market-comparison');box.append(values);
+ const refresh=()=>{values.replaceChildren();const preview=game.shopEquipmentPreview(id,marketOwner);if(preview.after){const table=el('dl','item-detail-fields');for(const [key,name]of [['atk','공격력'],['def','방어력'],['maxHp','최대 HP'],['crit','치명타 확률'],['spd','속도']]){const before=preview.before[key],after=preview.after[key],delta=after-before;const show=v=>Number.isFinite(v)?String(Math.round(v*10)/10):String(v);table.append(el('dt','',name),el('dd',delta>0?'stat-up':delta<0?'stat-down':'',show(before)+' → '+show(after)+(delta?' ('+(delta>0?'+':'')+show(delta)+')':'')));}values.append(table);}if(preview.reason)values.append(el('p','market-restriction',preview.reason));};
+ refresh();
 }
 function showSaleQuantity(entry){
  const box=el('div','purchase-quantity'),label=el('label','','판매 수량'),input=el('input');input.type='number';input.min='1';input.max=String(Math.min(999,entry.quantity));input.value='1';input.step='1';input.setAttribute('aria-label','판매 수량');label.append(input);
@@ -51,7 +52,7 @@ shop=function(p,v){
  p.append(el('p','muted',marketMode==='BUY'?'상품을 선택하면 효과와 장착 후 능력치를 비교할 수 있습니다.':'장착·준비 중인 장비와 임무 핵심 물품은 판매할 수 없습니다.'));
  const layout=el('div','market-layout'),grid=el('div','market-grid'),detail=el('section','card market-detail');
  for(const e of entries){const b=button('',()=>{marketSelection=e.key;render();});b.className='market-item'+(e.key===marketSelection?' selected':'')+(e.reason?' unavailable':'');b.dataset.marketKey=e.key;b.setAttribute('aria-pressed',String(e.key===marketSelection));b.setAttribute('aria-label',(e.d?.name||e.stock?.row[4])+' 상세');if(e.d)b.append(itemGlyph(e.d));b.append(e.d?tierMark(el('strong','',e.d.name),e.d):el('strong','',e.stock?.row[4]),el('span','',e.price.toLocaleString()+' 모라'));if(e.reason)b.append(el('small','market-restriction',e.reason));grid.append(b);}
- const selected=entries.find(e=>e.key===marketSelection);if(selected)marketDetail(detail,selected);else detail.append(el('p','empty',marketMode==='BUY'?'이 조건에 맞는 상품이 없습니다.':'판매할 소지품이 없습니다.'));layout.append(grid,detail);p.append(layout);contactStories(p);discoveryCards(p);
+ const selected=entries.find(e=>e.key===marketSelection);if(selected)marketDetail(detail,selected);else detail.append(el('p','empty',marketMode==='BUY'?'이 조건에 맞는 상품이 없습니다.':'가방에 판매할 물건이 없습니다.'));layout.append(grid,detail);p.append(layout);contactStories(p);discoveryCards(p);
 };
 const marketReceivedLoot=receivedLoot;
 receivedLoot=function(before,type){

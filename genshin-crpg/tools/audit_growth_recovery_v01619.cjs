@@ -1,0 +1,12 @@
+'use strict';
+// Read-only native defeat/save/recovery observation for the historical weak growth fixture.
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),A=require('./audit_growth_regression_v01619.cjs'),root=path.resolve(__dirname,'..'),env=A.load(root),team=['MOND_AMBER','MOND_KAEYA','MOND_NOELLE'],r=env.fixture([17,17,17,17],team,3),copy=x=>JSON.parse(JSON.stringify(x));
+const output=process.argv[2]||path.join(root,'docs/data/qa_v01619/growth_regression_validation/recovery_validation.json');
+Object.assign(r.s.global,{CURRENT_MAP_ID:'MAP_MOND_WOLVENDOM',SAVE_ID:'GROWTH-FEEL-22',LAST_COMMITTED_ACTION_SEQ:0});
+const battle=env.run(r,'EG_MOND_HILI_ELITE',22),hp=rt=>[rt.player(),...team.map(id=>rt.character(id))].map(a=>({id:a.id,hp:a.hp,maxHp:a.maxHp})),snapshot=rt=>({runtime:!!rt.s.runtime,map:rt.s.global.CURRENT_MAP_ID,mode:rt.s.global.MODE,screen:rt.s.global.SCREEN_MODE,phase:rt.playPhase(),mora:rt.s.global.MORA,lock:rt.defeatLockRemaining(),hp:hp(rt)}),report={schemaVersion:1,fingerprint:env.fingerprint,battle,afterDefeat:snapshot(r),errors:[],assumptions:'Same fixture/run as the historical test; wall-clock advanced inside the isolated VM only to examine the existing 60-second defeat lock. No product source or save file is modified.'};
+try{
+ const restored=new env.R(env.db,JSON.parse(r.serialize()));report.saveRestores=true;report.restoredBeforeRecovery=snapshot(restored);report.beforeLockRecoverReason=restored.actionReason('RECOVER');
+ vm.runInContext('Date.now=()=>'+(A.clock+60001),env.c);report.afterLock={snapshot:snapshot(restored),recoverReason:restored.actionReason('RECOVER')};report.recoverAction=copy(restored.action('RECOVER'));report.afterRecovery=snapshot(restored);report.fullHp=report.afterRecovery.hp.every(a=>a.hp===a.maxHp);report.noExtraMoraCost=report.afterRecovery.mora===report.afterDefeat.mora;report.freePhase=report.afterRecovery.phase==='FREE';report.safeMap=report.afterRecovery.map==='MAP_MOND_CITY';
+ if(!report.saveRestores||!report.fullHp||!report.noExtraMoraCost||!report.freePhase||!report.safeMap)throw Error('Native recovery did not restore a legal playable state');
+}catch(e){report.errors.push({message:e.message,stack:e.stack});}
+fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));if(report.errors.length)process.exitCode=1;

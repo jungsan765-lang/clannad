@@ -1,0 +1,403 @@
+{
+  "inputDrift": [],
+  "errors": [],
+  "rows": [
+    {
+      "route": "ROUTE_TRAVELER",
+      "constellation": 0,
+      "policy": "MANUAL_COUNTER",
+      "outcome": "DEFEAT",
+      "rounds": 25,
+      "hpPct": 0,
+      "revives": 0,
+      "enemyHpDamage": 39634,
+      "enemyShieldDamage": 0,
+      "healing": 15416,
+      "coreDecisions": [],
+      "guards": 8,
+      "model2xSeconds": 370.76
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "constellation": 6,
+      "policy": "MANUAL_COUNTER",
+      "outcome": "DEFEAT",
+      "rounds": 51,
+      "hpPct": 0,
+      "revives": 6,
+      "enemyHpDamage": 81011,
+      "enemyShieldDamage": 500.4000000000001,
+      "healing": 50299,
+      "coreDecisions": [
+        {
+          "round": 11,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 2,
+            "need": 4,
+            "hits": 1,
+            "startedRound": 10
+          },
+          "telegraph": null,
+          "manualReason": "CORE_WIND_SKILL_ATTEMPT",
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 11,
+              "native": true
+            }
+          ]
+        },
+        {
+          "round": 18,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 2,
+            "need": 4,
+            "hits": 0,
+            "startedRound": 17
+          },
+          "telegraph": null,
+          "manualReason": "CORE_WIND_SKILL_ATTEMPT",
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 18,
+              "native": true
+            }
+          ]
+        },
+        {
+          "round": 19,
+          "card": "PLAYER_BASIC_ATTACK",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 1,
+            "need": 4,
+            "hits": 0,
+            "startedRound": 17,
+            "lastCountdownRound": 18
+          },
+          "telegraph": {
+            "move": "BLAST",
+            "label": "한기 방출",
+            "text": "예고 후 전원 피해 + 냉기 지형 2라운드",
+            "counter": "방한 장비"
+          },
+          "manualReason": null,
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 19,
+              "native": true
+            }
+          ]
+        },
+        {
+          "round": 25,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 1,
+            "need": 4,
+            "hits": 2,
+            "startedRound": 23,
+            "lastCountdownRound": 24
+          },
+          "telegraph": {
+            "move": "BLAST",
+            "label": "한기 방출",
+            "text": "예고 후 전원 피해 + 냉기 지형 2라운드",
+            "counter": "방한 장비"
+          },
+          "manualReason": "CORE_WIND_SKILL_ATTEMPT",
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 25,
+              "native": true
+            }
+          ]
+        },
+        {
+          "round": 30,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 2,
+            "need": 4,
+            "hits": 2,
+            "startedRound": 29
+          },
+          "telegraph": null,
+          "manualReason": "CORE_WIND_SKILL_ATTEMPT",
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 30,
+              "native": true
+            }
+          ]
+        },
+        {
+          "round": 31,
+          "card": "PLAYER_BASIC_ATTACK",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 1,
+            "need": 4,
+            "hits": 2,
+            "startedRound": 29,
+            "lastCountdownRound": 30
+          },
+          "telegraph": {
+            "move": "BLAST",
+            "label": "한기 방출",
+            "text": "예고 후 전원 피해 + 냉기 지형 2라운드",
+            "counter": "방한 장비"
+          },
+          "manualReason": null,
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 31,
+              "native": true
+            }
+          ]
+        },
+        {
+          "round": 36,
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 2,
+            "need": 4,
+            "hits": 0,
+            "startedRound": 35
+          },
+          "telegraph": null,
+          "manualReason": "CORE_WIND_SKILL_ATTEMPT",
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 36,
+              "native": true
+            }
+          ]
+        },
+        {
+          "round": 37,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 1,
+            "need": 4,
+            "hits": 0,
+            "startedRound": 35,
+            "lastCountdownRound": 36
+          },
+          "telegraph": {
+            "move": "BLAST",
+            "label": "한기 방출",
+            "text": "예고 후 전원 피해 + 냉기 지형 2라운드",
+            "counter": "방한 장비"
+          },
+          "manualReason": "CORE_WIND_SKILL_ATTEMPT",
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 37,
+              "native": true
+            }
+          ]
+        },
+        {
+          "round": 43,
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 2,
+            "need": 4,
+            "hits": 0,
+            "startedRound": 43
+          },
+          "telegraph": {
+            "move": "BLAST",
+            "label": "한기 방출",
+            "text": "예고 후 전원 피해 + 냉기 지형 2라운드",
+            "counter": "방한 장비"
+          },
+          "manualReason": "CORE_WIND_SKILL_ATTEMPT",
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 43,
+              "native": true
+            }
+          ]
+        }
+      ],
+      "guards": 11,
+      "model2xSeconds": 748.43
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "constellation": 0,
+      "policy": "GENERIC",
+      "outcome": "VICTORY",
+      "rounds": 16,
+      "hpPct": 23.474236601793315,
+      "revives": 0,
+      "enemyHpDamage": 27774,
+      "enemyShieldDamage": 0,
+      "healing": 9577,
+      "coreDecisions": [],
+      "guards": 0,
+      "model2xSeconds": 269.18
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "constellation": 0,
+      "policy": "MANUAL_COUNTER",
+      "outcome": "DEFEAT",
+      "rounds": 27,
+      "hpPct": 0,
+      "revives": 0,
+      "enemyHpDamage": 40901,
+      "enemyShieldDamage": 0,
+      "healing": 17023,
+      "coreDecisions": [],
+      "guards": 10,
+      "model2xSeconds": 389.75
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "constellation": 6,
+      "policy": "GENERIC",
+      "outcome": "VICTORY",
+      "rounds": 7,
+      "hpPct": 86.00057848849221,
+      "revives": 0,
+      "enemyHpDamage": 11176,
+      "enemyShieldDamage": 0,
+      "healing": 8111,
+      "coreDecisions": [
+        {
+          "round": 6,
+          "card": "PLAYER_ISEKAI_E",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 2,
+            "need": 4,
+            "hits": 2,
+            "startedRound": 5
+          },
+          "telegraph": null,
+          "manualReason": null,
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 6,
+              "native": true
+            }
+          ]
+        },
+        {
+          "round": 7,
+          "card": "PLAYER_BASIC_ATTACK",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 1,
+            "need": 4,
+            "hits": 3,
+            "startedRound": 5,
+            "lastCountdownRound": 6
+          },
+          "telegraph": {
+            "move": "BLAST",
+            "label": "한기 방출",
+            "text": "예고 후 전원 피해 + 냉기 지형 2라운드",
+            "counter": "방한 장비"
+          },
+          "manualReason": null,
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 7,
+              "native": true
+            }
+          ]
+        }
+      ],
+      "guards": 0,
+      "model2xSeconds": 129.41
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "constellation": 6,
+      "policy": "MANUAL_COUNTER",
+      "outcome": "VICTORY",
+      "rounds": 10,
+      "hpPct": 88.11619354572126,
+      "revives": 0,
+      "enemyHpDamage": 17071,
+      "enemyShieldDamage": 0,
+      "healing": 14518,
+      "coreDecisions": [
+        {
+          "round": 10,
+          "card": "PLAYER_ISEKAI_Q",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "bossHp": 1,
+          "revival": {
+            "rounds": 2,
+            "need": 4,
+            "hits": 1,
+            "startedRound": 9
+          },
+          "telegraph": {
+            "move": "BLAST",
+            "label": "한기 방출",
+            "text": "예고 후 전원 피해 + 냉기 지형 2라운드",
+            "counter": "방한 장비"
+          },
+          "manualReason": "CORE_RESERVED_Q",
+          "bossAuras": [
+            {
+              "element": "얼음",
+              "rounds": 99,
+              "createdRound": 10,
+              "native": true
+            }
+          ]
+        }
+      ],
+      "guards": 3,
+      "model2xSeconds": 178.37
+    }
+  ]
+}

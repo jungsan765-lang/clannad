@@ -1,0 +1,28 @@
+[
+  {
+    "test": "tools/test_other_healers_v01619.cjs",
+    "testSha256": "4de0f8845b91a04ed892c81d8441111857b0870fa4702b87609c94005fd3dffd",
+    "startedAt": "2026-10-10T04:43:42.686685+00:00",
+    "seconds": 16.262,
+    "returnCode": 0,
+    "exception": null,
+    "ok": true,
+    "log": "qa_corrections/rechecks/1_test_other_healers_v01619.cjs.log.gz",
+    "logBytes": 865,
+    "logSha256": "6fb408e67f869c0db846bdc5582c9724c4008f0f9e93df6e6b59acf9b53f8496",
+    "testSha256After": "4de0f8845b91a04ed892c81d8441111857b0870fa4702b87609c94005fd3dffd"
+  },
+  {
+    "test": "tests/test_material_efficiency_v01622.cjs",
+    "testSha256": "429d6d1ea70e098bd2d6d364f1759c568d9aea2910e610619144a0767708f10f",
+    "startedAt": "2026-10-10T04:43:58.949355+00:00",
+    "seconds": 0.516,
+    "returnCode": 0,
+    "exception": null,
+    "ok": true,
+    "log": "qa_corrections/rechecks/2_test_material_efficiency_v01622.cjs.log.gz",
+    "logBytes": 1457,
+    "logSha256": "81cb31ec79ee4bd5681aa52e643ef5579e5c8c2b978a6cc233486f1bcdd5f36f",
+    "testSha256After": "429d6d1ea70e098bd2d6d364f1759c568d9aea2910e610619144a0767708f10f"
+  }
+]

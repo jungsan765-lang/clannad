@@ -1,0 +1,27 @@
+{
+  "scope": "Final built artifacts and shell syntax; actual executions",
+  "sourceNativeFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "checks": [
+    {
+      "command": "python3 tests/test_release_isolation_v01513.py --built dist --server server/generated/engine.mjs",
+      "chunk_id": "96ee7b",
+      "wall_time_seconds": 0.000023796,
+      "exit_code": 0,
+      "original_token_count": 27,
+      "output": ".......\n----------------------------------------------------------------------\nRan 7 tests in 2.041s\n\nOK\n"
+    },
+    {
+      "command": "node tests/test_content_boundaries_v01513.cjs --built dist",
+      "chunk_id": "3b1ba2",
+      "wall_time_seconds": 0.000032549,
+      "exit_code": 0,
+      "original_token_count": 223,
+      "output": "PASS composed story destinations and definition references resolve within the same route\nPASS composed story conditions and effects parse and their effect references exist\nPASS displayed composed story text and choice labels contain no internal markers\nPASS all item and equipment detail text has no internal markers or raw IDs after DOM formatting\nPASS every named story profile resolves to this release art, including both Katheryne references\nPASS every shipped manifest media reference and every story-map background exists\nPASS event-only recruitment rejects new entries while retaining already joined saves\n{\"passed\":7,\"builtDir\":\"/workspace/scratch/a62414469990/balance-v01627-work/dist\",\"nodes\":27531,\"legends\":86,\"affections\":458,\"guardedGreetings\":14,\"scope\":\"Static composed-content and synthetic boundary checks; no full story traversal, prose review or browser interaction.\"}\n"
+    },
+    {
+      "command": "bash -n tools/install-fixed-region-test-release.sh tools/promote-test-release-to-production.sh",
+      "exit_code": 0,
+      "output": ""
+    }
+  ]
+}
