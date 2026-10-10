@@ -1,0 +1,149 @@
+[
+  {
+    "id": "f10_four_c6_exclusive_meals",
+    "floor": 10,
+    "investment": "FOUR_C6",
+    "team": [
+      "MOND_BARBARA",
+      "MOND_LISA",
+      "MOND_SUCROSE"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS"
+  },
+  {
+    "id": "f11_mixed_exclusive_meals",
+    "floor": 11,
+    "investment": "MIXED_FIVE_C0",
+    "team": [
+      "LIYUE_HUTAO",
+      "LIYUE_GANYU",
+      "LIYUE_NINGGUANG"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "연계우선",
+      "공격우선",
+      "연계우선"
+    ]
+  },
+  {
+    "id": "fixed_f12_c0_guard_none_buffonly",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "NONE",
+    "roles": [
+      "지원우선",
+      "연계우선",
+      "공격우선"
+    ],
+    "policy": "GUARD",
+    "buffs": [],
+    "artifactSeed": 717
+  },
+  {
+    "id": "fixed_f12_c0_guard_crit_healing",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "지원우선",
+      "연계우선",
+      "공격우선"
+    ],
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ],
+    "artifactSeed": 717
+  },
+  {
+    "id": "fixed_f12_c0_guard_all_healing",
+    "floor": 12,
+    "investment": "FIVE_C0",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "지원우선",
+      "연계우선",
+      "공격우선"
+    ],
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD",
+      "FOOD_FISHERMANS_TOAST",
+      "FOOD_CREAM_STEW"
+    ],
+    "artifactSeed": 717
+  },
+  {
+    "id": "f12_xiangling_c6_crit_healing",
+    "floor": 12,
+    "investment": "MIXED_FIVE_C0_FOUR_C6",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "LIYUE_XIANGLING",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "지원우선",
+      "연계우선",
+      "공격우선"
+    ],
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION",
+      "FOOD_JADE_PARCELS",
+      "FOOD_SATISFYING_SALAD"
+    ],
+    "constellations": {
+      "LIYUE_XIANGLING": 6
+    }
+  },
+  {
+    "id": "fixed_f12_c6_guard_feast_healing",
+    "floor": 12,
+    "investment": "FIVE_C6",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "MOND_JEAN"
+    ],
+    "prep": "EXCLUSIVE",
+    "items": "MEALS",
+    "roles": [
+      "지원우선",
+      "연계우선",
+      "공격우선"
+    ],
+    "policy": "GUARD",
+    "buffs": [
+      "FOOD_ADEPTUS_TEMPTATION"
+    ],
+    "artifactSeed": 717
+  }
+]

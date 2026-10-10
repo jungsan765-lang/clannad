@@ -1,0 +1,23 @@
+{
+  "status": "FINAL_381_OF_381_PASSED",
+  "snapshotRoot": "/workspace/scratch/a62414469990/v01626-verification-work",
+  "originalRoot": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg",
+  "actualCommands": [
+    "python tools/build.py",
+    "python tools/build_server.py",
+    "node --max-old-space-size=640 --expose-gc tools/audit_abyss_engines_v01626.cjs dist docs/data/abyss_fixes_v01626/engines/final4source",
+    "python docs/data/abyss_fixes_v01626/engines/verify_build.py --snapshot-root /workspace/scratch/a62414469990/v01626-verification-work"
+  ],
+  "finalContractScriptSHA256": "c4385faa902d0255322169df96d5f6546b095372274dece6ff70eff14677a145",
+  "auditToolSHA256": "d31ce644b8c810f5eebb4701ea3eccc0d5169106b44db847d46e7fd10c65cc36",
+  "contractCounts": {
+    "engines": 3,
+    "newPerEngine": 35,
+    "priorPerEngine": 92,
+    "total": 381,
+    "passed": 381,
+    "failed": 0
+  },
+  "additionalTestingAfterFinalPass": false,
+  "firstAttemptNote": "An initial static build was mistakenly dispatched from original cwd. Immediately checked all 1,905 protected input hashes and observed zero source/content/assets/meta drift. Original generated dist/report may contain the preliminary two-source build; final build artifacts are exclusively the isolated snapshot. Preliminary two-source artifacts are explicitly excluded from final contract totals."
+}

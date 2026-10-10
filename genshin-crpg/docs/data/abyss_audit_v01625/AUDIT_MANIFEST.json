@@ -1,0 +1,511 @@
+{
+  "scope": "Read-only audit documents and reproducibility data; no new product patch or deployment. Superseded diagnostic probes are present but excluded from official147 counts.",
+  "publishedCommit": "46190377b713e6218e66b26bc4292f18fb5a348d",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 28510,
+      "sha256": "81e25ce09e2ec0bf27c1d384ae4634f9fac77fb029e7a00e82178ab47675b818"
+    },
+    {
+      "path": "docs/ABYSS_AUDIT_0.16.25_KO.md",
+      "bytes": 10236,
+      "sha256": "416d63c69ee5741d7189feb666eaaf9d4d49e549f22b77b0bfb36fb5108666c0"
+    },
+    {
+      "path": "docs/AI_HANDOFF.md",
+      "bytes": 155065,
+      "sha256": "77cbe037043116cbafff5d7ecc6777c3e6adbcdaa827a09cf37609ba49830b5a"
+    },
+    {
+      "path": "docs/NEXT_STEPS_KO.md",
+      "bytes": 59943,
+      "sha256": "2dd2d741e7a545769d3912fd676d4bdfec59cb666b024e8e15766d0d0a39be47"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/VERIFIED_SUMMARY.json",
+      "bytes": 4951,
+      "sha256": "35e6d354484817fee6ea002c54c66d24a08153cde4661c473a99d31417449f8b"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/inputs/input_provenance.json",
+      "bytes": 13639,
+      "sha256": "fa9181d783f294e861d2830c4a203fc7312eefc186d19778dea80f94d45172d6"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/inputs/verify_input_provenance.py",
+      "bytes": 2963,
+      "sha256": "b97c16b3ff6edbf238320d091360d691f8cdad0e511e8ae9dcf01b8788744d50"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/mechanics/MANIFEST.json",
+      "bytes": 737,
+      "sha256": "43df42123cfcfea0ff02ea7be9f4fffdc7e79d04f79594f82a624afba4d47b2b"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/mechanics/README_KO.md",
+      "bytes": 12121,
+      "sha256": "b6cb294450e5b76874d611375bc72bec569303cea1a8ca0935b83f742c779f2c"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/mechanics/audit.log",
+      "bytes": 37,
+      "sha256": "a2d15a738343b6cf5fd072d8d23cd9bc82c2ab0b329e3832ed73fbb641d76913"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/mechanics/audit_mechanics.cjs",
+      "bytes": 12106,
+      "sha256": "e4e89f4cab2b1000513a9b1f7179d6a4288ba90356c3d55f857565bccfc79d54"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/mechanics/mechanics.json",
+      "bytes": 64431,
+      "sha256": "308c19add971ce6c71bfb7c0165985d276bb30029cf6ba2e9e688ca26212d815"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/MANIFEST.json",
+      "bytes": 7398,
+      "sha256": "491268781757163dd2720ff04afc5cf7152845eb6dc815650f0860ecf3d53713"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/README_KO.md",
+      "bytes": 17532,
+      "sha256": "577b51ba838a576a0d33d4f0f836090682f718eb0686bab0c543fc03a88f438f"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/audit_native.cjs",
+      "bytes": 13637,
+      "sha256": "23e642e72054bd062a524399e2d6d402a7d55bef9affc5a0f4b08dcc34e47944"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/cases.json",
+      "bytes": 6542,
+      "sha256": "8f7e8646ea57df69c3b7f682d5c2625f036e3cc3ec4dc0c9d24a112b51b440ca"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/counter_cases.json",
+      "bytes": 5208,
+      "sha256": "c1c411a8bd0f9edc9ccabb7a76f1f05693dabd563722e65fdbf6e3438fb27014"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/counter_preparation/input_manifest.json",
+      "bytes": 13836,
+      "sha256": "ab964d39b2874fdd30df14e217b0d42fb96511bd9a76f2907010cb2ad1d6303d"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/counter_preparation/native.json.gz",
+      "bytes": 402769,
+      "sha256": "15534c8c8b9ac7264c6540ab060bf74391c3c8b45513fabae81d95846ae2b878"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/counter_preparation/runner.cjs",
+      "bytes": 13542,
+      "sha256": "c3da61f43785aabbbf3c2b4dba263c7ea0898a961df787f5995a26ba5b839ae2"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/counter_preparation/runner.cjs.gz",
+      "bytes": 5686,
+      "sha256": "bc3212ef9a73a320f876e4dfae411d79f2b0668aa6482baf6a191bd99ac6b6f3"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/counter_preparation/summary.json",
+      "bytes": 49879,
+      "sha256": "2a3e9e4131a874eb1eec056acdd1640eb4b4122b5750f94ed999e30d8191bfb2"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/counter_preparation.log",
+      "bytes": 28479,
+      "sha256": "e1dcf467d9ebbdba8a535c077f2554061f6aa794162c3811b31269cf3238ddbc"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/final12_cases.json",
+      "bytes": 6316,
+      "sha256": "504559298d260132f264f792284abd9374c6ae49a2cf4feb6ec2700811a62647"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/fixed_preparation/input_manifest.json",
+      "bytes": 13836,
+      "sha256": "c3e4039d842f6e9855267be93623e591cc1dfc180706718bf62df6c8d792e9ba"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/fixed_preparation/native.json.gz",
+      "bytes": 195123,
+      "sha256": "78a8a0e228163549d06b114504ed02faf28baf2ea59c8cd99a88a21248bf1a54"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/fixed_preparation/runner.cjs",
+      "bytes": 13563,
+      "sha256": "192aefa975695080eba0e80ea08a0d764be20b1dd35cbebb90428d9bf745051d"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/fixed_preparation/runner.cjs.gz",
+      "bytes": 5695,
+      "sha256": "b8115e18ffc4237a0a49094367cbfd0411545273edc40d433729cc9efd159892"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/fixed_preparation/summary.json",
+      "bytes": 19063,
+      "sha256": "c2df628dcd9c64c2cdee317fbe448dd1f8a49d16f9c03fcec11ae11177285469"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/fixed_preparation.log",
+      "bytes": 10803,
+      "sha256": "521af414eee762ed187038c666ca0f8e85796f670a8cfe8cdb627969f1b88ee5"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/fixed_preparation_cases.json",
+      "bytes": 2848,
+      "sha256": "c2b8ee740ae5e1aa35465b5c6e6a5c60d9ce9e0bb1060015c94d4d371edae0f6"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floor12_preparation/input_manifest.json",
+      "bytes": 13836,
+      "sha256": "0e8bc8587cda51bc081953532c1004395f3bdb8fe2e6290915f09452d878b196"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floor12_preparation/native.json.gz",
+      "bytes": 604065,
+      "sha256": "e66806baaa57f205365711028d7ed085a2e1ce16706323ffa7b8ccdd0cd328a1"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floor12_preparation/runner.cjs",
+      "bytes": 12954,
+      "sha256": "593b324345ca0da97af120123bf82c5dde1df77d830163aa5aeda4f01e09ef58"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floor12_preparation/runner.cjs.gz",
+      "bytes": 5500,
+      "sha256": "fb1164664033200f1c87b0b34d48fafaf4a5e33c672662b7e75db79c2d362f91"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floor12_preparation/summary.json",
+      "bytes": 55795,
+      "sha256": "ba8b31f1191cfb1b7fcab42587c19f49b8007ced7b3b7ce6f09b2fff26abc1f2"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floor12_preparation.log",
+      "bytes": 30905,
+      "sha256": "b6bc009843452ed2edb6399132890eae3e0ef099f9f017251e1e2bb1c6b8e9c8"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floors10_11/input_manifest.json",
+      "bytes": 14249,
+      "sha256": "ebaec83142d043b7c8ecd53438e6f5516309804020e7d9ac8b811a8e4f53cb9f"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floors10_11/native.json.gz",
+      "bytes": 306441,
+      "sha256": "cbbf977bdd1820d47f5b3154921678cbea84344fc6052a419409ae6cde092e3c"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floors10_11/runner.cjs",
+      "bytes": 12709,
+      "sha256": "9051851697ea1baa6f419b789a3ff8ebc09a00ac68ac6c26c28b92ac82d3949a"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floors10_11/summary.json",
+      "bytes": 57390,
+      "sha256": "17c3d81b3d0a12e91be02cdcfa8f234ee64536504757b13c974eff696d5717be"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/floors10_11.log",
+      "bytes": 32587,
+      "sha256": "452d5b7f69b974878499f051071e6e66f7d2fff333cd8779a0a4682cb2d6b159"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/harness/audit_protagonist_v01618.cjs",
+      "bytes": 16352,
+      "sha256": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/harness/audit_protagonist_v01618.cjs.gz",
+      "bytes": 6983,
+      "sha256": "ad238593fe6f7e6003efd9211c40639fcc1df998ae615001e3ee4dcb378bd560"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/last_pyro/input_manifest.json",
+      "bytes": 13836,
+      "sha256": "164453a0d71af0ef6c9efd959bac5725ca11d5e27e9b4702e0e8ee35b81b9d83"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/last_pyro/native.json.gz",
+      "bytes": 134240,
+      "sha256": "50490f0c1acbc56ff23f70d47d7f584badeb61d104df8d2be0f57843e68603a4"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/last_pyro/runner.cjs",
+      "bytes": 13637,
+      "sha256": "23e642e72054bd062a524399e2d6d402a7d55bef9affc5a0f4b08dcc34e47944"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/last_pyro/runner.cjs.gz",
+      "bytes": 5715,
+      "sha256": "6cf6b7f38a370e95d8af000c6eeb6708846e8281f9d7fe43da721384c6177bf2"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/last_pyro/summary.json",
+      "bytes": 11822,
+      "sha256": "5d444ec90976a4e155e1d72ca0f1c0e76d1cd65eb1aac1574d64aab712bc38a0"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/last_pyro.log",
+      "bytes": 6537,
+      "sha256": "1f750c3014c20e9e3a46d89a4ef48bca072ee11095963b303a7a2520d65739fc"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/last_pyro_cases.json",
+      "bytes": 1416,
+      "sha256": "730d954b1ea77441d282652d5b74d7b3110bded86e5bad44d733f5d050c93637"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/last_pyro_initial_failure.log",
+      "bytes": 985,
+      "sha256": "7366cd5494ce536cec34471aed1a43b89f6258102cb4765be9cca2d8a2a409e4"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/official_rows.csv",
+      "bytes": 37205,
+      "sha256": "d8d4f7dc4ead1bf545eee61735b1b2159c23a8bb071d1245825ace4e37e36867"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/official_summary.json",
+      "bytes": 49402,
+      "sha256": "fc5d241653b14a15c6c34c6d0f6f1467f5d6e762930b9d8595a6bd71505ff783"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/probe/input_manifest.json",
+      "bytes": 13836,
+      "sha256": "391864866d195aa34a5aedc74808404ab744979a17fba1c2926dfe76b96b4188"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/probe/native.json.gz",
+      "bytes": 57450,
+      "sha256": "9aaa46eb8d17b5fe6183af44eb6152c6bc0c2237361ae76d8a7f7793a2d9f581"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/probe/summary.json",
+      "bytes": 3596,
+      "sha256": "36ff462a17485fff98fa083fc8b6d11c36ac3e274100cb6b48a01c0fcee77b59"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/probe.log",
+      "bytes": 1906,
+      "sha256": "f495b814e10710c9a2bba94eb7647de8b1f0c8d6643ec8bf2808c1127f71f9b0"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/release_floor10_11/input_manifest.json",
+      "bytes": 13836,
+      "sha256": "f80dcf0158098b4fcb6a22bc80945ce5bcf31d4f144b8442e0d6786f7ec9a7f8"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/release_floor10_11/native.json.gz",
+      "bytes": 309332,
+      "sha256": "b5e313ef83793b4faee41dffd393a5b55cd1dff3017511c87a2923565c8e41d2"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/release_floor10_11/runner.cjs",
+      "bytes": 13563,
+      "sha256": "192aefa975695080eba0e80ea08a0d764be20b1dd35cbebb90428d9bf745051d"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/release_floor10_11/runner.cjs.gz",
+      "bytes": 5695,
+      "sha256": "b8115e18ffc4237a0a49094367cbfd0411545273edc40d433729cc9efd159892"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/release_floor10_11/summary.json",
+      "bytes": 57393,
+      "sha256": "386f2583676c8cce296f37310eb74062dd55bc76b0da65e99abf2a992eb0fa67"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/release_floor10_11.log",
+      "bytes": 32590,
+      "sha256": "c0121549395d3d6584048d67de1f4a2146676dc5544d5df9201aee5883448375"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/replay_validation.json",
+      "bytes": 773,
+      "sha256": "721964b379fa3c608dd43444032e72aa8fa586e3000e8742b12d36e1c8dbf1ee"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/roles_cases.json",
+      "bytes": 1409,
+      "sha256": "2ada2e0fd2dfee12919733b3f3c093cb62e7fcec90cb0b59c649cb03237e2b68"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/roles_preparation/input_manifest.json",
+      "bytes": 13836,
+      "sha256": "6ef12c6a506f63cbeae22d7ed1021d4d747f20ad3c9fa21be95921b3ca172ccd"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/roles_preparation/native.json.gz",
+      "bytes": 145983,
+      "sha256": "a71ab7c887fbfa31380ba30e3529a8181e5b15ddfa354548f079f9da1e2cf55f"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/roles_preparation/runner.cjs",
+      "bytes": 13542,
+      "sha256": "c3da61f43785aabbbf3c2b4dba263c7ea0898a961df787f5995a26ba5b839ae2"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/roles_preparation/runner.cjs.gz",
+      "bytes": 5686,
+      "sha256": "bc3212ef9a73a320f876e4dfae411d79f2b0668aa6482baf6a191bd99ac6b6f3"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/roles_preparation/summary.json",
+      "bytes": 12831,
+      "sha256": "0e1b7cca95a4549ae41a8cc65368c8702c878ff47236b419941d2d6f9689038a"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/roles_preparation.log",
+      "bytes": 7058,
+      "sha256": "f602a14e5cd514e4a69eba317ef5157b76dc415446dd8adf35b4c8bbb3fe160b"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/stack_cases.json",
+      "bytes": 1065,
+      "sha256": "9fd7eb85dc557d72386c54a3a9716dc865aa533b7b7dcf76089bddf5f499a2b3"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/stack_probe/input_manifest.json",
+      "bytes": 13836,
+      "sha256": "34b1f7ecf474c84055d794f5df8c4effa8d777ed0a7a38cf6f2567fba23c5c84"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/stack_probe/native.json.gz",
+      "bytes": 80868,
+      "sha256": "7961cd2e5049d11ec5d43dc732b782cf03fd83cace0963ddcecab669c9025802"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/stack_probe/summary.json",
+      "bytes": 3767,
+      "sha256": "f63be002e302fd65933bf9a9ab6023392711f3e2b5473b8cda18fd65619f1cd8"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/stack_probe.log",
+      "bytes": 1971,
+      "sha256": "b286718968fa1806cc82d5680e582ed24c56ce9bfff9df4b65910f338e8f9c8b"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/strategy_cases.json",
+      "bytes": 1591,
+      "sha256": "64955a16f21133ccee9b954e1eaa9d54eabc9302dafeb81fecce2004ddbb7390"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/strategy_probe/input_manifest.json",
+      "bytes": 13836,
+      "sha256": "e7f233c2782680c7a130099ed2d7529067dad3ec9097bf1a86ecadc80851f8ea"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/strategy_probe/native.json.gz",
+      "bytes": 67355,
+      "sha256": "72b17f9b9066725dd2e14cb47c74c363d0947d2d719306f6f811e1e9851b9e20"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/strategy_probe/summary.json",
+      "bytes": 3893,
+      "sha256": "78ad59704c3c9a1f71f2c655f97797d908c6e715a49c292544668399b3560e44"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/strategy_probe.log",
+      "bytes": 2098,
+      "sha256": "5af36948dd64ca8dbb2d5ab22386bf631e68f6b1b29ef285e26e870238a26823"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/summarize_native.py",
+      "bytes": 8956,
+      "sha256": "d469dcf467d73942d576715d9abb5469b2856c44679af57c9a3384611f93eef8"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/native/validation.json",
+      "bytes": 5513,
+      "sha256": "c9ed3165a51a6b24bb74ef97e4b556f58c2ab43a280302c3146cd0e70f9cbc52"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/MANIFEST.json",
+      "bytes": 2238,
+      "sha256": "d94b97631ba1a5034e89df471ab48d08c4b974603548b3a78aeb5f234f85b4b7"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/README_KO.md",
+      "bytes": 18303,
+      "sha256": "514262f7456e8c68a3bfa3e4dc009927afe3978aea5e5f3e57c2f0c09dbc184e"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/SUMMARY.json",
+      "bytes": 8688,
+      "sha256": "010f91833796b0778663174f30be22164fdde9f9b2c23d68aaea3391f0a36b37"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/audit_cooking_60.cjs",
+      "bytes": 4509,
+      "sha256": "45777f9ac09e6373761680e349284c1bcb5b9d18f9d6a15a199dad3c6b12843a"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/audit_preparation.cjs",
+      "bytes": 6448,
+      "sha256": "ddb960e34e4888134ada01711fd642d8e2fcbafd98d745c2a526fcbec865641c"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/cooking_60_native.json",
+      "bytes": 17297,
+      "sha256": "87792057ddfbdf97b952afd494a7016cfc4a55935778a28710d07368772b2f78"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/cooking_60_native.log",
+      "bytes": 353,
+      "sha256": "6824f73a67961318ae4c6e718cfc14f6612d0ba73571ef38ce38d65731d1f1cd"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/native_preparation_query.json",
+      "bytes": 286919,
+      "sha256": "36a3d42877b8c105510eeb0e341d077ffc518cd91c3459ba2790beeaf40c7dea"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/native_preparation_query.log",
+      "bytes": 114,
+      "sha256": "fb8aff3d9a50484f1fb9f1a9c03e0a289de370aa16c97988ae9952d752787feb"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/preparation_arithmetic.json",
+      "bytes": 3831,
+      "sha256": "3d4ca20b9d684402ca56f0630f839e23acd36907982a9beb2b124cece4767df5"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/preparation_arithmetic.log",
+      "bytes": 1948,
+      "sha256": "7ac4300e72ef248201e8aa98d957b8ca0cc143204cd18488729718729a6b4d16"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/preparation/preparation_arithmetic.py",
+      "bytes": 5768,
+      "sha256": "582702c575e4630b85722d58d84427921a8a56aa87d722713e8dbcd52514dfa0"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/review/MANIFEST.json",
+      "bytes": 408,
+      "sha256": "a537ba21e3b70c4b30056672286b0f4f94c5628a05188f28f580ce81ef97d7c0"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/review/REVIEW_KO.md",
+      "bytes": 7841,
+      "sha256": "eb8ff888f3a384c3307d012346397e7c13b3b240adf64c07a5eed2fe11c59ec1"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/review/effect_probe.cjs",
+      "bytes": 2543,
+      "sha256": "25e52ec5c2d339256de50cd8ce5fc5c51315d707e1c381e14f4b2bb7cf377b11"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/review/effect_probe.json",
+      "bytes": 5934,
+      "sha256": "d0d5bd9c45ce377f6777a73acb1d4e03d7359f0ae27851768e27097436333065"
+    },
+    {
+      "path": "docs/data/abyss_audit_v01625/verify_audit.py",
+      "bytes": 6121,
+      "sha256": "9e86ea824962136408359df9c4ce819ac2b4228d1934dc1e282ff6cb2782d19f"
+    }
+  ]
+}

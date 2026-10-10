@@ -1,0 +1,181 @@
+{
+  "version": "0.16.26",
+  "scope": "native_before_after_abyss_fixes",
+  "authoritativeStages": [
+    "baseline",
+    "final4"
+  ],
+  "excludedIntermediateStage": "final2",
+  "files": [
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/FINAL_FROZEN_SHA256.json",
+      "bytes": 419,
+      "sha256": "7e382818550c754b5ce4aea0e8b52741a0b55729ce35657692ea59fc28d32882"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/README_KO.md",
+      "bytes": 7633,
+      "sha256": "33bfb4bbd674d31937a413dadcf8ffa1631d55a6fd965d223cc740dbd412aa4d"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/audit_native.cjs",
+      "bytes": 14833,
+      "sha256": "1f0dbea02e205c308acc1b0551aafc51a7bfb84d970cdad1a3c85ddf4bc41d95"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/baseline/baseline_input_snapshot.json",
+      "bytes": 13396,
+      "sha256": "0d4c9f8bba174f1f0722fa1b360994159fa1c4748ba9d2e135c645eaaf6d9b17"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/baseline/cases.json",
+      "bytes": 2876,
+      "sha256": "6c1ccceeb241fe900c15052feeb4688a22ba63973ad262bfb00f88fe43095d26"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/baseline/input_manifest.json",
+      "bytes": 13995,
+      "sha256": "3206d2b7609fd58cdd6743c623e81b6296a96193014daf48cde53705193d7f48"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/baseline/native.json.gz",
+      "bytes": 301881,
+      "sha256": "7de213c6baf8b974509a3cfb5e8f01ccb1ba0ff3570a7eb6fd21bc6abe7cbe9c"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/baseline/runner.cjs",
+      "bytes": 14535,
+      "sha256": "bff0344710b3cc4923bb024c0cdbd39c2209f9162a629afe078f1585e3f71d64"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/baseline/summary.json",
+      "bytes": 33295,
+      "sha256": "7839fd514487499a8d03af38b78b27ffa098a916f8252d7a941bb45283d65ec0"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/baseline_existing_audit_parity.json",
+      "bytes": 1750,
+      "sha256": "742595b591ec3b6e3f5b098fc4b580d33b40262fc8daf694ca166df030871b7e"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/baseline_input_snapshot.json",
+      "bytes": 13396,
+      "sha256": "0d4c9f8bba174f1f0722fa1b360994159fa1c4748ba9d2e135c645eaaf6d9b17"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/baseline_runtime.tar.gz",
+      "bytes": 1495635,
+      "sha256": "74f692adbd6860ed3def9631f143061edbd652b3429de81cece4bf0ff023cadb"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/cases.json",
+      "bytes": 2876,
+      "sha256": "6c1ccceeb241fe900c15052feeb4688a22ba63973ad262bfb00f88fe43095d26"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/comparison.csv",
+      "bytes": 1590,
+      "sha256": "10160b65f6ee44ec55609be06f327ce130cae8e5d1f636a8daeb88a1bc44aea3"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/comparison.json",
+      "bytes": 12373,
+      "sha256": "b474f3b5321632f6d815a083027e19c362c8f491876ffa6cd5f5d353192820c8"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final2/README_KO.md",
+      "bytes": 362,
+      "sha256": "9589abc3f6a0d8ec2eb8ac3ec90d61b88cec3845929fcb1a769b04823b3e88a4"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final2/baseline_input_snapshot.json",
+      "bytes": 13396,
+      "sha256": "0d4c9f8bba174f1f0722fa1b360994159fa1c4748ba9d2e135c645eaaf6d9b17"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final2/cases.json",
+      "bytes": 2876,
+      "sha256": "6c1ccceeb241fe900c15052feeb4688a22ba63973ad262bfb00f88fe43095d26"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final2/comparison.csv",
+      "bytes": 1590,
+      "sha256": "10160b65f6ee44ec55609be06f327ce130cae8e5d1f636a8daeb88a1bc44aea3"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final2/comparison.json",
+      "bytes": 11753,
+      "sha256": "70ade731b253293c4fa18491b497f003acb1806e471102f863248db8865faec3"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final2/input_manifest.json",
+      "bytes": 14021,
+      "sha256": "fd68e783424e02839c67607f76c0cb95a4bc7574be2d54390d3aadad32367c46"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final2/native.json.gz",
+      "bytes": 247002,
+      "sha256": "a8f0784206499c720ebb3e5cee81959dea1edc73a139002d706fca96e521a062"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final2/runner.cjs",
+      "bytes": 14566,
+      "sha256": "5de35fb47e3717ae377850029e8700b7061eab038d61671b990cc47de9747327"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final2/summary.json",
+      "bytes": 26148,
+      "sha256": "367254060e44510c4f98b98417bdbe5d2505a2a8db40c8131fc8719cf4dafc7e"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final2_to_final4_parity.json",
+      "bytes": 2265,
+      "sha256": "77d8b938fdd63bc5f6d5dace3ff1327ae354513b19c48438d611531f0807f8a1"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final4/FINAL_FROZEN_SHA256.json",
+      "bytes": 419,
+      "sha256": "7e382818550c754b5ce4aea0e8b52741a0b55729ce35657692ea59fc28d32882"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final4/baseline_input_snapshot.json",
+      "bytes": 13396,
+      "sha256": "0d4c9f8bba174f1f0722fa1b360994159fa1c4748ba9d2e135c645eaaf6d9b17"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final4/cases.json",
+      "bytes": 2876,
+      "sha256": "6c1ccceeb241fe900c15052feeb4688a22ba63973ad262bfb00f88fe43095d26"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final4/input_manifest.json",
+      "bytes": 14021,
+      "sha256": "3c0378ffe7e2aefb4f9859309866b4f65f09047392e08ae80ed0fb79188ca3db"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final4/native.json.gz",
+      "bytes": 247001,
+      "sha256": "0725aec28b5a0c1ac6fd4c9cad9389ef17453a74607b15888464de18af2d3852"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final4/runner.cjs",
+      "bytes": 14833,
+      "sha256": "1f0dbea02e205c308acc1b0551aafc51a7bfb84d970cdad1a3c85ddf4bc41d95"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/final4/summary.json",
+      "bytes": 26148,
+      "sha256": "686a49d8310c424212062205720d29d8566a30a8deb6843d40c8cc02ad1c202e"
+    },
+    {
+      "path": "docs/data/abyss_fixes_v01626/native/verify_native.py",
+      "bytes": 7558,
+      "sha256": "3b01f709b6c93e8df274891a9301bd1855a86219f793444618bca0256f756745"
+    }
+  ],
+  "referencedQA_DB": {
+    "path": "docs/data/balance_v01625/field/release_final/harness/qa_db.json.gz",
+    "compressedSHA256": "c5796e004e6b68fd71fbd6b9c1a7f6200d525c541c2b340184e52cf4c4c15128",
+    "rawSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962"
+  }
+}

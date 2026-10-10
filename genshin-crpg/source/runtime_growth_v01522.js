@@ -2,7 +2,7 @@
 (function(root){
 'use strict';
 const api=root.CRPGRuntime,P=api.Runtime.prototype,PLAYER='PLAYER_CUSTOM',copy=x=>JSON.parse(JSON.stringify(x));
-const old=Object.fromEntries(['newGame','validateSave','recalculate','character','combatStat','reactionBase','startBattle','finishBattle','roundEnd','apply','actionReason','useItem','mondRewardPlan','rollEncounter','claimQuest','tradeRule','adminApply','fbSummon','spawnLiyueWave','damage','applyDamage'].map(k=>[k,P[k]]));
+const old=Object.fromEntries(['newGame','validateSave','recalculate','character','combatStat','reactionBase','startBattle','newRound','finishBattle','roundEnd','apply','actionReason','useItem','mondRewardPlan','rollEncounter','claimQuest','tradeRule','adminApply','fbSummon','spawnLiyueWave','damage','applyDamage'].map(k=>[k,P[k]]));
 const fail=(c,m)=>{throw new api.RuleError(c,m);},CAPS=[10,20,30,40,50,55,60],TALENTS=[1,2,4,6,8,9,10];
 const hpCurve=l=>1+.13*(l-1)+.002*(l-1)**2,adCurve=l=>1+.12*(l-1)+.003*(l-1)**2;
 // Ordinary enemies follow a fixed four-character budget; elite/strong grades retain their native differences.
@@ -257,8 +257,19 @@ P.ascensionInfo=function(owner=PLAYER){
 P.talentUpgradeInfo=function(owner=PLAYER,kind='na'){const g=this.growth(owner),level=this.talentLevels(owner).base[kind],item=owner.startsWith('LIYUE_')?'GROWTH_TALENT_LIYUE':'GROWTH_TALENT_MOND',cost={mora:Math.round(250*level*level*(owner!==PLAYER&&this.rarityOf?.(owner)===5?1.5:1)),items:{[item]:TALENT_BOOK_COSTS_V01621[owner.startsWith('LIYUE_')?'LIYUE':'MOND'][Math.min(8,level-1)]}};if(level>=2)cost.items[level<5?'MAT_SLIME_SECRETIONS':'MAT_SLIME_CONCENTRATE']=Math.ceil(level/2);const reason=!['na','e','q'].includes(kind)?'특성을 골라 주세요.':!this.premiumOwns(owner)?'소유한 동료를 골라 주세요.':level>=g.talentCap?'캐릭터 돌파 후 특성 상한이 올라갑니다.':this.s.global.MORA<cost.mora?'모라가 부족합니다.':Object.entries(cost.items).some(([id,n])=>this.itemCount(id)<n)?'특성 재료가 부족합니다.':'';return {owner,kind,level,cap:g.talentCap,cost,reason};};
 P.fieldBattlePolicy=function(){return null;};
 P.limitFieldBattle=function(){};
+// Remember the speed actually used by the first initiative roll. Some startup
+// hooks add variant speed before growth tuning, so a later actor snapshot alone
+// cannot recover this value. These temporary records are never part of a save.
+const openingSpeeds=new WeakMap();
+P.newRound=function(...args){
+ const b=this.s.runtime;if(!b||b.phase!=='START'||b.opening||String(b.origin).startsWith('ABYSS:')||String(b.origin).startsWith('RAID'))return old.newRound.apply(this,args);
+ const speeds=new Map(),prior=this.combatStat,owned=Object.prototype.hasOwnProperty.call(this,'combatStat');let out;
+ this.combatStat=function(a,key){const n=prior.call(this,a,key);if(key==='spd'&&a.side==='ENEMY'&&!speeds.has(a.id))speeds.set(a.id,n);return n;};
+ try{out=old.newRound.apply(this,args);}finally{if(owned)this.combatStat=prior;else delete this.combatStat;}
+ if(b.opening?.state==='PENDING')openingSpeeds.set(b,speeds);return out;
+};
 P.tuneGrowthEnemy=function(a,b,level){
- if(a.growthScaled)return;const grade=a.grade||'일반',i={일반:0,정예:1,강적:2,보스:3}[grade]??0,p=phaseFor(level),source=this.row('09_MONSTER_DB',a.source),original=Number(source[6])||1;
+ if(a.growthScaled)return;const initialSpeed=openingSpeeds.get(b)?.get(a.id),grade=a.grade||'일반',i={일반:0,정예:1,강적:2,보스:3}[grade]??0,p=phaseFor(level),source=this.row('09_MONSTER_DB',a.source),original=Number(source[6])||1;
  // Fixed four-character baseline. Never consult the current party size or level.
  // A non-attacking objective is not an enemy party: keep its previous durability budget.
  // The first Lv.1–4 areas stay forgiving before the authored story has supplied a full team.
@@ -274,17 +285,26 @@ P.tuneGrowthEnemy=function(a,b,level){
  if(challengeApplied){a.hp=a.maxHp=Math.max(1,Math.round(a.maxHp*challenge.hpMultiplier));a.atk=Math.round(a.atk*challenge.atkMultiplier);a.def=Math.round(a.def*challenge.defMultiplier);a.bossChallengeRevision=1;}
  const shieldHp=challengeApplied?a.maxHp:hp;
  for(const s of a.shields||[]){s.value=Math.round(s.value*shieldHp/prev);if(s.initialValue)s.initialValue=Math.round(s.initialValue*shieldHp/prev);}a.growthScaled=true;
+ if(!b.abyss&&b.opening?.state==='PENDING'&&Number.isFinite(initialSpeed)){
+  const turn=b.order.find(x=>x.id===a.id);if(turn)turn.score+=this.combatStat(a,'spd')-initialSpeed;
+  b.order.sort((a,c)=>Number(c.first)-Number(a.first)||c.score-a.score||a.id.localeCompare(c.id));
+  const at=b.order.findIndex(x=>x.id==='PLAYER_CUSTOM');if(at>0)b.order=[b.order[at],...b.order.slice(0,at),...b.order.slice(at+1)];
+  b.opening.initialOrder=copy(b.order);
+  openingSpeeds.get(b).delete(a.id);
+ }
 };
 P.growthEncounterLevel=function(origin){return api.growthRegionData.story?.[String(origin).replace(/^STORY:/,'')]||Number(this.row('32_MAP_DB',this.s.global.CURRENT_MAP_ID)[6])||1;};
 P.startBattle=function(group,origin='EXPLICIT',...rest){
- this.installGrowthContent();const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;if(!b||b===before||b.abyss||b.raid||String(origin).startsWith('RAID'))return out;
+ this.installGrowthContent();const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;if(!b||b===before||b.abyss||b.raid||String(origin).startsWith('RAID')){if(b&&b!==before)openingSpeeds.delete(b);return out;}
+ try{
  const level=this._growthDomain?.level||b.leyLine?.level||this.growthEncounterLevel(origin);
  for(const a of [...b.actors,...(b.enemyReserve||[])].filter(x=>x.side==='ENEMY'&&!x.fbSummon))this.tuneGrowthEnemy(a,b,api.growthRegionData.bosses[a.source]||level);
  if(b.actors.some(a=>DAILY_PRESSURE_V01624[a.source]&&a.side==='ENEMY'&&origin===bossChallengeOrigin(a.source)))b.dailyPressureRevision=1;
  for(const a of b.actors.filter(x=>x.fbSummon))this.tuneGrowthSummon(a,b);
  b.growthBalance={version:1,level,field:origin==='RANDOM'||origin.startsWith('QUEST:')||origin.startsWith('ELITE:'),roundLimit:30};
  if(this._growthDomain)b.growthDomain=copy(this._growthDomain);if(this._growthElite)b.growthElite=copy(this._growthElite);
- return out;
+ return b.opening?.state==='PENDING'?{...out,order:this.combatOrderView()}:out;
+ }finally{openingSpeeds.delete(b);}
 };
 P.tuneGrowthSummon=function(a,b){const owner=b.actors.find(x=>x.id===a.fbSummon?.owner),spec=this.fieldBossSummonSpec?.(b,a.source)||api.fieldBosses.summons[a.source];if(!owner?.growthScaled||!spec)return;const prev=a.maxHp,p=phaseFor(owner.level);a.hp=a.maxHp=Math.max(1,Math.round(spec.hp<=1?owner.maxHp*spec.hp:spec.hp/5*hpCurve(owner.level)*(1+.16*p)));a.atk=Math.round(owner.atk*(spec.atk||0));a.def=Math.round(spec.def*adCurve(owner.level));a.level=owner.level;for(const s of a.shields||[])s.value=Math.round(s.value*a.maxHp/prev);a.growthScaled=true;};
 P.fbSummon=function(...args){const a=old.fbSummon.apply(this,args);this.tuneGrowthSummon(a,args[0]);return a;};

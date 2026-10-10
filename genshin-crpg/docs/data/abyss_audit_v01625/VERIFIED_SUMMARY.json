@@ -1,0 +1,197 @@
+{
+  "publishedCommit": "46190377b713e6218e66b26bc4292f18fb5a348d",
+  "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+  "officialConditions": 147,
+  "runtimeInputsPerBundle": 120,
+  "chambersFought": 310,
+  "productInputDrift": 0,
+  "executionErrors": 0,
+  "inputLimit": 0,
+  "states": {
+    "TIMEOUT": 69,
+    "CLEARED": 48,
+    "DEFEAT": 30
+  },
+  "noNativeKOClears": 21,
+  "clearsWithProtagonistRevivalBetweenRooms": 17,
+  "bundles": [
+    {
+      "bundle": "floor12_preparation",
+      "conditions": 42,
+      "states": {
+        "TIMEOUT": 22,
+        "CLEARED": 20
+      },
+      "noNativeKOClears": 13,
+      "cases": [
+        "native/final12_cases.json"
+      ],
+      "runnerSHA256": "593b324345ca0da97af120123bf82c5dde1df77d830163aa5aeda4f01e09ef58",
+      "nativeSHA256": "e66806baaa57f205365711028d7ed085a2e1ce16706323ffa7b8ccdd0cd328a1"
+    },
+    {
+      "bundle": "counter_preparation",
+      "conditions": 33,
+      "states": {
+        "TIMEOUT": 18,
+        "CLEARED": 10,
+        "DEFEAT": 5
+      },
+      "noNativeKOClears": 2,
+      "cases": [
+        "native/counter_cases.json"
+      ],
+      "runnerSHA256": "c3da61f43785aabbbf3c2b4dba263c7ea0898a961df787f5995a26ba5b839ae2",
+      "nativeSHA256": "15534c8c8b9ac7264c6540ab060bf74391c3c8b45513fabae81d95846ae2b878"
+    },
+    {
+      "bundle": "roles_preparation",
+      "conditions": 9,
+      "states": {
+        "CLEARED": 4,
+        "TIMEOUT": 5
+      },
+      "noNativeKOClears": 3,
+      "cases": [
+        "native/roles_cases.json"
+      ],
+      "runnerSHA256": "c3da61f43785aabbbf3c2b4dba263c7ea0898a961df787f5995a26ba5b839ae2",
+      "nativeSHA256": "a71ab7c887fbfa31380ba30e3529a8181e5b15ddfa354548f079f9da1e2cf55f"
+    },
+    {
+      "bundle": "fixed_preparation",
+      "conditions": 18,
+      "states": {
+        "TIMEOUT": 15,
+        "CLEARED": 3
+      },
+      "noNativeKOClears": 2,
+      "cases": [
+        "native/fixed_preparation_cases.json"
+      ],
+      "runnerSHA256": "192aefa975695080eba0e80ea08a0d764be20b1dd35cbebb90428d9bf745051d",
+      "nativeSHA256": "78a8a0e228163549d06b114504ed02faf28baf2ea59c8cd99a88a21248bf1a54"
+    },
+    {
+      "bundle": "release_floor10_11",
+      "conditions": 36,
+      "states": {
+        "DEFEAT": 25,
+        "TIMEOUT": 2,
+        "CLEARED": 9
+      },
+      "noNativeKOClears": 0,
+      "cases": [
+        "native/cases.json"
+      ],
+      "runnerSHA256": "192aefa975695080eba0e80ea08a0d764be20b1dd35cbebb90428d9bf745051d",
+      "nativeSHA256": "b5e313ef83793b4faee41dffd393a5b55cd1dff3017511c87a2923565c8e41d2"
+    },
+    {
+      "bundle": "last_pyro",
+      "conditions": 9,
+      "states": {
+        "TIMEOUT": 7,
+        "CLEARED": 2
+      },
+      "noNativeKOClears": 1,
+      "cases": [
+        "native/last_pyro_cases.json"
+      ],
+      "runnerSHA256": "23e642e72054bd062a524399e2d6d402a7d55bef9affc5a0f4b08dcc34e47944",
+      "nativeSHA256": "50490f0c1acbc56ff23f70d47d7f584badeb61d104df8d2be0f57843e68603a4"
+    }
+  ],
+  "sameEquipmentInvestmentPairs": [
+    {
+      "seed": 717,
+      "equipmentIdentical": true,
+      "artifactStatsIdentical": true,
+      "C0": "TIMEOUT",
+      "allThreeCompanionsC6": "CLEARED"
+    },
+    {
+      "seed": 4242,
+      "equipmentIdentical": true,
+      "artifactStatsIdentical": true,
+      "C0": "CLEARED",
+      "allThreeCompanionsC6": "CLEARED"
+    },
+    {
+      "seed": 9031,
+      "equipmentIdentical": true,
+      "artifactStatsIdentical": true,
+      "C0": "TIMEOUT",
+      "allThreeCompanionsC6": "CLEARED"
+    }
+  ],
+  "fixedEquipmentPreparation": [
+    {
+      "id": "fixed_f12_c0_guard_none_buffonly",
+      "conditions": 3,
+      "clears": 0,
+      "noNativeKOClears": 0,
+      "rounds": [
+        24,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_none_healing",
+      "conditions": 3,
+      "clears": 0,
+      "noNativeKOClears": 0,
+      "rounds": [
+        24,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_feast_healing",
+      "conditions": 3,
+      "clears": 0,
+      "noNativeKOClears": 0,
+      "rounds": [
+        23,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_attack_healing",
+      "conditions": 3,
+      "clears": 1,
+      "noNativeKOClears": 0,
+      "rounds": [
+        32,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_crit_healing",
+      "conditions": 3,
+      "clears": 1,
+      "noNativeKOClears": 1,
+      "rounds": [
+        32,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "fixed_f12_c0_guard_all_healing",
+      "conditions": 3,
+      "clears": 1,
+      "noNativeKOClears": 1,
+      "rounds": [
+        32,
+        12,
+        12
+      ]
+    }
+  ],
+  "scope": "Conditional public-action diagnostic combat, not natural account acquisition, server account replay, or population win rate. Intermediate probes and the superseded floors10_11 run are excluded."
+}

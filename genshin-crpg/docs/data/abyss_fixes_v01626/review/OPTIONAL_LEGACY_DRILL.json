@@ -1,0 +1,65 @@
+{
+  "scope": "Read-only observation of the older hidden training API. App call sites for TUTORIAL_DRILL were not found. This is separate from required story/movement tutorial and remains outside the frozen four-source patch.",
+  "observations": [
+    {
+      "name": "published_before",
+      "callable": true,
+      "noAppEntryFound": true,
+      "origin": "TUTORIAL:DRILL",
+      "rows": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "finalSpeed": 66,
+          "score": 75,
+          "scoreMinusFinalSpeed": 9
+        },
+        {
+          "id": "MON_HILI_FIGHTER#2",
+          "side": "ENEMY",
+          "finalSpeed": 20,
+          "score": 65,
+          "scoreMinusFinalSpeed": 45
+        },
+        {
+          "id": "MON_HILI_FIGHTER#1",
+          "side": "ENEMY",
+          "finalSpeed": 20,
+          "score": 64,
+          "scoreMinusFinalSpeed": 44
+        }
+      ],
+      "publicOrderMatchesFinal": false
+    },
+    {
+      "name": "current",
+      "callable": true,
+      "noAppEntryFound": true,
+      "origin": "TUTORIAL:DRILL",
+      "rows": [
+        {
+          "id": "PLAYER_CUSTOM",
+          "side": "ALLY",
+          "finalSpeed": 66,
+          "score": 75,
+          "scoreMinusFinalSpeed": 9
+        },
+        {
+          "id": "MON_HILI_FIGHTER#2",
+          "side": "ENEMY",
+          "finalSpeed": 20,
+          "score": 65,
+          "scoreMinusFinalSpeed": 45
+        },
+        {
+          "id": "MON_HILI_FIGHTER#1",
+          "side": "ENEMY",
+          "finalSpeed": 20,
+          "score": 64,
+          "scoreMinusFinalSpeed": 44
+        }
+      ],
+      "publicOrderMatchesFinal": false
+    }
+  ]
+}

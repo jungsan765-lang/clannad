@@ -1,0 +1,499 @@
+{
+  "publishedCommit": "46190377b713e6218e66b26bc4292f18fb5a348d",
+  "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+  "conditions": 9,
+  "counts": {
+    "TIMEOUT": 7,
+    "CLEARED": 2
+  },
+  "rows": [
+    {
+      "id": "f12_hutao_none",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "NONE",
+      "seed": 717,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "inputs": 8,
+      "hp": 0.8567297485266664,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "consumed": {},
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "hp": 0.8567297485266664,
+          "immune": 20,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_HUTAO": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.408821718
+    },
+    {
+      "id": "f12_hutao_none",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "NONE",
+      "seed": 4242,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "inputs": 12,
+      "hp": 0.8936935369266686,
+      "ko": [],
+      "consumed": {},
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [],
+          "hp": 0.8936935369266686,
+          "immune": 28,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_HUTAO": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.281611703
+    },
+    {
+      "id": "f12_hutao_none",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "NONE",
+      "seed": 9031,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "inputs": 12,
+      "hp": 0.9009429856376033,
+      "ko": [],
+      "consumed": {},
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [],
+          "hp": 0.9009429856376033,
+          "immune": 15,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_HUTAO": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.280241195
+    },
+    {
+      "id": "f12_hutao_crit_healing",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 717,
+      "state": "TIMEOUT",
+      "rounds": 12,
+      "inputs": 8,
+      "hp": 0.8570152641019071,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 4,
+        "FOOD_JADE_PARCELS": 4,
+        "FOOD_SATISFYING_SALAD": 4
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "hp": 0.8570152641019071,
+          "immune": 20,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_HUTAO": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.400221636
+    },
+    {
+      "id": "f12_hutao_crit_healing",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 4242,
+      "state": "TIMEOUT",
+      "rounds": 34,
+      "inputs": 34,
+      "hp": 0.8488130972578704,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_SWEET_MADAME": 2,
+        "FOOD_HASH_BROWN": 2
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 11,
+          "ko": [],
+          "hp": 0.9152056959730862,
+          "immune": 17,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_HUTAO": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 11,
+          "ko": [],
+          "hp": 0.890851350763475,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_HUTAO": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [],
+          "hp": 0.8488130972578704,
+          "immune": 13,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_HUTAO": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 2.087916559
+    },
+    {
+      "id": "f12_hutao_crit_healing",
+      "floor": 12,
+      "investment": "FIVE_C0",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 9031,
+      "state": "TIMEOUT",
+      "rounds": 23,
+      "inputs": 21,
+      "hp": 0.85192949368925,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 8,
+        "FOOD_JADE_PARCELS": 8,
+        "FOOD_SATISFYING_SALAD": 8,
+        "FOOD_SWEET_MADAME": 1,
+        "FOOD_HASH_BROWN": 1
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 11,
+          "ko": [],
+          "hp": 0.9018279413898157,
+          "immune": 12,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_HUTAO": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "hp": 0.85192949368925,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_HUTAO": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.580411857
+    },
+    {
+      "id": "f12_xiangling_c6_crit_healing",
+      "floor": 12,
+      "investment": "MIXED_FIVE_C0_FOUR_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 717,
+      "state": "TIMEOUT",
+      "rounds": 32,
+      "inputs": 23,
+      "hp": 0.4615201919042379,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "LIYUE_XIANGLING"
+      ],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_SWEET_MADAME": 1,
+        "FOOD_HASH_BROWN": 1
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 11,
+          "ko": [],
+          "hp": 0.9812133351278174,
+          "immune": 24,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 9,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "hp": 0.8692058616294444,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "TIMEOUT",
+          "rounds": 12,
+          "ko": [
+            "PLAYER_CUSTOM",
+            "LIYUE_XIANGLING"
+          ],
+          "hp": 0.4615201919042379,
+          "immune": 20,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.919770156
+    },
+    {
+      "id": "f12_xiangling_c6_crit_healing",
+      "floor": 12,
+      "investment": "MIXED_FIVE_C0_FOUR_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 4242,
+      "state": "CLEARED",
+      "rounds": 31,
+      "inputs": 30,
+      "hp": 0.8302178000626763,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_SWEET_MADAME": 2,
+        "FOOD_HASH_BROWN": 2
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 11,
+          "ko": [],
+          "hp": 0.9084848010028205,
+          "immune": 21,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 9,
+          "ko": [],
+          "hp": 0.8985114384205578,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 11,
+          "ko": [],
+          "hp": 0.8302178000626763,
+          "immune": 16,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.986563227
+    },
+    {
+      "id": "f12_xiangling_c6_crit_healing",
+      "floor": 12,
+      "investment": "MIXED_FIVE_C0_FOUR_C6",
+      "prep": "EXCLUSIVE",
+      "items": "MEALS",
+      "seed": 9031,
+      "state": "CLEARED",
+      "rounds": 30,
+      "inputs": 26,
+      "hp": 0.9076390361105222,
+      "ko": [],
+      "consumed": {
+        "FOOD_ADEPTUS_TEMPTATION": 12,
+        "FOOD_JADE_PARCELS": 12,
+        "FOOD_SATISFYING_SALAD": 12,
+        "FOOD_SWEET_MADAME": 2,
+        "FOOD_HASH_BROWN": 2
+      },
+      "rooms": [
+        {
+          "chamber": 1,
+          "state": "NEXT",
+          "rounds": 11,
+          "ko": [],
+          "hp": 0.8783753013136095,
+          "immune": 19,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 2,
+          "state": "NEXT",
+          "rounds": 8,
+          "ko": [
+            "PLAYER_CUSTOM"
+          ],
+          "hp": 0.8619021820209015,
+          "immune": 0,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        },
+        {
+          "chamber": 3,
+          "state": "CLEARED",
+          "rounds": 11,
+          "ko": [],
+          "hp": 0.9076390361105222,
+          "immune": 24,
+          "mastery": true,
+          "initialRules": {
+            "PLAYER_CUSTOM": "",
+            "LIYUE_ZHONGLI": "",
+            "LIYUE_XIANGLING": "",
+            "MOND_JEAN": ""
+          }
+        }
+      ],
+      "errors": [],
+      "cpuSeconds": 1.991264434
+    }
+  ]
+}

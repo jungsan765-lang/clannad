@@ -1,0 +1,23 @@
+{
+  "version": "0.16.26",
+  "stage": "Unreferenced preparation tree, before commit/ref publication",
+  "initialTree": "aae40cd5f17a50c77b0db277d20a418368831616",
+  "mismatches": [
+    {
+      "path": "genshin-crpg/docs/data/abyss_audit_v01625/native/official_rows.csv",
+      "expectedGitBlob": "1c8894844b96c38d5d91ea8e202c32e685d1e8a7"
+    },
+    {
+      "path": "genshin-crpg/docs/data/abyss_fixes_v01626/native/comparison.csv",
+      "expectedGitBlob": "25cd71a7760c5385303a79b610b8ec94b6cb6e6b"
+    },
+    {
+      "path": "genshin-crpg/docs/data/abyss_fixes_v01626/native/final2/comparison.csv",
+      "expectedGitBlob": "25cd71a7760c5385303a79b610b8ec94b6cb6e6b"
+    }
+  ],
+  "cause": "Python read_text converted CSV CRLF to LF during inline Git tree preparation. Original files were not changed.",
+  "correction": "Upload exact raw CSV bytes as immutable blobs and reference the original recorded Git hashes in the final candidate. Final full-tree comparison is mandatory before creating commit/updating branch.",
+  "productOrTestChanged": false,
+  "branchUpdated": false
+}

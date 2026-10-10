@@ -1,0 +1,1994 @@
+{
+  "publishedCommit": "46190377b713e6218e66b26bc4292f18fb5a348d",
+  "policy": "Six official bundles only. Counts describe these selected executions, including paired baseline repeats; they are not population win probabilities.",
+  "cleanDefinition": "CLEARED and every chamber's native pre-settlement actor KO list empty. Persistent finalHP or finalKo alone is insufficient because the protagonist can revive to 10% in victory settlement.",
+  "bundles": {
+    "floor12_preparation": {
+      "executions": 42,
+      "chambersStarted": 93,
+      "stateCounts": {
+        "TIMEOUT": 22,
+        "CLEARED": 20
+      },
+      "clearedWithNoNativeKO": 13,
+      "clearedWithNativeKO": 7,
+      "executionsWithNativeKO": 15,
+      "nativeKOThenPositivePersistentHP": 13,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    "counter_preparation": {
+      "executions": 33,
+      "chambersStarted": 71,
+      "stateCounts": {
+        "TIMEOUT": 18,
+        "CLEARED": 10,
+        "DEFEAT": 5
+      },
+      "clearedWithNoNativeKO": 2,
+      "clearedWithNativeKO": 8,
+      "executionsWithNativeKO": 29,
+      "nativeKOThenPositivePersistentHP": 26,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    "roles_preparation": {
+      "executions": 9,
+      "chambersStarted": 21,
+      "stateCounts": {
+        "CLEARED": 4,
+        "TIMEOUT": 5
+      },
+      "clearedWithNoNativeKO": 3,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 2,
+      "nativeKOThenPositivePersistentHP": 1,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    "fixed_preparation": {
+      "executions": 18,
+      "chambersStarted": 27,
+      "stateCounts": {
+        "TIMEOUT": 15,
+        "CLEARED": 3
+      },
+      "clearedWithNoNativeKO": 2,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 3,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    "release_floor10_11": {
+      "executions": 36,
+      "chambersStarted": 80,
+      "stateCounts": {
+        "DEFEAT": 25,
+        "TIMEOUT": 2,
+        "CLEARED": 9
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 9,
+      "executionsWithNativeKO": 36,
+      "nativeKOThenPositivePersistentHP": 51,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    "last_pyro": {
+      "executions": 9,
+      "chambersStarted": 18,
+      "stateCounts": {
+        "TIMEOUT": 7,
+        "CLEARED": 2
+      },
+      "clearedWithNoNativeKO": 1,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 5,
+      "nativeKOThenPositivePersistentHP": 2,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    }
+  },
+  "groups": [
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c0_guard_none_buffonly",
+      "spec": {
+        "id": "f12_c0_guard_none_buffonly",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "NONE",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": []
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 2,
+      "nativeKOThenPositivePersistentHP": 3,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c0_guard_none_healing",
+      "spec": {
+        "id": "f12_c0_guard_none_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": []
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "TIMEOUT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 2,
+      "nativeKOThenPositivePersistentHP": 2,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c0_guard_feast_buffonly",
+      "spec": {
+        "id": "f12_c0_guard_feast_buffonly",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "BUFF_ONLY",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 1,
+      "nativeKOThenPositivePersistentHP": 1,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c0_guard_feast_healing",
+      "spec": {
+        "id": "f12_c0_guard_feast_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 1,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 0,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c0_guard_attack_buffonly",
+      "spec": {
+        "id": "f12_c0_guard_attack_buffonly",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "BUFF_ONLY",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 2,
+      "nativeKOThenPositivePersistentHP": 1,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c0_guard_attack_healing",
+      "spec": {
+        "id": "f12_c0_guard_attack_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "CLEARED": 2,
+        "TIMEOUT": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 2,
+      "executionsWithNativeKO": 2,
+      "nativeKOThenPositivePersistentHP": 2,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c0_guard_crit_buffonly",
+      "spec": {
+        "id": "f12_c0_guard_crit_buffonly",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "BUFF_ONLY",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 2,
+      "nativeKOThenPositivePersistentHP": 2,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c0_guard_crit_healing",
+      "spec": {
+        "id": "f12_c0_guard_crit_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "CLEARED": 2,
+        "TIMEOUT": 1
+      },
+      "clearedWithNoNativeKO": 2,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 0,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c0_guard_defense_healing",
+      "spec": {
+        "id": "f12_c0_guard_defense_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD",
+          "FOOD_FISHERMANS_TOAST"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "CLEARED": 2,
+        "TIMEOUT": 1
+      },
+      "clearedWithNoNativeKO": 2,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 0,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c0_guard_all_healing",
+      "spec": {
+        "id": "f12_c0_guard_all_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD",
+          "FOOD_FISHERMANS_TOAST",
+          "FOOD_CREAM_STEW"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "CLEARED": 2,
+        "TIMEOUT": 1
+      },
+      "clearedWithNoNativeKO": 2,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 0,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_craft_guard_all",
+      "spec": {
+        "id": "f12_craft_guard_all",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "CRAFT",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD",
+          "FOOD_FISHERMANS_TOAST",
+          "FOOD_CREAM_STEW"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 5,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 2,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c1_guard_feast",
+      "spec": {
+        "id": "f12_c1_guard_feast",
+        "floor": 12,
+        "investment": "FIVE_C1",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 1,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 1,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c2_guard_feast",
+      "spec": {
+        "id": "f12_c2_guard_feast",
+        "floor": 12,
+        "investment": "FIVE_C2",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "CLEARED": 2,
+        "TIMEOUT": 1
+      },
+      "clearedWithNoNativeKO": 2,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 0,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "floor12_preparation",
+      "id": "f12_c6_guard_feast",
+      "spec": {
+        "id": "f12_c6_guard_feast",
+        "floor": 12,
+        "investment": "FIVE_C6",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 9,
+      "stateCounts": {
+        "CLEARED": 3
+      },
+      "clearedWithNoNativeKO": 3,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 0,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f12_counter_none",
+      "spec": {
+        "id": "f12_counter_none",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "NONE",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "COUNTER",
+        "buffs": []
+      },
+      "executions": 3,
+      "chambersStarted": 5,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 1,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f12_counter_feast",
+      "spec": {
+        "id": "f12_counter_feast",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "COUNTER",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 3,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f12_counter_crit",
+      "spec": {
+        "id": "f12_counter_crit",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "COUNTER",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 2,
+      "nativeKOThenPositivePersistentHP": 2,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f12_counter_all",
+      "spec": {
+        "id": "f12_counter_all",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "COUNTER",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD",
+          "FOOD_FISHERMANS_TOAST",
+          "FOOD_CREAM_STEW"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 2,
+      "nativeKOThenPositivePersistentHP": 1,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f12_counter_crit_medicines",
+      "spec": {
+        "id": "f12_counter_crit_medicines",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "COUNTER",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ],
+        "medicines": true
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 2,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f10_mixed_five_c0_guard_crit",
+      "spec": {
+        "id": "f10_mixed_five_c0_guard_crit",
+        "floor": 10,
+        "team": [
+          "MOND_BARBARA",
+          "LIYUE_KEQING",
+          "MOND_SUCROSE"
+        ],
+        "investment": "MIXED_FIVE_C0",
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ],
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "지원우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "DEFEAT": 2,
+        "TIMEOUT": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 3,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f10_four_c0_guard_crit",
+      "spec": {
+        "id": "f10_four_c0_guard_crit",
+        "floor": 10,
+        "team": [
+          "MOND_BARBARA",
+          "MOND_LISA",
+          "MOND_SUCROSE"
+        ],
+        "investment": "FOUR_C0",
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ],
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "지원우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "DEFEAT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 3,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f10_four_c6_guard_crit",
+      "spec": {
+        "id": "f10_four_c6_guard_crit",
+        "floor": 10,
+        "team": [
+          "MOND_BARBARA",
+          "MOND_LISA",
+          "MOND_SUCROSE"
+        ],
+        "investment": "FOUR_C6",
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ],
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "지원우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 8,
+      "stateCounts": {
+        "CLEARED": 2,
+        "TIMEOUT": 1
+      },
+      "clearedWithNoNativeKO": 2,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 1,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f11_mixed_five_c0_guard_crit",
+      "spec": {
+        "id": "f11_mixed_five_c0_guard_crit",
+        "floor": 11,
+        "team": [
+          "LIYUE_HUTAO",
+          "LIYUE_GANYU",
+          "LIYUE_NINGGUANG"
+        ],
+        "investment": "MIXED_FIVE_C0",
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ],
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "지원우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 9,
+      "stateCounts": {
+        "CLEARED": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 3,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 8,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f11_four_c0_guard_crit",
+      "spec": {
+        "id": "f11_four_c0_guard_crit",
+        "floor": 11,
+        "team": [
+          "LIYUE_XIANGLING",
+          "MOND_KAEYA",
+          "MOND_NOELLE"
+        ],
+        "investment": "FOUR_C0",
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ],
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "지원우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 3,
+      "stateCounts": {
+        "TIMEOUT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "counter_preparation",
+      "id": "f11_four_c6_guard_crit",
+      "spec": {
+        "id": "f11_four_c6_guard_crit",
+        "floor": 11,
+        "team": [
+          "LIYUE_XIANGLING",
+          "MOND_KAEYA",
+          "MOND_NOELLE"
+        ],
+        "investment": "FOUR_C6",
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ],
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "지원우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "TIMEOUT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 3,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "roles_preparation",
+      "id": "f12_c0_jean_support",
+      "spec": {
+        "id": "f12_c0_jean_support",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "지원우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "CLEARED": 2,
+        "TIMEOUT": 1
+      },
+      "clearedWithNoNativeKO": 1,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 1,
+      "nativeKOThenPositivePersistentHP": 1,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "roles_preparation",
+      "id": "f12_c0_diluc_attack",
+      "spec": {
+        "id": "f12_c0_diluc_attack",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "공격우선",
+          "연계우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 1,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 0,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "roles_preparation",
+      "id": "f12_c0_balanced",
+      "spec": {
+        "id": "f12_c0_balanced",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "균형",
+          "지원우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "TIMEOUT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 1,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 1,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "fixed_preparation",
+      "id": "fixed_f12_c0_guard_none_buffonly",
+      "spec": {
+        "id": "fixed_f12_c0_guard_none_buffonly",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "NONE",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [],
+        "artifactSeed": 717
+      },
+      "executions": 3,
+      "chambersStarted": 4,
+      "stateCounts": {
+        "TIMEOUT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 1,
+      "nativeKOThenPositivePersistentHP": 1,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "fixed_preparation",
+      "id": "fixed_f12_c0_guard_none_healing",
+      "spec": {
+        "id": "fixed_f12_c0_guard_none_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [],
+        "artifactSeed": 717
+      },
+      "executions": 3,
+      "chambersStarted": 4,
+      "stateCounts": {
+        "TIMEOUT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 1,
+      "nativeKOThenPositivePersistentHP": 1,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "fixed_preparation",
+      "id": "fixed_f12_c0_guard_feast_healing",
+      "spec": {
+        "id": "fixed_f12_c0_guard_feast_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION"
+        ],
+        "artifactSeed": 717
+      },
+      "executions": 3,
+      "chambersStarted": 4,
+      "stateCounts": {
+        "TIMEOUT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 0,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "fixed_preparation",
+      "id": "fixed_f12_c0_guard_attack_healing",
+      "spec": {
+        "id": "fixed_f12_c0_guard_attack_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS"
+        ],
+        "artifactSeed": 717
+      },
+      "executions": 3,
+      "chambersStarted": 5,
+      "stateCounts": {
+        "CLEARED": 1,
+        "TIMEOUT": 2
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 1,
+      "nativeKOThenPositivePersistentHP": 1,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "fixed_preparation",
+      "id": "fixed_f12_c0_guard_crit_healing",
+      "spec": {
+        "id": "fixed_f12_c0_guard_crit_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ],
+        "artifactSeed": 717
+      },
+      "executions": 3,
+      "chambersStarted": 5,
+      "stateCounts": {
+        "CLEARED": 1,
+        "TIMEOUT": 2
+      },
+      "clearedWithNoNativeKO": 1,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 0,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "fixed_preparation",
+      "id": "fixed_f12_c0_guard_all_healing",
+      "spec": {
+        "id": "fixed_f12_c0_guard_all_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "MOND_DILUC",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD",
+          "FOOD_FISHERMANS_TOAST",
+          "FOOD_CREAM_STEW"
+        ],
+        "artifactSeed": 717
+      },
+      "executions": 3,
+      "chambersStarted": 5,
+      "stateCounts": {
+        "CLEARED": 1,
+        "TIMEOUT": 2
+      },
+      "clearedWithNoNativeKO": 1,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 0,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f10_mixed_exclusive_none",
+      "spec": {
+        "id": "f10_mixed_exclusive_none",
+        "floor": 10,
+        "investment": "MIXED_FIVE_C0",
+        "team": [
+          "MOND_MONA",
+          "LIYUE_KEQING",
+          "MOND_SUCROSE"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "NONE",
+        "roles": [
+          "연계우선",
+          "공격우선",
+          "연계우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "DEFEAT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 3,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f10_mixed_exclusive_buff_only",
+      "spec": {
+        "id": "f10_mixed_exclusive_buff_only",
+        "floor": 10,
+        "investment": "MIXED_FIVE_C0",
+        "team": [
+          "MOND_MONA",
+          "LIYUE_KEQING",
+          "MOND_SUCROSE"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "BUFF_ONLY",
+        "roles": [
+          "연계우선",
+          "공격우선",
+          "연계우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "DEFEAT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 3,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f10_mixed_exclusive_meals",
+      "spec": {
+        "id": "f10_mixed_exclusive_meals",
+        "floor": 10,
+        "investment": "MIXED_FIVE_C0",
+        "team": [
+          "MOND_MONA",
+          "LIYUE_KEQING",
+          "MOND_SUCROSE"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "연계우선",
+          "공격우선",
+          "연계우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "TIMEOUT": 1,
+        "DEFEAT": 2
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 3,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f10_mixed_poor_none",
+      "spec": {
+        "id": "f10_mixed_poor_none",
+        "floor": 10,
+        "investment": "MIXED_FIVE_C0",
+        "team": [
+          "MOND_MONA",
+          "LIYUE_KEQING",
+          "MOND_SUCROSE"
+        ],
+        "prep": "POOR",
+        "items": "NONE"
+      },
+      "executions": 3,
+      "chambersStarted": 3,
+      "stateCounts": {
+        "DEFEAT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f10_four_c0_exclusive_meals",
+      "spec": {
+        "id": "f10_four_c0_exclusive_meals",
+        "floor": 10,
+        "investment": "FOUR_C0",
+        "team": [
+          "MOND_BARBARA",
+          "MOND_LISA",
+          "MOND_SUCROSE"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS"
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "DEFEAT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 3,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f10_four_c6_exclusive_meals",
+      "spec": {
+        "id": "f10_four_c6_exclusive_meals",
+        "floor": 10,
+        "investment": "FOUR_C6",
+        "team": [
+          "MOND_BARBARA",
+          "MOND_LISA",
+          "MOND_SUCROSE"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS"
+      },
+      "executions": 3,
+      "chambersStarted": 9,
+      "stateCounts": {
+        "CLEARED": 2,
+        "TIMEOUT": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 2,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 6,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f11_mixed_exclusive_none",
+      "spec": {
+        "id": "f11_mixed_exclusive_none",
+        "floor": 11,
+        "investment": "MIXED_FIVE_C0",
+        "team": [
+          "LIYUE_HUTAO",
+          "LIYUE_GANYU",
+          "LIYUE_NINGGUANG"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "NONE",
+        "roles": [
+          "연계우선",
+          "공격우선",
+          "연계우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 8,
+      "stateCounts": {
+        "CLEARED": 1,
+        "DEFEAT": 2
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 6,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f11_mixed_exclusive_buff_only",
+      "spec": {
+        "id": "f11_mixed_exclusive_buff_only",
+        "floor": 11,
+        "investment": "MIXED_FIVE_C0",
+        "team": [
+          "LIYUE_HUTAO",
+          "LIYUE_GANYU",
+          "LIYUE_NINGGUANG"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "BUFF_ONLY",
+        "roles": [
+          "연계우선",
+          "공격우선",
+          "연계우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 8,
+      "stateCounts": {
+        "DEFEAT": 2,
+        "CLEARED": 1
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 6,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f11_mixed_exclusive_meals",
+      "spec": {
+        "id": "f11_mixed_exclusive_meals",
+        "floor": 11,
+        "investment": "MIXED_FIVE_C0",
+        "team": [
+          "LIYUE_HUTAO",
+          "LIYUE_GANYU",
+          "LIYUE_NINGGUANG"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "연계우선",
+          "공격우선",
+          "연계우선"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 9,
+      "stateCounts": {
+        "CLEARED": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 3,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 9,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f11_mixed_poor_none",
+      "spec": {
+        "id": "f11_mixed_poor_none",
+        "floor": 11,
+        "investment": "MIXED_FIVE_C0",
+        "team": [
+          "LIYUE_HUTAO",
+          "LIYUE_GANYU",
+          "LIYUE_NINGGUANG"
+        ],
+        "prep": "POOR",
+        "items": "NONE"
+      },
+      "executions": 3,
+      "chambersStarted": 3,
+      "stateCounts": {
+        "DEFEAT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f11_four_c0_exclusive_meals",
+      "spec": {
+        "id": "f11_four_c0_exclusive_meals",
+        "floor": 11,
+        "investment": "FOUR_C0",
+        "team": [
+          "LIYUE_XIANGLING",
+          "MOND_KAEYA",
+          "LIYUE_NINGGUANG"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS"
+      },
+      "executions": 3,
+      "chambersStarted": 7,
+      "stateCounts": {
+        "DEFEAT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 4,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "release_floor10_11",
+      "id": "f11_four_c6_exclusive_meals",
+      "spec": {
+        "id": "f11_four_c6_exclusive_meals",
+        "floor": 11,
+        "investment": "FOUR_C6",
+        "team": [
+          "LIYUE_XIANGLING",
+          "MOND_KAEYA",
+          "LIYUE_NINGGUANG"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS"
+      },
+      "executions": 3,
+      "chambersStarted": 9,
+      "stateCounts": {
+        "DEFEAT": 1,
+        "CLEARED": 2
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 2,
+      "executionsWithNativeKO": 3,
+      "nativeKOThenPositivePersistentHP": 8,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "last_pyro",
+      "id": "f12_hutao_none",
+      "spec": {
+        "id": "f12_hutao_none",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "LIYUE_HUTAO",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "NONE",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": []
+      },
+      "executions": 3,
+      "chambersStarted": 3,
+      "stateCounts": {
+        "TIMEOUT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 1,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "last_pyro",
+      "id": "f12_hutao_crit_healing",
+      "spec": {
+        "id": "f12_hutao_crit_healing",
+        "floor": 12,
+        "investment": "FIVE_C0",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "LIYUE_HUTAO",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ]
+      },
+      "executions": 3,
+      "chambersStarted": 6,
+      "stateCounts": {
+        "TIMEOUT": 3
+      },
+      "clearedWithNoNativeKO": 0,
+      "clearedWithNativeKO": 0,
+      "executionsWithNativeKO": 2,
+      "nativeKOThenPositivePersistentHP": 0,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    },
+    {
+      "bundle": "last_pyro",
+      "id": "f12_xiangling_c6_crit_healing",
+      "spec": {
+        "id": "f12_xiangling_c6_crit_healing",
+        "floor": 12,
+        "investment": "MIXED_FIVE_C0_FOUR_C6",
+        "team": [
+          "LIYUE_ZHONGLI",
+          "LIYUE_XIANGLING",
+          "MOND_JEAN"
+        ],
+        "prep": "EXCLUSIVE",
+        "items": "MEALS",
+        "roles": [
+          "지원우선",
+          "연계우선",
+          "공격우선"
+        ],
+        "policy": "GUARD",
+        "buffs": [
+          "FOOD_ADEPTUS_TEMPTATION",
+          "FOOD_JADE_PARCELS",
+          "FOOD_SATISFYING_SALAD"
+        ],
+        "constellations": {
+          "LIYUE_XIANGLING": 6
+        }
+      },
+      "executions": 3,
+      "chambersStarted": 9,
+      "stateCounts": {
+        "TIMEOUT": 1,
+        "CLEARED": 2
+      },
+      "clearedWithNoNativeKO": 1,
+      "clearedWithNativeKO": 1,
+      "executionsWithNativeKO": 2,
+      "nativeKOThenPositivePersistentHP": 2,
+      "entryBlocked": 0,
+      "floor12MasteryFalse": 0,
+      "inputLimit": 0,
+      "errors": 0
+    }
+  ],
+  "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+  "rawDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "total": {
+    "executions": 147,
+    "chambersStarted": 310,
+    "stateCounts": {
+      "TIMEOUT": 69,
+      "CLEARED": 48,
+      "DEFEAT": 30
+    },
+    "clearedWithNoNativeKO": 21,
+    "clearedWithNativeKO": 27,
+    "executionsWithNativeKO": 90,
+    "nativeKOThenPositivePersistentHP": 96,
+    "entryBlocked": 0,
+    "floor12MasteryFalse": 0,
+    "inputLimit": 0,
+    "errors": 0
+  },
+  "repeatNote": "The fixed_preparation seed717 rows repeat paired baseline conditions from floor12_preparation. Report 147 executions, not 147 unique independent trials."
+}

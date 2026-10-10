@@ -6,7 +6,7 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype,cp=x=>JSON.parse(JSON.stringi
 const fail=(c,m)=>{throw new api.RuleError(c,m);};
 const old=Object.fromEntries(['installMarketContent','newGame','validateSave','startBattle','damage','applyDamage','aiTurn','roundEnd','liyueBattleOutcome','finishBattle','actionReason','apply','enemyIntel','supportsLiyueBoss'].map(k=>[k,P[k]]));
 P.supportsLiyueBoss=function(id){return id==='MON_ABYSS_WARDEN'||old.supportsLiyueBoss.call(this,id);};
-const LEGACY='ABYSS_01',VERSION=2,MARK='나선 각인';
+const LEGACY='ABYSS_01',VERSION=2,RULES_REVISION=1,MARK='나선 각인';
 /* 0.14.15 seasons (user: 「시즌별로 10층 이상 깬 사람은 훈장, 전 시즌 10층 이상이면 채팅에 테두리」). A season is a calendar
    month in Korea. When a new one starts the floors, marks and runs start over (only after a run under way has ended);
    the floor reached is kept in the season history, and first-clear rewards stay claimed for good. Saves from before
@@ -190,7 +190,13 @@ P.startAbyss=function(floor){
  else s.active.phase='BATTLE';
  this.s.placeVisit=null;
  const out=this.startBattle(groupId(floor,s.active.chamber),originId(floor,s.active.chamber));
- return {...out,abyss:{floor,chamber:s.active.chamber}};
+ const b=this.s.runtime;
+ if(b?.opening?.state==='PENDING'){
+  // Later startup hooks (including operator speed overrides) have now finished.
+  const i=b.order.findIndex(x=>x.id==='PLAYER_CUSTOM');if(i>0)b.order=[b.order[i],...b.order.slice(0,i),...b.order.slice(i+1)];
+  b.opening.initialOrder=cp(b.order);
+ }
+ return {...out,...(b?.opening?.state==='PENDING'?{order:this.combatOrderView()}:{}),abyss:{floor,chamber:s.active.chamber}};
 };
 P.startBattle=function(group,origin='EXPLICIT',options={}){
  const act=this.s.abyss?.active;
@@ -198,14 +204,24 @@ P.startBattle=function(group,origin='EXPLICIT',options={}){
  const result=old.startBattle.call(this,group,origin,options),b=this.s.runtime;
  if(b&&String(origin).startsWith('ABYSS:')&&!b.abyss){
   const F=FLOORS[act.floor-1],c=act.chamber-1,r=F.rooms[c],names={};
-  b.abyss={version:VERSION,floor:F.floor,chamber:act.chamber,limit:r.limit,marks:[],settled:[],pulse:{},broken:false};b.storyConfig={noRewards:true};
+  b.abyss={version:VERSION,rulesRevision:RULES_REVISION,floor:F.floor,chamber:act.chamber,limit:r.limit,marks:[],settled:[],pulse:{},broken:false};b.storyConfig={noRewards:true};
   for(const x of r.foes)names[x.n]=(names[x.n]||0)+1;const seen={};
   b.actors.filter(a=>a.side==='ENEMY').forEach((a,i)=>{
+   const beforeSpeed=this.combatStat(a,'spd');
    const spec=r.foes[i]||r.foes[0],pw=powerOf(F.floor),hp=Math.round(F.hp*(r.hp??1)*ROOM_HP[c]*(spec.hp||1)*pw.hp),atk=Math.round(F.atk*ROOM_ATK[c]*(spec.atk||1)*pw.atk);
    seen[spec.n]=(seen[spec.n]||0)+1;const name=names[spec.n]>1?spec.n+' '+seen[spec.n]:spec.n;
    Object.assign(a,{name,hp,maxHp:hp,atk,def:F.def,level:F.level,spd:26+F.floor*2,hit:98,eva:Math.min(25,6+F.floor),resist:95,abyssWarden:true,abyssIndex:i,abyssHealer:!!spec.heal,abyssAir:!!spec.air,airborne:!!spec.air,tags:['[나선비경]'],hasDedicatedCards:false});
    if(r.shield&&(spec.shield||!r.foes.some(x=>x.shield)))this.shield(a,a.maxHp*r.shield.pct,'ABYSS_SHIELD',null,{element:r.shield.element,damageMultipliers:r.shield.weak});
+   // Keep the opening die roll; only replace the template's speed contribution.
+   const turn=b.opening?.state==='PENDING'&&b.order.find(x=>x.id===a.id);
+   if(turn)turn.score+=this.combatStat(a,'spd')-beforeSpeed;
   });
+  if(b.opening?.state==='PENDING'){
+   b.order.sort((a,c)=>Number(c.first)-Number(a.first)||c.score-a.score||a.id.localeCompare(c.id));
+   // The opening deliberately gives the protagonist the first playable action.
+   const i=b.order.findIndex(x=>x.id==='PLAYER_CUSTOM');if(i>0)b.order=[b.order[i],...b.order.slice(0,i),...b.order.slice(i+1)];
+   b.opening.initialOrder=cp(b.order);
+  }
  }
  return result;
 };
@@ -298,12 +314,16 @@ P.roundEnd=function(){
 P.abyssRoundExpired=function(b){const ab=b?.abyss;if(!ab||b.round<ab.limit||!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0))return false;ab.expired=true;return true;};
 P.liyueBattleOutcome=function(b){if(b?.abyss){if(!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return false;if(!b.actors.some(a=>a.side==='ENEMY'&&a.hp>0))return true;if(b.abyss.expired)return false;}return old.liyueBattleOutcome?.call(this,b);};
 P.finishBattle=function(win){
- const b=this.s.runtime,ab=b?.abyss,act=this.s.abyss?.active;if(ab?.expired&&!win)b.log.push({text:'나선의 문이 닫혔다.'});const result=old.finishBattle.call(this,win);
+ const b=this.s.runtime,ab=b?.abyss,act=this.s.abyss?.active;
+ // General victory settlement revives the protagonist for leaving combat. It must
+ // not turn an actual chamber KO into permission to continue a new Abyss battle.
+ const protagonistDowned=win&&ab?.rulesRevision===RULES_REVISION&&ab.chamber<3&&b.actors.some(a=>a.source==='PLAYER_CUSTOM'&&a.side==='ALLY'&&a.hp<=0);
+ if(ab?.expired&&!win)b.log.push({text:'나선의 문이 닫혔다.'});const result=old.finishBattle.call(this,win);
  if(ab&&act){
   const s=this.ensureAbyss(),F=FLOORS[ab.floor-1],info={floor:ab.floor,chamber:ab.chamber,room:F.rooms[ab.chamber-1].name,rounds:b.round};
   s.totalRounds+=b.round;act.rounds.push(b.round);
   if(!win){s.active=null;info.outcome=ab.expired?'TIMEOUT':'DEFEAT';}
-  else if(ab.chamber<3&&this.s.global.PLAYER_HP_CURRENT<=0){s.active=null;info.outcome='DOWNED';}
+  else if(ab.chamber<3&&(protagonistDowned||this.s.global.PLAYER_HP_CURRENT<=0)){s.active=null;info.outcome='DOWNED';}
   else if(ab.chamber<3){act.chamber++;act.phase='BREAK';info.outcome='NEXT';info.next={chamber:act.chamber,room:F.rooms[act.chamber-1].name,hint:F.rooms[act.chamber-1].hint};}
   else{
    const total=act.rounds.reduce((n,x)=>n+x,0),prev=s.clears[ab.floor],marked=act.party.filter(id=>id!=='PLAYER_CUSTOM');
@@ -329,12 +349,12 @@ P.claimAbyss=function(floor,equipment){
  else Object.assign(out,{slot:this.giveEquipment(equipment),equip:equipment});
  s.claimed[floor]={...out,run:s.run};return {abyssReward:true,...out};
 };
-/* Between chambers the party may only eat, treat wounds, and adjust gear or formation. */
+/* Between chambers the party may only eat and adjust gear or formation. Combat medicines need a live battle. */
 const BREAK_ACTIONS=new Set(['ABYSS_ENTER','ABYSS_RESET','USE_ITEM','EQUIP','UNEQUIP','MENU','FORMATION_SET','PARTY_TACTIC','TOOL_PREPARE','TUTORIAL_ACK','EQUIPMENT_GUIDE_ACK','OPERATOR_DEBUG']);
 P.abyssBreakReason=function(type,a={}){
  const act=this.s?.abyss?.active;if(!act||act.phase!=='BREAK'||this.s.runtime)return null;
  if(!BREAK_ACTIONS.has(type))return '나선비경 '+act.floor+'층 도전 중입니다. 다음 방에 들어가거나 도전을 포기해 주세요.';
- if(type==='USE_ITEM'&&!['음식','전투 치료품'].includes(this.tables['14_ITEM_DB'].get(a.item)?.[2]))return '방 사이에서는 음식과 치료품만 쓸 수 있습니다.';
+ if(type==='USE_ITEM'&&this.tables['14_ITEM_DB'].get(a.item)?.[2]!=='음식')return '방 사이에서는 음식만 쓸 수 있습니다. 전투 치료품은 전투 중에만 사용할 수 있습니다.';
  return null;
 };
 const priorAssert=P.assertActionAllowed;
@@ -381,6 +401,7 @@ P.validateSave=function(s){
   for(const key of Object.keys(a.claimed))if(!/^(?:[1-9]|1[0-2])$/.test(key))bad('보상 기록이 손상되었습니다.');
   for(const [id,f]of Object.entries(a.tags))if(!this.tables['07_CHAR_DB'].has(id)||!Number.isInteger(f)||f<1||f>12)fail('ABYSS_TAG',MARK+' 기록이 손상되었습니다.');
   const act=a.active,rb=out.runtime?.abyss;
+  if(rb?.rulesRevision!==undefined&&rb.rulesRevision!==RULES_REVISION)bad('나선비경 전투 규칙 버전이 올바르지 않습니다.');
   if(act&&(!FLOORS[act.floor-1]||![1,2,3].includes(act.chamber)||!['BATTLE','BREAK'].includes(act.phase)||!Array.isArray(act.party)||!act.party.includes('PLAYER_CUSTOM')||!Array.isArray(act.rounds)||act.rounds.length!==act.chamber-1))bad('진행 중인 층 기록이 손상되었습니다.');
   if(rb&&(!act||act.phase!=='BATTLE'||act.floor!==rb.floor||act.chamber!==rb.chamber||out.runtime.origin!==originId(act.floor,act.chamber)))bad('입장 기록과 진행 중인 전투가 일치하지 않습니다.');
   if(act?.phase==='BATTLE'&&!rb)bad('진행 중인 방 전투 기록이 없습니다.');

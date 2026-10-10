@@ -1,0 +1,73 @@
+{
+  "gear": {
+    "10": {
+      "mora": 76068.09169983784,
+      "attempts": 16.627951373531868,
+      "ORE_IRON": 47.42599144921127,
+      "ORE_WHITE_IRON": 241.6395238095238,
+      "ORE_CRYSTAL": 139.95666666666665
+    },
+    "12": {
+      "mora": 382845.92903317115,
+      "attempts": 26.542361373531868,
+      "ORE_IRON": 47.42599144921127,
+      "ORE_WHITE_IRON": 1047.2724171428572,
+      "ORE_CRYSTAL": 731.4322799999999
+    }
+  },
+  "artifact": {
+    "mora": 26773.881673881675,
+    "crystals": 34.65223665223665,
+    "attempts": 12.11976911976912,
+    "expectedSuccessfulAzhdahaWins": 11.550745550745551
+  },
+  "party": {
+    "composition": [
+      "PLAYER_CUSTOM",
+      "MOND_DILUC",
+      "MOND_JEAN",
+      "LIYUE_ZHONGLI"
+    ],
+    "talentBaseMax": 10,
+    "naturalLevelXp": "not simulated",
+    "equipmentPiecesAt12": 12,
+    "artifactPiecesAt5": 4,
+    "talentMora": 1175625,
+    "ascensionMora": 596480,
+    "gearMoraExpected": 4630151.148398054,
+    "artifactMoraExpected": 107095.5266955267,
+    "subtotalMoraExpected": 6509351.675093581
+  },
+  "artifactAcquisition": {
+    "sampleRolls": 1000000,
+    "seed": 46190377,
+    "quality90plusExactProbability": 0.04681064541260971,
+    "countsByEligibleActorBitmask": {
+      "0": 959480,
+      "12": 10319,
+      "3": 4342,
+      "15": 9800,
+      "1": 10880,
+      "14": 4670,
+      "2": 509
+    },
+    "bitmaskLegend": {
+      "1": "Zhongli",
+      "2": "Jean",
+      "4": "Attacker1",
+      "8": "Attacker2"
+    },
+    "expectedRollsToFirstRole": {
+      "Zhongli": 39.96483094876508,
+      "Jean": 51.75715542673775,
+      "Attacker": 40.34047359716003
+    },
+    "fourSuitablePiecesAssignmentSimulation": {
+      "samples": 20000,
+      "meanRolls": 116.4369,
+      "medianRolls": 106,
+      "p90Rolls": 197,
+      "scheduleAssumption": "one successful Tartaglia artifact per real KST day; all wins, no market, no inventory, initial story artifact not subtracted"
+    }
+  }
+}
