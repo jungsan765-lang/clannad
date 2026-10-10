@@ -1,0 +1,78 @@
+[
+  {
+    "margin": 1,
+    "rewards": {
+      "5": 1,
+      "10": 2,
+      "15": 3,
+      "20": 10,
+      "25": 30,
+      "30": 44,
+      "35": 98,
+      "40": 142,
+      "45": 294,
+      "50": 588,
+      "55": 1754,
+      "60": 5100
+    },
+    "exactHighestMinimum": 5076,
+    "roundedHighest": 5100,
+    "costs": [
+      3,
+      6,
+      88,
+      710,
+      4704,
+      127500
+    ],
+    "total4": 133011,
+    "total5": 266022,
+    "oldFinalInventoryContribution": 0.29411764705882354,
+    "minFactor": 1.0004601641126771,
+    "highestMinimumFactor": 1.1054138309424308,
+    "successful": 1863,
+    "noInversion": 1863,
+    "weeklyPlain": 132600,
+    "weeklyBoosted": 147900,
+    "weekFractionPlain": 1.04,
+    "weekFractionBoosted": 1.16
+  },
+  {
+    "margin": 1.01,
+    "rewards": {
+      "5": 1,
+      "10": 2,
+      "15": 3,
+      "20": 10,
+      "25": 30,
+      "30": 44,
+      "35": 99,
+      "40": 145,
+      "45": 303,
+      "50": 612,
+      "55": 1843,
+      "60": 5400
+    },
+    "exactHighestMinimum": 5333,
+    "roundedHighest": 5400,
+    "costs": [
+      3,
+      6,
+      88,
+      725,
+      4896,
+      135000
+    ],
+    "total4": 140718,
+    "total5": 281436,
+    "oldFinalInventoryContribution": 0.2777777777777778,
+    "minFactor": 1.010000179315889,
+    "highestMinimumFactor": 1.1139167428589711,
+    "successful": 1863,
+    "noInversion": 1863,
+    "weeklyPlain": 140400,
+    "weeklyBoosted": 156600,
+    "weekFractionPlain": 1.04,
+    "weekFractionBoosted": 1.16
+  }
+]

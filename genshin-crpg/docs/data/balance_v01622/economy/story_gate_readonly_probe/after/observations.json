@@ -1,0 +1,5805 @@
+{
+  "schema": 1,
+  "scope": "Read-only query behavior and native existing END effects after targeted existing-receipt connection. Source-grounded prepared boundary, declared prerequisite records and declaration of canonicalacceptance-entry correction; no fullchapterwalk/battle.",
+  "beforeHashes": {
+    "source/runtime_growth_v01522.js": "d9a346144ead6918b79e53193fbd78c95d29f8ba51496fb9ad181af67adb661b",
+    "source/runtime_nodes.js": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322",
+    "source/runtime_liyue.js": "9f2ec45728012fcac19a5d02f1adeb0da18cabd60276a88ed56eefdeecda0163",
+    "source/runtime_liyue_artifacts.js": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0",
+    "source/runtime_enhancement.js": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+    "source/runtime_economy.js": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140",
+    "content/db.json": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962"
+  },
+  "afterHashes": {
+    "source/runtime_growth_v01522.js": "d9a346144ead6918b79e53193fbd78c95d29f8ba51496fb9ad181af67adb661b",
+    "source/runtime_nodes.js": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322",
+    "source/runtime_liyue.js": "9f2ec45728012fcac19a5d02f1adeb0da18cabd60276a88ed56eefdeecda0163",
+    "source/runtime_liyue_artifacts.js": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0",
+    "source/runtime_enhancement.js": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+    "source/runtime_economy.js": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140",
+    "content/db.json": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962"
+  },
+  "counts": {
+    "conditions": 28,
+    "traveler": 4,
+    "isekai": 24,
+    "negativeVariants": 312,
+    "negativeVariantsRejected": 312
+  },
+  "rows": [
+    {
+      "route": "ROUTE_TRAVELER",
+      "quest": "Q_TRV_LIYUE_01",
+      "node": "TRV_LY1_N166",
+      "normalizedAcceptanceEntry": null,
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": false,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "완료",
+        "node": "OFFERED",
+        "claimed": true,
+        "attempts": 0,
+        "acceptedTurn": 1,
+        "completedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": null,
+      "endReceipt": null,
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "quest": "Q_TRV_LIYUE_02",
+      "node": "TRV_LY2_N193",
+      "normalizedAcceptanceEntry": null,
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": false,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "완료",
+        "node": "OFFERED",
+        "claimed": true,
+        "attempts": 0,
+        "acceptedTurn": 1,
+        "completedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": null,
+      "endReceipt": null,
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "quest": "Q_TRV_LIYUE_03",
+      "node": "TRV_LY3_A_END",
+      "normalizedAcceptanceEntry": null,
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": false,
+      "artifactTartagliaUnlocked": true,
+      "questStillNativeState": {
+        "state": "완료",
+        "node": "OFFERED",
+        "claimed": true,
+        "attempts": 0,
+        "acceptedTurn": 1,
+        "completedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": null,
+      "endReceipt": null,
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "quest": "Q_TRV_LIYUE_03",
+      "node": "TRV_LY3_B_END",
+      "normalizedAcceptanceEntry": null,
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": false,
+      "artifactTartagliaUnlocked": true,
+      "questStillNativeState": {
+        "state": "완료",
+        "node": "OFFERED",
+        "claimed": true,
+        "attempts": 0,
+        "acceptedTurn": 1,
+        "completedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": null,
+      "endReceipt": null,
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_K_1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L01_K_1_END",
+        "after": "ISK_L01_K_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K1",
+        "node_id": "ISK_L01_K_1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 별도 관찰 대기 자리",
+        "event": "EVT_ISK_L01_K_1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_K_1_END",
+        "resolvedNode": "ISK_L01_K_1_END",
+        "saveId": "V011-7",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "K",
+        "leaf": "K1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-7:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_K_2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L01_K_2_END",
+        "after": "ISK_L01_K_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K2",
+        "node_id": "ISK_L01_K_2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 물자 대기 구역",
+        "event": "EVT_ISK_L01_K_2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_K_2_END",
+        "resolvedNode": "ISK_L01_K_2_END",
+        "saveId": "V011-8",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "K",
+        "leaf": "K2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-8:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_AA_1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L01_AA_1_END",
+        "after": "ISK_L01_AA_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA1",
+        "node_id": "ISK_L01_AA_1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "OUTER_WANGSHENG_SCREEN_AREA",
+        "event": "EVT_ISK_L01_AA_1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_AA_1_END",
+        "resolvedNode": "ISK_L01_AA_1_END",
+        "saveId": "V011-9",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "AA",
+        "leaf": "AA1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-9:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_AA_2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L01_AA_2_END",
+        "after": "ISK_L01_AA_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA2",
+        "node_id": "ISK_L01_AA_2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "OUTER_CASE_DESK",
+        "event": "EVT_ISK_L01_AA_2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_AA_2_END",
+        "resolvedNode": "ISK_L01_AA_2_END",
+        "saveId": "V011-10",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "AA",
+        "leaf": "AA2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-10:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_AB_1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L01_AB_1_END",
+        "after": "ISK_L01_AB_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB1",
+        "node_id": "ISK_L01_AB_1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "항구 외곽 초소 뒤 대기 구역",
+        "event": "EVT_ISK_L01_AB_1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_AB_1_END",
+        "resolvedNode": "ISK_L01_AB_1_END",
+        "saveId": "V011-11",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "AB",
+        "leaf": "AB1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-11:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_AB_2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L01_AB_2_END",
+        "after": "ISK_L01_AB_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB2",
+        "node_id": "ISK_L01_AB_2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "항구 외곽 물자 보관 구역 옆 대기 자리",
+        "event": "EVT_ISK_L01_AB_2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_AB_2_END",
+        "resolvedNode": "ISK_L01_AB_2_END",
+        "saveId": "V011-12",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "AB",
+        "leaf": "AB2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-12:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_B_1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L01_B_1_END",
+        "after": "ISK_L01_B_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B1",
+        "node_id": "ISK_L01_B_1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "HARBOR_OUTSKIRTS_GUARD_REST",
+        "event": "EVT_ISK_L01_B_1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_B_1_END",
+        "resolvedNode": "ISK_L01_B_1_END",
+        "saveId": "V011-13",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "B",
+        "leaf": "B1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-13:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_B_2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L01_B_2_END",
+        "after": "ISK_L01_B_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B2",
+        "node_id": "ISK_L01_B_2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "HARBOR_OUTSKIRTS_CARAVAN_STORAGE",
+        "event": "EVT_ISK_L01_B_2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_B_2_END",
+        "resolvedNode": "ISK_L01_B_2_END",
+        "saveId": "V011-14",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "B",
+        "leaf": "B2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-14:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_K1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L02_K1_END",
+        "after": "ISK_L02_K1_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K1",
+        "node_id": "ISK_L02_K1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 봉쇄선",
+        "event": "EVT_ISK_L02_K1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_K1_END",
+        "resolvedNode": "ISK_L02_K1_END",
+        "saveId": "V011-15",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "K",
+        "leaf": "K1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-15:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_K2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L02_K2_END",
+        "after": "ISK_L02_K2_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K2",
+        "node_id": "ISK_L02_K2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 물자 대기 구역 인근 봉쇄선",
+        "event": "EVT_ISK_L02_K2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_K2_END",
+        "resolvedNode": "ISK_L02_K2_END",
+        "saveId": "V011-16",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "K",
+        "leaf": "K2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-16:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_AA1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L02_AA1_END",
+        "after": "ISK_L02_AA1_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA1",
+        "node_id": "ISK_L02_AA1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 통제선 접근로",
+        "event": "EVT_ISK_L02_AA1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_AA1_END",
+        "resolvedNode": "ISK_L02_AA1_END",
+        "saveId": "V011-17",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "AA",
+        "leaf": "AA1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-17:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_AA2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L02_AA2_END",
+        "after": "ISK_L02_AA2_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA2",
+        "node_id": "ISK_L02_AA2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 통제선 앞",
+        "event": "EVT_ISK_L02_AA2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_AA2_END",
+        "resolvedNode": "ISK_L02_AA2_END",
+        "saveId": "V011-18",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "AA",
+        "leaf": "AA2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-18:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_AB1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L02_AB1_END",
+        "after": "ISK_L02_AB1_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB1",
+        "node_id": "ISK_L02_AB1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 통제선 각청 앞",
+        "event": "EVT_ISK_L02_AB1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_AB1_END",
+        "resolvedNode": "ISK_L02_AB1_END",
+        "saveId": "V011-19",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "AB",
+        "leaf": "AB1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-19:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_AB2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L02_AB2_END",
+        "after": "ISK_L02_AB2_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB2",
+        "node_id": "ISK_L02_AB2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 통제선 각청 앞",
+        "event": "EVT_ISK_L02_AB2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_AB2_END",
+        "resolvedNode": "ISK_L02_AB2_END",
+        "saveId": "V011-20",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "AB",
+        "leaf": "AB2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-20:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_B1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L02_B1_END",
+        "after": "ISK_L02_B1_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B1",
+        "node_id": "ISK_L02_B1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "LIYUE_OUTSIDE_CORDON_B1_KEQING_REUNION",
+        "event": "EVT_ISK_L02_B1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_B1_END",
+        "resolvedNode": "ISK_L02_B1_END",
+        "saveId": "V011-21",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "B",
+        "leaf": "B1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-21:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_B2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L02_B2_END",
+        "after": "ISK_L02_B2_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": false,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B2",
+        "node_id": "ISK_L02_B2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "LIYUE_OUTSIDE_CORDON_B2_KEQING_REUNION",
+        "event": "EVT_ISK_L02_B2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_B2_END",
+        "resolvedNode": "ISK_L02_B2_END",
+        "saveId": "V011-22",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "B",
+        "leaf": "B2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-22:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_K1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L03_K1_END",
+        "after": "ISK_L03_K1_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": true,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K1",
+        "node_id": "ISK_L03_K1_END",
+        "map_id": "MAP_LIYUE_GOLDEN_HOUSE",
+        "location": "무너진 황금옥 잔해 아래",
+        "ending_state": "BURIED_PENDING",
+        "event": "EVT_ISK_L03_K1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_K1_END",
+        "resolvedNode": "ISK_L03_K1_END",
+        "saveId": "V011-23",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "K",
+        "leaf": "K1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-23:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_K2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L03_K2_END",
+        "after": "ISK_L03_K2_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": true,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K2",
+        "node_id": "ISK_L03_K2_END",
+        "map_id": "MAP_LIYUE_GOLDEN_HOUSE",
+        "location": "무너진 황금옥 잔해 아래",
+        "ending_state": "BURIED_PENDING",
+        "event": "EVT_ISK_L03_K2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_K2_END",
+        "resolvedNode": "ISK_L03_K2_END",
+        "saveId": "V011-24",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "K",
+        "leaf": "K2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-24:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_AA1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L03_AA1_END",
+        "after": "ISK_L03_AA1_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": true,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA1",
+        "node_id": "ISK_L03_AA1_END",
+        "map_id": "MAP_CHASM_SURFACE",
+        "location": "층암거연 임시 안치소 지하의 출구가 사라진 방",
+        "ending_state": "TRAPPED_UNDERGROUND_WITH_HUTAO",
+        "event": "EVT_ISK_L03_AA1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_AA1_END",
+        "resolvedNode": "ISK_L03_AA1_END",
+        "saveId": "V011-25",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "AA",
+        "leaf": "AA1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-25:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_AA2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L03_AA2_END",
+        "after": "ISK_L03_AA2_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": true,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA2",
+        "node_id": "ISK_L03_AA2_END",
+        "map_id": "MAP_LY_DETAIL_MINGYUN",
+        "location": "리월항 외곽 얕은 골짜기의 마른 바위 옆",
+        "ending_state": "PLAYER_MOTION_AND_VOICE_BLOCKED_WITH_ALBEDO",
+        "event": "EVT_ISK_L03_AA2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_AA2_END",
+        "resolvedNode": "ISK_L03_AA2_END",
+        "saveId": "V011-26",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "AA",
+        "leaf": "AA2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-26:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_AB1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L03_AB1_END",
+        "after": "ISK_L03_AB1_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": true,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB1",
+        "node_id": "ISK_L03_AB1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "외곽 초소 분리 조사실",
+        "ending_state": "PROTECTIVE_CUSTODY_PENDING",
+        "event": "EVT_ISK_L03_AB1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_AB1_END",
+        "resolvedNode": "ISK_L03_AB1_END",
+        "saveId": "V011-27",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "AB",
+        "leaf": "AB1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-27:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_AB2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L03_AB2_END",
+        "after": "ISK_L03_AB2_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": true,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB2",
+        "node_id": "ISK_L03_AB2_END",
+        "map_id": "MAP_CHASM_SURFACE",
+        "location": "폐창고 붕괴 아래에서 이어진 정체불명의 낮은 복도 입구",
+        "ending_state": "SEPARATED_CORRIDOR_PENDING",
+        "event": "EVT_ISK_L03_AB2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_AB2_END",
+        "resolvedNode": "ISK_L03_AB2_END",
+        "saveId": "V011-28",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "AB",
+        "leaf": "AB2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-28:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_B1_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L03_B1_END",
+        "after": "ISK_L03_B1_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": true,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B1",
+        "node_id": "ISK_L03_B1_END",
+        "map_id": "MAP_LY_DETAIL_HUAGUANG",
+        "location": "B1_NORTH_PLAINS_SEALED_PASSAGE",
+        "ending_state": "UNSEEN_RELIEF_GUARD_ON_ROPE_AND_SEALED_FRAME",
+        "event": "EVT_ISK_L03_B1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_B1_END",
+        "resolvedNode": "ISK_L03_B1_END",
+        "saveId": "V011-29",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "B",
+        "leaf": "B1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-29:1"
+      },
+      "readonlyQueriesMutated": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_B2_END",
+      "normalizedAcceptanceEntry": {
+        "before": "ISK_L03_B2_END",
+        "after": "ISK_L03_B2_001"
+      },
+      "scope": "Native existing exact END effects on declared boundary prerequisites, not a fullstoryplaythrough.",
+      "priorGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "helper": true,
+      "artifactTartagliaUnlocked": true,
+      "questStillNativeState": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "questIdReceipt": null,
+      "inventoryBefore": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "inventoryAfter": [
+        {
+          "slot": "EQI_000001",
+          "equip": "EQ_SWORD_TRAVELER",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "EQI_000002",
+          "equip": "EQ_ARMOR_TRAVEL_COAT",
+          "quantity": 1,
+          "enhance": 0,
+          "instanceRevision": 0,
+          "owner": "공용",
+          "equipped": false
+        },
+        {
+          "slot": "ITEM_FOOD_SWEET_MADAME",
+          "item": "FOOD_SWEET_MADAME",
+          "quantity": 2,
+          "owner": "공용"
+        },
+        {
+          "slot": "ITEM_FOOD_HASH_BROWN",
+          "item": "FOOD_HASH_BROWN",
+          "quantity": 2,
+          "owner": "공용"
+        }
+      ],
+      "moraBefore": 3000,
+      "moraAfter": 3000,
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B2",
+        "node_id": "ISK_L03_B2_END",
+        "map_id": "MAP_LY_DETAIL_GUYUN",
+        "location": "B2_CLOSED_OUTER_HARBOR_WATER",
+        "ending_state": "EIGHT_ON_BOAT_APPROACHING_UNKNOWN_SHAPE",
+        "event": "EVT_ISK_L03_B2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_B2_END",
+        "resolvedNode": "ISK_L03_B2_END",
+        "saveId": "V011-30",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "B",
+        "leaf": "B2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-30:1"
+      },
+      "readonlyQueriesMutated": false
+    }
+  ],
+  "negativeVariants": [
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_K_2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AA_2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_AB_2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L01_B_2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_K2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AA2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_AB2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L02_B2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_K2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AA2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_AB2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B1_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "missingGate",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "missingAccept",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "badAcceptEntry",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "wrongAcceptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "wrongReceiptSave",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "wrongReceiptRoute",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "wrongReceiptQuest",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "wrongReceiptNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "wrongReceiptLeaf",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "wrongReceiptBranch",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "missingDuplicateReceipt",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "badGateNode",
+      "accepted": false,
+      "mutated": false
+    },
+    {
+      "node": "ISK_L03_B2_END",
+      "variant": "badGateEvent",
+      "accepted": false,
+      "mutated": false
+    }
+  ]
+}

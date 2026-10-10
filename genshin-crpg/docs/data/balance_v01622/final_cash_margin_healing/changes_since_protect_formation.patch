@@ -1,0 +1,11 @@
+--- a/source/runtime_growth_v01522.js
++++ b/source/runtime_growth_v01522.js
+@@ -121,7 +121,7 @@
+ const LEGACY_ASCENSION_GEMS_V01621=Object.fromEntries(Object.values(GEMS).map(([element])=>[element,{5:1,10:2,15:3,20:4,25:6,30:8,35:20,40:35,45:80,50:180,55:600,60:1500}]));
+ // 0.16.22: keep enemy budgets and existing item IDs; rebalance future rewards
+ // together with future demands. Paid receipts and marked old fights stay exact.
+-const ASCENSION_GEMS_V01622=Object.fromEntries(Object.values(GEMS).map(([element])=>[element,{5:1,10:2,15:3,20:10,25:30,30:44,35:99,40:145,45:303,50:612,55:1843,60:5400}]));
++const ASCENSION_GEMS_V01622=Object.fromEntries(Object.values(GEMS).map(([element])=>[element,{5:1,10:2,15:3,20:10,25:32,30:47,35:105,40:153,45:318,50:642,55:1932,60:5400}]));
+ const ASCENSION_GEM_COSTS_V01622=Object.fromEntries(Object.entries(ASCENSION_GEMS_V01622).map(([element,pay])=>[element,[3,6,2*pay[30],5*pay[40],8*pay[50],25*pay[60]]]));
+ const TALENT_BOOKS_V01622={MOND:{5:1,10:2,15:10,20:20,25:32},LIYUE:{30:3,35:4,40:7,45:9,50:19,55:28,60:80}};
+ const LEGACY_MATERIAL_QUANTITIES=Object.fromEntries(Object.keys(MATERIAL_XP).map(level=>[level,Math.ceil(Number(level)/5)]));

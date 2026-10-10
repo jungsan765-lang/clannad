@@ -1,0 +1,22 @@
+{
+  "test": "tests/test_ascension_efficiency_v01613.cjs",
+  "command": [
+    "node",
+    "tests/test_ascension_efficiency_v01613.cjs"
+  ],
+  "returnCode": 0,
+  "timedOut": false,
+  "exception": null,
+  "ok": true,
+  "startedAt": "2026-10-10T05:31:46.422655+00:00",
+  "endedAt": "2026-10-10T05:32:14.075338+00:00",
+  "seconds": 27.653,
+  "testSha256": "855a2afdef130e5eb7e65a620152f3751299e7048b77aefdf128f94fbd0f9a80",
+  "contractsPassed": 6,
+  "nativeBothRoutesIncluded": true,
+  "log": "test.log.gz",
+  "logBytes": 680,
+  "logSha256": "582128cae9d9353c2c53d845cd317eaca3c016277a6dd1fc9615d21ec18265b6",
+  "inputDrift": [],
+  "sourceProductChanges": []
+}

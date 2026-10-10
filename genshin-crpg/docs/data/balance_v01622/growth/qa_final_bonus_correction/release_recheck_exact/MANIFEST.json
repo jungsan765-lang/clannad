@@ -1,0 +1,25 @@
+{
+  "scope": "Exact copies of releaseowned correctedASCprogram rerun raw/input/results; parent original36 remains35PASS1FAIL",
+  "files": [
+    {
+      "path": "result.json",
+      "bytes": 656,
+      "sha256": "8e6fa2d2011b473c2ffc176b8ac6d0619d8ec99b6bb73f9b670a55e774d1ffa4"
+    },
+    {
+      "path": "test.log.gz",
+      "bytes": 413,
+      "sha256": "174eb4010901ec385f566b8c67376539e0e1c41f93df3036544838797424203e"
+    },
+    {
+      "path": "input_manifest.json",
+      "bytes": 78909,
+      "sha256": "41e1fe85d1dcd332eba391d0ae376487df98bcf798883398eee3e232405cd929"
+    },
+    {
+      "path": "input_manifest_after.json",
+      "bytes": 78909,
+      "sha256": "3bf59ab857c01c83ac726fbb1b16c091cc6b515614bea0c4a043a2a05b63fc96"
+    }
+  ]
+}

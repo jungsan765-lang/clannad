@@ -1,0 +1,11 @@
+--- runtime_growth_v01522.js.initial
++++ runtime_growth_v01522.js.final
+@@ -192,7 +192,7 @@
+ P.useItem=function(id,n=1,owner=PLAYER){if(!BOOKS[id])return old.useItem.call(this,id,n,owner);if(this.s.runtime)fail('COMBAT','전투를 마친 뒤 책을 사용해 주세요.');if(!Number.isSafeInteger(n)||n<1||n>this.experienceBookLimit(id,owner))fail('QUANTITY','소유 동료의 현재 돌파 상한에 필요한 수량만 사용할 수 있습니다.');this.pay({items:{[id]:n}});this.addXp(owner,BOOKS[id]*n);return {item:id,quantity:n,xp:BOOKS[id]*n,owner};};
+ P.growthElement=function(owner=PLAYER){return owner===PLAYER?'물리':String(this.row('07_CHAR_DB',owner)[3]).match(/\[(불|물|바람|번개|얼음|바위|풀)\]/)?.[1]||'물리';};
+ P.growthStoryGate=function(phase){
+- const tr=this.s.global.STORY_ROUTE_ID==='ROUTE_TRAVELER',done=id=>this.s.quests[id]?.claimed===true||this.storyDone?.(id),flag=id=>[true,'TRUE'].includes(this.s.flags[id]);
++ const tr=this.s.global.STORY_ROUTE_ID==='ROUTE_TRAVELER',done=id=>this.s.quests[id]?.claimed===true||this.storyDone?.(id)||(!tr&&/^Q_ISK_LIYUE_0[123]$/.test(id)&&this.liyueChapterEnded?.(id)),flag=id=>[true,'TRUE'].includes(this.s.flags[id]);
+  const gates=[tr?(done('Q_TRV_MOND_01')||flag('FLAG_TRV_MON_CH1_CLEAR')):(done('Q_ISK_MOND_01')||flag('FLAG_ISK_M03_CLEAR')),tr?(['진행중','진행 중'].includes(this.s.quests.Q_TRV_MOND_02?.state)||done('Q_TRV_MOND_02')||flag('FLAG_TRV_MON_CH2_CLEAR')):done('Q_ISK_MOND_02'),tr?flag('FLAG_TRV_MON_CH2_CLEAR'):flag('FLAG_ISK_M05_CLEAR'),...[1,2,3].map(n=>done('Q_'+(tr?'TRV':'ISK')+'_LIYUE_0'+n))];
+  return {ready:!!gates[phase],label:['몬드 본편 1장',tr?'몬드 본편 2장 진입':'몬드 본편 2장','몬드 본편 완료','리월 본편 1장','리월 본편 2장','리월 본편 3장'][phase]||'모든 돌파 완료'};
+ };

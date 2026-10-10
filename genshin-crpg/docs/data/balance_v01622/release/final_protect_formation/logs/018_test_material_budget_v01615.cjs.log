@@ -1,0 +1,8 @@
+PASS new material fights use native fixed-four scaling without a material override
+PASS all material stages/elements and one/four-person routes match the pinned 0.16.14 native enemies
+PASS fresh native material fights reload without HP, shield, order or reward changes
+PASS the actual saved 0.16.15 fight retains its tuned HP/ATK, damage, shields and turn state
+PASS a saved 0.16.15 fight pays its original 32 gems once; its next new fight uses native difficulty
+PASS old native version-4 stats and 12-gem promises stay untouched
+PASS legacy versions 1, 2 and 3 keep native enemies and never acquire retired budgets
+PASS EXP and ordinary field enemies stay outside material-budget history

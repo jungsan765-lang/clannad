@@ -1,0 +1,21 @@
+--- ascension_efficiency_before.cjs
++++ ascension_efficiency_after.cjs
+@@ -4,7 +4,7 @@
+ const {setup,api,G}=require('../tools/audit_balance_v01522.cjs');
+ const {measure,policy,REFERENCE_TEAM}=require('../tools/audit_balance_v0161.cjs');
+ const copy=x=>JSON.parse(JSON.stringify(x));
+-// Fixed approved 0.16.21 common-unit quantities, independent of the runtime API.
++// Fixed approved 0.16.22 common-unit quantities, independent of the runtime API.
+ const EXPECTED=Object.fromEntries(['NEUTRAL','PYRO','HYDRO','ANEMO','ELECTRO','CRYO','GEO','DENDRO'].map(element=>[element,{5:1,10:2,15:3,20:10,25:30,30:44,35:99,40:145,45:303,50:612,55:1843,60:5400}]));
+ const ELEMENTS=['NEUTRAL','PYRO','HYDRO','ANEMO','ELECTRO','CRYO','GEO','DENDRO'];
+ let checks=0;
+@@ -71,7 +71,8 @@
+ 
+ check('native four-person battles on both protagonist routes award the preview amount without enemy edits or forced victories',()=>{
+  for(const route of ['ROUTE_TRAVELER','ROUTE_ISEKAI']){
+-  let r=fixture('MAP_D163_LIANSHAN_FORMULA',route);r.s.global.PRNG_STATE=717;r.s.domainDaily={day:G.dayOf(c.Date.now()),wins:3};
++  // Prepared legal four-star hydro counter ownership and +9/cap investment: reward contract, not starter-party difficulty.
++  let r=setup({level:60,map:'MAP_D163_LIANSHAN_FORMULA',route,team:['MOND_KAEYA','LIYUE_XINGQIU','MOND_BARBARA'],gear:'craft',enhance:9,talent:'cap'});Object.assign(r.tutorialState().done,{combatAttack:true,combatGuard:true,combatSkill:true,combatBurst:true});r.s.global.PRNG_STATE=717;r.s.domainDaily={day:G.dayOf(c.Date.now()),wins:3};
+   const d=r.growthDomainEntries().find(x=>x.level===60),preview=r.growthDomainRewards(d,'PYRO'),count=r.itemCount('GROWTH_GEM_PYRO');r.action('DOMAIN_START',{domain:d.id,element:'PYRO'});assert.equal(r.s.runtime.actors.filter(a=>a.side==='ALLY').length,4);r=restore(r);const out=policy(r);assert.equal(out.victory,true);assert.equal(r.s.runtime,null);assert.deepEqual(copy(out.domain.items),copy(preview.items));assert.equal(r.itemCount('GROWTH_GEM_PYRO')-count,EXPECTED.PYRO[60]);r=restore(r);assert.equal(r.itemCount('GROWTH_GEM_PYRO')-count,EXPECTED.PYRO[60]);
+  }
+ });

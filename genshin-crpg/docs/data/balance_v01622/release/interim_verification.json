@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "status": "partial_final_resolution_pending",
+  "checkedAt": "2026-10-10T04:45:09.338702+00:00",
+  "originalPrograms": 35,
+  "originalPassed": 32,
+  "originalFailed": 3,
+  "approvedRecheckPrograms": 2,
+  "approvedRechecksPassed": 2,
+  "latestGateCoveragePassed": 33,
+  "latestGateCoverageFailed": 2,
+  "pending": [
+    "tests/test_ascension_efficiency_v01613.cjs",
+    "tests/test_osial_pattern_v0161.cjs"
+  ],
+  "rawLogsVerified": 37,
+  "rawLogErrors": [],
+  "approvedQADrift": [
+    {
+      "path": "tests/test_material_efficiency_v01622.cjs",
+      "before": "f1097c13ebd25c72d17c40ce87613e13728a19bf2e682b454d0efe3e8f94896e",
+      "after": "429d6d1ea70e098bd2d6d364f1759c568d9aea2910e610619144a0767708f10f"
+    },
+    {
+      "path": "tools/test_other_healers_v01619.cjs",
+      "before": "62d4ce69c1eed6626a55545e89795befa77039bd5da2c5a6a5b475c2ebcbb0c1",
+      "after": "4de0f8845b91a04ed892c81d8441111857b0870fa4702b87609c94005fd3dffd"
+    }
+  ],
+  "unexpectedInputDrift": [],
+  "allFinalGatesPassed": false,
+  "historicalInputGaps": [
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "Exact0.13.43 baseline commit/DB missing locally; do not countPASS."
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "CanonicalQA DB has editorial headers only; authored raw needed; do not countPASS."
+    }
+  ]
+}

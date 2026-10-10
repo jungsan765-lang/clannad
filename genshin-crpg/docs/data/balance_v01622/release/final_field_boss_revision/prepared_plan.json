@@ -1,0 +1,40 @@
+{
+  "status": "awaiting_product_qa_freeze",
+  "scope": "Existing field-boss rules/legacy saves/round and damage boundaries plus newrepeat-revival regression. No full36 or181 rerun.",
+  "baseTests": [
+    "tools/test_field_bosses.cjs",
+    "tools/test_boss_boundaries_v01619.cjs",
+    "tools/test_field_boss_immunity_v01618.cjs",
+    "tests/test_save_revision.cjs",
+    "tests/test_balance_saves_v0166.cjs",
+    "tests/test_defeat_settlement_v0166.cjs",
+    "tests/test_combat_boundaries_v0168.cjs",
+    "tests/test_element_immunity_v01618.cjs",
+    "tests/test_monster_control_fixes_v01618.cjs",
+    "tests/test_version.cjs"
+  ],
+  "pendingNewTestName": false,
+  "expectedSelectedCount": 11,
+  "nativeWorkers": 1,
+  "buildSteps": [
+    "server",
+    "browser",
+    "engine_identity",
+    "three_engine_parity218"
+  ],
+  "browserOutput": "../v01622-field-boss-verification-work/browser",
+  "existingCashmarginManifestSha256": "6b7af58bd166be5aac3029aa5769fc8f849c34c475c08fd181a831ddd2518f4a",
+  "historicalInputGapsRemainUnresolved": [
+    "tests/test_save_v01344.cjs",
+    "tests/test_release_isolation_v01513.py"
+  ],
+  "specialCommandOutputs": {
+    "tools/test_field_bosses.cjs": "requires owner outputarg addition before final freeze; original reports remain untouched",
+    "tools/test_boss_boundaries_v01619.cjs": "pass explicit candidatefolder outputarg",
+    "tools/test_field_boss_immunity_v01618.cjs": "pass explicit candidatefolder outputarg",
+    "tools/test_field_boss_strategy_v01622.cjs": "pass explicit candidatefolder outputarg"
+  },
+  "newTests": [
+    "tools/test_field_boss_strategy_v01622.cjs"
+  ]
+}

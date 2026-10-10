@@ -1,0 +1,30 @@
+{
+  "recordedAt": "2026-10-10T04:57:42.082281+00:00",
+  "authorization": "Root narrowed PROTECT_FORMATION defense multiplier to100 and fixed missing actualLiyueEND authority recognition; final productfreeze follows these changes. Initial35 failures remain preserved.",
+  "changes": [
+    {
+      "path": "source/runtime_rules.js",
+      "beforeSha256": "54c928b5f24614c5c085f559d0de7cc1533be713a4d1e356b62edbf5aa9090bf",
+      "afterSha256": "cfe4c9ffb128478deb84a6abacba9b927bc8262078dce044f1c9e19db9674b9f",
+      "changed": true
+    },
+    {
+      "path": "source/runtime_growth_v01522.js",
+      "beforeSha256": "1e00e0e4fbe20e9217a1a28b55e2658e7d078d1408e2d6bf36cefff52ace2014",
+      "afterSha256": "d9a346144ead6918b79e53193fbd78c95d29f8ba51496fb9ad181af67adb661b",
+      "changed": true
+    },
+    {
+      "path": "source/runtime_liyue.js",
+      "beforeSha256": "ba77931c8191e681cd627b2199934a55b8d37915d339f1ac9e2ab50d5f2d610a",
+      "afterSha256": "9f2ec45728012fcac19a5d02f1adeb0da18cabd60276a88ed56eefdeecda0163",
+      "changed": true
+    },
+    {
+      "path": "source/runtime_liyue_artifacts.js",
+      "beforeSha256": "b4d9d525cb69722766d6ef8c3e49967b90112bbbcd4a402f4b22ed3a3124e733",
+      "afterSha256": "b707822b0728233f6decf3193ca6ce2b817a1ab98d208d47dc3442449fa675b0",
+      "changed": true
+    }
+  ]
+}

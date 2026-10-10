@@ -1,0 +1,167 @@
+{
+  "fingerprint": "88b8d478b7370208f7a325e4d1a42735e0b5a1668e00181438afda5801fde3b9",
+  "results": [
+    {
+      "name": "new battles apply Q ATK3%+850 and store the focused field ATK8%+400",
+      "ok": true,
+      "evidence": {
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "source": "한운",
+            "raw": 1050.3616240000001,
+            "applied": 2600,
+            "delta": 2600
+          },
+          {
+            "target": "LIYUE_XIANGLING",
+            "source": "한운",
+            "raw": 1050.3616240000001,
+            "applied": 2600,
+            "delta": 2600
+          },
+          {
+            "target": "MOND_FISCHL",
+            "source": "한운",
+            "raw": 1050.3616240000001,
+            "applied": 2600,
+            "delta": 2600
+          },
+          {
+            "target": "LIYUE_XIANYUN",
+            "source": "한운",
+            "raw": 1050.3616240000001,
+            "applied": 2600,
+            "delta": 2600
+          }
+        ],
+        "field": {
+          "kind": "BAMBOO_STAR",
+          "actor": "LIYUE_XIANYUN",
+          "side": "ALLY",
+          "rounds": 2,
+          "createdRound": 1,
+          "sourceCardId": "LIYUE_XIANYUN_Q",
+          "liyue": true,
+          "healTargetCount": 1,
+          "healRatio": 0.08,
+          "healFlat": 400,
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13:F1"
+        },
+        "description": "아군 전체를 한운 ATK×0.03+850만큼 회복하고 2라운드 동안 대나무별을 소환한다. 매 라운드 첫 아군 공격은 앞열 보호를 무시하며, 적중 후 바람 추가타와 HP 비율이 가장 낮은 아군 1명에게 한운 ATK×0.08+400의 회복이 발생한다."
+      }
+    },
+    {
+      "name": "serialized pre-policy battles keep Q ATK3%+1250 and create their promised +600 field",
+      "ok": true,
+      "evidence": {
+        "events": [
+          {
+            "target": "PLAYER_CUSTOM",
+            "source": "한운",
+            "raw": 1450.3616240000001,
+            "applied": 3590,
+            "delta": 3590
+          },
+          {
+            "target": "LIYUE_XIANGLING",
+            "source": "한운",
+            "raw": 1450.3616240000001,
+            "applied": 3590,
+            "delta": 3590
+          },
+          {
+            "target": "MOND_FISCHL",
+            "source": "한운",
+            "raw": 1450.3616240000001,
+            "applied": 3590,
+            "delta": 3590
+          },
+          {
+            "target": "LIYUE_XIANYUN",
+            "source": "한운",
+            "raw": 1450.3616240000001,
+            "applied": 3590,
+            "delta": 3590
+          }
+        ],
+        "field": {
+          "kind": "BAMBOO_STAR",
+          "actor": "LIYUE_XIANYUN",
+          "side": "ALLY",
+          "rounds": 2,
+          "createdRound": 1,
+          "sourceCardId": "LIYUE_XIANYUN_Q",
+          "liyue": true,
+          "healTargetCount": 1,
+          "healRatio": 0.08,
+          "healFlat": 600,
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13:F1"
+        },
+        "description": "아군 전체를 한운 ATK×0.03+1250만큼 회복하고 2라운드 동안 대나무별을 소환한다. 매 라운드 첫 아군 공격은 앞열 보호를 무시하며, 적중 후 바람 추가타와 HP 비율이 가장 낮은 아군 1명에게 한운 ATK×0.08+600의 회복이 발생한다."
+      }
+    },
+    {
+      "name": "an already stored +600 Bamboo Star retains its amount and one-recipient limit after restore",
+      "ok": true,
+      "evidence": {
+        "event": {
+          "target": "PLAYER_CUSTOM",
+          "source": "한운",
+          "raw": 1134.2976640000002,
+          "applied": 1248,
+          "delta": 1248
+        },
+        "field": {
+          "kind": "BAMBOO_STAR",
+          "actor": "LIYUE_XIANYUN",
+          "side": "ALLY",
+          "rounds": 2,
+          "createdRound": 1,
+          "sourceCardId": "LIYUE_XIANYUN_Q",
+          "liyue": true,
+          "healTargetCount": 1,
+          "healRatio": 0.08,
+          "healFlat": 600,
+          "position": {
+            "x": 2,
+            "y": 3
+          },
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B13:F1",
+          "used": {
+            "1": true
+          }
+        }
+      }
+    },
+    {
+      "name": "new policy marker survives serialization and unknown policy values are rejected",
+      "ok": true,
+      "evidence": {
+        "marker": 1,
+        "rejected": [
+          0,
+          2,
+          "1",
+          null
+        ]
+      }
+    },
+    {
+      "name": "current and legacy Xianyun skill descriptions leave the authored DB untouched",
+      "ok": true,
+      "evidence": {
+        "current": "즉시 회복 ATK×0.03+850 / 지속 회복 ATK×0.08+400×2라운드 / 추가타 ATK×0.45",
+        "legacy": "즉시 회복 ATK×0.03+1250 / 지속 회복 ATK×0.08+600×2라운드 / 추가타 ATK×0.45"
+      }
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "status": "final_product_frozen",
+  "versionRequired": "0.16.22",
+  "scope": "Final36 relevant regressions after protect-formation damage scope exception and same-save LiyueENDreceipt progression fix. Original35 remain preserved in parentfolder.",
+  "baseGateCount": 32,
+  "baseTests": [
+    "tests/test_growth_balance_v01621.cjs",
+    "tests/test_noelle_healing_v01621.cjs",
+    "tests/test_food_balance_v01620.cjs",
+    "tests/test_reaction_fixes_v01619.cjs",
+    "tests/test_healing_v01619.cjs",
+    "tests/test_shield_balance_v01619.cjs",
+    "tests/test_shield_meter_v01619.cjs",
+    "tests/test_shield_playback_v01619.cjs",
+    "tools/test_boss_boundaries_v01619.cjs",
+    "tools/test_other_healers_v01619.cjs",
+    "tests/test_element_immunity_v01618.cjs",
+    "tests/test_monster_control_fixes_v01618.cjs",
+    "tools/test_field_boss_immunity_v01618.cjs",
+    "tests/test_protagonist_support_v01618.cjs",
+    "tests/test_food_lodging_v01617.cjs",
+    "tests/test_material_rewards_v01616.cjs",
+    "tests/test_inn_recovery_pricing_v01615.cjs",
+    "tests/test_material_budget_v01615.cjs",
+    "tests/test_ascension_balance_v01614.cjs",
+    "tests/test_ascension_efficiency_v01613.cjs",
+    "tests/test_task_materials_v0169.cjs",
+    "tests/test_combat_boundaries_v0168.cjs",
+    "tests/test_control_reactions_v0168.cjs",
+    "tests/test_gear_effects_v0168.cjs",
+    "tests/test_xp_pacing_v0168.cjs",
+    "tests/test_defeat_settlement_v0166.cjs",
+    "tests/test_balance_saves_v0166.cjs",
+    "tests/test_osial_pattern_v0161.cjs",
+    "tests/test_growth_online_v01522.mjs",
+    "tests/test_life_v010.cjs",
+    "tests/test_life_ui_v010.cjs",
+    "tests/test_version.cjs"
+  ],
+  "newTests": [
+    "tests/test_incoming_defense_v01622.cjs",
+    "tests/test_xianyun_balance_v01622.cjs",
+    "tests/test_material_efficiency_v01622.cjs"
+  ],
+  "finalGateRange": [
+    36,
+    36
+  ],
+  "pendingNewHealingAndGrowthTests": null,
+  "nativeWorkersAtStart": 2,
+  "maxNativeWorkers": 2,
+  "memoryGuard": {
+    "atLeast4GiB": "launch ceiling2",
+    "atLeast6GiB": "launch ceiling1",
+    "measurementUnavailable": "launch ceiling2"
+  },
+  "historicalInputGapsCarriedFromV01621": [
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "Exact0.13.43 baseline commit/DB missing locally; do not countPASS."
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "CanonicalQA DB has editorial headers only; authored raw needed; do not countPASS."
+    }
+  ],
+  "buildSteps": [
+    {
+      "program": "tools/build_server.py",
+      "output": "server/generated/engine.mjs"
+    },
+    {
+      "program": "tools/build.py",
+      "environment": {
+        "CRPG_BUILD_DIR": "../v01622-final-verification-work/browser",
+        "CRPG_BUILD_REPORT": "docs/data/balance_v01622/release/final_protect_formation/build/browser_report.json"
+      }
+    },
+    {
+      "program": "tests/test_engine_identity.py",
+      "scope": "current source identity"
+    },
+    {
+      "program": "tools/audit_build_parity_v01621.cjs",
+      "arguments": [
+        "--source-root",
+        ".",
+        "--browser-root",
+        "../v01622-final-verification-work/browser",
+        "--server-file",
+        "server/generated/engine.mjs",
+        "--out",
+        "docs/data/balance_v01622/release/final_protect_formation/build/parity_raw.json"
+      ],
+      "scope": "Actual current source/browser/importedserver engines; original0.21 evidence files remain sealed."
+    }
+  ],
+  "notes": [
+    "Do not import tools/verify_release.py; first TESTS declaration is parsed withAST for membership verification only.",
+    "Final manifest/resultshashes captured only after product/test/build freeze.",
+    "Build outputs/evidence are separate0.22 files; do not touch docs/data/full_balance_v01621."
+  ],
+  "tests": [
+    "tests/test_growth_balance_v01621.cjs",
+    "tests/test_noelle_healing_v01621.cjs",
+    "tests/test_food_balance_v01620.cjs",
+    "tests/test_reaction_fixes_v01619.cjs",
+    "tests/test_healing_v01619.cjs",
+    "tests/test_shield_balance_v01619.cjs",
+    "tests/test_shield_meter_v01619.cjs",
+    "tests/test_shield_playback_v01619.cjs",
+    "tools/test_boss_boundaries_v01619.cjs",
+    "tools/test_other_healers_v01619.cjs",
+    "tests/test_element_immunity_v01618.cjs",
+    "tests/test_monster_control_fixes_v01618.cjs",
+    "tools/test_field_boss_immunity_v01618.cjs",
+    "tests/test_protagonist_support_v01618.cjs",
+    "tests/test_food_lodging_v01617.cjs",
+    "tests/test_material_rewards_v01616.cjs",
+    "tests/test_inn_recovery_pricing_v01615.cjs",
+    "tests/test_material_budget_v01615.cjs",
+    "tests/test_ascension_balance_v01614.cjs",
+    "tests/test_ascension_efficiency_v01613.cjs",
+    "tests/test_task_materials_v0169.cjs",
+    "tests/test_combat_boundaries_v0168.cjs",
+    "tests/test_control_reactions_v0168.cjs",
+    "tests/test_gear_effects_v0168.cjs",
+    "tests/test_xp_pacing_v0168.cjs",
+    "tests/test_defeat_settlement_v0166.cjs",
+    "tests/test_balance_saves_v0166.cjs",
+    "tests/test_osial_pattern_v0161.cjs",
+    "tests/test_growth_online_v01522.mjs",
+    "tests/test_life_v010.cjs",
+    "tests/test_life_ui_v010.cjs",
+    "tests/test_version.cjs",
+    "tests/test_incoming_defense_v01622.cjs",
+    "tests/test_xianyun_balance_v01622.cjs",
+    "tests/test_material_efficiency_v01622.cjs",
+    "tests/test_liyue_growth_gate_v01622.cjs"
+  ],
+  "gateCount": 36,
+  "freezeAuthorization": "Root finalproduct/QA freeze; growthfinalcdd32158; ENDgate4faef73e; ASC6e4db0; allteamheavyended.",
+  "frozenAt": "2026-10-10T04:59:24.679386+00:00",
+  "confirmedFinalQASha256": {
+    "tests/test_material_efficiency_v01622.cjs": "cdd321580c838495df020370c007a257672f57d61ec5c9a1fcb22b70f630c617",
+    "tests/test_liyue_growth_gate_v01622.cjs": "4faef73e2d84ae2b8fcd527bd527ce4dede030a3f39adf267846568f5cfa999b",
+    "tests/test_ascension_efficiency_v01613.cjs": "6e4db0bd8922177809d87dd277d8b134df791938b9c6bfff7e71f8a2375fd560"
+  },
+  "metadataCorrection": "Prepared build path labels synchronized to actual final run_build command receipts; selectedtest36list remains unchanged."
+}

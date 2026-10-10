@@ -1,0 +1,15 @@
+{
+  "index": 10,
+  "test": "tools/test_other_healers_v01619.cjs",
+  "ok": false,
+  "returnCode": 1,
+  "timedOut": false,
+  "exception": null,
+  "seconds": 17.341,
+  "startedAt": "2026-10-10T04:29:58.574086+00:00",
+  "endedAt": "2026-10-10T04:30:15.915000+00:00",
+  "log": "logs/010_test_other_healers_v01619.cjs.log.gz",
+  "logBytes": 1033,
+  "logSha256": "b6f81365b258ec177d4d69f38b182efca742710078f3b673493cebea9c039594",
+  "failureClassification": "unclassified_failure_requires_investigation"
+}

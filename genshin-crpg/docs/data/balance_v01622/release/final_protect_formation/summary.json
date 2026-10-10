@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 2,
+  "snapshotRole": "final_v01622_protect_formation_and_liyue_end",
+  "complete": true,
+  "paused": false,
+  "gateCount": 36,
+  "completed": 36,
+  "passed": 36,
+  "failed": 0,
+  "inputDrift": [],
+  "totalGateSeconds": 993.16,
+  "runnerWallSecondsThisSession": 503.966,
+  "peakMemoryCurrentBytesThisSession": 4160012288,
+  "finishedAt": "2026-10-10T05:07:48.855770+00:00",
+  "failures": [],
+  "historicalInputGapsCarriedFromV01621": [
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "Exact0.13.43 baseline commit/DB missing locally; do not countPASS."
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "CanonicalQA DB has editorial headers only; authored raw needed; do not countPASS."
+    }
+  ],
+  "historicalInputGapTestsRetested": false
+}

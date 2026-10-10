@@ -1,0 +1,173 @@
+{
+  "schema": 1,
+  "candidate": "ENEMY to ALLY direct defense constant K=100+5*max(0,enemy level-25)",
+  "status": "diagnostic source-root candidate; product not changed by this audit",
+  "beforeFingerprint": "e867cde4cb5f575fef8727729123ce701e098983480a1543cd3247ec88a0f6ef",
+  "afterFingerprint": "b950e7d356ebd8e8022ef8867c1065d6a241c9596b4602fa0d55e0afb7e887ce",
+  "conditions": 6,
+  "rows": [
+    {
+      "name": "MOND_BARBARA_C0",
+      "level": 60,
+      "seed": 717,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.944229174146106,
+        "innQuoteMora": 77,
+        "healApplied": 18681,
+        "healNominal": 42615.935999999994,
+        "seconds": 168.0,
+        "rounds": 12
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.6962996892679847,
+        "innQuoteMora": 322,
+        "healApplied": 21911,
+        "healNominal": 42615.935999999994,
+        "seconds": 168.0,
+        "rounds": 12
+      }
+    },
+    {
+      "name": "MOND_JEAN_C0",
+      "level": 60,
+      "seed": 717,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.98609691269679,
+        "innQuoteMora": 32,
+        "healApplied": 15940,
+        "healNominal": 32849.510620608016,
+        "seconds": 163.56,
+        "rounds": 10
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.8574503115281559,
+        "innQuoteMora": 169,
+        "healApplied": 20002,
+        "healNominal": 32849.510620608016,
+        "seconds": 163.56,
+        "rounds": 10
+      }
+    },
+    {
+      "name": "LIYUE_BAIZHU_C0",
+      "level": 60,
+      "seed": 717,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 1,
+        "innQuoteMora": 20,
+        "healApplied": 27998,
+        "healNominal": 124746.33599999998,
+        "seconds": 270.43,
+        "rounds": 15
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.9188612257086923,
+        "innQuoteMora": 113,
+        "healApplied": 45399,
+        "healNominal": 124746.33599999998,
+        "seconds": 270.43,
+        "rounds": 15
+      }
+    },
+    {
+      "name": "LIYUE_XIANYUN_C0",
+      "level": 60,
+      "seed": 717,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 1,
+        "innQuoteMora": 20,
+        "healApplied": 20494,
+        "healNominal": 67416.1397536,
+        "seconds": 177.99,
+        "rounds": 12
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.9802250595540671,
+        "innQuoteMora": 38,
+        "healApplied": 40529,
+        "healNominal": 67416.1397536,
+        "seconds": 180.20999999999998,
+        "rounds": 12
+      }
+    },
+    {
+      "name": "four_star_attack_C0",
+      "level": 60,
+      "seed": 717,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.7651261116780872,
+        "innQuoteMora": 254,
+        "healApplied": 0,
+        "healNominal": 0,
+        "seconds": 184.64999999999998,
+        "rounds": 12
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 0.5080794090489381,
+        "innQuoteMora": 501,
+        "healApplied": 0,
+        "healNominal": 0,
+        "seconds": 184.64999999999998,
+        "rounds": 12
+      }
+    },
+    {
+      "name": "four_star_support_C6",
+      "level": 60,
+      "seed": 717,
+      "before": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 1,
+        "innQuoteMora": 20,
+        "healApplied": 29696,
+        "healNominal": 126041.25262781397,
+        "seconds": 310.09,
+        "rounds": 25
+      },
+      "after": {
+        "wins": 4,
+        "losses": 0,
+        "koBattles": 0,
+        "hpRatio": 1,
+        "innQuoteMora": 20,
+        "healApplied": 70905,
+        "healNominal": 162115.2521847236,
+        "seconds": 304.87,
+        "rounds": 24
+      }
+    }
+  ],
+  "scope": "14-key native baseline reduced to same six Lv60 seed717 keys; no inn/food/HP/RNG reset across four battles. Inn figures are end quote, not payment. Relative gains compare exact same declared fixture and sequence. 3-support C6 additional casts and RNG vary naturally."
+}

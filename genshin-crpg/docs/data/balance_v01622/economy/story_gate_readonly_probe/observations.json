@@ -1,0 +1,4608 @@
+{
+  "schema": 1,
+  "scope": "Read-only product QA of exact native existing Liyue01/02/03 END effect handlers. Source-grounded prepared boundary prerequisites, not organically completed full story. No battle execution, no product patch, no after-END flag or quest mutation.",
+  "beforeHashes": {
+    "source/runtime_growth_v01522.js": "1e00e0e4fbe20e9217a1a28b55e2658e7d078d1408e2d6bf36cefff52ace2014",
+    "source/runtime_nodes.js": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322",
+    "source/runtime_liyue.js": "ba77931c8191e681cd627b2199934a55b8d37915d339f1ac9e2ab50d5f2d610a",
+    "source/runtime_liyue_artifacts.js": "b4d9d525cb69722766d6ef8c3e49967b90112bbbcd4a402f4b22ed3a3124e733",
+    "source/runtime_enhancement.js": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+    "source/runtime_economy.js": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140",
+    "content/db.json": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962"
+  },
+  "afterHashes": {
+    "source/runtime_growth_v01522.js": "1e00e0e4fbe20e9217a1a28b55e2658e7d078d1408e2d6bf36cefff52ace2014",
+    "source/runtime_nodes.js": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322",
+    "source/runtime_liyue.js": "ba77931c8191e681cd627b2199934a55b8d37915d339f1ac9e2ab50d5f2d610a",
+    "source/runtime_liyue_artifacts.js": "b4d9d525cb69722766d6ef8c3e49967b90112bbbcd4a402f4b22ed3a3124e733",
+    "source/runtime_enhancement.js": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b",
+    "source/runtime_economy.js": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140",
+    "content/db.json": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962"
+  },
+  "counts": {
+    "conditions": 28,
+    "traveler": 4,
+    "isekai": 24
+  },
+  "rows": [
+    {
+      "route": "ROUTE_TRAVELER",
+      "quest": "Q_TRV_LIYUE_01",
+      "node": "TRV_LY1_N166",
+      "map": "MAP_LIYUE_HARBOR",
+      "effect": "COMPLETE_QUEST:Q_TRV_LIYUE_01;FLAG_TRV_LY1_CLEAR=TRUE",
+      "event": null,
+      "payload": null,
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": true,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": true,
+      "afterQuest": {
+        "state": "완료",
+        "node": "OFFERED",
+        "claimed": true,
+        "attempts": 0,
+        "acceptedTurn": 1,
+        "completedTurn": 1
+      },
+      "endGate": null,
+      "endReceipt": null,
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "quest": "Q_TRV_LIYUE_02",
+      "node": "TRV_LY2_N193",
+      "map": "MAP_LIYUE_HARBOR",
+      "effect": "COMPLETE_QUEST:Q_TRV_LIYUE_02;FLAG_TRV_LY2_CLEAR=TRUE",
+      "event": null,
+      "payload": null,
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": true,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": true,
+      "afterQuest": {
+        "state": "완료",
+        "node": "OFFERED",
+        "claimed": true,
+        "attempts": 0,
+        "acceptedTurn": 1,
+        "completedTurn": 1
+      },
+      "endGate": null,
+      "endReceipt": null,
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "quest": "Q_TRV_LIYUE_03",
+      "node": "TRV_LY3_A_END",
+      "map": "MAP_LIYUE_HARBOR",
+      "effect": "FLAG_TRV_LY3_CLEAR=TRUE; COMPLETE_QUEST:Q_TRV_LIYUE_03",
+      "event": null,
+      "payload": null,
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": true,
+      "afterQuest": {
+        "state": "완료",
+        "node": "OFFERED",
+        "claimed": true,
+        "attempts": 0,
+        "acceptedTurn": 1,
+        "completedTurn": 1
+      },
+      "endGate": null,
+      "endReceipt": null,
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": true
+    },
+    {
+      "route": "ROUTE_TRAVELER",
+      "quest": "Q_TRV_LIYUE_03",
+      "node": "TRV_LY3_B_END",
+      "map": "MAP_LIYUE_HARBOR",
+      "effect": "FLAG_TRV_LY3_CLEAR=TRUE; COMPLETE_QUEST:Q_TRV_LIYUE_03",
+      "event": null,
+      "payload": null,
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": true,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": true,
+      "afterQuest": {
+        "state": "완료",
+        "node": "OFFERED",
+        "claimed": true,
+        "attempts": 0,
+        "acceptedTurn": 1,
+        "completedTurn": 1
+      },
+      "endGate": null,
+      "endReceipt": null,
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": true
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_K_1_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L01_K_1_END",
+      "event": "EVT_ISK_L01_K_1_END",
+      "payload": {
+        "handler": "isk_l01",
+        "quest_id": "Q_ISK_LIYUE_01",
+        "arc_id": "ARC_ISK_LIYUE_01",
+        "branch": "K",
+        "marker": "1_END",
+        "kind": "gate",
+        "leaf": "K1",
+        "summary": {
+          "location": "리월항 외곽 별도 관찰 대기 자리",
+          "lead": "SELF_OBSERVATION",
+          "cooperator": "PROFILE_LIYUE_KEQING",
+          "private_testimony": "XIAO_AURA_AND_DVALIN_DEATH_REVIVAL",
+          "harbor_entry": false,
+          "orb_owned": false
+        },
+        "required_map": "MAP_LIYUE_PLAINS",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L01_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "K1",
+          "node_id": "ISK_L01_K_1_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "리월항 외곽 별도 관찰 대기 자리"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "K_1_SELF_REPORT"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "required_leaf": "K1",
+        "required_event_ids": [
+          "EVT_ISK_L01_K_001",
+          "EVT_ISK_L01_K_016",
+          "EVT_ISK_L01_K_064",
+          "EVT_ISK_L01_K_069",
+          "EVT_ISK_L01_K_075",
+          "EVT_ISK_L01_K_105",
+          "EVT_ISK_L01_K_120",
+          "EVT_ISK_L01_K_1_CHOOSE"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K1",
+        "node_id": "ISK_L01_K_1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 별도 관찰 대기 자리",
+        "event": "EVT_ISK_L01_K_1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_K_1_END",
+        "resolvedNode": "ISK_L01_K_1_END",
+        "saveId": "V011-7",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "K",
+        "leaf": "K1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-7:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_K_2_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L01_K_2_END",
+      "event": "EVT_ISK_L01_K_2_END",
+      "payload": {
+        "handler": "isk_l01",
+        "quest_id": "Q_ISK_LIYUE_01",
+        "arc_id": "ARC_ISK_LIYUE_01",
+        "branch": "K",
+        "marker": "2_END",
+        "kind": "gate",
+        "leaf": "K2",
+        "summary": {
+          "location": "리월항 외곽 물자 대기 구역",
+          "lead": "TRANSFER_WITNESS",
+          "cooperator": "PROFILE_LIYUE_KEQING",
+          "private_testimony": "XIAO_OBSERVATION_WITHHELD",
+          "harbor_entry": false,
+          "orb_owned": false
+        },
+        "required_map": "MAP_LIYUE_PLAINS",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L01_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "K2",
+          "node_id": "ISK_L01_K_2_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "리월항 외곽 물자 대기 구역"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "K_2_TRANSFER_OBSERVED"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "required_leaf": "K2",
+        "required_event_ids": [
+          "EVT_ISK_L01_K_001",
+          "EVT_ISK_L01_K_016",
+          "EVT_ISK_L01_K_064",
+          "EVT_ISK_L01_K_069",
+          "EVT_ISK_L01_K_075",
+          "EVT_ISK_L01_K_105",
+          "EVT_ISK_L01_K_153",
+          "EVT_ISK_L01_K_2_CHOOSE"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K2",
+        "node_id": "ISK_L01_K_2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 물자 대기 구역",
+        "event": "EVT_ISK_L01_K_2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_K_2_END",
+        "resolvedNode": "ISK_L01_K_2_END",
+        "saveId": "V011-8",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "K",
+        "leaf": "K2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-8:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_AA_1_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L01_AA_1_END",
+      "event": "EVT_ISK_L01_AA_1_END",
+      "payload": {
+        "handler": "isk_l01",
+        "quest_id": "Q_ISK_LIYUE_01",
+        "arc_id": "ARC_ISK_LIYUE_01",
+        "branch": "AA",
+        "marker": "1_END",
+        "kind": "gate",
+        "leaf": "AA1",
+        "summary": {
+          "blockade": true,
+          "harbor_entered": false,
+          "waiting_location": "OUTER_WANGSHENG_SCREEN_AREA",
+          "orb_count": 1,
+          "remains_same_dead_body": true,
+          "orb_custody": "PLAYER",
+          "hutao_scope": "EXTERNAL_OBSERVER",
+          "priority": "RESPECTFUL_OBSERVATION_AND_IDENTIFICATION",
+          "evidence": [
+            "AA_COMMON_CHECK_WITNESSED",
+            "AA1_REMNANT_EXTERNAL_OBSERVATION",
+            "AA1_PROFESSIONAL_WITNESS_SUBMISSION"
+          ],
+          "next_access": "YUJING_ONLY_ON_ANNOUNCED_DAY",
+          "morax_met": false,
+          "mystery_solved": false
+        },
+        "required_map": "MAP_LIYUE_PLAINS",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L01_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AA1",
+          "node_id": "ISK_L01_AA_1_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "OUTER_WANGSHENG_SCREEN_AREA"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "AA1_PROFESSIONAL_WITNESS_SUBMISSION",
+          "AA1_REMNANT_EXTERNAL_OBSERVATION",
+          "AA_COMMON_CHECK_WITNESSED"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "required_leaf": "AA1",
+        "required_event_ids": [
+          "EVT_ISK_L01_AA_001",
+          "EVT_ISK_L01_AA_004",
+          "EVT_ISK_L01_AA_034",
+          "EVT_ISK_L01_AA_074",
+          "EVT_ISK_L01_AA_086",
+          "EVT_ISK_L01_AA_096",
+          "EVT_ISK_L01_AA_108",
+          "EVT_ISK_L01_AA_116"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA1",
+        "node_id": "ISK_L01_AA_1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "OUTER_WANGSHENG_SCREEN_AREA",
+        "event": "EVT_ISK_L01_AA_1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_AA_1_END",
+        "resolvedNode": "ISK_L01_AA_1_END",
+        "saveId": "V011-9",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "AA",
+        "leaf": "AA1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-9:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_AA_2_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L01_AA_2_END",
+      "event": "EVT_ISK_L01_AA_2_END",
+      "payload": {
+        "handler": "isk_l01",
+        "quest_id": "Q_ISK_LIYUE_01",
+        "arc_id": "ARC_ISK_LIYUE_01",
+        "branch": "AA",
+        "marker": "2_END",
+        "kind": "gate",
+        "leaf": "AA2",
+        "summary": {
+          "blockade": true,
+          "harbor_entered": false,
+          "waiting_location": "OUTER_CASE_DESK",
+          "orb_count": 1,
+          "remains_same_dead_body": true,
+          "orb_custody": "PLAYER",
+          "hutao_scope": "HEARD_STATEMENT_ONLY",
+          "priority": "WITNESS_CORROBORATION_AND_RECENT_ACTION_RECALL_GAP",
+          "evidence": [
+            "AA_COMMON_CHECK_WITNESSED",
+            "AA2_SEALED_STATEMENT_SUBMITTED",
+            "AA2_RECENT_ACTION_RECALL_GAP",
+            "AA2_PUBLIC_CASE_WAITING"
+          ],
+          "next_access": "YUJING_ONLY_ON_ANNOUNCED_DAY",
+          "morax_met": false,
+          "mystery_solved": false
+        },
+        "required_map": "MAP_LIYUE_PLAINS",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L01_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AA2",
+          "node_id": "ISK_L01_AA_2_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "OUTER_CASE_DESK"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "AA2_PUBLIC_CASE_WAITING",
+          "AA2_RECENT_ACTION_RECALL_GAP",
+          "AA2_SEALED_STATEMENT_SUBMITTED",
+          "AA_COMMON_CHECK_WITNESSED"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "required_leaf": "AA2",
+        "required_event_ids": [
+          "EVT_ISK_L01_AA_001",
+          "EVT_ISK_L01_AA_004",
+          "EVT_ISK_L01_AA_034",
+          "EVT_ISK_L01_AA_127",
+          "EVT_ISK_L01_AA_148",
+          "EVT_ISK_L01_AA_158",
+          "EVT_ISK_L01_AA_163",
+          "EVT_ISK_L01_AA_171",
+          "EVT_ISK_L01_AA_184"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA2",
+        "node_id": "ISK_L01_AA_2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "OUTER_CASE_DESK",
+        "event": "EVT_ISK_L01_AA_2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_AA_2_END",
+        "resolvedNode": "ISK_L01_AA_2_END",
+        "saveId": "V011-10",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "AA",
+        "leaf": "AA2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-10:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_AB_1_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L01_AB_1_END",
+      "event": "EVT_ISK_L01_AB_1_END",
+      "payload": {
+        "handler": "isk_l01",
+        "quest_id": "Q_ISK_LIYUE_01",
+        "arc_id": "ARC_ISK_LIYUE_01",
+        "branch": "AB",
+        "marker": "1_END",
+        "kind": "gate",
+        "leaf": "AB1",
+        "summary": {
+          "location": "항구 외곽 초소 뒤 대기 구역",
+          "harbor_entered": false,
+          "ceremony_day_reached": false,
+          "priority": "병사 개인의 독립 증언과 면담 후속",
+          "evidence": [
+            "AB_INDEPENDENT_TESTIMONY_GAP"
+          ],
+          "orb": "앨리스 전달품 한 개 소유 유지; 사용하지 않음; 유해 없음",
+          "companion_ownership": "다이루크 기존 소유와 개인임무 상태 유지",
+          "current_story_companion": "각청 현장 협력; 다이루크는 몬드에 남음",
+          "unresolved": [
+            "공백 길이와 동시성",
+            "기억 공백의 원인",
+            "몬드 우인단 사망 사건과 연결 여부",
+            "통제 해제 시점"
+          ]
+        },
+        "required_map": "MAP_LIYUE_PLAINS",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L01_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AB1",
+          "node_id": "ISK_L01_AB_1_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "항구 외곽 초소 뒤 대기 구역"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "AB_INDEPENDENT_TESTIMONY_GAP"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "required_leaf": "AB1",
+        "required_event_ids": [
+          "EVT_ISK_L01_AB_001",
+          "EVT_ISK_L01_AB_019",
+          "EVT_ISK_L01_AB_038",
+          "EVT_ISK_L01_AB_052",
+          "EVT_ISK_L01_AB_069",
+          "EVT_ISK_L01_AB_082",
+          "EVT_ISK_L01_AB_123"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB1",
+        "node_id": "ISK_L01_AB_1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "항구 외곽 초소 뒤 대기 구역",
+        "event": "EVT_ISK_L01_AB_1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_AB_1_END",
+        "resolvedNode": "ISK_L01_AB_1_END",
+        "saveId": "V011-11",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "AB",
+        "leaf": "AB1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-11:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_AB_2_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L01_AB_2_END",
+      "event": "EVT_ISK_L01_AB_2_END",
+      "payload": {
+        "handler": "isk_l01",
+        "quest_id": "Q_ISK_LIYUE_01",
+        "arc_id": "ARC_ISK_LIYUE_01",
+        "branch": "AB",
+        "marker": "2_END",
+        "kind": "gate",
+        "leaf": "AB2",
+        "summary": {
+          "location": "항구 외곽 물자 보관 구역 옆 대기 자리",
+          "harbor_entered": false,
+          "ceremony_day_reached": false,
+          "priority": "실물 인계 흔적과 보관·인수 절차 확인",
+          "evidence": [
+            "AB_PHYSICAL_HANDOVER_TRACE"
+          ],
+          "orb": "앨리스 전달품 한 개 소유 유지; 사용하지 않음; 유해 없음",
+          "companion_ownership": "다이루크 기존 소유와 개인임무 상태 유지",
+          "current_story_companion": "각청 현장 협력; 다이루크는 몬드에 남음",
+          "unresolved": [
+            "실제 인계 담당자와 시각",
+            "기억 공백의 원인",
+            "몬드 우인단 사망 사건과 연결 여부",
+            "통제 해제 시점"
+          ]
+        },
+        "required_map": "MAP_LIYUE_PLAINS",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L01_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AB2",
+          "node_id": "ISK_L01_AB_2_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "항구 외곽 물자 보관 구역 옆 대기 자리"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "AB_PHYSICAL_HANDOVER_TRACE"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "required_leaf": "AB2",
+        "required_event_ids": [
+          "EVT_ISK_L01_AB_001",
+          "EVT_ISK_L01_AB_019",
+          "EVT_ISK_L01_AB_038",
+          "EVT_ISK_L01_AB_052",
+          "EVT_ISK_L01_AB_069",
+          "EVT_ISK_L01_AB_083",
+          "EVT_ISK_L01_AB_196"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB2",
+        "node_id": "ISK_L01_AB_2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "항구 외곽 물자 보관 구역 옆 대기 자리",
+        "event": "EVT_ISK_L01_AB_2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_AB_2_END",
+        "resolvedNode": "ISK_L01_AB_2_END",
+        "saveId": "V011-12",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "AB",
+        "leaf": "AB2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-12:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_B_1_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L01_B_1_END",
+      "event": "EVT_ISK_L01_B_1_END",
+      "payload": {
+        "handler": "isk_l01",
+        "quest_id": "Q_ISK_LIYUE_01",
+        "arc_id": "ARC_ISK_LIYUE_01",
+        "branch": "B",
+        "marker": "1_END",
+        "kind": "gate",
+        "leaf": "B1",
+        "summary": {
+          "location": "HARBOR_OUTSKIRTS_GUARD_REST",
+          "harbor_entered": false,
+          "priority": "AFFECTED_PERSON_REST_AND_AGENCY",
+          "evidence": [
+            "B_HANDOVER_MEMORY_MISMATCH",
+            "B1_REST_AND_PERSONAL_MESSAGE_CHOICE"
+          ],
+          "orb_owned": true,
+          "orb_new_reaction": false,
+          "caravan_employment": false,
+          "cargo_handover_complete": false,
+          "family_message": "REQUESTED_SCOPE_CHOSEN_BY_GUARD_DELIVERY_UNCONFIRMED",
+          "festival_access": "FUTURE_INSTRUCTIONS_ONLY",
+          "next_objective": "WAIT_OUTSIDE_WITH_GUARD_AND_CHECK_UPDATES"
+        },
+        "required_map": "MAP_LIYUE_PLAINS",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L01_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "B1",
+          "node_id": "ISK_L01_B_1_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "HARBOR_OUTSKIRTS_GUARD_REST"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "B1_REST_AND_PERSONAL_MESSAGE_CHOICE",
+          "B_DEPARTURE_ACCEPTED",
+          "B_HANDOVER_MEMORY_MISMATCH",
+          "B_LIYUE_VOLUNTARY_PURPOSE"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "required_leaf": "B1",
+        "required_event_ids": [
+          "EVT_ISK_L01_B_001",
+          "EVT_ISK_L01_B_037",
+          "EVT_ISK_L01_B_038",
+          "EVT_ISK_L01_B_065",
+          "EVT_ISK_L01_B_078",
+          "EVT_ISK_L01_B_087",
+          "EVT_ISK_L01_B_100",
+          "EVT_ISK_L01_B_129"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B1",
+        "node_id": "ISK_L01_B_1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "HARBOR_OUTSKIRTS_GUARD_REST",
+        "event": "EVT_ISK_L01_B_1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_B_1_END",
+        "resolvedNode": "ISK_L01_B_1_END",
+        "saveId": "V011-13",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "B",
+        "leaf": "B1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-13:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_01",
+      "node": "ISK_L01_B_2_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L01_B_2_END",
+      "event": "EVT_ISK_L01_B_2_END",
+      "payload": {
+        "handler": "isk_l01",
+        "quest_id": "Q_ISK_LIYUE_01",
+        "arc_id": "ARC_ISK_LIYUE_01",
+        "branch": "B",
+        "marker": "2_END",
+        "kind": "gate",
+        "leaf": "B2",
+        "summary": {
+          "location": "HARBOR_OUTSKIRTS_CARAVAN_STORAGE",
+          "harbor_entered": false,
+          "priority": "CARGO_CUSTODY_AND_VOLUNTARY_LABOR_SCOPE",
+          "evidence": [
+            "B_HANDOVER_MEMORY_MISMATCH",
+            "B2_CUSTODY_UNCOMPLETED_TRANSFER"
+          ],
+          "orb_owned": true,
+          "orb_new_reaction": false,
+          "caravan_employment": false,
+          "cargo_handover_complete": false,
+          "festival_access": "FUTURE_INSTRUCTIONS_ONLY",
+          "next_objective": "WAIT_WITH_CARAVAN_OUTSIDE"
+        },
+        "required_map": "MAP_LIYUE_PLAINS",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L01_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "B2",
+          "node_id": "ISK_L01_B_2_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "HARBOR_OUTSKIRTS_CARAVAN_STORAGE"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "B2_CUSTODY_UNCOMPLETED_TRANSFER",
+          "B_DEPARTURE_ACCEPTED",
+          "B_HANDOVER_MEMORY_MISMATCH",
+          "B_LIYUE_VOLUNTARY_PURPOSE"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "required_leaf": "B2",
+        "required_event_ids": [
+          "EVT_ISK_L01_B_001",
+          "EVT_ISK_L01_B_037",
+          "EVT_ISK_L01_B_038",
+          "EVT_ISK_L01_B_065",
+          "EVT_ISK_L01_B_078",
+          "EVT_ISK_L01_B_087",
+          "EVT_ISK_L01_B_101",
+          "EVT_ISK_L01_B_164"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B2",
+        "node_id": "ISK_L01_B_2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "HARBOR_OUTSKIRTS_CARAVAN_STORAGE",
+        "event": "EVT_ISK_L01_B_2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L01_B_2_END",
+        "resolvedNode": "ISK_L01_B_2_END",
+        "saveId": "V011-14",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_01",
+        "branch": "B",
+        "leaf": "B2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-14:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_K1_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L02_K1_END",
+      "event": "EVT_ISK_L02_K1_END",
+      "payload": {
+        "handler": "isk_l02",
+        "quest_id": "Q_ISK_LIYUE_02",
+        "arc_id": "ARC_ISK_LIYUE_02",
+        "branch": "K",
+        "leaf": "K1",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "리월항 외곽 봉쇄선",
+          "leaf": "K1",
+          "orb_count": 0,
+          "actual_local_deaths": true,
+          "keqing_dead_witnessed": true,
+          "keqing_now_alive": true,
+          "keqing_recognizes_mc": false,
+          "morax_osial_warning_delivered": true,
+          "xiao_observation_shared_with_cloud_retainer": true,
+          "cause_unresolved": true,
+          "general_harbor_closed": true
+        },
+        "required_leaf": "K1",
+        "required_l01_leaf": "K1",
+        "source_node": "ISK_L02_K1_END",
+        "actual_save_write_at_authoring": false,
+        "required_map": "MAP_LIYUE_PLAINS",
+        "required_access_phase": "RETURN_BLOCKADE",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L02_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "K1",
+          "node_id": "ISK_L02_K1_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "리월항 외곽 봉쇄선"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "K1_MASS_DEATH",
+          "K1_MORAX_OSIAL_WARNING",
+          "K1_RETURN_KEQING_UNKNOWN",
+          "K1_RITE_BODY"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "harbor_locked": true,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L02_K1_001",
+          "EVT_ISK_L02_K1_029",
+          "EVT_ISK_L02_K1_030",
+          "EVT_ISK_L02_K1_033",
+          "EVT_ISK_L02_K1_038",
+          "EVT_ISK_L02_K1_056",
+          "EVT_ISK_L02_K1_059",
+          "EVT_ISK_L02_K1_061",
+          "EVT_ISK_L02_K1_066",
+          "EVT_ISK_L02_K1_086",
+          "EVT_ISK_L02_K1_108",
+          "EVT_ISK_L02_K1_110",
+          "EVT_ISK_L02_K1_113"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K1",
+        "node_id": "ISK_L02_K1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 봉쇄선",
+        "event": "EVT_ISK_L02_K1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_K1_END",
+        "resolvedNode": "ISK_L02_K1_END",
+        "saveId": "V011-15",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "K",
+        "leaf": "K1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-15:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_K2_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L02_K2_END",
+      "event": "EVT_ISK_L02_K2_END",
+      "payload": {
+        "handler": "isk_l02",
+        "quest_id": "Q_ISK_LIYUE_02",
+        "arc_id": "ARC_ISK_LIYUE_02",
+        "branch": "K",
+        "leaf": "K2",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "리월항 외곽 물자 대기 구역 인근 봉쇄선",
+          "leaf": "K2",
+          "orb_count": 0,
+          "actual_local_deaths": true,
+          "keqing_dead_witnessed": true,
+          "porter_dead_witnessed": true,
+          "porter_current_state": "unknown",
+          "keqing_now_alive": true,
+          "keqing_recognizes_mc": false,
+          "morax_osial_warning_delivered": true,
+          "xiao_observation_shared_with_keqing": false,
+          "xiao_observation_shared_with_cloud_retainer": true,
+          "cause_unresolved": true,
+          "general_harbor_closed": true
+        },
+        "required_leaf": "K2",
+        "required_l01_leaf": "K2",
+        "source_node": "ISK_L02_K2_END",
+        "actual_save_write_at_authoring": false,
+        "required_map": "MAP_LIYUE_PLAINS",
+        "required_access_phase": "RETURN_BLOCKADE",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L02_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "K2",
+          "node_id": "ISK_L02_K2_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "리월항 외곽 물자 대기 구역 인근 봉쇄선"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "K2_MASS_DEATH",
+          "K2_MORAX_OSIAL_WARNING",
+          "K2_RETURN_KEQING_UNKNOWN",
+          "K2_RITE_BODY"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "harbor_locked": true,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L02_K2_001",
+          "EVT_ISK_L02_K2_033",
+          "EVT_ISK_L02_K2_034",
+          "EVT_ISK_L02_K2_038",
+          "EVT_ISK_L02_K2_042",
+          "EVT_ISK_L02_K2_062",
+          "EVT_ISK_L02_K2_065",
+          "EVT_ISK_L02_K2_067",
+          "EVT_ISK_L02_K2_073",
+          "EVT_ISK_L02_K2_094",
+          "EVT_ISK_L02_K2_123",
+          "EVT_ISK_L02_K2_125",
+          "EVT_ISK_L02_K2_128"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K2",
+        "node_id": "ISK_L02_K2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 물자 대기 구역 인근 봉쇄선",
+        "event": "EVT_ISK_L02_K2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_K2_END",
+        "resolvedNode": "ISK_L02_K2_END",
+        "saveId": "V011-16",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "K",
+        "leaf": "K2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-16:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_AA1_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L02_AA1_END",
+      "event": "EVT_ISK_L02_AA1_END",
+      "payload": {
+        "handler": "isk_l02",
+        "quest_id": "Q_ISK_LIYUE_02",
+        "arc_id": "ARC_ISK_LIYUE_02",
+        "branch": "AA",
+        "leaf": "AA1",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "리월항 외곽 통제선 접근로",
+          "events": "의례 현장의 실제 죽음과 각청 사망을 목격. 호두에게 신고 장소와 직접 증언을 전하고 같은 구슬 유해를 재관찰. 신고 전달·현장 확인은 미완료. 호두와 외곽 통제선에 돌아와 살아 있는 각청이 자신을 알아보지 못함을 확인.",
+          "orb_count": 1,
+          "same_dead_body_inside": true,
+          "hutao_saw_orb_body": true,
+          "actual_mass_death_preserved": true,
+          "keqing_currently_alive": true,
+          "keqing_does_not_recognize_protagonist": true,
+          "death_or_memory_mechanism": "UNKNOWN",
+          "harbor_general_access": false,
+          "new_rewards": false
+        },
+        "required_leaf": "AA1",
+        "required_l01_leaf": "AA1",
+        "source_node": "ISK_L02_AA1_END",
+        "actual_save_write_at_authoring": false,
+        "required_map": "MAP_LIYUE_PLAINS",
+        "required_access_phase": "RETURN_BLOCKADE",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L02_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AA1",
+          "node_id": "ISK_L02_AA1_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "리월항 외곽 통제선 접근로"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "AA1_DEATH_NOTICE_REQUESTED",
+          "AA1_MASS_DEATH",
+          "AA1_ORB_REOBSERVED",
+          "AA1_RETURN_KEQING_UNKNOWN",
+          "AA1_RITE_BODY"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "harbor_locked": true,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L02_AA1_001",
+          "EVT_ISK_L02_AA1_025",
+          "EVT_ISK_L02_AA1_033",
+          "EVT_ISK_L02_AA1_034",
+          "EVT_ISK_L02_AA1_040",
+          "EVT_ISK_L02_AA1_062",
+          "EVT_ISK_L02_AA1_067",
+          "EVT_ISK_L02_AA1_068",
+          "EVT_ISK_L02_AA1_091",
+          "EVT_ISK_L02_AA1_099",
+          "EVT_ISK_L02_AA1_106",
+          "EVT_ISK_L02_AA1_107",
+          "EVT_ISK_L02_AA1_114"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA1",
+        "node_id": "ISK_L02_AA1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 통제선 접근로",
+        "event": "EVT_ISK_L02_AA1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_AA1_END",
+        "resolvedNode": "ISK_L02_AA1_END",
+        "saveId": "V011-17",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "AA",
+        "leaf": "AA1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-17:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_AA2_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L02_AA2_END",
+      "event": "EVT_ISK_L02_AA2_END",
+      "payload": {
+        "handler": "isk_l02",
+        "quest_id": "Q_ISK_LIYUE_02",
+        "arc_id": "ARC_ISK_LIYUE_02",
+        "branch": "AA",
+        "leaf": "AA2",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "리월항 외곽 통제선 앞",
+          "events": "구슬 봉함과 호두 미관찰 유지. 닷새 대기 뒤 의례 몸 추락·제한 현장 실제 집단 사망, 각청과 익숙한 접수 병사 사망을 직접 확인. 외곽 교대 담당에게 실명 목격 신고 접수, 현장 확인은 미완료. 호두는 이전 접촉만 증언하고 접수처에 남음. 외곽 책임자에게 길을 설명하러 갔다 살아 있는 각청에게 초면 질문을 받음.",
+          "orb_count": 1,
+          "same_dead_body_inside": true,
+          "hutao_saw_orb_body": false,
+          "actual_mass_death_preserved": true,
+          "keqing_currently_alive": true,
+          "keqing_does_not_recognize_protagonist": true,
+          "death_or_memory_mechanism": "UNKNOWN",
+          "harbor_general_access": false,
+          "new_rewards": false
+        },
+        "required_leaf": "AA2",
+        "required_l01_leaf": "AA2",
+        "source_node": "ISK_L02_AA2_END",
+        "actual_save_write_at_authoring": false,
+        "required_map": "MAP_LIYUE_PLAINS",
+        "required_access_phase": "RETURN_BLOCKADE",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L02_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AA2",
+          "node_id": "ISK_L02_AA2_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "리월항 외곽 통제선 앞"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "AA2_MASS_DEATH",
+          "AA2_NAMED_DEATH_REPORT",
+          "AA2_RETURN_KEQING_UNKNOWN",
+          "AA2_RITE_BODY",
+          "AA2_WAITING_TESTIMONY"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "harbor_locked": true,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L02_AA2_001",
+          "EVT_ISK_L02_AA2_029",
+          "EVT_ISK_L02_AA2_030",
+          "EVT_ISK_L02_AA2_042",
+          "EVT_ISK_L02_AA2_043",
+          "EVT_ISK_L02_AA2_052",
+          "EVT_ISK_L02_AA2_074",
+          "EVT_ISK_L02_AA2_079",
+          "EVT_ISK_L02_AA2_080",
+          "EVT_ISK_L02_AA2_099",
+          "EVT_ISK_L02_AA2_123",
+          "EVT_ISK_L02_AA2_124",
+          "EVT_ISK_L02_AA2_129"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA2",
+        "node_id": "ISK_L02_AA2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 통제선 앞",
+        "event": "EVT_ISK_L02_AA2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_AA2_END",
+        "resolvedNode": "ISK_L02_AA2_END",
+        "saveId": "V011-18",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "AA",
+        "leaf": "AA2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-18:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_AB1_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L02_AB1_END",
+      "event": "EVT_ISK_L02_AB1_END",
+      "payload": {
+        "handler": "isk_l02",
+        "quest_id": "Q_ISK_LIYUE_02",
+        "arc_id": "ARC_ISK_LIYUE_02",
+        "branch": "AB",
+        "leaf": "AB1",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "리월항 외곽 통제선 각청 앞",
+          "harbor_general_access": false,
+          "orb_count": 1,
+          "orb_corpse": false,
+          "diluc_location": "몬드",
+          "prior_leaf": "AB1",
+          "new_evidence": [
+            "AB1_RITE_BODY",
+            "AB1_MASS_DEATH",
+            "AB1_ORB_FAILED_RESCUE",
+            "AB1_OUTSIDE_WITNESS",
+            "AB1_RETURN_KEQING_UNKNOWN"
+          ],
+          "current_helper": "참사 밖에 있었던 교대 병사; 동료 카드 아님",
+          "next": "자신을 알아보지 못하는 각청에게 아직 후속 답변하지 않음",
+          "unresolved": [
+            "모락스 본체 생사",
+            "참사의 원인과 범위",
+            "각청 현재 생존과 이전 죽음의 관계",
+            "기억상실 범위",
+            "현장에 남긴 사람들의 현재 상태"
+          ]
+        },
+        "required_leaf": "AB1",
+        "required_l01_leaf": "AB1",
+        "source_node": "ISK_L02_AB1_END",
+        "actual_save_write_at_authoring": false,
+        "required_map": "MAP_LIYUE_PLAINS",
+        "required_access_phase": "RETURN_BLOCKADE",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L02_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AB1",
+          "node_id": "ISK_L02_AB1_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "리월항 외곽 통제선 각청 앞"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "AB1_MASS_DEATH",
+          "AB1_ORB_FAILED_RESCUE",
+          "AB1_OUTSIDE_WITNESS",
+          "AB1_RETURN_KEQING_UNKNOWN",
+          "AB1_RITE_BODY"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "harbor_locked": true,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L02_AB1_001",
+          "EVT_ISK_L02_AB1_048",
+          "EVT_ISK_L02_AB1_049",
+          "EVT_ISK_L02_AB1_050",
+          "EVT_ISK_L02_AB1_056",
+          "EVT_ISK_L02_AB1_076",
+          "EVT_ISK_L02_AB1_083",
+          "EVT_ISK_L02_AB1_087",
+          "EVT_ISK_L02_AB1_088",
+          "EVT_ISK_L02_AB1_111",
+          "EVT_ISK_L02_AB1_112",
+          "EVT_ISK_L02_AB1_113",
+          "EVT_ISK_L02_AB1_117"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB1",
+        "node_id": "ISK_L02_AB1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 통제선 각청 앞",
+        "event": "EVT_ISK_L02_AB1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_AB1_END",
+        "resolvedNode": "ISK_L02_AB1_END",
+        "saveId": "V011-19",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "AB",
+        "leaf": "AB1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-19:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_AB2_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L02_AB2_END",
+      "event": "EVT_ISK_L02_AB2_END",
+      "payload": {
+        "handler": "isk_l02",
+        "quest_id": "Q_ISK_LIYUE_02",
+        "arc_id": "ARC_ISK_LIYUE_02",
+        "branch": "AB",
+        "leaf": "AB2",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "리월항 외곽 통제선 각청 앞",
+          "harbor_general_access": false,
+          "orb_count": 1,
+          "orb_corpse": false,
+          "orb_used_this_chapter": false,
+          "diluc_location": "몬드",
+          "prior_leaf": "AB2",
+          "new_evidence": [
+            "AB2_RITE_BODY",
+            "AB2_MASS_DEATH",
+            "AB2_PHYSICAL_MARK",
+            "AB2_OUTSIDE_CARRIER",
+            "AB2_RETURN_KEQING_UNKNOWN"
+          ],
+          "current_helper": "참사 때 외곽에 있던 운송인; 동료 카드 아님",
+          "physical_evidence_location": "옥경대 난간 기둥; 아직 재확인하지 않음",
+          "next": "자신을 알아보지 못하는 각청에게 아직 후속 답변하지 않음",
+          "unresolved": [
+            "모락스 본체 생사",
+            "참사의 원인과 범위",
+            "각청 현재 생존과 이전 죽음의 관계",
+            "기억상실 범위",
+            "현장의 시신과 매듭 현재 상태"
+          ]
+        },
+        "required_leaf": "AB2",
+        "required_l01_leaf": "AB2",
+        "source_node": "ISK_L02_AB2_END",
+        "actual_save_write_at_authoring": false,
+        "required_map": "MAP_LIYUE_PLAINS",
+        "required_access_phase": "RETURN_BLOCKADE",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L02_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AB2",
+          "node_id": "ISK_L02_AB2_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "리월항 외곽 통제선 각청 앞"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "AB2_MASS_DEATH",
+          "AB2_OUTSIDE_CARRIER",
+          "AB2_PHYSICAL_MARK",
+          "AB2_RETURN_KEQING_UNKNOWN",
+          "AB2_RITE_BODY"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "harbor_locked": true,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L02_AB2_001",
+          "EVT_ISK_L02_AB2_050",
+          "EVT_ISK_L02_AB2_051",
+          "EVT_ISK_L02_AB2_052",
+          "EVT_ISK_L02_AB2_058",
+          "EVT_ISK_L02_AB2_076",
+          "EVT_ISK_L02_AB2_085",
+          "EVT_ISK_L02_AB2_090",
+          "EVT_ISK_L02_AB2_091",
+          "EVT_ISK_L02_AB2_118",
+          "EVT_ISK_L02_AB2_119",
+          "EVT_ISK_L02_AB2_120",
+          "EVT_ISK_L02_AB2_124"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB2",
+        "node_id": "ISK_L02_AB2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "리월항 외곽 통제선 각청 앞",
+        "event": "EVT_ISK_L02_AB2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_AB2_END",
+        "resolvedNode": "ISK_L02_AB2_END",
+        "saveId": "V011-20",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "AB",
+        "leaf": "AB2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-20:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_B1_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L02_B1_END",
+      "event": "EVT_ISK_L02_B1_END",
+      "payload": {
+        "handler": "isk_l02",
+        "quest_id": "Q_ISK_LIYUE_02",
+        "arc_id": "ARC_ISK_LIYUE_02",
+        "branch": "B",
+        "leaf": "B1",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "LIYUE_OUTSIDE_CORDON_B1_KEQING_REUNION",
+          "days_skipped": 5,
+          "orb_owned": true,
+          "orb_count": 1,
+          "orb_new_reaction": false,
+          "abyss_remains": false,
+          "dvalin_was_dead": false,
+          "family_message_delivery": "UNCONFIRMED",
+          "new_family_dispatch": "PAUSED_PENDING_VERIFICATION",
+          "guard_last_words_told_to_colleague": true,
+          "guard_body_recovered": false,
+          "keqing_death_witnessed": true,
+          "keqing_alive_again_encountered": true,
+          "keqing_recognizes_player": false,
+          "cause": "UNRESOLVED",
+          "beidou_origin": "OUTSIDE_DEATH_SCENE",
+          "beidou_present": true,
+          "harbor_general_entry": false,
+          "reward": 0
+        },
+        "required_leaf": "B1",
+        "required_l01_leaf": "B1",
+        "source_node": "ISK_L02_B1_END",
+        "actual_save_write_at_authoring": false,
+        "required_map": "MAP_LIYUE_PLAINS",
+        "required_access_phase": "RETURN_BLOCKADE",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L02_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "B1",
+          "node_id": "ISK_L02_B1_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "LIYUE_OUTSIDE_CORDON_B1_KEQING_REUNION"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "B1_GUARD_ACCOUNT_TO_COLLEAGUE",
+          "B1_GUARD_UNSENT_WORDS",
+          "B1_MASS_DEATH",
+          "B1_RETURN_KEQING_UNKNOWN",
+          "B1_RITE_BODY"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "harbor_locked": true,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L02_B1_001",
+          "EVT_ISK_L02_B1_030",
+          "EVT_ISK_L02_B1_038",
+          "EVT_ISK_L02_B1_039",
+          "EVT_ISK_L02_B1_040",
+          "EVT_ISK_L02_B1_047",
+          "EVT_ISK_L02_B1_064",
+          "EVT_ISK_L02_B1_065",
+          "EVT_ISK_L02_B1_076",
+          "EVT_ISK_L02_B1_094",
+          "EVT_ISK_L02_B1_105",
+          "EVT_ISK_L02_B1_106",
+          "EVT_ISK_L02_B1_112"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B1",
+        "node_id": "ISK_L02_B1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "LIYUE_OUTSIDE_CORDON_B1_KEQING_REUNION",
+        "event": "EVT_ISK_L02_B1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_B1_END",
+        "resolvedNode": "ISK_L02_B1_END",
+        "saveId": "V011-21",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "B",
+        "leaf": "B1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-21:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_02",
+      "node": "ISK_L02_B2_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L02_B2_END",
+      "event": "EVT_ISK_L02_B2_END",
+      "payload": {
+        "handler": "isk_l02",
+        "quest_id": "Q_ISK_LIYUE_02",
+        "arc_id": "ARC_ISK_LIYUE_02",
+        "branch": "B",
+        "leaf": "B2",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "LIYUE_OUTSIDE_CORDON_B2_KEQING_REUNION",
+          "days_skipped": 5,
+          "orb_owned": true,
+          "orb_count": 1,
+          "orb_new_reaction": false,
+          "abyss_remains": false,
+          "dvalin_was_dead": false,
+          "family_message_scene": false,
+          "outside_people_evacuated": 8,
+          "return_party_count": 3,
+          "outside_rest_party_count": 5,
+          "cargo_transfer_completed": false,
+          "cargo_recovered": false,
+          "carts_left_at_original_position": 2,
+          "cart_used_for_resting_driver": 1,
+          "beidou_origin": "OUTSIDE_DEATH_SCENE",
+          "beidou_present": true,
+          "keqing_death_witnessed": true,
+          "keqing_alive_again_encountered": true,
+          "keqing_recognizes_player": false,
+          "cause": "UNRESOLVED",
+          "harbor_general_entry": false,
+          "reward": 0
+        },
+        "required_leaf": "B2",
+        "required_l01_leaf": "B2",
+        "source_node": "ISK_L02_B2_END",
+        "actual_save_write_at_authoring": false,
+        "required_map": "MAP_LIYUE_PLAINS",
+        "required_access_phase": "RETURN_BLOCKADE",
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L02_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "B2",
+          "node_id": "ISK_L02_B2_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "LIYUE_OUTSIDE_CORDON_B2_KEQING_REUNION"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES",
+        "required_evidence": [
+          "B2_MASS_DEATH",
+          "B2_OUTSIDE_CARAVAN_EVACUATION",
+          "B2_RETURN_KEQING_UNKNOWN",
+          "B2_RETURN_PARTY_SPLIT",
+          "B2_RITE_BODY"
+        ],
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "START_RITE",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_AND_ACTIVE_QUEST_ONLY",
+          "future_resume": "EXPLICIT_RESUME_ONLY_FROM_MATCHING_LEAF_ACTIVE_CONTINUATION"
+        },
+        "menu_access": "CONTENT_GATE",
+        "next_quest": null,
+        "unlock_rite": false,
+        "harbor_locked": true,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L02_B2_001",
+          "EVT_ISK_L02_B2_031",
+          "EVT_ISK_L02_B2_036",
+          "EVT_ISK_L02_B2_037",
+          "EVT_ISK_L02_B2_044",
+          "EVT_ISK_L02_B2_062",
+          "EVT_ISK_L02_B2_063",
+          "EVT_ISK_L02_B2_072",
+          "EVT_ISK_L02_B2_092",
+          "EVT_ISK_L02_B2_094",
+          "EVT_ISK_L02_B2_115",
+          "EVT_ISK_L02_B2_116",
+          "EVT_ISK_L02_B2_117",
+          "EVT_ISK_L02_B2_123"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B2",
+        "node_id": "ISK_L02_B2_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "LIYUE_OUTSIDE_CORDON_B2_KEQING_REUNION",
+        "event": "EVT_ISK_L02_B2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L02_B2_END",
+        "resolvedNode": "ISK_L02_B2_END",
+        "saveId": "V011-22",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_02",
+        "branch": "B",
+        "leaf": "B2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-22:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_K1_END",
+      "map": "MAP_LIYUE_GOLDEN_HOUSE",
+      "effect": "EVENT:EVT_ISK_L03_K1_END",
+      "event": "EVT_ISK_L03_K1_END",
+      "payload": {
+        "handler": "isk_l03",
+        "quest_id": "Q_ISK_LIYUE_03",
+        "arc_id": "ARC_ISK_LIYUE_03",
+        "branch": "K",
+        "leaf": "K1",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "무너진 황금옥 잔해 아래",
+          "ending_state": "BURIED_PENDING",
+          "orb_owned": false,
+          "keqing_alive_at_last_seen": true,
+          "keqing_prechapter_memory_unrestored": true,
+          "ningguang_morax_death_memory_missing": true,
+          "morax_body_location_unknown": true,
+          "adepti_support_arrived": true,
+          "osial_warning_delivered": true,
+          "jade_chamber_sacrifice_warned_not_executed": true,
+          "jean_location": "몬드",
+          "mc_death_confirmed": false,
+          "childe_whereabouts_unknown": true
+        },
+        "required_leaf": "K1",
+        "required_l02_leaf": "K1",
+        "source_node": "ISK_L03_K1_END",
+        "source_node_map": "MAP_LIYUE_GOLDEN_HOUSE",
+        "required_map": "MAP_LIYUE_GOLDEN_HOUSE",
+        "actual_save_write_at_authoring": false,
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L03_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "K1",
+          "node_id": "ISK_L03_K1_END",
+          "map_id": "MAP_LIYUE_GOLDEN_HOUSE",
+          "location": "무너진 황금옥 잔해 아래",
+          "ending_state": "BURIED_PENDING"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES_AND_BATTLE_RECEIPTS",
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_ACTIVE_QUEST_LEAF_ONLY",
+          "future_resume": "EXPLICIT_RESUME_FROM_MATCHING_AUTHORED_LEAF"
+        },
+        "menu_access": "CONTENT_GATE",
+        "cancel_all_temporary_access": true,
+        "hp_policy": "PRESERVE_ACTUAL_POST_BATTLE_HP_NO_AUTOMATIC_ZERO_OR_HEAL",
+        "story_incapacitation_is_not_free_travel": true,
+        "next_quest": null,
+        "requires_real_golden_battle_win_receipt": true,
+        "requires_player_conscious_for_finishing_attempt_before_collapse": true,
+        "ending_state": "BURIED_PENDING",
+        "injury_death_rescue_outcome": "UNRESOLVED",
+        "do_not_run_general_death_or_revive_handler": true,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L03_K1_001",
+          "EVT_ISK_L03_K1_016",
+          "EVT_ISK_L03_K1_017",
+          "EVT_ISK_L03_K1_031",
+          "EVT_ISK_L03_K1_049",
+          "EVT_ISK_L03_K1_078",
+          "EVT_ISK_L03_K1_079",
+          "EVT_ISK_L03_K1_084",
+          "EVT_ISK_L03_K1_085",
+          "EVT_ISK_L03_K1_089",
+          "EVT_ISK_L03_K1_107",
+          "EVT_ISK_L03_K1_113"
+        ],
+        "required_evidence": [
+          "K1_COLLAPSE",
+          "K1_MISSING_BODY",
+          "K1_PALACE_WARNING"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K1",
+        "node_id": "ISK_L03_K1_END",
+        "map_id": "MAP_LIYUE_GOLDEN_HOUSE",
+        "location": "무너진 황금옥 잔해 아래",
+        "ending_state": "BURIED_PENDING",
+        "event": "EVT_ISK_L03_K1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_K1_END",
+        "resolvedNode": "ISK_L03_K1_END",
+        "saveId": "V011-23",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "K",
+        "leaf": "K1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-23:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_K2_END",
+      "map": "MAP_LIYUE_GOLDEN_HOUSE",
+      "effect": "EVENT:EVT_ISK_L03_K2_END",
+      "event": "EVT_ISK_L03_K2_END",
+      "payload": {
+        "handler": "isk_l03",
+        "quest_id": "Q_ISK_LIYUE_03",
+        "arc_id": "ARC_ISK_LIYUE_03",
+        "branch": "K",
+        "leaf": "K2",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "무너진 황금옥 잔해 아래",
+          "ending_state": "BURIED_PENDING",
+          "orb_owned": false,
+          "keqing_alive_at_last_seen": true,
+          "keqing_prechapter_memory_unrestored": true,
+          "ningguang_morax_death_memory_missing": true,
+          "morax_body_location_unknown": true,
+          "adepti_support_arrived": true,
+          "osial_warning_delivered": true,
+          "jade_chamber_sacrifice_warned_not_executed": true,
+          "porter_whereabouts_unknown": true,
+          "porter_search_assigned": true,
+          "cargo_handoff_unfinished": true,
+          "jean_location": "몬드",
+          "mc_death_confirmed": false,
+          "childe_whereabouts_unknown": true
+        },
+        "required_leaf": "K2",
+        "required_l02_leaf": "K2",
+        "source_node": "ISK_L03_K2_END",
+        "source_node_map": "MAP_LIYUE_GOLDEN_HOUSE",
+        "required_map": "MAP_LIYUE_GOLDEN_HOUSE",
+        "actual_save_write_at_authoring": false,
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L03_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "K2",
+          "node_id": "ISK_L03_K2_END",
+          "map_id": "MAP_LIYUE_GOLDEN_HOUSE",
+          "location": "무너진 황금옥 잔해 아래",
+          "ending_state": "BURIED_PENDING"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES_AND_BATTLE_RECEIPTS",
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_ACTIVE_QUEST_LEAF_ONLY",
+          "future_resume": "EXPLICIT_RESUME_FROM_MATCHING_AUTHORED_LEAF"
+        },
+        "menu_access": "CONTENT_GATE",
+        "cancel_all_temporary_access": true,
+        "hp_policy": "PRESERVE_ACTUAL_POST_BATTLE_HP_NO_AUTOMATIC_ZERO_OR_HEAL",
+        "story_incapacitation_is_not_free_travel": true,
+        "next_quest": null,
+        "requires_real_golden_battle_win_receipt": true,
+        "requires_player_conscious_for_finishing_attempt_before_collapse": true,
+        "ending_state": "BURIED_PENDING",
+        "injury_death_rescue_outcome": "UNRESOLVED",
+        "do_not_run_general_death_or_revive_handler": true,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L03_K2_001",
+          "EVT_ISK_L03_K2_017",
+          "EVT_ISK_L03_K2_018",
+          "EVT_ISK_L03_K2_030",
+          "EVT_ISK_L03_K2_047",
+          "EVT_ISK_L03_K2_079",
+          "EVT_ISK_L03_K2_080",
+          "EVT_ISK_L03_K2_086",
+          "EVT_ISK_L03_K2_087",
+          "EVT_ISK_L03_K2_091",
+          "EVT_ISK_L03_K2_110",
+          "EVT_ISK_L03_K2_116"
+        ],
+        "required_evidence": [
+          "K2_COLLAPSE",
+          "K2_MISSING_BODY",
+          "K2_PALACE_WARNING"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "K2",
+        "node_id": "ISK_L03_K2_END",
+        "map_id": "MAP_LIYUE_GOLDEN_HOUSE",
+        "location": "무너진 황금옥 잔해 아래",
+        "ending_state": "BURIED_PENDING",
+        "event": "EVT_ISK_L03_K2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_K2_END",
+        "resolvedNode": "ISK_L03_K2_END",
+        "saveId": "V011-24",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "K",
+        "leaf": "K2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-24:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_AA1_END",
+      "map": "MAP_CHASM_SURFACE",
+      "effect": "EVENT:EVT_ISK_L03_AA1_END",
+      "event": "EVT_ISK_L03_AA1_END",
+      "payload": {
+        "handler": "isk_l03",
+        "quest_id": "Q_ISK_LIYUE_03",
+        "arc_id": "ARC_ISK_LIYUE_03",
+        "branch": "AA",
+        "leaf": "AA1",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "ending_state": "TRAPPED_UNDERGROUND_WITH_HUTAO",
+          "location": "층암거연 임시 안치소 지하의 출구가 사라진 방",
+          "companion": "호두",
+          "orb_count": 1,
+          "same_dead_body_inside": true,
+          "hutao_saw_orb_body": true,
+          "rescued_workers": 3,
+          "unknown_guest_alive_outside": true,
+          "general_harbor_access": false,
+          "exit_missing": true,
+          "knock_and_copied_player_voice": true
+        },
+        "required_leaf": "AA1",
+        "required_l02_leaf": "AA1",
+        "source_node": "ISK_L03_AA1_END",
+        "source_node_map": "MAP_CHASM_SURFACE",
+        "required_map": "MAP_CHASM_SURFACE",
+        "actual_save_write_at_authoring": false,
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L03_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AA1",
+          "node_id": "ISK_L03_AA1_END",
+          "map_id": "MAP_CHASM_SURFACE",
+          "location": "층암거연 임시 안치소 지하의 출구가 사라진 방",
+          "ending_state": "TRAPPED_UNDERGROUND_WITH_HUTAO"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES_AND_BATTLE_RECEIPTS",
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_ACTIVE_QUEST_LEAF_ONLY",
+          "future_resume": "EXPLICIT_RESUME_FROM_MATCHING_AUTHORED_LEAF"
+        },
+        "menu_access": "CONTENT_GATE",
+        "cancel_all_temporary_access": true,
+        "hp_policy": "PRESERVE_ACTUAL_POST_BATTLE_HP_NO_AUTOMATIC_ZERO_OR_HEAL",
+        "story_incapacitation_is_not_free_travel": true,
+        "next_quest": null,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L03_AA1_001",
+          "EVT_ISK_L03_AA1_024",
+          "EVT_ISK_L03_AA1_025",
+          "EVT_ISK_L03_AA1_047",
+          "EVT_ISK_L03_AA1_048",
+          "EVT_ISK_L03_AA1_086"
+        ],
+        "required_evidence": [
+          "AA1_HOUSE_OBSERVATIONS",
+          "AA1_RESCUE_AND_ROOM_CHANGE"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA1",
+        "node_id": "ISK_L03_AA1_END",
+        "map_id": "MAP_CHASM_SURFACE",
+        "location": "층암거연 임시 안치소 지하의 출구가 사라진 방",
+        "ending_state": "TRAPPED_UNDERGROUND_WITH_HUTAO",
+        "event": "EVT_ISK_L03_AA1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_AA1_END",
+        "resolvedNode": "ISK_L03_AA1_END",
+        "saveId": "V011-25",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "AA",
+        "leaf": "AA1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-25:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_AA2_END",
+      "map": "MAP_LY_DETAIL_MINGYUN",
+      "effect": "EVENT:EVT_ISK_L03_AA2_END",
+      "event": "EVT_ISK_L03_AA2_END",
+      "payload": {
+        "handler": "isk_l03",
+        "quest_id": "Q_ISK_LIYUE_03",
+        "arc_id": "ARC_ISK_LIYUE_03",
+        "branch": "AA",
+        "leaf": "AA2",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "ending_state": "PLAYER_MOTION_AND_VOICE_BLOCKED_WITH_ALBEDO",
+          "location": "리월항 외곽 얕은 골짜기의 마른 바위 옆",
+          "companion": "알베도",
+          "orb_count": 1,
+          "same_dead_body_inside": true,
+          "hutao_saw_orb_body": false,
+          "albedo_disclosure": "앞선 공개 선택에 따라 직접 관찰 또는 미관찰",
+          "support_arrived_after_days": 7,
+          "player_breathing": true,
+          "player_voice_and_voluntary_motion_blocked": true,
+          "albedo_can_move": true,
+          "whisper_heard_by_player": true,
+          "general_harbor_access": false
+        },
+        "required_leaf": "AA2",
+        "required_l02_leaf": "AA2",
+        "source_node": "ISK_L03_AA2_END",
+        "source_node_map": "MAP_LY_DETAIL_MINGYUN",
+        "required_map": "MAP_LY_DETAIL_MINGYUN",
+        "actual_save_write_at_authoring": false,
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L03_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AA2",
+          "node_id": "ISK_L03_AA2_END",
+          "map_id": "MAP_LY_DETAIL_MINGYUN",
+          "location": "리월항 외곽 얕은 골짜기의 마른 바위 옆",
+          "ending_state": "PLAYER_MOTION_AND_VOICE_BLOCKED_WITH_ALBEDO"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES_AND_BATTLE_RECEIPTS",
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_ACTIVE_QUEST_LEAF_ONLY",
+          "future_resume": "EXPLICIT_RESUME_FROM_MATCHING_AUTHORED_LEAF"
+        },
+        "menu_access": "CONTENT_GATE",
+        "cancel_all_temporary_access": true,
+        "hp_policy": "PRESERVE_ACTUAL_POST_BATTLE_HP_NO_AUTOMATIC_ZERO_OR_HEAL",
+        "story_incapacitation_is_not_free_travel": true,
+        "next_quest": null,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L03_AA2_001",
+          "EVT_ISK_L03_AA2_015",
+          "EVT_ISK_L03_AA2_025",
+          "EVT_ISK_L03_AA2_026",
+          "EVT_ISK_L03_AA2_035",
+          "EVT_ISK_L03_AA2_042",
+          "EVT_ISK_L03_AA2_043",
+          "EVT_ISK_L03_AA2_053",
+          "EVT_ISK_L03_AA2_077",
+          "EVT_ISK_L03_AA2_104"
+        ],
+        "required_evidence": [
+          "AA2_ALBEDO_ARRIVED",
+          "AA2_LOCAL_MOVEMENT_CRISIS",
+          "AA2_MOND_SUPPORT_DISPATCHED",
+          "AA2_OLD_INQUIRY_ANSWERED"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AA2",
+        "node_id": "ISK_L03_AA2_END",
+        "map_id": "MAP_LY_DETAIL_MINGYUN",
+        "location": "리월항 외곽 얕은 골짜기의 마른 바위 옆",
+        "ending_state": "PLAYER_MOTION_AND_VOICE_BLOCKED_WITH_ALBEDO",
+        "event": "EVT_ISK_L03_AA2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_AA2_END",
+        "resolvedNode": "ISK_L03_AA2_END",
+        "saveId": "V011-26",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "AA",
+        "leaf": "AA2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-26:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_AB1_END",
+      "map": "MAP_LIYUE_PLAINS",
+      "effect": "EVENT:EVT_ISK_L03_AB1_END",
+      "event": "EVT_ISK_L03_AB1_END",
+      "payload": {
+        "handler": "isk_l03",
+        "quest_id": "Q_ISK_LIYUE_03",
+        "arc_id": "ARC_ISK_LIYUE_03",
+        "branch": "AB",
+        "leaf": "AB1",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "외곽 초소 분리 조사실",
+          "detained_alive": true,
+          "ending_state": "PROTECTIVE_CUSTODY_PENDING",
+          "offscreen_knowledge": {
+            "yunjin_only": "잠긴 무대 뒷문의 상충 증언과 새 발자국, 주인공은 모름"
+          },
+          "keqing_memory_of_invitation": "미복구",
+          "orb": 1,
+          "remains": 0,
+          "caretaker_death": true,
+          "culprit": "미확정",
+          "yunjin": "공연장 뒤편에서 독립 목격자 확인 중",
+          "general_harbor_blockade": true
+        },
+        "required_leaf": "AB1",
+        "required_l02_leaf": "AB1",
+        "source_node": "ISK_L03_AB1_END",
+        "source_node_map": "MAP_LIYUE_PLAINS",
+        "required_map": "MAP_LIYUE_PLAINS",
+        "actual_save_write_at_authoring": false,
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L03_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AB1",
+          "node_id": "ISK_L03_AB1_END",
+          "map_id": "MAP_LIYUE_PLAINS",
+          "location": "외곽 초소 분리 조사실",
+          "ending_state": "PROTECTIVE_CUSTODY_PENDING"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES_AND_BATTLE_RECEIPTS",
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_ACTIVE_QUEST_LEAF_ONLY",
+          "future_resume": "EXPLICIT_RESUME_FROM_MATCHING_AUTHORED_LEAF"
+        },
+        "menu_access": "CONTENT_GATE",
+        "cancel_all_temporary_access": true,
+        "hp_policy": "PRESERVE_ACTUAL_POST_BATTLE_HP_NO_AUTOMATIC_ZERO_OR_HEAL",
+        "story_incapacitation_is_not_free_travel": true,
+        "next_quest": null,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L03_AB1_001",
+          "EVT_ISK_L03_AB1_021",
+          "EVT_ISK_L03_AB1_037",
+          "EVT_ISK_L03_AB1_060",
+          "EVT_ISK_L03_AB1_084",
+          "EVT_ISK_L03_AB1_120",
+          "EVT_ISK_L03_AB1_121"
+        ],
+        "required_evidence": [
+          "AB1_STAGE_DISCORD",
+          "AB1_UNSUNG_LINE"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB1",
+        "node_id": "ISK_L03_AB1_END",
+        "map_id": "MAP_LIYUE_PLAINS",
+        "location": "외곽 초소 분리 조사실",
+        "ending_state": "PROTECTIVE_CUSTODY_PENDING",
+        "event": "EVT_ISK_L03_AB1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_AB1_END",
+        "resolvedNode": "ISK_L03_AB1_END",
+        "saveId": "V011-27",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "AB",
+        "leaf": "AB1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-27:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_AB2_END",
+      "map": "MAP_CHASM_SURFACE",
+      "effect": "EVENT:EVT_ISK_L03_AB2_END",
+      "event": "EVT_ISK_L03_AB2_END",
+      "payload": {
+        "handler": "isk_l03",
+        "quest_id": "Q_ISK_LIYUE_03",
+        "arc_id": "ARC_ISK_LIYUE_03",
+        "branch": "AB",
+        "leaf": "AB2",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "폐창고 붕괴 아래에서 이어진 정체불명의 낮은 복도 입구",
+          "alive_conscious": true,
+          "ending_state": "SEPARATED_CORRIDOR_PENDING",
+          "offscreen_knowledge": {
+            "diluc_and_keqing_only": "바깥 구조 인원 배치와 경비 진술, 주인공은 직접 알지 못함"
+          },
+          "movement": "기어서 좁은 빈틈까지 이동, 독립 탈출 미완료",
+          "orb": 1,
+          "remains": 0,
+          "fragment_collected": false,
+          "diluc": "폐창고 외부에서 각청과 구조 시도",
+          "courier": "요청 전달·응답·5일 후 지원 도착 완료",
+          "cart": "실물 경로와 특성 대조, 운반 내용 미확정",
+          "general_harbor_blockade": true
+        },
+        "required_leaf": "AB2",
+        "required_l02_leaf": "AB2",
+        "source_node": "ISK_L03_AB2_END",
+        "source_node_map": "MAP_CHASM_SURFACE",
+        "required_map": "MAP_CHASM_SURFACE",
+        "actual_save_write_at_authoring": false,
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L03_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "AB2",
+          "node_id": "ISK_L03_AB2_END",
+          "map_id": "MAP_CHASM_SURFACE",
+          "location": "폐창고 붕괴 아래에서 이어진 정체불명의 낮은 복도 입구",
+          "ending_state": "SEPARATED_CORRIDOR_PENDING"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES_AND_BATTLE_RECEIPTS",
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_ACTIVE_QUEST_LEAF_ONLY",
+          "future_resume": "EXPLICIT_RESUME_FROM_MATCHING_AUTHORED_LEAF"
+        },
+        "menu_access": "CONTENT_GATE",
+        "cancel_all_temporary_access": true,
+        "hp_policy": "PRESERVE_ACTUAL_POST_BATTLE_HP_NO_AUTOMATIC_ZERO_OR_HEAL",
+        "story_incapacitation_is_not_free_travel": true,
+        "next_quest": null,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L03_AB2_001",
+          "EVT_ISK_L03_AB2_010",
+          "EVT_ISK_L03_AB2_011",
+          "EVT_ISK_L03_AB2_020",
+          "EVT_ISK_L03_AB2_032",
+          "EVT_ISK_L03_AB2_033",
+          "EVT_ISK_L03_AB2_041",
+          "EVT_ISK_L03_AB2_048",
+          "EVT_ISK_L03_AB2_066",
+          "EVT_ISK_L03_AB2_073",
+          "EVT_ISK_L03_AB2_074",
+          "EVT_ISK_L03_AB2_105"
+        ],
+        "required_evidence": [
+          "AB2_FRAGMENT_REACTION",
+          "AB2_MARK_RECHECK"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "AB2",
+        "node_id": "ISK_L03_AB2_END",
+        "map_id": "MAP_CHASM_SURFACE",
+        "location": "폐창고 붕괴 아래에서 이어진 정체불명의 낮은 복도 입구",
+        "ending_state": "SEPARATED_CORRIDOR_PENDING",
+        "event": "EVT_ISK_L03_AB2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_AB2_END",
+        "resolvedNode": "ISK_L03_AB2_END",
+        "saveId": "V011-28",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "AB",
+        "leaf": "AB2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-28:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_B1_END",
+      "map": "MAP_LY_DETAIL_HUAGUANG",
+      "effect": "EVENT:EVT_ISK_L03_B1_END",
+      "event": "EVT_ISK_L03_B1_END",
+      "payload": {
+        "handler": "isk_l03",
+        "quest_id": "Q_ISK_LIYUE_03",
+        "arc_id": "ARC_ISK_LIYUE_03",
+        "branch": "B",
+        "leaf": "B1",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "B1_NORTH_PLAINS_SEALED_PASSAGE",
+          "ending_state": "UNSEEN_RELIEF_GUARD_ON_ROPE_AND_SEALED_FRAME",
+          "orb_count": 1,
+          "abyss_remains": false,
+          "original_guard_actual_death_preserved": true,
+          "family_contact_completed": true,
+          "original_guard_current_status": "UNLOCATED",
+          "kaeya_support_arrived": true,
+          "visible_companions": [
+            "북두",
+            "케이아"
+          ],
+          "relief_guard_status": "UNSEEN_VOICE_RESCUE_IN_PROGRESS",
+          "harbor_general_entry": false,
+          "reward": 0
+        },
+        "required_leaf": "B1",
+        "required_l02_leaf": "B1",
+        "source_node": "ISK_L03_B1_END",
+        "source_node_map": "MAP_LY_DETAIL_HUAGUANG",
+        "required_map": "MAP_LY_DETAIL_HUAGUANG",
+        "actual_save_write_at_authoring": false,
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L03_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "B1",
+          "node_id": "ISK_L03_B1_END",
+          "map_id": "MAP_LY_DETAIL_HUAGUANG",
+          "location": "B1_NORTH_PLAINS_SEALED_PASSAGE",
+          "ending_state": "UNSEEN_RELIEF_GUARD_ON_ROPE_AND_SEALED_FRAME"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES_AND_BATTLE_RECEIPTS",
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_ACTIVE_QUEST_LEAF_ONLY",
+          "future_resume": "EXPLICIT_RESUME_FROM_MATCHING_AUTHORED_LEAF"
+        },
+        "menu_access": "CONTENT_GATE",
+        "cancel_all_temporary_access": true,
+        "hp_policy": "PRESERVE_ACTUAL_POST_BATTLE_HP_NO_AUTOMATIC_ZERO_OR_HEAL",
+        "story_incapacitation_is_not_free_travel": true,
+        "next_quest": null,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L03_B1_001",
+          "EVT_ISK_L03_B1_016",
+          "EVT_ISK_L03_B1_017",
+          "EVT_ISK_L03_B1_039",
+          "EVT_ISK_L03_B1_040",
+          "EVT_ISK_L03_B1_044",
+          "EVT_ISK_L03_B1_048",
+          "EVT_ISK_L03_B1_052",
+          "EVT_ISK_L03_B1_059",
+          "EVT_ISK_L03_B1_069",
+          "EVT_ISK_L03_B1_087",
+          "EVT_ISK_L03_B1_103"
+        ],
+        "required_evidence": [
+          "B1_FAMILY_ACTUAL_CONTACT",
+          "B1_KEQING_CONTINUATION",
+          "B1_MOND_REQUEST_DISPATCHED",
+          "B1_MOND_SUPPORT_ARRIVED",
+          "B1_ORB_REACTION_AND_RESCUE",
+          "B1_ROAD_REPETITION",
+          "B1_UNSEEN_GUARD_AND_WHISPER"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B1",
+        "node_id": "ISK_L03_B1_END",
+        "map_id": "MAP_LY_DETAIL_HUAGUANG",
+        "location": "B1_NORTH_PLAINS_SEALED_PASSAGE",
+        "ending_state": "UNSEEN_RELIEF_GUARD_ON_ROPE_AND_SEALED_FRAME",
+        "event": "EVT_ISK_L03_B1_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_B1_END",
+        "resolvedNode": "ISK_L03_B1_END",
+        "saveId": "V011-29",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "B",
+        "leaf": "B1",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-29:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    },
+    {
+      "route": "ROUTE_ISEKAI",
+      "quest": "Q_ISK_LIYUE_03",
+      "node": "ISK_L03_B2_END",
+      "map": "MAP_LY_DETAIL_GUYUN",
+      "effect": "EVENT:EVT_ISK_L03_B2_END",
+      "event": "EVT_ISK_L03_B2_END",
+      "payload": {
+        "handler": "isk_l03",
+        "quest_id": "Q_ISK_LIYUE_03",
+        "arc_id": "ARC_ISK_LIYUE_03",
+        "branch": "B",
+        "leaf": "B2",
+        "marker": "END",
+        "kind": "gate",
+        "summary": {
+          "location": "B2_CLOSED_OUTER_HARBOR_WATER",
+          "ending_state": "EIGHT_ON_BOAT_APPROACHING_UNKNOWN_SHAPE",
+          "people_onboard": 8,
+          "people_missing": 0,
+          "boat_count": 1,
+          "oars_intact": 2,
+          "mast_lowered": true,
+          "injured": [
+            "수레꾼",
+            "남십자 선원 한 명"
+          ],
+          "orb_count": 1,
+          "abyss_remains": false,
+          "keqing_actual_prior_death_preserved": true,
+          "keqing_memory_restored": false,
+          "original_carts": 2,
+          "pier_carts": 1,
+          "cargo_retrieved": false,
+          "harbor_general_entry": false,
+          "reward": 0
+        },
+        "required_leaf": "B2",
+        "required_l02_leaf": "B2",
+        "source_node": "ISK_L03_B2_END",
+        "source_node_map": "MAP_LY_DETAIL_GUYUN",
+        "required_map": "MAP_LY_DETAIL_GUYUN",
+        "actual_save_write_at_authoring": false,
+        "quest_state_after": "진행중",
+        "quest_complete": false,
+        "reward_claimed_after": false,
+        "reward": {
+          "mora": 0,
+          "xp": 0,
+          "items": {},
+          "heart_delta": 0,
+          "cards": []
+        },
+        "set_flags": {
+          "FLAG_ISK_L03_CONTENT_GATE": true
+        },
+        "content_gate": {
+          "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+          "leaf": "B2",
+          "node_id": "ISK_L03_B2_END",
+          "map_id": "MAP_LY_DETAIL_GUYUN",
+          "location": "B2_CLOSED_OUTER_HARBOR_WATER",
+          "ending_state": "EIGHT_ON_BOAT_APPROACHING_UNKNOWN_SHAPE"
+        },
+        "mandatory_path_validation": "RECONSTRUCT_ENTER_TO_GATE_FROM_COMMITTED_CHOICES_AND_BATTLE_RECEIPTS",
+        "menu_policy": {
+          "mode": "CONTENT_GATE",
+          "allow": [
+            "SAVE",
+            "LOAD",
+            "READ_QUEST_LOG",
+            "READ_ROUTE_SUMMARY",
+            "RETURN_TO_TITLE"
+          ],
+          "deny": [
+            "ADVANCE_STORY",
+            "WAIT",
+            "FREE_TRAVEL",
+            "FAST_TRAVEL",
+            "NEW_QUEST",
+            "NPC_INTERACT",
+            "ENTER_LIYUE_HARBOR",
+            "COMPLETE_QUEST"
+          ],
+          "scope": "CURRENT_SAVE_ROUTE_ACTIVE_QUEST_LEAF_ONLY",
+          "future_resume": "EXPLICIT_RESUME_FROM_MATCHING_AUTHORED_LEAF"
+        },
+        "menu_access": "CONTENT_GATE",
+        "cancel_all_temporary_access": true,
+        "hp_policy": "PRESERVE_ACTUAL_POST_BATTLE_HP_NO_AUTOMATIC_ZERO_OR_HEAL",
+        "story_incapacitation_is_not_free_travel": true,
+        "next_quest": null,
+        "source_node_type": "STORY_PAUSE",
+        "required_event_ids": [
+          "EVT_ISK_L03_B2_001",
+          "EVT_ISK_L03_B2_013",
+          "EVT_ISK_L03_B2_018",
+          "EVT_ISK_L03_B2_019",
+          "EVT_ISK_L03_B2_020",
+          "EVT_ISK_L03_B2_026",
+          "EVT_ISK_L03_B2_027",
+          "EVT_ISK_L03_B2_045",
+          "EVT_ISK_L03_B2_056",
+          "EVT_ISK_L03_B2_072",
+          "EVT_ISK_L03_B2_081",
+          "EVT_ISK_L03_B2_082",
+          "EVT_ISK_L03_B2_098"
+        ],
+        "required_evidence": [
+          "B2_BOAT_BOARDING",
+          "B2_CLOSED_SEA_CLIFFHANGER",
+          "B2_EIGHT_ACCOUNTED_AND_EVACUATION",
+          "B2_FALLEN_SAILOR_RESCUED",
+          "B2_LOW_BRIDGE_PASSAGE",
+          "B2_SEA_OPENED",
+          "B2_WATERWAY_CHOICE_AND_ORB"
+        ]
+      },
+      "snapshot": {
+        "beforeGates": [
+          {
+            "phase": 3,
+            "ready": false,
+            "label": "리월 본편 1장"
+          },
+          {
+            "phase": 4,
+            "ready": false,
+            "label": "리월 본편 2장"
+          },
+          {
+            "phase": 5,
+            "ready": false,
+            "label": "리월 본편 3장"
+          }
+        ],
+        "beforeQuest": {
+          "state": "진행중",
+          "node": "OFFERED",
+          "claimed": false,
+          "attempts": 0,
+          "acceptedTurn": 1
+        }
+      },
+      "afterGates": [
+        {
+          "phase": 3,
+          "ready": false,
+          "label": "리월 본편 1장"
+        },
+        {
+          "phase": 4,
+          "ready": false,
+          "label": "리월 본편 2장"
+        },
+        {
+          "phase": 5,
+          "ready": false,
+          "label": "리월 본편 3장"
+        }
+      ],
+      "storyDone": false,
+      "afterQuest": {
+        "state": "진행중",
+        "node": "OFFERED",
+        "claimed": false,
+        "attempts": 0,
+        "acceptedTurn": 1
+      },
+      "endGate": {
+        "state": "WAITING_FOR_AUTHORED_CONTINUATION",
+        "leaf": "B2",
+        "node_id": "ISK_L03_B2_END",
+        "map_id": "MAP_LY_DETAIL_GUYUN",
+        "location": "B2_CLOSED_OUTER_HARBOR_WATER",
+        "ending_state": "EIGHT_ON_BOAT_APPROACHING_UNKNOWN_SHAPE",
+        "event": "EVT_ISK_L03_B2_END"
+      },
+      "endReceipt": {
+        "event": "EVT_ISK_L03_B2_END",
+        "resolvedNode": "ISK_L03_B2_END",
+        "saveId": "V011-30",
+        "route": "ROUTE_ISEKAI",
+        "quest": "Q_ISK_LIYUE_03",
+        "branch": "B",
+        "leaf": "B2",
+        "kind": "gate",
+        "day": 1,
+        "turn": 1,
+        "action": "V011-30:1"
+      },
+      "questIdReceipt": null,
+      "artifactTartagliaUnlocked": false
+    }
+  ]
+}

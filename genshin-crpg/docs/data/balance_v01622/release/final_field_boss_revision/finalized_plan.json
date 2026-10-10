@@ -1,0 +1,85 @@
+{
+  "status": "final_product_frozen",
+  "scope": "Existing field-boss rules/legacy saves/round and damage boundaries plus newrepeat-revival regression. No full36 or182 rerun.",
+  "baseTests": [
+    "tools/test_field_bosses.cjs",
+    "tools/test_boss_boundaries_v01619.cjs",
+    "tools/test_field_boss_immunity_v01618.cjs",
+    "tests/test_save_revision.cjs",
+    "tests/test_balance_saves_v0166.cjs",
+    "tests/test_defeat_settlement_v0166.cjs",
+    "tests/test_combat_boundaries_v0168.cjs",
+    "tests/test_element_immunity_v01618.cjs",
+    "tests/test_monster_control_fixes_v01618.cjs",
+    "tests/test_version.cjs"
+  ],
+  "pendingNewTestName": false,
+  "expectedSelectedCount": 11,
+  "nativeWorkers": 2,
+  "buildSteps": [
+    "server",
+    "browser",
+    "engine_identity",
+    "three_engine_parity218"
+  ],
+  "browserOutput": "../v01622-field-boss-verification-work/browser",
+  "existingCashmarginManifestSha256": "6b7af58bd166be5aac3029aa5769fc8f849c34c475c08fd181a831ddd2518f4a",
+  "historicalInputGapsRemainUnresolved": [
+    "tests/test_save_v01344.cjs",
+    "tests/test_release_isolation_v01513.py"
+  ],
+  "specialCommandOutputs": {
+    "tools/test_field_bosses.cjs": "owner added explicit output argument before freeze; final run uses reports/field_bosses.json",
+    "tools/test_boss_boundaries_v01619.cjs": "pass explicit candidatefolder outputarg",
+    "tools/test_field_boss_immunity_v01618.cjs": "pass explicit candidatefolder outputarg",
+    "tools/test_field_boss_strategy_v01622.cjs": "pass explicit candidatefolder outputarg"
+  },
+  "newTests": [
+    "tools/test_field_boss_strategy_v01622.cjs"
+  ],
+  "versionRequired": "0.16.22",
+  "strategyContractCount": 18,
+  "tests": [
+    "tools/test_field_bosses.cjs",
+    "tools/test_boss_boundaries_v01619.cjs",
+    "tools/test_field_boss_immunity_v01618.cjs",
+    "tests/test_save_revision.cjs",
+    "tests/test_balance_saves_v0166.cjs",
+    "tests/test_defeat_settlement_v0166.cjs",
+    "tests/test_combat_boundaries_v0168.cjs",
+    "tests/test_element_immunity_v01618.cjs",
+    "tests/test_monster_control_fixes_v01618.cjs",
+    "tests/test_version.cjs",
+    "tools/test_field_boss_strategy_v01622.cjs"
+  ],
+  "gateCount": 11,
+  "nativeWorkersAtStart": 2,
+  "nativeWorkerCeiling": 2,
+  "frozenAt": "2026-10-10T05:58:02.165024+00:00",
+  "freezeAuthorization": "Root product dab1/metadata c15a and final18contract QA888b/oldQA3/verify182 complete; source/QA no further edits; healer1 and release1 limit2. Healer native complete; worker2 now permitted.",
+  "confirmedFinalQASha256": {
+    "tools/test_field_boss_strategy_v01622.cjs": "888b35444bb51ed98793a99ac9b3aa00af2321017c861795ac0063b83be6d322",
+    "tools/test_field_bosses.cjs": "26355ba3b05b0c9a9229b01f97aeb8616ca64cdd6743173cb9573a3ce537e1a2",
+    "tools/test_field_boss_immunity_v01618.cjs": "e2014322a5afb05acd43a491003b0dbde71ba55a30f889d12110c3dfc8e39119",
+    "tools/test_boss_boundaries_v01619.cjs": "4512acb719ac75ef97fbc25c67133b39b4e319b414b61110e2361d10930536e0",
+    "tools/verify_release.py": "ad27759f5799f5471d506a14da1dd5cc8932a8f69bd8cc4dc8a502500b08c137"
+  },
+  "historicalInputGapsCarriedFromV01621": [
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "Exact0.13.43 baseline commit/DB missing locally; do not countPASS."
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "CanonicalQA DB has editorial headers only; authored raw needed; do not countPASS."
+    }
+  ],
+  "reportOutputOverrides": {
+    "tools/test_field_bosses.cjs": "reports/field_bosses.json",
+    "tools/test_boss_boundaries_v01619.cjs": "reports/boss_boundaries.json",
+    "tools/test_field_boss_immunity_v01618.cjs": "reports/field_boss_immunity.json",
+    "tools/test_field_boss_strategy_v01622.cjs": "reports/field_boss_strategy.json"
+  }
+}

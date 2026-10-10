@@ -1,0 +1,43 @@
+{
+  "sourceSHA256": "ad8a2730aec9a01596577388e11f672dbae57b7da4e79e4a61cafff82c8a2563",
+  "scope": "Declared native core boundary oversized body packet, ownedLv60 preparation; actual inner damage API reached",
+  "revision": 2,
+  "rows": [
+    {
+      "range": "근접",
+      "reachable": false,
+      "result": 0,
+      "coreBefore": 2373,
+      "coreAfter": 2373
+    },
+    {
+      "range": "원거리",
+      "reachable": true,
+      "result": 0,
+      "coreBefore": 2373,
+      "coreAfter": 2373
+    },
+    {
+      "range": "전장",
+      "reachable": true,
+      "result": 0,
+      "coreBefore": 2373,
+      "coreAfter": 2373
+    },
+    {
+      "range": "대공",
+      "reachable": true,
+      "result": 0,
+      "coreBefore": 2373,
+      "coreAfter": 2373
+    },
+    {
+      "trait": "AIR_ACCESS1",
+      "reachable": true,
+      "barrier": "떠오른 핵에 닿지 않는다. 원거리·대공 공격이 필요하다.",
+      "result": 0,
+      "coreBefore": 2373,
+      "coreAfter": 2373
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "status": "complete",
+  "schemaVersion": 2,
+  "snapshotRole": "final_v01622_targeted",
+  "complete": true,
+  "paused": false,
+  "gateCount": 35,
+  "completed": 35,
+  "passed": 32,
+  "failed": 3,
+  "inputDrift": [
+    {
+      "path": "tests/test_material_efficiency_v01622.cjs",
+      "before": {
+        "path": "tests/test_material_efficiency_v01622.cjs",
+        "bytes": 4881,
+        "sha256": "f1097c13ebd25c72d17c40ce87613e13728a19bf2e682b454d0efe3e8f94896e"
+      },
+      "after": {
+        "path": "tests/test_material_efficiency_v01622.cjs",
+        "bytes": 6227,
+        "sha256": "429d6d1ea70e098bd2d6d364f1759c568d9aea2910e610619144a0767708f10f"
+      }
+    },
+    {
+      "path": "tools/test_other_healers_v01619.cjs",
+      "before": {
+        "path": "tools/test_other_healers_v01619.cjs",
+        "bytes": 8474,
+        "sha256": "62d4ce69c1eed6626a55545e89795befa77039bd5da2c5a6a5b475c2ebcbb0c1"
+      },
+      "after": {
+        "path": "tools/test_other_healers_v01619.cjs",
+        "bytes": 8473,
+        "sha256": "4de0f8845b91a04ed892c81d8441111857b0870fa4702b87609c94005fd3dffd"
+      }
+    }
+  ],
+  "totalGateSeconds": 921.643,
+  "runnerWallSecondsThisSession": 514.877,
+  "peakMemoryCurrentBytesThisSession": 3967315968,
+  "finishedAt": "2026-10-10T04:36:28.634801+00:00",
+  "failures": [
+    {
+      "index": 10,
+      "test": "tools/test_other_healers_v01619.cjs",
+      "ok": false,
+      "returnCode": 1,
+      "timedOut": false,
+      "exception": null,
+      "seconds": 17.341,
+      "startedAt": "2026-10-10T04:29:58.574086+00:00",
+      "endedAt": "2026-10-10T04:30:15.915000+00:00",
+      "log": "logs/010_test_other_healers_v01619.cjs.log.gz",
+      "logBytes": 1033,
+      "logSha256": "b6f81365b258ec177d4d69f38b182efca742710078f3b673493cebea9c039594",
+      "failureClassification": "unclassified_failure_requires_investigation"
+    },
+    {
+      "index": 20,
+      "test": "tests/test_ascension_efficiency_v01613.cjs",
+      "ok": false,
+      "returnCode": 1,
+      "timedOut": false,
+      "exception": null,
+      "seconds": 23.05,
+      "startedAt": "2026-10-10T04:33:50.299898+00:00",
+      "endedAt": "2026-10-10T04:34:13.350196+00:00",
+      "log": "logs/020_test_ascension_efficiency_v01613.cjs.log.gz",
+      "logBytes": 1661,
+      "logSha256": "1e072cfb26d23c9eff363d051c79ab486c1849c01310f4f7be9db298d125706b",
+      "failureClassification": "unclassified_failure_requires_investigation"
+    },
+    {
+      "index": 28,
+      "test": "tests/test_osial_pattern_v0161.cjs",
+      "ok": false,
+      "returnCode": 1,
+      "timedOut": false,
+      "exception": null,
+      "seconds": 4.882,
+      "startedAt": "2026-10-10T04:35:46.850560+00:00",
+      "endedAt": "2026-10-10T04:35:51.732529+00:00",
+      "log": "logs/028_test_osial_pattern_v0161.cjs.log.gz",
+      "logBytes": 1122,
+      "logSha256": "3ad327319bd0e6579a0c1a9d35979386af65804c7d73d3e89572bade4e712226",
+      "failureClassification": "unclassified_failure_requires_investigation"
+    }
+  ],
+  "historicalInputGapsCarriedFromV01621": [
+    {
+      "test": "tests/test_save_v01344.cjs",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "Exact0.13.43 baseline commit/DB missing locally; do not countPASS."
+    },
+    {
+      "test": "tests/test_release_isolation_v01513.py",
+      "status": "not_retested_original_input_gap_unresolved",
+      "reason": "CanonicalQA DB has editorial headers only; authored raw needed; do not countPASS."
+    }
+  ],
+  "historicalInputGapTestsRetested": false
+}

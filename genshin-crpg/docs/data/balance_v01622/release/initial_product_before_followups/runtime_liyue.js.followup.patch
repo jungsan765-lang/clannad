@@ -1,0 +1,26 @@
+--- runtime_liyue.js.initial
++++ runtime_liyue.js.final
+@@ -12,6 +12,23 @@
+ P.liyueLeaf=function(){return this.s.flags.FLAG_ISK_L01_LEAF||'NONE';};
+ P.liyueDefinitions=function(){return this._liyueEvents??=new Map(this.storyEventDefinitions().filter(e=>/^isk_l0[1-4]$/.test(json(e.EXEC_PAYLOAD_JSON).handler)).map(e=>[e.EVENT_ID,{...e,p:json(e.EXEC_PAYLOAD_JSON)}]));};
+ P.liyueReceipt=function(id){const r=this.s.liyue?.events[id]||this.storyEventReceipt(id);return r&&r.saveId===this.s.global.SAVE_ID&&r.route===this.s.global.STORY_ROUTE_ID?r:null;};
++// The first three otherworlder chapters deliberately keep their quests open
++// until the fourth chapter settles them. Their committed END gate still owns
++// the existing growth/farming prerequisites; a content flag alone is not proof.
++P.liyueChapterEnded=function(quest){
++ const s=this.s,g=s?.global,l=s?.liyue;if(!g||g.STORY_ROUTE_ID!=='ROUTE_ISEKAI'||!/^Q_ISK_LIYUE_0[123]$/.test(String(quest))||l?.route!==g.STORY_ROUTE_ID)return false;
++ const leaf=this.liyueLeaf(),branch=this.liyueParent(),chapter=l.chapters?.[quest],gate=chapter?.gate,accepted=l.accepts?.[quest];
++ if(!leafPattern.test(leaf)||!branch||!gate||!accepted||accepted.saveId!==g.SAVE_ID||accepted.route!==g.STORY_ROUTE_ID||accepted.parent!==branch||chapter.parent!==branch)return false;
++ // Chapter one is accepted before its fork, so its acceptance leaf is NONE.
++ if(quest!=='Q_ISK_LIYUE_01'&&accepted.leaf!==leaf)return false;
++ const definitions=this.liyueDefinitions(),event=definitions.get(gate.event),p=event?.p,node=event?.SOURCE_ID_OR_FILTER;
++ if(!p||event.ACTIVE!=='Y'||p.kind!=='gate'||p.handler!=='isk_l'+quest.slice(-2)||p.quest_id!==quest||p.branch!==branch||p.leaf!==leaf||!String(node).endsWith('_END')||p.content_gate?.node_id!==node||gate.node_id!==node||gate.leaf!==leaf)return false;
++ const entered=[...definitions.values()].some(e=>e.ACTIVE==='Y'&&e.p.kind==='chapter_enter'&&e.p.quest_id===quest&&e.p.branch===branch&&(!e.p.leaf||e.p.leaf===leaf)&&e.SOURCE_ID_OR_FILTER===accepted.entry);
++ if(!entered)return false;
++ const source=this.storyIndex().nodes.get(g.STORY_ROUTE_ID+':'+node);if(!source||source[1]!==quest||source[18]!=='ACTIVE'||!String(source[12]).split(';').some(effect=>effect.trim()==='EVENT:'+gate.event))return false;
++ const receipt=l.events?.[gate.event],record=s.storyEventReceipts?.[gate.event],matches=r=>r&&r.event===gate.event&&r.saveId===g.SAVE_ID&&r.route===g.STORY_ROUTE_ID&&r.quest===quest&&r.resolvedNode===node&&r.kind==='gate'&&r.branch===branch&&r.leaf===leaf;
++ return !!(matches(receipt)&&matches(record));
++};
+ P.liyuePersonalReady=function(){
+  const s=this.s;if(s.global.STORY_ROUTE_ID==='ROUTE_TRAVELER')return yes(s.flags.FLAG_TRV_LIYUE_CLEAR)&&this.storyDone('Q_TRV_LIYUE_04');
+  const r=s.liyue?.regionReceipt;return !!r&&r.saveId===s.global.SAVE_ID&&r.route===s.global.STORY_ROUTE_ID&&r.leaf===this.liyueLeaf()&&yes(s.flags.FLAG_ISK_L04_REGION_CLEAR)&&s.liyue.access.phase==='OPEN'&&this.storyDone('Q_ISK_LIYUE_04');

@@ -1,0 +1,13 @@
+PASS all 45 existing healing foods use the approved numeric strengths and native single-serving effects
+PASS rare additions reward the same two fish more than two plain grilled-fish servings
+PASS current ingredient closure supplies 43 recipes while both future ingredients retain unchanged food strengths
+PASS runtime table clones preserve shared authored DB, table/row parity and independent runtimes
+PASS install is idempotent and a new Runtime from a normalized runtime DB never reprices twice
+PASS each prepared-food BUY charges the new SKU price and sale preserves the old effective cap
+PASS changed prepared-price replay preserves an explicitly historical settled receipt
+PASS new and explicit old healing receipts replay without another serving or HP change
+PASS Barbara special lots scale the new base once and persist exact consumption
+PASS per-recipient level and phase scaling, HP caps and life-bond absorption remain exact
+PASS KO, combat, repeat and invalid-target failures remain atomic with stronger foods
+PASS recovery crafting retains its fixed charges, material quantities and one-serving output
+PASS inventory numeric renderer follows new normal/special base and each selected recipient

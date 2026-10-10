@@ -1,0 +1,19 @@
+runtime_liyue.js:6
+const fail=(c,m)=>{throw new api.RuleError(c,m);},yes=x=>x===true||x==='TRUE'||x==='Y';
+                   ^
+
+RuleError: 현재 장면의 사건만 실행할 수 있습니다.
+    at fail (runtime_liyue.js:6:26)
+    at P.liyueEventGuard (runtime_liyue.js:84:138)
+    at P.storyEvent (runtime_liyue.js:106:15)
+    at P.storyApplyEffects (runtime_nodes.js:204:25)
+    at run (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_growth_story_authority_v01622.cjs:7:580)
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_growth_story_authority_v01622.cjs:8:175
+    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_growth_story_authority_v01622.cjs:6:25)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_growth_story_authority_v01622.cjs:8:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10) {
+  code: 'LIYUE_SOURCE'
+}
+
+Node.js v24.19.0
