@@ -5,6 +5,11 @@
 const assert=require('node:assert/strict');
 const {fresh,R,db,c,advance}=require('./helpers_v011.cjs');
 const C=c.CRPGTaskCatalogV0168,copy=x=>JSON.parse(JSON.stringify(x)),DAY=86400000;
+// The daily-reset case must stay within one Korean calendar week. Starting
+// from a real Sunday made its +1-day fixture cross Monday and correctly reset
+// weekly progress on CI. Keep this suite's clock deterministic; the explicit
+// Monday/Friday and +7-day cases below still exercise native weekly rollover.
+advance(Date.parse('2026-10-07T12:00:00+09:00')-c.Date.now());
 const ROOT='Q_TASK_LEARN_01',removed=['D_V168_HILI','W_V168_MOND_PATROL','W_V169_REPORT','W_V168_CRYO_VINE','W_V168_LIYUE_PATROL'];
 let passed=0;
 function check(name,fn){try{fn();passed++;console.log('PASS '+name);}catch(e){process.exitCode=1;console.error('FAIL '+name+'\n'+e.stack);}}

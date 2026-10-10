@@ -1,0 +1,126 @@
+{
+  "base_sha": "bb66950bb0f95c4ddb2727613637619dd2af26b1",
+  "failed_run": 309,
+  "failed_run_url": "https://github.com/jungsan765-lang/clannad/actions/runs/38061458144",
+  "verified_at_utc": "2026-10-10T15:10:15.456353+00:00",
+  "github_regression_before_fix": {
+    "total": 193,
+    "passed": 191,
+    "failed": [
+      {
+        "test": "tests/test_task_branches_v01611.cjs",
+        "ok": false,
+        "seconds": 31.6
+      },
+      {
+        "test": "tests/test_v0167.cjs",
+        "ok": false,
+        "seconds": 2.1
+      }
+    ]
+  },
+  "corrected_calendar_runs": [
+    {
+      "test": "tests/test_v0167.cjs",
+      "startup_kst": "2026-10-10T23:59:59+09:00",
+      "TZ": "UTC",
+      "exit": 0,
+      "seconds": 4.38,
+      "log": "test_v0167-date-0.log",
+      "summary": {
+        "ok": true,
+        "checks": 10
+      }
+    },
+    {
+      "test": "tests/test_task_branches_v01611.cjs",
+      "startup_kst": "2026-10-10T23:59:59+09:00",
+      "TZ": "UTC",
+      "exit": 0,
+      "seconds": 63.2,
+      "log": "test_task_branches_v01611-date-0.log",
+      "summary": {
+        "ok": true,
+        "checks": 24
+      }
+    },
+    {
+      "test": "tests/test_v0167.cjs",
+      "startup_kst": "2026-10-11T00:00:00+09:00",
+      "TZ": "UTC",
+      "exit": 0,
+      "seconds": 4.58,
+      "log": "test_v0167-date-1.log",
+      "summary": {
+        "ok": true,
+        "checks": 10
+      }
+    },
+    {
+      "test": "tests/test_task_branches_v01611.cjs",
+      "startup_kst": "2026-10-11T00:00:00+09:00",
+      "TZ": "UTC",
+      "exit": 0,
+      "seconds": 61.97,
+      "log": "test_task_branches_v01611-date-1.log",
+      "summary": {
+        "ok": true,
+        "checks": 24
+      }
+    },
+    {
+      "test": "tests/test_v0167.cjs",
+      "startup_kst": "2026-10-11T23:59:59+09:00",
+      "TZ": "UTC",
+      "exit": 0,
+      "seconds": 3.74,
+      "log": "test_v0167-date-2.log",
+      "summary": {
+        "ok": true,
+        "checks": 10
+      }
+    },
+    {
+      "test": "tests/test_task_branches_v01611.cjs",
+      "startup_kst": "2026-10-11T23:59:59+09:00",
+      "TZ": "UTC",
+      "exit": 0,
+      "seconds": 63.09,
+      "log": "test_task_branches_v01611-date-2.log",
+      "summary": {
+        "ok": true,
+        "checks": 24
+      }
+    },
+    {
+      "test": "tests/test_v0167.cjs",
+      "startup_kst": "2026-10-12T00:00:00+09:00",
+      "TZ": "UTC",
+      "exit": 0,
+      "seconds": 3.64,
+      "log": "test_v0167-date-3.log",
+      "summary": {
+        "ok": true,
+        "checks": 10
+      }
+    },
+    {
+      "test": "tests/test_task_branches_v01611.cjs",
+      "startup_kst": "2026-10-12T00:00:00+09:00",
+      "TZ": "UTC",
+      "exit": 0,
+      "seconds": 60.24,
+      "log": "test_task_branches_v01611-date-3.log",
+      "summary": {
+        "ok": true,
+        "checks": 24
+      }
+    }
+  ],
+  "checks": 136,
+  "product_or_shared_helper_changes": 0,
+  "test_files_sha256": {
+    "test_v0167.cjs": "928af9e2af3386ca61057a026a6d4667031aa7d5af339ebd9155ad9311e3df44",
+    "test_task_branches_v01611.cjs": "ccf9857083f9586f3a8c8a2b321e3010af8049ac335cc6a03e4305a059d81190"
+  }
+}

@@ -4,12 +4,15 @@
 // 너무 쓸데없이 커. … 칸코레랑 비슷한 느낌으로 … 그냥 아예 스크롤 자체가 모든 화면 전체에서 나오지 않는 깔끔한 화면이면 좋겠는데」, then
 // 「짤렸어.」, 「임무 완수하면 보상이 들어왔다는게 보여야되는데 그게 없어.」 and 「추가적인 효과 … 적 쪽에서 공격을 하는것으로 착각」.
 const assert=require('node:assert/strict');
-const {fresh,fs,path,root,advance}=require('./helpers_v011.cjs');
+const {fresh,fs,path,root,advance,c}=require('./helpers_v011.cjs');
 const src=f=>fs.readFileSync(path.join(root,f.includes('/')?f:'source/'+f),'utf8'),json=f=>JSON.parse(fs.readFileSync(path.join(root,f),'utf8'));
 const plain=x=>JSON.parse(JSON.stringify(x));
 let passed=0;
 function check(name,fn){try{fn();passed++;console.log('PASS '+name);}catch(e){process.exitCode=1;console.error('FAIL '+name+'\n'+e.stack);}}
 const DAY=86400000;
+// Ordinary activity/daily-reset fixtures must not depend on the CI start hour.
+// Sunday -> Monday correctly clears weekly progress; explicit boundary checks stay below.
+advance(Date.parse('2026-10-07T12:00:00+09:00')-c.Date.now());
 // Preserve the real pre-0.16.8 definitions; only explicit earned-quota fixtures
 // skip unrelated predecessor work. Root acceptance and every reward claim stay native.
 function legacyBoard(r){const t=require('./helpers_v011.cjs').c.CRPGRuntime.tasksV0167,map=r.s.global.CURRENT_MAP_ID;r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.s.global.WORLD_TIME='12:00';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});r.action('PLACE_LEAVE');r.s.global.CURRENT_MAP_ID=map;r.s.tasks={version:1,day:t.dayOf(r.tasksNow()),week:t.weekOf(r.tasksNow()),daily:{},weekly:{},claimed:{},dailyIds:['D_WIN','D_LEY','D_DOMAIN','D_LIFE'],weeklyIds:['W_WIN','W_BOSS','W_DOMAIN','W_BONUS']};r.tasksBox(true);return r;}
