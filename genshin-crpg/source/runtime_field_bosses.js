@@ -138,14 +138,17 @@ P.fieldBossNotes=function(id){const n=this.s.fieldBossNotes?.[id];return n?copy(
 P.fieldBossSeen=function(b,gimmick){const f=b?.fieldBoss;if(!f||!BOSSES[f.boss]?.gimmicks[gimmick])return;if(!f.seen.includes(gimmick))f.seen.push(gimmick);};
 
 // ---- battle start ------------------------------------------------------------------------------------------
-const modernBehavior=f=>f?.behaviorRevision===2||f?.behaviorRevision===3;
+const modernBehavior=f=>[2,3,4].includes(f?.behaviorRevision);
+const repeatBehavior=f=>[3,4].includes(f?.behaviorRevision);
 const hash=s=>{let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h;};
 P.startBattle=function(group,origin='EXPLICIT',...rest){
  const before=this.s.runtime,result=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;if(!b||b===before)return result;
  const boss=b.actors.find(a=>a.side==='ENEMY'&&BOSSES[a.source]);
  if(boss&&!b.fieldBoss){const d=BOSSES[boss.source];
   boss.fb={version:1,kind:d.kind,acts:0,next:null,stunned:false,exposedUntil:0,revived:false,revival:null,shieldBreaks:0,shieldReturn:0,summoned:0,burrowed:false,phase:1};boss.size='BOSS';
-  b.fieldBoss={version:1,challengeRevision:1,behaviorRevision:3,boss:boss.source,route:String(origin).startsWith('BOSS:')?origin.slice(5):null,seen:[],telegraph:null,defeated:0,target:d.kind==='OCEANID'?8:0,spawned:0,heatwave:null};
+  // Only newly opened fights use the recurring Primo/Serpent counter windows.
+  // Saved unmarked/2/3 fights retain their original behavior and phase budgets.
+  b.fieldBoss={version:1,challengeRevision:1,behaviorRevision:4,boss:boss.source,route:String(origin).startsWith('BOSS:')?origin.slice(5):null,seen:[],telegraph:null,defeated:0,target:d.kind==='OCEANID'?8:0,spawned:0,heatwave:null};
   if(d.kind==='CRYO_VINE'||d.kind==='PYRO_VINE')this.fbShell(boss);
   if(d.kind==='PRIMO'){const pool=['불','물','얼음','번개'];boss.fb.infused=pool[hash(String(this.s.global.SAVE_ID)+'|'+b.id)%pool.length];this.fieldBossSeen(b,'INFUSE');b.log.push({actor:boss.name,actorId:boss.id,card:'FB_PRIMO_INFUSE',cardName:'원소 흡수',text:boss.name+'이(가) '+boss.fb.infused+' 원소를 흡수했다.',round:b.round});}
   if(d.kind==='OCEANID'){boss.fb.untouchable=true;this.fieldBossSeen(b,'BODY');this.fbSpawnMimics(b,boss,2);}
@@ -219,7 +222,7 @@ P.fbMove=function(a,move){
   case 'LEAP':log();for(const t of rowOf(b,'FRONT')){this.fbHit(a,t,1.2,'바위',{move,aoe:true,heavy:true});this.fbDelay(t,15,'충격파');}break;
   case 'BEAM':{let shielded=0;log(g.label,a.name+'이(가) '+el+' 원소의 원암 분사를 뿜었다');for(const t of rowOf(b,'ALL')){const guarded=(t.shields||[]).some(s=>s.value>0);if(guarded){shielded++;b.log.push({target:t.name,targetId:t.id,text:t.name+' · 보호막으로 원암 분사를 막아냄',round:b.round});}this.fbHit(a,t,guarded?3.4*.25:3.4,el,{move,aoe:true,sureHit:true});}
    const need=allies(b).length<=2?1:2;if(shielded>=need){f.beamReflected=true;this.fbExpose(a,2,true);this.fbLog(a,'BEAM_REFLECT','분사 반사','보호막에 튕긴 원암 분사가 '+a.name+'을(를) 뒤흔들었다 · 무방비·핵 노출 2라운드');}break;}
-  case 'BURROW':f.burrowed=true;if(modernBehavior(b.fieldBoss))f.endTurn=b.round+':'+(a.turns||0);log(g.label,a.name+'이(가) 땅속으로 파고들었다 · 다음 차례에 후미를 노린다');break;
+  case 'BURROW':f.burrowed=true;if(b.fieldBoss.behaviorRevision===4&&d.kind==='SERPENT'){f.armorOpened=false;f.exposedUntil=0;a.bossExposed=false;}if(modernBehavior(b.fieldBoss))f.endTurn=b.round+':'+(a.turns||0);log(g.label,a.name+'이(가) 땅속으로 파고들었다 · 다음 차례에 후미를 노린다');break;
   case 'EMERGE':f.burrowed=false;this.fieldBossSeen(b,'BURROW');this.fbLog(a,'EMERGE','지하 기습',a.name+'이(가) 땅속에서 솟구쳤다');this.fbHit(a,rowOf(b,'TAIL')[0],1.15,'물리',{move:'EMERGE',heavy:true});break;
   case 'CHARGE':log();for(const t of rowOf(b,'FRONT'))this.fbHit(a,t,1.3,'물리',{move,aoe:true,heavy:true});this.fbExpose(a,1,false);this.fbLog(a,'HEAD','머리 노출',a.name+'의 머리가 드러났다 · 1라운드 동안 받는 피해 증가');break;
   case 'BIND':{log();const t=rowOf(b,'LEAD')[0];if(this.fbHit(a,t,.8,'물리',{move})&&t.hp>0)this.addCombatStatus(t,'STATUS_STUN',1,{source:a.id});break;}
@@ -262,7 +265,7 @@ P.fbUntouchable=function(t){const f=t?.fb;if(!f)return false;return !!(f.untouch
 // Saves already inside an old fight retain the former rules (no challengeRevision).
 P.fieldBossBarrierReason=function(a,t,element,range){
  const b=this.s.runtime;if(!b?.fieldBoss?.challengeRevision||a?.side!=='ALLY'||!t)return '';
- const e=ko(element),heavy=tv(a,'ARMOR_BREAK')>=25,ranged=tv(a,'ANTI_AIR')>=15||(b.fieldBoss.behaviorRevision===3?this.hasAirAccess(a,{...t,airborne:true},range||a.range):a.range==='원거리');
+ const e=ko(element),heavy=tv(a,'ARMOR_BREAK')>=25,ranged=tv(a,'ANTI_AIR')>=15||(repeatBehavior(b.fieldBoss)?this.hasAirAccess(a,{...t,airborne:true},range||a.range):a.range==='원거리');
  if(t.fbSummon?.kind==='FB_SUMMON_PRISM'&&!['불','얼음','풀'].includes(e))return '프리즘이 공격을 흘려냈다. 다른 원소가 필요하다.';
  if(t.fbSummon?.kind==='FB_SUMMON_PILLAR'&&e!=='바위'&&!heavy)return '기둥에 흠집만 남았다. 바위 공격이나 파쇄 장비가 필요하다.';
  const f=t.fb;if(!f)return '';
@@ -272,7 +275,7 @@ P.fieldBossBarrierReason=function(a,t,element,range){
   if(f.kind==='CRYO_VINE'&&e!=='불')return '얼음 결정막이 견뎠다. 불 원소로 녹여야 한다.';
   if(f.kind==='PYRO_VINE'&&e!=='물'&&e!=='얼음')return '불 결정막이 견뎠다. 물이나 얼음 원소가 필요하다.';
  }
- if(f.kind==='PRIMO'&&!f.beamReflected)return '단단한 비늘이 충격을 흘려냈다. 보호막으로 원암 분사를 반사해야 한다.';
+ if(f.kind==='PRIMO'&&(!f.beamReflected||(b.fieldBoss.behaviorRevision===4&&f.exposedUntil<b.round)))return '단단한 비늘이 충격을 흘려냈다. 보호막으로 원암 분사를 반사해야 한다.';
  if(f.kind==='SERPENT'&&!f.armorOpened){if(f.exposedUntil>=b.round&&(heavy||tv(a,'WEAK_POINT')>=20))f.armorOpened=true;else return '갑주가 닫혀 있다. 머리가 드러났을 때 파쇄·약점 공략으로 열어야 한다.';}
  return '';
 };
@@ -289,7 +292,7 @@ P.damage=function(a,t,k,e,o={}){
  if(t.hp>0&&t.fb?.revival&&a.side==='ALLY'&&BOSSES[t.source].kind==='CRYO_HYPO')return k>0||Number(o.rawAdd)>0?this.fbHitCryoCore(t):false;
  // Rules damage builds the final packet without its range. Carry only the same
  // actor/target/kind packet, never a nested reaction, and restore on every exit.
- if(b.fieldBoss.behaviorRevision!==3)return old.damage.call(this,a,t,k,e,o);
+ if(!repeatBehavior(b.fieldBoss))return old.damage.call(this,a,t,k,e,o);
  const prior=this._fieldBossDamagePacket;this._fieldBossDamagePacket={actor:a,target:t,range:o.range||a.range,sourceKind:o.sourceKind||null};
  try{return old.damage.call(this,a,t,k,e,o);}finally{if(prior===undefined)delete this._fieldBossDamagePacket;else this._fieldBossDamagePacket=prior;}
 };
@@ -304,7 +307,7 @@ P.combatDamageMultiplier=function(a,t,e,o={}){
 };
 P.applyDamage=function(a,t,n,details={}){
  const b=this.s.runtime;if(!b?.fieldBoss||!t)return old.applyDamage.call(this,a,t,n,details);
- const packet=this._fieldBossDamagePacket,range=details.range||(b.fieldBoss.behaviorRevision===3&&packet?.actor===a&&packet?.target===t&&packet.sourceKind===(details.sourceKind||null)&&!String(details.sourceKind||'').startsWith('REACTION')?packet.range:undefined);
+ const packet=this._fieldBossDamagePacket,range=details.range||(repeatBehavior(b.fieldBoss)&&packet?.actor===a&&packet?.target===t&&packet.sourceKind===(details.sourceKind||null)&&!String(details.sourceKind||'').startsWith('REACTION')?packet.range:undefined);
  const barrier=this.fieldBossBarrierReason(a,t,details.element,range);if(barrier)return this.fieldBossBlockedHit(a,t,barrier);
  if(modernBehavior(b.fieldBoss)&&t.fb?.burrowed&&a?.side==='ALLY')return this.fieldBossBlockedHit(a,t,'땅속에 있어 닿지 않는다');
  if(t.fb?.revival?.guarded&&a?.side==='ALLY')return this.fieldBossBlockedHit(a,t,'부활을 지키는 '+(BOSSES[t.source].kind==='ELECTRO'?'프리즘':'기둥')+'을 먼저 부숴야 한다');
@@ -357,7 +360,7 @@ P.roundEnd=function(...args){
  if(b?.twinBoss&&b.actors.some(a=>a.side==='ALLY'&&a.hp>0))this.twinBossRound(b,true);
  return old.roundEnd.apply(this,args);
 };
-P.fbRevivalExpired=function(b,boss){const d=BOSSES[boss.source];boss.fb.revival=null;if(b.fieldBoss.behaviorRevision===3)boss.fb.revived=false;boss.hp=Math.round(boss.maxHp*(d.kind==='CRYO_HYPO'?.5:.4));boss.bossExposed=false;boss.fb.exposedUntil=0;for(const x of b.actors.filter(x=>x.fbSummon?.owner===boss.id))x.hp=0;this.fbLog(boss,'REVIVED','부활',boss.name+'이(가) 다시 일어섰다');};
+P.fbRevivalExpired=function(b,boss){const d=BOSSES[boss.source];boss.fb.revival=null;if(repeatBehavior(b.fieldBoss))boss.fb.revived=false;boss.hp=Math.round(boss.maxHp*(d.kind==='CRYO_HYPO'?.5:.4));boss.bossExposed=false;boss.fb.exposedUntil=0;for(const x of b.actors.filter(x=>x.fbSummon?.owner===boss.id))x.hp=0;this.fbLog(boss,'REVIVED','부활',boss.name+'이(가) 다시 일어섰다');};
 P.fieldBossRoundEndAfterDamage=function(b){
  if(this.s.runtime!==b||!modernBehavior(b.fieldBoss)||!b.actors.some(a=>a.side==='ALLY'&&a.hp>0))return;
  const boss=b.actors.find(a=>a.fb?.kind==='CRYO_HYPO'&&a.hp>0),r=boss?.fb.revival;if(!r||b.round<=r.startedRound||r.lastCountdownRound===b.round)return;
@@ -408,11 +411,11 @@ P.validateSave=function(s){
  const out=old.validateSave.call(this,s)||s;
  const clock=out.fieldBossClock;if(clock!==undefined&&(!clock||typeof clock!=='object'||Array.isArray(clock)||Object.entries(clock).some(([k,v])=>!BOSSES[k]||!Number.isSafeInteger(v)||v<0)))fail('FIELD_BOSS_SAVE','필드 보스 재등장 기록이 올바르지 않습니다.');
  const notes=out.fieldBossNotes;if(notes!==undefined&&(!notes||typeof notes!=='object'||Object.entries(notes).some(([k,n])=>!BOSSES[k]||!Array.isArray(n?.seen)||n.seen.some(g=>!BOSSES[k].gimmicks[g])||!Number.isInteger(n.attempts)||!Number.isInteger(n.wins))))fail('FIELD_BOSS_SAVE','필드 보스 관찰 기록이 올바르지 않습니다.');
- const b=out.runtime;if(b?.fieldBoss){const f=b.fieldBoss;if(f.version!==1||!BOSSES[f.boss]||!Array.isArray(f.seen)||!b.actors?.some(a=>a.source===f.boss&&a.fb?.version===1)||f.behaviorRevision!==undefined&&![2,3].includes(f.behaviorRevision))fail('FIELD_BOSS_SAVE','필드 보스 전투 기록이 올바르지 않습니다.');
+ const b=out.runtime;if(b?.fieldBoss){const f=b.fieldBoss;if(f.version!==1||!BOSSES[f.boss]||!Array.isArray(f.seen)||!b.actors?.some(a=>a.source===f.boss&&a.fb?.version===1)||f.behaviorRevision!==undefined&&![2,3,4].includes(f.behaviorRevision))fail('FIELD_BOSS_SAVE','필드 보스 전투 기록이 올바르지 않습니다.');
   const boss=b.actors.find(a=>a.source===f.boss),r=boss.fb.revival;if(modernBehavior(f)&&boss.fb.kind==='CRYO_HYPO'&&r&&(!Number.isSafeInteger(r.startedRound)||r.startedRound<1||r.startedRound>b.round||r.lastCountdownRound!==undefined&&(!Number.isSafeInteger(r.lastCountdownRound)||r.lastCountdownRound<r.startedRound||r.lastCountdownRound>b.round)))fail('FIELD_BOSS_SAVE','냉기 핵 대응 시간 기록이 올바르지 않습니다.');}
  if(b?.twinBoss&&(b.twinBoss.version!==1||!TWIN[b.twinBoss.boss]))fail('FIELD_BOSS_SAVE','보스 기믹 기록이 올바르지 않습니다.');
  return out;
 };
 P.fieldBossVersion=1;
-api.fieldBosses={version:1,behaviorRevision:3,levels:copy(LEVELS),levelGrowth:copy(LEVEL_GROWTH),cooldownMinutes:COOLDOWN,materials:copy(MATERIALS),bosses:copy(BOSSES),summons:copy(SUMMONS),twin:copy(TWIN),route:ROUTE,group:GROUP};
+api.fieldBosses={version:1,behaviorRevision:4,levels:copy(LEVELS),levelGrowth:copy(LEVEL_GROWTH),cooldownMinutes:COOLDOWN,materials:copy(MATERIALS),bosses:copy(BOSSES),summons:copy(SUMMONS),twin:copy(TWIN),route:ROUTE,group:GROUP};
 })(globalThis);

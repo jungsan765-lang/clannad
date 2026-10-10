@@ -41,6 +41,8 @@ export class AdminConsole{
  }
  configured(){return /^[A-Za-z0-9_.-]{3,32}$/.test(this.id)&&/^[a-f0-9]{64}\.[a-f0-9]{64}$/.test(this.secret);}
  audit(actor,ip,target,op,detail={}){this.db.prepare('INSERT INTO admin_audit(actor,ip,target_id,target_name,op,detail,created_at) VALUES(?,?,?,?,?,?,?)').run(actor,ip,target?.id||null,target?.username||null,op,JSON.stringify(detail),now());}
+ runtime(state=null,takeOwnership=false){return this.store.runtimeFactory?this.store.runtimeFactory(GAME_DB,state,takeOwnership):new R(GAME_DB,state,takeOwnership);}
+ balanceView(revision=null){const result=this.store.balance.view();if(revision!==null){const target=this.store.balance.profile(Number(revision));result.restoreProfile=target;result.changes=this.store.balance.changes(result.config,target.config);}return result;}
  // ---------- login, lock and expiry ----------
  async login(b,ip){
   if(!this.configured())throw err(503,'운영자 도구가 아직 설정되지 않았습니다. 서버에서 설정 명령(admin-console-setup)을 먼저 실행해 주세요.','ADMIN_NOT_CONFIGURED');
@@ -109,7 +111,7 @@ export class AdminConsole{
  account(id){
   const a=this.accountRow(id),m=this.store.meta(a.id),t=now(),f=this.db.prepare('SELECT * FROM account_flags WHERE account_id=?').get(a.id);
   let summary=null,summaryError=null;
-  if(m?.revision!=null){try{summary=new R(GAME_DB,joinState(this.store.loadParts(a.id)),true).adminSummary();}catch(e){summaryError=e.message;}}
+  if(m?.revision!=null){try{summary=this.runtime(joinState(this.store.loadParts(a.id)),true).adminSummary();}catch(e){summaryError=e.message;}}
   const receipts=m?this.db.prepare('SELECT request_id,revision,result,created_at FROM receipts WHERE account_id=? ORDER BY revision DESC LIMIT 30').all(a.id).map(x=>{let type='';try{const r=JSON.parse(x.result).result;type=r?.type||r?.result?.type||'';}catch{}return {id:x.request_id,revision:x.revision,type,at:x.created_at};}):[];
   const backups=m?this.db.prepare('SELECT revision,created_at FROM backups WHERE account_id=? ORDER BY revision DESC').all(a.id):[];
   return {account:{id:a.id,username:a.username,displayName:a.display_name,createdAt:a.created_at,gameAdmin:this.store.admins.has(a.id)},
@@ -141,9 +143,9 @@ export class AdminConsole{
  async editSave(a,fn,label,reason='change'){
   return this.store.serial(a.id,async()=>{
    const m=this.store.meta(a.id);if(!m||m.revision==null)throw err(409,'이 계정은 아직 여정을 시작하지 않았습니다.');
-   const before=this.store.loadParts(a.id);let r;try{r=new R(GAME_DB,joinState(before),true);}catch(e){throw err(409,'저장 기록을 열지 못했습니다: '+e.message);}
+   const before=this.store.loadParts(a.id);let r;try{r=this.runtime(joinState(before),true);}catch(e){throw err(409,'저장 기록을 열지 못했습니다: '+e.message);}
    const out=fn(r);compact(r.s);
-   try{new R(GAME_DB,JSON.parse(JSON.stringify(r.s)),true);}catch(e){throw err(400,'바꾼 뒤의 저장이 검사를 통과하지 못해 적용하지 않았습니다: '+e.message);}
+   try{this.runtime(JSON.parse(JSON.stringify(r.s)),true);}catch(e){throw err(400,'바꾼 뒤의 저장이 검사를 통과하지 못해 적용하지 않았습니다: '+e.message);}
    const after=splitState(r.s);return this.commit(a,m,before,after,label,out,r.s,reason);
   });
  }
@@ -215,7 +217,7 @@ export class AdminConsole{
    const m=this.store.meta(a.id);if(!m||m.revision==null)throw err(409,'이 계정은 아직 여정을 시작하지 않았습니다.');
    const before=this.store.loadParts(a.id);let state=new Map(before);
    for(let k=1;k<=steps;k++){const row=this.db.prepare('SELECT undo FROM backups WHERE account_id=? AND revision=?').get(a.id,m.revision-k);if(!row)throw err(404,'되돌릴 기록이 '+(k-1)+'단계까지만 남아 있습니다.');const undo=JSON.parse(row.undo);for(const [p,v] of undo.set)state.set(p,v);for(const p of undo.remove)state.delete(p);}
-   let r;try{r=new R(GAME_DB,joinState(state),true);}catch(e){throw err(400,'되돌린 저장이 검사를 통과하지 못했습니다: '+e.message);}
+   let r;try{r=this.runtime(joinState(state),true);}catch(e){throw err(400,'되돌린 저장이 검사를 통과하지 못했습니다: '+e.message);}
    const receipts=this.db.prepare('SELECT revision,result FROM receipts WHERE account_id=? AND revision>? AND revision<=? ORDER BY revision DESC').all(a.id,m.revision-steps,m.revision);
    // External rows cannot be reconstructed from the save-only backup of an earlier rollback. Old rollback
    // receipts did not say whether they changed those rows, so treat those conservatively too.
@@ -262,7 +264,7 @@ export class AdminConsole{
    const update=db=>{if(username!==undefined)db.prepare('UPDATE accounts SET username=? WHERE id=?').run(username,id);if(name!==undefined){db.prepare('UPDATE accounts SET display_name=? WHERE id=?').run(name,id);db.prepare('UPDATE ranking SET display_name=? WHERE account_id=?').run(name,id);a.display_name=name;}};
    const m=this.store.meta(id);
    if(name!==undefined&&m?.revision!=null){
-    const before=this.store.loadParts(id),r=new R(GAME_DB,joinState(before),true);this.applyOps(r,[{op:'name',value:name}]);compact(r.s);r.validateSave(r.s);
+    const before=this.store.loadParts(id),r=this.runtime(joinState(before),true);this.applyOps(r,[{op:'name',value:name}]);compact(r.s);r.validateSave(r.s);
     this.commit(a,m,before,splitState(r.s),'운영자 이름 변경',{},r.s,'profile',update);
    }else{this.store.commit(()=>update(this.db));this.store.invalidate(id);this.notify(id,'profile');}
    this.audit(actor,ip,a,'profile',detail);return {changed:detail};
@@ -323,6 +325,7 @@ export class AdminConsole{
    if(path==='/admin/session')return {admin:this.id,server:this.serverInfo()};
    if(path==='/admin/overview')return this.overview();
    if(path==='/admin/catalog')return this.catalog();
+   if(path==='/admin/balance')return this.balanceView(q.get('revision'));
    if(path==='/admin/accounts')return this.accounts(q.get('q'),q.get('page'));
    if(path==='/admin/account')return this.account(q.get('id'));
    if(path==='/admin/audit')return this.auditList(q.get('target'),q.get('page'));
@@ -333,6 +336,9 @@ export class AdminConsole{
   if(method==='POST'){
    if(path==='/admin/logout'){this.sessions.delete(th);this.audit(actor,ip,null,'logout-console',{});return {ok:true};}
    const b=await readBody();
+   if(path==='/admin/balance/preview')return this.store.balance.preview(b);
+   if(path==='/admin/balance/apply')return this.store.balance.apply(b,actor,ip);
+   if(path==='/admin/balance/rollback')return this.store.balance.rollback(b,actor,ip);
    if(path==='/admin/save')return this.save(b,actor,ip);
    if(path==='/admin/rollback')return this.rollback(b,actor,ip);
    if(path==='/admin/password')return this.password(b,actor,ip);

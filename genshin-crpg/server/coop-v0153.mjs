@@ -95,11 +95,21 @@ export const coopMethods={
   const isHost=room.host.id===accountId;if(isHost)room.hostSeen=now();
   const fight=this.coopFightsOf(room).get(accountId)||null;if(!isHost&&!fight)return null;
   const members=[];
+  const meta=this.balance?this.meta(accountId):null,entry=meta?this.cached(accountId,meta.revision):null,balanceRevision=this.balance?this.balance.revisionForParts(entry?.parts||this.loadParts(accountId)):0;
   for(const p of this.coopPeople(room)){
    if(p.id===accountId||!p.snap||!this.coopPersonReady(room,p)||this.coopBusyElsewhere(room,p.pid,accountId))continue;
-   if(fight?.joined.has(p.pid)||(isHost&&!p.host&&p.follow))members.push({pid:p.pid,name:p.name,snap:p.snap});
+   if(fight?.joined.has(p.pid)||(isHost&&!p.host&&p.follow)){const snap=this.coopBalancedSnapshot(room,p,balanceRevision);if(snap)members.push({pid:p.pid,name:p.name,snap});}
   }
   return {version:1,room:room.id,members};
+ },
+ // A new guest must be priced/stat-ed by the fight's frozen profile. Existing
+ // fighters remain the actors already persisted in that fight. Rebuild only when
+ // profiles differ; cache the small snapshot, never a second runtime per guest.
+ coopBalancedSnapshot(room,p,revision){
+  if(!this.balance||p.snap.adminBalanceRevision===revision||revision===0&&p.snap.adminBalanceRevision===undefined)return p.snap;
+  const meta=this.meta(p.id);if(!meta||meta.revision==null)return null;
+  const holder=p.host?room:p.m;holder.balanceSnaps??=new Map();const hit=holder.balanceSnaps.get(revision);if(hit?.saveRevision===meta.revision)return hit.snap;
+  try{const state=joinState(this.loadParts(p.id));if(state.runtime)return null;const r=this.balance.runtimeAtRevision(GAME_DB,state,revision,true),snap={...r.coopSnapshot(p.snap.char),adminBalanceRevision:revision};holder.balanceSnaps.set(revision,{saveRevision:meta.revision,snap});while(holder.balanceSnaps.size>4)holder.balanceSnaps.delete(holder.balanceSnaps.keys().next().value);return snap;}catch{return null;}
  },
  // Lazy cleanup (no timers): expired invites, members long gone, rooms whose host is gone or that stood empty too long.
  coopSweep(){
@@ -272,7 +282,7 @@ export const coopMethods={
     }
     const m=this.meta(hostId);if(!m||m.revision==null)throw err(409,'방장의 여정을 찾을 수 없습니다.');
     const entry=this.cached(hostId,m.revision),before=entry?.parts||this.loadParts(hostId);let r;
-    try{r=entry?.r||new R(GAME_DB,joinState(before),true);}catch{throw err(503,'방장의 저장 기록을 열지 못했습니다.');}
+    try{r=entry?.r||(this.runtimeFactory?this.runtimeFactory(GAME_DB,joinState(before),true):new R(GAME_DB,joinState(before),true));}catch{throw err(503,'방장의 저장 기록을 열지 못했습니다.');}
     const hadBattle=!!r.s.runtime,battleId=r.s.runtime?.id||'',turn=r.s.runtime?.coop?.turn;
     if(command?.expected&&(command.expected.battle!==battleId||command.expected.actor!==turn?.actor||command.expected.deadline!==turn?.deadline||(command.expected.round!==undefined&&command.expected.round!==r.s.runtime?.round)))throw err(409,'전투 차례가 바뀌었습니다. 현재 차례에서 행동을 다시 골라 주세요.','COOP_STALE_TURN');
     r.actionStartedAt=Math.max(now(),m.updated_at||0);r.coopContext={...(this.coopContextFor(hostId)||{version:1,room:room.id,members:[]}),...(extra||{}),caller:caller||null};
@@ -339,13 +349,13 @@ export const coopMethods={
   for(const id of done?.accounts||[])this.coopJob(this.coopPay(id));
  },
  // The host's protagonist as they would step into a guest's fight, kept up to date outside their own fights.
- coopRefreshHost(room,r){if(!r?.s||r.s.runtime)return;try{room.hostSnap=r.coopSnapshot(PLAYER);room.hostSummary=r.coopCharSummary(PLAYER);}catch{}},
+ coopRefreshHost(room,r){if(!r?.s||r.s.runtime)return;try{room.hostSnap={...r.coopSnapshot(PLAYER),adminBalanceRevision:this.balance?.runtimeRevision(r)??0};room.hostSummary=r.coopCharSummary(PLAYER);room.balanceSnaps?.clear();}catch{}},
  // A guest's fighter follows their own save: after their own actions and after a reward, the next fight (or the next
  // round they step into) uses the new level and gear. A fighter already in a fight keeps what it came with.
  coopRefresh(accountId,r){
   const room=this.coopRoomOf(accountId),m=room?.members.find(x=>x.id===accountId);if(!m||!r?.s||r.s.runtime)return;
   let snap,summary;try{snap=r.coopSnapshot(m.snap.char);summary=r.coopCharSummary(m.snap.char);}catch{return;}
-  const changed=JSON.stringify(summary)!==JSON.stringify(m.summary||null);m.snap=snap;m.summary=summary;
+  const changed=JSON.stringify(summary)!==JSON.stringify(m.summary||null);m.snap={...snap,adminBalanceRevision:this.balance?.runtimeRevision(r)??0};m.summary=summary;m.balanceSnaps?.clear();
   if(changed){room.updated=now();this.coopPush(room);}
  },
  // ---------- paying a guest, once ----------
@@ -411,7 +421,7 @@ export const coopMethods={
   // turn behind COOP_ROOM. Restore only the room's identity; the saved fighters, difficulty and rewards stay intact.
   const id=ROOM.test(String(savedRoom||''))?savedRoom:'R'+randomBytes(6).toString('hex'),t=now();
   if(this.coopRooms().has(id))throw err(409,'이전 전투의 방을 복원하지 못했습니다. 잠시 뒤 다시 시도해 주세요.','COOP_ROOM_CONFLICT');
-  let hostSnap=null;try{hostSnap=r.coopSnapshot(PLAYER);}catch{}
+  let hostSnap=null;try{hostSnap={...r.coopSnapshot(PLAYER),adminBalanceRevision:this.balance?.runtimeRevision(r)??0};}catch{}
   const room={id,host:{id:a.id,name:a.display_name,pid:pidOf(a.id)},hostSummary:r.coopCharSummary(PLAYER),hostSnap,visibility,invites:new Map(),members:[],created:t,updated:t,hostSeen:t,sig:'',battle:null,closed:false,
    world:this.coopWorld(r),suggest:null,log:[],fights:new Map()};
   this.coopRooms().set(id,room);this.coopWhere().set(a.id,id);
@@ -424,7 +434,7 @@ export const coopMethods={
   const id=typeof char==='string'&&char?char:PLAYER;let snap;
   try{snap=r.coopSnapshot(id);}catch(e){throw err(403,e.message,/Lv\./.test(e.message)?'LEVEL':'COOP_CHAR');}
   if(id!==PLAYER&&room.members.some(m=>m.id!==a.id&&m.snap.char===id))throw err(409,'다른 모험가가 이미 '+snap.name+'을(를) 데려왔습니다. 다른 캐릭터를 골라 주세요.');
-  return {snap,summary:r.coopCharSummary(id)};
+  return {snap:{...snap,adminBalanceRevision:this.balance?.runtimeRevision(r)??0},summary:r.coopCharSummary(id)};
  },
  coopJoin(a,b){
   this.coopNeed();this.rate('coop-join:'+a.id,20,600000);this.coopSweep();

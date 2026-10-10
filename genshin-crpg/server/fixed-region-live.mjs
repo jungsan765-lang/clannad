@@ -12,6 +12,7 @@ import {installSocialSchema,migrateRankingSeasons,socialMethods,socialRoute} fro
 import {installLetterSchema,letterMethods,letterRoute} from './letters-v0151.mjs';
 import {installRaidSchema,raidMethods,raidRoute} from './raid-v0152.mjs';
 import {installCoopSchema,coopMethods,coopRoute} from './coop-v0153.mjs';
+import {AdminBalanceStore} from './admin-balance.mjs';
 
 const TRANSPORT_BUILD='fixed-region-live-sqlite-v1',MAX_BODY=65536,SESSION_MS=7*86400000,MAX_CACHE=16,now=()=>Date.now();
 const STREAM_MAX=500,STREAM_PER_ACCOUNT=8,STREAM_BUFFER_BYTES=128*1024,STREAM_STALL_MS=30000,EPHEMERAL_SWEEP_MS=60000;
@@ -22,7 +23,7 @@ const publicState=parts=>joinState(publicParts(parts));
 function cors(origin,allowed){return origin?{'access-control-allow-origin':allowed,'access-control-expose-headers':'X-Server-Time, Server-Timing, X-CRPG-State-Bytes, X-CRPG-Response-Bytes','vary':'Origin'}:{};}
 function send(res,status,payload,headers={}){const text=JSON.stringify(payload);res.writeHead(status,{...JSON_HEADERS,'content-length':Buffer.byteLength(text),'x-content-type-options':'nosniff','x-server-time':String(now()),...headers});res.end(text);}
 function timing(t,c={}){const h={...c},v=[];if(t.runtimeMs!=null)v.push('runtime;dur='+t.runtimeMs);if(t.engineMs!=null)v.push('engine;dur='+t.engineMs);if(t.persistMs!=null)v.push('persist;dur='+t.persistMs);v.push('total;dur='+(t.totalMs||0));h['server-timing']=v.join(',');if(t.stateBytes!=null)h['x-crpg-state-bytes']=String(t.stateBytes);if(t.responseBytes!=null)h['x-crpg-response-bytes']=String(t.responseBytes);return h;}
-async function body(req){let n=0,chunks=[];for await(const x of req){n+=x.length;if(n>MAX_BODY)throw err(413,'요청이 너무 큽니다.');chunks.push(x);}try{return JSON.parse(Buffer.concat(chunks).toString('utf8')||'{}');}catch{throw err(400,'요청 형식을 확인해 주세요.');}}
+async function body(req,maxBytes=MAX_BODY){let n=0,chunks=[];for await(const x of req){n+=x.length;if(n>maxBytes)throw err(413,'요청이 너무 큽니다.');chunks.push(x);}try{return JSON.parse(Buffer.concat(chunks).toString('utf8')||'{}');}catch{throw err(400,'요청 형식을 확인해 주세요.');}}
 const uname=v=>String(v||'').normalize('NFKC').trim().toLowerCase();
 // 0.14.7 social features. Chat and trade are switched on per server (CRPG_FEATURES), so the production
 // database gains no new tables until they are approved there.
@@ -82,7 +83,7 @@ export class LiveRegionStore{
    // 0.15.2: new accounts per connection (only a peppered hash of the address is kept, for a week).
    'CREATE TABLE IF NOT EXISTS register_log(ip TEXT NOT NULL,at INTEGER NOT NULL) STRICT','CREATE INDEX IF NOT EXISTS register_log_idx ON register_log(ip,at)'
   ].join(';')+';';
-  this.db.exec(pragmas+ddl);installAdminSchema(this.db);migrateRankingSeasons(this.db);
+  this.db.exec(pragmas+ddl);installAdminSchema(this.db);this.balance=new AdminBalanceStore(this);migrateRankingSeasons(this.db);
   if(this.features.has('chat'))this.db.exec('CREATE TABLE IF NOT EXISTS chat(id INTEGER PRIMARY KEY AUTOINCREMENT,channel TEXT NOT NULL,account_id TEXT NOT NULL,author TEXT NOT NULL,text TEXT NOT NULL,created_at INTEGER NOT NULL,deleted INTEGER NOT NULL DEFAULT 0,FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS chat_channel_idx ON chat(channel,id);');
   if(this.features.has('trade'))this.db.exec("CREATE TABLE IF NOT EXISTS trades(id INTEGER PRIMARY KEY AUTOINCREMENT,from_id TEXT NOT NULL,to_id TEXT NOT NULL,give TEXT NOT NULL,want TEXT NOT NULL,status TEXT NOT NULL,note TEXT NOT NULL DEFAULT '',created_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,FOREIGN KEY(from_id) REFERENCES accounts(id) ON DELETE CASCADE,FOREIGN KEY(to_id) REFERENCES accounts(id) ON DELETE CASCADE) STRICT;CREATE INDEX IF NOT EXISTS trades_to_idx ON trades(to_id,status);CREATE INDEX IF NOT EXISTS trades_from_idx ON trades(from_id,status);");
   installSocialSchema(this.db,this.features);installLetterSchema(this.db,this.features);installRaidSchema(this.db);installCoopSchema(this.db,this.features);migrateHeroNames(this.db);
@@ -155,7 +156,8 @@ export class LiveRegionStore{
  // ---------- trade ----------
  tradeView(t){const who=id=>{const x=this.db.prepare('SELECT display_name FROM accounts WHERE id=?').get(id);return {name:x?x.display_name:'떠난 모험가',pid:pidOf(id)};};return {id:t.id,from:who(t.from_id),to:who(t.to_id),give:JSON.parse(t.give),want:JSON.parse(t.want),status:t.status,note:t.note,at:t.created_at,updated:t.updated_at};}
  tradeList(a){this.need('trade');const q=col=>this.db.prepare('SELECT * FROM trades WHERE '+col+'=? ORDER BY CASE status WHEN \'PENDING\' THEN 0 ELSE 1 END,id DESC LIMIT 20').all(a.id).map(t=>this.tradeView(t));return {incoming:q('to_id'),outgoing:q('from_id'),limit:TRADE_PENDING};}
- runtimeOf(id){const m=this.meta(id);if(!m||m.revision==null)return null;return new R(GAME_DB,joinState(this.loadParts(id)),true);}
+ runtimeFactory(DB=GAME_DB,state=null,takeOwnership=false){return this.balance.runtime(DB,state,takeOwnership);}
+ runtimeOf(id){const m=this.meta(id);if(!m||m.revision==null)return null;return this.runtimeFactory(GAME_DB,joinState(this.loadParts(id)),true);}
  tradeOffer(a,b){
   this.need('trade');this.rate('trade-offer:'+a.id,12,600000);
   // The receiver is named by login ID, or picked from the chat by the public chat id (login IDs stay private).
@@ -207,10 +209,10 @@ export class LiveRegionStore{
  meta(id){return this.db.prepare('SELECT * FROM metadata WHERE account_id=?').get(id);}
  loadParts(id){return new Map(this.db.prepare('SELECT path,value FROM parts WHERE account_id=?').all(id).map(x=>[x.path,x.value]));}
  touch(id,e){e.lastUsed=now();this.cache.delete(id);this.cache.set(id,e);while(this.cache.size>MAX_CACHE)this.cache.delete(this.cache.keys().next().value);}
- cached(id,revision){const e=this.cache.get(id);if(!e||e.revision!==revision){if(e)this.cache.delete(id);return null;}this.touch(id,e);return e;}
+ cached(id,revision){const e=this.cache.get(id);if(!e||e.revision!==revision||e.r&&this.balance.runtimeRevision(e.r)!==this.balance.revisionForParts(e.parts)){if(e)this.cache.delete(id);return null;}this.touch(id,e);return e;}
  invalidate(id){this.cache.delete(id);this.profileCache?.delete(id);this.honourCache?.delete(id);}
- envelope(a,m,result=null){return {account:view(a,this.admins),version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,transportBuild:TRANSPORT_BUILD,revision:m?.revision??0,ranked:m?.ranked===1,result};}
- output(a,m,parts,result=null){return {...this.envelope(a,m,result),state:m?.revision==null?null:publicState(parts)};}
+ envelope(a,m,result=null,parts=null){return {account:view(a,this.admins),version:ENGINE_VERSION,engineVersion:ENGINE_FINGERPRINT,serverBuild:SERVER_BUILD,transportBuild:TRANSPORT_BUILD,revision:m?.revision??0,ranked:m?.ranked===1,result,balance:this.balance.responseForParts(parts)};}
+ output(a,m,parts,result=null){return {...this.envelope(a,m,result,parts),state:m?.revision==null?null:publicState(parts)};}
  async register(b,addr){
   const username=uname(b.username),password=String(b.password||'');this.rate('auth-ip:'+addr,30,600000);
   // 0.15.8: say exactly what is wrong (a tester's ID with 「!」 「@」 「♡」 got one sentence about both fields and gave up),
@@ -246,13 +248,14 @@ export class LiveRegionStore{
  syncName(a){const name=this.heroName(a.id);if(name&&name!==a.display_name){this.db.prepare('UPDATE accounts SET display_name=? WHERE id=?').run(name,a.id);this.db.prepare('UPDATE ranking SET display_name=? WHERE account_id=?').run(name,a.id);a.display_name=name;}return name;}
  me(a){const m=this.meta(a.id),e=m&&this.cached(a.id,m.revision),parts=e?.parts||(m?this.loadParts(a.id):new Map());
   // 0.15.4: build the journey's runtime while the player is still on the title screen, so the first action is quick.
-  if(m&&m.revision!=null&&!e){try{this.touch(a.id,{revision:m.revision,parts,r:new R(GAME_DB,joinState(parts),true)});}catch{}}
+  if(m&&m.revision!=null&&!e){try{this.touch(a.id,{revision:m.revision,parts,r:this.runtimeFactory(GAME_DB,joinState(parts),true)});}catch{}}
   return this.output(a,m,parts);}
  logout(th){this.db.prepare('DELETE FROM sessions WHERE token_hash=?').run(th);this.closeStreams(s=>s.sessionHash===th);return {ok:true};}
  async remove(a,b){this.rate('delete:'+a.id,5,900000);if(b.confirm!==a.username||!same(await passwordHash(String(b.password||''),a.salt,this.pepper),a.password_hash))throw err(403,'아이디와 비밀번호로 삭제를 확인해 주세요.');this.db.prepare('DELETE FROM accounts WHERE id=?').run(a.id);this.invalidate(a.id);return {deleted:true};}
  async newGame(a,b){
   return this.serial(a.id,async()=>{const old=this.meta(a.id);if(old?.revision!=null)throw err(409,'이미 자동저장된 여정이 있습니다.');
-   const r=new R(GAME_DB);r.newGame({name:String(b.name||a.display_name),route:b.route==='ROUTE_TRAVELER'?'ROUTE_TRAVELER':'ROUTE_ISEKAI',saveId:crypto.randomUUID(),seed:crypto.getRandomValues(new Uint32Array(1))[0]});compact(r.s);const parts=splitState(r.s),t=now();
+   this.balance.expectAction(b.expectedBalanceRevision);
+   const r=this.runtimeFactory(GAME_DB);r.newGame({name:String(b.name||a.display_name),route:b.route==='ROUTE_TRAVELER'?'ROUTE_TRAVELER':'ROUTE_ISEKAI',saveId:crypto.randomUUID(),seed:crypto.getRandomValues(new Uint32Array(1))[0]});compact(r.s);const parts=splitState(r.s),t=now();
    this.db.exec('BEGIN IMMEDIATE');try{this.db.prepare('INSERT INTO metadata VALUES(?,?,?,?,?) ON CONFLICT(account_id) DO UPDATE SET revision=excluded.revision,ranked=excluded.ranked,last_request_id=excluded.last_request_id,updated_at=excluded.updated_at').run(a.id,0,1,'NEW',t);this.db.prepare('DELETE FROM parts WHERE account_id=?').run(a.id);const ins=this.db.prepare('INSERT INTO parts VALUES(?,?,?)');for(const [p,v] of parts)ins.run(a.id,p,v);this.db.exec('COMMIT');}catch(e){if(this.db.isTransaction)this.db.exec('ROLLBACK');throw e;}
    this.syncName(a);const m=this.meta(a.id);this.touch(a.id,{revision:0,parts,r});return this.output(a,m,parts);
   });
@@ -263,12 +266,13 @@ export class LiveRegionStore{
   return this.serial(a.id,async()=>{const started=performance.now();let persistence=false,refused=null;this.db.exec('BEGIN IMMEDIATE');
    try{const m=this.meta(a.id);if(!m||m.revision==null)throw err(409,'먼저 여정을 시작해 주세요.');const receipt=this.db.prepare('SELECT * FROM receipts WHERE account_id=? AND request_id=?').get(a.id,b.requestId),entry=this.cached(a.id,m.revision),before=entry?.parts||this.loadParts(a.id);
     if(receipt){if(receipt.intent_hash!==digest)throw err(409,'같은 행동 식별자를 다른 행동에 사용할 수 없습니다.','REQUEST_ID_REUSED');this.db.exec('COMMIT');return {payload:{...this.output(a,m,before,JSON.parse(receipt.result).result),replayed:true,receiptRevision:receipt.revision},timing:{totalMs:Math.round((performance.now()-started)*10)/10,persistMs:0}};}
+    this.balance.expectAction(b.expectedBalanceRevision,before);
     // 0.15.4: the cached runtime works on a copy of its state, so a refused action puts the copy back instead of throwing
     // the cache away (building a runtime from the save costs about a quarter of a second; user: 「장비 장착할때 렉이」).
     const warm=entry?.r||null,pristine=warm?warm.s:null;if(warm){warm.s=structuredClone(pristine);refused={warm,pristine};}
     const row={state:warm?'':JSON.stringify(joinState(before)),revision:m.revision,ranked:m.ranked,updated_at:m.updated_at},env={ADMIN_ACCOUNT_IDS:[...this.admins].join(','),RAID_EVENT:this.raidActive?.()||null};
-    const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,a,env,now(),warm,this.coopContextFor?.(a.id)||null);compact(r.s);const after=splitState(r.s),rough=[...after].reduce((n,[p,v])=>n+p.length+v.length+8,2);let stateBytes=rough*3;if(stateBytes>1900000){stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw err(507,'저장 크기 한도에 도달했습니다.');}
-    const d=diffParts(before,after),next={...m,revision:m.revision+1,ranked:isDebug?0:m.ranked,last_request_id:b.requestId,updated_at:now()},payload=b.responseMode==='state-parts-v1'?{...this.envelope(a,next,result),baseRevision:m.revision,statePatch:wirePatch(publicParts(before),publicParts(after))}:this.output(a,next,after,result);
+    const {r,result,isDebug,runtimeMs,engineMs}=executeAction(b,row,a,env,now(),warm,this.coopContextFor?.(a.id)||null,this.runtimeFactory.bind(this));compact(r.s);const after=splitState(r.s),rough=[...after].reduce((n,[p,v])=>n+p.length+v.length+8,2);let stateBytes=rough*3;if(stateBytes>1900000){stateBytes=Buffer.byteLength(JSON.stringify(r.s));if(stateBytes>1900000)throw err(507,'저장 크기 한도에 도달했습니다.');}
+    const d=diffParts(before,after),next={...m,revision:m.revision+1,ranked:isDebug?0:m.ranked,last_request_id:b.requestId,updated_at:now()},payload=b.responseMode==='state-parts-v1'?{...this.envelope(a,next,result,after),baseRevision:m.revision,statePatch:wirePatch(publicParts(before),publicParts(after))}:this.output(a,next,after,result);
     persistence=true;const ps=performance.now(),del=this.db.prepare('DELETE FROM parts WHERE account_id=? AND path=?'),up=this.db.prepare('INSERT INTO parts VALUES(?,?,?) ON CONFLICT(account_id,path) DO UPDATE SET value=excluded.value');
     for(const p of d.remove)del.run(a.id,p);for(const [p,v] of d.set)up.run(a.id,p,v);this.db.prepare('INSERT INTO backups VALUES(?,?,?,?)').run(a.id,m.revision,JSON.stringify(d.undo),next.updated_at);this.db.prepare('DELETE FROM backups WHERE account_id=? AND revision<?').run(a.id,m.revision-3);this.db.prepare('INSERT INTO receipts VALUES(?,?,?,?,?,?,?)').run(a.id,b.requestId,next.revision,m.revision,digest,JSON.stringify({result}),next.updated_at);this.db.prepare('UPDATE metadata SET revision=?,ranked=?,last_request_id=?,updated_at=? WHERE account_id=?').run(next.revision,next.ranked,b.requestId,next.updated_at,a.id);this.rank(a,next.ranked,r.s);const raided=this.raidRecord?.(a,r,next),shared=this.coopRecord?.(a,r,before.get('["runtime"]')==='{}');this.db.exec('COMMIT');this.touch(a.id,{revision:next.revision,parts:after,r});if(raided)this.broadcast({type:'raid',event:raided.event,hits:raided.hits},()=>true);try{this.coopAfter?.(a,r,shared);}catch{}
     return {payload,timing:{runtimeMs,engineMs,persistMs:Math.round((performance.now()-ps)*10)/10,totalMs:Math.round((performance.now()-started)*10)/10,stateBytes,responseBytes:Buffer.byteLength(JSON.stringify(payload))}};
@@ -290,9 +294,10 @@ export function createLiveRegionHandler({store,allowedOrigin='https://clannad.sh
    if(path==='/ranking'&&req.method==='GET')return send(res,200,store.ranking(),c);
    if((path==='/register'||path==='/login')&&req.method==='POST'){const b=await body(req),out=path==='/register'?await store.register(b,ip(req)):await store.login(b,ip(req));return send(res,200,out,c);}
    // 0.14.12 operator console: its own login (server/admin-api.mjs), never a game session.
-   if(path.startsWith('/admin/')){if(!adminConsole)throw err(404,'지원하지 않는 요청입니다.');return send(res,200,await adminConsole.handle({path,method:req.method,url:new URL(req.url,'http://fixed-region-live.local'),authorization:req.headers.authorization,readBody:()=>body(req),ip:ip(req)}),c);}
+   if(path.startsWith('/admin/')){if(!adminConsole)throw err(404,'지원하지 않는 요청입니다.');return send(res,200,await adminConsole.handle({path,method:req.method,url:new URL(req.url,'http://fixed-region-live.local'),authorization:req.headers.authorization,readBody:()=>body(req,path.startsWith('/admin/balance/')?512*1024:MAX_BODY),ip:ip(req)}),c);}
    const raw=(req.headers.authorization||'').replace(/^Bearer /,''),auth=await store.auth(raw),a=auth.a;
    if(path==='/me'&&req.method==='GET')return send(res,200,store.me(a),c);
+   if(path==='/balance'&&req.method==='GET'){const value=new URL(req.url,'http://fixed-region-live.local').searchParams.get('revision'),revision=value===null?undefined:Number(value);return send(res,200,store.balance.profile(revision),c);}
    if(path==='/logout'&&req.method==='POST')return send(res,200,store.logout(auth.th),c);
    if(path==='/account/delete'&&req.method==='POST')return send(res,200,await store.remove(a,await body(req)),c);
    if(path==='/game/new'&&req.method==='POST')return send(res,200,await store.newGame(a,await body(req)),c);

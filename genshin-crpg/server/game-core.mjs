@@ -20,11 +20,11 @@ async function body(request){const raw=await request.text();if(encoder.encode(ra
 function compatible(b){return b.engineVersion?ENGINE_COMPATIBILITY.includes(b.engineVersion):b.version===ENGINE_VERSION;}
 // 0.15.3: `coop` is the account's open 다인 모드 room as the server sees it ({room, members, caller}; server/coop-v0153.mjs).
 // It is handed to the game rules for this one action only and never comes from the request.
-function executeAction(b,row,account,env,receivedAt,cachedRuntime=null,coop=null){
+function executeAction(b,row,account,env,receivedAt,cachedRuntime=null,coop=null,runtimeFactory=null){
  if(!compatible(b))throw error(409,'게임 업데이트를 확인해 주세요. 저장 기록은 유지됩니다.','VERSION_MISMATCH');
  if(!Number.isSafeInteger(b.revision)||b.revision!==row.revision)throw error(409,'다른 화면에서 진행되었습니다. 최신 자동저장을 이어 받아 주세요.','REVISION_CONFLICT');
   const isDebug=b.type==='OPERATOR_DEBUG',isReading=b.type==='STORY_READ';if(!ALLOWED.has(b.type)&&!isDebug&&!isReading)throw error(400,'지원하지 않는 게임 행동입니다.');if(isDebug&&!admin(env,account.id))throw error(403,'운영자 전용 기능입니다.');
-  const runtimeStart=performance.now();let r;try{r=cachedRuntime||new R(GAME_DB,JSON.parse(row.state),true);}catch{throw error(503,'저장 기록을 새 버전에서 여는 데 문제가 있습니다. 원본은 보존되어 있습니다. 운영자에게 알려 주세요.','SAVE_COMPATIBILITY');}const runtimeMs=elapsed(runtimeStart);
+  const runtimeStart=performance.now();let r;try{r=cachedRuntime||(runtimeFactory?runtimeFactory(GAME_DB,JSON.parse(row.state),true):new R(GAME_DB,JSON.parse(row.state),true));}catch{throw error(503,'저장 기록을 새 버전에서 여는 데 문제가 있습니다. 원본은 보존되어 있습니다. 운영자에게 알려 주세요.','SAVE_COMPATIBILITY');}const runtimeMs=elapsed(runtimeStart);
   r.serverAdmin=isDebug;const params={...(b.params||{})};for(const key of ['type','id','revision','__proto__','constructor','prototype'])delete params[key];
   // MENU navigation is client-local. Apply its current screen only as part of the next real transaction,
   // preserving story/place menu side effects without creating a standalone save revision.

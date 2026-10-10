@@ -4,7 +4,7 @@
 const key='crpg-online-session-v1',pendingKey='crpg-online-pending-v1',pendingAccountsKey='crpg-online-pending-accounts-v2',productionApi='https://genshin-crpg-online.jungsan765.workers.dev',configuredApi=String(window.CRPG_ONLINE_CONFIG?.apiBase||'').trim(),isLocal=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname),localDev=isLocal&&window.CRPG_ONLINE_CONFIG?.localDev===true,base=String(configuredApi||(!isLocal?productionApi:'')).replace(/\/$/,'');
 let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}');}catch{}
 const LOCAL_ONLY_ACTIONS=new Set(['MENU']),KEEP_LOCAL_SCREEN_AFTER_COMMIT=new Set(['PARTY','PARTY_REMOVE','PARTY_REPLACE','PARTY_SWAP','PARTY_TACTIC','EQUIP','UNEQUIP','TOOL_PREPARE','USE_ITEM','FORMATION_SET','MASTERY','EQUIPMENT_GUIDE_ACK']);
-const O=window.CRPGOnline={account:saved.account||null,token:saved.token||'',revision:0,ranked:false,active:false,configured:!!base,pending:null};
+const O=window.CRPGOnline={account:saved.account||null,token:saved.token||'',revision:0,balanceRevision:0,ranked:false,active:false,configured:!!base,pending:null};
 let uiActions=[],uiStates=[],confirmedState=null;
 let sessionEpoch=0,actionEpoch=0,syncActionEpoch=-1,syncFlight=null;
 const sessionStamp=()=>({epoch:sessionEpoch,account:O.account?.id||''});
@@ -93,13 +93,14 @@ async function actionRequest(payload){
 function install(out,{preservePresentation=false,reuseRuntime=preservePresentation}={}){
  checkVersion(out);out=applyStatePatch(out);const nextConfirmed=out.state?JSON.parse(JSON.stringify(out.state)):null;
  // Construct and validate before replacing the current journey or account metadata.
- let candidate=null;
- if(out.state&&reuseRuntime&&game?.s.global.SAVE_ID===out.state.global.SAVE_ID){
+ let candidate=null;const balance=out.balance||{revision:0,config:CRPGRuntime.adminBalance?.emptyConfig?.()||{}},balanceRevision=balance.revision??0;if(!Number.isSafeInteger(balanceRevision)||balanceRevision<0)throw Error('서버 밸런스 버전을 확인할 수 없습니다.');
+ const currentProfile=game&&CRPGRuntime.adminBalance?.profileOf(game);
+ if(out.state&&reuseRuntime&&game?.s.global.SAVE_ID===out.state.global.SAVE_ID&&(currentProfile?.revision??0)===balanceRevision){
   // An acknowledged action changes the save, not the content database. Reuse installed indexes,
   // but validate the whole candidate and restore the previous state atomically on any failure.
   const previous=game.s;try{game.s=out.state;game.s=game.validateSave(out.state);candidate=game;}catch(e){game.s=previous;throw e;}
- }else if(out.state)candidate=new Runtime(DB,out.state);
- confirmedState=nextConfirmed;O.account=out.account;O.revision=out.revision||0;O.ranked=out.ranked===true;O.active=!!candidate;
+ }else if(out.state)candidate=CRPGRuntime.adminBalance?CRPGRuntime.adminBalance.createRuntime(DB,out.state,balance):new Runtime(DB,out.state);
+ confirmedState=nextConfirmed;O.account=out.account;O.revision=out.revision||0;O.balanceRevision=balanceRevision;O.ranked=out.ranked===true;O.active=!!candidate;
  game=candidate;if(candidate){activeSaveSlot=null;applySettings();if(!preservePresentation)restoreUIState();}persist();return out;
 }
 O.sync=function(){
@@ -137,9 +138,9 @@ async function sendAction(type,params){
  actionEpoch++;
  const localScreen=game.s.global.SCREEN_MODE;
  let p=O.pending;if(p&&p.account!==O.account.id)throw Error('다른 계정의 미확정 행동이 있습니다. 해당 계정으로 로그인해 주세요.');
- if(!p){const reading=readingRecord();if(reading&&(reading.saveId!==game.s.global.SAVE_ID||reading.revision!==O.revision))throw Object.assign(Error('읽기 기록과 서버 위치가 다릅니다. 최신 기록을 다시 연결해 주세요.'),{status:409});p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,uiScreen:reading?.uiScreen||localScreen,uiActions:reading?.uiActions||uiActions.slice(),reading:type==='STORY_READ'?(reading?.entries||[]).slice(0,64):reading?.entries||[],type,params};savePending(p);if(type==='STORY_READ'&&(reading?.uiActions.length||!uiActions.length)){uiActions=[];uiStates=[];}}
+ if(!p){const reading=readingRecord();if(reading&&(reading.saveId!==game.s.global.SAVE_ID||reading.revision!==O.revision))throw Object.assign(Error('읽기 기록과 서버 위치가 다릅니다. 최신 기록을 다시 연결해 주세요.'),{status:409});p={account:O.account.id,requestId:crypto.randomUUID(),revision:O.revision,expectedBalanceRevision:O.balanceRevision,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,uiScreen:reading?.uiScreen||localScreen,uiActions:reading?.uiActions||uiActions.slice(),reading:type==='STORY_READ'?(reading?.entries||[]).slice(0,64):reading?.entries||[],type,params};savePending(p);if(type==='STORY_READ'&&(reading?.uiActions.length||!uiActions.length)){uiActions=[];uiStates=[];}}
  const retryingDifferent=p.type!==type||JSON.stringify(p.params)!==JSON.stringify(params);
- try{let out=await actionRequest({...p,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,responseMode:confirmedState?'state-parts-v1':'full'});if(out.statePatch&&(!confirmedState||out.baseRevision!==O.revision))out=await actionRequest({...p,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,responseMode:'full'});const lateMenus=p.type==='STORY_READ'?uiActions.slice():[];out=install(out,{preservePresentation:true});acknowledgeReading(p,out);savePending(null);O.readingFailed=false;uiActions=[];uiStates=[];for(const screen of lateMenus)localAction('MENU',{screen});restoreLocalScreen(localScreen,p.type);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
+ try{let out=await actionRequest({...p,expectedBalanceRevision:p.expectedBalanceRevision??0,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,responseMode:confirmedState?'state-parts-v1':'full'});if(out.statePatch&&(!confirmedState||out.baseRevision!==O.revision))out=await actionRequest({...p,expectedBalanceRevision:p.expectedBalanceRevision??0,version:MANIFEST.appVersion,engineVersion:MANIFEST.engineVersion,responseMode:'full'});const lateMenus=p.type==='STORY_READ'?uiActions.slice():[];out=install(out,{preservePresentation:true});acknowledgeReading(p,out);savePending(null);O.readingFailed=false;uiActions=[];uiStates=[];for(const screen of lateMenus)localAction('MENU',{screen});restoreLocalScreen(localScreen,p.type);if(retryingDifferent)throw Object.assign(Error('이전 행동의 저장을 확인했습니다. 방금 선택한 행동은 다시 눌러 주세요.'),{resolved:true});return out.result;}
  catch(e){if(e.code==='SESSION_CHANGED')throw e;O.readingFailed=!!O.readingCount();if(e.resolved)savePending(null);if(e.code!=='VERSION_MISMATCH'&&(e.outcome==='REJECTED'||e.status&&e.status<500&&e.status!==429&&e.status!==401)){savePending(null);O.readingFailed=false;if(e.status===409||p.type==='STORY_READ'){saveReading(null);await O.sync();}}if(e.status===401){invalidateSession();O.token='';O.active=false;persist();game=null;auth(false,true);}if(e.code==='VERSION_MISMATCH')GameVersion.check();throw e;}
 }
 O.execute=async(type,params)=>{
@@ -221,7 +222,7 @@ function debug(){if(!O.active||O.account?.admin!==true){say('운영자 계정으
 const localLoad=loadSlot;
 begin=async function(name,route){
  if(!O.account||!O.token){game=null;O.active=false;persist();auth(false,true);return;}
- await safely(async()=>{actionEpoch++;const out=await request('/game/new',{name,route});install(out);});
+ await safely(async()=>{actionEpoch++;let out;try{out=await request('/game/new',{name,route,expectedBalanceRevision:O.balanceRevision});}catch(e){if(e.code!=='BALANCE_REVISION_CONFLICT')throw e;await O.sync();out=await request('/game/new',{name,route,expectedBalanceRevision:O.balanceRevision});}install(out);});
 };
 loadSlot=async function(id){
  if(!O.account||!O.token){game=null;O.active=false;persist();auth(false,true);return;}

@@ -1,0 +1,13 @@
+--- frozen/source/runtime_growth_v01522.js
++++ candidate_A/source/runtime_growth_v01522.js
+@@ -219,7 +219,9 @@
+  const calibrated=level>4&&i!==3&&!a.fieldStructure;
+  const hpBudget=calibrated?1+(enemyBudget(FIELD_HP_V0166,level)/(105*hpCurve(level)*(1+.16*p)*(2+.025*level))-1)*(i===0?1:i===1?.7:.3):1;
+  const atkBudget=calibrated?1+(enemyBudget(FIELD_ATK_V0166,level)/(24*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*Math.min(1.7,1+.2*(level-1)))-1)*(i===0?1:i===1?.8:.35):1;
+- const variant=(a.variant?.tier===5?1.6:1)*(a.variant?.affixes.includes('STURDY')?1.35:1);const prev=a.maxHp,hp=([105,340,900,3000][i])*(a.source==='BOSS_DVALIN'?.45:a.source==='BOSS_ANDRIUS'?.55:1)*hpCurve(level)*(1+.16*p)*variant*partyHp*hpBudget;
++ // Diagnostic candidate A: daily rematches only; HP pressure budget, other rules unchanged.
++ const dailyHp=String(b.origin).startsWith('MATERIAL_CHALLENGE:')?({BOSS_ANDRIUS:2,BOSS_DVALIN:2.25,BOSS_TARTAGLIA:2,BOSS_AZHDAHA:1.6}[a.source]||1):1;
++ const variant=(a.variant?.tier===5?1.6:1)*(a.variant?.affixes.includes('STURDY')?1.35:1);const prev=a.maxHp,hp=([105,340,900,3000][i])*(a.source==='BOSS_DVALIN'?.45:a.source==='BOSS_ANDRIUS'?.55:1)*hpCurve(level)*(1+.16*p)*variant*partyHp*hpBudget*dailyHp;
+  const authoredBossAtk=a.fb&&FIELD_BOSS_ATK_FLOOR_V01619.has(a.source)?a.atk:0;
+  a.hp=a.maxHp=Math.round(hp);a.atk=Math.max(authoredBossAtk,Math.round([24,38,52,a.source==='BOSS_ANDRIUS'?55:65][i]*hpCurve(level)*(1+.18*p)*Math.sqrt(adCurve(level))*partyAtk*atkBudget));a.def=Math.round([20,28,35,42][i]*adCurve(level));a.level=level;a.spd=Number(source[19])+Math.floor(level/5)+(a.variant?.affixes.includes('SWIFT')?8:0);a.hit=Math.min(95,80+Math.floor(level/5));if(a.variant?.tier===5){a.atk=Math.round(a.atk*1.15);a.def=Math.round(a.def*1.1);}if(a.variant?.affixes.includes('FEROCIOUS'))a.atk=Math.round(a.atk*1.2);if(a.variant?.affixes.includes('ARMORED'))a.def=Math.round(a.def*1.35);
+  for(const s of a.shields||[]){s.value=Math.round(s.value*hp/prev);if(s.initialValue)s.initialValue=Math.round(s.initialValue*hp/prev);}a.growthScaled=true;

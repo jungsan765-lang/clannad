@@ -76,7 +76,7 @@ export const socialMethods={
  // a one-off public profile must not retain a second large runtime or evict active players' warm saves.
  profileRuntime(id,cacheCold=true){
   const m=this.meta(id);if(!m||m.revision==null)return null;let entry=this.cached(id,m.revision);
-  if(!entry?.r){const parts=entry?.parts||this.loadParts(id),r=new R(GAME_DB,joinState(parts),true);entry={revision:m.revision,parts,r};if(cacheCold)this.touch(id,entry);}
+  if(!entry?.r){const parts=entry?.parts||this.loadParts(id),r=this.runtimeFactory?this.runtimeFactory(GAME_DB,joinState(parts),true):new R(GAME_DB,joinState(parts),true);entry={revision:m.revision,parts,r};if(cacheCold)this.touch(id,entry);}
   return Object.assign(Object.create(entry.r),{s:structuredClone(entry.r.s)});
  },
  // Public card: protagonist, companions (rarity, level, 운명의 자리), the party with its gear, Abyss records.

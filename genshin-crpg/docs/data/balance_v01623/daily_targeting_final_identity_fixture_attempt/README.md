@@ -1,0 +1,1 @@
+최초 검증 시도는 전투 전에 검사기 오류로 8건 모두 FIXTURE 상태에서 중단됐다. 공식 emptyConfig에는 growth.domains/ascension/talents 빈 객체가 중첩돼 있는데 최초 검사기가 최상위 growth의 키 존재를 비정상 값으로 오인했다. runtime profile은 revision 0, 공식 emptyConfig였다. 이 오류는 native 승패로 계산하지 않는다. 제품 source는 수정하지 않았고 정정한 검사기는 공식 emptyConfig 전체와 비교한다. 원본 실행기·입력·오류 결과를 여기 보존한다.

@@ -47,7 +47,7 @@ function summarize(name,env){
  check('known unchanged QA or published authored raw DB file',dbContract.acceptedRaw.some(row=>row.bytes===rawDbBytes.length&&(!row.sha256||row.sha256===sha(rawDbBytes))&&(!row.gitBlob||row.gitBlob===rawGitBlob)));
  check('built browser and server raw clean DB equality',same(browser.db,server.DB));
  const browserInputBefore=digest(browser.db),serverInputBefore=digest(server.DB),runtimeFiles=browser.loaded.map(x=>x.file),html=fs.readFileSync(path.join(sourceRoot,'source/index.html'),'utf8'),sourceRuntimeFiles=[...html.matchAll(/<script src="([^"?]+)/g)].map(x=>x[1]).filter(x=>x==='world_content.js'||x==='presentation.js'||x.startsWith('runtime'));
- check('actual browser built runtime order equals server build registry',same(runtimeFiles,sourceRuntimeFiles)&&runtimeFiles.length===119);
+ check('actual browser built runtime order equals server build registry',same(runtimeFiles,sourceRuntimeFiles)&&runtimeFiles.length===120);
  for(const row of browser.loaded)check('browser/source bytes: '+row.file,row.sha256===sha(fs.readFileSync(path.join(sourceRoot,'source',row.file))));
  check('built abyss display source matches frozen source',sha(fs.readFileSync(path.join(browserRoot,'app_abyss.js')))===sha(fs.readFileSync(path.join(sourceRoot,'source/app_abyss.js'))));
  const protocol=JSON.parse(fs.readFileSync(path.join(sourceRoot,'server/protocol.json'))).version,d=crypto.createHash('sha256');d.update('crpg-protocol-'+protocol+'\0');

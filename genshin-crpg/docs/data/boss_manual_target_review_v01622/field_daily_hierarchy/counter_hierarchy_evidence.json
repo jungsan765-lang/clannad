@@ -1,0 +1,302 @@
+[
+  {
+    "investment": "FOUR_C6",
+    "initialEnemy": {
+      "id": "FB_CRYO_HYPOSTASIS#1",
+      "source": "FB_CRYO_HYPOSTASIS",
+      "side": "ENEMY",
+      "control": "AI",
+      "hp": 25550,
+      "maxHp": 25550,
+      "atk": 1509,
+      "def": 294,
+      "level": 30,
+      "spd": 70,
+      "range": "중거리",
+      "airborne": false,
+      "element": "얼음",
+      "grade": "보스",
+      "fb": {
+        "version": 1,
+        "kind": "CRYO_HYPO",
+        "acts": 0,
+        "next": null,
+        "stunned": false,
+        "exposedUntil": 0,
+        "revived": false,
+        "revival": null,
+        "shieldBreaks": 0,
+        "shieldReturn": 0,
+        "summoned": 0,
+        "burrowed": false,
+        "phase": 1
+      },
+      "statuses": [],
+      "shields": [],
+      "cooldowns": {},
+      "turns": 0
+    },
+    "coreExposed": 1,
+    "failedRevivalCount": 0,
+    "coreSuccess": 1,
+    "coreHits": [
+      "냉기 핵에 금이 갔다 · 1/4",
+      "냉기 핵에 금이 갔다 · 2/4",
+      "냉기 핵에 금이 갔다 · 3/4",
+      "냉기 핵에 금이 갔다 · 4/4"
+    ],
+    "playerActions": [
+      {
+        "type": "COMBAT",
+        "round": 1,
+        "args": {
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "target": "FB_CRYO_HYPOSTASIS#1"
+        },
+        "terrain": null,
+        "enemyAlive": [
+          {
+            "source": "FB_CRYO_HYPOSTASIS",
+            "hp": 25550,
+            "maxHp": 25550
+          }
+        ]
+      },
+      {
+        "type": "COMBAT",
+        "round": 2,
+        "args": {
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "branch": "HOLD"
+        },
+        "terrain": null,
+        "enemyAlive": [
+          {
+            "source": "FB_CRYO_HYPOSTASIS",
+            "hp": 17545,
+            "maxHp": 25550
+          }
+        ]
+      },
+      {
+        "type": "COMBAT",
+        "round": 3,
+        "args": {
+          "card": "PLAYER_BASIC_ATTACK",
+          "target": "FB_CRYO_HYPOSTASIS#1"
+        },
+        "terrain": null,
+        "enemyAlive": [
+          {
+            "source": "FB_CRYO_HYPOSTASIS",
+            "hp": 14309,
+            "maxHp": 25550
+          }
+        ]
+      },
+      {
+        "type": "COMBAT",
+        "round": 4,
+        "args": {
+          "card": "PLAYER_BASIC_ATTACK",
+          "target": "FB_CRYO_HYPOSTASIS#1"
+        },
+        "terrain": null,
+        "enemyAlive": [
+          {
+            "source": "FB_CRYO_HYPOSTASIS",
+            "hp": 9122,
+            "maxHp": 25550
+          }
+        ]
+      },
+      {
+        "type": "COMBAT",
+        "round": 5,
+        "args": {
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "target": "FB_CRYO_HYPOSTASIS#1"
+        },
+        "terrain": null,
+        "enemyAlive": [
+          {
+            "source": "FB_CRYO_HYPOSTASIS",
+            "hp": 1,
+            "maxHp": 25550
+          }
+        ]
+      }
+    ],
+    "fieldQuotaBefore": {
+      "window": 41473,
+      "wins": 0,
+      "limit": 3,
+      "left": 3,
+      "resetAt": "00:00",
+      "minutesLeft": 480,
+      "reason": ""
+    },
+    "fieldQuotaAfterEntry": {
+      "window": 41473,
+      "wins": 0,
+      "limit": 3,
+      "left": 3,
+      "resetAt": "00:00",
+      "minutesLeft": 480,
+      "reason": ""
+    },
+    "fieldQuotaAfter": {
+      "window": 41473,
+      "wins": 1,
+      "limit": 3,
+      "left": 2,
+      "resetAt": "00:00",
+      "minutesLeft": 480,
+      "reason": ""
+    },
+    "sameInputsAsDaily122": true
+  },
+  {
+    "investment": "FIVE_C0",
+    "initialEnemy": {
+      "id": "FB_CRYO_HYPOSTASIS#1",
+      "source": "FB_CRYO_HYPOSTASIS",
+      "side": "ENEMY",
+      "control": "AI",
+      "hp": 25550,
+      "maxHp": 25550,
+      "atk": 1509,
+      "def": 294,
+      "level": 30,
+      "spd": 70,
+      "range": "중거리",
+      "airborne": false,
+      "element": "얼음",
+      "grade": "보스",
+      "fb": {
+        "version": 1,
+        "kind": "CRYO_HYPO",
+        "acts": 0,
+        "next": null,
+        "stunned": false,
+        "exposedUntil": 0,
+        "revived": false,
+        "revival": null,
+        "shieldBreaks": 0,
+        "shieldReturn": 0,
+        "summoned": 0,
+        "burrowed": false,
+        "phase": 1
+      },
+      "statuses": [],
+      "shields": [],
+      "cooldowns": {},
+      "turns": 0
+    },
+    "coreExposed": 1,
+    "failedRevivalCount": 0,
+    "coreSuccess": 1,
+    "coreHits": [
+      "냉기 핵에 금이 갔다 · 1/4",
+      "냉기 핵에 금이 갔다 · 2/4",
+      "냉기 핵에 금이 갔다 · 3/4",
+      "냉기 핵에 금이 갔다 · 4/4"
+    ],
+    "playerActions": [
+      {
+        "type": "COMBAT",
+        "round": 1,
+        "args": {
+          "card": "PLAYER_TRAVELER_ANEMO_Q",
+          "target": "FB_CRYO_HYPOSTASIS#1"
+        },
+        "terrain": null,
+        "enemyAlive": [
+          {
+            "source": "FB_CRYO_HYPOSTASIS",
+            "hp": 25550,
+            "maxHp": 25550
+          }
+        ]
+      },
+      {
+        "type": "COMBAT",
+        "round": 2,
+        "args": {
+          "card": "PLAYER_TRAVELER_ANEMO_E",
+          "target": "FB_CRYO_HYPOSTASIS#1",
+          "branch": "HOLD"
+        },
+        "terrain": null,
+        "enemyAlive": [
+          {
+            "source": "FB_CRYO_HYPOSTASIS",
+            "hp": 11131,
+            "maxHp": 25550
+          }
+        ]
+      },
+      {
+        "type": "COMBAT",
+        "round": 3,
+        "args": {
+          "card": "PLAYER_BASIC_ATTACK",
+          "target": "FB_CRYO_HYPOSTASIS#1"
+        },
+        "terrain": null,
+        "enemyAlive": [
+          {
+            "source": "FB_CRYO_HYPOSTASIS",
+            "hp": 9055,
+            "maxHp": 25550
+          }
+        ]
+      },
+      {
+        "type": "COMBAT",
+        "round": 4,
+        "args": {
+          "card": "PLAYER_BASIC_ATTACK",
+          "target": "FB_CRYO_HYPOSTASIS#1"
+        },
+        "terrain": null,
+        "enemyAlive": [
+          {
+            "source": "FB_CRYO_HYPOSTASIS",
+            "hp": 1262,
+            "maxHp": 25550
+          }
+        ]
+      }
+    ],
+    "fieldQuotaBefore": {
+      "window": 41473,
+      "wins": 0,
+      "limit": 3,
+      "left": 3,
+      "resetAt": "00:00",
+      "minutesLeft": 480,
+      "reason": ""
+    },
+    "fieldQuotaAfterEntry": {
+      "window": 41473,
+      "wins": 0,
+      "limit": 3,
+      "left": 3,
+      "resetAt": "00:00",
+      "minutesLeft": 480,
+      "reason": ""
+    },
+    "fieldQuotaAfter": {
+      "window": 41473,
+      "wins": 1,
+      "limit": 3,
+      "left": 2,
+      "resetAt": "00:00",
+      "minutesLeft": 480,
+      "reason": ""
+    },
+    "sameInputsAsDaily122": true
+  }
+]
