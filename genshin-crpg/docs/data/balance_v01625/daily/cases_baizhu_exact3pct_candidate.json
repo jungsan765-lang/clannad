@@ -1,0 +1,250 @@
+[
+  {
+    "boss": "BOSS_TARTAGLIA",
+    "level": 50,
+    "map": "MAP_LIYUE_GOLDEN_HOUSE",
+    "action": "LIYUE_ARTIFACT_CHALLENGE",
+    "args": {
+      "kind": "TARTAGLIA"
+    },
+    "baseHp": 59886,
+    "baseAtk": 5107,
+    "candidate": "BAIZHU_E_HEAL_MULT_0.375",
+    "investment": "FIVE_C0",
+    "strategy": "REPEAT_QE",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "LIYUE_BAIZHU"
+    ],
+    "enemyHp": 125761,
+    "enemyAtk": 9703,
+    "route": "ROUTE_TRAVELER",
+    "seed": 717,
+    "gear": "craft",
+    "enhance": 10,
+    "talent": 10,
+    "family": "FIVE_SWAP_LIYUE_BAIZHU",
+    "preparation": true,
+    "formationOrder": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "LIYUE_BAIZHU",
+      "PLAYER_CUSTOM"
+    ],
+    "expectedShieldMultiplier": 3,
+    "expectedDailyCardDamage": {
+      "ECARD_TARTAGLIA_HYDRO_SWEEP": 1.6,
+      "ECARD_TARTAGLIA_ELECTRO_ARC": 2,
+      "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE": 2.5
+    },
+    "requireCharacterRevision": true,
+    "manualPolicy": "PUBLIC_LOW_HP_INCOMING",
+    "roleOverrides": {
+      "LIYUE_BAIZHU": "지원우선"
+    },
+    "profileRevision": 605,
+    "profileConfig": {
+      "tables": [],
+      "enemies": {},
+      "characters": {},
+      "cards": {
+        "LIYUE_BAIZHU_E": {
+          "healingMultiplier": 0.375
+        }
+      },
+      "economy": {},
+      "encounters": {},
+      "growth": {
+        "domains": {},
+        "ascension": {},
+        "talents": {}
+      }
+    }
+  },
+  {
+    "boss": "BOSS_TARTAGLIA",
+    "level": 50,
+    "map": "MAP_LIYUE_GOLDEN_HOUSE",
+    "action": "LIYUE_ARTIFACT_CHALLENGE",
+    "args": {
+      "kind": "TARTAGLIA"
+    },
+    "baseHp": 59886,
+    "baseAtk": 5107,
+    "candidate": "BAIZHU_E_HEAL_MULT_0.375",
+    "investment": "FIVE_C0",
+    "strategy": "PREPARED",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "LIYUE_BAIZHU"
+    ],
+    "enemyHp": 125761,
+    "enemyAtk": 9703,
+    "route": "ROUTE_TRAVELER",
+    "seed": 717,
+    "gear": "craft",
+    "enhance": 10,
+    "talent": 10,
+    "family": "FIVE_SWAP_LIYUE_BAIZHU",
+    "preparation": true,
+    "formationOrder": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "LIYUE_BAIZHU",
+      "PLAYER_CUSTOM"
+    ],
+    "expectedShieldMultiplier": 3,
+    "expectedDailyCardDamage": {
+      "ECARD_TARTAGLIA_HYDRO_SWEEP": 1.6,
+      "ECARD_TARTAGLIA_ELECTRO_ARC": 2,
+      "ECARD_TARTAGLIA_FOUL_LEGACY_WAVE": 2.5
+    },
+    "requireCharacterRevision": true,
+    "manualPolicy": "PUBLIC_LOW_HP_INCOMING",
+    "roleOverrides": {
+      "LIYUE_BAIZHU": "지원우선"
+    },
+    "profileRevision": 605,
+    "profileConfig": {
+      "tables": [],
+      "enemies": {},
+      "characters": {},
+      "cards": {
+        "LIYUE_BAIZHU_E": {
+          "healingMultiplier": 0.375
+        }
+      },
+      "economy": {},
+      "encounters": {},
+      "growth": {
+        "domains": {},
+        "ascension": {},
+        "talents": {}
+      }
+    }
+  },
+  {
+    "boss": "BOSS_AZHDAHA",
+    "level": 60,
+    "map": "MAP_AZHDAHA_DOMAIN",
+    "action": "LIYUE_ARTIFACT_CHALLENGE",
+    "args": {
+      "kind": "AZHDAHA"
+    },
+    "baseHp": 91916,
+    "baseAtk": 9096,
+    "candidate": "BAIZHU_E_HEAL_MULT_0.375",
+    "investment": "FIVE_C0",
+    "strategy": "REPEAT_QE",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "LIYUE_BAIZHU"
+    ],
+    "enemyHp": 137874,
+    "enemyAtk": 13189,
+    "route": "ROUTE_TRAVELER",
+    "seed": 717,
+    "gear": "craft",
+    "enhance": 10,
+    "talent": 10,
+    "family": "FIVE_SWAP_LIYUE_BAIZHU",
+    "preparation": true,
+    "formationOrder": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "LIYUE_BAIZHU",
+      "PLAYER_CUSTOM"
+    ],
+    "expectedShieldMultiplier": 1.5,
+    "expectedDailyCardDamage": {
+      "ECARD_AZHDAHA_TAILSTORM": 2
+    },
+    "requireCharacterRevision": true,
+    "manualPolicy": "PUBLIC_LOW_HP_INCOMING",
+    "roleOverrides": {
+      "LIYUE_BAIZHU": "지원우선"
+    },
+    "profileRevision": 605,
+    "profileConfig": {
+      "tables": [],
+      "enemies": {},
+      "characters": {},
+      "cards": {
+        "LIYUE_BAIZHU_E": {
+          "healingMultiplier": 0.375
+        }
+      },
+      "economy": {},
+      "encounters": {},
+      "growth": {
+        "domains": {},
+        "ascension": {},
+        "talents": {}
+      }
+    }
+  },
+  {
+    "boss": "BOSS_AZHDAHA",
+    "level": 60,
+    "map": "MAP_AZHDAHA_DOMAIN",
+    "action": "LIYUE_ARTIFACT_CHALLENGE",
+    "args": {
+      "kind": "AZHDAHA"
+    },
+    "baseHp": 91916,
+    "baseAtk": 9096,
+    "candidate": "BAIZHU_E_HEAL_MULT_0.375",
+    "investment": "FIVE_C0",
+    "strategy": "PREPARED",
+    "team": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "LIYUE_BAIZHU"
+    ],
+    "enemyHp": 137874,
+    "enemyAtk": 13189,
+    "route": "ROUTE_TRAVELER",
+    "seed": 717,
+    "gear": "craft",
+    "enhance": 10,
+    "talent": 10,
+    "family": "FIVE_SWAP_LIYUE_BAIZHU",
+    "preparation": true,
+    "formationOrder": [
+      "LIYUE_ZHONGLI",
+      "MOND_DILUC",
+      "LIYUE_BAIZHU",
+      "PLAYER_CUSTOM"
+    ],
+    "expectedShieldMultiplier": 1.5,
+    "expectedDailyCardDamage": {
+      "ECARD_AZHDAHA_TAILSTORM": 2
+    },
+    "requireCharacterRevision": true,
+    "manualPolicy": "PUBLIC_LOW_HP_INCOMING",
+    "roleOverrides": {
+      "LIYUE_BAIZHU": "지원우선"
+    },
+    "profileRevision": 605,
+    "profileConfig": {
+      "tables": [],
+      "enemies": {},
+      "characters": {},
+      "cards": {
+        "LIYUE_BAIZHU_E": {
+          "healingMultiplier": 0.375
+        }
+      },
+      "economy": {},
+      "encounters": {},
+      "growth": {
+        "domains": {},
+        "ascension": {},
+        "talents": {}
+      }
+    }
+  }
+]

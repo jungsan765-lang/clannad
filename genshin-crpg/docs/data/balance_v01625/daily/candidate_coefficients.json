@@ -1,0 +1,67 @@
+[
+  {
+    "candidate": "BASELINE",
+    "revision": 0,
+    "cards": {}
+  },
+  {
+    "candidate": "MILD",
+    "revision": 101,
+    "cards": {
+      "LIYUE_ZHONGLI_Q": {
+        "damageMultiplier": 0.65
+      },
+      "LIYUE_ZHONGLI_E": {
+        "shieldMultiplier": 0.6
+      },
+      "MOND_JEAN_Q": {
+        "healingMultiplier": 0.75
+      }
+    }
+  },
+  {
+    "candidate": "MODERATE",
+    "revision": 102,
+    "cards": {
+      "LIYUE_ZHONGLI_Q": {
+        "damageMultiplier": 0.5
+      },
+      "LIYUE_ZHONGLI_E": {
+        "shieldMultiplier": 0.5
+      },
+      "MOND_JEAN_Q": {
+        "healingMultiplier": 0.6
+      }
+    }
+  },
+  {
+    "candidate": "STRONG",
+    "revision": 103,
+    "cards": {
+      "LIYUE_ZHONGLI_Q": {
+        "damageMultiplier": 0.35
+      },
+      "LIYUE_ZHONGLI_E": {
+        "shieldMultiplier": 0.4
+      },
+      "MOND_JEAN_Q": {
+        "healingMultiplier": 0.5
+      }
+    }
+  },
+  {
+    "candidate": "EXTREME",
+    "revision": 104,
+    "cards": {
+      "LIYUE_ZHONGLI_Q": {
+        "damageMultiplier": 0.25
+      },
+      "LIYUE_ZHONGLI_E": {
+        "shieldMultiplier": 0.3
+      },
+      "MOND_JEAN_Q": {
+        "healingMultiplier": 0.4
+      }
+    }
+  }
+]

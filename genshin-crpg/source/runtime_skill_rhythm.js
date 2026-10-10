@@ -55,7 +55,21 @@ P.combatDamageMultiplier=function(a,t,e,o={}){
  if(r&&a?.id===r.actor&&t?.side!==a.side)n*=r.dmg;
  return n;
 };
-P.heal=function(t,amount,...rest){const r=this._rhythm;return old.heal.call(this,t,r&&t?.side==='ALLY'?amount*r.support:amount,...rest);};
-P.shield=function(t,value,...rest){const r=this._rhythm;return old.shield.call(this,t,r&&t?.side==='ALLY'?value*r.support:value,...rest);};
+// Older battles retain their original support context. New battles may trigger
+// another companion's persistent effects during a cast; those effects must not
+// borrow the current caster's rhythm or resonance bonus.
+function rhythmHealer(runtime,r,source,actorId){
+ const actors=runtime.s.runtime.actors,owner=actors.find(a=>a.id===r.actor&&a.side==='ALLY');
+ return !!owner&&(actorId?owner.id===actorId:!!source&&owner.name===source);
+}
+function rhythmShieldOwner(runtime,r,source,extra){
+ const actors=runtime.s.runtime.actors,owner=actors.find(a=>a.id===r.actor&&a.side==='ALLY');
+ if(!owner)return false;
+ if(extra?.actor)return extra.actor===owner.id;
+ const id=runtime.consCardOwner?.(source);
+ return id?owner.source===id:typeof source==='string'&&source.startsWith(owner.source+'_');
+}
+P.heal=function(t,amount,...rest){const r=this._rhythm,modern=this.s.runtime?.characterBalanceRevision===1,persistent=['FIELD','FOLLOWUP'].includes(rest[2]?.sourceKind),owned=!modern||r&&!persistent&&rhythmHealer(this,r,rest[0],rest[1]);return old.heal.call(this,t,r&&t?.side==='ALLY'&&owned?amount*r.support:amount,...rest);};
+P.shield=function(t,value,...rest){const r=this._rhythm,modern=this.s.runtime?.characterBalanceRevision===1,owned=!modern||r&&rhythmShieldOwner(this,r,rest[0],rest[2]);return old.shield.call(this,t,r&&t?.side==='ALLY'&&owned?value*r.support:value,...rest);};
 P.skillRhythmVersion=1;
 })(globalThis);

@@ -1,0 +1,607 @@
+{
+  "scope": "Matched native final1/final2 outcomes; CPU duration and identity/source hashes are not gameplay differences.",
+  "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+  "checkedOutcomeKeys": [
+    "state",
+    "finalHpRatio",
+    "ko",
+    "seconds",
+    "result",
+    "after",
+    "effectiveEnemyInitial",
+    "bossMaterialsAfter"
+  ],
+  "sets": [
+    {
+      "label": "일일 보스 같은 레벨 4성 풀돌/5성 명함",
+      "old": "final_product",
+      "new": "final_product2",
+      "summary": {
+        "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+        "conditions": 48,
+        "wins": 38,
+        "defeats": 10,
+        "limits": 0,
+        "entryBlocked": 0,
+        "errors": [],
+        "inputs": 123,
+        "drift": []
+      },
+      "changedConditions": 0,
+      "changes": []
+    },
+    {
+      "label": "Lv40 4성 명함 첫 반복 보스 정수 수급 경계",
+      "old": "first_essence_final",
+      "new": "first_essence_final2",
+      "summary": {
+        "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+        "conditions": 6,
+        "wins": 6,
+        "defeats": 0,
+        "limits": 0,
+        "entryBlocked": 0,
+        "errors": [],
+        "inputs": 123,
+        "drift": []
+      },
+      "changedConditions": 0,
+      "changes": []
+    },
+    {
+      "label": "안드리우스 대체 준비/편성",
+      "old": "wolf_alternates_final",
+      "new": "wolf_alternates_final2",
+      "summary": {
+        "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+        "conditions": 18,
+        "wins": 11,
+        "defeats": 7,
+        "limits": 0,
+        "entryBlocked": 0,
+        "errors": [],
+        "inputs": 123,
+        "drift": []
+      },
+      "changedConditions": 0,
+      "changes": []
+    },
+    {
+      "label": "백출/한운 교체 1시드",
+      "old": "healer_swap_final",
+      "new": "healer_swap_final2",
+      "summary": {
+        "fingerprint": "aeb110f1cb71c11b2d515e71c1a8f24189463d09eb26fd9959afe10b576aadd1",
+        "conditions": 8,
+        "wins": 8,
+        "defeats": 0,
+        "limits": 0,
+        "entryBlocked": 0,
+        "errors": [],
+        "inputs": 123,
+        "drift": []
+      },
+      "changedConditions": 4,
+      "changes": [
+        {
+          "case": 0,
+          "boss": "BOSS_TARTAGLIA",
+          "seed": 717,
+          "team": [
+            "LIYUE_ZHONGLI",
+            "MOND_DILUC",
+            "LIYUE_BAIZHU"
+          ],
+          "strategy": "REPEAT_QE",
+          "changed": {
+            "finalHpRatio": {
+              "final1": 0.6662354923694016,
+              "final2": 0.711781738779579
+            },
+            "seconds": {
+              "final1": 126.47,
+              "final2": 124.25
+            },
+            "result": {
+              "final1": {
+                "mora": 320,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B18",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B18",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717",
+                "group": "EG_BOSS_TARTAGLIA",
+                "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+                "gate": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+                "branch": null,
+                "victory": true,
+                "xp": 4200,
+                "loot": {},
+                "rounds": 10,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "liyueFarm": {
+                  "boss": "LIYUE_TARTAGLIA_FARM",
+                  "artifact": {
+                    "slot": "EQI_000023",
+                    "equip": "EQ_ARTIFACT_TIDE",
+                    "name": "성유물 · 격류형",
+                    "quality": 253,
+                    "grade": "평범",
+                    "level": 0,
+                    "stats": {
+                      "ATK": 5,
+                      "SPD": 1.4,
+                      "HIT": 1.4,
+                      "CRIT": 0.6,
+                      "EVA": 0.5,
+                      "MAX_HP": 16
+                    }
+                  }
+                }
+              },
+              "final2": {
+                "mora": 320,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B18",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B18",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717",
+                "group": "EG_BOSS_TARTAGLIA",
+                "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+                "gate": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+                "branch": null,
+                "victory": true,
+                "xp": 4200,
+                "loot": {},
+                "rounds": 11,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "liyueFarm": {
+                  "boss": "LIYUE_TARTAGLIA_FARM",
+                  "artifact": {
+                    "slot": "EQI_000023",
+                    "equip": "EQ_ARTIFACT_VITAL",
+                    "name": "성유물 · 생명형",
+                    "quality": 991,
+                    "grade": "완벽",
+                    "level": 0,
+                    "stats": {
+                      "MAX_HP": 566,
+                      "DEF": 26,
+                      "STATUS_RESIST": 4.2,
+                      "SPD": 5.9,
+                      "EVA": 4.5
+                    }
+                  }
+                }
+              }
+            },
+            "after": {
+              "final1": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 11463,
+                  "maxHp": 12690
+                },
+                {
+                  "owner": "LIYUE_ZHONGLI",
+                  "level": 50,
+                  "hp": 27913,
+                  "maxHp": 31556
+                },
+                {
+                  "owner": "MOND_DILUC",
+                  "level": 50,
+                  "hp": 5396,
+                  "maxHp": 20798
+                },
+                {
+                  "owner": "LIYUE_BAIZHU",
+                  "level": 50,
+                  "hp": 11369,
+                  "maxHp": 19222
+                }
+              ],
+              "final2": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 11475,
+                  "maxHp": 12690
+                },
+                {
+                  "owner": "LIYUE_ZHONGLI",
+                  "level": 50,
+                  "hp": 22722,
+                  "maxHp": 31556
+                },
+                {
+                  "owner": "MOND_DILUC",
+                  "level": 50,
+                  "hp": 6560,
+                  "maxHp": 20798
+                },
+                {
+                  "owner": "LIYUE_BAIZHU",
+                  "level": 50,
+                  "hp": 19222,
+                  "maxHp": 19222
+                }
+              ]
+            }
+          }
+        },
+        {
+          "case": 2,
+          "boss": "BOSS_TARTAGLIA",
+          "seed": 717,
+          "team": [
+            "LIYUE_ZHONGLI",
+            "MOND_DILUC",
+            "LIYUE_BAIZHU"
+          ],
+          "strategy": "PREPARED",
+          "changed": {
+            "finalHpRatio": {
+              "final1": 0.6662354923694016,
+              "final2": 0.711781738779579
+            },
+            "seconds": {
+              "final1": 126.47,
+              "final2": 124.25
+            },
+            "result": {
+              "final1": {
+                "mora": 320,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B18",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B18",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717",
+                "group": "EG_BOSS_TARTAGLIA",
+                "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+                "gate": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+                "branch": null,
+                "victory": true,
+                "xp": 4200,
+                "loot": {},
+                "rounds": 10,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "liyueFarm": {
+                  "boss": "LIYUE_TARTAGLIA_FARM",
+                  "artifact": {
+                    "slot": "EQI_000023",
+                    "equip": "EQ_ARTIFACT_TIDE",
+                    "name": "성유물 · 격류형",
+                    "quality": 253,
+                    "grade": "평범",
+                    "level": 0,
+                    "stats": {
+                      "ATK": 5,
+                      "SPD": 1.4,
+                      "HIT": 1.4,
+                      "CRIT": 0.6,
+                      "EVA": 0.5,
+                      "MAX_HP": 16
+                    }
+                  }
+                }
+              },
+              "final2": {
+                "mora": 320,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B18",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717:B18",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-50-717",
+                "group": "EG_BOSS_TARTAGLIA",
+                "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+                "gate": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+                "branch": null,
+                "victory": true,
+                "xp": 4200,
+                "loot": {},
+                "rounds": 11,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "liyueFarm": {
+                  "boss": "LIYUE_TARTAGLIA_FARM",
+                  "artifact": {
+                    "slot": "EQI_000023",
+                    "equip": "EQ_ARTIFACT_VITAL",
+                    "name": "성유물 · 생명형",
+                    "quality": 991,
+                    "grade": "완벽",
+                    "level": 0,
+                    "stats": {
+                      "MAX_HP": 566,
+                      "DEF": 26,
+                      "STATUS_RESIST": 4.2,
+                      "SPD": 5.9,
+                      "EVA": 4.5
+                    }
+                  }
+                }
+              }
+            },
+            "after": {
+              "final1": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 11463,
+                  "maxHp": 12690
+                },
+                {
+                  "owner": "LIYUE_ZHONGLI",
+                  "level": 50,
+                  "hp": 27913,
+                  "maxHp": 31556
+                },
+                {
+                  "owner": "MOND_DILUC",
+                  "level": 50,
+                  "hp": 5396,
+                  "maxHp": 20798
+                },
+                {
+                  "owner": "LIYUE_BAIZHU",
+                  "level": 50,
+                  "hp": 11369,
+                  "maxHp": 19222
+                }
+              ],
+              "final2": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 50,
+                  "hp": 11475,
+                  "maxHp": 12690
+                },
+                {
+                  "owner": "LIYUE_ZHONGLI",
+                  "level": 50,
+                  "hp": 22722,
+                  "maxHp": 31556
+                },
+                {
+                  "owner": "MOND_DILUC",
+                  "level": 50,
+                  "hp": 6560,
+                  "maxHp": 20798
+                },
+                {
+                  "owner": "LIYUE_BAIZHU",
+                  "level": 50,
+                  "hp": 19222,
+                  "maxHp": 19222
+                }
+              ]
+            }
+          }
+        },
+        {
+          "case": 4,
+          "boss": "BOSS_AZHDAHA",
+          "seed": 717,
+          "team": [
+            "LIYUE_ZHONGLI",
+            "MOND_DILUC",
+            "LIYUE_BAIZHU"
+          ],
+          "strategy": "REPEAT_QE",
+          "changed": {
+            "finalHpRatio": {
+              "final1": 0.9911797714724735,
+              "final2": 0.8267137681432327
+            },
+            "after": {
+              "final1": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 18064,
+                  "maxHp": 19235
+                },
+                {
+                  "owner": "LIYUE_ZHONGLI",
+                  "level": 60,
+                  "hp": 50149,
+                  "maxHp": 50149
+                },
+                {
+                  "owner": "MOND_DILUC",
+                  "level": 60,
+                  "hp": 32947,
+                  "maxHp": 32947
+                },
+                {
+                  "owner": "LIYUE_BAIZHU",
+                  "level": 60,
+                  "hp": 30432,
+                  "maxHp": 30432
+                }
+              ],
+              "final2": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 9779,
+                  "maxHp": 19235
+                },
+                {
+                  "owner": "LIYUE_ZHONGLI",
+                  "level": 60,
+                  "hp": 48034,
+                  "maxHp": 50149
+                },
+                {
+                  "owner": "MOND_DILUC",
+                  "level": 60,
+                  "hp": 29857,
+                  "maxHp": 32947
+                },
+                {
+                  "owner": "LIYUE_BAIZHU",
+                  "level": 60,
+                  "hp": 22087,
+                  "maxHp": 30432
+                }
+              ]
+            }
+          }
+        },
+        {
+          "case": 6,
+          "boss": "BOSS_AZHDAHA",
+          "seed": 717,
+          "team": [
+            "LIYUE_ZHONGLI",
+            "MOND_DILUC",
+            "LIYUE_BAIZHU"
+          ],
+          "strategy": "PREPARED",
+          "changed": {
+            "finalHpRatio": {
+              "final1": 0.8203189141552993,
+              "final2": 0.8359708653766487
+            },
+            "seconds": {
+              "final1": 103.43,
+              "final2": 92.46000000000001
+            },
+            "result": {
+              "final1": {
+                "mora": 398,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B18",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B18",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+                "group": "EG_BOSS_AZHDAHA",
+                "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+                "gate": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+                "branch": null,
+                "victory": true,
+                "xp": 5600,
+                "loot": {
+                  "MAT_AZHDAHA_ARTIFACT_CRYSTAL": 2
+                },
+                "rounds": 9,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "liyueFarm": {
+                  "boss": "LIYUE_AZHDAHA_FARM",
+                  "items": {
+                    "MAT_AZHDAHA_ARTIFACT_CRYSTAL": 2
+                  }
+                }
+              },
+              "final2": {
+                "mora": 398,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B18",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B18",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+                "group": "EG_BOSS_AZHDAHA",
+                "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+                "gate": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+                "branch": null,
+                "victory": true,
+                "xp": 5600,
+                "loot": {
+                  "MAT_AZHDAHA_ARTIFACT_CRYSTAL": 3
+                },
+                "rounds": 8,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "liyueFarm": {
+                  "boss": "LIYUE_AZHDAHA_FARM",
+                  "items": {
+                    "MAT_AZHDAHA_ARTIFACT_CRYSTAL": 3
+                  }
+                }
+              }
+            },
+            "after": {
+              "final1": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 8326,
+                  "maxHp": 19235
+                },
+                {
+                  "owner": "LIYUE_ZHONGLI",
+                  "level": 60,
+                  "hp": 47195,
+                  "maxHp": 50149
+                },
+                {
+                  "owner": "MOND_DILUC",
+                  "level": 60,
+                  "hp": 29365,
+                  "maxHp": 32947
+                },
+                {
+                  "owner": "LIYUE_BAIZHU",
+                  "level": 60,
+                  "hp": 24022,
+                  "maxHp": 30432
+                }
+              ],
+              "final2": [
+                {
+                  "owner": "PLAYER_CUSTOM",
+                  "level": 60,
+                  "hp": 10499,
+                  "maxHp": 19235
+                },
+                {
+                  "owner": "LIYUE_ZHONGLI",
+                  "level": 60,
+                  "hp": 48249,
+                  "maxHp": 50149
+                },
+                {
+                  "owner": "MOND_DILUC",
+                  "level": 60,
+                  "hp": 30372,
+                  "maxHp": 32947
+                },
+                {
+                  "owner": "LIYUE_BAIZHU",
+                  "level": 60,
+                  "hp": 21866,
+                  "maxHp": 30432
+                }
+              ]
+            },
+            "bossMaterialsAfter": {
+              "final1": [
+                {
+                  "slot": "ITEM_MAT_AZHDAHA_ARTIFACT_CRYSTAL",
+                  "item": "MAT_AZHDAHA_ARTIFACT_CRYSTAL",
+                  "quantity": 2,
+                  "owner": "공용"
+                }
+              ],
+              "final2": [
+                {
+                  "slot": "ITEM_MAT_AZHDAHA_ARTIFACT_CRYSTAL",
+                  "item": "MAT_AZHDAHA_ARTIFACT_CRYSTAL",
+                  "quantity": 3,
+                  "owner": "공용"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

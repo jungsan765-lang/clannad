@@ -1,0 +1,11 @@
+--- original/tests/test_healing_v01619.cjs
++++ current/tests/test_healing_v01619.cjs
+@@ -15,7 +15,7 @@
+  const evidence=[];
+  for(const level of levels)for(const id of ['MOND_JEAN','MOND_BARBARA']){
+   const r=arena(level,id),a=actor(r,id),all=actors(r),events=capture(r);for(const x of all)x.hp=1;
+-  const raw=id==='MOND_JEAN'?r.combatStat(a,'atk')*.05+450:r.combatStat(a,'maxHp')*.04+250;
++  const raw=id==='MOND_JEAN'?r.combatStat(a,'atk')*r.combatHealingBudget().jeanQRatio+r.combatHealingBudget().jeanQFlat:r.combatStat(a,'maxHp')*.04+250;
+   cast(r,id,id+'_Q');const heals=events.filter(x=>x.source===a.name);
+   assert.equal(heals.length,4);assert.equal(new Set(heals.map(x=>x.target)).size,4);
+   for(const e of heals){assert.equal(e.raw,raw);assert.equal(e.actual,e.hpDelta);assert(e.actual>0);const target=actor(r,e.target),nominal=raw*1.5*r.premiumTalentMultiplier(a,'q')*(1+Number(target.traits?.HEAL_BOOST||0)/100);assert(Math.abs(e.nominal-nominal)<.001,'existing multipliers are preserved');}

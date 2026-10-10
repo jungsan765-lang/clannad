@@ -1,0 +1,19 @@
+{
+  "test": "tools/test_admin_balance_runtime_v01623.cjs",
+  "command": [
+    "node",
+    "tools/test_admin_balance_runtime_v01623.cjs"
+  ],
+  "startedAt": "2026-10-10T10:13:18.367795+00:00",
+  "endedAt": "2026-10-10T10:13:33.784362+00:00",
+  "seconds": 15.251,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {},
+  "testSha256": "098e3cc2f2c377773e92c18f0ff873ea660deada62ac696defd45326019bd5f2",
+  "generatedEngineSha256": "94375793eb78c78d83eacf38759cccf1b1bca3060aec0fe3268acdab14842409",
+  "stdoutSha256": "a6aedfc02d0cf92f314186779d6fd531dfdfd74f6c72cea69227852e809757bc",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_admin_balance_runtime_v01623.stdout.log",
+  "stderrLog": "test_admin_balance_runtime_v01623.stderr.log"
+}

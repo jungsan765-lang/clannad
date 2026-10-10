@@ -268,7 +268,7 @@ const EFFECTS={
   6:['월계가 있는 동안 라운드가 끝날 때마다 초특대·짱짱무가 떨어져 모든 적에게 공격력 75%의 풀 원소 피해를 주고, 파티 전체를 요요 최대 HP 7.5%만큼 회복시킨다.',{t:'roundEnd',while:{field:'YUEGUI_THROWING'},hit:{k:.75,el:'풀',max:99,pick:'all'},heal:{stat:'maxHp',k:.075,who:'all'}}]},
  LIYUE_ZHONGLI:{
   1:['지핵의 석주가 둘이 되어 석주의 피해가 100% 증가한다.',dmg(100,{src:'FIELD'})],
-  2:['천성이 떨어질 때 파티 전체에게 옥홀 방패(종려 최대 HP 13%, 2라운드)를 씌운다.',cast('q',{shield:{stat:'maxHp',k:.2,who:'all',rounds:2,source:'LIYUE_ZHONGLI_E',extra:{ignoreForcedMove:true}}})],
+  2:['천성이 떨어질 때 파티 전체에게 옥홀 방패(종려 최대 HP 5%, 2라운드)를 씌운다.',cast('q',{shield:{stat:'maxHp',k:.2,who:'all',rounds:2,source:'LIYUE_ZHONGLI_E',extra:{ignoreForcedMove:true}}})],
   4:['천성의 석화가 한 차례 더 이어진다.',cast('q',{statusExtend:{id:'LIYUE_PETRIFY',rounds:1}})],
   6:['옥홀 방패가 피해를 받으면 받은 피해의 40%만큼 그 파티원의 HP를 회복시킨다(한 번에 최대 HP의 8%까지).',{t:'shieldHeal',source:'LIYUE_ZHONGLI_E',pct:40,cap:8}]},
  LIYUE_CHONGYUN:{
@@ -298,7 +298,7 @@ const EFFECTS={
   6:['함께하는 일격 후 2라운드 동안 파티 전체의 공격력이 30%, 치명타 확률이 15% 증가한다.',cast('q',{buff:{who:'all',id:'CONS_ISEKAI_6',rounds:2,mods:{atk:{pct:30},crit:{flat:15}}}})]}
 };
 // ---- reads ----
-const nodeText=(key,n)=>{const N=NAMES[key];if(n===3||n===5){const kind=N[5][n===3?0:1],name=kind==='q'?N[4]:N[3];return name+'의 특성 레벨 +3 (최대 Lv.13)';}return EFFECTS[key]?.[n]?.[0]||'';};
+const nodeText=(key,n,shieldRatio=.05)=>{if(key==='LIYUE_ZHONGLI'&&n===2)return `천성이 떨어질 때 파티 전체에게 옥홀 방패(종려 최대 HP ${Number((shieldRatio*100).toFixed(4))}%, 2라운드)를 씌운다.`;const N=NAMES[key];if(n===3||n===5){const kind=N[5][n===3?0:1],name=kind==='q'?N[4]:N[3];return name+'의 특성 레벨 +3 (최대 Lv.13)';}return EFFECTS[key]?.[n]?.[0]||'';};
 const fxCache=new Map(),NONE=Object.freeze([]);
 function fxList(key,level){
  const id=key+':'+level;let v=fxCache.get(id);if(v)return v;v=[];
@@ -317,7 +317,7 @@ P.constellationKey=function(id){
 P.constellationTalentKinds=function(id){const N=NAMES[this.constellationKey(id)];return N?{c3:N[5][0],c5:N[5][1]}:{c3:'e',c5:'q'};};
 P.constellationInfo=function(id){
  const key=this.constellationKey(id),N=NAMES[key];if(!N)return null;
- return {key,group:N[0],rarity:N[1],talentNames:{na:N[2],e:N[3],q:N[4]},nodes:N[6].map((name,i)=>({n:i+1,name,text:nodeText(key,i+1)}))};
+ return {key,group:N[0],rarity:N[1],talentNames:{na:N[2],e:N[3],q:N[4]},nodes:N[6].map((name,i)=>({n:i+1,name,text:nodeText(key,i+1,.2*this.combatCharacterBudget().zhongliShieldMultiplier)}))};
 };
 // A fighter (or a character id). 0.15.3: a fighter brought from another adventurer's journey (다인 모드) carries its own
 // constellation (consSnapshot {key, level}); every other fighter reads this journey's.
@@ -540,7 +540,7 @@ P.heal=function(a,amount,source='',...rest){
  const healer=rest[0]?b.actors.find(x=>x.id===rest[0]):this._consCast?.a?.name===source?this._consCast.a:b.actors.find(x=>x.side==='ALLY'&&x.name===source);
  if(healer?.source&&healer.side===a.side){
   let add=0;for(const fx of this.consFx(healer))if(fx.t==='heal'&&this.consCond(fx.if,null,healer,healer))add+=fx.pct;
-  if(this._consCast?.a===healer&&this._consCast.kind&&this._consCast.kind!=='na')n*=this.premiumTalentMultiplier?.(healer,this._consCast.kind)||1;
+  if(this._consCast?.a===healer&&this._consCast.kind&&this._consCast.kind!=='na'&&!(b.characterBalanceRevision===1&&['FIELD','FOLLOWUP'].includes(rest[1]?.sourceKind)))n*=this.premiumTalentMultiplier?.(healer,this._consCast.kind)||1;
   if(add)n*=1+add/100;
  }
  if(a.side==='ALLY'){let inc=0;for(const owner of this.consAllies('ALLY'))for(const fx of this.consFx(owner))if(fx.t==='team'&&fx.healIn&&this.consCond(fx.while,null,owner,owner)&&this.consCond(fx.if,null,a,owner))inc+=fx.healIn;if(inc)n*=1+inc/100;}
@@ -552,7 +552,10 @@ P.shield=function(a,value,source,rounds,extra={}){
  const b=this.s.runtime;let v=Number(value)||0;
  // Shields made by a reaction or by a constellation keep their own size.
  if(b&&a&&!/^(CONS:|RX_)/.test(String(source))){
-  const owner=this._consCast?.a||b.actors.find(x=>x.side==='ALLY'&&x.source&&x.source===this.consCardOwner(source));
+  const sourceOwner=this.consCardOwner(source),castOwner=this._consCast?.a;
+  const owner=b.characterBalanceRevision===1?
+   (b.actors.find(x=>x.side==='ALLY'&&extra.actor&&x.id===extra.actor)||(castOwner?.source===sourceOwner?castOwner:b.actors.find(x=>x.side==='ALLY'&&x.source&&x.source===sourceOwner))):
+   (castOwner||b.actors.find(x=>x.side==='ALLY'&&x.source&&x.source===sourceOwner));
   if(owner?.source&&owner.side==='ALLY'){
    let add=0;for(const fx of this.consFx(owner))if(fx.t==='shieldPow')add+=fx.pct;
    if(this._consCast?.a===owner&&this._consCast.kind&&this._consCast.kind!=='na')v*=this.premiumTalentMultiplier?.(owner,this._consCast.kind)||1;

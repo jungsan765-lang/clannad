@@ -1,0 +1,10 @@
+{
+  "approvedBy": "parent root message, native C3 fixture only",
+  "test": "tests/test_shield_balance_v01619.cjs",
+  "beforeSha256": "4063780ed1251a91890b253aaacf5ef646510794b14db15b42e33c01064d3008",
+  "afterSha256": "f7a944e4d51b522cb924ea2d02b081888b8d1c4a287fd20a73c9b18beca5a1e6",
+  "fixture": "Same existing cons helper declares Zhongli C3; actual premiumTalentMultiplier gets native +3 E levels. No gear/enemy stats or damage formula change.",
+  "assertionsRetained": true,
+  "originalC0Evidence": "baizhu_jade_fixture_facts.json",
+  "diff": "approved_native_c3_fixture.diff"
+}

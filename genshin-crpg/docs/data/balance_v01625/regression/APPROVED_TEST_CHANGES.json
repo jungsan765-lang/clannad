@@ -1,0 +1,28 @@
+{
+  "approvedBy": "parent root message",
+  "files": [
+    {
+      "test": "tests/test_healing_v01619.cjs",
+      "originalSha256": "84ebc0f1a46525681b89098d880563958d6a04910f2cb5faf91a383ca4dd22c7",
+      "currentSha256": "82c8882b627748a37673af563414628a2013d9f1d19244f24b7f4ee0fdea4cd9",
+      "diff": "approved_test_healing_v01619.diff",
+      "scope": "Only parent-approved numeric expected formula uses the policy API. Assertions and fixture scope retained."
+    },
+    {
+      "test": "tests/test_shield_balance_v01619.cjs",
+      "originalSha256": "9b4f89114f8ca5e1b0e4d0710f1dbc2a74bfcf3f1ffd8cf9a2dbc97b93ded37f",
+      "currentSha256": "4063780ed1251a91890b253aaacf5ef646510794b14db15b42e33c01064d3008",
+      "diff": "approved_test_shield_balance_v01619.diff",
+      "scope": "Only parent-approved numeric expected formula uses the policy API. Assertions and fixture scope retained."
+    },
+    {
+      "test": "tools/test_admin_balance_runtime_v01623.cjs",
+      "originalSha256": "b0a39d5aa223cb26ad9f0c5956a6e99e508f5744f85fb1a7ec474a1e3642c813",
+      "currentSha256": "098e3cc2f2c377773e92c18f0ff873ea660deada62ac696defd45326019bd5f2",
+      "diff": "approved_test_admin_balance_runtime_v01623.diff",
+      "scope": "Only parent-approved numeric expected formula uses the policy API. Assertions and fixture scope retained."
+    }
+  ],
+  "scope": "Initial parent-approved numeric expected expressions only. Later native C3 fixture change is separately recorded in APPROVED_NATIVE_C3_FIXTURE.json.",
+  "laterFixtureRecord": "APPROVED_NATIVE_C3_FIXTURE.json"
+}

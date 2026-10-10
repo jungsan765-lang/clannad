@@ -1,0 +1,3288 @@
+{
+  "method": "Formula-derived from saved after-HP using source/runtime.js innRecoveryQuote; no BUY, travel or food acquisition was executed. Mond stock base120 and Liyue140 were confirmed in frozen native VM. Price assumes the corresponding regional inn and the same current party.",
+  "formula": "ceil(20*base/120)+sum(ceil(4*individualLevel*individualLostHP*base/(120*individualMaxHP)))",
+  "limits": "No recovery purchase is necessary merely because this estimate exists. Player may use food, healing in another fight or tolerate injury. Defeated cases are excluded. Settlement protagonist revive is included in saved HP and combat KO remains separately recorded.",
+  "quotes": [
+    {
+      "set": "final_product2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 2471,
+          "maxHp": 4749,
+          "lostHp": 2278,
+          "recoveryCost": 48
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 3339,
+          "maxHp": 5168,
+          "lostHp": 1829,
+          "recoveryCost": 36
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 2190,
+          "maxHp": 4958,
+          "lostHp": 2768,
+          "recoveryCost": 56
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 25,
+          "hp": 4541,
+          "maxHp": 5028,
+          "lostHp": 487,
+          "recoveryCost": 10
+        }
+      ],
+      "cost": 170
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 4242,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 3498,
+          "maxHp": 4749,
+          "lostHp": 1251,
+          "recoveryCost": 27
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 1394,
+          "maxHp": 5168,
+          "lostHp": 3774,
+          "recoveryCost": 74
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 2604,
+          "maxHp": 4958,
+          "lostHp": 2354,
+          "recoveryCost": 48
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 25,
+          "hp": 3207,
+          "maxHp": 5028,
+          "lostHp": 1821,
+          "recoveryCost": 37
+        }
+      ],
+      "cost": 206
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 9031,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 4591,
+          "maxHp": 4749,
+          "lostHp": 158,
+          "recoveryCost": 4
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 3147,
+          "maxHp": 5168,
+          "lostHp": 2021,
+          "recoveryCost": 40
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 345,
+          "maxHp": 4958,
+          "lostHp": 4613,
+          "recoveryCost": 94
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 25,
+          "hp": 2148,
+          "maxHp": 5028,
+          "lostHp": 2880,
+          "recoveryCost": 58
+        }
+      ],
+      "cost": 216
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 2471,
+          "maxHp": 4749,
+          "lostHp": 2278,
+          "recoveryCost": 48
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 3339,
+          "maxHp": 5168,
+          "lostHp": 1829,
+          "recoveryCost": 36
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 2190,
+          "maxHp": 4958,
+          "lostHp": 2768,
+          "recoveryCost": 56
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 25,
+          "hp": 4541,
+          "maxHp": 5028,
+          "lostHp": 487,
+          "recoveryCost": 10
+        }
+      ],
+      "cost": 170
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 3498,
+          "maxHp": 4749,
+          "lostHp": 1251,
+          "recoveryCost": 27
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 1394,
+          "maxHp": 5168,
+          "lostHp": 3774,
+          "recoveryCost": 74
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 2604,
+          "maxHp": 4958,
+          "lostHp": 2354,
+          "recoveryCost": 48
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 25,
+          "hp": 3207,
+          "maxHp": 5028,
+          "lostHp": 1821,
+          "recoveryCost": 37
+        }
+      ],
+      "cost": 206
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 4591,
+          "maxHp": 4749,
+          "lostHp": 158,
+          "recoveryCost": 4
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 25,
+          "hp": 3147,
+          "maxHp": 5168,
+          "lostHp": 2021,
+          "recoveryCost": 40
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 25,
+          "hp": 345,
+          "maxHp": 4958,
+          "lostHp": 4613,
+          "recoveryCost": 94
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 25,
+          "hp": 2148,
+          "maxHp": 5028,
+          "lostHp": 2880,
+          "recoveryCost": 58
+        }
+      ],
+      "cost": 216
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 4242,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 25,
+          "hp": 8923,
+          "maxHp": 10686,
+          "lostHp": 1763,
+          "recoveryCost": 17
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 499,
+          "maxHp": 7166,
+          "lostHp": 6667,
+          "recoveryCost": 94
+        }
+      ],
+      "cost": 321
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 9031,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 25,
+          "hp": 6065,
+          "maxHp": 10686,
+          "lostHp": 4621,
+          "recoveryCost": 44
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 414,
+          "maxHp": 7166,
+          "lostHp": 6752,
+          "recoveryCost": 95
+        }
+      ],
+      "cost": 349
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 25,
+          "hp": 8923,
+          "maxHp": 10686,
+          "lostHp": 1763,
+          "recoveryCost": 17
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 499,
+          "maxHp": 7166,
+          "lostHp": 6667,
+          "recoveryCost": 94
+        }
+      ],
+      "cost": 321
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 25,
+          "hp": 6065,
+          "maxHp": 10686,
+          "lostHp": 4621,
+          "recoveryCost": 44
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 414,
+          "maxHp": 7166,
+          "lostHp": 6752,
+          "recoveryCost": 95
+        }
+      ],
+      "cost": 349
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_DVALIN",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 28,
+          "hp": 5301,
+          "maxHp": 5301,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 28,
+          "hp": 4741,
+          "maxHp": 5774,
+          "lostHp": 1033,
+          "recoveryCost": 21
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 28,
+          "hp": 3966,
+          "maxHp": 5537,
+          "lostHp": 1571,
+          "recoveryCost": 32
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 28,
+          "hp": 3491,
+          "maxHp": 5617,
+          "lostHp": 2126,
+          "recoveryCost": 43
+        }
+      ],
+      "cost": 116
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_DVALIN",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 28,
+          "hp": 4283,
+          "maxHp": 5301,
+          "lostHp": 1018,
+          "recoveryCost": 22
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 28,
+          "hp": 5060,
+          "maxHp": 5774,
+          "lostHp": 714,
+          "recoveryCost": 14
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 28,
+          "hp": 4401,
+          "maxHp": 5537,
+          "lostHp": 1136,
+          "recoveryCost": 23
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 28,
+          "hp": 4654,
+          "maxHp": 5617,
+          "lostHp": 963,
+          "recoveryCost": 20
+        }
+      ],
+      "cost": 99
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_DVALIN",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 28,
+          "hp": 5301,
+          "maxHp": 5301,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 28,
+          "hp": 4761,
+          "maxHp": 5774,
+          "lostHp": 1013,
+          "recoveryCost": 20
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 28,
+          "hp": 4712,
+          "maxHp": 5537,
+          "lostHp": 825,
+          "recoveryCost": 17
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 28,
+          "hp": 3776,
+          "maxHp": 5617,
+          "lostHp": 1841,
+          "recoveryCost": 37
+        }
+      ],
+      "cost": 94
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_DVALIN",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 28,
+          "hp": 3656,
+          "maxHp": 5301,
+          "lostHp": 1645,
+          "recoveryCost": 35
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 28,
+          "hp": 10677,
+          "maxHp": 12012,
+          "lostHp": 1335,
+          "recoveryCost": 13
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 28,
+          "hp": 1190,
+          "maxHp": 8028,
+          "lostHp": 6838,
+          "recoveryCost": 96
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 28,
+          "hp": 1236,
+          "maxHp": 8028,
+          "lostHp": 6792,
+          "recoveryCost": 95
+        }
+      ],
+      "cost": 259
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_DVALIN",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 28,
+          "hp": 2286,
+          "maxHp": 5301,
+          "lostHp": 3015,
+          "recoveryCost": 64
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 28,
+          "hp": 10482,
+          "maxHp": 12012,
+          "lostHp": 1530,
+          "recoveryCost": 15
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 28,
+          "hp": 728,
+          "maxHp": 8028,
+          "lostHp": 7300,
+          "recoveryCost": 102
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 28,
+          "hp": 3682,
+          "maxHp": 8028,
+          "lostHp": 4346,
+          "recoveryCost": 61
+        }
+      ],
+      "cost": 262
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_DVALIN",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 28,
+          "hp": 1255,
+          "maxHp": 5301,
+          "lostHp": 4046,
+          "recoveryCost": 86
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 28,
+          "hp": 10030,
+          "maxHp": 12012,
+          "lostHp": 1982,
+          "recoveryCost": 19
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 28,
+          "hp": 0,
+          "maxHp": 8028,
+          "lostHp": 8028,
+          "recoveryCost": 112
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 28,
+          "hp": 3655,
+          "maxHp": 8028,
+          "lostHp": 4373,
+          "recoveryCost": 62
+        }
+      ],
+      "cost": 299
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 1269,
+          "maxHp": 12690,
+          "lostHp": 11421,
+          "recoveryCost": 210
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 50,
+          "hp": 9753,
+          "maxHp": 13889,
+          "lostHp": 4136,
+          "recoveryCost": 70
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 50,
+          "hp": 11235,
+          "maxHp": 15086,
+          "lostHp": 3851,
+          "recoveryCost": 60
+        },
+        {
+          "owner": "MOND_DAHLIA",
+          "level": 50,
+          "hp": 14088,
+          "maxHp": 14088,
+          "lostHp": 0,
+          "recoveryCost": 0
+        }
+      ],
+      "cost": 364
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "seed": 4242,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 7534,
+          "maxHp": 12690,
+          "lostHp": 5156,
+          "recoveryCost": 95
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 50,
+          "hp": 13889,
+          "maxHp": 13889,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 50,
+          "hp": 3020,
+          "maxHp": 15086,
+          "lostHp": 12066,
+          "recoveryCost": 187
+        },
+        {
+          "owner": "MOND_DAHLIA",
+          "level": 50,
+          "hp": 14088,
+          "maxHp": 14088,
+          "lostHp": 0,
+          "recoveryCost": 0
+        }
+      ],
+      "cost": 306
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "seed": 9031,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DAHLIA"
+      ],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 7245,
+          "maxHp": 12690,
+          "lostHp": 5445,
+          "recoveryCost": 101
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 50,
+          "hp": 12261,
+          "maxHp": 13889,
+          "lostHp": 1628,
+          "recoveryCost": 28
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 50,
+          "hp": 13224,
+          "maxHp": 15086,
+          "lostHp": 1862,
+          "recoveryCost": 29
+        },
+        {
+          "owner": "MOND_DAHLIA",
+          "level": 50,
+          "hp": 0,
+          "maxHp": 14088,
+          "lostHp": 14088,
+          "recoveryCost": 234
+        }
+      ],
+      "cost": 416
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 1269,
+          "maxHp": 12690,
+          "lostHp": 11421,
+          "recoveryCost": 210
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 50,
+          "hp": 9753,
+          "maxHp": 13889,
+          "lostHp": 4136,
+          "recoveryCost": 70
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 50,
+          "hp": 11235,
+          "maxHp": 15086,
+          "lostHp": 3851,
+          "recoveryCost": 60
+        },
+        {
+          "owner": "MOND_DAHLIA",
+          "level": 50,
+          "hp": 14088,
+          "maxHp": 14088,
+          "lostHp": 0,
+          "recoveryCost": 0
+        }
+      ],
+      "cost": 364
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 7534,
+          "maxHp": 12690,
+          "lostHp": 5156,
+          "recoveryCost": 95
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 50,
+          "hp": 13889,
+          "maxHp": 13889,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 50,
+          "hp": 3020,
+          "maxHp": 15086,
+          "lostHp": 12066,
+          "recoveryCost": 187
+        },
+        {
+          "owner": "MOND_DAHLIA",
+          "level": 50,
+          "hp": 14088,
+          "maxHp": 14088,
+          "lostHp": 0,
+          "recoveryCost": 0
+        }
+      ],
+      "cost": 306
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DAHLIA"
+      ],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 7245,
+          "maxHp": 12690,
+          "lostHp": 5445,
+          "recoveryCost": 101
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 50,
+          "hp": 12261,
+          "maxHp": 13889,
+          "lostHp": 1628,
+          "recoveryCost": 28
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 50,
+          "hp": 13224,
+          "maxHp": 15086,
+          "lostHp": 1862,
+          "recoveryCost": 29
+        },
+        {
+          "owner": "MOND_DAHLIA",
+          "level": 50,
+          "hp": 0,
+          "maxHp": 14088,
+          "lostHp": 14088,
+          "recoveryCost": 234
+        }
+      ],
+      "cost": 416
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 11237,
+          "maxHp": 12690,
+          "lostHp": 1453,
+          "recoveryCost": 27
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 20985,
+          "maxHp": 31556,
+          "lostHp": 10571,
+          "recoveryCost": 79
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 7134,
+          "maxHp": 20798,
+          "lostHp": 13664,
+          "recoveryCost": 154
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 50,
+          "hp": 20798,
+          "maxHp": 20798,
+          "lostHp": 0,
+          "recoveryCost": 0
+        }
+      ],
+      "cost": 284
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 4242,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 1269,
+          "maxHp": 12690,
+          "lostHp": 11421,
+          "recoveryCost": 210
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 28043,
+          "maxHp": 31556,
+          "lostHp": 3513,
+          "recoveryCost": 26
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 6736,
+          "maxHp": 20798,
+          "lostHp": 14062,
+          "recoveryCost": 158
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 50,
+          "hp": 12993,
+          "maxHp": 20798,
+          "lostHp": 7805,
+          "recoveryCost": 88
+        }
+      ],
+      "cost": 506
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 9031,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 5810,
+          "maxHp": 12690,
+          "lostHp": 6880,
+          "recoveryCost": 127
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 24413,
+          "maxHp": 31556,
+          "lostHp": 7143,
+          "recoveryCost": 53
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 13717,
+          "maxHp": 20798,
+          "lostHp": 7081,
+          "recoveryCost": 80
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 50,
+          "hp": 20493,
+          "maxHp": 20798,
+          "lostHp": 305,
+          "recoveryCost": 4
+        }
+      ],
+      "cost": 288
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 11237,
+          "maxHp": 12690,
+          "lostHp": 1453,
+          "recoveryCost": 27
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 20985,
+          "maxHp": 31556,
+          "lostHp": 10571,
+          "recoveryCost": 79
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 7134,
+          "maxHp": 20798,
+          "lostHp": 13664,
+          "recoveryCost": 154
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 50,
+          "hp": 20798,
+          "maxHp": 20798,
+          "lostHp": 0,
+          "recoveryCost": 0
+        }
+      ],
+      "cost": 284
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 1269,
+          "maxHp": 12690,
+          "lostHp": 11421,
+          "recoveryCost": 210
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 30672,
+          "maxHp": 31556,
+          "lostHp": 884,
+          "recoveryCost": 7
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 11543,
+          "maxHp": 20798,
+          "lostHp": 9255,
+          "recoveryCost": 104
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 50,
+          "hp": 9597,
+          "maxHp": 20798,
+          "lostHp": 11201,
+          "recoveryCost": 126
+        }
+      ],
+      "cost": 471
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 5810,
+          "maxHp": 12690,
+          "lostHp": 6880,
+          "recoveryCost": 127
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 24413,
+          "maxHp": 31556,
+          "lostHp": 7143,
+          "recoveryCost": 53
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 13717,
+          "maxHp": 20798,
+          "lostHp": 7081,
+          "recoveryCost": 80
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 50,
+          "hp": 20493,
+          "maxHp": 20798,
+          "lostHp": 305,
+          "recoveryCost": 4
+        }
+      ],
+      "cost": 288
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 11499,
+          "maxHp": 19235,
+          "lostHp": 7736,
+          "recoveryCost": 113
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 10945,
+          "maxHp": 21074,
+          "lostHp": 10129,
+          "recoveryCost": 135
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 60,
+          "hp": 13380,
+          "maxHp": 22912,
+          "lostHp": 9532,
+          "recoveryCost": 117
+        },
+        {
+          "owner": "MOND_DAHLIA",
+          "level": 60,
+          "hp": 15179,
+          "maxHp": 21380,
+          "lostHp": 6201,
+          "recoveryCost": 82
+        }
+      ],
+      "cost": 471
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "seed": 9031,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 10762,
+          "maxHp": 19235,
+          "lostHp": 8473,
+          "recoveryCost": 124
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 7525,
+          "maxHp": 21074,
+          "lostHp": 13549,
+          "recoveryCost": 181
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 60,
+          "hp": 10930,
+          "maxHp": 22912,
+          "lostHp": 11982,
+          "recoveryCost": 147
+        },
+        {
+          "owner": "MOND_DAHLIA",
+          "level": 60,
+          "hp": 13987,
+          "maxHp": 21380,
+          "lostHp": 7393,
+          "recoveryCost": 97
+        }
+      ],
+      "cost": 573
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 11499,
+          "maxHp": 19235,
+          "lostHp": 7736,
+          "recoveryCost": 113
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 10945,
+          "maxHp": 21074,
+          "lostHp": 10129,
+          "recoveryCost": 135
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 60,
+          "hp": 13380,
+          "maxHp": 22912,
+          "lostHp": 9532,
+          "recoveryCost": 117
+        },
+        {
+          "owner": "MOND_DAHLIA",
+          "level": 60,
+          "hp": 15179,
+          "maxHp": 21380,
+          "lostHp": 6201,
+          "recoveryCost": 82
+        }
+      ],
+      "cost": 471
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FOUR_C6",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 13044,
+          "maxHp": 19235,
+          "lostHp": 6191,
+          "recoveryCost": 91
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 5783,
+          "maxHp": 21074,
+          "lostHp": 15291,
+          "recoveryCost": 204
+        },
+        {
+          "owner": "MOND_BENNETT",
+          "level": 60,
+          "hp": 15220,
+          "maxHp": 22912,
+          "lostHp": 7692,
+          "recoveryCost": 95
+        },
+        {
+          "owner": "MOND_DAHLIA",
+          "level": 60,
+          "hp": 11981,
+          "maxHp": 21380,
+          "lostHp": 9399,
+          "recoveryCost": 124
+        }
+      ],
+      "cost": 538
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 1924,
+          "maxHp": 19235,
+          "lostHp": 17311,
+          "recoveryCost": 252
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 46176,
+          "maxHp": 50149,
+          "lostHp": 3973,
+          "recoveryCost": 23
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 23231,
+          "maxHp": 32947,
+          "lostHp": 9716,
+          "recoveryCost": 83
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 22425,
+          "maxHp": 32947,
+          "lostHp": 10522,
+          "recoveryCost": 90
+        }
+      ],
+      "cost": 472
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 4242,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 5135,
+          "maxHp": 19235,
+          "lostHp": 14100,
+          "recoveryCost": 206
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 47594,
+          "maxHp": 50149,
+          "lostHp": 2555,
+          "recoveryCost": 15
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 24543,
+          "maxHp": 32947,
+          "lostHp": 8404,
+          "recoveryCost": 72
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 24754,
+          "maxHp": 32947,
+          "lostHp": 8193,
+          "recoveryCost": 70
+        }
+      ],
+      "cost": 387
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 9031,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 5839,
+          "maxHp": 19235,
+          "lostHp": 13396,
+          "recoveryCost": 196
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 49509,
+          "maxHp": 50149,
+          "lostHp": 640,
+          "recoveryCost": 4
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 25756,
+          "maxHp": 32947,
+          "lostHp": 7191,
+          "recoveryCost": 62
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 28557,
+          "maxHp": 32947,
+          "lostHp": 4390,
+          "recoveryCost": 38
+        }
+      ],
+      "cost": 324
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 6703,
+          "maxHp": 19235,
+          "lostHp": 12532,
+          "recoveryCost": 183
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 46168,
+          "maxHp": 50149,
+          "lostHp": 3981,
+          "recoveryCost": 23
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 25921,
+          "maxHp": 32947,
+          "lostHp": 7026,
+          "recoveryCost": 60
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 24626,
+          "maxHp": 32947,
+          "lostHp": 8321,
+          "recoveryCost": 71
+        }
+      ],
+      "cost": 361
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 9727,
+          "maxHp": 19235,
+          "lostHp": 9508,
+          "recoveryCost": 139
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 50149,
+          "maxHp": 50149,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 23853,
+          "maxHp": 32947,
+          "lostHp": 9094,
+          "recoveryCost": 78
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 21619,
+          "maxHp": 32947,
+          "lostHp": 11328,
+          "recoveryCost": 97
+        }
+      ],
+      "cost": 338
+    },
+    {
+      "set": "final_product2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 8109,
+          "maxHp": 19235,
+          "lostHp": 11126,
+          "recoveryCost": 162
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 49666,
+          "maxHp": 50149,
+          "lostHp": 483,
+          "recoveryCost": 3
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 22971,
+          "maxHp": 32947,
+          "lostHp": 9976,
+          "recoveryCost": 85
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 60,
+          "hp": 24873,
+          "maxHp": 32947,
+          "lostHp": 8074,
+          "recoveryCost": 69
+        }
+      ],
+      "cost": 343
+    },
+    {
+      "set": "first_essence_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C0",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8649,
+          "maxHp": 8649,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 40,
+          "hp": 8973,
+          "maxHp": 9459,
+          "lostHp": 486,
+          "recoveryCost": 9
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 40,
+          "hp": 8343,
+          "maxHp": 9055,
+          "lostHp": 712,
+          "recoveryCost": 13
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 40,
+          "hp": 8514,
+          "maxHp": 9189,
+          "lostHp": 675,
+          "recoveryCost": 12
+        }
+      ],
+      "cost": 54
+    },
+    {
+      "set": "first_essence_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C0",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8119,
+          "maxHp": 8649,
+          "lostHp": 530,
+          "recoveryCost": 10
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 40,
+          "hp": 9459,
+          "maxHp": 9459,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 40,
+          "hp": 8667,
+          "maxHp": 9055,
+          "lostHp": 388,
+          "recoveryCost": 7
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 40,
+          "hp": 8348,
+          "maxHp": 9189,
+          "lostHp": 841,
+          "recoveryCost": 15
+        }
+      ],
+      "cost": 52
+    },
+    {
+      "set": "first_essence_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FOUR_C0",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 7758,
+          "maxHp": 8649,
+          "lostHp": 891,
+          "recoveryCost": 17
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 40,
+          "hp": 8939,
+          "maxHp": 9459,
+          "lostHp": 520,
+          "recoveryCost": 9
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 40,
+          "hp": 9055,
+          "maxHp": 9055,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 40,
+          "hp": 8482,
+          "maxHp": 9189,
+          "lostHp": 707,
+          "recoveryCost": 13
+        }
+      ],
+      "cost": 59
+    },
+    {
+      "set": "first_essence_final2",
+      "boss": "BOSS_DVALIN",
+      "investment": "FOUR_C0",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8007,
+          "maxHp": 8649,
+          "lostHp": 642,
+          "recoveryCost": 12
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 40,
+          "hp": 8023,
+          "maxHp": 9459,
+          "lostHp": 1436,
+          "recoveryCost": 25
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 40,
+          "hp": 9055,
+          "maxHp": 9055,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 40,
+          "hp": 7798,
+          "maxHp": 9189,
+          "lostHp": 1391,
+          "recoveryCost": 25
+        }
+      ],
+      "cost": 82
+    },
+    {
+      "set": "first_essence_final2",
+      "boss": "BOSS_DVALIN",
+      "investment": "FOUR_C0",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 8649,
+          "maxHp": 8649,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 40,
+          "hp": 6366,
+          "maxHp": 9459,
+          "lostHp": 3093,
+          "recoveryCost": 53
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 40,
+          "hp": 8990,
+          "maxHp": 9055,
+          "lostHp": 65,
+          "recoveryCost": 2
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 40,
+          "hp": 7036,
+          "maxHp": 9189,
+          "lostHp": 2153,
+          "recoveryCost": 38
+        }
+      ],
+      "cost": 113
+    },
+    {
+      "set": "first_essence_final2",
+      "boss": "BOSS_DVALIN",
+      "investment": "FOUR_C0",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 40,
+          "hp": 6403,
+          "maxHp": 8649,
+          "lostHp": 2246,
+          "recoveryCost": 42
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 40,
+          "hp": 7996,
+          "maxHp": 9459,
+          "lostHp": 1463,
+          "recoveryCost": 25
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 40,
+          "hp": 9055,
+          "maxHp": 9055,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "MOND_DIONA",
+          "level": 40,
+          "hp": 7775,
+          "maxHp": 9189,
+          "lostHp": 1414,
+          "recoveryCost": 25
+        }
+      ],
+      "cost": 112
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 25,
+          "hp": 8937,
+          "maxHp": 10686,
+          "lostHp": 1749,
+          "recoveryCost": 17
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 1396,
+          "maxHp": 7166,
+          "lostHp": 5770,
+          "recoveryCost": 81
+        }
+      ],
+      "cost": 308
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_KEQING",
+          "level": 25,
+          "hp": 1694,
+          "maxHp": 6565,
+          "lostHp": 4871,
+          "recoveryCost": 75
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 791,
+          "maxHp": 7166,
+          "lostHp": 6375,
+          "recoveryCost": 89
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        }
+      ],
+      "cost": 374
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_MONA",
+          "level": 25,
+          "hp": 1358,
+          "maxHp": 5966,
+          "lostHp": 4608,
+          "recoveryCost": 78
+        },
+        {
+          "owner": "LIYUE_QIQI",
+          "level": 25,
+          "hp": 1007,
+          "maxHp": 7166,
+          "lostHp": 6159,
+          "recoveryCost": 86
+        }
+      ],
+      "cost": 374
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 4242,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 25,
+          "hp": 8602,
+          "maxHp": 10686,
+          "lostHp": 2084,
+          "recoveryCost": 20
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        }
+      ],
+      "cost": 330
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 9031,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "LIYUE_KEQING",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_KEQING",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 6565,
+          "lostHp": 6565,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 1474,
+          "maxHp": 7166,
+          "lostHp": 5692,
+          "recoveryCost": 80
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 1650,
+          "maxHp": 7166,
+          "lostHp": 5516,
+          "recoveryCost": 77
+        }
+      ],
+      "cost": 367
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 25,
+          "hp": 8937,
+          "maxHp": 10686,
+          "lostHp": 1749,
+          "recoveryCost": 17
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 1396,
+          "maxHp": 7166,
+          "lostHp": 5770,
+          "recoveryCost": 81
+        }
+      ],
+      "cost": 308
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_KEQING",
+          "level": 25,
+          "hp": 1312,
+          "maxHp": 6565,
+          "lostHp": 5253,
+          "recoveryCost": 81
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 1708,
+          "maxHp": 7166,
+          "lostHp": 5458,
+          "recoveryCost": 77
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        }
+      ],
+      "cost": 368
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "MOND_DILUC",
+        "MOND_MONA",
+        "LIYUE_QIQI"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_MONA",
+          "level": 25,
+          "hp": 1358,
+          "maxHp": 5966,
+          "lostHp": 4608,
+          "recoveryCost": 78
+        },
+        {
+          "owner": "LIYUE_QIQI",
+          "level": 25,
+          "hp": 1007,
+          "maxHp": 7166,
+          "lostHp": 6159,
+          "recoveryCost": 86
+        }
+      ],
+      "cost": 374
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 25,
+          "hp": 8602,
+          "maxHp": 10686,
+          "lostHp": 2084,
+          "recoveryCost": 20
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        }
+      ],
+      "cost": 330
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 4242,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "LIYUE_KEQING",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_KEQING",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 6565,
+          "lostHp": 6565,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 722,
+          "maxHp": 7166,
+          "lostHp": 6444,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 7166,
+          "lostHp": 7166,
+          "recoveryCost": 100
+        }
+      ],
+      "cost": 400
+    },
+    {
+      "set": "wolf_alternates_final2",
+      "boss": "BOSS_ANDRIUS",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "seed": 9031,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "LIYUE_KEQING",
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 120,
+      "roomCost": 20,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 25,
+          "hp": 475,
+          "maxHp": 4749,
+          "lostHp": 4274,
+          "recoveryCost": 90
+        },
+        {
+          "owner": "LIYUE_KEQING",
+          "level": 25,
+          "hp": 0,
+          "maxHp": 6565,
+          "lostHp": 6565,
+          "recoveryCost": 100
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 25,
+          "hp": 1003,
+          "maxHp": 7166,
+          "lostHp": 6163,
+          "recoveryCost": 87
+        },
+        {
+          "owner": "MOND_JEAN",
+          "level": 25,
+          "hp": 519,
+          "maxHp": 7166,
+          "lostHp": 6647,
+          "recoveryCost": 93
+        }
+      ],
+      "cost": 390
+    },
+    {
+      "set": "healer_swap_final2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_BAIZHU"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 11475,
+          "maxHp": 12690,
+          "lostHp": 1215,
+          "recoveryCost": 23
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 22722,
+          "maxHp": 31556,
+          "lostHp": 8834,
+          "recoveryCost": 66
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 6560,
+          "maxHp": 20798,
+          "lostHp": 14238,
+          "recoveryCost": 160
+        },
+        {
+          "owner": "LIYUE_BAIZHU",
+          "level": 50,
+          "hp": 19222,
+          "maxHp": 19222,
+          "lostHp": 0,
+          "recoveryCost": 0
+        }
+      ],
+      "cost": 273
+    },
+    {
+      "set": "healer_swap_final2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_XIANYUN"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 12690,
+          "maxHp": 12690,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 27764,
+          "maxHp": 31556,
+          "lostHp": 3792,
+          "recoveryCost": 29
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 10569,
+          "maxHp": 20798,
+          "lostHp": 10229,
+          "recoveryCost": 115
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 50,
+          "hp": 18351,
+          "maxHp": 25425,
+          "lostHp": 7074,
+          "recoveryCost": 65
+        }
+      ],
+      "cost": 233
+    },
+    {
+      "set": "healer_swap_final2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_BAIZHU"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 11475,
+          "maxHp": 12690,
+          "lostHp": 1215,
+          "recoveryCost": 23
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 22722,
+          "maxHp": 31556,
+          "lostHp": 8834,
+          "recoveryCost": 66
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 6560,
+          "maxHp": 20798,
+          "lostHp": 14238,
+          "recoveryCost": 160
+        },
+        {
+          "owner": "LIYUE_BAIZHU",
+          "level": 50,
+          "hp": 19222,
+          "maxHp": 19222,
+          "lostHp": 0,
+          "recoveryCost": 0
+        }
+      ],
+      "cost": 273
+    },
+    {
+      "set": "healer_swap_final2",
+      "boss": "BOSS_TARTAGLIA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_XIANYUN"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 50,
+          "hp": 12690,
+          "maxHp": 12690,
+          "lostHp": 0,
+          "recoveryCost": 0
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 50,
+          "hp": 27764,
+          "maxHp": 31556,
+          "lostHp": 3792,
+          "recoveryCost": 29
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 50,
+          "hp": 10569,
+          "maxHp": 20798,
+          "lostHp": 10229,
+          "recoveryCost": 115
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 50,
+          "hp": 18351,
+          "maxHp": 25425,
+          "lostHp": 7074,
+          "recoveryCost": 65
+        }
+      ],
+      "cost": 233
+    },
+    {
+      "set": "healer_swap_final2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_BAIZHU"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 9779,
+          "maxHp": 19235,
+          "lostHp": 9456,
+          "recoveryCost": 138
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 48034,
+          "maxHp": 50149,
+          "lostHp": 2115,
+          "recoveryCost": 12
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 29857,
+          "maxHp": 32947,
+          "lostHp": 3090,
+          "recoveryCost": 27
+        },
+        {
+          "owner": "LIYUE_BAIZHU",
+          "level": 60,
+          "hp": 22087,
+          "maxHp": 30432,
+          "lostHp": 8345,
+          "recoveryCost": 77
+        }
+      ],
+      "cost": 278
+    },
+    {
+      "set": "healer_swap_final2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_XIANYUN"
+      ],
+      "seed": 717,
+      "strategy": "REPEAT_QE",
+      "postSettlementHp": true,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 1924,
+          "maxHp": 19235,
+          "lostHp": 17311,
+          "recoveryCost": 252
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 45963,
+          "maxHp": 50149,
+          "lostHp": 4186,
+          "recoveryCost": 24
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 26002,
+          "maxHp": 32947,
+          "lostHp": 6945,
+          "recoveryCost": 60
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 60,
+          "hp": 32845,
+          "maxHp": 40348,
+          "lostHp": 7503,
+          "recoveryCost": 53
+        }
+      ],
+      "cost": 413
+    },
+    {
+      "set": "healer_swap_final2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_BAIZHU"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 10499,
+          "maxHp": 19235,
+          "lostHp": 8736,
+          "recoveryCost": 128
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 48249,
+          "maxHp": 50149,
+          "lostHp": 1900,
+          "recoveryCost": 11
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 30372,
+          "maxHp": 32947,
+          "lostHp": 2575,
+          "recoveryCost": 22
+        },
+        {
+          "owner": "LIYUE_BAIZHU",
+          "level": 60,
+          "hp": 21866,
+          "maxHp": 30432,
+          "lostHp": 8566,
+          "recoveryCost": 79
+        }
+      ],
+      "cost": 264
+    },
+    {
+      "set": "healer_swap_final2",
+      "boss": "BOSS_AZHDAHA",
+      "investment": "FIVE_C0",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "LIYUE_XIANYUN"
+      ],
+      "seed": 717,
+      "strategy": "PREPARED",
+      "postSettlementHp": true,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "stockBase": 140,
+      "roomCost": 24,
+      "targets": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 60,
+          "hp": 1924,
+          "maxHp": 19235,
+          "lostHp": 17311,
+          "recoveryCost": 252
+        },
+        {
+          "owner": "LIYUE_ZHONGLI",
+          "level": 60,
+          "hp": 45963,
+          "maxHp": 50149,
+          "lostHp": 4186,
+          "recoveryCost": 24
+        },
+        {
+          "owner": "MOND_DILUC",
+          "level": 60,
+          "hp": 26002,
+          "maxHp": 32947,
+          "lostHp": 6945,
+          "recoveryCost": 60
+        },
+        {
+          "owner": "LIYUE_XIANYUN",
+          "level": 60,
+          "hp": 32845,
+          "maxHp": 40348,
+          "lostHp": 7503,
+          "recoveryCost": 53
+        }
+      ],
+      "cost": 413
+    }
+  ]
+}

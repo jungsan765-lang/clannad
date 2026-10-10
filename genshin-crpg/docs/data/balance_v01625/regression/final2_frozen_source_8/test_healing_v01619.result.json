@@ -1,0 +1,28 @@
+{
+  "test": "tests/test_healing_v01619.cjs",
+  "command": [
+    "node",
+    "tests/test_healing_v01619.cjs"
+  ],
+  "startedAt": "2026-10-10T10:25:59.219184+00:00",
+  "endedAt": "2026-10-10T10:26:22.387522+00:00",
+  "seconds": 22.869,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "tests/test_character_balance_v01625.cjs": {
+      "before": "ba4fb8172931fc4b3896b045753d8313280cd47665efa06521592eb9b5a24b06",
+      "after": "3a2da29b8c954510617bb30682eb67167aae2321f94cbae91345b86fad9dea0f"
+    },
+    "tools/audit_balance_engines_v01625.cjs": {
+      "before": "4a9ab5613754c256415834062e06fc6436eeb0d475f1a0293a5a8b4ef4a8e5be",
+      "after": "f036de398b7afb35aca8f78bda01d117439b9dcf39dd838a23c70a43d3444248"
+    }
+  },
+  "testSha256": "82c8882b627748a37673af563414628a2013d9f1d19244f24b7f4ee0fdea4cd9",
+  "generatedEngineSha256": "94a45732beb168ec16b394403aeb54486cbd34af299bf24bc78ed8dd77600dd4",
+  "stdoutSha256": "d78fd750c086aaec0928cbf9c9a549fd9a469728d0ce8b8c7f4b1d736499fc16",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_healing_v01619.stdout.log",
+  "stderrLog": "test_healing_v01619.stderr.log"
+}

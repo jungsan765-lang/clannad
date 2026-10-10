@@ -1,0 +1,21 @@
+{
+  "totalFilesChecked": 244,
+  "runtimeAndQaDbDrift": [],
+  "nonRuntimeMetadataChanges": [
+    {
+      "file": "content/release-notes.json",
+      "before": "bedad77aee4c6c0538e69a065d706fe15fed60375a08ea4fde0b22c7d45b0ede",
+      "after": "e68190477f13eb78651e2e47f977b0f7098ef5bcf2e711f222bc0ebac9fb1cc3"
+    }
+  ],
+  "finalFrozenSourceSHA256": {
+    "source/runtime_combat.js": "00e7257c98ab788b9eb8c3ca15783d45441f9869d83b1430b420b4dfdf339125",
+    "source/runtime_liyue_cards.js": "e0f10bb88666c9247b33345f9bca3bc51ce5893b1f3c16eae4db3a81340c1a39",
+    "source/runtime_constellations_v01411.js": "cd8297ea56598788b531102d1cc07cab956e6ce716ea1d69dbeb25031a87a19a",
+    "source/runtime_exclusive_weapons.js": "fb3a5580a1feefe0990f3520de15b70b711b7c69b4a3e6e732490c5f330c8649",
+    "source/runtime_skill_rhythm.js": "f7c92f32f6ae9206b71a7cba4df47665b471c6ea11adfb56cdbb08f243036485",
+    "source/runtime_balance_admin_v01623.js": "49df090970f8cacaf5614c4a0731100120b8cb763f8cca33e895f4b65b591f7b"
+  },
+  "rawFileDbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "explanation": "release-notes.json changed by release packaging during read-only execution; native harness does not load it. All source/runtime/helper/db inputs remained unchanged."
+}

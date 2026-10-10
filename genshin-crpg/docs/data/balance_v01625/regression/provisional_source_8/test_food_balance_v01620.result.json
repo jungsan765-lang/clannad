@@ -1,0 +1,24 @@
+{
+  "test": "tests/test_food_balance_v01620.cjs",
+  "command": [
+    "node",
+    "tests/test_food_balance_v01620.cjs"
+  ],
+  "startedAt": "2026-10-10T10:03:49.003841+00:00",
+  "endedAt": "2026-10-10T10:04:13.672875+00:00",
+  "seconds": 24.497,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {
+    "source/runtime_constellations_v01411.js": {
+      "before": "03e58d05dfde1847550d73d46aca73e4889e45265c30d523aa6764ee5936c147",
+      "after": "ea9f4e9f23bec718cea07acd0a62fb4e2461aa967f4aeff7c344eebf9cf9e28f"
+    }
+  },
+  "testSha256": "95f64f5c24008dc37d285b72a283c9e89ce7b7577304d20b139ec89825296316",
+  "generatedEngineSha256": "dfc165652b5b2b109f7b60bedcd661812c0762943bcd98945798e29b4ea082de",
+  "stdoutSha256": "37009c13a6df23e98130fe83f271f5eac6b1124514a8a0f7caee2313dfce007e",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_food_balance_v01620.stdout.log",
+  "stderrLog": "test_food_balance_v01620.stderr.log"
+}

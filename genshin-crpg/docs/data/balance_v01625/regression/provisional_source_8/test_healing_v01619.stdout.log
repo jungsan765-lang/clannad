@@ -1,0 +1,5 @@
+PASS new Jean field heals one lowest-HP living ally, once per END and two times total, after restore
+PASS new Barbara E keeps party healing on successful normal attacks, misses and dead allies excluded
+PASS serialized pre-patch Barbara E and Jean field retain old amounts and scope until they expire
+PASS Jean field stores its own healing amount and older focused saves retain their promised 3% plus 60
+PASS native skill rows and effect text show the same healing budget without rewriting the DB

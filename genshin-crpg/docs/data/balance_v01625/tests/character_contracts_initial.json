@@ -1,0 +1,282 @@
+{
+  "version": "0.16.25",
+  "scope": "Character-only new-battle revision, Zhongli/Jean effect and description contracts, existing constellation/admin multiplier behavior, genuine 0.16.24 PENDING/WAIT save and resumed-action preservation. Not natural acquisition or whole-combat balance proof.",
+  "fixturePolicy": "Owned Traveler/Zhongli/Jean/Amber, declared legal equal levels/phase/base talents, no equipment/artifacts, constellation level declared per case. Coefficient boundary probes call existing executeCard directly without turn scheduling; they do not force a victory or modify enemy stats, damage formulas or RNG. Genuine saved-fight probes use public daily admission and public player actions.",
+  "checks": [
+    {
+      "id": "verified_v01624_before_overlay_and_same_actual_db",
+      "passed": true,
+      "evidence": {
+        "files": {
+          "source/runtime_combat.js": "f02efdccfa9c751865ed6c563f7b10d72947d4f553614c5d2abf28622ede4473",
+          "source/runtime_liyue_cards.js": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94",
+          "source/runtime_constellations_v01411.js": "02bd074ba57da0d877f6ac6cd1c0f5b0f8b80420a9604963aa8d4e4d71d6dc7b",
+          "source/runtime_balance_admin_v01623.js": "34fe63170c899dd5d8702efa286d7296f7035beafae5e8d2fb46b27829e9e811",
+          "source/runtime_growth_v01522.js": "611503d487c25bb9b9b5f0a7fdc809cdb3c0526d56f9914194c93aa9379e4d81",
+          "source/runtime_skill_rhythm.js": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5",
+          "source/runtime_exclusive_weapons.js": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817"
+        },
+        "mode": "verified declared-source overlay and unchanged current modules",
+        "fingerprint": "840ef8955b08346d086de5b39ab87d918123ab4ce2dc0c292f080827fc4bafdc",
+        "currentFingerprint": "8de5cbac718b6539ce52ca22b0e503c483788f6d7ac44fc6d71c9fdc59d31054",
+        "dbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "recordedQADbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "matchesRecordedQA": true,
+        "requiresRecordedQA": true,
+        "caveat": "Default compares old/new against the same actual authored DB. Strict recorded QA additionally verifies the complete old engine fingerprint. No DB replacement."
+      }
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:0:PENDING",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at enterDaily (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:17:40)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:164\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:76)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:0:WAIT_PLAYER",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at enterDaily (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:17:40)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:164\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:76)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:2:PENDING",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at enterDaily (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:17:40)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:164\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:76)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:2:WAIT_PLAYER",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at enterDaily (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:17:40)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:164\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:76)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:6:PENDING",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at enterDaily (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:17:40)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:164\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:76)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "genuine_v01624_save_and_next_action_preserved:6:WAIT_PLAYER",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at enterDaily (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:17:40)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:164\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:25:76)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "new_and_legacy_character_budget_and_healing_contract",
+      "passed": true,
+      "evidence": {
+        "revision": 1,
+        "current": {
+          "zhongliShieldMultiplier": 0.3,
+          "zhongliQHpRatio": 0.18,
+          "zhongliSelfTaken": [
+            1,
+            0.5,
+            0.7,
+            0.85,
+            0.95,
+            1
+          ]
+        },
+        "legacy": {
+          "zhongliShieldMultiplier": 0.65,
+          "zhongliQHpRatio": 0.25,
+          "zhongliSelfTaken": [
+            0,
+            0,
+            0.5,
+            0.7,
+            0.9,
+            1
+          ]
+        },
+        "healing": {
+          "jeanQRatio": 0.035,
+          "jeanQFlat": 300,
+          "jeanFieldRatio": 0.02,
+          "jeanFieldFlat": 40,
+          "jeanFieldTicks": 2,
+          "barbaraQRatio": 0.04,
+          "barbaraQFlat": 250,
+          "barbaraERatio": 0.012,
+          "barbaraEFlat": 60,
+          "dionaFieldRatio": 0.02,
+          "dionaFieldFlat": 1200
+        },
+        "legacyHealing": {
+          "jeanQRatio": 0.05,
+          "jeanQFlat": 450,
+          "jeanFieldRatio": 0.03,
+          "jeanFieldFlat": 60,
+          "jeanFieldTicks": 2,
+          "barbaraQRatio": 0.04,
+          "barbaraQFlat": 250,
+          "barbaraERatio": 0.012,
+          "barbaraEFlat": 60,
+          "dionaFieldRatio": 0.02,
+          "dionaFieldFlat": 1200
+        }
+      }
+    },
+    {
+      "id": "new_revision_pending_started_save_and_native_guard_replay:0",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at enterDaily (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:17:40)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:27:117\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:27:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "new_revision_pending_started_save_and_native_guard_replay:2",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at enterDaily (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:17:40)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:27:117\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:27:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "new_revision_pending_started_save_and_native_guard_replay:6",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at enterDaily (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:17:40)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:27:117\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:27:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "new_character_revision_validation",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at enterDaily (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:17:40)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:28:74\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:28:2)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "description_script_effect_and_constellation_node_match:OUTSIDE_BATTLE",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:29:163\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:29:57)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    },
+    {
+      "id": "description_script_effect_and_constellation_node_match:NEW",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:29:189\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:29:57)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "description_script_effect_and_constellation_node_match:OLD_SAVED",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:29:228\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:29:57)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "zhongli_E_party_shield_native_coefficient:0",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:30:97\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:30:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "zhongli_E_party_shield_native_coefficient:2",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:30:97\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:30:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "zhongli_E_party_shield_native_coefficient:6",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:30:97\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:30:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "zhongli_Q_HP_addend_and_C2_shield_native_contract:0",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:31:105\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:31:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "zhongli_Q_HP_addend_and_C2_shield_native_contract:2",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:31:105\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:31:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "zhongli_Q_HP_addend_and_C2_shield_native_contract:6",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:31:105\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:31:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "jean_Q_party_heal_native_budget_and_recipient_count:0",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:32:107\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:32:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "jean_Q_party_heal_native_budget_and_recipient_count:2",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:32:107\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:32:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "jean_Q_party_heal_native_budget_and_recipient_count:6",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:32:107\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:32:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "jean_stored_field_save_lowest_target_two_END_only:0",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:33:110\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:33:26)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "jean_stored_field_save_lowest_target_two_END_only:6",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:33:110\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:33:26)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "Jean_C2_attack_speed_and_C6_field_reduction_preserved",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:34:77\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:34:2)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "Zhongli_C6_actual_absorbed_damage_heal_and_cap_preserved",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:35:80\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:35:2)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "zhongli_first_round_external_damage_is_reduced_not_immune_and_self_cost_unchanged",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at packets (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:36:125)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:36:575\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:36:2)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)"
+    },
+    {
+      "id": "admin_shield_multiplier_applies_once_to_E_and_C2:0",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:37:209\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:37:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "admin_shield_multiplier_applies_once_to_E_and_C2:2",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:37:209\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:37:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "admin_shield_multiplier_applies_once_to_E_and_C2:6",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:37:209\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:37:28)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)"
+    },
+    {
+      "id": "admin_Zhongli_Q_damage_multiplier_scales_HP_addend_once",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at run (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:38:199)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:38:414\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:38:2)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)"
+    },
+    {
+      "id": "admin_Jean_healing_multiplier_applies_once_instant_and_stored_field",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at run (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:39:208)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:39:600\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:39:2)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)"
+    },
+    {
+      "id": "Barbara_Diona_Noelle_base_effects_remain_native_unchanged",
+      "passed": false,
+      "error": "TypeError: Cannot set properties of undefined (setting 'LIYUE_ZHONGLI')\n    at prepare (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:15:435)\n    at arena (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:18:36)\n    at run (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:40:97)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:40:598\n    at check (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:10:42)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_character_balance_v01625.cjs:40:2)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)"
+    },
+    {
+      "id": "raw_shared_db_and_actual_file_are_unchanged",
+      "passed": true,
+      "evidence": {
+        "dbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+        "unchanged": true
+      }
+    }
+  ],
+  "baseline": {
+    "files": {
+      "source/runtime_combat.js": "f02efdccfa9c751865ed6c563f7b10d72947d4f553614c5d2abf28622ede4473",
+      "source/runtime_liyue_cards.js": "0f2dc3940bad31a03ab391afcbab3ff0f3291a9d61fa9a6a283d8f9dc702df94",
+      "source/runtime_constellations_v01411.js": "02bd074ba57da0d877f6ac6cd1c0f5b0f8b80420a9604963aa8d4e4d71d6dc7b",
+      "source/runtime_balance_admin_v01623.js": "34fe63170c899dd5d8702efa286d7296f7035beafae5e8d2fb46b27829e9e811",
+      "source/runtime_growth_v01522.js": "611503d487c25bb9b9b5f0a7fdc809cdb3c0526d56f9914194c93aa9379e4d81",
+      "source/runtime_skill_rhythm.js": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5",
+      "source/runtime_exclusive_weapons.js": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817"
+    },
+    "mode": "verified declared-source overlay and unchanged current modules",
+    "fingerprint": "840ef8955b08346d086de5b39ab87d918123ab4ce2dc0c292f080827fc4bafdc",
+    "currentFingerprint": "8de5cbac718b6539ce52ca22b0e503c483788f6d7ac44fc6d71c9fdc59d31054",
+    "dbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "recordedQADbSHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+    "matchesRecordedQA": true,
+    "requiresRecordedQA": true,
+    "caveat": "Default compares old/new against the same actual authored DB. Strict recorded QA additionally verifies the complete old engine fingerprint. No DB replacement."
+  },
+  "total": 36,
+  "passed": 3,
+  "failed": 33
+}

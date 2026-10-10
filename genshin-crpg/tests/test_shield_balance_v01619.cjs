@@ -7,7 +7,7 @@ function cast(r,a,id,t){const c=r.actorCards(a).find(c=>c.id===id);assert(c);ass
 const jade=a=>a.shields.find(s=>s.source==='LIYUE_ZHONGLI_E');
 test('Jade Shield protects all living fighters with legal talent/gear modifiers and finite overflow',()=>{
  const {r,b,actor,enemy}=arena(),z=actor('LIYUE_ZHONGLI'),p=actor('PLAYER_CUSTOM');cast(r,z,'LIYUE_ZHONGLI_E',enemy);
- const wanted=Math.round(z.maxHp*.2*r.premiumTalentMultiplier(z,'e')*1.1*.65);assert(wanted>0);
+ const wanted=Math.round(z.maxHp*.2*r.premiumTalentMultiplier(z,'e')*1.1*r.combatCharacterBudget().zhongliShieldMultiplier);assert(wanted>0);
  for(const a of b.actors.filter(a=>a.side==='ALLY')){const sh=jade(a);assert(sh);assert.equal(sh.value,wanted);assert.equal(sh.rounds,2);assert.equal(sh.ignoreForcedMove,true);}
  const hp=p.hp;r.applyDamage(enemy,p,wanted+200,{element:'물리',sourceKind:'TEST_FINAL_PACKET'});assert.equal(p.hp,hp-200);assert(!jade(p));
  return{value:wanted,overflowHpLoss:200,targets:4};
@@ -17,7 +17,7 @@ test('C2 burst refreshes the same Jade Shield without summing E and Q absorption
  const hit=Math.floor(size*.75);r.applyDamage(enemy,p,hit,{element:'물리',sourceKind:'TEST_FINAL_PACKET'});assert.equal(jade(p).value,size-hit);cast(r,z,'LIYUE_ZHONGLI_Q',enemy);
  // C2 is a constellation shield after the direct cast context, so it retains its
  // native fixed size rather than inheriting the E/Q talent multiplier.
- const c2=Math.round(z.maxHp*.2*1.1*.65);assert.equal(p.shields.filter(s=>s.source==='LIYUE_ZHONGLI_E').length,1);assert.equal(jade(p).value,Math.max(size-hit,c2));assert.equal(jade(p).initialValue,size);
+ const c2=Math.round(z.maxHp*.2*1.1*r.combatCharacterBudget().zhongliShieldMultiplier);assert.equal(p.shields.filter(s=>s.source==='LIYUE_ZHONGLI_E').length,1);assert.equal(jade(p).value,Math.max(size-hit,c2));assert.equal(jade(p).initialValue,size);
  return{constellation:r.constellationLevel(z.source),eValue:size,c2Value:c2,shieldCount:p.shields.length};
 });
 test('existing saved shield values survive restore and refresh until their normal depletion',()=>{
@@ -60,8 +60,10 @@ test('Zhongli C6 heals from its own consumed shield while another actual shield 
  for(const sh of before)assert.equal(n.shields.find(s=>s.source===sh.source).value,sh.value-100);assert.equal(n.hp,hp+44);
  return{nativeConstellation:r.constellationLevel(z.source),eachShieldLoss:100,healedWithGearBonus:n.hp-hp,hpDamage:0};
 });
-test('Baizhu native field shield breaks and heals even while Jade Shield blocks the same hit',()=>{
- const {r,b,actor,enemy}=arena({},['LIYUE_ZHONGLI','LIYUE_BAIZHU','MOND_NOELLE'],'EG_LIYUE_LOCAL_CHASM_DEEP_1','MAP_CHASM_DEEP'),z=actor('LIYUE_ZHONGLI'),bz=actor('LIYUE_BAIZHU'),p=actor('PLAYER_CUSTOM');p.hp=Math.floor(p.maxHp*.5);cast(r,z,'LIYUE_ZHONGLI_E',enemy);cast(r,bz,'LIYUE_BAIZHU_Q',enemy);r.roundEnd();r.newRound();
+test('Baizhu native field shield breaks and heals while Zhongli C3 Jade Shield blocks the same hit',()=>{
+ // Declared native C3 raises E talent by 3; the original C0 pool reversal and
+ // correct damage/healing facts are retained in balance_v01625/regression.
+ const {r,b,actor,enemy}=arena({LIYUE_ZHONGLI:3},['LIYUE_ZHONGLI','LIYUE_BAIZHU','MOND_NOELLE'],'EG_LIYUE_LOCAL_CHASM_DEEP_1','MAP_CHASM_DEEP'),z=actor('LIYUE_ZHONGLI'),bz=actor('LIYUE_BAIZHU'),p=actor('PLAYER_CUSTOM');p.hp=Math.floor(p.maxHp*.5);cast(r,z,'LIYUE_ZHONGLI_E',enemy);cast(r,bz,'LIYUE_BAIZHU_Q',enemy);r.roundEnd();r.newRound();
  const baizhu=p.shields.find(s=>s.source==='LIYUE_BAIZHU_Q');assert(baizhu);const packet=Math.ceil(baizhu.value)+1,jadeBefore=jade(p).value,hp=p.hp;assert(jadeBefore>packet);
  r.applyDamage(enemy,p,packet,{element:'물리',sourceKind:'TEST_FINAL_PACKET'});assert(!p.shields.some(s=>s.source==='LIYUE_BAIZHU_Q'));assert.equal(jade(p).value,jadeBefore-packet);assert.equal(p.hp,hp+Math.round(bz.maxHp*.06*1.1));assert(b.log.some(e=>e.card==='LIYUE_BAIZHU_Q'&&e.sourceKind==='SHIELD_BREAK'));
  return{field:b.fields.find(f=>f.kind==='BAIZHU_SEAMLESS_SHIELD').kind,baizhuPool:baizhu.initialValue,packet,jadeRemaining:jade(p).value,healing:p.hp-hp};

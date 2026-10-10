@@ -125,7 +125,7 @@ P.craftReason=function(input){const r=this.recipeDefinition(input[0]),owner=OWNE
 P.combatDamageMultiplier=function(a,t,e,o={}){let n=old.combatDamageMultiplier.call(this,a,t,e,o);
  if(a?.side==='ALLY'&&t?.side!=='ALLY'){const sig=tv(a,'SIGNATURE');if(sig&&String(o.card||'').startsWith(a.source+'_'))n*=1+sig/100;}
  return n;};
-P.heal=function(a,amount,source='',sourceActorId=''){const b=this.s.runtime;if(b&&a?.side==='ALLY'&&(source||sourceActorId)){const healer=b.actors.find(x=>x.side==='ALLY'&&(sourceActorId?x.id===sourceActorId:x.name===source)&&x.hp>0),v=tv(healer,'HEAL_OUT');if(v)amount*=1+v/100;}return old.heal.call(this,a,amount,source);};
+P.heal=function(a,amount,source='',sourceActorId=''){const b=this.s.runtime;if(b&&a?.side==='ALLY'&&(source||sourceActorId)){const healer=b.actors.find(x=>x.side==='ALLY'&&(sourceActorId?x.id===sourceActorId:x.name===source)&&x.hp>0),v=tv(healer,'HEAL_OUT');if(v)amount*=1+v/100;}return b?.characterBalanceRevision===1?old.heal.call(this,a,amount,source,sourceActorId):old.heal.call(this,a,amount,source);};
 P.shield=function(a,value,source,rounds,extra={}){const b=this.s.runtime;if(b&&a?.side==='ALLY'&&typeof source==='string'){const caster=b.actors.find(x=>x.side==='ALLY'&&source.startsWith(x.source+'_')),v=tv(caster,'SHIELD_OUT');if(v)value*=1+v/100;}return old.shield.call(this,a,value,source,rounds,extra);};
 P.exclusiveWeaponsVersion=1;
 api.exclusiveWeapons={version:1,weapons:copy(WEAPONS),bossGear:copy(BOSS_GEAR),materials:copy(MAT),traits:Object.keys(NEW_TRAITS),recipeId:g=>recipeId(g)};
