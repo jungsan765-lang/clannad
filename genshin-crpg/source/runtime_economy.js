@@ -252,6 +252,11 @@
 
   P.recipeDefinition = function (id) {
     let r = this.row('17_RECIPE_DB', id);
+    // The snow materials are paid by this recipe's own ingredient requirements.
+    // Its explanatory suffix is not a condition-language expression.
+    if (id === 'REC_ARMOR_FROST' && r[18] === 'LEVEL>=5 / 설산 소재 확보') {
+      r = r.slice(); r[18] = 'LEVEL>=5';
+    }
     // Six audited source rows contain one extra blank at column P. Adapt only the exact known shape.
     if (shiftedRecipes.has(id) && r[15] == null && Number.isFinite(r[16]) && /^\d+(분|시간)$/.test(r[20] || '') && Number(r[21]) === 100) {
       const fixed = r.slice(); fixed.splice(15, 1); r = fixed;

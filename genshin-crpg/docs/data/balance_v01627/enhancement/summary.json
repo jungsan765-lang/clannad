@@ -1,0 +1,363 @@
+{
+  "schema": 1,
+  "sourceFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+  "dbSha256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "counts": {
+    "gearRows": 11,
+    "actorConditions": 12,
+    "publicMax12Preparation": 120,
+    "nativeEnhancementAttempts": 1030,
+    "domainConditions": 6,
+    "domainBattles": 36,
+    "domainWins": 36,
+    "domainLosses": 0,
+    "errors": 0
+  },
+  "expectedPaths": [
+    {
+      "from": 0,
+      "to": 6,
+      "attempts": 7.018784706865202,
+      "mora": 3779.4250331711637,
+      "items": {
+        "ORE_IRON": 47.42599144921127,
+        "ORE_WHITE_IRON": 9.642857142857142
+      },
+      "expectedSuccessHoldDowngradeIncluded": true
+    },
+    {
+      "from": 0,
+      "to": 10,
+      "attempts": 16.627951373531868,
+      "mora": 76068.09169983784,
+      "items": {
+        "ORE_IRON": 47.42599144921127,
+        "ORE_WHITE_IRON": 241.6395238095238,
+        "ORE_CRYSTAL": 139.95666666666665
+      },
+      "expectedSuccessHoldDowngradeIncluded": true
+    },
+    {
+      "from": 0,
+      "to": 12,
+      "attempts": 26.542361373531868,
+      "mora": 385845.92903317115,
+      "items": {
+        "ORE_IRON": 47.42599144921127,
+        "ORE_WHITE_IRON": 1047.2724171428572,
+        "ORE_CRYSTAL": 736.4322799999999,
+        "TRPG_BOSS_ESSENCE": 3,
+        "TRPG_BOSS_CORE": 1
+      },
+      "expectedSuccessHoldDowngradeIncluded": true,
+      "ascensionActions": 1
+    },
+    {
+      "from": 6,
+      "to": 10,
+      "attempts": 9.609166666666667,
+      "mora": 72288.66666666667,
+      "items": {
+        "ORE_WHITE_IRON": 231.99666666666667,
+        "ORE_CRYSTAL": 139.95666666666665,
+        "ORE_IRON": 0
+      },
+      "expectedSuccessHoldDowngradeIncluded": true
+    },
+    {
+      "from": 10,
+      "to": 12,
+      "attempts": 9.91441,
+      "mora": 309777.83733333333,
+      "items": {
+        "ORE_WHITE_IRON": 805.6328933333333,
+        "ORE_CRYSTAL": 596.4756133333333,
+        "ORE_IRON": 0,
+        "TRPG_BOSS_ESSENCE": 3,
+        "TRPG_BOSS_CORE": 1
+      },
+      "expectedSuccessHoldDowngradeIncluded": true,
+      "ascensionActions": 1
+    },
+    {
+      "from": 6,
+      "to": 12,
+      "attempts": 19.523576666666663,
+      "mora": 382066.504,
+      "items": {
+        "ORE_WHITE_IRON": 1037.6295599999999,
+        "ORE_CRYSTAL": 736.4322799999999,
+        "ORE_IRON": 0,
+        "TRPG_BOSS_ESSENCE": 3,
+        "TRPG_BOSS_CORE": 1
+      },
+      "expectedSuccessHoldDowngradeIncluded": true,
+      "ascensionActions": 1
+    }
+  ],
+  "absorbingChainChecks": [
+    {
+      "from": 0,
+      "to": 6,
+      "directAbsorbingChainMora": 3779.425033171163,
+      "recurrenceMora": 3779.4250331711637,
+      "error": 9.094947017729282e-13
+    },
+    {
+      "from": 0,
+      "to": 10,
+      "directAbsorbingChainMora": 76068.09169983781,
+      "recurrenceMora": 76068.09169983784,
+      "error": 2.9103830456733704e-11
+    },
+    {
+      "from": 0,
+      "to": 12,
+      "directAbsorbingChainMora": 385845.9290331711,
+      "recurrenceMora": 385845.92903317115,
+      "error": 5.820766091346741e-11
+    },
+    {
+      "from": 6,
+      "to": 10,
+      "directAbsorbingChainMora": 72288.66666666666,
+      "recurrenceMora": 72288.66666666667,
+      "error": 1.4551915228366852e-11
+    },
+    {
+      "from": 10,
+      "to": 12,
+      "directAbsorbingChainMora": 309777.83733333333,
+      "recurrenceMora": 309777.83733333333,
+      "error": 0.0
+    },
+    {
+      "from": 6,
+      "to": 12,
+      "directAbsorbingChainMora": 382066.50399999996,
+      "recurrenceMora": 382066.504,
+      "error": 5.820766091346741e-11
+    }
+  ],
+  "totalActorIncreases10to12": [
+    {
+      "level": 25,
+      "set": "CRAFT",
+      "owner": "PLAYER_CUSTOM",
+      "hpPct": 2.5721315142026357,
+      "atkPct": 4.01284109149278,
+      "defPct": 4.761904761904767
+    },
+    {
+      "level": 25,
+      "set": "CRAFT",
+      "owner": "LIYUE_ZHONGLI",
+      "hpPct": 1.197828935055223,
+      "atkPct": 2.1844660194174637,
+      "defPct": 1.5804597701149392
+    },
+    {
+      "level": 25,
+      "set": "CRAFT",
+      "owner": "MOND_DILUC",
+      "hpPct": 1.8001674574378956,
+      "atkPct": 2.453271028037385,
+      "defPct": 2.9585798816567976
+    },
+    {
+      "level": 25,
+      "set": "CRAFT",
+      "owner": "MOND_JEAN",
+      "hpPct": 1.8001674574378956,
+      "atkPct": 2.39043824701195,
+      "defPct": 2.200000000000002
+    },
+    {
+      "level": 25,
+      "set": "BOSS_EXCLUSIVE",
+      "owner": "PLAYER_CUSTOM",
+      "hpPct": 5.0355564097636085,
+      "atkPct": 3.5058430717863187,
+      "defPct": 5.952380952380953
+    },
+    {
+      "level": 25,
+      "set": "BOSS_EXCLUSIVE",
+      "owner": "LIYUE_ZHONGLI",
+      "hpPct": 1.7040277018407046,
+      "atkPct": 2.303030303030318,
+      "defPct": 1.9690576652601877
+    },
+    {
+      "level": 25,
+      "set": "BOSS_EXCLUSIVE",
+      "owner": "MOND_DILUC",
+      "hpPct": 2.494969818913484,
+      "atkPct": 2.453271028037385,
+      "defPct": 2.77777777777779
+    },
+    {
+      "level": 25,
+      "set": "BOSS_EXCLUSIVE",
+      "owner": "MOND_JEAN",
+      "hpPct": 2.494969818913484,
+      "atkPct": 2.5265957446808374,
+      "defPct": 2.7184466019417597
+    },
+    {
+      "level": 60,
+      "set": "CRAFT",
+      "owner": "PLAYER_CUSTOM",
+      "hpPct": 0.9494725152692896,
+      "atkPct": 1.4603870025556853,
+      "defPct": 1.779095626389915
+    },
+    {
+      "level": 60,
+      "set": "CRAFT",
+      "owner": "LIYUE_ZHONGLI",
+      "hpPct": 0.42473429181040245,
+      "atkPct": 0.719137035557349,
+      "defPct": 0.5071461502996755
+    },
+    {
+      "level": 60,
+      "set": "CRAFT",
+      "owner": "MOND_DILUC",
+      "hpPct": 0.6464928521564994,
+      "atkPct": 0.8117510630073488,
+      "defPct": 0.9993337774816702
+    },
+    {
+      "level": 60,
+      "set": "CRAFT",
+      "owner": "MOND_JEAN",
+      "hpPct": 0.6464928521564994,
+      "atkPct": 0.7950530035335746,
+      "defPct": 0.7236842105263097
+    },
+    {
+      "level": 60,
+      "set": "BOSS_EXCLUSIVE",
+      "owner": "PLAYER_CUSTOM",
+      "hpPct": 2.0316263483087127,
+      "atkPct": 1.2213175425610734,
+      "defPct": 2.170767004341534
+    },
+    {
+      "level": 60,
+      "set": "BOSS_EXCLUSIVE",
+      "owner": "LIYUE_ZHONGLI",
+      "hpPct": 0.608395061728384,
+      "atkPct": 0.7587859424920129,
+      "defPct": 0.6410256410256387
+    },
+    {
+      "level": 60,
+      "set": "BOSS_EXCLUSIVE",
+      "owner": "MOND_DILUC",
+      "hpPct": 0.9215211082188812,
+      "atkPct": 0.8117510630073488,
+      "defPct": 0.9345794392523255
+    },
+    {
+      "level": 60,
+      "set": "BOSS_EXCLUSIVE",
+      "owner": "MOND_JEAN",
+      "hpPct": 0.9215211082188812,
+      "atkPct": 0.8395934600088362,
+      "defPct": 0.9120521172638618
+    }
+  ],
+  "domains": [
+    {
+      "kind": "EXP",
+      "lower": {
+        "stage": 55,
+        "seconds": 238.21,
+        "lodgingMora": 26,
+        "wins": 6,
+        "xp": 48000,
+        "items": {}
+      },
+      "higher": {
+        "stage": 60,
+        "seconds": 303.19,
+        "lodgingMora": 0,
+        "wins": 6,
+        "xp": 144000,
+        "items": {}
+      },
+      "higherEfficiencyGainPct": 135.70368415844848,
+      "higherCashInclusiveGainPct": 135.79872394479176
+    },
+    {
+      "kind": "TALENT",
+      "lower": {
+        "stage": 55,
+        "seconds": 262.83000000000004,
+        "lodgingMora": 278,
+        "wins": 6,
+        "xp": 5400,
+        "items": {
+          "GROWTH_TALENT_LIYUE": 168
+        }
+      },
+      "higher": {
+        "stage": 60,
+        "seconds": 300.13,
+        "lodgingMora": 47,
+        "wins": 6,
+        "xp": 9600,
+        "items": {
+          "GROWTH_TALENT_LIYUE": 540
+        }
+      },
+      "higherEfficiencyGainPct": 181.4815960702743,
+      "higherCashInclusiveGainPct": 182.41809385229564
+    },
+    {
+      "kind": "ASCENSION",
+      "lower": {
+        "stage": 55,
+        "seconds": 144.68,
+        "lodgingMora": 39,
+        "wins": 6,
+        "xp": 5400,
+        "items": {
+          "GROWTH_GEM_NEUTRAL": 11592
+        }
+      },
+      "higher": {
+        "stage": 60,
+        "seconds": 164.76999999999998,
+        "lodgingMora": 0,
+        "wins": 6,
+        "xp": 9600,
+        "items": {
+          "GROWTH_GEM_NEUTRAL": 32400
+        }
+      },
+      "higherEfficiencyGainPct": 145.42398080214963,
+      "higherCashInclusiveGainPct": 145.66837946457335
+    }
+  ],
+  "nativeActual10to12Cash": {
+    "count": 120,
+    "minimum": 65400,
+    "maximum": 607800,
+    "mean": 286200.0
+  },
+  "cashConversion": {
+    "secondsPerMora": 0.003694245233514081,
+    "note": "Marginal replenishment only; previous native wealth campaign. Actual wealth hourly quota persists. Initial gear investment and acquisition excluded from these domain efficiency rows."
+  },
+  "limitations": [
+    "Gear+80% affects equipment bases, not total actor stats.",
+    "12 diagnostic stat conditions and 36 top preparation native domain battles, one seed9031, no constellations/artifacts; not every possible weapon/party optimum.",
+    "Starting+6/+10 gear, owners, funding and materials are explicit fixtures; public+12 ascension/enhancement itself is native and receipts saved.",
+    "Equipment acquisition, mining and earned investment time are not demonstrated by granted inventory.",
+    "Full HP at the same Liyue inn after each 6-run sample; all incident combat and native restoration retained.",
+    "Top healer/shielder investment sample can finish EXP/ASC with0 innMora; do not claim all endgame teams retain a lodging cash burden."
+  ]
+}

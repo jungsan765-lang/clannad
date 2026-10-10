@@ -1,0 +1,46 @@
+{
+  "frozen": {
+    "fingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+    "boss": {
+      "level": 28,
+      "hpMultiplier": 4,
+      "atkMultiplier": 3.36,
+      "defMultiplier": 1
+    },
+    "pressure": {
+      "prefix": "ECARD_DVALIN_",
+      "shieldDamageMultiplier": 3
+    },
+    "files": {
+      "source/runtime_growth_v01522.js": "83d1890cbb4ae82d7d60cefa884aee7bcab93fe1fbdc256c2947b18da4a261f0",
+      "source/runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+      "source/runtime_mond_boss_balance.js": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a",
+      "source/runtime_local_revision.js": "f03c1961bdb54b5b5e2afd4605b164d81d511acc377bfa269e16af86c09a1730",
+      "content/db.json": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da"
+    }
+  },
+  "currentlyLoaded": {
+    "fingerprint": "22a63a16bd914ba878954f3272812dca54cd5b5c9c28b9a5d27fe0984ba9862b",
+    "boss": {
+      "level": 28,
+      "hpMultiplier": 4,
+      "atkMultiplier": 3.36,
+      "defMultiplier": 1
+    },
+    "pressure": {
+      "prefix": "ECARD_DVALIN_",
+      "shieldDamageMultiplier": 3
+    },
+    "files": {
+      "source/runtime_growth_v01522.js": "83d1890cbb4ae82d7d60cefa884aee7bcab93fe1fbdc256c2947b18da4a261f0",
+      "source/runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+      "source/runtime_mond_boss_balance.js": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a",
+      "source/runtime_local_revision.js": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9",
+      "content/db.json": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da"
+    }
+  },
+  "changedFiles": [
+    "source/runtime_local_revision.js"
+  ],
+  "meaning": "Only rematch-specific unavailable-target guidance changed after the frozen 63-condition native runs. No stats/air access/terrain/rematch implementation changes."
+}

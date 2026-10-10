@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "priorFingerprint": "dba4de68faed36de6e0b554b071897ccf2fe5d69a42000b8b801ccce3cd91087",
+  "finalFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "pureStatConditionsExactlyEqual": 12,
+  "publicPreparationPaths": 120,
+  "actualAttemptCountUnchanged": 1030,
+  "nativeDomains": [
+    {
+      "kind": "EXP",
+      "stage": 55,
+      "initialActorsAndAllSixMainCombatLogsResultsExactlyEqual": true,
+      "priorSeconds": 238.21,
+      "finalSeconds": 238.21,
+      "priorInnMora": 26,
+      "finalInnMora": 26,
+      "endpointAllFull": true
+    },
+    {
+      "kind": "EXP",
+      "stage": 60,
+      "initialActorsAndAllSixMainCombatLogsResultsExactlyEqual": true,
+      "priorSeconds": 303.19,
+      "finalSeconds": 303.19,
+      "priorInnMora": 0,
+      "finalInnMora": 0,
+      "endpointAllFull": true
+    },
+    {
+      "kind": "TALENT",
+      "stage": 55,
+      "initialActorsAndAllSixMainCombatLogsResultsExactlyEqual": true,
+      "priorSeconds": 262.83000000000004,
+      "finalSeconds": 262.83000000000004,
+      "priorInnMora": 294,
+      "finalInnMora": 291,
+      "endpointAllFull": true
+    },
+    {
+      "kind": "TALENT",
+      "stage": 60,
+      "initialActorsAndAllSixMainCombatLogsResultsExactlyEqual": true,
+      "priorSeconds": 300.13,
+      "finalSeconds": 300.13,
+      "priorInnMora": 47,
+      "finalInnMora": 47,
+      "endpointAllFull": true
+    },
+    {
+      "kind": "ASCENSION",
+      "stage": 55,
+      "initialActorsAndAllSixMainCombatLogsResultsExactlyEqual": true,
+      "priorSeconds": 144.68,
+      "finalSeconds": 144.68,
+      "priorInnMora": 39,
+      "finalInnMora": 39,
+      "endpointAllFull": true
+    },
+    {
+      "kind": "ASCENSION",
+      "stage": 60,
+      "initialActorsAndAllSixMainCombatLogsResultsExactlyEqual": true,
+      "priorSeconds": 164.76999999999998,
+      "finalSeconds": 164.76999999999998,
+      "priorInnMora": 0,
+      "finalInnMora": 0,
+      "endpointAllFull": true
+    }
+  ],
+  "scope": "Exact initial actors, every main native combat input effect/log/pre-rewardactor/result across36 battles. Main level55/60 unchanged. Travel combat/inn fee need not remain identical: ≤30 pressure changed. Actual newly charged enhancement payments retained separately."
+}

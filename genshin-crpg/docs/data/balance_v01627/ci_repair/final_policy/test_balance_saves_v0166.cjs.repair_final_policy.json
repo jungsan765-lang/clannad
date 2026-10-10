@@ -1,0 +1,69 @@
+{
+  "scope": "QA-only version-aware budget and real historical save replay contracts. Product unchanged by this QA repair.",
+  "test": "tests/test_balance_saves_v0166.cjs",
+  "testSHA256": "0dd5e569870db6f60f711952b0ee6f882c62aa27991b0f337a63171005e0f623",
+  "rawAuthoredDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "genuineBefore": {
+    "version": "0.16.26",
+    "commit": "7f33d2b34c48834c67c9134e2548d48932782e5c",
+    "manifestSHA256": "7cedeee72c9df7c66e391a6e0335aeae8058326bbe01abc5df05b19408d8902d",
+    "closureScripts": 121
+  },
+  "result": {
+    "passed": 7,
+    "failed": 0,
+    "exitCode": 0
+  },
+  "proof": {
+    "originalNativeSaveIdsAndBattleIdsPreserved": true,
+    "publishedBeforeWins": 3,
+    "seeds": [
+      717,
+      4242,
+      9031
+    ],
+    "publishedBeforeRounds": [
+      9,
+      15,
+      8
+    ],
+    "actualPendingAndStartedBeforeSavesReplayedIntoCurrent": true,
+    "entireNativeFinalStateReceiptAndPRNGExact": true,
+    "legacyXpGuardsInitiativeFinancialAtomicityUnchanged": true,
+    "currentPolicy": "Lv27 independent HP=old*(1+0.4*0.175); ATK=old*1.105; DEF=old*(1+0.5*0.175), enemyBalanceRevision1",
+    "currentNativeWinners": [
+      717,
+      9031
+    ],
+    "currentNativeLosses": [
+      4242
+    ],
+    "currentRounds": [
+      11,
+      17,
+      14
+    ],
+    "currentDeaths": [
+      2,
+      4,
+      2
+    ],
+    "exactCurrentNativeFreshAndLoadedReplay": true,
+    "exactNativePlannedAndSettledMoraXpForWins": true,
+    "settlementExactlyOnce": true,
+    "notOptimalManualOrPopulationClaim": true
+  },
+  "productSnapshotSHA256": {
+    "source/runtime_growth_v01522.js": "d84b14ebcc560d4189c00553ce209fbe2493e228b5590ec627ca1f23fece26ee",
+    "source/runtime_rules.js": "1f80084224e47240b4c830d29c73c9718c50cb952cd2fb94f31a1867fd138586",
+    "source/runtime_field_bosses.js": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+    "source/runtime_economy.js": "a1bc7b85cfa18d5553d90c197a10d637aaa4f58fff733442aa36546827c4a6b8",
+    "source/runtime_balance_admin_v01623.js": "0c2e4c4c57e6fb2b40f5c9a7d83e18a7f0463c30437619008850d440acf67b6c",
+    "source/runtime_mond_boss_balance.js": "6c21b0a504b681cbd75cf5efac95c0a953aefc5fa42b0c524e826e9b9b4c1d7a",
+    "source/runtime_local_revision.js": "b75d1348a38d6d5d97e33121855b1acedc4ccf17398fbe9e091d4491133e22d9",
+    "source/runtime_enhancement.js": "5ae47a9743c7e7cc5d9dcd104df2c808742438ba66d2a4105d568f29d67ba5d7"
+  },
+  "repairedLog": "evidence/release/test_balance_saves_v0166.cjs.repaired_final_policy.log",
+  "repairedLogSHA256": "f830af4d7d26863e1977602b46fec1f2245931b64e72e03bea59cedbb7954bf0",
+  "productEditsByThisQARepair": 0
+}

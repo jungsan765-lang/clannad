@@ -1,7 +1,7 @@
 'use strict';
 const assert=require('node:assert/strict');
 const {R,db,c}=require('./helpers_v011.cjs');
-const {setup,api,G}=require('../tools/audit_balance_v01522.cjs');
+const {setup,heal,api,G}=require('../tools/audit_balance_v01522.cjs');
 const {measure,policy,REFERENCE_TEAM}=require('../tools/audit_balance_v0161.cjs');
 const copy=x=>JSON.parse(JSON.stringify(x));
 // Fixed approved 0.16.22 common-unit quantities, independent of the runtime API.
@@ -64,15 +64,27 @@ check('malformed reward markers are rejected and a marker cannot change talent o
 
 check('talent and ascension still share three bonuses; EXP and defeats consume none and domains pay no books or Mora',()=>{
  let r=fixture();const day=G.dayOf(c.Date.now());r.s.domainDaily={day,wins:0};
- const cases=[['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',160,1],['MAP_D163_MIDSUMMER_COURTYARD','MIDSUMMER_COURTYARD:5','NEUTRAL',0,1],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',10800,2],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:55','PYRO',3864,3],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',5400,4]];
+ const cases=[['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',180,1],['MAP_D163_MIDSUMMER_COURTYARD','MIDSUMMER_COURTYARD:5','NEUTRAL',0,1],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',10800,2],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:55','PYRO',3864,3],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',5400,4]];
  for(const [map,domain,element,expected,wins]of cases){r.s.global.CURRENT_MAP_ID=map;r.s.global.SCREEN_MODE='LOCATION';r.action('DOMAIN_START',{domain,element});r=restore(r);const out=settle(r);assert.equal(Object.values(out.domain.items).reduce((a,b)=>a+b,0),expected);assert.equal(r.s.domainDaily.wins,wins);assert.equal(out.mora||0,0);for(const item of Object.keys(out.domain.items))assert(!item.startsWith('MAT_CHAR_EXP_'));}
  r.s.global.CURRENT_MAP_ID='MAP_D163_LIANSHAN_FORMULA';r.s.global.SCREEN_MODE='LOCATION';r.action('DOMAIN_START',{domain:'LIANSHAN_FORMULA:60',element:'PYRO'});const count=r.itemCount('GROWTH_GEM_PYRO');settle(r,false);assert.equal(r.s.domainDaily.wins,4);assert.equal(r.itemCount('GROWTH_GEM_PYRO'),count);
 });
 
 check('native four-person battles on both protagonist routes award the preview amount without enemy edits or forced victories',()=>{
  for(const route of ['ROUTE_TRAVELER','ROUTE_ISEKAI']){
-  // Prepared legal four-star hydro counter ownership and +9/cap investment: reward contract, not starter-party difficulty.
-  let r=setup({level:60,map:'MAP_D163_LIANSHAN_FORMULA',route,team:['MOND_KAEYA','LIYUE_XINGQIU','MOND_BARBARA'],gear:'craft',enhance:9,talent:'cap'});Object.assign(r.tutorialState().done,{combatAttack:true,combatGuard:true,combatSkill:true,combatBurst:true});r.s.global.PRNG_STATE=717;r.s.domainDaily={day:G.dayOf(c.Date.now()),wins:3};
+  // Prepared C0 four-star hydro counters, ordinary +9 craft gear and legal cap
+  // talents. The new Lv60 pressure requires the public fire-resistant armor and
+  // rear protagonist placement. Synthetic ownership/full entry HP are explicit;
+  // this verifies native reward settlement, not starter-party clear rates.
+  const team=['MOND_KAEYA','LIYUE_XINGQIU','MOND_BARBARA'];
+  let r=setup({level:60,map:'MAP_D163_LIANSHAN_FORMULA',route,team,gear:'craft',enhance:9,talent:'cap'});
+  Object.assign(r.tutorialState().done,{combatAttack:true,combatGuard:true,combatSkill:true,combatBurst:true});
+  for(const owner of ['PLAYER_CUSTOM',...team]){
+   assert.equal(r.constellationLevel(owner),0);
+   const slot=r.giveEquipment('EQ_LY_ARMOR_JADEFLAME');r.action('EQUIP',{slot,owner});const gear=r.s.inventory.find(i=>i.slot===slot);gear.enhance=9;assert.equal(r.enhancementCap(gear),10);
+  }
+  r.action('FORMATION_SET',{order:['LIYUE_XINGQIU','MOND_KAEYA','MOND_BARBARA','PLAYER_CUSTOM']});r.recalculate();heal(r);
+  assert(r.s.inventory.every(i=>!i.artifact&&!/^MAT_FB_|^TRPG_BOSS_/.test(i.item||'')));
+  r.s.global.PRNG_STATE=717;r.s.domainDaily={day:G.dayOf(c.Date.now()),wins:3};
   const d=r.growthDomainEntries().find(x=>x.level===60),preview=r.growthDomainRewards(d,'PYRO'),count=r.itemCount('GROWTH_GEM_PYRO');r.action('DOMAIN_START',{domain:d.id,element:'PYRO'});assert.equal(r.s.runtime.actors.filter(a=>a.side==='ALLY').length,4);r=restore(r);const out=policy(r);assert.equal(out.victory,true);assert.equal(r.s.runtime,null);assert.deepEqual(copy(out.domain.items),copy(preview.items));assert.equal(r.itemCount('GROWTH_GEM_PYRO')-count,EXPECTED.PYRO[60]);r=restore(r);assert.equal(r.itemCount('GROWTH_GEM_PYRO')-count,EXPECTED.PYRO[60]);
  }
 });

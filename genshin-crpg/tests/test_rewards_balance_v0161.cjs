@@ -8,13 +8,37 @@ function ready(map){const r=fresh(map);r.adminApply({op:'level',target:'ALL',val
 // Only settlement tests force enemies to zero HP; difficulty tests use native combat in audit_balance_v0161.
 function settle(r){for(const a of r.s.runtime.actors.filter(a=>a.side==='ENEMY'))a.hp=0;return r.finishBattle(true);}
 // Current EXP has its own increasing table; the earlier material XP table is retained independently. No Mora.
+// 0.16.27 Lv60 EXP is 24,000; previously started 0.16.26 fights retain 10,000.
 // 0.16.3: the three kinds stand at different places (태산부 · 천둥 연산 밀궁 · 암중협곡 at Lv60).
 check('Lv60 material domains retain their XP and EXP domains pay their current XP, no Mora or books',()=>{
- for(const [map,id,element,xp]of [['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',1600],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','NEUTRAL',1600],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',1600],['MAP_CHASM_DEEP','LOST_VALLEY:60','NEUTRAL',10000]]){
+ for(const [map,id,element,xp]of [['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',1600],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','NEUTRAL',1600],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',1600],['MAP_CHASM_DEEP','LOST_VALLEY:60','NEUTRAL',24000]]){
   const r=ready(map);r.action('DOMAIN_START',{domain:id,element});const x=settle(r);
   assert.equal(x.xp,xp,id);assert.equal(x.mora,0,id);for(const book of Object.keys(api.leyLines.bookXp))assert.equal(x.loot[book]||0,0);
   if(id.startsWith('LOST_VALLEY'))assert.equal(Object.keys(x.domain.items).length,0);
+  if(id.startsWith('TAISHAN_MANSION'))assert.equal(x.domain.items.GROWTH_TALENT_LIYUE,90);
   const state=r.serialize();r.finishBattle(true);assert.equal(r.serialize(),state,'duplicate settlement cannot pay');
+ }
+});
+check('genuine 0.16.26 in-flight EXP10000 and talent80 settlements survive pending and started save reloads',()=>{
+ const H=require('../tools/audit_protagonist_v01618.cjs'),{loadBefore,productionBootstrap}=require('./test_enemy_balance_v01627.cjs');
+ // This loader verifies the published commit, authored DB and complete historical
+ // source closure. A new battle with its revision erased is not a historical save.
+ const beforeEnv=productionBootstrap(loadBefore());beforeEnv.c.Date=c.Date;
+ for(const [map,id,xp,books]of [['MAP_CHASM_DEEP','LOST_VALLEY:60',10000,0],['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60',1600,80]])for(const boundary of ['PENDING','STARTED']){
+  const old=H.setup(beforeEnv,{level:60,map,gear:'none',route:'ROUTE_TRAVELER',seed:714});old.action('DOMAIN_START',{domain:id});
+  if(boundary==='STARTED')old.action('COMBAT_BEGIN');
+  const saved=JSON.parse(old.serialize()),loaded=new R(db,cp(saved));
+  assert.equal(saved.runtime.enemyBalanceRevision,undefined);
+  if(books)assert.equal(saved.runtime.growthDomain.talentRewardVersion,3);
+  else assert.equal(saved.runtime.growthDomain.expRewardVersion,undefined);
+  assert.deepEqual(cp(loaded.s.runtime),cp(saved.runtime),'saved native battle projection '+id+':'+boundary);
+  assert.equal(loaded.s.global.PRNG_STATE,saved.global.PRNG_STATE);
+  const prior=settle(old),current=settle(loaded);assert.equal(current.xp,xp);assert.equal(current.mora,0);
+  assert.equal(current.domain.items.GROWTH_TALENT_LIYUE||0,books);
+  for(const book of Object.keys(api.leyLines.bookXp))assert.equal(current.loot[book]||0,0);
+  assert.deepEqual(cp(current),cp(prior),'original settlement remains exact '+id+':'+boundary);
+  assert.deepEqual(JSON.parse(loaded.serialize()),JSON.parse(old.serialize()),'settled historical save remains exact');
+  const state=loaded.serialize();loaded.finishBattle(true);assert.equal(loaded.serialize(),state,'historical settlement cannot pay twice');
  }
 });
 check('daily first-three bonus doubles materials only; the experience domain neither doubles nor uses one of the three',()=>{
@@ -48,7 +72,7 @@ check('ley settlement uses its low direct-XP plan, books/Mora dominate, and clai
   assert.equal(r.s.runtime.leyLine.level,60);assert.deepEqual(cp(r.mondRewardPlan(r.s.runtime)),expected);r=new R(db,cp(r.s));r.actionStartedAt=hour*3600000+60000;
   const x=settle(r);assert.equal(x.xp,expected.xp);assert.equal(r.s.leyLine[kind],hour);
   assert.equal(x.xp,400);assert.equal(expected.mora,0);
-  if(kind==='REVELATION'){assert.equal(x.loot.MAT_CHAR_EXP_HERO,180);assert(180000>4*10000);assert.equal(x.mora,0);}
+  if(kind==='REVELATION'){assert.equal(x.loot.MAT_CHAR_EXP_HERO,180);assert(180000>4*24000);assert.equal(x.mora,0);}
   else {assert.equal(x.mora,40000);assert.equal(x.loot.MAT_CHAR_EXP_HERO||0,0);}
   assert(r.placeBossReason(route,r.placeEntries().find(e=>e.route===route)));const state=r.serialize();r.finishBattle(true);assert.equal(r.serialize(),state);
  }

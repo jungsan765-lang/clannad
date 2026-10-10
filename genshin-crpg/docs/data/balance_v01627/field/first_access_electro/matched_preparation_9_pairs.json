@@ -1,0 +1,293 @@
+{
+  "scope": "Read-only observational comparison; exact initial ally objects, legal equipment, formation, companion tactics and manual chooser. Declared seeds match; this does not assert full old/new save equality or unchanged combat RNG consumption.",
+  "manualChoosers": [
+    {
+      "family": "noelle",
+      "sameBytes": true,
+      "SHA256": "5c5e67d7abaac6eb741739191c1ee94d093766707daae0ba4f5db878fdb56390",
+      "bytes": 2379,
+      "beforeRunnerSHA256": "f96ea9273266dc9f813e422a79855f756ab1f9c4853710309e6a285a70a67153",
+      "currentRunnerSHA256": "69e9fbaa909cf4f4bbbed92bd0b906d65d175b8e6e8a0585b110ab627e79de59"
+    },
+    {
+      "family": "allpyro",
+      "sameBytes": true,
+      "SHA256": "5c5e67d7abaac6eb741739191c1ee94d093766707daae0ba4f5db878fdb56390",
+      "bytes": 2379,
+      "beforeRunnerSHA256": "ed7bb7de3d06bb285ce24c54ad3a982af395fff084f9a8b348e7b859b78ff338",
+      "currentRunnerSHA256": "28056b0927bcc0d84face7fbae7003af137c1314fe37b4f8e6cdc752397d43c7"
+    }
+  ],
+  "pairs": [
+    {
+      "group": "noelle6",
+      "seed": 717,
+      "checks": {
+        "sameDeclaredSeed": true,
+        "sameAuthoredDbSHA256": true,
+        "sameDeclaredResolvedSpec": true,
+        "same12EquippedItems": true,
+        "sameActualTalents2": true,
+        "sameActualConstellations0": true,
+        "sameFormationOrder": true,
+        "samePublicFormationSettings": true,
+        "samePublicCompanionTactics": true,
+        "sameWholeInitialAllyActors": true,
+        "sameNativeManualChooser": true,
+        "sameOperatorRevision0": true
+      },
+      "before": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 13,
+        "ko": 4,
+        "revives": 0
+      },
+      "current": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 10,
+        "ko": 4,
+        "revives": 0
+      }
+    },
+    {
+      "group": "noelle6",
+      "seed": 929,
+      "checks": {
+        "sameDeclaredSeed": true,
+        "sameAuthoredDbSHA256": true,
+        "sameDeclaredResolvedSpec": true,
+        "same12EquippedItems": true,
+        "sameActualTalents2": true,
+        "sameActualConstellations0": true,
+        "sameFormationOrder": true,
+        "samePublicFormationSettings": true,
+        "samePublicCompanionTactics": true,
+        "sameWholeInitialAllyActors": true,
+        "sameNativeManualChooser": true,
+        "sameOperatorRevision0": true
+      },
+      "before": {
+        "outcome": "NATIVE_STALEMATE",
+        "round": 610,
+        "ko": 3,
+        "revives": 19
+      },
+      "current": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 12,
+        "ko": 4,
+        "revives": 0
+      }
+    },
+    {
+      "group": "noelle6",
+      "seed": 1237,
+      "checks": {
+        "sameDeclaredSeed": true,
+        "sameAuthoredDbSHA256": true,
+        "sameDeclaredResolvedSpec": true,
+        "same12EquippedItems": true,
+        "sameActualTalents2": true,
+        "sameActualConstellations0": true,
+        "sameFormationOrder": true,
+        "samePublicFormationSettings": true,
+        "samePublicCompanionTactics": true,
+        "sameWholeInitialAllyActors": true,
+        "sameNativeManualChooser": true,
+        "sameOperatorRevision0": true
+      },
+      "before": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 33,
+        "ko": 4,
+        "revives": 0
+      },
+      "current": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 15,
+        "ko": 4,
+        "revives": 0
+      }
+    },
+    {
+      "group": "noelle10",
+      "seed": 717,
+      "checks": {
+        "sameDeclaredSeed": true,
+        "sameAuthoredDbSHA256": true,
+        "sameDeclaredResolvedSpec": true,
+        "same12EquippedItems": true,
+        "sameActualTalents2": true,
+        "sameActualConstellations0": true,
+        "sameFormationOrder": true,
+        "samePublicFormationSettings": true,
+        "samePublicCompanionTactics": true,
+        "sameWholeInitialAllyActors": true,
+        "sameNativeManualChooser": true,
+        "sameOperatorRevision0": true
+      },
+      "before": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 25,
+        "ko": 4,
+        "revives": 0
+      },
+      "current": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 15,
+        "ko": 4,
+        "revives": 0
+      }
+    },
+    {
+      "group": "noelle10",
+      "seed": 929,
+      "checks": {
+        "sameDeclaredSeed": true,
+        "sameAuthoredDbSHA256": true,
+        "sameDeclaredResolvedSpec": true,
+        "same12EquippedItems": true,
+        "sameActualTalents2": true,
+        "sameActualConstellations0": true,
+        "sameFormationOrder": true,
+        "samePublicFormationSettings": true,
+        "samePublicCompanionTactics": true,
+        "sameWholeInitialAllyActors": true,
+        "sameNativeManualChooser": true,
+        "sameOperatorRevision0": true
+      },
+      "before": {
+        "outcome": "NATIVE_STALEMATE",
+        "round": 610,
+        "ko": 3,
+        "revives": 19
+      },
+      "current": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 16,
+        "ko": 4,
+        "revives": 0
+      }
+    },
+    {
+      "group": "noelle10",
+      "seed": 1237,
+      "checks": {
+        "sameDeclaredSeed": true,
+        "sameAuthoredDbSHA256": true,
+        "sameDeclaredResolvedSpec": true,
+        "same12EquippedItems": true,
+        "sameActualTalents2": true,
+        "sameActualConstellations0": true,
+        "sameFormationOrder": true,
+        "samePublicFormationSettings": true,
+        "samePublicCompanionTactics": true,
+        "sameWholeInitialAllyActors": true,
+        "sameNativeManualChooser": true,
+        "sameOperatorRevision0": true
+      },
+      "before": {
+        "outcome": "NATIVE_STALEMATE",
+        "round": 610,
+        "ko": 3,
+        "revives": 20
+      },
+      "current": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 39,
+        "ko": 4,
+        "revives": 0
+      }
+    },
+    {
+      "group": "allpyro10",
+      "seed": 717,
+      "checks": {
+        "sameDeclaredSeed": true,
+        "sameAuthoredDbSHA256": true,
+        "sameDeclaredResolvedSpec": true,
+        "same12EquippedItems": true,
+        "sameActualTalents2": true,
+        "sameActualConstellations0": true,
+        "sameFormationOrder": true,
+        "samePublicFormationSettings": true,
+        "samePublicCompanionTactics": true,
+        "sameWholeInitialAllyActors": true,
+        "sameNativeManualChooser": true,
+        "sameOperatorRevision0": true
+      },
+      "before": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 11,
+        "ko": 4,
+        "revives": 1
+      },
+      "current": {
+        "outcome": "WIN",
+        "round": 9,
+        "ko": 1,
+        "revives": 0
+      }
+    },
+    {
+      "group": "allpyro10",
+      "seed": 929,
+      "checks": {
+        "sameDeclaredSeed": true,
+        "sameAuthoredDbSHA256": true,
+        "sameDeclaredResolvedSpec": true,
+        "same12EquippedItems": true,
+        "sameActualTalents2": true,
+        "sameActualConstellations0": true,
+        "sameFormationOrder": true,
+        "samePublicFormationSettings": true,
+        "samePublicCompanionTactics": true,
+        "sameWholeInitialAllyActors": true,
+        "sameNativeManualChooser": true,
+        "sameOperatorRevision0": true
+      },
+      "before": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 11,
+        "ko": 4,
+        "revives": 1
+      },
+      "current": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 11,
+        "ko": 4,
+        "revives": 1
+      }
+    },
+    {
+      "group": "allpyro10",
+      "seed": 1237,
+      "checks": {
+        "sameDeclaredSeed": true,
+        "sameAuthoredDbSHA256": true,
+        "sameDeclaredResolvedSpec": true,
+        "same12EquippedItems": true,
+        "sameActualTalents2": true,
+        "sameActualConstellations0": true,
+        "sameFormationOrder": true,
+        "samePublicFormationSettings": true,
+        "samePublicCompanionTactics": true,
+        "sameWholeInitialAllyActors": true,
+        "sameNativeManualChooser": true,
+        "sameOperatorRevision0": true
+      },
+      "before": {
+        "outcome": "WIN",
+        "round": 9,
+        "ko": 0,
+        "revives": 0
+      },
+      "current": {
+        "outcome": "ALL_KO_DEFEAT",
+        "round": 17,
+        "ko": 4,
+        "revives": 2
+      }
+    }
+  ]
+}

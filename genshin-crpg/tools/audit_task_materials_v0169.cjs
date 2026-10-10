@@ -18,7 +18,7 @@ function characterCosts(owner){
 function entryFor(kind,level,region){
  const found=Object.entries(G.domains).find(([,s])=>s.kind===kind&&s.levels.includes(level)&&(!region||s.region===region));
  if(!found)throw Error('Missing native domain '+kind+':'+level+':'+region);
- const[key,s]=found;return {...copy(s),key,id:key+':'+level,version:4,level,...(kind==='ASCENSION'?{ascensionRewardVersion:G.ascensionRewardVersion}:{}),...(kind==='TALENT'?{talentRewardVersion:G.talentRewardVersion}:{})};
+ const[key,s]=found;return {...copy(s),key,id:key+':'+level,version:4,level,...(kind==='ASCENSION'?{ascensionRewardVersion:G.ascensionRewardVersion}:{}),...(kind==='TALENT'?{talentRewardVersion:G.talentRewardVersion}:{}),...(kind==='EXP'?{expRewardVersion:G.expRewardVersion}:{})};
 }
 function weeklySupply({talentLevel=60,ascensionLevel=60,extraOnExperienceDays=false}={}){
  const r=fixture('MOND_AMBER'),baseDay=20000,counts={TALENT:0,ASCENSION:0,EXP:0},bonus={TALENT:0,ASCENSION:0},totals={items:{},xp:0,mora:0},runs=[],days=[];

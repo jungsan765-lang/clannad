@@ -1,0 +1,3009 @@
+{
+  "scope": "Separate six-case low-enhancement appendix. The previous matched 24-case ledger is unchanged. Sumeru brooch granted is a comparison only; Mond equipment subset is the meaningful regional access probe. Ownership/material/mora/region prep is still granted, not a natural acquisition playthrough.",
+  "cases": 6,
+  "publicSaveBoundariesPassed": 12,
+  "engineErrors": 0,
+  "inputLimitCases": 0,
+  "oldCompareNeeded": false,
+  "oldCompareReason": "All three no-brooch cases did not fail; two current native victories prove possible route. No new old execution was requested in this branch.",
+  "productEdits": 0,
+  "groups": [
+    {
+      "group": "original_minimum6_current",
+      "scope": "SUMERU_BROOCH_GRANTED",
+      "fingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+      "fieldSHA256": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+      "rawFileDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+      "options": {
+        "prepared": true,
+        "enhance": "6",
+        "talentRequest": 10,
+        "bestGear": false,
+        "artifactRolls": 0,
+        "artifactLevel": null,
+        "levelOverride": 20
+      },
+      "rows": [
+        {
+          "seed": 717,
+          "state": "WIN",
+          "round": 15,
+          "preRewardHpRatio": 0.8319579395714095,
+          "ko": 0,
+          "inputCount": 15,
+          "revives": 1,
+          "equipment": [
+            {
+              "slot": "EQI_000012",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000013",
+              "equip": "EQ_POLEARM_CRESCENT",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000015",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000016",
+              "equip": "EQ_CLAYMORE_WHITEBLIND",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000018",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000019",
+              "equip": "EQ_CATALYST_MAPPA",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000021",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000022",
+              "equip": "EQ_SWORD_RANCOUR",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000023",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000024",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000025",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000026",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            }
+          ],
+          "talents": {
+            "PLAYER_CUSTOM": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "e",
+                "c5": "q"
+              }
+            },
+            "LIYUE_XIANGLING": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "LIYUE_CHONGYUN": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "MOND_BARBARA": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            }
+          },
+          "publicSaveValidation": [
+            {
+              "boundary": "OPENING",
+              "passed": true,
+              "prng": 3064118623
+            },
+            {
+              "boundary": "TERMINAL",
+              "passed": true,
+              "prng": 3399217425
+            }
+          ],
+          "initial": [
+            {
+              "source": "LIYUE_XIANGLING",
+              "id": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3783,
+              "maxHp": 3783,
+              "atk": 643.1999999999999,
+              "def": 392.4,
+              "range": "중거리",
+              "traits": {
+                "SHIELD_BREAK": 25,
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "LIYUE_CHONGYUN",
+              "id": "LIYUE_CHONGYUN",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 4025,
+              "maxHp": 4025,
+              "atk": 654,
+              "def": 453.59999999999997,
+              "range": "근접",
+              "traits": {
+                "STACK_ATK": 3,
+                "HEAVY": 21,
+                "ARMOR_BREAK": 25,
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "MOND_BARBARA",
+              "id": "MOND_BARBARA",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3734,
+              "maxHp": 3921,
+              "atk": 444,
+              "def": 403.2,
+              "range": "중거리",
+              "traits": {
+                "ELEMENT_BOOST": {
+                  "ALL": 8
+                },
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {},
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1.12,
+                  "role": "지원우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "PLAYER_CUSTOM",
+              "id": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "control": "PLAYER",
+              "level": 20,
+              "hp": 3297,
+              "maxHp": 3297,
+              "atk": 511.2,
+              "def": 257,
+              "range": "근접",
+              "traits": {
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "STACK_ATK": 3,
+                "PRECISION": 5,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "FB_ELECTRO_HYPOSTASIS",
+              "id": "FB_ELECTRO_HYPOSTASIS#1",
+              "side": "ENEMY",
+              "control": "AI",
+              "level": 20,
+              "hp": 16800,
+              "maxHp": 16800,
+              "atk": 1785,
+              "def": 210,
+              "range": "중거리",
+              "traits": null,
+              "fb": {
+                "version": 1,
+                "kind": "ELECTRO",
+                "acts": 0,
+                "next": null,
+                "stunned": false,
+                "exposedUntil": 0,
+                "revived": false,
+                "revival": null,
+                "shieldBreaks": 0,
+                "shieldReturn": 0,
+                "summoned": 0,
+                "burrowed": false,
+                "phase": 1
+              },
+              "statuses": [],
+              "shields": [],
+              "turns": 0
+            }
+          ],
+          "result": {
+            "mora": 122,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-717:B24",
+            "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-717:B24",
+            "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-717",
+            "group": "EG_FB_ELECTRO_HYPOSTASIS",
+            "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "branch": null,
+            "victory": true,
+            "xp": 1200,
+            "loot": {
+              "MAT_FB_LIGHTNING_PRISM": 4
+            },
+            "rounds": 15,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "firstClear": true,
+            "fieldBoss": {
+              "boss": "FB_ELECTRO_HYPOSTASIS",
+              "name": "무상의 뇌전",
+              "seen": [
+                "SPIKES",
+                "HAMMER",
+                "STORM",
+                "PRISM",
+                "REVIVE"
+              ],
+              "victory": true
+            }
+          }
+        },
+        {
+          "seed": 19,
+          "state": "WIN",
+          "round": 22,
+          "preRewardHpRatio": 0.6074803673632371,
+          "ko": 0,
+          "inputCount": 22,
+          "revives": 2,
+          "equipment": [
+            {
+              "slot": "EQI_000012",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000013",
+              "equip": "EQ_POLEARM_CRESCENT",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000015",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000016",
+              "equip": "EQ_CLAYMORE_WHITEBLIND",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000018",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000019",
+              "equip": "EQ_CATALYST_MAPPA",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000021",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000022",
+              "equip": "EQ_SWORD_RANCOUR",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000023",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000024",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000025",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000026",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            }
+          ],
+          "talents": {
+            "PLAYER_CUSTOM": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "e",
+                "c5": "q"
+              }
+            },
+            "LIYUE_XIANGLING": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "LIYUE_CHONGYUN": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "MOND_BARBARA": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            }
+          },
+          "publicSaveValidation": [
+            {
+              "boundary": "OPENING",
+              "passed": true,
+              "prng": 1964712439
+            },
+            {
+              "boundary": "TERMINAL",
+              "passed": true,
+              "prng": 4220612484
+            }
+          ],
+          "initial": [
+            {
+              "source": "LIYUE_XIANGLING",
+              "id": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3783,
+              "maxHp": 3783,
+              "atk": 643.1999999999999,
+              "def": 392.4,
+              "range": "중거리",
+              "traits": {
+                "SHIELD_BREAK": 25,
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "LIYUE_CHONGYUN",
+              "id": "LIYUE_CHONGYUN",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 4025,
+              "maxHp": 4025,
+              "atk": 654,
+              "def": 453.59999999999997,
+              "range": "근접",
+              "traits": {
+                "STACK_ATK": 3,
+                "HEAVY": 21,
+                "ARMOR_BREAK": 25,
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "MOND_BARBARA",
+              "id": "MOND_BARBARA",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3734,
+              "maxHp": 3921,
+              "atk": 444,
+              "def": 403.2,
+              "range": "중거리",
+              "traits": {
+                "ELEMENT_BOOST": {
+                  "ALL": 8
+                },
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {},
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1.12,
+                  "role": "지원우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "PLAYER_CUSTOM",
+              "id": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "control": "PLAYER",
+              "level": 20,
+              "hp": 3297,
+              "maxHp": 3297,
+              "atk": 511.2,
+              "def": 257,
+              "range": "근접",
+              "traits": {
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "STACK_ATK": 3,
+                "PRECISION": 5,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "FB_ELECTRO_HYPOSTASIS",
+              "id": "FB_ELECTRO_HYPOSTASIS#1",
+              "side": "ENEMY",
+              "control": "AI",
+              "level": 20,
+              "hp": 16800,
+              "maxHp": 16800,
+              "atk": 1785,
+              "def": 210,
+              "range": "중거리",
+              "traits": null,
+              "fb": {
+                "version": 1,
+                "kind": "ELECTRO",
+                "acts": 0,
+                "next": null,
+                "stunned": false,
+                "exposedUntil": 0,
+                "revived": false,
+                "revival": null,
+                "shieldBreaks": 0,
+                "shieldReturn": 0,
+                "summoned": 0,
+                "burrowed": false,
+                "phase": 1
+              },
+              "statuses": [],
+              "shields": [],
+              "turns": 0
+            }
+          ],
+          "result": {
+            "mora": 122,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-19:B24",
+            "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-19:B24",
+            "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-19",
+            "group": "EG_FB_ELECTRO_HYPOSTASIS",
+            "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "branch": null,
+            "victory": true,
+            "xp": 1200,
+            "loot": {
+              "MAT_FB_LIGHTNING_PRISM": 4
+            },
+            "rounds": 22,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "firstClear": true,
+            "fieldBoss": {
+              "boss": "FB_ELECTRO_HYPOSTASIS",
+              "name": "무상의 뇌전",
+              "seen": [
+                "SPIKES",
+                "HAMMER",
+                "STORM",
+                "PRISM",
+                "REVIVE"
+              ],
+              "victory": true
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "state": "WIN",
+          "round": 21,
+          "preRewardHpRatio": 0.8638360175695461,
+          "ko": 0,
+          "inputCount": 21,
+          "revives": 2,
+          "equipment": [
+            {
+              "slot": "EQI_000012",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000013",
+              "equip": "EQ_POLEARM_CRESCENT",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000015",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000016",
+              "equip": "EQ_CLAYMORE_WHITEBLIND",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000018",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000019",
+              "equip": "EQ_CATALYST_MAPPA",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000021",
+              "equip": "EQ_ACC_HEALER_BROOCH",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "ACCESSORY",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000022",
+              "equip": "EQ_SWORD_RANCOUR",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000023",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000024",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000025",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000026",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            }
+          ],
+          "talents": {
+            "PLAYER_CUSTOM": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "e",
+                "c5": "q"
+              }
+            },
+            "LIYUE_XIANGLING": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "LIYUE_CHONGYUN": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "MOND_BARBARA": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            }
+          },
+          "publicSaveValidation": [
+            {
+              "boundary": "OPENING",
+              "passed": true,
+              "prng": 2038809190
+            },
+            {
+              "boundary": "TERMINAL",
+              "passed": true,
+              "prng": 3176081266
+            }
+          ],
+          "initial": [
+            {
+              "source": "LIYUE_XIANGLING",
+              "id": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3783,
+              "maxHp": 3783,
+              "atk": 643.1999999999999,
+              "def": 392.4,
+              "range": "중거리",
+              "traits": {
+                "SHIELD_BREAK": 25,
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "LIYUE_CHONGYUN",
+              "id": "LIYUE_CHONGYUN",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 4025,
+              "maxHp": 4025,
+              "atk": 654,
+              "def": 453.59999999999997,
+              "range": "근접",
+              "traits": {
+                "STACK_ATK": 3,
+                "HEAVY": 21,
+                "ARMOR_BREAK": 25,
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "MOND_BARBARA",
+              "id": "MOND_BARBARA",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3734,
+              "maxHp": 3921,
+              "atk": 444,
+              "def": 403.2,
+              "range": "중거리",
+              "traits": {
+                "ELEMENT_BOOST": {
+                  "ALL": 8
+                },
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {},
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1.12,
+                  "role": "지원우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "PLAYER_CUSTOM",
+              "id": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "control": "PLAYER",
+              "level": 20,
+              "hp": 3297,
+              "maxHp": 3297,
+              "atk": 511.2,
+              "def": 257,
+              "range": "근접",
+              "traits": {
+                "HEAL_BOOST": 10,
+                "SHIELD_BOOST": 10,
+                "STACK_ATK": 3,
+                "PRECISION": 5,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "FB_ELECTRO_HYPOSTASIS",
+              "id": "FB_ELECTRO_HYPOSTASIS#1",
+              "side": "ENEMY",
+              "control": "AI",
+              "level": 20,
+              "hp": 16800,
+              "maxHp": 16800,
+              "atk": 1785,
+              "def": 210,
+              "range": "중거리",
+              "traits": null,
+              "fb": {
+                "version": 1,
+                "kind": "ELECTRO",
+                "acts": 0,
+                "next": null,
+                "stunned": false,
+                "exposedUntil": 0,
+                "revived": false,
+                "revival": null,
+                "shieldBreaks": 0,
+                "shieldReturn": 0,
+                "summoned": 0,
+                "burrowed": false,
+                "phase": 1
+              },
+              "statuses": [],
+              "shields": [],
+              "turns": 0
+            }
+          ],
+          "result": {
+            "mora": 122,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-43:B24",
+            "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-43:B24",
+            "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-43",
+            "group": "EG_FB_ELECTRO_HYPOSTASIS",
+            "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "branch": null,
+            "victory": true,
+            "xp": 1200,
+            "loot": {
+              "MAT_FB_LIGHTNING_PRISM": 4
+            },
+            "rounds": 21,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "firstClear": true,
+            "fieldBoss": {
+              "boss": "FB_ELECTRO_HYPOSTASIS",
+              "name": "무상의 뇌전",
+              "seen": [
+                "SPIKES",
+                "HAMMER",
+                "STORM",
+                "PRISM",
+                "REVIVE"
+              ],
+              "victory": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "group": "original_minimum6_mond_accessories_current",
+      "scope": "MOND_EAGLE_NO_BROOCH",
+      "fingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+      "fieldSHA256": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+      "rawFileDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+      "options": {
+        "prepared": true,
+        "enhance": "6",
+        "talentRequest": 10,
+        "bestGear": false,
+        "artifactRolls": 0,
+        "artifactLevel": null,
+        "levelOverride": 20
+      },
+      "rows": [
+        {
+          "seed": 717,
+          "state": "WIN",
+          "round": 22,
+          "preRewardHpRatio": 0.6380958932379446,
+          "ko": 0,
+          "inputCount": 22,
+          "revives": 2,
+          "equipment": [
+            {
+              "slot": "EQI_000013",
+              "equip": "EQ_POLEARM_CRESCENT",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000016",
+              "equip": "EQ_CLAYMORE_WHITEBLIND",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000019",
+              "equip": "EQ_CATALYST_MAPPA",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000022",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000023",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000024",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000025",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000026",
+              "equip": "EQ_SWORD_RANCOUR",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000027",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000028",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000029",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000030",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            }
+          ],
+          "talents": {
+            "PLAYER_CUSTOM": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "e",
+                "c5": "q"
+              }
+            },
+            "LIYUE_XIANGLING": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "LIYUE_CHONGYUN": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "MOND_BARBARA": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            }
+          },
+          "publicSaveValidation": [
+            {
+              "boundary": "OPENING",
+              "passed": true,
+              "prng": 3064118623
+            },
+            {
+              "boundary": "TERMINAL",
+              "passed": true,
+              "prng": 4115594327
+            }
+          ],
+          "initial": [
+            {
+              "source": "LIYUE_XIANGLING",
+              "id": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3662,
+              "maxHp": 3662,
+              "atk": 658.8,
+              "def": 392.4,
+              "range": "중거리",
+              "traits": {
+                "SHIELD_BREAK": 25,
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "LIYUE_CHONGYUN",
+              "id": "LIYUE_CHONGYUN",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3905,
+              "maxHp": 3905,
+              "atk": 669.6,
+              "def": 453.59999999999997,
+              "range": "근접",
+              "traits": {
+                "STACK_ATK": 3,
+                "HEAVY": 21,
+                "ARMOR_BREAK": 25,
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "MOND_BARBARA",
+              "id": "MOND_BARBARA",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3613,
+              "maxHp": 3794,
+              "atk": 459.59999999999997,
+              "def": 403.2,
+              "range": "중거리",
+              "traits": {
+                "ELEMENT_BOOST": {
+                  "ALL": 8
+                },
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {},
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1.12,
+                  "role": "지원우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "PLAYER_CUSTOM",
+              "id": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "control": "PLAYER",
+              "level": 20,
+              "hp": 3176,
+              "maxHp": 3176,
+              "atk": 530.4,
+              "def": 257,
+              "range": "근접",
+              "traits": {
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "STACK_ATK": 3,
+                "PRECISION": 5,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "FB_ELECTRO_HYPOSTASIS",
+              "id": "FB_ELECTRO_HYPOSTASIS#1",
+              "side": "ENEMY",
+              "control": "AI",
+              "level": 20,
+              "hp": 16800,
+              "maxHp": 16800,
+              "atk": 1785,
+              "def": 210,
+              "range": "중거리",
+              "traits": null,
+              "fb": {
+                "version": 1,
+                "kind": "ELECTRO",
+                "acts": 0,
+                "next": null,
+                "stunned": false,
+                "exposedUntil": 0,
+                "revived": false,
+                "revival": null,
+                "shieldBreaks": 0,
+                "shieldReturn": 0,
+                "summoned": 0,
+                "burrowed": false,
+                "phase": 1
+              },
+              "statuses": [],
+              "shields": [],
+              "turns": 0
+            }
+          ],
+          "result": {
+            "mora": 122,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-717:B28",
+            "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-717:B28",
+            "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-717",
+            "group": "EG_FB_ELECTRO_HYPOSTASIS",
+            "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "branch": null,
+            "victory": true,
+            "xp": 1200,
+            "loot": {
+              "MAT_FB_LIGHTNING_PRISM": 3
+            },
+            "rounds": 22,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "firstClear": true,
+            "fieldBoss": {
+              "boss": "FB_ELECTRO_HYPOSTASIS",
+              "name": "무상의 뇌전",
+              "seen": [
+                "SPIKES",
+                "HAMMER",
+                "STORM",
+                "PRISM",
+                "REVIVE"
+              ],
+              "victory": true
+            }
+          }
+        },
+        {
+          "seed": 19,
+          "state": "DEFEAT",
+          "round": 55,
+          "preRewardHpRatio": 0,
+          "ko": 4,
+          "inputCount": 30,
+          "revives": 7,
+          "equipment": [
+            {
+              "slot": "EQI_000013",
+              "equip": "EQ_POLEARM_CRESCENT",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000016",
+              "equip": "EQ_CLAYMORE_WHITEBLIND",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000019",
+              "equip": "EQ_CATALYST_MAPPA",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000022",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000023",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000024",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000025",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000026",
+              "equip": "EQ_SWORD_RANCOUR",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000027",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000028",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000029",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000030",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            }
+          ],
+          "talents": {
+            "PLAYER_CUSTOM": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "e",
+                "c5": "q"
+              }
+            },
+            "LIYUE_XIANGLING": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "LIYUE_CHONGYUN": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "MOND_BARBARA": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            }
+          },
+          "publicSaveValidation": [
+            {
+              "boundary": "OPENING",
+              "passed": true,
+              "prng": 1964712439
+            },
+            {
+              "boundary": "TERMINAL",
+              "passed": true,
+              "prng": 1854827317
+            }
+          ],
+          "initial": [
+            {
+              "source": "LIYUE_XIANGLING",
+              "id": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3662,
+              "maxHp": 3662,
+              "atk": 658.8,
+              "def": 392.4,
+              "range": "중거리",
+              "traits": {
+                "SHIELD_BREAK": 25,
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "LIYUE_CHONGYUN",
+              "id": "LIYUE_CHONGYUN",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3905,
+              "maxHp": 3905,
+              "atk": 669.6,
+              "def": 453.59999999999997,
+              "range": "근접",
+              "traits": {
+                "STACK_ATK": 3,
+                "HEAVY": 21,
+                "ARMOR_BREAK": 25,
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "MOND_BARBARA",
+              "id": "MOND_BARBARA",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3613,
+              "maxHp": 3794,
+              "atk": 459.59999999999997,
+              "def": 403.2,
+              "range": "중거리",
+              "traits": {
+                "ELEMENT_BOOST": {
+                  "ALL": 8
+                },
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {},
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1.12,
+                  "role": "지원우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "PLAYER_CUSTOM",
+              "id": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "control": "PLAYER",
+              "level": 20,
+              "hp": 3176,
+              "maxHp": 3176,
+              "atk": 530.4,
+              "def": 257,
+              "range": "근접",
+              "traits": {
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "STACK_ATK": 3,
+                "PRECISION": 5,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "FB_ELECTRO_HYPOSTASIS",
+              "id": "FB_ELECTRO_HYPOSTASIS#1",
+              "side": "ENEMY",
+              "control": "AI",
+              "level": 20,
+              "hp": 16800,
+              "maxHp": 16800,
+              "atk": 1785,
+              "def": 210,
+              "range": "중거리",
+              "traits": null,
+              "fb": {
+                "version": 1,
+                "kind": "ELECTRO",
+                "acts": 0,
+                "next": null,
+                "stunned": false,
+                "exposedUntil": 0,
+                "revived": false,
+                "revival": null,
+                "shieldBreaks": 0,
+                "shieldReturn": 0,
+                "summoned": 0,
+                "burrowed": false,
+                "phase": 1
+              },
+              "statuses": [],
+              "shields": [],
+              "turns": 0
+            }
+          ],
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-19:B28",
+            "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-19:B28",
+            "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-19",
+            "group": "EG_FB_ELECTRO_HYPOSTASIS",
+            "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "branch": null,
+            "victory": false,
+            "xp": 0,
+            "loot": {},
+            "rounds": 55,
+            "result": "DEFEAT",
+            "unsupportedEffects": [],
+            "defeatPenalty": {
+              "mora": 100000,
+              "seconds": 60
+            },
+            "fieldBoss": {
+              "boss": "FB_ELECTRO_HYPOSTASIS",
+              "name": "무상의 뇌전",
+              "seen": [
+                "SPIKES",
+                "HAMMER",
+                "STORM",
+                "PRISM",
+                "REVIVE"
+              ],
+              "victory": false
+            }
+          }
+        },
+        {
+          "seed": 43,
+          "state": "WIN",
+          "round": 11,
+          "preRewardHpRatio": 0.6132627089495769,
+          "ko": 0,
+          "inputCount": 11,
+          "revives": 0,
+          "equipment": [
+            {
+              "slot": "EQI_000013",
+              "equip": "EQ_POLEARM_CRESCENT",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000016",
+              "equip": "EQ_CLAYMORE_WHITEBLIND",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000019",
+              "equip": "EQ_CATALYST_MAPPA",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000022",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000023",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000024",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000025",
+              "equip": "EQ_ACC_EAGLE_EYE",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "enhancementCap": 10,
+              "category": "ACCESSORY"
+            },
+            {
+              "slot": "EQI_000026",
+              "equip": "EQ_SWORD_RANCOUR",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "WEAPON",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000027",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "PLAYER_CUSTOM",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000028",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_XIANGLING",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000029",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "LIYUE_CHONGYUN",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            },
+            {
+              "slot": "EQI_000030",
+              "equip": "EQ_ARMOR_IRON_GUARD",
+              "quantity": 1,
+              "enhance": 6,
+              "instanceRevision": 0,
+              "owner": "MOND_BARBARA",
+              "equipped": true,
+              "category": "ARMOR",
+              "enhancementCap": 10
+            }
+          ],
+          "talents": {
+            "PLAYER_CUSTOM": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "e",
+                "c5": "q"
+              }
+            },
+            "LIYUE_XIANGLING": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "LIYUE_CHONGYUN": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            },
+            "MOND_BARBARA": {
+              "na": 2,
+              "e": 2,
+              "q": 2,
+              "base": {
+                "na": 2,
+                "e": 2,
+                "q": 2
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            }
+          },
+          "publicSaveValidation": [
+            {
+              "boundary": "OPENING",
+              "passed": true,
+              "prng": 2038809190
+            },
+            {
+              "boundary": "TERMINAL",
+              "passed": true,
+              "prng": 1866687515
+            }
+          ],
+          "initial": [
+            {
+              "source": "LIYUE_XIANGLING",
+              "id": "LIYUE_XIANGLING",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3662,
+              "maxHp": 3662,
+              "atk": 658.8,
+              "def": 392.4,
+              "range": "중거리",
+              "traits": {
+                "SHIELD_BREAK": 25,
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "LIYUE_CHONGYUN",
+              "id": "LIYUE_CHONGYUN",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3905,
+              "maxHp": 3905,
+              "atk": 669.6,
+              "def": 453.59999999999997,
+              "range": "근접",
+              "traits": {
+                "STACK_ATK": 3,
+                "HEAVY": 21,
+                "ARMOR_BREAK": 25,
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": 6,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 1.06,
+                  "reactionOut": 1,
+                  "supportOut": 1,
+                  "role": "공격우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "MOND_BARBARA",
+              "id": "MOND_BARBARA",
+              "side": "ALLY",
+              "control": "AI",
+              "level": 20,
+              "hp": 3613,
+              "maxHp": 3794,
+              "atk": 459.59999999999997,
+              "def": 403.2,
+              "range": "중거리",
+              "traits": {
+                "ELEMENT_BOOST": {
+                  "ALL": 8
+                },
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                },
+                {
+                  "id": "ROLE",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {},
+                  "taken": 1,
+                  "reactionOut": 1,
+                  "supportOut": 1.12,
+                  "role": "지원우선"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "PLAYER_CUSTOM",
+              "id": "PLAYER_CUSTOM",
+              "side": "ALLY",
+              "control": "PLAYER",
+              "level": 20,
+              "hp": 3176,
+              "maxHp": 3176,
+              "atk": 530.4,
+              "def": 257,
+              "range": "근접",
+              "traits": {
+                "AIR_ACCESS": 1,
+                "ANTI_AIR": 8,
+                "STACK_ATK": 3,
+                "PRECISION": 5,
+                "HEAVY": 15,
+                "STAGGER_RES": 100,
+                "ELEMENT_RES": {
+                  "물리": 4
+                }
+              },
+              "fb": null,
+              "statuses": [
+                {
+                  "id": "FORMATION",
+                  "rounds": null,
+                  "createdRound": 1,
+                  "mods": {
+                    "atk": {
+                      "pct": -10,
+                      "flat": 0
+                    }
+                  },
+                  "taken": 0.88,
+                  "reactionOut": 1,
+                  "supportOut": 1.2,
+                  "formation": "DIAMOND"
+                }
+              ],
+              "shields": [],
+              "turns": 0
+            },
+            {
+              "source": "FB_ELECTRO_HYPOSTASIS",
+              "id": "FB_ELECTRO_HYPOSTASIS#1",
+              "side": "ENEMY",
+              "control": "AI",
+              "level": 20,
+              "hp": 16800,
+              "maxHp": 16800,
+              "atk": 1785,
+              "def": 210,
+              "range": "중거리",
+              "traits": null,
+              "fb": {
+                "version": 1,
+                "kind": "ELECTRO",
+                "acts": 0,
+                "next": null,
+                "stunned": false,
+                "exposedUntil": 0,
+                "revived": false,
+                "revival": null,
+                "shieldBreaks": 0,
+                "shieldReturn": 0,
+                "summoned": 0,
+                "burrowed": false,
+                "phase": 1
+              },
+              "statuses": [],
+              "shields": [],
+              "turns": 0
+            }
+          ],
+          "result": {
+            "mora": 122,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-43:B28",
+            "battleId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-43:B28",
+            "saveId": "PROTAGONIST-V01618-ROUTE_ISEKAI-20-43",
+            "group": "EG_FB_ELECTRO_HYPOSTASIS",
+            "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "branch": null,
+            "victory": true,
+            "xp": 1200,
+            "loot": {
+              "MAT_FB_LIGHTNING_PRISM": 3
+            },
+            "rounds": 11,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "firstClear": true,
+            "fieldBoss": {
+              "boss": "FB_ELECTRO_HYPOSTASIS",
+              "name": "무상의 뇌전",
+              "seen": [
+                "SPIKES",
+                "HAMMER",
+                "STORM",
+                "PRISM",
+                "REVIVE"
+              ],
+              "victory": true
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "archiveManifest": [
+    {
+      "name": "original_minimum6_current",
+      "runnerSHA256": "eff5f4dfe6285a18c8ca8332db3acce4c8d54f1ce31d93a5f7d58fc0eb3daa08",
+      "rawSHA256": "5815216031a5828646ed81a8831441dc6db1001bb1444df474d2769fb50cace3",
+      "gzipSHA256": "5a268d6d1ce9603275d761183c057bf5378ec5e3e3d7b5e1009145359343c9a6"
+    },
+    {
+      "name": "original_minimum6_mond_accessories_current",
+      "runnerSHA256": "4744a9a783eb1154761a69fa3ef3eac46a56c3e9413d60a20015e1d1031c9d3a",
+      "rawSHA256": "aa35aee86fa0705dc9128648eaceff39ab1399cf18f61a97382515ddc2f8125b",
+      "gzipSHA256": "0cdf25371994739dac64b0ab02d48793d5023bee0f0cc534173525541e92a86b"
+    }
+  ]
+}

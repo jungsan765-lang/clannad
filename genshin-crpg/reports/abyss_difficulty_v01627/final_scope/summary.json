@@ -1,0 +1,677 @@
+{
+  "beforeFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "currentFingerprint": "71d718597e92cc13b8348c877da254737d057722bf0dbfa75718b9aeedc6e429",
+  "checks": [
+    {
+      "id": "native_abyss_actors_remain_identical_floor_1",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 459.59999999999997,\n    def: 229,\n    hp: 2623,\n    id: 'PLAYER_CUSTOM',\n    level: 15,\n    maxHp: 2623,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 62\n  },\n  {\n    atk: 423.59999999999997,\n    def: 268.8,\n    hp: 2810,\n    id: 'MOND_AMBER',\n    level: 15,\n    maxHp: 2810,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 74\n  },\n  {\n    atk: 472.79999999999995,\n    def: 303.59999999999997,\n    hp: 2995,\n    id: 'MOND_KAEYA',\n    level: 15,\n    maxHp: 3145,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 78\n  },\n  {\n    atk: 516,\n    def: 264,\n    hp: 2772,\n    id: 'MOND_LISA',\n    level: 15,\n    maxHp: 2772,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 66\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:11:400\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:11:24)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "native_abyss_actors_remain_identical_floor_6",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 1616.3999999999999,\n    def: 808,\n    hp: 8585,\n    id: 'PLAYER_CUSTOM',\n    level: 40,\n    maxHp: 8585,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 67\n  },\n  {\n    atk: 1524.8000000000002,\n    def: 971.2,\n    hp: 9260,\n    id: 'MOND_AMBER',\n    level: 40,\n    maxHp: 9260,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 79\n  },\n  {\n    atk: 1724.8000000000002,\n    def: 1120,\n    hp: 9934,\n    id: 'MOND_KAEYA',\n    level: 40,\n    maxHp: 10431,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 83\n  },\n  {\n    atk: 1937.6000000000001,\n    def: 955.2,\n    hp: 9126,\n    id: 'MOND_LISA',\n    level: 40,\n    maxHp: 9126,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 71\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:11:400\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:11:24)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "native_abyss_actors_remain_identical_floor_9",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 3098.4,\n    def: 1548,\n    hp: 15561,\n    id: 'PLAYER_CUSTOM',\n    level: 55,\n    maxHp: 15561,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 70\n  },\n  {\n    atk: 2936,\n    def: 1874,\n    hp: 16808,\n    id: 'MOND_AMBER',\n    level: 55,\n    maxHp: 16808,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 82\n  },\n  {\n    atk: 3328,\n    def: 2166,\n    hp: 18054,\n    id: 'MOND_KAEYA',\n    level: 55,\n    maxHp: 18957,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 86\n  },\n  {\n    atk: 3764,\n    def: 1840,\n    hp: 16558,\n    id: 'MOND_LISA',\n    level: 55,\n    maxHp: 16558,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 74\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:11:400\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:11:24)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "native_public_raid_event_remains_identical_MON_RAID_GRADER",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 3862.7999999999997,\n    def: 1932,\n    hp: 19037,\n    id: 'PLAYER_CUSTOM',\n    level: 60,\n    maxHp: 19037,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 71\n  },\n  {\n    atk: 3663.0000000000005,\n    def: 2338.6000000000004,\n    hp: 20570,\n    id: 'MOND_AMBER',\n    level: 60,\n    maxHp: 20570,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 83\n  },\n  {\n    atk: 4155.8,\n    def: 2703.8,\n    hp: 22101,\n    id: 'MOND_KAEYA',\n    level: 60,\n    maxHp: 23206,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 87\n  },\n  {\n    atk: 4705.8,\n    def: 2296.8,\n    hp: 20262,\n    id: 'MOND_LISA',\n    level: 60,\n    maxHp: 20262,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 75\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:414\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:48)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "native_public_raid_event_remains_identical_MON_RAID_FROSTLORD",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 3862.7999999999997,\n    def: 1932,\n    hp: 19037,\n    id: 'PLAYER_CUSTOM',\n    level: 60,\n    maxHp: 19037,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 71\n  },\n  {\n    atk: 3663.0000000000005,\n    def: 2338.6000000000004,\n    hp: 20570,\n    id: 'MOND_AMBER',\n    level: 60,\n    maxHp: 20570,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 83\n  },\n  {\n    atk: 4155.8,\n    def: 2703.8,\n    hp: 22101,\n    id: 'MOND_KAEYA',\n    level: 60,\n    maxHp: 23206,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 87\n  },\n  {\n    atk: 4705.8,\n    def: 2296.8,\n    hp: 20262,\n    id: 'MOND_LISA',\n    level: 60,\n    maxHp: 20262,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 75\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:414\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:48)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "native_public_raid_event_remains_identical_MON_RAID_HERALD",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 3862.7999999999997,\n    def: 1932,\n    hp: 19037,\n    id: 'PLAYER_CUSTOM',\n    level: 60,\n    maxHp: 19037,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 71\n  },\n  {\n    atk: 3663.0000000000005,\n    def: 2338.6000000000004,\n    hp: 20570,\n    id: 'MOND_AMBER',\n    level: 60,\n    maxHp: 20570,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 83\n  },\n  {\n    atk: 4155.8,\n    def: 2703.8,\n    hp: 22101,\n    id: 'MOND_KAEYA',\n    level: 60,\n    maxHp: 23206,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 87\n  },\n  {\n    atk: 4705.8,\n    def: 2296.8,\n    hp: 20262,\n    id: 'MOND_LISA',\n    level: 60,\n    maxHp: 20262,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 75\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:414\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:48)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "native_public_raid_event_remains_identical_MON_RAID_MAIDEN",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 3862.7999999999997,\n    def: 1932,\n    hp: 19037,\n    id: 'PLAYER_CUSTOM',\n    level: 60,\n    maxHp: 19037,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 71\n  },\n  {\n    atk: 3663.0000000000005,\n    def: 2338.6000000000004,\n    hp: 20570,\n    id: 'MOND_AMBER',\n    level: 60,\n    maxHp: 20570,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 83\n  },\n  {\n    atk: 4155.8,\n    def: 2703.8,\n    hp: 22101,\n    id: 'MOND_KAEYA',\n    level: 60,\n    maxHp: 23206,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 87\n  },\n  {\n    atk: 4705.8,\n    def: 2296.8,\n    hp: 20262,\n    id: 'MOND_LISA',\n    level: 60,\n    maxHp: 20262,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 75\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:414\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:48)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "native_public_raid_event_remains_identical_MON_RAID_SERPENT",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 3862.7999999999997,\n    def: 1932,\n    hp: 19037,\n    id: 'PLAYER_CUSTOM',\n    level: 60,\n    maxHp: 19037,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 71\n  },\n  {\n    atk: 3663.0000000000005,\n    def: 2338.6000000000004,\n    hp: 20570,\n    id: 'MOND_AMBER',\n    level: 60,\n    maxHp: 20570,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 83\n  },\n  {\n    atk: 4155.8,\n    def: 2703.8,\n    hp: 22101,\n    id: 'MOND_KAEYA',\n    level: 60,\n    maxHp: 23206,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 87\n  },\n  {\n    atk: 4705.8,\n    def: 2296.8,\n    hp: 20262,\n    id: 'MOND_LISA',\n    level: 60,\n    maxHp: 20262,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 75\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:414\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:48)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "native_public_raid_event_remains_identical_MON_RAID_HUNTER",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 3862.7999999999997,\n    def: 1932,\n    hp: 19037,\n    id: 'PLAYER_CUSTOM',\n    level: 60,\n    maxHp: 19037,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 71\n  },\n  {\n    atk: 3663.0000000000005,\n    def: 2338.6000000000004,\n    hp: 20570,\n    id: 'MOND_AMBER',\n    level: 60,\n    maxHp: 20570,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 83\n  },\n  {\n    atk: 4155.8,\n    def: 2703.8,\n    hp: 22101,\n    id: 'MOND_KAEYA',\n    level: 60,\n    maxHp: 23206,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 87\n  },\n  {\n    atk: 4705.8,\n    def: 2296.8,\n    hp: 20262,\n    id: 'MOND_LISA',\n    level: 60,\n    maxHp: 20262,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 75\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:414\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:12:48)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "native_protect_formation_remains_identical_ROUTE_TRAVELER",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 3862.7999999999997,\n    def: 1932,\n    hp: 19037,\n    id: 'PLAYER_CUSTOM',\n    level: 60,\n    maxHp: 19037,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 71\n  },\n  {\n    atk: 3663.0000000000005,\n    def: 2338.6000000000004,\n    hp: 20570,\n    id: 'MOND_AMBER',\n    level: 60,\n    maxHp: 20570,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 83\n  },\n  {\n    atk: 4155.8,\n    def: 2703.8,\n    hp: 22101,\n    id: 'MOND_KAEYA',\n    level: 60,\n    maxHp: 23206,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 87\n  },\n  {\n    atk: 4705.8,\n    def: 2296.8,\n    hp: 20262,\n    id: 'MOND_LISA',\n    level: 60,\n    maxHp: 20262,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 75\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:13:619\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:13:54)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "native_protect_formation_remains_identical_ROUTE_ISEKAI",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:\n\n... Skipped lines\n[\n  {\n    atk: 3225.6,\n    def: 1320,\n    hp: 17812,\n    id: 'PLAYER_CUSTOM',\n    level: 60,\n    maxHp: 17812,\n    shields: [],\n    side: 'ALLY',\n    source: 'PLAYER_CUSTOM',\n    spd: 74\n  },\n  {\n    atk: 3663.0000000000005,\n    def: 2338.6000000000004,\n    hp: 20570,\n    id: 'MOND_AMBER',\n    level: 60,\n    maxHp: 20570,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_AMBER',\n    spd: 83\n  },\n  {\n    atk: 4155.8,\n    def: 2703.8,\n    hp: 22101,\n    id: 'MOND_KAEYA',\n    level: 60,\n    maxHp: 23206,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_KAEYA',\n    spd: 87\n  },\n  {\n    atk: 4705.8,\n    def: 2296.8,\n    hp: 20262,\n    id: 'MOND_LISA',\n    level: 60,\n    maxHp: 20262,\n    shields: [],\n    side: 'ALLY',\n    source: 'MOND_LISA',\n    spd: 75\n  },\n  {\n...}\n\n    at /workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:13:619\n    at check (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:10:71)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/balance-v01627-work/tools/audit_difficulty_scope_v01627.cjs:13:54)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "fresh_ordinary_and_story_independent_def_basis_EXPLICIT",
+      "passed": true,
+      "evidence": {
+        "origin": "EXPLICIT",
+        "rows": [
+          {
+            "level": 3,
+            "before": [
+              276,
+              48,
+              25
+            ],
+            "after": [
+              276,
+              48,
+              25
+            ],
+            "expected": {
+              "hp": 276,
+              "atk": 48,
+              "def": 25
+            }
+          },
+          {
+            "level": 10,
+            "before": [
+              2800,
+              870,
+              46
+            ],
+            "after": [
+              2800,
+              870,
+              46
+            ],
+            "expected": {
+              "hp": 2800,
+              "atk": 870,
+              "def": 46
+            }
+          },
+          {
+            "level": 12,
+            "before": [
+              3200,
+              940,
+              54
+            ],
+            "after": [
+              3200,
+              940,
+              54
+            ],
+            "expected": {
+              "hp": 3200,
+              "atk": 940,
+              "def": 54
+            }
+          },
+          {
+            "level": 30,
+            "before": [
+              6500,
+              1750,
+              140
+            ],
+            "after": [
+              7150,
+              2012,
+              158
+            ],
+            "expected": {
+              "hp": 7150,
+              "atk": 2012,
+              "def": 158
+            }
+          },
+          {
+            "level": 50,
+            "before": [
+              12500,
+              3500,
+              282
+            ],
+            "after": [
+              16500,
+              5180,
+              691
+            ],
+            "expected": {
+              "hp": 16500,
+              "atk": 5180,
+              "def": 691
+            }
+          },
+          {
+            "level": 60,
+            "before": [
+              17000,
+              4900,
+              370
+            ],
+            "after": [
+              23800,
+              7840,
+              1249
+            ],
+            "expected": {
+              "hp": 23800,
+              "atk": 7840,
+              "def": 1249
+            }
+          }
+        ],
+        "probe": "independent current-policy arithmetic, not a completed combat"
+      }
+    },
+    {
+      "id": "fresh_ordinary_and_story_independent_def_basis_STORY:DIFFICULTY_SCOPE_NUMERIC",
+      "passed": true,
+      "evidence": {
+        "origin": "STORY:DIFFICULTY_SCOPE_NUMERIC",
+        "rows": [
+          {
+            "level": 3,
+            "before": [
+              276,
+              48,
+              25
+            ],
+            "after": [
+              276,
+              48,
+              25
+            ],
+            "expected": {
+              "hp": 276,
+              "atk": 48,
+              "def": 25
+            }
+          },
+          {
+            "level": 10,
+            "before": [
+              2800,
+              870,
+              46
+            ],
+            "after": [
+              2800,
+              870,
+              46
+            ],
+            "expected": {
+              "hp": 2800,
+              "atk": 870,
+              "def": 46
+            }
+          },
+          {
+            "level": 12,
+            "before": [
+              3200,
+              940,
+              54
+            ],
+            "after": [
+              3200,
+              940,
+              54
+            ],
+            "expected": {
+              "hp": 3200,
+              "atk": 940,
+              "def": 54
+            }
+          },
+          {
+            "level": 30,
+            "before": [
+              6500,
+              1750,
+              140
+            ],
+            "after": [
+              7150,
+              2012,
+              158
+            ],
+            "expected": {
+              "hp": 7150,
+              "atk": 2012,
+              "def": 158
+            }
+          },
+          {
+            "level": 50,
+            "before": [
+              12500,
+              3500,
+              282
+            ],
+            "after": [
+              16500,
+              5180,
+              691
+            ],
+            "expected": {
+              "hp": 16500,
+              "atk": 5180,
+              "def": 691
+            }
+          },
+          {
+            "level": 60,
+            "before": [
+              17000,
+              4900,
+              370
+            ],
+            "after": [
+              23800,
+              7840,
+              1249
+            ],
+            "expected": {
+              "hp": 23800,
+              "atk": 7840,
+              "def": 1249
+            }
+          }
+        ],
+        "probe": "independent current-policy arithmetic, not a completed combat"
+      }
+    }
+  ],
+  "story": [
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 3,
+      "seed": 717,
+      "engine": "before",
+      "state": "LOSS",
+      "rounds": 4,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 3,
+      "seed": 717,
+      "engine": "current",
+      "state": "LOSS",
+      "rounds": 4,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 3,
+      "seed": 4242,
+      "engine": "before",
+      "state": "LOSS",
+      "rounds": 4,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 3,
+      "seed": 4242,
+      "engine": "current",
+      "state": "LOSS",
+      "rounds": 4,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 3,
+      "seed": 9031,
+      "engine": "before",
+      "state": "LOSS",
+      "rounds": 5,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 3,
+      "seed": 9031,
+      "engine": "current",
+      "state": "LOSS",
+      "rounds": 5,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 10,
+      "seed": 717,
+      "engine": "before",
+      "state": "WIN",
+      "rounds": 2,
+      "ko": [],
+      "finalHp": 0.7933895356617156,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 10,
+      "seed": 717,
+      "engine": "current",
+      "state": "WIN",
+      "rounds": 2,
+      "ko": [],
+      "finalHp": 0.7933895356617156,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 10,
+      "seed": 4242,
+      "engine": "before",
+      "state": "WIN",
+      "rounds": 3,
+      "ko": [],
+      "finalHp": 0.887729158303225,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 10,
+      "seed": 4242,
+      "engine": "current",
+      "state": "WIN",
+      "rounds": 3,
+      "ko": [],
+      "finalHp": 0.887729158303225,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 10,
+      "seed": 9031,
+      "engine": "before",
+      "state": "WIN",
+      "rounds": 2,
+      "ko": [],
+      "finalHp": 0.8354074668807707,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N139",
+      "group": "EG_TRV_WOLF_WAVE",
+      "enemyLevel": 10,
+      "playerLevel": 10,
+      "seed": 9031,
+      "engine": "current",
+      "state": "WIN",
+      "rounds": 2,
+      "ko": [],
+      "finalHp": 0.8354074668807707,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 3,
+      "seed": 717,
+      "engine": "before",
+      "state": "LOSS",
+      "rounds": 5,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 3,
+      "seed": 717,
+      "engine": "current",
+      "state": "LOSS",
+      "rounds": 5,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 3,
+      "seed": 4242,
+      "engine": "before",
+      "state": "LOSS",
+      "rounds": 4,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 3,
+      "seed": 4242,
+      "engine": "current",
+      "state": "LOSS",
+      "rounds": 4,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 3,
+      "seed": 9031,
+      "engine": "before",
+      "state": "LOSS",
+      "rounds": 4,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 3,
+      "seed": 9031,
+      "engine": "current",
+      "state": "LOSS",
+      "rounds": 4,
+      "ko": [
+        "PLAYER_CUSTOM",
+        "MOND_AMBER",
+        "MOND_KAEYA",
+        "MOND_LISA"
+      ],
+      "finalHp": 0,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 10,
+      "seed": 717,
+      "engine": "before",
+      "state": "WIN",
+      "rounds": 4,
+      "ko": [],
+      "finalHp": 0.7885721932289576,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 10,
+      "seed": 717,
+      "engine": "current",
+      "state": "WIN",
+      "rounds": 4,
+      "ko": [],
+      "finalHp": 0.7885721932289576,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 10,
+      "seed": 4242,
+      "engine": "before",
+      "state": "WIN",
+      "rounds": 4,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "finalHp": 0.6108657834872206,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 10,
+      "seed": 4242,
+      "engine": "current",
+      "state": "WIN",
+      "rounds": 4,
+      "ko": [
+        "PLAYER_CUSTOM"
+      ],
+      "finalHp": 0.6108657834872206,
+      "policyMarker": 1
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 10,
+      "seed": 9031,
+      "engine": "before",
+      "state": "WIN",
+      "rounds": 4,
+      "ko": [],
+      "finalHp": 0.7500334537668941,
+      "policyMarker": null
+    },
+    {
+      "scene": "TRV_M02_N157",
+      "group": "EG_TRV_LION_WAVE",
+      "enemyLevel": 12,
+      "playerLevel": 10,
+      "seed": 9031,
+      "engine": "current",
+      "state": "WIN",
+      "rounds": 4,
+      "ko": [],
+      "finalHp": 0.7500334537668941,
+      "policyMarker": 1
+    }
+  ],
+  "total": 13,
+  "failed": 11
+}

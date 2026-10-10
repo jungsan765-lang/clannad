@@ -1,0 +1,255 @@
+{
+  "authoredDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "broochEquipment": [
+    [
+      "EQ_ACC_HEALER_BROOCH",
+      "치유사의 브로치",
+      "장신구",
+      "전체",
+      0.0,
+      0.0,
+      80.0,
+      0.0,
+      0.0,
+      "회복량 +8%",
+      null,
+      "자신이 주는 회복·보호막 효과 +8%. 최대 HP를 넘는 회복이 발생하면 초과량 중 최대 대상 MAX_HP의 5%까지 1R 보호막으로 전환한다.",
+      "TRPG 장신구",
+      "희귀",
+      "Y",
+      "REC_ACC_HEALER",
+      "N",
+      620.0,
+      "TRPG 전용",
+      5.0,
+      0.0,
+      0.0,
+      0.0,
+      2.0,
+      "없음",
+      0.0,
+      "[지원][치유][보호막]",
+      "T3 지역 희귀",
+      "단조/치유 퀘스트",
+      "+3 HP +30 / +6 회복·보호막 +10% / +9 초과 회복 보호막 상한 MAX_HP 7%",
+      "없음",
+      "수메르성 장비·연구 보급소에서 약재·에테르 실·공명 보석을 사용해 제작. 치유/지원 의뢰로 제작법 해금 가능.",
+      "{\"schema\":1,\"allowed_levels\":[0,3,6,9],\"costs\":{\"3\":{\"mora\":120,\"items\":{\"ORE_IRON\":3}},\"6\":{\"mora\":360,\"items\":{\"ORE_IRON\":6}},\"9\":{\"mora\":720,\"items\":{\"ORE_IRON\":9}}},\"legacy_exact_milestones\":\"+3 HP +30 / +6 회복·보호막 +10% / +9 초과 회복 보호막 상한 MAX_HP 7%\",\"requires_effect_handler\":true,\"note\":\"기존 구체 효과 원문 보존. 지원하지 않는 실행기는 강화 전 변경 없이 사유를 반환.\"}",
+      true,
+      9.0
+    ]
+  ],
+  "broochRecipes": [
+    [
+      "REC_ACC_HEALER",
+      "장신구 제작",
+      "EQUIP",
+      "EQ_ACC_HEALER_BROOCH",
+      1.0,
+      "TRPG_AETHER_THREAD",
+      3.0,
+      "TRPG_RESONANT_GEM",
+      1.0,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      340.0,
+      "수메르성",
+      "MRC_SUMERU_EQUIP 또는 MRC_ALCHEMY_COMMON",
+      "LEVEL>=8",
+      "1시간",
+      100.0,
+      "수메르 의학·지원 계열 제작 루트."
+    ]
+  ],
+  "broochStock": [],
+  "eagleEquipment": [
+    [
+      "EQ_ACC_EAGLE_EYE",
+      "매의 눈 장식",
+      "장신구",
+      "전체",
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      "명중 +4 / 대공 조준",
+      null,
+      "시야가 확보되면 [중거리] 공격도 [공중부양]/[비행] 대상을 직접 지정할 수 있다. 이 방식으로 공격할 때 최종 피해 -15%. [원거리]/약점 공격은 추가 페널티 없이 기존 규칙을 따른다.",
+      "TRPG 장신구",
+      "고급",
+      "Y",
+      "REC_ACC_EAGLE",
+      "Y",
+      300.0,
+      "TRPG 전용",
+      3.0,
+      0.0,
+      4.0,
+      0.0,
+      0.0,
+      "없음",
+      0.0,
+      "[명중][약점/대공]",
+      "T2 고급",
+      "상점/단조",
+      "+3 명중 +1 / +6 대공 중거리 피해 페널티 -10%로 완화 / +9 약점·대공 공격 명중 +2 추가",
+      "없음",
+      "몬드 사냥꾼·정찰대 계열 제작법 또는 고급 장비 상점",
+      "{\"schema\":1,\"allowed_levels\":[0,3,6,9],\"costs\":{\"3\":{\"mora\":120,\"items\":{\"ORE_IRON\":3}},\"6\":{\"mora\":360,\"items\":{\"ORE_IRON\":6}},\"9\":{\"mora\":720,\"items\":{\"ORE_IRON\":9}}},\"legacy_exact_milestones\":\"+3 명중 +1 / +6 대공 중거리 피해 페널티 -10%로 완화 / +9 약점·대공 공격 명중 +2 추가\",\"requires_effect_handler\":true,\"note\":\"기존 구체 효과 원문 보존. 지원하지 않는 실행기는 강화 전 변경 없이 사유를 반환.\"}",
+      true,
+      9.0
+    ]
+  ],
+  "eagleRecipes": [
+    [
+      "REC_ACC_EAGLE",
+      "장신구 제작",
+      "EQUIP",
+      "EQ_ACC_EAGLE_EYE",
+      1.0,
+      "ORE_CRYSTAL",
+      2.0,
+      "TRPG_AETHER_THREAD",
+      2.0,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      150.0,
+      "몬드성",
+      "MRC_MOND_EQUIP 또는 MRC_ALCHEMY_COMMON",
+      "LEVEL>=5",
+      "1시간",
+      100.0,
+      "드발린 전 대공 보조 선택지"
+    ]
+  ],
+  "eagleStock": [
+    [
+      "STK_MOND_EQ_009",
+      "MRC_MOND_EQUIP",
+      "EQUIP",
+      "EQ_ACC_EAGLE_EYE",
+      "매의 눈 장식",
+      1800.0,
+      1.0,
+      "3일",
+      "LEVEL>=5",
+      "드발린 전 대공 선택지. 중거리 직접 지정에는 피해 페널티 존재."
+    ]
+  ],
+  "existingNativePublicEagleSupplyReceipts": [
+    {
+      "kind": "BUY",
+      "level": 3,
+      "merchant": "MRC_MOND_EQUIP",
+      "stock": "STK_MOND_EQ_009",
+      "quantity": 2,
+      "place": {
+        "id": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+        "name": "바그너 · 대장간",
+        "map": "MAP_MOND_CITY"
+      },
+      "entry": {
+        "ok": true,
+        "type": "PLACE_ENTER",
+        "result": {
+          "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+          "mode": "SHOP",
+          "name": "바그너 · 대장간",
+          "companionsJoined": [
+            "MOND_LISA",
+            "MOND_NOELLE",
+            "MOND_BARBARA",
+            "MOND_KAEYA",
+            "MOND_BENNETT"
+          ]
+        },
+        "revision": 1
+      },
+      "currentUnitPrice": 520,
+      "receipt": {
+        "ok": true,
+        "type": "BUY",
+        "result": {
+          "stock": "STK_MOND_EQ_009",
+          "quantity": 2,
+          "cost": 1040
+        },
+        "revision": 2
+      },
+      "bossClearFlags": {
+        "dvalin": false,
+        "andrius": false
+      }
+    },
+    {
+      "kind": "CRAFT",
+      "level": 5,
+      "merchant": "MRC_MOND_EQUIP",
+      "recipe": "REC_ACC_EAGLE",
+      "place": {
+        "id": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+        "name": "바그너 · 대장간",
+        "map": "MAP_MOND_CITY"
+      },
+      "entry": {
+        "ok": true,
+        "type": "PLACE_ENTER",
+        "result": {
+          "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+          "mode": "CRAFT",
+          "name": "바그너 · 대장간",
+          "companionsJoined": [
+            "MOND_LISA",
+            "MOND_NOELLE",
+            "MOND_BARBARA",
+            "MOND_KAEYA",
+            "MOND_BENNETT"
+          ]
+        },
+        "revision": 1
+      },
+      "cost": {
+        "mora": 150,
+        "items": {
+          "ORE_CRYSTAL": 2,
+          "TRPG_AETHER_THREAD": 2
+        }
+      },
+      "reason": "",
+      "receipt": {
+        "ok": true,
+        "type": "CRAFT",
+        "result": {
+          "recipe": "REC_ACC_EAGLE",
+          "result": "EQ_ACC_EAGLE_EYE",
+          "quantity": 1,
+          "crafts": 1,
+          "minutes": 60,
+          "cost": {
+            "mora": 150,
+            "items": {
+              "ORE_CRYSTAL": 2,
+              "TRPG_AETHER_THREAD": 2
+            }
+          }
+        },
+        "revision": 2
+      },
+      "bossClearFlags": {
+        "dvalin": false,
+        "andrius": false
+      }
+    }
+  ],
+  "existingPublicReceiptFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+  "receiptScope": "Read-only native character range/access inspection and public supply actions in disposable saves. Declared ownership/level/material/wallet fixtures; no gameplay source patches."
+}

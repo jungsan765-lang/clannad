@@ -1,0 +1,64 @@
+--- docs/data/balance_v01627/before/source/runtime_field_bosses.js	2026-10-11 01:22:34.324724216 +0900
++++ source/runtime_field_bosses.js	2026-10-11 01:33:38.972698663 +0900
+@@ -138,6 +138,11 @@
+ P.fieldBossSeen=function(b,gimmick){const f=b?.fieldBoss;if(!f||!BOSSES[f.boss]?.gimmicks[gimmick])return;if(!f.seen.includes(gimmick))f.seen.push(gimmick);};
+ 
+ // ---- battle start ------------------------------------------------------------------------------------------
++// Direct field attacks consume existing shield pools faster. The packet's HP
++// damage is unchanged; the new policy is pinned only on fresh public challenges.
++// Direct field attacks only: shield absorption changes without multiplying bare HP damage.
++const FIELD_ATTACK_PRESSURE_V01627={FB_GEO_HYPOSTASIS:{ROCKFALL:1.5,UPHEAVAL:1.5},FB_PRIMO_GEOVISHAP:{BEAM:1.15}};
++const FIELD_SHIELD_PRESSURE_V01627={FB_ANEMO_HYPOSTASIS:2,FB_ELECTRO_HYPOSTASIS:2,FB_CRYO_REGISVINE:2,FB_CRYO_HYPOSTASIS:2,FB_PYRO_REGISVINE:2,FB_OCEANID:2,FB_GEO_HYPOSTASIS:3,FB_PRIMO_GEOVISHAP:1.5,FB_RUIN_SERPENT:4};
+ const modernBehavior=f=>[2,3,4,5].includes(f?.behaviorRevision);
+ const repeatBehavior=f=>[3,4,5].includes(f?.behaviorRevision);
+ const recurringCounter=f=>[4,5].includes(f?.behaviorRevision);
+@@ -149,7 +154,7 @@
+   boss.fb={version:1,kind:d.kind,acts:0,next:null,stunned:false,exposedUntil:0,revived:false,revival:null,shieldBreaks:0,shieldReturn:0,summoned:0,burrowed:false,phase:1};boss.size='BOSS';
+   // Only newly opened fights use the recurring Primo/Serpent counter windows.
+   // Saved unmarked/2/3 fights retain their original behavior and phase budgets.
+-  b.fieldBoss={version:1,challengeRevision:1,behaviorRevision:origin==='BOSS:'+ROUTE(boss.source)?5:4,boss:boss.source,route:String(origin).startsWith('BOSS:')?origin.slice(5):null,seen:[],telegraph:null,defeated:0,target:d.kind==='OCEANID'?8:0,spawned:0,heatwave:null};
++  b.fieldBoss={version:1,challengeRevision:1,behaviorRevision:origin==='BOSS:'+ROUTE(boss.source)?5:4,...(origin==='BOSS:'+ROUTE(boss.source)&&!b.abyss&&!b.raid?{pressureRevision:1}:{}),boss:boss.source,route:String(origin).startsWith('BOSS:')?origin.slice(5):null,seen:[],telegraph:null,defeated:0,target:d.kind==='OCEANID'?8:0,spawned:0,heatwave:null};
+   if(d.kind==='CRYO_VINE'||d.kind==='PYRO_VINE')this.fbShell(boss);
+   if(d.kind==='PRIMO'){const pool=['불','물','얼음','번개'];boss.fb.infused=pool[hash(String(this.s.global.SAVE_ID)+'|'+b.id)%pool.length];this.fieldBossSeen(b,'INFUSE');b.log.push({actor:boss.name,actorId:boss.id,card:'FB_PRIMO_INFUSE',cardName:'원소 흡수',text:boss.name+'이(가) '+boss.fb.infused+' 원소를 흡수했다.',round:b.round});}
+   if(d.kind==='OCEANID'){boss.fb.untouchable=true;this.fieldBossSeen(b,'BODY');this.fbSpawnMimics(b,boss,2);}
+@@ -165,7 +170,8 @@
+ // Keep saved revision4 summon budgets intact. New Geo challenges retain a
+ // counter route with legal first-material gear, without changing the authored DB.
+ const MIMIC_HP_V01624={FB_MIMIC_BOAR:1015,FB_MIMIC_CRANE:700,FB_MIMIC_FROG:840,FB_MIMIC_CRAB:875,FB_MIMIC_FALCON:735};
+-P.fieldBossSummonSpec=function(b,id){const s=SUMMONS[id];if(b?.fieldBoss?.behaviorRevision!==5)return s;if(id==='FB_SUMMON_PILLAR')return {...s,hp:.07,def:75};return MIMIC_HP_V01624[id]?{...s,hp:MIMIC_HP_V01624[id]}:s;};
++const MIMIC_HP_V01627={FB_MIMIC_BOAR:1218,FB_MIMIC_CRANE:840,FB_MIMIC_FROG:1008,FB_MIMIC_CRAB:1050,FB_MIMIC_FALCON:882};
++P.fieldBossSummonSpec=function(b,id){const s=SUMMONS[id];if(b?.fieldBoss?.behaviorRevision!==5)return s;const current=b.fieldBoss.pressureRevision===1;if(id==='FB_SUMMON_PILLAR')return {...s,hp:current ? .07 / 1.1 : .07,def:75};const hp=(current?MIMIC_HP_V01627:MIMIC_HP_V01624)[id];return hp?{...s,hp}:s;};
+ P.fbSummon=function(b,boss,id,extra={}){
+  const s=this.fieldBossSummonSpec(b,id),n=(b.summonSequence=(b.summonSequence||0)+1),hp=Math.max(1,Math.round(s.hp<=1?boss.maxHp*s.hp:s.hp*grown(BOSSES[boss.source]?.level||10,'hp'))),atk=Math.max(0,Math.round(boss.atk*(s.atk||0)));
+  const a={id:id+'#S'+n,source:id,name:s.name,side:'ENEMY',control:'AI',hp,maxHp:hp,atk,def:s.def,crit:5,critDmg:50,level:boss.level,spd:s.spd,hit:85,eva:5,resist:10,range:s.range,grade:'일반',tags:['['+s.element+']'],tactic:'균형',aura:null,statuses:[],shields:[],cooldowns:{},turns:0,element:s.element,hasDedicatedCards:true,airborne:!!s.airborne,structure:!!s.structure,armored:!!s.structure,fbSummon:{kind:id,owner:boss.id},...extra};
+@@ -180,7 +186,7 @@
+ // Random picks respect aggro/stealth gear (the same weights the ordinary enemy AI uses).
+ P.fbPick=function(b,n){const pool=allies(b),out=[],boss={targetRule:'SPREAD'};while(pool.length&&out.length<n){const w=pool.map(t=>this.enemyTargetWeight?this.enemyTargetWeight(boss,t,pool):1),sum=w.reduce((x,y)=>x+y,0);let r=this.random()*sum,i=0;for(;i<pool.length-1;i++){r-=w[i];if(r<0)break;}out.push(pool.splice(i,1)[0]);}return out;};
+ P.fbLog=function(a,id,label,text){const b=this.s.runtime;b.log.push({actor:a.name,actorId:a.id,card:'FB_'+id,cardName:label,text:text||label,round:b.round,actionSequence:b.actionSequence||0,fieldBoss:true});};
+-P.fbHit=function(a,t,k,el,o={}){if(!t||t.hp<=0)return false;return this.damage(a,t,k,el,{range:'전장',card:'FB_'+(o.move||'HIT'),...o});};
++P.fbHit=function(a,t,k,el,o={}){if(!t||t.hp<=0)return false;const b=this.s.runtime;if(b?.fieldBoss?.pressureRevision===1&&a?.fb&&a.source===b.fieldBoss.boss&&a.side==='ENEMY'&&t.side==='ALLY'&&!o.sourceKind)k*=FIELD_ATTACK_PRESSURE_V01627[a.source]?.[o.move]||1;return this.damage(a,t,k,el,{range:'전장',card:'FB_'+(o.move||'HIT'),...o});};
+ P.fbDelay=function(t,amount,why){const b=this.s.runtime;if(t.hp<=0)return;if(tv(t,'HEAVY')>0||tv(t,'STAGGER_RES')>=100){b.log.push({target:t.name,targetId:t.id,resisted:'FB_DELAY',text:t.name+' · 경직 저항',round:b.round});return;}t.nextScorePenalty=Math.max(amount,t.nextScorePenalty||0);b.log.push({target:t.name,targetId:t.id,text:t.name+' · '+why+' · 다음 행동이 늦어진다',round:b.round});};
+ P.fbTelegraph=function(a,move){const b=this.s.runtime,d=BOSSES[a.source],g=d.gimmicks[move];a.fb.next=move;b.fieldBoss.telegraph={move,label:g.label,text:g.text,counter:g.counter};this.fieldBossSeen(b,move);this.fbLog(a,move+'_READY',g.label+' 준비',a.name+'이(가) '+g.label+'을(를) 준비한다 · 대응: '+g.counter);};
+ P.fbExpose=function(a,rounds,stun){const b=this.s.runtime;a.fb.exposedUntil=b.round+rounds;a.bossExposed=true;if(stun)a.fb.stunned=true;};
+@@ -312,6 +318,8 @@
+ };
+ P.applyDamage=function(a,t,n,details={}){
+  const b=this.s.runtime;if(!b?.fieldBoss||!t)return old.applyDamage.call(this,a,t,n,details);
++ const owner=a?.fb&&a.source===b.fieldBoss.boss?a:a?.fbSummon&&b.actors.find(x=>x.id===a.fbSummon.owner&&x.fb&&x.source===b.fieldBoss.boss);
++ if(b.fieldBoss.pressureRevision===1&&owner&&a.side==='ENEMY'&&t.side==='ALLY'&&!details.sourceKind&&String(details.card||'').startsWith('FB_'))details={...details,shieldDamageMultiplier:(Number(details.shieldDamageMultiplier)||1)*FIELD_SHIELD_PRESSURE_V01627[b.fieldBoss.boss]};
+  const packet=this._fieldBossDamagePacket,range=details.range||(repeatBehavior(b.fieldBoss)&&packet?.actor===a&&packet?.target===t&&packet.sourceKind===(details.sourceKind||null)&&!String(details.sourceKind||'').startsWith('REACTION')?packet.range:undefined);
+  const barrier=this.fieldBossBarrierReason(a,t,details.element,range);if(barrier)return this.fieldBossBlockedHit(a,t,barrier);
+  if(modernBehavior(b.fieldBoss)&&t.fb?.burrowed&&a?.side==='ALLY')return this.fieldBossBlockedHit(a,t,'땅속에 있어 닿지 않는다');
+@@ -417,10 +425,11 @@
+  const clock=out.fieldBossClock;if(clock!==undefined&&(!clock||typeof clock!=='object'||Array.isArray(clock)||Object.entries(clock).some(([k,v])=>!BOSSES[k]||!Number.isSafeInteger(v)||v<0)))fail('FIELD_BOSS_SAVE','필드 보스 재등장 기록이 올바르지 않습니다.');
+  const notes=out.fieldBossNotes;if(notes!==undefined&&(!notes||typeof notes!=='object'||Object.entries(notes).some(([k,n])=>!BOSSES[k]||!Array.isArray(n?.seen)||n.seen.some(g=>!BOSSES[k].gimmicks[g])||!Number.isInteger(n.attempts)||!Number.isInteger(n.wins))))fail('FIELD_BOSS_SAVE','필드 보스 관찰 기록이 올바르지 않습니다.');
+  const b=out.runtime;if(b?.fieldBoss){const f=b.fieldBoss;if(f.version!==1||!BOSSES[f.boss]||!Array.isArray(f.seen)||!b.actors?.some(a=>a.source===f.boss&&a.fb?.version===1)||f.behaviorRevision!==undefined&&![2,3,4,5].includes(f.behaviorRevision))fail('FIELD_BOSS_SAVE','필드 보스 전투 기록이 올바르지 않습니다.');
++  if(f.pressureRevision!==undefined&&(f.pressureRevision!==1||f.behaviorRevision!==5||b.origin!=='BOSS:'+ROUTE(f.boss)||f.route!==ROUTE(f.boss)||b.abyss||b.raid))fail('FIELD_BOSS_SAVE','필드 보스 공격 압력 기록이 올바르지 않습니다.');
+   const boss=b.actors.find(a=>a.source===f.boss),r=boss.fb.revival;if(modernBehavior(f)&&boss.fb.kind==='CRYO_HYPO'&&r&&(!Number.isSafeInteger(r.startedRound)||r.startedRound<1||r.startedRound>b.round||r.lastCountdownRound!==undefined&&(!Number.isSafeInteger(r.lastCountdownRound)||r.lastCountdownRound<r.startedRound||r.lastCountdownRound>b.round)))fail('FIELD_BOSS_SAVE','냉기 핵 대응 시간 기록이 올바르지 않습니다.');}
+  if(b?.twinBoss&&(b.twinBoss.version!==1||!TWIN[b.twinBoss.boss]))fail('FIELD_BOSS_SAVE','보스 기믹 기록이 올바르지 않습니다.');
+  return out;
+ };
+ P.fieldBossVersion=1;
+-api.fieldBosses={version:1,behaviorRevision:5,levels:copy(LEVELS),levelGrowth:copy(LEVEL_GROWTH),cooldownMinutes:COOLDOWN,materials:copy(MATERIALS),bosses:copy(BOSSES),summons:copy(SUMMONS),twin:copy(TWIN),route:ROUTE,group:GROUP};
++api.fieldBosses={version:1,behaviorRevision:5,pressureRevision:1,shieldPressure:copy(FIELD_SHIELD_PRESSURE_V01627),attackPressure:copy(FIELD_ATTACK_PRESSURE_V01627),mimicHp:copy(MIMIC_HP_V01627),levels:copy(LEVELS),levelGrowth:copy(LEVEL_GROWTH),cooldownMinutes:COOLDOWN,materials:copy(MATERIALS),bosses:copy(BOSSES),summons:copy(SUMMONS),twin:copy(TWIN),route:ROUTE,group:GROUP};
+ })(globalThis);

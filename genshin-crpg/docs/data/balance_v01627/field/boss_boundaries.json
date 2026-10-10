@@ -1,0 +1,518 @@
+{
+  "version": "0.16.27",
+  "fingerprint": "a10787dee063d75629ac00ee53baf5c5b884e3ee2e6b1d91abf3987689aae7dc",
+  "scope": "Current repeat-challenge and EXPLICIT budgets including the fresh enemy defense basis, save/reload and Serpent/Cryo scheduling; legacy saved-fight preservation",
+  "checks": [
+    {
+      "id": "final_stats:CHALLENGE:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "policy": "CHALLENGE",
+        "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+        "stats": [
+          18,
+          19800,
+          1760,
+          198
+        ],
+        "behaviorRevision": 5,
+        "pressureRevision": 1,
+        "challengeRevision": 1,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:CHALLENGE:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "policy": "CHALLENGE",
+        "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+        "stats": [
+          20,
+          16800,
+          1785,
+          210
+        ],
+        "behaviorRevision": 5,
+        "pressureRevision": 1,
+        "challengeRevision": 1,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:CHALLENGE:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "policy": "CHALLENGE",
+        "origin": "BOSS:BRT_FB_CRYO_REGISVINE",
+        "stats": [
+          22,
+          28600,
+          2048,
+          231
+        ],
+        "behaviorRevision": 5,
+        "pressureRevision": 1,
+        "challengeRevision": 1,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:CHALLENGE:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "policy": "CHALLENGE",
+        "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+        "stats": [
+          30,
+          33000,
+          2128,
+          323
+        ],
+        "behaviorRevision": 5,
+        "pressureRevision": 1,
+        "challengeRevision": 1,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:CHALLENGE:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "policy": "CHALLENGE",
+        "origin": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+        "stats": [
+          45,
+          57324,
+          4940,
+          801
+        ],
+        "behaviorRevision": 5,
+        "pressureRevision": 1,
+        "challengeRevision": 1,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:CHALLENGE:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "policy": "CHALLENGE",
+        "origin": "BOSS:BRT_FB_PYRO_REGISVINE",
+        "stats": [
+          38,
+          63000,
+          4200,
+          555
+        ],
+        "behaviorRevision": 5,
+        "pressureRevision": 1,
+        "challengeRevision": 1,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:CHALLENGE:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "policy": "CHALLENGE",
+        "origin": "BOSS:BRT_FB_OCEANID",
+        "stats": [
+          40,
+          48548,
+          4800,
+          591
+        ],
+        "behaviorRevision": 5,
+        "pressureRevision": 1,
+        "challengeRevision": 1,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:CHALLENGE:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "policy": "CHALLENGE",
+        "origin": "BOSS:BRT_FB_PRIMO_GEOVISHAP",
+        "stats": [
+          48,
+          70400,
+          6050,
+          987
+        ],
+        "behaviorRevision": 5,
+        "pressureRevision": 1,
+        "challengeRevision": 1,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:CHALLENGE:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "policy": "CHALLENGE",
+        "origin": "BOSS:BRT_FB_RUIN_SERPENT",
+        "stats": [
+          56,
+          91846,
+          9350,
+          1507
+        ],
+        "behaviorRevision": 5,
+        "pressureRevision": 1,
+        "challengeRevision": 1,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:EXPLICIT:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "policy": "EXPLICIT",
+        "origin": "EXPLICIT",
+        "stats": [
+          18,
+          13182,
+          1281,
+          164
+        ],
+        "behaviorRevision": 4,
+        "pressureRevision": null,
+        "challengeRevision": null,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:EXPLICIT:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "policy": "EXPLICIT",
+        "origin": "EXPLICIT",
+        "stats": [
+          20,
+          14588,
+          1053,
+          183
+        ],
+        "behaviorRevision": 4,
+        "pressureRevision": null,
+        "challengeRevision": null,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:EXPLICIT:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "policy": "EXPLICIT",
+        "origin": "EXPLICIT",
+        "stats": [
+          22,
+          18264,
+          1689,
+          203
+        ],
+        "behaviorRevision": 4,
+        "pressureRevision": null,
+        "challengeRevision": null,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:EXPLICIT:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "policy": "EXPLICIT",
+        "origin": "EXPLICIT",
+        "stats": [
+          30,
+          25550,
+          1509,
+          294
+        ],
+        "behaviorRevision": 4,
+        "pressureRevision": null,
+        "challengeRevision": null,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:EXPLICIT:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "policy": "EXPLICIT",
+        "origin": "EXPLICIT",
+        "stats": [
+          45,
+          52113,
+          4117,
+          762
+        ],
+        "behaviorRevision": 4,
+        "pressureRevision": null,
+        "challengeRevision": null,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:EXPLICIT:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "policy": "EXPLICIT",
+        "origin": "EXPLICIT",
+        "stats": [
+          38,
+          37953,
+          2644,
+          461
+        ],
+        "behaviorRevision": 4,
+        "pressureRevision": null,
+        "challengeRevision": null,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:EXPLICIT:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "policy": "EXPLICIT",
+        "origin": "EXPLICIT",
+        "stats": [
+          40,
+          40457,
+          2919,
+          538
+        ],
+        "behaviorRevision": 4,
+        "pressureRevision": null,
+        "challengeRevision": null,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:EXPLICIT:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "policy": "EXPLICIT",
+        "origin": "EXPLICIT",
+        "stats": [
+          48,
+          56718,
+          4694,
+          919
+        ],
+        "behaviorRevision": 4,
+        "pressureRevision": null,
+        "challengeRevision": null,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "final_stats:EXPLICIT:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "policy": "EXPLICIT",
+        "origin": "EXPLICIT",
+        "stats": [
+          56,
+          83496,
+          7840,
+          1435
+        ],
+        "behaviorRevision": 4,
+        "pressureRevision": null,
+        "challengeRevision": null,
+        "saveReload": true
+      }
+    },
+    {
+      "id": "saved_early_boss_is_not_retuned",
+      "passed": true,
+      "evidence": {
+        "hp": 19479,
+        "maxHp": 19800,
+        "atk": 574,
+        "def": 198
+      }
+    },
+    {
+      "id": "serpent_burrow_holds_all_remaining_actions_until_next_own_turn",
+      "passed": true,
+      "evidence": {
+        "firstOwnTurn": [
+          "FB_BURROW"
+        ],
+        "nextOwnTurn": [
+          "FB_EMERGE"
+        ],
+        "saveReload": true,
+        "burrowDamageBlocked": true
+      }
+    },
+    {
+      "id": "legacy_serpent_turn_schedule_remains",
+      "passed": true,
+      "evidence": {
+        "moves": [
+          "FB_BURROW",
+          "FB_EMERGE"
+        ]
+      }
+    },
+    {
+      "id": "legacy_v3_serpent_opened_armor_burrow_blocks_native_fields_and_final_typed_damage",
+      "passed": true,
+      "evidence": {
+        "armorOpened": true,
+        "burrowedHpUnchanged": 91846,
+        "finalTypedKinds": [
+          "FIELD",
+          "OBJECT",
+          "REACTION",
+          "REACTION_DOT"
+        ],
+        "nativeGuobaFieldBlocked": true,
+        "saveReload": true,
+        "nextOwnTurnDamageRestored": true,
+        "blockedPackets": 6
+      }
+    },
+    {
+      "id": "legacy_v2_cryo_creation_end_is_free_and_next_two_full_rounds_count",
+      "passed": true,
+      "evidence": {
+        "timeline": [
+          {
+            "endingRound": 1,
+            "hp": 1,
+            "revival": {
+              "rounds": 2,
+              "need": 4,
+              "hits": 0,
+              "startedRound": 1
+            },
+            "nextRound": 2
+          },
+          {
+            "endingRound": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "need": 4,
+              "hits": 0,
+              "startedRound": 1,
+              "lastCountdownRound": 2
+            },
+            "nextRound": 3
+          },
+          {
+            "endingRound": 3,
+            "hp": 16500,
+            "revival": null,
+            "nextRound": 4
+          }
+        ],
+        "oneRevivalOnly": true
+      }
+    },
+    {
+      "id": "cryo_creation_end_native_guoba_keeps_full_two_round_window",
+      "passed": true,
+      "evidence": {
+        "nativeGuobaTicks": 2,
+        "hits": 2,
+        "remaining": 1,
+        "bodyStillAlive": 1
+      }
+    },
+    {
+      "id": "cryo_last_end_native_field_fourth_hit_breaks_before_timeout",
+      "passed": true,
+      "evidence": {
+        "initialHits": 3,
+        "lastEndNativeCard": "LIYUE_XIANGLING_E",
+        "breaks": 1,
+        "revives": 0
+      }
+    },
+    {
+      "id": "cryo_last_end_reaction_dot_fourth_hit_breaks_before_timeout",
+      "passed": true,
+      "evidence": {
+        "lastEndPositiveTypedDot": true,
+        "hp": 0
+      }
+    },
+    {
+      "id": "cryo_timeout_precedes_next_start_bunny_explosion",
+      "passed": true,
+      "evidence": {
+        "timeline": [
+          {
+            "card": "FB_REVIVED",
+            "round": 3
+          },
+          {
+            "card": null,
+            "sourceKind": "OBJECT",
+            "round": 4,
+            "damage": 905
+          }
+        ],
+        "coreFourthHitAtNextStart": false,
+        "hp": 15595
+      }
+    },
+    {
+      "id": "cryo_new_core_save_reload_preserves_created_and_counted_round",
+      "passed": true,
+      "evidence": {
+        "before": {
+          "rounds": 1,
+          "need": 4,
+          "hits": 2,
+          "startedRound": 1,
+          "lastCountdownRound": 2
+        },
+        "after": null,
+        "hp": 16500
+      }
+    },
+    {
+      "id": "cryo_same_end_boundary_is_not_counted_twice",
+      "passed": true,
+      "evidence": {
+        "rounds": 1,
+        "need": 4,
+        "hits": 0,
+        "startedRound": 1,
+        "lastCountdownRound": 2
+      }
+    },
+    {
+      "id": "legacy_cryo_save_keeps_two_old_ends_and_first_timeout_order",
+      "passed": true,
+      "evidence": {
+        "old": {
+          "rounds": 2,
+          "need": 4,
+          "hits": 0
+        },
+        "legacyRevivedBeforeSecondField": true,
+        "afterHp": 16015
+      }
+    },
+    {
+      "id": "new_core_invalid_countdown_save_is_rejected",
+      "passed": true,
+      "evidence": {
+        "futureCreatedRoundRejected": true
+      }
+    }
+  ],
+  "total": 31,
+  "passed": 31,
+  "failed": 0
+}

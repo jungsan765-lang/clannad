@@ -1,0 +1,110 @@
+[
+  {
+    "menuDuringReadingSave": true,
+    "menuPreservedOnAcknowledgement": true
+  },
+  {
+    "uninterruptedStoryInputs": 5,
+    "checkpoints": 2,
+    "readDurations": [
+      130,
+      90,
+      123,
+      95,
+      101
+    ],
+    "presentationMilliseconds": [
+      44.900000005960464,
+      33.900000005960464,
+      38.29999999701977,
+      25.5,
+      38.3999999910593
+    ]
+  },
+  {
+    "reloadReadingOnce": true,
+    "decisionWithReadingPrefix": true
+  },
+  {
+    "storyNodes": [
+      "PRO_M01_깨어남_007"
+    ]
+  },
+  {
+    "menuRequests": 0,
+    "repeatedMenuCycles": 150
+  },
+  {
+    "lostReadingResponseReloadExactlyOnce": true
+  },
+  {
+    "legacyRejectedPrefixRestoredOnce": true
+  },
+  {
+    "singleResponseRequests": 0,
+    "singleResponseProgress": "ISK_M03_A_066"
+  },
+  {
+    "sceneSteps": 44,
+    "automaticSceneCheckpoints": 1
+  },
+  {
+    "lostResponseExactlyOnce": true
+  },
+  {
+    "relationshipLocked": true,
+    "requirementRed": true,
+    "legacyPendingRecovered": true,
+    "precommitFailureRecovered": true
+  },
+  {
+    "lifeElapsedOnAcknowledgement": 2830,
+    "visibleBeforeAcknowledgement": true,
+    "activityTotalMilliseconds": 6284
+  },
+  {
+    "equipmentFeedback": "장착 중…",
+    "centered": true,
+    "singleNotice": true
+  },
+  {
+    "worldWorkOverlapsSaving": true
+  },
+  {
+    "playbackHP": {
+      "outcome": "검증 · 체력 피해 13 / 보호막 0 → 0 / 체력 560 → 547",
+      "player": "HP  547 / 710"
+    }
+  },
+  {
+    "combatActors": [
+      {
+        "id": "PLAYER_CUSTOM",
+        "hp": "체력  469 / 710"
+      },
+      {
+        "id": "MON_HILI_FIGHTER#1",
+        "hp": "체력  244 / 244"
+      },
+      {
+        "id": "MON_HILI_FIGHTER#2",
+        "hp": "체력  244 / 244"
+      },
+      {
+        "id": "MON_HILI_FIGHTER#3",
+        "hp": "체력  244 / 244"
+      },
+      {
+        "id": "MON_HILI_SHOOTER#1",
+        "hp": "체력  244 / 244"
+      },
+      {
+        "id": "MON_HILI_SHOOTER#2",
+        "hp": "체력  244 / 244"
+      }
+    ]
+  },
+  {
+    "reconnectForfeit": true
+  }
+]

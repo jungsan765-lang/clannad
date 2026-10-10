@@ -1,0 +1,110 @@
+{
+  "note": "Fresh enemyBalanceRevision1 crab shield.initialValue now tracks the scaled shield.value; display maximum only. Old unmarked summons retain old initialValue. Original192 native evidence remains unchanged. Two latest complete-engine public battles demonstrate identical damage/input/result and full combat logs except exactly three expected shell display-initialValue records per policy.",
+  "fingerprint": "ffefd57a4e42bb05acb1f1c5f176524cc30ee33016764a5817ab8f0ea35a3319",
+  "sourceFieldSHA256": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+  "sourceGrowthSHA256": "83d1890cbb4ae82d7d60cefa884aee7bcab93fe1fbdc256c2947b18da4a261f0",
+  "authoredDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "count": 2,
+  "rows": [
+    {
+      "boss": "FB_OCEANID",
+      "investment": "FOUR_C0",
+      "seed": 717,
+      "policy": "REPEAT",
+      "equalFields": [
+        "state",
+        "round",
+        "finalHpRatio",
+        "ko",
+        "inputCount",
+        "initial",
+        "meter",
+        "actions",
+        "reflections",
+        "revives",
+        "heads"
+      ],
+      "fullCombatLogEqualExceptExpectedDisplayInitialValue": true,
+      "displayMetadataDifferences": [
+        {
+          "path": "log[66].presentationActorsBefore[0].shields[0].initialValue",
+          "actor": "FB_MIMIC_CRAB#S4",
+          "before": 982,
+          "after": 708
+        },
+        {
+          "path": "log[66].presentationActorsAfter[0].shields[0].initialValue",
+          "actor": "FB_MIMIC_CRAB#S4",
+          "before": 982,
+          "after": 708
+        },
+        {
+          "path": "log[70].presentationActorsBefore[0].shields[0].initialValue",
+          "actor": "FB_MIMIC_CRAB#S4",
+          "before": 982,
+          "after": 708
+        }
+      ],
+      "round": 5,
+      "finalHpRatio": 0.6503230398598335,
+      "ko": 0,
+      "meter": {
+        "hpDamage": 13341,
+        "shieldDamage": 0,
+        "healing": 1032,
+        "hits": 34,
+        "minHpRatio": 0.6503230398598335
+      }
+    },
+    {
+      "boss": "FB_OCEANID",
+      "investment": "FOUR_C0",
+      "seed": 717,
+      "policy": "MANUAL",
+      "equalFields": [
+        "state",
+        "round",
+        "finalHpRatio",
+        "ko",
+        "inputCount",
+        "initial",
+        "meter",
+        "actions",
+        "reflections",
+        "revives",
+        "heads"
+      ],
+      "fullCombatLogEqualExceptExpectedDisplayInitialValue": true,
+      "displayMetadataDifferences": [
+        {
+          "path": "log[67].presentationActorsBefore[0].shields[0].initialValue",
+          "actor": "FB_MIMIC_CRAB#S4",
+          "before": 982,
+          "after": 708
+        },
+        {
+          "path": "log[67].presentationActorsAfter[0].shields[0].initialValue",
+          "actor": "FB_MIMIC_CRAB#S4",
+          "before": 982,
+          "after": 708
+        },
+        {
+          "path": "log[71].presentationActorsBefore[0].shields[0].initialValue",
+          "actor": "FB_MIMIC_CRAB#S4",
+          "before": 982,
+          "after": 708
+        }
+      ],
+      "round": 5,
+      "finalHpRatio": 0.6476401664476565,
+      "ko": 0,
+      "meter": {
+        "hpDamage": 13439,
+        "shieldDamage": 0,
+        "healing": 1032,
+        "hits": 34,
+        "minHpRatio": 0.6476401664476565
+      }
+    }
+  ]
+}

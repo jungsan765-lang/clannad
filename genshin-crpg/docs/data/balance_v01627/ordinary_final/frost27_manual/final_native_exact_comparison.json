@@ -1,0 +1,217 @@
+{
+  "manual3": [
+    {
+      "seed": 717,
+      "exact": {
+        "seed": true,
+        "party": true,
+        "level": true,
+        "route": true,
+        "equipment": true,
+        "talents": true,
+        "order": true,
+        "formation": true,
+        "sequence": true,
+        "battleId": true,
+        "initial": true,
+        "actions": true,
+        "state": true,
+        "last": true,
+        "result": true,
+        "hp": true,
+        "ko": true,
+        "round": true
+      }
+    },
+    {
+      "seed": 4242,
+      "exact": {
+        "seed": true,
+        "party": true,
+        "level": true,
+        "route": true,
+        "equipment": true,
+        "talents": true,
+        "order": true,
+        "formation": true,
+        "sequence": true,
+        "battleId": true,
+        "initial": true,
+        "actions": true,
+        "state": true,
+        "last": true,
+        "result": true,
+        "hp": true,
+        "ko": true,
+        "round": true
+      }
+    },
+    {
+      "seed": 9031,
+      "exact": {
+        "seed": true,
+        "party": true,
+        "level": true,
+        "route": true,
+        "equipment": true,
+        "talents": true,
+        "order": true,
+        "formation": true,
+        "sequence": true,
+        "battleId": true,
+        "initial": true,
+        "actions": true,
+        "state": true,
+        "last": true,
+        "result": true,
+        "hp": true,
+        "ko": true,
+        "round": true
+      }
+    }
+  ],
+  "wholeOriginalMeasure3": [
+    {
+      "seed": 717,
+      "exact": {
+        "exactWholeMeasureRow": true
+      }
+    },
+    {
+      "seed": 4242,
+      "exact": {
+        "exactWholeMeasureRow": true
+      }
+    },
+    {
+      "seed": 9031,
+      "exact": {
+        "exactWholeMeasureRow": true
+      }
+    }
+  ],
+  "sameB13EnemyVariantCurrentVsCandidate": [
+    {
+      "party": [
+        "MOND_AMBER",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT"
+      ],
+      "seed": 717,
+      "exact": {
+        "sameEnemyExceptATK": true,
+        "sameSaveBattleB13": true,
+        "sameGear": true,
+        "sameTalents": true
+      },
+      "currentAtk": [
+        3181
+      ],
+      "candidateAtk": [
+        2538
+      ]
+    },
+    {
+      "party": [
+        "MOND_AMBER",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT"
+      ],
+      "seed": 4242,
+      "exact": {
+        "sameEnemyExceptATK": true,
+        "sameSaveBattleB13": true,
+        "sameGear": true,
+        "sameTalents": true
+      },
+      "currentAtk": [
+        3181
+      ],
+      "candidateAtk": [
+        2538
+      ]
+    },
+    {
+      "party": [
+        "MOND_AMBER",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT"
+      ],
+      "seed": 9031,
+      "exact": {
+        "sameEnemyExceptATK": true,
+        "sameSaveBattleB13": true,
+        "sameGear": true,
+        "sameTalents": true
+      },
+      "currentAtk": [
+        3181
+      ],
+      "candidateAtk": [
+        2538
+      ]
+    },
+    {
+      "party": [
+        "MOND_AMBER",
+        "LIYUE_XIANGLING",
+        "MOND_NOELLE"
+      ],
+      "seed": 717,
+      "exact": {
+        "sameEnemyExceptATK": true,
+        "sameSaveBattleB13": true,
+        "sameGear": true,
+        "sameTalents": true
+      },
+      "currentAtk": [
+        3181
+      ],
+      "candidateAtk": [
+        2538
+      ]
+    },
+    {
+      "party": [
+        "MOND_AMBER",
+        "LIYUE_XIANGLING",
+        "MOND_NOELLE"
+      ],
+      "seed": 4242,
+      "exact": {
+        "sameEnemyExceptATK": true,
+        "sameSaveBattleB13": true,
+        "sameGear": true,
+        "sameTalents": true
+      },
+      "currentAtk": [
+        3181
+      ],
+      "candidateAtk": [
+        2538
+      ]
+    },
+    {
+      "party": [
+        "MOND_AMBER",
+        "LIYUE_XIANGLING",
+        "MOND_NOELLE"
+      ],
+      "seed": 9031,
+      "exact": {
+        "sameEnemyExceptATK": true,
+        "sameSaveBattleB13": true,
+        "sameGear": true,
+        "sameTalents": true
+      },
+      "currentAtk": [
+        3181
+      ],
+      "candidateAtk": [
+        2538
+      ]
+    }
+  ],
+  "candidateFingerprint": "dba4de68faed36de6e0b554b071897ccf2fe5d69a42000b8b801ccce3cd91087",
+  "finalNativeFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2"
+}

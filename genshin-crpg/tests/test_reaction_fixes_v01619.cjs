@@ -126,7 +126,8 @@ function measuredFormula(r,a,t,k,element,card,{quicken=false,skillBoost=false,ra
  const options={sureHit:true,noCrit:!critical,range:'전장',card,rawAdd},rx=r.reactionFor(t,element),talent=r.premiumTalentMultiplier(a,r.premiumHitKind(a,options));
  const direct=(r.combatStat(a,'atk')*k+rawAdd)*(skillBoost?1.3:1)*talent;
  const addition=quicken?r.reactionBase(a)*Number(rx[7]):0;
- const common=r.combatDamageMultiplier(a,t,element,options)/talent*(t.slotDamageMultiplier||1)*(t.guard?.5:1)*100/(100+r.combatStat(t,'def'))*(critical?1+r.combatStat(a,'critDmg')/100:1);
+ const basis=r.s.runtime.enemyBalanceRevision===1?100+5*Math.max(0,a.level-35):100;
+ const common=r.combatDamageMultiplier(a,t,element,options)/talent*(t.slotDamageMultiplier||1)*(t.guard?.5:1)*basis/(basis+r.combatStat(t,'def'))*(critical?1+r.combatStat(a,'critDmg')/100:1);
  const expected=Math.max(1,(direct+addition)*common),at=r.s.runtime.log.length;
  r.damage(a,t,k,element,options);const hit=packets(r,at).find(x=>x.target===t.name&&!x.sourceKind);assert(hit,'primary hit logged');assert.equal(hit.reaction,rx?.[0]||null);
  assert(Math.abs(hit.damage-Math.round(expected))<=1,JSON.stringify({expected,actual:hit.damage,direct,addition,common,talent}));

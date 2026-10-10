@@ -1,0 +1,409 @@
+{
+  "schema": 1,
+  "exp60Final": 24000,
+  "talent60Final": 90,
+  "dbSha256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "materialCampaigns": {
+    "conditions": 24,
+    "battles": 144,
+    "wins": 144,
+    "losses": 0,
+    "errors": 0
+  },
+  "moraAcquisition": {
+    "conditions": 3,
+    "errors": 0
+  },
+  "finalExpCampaigns": {
+    "conditions": 24,
+    "battles": 144,
+    "wins": 144,
+    "losses": 0,
+    "errors": 0
+  },
+  "level50Campaigns": {
+    "conditions": 24,
+    "battles": 144,
+    "wins": 144,
+    "losses": 0,
+    "errors": 0
+  },
+  "level55Campaigns": {
+    "conditions": 24,
+    "battles": 124,
+    "wins": 121,
+    "losses": 3,
+    "errors": 0
+  },
+  "materialEfficiency": [
+    {
+      "kind": "TALENT",
+      "team": "story4",
+      "seed": 717,
+      "runs": 6,
+      "stage55Seconds": 353.9,
+      "stage60Seconds": 697.8399999999999,
+      "stage55Mora": 801,
+      "stage60Mora": 1787,
+      "each55": 28,
+      "measuredEach60": 80,
+      "finalEach60": 90,
+      "timeBenefit": 0.6300809845891815,
+      "cashInclusiveBenefit": 0.628306803512978,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Exact final90 quantity projection over preserved native80 combat/inn outcomes; separate public settlement proves90. No combat body changed."
+    },
+    {
+      "kind": "TALENT",
+      "team": "story4",
+      "seed": 4242,
+      "runs": 6,
+      "stage55Seconds": 310.88,
+      "stage60Seconds": 576.69,
+      "stage55Mora": 782,
+      "stage60Mora": 1583,
+      "each55": 28,
+      "measuredEach60": 80,
+      "finalEach60": 90,
+      "timeBenefit": 0.7327457435661149,
+      "cashInclusiveBenefit": 0.7312911931665202,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Exact final90 quantity projection over preserved native80 combat/inn outcomes; separate public settlement proves90. No combat body changed."
+    },
+    {
+      "kind": "TALENT",
+      "team": "story4",
+      "seed": 9031,
+      "runs": 6,
+      "stage55Seconds": 252,
+      "stage60Seconds": 568,
+      "stage55Mora": 412,
+      "stage60Mora": 1492,
+      "each55": 28,
+      "measuredEach60": 80,
+      "finalEach60": 90,
+      "timeBenefit": 0.426056338028169,
+      "cashInclusiveBenefit": 0.4208813427274525,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Exact final90 quantity projection over preserved native80 combat/inn outcomes; separate public settlement proves90. No combat body changed."
+    },
+    {
+      "kind": "TALENT",
+      "team": "heal5",
+      "seed": 717,
+      "runs": 6,
+      "stage55Seconds": 278.17999999999995,
+      "stage60Seconds": 760.11,
+      "stage55Mora": 194,
+      "stage60Mora": 997,
+      "each55": 28,
+      "measuredEach60": 80,
+      "finalEach60": 90,
+      "timeBenefit": 0.1763428977384851,
+      "cashInclusiveBenefit": 0.1736863719048043,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Exact final90 quantity projection over preserved native80 combat/inn outcomes; separate public settlement proves90. No combat body changed."
+    },
+    {
+      "kind": "TALENT",
+      "team": "heal5",
+      "seed": 4242,
+      "runs": 6,
+      "stage55Seconds": 314.02000000000004,
+      "stage60Seconds": 622.75,
+      "stage55Mora": 261,
+      "stage60Mora": 406,
+      "each55": 28,
+      "measuredEach60": 80,
+      "finalEach60": 90,
+      "timeBenefit": 0.6207948615014052,
+      "cashInclusiveBenefit": 0.6218653250392763,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Exact final90 quantity projection over preserved native80 combat/inn outcomes; separate public settlement proves90. No combat body changed."
+    },
+    {
+      "kind": "TALENT",
+      "team": "heal5",
+      "seed": 9031,
+      "runs": 6,
+      "stage55Seconds": 216.21,
+      "stage60Seconds": 610.12,
+      "stage55Mora": 0,
+      "stage60Mora": 532,
+      "each55": 28,
+      "measuredEach60": 80,
+      "finalEach60": 90,
+      "timeBenefit": 0.13905578293731446,
+      "cashInclusiveBenefit": 0.1353984005390909,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Exact final90 quantity projection over preserved native80 combat/inn outcomes; separate public settlement proves90. No combat body changed."
+    },
+    {
+      "kind": "ASCENSION",
+      "team": "story4",
+      "seed": 717,
+      "runs": 6,
+      "stage55Seconds": 214.68999999999997,
+      "stage60Seconds": 300.58,
+      "stage55Mora": 374,
+      "stage60Mora": 747,
+      "each55": 1932,
+      "measuredEach60": 5400,
+      "finalEach60": 5400,
+      "timeBenefit": 0.9963577662895213,
+      "cashInclusiveBenefit": 0.9909268796473971,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Native unchanged5400 payout."
+    },
+    {
+      "kind": "ASCENSION",
+      "team": "story4",
+      "seed": 4242,
+      "runs": 6,
+      "stage55Seconds": 226.57,
+      "stage60Seconds": 301.82,
+      "stage55Mora": 405,
+      "stage60Mora": 647,
+      "each55": 1932,
+      "measuredEach60": 5400,
+      "finalEach60": 5400,
+      "timeBenefit": 1.0981717127274662,
+      "cashInclusiveBenefit": 1.0954329438761543,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Native unchanged5400 payout."
+    },
+    {
+      "kind": "ASCENSION",
+      "team": "story4",
+      "seed": 9031,
+      "runs": 6,
+      "stage55Seconds": 247.61,
+      "stage60Seconds": 351.59,
+      "stage55Mora": 350,
+      "stage60Mora": 957,
+      "each55": 1932,
+      "measuredEach60": 5400,
+      "finalEach60": 5400,
+      "timeBenefit": 0.9684224231393181,
+      "cashInclusiveBenefit": 0.9590026216918817,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Native unchanged5400 payout."
+    },
+    {
+      "kind": "ASCENSION",
+      "team": "heal5",
+      "seed": 717,
+      "runs": 6,
+      "stage55Seconds": 170.25,
+      "stage60Seconds": 214.24999999999994,
+      "stage55Mora": 0,
+      "stage60Mora": 0,
+      "each55": 1932,
+      "measuredEach60": 5400,
+      "finalEach60": 5400,
+      "timeBenefit": 1.2210223443037616,
+      "cashInclusiveBenefit": 1.2210223443037616,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Native unchanged5400 payout."
+    },
+    {
+      "kind": "ASCENSION",
+      "team": "heal5",
+      "seed": 4242,
+      "runs": 6,
+      "stage55Seconds": 172.93,
+      "stage60Seconds": 296.07,
+      "stage55Mora": 0,
+      "stage60Mora": 192,
+      "each55": 1932,
+      "measuredEach60": 5400,
+      "finalEach60": 5400,
+      "timeBenefit": 0.6325352804974989,
+      "cashInclusiveBenefit": 0.6286335620506471,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Native unchanged5400 payout."
+    },
+    {
+      "kind": "ASCENSION",
+      "team": "heal5",
+      "seed": 9031,
+      "runs": 6,
+      "stage55Seconds": 184.61,
+      "stage60Seconds": 220.98000000000002,
+      "stage55Mora": 0,
+      "stage60Mora": 0,
+      "each55": 1932,
+      "measuredEach60": 5400,
+      "finalEach60": 5400,
+      "timeBenefit": 1.3350107848213129,
+      "cashInclusiveBenefit": 1.3350107848213129,
+      "moraReinvestmentSecondsPerMora": 0.003694245233514081,
+      "rewardReprojection": "Native unchanged5400 payout."
+    }
+  ],
+  "xpEfficiencyIncludingProcurement": [
+    {
+      "seed": 717,
+      "procurement": "retailMixed",
+      "runs": 6,
+      "lowSeconds": 310.08000000000004,
+      "highSeconds": 661.2800000000001,
+      "lowXp": 48000,
+      "highXp": 144000,
+      "breakevenXp60": 17060.8875128999,
+      "finalBenefit": 0.40672634889910486,
+      "lowSupplyCash": 0,
+      "highSupplyCash": 764,
+      "durationSensitivityHigh": 841.13
+    },
+    {
+      "seed": 717,
+      "procurement": "directGather",
+      "runs": 6,
+      "lowSeconds": 310.08000000000004,
+      "highSeconds": 862.8599999999999,
+      "lowXp": 48000,
+      "highXp": 144000,
+      "breakevenXp60": 22261.609907120735,
+      "finalBenefit": 0.07808914540018108,
+      "lowSupplyCash": 0,
+      "highSupplyCash": 412,
+      "durationSensitivityHigh": 1109.31
+    },
+    {
+      "seed": 4242,
+      "procurement": "retailMixed",
+      "runs": 6,
+      "lowSeconds": 314.78,
+      "highSeconds": 764.7919999999999,
+      "lowXp": 48000,
+      "highXp": 144000,
+      "breakevenXp60": 19436.863841413047,
+      "finalBenefit": 0.2347671000742686,
+      "lowSupplyCash": 0,
+      "highSupplyCash": 1120,
+      "durationSensitivityHigh": 1022.06
+    },
+    {
+      "seed": 4242,
+      "procurement": "directGather",
+      "runs": 6,
+      "lowSeconds": 314.78,
+      "highSeconds": 817.3819999999998,
+      "lowXp": 48000,
+      "highXp": 144000,
+      "breakevenXp60": 20773.41635427918,
+      "finalBenefit": 0.15532272548208814,
+      "lowSupplyCash": 0,
+      "highSupplyCash": 678,
+      "durationSensitivityHigh": 1094.6799999999998
+    },
+    {
+      "seed": 9031,
+      "procurement": "retailMixed",
+      "runs": 6,
+      "lowSeconds": 345.63,
+      "highSeconds": 590.5,
+      "lowXp": 48000,
+      "highXp": 144000,
+      "breakevenXp60": 13667.795040939733,
+      "finalBenefit": 0.7559525825571547,
+      "lowSupplyCash": 200,
+      "highSupplyCash": 573,
+      "durationSensitivityHigh": 702.85
+    },
+    {
+      "seed": 9031,
+      "procurement": "directGather",
+      "runs": 6,
+      "lowSeconds": 525.46,
+      "highSeconds": 754.3299999999999,
+      "lowXp": 48000,
+      "highXp": 144000,
+      "breakevenXp60": 11484.4897803829,
+      "finalBenefit": 1.0897750321477342,
+      "lowSupplyCash": 124,
+      "highSupplyCash": 376,
+      "durationSensitivityHigh": 955.9299999999998
+    }
+  ],
+  "level50to60": {
+    "xp50to55": 954460,
+    "xp55to60": 978090,
+    "totalXp": 1932550,
+    "bodyBudget": [
+      {
+        "route": "ROUTE_ISEKAI",
+        "team": "story4",
+        "minutesBySeed": [
+          279.11403520833335,
+          283.4134859027778,
+          267.9512664930556
+        ],
+        "meanMinutes": 276.8262625347222,
+        "minMinutes": 267.9512664930556,
+        "maxMinutes": 283.4134859027778
+      },
+      {
+        "route": "ROUTE_ISEKAI",
+        "team": "heal5",
+        "minutesBySeed": [
+          252.29111677083333,
+          245.91087921875004,
+          260.97201583333333
+        ],
+        "meanMinutes": 253.0580039409722,
+        "minMinutes": 245.91087921875004,
+        "maxMinutes": 260.97201583333333
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "team": "story4",
+        "minutesBySeed": [
+          290.4144242881944,
+          309.3094768402778,
+          257.4297192361111
+        ],
+        "meanMinutes": 285.7178734548611,
+        "minMinutes": 257.4297192361111,
+        "maxMinutes": 309.3094768402778
+      },
+      {
+        "route": "ROUTE_TRAVELER",
+        "team": "heal5",
+        "minutesBySeed": [
+          236.61718760416665,
+          237.9535876215278,
+          237.06879793402777
+        ],
+        "meanMinutes": 237.21319105324073,
+        "minMinutes": 236.61718760416665,
+        "maxMinutes": 237.9535876215278
+      }
+    ],
+    "travelerHealing5AcquisitionBudget": [
+      {
+        "seed": 717,
+        "level50to55Minutes": 200.90388770833331,
+        "level55to60Minutes": 76.41611137152778,
+        "hours": 4.621999984664352,
+        "supplyCashMora": 17267.7715625
+      },
+      {
+        "seed": 4242,
+        "level50to55Minutes": 240.09971555555555,
+        "level55to60Minutes": 89.89043317013888,
+        "hours": 5.499835812094907,
+        "supplyCashMora": 18615.64895833333
+      },
+      {
+        "seed": 9031,
+        "level50to55Minutes": 232.1558245138889,
+        "level55to60Minutes": 73.77900413194445,
+        "hours": 5.098913810763889,
+        "supplyCashMora": 16416.223749999997
+      }
+    ],
+    "budgetMethod": "50→55 conservatively holds the measured actual Lv50 post-ascension phase5 six-run time and food consumption at legal stage55.55→60 linearly averages Lv55 post-ascension phase6 andLv60 perXP cycle costs at stage60 when native campaigns win. Both boundary food bundles are acquired from zero inventory; declared Lv60 four-star acquisition party retained. No fully continuous1→60 natural-ownership/gear/ascension-material campaign is claimed. Failed higher-tier compositions fall back to a proven tier. Gear/talent/ascension preparation, recipe unlock outside exact receipts and story progress are not included."
+  }
+}

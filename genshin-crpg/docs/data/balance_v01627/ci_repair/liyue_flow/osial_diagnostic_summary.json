@@ -1,0 +1,493 @@
+{
+  "scope": "Same actual failing public-entry checkpoint, same policy; fullHP rows are explicitly synthetic isolation only, not a fixture fix.",
+  "matched": [
+    {
+      "full": false,
+      "part": "initial",
+      "equal": true
+    },
+    {
+      "full": false,
+      "part": "commands",
+      "equal": true
+    },
+    {
+      "full": false,
+      "part": "log",
+      "equal": true
+    },
+    {
+      "full": false,
+      "part": "lastResult",
+      "equal": true
+    },
+    {
+      "full": false,
+      "part": "finalHp",
+      "equal": true,
+      "normalization": "JSON data comparison; objects originated in distinct VM realms"
+    },
+    {
+      "full": false,
+      "part": "finalPrng",
+      "equal": true
+    },
+    {
+      "full": true,
+      "part": "initial",
+      "equal": true
+    },
+    {
+      "full": true,
+      "part": "commands",
+      "equal": true
+    },
+    {
+      "full": true,
+      "part": "log",
+      "equal": true
+    },
+    {
+      "full": true,
+      "part": "lastResult",
+      "equal": true
+    },
+    {
+      "full": true,
+      "part": "finalHp",
+      "equal": true,
+      "normalization": "JSON data comparison; objects originated in distinct VM realms"
+    },
+    {
+      "full": true,
+      "part": "finalPrng",
+      "equal": true
+    }
+  ],
+  "originalFailureReplay": {
+    "resultEqual": true,
+    "prngEqual": true,
+    "scope": "Original helpers_v011 omits presentation.js; H.load includes it. The original and diagnostic log lengths and every originally persisted field match exactly, while H.load adds observational actor/HP/action/presentation fields. No claim that full logs across those different loaders are identical. Before/current diagnostic full logs themselves match exactly.",
+    "allOriginallyPersistedLogFieldsEqual": true,
+    "fullLogsAcrossDifferentLoadersEqual": false,
+    "logLengthsEqual": true
+  },
+  "cases": [
+    {
+      "engine": "before",
+      "sourceFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+      "syntheticFullHpDiagnostic": false,
+      "initialHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 462306,
+          "maxHp": 486585
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20155
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 21074
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20768
+        }
+      ],
+      "initialEnemies": [
+        {
+          "source": "BOSS_OSIAL",
+          "level": 58,
+          "hp": 87659,
+          "maxHp": 87659,
+          "atk": 8453,
+          "def": 739
+        },
+        {
+          "source": "MON_FATUI_CRYO",
+          "level": 58,
+          "hp": 48572,
+          "maxHp": 48572,
+          "atk": 9925,
+          "def": 492
+        },
+        {
+          "source": "MON_FATUI_PYRO",
+          "level": 58,
+          "hp": 48572,
+          "maxHp": 48572,
+          "atk": 9925,
+          "def": 492
+        }
+      ],
+      "nativeResult": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "V011-1:B726",
+        "battleId": "V011-1:B726",
+        "saveId": "V011-1",
+        "group": "EG_BOSS_OSIAL",
+        "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+        "gate": "TRV_LY4_OSIAL_COMBAT",
+        "branch": "A",
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 402,
+          "seconds": 60
+        }
+      },
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 446585,
+          "maxHp": 486585
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20155
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 21074
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20768
+        }
+      ],
+      "finalPrng": 1153316285
+    },
+    {
+      "engine": "before",
+      "sourceFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+      "syntheticFullHpDiagnostic": true,
+      "initialHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 486585,
+          "maxHp": 486585
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 20155,
+          "maxHp": 20155
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 21074,
+          "maxHp": 21074
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 20768,
+          "maxHp": 20768
+        }
+      ],
+      "initialEnemies": [
+        {
+          "source": "BOSS_OSIAL",
+          "level": 58,
+          "hp": 87659,
+          "maxHp": 87659,
+          "atk": 8453,
+          "def": 739
+        },
+        {
+          "source": "MON_FATUI_CRYO",
+          "level": 58,
+          "hp": 48572,
+          "maxHp": 48572,
+          "atk": 9925,
+          "def": 492
+        },
+        {
+          "source": "MON_FATUI_PYRO",
+          "level": 58,
+          "hp": 48572,
+          "maxHp": 48572,
+          "atk": 9925,
+          "def": 492
+        }
+      ],
+      "nativeResult": {
+        "mora": 1143,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "V011-1:B726",
+        "battleId": "V011-1:B726",
+        "saveId": "V011-1",
+        "group": "EG_BOSS_OSIAL",
+        "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+        "gate": "TRV_LY4_OSIAL_COMBAT",
+        "branch": "A",
+        "victory": true,
+        "xp": 15912,
+        "loot": {},
+        "rounds": 11,
+        "result": "VICTORY",
+        "unsupportedEffects": []
+      },
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 467137,
+          "maxHp": 486585
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 14423,
+          "maxHp": 20155
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 7453,
+          "maxHp": 21074
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20768
+        }
+      ],
+      "finalPrng": 4202326931
+    },
+    {
+      "engine": "current",
+      "sourceFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+      "syntheticFullHpDiagnostic": false,
+      "initialHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 462306,
+          "maxHp": 486585
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20155
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 21074
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20768
+        }
+      ],
+      "initialEnemies": [
+        {
+          "source": "BOSS_OSIAL",
+          "level": 58,
+          "hp": 87659,
+          "maxHp": 87659,
+          "atk": 8453,
+          "def": 739
+        },
+        {
+          "source": "MON_FATUI_CRYO",
+          "level": 58,
+          "hp": 48572,
+          "maxHp": 48572,
+          "atk": 9925,
+          "def": 492
+        },
+        {
+          "source": "MON_FATUI_PYRO",
+          "level": 58,
+          "hp": 48572,
+          "maxHp": 48572,
+          "atk": 9925,
+          "def": 492
+        }
+      ],
+      "nativeResult": {
+        "mora": 0,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "V011-1:B726",
+        "battleId": "V011-1:B726",
+        "saveId": "V011-1",
+        "group": "EG_BOSS_OSIAL",
+        "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+        "gate": "TRV_LY4_OSIAL_COMBAT",
+        "branch": "A",
+        "victory": false,
+        "xp": 0,
+        "loot": {},
+        "rounds": 8,
+        "result": "DEFEAT",
+        "unsupportedEffects": [],
+        "defeatPenalty": {
+          "mora": 402,
+          "seconds": 60
+        }
+      },
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 446585,
+          "maxHp": 486585
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20155
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 21074
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20768
+        }
+      ],
+      "finalPrng": 1153316285
+    },
+    {
+      "engine": "current",
+      "sourceFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+      "syntheticFullHpDiagnostic": true,
+      "initialHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 486585,
+          "maxHp": 486585
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 20155,
+          "maxHp": 20155
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 21074,
+          "maxHp": 21074
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 20768,
+          "maxHp": 20768
+        }
+      ],
+      "initialEnemies": [
+        {
+          "source": "BOSS_OSIAL",
+          "level": 58,
+          "hp": 87659,
+          "maxHp": 87659,
+          "atk": 8453,
+          "def": 739
+        },
+        {
+          "source": "MON_FATUI_CRYO",
+          "level": 58,
+          "hp": 48572,
+          "maxHp": 48572,
+          "atk": 9925,
+          "def": 492
+        },
+        {
+          "source": "MON_FATUI_PYRO",
+          "level": 58,
+          "hp": 48572,
+          "maxHp": 48572,
+          "atk": 9925,
+          "def": 492
+        }
+      ],
+      "nativeResult": {
+        "mora": 1143,
+        "rewardPolicy": "MOND_BALANCE_V1",
+        "bond": null,
+        "id": "V011-1:B726",
+        "battleId": "V011-1:B726",
+        "saveId": "V011-1",
+        "group": "EG_BOSS_OSIAL",
+        "origin": "STORY:TRV_LY4_OSIAL_COMBAT",
+        "gate": "TRV_LY4_OSIAL_COMBAT",
+        "branch": "A",
+        "victory": true,
+        "xp": 15912,
+        "loot": {},
+        "rounds": 11,
+        "result": "VICTORY",
+        "unsupportedEffects": []
+      },
+      "finalHp": [
+        {
+          "owner": "PLAYER_CUSTOM",
+          "level": 20,
+          "hp": 467137,
+          "maxHp": 486585
+        },
+        {
+          "owner": "MOND_FISCHL",
+          "level": 60,
+          "hp": 14423,
+          "maxHp": 20155
+        },
+        {
+          "owner": "LIYUE_XIANGLING",
+          "level": 60,
+          "hp": 7453,
+          "maxHp": 21074
+        },
+        {
+          "owner": "MOND_BARBARA",
+          "level": 60,
+          "hp": 0,
+          "maxHp": 20768
+        }
+      ],
+      "finalPrng": 4202326931
+    }
+  ]
+}

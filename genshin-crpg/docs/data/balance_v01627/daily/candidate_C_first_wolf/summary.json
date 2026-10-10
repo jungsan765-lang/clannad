@@ -1,0 +1,699 @@
+{
+  "fingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "conditions": 10,
+  "wins": 8,
+  "defeats": 2,
+  "limits": 0,
+  "entryBlocked": 0,
+  "errors": [],
+  "inputs": 123,
+  "drift": [],
+  "rows": [
+    {
+      "candidate": "C_FIRST_ESSENCE_BOUNDARY",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_ANDRIUS": {
+            "hp": 1.75,
+            "atk": 2.64,
+            "def": 1.05
+          }
+        }
+      },
+      "vmFingerprint": "c6bf2cb02b71d39faadeb3bf5d745415ce0367a3a19aae53a9a1120a54ede0f3",
+      "boss": "BOSS_ANDRIUS",
+      "level": 40,
+      "investment": "FOUR_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 2,
+      "seconds": 46.7,
+      "cpuSeconds": 0.116710255,
+      "hp": 0.9357119278169014,
+      "preRewardHp": 0.9241950821899199,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2466,
+          "def": 248
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20737
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20737
+      }
+    },
+    {
+      "candidate": "C_FIRST_ESSENCE_BOUNDARY",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_ANDRIUS": {
+            "hp": 1.75,
+            "atk": 2.64,
+            "def": 1.05
+          }
+        }
+      },
+      "vmFingerprint": "c6bf2cb02b71d39faadeb3bf5d745415ce0367a3a19aae53a9a1120a54ede0f3",
+      "boss": "BOSS_ANDRIUS",
+      "level": 40,
+      "investment": "FOUR_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 2,
+      "seconds": 46.7,
+      "cpuSeconds": 0.100557609,
+      "hp": 0.9419289172535211,
+      "preRewardHp": 0.9303355522347507,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2466,
+          "def": 248
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20737
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20737
+      }
+    },
+    {
+      "candidate": "C_FIRST_ESSENCE_BOUNDARY",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_ANDRIUS": {
+            "hp": 1.75,
+            "atk": 2.64,
+            "def": 1.05
+          }
+        }
+      },
+      "vmFingerprint": "c6bf2cb02b71d39faadeb3bf5d745415ce0367a3a19aae53a9a1120a54ede0f3",
+      "boss": "BOSS_ANDRIUS",
+      "level": 40,
+      "investment": "FOUR_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 2,
+      "seconds": 45.59,
+      "cpuSeconds": 0.082655259,
+      "hp": 0.9300726232394366,
+      "preRewardHp": 0.9309332971063714,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2466,
+          "def": 248
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20737
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20737
+      }
+    },
+    {
+      "candidate": "C_FIRST_ESSENCE_BOUNDARY",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_DVALIN": {
+            "hp": 4,
+            "atk": 3.36,
+            "def": 1
+          }
+        }
+      },
+      "vmFingerprint": "426c1d5262919153fa221a07ffcada0224c7ba2e987299ad502f589084606da6",
+      "boss": "BOSS_DVALIN",
+      "level": 40,
+      "investment": "FOUR_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 3,
+      "seconds": 60.54,
+      "cpuSeconds": 0.124532865,
+      "hp": 0.8675176056338029,
+      "preRewardHp": 0.8568401032468415,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      }
+    },
+    {
+      "candidate": "C_FIRST_ESSENCE_BOUNDARY",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_DVALIN": {
+            "hp": 4,
+            "atk": 3.36,
+            "def": 1
+          }
+        }
+      },
+      "vmFingerprint": "426c1d5262919153fa221a07ffcada0224c7ba2e987299ad502f589084606da6",
+      "boss": "BOSS_DVALIN",
+      "level": 40,
+      "investment": "FOUR_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 4,
+      "seconds": 64.65,
+      "cpuSeconds": 0.111164427,
+      "hp": 0.8123074383802817,
+      "preRewardHp": 0.8023094688221709,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      }
+    },
+    {
+      "candidate": "C_FIRST_ESSENCE_BOUNDARY",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_DVALIN": {
+            "hp": 4,
+            "atk": 3.36,
+            "def": 1
+          }
+        }
+      },
+      "vmFingerprint": "426c1d5262919153fa221a07ffcada0224c7ba2e987299ad502f589084606da6",
+      "boss": "BOSS_DVALIN",
+      "level": 40,
+      "investment": "FOUR_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 58.32,
+      "cpuSeconds": 0.090849159,
+      "hp": 0.8278774207746479,
+      "preRewardHp": 0.8299959244667844,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      }
+    },
+    {
+      "candidate": "C_WOLF_ALTERNATE",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_ANDRIUS": {
+            "hp": 1.75,
+            "atk": 2.64,
+            "def": 1.05
+          }
+        }
+      },
+      "vmFingerprint": "c6bf2cb02b71d39faadeb3bf5d745415ce0367a3a19aae53a9a1120a54ede0f3",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 4,
+      "seconds": 87.44,
+      "cpuSeconds": 0.180580364,
+      "hp": 0.3217993079584775,
+      "preRewardHp": 0.30220746887966804,
+      "ko": [
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2466,
+          "def": 248
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20737
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20737
+      }
+    },
+    {
+      "candidate": "C_WOLF_ALTERNATE",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_ANDRIUS": {
+            "hp": 1.75,
+            "atk": 2.64,
+            "def": 1.05
+          }
+        }
+      },
+      "vmFingerprint": "c6bf2cb02b71d39faadeb3bf5d745415ce0367a3a19aae53a9a1120a54ede0f3",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 5,
+      "inputs": 4,
+      "seconds": 130.66,
+      "cpuSeconds": 0.158951548,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2466,
+          "def": 248
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20737
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20737
+      }
+    },
+    {
+      "candidate": "C_WOLF_ALTERNATE",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_ANDRIUS": {
+            "hp": 1.75,
+            "atk": 2.64,
+            "def": 1.05
+          }
+        }
+      },
+      "vmFingerprint": "c6bf2cb02b71d39faadeb3bf5d745415ce0367a3a19aae53a9a1120a54ede0f3",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 4,
+      "seconds": 87.44,
+      "cpuSeconds": 0.226593248,
+      "hp": 0.3217993079584775,
+      "preRewardHp": 0.30220746887966804,
+      "ko": [
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2466,
+          "def": 248
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20737
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20737
+      }
+    },
+    {
+      "candidate": "C_WOLF_ALTERNATE",
+      "vmPatch": {
+        "dailyBoss": {
+          "BOSS_ANDRIUS": {
+            "hp": 1.75,
+            "atk": 2.64,
+            "def": 1.05
+          }
+        }
+      },
+      "vmFingerprint": "c6bf2cb02b71d39faadeb3bf5d745415ce0367a3a19aae53a9a1120a54ede0f3",
+      "boss": "BOSS_ANDRIUS",
+      "level": 25,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 5,
+      "inputs": 4,
+      "seconds": 130.66,
+      "cpuSeconds": 0.141569211,
+      "hp": 0,
+      "preRewardHp": 0,
+      "ko": [
+        "LIYUE_KEQING",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "level": 25,
+          "hp": 20094,
+          "maxHp": 20094,
+          "atk": 2466,
+          "def": 248
+        }
+      ],
+      "terrain": null,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_ANDRIUS": 20737
+      },
+      "admissionAfter": {
+        "BOSS_ANDRIUS": 20737
+      }
+    }
+  ]
+}

@@ -1,0 +1,6525 @@
+{
+  "version": "0.16.27",
+  "scope": "Native projection/construction, public EQUIP and constellation, exact operator precedence, genuine 0.16.26 saved-battle replay, initial effective speed, reserves and summons. No difficulty, clear-rate or population claim.",
+  "currentFingerprint": "engine3-c70d3eb7f1d4cb36a320ddd9ef18c0da1f8f9d8b927ce5e4ba504856ae31e208",
+  "beforeFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+  "rawDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "total": 131,
+  "passed": 131,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "same_actual_authored_database_and_all_thirteen_species",
+      "passed": true,
+      "evidence": {
+        "rawDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+        "species": 13
+      }
+    },
+    {
+      "id": "public_equipment_fixture_is_twelve_equipped_legal_ordinary_items",
+      "passed": true,
+      "evidence": {
+        "items": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "id": "EQ_SWORD_RANCOUR",
+            "enhance": 6,
+            "category": "WEAPON"
+          },
+          {
+            "owner": "PLAYER_CUSTOM",
+            "id": "EQ_ARMOR_REINFORCED_LEATHER",
+            "enhance": 6,
+            "category": "ARMOR"
+          },
+          {
+            "owner": "PLAYER_CUSTOM",
+            "id": "EQ_ACC_HEALER_BROOCH",
+            "enhance": 6,
+            "category": "ACCESSORY"
+          },
+          {
+            "owner": "MOND_AMBER",
+            "id": "EQ_BOW_CRESCENT",
+            "enhance": 6,
+            "category": "WEAPON"
+          },
+          {
+            "owner": "MOND_AMBER",
+            "id": "EQ_ARMOR_REINFORCED_LEATHER",
+            "enhance": 6,
+            "category": "ARMOR"
+          },
+          {
+            "owner": "MOND_AMBER",
+            "id": "EQ_ACC_HEALER_BROOCH",
+            "enhance": 6,
+            "category": "ACCESSORY"
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "id": "EQ_SWORD_RANCOUR",
+            "enhance": 6,
+            "category": "WEAPON"
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "id": "EQ_ARMOR_REINFORCED_LEATHER",
+            "enhance": 6,
+            "category": "ARMOR"
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "id": "EQ_ACC_HEALER_BROOCH",
+            "enhance": 6,
+            "category": "ACCESSORY"
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "id": "EQ_CLAYMORE_WHITEBLIND",
+            "enhance": 6,
+            "category": "WEAPON"
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "id": "EQ_ARMOR_REINFORCED_LEATHER",
+            "enhance": 6,
+            "category": "ARMOR"
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "id": "EQ_ACC_HEALER_BROOCH",
+            "enhance": 6,
+            "category": "ACCESSORY"
+          }
+        ],
+        "baseTalentCap": 4,
+        "preparation": "H.setup invokes public EQUIP; grants ownership, phase and initial resources only"
+      }
+    },
+    {
+      "id": "actual_public_constellation_unlock_changes_legal_native_talents_and_effects",
+      "passed": true,
+      "evidence": {
+        "constellation": 6,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "effective": [
+          4,
+          7,
+          7
+        ],
+        "nativeFx": 5
+      }
+    },
+    {
+      "id": "unchanged_four_person_ally_growth_equipment_and_effective_defense_projection",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "engine": "0.16.26",
+            "source": "PLAYER_CUSTOM",
+            "maxHp": 5607,
+            "atk": 1023.5999999999999,
+            "def": 510,
+            "effectiveDefense": 192.72058838952475,
+            "talents": {
+              "na": 4,
+              "e": 4,
+              "q": 4,
+              "base": {
+                "na": 4,
+                "e": 4,
+                "q": 4
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            }
+          },
+          {
+            "engine": "0.16.26",
+            "source": "MOND_AMBER",
+            "maxHp": 6034,
+            "atk": 957.5999999999999,
+            "def": 607.5999999999999,
+            "effectiveDefense": 229.60201863818676,
+            "talents": {
+              "na": 4,
+              "e": 4,
+              "q": 4,
+              "base": {
+                "na": 4,
+                "e": 4,
+                "q": 4
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            }
+          },
+          {
+            "engine": "0.16.26",
+            "source": "MOND_KAEYA",
+            "maxHp": 6782,
+            "atk": 1078,
+            "def": 695.8,
+            "effectiveDefense": 262.93134392437514,
+            "talents": {
+              "na": 4,
+              "e": 4,
+              "q": 4,
+              "base": {
+                "na": 4,
+                "e": 4,
+                "q": 4
+              },
+              "kinds": {
+                "c3": "e",
+                "c5": "q"
+              }
+            }
+          },
+          {
+            "engine": "0.16.26",
+            "source": "MOND_NOELLE",
+            "maxHp": 7482,
+            "atk": 989.8,
+            "def": 1012.1999999999999,
+            "effectiveDefense": 382.49368542720975,
+            "talents": {
+              "na": 4,
+              "e": 4,
+              "q": 4,
+              "base": {
+                "na": 4,
+                "e": 4,
+                "q": 4
+              },
+              "kinds": {
+                "c3": "e",
+                "c5": "q"
+              }
+            }
+          },
+          {
+            "engine": "current",
+            "source": "PLAYER_CUSTOM",
+            "maxHp": 5607,
+            "atk": 1023.5999999999999,
+            "def": 510,
+            "effectiveDefense": 192.72058838952475,
+            "talents": {
+              "na": 4,
+              "e": 4,
+              "q": 4,
+              "base": {
+                "na": 4,
+                "e": 4,
+                "q": 4
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            }
+          },
+          {
+            "engine": "current",
+            "source": "MOND_AMBER",
+            "maxHp": 6034,
+            "atk": 957.5999999999999,
+            "def": 607.5999999999999,
+            "effectiveDefense": 229.60201863818676,
+            "talents": {
+              "na": 4,
+              "e": 4,
+              "q": 4,
+              "base": {
+                "na": 4,
+                "e": 4,
+                "q": 4
+              },
+              "kinds": {
+                "c3": "q",
+                "c5": "e"
+              }
+            }
+          },
+          {
+            "engine": "current",
+            "source": "MOND_KAEYA",
+            "maxHp": 6782,
+            "atk": 1078,
+            "def": 695.8,
+            "effectiveDefense": 262.93134392437514,
+            "talents": {
+              "na": 4,
+              "e": 4,
+              "q": 4,
+              "base": {
+                "na": 4,
+                "e": 4,
+                "q": 4
+              },
+              "kinds": {
+                "c3": "e",
+                "c5": "q"
+              }
+            }
+          },
+          {
+            "engine": "current",
+            "source": "MOND_NOELLE",
+            "maxHp": 7482,
+            "atk": 989.8,
+            "def": 1012.1999999999999,
+            "effectiveDefense": 382.49368542720975,
+            "talents": {
+              "na": 4,
+              "e": 4,
+              "q": 4,
+              "base": {
+                "na": 4,
+                "e": 4,
+                "q": 4
+              },
+              "kinds": {
+                "c3": "e",
+                "c5": "q"
+              }
+            }
+          }
+        ],
+        "preparation": "Traveler + Amber/Kaeya/Noelle, Lv30/phase2/base talents4, twelve crafted +6 items, default native formation; maximum HP projection only"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:ordinary:일반",
+      "passed": true,
+      "evidence": {
+        "source": "MON_SLIME",
+        "grade": "일반",
+        "scope": "ordinary",
+        "policy": {
+          "hp": 1.4,
+          "atk": 1.6,
+          "def": 1.5
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              900,
+              180,
+              31
+            ],
+            "after": [
+              5,
+              900,
+              180,
+              31
+            ],
+            "expected": [
+              5,
+              900,
+              180,
+              31
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              4300,
+              1250,
+              87
+            ],
+            "after": [
+              20,
+              4300,
+              1250,
+              87
+            ],
+            "expected": [
+              20,
+              4300,
+              1250,
+              87
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              6500,
+              1750,
+              140
+            ],
+            "after": [
+              30,
+              7150,
+              2012,
+              158
+            ],
+            "expected": [
+              30,
+              7150,
+              2012,
+              158
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              9000,
+              2500,
+              205
+            ],
+            "after": [
+              40,
+              10980,
+              3325,
+              326
+            ],
+            "expected": [
+              40,
+              10980,
+              3325,
+              326
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              12500,
+              3500,
+              282
+            ],
+            "after": [
+              50,
+              16500,
+              5180,
+              691
+            ],
+            "expected": [
+              50,
+              16500,
+              5180,
+              691
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              17000,
+              4900,
+              370
+            ],
+            "after": [
+              60,
+              23800,
+              7840,
+              1249
+            ],
+            "expected": [
+              60,
+              23800,
+              7840,
+              1249
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:ordinary:정예",
+      "passed": true,
+      "evidence": {
+        "source": "MON_ABYSS_MAGE",
+        "grade": "정예",
+        "scope": "ordinary",
+        "policy": {
+          "hp": 1.4,
+          "atk": 1.6,
+          "def": 1.5
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              2376,
+              253,
+              43
+            ],
+            "after": [
+              5,
+              2376,
+              253,
+              43
+            ],
+            "expected": [
+              5,
+              2376,
+              253,
+              43
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              10987,
+              1717,
+              122
+            ],
+            "after": [
+              20,
+              10987,
+              1717,
+              122
+            ],
+            "expected": [
+              20,
+              10987,
+              1717,
+              122
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              17122,
+              2517,
+              196
+            ],
+            "after": [
+              30,
+              18834,
+              2895,
+              221
+            ],
+            "expected": [
+              30,
+              18834,
+              2895,
+              221
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              24527,
+              3747,
+              287
+            ],
+            "after": [
+              40,
+              29923,
+              4984,
+              458
+            ],
+            "expected": [
+              40,
+              29923,
+              4984,
+              458
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              34951,
+              5448,
+              394
+            ],
+            "after": [
+              50,
+              46135,
+              8063,
+              966
+            ],
+            "expected": [
+              50,
+              46135,
+              8063,
+              966
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              49471,
+              8015,
+              519
+            ],
+            "after": [
+              60,
+              69259,
+              12824,
+              1753
+            ],
+            "expected": [
+              60,
+              69259,
+              12824,
+              1753
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:ordinary:강적",
+      "passed": true,
+      "evidence": {
+        "source": "MON_ABYSS_HERALD",
+        "grade": "강적",
+        "scope": "ordinary",
+        "policy": {
+          "hp": 1.4,
+          "atk": 1.6,
+          "def": 1.5
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              4392,
+              247,
+              53
+            ],
+            "after": [
+              5,
+              4392,
+              247,
+              53
+            ],
+            "expected": [
+              5,
+              4392,
+              247,
+              53
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              18716,
+              1542,
+              153
+            ],
+            "after": [
+              20,
+              18716,
+              1542,
+              153
+            ],
+            "expected": [
+              20,
+              18716,
+              1542,
+              153
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              31469,
+              2661,
+              245
+            ],
+            "after": [
+              30,
+              34616,
+              3060,
+              276
+            ],
+            "expected": [
+              30,
+              34616,
+              3060,
+              276
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              48631,
+              4476,
+              359
+            ],
+            "after": [
+              40,
+              59330,
+              5953,
+              573
+            ],
+            "expected": [
+              40,
+              59330,
+              5953,
+              573
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              73015,
+              7169,
+              493
+            ],
+            "after": [
+              50,
+              96380,
+              10610,
+              1208
+            ],
+            "expected": [
+              50,
+              96380,
+              10610,
+              1208
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              111273,
+              11757,
+              648
+            ],
+            "after": [
+              60,
+              155782,
+              18811,
+              2187
+            ],
+            "expected": [
+              60,
+              155782,
+              18811,
+              2187
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:ordinary:보스",
+      "passed": true,
+      "evidence": {
+        "source": "BOSS_DVALIN",
+        "grade": "보스",
+        "scope": "ordinary",
+        "policy": {
+          "hp": 1.4,
+          "atk": 1.6,
+          "def": 1.5
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              2095,
+              125,
+              64
+            ],
+            "after": [
+              5,
+              2095,
+              125,
+              64
+            ],
+            "expected": [
+              5,
+              2095,
+              125,
+              64
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              6565,
+              672,
+              183
+            ],
+            "after": [
+              20,
+              6565,
+              672,
+              183
+            ],
+            "expected": [
+              20,
+              6565,
+              672,
+              183
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              11497,
+              1509,
+              294
+            ],
+            "after": [
+              30,
+              11497,
+              1509,
+              294
+            ],
+            "expected": [
+              30,
+              11497,
+              1509,
+              294
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              18206,
+              2919,
+              430
+            ],
+            "after": [
+              40,
+              18206,
+              2919,
+              538
+            ],
+            "expected": [
+              40,
+              18206,
+              2919,
+              538
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              26949,
+              5107,
+              591
+            ],
+            "after": [
+              50,
+              26949,
+              5107,
+              1034
+            ],
+            "expected": [
+              50,
+              26949,
+              5107,
+              1034
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              41362,
+              9096,
+              778
+            ],
+            "after": [
+              60,
+              41362,
+              9096,
+              1751
+            ],
+            "expected": [
+              60,
+              41362,
+              9096,
+              1751
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:TALENT:일반",
+      "passed": true,
+      "evidence": {
+        "source": "MON_SLIME",
+        "grade": "일반",
+        "scope": "TALENT",
+        "policy": {
+          "hp": 1.5,
+          "atk": 2.2,
+          "def": 1.75
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              900,
+              180,
+              31
+            ],
+            "after": [
+              5,
+              900,
+              180,
+              31
+            ],
+            "expected": [
+              5,
+              900,
+              180,
+              31
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              4300,
+              1250,
+              87
+            ],
+            "after": [
+              20,
+              4300,
+              1250,
+              87
+            ],
+            "expected": [
+              20,
+              4300,
+              1250,
+              87
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              6500,
+              1750,
+              140
+            ],
+            "after": [
+              30,
+              7313,
+              2275,
+              166
+            ],
+            "expected": [
+              30,
+              7313,
+              2275,
+              166
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              9000,
+              2500,
+              205
+            ],
+            "after": [
+              40,
+              11475,
+              4150,
+              363
+            ],
+            "expected": [
+              40,
+              11475,
+              4150,
+              363
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              12500,
+              3500,
+              282
+            ],
+            "after": [
+              50,
+              17500,
+              6860,
+              789
+            ],
+            "expected": [
+              50,
+              17500,
+              6860,
+              789
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              17000,
+              4900,
+              370
+            ],
+            "after": [
+              60,
+              25500,
+              10780,
+              1458
+            ],
+            "expected": [
+              60,
+              25500,
+              10780,
+              1458
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:TALENT:정예",
+      "passed": true,
+      "evidence": {
+        "source": "MON_ABYSS_MAGE",
+        "grade": "정예",
+        "scope": "TALENT",
+        "policy": {
+          "hp": 1.5,
+          "atk": 2.2,
+          "def": 1.75
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              2376,
+              253,
+              43
+            ],
+            "after": [
+              5,
+              2376,
+              253,
+              43
+            ],
+            "expected": [
+              5,
+              2376,
+              253,
+              43
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              10987,
+              1717,
+              122
+            ],
+            "after": [
+              20,
+              10987,
+              1717,
+              122
+            ],
+            "expected": [
+              20,
+              10987,
+              1717,
+              122
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              17122,
+              2517,
+              196
+            ],
+            "after": [
+              30,
+              19262,
+              3272,
+              233
+            ],
+            "expected": [
+              30,
+              19262,
+              3272,
+              233
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              24527,
+              3747,
+              287
+            ],
+            "after": [
+              40,
+              31272,
+              6220,
+              506
+            ],
+            "expected": [
+              40,
+              31272,
+              6220,
+              506
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              34951,
+              5448,
+              394
+            ],
+            "after": [
+              50,
+              48931,
+              10678,
+              1103
+            ],
+            "expected": [
+              50,
+              48931,
+              10678,
+              1103
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              49471,
+              8015,
+              519
+            ],
+            "after": [
+              60,
+              74207,
+              17633,
+              2043
+            ],
+            "expected": [
+              60,
+              74207,
+              17633,
+              2043
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:TALENT:강적",
+      "passed": true,
+      "evidence": {
+        "source": "MON_ABYSS_HERALD",
+        "grade": "강적",
+        "scope": "TALENT",
+        "policy": {
+          "hp": 1.5,
+          "atk": 2.2,
+          "def": 1.75
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              4392,
+              247,
+              53
+            ],
+            "after": [
+              5,
+              4392,
+              247,
+              53
+            ],
+            "expected": [
+              5,
+              4392,
+              247,
+              53
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              18716,
+              1542,
+              153
+            ],
+            "after": [
+              20,
+              18716,
+              1542,
+              153
+            ],
+            "expected": [
+              20,
+              18716,
+              1542,
+              153
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              31469,
+              2661,
+              245
+            ],
+            "after": [
+              30,
+              35403,
+              3459,
+              291
+            ],
+            "expected": [
+              30,
+              35403,
+              3459,
+              291
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              48631,
+              4476,
+              359
+            ],
+            "after": [
+              40,
+              62005,
+              7430,
+              634
+            ],
+            "expected": [
+              40,
+              62005,
+              7430,
+              634
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              73015,
+              7169,
+              493
+            ],
+            "after": [
+              50,
+              102221,
+              14051,
+              1381
+            ],
+            "expected": [
+              50,
+              102221,
+              14051,
+              1381
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              111273,
+              11757,
+              648
+            ],
+            "after": [
+              60,
+              166910,
+              25865,
+              2552
+            ],
+            "expected": [
+              60,
+              166910,
+              25865,
+              2552
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:TALENT:보스",
+      "passed": true,
+      "evidence": {
+        "source": "BOSS_DVALIN",
+        "grade": "보스",
+        "scope": "TALENT",
+        "policy": {
+          "hp": 1.5,
+          "atk": 2.2,
+          "def": 1.75
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              2095,
+              125,
+              64
+            ],
+            "after": [
+              5,
+              2095,
+              125,
+              64
+            ],
+            "expected": [
+              5,
+              2095,
+              125,
+              64
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              6565,
+              672,
+              183
+            ],
+            "after": [
+              20,
+              6565,
+              672,
+              183
+            ],
+            "expected": [
+              20,
+              6565,
+              672,
+              183
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              11497,
+              1509,
+              294
+            ],
+            "after": [
+              30,
+              11497,
+              1509,
+              294
+            ],
+            "expected": [
+              30,
+              11497,
+              1509,
+              294
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              18206,
+              2919,
+              430
+            ],
+            "after": [
+              40,
+              18206,
+              2919,
+              538
+            ],
+            "expected": [
+              40,
+              18206,
+              2919,
+              538
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              26949,
+              5107,
+              591
+            ],
+            "after": [
+              50,
+              26949,
+              5107,
+              1034
+            ],
+            "expected": [
+              50,
+              26949,
+              5107,
+              1034
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              41362,
+              9096,
+              778
+            ],
+            "after": [
+              60,
+              41362,
+              9096,
+              1751
+            ],
+            "expected": [
+              60,
+              41362,
+              9096,
+              1751
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:ASCENSION:일반",
+      "passed": true,
+      "evidence": {
+        "source": "MON_SLIME",
+        "grade": "일반",
+        "scope": "ASCENSION",
+        "policy": {
+          "hp": 1.5,
+          "atk": 1.3,
+          "def": 1.4
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              900,
+              180,
+              31
+            ],
+            "after": [
+              5,
+              900,
+              180,
+              31
+            ],
+            "expected": [
+              5,
+              900,
+              180,
+              31
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              4300,
+              1250,
+              87
+            ],
+            "after": [
+              20,
+              4300,
+              1250,
+              87
+            ],
+            "expected": [
+              20,
+              4300,
+              1250,
+              87
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              6500,
+              1750,
+              140
+            ],
+            "after": [
+              30,
+              7313,
+              1881,
+              154
+            ],
+            "expected": [
+              30,
+              7313,
+              1881,
+              154
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              9000,
+              2500,
+              205
+            ],
+            "after": [
+              40,
+              11475,
+              2913,
+              313
+            ],
+            "expected": [
+              40,
+              11475,
+              2913,
+              313
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              12500,
+              3500,
+              282
+            ],
+            "after": [
+              50,
+              17500,
+              4340,
+              651
+            ],
+            "expected": [
+              50,
+              17500,
+              4340,
+              651
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              17000,
+              4900,
+              370
+            ],
+            "after": [
+              60,
+              25500,
+              6370,
+              1166
+            ],
+            "expected": [
+              60,
+              25500,
+              6370,
+              1166
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:ASCENSION:정예",
+      "passed": true,
+      "evidence": {
+        "source": "MON_ABYSS_MAGE",
+        "grade": "정예",
+        "scope": "ASCENSION",
+        "policy": {
+          "hp": 1.5,
+          "atk": 1.3,
+          "def": 1.4
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              2376,
+              253,
+              43
+            ],
+            "after": [
+              5,
+              2376,
+              253,
+              43
+            ],
+            "expected": [
+              5,
+              2376,
+              253,
+              43
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              10987,
+              1717,
+              122
+            ],
+            "after": [
+              20,
+              10987,
+              1717,
+              122
+            ],
+            "expected": [
+              20,
+              10987,
+              1717,
+              122
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              17122,
+              2517,
+              196
+            ],
+            "after": [
+              30,
+              19262,
+              2706,
+              216
+            ],
+            "expected": [
+              30,
+              19262,
+              2706,
+              216
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              24527,
+              3747,
+              287
+            ],
+            "after": [
+              40,
+              31272,
+              4365,
+              438
+            ],
+            "expected": [
+              40,
+              31272,
+              4365,
+              438
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              34951,
+              5448,
+              394
+            ],
+            "after": [
+              50,
+              48931,
+              6756,
+              910
+            ],
+            "expected": [
+              50,
+              48931,
+              6756,
+              910
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              49471,
+              8015,
+              519
+            ],
+            "after": [
+              60,
+              74207,
+              10420,
+              1636
+            ],
+            "expected": [
+              60,
+              74207,
+              10420,
+              1636
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:ASCENSION:강적",
+      "passed": true,
+      "evidence": {
+        "source": "MON_ABYSS_HERALD",
+        "grade": "강적",
+        "scope": "ASCENSION",
+        "policy": {
+          "hp": 1.5,
+          "atk": 1.3,
+          "def": 1.4
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              4392,
+              247,
+              53
+            ],
+            "after": [
+              5,
+              4392,
+              247,
+              53
+            ],
+            "expected": [
+              5,
+              4392,
+              247,
+              53
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              18716,
+              1542,
+              153
+            ],
+            "after": [
+              20,
+              18716,
+              1542,
+              153
+            ],
+            "expected": [
+              20,
+              18716,
+              1542,
+              153
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              31469,
+              2661,
+              245
+            ],
+            "after": [
+              30,
+              35403,
+              2861,
+              270
+            ],
+            "expected": [
+              30,
+              35403,
+              2861,
+              270
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              48631,
+              4476,
+              359
+            ],
+            "after": [
+              40,
+              62005,
+              5215,
+              548
+            ],
+            "expected": [
+              40,
+              62005,
+              5215,
+              548
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              73015,
+              7169,
+              493
+            ],
+            "after": [
+              50,
+              102221,
+              8890,
+              1139
+            ],
+            "expected": [
+              50,
+              102221,
+              8890,
+              1139
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              111273,
+              11757,
+              648
+            ],
+            "after": [
+              60,
+              166910,
+              15284,
+              2041
+            ],
+            "expected": [
+              60,
+              166910,
+              15284,
+              2041
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:ASCENSION:보스",
+      "passed": true,
+      "evidence": {
+        "source": "BOSS_DVALIN",
+        "grade": "보스",
+        "scope": "ASCENSION",
+        "policy": {
+          "hp": 1.5,
+          "atk": 1.3,
+          "def": 1.4
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              2095,
+              125,
+              64
+            ],
+            "after": [
+              5,
+              2095,
+              125,
+              64
+            ],
+            "expected": [
+              5,
+              2095,
+              125,
+              64
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              6565,
+              672,
+              183
+            ],
+            "after": [
+              20,
+              6565,
+              672,
+              183
+            ],
+            "expected": [
+              20,
+              6565,
+              672,
+              183
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              11497,
+              1509,
+              294
+            ],
+            "after": [
+              30,
+              11497,
+              1509,
+              294
+            ],
+            "expected": [
+              30,
+              11497,
+              1509,
+              294
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              18206,
+              2919,
+              430
+            ],
+            "after": [
+              40,
+              18206,
+              2919,
+              538
+            ],
+            "expected": [
+              40,
+              18206,
+              2919,
+              538
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              26949,
+              5107,
+              591
+            ],
+            "after": [
+              50,
+              26949,
+              5107,
+              1034
+            ],
+            "expected": [
+              50,
+              26949,
+              5107,
+              1034
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              41362,
+              9096,
+              778
+            ],
+            "after": [
+              60,
+              41362,
+              9096,
+              1751
+            ],
+            "expected": [
+              60,
+              41362,
+              9096,
+              1751
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:EXP:일반",
+      "passed": true,
+      "evidence": {
+        "source": "MON_SLIME",
+        "grade": "일반",
+        "scope": "EXP",
+        "policy": {
+          "hp": 1.05,
+          "atk": 1.08,
+          "def": 1.1
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              900,
+              180,
+              31
+            ],
+            "after": [
+              5,
+              900,
+              180,
+              31
+            ],
+            "expected": [
+              5,
+              900,
+              180,
+              31
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              4300,
+              1250,
+              87
+            ],
+            "after": [
+              20,
+              4300,
+              1250,
+              87
+            ],
+            "expected": [
+              20,
+              4300,
+              1250,
+              87
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              6500,
+              1750,
+              140
+            ],
+            "after": [
+              30,
+              6581,
+              1785,
+              144
+            ],
+            "expected": [
+              30,
+              6581,
+              1785,
+              144
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              9000,
+              2500,
+              205
+            ],
+            "after": [
+              40,
+              9248,
+              2610,
+              270
+            ],
+            "expected": [
+              40,
+              9248,
+              2610,
+              270
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              12500,
+              3500,
+              282
+            ],
+            "after": [
+              50,
+              13000,
+              3724,
+              534
+            ],
+            "expected": [
+              50,
+              13000,
+              3724,
+              534
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              17000,
+              4900,
+              370
+            ],
+            "after": [
+              60,
+              17850,
+              5292,
+              916
+            ],
+            "expected": [
+              60,
+              17850,
+              5292,
+              916
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:EXP:정예",
+      "passed": true,
+      "evidence": {
+        "source": "MON_ABYSS_MAGE",
+        "grade": "정예",
+        "scope": "EXP",
+        "policy": {
+          "hp": 1.05,
+          "atk": 1.08,
+          "def": 1.1
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              2376,
+              253,
+              43
+            ],
+            "after": [
+              5,
+              2376,
+              253,
+              43
+            ],
+            "expected": [
+              5,
+              2376,
+              253,
+              43
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              10987,
+              1717,
+              122
+            ],
+            "after": [
+              20,
+              10987,
+              1717,
+              122
+            ],
+            "expected": [
+              20,
+              10987,
+              1717,
+              122
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              17122,
+              2517,
+              196
+            ],
+            "after": [
+              30,
+              17336,
+              2567,
+              201
+            ],
+            "expected": [
+              30,
+              17336,
+              2567,
+              201
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              24527,
+              3747,
+              287
+            ],
+            "after": [
+              40,
+              25201,
+              3912,
+              379
+            ],
+            "expected": [
+              40,
+              25201,
+              3912,
+              379
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              34951,
+              5448,
+              394
+            ],
+            "after": [
+              50,
+              36349,
+              5797,
+              746
+            ],
+            "expected": [
+              50,
+              36349,
+              5797,
+              746
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              49471,
+              8015,
+              519
+            ],
+            "after": [
+              60,
+              51945,
+              8656,
+              1285
+            ],
+            "expected": [
+              60,
+              51945,
+              8656,
+              1285
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:EXP:강적",
+      "passed": true,
+      "evidence": {
+        "source": "MON_ABYSS_HERALD",
+        "grade": "강적",
+        "scope": "EXP",
+        "policy": {
+          "hp": 1.05,
+          "atk": 1.08,
+          "def": 1.1
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              4392,
+              247,
+              53
+            ],
+            "after": [
+              5,
+              4392,
+              247,
+              53
+            ],
+            "expected": [
+              5,
+              4392,
+              247,
+              53
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              18716,
+              1542,
+              153
+            ],
+            "after": [
+              20,
+              18716,
+              1542,
+              153
+            ],
+            "expected": [
+              20,
+              18716,
+              1542,
+              153
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              31469,
+              2661,
+              245
+            ],
+            "after": [
+              30,
+              31862,
+              2714,
+              251
+            ],
+            "expected": [
+              30,
+              31862,
+              2714,
+              251
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              48631,
+              4476,
+              359
+            ],
+            "after": [
+              40,
+              49968,
+              4673,
+              474
+            ],
+            "expected": [
+              40,
+              49968,
+              4673,
+              474
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              73015,
+              7169,
+              493
+            ],
+            "after": [
+              50,
+              75936,
+              7628,
+              931
+            ],
+            "expected": [
+              50,
+              75936,
+              7628,
+              931
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              111273,
+              11757,
+              648
+            ],
+            "after": [
+              60,
+              116837,
+              12698,
+              1604
+            ],
+            "expected": [
+              60,
+              116837,
+              12698,
+              1604
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "common_grade_curve_native_projection:EXP:보스",
+      "passed": true,
+      "evidence": {
+        "source": "BOSS_DVALIN",
+        "grade": "보스",
+        "scope": "EXP",
+        "policy": {
+          "hp": 1.05,
+          "atk": 1.08,
+          "def": 1.1
+        },
+        "rows": [
+          {
+            "level": 5,
+            "weight": 0,
+            "before": [
+              5,
+              2095,
+              125,
+              64
+            ],
+            "after": [
+              5,
+              2095,
+              125,
+              64
+            ],
+            "expected": [
+              5,
+              2095,
+              125,
+              64
+            ]
+          },
+          {
+            "level": 20,
+            "weight": 0,
+            "before": [
+              20,
+              6565,
+              672,
+              183
+            ],
+            "after": [
+              20,
+              6565,
+              672,
+              183
+            ],
+            "expected": [
+              20,
+              6565,
+              672,
+              183
+            ]
+          },
+          {
+            "level": 30,
+            "weight": 0.25,
+            "before": [
+              30,
+              11497,
+              1509,
+              294
+            ],
+            "after": [
+              30,
+              11497,
+              1509,
+              294
+            ],
+            "expected": [
+              30,
+              11497,
+              1509,
+              294
+            ]
+          },
+          {
+            "level": 40,
+            "weight": 0.55,
+            "before": [
+              40,
+              18206,
+              2919,
+              430
+            ],
+            "after": [
+              40,
+              18206,
+              2919,
+              538
+            ],
+            "expected": [
+              40,
+              18206,
+              2919,
+              538
+            ]
+          },
+          {
+            "level": 50,
+            "weight": 0.8,
+            "before": [
+              50,
+              26949,
+              5107,
+              591
+            ],
+            "after": [
+              50,
+              26949,
+              5107,
+              1034
+            ],
+            "expected": [
+              50,
+              26949,
+              5107,
+              1034
+            ]
+          },
+          {
+            "level": 60,
+            "weight": 1,
+            "before": [
+              60,
+              41362,
+              9096,
+              778
+            ],
+            "after": [
+              60,
+              41362,
+              9096,
+              1751
+            ],
+            "expected": [
+              60,
+              41362,
+              9096,
+              1751
+            ]
+          }
+        ],
+        "probe": "native tune of grade actors constructed from actual DB rows; no authored encounter, party or victory claim"
+      }
+    },
+    {
+      "id": "unmarked_old_future_wave_retains_prior_common_curve",
+      "passed": true,
+      "evidence": {
+        "source": "MON_ABYSS_MAGE",
+        "rows": [
+          {
+            "level": 30,
+            "stats": [
+              30,
+              17122,
+              2517,
+              196
+            ]
+          },
+          {
+            "level": 50,
+            "stats": [
+              50,
+              34951,
+              5448,
+              394
+            ]
+          },
+          {
+            "level": 60,
+            "stats": [
+              60,
+              49471,
+              8015,
+              519
+            ]
+          }
+        ],
+        "probe": "unmarked future wave policy guard; genuine public saved battles are tested separately"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ALLY_25",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 25,
+        "targetLevel": 50,
+        "side": "ALLY",
+        "K": 100,
+        "targetK": 175,
+        "rawDefense": 350,
+        "effectiveDefense": 93.26537799252377,
+        "expected": 336.3251125222979,
+        "actual": 336.32511252229796,
+        "error": 5.684341886080802e-14,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ENEMY_25",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 25,
+        "targetLevel": 50,
+        "side": "ENEMY",
+        "K": 100,
+        "targetK": 100,
+        "rawDefense": 200,
+        "effectiveDefense": 53.29450171001358,
+        "expected": 424.0204265314105,
+        "actual": 424.0204265314105,
+        "error": 0,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ALLY_35",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 35,
+        "targetLevel": 50,
+        "side": "ALLY",
+        "K": 100,
+        "targetK": 175,
+        "rawDefense": 350,
+        "effectiveDefense": 93.26537799252377,
+        "expected": 336.3251125222979,
+        "actual": 336.32511252229796,
+        "error": 5.684341886080802e-14,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ENEMY_35",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 35,
+        "targetLevel": 50,
+        "side": "ENEMY",
+        "K": 100,
+        "targetK": 100,
+        "rawDefense": 200,
+        "effectiveDefense": 53.29450171001358,
+        "expected": 424.0204265314105,
+        "actual": 424.0204265314105,
+        "error": 0,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ALLY_45",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 45,
+        "targetLevel": 50,
+        "side": "ALLY",
+        "K": 150,
+        "targetK": 175,
+        "rawDefense": 350,
+        "effectiveDefense": 93.26537799252377,
+        "expected": 400.79686145472147,
+        "actual": 400.7968614547215,
+        "error": 5.684341886080802e-14,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ENEMY_45",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 45,
+        "targetLevel": 50,
+        "side": "ENEMY",
+        "K": 150,
+        "targetK": 100,
+        "rawDefense": 200,
+        "effectiveDefense": 53.29450171001358,
+        "expected": 479.5997883852138,
+        "actual": 479.5997883852138,
+        "error": 0,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ALLY_50",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 50,
+        "targetLevel": 50,
+        "side": "ALLY",
+        "K": 175,
+        "targetK": 175,
+        "rawDefense": 350,
+        "effectiveDefense": 93.26537799252377,
+        "expected": 424.0204265314105,
+        "actual": 424.0204265314105,
+        "error": 0,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ENEMY_50",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 50,
+        "targetLevel": 50,
+        "side": "ENEMY",
+        "K": 175,
+        "targetK": 100,
+        "rawDefense": 200,
+        "effectiveDefense": 53.29450171001358,
+        "expected": 498.25991930584735,
+        "actual": 498.25991930584735,
+        "error": 0,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ALLY_55",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 55,
+        "targetLevel": 50,
+        "side": "ALLY",
+        "K": 200,
+        "targetK": 175,
+        "rawDefense": 350,
+        "effectiveDefense": 93.26537799252377,
+        "expected": 443.2845121025984,
+        "actual": 443.2845121025984,
+        "error": 0,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ENEMY_55",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 55,
+        "targetLevel": 50,
+        "side": "ENEMY",
+        "K": 200,
+        "targetK": 100,
+        "rawDefense": 200,
+        "effectiveDefense": 53.29450171001358,
+        "expected": 513.2365650353976,
+        "actual": 513.2365650353976,
+        "error": 0,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ALLY_60",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 60,
+        "targetLevel": 50,
+        "side": "ALLY",
+        "K": 225,
+        "targetK": 175,
+        "rawDefense": 350,
+        "effectiveDefense": 93.26537799252377,
+        "expected": 459.5221790145062,
+        "actual": 459.5221790145062,
+        "error": 0,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "independent_native_damage_packet_K_ENEMY_60",
+      "passed": true,
+      "evidence": {
+        "attackerLevel": 60,
+        "targetLevel": 50,
+        "side": "ENEMY",
+        "K": 225,
+        "targetK": 100,
+        "rawDefense": 200,
+        "effectiveDefense": 53.29450171001358,
+        "expected": 525.5224199592501,
+        "actual": 525.5224199592501,
+        "error": 0,
+        "probe": "sure-hit, no-crit, mean variance, no buffs or reactions; direct packet only"
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+        "stats": [
+          18,
+          18000,
+          1600,
+          180
+        ],
+        "effectiveDefense": 91.06485480637448
+      }
+    },
+    {
+      "id": "final_literal_native_projection:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+        "stats": [
+          18,
+          19800,
+          1760,
+          198
+        ],
+        "effectiveDefense": 100.17134028701193
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654321,
+          "atk": 3210,
+          "def": 456,
+          "spd": 90
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 64
+          },
+          {
+            "id": "FB_ANEMO_HYPOSTASIS#1",
+            "first": false,
+            "score": 97
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 88
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 81
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 62
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_ANEMO_HYPOSTASIS:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "8e8f6c638a0c483225c1bf9a366f8c27ade0137741c7cae0d88a5792b4e75f88",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_ANEMO_HYPOSTASIS:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "427fca47f03abfb4974ee3504948d88c4fbdde7b70fc500eeef20db6cf32a636",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+        "stats": [
+          20,
+          16000,
+          1700,
+          210
+        ],
+        "effectiveDefense": 100.53717741755841
+      }
+    },
+    {
+      "id": "final_literal_native_projection:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+        "stats": [
+          20,
+          16800,
+          1785,
+          210
+        ],
+        "effectiveDefense": 100.53717741755841
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654322,
+          "atk": 3211,
+          "def": 457,
+          "spd": 91
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 64
+          },
+          {
+            "id": "FB_ELECTRO_HYPOSTASIS#1",
+            "first": false,
+            "score": 98
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 88
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 81
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 62
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_ELECTRO_HYPOSTASIS:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "7a232d14a9eadc1294a3095a5bc77cd50ac9e67825d555be1363ceedb82c9e5a",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_ELECTRO_HYPOSTASIS:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "09a6906230d8a95c784275dc07537648b1485cb0cde442f378e20dbf58edaec9",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_CRYO_REGISVINE",
+        "stats": [
+          22,
+          26000,
+          1950,
+          220
+        ],
+        "effectiveDefense": 99.96902266434012
+      }
+    },
+    {
+      "id": "final_literal_native_projection:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_CRYO_REGISVINE",
+        "stats": [
+          22,
+          28600,
+          2048,
+          231
+        ],
+        "effectiveDefense": 104.96747379755712
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654323,
+          "atk": 3212,
+          "def": 458,
+          "spd": 92
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 65
+          },
+          {
+            "id": "FB_CRYO_REGISVINE#1",
+            "first": false,
+            "score": 99
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 89
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 82
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 63
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_CRYO_REGISVINE:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "1a38f8c20d9a3746c782db7f6cbdfe52495e933f496cf879b2b11649aa58d044",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_CRYO_REGISVINE:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "dab0b9afa3e8b25662a6812e1d52426db9fa7d70f639414158407e4446f307f5",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+        "stats": [
+          30,
+          30000,
+          1850,
+          294
+        ],
+        "effectiveDefense": 111.09775095396134
+      }
+    },
+    {
+      "id": "final_literal_native_projection:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+        "stats": [
+          30,
+          33000,
+          2128,
+          323
+        ],
+        "effectiveDefense": 122.05637264669902
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654324,
+          "atk": 3213,
+          "def": 459,
+          "spd": 93
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 66
+          },
+          {
+            "id": "FB_CRYO_HYPOSTASIS#1",
+            "first": false,
+            "score": 100
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 90
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 83
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 64
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_CRYO_HYPOSTASIS:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "740258c209a2ea6a9642e30b2f192d75c0eca47d4e02d253e2659e912d6b6a4d",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_CRYO_HYPOSTASIS:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "5fc7afd94cfc666bce9d8b3cb95c41743b37e64de4896b7a95f4c993cba3d9c9",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+        "stats": [
+          45,
+          52113,
+          4117,
+          508
+        ],
+        "effectiveDefense": 146.11220224631492
+      }
+    },
+    {
+      "id": "final_literal_native_projection:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+        "stats": [
+          45,
+          57324,
+          4940,
+          801
+        ],
+        "effectiveDefense": 230.38557873877608
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654325,
+          "atk": 3214,
+          "def": 460,
+          "spd": 94
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 69
+          },
+          {
+            "id": "FB_GEO_HYPOSTASIS#1",
+            "first": false,
+            "score": 101
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 93
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 86
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 67
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_GEO_HYPOSTASIS:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "839127be3f346e4846694d5b30ddc71a7e844632cf790df54899b78e93b14da7",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_GEO_HYPOSTASIS:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "675a4c8563b355a592412ef5ac5a9c2bdbba14b43fbbdb120b6d424d7746ede4",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_PYRO_REGISVINE",
+        "stats": [
+          38,
+          60000,
+          4000,
+          460
+        ],
+        "effectiveDefense": 148.87588987315658
+      }
+    },
+    {
+      "id": "final_literal_native_projection:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_PYRO_REGISVINE",
+        "stats": [
+          38,
+          63000,
+          4200,
+          555
+        ],
+        "effectiveDefense": 179.62199756435197
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654326,
+          "atk": 3215,
+          "def": 461,
+          "spd": 95
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 68
+          },
+          {
+            "id": "FB_PYRO_REGISVINE#1",
+            "first": false,
+            "score": 102
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 92
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 85
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 66
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_PYRO_REGISVINE:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "9e4698789dd9b8e57fbc0ae12fb29c437b578f189562e3320e1630eefa8f8b21",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_PYRO_REGISVINE:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "980b91ef9ee140e2c2a30465eea3feb7ec0f24089d60e5d23e24f75c7a504056",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_OCEANID",
+        "stats": [
+          40,
+          40457,
+          4000,
+          430
+        ],
+        "effectiveDefense": 134.35532048611577
+      }
+    },
+    {
+      "id": "final_literal_native_projection:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_OCEANID",
+        "stats": [
+          40,
+          48548,
+          4800,
+          591
+        ],
+        "effectiveDefense": 184.66045210998703
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654327,
+          "atk": 3216,
+          "def": 462,
+          "spd": 96
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 68
+          },
+          {
+            "id": "FB_OCEANID#1",
+            "first": false,
+            "score": 103
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 92
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 85
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 66
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_OCEANID:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "5bace346de50c645a8fd1c549f80666f6f77e83d58c9282b77b38ce4562832e9",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_OCEANID:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "f079ae1ad702e46dc2fbbd4149bb101f46b9923991e56368aeceb976b9360a25",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_PRIMO_GEOVISHAP",
+        "stats": [
+          48,
+          64000,
+          5500,
+          570
+        ],
+        "effectiveDefense": 156.49068483086523
+      }
+    },
+    {
+      "id": "final_literal_native_projection:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_PRIMO_GEOVISHAP",
+        "stats": [
+          48,
+          70400,
+          6050,
+          987
+        ],
+        "effectiveDefense": 270.97597531239296
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654328,
+          "atk": 3217,
+          "def": 463,
+          "spd": 97
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 70
+          },
+          {
+            "id": "FB_PRIMO_GEOVISHAP#1",
+            "first": false,
+            "score": 104
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 94
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 87
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 68
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_PRIMO_GEOVISHAP:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "ab15affb0b652d753df682e65255c18c23908206a008538910ce6cc653c3bb4d",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_PRIMO_GEOVISHAP:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "23ea18537824d9cb2c44867b782a2f7e33afde00ebc565f2e2373e74b52d7cd0",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_RUIN_SERPENT",
+        "stats": [
+          56,
+          83496,
+          8500,
+          700
+        ],
+        "effectiveDefense": 171.4214319924053
+      }
+    },
+    {
+      "id": "final_literal_native_projection:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "origin": "BOSS:BRT_FB_RUIN_SERPENT",
+        "stats": [
+          56,
+          91846,
+          9350,
+          1507
+        ],
+        "effectiveDefense": 369.04585430364966
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654329,
+          "atk": 3218,
+          "def": 464,
+          "spd": 98
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 72
+          },
+          {
+            "id": "FB_RUIN_SERPENT#1",
+            "first": false,
+            "score": 105
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 96
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 89
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 70
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_RUIN_SERPENT:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "f248b92a8c107e910f01d802e329d2dbab35b240fe80204645fd7c468228e3cd",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:FB_RUIN_SERPENT:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "663b09e5625ffa6681d4974f8780943ac0cba572f353f8d6c4c0135655065a3d",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:BOSS_ANDRIUS",
+        "stats": [
+          25,
+          20094,
+          2055,
+          236
+        ],
+        "effectiveDefense": 99.65704385978036
+      }
+    },
+    {
+      "id": "final_literal_native_projection:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:BOSS_ANDRIUS",
+        "stats": [
+          25,
+          20094,
+          2466,
+          248
+        ],
+        "effectiveDefense": 104.72435117468446
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:BOSS_ANDRIUS",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654330,
+          "atk": 3219,
+          "def": 465,
+          "spd": 99
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 65
+          },
+          {
+            "id": "BOSS_ANDRIUS#1",
+            "first": false,
+            "score": 106
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 89
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 82
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 63
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:BOSS_ANDRIUS:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "01c5ea337aef9961d660d749ab80e3a58bcfb13bd08f96060ab50a1036dd9469",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:BOSS_ANDRIUS:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "cc1a3bf8d5c7822836643c0f0f40f637e50b575d16740c55c1b05508ab13fa76",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "stats": [
+          28,
+          42540,
+          3744,
+          270
+        ],
+        "effectiveDefense": 106.50245385795427
+      }
+    },
+    {
+      "id": "final_literal_native_projection:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:BOSS_DVALIN",
+        "stats": [
+          28,
+          42540,
+          4492,
+          270
+        ],
+        "effectiveDefense": 106.50245385795427
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:BOSS_DVALIN",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654331,
+          "atk": 3220,
+          "def": 466,
+          "spd": 100
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 66
+          },
+          {
+            "id": "BOSS_DVALIN#1",
+            "first": false,
+            "score": 107
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 90
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 83
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 64
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:BOSS_DVALIN:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "f2131d405d52a353af2b479f2a0fdc089bb7f8a545e2a61b88f54d2a3d61b582",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:BOSS_DVALIN:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native BEGIN then first WAIT; other fights use an actual player skill and nonzero cooldown",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "aa0be49b160b27afea397a960c2487690c9aed0d6ed1e51b327dfdd627dd8763",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+        "stats": [
+          50,
+          125761,
+          9703,
+          591
+        ],
+        "effectiveDefense": 157.4852525530901
+      }
+    },
+    {
+      "id": "final_literal_native_projection:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM",
+        "stats": [
+          50,
+          144625,
+          16010,
+          1241
+        ],
+        "effectiveDefense": 330.6923831106342
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:BOSS_TARTAGLIA",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654332,
+          "atk": 3221,
+          "def": 467,
+          "spd": 101
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 70
+          },
+          {
+            "id": "BOSS_TARTAGLIA#1",
+            "first": false,
+            "score": 108
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 94
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 87
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 68
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:BOSS_TARTAGLIA:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "aa242d2824f79dc12a8d97de61cf8143fd23144d351f626e354703e5afe5e515",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:BOSS_TARTAGLIA:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "cf17e7b7d001cc8f4c6483b28c682fe7ef7b75449ece7a692011c8cbfd2ee2d2",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_literal_native_projection:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "stats": [
+          60,
+          137874,
+          13189,
+          778
+        ],
+        "effectiveDefense": 180.7689908762255
+      }
+    },
+    {
+      "id": "final_literal_native_projection:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "origin": "MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM",
+        "stats": [
+          60,
+          151661,
+          18465,
+          1926
+        ],
+        "effectiveDefense": 447.5078103182652
+      }
+    },
+    {
+      "id": "admin_exact_final_override_and_opening_roll:BOSS_AZHDAHA",
+      "passed": true,
+      "evidence": {
+        "values": {
+          "hp": 654333,
+          "atk": 3222,
+          "def": 468,
+          "spd": 102
+        },
+        "initialOrder": [
+          {
+            "id": "PLAYER_CUSTOM",
+            "first": false,
+            "score": 80
+          },
+          {
+            "id": "BOSS_AZHDAHA#1",
+            "first": false,
+            "score": 102
+          },
+          {
+            "id": "MOND_KAEYA",
+            "first": false,
+            "score": 94
+          },
+          {
+            "id": "MOND_AMBER",
+            "first": false,
+            "score": 89
+          },
+          {
+            "id": "MOND_NOELLE",
+            "first": false,
+            "score": 71
+          }
+        ],
+        "loadAndPreviewDoNotReroll": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:BOSS_AZHDAHA:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "b32b1e6f6cd74b75c6b4beee4e305231668064a763f0800187f8dac1f47aa402",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "genuine_v01626_saved_rules_and_native_resume:BOSS_AZHDAHA:WAIT_PLAYER",
+      "passed": true,
+      "evidence": {
+        "boundary": "WAIT_PLAYER",
+        "preparation": "native public entry/action",
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159",
+        "savedRuntimeSHA256": "f7698ccae0dc7f6c532e6ab9c2b5326b5f1a6d5a443d41f6a9eadf341cd9f478",
+        "nativeResume": true
+      }
+    },
+    {
+      "id": "new_Dvalin_rematch_has_no_wind_card_or_direct_execution_after_start_and_restore",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "boundary": "PENDING",
+            "marker": 1,
+            "cardHidden": true,
+            "directAndPublicExecutionRejected": true,
+            "exactRestoreAndAtomicity": true
+          },
+          {
+            "boundary": "STARTED",
+            "marker": 1,
+            "cardHidden": true,
+            "directAndPublicExecutionRejected": true,
+            "exactRestoreAndAtomicity": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "genuine_old_Dvalin_rematch_keeps_public_wind_action_and_exact_native_resume",
+      "passed": true,
+      "evidence": {
+        "genuineOldFlag": null,
+        "nativeWindCast": true,
+        "accessStatus": "EXPLICIT_ACCESS_TO_BOSS_DVALIN",
+        "fullStateAndPRNGExactlyPreserved": true
+      }
+    },
+    {
+      "id": "authored_Traveler_Dvalin_story_gate_preserves_its_public_wind_route",
+      "passed": true,
+      "evidence": {
+        "node": "TRV_M02_N371",
+        "actualAuthoredGate": true,
+        "publicPreparationAndWindCast": true,
+        "fixtures": "granted levels, gear, owned party and story cursor; not a complete campaign or story difficulty proof"
+      }
+    },
+    {
+      "id": "new_Dvalin_rematch_retains_ranged_access_public_tactical_float_and_15pct_close_penalty",
+      "passed": true,
+      "evidence": {
+        "normalRangedAccess": true,
+        "publicToolPreparedAndConsumed": true,
+        "remainingCharges": 2,
+        "tacticalClosePacket": 269.5376009346923,
+        "rangedPacket": 317.10305992316745,
+        "closeMultiplier": 0.85,
+        "probe": "native access and deterministic pre-absorption packet after one real public float action; no win claim"
+      }
+    },
+    {
+      "id": "Dvalin_rematch_wind_flag_rejects_invalid_values_scopes_or_wind_state",
+      "passed": true,
+      "evidence": {
+        "invalidValues": [
+          {
+            "value": 0
+          },
+          {
+            "value": 2
+          },
+          {
+            "value": -1
+          },
+          {
+            "value": "1"
+          },
+          {
+            "value": null
+          }
+        ],
+        "windAlreadyTrueRejected": true,
+        "storyAndOtherBossRejected": true
+      }
+    },
+    {
+      "id": "field_pressure_direct_shield_only_and_packet_scope:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "factor": 2,
+        "rows": [
+          {
+            "options": {
+              "shielded": false
+            },
+            "before": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "after": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "expectedShieldDamage": 0
+          },
+          {
+            "options": {
+              "shielded": true
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 2000
+            },
+            "expectedShieldDamage": 2000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "REACTION"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "FIELD"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "OBJECT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "card": "UNRELATED_NUMERIC_CONTRACT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          }
+        ],
+        "unsupportedMarkerValues": [
+          0,
+          2,
+          -1,
+          "1",
+          null
+        ],
+        "probe": "native applyDamage with fixed 1000 input, normal armor and shields; no victory or full-move damage claim"
+      }
+    },
+    {
+      "id": "field_pressure_direct_shield_only_and_packet_scope:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "factor": 2,
+        "rows": [
+          {
+            "options": {
+              "shielded": false
+            },
+            "before": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "after": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "expectedShieldDamage": 0
+          },
+          {
+            "options": {
+              "shielded": true
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 2000
+            },
+            "expectedShieldDamage": 2000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "REACTION"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "FIELD"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "OBJECT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "card": "UNRELATED_NUMERIC_CONTRACT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          }
+        ],
+        "unsupportedMarkerValues": [
+          0,
+          2,
+          -1,
+          "1",
+          null
+        ],
+        "probe": "native applyDamage with fixed 1000 input, normal armor and shields; no victory or full-move damage claim"
+      }
+    },
+    {
+      "id": "field_pressure_direct_shield_only_and_packet_scope:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "factor": 2,
+        "rows": [
+          {
+            "options": {
+              "shielded": false
+            },
+            "before": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "after": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "expectedShieldDamage": 0
+          },
+          {
+            "options": {
+              "shielded": true
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 2000
+            },
+            "expectedShieldDamage": 2000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "REACTION"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "FIELD"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "OBJECT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "card": "UNRELATED_NUMERIC_CONTRACT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          }
+        ],
+        "unsupportedMarkerValues": [
+          0,
+          2,
+          -1,
+          "1",
+          null
+        ],
+        "probe": "native applyDamage with fixed 1000 input, normal armor and shields; no victory or full-move damage claim"
+      }
+    },
+    {
+      "id": "field_pressure_direct_shield_only_and_packet_scope:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "factor": 2,
+        "rows": [
+          {
+            "options": {
+              "shielded": false
+            },
+            "before": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "after": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "expectedShieldDamage": 0
+          },
+          {
+            "options": {
+              "shielded": true
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 2000
+            },
+            "expectedShieldDamage": 2000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "REACTION"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "FIELD"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "OBJECT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "card": "UNRELATED_NUMERIC_CONTRACT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          }
+        ],
+        "unsupportedMarkerValues": [
+          0,
+          2,
+          -1,
+          "1",
+          null
+        ],
+        "probe": "native applyDamage with fixed 1000 input, normal armor and shields; no victory or full-move damage claim"
+      }
+    },
+    {
+      "id": "field_pressure_direct_shield_only_and_packet_scope:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "factor": 3,
+        "rows": [
+          {
+            "options": {
+              "shielded": false
+            },
+            "before": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "after": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "expectedShieldDamage": 0
+          },
+          {
+            "options": {
+              "shielded": true
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 3000
+            },
+            "expectedShieldDamage": 3000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "REACTION"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "FIELD"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "OBJECT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "card": "UNRELATED_NUMERIC_CONTRACT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          }
+        ],
+        "unsupportedMarkerValues": [
+          0,
+          2,
+          -1,
+          "1",
+          null
+        ],
+        "probe": "native applyDamage with fixed 1000 input, normal armor and shields; no victory or full-move damage claim"
+      }
+    },
+    {
+      "id": "field_pressure_direct_shield_only_and_packet_scope:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "factor": 2,
+        "rows": [
+          {
+            "options": {
+              "shielded": false
+            },
+            "before": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "after": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "expectedShieldDamage": 0
+          },
+          {
+            "options": {
+              "shielded": true
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 2000
+            },
+            "expectedShieldDamage": 2000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "REACTION"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "FIELD"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "OBJECT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "card": "UNRELATED_NUMERIC_CONTRACT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          }
+        ],
+        "unsupportedMarkerValues": [
+          0,
+          2,
+          -1,
+          "1",
+          null
+        ],
+        "probe": "native applyDamage with fixed 1000 input, normal armor and shields; no victory or full-move damage claim"
+      }
+    },
+    {
+      "id": "field_pressure_direct_shield_only_and_packet_scope:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "factor": 2,
+        "rows": [
+          {
+            "options": {
+              "shielded": false
+            },
+            "before": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "after": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "expectedShieldDamage": 0
+          },
+          {
+            "options": {
+              "shielded": true
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 2000
+            },
+            "expectedShieldDamage": 2000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "REACTION"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "FIELD"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "OBJECT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "card": "UNRELATED_NUMERIC_CONTRACT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          }
+        ],
+        "unsupportedMarkerValues": [
+          0,
+          2,
+          -1,
+          "1",
+          null
+        ],
+        "probe": "native applyDamage with fixed 1000 input, normal armor and shields; no victory or full-move damage claim"
+      }
+    },
+    {
+      "id": "field_pressure_direct_shield_only_and_packet_scope:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "factor": 1.5,
+        "rows": [
+          {
+            "options": {
+              "shielded": false
+            },
+            "before": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "after": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "expectedShieldDamage": 0
+          },
+          {
+            "options": {
+              "shielded": true
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1500
+            },
+            "expectedShieldDamage": 1500
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "REACTION"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "FIELD"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "OBJECT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "card": "UNRELATED_NUMERIC_CONTRACT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          }
+        ],
+        "unsupportedMarkerValues": [
+          0,
+          2,
+          -1,
+          "1",
+          null
+        ],
+        "probe": "native applyDamage with fixed 1000 input, normal armor and shields; no victory or full-move damage claim"
+      }
+    },
+    {
+      "id": "field_pressure_direct_shield_only_and_packet_scope:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "factor": 4,
+        "rows": [
+          {
+            "options": {
+              "shielded": false
+            },
+            "before": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "after": {
+              "hpDamage": 1000,
+              "shieldDamage": 0
+            },
+            "expectedShieldDamage": 0
+          },
+          {
+            "options": {
+              "shielded": true
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 4000
+            },
+            "expectedShieldDamage": 4000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "REACTION"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "FIELD"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "sourceKind": "OBJECT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          },
+          {
+            "options": {
+              "shielded": true,
+              "card": "UNRELATED_NUMERIC_CONTRACT"
+            },
+            "before": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "after": {
+              "hpDamage": 0,
+              "shieldDamage": 1000
+            },
+            "expectedShieldDamage": 1000
+          }
+        ],
+        "unsupportedMarkerValues": [
+          0,
+          2,
+          -1,
+          "1",
+          null
+        ],
+        "probe": "native applyDamage with fixed 1000 input, normal armor and shields; no victory or full-move damage claim"
+      }
+    },
+    {
+      "id": "field_move_pressure_coefficients_and_excluded_source_kinds",
+      "passed": true,
+      "evidence": {
+        "evidence": [
+          {
+            "engine": "0.16.26",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "ROCKFALL",
+            "sourceKind": null,
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "0.16.26",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "ROCKFALL",
+            "sourceKind": "REACTION",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "0.16.26",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "ROCKFALL",
+            "sourceKind": "FIELD",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "0.16.26",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "UPHEAVAL",
+            "sourceKind": null,
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "0.16.26",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "UPHEAVAL",
+            "sourceKind": "REACTION",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "0.16.26",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "UPHEAVAL",
+            "sourceKind": "FIELD",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "current",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "ROCKFALL",
+            "sourceKind": null,
+            "k": 0.9750000000000001,
+            "expected": 0.9750000000000001
+          },
+          {
+            "engine": "current",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "ROCKFALL",
+            "sourceKind": "REACTION",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "current",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "ROCKFALL",
+            "sourceKind": "FIELD",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "current",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "UPHEAVAL",
+            "sourceKind": null,
+            "k": 0.9750000000000001,
+            "expected": 0.9750000000000001
+          },
+          {
+            "engine": "current",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "UPHEAVAL",
+            "sourceKind": "REACTION",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "current",
+            "source": "FB_GEO_HYPOSTASIS",
+            "move": "UPHEAVAL",
+            "sourceKind": "FIELD",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "0.16.26",
+            "source": "FB_PRIMO_GEOVISHAP",
+            "move": "BEAM",
+            "sourceKind": null,
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "0.16.26",
+            "source": "FB_PRIMO_GEOVISHAP",
+            "move": "BEAM",
+            "sourceKind": "REACTION",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "0.16.26",
+            "source": "FB_PRIMO_GEOVISHAP",
+            "move": "BEAM",
+            "sourceKind": "FIELD",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "current",
+            "source": "FB_PRIMO_GEOVISHAP",
+            "move": "BEAM",
+            "sourceKind": null,
+            "k": 0.7474999999999999,
+            "expected": 0.7474999999999999
+          },
+          {
+            "engine": "current",
+            "source": "FB_PRIMO_GEOVISHAP",
+            "move": "BEAM",
+            "sourceKind": "REACTION",
+            "k": 0.65,
+            "expected": 0.65
+          },
+          {
+            "engine": "current",
+            "source": "FB_PRIMO_GEOVISHAP",
+            "move": "BEAM",
+            "sourceKind": "FIELD",
+            "k": 0.65,
+            "expected": 0.65
+          }
+        ],
+        "probe": "native fbHit coefficient captured at its existing damage call; packet formula is independently tested elsewhere"
+      }
+    },
+    {
+      "id": "oceanid_owned_summon_pressure_and_initial_body_scaling",
+      "passed": true,
+      "evidence": {
+        "beforeBody": [
+          40,
+          2738,
+          3600,
+          615
+        ],
+        "afterBody": [
+          40,
+          3285,
+          4320,
+          768
+        ],
+        "before": {
+          "hpDamage": 0,
+          "shieldDamage": 1000
+        },
+        "after": {
+          "hpDamage": 0,
+          "shieldDamage": 2000
+        },
+        "shieldFactor": 2,
+        "bodyBudget": 1218
+      }
+    },
+    {
+      "id": "fresh_crab_shell_initial_maximum_scales_with_value_and_old_future_spawn_stays_exact",
+      "passed": true,
+      "evidence": {
+        "fresh": {
+          "maxHp": 2832,
+          "shield": {
+            "source": "FB_CRAB_SHELL",
+            "value": 708,
+            "initialValue": 708,
+            "rounds": null,
+            "createdRound": 1,
+            "element": "물",
+            "damageMultipliers": {
+              "번개": 2,
+              "얼음": 1.5
+            }
+          }
+        },
+        "genuineOldFuture": {
+          "maxHp": 2360,
+          "shield": {
+            "source": "FB_CRAB_SHELL",
+            "value": 590,
+            "initialValue": 818,
+            "rounds": null,
+            "createdRound": 1,
+            "element": "물",
+            "damageMultipliers": {
+              "번개": 2,
+              "얼음": 1.5
+            }
+          }
+        },
+        "nativeSavedPolicyPreserved": true,
+        "probe": "actual native crab spawn after public entry; spawn only, no victory or encounter outcome claim"
+      }
+    },
+    {
+      "id": "genuine_old_geo_future_summons_and_shield_pressure_stay_unchanged",
+      "passed": true,
+      "evidence": {
+        "oldBehavior": 5,
+        "pressureMarker": null,
+        "summons": [
+          {
+            "id": "FB_SUMMON_PILLAR#S1",
+            "stats": [
+              45,
+              3648,
+              0,
+              907
+            ]
+          }
+        ],
+        "before": {
+          "hpDamage": 0,
+          "shieldDamage": 1000
+        },
+        "after": {
+          "hpDamage": 0,
+          "shieldDamage": 1000
+        }
+      }
+    },
+    {
+      "id": "new_EXP60_preview_save_and_actual_xp_settlement:PENDING",
+      "passed": true,
+      "evidence": {
+        "boundary": "PENDING",
+        "entry": {
+          "id": "LOST_VALLEY:60",
+          "key": "LOST_VALLEY",
+          "kind": "EXP",
+          "name": "암중협곡",
+          "trial": "경험치",
+          "region": "리월",
+          "level": 60,
+          "levels": [
+            60
+          ],
+          "map": "MAP_CHASM_DEEP",
+          "expRewardVersion": 1,
+          "reason": "",
+          "lock": ""
+        },
+        "preview": {
+          "items": {},
+          "bonus": false,
+          "doubles": false,
+          "remaining": 0,
+          "mora": 0,
+          "xp": 24000
+        },
+        "settlement": {
+          "xp": 24000,
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+            "group": "EG_DOMAIN4_LOST_VALLEY_60",
+            "origin": "DOMAIN:LOST_VALLEY:60",
+            "gate": "DOMAIN:LOST_VALLEY:60",
+            "branch": null,
+            "victory": true,
+            "xp": 24000,
+            "loot": {
+              "TRPG_SCRAP_METAL": 2,
+              "MAT_CHAOS_DEVICE": 1,
+              "MAT_SERGEANT_INSIGNIA": 1,
+              "MAT_RECRUIT_INSIGNIA": 4
+            },
+            "rounds": 1,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "LOST_VALLEY:60",
+              "level": 60,
+              "bonus": false,
+              "items": {}
+            }
+          },
+          "activePartyXp": {
+            "PLAYER_CUSTOM": 24000,
+            "MOND_AMBER": 24000,
+            "MOND_KAEYA": 24000,
+            "MOND_NOELLE": 24000
+          },
+          "booksAdded": 0,
+          "materialDoubleCounterUnchanged": true,
+          "controlledSettlement": "enemy HP set to zero solely to verify the native reward ledger; not a player win or difficulty measurement"
+        }
+      }
+    },
+    {
+      "id": "new_EXP60_preview_save_and_actual_xp_settlement:STARTED",
+      "passed": true,
+      "evidence": {
+        "boundary": "STARTED",
+        "entry": {
+          "id": "LOST_VALLEY:60",
+          "key": "LOST_VALLEY",
+          "kind": "EXP",
+          "name": "암중협곡",
+          "trial": "경험치",
+          "region": "리월",
+          "level": 60,
+          "levels": [
+            60
+          ],
+          "map": "MAP_CHASM_DEEP",
+          "expRewardVersion": 1,
+          "reason": "",
+          "lock": ""
+        },
+        "preview": {
+          "items": {},
+          "bonus": false,
+          "doubles": false,
+          "remaining": 0,
+          "mora": 0,
+          "xp": 24000
+        },
+        "settlement": {
+          "xp": 24000,
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+            "group": "EG_DOMAIN4_LOST_VALLEY_60",
+            "origin": "DOMAIN:LOST_VALLEY:60",
+            "gate": "DOMAIN:LOST_VALLEY:60",
+            "branch": null,
+            "victory": true,
+            "xp": 24000,
+            "loot": {
+              "TRPG_SCRAP_METAL": 2,
+              "MAT_CHAOS_DEVICE": 1,
+              "MAT_SERGEANT_INSIGNIA": 1,
+              "MAT_RECRUIT_INSIGNIA": 4
+            },
+            "rounds": 1,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "LOST_VALLEY:60",
+              "level": 60,
+              "bonus": false,
+              "items": {}
+            }
+          },
+          "activePartyXp": {
+            "PLAYER_CUSTOM": 24000,
+            "MOND_AMBER": 24000,
+            "MOND_KAEYA": 24000,
+            "MOND_NOELLE": 24000
+          },
+          "booksAdded": 0,
+          "materialDoubleCounterUnchanged": true,
+          "controlledSettlement": "enemy HP set to zero solely to verify the native reward ledger; not a player win or difficulty measurement"
+        }
+      }
+    },
+    {
+      "id": "genuine_v01626_EXP60_retains_10000_preview_projection_and_settlement",
+      "passed": true,
+      "evidence": {
+        "entry": {
+          "id": "LOST_VALLEY:60",
+          "key": "LOST_VALLEY",
+          "kind": "EXP",
+          "name": "암중협곡",
+          "trial": "경험치",
+          "region": "리월",
+          "level": 60,
+          "levels": [
+            60
+          ],
+          "map": "MAP_CHASM_DEEP",
+          "reason": "",
+          "lock": ""
+        },
+        "preview": {
+          "items": {},
+          "bonus": false,
+          "doubles": false,
+          "remaining": 0,
+          "mora": 0,
+          "xp": 10000
+        },
+        "before": {
+          "xp": 10000,
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+            "group": "EG_DOMAIN4_LOST_VALLEY_60",
+            "origin": "DOMAIN:LOST_VALLEY:60",
+            "gate": "DOMAIN:LOST_VALLEY:60",
+            "branch": null,
+            "victory": true,
+            "xp": 10000,
+            "loot": {
+              "TRPG_SCRAP_METAL": 2,
+              "MAT_CHAOS_DEVICE": 1,
+              "MAT_SERGEANT_INSIGNIA": 1,
+              "MAT_RECRUIT_INSIGNIA": 4
+            },
+            "rounds": 1,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "LOST_VALLEY:60",
+              "level": 60,
+              "bonus": false,
+              "items": {}
+            }
+          },
+          "activePartyXp": {
+            "PLAYER_CUSTOM": 10000,
+            "MOND_AMBER": 10000,
+            "MOND_KAEYA": 10000,
+            "MOND_NOELLE": 10000
+          },
+          "booksAdded": 0,
+          "materialDoubleCounterUnchanged": true,
+          "controlledSettlement": "enemy HP set to zero solely to verify the native reward ledger; not a player win or difficulty measurement"
+        },
+        "after": {
+          "xp": 10000,
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+            "group": "EG_DOMAIN4_LOST_VALLEY_60",
+            "origin": "DOMAIN:LOST_VALLEY:60",
+            "gate": "DOMAIN:LOST_VALLEY:60",
+            "branch": null,
+            "victory": true,
+            "xp": 10000,
+            "loot": {
+              "TRPG_SCRAP_METAL": 2,
+              "MAT_CHAOS_DEVICE": 1,
+              "MAT_SERGEANT_INSIGNIA": 1,
+              "MAT_RECRUIT_INSIGNIA": 4
+            },
+            "rounds": 1,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "LOST_VALLEY:60",
+              "level": 60,
+              "bonus": false,
+              "items": {}
+            }
+          },
+          "activePartyXp": {
+            "PLAYER_CUSTOM": 10000,
+            "MOND_AMBER": 10000,
+            "MOND_KAEYA": 10000,
+            "MOND_NOELLE": 10000
+          },
+          "booksAdded": 0,
+          "materialDoubleCounterUnchanged": true,
+          "controlledSettlement": "enemy HP set to zero solely to verify the native reward ledger; not a player win or difficulty measurement"
+        },
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159"
+      }
+    },
+    {
+      "id": "admin_catalog_EXP60_default_matches_native_entry_preview_and_old_baseline",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "engine": "0.16.26",
+            "catalogBaseXp": 10000,
+            "previewXp": 10000,
+            "entryRewardRevision": null
+          },
+          {
+            "engine": "current",
+            "catalogBaseXp": 24000,
+            "previewXp": 24000,
+            "entryRewardRevision": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "operator_EXP60_xp_override_economy_multiplier_and_saved_profile_keep_precedence",
+      "passed": true,
+      "evidence": {
+        "evidence": [
+          {
+            "engine": "genuine0.16.26",
+            "revision": 926260,
+            "operatorXp": 8001,
+            "economyMultiplier": 1.25,
+            "actualPreviewAndSettlementXp": 10001,
+            "enemyRevision": null,
+            "expRevision": null,
+            "exactNativeSettlementAndStoredProfile": true
+          },
+          {
+            "engine": "current",
+            "revision": 926270,
+            "operatorXp": 8001,
+            "economyMultiplier": 1.25,
+            "actualPreviewAndSettlementXp": 10001,
+            "enemyRevision": 1,
+            "expRevision": 1,
+            "exactNativeSettlementAndStoredProfile": true
+          }
+        ],
+        "ledgerProbe": "controlled settlement only; no combat victory or difficulty claim"
+      }
+    },
+    {
+      "id": "EXP_reward_revision_rejects_invalid_value_or_scope",
+      "passed": true,
+      "evidence": {
+        "invalidValues": [
+          0,
+          2,
+          -1,
+          "1",
+          null
+        ],
+        "missingEnemyRevisionRejected": true,
+        "materialKindRejected": true
+      }
+    },
+    {
+      "id": "talent_native_preview_twelve_stages_only_Liyue60_changes_and_requirements_stay_exact",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "id": "FORSAKEN_RIFT:5",
+            "previous": 1,
+            "quantity": 1,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "FORSAKEN_RIFT:10",
+            "previous": 2,
+            "quantity": 2,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "FORSAKEN_RIFT:15",
+            "previous": 10,
+            "quantity": 10,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "FORSAKEN_RIFT:20",
+            "previous": 20,
+            "quantity": 20,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "FORSAKEN_RIFT:25",
+            "previous": 32,
+            "quantity": 32,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:30",
+            "previous": 3,
+            "quantity": 3,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:35",
+            "previous": 4,
+            "quantity": 4,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:40",
+            "previous": 7,
+            "quantity": 7,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:45",
+            "previous": 9,
+            "quantity": 9,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:50",
+            "previous": 19,
+            "quantity": 19,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:55",
+            "previous": 28,
+            "quantity": 28,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          },
+          {
+            "id": "TAISHAN_MANSION:60",
+            "previous": 80,
+            "quantity": 90,
+            "beforeRevision": 3,
+            "afterRevision": 4
+          }
+        ],
+        "requirementsUnchanged": true
+      }
+    },
+    {
+      "id": "new_talent60_revision4_pinned_preview_saved_rules_and_actual90_receipt",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "boundary": "PENDING",
+            "preview": {
+              "items": {
+                "GROWTH_TALENT_LIYUE": 90
+              },
+              "bonus": false,
+              "doubles": true,
+              "remaining": 0,
+              "mora": 0,
+              "xp": 1600
+            },
+            "settlement": {
+              "quantity": 90,
+              "plan": {
+                "xp": 1600,
+                "mora": 0,
+                "parts": [
+                  {
+                    "source": "MON_FATUI_GEO",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_MITACHURL_ROCK",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  }
+                ]
+              },
+              "result": {
+                "mora": 0,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+                "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+                "origin": "DOMAIN:TAISHAN_MANSION:60",
+                "gate": "DOMAIN:TAISHAN_MANSION:60",
+                "branch": null,
+                "victory": true,
+                "xp": 1600,
+                "loot": {
+                  "MAT_RECRUIT_INSIGNIA": 1,
+                  "MAT_DAMAGED_MASK": 1,
+                  "MAT_STAINED_MASK": 1,
+                  "GROWTH_TALENT_LIYUE": 90
+                },
+                "rounds": 1,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "domain": {
+                  "id": "TAISHAN_MANSION:60",
+                  "level": 60,
+                  "bonus": false,
+                  "items": {
+                    "GROWTH_TALENT_LIYUE": 90
+                  }
+                }
+              },
+              "itemsAdded": 90,
+              "dailyBefore": {
+                "day": 20736,
+                "wins": 3
+              },
+              "dailyAfter": {
+                "day": 20736,
+                "wins": 4
+              },
+              "controlledSettlement": "enemy HP set to zero only to verify the native material ledger; no victory or difficulty claim"
+            }
+          },
+          {
+            "boundary": "STARTED",
+            "preview": {
+              "items": {
+                "GROWTH_TALENT_LIYUE": 90
+              },
+              "bonus": false,
+              "doubles": true,
+              "remaining": 0,
+              "mora": 0,
+              "xp": 1600
+            },
+            "settlement": {
+              "quantity": 90,
+              "plan": {
+                "xp": 1600,
+                "mora": 0,
+                "parts": [
+                  {
+                    "source": "MON_FATUI_GEO",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_MITACHURL_ROCK",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  }
+                ]
+              },
+              "result": {
+                "mora": 0,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+                "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+                "origin": "DOMAIN:TAISHAN_MANSION:60",
+                "gate": "DOMAIN:TAISHAN_MANSION:60",
+                "branch": null,
+                "victory": true,
+                "xp": 1600,
+                "loot": {
+                  "MAT_RECRUIT_INSIGNIA": 1,
+                  "MAT_DAMAGED_MASK": 1,
+                  "MAT_STAINED_MASK": 1,
+                  "GROWTH_TALENT_LIYUE": 90
+                },
+                "rounds": 1,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "domain": {
+                  "id": "TAISHAN_MANSION:60",
+                  "level": 60,
+                  "bonus": false,
+                  "items": {
+                    "GROWTH_TALENT_LIYUE": 90
+                  }
+                }
+              },
+              "itemsAdded": 90,
+              "dailyBefore": {
+                "day": 20736,
+                "wins": 3
+              },
+              "dailyAfter": {
+                "day": 20736,
+                "wins": 4
+              },
+              "controlledSettlement": "enemy HP set to zero only to verify the native material ledger; no victory or difficulty claim"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "genuine_v01626_talent60_revision3_native_preview_save_and80_receipt_stay_exact",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "boundary": "PENDING",
+            "preview": {
+              "items": {
+                "GROWTH_TALENT_LIYUE": 80
+              },
+              "bonus": false,
+              "doubles": true,
+              "remaining": 0,
+              "mora": 0,
+              "xp": 1600
+            },
+            "before": {
+              "quantity": 80,
+              "plan": {
+                "xp": 1600,
+                "mora": 0,
+                "parts": [
+                  {
+                    "source": "MON_FATUI_GEO",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_MITACHURL_ROCK",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  }
+                ]
+              },
+              "result": {
+                "mora": 0,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+                "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+                "origin": "DOMAIN:TAISHAN_MANSION:60",
+                "gate": "DOMAIN:TAISHAN_MANSION:60",
+                "branch": null,
+                "victory": true,
+                "xp": 1600,
+                "loot": {
+                  "MAT_RECRUIT_INSIGNIA": 1,
+                  "MAT_DAMAGED_MASK": 1,
+                  "MAT_STAINED_MASK": 1,
+                  "GROWTH_TALENT_LIYUE": 80
+                },
+                "rounds": 1,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "domain": {
+                  "id": "TAISHAN_MANSION:60",
+                  "level": 60,
+                  "bonus": false,
+                  "items": {
+                    "GROWTH_TALENT_LIYUE": 80
+                  }
+                }
+              },
+              "itemsAdded": 80,
+              "dailyBefore": {
+                "day": 20736,
+                "wins": 3
+              },
+              "dailyAfter": {
+                "day": 20736,
+                "wins": 4
+              },
+              "controlledSettlement": "enemy HP set to zero only to verify the native material ledger; no victory or difficulty claim"
+            },
+            "after": {
+              "quantity": 80,
+              "plan": {
+                "xp": 1600,
+                "mora": 0,
+                "parts": [
+                  {
+                    "source": "MON_FATUI_GEO",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_MITACHURL_ROCK",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  }
+                ]
+              },
+              "result": {
+                "mora": 0,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+                "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+                "origin": "DOMAIN:TAISHAN_MANSION:60",
+                "gate": "DOMAIN:TAISHAN_MANSION:60",
+                "branch": null,
+                "victory": true,
+                "xp": 1600,
+                "loot": {
+                  "MAT_RECRUIT_INSIGNIA": 1,
+                  "MAT_DAMAGED_MASK": 1,
+                  "MAT_STAINED_MASK": 1,
+                  "GROWTH_TALENT_LIYUE": 80
+                },
+                "rounds": 1,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "domain": {
+                  "id": "TAISHAN_MANSION:60",
+                  "level": 60,
+                  "bonus": false,
+                  "items": {
+                    "GROWTH_TALENT_LIYUE": 80
+                  }
+                }
+              },
+              "itemsAdded": 80,
+              "dailyBefore": {
+                "day": 20736,
+                "wins": 3
+              },
+              "dailyAfter": {
+                "day": 20736,
+                "wins": 4
+              },
+              "controlledSettlement": "enemy HP set to zero only to verify the native material ledger; no victory or difficulty claim"
+            }
+          },
+          {
+            "boundary": "STARTED",
+            "preview": {
+              "items": {
+                "GROWTH_TALENT_LIYUE": 80
+              },
+              "bonus": false,
+              "doubles": true,
+              "remaining": 0,
+              "mora": 0,
+              "xp": 1600
+            },
+            "before": {
+              "quantity": 80,
+              "plan": {
+                "xp": 1600,
+                "mora": 0,
+                "parts": [
+                  {
+                    "source": "MON_FATUI_GEO",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_MITACHURL_ROCK",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  }
+                ]
+              },
+              "result": {
+                "mora": 0,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+                "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+                "origin": "DOMAIN:TAISHAN_MANSION:60",
+                "gate": "DOMAIN:TAISHAN_MANSION:60",
+                "branch": null,
+                "victory": true,
+                "xp": 1600,
+                "loot": {
+                  "MAT_RECRUIT_INSIGNIA": 1,
+                  "MAT_DAMAGED_MASK": 1,
+                  "MAT_STAINED_MASK": 1,
+                  "GROWTH_TALENT_LIYUE": 80
+                },
+                "rounds": 1,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "domain": {
+                  "id": "TAISHAN_MANSION:60",
+                  "level": 60,
+                  "bonus": false,
+                  "items": {
+                    "GROWTH_TALENT_LIYUE": 80
+                  }
+                }
+              },
+              "itemsAdded": 80,
+              "dailyBefore": {
+                "day": 20736,
+                "wins": 3
+              },
+              "dailyAfter": {
+                "day": 20736,
+                "wins": 4
+              },
+              "controlledSettlement": "enemy HP set to zero only to verify the native material ledger; no victory or difficulty claim"
+            },
+            "after": {
+              "quantity": 80,
+              "plan": {
+                "xp": 1600,
+                "mora": 0,
+                "parts": [
+                  {
+                    "source": "MON_FATUI_GEO",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_MITACHURL_ROCK",
+                    "level": 60,
+                    "grade": "정예",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  },
+                  {
+                    "source": "MON_GEOVISHAP_HATCHLING",
+                    "level": 60,
+                    "grade": "일반",
+                    "xp": 400,
+                    "mora": 0
+                  }
+                ]
+              },
+              "result": {
+                "mora": 0,
+                "rewardPolicy": "MOND_BALANCE_V1",
+                "bond": null,
+                "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+                "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+                "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+                "origin": "DOMAIN:TAISHAN_MANSION:60",
+                "gate": "DOMAIN:TAISHAN_MANSION:60",
+                "branch": null,
+                "victory": true,
+                "xp": 1600,
+                "loot": {
+                  "MAT_RECRUIT_INSIGNIA": 1,
+                  "MAT_DAMAGED_MASK": 1,
+                  "MAT_STAINED_MASK": 1,
+                  "GROWTH_TALENT_LIYUE": 80
+                },
+                "rounds": 1,
+                "result": "VICTORY",
+                "unsupportedEffects": [],
+                "domain": {
+                  "id": "TAISHAN_MANSION:60",
+                  "level": 60,
+                  "bonus": false,
+                  "items": {
+                    "GROWTH_TALENT_LIYUE": 80
+                  }
+                }
+              },
+              "itemsAdded": 80,
+              "dailyBefore": {
+                "day": 20736,
+                "wins": 3
+              },
+              "dailyAfter": {
+                "day": 20736,
+                "wins": 4
+              },
+              "controlledSettlement": "enemy HP set to zero only to verify the native material ledger; no victory or difficulty claim"
+            }
+          }
+        ],
+        "oldEngineFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159"
+      }
+    },
+    {
+      "id": "talent_reward_revision4_rejects_invalid_values_unmarked_policy_and_other_kind",
+      "passed": true,
+      "evidence": {
+        "invalidValues": [
+          5,
+          -1,
+          "4",
+          null
+        ],
+        "unmarkedBattleAndExperienceKindRejected": true,
+        "legacyVersions": "0/1/2/3 remain valid historical policies"
+      }
+    },
+    {
+      "id": "admin_talent60_catalog90_prior80_and_operator_material_override_keep_native_precedence",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "engine": "0.16.26",
+            "baseMaterialQuantity": 80
+          },
+          {
+            "engine": "current",
+            "baseMaterialQuantity": 90
+          }
+        ],
+        "operatorMaterialQuantity": 37,
+        "operatorXp": 8001,
+        "exactStoredProfileAndNativeReceipt": true,
+        "receipt": {
+          "quantity": 37,
+          "plan": {
+            "xp": 8001,
+            "mora": 0,
+            "parts": [
+              {
+                "source": "MON_FATUI_GEO",
+                "level": 60,
+                "grade": "정예",
+                "xp": 2001,
+                "mora": 0
+              },
+              {
+                "source": "MON_MITACHURL_ROCK",
+                "level": 60,
+                "grade": "정예",
+                "xp": 2000,
+                "mora": 0
+              },
+              {
+                "source": "MON_GEOVISHAP_HATCHLING",
+                "level": 60,
+                "grade": "일반",
+                "xp": 2000,
+                "mora": 0
+              },
+              {
+                "source": "MON_GEOVISHAP_HATCHLING",
+                "level": 60,
+                "grade": "일반",
+                "xp": 2000,
+                "mora": 0
+              }
+            ]
+          },
+          "result": {
+            "mora": 0,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717:B13",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-56-717",
+            "group": "EG_DOMAIN4_TAISHAN_MANSION_60",
+            "origin": "DOMAIN:TAISHAN_MANSION:60",
+            "gate": "DOMAIN:TAISHAN_MANSION:60",
+            "branch": null,
+            "victory": true,
+            "xp": 8001,
+            "loot": {
+              "MAT_RECRUIT_INSIGNIA": 1,
+              "MAT_DAMAGED_MASK": 1,
+              "MAT_STAINED_MASK": 1,
+              "GROWTH_TALENT_LIYUE": 37
+            },
+            "rounds": 1,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "domain": {
+              "id": "TAISHAN_MANSION:60",
+              "level": 60,
+              "bonus": false,
+              "items": {
+                "GROWTH_TALENT_LIYUE": 37
+              }
+            }
+          },
+          "itemsAdded": 37,
+          "dailyBefore": {
+            "day": 20736,
+            "wins": 3
+          },
+          "dailyAfter": {
+            "day": 20736,
+            "wins": 4
+          },
+          "controlledSettlement": "enemy HP set to zero only to verify the native material ledger; no victory or difficulty claim"
+        }
+      }
+    },
+    {
+      "id": "fresh_save_and_unsupported_revision_policy",
+      "passed": true,
+      "evidence": {
+        "marker": 1,
+        "savedProjectionAndOrderPreserved": true,
+        "unsupportedRevisionChecked": true
+      }
+    },
+    {
+      "id": "fixed_eight_enemy_reserves_keep_tuned_projection_on_reentry_and_load",
+      "passed": true,
+      "evidence": {
+        "active": 8,
+        "reserve": 6,
+        "arrivalStats": [
+          5,
+          900,
+          180,
+          31
+        ],
+        "probe": "capacity-only actor copies, not a native authored encounter or victory"
+      }
+    },
+    {
+      "id": "geo_summons_use_final_owner_hp_attack_level_and_fixed_three_slots",
+      "passed": true,
+      "evidence": {
+        "owner": [
+          45,
+          100000,
+          4000,
+          801
+        ],
+        "summons": [
+          {
+            "id": "FB_SUMMON_PILLAR#S1",
+            "stats": [
+              45,
+              6364,
+              0,
+              1360
+            ]
+          },
+          {
+            "id": "FB_SUMMON_PILLAR#S2",
+            "stats": [
+              45,
+              6364,
+              0,
+              1360
+            ]
+          },
+          {
+            "id": "FB_SUMMON_PILLAR#S3",
+            "stats": [
+              45,
+              6364,
+              0,
+              1360
+            ]
+          },
+          {
+            "id": "FB_SUMMON_PILLAR#S4",
+            "stats": [
+              45,
+              6364,
+              0,
+              1360
+            ]
+          },
+          {
+            "id": "FB_SUMMON_PILLAR#S5",
+            "stats": [
+              45,
+              6364,
+              0,
+              1360
+            ]
+          }
+        ],
+        "activeLimit": 3,
+        "storedAndReservedStatsPreserved": true
+      }
+    },
+    {
+      "id": "actual_shared_db_objects_and_authored_file_remain_unchanged",
+      "passed": true,
+      "evidence": {
+        "unchanged": true,
+        "rawDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da"
+      }
+    }
+  ]
+}

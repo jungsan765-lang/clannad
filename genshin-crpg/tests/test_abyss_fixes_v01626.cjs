@@ -2,10 +2,26 @@
 // Controlled rule contracts, not a natural-account clear-rate or farming-time simulation.
 const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto'),assert=require('node:assert/strict');
 const H=require('./helpers_v011.cjs'),A=require('./helpers_abyss.cjs'),root=H.root,cp=x=>JSON.parse(JSON.stringify(x));
+// Freeze the native current engine before any account or save is created. The
+// actual production-engine harness already supplies this same reference clock;
+// its helper has no advance(), so require that genuine realm clock explicitly.
+// The legacy VM below inherits the pinned current realm Date. This keeps exact
+// saved-state assertions meaningful when the CI run crosses the Seoul day.
+const FIXTURE_NOW=Date.parse('2026-10-10T16:00:00+09:00');
+if(typeof H.advance==='function')H.advance(FIXTURE_NOW-H.c.Date.now());
+assert.equal(H.c.Date.now(),FIXTURE_NOW,'declared current and historical native fixture clock');
 const scripts=[...fs.readFileSync(path.join(root,'source/index.html'),'utf8').matchAll(/<script src="((?:world_content|liyue_card_content|runtime[^" ]*)\.js)"/g)].map(x=>x[1]);
 const beforeDir=path.join(root,'docs/data/abyss_fixes_v01626/baseline');
+const sharedBeforeDir=path.join(root,'docs/data/abyss_fixes_v01626/engines/compatibility_before_v01624'),sharedBeforeHashes=JSON.parse(fs.readFileSync(path.join(sharedBeforeDir,'manifest.json'),'utf8'));
 const legacyContext=vm.createContext({console,Date:H.c.Date,setTimeout,clearTimeout});
-for(const file of scripts)vm.runInContext(fs.readFileSync(['runtime_abyss.js','runtime_formations.js','runtime_growth_v01522.js','runtime_balance_admin_v01623.js'].includes(file)?path.join(beforeDir,file):path.join(root,'source',file),'utf8'),legacyContext,{filename:file});
+for(const file of scripts){
+ // These modules were unchanged between 0.16.24 and the 0.16.25 baseline.
+ // Keep their authenticated pre-retuning rules instead of borrowing fresh
+ // field pressure and damage rules for a purported historical opening.
+ const shared=['runtime_field_bosses.js','runtime_rules.js'].includes(file),source=fs.readFileSync(shared?path.join(sharedBeforeDir,'source',file):['runtime_abyss.js','runtime_formations.js','runtime_growth_v01522.js','runtime_balance_admin_v01623.js'].includes(file)?path.join(beforeDir,file):path.join(root,'source',file),'utf8');
+ if(shared)assert.equal(crypto.createHash('sha256').update(source).digest('hex'),sharedBeforeHashes['source/'+file]);
+ vm.runInContext(source,legacyContext,{filename:file});
+}
 const currentApi=H.c.CRPGRuntime,legacyApi=legacyContext.CRPGRuntime,checks=[];
 // Match the existing production bootstrap when the engine-parity harness uses it.
 if(H.R.prototype.__relationshipsInstalled){const rel=legacyContext.CRPGRelationships;assert(rel);rel.install(legacyApi,{events:rel.catalogFromDB(H.db),activities:rel.activitiesFromDB(H.db),preferences:{adultModeEnabled:false},eligibility:{profiles:{},protagonists:{}}});}
@@ -49,8 +65,23 @@ check('four_declared_runtime_changes_preserve_configuration_numbers',()=>{
  assert.notEqual(hash('source/runtime_growth_v01522.js'),hashes['source/runtime_growth_v01522.js']);
  assert.notEqual(hash('source/runtime_balance_admin_v01623.js'),hashes['source/runtime_balance_admin_v01623.js']);
  assert.deepEqual(cp(currentApi.abyssConfig),cp(legacyApi.abyssConfig));
- assert.deepEqual(cp(currentApi.formationConfig),cp(legacyApi.formationConfig));assert.deepEqual(cp(currentApi.growthV01522),cp(legacyApi.growthV01522));
- return {floorNumbersGearAndCharacterRequirementsPreserved:true,playFixesUnchanged:true};
+ assert.deepEqual(cp(currentApi.formationConfig),cp(legacyApi.formationConfig));
+ const currentGrowth=cp(currentApi.growthV01522),legacyGrowth=cp(legacyApi.growthV01522);
+ assert.deepEqual(currentGrowth.previousBossChallengeProfiles,legacyGrowth.bossChallengeProfiles);
+ assert.deepEqual(currentGrowth.previousDomainXp,legacyGrowth.domainXp);
+ assert.equal(legacyGrowth.domainXp[60],10000);assert.equal(currentGrowth.expRewardVersion,1);
+ assert.deepEqual(currentGrowth.domainXp,{...legacyGrowth.domainXp,60:24000});
+ assert.equal(currentGrowth.talentRewardVersion,4);assert.equal(legacyGrowth.talentRewardVersion,3);
+ assert.deepEqual(currentGrowth.previousDomainTalentBooks,legacyGrowth.domainTalentBooks);
+ assert.deepEqual(currentGrowth.domainTalentBooks,{...legacyGrowth.domainTalentBooks,LIYUE:{...legacyGrowth.domainTalentBooks.LIYUE,60:90}});
+ assert.deepEqual(currentGrowth.legacyDomainTalentBooks[3],legacyGrowth.domainTalentBooks);
+ assert.deepEqual(currentGrowth.ordinaryAttackMultipliers,[[20,1],[30,1.15],[40,2.21],[50,2.76],[60,3.2]]);
+ delete currentGrowth.legacyDomainTalentBooks[3];
+ // Only the separately tested 0.16.27 enemy policy and challenge anchors
+ // replace their old exported values. All growth costs/gates/rewards stay exact.
+ for(const key of ['bossChallengeProfiles','previousBossChallengeProfiles','enemyBalanceRevision','enemyBalance','enemyBalanceWeight','ordinaryAttackMultipliers','previousDomainXp','expRewardVersion','domainXp','domainTalentBooks','previousDomainTalentBooks','talentRewardVersion'])delete currentGrowth[key];
+ delete legacyGrowth.bossChallengeProfiles;delete legacyGrowth.domainXp;delete legacyGrowth.domainTalentBooks;delete legacyGrowth.talentRewardVersion;assert.deepEqual(currentGrowth,legacyGrowth);
+ return {floorNumbersGearAndCharacterRequirementsPreserved:true,unrelatedGrowthConfigurationPreserved:true,previousBossChallengeProfilesPreserved:true,playFixesUnchanged:true};
 });
 for(const chamber of [1,2])check('new_chamber_'+chamber+'_actual_pc_ko_stops_run',()=>{
  const r=fixture(12,chamber);r.action('ABYSS_ENTER',{floor:12});assert.equal(r.s.runtime.abyss.rulesRevision,1);
@@ -139,24 +170,52 @@ check('break_food_still_heals_and_carries_native_effects_to_next_room',()=>{
 check('break_other_actions_remain_blocked',()=>{
  const r=fixture(4,2);for(const type of ['MOVE','BUY','CRAFT','MEAL','PARTY_REPLACE','RECOVER'])assert.match(r.abyssBreakReason(type),/도전 중/);return {blocked:['MOVE','BUY','CRAFT','MEAL','PARTY_REPLACE','RECOVER']};
 });
+// Independent literals for the fresh numerical policies used by this initiative
+// test. Do not derive them from the active runtime configuration or merely
+// discard every differing actor field when comparing the historical opening.
+const freshGrowthStats={
+ field_boss_origin:{'FB_ANEMO_HYPOSTASIS#1':[18,19800,1760,198]},
+ daily_boss_origin:{'BOSS_ANDRIUS#1':[25,20094,2466,248]},
+ ley_line60:{'MON_MITACHURL_WOOD#1':[60,69259,25648,1753],'MON_HILI_FIGHTER#1':[60,23800,15680,1249],'MON_HILI_SHOOTER#1':[60,23800,15680,1249]}
+};
+const priorGrowthStats={
+ field_boss_origin:{'FB_ANEMO_HYPOSTASIS#1':[18,18000,1600,180]},
+ daily_boss_origin:{'BOSS_ANDRIUS#1':[25,20094,2055,236]},
+ ley_line60:{'MON_MITACHURL_WOOD#1':[60,49471,8015,519],'MON_HILI_FIGHTER#1':[60,17000,4900,370],'MON_HILI_SHOOTER#1':[60,17000,4900,370]}
+};
 function startPair(spec,state){
  const s=state||cp(fixture(1).s);if(spec.map)s.global.CURRENT_MAP_ID=spec.map;
  const current=new H.R(H.db,cp(s)),legacy=new legacyApi.Runtime(H.db,cp(s)),rolledSpeeds=new Map();
  for(const r of [current,legacy]){const speeds=new Map(),native=r.combatStat;rolledSpeeds.set(r,speeds);r.combatStat=function(a,key){const n=native.call(this,a,key);if(key==='spd'&&this.s.runtime?.phase==='START'&&!speeds.has(a.id))speeds.set(a.id,n);return n;};}
  const oldOut=spec.start(legacy),out=spec.start(current),b=current.s.runtime,old=legacy.s.runtime;assert(b&&old);
- assert.equal(current.s.global.PRNG_STATE,legacy.s.global.PRNG_STATE);assert.deepEqual(cp(b.actors),cp(old.actors));assert.deepEqual(cp(b.fields),cp(old.fields));assert.equal(b.order[0].id,'PLAYER_CUSTOM');assert.equal(b.cursor,0);assert.equal(b.turnStarted,null);assert(b.actors.every(a=>a.turns===0));assert.deepEqual(cp(b.order),cp(b.opening.initialOrder));assert.deepEqual(cp(out.result?.order||out.order),cp(current.combatOrderView()));
+ assert.equal(current.s.global.PRNG_STATE,legacy.s.global.PRNG_STATE);
+ const expected=freshGrowthStats[spec.id],budgetChanges=[];
+ if(expected){
+  for(const [runtime,literals]of [[b,expected],[old,priorGrowthStats[spec.id]]]){
+   const enemies=runtime.actors.filter(a=>a.side==='ENEMY');assert.deepEqual(cp(enemies.map(a=>a.id).sort()),Object.keys(literals).sort());
+   for(const a of enemies){assert.equal(a.hp,a.maxHp);assert.deepEqual([a.level,a.maxHp,a.atk,a.def],literals[a.id]);}
+  }
+  const withoutBudgets=actors=>cp(actors).map(a=>{if(a.side==='ENEMY'){for(const key of ['hp','maxHp','atk','def'])delete a[key];}return a;});
+  assert.deepEqual(withoutBudgets(b.actors),withoutBudgets(old.actors));
+  for(const a of b.actors.filter(a=>a.side==='ENEMY'))budgetChanges.push({id:a.id,previous:priorGrowthStats[spec.id][a.id],current:expected[a.id]});
+ }else assert.deepEqual(cp(b.actors),cp(old.actors));
+ assert.equal(b.enemyBalanceRevision,1);assert.equal(old.enemyBalanceRevision,undefined);
+ if(spec.id==='field_boss_origin'){assert.equal(b.fieldBoss.behaviorRevision,5);assert.equal(old.fieldBoss.behaviorRevision,5);assert.equal(b.fieldBoss.pressureRevision,1);assert.equal(old.fieldBoss.pressureRevision,undefined);}
+ assert.deepEqual(cp(b.fields),cp(old.fields));assert.equal(b.order[0].id,'PLAYER_CUSTOM');assert.equal(b.cursor,0);assert.equal(b.turnStarted,null);assert(b.actors.every(a=>a.turns===0));assert.deepEqual(cp(b.order),cp(b.opening.initialOrder));assert.deepEqual(cp(out.result?.order||out.order),cp(current.combatOrderView()));
  const rows=b.actors.filter(a=>a.side==='ENEMY'&&!a.fbSummon).map(a=>{const before=rolledSpeeds.get(legacy).get(a.id),oldTurn=old.order.find(q=>q.id===a.id),q=b.order.find(q=>q.id===a.id),roll=oldTurn.score-before;assert(Number.isFinite(before));assert(roll>=0&&roll<=9);assert.equal(q.score-current.combatStat(a,'spd'),roll);return {source:a.source,initialRolledSpeed:before,finalSpeed:current.combatStat(a,'spd'),score:q.score,roll,swift:!!a.variant?.affixes.includes('SWIFT')};});
- return {current,legacy,rows,rngUnchanged:true,actorsAndNumericStatsUnchanged:true};
+ return {current,legacy,rows,budgetChanges,rngUnchanged:true,actorsAndNumericStatsUnchanged:!expected,alliesAndNonBudgetActorStateUnchanged:true};
 }
 const growthSpecs=[
  {id:'talent_domain10',map:'MAP_D163_FORSAKEN_RIFT',start:r=>r.action('DOMAIN_START',{domain:'FORSAKEN_RIFT:10'})},
  {id:'ascension_domain10',map:'MAP_D163_VALLEY_OF_REMEMBRANCE',start:r=>r.action('DOMAIN_START',{domain:'VALLEY_OF_REMEMBRANCE:10',element:'PYRO'})},
  {id:'field_boss_origin',map:'MAP_V141_STORMBEARER_PASS',start:r=>r.startBattle(currentApi.fieldBosses.group('FB_ANEMO_HYPOSTASIS'),currentApi.growthV01522.bossChallengeOrigin('FB_ANEMO_HYPOSTASIS'))},
  {id:'daily_boss_origin',map:'MAP_WOLF_ARENA',start:r=>r.startBattle('EG_BOSS_ANDRIUS','MATERIAL_CHALLENGE:BOSS_ANDRIUS')},
- {id:'ley_line60',start:r=>{const site=r.leyLineStatus().blossoms.find(x=>x.region==='몬드');r.s.global.CURRENT_MAP_ID=site.map;r.action('PLACE_ENTER',{place:'BOSS:'+site.route,mode:'BOSS'});return r.action('BOSS_ROUTE',{route:site.route,tier:5});}}
+ // Literal Mond-plains actors above belong to this declared native hourly
+ // blossom reference. Device/CI start time must not select a different site.
+ {id:'ley_line60',start:r=>{const reference=Date.parse('2026-10-10T14:00:00+09:00');r.actionStartedAt=reference;const site=r.leyLineStatus().blossoms.find(x=>x.region==='몬드'&&x.kind==='REVELATION');assert.equal(site.map,'MAP_MOND_PLAINS');r.s.global.CURRENT_MAP_ID=site.map;r.action('PLACE_ENTER',{place:'BOSS:'+site.route,mode:'BOSS'});r.actionStartedAt=reference;return r.action('BOSS_ROUTE',{route:site.route,tier:5});}}
 ];
 for(const spec of growthSpecs)check('fresh_growth_enemy_final_speed_'+spec.id,()=>{
- const pair=startPair(spec),r=pair.current,save=JSON.parse(r.serialize()),loaded=new H.R(H.db,save);assert.deepEqual(cp(loaded.s),save);const oldSave=JSON.parse(pair.legacy.serialize()),oldLoaded=new H.R(H.db,oldSave);assert.deepEqual(cp(oldLoaded.s),oldSave);return {rows:pair.rows,rngUnchanged:true,actorsAndNumericStatsUnchanged:true,newAndLegacySavedQueuesPreserved:true};
+ const pair=startPair(spec),r=pair.current,save=JSON.parse(r.serialize()),loaded=new H.R(H.db,save);assert.deepEqual(cp(loaded.s),save);const oldSave=JSON.parse(pair.legacy.serialize()),oldLoaded=new H.R(H.db,oldSave);assert.deepEqual(cp(oldLoaded.s),oldSave);return {rows:pair.rows,budgetChanges:pair.budgetChanges,rngUnchanged:true,actorsAndNumericStatsUnchanged:pair.actorsAndNumericStatsUnchanged,alliesAndNonBudgetActorStateUnchanged:true,newAndLegacySavedQueuesPreserved:true};
 });
 check('random_swift_variant_actual_roll_includes_final_growth_speed',()=>{
  const state=cp(fixture(1).s);state.global.CURRENT_MAP_ID='MAP_MOND_FOREST';let found=null;

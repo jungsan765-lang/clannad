@@ -1,0 +1,102 @@
+{
+  "case": "source_do",
+  "command": [
+    "npm",
+    "run",
+    "test:browser"
+  ],
+  "env": {
+    "CRPG_TEST_DIST": null,
+    "CRPG_TEST_BACKEND": "do",
+    "CRPG_CHROMIUM_EXECUTABLE": "/root/.cache/ms-playwright/chromium-1161/chrome-linux/chrome"
+  },
+  "scope": "Actual Chromium graphical flow against real isolated Worker + do; existing test file unchanged. No live account or server used.",
+  "exitCode": 1,
+  "timedOut": false,
+  "launchError": null,
+  "elapsedSeconds": 6.653,
+  "startedAtEpochSeconds": 1791658939.8185604,
+  "finishedAtEpochSeconds": 1791658946.4719982,
+  "nativeSourceFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "nativeSourceProofSHA256": "b323a2fb07396d436a8c128a35b06c9f9a2df014f452ee04761b6257aeeab691",
+  "build": {
+    "appVersion": "0.16.27",
+    "packVersion": "2026-09-24-c3d5eef26ac2-9f53be852293",
+    "engineVersion": "engine3-ccab181d79528168042dabf16c33478eb9cd5a9f3123ac37c881ae13e044890b"
+  },
+  "serverEngineSHA256": "23e11439e85faf84f4858023814af4d110ac77faf2d1760efc4d057a6fe8c905",
+  "rawAuthoredDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "sourceBuildAndDbUnchanged": true,
+  "browserExecutableExists": true,
+  "testSHA256": "d6419c92d25e05a8f2be704b04833bace2a74a50083c0287ac3f91b8ba35605d",
+  "stdoutSHA256": "25d606affc87f6f3cad1ff132c6d0d6d1c13a63ab2538fceb841b75e10ef5380",
+  "successfulResultRows": null,
+  "excludedForeignOutputs": [
+    {
+      "path": "catalog.json",
+      "sha256": "bdac62f718d29d09612981569ef0c705fb5b752d11f71993c0c71d6f6c032b66",
+      "bytes": 100761
+    }
+  ],
+  "nodeModulesOrProductOrTestEdits": 0,
+  "classification": "ENVIRONMENT_CHROMIUM_LAUNCH_DENIED",
+  "uiAssertionsExecuted": false,
+  "staleOutputsPresent": true,
+  "staleOutputEvidence": "Chromium died at browserType.launch before the UI try/assertion block; source results.json SHA and mtime exactly match the prior archived result, so the copied files cannot prove this attempted run.",
+  "priorResultsSHA256": "95bfb2d8b0f7ba65ad7ebf4a9a2e676dc4d383bfcda6a5c9629daa653cc4156a",
+  "unverifiedOutputs": [
+    {
+      "path": "source_do/online-flow/single-response.png",
+      "sha256": "5eae989f9a862f5bf655596e5a9b7098d49e63424680eacb6f5dbb50da7ccfd1",
+      "bytes": 621535
+    },
+    {
+      "path": "source_do/online-flow/story.png",
+      "sha256": "bf95c0123ac792bd7c0d0191ac93346675634627f541572a6582d504ccf56e4a",
+      "bytes": 120808
+    },
+    {
+      "path": "source_do/online-flow/life-pending.png",
+      "sha256": "dc4cc26d81be5a2d02e6c449aca87a2b57574a84d20c9355261210b8351f3971",
+      "bytes": 961093
+    },
+    {
+      "path": "source_do/online-flow/combat.png",
+      "sha256": "8f859de8a8adcf2b2bc5af39e6f635ea56bf6bd24575dc3b561fcd01216f351b",
+      "bytes": 286698
+    },
+    {
+      "path": "source_do/online-flow/combat-pending.png",
+      "sha256": "49e94f5a0d5ba610709345c88bd50a66055eb77a7bc3d2b1fd902e2c5801066d",
+      "bytes": 329387
+    },
+    {
+      "path": "source_do/online-flow/results.json",
+      "sha256": "95bfb2d8b0f7ba65ad7ebf4a9a2e676dc4d383bfcda6a5c9629daa653cc4156a",
+      "bytes": 2069
+    },
+    {
+      "path": "source_do/online-flow/relationship-locked.png",
+      "sha256": "aeb94ac2963daa9e0145a006b7d979528b54e2ed9bcfa6f2b3efba7cd43e32c5",
+      "bytes": 503628
+    },
+    {
+      "path": "source_do/online-flow/equipment-pending.png",
+      "sha256": "db52cce362d8da11843c3a7b82a065fb298845c648a36fa6161f1d2f9d777bb2",
+      "bytes": 231705
+    },
+    {
+      "path": "source_do/online-flow/life.png",
+      "sha256": "d0e927e426795d72bfb82522e2eee86a857c2b301f2dd47a16faec27e4c067cf",
+      "bytes": 960171
+    },
+    {
+      "path": "source_do/online-flow/life-scene-picked.png",
+      "sha256": "89b66d898e026b58c86df03deee136b192f247eee7f953319532fb2c02a1fffe",
+      "bytes": 1758794
+    }
+  ],
+  "resultFiles": [],
+  "unverifiedOutputsScratchDirectory": "/workspace/scratch/a62414469990/browser-unverified-v01627/chrome_launch_denied/source_do/online-flow",
+  "unverifiedOriginalPathsAreHistoricalLabelsOnly": true
+}

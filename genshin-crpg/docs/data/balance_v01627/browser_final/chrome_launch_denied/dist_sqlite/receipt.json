@@ -1,0 +1,45 @@
+{
+  "case": "dist_sqlite",
+  "command": [
+    "npm",
+    "run",
+    "test:browser"
+  ],
+  "env": {
+    "CRPG_TEST_DIST": "1",
+    "CRPG_TEST_BACKEND": null,
+    "CRPG_CHROMIUM_EXECUTABLE": "/root/.cache/ms-playwright/chromium-1161/chrome-linux/chrome"
+  },
+  "scope": "Actual Chromium graphical flow against real isolated Worker + sqlite; existing test file unchanged. No live account or server used.",
+  "exitCode": 1,
+  "timedOut": false,
+  "launchError": null,
+  "elapsedSeconds": 6.746,
+  "startedAtEpochSeconds": 1791658946.5239816,
+  "finishedAtEpochSeconds": 1791658953.269783,
+  "nativeSourceFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "nativeSourceProofSHA256": "b323a2fb07396d436a8c128a35b06c9f9a2df014f452ee04761b6257aeeab691",
+  "build": {
+    "appVersion": "0.16.27",
+    "packVersion": "2026-09-24-c3d5eef26ac2-9f53be852293",
+    "engineVersion": "engine3-ccab181d79528168042dabf16c33478eb9cd5a9f3123ac37c881ae13e044890b"
+  },
+  "serverEngineSHA256": "23e11439e85faf84f4858023814af4d110ac77faf2d1760efc4d057a6fe8c905",
+  "rawAuthoredDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "sourceBuildAndDbUnchanged": true,
+  "browserExecutableExists": true,
+  "testSHA256": "d6419c92d25e05a8f2be704b04833bace2a74a50083c0287ac3f91b8ba35605d",
+  "stdoutSHA256": "9037178464c4ff5eb3189fbcb94f7d26772968069be0f8691ec7a00cd606f2e1",
+  "successfulResultRows": null,
+  "excludedForeignOutputs": [],
+  "nodeModulesOrProductOrTestEdits": 0,
+  "classification": "ENVIRONMENT_CHROMIUM_LAUNCH_DENIED",
+  "uiAssertionsExecuted": false,
+  "staleOutputsPresent": false,
+  "staleOutputEvidence": "Chromium died at browserType.launch before the UI try/assertion block; source results.json SHA and mtime exactly match the prior archived result, so the copied files cannot prove this attempted run.",
+  "priorResultsSHA256": "95bfb2d8b0f7ba65ad7ebf4a9a2e676dc4d383bfcda6a5c9629daa653cc4156a",
+  "unverifiedOutputs": [],
+  "resultFiles": [],
+  "unverifiedOutputsScratchDirectory": "/workspace/scratch/a62414469990/browser-unverified-v01627/chrome_launch_denied/dist_sqlite/online-flow",
+  "unverifiedOriginalPathsAreHistoricalLabelsOnly": true
+}

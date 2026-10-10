@@ -1,0 +1,739 @@
+{
+  "scope": "Controlled rule contracts, not native player victories or population clear rates.",
+  "sourceSHA256": {
+    "source/runtime_abyss.js": "bfe0d10cde798b29b91e13db7feb3d74da3c5e5b6561f63af523eba751eb9d84",
+    "source/runtime_formations.js": "b8990bbc326902afd1e4d3d80ff5c472825a629e5d35c7fa2fa9184fb58b74dd",
+    "source/runtime_growth_v01522.js": "d84b14ebcc560d4189c00553ce209fbe2493e228b5590ec627ca1f23fece26ee",
+    "source/runtime_balance_admin_v01623.js": "0c2e4c4c57e6fb2b40f5c9a7d83e18a7f0463c30437619008850d440acf67b6c"
+  },
+  "summary": {
+    "checks": 35,
+    "passed": 35,
+    "errors": 0
+  },
+  "checks": [
+    {
+      "id": "four_declared_runtime_changes_preserve_configuration_numbers",
+      "pass": true,
+      "floorNumbersGearAndCharacterRequirementsPreserved": true,
+      "unrelatedGrowthConfigurationPreserved": true,
+      "previousBossChallengeProfilesPreserved": true,
+      "playFixesUnchanged": true
+    },
+    {
+      "id": "new_chamber_1_actual_pc_ko_stops_run",
+      "pass": true,
+      "controlledSettlement": true,
+      "outcome": "DOWNED",
+      "nativePcHp": 0,
+      "aliveCompanions": 3,
+      "exitHp": 2016,
+      "nextRoom": false,
+      "marked": false
+    },
+    {
+      "id": "new_chamber_2_actual_pc_ko_stops_run",
+      "pass": true,
+      "controlledSettlement": true,
+      "outcome": "DOWNED",
+      "nativePcHp": 0,
+      "aliveCompanions": 3,
+      "exitHp": 2016,
+      "nextRoom": false,
+      "marked": false
+    },
+    {
+      "id": "living_protagonist_still_advances",
+      "pass": true,
+      "outcome": "NEXT",
+      "nextChamber": 2
+    },
+    {
+      "id": "last_chamber_companion_victory_keeps_clear_and_exit_recovery",
+      "pass": true,
+      "controlledSettlement": true,
+      "outcome": "CLEARED",
+      "nativePcHp": 0,
+      "exitRevivalPreserved": true
+    },
+    {
+      "id": "ordinary_combat_pc_ko_victory_keeps_existing_revival",
+      "pass": true,
+      "ordinaryVictoryRevivalPreserved": true
+    },
+    {
+      "id": "wipe_is_defeat_not_next_or_cleared",
+      "pass": true,
+      "outcome": "DEFEAT"
+    },
+    {
+      "id": "opening_final_enemy_speed_floor_1",
+      "pass": true,
+      "rows": [
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "finalSpeed": 28,
+          "openingScore": 35,
+          "roll": 7
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "finalSpeed": 28,
+          "openingScore": 36,
+          "roll": 8
+        }
+      ],
+      "rngUnchanged": true,
+      "automaticActionsBeforeBegin": 0,
+      "firstPlayableActor": "PLAYER_CUSTOM",
+      "receiptOrderCurrent": true
+    },
+    {
+      "id": "opening_final_enemy_speed_floor_4",
+      "pass": true,
+      "rows": [
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "finalSpeed": 34,
+          "openingScore": 41,
+          "roll": 7
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "finalSpeed": 34,
+          "openingScore": 42,
+          "roll": 8
+        }
+      ],
+      "rngUnchanged": true,
+      "automaticActionsBeforeBegin": 0,
+      "firstPlayableActor": "PLAYER_CUSTOM",
+      "receiptOrderCurrent": true
+    },
+    {
+      "id": "opening_final_enemy_speed_floor_10",
+      "pass": true,
+      "rows": [
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "finalSpeed": 46,
+          "openingScore": 53,
+          "roll": 7
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "finalSpeed": 46,
+          "openingScore": 54,
+          "roll": 8
+        }
+      ],
+      "rngUnchanged": true,
+      "automaticActionsBeforeBegin": 0,
+      "firstPlayableActor": "PLAYER_CUSTOM",
+      "receiptOrderCurrent": true
+    },
+    {
+      "id": "opening_final_enemy_speed_floor_12",
+      "pass": true,
+      "rows": [
+        {
+          "id": "MON_ABYSS_WARDEN#1",
+          "finalSpeed": 50,
+          "openingScore": 57,
+          "roll": 7
+        },
+        {
+          "id": "MON_ABYSS_WARDEN#2",
+          "finalSpeed": 50,
+          "openingScore": 58,
+          "roll": 8
+        }
+      ],
+      "rngUnchanged": true,
+      "automaticActionsBeforeBegin": 0,
+      "firstPlayableActor": "PLAYER_CUSTOM",
+      "receiptOrderCurrent": true
+    },
+    {
+      "id": "opening_preserves_first_priority_and_score_penalty",
+      "pass": true,
+      "firstPriorityPreserved": true,
+      "penaltyPreserved": 7,
+      "rngUnchanged": true
+    },
+    {
+      "id": "opening_uses_effective_combat_stat_not_raw_speed",
+      "pass": true,
+      "controlledEffectiveStatModifier": true,
+      "rows": [
+        {
+          "speed": 66,
+          "score": 73,
+          "roll": 7
+        },
+        {
+          "speed": 66,
+          "score": 74,
+          "roll": 8
+        }
+      ]
+    },
+    {
+      "id": "opening_food_speed_roll_and_next_round_stay_native",
+      "pass": true,
+      "foodSpeedPreserved": true,
+      "secondRoundNative": true,
+      "rows": [
+        {
+          "speed": 50,
+          "score": 57,
+          "roll": 7
+        },
+        {
+          "speed": 50,
+          "score": 55,
+          "roll": 5
+        }
+      ]
+    },
+    {
+      "id": "operator_enemy_speed_is_final_in_order_and_receipt",
+      "pass": true,
+      "rows": [
+        {
+          "speed": 90,
+          "score": 97,
+          "roll": 7
+        },
+        {
+          "speed": 90,
+          "score": 98,
+          "roll": 8
+        }
+      ],
+      "receiptOrderCurrent": true,
+      "operatorSavePreserved": true
+    },
+    {
+      "id": "abyss_echelon_food_and_operator_speed_compose_without_reroll",
+      "pass": true,
+      "general": false,
+      "allies": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "speed": 78,
+          "score": 83,
+          "roll": 5
+        },
+        {
+          "source": "MOND_DILUC",
+          "speed": 82,
+          "score": 91,
+          "roll": 9
+        },
+        {
+          "source": "MOND_NOELLE",
+          "speed": 68,
+          "score": 73,
+          "roll": 5
+        },
+        {
+          "source": "MOND_JEAN",
+          "speed": 75,
+          "score": 83,
+          "roll": 8
+        }
+      ],
+      "enemies": [
+        {
+          "source": "MON_ABYSS_WARDEN",
+          "speed": 90,
+          "score": 97,
+          "roll": 7
+        },
+        {
+          "source": "MON_ABYSS_WARDEN",
+          "speed": 90,
+          "score": 98,
+          "roll": 8
+        }
+      ],
+      "foodAndFormationSpeed": 10,
+      "rngUnchanged": true,
+      "playerFirstOnBegin": true
+    },
+    {
+      "id": "ordinary_echelon_food_and_operator_speed_compose_without_reroll",
+      "pass": true,
+      "general": true,
+      "allies": [
+        {
+          "source": "PLAYER_CUSTOM",
+          "speed": 78,
+          "score": 83,
+          "roll": 5
+        },
+        {
+          "source": "MOND_DILUC",
+          "speed": 82,
+          "score": 90,
+          "roll": 8
+        },
+        {
+          "source": "MOND_NOELLE",
+          "speed": 68,
+          "score": 75,
+          "roll": 7
+        },
+        {
+          "source": "MOND_JEAN",
+          "speed": 75,
+          "score": 83,
+          "roll": 8
+        }
+      ],
+      "enemies": [
+        {
+          "source": "MON_HILI_FIGHTER",
+          "speed": 90,
+          "score": 91,
+          "roll": 1
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "speed": 90,
+          "score": 96,
+          "roll": 6
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "speed": 90,
+          "score": 95,
+          "roll": 5
+        },
+        {
+          "source": "MON_HILI_SHOOTER",
+          "speed": 90,
+          "score": 95,
+          "roll": 5
+        },
+        {
+          "source": "MON_HILI_SHOOTER",
+          "speed": 90,
+          "score": 97,
+          "roll": 7
+        }
+      ],
+      "foodAndFormationSpeed": 10,
+      "rngUnchanged": true,
+      "playerFirstOnBegin": true
+    },
+    {
+      "id": "ordinary_echelon_opening_snapshot_receipt_and_legacy_save_stay_consistent",
+      "pass": true,
+      "freshReceiptCurrent": true,
+      "oldQueuedSpeedPreserved": true,
+      "newSavePreserved": true
+    },
+    {
+      "id": "abyss_operator_spd1000_keeps_preview_and_actual_protagonist_first",
+      "pass": true,
+      "rows": [
+        {
+          "speed": 1000,
+          "score": 1007,
+          "roll": 7
+        },
+        {
+          "speed": 1000,
+          "score": 1008,
+          "roll": 8
+        }
+      ],
+      "previewFirst": "PLAYER_CUSTOM",
+      "actualFirst": "PLAYER_CUSTOM",
+      "rngUnchanged": true
+    },
+    {
+      "id": "ordinary_operator_spd1000_keeps_preview_and_actual_protagonist_first",
+      "pass": true,
+      "rows": [
+        {
+          "speed": 1000,
+          "score": 1001,
+          "roll": 1
+        },
+        {
+          "speed": 1000,
+          "score": 1006,
+          "roll": 6
+        },
+        {
+          "speed": 1000,
+          "score": 1005,
+          "roll": 5
+        },
+        {
+          "speed": 1000,
+          "score": 1005,
+          "roll": 5
+        },
+        {
+          "speed": 1000,
+          "score": 1007,
+          "roll": 7
+        }
+      ],
+      "previewFirst": "PLAYER_CUSTOM",
+      "actualFirst": "PLAYER_CUSTOM",
+      "rngUnchanged": true
+    },
+    {
+      "id": "new_pending_save_preserves_marker_order_rng_and_ko_policy",
+      "pass": true,
+      "byteEquivalentState": true,
+      "marker": 1,
+      "outcome": "DOWNED"
+    },
+    {
+      "id": "new_started_save_preserves_ko_policy",
+      "pass": true,
+      "startedSavePreserved": true,
+      "outcome": "DOWNED"
+    },
+    {
+      "id": "legacy_pending_save_keeps_stored_order_rng_and_old_advance_rule",
+      "pass": true,
+      "legacySavedOrderPreserved": true,
+      "legacyOutcome": "NEXT",
+      "newRoomAdoptsMarker": 1
+    },
+    {
+      "id": "legacy_started_save_keeps_old_advance_rule",
+      "pass": true,
+      "legacyStartedSavePreserved": true,
+      "outcome": "NEXT"
+    },
+    {
+      "id": "unsupported_rules_revision_is_rejected_without_legacy_migration",
+      "pass": true,
+      "unsupportedValues": [
+        0,
+        2,
+        -1,
+        "1",
+        null
+      ],
+      "unmarkedSaveNotMigrated": true
+    },
+    {
+      "id": "break_medicine_reasons_and_public_executor_agree_without_consumption",
+      "pass": true,
+      "reason": "방 사이에서는 음식만 쓸 수 있습니다. 전투 치료품은 전투 중에만 사용할 수 있습니다.",
+      "consumed": 0
+    },
+    {
+      "id": "break_food_still_heals_and_carries_native_effects_to_next_room",
+      "pass": true,
+      "healed": 3000,
+      "hpCarry": 34565,
+      "buffInstalled": true
+    },
+    {
+      "id": "break_other_actions_remain_blocked",
+      "pass": true,
+      "blocked": [
+        "MOVE",
+        "BUY",
+        "CRAFT",
+        "MEAL",
+        "PARTY_REPLACE",
+        "RECOVER"
+      ]
+    },
+    {
+      "id": "fresh_growth_enemy_final_speed_talent_domain10",
+      "pass": true,
+      "rows": [
+        {
+          "source": "MON_HILI_FIGHTER",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 66,
+          "score": 67,
+          "roll": 1,
+          "swift": false
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 66,
+          "score": 72,
+          "roll": 6,
+          "swift": false
+        },
+        {
+          "source": "MON_HILI_SHOOTER",
+          "initialRolledSpeed": 70,
+          "finalSpeed": 72,
+          "score": 77,
+          "roll": 5,
+          "swift": false
+        },
+        {
+          "source": "MON_SLIME_HYDRO",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 66,
+          "score": 71,
+          "roll": 5,
+          "swift": false
+        }
+      ],
+      "budgetChanges": [],
+      "rngUnchanged": true,
+      "actorsAndNumericStatsUnchanged": true,
+      "alliesAndNonBudgetActorStateUnchanged": true,
+      "newAndLegacySavedQueuesPreserved": true
+    },
+    {
+      "id": "fresh_growth_enemy_final_speed_ascension_domain10",
+      "pass": true,
+      "rows": [
+        {
+          "source": "MON_SLIME_PYRO",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 66,
+          "score": 73,
+          "roll": 7,
+          "swift": false
+        },
+        {
+          "source": "MON_SLIME_PYRO",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 66,
+          "score": 74,
+          "roll": 8,
+          "swift": false
+        },
+        {
+          "source": "MON_SLIME_PYRO",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 66,
+          "score": 67,
+          "roll": 1,
+          "swift": false
+        }
+      ],
+      "budgetChanges": [],
+      "rngUnchanged": true,
+      "actorsAndNumericStatsUnchanged": true,
+      "alliesAndNonBudgetActorStateUnchanged": true,
+      "newAndLegacySavedQueuesPreserved": true
+    },
+    {
+      "id": "fresh_growth_enemy_final_speed_field_boss_origin",
+      "pass": true,
+      "rows": [
+        {
+          "source": "FB_ANEMO_HYPOSTASIS",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 67,
+          "score": 74,
+          "roll": 7,
+          "swift": false
+        }
+      ],
+      "budgetChanges": [
+        {
+          "id": "FB_ANEMO_HYPOSTASIS#1",
+          "previous": [
+            18,
+            18000,
+            1600,
+            180
+          ],
+          "current": [
+            18,
+            19800,
+            1760,
+            198
+          ]
+        }
+      ],
+      "rngUnchanged": true,
+      "actorsAndNumericStatsUnchanged": false,
+      "alliesAndNonBudgetActorStateUnchanged": true,
+      "newAndLegacySavedQueuesPreserved": true
+    },
+    {
+      "id": "fresh_growth_enemy_final_speed_daily_boss_origin",
+      "pass": true,
+      "rows": [
+        {
+          "source": "BOSS_ANDRIUS",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 69,
+          "score": 76,
+          "roll": 7,
+          "swift": false
+        }
+      ],
+      "budgetChanges": [
+        {
+          "id": "BOSS_ANDRIUS#1",
+          "previous": [
+            25,
+            20094,
+            2055,
+            236
+          ],
+          "current": [
+            25,
+            20094,
+            2466,
+            248
+          ]
+        }
+      ],
+      "rngUnchanged": true,
+      "actorsAndNumericStatsUnchanged": false,
+      "alliesAndNonBudgetActorStateUnchanged": true,
+      "newAndLegacySavedQueuesPreserved": true
+    },
+    {
+      "id": "fresh_growth_enemy_final_speed_ley_line60",
+      "pass": true,
+      "rows": [
+        {
+          "source": "MON_MITACHURL_WOOD",
+          "initialRolledSpeed": 55,
+          "finalSpeed": 64,
+          "score": 70,
+          "roll": 6,
+          "swift": false
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "initialRolledSpeed": 67,
+          "finalSpeed": 76,
+          "score": 81,
+          "roll": 5,
+          "swift": false
+        },
+        {
+          "source": "MON_HILI_SHOOTER",
+          "initialRolledSpeed": 73,
+          "finalSpeed": 82,
+          "score": 87,
+          "roll": 5,
+          "swift": false
+        }
+      ],
+      "budgetChanges": [
+        {
+          "id": "MON_MITACHURL_WOOD#1",
+          "previous": [
+            60,
+            49471,
+            8015,
+            519
+          ],
+          "current": [
+            60,
+            69259,
+            25648,
+            1753
+          ]
+        },
+        {
+          "id": "MON_HILI_FIGHTER#1",
+          "previous": [
+            60,
+            17000,
+            4900,
+            370
+          ],
+          "current": [
+            60,
+            23800,
+            15680,
+            1249
+          ]
+        },
+        {
+          "id": "MON_HILI_SHOOTER#1",
+          "previous": [
+            60,
+            17000,
+            4900,
+            370
+          ],
+          "current": [
+            60,
+            23800,
+            15680,
+            1249
+          ]
+        }
+      ],
+      "rngUnchanged": true,
+      "actorsAndNumericStatsUnchanged": false,
+      "alliesAndNonBudgetActorStateUnchanged": true,
+      "newAndLegacySavedQueuesPreserved": true
+    },
+    {
+      "id": "random_swift_variant_actual_roll_includes_final_growth_speed",
+      "pass": true,
+      "rows": [
+        {
+          "source": "MON_HILI_FIGHTER",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 65,
+          "score": 66,
+          "roll": 1,
+          "swift": false
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 65,
+          "score": 71,
+          "roll": 6,
+          "swift": false
+        },
+        {
+          "source": "MON_HILI_FIGHTER",
+          "initialRolledSpeed": 64,
+          "finalSpeed": 65,
+          "score": 70,
+          "roll": 5,
+          "swift": false
+        },
+        {
+          "source": "MON_HILI_SHOOTER",
+          "initialRolledSpeed": 70,
+          "finalSpeed": 71,
+          "score": 76,
+          "roll": 5,
+          "swift": false
+        },
+        {
+          "source": "MON_HILI_SHOOTER",
+          "initialRolledSpeed": 70,
+          "finalSpeed": 79,
+          "score": 86,
+          "roll": 7,
+          "swift": true
+        }
+      ],
+      "actualVariant": true,
+      "battleIdsTried": 8,
+      "rngUnchanged": true,
+      "actorsAndNumericStatsUnchanged": true
+    },
+    {
+      "id": "pending_saved_growth_tune_probe_without_startup_record_does_not_rewrite_queue",
+      "pass": true,
+      "legacyQueueNotCorrectedOnLoadOrStandaloneTune": true
+    }
+  ]
+}

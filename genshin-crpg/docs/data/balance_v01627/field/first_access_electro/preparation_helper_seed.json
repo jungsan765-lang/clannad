@@ -1,0 +1,7 @@
+{
+  "source": "tools/audit_protagonist_v01618.cjs",
+  "sourceSHA256": "2cdf3186a9b23708c906a32f03f6624edcaa9ebe5007c8c8ea4262eaa15e8fa9",
+  "sameHelperForBeforeAndCurrent": true,
+  "setupSeedStatement": "r.s.global.PRNG_STATE=seed",
+  "scope": "Static setup code proves both fixtures set the declared initial seed. Full pre-entry PRNG state was not captured in original execution rows; combat-time RNG consumption is not asserted equal."
+}

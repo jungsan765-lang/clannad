@@ -1,0 +1,208 @@
+{
+  "scope": "Source-only first five native contract preflight; complete141/engine validation follows",
+  "currentFingerprint": "7147e88113388e51a3042d1d51c9bde3e084213502f976f52202012542f0dbe2",
+  "total": 5,
+  "passed": 5,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "same_actual_authored_database_and_all_thirteen_species",
+      "passed": true,
+      "evidence": {
+        "rawDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+        "species": 13
+      }
+    },
+    {
+      "id": "public_equipment_fixture_is_twelve_equipped_legal_ordinary_items",
+      "passed": true,
+      "evidence": {
+        "items": [
+          {
+            "owner": "PLAYER_CUSTOM",
+            "id": "EQ_SWORD_RANCOUR",
+            "enhance": 6,
+            "category": "WEAPON"
+          },
+          {
+            "owner": "PLAYER_CUSTOM",
+            "id": "EQ_ARMOR_REINFORCED_LEATHER",
+            "enhance": 6,
+            "category": "ARMOR"
+          },
+          {
+            "owner": "PLAYER_CUSTOM",
+            "id": "EQ_ACC_HEALER_BROOCH",
+            "enhance": 6,
+            "category": "ACCESSORY"
+          },
+          {
+            "owner": "MOND_AMBER",
+            "id": "EQ_BOW_CRESCENT",
+            "enhance": 6,
+            "category": "WEAPON"
+          },
+          {
+            "owner": "MOND_AMBER",
+            "id": "EQ_ARMOR_REINFORCED_LEATHER",
+            "enhance": 6,
+            "category": "ARMOR"
+          },
+          {
+            "owner": "MOND_AMBER",
+            "id": "EQ_ACC_HEALER_BROOCH",
+            "enhance": 6,
+            "category": "ACCESSORY"
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "id": "EQ_SWORD_RANCOUR",
+            "enhance": 6,
+            "category": "WEAPON"
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "id": "EQ_ARMOR_REINFORCED_LEATHER",
+            "enhance": 6,
+            "category": "ARMOR"
+          },
+          {
+            "owner": "MOND_KAEYA",
+            "id": "EQ_ACC_HEALER_BROOCH",
+            "enhance": 6,
+            "category": "ACCESSORY"
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "id": "EQ_CLAYMORE_WHITEBLIND",
+            "enhance": 6,
+            "category": "WEAPON"
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "id": "EQ_ARMOR_REINFORCED_LEATHER",
+            "enhance": 6,
+            "category": "ARMOR"
+          },
+          {
+            "owner": "MOND_NOELLE",
+            "id": "EQ_ACC_HEALER_BROOCH",
+            "enhance": 6,
+            "category": "ACCESSORY"
+          }
+        ],
+        "baseTalentCap": 4,
+        "preparation": "H.setup invokes public EQUIP; grants ownership, phase and initial resources only"
+      }
+    },
+    {
+      "id": "actual_public_constellation_unlock_changes_legal_native_talents_and_effects",
+      "passed": true,
+      "evidence": {
+        "constellation": 6,
+        "base": {
+          "na": 4,
+          "e": 4,
+          "q": 4
+        },
+        "effective": [
+          4,
+          7,
+          7
+        ],
+        "nativeFx": 5
+      }
+    },
+    {
+      "id": "future_enhancement_prices11_12_are_literal_with_all_other_published_configuration_unchanged",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "target": 11,
+            "cost": {
+              "mora": 14000,
+              "items": {
+                "ORE_WHITE_IRON": 40,
+                "ORE_CRYSTAL": 28
+              }
+            },
+            "success": 2500,
+            "hold": 7300,
+            "down": 200
+          },
+          {
+            "target": 12,
+            "cost": {
+              "mora": 18000,
+              "items": {
+                "ORE_WHITE_IRON": 48,
+                "ORE_CRYSTAL": 36
+              }
+            },
+            "success": 2000,
+            "hold": 7700,
+            "down": 300
+          }
+        ],
+        "unchangedTargets0Through10": true,
+        "unchangedProbabilitiesDowngradeStatsCapsAndAscension": true,
+        "proof": "literal quotes/configuration only; native payment receipts are a separate audit"
+      }
+    },
+    {
+      "id": "genuine_v01626_owned_plus11_plus12_inventory_and_stats_restore_without_repricing_or_charge",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "level": 11,
+            "slot": "EQI_000020",
+            "stats": {
+              "ATK": 106,
+              "DEF": 49,
+              "MAX_HP": 377,
+              "SPD": 0,
+              "CRIT": 0,
+              "CRIT_DMG": 0,
+              "HIT": 1,
+              "EVA": 2,
+              "STATUS_RESIST": 3,
+              "effects": {
+                "on_hit_atk_def_per_stack": 0.03,
+                "stack_cap": 4,
+                "duration_rounds": 2
+              }
+            },
+            "saveSHA256": "36b746e79ed06019ebe773436dbf23422a572950fa8ee1f1cb2b99c529a5324f",
+            "exactPreviouslyOwnedState": true
+          },
+          {
+            "level": 12,
+            "slot": "EQI_000020",
+            "stats": {
+              "ATK": 115,
+              "DEF": 49,
+              "MAX_HP": 377,
+              "SPD": 0,
+              "CRIT": 0,
+              "CRIT_DMG": 0,
+              "HIT": 1,
+              "EVA": 2,
+              "STATUS_RESIST": 3,
+              "effects": {
+                "on_hit_atk_def_per_stack": 0.03,
+                "stack_cap": 4,
+                "duration_rounds": 2
+              }
+            },
+            "saveSHA256": "128c71393da9beadd53c05fc3a6e578e201efab4dd66a86f2d1d3b003a229a4b",
+            "exactPreviouslyOwnedState": true
+          }
+        ],
+        "ownershipFixture": "genuine native old runtime with declared previously owned +11/+12 equipment; actual paid receipt proof is separate",
+        "beforeFingerprint": "b69a8b91e0d0df86e2e9adc4edf1ab0493e0ff26354c7a3e026b1884ae7b9159"
+      }
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "fingerprint": "22a63a16bd914ba878954f3272812dca54cd5b5c9c28b9a5d27fe0984ba9862b",
+  "candidate": {},
+  "rawFileDbSHA256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "profileRevision": 0,
+  "rows": [
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "inv": "FOUR_C0",
+      "seed": 717,
+      "policy": "MANUAL",
+      "enhance": 6,
+      "state": "DEFEAT",
+      "round": 10,
+      "hp": 0,
+      "ko": 4,
+      "inputs": 5,
+      "revives": 0,
+      "reflections": 0,
+      "heads": 0,
+      "initial": [
+        {
+          "source": "FB_ELECTRO_HYPOSTASIS",
+          "hp": 16800,
+          "atk": 1785,
+          "def": 210,
+          "level": 20
+        }
+      ],
+      "meter": {
+        "hpDamage": 19011,
+        "shieldDamage": 5080.4,
+        "healing": 3104,
+        "hits": 49,
+        "minHpRatio": 0
+      },
+      "remaining": [
+        {
+          "source": "FB_ELECTRO_HYPOSTASIS",
+          "hp": 7721,
+          "maxHp": 16800
+        },
+        {
+          "source": "FB_SUMMON_PRISM",
+          "hp": 114,
+          "maxHp": 1680
+        },
+        {
+          "source": "FB_SUMMON_PRISM",
+          "hp": 1400,
+          "maxHp": 1680
+        }
+      ]
+    },
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "inv": "FOUR_C0",
+      "seed": 929,
+      "policy": "MANUAL",
+      "enhance": 6,
+      "state": "DEFEAT",
+      "round": 12,
+      "hp": 0,
+      "ko": 4,
+      "inputs": 5,
+      "revives": 0,
+      "reflections": 0,
+      "heads": 0,
+      "initial": [
+        {
+          "source": "FB_ELECTRO_HYPOSTASIS",
+          "hp": 16800,
+          "atk": 1785,
+          "def": 210,
+          "level": 20
+        }
+      ],
+      "meter": {
+        "hpDamage": 18795,
+        "shieldDamage": 6027.000000000001,
+        "healing": 2888,
+        "hits": 49,
+        "minHpRatio": 0
+      },
+      "remaining": [
+        {
+          "source": "FB_ELECTRO_HYPOSTASIS",
+          "hp": 7314,
+          "maxHp": 16800
+        },
+        {
+          "source": "FB_SUMMON_PRISM",
+          "hp": 560,
+          "maxHp": 1680
+        },
+        {
+          "source": "FB_SUMMON_PRISM",
+          "hp": 1680,
+          "maxHp": 1680
+        }
+      ]
+    },
+    {
+      "boss": "FB_ELECTRO_HYPOSTASIS",
+      "inv": "FOUR_C0",
+      "seed": 1237,
+      "policy": "MANUAL",
+      "enhance": 6,
+      "state": "DEFEAT",
+      "round": 15,
+      "hp": 0,
+      "ko": 4,
+      "inputs": 5,
+      "revives": 0,
+      "reflections": 0,
+      "heads": 0,
+      "initial": [
+        {
+          "source": "FB_ELECTRO_HYPOSTASIS",
+          "hp": 16800,
+          "atk": 1785,
+          "def": 210,
+          "level": 20
+        }
+      ],
+      "meter": {
+        "hpDamage": 17712,
+        "shieldDamage": 5714.4,
+        "healing": 1805,
+        "hits": 48,
+        "minHpRatio": 0
+      },
+      "remaining": [
+        {
+          "source": "FB_ELECTRO_HYPOSTASIS",
+          "hp": 7673,
+          "maxHp": 16800
+        },
+        {
+          "source": "FB_SUMMON_PRISM",
+          "hp": 0,
+          "maxHp": 1680
+        },
+        {
+          "source": "FB_SUMMON_PRISM",
+          "hp": 1218,
+          "maxHp": 1680
+        }
+      ]
+    }
+  ]
+}

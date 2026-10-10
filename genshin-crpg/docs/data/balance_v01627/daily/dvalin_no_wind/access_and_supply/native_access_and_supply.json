@@ -1,0 +1,1685 @@
+{
+  "at": "2026-10-10T17:03:56.638Z",
+  "fingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+  "root": "/workspace/scratch/a62414469990/balance-v01627-work",
+  "scope": "Read-only native character range/access inspection and public supply actions in disposable saves. Declared ownership/level/material/wallet fixtures; no gameplay source patches.",
+  "matrix": [
+    {
+      "id": "MOND_AMBER",
+      "CRAFT": {
+        "range": "원거리",
+        "traits": {
+          "ANTI_AIR": 27,
+          "WEAK_POINT": 8,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_AMBER_E",
+            "range": "원거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "MOND_AMBER_Q",
+            "range": "원거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      },
+      "equipReceipt": {
+        "ok": true,
+        "type": "EQUIP",
+        "result": {
+          "slot": "EQI_000014",
+          "owner": "MOND_AMBER",
+          "category": "ACCESSORY",
+          "displacedOwner": null,
+          "displacedSlots": [
+            "EQI_000013"
+          ]
+        },
+        "revision": 7
+      },
+      "EAGLE_ACCESS": {
+        "range": "원거리",
+        "traits": {
+          "ANTI_AIR": 35,
+          "WEAK_POINT": 8,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "AIR_ACCESS": 1
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_AMBER_E",
+            "range": "원거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "MOND_AMBER_Q",
+            "range": "원거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "MOND_FISCHL",
+      "CRAFT": {
+        "range": "원거리",
+        "traits": {
+          "ANTI_AIR": 27,
+          "WEAK_POINT": 8,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_FISCHL_E",
+            "range": "원거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "MOND_FISCHL_Q",
+            "range": "전장",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      },
+      "equipReceipt": {
+        "ok": true,
+        "type": "EQUIP",
+        "result": {
+          "slot": "EQI_000014",
+          "owner": "MOND_FISCHL",
+          "category": "ACCESSORY",
+          "displacedOwner": null,
+          "displacedSlots": [
+            "EQI_000013"
+          ]
+        },
+        "revision": 7
+      },
+      "EAGLE_ACCESS": {
+        "range": "원거리",
+        "traits": {
+          "ANTI_AIR": 35,
+          "WEAK_POINT": 8,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "AIR_ACCESS": 1
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_FISCHL_E",
+            "range": "원거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "MOND_FISCHL_Q",
+            "range": "전장",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "MOND_DIONA",
+      "CRAFT": {
+        "range": "중거리",
+        "traits": {
+          "ANTI_AIR": 27,
+          "WEAK_POINT": 8,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "basic": false,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_DIONA_E",
+            "range": "원거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "MOND_DIONA_Q",
+            "range": "중거리",
+            "canAir": false,
+            "reason": "현재 사거리로 공격할 수 있는 대상이 없습니다.",
+            "targets": []
+          }
+        ]
+      },
+      "equipReceipt": {
+        "ok": true,
+        "type": "EQUIP",
+        "result": {
+          "slot": "EQI_000014",
+          "owner": "MOND_DIONA",
+          "category": "ACCESSORY",
+          "displacedOwner": null,
+          "displacedSlots": [
+            "EQI_000013"
+          ]
+        },
+        "revision": 7
+      },
+      "EAGLE_ACCESS": {
+        "range": "중거리",
+        "traits": {
+          "ANTI_AIR": 35,
+          "WEAK_POINT": 8,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "AIR_ACCESS": 1
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_DIONA_E",
+            "range": "원거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "MOND_DIONA_Q",
+            "range": "중거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "MOND_LISA",
+      "CRAFT": {
+        "range": "중거리",
+        "traits": {
+          "ELEMENT_BOOST": {
+            "ALL": 8
+          },
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "basic": false,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_LISA_E",
+            "range": "중거리",
+            "canAir": false,
+            "reason": "공중의 드발린에게 닿지 않습니다. 상승 기류로 바람길을 확보하거나 원거리 공격을 사용하세요.",
+            "targets": []
+          },
+          {
+            "id": "MOND_LISA_Q",
+            "range": "중거리",
+            "canAir": false,
+            "reason": "공중의 드발린에게 닿지 않습니다. 상승 기류로 바람길을 확보하거나 원거리 공격을 사용하세요.",
+            "targets": []
+          }
+        ]
+      },
+      "equipReceipt": {
+        "ok": true,
+        "type": "EQUIP",
+        "result": {
+          "slot": "EQI_000014",
+          "owner": "MOND_LISA",
+          "category": "ACCESSORY",
+          "displacedOwner": null,
+          "displacedSlots": [
+            "EQI_000013"
+          ]
+        },
+        "revision": 7
+      },
+      "EAGLE_ACCESS": {
+        "range": "중거리",
+        "traits": {
+          "ELEMENT_BOOST": {
+            "ALL": 8
+          },
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "AIR_ACCESS": 1,
+          "ANTI_AIR": 8
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_LISA_E",
+            "range": "중거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "MOND_LISA_Q",
+            "range": "중거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "LIYUE_YANFEI",
+      "CRAFT": {
+        "range": "원거리",
+        "traits": {
+          "ELEMENT_BOOST": {
+            "ALL": 8
+          },
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "LIYUE_YANFEI_E",
+            "range": null,
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "LIYUE_YANFEI_Q",
+            "range": null,
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      },
+      "equipReceipt": {
+        "ok": true,
+        "type": "EQUIP",
+        "result": {
+          "slot": "EQI_000015",
+          "owner": "LIYUE_YANFEI",
+          "category": "ACCESSORY",
+          "displacedOwner": null,
+          "displacedSlots": [
+            "EQI_000014"
+          ]
+        },
+        "revision": 7
+      },
+      "EAGLE_ACCESS": {
+        "range": "원거리",
+        "traits": {
+          "ELEMENT_BOOST": {
+            "ALL": 8
+          },
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "AIR_ACCESS": 1,
+          "ANTI_AIR": 8
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "LIYUE_YANFEI_E",
+            "range": null,
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "LIYUE_YANFEI_Q",
+            "range": null,
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "LIYUE_NINGGUANG",
+      "CRAFT": {
+        "range": "원거리",
+        "traits": {
+          "ELEMENT_BOOST": {
+            "ALL": 8
+          },
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "LIYUE_NINGGUANG_E",
+            "range": null,
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "LIYUE_NINGGUANG_Q",
+            "range": null,
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      },
+      "equipReceipt": {
+        "ok": true,
+        "type": "EQUIP",
+        "result": {
+          "slot": "EQI_000015",
+          "owner": "LIYUE_NINGGUANG",
+          "category": "ACCESSORY",
+          "displacedOwner": null,
+          "displacedSlots": [
+            "EQI_000014"
+          ]
+        },
+        "revision": 7
+      },
+      "EAGLE_ACCESS": {
+        "range": "원거리",
+        "traits": {
+          "ELEMENT_BOOST": {
+            "ALL": 8
+          },
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "AIR_ACCESS": 1,
+          "ANTI_AIR": 8
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "LIYUE_NINGGUANG_E",
+            "range": null,
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "LIYUE_NINGGUANG_Q",
+            "range": null,
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "MOND_SUCROSE",
+      "CRAFT": {
+        "range": "중거리",
+        "traits": {
+          "ELEMENT_BOOST": {
+            "ALL": 8
+          },
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "basic": false,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_SUCROSE_E",
+            "range": "중거리",
+            "canAir": false,
+            "reason": "현재 사거리로 공격할 수 있는 대상이 없습니다.",
+            "targets": []
+          },
+          {
+            "id": "MOND_SUCROSE_Q",
+            "range": "전장",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      },
+      "equipReceipt": {
+        "ok": true,
+        "type": "EQUIP",
+        "result": {
+          "slot": "EQI_000014",
+          "owner": "MOND_SUCROSE",
+          "category": "ACCESSORY",
+          "displacedOwner": null,
+          "displacedSlots": [
+            "EQI_000013"
+          ]
+        },
+        "revision": 7
+      },
+      "EAGLE_ACCESS": {
+        "range": "중거리",
+        "traits": {
+          "ELEMENT_BOOST": {
+            "ALL": 8
+          },
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "AIR_ACCESS": 1,
+          "ANTI_AIR": 8
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_SUCROSE_E",
+            "range": "중거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "MOND_SUCROSE_Q",
+            "range": "전장",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "LIYUE_ZHONGLI",
+      "CRAFT": {
+        "range": "중거리",
+        "traits": {
+          "SHIELD_BREAK": 25,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "basic": false,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "LIYUE_ZHONGLI_E",
+            "range": null,
+            "canAir": false,
+            "reason": "공중의 드발린에게 닿지 않습니다. 상승 기류로 바람길을 확보하거나 원거리 공격을 사용하세요.",
+            "targets": []
+          },
+          {
+            "id": "LIYUE_ZHONGLI_Q",
+            "range": null,
+            "canAir": false,
+            "reason": "공중의 드발린에게 닿지 않습니다. 상승 기류로 바람길을 확보하거나 원거리 공격을 사용하세요.",
+            "targets": []
+          }
+        ]
+      },
+      "equipReceipt": {
+        "ok": true,
+        "type": "EQUIP",
+        "result": {
+          "slot": "EQI_000015",
+          "owner": "LIYUE_ZHONGLI",
+          "category": "ACCESSORY",
+          "displacedOwner": null,
+          "displacedSlots": [
+            "EQI_000014"
+          ]
+        },
+        "revision": 7
+      },
+      "EAGLE_ACCESS": {
+        "range": "중거리",
+        "traits": {
+          "SHIELD_BREAK": 25,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "AIR_ACCESS": 1,
+          "ANTI_AIR": 8
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "LIYUE_ZHONGLI_E",
+            "range": null,
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "LIYUE_ZHONGLI_Q",
+            "range": null,
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "MOND_DILUC",
+      "CRAFT": {
+        "range": "근접",
+        "traits": {
+          "STACK_ATK": 3,
+          "HEAVY": 6,
+          "ARMOR_BREAK": 25,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "basic": false,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_DILUC_E",
+            "range": "근접",
+            "canAir": false,
+            "reason": "공중의 드발린에게 닿지 않습니다. 상승 기류로 바람길을 확보하거나 원거리 공격을 사용하세요.",
+            "targets": []
+          },
+          {
+            "id": "MOND_DILUC_Q",
+            "range": "중거리",
+            "canAir": false,
+            "reason": "공중의 드발린에게 닿지 않습니다. 상승 기류로 바람길을 확보하거나 원거리 공격을 사용하세요.",
+            "targets": []
+          }
+        ]
+      },
+      "equipReceipt": {
+        "ok": true,
+        "type": "EQUIP",
+        "result": {
+          "slot": "EQI_000015",
+          "owner": "MOND_DILUC",
+          "category": "ACCESSORY",
+          "displacedOwner": null,
+          "displacedSlots": [
+            "EQI_000014"
+          ]
+        },
+        "revision": 7
+      },
+      "EAGLE_ACCESS": {
+        "range": "근접",
+        "traits": {
+          "STACK_ATK": 3,
+          "HEAVY": 6,
+          "ARMOR_BREAK": 25,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "AIR_ACCESS": 1,
+          "ANTI_AIR": 8
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_DILUC_E",
+            "range": "근접",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "MOND_DILUC_Q",
+            "range": "중거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "MOND_JEAN",
+      "CRAFT": {
+        "range": "중거리",
+        "traits": {
+          "STACK_ATK": 3,
+          "PRECISION": 5,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "HEAL_BOOST": 10,
+          "SHIELD_BOOST": 10
+        },
+        "basic": false,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_JEAN_E",
+            "range": "중거리",
+            "canAir": false,
+            "reason": "공중의 드발린에게 닿지 않습니다. 상승 기류로 바람길을 확보하거나 원거리 공격을 사용하세요.",
+            "targets": []
+          },
+          {
+            "id": "MOND_JEAN_Q",
+            "range": "전장",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "PLAYER_CUSTOM",
+              "MOND_JEAN"
+            ]
+          }
+        ]
+      },
+      "equipReceipt": {
+        "ok": true,
+        "type": "EQUIP",
+        "result": {
+          "slot": "EQI_000015",
+          "owner": "MOND_JEAN",
+          "category": "ACCESSORY",
+          "displacedOwner": null,
+          "displacedSlots": [
+            "EQI_000014"
+          ]
+        },
+        "revision": 7
+      },
+      "EAGLE_ACCESS": {
+        "range": "중거리",
+        "traits": {
+          "STACK_ATK": 3,
+          "PRECISION": 5,
+          "FIRST_GUARD": 20,
+          "STAGGER_RES": 30,
+          "AIR_ACCESS": 1,
+          "ANTI_AIR": 8
+        },
+        "basic": true,
+        "policy": {
+          "version": 1,
+          "bosses": [
+            "BOSS_DVALIN"
+          ],
+          "windRoute": false,
+          "rematchNoWindRevision": 1
+        },
+        "windCard": false,
+        "cards": [
+          {
+            "id": "MOND_JEAN_E",
+            "range": "중거리",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "BOSS_DVALIN"
+            ]
+          },
+          {
+            "id": "MOND_JEAN_Q",
+            "range": "전장",
+            "canAir": true,
+            "reason": "",
+            "targets": [
+              "PLAYER_CUSTOM",
+              "MOND_JEAN"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "supply": [
+    {
+      "kind": "BUY",
+      "level": 3,
+      "merchant": "MRC_MOND_EQUIP",
+      "stock": "STK_MOND_EQ_009",
+      "quantity": 2,
+      "place": {
+        "id": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+        "name": "바그너 · 대장간",
+        "map": "MAP_MOND_CITY"
+      },
+      "entry": {
+        "ok": true,
+        "type": "PLACE_ENTER",
+        "result": {
+          "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+          "mode": "SHOP",
+          "name": "바그너 · 대장간",
+          "companionsJoined": [
+            "MOND_LISA",
+            "MOND_NOELLE",
+            "MOND_BARBARA",
+            "MOND_KAEYA",
+            "MOND_BENNETT"
+          ]
+        },
+        "revision": 1
+      },
+      "currentUnitPrice": 520,
+      "receipt": {
+        "ok": true,
+        "type": "BUY",
+        "result": {
+          "stock": "STK_MOND_EQ_009",
+          "quantity": 2,
+          "cost": 1040
+        },
+        "revision": 2
+      },
+      "bossClearFlags": {
+        "dvalin": false,
+        "andrius": false
+      }
+    },
+    {
+      "kind": "CRAFT",
+      "level": 5,
+      "merchant": "MRC_MOND_EQUIP",
+      "recipe": "REC_ACC_EAGLE",
+      "place": {
+        "id": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+        "name": "바그너 · 대장간",
+        "map": "MAP_MOND_CITY"
+      },
+      "entry": {
+        "ok": true,
+        "type": "PLACE_ENTER",
+        "result": {
+          "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+          "mode": "CRAFT",
+          "name": "바그너 · 대장간",
+          "companionsJoined": [
+            "MOND_LISA",
+            "MOND_NOELLE",
+            "MOND_BARBARA",
+            "MOND_KAEYA",
+            "MOND_BENNETT"
+          ]
+        },
+        "revision": 1
+      },
+      "cost": {
+        "mora": 150,
+        "items": {
+          "ORE_CRYSTAL": 2,
+          "TRPG_AETHER_THREAD": 2
+        }
+      },
+      "reason": "",
+      "receipt": {
+        "ok": true,
+        "type": "CRAFT",
+        "result": {
+          "recipe": "REC_ACC_EAGLE",
+          "result": "EQ_ACC_EAGLE_EYE",
+          "quantity": 1,
+          "crafts": 1,
+          "minutes": 60,
+          "cost": {
+            "mora": 150,
+            "items": {
+              "ORE_CRYSTAL": 2,
+              "TRPG_AETHER_THREAD": 2
+            }
+          }
+        },
+        "revision": 2
+      },
+      "bossClearFlags": {
+        "dvalin": false,
+        "andrius": false
+      }
+    },
+    {
+      "kind": "CRAFT",
+      "level": 3,
+      "merchant": "MRC_MOND_EQUIP",
+      "recipe": "REC_TACTICAL_LEVITATOR",
+      "place": {
+        "id": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+        "name": "바그너 · 대장간",
+        "map": "MAP_MOND_CITY"
+      },
+      "entry": {
+        "ok": true,
+        "type": "PLACE_ENTER",
+        "result": {
+          "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+          "mode": "CRAFT",
+          "name": "바그너 · 대장간",
+          "companionsJoined": [
+            "MOND_LISA",
+            "MOND_NOELLE",
+            "MOND_BARBARA",
+            "MOND_KAEYA",
+            "MOND_BENNETT"
+          ]
+        },
+        "revision": 1
+      },
+      "cost": {
+        "mora": 180,
+        "items": {
+          "ORE_WHITE_IRON": 2,
+          "TRPG_STURDY_CLOTH": 2,
+          "TRPG_ELEMENTAL_DUST": 1
+        }
+      },
+      "reason": "",
+      "receipt": {
+        "ok": true,
+        "type": "CRAFT",
+        "result": {
+          "recipe": "REC_TACTICAL_LEVITATOR",
+          "result": "TRPG_TACTICAL_LEVITATOR",
+          "quantity": 1,
+          "crafts": 1,
+          "minutes": 60,
+          "cost": {
+            "mora": 180,
+            "items": {
+              "ORE_WHITE_IRON": 2,
+              "TRPG_STURDY_CLOTH": 2,
+              "TRPG_ELEMENTAL_DUST": 1
+            }
+          }
+        },
+        "revision": 2
+      },
+      "preparationReceipt": {
+        "ok": true,
+        "type": "TOOL_PREPARE",
+        "result": {
+          "items": [
+            "TRPG_TACTICAL_LEVITATOR"
+          ],
+          "capacity": 2,
+          "element": "NONE"
+        },
+        "revision": 3
+      },
+      "preparedTools": [
+        "TRPG_TACTICAL_LEVITATOR"
+      ],
+      "capacity": 2,
+      "bossClearFlags": {
+        "dvalin": false,
+        "andrius": false
+      }
+    },
+    {
+      "kind": "CRAFT",
+      "level": 4,
+      "merchant": "MRC_LIYUE_EQUIP",
+      "recipe": "REC_LY_ACC_STARGAZER",
+      "place": {
+        "id": "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+        "name": "리월 장비점(시스템)",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "entry": {
+        "ok": true,
+        "type": "PLACE_ENTER",
+        "result": {
+          "place": "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+          "mode": "CRAFT",
+          "name": "리월 장비점(시스템)",
+          "companionsJoined": [
+            "MOND_LISA",
+            "MOND_NOELLE",
+            "MOND_BARBARA",
+            "MOND_KAEYA",
+            "MOND_BENNETT"
+          ]
+        },
+        "revision": 1
+      },
+      "cost": {
+        "mora": 380,
+        "items": {
+          "MAT_LIYUE_COR_LAPIS": 2,
+          "ORE_CRYSTAL": 2,
+          "MAT_SILVER_INSIGNIA": 1
+        }
+      },
+      "reason": "",
+      "receipt": {
+        "ok": true,
+        "type": "CRAFT",
+        "result": {
+          "recipe": "REC_LY_ACC_STARGAZER",
+          "result": "EQ_LY_ACC_STARGAZER",
+          "quantity": 1,
+          "crafts": 1,
+          "minutes": 60,
+          "cost": {
+            "mora": 380,
+            "items": {
+              "MAT_LIYUE_COR_LAPIS": 2,
+              "ORE_CRYSTAL": 2,
+              "MAT_SILVER_INSIGNIA": 1
+            }
+          }
+        },
+        "revision": 2
+      },
+      "bossClearFlags": {
+        "dvalin": false,
+        "andrius": false
+      }
+    },
+    {
+      "kind": "CRAFT",
+      "level": 6,
+      "merchant": "MRC_LIYUE_EQUIP",
+      "recipe": "REC_FB_ACC_STORM_CHARM",
+      "place": {
+        "id": "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+        "name": "리월 장비점(시스템)",
+        "map": "MAP_LIYUE_HARBOR"
+      },
+      "entry": {
+        "ok": true,
+        "type": "PLACE_ENTER",
+        "result": {
+          "place": "EVT_SCHEDULE_MRC_LIYUE_EQUIP",
+          "mode": "CRAFT",
+          "name": "리월 장비점(시스템)",
+          "companionsJoined": [
+            "MOND_LISA",
+            "MOND_NOELLE",
+            "MOND_BARBARA",
+            "MOND_KAEYA",
+            "MOND_BENNETT"
+          ]
+        },
+        "revision": 1
+      },
+      "cost": {
+        "mora": 900,
+        "items": {
+          "MAT_FB_HURRICANE_SEED": 3,
+          "MAT_LIYUE_COR_LAPIS": 3
+        }
+      },
+      "reason": "",
+      "receipt": {
+        "ok": true,
+        "type": "CRAFT",
+        "result": {
+          "recipe": "REC_FB_ACC_STORM_CHARM",
+          "result": "EQ_FB_ACC_STORM_CHARM",
+          "quantity": 1,
+          "crafts": 1,
+          "minutes": 120,
+          "cost": {
+            "mora": 900,
+            "items": {
+              "MAT_FB_HURRICANE_SEED": 3,
+              "MAT_LIYUE_COR_LAPIS": 3
+            }
+          }
+        },
+        "revision": 2
+      },
+      "bossClearFlags": {
+        "dvalin": false,
+        "andrius": false
+      }
+    }
+  ],
+  "errors": [],
+  "accessories": [
+    {
+      "id": "EQ_ACC_VITAL_RING",
+      "name": "생명 반지",
+      "level": 2,
+      "score": 43,
+      "atk": 0,
+      "def": 4,
+      "hp": 260,
+      "traits": [
+        [
+          "HEAL_BOOST",
+          8
+        ]
+      ]
+    },
+    {
+      "id": "EQ_LY_ACC_MILLELITH_SEAL",
+      "name": "천암군 수호 인장",
+      "level": 5,
+      "score": 32,
+      "atk": 0,
+      "def": 14,
+      "hp": 120,
+      "traits": [
+        [
+          "COVER",
+          35
+        ],
+        [
+          "AGGRO",
+          40
+        ]
+      ]
+    },
+    {
+      "id": "EQ_LY_ACC_LILY_KNOT",
+      "name": "유리백합 치유 매듭",
+      "level": 4,
+      "score": 27,
+      "atk": 0,
+      "def": 0,
+      "hp": 180,
+      "traits": [
+        [
+          "HEAL_BOOST",
+          15
+        ],
+        [
+          "SHIELD_BOOST",
+          12
+        ]
+      ]
+    },
+    {
+      "id": "EQ_LIYUE_ACC_STONE_BEAD",
+      "name": "석문 수호구슬",
+      "level": 3,
+      "score": 25,
+      "atk": 0,
+      "def": 10,
+      "hp": 100,
+      "traits": [
+        [
+          "CONTROL_RES",
+          15
+        ]
+      ]
+    },
+    {
+      "id": "EQ_FB_ACC_CLEAR_CHALICE",
+      "name": "맑은 마음 성배",
+      "level": 6,
+      "score": 24,
+      "atk": 0,
+      "def": 0,
+      "hp": 160,
+      "traits": [
+        [
+          "HEAL_BOOST",
+          20
+        ],
+        [
+          "WATERPROOF",
+          40
+        ]
+      ]
+    },
+    {
+      "id": "EQ_ACC_ELEMENTAL_PRISM",
+      "name": "원소 프리즘",
+      "level": 5,
+      "score": 22,
+      "atk": 10,
+      "def": 0,
+      "hp": 80,
+      "traits": [
+        [
+          "ELEMENT_RES",
+          "ALL",
+          6
+        ],
+        [
+          "AURA_SHORTEN",
+          30
+        ]
+      ]
+    },
+    {
+      "id": "EQ_ACC_GUARDIAN_TOKEN",
+      "name": "수호자 표식",
+      "level": 9,
+      "score": 21,
+      "atk": 0,
+      "def": 12,
+      "hp": 60,
+      "traits": [
+        [
+          "COVER",
+          30
+        ],
+        [
+          "FIRST_GUARD",
+          15
+        ]
+      ]
+    },
+    {
+      "id": "EQ_LY_ACC_QINGXIN_SACHET",
+      "name": "청심 정화 향낭",
+      "level": 4,
+      "score": 18,
+      "atk": 0,
+      "def": 0,
+      "hp": 120,
+      "traits": [
+        [
+          "PURIFY",
+          30
+        ],
+        [
+          "CONTROL_RES",
+          15
+        ]
+      ]
+    },
+    {
+      "id": "EQ_MOND_ACC_EMBERGUARD",
+      "name": "잿불막이 부적",
+      "level": 3,
+      "score": 17.5,
+      "atk": 0,
+      "def": 4,
+      "hp": 90,
+      "traits": [
+        [
+          "HEAT",
+          40
+        ],
+        [
+          "DOT",
+          10
+        ]
+      ]
+    },
+    {
+      "id": "EQ_FB_ACC_BASALT_SEAL",
+      "name": "현암 방벽 인장",
+      "level": 6,
+      "score": 16,
+      "atk": 0,
+      "def": 16,
+      "hp": 0,
+      "traits": [
+        [
+          "SHIELD_BOOST",
+          20
+        ],
+        [
+          "COVER",
+          25
+        ],
+        [
+          "HEAVY",
+          10
+        ]
+      ]
+    },
+    {
+      "id": "EQ_CRPG_WOODEN_CHARM",
+      "name": "나무 부적",
+      "level": 1,
+      "score": 13.5,
+      "atk": 0,
+      "def": 0,
+      "hp": 90,
+      "traits": []
+    },
+    {
+      "id": "EQ_ACC_SHARP_CHARM",
+      "name": "예리함의 부적",
+      "level": 2,
+      "score": 12,
+      "atk": 12,
+      "def": 0,
+      "hp": 0,
+      "traits": []
+    },
+    {
+      "id": "EQ_ACC_HEALER_BROOCH",
+      "name": "치유사의 브로치",
+      "level": 5,
+      "score": 12,
+      "atk": 0,
+      "def": 0,
+      "hp": 80,
+      "traits": [
+        [
+          "HEAL_BOOST",
+          10
+        ],
+        [
+          "SHIELD_BOOST",
+          10
+        ]
+      ]
+    },
+    {
+      "id": "EQ_FB_ACC_STORM_CHARM",
+      "name": "폭풍 씨앗 부적",
+      "level": 6,
+      "score": 12,
+      "atk": 0,
+      "def": 0,
+      "hp": 80,
+      "traits": [
+        [
+          "AIR_ACCESS",
+          1
+        ],
+        [
+          "ANTI_AIR",
+          15
+        ],
+        [
+          "STAGGER_RES",
+          50
+        ]
+      ]
+    },
+    {
+      "id": "EQ_ACC_EAGLE_EYE",
+      "name": "매의 눈 장식",
+      "level": 3,
+      "score": 10,
+      "atk": 10,
+      "def": 0,
+      "hp": 0,
+      "traits": [
+        [
+          "AIR_ACCESS",
+          1
+        ],
+        [
+          "ANTI_AIR",
+          8
+        ]
+      ]
+    },
+    {
+      "id": "EQ_LIYUE_ACC_COURIER_KNOT",
+      "name": "운송상의 매듭",
+      "level": 3,
+      "score": 9,
+      "atk": 0,
+      "def": 0,
+      "hp": 60,
+      "traits": [
+        [
+          "STEALTH",
+          25
+        ]
+      ]
+    },
+    {
+      "id": "EQ_ACC_STEADFAST",
+      "name": "불굴의 수호석",
+      "level": 5,
+      "score": 8,
+      "atk": 0,
+      "def": 8,
+      "hp": 0,
+      "traits": [
+        [
+          "STAGGER_RES",
+          100
+        ],
+        [
+          "CONTROL_RES",
+          10
+        ]
+      ]
+    },
+    {
+      "id": "EQ_LIYUE_ACC_AMBER_CHARM",
+      "name": "호박빛 부적",
+      "level": 3,
+      "score": 8,
+      "atk": 8,
+      "def": 0,
+      "hp": 0,
+      "traits": []
+    },
+    {
+      "id": "EQ_LIYUE_ACC_TIANHENG_SIGHT",
+      "name": "천형 조준침",
+      "level": 3,
+      "score": 6,
+      "atk": 6,
+      "def": 0,
+      "hp": 0,
+      "traits": [
+        [
+          "PRECISION",
+          8
+        ],
+        [
+          "ANTI_AIR",
+          8
+        ]
+      ]
+    },
+    {
+      "id": "EQ_LY_ACC_STARGAZER",
+      "name": "천추 관측경",
+      "level": 4,
+      "score": 6,
+      "atk": 6,
+      "def": 0,
+      "hp": 0,
+      "traits": [
+        [
+          "AIR_ACCESS",
+          1
+        ],
+        [
+          "ANTI_AIR",
+          10
+        ]
+      ]
+    },
+    {
+      "id": "EQ_ACC_RESONANCE_BAND",
+      "name": "공명 팔찌",
+      "level": 9,
+      "score": 5,
+      "atk": 5,
+      "def": 0,
+      "hp": 0,
+      "traits": []
+    },
+    {
+      "id": "EQ_ACC_SWIFT_TALISMAN",
+      "name": "질풍 부적",
+      "level": 5,
+      "score": 0,
+      "atk": 0,
+      "def": 0,
+      "hp": 0,
+      "traits": []
+    },
+    {
+      "id": "EQ_FB_ACC_BLOOM_PIN",
+      "name": "응결 꽃 장식",
+      "level": 6,
+      "score": 0,
+      "atk": 0,
+      "def": 0,
+      "hp": 0,
+      "traits": [
+        [
+          "PURIFY",
+          25
+        ],
+        [
+          "CONTROL_RES",
+          20
+        ],
+        [
+          "COLD",
+          25
+        ]
+      ]
+    }
+  ]
+}

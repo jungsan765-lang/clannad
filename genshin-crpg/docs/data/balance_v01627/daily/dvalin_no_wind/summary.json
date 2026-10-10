@@ -1,0 +1,4577 @@
+{
+  "fingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+  "conditions": 63,
+  "wins": 32,
+  "defeats": 31,
+  "errors": [],
+  "drift": [],
+  "limits": 0,
+  "entryBlocked": 0,
+  "groups": [
+    {
+      "group": "initial_12",
+      "conditions": 12,
+      "wins": 3,
+      "defeats": 9,
+      "errors": 0,
+      "drift": 0
+    },
+    {
+      "group": "equipment_tool_12",
+      "conditions": 12,
+      "wins": 10,
+      "defeats": 2,
+      "errors": 0,
+      "drift": 0
+    },
+    {
+      "group": "level_high_12",
+      "conditions": 12,
+      "wins": 12,
+      "defeats": 0,
+      "errors": 0,
+      "drift": 0
+    },
+    {
+      "group": "control_01",
+      "conditions": 12,
+      "wins": 4,
+      "defeats": 8,
+      "errors": 0,
+      "drift": 0
+    },
+    {
+      "group": "control_02",
+      "conditions": 12,
+      "wins": 0,
+      "defeats": 12,
+      "errors": 0,
+      "drift": 0
+    },
+    {
+      "group": "first_essence_3",
+      "conditions": 3,
+      "wins": 3,
+      "defeats": 0,
+      "errors": 0,
+      "drift": 0
+    }
+  ],
+  "rows": [
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_AMBER",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 4,
+      "seconds": 65.63,
+      "cpuSeconds": 0.163663229,
+      "hp": 0.43383448462684543,
+      "preRewardHp": 0.42847587621510747,
+      "innMora": 269,
+      "ko": [
+        "MOND_DIONA",
+        "MOND_AMBER"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "AMBER_FISCHL_DIONA",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_AMBER",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 3,
+      "seconds": 52.64,
+      "cpuSeconds": 0.109294653,
+      "hp": 0.6053094947853176,
+      "preRewardHp": 0.6101846071524124,
+      "innMora": 196,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "AMBER_FISCHL_DIONA",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_AMBER",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 4,
+      "seconds": 66.74000000000001,
+      "cpuSeconds": 0.170887572,
+      "hp": 0.4001986545667976,
+      "preRewardHp": 0.39525550700080264,
+      "innMora": 287,
+      "ko": [
+        "MOND_AMBER"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "AMBER_FISCHL_DIONA",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_LISA",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 7,
+      "inputs": 6,
+      "seconds": 123.99000000000001,
+      "cpuSeconds": 0.131653682,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "MOND_LISA",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "LISA_FISCHL_DIONA",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_LISA",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 143.31,
+      "cpuSeconds": 0.142701557,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "MOND_LISA",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "LISA_FISCHL_DIONA",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_LISA",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 144.42000000000002,
+      "cpuSeconds": 0.183870881,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "MOND_LISA",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "LISA_FISCHL_DIONA",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_GANYU",
+        "MOND_MONA",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 165.51,
+      "cpuSeconds": 0.162041162,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_JEAN",
+        "LIYUE_GANYU",
+        "MOND_MONA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "GANYU_MONA_JEAN",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_GANYU",
+        "MOND_MONA",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 154.41,
+      "cpuSeconds": 0.15313457,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_JEAN",
+        "LIYUE_GANYU",
+        "MOND_MONA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "GANYU_MONA_JEAN",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_GANYU",
+        "MOND_MONA",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 168.84,
+      "cpuSeconds": 0.16206655,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_JEAN",
+        "LIYUE_GANYU",
+        "MOND_MONA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "GANYU_MONA_JEAN",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_KLEE",
+        "MOND_MONA",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 155.51999999999998,
+      "cpuSeconds": 0.170577682,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_JEAN",
+        "MOND_KLEE",
+        "MOND_MONA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "KLEE_MONA_JEAN",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_KLEE",
+        "MOND_MONA",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 156.63,
+      "cpuSeconds": 0.138085866,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_JEAN",
+        "MOND_KLEE",
+        "MOND_MONA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "KLEE_MONA_JEAN",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_BASE_RANGE_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "MOND_KLEE",
+        "MOND_MONA",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 155.51999999999998,
+      "cpuSeconds": 0.146853704,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_JEAN",
+        "MOND_KLEE",
+        "MOND_MONA",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "KLEE_MONA_JEAN",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "initial_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 62.76,
+      "cpuSeconds": 0.16353331,
+      "hp": 0.6995600833526279,
+      "preRewardHp": 0.6909531650201244,
+      "innMora": 156,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "BASE_FOUR",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 63.87,
+      "cpuSeconds": 0.100178869,
+      "hp": 0.6652465848576059,
+      "preRewardHp": 0.6693651664837176,
+      "innMora": 169,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "BASE_FOUR",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 63.87,
+      "cpuSeconds": 0.099041985,
+      "hp": 0.7435054410743228,
+      "preRewardHp": 0.7343578485181119,
+      "innMora": 136,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "BASE_FOUR",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 3,
+      "seconds": 67.2,
+      "cpuSeconds": 0.112895762,
+      "hp": 0.7410589770120113,
+      "preRewardHp": 0.7319381498267129,
+      "innMora": 137,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "BASE_FOUR",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": true,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 3,
+      "seconds": 67.2,
+      "cpuSeconds": 0.101732476,
+      "hp": 0.7703450447613478,
+      "preRewardHp": 0.7608637696614237,
+      "innMora": 125,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "BASE_FOUR",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": true,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 66.09,
+      "cpuSeconds": 0.109509478,
+      "hp": 0.775923343380269,
+      "preRewardHp": 0.7663734115347018,
+      "innMora": 120,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "BASE_FOUR",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": true,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 75.68,
+      "cpuSeconds": 0.158950034,
+      "hp": 0.5699115585886098,
+      "preRewardHp": 0.563138796492289,
+      "innMora": 202,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "BASE_FIVE",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 75.68,
+      "cpuSeconds": 0.143532654,
+      "hp": 0.5889463537044405,
+      "preRewardHp": 0.5819473843362565,
+      "innMora": 208,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "BASE_FIVE",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 7,
+      "inputs": 7,
+      "seconds": 87.56,
+      "cpuSeconds": 0.162952777,
+      "hp": 0.5128683783701075,
+      "preRewardHp": 0.5067735107348049,
+      "innMora": 226,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "BASE_FIVE",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 170.54000000000002,
+      "cpuSeconds": 0.180005992,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_JEAN",
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "BASE_FIVE",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": true,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 107.21,
+      "cpuSeconds": 0.197258217,
+      "hp": 0.4672000958973898,
+      "preRewardHp": 0.4616523541604975,
+      "innMora": 250,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "BASE_FIVE",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": true,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_EXISTING_PREPARATION_28",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 168.32,
+      "cpuSeconds": 0.194522624,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_JEAN",
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "BASE_FIVE",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": true,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "equipment_tool_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 35,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 2,
+      "inputs": 2,
+      "seconds": 39.78,
+      "cpuSeconds": 0.112097387,
+      "hp": 0.8643193250040565,
+      "preRewardHp": 0.8659892945286708,
+      "innMora": 97,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "BASE_FOUR",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 35,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 2,
+      "inputs": 2,
+      "seconds": 40.89,
+      "cpuSeconds": 0.074063518,
+      "hp": 0.8768456920331008,
+      "preRewardHp": 0.8660533991474085,
+      "innMora": 89,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "BASE_FOUR",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 35,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 2,
+      "inputs": 2,
+      "seconds": 40.89,
+      "cpuSeconds": 0.072750339,
+      "hp": 0.8934609767970144,
+      "preRewardHp": 0.8824641815442803,
+      "innMora": 80,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "BASE_FOUR",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 2,
+      "inputs": 2,
+      "seconds": 40.89,
+      "cpuSeconds": 0.071117427,
+      "hp": 0.8014807758919293,
+      "preRewardHp": 0.7919483186446479,
+      "innMora": 111,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "BASE_FOUR",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 2,
+      "inputs": 2,
+      "seconds": 40.89,
+      "cpuSeconds": 0.091996719,
+      "hp": 0.7935815480304077,
+      "preRewardHp": 0.7831628303495312,
+      "innMora": 116,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "BASE_FOUR",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 41.67,
+      "cpuSeconds": 0.090820546,
+      "hp": 0.8322909736083389,
+      "preRewardHp": 0.8221530911799501,
+      "innMora": 96,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "BASE_FOUR",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 35,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 3,
+      "seconds": 47.09,
+      "cpuSeconds": 0.114180116,
+      "hp": 0.894266197474643,
+      "preRewardHp": 0.883602969750271,
+      "innMora": 77,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "BASE_FIVE",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 35,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 4,
+      "seconds": 52.31,
+      "cpuSeconds": 0.102461784,
+      "hp": 0.8778720761747051,
+      "preRewardHp": 0.8674043319084531,
+      "innMora": 101,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "BASE_FIVE",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 35,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 4,
+      "inputs": 3,
+      "seconds": 48.2,
+      "cpuSeconds": 0.093049162,
+      "hp": 0.890767956944732,
+      "preRewardHp": 0.8801464422309943,
+      "innMora": 80,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "BASE_FIVE",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 4,
+      "seconds": 58.97,
+      "cpuSeconds": 0.128346391,
+      "hp": 0.7653355290242898,
+      "preRewardHp": 0.7563718794501438,
+      "innMora": 133,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "BASE_FIVE",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 5,
+      "seconds": 66.15,
+      "cpuSeconds": 0.127429143,
+      "hp": 0.6796051089758612,
+      "preRewardHp": 0.6710149538657334,
+      "innMora": 176,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "BASE_FIVE",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_PREPARED_LEVEL_OR_GEAR",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 5,
+      "seconds": 61.84,
+      "cpuSeconds": 0.112851891,
+      "hp": 0.7808100433418024,
+      "preRewardHp": 0.7715163329198417,
+      "innMora": 124,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "BASE_FIVE",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": 28,
+      "fixtureGroup": "level_high_12",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 117.66,
+      "cpuSeconds": 0.153330815,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 67.65,
+      "cpuSeconds": 0.114540692,
+      "hp": 0.4367197253433209,
+      "preRewardHp": 0.43150104078328577,
+      "innMora": 274,
+      "ko": [
+        "MOND_DIONA"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 143.31,
+      "cpuSeconds": 0.122311073,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 156.63,
+      "cpuSeconds": 0.171784924,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 144.42000000000002,
+      "cpuSeconds": 0.14807098,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 70.65,
+      "cpuSeconds": 0.128160019,
+      "hp": 0.44172879869223713,
+      "preRewardHp": 0.4363357095033673,
+      "innMora": 267,
+      "ko": [
+        "MOND_DIONA"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 117.66,
+      "cpuSeconds": 0.114846288,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 67.65,
+      "cpuSeconds": 0.11130134,
+      "hp": 0.4367197253433209,
+      "preRewardHp": 0.43150104078328577,
+      "innMora": 274,
+      "ko": [
+        "MOND_DIONA"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 143.31,
+      "cpuSeconds": 0.153301091,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 156.63,
+      "cpuSeconds": 0.165333412,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 144.42000000000002,
+      "cpuSeconds": 0.136775675,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "MOND_DIONA",
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 70.65,
+      "cpuSeconds": 0.11581541,
+      "hp": 0.44172879869223713,
+      "preRewardHp": 0.4363357095033673,
+      "innMora": 267,
+      "ko": [
+        "MOND_DIONA"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_01",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.179508708,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.12381133,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.144297744,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.141751797,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.13548369,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.169676353,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.120813968,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.12870785,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.217754775,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.155235037,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_BASIC",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.13210817,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_CONTROL_HIGH",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 28,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "DEFEAT",
+      "rounds": 8,
+      "inputs": 8,
+      "seconds": 153.3,
+      "cpuSeconds": 0.142642587,
+      "hp": 0,
+      "preRewardHp": 0,
+      "innMora": 468,
+      "ko": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "FIVE_SHIELD_HEAL",
+      "accessory": null,
+      "accessoryEnhance": null,
+      "levitator": null,
+      "advancedGear": true,
+      "enemyLevel": null,
+      "fixtureGroup": "control_02",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_FIRST_ESSENCE",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 40,
+      "investment": "FOUR_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 2,
+      "seconds": 37.56,
+      "cpuSeconds": 0.127451695,
+      "hp": 0.8688157600179092,
+      "preRewardHp": 0.8581299577126116,
+      "innMora": 104,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 717,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": 6,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": 28,
+      "fixtureGroup": "first_essence_3",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_FIRST_ESSENCE",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 40,
+      "investment": "FOUR_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 2,
+      "seconds": 37.56,
+      "cpuSeconds": 0.090183574,
+      "hp": 0.8490317886724871,
+      "preRewardHp": 0.8385893148337525,
+      "innMora": 117,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 4242,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": 6,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": 28,
+      "fixtureGroup": "first_essence_3",
+      "rematchNoWindRevision": 1
+    },
+    {
+      "candidate": "NO_WIND_FIRST_ESSENCE",
+      "vmFingerprint": "9158788a4f953745e9201c3719f70b3bcca7220d3dabd484ae66c0175b6d46ce",
+      "boss": "BOSS_DVALIN",
+      "level": 40,
+      "investment": "FOUR_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_FISCHL",
+        "MOND_DIONA"
+      ],
+      "state": "WIN",
+      "rounds": 3,
+      "inputs": 3,
+      "seconds": 41.67,
+      "cpuSeconds": 0.084848699,
+      "hp": 0.8985896574882472,
+      "preRewardHp": 0.8875376578867361,
+      "innMora": 86,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_DVALIN",
+          "level": 28,
+          "hp": 42540,
+          "maxHp": 42540,
+          "atk": 4492,
+          "def": 270
+        }
+      ],
+      "terrain": 4,
+      "characterBalanceRevision": 1,
+      "adminBalanceRevision": 0,
+      "enemyBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 0,
+        "config": {
+          "tables": [],
+          "enemies": {},
+          "characters": {},
+          "cards": {},
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "BOSS_DVALIN": 20737
+      },
+      "admissionAfter": {
+        "BOSS_DVALIN": 20737
+      },
+      "seed": 9031,
+      "family": "FOUR_DIONA_FISCHL",
+      "accessory": "EQ_ACC_EAGLE_EYE",
+      "accessoryEnhance": 6,
+      "levitator": null,
+      "advancedGear": null,
+      "enemyLevel": 28,
+      "fixtureGroup": "first_essence_3",
+      "rematchNoWindRevision": 1
+    }
+  ]
+}

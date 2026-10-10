@@ -1,0 +1,140 @@
+{
+  "version": "0.16.27",
+  "fingerprint": "engine3-c70d3eb7f1d4cb36a320ddd9ef18c0da1f8f9d8b927ce5e4ba504856ae31e208",
+  "scope": "Native frost armor public preparation; granted materials/funds/levels/region access, no acquisition-time or combat-difficulty claim.",
+  "total": 6,
+  "passed": 6,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "frost_explanatory_suffix_normalizes_only_its_exact_authored_row",
+      "passed": true,
+      "evidence": {
+        "authoredCondition": "LEVEL>=5 / 설산 소재 확보",
+        "executableCondition": "LEVEL>=5",
+        "otherConditionsPreserved": [
+          "REC_SIMPLE_MEAL",
+          "REC_PARTY_MEAL",
+          "REC_ARMOR_FLAME",
+          "REC_ARMOR_DIVER",
+          "REC_ARMOR_MEKA",
+          "REC_ARMOR_DRAGON",
+          "REC_ARMOR_ABYSS",
+          "REC_ARMOR_NATLAN",
+          "REC_ACC_GUARDIAN",
+          "REC_ACC_RESONANCE",
+          "REC_SPECIAL_DIVE",
+          "REC_SPECIAL_MEKA",
+          "REC_SPECIAL_DRONE",
+          "REC_SPECIAL_ABYSS",
+          "REC_SPECIAL_DRAGON",
+          "REC_SPECIAL_CORE",
+          "REC_SWORD_AMENOMA",
+          "REC_SWORD_SAPWOOD",
+          "REC_SWORD_FINALE",
+          "REC_CLAYMORE_KATSURAGI",
+          "REC_POLEARM_KITAIN",
+          "REC_BOW_HAMAYUMI",
+          "REC_CATALYST_HAKUSHIN"
+        ],
+        "rawRowUnchanged": true
+      }
+    },
+    {
+      "id": "level5_public_frost_craft_pays_actual_snow_materials_and_mora",
+      "passed": true,
+      "evidence": {
+        "entry": {
+          "place": "EVT_SCHEDULE_MRC_MOND_EQUIP",
+          "mode": "CRAFT",
+          "name": "바그너 · 대장간",
+          "companionsJoined": [
+            "MOND_LISA",
+            "MOND_NOELLE",
+            "MOND_BARBARA",
+            "MOND_KAEYA",
+            "MOND_BENNETT"
+          ]
+        },
+        "receipt": {
+          "recipe": "REC_ARMOR_FROST",
+          "result": "EQ_ARMOR_FROSTWARD",
+          "quantity": 1,
+          "crafts": 1,
+          "minutes": 120,
+          "cost": {
+            "mora": 180,
+            "items": {
+              "TRPG_COLD_IRON": 3,
+              "TRPG_STURDY_CLOTH": 2,
+              "TRPG_ELEMENTAL_DUST": 2
+            }
+          }
+        },
+        "before": {
+          "mora": 1000000,
+          "time": "12:00",
+          "items": {
+            "TRPG_COLD_IRON": 3,
+            "TRPG_STURDY_CLOTH": 2,
+            "TRPG_ELEMENTAL_DUST": 2
+          },
+          "equipment": 0
+        },
+        "after": {
+          "mora": 999820,
+          "time": "14:00",
+          "items": {
+            "TRPG_COLD_IRON": 0,
+            "TRPG_STURDY_CLOTH": 0,
+            "TRPG_ELEMENTAL_DUST": 0
+          }
+        },
+        "rawRowUnchanged": true
+      }
+    },
+    {
+      "id": "level4_public_frost_craft_rejects_even_with_all_materials",
+      "passed": true,
+      "evidence": {
+        "unchanged": true,
+        "reason": ""
+      }
+    },
+    {
+      "id": "snow_material_requirement_is_paid_not_bypassed_by_suffix_normalization",
+      "passed": true,
+      "evidence": {
+        "unchanged": true,
+        "reason": "",
+        "missing": "TRPG_COLD_IRON",
+        "required": 3
+      }
+    },
+    {
+      "id": "frost_recipe_keeps_public_place_and_city_restrictions",
+      "passed": true,
+      "evidence": {
+        "outsideVisit": {
+          "unchanged": true,
+          "reason": "장소 화면에서 먼저 들어가기를 선택해 주세요."
+        },
+        "wrongCity": {
+          "unchanged": true,
+          "reason": "제작법이 지정한 장소에서만 제작할 수 있습니다."
+        },
+        "allowedCity": "MAP_MOND_CITY",
+        "allowedPlace": "EVT_SCHEDULE_MRC_MOND_EQUIP"
+      }
+    },
+    {
+      "id": "recipe_queries_and_public_crafting_do_not_mutate_shared_db",
+      "passed": true,
+      "evidence": {
+        "sharedDBSHA256": "78771cef2c1af6b0226f9eedd57991af31407fd180c34141598245299af47aea",
+        "authoredCondition": "LEVEL>=5 / 설산 소재 확보",
+        "unchanged": true
+      }
+    }
+  ]
+}

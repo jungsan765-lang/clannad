@@ -1,0 +1,72 @@
+{
+  "scope": "Lv50 CHASM ordinary RANDOM maximum12 diagnostic append; product edits0",
+  "count": 6,
+  "wins": 6,
+  "errors": 0,
+  "inputLimits": 0,
+  "rawFingerprint": "2e0fb163113e8de7702190d8c2cdd8c1b982e24c21bc2c5dc5e4231666028eca",
+  "rawDB": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da",
+  "sourceGrowth": "5280d8c6a32e8a7424c1a76b835cb345d264a8cec8c675b11b74a44737b5872d",
+  "sourceField": "6ce35466b5af8c222139a9ceb1544ffd140b0904177436dd198041fbd4b2c250",
+  "comparison": [
+    {
+      "seed": 717,
+      "sameSaveId": true,
+      "samePreEntrySequence": true,
+      "samePreEntryPRNG": true,
+      "sameInitialEnemiesExact": true,
+      "sameEquippedGearExact": true,
+      "sameFormationOrder": true,
+      "initialEnemyLevel": [
+        50,
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "seed": 19,
+      "sameSaveId": true,
+      "samePreEntrySequence": true,
+      "samePreEntryPRNG": true,
+      "sameInitialEnemiesExact": true,
+      "sameEquippedGearExact": true,
+      "sameFormationOrder": true,
+      "initialEnemyLevel": [
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "seed": 43,
+      "sameSaveId": true,
+      "samePreEntrySequence": true,
+      "samePreEntryPRNG": true,
+      "sameInitialEnemiesExact": true,
+      "sameEquippedGearExact": true,
+      "sameFormationOrder": true,
+      "initialEnemyLevel": [
+        50,
+        50
+      ]
+    }
+  ],
+  "files": {
+    "raw_6_rows.json.gz": "32ca2991996a3ac1037fa0a2a9590ae75566801c97f9ca865ac37cf67d4b9b01",
+    "summary.json": "d9c41a8a06761446a38d66909b9379276eae306849545b98997f8b0dbadab144",
+    "route_discovery.json": "607243b7383c42c2a7a48adc58d482e6f227f2425394dfb2efa597e53849e4d4",
+    "README_KO.md": "0b80b1312ee275090a70843452bce905425fd2d26bbc04ddaccb921e8ab45209",
+    "paired_comparison.json": "c8da79df2ee7003746c9160fe950e5bdca0edeb12bae1f66cd9920bb1540bdfd",
+    "runner.cjs": "e2010b07083f4d8287a9a1290bc58796a5e04abcfca8cc8f7e7664194125e620"
+  },
+  "measurementStage": "Pre ordinary ATK adjustment: coefficient60=1.6",
+  "followup": {
+    "directory": "candidates",
+    "adoptedByRoot": 3.2,
+    "candidateConditions": 27,
+    "nativeFinalRechecks": 9,
+    "fieldRepresentativeRechecks": 3,
+    "scope": "Limited3seed improvement, not global all-map proof"
+  }
+}

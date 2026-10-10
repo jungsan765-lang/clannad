@@ -10,12 +10,14 @@ const V21_ASC=Object.fromEntries(Object.keys(LEGACY_ASC).map(element=>[element,{
 const ASC=Object.fromEntries(Object.keys(LEGACY_ASC).map(element=>[element,{5:1,10:2,15:3,20:10,25:32,30:47,35:105,40:153,45:318,50:642,55:1932,60:5400}]));
 const LEGACY_TALENT={MOND:{5:1,10:2,15:10,20:20,25:32},LIYUE:{30:6,35:8,40:10,45:12,50:24,55:36,60:64}};
 const V21_TALENT={...LEGACY_TALENT,LIYUE:{...LEGACY_TALENT.LIYUE,60:80}};
-const TALENT={...V21_TALENT,LIYUE:{30:3,35:4,40:7,45:9,50:19,55:28,60:80}};
+const V22_TALENT={...V21_TALENT,LIYUE:{30:3,35:4,40:7,45:9,50:19,55:28,60:80}};
+const TALENT={...V22_TALENT,LIYUE:{...V22_TALENT.LIYUE,60:90}};
 const BOOK_COST={MOND:[2,4,12,32,60,96,126,160,180],LIYUE:[5,10,30,80,150,240,315,400,450]};
 const PROFILE=[1,1,2,4,6,8,9,10,10];
 const OLD_ASC={5:1,10:2,15:3,20:4,25:5,30:6,35:7,40:8,45:9,50:10,55:20,60:32};
 const MATERIAL_XP={5:40,10:90,15:90,20:220,25:220,30:360,35:360,40:500,45:500,50:900,55:900,60:1600};
-const EXP_XP={5:200,10:450,15:1000,20:1100,25:1250,30:1500,35:1800,40:2100,45:4500,50:5400,55:8000,60:10000};
+const LEGACY_EXP_XP={5:200,10:450,15:1000,20:1100,25:1250,30:1500,35:1800,40:2100,45:4500,50:5400,55:8000,60:10000};
+const EXP_XP={...LEGACY_EXP_XP,60:24000};
 const TEAM=['MOND_AMBER','MOND_KAEYA','MOND_LISA'],ELEMENTS=Object.keys(ASC),STAGES=Object.keys(ASC.NEUTRAL).map(Number),DAY=G.dayOf(c.Date.now());
 const OWNERS=[['PLAYER_CUSTOM','NEUTRAL',4],['MOND_AMBER','PYRO',4],['MOND_DILUC','PYRO',5],['MOND_BARBARA','HYDRO',4],['LIYUE_YELAN','HYDRO',5],['MOND_SUCROSE','ANEMO',4],['MOND_JEAN','ANEMO',5],['MOND_LISA','ELECTRO',4],['LIYUE_KEQING','ELECTRO',5],['MOND_KAEYA','CRYO',4],['LIYUE_QIQI','CRYO',5],['MOND_NOELLE','GEO',4],['LIYUE_ZHONGLI','GEO',5],['LIYUE_YAOYAO','DENDRO',4],['LIYUE_BAIZHU','DENDRO',5]];
 let checks=0;
@@ -31,12 +33,12 @@ function once(r,a){const out=r.transact(a),saved=r.serialize();assert.deepEqual(
 function reject(r,a){const before=r.serialize();assert.throws(()=>r.transact(a));assert.equal(r.serialize(),before,'failed payment changes no wallet, item, phase, HP, talent or receipt');}
 
 check('current hard-coded element quantities and historical tables are separate snapshots',()=>{
- assert.deepEqual(copy(G.domainAscensionGems),ASC);assert.deepEqual(copy(G.domainTalentBooks),TALENT);assert.deepEqual(copy(G.talentBookMultipliers),PROFILE);assert.equal(G.ascensionRewardVersion,4);assert.equal(G.talentRewardVersion,3);assert.deepEqual(copy(G.talentBookCosts),BOOK_COST);assert.deepEqual(copy(G.legacyDomainTalentBooks[1]),LEGACY_TALENT);assert.deepEqual(copy(G.legacyDomainTalentBooks[2]),V21_TALENT);assert.deepEqual(copy(G.legacyDomainAscensionGems[3]),V21_ASC);assert.equal(G.materialRequirementVersion,3);assert.deepEqual(copy(G.legacyDomainAscensionGems[2]),LEGACY_ASC);assert.deepEqual(copy(G.legacyDomainAscensionGems[1]),OLD_ASC);
+ assert.deepEqual(copy(G.domainAscensionGems),ASC);assert.deepEqual(copy(G.domainTalentBooks),TALENT);assert.deepEqual(copy(G.previousDomainTalentBooks),V22_TALENT);assert.deepEqual(copy(G.talentBookMultipliers),PROFILE);assert.equal(G.ascensionRewardVersion,4);assert.equal(G.talentRewardVersion,4);assert.deepEqual(copy(G.talentBookCosts),BOOK_COST);assert.deepEqual(copy(G.legacyDomainTalentBooks[1]),LEGACY_TALENT);assert.deepEqual(copy(G.legacyDomainTalentBooks[2]),V21_TALENT);assert.deepEqual(copy(G.legacyDomainTalentBooks[3]),V22_TALENT);assert.deepEqual(copy(G.legacyDomainAscensionGems[3]),V21_ASC);assert.equal(G.materialRequirementVersion,3);assert.deepEqual(copy(G.legacyDomainAscensionGems[2]),LEGACY_ASC);assert.deepEqual(copy(G.legacyDomainAscensionGems[1]),OLD_ASC);
  for(const level of STAGES){assert.equal(G.legacyDomainAscensionGems[0][level],level/5);assert.equal(G.legacyDomainTalentBooks[0][level],level/5);}
 });
 
 check('all new entrance previews carry the same marker and quantity as their saved battle',()=>{
- const r=fixture();for(const kind of ['ASCENSION','TALENT'])for(const level of STAGES){const d=entry(r,kind,level),elements=kind==='ASCENSION'?ELEMENTS:['NEUTRAL'];assert.equal(d.reason,'');assert.equal(d[kind==='ASCENSION'?'ascensionRewardVersion':'talentRewardVersion'],kind==='ASCENSION'?4:3);
+ const r=fixture();for(const kind of ['ASCENSION','TALENT'])for(const level of STAGES){const d=entry(r,kind,level),elements=kind==='ASCENSION'?ELEMENTS:['NEUTRAL'];assert.equal(d.reason,'');assert.equal(d[kind==='ASCENSION'?'ascensionRewardVersion':'talentRewardVersion'],4);
   for(const element of elements){const item=kind==='ASCENSION'?'GROWTH_GEM_'+element:'GROWTH_TALENT_'+(d.region==='몬드'?'MOND':'LIYUE'),amount=kind==='ASCENSION'?ASC[element][level]:TALENT[d.region==='몬드'?'MOND':'LIYUE'][level];
    for(const wins of [0,1,2,3]){r.s.domainDaily={day:DAY,wins};const rw=r.growthDomainRewards(d,element,DAY);assert.equal(rw.items[item],amount*(wins<3?2:1));assert.equal(rw.remaining,Math.max(0,3-wins));assert.equal(rw.bonus,wins<3);assert.equal(rw.mora,0);assert.equal(rw.xp,MATERIAL_XP[level]);assert.equal(Object.keys(rw.items).length,1);}
    r.s.domainDaily.wins=3;r.action('DOMAIN_START',{domain:d.id,element});const saved=copy(r.s),b=copy(saved.runtime);assert.equal(b.materialBudget,undefined);assert.equal(b.growthDomain.materialBudgetVersion,undefined);assert.deepEqual(copy(new R(db,saved).s.runtime),b);assert.deepEqual(copy(r.growthDomainRewards(b.growthDomain,element).items),{[item]:amount});settle(r);
@@ -53,7 +55,7 @@ check('old marked and unmarked version-four ascension promises settle with their
 });
 
 check('old version-four talent fights retain old books and never receive new book rewards on reload',()=>{
- for(const level of [20,25,30,40,55,60])for(const marker of [undefined,0,1,2]){const r=start('TALENT',level);if(marker===undefined)delete r.s.runtime.growthDomain.talentRewardVersion;else r.s.runtime.growthDomain.talentRewardVersion=marker;const before=copy(r.s.runtime),loaded=new R(db,copy(r.s));assert.equal(loaded.s.runtime.growthDomain.talentRewardVersion,marker??0);assert.deepEqual(copy(loaded.s.runtime.actors),before.actors);const item='GROWTH_TALENT_'+(level<=25?'MOND':'LIYUE');const quantity=marker===2?V21_TALENT[level<=25?'MOND':'LIYUE'][level]:marker===1?LEGACY_TALENT[level<=25?'MOND':'LIYUE'][level]:level/5;assert.equal(loaded.growthDomainRewards(loaded.s.runtime.growthDomain).items[item],quantity);assert.equal(settle(loaded).domain.items[item],quantity);}
+ for(const level of [20,25,30,40,55,60])for(const marker of [undefined,0,1,2,3]){const r=start('TALENT',level);if(marker===undefined)delete r.s.runtime.growthDomain.talentRewardVersion;else r.s.runtime.growthDomain.talentRewardVersion=marker;const before=copy(r.s.runtime),loaded=new R(db,copy(r.s));assert.equal(loaded.s.runtime.growthDomain.talentRewardVersion,marker??0);assert.deepEqual(copy(loaded.s.runtime.actors),before.actors);const item='GROWTH_TALENT_'+(level<=25?'MOND':'LIYUE');const quantity=marker===3?V22_TALENT[level<=25?'MOND':'LIYUE'][level]:marker===2?V21_TALENT[level<=25?'MOND':'LIYUE'][level]:marker===1?LEGACY_TALENT[level<=25?'MOND':'LIYUE'][level]:level/5;assert.equal(loaded.growthDomainRewards(loaded.s.runtime.growthDomain).items[item],quantity);assert.equal(settle(loaded).domain.items[item],quantity);}
 });
 
 check('legacy versions one, two and three keep their original unmarked material payout',()=>{
@@ -64,7 +66,8 @@ check('legacy versions one, two and three keep their original unmarked material 
 check('unsupported, misplaced and impossible old-budget/new-reward marker combinations reject',()=>{
  const asc=start(),talent=start('TALENT'),exp=start('EXP'),invalid=(r,mutate)=>{const saved=copy(r.s);mutate(saved.runtime.growthDomain,saved.runtime);assert.throws(()=>new R(db,saved),/보상|버전/);};
  for(const marker of [-1,5,'4',null])invalid(asc,d=>d.ascensionRewardVersion=marker);
- for(const marker of [-1,4,'3',null])invalid(talent,d=>d.talentRewardVersion=marker);
+ for(const marker of [-1,5,'4',null])invalid(talent,d=>d.talentRewardVersion=marker);
+ invalid(talent,(d,b)=>{delete b.enemyBalanceRevision;});
  invalid(asc,d=>d.talentRewardVersion=1);invalid(talent,d=>d.ascensionRewardVersion=2);invalid(exp,d=>d.ascensionRewardVersion=2);invalid(exp,d=>d.talentRewardVersion=1);
  for(const r of [asc,talent])invalid(r,(d,b)=>{d.materialBudgetVersion=1;b.materialBudget={version:1,durability:G.legacyMaterialBudgets[1].durability[d.level],pressure:G.legacyMaterialBudgets[1].pressure[d.level]};});
  for(const [r,marker]of [[asc,1],[talent,0]]){const s=copy(r.s),d=s.runtime.growthDomain;d[d.kind==='ASCENSION'?'ascensionRewardVersion':'talentRewardVersion']=marker;d.materialBudgetVersion=1;s.runtime.materialBudget={version:1,durability:G.legacyMaterialBudgets[1].durability[d.level],pressure:G.legacyMaterialBudgets[1].pressure[d.level]};assert.deepEqual(copy(new R(db,s).s.runtime),s.runtime);}
@@ -90,9 +93,9 @@ check('unpaid talent changes use the current book cost and trained levels stay u
 });
 
 check('the shared three-win daily bonus still counts material wins once and excludes EXP',()=>{
- const r=fixture();r.s.domainDaily={day:DAY,wins:0};const cases=[['TALENT',25,'NEUTRAL','GROWTH_TALENT_MOND',64,1],['EXP',25,'NEUTRAL',null,0,1],['ASCENSION',60,'PYRO','GROWTH_GEM_PYRO',10800,2],['TALENT',60,'NEUTRAL','GROWTH_TALENT_LIYUE',160,3],['ASCENSION',60,'PYRO','GROWTH_GEM_PYRO',5400,4]];
+ const r=fixture();r.s.domainDaily={day:DAY,wins:0};const cases=[['TALENT',25,'NEUTRAL','GROWTH_TALENT_MOND',64,1],['EXP',25,'NEUTRAL',null,0,1],['ASCENSION',60,'PYRO','GROWTH_GEM_PYRO',10800,2],['TALENT',60,'NEUTRAL','GROWTH_TALENT_LIYUE',180,3],['ASCENSION',60,'PYRO','GROWTH_GEM_PYRO',5400,4]];
  for(const [kind,level,element,item,amount,wins]of cases){const d=entry(r,kind,level);r.action('DOMAIN_START',{domain:d.id,element});const out=settle(r);assert.equal(r.s.domainDaily.wins,wins);assert.equal(out.xp,(kind==='EXP'?EXP_XP:MATERIAL_XP)[level]);assert.equal(out.mora,0);if(item)assert.equal(out.domain.items[item],amount);else assert.deepEqual(copy(out.domain.items),{});}
- assert.deepEqual(copy(G.domainXp),EXP_XP);assert.deepEqual(copy(G.domainMaterialXp),MATERIAL_XP);assert.equal(G.pacingVersion,3);
+ assert.deepEqual(copy(G.domainXp),EXP_XP);assert.deepEqual(copy(G.previousDomainXp),LEGACY_EXP_XP);assert.equal(G.expRewardVersion,1);assert.deepEqual(copy(G.domainMaterialXp),MATERIAL_XP);assert.equal(G.pacingVersion,3);
  const tomorrow=entry(r,'ASCENSION',60);assert.equal(r.growthDomainRewards(tomorrow,'PYRO',DAY+1).items.GROWTH_GEM_PYRO,10800);
 });
 
