@@ -1,0 +1,1983 @@
+{
+  "version": "0.16.24",
+  "scope": "New public revision5 saves/replay, four-END Electro/Geo revival and scoped pillar specification; revision4 recurring Primo/Serpent and older behavior probes remain. Actual 0.16.23 numeric/save preservation is separately tested by test_boss_difficulty_scope_v01624.cjs. Boundary probes are not full-fight manual difficulty proof.",
+  "fixturePolicy": "Declared ownedLv60/phase6 four-person party, +6 ordinary crafted gear, talent8, initial funding/fullHP. Fresh native field admission creates revision5; explicit old markers isolate old mechanics on declared current numeric fixtures. Oversized body/core damage and deterministic dice are boundary probes, not native balance outcomes. No forced finishBattle victories.",
+  "fingerprint": "840ef8955b08346d086de5b39ab87d918123ab4ce2dc0c292f080827fc4bafdc",
+  "sourceSHA256": "7812eeee9b88252acb78a42d4c6d5b4636a71b8a59132afbb87600338d44b97e",
+  "checks": [
+    {
+      "id": "new4_two_timeouts_then_real_counter:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "ends": [
+          [
+            {
+              "round": 2,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "core": 3240
+              }
+            },
+            {
+              "round": 3,
+              "hp": 7200,
+              "revival": null
+            }
+          ],
+          [
+            {
+              "round": 4,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "core": 3240
+              }
+            },
+            {
+              "round": 5,
+              "hp": 7200,
+              "revival": null
+            }
+          ]
+        ],
+        "revived": 2,
+        "successAfterThirdCore": true,
+        "aliveSummonsAfter": 0,
+        "actorCount": 5,
+        "receipt": {
+          "mora": 111,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_ANEMO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 1064,
+          "loot": {
+            "MAT_FB_HURRICANE_SEED": 4
+          },
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_ANEMO_HYPOSTASIS",
+            "name": "무상의 바람",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "new4_two_timeouts_then_real_counter:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "ends": [
+          [
+            {
+              "round": 2,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "guarded": true
+              }
+            },
+            {
+              "round": 3,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "guarded": true
+              }
+            },
+            {
+              "round": 4,
+              "hp": 6400,
+              "revival": null
+            }
+          ],
+          [
+            {
+              "round": 5,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "guarded": true
+              }
+            },
+            {
+              "round": 6,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "guarded": true
+              }
+            },
+            {
+              "round": 7,
+              "hp": 6400,
+              "revival": null
+            }
+          ]
+        ],
+        "revived": 2,
+        "successAfterThirdCore": true,
+        "aliveSummonsAfter": 0,
+        "actorCount": 14,
+        "receipt": {
+          "mora": 122,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_ELECTRO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 1200,
+          "loot": {
+            "MAT_FB_LIGHTNING_PRISM": 4
+          },
+          "rounds": 7,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_ELECTRO_HYPOSTASIS",
+            "name": "무상의 뇌전",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "new4_two_timeouts_then_real_counter:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "ends": [
+          [
+            {
+              "round": 2,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "guarded": true
+              }
+            },
+            {
+              "round": 3,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "guarded": true
+              }
+            },
+            {
+              "round": 4,
+              "hp": 20845,
+              "revival": null
+            }
+          ],
+          [
+            {
+              "round": 5,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "guarded": true
+              }
+            },
+            {
+              "round": 6,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "guarded": true
+              }
+            },
+            {
+              "round": 7,
+              "hp": 20845,
+              "revival": null
+            }
+          ]
+        ],
+        "revived": 2,
+        "successAfterThirdCore": true,
+        "aliveSummonsAfter": 0,
+        "actorCount": 14,
+        "receipt": {
+          "mora": 283,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_GEO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 3575,
+          "loot": {
+            "MAT_FB_BASALT_PILLAR": 4
+          },
+          "rounds": 7,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_GEO_HYPOSTASIS",
+            "name": "무상의 바위",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "new4_two_timeouts_then_real_counter:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "ends": [
+          [
+            {
+              "round": 2,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "need": 4,
+                "hits": 0,
+                "startedRound": 1
+              }
+            },
+            {
+              "round": 3,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "need": 4,
+                "hits": 0,
+                "startedRound": 1,
+                "lastCountdownRound": 2
+              }
+            },
+            {
+              "round": 4,
+              "hp": 15000,
+              "revival": null
+            }
+          ],
+          [
+            {
+              "round": 5,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "need": 4,
+                "hits": 0,
+                "startedRound": 4
+              }
+            },
+            {
+              "round": 6,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "need": 4,
+                "hits": 0,
+                "startedRound": 4,
+                "lastCountdownRound": 5
+              }
+            },
+            {
+              "round": 7,
+              "hp": 15000,
+              "revival": null
+            }
+          ]
+        ],
+        "revived": 2,
+        "successAfterThirdCore": true,
+        "aliveSummonsAfter": 0,
+        "actorCount": 5,
+        "receipt": {
+          "mora": 182,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_CRYO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 2000,
+          "loot": {
+            "MAT_FB_CRYSTALLINE_BLOOM": 4
+          },
+          "rounds": 7,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_CRYO_HYPOSTASIS",
+            "name": "무상의 얼음",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "legacy_one_timeout_then_body_kill:2:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": 2,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "core": 3240
+            }
+          },
+          {
+            "round": 3,
+            "hp": 7200,
+            "revival": null
+          }
+        ],
+        "oldOneRevivalPreserved": true,
+        "receipt": {
+          "mora": 111,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_ANEMO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 1064,
+          "loot": {
+            "MAT_FB_HURRICANE_SEED": 4
+          },
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_ANEMO_HYPOSTASIS",
+            "name": "무상의 바람",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "legacy_one_timeout_then_body_kill:2:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": 2,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 2,
+              "guarded": true
+            }
+          },
+          {
+            "round": 3,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "guarded": true
+            }
+          },
+          {
+            "round": 4,
+            "hp": 6400,
+            "revival": null
+          }
+        ],
+        "oldOneRevivalPreserved": true,
+        "receipt": {
+          "mora": 122,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_ELECTRO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 1200,
+          "loot": {
+            "MAT_FB_LIGHTNING_PRISM": 4
+          },
+          "rounds": 4,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_ELECTRO_HYPOSTASIS",
+            "name": "무상의 뇌전",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "legacy_one_timeout_then_body_kill:2:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": 2,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 2,
+              "guarded": true
+            }
+          },
+          {
+            "round": 3,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "guarded": true
+            }
+          },
+          {
+            "round": 4,
+            "hp": 20845,
+            "revival": null
+          }
+        ],
+        "oldOneRevivalPreserved": true,
+        "receipt": {
+          "mora": 283,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_GEO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 3575,
+          "loot": {
+            "MAT_FB_BASALT_PILLAR": 4
+          },
+          "rounds": 4,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_GEO_HYPOSTASIS",
+            "name": "무상의 바위",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "legacy_one_timeout_then_body_kill:2:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": 2,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 2,
+              "need": 4,
+              "hits": 0,
+              "startedRound": 1
+            }
+          },
+          {
+            "round": 3,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "need": 4,
+              "hits": 0,
+              "startedRound": 1,
+              "lastCountdownRound": 2
+            }
+          },
+          {
+            "round": 4,
+            "hp": 15000,
+            "revival": null
+          }
+        ],
+        "oldOneRevivalPreserved": true,
+        "receipt": {
+          "mora": 182,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_CRYO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 2000,
+          "loot": {
+            "MAT_FB_CRYSTALLINE_BLOOM": 4
+          },
+          "rounds": 4,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_CRYO_HYPOSTASIS",
+            "name": "무상의 얼음",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "legacy_one_timeout_then_body_kill:unmarked:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": null,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "core": 3240
+            }
+          },
+          {
+            "round": 3,
+            "hp": 7200,
+            "revival": null
+          }
+        ],
+        "oldOneRevivalPreserved": true,
+        "receipt": {
+          "mora": 111,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_ANEMO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 1064,
+          "loot": {
+            "MAT_FB_HURRICANE_SEED": 4
+          },
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_ANEMO_HYPOSTASIS",
+            "name": "무상의 바람",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "legacy_one_timeout_then_body_kill:unmarked:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": null,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 2,
+              "guarded": true
+            }
+          },
+          {
+            "round": 3,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "guarded": true
+            }
+          },
+          {
+            "round": 4,
+            "hp": 6400,
+            "revival": null
+          }
+        ],
+        "oldOneRevivalPreserved": true,
+        "receipt": {
+          "mora": 122,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_ELECTRO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 1200,
+          "loot": {
+            "MAT_FB_LIGHTNING_PRISM": 4
+          },
+          "rounds": 4,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_ELECTRO_HYPOSTASIS",
+            "name": "무상의 뇌전",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "legacy_one_timeout_then_body_kill:unmarked:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": null,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 2,
+              "guarded": true
+            }
+          },
+          {
+            "round": 3,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "guarded": true
+            }
+          },
+          {
+            "round": 4,
+            "hp": 20845,
+            "revival": null
+          }
+        ],
+        "oldOneRevivalPreserved": true,
+        "receipt": {
+          "mora": 283,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_GEO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 3575,
+          "loot": {
+            "MAT_FB_BASALT_PILLAR": 4
+          },
+          "rounds": 4,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_GEO_HYPOSTASIS",
+            "name": "무상의 바위",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "legacy_one_timeout_then_body_kill:unmarked:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": null,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "need": 4,
+              "hits": 0
+            }
+          },
+          {
+            "round": 3,
+            "hp": 15000,
+            "revival": null
+          }
+        ],
+        "oldOneRevivalPreserved": true,
+        "receipt": {
+          "mora": 182,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_CRYO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 2000,
+          "loot": {
+            "MAT_FB_CRYSTALLINE_BLOOM": 4
+          },
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_CRYO_HYPOSTASIS",
+            "name": "무상의 얼음",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "new4_native_air_access_and_typed_delayed_packets",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          {
+            "range": "원거리",
+            "before": 3240,
+            "after": 3186
+          },
+          {
+            "range": "전장",
+            "before": 3186,
+            "after": 3132
+          },
+          {
+            "range": "대공",
+            "before": 3132,
+            "after": 3078
+          }
+        ],
+        "nativeRangedFieldsAndObjects": true,
+        "positiveRawDelayedBlockedWithoutAccess": true,
+        "statusesAndExistingAntiAirPreserved": true
+      }
+    },
+    {
+      "id": "new4_range_scope_does_not_leak_into_nested_reaction_or_throw",
+      "passed": true,
+      "evidence": {
+        "samePairNestedReactionBlocked": true,
+        "priorScopeRestoredOnThrow": true,
+        "rejectedNextMeleeBlocked": true
+      }
+    },
+    {
+      "id": "new4_native_guoba_ranged_field_reaches_anemo_core",
+      "passed": true,
+      "evidence": {
+        "nativeCard": "LIYUE_XIANGLING_E",
+        "actorRange": "근접",
+        "field": "GOU_BA",
+        "before": 3240,
+        "after": 478,
+        "normalCounterSuccess": false,
+        "delayedRange": "원거리",
+        "sourceKind": "FIELD"
+      }
+    },
+    {
+      "id": "legacy2_air_core_gate_stays_unchanged",
+      "passed": true,
+      "evidence": {
+        "legacyNarrowGatePreserved": true
+      }
+    },
+    {
+      "id": "repeated_revival_does_not_multiply_final_rewards_or_wins",
+      "passed": true,
+      "evidence": {
+        "zero": {
+          "reward": {
+            "xp": 1200,
+            "mora": 122,
+            "loot": {
+              "MAT_FB_LIGHTNING_PRISM": 4
+            },
+            "firstClear": true
+          },
+          "notes": {
+            "seen": [
+              "REVIVE"
+            ],
+            "attempts": 1,
+            "wins": 1,
+            "best": 1
+          },
+          "quota": {
+            "FB_ELECTRO_HYPOSTASIS": 2160
+          },
+          "fieldBossWindow": {
+            "window": 41473,
+            "wins": 1
+          },
+          "taskCalls": [
+            {
+              "kind": "win",
+              "n": 1
+            },
+            {
+              "kind": "boss",
+              "n": 1
+            }
+          ],
+          "receiptCount": 1,
+          "receipt": {
+            "mora": 122,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+            "group": "EG_FB_ELECTRO_HYPOSTASIS",
+            "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "branch": null,
+            "victory": true,
+            "xp": 1200,
+            "loot": {
+              "MAT_FB_LIGHTNING_PRISM": 4
+            },
+            "rounds": 1,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "firstClear": true,
+            "fieldBoss": {
+              "boss": "FB_ELECTRO_HYPOSTASIS",
+              "name": "무상의 뇌전",
+              "seen": [
+                "REVIVE"
+              ],
+              "victory": true
+            }
+          },
+          "deadSummons": 3
+        },
+        "two": {
+          "reward": {
+            "xp": 1200,
+            "mora": 122,
+            "loot": {
+              "MAT_FB_LIGHTNING_PRISM": 4
+            },
+            "firstClear": true
+          },
+          "notes": {
+            "seen": [
+              "REVIVE"
+            ],
+            "attempts": 1,
+            "wins": 1,
+            "best": 7
+          },
+          "quota": {
+            "FB_ELECTRO_HYPOSTASIS": 2160
+          },
+          "fieldBossWindow": {
+            "window": 41473,
+            "wins": 1
+          },
+          "taskCalls": [
+            {
+              "kind": "win",
+              "n": 1
+            },
+            {
+              "kind": "boss",
+              "n": 1
+            }
+          ],
+          "receiptCount": 1,
+          "receipt": {
+            "mora": 122,
+            "rewardPolicy": "MOND_BALANCE_V1",
+            "bond": null,
+            "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+            "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+            "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+            "group": "EG_FB_ELECTRO_HYPOSTASIS",
+            "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+            "branch": null,
+            "victory": true,
+            "xp": 1200,
+            "loot": {
+              "MAT_FB_LIGHTNING_PRISM": 4
+            },
+            "rounds": 7,
+            "result": "VICTORY",
+            "unsupportedEffects": [],
+            "firstClear": true,
+            "fieldBoss": {
+              "boss": "FB_ELECTRO_HYPOSTASIS",
+              "name": "무상의 뇌전",
+              "seen": [
+                "REVIVE"
+              ],
+              "victory": true
+            }
+          },
+          "deadSummons": 9
+        },
+        "extraXpMoraLootWinsAndQuota": 0
+      }
+    },
+    {
+      "id": "new_and_saved_behavior_versions_and_cryo_countdown_validation",
+      "passed": true,
+      "evidence": {
+        "accepted": [
+          "unmarked",
+          2,
+          3,
+          4,
+          5
+        ],
+        "rejected": [
+          0,
+          1,
+          6,
+          "3",
+          null
+        ],
+        "allModernCountdownVersionsValidated": true
+      }
+    },
+    {
+      "id": "saved3_repeated_revival_preserved:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": 3,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "core": 3240
+            }
+          },
+          {
+            "round": 3,
+            "hp": 7200,
+            "revival": null
+          }
+        ],
+        "repeatedCounterRetained": true,
+        "receipt": {
+          "mora": 111,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_ANEMO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 1064,
+          "loot": {
+            "MAT_FB_HURRICANE_SEED": 4
+          },
+          "rounds": 3,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_ANEMO_HYPOSTASIS",
+            "name": "무상의 바람",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "saved3_repeated_revival_preserved:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": 3,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 2,
+              "guarded": true
+            }
+          },
+          {
+            "round": 3,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "guarded": true
+            }
+          },
+          {
+            "round": 4,
+            "hp": 6400,
+            "revival": null
+          }
+        ],
+        "repeatedCounterRetained": true,
+        "receipt": {
+          "mora": 122,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_ELECTRO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 1200,
+          "loot": {
+            "MAT_FB_LIGHTNING_PRISM": 4
+          },
+          "rounds": 4,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_ELECTRO_HYPOSTASIS",
+            "name": "무상의 뇌전",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "saved3_repeated_revival_preserved:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": 3,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 2,
+              "guarded": true
+            }
+          },
+          {
+            "round": 3,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "guarded": true
+            }
+          },
+          {
+            "round": 4,
+            "hp": 20845,
+            "revival": null
+          }
+        ],
+        "repeatedCounterRetained": true,
+        "receipt": {
+          "mora": 283,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_GEO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 3575,
+          "loot": {
+            "MAT_FB_BASALT_PILLAR": 4
+          },
+          "rounds": 4,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_GEO_HYPOSTASIS",
+            "name": "무상의 바위",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "saved3_repeated_revival_preserved:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "revision": 3,
+        "ends": [
+          {
+            "round": 2,
+            "hp": 1,
+            "revival": {
+              "rounds": 2,
+              "need": 4,
+              "hits": 0,
+              "startedRound": 1
+            }
+          },
+          {
+            "round": 3,
+            "hp": 1,
+            "revival": {
+              "rounds": 1,
+              "need": 4,
+              "hits": 0,
+              "startedRound": 1,
+              "lastCountdownRound": 2
+            }
+          },
+          {
+            "round": 4,
+            "hp": 15000,
+            "revival": null
+          }
+        ],
+        "repeatedCounterRetained": true,
+        "receipt": {
+          "mora": 182,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_CRYO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 2000,
+          "loot": {
+            "MAT_FB_CRYSTALLINE_BLOOM": 4
+          },
+          "rounds": 4,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_CRYO_HYPOSTASIS",
+            "name": "무상의 얼음",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        }
+      }
+    },
+    {
+      "id": "primo_counter_window:5",
+      "passed": true,
+      "evidence": {
+        "revision": 5,
+        "lastOpenRoundInclusive": true,
+        "expiredWindowClosed": true,
+        "savedBehaviorPreserved": true,
+        "secondNativeBeamReflectionReopens": true,
+        "shieldFixtureOnly": true
+      }
+    },
+    {
+      "id": "primo_counter_window:4",
+      "passed": true,
+      "evidence": {
+        "revision": 4,
+        "lastOpenRoundInclusive": true,
+        "expiredWindowClosed": true,
+        "savedBehaviorPreserved": true,
+        "secondNativeBeamReflectionReopens": true,
+        "shieldFixtureOnly": true
+      }
+    },
+    {
+      "id": "primo_counter_window:3",
+      "passed": true,
+      "evidence": {
+        "revision": 3,
+        "lastOpenRoundInclusive": true,
+        "expiredWindowClosed": false,
+        "savedBehaviorPreserved": true,
+        "secondNativeBeamReflectionReopens": true,
+        "shieldFixtureOnly": true
+      }
+    },
+    {
+      "id": "primo_counter_window:2",
+      "passed": true,
+      "evidence": {
+        "revision": 2,
+        "lastOpenRoundInclusive": true,
+        "expiredWindowClosed": false,
+        "savedBehaviorPreserved": true,
+        "secondNativeBeamReflectionReopens": true,
+        "shieldFixtureOnly": true
+      }
+    },
+    {
+      "id": "primo_counter_window:unmarked",
+      "passed": true,
+      "evidence": {
+        "revision": null,
+        "lastOpenRoundInclusive": true,
+        "expiredWindowClosed": false,
+        "savedBehaviorPreserved": true,
+        "secondNativeBeamReflectionReopens": true,
+        "shieldFixtureOnly": true
+      }
+    },
+    {
+      "id": "serpent_next_burrow_closes_armor:5",
+      "passed": true,
+      "evidence": {
+        "revision": 5,
+        "closedAtNextBurrow": true,
+        "oldPermanentOpeningPreserved": false,
+        "savedBurrowPreserved": true,
+        "nextNativeChargeReopens": true,
+        "heavyTraitBoundaryFixture": true
+      }
+    },
+    {
+      "id": "serpent_next_burrow_closes_armor:4",
+      "passed": true,
+      "evidence": {
+        "revision": 4,
+        "closedAtNextBurrow": true,
+        "oldPermanentOpeningPreserved": false,
+        "savedBurrowPreserved": true,
+        "nextNativeChargeReopens": true,
+        "heavyTraitBoundaryFixture": true
+      }
+    },
+    {
+      "id": "serpent_next_burrow_closes_armor:3",
+      "passed": true,
+      "evidence": {
+        "revision": 3,
+        "closedAtNextBurrow": false,
+        "oldPermanentOpeningPreserved": true,
+        "savedBurrowPreserved": true,
+        "nextNativeChargeReopens": true,
+        "heavyTraitBoundaryFixture": true
+      }
+    },
+    {
+      "id": "serpent_next_burrow_closes_armor:2",
+      "passed": true,
+      "evidence": {
+        "revision": 2,
+        "closedAtNextBurrow": false,
+        "oldPermanentOpeningPreserved": true,
+        "savedBurrowPreserved": true,
+        "nextNativeChargeReopens": true,
+        "heavyTraitBoundaryFixture": true
+      }
+    },
+    {
+      "id": "serpent_next_burrow_closes_armor:unmarked",
+      "passed": true,
+      "evidence": {
+        "revision": null,
+        "closedAtNextBurrow": false,
+        "oldPermanentOpeningPreserved": true,
+        "savedBurrowPreserved": true,
+        "nextNativeChargeReopens": true,
+        "heavyTraitBoundaryFixture": true
+      }
+    },
+    {
+      "id": "saved3_air_range_scope_preserved",
+      "passed": true,
+      "evidence": {
+        "revision": 3,
+        "typedDelayedAirAccessRetained": true
+      }
+    },
+    {
+      "id": "new4_cryo_hit_count_and_deadline_not_tightened",
+      "passed": true,
+      "evidence": {
+        "need": 4,
+        "rounds": 2,
+        "startedRound": 1,
+        "sameActionDelayedPacketsRetained": true,
+        "noNewDistinctAttackRequirement": true
+      }
+    },
+    {
+      "id": "new5_pending_started_and_native_guard_replay:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplay": true,
+        "prng": 3923208125
+      }
+    },
+    {
+      "id": "new5_pending_started_and_native_guard_replay:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplay": true,
+        "prng": 231364621
+      }
+    },
+    {
+      "id": "new5_pending_started_and_native_guard_replay:FB_CRYO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplay": true,
+        "prng": 4205150359
+      }
+    },
+    {
+      "id": "new5_pending_started_and_native_guard_replay:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplay": true,
+        "prng": 3610892123
+      }
+    },
+    {
+      "id": "new5_pending_started_and_native_guard_replay:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplay": true,
+        "prng": 1664137635
+      }
+    },
+    {
+      "id": "new5_pending_started_and_native_guard_replay:FB_PYRO_REGISVINE",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplay": true,
+        "prng": 4018108487
+      }
+    },
+    {
+      "id": "new5_pending_started_and_native_guard_replay:FB_OCEANID",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplay": true,
+        "prng": 2784861905
+      }
+    },
+    {
+      "id": "new5_pending_started_and_native_guard_replay:FB_PRIMO_GEOVISHAP",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplay": true,
+        "prng": 4205150359
+      }
+    },
+    {
+      "id": "new5_pending_started_and_native_guard_replay:FB_RUIN_SERPENT",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "pendingAndStartedRoundTrip": true,
+        "nativeGuardReplay": true,
+        "prng": 3816205431
+      }
+    },
+    {
+      "id": "new5_timeout_window_save_and_repeat_counter:FB_ANEMO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "ends": [
+          [
+            {
+              "round": 2,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "core": 3240
+              }
+            },
+            {
+              "round": 3,
+              "hp": 7200,
+              "revival": null
+            }
+          ],
+          [
+            {
+              "round": 4,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "core": 3240
+              }
+            },
+            {
+              "round": 5,
+              "hp": 7200,
+              "revival": null
+            }
+          ]
+        ],
+        "receipt": {
+          "mora": 111,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_ANEMO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_ANEMO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 1064,
+          "loot": {
+            "MAT_FB_HURRICANE_SEED": 4
+          },
+          "rounds": 5,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_ANEMO_HYPOSTASIS",
+            "name": "무상의 바람",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        },
+        "actualVictorySettlementAfterBoundaryCounter": true
+      }
+    },
+    {
+      "id": "new5_timeout_window_save_and_repeat_counter:FB_ELECTRO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "ends": [
+          [
+            {
+              "round": 2,
+              "hp": 1,
+              "revival": {
+                "rounds": 3,
+                "guarded": true
+              }
+            },
+            {
+              "round": 3,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "guarded": true
+              }
+            },
+            {
+              "round": 4,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "guarded": true
+              }
+            },
+            {
+              "round": 5,
+              "hp": 6400,
+              "revival": null
+            }
+          ],
+          [
+            {
+              "round": 6,
+              "hp": 1,
+              "revival": {
+                "rounds": 3,
+                "guarded": true
+              }
+            },
+            {
+              "round": 7,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "guarded": true
+              }
+            },
+            {
+              "round": 8,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "guarded": true
+              }
+            },
+            {
+              "round": 9,
+              "hp": 6400,
+              "revival": null
+            }
+          ]
+        ],
+        "receipt": {
+          "mora": 122,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_ELECTRO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_ELECTRO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 1200,
+          "loot": {
+            "MAT_FB_LIGHTNING_PRISM": 4
+          },
+          "rounds": 9,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_ELECTRO_HYPOSTASIS",
+            "name": "무상의 뇌전",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        },
+        "actualVictorySettlementAfterBoundaryCounter": true
+      }
+    },
+    {
+      "id": "new5_timeout_window_save_and_repeat_counter:FB_GEO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "ends": [
+          [
+            {
+              "round": 2,
+              "hp": 1,
+              "revival": {
+                "rounds": 3,
+                "guarded": true
+              }
+            },
+            {
+              "round": 3,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "guarded": true
+              }
+            },
+            {
+              "round": 4,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "guarded": true
+              }
+            },
+            {
+              "round": 5,
+              "hp": 20845,
+              "revival": null
+            }
+          ],
+          [
+            {
+              "round": 6,
+              "hp": 1,
+              "revival": {
+                "rounds": 3,
+                "guarded": true
+              }
+            },
+            {
+              "round": 7,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "guarded": true
+              }
+            },
+            {
+              "round": 8,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "guarded": true
+              }
+            },
+            {
+              "round": 9,
+              "hp": 20845,
+              "revival": null
+            }
+          ]
+        ],
+        "receipt": {
+          "mora": 283,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_GEO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_GEO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 3575,
+          "loot": {
+            "MAT_FB_BASALT_PILLAR": 4
+          },
+          "rounds": 9,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_GEO_HYPOSTASIS",
+            "name": "무상의 바위",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        },
+        "actualVictorySettlementAfterBoundaryCounter": true
+      }
+    },
+    {
+      "id": "new5_timeout_window_save_and_repeat_counter:FB_CRYO_HYPOSTASIS",
+      "passed": true,
+      "evidence": {
+        "behavior": 5,
+        "ends": [
+          [
+            {
+              "round": 2,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "need": 4,
+                "hits": 0,
+                "startedRound": 1
+              }
+            },
+            {
+              "round": 3,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "need": 4,
+                "hits": 0,
+                "startedRound": 1,
+                "lastCountdownRound": 2
+              }
+            },
+            {
+              "round": 4,
+              "hp": 15000,
+              "revival": null
+            }
+          ],
+          [
+            {
+              "round": 5,
+              "hp": 1,
+              "revival": {
+                "rounds": 2,
+                "need": 4,
+                "hits": 0,
+                "startedRound": 4
+              }
+            },
+            {
+              "round": 6,
+              "hp": 1,
+              "revival": {
+                "rounds": 1,
+                "need": 4,
+                "hits": 0,
+                "startedRound": 4,
+                "lastCountdownRound": 5
+              }
+            },
+            {
+              "round": 7,
+              "hp": 15000,
+              "revival": null
+            }
+          ]
+        ],
+        "receipt": {
+          "mora": 182,
+          "rewardPolicy": "MOND_BALANCE_V1",
+          "bond": null,
+          "id": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "battleId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717:B14",
+          "saveId": "PROTAGONIST-V01618-ROUTE_TRAVELER-60-717",
+          "group": "EG_FB_CRYO_HYPOSTASIS",
+          "origin": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+          "gate": "BOSS:BRT_FB_CRYO_HYPOSTASIS",
+          "branch": null,
+          "victory": true,
+          "xp": 2000,
+          "loot": {
+            "MAT_FB_CRYSTALLINE_BLOOM": 4
+          },
+          "rounds": 7,
+          "result": "VICTORY",
+          "unsupportedEffects": [],
+          "firstClear": true,
+          "fieldBoss": {
+            "boss": "FB_CRYO_HYPOSTASIS",
+            "name": "무상의 얼음",
+            "seen": [
+              "REVIVE"
+            ],
+            "victory": true
+          }
+        },
+        "actualVictorySettlementAfterBoundaryCounter": true
+      }
+    },
+    {
+      "id": "geo_pillar_spec_initial_growth_and_saved:4",
+      "passed": true,
+      "evidence": {
+        "revision": 4,
+        "ownerHp": 52113,
+        "spec": {
+          "name": "현암 기둥",
+          "element": "바위",
+          "range": "근접",
+          "hp": 0.1,
+          "atk": 0,
+          "def": 150,
+          "spd": 1,
+          "structure": true
+        },
+        "pillars": [
+          {
+            "hp": 5211,
+            "def": 1813
+          },
+          {
+            "hp": 5211,
+            "def": 1813
+          },
+          {
+            "hp": 5211,
+            "def": 1813
+          }
+        ],
+        "saveUnchanged": true
+      }
+    },
+    {
+      "id": "geo_pillar_spec_initial_growth_and_saved:5",
+      "passed": true,
+      "evidence": {
+        "revision": 5,
+        "ownerHp": 52113,
+        "spec": {
+          "name": "현암 기둥",
+          "element": "바위",
+          "range": "근접",
+          "hp": 0.07,
+          "atk": 0,
+          "def": 75,
+          "spd": 1,
+          "structure": true
+        },
+        "pillars": [
+          {
+            "hp": 3648,
+            "def": 907
+          },
+          {
+            "hp": 3648,
+            "def": 907
+          },
+          {
+            "hp": 3648,
+            "def": 907
+          }
+        ],
+        "saveUnchanged": true
+      }
+    },
+    {
+      "id": "ocean_mimic_fixed_hp_and_owner_atk_initial_later_saved",
+      "passed": true,
+      "evidence": {
+        "initial": [
+          {
+            "source": "FB_MIMIC_BOAR",
+            "hp": 2738,
+            "atk": 3600,
+            "def": 615
+          },
+          {
+            "source": "FB_MIMIC_CRANE",
+            "hp": 1888,
+            "atk": 3200,
+            "def": 461
+          }
+        ],
+        "later": [
+          {
+            "source": "FB_MIMIC_BOAR",
+            "hp": 2738,
+            "atk": 3600,
+            "def": 615
+          },
+          {
+            "source": "FB_MIMIC_CRANE",
+            "hp": 1888,
+            "atk": 3200,
+            "def": 461
+          },
+          {
+            "source": "FB_MIMIC_FROG",
+            "hp": 2266,
+            "atk": 3000,
+            "def": 512
+          }
+        ],
+        "ownerAtk": 4000,
+        "fixedHpCurve": true,
+        "initialAndLaterShareOwnerAtk": true,
+        "saveUnchanged": true
+      }
+    },
+    {
+      "id": "scoped_pillar_spec_does_not_mutate_global_table",
+      "passed": true,
+      "evidence": {
+        "defaultHp": 0.1,
+        "defaultDef": 150,
+        "globalSpecUnchanged": true
+      }
+    }
+  ],
+  "total": 51,
+  "passed": 51,
+  "failed": 0
+}

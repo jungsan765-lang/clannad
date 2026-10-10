@@ -1,0 +1,19 @@
+{
+  "test": "tests/test_xianyun_balance_v01622.cjs",
+  "command": [
+    "node",
+    "tests/test_xianyun_balance_v01622.cjs"
+  ],
+  "startedAt": "2026-10-10T09:10:57.719662+00:00",
+  "endedAt": "2026-10-10T09:11:04.833557+00:00",
+  "seconds": 6.953,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {},
+  "testSha256": "b66f1b41b9e2ac0a1beb60a96c065c87dc916299c6c116484959b5af98167038",
+  "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+  "stdoutSha256": "676d51aacf782a1a4b273bdc04cf7e5600ca9223445a7977f79dc4c702e17ffb",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_xianyun_balance_v01622.stdout.log",
+  "stderrLog": "test_xianyun_balance_v01622.stderr.log"
+}

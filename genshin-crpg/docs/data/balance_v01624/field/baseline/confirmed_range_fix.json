@@ -1,0 +1,8 @@
+{
+  "kind": "Confirmed bugfix candidate, original input preserved",
+  "path": "source/runtime_combat.js",
+  "beforeSHA256": "d9ca3895454ffcbb7a6d94783683bdbbf6d439594658dc8f17dda4ea19c9c6ee",
+  "afterSHA256": "f02efdccfa9c751865ed6c563f7b10d72947d4f553614c5d2abf28622ede4473",
+  "from": "legal=enemies.filter(t=>this.hasAirAccess(a,t,c.range))",
+  "to": "legal=enemies.filter(t=>this.hasAirAccess(a,t,c.id==='PLAYER_BASIC_ATTACK'?a.range:c.range))"
+}

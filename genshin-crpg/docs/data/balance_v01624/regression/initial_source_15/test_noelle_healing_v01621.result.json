@@ -1,0 +1,19 @@
+{
+  "test": "tests/test_noelle_healing_v01621.cjs",
+  "command": [
+    "node",
+    "tests/test_noelle_healing_v01621.cjs"
+  ],
+  "startedAt": "2026-10-10T09:10:33.407455+00:00",
+  "endedAt": "2026-10-10T09:10:59.046274+00:00",
+  "seconds": 25.456,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {},
+  "testSha256": "0bb42e60110c466f1a0af6f15a6b15473427fae082260d84d7d97d3c9b3859ed",
+  "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+  "stdoutSha256": "428de569bc15dd86170d8fe5ae88378ecf8cda51a231cd97d224e889e1ecaff0",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_noelle_healing_v01621.stdout.log",
+  "stderrLog": "test_noelle_healing_v01621.stderr.log"
+}

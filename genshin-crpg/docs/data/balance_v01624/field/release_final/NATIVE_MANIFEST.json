@@ -1,0 +1,37 @@
+{
+  "kind": "final-release-field162-native-proof",
+  "fingerprint": "840ef8955b08346d086de5b39ab87d918123ab4ce2dc0c292f080827fc4bafdc",
+  "total": 162,
+  "profileRevision": 0,
+  "behaviorRevision": 5,
+  "rawQA_DB_SHA256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "inputs": [
+    {
+      "group": "six",
+      "path": "native/six-rows.json.gz",
+      "rawSHA256": "f255a1dd3e0be6bfe32bddfa3b22c798ef72f93cfb5c1f0c7c40812600a3c518",
+      "gzipSHA256": "8d748b9f85abb720778faf2772ea6431c272d1c16e93af2f250992b3d49f8c0a",
+      "rawBytes": 38521248,
+      "gzipBytes": 1740772,
+      "rowCount": 108
+    },
+    {
+      "group": "electro",
+      "path": "native/electro-rows.json.gz",
+      "rawSHA256": "ee558abc7cef35e31291691d1230a19a9fa8c026830ba2ff24efe6ac4eeff9b5",
+      "gzipSHA256": "1df1ee68c910ca23eab9fb79883fad9480ebfd7794787c74a4a30f6d9069c29c",
+      "rawBytes": 7207284,
+      "gzipBytes": 336417,
+      "rowCount": 18
+    },
+    {
+      "group": "trees",
+      "path": "native/trees-rows.json.gz",
+      "rawSHA256": "3a2311f2130a81a3be8a9a5714d9c930dcdaefb25f8533918771182569badeb8",
+      "gzipSHA256": "7dcddf5a79fd2add08eec33ffd1d06f3582e1d311239600426214ce046024e24",
+      "rawBytes": 9186758,
+      "gzipBytes": 454949,
+      "rowCount": 36
+    }
+  ]
+}

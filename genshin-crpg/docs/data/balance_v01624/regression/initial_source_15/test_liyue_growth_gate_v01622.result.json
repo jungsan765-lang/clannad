@@ -1,0 +1,19 @@
+{
+  "test": "tests/test_liyue_growth_gate_v01622.cjs",
+  "command": [
+    "node",
+    "tests/test_liyue_growth_gate_v01622.cjs"
+  ],
+  "startedAt": "2026-10-10T09:09:54.277733+00:00",
+  "endedAt": "2026-10-10T09:10:24.258206+00:00",
+  "seconds": 29.656,
+  "exitCode": 0,
+  "passed": true,
+  "inputDrift": {},
+  "testSha256": "4faef73e2d84ae2b8fcd527bd527ce4dede030a3f39adf267846568f5cfa999b",
+  "generatedEngineSha256": "41808d0d2f3b4dad249e1ae3e4d479bfdff8002b0ea82cbf09dfd1a0d9f7e2c3",
+  "stdoutSha256": "9e7ddc97680ffa1e2d7d162495f2bde31c28b5735c48e048ebd6b99ca4702cb7",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutLog": "test_liyue_growth_gate_v01622.stdout.log",
+  "stderrLog": "test_liyue_growth_gate_v01622.stderr.log"
+}

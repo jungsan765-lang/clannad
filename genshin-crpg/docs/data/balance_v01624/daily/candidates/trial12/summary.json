@@ -1,0 +1,779 @@
+{
+  "fingerprint": "87a3e9cb63e42f7fbc1a583e6bda7e1056b050fe1c5e8bd39eba2a740991e7b5",
+  "conditions": 12,
+  "wins": 10,
+  "defeats": 2,
+  "limits": 0,
+  "entryBlocked": 0,
+  "errors": [],
+  "inputs": 123,
+  "drift": [],
+  "rows": [
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 9,
+      "inputs": 8,
+      "seconds": 129.35,
+      "cpuSeconds": 0.359367529,
+      "hp": 0.6028652143591683,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 4,
+      "inputs": 3,
+      "seconds": 117.8,
+      "cpuSeconds": 0.178521733,
+      "hp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 9,
+      "inputs": 9,
+      "seconds": 131.37,
+      "cpuSeconds": 0.34352203,
+      "hp": 0.5106795427950024,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 12,
+      "inputs": 12,
+      "seconds": 180.2,
+      "cpuSeconds": 0.392340853,
+      "hp": 0.5974161061925982,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "DEFEAT",
+      "rounds": 4,
+      "inputs": 3,
+      "seconds": 117.8,
+      "cpuSeconds": 0.178364409,
+      "hp": 0,
+      "ko": [
+        "MOND_DAHLIA",
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "PLAYER_CUSTOM"
+      ],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FOUR_C6",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_XIANGLING",
+        "MOND_BENNETT",
+        "MOND_DAHLIA"
+      ],
+      "state": "WIN",
+      "rounds": 14,
+      "inputs": 13,
+      "seconds": 201.68,
+      "cpuSeconds": 0.541351228,
+      "hp": 0.686008439616553,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 5,
+      "seconds": 57.99,
+      "cpuSeconds": 0.223483959,
+      "hp": 0.9826653262171232,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 5,
+      "seconds": 66.87,
+      "cpuSeconds": 0.162385853,
+      "hp": 0.9304912846139062,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "REPEAT_QE",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 68.5,
+      "cpuSeconds": 0.248650212,
+      "hp": 1,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 5,
+      "inputs": 5,
+      "seconds": 57.99,
+      "cpuSeconds": 0.201453879,
+      "hp": 0.9826653262171232,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 5,
+      "seconds": 74.64,
+      "cpuSeconds": 0.202475461,
+      "hp": 0.9689971761853369,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    },
+    {
+      "boss": "BOSS_AZHDAHA",
+      "level": 60,
+      "investment": "FIVE_C0",
+      "strategy": "PREPARED",
+      "team": [
+        "LIYUE_ZHONGLI",
+        "MOND_DILUC",
+        "MOND_JEAN"
+      ],
+      "state": "WIN",
+      "rounds": 6,
+      "inputs": 6,
+      "seconds": 68.5,
+      "cpuSeconds": 0.205575864,
+      "hp": 1,
+      "ko": [],
+      "reason": "",
+      "enemy": [
+        {
+          "source": "BOSS_AZHDAHA",
+          "level": 60,
+          "hp": 137874,
+          "maxHp": 137874,
+          "atk": 13189,
+          "def": 778
+        }
+      ],
+      "terrain": null,
+      "adminBalanceRevision": 1,
+      "operatorProfile": {
+        "revision": 1,
+        "config": {
+          "tables": [],
+          "enemies": {
+            "BOSS_AZHDAHA": {
+              "hp": 137874,
+              "atk": 13189
+            }
+          },
+          "characters": {},
+          "cards": {
+            "ECARD_AZHDAHA_TAILSTORM": {
+              "damageMultiplier": 2
+            }
+          },
+          "economy": {},
+          "encounters": {},
+          "growth": {
+            "domains": {},
+            "ascension": {},
+            "talents": {}
+          }
+        }
+      },
+      "admissionBefore": {},
+      "admissionAfterEntry": {
+        "FARM_AZHDAHA": 20736
+      },
+      "admissionAfter": {
+        "FARM_AZHDAHA": 20736
+      }
+    }
+  ]
+}
