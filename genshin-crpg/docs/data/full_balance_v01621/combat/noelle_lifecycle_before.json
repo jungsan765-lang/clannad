@@ -1,0 +1,219 @@
+{
+  "fingerprint": "c549452cbfe07e45d362e6d0865efbddb8dffc07307b9e09502617c22d1a801a",
+  "fixture": {
+    "partySize": 4,
+    "level": 25,
+    "seed": 717,
+    "sourceRoot": "/tmp/crpg_full_balance_v01621/baseline",
+    "scope": "isolated native lifecycle; enemy HP durability only"
+  },
+  "results": [
+    {
+      "name": "C0 50% proc and C1/C6 certainty share one Breastplate heal per round",
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n8 !== 4\n\n    at assertSingle (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:13:68)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:16:224\n    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:6:64)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:15:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    },
+    {
+      "name": "C1/C6 require Breastplate: absent/other/broken shield does not consume eligibility",
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n4 !== 0\n\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:19:162\n    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:6:64)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:18:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "name": "native round end resets shared gate; E/Q recasts in the same round do not",
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n8 !== 4\n\n    at assertSingle (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:13:68)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:22:163\n    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:6:64)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:21:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    },
+    {
+      "name": "Q expiry returns C1/C6 to native 50% Breastplate proc",
+      "ok": true,
+      "evidence": [
+        {
+          "c": 1,
+          "failed": {
+            "hit": true,
+            "events": []
+          },
+          "base": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 4
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 4
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 4
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 4
+              }
+            ]
+          }
+        },
+        {
+          "c": 6,
+          "failed": {
+            "hit": true,
+            "events": []
+          },
+          "base": {
+            "hit": true,
+            "events": [
+              {
+                "target": "PLAYER_CUSTOM",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 5
+              },
+              {
+                "target": "MOND_NOELLE",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 5
+              },
+              {
+                "target": "MOND_AMBER",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 5
+              },
+              {
+                "target": "LIYUE_XIANGLING",
+                "raw": 86.46093106055098,
+                "applied": 95,
+                "before": 1,
+                "after": 96,
+                "round": 5
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "misses and E/Q damage cannot proc; living allies heal while KO stays zero",
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n6 !== 3\n\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:28:398\n    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:6:64)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:27:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "name": "killing normal hit, successive hits and restored in-flight state keep one proc",
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n8 !== 4\n\n    at assertSingle (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:13:68)\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:31:172\n    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:6:64)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_noelle_healing_v01621.cjs:30:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    },
+    {
+      "name": "same-round normal damage hits share one proc and summon/follow-up damage cannot use it",
+      "ok": true,
+      "evidence": [
+        {
+          "c": 1,
+          "events": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "MOND_NOELLE",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "MOND_AMBER",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "LIYUE_XIANGLING",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            }
+          ],
+          "next": {
+            "hit": true,
+            "events": []
+          }
+        },
+        {
+          "c": 6,
+          "events": [
+            {
+              "target": "PLAYER_CUSTOM",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "MOND_NOELLE",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "MOND_AMBER",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            },
+            {
+              "target": "LIYUE_XIANGLING",
+              "raw": 86.46093106055098,
+              "applied": 95,
+              "before": 1,
+              "after": 96,
+              "round": 1
+            }
+          ],
+          "next": {
+            "hit": true,
+            "events": []
+          }
+        }
+      ]
+    }
+  ]
+}

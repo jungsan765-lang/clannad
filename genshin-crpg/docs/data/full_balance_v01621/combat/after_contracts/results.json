@@ -1,0 +1,295 @@
+{
+  "schema": 1,
+  "root": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg",
+  "scope": "Existing isolated native combat contracts on current product source; test fixtures may fix RNG or suppress unrelated AI, and are not full campaign counts. No product writes.",
+  "inputManifestSha256": "e7367c6beed76f6eb0fd3aa3686f8ac73b5a564b8f735d13b33f68ff777db3b6",
+  "inputFiles": 236,
+  "inputDrift": [
+    "content/release-notes.json",
+    "package-lock.json",
+    "package.json",
+    "source/app_adventure.js",
+    "source/runtime_growth_v01522.js"
+  ],
+  "results": [
+    {
+      "path": "tests/test_combat_boundaries_v0168.cjs",
+      "command": [
+        "node",
+        "tests/test_combat_boundaries_v0168.cjs"
+      ],
+      "startedUTC": "2026-10-09T19:54:23.403601+00:00",
+      "finishedUTC": "2026-10-09T19:54:58.730290+00:00",
+      "seconds": 35.326692692004144,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "0b02a111b8483d391669a99b379c9e4929f9f4307a359271cf5e0ac08492fe6a",
+      "scriptBytes": 13456,
+      "logSha256": "29483e79c865d5ec7549789643dff5e23d5bb4385f21441e8fc67475d8d70ff6",
+      "logBytes": 1966,
+      "tail": "tles with a KO protagonist: ISK_L04_B1_051\nPASS completed authored evacuation settles with a KO protagonist: ISK_L04_B2_047\nPASS an old saved evacuation HOLD resumes to victory with living allies\nPASS completed evacuation remains a defeat when the whole party is KO\nPASS evacuation still requires four completed rounds and no living enemy\nPASS a native lethal basic attack cannot trigger a dead Azhdaha phase 1\nPASS a native lethal basic attack cannot trigger a dead Azhdaha phase 2\nPASS living Azhdaha still resolves both crossed phase boundaries\nPASS native Oz END kill wins on permitted Abyss round -1\nPASS native Oz END kill wins on permitted Abyss round 0\nPASS native burning END kill wins on the last allowed Abyss round\nPASS native Klee C4 field-expiry END explosion can win on the last allowed Abyss round\nPASS native direct attack wins on the last allowed Abyss round\nPASS Abyss timeout excludes a native Ice START kill from the next round\nPASS ordinary living enemies still cause timeout at the last allowed Abyss END\nPASS Abyss all-party KO remains defeat rather than victory or timeout\nPASS guarded revival rejects indirect DOT damage: FB_GEO_HYPOSTASIS\nPASS saved guarded revival retains DOT protection: FB_GEO_HYPOSTASIS\nPASS guarded revival countdown and one-time revival remain intact: FB_GEO_HYPOSTASIS\nPASS guarded revival rejects indirect DOT damage: FB_ELECTRO_HYPOSTASIS\nPASS saved guarded revival retains DOT protection: FB_ELECTRO_HYPOSTASIS\nPASS guarded revival countdown and one-time revival remain intact: FB_ELECTRO_HYPOSTASIS\n{\"passed\":26,\"nativeBoundaryRegression\":true}\n"
+    },
+    {
+      "path": "tests/test_combat_stalemate_v01523.cjs",
+      "command": [
+        "node",
+        "tests/test_combat_stalemate_v01523.cjs"
+      ],
+      "startedUTC": "2026-10-09T19:54:58.730955+00:00",
+      "finishedUTC": "2026-10-09T19:55:08.585507+00:00",
+      "seconds": 9.854563742999744,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "c093a0f91e7cef77145efd480c79805ada86bb5257dfd448dfaadc64fb755e7e",
+      "scriptBytes": 3488,
+      "logSha256": "52c78a217160a2f5781309f018491bb0c9b615ff491a706322edddc29022bf0d",
+      "logBytes": 268,
+      "tail": "PASS native boss defeat settles once without rolling back: EG_FB_PRIMO_GEOVISHAP\nPASS native boss defeat settles once without rolling back: EG_FB_RUIN_SERPENT\nPASS native immune AI stalemate reaches the limit and settles once\nPASS living player retains manual control\n"
+    },
+    {
+      "path": "tests/test_control_reactions_v0168.cjs",
+      "command": [
+        "node",
+        "tests/test_control_reactions_v0168.cjs"
+      ],
+      "startedUTC": "2026-10-09T19:55:08.586284+00:00",
+      "finishedUTC": "2026-10-09T19:56:28.585553+00:00",
+      "seconds": 79.99927870000101,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "1c6afca984fd6164450c60d7d08d7b79b616a30c9923c3025d76042cdd45535f",
+      "scriptBytes": 17258,
+      "logSha256": "47be5b52ed2c86b32f5c7730928becb2a58c2a93fc9206a98f2d34047a4c3663",
+      "logBytes": 1281,
+      "tail": "PASS C04: rejected C4 petrify cannot extend the existing lock or its guard\nPASS C04: native AI C4 + cooldown reduction never takes three consecutive foe turns\nPASS C05: actual Dahlia turn-start contact freezes only that turn, including after restore\nPASS C05: repeated own-start control attempts preserve two complete free turns\nPASS C06: actual Baizhu C4 applies +30% once to reaction/DOT packets, never primary damage\nPASS C06: superconduct primary attack and reaction use separate constellation contexts\nPASS C06: enclosing E-only damage and talent bonuses do not leak to its reaction packet\nPASS C06: melt/amplify and quicken/additive retain native math with reaction-only buffs\nPASS C07: actual E/Q initial and refresh Oz all get 2 attacks (C0) or 3 (C6)\nPASS C10: all six native raid bosses keep final accepted packets at one after every modifier\nPASS C10: immune/zero/miss packets do not count; shields and HP1 preserve existing raid rules\nPASS Bennett C6: local equipped sword/claymore/polearm are infused; bow/catalyst are excluded after restore\nPASS Bennett C6: guest weapon snapshots and restored guests never use the host weapon\nPASS C11: installed Bennett card text/script match current native behavior without mutating recovered DB\n{\"ok\":true,\"total\":14,\"passed\":14}\n"
+    },
+    {
+      "path": "tests/test_control_grace_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_control_grace_v01619.cjs"
+      ],
+      "startedUTC": "2026-10-09T19:56:28.586038+00:00",
+      "finishedUTC": "2026-10-09T19:56:45.468397+00:00",
+      "seconds": 16.882374617001915,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "e24f20513ca73dca9495b3a913d8f2c8a0747d238c21f4e4c72c0f7c543717e4",
+      "scriptBytes": 8272,
+      "logSha256": "ec5d8e8e2cbbfcb9242f517ca137f07de5be99c05f136dd1a2ec279ed09e9678",
+      "logBytes": 2469,
+      "tail": "ive charge and releases next own turn\",\"ok\":true,\"evidence\":{\"reloaded\":false,\"graceGuard\":3,\"chargeReleased\":true}},{\"name\":\"rejected freeze during grace keeps native charge and releases next own turn after restore\",\"ok\":true,\"evidence\":{\"reloaded\":true,\"graceGuard\":3,\"chargeReleased\":true}},{\"name\":\"landed freeze immediately interrupts once and keeps existing expiry\",\"ok\":true,\"evidence\":{\"reloaded\":false,\"immediateInterrupt\":true,\"interruptedLogs\":1}},{\"name\":\"landed freeze immediately interrupts once and keeps existing expiry after restore\",\"ok\":true,\"evidence\":{\"reloaded\":true,\"immediateInterrupt\":true,\"interruptedLogs\":1}},{\"name\":\"native equipment resistance rejects FREEZE without action delay\",\"ok\":true,\"evidence\":{\"kind\":\"FREEZE\",\"resistanceRejects\":true,\"failedResistanceRollAdmits\":true}},{\"name\":\"native equipment resistance rejects LIFT without action delay\",\"ok\":true,\"evidence\":{\"kind\":\"LIFT\",\"resistanceRejects\":true,\"failedResistanceRollAdmits\":true}},{\"name\":\"successful lift preserves delay and immediately interrupts native charge\",\"ok\":true,\"evidence\":{\"delay\":10,\"interrupted\":true}},{\"name\":\"native large enemy retains soft freeze and displacement immunity\",\"ok\":true,\"evidence\":{\"softFreeze\":true,\"largeDisplacementImmune\":true}},{\"name\":\"native boss soft control reports a real status while immune Osial rejects it\",\"ok\":true,\"evidence\":{\"existingSoftBossControl\":true,\"osialImmune\":true}},{\"name\":\"native successful push interrupts but wall-blocked push keeps charge\",\"ok\":true,\"evidence\":{\"successfulPushInterrupts\":true,\"wallBlockedPushPreservesCharge\":true}}]}\n"
+    },
+    {
+      "path": "tests/test_monster_control_fixes_v01618.cjs",
+      "command": [
+        "node",
+        "tests/test_monster_control_fixes_v01618.cjs"
+      ],
+      "startedUTC": "2026-10-09T19:56:45.468946+00:00",
+      "finishedUTC": "2026-10-09T19:57:10.947005+00:00",
+      "seconds": 25.478073981001216,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "18e30843af97fc199d224b69376cefe988d6ad78180127a8eeb489b2a6093447",
+      "scriptBytes": 10573,
+      "logSha256": "dc0d947af1105b3dde10ad1f7fa5a80661908770212dc2834521c5e0cfdfb0d1",
+      "logBytes": 3668,
+      "tail": "ut re-roll\",\"ok\":true,\"evidence\":{\"guardRolls\":1,\"coverRolls\":1}},{\"name\":\"native DRENCH creates finite Hydro aura through complete round boundary\",\"ok\":true,\"evidence\":{\"reloaded\":false,\"expiryBoundaries\":3,\"permanentAura\":null}},{\"name\":\"native DRENCH creates finite Hydro aura through complete round boundary after restore\",\"ok\":true,\"evidence\":{\"reloaded\":true,\"expiryBoundaries\":3,\"permanentAura\":null}},{\"name\":\"flood Hydro supports a legal cryo card and preserves waterproof mitigation\",\"ok\":true,\"evidence\":{\"freeze\":true,\"waterproofThresholdPreserved\":true}},{\"name\":\"legal petrify immediately cancels PYRO charge and expires exposed at own turn\",\"ok\":true,\"evidence\":{\"element\":\"PYRO\",\"reloaded\":false,\"immediateExposure\":true,\"skippedFirstOwnTurn\":true,\"nextTurnFree\":true}},{\"name\":\"legal petrify immediately cancels PYRO charge and expires exposed at own turn after restore\",\"ok\":true,\"evidence\":{\"element\":\"PYRO\",\"reloaded\":true,\"immediateExposure\":true,\"skippedFirstOwnTurn\":true,\"nextTurnFree\":true}},{\"name\":\"legal petrify immediately cancels CRYO charge and expires exposed at own turn\",\"ok\":true,\"evidence\":{\"element\":\"CRYO\",\"reloaded\":false,\"immediateExposure\":true,\"skippedFirstOwnTurn\":true,\"nextTurnFree\":true}},{\"name\":\"legal petrify immediately cancels CRYO charge and expires exposed at own turn after restore\",\"ok\":true,\"evidence\":{\"element\":\"CRYO\",\"reloaded\":true,\"immediateExposure\":true,\"skippedFirstOwnTurn\":true,\"nextTurnFree\":true}},{\"name\":\"rejected petrify during control grace does not interrupt a valid new charge\",\"ok\":true,\"evidence\":{\"gracePreserved\":true}}]}\n"
+    },
+    {
+      "path": "tests/test_element_immunity_v01618.cjs",
+      "command": [
+        "node",
+        "tests/test_element_immunity_v01618.cjs"
+      ],
+      "startedUTC": "2026-10-09T19:57:10.948135+00:00",
+      "finishedUTC": "2026-10-09T19:58:12.675701+00:00",
+      "seconds": 61.727579902995785,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "7a4d0c8226eba7fa9623fefb2cde06ef98a326773101eb618f50410a229e9288",
+      "scriptBytes": 12945,
+      "logSha256": "04ff205a0f7d5e7c90ecb6088853ff7e0aab6dae908d014e4920d15195e10a1e",
+      "logBytes": 3767,
+      "tail": "re damage is zero\nPASS MON_ABYSS_MAGE_PYRO legal immune hit preserves shield and HP; vulnerable hit breaks it\nPASS MON_ABYSS_MAGE_PYRO immune direct/reaction/DOT/field/summon packets cannot overflow; broken barrier permits own element\nPASS MON_ABYSS_MAGE_HYDRO legal immune hit preserves shield and HP; vulnerable hit breaks it\nPASS MON_ABYSS_MAGE_HYDRO immune direct/reaction/DOT/field/summon packets cannot overflow; broken barrier permits own element\nPASS MON_ABYSS_MAGE_CRYO legal immune hit preserves shield and HP; vulnerable hit breaks it\nPASS MON_ABYSS_MAGE_CRYO immune direct/reaction/DOT/field/summon packets cannot overflow; broken barrier permits own element\nPASS cryo mage Hydro protection blocks damage while native aura/reaction remains possible\nPASS MON_SLIME_DENDRO RX_SPREAD is generated by legal cards despite zero immune additive damage\nPASS MON_SLIME_ELECTRO RX_AGGRAVATE is generated by legal cards despite zero immune additive damage\nPASS native Dendro core RX_BURGEON cannot damage the Dendro slime\nPASS native Dendro core RX_HYPERBLOOM cannot damage the Dendro slime\nPASS MON_SLIME_CRYO non-immune RX_MELT_PYRO retains its native effect\nPASS MON_SLIME_PYRO non-immune RX_VAPORIZE_HYDRO retains its native effect\nPASS MON_SLIME_HYDRO non-immune RX_FROZEN retains its native effect\nPASS MON_SLIME_PYRO non-immune RX_CRYSTALLIZE retains its native effect\nPASS MON_SLIME_DENDRO non-immune RX_BURNING retains its native effect\nPASS legal persistent field and summon attacks respect slime and mage immunity\nPASS existing boss immunity chain and ordinary enemy damage are preserved\n"
+    },
+    {
+      "path": "tests/test_reaction_fixes_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_reaction_fixes_v01619.cjs"
+      ],
+      "startedUTC": "2026-10-09T19:58:12.676891+00:00",
+      "finishedUTC": "2026-10-09T20:00:01.376032+00:00",
+      "seconds": 108.69914647799305,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "cc4b50dd56108e12ac150987b43b9c026b3d6d89e652f9af4cc1a6b8c7c20bff",
+      "scriptBytes": 20747,
+      "logSha256": "b358c801b81da7ddf1fbce48f2da11f8231178f0f96d5fbd77595857ea2e4156",
+      "logBytes": 3380,
+      "tail": "cales but RX_AGGRAVATE addition does not at level 30\nPASS direct talent scales but RX_SPREAD addition does not at level 30\nPASS direct talent scales but RX_AGGRAVATE addition does not at level 50\nPASS direct talent scales but RX_SPREAD addition does not at level 50\nPASS direct talent scales but RX_AGGRAVATE addition does not at level 60\nPASS direct talent scales but RX_SPREAD addition does not at level 60\nPASS skill coefficient affects direct damage only, with legal C3/C5 levels and saved guest talent snapshot\nPASS additive hit still shares native critical damage, defense and constellation damage bonus\nPASS Superconduct Cryo damage immunity still applies physical vulnerability: MON_SLIME_CRYO\nPASS Superconduct Cryo damage immunity still applies physical vulnerability: MON_SLIME_LARGE_CRYO\nPASS Swirl preserves 물 spread and correct neighboring packet scope\nPASS Swirl preserves 불 spread and correct neighboring packet scope\nPASS Crystallize absorbs 2.5 times its own element\nPASS Crystallize absorbs 2.5 times its own element after restore\nPASS Burning is extinguished only by Hydro in the existing model: 물\nPASS Burning is extinguished only by Hydro in the existing model: 얼음\nPASS sixth shared Dendro Core detonates the oldest owner, preserves five and object sequence\nPASS sixth shared Dendro Core detonates the oldest owner, preserves five and object sequence after restore\nPASS legacy six-core state normalizes on the next creation; other object kinds have no five-object cap\nPASS Electro-Charged keeps its existing deferred coefficient and ownership\n{\"ok\":true,\"total\":43,\"passed\":43}\n"
+    },
+    {
+      "path": "tests/test_healing_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_healing_v01619.cjs"
+      ],
+      "startedUTC": "2026-10-09T20:00:01.376514+00:00",
+      "finishedUTC": "2026-10-09T20:00:34.289880+00:00",
+      "seconds": 32.91338174300472,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "20d43a02ee7878311b35be22a9c5fe532d35506cb5047b361f061534e067e9f0",
+      "scriptBytes": 7276,
+      "logSha256": "b8d57e7be61649a6e4166ce82dfebec72fa2069c92d74a45f1bfe97e1c84a0f0",
+      "logBytes": 484,
+      "tail": "PASS new Jean/Barbara Q keep all living recipients, native talent/rhythm/gear and cooldown\nPASS new Jean field heals one lowest-HP living ally, once per END and two times total, after restore\nPASS new Barbara E keeps party healing on successful normal attacks, misses and dead allies excluded\nPASS serialized pre-patch Barbara E and Jean field retain old amounts and scope until they expire\nPASS native skill rows and effect text show the same healing budget without rewriting the DB\n"
+    },
+    {
+      "path": "tests/test_shield_balance_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_shield_balance_v01619.cjs"
+      ],
+      "startedUTC": "2026-10-09T20:00:34.290675+00:00",
+      "finishedUTC": "2026-10-09T20:00:58.593776+00:00",
+      "seconds": 24.30310346299666,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "9b4f89114f8ca5e1b0e4d0710f1dbc2a74bfcf3f1ffd8cf9a2dbc97b93ded37f",
+      "scriptBytes": 12596,
+      "logSha256": "d2c95bce77ae8891863436ec613977a8fe63260f0578e5a41a0e300032ef7052",
+      "logBytes": 1043,
+      "tail": "PASS Jade Shield protects all living fighters with legal talent/gear modifiers and finite overflow\nPASS C2 burst refreshes the same Jade Shield without summing E and Q absorption\nPASS existing saved shield values survive restore and refresh until their normal depletion\nPASS Diona and Noelle retain their own shield values and the enemy shield budget is untouched\nPASS two actual ally shield casts consume the same packet and overflow beyond the strongest shield\nPASS actual elemental shields use the best effective absorption for opposite damage elements\nPASS Zhongli C6 heals from its own consumed shield while another actual shield also takes the hit\nPASS Baizhu native field shield breaks and heals even while Jade Shield blocks the same hit\nPASS native enemy barriers keep sequential absorption and immunity without consuming extra shields\nPASS Lan Yan native conversion affects its own shield, not a larger companion shield or HP overflow\nPASS unconverted Lan Yan shield has Anemo250% absorption with consistent fractional overflow logs\n"
+    },
+    {
+      "path": "tests/test_shield_meter_v01619.cjs",
+      "command": [
+        "node",
+        "tests/test_shield_meter_v01619.cjs"
+      ],
+      "startedUTC": "2026-10-09T20:00:58.594355+00:00",
+      "finishedUTC": "2026-10-09T20:00:58.684890+00:00",
+      "seconds": 0.09054157900391147,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "73fc1a5094673350e13e26465514bbec56af00cb3e0c309879acf32f2258f8d0",
+      "scriptBytes": 3469,
+      "logSha256": "066e7c1f39a4959b6b30bfe6180648e6fc897852d711c93cccd3c00ee3c44f3f",
+      "logBytes": 370,
+      "tail": "PASS the actual static fighter row shows max ally pool and sum enemy pools in the existing meter\nPASS the actual animation state update retains max ally and sum enemy meter values\nPASS the actual packet update never briefly writes the summed ally after-pool when native snapshots exist\nPASS the actual enemy packet update still shows the authored sequential barrier sum\n"
+    },
+    {
+      "path": "tests/test_v0142_combat_summons.cjs",
+      "command": [
+        "node",
+        "tests/test_v0142_combat_summons.cjs"
+      ],
+      "startedUTC": "2026-10-09T20:00:58.685284+00:00",
+      "finishedUTC": "2026-10-09T20:01:03.416602+00:00",
+      "seconds": 4.7313311340039945,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "acf96d39a2e87f77a647a261454518917cd1f54d45c9c3b489df24cb74867a1d",
+      "scriptBytes": 3797,
+      "logSha256": "95fb28344be05122bb8dfc16c6d51f08f11900716a00e4cfe68b27596b195c1d",
+      "logBytes": 308,
+      "tail": "PASS shield packets keep per-hit before/after values\nPASS Baron Bunny has HP and probabilistic single-target interception\nPASS Oz attacks are presented from the summon and survive owner KO until their own duration ends\nPASS summon UI, origin animation, BGM hold and asset shipping are connected\n{\"passed\":4}\n"
+    },
+    {
+      "path": "tests/test_coop_v0153.cjs",
+      "command": [
+        "node",
+        "tests/test_coop_v0153.cjs"
+      ],
+      "startedUTC": "2026-10-09T20:01:03.417983+00:00",
+      "finishedUTC": "2026-10-09T20:02:05.351261+00:00",
+      "seconds": 61.93328630699398,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "1f96a4de396fb6467884b99d9e805f369fcda3f2500bc3fa79c2dcca231887df",
+      "scriptBytes": 24478,
+      "logSha256": "982e2f58c6af00885f9eb277d3b740a6ab81f91e027023c5a1be9039a7e82032",
+      "logBytes": 1822,
+      "tail": "unter: the guest joins with its own stats; the host keeps the protagonist and fills the rest in slot order\nPASS three guests at most; with three guests the host fights with the protagonist alone\nPASS a guest's turn stops the fight like the protagonist's; only that guest may act, only on that turn\nPASS a guest leading a companion can always strike or guard (the strike and guard the AI makes); the AI's own choices stay as they are\nPASS after 20 seconds anyone in the room may let the waiting guest act by the AI; the owner may hand over at once; the clock is the server's\nPASS a guest who leaves (or whose room closes) fights on by the AI for the rest of the fight and gets no reward; coming back takes control again\nPASS joining in the middle of a fight: the fighter enters at the start of the next round; with four fighting, the host's last companion steps back and is settled at the end\nPASS solo content: the Abyss, story, the raid, daily bosses, a mutated field boss and quests take no guests; field bosses, ley lines and region events do\nPASS rewards: the guest's fighter gets the battle experience, the guest the Mora and loot, once; defeat penalties stay with the host\nPASS field bosses count against the guest's own 12-hour limit; without a win left the guest gets experience only and the result says why\nPASS a guest protagonist uses its own route's skills next to the host's protagonist\nPASS the saved co-op state is checked: malformed fighters, turns and reward records are refused\nPASS the account server accepts the co-op actions; the scripts are loaded last\n{\"total\":15,\"passed\":15}\n"
+    },
+    {
+      "path": "tests/test_v0152.cjs",
+      "command": [
+        "node",
+        "tests/test_v0152.cjs"
+      ],
+      "startedUTC": "2026-10-09T20:02:05.352459+00:00",
+      "finishedUTC": "2026-10-09T20:02:51.586296+00:00",
+      "seconds": 46.23385314599727,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "223c458499b7e8ab63a63991551528bfd99090ba6751e00f920d2d7eca826e6d",
+      "scriptBytes": 17593,
+      "logSha256": "f67047ca21f0b57b30d466ee65a580dc151999edb914da882b0479d7e47e13c6",
+      "logBytes": 1354,
+      "tail": "PASS puzzles: 28 kinds; every kind is solvable in both regions and a wrong or empty answer is refused\nPASS puzzles: the chests use twenty-two kinds; Mond boards are smaller than Liyue ones; the events draw from the rest\nPASS chests: a main story in progress no longer keeps them shut; a battle or work in hand still does\nPASS mutated bosses: two or three rules per boss each week, the same for every journey; 변이 도전 applies them and pays 30% more\nPASS regional events: about a third of the wild maps each day, nine kinds, the same for one journey and day\nPASS regional events: each kind settles once; fights settle on victory; a device needs its puzzle solved; 원석 stop at 40 a day\nPASS 공동 토벌전: closed unless an event is open; then Lv.10 to sortie, three a day, eight rounds where every hit counts 1 and the boss never falls\nPASS achievements: about three hundred in eighteen groups; finished ones pay 5/10/20 원석 once; counters follow cooking, puzzles and wishes\nPASS the account server accepts the new actions; the screens are loaded in order\nPASS Liyue colours: rarity and element colours stay; only the plain surfaces turn brown\nPASS phone screens (user photos of 0.15.0): party cards swipe sideways with ◀ ▶, names stand under faces, the menu card keeps its height, a tapped tab keeps its letters\n{\"total\":11,\"passed\":11}\n"
+    },
+    {
+      "path": "tests/test_noelle_healing_v01621.cjs",
+      "command": [
+        "node",
+        "tests/test_noelle_healing_v01621.cjs"
+      ],
+      "startedUTC": "2026-10-09T20:02:51.586814+00:00",
+      "finishedUTC": "2026-10-09T20:03:25.721428+00:00",
+      "seconds": 34.134624957005144,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "0bb42e60110c466f1a0af6f15a6b15473427fae082260d84d7d97d3c9b3859ed",
+      "scriptBytes": 6651,
+      "logSha256": "428de569bc15dd86170d8fe5ae88378ecf8cda51a231cd97d224e889e1ecaff0",
+      "logBytes": 555,
+      "tail": "PASS C0 50% proc and C1/C6 certainty share one Breastplate heal per round\nPASS C1/C6 require Breastplate: absent/other/broken shield does not consume eligibility\nPASS native round end resets shared gate; E/Q recasts in the same round do not\nPASS Q expiry returns C1/C6 to native 50% Breastplate proc\nPASS misses and E/Q damage cannot proc; living allies heal while KO stays zero\nPASS killing normal hit, successive hits and restored in-flight state keep one proc\nPASS same-round normal damage hits share one proc and summon/follow-up damage cannot use it\n"
+    },
+    {
+      "path": "tools/test_boss_boundaries_v01619.cjs",
+      "command": [
+        "node",
+        "tools/test_boss_boundaries_v01619.cjs",
+        "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/full_balance_v01621/combat/after_contracts/tools__test_boss_boundaries_v01619.cjs.native.json"
+      ],
+      "startedUTC": "2026-10-09T20:03:25.723290+00:00",
+      "finishedUTC": "2026-10-09T20:04:14.004175+00:00",
+      "seconds": 48.28089682100108,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "1b2710d4174c99c60ca01b95479340e57506e4bb480aa0babffa939ee957f8fc",
+      "scriptBytes": 10628,
+      "logSha256": "d017f87c0c15044627b64efbf5f7f6b2c2ef923de0a5aba3e9929449d1fdc439",
+      "logBytes": 1291,
+      "tail": "PASS final_stats:FB_ANEMO_HYPOSTASIS\nPASS final_stats:FB_ELECTRO_HYPOSTASIS\nPASS final_stats:FB_CRYO_REGISVINE\nPASS final_stats:FB_CRYO_HYPOSTASIS\nPASS final_stats:FB_GEO_HYPOSTASIS\nPASS final_stats:FB_PYRO_REGISVINE\nPASS final_stats:FB_OCEANID\nPASS final_stats:FB_PRIMO_GEOVISHAP\nPASS final_stats:FB_RUIN_SERPENT\nPASS saved_early_boss_is_not_retuned\nPASS serpent_burrow_holds_all_remaining_actions_until_next_own_turn\nPASS legacy_serpent_turn_schedule_remains\nPASS serpent_opened_armor_burrow_blocks_native_fields_and_final_typed_damage\nPASS cryo_creation_end_is_free_and_next_two_full_rounds_count\nPASS cryo_creation_end_native_guoba_keeps_full_two_round_window\nPASS cryo_last_end_native_field_fourth_hit_breaks_before_timeout\nPASS cryo_last_end_reaction_dot_fourth_hit_breaks_before_timeout\nPASS cryo_timeout_precedes_next_start_bunny_explosion\nPASS cryo_new_core_save_reload_preserves_created_and_counted_round\nPASS cryo_same_end_boundary_is_not_counted_twice\nPASS legacy_cryo_save_keeps_two_old_ends_and_first_timeout_order\nPASS new_core_invalid_countdown_save_is_rejected\n{\"output\":\"/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/full_balance_v01621/combat/after_contracts/tools__test_boss_boundaries_v01619.cjs.native.json\",\"total\":22,\"passed\":22,\"failed\":0}\n"
+    },
+    {
+      "path": "tools/test_field_boss_immunity_v01618.cjs",
+      "command": [
+        "node",
+        "tools/test_field_boss_immunity_v01618.cjs",
+        "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/full_balance_v01621/combat/after_contracts/tools__test_field_boss_immunity_v01618.cjs.native.json"
+      ],
+      "startedUTC": "2026-10-09T20:04:14.004973+00:00",
+      "finishedUTC": "2026-10-09T20:05:38.680935+00:00",
+      "seconds": 84.6759752709986,
+      "exitCode": 0,
+      "status": "PASS",
+      "scriptSha256": "cff92470bdde761021825c3c4033832b42097bdbea18e5bb0731b609b718d0ea",
+      "scriptBytes": 13775,
+      "logSha256": "ed28bf32c73b2860084b17e2056613d4d9b7a3aa2cf67e53982c2de55749a522",
+      "logBytes": 1500,
+      "tail": "PASS hydro_form:FB_MIMIC_BOAR\nPASS hydro_form:FB_MIMIC_CRANE\nPASS hydro_form:FB_MIMIC_FROG\nPASS hydro_form:FB_MIMIC_CRAB\nPASS hydro_form:FB_MIMIC_FALCON\nPASS cryo_core_delayed_native:MOND_AMBER\nPASS cryo_core_delayed_native:LIYUE_XIANGLING\nPASS cryo_core_one_count_per_direct_or_delayed_hit\nPASS cryo_core_zero_immune_and_invalid_packets_do_not_advance\nPASS cryo_core_native_claymore_cryo_counter_is_preserved\nPASS cryo_core_guoba_has_two_ticks_and_still_requires_four_hits\nPASS cryo_core_timeout_still_revives_once\nPASS body_immunity:FB_ANEMO_HYPOSTASIS\nPASS body_immunity:FB_ELECTRO_HYPOSTASIS\nPASS body_immunity:FB_GEO_HYPOSTASIS\nPASS body_immunity:FB_CRYO_HYPOSTASIS\nPASS anemo_revival_core_unchanged\nPASS guarded_revival_unchanged:FB_ELECTRO_HYPOSTASIS\nPASS guarded_revival_unchanged:FB_GEO_HYPOSTASIS\nPASS oceanid_eight_other_element_form_kills_still_win\nPASS native_ai_and_save:FB_ANEMO_HYPOSTASIS\nPASS native_ai_and_save:FB_ELECTRO_HYPOSTASIS\nPASS native_ai_and_save:FB_CRYO_REGISVINE\nPASS native_ai_and_save:FB_CRYO_HYPOSTASIS\nPASS native_ai_and_save:FB_GEO_HYPOSTASIS\nPASS native_ai_and_save:FB_PYRO_REGISVINE\nPASS native_ai_and_save:FB_OCEANID\nPASS native_ai_and_save:FB_PRIMO_GEOVISHAP\nPASS native_ai_and_save:FB_RUIN_SERPENT\nPASS nine_bosses_two_seed_full_native_fights\n{\"output\":\"/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/docs/data/full_balance_v01621/combat/after_contracts/tools__test_field_boss_immunity_v01618.cjs.native.json\",\"total\":30,\"passed\":30,\"failed\":0}\n"
+    }
+  ],
+  "counts": {
+    "PASS": 16,
+    "FAIL": 0,
+    "MISSING": 0
+  }
+}

@@ -1,0 +1,692 @@
+{
+  "schema": 1,
+  "proposalOnly": true,
+  "payout": {
+    "5": 1,
+    "10": 2,
+    "15": 3,
+    "20": 4,
+    "25": 6,
+    "30": 8,
+    "35": 10,
+    "40": 12,
+    "45": 18,
+    "50": 24,
+    "55": 60,
+    "60": 110
+  },
+  "rows": [
+    {
+      "element": "NEUTRAL",
+      "bestStage": 60,
+      "bestRate": 203.70370370370372,
+      "highestWonStage": 60,
+      "highestRate": 203.70370370370372,
+      "bestAtOrBelow50": 50,
+      "lowerRate": 58.719586788092975,
+      "highAdvantage": 3.469092935528121,
+      "stages": [
+        {
+          "stage": 5,
+          "won": true,
+          "seconds": 34.53,
+          "proposedRate": 5.2128583840139004
+        },
+        {
+          "stage": 50,
+          "won": true,
+          "seconds": 73.57,
+          "proposedRate": 58.719586788092975
+        },
+        {
+          "stage": 55,
+          "won": true,
+          "seconds": 78.86,
+          "proposedRate": 136.9515597260969
+        },
+        {
+          "stage": 60,
+          "won": true,
+          "seconds": 97.19999999999999,
+          "proposedRate": 203.70370370370372
+        },
+        {
+          "stage": 10,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 10.54481546572935
+        },
+        {
+          "stage": 15,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 15.817223198594025
+        },
+        {
+          "stage": 20,
+          "won": true,
+          "seconds": 43.74,
+          "proposedRate": 16.46090534979424
+        },
+        {
+          "stage": 25,
+          "won": true,
+          "seconds": 47.07000000000001,
+          "proposedRate": 22.944550669216056
+        },
+        {
+          "stage": 30,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 42.1792618629174
+        },
+        {
+          "stage": 35,
+          "won": true,
+          "seconds": 39.69,
+          "proposedRate": 45.3514739229025
+        },
+        {
+          "stage": 40,
+          "won": true,
+          "seconds": 39.3,
+          "proposedRate": 54.961832061068705
+        },
+        {
+          "stage": 45,
+          "won": true,
+          "seconds": 81.21,
+          "proposedRate": 39.89656446250462
+        }
+      ]
+    },
+    {
+      "element": "PYRO",
+      "bestStage": 30,
+      "bestRate": 42.1792618629174,
+      "highestWonStage": 55,
+      "highestRate": 20.885304867436332,
+      "bestAtOrBelow50": 30,
+      "lowerRate": 42.1792618629174,
+      "highAdvantage": 0.4951557695654697,
+      "stages": [
+        {
+          "stage": 5,
+          "won": true,
+          "seconds": 34.53,
+          "proposedRate": 5.2128583840139004
+        },
+        {
+          "stage": 50,
+          "won": true,
+          "seconds": 257.89,
+          "proposedRate": 16.7513280856179
+        },
+        {
+          "stage": 55,
+          "won": true,
+          "seconds": 517.1099999999999,
+          "proposedRate": 20.885304867436332
+        },
+        {
+          "stage": 60,
+          "won": false,
+          "seconds": 193.87,
+          "proposedRate": 0.0
+        },
+        {
+          "stage": 10,
+          "won": true,
+          "seconds": 34.4,
+          "proposedRate": 10.465116279069768
+        },
+        {
+          "stage": 15,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 15.817223198594025
+        },
+        {
+          "stage": 20,
+          "won": true,
+          "seconds": 53.730000000000004,
+          "proposedRate": 13.400335008375208
+        },
+        {
+          "stage": 25,
+          "won": true,
+          "seconds": 88.98,
+          "proposedRate": 12.137559002022925
+        },
+        {
+          "stage": 30,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 42.1792618629174
+        },
+        {
+          "stage": 35,
+          "won": true,
+          "seconds": 71.68,
+          "proposedRate": 25.11160714285714
+        },
+        {
+          "stage": 40,
+          "won": true,
+          "seconds": 87.87,
+          "proposedRate": 24.581768521679752
+        },
+        {
+          "stage": 45,
+          "won": true,
+          "seconds": 175.74,
+          "proposedRate": 18.436326391259815
+        }
+      ]
+    },
+    {
+      "element": "HYDRO",
+      "bestStage": 60,
+      "bestRate": 56.25159805676297,
+      "highestWonStage": 60,
+      "highestRate": 56.25159805676297,
+      "bestAtOrBelow50": 30,
+      "lowerRate": 42.1792618629174,
+      "highAdvantage": 1.3336316372624222,
+      "stages": [
+        {
+          "stage": 5,
+          "won": true,
+          "seconds": 34.53,
+          "proposedRate": 5.2128583840139004
+        },
+        {
+          "stage": 50,
+          "won": true,
+          "seconds": 125.28000000000002,
+          "proposedRate": 34.48275862068965
+        },
+        {
+          "stage": 55,
+          "won": true,
+          "seconds": 321.16999999999996,
+          "proposedRate": 33.62705109443597
+        },
+        {
+          "stage": 60,
+          "won": true,
+          "seconds": 351.99,
+          "proposedRate": 56.25159805676297
+        },
+        {
+          "stage": 10,
+          "won": true,
+          "seconds": 34.4,
+          "proposedRate": 10.465116279069768
+        },
+        {
+          "stage": 15,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 15.817223198594025
+        },
+        {
+          "stage": 20,
+          "won": true,
+          "seconds": 40.41,
+          "proposedRate": 17.8173719376392
+        },
+        {
+          "stage": 25,
+          "won": true,
+          "seconds": 58.17,
+          "proposedRate": 18.5662712738525
+        },
+        {
+          "stage": 30,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 42.1792618629174
+        },
+        {
+          "stage": 35,
+          "won": true,
+          "seconds": 58.17,
+          "proposedRate": 30.943785456420834
+        },
+        {
+          "stage": 40,
+          "won": true,
+          "seconds": 71.16,
+          "proposedRate": 30.354131534569984
+        },
+        {
+          "stage": 45,
+          "won": true,
+          "seconds": 108.96000000000001,
+          "proposedRate": 29.735682819383257
+        }
+      ]
+    },
+    {
+      "element": "ANEMO",
+      "bestStage": 60,
+      "bestRate": 334.0080971659919,
+      "highestWonStage": 60,
+      "highestRate": 334.0080971659919,
+      "bestAtOrBelow50": 50,
+      "lowerRate": 70.24390243902438,
+      "highAdvantage": 4.754976383265857,
+      "stages": [
+        {
+          "stage": 5,
+          "won": true,
+          "seconds": 39.69,
+          "proposedRate": 4.535147392290249
+        },
+        {
+          "stage": 10,
+          "won": true,
+          "seconds": 39.69,
+          "proposedRate": 9.070294784580499
+        },
+        {
+          "stage": 15,
+          "won": true,
+          "seconds": 39.69,
+          "proposedRate": 13.60544217687075
+        },
+        {
+          "stage": 20,
+          "won": true,
+          "seconds": 43.74,
+          "proposedRate": 16.46090534979424
+        },
+        {
+          "stage": 25,
+          "won": true,
+          "seconds": 42.629999999999995,
+          "proposedRate": 25.33427163969036
+        },
+        {
+          "stage": 30,
+          "won": true,
+          "seconds": 40.41,
+          "proposedRate": 35.6347438752784
+        },
+        {
+          "stage": 35,
+          "won": true,
+          "seconds": 58.17000000000001,
+          "proposedRate": 30.94378545642083
+        },
+        {
+          "stage": 40,
+          "won": true,
+          "seconds": 63.25999999999999,
+          "proposedRate": 34.144799241226686
+        },
+        {
+          "stage": 45,
+          "won": true,
+          "seconds": 54.84,
+          "proposedRate": 59.08096280087527
+        },
+        {
+          "stage": 50,
+          "won": true,
+          "seconds": 61.50000000000001,
+          "proposedRate": 70.24390243902438
+        },
+        {
+          "stage": 55,
+          "won": true,
+          "seconds": 57.06,
+          "proposedRate": 189.2744479495268
+        },
+        {
+          "stage": 60,
+          "won": true,
+          "seconds": 59.28,
+          "proposedRate": 334.0080971659919
+        }
+      ]
+    },
+    {
+      "element": "ELECTRO",
+      "bestStage": 60,
+      "bestRate": 88.01955990220048,
+      "highestWonStage": 60,
+      "highestRate": 88.01955990220048,
+      "bestAtOrBelow50": 50,
+      "lowerRate": 50.43782837127846,
+      "highAdvantage": 1.7451100244498778,
+      "stages": [
+        {
+          "stage": 5,
+          "won": true,
+          "seconds": 34.53,
+          "proposedRate": 5.2128583840139004
+        },
+        {
+          "stage": 50,
+          "won": true,
+          "seconds": 85.65,
+          "proposedRate": 50.43782837127846
+        },
+        {
+          "stage": 55,
+          "won": true,
+          "seconds": 196.92000000000002,
+          "proposedRate": 54.84460694698354
+        },
+        {
+          "stage": 60,
+          "won": true,
+          "seconds": 224.95000000000002,
+          "proposedRate": 88.01955990220048
+        },
+        {
+          "stage": 10,
+          "won": true,
+          "seconds": 34.4,
+          "proposedRate": 10.465116279069768
+        },
+        {
+          "stage": 15,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 15.817223198594025
+        },
+        {
+          "stage": 20,
+          "won": true,
+          "seconds": 40.8,
+          "proposedRate": 17.647058823529413
+        },
+        {
+          "stage": 25,
+          "won": true,
+          "seconds": 39.3,
+          "proposedRate": 27.480916030534353
+        },
+        {
+          "stage": 30,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 42.1792618629174
+        },
+        {
+          "stage": 35,
+          "won": true,
+          "seconds": 49.29,
+          "proposedRate": 36.51856360316494
+        },
+        {
+          "stage": 40,
+          "won": true,
+          "seconds": 71.22,
+          "proposedRate": 30.32855939342881
+        },
+        {
+          "stage": 45,
+          "won": true,
+          "seconds": 81.21,
+          "proposedRate": 39.89656446250462
+        }
+      ]
+    },
+    {
+      "element": "CRYO",
+      "bestStage": 60,
+      "bestRate": 47.739602169981914,
+      "highestWonStage": 60,
+      "highestRate": 47.739602169981914,
+      "bestAtOrBelow50": 30,
+      "lowerRate": 42.1792618629174,
+      "highAdvantage": 1.1318264014466546,
+      "stages": [
+        {
+          "stage": 5,
+          "won": true,
+          "seconds": 34.53,
+          "proposedRate": 5.2128583840139004
+        },
+        {
+          "stage": 10,
+          "won": true,
+          "seconds": 34.4,
+          "proposedRate": 10.465116279069768
+        },
+        {
+          "stage": 15,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 15.817223198594025
+        },
+        {
+          "stage": 20,
+          "won": true,
+          "seconds": 40.41,
+          "proposedRate": 17.8173719376392
+        },
+        {
+          "stage": 25,
+          "won": true,
+          "seconds": 70.57,
+          "proposedRate": 15.303953521326344
+        },
+        {
+          "stage": 30,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 42.1792618629174
+        },
+        {
+          "stage": 35,
+          "won": true,
+          "seconds": 74.55,
+          "proposedRate": 24.144869215291752
+        },
+        {
+          "stage": 40,
+          "won": true,
+          "seconds": 86.76,
+          "proposedRate": 24.896265560165972
+        },
+        {
+          "stage": 45,
+          "won": true,
+          "seconds": 123.06,
+          "proposedRate": 26.328620185275476
+        },
+        {
+          "stage": 50,
+          "won": true,
+          "seconds": 245.79000000000002,
+          "proposedRate": 17.57597949469059
+        },
+        {
+          "stage": 55,
+          "won": true,
+          "seconds": 316.38,
+          "proposedRate": 34.136165370756686
+        },
+        {
+          "stage": 60,
+          "won": true,
+          "seconds": 414.75,
+          "proposedRate": 47.739602169981914
+        }
+      ]
+    },
+    {
+      "element": "GEO",
+      "bestStage": 55,
+      "bestRate": 122.90884260839879,
+      "highestWonStage": 60,
+      "highestRate": 114.24614851999307,
+      "bestAtOrBelow50": 50,
+      "lowerRate": 78.77461706783369,
+      "highAdvantage": 1.450291385378801,
+      "stages": [
+        {
+          "stage": 5,
+          "won": true,
+          "seconds": 34.53,
+          "proposedRate": 5.2128583840139004
+        },
+        {
+          "stage": 10,
+          "won": true,
+          "seconds": 34.4,
+          "proposedRate": 10.465116279069768
+        },
+        {
+          "stage": 15,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 15.817223198594025
+        },
+        {
+          "stage": 20,
+          "won": true,
+          "seconds": 39.3,
+          "proposedRate": 18.320610687022903
+        },
+        {
+          "stage": 25,
+          "won": true,
+          "seconds": 43.74,
+          "proposedRate": 24.691358024691358
+        },
+        {
+          "stage": 30,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 42.1792618629174
+        },
+        {
+          "stage": 35,
+          "won": true,
+          "seconds": 43.74,
+          "proposedRate": 41.15226337448559
+        },
+        {
+          "stage": 40,
+          "won": true,
+          "seconds": 49.290000000000006,
+          "proposedRate": 43.82227632379792
+        },
+        {
+          "stage": 45,
+          "won": true,
+          "seconds": 43.74,
+          "proposedRate": 74.07407407407408
+        },
+        {
+          "stage": 50,
+          "won": true,
+          "seconds": 54.84,
+          "proposedRate": 78.77461706783369
+        },
+        {
+          "stage": 55,
+          "won": true,
+          "seconds": 87.86999999999999,
+          "proposedRate": 122.90884260839879
+        },
+        {
+          "stage": 60,
+          "won": true,
+          "seconds": 173.31,
+          "proposedRate": 114.24614851999307
+        }
+      ]
+    },
+    {
+      "element": "DENDRO",
+      "bestStage": 60,
+      "bestRate": 126.3641585295807,
+      "highestWonStage": 60,
+      "highestRate": 126.3641585295807,
+      "bestAtOrBelow50": 50,
+      "lowerRate": 82.09806157354618,
+      "highAdvantage": 1.5391856532005872,
+      "stages": [
+        {
+          "stage": 5,
+          "won": true,
+          "seconds": 34.53,
+          "proposedRate": 5.2128583840139004
+        },
+        {
+          "stage": 10,
+          "won": true,
+          "seconds": 34.4,
+          "proposedRate": 10.465116279069768
+        },
+        {
+          "stage": 15,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 15.817223198594025
+        },
+        {
+          "stage": 20,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 21.0896309314587
+        },
+        {
+          "stage": 25,
+          "won": true,
+          "seconds": 45.96000000000001,
+          "proposedRate": 23.498694516971277
+        },
+        {
+          "stage": 30,
+          "won": true,
+          "seconds": 34.14,
+          "proposedRate": 42.1792618629174
+        },
+        {
+          "stage": 35,
+          "won": true,
+          "seconds": 43.019999999999996,
+          "proposedRate": 41.84100418410042
+        },
+        {
+          "stage": 40,
+          "won": true,
+          "seconds": 43.739999999999995,
+          "proposedRate": 49.38271604938272
+        },
+        {
+          "stage": 45,
+          "won": true,
+          "seconds": 45.96,
+          "proposedRate": 70.49608355091384
+        },
+        {
+          "stage": 50,
+          "won": true,
+          "seconds": 52.620000000000005,
+          "proposedRate": 82.09806157354618
+        },
+        {
+          "stage": 55,
+          "won": true,
+          "seconds": 135.60000000000002,
+          "proposedRate": 79.64601769911503
+        },
+        {
+          "stage": 60,
+          "won": true,
+          "seconds": 156.69,
+          "proposedRate": 126.3641585295807
+        }
+      ]
+    }
+  ]
+}

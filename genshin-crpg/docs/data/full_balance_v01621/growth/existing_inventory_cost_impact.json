@@ -1,0 +1,273 @@
+{
+  "schema": 1,
+  "baselineGrowthSHA256": "ce0bada1295acc904e0e39542139749dfcbdac3a4d0c03b8390271900758feb5",
+  "finalGrowthSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+  "scope": "Arithmetic about purchasing power of already-held materials. Inventory quantities, completed upgrades, old receipts and ongoing battle promised loot are not rewritten. Exact-phase price quotes below are for protagonist/four-star; five-star quantities are twice these, preserving the ratios. No claim about observed live player inventories.",
+  "policy": "Apply current costs only to not-yet-executed ascension/talent actions; do not scale or delete inventory and do not retroactively revoke completed growth. Old battle reward versions settle their exact saved promises. New highest-stage rewards and new final demand scale together to preserve 25/50 base wins. Existing held material purchasing power can decrease or increase by phase and element; this is a balance-price change, not preserved economic value. A single item count cannot preserve several old element/phase price ratios simultaneously, so no speculative global stock multiplier is introduced.",
+  "rows": [
+    {
+      "element": "NEUTRAL",
+      "oldFourStarCosts": [
+        3,
+        6,
+        12,
+        45,
+        192,
+        1250
+      ],
+      "newFourStarCosts": [
+        3,
+        6,
+        16,
+        175,
+        1440,
+        37500
+      ],
+      "newCostOverOld": [
+        1.0,
+        1.0,
+        1.333333333,
+        3.888888889,
+        7.5,
+        30.0
+      ],
+      "oneOldFinalAscensionStock": {
+        "stock": 1250,
+        "newCompletionFraction": 0.03333333333333333,
+        "highestStageNewWinsToComplete": 25
+      }
+    },
+    {
+      "element": "PYRO",
+      "oldFourStarCosts": [
+        3,
+        6,
+        36,
+        285,
+        1072,
+        29725
+      ],
+      "newFourStarCosts": [
+        3,
+        6,
+        16,
+        175,
+        1440,
+        37500
+      ],
+      "newCostOverOld": [
+        1.0,
+        1.0,
+        0.444444444,
+        0.614035088,
+        1.343283582,
+        1.26156434
+      ],
+      "oneOldFinalAscensionStock": {
+        "stock": 29725,
+        "newCompletionFraction": 0.7926666666666666,
+        "highestStageNewWinsToComplete": 6
+      }
+    },
+    {
+      "element": "HYDRO",
+      "oldFourStarCosts": [
+        3,
+        6,
+        34,
+        340,
+        1248,
+        11325
+      ],
+      "newFourStarCosts": [
+        3,
+        6,
+        16,
+        175,
+        1440,
+        37500
+      ],
+      "newCostOverOld": [
+        1.0,
+        1.0,
+        0.470588235,
+        0.514705882,
+        1.153846154,
+        3.311258278
+      ],
+      "oneOldFinalAscensionStock": {
+        "stock": 11325,
+        "newCompletionFraction": 0.302,
+        "highestStageNewWinsToComplete": 18
+      }
+    },
+    {
+      "element": "ANEMO",
+      "oldFourStarCosts": [
+        3,
+        6,
+        12,
+        70,
+        128,
+        2100
+      ],
+      "newFourStarCosts": [
+        3,
+        6,
+        16,
+        175,
+        1440,
+        37500
+      ],
+      "newCostOverOld": [
+        1.0,
+        1.0,
+        1.333333333,
+        2.5,
+        11.25,
+        17.857142857
+      ],
+      "oneOldFinalAscensionStock": {
+        "stock": 2100,
+        "newCompletionFraction": 0.056,
+        "highestStageNewWinsToComplete": 24
+      }
+    },
+    {
+      "element": "ELECTRO",
+      "oldFourStarCosts": [
+        3,
+        6,
+        12,
+        50,
+        248,
+        4400
+      ],
+      "newFourStarCosts": [
+        3,
+        6,
+        16,
+        175,
+        1440,
+        37500
+      ],
+      "newCostOverOld": [
+        1.0,
+        1.0,
+        1.333333333,
+        3.5,
+        5.806451613,
+        8.522727273
+      ],
+      "oneOldFinalAscensionStock": {
+        "stock": 4400,
+        "newCompletionFraction": 0.11733333333333333,
+        "highestStageNewWinsToComplete": 23
+      }
+    },
+    {
+      "element": "CRYO",
+      "oldFourStarCosts": [
+        3,
+        6,
+        12,
+        70,
+        304,
+        2825
+      ],
+      "newFourStarCosts": [
+        3,
+        6,
+        16,
+        175,
+        1440,
+        37500
+      ],
+      "newCostOverOld": [
+        1.0,
+        1.0,
+        1.333333333,
+        2.5,
+        4.736842105,
+        13.274336283
+      ],
+      "oneOldFinalAscensionStock": {
+        "stock": 2825,
+        "newCompletionFraction": 0.07533333333333334,
+        "highestStageNewWinsToComplete": 24
+      }
+    },
+    {
+      "element": "GEO",
+      "oldFourStarCosts": [
+        3,
+        6,
+        12,
+        50,
+        160,
+        2175
+      ],
+      "newFourStarCosts": [
+        3,
+        6,
+        16,
+        175,
+        1440,
+        37500
+      ],
+      "newCostOverOld": [
+        1.0,
+        1.0,
+        1.333333333,
+        3.5,
+        9.0,
+        17.24137931
+      ],
+      "oneOldFinalAscensionStock": {
+        "stock": 2175,
+        "newCompletionFraction": 0.058,
+        "highestStageNewWinsToComplete": 24
+      }
+    },
+    {
+      "element": "DENDRO",
+      "oldFourStarCosts": [
+        3,
+        6,
+        14,
+        55,
+        128,
+        1750
+      ],
+      "newFourStarCosts": [
+        3,
+        6,
+        16,
+        175,
+        1440,
+        37500
+      ],
+      "newCostOverOld": [
+        1.0,
+        1.0,
+        1.142857143,
+        3.181818182,
+        11.25,
+        21.428571429
+      ],
+      "oneOldFinalAscensionStock": {
+        "stock": 1750,
+        "newCompletionFraction": 0.04666666666666667,
+        "highestStageNewWinsToComplete": 24
+      }
+    }
+  ],
+  "talentLiyue": {
+    "oldDemandBooks": 4032,
+    "newDemandBooks": 5040,
+    "oldFinalStageBooks": 64,
+    "newFinalStageBooks": 80,
+    "baseWinsBoth": 63,
+    "oldHeldCompletionFraction": 0.8
+  }
+}

@@ -1,0 +1,8 @@
+Command: GUEST_EVIDENCE_OUT=docs/data/full_balance_v01621/guest_growth_native.json node tests/test_guest_growth_v01621.cjs
+Exit code: 1
+Captured error excerpt:
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(cfg&&cfg.guest_char_ids.includes(OWNER))
+
+Classification: QA fixture assumed authored raw guest lists remained active; the actual loaded journey adapter disables those lists. Failure occurs before combat creation or settlement. No product failure or completed native guest coverage is claimed. Original attempted test source is preserved in guest_fixture_initial_attempt.cjs.gz; the test is excluded from the release suite.

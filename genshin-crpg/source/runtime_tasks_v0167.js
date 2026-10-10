@@ -111,7 +111,11 @@ function rotate(rt,scope,period,keep=[]){
   const progress=box?.week===period&&box.weeklyIds?.includes(t.id)?num(box.weeklyProgress?.[t.id]):0;
   return progress+Math.max(0,days)>=t.goal;
  };
- const pool=scope==='daily'?DAILY_POOL:WEEKLY_POOL,eligible=new Set(pool.filter(t=>!lockOf(rt,t)&&remainingReports(t)).map(t=>t.id)),chosen=new Set(keep.filter(id=>pool.some(t=>t.id===id)));
+ const pool=scope==='daily'?DAILY_POOL:WEEKLY_POOL,eligible=new Set(pool.filter(t=>t.id!=='W_V168_ABYSS'&&!lockOf(rt,t)&&remainingReports(t)).map(t=>t.id)),chosen=new Set(keep.filter(id=>pool.some(t=>t.id===id)));
+ // 0.16.21: no new recurring Abyss assignment. Its finite progression and roster
+ // exhaustion are unsuitable for the weekly all-clear quota. Keep a previously
+ // assigned goal/earned payout as optional for its current period; exclude it
+ // from the all-clear bonus and retire on the normal reset.
  // A period has one fixed eligible plan. Availability changes never reroll already assigned rewards.
  function include(id,path=new Set()){
   if(chosen.has(id))return true;if(!eligible.has(id)||path.has(id))return false;
@@ -188,12 +192,12 @@ P.tasksCount=function(kind,n=1,event=null){
   c.progress=Math.min(t.goal,c.progress+amountOf(t,event));if(c.progress>=t.goal){q.node='READY_TO_CLAIM';q.state='진행중';}}
 };
 P.taskView=function(){
- const box=this.tasksBox(false),guild=!!this.atGuild?.(),open=rootReady(this),row=(t,have,scope)=>{const lock=lockOf(this,t),goal=t.goal||1,progress=Math.min(goal,num(have)),claimed=!!box.claimed[t.id],done=claimed||progress>=goal;return {id:t.id,scope,name:t.name,short:t.short||t.name,icon:t.icon,goal,progress,done,claimed,lock:done?'':lock,report:!!t.report,here:done&&!claimed&&(!t.report||guild),reward:copy(t.reward||{})};};
+ const box=this.tasksBox(false),guild=!!this.atGuild?.(),open=rootReady(this),row=(t,have,scope)=>{const lock=lockOf(this,t),goal=t.goal||1,progress=Math.min(goal,num(have)),claimed=!!box.claimed[t.id],done=claimed||progress>=goal;return {id:t.id,scope,name:t.id==='W_V168_ABYSS'?'이전 나선비경 목표 · 선택 달성':t.name,short:t.id==='W_V168_ABYSS'?'선택 목표':t.short||t.name,icon:t.icon,goal,progress,done,claimed,lock:done?'':lock,report:!!t.report,here:done&&!claimed&&(!t.report||guild),reward:copy(t.reward||{})};};
  const rows=scope=>selected(box,scope).map(t=>row(t,progressOf(box,scope,t),scope));
  const plannedDaily=rows('daily'),plannedWeekly=rows('weekly'),visible=(rows,scope)=>open?rows.filter(x=>!x.claimed&&branchReady(box,scope,x.id)):[];
  const daily=visible(plannedDaily,'daily'),weekly=visible(plannedWeekly,'weekly');
  const allBonus=(def,list,scope)=>{const x=row({...def,goal:list.length||1},list.filter(x=>x.done).length,scope);if(!open&&!x.claimed){x.lock='의뢰 접수 연습을 보고한 뒤';x.here=false;}return x;};
- const bonus=allBonus(DAILY_BONUS,plannedDaily,'daily'),weeklyBonus=allBonus(WEEKLY_BONUS,plannedWeekly,'weekly');
+ const bonus=allBonus(DAILY_BONUS,plannedDaily,'daily'),weeklyBonus=allBonus(WEEKLY_BONUS,plannedWeekly.filter(x=>x.id!=='W_V168_ABYSS'),'weekly');
  const all=[...daily,bonus,...weekly,weeklyBonus],t=this.tasksNow();return {daily,bonus,weekly,weeklyBonus,ready:all.filter(x=>x.done&&!x.claimed&&!x.lock).length,here:all.filter(x=>x.here).length,atGuild:guild,acceptCap:ACCEPT_CAP,accepted:this.taskAcceptedCount(),dailyTotal:plannedDaily.length,weeklyTotal:plannedWeekly.length,dayEndsAt:(dayOf(t)+1)*DAY-KST,weekEndsAt:(weekOf(t)+1)*WEEK-KST-3*DAY};
 };
 const REPORT='캐서린에게 보고해야 받을 수 있습니다.';

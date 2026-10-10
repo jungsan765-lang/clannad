@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "reason": "Two metadata-only checks read the server action allowlist. Initial frozen harness omitted this file; initial ENOENT logs retained. No product source change.",
+  "files": [
+    {
+      "path": "server/game-core.mjs",
+      "bytes": 8029,
+      "sha256": "8911add005d9f6803523931fb4784aa5098582da751159a1ed160a15676f765b",
+      "frozenSha256": "8911add005d9f6803523931fb4784aa5098582da751159a1ed160a15676f765b"
+    }
+  ]
+}

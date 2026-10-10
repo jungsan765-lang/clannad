@@ -1,0 +1,9 @@
+PASS native six-phase demands use fixed common-stage gems with unchanged Mora and other materials
+PASS native talent book totals are MOND 996/2016 and LIYUE 2490/5040
+PASS one fewer than 5000/10000 final PYRO gems rejects atomically; exact costs spend once and survive reload
+PASS first MOND talent consumes 2 books and LIYUE consumes 5; missing one book rejects atomically
+PASS native three-talent upgrades to 8 pay the exact regional totals and preserve trained saves
+PASS the three 20-win weekly domain subgoals overlap daily wins for 60 payouts; EXP never spends the shared material bonus
+PASS fixed current stage payouts match the weekly domain-subgoal subset without cloning books
+PASS material-domain XP and the entire XP curve stay unchanged while current talent payouts use marker two
+{"version":"0.16.21","checks":8,"ok":true,"model":"native-cost-and-payout-model-not-60-fights"}

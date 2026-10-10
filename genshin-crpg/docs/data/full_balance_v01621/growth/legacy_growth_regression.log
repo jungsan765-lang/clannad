@@ -1,0 +1,17 @@
+PASS both untouched prologues first teach the route to the actual story destination
+PASS free play without a story destination does not invent a forced trip
+PASS regional enemy stats and bodies are fixed across levels and one to four allies
+PASS books work for an owned bench companion and stop at each cap with no extra consumption
+PASS all six ascensions spend once, heal, open the correct cap and preserve progress after reload
+PASS story locks and talent caps are authoritative; five-star growth costs more
+PASS legacy level-20 ownership migrates once without granting the new-game fates twice
+PASS a story acquaintance stays unowned; the first wish joins at player level minus five; duplicates preserve level
+PASS each domain stands at its own place, starts its own enemies, reloads, pays once and spends bonuses only on material wins
+PASS domains open only where they stand, one kind each; level, element and in-flight metadata cannot be forged; no ore domain
+PASS domain fights saved under the 0.15.22, 0.15.25 and 0.16.2 rules still load and pay by those rules
+PASS gathering and mining replay timed inputs, reject forged logs atomically and grant one resource use
+PASS eight enemy slots refill from reserves without discarding rewards or allowing an early victory
+PASS a fourth summon replaces the oldest on each side, leaving three separate slots
+PASS Bennett field heals below 70%, buffs above it, C1 removes the HP gate, and stun blocks action
+PASS native Anemo swirls incoming elements without retaining them; Geo is not a reverse crystallize reagent
+PASS the combat lesson waits for the Traveler element and Bennett keeps base attack in a guest snapshot

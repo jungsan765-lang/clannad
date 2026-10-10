@@ -1,7 +1,7 @@
 'use strict';
 // Execute the shipped UI helpers with the real runtime; the DOM only records output.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
-const root=path.resolve(__dirname,'..'),db=JSON.parse(fs.readFileSync(path.join(root,'content/db.json')));
+const root=path.resolve(process.env.UI_SOURCE_ROOT||path.join(__dirname,'..')),db=JSON.parse(fs.readFileSync(path.join(root,'content/db.json')));
 let now=1900000000000,sequence=0,frame=0,restoreCalls=0,ordinaryCalls=0;
 const cancelled=[],actions=[];
 class Element {
@@ -39,11 +39,11 @@ test('actual guest and off-party combatant growth appears once in the earned-rew
  assert.equal(r.s.chars.MOND_AMBER.level,permanentAmber);assert.equal(snapshot['GUEST:MOND_AMBER'].level,1);assert.equal(ctx.receivedLoot(ctx.adventureSnapshot(),'COMBAT'),null);
 });
 
-test('XP book level-up produces a notice with full HP; sub-threshold XP does not invent one',()=>{
+test('XP book level-up keeps existing wounds; sub-threshold XP does not invent a level notice',()=>{
  const r=fresh();r.giveItem('MAT_CHAR_EXP_WANDERER',2);r.s.global.PLAYER_HP_CURRENT=1;let before=ctx.adventureSnapshot();
  ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'PLAYER_CUSTOM'});let loot=ctx.receivedLoot(before,'USE_ITEM');assert.equal(loot.levelUps.length,0);assert.equal(r.s.global.PLAYER_HP_CURRENT,1);
- r.s.global.PLAYER_XP_STATE=ctx.CRPGRuntime.growthV01522.xpNext(1)-1;before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'PLAYER_CUSTOM'});loot=ctx.receivedLoot(before,'USE_ITEM');
- assert.deepEqual(copy(loot.levelUps).map(x=>[x.from,x.to]),[[1,2]]);assert.equal(r.s.global.PLAYER_HP_CURRENT,r.s.global.PLAYER_HP_MAX);
+ r.s.global.PLAYER_XP_STATE=ctx.CRPGRuntime.growthV01522.xpNext(1)-1;const missing=r.s.global.PLAYER_HP_MAX-r.s.global.PLAYER_HP_CURRENT;before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'PLAYER_CUSTOM'});loot=ctx.receivedLoot(before,'USE_ITEM');
+ assert.deepEqual(copy(loot.levelUps).map(x=>[x.from,x.to]),[[1,2]]);assert.equal(r.s.global.PLAYER_HP_MAX-r.s.global.PLAYER_HP_CURRENT,missing);
 });
 
 test('restoring the same fishing cast clears unsaved input and delegates to the normal restore hook',()=>{
@@ -70,6 +70,22 @@ test('Kaeya resolves his authored field contact and active party location takes 
 test('save labels resolve old and new maps both during a game and on the title screen',()=>{
  fresh();for(const inGame of [true,false]){if(!inGame)ctx.game=null;assert.equal(ctx.savedMapName('MAP_MOND_CITY'),'몬드성');for(const site of ctx.CRPGRuntime.lifeCatalog.sites)assert.equal(ctx.savedMapName(site.id),site.name);assert.equal(ctx.savedMapName('MISSING_MAP'),'알 수 없는 구역');}
  assert(!db['32_MAP_DB'].some(row=>row[0]==='MAP_CRPG_CIDER_BANK'));
+});
+
+test('book XP receipt names and counts active and bench recipients without player XP',()=>{
+ for(const active of [false,true]){const r=fresh();r.adminApply({op:'recruit',char:'MOND_KAEYA'});if(active)r.s.party[1]={slot:'PARTY_2',type:'CHAR',source:'MOND_KAEYA',active:true,control:'AI',tactic:'균형'};r.giveItem('MAT_CHAR_EXP_WANDERER',1);const before=ctx.adventureSnapshot(),player=copy(r.growth());ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_KAEYA'});const loot=ctx.receivedLoot(before,'USE_ITEM');assert(loot);assert.equal(loot.xpOwner,'MOND_KAEYA');assert.equal(loot.xp,50);assert.deepEqual(copy(r.growth()),player);}
+});
+test('bench companion multi-level book XP includes consumed level thresholds exactly',()=>{
+ const r=fresh();r.adminApply({op:'recruit',char:'MOND_KAEYA'});r.giveItem('MAT_CHAR_EXP_HERO',1);const before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_HERO',quantity:1,owner:'MOND_KAEYA'});const loot=ctx.receivedLoot(before,'USE_ITEM');assert.equal(loot.xp,1000);assert.equal(loot.xpOwner,'MOND_KAEYA');assert.equal(loot.levelUps.length,1);assert.equal(loot.levelUps[0].owner,'MOND_KAEYA');assert(loot.levelUps[0].to>2);
+});
+test('book display discards cap overflow instead of copying nominal book XP',()=>{
+ const r=fresh();r.adminApply({op:'recruit',char:'MOND_KAEYA'});r.s.chars.MOND_KAEYA.level=9;r.s.chars.MOND_KAEYA.xp=ctx.CRPGRuntime.growthV01522.xpNext(9)-7;r.recalculate();r.giveItem('MAT_CHAR_EXP_HERO',1);const before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_HERO',quantity:1,owner:'MOND_KAEYA'});const loot=ctx.receivedLoot(before,'USE_ITEM');assert.equal(ctx.lastResult.result.xp,1000);assert.equal(loot.xp,7);assert.equal(loot.xpOwner,'MOND_KAEYA');assert.equal(r.growth('MOND_KAEYA').level,10);
+});
+test('the shipped earned-reward renderer prints the companion name on its existing XP line',()=>{
+ const r=fresh();r.adminApply({op:'recruit',char:'MOND_KAEYA'});r.giveItem('MAT_CHAR_EXP_WANDERER',1);const before=ctx.adventureSnapshot();ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_KAEYA'});ctx.ownerName=owner=>r.growth(owner).name;ctx.showModal=(title,box)=>ctx.modal={title,box};ctx.showReceivedLoot(ctx.receivedLoot(before,'USE_ITEM'));const text=walk(ctx.modal.box).map(n=>n.textContent).join(' ');assert(text.includes(r.growth('MOND_KAEYA').name+' 경험치 획득 +50'));assert(!text.includes(r.s.global.PLAYER_NAME+' 경험치 획득'));
+});
+test('an unchanged snapshot after a book receipt never invents a second XP gain',()=>{
+ const r=fresh();r.adminApply({op:'recruit',char:'MOND_KAEYA'});r.giveItem('MAT_CHAR_EXP_WANDERER',1);ctx.lastResult=r.action('USE_ITEM',{item:'MAT_CHAR_EXP_WANDERER',quantity:1,owner:'MOND_KAEYA'});assert.equal(ctx.receivedLoot(ctx.adventureSnapshot(),'USE_ITEM'),null);
 });
 
 console.log(JSON.stringify({total:results.length,passed:results.filter(r=>r.ok).length,results},null,2));if(results.some(r=>!r.ok))process.exitCode=1;

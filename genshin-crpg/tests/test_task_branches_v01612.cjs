@@ -84,7 +84,7 @@ check('already accepted native 171 one-time joins still require both original pr
 check('the current whole-week bonus counts only remaining targets while an already-paid bonus cannot replay',()=>{
  const old=unlock(high(oldFresh()));let loops=0;
  while(loops++<20){const targets=old.taskView().weekly;if(!targets.length)break;for(const task of targets){quotaFixture(old,task.id);guild(old);old.action('TASK_CLAIM',{task:task.id});}}
- assert(loops<20);assert(old.taskView().weeklyBonus.done);guild(old);old.action('TASK_CLAIM',{task:'W_ALL'});const prior=saved(old),r=new R(db,copy(prior));noRetired(r);assert.equal(r.s.tasks.claimed.W_ALL,1);assert.equal(r.s.global.PRIMOGEM,prior.global.PRIMOGEM);assert.equal(r.taskView().weeklyBonus.goal,r.s.tasks.weeklyIds.length);assert.throws(()=>r.action('TASK_CLAIM',{task:'W_ALL'}));new R(db,saved(r));
+ assert(loops<20);assert(old.taskView().weeklyBonus.done);guild(old);old.action('TASK_CLAIM',{task:'W_ALL'});const prior=saved(old),r=new R(db,copy(prior));noRetired(r);assert.equal(r.s.tasks.claimed.W_ALL,1);assert.equal(r.s.global.PRIMOGEM,prior.global.PRIMOGEM);assert.equal(r.taskView().weeklyBonus.goal,r.s.tasks.weeklyIds.filter(id=>id!=='W_V168_ABYSS').length);assert.throws(()=>r.action('TASK_CLAIM',{task:'W_ALL'}));new R(db,saved(r));
 });
 
 console.log(JSON.stringify({ok:!process.exitCode,checks:count,native171SourceHashes:Object.fromEntries(Object.entries(ARCHIVE).map(([name,a])=>[name,a.sha256]))}));

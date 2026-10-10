@@ -4,8 +4,8 @@ const {R,db,c}=require('./helpers_v011.cjs');
 const {setup,api,G}=require('../tools/audit_balance_v01522.cjs');
 const {measure,policy,REFERENCE_TEAM}=require('../tools/audit_balance_v0161.cjs');
 const copy=x=>JSON.parse(JSON.stringify(x));
-// Fixed approved 0.16.16 design, independent of the runtime API under test.
-const EXPECTED={"NEUTRAL":{"5":1,"10":2,"15":3,"20":4,"25":5,"30":6,"35":8,"40":9,"45":18,"50":24,"55":29,"60":50},"PYRO":{"5":1,"10":2,"15":3,"20":16,"25":21,"30":18,"35":24,"40":57,"45":64,"50":134,"55":690,"60":1189},"HYDRO":{"5":1,"10":2,"15":3,"20":10,"25":18,"30":17,"35":27,"40":68,"45":123,"50":156,"55":332,"60":453},"ANEMO":{"5":1,"10":2,"15":3,"20":4,"25":5,"30":6,"35":10,"40":14,"45":15,"50":16,"55":47,"60":84},"ELECTRO":{"5":1,"10":2,"15":3,"20":4,"25":6,"30":6,"35":8,"40":10,"45":18,"50":31,"55":101,"60":176},"CRYO":{"5":1,"10":2,"15":3,"20":4,"25":7,"30":6,"35":8,"40":14,"45":26,"50":38,"55":75,"60":113},"GEO":{"5":1,"10":2,"15":3,"20":4,"25":5,"30":6,"35":8,"40":10,"45":15,"50":20,"55":48,"60":87},"DENDRO":{"5":1,"10":2,"15":3,"20":4,"25":6,"30":7,"35":10,"40":11,"45":13,"50":16,"55":50,"60":70}};
+// Fixed approved 0.16.21 common-unit quantities, independent of the runtime API.
+const EXPECTED=Object.fromEntries(['NEUTRAL','PYRO','HYDRO','ANEMO','ELECTRO','CRYO','GEO','DENDRO'].map(element=>[element,{5:1,10:2,15:3,20:4,25:6,30:8,35:20,40:35,45:80,50:180,55:600,60:1500}]));
 const ELEMENTS=['NEUTRAL','PYRO','HYDRO','ANEMO','ELECTRO','CRYO','GEO','DENDRO'];
 let checks=0;
 function check(name,fn){fn();checks++;console.log('PASS '+name);}
@@ -19,7 +19,7 @@ function settle(r,win=true){if(win)for(const a of r.s.runtime.actors.filter(a=>a
 function replayAction(r,type,args){const g=r.s.global,a={id:g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1),revision:g.SAVE_REVISION,type,...args};const out=r.transact(a),saved=r.serialize();assert.deepEqual(copy(r.transact(a)),copy(out));assert.equal(r.serialize(),saved);return out;}
 
 check('all twelve stages preview the same eight existing gem types with unchanged first-three shared bonus',()=>{
- assert.deepEqual(copy(G.domainAscensionGems),EXPECTED);assert.equal(G.ascensionRewardVersion,2);
+ assert.deepEqual(copy(G.domainAscensionGems),EXPECTED);assert.equal(G.ascensionRewardVersion,3);
  const r=fixture(),day=G.dayOf(c.Date.now());let stages=0;
  for(const s of r.growthDomainSites().filter(s=>s.kind==='ASCENSION'))for(const d of r.growthDomainEntries(s.map)){
   stages++;for(const element of ELEMENTS){const item='GROWTH_GEM_'+element;
@@ -37,8 +37,8 @@ check('new high-stage battle markers survive reload, entry retries and settlemen
   let r=fixture();const item='GROWTH_GEM_'+element,day=G.dayOf(c.Date.now());r.s.domainDaily={day,wins:3};
   const count=r.itemCount(item),mora=r.s.global.MORA;
   replayAction(r,'DOMAIN_START',{domain:'LIANSHAN_FORMULA:'+level,element});
-  assert.equal(r.s.runtime.growthDomain.ascensionRewardVersion,2);
-  const actors=copy(r.s.runtime.actors);r=restore(r);assert.deepEqual(copy(r.s.runtime.actors),actors);assert.equal(r.s.runtime.growthDomain.ascensionRewardVersion,2);
+  assert.equal(r.s.runtime.growthDomain.ascensionRewardVersion,3);
+  const actors=copy(r.s.runtime.actors);r=restore(r);assert.deepEqual(copy(r.s.runtime.actors),actors);assert.equal(r.s.runtime.growthDomain.ascensionRewardVersion,3);
   const out=settle(r);assert.deepEqual(copy(out.domain.items),{[item]:EXPECTED[element][level]});assert.equal(r.itemCount(item)-count,EXPECTED[element][level]);assert.equal(r.s.global.MORA,mora);assert.equal(out.xp,G.domainMaterialXp[level]);assert.equal(r.s.domainDaily.wins,4);
   const saved=r.serialize();assert.equal(r.finishBattle(true),undefined);assert.equal(r.serialize(),saved);r=restore(r);assert.equal(r.itemCount(item)-count,EXPECTED[element][level]);assert.equal(r.serialize(),saved);
  }
@@ -50,13 +50,13 @@ check('pre-0.16.13 in-flight version-four fights retain their own old rewards ac
   const s=copy(r.s);delete s.runtime.growthDomain.ascensionRewardVersion;const actors=copy(s.runtime.actors),items=copy(s.inventory),levels=copy(s.ascensions),money=s.global.MORA;
   r=new R(db,s);assert.equal(r.s.runtime.growthDomain.ascensionRewardVersion,0);assert.deepEqual(copy(r.s.runtime.actors),actors);assert.deepEqual(copy(r.s.inventory),items);assert.deepEqual(copy(r.s.ascensions),levels);assert.equal(r.s.global.MORA,money);
   r=restore(r);assert.equal(r.s.runtime.growthDomain.ascensionRewardVersion,0);const out=settle(r);assert.equal(out.domain.items.GROWTH_GEM_PYRO,Math.ceil(level/5)*(wins<3?2:1));assert.equal(out.xp,G.domainMaterialXp[level]);assert.equal(out.mora||0,0);r=restore(r);
-  r.s.global.CURRENT_MAP_ID='MAP_D163_LIANSHAN_FORMULA';r.s.global.SCREEN_MODE='LOCATION';r.action('DOMAIN_START',{domain:'LIANSHAN_FORMULA:'+level,element:'PYRO'});assert.equal(r.s.runtime.growthDomain.ascensionRewardVersion,2);assert.equal(settle(r).domain.items.GROWTH_GEM_PYRO,EXPECTED.PYRO[level]*(wins+1<3?2:1));
+  r.s.global.CURRENT_MAP_ID='MAP_D163_LIANSHAN_FORMULA';r.s.global.SCREEN_MODE='LOCATION';r.action('DOMAIN_START',{domain:'LIANSHAN_FORMULA:'+level,element:'PYRO'});assert.equal(r.s.runtime.growthDomain.ascensionRewardVersion,3);assert.equal(settle(r).domain.items.GROWTH_GEM_PYRO,EXPECTED.PYRO[level]*(wins+1<3?2:1));
  }
 });
 
 check('malformed reward markers are rejected and a marker cannot change talent or legacy domain rewards',()=>{
  const r=fixture();r.action('DOMAIN_START',{domain:'LIANSHAN_FORMULA:60',element:'PYRO'});
- for(const marker of [-1,3,.5,'1',true,null,{},[]]){const s=copy(r.s);s.runtime.growthDomain.ascensionRewardVersion=marker;assert.throws(()=>new R(db,s),/돌파 비경 보상 저장값/);}
+ for(const marker of [-1,4,.5,'3',true,null,{},[]]){const s=copy(r.s);s.runtime.growthDomain.ascensionRewardVersion=marker;assert.throws(()=>new R(db,s),/돌파 비경 보상 저장값/);}
  const t=fixture('MAP_D163_TAISHAN_MANSION');t.action('DOMAIN_START',{domain:'TAISHAN_MANSION:60'});const ts=copy(t.s);ts.runtime.growthDomain.ascensionRewardVersion=1;assert.throws(()=>new R(db,ts),/돌파 비경 보상 저장값/);
  const legacy={...copy(G.legacyTrialSites.LIANSHAN_FORMULA),key:'LIANSHAN_FORMULA',id:'LIANSHAN_FORMULA:ASCENSION',kind:'ASCENSION',version:3};
  const day=G.dayOf(c.Date.now());r.s.domainDaily={day,wins:3};assert.equal(r.growthDomainRewards(legacy,'PYRO',day).items.GROWTH_GEM_PYRO,8);
@@ -64,7 +64,7 @@ check('malformed reward markers are rejected and a marker cannot change talent o
 
 check('talent and ascension still share three bonuses; EXP and defeats consume none and domains pay no books or Mora',()=>{
  let r=fixture();const day=G.dayOf(c.Date.now());r.s.domainDaily={day,wins:0};
- const cases=[['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',128,1],['MAP_D163_MIDSUMMER_COURTYARD','MIDSUMMER_COURTYARD:5','NEUTRAL',0,1],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',2378,2],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:55','PYRO',1380,3],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',1189,4]];
+ const cases=[['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',160,1],['MAP_D163_MIDSUMMER_COURTYARD','MIDSUMMER_COURTYARD:5','NEUTRAL',0,1],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',3000,2],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:55','PYRO',1200,3],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',1500,4]];
  for(const [map,domain,element,expected,wins]of cases){r.s.global.CURRENT_MAP_ID=map;r.s.global.SCREEN_MODE='LOCATION';r.action('DOMAIN_START',{domain,element});r=restore(r);const out=settle(r);assert.equal(Object.values(out.domain.items).reduce((a,b)=>a+b,0),expected);assert.equal(r.s.domainDaily.wins,wins);assert.equal(out.mora||0,0);for(const item of Object.keys(out.domain.items))assert(!item.startsWith('MAT_CHAR_EXP_'));}
  r.s.global.CURRENT_MAP_ID='MAP_D163_LIANSHAN_FORMULA';r.s.global.SCREEN_MODE='LOCATION';r.action('DOMAIN_START',{domain:'LIANSHAN_FORMULA:60',element:'PYRO'});const count=r.itemCount('GROWTH_GEM_PYRO');settle(r,false);assert.equal(r.s.domainDaily.wins,4);assert.equal(r.itemCount('GROWTH_GEM_PYRO'),count);
 });

@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "initialCandidateSHA256": "ef07b08757a96a540f508b29da854a271f5ff3b3db4fc990bc0ee4f8320bde6c",
+  "finalProductSHA256": "84a4b734e58ae05f4f61b495a0eefd622bdf532911b79f0f57c1f072708e891a",
+  "changes": 1,
+  "onlyChange": "Common ASCENSION_GEMS_V01621 reward literal; six phase demands are derived from it by existing unchanged formula.",
+  "allRemainingProductBytesIdentical": true,
+  "unaffectedDeclaredTables": [
+    {
+      "name": "XP_PACING_V0168",
+      "sameBytes": true,
+      "sha256": "818cee620b5576887093a437e039b50b910314c6c8f7fcd4e3d7965c8333cbc4"
+    },
+    {
+      "name": "EXP_XP",
+      "sameBytes": true,
+      "sha256": "a39ca52a2bc2a830a8182f18faae0a31dbc5af15962c83936ad2d9dbe99f2005"
+    },
+    {
+      "name": "MATERIAL_XP",
+      "sameBytes": true,
+      "sha256": "49d6ff8f74018f982171ab698932cd5baca72fa7b7538cd77deb56662a2fb90f"
+    },
+    {
+      "name": "FIELD_HP_V0166",
+      "sameBytes": true,
+      "sha256": "67fc5f46b639db93e5c2d5dfce6af6f49ce8a0e5635c48375ee0c91c9f686de8"
+    },
+    {
+      "name": "FIELD_ATK_V0166",
+      "sameBytes": true,
+      "sha256": "53107ed8f1893ec28930592501ccc28e97baeccc23264d6ba864aa5261e3ae07"
+    },
+    {
+      "name": "TALENT_BOOKS_V01621",
+      "sameBytes": true,
+      "sha256": "b569aa3e066174b705329198634d74e0e298b4afdd10abd792e73e83ed2e84bc"
+    },
+    {
+      "name": "TALENT_BOOK_COSTS_V01621",
+      "sameBytes": true,
+      "sha256": "22388026ae68ab84a34fbe2c8549e58cf37652c054068db66c69842f9c16ef87"
+    }
+  ],
+  "reusePolicy": "Initial-candidate continuous EXP campaigns remain measurement evidence for unchanged HP/XP/enemies/actions. Their source SHA is not relabeled as final; ascension ingredients granted by declared fixture and native Mora unchanged, so reward-table change does not alter measured EXP battle mechanics. Final native ascension/cost/replay tests separately re-executed."
+}

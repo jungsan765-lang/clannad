@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "root": "/tmp/crpg_full_balance_v01621/combat_final_frozen",
+  "fingerprint": "6095344c74d938dd787b75344bea77137b5afe9e8c82d82f137e17338c942340",
+  "scope": "Native boundary fixtures: extra bodies are cloned solely to exercise reserve capacity; fields and boss summons use existing native creation. No balance win/time claim.",
+  "checks": [
+    {
+      "name": "eight body slots preserve queued bodies, refill after death, restore and pay all native XP",
+      "ok": true,
+      "evidence": {
+        "total": 15,
+        "count": 15,
+        "expectedXp": 390,
+        "receivedXp": 390,
+        "reservePasses": 1
+      }
+    },
+    {
+      "name": "fourth allied/enemy independent summon field replaces oldest; restore keeps three",
+      "ok": true,
+      "evidence": [
+        {
+          "side": "ALLY",
+          "live": [
+            "OZ",
+            "GOU_BA",
+            "YUEGUI_THROWING"
+          ]
+        },
+        {
+          "side": "ENEMY",
+          "live": [
+            "OZ",
+            "GOU_BA",
+            "YUEGUI_THROWING"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "enemy summon actors and fields share three slots while body cap remains eight",
+      "ok": true,
+      "evidence": {
+        "summonActors": 2,
+        "independentFields": 1,
+        "queuedSummons": 2
+      }
+    }
+  ],
+  "counts": {
+    "checks": 3,
+    "pass": 3,
+    "fail": 0
+  }
+}

@@ -1,0 +1,127 @@
+PASS actual guest and off-party combatant growth appears once in the earned-reward summary
+FAIL XP book level-up keeps existing wounds; sub-threshold XP does not invent a level notice
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+0 !== 599
+
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:46:77
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:30:28)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:42:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+PASS restoring the same fishing cast clears unsaved input and delegates to the normal restore hook
+PASS Katheryne resolves her schedule from a profile with no playable owner even from another map
+PASS Kaeya resolves his authored field contact and active party location takes precedence
+PASS save labels resolve old and new maps both during a game and on the title screen
+FAIL book XP receipt names and counts active and bench recipients without player XP
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(loot)
+
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:76:451
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:30:28)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:75:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+FAIL bench companion multi-level book XP includes consumed level thresholds exactly
+TypeError: Cannot read properties of null (reading 'xp')
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:79:294
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:30:28)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:78:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+FAIL book display discards cap overflow instead of copying nominal book XP
+TypeError: Cannot read properties of null (reading 'xp')
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:82:448
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:30:28)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:81:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+FAIL the shipped earned-reward renderer prints the companion name on its existing XP line
+TypeError: Cannot read properties of undefined (reading 'box')
+    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:85:412
+    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:30:28)
+    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:84:1)
+    at Module._compile (node:internal/modules/cjs/loader:1872:14)
+    at Object..js (node:internal/modules/cjs/loader:2003:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+PASS an unchanged snapshot after a book receipt never invents a second XP gain
+{
+  "total": 11,
+  "passed": 6,
+  "results": [
+    {
+      "name": "actual guest and off-party combatant growth appears once in the earned-reward summary",
+      "ok": true
+    },
+    {
+      "name": "XP book level-up keeps existing wounds; sub-threshold XP does not invent a level notice",
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 599\n\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:46:77\n    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:30:28)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:42:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "name": "restoring the same fishing cast clears unsaved input and delegates to the normal restore hook",
+      "ok": true
+    },
+    {
+      "name": "Katheryne resolves her schedule from a profile with no playable owner even from another map",
+      "ok": true
+    },
+    {
+      "name": "Kaeya resolves his authored field contact and active party location takes precedence",
+      "ok": true
+    },
+    {
+      "name": "save labels resolve old and new maps both during a game and on the title screen",
+      "ok": true
+    },
+    {
+      "name": "book XP receipt names and counts active and bench recipients without player XP",
+      "ok": false,
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(loot)\n\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:76:451\n    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:30:28)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:75:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "name": "bench companion multi-level book XP includes consumed level thresholds exactly",
+      "ok": false,
+      "error": "TypeError: Cannot read properties of null (reading 'xp')\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:79:294\n    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:30:28)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:78:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "name": "book display discards cap overflow instead of copying nominal book XP",
+      "ok": false,
+      "error": "TypeError: Cannot read properties of null (reading 'xp')\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:82:448\n    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:30:28)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:81:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "name": "the shipped earned-reward renderer prints the companion name on its existing XP line",
+      "ok": false,
+      "error": "TypeError: Cannot read properties of undefined (reading 'box')\n    at /workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:85:412\n    at test (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:30:28)\n    at Object.<anonymous> (/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg/tests/test_life_ui_v010.cjs:84:1)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "name": "an unchanged snapshot after a book receipt never invents a second XP gain",
+      "ok": true
+    }
+  ]
+}

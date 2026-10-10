@@ -1,0 +1,4359 @@
+{
+  "schema": 1,
+  "tool": "tools/audit_food_supply_v01617.cjs",
+  "packageVersion": "0.16.20",
+  "runtimeRoot": "/workspace/scratch/a62414469990/crpg-v01618-work/genshin-crpg",
+  "clock": 1791529200000,
+  "loadedSource": [
+    {
+      "file": "world_content.js",
+      "sha256": "89d9fbc842cde7b934db6c5ffbf51b3e24219ef91b3c3423fecb2f1370eeb2d0"
+    },
+    {
+      "file": "runtime.js",
+      "sha256": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7"
+    },
+    {
+      "file": "runtime_extensions.js",
+      "sha256": "69cfb084c45ca667ace391f2a052ce1282d86c101058b52e6a67adf3741b2b69"
+    },
+    {
+      "file": "runtime_story.js",
+      "sha256": "e776d6aec6b0b5941ce0455285353372f6f70a5f9610ccd48fea23d6aea0f798"
+    },
+    {
+      "file": "runtime_nodes.js",
+      "sha256": "30d3a9ee98e729820703a4fbc4699c46e275ce6d3f3b22324538ddb7ad395322"
+    },
+    {
+      "file": "runtime_events.js",
+      "sha256": "17feadef2a5fb08a78d85cdee53b7403d7fa9e836acf25c3fcb7984c9e039fe9"
+    },
+    {
+      "file": "runtime_relationships.js",
+      "sha256": "7d8d84884d29fe6e771f6f6bcd94e3fcf64d793f296356f5a5a6261d8713078b"
+    },
+    {
+      "file": "runtime_combat.js",
+      "sha256": "544b8ffcdafcc55d686f757026a25fc940bc08bbdc235115ab71a29894ffcdaa"
+    },
+    {
+      "file": "runtime_mond_cards.js",
+      "sha256": "7d8c6c7e74673ddfd11344af29011ca03121778f21b36c5c64e15d2ede2a2cc0"
+    },
+    {
+      "file": "runtime_economy.js",
+      "sha256": "5c04f9c3d1f23596482f2d38cb392048c37291311ee07a9fefe296837d5d8140"
+    },
+    {
+      "file": "runtime_passives.js",
+      "sha256": "662fc78757cf5cc70260b04e74064bff0a425989f4088d7e612afd87890263e7"
+    },
+    {
+      "file": "runtime_rules.js",
+      "sha256": "a94d27081898b5fa60e19caef212b06ee8cd5127d140d58f0aff2710e0fd7f9e"
+    },
+    {
+      "file": "runtime_andrius.js",
+      "sha256": "dcb505716d41cdf3dcb09e13e95e2c55b9c26dde4d9e719615114eb9b124dcf4"
+    },
+    {
+      "file": "runtime_flow.js",
+      "sha256": "67ce2690c3ef530f68f0393c0790972979fe358ebc6679d57df7ab6f3463785d"
+    },
+    {
+      "file": "runtime_party.js",
+      "sha256": "905c8d0eec7f2f7495af9aa3d738150298e93fd3be2f81a39a4ecb213fd9eb39"
+    },
+    {
+      "file": "runtime_opening.js",
+      "sha256": "f4db094db0cfd8341603bdf6ffe6cad0877434bacb8786082c6a5849f836918b"
+    },
+    {
+      "file": "runtime_places.js",
+      "sha256": "b18bbf96d7f0b75e93d4ad5f1afdfb0d9b7bf15ff11fc803588688071a29993a"
+    },
+    {
+      "file": "runtime_places_joint.js",
+      "sha256": "79ab52fa26c88100a0d6cd1b46714f49b2816f0c88591fe656e751173acfa91f"
+    },
+    {
+      "file": "runtime_adventure.js",
+      "sha256": "05e9d029eee1f22e8ce8a7e2466291cd790dcdc59649f309592e8d32fd577db5"
+    },
+    {
+      "file": "runtime_exploration.js",
+      "sha256": "d6c37806bd15b4549986adf1af3e345cfd045ed5efa58edfbb56a9dd016b9e6c"
+    },
+    {
+      "file": "runtime_life.js",
+      "sha256": "00e73cb849f2260b69289bea6f403f75a96f7e57ba44d7585c79da0d22783a3b"
+    },
+    {
+      "file": "runtime_world.js",
+      "sha256": "152b57e546ffea056fb280ca59cb189fae0bd9e2b5da37f3b17cd6cfd91c3cd8"
+    },
+    {
+      "file": "runtime_journey.js",
+      "sha256": "1f37aba9a6a238132aa57f5c2ec7a33ba0f2a976b65624c43c1ed40365a5206e"
+    },
+    {
+      "file": "runtime_market.js",
+      "sha256": "6373387b466a7f49cce93df5ebbe1b7f294ae58202c110aa3423f6e94e7b39bb"
+    },
+    {
+      "file": "runtime_geography.js",
+      "sha256": "d10a82b2d6e7bf44529b5754b6ff5e7b6e943b453c6b8d241afe32a8fb757a8c"
+    },
+    {
+      "file": "runtime_liyue.js",
+      "sha256": "ba77931c8191e681cd627b2199934a55b8d37915d339f1ac9e2ab50d5f2d610a"
+    },
+    {
+      "file": "runtime_liyue_card_content.js",
+      "sha256": "d1ce3973380c6a27eda671cfefaaa79b219930c757999b5820cc83eb174312e0"
+    },
+    {
+      "file": "runtime_liyue_cards.js",
+      "sha256": "ea3b02ba00024837a52415fc4b3c81eb6db9d9c99ddd486b1ab88f97265e55a5"
+    },
+    {
+      "file": "runtime_liyue_combat.js",
+      "sha256": "ad0485097504d1c5104065e7d483e59874dfb4c2bdf51b54ff5c0a8a537f5004"
+    },
+    {
+      "file": "runtime_geo_oculi.js",
+      "sha256": "81adea43d7eaaa06b7cfa20e564d1489efe259dab0055edeb2729f099d8d84fb"
+    },
+    {
+      "file": "runtime_encounter.js",
+      "sha256": "2dec3e4cee8731447c740da5e0ae709e29b198a1deed267b011860b1c3ae7311"
+    },
+    {
+      "file": "runtime_recruitment.js",
+      "sha256": "b70dc86096de812df02639131dce5aece06afdc9ed6c2016df3008fd4a758951"
+    },
+    {
+      "file": "runtime_protagonist.js",
+      "sha256": "9e639f663c999552853c8b916522705eba970cfa3d59c1f9586da5429b223f2b"
+    },
+    {
+      "file": "runtime_equipment.js",
+      "sha256": "e721bbcf5d88560965fce5f1dc2c648aad73e75000f40b287345ee03e5224524"
+    },
+    {
+      "file": "runtime_liyue_equipment.js",
+      "sha256": "7cc0765130a2b1e14ccd7cfc0150d2215ddfff18bfa55a15f47f54c884b216d8"
+    },
+    {
+      "file": "runtime_liyue_forge.js",
+      "sha256": "eca640279d4ed05eebc61d63ae3f4c9a1c179288984ce67274712301e98f0fad"
+    },
+    {
+      "file": "runtime_exclusive_weapons.js",
+      "sha256": "c10b3fa40f79aebb7a8adc45414ed0b2363870c47c8e077e526562a2cb340817"
+    },
+    {
+      "file": "runtime_enhancement.js",
+      "sha256": "87f2a730364a25d69b0c0fa60bad3cdc9fec6563589a7118d9a2085384a4bd8b"
+    },
+    {
+      "file": "runtime_liyue_artifacts.js",
+      "sha256": "b4d9d525cb69722766d6ef8c3e49967b90112bbbcd4a402f4b22ed3a3124e733"
+    },
+    {
+      "file": "runtime_mond_encounters.js",
+      "sha256": "6507f112d215b0d862f1a9d940cf5b07e6e26f531c533af6de950c8d7adcc0c6"
+    },
+    {
+      "file": "runtime_enemy_content.js",
+      "sha256": "62455dd799a0078be597486124b1caa9b6157868ac1aa77a18c09fece8e22358"
+    },
+    {
+      "file": "runtime_enemy_skills.js",
+      "sha256": "8e3235afce2283d266e51dde2023ae35ce4e34a873968b23870f2dafd2dee8d3"
+    },
+    {
+      "file": "runtime_mond_boss_balance.js",
+      "sha256": "01ccd595edb27a6ba582fc28e1a9eee129b29ccaf101f6354f27f6a8d29976cb"
+    },
+    {
+      "file": "runtime_mond_balance.js",
+      "sha256": "f8a4e16f6c6a0e34155d31d50dd98f3e4e80ee40f1b6d56e42a15c31b7ed6426"
+    },
+    {
+      "file": "runtime_navigation.js",
+      "sha256": "e4f4c6182761c3827e0832e666d948452e8b65de7223b2ca0022eefab316ec4c"
+    },
+    {
+      "file": "runtime_liyue_area_content.js",
+      "sha256": "c5a530db67e3cedbc6054e91933cce6f6e398c7e78dd60e07720afa7603cc6df"
+    },
+    {
+      "file": "runtime_liyue_areas.js",
+      "sha256": "49e3946e533d4ae06fa1d36d6e5b205d8cb0dbbabe999ad074253ac944137f85"
+    },
+    {
+      "file": "runtime_chasm_skills.js",
+      "sha256": "de8131644c84fb360c95d43628e7d6043ac46602521ef3fd75636395a0ba3638"
+    },
+    {
+      "file": "runtime_liyue_encounters.js",
+      "sha256": "f991de65ef2698f5ff2c645fe5d229abf0bc251fe47b6b94d0312a169278ce5f"
+    },
+    {
+      "file": "runtime_play_fixes.js",
+      "sha256": "df89bb7070867b44773c5f7c5169abc7407c58066c4ef730e79cc394f1415c97"
+    },
+    {
+      "file": "runtime_gear_traits.js",
+      "sha256": "6d1413b7f43f717572b75608a70939ec8d10bb6c2e2d31ce519e7ab2d14af3af"
+    },
+    {
+      "file": "runtime_enemy_tiers.js",
+      "sha256": "91355d8ccdbc13e0fca5f0a733c605e2b143735e07054681ed6587052c90dc31"
+    },
+    {
+      "file": "runtime_field_bosses.js",
+      "sha256": "ad8a2730aec9a01596577388e11f672dbae57b7da4e79e4a61cafff82c8a2563"
+    },
+    {
+      "file": "runtime_quality_fixes.js",
+      "sha256": "b9584bd0b17ee1576c31d5d64c0241ec2f7a357367ee545b1cba52a8f6ffd664"
+    },
+    {
+      "file": "runtime_field_scenes.js",
+      "sha256": "c796fb5abe65f3f50719dcea13d0c4b6901164c29625a17da4960d982e02618d"
+    },
+    {
+      "file": "runtime_liyue_rework_content.js",
+      "sha256": "5378ea8efee50f9c9cd0f24af8aa2eec570bf6fe17863b528804bcaf47e47363"
+    },
+    {
+      "file": "runtime_liyue_rework.js",
+      "sha256": "d198f6104a06ac9b23521ed8d6006b97c0dce4734be88ae77c912c6d77079c45"
+    },
+    {
+      "file": "runtime_liyue_places.js",
+      "sha256": "6d26a981d1f7f928c5611a09b0c651410d0651da43cfc6f0b6001548f6e407e4"
+    },
+    {
+      "file": "runtime_liyue_region_guide.js",
+      "sha256": "ad0d5069eb2b46e1e3bd357242872add908ca421e0f7fca2f3e059638cd3aa3a"
+    },
+    {
+      "file": "runtime_traveler_geo.js",
+      "sha256": "6ddd53490775c4dc8b33be8d29332e9247525a0cd9ab060cae8effecb1f23658"
+    },
+    {
+      "file": "runtime_geo_trails.js",
+      "sha256": "9cbb8b0d4289061660876ded26fa6a1b5b5148712c360d572791526711f4ef26"
+    },
+    {
+      "file": "runtime_abyss.js",
+      "sha256": "552e76f4e0b197e549513f8332f9370aa9589e8ee14362c0f801631b52cbaddb"
+    },
+    {
+      "file": "runtime_formations.js",
+      "sha256": "5420ed7683f9effcbd1977d7344186903682d9ef5129519c5f84373285309d4c"
+    },
+    {
+      "file": "runtime_field_boss_limits.js",
+      "sha256": "d478a4b56861a89d31bec2d0d43f517a5d7b92d2b2d4475d8c7e374636e393fb"
+    },
+    {
+      "file": "runtime_ley_lines.js",
+      "sha256": "9fc595ab8f97bef9ad64dccbea2cce53ad1cd0dc97efe09a71477dbfa4b7392f"
+    },
+    {
+      "file": "runtime_boss_rematch.js",
+      "sha256": "f72f1512d020ca22e49ab559a5b46c57de4c2ed282107b6ab10ce32d8772aa44"
+    },
+    {
+      "file": "runtime_skill_rhythm.js",
+      "sha256": "da4f165f1193cf6027061f32a0e8ef2f5776911fd183fb9f24cbe0e786565ab5"
+    },
+    {
+      "file": "runtime_trade.js",
+      "sha256": "b4d7f62e92a54b7f3d782e87f3ea88ea299a28d855a6e413bf75dfdba4fb0cba"
+    },
+    {
+      "file": "runtime_personal_expansion.js",
+      "sha256": "65f6b3dff130d4a09c7c2bc937e982f526658f97804d3aa48496c9be62d94a43"
+    },
+    {
+      "file": "runtime_operator.js",
+      "sha256": "dc9678ff6dfe369831d8f05cc0045c3da4ffa991a87345f8cd0911be835f0e04"
+    },
+    {
+      "file": "runtime_mond_revision.js",
+      "sha256": "38ff880e1d37676e678b7fef99cc0b3c5fc91fd99c11e987c5419cd25480ee4e"
+    },
+    {
+      "file": "runtime_local_revision.js",
+      "sha256": "f03c1961bdb54b5b5e2afd4605b164d81d511acc377bfa269e16af86c09a1730"
+    },
+    {
+      "file": "runtime_local_story_content.js",
+      "sha256": "686ceb18e110e99576c8cd4e769432a216cf702837e1b7c2dd611a47998405ab"
+    },
+    {
+      "file": "runtime_local_story.js",
+      "sha256": "6bfec6e2b3a9f0faf895198feca88457c79a10af5b3c5163bd1426bf83bfab4e"
+    },
+    {
+      "file": "runtime_main_story_k_content.js",
+      "sha256": "de352534027feb6ce6403b8062b01f27ec5d56dbc9aac3c8ba1e4c9cba096616"
+    },
+    {
+      "file": "runtime_main_story_k.js",
+      "sha256": "fdd467dbf919a1ffc01f3932c34ee3de064335db7d0fa2bec6e9de6edbe3ebf3"
+    },
+    {
+      "file": "runtime_commission_stories.js",
+      "sha256": "a0403da53190d47bd5d54d6906a5fa738cf116d787f429fe4ce7c2b8641ae2e5"
+    },
+    {
+      "file": "runtime_combat_v0148.js",
+      "sha256": "40e41b7fc1a0ac0c3d5c36a3e5963060207b48fc9581ffa613e3d1382f67e76e"
+    },
+    {
+      "file": "runtime_economy_v0148.js",
+      "sha256": "ab69d2021d7a706b5996c9e8648722f060794a5667126d71215fe5662ed1a096"
+    },
+    {
+      "file": "runtime_personal_v0148.js",
+      "sha256": "ce887aefb0ef91cea85538e9e8f747fddbf3ce9a06d78490dd86c4058f843635"
+    },
+    {
+      "file": "runtime_premium_v0148.js",
+      "sha256": "78a9ab3a6a4d08d83d89c1f599af12d3e8f7d37bcca1262adf61dc286b532b22"
+    },
+    {
+      "file": "runtime_constellations_v01411.js",
+      "sha256": "02bd074ba57da0d877f6ac6cd1c0f5b0f8b80420a9604963aa8d4e4d71d6dc7b"
+    },
+    {
+      "file": "runtime_wish_v01411.js",
+      "sha256": "efa7c337cb92a4846a34249f3888a656300d0c194f01c4e0129f25de2c680c95"
+    },
+    {
+      "file": "runtime_admin_v01412.js",
+      "sha256": "d8a0db507f5a7801e070aeb3f4cb5ddd605363bbefc6a53e3afc28cf44e1248e"
+    },
+    {
+      "file": "runtime_rarity_v01412.js",
+      "sha256": "2b064ba6a440223aa283ae849f27cb625f6d9fa255722284120a5dcf39389240"
+    },
+    {
+      "file": "runtime_presets_v01411.js",
+      "sha256": "a403e640adab386537868e2a4b2b03ddb3e3f7310bb65ec67ce15b8eb0172128"
+    },
+    {
+      "file": "runtime_chests_v01415.js",
+      "sha256": "648e07370d6893cb61f8912f9c9ad8be4b3b70c8ee7b5b7294a7fb1fa199f721"
+    },
+    {
+      "file": "runtime_offerings_v01415.js",
+      "sha256": "c5e9b9cd72f8c31a892ef6eaabd4cddf5b91b32235f6adb17d11351756dd33e7"
+    },
+    {
+      "file": "runtime_mail_v0151.js",
+      "sha256": "d4c67dda613facf06247d9b4bbf3465ebf87811f0545edd8b9c508d3a4da4c74"
+    },
+    {
+      "file": "runtime_puzzles_v0152.js",
+      "sha256": "8ae19e5f7520263f9875443a6efa8674dad851ff8a2cb62f3115666ae3393069"
+    },
+    {
+      "file": "runtime_balance_v0152.js",
+      "sha256": "b77b65efca9b03277abb3353aaaa766018ead9ac353ab5f91403e10582def3a1"
+    },
+    {
+      "file": "runtime_mutations_v0152.js",
+      "sha256": "95ed7f6c86e85f7a98504ea66fc4e700f8cbcc474fb01a14a642ff3d1c3adeb0"
+    },
+    {
+      "file": "runtime_events_v0152.js",
+      "sha256": "e05194be62d47f656c5d1052c28901e437afcfe9aeaed678b99b2eb4a8f9c78e"
+    },
+    {
+      "file": "runtime_raid_v0152.js",
+      "sha256": "2afd25074af07356679c55f2df782f49fee30f99c472cae9baab67babbd4c3c9"
+    },
+    {
+      "file": "runtime_achievements_v0152.js",
+      "sha256": "e5642dfe3addfc59d5e6471ed410e586179fcad5f20f40c37cf6891ab2cd9b3b"
+    },
+    {
+      "file": "runtime_early_story_v0153.js",
+      "sha256": "0832bf65dbdff163986067fd182cf57e5db3f3b5d6b358fb285650eea0ab0ceb"
+    },
+    {
+      "file": "runtime_story_pacing_v0153.js",
+      "sha256": "6419745dd35de413cb4bc50c0a7711d134bb01f8bf748771e79f6f9d25a89ad8"
+    },
+    {
+      "file": "runtime_starter_kit_v0153.js",
+      "sha256": "f540f60cb507b8cf08fab6949fd6a339f50b8c37968a74460eb5de959d0433d0"
+    },
+    {
+      "file": "runtime_map_v01516.js",
+      "sha256": "8a23e528501ad06fab460d3f4ce83538cedc1786523306818518b32f4bbf4b3e"
+    },
+    {
+      "file": "runtime_coop_v0153.js",
+      "sha256": "ef4f0ed8b58601746ea35b9857be17cda28338777f373c63bf535e2320149321"
+    },
+    {
+      "file": "runtime_status_catalog_v01522.js",
+      "sha256": "9edfa00369436a9e20053d7719f4dd4f4f7579d1291e16302fbcba9791d0d300"
+    },
+    {
+      "file": "runtime_status_v01522.js",
+      "sha256": "949e5d4bbabb898a8fdb59fbb783feb1de67e53c8d5ef559158058ed020fffee"
+    },
+    {
+      "file": "runtime_life_v01522.js",
+      "sha256": "70de3b0ed42575b51a90409b96e26f6524565ebf7732962e6a265ea0d5df6902"
+    },
+    {
+      "file": "runtime_life_v0162.js",
+      "sha256": "90d258284c4939d4b0ab7c053ee573609125a1a634821e50817e00d1a3274708"
+    },
+    {
+      "file": "runtime_growth_data_v01522.js",
+      "sha256": "0e735990e52ad77df7378ea3f9c827b083a0d5d0f6f511c683ce2a12fc27992c"
+    },
+    {
+      "file": "runtime_growth_v01522.js",
+      "sha256": "1daa9a224ae7e4117bbba24657fef40e2c0cab66688493f9d81477014e4112ec"
+    },
+    {
+      "file": "runtime_roster_v01522.js",
+      "sha256": "6c63da79db88ff96eba7d7236d7f40212dfab9eededb25bda6c6fb691450e7b6"
+    },
+    {
+      "file": "runtime_tutorial_v01522.js",
+      "sha256": "419d39f9d8a75940e5e5740205790c0abf5656e99ffcb0e2f385bfe2a8a8932d"
+    },
+    {
+      "file": "runtime_battle_capacity_v01522.js",
+      "sha256": "bbcac0b4e5697647aa8732d379c6e320581cdad595d69670570eedfcdb74d0e7"
+    },
+    {
+      "file": "runtime_story_companions_v01525.js",
+      "sha256": "07cd6386355656cd87ee4edcde43ff5e473489618f831664575a5663dddc53cc"
+    },
+    {
+      "file": "runtime_coop_world_v0160.js",
+      "sha256": "a472af8514b3205a3c1ffa3258f5875269d43457eee12c1325759c5f957297bc"
+    },
+    {
+      "file": "runtime_battle_lines_v0162.js",
+      "sha256": "92a891ba42166a705f743b3ffd8e969bfd333a9157ff4f208ea29ed27d87dd8e"
+    },
+    {
+      "file": "runtime_landmarks_v0163.js",
+      "sha256": "bc79318b4f7d89e90908382fa757c87fd6f5f6853ce2553a5a2904b9f311a1c8"
+    },
+    {
+      "file": "runtime_task_catalog_v0168.js",
+      "sha256": "d99f6aef2eb3f78ec1c33d8be303ac748dddc3cd194d29f9c4cc07c99cfd0bf8"
+    },
+    {
+      "file": "runtime_task_learning_catalog_v0169.js",
+      "sha256": "c9205a89ce9d358dc1c1fa6bd791fd07eef9b99917e68a78d5d1f981c17c4b18"
+    },
+    {
+      "file": "runtime_tasks_v0167.js",
+      "sha256": "cc21ab26ac16a7b6265e04a6cf38543170e9a0bdbff01489174006f99e232bb9"
+    },
+    {
+      "file": "runtime_task_learning_v0169.js",
+      "sha256": "9e559eaf162280c88313bb8ae582792f10a1224061dbb6406fc4b05d205a5748"
+    },
+    {
+      "file": "runtime_reading.js",
+      "sha256": "e217a239e3b63a8f38e994d0a344ddce6c42fa771aa4f82aafa9347314d24633"
+    },
+    {
+      "file": "presentation.js",
+      "sha256": "fea749080ee1d5ac0a38c7595199a63f758bc47ecdece1ec8bd66f17b914e4a3"
+    }
+  ],
+  "loadedSourceDigest": "af31a3475dbd224edb5c6884bf79a95c5d919b90bbb18d40ae980a00449c1485",
+  "dbSha256": "254c9294c7787b421f38c84b3ad8fed9f00c207a8ef74855868c0cda48dc0962",
+  "toolSha256": "23f30cd9bbc7cdfac5093ac6358d43e3f74ad648aa47bedc8f0783f91a3a8e18",
+  "assumptions": {
+    "synthetic": [
+      "Initial four-member ownership, stated level/phase/talents/+6 equipment and story region unlocks.",
+      "Initial 200000 Mora is funding, excluded from income.",
+      "Initial HP is 25% damaged before each independent representative campaign.",
+      "Independent resource samples start already at map; travel and combat settlement excluded from rate averages.",
+      "Deterministic virtual clock advances by replayed inputs; elapsed is a timing model, not wall-clock user observation."
+    ],
+    "noFreeIngredientsOrFood": true,
+    "noForcedDrops": true,
+    "noOpponentsOrBattleOverrides": true,
+    "realisticInputSeconds": 3,
+    "sceneTapGapSeconds": 0.45,
+    "earlySceneCompletion": true,
+    "upperBoundSceneWaitSensitivity": true,
+    "nativeGameTimeDistinctFromRealElapsed": true,
+    "perfectSceneTaps": true,
+    "humanMissesAndNetworkLatencyExcluded": true,
+    "meals": "Representative one batch per four-party, not universal full recovery; actual missing/healed HP explicitly reported.",
+    "catalog": "All catalog rows retained; future region goods remain identified, not presumed reachable."
+  },
+  "cityPrices": {
+    "MOND": {
+      "TRPG_REFINED_LEATHER": {
+        "item": "TRPG_REFINED_LEATHER",
+        "stock": "STK_MOND_MAT_001",
+        "unitMora": 32,
+        "stockQuantity": 12,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "TRPG_STURDY_CLOTH": {
+        "item": "TRPG_STURDY_CLOTH",
+        "stock": "STK_MOND_MAT_002",
+        "unitMora": 24,
+        "stockQuantity": 16,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_MILK": {
+        "item": "ING_MILK",
+        "stock": "STK_MOND_FOOD_001",
+        "unitMora": 20,
+        "stockQuantity": 20,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_FLOUR": {
+        "item": "ING_FLOUR",
+        "stock": "STK_MOND_FOOD_002",
+        "unitMora": 18,
+        "stockQuantity": 20,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_SALT": {
+        "item": "ING_SALT",
+        "stock": "STK_MOND_FOOD_003",
+        "unitMora": 10,
+        "stockQuantity": 20,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_PEPPER": {
+        "item": "ING_PEPPER",
+        "stock": "STK_MOND_FOOD_004",
+        "unitMora": 16,
+        "stockQuantity": 20,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_ONION": {
+        "item": "ING_ONION",
+        "stock": "STK_MOND_FOOD_005",
+        "unitMora": 16,
+        "stockQuantity": 20,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_TOMATO": {
+        "item": "ING_TOMATO",
+        "stock": "STK_MOND_FOOD_006",
+        "unitMora": 16,
+        "stockQuantity": 20,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_POTATO": {
+        "item": "ING_POTATO",
+        "stock": "STK_MOND_FOOD_007",
+        "unitMora": 16,
+        "stockQuantity": 20,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_CABBAGE": {
+        "item": "ING_CABBAGE",
+        "stock": "STK_MOND_FOOD_008",
+        "unitMora": 16,
+        "stockQuantity": 20,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "TRPG_FISHING_ROD": {
+        "item": "TRPG_FISHING_ROD",
+        "stock": "STK_MOND_TOOL_001",
+        "unitMora": 80,
+        "stockQuantity": 2,
+        "period": "3일",
+        "condition": "없음"
+      },
+      "ING_SUGAR": {
+        "item": "ING_SUGAR",
+        "stock": "STK_V014_MOND_SUGAR",
+        "unitMora": 24,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "CRPG_FRUIT_BAIT": {
+        "item": "CRPG_FRUIT_BAIT",
+        "stock": "STK_CRPG_FRUIT_BAIT",
+        "unitMora": 8,
+        "stockQuantity": 40,
+        "period": "매일",
+        "condition": ""
+      },
+      "TRPG_ROPE": {
+        "item": "TRPG_ROPE",
+        "stock": "STK_CRPG_V011_ROPE",
+        "unitMora": 80,
+        "stockQuantity": 1,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_CRAB": {
+        "item": "ING_CRAB",
+        "stock": "STK_CRPG_V011_MOND_GENERAL_ING_CRAB",
+        "unitMora": 48,
+        "stockQuantity": 6,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_BUTTER": {
+        "item": "ING_BUTTER",
+        "stock": "STK_CRPG_V011_MOND_GENERAL_ING_BUTTER",
+        "unitMora": 42,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_CHEESE": {
+        "item": "ING_CHEESE",
+        "stock": "STK_CRPG_V011_MOND_GENERAL_ING_CHEESE",
+        "unitMora": 54,
+        "stockQuantity": 8,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "TRPG_BANDAGE": {
+        "item": "TRPG_BANDAGE",
+        "stock": "STK_CRPG_V011_MOND_GENERAL_TRPG_BANDAGE",
+        "unitMora": 30,
+        "stockQuantity": 8,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "MAT_LIYUE_JUEYUN_CHILI": {
+        "item": "MAT_LIYUE_JUEYUN_CHILI",
+        "stock": "STK_MOND_IMPORT_JUEYUN_CHILI",
+        "unitMora": 240,
+        "stockQuantity": 2,
+        "period": "3일",
+        "condition": "없음"
+      },
+      "MAT_LIYUE_SILK_FLOWER": {
+        "item": "MAT_LIYUE_SILK_FLOWER",
+        "stock": "STK_MOND_IMPORT_SILK_FLOWER",
+        "unitMora": 240,
+        "stockQuantity": 2,
+        "period": "3일",
+        "condition": "없음"
+      },
+      "MAT_LIYUE_COR_LAPIS": {
+        "item": "MAT_LIYUE_COR_LAPIS",
+        "stock": "STK_MOND_IMPORT_COR_LAPIS",
+        "unitMora": 240,
+        "stockQuantity": 2,
+        "period": "3일",
+        "condition": "없음"
+      },
+      "MAT_LIYUE_NOCTILUCOUS_JADE": {
+        "item": "MAT_LIYUE_NOCTILUCOUS_JADE",
+        "stock": "STK_MOND_IMPORT_NOCTILUCOUS_JADE",
+        "unitMora": 240,
+        "stockQuantity": 2,
+        "period": "3일",
+        "condition": "없음"
+      },
+      "MAT_LIYUE_GLAZE_LILY": {
+        "item": "MAT_LIYUE_GLAZE_LILY",
+        "stock": "STK_MOND_IMPORT_GLAZE_LILY",
+        "unitMora": 240,
+        "stockQuantity": 2,
+        "period": "3일",
+        "condition": "없음"
+      },
+      "MAT_LIYUE_VIOLETGRASS": {
+        "item": "MAT_LIYUE_VIOLETGRASS",
+        "stock": "STK_MOND_IMPORT_VIOLETGRASS",
+        "unitMora": 240,
+        "stockQuantity": 2,
+        "period": "3일",
+        "condition": "없음"
+      },
+      "MAT_LIYUE_STARCONCH": {
+        "item": "MAT_LIYUE_STARCONCH",
+        "stock": "STK_MOND_IMPORT_STARCONCH",
+        "unitMora": 240,
+        "stockQuantity": 2,
+        "period": "3일",
+        "condition": "없음"
+      },
+      "MAT_LIYUE_QINGXIN": {
+        "item": "MAT_LIYUE_QINGXIN",
+        "stock": "STK_MOND_IMPORT_QINGXIN",
+        "unitMora": 240,
+        "stockQuantity": 2,
+        "period": "3일",
+        "condition": "없음"
+      }
+    },
+    "LIYUE": {
+      "ING_RICE": {
+        "item": "ING_RICE",
+        "stock": "STK_LIYUE_FOOD_001",
+        "unitMora": 30,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_SHRIMP": {
+        "item": "ING_SHRIMP",
+        "stock": "STK_LIYUE_FOOD_002",
+        "unitMora": 60,
+        "stockQuantity": 6,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_SALT": {
+        "item": "ING_SALT",
+        "stock": "STK_LIYUE_FOOD_003",
+        "unitMora": 15,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_PEPPER": {
+        "item": "ING_PEPPER",
+        "stock": "STK_LIYUE_FOOD_004",
+        "unitMora": 24,
+        "stockQuantity": 8,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_MILK": {
+        "item": "ING_MILK",
+        "stock": "STK_LIYUE_FOOD_005",
+        "unitMora": 30,
+        "stockQuantity": 8,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "TRPG_FISHING_ROD": {
+        "item": "TRPG_FISHING_ROD",
+        "stock": "STK_LIYUE_TOOL_001",
+        "unitMora": 120,
+        "stockQuantity": 1,
+        "period": "3일",
+        "condition": "없음"
+      },
+      "ING_SUGAR": {
+        "item": "ING_SUGAR",
+        "stock": "STK_V014_LIYUE_SUGAR",
+        "unitMora": 24,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_ALMOND": {
+        "item": "ING_ALMOND",
+        "stock": "STK_V014_LIYUE_ALMOND",
+        "unitMora": 24,
+        "stockQuantity": 8,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_TOFU": {
+        "item": "ING_TOFU",
+        "stock": "STK_V014_LIYUE_TOFU",
+        "unitMora": 24,
+        "stockQuantity": 8,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_FLOUR": {
+        "item": "ING_FLOUR",
+        "stock": "STK_V0143_LIYUE_FLOUR",
+        "unitMora": 30,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_CABBAGE": {
+        "item": "ING_CABBAGE",
+        "stock": "STK_V0143_LIYUE_CABBAGE",
+        "unitMora": 24,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_POTATO": {
+        "item": "ING_POTATO",
+        "stock": "STK_V0143_LIYUE_POTATO",
+        "unitMora": 24,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_TOMATO": {
+        "item": "ING_TOMATO",
+        "stock": "STK_V0143_LIYUE_TOMATO",
+        "unitMora": 24,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_ONION": {
+        "item": "ING_ONION",
+        "stock": "STK_V0143_LIYUE_ONION",
+        "unitMora": 24,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_HORSETAIL": {
+        "item": "ING_HORSETAIL",
+        "stock": "STK_V0143_LIYUE_HORSETAIL",
+        "unitMora": 15,
+        "stockQuantity": 8,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "CRPG_FRUIT_BAIT": {
+        "item": "CRPG_FRUIT_BAIT",
+        "stock": "STK_CRPG_FRUIT_BAIT_MRC_LIYUE_GENERAL",
+        "unitMora": 8,
+        "stockQuantity": 40,
+        "period": "매일",
+        "condition": ""
+      },
+      "MAT_LIYUE_SILK_FLOWER": {
+        "item": "MAT_LIYUE_SILK_FLOWER",
+        "stock": "STK_LIYUE_FOOD_SILK_FLOWER",
+        "unitMora": 60,
+        "stockQuantity": 5,
+        "period": "3일",
+        "condition": "없음"
+      },
+      "ING_CRAB": {
+        "item": "ING_CRAB",
+        "stock": "STK_V0148_LY_CRAB",
+        "unitMora": 72,
+        "stockQuantity": 6,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_BUTTER": {
+        "item": "ING_BUTTER",
+        "stock": "STK_V0148_LY_BUTTER",
+        "unitMora": 63,
+        "stockQuantity": 6,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "ING_CHEESE": {
+        "item": "ING_CHEESE",
+        "stock": "STK_V0148_LY_CHEESE",
+        "unitMora": 81,
+        "stockQuantity": 6,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "TRPG_BANDAGE": {
+        "item": "TRPG_BANDAGE",
+        "stock": "STK_V0148_LY_BANDAGE",
+        "unitMora": 45,
+        "stockQuantity": 6,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "TRPG_REFINED_LEATHER": {
+        "item": "TRPG_REFINED_LEATHER",
+        "stock": "STK_V0148_LY_LEATHER",
+        "unitMora": 48,
+        "stockQuantity": 8,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "TRPG_STURDY_CLOTH": {
+        "item": "TRPG_STURDY_CLOTH",
+        "stock": "STK_V0148_LY_CLOTH",
+        "unitMora": 36,
+        "stockQuantity": 8,
+        "period": "매일",
+        "condition": "없음"
+      },
+      "TRPG_ROPE": {
+        "item": "TRPG_ROPE",
+        "stock": "STK_CRPG_LIYUE_TRPG_ROPE",
+        "unitMora": 80,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": ""
+      },
+      "TRPG_TORCH": {
+        "item": "TRPG_TORCH",
+        "stock": "STK_CRPG_LIYUE_TRPG_TORCH",
+        "unitMora": 60,
+        "stockQuantity": 10,
+        "period": "매일",
+        "condition": ""
+      }
+    }
+  },
+  "foods": [
+    {
+      "recipe": "REC_FOOD_EGG_FRY",
+      "food": "FOOD_TEA_BREAK_PANCAKE",
+      "name": "티바트 달걀 프라이",
+      "baseHealing": 90,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_BIRD_EGG": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "전투 중 아님",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 7,
+      "npcResaleMora": 8,
+      "readyFoodStocks": [
+        {
+          "stock": "STK_MOND_SARA_EGG",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "mora": 35,
+          "quantity": 10,
+          "condition": "없음"
+        },
+        {
+          "stock": "STK_LY_WANMIN_EGG",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 35,
+          "quantity": 10,
+          "condition": "없음"
+        },
+        {
+          "stock": "STK_LY_WANGSHU_EGG",
+          "merchant": "MRC_LIYUE_WANGSHU_DINING",
+          "mora": 35,
+          "quantity": 10,
+          "condition": "없음"
+        }
+      ],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BIRD_EGG"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BIRD_EGG"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_SWEET_MADAME",
+      "food": "FOOD_SWEET_MADAME",
+      "name": "달콤달콤 닭고기 스튜",
+      "baseHealing": 180,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_FOWL": 2,
+          "ING_SWEET_FLOWER": 2
+        }
+      },
+      "output": 1,
+      "gameTime": "15분",
+      "unlock": "전투 중 아님",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 24,
+      "npcResaleMora": 20,
+      "readyFoodStocks": [
+        {
+          "stock": "STK_MOND_SARA_CHICKEN",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "mora": 80,
+          "quantity": 8,
+          "condition": "없음"
+        }
+      ],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FOWL",
+            "ING_SWEET_FLOWER"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FOWL",
+            "ING_SWEET_FLOWER"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_HASH_BROWN",
+      "food": "FOOD_HASH_BROWN",
+      "name": "몬드 감자전",
+      "baseHealing": 340,
+      "cost": {
+        "mora": 2,
+        "items": {
+          "ING_PINECONE": 2,
+          "ING_POTATO": 1,
+          "ING_JAM": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "전투 중 아님",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 26,
+      "npcResaleMora": 26,
+      "readyFoodStocks": [
+        {
+          "stock": "STK_MOND_SARA_POTATO",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "mora": 163,
+          "quantity": 8,
+          "condition": "없음"
+        }
+      ],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_PINECONE",
+            "ING_JAM"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_PINECONE",
+            "ING_JAM"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_MATSUTAKE_ROLL",
+      "food": "FOOD_MATSUTAKE_ROLL",
+      "name": "버섯고기말이",
+      "baseHealing": 300,
+      "cost": {
+        "mora": 2,
+        "items": {
+          "ING_MATSUTAKE": 2,
+          "ING_RAW_MEAT": 2
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "전투 중 아님",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 50,
+      "npcResaleMora": 30,
+      "readyFoodStocks": [
+        {
+          "stock": "STK_LY_WANMIN_MATSUTAKE",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 150,
+          "quantity": 8,
+          "condition": "없음"
+        }
+      ],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MATSUTAKE",
+            "ING_RAW_MEAT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MATSUTAKE",
+            "ING_RAW_MEAT"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_UNIVERSAL_PEACE",
+      "food": "FOOD_UNIVERSAL_PEACE",
+      "name": "세계 평화",
+      "baseHealing": 280,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_RICE": 2,
+          "ING_LOTUS_HEAD": 1,
+          "ING_CARROT": 1,
+          "ING_BERRY": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "25분",
+      "unlock": "전투 중 아님",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 31,
+      "npcResaleMora": 45,
+      "readyFoodStocks": [
+        {
+          "stock": "STK_LY_WANMIN_PEACE",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 315,
+          "quantity": 5,
+          "condition": "없음"
+        }
+      ],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RICE",
+            "ING_LOTUS_HEAD",
+            "ING_CARROT",
+            "ING_BERRY"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_LOTUS_HEAD",
+            "ING_CARROT",
+            "ING_BERRY"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_PIZZA",
+      "food": "FOOD_PIZZA",
+      "name": "버섯피자",
+      "baseHealing": 260,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_MUSHROOM": 3,
+          "ING_FLOUR": 2,
+          "ING_CABBAGE": 1,
+          "ING_CHEESE": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "전투 중 아님",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 38,
+      "npcResaleMora": 16,
+      "readyFoodStocks": [
+        {
+          "stock": "STK_CRPG_V011_MOND_RESTAURANT_FOOD_PIZZA",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "mora": 130,
+          "quantity": 8,
+          "condition": "없음"
+        }
+      ],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MUSHROOM"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MUSHROOM"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_SAKURA_MOCHI",
+      "food": "FOOD_SAKURA_MOCHI",
+      "name": "벚꽃 모찌",
+      "baseHealing": 190,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_RICE": 2,
+          "ING_SUGAR": 1,
+          "ING_SWEET_FLOWER": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "전투 중 아님",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 26,
+      "npcResaleMora": 50,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RICE",
+            "ING_SWEET_FLOWER"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SWEET_FLOWER"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_TAHCHIN",
+      "food": "FOOD_TAHCHIN",
+      "name": "타친",
+      "baseHealing": 240,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_RICE": 2,
+          "ING_FOWL": 1,
+          "ING_FISH": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "25분",
+      "unlock": "전투 중 아님",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 34,
+      "npcResaleMora": 80,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RICE",
+            "ING_FOWL",
+            "ING_FISH"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FOWL",
+            "ING_FISH"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_SNEZ_GLUPOV_RYE_BREAD",
+      "food": "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+      "name": "글루포프 호밀빵",
+      "baseHealing": 200,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_RYE_FLOUR": 2,
+          "ING_SALT": 1,
+          "ING_SUGAR": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "25분",
+      "unlock": "전투 중 아님",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 35,
+      "npcResaleMora": 50,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RYE_FLOUR"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RYE_FLOUR"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_SNEZ_BERRY_ICE_CREAM",
+      "food": "FOOD_SNEZ_BERRY_ICE_CREAM",
+      "name": "베리 아이스크림",
+      "baseHealing": 200,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_ICE_STAR_FRUIT": 2,
+          "ING_CREAM": 1,
+          "ING_SWEET_FLOWER": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "25분",
+      "unlock": "전투 중 아님",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 44,
+      "npcResaleMora": 75,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_ICE_STAR_FRUIT",
+            "ING_SWEET_FLOWER"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_ICE_STAR_FRUIT",
+            "ING_SWEET_FLOWER"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+      "food": "FOOD_SNEZ_OLD_GARDEN_SAUSAGE",
+      "name": "옛뜰 훈제 소시지",
+      "baseHealing": 250,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_SAUSAGE": 2,
+          "ING_PEPPER": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "STK_SNEZ_BUT_001 또는 STK_V014_MOND_SNEZ_REC_01 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_SNEZ_BUT_001",
+          "merchant": "MRC_SNEZ_FOOD_BUTURLINA",
+          "mora": 300,
+          "condition": "스네즈나야성 진입"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 34,
+      "npcResaleMora": 35,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SAUSAGE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SAUSAGE"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_SNEZ_MEDOVIK",
+      "food": "FOOD_SNEZ_MEDOVIK",
+      "name": "메도빅",
+      "baseHealing": 280,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_FLOUR": 2,
+          "ING_SOUR_CREAM": 1,
+          "ING_SWEET_FLOWER": 2
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_SNEZ_BUT_003 또는 STK_V014_MOND_SNEZ_REC_03 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_SNEZ_BUT_003",
+          "merchant": "MRC_SNEZ_FOOD_BUTURLINA",
+          "mora": 600,
+          "condition": "스네즈나야성 진입"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 32,
+      "npcResaleMora": 65,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SWEET_FLOWER"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SWEET_FLOWER"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_SNEZ_ZHARKOYE",
+      "food": "FOOD_SNEZ_ZHARKOYE",
+      "name": "자르코예",
+      "baseHealing": 320,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_RAW_MEAT": 2,
+          "ING_POTATO": 2,
+          "ING_SOUR_CREAM": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_SNEZ_TOL_001 또는 STK_V014_MOND_SNEZ_REC_04 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_SNEZ_TOL_001",
+          "merchant": "MRC_SNEZ_FOOD_TOLSTAYA",
+          "mora": 600,
+          "condition": "해당 NPC 접근"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 44,
+      "npcResaleMora": 85,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_STEAK",
+      "food": "FOOD_STEAK",
+      "name": "스테이크",
+      "baseHealing": 110,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_RAW_MEAT": 2
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "기본 해금",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 22,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_CHICKEN_SKEWER",
+      "food": "FOOD_CHICKEN_SKEWER",
+      "name": "버섯 닭꼬치",
+      "baseHealing": 120,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_MUSHROOM": 1,
+          "ING_FOWL": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "기본 해금",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 13,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MUSHROOM",
+            "ING_FOWL"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MUSHROOM",
+            "ING_FOWL"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_MOND_GRILLED_FISH",
+      "food": "FOOD_MOND_GRILLED_FISH",
+      "name": "몬드 생선구이",
+      "baseHealing": 120,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_FISH": 1,
+          "ING_PEPPER": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "기본 해금",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 17,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FISH"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FISH"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_RADISH_SOUP",
+      "food": "FOOD_RADISH_SOUP",
+      "name": "무 수프",
+      "baseHealing": 110,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_RADISH": 1,
+          "ING_MINT": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "기본 해금",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 10,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RADISH",
+            "ING_MINT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RADISH",
+            "ING_MINT"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_MINT_JELLY",
+      "food": "FOOD_MINT_JELLY",
+      "name": "민트 젤리",
+      "baseHealing": 110,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_MINT": 1,
+          "ING_SUGAR": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "기본 해금",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 13,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MINT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MINT"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_PANCAKE_TEA_BREAK",
+      "food": "FOOD_PANCAKE_TEA_BREAK",
+      "name": "장원 팬케이크",
+      "baseHealing": 240,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_BERRY": 3,
+          "ING_FLOUR": 2,
+          "ING_BIRD_EGG": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "STK_V014_MOND_REC_02 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V014_MOND_REC_02",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "mora": 360,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 29,
+      "npcResaleMora": 35,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BERRY",
+            "ING_BIRD_EGG"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BERRY",
+            "ING_BIRD_EGG"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_BOLOGNESE",
+      "food": "FOOD_BOLOGNESE",
+      "name": "불꽃 미트 스파게티",
+      "baseHealing": 210,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_FLOUR": 2,
+          "ING_RAW_MEAT": 2,
+          "ING_TOMATO": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "STK_V014_MOND_REC_06 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V014_MOND_REC_06",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "mora": 380,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 34,
+      "npcResaleMora": 35,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_APPLE_STEW",
+      "food": "FOOD_APPLE_STEW",
+      "name": "북극 사과고기찜",
+      "baseHealing": 380,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_RAW_MEAT": 3,
+          "ING_APPLE": 3,
+          "ING_BUTTER": 1,
+          "ING_PEPPER": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V014_MOND_REC_10 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V014_MOND_REC_10",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "mora": 650,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 53,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT",
+            "ING_APPLE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT",
+            "ING_APPLE"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_CHICKEN_BURGER",
+      "food": "FOOD_CHICKEN_BURGER",
+      "name": "바삭바삭 치킨버거",
+      "baseHealing": 320,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_FOWL": 3,
+          "ING_FLOUR": 2,
+          "ING_CABBAGE": 2,
+          "ING_BUTTER": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V014_MOND_REC_12 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V014_MOND_REC_12",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "mora": 700,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 51,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FOWL"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FOWL"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_MORA_MEAT",
+      "food": "FOOD_MORA_MEAT",
+      "name": "모라육",
+      "baseHealing": 120,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_RAW_MEAT": 1,
+          "ING_FLOUR": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "기본 해금",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 17,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_STIR_FRIED_FILET",
+      "food": "FOOD_STIR_FRIED_FILET",
+      "name": "고기볶음",
+      "baseHealing": 180,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_RAW_MEAT": 1,
+          "MAT_LIYUE_JUEYUN_CHILI": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "기본 해금",
+      "unlockStocks": [],
+      "ingredientNpcOpportunityMora": 32,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT",
+            "MAT_LIYUE_JUEYUN_CHILI"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_CRYSTAL_SHRIMP",
+      "food": "FOOD_CRYSTAL_SHRIMP",
+      "name": "수정 새우딤섬",
+      "baseHealing": 220,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_RICE": 2,
+          "ING_SHRIMP": 2,
+          "ING_CARROT": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "STK_V014_LIYUE_REC_05 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V014_LIYUE_REC_05",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 550,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 51,
+      "npcResaleMora": 35,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RICE",
+            "ING_SHRIMP",
+            "ING_CARROT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CARROT"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_VEGETARIAN_ABALONE",
+      "food": "FOOD_VEGETARIAN_ABALONE",
+      "name": "채식 전복",
+      "baseHealing": 360,
+      "cost": {
+        "mora": 2,
+        "items": {
+          "ING_MATSUTAKE": 2,
+          "ING_SNAPDRAGON": 2
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "STK_V014_LIYUE_REC_08 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V014_LIYUE_REC_08",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 450,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 42,
+      "npcResaleMora": 35,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MATSUTAKE",
+            "ING_SNAPDRAGON"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MATSUTAKE",
+            "ING_SNAPDRAGON"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_SQUIRREL_FISH",
+      "food": "FOOD_SQUIRREL_FISH",
+      "name": "탕수어",
+      "baseHealing": 380,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_FISH": 3,
+          "ING_TOMATO": 2,
+          "ING_FLOUR": 2,
+          "ING_SUGAR": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V014_LIYUE_REC_11 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V014_LIYUE_REC_11",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 800,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 55,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FISH"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FISH"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_SHRIMP_BALLS",
+      "food": "FOOD_SHRIMP_BALLS",
+      "name": "황금 새우볼",
+      "baseHealing": 340,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_SHRIMP": 4,
+          "ING_POTATO": 3,
+          "ING_FLOUR": 2
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V014_LIYUE_REC_12 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V014_LIYUE_REC_12",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 800,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 83,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SHRIMP"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 375,
+          "purchaseAndProcessLowerBound": 375,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_BAMBOO_SOUP",
+      "food": "FOOD_BAMBOO_SOUP",
+      "name": "죽순 수프",
+      "baseHealing": 400,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_RAW_MEAT": 2,
+          "ING_HAM": 2,
+          "ING_BAMBOO_SHOOT": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V014_LIYUE_REC_13 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V014_LIYUE_REC_13",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 800,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 53,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT",
+            "ING_HAM",
+            "ING_BAMBOO_SHOOT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT",
+            "ING_HAM",
+            "ING_BAMBOO_SHOOT"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_PERCH_STEW",
+      "food": "FOOD_PERCH_STEW",
+      "name": "삶은 검정 농어",
+      "baseHealing": 440,
+      "cost": {
+        "mora": 2,
+        "items": {
+          "ING_FISH": 3,
+          "MAT_LIYUE_JUEYUN_CHILI": 1,
+          "ING_SALT": 1,
+          "MAT_LIYUE_VIOLETGRASS": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V014_LIYUE_REC_19 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V014_LIYUE_REC_19",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 900,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 74,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FISH"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FISH",
+            "MAT_LIYUE_JUEYUN_CHILI",
+            "MAT_LIYUE_VIOLETGRASS"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_CRAB_HAM_BAKE",
+      "food": "FOOD_CRAB_HAM_BAKE",
+      "name": "꽃게알 야채찜",
+      "baseHealing": 400,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_CABBAGE": 1,
+          "ING_CRAB_ROE": 1,
+          "ING_CREAM": 1,
+          "ING_HAM": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V0143_MOND_REC_04 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_MOND_REC_04",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "mora": 700,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 58,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_HAM"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_HAM"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_POTATO_SHRIMP_PLATTER",
+      "food": "FOOD_POTATO_SHRIMP_PLATTER",
+      "name": "바삭 쉬림프 카나페",
+      "baseHealing": 340,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_MINT": 3,
+          "ING_BERRY": 2,
+          "ING_POTATO": 2,
+          "ING_SHRIMP": 3
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V0143_MOND_REC_07 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_MOND_REC_07",
+          "merchant": "MRC_MOND_RESTAURANT",
+          "mora": 700,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 76,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MINT",
+            "ING_BERRY",
+            "ING_SHRIMP"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_MINT",
+            "ING_BERRY"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_GRILLED_TIGER_FISH",
+      "food": "FOOD_GRILLED_TIGER_FISH",
+      "name": "흘호어 구이",
+      "baseHealing": 120,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_PEPPER": 1,
+          "ING_FISH": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "STK_V0143_WANGSHU_REC_01 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_WANGSHU_REC_01",
+          "merchant": "MRC_LIYUE_WANGSHU_DINING",
+          "mora": 250,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 17,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FISH"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FISH"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_RICE_BUNS",
+      "food": "FOOD_RICE_BUNS",
+      "name": "쌀 찐빵",
+      "baseHealing": 110,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_HORSETAIL": 1,
+          "ING_RICE": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "STK_V0143_WANGSHU_REC_02 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_WANGSHU_REC_02",
+          "merchant": "MRC_LIYUE_WANGSHU_DINING",
+          "mora": 250,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 13,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_HORSETAIL",
+            "ING_RICE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": 48,
+          "purchaseAndProcessLowerBound": 48,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_FINE_TEA_FULL_MOON",
+      "food": "FOOD_FINE_TEA_FULL_MOON",
+      "name": "차와 보름달",
+      "baseHealing": 280,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_BIRD_EGG": 2,
+          "ING_CHENYU_ADEPTEA": 2,
+          "ING_FLOUR": 2,
+          "ING_SUGAR": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V0143_CHENYU_REC_01 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_CHENYU_REC_01",
+          "merchant": "MRC_CHENYU_TEAHOUSE",
+          "mora": 700,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 35,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BIRD_EGG",
+            "ING_CHENYU_ADEPTEA"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BIRD_EGG",
+            "ING_CHENYU_ADEPTEA"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_JADEVEIN_TEA_EGGS",
+      "food": "FOOD_JADEVEIN_TEA_EGGS",
+      "name": "옥무늬 찻잎 달걀",
+      "baseHealing": 100,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_BIRD_EGG": 1,
+          "ING_CHENYU_ADEPTEA": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "STK_V0143_CHENYU_REC_02 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_CHENYU_REC_02",
+          "merchant": "MRC_CHENYU_TEAHOUSE",
+          "mora": 250,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 12,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BIRD_EGG",
+            "ING_CHENYU_ADEPTEA"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BIRD_EGG",
+            "ING_CHENYU_ADEPTEA"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_TEA_SMOKED_SQUAB",
+      "food": "FOOD_TEA_SMOKED_SQUAB",
+      "name": "차향 훈제 비둘기",
+      "baseHealing": 210,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_FOWL": 2,
+          "ING_CHENYU_ADEPTEA": 2
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "STK_V0143_CHENYU_REC_03 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_CHENYU_REC_03",
+          "merchant": "MRC_CHENYU_TEAHOUSE",
+          "mora": 450,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 29,
+      "npcResaleMora": 35,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FOWL",
+            "ING_CHENYU_ADEPTEA"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FOWL",
+            "ING_CHENYU_ADEPTEA"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_CHENYU_BREW",
+      "food": "FOOD_CHENYU_BREW",
+      "name": "침옥 차 이슬",
+      "baseHealing": 90,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_CHENYU_ADEPTEA": 2
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "STK_V0143_CHENYU_REC_05 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_CHENYU_REC_05",
+          "merchant": "MRC_CHENYU_TEAHOUSE",
+          "mora": 250,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 15,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CHENYU_ADEPTEA"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_CHENYU_ADEPTEA"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_CRAB_ROE_TOFU",
+      "food": "FOOD_CRAB_ROE_TOFU",
+      "name": "꽃게알 두부",
+      "baseHealing": 280,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_CRAB_ROE": 1,
+          "ING_TOFU": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "STK_V0143_WANMIN_REC_01 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_WANMIN_REC_01",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 450,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 29,
+      "npcResaleMora": 35,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_TOFU"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": 171,
+          "missingPurchasable": []
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_FULLMOON_EGG",
+      "food": "FOOD_FULLMOON_EGG",
+      "name": "명월 딤섬",
+      "baseHealing": 420,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_BIRD_EGG": 2,
+          "ING_FISH": 3,
+          "ING_SHRIMP": 2,
+          "ING_FLOUR": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V0143_WANMIN_REC_02 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_WANMIN_REC_02",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 700,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 73,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BIRD_EGG",
+            "ING_FISH",
+            "ING_SHRIMP"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_BIRD_EGG",
+            "ING_FISH"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_FISH_NOODLES",
+      "food": "FOOD_FISH_NOODLES",
+      "name": "생선 볶음면",
+      "baseHealing": 360,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_SNAPDRAGON": 2,
+          "ING_FISH": 2,
+          "ING_RICE": 2
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "STK_V0143_WANMIN_REC_04 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_WANMIN_REC_04",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 450,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 47,
+      "npcResaleMora": 35,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SNAPDRAGON",
+            "ING_FISH",
+            "ING_RICE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_SNAPDRAGON",
+            "ING_FISH"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_HUMBLY_ENOUGH",
+      "food": "FOOD_HUMBLY_ENOUGH",
+      "name": "만족의 기쁨",
+      "baseHealing": 340,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "MAT_LIYUE_JUEYUN_CHILI": 2,
+          "ING_TOFU": 2,
+          "ING_FLOUR": 1,
+          "ING_SUGAR": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "30분",
+      "unlock": "STK_V0143_WANMIN_REC_12 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_WANMIN_REC_12",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 700,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 65,
+      "npcResaleMora": 60,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_TOFU"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "MAT_LIYUE_JUEYUN_CHILI"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_HONEY_CHAR_SIU",
+      "food": "FOOD_HONEY_CHAR_SIU",
+      "name": "꿀 차사오",
+      "baseHealing": 120,
+      "cost": {
+        "mora": 3,
+        "items": {
+          "ING_RAW_MEAT": 1,
+          "ING_SUGAR": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "10분",
+      "unlock": "STK_V0143_WANMIN_REC_17 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_WANMIN_REC_17",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 250,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 18,
+      "npcResaleMora": 15,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_RAW_MEAT"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_LUCKY_SNOW_DELIGHT",
+      "food": "FOOD_LUCKY_SNOW_DELIGHT",
+      "name": "풍요 백설기",
+      "baseHealing": 440,
+      "cost": {
+        "mora": 2,
+        "items": {
+          "ING_LOTUS_HEAD": 2,
+          "MAT_LIYUE_QINGXIN": 2,
+          "ING_RICE": 2,
+          "ING_SUGAR": 1
+        }
+      },
+      "output": 1,
+      "gameTime": "40분",
+      "unlock": "STK_V0143_WANMIN_REC_19 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_WANMIN_REC_19",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 1300,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 74,
+      "npcResaleMora": 100,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_LOTUS_HEAD",
+            "ING_RICE"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_LOTUS_HEAD",
+            "MAT_LIYUE_QINGXIN"
+          ]
+        }
+      }
+    },
+    {
+      "recipe": "REC_FOOD_GOLDEN_TEMPERED_JADE",
+      "food": "FOOD_GOLDEN_TEMPERED_JADE",
+      "name": "빛나는 냉옥",
+      "baseHealing": 180,
+      "cost": {
+        "mora": 4,
+        "items": {
+          "ING_FOWL": 2,
+          "ING_SALT": 2
+        }
+      },
+      "output": 1,
+      "gameTime": "20분",
+      "unlock": "STK_V0143_WANMIN_REC_21 구매완료",
+      "unlockStocks": [
+        {
+          "stock": "STK_V0143_WANMIN_REC_21",
+          "merchant": "MRC_LIYUE_WANMIN",
+          "mora": 450,
+          "condition": "없음"
+        }
+      ],
+      "ingredientNpcOpportunityMora": 22,
+      "npcResaleMora": 35,
+      "readyFoodStocks": [],
+      "regional": {
+        "MOND": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FOWL"
+          ]
+        },
+        "LIYUE": {
+          "directIngredientPurchase": null,
+          "purchaseAndProcessLowerBound": null,
+          "missingPurchasable": [
+            "ING_FOWL"
+          ]
+        }
+      }
+    }
+  ],
+  "supply": [
+    {
+      "map": "MAP_MOND_PLAINS",
+      "name": "몬드 외곽 초원",
+      "region": "몬드",
+      "kind": "GATHER",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_APPLE",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_SUNSETTIA",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_SWEET_FLOWER",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_MINT",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_BERRY",
+          "min": 3,
+          "max": 5,
+          "weight": 20
+        },
+        {
+          "item": "ING_SNAPDRAGON",
+          "min": 3,
+          "max": 5,
+          "weight": 15
+        },
+        {
+          "item": "ING_CALLA_LILY",
+          "min": 3,
+          "max": 5,
+          "weight": 15
+        },
+        {
+          "item": "ING_BIRD_EGG",
+          "min": 3,
+          "max": 5,
+          "weight": 35
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 2.5468749999999987,
+      "meanInputs": 4.4375,
+      "meanNpcOpportunityMora": 23.6875,
+      "meanItems": {
+        "ING_SWEET_FLOWER": 0.84375,
+        "ING_CALLA_LILY": 0.4375,
+        "ING_BIRD_EGG": 1.6875,
+        "ING_BERRY": 0.75,
+        "ING_MINT": 0.65625,
+        "ING_SNAPDRAGON": 0.34375,
+        "ING_APPLE": 0.96875,
+        "ING_SUNSETTIA": 1.1875
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_MOND_FOREST",
+      "name": "속삭임의 숲",
+      "region": "몬드",
+      "kind": "GATHER",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_MUSHROOM",
+          "min": 3,
+          "max": 5,
+          "weight": 30
+        },
+        {
+          "item": "ING_APPLE",
+          "min": 3,
+          "max": 5,
+          "weight": 20
+        },
+        {
+          "item": "ING_SWEET_FLOWER",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_MINT",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_MATSUTAKE",
+          "min": 3,
+          "max": 5,
+          "weight": 15
+        },
+        {
+          "item": "ING_BERRY",
+          "min": 3,
+          "max": 5,
+          "weight": 20
+        },
+        {
+          "item": "ING_PINECONE",
+          "min": 3,
+          "max": 5,
+          "weight": 20
+        },
+        {
+          "item": "ING_LAMP_GRASS",
+          "min": 3,
+          "max": 5,
+          "weight": 15
+        },
+        {
+          "item": "ING_BIRD_EGG",
+          "min": 3,
+          "max": 5,
+          "weight": 35
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 2.5468749999999987,
+      "meanInputs": 4.4375,
+      "meanNpcOpportunityMora": 29,
+      "meanItems": {
+        "ING_SWEET_FLOWER": 0.65625,
+        "ING_LAMP_GRASS": 0.5625,
+        "ING_BIRD_EGG": 1.5,
+        "ING_MINT": 0.78125,
+        "ING_BERRY": 0.65625,
+        "ING_MATSUTAKE": 0.4375,
+        "ING_PINECONE": 0.34375,
+        "ING_MUSHROOM": 1.0625,
+        "ING_APPLE": 0.875
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_MOND_DAWN_WINERY",
+      "name": "다운 와이너리",
+      "region": "몬드",
+      "kind": "GATHER",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_BERRY",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_BIRD_EGG",
+          "min": 3,
+          "max": 5,
+          "weight": 35
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 2.5468749999999987,
+      "meanInputs": 4.4375,
+      "meanNpcOpportunityMora": 26.9375,
+      "meanItems": {
+        "ING_BERRY": 3.15625,
+        "ING_BIRD_EGG": 3.71875
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_MOND_SPRINGVALE",
+      "name": "샘물 마을",
+      "region": "몬드",
+      "kind": "HUNT",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_FOWL",
+          "min": 3,
+          "max": 5,
+          "weight": 45
+        },
+        {
+          "item": "ING_RAW_MEAT",
+          "min": 3,
+          "max": 5,
+          "weight": 55
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 10.242468749999999,
+      "meanInputs": 2.4375,
+      "meanNpcOpportunityMora": 49.28125,
+      "meanItems": {
+        "ING_FOWL": 3.34375,
+        "ING_RAW_MEAT": 2.875
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_MOND_WOLVENDOM",
+      "name": "울프 영지",
+      "region": "몬드",
+      "kind": "HUNT",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_RAW_MEAT",
+          "min": 3,
+          "max": 5,
+          "weight": 80
+        },
+        {
+          "item": "ING_FOWL",
+          "min": 3,
+          "max": 5,
+          "weight": 20
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 10.242468749999999,
+      "meanInputs": 2.4375,
+      "meanNpcOpportunityMora": 53.71875,
+      "meanItems": {
+        "ING_RAW_MEAT": 5.09375,
+        "ING_FOWL": 1.125
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_CRPG_WHISPER_HUNT",
+      "name": "속삭임의 숲 사냥터",
+      "region": "몬드",
+      "kind": "HUNT",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_RAW_MEAT",
+          "min": 3,
+          "max": 5,
+          "weight": 60
+        },
+        {
+          "item": "ING_FOWL",
+          "min": 3,
+          "max": 5,
+          "weight": 40
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 10.242468749999999,
+      "meanInputs": 2.4375,
+      "meanNpcOpportunityMora": 51.78125,
+      "meanItems": {
+        "ING_RAW_MEAT": 4.125,
+        "ING_FOWL": 2.09375
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_LIYUE_PLAINS",
+      "name": "리월 평야·도로",
+      "region": "리월",
+      "kind": "GATHER",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_CARROT",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_RADISH",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_SWEET_FLOWER",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_MINT",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_LOTUS_HEAD",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_SNAPDRAGON",
+          "min": 3,
+          "max": 5,
+          "weight": 15
+        },
+        {
+          "item": "ING_HORSETAIL",
+          "min": 3,
+          "max": 5,
+          "weight": 15
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 2.5468749999999987,
+      "meanInputs": 4.4375,
+      "meanNpcOpportunityMora": 24.84375,
+      "meanItems": {
+        "ING_RADISH": 1.25,
+        "ING_LOTUS_HEAD": 0.71875,
+        "ING_HORSETAIL": 0.71875,
+        "ING_SWEET_FLOWER": 0.96875,
+        "ING_MINT": 1.03125,
+        "ING_SNAPDRAGON": 1.03125,
+        "ING_CARROT": 1.15625
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_LIYUE_JUEYUN",
+      "name": "절운간",
+      "region": "리월",
+      "kind": "GATHER",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "MAT_LIYUE_QINGXIN",
+          "min": 3,
+          "max": 5,
+          "weight": 45
+        },
+        {
+          "item": "MAT_LIYUE_VIOLETGRASS",
+          "min": 3,
+          "max": 5,
+          "weight": 45
+        },
+        {
+          "item": "ING_MINT",
+          "min": 3,
+          "max": 5,
+          "weight": 10
+        },
+        {
+          "item": "ING_BAMBOO_SHOOT",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        },
+        {
+          "item": "ING_MATSUTAKE",
+          "min": 3,
+          "max": 5,
+          "weight": 15
+        },
+        {
+          "item": "MAT_LIYUE_JUEYUN_CHILI",
+          "min": 3,
+          "max": 5,
+          "weight": 25
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 2.5468749999999987,
+      "meanInputs": 4.4375,
+      "meanNpcOpportunityMora": 117.15625,
+      "meanItems": {
+        "MAT_LIYUE_VIOLETGRASS": 1.53125,
+        "ING_MATSUTAKE": 0.65625,
+        "MAT_LIYUE_JUEYUN_CHILI": 1.40625,
+        "ING_MINT": 0.4375,
+        "ING_BAMBOO_SHOOT": 0.6875,
+        "MAT_LIYUE_QINGXIN": 2.15625
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_LY_DETAIL_QINGCE_FIELDS",
+      "name": "경책 산장 · 남쪽 밭길",
+      "region": "리월",
+      "kind": "GATHER",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_CARROT",
+          "min": 3,
+          "max": 5,
+          "weight": 35
+        },
+        {
+          "item": "ING_RADISH",
+          "min": 3,
+          "max": 5,
+          "weight": 35
+        },
+        {
+          "item": "ING_SWEET_FLOWER",
+          "min": 3,
+          "max": 5,
+          "weight": 30
+        },
+        {
+          "item": "MAT_LIYUE_SILK_FLOWER",
+          "min": 2,
+          "max": 3,
+          "weight": 35
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 2.5468749999999987,
+      "meanInputs": 4.4375,
+      "meanNpcOpportunityMora": 46.125,
+      "meanItems": {
+        "ING_RADISH": 1.5625,
+        "MAT_LIYUE_SILK_FLOWER": 2.125,
+        "ING_SWEET_FLOWER": 1.15625,
+        "ING_CARROT": 2.03125
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_LY_DETAIL_NANTIANMEN",
+      "name": "남천문 · 고목 주변",
+      "region": "리월",
+      "kind": "GATHER",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_MUSHROOM",
+          "min": 3,
+          "max": 5,
+          "weight": 60
+        },
+        {
+          "item": "ING_MINT",
+          "min": 3,
+          "max": 5,
+          "weight": 40
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 2.5468749999999987,
+      "meanInputs": 4.4375,
+      "meanNpcOpportunityMora": 20.625,
+      "meanItems": {
+        "ING_MUSHROOM": 4.09375,
+        "ING_MINT": 2.78125
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_LY_DETAIL_YAOGUANG",
+      "name": "요광 해안 · 모래톱",
+      "region": "리월",
+      "kind": "GATHER",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_CRAB",
+          "min": 3,
+          "max": 5,
+          "weight": 70
+        },
+        {
+          "item": "ING_MINT",
+          "min": 3,
+          "max": 5,
+          "weight": 30
+        },
+        {
+          "item": "MAT_LIYUE_STARCONCH",
+          "min": 2,
+          "max": 3,
+          "weight": 45
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 2.5468749999999987,
+      "meanInputs": 4.4375,
+      "meanNpcOpportunityMora": 89.25,
+      "meanItems": {
+        "ING_CRAB": 3.375,
+        "MAT_LIYUE_STARCONCH": 2.25,
+        "ING_MINT": 1.25
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    },
+    {
+      "map": "MAP_CRPG_CIDER_BANK",
+      "name": "시드르 호수 낚시터",
+      "region": "몬드",
+      "kind": "FISH",
+      "resourceLimit": 4,
+      "pool": [
+        {
+          "item": "ING_FISH",
+          "min": 2,
+          "max": 4,
+          "weight": 100
+        }
+      ],
+      "sampleCount": 32,
+      "meanElapsedSeconds": 7.643749999999997,
+      "meanInputs": 38.09375,
+      "meanNpcOpportunityMora": 30.625,
+      "meanItems": {
+        "ING_FISH": 3.0625
+      },
+      "encounterStarts": 0,
+      "exactReplaySamplesInFullEvidence": true
+    }
+  ],
+  "campaigns": [],
+  "economy": {
+    "stockRows": 291,
+    "recipeRows": 288,
+    "pricedRoutes": 127,
+    "iterations": 3,
+    "violations": [],
+    "prices": [
+      {
+        "kind": "EQUIP",
+        "id": "EQ_BOW_SLINGSHOT",
+        "minimumCatalogMora": 130,
+        "npcResaleMora": 32,
+        "profit": -98
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_BOW_SHARPSHOOTER",
+        "minimumCatalogMora": 150,
+        "npcResaleMora": 37,
+        "profit": -113
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CATALYST_TTDS",
+        "minimumCatalogMora": 150,
+        "npcResaleMora": 37,
+        "profit": -113
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CATALYST_MAGIC_GUIDE",
+        "minimumCatalogMora": 135,
+        "npcResaleMora": 33,
+        "profit": -102
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_ARMOR_TRAVEL_COAT",
+        "minimumCatalogMora": 76,
+        "npcResaleMora": 30,
+        "profit": -46
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_ARMOR_REINFORCED_LEATHER",
+        "minimumCatalogMora": 182,
+        "npcResaleMora": 75,
+        "profit": -107
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_ACC_VITAL_RING",
+        "minimumCatalogMora": 360,
+        "npcResaleMora": 90,
+        "profit": -270
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_ACC_SHARP_CHARM",
+        "minimumCatalogMora": 380,
+        "npcResaleMora": 95,
+        "profit": -285
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_ACC_EAGLE_EYE",
+        "minimumCatalogMora": 520,
+        "npcResaleMora": 130,
+        "profit": -390
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_REFINED_LEATHER",
+        "minimumCatalogMora": 32,
+        "npcResaleMora": 8,
+        "profit": -24
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_STURDY_CLOTH",
+        "minimumCatalogMora": 24,
+        "npcResaleMora": 6,
+        "profit": -18
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_SCRAP_METAL",
+        "minimumCatalogMora": 75,
+        "npcResaleMora": 18,
+        "profit": -57
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_ENCHANTED_WOOD",
+        "minimumCatalogMora": 80,
+        "npcResaleMora": 20,
+        "profit": -60
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_RESONANCE_CRYSTAL",
+        "minimumCatalogMora": 200,
+        "npcResaleMora": 50,
+        "profit": -150
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_AETHER_THREAD",
+        "minimumCatalogMora": 200,
+        "npcResaleMora": 50,
+        "profit": -150
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_RESONANT_GEM",
+        "minimumCatalogMora": 300,
+        "npcResaleMora": 75,
+        "profit": -225
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_MILK",
+        "minimumCatalogMora": 20,
+        "npcResaleMora": 5,
+        "profit": -15
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_FLOUR",
+        "minimumCatalogMora": 18,
+        "npcResaleMora": 4,
+        "profit": -14
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_SALT",
+        "minimumCatalogMora": 10,
+        "npcResaleMora": 2,
+        "profit": -8
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_PEPPER",
+        "minimumCatalogMora": 16,
+        "npcResaleMora": 4,
+        "profit": -12
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_ONION",
+        "minimumCatalogMora": 16,
+        "npcResaleMora": 4,
+        "profit": -12
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_TOMATO",
+        "minimumCatalogMora": 16,
+        "npcResaleMora": 4,
+        "profit": -12
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_POTATO",
+        "minimumCatalogMora": 16,
+        "npcResaleMora": 4,
+        "profit": -12
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_CABBAGE",
+        "minimumCatalogMora": 16,
+        "npcResaleMora": 4,
+        "profit": -12
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_FISHING_ROD",
+        "minimumCatalogMora": 80,
+        "npcResaleMora": 20,
+        "profit": -60
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_RICE",
+        "minimumCatalogMora": 30,
+        "npcResaleMora": 7,
+        "profit": -23
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_SHRIMP",
+        "minimumCatalogMora": 60,
+        "npcResaleMora": 15,
+        "profit": -45
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_HEALING_POTION",
+        "minimumCatalogMora": 95,
+        "npcResaleMora": 23,
+        "profit": -72
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_BANDAGE",
+        "minimumCatalogMora": 30,
+        "npcResaleMora": 7,
+        "profit": -23
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_MEDKIT",
+        "minimumCatalogMora": 125,
+        "npcResaleMora": 31,
+        "profit": -94
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_BUTTER",
+        "minimumCatalogMora": 20,
+        "npcResaleMora": 10,
+        "profit": -10
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_CHEESE",
+        "minimumCatalogMora": 40,
+        "npcResaleMora": 13,
+        "profit": -27
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_CRAB",
+        "minimumCatalogMora": 48,
+        "npcResaleMora": 12,
+        "profit": -36
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_POLEARM_WHITE_TASSEL",
+        "minimumCatalogMora": 150,
+        "npcResaleMora": 37,
+        "profit": -113
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_SWORD_HARBINGER",
+        "minimumCatalogMora": 155,
+        "npcResaleMora": 38,
+        "profit": -117
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_ARMOR_IRON_GUARD",
+        "minimumCatalogMora": 1560,
+        "npcResaleMora": 390,
+        "profit": -1170
+      },
+      {
+        "kind": "ITEM",
+        "id": "ORE_AMETHYST",
+        "minimumCatalogMora": 210,
+        "npcResaleMora": 52,
+        "profit": -158
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_SWORD_TRAVELER",
+        "minimumCatalogMora": 135,
+        "npcResaleMora": 33,
+        "profit": -102
+      },
+      {
+        "kind": "ITEM",
+        "id": "ORE_CONDESSENCE",
+        "minimumCatalogMora": 210,
+        "npcResaleMora": 52,
+        "profit": -158
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_FONTAINE_ALLOY",
+        "minimumCatalogMora": 360,
+        "npcResaleMora": 90,
+        "profit": -270
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CLAYMORE_DEBATE",
+        "minimumCatalogMora": 150,
+        "npcResaleMora": 37,
+        "profit": -113
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_NATLAN_OBSIDIAN",
+        "minimumCatalogMora": 330,
+        "npcResaleMora": 82,
+        "profit": -248
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_FLAME_ALLOY",
+        "minimumCatalogMora": 360,
+        "npcResaleMora": 90,
+        "profit": -270
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_RYE",
+        "minimumCatalogMora": 24,
+        "npcResaleMora": 6,
+        "profit": -18
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_RED_BEET",
+        "minimumCatalogMora": 30,
+        "npcResaleMora": 7,
+        "profit": -23
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_SNOWBALL_FLOWER",
+        "minimumCatalogMora": 36,
+        "npcResaleMora": 9,
+        "profit": -27
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_ICE_STAR_FRUIT",
+        "minimumCatalogMora": 42,
+        "npcResaleMora": 10,
+        "profit": -32
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CRPG_WORN_SWORD",
+        "minimumCatalogMora": 40,
+        "npcResaleMora": 10,
+        "profit": -30
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_SWEET_MADAME",
+        "minimumCatalogMora": 80,
+        "npcResaleMora": 20,
+        "profit": -60
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_TEA_BREAK_PANCAKE",
+        "minimumCatalogMora": 35,
+        "npcResaleMora": 8,
+        "profit": -27
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_HASH_BROWN",
+        "minimumCatalogMora": 163,
+        "npcResaleMora": 26,
+        "profit": -137
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_SUGAR",
+        "minimumCatalogMora": 24,
+        "npcResaleMora": 6,
+        "profit": -18
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_ALMOND",
+        "minimumCatalogMora": 24,
+        "npcResaleMora": 6,
+        "profit": -18
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_TOFU",
+        "minimumCatalogMora": 24,
+        "npcResaleMora": 6,
+        "profit": -18
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_CHENYU_ADEPTEA",
+        "minimumCatalogMora": 24,
+        "npcResaleMora": 6,
+        "profit": -18
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_HORSETAIL",
+        "minimumCatalogMora": 15,
+        "npcResaleMora": 3,
+        "profit": -12
+      },
+      {
+        "kind": "ITEM",
+        "id": "CRPG_FRUIT_BAIT",
+        "minimumCatalogMora": 8,
+        "npcResaleMora": 2,
+        "profit": -6
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_ROPE",
+        "minimumCatalogMora": 80,
+        "npcResaleMora": 15,
+        "profit": -65
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CRPG_TRAINING_CLAYMORE",
+        "minimumCatalogMora": 55,
+        "npcResaleMora": 13,
+        "profit": -42
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CRPG_TRAINING_SPEAR",
+        "minimumCatalogMora": 50,
+        "npcResaleMora": 12,
+        "profit": -38
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CRPG_TRAINING_BOW",
+        "minimumCatalogMora": 50,
+        "npcResaleMora": 12,
+        "profit": -38
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CRPG_TRAINING_CATALYST",
+        "minimumCatalogMora": 50,
+        "npcResaleMora": 12,
+        "profit": -38
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CRPG_PADDED_VEST",
+        "minimumCatalogMora": 70,
+        "npcResaleMora": 17,
+        "profit": -53
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CRPG_WOODEN_CHARM",
+        "minimumCatalogMora": 65,
+        "npcResaleMora": 16,
+        "profit": -49
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_SWORD_COOL_STEEL",
+        "minimumCatalogMora": 140,
+        "npcResaleMora": 35,
+        "profit": -105
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CLAYMORE_SKYRIDER",
+        "minimumCatalogMora": 150,
+        "npcResaleMora": 37,
+        "profit": -113
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_POLEARM_BLACK_TASSEL",
+        "minimumCatalogMora": 140,
+        "npcResaleMora": 35,
+        "profit": -105
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_POLEARM_HALBERD",
+        "minimumCatalogMora": 150,
+        "npcResaleMora": 37,
+        "profit": -113
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_SPECIAL_FIELD_PACK",
+        "minimumCatalogMora": 180,
+        "npcResaleMora": 45,
+        "profit": -135
+      },
+      {
+        "kind": "ITEM",
+        "id": "ORE_IRON",
+        "minimumCatalogMora": 28,
+        "npcResaleMora": 7,
+        "profit": -21
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_BARBATOS_RATATOUILLE",
+        "minimumCatalogMora": 120,
+        "npcResaleMora": 30,
+        "profit": -90
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_PIZZA",
+        "minimumCatalogMora": 130,
+        "npcResaleMora": 16,
+        "profit": -114
+      },
+      {
+        "kind": "ITEM",
+        "id": "MAT_CHAR_EXP_WANDERER",
+        "minimumCatalogMora": 35,
+        "npcResaleMora": 0,
+        "profit": -35
+      },
+      {
+        "kind": "ITEM",
+        "id": "MAT_CHAR_EXP_ADVENTURER",
+        "minimumCatalogMora": 160,
+        "npcResaleMora": 0,
+        "profit": -160
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_LIYUE_ARMOR_HARBOR_PATROL",
+        "minimumCatalogMora": 820,
+        "npcResaleMora": 205,
+        "profit": -615
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_LIYUE_ARMOR_STONEGATE",
+        "minimumCatalogMora": 900,
+        "npcResaleMora": 225,
+        "profit": -675
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_LIYUE_ARMOR_QINGCE_PADDED",
+        "minimumCatalogMora": 930,
+        "npcResaleMora": 232,
+        "profit": -698
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_LIYUE_ARMOR_CLIFFRUNNER",
+        "minimumCatalogMora": 960,
+        "npcResaleMora": 240,
+        "profit": -720
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_LIYUE_ACC_AMBER_CHARM",
+        "minimumCatalogMora": 860,
+        "npcResaleMora": 215,
+        "profit": -645
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_LIYUE_ACC_STONE_BEAD",
+        "minimumCatalogMora": 880,
+        "npcResaleMora": 220,
+        "profit": -660
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_LIYUE_ACC_COURIER_KNOT",
+        "minimumCatalogMora": 900,
+        "npcResaleMora": 225,
+        "profit": -675
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_LIYUE_ACC_TIANHENG_SIGHT",
+        "minimumCatalogMora": 920,
+        "npcResaleMora": 230,
+        "profit": -690
+      },
+      {
+        "kind": "ITEM",
+        "id": "MAT_LIYUE_COR_LAPIS",
+        "minimumCatalogMora": 120,
+        "npcResaleMora": 30,
+        "profit": -90
+      },
+      {
+        "kind": "ITEM",
+        "id": "MAT_LIYUE_SILK_FLOWER",
+        "minimumCatalogMora": 60,
+        "npcResaleMora": 15,
+        "profit": -45
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_MATSUTAKE_ROLL",
+        "minimumCatalogMora": 150,
+        "npcResaleMora": 30,
+        "profit": -120
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_UNIVERSAL_PEACE",
+        "minimumCatalogMora": 315,
+        "npcResaleMora": 45,
+        "profit": -270
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_JADE_PARCELS",
+        "minimumCatalogMora": 240,
+        "npcResaleMora": 60,
+        "profit": -180
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_ALMOND_TOFU",
+        "minimumCatalogMora": 54,
+        "npcResaleMora": 17,
+        "profit": -37
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_ADEPTUS_TEMPTATION",
+        "minimumCatalogMora": 600,
+        "npcResaleMora": 150,
+        "profit": -450
+      },
+      {
+        "kind": "ITEM",
+        "id": "MAT_LIYUE_JUEYUN_CHILI",
+        "minimumCatalogMora": 240,
+        "npcResaleMora": 20,
+        "profit": -220
+      },
+      {
+        "kind": "ITEM",
+        "id": "MAT_LIYUE_NOCTILUCOUS_JADE",
+        "minimumCatalogMora": 240,
+        "npcResaleMora": 40,
+        "profit": -200
+      },
+      {
+        "kind": "ITEM",
+        "id": "MAT_LIYUE_GLAZE_LILY",
+        "minimumCatalogMora": 240,
+        "npcResaleMora": 20,
+        "profit": -220
+      },
+      {
+        "kind": "ITEM",
+        "id": "MAT_LIYUE_VIOLETGRASS",
+        "minimumCatalogMora": 240,
+        "npcResaleMora": 20,
+        "profit": -220
+      },
+      {
+        "kind": "ITEM",
+        "id": "MAT_LIYUE_STARCONCH",
+        "minimumCatalogMora": 240,
+        "npcResaleMora": 20,
+        "profit": -220
+      },
+      {
+        "kind": "ITEM",
+        "id": "MAT_LIYUE_QINGXIN",
+        "minimumCatalogMora": 240,
+        "npcResaleMora": 20,
+        "profit": -220
+      },
+      {
+        "kind": "ITEM",
+        "id": "TRPG_TORCH",
+        "minimumCatalogMora": 60,
+        "npcResaleMora": 15,
+        "profit": -45
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_ACC_SWIFT_TALISMAN",
+        "minimumCatalogMora": 1200,
+        "npcResaleMora": 580,
+        "profit": -620
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_ACC_ELEMENTAL_PRISM",
+        "minimumCatalogMora": 950,
+        "npcResaleMora": 650,
+        "profit": -300
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_ACC_HEALER_BROOCH",
+        "minimumCatalogMora": 1240,
+        "npcResaleMora": 620,
+        "profit": -620
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_ACC_RESONANCE_BAND",
+        "minimumCatalogMora": 1900,
+        "npcResaleMora": 940,
+        "profit": -960
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_SPECIAL_GRAPPLE",
+        "minimumCatalogMora": 394,
+        "npcResaleMora": 394,
+        "profit": 0
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_SPECIAL_ELEMENT_LENS",
+        "minimumCatalogMora": 1180,
+        "npcResaleMora": 700,
+        "profit": -480
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_SPECIAL_SCOUT_CLOAK",
+        "minimumCatalogMora": 662,
+        "npcResaleMora": 660,
+        "profit": -2
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_SWORD_AMENOMA",
+        "minimumCatalogMora": 1610,
+        "npcResaleMora": 520,
+        "profit": -1090
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_SWORD_FINALE",
+        "minimumCatalogMora": 2150,
+        "npcResaleMora": 560,
+        "profit": -1590
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CLAYMORE_KATSURAGI",
+        "minimumCatalogMora": 1860,
+        "npcResaleMora": 540,
+        "profit": -1320
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_POLEARM_KITAIN",
+        "minimumCatalogMora": 1630,
+        "npcResaleMora": 540,
+        "profit": -1090
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_BOW_HAMAYUMI",
+        "minimumCatalogMora": 1580,
+        "npcResaleMora": 540,
+        "profit": -1040
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_CATALYST_HAKUSHIN",
+        "minimumCatalogMora": 1600,
+        "npcResaleMora": 540,
+        "profit": -1060
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_SOUR_CREAM",
+        "minimumCatalogMora": 20,
+        "npcResaleMora": 15,
+        "profit": -5
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_RYE_FLOUR",
+        "minimumCatalogMora": 24,
+        "npcResaleMora": 12,
+        "profit": -12
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_CREAM",
+        "minimumCatalogMora": 20,
+        "npcResaleMora": 18,
+        "profit": -2
+      },
+      {
+        "kind": "EQUIP_INSTANCE",
+        "id": "SELECTED_SLOT_ID",
+        "minimumCatalogMora": 204,
+        "npcResaleMora": 0,
+        "profit": -204
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_FISHERMANS_TOAST",
+        "minimumCatalogMora": 122,
+        "npcResaleMora": 35,
+        "profit": -87
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_LOTUS_CRISP",
+        "minimumCatalogMora": 172,
+        "npcResaleMora": 60,
+        "profit": -112
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_SHRIMP_BALLS",
+        "minimumCatalogMora": 327,
+        "npcResaleMora": 60,
+        "profit": -267
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_MASHED_POTATOES",
+        "minimumCatalogMora": 70,
+        "npcResaleMora": 60,
+        "profit": -10
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_RICE_BUNS",
+        "minimumCatalogMora": 48,
+        "npcResaleMora": 15,
+        "profit": -33
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_QINGXIN_FLOWER_CAKE",
+        "minimumCatalogMora": 282,
+        "npcResaleMora": 35,
+        "profit": -247
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_CHENYU_BREW",
+        "minimumCatalogMora": 51,
+        "npcResaleMora": 15,
+        "profit": -36
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_CELESTIAL_TEA_CRISP",
+        "minimumCatalogMora": 302,
+        "npcResaleMora": 100,
+        "profit": -202
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_HUMBLY_ENOUGH",
+        "minimumCatalogMora": 573,
+        "npcResaleMora": 60,
+        "profit": -513
+      },
+      {
+        "kind": "ITEM",
+        "id": "ING_CRAB_ROE",
+        "minimumCatalogMora": 96,
+        "npcResaleMora": 20,
+        "profit": -76
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_LY_ACC_QINGXIN_SACHET",
+        "minimumCatalogMora": 1580,
+        "npcResaleMora": 152,
+        "profit": -1428
+      },
+      {
+        "kind": "EQUIP",
+        "id": "EQ_LY_ACC_LILY_KNOT",
+        "minimumCatalogMora": 1360,
+        "npcResaleMora": 160,
+        "profit": -1200
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_SNEZ_GLUPOV_RYE_BREAD",
+        "minimumCatalogMora": 85,
+        "npcResaleMora": 50,
+        "profit": -35
+      },
+      {
+        "kind": "ITEM",
+        "id": "FOOD_CRAB_ROE_TOFU",
+        "minimumCatalogMora": 123,
+        "npcResaleMora": 35,
+        "profit": -88
+      }
+    ],
+    "limits": [
+      "Global future/locked NPC routes are conservative lower bounds, not current reachable shops.",
+      "Includes eligible material discount and Xiangling attack-food bonus output.",
+      "No live market quotes, transactions or liquidity; not a proof of player market inflation."
+    ],
+    "market": {
+      "minimumListingTotal": 10,
+      "maximumListingTotal": 9999999,
+      "fee": 0.05,
+      "minimumFee": 1,
+      "maxListings": 8,
+      "priceIsWholeBundle": true,
+      "tradeMinLevel": 10
+    },
+    "recipeCostsInFullEvidence": true
+  },
+  "counts": {
+    "foods": 45,
+    "resourceConditions": 12,
+    "resourceSamples": 384,
+    "campaigns": 0,
+    "failedCampaigns": 0,
+    "nativeCampaignHarvests": 0,
+    "campaignEncounters": 0,
+    "npcArbitrageViolations": 0
+  },
+  "fullEvidence": {
+    "file": "supply_after.json.gz",
+    "uncompressedSha256": "d942bb335b79f484a7048ff95390804df6d8584175bca9b39001c1df8154be0d",
+    "gzipSha256": "47e39dd0c99fd02da8b6d40d240259ccae8d46ce75c878ab3589184853b67908",
+    "uncompressedBytes": 379872,
+    "gzipBytes": 38501,
+    "deterministicGzip": true
+  }
+}
