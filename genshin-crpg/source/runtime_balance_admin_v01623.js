@@ -92,8 +92,28 @@ function createRuntime(DB,state,profile={revision:0,config:EMPTY()},takeOwnershi
  if(entry&&entry.serialized===signature){config=entry.config;serialized=entry.serialized;}else{let baseCatalog=catalogs.get(DB);if(!baseCatalog){const baseline=new api.Runtime({...DB});baseline.installGrowthContent?.();baseCatalog=catalog(baseline);catalogs.set(DB,baseCatalog);}config=validateConfig(raw,baseCatalog);serialized=canonical(config);if(entry&&entry.serialized!==serialized)fail('같은 밸런스 버전에 다른 설정을 사용할 수 없습니다.');}
  if(revision===0&&serialized!==canonical(EMPTY()))fail('밸런스 버전 0은 기본 설정만 사용할 수 있습니다.');
  if(!entry){const db={...DB};Object.defineProperty(db,META,{value:Object.freeze({revision,config}),enumerable:true});entry={serialized,config,db};byRevision.set(revision,entry);if(byRevision.size>16)byRevision.delete(byRevision.keys().next().value);}
- const r=new api.Runtime({...entry.db},state,takeOwnership);r.installGrowthContent?.();applyTables(r);if(r.s){const g=r.s.global,hp=g.PLAYER_HP_CURRENT,chars=Object.fromEntries(Object.entries(r.s.chars).map(([id,s])=>[id,s.hp]));r.recalculate();g.PLAYER_HP_CURRENT=Math.min(hp,g.PLAYER_HP_MAX);for(const[id,h]of Object.entries(chars))if(r.tables['07_CHAR_DB']?.has(id))r.s.chars[id].hp=Math.min(h,r.character(id).maxHp);}
+ const r=new api.Runtime({...entry.db},state,takeOwnership,entry.db,entry);r.installGrowthContent?.();applyTables(r);if(r.s){const g=r.s.global,hp=g.PLAYER_HP_CURRENT,chars=Object.fromEntries(Object.entries(r.s.chars).map(([id,s])=>[id,s.hp]));r.recalculate();g.PLAYER_HP_CURRENT=Math.min(hp,g.PLAYER_HP_MAX);for(const[id,h]of Object.entries(chars))if(r.tables['07_CHAR_DB']?.has(id))r.s.chars[id].hp=Math.min(h,r.character(id).maxHp);}
  return r;
 }
+// The complete story graph is content-only. Its editorial wrappers do not read
+// save flags, names, choices or receipts. Keep their table-install side effects,
+// then reuse the compiled graph only inside this immutable DB/profile entry.
+const compileStory=P.storyIndex;
+P.storyIndex=function(){
+ const shared=this._sharedStaticContent;if(!shared)return compileStory.call(this);
+ if(!this._sharedStoryIndex&&shared.story){
+  this.db={...this.db,...shared.story.db};Object.assign(this.tables,shared.story.tables);
+  this._personalExpanded=shared.story.personalExpanded;this._sharedStoryIndex=shared.story.index;
+ }
+ const beforeDB=this.db,beforeTables={...this.tables},index=compileStory.call(this);
+ if(!shared.story){
+  const db={},tables={};for(const[key,rows]of Object.entries(this.db))if(beforeDB[key]!==rows)db[key]=rows;
+  for(const[key,rows]of Object.entries(this.tables))if(beforeTables[key]!==rows)tables[key]=rows;
+  // Gameplay can read rows and make display copies, but cannot edit shared prose.
+  for(const row of index.nodes.values())Object.freeze(row);
+  shared.story={index,db,tables,personalExpanded:this._personalExpanded};
+ }
+ return index;
+};
 api.adminBalance={schema:1,emptyConfig:EMPTY,validateConfig,createRuntime,catalog,profileOf};
 })(typeof globalThis==='object'?globalThis:this);

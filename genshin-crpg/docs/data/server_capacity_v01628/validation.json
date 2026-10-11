@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "version": "0.16.28",
+  "scope": "selected server/runtime regressions on final source; isolated local fixtures",
+  "programs": 26,
+  "passed": 26,
+  "failed": 0,
+  "newRuntimeChecks": 7,
+  "newServerChecks": 7,
+  "publicDeltaCases": 512,
+  "realHttpActionsPerVersion": 672,
+  "realHttpActionsTotal": 1344,
+  "sixPublicStateAndReceiptDigestsEqual": true,
+  "fullReleaseRun": false,
+  "fullClientBuild": false,
+  "realVpsInstall": false,
+  "productionPromotion": false,
+  "mainMerged": false,
+  "workflowWaited": false,
+  "results": "regression/results.json",
+  "extraChecks": {
+    "syntaxAndInstallerScripts": "passed",
+    "gitDiffWhitespace": "passed",
+    "releaseNoteHistoryUnchanged": true,
+    "releaseIsolation": {
+      "exitCode": 0,
+      "checksPassed": 6,
+      "checksSkipped": 1,
+      "reason": "Full client build/output was not produced in this sparse source checkout."
+    },
+    "staticContentBoundaries": {
+      "exitCode": 0,
+      "checksPassed": 5,
+      "nodes": 27531,
+      "scope": "composed static content and synthetic boundaries; no browser or complete story traversal"
+    }
+  }
+}

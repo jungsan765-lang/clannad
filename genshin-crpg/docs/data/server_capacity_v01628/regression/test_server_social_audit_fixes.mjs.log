@@ -1,0 +1,7 @@
+PASS old market listings remain searchable and correctly sorted beyond 400 active listings
+PASS all ended raids in the seven-day window are listed and claimable, while old and future events remain blocked
+PASS one letter intention, including concurrent retries, deducts once and returns one durable result
+PASS committed letter replay survives server restart and recipient changes without new charges or notifications
+PASS known replays do not consume the send quota; new sends still do, and legacy sends remain valid
+PASS rolled-back send IDs remain consumed and do not recreate or charge for the removed letter
+{"ok":true,"checks":["old market listings remain searchable and correctly sorted beyond 400 active listings","all ended raids in the seven-day window are listed and claimable, while old and future events remain blocked","one letter intention, including concurrent retries, deducts once and returns one durable result","committed letter replay survives server restart and recipient changes without new charges or notifications","known replays do not consume the send quota; new sends still do, and legacy sends remain valid","rolled-back send IDs remain consumed and do not recreate or charge for the removed letter"]}

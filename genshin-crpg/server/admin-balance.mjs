@@ -38,11 +38,11 @@ export function balanceChanges(before,after,metadata=new Map()){
 
 export class AdminBalanceStore{
  constructor(store){this.store=store;this.db=store.db;this.profiles=new Map();this.baseCatalog=null;this.runtimeDB={...GAME_DB};installBalanceSchema(this.db);}
- currentRevision(){return this.db.prepare('SELECT revision FROM balance_current WHERE singleton=1').get().revision;}
+ currentRevision(){return this.store.prepare('SELECT revision FROM balance_current WHERE singleton=1').get().revision;}
  profile(revision=this.currentRevision()){
   if(!Number.isSafeInteger(revision)||revision<0)throw err(400,'밸런스 판 번호를 확인해 주세요.','BALANCE_INVALID');
   let profile=this.profiles.get(revision);
-  if(!profile){const row=this.db.prepare('SELECT revision,config FROM balance_profiles WHERE revision=?').get(revision);if(!row)throw err(404,'해당 밸런스 판을 찾을 수 없습니다.','BALANCE_NOT_FOUND');profile={revision:row.revision,config:JSON.parse(row.config)};}
+  if(!profile){const row=this.store.prepare('SELECT revision,config FROM balance_profiles WHERE revision=?').get(revision);if(!row)throw err(404,'해당 밸런스 판을 찾을 수 없습니다.','BALANCE_NOT_FOUND');profile={revision:row.revision,config:JSON.parse(row.config)};}
   this.profiles.delete(revision);this.profiles.set(revision,profile);while(this.profiles.size>32)this.profiles.delete(this.profiles.keys().next().value);
   // Identity remains identity when a later release adds an optional editor area.
   // Old SQLite revision-0 rows need no data migration or history rewrite.
