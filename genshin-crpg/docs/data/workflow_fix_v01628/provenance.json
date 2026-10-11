@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "failedRunNumber": 312,
+  "failedRunId": 38141473501,
+  "failedSourceSha": "182e5b06e630700bb4a9269b7932bb35a6b44ee8",
+  "failureScope": "immutable historical runtime source closure, not a changed battle numeric assertion",
+  "originalCi": {
+    "programs": 197,
+    "passed": 189,
+    "failed": 8,
+    "sourceUi": "success"
+  },
+  "snapshots": [
+    {
+      "path": "docs/data/balance_v01624/source_before/source/runtime.js",
+      "sha256": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7",
+      "gitBlob": "550200e4582fe620966c8f76ebb96b53288193ed",
+      "bytes": 41136,
+      "publishedSourcePath": "genshin-crpg/source/runtime.js",
+      "verifiedPublishedBlob": "550200e4582fe620966c8f76ebb96b53288193ed"
+    },
+    {
+      "path": "docs/data/balance_v01625/source_before/source/runtime.js",
+      "sha256": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7",
+      "gitBlob": "550200e4582fe620966c8f76ebb96b53288193ed",
+      "bytes": 41136,
+      "publishedSourcePath": "genshin-crpg/source/runtime.js",
+      "verifiedPublishedBlob": "550200e4582fe620966c8f76ebb96b53288193ed"
+    },
+    {
+      "path": "docs/data/balance_v01627/before/source/runtime.js",
+      "sha256": "da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7",
+      "gitBlob": "550200e4582fe620966c8f76ebb96b53288193ed",
+      "bytes": 41136,
+      "publishedSourcePath": "genshin-crpg/source/runtime.js",
+      "verifiedPublishedBlob": "550200e4582fe620966c8f76ebb96b53288193ed"
+    }
+  ],
+  "originalManifestAndAssertionChanged": false,
+  "gameSourceChanged": false,
+  "fullReleaseTestCountChanged": false,
+  "historicalIdentityProofs": [
+    "docs/data/balance_v01624/source_before/published_source_manifest.json (0.16.23 commit 1bf0ee5fb35f5fba371466e2e29f01ef7fa4ed59)",
+    "docs/data/balance_v01625/source_before/manifest.json and immutable recorded 0.16.24 full source closure fingerprint",
+    "docs/data/balance_v01627/before/source_manifest.json (0.16.26 commit 7f33d2b34c48834c67c9134e2548d48932782e5c)"
+  ],
+  "engineVersion": "engine3-58331e639a984025612c388c2f4479d2d69cb59771b903939070895382e35003",
+  "serverBuild": "server-862ceb36200a8bfb6a64",
+  "focusedServerCheckPrograms": 34,
+  "finalLocalPrograms": 10,
+  "originalFailedProgramsRetestedAndPassed": 8,
+  "optimizationContractProgramsRetestedAndPassed": 2,
+  "localFixtureCompletionRetries": 2,
+  "rawDbSha256": "dcc2800000f20684e2c57420404aa3a3a7fe68b9042c608306ba2ec62bd178da"
+}

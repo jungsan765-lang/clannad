@@ -1,0 +1,31 @@
+PASS 0.16.5 XP migrates once for player, owned companion and bench without changing levels or belongings
+PASS a prior-curve battle keeps its actors and initiative while only stored XP converts
+PASS Lv3 loses fixed Lv10 and Lv12 fights; correctly levelled four-person starter-weapon parties can win
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: immutable 0.16.26 native source: source/runtime.js
++ actual - expected
+
++ '723e3935ce63023f1dd5d1fe83b1d2cc5fcd42bb5cff98f8b5a956a70f9a59d2'
+- 'da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7'
+
+    at Object.loadBefore (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_enemy_balance_v01627.cjs:48:32)
+    at Object.<anonymous> (/home/runner/work/clannad/clannad/genshin-crpg/tests/test_balance_saves_v0166.cjs:42:24)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '723e3935ce63023f1dd5d1fe83b1d2cc5fcd42bb5cff98f8b5a956a70f9a59d2',
+  expected: 'da3479d514fbcc6edf5c3be64d8cbb5ff9e6533b84a045711e27b3d0325c3ec7',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.21.0

@@ -12,6 +12,16 @@ OUT = ROOT / 'evidence/capacity-v01628/regression'
 TESTS = [
     'tests/test_runtime_capacity_v01628.cjs',
     'tests/test_server_capacity_v01628.mjs',
+    # Shared source changes also affect immutable historical-engine overlays.
+    # Keep their real old-source replay gates in this focused optimization run.
+    'tests/test_enemy_balance_v01627.cjs',
+    'tests/test_boss_difficulty_scope_v01624.cjs',
+    'tests/test_character_balance_v01625.cjs',
+    'tests/test_balance_saves_v0166.cjs',
+    'tests/test_rewards_balance_v0161.cjs',
+    'tests/test_material_budget_v01615.cjs',
+    'tests/test_balance_v0141.cjs',
+    'tests/test_balance_v0152.cjs',
     'tests/test_fixed_region_live.mjs',
     'tests/test_admin_balance_v01623.mjs',
     'tests/test_admin_balance_growth_v01623.mjs',

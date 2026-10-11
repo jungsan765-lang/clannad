@@ -1,5 +1,7 @@
 # 0.16.28 서버 최적화 검증 원장
 
+후속 #312 복구는 [별도 원장](../workflow_fix_v01628/README_KO.md)에 기록합니다. 이 폴더의26프로그램은 최초 측정 당시 실행이며 현재 집중점검 등록은34개입니다. 이전 실패SHA 대신 최신 적용문서의복구SHA를사용합니다.
+
 읽기 순서: [사용자용 결과](../../PATCH_0.16.28_KO.md) → 이 문서 → `comparison.json` → `validation.json` → `regression/results.json`.
 
 ## 파일과 출처
