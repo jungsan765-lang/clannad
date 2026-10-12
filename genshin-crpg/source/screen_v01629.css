@@ -192,6 +192,39 @@ html.stage-pc body.teyvat .gear-cols .gear-member>.gear-member-head{grid-area:he
 html.stage-pc body.teyvat .gear-cols .gear-member>.gear-slots{grid-area:slots;display:grid;grid-template-columns:repeat(2,92px);grid-auto-rows:auto;gap:8px;align-content:start;margin:0}
 html.stage-pc body.teyvat .gear-cols .gear-slots>.gear-cell{width:92px;height:auto;min-width:0;min-height:100px;padding:6px 4px}
 html.stage-pc body.teyvat .gear-cols .gear-member>.gear-tabs{grid-area:tabs;margin:0}
+/* 0.16.37 (TODO 8) 호감도: every companion is listed now (those from wishes too), so each card is a short row — the face
+   at its left, the name, the bond bar, the score and the next meeting beside it, the stages folded under — and the cards
+   turn pages (app_pages_v0167.js). A card that stood a third of the screen tall gave one row a page. */
+body.teyvat .relations-body .relationship-toolbar{display:flex;align-items:center;gap:8px;margin:0 0 6px}
+body.teyvat .relations-body .relationship-toolbar>p{flex:1 1 auto;margin:0;font-size:.78rem}
+body.teyvat .relations-body .relationship-toggles{display:flex;gap:6px}
+body.teyvat :where(#root) .relations-body .relationship-toggles>button{min-height:28px;padding:2px 12px;font-size:.74rem;margin:0}
+body.teyvat .relations-body .relationship-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;align-items:start}
+body.teyvat .relations-body .relationship-card{display:grid;grid-template-columns:84px minmax(0,1fr);column-gap:12px;row-gap:2px;align-items:start;padding:10px 12px;margin:0}
+body.teyvat .relations-body .relationship-card>.relationship-photo{grid-column:1;grid-row:1/span 6;width:84px;height:84px;object-fit:cover;object-position:top;border-radius:10px;margin:0;aspect-ratio:auto}
+body.teyvat .relations-body .relationship-card>:not(.relationship-photo){grid-column:2;margin:0;min-width:0}
+body.teyvat .relations-body .relationship-card>h2{font-size:1rem;line-height:1.2}
+body.teyvat .relations-body .relationship-card>.bond-bar{margin:2px 0}
+body.teyvat .relations-body .relationship-card>:is(.relationship-score,.meeting-place,.muted){font-size:.74rem;line-height:1.35}
+body.teyvat .relations-body .relationship-card>.relationship-missions{grid-column:2;margin-top:3px;padding-top:3px}
+body.teyvat .relations-body .relationship-card>.relationship-missions>summary{font-size:.76rem}
+body.teyvat .relations-body .relationship-card>.relationship-missions .relationship-next{font-size:.7rem}
+html.stage-phone body.teyvat .relations-body .relationship-toolbar{margin:0 0 3px}
+html.stage-phone body.teyvat .relations-body .relationship-toolbar>p{font-size:.58rem}
+html.stage-phone body.teyvat :where(#root) .relations-body .relationship-toggles>button{min-height:22px;padding:1px 9px;font-size:.58rem}
+html.stage-phone body.teyvat .relations-body .relationship-grid{gap:5px!important}
+html.stage-phone body.teyvat .relations-body .relationship-card{grid-template-columns:48px minmax(0,1fr);column-gap:7px;row-gap:0;padding:3px 6px}
+html.stage-phone body.teyvat .relations-body .relationship-card>.bond-bar{margin:1px 0}
+html.stage-phone body.teyvat .relations-body .relationship-card>.relationship-photo{width:48px;height:48px;border-radius:8px}
+html.stage-phone body.teyvat .relations-body .relationship-card>h2{font-size:.74rem}
+html.stage-phone body.teyvat .relations-body .relationship-card>:is(.relationship-score,.meeting-place,.muted){font-size:.54rem;line-height:1.3}
+html.stage-phone body.teyvat .relations-body .relationship-card>.relationship-missions{margin-top:1px;padding-top:1px}
+html.stage-phone body.teyvat .relations-body .relationship-card>.relationship-missions>summary{font-size:.56rem}
+html.stage-phone body.teyvat .relations-body .relationship-card>.relationship-missions .relationship-next{font-size:.52rem}
+/* a phone keeps two rows of cards a page: the score is the bar above it, and the next step's reason shows when the stages
+   are opened (the next stage carries it) */
+html.stage-phone body.teyvat .relations-body .relationship-card>.relationship-score{display:none}
+html.stage-phone body.teyvat .relations-body .relationship-card>.relationship-missions:not([open]) .relationship-next{display:none}
 /* 0.16.37 (TODO 8): Paimon's menu on a phone keeps five tiles a row (at 748×360 it fell to four and its last row was cut). */
 html.stage-phone body.teyvat .pm-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
 /* 0.16.37 (TODO 8, found looking at every screen): the 능력치 tab laid four label–value pairs in one row of a narrow pane,

@@ -98,6 +98,8 @@ const BOXES=[
  // A place's tab turns pages; one card too tall to be cut into pages fits by stepping its letters down instead.
  ['.shell-place-tabs .shell-pane:not([hidden])',()=>{window.CRPGGuildRows?.pagePlace?.();for(const p of document.querySelectorAll('.shell-place-tabs .shell-pane:not([hidden])'))if(p.scrollHeight>p.clientHeight+1&&!p.querySelector(':scope>.pane-pager'))fitBox(p);}],
  ['.shell-col-side.pageable',()=>window.CRPGPages?.pageAll?.()],
+ // 0.16.37: 호감도's cards (every companion) turn pages; laid out again when the screen is drawn again.
+ ['.relations-body',()=>window.CRPGPages?.pageAll?.()],
  ['.bag-cols .bag-grid',bag],
  ['.market-layout>.market-grid',market],
  // The kitchen's and the forge's lists of recipes and gear.

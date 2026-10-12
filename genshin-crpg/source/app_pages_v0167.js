@@ -9,7 +9,9 @@ if(typeof render!=='function')return;
 const SPOTS=[
  ['.shell-col-side:has(>.formation-choice),.shell-col-side:has(>.shell-presets)',()=>'party-side'],
  // 0.16.29: every tab of 임무 (not only 일일·주간) turns pages instead of scrolling; each tab keeps its own page.
- ['.shell-page-quest .quest-list',el=>'quest|'+(document.querySelector('.journal-tabs [aria-pressed="true"]')?.textContent?.trim()||'')+'|'+(el.querySelector('.task-scope.active b')?.textContent||'')]
+ ['.shell-page-quest .quest-list',el=>'quest|'+(document.querySelector('.journal-tabs [aria-pressed="true"]')?.textContent?.trim()||'')+'|'+(el.querySelector('.task-scope.active b')?.textContent||'')],
+ // 0.16.37 (TODO 8): 호감도 lists every companion now (those from wishes too), so its cards turn pages.
+ ['.relations-body',()=>'relations']
  // 0.16.29: the bag's item card is one card now (app_screen_v01629.js fits it); its list of items turns pages instead.
 ];
 function pageAll(){const page=window.CRPGMainScreen?.pagePane;if(!page)return;
