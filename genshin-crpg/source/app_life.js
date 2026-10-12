@@ -87,21 +87,14 @@ const lifeItemSummary=itemSummary;
 itemSummary=function(d){const uses=game&&d.kind!=='EQUIPMENT'?itemUses(d.id):[];return lifeItemSummary(d)+(uses.length?'\n제작 용도 · '+uses.slice(0,3).map(x=>safeName(x.recipe[2]==='EQUIP'?'16_EQUIP_DB':'14_ITEM_DB',x.recipe[3])).join(', ')+(uses.length>3?' 외 '+(uses.length-3)+'개':''):'');};
 const lifeCrafting=crafting;
 crafting=function(p){lifeCrafting(p);if(focusedRecipe){const target=p.querySelector('[data-recipe-id="'+focusedRecipe+'"]');if(target){target.classList.add('focused-recipe');queueMicrotask(()=>target.scrollIntoView({block:'center',behavior:'smooth'}));}focusedRecipe=null;}};
+// 0.16.30 (user: 「천사의 몫같은 곳도 동료 영입 임무 이런게 남아있는데... 차라리 호감도 임무 위치면 모르겠는데」): the tavern and Sara's
+// table are where the owned companions' personal stories begin (the companions of this place); nobody is recruited
+// here any more. A companion not met in a wish yet is not listed.
 function contactStories(parent){const place=game.currentPlace();if(!place?.valid||![CRPGRuntime.lifeCatalog.sara,CRPGRuntime.lifeCatalog.tavern].includes(place.place))return;
- const tavern=place.place===CRPGRuntime.lifeCatalog.tavern,section=el('section','contact-stories');section.append(el('h2','',tavern?'술집에서 들려오는 이야기':'식탁에 남겨진 이야기'),el('p','story',tavern?'찰스: “도움이 필요한 분들의 이야기를 전해 드릴 수 있습니다. 당사자를 만나 부탁을 듣고, 동행할지는 직접 정하시면 됩니다.”':'사라: “도움이 필요한 사람들의 부탁을 모아 두었어요. 식사를 주문하지 않아도 이야기는 들으실 수 있답니다.”'),el('p','muted','몬드 도입부 이후부터 소개받을 수 있습니다. 본편을 끝낼 필요는 없으며, 준비 비용은 개인 임무에서 수락할 때만 사용됩니다.'));
- const offers=game.legendContactEntries();for(const entry of offers){const d=entry.definition,c=el('section','card'),registered=game.legendRegistered(entry.id);c.append(el('h3','',game.tables['22_QUEST_DB'].get(d.QUEST_ID)?.[1]||entry.title),el('p','',game.tables['22_QUEST_DB'].get(d.QUEST_ID)?.[5]||'당사자를 만나 이야기를 듣습니다.'));
-  if(!registered){
-   if(typeof requirementList==='function')requirementList(c,game.legendRequirements(d,{cost:false,location:false}));
-   const first=game.mondFirstContact?.(d);if(first&&!first.complete)c.append(actionButton('첫 만남 이야기 듣기','MOND_FIRST_CONTACT',{quest:d.id},true));
-   const reason=game.legendIntroductionReason(d);if(reason)c.append(el('p','requirement-unmet',reason));
-   c.append(actionButton('이야기를 듣고 개인 임무 소개받기','LEGEND_REGISTER',{quest:entry.id},true));
-  }else{
-   c.append(el('p','muted','소개받은 개인 임무 · 임무 현장으로 이동한 뒤 시작할 수 있습니다.'));travelGuide(c,d.MAP_ID);
-   c.append(button('임무에서 이야기 열기',()=>{missionTab='진행 중';act('MENU',{screen:'QUEST'});},busy||!!game.actionReason('MENU',{screen:'QUEST'}),true));
-  }section.append(c);
- }
- if(!offers.length)section.append(el('p','muted','이곳에서 소개하는 개인 임무를 모두 마쳤습니다. 임무의 동료 획득 화면에서 동행 제안과 다른 소개처를 확인할 수 있습니다.'));parent.append(section);
- const shortcut=el('div','contact-entry-link');shortcut.append(button('동료 영입 임무 소개 · '+offers.length+'개',()=>section.scrollIntoView({block:'start',behavior:'smooth'}),false,true));parent.insertBefore(shortcut,parent.firstChild);
+ const section=el('section','contact-stories');section.append(el('h2','','이곳에서 시작하는 개인 이야기'));
+ const here=(typeof personalStoryEntries==='function'?personalStoryEntries():[]).filter(e=>game.legendIntroductionPlaces(e.definition).some(p=>p.id===place.place));
+ const grid=el('div','personal-story-list');for(const e of here)personalStoryCard(grid,e);section.append(grid);
+ if(!here.length)section.append(el('p','muted','기원에서 이곳과 인연이 있는 동료를 만나면, 그 동료의 개인 이야기가 여기서 시작됩니다.'));parent.append(section);
 }
 const lifeShop=shop,lifeDialogue=dialogue;
 shop=function(p,v){lifeShop(p,v);contactStories(p);};

@@ -512,11 +512,13 @@ const MENU_LAYOUT={
   const main=region('shell-col-main shop-main',[filter,layout].filter(Boolean));
   // 0.14.11: a shop that also introduces companion missions (디어 헌터 식당, 만민당, 불복려…) shows them as their own
   // tab; squeezed under the goods they made a short box with a very long scroll.
-  const stories=rest.filter(n=>n.matches?.('section.contact-stories'));
-  if(stories.length){
-   const count=stories.reduce((n,s)=>n+s.querySelectorAll(':scope > section.card').length,0),others=rest.filter(n=>!stories.includes(n)&&!n.matches?.('.contact-entry-link')),storyNodes=[];
-   for(const s of stories){const cards=[...s.children].filter(n=>n.matches('section.card')),top=mk('div','shell-place-notes'),grid=mk('div','shell-place-grid');top.append(...[...s.children].filter(n=>!cards.includes(n)));grid.append(...cards);storyNodes.push(top,grid);}
-   const t=tabset('SHOP:'+(game.s.placeVisit?.place||''),[{id:'shop',label:'상점',icon:'SHOP',nodes:[main]},{id:'stories',label:'동료 영입 임무',badge:String(count),icon:'PARTY',nodes:storyNodes},{id:'more',label:'그 밖',icon:'DOT',nodes:others}],'shell-shop-tabs');
+  // 0.16.30: the tab holds the owned companions' personal stories that begin here; with none, the shop has no tab.
+  const stories=rest.filter(n=>n.matches?.('section.contact-stories')),count=stories.reduce((n,s)=>n+s.querySelectorAll('article.personal-story').length,0);
+  for(const s of count?[]:stories)s.remove();
+  if(count){
+   const others=rest.filter(n=>!stories.includes(n)&&!n.matches?.('.contact-entry-link')),storyNodes=[];
+   for(const s of stories){const cards=[...s.querySelectorAll('article.personal-story')],grid=mk('div','shell-place-grid personal-story-list');grid.append(...cards);storyNodes.push(grid);}
+   const t=tabset('SHOP:'+(game.s.placeVisit?.place||''),[{id:'shop',label:'상점',icon:'SHOP',nodes:[main]},{id:'stories',label:'개인 이야기',badge:String(count),icon:'PARTY',nodes:storyNodes},{id:'more',label:'그 밖',icon:'DOT',nodes:others}],'shell-shop-tabs');
    body.classList.remove('shell-cols');body.classList.add('shop-with-stories');body.append(t);return;
   }
   body.append(main);

@@ -419,7 +419,14 @@ P.fieldBossView=function(){
  if(f.heatwave)state.push(f.heatwave==='THIS_ROUND'?'이번 라운드 끝 폭염 확산 (전원 최대 HP 12%)':'다음 라운드 끝 폭염 확산 예고');
  return {name:d.name,level:d.level,telegraph:f.telegraph,state,immune:d.immune.includes('ALL')?['본체 무적']:d.immune.slice(),seen:f.seen.map(k=>({id:k,...d.gimmicks[k]})).filter(x=>x.label)};
 };
-if(old.enemyIntel)P.enemyIntel=function(id){const info=old.enemyIntel.call(this,id),a=this.combatActor?.(id);if(!info||!a)return info;if(a.fbSummon)info.fieldSummon={kind:a.fbSummon.kind,name:SUMMONS[a.fbSummon.kind]?.name};if(a.fb)info.fieldBoss=true;return info;};
+if(old.enemyIntel)P.enemyIntel=function(id){const info=old.enemyIntel.call(this,id),a=this.combatActor?.(id);if(!info||!a)return info;if(a.fbSummon)info.fieldSummon={kind:a.fbSummon.kind,name:SUMMONS[a.fbSummon.kind]?.name};if(a.fb)info.fieldBoss=true;
+ // 0.16.30 (TODO 2-7): a field boss acts through its gimmicks, not enemy cards, so 「보유 기술」 said 기본 공격 only. It lists
+ // the gimmicks seen in this fight or an earlier one, and how many are still unseen (they are learned by watching).
+ const d=a.fb&&BOSSES[a.source];
+ if(d){const seen=new Set([...(this.s.runtime?.fieldBoss?.seen||[]),...this.fieldBossNotes(a.source).seen]),keys=Object.keys(d.gimmicks),gimmick=(id,name,text,counter)=>({id,name,kind:'기믹',passive:true,element:'',target:'',coefficient:'',description:text,summary:text,condition:'전투 중 자동',cooldown:0,remaining:0,supported:true,reason:'',available:false,unavailableReason:'',counter,charging:false});
+  info.cards=keys.filter(k=>seen.has(k)).map(k=>gimmick('FB_GIMMICK_'+k,d.gimmicks[k].label,d.gimmicks[k].text,d.gimmicks[k].counter));
+  const unseen=keys.length-info.cards.length;if(unseen)info.cards.push(gimmick('FB_GIMMICK_UNSEEN','아직 보지 못한 기술 '+unseen+'개','전투에서 한 번 보면 여기에 기록됩니다.',''));}
+ return info;};
 P.validateSave=function(s){
  const out=old.validateSave.call(this,s)||s;
  const clock=out.fieldBossClock;if(clock!==undefined&&(!clock||typeof clock!=='object'||Array.isArray(clock)||Object.entries(clock).some(([k,v])=>!BOSSES[k]||!Number.isSafeInteger(v)||v<0)))fail('FIELD_BOSS_SAVE','필드 보스 재등장 기록이 올바르지 않습니다.');

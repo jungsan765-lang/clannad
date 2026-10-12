@@ -46,8 +46,9 @@ S.placeLayout=function(content,p){
  const defs=[];
  for(const d of regions){const sum=d.querySelector(':scope > summary'),cards=[...d.children].filter(n=>n!==sum),grid=mk('div','shell-place-grid');grid.append(...cards);
   const [name,count]=(sum?.textContent||'의뢰').split('·').map(x=>x.trim());defs.push({id:'region:'+name,label:name,badge:count||String(cards.length),icon:'QUEST',nodes:[grid]});}
- for(const s of stories){const cards=[...s.children].filter(n=>n.matches('section.card')),notes=[...s.children].filter(n=>!cards.includes(n)),top=mk('div','shell-place-notes'),grid=mk('div','shell-place-grid');top.append(...notes);grid.append(...cards);
-  defs.push({id:'stories',label:'동료 영입 임무',badge:String(cards.length),icon:'PARTY',nodes:[top,grid]});}
+ // 0.16.30: the owned companions' personal stories that begin here (no recruiting tab any more).
+ for(const s of stories){const cards=[...s.querySelectorAll('article.personal-story,section.card')],notes=[...s.children].filter(n=>!n.contains(cards[0]||null)&&!cards.includes(n)),top=mk('div','shell-place-notes'),grid=mk('div','shell-place-grid personal-story-list');top.append(...notes);grid.append(...cards);
+  if(cards.length)defs.push({id:'stories',label:'개인 이야기',badge:String(cards.length),icon:'PARTY',nodes:[grid]});}
  if(others.length){const named=others.map(n=>n.querySelector?.(':scope > h2,:scope > h3')).find(Boolean);defs.push({id:'here',label:named?.textContent.trim()||'이곳에서',icon:'STAR',nodes:others});}
  if(link)link.remove();
  const main=mk('section','shell-place-main');const tabs=S.tabset('PLACE:'+place,defs,'shell-place-tabs');

@@ -89,7 +89,7 @@ check('임무 보상 획득: what a claim paid shows itself; a finished task say
  assert(t.includes("'임무 달성 · '+fresh[0].name"),'a note when one is done');
  assert(t.includes("const GRADE={일반:'green',고급:'blue',희귀:'purple',영웅:'gold',전설:'gold'}"),'tiles in the item’s grade');
  for(const rule of ['.task-gain{position:fixed;inset:0;z-index:2400','.task-gain-pic.g-gold','@keyframes task-gain-pop'])assert(css.includes(rule),rule);
- assert(t.includes("['일일·주간','진행 중','동료 획득','완료']"),'임무 opens on the board');
+ assert(t.includes("['일일·주간','진행 중','개인 이야기','완료']"),'임무 opens on the board (0.16.30: 동료 획득 became 개인 이야기)');
 });
 
 check('의뢰 한 줄: state, name, place, reward pictures, one small button; the row opens the whole card',()=>{

@@ -13,7 +13,7 @@ const regionOf=id=>mapRow(id)?.[1]||'';
 const itemName=id=>game.tables['14_ITEM_DB']?.get(id)?.[1]||id;
 const charName=id=>game.tables['07_CHAR_DB']?.get(id)?.[1]||id;
 const icon=(n,c)=>window.CRPGShell?.icon?CRPGShell.icon(n,c):mk('span');
-const TABS=[['journey','여정','STORY'],['bosses','토벌','SWORDS'],['ley','지맥의 꽃','STAR'],['abyss','나선비경','CLOCK'],['companions','동료','PARTY'],['treasure','보물','STARS'],['achievements','업적','TROPHY']];
+const TABS=[['journey','여정','STORY'],['bosses','토벌','SWORDS'],['ley','지맥의 꽃','STAR'],['abyss','나선비경','CLOCK'],['companions','동료 이야기','PARTY'],['treasure','보물','STARS'],['achievements','업적','TROPHY']];
 function guide(map){
  if(!map||!game)return;close();
  if(game.s.global.CURRENT_MAP_ID===map){window.CRPGShell?.toast?.('이미 '+mapLabel(map)+'에 있습니다.');return;}
@@ -109,22 +109,26 @@ function abyss(box){
  const list=mk('div','hb-floors');for(const f of v.floors){const c=mk('div','hb-floor'+(f.cleared?' cleared':'')+(f.reason?' locked':''));c.append(mk('b','',f.floor+'층'),mk('small','',f.cleared?(f.best?f.best+'라운드':'클리어'):f.reason?'잠김':'도전 가능'));c.title=f.name+(f.reason?' · '+f.reason:'');list.append(c);}
  s.append(list);box.append(s);
 }
+// 0.16.30 (user: 「영입임무 이런거랑, 나머지 핸드북에 있는것들 그런거 다 지우면 될거야」): companions come from wishes only,
+// so the old recruiting list (filters, how to recruit, every condition) is gone. 「동료 이야기」 shows the companions the
+// player has, each with a big face, their personal story and the five 호감도 이야기 as bars.
+function storyMeter(label,done,total){const m=mk('div','hb-meter'+(done>=total?' full':''));m.append(mk('small','',label));const bar=mk('span','hb-meter-bar');for(let i=0;i<total;i++)bar.append(mk('i',i<done?'on':''));m.append(bar,mk('b','',done+' / '+total));return m;}
 function companions(box){
- let list=[];try{list=game.recruitmentEntries?.()||[];}catch{}
- if(!list.length){box.append(mk('p','hb-note','동료 정보를 불러오지 못했습니다.'));return;}
- const owned=list.filter(x=>x.owned).length;
- const s=section('동료 '+owned+' / '+list.length,'각 동료의 개인 임무를 마치면 동행을 제안받습니다. 조건을 모두 채운 임무는 임무 화면에서 시작할 수 있습니다. 5★ 동료는 4★보다 조건이 훨씬 많고 기본 능력치가 10% 높습니다.');
- const filter=mk('div','hb-filter');let mode=H.companionFilter||'todo';
- const grid=mk('div','hb-companions');
- const draw=()=>{grid.replaceChildren();for(const x of list.filter(x=>mode==='all'||(mode==='todo'?!x.owned:x.owned))){const c=mk('article','hb-companion'+(x.owned?' owned':''));const met=(x.requirements||[]).filter(r=>r.met).length,total=(x.requirements||[]).length;
-  // 0.14.12: the rarity beside the name, the way to recruit, and every condition with what to do (it used to stop at
-  // four lines without explanations, so the preparation items never showed).
-  const rar=game.premiumRarity?.(x.character)===5?5:4,name=mk('strong','',x.name);name.append(mk('span','hb-rarity r'+rar,' '+'★'.repeat(rar)));
-  c.append(name,mk('small','',x.region+' · '+(x.owned?'동행 중':x.complete?'임무 완료':met+' / '+total+' 조건')));
-  if(!x.owned){if(x.method)c.append(mk('p','hb-method',x.method));const ul=mk('ul','hb-reqs');for(const r of (x.requirements||[])){const li=mk('li',r.met?'met':'unmet',r.label);if(r.hint&&!r.met)li.append(mk('small','hb-hint',r.hint));ul.append(li);}c.append(ul);}
-  grid.append(c);}if(!grid.children.length)grid.append(mk('p','hb-note',mode==='todo'?'모든 동료가 함께하고 있습니다.':'아직 함께하는 동료가 없습니다.'));};
- for(const [id,label]of [['todo','합류 전'],['owned','합류함'],['all','전체']]){const b=mk('button','hb-filter-button'+(mode===id?' active':''),label);b.type='button';b.onclick=()=>{mode=H.companionFilter=id;for(const x of filter.children)x.classList.toggle('active',x===b);draw();};filter.append(b);}
- s.append(filter,grid);draw();box.append(s);
+ let list=[],people=[];try{list=(game.recruitmentEntries?.()||[]).filter(x=>x.owned);}catch{}
+ try{people=window.CRPGJournalPresenter?.relations(game)||[];}catch{}
+ const s=section('동료 이야기 · '+list.length+'명'),grid=mk('div','hb-companions');
+ for(const x of list.sort((a,b)=>(game.premiumRarity?.(b.character)||4)-(game.premiumRarity?.(a.character)||4))){
+  const c=mk('article','hb-companion owned'),rel=people.find(r=>r.profile===x.profile),rar=game.premiumRarity?.(x.character)===5?5:4;
+  if(typeof actorPortrait==='function')c.append(actorPortrait(x.character,'hb-companion-face'));
+  const copy=mk('div','hb-companion-copy'),name=mk('strong','',x.name);name.append(mk('span','hb-rarity r'+rar,' '+'★'.repeat(rar)));
+  copy.append(name,mk('small','',x.region+(rel?' · 호감도 '+rel.score:'')));
+  if(x.definition)copy.append(storyMeter('개인 이야기',x.complete?1:0,1));
+  let track=rel?.track||[];if(!track.length)try{track=window.CRPGJournalPresenter?.affectionTrack?.(game,x.profile,game.storyEntries())||[];}catch{}
+  if(track.length)copy.append(storyMeter('호감도 이야기',track.filter(t=>t.status==='done').length,track.length));
+  c.append(copy);grid.append(c);
+ }
+ if(!list.length)grid.append(mk('p','hb-note','기원에서 동료를 만나면 여기에 기록됩니다.'));
+ s.append(grid);box.append(s);
 }
 // 0.14.15 보물: how many treasure chests each region holds and how many are found, never where (app_chests_v01415.js).
 function treasure(box){const host=mk('div','hb-treasure');box.append(mk('p','hb-note','몬드와 리월 곳곳에 보물상자가 있습니다. 가는 곳마다 풍경 보기(V)로 둘러보세요. 퍼즐이 걸린 상자는 풀어야 열리고, 어떤 상자는 아주 꼼꼼히 찾아야 보입니다.'),host);window.CRPGChests?.journal(host);}

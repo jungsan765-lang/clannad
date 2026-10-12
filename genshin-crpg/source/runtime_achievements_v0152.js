@@ -48,8 +48,8 @@ function build(rt){
  const people=rt.rows('04_CHAR_DB').filter(r=>['몬드','리월'].includes(r[3])&&rt.tables['07_CHAR_DB'].has(r[1]));
  for(const r of people)add('JOIN_'+r[1],'COMPANION',wa(r[2])+' 함께',ga(r[2])+' 동료로 합류',1,f=>f.joined.has(r[1])?1:0,1);
  // 인연
- series('HEART','BOND',[[1,'첫 번째 하트',1],[5,'다섯 명의 친구',1],[10,'열 명의 친구',2]],n=>'호감도 하트가 1개 이상인 동료 '+n+'명',f=>f.hearts1);
- series('HEART5','BOND',[[1,'최고의 파트너',2],[3,'믿음직한 동료들',2],[10,'깊은 인연의 모험가',3]],n=>'호감도 하트 5개인 동료 '+n+'명',f=>f.hearts5);
+ series('HEART','BOND',[[1,'첫 번째 인연',1],[5,'다섯 명의 친구',1],[10,'열 명의 친구',2]],n=>'호감도 20 이상인 동료 '+n+'명',f=>f.hearts1);
+ series('HEART5','BOND',[[1,'최고의 파트너',2],[3,'믿음직한 동료들',2],[10,'깊은 인연의 모험가',3]],n=>'호감도 100 이상인 동료 '+n+'명',f=>f.hearts5);
  series('AFFECTION','BOND',[[1,'함께한 이야기',1],[5,'추억 쌓기',1],[15,'수많은 추억',2],[40,'이야기 수집가',3]],n=>'호감도 이야기 '+n+'편 마치기',f=>f.affections);
  series('LEGEND','BOND',[[1,'첫 개인 임무',1],[5,'동료의 사정',1],[10,'모두의 이야기',2],[20,'개인 임무의 달인',3]],n=>'동료 개인 임무 '+n+'개 마치기',f=>f.legends);
  // 운명의 자리

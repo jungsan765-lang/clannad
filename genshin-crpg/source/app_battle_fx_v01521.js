@@ -145,13 +145,15 @@ if(typeof CombatFX!=='undefined'&&typeof CombatFX.windup==='function'){const pri
 // ---- the cards ------------------------------------------------------------------------------------------------
 function decorate(p,shownActor){
  const b=game?.s?.runtime;if(!p||!shownActor&&!b)return;
+ if(b?.id&&b.id!==auraBattle){auraSeen.clear();auraBattle=b.id;}
  for(const row of shownActor?[p]:p.querySelectorAll('.combatant-row[data-actor-id]')){
   const a=shownActor||b.actors.find(x=>x.id===row.dataset.actorId);if(!a)continue;
   for(const old of row.querySelectorAll(':scope > .aura-fx, :scope > .shield-fx, :scope > .status-fx'))old.remove();
   if(a.hp<=0)continue;
   const kind=shownActor?({'불':'pyro','물':'hydro','얼음':'cryo','번개':'electro','바람':'anemo','바위':'geo','풀':'dendro'}[a.aura]||null):row.dataset.aura;
   if(shownActor){if(kind)row.dataset.aura=kind;else delete row.dataset.aura;}
-  if(kind){const fx=span('aura-fx aura-'+kind);for(let i=0;i<6;i++){const m=document.createElement('i');m.style.setProperty('--i',i);fx.append(m);}row.append(fx);}
+  if(kind){const fx=span('aura-fx aura-'+kind);for(let i=0;i<6;i++){const m=document.createElement('i');m.style.setProperty('--i',i);fx.append(m);}if((auraSeen.get(a.id)??null)!==kind&&(shownActor||auraSeen.has(a.id)))fx.classList.add('aura-new');row.append(fx);}
+  auraSeen.set(a.id,kind||null);
   const shields=(a.shields||[]).filter(s=>Number(s.value)>0);if(shields.length)row.append(bubble(shieldKind(shields)));
   const now=new Set((a.statuses||[]).filter(s=>!Number.isFinite(s.rounds)||s.rounds>0).map(s=>s.id)),shown=STATUS.filter(([id])=>now.has(id));
   if(shown.length){const fx=span('status-fx');for(const [,cls]of shown)fx.append(span('st st-'+cls));row.append(fx);}
@@ -159,6 +161,9 @@ function decorate(p,shownActor){
  // A card's one-line note is cut short on a PC; the whole of it is on the pointer.
  for(const btn of p.querySelectorAll('.battle-cards button[data-card-id]')){const note=btn.querySelector('small')?.textContent;if(note&&!btn.title)btn.title=note;}
 }
+// 0.16.30 (TODO 2-9): an element that has just attached bursts once on the card, so it is seen on every enemy, not only on
+// slimes that start with one (decorate remembers each fighter's last element per battle).
+const auraSeen=new Map();let auraBattle=null;
 
 // ---- the playback -----------------------------------------------------------------------------------------------
 const REACTION_FX={

@@ -251,7 +251,7 @@ mainObjective=function(parent){
  if(!pin||!info){pinnedBaseMainObjective(parent);return;}
  const box=el('section','main-objective pinned-objective');
  box.append(
-  el('small','eyebrow','고정 임무 · '+(pin.kind==='COMMISSION'?'의뢰':pin.kind==='LEGEND'?'동료 획득':'호감도')),
+  el('small','eyebrow','고정 임무 · '+(pin.kind==='COMMISSION'?'의뢰':pin.kind==='LEGEND'?'개인 이야기':'호감도')),
   el('h2','',info.title),
   el('p','muted','메인 임무 대신 이 목표의 목적지와 다음 행동을 표시합니다.')
  );
@@ -277,14 +277,12 @@ const razorDialogue=dialogue;
 dialogue=function(p,v){
  razorDialogue(p,v);
  const place=game.currentPlace?.();if(!place?.valid||place.place!==RAZOR_PLACE)return;
- const entry=game.storyEntries().find(e=>e.id==='LEG_MOND_RAZOR');if(!entry)return;
+ // 0.16.30: Razor's own story, once he is met in a wish (companions come from wishes only).
+ const entry=game.storyEntries().find(e=>e.id==='LEG_MOND_RAZOR');if(!entry||game.recruitmentEntries?.().find(e=>e.definition?.id===entry.id)?.owned===false)return;
  const d=entry.definition,card=el('section','card razor-contact');
- card.append(el('small','eyebrow','울프 영지'),el('h2','','레이저'),el('p','story','숲길의 냄새와 발자국을 확인하던 레이저가 멈춰 선다. 몬드성의 소개처가 아니라 울프 영지에서 직접 그의 부탁을 듣는다.'));
+ card.append(el('small','eyebrow','울프 영지'),el('h2','','레이저'),el('p','story','숲길의 냄새와 발자국을 확인하던 레이저가 멈춰 선다. 울프 영지에서 직접 그의 부탁을 듣는다.'));
  if(game.storyDone(entry.id))card.append(el('p','muted','이미 함께 해결한 이야기입니다.'));
- else if(!game.legendRegistered(entry.id)){
-  if(typeof requirementList==='function')requirementList(card,game.legendRequirements(d,{cost:false,location:false}));
-  card.append(actionButton('레이저의 부탁을 듣고 임무 소개받기','LEGEND_REGISTER',{quest:entry.id},true));
- }else{
+ else{
   const why=game.actionReason('LEGEND_ENTER',{quest:entry.id});if(why)card.append(el('p','choice-note',why));
   card.append(actionButton('레이저 개인 이야기 시작','LEGEND_ENTER',{quest:entry.id},true),pinButton('LEGEND',entry.id));
  }

@@ -14,24 +14,38 @@ function recruitmentIntroductionGuide(parent,d){
  if(first&&!first.complete)guide.append(actionButton('첫 만남 이야기 듣기','MOND_FIRST_CONTACT',{quest:d.id},true));
  parent.append(guide);
 }
-function recruitmentScreen(p){
- const all=game.recruitmentEntries(),controls=el('div','bag-tabs');
- p.append(el('h2','','동료와 개인 임무'),el('p','muted','합류 '+all.filter(e=>e.owned).length+' / '+all.length+'명 · 이야기에서 만난 4★은 장이 끝나면 합류, 나머지는 기원'));
- for(const label of ['전체','몬드','리월']){const b=button(label,()=>{recruitmentRegion=label;render();});b.classList.toggle('selected',recruitmentRegion===label);b.setAttribute('aria-pressed',String(recruitmentRegion===label));controls.append(b);}
- const only=button(recruitmentOnlyMissing?'미획득만 표시 중':'미획득만 보기',()=>{recruitmentOnlyMissing=!recruitmentOnlyMissing;render();});only.setAttribute('aria-pressed',String(recruitmentOnlyMissing));controls.append(only);p.append(controls);
- for(const e of all.filter(e=>(recruitmentRegion==='전체'||e.region===recruitmentRegion)&&(!recruitmentOnlyMissing||!e.owned))){
-  const card=el('details','card acquisition-card'),summary=el('summary'),name=el('strong','',e.name),status=el('span',e.owned?'requirement-met':'requirement-unmet',e.owned?'합류 완료':e.complete?'개인 임무 완료':'미소유');summary.append(name,status);if(!e.owned){const needed=e.requirements.find(r=>!r.met);if(needed)summary.append(el('small','requirement-unmet',needed.label));}card.dataset.viewKey='recruit:'+String(e.profile||e.character||e.name);card.open=recruitmentExpanded.has(card.dataset.viewKey);card.addEventListener('toggle',()=>{if(!card.isConnected)return;if(card.open)recruitmentExpanded.add(card.dataset.viewKey);else recruitmentExpanded.delete(card.dataset.viewKey);});card.append(summary,el('p','',e.method));
-  if(!e.owned){requirementList(card,e.requirements);recruitmentIntroductionGuide(card,e.definition);if(e.definition&&!e.archon){const d=e.definition;if(!game.legendRegistered(d.id))card.append(actionButton('개인 임무 소개받기','LEGEND_REGISTER',{quest:d.id}));else if(!e.complete)card.append(actionButton('개인 임무 시작','LEGEND_ENTER',{quest:d.id},true));if(e.complete&&game.recruitmentRejoinEntry?.(d))card.append(actionButton('동행 제안 다시 듣기','RECRUIT_REJOIN',{quest:d.id},true));if(d.MAP_ID)travelGuide(card,e.complete?(game.recruitmentRejoinEntry(d)?.map||d.MAP_ID):d.MAP_ID);}}
-  else card.append(el('p','muted','편성·장비에서 빈 슬롯에 배치할 수 있습니다.'));p.append(card);
- }
+// 0.16.30 (user: 「동행같은건 전부 다 뽑기여야」, 「영입임무 이런거랑, 나머지 핸드북에 있는것들 그런거 다 지우면 될거야」): companions come
+// from wishes only, so there is no list of how to recruit anyone. What stays is each owned companion's personal story:
+// the companions the player has, their story's name, and one button (start it, go where it happens, or what it still
+// needs). A companion not met yet is not listed.
+function personalStoryEntries(){return game.recruitmentEntries().filter(e=>e.owned&&e.definition&&e.definition.STATUS==='ACTIVE');}
+function personalStoryCard(parent,e){
+ const d=e.definition,c=el('article','card personal-story'+(e.complete?' done':'')),copy=el('div','personal-story-copy');
+ // The quest's own title, without the companion's name and the route tag in front of and after it (the name is beside it).
+ const raw=game.tables['22_QUEST_DB'].get(d.QUEST_ID)?.[1]||e.title||'개인 이야기',title=String(raw).replace(new RegExp('^'+e.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(\\s*(전설|개인)\\s*임무)?\\s*[·:]\\s*'),'').replace(/\s*\((이세계인|여행자)\)\s*$/,'')||raw;
+ c.append(actorPortrait(e.character,'personal-story-face'));copy.append(el('strong','',e.name),el('small','',title));c.append(copy);
+ const side=el('div','personal-story-side');
+ if(e.complete)side.append(el('span','requirement-met','다 본 이야기'));
+ else{const unmet=game.legendRequirements(d,{introduction:false}).filter(r=>!r.met&&r.kind!=='map');
+  if(unmet.length)side.append(el('small','requirement-unmet',unmet[0].label));
+  else if(d.MAP_ID&&game.s.global.CURRENT_MAP_ID!==d.MAP_ID)travelGuide(side,d.MAP_ID);
+  else side.append(actionButton('개인 이야기 시작','LEGEND_ENTER',{quest:d.id},true));}
+ c.append(side);parent.append(c);
 }
-const recruitmentPartyScreen=partyScreen;
-partyScreen=function(p){const lead=el('section','recruitment-link');lead.append(button('동료 획득 방법·조건 보기',()=>{missionTab='동료 획득';act('MENU',{screen:'QUEST'});},busy,true));p.append(lead);recruitmentPartyScreen(p);};
+function recruitmentScreen(p){
+ const all=personalStoryEntries(),grid=el('div','personal-story-list');
+ p.append(el('h2','','개인 이야기 · '+all.filter(e=>e.complete).length+' / '+all.length));
+ for(const e of all.sort((a,b)=>Number(a.complete)-Number(b.complete)))personalStoryCard(grid,e);
+ if(!all.length)grid.append(el('p','empty','기원에서 동료를 만나면 그 동료의 개인 이야기가 여기 열립니다.'));
+ p.append(grid);
+}
 const recruitmentJournalEntry=journalEntry;
-journalEntry=function(parent,entry){recruitmentJournalEntry(parent,entry);const card=parent.lastElementChild,d=entry.definition;if(!card||!d)return;card.classList.add('acquisition-objective');requirementList(card,game.legendRequirements(d));recruitmentIntroductionGuide(card,d);if(!game.legendRegistered(d.id))card.append(actionButton('개인 임무 소개받기','LEGEND_REGISTER',{quest:d.id}));};
+journalEntry=function(parent,entry){recruitmentJournalEntry(parent,entry);const card=parent.lastElementChild,d=entry.definition;if(!card||!d)return;
+ // 0.16.30: an owned companion's story needs no introduction; one not met in a wish says where to meet them.
+ const who=d.CHAR_ID||game.tables['04_CHAR_DB'].get(d.PROFILE_ID)?.[1];if(who&&game.premiumOwns?.(who)===false){card.append(el('p','muted','기원에서 만나면 열리는 개인 이야기입니다.'));return;}card.classList.add('acquisition-objective');requirementList(card,game.legendRequirements(d));recruitmentIntroductionGuide(card,d);if(!game.legendRegistered(d.id))card.append(actionButton('개인 임무 소개받기','LEGEND_REGISTER',{quest:d.id}));};
 
 const geoLocation=drawLocation;
-drawLocation=function(p,v){geoLocation(p,v);if(v.map[0]!=='MAP_LIYUE_JUEYUN')return;const t=game.geoExchangeEntry(),summary=game.geoOculusSummary(),card=el('section','card');card.append(el('h2','','바위 눈동자 공양'),el('p','','발견 '+summary.collected+' / '+summary.total+' · 보유 '+summary.balance+'개'));if(t){if(t.reason)card.append(el('p','requirement-unmet',t.reason));if(t.reward.character)card.append(el('p','','마지막 공양을 마치고 종려와 동행을 약속합니다.'+(t.reward.primogem?' · 원석 '+t.reward.primogem+'개':'')));else rewardPreview(card,t.reward);card.append(actionButton(t.reward.character?'눈동자 '+t.cost+'개 공양 · 동행 약속':'눈동자 '+t.cost+'개 공양','GEO_OCULUS_OFFER',{tier:t.id},true));}else card.append(el('p','requirement-met','모든 공양과 동행 약속을 마쳤습니다.'));p.append(card);};
+drawLocation=function(p,v){geoLocation(p,v);if(v.map[0]!=='MAP_LIYUE_JUEYUN')return;const t=game.geoExchangeEntry(),summary=game.geoOculusSummary(),card=el('section','card');card.append(el('h2','','바위 눈동자 공양'),el('p','','발견 '+summary.collected+' / '+summary.total+' · 보유 '+summary.balance+'개'));if(t){if(t.reason)card.append(el('p','requirement-unmet',t.reason));rewardPreview(card,t.reward);card.append(actionButton('눈동자 '+t.cost+'개 공양','GEO_OCULUS_OFFER',{tier:t.id},true));}else card.append(el('p','requirement-met','모든 공양을 마쳤습니다.'));p.append(card);};
 
 const liyueCombatView=combat;
 combat=function(p){const b=game.s.runtime;if(b?.liyueInterlude){p.append(el('h1','','전투 중 · 변한 태세'));for(const line of b.liyueInterlude.lines){p.append(el('strong','',line.speaker),el('p','story',displayText(line.text)));}p.append(actionButton('대화를 확인하고 전투 계속','LIYUE_INTERLUDE_ACK',{},true));return;}if(b?.liyueObjective){const o=b.liyueObjective,box=el('section','card defense-objective');box.append(el('h2','','선인 진법을 지켜라'),el('p','','진법 HP '+o.hp+' / '+o.maxHp+' · 충전 '+o.charge+' / 8'),el('p','muted','본체는 무적입니다. 증원 병력을 막으며 8라운드 충전을 지키세요. 3라운드마다 아군 전체를 공격합니다.'));if(b.defenseAwaitingRecovery)box.append(el('p','requirement-unmet','진법 방어는 성공했지만 주인공이 전투불능입니다. 저장을 불러와 다시 준비할 수 있습니다.'));p.append(box);}liyueCombatView(p);};

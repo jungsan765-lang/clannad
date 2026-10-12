@@ -490,3 +490,73 @@ body.teyvat .terrain-node.danger:not(.current){box-shadow:0 0 0 2px rgba(255,96,
 body.teyvat .terrain-destination.danger strong{color:#ff9c8c}
 body.teyvat .terrain-destination.danger .terrain-card-state{color:#ff9c8c;border-color:rgba(255,110,96,.55)}
 body.teyvat .terrain-key-item.danger::before{background:#ff6a5a;box-shadow:0 0 0 2px rgba(255,110,96,.4)}
+/* 0.16.30 개인 이야기: owned companions only, one row each (big face, name and story, one button), no recruiting list. */
+.personal-story-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px;margin:0}
+.card.personal-story{display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:12px;padding:8px 12px;margin:0;min-height:80px}
+.personal-story-face{width:64px;height:64px;border-radius:10px;object-fit:cover;object-position:top;background:rgba(0,0,0,.25);border:1px solid rgba(211,188,142,.35)}
+.personal-story-copy{display:flex;flex-direction:column;gap:3px;min-width:0}
+.personal-story-copy strong{font-size:1rem;word-break:keep-all}
+.personal-story-copy small{font-size:.82rem;opacity:.8;word-break:keep-all;overflow-wrap:anywhere}
+.personal-story-side{display:flex;flex-direction:column;align-items:flex-end;gap:4px;max-width:170px}
+.personal-story-side button{margin:0;min-height:40px;white-space:normal;word-break:keep-all}
+.personal-story-side small{text-align:right;word-break:keep-all}
+.card.personal-story.done{opacity:.78}
+.card.personal-story.done .personal-story-face{border-color:#d3bc8e}
+.stage-phone .personal-story-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+.stage-phone .card.personal-story{grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto auto;min-height:0;column-gap:7px;row-gap:2px;padding:4px 6px;border-radius:10px}
+.stage-phone .personal-story-face{width:44px;height:44px;grid-row:1/span 2;border-radius:8px}
+.stage-phone .personal-story-copy{gap:1px}
+.stage-phone .personal-story-copy strong{font-size:.74rem}
+.stage-phone .personal-story-copy small{font-size:.6rem}
+.stage-phone .personal-story-side{grid-column:2;align-items:flex-start;max-width:none;gap:2px}
+.stage-phone .personal-story-side small{font-size:.6rem;text-align:left}
+.stage-phone .personal-story-side :is(button,.objective-location){min-height:24px;font-size:.62rem;padding:1px 10px}
+.stage-phone .personal-story-side .objective-location{display:none}
+.stage-phone .hb-companions{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.stage-phone .hb-companion.owned{gap:8px;padding:5px 8px}
+.stage-phone .hb-companion-face{width:48px;height:48px;flex-basis:48px}
+.stage-phone .hb-companion-copy{gap:1px}
+.stage-phone .hb-companion strong{font-size:.74rem}
+.stage-phone .hb-companion small{font-size:.6rem}
+.stage-phone .hb-companion-copy>small{display:none}
+.stage-phone .hb-companion-face{width:44px;height:44px;flex-basis:44px}
+.stage-phone .hb-meter{grid-template-columns:62px minmax(0,1fr) auto;gap:4px}
+.stage-phone .hb-meter small{font-size:.58rem}
+.stage-phone .hb-meter b{font-size:.6rem}
+.stage-phone .hb-meter-bar{height:6px}
+/* 바위 눈동자: one tile per zone, square corners (no round pills side by side). */
+.geo-trail-zones{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin:8px 0}
+.geo-trail-chip{display:flex;justify-content:space-between;gap:8px;padding:6px 10px;border-radius:6px;border:1px solid rgba(211,188,142,.25);background:rgba(0,0,0,.18);font-size:.84rem;word-break:keep-all}
+.geo-trail-chip.complete{border-color:#d3bc8e;background:rgba(211,188,142,.18);color:#f1dfb4}
+/* 핸드북 동료 이야기: big faces and segmented bars. */
+.hb-companions{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.hb-companion.owned{flex-direction:row;align-items:center;gap:12px;padding:10px 12px}
+.hb-companion-face{width:72px;height:72px;flex:0 0 72px;border-radius:10px;object-fit:cover;object-position:top;background:#e9dfc9;border:1px solid #d3bc8e}
+.hb-companion-copy{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.hb-meter{display:grid;grid-template-columns:76px minmax(0,1fr) auto;align-items:center;gap:6px}
+.hb-meter small{font-size:.74rem;color:#6b6f7c;white-space:nowrap}
+.hb-meter b{font-size:.76rem;color:#39404f;font-weight:600}
+.hb-meter-bar{display:flex;gap:3px;height:8px}
+.hb-meter-bar i{flex:1;border-radius:2px;background:rgba(57,64,79,.14)}
+.hb-meter-bar i.on{background:linear-gradient(90deg,#c9a560,#e3c47e)}
+.hb-meter.full b{color:#9a7428}
+.heart-row.bond-bar{display:flex;gap:4px;height:8px;max-width:180px;margin:4px 0}
+.heart-row.bond-bar i{flex:1;border-radius:2px;background:rgba(211,188,142,.2)}
+.heart-row.bond-bar i.on{background:linear-gradient(90deg,#c9a560,#e3c47e)}
+/* 0.16.30 원소 부착: a stronger glow while attached, and a burst the moment it attaches. */
+body.teyvat .combat-panel .combatant-row>.aura-fx{animation:fxAuraGlow 2.4s ease-in-out infinite}
+body.teyvat .combat-panel .combatant-row>.aura-fx.aura-new::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,var(--aura) 0,transparent 68%);opacity:0;animation:fxAuraBurst .7s ease-out 1}
+@keyframes fxAuraGlow{0%,100%{box-shadow:inset 0 0 18px -4px var(--aura)}50%{box-shadow:inset 0 0 34px -2px var(--aura)}}
+@keyframes fxAuraBurst{0%{opacity:.9;transform:scale(.35)}60%{opacity:.45}100%{opacity:0;transform:scale(1.5)}}
+html.reduce-motion body.teyvat .combat-panel .combatant-row>.aura-fx.aura-new::before{display:none}
+/* 0.16.30: a big round still shows every fighter in the order bar — faces only (the one acting keeps its name). */
+.stage-phone body.teyvat .combat-panel>.battle-order:has(>li:nth-child(7))>li:not(.current)>span,.stage-pc body.teyvat .combat-panel>.battle-order:has(>li:nth-child(11))>li:not(.current)>span{display:none}
+.stage-phone body.teyvat .combat-panel>.battle-order:has(>li:nth-child(7))>li:not(.current),.stage-pc body.teyvat .combat-panel>.battle-order:has(>li:nth-child(11))>li:not(.current){padding-right:4px}
+/* 0.16.30: the buy row no longer sticks to the card's foot (it slid over 「남은 재고」 on a phone); the card fits it or opens 「자세히」. */
+body.teyvat .fit-box .market-controls{position:static!important}
+/* On a phone the total sits beside the buy button (one row less). */
+html.stage-phone body.teyvat .market-detail .market-controls{grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:6px}
+html.stage-phone body.teyvat .market-detail .market-controls>:is(.qty-stepper,.qty-why){grid-column:1/-1}
+html.stage-phone body.teyvat .market-detail .market-controls>.qty-total{grid-column:1;text-align:left}
+html.stage-phone body.teyvat .market-detail .market-controls>.qty-go{grid-column:2}
+html.stage-phone body.teyvat .market-detail.fit-brief>.item-effect{display:none}

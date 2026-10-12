@@ -98,7 +98,7 @@ P.storyIndex=function(){
  // investigation, but only his own personal mission makes him a companion (a 5★, so it asks a lot). Saves where he
  // already joined keep him.
  const join=ix.nodes.get('ROUTE_TRAVELER:TRV_M02_N234'),accept=ix.nodes.get('ROUTE_TRAVELER:TRV_M02_JOIN_DILUC_ACCEPT');
- if(join){join[5]='NARRATION';join[9]='다이루크가 이번 조사에 동행한다. 정식으로 함께하려면 천사의 몫에서 그의 개인 임무를 따로 마쳐야 한다.';join[12]='';}
+ if(join){join[5]='NARRATION';join[9]='다이루크가 이번 조사에 함께한다.';join[12]='';}
  if(accept)accept[12]='';
  Object.defineProperty(ix,'liyueRecruitmentStageVersion',{value:2});return ix;
 };

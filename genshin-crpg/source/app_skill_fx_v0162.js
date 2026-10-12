@@ -197,10 +197,14 @@ const running=new Set();let held=false,layer=null;
 function fxLayer(){if(layer?.isConnected)return layer;layer=document.createElement('div');layer.className='sfx-layer';layer.setAttribute('aria-hidden','true');document.body.append(layer);return layer;}
 function anim(n,frames,o={},remove=true){
  if(!n)return null;if(!n.animate){if(remove)n.remove?.();return null;}
- const a=n.animate(frames,{fill:'both',easing:'ease-out',...o,duration:Math.max(16,(o.duration||600)/speed()),delay:Math.max(0,(o.delay||0)/speed())});
+ // 0.16.30 (TODO 2-1, the blue orb left at the corner): a piece whose motion cannot start is removed at once instead of
+ // staying on the screen; the layer is also emptied after the playback (sweepLayer).
+ let a;try{a=n.animate(frames,{fill:'both',easing:'ease-out',...o,duration:Math.max(16,(o.duration||600)/speed()),delay:Math.max(0,(o.delay||0)/speed())});}catch(e){if(remove)n.remove?.();console.warn('skill fx',e);return null;}
  running.add(a);const end=()=>{running.delete(a);if(remove)n.remove();};a.finished.then(end,end);if(held)a.pause();return a;
 }
 function stopAll(){for(const a of [...running]){try{a.cancel();}catch{}}running.clear();layer?.replaceChildren();}
+// After a playback ends on its own, whatever is still on the layer with no motion left (a burst's last pieces finish first).
+function sweepLayer(){setTimeout(()=>{if(!layer)return;for(const n of [...layer.children]){const live=n.getAnimations?.().some(a=>a.playState==='running'||a.playState==='paused');if(!live)n.remove();}},2400);}
 const busyLayer=()=>fxLayer().childElementCount>260;
 function part(cls,p,o={}){
  const n=document.createElement('i');n.className='sfx-p '+cls;n.style.left=Math.round(p.x)+'px';n.style.top=Math.round(p.y)+'px';
@@ -589,7 +593,7 @@ if(typeof GameEffects!=='undefined'){
  // The beat after a burst lands is a little longer (the playback reads it when it schedules the next fighter).
  if(typeof GameEffects.reschedule==='function'){const prior=GameEffects.reschedule;GameEffects.reschedule=function(...args){if(linger&&this.resolve)this.beatDuration=(Number(this.beatDuration)||650)+linger;linger=0;return prior.apply(this,args);};}
  // Skipped or replaced, everything stops; at the playback's own end the last effects finish (unless the fight is over).
- if(typeof GameEffects.cancel==='function'){const prior=GameEffects.cancel;GameEffects.cancel=function(...args){const natural=this.active&&!this.resolve&&!!battle();unstretch();current=null;linger=0;if(held){held=false;for(const a of running){try{a.play();}catch{}}}if(!natural)stopAll();return prior.apply(this,args);};}
+ if(typeof GameEffects.cancel==='function'){const prior=GameEffects.cancel;GameEffects.cancel=function(...args){const natural=this.active&&!this.resolve&&!!battle();unstretch();current=null;linger=0;if(held){held=false;for(const a of running){try{a.play();}catch{}}}if(!natural)stopAll();else sweepLayer();return prior.apply(this,args);};}
 }
 if(typeof BattleFX!=='undefined'&&typeof BattleFX.decorate==='function'){const prior=BattleFX.decorate;BattleFX.decorate=function(p,...args){const out=prior.call(this,p,...args);try{decorateBoard(p,args[0]);}catch(e){console.warn('skill fx',e);}return out;};}
 // Presentation: Osial's round-end deluge logs a card id the card table does not have, so its name is given here (the

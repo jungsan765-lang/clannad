@@ -67,7 +67,7 @@ function mini(parent){
 if(typeof quests==='function'){const prior=quests;quests=function(p){
  if(showBoard&&view()){
   p.append(mk('div','eyebrow','모험 기록'),mk('h1','','임무'));if(typeof mainObjective==='function')mainObjective(p);
-  const tabs=mk('div','bag-tabs journal-tabs');for(const label of ['일일·주간','진행 중','동료 획득','완료']){const b=button(label,()=>{if(label==='일일·주간')showBoard=true;else{showBoard=false;try{missionTab=label;}catch{}}render();});const on=label==='일일·주간';b.setAttribute('aria-pressed',String(on));b.classList.toggle('selected',on);tabs.append(b);}p.append(tabs);
+  const tabs=mk('div','bag-tabs journal-tabs');for(const label of ['일일·주간','진행 중','개인 이야기','완료']){const b=button(label,()=>{if(label==='일일·주간')showBoard=true;else{showBoard=false;try{missionTab=label;}catch{}}render();});const on=label==='일일·주간';b.setAttribute('aria-pressed',String(on));b.classList.toggle('selected',on);tabs.append(b);}p.append(tabs);
   board(p);if(typeof returnToJourney==='function')returnToJourney(p);return;}
  prior(p);
  const tabs=p.querySelector('.journal-tabs');if(tabs){const b=button('일일·주간',()=>{showBoard=true;render();});const v=view();if(v?.ready)b.append(mk('span','task-dot',String(v.ready)));tabs.prepend(b);}
@@ -97,7 +97,9 @@ if(typeof act==='function'){const priorAct=act;act=async function(type,params={}
  return out;};}
 // A task that has just been done says so once, so the reward is not missed.
 let doneBefore=null,doneSave=null,doneTimer=0;
-function noticeDone(){doneTimer=0;const v=view();if(!v){doneBefore=null;return;}const all=[...v.daily,v.bonus,...weeklyRows(v)],now=new Set(all.filter(x=>x.done).map(x=>x.id)),save=game?.s?.global?.SAVE_ID;
+// 0.16.30: like the achievement note, it waits until the battle playback and the reward window are over.
+const settling=()=>!!(window.ActorPlayback?.active||game?.s?.runtime||(typeof busy!=='undefined'&&busy)||document.getElementById('modal')?.open||document.querySelector('.battle-result,.combat-result-overlay'));
+function noticeDone(){doneTimer=0;if(game&&settling()){doneTimer=setTimeout(noticeDone,900);return;}const v=view();if(!v){doneBefore=null;return;}const all=[...v.daily,v.bonus,...weeklyRows(v)],now=new Set(all.filter(x=>x.done).map(x=>x.id)),save=game?.s?.global?.SAVE_ID;
  if(doneBefore&&doneSave===save&&!game.s.runtime){const fresh=all.filter(x=>x.done&&!x.claimed&&!doneBefore.has(x.id));if(fresh.length)window.CRPGShell?.toast?.('임무 달성 · '+fresh[0].name+(fresh.length>1?' 외 '+(fresh.length-1)+'개':'')+(fresh.every(x=>x.report)?' · 캐서린에게 보고':' · 임무에서 보상 받기'));}
  if(!game?.s?.runtime){doneBefore=now;doneSave=save;}}
 {const prior=render;render=function(){prior();try{if(!doneTimer)doneTimer=setTimeout(noticeDone,700);}catch{}};}

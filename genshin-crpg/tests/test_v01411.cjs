@@ -37,7 +37,7 @@ check('편성: the cards are the battle line; press, hold and drag one onto anot
 check('시설 화면: the host beside what the place offers as tabs; 캐서린 says 별과 심연을 향해',()=>{
  const s=src('app_places_v01411.js'),shell=src('app_shell.js');
  assert(s.includes("'별과 심연을 향해! 모험가 길드에 온 걸 환영해.'"));
- assert(s.includes('동료 영입 임무')&&s.includes('이곳에서'),'recruitment and the rest are separate tabs');
+ assert(s.includes("label:'개인 이야기'")&&s.includes('이곳에서'),'personal stories and the rest are separate tabs (0.16.30: no recruiting tab)');
  assert(shell.includes("else if(key==='DIALOGUE'&&game.s.placeVisit&&S.placeLayout&&$(':scope > .place-breadcrumb',p)){mode='menu';S.placeLayout(content,p);}"));
 });
 

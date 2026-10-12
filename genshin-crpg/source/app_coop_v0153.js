@@ -524,7 +524,9 @@ function fighterCard(v,u,targets){
  if(tags.length){const row=mk('span','cp-tags');for(const [t,cls]of tags)row.append(mk('em',cls,t));copy.append(row);}
  if(u.statuses?.length||u.airborne){const row=mk('span','status-chips');if(u.airborne)row.append(mk('span','st-chip hold','공중'));for(const s of u.statuses||[])row.append(mk('span','st-chip',s));copy.append(row);}
  const info=btn('정보',()=>{const displayed=window.ActorPlayback?.currentActor?.(u.id)||v.state?.runtime?.actors?.find(a=>a.id===u.id)||{...u,statuses:[]};if(typeof battleStatusDetails==='function'&&typeof battleStatusList==='function')battleStatusDetails(displayed,battleStatusList(displayed));},'battle-info-button');info.dataset.battleInspection='status';copy.append(info);c.append(copy);
- const aura=typeof CRPGIcons!=='undefined'?CRPGIcons.kindOf(u.aura):null;if(aura){const badge=mk('span','shell-aura-badge aura-'+aura),pic=CRPGIcons.element(aura);if(pic)badge.append(pic);badge.append('부착');c.append(badge);}
+ const aura=typeof CRPGIcons!=='undefined'?CRPGIcons.kindOf(u.aura):null;if(aura){const badge=mk('span','shell-aura-badge aura-'+aura),pic=CRPGIcons.element(aura);if(pic)badge.append(pic);badge.append('부착');c.append(badge);
+  // 0.16.30: the same glow and motes as the solo cards.
+  c.dataset.aura=aura;const fx=mk('span','aura-fx aura-'+aura);fx.setAttribute('aria-hidden','true');for(let i=0;i<6;i++){const m=mk('i');m.style.setProperty('--i',i);fx.append(m);}c.append(fx);}
  if(target){c.classList.add('targetable');c.tabIndex=0;c.setAttribute('role','button');c.setAttribute('aria-pressed',String(C.target===u.id));c.setAttribute('aria-label',u.name+' 대상으로 고르기');
   c.addEventListener('click',e=>{if(C.fxPlaying||typeof GameEffects!=='undefined'&&GameEffects.active||e.target.closest('button')||C.target===u.id)return;C.target=u.id;drawBattle();});c.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===c){e.preventDefault();c.click();}});}
  return c;

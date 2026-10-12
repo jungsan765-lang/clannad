@@ -238,9 +238,12 @@ P.newGame=function(...args){const out=old.newGame.apply(this,args);this.installT
 function objectiveOf(rt,id){return rt.s.quests[id]?.taskObjective?.definition||CHAIN_BY[id];}
 // Cosmetic wording uses the accepted objective's own content and conditions.
 // It never changes that stored definition, its quota, prerequisites or payout.
+// 0.16.30 (user: 「영입임무 이런거랑 … 다 지우면 될거야」): companions come from wishes only, and two lessons still spoke of being
+// introduced to one. Only the words shown change; the accepted objective stays exactly as stored.
+const WORDS_V01630={Q_TASK_LEARN_17:{name:'동료의 개인 이야기',description:'기원에서 만난 동료의 개인 이야기를 끝까지 마치세요. 이미 마친 개인 이야기도 인정합니다.'},Q_TASK_LEARN_18:{name:'호감도 이야기',description:'동료와 함께 싸워 호감도를 쌓고 열린 호감도 이야기 하나를 끝까지 마치세요. 이미 마친 기록도 인정합니다.'}};
 P.taskPresentation=function(t){
- const words=catalog.displayWordingsV01613?.[t.id]||{},name=words.name||t.name;
- let description=t.description||t.name;
+ const words={...(catalog.displayWordingsV01613?.[t.id]||{}),...(WORDS_V01630[t.id]||{})},name=words.name||t.name;
+ let description=words.description||t.description||t.name;
  if(t.id===ROOT_TASK)description=CHAIN_BY[ROOT_TASK].description;
  else if(!t.learning&&t.kind!=='delivery')description=description.replace(' (수락 이후의 성공한 행동만 집계)','')+' · 수락 후 집계, 캐서린에게 보고';
  return {name,category:words.category||'길드 의뢰',description};

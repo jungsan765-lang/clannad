@@ -3,7 +3,7 @@
 'use strict';const api=root.CRPGRuntime,P=api.Runtime.prototype,C=root.CRPGWorldContent?.geoOculi||[];
 const old=Object.fromEntries(['newGame','validateSave','oculusPoint','oculusStep','oculusEntries','worldRequirement','completeWorldStep','finishBattle','actionReason','apply','oculusExchangeEntry'].map(k=>[k,P[k]]));
 const ITEM='KEY_CRPG_GEOCULUS',copy=x=>JSON.parse(JSON.stringify(x)),fail=(c,m)=>{throw new api.RuleError(c,m);};
-const tiers=[{id:'GEO_TIER_1',cost:4,reward:{mora:400,items:{MAT_CHAR_EXP_ADVENTURER:2}}},{id:'GEO_TIER_2',cost:5,reward:{mora:600,items:{MAT_CHAR_EXP_HERO:1}}},{id:'GEO_TIER_FINAL',cost:7,reward:{character:'LIYUE_ZHONGLI'}}];
+const tiers=[{id:'GEO_TIER_1',cost:4,reward:{mora:400,items:{MAT_CHAR_EXP_ADVENTURER:2}}},{id:'GEO_TIER_2',cost:5,reward:{mora:600,items:{MAT_CHAR_EXP_HERO:1}}},{id:'GEO_TIER_FINAL',cost:7,reward:{mora:800,items:{MAT_CHAR_EXP_HERO:3}}}];
 P.ensureGeo=function(s=this.s){return s.geoOculi??={version:1,route:s.global.STORY_ROUTE_ID,progress:{},receipts:{},tiers:[]};};
 P.installGeo=function(){
  if(this._geoInstalled)return;this.db={...this.db};const add=(name,rows)=>{const a=this.db[name].map(r=>r.slice());for(const r of rows)if(!a.some(x=>x[0]===r[0]))a.push(r);this.db[name]=a;this.tables[name]=new Map(a.slice(1).filter(r=>r[0]).map(r=>[r[0],r]));};
@@ -46,11 +46,11 @@ P.completeWorldStep=function(spec,a={}){
 };
 P.finishBattle=function(win){const b=this.s.runtime,point=this.s.geoOculi?.battle,result=old.finishBattle.call(this,win);if(point&&b?.origin==='GEO_OCULUS:'+point.point){if(win&&this.oculusStep(point.point)?.id===point.stage)this.ensureGeo().progress[point.point]=(this.ensureGeo().progress[point.point]||0)+1;delete this.s.geoOculi.battle;}return result;};
 P.geoOculusSummary=function(){const e=this.ensureGeo();return {collected:Object.keys(e.receipts).length,total:C.length,balance:this.itemCount(ITEM),offerings:e.tiers.length};};
-P.geoOfferReason=function(id){const e=this.ensureGeo(),tier=tiers[e.tiers.length],summary=this.geoOculusSummary();if(!tier||id!==tier.id)return '이미 마쳤거나 순서에 맞지 않는 공양입니다.';if(this.s.global.CURRENT_MAP_ID!=='MAP_LIYUE_JUEYUN'||this.s.placeVisit)return '절운간의 공양처에서 진행하세요.';if(summary.collected!==C.length)return '바위 눈동자 전량 수집 필요 · '+summary.collected+' / '+C.length;if(summary.balance<tier.cost)return '공양할 눈동자가 부족합니다.';if(tier.reward.character&&!this.liyuePersonalReady())return '리월 본편을 끝내면 마지막 동행 약속을 진행할 수 있습니다.';return '';};
+P.geoOfferReason=function(id){const e=this.ensureGeo(),tier=tiers[e.tiers.length],summary=this.geoOculusSummary();if(!tier||id!==tier.id)return '이미 마쳤거나 순서에 맞지 않는 공양입니다.';if(this.s.global.CURRENT_MAP_ID!=='MAP_LIYUE_JUEYUN'||this.s.placeVisit)return '절운간의 공양처에서 진행하세요.';if(summary.collected!==C.length)return '바위 눈동자 전량 수집 필요 · '+summary.collected+' / '+C.length;if(summary.balance<tier.cost)return '공양할 눈동자가 부족합니다.';if(tier.id==='GEO_TIER_FINAL'&&!this.liyuePersonalReady())return '리월 본편을 끝내면 마지막 공양을 진행할 수 있습니다.';return '';};
 P.geoExchangeEntry=function(){const e=this.ensureGeo(),t=tiers[e.tiers.length];return t?{...copy(t),reason:this.geoOfferReason(t.id)}:null;};
 P.oculusExchangeEntry=function(){const t=api.explorationCatalog.tiers[this.s.exploration?.tiers.length||0];if(!t||this.s.global.CURRENT_MAP_ID!=='MAP_MOND_WINDRISE')return null;const r=old.oculusExchangeEntry.call(this);return r||{...copy(t),title:'거목 아래에 눈동자 공양',text:'수집 상황과 다음 공양 조건을 확인하세요.',reason:this.actionReason('OCULUS_OFFER',{tier:t.id})};};
 P.actionReason=function(type,a={}){const prior=old.actionReason.call(this,type,a);if(prior)return prior;if(type==='GEO_OCULUS_OFFER')return this.geoOfferReason(a.tier);return '';};
-P.apply=function(a){this.ensureGeo();if(a.type==='GEO_OCULUS_OFFER'){const e=this.ensureGeo(),t=tiers[e.tiers.length],g=this.s.global;this.pay({items:{[ITEM]:t.cost}});for(const [id,n]of Object.entries(t.reward.items||{}))this.giveItem(id,n);g.MORA+=t.reward.mora||0;if(t.reward.character){this.unlockCharacter(t.reward.character);this.s.flags.FLAG_CRPG_ZHONGLI_OCULUS_OWNED=true;}e.tiers.push({id:t.id,saveId:g.SAVE_ID,route:g.STORY_ROUTE_ID,day:g.WORLD_DAY,action:g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1)});return {tier:t.id,reward:copy(t.reward),character:t.reward.character||null};}return old.apply.call(this,a);};
+P.apply=function(a){this.ensureGeo();if(a.type==='GEO_OCULUS_OFFER'){const e=this.ensureGeo(),t=tiers[e.tiers.length],g=this.s.global;this.pay({items:{[ITEM]:t.cost}});for(const [id,n]of Object.entries(t.reward.items||{}))this.giveItem(id,n);g.MORA+=t.reward.mora||0;e.tiers.push({id:t.id,saveId:g.SAVE_ID,route:g.STORY_ROUTE_ID,day:g.WORLD_DAY,action:g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1)});return {tier:t.id,reward:copy(t.reward),character:t.reward.character||null};}return old.apply.call(this,a);};
 P.newGame=function(o){this.installGeo();old.newGame.call(this,o);this.ensureGeo();return copy(this.s);};
 P.validateSave=function(s){
  this.installGeo();const e=this.ensureGeo(s),g=s.global;if(e.version!==1||e.route!==g.STORY_ROUTE_ID||!e.progress||!e.receipts||!Array.isArray(e.tiers))fail('GEO_SAVE','바위 눈동자 기록을 확인하세요.');
@@ -59,7 +59,6 @@ P.validateSave=function(s){
  for(const [id,r]of Object.entries(e.receipts)){const p=C.find(p=>p.id===id);if(!p||r.map!==p.map||!valid(r)||e.progress[id]!==p.steps.length)fail('GEO_SAVE','바위 눈동자의 획득 출처가 일치하지 않습니다.');}
  if(e.tiers.length>3||e.tiers.some((r,i)=>r.id!==tiers[i].id||!valid(r))||e.tiers.length&&Object.keys(e.receipts).length!==C.length)fail('GEO_SAVE','바위 눈동자의 공양 순서가 일치하지 않습니다.');
  const balance=s.inventory.filter(r=>r.item===ITEM).reduce((n,r)=>n+r.quantity,0),spent=tiers.slice(0,e.tiers.length).reduce((n,t)=>n+t.cost,0);if(balance!==Object.keys(e.receipts).length-spent)fail('GEO_SAVE','바위 눈동자의 수집·공양·소지 수량이 일치하지 않습니다.');
- if(e.tiers.length===3&&(!s.flags.FLAG_CRPG_ZHONGLI_OCULUS_OWNED||JSON.parse(g.COMPANION_ELIGIBILITY_JSON).LIYUE_ZHONGLI?.state!=='JOINED'))fail('GEO_SAVE','동행 약속 기록이 일치하지 않습니다.');
  return old.validateSave.call(this,s);
 };
 api.geoOculusCatalog={points:C,item:ITEM,tiers};

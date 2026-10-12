@@ -122,7 +122,8 @@ P.character=function(id){const a=old.character.call(this,id),profile=this.rows('
 P.storyEntryReason=function(def){
  if(def?.id==='LEG_ISK_MOND_VENTI'){
   const eligibility=JSON.parse(this.s.global.COMPANION_ELIGIBILITY_JSON||'{}');
-  if(eligibility.MOND_VENTI?.state!=='JOINED')return '몬드 곳곳의 바람 신의 눈동자를 모아 거목 아래에 바치고, 몬드 본편을 마친 뒤 벤티와 동행을 약속하면 이어지는 이야기입니다.';
+  // 0.16.30: companions come from wishes only, so Venti's own story opens once he is met in a wish.
+  if(eligibility.MOND_VENTI?.state!=='JOINED')return '기원에서 벤티를 만나면 이어지는 개인 이야기입니다.';
  }
  return old.storyEntryReason.call(this,def);
 };

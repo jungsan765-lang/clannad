@@ -16,5 +16,16 @@ P.apply=function(a){const owned=this.premiumFighters().filter(id=>id!==this.s.tu
 P.personal=function(...a){const owned=this.premiumFighters(),out=old.personal.apply(this,a);preserve(this,owned);return out;};
 P.newGame=function(o){old.newGame.call(this,o);this.s.rosterVersion=1;this.s.global.ACQUAINT_FATE=(this.s.global.ACQUAINT_FATE||0)+20;return copy(this.s);};
 P.validateSave=function(s){if(s.rosterVersion===undefined)s.rosterVersion=1;if(s.rosterVersion!==1)throw new api.RuleError('ROSTER_SAVE','동료 소유 기록을 확인해 주세요.');return old.validateSave.call(this,s);};
+// 0.16.30 (user: 「동행같은건 전부 다 뽑기여야」, 「영입임무 이런거랑, 나머지 핸드북에 있는것들 그런거 다 지우면 될거야」): companions
+// come from wishes only, so an owned companion's personal story needs no introduction first (the introducers belonged
+// to the old recruiting). The story's own conditions (its chapter, level, place and cost) stay as they were.
+const registeredBefore=P.legendRegistered;
+if(registeredBefore)P.legendRegistered=function(id){if(registeredBefore.call(this,id))return true;if(this._legendRawRegistration)return false;const d=this.storyDefinition?.(id),c=d&&(d.CHAR_ID||this.tables['04_CHAR_DB']?.get(d.PROFILE_ID)?.[1]);return !!c&&this.premiumOwns(c);};
+// The old 「소개받기」 action itself still records an introduction for saves and callers that send it.
+const rawRegistration=(rt,fn)=>{const prior=rt._legendRawRegistration;rt._legendRawRegistration=true;try{return fn();}finally{rt._legendRawRegistration=prior;}};
+const introReasonBefore=P.legendIntroductionReason;
+if(registeredBefore&&introReasonBefore)P.legendIntroductionReason=function(...args){return rawRegistration(this,()=>introReasonBefore.apply(this,args));};
+const applyBefore=P.apply;
+if(registeredBefore)P.apply=function(type,...args){return type==='LEGEND_REGISTER'?rawRegistration(this,()=>applyBefore.call(this,type,...args)):applyBefore.call(this,type,...args);};
 api.rosterV01522=true;
 })(globalThis);

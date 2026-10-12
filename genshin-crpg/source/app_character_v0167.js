@@ -99,7 +99,35 @@ function materialSource(id){
  const boss=(game.fieldBossCatalog?.()||[]).find(b=>b.material===id);if(boss)return {label:'필드 보스 · '+boss.name,map:boss.map,kind:'boss'};
  if(/^MAT_CHAR_EXP_/.test(id))return {label:'계시의 꽃 (지맥)',map:null,kind:'ley'};
  if(id==='MORA')return {label:'부의 꽃 (지맥) · 전투',map:null,kind:'ley'};
+ const found=whereFound().get(id);
+ if(found?.length){const d=hops(),far=x=>d.has(x.map)?d.get(x.map):999,list=found.slice().sort((a,b)=>far(a)-far(b)),best=list[0],names=[...new Set(list.map(x=>mapLabel(x.map)))];
+  return {label:best.how+' · '+names.slice(0,3).join(', ')+(names.length>3?' 외 '+(names.length-3)+'곳':''),map:best.map,kind:'place'};}
  const text=game.tables?.['14_ITEM_DB']?.get(id)?.[17];return text?{label:String(text),map:null,kind:'text'}:null;
+}
+// 0.16.30 (TODO 2-8): where a material really comes from, worked out from the places themselves — what each gathering,
+// mining, fishing and hunting spot gives, what the enemies of each field area drop, and the field bosses' drops — instead
+// of the item list's old words (등불꽃 said 울프 영지, 청심 missed 경운봉, enemy drops had no place at all).
+const LIFE_KIND={GATHER:'채집',MINE:'채광',FISH:'낚시',HUNT:'사냥'};
+let whereCache=null;
+function whereFound(){
+ if(whereCache&&whereCache.db===game.db)return whereCache.map;
+ const map=new Map(),add=(item,m,how)=>{if(!item||!m)return;if(!map.has(item))map.set(item,[]);const list=map.get(item);if(!list.some(x=>x.map===m&&x.how===how))list.push({map:m,how});};
+ let loot=[];try{loot=game.combatRows?game.combatRows('20_LOOT_TABLE'):game.rows('20_LOOT_TABLE');}catch{}
+ const drops=src=>{const t=game.tables['09_MONSTER_DB']?.get(src)?.[14];return loot.filter(x=>t&&x[0]===t&&(!x[1]||x[1]===src)||x[1]===src).map(x=>x[2]);};
+ for(const m of game.rows('32_MAP_DB')){if(!['몬드','리월'].includes(m[1]))continue;
+  let kind=null,threat=null;try{kind=game.lifeKindAt?.(m[0]);}catch{}
+  if(kind)try{for(const x of game.lifePool?.(kind,m[0])||[])add(x.item,m[0],LIFE_KIND[kind]||'채집');}catch{}
+  try{threat=game.mondAreaThreat?.(m[0])||game.liyueAreaThreat?.(m[0]);}catch{}
+  for(const e of threat?.entries||[])for(const mon of e.monsters||e.members||[])for(const item of drops(mon.id))add(item,m[0],'사냥');
+ }
+ try{for(const b of game.fieldBossCatalog?.()||[])for(const item of drops(b.id))add(item,b.map,'필드 보스');}catch{}
+ whereCache={db:game.db,map};return map;
+}
+// How many moves each open place is from here (the same open edges the travel buttons use).
+function hops(){
+ const start=game.s.global.CURRENT_MAP_ID,d=new Map([[start,0]]),queue=[start],edges=game.rows('47_MAP_EDGE_DB').filter(r=>r[11]==='ACTIVE'&&r[8]==='Y'&&!(r[6]&&!(r[6]==='FLAG_TRUE'&&[true,'Y','TRUE'].includes(game.s.flags[r[7]]))));
+ while(queue.length){const v=queue.shift();for(const r of edges)if(r[1]===v&&!d.has(r[2])){d.set(r[2],d.get(v)+1);queue.push(r[2]);}}
+ return d;
 }
 function guide(map){
  if(!map||!game)return;document.getElementById('modal')?.open&&document.getElementById('modal').close();
@@ -121,6 +149,8 @@ for(const name of ['openCharacterAscension','openCharacterTalent']){const prior=
 function pinChip(){
  const head=document.querySelector('.shell-loc-main .terrain-shortcuts,.terrain-shortcuts');if(!head||head.querySelector('.track-chip'))return;
  const p=pinned();if(!p?.item||!game)return;const have=game.itemCount?.(p.item)||0,done=p.need>0&&have>=p.need;
+ // 0.16.30: the way is worked out again from where the player is now (the nearest open place), not where they pinned it.
+ try{const now=materialSource(p.item);if(now?.map){p.map=now.map;p.label=now.label;}}catch{}
  const chip=mk('div','track-chip'+(done?' done':'')),go=mk('button','track-go');go.type='button';
  const path=MAN().itemIcons?.icons?.[p.item]?.path;if(path){const i=mk('img','track-icon');i.src=path;i.alt='';i.draggable=false;go.append(i);}else go.append(mk('span','track-icon mark','📌'));
  go.append(mk('b','',p.need?fmt(have)+'/'+fmt(p.need):fmt(have)),mk('small','',done?'다 모았습니다':(p.label||itemName(p.item))));

@@ -58,8 +58,10 @@ A.journal=function(box){
 // ---------- Paimon's menu ----------
 SHELL.extraTiles.push({icon:'TROPHY',get label(){const v=ready()?view():null;return v?.claimable?'업적 ('+v.claimable+')':'업적';},show:()=>ready(),run:()=>window.CRPGHandbook?.open?.('achievements')});
 // ---------- a note when something is finished ----------
+// 0.16.30 (user: 업적 알림이 전투 연출 중에 뜬다): wait until the battle playback, the reward window and any action are over.
+const settling=()=>!!(window.ActorPlayback?.active||game?.s?.runtime||(typeof busy!=='undefined'&&busy)||document.getElementById('modal')?.open||document.querySelector('.battle-result,.combat-result-overlay'));
 function check(){
- A.timer=0;if(!ready()){A.done=null;return;}const v=view();if(!v)return;const now=new Set(v.list.filter(x=>x.done).map(x=>x.id));
+ A.timer=0;if(!ready()){A.done=null;return;}if(settling()){A.timer=setTimeout(check,900);return;}const v=view();if(!v)return;const now=new Set(v.list.filter(x=>x.done).map(x=>x.id));
  if(A.done&&game.s.global.SAVE_ID===A.save){const fresh=v.list.filter(x=>x.done&&!x.claimed&&!A.done.has(x.id));
   if(fresh.length){SND('commission_accept');SHELL.toast?.('업적 달성 · '+fresh[0].name+(fresh.length>1?' 외 '+(fresh.length-1)+'개':'')+' · 핸드북(F1)의 업적에서 원석을 받으세요');}}
  A.done=now;A.save=game.s.global.SAVE_ID;
