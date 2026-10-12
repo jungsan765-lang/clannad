@@ -192,6 +192,16 @@ html.stage-pc body.teyvat .gear-cols .gear-member>.gear-member-head{grid-area:he
 html.stage-pc body.teyvat .gear-cols .gear-member>.gear-slots{grid-area:slots;display:grid;grid-template-columns:repeat(2,92px);grid-auto-rows:auto;gap:8px;align-content:start;margin:0}
 html.stage-pc body.teyvat .gear-cols .gear-slots>.gear-cell{width:92px;height:auto;min-width:0;min-height:100px;padding:6px 4px}
 html.stage-pc body.teyvat .gear-cols .gear-member>.gear-tabs{grid-area:tabs;margin:0}
+/* 0.16.37 (TODO 8): Paimon's menu on a phone keeps five tiles a row (at 748×360 it fell to four and its last row was cut). */
+html.stage-phone body.teyvat .pm-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+/* 0.16.37 (TODO 8, found looking at every screen): the 능력치 tab laid four label–value pairs in one row of a narrow pane,
+   so each value ran under the next label (「1,219.2력」); two pairs a row. The tabs take their own width, so 「운명의 자리 0/6」
+   is not cut at the pane's edge. */
+html.stage-pc body.teyvat .gear-cols .gear-pane-stats .gear-stats{grid-template-columns:repeat(2,auto minmax(0,1fr));gap:5px 14px;font-size:.8rem}
+html.stage-pc body.teyvat .gear-cols .gear-pane-stats .gear-stats dd{white-space:nowrap}
+html.stage-pc body.teyvat :where(#root) .gear-cols .gear-member>.gear-tabs>button.gear-tab{flex:1 1 auto;padding:4px 6px}
+/* what the gear adds (+57.6) sits under its value, not beside it, so the value stays in its cell on every screen */
+body.teyvat .gear-pane-stats .gear-stats dd>:is(.stat-up,.stat-down){display:block;margin:0;line-height:1.1;font-size:.86em}
 html.stage-pc body.teyvat .gear-cols .gear-member>.gear-pane{grid-area:pane;min-width:0;min-height:0}
 html.stage-pc body.teyvat .gear-cols .gear-member .gear-bench-note{display:none}
 html.stage-pc body.teyvat .gear-cols .gear-member-head .gear-member-copy{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:2px 14px}
@@ -843,7 +853,8 @@ body.teyvat .oculus-offer>:is(.oo-head,.oo-text){grid-column:1/-1;margin:0}
 body.teyvat .oculus-offer>.oo-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
 body.teyvat .oculus-offer>.oo-head>h2{margin:0}
 body.teyvat .oculus-offer>.oo-head>.oo-count{font-size:.8rem;color:#bfe6f5;white-space:nowrap}
-body.teyvat .oculus-offer>.reward-preview{margin:0;min-width:0}
+body.teyvat .oculus-offer>.reward-preview{margin:0;min-width:0;display:flex;flex-direction:row;flex-wrap:wrap;gap:4px 6px;align-items:center}
+body.teyvat .oculus-offer>.reward-preview>*{margin:0}
 body.teyvat .oculus-offer>.oo-foot{grid-column:2;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
 body.teyvat .oculus-offer>.oo-foot>small{margin:0;text-align:right}
 body.teyvat :where(#root) .oculus-offer>.oo-foot>button{margin:0}

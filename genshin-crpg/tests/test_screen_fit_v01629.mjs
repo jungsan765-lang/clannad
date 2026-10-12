@@ -21,8 +21,15 @@ const TYPES={'.js':'text/javascript','.css':'text/css','.html':'text/html','.jso
 // Pictures not yet copied into a local dist come from the repository's own assets folder (the build copies them).
 const server=createServer((req,res)=>{let path=decodeURIComponent(new URL(req.url,'http://localhost').pathname.slice(1))||'index.html';if(path.includes('..')){res.writeHead(403).end();return;}const source=resolve(root,'source',path),built=resolve(root,'dist',path),file=!process.env.CRPG_TEST_DIST&&/\.(js|css|html)$/.test(path)&&existsSync(source)?source:!existsSync(built)&&existsSync(resolve(root,path))?resolve(root,path):built;try{res.setHeader('Content-Type',TYPES[extname(file)]||'application/octet-stream');let data=readFileSync(file);if(!process.env.CRPG_TEST_DIST&&path==='assets.js')data=data.toString().replace(/"appVersion":\s*"[^"]*"/,'"appVersion":'+JSON.stringify(version))+'\nwindow.CRPG_MANIFEST.engineVersion='+JSON.stringify(ENGINE_FINGERPRINT)+';';res.end(data);}catch{res.writeHead(404).end();}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+// 0.16.36 (user: 「진행하다가 12시 지나면 또 실패할 수 있으니, 생각 하고 다음 워크플로우 커밋해」): the run's clock starts on a
+// Wednesday noon, Korean time — the server's here and every page's alike (time still flows) — so a run that starts late on
+// a Sunday or crosses midnight sees one ordinary day throughout (the daily boss, region events, tasks, ley lines).
+const CLOCK_SHIFT=Date.parse('2026-10-07T12:00:00+09:00')-Date.now();
+{const RealDate=Date;class ShiftedDate extends RealDate{constructor(...a){if(a.length)super(...a);else super(RealDate.now()+CLOCK_SHIFT);}static now(){return RealDate.now()+CLOCK_SHIFT;}}globalThis.Date=ShiftedDate;}
 const fixture=onlineFixture();await fixture.start();const INITIAL=fixture.read().state;// the new account as it starts (0.16.32 early views)
-const ONLY=(process.env.FIT_ONLY||'').split(',').filter(Boolean),SIZES=[{name:'pc',width:1280,height:720},{name:'phone',width:760,height:352}].filter(s=>!process.env.FIT_SIZE||process.env.FIT_SIZE===s.name);
+const ONLY=(process.env.FIT_ONLY||'').split(',').filter(Boolean),SIZES=[{name:'pc',width:1280,height:720},{name:'phone',width:760,height:352},
+ // 0.16.36 (TODO 8): the other sizes the user plays at, on demand (FIT_EXTRA=1): a phone of 748×360 and a 1440×900 monitor.
+ ...(process.env.FIT_EXTRA?[{name:'phone748',width:748,height:360},{name:'pc1440',width:1440,height:900}]:[])].filter(s=>!process.env.FIT_SIZE||process.env.FIT_SIZE===s.name);
 // A player well into the game: every companion, a full party, Mora, in Mondstadt.
 function playerState(){
  const r=new R(DB,JSON.parse(fixture.read().state));if(r.s.runtime)r.action('COMBAT_FORFEIT',{reason:'TEST'});r.serverAdmin=true;
@@ -70,10 +77,13 @@ const SCAN=()=>{
  // words squeezed into a column a letter or two wide, and a paged box whose page leaves more than a third of its room empty.
  for(const e of reading){if(cutOnes.includes(e))continue;const t=[...e.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim();if(t.length<4)continue;
   const s=getComputedStyle(e),fs=parseFloat(s.fontSize)||12,r=e.getBoundingClientRect();if(r.width<fs*2.6&&r.height>fs*3.2)out.push('squeezed '+name(e)+' «'+text(e)+'»');}
+ // 0.16.37 (TODO 8): a value wider than its cell that runs under the next label (the 능력치 tab showed 「1,219.2력」).
+ for(const e of document.querySelectorAll('dd,td')){if(!shown(e)||getComputedStyle(e).overflowX!=='visible')continue;if(e.scrollWidth>e.clientWidth+2)out.push('spills '+name(e)+' «'+text(e)+'» '+(e.scrollWidth-e.clientWidth)+'px');}
  const top=document.querySelector('.ch-overlay')||document.querySelector('.shell-scenery')||document.querySelector('dialog[open]')||document.querySelector('.handbook');// what a window covers is not looked at
  for(const pager of document.querySelectorAll('.pane-pager')){if(!shown(pager)||top&&!top.contains(pager))continue;const box=pager.parentElement;if(!box?.querySelector('[data-paged][hidden]'))continue;const nums=[...pager.querySelectorAll('button.pane-page')];if(nums.at(-1)?.classList.contains('on'))continue;// the last page may end early
   const kids=[...box.children].filter(c=>c!==pager&&!c.hidden&&c.getClientRects().length);if(!kids.length)continue;const b=box.getBoundingClientRect(),bottom=Math.max(...kids.map(c=>c.getBoundingClientRect().bottom)),free=pager.getBoundingClientRect().top-bottom;
-  if(free>b.height*.34&&free>60)out.push('half-empty page '+name(box)+' '+Math.round(free)+'px free');}
+  // 0.16.36: a page that ends early because a whole card (never cut) comes next keeps its room (app_mainscreen_v0167.js marks it).
+  if(free>b.height*.34&&free>60&&box.dataset.gap!=='card')out.push('half-empty page '+name(box)+' '+Math.round(free)+'px free');}
  // 0.16.35 (user: 「화면 저렇게 빈공간 있는거 보기 좀 별론데 … 아니면 창을 줄이던가」): a window much wider than what it shows.
  // What it shows is its words, pictures and controls — not the boxes around them, which span the window anyway.
  for(const dlg of document.querySelectorAll('dialog#modal[open]')){const body=dlg.querySelector('#modal-body')||dlg,br=body.getBoundingClientRect();if(br.width<420)continue;
@@ -87,8 +97,9 @@ const browser=await chromium.launch({headless:true,executablePath:process.env.CR
 const report={},errors=[];
 try{
  for(const size of SIZES){
-  const phone=size.name==='phone';
+  const phone=size.name.startsWith('phone');
   const ctx=await browser.newContext({viewport:{width:size.width,height:size.height},isMobile:phone,hasTouch:phone,deviceScaleFactor:1,userAgent:phone?'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36':undefined});
+  await ctx.addInitScript(shift=>{const RealDate=Date;class ShiftedDate extends RealDate{constructor(...a){if(a.length)super(...a);else super(RealDate.now()+shift);}static now(){return RealDate.now()+shift;}}window.Date=ShiftedDate;},CLOCK_SHIFT);
   const page=await ctx.newPage();page.on('pageerror',e=>errors.push(size.name+': '+e.message));
   await page.route('https://genshin-crpg-online.jungsan765.workers.dev/**',async route=>{const req=route.request(),body=req.postDataJSON(),path=new URL(req.url()).pathname;const o=await fixture.call(path,req.method()==='GET'?undefined:body),serverTime=Date.now();const status=o.status;delete o.status;await route.fulfill({status,headers:{'Content-Type':'application/json','X-Server-Time':String(serverTime),'Access-Control-Allow-Origin':'*','Access-Control-Expose-Headers':'X-Server-Time'},body:JSON.stringify(o)});});
   await page.addInitScript(({account,token})=>{localStorage.setItem('crpg-online-session-v1',JSON.stringify({account,token}));},{account:fixture.account,token:fixture.token});

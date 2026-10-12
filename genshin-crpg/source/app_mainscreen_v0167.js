@@ -60,7 +60,7 @@ function pieces(node,room,out,wrap,lead){
 // Any pane of fixed height (a flex column that hides what overflows) pages itself this way; `key` remembers its page.
 function pagePane(pane,key){
  if(!pane)return;
- pane.querySelector(':scope>.pane-pager')?.remove();pane.classList.remove('paged');
+ pane.querySelector(':scope>.pane-pager')?.remove();pane.classList.remove('paged');delete pane.dataset.gap;
  for(const n of pane.querySelectorAll('[data-paged]')){n.hidden=false;delete n.dataset.paged;}
  const over=()=>pane.scrollHeight>pane.clientHeight+1;
  if(!pane.clientHeight||!over())return;
@@ -78,20 +78,23 @@ function pagePane(pane,key){
  // the room instead (a page stood a third empty over a tall event card). Rows of a card split across pages keep their order.
  // Only in a column of stacked cards: in a grid or a row the pieces are places in one flow, and moving one moves the rest.
  const stacked=/^(block|flow-root)$/.test(cs.display)||/flex/.test(cs.display)&&cs.flexDirection.startsWith('column');
- const queue=list.slice(),pages=[];
+ const queue=list.slice(),pages=[],wholeNext=[];
  while(queue.length){
-  let on=new Set(),placed=0,missed=false;
+  let on=new Set(),placed=0,missed=false,miss=null;
   for(let i=0;i<queue.length;){
    const p=queue[i];if(missed&&p.wrap.length){i++;continue;}
    const next=take(new Set(on),p);put(next);
-   if(placed&&over()){put(on);if(p.wrap.length||!stacked)break;missed=true;i++;continue;}
+   if(placed&&over()){put(on);miss??=p;if(p.wrap.length||!stacked)break;missed=true;i++;continue;}
    on=next;placed++;queue.splice(i,1);
   }
   pages.push(on);
+  // 0.16.36 (user: 「억지로 지울 필요 없어 그게 괜찮은것 같으면 센스있게 남겨도 돼」): a page that ends early because the next piece is a
+  // whole card (a domain's gate, an event, a ley card) that is never cut keeps its room; the screen check reads this mark.
+  wholeNext.push(!!miss&&!miss.wrap.length&&miss.nodes.length===1&&miss.nodes[0].matches?.(CARD));
  }
  if(pages.length<2){put(own);pager.remove();pane.classList.remove('paged');return;}
  let at=Math.min(pageOf[key]||0,pages.length-1);
- const draw=()=>{put(pages[at]);pageButtons(pager,pages.length,at,go);pageOf[key]=at;};
+ const draw=()=>{put(pages[at]);pageButtons(pager,pages.length,at,go);pageOf[key]=at;if(wholeNext[at])pane.dataset.gap='card';else delete pane.dataset.gap;};
  const go=i=>{i=Math.max(0,Math.min(pages.length-1,i));if(i===at)return;at=i;sfx('tab');draw();};
  pane._turn=d=>go(at+d);draw();
 }

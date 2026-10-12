@@ -1,7 +1,10 @@
 'use strict';
 // 0.16.33 보물상자 (TODO 4-7): the 진귀한 보물상자 and three new kinds (도전, 원소 비석, 때를 맞춘 상자), 24 more in each region.
 const assert=require('node:assert/strict');
-const {c,fresh}=require('./helpers_v011.cjs');
+const {c,fresh,advance}=require('./helpers_v011.cjs');
+// 0.16.36: the clock starts on a Wednesday noon (Korean time), whatever hour or weekday the run begins (a run near midnight
+// or on a Sunday night changed the day under the checks — see docs/WORKFLOW_309_CALENDAR_FIX_KO.md).
+advance(Date.parse('2026-10-07T12:00:00+09:00')-c.Date.now());
 const {fixture}=require('./helpers_abyss.cjs');
 const api=c.CRPGRuntime,rules=api.chestRules,plain=x=>JSON.parse(JSON.stringify(x));
 const results=[];

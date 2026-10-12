@@ -199,8 +199,11 @@ P.roundEnd=function(...args){
 const BOSS_MATS=new Set(['TRPG_BOSS_ESSENCE','TRPG_BOSS_CORE']);
 // 0.16.36: only a fight started under this rule (marked roadLoot:1 when it begins) follows it; one saved before the update
 // ends with the drops it was started with (gate test_balance_saves_v0166: a loaded old battle settles exactly as before).
-{const priorStart=P.startBattle;P.startBattle=function(...args){const out=priorStart.apply(this,args);const b=this.s.runtime;if(b&&b.roadLoot===undefined)b.roadLoot=1;return out;};}
-function roadBattle(b){const o=String(b?.origin||'');return !!b&&b.roadLoot===1&&(o==='RANDOM'||/^(QUEST|REGION_EVENT|CHEST):/.test(o))&&!b.fieldBoss&&!b.twinBoss&&!b.abyss&&!b.raid&&!b.growthDomain&&!b.rematch&&!b.actors?.some(a=>a.side==='ENEMY'&&a.grade==='보스');}
+// Only road fights are marked — every other fight (Liyue field steps, domains, bosses, the Abyss) starts exactly as before
+// (gate test_enemy_balance_v01627 compares a whole new protected field fight with the genuine 0.16.26 engine).
+const roadOrigin=o=>o==='RANDOM'||/^(QUEST|REGION_EVENT|CHEST):/.test(o);
+{const priorStart=P.startBattle;P.startBattle=function(...args){const out=priorStart.apply(this,args);const b=this.s.runtime;if(b&&b.roadLoot===undefined&&roadOrigin(String(b.origin||'')))b.roadLoot=1;return out;};}
+function roadBattle(b){const o=String(b?.origin||'');return !!b&&b.roadLoot===1&&roadOrigin(o)&&!b.fieldBoss&&!b.twinBoss&&!b.abyss&&!b.raid&&!b.growthDomain&&!b.rematch&&!b.actors?.some(a=>a.side==='ENEMY'&&a.grade==='보스');}
 const priorRows=P.combatRows;
 P.combatRows=function(n){const rows=priorRows.call(this,n);return n==='20_LOOT_TABLE'&&roadBattle(this.s.runtime)?rows.filter(r=>!BOSS_MATS.has(r[2])):rows;};
 P.roadBattle=function(b=this.s.runtime){return roadBattle(b);};

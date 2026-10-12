@@ -2,7 +2,10 @@
 // 0.16.35 (TODO 6): one daily boss a day in all, their names, the boss echo only from bosses, the board's aura, the keys,
 // buying with − / + / 최대 and the market's price per item.
 const assert=require('node:assert/strict'),fs=require('fs'),path=require('path');
-const {c,fresh,root}=require('./helpers_v011.cjs');
+const {c,fresh,root,advance}=require('./helpers_v011.cjs');
+// 0.16.36: the clock starts on a Wednesday noon (Korean time), whatever hour or weekday the run begins (a run near midnight
+// or on a Sunday night changed the day under the checks — see docs/WORKFLOW_309_CALENDAR_FIX_KO.md).
+advance(Date.parse('2026-10-07T12:00:00+09:00')-c.Date.now());
 const api=c.CRPGRuntime,src=f=>fs.readFileSync(path.join(root,'source',f),'utf8');
 let passed=0;const check=(name,fn)=>{try{fn();passed++;console.log('PASS '+name);}catch(e){console.error('FAIL '+name+'\n'+e.stack);process.exitCode=1;}};
 
