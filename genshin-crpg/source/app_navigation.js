@@ -121,7 +121,7 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   const hoverable=!!window.matchMedia?.('(hover: hover)').matches;
   let initializing=false,drawnScale=0;
   const drawPins=scale=>{overlays.replaceChildren();
-   const near=new Set(local.map(n=>n.id)),dots=new Map();
+   const near=new Set(local.map(n=>n.id)),dots=new Map(),tracked=new Set(window.CRPGTrack?.places?.()||[]);
    for(const id of places){const p=this.point(id),name=this.placeName(id),isHere=id===here,open=reach.maps.has(id);
     const node=isHere?el('span'):this.control('',()=>this.choose(id),'node-'+id);
     // 0.15.20 (user: 「지도에 나머지 동그라미들은 투명화를 좀 넣어줘. 지금 당장은 못 가는 곳이니까」): only here and the places
@@ -129,9 +129,9 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
     // 0.15.25: a place where a domain stands carries a small mark (the domains are no longer entered from anywhere).
     // 0.16.2: shown before the place is known too, and a field boss's place carries the boss's face.
     const domain=this.domainAt(id),boss=this.bossAt(id),risky=this.danger(id);
-    node.className='terrain-node'+(isHere?' current':!open?' faded':near.has(id)?' open near':' far')+(stops.includes(id)&&!isHere?' on-route':'')+(this.target===id?' selected':'')+(name?'':' unknown')+(domain?' domain-host':'')+(boss?' boss-host':'')+(risky?' danger':'');
+    node.className='terrain-node'+(isHere?' current':!open?' faded':near.has(id)?' open near':' far')+(stops.includes(id)&&!isHere?' on-route':'')+(this.target===id?' selected':'')+(name?'':' unknown')+(domain?' domain-host':'')+(boss?' boss-host':'')+(risky?' danger':'')+(tracked.has(id)?' tracked':'');
     node.dataset.mapId=id;node.style.left=(p[1]/T.width*100)+'%';node.style.top=(p[2]/T.height*100)+'%';
-    node.title=(name||'아직 가 보지 않은 곳')+this.marks(id).map(([,t])=>' · '+t).join('')+(risky?' · 고레벨 위험 지역':'')+(isHere?' · 현재 위치':!open?' · 아직 막힌 곳':near.has(id)?'':' · 한 번에는 못 가는 곳');
+    node.title=(name||'아직 가 보지 않은 곳')+this.marks(id).map(([,t])=>' · '+t).join('')+(risky?' · 고레벨 위험 지역':'')+(tracked.has(id)?' · 고정한 재료가 있는 곳':'')+(isHere?' · 현재 위치':!open?' · 아직 막힌 곳':near.has(id)?'':' · 한 번에는 못 가는 곳');
     if(boss){const src=typeof enemyPortraitFor==='function'?enemyPortraitFor('FB_'+boss.key):null;if(src){const face=el('img','terrain-boss-face');face.src=src;face.alt='';face.draggable=false;face.decoding='async';node.append(face);}else node.classList.add('boss-plain');}
     if(isHere)node.append(el('span','terrain-node-core','◆'));
     else{node.tabIndex=-1;node.setAttribute('aria-hidden','true');if(hoverable){node.addEventListener('pointerenter',()=>this.hover(id));node.addEventListener('pointerleave',()=>this.hover(null));}}

@@ -28,11 +28,13 @@ check('일일 보스 names: no 「재료 재도전」 or 「보스 재도전」 
 check('강적의 잔향: never from a fight on the road; still from the bosses',()=>{
  const r=fresh('MAP_MOND_PLAINS');const has=()=>r.combatRows('20_LOOT_TABLE').some(x=>x[2]==='TRPG_BOSS_ESSENCE');
  assert(has(),'the table itself still has it');
- r.s.runtime={origin:'RANDOM',actors:[{side:'ENEMY',grade:'일반'}]};assert(r.roadBattle());assert(!has(),'a road fight never rolls it');
- r.s.runtime={origin:'QUEST:Q_X',actors:[]};assert(!has());
- for(const b of [{origin:'MATERIAL_CHALLENGE:BOSS_ANDRIUS',actors:[]},{origin:'RANDOM',fieldBoss:{},actors:[]},{origin:'RANDOM',actors:[{side:'ENEMY',grade:'보스'}]},{origin:'ABYSS:1',abyss:{},actors:[]}]){r.s.runtime=b;assert(has(),JSON.stringify(b));}
+ r.s.runtime={origin:'RANDOM',roadLoot:1,actors:[{side:'ENEMY',grade:'일반'}]};assert(r.roadBattle());assert(!has(),'a road fight never rolls it');
+ r.s.runtime={origin:'RANDOM',actors:[{side:'ENEMY',grade:'일반'}]};assert(!r.roadBattle()&&has(),'a fight saved before the rule ends with its old drops');
+ r.s.runtime={origin:'QUEST:Q_X',roadLoot:1,actors:[]};assert(!has());
+ for(const b of [{origin:'MATERIAL_CHALLENGE:BOSS_ANDRIUS',roadLoot:1,actors:[]},{origin:'RANDOM',roadLoot:1,fieldBoss:{},actors:[]},{origin:'RANDOM',roadLoot:1,actors:[{side:'ENEMY',grade:'보스'}]},{origin:'ABYSS:1',roadLoot:1,abyss:{},actors:[]}]){r.s.runtime=b;assert(has(),JSON.stringify(b));}
  r.s.runtime=null;
- const tiers=src('runtime_enemy_tiers.js');assert(tiers.includes("drops.filter(x=>!BOSS_MATS.has(x[2]))"),'the strengthened monsters\' rarest drop skips it');assert(tiers.includes('rule.essence&&!roadBattle(b)'));
+ const tiers=src('runtime_enemy_tiers.js');assert(tiers.includes("drops.filter(x=>!(b.roadLoot===1&&BOSS_MATS.has(x[2])))"),'the strengthened monsters\' rarest drop skips it');
+ const fight=fresh('MAP_MOND_PLAINS');fight.startBattle('EG_MOND_SLIME_SMALL','RANDOM');assert.equal(fight.s.runtime.roadLoot,1,'a new fight is marked');fight.validateSave(JSON.parse(JSON.stringify(fight.s)));assert(tiers.includes('rule.essence&&!roadBattle(b)'));
 });
 
 check('the daily boss board glows in its element; Space, E/Q and 1–4 work in battle; buying and selling by the piece',()=>{

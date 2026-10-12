@@ -66,5 +66,33 @@ const priorLocation=drawLocation;drawLocation=function(p,...a){priorLocation(p,.
  const byKey=new Map();for(const d of game.growthDomainEntries())(byKey.get(d.key)||byKey.set(d.key,[]).get(d.key)).push(d);const ley=p.querySelector('.ley-line-card');for(const entries of byKey.values()){const gate=domainGate(entries);if(ley)ley.before(gate);else p.append(gate);}
  const elite=game.growthEliteEntry();if(elite){const box=el('section','card growth-elite');box.append(el('h2','','지역 정예 토벌 · Lv. '+elite.level),el('p','',elite.reason||'한국 시간 하루 한 번 승리 보상'),actionButton('정예 토벌','ELITE_START',{},true));p.append(box);}};
 // After a domain win or loss: the same stage again, one press (no party step).
-const priorReward=reward;reward=function(p,...a){priorReward(p,...a);const last=game.s.lastGrowthDomain,r=parseUI(game.s.global.LAST_BATTLE_RESULT_JSON);if(!last||r.origin!=='DOMAIN:'+last.domain||!game.growthDomainEntries().some(x=>x.id===last.domain))return;const box=el('section','domain-retry');box.append(actionButton('같은 비경 다시 도전','DOMAIN_START',{domain:last.domain,element:last.element},true));p.append(box);};
+// 0.16.36 (TODO 7): a domain or boss result offers three things only — 「다시 도전」, the 빠른 식사 strip (when someone is
+// hurt and a dish is in the bag) and 「메인 화면으로」, the first and the last side by side. A daily boss's retry stays
+// shut until midnight and says so; a lost boss step's own retry becomes this one, and the way back leaves the route.
+function retryFor(r){
+ const o=String(r.origin||''),prog=game.s.bossRouteProgress;
+ if(o.startsWith('DOMAIN:')){const last=game.s.lastGrowthDomain;if(!last||o!=='DOMAIN:'+last.domain||!game.growthDomainEntries().some(x=>x.id===last.domain))return null;
+  const params={domain:last.domain,element:last.element};return {why:game.actionReason('DOMAIN_START',params),run:()=>act('DOMAIN_START',params)};}
+ if(o.startsWith('MATERIAL_CHALLENGE:')){const key=o.slice('MATERIAL_CHALLENGE:'.length);let why='';try{why=key.startsWith('BOSS_')?game.bossAdmission?.(key)?.reason:game.liyueArtifactFarmReason?.(key.replace(/^LIYUE_/,'').replace(/_FARM$/,''));}catch{}
+  return {why:why||'',daily:true,run:null};}
+ if(o.startsWith('BOSS:')&&prog?.route===o.slice(5)&&/^BRT_(FB_|LEY_)/.test(prog.route)){
+  if(prog.phase==='RETRY')return {lost:true};
+  if(prog.phase==='COMPLETE'||prog.phase==='LEFT'){const route=prog.route,place='BOSS:'+route,params={route,entry:'DIRECT',...(prog.leyTier!==undefined?{tier:prog.leyTier}:{}),...(prog.mutation?{mutation:true}:{})};
+   let why='';try{why=game.placeBossReason?.(route,'DIRECT',{})||'';}catch{}
+   return {why,run:async()=>{if(!game.s.placeVisit){await act('PLACE_ENTER',{place,mode:'BOSS'});if(!game.s.placeVisit)return;}if(!game.actionReason('BOSS_ROUTE',params))await act('BOSS_ROUTE',params);}};}}
+ return null;
+}
+const priorReward=reward;reward=function(p,...a){priorReward(p,...a);
+ try{if(game.needsRecovery?.()||game.s.storyRecovery)return;const r=parseUI(game.s.global.LAST_BATTLE_RESULT_JSON),x=retryFor(r);if(!x)return;
+  const home=[...p.querySelectorAll(':scope>button')].find(b=>b.dataset.action==='MENU'&&b.textContent.trim()==='메인 화면으로');
+  const row=el('div','actions result-retry');let retry=null;
+  if(x.lost){// the lost step's 「해당 단계 재도전」 (it steps back through the entrance first) is the retry; 「도전에서 나가기」 folds into the way back
+   const box=[...p.querySelectorAll(':scope>.actions')].find(d=>[...d.querySelectorAll('button')].some(b=>b.textContent.trim()==='해당 단계 재도전'));if(!box)return;
+   retry=[...box.querySelectorAll('button')].find(b=>b.textContent.trim()==='해당 단계 재도전');[...p.querySelectorAll(':scope>h2')].find(h=>h.textContent.trim()==='진행 중인 보스 도전')?.remove();box.remove();retry.textContent='다시 도전';}
+  else{retry=button('다시 도전',()=>{if(!busy&&x.run)x.run();},!!x.why||!x.run,!x.why&&!!x.run);if(x.why)retry.title=x.why;}
+  retry.classList.add('result-retry-go');row.append(retry);
+  const back=button('메인 화면으로',async()=>{if(busy)return;if(game.s.bossRouteProgress&&['RETRY','AWAIT_NEXT'].includes(game.s.bossRouteProgress.phase)&&!game.actionReason('BOSS_LEAVE',{}))await act('BOSS_LEAVE');await act('MENU',{screen:'LOCATION'});},false,!(retry&&!retry.disabled));
+  row.append(back);if(home)home.remove();
+  if(retry.disabled&&x.why)row.append(el('small','result-retry-why',x.daily?'일일 보스는 하루 한 번 · 한국 시간 0시에 다시 열립니다':x.why));
+  p.append(row);}catch(e){console.error('[result retry]',e);}};
 })();

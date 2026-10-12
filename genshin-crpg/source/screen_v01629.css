@@ -106,6 +106,16 @@ html.stage-phone body.teyvat .shell-loc-left .main-objective>h3{font-size:.74rem
 /* (user: 「<>버튼 너무 남발하는거같은데 이것도 사실 좀 불편해」): only the list of items turns pages; the card of the chosen
    item is always one card, its picture beside its name, and steps its letters down a little when it is long (fitBox). */
 body.teyvat .bag-cols .bag-grid{overflow:hidden;align-content:start;grid-auto-rows:max-content}
+/* 0.16.36 (TODO 7) the bag's sort: one joined bar of four picture chips after the trade filter (not round pills). */
+body.teyvat .bag-trade-filter>.bag-sort{display:inline-flex;margin-left:14px;border:1px solid rgba(211,188,142,.35);border-radius:10px;overflow:hidden;gap:0}
+body.teyvat :where(#root) .bag-trade-filter>.bag-sort>button.bag-sort-chip{display:inline-flex;align-items:center;gap:5px;min-width:0;min-height:30px;padding:2px 11px;margin:0;border:0;border-radius:0;background:rgba(0,0,0,.22);box-shadow:none;font-size:.74rem}
+body.teyvat :where(#root) .bag-trade-filter>.bag-sort>button.bag-sort-chip::before{display:none!important}
+body.teyvat :where(#root) .bag-trade-filter>.bag-sort>button.bag-sort-chip+button{border-left:1px solid rgba(211,188,142,.25)}
+body.teyvat :where(#root) .bag-trade-filter>.bag-sort>button.bag-sort-chip.selected{background:var(--t-cream);color:var(--t-ink)}
+body.teyvat .bag-sort-chip>.shell-icon{width:15px;height:15px;flex:0 0 15px}
+html.stage-phone body.teyvat .bag-trade-filter>.bag-sort{margin-left:6px;border-radius:8px}
+html.stage-phone body.teyvat :where(#root) .bag-trade-filter>.bag-sort>button.bag-sort-chip{min-height:22px;padding:1px 6px;gap:3px;font-size:.56rem}
+html.stage-phone body.teyvat .bag-sort-chip>.shell-icon{width:11px;height:11px;flex-basis:11px}
 body.teyvat .bag-cols .bag-grid>.pane-pager{grid-column:1/-1;margin:2px 0 0}
 body.teyvat .bag-cols .bag-detail{overflow:hidden;max-height:none;display:grid;grid-template-columns:var(--hero,72px) minmax(0,1fr);align-content:start;column-gap:10px}
 body.teyvat .bag-cols .bag-detail>*{grid-column:1/-1;min-width:0}
@@ -489,6 +499,11 @@ body.teyvat .terrain-label.pressable{pointer-events:auto;cursor:pointer}
 body.teyvat .terrain-label.danger,body.teyvat .terrain-label.danger .terrain-label-name{color:#ff8a7a}
 body.teyvat .terrain-label.danger{border-color:rgba(255,110,96,.65);box-shadow:0 0 0 1px rgba(255,110,96,.25)}
 body.teyvat .terrain-node.danger:not(.current){box-shadow:0 0 0 2px rgba(255,96,80,.85),0 0 10px rgba(255,96,80,.45)}
+/* 0.16.36 (TODO 7): where the pinned material is found wears a gold ring (over the red of a dangerous place too). */
+body.teyvat .terrain-node.tracked:not(.current){box-shadow:0 0 0 3px rgba(255,212,104,.95),0 0 12px 3px rgba(255,196,80,.6);z-index:3}
+body.teyvat .terrain-node.tracked.faded{opacity:.95}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce-motion) body.teyvat .terrain-node.tracked:not(.current){animation:trackGlow 2.4s ease-in-out infinite}}
+@keyframes trackGlow{0%,100%{box-shadow:0 0 0 3px rgba(255,212,104,.95),0 0 8px 2px rgba(255,196,80,.45)}50%{box-shadow:0 0 0 3px rgba(255,222,130,1),0 0 16px 5px rgba(255,200,90,.75)}}
 body.teyvat .terrain-destination.danger strong{color:#ff9c8c}
 body.teyvat .terrain-destination.danger .terrain-card-state{color:#ff9c8c;border-color:rgba(255,110,96,.55)}
 body.teyvat .terrain-key-item.danger::before{background:#ff6a5a;box-shadow:0 0 0 2px rgba(255,110,96,.4)}
@@ -596,6 +611,9 @@ body.teyvat .enhance-stat>i{font-style:normal;opacity:.6}
 body.teyvat .enhance-cols .enhance-material>span{flex:1 1 auto;font-weight:700}
 body.teyvat .enhance-cols .enhance-material>small{margin:0;opacity:.8;white-space:nowrap}
 body.teyvat .enhance-cols .enhance-material :is(img.enhance-mora-icon,.item-glyph,img.item-icon){width:26px;height:26px;min-width:26px;object-fit:contain}
+body.teyvat :where(#modal) .enhance-cols .enhance-material>button.enhance-pin{flex:0 0 auto;min-width:0;min-height:0;width:30px;height:28px;margin:0;padding:0;border-radius:8px;font-size:.86rem;line-height:1}
+body.teyvat :where(#modal) .enhance-cols .enhance-material>button.enhance-pin::before{display:none!important}
+html.stage-phone body.teyvat :where(#modal) .enhance-cols .enhance-material>button.enhance-pin{width:24px;height:20px;font-size:.66rem}
 body.teyvat .enhance-foot{display:flex;align-items:center;gap:14px;margin-top:10px}
 body.teyvat .enhance-foot>p{margin:0;flex:1 1 auto;min-width:0}
 body.teyvat :where(#modal) .enhance-foot>button.enhance-go{width:auto;flex:0 0 auto;margin:0;padding:0 24px}
@@ -616,6 +634,9 @@ html.stage-phone body.teyvat .enhance-foot>p{font-size:.56rem}
 html.stage-phone body.teyvat :where(#modal) .enhance-foot>button.enhance-go{min-height:28px;font-size:.66rem;padding:0 14px}
 /* A gear piece's hover note never stands in the way of the page buttons or another piece. */
 body.teyvat .gear-tip{pointer-events:none}
+/* 0.16.36 (TODO 7) a domain or boss result: 「다시 도전」 beside 「메인 화면으로」; a shut retry says when it opens. */
+body.teyvat .shell-result-actions>.result-retry-why{flex-basis:100%;text-align:center;font-size:.74rem;color:var(--t-muted,#a9b0bd);margin:2px 0 0}
+html.stage-phone body.teyvat .shell-result-actions>.result-retry-why{font-size:.56rem;margin:0}
 /* 0.16.31 빠른 식사 (after a fight) and the HP bar on whom a dish is for. */
 body.teyvat .quick-meal{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:8px 12px;max-width:720px;margin:14px auto 0;padding:10px 14px;border-radius:12px;border:1px solid rgba(211,188,142,.25);background:rgba(0,0,0,.25)}
 body.teyvat .quick-meal>.qm-title{grid-row:1/span 2;font-size:.85rem;color:#f3dfae;writing-mode:horizontal-tb}
@@ -1116,6 +1137,18 @@ html.stage-phone body.teyvat .cm-chip .cm-chip-icon img{width:11px;height:11px}
 html.stage-phone body.teyvat .cm-chip .cm-chip-face{width:14px;height:14px}
 html.stage-phone body.teyvat .cm-chip .cm-chip-glyph{width:9px;height:9px}
 html.stage-phone body.teyvat .commission-request{font-size:.64rem;margin:1px 0 4px}
+/* 0.16.36 (TODO 7) the main screen's 오늘의 임무 line also counts the week and the commissions to report. */
+body.teyvat .task-mini-head>.task-mini-chip{font-size:.68rem;line-height:1.3;padding:0 6px;border-radius:5px;background:rgba(255,255,255,.08);color:var(--t-muted,#a9b0bd);white-space:nowrap}
+body.teyvat .task-mini-head>.task-mini-chip.ready{background:rgba(240,196,106,.2);color:#f3dfae;font-weight:700}
+body.teyvat .task-mini-head>.task-mini-open{margin-left:auto}
+html.stage-phone body.teyvat .task-mini-head>.task-mini-chip{font-size:.5rem;padding:0 4px}
+/* 0.16.36 (TODO 7) 의뢰 모두 보고: one bar above Catherine's list. */
+body.teyvat .cm-all{display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:4px 8px;margin:0 0 6px;border-radius:10px;border:1px solid rgba(240,196,106,.45);background:rgba(240,196,106,.1)}
+body.teyvat .cm-all>small{flex:1 1 auto;color:#f3dfae;font-weight:700}
+body.teyvat :where(#root) .cm-all>button{margin:0;min-height:32px;padding:2px 16px}
+html.stage-phone body.teyvat .cm-all{padding:2px 6px;margin:0 0 3px;gap:6px}
+html.stage-phone body.teyvat .cm-all>small{font-size:.6rem}
+html.stage-phone body.teyvat :where(#root) .cm-all>button{min-height:24px;padding:1px 10px;font-size:.62rem}
 /* 0.16.34 의뢰 포기. 0.16.35 (user: 「이런 보기에 애매해보이는것도 바꿔도 돼」): the window's buttons stand on one row — 현장 진행
    and 고정 first, 의뢰 포기 quiet at the right end; pressed, its question is a framed row of its own with two full-size buttons
    (it stood small between the other buttons). */
@@ -1146,6 +1179,7 @@ body.teyvat .boss-aura[data-aura="electro"]{--aura-c:rgba(185,125,255,.6)}
 body.teyvat .boss-aura[data-aura="dendro"]{--aura-c:rgba(140,215,75,.6)}
 @keyframes bossAura{0%,100%{opacity:.5}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){body.teyvat .boss-aura::after{animation:none}}
+html.reduce-motion body.teyvat .boss-aura::after{animation:none}
 /* 0.16.35 (TODO 6-5): the keys beside the battle's buttons and targets, on a computer only. */
 body.teyvat .key-hint{display:inline-block;margin-left:6px;padding:0 4px;border:1px solid rgba(255,255,255,.35);border-radius:4px;background:rgba(0,0,0,.25);font:600 .6rem/1.45 system-ui,sans-serif;color:inherit;opacity:.8;vertical-align:middle}
 body.teyvat .combatant-row>.key-hint.target-key{position:absolute;left:4px;top:4px;margin:0;z-index:3;pointer-events:none;color:#f3dfae;border-color:rgba(243,223,174,.5)}

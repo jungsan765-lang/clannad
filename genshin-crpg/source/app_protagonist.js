@@ -25,7 +25,7 @@
    if(digit){const rows=[...document.querySelectorAll('.combatant-row.targetable')].filter(pressable);press(rows[Number(event.key)-1]);return;}
    press(document.querySelector('[data-action="COMBAT_BEGIN"]')||document.querySelector('[data-action="COMBAT"]'));return;
   }
-  if(space)press(document.querySelector('.shell-result-actions button.primary'));
+  if(space)press(document.querySelector('.shell-result-actions button.primary:not(:disabled)'));
  });
  // The keys beside their buttons, on a computer (a phone has no keyboard).
  const priorKeys=combat;

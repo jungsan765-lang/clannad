@@ -138,6 +138,24 @@ returnToJourney=function(p){
   const back=journeyReturn();p.append(back.retry?actionButton(back.label,'STORY_RETRY',{},true):actionButton(back.label,'MENU',{screen:back.screen},true));
 };
 let bagCategory='전체',bagSelection=null,bagTrade='전체';
+// 0.16.36 (TODO 7): the bag sorts by picture chips — as it came, newest first, highest grade first, or by kind.
+let bagSort=(()=>{try{return localStorage.getItem('crpg.bagSort')||'기본';}catch{return '기본';}})();
+const BAG_SORTS=[['기본','INVENTORY','들어온 순서'],['새 것','CLOCK','최근에 얻은 것부터'],['등급','STAR','등급이 높은 것부터'],['종류','DIAMOND','종류별로']];
+function sortBag(list){
+ if(bagSort==='기본')return list;
+ const inv=game.s.inventory||[],at=new Map();inv.forEach((x,i)=>{for(const k of [x.slot,x.item,x.equip])if(k)at.set(k,Math.max(at.get(k)??-1,i));});
+ const name=d=>String(d.name||''),groups=CRPGInventoryPresenter.GROUPS||[],order=d=>{const g=groups.indexOf(d.group);return g<0?99:g;};
+ const by={
+  '새 것':(a,b)=>(at.get(b.key)??at.get(b.id)??-1)-(at.get(a.key)??at.get(a.id)??-1),
+  '등급':(a,b)=>(b.tier?.rank||0)-(a.tier?.rank||0)||name(a).localeCompare(name(b),'ko'),
+  '종류':(a,b)=>order(a)-order(b)||String(a.category||'').localeCompare(String(b.category||''),'ko')||(b.tier?.rank||0)-(a.tier?.rank||0)||name(a).localeCompare(name(b),'ko')}[bagSort];
+ return by?list.slice().sort(by):list;
+}
+function bagSortBar(){
+ const bar=el('div','bag-sort');bar.setAttribute('role','group');bar.setAttribute('aria-label','정렬');
+ for(const [k,ic,why] of BAG_SORTS){const b=button('',()=>{bagSort=k;try{localStorage.setItem('crpg.bagSort',k);}catch{}render();});b.className='bag-sort-chip'+(bagSort===k?' selected':'');b.title=why;b.setAttribute('aria-pressed',String(bagSort===k));if(window.CRPGShell?.icon)b.append(window.CRPGShell.icon(ic,'shell-icon'));b.append(el('span','',k));bar.append(b);}
+ return bar;
+}
 // 0.14.12: equipment frames by enhancement (user: 「강화수치가 높을수록 테두리, 운명의 자리처럼 간지나게는 말고, 10강부터 조금 간지」).
 // +3 silver line, +6 gold line, +9 double gold line, +10 gold corners and a soft inner glow, +12 adds a slow shine.
 function enhanceFrameClass(n){n=Number(n)||0;return n>=12?'enh-12':n>=10?'enh-10':n>=9?'enh-9':n>=6?'enh-6':n>=3?'enh-3':'';}
@@ -191,8 +209,9 @@ inventory=function(p){
   const tradeOf=d=>typeof bagTradeRule==='function'?bagTradeRule(d):null;
   if(typeof bagTradeRule==='function'){const ok=entries.filter(d=>tradeOf(d)?.ok).length,trade=el('div','bag-trade-filter');trade.setAttribute('aria-label','거래 가능 여부');
    for(const [k,label] of [['전체','모두'],['가능','거래 가능 '+ok],['불가','거래 불가 '+(entries.length-ok)]]){const b=button(label,()=>{bagTrade=k;bagSelection=null;render();});b.classList.toggle('selected',bagTrade===k);b.setAttribute('aria-pressed',String(bagTrade===k));trade.append(b);}
-   p.append(trade);}
+   trade.append(bagSortBar());p.append(trade);}else p.append(bagSortBar());
   let shown=entries.filter(d=>(bagCategory==='전체'||d.group===bagCategory)&&(bagTrade==='전체'||!tradeOf(d)||(tradeOf(d).ok?bagTrade==='가능':bagTrade==='불가')));if(!shown.length&&entries.length){bagCategory='전체';bagTrade='전체';shown=entries;}
+  shown=sortBag(shown);
   const layout=el('div','bag-layout'),grid=el('div','bag-grid'),detail=el('section','card bag-detail');detail.setAttribute('aria-label','선택한 아이템 상세');
   const chosen=shown.find(d=>d.key===bagSelection)||shown[0];bagSelection=chosen?.key||null;
   for(const d of shown){const wrap=el('div','bag-cell'),b=button('',()=>{bagSelection=d.key;for(const x of grid.querySelectorAll('button'))x.setAttribute('aria-pressed',String(x.dataset.itemKey===d.key));itemDetailView(detail,d);});b.className='bag-item tier-'+(d.tier?.rank||1);if(d.kind==='EQUIPMENT'){const f=enhanceFrameClass(d.enhance);if(f)b.classList.add('enh',f);}b.dataset.itemKey=d.key;b.setAttribute('aria-pressed',String(d.key===bagSelection));b.setAttribute('aria-label',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:' '+d.quantity+'개'));b.append(itemGlyph(d),el('strong','item-count',d.kind==='EQUIPMENT'?'+'+d.enhance:'×'+d.quantity),tierMark(el('span','item-name',d.name),d));if(d.equipped)b.append(el('small','item-worn','장착'));if(d.actionHint==='FOOD'){const m=foodEffectMark(d.id);if(m)b.append(m);}if(typeof bagTradeMark==='function')bagTradeMark(b,d);

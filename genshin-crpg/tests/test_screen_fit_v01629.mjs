@@ -156,7 +156,9 @@ try{
   {const r=new R(DB,JSON.parse(fixture.read().state));if(r.s.runtime)r.action('COMBAT_FORFEIT',{reason:'TEST'});const root='Q_TASK_LEARN_01';
    const k=r.placeCatalog().find(e=>e.entity==='NPC_MOND_KATHERYNE');try{if(!r.s.placeVisit)r.action('PLACE_ENTER',{place:k.id,mode:'TALK'});if(!r.s.quests[root]?.claimed){if(!r.s.quests[root]?.guildAccepted)r.action('COMMISSION_ACCEPT',{quest:root});r.action('CLAIM_QUEST',{quest:root});}}catch(e){console.error('guild root',e.message);}
    r.tutorialState().done.guildTasks=true;
-   for(const q of r.commissionEntries().filter(q=>!q.accepted&&q.row[0]!==root&&/^Q_TASK_/.test(q.row[0])&&!r.questUnlockReason(q.row[0])).slice(0,2))try{r.action('COMMISSION_ACCEPT',{quest:q.row[0]});}catch(e){console.error('guild accept',e.message);}
+   const took=[];for(const q of r.commissionEntries().filter(q=>!q.accepted&&q.row[0]!==root&&/^Q_TASK_/.test(q.row[0])&&!r.questUnlockReason(q.row[0])).slice(0,4))try{r.action('COMMISSION_ACCEPT',{quest:q.row[0]});took.push(q.row[0]);}catch(e){console.error('guild accept',e.message);}
+   // 0.16.36: two of them done (the 「모두 보고」 bar), the others still going (the open card below)
+   for(const id of took.slice(0,2)){const s=r.s.quests[id],d=JSON.parse(r.tables['22_QUEST_DB'].get(id)[10]);s.node=d.claim_node||'READY_TO_CLAIM';if(s.taskObjective)s.taskObjective.progress=s.taskObjective.definition.goal;}
    fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    for(const tab of await labels('.shell-place-tabs .shell-tab'))await view('guild-open-'+tab,`__tap('.shell-place-tabs .shell-tab',${JSON.stringify(tab)})`);
    await view('guild-card',`(async()=>{const t=[...document.querySelectorAll('.shell-place-tabs .shell-tab')].find(b=>/의뢰/.test(b.textContent));t?.click();await new Promise(r=>setTimeout(r,200));document.querySelector('.cm-row.s-going')?.click();await new Promise(r=>setTimeout(r,200));document.querySelector('#modal[open] .commission-abandon-ask')?.click();})()`);}
@@ -172,6 +174,9 @@ try{
   await view('map-window',`(async()=>{await __go('LOCATION');[...document.querySelectorAll('.hud-tools button')].find(b=>/^지도/.test(b.title||b.getAttribute('aria-label')||''))?.click();})()`);
   await view('menu',`(async()=>{await __go('LOCATION');document.querySelector('.hud-menu-button')?.click();})()`);
   await view('mail',`(async()=>{await __go('LOCATION');[...document.querySelectorAll('.hud-tools button')].find(b=>/우편/.test(b.title||b.getAttribute('aria-label')||''))?.click();})()`);
+  // 0.16.36 (TODO 7): a pinned material — its chip on the map's head and a gold ring on every place it is found.
+  await view('map-tracked',`(async()=>{await __go('LOCATION');for(const id of game.tables['14_ITEM_DB'].keys()){localStorage.setItem('crpg-track-v1',JSON.stringify({item:id,need:99}));if((window.CRPGTrack?.places?.()||[]).length>=2)break;}render();await new Promise(r=>setTimeout(r,300));})()`);
+  await page.evaluate(()=>{try{localStorage.removeItem('crpg-track-v1');render();}catch{}});
   await page.keyboard.press('Escape').catch(()=>{});
   // A fight: before it starts, while choosing, and its result.
   if(!ONLY.length||ONLY.some(o=>'battle'.startsWith(o)||o.startsWith('battle')||o==='reward')){
@@ -188,7 +193,19 @@ try{
     if(r.s.runtime){fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
      await view('daily-boss',`(async()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='전투 시작');b?.click();})()`);
      // ended with a win, so no defeat's recovery carries into the later views
-     const won=new R(DB,JSON.parse(fixture.read().state));won.serverAdmin=true;try{won.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch{}fixture.seed(won.s);await page.evaluate(()=>CRPGOnline.sync());await idle();}}
+     const won=new R(DB,JSON.parse(fixture.read().state));won.serverAdmin=true;try{won.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch{}fixture.seed(won.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+     // 0.16.36 (TODO 7): the result of a daily boss — 다시 도전 · 빠른 식사 · 메인으로 in the same window.
+     await view('daily-boss-result',`Promise.resolve()`);}
+   // … and of a domain and of a field boss, won (다시 도전 open).
+   const fight=(setup,label)=>{const x=playerState();x.serverAdmin=true;try{setup(x);}catch(e){console.error(label,e.message);}if(!x.s.runtime)return null;try{x.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch(e){console.error(label,e.message);}return x;};
+   const domain=fight(x=>{for(const m of x.tables['32_MAP_DB'].keys()){if(!/^MAP_D163_/.test(m))continue;try{x.action('OPERATOR_DEBUG',{op:'travel',map:m});}catch{continue;}const d=x.growthDomainEntries?.().find(e=>!e.reason);if(d){x.action('DOMAIN_START',{domain:d.id,element:d.elements?.[0]||d.element||undefined});break;}}},'domain result');
+   if(domain){fixture.seed(domain.s);await page.evaluate(()=>CRPGOnline.sync());await idle();await view('domain-result',`Promise.resolve()`);}
+   const FB=globalThis.CRPGRuntime?.fieldBosses,boss='FB_ANEMO_HYPOSTASIS';
+   const field=FB&&fight(x=>{x.action('OPERATOR_DEBUG',{op:'travel',map:FB.bosses[boss].map});const route=FB.route(boss);x.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});x.action('BOSS_ROUTE',{route,entry:'DIRECT'});},'field boss result');
+   if(field){fixture.seed(field.s);await page.evaluate(()=>CRPGOnline.sync());await idle();await view('fieldboss-result',`Promise.resolve()`);}
+   // a lost field boss: its retry is this 「다시 도전」, and 메인 화면으로 leaves the route
+   const lost=FB&&(()=>{const x=playerState();x.serverAdmin=true;try{x.action('OPERATOR_DEBUG',{op:'travel',map:FB.bosses[boss].map});const route=FB.route(boss);x.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});x.action('BOSS_ROUTE',{route,entry:'DIRECT'});x.action('COMBAT_FORFEIT',{reason:'TEST'});}catch(e){console.error('field boss lost',e.message);}return x.s.bossRouteProgress?.phase==='RETRY'?x:null;})();
+   if(lost){for(const id of ['PLAYER_CUSTOM',...Object.keys(lost.s.chars||{})])try{if(id==='PLAYER_CUSTOM')lost.s.global.PLAYER_HP_CURRENT=lost.s.global.PLAYER_HP_MAX;else if(lost.s.chars[id])lost.s.chars[id].hp=lost.character(id).maxHp;}catch{}delete lost.s.defeatPenalty;fixture.seed(lost.s);await page.evaluate(()=>CRPGOnline.sync());await idle();await view('fieldboss-lost',`Promise.resolve()`);}}
    const s=playerState();fixture.seed(s.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    await view('story-page',`(async()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());await __go('STORY');})()`);
    await view('shop-bulk',`(async()=>{await __go('LOCATION');const k=game.placeCatalog().find(e=>e.merchant==='MRC_MOND_RESTAURANT');if(k&&!game.s.placeVisit)await act('PLACE_ENTER',{place:k.id,mode:'SHOP'});await new Promise(r=>setTimeout(r,300));if(typeof showPurchaseQuantity==='function')showPurchaseQuantity('STK_MOND_SARA_EGG');})()`);

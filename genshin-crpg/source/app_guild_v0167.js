@@ -83,7 +83,16 @@ if(S?.tabset&&S?.placeLayout){
 // Catherine's lists turn pages (◀ 1/3 ▶) in the room the screen gives them.
 function pagePlace(){const pane=document.querySelector('.shell-place-tabs .shell-pane:not([hidden])'),page=window.CRPGMainScreen?.pagePane;if(!pane||!page)return;
  const tab=document.querySelector('.shell-place-tabs .shell-tab.active')?.dataset.tab||'';page(pane,'place|'+(game?.s?.placeVisit?.place||'')+'|'+tab);}
-const priorRender=render;render=function(){priorRender();try{if(document.querySelector('.shell-place-tabs'))requestAnimationFrame(pagePlace);}catch(e){console.error('[guild pages]',e);}};
+// 0.16.36 (TODO 7): two or more commissions done at her desk are reported with one press, above the list.
+function reportAll(){
+ const list=document.querySelector('.shell-place-tabs .cm-row')?.parentElement;if(!list||list.parentElement?.querySelector(':scope>.cm-all'))return;
+ // the ones to report first, then those under way, then the rest (as KanColle's board shows finished ones on top)
+ for(const st of ['s-going','s-ready'])list.prepend(...list.querySelectorAll(':scope>.cm-row.'+st));
+ let ids=[];try{ids=game?.commissionReportAllList?.()||[];}catch{}if(ids.length<2)return;
+ const bar=mk('div','cm-all'),b=actionButton('모두 보고 · '+ids.length,'COMMISSION_REPORT_ALL',{},true);b.title='보고할 수 있는 의뢰 '+ids.length+'개를 한 번에 보고합니다. 보상을 고르는 의뢰는 따로 보고합니다.';
+ bar.append(mk('small','','보고할 의뢰 '+ids.length+'개'),b);list.before(bar);
+}
+const priorRender=render;render=function(){priorRender();try{if(document.querySelector('.shell-place-tabs')){reportAll();requestAnimationFrame(pagePlace);}}catch(e){console.error('[guild pages]',e);}};
 document.addEventListener('click',e=>{if(e.target?.closest?.('.shell-place-tabs .shell-tab'))requestAnimationFrame(pagePlace);});
 let resizeTimer=0;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(pagePlace,140);});
 window.CRPGGuildRows={row,rewards,pagePlace,chips};

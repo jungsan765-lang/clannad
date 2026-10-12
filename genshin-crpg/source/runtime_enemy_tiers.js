@@ -197,7 +197,10 @@ P.roundEnd=function(...args){
 // 0.16.35 (TODO 6-4, user: 길에서 만난 적이 「강적의 잔향」을 줌): the boss echo and core come from bosses — the daily and field
 // bosses, the Spiral Abyss, Lv.40+ domains — not from fights on the road (the field's own encounters, quests, events, chests).
 const BOSS_MATS=new Set(['TRPG_BOSS_ESSENCE','TRPG_BOSS_CORE']);
-function roadBattle(b){const o=String(b?.origin||'');return !!b&&(o==='RANDOM'||/^(QUEST|REGION_EVENT|CHEST):/.test(o))&&!b.fieldBoss&&!b.twinBoss&&!b.abyss&&!b.raid&&!b.growthDomain&&!b.rematch&&!b.actors?.some(a=>a.side==='ENEMY'&&a.grade==='보스');}
+// 0.16.36: only a fight started under this rule (marked roadLoot:1 when it begins) follows it; one saved before the update
+// ends with the drops it was started with (gate test_balance_saves_v0166: a loaded old battle settles exactly as before).
+{const priorStart=P.startBattle;P.startBattle=function(...args){const out=priorStart.apply(this,args);const b=this.s.runtime;if(b&&b.roadLoot===undefined)b.roadLoot=1;return out;};}
+function roadBattle(b){const o=String(b?.origin||'');return !!b&&b.roadLoot===1&&(o==='RANDOM'||/^(QUEST|REGION_EVENT|CHEST):/.test(o))&&!b.fieldBoss&&!b.twinBoss&&!b.abyss&&!b.raid&&!b.growthDomain&&!b.rematch&&!b.actors?.some(a=>a.side==='ENEMY'&&a.grade==='보스');}
 const priorRows=P.combatRows;
 P.combatRows=function(n){const rows=priorRows.call(this,n);return n==='20_LOOT_TABLE'&&roadBattle(this.s.runtime)?rows.filter(r=>!BOSS_MATS.has(r[2])):rows;};
 P.roadBattle=function(b=this.s.runtime){return roadBattle(b);};
@@ -209,7 +212,7 @@ P.finishBattle=function(victory){
  for(const e of enemies){const rule=CONFIG.reward[e.tier];if(!rule)continue;
   const table=this.row('09_MONSTER_DB',e.source)[14],drops=table?this.combatRows('20_LOOT_TABLE').filter(x=>x[0]===table&&this.tables['14_ITEM_DB'].has(x[2])):[];
   // 0.16.35 (TODO 6-4): a monster met on the road never brings the boss echo or core, even the 츄츄왕 whose rarest drop it is.
-  const rare=drops.filter(x=>!BOSS_MATS.has(x[2])).sort((x,y)=>Number(x[5])-Number(y[5]))[0];
+  const rare=drops.filter(x=>!(b.roadLoot===1&&BOSS_MATS.has(x[2]))).sort((x,y)=>Number(x[5])-Number(y[5]))[0];
   if(rare)for(const chance of rule.rolls||[])if(chance>=1||this.random()<chance){const n=Number(rare[3])||1;this.giveItem(rare[2],n);loot[rare[2]]=(loot[rare[2]]||0)+n;}
   if(rule.essence&&!roadBattle(b)&&this.die(100)<=rule.essence&&this.tables['14_ITEM_DB'].has('TRPG_BOSS_ESSENCE')){this.giveItem('TRPG_BOSS_ESSENCE',1);loot.TRPG_BOSS_ESSENCE=(loot.TRPG_BOSS_ESSENCE||0)+1;}}
  result.tierBonus={version:1,loot,enemies:enemies.map(e=>({name:e.name,tier:e.tier,label:TIERS[e.tier],affixes:e.affixes.map(x=>AFFIX[x]?.label||x)}))};

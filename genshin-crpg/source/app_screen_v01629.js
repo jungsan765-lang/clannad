@@ -24,7 +24,7 @@ function fitBox(box){if(!box?.isConnected||!box.clientHeight)return;box.classLis
  else{const anchor=box.querySelector(':scope>.item-effect')||box.querySelector(':scope>h2')?.nextElementSibling;anchor?anchor.after(more):box.prepend(more);}
  box.classList.add('fit-brief');zoomDown(box);}
 // The bag: its items turn pages (the page stays while an item is chosen), its card fits.
-function bag(){const grid=document.querySelector('.bag-cols .bag-grid');if(grid){const k=(typeof bagCategory!=='undefined'?bagCategory:'')+'|'+(typeof bagTrade!=='undefined'?bagTrade:'');window.CRPGMainScreen?.pagePane?.(grid,'bag|'+k);}
+function bag(){const grid=document.querySelector('.bag-cols .bag-grid');if(grid){const k=(typeof bagCategory!=='undefined'?bagCategory:'')+'|'+(typeof bagTrade!=='undefined'?bagTrade:'')+'|'+(typeof bagSort!=='undefined'?bagSort:'');window.CRPGMainScreen?.pagePane?.(grid,'bag|'+k);}
  fitBox(document.querySelector('.bag-cols .bag-detail'));}
 // The shop: its goods turn pages (each tab and kind its own), the chosen good's card fits.
 function market(){const grid=document.querySelector('.market-layout>.market-grid');if(grid)window.CRPGMainScreen?.pagePane?.(grid,'market|'+(typeof marketPlace!=='undefined'?marketPlace:'')+'|'+(typeof marketMode!=='undefined'?marketMode:'')+'|'+(typeof marketCategory!=='undefined'?marketCategory:''));

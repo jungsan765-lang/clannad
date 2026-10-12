@@ -153,9 +153,11 @@ function pinChip(){
  try{const now=materialSource(p.item);if(now?.map){p.map=now.map;p.label=now.label;}}catch{}
  const chip=mk('div','track-chip'+(done?' done':'')),go=mk('button','track-go');go.type='button';
  const path=MAN().itemIcons?.icons?.[p.item]?.path;if(path){const i=mk('img','track-icon');i.src=path;i.alt='';i.draggable=false;go.append(i);}else go.append(mk('span','track-icon mark','📌'));
- go.append(mk('b','',p.need?fmt(have)+'/'+fmt(p.need):fmt(have)),mk('small','',done?'다 모았습니다':(p.label||itemName(p.item))));
+ // 0.16.36: the nearest place only (the map's gold rings show the rest); the full list rides on the title.
+ const near=String(p.label||'').split(',')[0]+(String(p.label||'').includes(',')?' 외':'');
+ go.append(mk('b','',p.need?fmt(have)+'/'+fmt(p.need):fmt(have)),mk('small','',done?'다 모았습니다':(near||itemName(p.item))));
  go.title=itemName(p.item)+(p.label?' · '+p.label:'')+(p.map?' · 눌러서 길 안내':'');go.onclick=()=>{if(p.map)guide(p.map);};go.disabled=!p.map&&!done;
- const x=mk('button','track-clear','✕');x.type='button';x.setAttribute('aria-label','고정 해제');x.onclick=()=>{savePin(null);chip.remove();};
+ const x=mk('button','track-clear','✕');x.type='button';x.setAttribute('aria-label','고정 해제');x.onclick=()=>{savePin(null);chip.remove();try{render();}catch{}};/* the map's gold marks go with it */
  chip.append(go,x);head.prepend(chip);
 }
 
@@ -168,6 +170,8 @@ render=function(){
   pinChip();
  }catch(e){console.error('[character]',e);}
 };
-window.CRPGTrack={materialSource,pin,pinned,clear:()=>savePin(null),guide};
+// 0.16.36 (TODO 7): every place the pinned material is found, for the map's gold marks.
+function trackedPlaces(){try{const p=pinned();if(!p?.item||!game)return [];if(p.need>0&&(game.itemCount?.(p.item)||0)>=p.need)return [];return [...new Set((whereFound().get(p.item)||[]).map(x=>x.map))];}catch{return [];}}
+window.CRPGTrack={materialSource,pin,pinned,clear:()=>savePin(null),guide,places:trackedPlaces};
 window.CRPGCharacterTabs={organize,show,pageRoster,TABS};
 })();

@@ -394,14 +394,31 @@ P.tutorialDirective=function(){
  if(!q.claimed)return {id:'guildReport',title:'의뢰를 보고하세요',text:'해낸 의뢰는 캐서린에게 보고해 보상을 받습니다.',quest:ROOT_TASK,guild:true};
  return {id:'guildTasks',title:'일일·주간 임무',text:'매일·매주 할 일은 이 탭에 있습니다. 다 채우면 「모두 달성」 보상을 받습니다.',guild:true};
 };
+// ---------- 0.16.36 의뢰 모두 보고 (TODO 7) ----------
+// At her desk every commission that is done and pays without a choice is reported at once — each through its own
+// CLAIM_QUEST, so its reward, conditions and records stay exactly its own. One that asks which reward to take stays.
+P.commissionReportAllList=function(){
+ if(this.s.runtime||this.s.battlePreparation||this.playPhase?.()!=='FREE')return [];
+ return (this.commissionEntries?.()||[]).filter(q=>q.accepted&&!q.state?.claimed&&q.state?.node==='READY_TO_CLAIM'&&!q.reward?.equipment_choice&&this.atCommissionGuild?.(q.row[2])&&!this.actionReason('CLAIM_QUEST',{quest:q.row[0]})).map(q=>q.row[0]);
+};
+P.reportAllCommissions=function(){
+ const ids=this.commissionReportAllList();if(ids.length<2)fail('COMMISSION_REPORT_ALL','함께 보고할 의뢰가 두 개 이상일 때 모두 보고할 수 있습니다.');
+ const g=this.s.global,num=v=>Number(v)||0,count=()=>{const m={};for(const x of this.s.inventory||[])if(x.item)m[x.item]=(m[x.item]||0)+num(x.quantity);return m;};
+ const mora=num(g.MORA),primo=num(g.PRIMOGEM),before=count(),names=[];
+ for(const id of ids){this.apply({type:'CLAIM_QUEST',quest:id});names.push(this.tables['22_QUEST_DB'].get(id)?.[1]||id);}
+ const after=count(),items={};for(const [k,v] of Object.entries(after))if(v>(before[k]||0))items[k]=v-(before[k]||0);
+ return {reported:ids,names,claimed:ids,mora:num(g.MORA)-mora,primogem:num(g.PRIMOGEM)-primo,items};
+};
 P.actionReason=function(type,a={}){
  if(type==='TUTORIAL_GUIDE'&&a.seen!==undefined)return a.seen==='guildTasks'?'':'안내를 확인해 주세요.';
  if(type==='COMMISSION_ABANDON')return this.commissionAbandonReason(String(a.quest||''));
+ if(type==='COMMISSION_REPORT_ALL')return this.commissionReportAllList().length>=2?'':'함께 보고할 의뢰가 두 개 이상일 때 모두 보고할 수 있습니다.';
  return tutor.actionReason.call(this,type,a);
 };
 P.apply=function(a){
  if(a?.type==='TUTORIAL_GUIDE'&&a.seen!==undefined){const why=this.actionReason(a.type,a);if(why)fail('TUTORIAL',why);this.tutorialState().done.guildTasks=true;return {seen:a.seen};}
  if(a?.type==='COMMISSION_ABANDON')return this.abandonCommission(String(a.quest||''));
+ if(a?.type==='COMMISSION_REPORT_ALL')return this.reportAllCommissions();
  return tutor.apply.call(this,a);
 };
 })(globalThis);

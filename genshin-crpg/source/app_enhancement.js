@@ -18,8 +18,11 @@
  // The cost: one row per thing paid, its picture, how many and how many you have (Mora too, with its coin).
  function costs(box,cost){if(!cost)return;const c=el('div','enhance-cost');c.append(el('small','enhance-sub','비용'));
   const have=Number(game.s.global.MORA),mora=el('div','enhance-material enhance-mora'),coin=window.currencyIcon?.('MORA','enhance-mora-icon');if(coin)mora.append(coin);
-  mora.append(el('span','',cost.mora.toLocaleString()+' 모라'),el('small',have<cost.mora?'stat-down lack':'','보유 '+have.toLocaleString()));c.append(mora);
-  for(const [id,n]of Object.entries(cost.items||{})){const line=el('div','enhance-material'),d=itemPresenter.itemDetail({item:id,quantity:n});line.append(itemGlyph(d),el('span','',d.name+' ×'+n),el('small',game.itemCount(id)<n?'stat-down lack':'','보유 '+game.itemCount(id)));c.append(line);}box.append(c);}
+  mora.append(el('span','',cost.mora.toLocaleString()+' 모라'),el('small',have<cost.mora?'stat-down lack':'','보유 '+have.toLocaleString()));if(have<cost.mora)pinButton(mora,'MORA',cost.mora);c.append(mora);
+  for(const [id,n]of Object.entries(cost.items||{})){const line=el('div','enhance-material'),d=itemPresenter.itemDetail({item:id,quantity:n}),lack=game.itemCount(id)<n;line.append(itemGlyph(d),el('span','',d.name+' ×'+n),el('small',lack?'stat-down lack':'','보유 '+game.itemCount(id)));if(lack)pinButton(line,id,n);c.append(line);}box.append(c);}
+ // 0.16.36 (TODO 7): a missing material is pinned from the window itself — the pin rides on the main screen's map and
+ // shows the way to where it is found (the same 📌 as 돌파·특성).
+ function pinButton(line,id,need){if(!window.CRPGTrack?.pin)return;const b=el('button','enhance-pin','📌');b.type='button';b.title='구하는 곳 고정하고 길 안내';b.setAttribute('aria-label',(id==='MORA'?'모라':safeName('14_ITEM_DB',id))+' 구하는 곳 고정');b.onclick=e=>{e.stopPropagation();window.CRPGTrack.pin(id,need);};line.append(b);}
  function quoteArgs(q,type){return {slot:q.slot,expectedLevel:q.level,expectedCap:q.cap,instanceRevision:q.instanceRevision};}
  // 0.16.31 (user: 강화가 끝나도 창은 그대로, 버튼은 「다시 강화」 하나 + 오른쪽 위 ✕): the result shows on top of the same window,
  // which then offers the next try (or the 돌파, or says the piece is at +12). 취소 and 확인 are gone; the window's ✕ closes it.

@@ -58,6 +58,9 @@ function mini(parent){
  const v=view();if(!v)return;const sec=mk('section','card task-mini'),head=mk('div','task-mini-head');
  const done=Number.isFinite(v.dailyTotal)?v.bonus.progress+Number(!!(v.bonus.claimed||v.bonus.done)):[...v.daily,v.bonus].filter(x=>x.claimed||x.done).length,total=Number.isFinite(v.dailyTotal)?v.dailyTotal+1:v.daily.length+1;
  head.append(mk('strong','','오늘의 임무'),mk('small','',done+' / '+total));
+ // 0.16.36 (TODO 7): the week and the commissions waiting for Catherine ride on the same line.
+ try{const wk=weeklyRows(v),wd=wk.filter(x=>x.claimed||x.done).length;if(wk.length){const w=mk('span','task-mini-chip','주간 '+wd+'/'+wk.length);w.title='이번 주 임무 '+wd+' / '+wk.length;head.append(w);}
+  const ready=(game.commissionEntries?.()||[]).filter(q=>q.accepted&&!q.state?.claimed&&q.state?.node==='READY_TO_CLAIM').length;if(ready){const c=mk('span','task-mini-chip ready','보고 '+ready);c.title='캐서린에게 보고할 의뢰 '+ready+'개';head.append(c);}}catch{}
  const more=button('임무판',()=>{showBoard=true;scope='daily';act('MENU',{screen:'QUEST'});});more.className='task-mini-open';head.append(more);sec.append(head);
  const list=mk('ul','task-mini-list');for(const x of [...v.daily,v.bonus]){const li=mk('li','task-mini-row '+(x.claimed?'claimed':x.lock?'locked':x.done?'ready':'progress'));const [label,cls]=KIND[x.icon]||['',''];li.title=x.name;li.append(mk('span','task-kind '+cls,label),mk('span','task-mini-name',x.short||x.name),mk('b','task-count',x.claimed?'받음':x.lock?x.lock:x.progress+'/'+x.goal));
   if(x.done&&!x.claimed){const b=claimButton(x);if(!x.here)b.textContent='보고';li.append(b);}list.append(li);}
@@ -86,14 +89,15 @@ function gained(r){
  if(!list.length)return;
  document.querySelector('.task-gain')?.remove();
  const wrap=mk('div','task-gain'),box=mk('div','task-gain-box'),items=mk('div','task-gain-items'),names=r.names||[];wrap.setAttribute('role','status');wrap.setAttribute('aria-live','polite');
- box.append(mk('strong','task-gain-title','임무 보상 획득'));if(names.length)box.append(mk('small','task-gain-from',names[0]+(names.length>1?' 외 '+(names.length-1)+'개':'')));
+ {const title=mk('strong','task-gain-title','임무 보상 획득');if(r.title)title.textContent=r.title;box.append(title);}if(names.length)box.append(mk('small','task-gain-from',names[0]+(names.length>1?' 외 '+(names.length-1)+'개':'')));
  for(const x of list){const c=mk('span','task-gain-item');c.title=x.name+' ×'+fmt(x.n);const pic=mk('span','task-gain-pic'+(x.grade?' g-'+x.grade:''));if(x.icon)pic.append(x.icon);c.append(pic,mk('b','task-gain-count','×'+fmt(x.n)),mk('small','task-gain-name',x.name));items.append(c);}
  box.append(items);wrap.append(box);document.body.append(wrap);
  let gone=false;const close=()=>{if(gone)return;gone=true;wrap.classList.add('out');setTimeout(()=>wrap.remove(),240);};wrap.onclick=close;setTimeout(close,3200);
  try{window.CRPGSound?.play('item_receive');}catch{}
 }
 if(typeof act==='function'){const priorAct=act;act=async function(type,params={}){const out=await priorAct(type,params);
- try{if(type==='TASK_CLAIM'&&out&&out.ok!==false){const r=[out.result,out.result?.result,out].find(x=>x&&Array.isArray(x.claimed));if(r)gained(r);}}catch(e){console.error('[tasks]',e);}
+ try{if(type==='TASK_CLAIM'&&out&&out.ok!==false){const r=[out.result,out.result?.result,out].find(x=>x&&Array.isArray(x.claimed));if(r)gained(r);}
+  /* 0.16.36 의뢰 모두 보고: the same band, for the commissions */else if(type==='COMMISSION_REPORT_ALL'&&out&&out.ok!==false){const r=[out.result,out.result?.result,out].find(x=>x&&Array.isArray(x.claimed));if(r)gained({...r,title:'의뢰 보상 획득'});}}catch(e){console.error('[tasks]',e);}
  return out;};}
 // A task that has just been done says so once, so the reward is not missed.
 let doneBefore=null,doneSave=null,doneTimer=0;
