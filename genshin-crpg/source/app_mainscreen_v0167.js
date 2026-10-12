@@ -90,7 +90,7 @@ function pagePane(pane,key){
   pages.push(on);
   // 0.16.36 (user: 「억지로 지울 필요 없어 그게 괜찮은것 같으면 센스있게 남겨도 돼」): a page that ends early because the next piece is a
   // whole card (a domain's gate, an event, a ley card) that is never cut keeps its room; the screen check reads this mark.
-  wholeNext.push(!!miss&&!miss.wrap.length&&miss.nodes.length===1&&miss.nodes[0].matches?.(CARD));
+  wholeNext.push(!!miss&&miss.nodes.length===1&&!!miss.nodes[0].matches?.(CARD));
  }
  if(pages.length<2){put(own);pager.remove();pane.classList.remove('paged');return;}
  let at=Math.min(pageOf[key]||0,pages.length-1);

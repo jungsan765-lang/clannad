@@ -1,7 +1,8 @@
 /* 0.16.29 고정 화면 (user: 「그냥 화면을 완전히 고정시켜버려 … 휴대폰도 동일」, 「휴대폰에 여전히 짤리는 구간이 있다, 전부 찾아내서 …
    앞으로 더 추가시켜도 짤리지 않게 구조를 확실히 지정하자」).
-   The game has two screens of one size each (index.html): html.stage-pc is 1280×720 (a computer or a tablet), html.stage-phone
-   is 760×352 (an installed phone). Every rule here is written for exactly that size, so what tests/test_screen_fit_v01629.mjs
+   The game has fixed screens (index.html): html.stage-pc is 1600×900 on a computer (0.16.40; it was 1280×720 drawn larger,
+   which made everything look like a phone) and 1280×720 on a tablet, html.stage-phone is 760×352 (an installed phone). Every
+   rule here is checked at exactly those sizes, so what tests/test_screen_fit_v01629.mjs
    sees is what every player sees; a screen that grows a scroll bar, a cut word or an "…" fails that test.
    Loaded last; the older responsive rules stay underneath for pages opened outside the frame at other sizes. */
 
@@ -1496,3 +1497,139 @@ html.stage-phone body.teyvat :where(#modal) .talent-dialog>.card>button{min-heig
 /* the character list's page numbers stay inside its column at every size */
 html.stage-pc body.teyvat .shell-col-roster .roster-pager.pane-pager{gap:3px;justify-content:center}
 html.stage-pc body.teyvat :where(#root) .shell-col-roster .roster-pager>button.pane-page{width:24px;height:24px;min-width:24px;min-height:24px}
+
+/* 0.16.40 (user: 「이거 아주 잠깐 나오는것도 좀 없애던가 로딩 칸을 표출하던가...」): the moment a life activity (채집·채광·사냥) is being
+   saved before its scene opens showed a wide 「채광 중 … 30초」 bar over the page head for a blink. It is now a small loading
+   box in the middle of the screen with a turning ring, and it only shows when the wait is long enough to notice (0.35s). */
+body.teyvat .life-work-status.pending-activity{position:fixed!important;left:50%;top:50%;transform:translate(-50%,-50%);z-index:60;display:flex;align-items:center;gap:12px;width:auto;min-width:0;max-width:min(360px,80vw);margin:0;padding:12px 20px;border-radius:12px;border:1px solid rgba(211,188,142,.45);background:rgba(12,16,26,.94);box-shadow:0 10px 40px rgba(0,0,0,.6);opacity:0;pointer-events:none;animation:pendingShow .2s ease .35s forwards}
+body.teyvat .life-work-status.pending-activity>:is(progress,small,span:not(.travel-mark)){display:none!important}
+body.teyvat .life-work-status.pending-activity>.travel-mark{font-size:0;width:22px;height:22px;flex:0 0 22px;border-radius:50%;border:3px solid rgba(243,223,174,.25);border-top-color:#f3dfae;animation:pendingSpin .8s linear infinite}
+body.teyvat .life-work-status.pending-activity>strong{font-size:.92rem;color:#f3dfae;white-space:nowrap}
+@keyframes pendingShow{to{opacity:1}}
+@keyframes pendingSpin{to{transform:rotate(360deg)}}
+html.stage-phone body.teyvat .life-work-status.pending-activity{padding:8px 14px;gap:8px}
+html.stage-phone body.teyvat .life-work-status.pending-activity>strong{font-size:.72rem}
+
+/* 0.16.40 (user's picture of the Liyue map: the bar for a chosen place covered a third of the map, see-through over the
+   places' names): the bar is one dark line over the map's bottom — the place's name and what it is, then the way there
+   and its time, the travel button and 목적지 해제 at the right. */
+body.teyvat .terrain-frame>.terrain-travel-dock{display:flex!important;align-items:center;flex-wrap:nowrap!important;gap:10px;padding:6px 8px 6px 12px!important;border-radius:9px;background:rgba(9,12,20,.94)!important;border:1px solid rgba(211,188,142,.35);max-height:none!important;overflow:visible!important}
+body.teyvat[data-region=liyue] .terrain-frame>.terrain-travel-dock{background:rgba(22,14,8,.95)!important}
+body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection{display:flex!important;flex-wrap:wrap;align-items:baseline;column-gap:10px;row-gap:0;flex:1 1 auto;min-width:0;margin:0;padding:0;background:none;border:0;white-space:normal!important;overflow:visible!important}
+body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>small:first-child{display:none!important}
+body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>strong{display:inline!important;font-size:.86rem;line-height:1.3;white-space:nowrap}
+body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>:is(span,p){display:inline!important;margin:0;font-size:.7rem;line-height:1.3;color:#cfd3dc}
+body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>span+span::before{content:none!important}
+body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>.terrain-lock-reason{color:#f3a99c}
+body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-route-chain{display:none!important}
+body.teyvat :where(#root) .terrain-frame>.terrain-travel-dock>button{flex:0 0 auto;max-width:none!important;white-space:nowrap;overflow:visible!important;margin:0}
+html.stage-phone body.teyvat .terrain-frame>.terrain-travel-dock{gap:5px;padding:3px 4px 3px 7px!important;border-radius:7px}
+html.stage-phone body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>strong{font-size:.64rem}
+html.stage-phone body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>:is(span,p){font-size:.5rem}
+html.stage-phone body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>:is(span,p):not(:nth-child(-n+3)):not(.terrain-lock-reason){display:none!important}
+html.stage-phone body.teyvat :where(#root) .terrain-frame>.terrain-travel-dock>button{min-height:24px!important;padding:1px 8px!important;font-size:.58rem!important}
+html.stage-phone body.teyvat :where(#root) .terrain-frame>.terrain-travel-dock>button.terrain-travel{padding-left:22px!important}
+
+/* 0.16.40 the map's head: the place's name never squeezes (it fell into a column of single letters beside the buttons);
+   when the head is narrow the buttons say their short words. The pinned material's chip rides on the map's top right. */
+body.teyvat .shell-loc-main .terrain-header{display:flex;align-items:center;flex-wrap:nowrap;gap:10px}
+body.teyvat .shell-loc-main .terrain-header>.terrain-title{flex:0 0 auto;min-width:0;max-width:45%}
+body.teyvat .shell-loc-main .terrain-header>.terrain-title>small{display:block;white-space:nowrap}
+body.teyvat .shell-loc-main .terrain-header>.terrain-title>h2{white-space:nowrap}
+body.teyvat .shell-loc-main .terrain-header>.terrain-shortcuts{flex:1 1 auto;min-width:0;display:flex;flex-wrap:nowrap;justify-content:flex-end;gap:6px}
+html.stage-pc body.teyvat .shell-loc-main{container-type:inline-size;container-name:locmain}
+@container locmain (max-width: 980px){
+ body.teyvat .shell-loc-main .terrain-shortcuts .nav-long{display:none}
+ body.teyvat .shell-loc-main .terrain-shortcuts .nav-short{display:inline}
+}
+body.teyvat .terrain-frame>.track-chip{position:absolute;top:8px;right:8px;z-index:6;background:rgba(9,12,20,.92);border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+body.teyvat[data-region=liyue] .terrain-frame>.track-chip{background:rgba(22,14,8,.94)}
+body.teyvat .terrain-frame>.track-chip .track-go small{max-width:none;overflow:visible;white-space:nowrap}
+html.stage-phone body.teyvat .terrain-frame>.track-chip{top:4px;right:4px}
+html.stage-phone body.teyvat :where(#root) .terrain-frame>.track-chip button.track-go{min-height:22px;padding:1px 6px 1px 2px;gap:3px}
+html.stage-phone body.teyvat .terrain-frame>.track-chip .track-icon{width:18px;height:18px}
+html.stage-phone body.teyvat .terrain-frame>.track-chip .track-go b{font-size:.58rem}
+html.stage-phone body.teyvat .terrain-frame>.track-chip .track-go small{font-size:.5rem}
+html.stage-phone body.teyvat :where(#root) .terrain-frame>.track-chip button.track-clear{width:18px;min-height:18px;font-size:.6rem}
+
+/* 0.16.40 the window of Liyue's areas: the list fills the window's room and turns pages */
+body.teyvat dialog#modal[open]:has(.liyue-area-browser){height:calc(100dvh - 40px);width:min(1000px,calc(100vw - 24px));max-width:min(1000px,calc(100vw - 24px))}
+body.teyvat dialog#modal>#modal-body:has(>.liyue-area-browser){display:flex;flex-direction:column;min-height:0}
+body.teyvat #modal-body>.liyue-area-browser{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+body.teyvat #modal-body>.liyue-area-browser>p.muted{margin:0;font-size:.76rem}
+body.teyvat #modal-body>.liyue-area-browser>.pane-pager{margin-top:auto}
+body.teyvat .liyue-area-browser .liyue-area-group{margin:0}
+body.teyvat .liyue-area-browser .liyue-area-group>h3{margin:0 0 4px;font-size:.84rem}
+body.teyvat .liyue-area-browser .liyue-browse-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+body.teyvat :where(#modal) .liyue-area-browser button.liyue-browse-place{min-height:0;margin:0;padding:6px 10px;display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left}
+body.teyvat :where(#modal) .liyue-area-browser button.liyue-browse-place::before{display:none!important}
+body.teyvat .liyue-area-browser .liyue-browse-place>strong{font-size:.8rem;line-height:1.25}
+body.teyvat .liyue-area-browser .liyue-browse-place>small{font-size:.66rem;line-height:1.25;opacity:.8}
+html.stage-phone body.teyvat .liyue-area-browser .liyue-browse-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}
+html.stage-phone body.teyvat :where(#modal) .liyue-area-browser button.liyue-browse-place{padding:2px 5px}
+html.stage-phone body.teyvat .liyue-area-browser .liyue-browse-place>strong{font-size:.58rem}
+html.stage-phone body.teyvat .liyue-area-browser .liyue-browse-place>small{font-size:.48rem}
+html.stage-phone body.teyvat #modal-body>.liyue-area-browser>p.muted{display:none}
+
+/* 0.16.40 (user's phone pictures: a field commission card running off the bottom, 호감도's stages in huge letters):
+   the field commission card is short — its title, one line of what to do, the reward and the buttons; the panel's own
+   heading and note are left to the tab. 호감도's stages are small rows: the stage, then why or when, one line. */
+body.teyvat .shell-loc-left .field-commission-panel>h2,body.teyvat .shell-loc-left .field-commission-panel>p.muted{display:none}
+body.teyvat .shell-loc-left .field-commission-card{display:flex;flex-direction:column;gap:4px;margin:0 0 6px;padding:8px 10px}
+body.teyvat .shell-loc-left .field-commission-card>.eyebrow{font-size:.62rem;letter-spacing:.04em;margin:0}
+body.teyvat .shell-loc-left .field-commission-card>h3{margin:0;font-size:.9rem;line-height:1.25}
+body.teyvat .shell-loc-left .field-commission-card>p{margin:0;font-size:.72rem;line-height:1.4}
+body.teyvat .shell-loc-left .field-commission-card>.reward-preview{margin:2px 0 0}
+body.teyvat :where(#root) .shell-loc-left .field-commission-card button{min-height:28px;padding:2px 12px;font-size:.76rem;margin:2px 0 0;width:auto;align-self:flex-start}
+html.stage-phone body.teyvat .shell-loc-left .field-commission-card{padding:4px 7px;gap:2px}
+html.stage-phone body.teyvat .shell-loc-left .field-commission-card>.eyebrow{display:none}
+html.stage-phone body.teyvat .shell-loc-left .field-commission-card>h3{font-size:.7rem}
+html.stage-phone body.teyvat .shell-loc-left .field-commission-card>p{font-size:.56rem;line-height:1.3}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .field-commission-card button{min-height:22px;padding:1px 9px;font-size:.58rem}
+body.teyvat .relations-body .relationship-stages{gap:3px;margin:3px 0 0}
+body.teyvat .relations-body .relationship-stages li{min-height:0;padding:3px 8px;gap:2px 8px;flex-wrap:nowrap;justify-content:flex-start;align-items:baseline;font-size:.74rem;line-height:1.35;border-radius:6px}
+body.teyvat .relations-body .relationship-stages li .stage-name{flex:0 0 auto;font-size:.74rem}
+body.teyvat .relations-body .relationship-stages li small{flex:1 1 auto;min-width:0;text-align:left;font-size:.68rem;line-height:1.35}
+body.teyvat :where(#root) .relations-body .relationship-stages li button{min-height:24px!important;padding:1px 10px;font-size:.7rem;margin:0 0 0 auto!important}
+html.stage-phone body.teyvat .relations-body .relationship-stages li{padding:2px 6px;font-size:.56rem}
+html.stage-phone body.teyvat .relations-body .relationship-stages li .stage-name{font-size:.56rem}
+html.stage-phone body.teyvat .relations-body .relationship-stages li small{font-size:.52rem}
+html.stage-phone body.teyvat :where(#root) .relations-body .relationship-stages li button{min-height:20px!important;padding:0 8px;font-size:.54rem}
+/* the main quest's two buttons on a phone: words on one line each, the buttons sharing the row */
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .main-objective button{white-space:nowrap;min-width:0;padding-left:8px;padding-right:8px}
+/* an opened 호감도 card takes the whole row (a page can then split it), its stages side by side */
+body.teyvat .relations-body .relationship-card:has(>details[open]){grid-column:1/-1}
+body.teyvat .relations-body .relationship-card>details[open]>.relationship-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+html.stage-phone body.teyvat .relations-body .relationship-card>details[open]>.relationship-stages{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}
+/* 0.16.40 Liyue's area guide on the main screen: its name, one line of what it is, the tags and a slim 살펴보기 */
+body.teyvat .shell-loc-left .liyue-local-guide{display:flex;flex-direction:column;gap:4px;padding:8px 12px;margin:0 0 6px}
+body.teyvat .shell-loc-left .liyue-local-guide>.eyebrow{margin:0;font-size:.64rem;letter-spacing:.04em}
+body.teyvat .shell-loc-left .liyue-local-guide>h2{margin:0;font-size:.92rem;line-height:1.25}
+body.teyvat .shell-loc-left .liyue-local-guide>p{margin:0;font-size:.74rem;line-height:1.4}
+body.teyvat .shell-loc-left .liyue-local-tags{display:flex;flex-wrap:wrap;gap:4px;margin:0}
+body.teyvat .shell-loc-left .liyue-local-tags>span{font-size:.66rem;padding:1px 7px;border-radius:4px;background:rgba(255,255,255,.07);border:1px solid rgba(211,188,142,.2)}
+body.teyvat :where(#root) .shell-loc-left .liyue-local-guide>button{align-self:flex-start;width:auto;min-height:28px;padding:2px 12px;font-size:.76rem;margin:2px 0 0}
+html.stage-phone body.teyvat .shell-loc-left .liyue-local-guide{padding:4px 7px;gap:2px}
+html.stage-phone body.teyvat .shell-loc-left .liyue-local-guide>.eyebrow{display:none}
+html.stage-phone body.teyvat .shell-loc-left .liyue-local-guide>h2{font-size:.7rem}
+html.stage-phone body.teyvat .shell-loc-left .liyue-local-guide>p{font-size:.56rem;line-height:1.3}
+html.stage-phone body.teyvat .shell-loc-left .liyue-local-tags>span{font-size:.5rem;padding:0 5px}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .liyue-local-guide>button{min-height:22px;padding:1px 9px;font-size:.58rem}
+/* the phone's travel bar: the button's words may take two short lines rather than run out of the bar */
+html.stage-phone body.teyvat :where(#root) .terrain-frame>.terrain-travel-dock>button.terrain-travel{white-space:normal!important;text-align:left;line-height:1.15;max-width:58%!important;flex:0 1 auto}
+html.stage-phone body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>:is(span,p){display:none!important}
+html.stage-phone body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>.terrain-lock-reason{display:inline!important}
+/* 0.16.40 on the computer's 1600×900 page the 편성 cards use its height (the tablet's 720 keeps the smaller pictures) */
+@media (min-height:860px){
+ html.stage-pc body.teyvat .party-cols .formation-slot .party-portrait{height:240px!important}
+ html.stage-pc body.teyvat .party-cols .formation-slot{padding-top:12px;padding-bottom:12px}
+ html.stage-pc body.teyvat .party-cols .formation-slot .role-effect{font-size:.72rem}
+}
+/* 0.16.40: the KO bar sits in the empty middle of the page's head (at the bottom it covered the bag's page buttons) */
+body.teyvat .recovery-float{bottom:auto!important;top:84px}
+html.stage-phone body.teyvat .recovery-float{top:49px;left:auto;right:10px;transform:none}
+/* … in the page head's row of buttons, beside 「이야기로 돌아가기」 */
+body.teyvat .shell-page-tools>.recovery-float.in-head{position:static!important;transform:none!important;top:auto;left:auto;right:auto;box-shadow:none;padding:3px 4px 3px 10px;gap:8px;margin:0 8px 0 0;border-radius:8px}
+html.stage-phone body.teyvat .shell-page-tools>.recovery-float.in-head>span{display:none}
+html.stage-phone body.teyvat .shell-page-tools>.recovery-float.in-head{padding:1px 2px 1px 6px;gap:4px;margin-right:4px}
+html.stage-phone body.teyvat :where(#root) .shell-page-tools>.recovery-float.in-head>button{min-height:22px;font-size:.56rem;padding:1px 8px}

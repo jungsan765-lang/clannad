@@ -11,7 +11,7 @@
 /* 0.16.29 고정 화면 (user: 「그냥 화면을 완전히 고정시켜버려. 이렇게 줄여도 화면 자체가 아예 고정되서 글이 줄었다 늘었다
    하지 않게. 휴대폰도 동일」, shown with KanColle). The game page has exactly one size and runs inside a frame of that size,
    so nothing in it ever moves, wraps or changes size with the window:
-    - a computer: 1280×720 at its own size (설정 → 화면 배율 100/125/150%). A smaller window gets scroll bars around the game,
+    - a computer: 1600×900 (0.16.40; 설정 → 화면 배율 75/100/125/150%, 125% = its own size). A smaller window gets scroll bars around the game,
       like KanColle; a larger one shows it in the middle. The browser's own zoom (Ctrl +/−) still works.
     - an installed phone (or ?display=app): 760×352, enlarged once to fill the screen inside its safe area. The keyboard
       never shrinks it: the game only slides up so the box being typed in stays above the keyboard.
@@ -37,7 +37,10 @@
   var desk=mm('(hover:hover) and (pointer:fine)'),side=Math.min(screen.width||0,screen.height||0)||Math.min(innerWidth,innerHeight);
   var phone=!desk&&side>0&&side<600,installed=mm('(display-mode: fullscreen)')||mm('(display-mode: standalone)')||navigator.standalone===true||q.get('display')==='app';
   if(phone&&!installed)return;
-  var SW=phone?760:1280,SH=phone?352:720;
+  // 0.16.40 (user: 「이전엔 완전 PC 느낌이 났는데 왜이렇게 글씨들도 존나 크고 … 여전히 휴대폰으로 하는 느낌」): a computer lays the game
+  // out on a 1600×900 page — the letters at a computer's own size with the room around them — instead of 1280×720 drawn
+  // 25% larger (every letter and button grew with it, like a phone). A tablet keeps 1280×720.
+  var SW=phone?760:desk?1600:1280,SH=phone?352:desk?900:720;
   q.set('frame','inner');q.set('stage',phone?'phone':'pc');if(phone)q.set('display','app');
   var src=location.pathname+'?'+q.toString()+location.hash;
   window.CRPGFrameHost=function(){
@@ -47,10 +50,12 @@
    var mode='zoom',s=1,x=0,y=0,lift=0,room=null;
    // 0.16.39 (user: 「화면 크기는 125%를 기본으로 두자 그게 FHD 크기에 적당한 것 같아. 150%는 QHD 크기에 적당한 느낌」): 75/100/125/150%,
    // and with nothing chosen yet 125% — or the largest that still fits a smaller window, so a laptop gets no scroll bars.
-   var ZOOM={'75':.75,'100':1,'125':1.25,'150':1.5};
+   // The choices keep their sizes on the screen (125% = 1600×900, the size for a full-HD monitor; 150% = 1920×1080 for QHD);
+   // the 1600×900 page is drawn at 125%/125 of its size. With nothing chosen: 125%, or exactly what fits a smaller window.
+   var ZOOM={'75':.6,'100':.8,'125':1,'150':1.2};
    window.CRPGFrameZooms=[['75','75%'],['100','100%'],['125','125%'],['150','150%']];
-   var auto=function(){var z=[1.25,1,.75];for(var i=0;i<z.length;i++)if(innerWidth>=SW*z[i]&&innerHeight>=SH*z[i])return z[i];return .75;};
-   window.CRPGFrameDefaultZoom=function(){var z=auto();return z===1.25?'125':z===1?'100':'75';};
+   var auto=function(){return Math.max(.6,Math.min(1,innerWidth/SW,innerHeight/SH));};
+   window.CRPGFrameDefaultZoom=function(){var z=auto();return z>=1?'125':z>=.8?'100':'75';};
    var chosen=function(){try{return ZOOM[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||auto();}catch(e){return auto();}};
    var inset=function(){var c=safe&&getComputedStyle(safe),n=function(v){return parseFloat(v)||0;};return c?{l:n(c.paddingLeft),r:n(c.paddingRight),t:n(c.paddingTop),b:n(c.paddingBottom)}:{l:0,r:0,t:0,b:0};};
    var inner=function(){try{return f.contentDocument;}catch(e){return null;}};

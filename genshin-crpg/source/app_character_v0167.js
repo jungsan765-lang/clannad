@@ -148,7 +148,9 @@ for(const name of ['openCharacterAscension','openCharacterTalent']){const prior=
  window[name]=function(...args){const out=prior.apply(this,args);try{const m=document.getElementById('modal');if(m)annotate(m);}catch(e){console.error('[character]',e);}return out;};}
 // The pinned material rides on the main screen's map head: picture, 보유/필요, where; pressing it shows the way again.
 function pinChip(){
- const head=document.querySelector('.shell-loc-main .terrain-shortcuts,.terrain-shortcuts');if(!head||head.querySelector('.track-chip'))return;
+ // 0.16.40 (user: 「뭐 저런 고정같은것도 새로운 위치에다가 만들던가」): the chip rides on the map's top-right corner, not in the map's head
+ // (there it squeezed 「현재 위치 · 리월」 into a column of single letters).
+ const head=document.querySelector('.shell-loc-main .terrain-frame,.terrain-frame');if(!head||head.querySelector(':scope>.track-chip'))return;
  const p=pinned();if(!p?.item||!game)return;const have=game.itemCount?.(p.item)||0,done=p.need>0&&have>=p.need;
  // 0.16.30: the way is worked out again from where the player is now (the nearest open place), not where they pinned it.
  try{const now=materialSource(p.item);if(now?.map){p.map=now.map;p.label=now.label;}}catch{}
@@ -159,7 +161,7 @@ function pinChip(){
  go.append(mk('b','',p.need?fmt(have)+'/'+fmt(p.need):fmt(have)),mk('small','',done?'다 모았습니다':(near||itemName(p.item))));
  go.title=itemName(p.item)+(p.label?' · '+p.label:'')+(p.map?' · 눌러서 길 안내':'');go.onclick=()=>{if(p.map)guide(p.map);};go.disabled=!p.map&&!done;
  const x=mk('button','track-clear','✕');x.type='button';x.setAttribute('aria-label','고정 해제');x.onclick=()=>{savePin(null);chip.remove();try{render();}catch{}};/* the map's gold marks go with it */
- chip.append(go,x);head.prepend(chip);
+ chip.append(go,x);head.append(chip);
 }
 
 const prior=render;

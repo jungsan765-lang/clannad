@@ -123,6 +123,8 @@ const BOXES=[
  ['dialog#modal[open] .member-pick-grid',()=>{const g=document.querySelector('dialog#modal[open] .member-pick-grid');if(g)window.CRPGMainScreen?.pagePane?.(g,'pick|'+(document.querySelector('#modal-body>h1')?.textContent||''));}],
  // 0.16.31 (user: 장비 고르기 창이 「휠이 두 개」처럼 따로 스크롤): the gear to pick turns pages in the window's own room.
  ['dialog#modal[open] .gear-options',()=>{const g=document.querySelector('dialog#modal[open] .gear-options');if(g)window.CRPGMainScreen?.pagePane?.(g,'gear|'+(document.querySelector('#modal-body>h1')?.textContent||''));}],
+ // 0.16.40 (user's picture: 「녹화 연못 · 물가」 cut at the window's bottom): Liyue's 27 areas turn pages in their window.
+ ['dialog#modal[open] .liyue-area-browser',()=>{const b=document.querySelector('dialog#modal[open] .liyue-area-browser');if(b)window.CRPGMainScreen?.pagePane?.(b,'liyue-areas');}],
  ['dialog#modal[open]>#modal-body',()=>fitBox(document.getElementById('modal-body'))]
 ];
 // Every window closes with one ✕ at its top right (the word 닫기 stays its name for the keyboard and screen readers).
@@ -137,8 +139,29 @@ function roomLeft(box){const pager=box.querySelector(':scope>.pane-pager');if(!p
 function guard(){queued=0;for(const [sel,fix] of BOXES)for(const box of document.querySelectorAll(sel)){if(!box.clientHeight)continue;
  const room=roomLeft(box),sign=box.scrollHeight+':'+box.clientHeight+':'+box.childElementCount+':'+room;if(box.scrollHeight<=box.clientHeight+1&&!room){seen.set(box,sign);continue;}
  if(seen.get(box)===sign)continue;seen.set(box,sign);try{fix();}catch(e){console.error('[screen]',e);}}}
-const soon=()=>{if(!queued)queued=requestAnimationFrame(()=>requestAnimationFrame(guard));};
+// 0.16.40 (user: 「저렇게 되는것들은 도대체 언제 고칠거냐? 그냥 전체적으로 체크해야되는거 아니야?」): a safety net under every screen.
+// Any fixed box still running past its bottom after the lists above — a card opened wider, a screen nobody listed — turns
+// pages when it is a column of pieces, and otherwise steps its letters down until it fits, so nothing is ever cut on a
+// player's screen. Each time the net is needed it is noted (CRPGScreenSafety) and the screen check fails on it, so the
+// real cause still gets fixed.
+const SAFE='#root :is(.shell-pane:not([hidden]),.shell-page-body,.shell-region,.shell-col-side,.shell-col-main,.relations-body),dialog#modal[open]>#modal-body';
+function safety(){
+ for(const box of document.querySelectorAll(SAFE)){
+  if(!box.clientHeight||box.scrollHeight<=box.clientHeight+1||box.querySelector('.pane-pager,.roster-pager'))continue;
+  if(box.closest('.combat-panel,.terrain-navigation,.cp-battle,.ch-overlay,.handbook'))continue;
+  const cs=getComputedStyle(box);if(!/hidden|clip/.test(cs.overflowY))continue;
+  const stacked=/^(block|flow-root)$/.test(cs.display)||/flex/.test(cs.display)&&cs.flexDirection.startsWith('column');
+  (window.CRPGScreenSafety??=[]).push((document.body.dataset.shellScreen||'')+' '+box.className.split(' ').slice(0,3).join('.')+' '+(box.scrollHeight-box.clientHeight)+'px');
+  if(stacked)try{window.CRPGMainScreen?.pagePane?.(box,'safety|'+(document.body.dataset.shellScreen||'')+'|'+box.className);}catch(e){console.error('[screen safety]',e);}
+  if(box.scrollHeight>box.clientHeight+1&&!box.querySelector(':scope>.pane-pager'))fitBox(box);
+ }
+}
+// The net runs after the screen's own pagers have had their turn (they run a frame or two after each change).
+let safetyTimer=0;const guardAll=()=>{guard();clearTimeout(safetyTimer);safetyTimer=setTimeout(safety,450);};
+const soon=()=>{if(!queued)queued=requestAnimationFrame(()=>requestAnimationFrame(guardAll));};
 new MutationObserver(soon).observe(document.documentElement,{childList:true,subtree:true});
+// A fold-out opened or closed (호감도's stages) changes a box's height without adding anything: lay it out again.
+document.addEventListener('toggle',()=>{for(const b of document.querySelectorAll('.paged'))seen.delete(b);soon();},true);
 document.addEventListener('load',e=>{if(e.target?.tagName==='IMG')soon();},true);
 addEventListener('resize',soon);
 const prior=render;

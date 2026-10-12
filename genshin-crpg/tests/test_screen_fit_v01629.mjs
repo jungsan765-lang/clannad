@@ -27,7 +27,8 @@ await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.
 const CLOCK_SHIFT=Date.parse('2026-10-07T12:00:00+09:00')-Date.now();
 {const RealDate=Date;class ShiftedDate extends RealDate{constructor(...a){if(a.length)super(...a);else super(RealDate.now()+CLOCK_SHIFT);}static now(){return RealDate.now()+CLOCK_SHIFT;}}globalThis.Date=ShiftedDate;}
 const fixture=onlineFixture();await fixture.start();const INITIAL=fixture.read().state;// the new account as it starts (0.16.32 early views)
-const ONLY=(process.env.FIT_ONLY||'').split(',').filter(Boolean),SIZES=[{name:'pc',width:1280,height:720},{name:'phone',width:760,height:352},
+const ONLY=(process.env.FIT_ONLY||'').split(',').filter(Boolean),SIZES=[// 0.16.40: a computer's page is 1600×900; a tablet's stays 1280×720
+ {name:'pc',width:1600,height:900},{name:'phone',width:760,height:352},{name:'tablet',width:1280,height:720},
  // 0.16.36 (TODO 8): the other sizes the user plays at, on demand (FIT_EXTRA=1): a phone of 748×360 and a 1440×900 monitor.
  ...(process.env.FIT_EXTRA?[{name:'phone748',width:748,height:360},{name:'pc1440',width:1440,height:900}]:[])].filter(s=>!process.env.FIT_SIZE||process.env.FIT_SIZE===s.name);
 // A player well into the game: every companion, a full party, Mora, in Mondstadt.
@@ -45,6 +46,8 @@ function playerState(){
 // Runs in the page: everything on screen that a player could not read whole.
 const SCAN=()=>{
  const W=innerWidth,H=innerHeight,out=[];
+ // 0.16.40: the game's safety net (app_screen_v01629.js) kept a box from being cut — the screen still needs its own fix.
+ for(const u of window.CRPGScreenSafety||[])out.push('safety net used · '+u);window.CRPGScreenSafety=[];
  const name=e=>e.tagName.toLowerCase()+(e.id?'#'+e.id:'')+(typeof e.className==='string'&&e.className.trim()?'.'+e.className.trim().split(/\s+/).slice(0,2).join('.'):'');
  const text=e=>(e.textContent||'').trim().replace(/\s+/g,' ').slice(0,22);
  // Moving pictures and the travel map (dragged around on purpose) are not reading matter.
@@ -226,6 +229,26 @@ try{
    const s=playerState();fixture.seed(s.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    await view('story-page',`(async()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());await __go('STORY');})()`);
    await view('shop-bulk',`(async()=>{await __go('LOCATION');const k=game.placeCatalog().find(e=>e.merchant==='MRC_MOND_RESTAURANT');if(k&&!game.s.placeVisit)await act('PLACE_ENTER',{place:k.id,mode:'SHOP'});await new Promise(r=>setTimeout(r,300));if(typeof showPurchaseQuantity==='function')showPurchaseQuantity('STK_MOND_SARA_EGG');})()`);
+  }
+  // 0.16.40 (user: 「저렇게 되는것들은 도대체 언제 고칠거냐? 그냥 전체적으로 체크해야되는거 아니야?」 with pictures of screens this
+  // check never opened): a commission being done where the party stands, 호감도 with every card opened, and a Liyue field map
+  // with a pinned material, a far destination chosen and the window of Liyue's areas.
+  if(!ONLY.length||ONLY.some(o=>/^(field-commission|relations-open|liyue)/.test(o))){
+   await page.evaluate(()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());document.querySelector('.pm-close,.shell-menu-close')?.click();}).catch(()=>{});
+   {const x=playerState();const k=x.placeCatalog().find(e=>e.entity==='NPC_MOND_KATHERYNE');try{x.action('PLACE_ENTER',{place:k.id,mode:'TALK'});}catch{}
+    try{x.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});x.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});}catch{}
+    const field=q=>{const d=q.definition||{};return d.map_id&&(d.choices||[]).some(c=>!['leave','requirements'].includes(c.id));};let target=x.commissionEntries().find(q=>q.accepted&&!q.state?.claimed&&field(q))?.definition.map_id||null;
+    if(!target)for(const q of x.commissionEntries().filter(q=>!q.accepted&&field(q)&&!x.questUnlockReason?.(q.row[0]))){try{x.action('COMMISSION_ACCEPT',{quest:q.row[0]});target=q.definition.map_id;break;}catch{}}
+    try{if(x.s.placeVisit)x.action('PLACE_LEAVE',{});}catch{}
+    if(target){try{x.action('OPERATOR_DEBUG',{op:'travel',map:target});}catch(e){console.error('field commission',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+     await view('field-commission',`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab','todo');})()`);}else console.error('field commission: none to take');}
+   {const x=playerState();fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+    await view('relations-open',`(async()=>{await __go('RELATIONS');[...document.querySelectorAll('.relationship-toggles button')].find(b=>/펼치기/.test(b.textContent))?.click();await new Promise(r=>setTimeout(r,400));})()`);}
+   {const x=playerState();try{x.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_LY_DETAIL_DIHUA'});}catch(e){console.error('liyue map',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+    const liyueMap=`(async()=>{await __go('LOCATION');for(const id of game.tables['14_ITEM_DB'].keys()){localStorage.setItem('crpg-track-v1',JSON.stringify({item:id,need:765}));if((window.CRPGTrack?.places?.()||[]).some(m=>/^MAP_(LY|LIYUE)/.test(m)))break;}render();await new Promise(r=>setTimeout(r,200));const far=[...game.tables['32_MAP_DB'].keys()].find(m=>/^MAP_LIYUE_HARBOR$/.test(m));if(far&&typeof NavigationUI!=='undefined')NavigationUI.choose(far);await new Promise(r=>setTimeout(r,300));})()`;
+    await view('liyue-map',liyueMap);
+    await view('liyue-areas',`(async()=>{await __go('LOCATION');document.querySelector('.liyue-area-open')?.click();await new Promise(r=>setTimeout(r,300));})()`);
+    await page.evaluate(()=>{try{localStorage.removeItem('crpg-track-v1');if(typeof NavigationUI!=='undefined')NavigationUI.choose(null);render();}catch{}});}
   }
   // 0.16.32: an early journey as players see it (the 검증 account as it starts: a forest road, the story's next place,
   // a region event, level-ups after a fight), not only the finished town.

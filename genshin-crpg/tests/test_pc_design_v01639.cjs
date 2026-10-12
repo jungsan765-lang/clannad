@@ -10,7 +10,7 @@ const css=src('screen_v01629.css');
 check('화면 배율 75/100/125/150, 125% first or the largest that fits',()=>{
  const html=src('index.html');
  assert(html.includes("window.CRPGFrameZooms=[['75','75%'],['100','100%'],['125','125%'],['150','150%']]"));
- assert(html.includes('var auto=function(){var z=[1.25,1,.75];'));
+ assert(html.includes('var auto=function(){return Math.max(.6,Math.min(1,innerWidth/SW,innerHeight/SH));};'));
  assert(src('app_shell.js').includes("auto=window.parent.CRPGFrameDefaultZoom?.()||'125'"));
 });
 

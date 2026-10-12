@@ -597,6 +597,12 @@ if(typeof GameEffects!=='undefined'){
  if(typeof GameEffects.showAction==='function'){const prior=GameEffects.showAction;GameEffects.showAction=function(frame,...args){unstretch();const out=prior.call(this,frame,...args);try{onShow(frame,this);}catch(e){console.warn('skill fx',e);}return out;};}
  // The beat after a burst lands is a little longer (the playback reads it when it schedules the next fighter).
  if(typeof GameEffects.reschedule==='function'){const prior=GameEffects.reschedule;GameEffects.reschedule=function(...args){if(linger&&this.resolve)this.beatDuration=(Number(this.beatDuration)||650)+linger;linger=0;return prior.apply(this,args);};}
+ // 0.16.40 (user: 「전투가 끝나도 계속 스킬 진행되는 버그도 좀 고쳐」): when the playback reaches 「전투 승리」 or 「전투 종료」, every
+ // effect still running and every field look on the board (a rose orbiting the foes, a rain of arrows) stops and goes —
+ // the board's looks were only redrawn while a fight was in hand, so the last round's stayed through the result.
+ if(typeof GameEffects.show==='function'){const prior=GameEffects.show;GameEffects.show=function(event,...args){
+  if(['victory','defeat'].includes(event?.kind)){try{stopAll();unstretch();current=null;linger=0;for(const old of document.querySelectorAll('.sfx-card,.sfx-zone'))old.remove();}catch(e){console.warn('skill fx',e);}}
+  return prior.call(this,event,...args);};}
  // Skipped or replaced, everything stops; at the playback's own end the last effects finish (unless the fight is over).
  if(typeof GameEffects.cancel==='function'){const prior=GameEffects.cancel;GameEffects.cancel=function(...args){const natural=this.active&&!this.resolve&&!!battle();unstretch();current=null;linger=0;if(held){held=false;for(const a of running){try{a.play();}catch{}}}if(!natural)stopAll();else sweepLayer();return prior.apply(this,args);};}
 }
