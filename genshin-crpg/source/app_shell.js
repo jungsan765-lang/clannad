@@ -659,7 +659,8 @@ if(typeof settingsControls==='function'){const priorSettings=settingsControls;se
  let zooms=null;try{zooms=window.parent!==window?window.parent.CRPGFrameZooms:null;}catch{}
  if(document.documentElement.classList.contains('crpg-stage-pc')&&Array.isArray(zooms)){
   const row=mk('div','settings-row shell-ui-scale'),copy=mk('div','copy');copy.append(mk('p','','화면 배율'));
-  const value=zooms.some(([v])=>v===settings.uiScale)?settings.uiScale:'100';
+  let auto='125';try{auto=window.parent.CRPGFrameDefaultZoom?.()||'125';}catch{}
+  const value=zooms.some(([v])=>v===settings.uiScale)?settings.uiScale:auto;
   const select=choiceTiles({label:'화면 배율',options:zooms.map(([value,label])=>({value,label})),value,onChange:v=>{settings.uiScale=v;persistSettings();try{window.parent.CRPGFrameFit?.();}catch{}}});
   row.append(copy,select);p.prepend(row);
  }

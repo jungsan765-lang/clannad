@@ -45,9 +45,13 @@
    f.src=src;f.style.width=SW+'px';f.style.height=SH+'px';
    // CSS zoom draws the enlarged game crisply; where zoom does not enlarge the frame and its page together, transform.
    var mode='zoom',s=1,x=0,y=0,lift=0,room=null;
-   var ZOOM={'125':1.25,'150':1.5};
-   window.CRPGFrameZooms=[['100','100%'],['125','125%'],['150','150%']];
-   var chosen=function(){try{return ZOOM[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||1;}catch(e){return 1;}};
+   // 0.16.39 (user: 「화면 크기는 125%를 기본으로 두자 그게 FHD 크기에 적당한 것 같아. 150%는 QHD 크기에 적당한 느낌」): 75/100/125/150%,
+   // and with nothing chosen yet 125% — or the largest that still fits a smaller window, so a laptop gets no scroll bars.
+   var ZOOM={'75':.75,'100':1,'125':1.25,'150':1.5};
+   window.CRPGFrameZooms=[['75','75%'],['100','100%'],['125','125%'],['150','150%']];
+   var auto=function(){var z=[1.25,1,.75];for(var i=0;i<z.length;i++)if(innerWidth>=SW*z[i]&&innerHeight>=SH*z[i])return z[i];return .75;};
+   window.CRPGFrameDefaultZoom=function(){var z=auto();return z===1.25?'125':z===1?'100':'75';};
+   var chosen=function(){try{return ZOOM[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||auto();}catch(e){return auto();}};
    var inset=function(){var c=safe&&getComputedStyle(safe),n=function(v){return parseFloat(v)||0;};return c?{l:n(c.paddingLeft),r:n(c.paddingRight),t:n(c.paddingTop),b:n(c.paddingBottom)}:{l:0,r:0,t:0,b:0};};
    var inner=function(){try{return f.contentDocument;}catch(e){return null;}};
    var typing=function(){var a=inner()&&inner().activeElement;return !!a&&(a.tagName==='TEXTAREA'||a.isContentEditable||a.tagName==='INPUT'&&!/^(checkbox|radio|range|button|submit|reset|color|file|image)$/i.test(a.type||'text'));};

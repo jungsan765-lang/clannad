@@ -140,7 +140,8 @@ function pin(id,need){const src=materialSource(id);savePin({item:id,need:Number(
 // The cost tiles of 돌파 and 특성 강화 (app_growth_v01522.js marks each with its item) get their source and a pin.
 function annotate(box){
  for(const t of box.querySelectorAll('.growth-cost[data-item]')){if(t.querySelector('.growth-cost-src'))continue;const id=t.dataset.item,src=materialSource(id);if(!src)continue;
-  const line=mk('div','growth-cost-src');line.append(mk('small','',src.label));
+  // 0.16.39: the nearest place only (it was cut to 「사냥 · 바람…」); every place rides on the tile's title and the map's gold rings.
+  const line=mk('div','growth-cost-src'),near=String(src.label).split(',')[0]+(String(src.label).includes(',')?' 외':''),words=mk('small','',near);words.title=src.label;line.append(words);
   const b=mk('button','growth-cost-pin','📌');b.type='button';b.title=src.map?'고정하고 길 안내':'고정';b.setAttribute('aria-label',itemName(id)+' 구하는 곳 고정');b.onclick=e=>{e.stopPropagation();pin(id,t.dataset.need);};line.append(b);t.append(line);}
 }
 for(const name of ['openCharacterAscension','openCharacterTalent']){const prior=window[name];if(typeof prior!=='function')continue;

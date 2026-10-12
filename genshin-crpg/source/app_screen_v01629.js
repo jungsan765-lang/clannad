@@ -68,7 +68,17 @@ function presetWindow(){const bar=document.querySelector('.party-cols .shell-pre
 function followPresets(){if(partyWindow!=='presets'||!document.getElementById('modal')?.open)return;const bar=document.querySelector('.party-cols .shell-presets'),box=document.querySelector('#modal-body .preset-window');if(bar&&box)box.replaceChildren(bar);}
 // The computer screen keeps its own cards with the 프리셋 and 진형 beside them (user: 「편성은 컴퓨터쪽은 이전꺼가 확실히
 // 좋았는데..」); the big pictures are the phone's.
+// 0.16.39 (user: 「편성 담당부분 효과도 모르겠으니 그것도 좀 적어두면 좋겠고」): the computer's side column lists the five roles and what
+// each does, the ones in the party lit with how many hold it (the same words as the cards' titles and the phone's window).
+function roleLegend(){
+ const side=document.querySelector('.party-cols .shell-col-side');if(!side||stage()!=='pc'||side.querySelector('.role-legend'))return;
+ const used={};for(const p of game.s.party||[])if(p.active&&p.type==='CHAR')used[p.tactic||'균형']=(used[p.tactic||'균형']||0)+1;
+ const box=mk('section','card role-legend');box.append(mk('h2','','담당'));const list=mk('ul','role-legend-list');
+ for(const t of game.partyTactics?.()||[]){const r=roleOf(t),li=mk('li',used[t]?'on':'');li.append(mk('b','',String(r.label||t).replace(/\s*담당$/,'')),mk('span','',r.text||''));if(used[t])li.append(mk('small','role-legend-count',used[t]+'명'));list.append(li);}
+ box.append(list);side.append(box);
+}
 function partyCards(){
+ try{roleLegend();}catch(e){console.error('[role legend]',e);}
  const cols=document.querySelector('.party-cols');if(!cols||stage()!=='phone')return;cols.classList.add('party-styled');
  const tools=document.querySelector('.shell-page-head .shell-page-tools'),v=game.formationView?.();
  if(tools&&v&&!tools.querySelector('.party-formation-open')){const cur=v.formations.find(f=>f.selected);

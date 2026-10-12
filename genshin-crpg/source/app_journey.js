@@ -64,11 +64,17 @@ const RESONANCE_WORDS=['희미한 공명','공명이 느껴진다','공명이 �
 function resonanceIcon(item){const path=typeof MANIFEST!=='undefined'?MANIFEST.itemIcons?.icons?.[item]?.path:null;if(path){const i=el('img','resonance-icon');i.src=path;i.alt='';i.draggable=false;return i;}return el('span','resonance-icon mark','◈');}
 function resonanceMark(){
  const frame=document.querySelector('.shell-loc-main .terrain-frame');if(!frame||!game||game.s.runtime||game.s.placeVisit)return;
- frame.querySelector(':scope>.resonance-mark')?.remove();
+ frame.querySelector('.resonance-mark')?.remove();
  let v=null;try{v=game.resonanceView?.();}catch{}if(!v)return;
  const here=v.level===3,mark=el(here?'button':'div','resonance-mark lv'+v.level);if(here){mark.type='button';mark.onclick=()=>catchGame(v);}
- mark.title=RESONANCE_WORDS[v.level]+' · 이 지역에 남은 눈동자 '+v.left+'개';mark.setAttribute('aria-label',mark.title);
- mark.append(resonanceIcon(v.item),el('small','',here?'살펴보기':RESONANCE_WORDS[v.level]));frame.append(mark);
+ mark.title='신의 눈동자 공명 · '+RESONANCE_WORDS[v.level]+' · 이 지역에 남은 눈동자 '+v.left+'개'+(here?' · 눌러서 잡기':' · 가까이 갈수록 강해집니다');mark.setAttribute('aria-label',mark.title);
+ // 0.16.39 (user: 「눈동자 저거 뭐야...」 — it sat over the map's corner, on the names and the travel bar): one chip in the map's
+ // own button row that says what it is — 「신의 눈동자 · 공명이 강해진다」, and 「신의 눈동자 잡기」 when it is right here.
+ const words=el('span','resonance-words');words.append(el('b','resonance-name','신의 눈동자'),el('small','',here?'잡기':RESONANCE_WORDS[v.level]));
+ mark.append(resonanceIcon(v.item),words);
+ const bar=frame.querySelector(':scope>.terrain-controls');(bar||frame).append(mark);
+ // drawn before the map's button row: it moves there on the next frame
+ if(!bar)requestAnimationFrame(()=>{const later=frame.querySelector(':scope>.terrain-controls');if(later&&mark.isConnected&&mark.parentElement!==later)later.append(mark);});
 }
 function catchGame(v){
  if(game.actionReason('OCULUS_RESONANCE',{point:v.point})){window.CRPGShell?.toast?.(game.actionReason('OCULUS_RESONANCE',{point:v.point}));return;}

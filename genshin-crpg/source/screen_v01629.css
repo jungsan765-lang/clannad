@@ -70,6 +70,12 @@ html.stage-pc body.teyvat .shell-loc-main .terrain-destinations>h3{flex:0 0 auto
 html.stage-pc body.teyvat .shell-loc-main .terrain-destination-list{display:flex;flex-direction:column;gap:6px}
 html.stage-pc body.teyvat .shell-loc-main .terrain-destination{margin:0;padding:8px 10px;min-height:0}
 html.stage-pc body.teyvat .shell-loc-main .terrain-destination .terrain-card-copy small{line-height:1.3}
+/* 0.16.39 (user chose 「지우고 왼쪽 넓히기」): the computer drops 「어디로 갈까」 like the phone — places are chosen on the map (their
+   circles and names) and travelled to from the bar over it; the left column and the map share its room. */
+html.stage-pc body.teyvat .panel.shell-loc{grid-template-columns:440px minmax(0,1fr)}
+html.stage-pc body.teyvat .shell-loc-main .terrain-layout{display:flex!important;flex-direction:column;min-height:0}
+html.stage-pc body.teyvat .shell-loc-main .terrain-destinations{display:none}
+html.stage-pc body.teyvat .shell-loc-main .terrain-map-column{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
 
 /* ---------- 메인 화면 · 휴대폰: 「어디로 갈까」 없이 지도와 넓은 왼쪽 칸 ---------- */
 /* (user: 「어디로 갈까 부분 휴대폰에서는 과감하게 지우고, 왼쪽을 늘려도 될 것 같다. 나도 평소엔 지도를 이용해서 이동하는 편이라」) */
@@ -1321,3 +1327,172 @@ html.stage-phone body.teyvat .shell-page-body .journey-objective>p{font-size:.64
 html.stage-phone body.teyvat .shell-page-body .journey-objective small{font-size:.6rem;line-height:1.3}
 html.stage-phone body.teyvat :where(#root) .shell-page-body .journey-objective button{min-height:28px;padding:2px 12px;font-size:.64rem}
 html.stage-phone body.teyvat :where(#root) .shell-page-body>button[data-action="MENU"]{min-height:28px;padding:2px 12px;font-size:.64rem}
+
+/* ====================================================================================================================
+   0.16.39 컴퓨터 화면 디자인 (user: 「컴퓨터쪽 화면은 뭔가.. 핸드폰같은 느낌이 됐는데...?」, 「저렇게 동글동글만 하니까 너무 이상한건가...?
+   아니면 크기가 너무 커서 비대해보이는 문제인가?」, 「버튼은 존나 큰데 나머지가 작아서 느낌 이상하지?」): the computer gets its own
+   panel look instead of the phone's touch pills — corners of 7px, buttons a size that matches their words, a small gold
+   diamond instead of the round dot on the main buttons. The battle screen, the HUD's icon circles and the map's circles
+   keep their own shapes. Phone rules are untouched.
+   ==================================================================================================================== */
+:where(html.stage-pc) body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button{border-radius:7px}
+html.stage-pc body.teyvat :where(#root,#modal) :is(.shell-back,.shell-leave,.shell-tab,.shell-subtabs button,.terrain-view,.terrain-controls button,.terrain-shortcuts button,.task-mini-open,.cm-go,.fit-more,.wait-controls button,.terrain-travel,.main-objective button,.journal-tabs button,.bag-tabs button,.bag-trade-filter button,.task-claim,.re-choice>button,.re-choices>button,.re-more,.life-go,.domain-go,.qty-stepper>button,.enhance-go,.relationship-toggles>button,.objective-pin-actions>button,.commission-abandon-ask,.commission-abandon>button,.task-scope,.premium-cons-open,.premium-talent,.party-gear,.shell-preset-chip,.material-source+button,.life-card-where button,.inn-foot>button,.purchase-foot>button,.cm-all>button,.result-retry>button,.shell-result-actions>button,.enhance-pin){border-radius:7px}
+html.stage-pc body.teyvat :where(#root,#modal) button.primary:not(.terrain-node):not(.cons-node):not(.hud-tool):not(.member-select){border-radius:7px}
+body.teyvat .pm-foot-button,html.stage-pc body.teyvat .hb-filter-button{border-radius:7px}
+html.stage-pc body.teyvat .pm-tile{border-radius:12px}
+html.stage-pc body.teyvat :where(#root,#modal,.hb-body,.handbook) button.pane-page{width:26px;height:26px;min-width:26px;min-height:26px;border-radius:6px;font-size:.72rem}
+/* the main button's mark: a small gold diamond, not a round dot */
+html.stage-pc body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button.primary:not(.terrain-destination):not(.choice):not(.bag-item):not(.gear-slot):not(.member-select):not(.formation-option):not(.shell-back):not([data-card-id]){padding-left:30px}
+html.stage-pc body.teyvat :where(#root,#modal,.hud-guide-pop,.combat-playback) button.primary:not(.terrain-destination):not(.choice):not(.bag-item):not(.gear-slot):not(.member-select):not(.formation-option):not(.shell-back):not([data-card-id])::before{left:13px;width:8px;height:8px;margin-top:-4px;border-radius:1px;transform:rotate(45deg);background:linear-gradient(135deg,#f6d77e,#b8862f);box-shadow:0 0 0 1px rgba(57,64,79,.35)}
+/* sizes that match the words: the page head's buttons, the place page's, the results' and the travel bar's */
+html.stage-pc body.teyvat :where(#root) .shell-page-tools button{min-height:32px;padding:3px 14px;font-size:.8rem}
+html.stage-pc body.teyvat :where(#root) .shell-result-actions>button{min-height:38px;padding:4px 22px;font-size:.88rem}
+html.stage-pc body.teyvat :where(#root) .shell-result-actions>button.primary{padding-left:32px}
+html.stage-pc body.teyvat :where(#root) .shell-place-hero button,html.stage-pc body.teyvat :where(#root) .shell-place-actions button{min-height:32px;padding:3px 14px;font-size:.8rem}
+html.stage-pc body.teyvat :where(#root) .terrain-frame>.terrain-travel-dock .terrain-travel{min-height:32px;padding:3px 14px 3px 30px;font-size:.8rem;white-space:nowrap;flex:0 0 auto}
+html.stage-pc body.teyvat :where(#root) .terrain-frame>.terrain-travel-dock>button:not(.terrain-travel){min-height:30px;padding:2px 12px;font-size:.76rem}
+/* the left column's tabs: one joined bar, the chosen one filled */
+html.stage-pc body.teyvat .shell-loc-side>.shell-tabbar{gap:0;padding:3px;border-radius:9px;background:rgba(0,0,0,.25);border:1px solid rgba(211,188,142,.18)}
+html.stage-pc body.teyvat :where(#root) .shell-loc-side>.shell-tabbar>.shell-tab{min-height:30px;padding:3px 6px;font-size:.8rem;border:0;border-radius:6px;background:transparent;box-shadow:none}
+html.stage-pc body.teyvat :where(#root) .shell-loc-side>.shell-tabbar>.shell-tab.active{background:var(--t-cream);color:var(--t-ink)}
+/* little count chips are labels, not pills */
+html.stage-pc body.teyvat :is(.life-chip,.shell-tab-badge,.task-mini-chip,.cm-chip,.re-eyebrow){border-radius:4px}
+/* the map's −/+ : the sign in the middle of its box (it sat at the left edge and looked cut) */
+body.teyvat :where(#root) .terrain-frame>.terrain-controls .terrain-zoom button{display:grid!important;place-items:center;justify-content:center;text-align:center;padding:0!important;line-height:1;font-size:1rem;font-weight:700}
+/* 0.16.39 the 「공명」 chip rides in the map's button row (not over the map's corner) */
+body.teyvat .terrain-controls>.resonance-mark{position:static;flex-direction:row;align-items:center;gap:6px;padding:2px 10px 2px 4px;border-radius:7px;margin-left:4px;min-height:30px;box-sizing:border-box}
+body.teyvat .terrain-controls>.resonance-mark .resonance-icon{width:24px;height:24px}
+body.teyvat .terrain-controls>.resonance-mark .resonance-words{display:flex;flex-direction:column;line-height:1.1;text-align:left}
+body.teyvat .terrain-controls>.resonance-mark .resonance-name{font-size:.62rem;opacity:.8;font-weight:700;letter-spacing:.02em}
+body.teyvat .terrain-controls>.resonance-mark small{font-size:.74rem;white-space:nowrap}
+body.teyvat .terrain-controls>.resonance-mark.lv3 small{font-weight:800}
+html.stage-phone body.teyvat .terrain-controls>.resonance-mark{min-height:26px;padding:1px 6px 1px 2px;gap:3px;margin-left:2px}
+html.stage-phone body.teyvat .terrain-controls>.resonance-mark .resonance-icon{width:18px;height:18px}
+html.stage-phone body.teyvat .terrain-controls>.resonance-mark .resonance-name{display:none}
+html.stage-phone body.teyvat .terrain-controls>.resonance-mark small{font-size:.56rem}
+/* 0.16.39 (user: 「낚시하기 이것도 뭔가 배열이 디자인적으로 좀 별로야」) a gathering · fishing card on the computer: its name with
+   today's count and the time as one line of words; under it what it brings, then the gear it uses after a thin line; the
+   button at the right, centred on both rows; what is missing and where to get it on a quiet strip below. */
+html.stage-pc body.teyvat .shell-loc-left .life-card{grid-template-columns:auto auto minmax(0,1fr) auto!important;grid-template-rows:auto auto;column-gap:10px;row-gap:6px;padding:8px 12px}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-head{grid-column:1/4;grid-row:1;flex-direction:row;align-items:baseline;gap:8px}
+html.stage-pc body.teyvat .shell-loc-left .life-card .life-card-name{font-size:.92rem}
+html.stage-pc body.teyvat .shell-loc-left .life-card .life-card-head>.life-chip{border:0;background:none;padding:0;font-size:.72rem;color:var(--t-muted,#a9b0bd);display:inline-flex;gap:3px;align-items:baseline}
+html.stage-pc body.teyvat .shell-loc-left .life-card .life-card-head>.life-chip>b{color:#f3dfae}
+html.stage-pc body.teyvat .shell-loc-left .life-card .life-card-head>.life-chip+.life-chip::before{content:'·';margin-right:5px;opacity:.6}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-items{grid-column:1;grid-row:2;flex-wrap:nowrap}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-gear{grid-column:2;grid-row:2;padding-left:10px;border-left:1px solid rgba(211,188,142,.25);align-items:center}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-gear .life-item{width:34px;height:34px}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-gear .life-icon{width:28px;height:28px}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-why{grid-column:3;grid-row:2;justify-self:end;text-align:right;font-size:.72rem}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .life-card>button.life-go,html.stage-pc body.teyvat :where(#root) .shell-loc-left .life-card:has(>.life-card-why)>button.life-go{grid-column:4;grid-row:1/span 2;align-self:center}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-where{grid-column:1/-1;grid-row:3;justify-content:space-between;flex-wrap:nowrap;padding:5px 8px;border-radius:7px;background:rgba(0,0,0,.22)}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-where .material-source{min-width:0}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-head{justify-content:flex-start}
+/* a region event's choices on the computer: buttons the size of their words (the merchant's 「사기」 stood 46px tall) */
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .region-event button{min-height:30px;padding:3px 12px;font-size:.8rem;width:auto}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .region-event button.primary{padding-left:28px}
+/* 0.16.39 특성 강화 · 캐릭터 돌파 windows: one screen each. The costs are rows — the picture, the name (never cut), have/need,
+   and under them where it is found with its 📌; the three talents stand side by side. */
+body.teyvat dialog#modal[open]:has(.talent-dialog){width:min(900px,calc(100vw - 24px));max-width:min(900px,calc(100vw - 24px))}
+body.teyvat dialog#modal[open]:has(.ascend-dialog){width:min(640px,calc(100vw - 24px))}
+body.teyvat #modal .growth-dialog.talent-dialog{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:stretch}
+body.teyvat #modal .talent-dialog>.card{display:flex;flex-direction:column;gap:6px;margin:0;padding:10px 12px;min-width:0}
+body.teyvat #modal .talent-dialog>.card>h3{margin:0;font-size:.92rem;line-height:1.3}
+body.teyvat #modal .talent-dialog>.card>.choice-note{margin:auto 0 0;font-size:.74rem}
+body.teyvat :where(#modal) .talent-dialog>.card>button{margin:4px 0 0;width:100%}
+body.teyvat #modal .talent-dialog>.card>.growth-costs+button{margin-top:auto}
+body.teyvat #modal .growth-dialog .growth-costs{display:flex;flex-direction:column;flex-wrap:nowrap;gap:5px;margin:0}
+body.teyvat #modal .ascend-dialog .growth-costs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:8px 0}
+body.teyvat #modal .growth-dialog .growth-cost{display:grid;grid-template-columns:34px minmax(0,1fr) auto;grid-template-areas:"icon name count" "icon src src";align-items:center;justify-items:start;column-gap:8px;row-gap:1px;width:auto;padding:5px 8px;text-align:left;border-radius:8px}
+body.teyvat #modal .growth-dialog .growth-cost>.growth-cost-icon{grid-area:icon;width:34px;height:34px;align-self:center}
+body.teyvat #modal .growth-dialog .growth-cost>small{grid-area:name;max-width:none;overflow:visible;white-space:normal;text-overflow:clip;font-size:.76rem;line-height:1.25;color:#ece4cf;word-break:keep-all}
+body.teyvat #modal .growth-dialog .growth-cost>b{grid-area:count;justify-self:end;font-size:.82rem}
+body.teyvat #modal .growth-dialog .growth-cost>.growth-cost-src{grid-area:src;width:100%;justify-content:space-between;margin:0}
+body.teyvat #modal .growth-dialog .growth-cost-src small{white-space:normal;overflow:visible;text-overflow:clip;font-size:.68rem;line-height:1.25;text-align:left}
+body.teyvat :where(#modal) .growth-dialog button.growth-cost-pin{width:24px;min-height:20px;border-radius:6px;font-size:.7rem}
+body.teyvat #modal .ascend-dialog>p,body.teyvat #modal .ascend-dialog>h3{margin:0 0 3px}
+html.stage-phone body.teyvat #modal .growth-dialog.talent-dialog{gap:6px}
+html.stage-phone body.teyvat #modal .talent-dialog>.card{padding:5px 7px;gap:3px}
+html.stage-phone body.teyvat #modal .talent-dialog>.card>h3{font-size:.7rem}
+html.stage-phone body.teyvat #modal .growth-dialog .growth-cost{grid-template-columns:24px minmax(0,1fr) auto;column-gap:5px;padding:2px 5px}
+html.stage-phone body.teyvat #modal .growth-dialog .growth-cost>.growth-cost-icon{width:24px;height:24px}
+html.stage-phone body.teyvat #modal .growth-dialog .growth-cost>small{font-size:.58rem}
+html.stage-phone body.teyvat #modal .growth-dialog .growth-cost>b{font-size:.62rem}
+html.stage-phone body.teyvat #modal .growth-dialog .growth-cost-src small{font-size:.52rem}
+html.stage-phone body.teyvat #modal .talent-dialog>.card>.choice-note{font-size:.56rem}
+html.stage-phone body.teyvat :where(#modal) .talent-dialog>.card>button{min-height:26px;font-size:.62rem}
+body.teyvat #modal .growth-dialog .growth-cost-src small{flex:1 1 auto;min-width:0}
+html.stage-pc body.teyvat :where(#modal) .growth-dialog button:not(.growth-cost-pin){min-height:34px;padding-top:3px;padding-bottom:3px;font-size:.84rem}
+/* 0.16.39 (user: 「운명의 자리도 이전에 옆으로 나열된거 이뻐서 좋았는데」): the computer shows the constellation as the wide strip again —
+   its name and the button on one row, the six stars side by side across the pane, what the chosen one does under them. */
+html.stage-pc body.teyvat .gear-pane-cons>.premium-cons{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"head open" "chart chart" "detail detail" "note note";gap:8px 10px}
+html.stage-pc body.teyvat .gear-pane-cons .cons-chart{height:120px}
+html.stage-pc body.teyvat .gear-pane-cons .cons-detail{min-height:0;padding:8px 12px}
+html.stage-pc body.teyvat .gear-pane-cons .cons-detail p{font-size:.82rem;line-height:1.45}
+html.stage-pc body.teyvat .gear-pane-cons .premium-cons>small{font-size:.72rem;color:var(--t-muted,#a9b0bd)}
+html.stage-pc body.teyvat :where(#root) .gear-pane-cons .premium-cons-open{align-self:center;min-height:30px;padding:2px 12px;font-size:.76rem}
+/* 0.16.39 (user: 「음식 먹을 때 길이도 좀 맞추는게 좋을 것 같아」): 빠른 식사's people stand in one even row of four (they wrapped 3 + 1),
+   the dishes above them on the same width */
+html.stage-pc body.teyvat .quick-meal{max-width:760px;grid-template-columns:110px minmax(0,1fr)}
+html.stage-pc body.teyvat .qm-people{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+html.stage-pc body.teyvat :where(#root) .qm-person{width:auto;min-width:0}
+html.stage-pc body.teyvat .qm-foods{gap:6px}
+/* 0.16.39 편성 on the computer: each card says what its role does, and the side column lists all five */
+html.stage-pc body.teyvat .formation-slot .role-effect{display:block;margin:3px 0 0;font-size:.66rem;line-height:1.3;color:#cfc4a8;grid-column:1/-1}
+html.stage-pc body.teyvat .role-legend{margin:0;padding:10px 12px}
+html.stage-pc body.teyvat .role-legend>h2{margin:0 0 6px;font-size:.92rem}
+html.stage-pc body.teyvat .role-legend-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+html.stage-pc body.teyvat .role-legend-list>li{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:baseline;gap:6px;padding:3px 6px;border-radius:6px;font-size:.72rem;line-height:1.35}
+html.stage-pc body.teyvat .role-legend-list>li>b{color:#f3dfae;font-size:.76rem}
+html.stage-pc body.teyvat .role-legend-list>li>span{color:#cfd3dc}
+html.stage-pc body.teyvat .role-legend-list>li.on{background:rgba(243,223,174,.1);box-shadow:inset 2px 0 0 #f3dfae}
+html.stage-pc body.teyvat .role-legend-count{color:#f3dfae;font-weight:700}
+html.stage-pc body.teyvat .party-cols .formation-slot .party-portrait{height:150px!important;width:auto;max-width:100%;object-fit:cover;object-position:top}
+html.stage-pc body.teyvat :where(#root) .party-cols .formation-slot .member-select{height:auto!important;min-height:0!important;padding-bottom:8px}
+html.stage-pc body.teyvat .party-cols .shell-col-side>.card{padding:10px 12px}
+html.stage-pc body.teyvat .party-cols .shell-col-side>.card>h2{margin:0 0 6px;font-size:.92rem}
+html.stage-pc body.teyvat .role-legend-list>li{padding:2px 6px;font-size:.7rem}
+/* 0.16.39 (user: 「비경도 지금 버튼 아래 없어서 지맥이 가려져」): a domain's gate on the computer is compact enough to share the column
+   with the ley lines — the name row, the double in one line, the levels as one slim bar, the eight elements in one row of
+   small tiles, and the enemies, the rewards and 「도전」 together on the last row. */
+html.stage-pc body.teyvat .shell-loc-left .domain-gate{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-head{gap:8px}
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-head .domain-trial-icon{width:30px;height:30px;flex:0 0 30px}
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-name h2{font-size:1rem;line-height:1.2}
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-name small{font-size:.7rem}
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-double{margin:0;padding:3px 8px;font-size:.72rem;border-radius:6px}
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-double .dg-short{display:none}
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-lock{margin:0;font-size:.72rem}
+html.stage-pc body.teyvat .shell-loc-left .domain-stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:0;padding:2px;border-radius:8px;background:rgba(0,0,0,.25);border:1px solid rgba(211,188,142,.2)}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left button.domain-stage{min-height:30px;padding:2px 4px;border-radius:6px;border:0;background:transparent;box-shadow:none;flex-direction:row;gap:5px}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left button.domain-stage.selected{background:var(--t-cream);color:var(--t-ink);box-shadow:none}
+html.stage-pc body.teyvat .shell-loc-left .domain-stage b{font-size:.84rem}
+html.stage-pc body.teyvat .shell-loc-left .domain-stage small{font-size:.58rem}
+html.stage-pc body.teyvat .shell-loc-left .domain-elements{display:flex;flex-wrap:nowrap;gap:4px}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left button.domain-element{width:34px;height:30px;min-height:30px;border-radius:7px;flex:1 1 0}
+html.stage-pc body.teyvat .shell-loc-left .domain-element-icon{width:20px;height:20px}
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-body{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-body>.domain-foes{gap:6px;flex-wrap:nowrap}
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-body>.domain-rewards{gap:6px;flex-wrap:nowrap;padding-left:10px;border-left:1px solid rgba(211,188,142,.25)}
+html.stage-pc body.teyvat .shell-loc-left .domain-foe-face{width:34px;height:34px}
+html.stage-pc body.teyvat .shell-loc-left .domain-reward{width:36px;height:36px}
+html.stage-pc body.teyvat .shell-loc-left .domain-reward-icon{width:27px;height:27px}
+html.stage-pc body.teyvat .shell-loc-left .domain-reward.xp{width:auto;padding:0 8px 0 4px;display:inline-flex;gap:3px}
+html.stage-pc body.teyvat .shell-loc-left .domain-reward.xp>b{position:static;background:none;border:0;padding:0;font-size:.78rem}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .domain-gate-body>button.domain-go{margin-left:auto;width:auto;min-height:32px;padding:3px 18px 3px 30px;font-size:.84rem;flex:0 0 auto}
+/* 0.16.39 (user: 「버튼은 존나 큰데 나머지가 작아서 느낌 이상하지?」): a way to go inside a card is a slim button the size of its words */
+html.stage-pc body.teyvat :where(#root,#modal) :is(.relationship-card,.quest-card,.card,.journal-card,.task-board) button[data-action="MOVE"]{min-height:28px;padding:2px 12px;font-size:.76rem;width:auto;max-width:100%;align-self:flex-start}
+html.stage-phone body.teyvat :where(#root,#modal) .relationship-card button[data-action="MOVE"]{min-height:22px;padding:1px 9px;font-size:.58rem;width:auto}
+html.stage-pc body.teyvat .relations-body .relationship-card>button[data-action="MOVE"]{grid-column:2;justify-self:start}
+/* … and if the map has no button row, the chip sits at its top right, never over the travel bar */
+body.teyvat .terrain-frame>.resonance-mark{left:auto;right:8px;top:8px;bottom:auto;flex-direction:row;align-items:center;gap:6px;padding:2px 10px 2px 4px;border-radius:7px}
+body.teyvat .terrain-frame>.resonance-mark .resonance-icon{width:24px;height:24px}
+body.teyvat .terrain-frame>.resonance-mark .resonance-words{display:flex;flex-direction:column;line-height:1.1;text-align:left}
+body.teyvat .terrain-frame>.resonance-mark .resonance-name{font-size:.62rem;opacity:.8;font-weight:700}
+/* the chest windows' buttons on the computer match the rest */
+html.stage-pc body.teyvat :is(.ch-overlay,.ch-box) button:not(.ch-close):not([class*="stone"]):not([class*="totem"]):not(.resonance-orb){border-radius:7px}
+body.teyvat #modal .growth-dialog .growth-cost-src small{max-width:none}
+html.stage-phone body.teyvat :where(#modal) .talent-dialog>.card>button{min-height:26px!important;padding-top:1px!important;padding-bottom:1px!important}
+/* the character list's page numbers stay inside its column at every size */
+html.stage-pc body.teyvat .shell-col-roster .roster-pager.pane-pager{gap:3px;justify-content:center}
+html.stage-pc body.teyvat :where(#root) .shell-col-roster .roster-pager>button.pane-page{width:24px;height:24px;min-width:24px;min-height:24px}

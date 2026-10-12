@@ -154,6 +154,8 @@ try{
   await view('forge-enhance',forgeAt+'})()');
   await view('forge-confirm',forgeAt+'for(let i=0;i<20&&!document.getElementById(\'modal\')?.open;i++){[...document.querySelectorAll(\'.shell-forge-foot button\')].find(x=>/강화|돌파/.test(x.textContent)&&!x.disabled)?.click();await new Promise(r=>setTimeout(r,150));}})()');
   await view('forge-result',forgeAt+'for(let i=0;i<20&&!document.getElementById(\'modal\')?.open;i++){[...document.querySelectorAll(\'.shell-forge-foot button\')].find(x=>/강화|돌파/.test(x.textContent)&&!x.disabled)?.click();await new Promise(r=>setTimeout(r,150));}document.querySelector(\'#modal .enhance-go\')?.click();for(let i=0;i<80&&!document.querySelector(\'#modal[open] .enhance-banner\');i++)await new Promise(r=>setTimeout(r,150));})()');
+  // 0.16.39 (user: 「특성은 왜 안고쳐? … 세로로 길어서 아래로 내리지도 못하겠고」): the talent and ascension windows, never opened before.
+  for(const [label,fn] of [['growth-talent','openCharacterTalent'],['growth-ascend','openCharacterAscension']])await view(label,`(async()=>{await __go('STATUS');const owner=game.s.party.filter(p=>p.active&&p.source&&p.source!=='PLAYER_CUSTOM')[0]?.source||'PLAYER_CUSTOM';window.${fn}(owner);await new Promise(r=>setTimeout(r,250));})()`);
   // 0.16.31: the gear picker window (one screen, no inner scroll).
   await view('gear-picker',`(async()=>{await __go('STATUS');const b=[...document.querySelectorAll('.gear-slot')].find(x=>x.offsetParent);b?.click();})()`);
   await view('quest',`__go('QUEST')`);
@@ -198,7 +200,7 @@ try{
    await view('reward',`Promise.resolve()`);
   }
   // 0.16.35: a daily boss fight (the board glows in the boss's element; the keys beside the buttons) and the shop's multi-buy.
-  if(!ONLY.length||ONLY.some(o=>o.startsWith('daily-boss')||o.startsWith('shop-bulk')||o.startsWith('story-page'))){
+  if(!ONLY.length||ONLY.some(o=>o.startsWith('daily-boss')||o.startsWith('shop-bulk')||o.startsWith('story-page')||o.startsWith('domain')||o.startsWith('fieldboss'))){
    const r=playerState();r.serverAdmin=true;const api=globalThis.CRPGRuntime,c0=api?.enhancementConfig?.bosses?.BOSS_ANDRIUS;
    if(c0){try{const row=r.row('35_BOSS_ROUTE_DB',c0.route);r.s.flags[row[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});r.s.bossRealAdmissions={};r.action('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_ANDRIUS'});}catch(e){console.error('daily boss',e.message);}
     if(r.s.runtime){fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
@@ -211,6 +213,10 @@ try{
    const fight=(setup,label)=>{const x=playerState();x.serverAdmin=true;try{setup(x);}catch(e){console.error(label,e.message);}if(!x.s.runtime)return null;try{x.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch(e){console.error(label,e.message);}return x;};
    const domain=fight(x=>{for(const m of x.tables['32_MAP_DB'].keys()){if(!/^MAP_D163_/.test(m))continue;try{x.action('OPERATOR_DEBUG',{op:'travel',map:m});}catch{continue;}const d=x.growthDomainEntries?.().find(e=>!e.reason);if(d){x.action('DOMAIN_START',{domain:d.id,element:d.elements?.[0]||d.element||undefined});break;}}},'domain result');
    if(domain){fixture.seed(domain.s);await page.evaluate(()=>CRPGOnline.sync());await idle();await view('domain-result',`Promise.resolve()`);}
+   // 0.16.39 (user: 「비경도 지금 버튼 아래 없어서 지맥이 가려져」): the map of a domain, with each tab of the left column.
+   {const x=playerState();x.serverAdmin=true;try{x.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_D163_VALLEY_OF_REMEMBRANCE'});}catch(e){console.error('domain map',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+    await page.evaluate(()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());document.querySelector('.pm-close,.shell-menu-close')?.click();}).catch(()=>{});
+    await view('domain-map',`__go('LOCATION')`);for(const tab of await labels('.shell-loc-side .shell-tab'))await view('domain-map-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);}
    const FB=globalThis.CRPGRuntime?.fieldBosses,boss='FB_ANEMO_HYPOSTASIS';
    const field=FB&&fight(x=>{x.action('OPERATOR_DEBUG',{op:'travel',map:FB.bosses[boss].map});const route=FB.route(boss);x.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});x.action('BOSS_ROUTE',{route,entry:'DIRECT'});},'field boss result');
    if(field){fixture.seed(field.s);await page.evaluate(()=>CRPGOnline.sync());await idle();await view('fieldboss-result',`Promise.resolve()`);}
