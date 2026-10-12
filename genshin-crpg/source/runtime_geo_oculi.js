@@ -63,3 +63,59 @@ P.validateSave=function(s){
 };
 api.geoOculusCatalog={points:C,item:ITEM,tiers};
 })(globalThis);
+
+/* 0.16.32 신의 눈동자 「공명」 (user: 「신의 눈동자 그 방식으로 하고」, TODO 4-6). In a region where oculi are left the corner mark
+ * glows, stronger the fewer roads away the nearest one is (where is never said); at its place 「살펴보기」 opens a short catch
+ * game, and catching it collects the oculus (OCULUS_RESONANCE). Puzzle, night, hidden and in-shop oculi keep their own way.
+ * The receipt is the one the last step writes, so offerings, tasks and achievements count it the same. */
+(function(root){'use strict';
+const api=root.CRPGRuntime,P=api?.Runtime?.prototype,W=root.CRPGWorldContent;if(!P||!W||P.resonanceV01632)return;P.resonanceV01632=true;
+const fail=(c,m)=>{throw new api.RuleError(c,m);};
+const KEEP=new Set(['PUZZLE','NIGHT','HIDDEN']),MOND=api.explorationCatalog?.item||'KEY_CRPG_ANEMOCULUS',GEO='KEY_CRPG_GEOCULUS';
+const LIST=()=>[...(W.oculi||[]).map(p=>({...p,geo:false})),...(W.geoOculi||[]).map(p=>({...p,geo:true}))];
+const resonant=p=>!!p&&!KEEP.has(String(p.method||''))&&!p.place;
+const at=(p,map)=>p.map===map||(p.legacyMaps||[]).includes(map);
+const old=Object.fromEntries(['actionReason','apply'].map(k=>[k,P[k]]));
+P.resonanceTaken=function(p){return p.geo?!!this.s.geoOculi?.receipts?.[p.id]:!!this.s.exploration?.oculi?.[p.id];};
+P.resonanceLeft=function(){const lv=Number(this.s.global.PLAYER_LEVEL_STATE)||1;return LIST().filter(p=>resonant(p)&&!this.resonanceTaken(p)&&(Number(p.level)||1)<=lv);};
+P.resonancePoint=function(id){const p=LIST().find(x=>x.id===id);return resonant(p)?p:null;};
+// Roads from here over the open roads (the same edges the travel buttons follow).
+P.resonanceHops=function(){
+ const start=this.s.global.CURRENT_MAP_ID,d=new Map([[start,0]]),queue=[start],f=this.s.flags;
+ const edges=this.rows('47_MAP_EDGE_DB').filter(r=>r[11]==='ACTIVE'&&r[8]==='Y'&&!(r[6]&&!(r[6]==='FLAG_TRUE'&&[true,'Y','TRUE'].includes(f[r[7]]))));
+ while(queue.length){const v=queue.shift();for(const r of edges)if(r[1]===v&&!d.has(r[2])){d.set(r[2],d.get(v)+1);queue.push(r[2]);}}
+ return d;
+};
+// What the corner mark shows: nothing (none left in this region), faint (far), 2 · 3 (one · two or three roads), here.
+P.resonanceView=function(){
+ const g=this.s.global,maps=this.tables['32_MAP_DB'],map=g.CURRENT_MAP_ID,region=maps.get(map)?.[1];
+ const left=this.resonanceLeft().filter(p=>maps.get(p.map)?.[1]===region);if(!left.length)return null;
+ const here=left.find(p=>at(p,map));
+ if(here)return {region,left:left.length,level:3,point:here.id,title:here.title,item:here.geo?GEO:MOND,reason:this.actionReason('OCULUS_RESONANCE',{point:here.id})};
+ const hops=this.resonanceHops();let best=Infinity;for(const p of left){const n=hops.get(p.map);if(n!==undefined&&n<best)best=n;}
+ return {region,left:left.length,level:best<=1?2:best<=3?1:0,item:left[0].geo?GEO:MOND};
+};
+P.actionReason=function(type,a={}){
+ if(type!=='OCULUS_RESONANCE')return old.actionReason.call(this,type,a);
+ const p=this.resonancePoint(a.point),g=this.s.global;
+ if(!p)return '공명하는 눈동자를 찾지 못했습니다.';
+ if(this.resonanceTaken(p))return '이미 회수한 눈동자입니다.';
+ if(!at(p,g.CURRENT_MAP_ID))return '공명이 가장 강한 곳에서 살펴봐 주세요.';
+ if((Number(p.level)||1)>(Number(g.PLAYER_LEVEL_STATE)||1))return '아직 이 눈동자에 닿을 수 없습니다.';
+ if(this.s.runtime)return '전투가 끝난 뒤 살펴볼 수 있습니다.';
+ if(this.s.placeVisit)return '시설 밖에서 살펴봐 주세요.';
+ if(this.s.worldJob||this.s.lifeJob)return '진행 중인 작업을 먼저 마쳐 주세요.';
+ if(typeof this.playPhase==='function'&&this.playPhase()!=='FREE')return '지금 장면을 먼저 마쳐 주세요.';
+ return '';
+};
+P.apply=function(a){
+ if(a?.type!=='OCULUS_RESONANCE')return old.apply.call(this,a);
+ const why=this.actionReason('OCULUS_RESONANCE',a);if(why)fail('RESONANCE',why);
+ const p=this.resonancePoint(a.point),g=this.s.global,action=g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1),steps=(p.steps||[]).length||1;
+ if(p.geo){const e=this.ensureGeo();e.progress[p.id]=steps;e.receipts[p.id]={saveId:g.SAVE_ID,route:g.STORY_ROUTE_ID,map:p.map,day:g.WORLD_DAY,action};this.giveItem(GEO,1);}
+ else{const w=this.ensureWorldProgress?.();if(w)w.oculi[p.id]=steps;const e=this.ensureExplorationState();e.oculi[p.id]={map:g.CURRENT_MAP_ID,day:g.WORLD_DAY,action};this.giveItem(MOND,1);}
+ this.advanceTime?.(10);
+ return {point:p.id,items:{[p.geo?GEO:MOND]:1},resonance:true};
+};
+api.resonanceV01632=true;
+})(globalThis);

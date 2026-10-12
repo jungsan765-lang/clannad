@@ -38,7 +38,10 @@ function card(entry){
  const why=!entry.remaining?'내일 다시':need==='TRPG_FISHING_ROD'?'낚싯대 필요':need?'미끼 필요':go.dataset.reason||'';
  if(why)c.append(el('small','life-card-why',why));
  c.append(go);
- if(need){const where=el('div','life-card-where');materialSources(where,need);if(where.children.length)c.append(where);}
+ if(need){const where=el('div','life-card-where');materialSources(where,need);
+  // 0.16.32: on a phone only the first shop (its line and its button) rides in the card; two shops made it taller than the column and split it into one-line pages.
+  if(document.documentElement?.classList?.contains('stage-phone')){const b=where.querySelector('button');if(b)while(b.nextSibling)b.nextSibling.remove();}
+  if(where.children.length)c.append(where);}
  return c;
 }
 lifePanel=function(parent){const entries=game.lifeEntries();if(!entries.length)return;const box=el('section','life-cards');box.setAttribute('aria-label','생활');for(const e of entries)box.append(card(e));parent.append(box);};

@@ -304,7 +304,10 @@ function battleOrderFace(entry,a){if(!showArt)return;const src=combatPortraitSrc
 function battleOrderTimes(entry,a){const n=game.fieldBossActions?.(a)||1;if(n<=1)return;const tag=el('small','order-times','×'+n);tag.title='한 차례에 '+n+'번 행동합니다';entry.append(tag);}
 // 0.16.31 (user: 「이거 뭐 어떻게 못고치니..?」 — the ✦ where the hero's face should be): the Traveler shows the face of the twin chosen
 // in Mond chapter 1 (FLAG_TRV_AVATAR), cut from the story art already in the game. Not chosen yet or another route: no face.
-function playerFaceSrc(){if(!game||typeof showArt!=='undefined'&&!showArt)return null;const f=game.s?.flags?.FLAG_TRV_AVATAR;return f==='MALE'?'assets/icons/faces/traveler_aether.webp':f==='FEMALE'?'assets/icons/faces/traveler_lumine.webp':null;}
+// 0.16.32: the isekai hero (and a Traveler before choosing) wears the silhouette the user drew (assets/icons/faces/isekai.webp).
+function playerFaceSrc(){if(!game||typeof showArt!=='undefined'&&!showArt)return null;const f=game.s?.flags?.FLAG_TRV_AVATAR;return f==='MALE'?'assets/icons/faces/traveler_aether.webp':f==='FEMALE'?'assets/icons/faces/traveler_lumine.webp':'assets/icons/faces/isekai.webp';}
+// The hero's big picture (the character screen's backdrop): the Traveler's story art, or the whole silhouette.
+function playerArtSrc(){if(!game)return null;const f=game.s?.flags?.FLAG_TRV_AVATAR;if(f==='MALE'||f==='FEMALE'){const a=game.assetFor?.(f==='MALE'?'PLAYER_TRAVELER_MALE':'PLAYER_TRAVELER_FEMALE');const src=a&&(assetPath(a[0])||assetPath(a[5]));if(src)return src;}return 'assets/icons/faces/isekai_full.webp';}
 function combatPortraitSrc(a){if(a.side==='ENEMY')return enemyPortraitFor(a.source);if(a.source==='PLAYER_CUSTOM'&&!a.guest&&!a.coop)return playerFaceSrc();const profile=game.rows('04_CHAR_DB').find(r=>r[1]===a.source);return profile&&portraitFor(profile[0]);}
 // 0.15.18 (user: 「전투할때 누구 차례인지 잘 모르겠으니까 그것도 좀 잘 보이게 해주고」): whose turn it is, in big letters over
 // the commands, with the fighter's face.

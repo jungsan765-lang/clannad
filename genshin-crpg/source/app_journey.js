@@ -24,17 +24,23 @@ mainObjective=function(parent){const j=game.s.storyJourney,b=game.s.storyBreak;i
 const journeyStory=story;
 story=function(p,v){if(game.s.storyJourney||game.s.storyBreak){mainObjective(p);p.append(actionButton('메인 화면에서 이동·준비','MENU',{screen:'LOCATION'}));return;}journeyStory(p,v);};
 function discoveryCards(parent){
- const points=game.oculusEntries().filter(p=>p.method!=='HIDDEN'||game.oculusProgress(p.id)>0);if(!points.length)return;const section=el('section','world-discoveries');section.append(el('h2','','주변의 작은 단서'));
- for(const p of points){const c=el('section','card discovery-card');c.append(el('h3','',p.title),el('p','',p.clue),...(p.context?[el('p','discovery-context',p.context)]:[]));if(p.reason)c.append(el('p','choice-note',p.reason));const step=p.step;if(!step)continue;
+ // 0.16.32: oculi that answer the 「공명」 are found with the corner mark and its catch game, not with this list of clues.
+ const points=game.oculusEntries().filter(p=>(p.method!=='HIDDEN'||game.oculusProgress(p.id)>0)&&!game.resonancePoint?.(p.id));if(!points.length)return;const section=el('section','world-discoveries');section.append(el('h2','','주변의 작은 단서'));
+ // 0.16.32 (user: 「자리는 많은데 굳이 한곳에 몰아써서 짤리고」): the list holds a short card (name, clue, 살펴보기); the clue's steps open
+ // in a window of their own, where they always fit.
+ for(const p of points){const brief=el('section','card discovery-card discovery-brief'),head=el('div','discovery-head');head.append(el('h3','',p.title),button('살펴보기',()=>{const full=discoveryCard(p);if(!full)return;full.addEventListener('click',e=>{if(e.target.closest?.('button'))setTimeout(()=>{if(game.s.worldJob)document.getElementById('modal')?.close();},350);},true);showModal(p.title,full);},false,true));brief.append(head,el('p','',p.clue));if(p.reason)brief.append(el('p','choice-note',p.reason));section.append(brief);}
+ parent.append(section);
+}
+function discoveryCard(p){
+ {const c=el('section','card discovery-card');c.append(el('p','',p.clue),...(p.context?[el('p','discovery-context',p.context)]:[]));if(p.reason)c.append(el('p','choice-note',p.reason));const step=p.step;if(!step)return c;
  if(step.cost?.items){const required=el('p','discovery-cost','교환 재료 · ');Object.entries(step.cost.items).forEach(([id,n],i)=>{if(i)required.append(' · ');required.append(el('span',game.itemCount(id)<n?'lack':'',safeName('14_ITEM_DB',id)+' '+n+'개 (보유 '+game.itemCount(id)+')'));});c.append(required,el('small','muted','건네기 버튼을 눌렀을 때만 재료를 소비합니다. 준비해서 나중에 돌아와도 됩니다.'));} const args={kind:'OCULUS',point:p.id};
  if(step.options){for(const [i,label]of step.options.entries())c.append(actionButton(label,'WORLD_WORK_START',{...args,answer:i}));}
  else if(step.sequence){let seq=[];const input=el('div','row'),answer=el('p','sequence-input','선택한 순서: —');const labels=step.sequenceLabels||{LEAF:'잎',TREE:'나무',SKY:'하늘'};for(const [id,label]of Object.entries(labels))input.append(button(label,()=>{if(seq.length<3){seq.push(id);answer.textContent='선택한 순서: '+seq.map(s=>labels[s]).join(' → ');}}));input.append(button('지우기',()=>{seq=[];answer.textContent='선택한 순서: —';}));c.append(answer,input,button('풍경 울리기',()=>act('WORLD_WORK_START',{...args,sequence:seq}),busy||!!p.reason,true));}
  else{const button=actionButton(step.label+(step.duration?' · '+step.duration/1000+'초':''),'WORLD_WORK_START',args);button.disabled=button.disabled||!!p.reason;c.append(button);}
- section.append(c);
- }parent.append(section);
+ return c;}
 }
 const journeyLocation=drawLocation;
-drawLocation=function(p,v){journeyLocation(p,v);if(game.needsRecovery())return;const m=CRPGWorldContent.newMaps.find(m=>m.id===v.map[0]);if(m){p.prepend(el('p','map-breadcrumb','몬드 / '+(m.theme.startsWith('DRAGONSPINE')?'드래곤 스파인 / ':'')+m.name));p.append(el('p','muted',m.description));}discoveryCards(p);};
+drawLocation=function(p,v){journeyLocation(p,v);if(game.needsRecovery())return;const m=CRPGWorldContent.newMaps.find(m=>m.id===v.map[0]);if(m){p.prepend(el('p','map-breadcrumb','몬드 / '+(m.theme.startsWith('DRAGONSPINE')?'드래곤 스파인 / ':'')+m.name));p.append(el('p','muted map-description',m.description));}discoveryCards(p);};
 const journeyShop=shop;
 shop=function(p,v){journeyShop(p,v);discoveryCards(p);};
 const journeyCommissionCard=commissionCard;
@@ -51,3 +57,34 @@ function updateWorldUI(){
 }
 const journeyRender=render;
 render=function(){journeyRender();updateWorldUI();};
+// 0.16.32 신의 눈동자 「공명」 (TODO 4-6): the corner of the map glows when oculi are left in this region, stronger the closer the
+// nearest is (runtime_geo_oculi.js resonanceView; where is never said). Here, the mark is a button: a short game where the
+// oculus floats about and is caught with three touches within ten seconds; then it is collected (OCULUS_RESONANCE).
+const RESONANCE_WORDS=['희미한 공명','공명이 느껴진다','공명이 강해진다','여기서 울린다!'];
+function resonanceIcon(item){const path=typeof MANIFEST!=='undefined'?MANIFEST.itemIcons?.icons?.[item]?.path:null;if(path){const i=el('img','resonance-icon');i.src=path;i.alt='';i.draggable=false;return i;}return el('span','resonance-icon mark','◈');}
+function resonanceMark(){
+ const frame=document.querySelector('.shell-loc-main .terrain-frame');if(!frame||!game||game.s.runtime||game.s.placeVisit)return;
+ frame.querySelector(':scope>.resonance-mark')?.remove();
+ let v=null;try{v=game.resonanceView?.();}catch{}if(!v)return;
+ const here=v.level===3,mark=el(here?'button':'div','resonance-mark lv'+v.level);if(here){mark.type='button';mark.onclick=()=>catchGame(v);}
+ mark.title=RESONANCE_WORDS[v.level]+' · 이 지역에 남은 눈동자 '+v.left+'개';mark.setAttribute('aria-label',mark.title);
+ mark.append(resonanceIcon(v.item),el('small','',here?'살펴보기':RESONANCE_WORDS[v.level]));frame.append(mark);
+}
+function catchGame(v){
+ if(game.actionReason('OCULUS_RESONANCE',{point:v.point})){window.CRPGShell?.toast?.(game.actionReason('OCULUS_RESONANCE',{point:v.point}));return;}
+ const box=el('div','resonance-game'),field=el('div','resonance-field'),orb=el('button','resonance-orb'),dots=el('div','resonance-dots'),bar=el('div','resonance-time'),fill=el('i');
+ orb.type='button';orb.setAttribute('aria-label','눈동자 잡기');orb.append(resonanceIcon(v.item));bar.append(fill);
+ const NEED=3,TIME=10000;let hits=0,over=false,start=performance.now(),move=0;
+ const drawDots=()=>{dots.replaceChildren(...Array.from({length:NEED},(_,i)=>el('span',i<hits?'on':'')));};
+ const place=()=>{const w=field.clientWidth-54,h=field.clientHeight-54;orb.style.left=Math.max(0,Math.random()*w)+'px';orb.style.top=Math.max(0,Math.random()*h)+'px';};
+ const end=async win=>{if(over)return;over=true;clearInterval(move);
+  if(!win){box.classList.add('missed');box.querySelector('.resonance-note').textContent='눈동자가 바람에 흩어졌다 · 다시 해 보세요';const again=button('다시',()=>{document.getElementById('modal')?.close();catchGame(game.resonanceView?.()||v);},false,true);box.append(again);try{window.CRPGSound?.play('error');}catch{}return;}
+  try{window.CRPGSound?.play('chest_reward');}catch{}document.getElementById('modal')?.close();await act('OCULUS_RESONANCE',{point:v.point});};
+ orb.onclick=()=>{if(over)return;hits++;drawDots();try{window.CRPGSound?.play('tab');}catch{}if(hits>=NEED){end(true);return;}place();};
+ field.append(orb);box.append(el('p','resonance-note',v.title||'눈동자가 바람을 타고 떠다닌다'),field,dots,bar);drawDots();
+ showModal('신의 눈동자 · 공명',box);requestAnimationFrame(place);
+ move=setInterval(()=>{if(over)return;const t=performance.now()-start;fill.style.width=Math.max(0,100-t/TIME*100)+'%';if(t>=TIME){end(false);return;}if(Math.floor(t/900)!==Math.floor((t-60)/900))place();},60);
+ document.getElementById('modal')?.addEventListener('close',()=>{if(!over){over=true;clearInterval(move);}},{once:true});
+ try{window.CRPGSound?.play('chest_appear');}catch{}
+}
+{const prior=render;render=function(...args){const out=prior.apply(this,args);try{requestAnimationFrame(resonanceMark);}catch(e){console.warn('resonance',e);}return out;};}

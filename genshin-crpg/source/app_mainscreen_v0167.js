@@ -35,6 +35,7 @@ function breakable(k){
  if(k.matches(WHOLE)||!k.children.length||[...k.childNodes].some(n=>n.nodeType===3&&n.textContent.trim()))return false;
  return [...k.children].every(c=>getComputedStyle(c).display!=='inline');
 }
+const CARD='.card,article,.journal-card,.region-event,.discovery-card,.task-mini,.domain-gate';let eager=false;// the handbook's lists fill each page row by row
 const isHead=h=>!!h&&(h.tagName==='SUMMARY'||/^H\d$/.test(h.tagName)||/(^|[\s_-])[a-z]*head\b/.test(h.className||''));
 // Children side by side (a grid's row: a label and its value, tiles) stay together on one page.
 function rowsOf(kids){const rows=[];let top=null;for(const c of kids){const t=Math.round(c.getBoundingClientRect().top);if(rows.length&&Math.abs(t-top)<=2)rows[rows.length-1].push(c);else{rows.push([c]);top=t;}}return rows;}
@@ -44,7 +45,9 @@ function pieces(node,room,out,wrap,lead){
   const k=row[0];
   if(row.length===1&&k.matches('.location-places')){const tiles=[...k.children].filter(t=>!t.hidden),cols=Math.max(1,getComputedStyle(k).gridTemplateColumns.split(' ').filter(Boolean).length);
    for(let i=0;i<tiles.length;i+=cols)out.push({nodes:tiles.slice(i,i+cols),wrap:[...wrap,k],lead});continue;}
-  if(row.length===1&&k.getBoundingClientRect().height>room&&breakable(k)&&!(k.tagName==='DETAILS'&&!k.open)){
+  // 0.16.32 (user: 「자리는 많은데 굳이 … 버튼으로 두개씩만 보여주는건데?」): a list (not a card) is cut into its rows even when it is shorter
+  // than a page, so the rows that fit fill the room left on this page instead of the whole list moving to the next.
+  if(row.length===1&&(k.getBoundingClientRect().height>room||eager&&k.children.length>1&&!k.matches(CARD))&&breakable(k)&&!(k.tagName==='DETAILS'&&!k.open)){
    const head=isHead(k.firstElementChild)?k.firstElementChild:null;
    for(const p of pieces(k,room-(head?head.getBoundingClientRect().height:0),[],[...wrap,k],head?[...lead,head]:lead))if(!(p.nodes.length===1&&p.nodes[0]===head))out.push(p);
    continue;}
@@ -63,7 +66,7 @@ function pagePane(pane,key){
  // press to any page (like KanColle's lists); the wheel and a sideways swipe over the box turn them too.
  const pager=mk('div','pane-pager');pager.setAttribute('role','tablist');pager.setAttribute('aria-label','쪽');
  {const probe=mk('button','pane-page','1');probe.type='button';pager.append(probe);}// the row's height, for the room left above it
- pane.append(pager);pane.classList.add('paged');
+ pane.append(pager);pane.classList.add('paged');eager=!!(pane.matches?.('.hb-body')||document.documentElement?.classList?.contains('stage-phone')&&pane.matches?.('.shell-loc-side .shell-pane,.quest-list'));
  const cs=getComputedStyle(pane),room=pane.clientHeight-(parseFloat(cs.paddingTop)||0)-(parseFloat(cs.paddingBottom)||0)-pager.getBoundingClientRect().height-(parseFloat(cs.rowGap)||0);
  const list=pieces(pane,room,[],[],[]),own=new Set(),take=(on,p)=>{for(const x of [...p.nodes,...p.wrap,...p.lead])on.add(x);return on;};
  for(const p of list)take(own,p);

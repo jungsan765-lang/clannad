@@ -17,12 +17,14 @@ const NavigationUI={target:null,saveId:null,mapId:null,atlas:null,camera:null,ob
   this.known=new Set(game.travelDiscoveries?.().known||game.rows('32_MAP_DB').map(m=>m[0]));
   const nearby=this.nearby(),goal=game.navigationGoal(),target=this.target,route=target?game.navigationRoute(target):null,targetName=target&&(this.placeName(target)||'아직 가 보지 않은 곳');
   const section=el('section','journey-map terrain-navigation');section.id='journey-map';section.setAttribute('aria-label','지형 지도와 이동 목적지');
-  const header=el('header','terrain-header'),title=el('div','terrain-title');title.append(el('small','','여행 지도 · '+T.atlases[this.atlas].name),el('h2','','현재 위치 · '+mapName(current)));header.append(title);
-  const shortcuts=el('div','terrain-shortcuts');if(goal)shortcuts.append(this.control('임무 목적지',()=>this.choose(goal),'goal'));
+  const header=el('header','terrain-header'),title=el('div','terrain-title');title.append(el('small','','현재 위치 · '+T.atlases[this.atlas].name),el('h2','',mapName(current)));header.append(title);// 0.16.32: the place's name alone, one line (with 「현재 위치 ·」 in front it was squeezed to a letter a line on a phone)
+  // The shortcuts carry a short word for a phone (목적지 · 몬드성 · 리월항 · 내 위치); the stylesheet picks which one shows.
+  const word=(long,short)=>{const b=document.createDocumentFragment();b.append(el('span','nav-long',long),el('span','nav-short',short));return b;};
+  const shortcuts=el('div','terrain-shortcuts');if(goal){const b=this.control('',()=>this.choose(goal),'goal','임무 목적지');b.append(word('임무 목적지','목적지'));shortcuts.append(b);}
   // 0.16.29 (user: 「몬드성으로 가는 길은 알겠는데, 리월항으로 가는 길은 어떻게 찾아야될지 모르겠네」): the way to each region's main
   // town sits on the map's own bar wherever the party is; a closed way says why in the bar under the map.
-  for(const [id,label] of [['MAP_MOND_CITY','몬드성으로 가는 길'],['MAP_LIYUE_HARBOR','리월항으로 가는 길']])if(current!==id&&game.tables['32_MAP_DB'].has(id))shortcuts.append(this.control(label,()=>this.choose(id),id==='MAP_MOND_CITY'?'return':'return-liyue'));
-  shortcuts.append(this.control('내 위치로',()=>{this.atlas=this.atlasFor(current)||this.atlas;this.cameraMode('near');},'home'));header.append(shortcuts);section.append(header);
+  for(const [id,label,short] of [['MAP_MOND_CITY','몬드성으로 가는 길','몬드성'],['MAP_LIYUE_HARBOR','리월항으로 가는 길','리월항']])if(current!==id&&game.tables['32_MAP_DB'].has(id)){const b=this.control('',()=>this.choose(id),id==='MAP_MOND_CITY'?'return':'return-liyue',label);b.append(word(label,short));shortcuts.append(b);}
+  {const b=this.control('',()=>{this.atlas=this.atlasFor(current)||this.atlas;this.cameraMode('near');},'home','내 위치로');b.append(word('내 위치로','내 위치'));shortcuts.append(b);}header.append(shortcuts);section.append(header);
   const body=el('div','terrain-layout'),left=el('div','terrain-map-column'),right=el('div','terrain-destinations'),frame=el('div','terrain-frame');
   frame.append(this.drawMap(nearby));left.append(frame);
   const controls=el('div','terrain-controls'),zoom=el('div','terrain-zoom');

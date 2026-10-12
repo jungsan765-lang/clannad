@@ -21,7 +21,7 @@ const TYPES={'.js':'text/javascript','.css':'text/css','.html':'text/html','.jso
 // Pictures not yet copied into a local dist come from the repository's own assets folder (the build copies them).
 const server=createServer((req,res)=>{let path=decodeURIComponent(new URL(req.url,'http://localhost').pathname.slice(1))||'index.html';if(path.includes('..')){res.writeHead(403).end();return;}const source=resolve(root,'source',path),built=resolve(root,'dist',path),file=!process.env.CRPG_TEST_DIST&&/\.(js|css|html)$/.test(path)&&existsSync(source)?source:!existsSync(built)&&existsSync(resolve(root,path))?resolve(root,path):built;try{res.setHeader('Content-Type',TYPES[extname(file)]||'application/octet-stream');let data=readFileSync(file);if(!process.env.CRPG_TEST_DIST&&path==='assets.js')data=data.toString().replace(/"appVersion":\s*"[^"]*"/,'"appVersion":'+JSON.stringify(version))+'\nwindow.CRPG_MANIFEST.engineVersion='+JSON.stringify(ENGINE_FINGERPRINT)+';';res.end(data);}catch{res.writeHead(404).end();}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
-const fixture=onlineFixture();await fixture.start();
+const fixture=onlineFixture();await fixture.start();const INITIAL=fixture.read().state;// the new account as it starts (0.16.32 early views)
 const ONLY=(process.env.FIT_ONLY||'').split(',').filter(Boolean),SIZES=[{name:'pc',width:1280,height:720},{name:'phone',width:760,height:352}].filter(s=>!process.env.FIT_SIZE||process.env.FIT_SIZE===s.name);
 // A player well into the game: every companion, a full party, Mora, in Mondstadt.
 function playerState(){
@@ -63,6 +63,14 @@ const SCAN=()=>{
    const over=Math.max(r.bottom-b.bottom,r.right-b.right,b.top-r.top,b.left-r.left);
    if(over>1.5){out.push('cut '+name(e)+' «'+text(e)+'» by '+name(a)+' '+Math.round(over)+'px');break;}}
   if(out.length>before)cutOnes.push(e);}
+ // 0.16.32 (user: 「개판인데? UI좀 잘 좀 보라고」 — a title squeezed to one letter a line, pages of two rows over empty room):
+ // words squeezed into a column a letter or two wide, and a paged box whose page leaves more than a third of its room empty.
+ for(const e of reading){if(cutOnes.includes(e))continue;const t=[...e.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim();if(t.length<4)continue;
+  const s=getComputedStyle(e),fs=parseFloat(s.fontSize)||12,r=e.getBoundingClientRect();if(r.width<fs*2.6&&r.height>fs*3.2)out.push('squeezed '+name(e)+' «'+text(e)+'»');}
+ const top=document.querySelector('dialog[open]')||document.querySelector('.handbook');// what a window covers is not looked at
+ for(const pager of document.querySelectorAll('.pane-pager')){if(!shown(pager)||top&&!top.contains(pager))continue;const box=pager.parentElement;if(!box?.querySelector('[data-paged][hidden]'))continue;const nums=[...pager.querySelectorAll('button.pane-page')];if(nums.at(-1)?.classList.contains('on'))continue;// the last page may end early
+  const kids=[...box.children].filter(c=>c!==pager&&!c.hidden&&c.getClientRects().length);if(!kids.length)continue;const b=box.getBoundingClientRect(),bottom=Math.max(...kids.map(c=>c.getBoundingClientRect().bottom)),free=pager.getBoundingClientRect().top-bottom;
+  if(free>b.height*.34&&free>60)out.push('half-empty page '+name(box)+' '+Math.round(free)+'px free');}
  return [...new Set(out)];
 };
 const browser=await chromium.launch({headless:true,executablePath:process.env.CRPG_CHROMIUM_EXECUTABLE||undefined,args:['--no-sandbox']});
@@ -84,10 +92,11 @@ try{
   const look=async(label)=>{await page.waitForTimeout(220);const add=list=>{if(list.length)found[label]=[...new Set([...(found[label]||[]),...list])].slice(0,16);};
    if(process.env.FIT_EVAL)console.log(label,JSON.stringify(await page.evaluate(process.env.FIT_EVAL).catch(e=>String(e))));
    add(await page.evaluate(SCAN));await page.screenshot({path:resolve(evidence,size.name+'-'+label.replace(/[^\w가-힣·-]+/g,'_')+'.png')});
-   const pagers=page.locator((await page.locator('dialog[open]').count())?'dialog[open] .pane-pager':'.pane-pager');
+   // A window or the handbook covers the screen: only its own page buttons are pressed.
+   const pagers=page.locator((await page.locator('dialog[open]').count())?'dialog[open] .pane-pager':(await page.locator('.handbook').count())?'.handbook .pane-pager':'.pane-pager');
    // Pages are numbered buttons: every page is pressed and looked at, then the first is shown again.
    for(let k=0;k<await pagers.count();k++){const pager=pagers.nth(k);if(!(await pager.isVisible()))continue;const nums=pager.locator('button'),n=Math.min(12,await nums.count());
-    for(let i=1;i<n;i++){await nums.nth(i).click();await page.waitForTimeout(80);add((await page.evaluate(SCAN)).map(x=>'page '+(i+1)+': '+x));}
+    for(let i=1;i<n;i++){await nums.nth(i).click();await page.waitForTimeout(80);add((await page.evaluate(SCAN)).map(x=>'page '+(i+1)+': '+x));if(process.env.FIT_PAGES)await page.screenshot({path:resolve(evidence,size.name+'-'+label.replace(/[^\w가-힣·-]+/g,'_')+'-p'+(i+1)+'.png')});}
     if(n>1&&await nums.nth(0).isVisible())await nums.nth(0).click();}};
   const view=async(label,code)=>{if(ONLY.length&&!ONLY.some(o=>label.startsWith(o)))return;try{await page.evaluate(code);await idle();await look(label);}catch(e){found[label]=['ERROR '+String(e.message).slice(0,160)];}
    // Close whatever the view opened: windows, the handbook, the menu.
@@ -153,6 +162,37 @@ try{
    await view('battle',`(async()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='전투 시작');b?.click();})()`);
    const end=new R(DB,JSON.parse(fixture.read().state));end.serverAdmin=true;try{end.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch{}fixture.seed(end.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    await view('reward',`Promise.resolve()`);
+  }
+  // 0.16.32: an early journey as players see it (the 검증 account as it starts: a forest road, the story's next place,
+  // a region event, level-ups after a fight), not only the finished town.
+  if(!ONLY.length||ONLY.some(o=>o.startsWith('early'))){
+   // Lv. 5 with three Mond companions, a story break whose next scene is far away (the 임무 목적지 button and the
+   // 「준비를 마치고 이야기 계속」 card), on the first Mond road that has today's region event.
+   const early=()=>{const r=new R(DB,JSON.parse(INITIAL));if(r.s.runtime)r.action('COMBAT_FORFEIT',{reason:'TEST'});r.serverAdmin=true;
+    // Each run is a new account, so today's events land on other maps: try the first roads, then every Mond map.
+    const roads=['MAP_MOND_FOREST','MAP_MOND_PLAINS','MAP_MOND_WINDRISE','MAP_MOND_STARFELL','MAP_MOND_EAST_MINE'];
+    for(const map of [...roads,...[...r.tables['32_MAP_DB'].keys()].filter(m=>/^MAP_MOND_/.test(m)&&!roads.includes(m))]){if(!r.regionEventAt(map))continue;try{r.action('OPERATOR_DEBUG',{op:'travel',map});}catch{continue;}if(r.regionEventHere?.().event)break;}
+    r.action('OPERATOR_DEBUG',{op:'recruit',char:'ALL'});r.action('OPERATOR_DEBUG',{op:'level',value:5});
+    for(const [slot,char] of [[2,'MOND_AMBER'],[3,'MOND_LISA'],[4,'MOND_KAEYA']])try{r.action('PARTY',{slot,char});}catch(e){console.error('early party',char,e.message);}
+    const route=r.s.global.STORY_ROUTE_ID,row=r.storyIndex().byTable['55_MAIN_STORY_DB'].find(x=>x[0]===route&&x[4]);
+    if(row){r.s.storyBreak={node:row[4],next:row[4],map:'MAP_STORMTERROR_LAIR',title:'결전 준비',prompt:'장비, 식사, 편성을 준비한 뒤 이 장소로 돌아오세요.',policy:''};r.s.global.STORY_WAITING=true;try{r.validateSave(JSON.parse(JSON.stringify(r.s)));}catch(e){console.error('early break',e.message);delete r.s.storyBreak;}}
+    return r;};
+   fixture.seed(early().s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+   await view('early-main',`__go('LOCATION')`);
+   for(const tab of await labels('.shell-loc-side .shell-tab'))await view('early-main-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);
+   for(const tab of ['journey','bosses','ley','companions','treasure','achievements'])await view('early-handbook-'+tab,`(async()=>{await __go('LOCATION');window.CRPGHandbook?.open?.(${JSON.stringify(tab)});})()`);
+   const r=early();r.startBattle('EG_MOND_SLIME_SMALL','RANDOM');fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+   const end=new R(DB,JSON.parse(fixture.read().state));end.serverAdmin=true;try{end.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch{}fixture.seed(end.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+   await view('early-reward',`Promise.resolve()`);
+   // The window of what a fight brought, with every member's level-up (it was a column of big headings, each with the same sentence).
+   await view('early-levelup',`(()=>{const P=CRPGInventoryPresenter.create(game.db,MANIFEST),d=P.itemDetail({item:'MAT_STAINED_MASK',quantity:1});showReceivedLoot({entries:[d],mora:16,joins:[],levelUps:[{name:'검증',from:4,to:5},{name:'리사',from:4,to:5},{name:'엠버',from:4,to:5},{name:'케이아',from:4,to:5}]});})()`);
+   // 0.16.32 「공명」: on the map of a resonant oculus (one with today's region event when there is one, the fuller page), the corner mark, then its catch game.
+   {const r=early(),left=r.resonanceLeft?.()||[],pt=left.find(p=>r.regionEventAt(p.map))||left[0];if(pt){r.action('OPERATOR_DEBUG',{op:'travel',map:pt.map});fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+    await view('early-resonance',`__go('LOCATION')`);
+    await view('early-catch',`(async()=>{await __go('LOCATION');await new Promise(r=>setTimeout(r,300));document.querySelector('button.resonance-mark')?.click();})()`);}}
+   // A road with fishing but no rod yet: the card shows where a rod is sold (two shops split it into one-line pages).
+   {const r=early();try{r.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_MOND_WINDRISE'});}catch(e){console.error('early fish',e.message);}fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+    for(const tab of await labels('.shell-loc-side .shell-tab'))await view('early-fish-'+tab,`(async()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);}
   }
   await ctx.close();
  }

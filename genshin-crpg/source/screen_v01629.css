@@ -648,3 +648,312 @@ html.stage-phone body.teyvat .forge-toggle>input{width:12px;height:12px;margin:0
 html.stage-phone body.teyvat .enhance-banner>:is(strong,.enhance-level){font-size:.74rem}
 html.stage-phone body.teyvat .enhance-banner>small{flex-basis:auto;font-size:.56rem}
 body.teyvat .enhance-banner>.enhance-level{font-size:1rem}
+/* 0.16.32 (user: 「개판인데? UI좀 잘 좀 보라고」): the map's head on a phone — the place's name on one line, short words on the shortcuts. */
+body.teyvat .terrain-shortcuts .nav-short{display:none}
+html.stage-phone body.teyvat .terrain-shortcuts .nav-long{display:none}
+html.stage-phone body.teyvat .terrain-shortcuts .nav-short{display:inline}
+body.teyvat .terrain-header>.terrain-title{flex:0 1 auto;min-width:0}
+body.teyvat .terrain-header>.terrain-title>h2{white-space:nowrap}
+html.stage-phone body.teyvat .terrain-header{gap:6px;flex-wrap:nowrap}
+html.stage-phone body.teyvat .terrain-header>.terrain-title>small{white-space:nowrap}
+html.stage-phone body.teyvat .terrain-shortcuts{flex-wrap:nowrap;gap:4px;margin-left:auto}
+html.stage-phone body.teyvat :where(#root) .terrain-shortcuts>button{min-height:24px;padding:2px 9px;font-size:.62rem;white-space:nowrap}
+/* The story's next step on a phone: the place on one line, its two buttons side by side. */
+html.stage-phone body.teyvat .shell-loc-left .journey-objective{display:grid;grid-template-columns:1fr 1fr;gap:3px 5px;align-items:center}
+html.stage-phone body.teyvat .shell-loc-left .journey-objective>*{grid-column:1/-1;margin:0}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .journey-objective>button{grid-column:auto;min-height:26px;padding:2px 8px;font-size:.62rem;white-space:normal;word-break:keep-all;line-height:1.15}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .journey-objective>button:only-of-type{grid-column:1/-1}
+/* A region event on a phone: one compact card — its name, a line of words, the choices in a row. */
+html.stage-phone body.teyvat .region-event{padding:5px 8px;gap:3px}
+html.stage-phone body.teyvat .region-event .re-head{gap:6px}
+html.stage-phone body.teyvat .region-event .re-icon{width:16px;height:16px}
+html.stage-phone body.teyvat .region-event .re-words h2{font-size:.78rem;margin:0}
+html.stage-phone body.teyvat .region-event .re-eyebrow{font-size:.54rem}
+html.stage-phone body.teyvat .region-event .re-text{font-size:.62rem;line-height:1.35;margin:2px 0}
+html.stage-phone body.teyvat .region-event .re-choices{display:flex;flex-direction:row;flex-wrap:wrap;gap:3px 6px}
+html.stage-phone body.teyvat .region-event .re-choice{display:flex;flex-direction:column;gap:1px;flex:1 1 30%;min-width:120px;height:auto}
+html.stage-phone body.teyvat :where(#root) .region-event .re-choice>button{min-height:24px;padding:2px 8px;font-size:.62rem}
+html.stage-phone body.teyvat .region-event :is(.re-reward,.re-primo,.choice-note){font-size:.54rem;margin:0}
+/* The phone's left column gives its list the room: the place's name and level on one line, slimmer tabs. */
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head{display:flex!important;align-items:center;gap:6px;flex-wrap:nowrap;min-height:0}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head>h1{margin:0;white-space:nowrap;font-size:.92rem;line-height:1.2}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head>.area-level{margin:0;white-space:nowrap;font-size:.54rem;padding:1px 6px}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head>.wait-controls{margin:0 0 0 auto;position:static!important}
+html.stage-phone body.teyvat .shell-loc-left .shell-loc-side>.shell-tabbar{padding:2px;gap:3px}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .shell-loc-side>.shell-tabbar>.shell-tab{min-height:23px;padding:1px 6px;font-size:.6rem}
+html.stage-phone body.teyvat .shell-loc-left .shell-loc-side>.shell-tabbar>.shell-tab svg{width:11px;height:11px}
+/* The merchant's goods in their window: two columns of one-line rows. */
+body.teyvat #modal-body .re-shop-window{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 8px}
+html.stage-phone body.teyvat #modal-body .re-shop-window .re-shop-row{padding:3px 6px;gap:6px;font-size:.62rem}
+html.stage-phone body.teyvat #modal-body :is(.re-shop-window,.re-gift-window) .re-gift-icon{width:26px;height:26px}
+html.stage-phone body.teyvat :where(#modal) .re-shop-window button{min-height:24px;padding:2px 10px;font-size:.62rem}
+body.teyvat #modal-body .re-gift-window{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px}
+html.stage-phone body.teyvat .region-event .re-head>svg{width:18px!important;height:18px!important;flex:0 0 18px}
+body.teyvat .region-event .re-head>svg{flex:0 0 auto}
+html.stage-phone body.teyvat .shell-loc-left .shell-loc-side>.shell-tabbar{flex-wrap:nowrap!important;display:flex!important}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .shell-loc-side>.shell-tabbar>.shell-tab{flex:1 1 0;min-width:0;gap:3px;white-space:nowrap}
+html.stage-phone body.teyvat .shell-loc-left .shell-loc-side>.shell-tabbar>.shell-tab>.shell-tab-badge,html.stage-phone body.teyvat .shell-loc-left .shell-loc-side>.shell-tabbar>.shell-tab>small{font-size:.5rem}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head{flex-wrap:wrap!important;row-gap:1px}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head>h1{flex:0 1 auto;min-width:0}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head>.wait-controls{order:2}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head>.area-level{order:3}
+html.stage-phone body.teyvat :where(#root) .region-event .re-choices>button{min-height:24px;padding:2px 10px;font-size:.62rem;flex:0 0 auto}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head{height:auto!important;align-content:flex-start}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head>h1{font-size:.84rem}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head>.area-level{font-size:.5rem}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left>.shell-loc-head>.wait-controls>button{min-height:20px;padding:1px 8px;font-size:.54rem}
+html.stage-phone body.teyvat .region-event .re-eyebrow{display:none}
+html.stage-phone body.teyvat .region-event .re-text{font-size:.58rem;line-height:1.3}
+html.stage-phone body.teyvat .region-event .re-choice{flex:1 1 100%;flex-direction:row;align-items:center;gap:6px}
+html.stage-phone body.teyvat .region-event .re-choice>.re-reward{flex:1;min-width:0;line-height:1.2}
+/* On a phone the event's card is brief (name, words, the choices in a row); 「자세히」 opens it whole with the rewards. */
+html.stage-phone body.teyvat .region-event.phone-brief :is(.re-reward,.re-primo,.re-choice>.choice-note){display:none}
+html.stage-phone body.teyvat .region-event.phone-brief .re-choice{flex:0 1 auto;min-width:0}
+html.stage-phone body.teyvat .region-event.phone-brief .re-text{display:-webkit-box;-webkit-box-orient:vertical;overflow:visible}
+html.stage-phone body.teyvat .region-event .re-head>.re-more{margin-left:auto;min-height:20px;padding:1px 8px;font-size:.54rem}
+body.teyvat #modal-body>.region-event{border:0;background:none;padding:0}
+/* Level-ups after a fight: a row of chips (face, name, Lv. a → b), the note once. */
+body.teyvat .loot-summary .level-up-title{margin:8px 0 4px;font-size:.9rem;color:#f3dfae}
+body.teyvat .loot-summary .level-ups{display:flex;flex-wrap:wrap;gap:6px}
+body.teyvat .loot-summary .level-up-chip{display:flex;align-items:center;gap:6px;padding:3px 10px 3px 3px;border-radius:10px;border:1px solid rgba(211,188,142,.35);background:rgba(0,0,0,.22)}
+body.teyvat .loot-summary .level-up-face{width:34px;height:34px;border-radius:8px;object-fit:cover;object-position:top;flex:0 0 34px}
+body.teyvat .loot-summary .level-up-copy{display:flex;flex-direction:column;line-height:1.15}
+body.teyvat .loot-summary .level-up-copy>strong{font-size:.78rem}
+body.teyvat .loot-summary .level-up-copy>small{font-size:.7rem;color:#9be38f}
+body.teyvat .loot-summary .level-up-note{margin:4px 0 0;font-size:.7rem}
+html.stage-phone body.teyvat .loot-summary .level-up-face{width:26px;height:26px;flex-basis:26px}
+html.stage-phone body.teyvat .loot-summary .level-up-copy>strong{font-size:.64rem}
+html.stage-phone body.teyvat .loot-summary .level-up-copy>small{font-size:.58rem}
+html.stage-phone body.teyvat .loot-summary .level-up-title{font-size:.72rem;margin:4px 0 2px}
+html.stage-phone body.teyvat .loot-summary .level-up-note{font-size:.56rem}
+/* 지역 정보 on a phone: small lines, the encounters one row each. */
+html.stage-phone body.teyvat .mond-region-guide{padding:5px 8px}
+html.stage-phone body.teyvat .mond-region-guide .region-guide-summary{font-size:.7rem}
+html.stage-phone body.teyvat .mond-region-guide :is(p,small){font-size:.58rem;line-height:1.3;margin:1px 0}
+html.stage-phone body.teyvat .mond-region-guide .region-encounters>summary{font-size:.62rem}
+html.stage-phone body.teyvat .mond-region-guide .region-encounter-line{display:flex;flex-wrap:wrap;gap:0 6px;margin:2px 0}
+html.stage-phone body.teyvat .mond-region-guide .region-encounter-line>strong{font-size:.6rem}
+html.stage-phone body.teyvat .mond-region-guide summary{min-height:0!important;padding:2px 4px!important;line-height:1.25;margin:0!important}
+html.stage-phone body.teyvat .mond-region-guide .region-encounters{margin:2px 0;padding:0}
+html.stage-phone body.teyvat .shell-loc-left .journey-objective{padding:4px 7px}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .journey-objective>button{min-height:22px}
+html.stage-phone body.teyvat .shell-loc-left .journey-objective>.objective-location{font-size:.58rem;line-height:1.2}
+html.stage-phone body.teyvat .region-event{padding:4px 7px}
+html.stage-phone body.teyvat :where(#root) .region-event :is(.re-choice>button,.re-choices>button){min-height:22px}
+/* A gathering · fishing card on a phone: one row — the name and today's count, the pictures, the button. */
+html.stage-phone body.teyvat .shell-loc-left .life-card{display:grid!important;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:4px 8px;padding:4px 7px;min-height:0}
+html.stage-phone body.teyvat .shell-loc-left .life-card>.life-card-head{display:flex;flex-direction:column;align-items:flex-start;gap:1px;margin:0}
+html.stage-phone body.teyvat .shell-loc-left .life-card .life-card-name{font-size:.68rem}
+html.stage-phone body.teyvat .shell-loc-left .life-card .life-chip{font-size:.5rem;padding:0 5px;min-height:0}
+html.stage-phone body.teyvat .shell-loc-left .life-card>.life-card-items{display:flex;flex-wrap:wrap;gap:3px;margin:0;min-width:0}
+html.stage-phone body.teyvat .shell-loc-left .life-card .life-item{width:26px;height:26px;padding:1px}
+html.stage-phone body.teyvat .shell-loc-left .life-card .life-icon{width:22px;height:22px}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .life-card>button.life-go{min-height:24px;padding:2px 10px;font-size:.6rem;margin:0;width:auto}
+html.stage-phone body.teyvat .shell-loc-left .life-cards{gap:4px}
+html.stage-phone body.teyvat .region-event.phone-brief .re-choices{flex-direction:row;flex-wrap:wrap;gap:3px 5px}
+html.stage-phone body.teyvat .region-event.phone-brief .re-choices>.re-choice{flex:0 1 auto;min-width:0;flex-direction:row}
+html.stage-phone body.teyvat .shell-loc-left p.no-places{display:none}
+html.stage-phone body.teyvat .shell-loc-left .pane-pager{min-height:0;padding:1px 0;gap:4px}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .pane-pager>.pane-page{width:20px;height:20px;min-width:20px;min-height:20px;font-size:.56rem}
+html.stage-phone body.teyvat .region-event .re-words h2{font-size:.72rem;line-height:1.2}
+html.stage-phone body.teyvat .region-event .re-text{line-height:1.25;margin:1px 0}
+html.stage-phone body.teyvat .region-event .re-head{min-height:0}
+html.stage-phone body.teyvat :where(#root) .region-event .re-head>.re-more{min-height:18px;padding:0 7px}
+html.stage-phone body.teyvat .shell-loc-left .task-mini{padding:4px 7px}
+html.stage-phone body.teyvat .shell-loc-left .life-card>.life-card-head{grid-column:1;grid-row:1/span 2}
+html.stage-phone body.teyvat .shell-loc-left .life-card>.life-card-items{grid-column:2;grid-row:1}
+html.stage-phone body.teyvat .shell-loc-left .life-card>.life-card-gear{grid-column:2;grid-row:2;display:flex;gap:3px;margin:0}
+html.stage-phone body.teyvat .shell-loc-left .life-card>.life-card-gear .life-item{width:24px;height:24px}
+html.stage-phone body.teyvat .shell-loc-left .life-card>.life-card-why{grid-column:3;grid-row:1;font-size:.5rem;text-align:center;margin:0}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .life-card>button.life-go{grid-column:3;grid-row:1/span 2}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .life-card:has(>.life-card-why)>button.life-go{grid-row:2}
+html.stage-phone body.teyvat .shell-loc-left .life-card>.life-card-where{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px;margin:0;font-size:.52rem}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .life-card>.life-card-where button{min-height:20px;padding:1px 8px;font-size:.54rem}
+/* 0.16.32 「공명」: the oculus mark in the map's corner — faint, near, nearer, here (a button that pulses). */
+body.teyvat .shell-loc-main .terrain-frame{position:relative}
+body.teyvat .resonance-mark{position:absolute;left:8px;bottom:56px;z-index:6;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 6px;border-radius:12px;border:1px solid rgba(160,230,220,.25);background:rgba(10,24,30,.62);color:#dff6f2;pointer-events:none}
+body.teyvat button.resonance-mark{pointer-events:auto;cursor:pointer;min-width:0;min-height:0;margin:0;font:inherit}
+body.teyvat :where(#root) button.resonance-mark::before{display:none!important}
+body.teyvat .resonance-mark .resonance-icon{width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 2px rgba(150,240,220,.4));opacity:.55}
+body.teyvat .resonance-mark>small{font-size:.6rem;white-space:nowrap}
+body.teyvat .resonance-mark.lv1 .resonance-icon{opacity:.75;filter:drop-shadow(0 0 5px rgba(150,240,220,.6))}
+body.teyvat .resonance-mark.lv2 .resonance-icon{opacity:.9;filter:drop-shadow(0 0 9px rgba(160,250,230,.85));animation:resonanceBreath 2.2s ease-in-out infinite}
+body.teyvat .resonance-mark.lv3{border-color:#f3dfae;background:rgba(40,32,12,.78);color:#f3dfae;animation:resonancePulse 1.2s ease-in-out infinite}
+body.teyvat .resonance-mark.lv3 .resonance-icon{opacity:1;filter:drop-shadow(0 0 12px rgba(255,230,150,.95))}
+@keyframes resonanceBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes resonancePulse{0%,100%{box-shadow:0 0 0 0 rgba(243,223,174,.6)}50%{box-shadow:0 0 0 8px rgba(243,223,174,0)}}
+html.stage-phone body.teyvat .resonance-mark{left:6px;bottom:44px;padding:2px 4px}
+html.stage-phone body.teyvat .resonance-mark .resonance-icon{width:22px;height:22px}
+html.stage-phone body.teyvat .resonance-mark>small{font-size:.5rem}
+/* The catch game */
+body.teyvat .resonance-game{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+body.teyvat .resonance-game .resonance-note{margin:0;text-align:center;font-size:.8rem}
+body.teyvat .resonance-field{position:relative;height:220px;border-radius:12px;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(120,210,200,.18),rgba(0,0,0,.35));border:1px solid rgba(160,230,220,.25)}
+body.teyvat :where(#modal) .resonance-orb{position:absolute;width:54px;height:54px;min-width:0;min-height:0;padding:0;margin:0;border-radius:50%;border:0;background:radial-gradient(circle,rgba(200,255,240,.35),rgba(0,0,0,0) 70%);transition:left .35s ease-out,top .35s ease-out;cursor:pointer}
+body.teyvat :where(#modal) .resonance-orb::before{display:none!important}
+body.teyvat .resonance-orb .resonance-icon{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(180,255,235,.9))}
+body.teyvat .resonance-dots{display:flex;justify-content:center;gap:6px}
+body.teyvat .resonance-dots>span{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.15)}
+body.teyvat .resonance-dots>span.on{background:#f3dfae}
+body.teyvat .resonance-time{height:5px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+body.teyvat .resonance-time>i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#8fe0d2,#f3dfae)}
+html.stage-phone body.teyvat .resonance-field{height:170px}
+html.stage-phone body.teyvat .resonance-game .resonance-note{font-size:.62rem}
+/* 0.16.32 (TODO 4-6): a timed search shows over the screen's top edge instead of pushing everything down. */
+body.teyvat #world-work-status.world-work-status{position:fixed;left:50%;top:52px;transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:8px;padding:5px 12px;margin:0;border-radius:12px;background:rgba(14,20,30,.92);border:1px solid rgba(211,188,142,.4);box-shadow:0 6px 20px rgba(0,0,0,.4);max-width:min(560px,92vw)}
+body.teyvat #world-work-status progress{width:140px}
+html.stage-phone body.teyvat #world-work-status.world-work-status{top:40px;padding:3px 8px;font-size:.62rem;gap:6px}
+html.stage-phone body.teyvat #world-work-status progress{width:90px}
+html.stage-phone body.teyvat :where(#root) #world-work-status button{min-height:22px;padding:1px 8px;font-size:.58rem}
+body.teyvat .mond-region-guide>.region-guide-summary{margin:0 0 4px;font-size:.92rem;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 6px}
+body.teyvat .mond-region-guide .region-encounters>h4{margin:8px 0 3px;font-size:.8rem;color:#f3dfae}
+html.stage-phone body.teyvat .mond-region-guide>.region-guide-summary{font-size:.7rem;margin:0 0 2px}
+html.stage-phone body.teyvat .mond-region-guide .region-encounters>h4{font-size:.62rem;margin:3px 0 1px}
+/* The brief event card on a computer too (long choices with notes overflowed the column): words, choices, 「자세히」. */
+body.teyvat .shell-loc-left .region-event.phone-brief :is(.re-reward,.re-primo,.re-choice>.choice-note){display:none}
+body.teyvat .shell-loc-left .region-event.phone-brief .re-choices{display:flex;flex-direction:row;flex-wrap:wrap;gap:4px 6px}
+body.teyvat .shell-loc-left .region-event.phone-brief .re-choices>.re-choice{flex:0 1 auto;min-width:0}
+body.teyvat .shell-loc-left .region-event .re-head>.re-more{margin-left:auto}
+/* The story's next step on a computer too: what to do, where, and the two buttons side by side; the repeated lines go. */
+html.stage-pc body.teyvat .shell-loc-left .journey-objective{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;align-items:center;padding:8px 12px}
+html.stage-pc body.teyvat .shell-loc-left .journey-objective>*{grid-column:1/-1;margin:0}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .journey-objective>button{grid-column:auto;min-height:34px;padding:4px 12px;font-size:.78rem;white-space:normal;word-break:keep-all;line-height:1.2}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .journey-objective>button:only-of-type{grid-column:1/-1}
+body.teyvat .shell-loc-left .journey-objective>p.muted,body.teyvat .shell-loc-left .journey-objective>small.muted{display:none}
+html.stage-pc body.teyvat .shell-loc-left .journey-objective>p:not(.objective-location){font-size:.8rem;line-height:1.35}
+html.stage-pc body.teyvat .shell-loc-left .region-event{padding:8px 12px;gap:4px}
+html.stage-pc body.teyvat .shell-loc-left .region-event .re-head{gap:8px;align-items:center}
+html.stage-pc body.teyvat .shell-loc-left .region-event .re-head>svg{width:22px!important;height:22px!important;flex:0 0 22px}
+html.stage-pc body.teyvat .shell-loc-left .region-event .re-words h2{font-size:.92rem;margin:0}
+html.stage-pc body.teyvat .shell-loc-left .region-event .re-eyebrow{font-size:.62rem}
+html.stage-pc body.teyvat .shell-loc-left .region-event .re-text{font-size:.76rem;line-height:1.4;margin:2px 0}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .region-event .re-head>.re-more{min-height:26px;padding:2px 12px;font-size:.7rem;white-space:nowrap;flex:0 0 auto}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .region-event :is(.re-choice>button,.re-choices>button){min-height:30px;padding:3px 12px;font-size:.76rem}
+/* An oculus clue in the list: its name, the clue, 살펴보기 (the steps open in a window). */
+body.teyvat .discovery-card.discovery-brief{padding:6px 10px;gap:2px}
+body.teyvat .discovery-brief>.discovery-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+body.teyvat .discovery-brief>.discovery-head>h3{margin:0;font-size:.86rem}
+body.teyvat :where(#root) .discovery-brief>.discovery-head>button{min-height:26px;padding:2px 12px;font-size:.7rem;margin:0;flex:0 0 auto}
+body.teyvat .discovery-brief>p{margin:0;font-size:.72rem;line-height:1.35}
+body.teyvat .world-discoveries>h2{font-size:.82rem;margin:4px 0}
+html.stage-phone body.teyvat .discovery-brief>.discovery-head>h3{font-size:.68rem}
+html.stage-phone body.teyvat :where(#root) .discovery-brief>.discovery-head>button{min-height:20px;padding:1px 8px;font-size:.56rem}
+html.stage-phone body.teyvat .discovery-brief>p{font-size:.58rem}
+html.stage-phone body.teyvat .world-discoveries>h2{font-size:.66rem;margin:2px 0}
+html.stage-phone body.teyvat .shell-loc-left :is(.map-breadcrumb,.map-description){display:none}
+html.stage-phone body.teyvat .shell-loc-left .region-event.phone-brief .re-text{display:none}
+/* A narrow star chart keeps every star whole inside it (a star at 10% of a narrow chart stood half outside). */
+body.teyvat :where(#root) .cons-chart>button.cons-node{left:clamp(24px,var(--x),calc(100% - 24px));top:clamp(24px,var(--y),calc(100% - 24px))}
+html.stage-phone body.teyvat :where(#root) .cons-chart>button.cons-node{left:clamp(16px,var(--x),calc(100% - 16px));top:clamp(16px,var(--y),calc(100% - 16px))}
+html.stage-phone body.teyvat .shell-loc-left .region-event.phone-brief .re-choices{gap:3px 4px}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .region-event.phone-brief :is(.re-choice>button,.re-choices>button){min-height:20px;padding:1px 7px;font-size:.56rem;gap:4px}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .region-event.phone-brief :is(.re-choice>button,.re-choices>button)::before{display:none!important}
+html.stage-phone body.teyvat .shell-loc-left .world-discoveries{margin:0!important;padding:0!important;gap:3px}
+html.stage-phone body.teyvat .shell-loc-left .world-discoveries>h2{margin:0 0 2px!important;line-height:1.2}
+html.stage-phone body.teyvat .shell-loc-left .discovery-card.discovery-brief{padding:4px 7px;margin:0}
+/* The handbook on a phone: smaller rows, so three rows fill a page instead of one row over empty room. */
+html.stage-phone body.teyvat .hb-body{padding:6px 10px 8px}
+html.stage-phone body.teyvat .hb-section{gap:4px}
+html.stage-phone body.teyvat .hb-section>h3{font-size:.74rem;margin:0}
+html.stage-phone body.teyvat .hb-section>.hb-note{font-size:.56rem;line-height:1.3;margin:0}
+html.stage-phone body.teyvat .hb-row{padding:5px 8px;gap:6px;min-height:0}
+html.stage-phone body.teyvat .hb-row .hb-copy>strong{font-size:.7rem}
+html.stage-phone body.teyvat .hb-row .hb-copy>small{font-size:.56rem;line-height:1.25}
+html.stage-phone body.teyvat .hb-row .hb-chip{font-size:.5rem;padding:0 5px}
+html.stage-phone body.teyvat :where(.handbook) .hb-row button{min-height:22px;padding:1px 9px;font-size:.58rem}
+html.stage-phone body.teyvat :where(.handbook) .hb-guide svg{width:12px;height:12px}
+html.stage-phone body.teyvat .hb-row{padding:3px 7px;gap:5px}
+html.stage-phone body.teyvat .hb-row .hb-copy{gap:0;line-height:1.18}
+html.stage-phone body.teyvat .hb-row .hb-copy>strong{font-size:.66rem;line-height:1.2}
+html.stage-phone body.teyvat .hb-row .hb-copy>small{font-size:.52rem;line-height:1.2}
+html.stage-phone body.teyvat .hb-row .hb-copy>.hb-chip,html.stage-phone body.teyvat .hb-row .hb-copy>span{font-size:.48rem;line-height:1.3}
+html.stage-phone body.teyvat .hb-section{row-gap:4px;column-gap:6px}
+/* Achievements: square category buttons (not round pills side by side); on a phone two columns of slim rows. */
+body.teyvat .ac-cat,body.teyvat .ac-btn,body.teyvat .ac-filter{border-radius:8px}
+html.stage-phone body.teyvat .ac-summary{gap:4px;margin:0 0 6px}
+html.stage-phone body.teyvat .ac-facts{gap:4px}
+html.stage-phone body.teyvat .ac-fact{padding:3px 8px}
+html.stage-phone body.teyvat .ac-fact small{font-size:.52rem}
+html.stage-phone body.teyvat .ac-fact strong{font-size:.8rem}
+html.stage-phone body.teyvat .ac-btn{min-height:22px;padding:1px 10px;font-size:.58rem}
+html.stage-phone body.teyvat .ac-cats{gap:3px;margin:0 0 4px}
+html.stage-phone body.teyvat .ac-cat{padding:2px 7px;font-size:.58rem;gap:4px}
+html.stage-phone body.teyvat .ac-cat small{font-size:.5rem}
+html.stage-phone body.teyvat .ac-filters{gap:3px;margin:0 0 4px}
+html.stage-phone body.teyvat .ac-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+html.stage-phone body.teyvat .ac-item{padding:3px 7px;gap:6px;min-height:0}
+html.stage-phone body.teyvat .ac-item :is(img,.ac-medal,.ac-icon,[class*=trophy]){width:24px;height:24px;flex:0 0 24px}
+html.stage-phone body.teyvat .ac-copy{gap:0}
+html.stage-phone body.teyvat .ac-copy strong{font-size:.64rem}
+html.stage-phone body.teyvat .ac-copy small{font-size:.52rem}
+html.stage-phone body.teyvat .ac-side{gap:2px}
+html.stage-phone body.teyvat .ac-reward{font-size:.5rem}
+html.stage-phone body.teyvat .ac-side .ac-btn{min-height:20px;padding:0 8px}
+body.teyvat .ac-cat>.ac-dot{position:absolute;top:-7px;right:-6px;min-width:16px;height:16px;padding:0 4px;font-size:.58rem;line-height:16px;border-radius:8px}
+body.teyvat .ac-cat:has(>.ac-dot){margin-right:6px}
+html.stage-phone body.teyvat .ac-cat>.ac-dot{top:-6px;right:-5px;min-width:13px;height:13px;line-height:13px;font-size:.48rem}
+/* 0.16.32: the brief event card on the phone's left column is two slim lines (name row, choice row), so it shares a page with the task card. */
+html.stage-phone body.teyvat .shell-loc-left .region-event.phone-brief{padding:3px 7px;gap:2px}
+html.stage-phone body.teyvat .shell-loc-left .region-event.phone-brief .re-head{min-height:0;align-items:center;gap:5px}
+html.stage-phone body.teyvat .shell-loc-left .region-event.phone-brief .re-head>svg{width:15px!important;height:15px!important;flex:0 0 15px}
+html.stage-phone body.teyvat .shell-loc-left .region-event.phone-brief .re-choices>.re-choice{display:contents}
+html.stage-phone body.teyvat .shell-loc-left .region-event.phone-brief .re-choices{align-items:center}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .region-event.phone-brief :is(.re-choice>button,.re-choices>button){width:auto;flex:0 1 auto;max-width:100%}
+/* 0.16.32: the guide's title line was 16px bold and rode along on every page of the 지역 정보 tab; one small line keeps the tab to a page or two. */
+html.stage-phone body.teyvat .mond-region-guide>.region-guide-summary>strong{font-size:.8rem;line-height:1.2}
+html.stage-phone body.teyvat .mond-region-guide>.region-guide-summary{line-height:1.2}
+html.stage-phone body.teyvat .mond-region-guide .region-encounters>h4{line-height:1.2;padding:0}
+/* 0.16.32: a place with facilities has four tabs; they stay on one row (the fourth wrapped and took a row from the list). */
+html.stage-pc body.teyvat .shell-loc-side>.shell-tabbar{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
+html.stage-pc body.teyvat .shell-loc-side>.shell-tabbar:has(>.shell-tab:nth-child(4))>.shell-tab{padding:6px 2px;gap:3px;font-size:.8rem}
+html.stage-pc body.teyvat .shell-loc-side>.shell-tabbar:has(>.shell-tab:nth-child(4))>.shell-tab svg{width:13px;height:13px;flex:0 0 13px}
+/* the ley card's one help line is a block, so the card can be paged row by row */
+body.teyvat .ley-line-card>.ley-line-help{display:block}
+/* 0.16.32 (user: 「글씨 크기를 줄이고 길이를 줄이고 … 자리는 많은데」): the computer's left column gives its list the room too.
+   The place's name, level and the wait button on one row; the main quest in four short lines; slim tabs; one-row life cards; small guide lines. */
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head{grid-template-columns:auto minmax(0,1fr) auto;row-gap:2px;padding:0 4px}
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>h1{font-size:1.32rem;line-height:1.2;grid-column:1;grid-row:1}
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>.area-level{grid-column:2;grid-row:1;justify-self:start;font-size:.7rem;padding:1px 8px;white-space:nowrap}
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>.wait-controls{grid-column:3;grid-row:1}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .wait-controls.compact button{min-height:28px;padding:2px 12px;font-size:.74rem}
+html.stage-pc body.teyvat .shell-loc-left .main-objective{padding:7px 12px;display:flex;flex-direction:column;gap:2px}
+html.stage-pc body.teyvat .shell-loc-left .main-objective>.eyebrow{display:none}
+html.stage-pc body.teyvat .shell-loc-left .main-objective>h3{font-size:.95rem;line-height:1.25;margin:0}
+html.stage-pc body.teyvat .shell-loc-left .main-objective>p{font-size:.78rem;line-height:1.3;margin:0}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .main-objective>button{min-height:30px;padding:3px 12px;font-size:.8rem;margin-top:3px}
+html.stage-pc body.teyvat .shell-loc-left .shell-loc-side>.shell-tabbar{padding:6px 8px 4px}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .shell-loc-side>.shell-tabbar>.shell-tab{min-height:30px}
+html.stage-pc body.teyvat .shell-loc-left .shell-panes{padding:4px 10px 10px}
+html.stage-pc body.teyvat .shell-loc-left .task-mini{padding:6px 10px}
+html.stage-pc body.teyvat .shell-loc-left .life-cards{gap:6px}
+html.stage-pc body.teyvat .shell-loc-left .life-card{display:grid!important;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:4px 10px;padding:6px 10px;min-height:0}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-head{grid-column:1;grid-row:1/span 2;display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin:0}
+html.stage-pc body.teyvat .shell-loc-left .life-card .life-card-name{font-size:.86rem}
+html.stage-pc body.teyvat .shell-loc-left .life-card .life-chip{font-size:.62rem;padding:0 6px;min-height:0}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-items{grid-column:2;grid-row:1;display:flex;flex-wrap:wrap;gap:4px;margin:0;min-width:0}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-gear{grid-column:2;grid-row:2;display:flex;gap:4px;margin:0}
+html.stage-pc body.teyvat .shell-loc-left .life-card .life-item{width:34px;height:34px;padding:2px}
+html.stage-pc body.teyvat .shell-loc-left .life-card .life-icon{width:30px;height:30px}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-gear .life-item{width:30px;height:30px}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-gear .life-icon{width:24px;height:24px}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-why{grid-column:3;grid-row:1;font-size:.66rem;text-align:center;margin:0}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .life-card>button.life-go{grid-column:3;grid-row:1/span 2;min-height:30px;padding:3px 12px;font-size:.78rem;margin:0;width:auto}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .life-card:has(>.life-card-why)>button.life-go{grid-row:2}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-where{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;margin:0}
+html.stage-pc body.teyvat .shell-loc-left .life-card>.life-card-where .material-source{font-size:.68rem}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .life-card>.life-card-where button{min-height:26px;padding:2px 10px;font-size:.72rem}
+html.stage-pc body.teyvat .mond-region-guide{padding:8px 12px}
+html.stage-pc body.teyvat .mond-region-guide>.region-guide-summary{font-size:.8rem;margin:0 0 2px;line-height:1.25}
+html.stage-pc body.teyvat .mond-region-guide>.region-guide-summary>strong{font-size:.95rem}
+html.stage-pc body.teyvat .mond-region-guide :is(p,small){font-size:.72rem;line-height:1.35;margin:1px 0}
+html.stage-pc body.teyvat .mond-region-guide .region-encounters{margin:2px 0;padding:0}
+html.stage-pc body.teyvat .mond-region-guide .region-encounters>h4{font-size:.74rem;margin:4px 0 1px;line-height:1.2}
+html.stage-pc body.teyvat .mond-region-guide .region-encounter-line{display:flex;flex-wrap:wrap;gap:0 8px;margin:2px 0}
+html.stage-pc body.teyvat .mond-region-guide .region-encounter-line>strong{font-size:.76rem}
+/* a long place name: the level chip and the wait button go to a second row instead of running into each other */
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px}
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>h1{flex:0 1 auto;min-width:0}
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>.area-level{flex:0 0 auto}
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>.wait-controls{margin-left:auto}
+/* the place's name is already the column's title; the empty-facilities line says nothing a missing tab would not */
+html.stage-pc body.teyvat .shell-loc-left :is(p.map-breadcrumb,p.no-places){display:none}

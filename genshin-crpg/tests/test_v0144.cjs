@@ -122,7 +122,8 @@ check('screens: new scripts are wired in order and the UI shows the new rules',(
  assert(at('app_resonance.js')>at('presentation.js')&&at('app_resonance.js')>at('app_combat_fx.js'));
  const read=f=>fs.readFileSync(path.join(root,'source',f),'utf8'),css=read('style.css');
  assert(read('app_navigation.js').includes('if(this.target===current)this.target=null'),'a destination stays until arrival');
- for(const f of ['app_mond_encounters.js','app_liyue_region_guide.js'])assert(read(f).includes("el('details','card mond-region-guide"),f+' folds the region guide');
+ // 0.16.32: the guide lives in its own 「지역 정보」 tab, with plain headings instead of a fold.
+ for(const f of ['app_mond_encounters.js','app_liyue_region_guide.js'])assert(read(f).includes("el('section','card mond-region-guide"),f+' shows the region guide in its tab');
  for(const x of ['.lack{','.resonance-cue{','.combat-duo','.ley-line-card','.tier-5'])assert(css.includes(x),x);
  assert(read('app_resonance.js').includes('portraitFor(profile,7)||portraitFor(profile,1)'),'motion art with the default image as fallback');
 });

@@ -34,13 +34,14 @@ function card(here){
  if(here.busy)box.append(el('p','choice-note',here.busy));
  const list=el('div','re-choices');
  for(const c of ev.choices){
-  if(c.buy){list.append(shop(ev,here));continue;}
+  // 0.16.32: on a phone the goods and the gift list open in their own window (in the card they were taller than the screen).
+  if(c.buy){if(phone()){const b=button('물건 보기 · '+ev.stock.length+'개',()=>shopWindow(ev),busy,true);list.append(b);}else list.append(shop(ev,here));continue;}
   const row=el('div','re-choice'),b=button(c.label,()=>choose(ev,c,here,b),!!c.reason||busy,c.id!=='LEAVE');
   if(c.reason)withReason(b,c.reason);row.append(b);
   const hint=c.reward?rewardText(c.reward):'';const extra=[c.battle?(c.elite?'강해진 마물과 전투':'전투'):'',c.puzzle&&ev.puzzle?'퍼즐 · '+ev.puzzle.name:'',c.minutes?c.minutes+'분 걸림':'',c.escort?'목적지에 함께 가면 보상':''].filter(Boolean);
   if(hint||extra.length)row.append(el('small','re-reward',[...extra,hint&&'보상 '+hint].filter(Boolean).join(' · ')));
   if(c.reason)row.append(el('small','choice-note',c.reason));
-  if(c.gift&&E.giftOpen===ev.key)row.append(giftPicker(ev,c));
+  if(c.gift&&E.giftOpen===ev.key&&!phone())row.append(giftPicker(ev,c));
   list.append(row);
  }
  box.append(list,primoLine(here));return box;
@@ -63,11 +64,25 @@ function escortCard(here){
   box.append(el('small','muted','자정(한국 시간)이 지나면 그 사람은 스스로 길을 찾아 떠납니다.'));}
  return box;
 }
+const phone=()=>document.documentElement.classList.contains('stage-phone');
+// The goods or the gift list in a window of its own; a purchase or a gift redraws the window (or closes it when settled).
+function shopWindow(ev){const draw=()=>{const here=game.regionEventHere();if(!here.event||here.event.key!==ev.key||here.done){document.getElementById('modal')?.close();return;}const wrap=shop(here.event,here);wrap.classList.add('re-shop-window');wrap.addEventListener('click',e=>{if(e.target.closest?.('button'))setTimeout(()=>{if(document.getElementById('modal')?.open)draw();},700);});showModal(ev.name,wrap);};draw();}
+function giftWindow(ev,c){const wrap=giftPicker(ev,c);wrap.classList.add('re-gift-window');wrap.addEventListener('click',e=>{if(e.target.closest?.('button'))setTimeout(()=>document.getElementById('modal')?.close(),300);});showModal(ev.name+' · '+c.label,wrap);}
+function timePassing(label,minutes){
+ const duration=Math.min(3200,900+minutes*38),overlay=el('div','travel-overlay task-progress-overlay region-event-wait');overlay.setAttribute('role','status');
+ const bar=el('progress'),left=el('small','');bar.max=duration;bar.value=0;
+ overlay.append(el('span','travel-mark','✧'),el('strong','',label.replace(/\s*\(\d+분\)\s*$/,'')),el('span','','게임 시간 '+minutes+'분'),bar,left);document.body.append(overlay);
+ const start=performance.now();
+ return new Promise(resolve=>{const tick=()=>{const t=performance.now()-start;bar.value=Math.min(duration,t);left.textContent=Math.max(0,Math.round((1-t/duration)*minutes))+'분 남음';if(t>=duration){overlay.remove();resolve();}else requestAnimationFrame(tick);};tick();});
+}
 // ---------- choices ----------
 async function choose(ev,c,here,b){
  if(c.puzzle){play(ev,here);return;}
- if(c.gift){E.giftOpen=E.giftOpen===ev.key?false:ev.key;render();return;}
- b.disabled=true;const r=await send({choice:c.id});const why=failed(r);if(why){say?.(why);render();return;}
+ if(c.gift){if(phone()){giftWindow(ev,c);return;}E.giftOpen=E.giftOpen===ev.key?false:ev.key;render();return;}
+ b.disabled=true;
+ // 0.16.32 (TODO 4-5, user: 「구석구석 뒤진다」(1시간)도 기다리는 화면): a choice that takes time shows that time passing, like 1시간 대기.
+ const wait=c.minutes?timePassing(c.label,c.minutes):null;
+ const r=await send({choice:c.id});if(wait)await wait;const why=failed(r);if(why){say?.(why);render();return;}
  if(c.battle)return;// the battle screen takes over; the reward screen tells the rest
  settled(r.result);
 }
@@ -119,7 +134,8 @@ drawLocation=function(p,v){
   if(!ready()||game.s.runtime||game.s.placeVisit||game.needsRecovery?.())return;
   const here=game.regionEventHere(),out=[];
   if(here.escort)out.push(escortCard(here));
-  if(here.event)out.push(here.done||E.seen.has(here.event.key)?card(here):teaser(here));
+  // 0.16.32 (TODO 4-4, user: 지역 사건은 버튼 안 눌러도 보이게): what happens here shows at once — no 「무언가 눈에 띕니다 → 살펴보기」 step.
+  if(here.event){const c=card(here);if(!here.done){c.classList.add('phone-brief');const more=button('자세히',()=>{const full=card(game.regionEventHere());full.addEventListener('click',e=>{if(e.target.closest?.('button'))setTimeout(()=>document.getElementById('modal')?.close(),200);},true);showModal(here.event.name,full);},false,false);more.classList.add('re-more');c.querySelector('.re-head')?.append(more);}out.push(c);}
   if(!out.length)return;
   const anchor=p.querySelector('.main-objective,.pinned-objective,.next-chapter,.field-objective');
   if(anchor)anchor.after(...out);else{const h=p.querySelector('.area-level')||p.querySelector('h1');if(h)h.after(...out);else p.append(...out);}
@@ -130,7 +146,7 @@ if(typeof render==='function'){const prior=render;render=function(){prior();try{
  if(!ready()){E.lastMap=null;return;}const map=game.s.global.CURRENT_MAP_ID;if(map===E.lastMap)return;const first=E.lastMap===null;E.lastMap=map;if(first||game.s.runtime)return;
  const here=game.regionEventHere();
  if(here.escort?.here)SHELL.toast?.(here.escort.toName+'에 도착했습니다 · 할 일 탭에서 「도착 · 데려다주기」를 눌러 주세요.');
- else if(here.event&&!here.done)SHELL.toast?.('이 근처에서 무언가 눈에 띕니다 · 할 일 탭을 살펴보세요.');
+ else if(here.event&&!here.done)SHELL.toast?.('지역 사건 · '+here.event.name+' · 할 일 탭에서 볼 수 있습니다.');
 }catch{}};}
 // ---------- the reward screen of an event fight ----------
 if(typeof reward==='function'){const priorReward=reward;reward=function(p,...args){

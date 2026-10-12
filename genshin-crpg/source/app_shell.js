@@ -355,7 +355,7 @@ function layoutLocation(content,p){
  p.classList.add('shell-loc');p.replaceChildren();
  const mapId=game.s.global.CURRENT_MAP_ID,hub=game.tables['32_MAP_DB']?.get(mapId)?.[12]==='Y';
  const places=groups.get('places'),activity=groups.get('activity'),info=groups.get('info');
- const placeCount=places.reduce((n,x)=>n+(x.matches('.location-places')?x.children.length:1),0);
+ const placeCount=places.reduce((n,x)=>n+(x.matches('.location-places')?x.children.length:x.matches('h1,h2,h3,h4,p')?0:1),0);/* 0.16.32: the heading is not a facility (Mond city showed 10 for 9) */
  // Facilities become small tiles (icon and name) and the whole tile enters, so a town fits without scrolling.
  for(const box of places)for(const entry of $$('.place-entry',box)){const btns=$$(':scope > button',entry);if(btns.length!==1)continue;
   const name=$('h3',entry)?.textContent.trim()||'',b=btns[0];entry.classList.add('shell-place-tile');entry.classList.toggle('locked',b.disabled&&!!$('.choice-note',entry));b.setAttribute('aria-label',(name?name+' · ':'')+b.textContent.trim());
@@ -468,7 +468,7 @@ const MENU_LAYOUT={
   if(members){const cards=[...members.children].filter(c=>c.matches('.gear-member'));
    // Like the character screen of the original: the selected member's art fills the middle, details on the right.
    const splash=mk('div','shell-splash');splash.setAttribute('aria-hidden','true');
-   const paint=c=>{const src=$('img.gear-portrait',c)?.getAttribute('src');splash.replaceChildren();splash.classList.toggle('empty',!src);if(src){const img=mk('img');img.src=src;img.alt='';img.decoding='async';splash.append(img);}else splash.append(mk('span','shell-splash-mark','✧'));};
+   const paint=c=>{let src=$('img.gear-portrait',c)?.getAttribute('src');if(src&&/assets\/icons\/faces\//.test(src)&&typeof playerArtSrc==='function')src=playerArtSrc()||src;/* 0.16.32: the hero's whole picture, not the face cut stretched */splash.replaceChildren();splash.classList.toggle('empty',!src);if(src){const img=mk('img');img.src=src;img.alt='';img.decoding='async';splash.append(img);}else splash.append(mk('span','shell-splash-mark','✧'));};
    // 0.15.17 (user: a character's gear opened on the member picked last time): a screen that opens this one for a member
    // (편성's member picture, 가방's 「캐릭터 화면에서 장착하기」) shows that member first (S.focusGear).
    const wanted=S.gearOwner?cards.findIndex(c=>c.dataset.owner===S.gearOwner):-1;S.gearOwner=null;

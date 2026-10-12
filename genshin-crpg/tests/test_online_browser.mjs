@@ -144,9 +144,10 @@ try{
  await page.screenshot({path:resolve(evidence,'equipment-pending.png')});await idle();delay=0;
  const equipped=await same('equipment confirmation');assert(equipped.inventory.find(i=>i.slot===weapon).equipped);results.push({equipmentFeedback:'장착 중…',centered:true,singleNotice:true});
  for(const label of ['안내 확인 · 나중에 장착','장착 확인']){const guide=page.getByRole('button',{name:label,exact:true});if(await guide.count()){await guide.click();await idle();await same('equipment guide dismissal '+label);}}assert.equal(await page.locator('.equipment-guide').isVisible(),false,'acknowledged guide must release the play screen');
- const world=free(),point=globalThis.CRPGWorldContent.oculi.find(p=>p.steps[0].duration>0&&p.method!=='HIDDEN'&&p.level<=1&&!Object.keys(p.requirements||{}).length&&!p.place);
- assert(point);world.action('OPERATOR_DEBUG',{op:'travel',map:point.map});fixture.seed(world.s);await start();delay=1800;
- await reveal(page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first());await page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first().click();await page.waitForTimeout(300);
+ // 0.16.32: most oculi answer the 「공명」 now; a puzzle oculus keeps its clue card (its 살펴보기 opens the steps in a window).
+ const world=free(),point=globalThis.CRPGWorldContent.oculi.find(p=>p.steps[0].duration>0&&p.method==='PUZZLE'&&!Object.keys(p.requirements||{}).length&&!p.place);
+ assert(point);if(world.s.global.PLAYER_LEVEL_STATE<point.level)world.action('OPERATOR_DEBUG',{op:'level',value:point.level});world.action('OPERATOR_DEBUG',{op:'travel',map:point.map});fixture.seed(world.s);await start();
+ await reveal(page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first());await page.locator('.discovery-card').filter({hasText:point.title}).getByRole('button').first().click();await page.waitForSelector('#modal[open] .discovery-card button');delay=1800;await page.locator('#modal[open] .discovery-card button').first().click();await page.waitForTimeout(300);
  assert(await page.locator('.pending-activity').isVisible());assert(Number(await page.locator('.pending-activity progress').getAttribute('value'))>0);await idle();delay=0;await same('world work start');
  await page.waitForFunction(()=>!game.s.worldJob&&!busy,{},{timeout:20000});await same('world work finish');results.push({worldWorkOverlapsSaving:true});
  const battle=free();battle.tutorialState().done.combatAttack=true; // Playback fixture has already learned the basic attack; this turn teaches guard.

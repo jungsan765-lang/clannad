@@ -284,3 +284,7 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 # v0.16.31 여행자 얼굴
 
 `faces/traveler_aether.webp`, `faces/traveler_lumine.webp`: 게임에 이미 있던 이야기 그림(`assets/traveler_aitr_1.webp`, `assets/traveler_rmn_1.webp`)에서 얼굴만 잘라 256×256으로 줄였다. 새로 받은 파일이 아니다.
+
+# v0.16.32 이세계인 주인공 얼굴
+
+`faces/isekai.webp`(256×256, 얼굴), `faces/isekai_full.webp`(512×512, 전신): 사용자가 보내 준 실루엣 그림(2026-10-12)을 잘라 옅은 배경에 짙은 색으로 다시 칠했다. 여행자가 아직 모습을 고르기 전에도 이 그림을 쓴다.
