@@ -131,6 +131,8 @@ function draw(){
  }
  parts.push(M.tab==='write'?composeView():M.tab==='sent'?sentView():inboxView(list));
  if(M.msg){const p=mk('p','ml-msg',M.msg);p.setAttribute('role','alert');parts.push(p);}
+ // 0.16.35 (user: 빈공간): an empty inbox is a small window with one line, not the full two-column box.
+ box.classList.toggle('empty',M.tab==='in'&&!list.length);
  box.replaceChildren(...parts);badge();
 }
 // ---------- 받은 우편 ----------

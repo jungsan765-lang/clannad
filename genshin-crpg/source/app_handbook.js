@@ -52,7 +52,7 @@ function journey(box){
  const today=section('오늘의 기록','게임 내 하루와 현실 시간을 따로 셉니다.');const list=mk('div','hb-grid');
  try{const d=game.fieldBossDaily?.();if(d)list.append(stat('필드 보스 토벌',d.wins+' / '+d.limit,d.left?'이번 12시간 동안 '+d.left+'번 더 토벌할 수 있습니다 · '+(d.resetAt||'')+' 초기화':'한국 시간 '+(d.resetAt||'0시·12시')+'에 다시 토벌할 수 있습니다.',d.left?'':'spent'));}catch{}
  try{const st=game.leyLineStatus?.();if(st)list.append(stat('지맥의 꽃',st.unlocked?st.blossoms.filter(b=>b.claimed).length+' / '+st.blossoms.length:'Lv. '+st.minLevel+'부터',st.unlocked?'정각까지 '+st.minutesLeft+'분 · 꽃마다 한 시간에 한 번 받습니다.':'주인공 레벨이 오르면 매시 정각에 핍니다.'));}catch{}
- try{const cfg=CRPGRuntime.enhancementConfig,ids=Object.keys(cfg?.bosses||{});if(ids.length){const used=ids.filter(id=>game.bossAdmission?.(id)?.reason).length;list.append(stat('일일 보스',used+' / '+ids.length+' 입장','보스마다 현실 시간으로 하루에 한 번 · 한국 시간 0시에 초기화',used===ids.length?'spent':''));}}catch{}
+ try{const cfg=CRPGRuntime.enhancementConfig,ids=Object.keys(cfg?.bosses||{});if(ids.length){const used=game.bossDailyUsed?.()?1:0;list.append(stat('일일 보스',used+' / 1 도전','어느 보스든 합쳐 현실 시간으로 하루에 한 번 · 한국 시간 0시에 초기화',used?'spent':''));}}catch{}
  today.append(list);box.append(today);
 }
 function stat(title,value,note,cls=''){const c=mk('div','hb-stat '+cls);c.append(mk('small','',title),mk('strong','',value),mk('p','',note));return c;}
@@ -68,7 +68,7 @@ function bosses(box){
   s1.append(r);}
  if(!items.length)s1.append(mk('p','hb-note','아직 알려진 필드 보스가 없습니다.'));
  box.append(s1);
- const s2=section('일일 보스','본편에서 쓰러뜨린 보스와 다시 싸웁니다. 보스마다 현실 시간으로 하루에 한 번 입장할 수 있고, 한국 시간 0시에 다시 열립니다.');
+ const s2=section('일일 보스','보스 재료를 얻는 토벌입니다. 어느 보스든 합쳐 현실 시간으로 하루에 한 번 도전할 수 있고, 한국 시간 0시에 다시 열립니다.');
  const cfg=CRPGRuntime.enhancementConfig;
  for(const [id,b]of Object.entries(cfg?.bosses||{})){let reason='',adm=null,rm=null;try{reason=game.materialChallengeReason?.(id)||'';adm=game.bossAdmission?.(id);rm=game.bossRematchInfo?.(id);}catch{}
   const name=game.tables['09_MONSTER_DB']?.get(id)?.[1]||id;const r=row('hb-boss',name+(rm?' · Lv.'+rm.level:''),[mapLabel(b.map),rm?'보상 · 영웅의 경험 '+Object.values(rm.books||{}).reduce((a,n)=>a+n,0)+'권 · 강적의 잔향':'보상 · 강적의 잔향'],guideButton(b.map));

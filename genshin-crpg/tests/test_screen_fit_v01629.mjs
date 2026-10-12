@@ -74,6 +74,13 @@ const SCAN=()=>{
  for(const pager of document.querySelectorAll('.pane-pager')){if(!shown(pager)||top&&!top.contains(pager))continue;const box=pager.parentElement;if(!box?.querySelector('[data-paged][hidden]'))continue;const nums=[...pager.querySelectorAll('button.pane-page')];if(nums.at(-1)?.classList.contains('on'))continue;// the last page may end early
   const kids=[...box.children].filter(c=>c!==pager&&!c.hidden&&c.getClientRects().length);if(!kids.length)continue;const b=box.getBoundingClientRect(),bottom=Math.max(...kids.map(c=>c.getBoundingClientRect().bottom)),free=pager.getBoundingClientRect().top-bottom;
   if(free>b.height*.34&&free>60)out.push('half-empty page '+name(box)+' '+Math.round(free)+'px free');}
+ // 0.16.35 (user: 「화면 저렇게 빈공간 있는거 보기 좀 별론데 … 아니면 창을 줄이던가」): a window much wider than what it shows.
+ // What it shows is its words, pictures and controls — not the boxes around them, which span the window anyway.
+ for(const dlg of document.querySelectorAll('dialog#modal[open]')){const body=dlg.querySelector('#modal-body')||dlg,br=body.getBoundingClientRect();if(br.width<420)continue;
+  let left=Infinity,right=-Infinity;const take=r=>{if(r.width>0&&r.height>0){left=Math.min(left,r.left);right=Math.max(right,r.right);}};
+  const walker=document.createTreeWalker(body,NodeFilter.SHOW_TEXT);for(let n=walker.nextNode();n;n=walker.nextNode()){if(!n.textContent.trim()||!shown(n.parentElement))continue;const rg=document.createRange();rg.selectNodeContents(n);for(const r of rg.getClientRects())take(r);}
+  for(const e of body.querySelectorAll('img,svg,canvas,input,button,.tile,.cm-chip'))if(shown(e))take(e.getBoundingClientRect());
+  if(right>left){const empty=br.width-(right-left);if(empty>br.width*.35&&empty>180)out.push('window wider than it shows '+Math.round(empty)+'px empty');}}
  return [...new Set(out)];
 };
 const browser=await chromium.launch({headless:true,executablePath:process.env.CRPG_CHROMIUM_EXECUTABLE||undefined,args:['--no-sandbox']});
@@ -174,9 +181,22 @@ try{
    const end=new R(DB,JSON.parse(fixture.read().state));end.serverAdmin=true;try{end.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch{}fixture.seed(end.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    await view('reward',`Promise.resolve()`);
   }
+  // 0.16.35: a daily boss fight (the board glows in the boss's element; the keys beside the buttons) and the shop's multi-buy.
+  if(!ONLY.length||ONLY.some(o=>o.startsWith('daily-boss')||o.startsWith('shop-bulk')||o.startsWith('story-page'))){
+   const r=playerState();r.serverAdmin=true;const api=globalThis.CRPGRuntime,c0=api?.enhancementConfig?.bosses?.BOSS_ANDRIUS;
+   if(c0){try{const row=r.row('35_BOSS_ROUTE_DB',c0.route);r.s.flags[row[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});r.s.bossRealAdmissions={};r.action('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_ANDRIUS'});}catch(e){console.error('daily boss',e.message);}
+    if(r.s.runtime){fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+     await view('daily-boss',`(async()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='전투 시작');b?.click();})()`);
+     // ended with a win, so no defeat's recovery carries into the later views
+     const won=new R(DB,JSON.parse(fixture.read().state));won.serverAdmin=true;try{won.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch{}fixture.seed(won.s);await page.evaluate(()=>CRPGOnline.sync());await idle();}}
+   const s=playerState();fixture.seed(s.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+   await view('story-page',`(async()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());await __go('STORY');})()`);
+   await view('shop-bulk',`(async()=>{await __go('LOCATION');const k=game.placeCatalog().find(e=>e.merchant==='MRC_MOND_RESTAURANT');if(k&&!game.s.placeVisit)await act('PLACE_ENTER',{place:k.id,mode:'SHOP'});await new Promise(r=>setTimeout(r,300));if(typeof showPurchaseQuantity==='function')showPurchaseQuantity('STK_MOND_SARA_EGG');})()`);
+  }
   // 0.16.32: an early journey as players see it (the 검증 account as it starts: a forest road, the story's next place,
   // a region event, level-ups after a fight), not only the finished town.
   if(!ONLY.length||ONLY.some(o=>o.startsWith('early'))){
+   await page.evaluate(()=>document.querySelector('.pm-close,.shell-menu-close')?.click()).catch(()=>{});// the Escape above may have opened Paimon's menu
    // Lv. 5 with three Mond companions, a story break whose next scene is far away (the 임무 목적지 button and the
    // 「준비를 마치고 이야기 계속」 card), on the first Mond road that has today's region event.
    const early=()=>{const r=new R(DB,JSON.parse(INITIAL));if(r.s.runtime)r.action('COMBAT_FORFEIT',{reason:'TEST'});r.serverAdmin=true;
@@ -191,6 +211,12 @@ try{
    fixture.seed(early().s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    await view('early-main',`__go('LOCATION')`);
    for(const tab of await labels('.shell-loc-side .shell-tab'))await view('early-main-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);
+   // 0.16.35: the same road while the hero is knocked out (a lost fight): the column waits for the recovery.
+   {const r=early();r.s.global.PLAYER_HP_CURRENT=0;r.s.global.SCREEN_MODE='LOCATION';fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+    await view('early-recover',`__go('LOCATION')`);
+    await view('early-recover-story',`(async()=>{try{await act('MENU',{screen:'STORY'});}catch{}})()`);
+    await view('early-recover-bag',`(async()=>{try{await act('MENU',{screen:'INVENTORY'});}catch{}})()`);
+    const back=early();fixture.seed(back.s);await page.evaluate(()=>CRPGOnline.sync());await idle();}
    for(const tab of ['journey','bosses','ley','companions','treasure','achievements'])await view('early-handbook-'+tab,`(async()=>{await __go('LOCATION');window.CRPGHandbook?.open?.(${JSON.stringify(tab)});})()`);
    const r=early();r.startBattle('EG_MOND_SLIME_SMALL','RANDOM');fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    const end=new R(DB,JSON.parse(fixture.read().state));end.serverAdmin=true;try{end.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch{}fixture.seed(end.s);await page.evaluate(()=>CRPGOnline.sync());await idle();

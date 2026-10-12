@@ -442,6 +442,7 @@ function placeField(panel,f,b,fresh){
 }
 function placeStatus(row,s,a){const look=STATUS_LOOK[s.id];if(!look)return null;let [kind,el]=look;if(s.id==='LIYUE_COUNTER')el=s.card==='LIYUE_YUNJIN_E'?'geo':'electro';const n=addLook(row,kind,el);n?.classList.add('sfx-status-look');return n;}
 function placeHazards(col,b,fresh){for(const h of b?.hazards||[]){const kind=HAZARD_LOOK[h.kind];if(kind&&(!Number.isFinite(h.rounds)||h.rounds>0)){const n=addZone(col,kind,HAZARD_EL[kind]);if(fresh)appear(n);}}}
+const BOSS_AURA={BOSS_ANDRIUS:'cryo',BOSS_DVALIN:'anemo',BOSS_TARTAGLIA:'hydro',BOSS_AZHDAHA:'geo'};
 function decorateBoard(p,shownActor){
  if(!p)return;
  if(shownActor){for(const old of p.querySelectorAll('.sfx-status-look'))old.remove();if(shownActor.hp>0)for(const s of shownActor.statuses||[])if(live(s))placeStatus(p,s,shownActor);return;}
@@ -465,6 +466,10 @@ function decorateBoard(p,shownActor){
  if(b.actors?.some(a=>a.source==='BOSS_ANDRIUS'&&a.hp>0&&a.andrius?.phase===3))addZone(foes,'blizzard','cryo');
  if(b.liyueObjective&&b.liyueObjective.hp>0){const n=addZone(allies,'formation','geo');if(n)n.style.setProperty('--charge',String(Math.min(1,(Number(b.liyueObjective.charge)||0)/(Number(b.liyueObjective.target)||8))));}
  const azh=b.actors?.find(a=>a.source==='BOSS_AZHDAHA'&&a.hp>0&&a.azhdaha?.current&&a.azhdaha.current!=='GEO');if(azh)addZone(allies,'leyline',KO_EL[azh.azhdaha.current]||'geo');
+ // 0.16.35 (TODO 6-3): a daily boss fight glows at the board's edge in the boss's element (Azhdaha in the one he holds now).
+ {const daily=String(b.origin||'').startsWith('MATERIAL_CHALLENGE:'),boss=daily&&b.actors?.find(a=>a.side==='ENEMY'&&a.hp>0&&BOSS_AURA[a.source]),stage=p.closest?.('.compact-battle-stage')||p.querySelector('.compact-battle-stage')||p;
+  const aura=boss?(boss.source==='BOSS_AZHDAHA'&&boss.azhdaha?.current?KO_EL[boss.azhdaha.current]||'geo':BOSS_AURA[boss.source]):null;
+  stage.classList.toggle('boss-aura',!!aura);if(aura)stage.dataset.aura=aura;else delete stage.dataset.aura;}
  arrivals(p,b);
 }
 // Fighters and summons that were not there at the last drawing of this fight arrive with a flash; reinforcements are

@@ -323,7 +323,7 @@ function pageHead(key,p,{title,iconName}={}){
  if(back){back.classList.add('shell-back');back.setAttribute('aria-label',back.textContent.trim()+' (Esc)');const label=back.textContent.trim();back.replaceChildren(icon('CLOSE'),mk('span','shell-back-label',label));tools.append(back);}
  // 0.16.4 (user: 「전투 패배하면 이야기로 돌아가기 버튼 있는거 없애주고」): after a lost story fight a menu leads back to the retry.
  else if(game?.s?.storyRecovery&&!game.s.runtime&&key!=='REWARD'){const why=game.actionReason('STORY_RETRY',{});back=mk('button','shell-back');back.type='button';back.append(icon('CLOSE'),mk('span','shell-back-label','전투 직전부터 다시 준비'));back.setAttribute('aria-label','전투 직전부터 다시 준비 (Esc)');back.disabled=!!why;if(why)back.title=why;back.onclick=()=>act('STORY_RETRY',{});tools.append(back);}
- else{let result={};if(key==='REWARD')try{result=JSON.parse(game.s.global.LAST_BATTLE_RESULT_JSON||'{}');}catch{}const target=returnScreen();if(target&&target!==key&&!(key==='REWARD'&&result.victory===false&&target==='STORY')){const src=navButton(target);back=mk('button','shell-back');back.type='button';back.append(icon('CLOSE'),mk('span','shell-back-label',target==='STORY'?'이야기로 돌아가기':target==='COMBAT'?'전투로 돌아가기':'메인 화면으로'));back.setAttribute('aria-label',back.textContent+' (Esc)');back.disabled=!!src?.disabled&&target!=='COMBAT';back.onclick=()=>target==='COMBAT'?act('MENU',{screen:'COMBAT'}):openScreen(target);tools.append(back);}}
+ else{let result={};if(key==='REWARD')try{result=JSON.parse(game.s.global.LAST_BATTLE_RESULT_JSON||'{}');}catch{}const target=returnScreen();if(target&&target!==key&&!(target==='STORY'&&key==='STORY_WAIT')&&!(key==='REWARD'&&result.victory===false&&target==='STORY')){const src=navButton(target);back=mk('button','shell-back');back.type='button';back.append(icon('CLOSE'),mk('span','shell-back-label',target==='STORY'?'이야기로 돌아가기':target==='COMBAT'?'전투로 돌아가기':'메인 화면으로'));back.setAttribute('aria-label',back.textContent+' (Esc)');back.disabled=!!src?.disabled&&target!=='COMBAT';back.onclick=()=>target==='COMBAT'?act('MENU',{screen:'COMBAT'}):openScreen(target);tools.append(back);}}
  // 0.14.12: inside a facility (바그너의 대장간 and the rest) 「메인 화면으로」 and Esc leave it exactly like 「밖으로 나가기」,
  // with the same exit and save, instead of switching screens on the spot.
  if(back&&!back.disabled&&game?.s?.placeVisit&&!game.s.runtime&&back.textContent.trim()==='메인 화면으로'&&!game.actionReason('PLACE_LEAVE',{}))back.onclick=()=>act('PLACE_LEAVE',{});
@@ -550,7 +550,9 @@ function layoutReward(content,p){
 function layoutGeneric(key,content,p){
  content.classList.add('shell-plain');setBackdrop(mapBackground());
  if(p.classList.contains('shell-page'))return;
- const {head}=pageHead(key,p,{title:''});const body=mk('div','shell-page-body');const rest=[...p.children].filter(c=>c!==head);p.replaceChildren(head,body);genericBody(body,rest,head,key);p.classList.add('shell-page','shell-page-'+String(key).toLowerCase());
+ // 0.16.35: the story's resting page (the next journey's card) is titled like the story, not an empty bar.
+ const story=['STORY','STORY_WAIT'].includes(key);
+ const {head}=pageHead(key,p,story?{title:'이야기',iconName:'STORY'}:{title:''});const body=mk('div','shell-page-body');const rest=[...p.children].filter(c=>c!==head);p.replaceChildren(head,body);genericBody(body,rest,head,key);p.classList.add('shell-page','shell-page-'+String(key).toLowerCase());
  if(!head.querySelector('.shell-h1')?.textContent)head.classList.add('untitled');
 }
 // ---------- main hook ----------

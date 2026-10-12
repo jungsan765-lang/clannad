@@ -18,7 +18,7 @@ check('every one-time commission has a title and who asks; the series and delive
   if(!t.learning)assert(d.chips.length>0,t.id+' has chips');}
  assert.equal(new Set(names).size,names.length,'no two commissions share a title');
  const d=g.taskPresentation(T.chains.find(t=>t.id==='Q_TASK_HILICHURL_05'));
- assert.equal(d.name,'길목의 얼음 화살');assert.equal(d.requester,'서풍 기사단');assert.deepEqual(plain(d.chips.map(x=>x.text)),['2승','츄츄 얼음 궁수','불']);
+ assert.equal(d.name,'길목의 얼음 화살');assert.equal(d.requester,'페보니우스 기사단');assert.deepEqual(plain(d.chips.map(x=>x.text)),['2승','츄츄 얼음 궁수','불']);
  const del=g.taskPresentation(T.chains.find(t=>t.id==='Q_TASK_SUPPLIES_01'));assert.deepEqual(plain(del.chips.map(x=>x.text)),['달콤달콤꽃 ×8']);
 });
 

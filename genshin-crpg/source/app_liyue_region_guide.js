@@ -25,7 +25,7 @@
   const r=g.rewards,reward=el('section','region-encounters liyue-region-rewards');
   reward.append(el('h4','','보상 안내 · 경험치 '+range(r.xp)+' · 모라 '+range(r.mora)));
   for(const d of r.drops){const line=el('p','region-encounter-line');line.append(el('strong','',d.name+' · '+d.chance+'%'+(d.min===d.max?' ×'+d.min:' ×'+d.min+'–'+d.max)),el('small','muted',d.from.join(' / ')));reward.append(line);}
-  const t=r.tierBonus;reward.append(el('p','muted','강화 개체를 쓰러뜨리면 그 적의 가장 귀한 소재를 더 얻습니다: 강화 일반 '+t.enhanced+'% · 강한 정예 '+t.strongElite.join('% + ')+'% · 지역 위험 개체 '+t.danger.join('% + ')+'%와 강적의 잔향 '+t.essence+'%.'));
+  const t=r.tierBonus;reward.append(el('p','muted','강화 개체를 쓰러뜨리면 그 적의 가장 귀한 소재를 더 얻습니다: 강화 일반 '+t.enhanced+'% · 강한 정예 '+t.strongElite.join('% + ')+'% · 지역 위험 개체 '+t.danger.join('% + ')+'%'+(t.essence?'와 강적의 잔향 '+t.essence+'%':'')+'.'));
   box.append(reward);
   if(g.boss)box.append(el('p','muted','필드 보스 · '+g.boss.name+' (Lv. '+g.boss.level+') · 원작 재료 '+g.boss.material+(g.boss.cooldown?' · '+(g.boss.cooldownReason||'아직 다시 나타나지 않았습니다.'):' · 주변 시설의 「'+g.boss.name+' 토벌」에서 도전할 수 있습니다.')));
   p.append(box);

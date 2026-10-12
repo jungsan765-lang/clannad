@@ -152,8 +152,9 @@ function drawShop(body){
   const form=mk('div','mk-form'),max=picked.kind==='EQUIPMENT'?1:game.itemCount(picked.id);form.append(tile(picked,{count:picked.kind==='EQUIPMENT'?'+'+(picked.enhance||0):''}));
   const fields=mk('div','mk-fields');fields.append(mk('strong','',picked.name));
   if(picked.kind!=='EQUIPMENT')fields.append(stepper(S.qty,max,n=>{S.qty=Math.max(1,Math.min(max,n));redraw();}));
-  const price=mk('input','mk-price-input');price.type='number';price.inputMode='numeric';price.min=rules.minPrice;price.max=rules.maxPrice;price.placeholder='판매 가격 (모라, 묶음 전체)';price.value=S.price;price.setAttribute('aria-label','판매 가격');
-  const preview=mk('small','mk-preview');const showPreview=()=>{const v=Math.floor(Number(price.value)||0),fee=v?Math.max(1,Math.ceil(v*rules.fee)):0;preview.textContent=v?'수수료 '+fmt(fee)+' 모라 · 팔리면 '+fmt(v-fee)+' 모라'+(S.qty>1?' · 개당 '+fmt(Math.ceil(v/S.qty)):''):rules.minPrice+'~'+fmt(rules.maxPrice)+' 모라';};
+  const price=mk('input','mk-price-input');price.type='number';price.inputMode='numeric';price.min=rules.minPrice;price.max=rules.maxPrice;price.placeholder='개당 가격 (모라)';price.value=S.price;price.setAttribute('aria-label','개당 판매 가격');
+  const preview=mk('small','mk-preview');// 0.16.35 (TODO 6-6): the price is typed for one; the bundle's total (what the server is sent) is worked out and shown.
+  const showPreview=()=>{const unit=Math.floor(Number(price.value)||0),v=unit*S.qty,fee=v?Math.max(1,Math.ceil(v*rules.fee)):0,out=v&&(v<rules.minPrice||v>rules.maxPrice);preview.classList.toggle('warn',!!out);preview.textContent=!v?'개당 가격 · 합계 '+rules.minPrice+'~'+fmt(rules.maxPrice)+' 모라':(S.qty>1?'합계 '+fmt(v)+' 모라 · ':'')+(out?'합계는 '+rules.minPrice+'~'+fmt(rules.maxPrice)+' 모라여야 합니다':'수수료 '+fmt(fee)+' 모라 · 팔리면 '+fmt(v-fee)+' 모라');};
   price.oninput=()=>{S.price=price.value;showPreview();};showPreview();fields.append(price,preview);
   const go=btn('상점에 올리기',()=>sell(picked),'primary');const why=lvWhy()||(!free()?'자유행동 중에만 올릴 수 있습니다.':(M?.mine||[]).filter(x=>x.status==='ACTIVE').length>=rules.maxListings?'상점이 가득 찼습니다.':'');if(why){go.disabled=true;go.title=why;}
   fields.append(go);form.append(fields);left.append(form);
@@ -168,7 +169,7 @@ function drawShop(body){
  cols.append(left,right);body.append(cols);
 }
 async function sell(d){
- if(T.busy)return;const session=O.sessionStamp(),S=T.sell,price=Math.floor(Number(S.price)||0);if(!price){say('판매 가격을 입력해 주세요.');return;}
+ if(T.busy)return;const session=O.sessionStamp(),S=T.sell,unit=Math.floor(Number(S.price)||0),price=unit*(d.kind==='EQUIPMENT'?1:Math.max(1,S.qty));if(!unit){say('개당 가격을 입력해 주세요.');return;}
  T.busy=true;try{const entry=d.kind==='EQUIPMENT'?{slot:d.key}:{item:d.id,qty:S.qty};const out=await O.request('/market/sell',{entry,price});SND('commission_accept');say('상점에 올렸습니다 · '+out.listing.label+' · '+fmt(out.listing.price)+' 모라');T.sell={key:'',qty:1,price:''};try{await O.sync();}catch{}}
  catch(e){if(!O.sameSession(session))return;say(e.message);SND('error');}finally{if(O.sameSession(session)){T.busy=false;load(true);}}
 }

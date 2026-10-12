@@ -148,8 +148,17 @@ recoveryCard=function(parent){
  const penalty=game.s.defeatPenalty,c=el('section','card recovery-card');c.append(el('h2','','전투불능'));
  if(penalty)c.append(el('p','defeat-penalty','전투에서 패배해 모라를 '+fmt(penalty.mora)+' 잃었습니다.'));
  countdown(c,'정신을 차리는 중입니다. 다시 움직일 수 있을 때까지');
- c.append(el('p','','회복하면 파티의 HP가 복구되고 1시간이 지납니다.'),actionButton('회복하고 다시 출발','RECOVER',{},true));parent.append(c);
+ c.append(el('p','','회복하면 파티의 HP가 복구되고 1시간이 지납니다.'),actionButton('회복하고 다시 출발','RECOVER',{},true));
+ // 0.16.35 (user: 빈공간): who is down and how much each has left, under the card.
+ const box=partyHP();if(box)c.append(box);
+ parent.append(c);
 };
+// The party's faces with their HP bars (the KO card and the inn show who is hurt and how much).
+function partyHP(){
+ try{const box=el('div','recovery-party');for(const slot of game.s.party.filter(x=>x.active&&x.source)){const id=slot.source,mine=id==='PLAYER_CUSTOM',hp=Math.max(0,Number(mine?game.s.global.PLAYER_HP_CURRENT:game.s.chars[id]?.hp)||0),max=Math.max(1,Number(mine?game.s.global.PLAYER_HP_MAX:game.character(id).maxHp)||1);
+  const row=el('div','recovery-member'+(hp<=0?' down':''));if(typeof actorPortrait==='function')row.append(actorPortrait(id,'recovery-face'));const copy=el('div','recovery-copy'),bar=el('span','recovery-bar');bar.style.setProperty('--p',(hp/max*100).toFixed(1)+'%');copy.append(el('strong','',typeof ownerName==='function'?ownerName(id):id),bar,el('small','',hp<=0?'전투불능':hp.toLocaleString()+' / '+max.toLocaleString()));row.append(copy);box.append(row);}return box.children.length?box:null;}catch{return null;}
+}
+window.CRPGPartyHP=partyHP;
 const gearReward=reward;
 reward=function(p){
  gearReward(p);const r=parseUI(game.s.global.LAST_BATTLE_RESULT_JSON),anchor=p.querySelector('h1')?.nextSibling||null;

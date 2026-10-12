@@ -134,7 +134,8 @@ check('0.14.5 two-day bosses open once per real day (Korean midnight), win or lo
  const noonKst=kstAt(12);r.actionStartedAt=noonKst;assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'');
  r.action('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_ANDRIUS'});const b=r.s.runtime;for(const a of b.actors.filter(x=>x.side==='ALLY'))a.hp=0;r.finishBattle(false);
  r.actionStartedAt=noonKst+11*3600000;assert.match(r.bossAdmission('BOSS_ANDRIUS').reason,/하루에 한 번.*1시간/,'a defeat still used the day');
- assert.equal(r.bossAdmission('BOSS_DVALIN').reason,'','each boss has its own day');
+ // 0.16.35 (TODO 6-1, user: 일일 보스는 어느 보스든 하루 합계 1번): the daily bosses share the day.
+ assert.match(r.bossAdmission('BOSS_DVALIN').reason,/어느 보스든 합쳐 하루에 한 번.*안드리우스/,'one entry a day for all daily bosses');
  r.actionStartedAt=noonKst+12*3600000+60000;assert.equal(r.bossAdmission('BOSS_ANDRIUS').reason,'','a new day after midnight');
  const bad=JSON.parse(r.serialize());bad.bossRealAdmissions={BOSS_NOPE:1};assert.throws(()=>new api.Runtime(require(path.join(root,'content/db.json')),bad),/보스 입장 기록/);
 });

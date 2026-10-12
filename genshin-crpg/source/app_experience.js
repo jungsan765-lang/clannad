@@ -29,15 +29,28 @@ function shopStockGroup(row){
 function shopQuantityLimit(row){const stock=game.stockRemaining(row),affordable=Number(row[5])>0?Math.floor(game.s.global.MORA/Number(row[5])):Number.MAX_SAFE_INTEGER;return Math.max(0,Math.min(stock,affordable));}
 function showPurchaseQuantity(id){
  const row=game.tables['19_SHOP_STOCK_DB'].get(id);if(!row||!['ITEM','EQUIP'].includes(row[2])||busy)return;
- const box=el('div','purchase-quantity'),field=el('label','','구매 수량'),input=el('input');input.type='number';input.min='2';input.max=String(shopQuantityLimit(row));input.step='1';input.value='2';input.setAttribute('aria-label','구매 수량');field.append(input);
+ // 0.16.35 (TODO 6-6): − / the count / + / 최대 instead of a typed number (it went past the limit and opened the phone's keyboard).
+ const max=shopQuantityLimit(row);let quantity=Math.min(2,Math.max(2,max));
+ const box=el('div','purchase-quantity'),stepper=el('div','qty-stepper'),count=el('strong','qty-count');count.setAttribute('aria-live','polite');
+ const set=n=>{quantity=Math.max(2,Math.min(Math.max(2,max),Math.floor(n)||2));refresh();};
+ const minus=button('−',()=>set(quantity-1)),plus=button('+',()=>set(quantity+1)),most=button('최대',()=>set(max));
+ minus.setAttribute('aria-label','하나 줄이기');plus.setAttribute('aria-label','하나 늘리기');most.setAttribute('aria-label','살 수 있는 만큼');
+ stepper.append(minus,count,plus,most);
  const total=el('p','purchase-total'),limit=el('p','muted'),reason=el('p','choice-note');reason.setAttribute('role','status');
- const confirm=button('선택한 수량 구매',()=>{const quantity=Number(input.value);if(!Number.isSafeInteger(quantity)||quantity<2||game.stockReason(row,quantity))return;document.getElementById('modal').close();act('BUY',{stock:id,quantity});},false,true);
- const refresh=()=>{const quantity=Number(input.value),remaining=game.stockRemaining(row);const why=!Number.isSafeInteger(quantity)||quantity<2?'2 이상의 정수 수량을 입력해 주세요.':game.stockReason(row,quantity);total.textContent='총 금액 · '+(Number.isSafeInteger(quantity)&&quantity>=2?(Number(row[5])*quantity).toLocaleString():'—')+' 모라';limit.textContent='보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라 · 재고 '+(remaining===Infinity?'상시':remaining+'개')+' · 구매 가능 '+shopQuantityLimit(row)+'개';reason.textContent=why;confirm.disabled=busy||!!why;};
- input.oninput=refresh;refresh();box.append(field,total,limit,reason,confirm);showModal(row[4]+' · 여러 개 구매',box);input.focus();
+ const confirm=button('선택한 수량 구매',()=>{if(game.stockReason(row,quantity)||quantity<2||quantity>max)return;document.getElementById('modal').close();act('BUY',{stock:id,quantity});},false,true);
+ function refresh(){const remaining=game.stockRemaining(row),why=max<2?'2개 이상 살 수 없습니다 (모라나 재고가 부족합니다).':game.stockReason(row,quantity);
+  count.textContent=quantity+'개';total.textContent='총 금액 · '+(Number(row[5])*quantity).toLocaleString()+' 모라';
+  limit.textContent='보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라 · 재고 '+(remaining===Infinity?'상시':remaining+'개')+' · 최대 '+max+'개';
+  reason.textContent=why;minus.disabled=quantity<=2;plus.disabled=quantity>=max;most.disabled=quantity>=max;confirm.disabled=busy||!!why;}
+ // The good's picture beside the count and the total; what you have and the button on one row under them.
+ const head=el('div','purchase-head'),side=el('div','purchase-side'),foot=el('div','purchase-foot');
+ try{head.append(itemGlyph(row[2]==='EQUIP'?itemPresenter.itemDetail({equip:row[3],quantity:1,enhance:0}):itemPresenter.itemDetail({item:row[3],quantity:1})));}catch{}
+ side.append(stepper,total);head.append(side);foot.append(limit,confirm);
+ refresh();box.append(head,reason,foot);showModal(row[4]+' · 여러 개 구매',box);
 }
 shop=function(p){
  const entry=placeHeader(p,'SHOP');if(!entry)return;
- if(isInn(entry)){const c=el('section','card inn-service'),stock=game.placeStocks().find(s=>s.row[3]==='SERVICE_INN_REST_8H');if(stock){c.append(el('h2','','숙박하기'),el('p','','8시간 숙박 후 현재 파티 전원의 HP를 모두 회복합니다.'),el('p',Number(game.s.global.MORA)<stock.price?'lack':'',stock.price+' 모라 · 보유 '+game.s.global.MORA+' 모라'));if(stock.reason)c.append(el('p','choice-note',stock.reason));const b=actionButton('숙박하기 · '+stock.price+' 모라','BUY',{stock:stock.row[0],quantity:1},true);b.disabled=b.disabled||!!stock.reason;c.append(b);}p.append(c);return;}
+ if(isInn(entry)){const c=el('section','card inn-service'),stock=game.placeStocks().find(s=>s.row[3]==='SERVICE_INN_REST_8H');if(stock){c.append(el('h2','','숙박하기'),el('p','','8시간 숙박 후 현재 파티 전원의 HP를 모두 회복합니다.'));/* 0.16.35: who is hurt and how much, so the stay is chosen by sight */const hp=typeof CRPGPartyHP==='function'?CRPGPartyHP():null;if(hp)c.append(hp);const foot=el('div','inn-foot');foot.append(el('p',Number(game.s.global.MORA)<stock.price?'lack':'',stock.price+' 모라 · 보유 '+game.s.global.MORA+' 모라'));if(stock.reason)foot.append(el('p','choice-note',stock.reason));const b=actionButton('숙박하기 · '+stock.price+' 모라','BUY',{stock:stock.row[0],quantity:1},true);b.disabled=b.disabled||!!stock.reason;foot.append(b);c.append(foot);}p.append(c);return;}
  p.append(el('p','shop-balance','보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라'));
  if(entry.entity==='NPC_MOND_SARA')p.append(el('p','','사라에게 완성된 음식을 구입할 수 있습니다. 음식은 가방에서 파티원에게 사용합니다.'));
  const stocks=game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')),groups=['기본 무기','단조 무기','방어구','법구','장신구','제작 재료','음식','소모품','제작법','기타'];
@@ -94,7 +107,7 @@ crafting=function(p){
 boss=function(p){
   const entry=placeHeader(p,'BOSS');if(!entry)return;
   if(['AWAIT_NEXT','RETRY'].includes(game.s.bossRouteProgress?.phase)){bossProgressControls(p);return;}
-  const row=game.row('35_BOSS_ROUTE_DB',entry.route);p.append(el('p','','이 장소에서 시작하는 현장 도전입니다. 보스별로 하루에 한 번(현실 시간, 한국 시간 자정 기준) 입장하며, 패배·이탈해도 그날 입장은 쓴 것으로 칩니다. 완료한 도전은 재료 재도전 메뉴를 이용하세요.'));
+  const row=game.row('35_BOSS_ROUTE_DB',entry.route);p.append(el('p','','이 장소에서 시작하는 현장 도전입니다. 일일 보스는 어느 보스든 합쳐 하루에 한 번(현실 시간, 한국 시간 자정 기준) 도전하며, 패배·이탈해도 그날 도전은 쓴 것으로 칩니다. 완료한 도전은 일일 보스 메뉴에서 토벌하세요.'));
   for(const mode of ['DIRECT','GAUNTLET']){if(mode==='GAUNTLET'&&row[3]==='DIRECT')continue;const reason=game.placeBossReason(entry.route,mode),b=actionButton(mode==='DIRECT'?'보스에게 도전':'전초전부터 도전','BOSS_ROUTE',{route:entry.route,entry:mode},true);b.disabled=b.disabled||!!reason;p.append(b);if(reason)p.append(el('small','choice-note',reason));}
 };
 // 0.15.20 (found on the battle screen check): a lost boss step leaves its entrance (runtime_adventure.js ends the visit with

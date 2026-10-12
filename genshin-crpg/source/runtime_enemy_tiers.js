@@ -194,6 +194,13 @@ P.roundEnd=function(...args){
  if(b?.enemyTiers)for(const a of b.actors.filter(x=>x.side==='ENEMY'&&x.hp>0&&has(x,'REGEN')&&x.hp<x.maxHp)){const healed=this.heal(a,a.maxHp*.06,'재생');if(healed)b.log.push({target:a.name,targetId:a.id,heal:healed,text:a.name+' · 재생',round:b.round});}
  return old.roundEnd.apply(this,args);
 };
+// 0.16.35 (TODO 6-4, user: 길에서 만난 적이 「강적의 잔향」을 줌): the boss echo and core come from bosses — the daily and field
+// bosses, the Spiral Abyss, Lv.40+ domains — not from fights on the road (the field's own encounters, quests, events, chests).
+const BOSS_MATS=new Set(['TRPG_BOSS_ESSENCE','TRPG_BOSS_CORE']);
+function roadBattle(b){const o=String(b?.origin||'');return !!b&&(o==='RANDOM'||/^(QUEST|REGION_EVENT|CHEST):/.test(o))&&!b.fieldBoss&&!b.twinBoss&&!b.abyss&&!b.raid&&!b.growthDomain&&!b.rematch&&!b.actors?.some(a=>a.side==='ENEMY'&&a.grade==='보스');}
+const priorRows=P.combatRows;
+P.combatRows=function(n){const rows=priorRows.call(this,n);return n==='20_LOOT_TABLE'&&roadBattle(this.s.runtime)?rows.filter(r=>!BOSS_MATS.has(r[2])):rows;};
+P.roadBattle=function(b=this.s.runtime){return roadBattle(b);};
 P.finishBattle=function(victory){
  const b=this.s.runtime,info=b?.enemyTiers?copy(b.enemyTiers):null,enemies=b?b.actors.filter(a=>a.side==='ENEMY'&&a.variant?.tier).map(a=>({id:a.id,source:a.source,name:a.name,level:a.level,tier:a.variant.tier,affixes:a.variant.affixes.slice()})):[];
  const result=old.finishBattle.call(this,victory);
@@ -201,9 +208,10 @@ P.finishBattle=function(victory){
  const loot={};
  for(const e of enemies){const rule=CONFIG.reward[e.tier];if(!rule)continue;
   const table=this.row('09_MONSTER_DB',e.source)[14],drops=table?this.combatRows('20_LOOT_TABLE').filter(x=>x[0]===table&&this.tables['14_ITEM_DB'].has(x[2])):[];
-  const rare=drops.slice().sort((x,y)=>Number(x[5])-Number(y[5]))[0];
+  // 0.16.35 (TODO 6-4): a monster met on the road never brings the boss echo or core, even the 츄츄왕 whose rarest drop it is.
+  const rare=drops.filter(x=>!BOSS_MATS.has(x[2])).sort((x,y)=>Number(x[5])-Number(y[5]))[0];
   if(rare)for(const chance of rule.rolls||[])if(chance>=1||this.random()<chance){const n=Number(rare[3])||1;this.giveItem(rare[2],n);loot[rare[2]]=(loot[rare[2]]||0)+n;}
-  if(rule.essence&&this.die(100)<=rule.essence&&this.tables['14_ITEM_DB'].has('TRPG_BOSS_ESSENCE')){this.giveItem('TRPG_BOSS_ESSENCE',1);loot.TRPG_BOSS_ESSENCE=(loot.TRPG_BOSS_ESSENCE||0)+1;}}
+  if(rule.essence&&!roadBattle(b)&&this.die(100)<=rule.essence&&this.tables['14_ITEM_DB'].has('TRPG_BOSS_ESSENCE')){this.giveItem('TRPG_BOSS_ESSENCE',1);loot.TRPG_BOSS_ESSENCE=(loot.TRPG_BOSS_ESSENCE||0)+1;}}
  result.tierBonus={version:1,loot,enemies:enemies.map(e=>({name:e.name,tier:e.tier,label:TIERS[e.tier],affixes:e.affixes.map(x=>AFFIX[x]?.label||x)}))};
  result.loot={...result.loot};for(const [id,n]of Object.entries(loot))result.loot[id]=(result.loot[id]||0)+n;
  this.s.combatReceipts[result.battleId||result.id]=copy(result);this.s.global.LAST_BATTLE_RESULT_JSON=JSON.stringify(result);

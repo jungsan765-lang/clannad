@@ -32,7 +32,7 @@ boss=function(p,...args){
 };
 const priorCombat=combat;
 combat=function(p){priorCombat(p);const v=game.fieldBossView?.();if(!v)return;
- const box=el('section','field-boss-panel');box.setAttribute('aria-label','보스 기믹');box.append(el('h2','',v.twin?v.name+' · 재도전 기믹':v.name+' · 보스 기믹'));
+ const box=el('section','field-boss-panel');box.setAttribute('aria-label','보스 기믹');box.append(el('h2','',v.name+' · 보스 기믹'));
  if(v.telegraph){const t=el('p','boss-telegraph');t.append(el('strong','','예고 · '+v.telegraph.label),el('span','',' '+v.telegraph.text),el('small','',' 대응: '+v.telegraph.counter));box.append(t);}
  if(v.mark)box.append(el('p','boss-state','사냥 표식 · '+v.mark));
  for(const s of v.state||[])box.append(el('p','boss-state',s));

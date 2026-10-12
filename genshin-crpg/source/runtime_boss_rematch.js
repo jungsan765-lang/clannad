@@ -20,7 +20,7 @@ const old=Object.fromEntries(['materialChallengeReason','startBattle','finishBat
 P.bossRematchInfo=function(boss){const R=REMATCH[boss];return R?{boss,...copy(R),xp:120+25*R.level,mora:250+60*R.level}:null;};
 P.materialChallengeReason=function(boss){
  const base=old.materialChallengeReason.call(this,boss);if(base)return base;
- const R=REMATCH[boss];if(R&&(Number(this.s.global.PLAYER_LEVEL_STATE)||1)<R.minLevel)return '재료 재도전은 권장 Lv. '+R.level+' 전투입니다. 주인공 Lv. '+R.minLevel+'부터 도전할 수 있습니다.';
+ const R=REMATCH[boss];if(R&&(Number(this.s.global.PLAYER_LEVEL_STATE)||1)<R.minLevel)return '일일 보스 토벌은 권장 Lv. '+R.level+' 전투입니다. 주인공 Lv. '+R.minLevel+'부터 도전할 수 있습니다.';
  return '';
 };
 P.startBattle=function(group,origin='EXPLICIT',...rest){
@@ -45,7 +45,7 @@ P.finishBattle=function(victory){
 };
 P.validateSave=function(s){
  const out=old.validateSave.call(this,s)||s,m=out.runtime?.rematch;
- if(m&&(m.version!==1||!REMATCH[m.boss]||m.level!==REMATCH[m.boss].level))fail('REMATCH_SAVE','보스 재도전 기록이 올바르지 않습니다.');
+ if(m&&(m.version!==1||!REMATCH[m.boss]||m.level!==REMATCH[m.boss].level))fail('REMATCH_SAVE','일일 보스 기록이 올바르지 않습니다.');
  const d=out.bossRealAdmissions;if(d!==undefined&&(!d||typeof d!=='object'||Array.isArray(d)||Object.entries(d).some(([boss,day])=>!(Object.hasOwn(api.enhancementConfig.bosses,boss)||/^FARM_(TARTAGLIA|AZHDAHA)$/.test(boss))||!Number.isSafeInteger(day)||day<0)))fail('REMATCH_SAVE','보스 입장 기록이 올바르지 않습니다.');
  return out;
 };
@@ -55,9 +55,15 @@ P.validateSave=function(s){
 const DAY=86400000,KST=9*3600000,priorApply=P.apply;
 P.bossRealNow=function(){return Number(this.actionStartedAt??Date.now());};
 P.bossRealDay=function(now=this.bossRealNow()){return Math.floor((now+KST)/DAY);};
+// 0.16.35 (TODO 6-1, user: 일일 보스는 하루에 한 마리만): the daily bosses share one entry a day — Andrius, Dvalin and the
+// Liyue farming rematches (Tartaglia, Azhdaha) — not one each. Whichever is entered first takes the day.
+const DAILY_NAMES={BOSS_ANDRIUS:'안드리우스',BOSS_DVALIN:'드발린',FARM_TARTAGLIA:'타르탈리아',FARM_AZHDAHA:'야타용왕'};
+P.bossDailyUsed=function(today=this.bossRealDay()){const a=this.s.bossRealAdmissions||{};return Object.keys(a).find(k=>a[k]===today&&(Object.hasOwn(api.enhancementConfig.bosses,k)||/^FARM_(TARTAGLIA|AZHDAHA)$/.test(k)))||null;};
+const dailyReason=(rt,today,now)=>{const used=rt.bossDailyUsed(today);if(!used)return {left:0,reason:''};const left=Math.max(1,Math.ceil(((today+1)*DAY-KST-now)/60000));
+ return {left,reason:'일일 보스는 어느 보스든 합쳐 하루에 한 번(현실 시간, 한국 시간 자정에 초기화) 도전할 수 있습니다. 오늘은 '+(DAILY_NAMES[used]||'다른 보스')+'에 도전했습니다. '+Math.floor(left/60)+'시간 '+(left%60)+'분 남음.'};};
 P.bossAdmission=function(boss){
- const now=this.bossRealNow(),today=this.bossRealDay(now),used=this.s.bossRealAdmissions?.[boss]===today,left=used?Math.max(1,Math.ceil(((today+1)*DAY-KST-now)/60000)):0;
- return {boss,remainingMinutes:left,realDay:today,reason:used?'이 보스는 하루에 한 번(현실 시간, 한국 시간 자정에 초기화) 입장할 수 있습니다. '+Math.floor(left/60)+'시간 '+(left%60)+'분 남음.':''};
+ const now=this.bossRealNow(),today=this.bossRealDay(now),{left,reason}=dailyReason(this,today,now);
+ return {boss,remainingMinutes:left,realDay:today,reason};
 };
 P.recordBossAdmission=function(boss){if(!api.enhancementConfig.bosses[boss])return;(this.s.bossRealAdmissions??={})[boss]=this.bossRealDay();};
 // The Liyue farming rematches (Tartaglia's artifacts, Azhdaha's crystals) follow the same real-day rule.
@@ -65,8 +71,7 @@ const FARM_KEY=kind=>'FARM_'+kind,priorFarmReason=P.liyueArtifactFarmReason,prio
 if(priorFarmReason&&priorFarmStart){
  P.liyueArtifactFarmReason=function(kind){
   const base=priorFarmReason.call(this,kind);if(base&&!/게임 내 48시간/.test(base))return base;
-  const now=this.bossRealNow(),today=this.bossRealDay(now);if(this.s.bossRealAdmissions?.[FARM_KEY(kind)]!==today)return '';
-  const left=Math.max(1,Math.ceil(((today+1)*DAY-KST-now)/60000));return '이 보스는 하루에 한 번(현실 시간, 한국 시간 자정에 초기화) 파밍 입장할 수 있습니다. '+Math.floor(left/60)+'시간 '+(left%60)+'분 남음.';
+  const now=this.bossRealNow(),today=this.bossRealDay(now);return dailyReason(this,today,now).reason;
  };
  P.startLiyueArtifactFarm=function(kind){
   const why=this.liyueArtifactFarmReason(kind);if(why)fail('LIYUE_FARM',why);

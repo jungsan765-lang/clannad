@@ -38,7 +38,7 @@ drawLocation=function(p,v){
   if(!game||game.s.runtime||game.s.placeVisit)return;const here=game.s.global.CURRENT_MAP_ID;
   const ids=Object.entries(API.enhancementConfig?.bosses||{}).filter(([,b])=>b.map===here).map(([id])=>id);
   p.querySelectorAll('.material-challenge').forEach((card,i)=>{const id=ids[i],view=id&&game.mutationOf?.(id);if(!view||card.querySelector('.mut-panel'))return;
-   const b=actionButton('변이 재도전','MOND_MATERIAL_CHALLENGE',{boss:id,mutation:true});b.classList.add('mut-go');card.append(panel(view,b));});
+   const b=actionButton('변이 보스 도전','MOND_MATERIAL_CHALLENGE',{boss:id,mutation:true});b.classList.add('mut-go');card.append(panel(view,b));});
   p.querySelectorAll('.liyue-artifact-farm[data-liyue-artifact-farm]').forEach(card=>{const kind=card.dataset.liyueArtifactFarm,view=game.mutationOf?.('LIYUE_'+kind+'_FARM');if(!view||card.querySelector('.mut-panel'))return;
    const b=actionButton(kind==='TARTAGLIA'?'타르탈리아 변이 도전':'야타용왕 변이 도전','LIYUE_ARTIFACT_CHALLENGE',{kind,mutation:true});b.classList.add('mut-go');card.append(panel(view,b));});
  }catch{}

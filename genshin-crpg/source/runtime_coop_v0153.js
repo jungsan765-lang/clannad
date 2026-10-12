@@ -33,7 +33,7 @@ const num=x=>{const n=Number(x);return Number.isFinite(n)?Math.round(n*100)/100:
 const text=(v,n)=>[...String(v??'')].filter(ch=>{const c=ch.codePointAt(0);return c>=32&&c!==127&&!(c>=0x200b&&c<=0x200f)&&!(c>=0x2028&&c<=0x202e)&&!(c>=0x2060&&c<=0x206f)&&c!==0xfeff;}).join('').trim().slice(0,n);
 const ELEMENT_TAGS=['불','물','얼음','번개','바람','바위','풀'];
 api.coopV0153={version:VERSION,maxGuests:MAX_GUESTS,minLevel:MIN_LEVEL,turnMs:TURN_MS,maxAllies:MAX_ALLIES,
- text:{shared:'무작위 조우 · 필드 보스 · 지맥의 꽃 · 지역 사건 전투',solo:'이야기 전투 · 개인 임무 · 나선비경 · 공동 토벌전 · 보스 재도전·파밍 · 변이 도전 · 의뢰 전투'}};
+ text:{shared:'무작위 조우 · 필드 보스 · 지맥의 꽃 · 지역 사건 전투',solo:'이야기 전투 · 개인 임무 · 나선비경 · 공동 토벌전 · 일일 보스·파밍 · 변이 도전 · 의뢰 전투'}};
 const old=Object.fromEntries(['startBattle','initCombatActor','actorCards','cardReason','combatCards','combatAction','newRound','finishBattle','protagonistAllowedIds','actionReason','apply','validateSave'].map(k=>[k,P[k]]));
 
 // ---------- clock, level and characters (also used by the guest's own runtime) ----------
@@ -108,7 +108,7 @@ P.coopSoloReason=function(origin){
  if(o.startsWith('STORY:'))return '이야기 전투는 혼자 진행합니다.';
  if(/^ABYSS/.test(o))return '나선비경은 혼자 도전합니다.';
  if(o.startsWith('RAID:'))return '공동 토벌전은 각자 출격합니다.';
- if(o.startsWith('MATERIAL_CHALLENGE:'))return '보스 재도전·파밍은 혼자 진행합니다.';
+ if(o.startsWith('MATERIAL_CHALLENGE:'))return '일일 보스·파밍은 혼자 진행합니다.';
  if(o.startsWith('QUEST:'))return '의뢰 전투는 혼자 진행합니다.';
  if(o.startsWith('BOSS:')){const route=o.slice(5),FB=api.fieldBosses;return FB&&Object.keys(FB.bosses||{}).some(id=>FB.route(id)===route)?'변이 도전은 혼자 진행합니다.':'보스 전투는 혼자 진행합니다.';}
  if(/^(GEO_OCULUS|WORLD_OCULUS):/.test(o))return '신의 눈동자 전투는 혼자 진행합니다.';

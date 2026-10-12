@@ -38,7 +38,9 @@ function breakable(k){
 const CARD='.card,article,.journal-card,.region-event,.discovery-card,.task-mini,.domain-gate,.ch-journal-fact,.ch-journal-tier,.ch-journal';let eager=false;// the handbook's lists fill each page row by row
 const isHead=h=>!!h&&(h.tagName==='SUMMARY'||/^H\d$/.test(h.tagName)||/(^|[\s_-])[a-z]*head\b/.test(h.className||''));
 // Children side by side (a grid's row: a label and its value, tiles) stay together on one page.
-function rowsOf(kids){const rows=[];let top=null;for(const c of kids){const t=Math.round(c.getBoundingClientRect().top);if(rows.length&&Math.abs(t-top)<=2)rows[rows.length-1].push(c);else{rows.push([c]);top=t;}}return rows;}
+// 0.16.35: a child that overlaps the row above (a card's head spanning two lines beside its items) joins that row; a phone's
+// fishing card was cut into nine pages of single lines because its side-by-side parts started a few pixels apart.
+function rowsOf(kids){const rows=[];let bottom=-Infinity;for(const c of kids){const b=c.getBoundingClientRect(),t=Math.round(b.top),end=Math.round(b.bottom);if(rows.length&&t<bottom-2){rows[rows.length-1].push(c);bottom=Math.max(bottom,end);}else{rows.push([c]);bottom=end;}}return rows;}
 function pieces(node,room,out,wrap,lead){
  const kids=[...node.children].filter(k=>!k.classList.contains('pane-pager')&&!k.hidden&&getComputedStyle(k).display!=='none');
  for(const row of rowsOf(kids)){

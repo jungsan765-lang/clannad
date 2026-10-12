@@ -38,15 +38,15 @@
   b.log.push({actor:a.name,actorId:a.id,card:WIND,cardName:'상승 기류 · 바람길 확보',round:b.round,actionSequence:b.actionSequence,text:'아군 전체 공중 접근 확보 · 근접·중거리 최종 피해 −15%',sourceKind:'BOSS_ARENA'});
  };
  P.mondBossReadiness=function(id){const c=PROFILES[id];if(!c)return null;const party=this.activePartyActors(),naked=party.filter(a=>!this.s.inventory.some(i=>i.quantity>0&&i.equip&&i.equipped&&i.owner===a.id)).map(a=>a.name),low=party.filter(a=>a.level<c.recommended).map(a=>a.name);
-  return {id,...copy(c),party:party.length,naked,low,warnings:[...(party.length<4?['권장 4인 · 현재 '+party.length+'인']:[]),...(low.length?['권장 Lv.'+c.recommended+' 미만: '+low.join(', ')]:[]),...(naked.length?['장비 미착용: '+naked.join(', ')]:[])],tips:id==='BOSS_DVALIN'?['2·4·6·8라운드 끝에 지형 파괴 · 8라운드 종료 전 제압','원거리·대공 기술 또는 부유 효과로 공중 목표 공격','재도전에서는 아군 전체 바람길을 사용할 수 없습니다.']:['얼음·바람 피해 완전면역 · 다른 원소나 물리 공격 준비','2라운드부터 매 라운드 공격력 10% 누적 증가','질주 뒤 2행동·빙창 압박 · 회복과 집중 공격으로 장기전 억제']};
+  return {id,...copy(c),party:party.length,naked,low,warnings:[...(party.length<4?['권장 4인 · 현재 '+party.length+'인']:[]),...(low.length?['권장 Lv.'+c.recommended+' 미만: '+low.join(', ')]:[]),...(naked.length?['장비 미착용: '+naked.join(', ')]:[])],tips:id==='BOSS_DVALIN'?['2·4·6·8라운드 끝에 지형 파괴 · 8라운드 종료 전 제압','원거리·대공 기술 또는 부유 효과로 공중 목표 공격','일일 보스에서는 아군 전체 바람길을 사용할 수 없습니다.']:['얼음·바람 피해 완전면역 · 다른 원소나 물리 공격 준비','2라운드부터 매 라운드 공격력 10% 누적 증가','질주 뒤 2행동·빙창 압박 · 회복과 집중 공격으로 장기전 억제']};
  };
  if(old.enemyIntel)P.enemyIntel=function(id){const info=old.enemyIntel.call(this,id),a=this.combatActor(id),b=this.s.runtime;if(!info||!b?.mondBossBalance||!PROFILES[a?.source])return info;
   const p=PROFILES[a.source];info.cues=[...(info.cues||[]),{kind:'warning',text:'권장 4인 · Lv.'+p.recommended+' · 전원 장비 착용',detail:'권장치이며 입장·승리 보장 조건이 아닙니다. 보스는 파티의 레벨·강화도에 맞춰 자동 상승하지 않습니다.'}];
-  if(a.source==='BOSS_DVALIN')info.cues.push({kind:'warning',text:'남은 지형 '+b.terrain+' / 4 · 8라운드 종료 시 전멸',detail:b.mondBossBalance.rematchNoWindRevision===1?'재도전에는 바람길이 없습니다. 원거리·대공 기술이나 부유 효과로 공격하세요.':b.mondBossBalance.windRoute?'바람길 확보됨 · 근접·중거리도 공격 가능, 최종 피해 −15%':'상승 기류를 1행동으로 사용하면 아군 전체가 공중 목표에 접근할 수 있습니다.'});return info;
+  if(a.source==='BOSS_DVALIN')info.cues.push({kind:'warning',text:'남은 지형 '+b.terrain+' / 4 · 8라운드 종료 시 전멸',detail:b.mondBossBalance.rematchNoWindRevision===1?'일일 보스에는 바람길이 없습니다. 원거리·대공 기술이나 부유 효과로 공격하세요.':b.mondBossBalance.windRoute?'바람길 확보됨 · 근접·중거리도 공격 가능, 최종 피해 −15%':'상승 기류를 1행동으로 사용하면 아군 전체가 공중 목표에 접근할 수 있습니다.'});return info;
  };
  P.validateSave=function(s){old.validateSave.call(this,s);const b=s.runtime,m=b?.mondBossBalance;if(!m)return s;
   if(m.version!==VERSION||typeof m.windRoute!=='boolean'||!Array.isArray(m.bosses)||!m.bosses.length||m.bosses.some(id=>!PROFILES[id]||!b.actors.some(a=>a.side==='ENEMY'&&a.source===id)))throw new api.RuleError('BOSS_BALANCE_SAVE','보스 전투 규칙 저장이 올바르지 않습니다.');
-  if(m.rematchNoWindRevision!==undefined&&(m.rematchNoWindRevision!==1||b.origin!=='MATERIAL_CHALLENGE:BOSS_DVALIN'||!m.bosses.includes('BOSS_DVALIN')||m.windRoute))throw new api.RuleError('BOSS_BALANCE_SAVE','드발린 재도전 바람길 규칙 저장이 올바르지 않습니다.');
+  if(m.rematchNoWindRevision!==undefined&&(m.rematchNoWindRevision!==1||b.origin!=='MATERIAL_CHALLENGE:BOSS_DVALIN'||!m.bosses.includes('BOSS_DVALIN')||m.windRoute))throw new api.RuleError('BOSS_BALANCE_SAVE','드발린 일일 보스 바람길 규칙 저장이 올바르지 않습니다.');
   if(b.actors.some(a=>m.bosses.includes(a.source)&&(!Number.isInteger(a.rewardLevel)||a.rewardLevel<1||a.rewardLevel>60)))throw new api.RuleError('BOSS_REWARD_SAVE','보스 보상 기준 기록이 올바르지 않습니다.');
   if(m.bosses.includes('BOSS_DVALIN')&&(!Number.isInteger(b.terrain)||b.terrain<0||b.terrain>4))throw new api.RuleError('BOSS_TERRAIN_SAVE','드발린 지형 기록이 올바르지 않습니다.');return s;
  };

@@ -120,11 +120,11 @@ P.performEnhancement=function(a){
 };
 P.enhance=function(slot){const inv=this.s.inventory.find(i=>i.slot===slot&&i.equip);if(!inv)fail('ENHANCE','소지한 장비를 선택해 주세요.');if(!this.isMondEnhanceable(inv.equip))fail('ENHANCE',this.row('16_EQUIP_DB',inv.equip)[35]||'이 장비는 강화할 수 없습니다.');return this.performEnhancement({type:'ENHANCE',slot});};
 P.materialChallengeReason=function(boss){
- const cfg=CONFIG.bosses[boss];if(!cfg)return '몬드의 두 보스만 재도전할 수 있습니다.';
+ const cfg=CONFIG.bosses[boss];if(!cfg)return '몬드의 일일 보스는 안드리우스와 드발린입니다.';
  const base=old.actionReason.call(this,'MOND_MATERIAL_CHALLENGE',{boss});if(base)return base;
  if(this.s.runtime||this.s.battlePreparation)return '진행 중인 전투를 먼저 마쳐 주세요.';
  if(['AWAIT_NEXT','IN_BATTLE','RETRY'].includes(this.s.bossRouteProgress?.phase))return '진행 중인 보스 루트를 마치거나 이탈해 주세요.';
- if(this.s.global.CURRENT_MAP_ID!==cfg.map)return '해당 보스의 현장에 도착해야 재도전할 수 있습니다.';
+ if(this.s.global.CURRENT_MAP_ID!==cfg.map)return '해당 보스의 현장에 도착해야 도전할 수 있습니다.';
  const cleared=yes(this.s.flags[this.row('35_BOSS_ROUTE_DB',cfg.route)[13]])||Object.values(this.s.combatReceipts||{}).some(r=>r.victory&&r.group===cfg.group)||
   boss==='BOSS_DVALIN'&&['FLAG_TRV_DVALIN_PURIFIED','FLAG_ISK_K_DVALIN_PURIFIED','FLAG_ISK_AA_DVALIN_LEFT_WITH_BARBATOS','FLAG_ISK_AB_DVALIN_DEPARTED_ALIVE','FLAG_ISK_B_DVALIN_DEPARTED_ALIVE'].some(f=>yes(this.s.flags[f]));
  return cleared?'':'본편 또는 현장 도전에서 이 보스를 먼저 클리어해야 합니다.';

@@ -69,7 +69,7 @@ function build(rt){
  series('FB_TOTAL','BOSS',[[1,'첫 토벌',1],[10,'토벌 전문가',2],[30,'강적 사냥꾼',2],[100,'필드 보스의 천적',3]],n=>'필드 보스 '+n+'번 토벌하기',f=>Object.values(f.fieldWins).reduce((a,b)=>a+b,0));
  for(const [id,d] of Object.entries(api.fieldBosses?.bosses||{})){add('FB_'+id,'BOSS',d.name+' 토벌',eul(d.name)+' 처음으로 토벌',1,f=>f.fieldWins[id]||0,1);add('FB10_'+id,'BOSS',d.name+'의 천적',eul(d.name)+' 10번 토벌',10,f=>f.fieldWins[id]||0,2);}
  const DAILY=[['BOSS_ANDRIUS','안드리우스'],['BOSS_DVALIN','드발린'],['LIYUE_TARTAGLIA_FARM','타르탈리아'],['LIYUE_AZHDAHA_FARM','야타용왕']];
- for(const [key,n] of DAILY){add('DAILY_'+key,'BOSS',n+' 재도전',n+'의 재도전에서 이기기',1,f=>f.dailyWins[key]||0,1);add('DAILY10_'+key,'BOSS','다시 만난 '+n,n+'의 재도전에서 10번 이기기',10,f=>f.dailyWins[key]||0,2);}
+ for(const [key,n] of DAILY){add('DAILY_'+key,'BOSS',n+' 토벌','일일 보스 '+n+'에게 이기기',1,f=>f.dailyWins[key]||0,1);add('DAILY10_'+key,'BOSS','다시 만난 '+n,'일일 보스 '+n+'에게 10번 이기기',10,f=>f.dailyWins[key]||0,2);}
  // 변이 보스
  series('MUT','MUTATION',[[1,'변이를 꺾다',1],[5,'변이 사냥꾼',1],[15,'변이 전문가',2],[50,'변이의 천적',3]],n=>'변이 도전에서 '+n+'번 이기기',f=>f.mutTotal);
  for(const [key,b] of Object.entries(api.mutationsV0152?.bosses||{}))add('MUT_'+key,'MUTATION','변이한 '+b.name,'변이 도전에서 '+eul(b.name)+' 이기기',1,f=>f.mutWins[key]||0,2);
