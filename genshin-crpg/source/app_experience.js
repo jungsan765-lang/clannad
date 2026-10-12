@@ -128,6 +128,14 @@ let bagCategory='전체',bagSelection=null,bagTrade='전체';
 // 0.14.12: equipment frames by enhancement (user: 「강화수치가 높을수록 테두리, 운명의 자리처럼 간지나게는 말고, 10강부터 조금 간지」).
 // +3 silver line, +6 gold line, +9 double gold line, +10 gold corners and a soft inner glow, +12 adds a slow shine.
 function enhanceFrameClass(n){n=Number(n)||0;return n>=12?'enh-12':n>=10?'enh-10':n>=9?'enh-9':n>=6?'enh-6':n>=3?'enh-3':'';}
+// 0.16.31 (TODO 3-5, user approved the download): a dish's tile carries the official food effect icon in its corner — 회복,
+// 공격, 치명타, 방어 by what this game's dish does (속도 · 상태 저항 have no exact original icon: stamina-saving · special).
+const FOOD_MARK={STATUS_FOOD_ATK:'atk',STATUS_FOOD_FEAST:'atk',STATUS_FOOD_CRIT:'crit',STATUS_FOOD_DEF:'def',STATUS_FOOD_SPEED:'spSave',STATUS_FOOD_RESIST:'special'};
+function foodEffectMark(id){
+  let spec=null;try{spec=game.foodSpec(id);}catch{return null;}
+  const key=FOOD_MARK[spec?.status]||(spec?.heal?'heal':null),rec=key&&typeof MANIFEST!=='undefined'?MANIFEST.uiAssets?.foodEffects?.[key]:null;if(!rec)return null;
+  const img=el('img','food-effect-mark');img.src=rec.path;img.alt=rec.label;img.title=rec.label;img.draggable=false;return img;
+}
 function itemGlyph(d){
   // 0.15.17: a companion's own 운명의 별 (STELLA_<id>) had only the plain category picture; it shows the 4★ or 5★ star of
   // that companion, like the wish results and the constellation screen.
@@ -151,7 +159,10 @@ function itemDetailView(box,d){
     const who=el('div','item-use-targets');who.setAttribute('role','radiogroup');who.setAttribute('aria-label','아이템 사용 대상');
     const use=button('1개 사용',()=>act('USE_ITEM',{item:d.id,quantity:1,owner:target,variant:d.variant||undefined}),false,true),reason=el('p','choice-note');
     const refresh=()=>{let message=game.actionReason('USE_ITEM')||'';if(!message)try{if(d.actionHint==='FOOD'){const spec=game.foodSpec(d.id,{variant:d.variant}),a=game.economyOwner(target);if(spec.heal){const heal=game.foodHealingAmount(spec.heal,target);for(const label of dl.querySelectorAll('dt'))if(label.textContent==='회복량')label.nextElementSibling.textContent=String(heal);const effect=box.querySelector('.item-effect');if(effect)effect.textContent=String(d.effect||'').replace(/HP\s*[\d,.]+\s*회복/g,'HP '+heal+' 회복');}if(a.hp<=0)message='전투불능 대상은 일반 음식을 먹을 수 없습니다.';else if(spec.heal&&a.lastMeal===d.id)message='직전에 먹은 회복 음식과 다른 음식을 골라 주세요.';else if(!spec.status&&a.hp>=a.maxHp&&!a.statuses.some(s=>s.id==='STATUS_BOND_OF_LIFE'))message='이미 HP가 가득 찬 대상입니다.';}else if(game.growth(target).max)message='최대 레벨입니다.';}catch(e){message=e.message;}use.disabled=busy||!!message;use.title=message;reason.textContent=message;};
-    const draw=()=>who.replaceChildren(...members.map(m=>{const b=button('',()=>{target=m.source;draw();refresh();});b.className='item-use-target'+(m.source===target?' selected':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(m.source===target));const src=showArt&&combatPortraitSrc({side:'ALLY',source:m.source});if(src){const i=el('img','item-use-face');i.src=src;i.alt='';b.append(i);}else b.append(el('span','item-use-face mark','✦'));b.append(el('span','',ownerName(m.source)));return b;}));
+    const draw=()=>who.replaceChildren(...members.map(m=>{const b=button('',()=>{target=m.source;draw();refresh();});b.className='item-use-target'+(m.source===target?' selected':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(m.source===target));const src=showArt&&combatPortraitSrc({side:'ALLY',source:m.source});if(src){const i=el('img','item-use-face');i.src=src;i.alt='';b.append(i);}else b.append(el('span','item-use-face mark','✦'));b.append(el('span','',ownerName(m.source)));
+      // 0.16.31 (TODO 3-4): who needs it shows at once — each face carries its HP bar.
+      if(d.actionHint==='FOOD')try{const a=game.economyOwner(m.source),bar=el('span','qm-hp'+(a.hp<a.maxHp*.35?' low':'')),fill=el('i');fill.style.width=Math.max(0,Math.min(100,a.maxHp?a.hp/a.maxHp*100:0))+'%';bar.append(fill);bar.title=a.hp+' / '+a.maxHp;b.append(bar);}catch{}
+      return b;}));
     draw();refresh();box.append(who,use,reason);
   }else if(d.kind==='EQUIPMENT'){const why=game.actionReason('MENU',{screen:'STATUS'}),b=button('캐릭터 화면에서 장착하기',()=>openGear(d.slot,d.owner),!!why);if(why)b.title=why;box.append(b);}
   else if(d.actionHint==='COMBAT_MEDICINE')box.append(el('p','muted','전투 중 행동 카드에서 사용합니다.'));
@@ -171,7 +182,7 @@ inventory=function(p){
   let shown=entries.filter(d=>(bagCategory==='전체'||d.group===bagCategory)&&(bagTrade==='전체'||!tradeOf(d)||(tradeOf(d).ok?bagTrade==='가능':bagTrade==='불가')));if(!shown.length&&entries.length){bagCategory='전체';bagTrade='전체';shown=entries;}
   const layout=el('div','bag-layout'),grid=el('div','bag-grid'),detail=el('section','card bag-detail');detail.setAttribute('aria-label','선택한 아이템 상세');
   const chosen=shown.find(d=>d.key===bagSelection)||shown[0];bagSelection=chosen?.key||null;
-  for(const d of shown){const wrap=el('div','bag-cell'),b=button('',()=>{bagSelection=d.key;for(const x of grid.querySelectorAll('button'))x.setAttribute('aria-pressed',String(x.dataset.itemKey===d.key));itemDetailView(detail,d);});b.className='bag-item tier-'+(d.tier?.rank||1);if(d.kind==='EQUIPMENT'){const f=enhanceFrameClass(d.enhance);if(f)b.classList.add('enh',f);}b.dataset.itemKey=d.key;b.setAttribute('aria-pressed',String(d.key===bagSelection));b.setAttribute('aria-label',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:' '+d.quantity+'개'));b.append(itemGlyph(d),el('strong','item-count',d.kind==='EQUIPMENT'?'+'+d.enhance:'×'+d.quantity),tierMark(el('span','item-name',d.name),d));if(d.equipped)b.append(el('small','item-worn','장착'));if(typeof bagTradeMark==='function')bagTradeMark(b,d);
+  for(const d of shown){const wrap=el('div','bag-cell'),b=button('',()=>{bagSelection=d.key;for(const x of grid.querySelectorAll('button'))x.setAttribute('aria-pressed',String(x.dataset.itemKey===d.key));itemDetailView(detail,d);});b.className='bag-item tier-'+(d.tier?.rank||1);if(d.kind==='EQUIPMENT'){const f=enhanceFrameClass(d.enhance);if(f)b.classList.add('enh',f);}b.dataset.itemKey=d.key;b.setAttribute('aria-pressed',String(d.key===bagSelection));b.setAttribute('aria-label',d.name+(d.kind==='EQUIPMENT'?' +'+d.enhance:' '+d.quantity+'개'));b.append(itemGlyph(d),el('strong','item-count',d.kind==='EQUIPMENT'?'+'+d.enhance:'×'+d.quantity),tierMark(el('span','item-name',d.name),d));if(d.equipped)b.append(el('small','item-worn','장착'));if(d.actionHint==='FOOD'){const m=foodEffectMark(d.id);if(m)b.append(m);}if(typeof bagTradeMark==='function')bagTradeMark(b,d);
     const tooltip=el('div','item-tooltip');tooltip.id='item-tip-'+grid.children.length;tooltip.setAttribute('role','tooltip');tooltip.append(tierMark(el('strong','',d.name),d),el('p','',itemSummary(d)||d.category));b.setAttribute('aria-describedby',tooltip.id);wrap.append(b,tooltip);grid.append(wrap);
   }
   if(chosen)itemDetailView(detail,chosen);else detail.append(el('p','empty','아직 보유한 아이템이 없습니다.'));layout.append(grid,detail);p.append(layout);
@@ -291,7 +302,10 @@ function battleOrder(p,b){
 // A fighter without a picture (the isekai hero) gets the same ✦ mark as on the party card.
 function battleOrderFace(entry,a){if(!showArt)return;const src=combatPortraitSrc(a);if(src){const img=el('img','order-face');img.src=src;img.alt='';img.decoding='async';entry.append(img);}else entry.append(el('span','order-face mark','✦'));entry.classList.add('with-face');}
 function battleOrderTimes(entry,a){const n=game.fieldBossActions?.(a)||1;if(n<=1)return;const tag=el('small','order-times','×'+n);tag.title='한 차례에 '+n+'번 행동합니다';entry.append(tag);}
-function combatPortraitSrc(a){if(a.side==='ENEMY')return enemyPortraitFor(a.source);const profile=game.rows('04_CHAR_DB').find(r=>r[1]===a.source);return profile&&portraitFor(profile[0]);}
+// 0.16.31 (user: 「이거 뭐 어떻게 못고치니..?」 — the ✦ where the hero's face should be): the Traveler shows the face of the twin chosen
+// in Mond chapter 1 (FLAG_TRV_AVATAR), cut from the story art already in the game. Not chosen yet or another route: no face.
+function playerFaceSrc(){if(!game||typeof showArt!=='undefined'&&!showArt)return null;const f=game.s?.flags?.FLAG_TRV_AVATAR;return f==='MALE'?'assets/icons/faces/traveler_aether.webp':f==='FEMALE'?'assets/icons/faces/traveler_lumine.webp':null;}
+function combatPortraitSrc(a){if(a.side==='ENEMY')return enemyPortraitFor(a.source);if(a.source==='PLAYER_CUSTOM'&&!a.guest&&!a.coop)return playerFaceSrc();const profile=game.rows('04_CHAR_DB').find(r=>r[1]===a.source);return profile&&portraitFor(profile[0]);}
 // 0.15.18 (user: 「전투할때 누구 차례인지 잘 모르겠으니까 그것도 좀 잘 보이게 해주고」): whose turn it is, in big letters over
 // the commands, with the fighter's face.
 function battleTurnBanner(b){

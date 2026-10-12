@@ -508,7 +508,8 @@ const left=t=>t?.deadline?Math.max(0,Math.ceil((t.deadline-(C.battle?.now||0)-(D
 // lays it out (the panel is a .combat-panel); only what the server sends about the fight is shown.
 const SLOT=id=>id==='PLAYER_BASIC_ATTACK'?'na':/_Q$/.test(id)?'q':/_E(_CHARGE)?$/.test(id)?'e':null;
 const unitOf=(v,id)=>v.allies.find(u=>u.id===id)||v.enemies.find(u=>u.id===id)||null;
-function portraitSrc(u){try{return typeof combatPortraitSrc==='function'&&(typeof showArt==='undefined'||showArt)?combatPortraitSrc({side:u.side,source:u.source}):null;}catch{return null;}}
+// 0.16.31: a hero's face is only the viewer's own (another adventurer's Traveler may be the other twin).
+function portraitSrc(u){try{return typeof combatPortraitSrc==='function'&&(typeof showArt==='undefined'||showArt)?combatPortraitSrc({side:u.side,source:u.source,coop:!u.guest?.mine}):null;}catch{return null;}}
 function faceOf(u,cls){const src=portraitSrc(u);if(src){const i=mk('img',cls);i.src=src;i.alt='';i.decoding='async';i.draggable=false;return i;}return mk('span',cls+' mark','✦');}
 function fighterCard(v,u,targets){
  const target=targets.has(u.id),c=mk('div','actor combatant-row'+(u.hp<=0?' dead':'')+(target&&C.target===u.id?' selected':'')+(v.turn?.actor===u.id?' shell-acting':''));c.dataset.actorId=u.id;c.dataset.side=u.side;c.dataset.maxHp=u.maxHp;

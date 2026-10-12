@@ -65,7 +65,9 @@ function openPicker(owner,category){
  const list=el('div','gear-options');
  for(const o of options){
   const cell=el('div','gear-cell'),row=el('div','gear-option'+(o.reason?' blocked':'')),copy=el('div','gear-option-copy');
-  copy.append(tierMark(el('strong','',itemLabel(o.inv,o.d)),o.d),el('small','muted',(o.own?'전용 무기 · ':'')+(o.d.tier?.label?o.d.tier.label+' · ':'')+(o.inv.equipped?ownerName(o.inv.owner)+' 장착 중 · 옮겨서 장착':'보관 중')));
+  // 0.16.31 (user: 장착 중인 사람은 빨간색): who wears it now stands out in red.
+  const meta=el('small','muted',(o.own?'전용 무기 · ':'')+(o.d.tier?.label?o.d.tier.label+' · ':''));if(o.inv.equipped)meta.append(el('b','gear-owner',ownerName(o.inv.owner)+' 장착 중'),' · 옮겨서 장착');else meta.append('보관 중');
+  copy.append(tierMark(el('strong','',itemLabel(o.inv,o.d)),o.d),meta);
   const short=traitShort(o.inv);if(short)copy.append(el('small','gear-trait-line','특성 · '+short));
   if(!o.preview.reason){const delta=deltaLine(o.preview.before,o.preview.after);copy.append(el('small','gear-delta',delta||'능력치 변화 없음'));}
   copy.append(effectNote(o.inv,o.d));if(o.reason)copy.append(el('small','choice-note',o.reason));
@@ -154,6 +156,31 @@ reward=function(p){
  if(r.protagonistRevived)p.insertBefore(el('p','revive-note',withJosa(game.s.global.PLAYER_NAME,'은','는')+' 쓰러졌지만 동료들이 전투에서 이겼습니다. HP '+fmt(r.protagonistRevived)+'(으)로 다시 일어났습니다.'),anchor);
  if(r.defeatPenalty&&game.s.defeatPenalty&&!p.querySelector('.recovery-card')){const box=el('section','card defeat-card');box.append(el('p','defeat-penalty','패배로 모라를 '+fmt(r.defeatPenalty.mora)+' 잃었습니다.'));countdown(box,'다시 도전하거나 회복할 수 있을 때까지');p.insertBefore(box,anchor);}
 };
+// 0.16.31 (TODO 3-4; user: 「단어를 좀 빠른식사 이런걸로」, 「누르면 얼마나 회복이 되는지 이런걸 적는게 좋아보이는데」): 「빠른 식사」 after a fight —
+// the healing dishes in the bag and the party's HP under the buttons. Press a dish, then whom it is for; each face says how much
+// HP that dish gives it. The result screen stays.
+let quickDish=null;
+function mealReason(owner,dish){let a=null;try{a=game.economyOwner(owner);}catch{return '';}if(!a)return '';if(a.hp<=0)return '전투불능 대상은 일반 음식을 먹을 수 없습니다.';if(a.lastMeal===dish)return '직전에 먹은 회복 음식과 다른 음식을 골라 주세요.';if(a.hp>=a.maxHp&&!(a.statuses||[]).some(s=>s.id==='STATUS_BOND_OF_LIFE'))return '이미 HP가 가득 찬 대상입니다.';return game.actionReason('USE_ITEM',{item:dish,quantity:1,owner})||'';}
+function hpBar(a){const bar=el('span','qm-hp'),fill=el('i');fill.style.width=Math.max(0,Math.min(100,a.maxHp?a.hp/a.maxHp*100:0))+'%';if(a.hp<a.maxHp*.35)bar.classList.add('low');bar.append(fill);return bar;}
+function quickMeals(p){
+ if(!game||game.s.runtime||game.actionReason('USE_ITEM'))return;
+ const owners=game.s.party.filter(x=>x.active).map(x=>{let a=null;try{a=game.economyOwner(x.source);}catch{}return a&&{id:x.source,a};}).filter(Boolean);
+ const hurt=owners.find(x=>x.a.hp>0&&x.a.hp<x.a.maxHp);if(!hurt)return;
+ const seen=new Set(),dishes=[];
+ for(const i of game.s.inventory){if(!i.item||seen.has(i.item)||!(game.itemCount(i.item)>0))continue;seen.add(i.item);let spec=null;try{spec=game.foodSpec(i.item);}catch{}if(spec?.heal)dishes.push({id:i.item,heal:game.foodHealingAmount(spec.heal,hurt.id)});}
+ if(!dishes.length)return;dishes.sort((x,y)=>y.heal-x.heal);const shown=dishes.slice(0,6);
+ if(!shown.some(d=>d.id===quickDish))quickDish=shown[0].id;
+ const box=el('section','quick-meal'),foods=el('div','qm-foods'),people=el('div','qm-people');box.setAttribute('aria-label','빠른 식사');
+ const title=el('div','qm-title');title.append(el('strong','','빠른 식사'),el('small','qm-dish',safeName('14_ITEM_DB',quickDish)));box.append(title);
+ for(const d of shown){const b=button('',()=>{quickDish=d.id;render();});b.className='qm-food'+(d.id===quickDish?' selected':'');b.setAttribute('aria-pressed',String(d.id===quickDish));
+  b.title=safeName('14_ITEM_DB',d.id)+' · HP +'+fmt(d.heal);try{b.append(itemGlyph(presenter().itemDetail({item:d.id,quantity:game.itemCount(d.id)})));}catch{}b.append(el('b','qm-count','×'+fmt(game.itemCount(d.id))));if(typeof foodEffectMark==='function'){const m=foodEffectMark(d.id);if(m)b.append(m);}foods.append(b);}
+ for(const {id,a} of owners){const why=mealReason(id,quickDish),b=button('',()=>act('USE_ITEM',{item:quickDish,quantity:1,owner:id}),busy||!!why);b.className='qm-person';if(why)b.title=why;
+  b.append(actorPortrait(id,'qm-face'));const copy=el('span','qm-copy'),name=el('small','qm-name',ownerName(id));
+  if(!why){let gain=0;try{gain=Math.min(game.foodHealingAmount(game.foodSpec(quickDish).heal,id),a.maxHp-a.hp);}catch{}if(gain>0)name.append(el('b','qm-gain','+'+fmt(gain)));}
+  copy.append(name,hpBar(a),el('small','qm-num',fmt(a.hp)+' / '+fmt(a.maxHp)));b.append(copy);people.append(b);}
+ box.append(foods,people);p.append(box);
+}
+const mealReward=reward;reward=function(p){mealReward(p);try{quickMeals(p);}catch(e){console.error('[quick meal]',e);}};
 function tick(){const left=game?.defeatLockRemaining?.()||0;for(const n of document.querySelectorAll('[data-defeat-countdown]'))n.textContent=Math.ceil(left/1000)+'초';if(left<=0){clearInterval(lockTimer);lockTimer=null;render();}}
 // 0.15.24 (user: 「이것도 시간이 안맞아」): a locked action's note printed on screen (「…정신을 차리는 중입니다 · N초 남음」) counts
 // down with the same clock as the HUD instead of keeping the second it was drawn at.

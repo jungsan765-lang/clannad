@@ -27,5 +27,15 @@ const introReasonBefore=P.legendIntroductionReason;
 if(registeredBefore&&introReasonBefore)P.legendIntroductionReason=function(...args){return rawRegistration(this,()=>introReasonBefore.apply(this,args));};
 const applyBefore=P.apply;
 if(registeredBefore)P.apply=function(type,...args){return type==='LEGEND_REGISTER'?rawRegistration(this,()=>applyBefore.call(this,type,...args)):applyBefore.call(this,type,...args);};
+// 0.16.31 (TODO 3-4): the combat potion can be given to an ally (runtime_combat.js); its words say so. The shared table stays
+// as authored; this runtime's own copy of the row is changed.
+const marketBefore=P.installMarketContent;
+P.installMarketContent=function(...args){const out=marketBefore?.apply(this,args);
+ if(!this._potionWordsV01631&&this.db?.['14_ITEM_DB']){const head=this.db['14_ITEM_DB'][0],at=k=>head.indexOf(k),rows=this.db['14_ITEM_DB'].map(r=>r[0]==='TRPG_HEALING_POTION'?r.slice():r),row=rows.find(r=>r[0]==='TRPG_HEALING_POTION');
+  if(row){if(at('효과')>=0)row[at('효과')]='자신 또는 아군 1명의 HP를 최대 HP의 20%만큼 회복한다. 같은 전투에서 한 사람에게 한 번만 쓸 수 있다.';if(at('배분 대상')>=0)row[at('배분 대상')]='자신/아군 1명';if(at('포만/사용 제한')>=0)row[at('포만/사용 제한')]='대상당 전투 1회/일반 행동 1회/소모';
+   // Only that row changes: the table keeps every item other installers added (a table rebuilt from the rows lost them).
+   this.db={...this.db,'14_ITEM_DB':rows};const table=new Map(this.tables['14_ITEM_DB']||[]);table.set(row[0],row);this.tables['14_ITEM_DB']=table;}
+  this._potionWordsV01631=true;}
+ return out;};
 api.rosterV01522=true;
 })(globalThis);

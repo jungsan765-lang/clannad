@@ -16,25 +16,31 @@
  function costs(box,cost){if(!cost)return;const c=el('div','enhance-cost');c.append(el('strong','','필요 비용 · '+cost.mora.toLocaleString()+' 모라'),el('small',Number(game.s.global.MORA)<cost.mora?'lack':'', '보유 '+Number(game.s.global.MORA).toLocaleString()+' 모라'));
   for(const [id,n]of Object.entries(cost.items||{})){const line=el('div','enhance-material'),d=itemPresenter.itemDetail({item:id,quantity:n});line.append(itemGlyph(d),el('span','',d.name+' ×'+n),el('small',game.itemCount(id)<n?'stat-down lack':'','보유 '+game.itemCount(id)));c.append(line);}box.append(c);}
  function quoteArgs(q,type){return {slot:q.slot,expectedLevel:q.level,expectedCap:q.cap,instanceRevision:q.instanceRevision};}
- function openConfirm(slot,kind='ENHANCE'){
-  ensurePresenter();const q=game.enhancementQuote(slot,kind),type=kind==='ASCEND'?'EQUIP_ASCEND':'ENHANCE',args=quoteArgs(q,type),box=el('div','enhance-confirm');box.dataset.enhanceConfirm=kind;
-  box.append(el('h2','',q.name+' +'+q.level+(kind==='ASCEND'?' · 한도 +12 개방':' → +'+q.target)));
+ // 0.16.31 (user: 강화가 끝나도 창은 그대로, 버튼은 「다시 강화」 하나 + 오른쪽 위 ✕): the result shows on top of the same window,
+ // which then offers the next try (or the 돌파, or says the piece is at +12). 취소 and 확인 are gone; the window's ✕ closes it.
+ const OUTCOME={SUCCESS:'강화 성공',HOLD:'강화 실패 · 단계 유지',DOWN:'강화 실패 · 1단계 하락',ASCENDED:'돌파 완료 · +12 해금'};
+ function resultBanner(box,r){
+  const b=el('div','enhance-result enhance-banner '+r.outcome.toLowerCase());b.dataset.enhanceOutcome=r.outcome;b.setAttribute('role','status');
+  b.append(el('strong','',OUTCOME[r.outcome]),el('span','enhance-level','+'+r.from+' → +'+r.level));
+  const cost=r.cost;b.append(el('small','muted','사용 · '+cost.mora.toLocaleString()+' 모라'+Object.entries(cost.items||{}).map(([id,n])=>' · '+safeName('14_ITEM_DB',id)+' ×'+n).join('')));
+  if(saveFailed)b.append(el('p','enhance-warning','자동 저장에 실패했습니다. 추가 강화를 중단하고 저장 상태를 확인해 주세요.'));box.append(b);
+ }
+ function nextKind(slot){const q=game.enhancementQuote(slot);if(!q?.supported)return null;if(q.target<=q.cap)return 'ENHANCE';const inv=game.s.inventory.find(i=>i.slot===slot);return inv?.enhance===10&&q.cap===10?'ASCEND':null;}
+ function ownerLine(box,slot){const inv=game.s.inventory.find(i=>i.slot===slot);if(!inv)return;const line=el('p','gear-owner-line'+(inv.equipped?'':' muted'));if(inv.equipped)line.append(el('b','gear-owner',ownerName(inv.owner)+' 장착 중'));else line.append('보관 중');box.append(line);}
+ function openConfirm(slot,kind='ENHANCE',last=null){
+  ensurePresenter();if(last)kind=nextKind(slot);
+  const box=el('div','enhance-confirm');if(last)resultBanner(box,last);
+  if(!kind){const inv=game.s.inventory.find(i=>i.slot===slot),d=inv&&itemPresenter.itemDetail(inv);box.dataset.enhanceConfirm='MAX';box.append(el('h2','',(d?.name||'')+' +'+(inv?.enhance??'')),el('p','requirement-met','최대 강화 +12'));ownerLine(box,slot);showModal('장비 강화 결과',box);return;}
+  const q=game.enhancementQuote(slot,kind),type=kind==='ASCEND'?'EQUIP_ASCEND':'ENHANCE',args=quoteArgs(q,type);box.dataset.enhanceConfirm=kind;
+  box.append(el('h2','',q.name+' +'+q.level+(kind==='ASCEND'?' · 한도 +12 개방':' → +'+q.target)));ownerLine(box,slot);
   if(kind==='ASCEND')box.append(el('p','','돌파 성공률 100%. 강화도는 +10 그대로이며, 이 장비 한 개의 최대 강화 한도만 +12로 열립니다. 하락해도 해금은 유지됩니다.'));
   else{probabilities(box,q);statTable(box,q.statsBefore,q.statsAfter);if(q.down)box.append(el('p','enhance-warning','하락 시 +'+q.level+' → +'+(q.level-1)+' · 시도당 '+pct(q.down)));}
   costs(box,q.cost);box.append(el('p','muted',kind==='ASCEND'?'소요 시간 1시간 · 보스 재료는 이 돌파에만 사용합니다.':'소요 시간 30분 · 완료한 결과는 자동 저장됩니다.'));
   const reason=game.actionReason(type,args);if(reason)box.append(el('p','choice-note',reason));
-  const controls=el('div','row');controls.append(button('취소',()=>document.getElementById('modal').close()),button(kind==='ASCEND'?'재료를 사용해 한도 돌파':'비용을 사용해 1회 강화',async()=>{
-   if(busy)return;document.getElementById('modal').close();const receipt=await act(type,args);if(receipt?.ok)showResult(receipt.result);
-  },busy||!!reason,true));box.append(controls);showModal(kind==='ASCEND'?'장비 한도 돌파 확인':'장비 강화 확인',box);
- }
- function showResult(r){
-  const labels={SUCCESS:'강화 성공',HOLD:'강화 실패 · 단계 유지',DOWN:'강화 실패 · 1단계 하락',ASCENDED:'돌파 완료 · +12 해금'},box=el('div','enhance-result '+r.outcome.toLowerCase());box.dataset.enhanceOutcome=r.outcome;box.setAttribute('role','status');
-  box.append(el('small','','장비 강화 결과'),el('h2','',labels[r.outcome]),el('strong','enhance-level',r.name+' +'+r.from+' → +'+r.level));
-  if(r.outcome==='ASCENDED')box.append(el('p','','이제 +11과 +12에 도전할 수 있습니다. 강화도는 +10이며, 돌파는 이 장비에 영구히 유지됩니다.'));
-  else box.append(el('p','',r.outcome==='HOLD'?'능력치는 그대로입니다. 장비는 파괴되지 않았습니다.':r.outcome==='DOWN'?'강화도만 한 단계 내려갔습니다. 장비와 돌파 해금은 보존됩니다.':'장비 능력치가 올랐습니다. 최대 HP가 늘어도 현재 HP는 자동 회복되지 않습니다.'));
-  const cost=r.cost;box.append(el('p','muted','사용 비용 · '+cost.mora.toLocaleString()+' 모라'+Object.entries(cost.items).map(([id,n])=>' · '+safeName('14_ITEM_DB',id)+' ×'+n).join('')));
-  if(saveFailed)box.append(el('p','enhance-warning','자동 저장에 실패했습니다. 추가 강화를 중단하고 저장 상태를 확인해 주세요.'));
-  box.append(button('확인',()=>document.getElementById('modal').close(),false,true));showModal(labels[r.outcome],box);
+  const go=button(kind==='ASCEND'?'재료를 사용해 한도 돌파':last?'다시 강화':'비용을 사용해 1회 강화',async()=>{
+   if(busy)return;document.getElementById('modal').close();const receipt=await act(type,args);if(receipt?.ok)openConfirm(slot,null,receipt.result);
+  },busy||!!reason,true);go.classList.add('enhance-go');box.append(go);
+  showModal(last?'장비 강화 결과':kind==='ASCEND'?'장비 한도 돌파 확인':'장비 강화 확인',box);
  }
  globalThis.renderEnhancementPanel=function(p){
   ensurePresenter();const section=el('section','enhance-panel');section.append(el('h2','','장비 강화·돌파'),el('p','','몬드·리월의 대장간에서 같은 강화 규칙을 사용합니다. +10까지 강화한 뒤 보스 재료로 +12 한도를 해금합니다. 「강화」를 누르면 확률·능력치 변화·비용을 확인한 뒤 진행합니다.'));
@@ -80,7 +86,8 @@
   const list=el('div','forge-list');
   for(const e of shown){
    const row=el('div','forge-row'+(e.worn?' worn':'')),copy=el('div','forge-copy'),actions=el('div','forge-actions');row.dataset.enhanceSlot=e.inv.slot;
-   copy.append(tierMark(el('strong','',e.title),e.d||e.inv?.equip,e.inv),el('small','muted',(e.worn?ownerName(e.inv.owner)+' 장착 중':'보관 중')+(e.cap?' · '+e.cap:'')));
+   const where=el('small','muted');if(e.worn){where.append(el('b','gear-owner',ownerName(e.inv.owner)+' 장착 중'));row.dataset.ownerName=ownerName(e.inv.owner);}else where.append('보관 중');if(e.cap)where.append(' · '+e.cap);
+   copy.append(tierMark(el('strong','',e.title),e.d||e.inv?.equip,e.inv),where);
    if(e.next)copy.append(el('small','forge-next',e.next));if(e.reason&&e.reason!==common)copy.append(el('small','choice-note',e.reason));
    for(const [label,fn,reason]of e.actions){const b=button(label,fn,busy||!!reason,true);if(reason)b.title=reason;actions.append(b);}
    row.append(itemGlyph(e.d),copy,actions);list.append(row);

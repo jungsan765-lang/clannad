@@ -71,7 +71,7 @@ check('the gear picker shows the character’s own exclusive weapon first, then 
  c.window.openGear(mine,'MOND_AMBER');assert.equal(modals.length,1);
  const rows=walk(modals[0].content).filter(x=>/^gear-option( blocked)?$/.test(x.className)),names=rows.map(x=>walk(x).find(y=>y.tag==='strong')?.textContent||'');
  const P=c.CRPGInventoryPresenter.create(r.db,{}),rank=slot=>P.itemDetail(r.s.inventory.find(i=>i.slot===slot)).tier.rank;
- assert.match(names[0],/정찰 기사의 신호궁/,'her own exclusive weapon on top: '+names.join(', '));
+ assert.match(names[0],/청록의 사냥활/,'her own exclusive weapon on top (0.16.31: the official name of its picture): '+names.join(', '));
  assert(walk(rows[0]).some(x=>/전용 무기/.test(String(x.textContent))),'marked 전용 무기');
  const open=rows.slice(1).filter(x=>!/blocked/.test(x.className)).map(x=>walk(x).find(y=>y.tag==='strong').textContent);
  const ranks=open.map(n=>P.itemDetail(r.s.inventory.find(i=>i.equip&&r.row('16_EQUIP_DB',i.equip)[1]===n.replace(/\s*\+\d+$/,''))).tier.rank);

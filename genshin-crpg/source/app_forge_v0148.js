@@ -25,7 +25,7 @@ function statRows(e){
 // The big picture of the chosen thing: its icon on the grade colour, its kind and name.
 function heroBox(rank,glyph,kind,name){
  const box=mk('div','shell-forge-hero tier-'+rank),art=mk('div','shell-forge-art');if(glyph)art.append(glyph.cloneNode(true));art.append(mk('span','shell-forge-stars','★'.repeat(rank)));
- const words=mk('div','shell-forge-words');words.append(mk('small','shell-forge-kind',kind),mk('h3','tier-text tier-'+rank,name));box.append(art,words);return box;
+ const words=mk('div','shell-forge-words');words.append(mk('small','shell-forge-kind'+(/ 장착 중$/.test(kind)?' gear-owner':''),kind),mk('h3','tier-text tier-'+rank,name));box.append(art,words);return box;
 }
 function recipeHero(card,recipe){
  const r=game.tables['17_RECIPE_DB']?.get(recipe),equip=r?.[2]==='EQUIP',out=r?.[3],rank=rankOf(out);
@@ -60,6 +60,7 @@ function tilesAndDetail(cls,key,items,label){
   const tile=mk('button','shell-forge-tile tier-'+x.rank+(x.ready?'':' unready'));if(x.enh&&typeof enhanceFrameClass==='function'){const f=enhanceFrameClass(x.enh);if(f)tile.classList.add('enh',f);}tile.type='button';tile.dataset.pick=x.id;tile.setAttribute('role','option');tile.title=x.title||x.name;
   const art=mk('span','shell-forge-tile-art');if(x.glyph)art.append(x.glyph.cloneNode(true));art.append(mk('span','shell-forge-tile-stars','★'.repeat(x.rank)));
   if(x.badge)art.append(mk('span','shell-forge-tile-badge',x.badge));if(x.ready)art.append(mk('span','shell-forge-ready'));
+  if(x.dish&&typeof foodEffectMark==='function'){const m=foodEffectMark(x.dish);if(m)art.append(m);}
   tile.append(art,mk('span','shell-forge-tile-name',x.name));tile.onclick=()=>show(x.id,true);list.append(tile);
  }
  wrap.append(list,detail);if(F[key])show(F[key],false);else detail.append(mk('p','muted shell-forge-none','고를 수 있는 항목이 없습니다.'));
@@ -80,7 +81,7 @@ function dishes(root){
  const cards=$$(':scope > section.cook-card',grid);if(!cards.length)return null;
  const items=cards.map(card=>{const id=card.dataset.recipeId,stars=(card.querySelector('.cook-stars')?.textContent||'★').length,name=card.querySelector('.cook-title h3')?.textContent||id;
   const rank=Math.max(1,Math.min(5,stars)),glyph=card.querySelector('.cook-head > :first-child'),kind=card.querySelector('.cook-badge')?.textContent||'요리';
-  return {id,rank,ready:card.classList.contains('ready'),name,badge:card.classList.contains('locked')?'레시피':'',title:name,glyph,
+  return {id,rank,ready:card.classList.contains('ready'),name,badge:card.classList.contains('locked')?'레시피':'',title:name,glyph,dish:game.tables['17_RECIPE_DB']?.get(id)?.[3],
    detail:()=>{card.classList.add('shell-forge-card');return [heroBox(rank,glyph,kind,name),card];},actions:()=>{const foot=card.querySelector('.cook-foot');return foot?[foot]:[];}};});
  const wrap=tilesAndDetail('dishes','dish',items,'요리');grid.replaceWith(wrap);return wrap;
 }
@@ -93,7 +94,7 @@ function gear(root){
   // 0.15.6: the piece's next step is kept with the item; looked up in the row each time, it was gone once shown (moved).
   const copy=row.querySelector('.forge-copy');
   return {id,rank,ready,enh:level,name:title.replace(/\s*\+\d+$/,''),badge:level?'+'+level:'',title,glyph:row.querySelector(':scope > .item-glyph, :scope > .item-icon, :scope > img'),
-   detail:()=>{copy?.classList.add('shell-forge-copy');return [heroBox(rank,row.querySelector(':scope > .item-glyph, :scope > .item-icon, :scope > img'),row.classList.contains('worn')?'장착 중':'보관 중',title),copy].filter(Boolean);},
+   detail:()=>{copy?.classList.add('shell-forge-copy');return [heroBox(rank,row.querySelector(':scope > .item-glyph, :scope > .item-icon, :scope > img'),row.classList.contains('worn')?(row.dataset.ownerName?row.dataset.ownerName+' 장착 중':'장착 중'):'보관 중',title),copy].filter(Boolean);},
    actions:()=>actions?[...actions.children]:[]};});
  const wrap=tilesAndDetail('gear','gear',items,'강화할 장비');list.replaceWith(wrap);return wrap;
 }

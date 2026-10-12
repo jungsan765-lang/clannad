@@ -12,7 +12,7 @@ function destinations(){const box=document.querySelector('.shell-loc-main .terra
 const ZOOMS=[1,.93,.87,.81];
 const over=box=>box.scrollHeight>box.clientHeight+1;
 function zoomDown(box){let i=0;box.style.setProperty('--fit','1');while(over(box)&&i<ZOOMS.length-1){i++;box.style.setProperty('--fit',String(ZOOMS[i]));}}
-function fitBox(box){if(!box?.isConnected||!box.clientHeight)return;box.classList.add('fit-box');box.classList.remove('fit-brief');box.querySelector(':scope>.fit-more')?.remove();
+function fitBox(box){if(!box?.isConnected||!box.clientHeight)return;box.classList.add('fit-box');box.classList.remove('fit-brief');for(const old of box.querySelectorAll(':scope>.fit-more,:scope>.shell-forge-hero>.fit-more'))old.remove();// 0.16.31: the one beside a forge card's name was left behind, so it showed twice.
  zoomDown(box);if(!over(box)||!box.matches('.bag-detail,.market-detail,.shell-forge-scroll'))return;
  const title=box.querySelector(':scope>h2,:scope h3')?.textContent||'자세히';
  const more=document.createElement('button');more.type='button';more.className='fit-more';more.textContent='자세히';
@@ -109,6 +109,8 @@ const BOXES=[
  ['.hb-body',()=>{const b=document.querySelector('.hb-body');if(b)window.CRPGMainScreen?.pagePane?.(b,'hb|'+(window.CRPGHandbook?.tab||''));}],
  // A list in a window (the companions to pick …) turns pages in the window's own room.
  ['dialog#modal[open] .member-pick-grid',()=>{const g=document.querySelector('dialog#modal[open] .member-pick-grid');if(g)window.CRPGMainScreen?.pagePane?.(g,'pick|'+(document.querySelector('#modal-body>h1')?.textContent||''));}],
+ // 0.16.31 (user: 장비 고르기 창이 「휠이 두 개」처럼 따로 스크롤): the gear to pick turns pages in the window's own room.
+ ['dialog#modal[open] .gear-options',()=>{const g=document.querySelector('dialog#modal[open] .gear-options');if(g)window.CRPGMainScreen?.pagePane?.(g,'gear|'+(document.querySelector('#modal-body>h1')?.textContent||''));}],
  ['dialog#modal[open]>#modal-body',()=>fitBox(document.getElementById('modal-body'))]
 ];
 // Every window closes with one ✕ at its top right (the word 닫기 stays its name for the keyboard and screen readers).

@@ -29,6 +29,8 @@ function playerState(){
  r.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_MOND_CITY'});
  r.action('OPERATOR_DEBUG',{op:'recruit',char:'ALL'});r.action('OPERATOR_DEBUG',{op:'level',value:40});r.action('OPERATOR_DEBUG',{op:'mora',value:250000});
  for(const [slot,char] of [[2,'LIYUE_GANYU'],[3,'MOND_MONA'],[4,'LIYUE_BAIZHU']])try{r.action('PARTY',{slot,char});}catch(e){if(process.env.FIT_DEBUG)console.error('party',slot,char,e.message);}
+ // 0.16.31: ore for the forge's enhance window (it opens only when an attempt can be paid).
+ for(const [id,n] of [['ORE_IRON',60],['ORE_WHITE_IRON',40],['ORE_CRYSTAL',30]]){const i=r.s.inventory.find(x=>x.item===id&&!x.equip);if(i)i.quantity+=n;else r.s.inventory.push({slot:'ITEM_'+id,item:id,quantity:n,owner:'공용'});}
  const done=r.tutorialState?.().done;if(done)for(const k of ['combatAttack','combatGuard','combatSkill','combatBurst'])done[k]=true;
  r.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_MOND_CITY'});
  return r;
@@ -56,7 +58,8 @@ const SCAN=()=>{
  const cutOnes=[];
  for(const e of reading){if(cutOnes.some(x=>x.contains(e)))continue;const r=e.getBoundingClientRect();const before=out.length;
   if(r.right>W+1||r.bottom>H+1||r.left<-1||r.top<-1){out.push('off screen '+name(e)+' «'+text(e)+'»');cutOnes.push(e);continue;}
-  for(let a=e.parentElement;a&&a!==document.body;a=a.parentElement){if(!clips(a))continue;const b=a.getBoundingClientRect();
+  // A popover (a hover note) is drawn on the top layer: the boxes around it in the page do not cut it.
+  for(let a=e.parentElement;a&&a!==document.body;a=a.parentElement){if(a.matches(':popover-open'))break;if(!clips(a))continue;const b=a.getBoundingClientRect();
    const over=Math.max(r.bottom-b.bottom,r.right-b.right,b.top-r.top,b.left-r.left);
    if(over>1.5){out.push('cut '+name(e)+' «'+text(e)+'» by '+name(a)+' '+Math.round(over)+'px');break;}}
   if(out.length>before)cutOnes.push(e);}
@@ -116,6 +119,13 @@ try{
   await view('character',`__go('STATUS')`);
   await page.evaluate(`__go('STATUS')`);
   for(const tab of await labels('.gear-member:not([hidden]) .gear-tab'))await view('character-'+tab,`(async()=>{await __go('STATUS');__tap('.gear-member:not([hidden]) .gear-tab',${JSON.stringify(tab)});})()`);
+  // 0.16.31: the forge's enhance tab (who wears each piece in red) and its window with the one 「강화」 button.
+  const forgeAt='(async()=>{if(game.s.placeVisit)await act(\'PLACE_LEAVE\',{});await __go(\'LOCATION\');const w=game.placeEntries().find(e=>/대장간/.test((e.name||\'\')+(e.facility||\'\')));if(w)await act(\'PLACE_ENTER\',{place:w.id});await new Promise(r=>setTimeout(r,250));[...document.querySelectorAll(\'.shell-worktabs button\')].find(b=>/강화/.test(b.textContent))?.click();await new Promise(r=>setTimeout(r,250));';
+  await view('forge-enhance',forgeAt+'})()');
+  await view('forge-confirm',forgeAt+'for(let i=0;i<20&&!document.getElementById(\'modal\')?.open;i++){[...document.querySelectorAll(\'.shell-forge-foot button\')].find(x=>/강화|돌파/.test(x.textContent)&&!x.disabled)?.click();await new Promise(r=>setTimeout(r,150));}})()');
+  await view('forge-result',forgeAt+'for(let i=0;i<20&&!document.getElementById(\'modal\')?.open;i++){[...document.querySelectorAll(\'.shell-forge-foot button\')].find(x=>/강화|돌파/.test(x.textContent)&&!x.disabled)?.click();await new Promise(r=>setTimeout(r,150));}document.querySelector(\'#modal .enhance-go\')?.click();for(let i=0;i<80&&!document.querySelector(\'#modal[open] .enhance-banner\');i++)await new Promise(r=>setTimeout(r,150));})()');
+  // 0.16.31: the gear picker window (one screen, no inner scroll).
+  await view('gear-picker',`(async()=>{await __go('STATUS');const b=[...document.querySelectorAll('.gear-slot')].find(x=>x.offsetParent);b?.click();})()`);
   await view('quest',`__go('QUEST')`);
   await page.evaluate(`__go('QUEST')`);
   for(const tab of await labels('.journal-tabs button'))await view('quest-'+tab,`(async()=>{await __go('QUEST');__tap('.journal-tabs button',${JSON.stringify(tab)});})()`);

@@ -5,7 +5,7 @@ function ownerName(id){return id==='PLAYER_CUSTOM'?game.s.global.PLAYER_NAME:saf
 function itemCategory(item){const value=game.row('16_EQUIP_DB',item.equip)[2];return value==='방어구'?'ARMOR':value==='장신구'?'ACCESSORY':value==='특수'?'SPECIAL':'WEAPON';}
 function lockControls(box,reason){if(!reason)return;for(const control of box.querySelectorAll('button,input,select')){control.disabled=true;control.title=reason;}}
 function returnToJourney(p){p.append(actionButton(game.playPhase()==='PREPARATION'?'전투 준비로 돌아가기':'이야기로 돌아가기','MENU',{screen:'STORY'},true));}
-function actorPortrait(id,cls){const profile=game.rows('04_CHAR_DB').find(r=>r[1]===id),src=profile&&portraitFor(profile[0]);if(!src)return el('div',cls+' portrait-placeholder','✧');const img=el('img',cls);img.src=src;img.alt=ownerName(id);return img;}
+function actorPortrait(id,cls){const profile=game.rows('04_CHAR_DB').find(r=>r[1]===id),src=profile?portraitFor(profile[0]):id==='PLAYER_CUSTOM'&&typeof playerFaceSrc==='function'?playerFaceSrc():null;if(!src)return el('div',cls+' portrait-placeholder','✧');const img=el('img',cls);img.src=src;img.alt=ownerName(id);return img;}
 // Korean particle for a name: 이/가, 은/는, 을/를 by the last syllable's final consonant.
 function withJosa(word,consonant,vowel){const last=String(word||'').trim().slice(-1),code=last.charCodeAt(0)-0xAC00;return word+(code>=0&&code<11172?(code%28?consonant:vowel):consonant+'('+vowel+')');}
 // 0.15.19: a member leaving the party keeps their gear (runtime_party.js), so there is nothing to warn about any more.

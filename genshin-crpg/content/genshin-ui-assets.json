@@ -6145,5 +6145,135 @@
    "label": "엠버"
   }
  },
- "avatarsNote": "0.15.24: 튜토리얼 말풍선의 페이몬 · 엠버 얼굴(사용자 승인 2026-10-06). 원본 PNG는 enka.network/ui."
+ "avatarsNote": "0.15.24: 튜토리얼 말풍선의 페이몬 · 엠버 얼굴(사용자 승인 2026-10-06). 원본 PNG는 enka.network/ui.",
+ "foodEffectsAddedIn": "0.16.31",
+ "foodEffectsNote": "0.16.31: 요리 효과 아이콘(사용자 승인 2026-10-12). 원본 PNG는 gi.yatta.moe/assets/UI에서 받았고, 음식마다 쓰는 아이콘은 gi.yatta.moe/api/v2/kr/food의 effectIcon을 따른다. 속도·상태 저항 음식은 원작에 같은 아이콘이 없어 스태미나 절약·특수 아이콘을 쓴다.",
+ "foodEffects": {
+  "heal": {
+   "file": "UI_Buff_Item_Recovery_HpAdd",
+   "path": "assets/icons/ui/UI_Buff_Item_Recovery_HpAdd.webp",
+   "source": "https://gi.yatta.moe/assets/UI/UI_Buff_Item_Recovery_HpAdd.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "822bb1aa38bdae39fdbfa38fa11caad2ab1dfc465e41f29bed8bb5d73c8f3ce9",
+   "source_sha256": "a7771cdb63d205716283c60f76bd99b4ad6c88671db610f5e6725ea25c75e122",
+   "source_dimensions": [
+    31,
+    31
+   ],
+   "bytes": 304,
+   "label": "회복"
+  },
+  "healAll": {
+   "file": "UI_Buff_Item_Recovery_HpAddAll",
+   "path": "assets/icons/ui/UI_Buff_Item_Recovery_HpAddAll.webp",
+   "source": "https://gi.yatta.moe/assets/UI/UI_Buff_Item_Recovery_HpAddAll.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "737e90c8c05ca6b94866fce2b06e8329fc493580f7bdee98bec7eac0f95bcc81",
+   "source_sha256": "87847a63e2f9c24f27ed6443ba02984c0c9bdf77415f7fa81517cb7c530ca7b5",
+   "source_dimensions": [
+    32,
+    32
+   ],
+   "bytes": 508,
+   "label": "파티 회복"
+  },
+  "revive": {
+   "file": "UI_Buff_Item_Recovery_Revive",
+   "path": "assets/icons/ui/UI_Buff_Item_Recovery_Revive.webp",
+   "source": "https://gi.yatta.moe/assets/UI/UI_Buff_Item_Recovery_Revive.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "36e7b952d7d2255dd37a7a9203215ac15176cb6741fa253901a071e7b9ade4e7",
+   "source_sha256": "6fa6322e9068cae4653ba06e54b9783f8e496becf94612ab68d300737ff98511",
+   "source_dimensions": [
+    32,
+    32
+   ],
+   "bytes": 718,
+   "label": "부활"
+  },
+  "atk": {
+   "file": "UI_Buff_Item_Atk_Add",
+   "path": "assets/icons/ui/UI_Buff_Item_Atk_Add.webp",
+   "source": "https://gi.yatta.moe/assets/UI/UI_Buff_Item_Atk_Add.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "810d67ba6db98525acf07ae8ed01b203ecd8ce025d4bcd217dfc54e771a2c7ae",
+   "source_sha256": "59ffc5433dd35c9f4ba06d4fa878b243c340822a56c3af852e18035a45001164",
+   "source_dimensions": [
+    31,
+    31
+   ],
+   "bytes": 352,
+   "label": "공격"
+  },
+  "crit": {
+   "file": "UI_Buff_Item_Atk_CritRate",
+   "path": "assets/icons/ui/UI_Buff_Item_Atk_CritRate.webp",
+   "source": "https://gi.yatta.moe/assets/UI/UI_Buff_Item_Atk_CritRate.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "83504a021bd4772f3614204a4b28445c20d28564458e568de1d18c1f4f123d28",
+   "source_sha256": "2f6df18fc5f3257cd97423fe01a3e5b9db4565d97447a30db329f5dc6a342ad4",
+   "source_dimensions": [
+    31,
+    31
+   ],
+   "bytes": 484,
+   "label": "치명타"
+  },
+  "def": {
+   "file": "UI_Buff_Item_Def_Add",
+   "path": "assets/icons/ui/UI_Buff_Item_Def_Add.webp",
+   "source": "https://gi.yatta.moe/assets/UI/UI_Buff_Item_Def_Add.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "d0dcd7a99c81694fdb206cb5bf58bd34380dbbfa8ee4aee23f788ee47fdc384f",
+   "source_sha256": "946abc9e766e5060e7db13defee83818a19f6ef4fdfabd3347edcf525a8c6c93",
+   "source_dimensions": [
+    32,
+    32
+   ],
+   "bytes": 356,
+   "label": "방어"
+  },
+  "spSave": {
+   "file": "UI_Buff_Item_Other_SPReduceConsume",
+   "path": "assets/icons/ui/UI_Buff_Item_Other_SPReduceConsume.webp",
+   "source": "https://gi.yatta.moe/assets/UI/UI_Buff_Item_Other_SPReduceConsume.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "56874d96aeb6649a1c1d10eb61fbe6eddc22811d61267de551ba4fa2decd8e2f",
+   "source_sha256": "41c78fa2d2acdd661cc78dcfc6ff728e6706263313ff6bcd4d42ae4b818746fd",
+   "source_dimensions": [
+    32,
+    30
+   ],
+   "bytes": 370,
+   "label": "스태미나 절약"
+  },
+  "sp": {
+   "file": "UI_Buff_Item_Other_SPAdd",
+   "path": "assets/icons/ui/UI_Buff_Item_Other_SPAdd.webp",
+   "source": "https://gi.yatta.moe/assets/UI/UI_Buff_Item_Other_SPAdd.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "21f23a8fd49790d7330f64b31f2379e1c81d4bf8bbf240c3ef15f6171e026a85",
+   "source_sha256": "9245ca47e801677e3154f8fef8dc2cfd38967985551607e01b22a0b98a2eef3f",
+   "source_dimensions": [
+    32,
+    31
+   ],
+   "bytes": 474,
+   "label": "스태미나"
+  },
+  "special": {
+   "file": "UI_Buff_Item_SpecialEffect",
+   "path": "assets/icons/ui/UI_Buff_Item_SpecialEffect.webp",
+   "source": "https://gi.yatta.moe/assets/UI/UI_Buff_Item_SpecialEffect.png",
+   "provenance": "original_game_texture_mirror",
+   "sha256": "7b6d8ac80810123ab1a9c4f6a5b8665ff294e1aeb5a11761993d94c660864ad1",
+   "source_sha256": "276071e2f1f00c1907a82cc920d7bc85765a50254dc6f729e3c99800dfe47e4d",
+   "source_dimensions": [
+    32,
+    32
+   ],
+   "bytes": 294,
+   "label": "특수"
+  }
+ }
 }

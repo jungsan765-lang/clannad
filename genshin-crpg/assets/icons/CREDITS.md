@@ -262,3 +262,25 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 | `UI_ItemIcon_104131.webp` | 자라나는 비취 가루 | 풀 원소 돌파 재료 |
 
 출처: https://enka.network/ui/ (`original_game_texture_mirror`). 그림과 이름의 짝은 Project Amber API https://gi.yatta.moe/api/v2/kr/material/{번호} 의 한국어 이름으로 확인했다. 이 자료는 자산의 출처 · 일치 여부를 기록한다. 재배포 사용 조건 전체를 검토했다거나 모든 원신 자산에 제한이 없다고 주장하지 않는다.
+
+# v0.16.31 음식 효과 아이콘
+
+요리 칸 모서리의 효과 표시. 사용자 승인(2026-10-12) 뒤 받았다.
+
+| 파일 | 뜻 |
+|---|---|
+| `ui/UI_Buff_Item_Recovery_HpAdd.webp` | 회복 |
+| `ui/UI_Buff_Item_Recovery_HpAddAll.webp` | 파티 회복 |
+| `ui/UI_Buff_Item_Recovery_Revive.webp` | 부활 |
+| `ui/UI_Buff_Item_Atk_Add.webp` | 공격 |
+| `ui/UI_Buff_Item_Atk_CritRate.webp` | 치명타 |
+| `ui/UI_Buff_Item_Def_Add.webp` | 방어 |
+| `ui/UI_Buff_Item_Other_SPReduceConsume.webp` | 스태미나 절약(이 게임의 속도 요리) |
+| `ui/UI_Buff_Item_Other_SPAdd.webp` | 스태미나 |
+| `ui/UI_Buff_Item_SpecialEffect.webp` | 특수(이 게임의 상태 저항 요리) |
+
+출처: https://gi.yatta.moe/assets/UI/ (`original_game_texture_mirror`). 음식마다 원작이 쓰는 아이콘은 https://gi.yatta.moe/api/v2/kr/food 의 `effectIcon`으로 확인했다. 해시는 `content/genshin-ui-assets.json`의 `foodEffects`에 있다.
+
+# v0.16.31 여행자 얼굴
+
+`faces/traveler_aether.webp`, `faces/traveler_lumine.webp`: 게임에 이미 있던 이야기 그림(`assets/traveler_aitr_1.webp`, `assets/traveler_rmn_1.webp`)에서 얼굴만 잘라 256×256으로 줄였다. 새로 받은 파일이 아니다.

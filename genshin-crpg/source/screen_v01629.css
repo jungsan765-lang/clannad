@@ -560,3 +560,91 @@ html.stage-phone body.teyvat .market-detail .market-controls>:is(.qty-stepper,.q
 html.stage-phone body.teyvat .market-detail .market-controls>.qty-total{grid-column:1;text-align:left}
 html.stage-phone body.teyvat .market-detail .market-controls>.qty-go{grid-column:2}
 html.stage-phone body.teyvat .market-detail.fit-brief>.item-effect{display:none}
+/* 0.16.31 장비 고르기: the window never scrolls; its list of gear turns pages. Who wears a piece now is red. */
+body.teyvat dialog#modal>#modal-body:has(>.gear-picker){display:flex;flex-direction:column}
+body.teyvat #modal-body>.gear-picker{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+body.teyvat #modal-body>.gear-picker>p{margin:0}
+body.teyvat #modal-body .gear-options{flex:1 1 auto;min-height:0;max-height:none!important;overflow:hidden!important;align-content:start;grid-auto-rows:max-content}
+body.teyvat #modal-body .gear-options>.pane-pager{grid-column:1/-1}
+body.teyvat .gear-owner{color:#ff6b5e;font-weight:700}
+body.teyvat .shell-forge-kind.gear-owner{color:#ff6b5e}
+body.teyvat .gear-owner-line{margin:2px 0 6px}
+/* 강화 결과: on top of the same window, one line (what happened, the new level, what it used). */
+body.teyvat .enhance-confirm>.enhance-banner{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:8px 12px;margin:0 0 8px;border-radius:10px;border:1px solid rgba(211,188,142,.35);background:rgba(0,0,0,.22)}
+body.teyvat .enhance-banner>strong{font-size:1.05rem}
+body.teyvat .enhance-banner.success>strong,body.teyvat .enhance-banner.ascended>strong{color:#9be38f}
+body.teyvat .enhance-banner.hold>strong{color:#f3dfae}
+body.teyvat .enhance-banner.down>strong{color:#ff8a7a}
+body.teyvat .enhance-banner>.enhance-level{font-weight:700}
+body.teyvat .enhance-banner>small{flex-basis:100%}
+body.teyvat :where(#modal) .enhance-confirm>button.enhance-go{width:100%;margin-top:6px}
+/* A gear piece's hover note never stands in the way of the page buttons or another piece. */
+body.teyvat .gear-tip{pointer-events:none}
+/* 0.16.31 빠른 식사 (after a fight) and the HP bar on whom a dish is for. */
+body.teyvat .quick-meal{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:8px 12px;max-width:720px;margin:14px auto 0;padding:10px 14px;border-radius:12px;border:1px solid rgba(211,188,142,.25);background:rgba(0,0,0,.25)}
+body.teyvat .quick-meal>.qm-title{grid-row:1/span 2;font-size:.85rem;color:#f3dfae;writing-mode:horizontal-tb}
+body.teyvat .qm-foods,body.teyvat .qm-people{display:flex;flex-wrap:wrap;gap:6px}
+body.teyvat :where(#root) .qm-food{position:relative;min-width:0;min-height:0;width:52px;height:52px;padding:4px;margin:0;border-radius:10px;display:grid;place-items:center}
+body.teyvat :where(#root) .qm-food::before{display:none!important}
+body.teyvat .qm-food :is(img,.item-glyph){width:36px;height:36px;object-fit:contain}
+body.teyvat .qm-food.selected{outline:2px solid #f3dfae;outline-offset:1px}
+body.teyvat .qm-food>.qm-count{position:absolute;right:3px;bottom:1px;font-size:.62rem;text-shadow:0 1px 2px #000}
+body.teyvat :where(#root) .qm-person{display:flex;align-items:center;gap:6px;min-width:0;min-height:0;width:140px;padding:4px 8px 4px 4px;margin:0;border-radius:10px;text-align:left}
+body.teyvat :where(#root) .qm-person::before{display:none!important}
+body.teyvat .qm-face{width:40px;height:40px;border-radius:8px;object-fit:cover;object-position:top;flex:0 0 40px}
+body.teyvat .qm-copy{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+body.teyvat .qm-copy>small{font-size:.7rem;line-height:1.1}
+body.teyvat .qm-hp{display:block;height:6px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+body.teyvat .qm-hp>i{display:block;height:100%;background:linear-gradient(90deg,#6fd36a,#a8e86b)}
+body.teyvat .qm-hp.low>i{background:linear-gradient(90deg,#e0573f,#f08a5d)}
+body.teyvat .item-use-target>.qm-hp{width:100%;margin-top:2px}
+html.stage-phone body.teyvat .quick-meal{max-width:none;margin:4px auto 0;padding:4px 8px;gap:6px;grid-template-columns:auto auto auto;justify-content:center}
+html.stage-phone body.teyvat .quick-meal>.qm-title{grid-row:auto;font-size:.66rem}
+html.stage-phone body.teyvat .qm-foods,html.stage-phone body.teyvat .qm-people{flex-wrap:nowrap;gap:4px}
+html.stage-phone body.teyvat .qm-food:nth-child(n+4){display:none}
+html.stage-phone body.teyvat :where(#root) .qm-food{width:38px;height:38px}
+html.stage-phone body.teyvat .qm-food :is(img,.item-glyph){width:26px;height:26px}
+html.stage-phone body.teyvat :where(#root) .qm-person{width:112px;padding:2px 5px 2px 2px;gap:4px}
+html.stage-phone body.teyvat .qm-face{width:30px;height:30px;flex-basis:30px}
+html.stage-phone body.teyvat .qm-copy>small{font-size:.58rem}
+body.teyvat .qm-name{display:flex;justify-content:space-between;gap:4px}
+body.teyvat .qm-gain{color:#9be38f;font-weight:700}
+body.teyvat .qm-title{display:flex;flex-direction:column;gap:2px;max-width:110px}
+body.teyvat .qm-title>strong{font-size:.85rem;color:#f3dfae}
+body.teyvat .qm-title>.qm-dish{font-size:.7rem;opacity:.85;word-break:keep-all}
+html.stage-phone body.teyvat .qm-title{max-width:64px}
+html.stage-phone body.teyvat .qm-title>strong{font-size:.66rem}
+html.stage-phone body.teyvat .qm-title>.qm-dish{font-size:.55rem}
+/* 0.16.31 the official food effect icon in a dish tile's corner. */
+body.teyvat :is(.bag-item,.market-item,.shell-forge-tile-art,.qm-food){position:relative}
+body.teyvat .food-effect-mark{position:absolute;top:3px;left:3px;width:18px;height:18px;object-fit:contain;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.7));z-index:2}
+html.stage-phone body.teyvat .food-effect-mark{width:14px;height:14px;top:2px;left:2px}
+/* The lock (거래 불가) keeps the top-left corner; 「장착」 and the food mark sit beside it, never under it. */
+body.teyvat .bag-item:has(>.item-bound)>:is(.item-worn,.food-effect-mark){left:26px!important}
+html.stage-phone body.teyvat .bag-item:has(>.item-bound)>:is(.item-worn,.food-effect-mark){left:22px!important}
+body.teyvat :is(.shell-forge-tile-art,.bag-item,.market-item,.qm-food)>img.food-effect-mark{position:absolute!important;inset:auto!important;top:3px!important;left:3px!important;width:18px!important;height:18px!important;max-width:none!important;margin:0!important;padding:0!important;transform:none!important;border:0!important;background:none!important;object-fit:contain}
+html.stage-phone body.teyvat :is(.shell-forge-tile-art,.bag-item,.market-item,.qm-food)>img.food-effect-mark{width:14px!important;height:14px!important;top:2px!important;left:2px!important}
+body.teyvat .bag-item:has(>.item-bound)>img.food-effect-mark{left:26px!important}
+html.stage-phone body.teyvat .bag-item:has(>.item-bound)>img.food-effect-mark{left:22px!important}
+body.teyvat .shell-forge-list .shell-forge-tile-art>img.food-effect-mark.food-effect-mark{width:18px!important;height:18px!important}
+html.stage-phone body.teyvat .shell-forge-list .shell-forge-tile-art>img.food-effect-mark.food-effect-mark{width:13px!important;height:13px!important;top:auto!important;left:auto!important;right:-5px!important;bottom:-3px!important}
+/* 0.16.31 강화 window on a phone: one screen — the odds in one short row, the fine print left out. */
+html.stage-phone body.teyvat .enhance-confirm{font-size:.62rem;line-height:1.3}
+html.stage-phone body.teyvat .enhance-confirm>h2{font-size:.82rem;margin:0 0 2px}
+html.stage-phone body.teyvat .enhance-confirm>p{margin:1px 0}
+html.stage-phone body.teyvat .enhance-confirm>p.muted:not(.gear-owner-line){display:none}
+html.stage-phone body.teyvat .enhance-confirm .enhance-probabilities{gap:4px;margin:2px 0}
+html.stage-phone body.teyvat .enhance-confirm .enhance-prob{padding:2px 6px;display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+html.stage-phone body.teyvat .enhance-confirm .enhance-prob strong{font-size:.78rem}
+html.stage-phone body.teyvat .enhance-confirm .enhance-comparison :is(th,td){padding:1px 6px;font-size:.62rem}
+html.stage-phone body.teyvat .enhance-confirm .enhance-cost{padding:2px 0;gap:2px}
+html.stage-phone body.teyvat .enhance-confirm .enhance-material :is(img,.item-glyph){width:20px;height:20px}
+html.stage-phone body.teyvat :where(#modal) .enhance-confirm>button.enhance-go{min-height:28px;font-size:.66rem;margin-top:3px}
+html.stage-phone body.teyvat .enhance-confirm>.enhance-banner{padding:3px 8px;margin:0 0 3px}
+/* the forge's two filters stay inside their row on a phone */
+html.stage-phone body.teyvat .forge-filters{gap:6px;margin:0}
+html.stage-phone body.teyvat .forge-toggle{font-size:.58rem;min-height:0;gap:3px;padding:0}
+html.stage-phone body.teyvat .forge-toggle>input{width:12px;height:12px;margin:0}
+html.stage-phone body.teyvat .enhance-banner>:is(strong,.enhance-level){font-size:.74rem}
+html.stage-phone body.teyvat .enhance-banner>small{flex-basis:auto;font-size:.56rem}
+body.teyvat .enhance-banner>.enhance-level{font-size:1rem}
