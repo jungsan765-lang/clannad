@@ -1,5 +1,5 @@
 /* Item-grid shopping and exact-instance selling share the inventory presentation. */
-let marketMode='BUY',marketCategory='전체',marketSelection=null,marketPlace=null,marketAvailable=false,marketOwner='PLAYER_CUSTOM';
+let marketMode='BUY',marketCategory='전체',marketSelection=null,marketPlace=null,marketAvailable=false,marketOwner='PLAYER_CUSTOM',marketQty={};
 function marketItems(){
  if(marketMode==='BUY')return game.placeStocks().filter(s=>!/SYSTEM_DISABLED|사용 금지|레거시/.test(s.row[8]||'')).map(s=>({key:s.row[0],stock:s,d:shopStockDetail(s.row),group:shopStockGroup(s.row),reason:s.reason,quantity:s.remaining,price:Number(s.row[5])}));
  const entries=[];
@@ -33,9 +33,22 @@ function marketDetail(box,entry){
  }
  box.append(el('p','market-price'+(marketMode==='BUY'&&Number(game.s.global.MORA)<entry.price?' lack':''),(marketMode==='BUY'?'구매가 ':'판매가 ')+entry.price.toLocaleString()+' 모라'),el('p','muted',(marketMode==='BUY'?'남은 재고 ':'보유 수량 ')+(entry.quantity===Infinity?'상시':entry.quantity+'개')));
  if(stock){const min=String(stock.row[8]).match(/LEVEL>=(\d+)/)?.[1];if(min)box.append(el('p',game.s.global.PLAYER_LEVEL_STATE<Number(min)?'market-restriction':'muted','Lv. '+min+' 이상 구매 가능'));}
- if(reason)box.append(el('p','market-restriction',reason));const controls=el('div','row market-controls');
- if(stock){const one=actionButton('1개 구매','BUY',{stock:stock.row[0],quantity:1},true);one.disabled=one.disabled||!!reason;controls.append(one);if(['ITEM','EQUIP'].includes(stock.row[2])){const why=game.stockReason(stock.row,2),multi=button('여러 개 구매',()=>showPurchaseQuantity(stock.row[0]),busy||!!why);multi.title=why;controls.append(multi);}}
- else{controls.append(actionButton('1개 판매','SELL',entry.args,true));if(!entry.inv.equip&&entry.quantity>1)controls.append(button('여러 개 판매',()=>showSaleQuantity(entry),busy||!!reason));}
+ if(reason)box.append(el('p','market-restriction',reason));
+ // 0.16.29 (user: 「여러개 구매 2개에서 직접 갯수 입력하는거 최대치를 최대 갯수에 막거나 전부 사기를 넣어주고」, 「구매 UI도 별로」): one row
+ // − n + 최대 under the item and one button that buys or sells that many; the count never goes past what the stock and the
+ // Mora (or the bag) allow, and no keyboard opens on a phone.
+ const selling=!stock,many=selling?!entry.inv.equip:['ITEM','EQUIP'].includes(stock.row[2]);
+ const max=Math.max(1,selling?(entry.inv.equip?1:entry.quantity):(many?shopQuantityLimit(stock.row):1));
+ let qty=Math.min(max,Math.max(1,marketQty[entry.key]||1));
+ const controls=el('div','market-controls'),stepper=el('div','qty-stepper'),num=el('strong','qty-num'),total=el('span','qty-total'),why=el('p','market-restriction qty-why');why.setAttribute('role','status');
+ const minus=button('−',()=>set(qty-1)),plus=button('+',()=>set(qty+1)),most=button('최대',()=>set(max));
+ for(const [b,label] of [[minus,'1개 줄이기'],[plus,'1개 늘리기'],[most,'살 수 있는 만큼']])b.setAttribute('aria-label',selling&&b===most?'가진 만큼':label);if(selling)most.textContent='전부';
+ const go=button('',()=>{const args=selling?{...entry.args,quantity:qty}:{stock:stock.row[0],quantity:qty};if(game.actionReason(selling?'SELL':'BUY',args)||(!selling&&game.stockReason(stock.row,qty)))return;marketQty[entry.key]=1;act(selling?'SELL':'BUY',args);},false,true);go.classList.add('qty-go');
+ function set(n){qty=Math.min(max,Math.max(1,n));marketQty[entry.key]=qty;num.textContent=qty+'개';total.textContent=(qty*entry.price).toLocaleString()+' 모라';
+  minus.disabled=busy||qty<=1;plus.disabled=busy||qty>=max;most.disabled=busy||qty>=max;
+  const no=selling?game.actionReason('SELL',{...entry.args,quantity:qty}):(reason||game.actionReason('BUY',{stock:stock.row[0],quantity:qty})||game.stockReason(stock.row,qty));go.textContent=(selling?'판매':'구매')+' · '+qty+'개';go.disabled=busy||!!no;why.textContent=no&&no!==reason?no:'';}
+ if(many&&max>1){stepper.append(minus,num,plus,most);controls.append(stepper);}
+ controls.append(total,go,why);set(qty);
  box.append(controls);if(stock?.row[2]==='EQUIP')marketComparison(box,stock.row[3]);if(d&&d.kind!=='EQUIPMENT')appendItemUses(box,d);
 }
 const marketOldShop=shop;

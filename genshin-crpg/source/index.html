@@ -8,44 +8,76 @@
 <title>원신 CRPG · 몬드와 리월의 여정</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%23102b2e'/%3E%3Cpath d='M24 6l4 14 14 4-14 4-4 14-4-14-14-4 14-4z' fill='%23e3c38a'/%3E%3C/svg%3E">
 <script>
-/* PC frame. On a desktop browser the game runs inside a frame whose page size follows the window at the chosen
-   screen size (설정 → 화면 크기: 작게/보통/크게, 보통 = the browser's own size), but never below 1280×720, never taller
-   than 1600 (at 보통; the limit moves with the chosen size, so 작게 and 크게 still differ on very large monitors) and
-   never wider than about 2:1. Outside those limits the whole frame is scaled to fit, so very small, very large or
-   very wide windows keep the same layout instead of breaking it. Inside the frame the page sees an ordinary window of
-   that size, so layout, clicks and positions work unchanged. Phones and tablets, automated browsers and ?frame=0
-   keep the responsive page. */
+/* 0.16.29 고정 화면 (user: 「그냥 화면을 완전히 고정시켜버려. 이렇게 줄여도 화면 자체가 아예 고정되서 글이 줄었다 늘었다
+   하지 않게. 휴대폰도 동일」, shown with KanColle). The game page has exactly one size and runs inside a frame of that size,
+   so nothing in it ever moves, wraps or changes size with the window:
+    - a computer: 1280×720 at its own size (설정 → 화면 배율 100/125/150%). A smaller window gets scroll bars around the game,
+      like KanColle; a larger one shows it in the middle. The browser's own zoom (Ctrl +/−) still works.
+    - an installed phone (or ?display=app): 760×352, enlarged once to fill the screen inside its safe area. The keyboard
+      never shrinks it: the game only slides up so the box being typed in stays above the keyboard.
+    - a tablet: 1280×720, enlarged or reduced once to fill the screen.
+   Inside the frame the page sees an ordinary window of that size, so media queries, units, dialogs and clicks work as on
+   any page. A phone browser that is not installed keeps the plain page (the install guide), and so do automated browsers
+   and ?frame=0, so tests open the page at exactly 1280×720 or 760×352 to see what every player sees. */
 (function(){
  try{
-  var q=new URLSearchParams(location.search);
-  if(window.top!==window.self){document.documentElement.classList.add('crpg-framed');return;}
-  if(q.get('frame')==='0'||navigator.webdriver||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
-  q.set('frame','inner');
+  var q=new URLSearchParams(location.search),de=document.documentElement;
+  // Which of the two fixed screens this page is laid out for (screen_v01629.css): the frame says so; a page outside the
+  // frame (tests at exactly 760×352 or 1280×720, the phone install guide) goes by its own size.
+  var stage=function(){var phone=q.get('stage')?q.get('stage')==='phone':!!(window.matchMedia&&matchMedia('(orientation: landscape) and (max-height: 500px)').matches);de.classList.toggle('stage-phone',phone);de.classList.toggle('stage-pc',!phone);};
+  stage();if(!q.get('stage'))addEventListener('resize',stage);
+  if(window.top!==window.self){
+   de.classList.add('crpg-framed');var st=q.get('stage');if(st==='phone'||st==='pc')de.classList.add('crpg-stage-'+st);
+   // How the app was opened and which way the phone is held belong to the window the player holds, not to this fixed frame.
+   try{var top=window.top,own=window.matchMedia.bind(window),theirs=top.matchMedia.bind(top);window.matchMedia=function(s){return /display-mode|orientation/.test(String(s))?theirs(s):own(s);};}catch(e){}
+   return;
+  }
+  if(q.get('frame')==='0'||navigator.webdriver)return;
+  var mm=function(s){try{return matchMedia(s).matches;}catch(e){return false;}};
+  var desk=mm('(hover:hover) and (pointer:fine)'),side=Math.min(screen.width||0,screen.height||0)||Math.min(innerWidth,innerHeight);
+  var phone=!desk&&side>0&&side<600,installed=mm('(display-mode: fullscreen)')||mm('(display-mode: standalone)')||navigator.standalone===true||q.get('display')==='app';
+  if(phone&&!installed)return;
+  var SW=phone?760:1280,SH=phone?352:720;
+  q.set('frame','inner');q.set('stage',phone?'phone':'pc');if(phone)q.set('display','app');
   var src=location.pathname+'?'+q.toString()+location.hash;
   window.CRPGFrameHost=function(){
-   var d=document,f=d.getElementById('crpg-frame');if(!f)return;
-   f.src=src;
-   // CSS zoom renders the game at the enlarged size (crisp text); where zoom does not scale the frame and its page
-   // together, fall back to transform: scale.
-   var mode='zoom',w=1280,h=720,s=1;
-   var SIZES={small:.85,large:1.2};
-   var size=function(){try{return SIZES[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||1;}catch(e){return 1;}};
-   // The page size and scale this window gives a screen size k (also used by the setting to show what each choice does).
-   var measure=function(k){var W=innerWidth,H=innerHeight,mh=Math.round(Math.max(720,Math.min(1600/k,H/k))),mw=Math.round(Math.max(1280,Math.min(W/k,mh*1.92)));return {w:mw,h:mh,s:Math.min(W/mw,H/mh)};};
-   window.CRPGFrameMeasure=function(name){return measure(SIZES[name]||1);};
-   var fit=function(){var W=innerWidth,H=innerHeight,m=measure(size());w=m.w;h=m.h;s=m.s;var x=(W-w*s)/2,y=(H-h*s)/2;f.style.width=w+'px';f.style.height=h+'px';
-    if(mode==='zoom'){f.style.transform='';f.style.zoom=String(s);f.style.left=(x/s)+'px';f.style.top=(y/s)+'px';}
-    else{f.style.zoom='';f.style.left='0';f.style.top='0';f.style.transform='translate('+Math.round(x)+'px,'+Math.round(y)+'px) scale('+s+')';}};
-   var check=function(){if(mode!=='zoom')return;var ok=Math.abs(f.getBoundingClientRect().width-w*s)<3;try{if(f.contentWindow.innerWidth)ok=ok&&Math.abs(f.contentWindow.innerWidth-w)<3;}catch(e){}if(!ok){mode='transform';fit();}};
+   var d=document,f=d.getElementById('crpg-frame'),safe=d.getElementById('crpg-safe');if(!f)return;
+   f.src=src;f.style.width=SW+'px';f.style.height=SH+'px';
+   // CSS zoom draws the enlarged game crisply; where zoom does not enlarge the frame and its page together, transform.
+   var mode='zoom',s=1,x=0,y=0,lift=0,room=null;
+   var ZOOM={'125':1.25,'150':1.5};
+   window.CRPGFrameZooms=[['100','100%'],['125','125%'],['150','150%']];
+   var chosen=function(){try{return ZOOM[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||1;}catch(e){return 1;}};
+   var inset=function(){var c=safe&&getComputedStyle(safe),n=function(v){return parseFloat(v)||0;};return c?{l:n(c.paddingLeft),r:n(c.paddingRight),t:n(c.paddingTop),b:n(c.paddingBottom)}:{l:0,r:0,t:0,b:0};};
+   var inner=function(){try{return f.contentDocument;}catch(e){return null;}};
+   var typing=function(){var a=inner()&&inner().activeElement;return !!a&&(a.tagName==='TEXTAREA'||a.isContentEditable||a.tagName==='INPUT'&&!/^(checkbox|radio|range|button|submit|reset|color|file|image)$/i.test(a.type||'text'));};
+   var place=function(){
+    if(mode==='zoom'){f.style.transform='';f.style.zoom=s===1?'':String(s);f.style.left=(x/s)+'px';f.style.top=((y-lift)/s)+'px';}
+    else{f.style.zoom='';f.style.left='0';f.style.top='0';f.style.transform='translate('+Math.round(x)+'px,'+Math.round(y-lift)+'px)'+(s===1?'':' scale('+s+')');}};
+   var fit=function(){
+    var W=innerWidth,H=innerHeight;
+    if(desk){s=chosen();x=Math.max(0,Math.round((W-SW*s)/2));y=Math.max(0,Math.round((H-SH*s)/2));lift=0;place();return;}
+    var i=inset(),now={x:i.l,y:i.t,w:Math.max(1,W-i.l-i.r),h:Math.max(1,H-i.t-i.b)};
+    // The keyboard took the lower part of the screen (same width, less height, a box being typed in): keep the size.
+    if(room&&typing()&&now.w===room.w&&now.h<room.h)now=room;else room=now;
+    s=Math.min(now.w/SW,now.h/SH);x=now.x+(now.w-SW*s)/2;y=now.y+(now.h-SH*s)/2;lift=0;place();keyboard();};
+   // Slide the game up just enough that the box being typed in sits above the keyboard.
+   var keyboard=function(){if(desk)return;var v=window.visualViewport,a=inner()&&inner().activeElement;var want=0;
+    if(v&&typing()&&a.getBoundingClientRect){var r=a.getBoundingClientRect(),bottom=y+r.bottom*s+8,seen=v.offsetTop+v.height;want=Math.max(0,Math.min(y+SH*s-seen,bottom-seen));}
+    if(Math.abs(want-lift)>1){lift=want;place();}};
+   var check=function(){if(mode!=='zoom'||s===1)return;var ok=Math.abs(f.getBoundingClientRect().width-SW*s)<3;try{if(f.contentWindow.innerWidth)ok=ok&&Math.abs(f.contentWindow.innerWidth-SW)<3;}catch(e){}if(!ok){mode='transform';place();}};
    window.CRPGFrameFit=function(){fit();check();};
-   fit();check();addEventListener('resize',fit);if(window.ResizeObserver)new ResizeObserver(fit).observe(d.documentElement);
+   fit();check();addEventListener('resize',function(){fit();check();});addEventListener('orientationchange',function(){room=null;setTimeout(window.CRPGFrameFit,60);});
+   if(window.visualViewport){visualViewport.addEventListener('resize',keyboard);visualViewport.addEventListener('scroll',keyboard);}
    var focus=function(){try{f.contentWindow.focus();}catch(e){}};
-   f.addEventListener('load',function(){check();focus();try{var t=f.contentDocument.title;if(t)d.title=t;}catch(e){}});
+   f.addEventListener('load',function(){check();focus();var doc=inner();try{var t=doc.title;if(t)d.title=t;}catch(e){}
+    try{doc.addEventListener('focusin',function(){setTimeout(keyboard,120);});doc.addEventListener('focusout',function(){setTimeout(function(){if(!typing()){room=null;fit();}},120);});}catch(e){}});
    addEventListener('pointerdown',focus);addEventListener('keydown',focus);
   };
   // Write the frame, then turn the rest of this file into hidden text (<plaintext>) so the game itself runs only inside
   // the frame. Stopping the parser with window.stop() instead leaves Chrome unable to paint the page (black screen).
-  document.write('<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#04070a radial-gradient(ellipse at center,#12232a 0%,#04070a 70%)}#crpg-frame{position:absolute;left:0;top:0;border:0;display:block;transform-origin:0 0;background:#0b1418;box-shadow:0 0 0 1px rgba(227,195,138,.18),0 0 80px rgba(0,0,0,.65)}plaintext{display:none!important}</style></head><body><iframe id="crpg-frame" title="'+document.title.replace(/[<>&"]/g,'')+'" allow="autoplay; fullscreen; clipboard-write"></iframe><script>CRPGFrameHost();<\/script><plaintext hidden>');
+  var page=desk?'html,body{margin:0;min-width:100%;min-height:100%;overflow:auto}':'html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none}';
+  document.write('<style>'+page+'html,body{background:#04070a radial-gradient(ellipse at center,#12232a 0%,#04070a 70%) fixed}#crpg-frame{position:absolute;left:0;top:0;border:0;display:block;transform-origin:0 0;background:#0b1418;box-shadow:0 0 0 1px rgba(227,195,138,.18),0 0 80px rgba(0,0,0,.65)}#crpg-safe{position:fixed;inset:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}plaintext{display:none!important}</style></head><body><div id="crpg-safe"></div><iframe id="crpg-frame" title="'+document.title.replace(/[<>&"]/g,'')+'" allow="autoplay; fullscreen; clipboard-write; screen-wake-lock"></iframe><script>CRPGFrameHost();<\/script><plaintext hidden>');
  }catch(e){}
 })();
 </script>
@@ -57,6 +89,7 @@
 <link rel="stylesheet" href="tutorial_v01523.css">
 <link rel="stylesheet" href="landscape_v01524.css">
 <link rel="stylesheet" href="skill_fx_v0162.css">
+<link rel="stylesheet" href="screen_v01629.css">
 </head>
 <body>
 <div class="world-backdrop" aria-hidden="true"></div>
@@ -106,4 +139,5 @@
 <script src="app_tasks_v0167.js"></script>
 <script src="app_guild_v0167.js"></script>
 <script src="app_pages_v0167.js"></script>
+<script src="app_screen_v01629.js"></script>
 </body></html>

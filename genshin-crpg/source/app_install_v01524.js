@@ -116,7 +116,9 @@ function update(force=false){
 }
 I.updateGate=update;
 // Android: ask for landscape where it can be locked (installed or full screen); a refusal is fine, the rotate screen stays.
-async function lock(){if(!isPhone()||!installed()&&!document.fullscreenElement)return;try{await window.screen?.orientation?.lock?.('landscape');}catch{}}
+// 0.16.29: inside the fixed game frame only the page around it may lock the screen.
+const topWin=()=>{try{return window.top&&window.top.document?window.top:window;}catch{return window;}};
+async function lock(){const w=topWin(),d=w.document||document;if(!isPhone()||!installed()&&!d?.fullscreenElement)return;try{await (w.screen||window.screen)?.orientation?.lock?.('landscape');}catch{}}
 I.lockLandscape=lock;
 for(const k of ['resize','orientationchange','appinstalled','beforeinstallprompt'])window.addEventListener?.(k,()=>setTimeout(()=>{try{update();lock();}catch{}},0));
 try{window.matchMedia?.('(orientation: portrait)').addEventListener?.('change',()=>{update();lock();});}catch{}

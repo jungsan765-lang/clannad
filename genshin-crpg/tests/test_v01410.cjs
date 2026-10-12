@@ -27,31 +27,14 @@ check('travel map: a held press on a circle keeps it in place, and every circle 
  return {};
 });
 
-check('화면 크기: the height limit follows the chosen size, so 작게 and 크게 work on large monitors; each choice shows its size',()=>{
- const html=src('index.html'),shell=src('app_shell.js');
- const fn=html.match(/var measure=function\(k\)\{[^\n]*\};/)?.[0];assert(fn,'measure() in the frame host');
- const at=(W,H,k)=>{const box={innerWidth:W,innerHeight:H,Math};vm.runInNewContext(fn+';out=measure('+k+');',box);return Math.round(box.out.s*100);};
- const sizes=(W,H)=>[.85,1,1.2].map(k=>at(W,H,k));
- assert.deepEqual(sizes(2560,1300),[85,100,120],'1440p: every choice differs (작게 used to equal 보통 there)');
- assert.deepEqual(sizes(1920,953),[85,100,120],'1080p');
- assert.deepEqual(sizes(1366,650),[85,90,90],'small laptop: 크게 cannot grow the 1280x720 minimum');
- assert(html.includes('window.CRPGFrameMeasure=function(name){return measure(SIZES[name]||1);};'));
- // 0.15.25: the sizes are buttons now (no drop-down in the game); each still shows what it gives in this window.
- assert(shell.includes("b.textContent=m[b.dataset.value]?name+' · '+pct(m[b.dataset.value])+'%':name;")&&shell.includes("창이 작아 「크게」로 더 키울 수 없습니다."),'the setting shows each size and explains a window limit');
- return {big:sizes(2560,1300),laptop:sizes(1366,650)};
-});
-
-check('글자 크기: 100% (16px) stays the base, 80% and 90% are added, earlier choices keep their size',()=>{
- // The user first asked for 112% as the base, then took it back: 「100%가 맞았다」.
- const app=src('app.js'),code=app.slice(app.indexOf('const FONT_STEPS'),app.indexOf('async function persistSettings'));
+// 0.16.29 화면 고정: the page has one size, so the 화면 크기 limits and the 글자 크기 steps are gone (test_v01629.cjs).
+check('글자 크기: always 16px now, whatever was saved (the fixed screen has one text size)',()=>{
+ const app=src('app.js'),code=app.slice(app.indexOf('function applySettings'),app.indexOf('async function persistSettings'));
  assert(code.length>50&&code.includes('function applySettings'));
  const run=prefs=>{const box={settings:{adultModeEnabled:false,...prefs},game:null,document:{documentElement:{style:{}}}};vm.runInNewContext(code+';applySettings();',box);return {scale:box.settings.fontScale,px:Math.round(parseFloat(box.document.documentElement.style.fontSize)*1000)/1000};};
- assert.deepEqual(run({fontScale:100}),{scale:100,px:16},'the default is unchanged');
- for(const [scale,px]of [[80,12.8],[90,14.4],[112,17.92],[125,20],[150,24]])assert.deepEqual(run({fontScale:scale}),{scale,px},scale+'%');
- assert.deepEqual(run({fontScale:117}),{scale:100,px:16},'an unknown value falls back to 100%');
- // 0.15.25: the steps are buttons now (no dropdown anywhere in the game), with the same labels.
- assert(app.includes("options:FONT_STEPS.map(n=>({value:n,label:n+'%'+(n===100?' (기본)':'')}))"));
- return {steps:[80,90,100,112,125,150]};
+ for(const scale of [80,100,125,150,117])assert.deepEqual(run({fontScale:scale}),{scale:100,px:16},scale+'%');
+ assert(!app.includes("choiceTiles({label:'글자 크기'"),'no 글자 크기 row');
+ return {px:16};
 });
 
 check('one name per screen: 설정 (not 자동저장·계정), 캐릭터 (equipment, talents, constellations), 가방',()=>{
@@ -72,7 +55,8 @@ check('one name per screen: 설정 (not 자동저장·계정), 캐릭터 (equipm
 
 check('travel map words: no picture coordinates or approval notes on screen',()=>{
  const nav=src('app_navigation.js'),ly=src('app_liyue_areas.js');
- assert(!nav.includes('승인된 두 지도')&&nav.includes("el('summary','','지도 보는 법')"));
+ // 0.16.29: the 「지도 보는 법」 fold is gone with the fixed screen (no paragraphs); the key under the map stays.
+ assert(!nav.includes('승인된 두 지도')&&!nav.includes('지도 보는 법')&&nav.includes("key.append(el('span','terrain-key-item '+k,text))"));
  // 0.15.6: the coordinates stay in the map data (CRPGTerrainMap.points) and the mapper's anchor note is not shown at all.
  assert(!ly.includes('원본 좌표')&&!ly.includes('880 × 786')&&!ly.includes('기준점')&&ly.includes("CRPGTerrainMap.points[a.id]=['liyue',a.point[0],a.point[1]]")&&!ly.includes('shown.anchor'));
  return {};

@@ -30,7 +30,8 @@ function screen(){
  const r=fresh();r.adminApply({op:'level',target:'ALL',value:60});r.s.global.COMPANION_ELIGIBILITY_JSON=JSON.stringify(Object.fromEntries(['MOND_AMBER','MOND_KAEYA','MOND_LISA'].map(id=>[id,{state:'JOINED'}])));r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';r.s.global.WORLD_TIME='12:00';r.action('PLACE_ENTER',{place:'EVT_SCHEDULE_NPC_MOND_KATHERYNE',mode:'TALK'});r.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});r.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});assert(r.taskView().weekly.length>1);assert(r.taskView().weekly.length<r.s.tasks.weeklyIds.length);
  const body=new Node('body'),page=new Node('section'),pane=new Node('div');page.className='shell-page-quest';pane.className='quest-list';pane._height=200;body.append(page);page.append(pane);
  const calls=[],toasts=[],timers=[],events=[];
- const doc={body,createElement:t=>new Node(t),querySelector:s=>body.querySelector(s),querySelectorAll:s=>s.includes('.quest-list:has(.task-board)')&&pane.querySelector('.task-board')?[pane]:[],addEventListener:(type,fn)=>events.push({type,fn})};
+ // 0.16.29: app_pages pages every 임무 tab's list (the selector no longer names the task board).
+ const doc={body,createElement:t=>new Node(t),querySelector:s=>body.querySelector(s),querySelectorAll:s=>s.includes('.quest-list')&&pane.querySelector('.task-board')?[pane]:[],addEventListener:(type,fn)=>events.push({type,fn})};
  const context={console,document:doc,game:r,Date,button:(label,fn)=>{const b=new Node('button');b.textContent=label;b.onclick=fn;return b;},actionButton:(label,type,params)=>{const b=new Node('button');b.textContent=label;b.onclick=()=>calls.push({type,params});return b;},safeName:(_table,id)=>id,currencyIcon:()=>new Node('img'),setTimeout:(fn,ms)=>{timers.push({fn,ms});return timers.length;},clearTimeout(){},addEventListener(){},requestAnimationFrame:fn=>fn(),getComputedStyle:()=>({display:'block',gridTemplateColumns:'1fr',paddingTop:'0',paddingBottom:'0',rowGap:'0'}),CRPGShell:{toast:x=>toasts.push(x)}};
  context.window=context;context.render=()=>{pane.replaceChildren();context.CRPGTaskBoard?.board(pane);};vm.createContext(context);
  for(const f of ['app_mainscreen_v0167.js','app_tasks_v0167.js','app_pages_v0167.js'])vm.runInContext(source(f),context,{filename:f});
@@ -44,10 +45,12 @@ check('실제 임무판은 일일·주간의 열린 갈래와 모두달성 보�
 });
 check('기존 쪽 넘기기로 열린 주간 갈래·보너스에 접근하고 주간·일일 쪽 기억을 구분한다',()=>{
  const p=screen();p.pane.querySelectorAll('.task-scope')[1].onclick();const reached=new Set();let pages=0;
- for(;;){for(const row of p.pane.querySelectorAll('.task-row'))if(!row.hidden)reached.add(row.dataset.task);assert(p.pane.scrollHeight<=p.pane.clientHeight+1,'each modeled page fits');pages++;const buttons=p.pane.querySelectorAll('.pane-page');assert.equal(buttons.length,2);if(buttons[1].disabled)break;buttons[1].onclick();assert(pages<30);}
+ // 0.16.29: the pages are numbered buttons (the shown one is .on); each next number is pressed until there is none.
+ const shown=()=>Number(p.pane.querySelector('.pane-page.on')?.textContent||1);
+ for(;;){for(const row of p.pane.querySelectorAll('.task-row'))if(!row.hidden)reached.add(row.dataset.task);assert(p.pane.scrollHeight<=p.pane.clientHeight+1,'each modeled page fits');pages++;const next=p.pane.querySelectorAll('.pane-page').find(b=>Number(b.textContent)===shown()+1);if(!next)break;next.onclick();assert(pages<30);}
  assert(pages>1);assert.equal(reached.size,p.r.taskView().weekly.length+1);assert(reached.has('W_ALL'),'the last bonus is reachable');
- p.pane.querySelectorAll('.task-scope')[0].onclick();assert.equal((p.pane.querySelector('.pane-page-no')?.textContent||'1 / 1').split('/')[0].trim(),'1','daily starts on its own page');
- p.pane.querySelectorAll('.task-scope')[1].onclick();const pager=p.pane.querySelectorAll('.pane-page');assert(pager[1].disabled,'weekly retains its previous last page');
+ p.pane.querySelectorAll('.task-scope')[0].onclick();assert.equal(shown(),1,'daily starts on its own page');
+ p.pane.querySelectorAll('.task-scope')[1].onclick();assert.equal(shown(),Math.max(...p.pane.querySelectorAll('.pane-page').map(b=>Number(b.textContent))),'weekly retains its previous last page');
 });
 check('주간 모두달성 버튼은 정확한 기존 TASK_CLAIM 경로와 수령 알림에 연결된다',()=>{
  const p=screen(),box=p.r.tasksBox(true);

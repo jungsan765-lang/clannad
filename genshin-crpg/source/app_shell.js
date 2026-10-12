@@ -413,7 +413,8 @@ function layoutCombat(content,p){
  const b=game.s.runtime;if(b){for(const row of $$('.combatant-row[data-actor-id]',p)){const a=b.actors.find(x=>x.id===row.dataset.actorId);if(!a)continue;
   const name=$('.combatant-copy strong',row);if(a.side==='ENEMY'&&a.level&&name&&!$('.shell-level',name))name.prepend(mk('small','shell-level','Lv.'+a.level));
   // 0.15.21 (user: 「전투할때도 아군, 적 원소같은것도 넣어두면 편하겠지?」): each fighter's own element is an orb before its name.
-  const own=typeof CRPGIcons!=='undefined'?CRPGIcons.ofActor(a):null;if(own&&name&&!$('.own-element',name))name.prepend(CRPGIcons.element(own,'own-element'));
+  // 0.16.29: no picture for the element, no mark (a missing one was written in front of the name as 「null」).
+  const own=typeof CRPGIcons!=='undefined'?CRPGIcons.ofActor(a):null,ownPic=own&&name&&!$('.own-element',name)?CRPGIcons.element(own,'own-element'):null;if(ownPic)name.prepend(ownPic);
   // 0.14.11: the element on a fighter is a labelled badge on the card (it was a small dot after the name).
   // 0.15.21: the orb says which element, the word only that it is attached.
   const aura=AURA[a.aura]||AURA[String(a.aura||'').toUpperCase()];$(':scope > .shell-aura-badge',row)?.remove();
@@ -527,7 +528,7 @@ const MENU_LAYOUT={
    if(n.tagName==='P'&&n.textContent.includes('·아이템·'))n.textContent=n.textContent.replace('·아이템·','·가방·');}
   // The display rows are appended after the sound section by the settings code; put them back under 표시 설정.
   const displayHead=nodes.find(n=>n.tagName==='H2'&&/표시 설정/.test(n.textContent));
-  if(displayHead){const rows=nodes.filter(n=>n.matches?.('label.settings-row')&&/성인 모드|글자 크기|화면 크기|인물 일러스트/.test(n.textContent));for(const r of rows)nodes.splice(nodes.indexOf(r),1);nodes.splice(nodes.indexOf(displayHead)+1,0,...rows);}
+  if(displayHead){const rows=nodes.filter(n=>n.matches?.('label.settings-row,.settings-row.shell-ui-scale')&&/성인 모드|화면 배율|인물 일러스트/.test(n.textContent));for(const r of rows)nodes.splice(nodes.indexOf(r),1);nodes.splice(nodes.indexOf(displayHead)+1,0,...rows);}
   const groups=sectionsByHeading(nodes,'계정·저장');const t=tabset('PAGE_SYSTEM',groups.map((g,i)=>({id:'s'+i+':'+g.label,label:g.label,nodes:g.nodes})),'shell-page-tabs'+(isMobile()?'':' vertical'));if(t)body.append(t);else body.append(...nodes);void key;}
 };
 // Battle results: a banner, the rewards as tiles, and the next steps as large buttons at the bottom.
@@ -649,24 +650,14 @@ function soundGallery(){
  return gallery;
 }
 if(typeof settingsControls==='function'){const priorSettings=settingsControls;settingsControls=function(p){priorSettings(p);try{
- // 화면 크기 (PC frame only): how much page the frame shows, read by the frame host in index.html.
- if(document.documentElement.classList.contains('crpg-framed')){
-  const row=mk('div','settings-row shell-ui-scale'),copy=mk('div','copy'),hint=mk('small','shell-ui-scale-hint');
-  copy.append(mk('p','','화면 크기'),mk('small','','컴퓨터에서 게임 화면 전체의 크기입니다. 작게 할수록 한 화면에 더 많이 보입니다.'),hint);
-  // Each choice shows what it gives in this window: a small window cannot grow the game and a huge one has a limit.
-  const NAMES=[['small','작게'],['normal','보통'],['large','크게']];
-  const measure=n=>{try{return window.parent.CRPGFrameMeasure?.(n)||null;}catch{return null;}};
-  const select=choiceTiles({label:'화면 크기',options:NAMES.map(([value,label])=>({value,label})),value:['small','large'].includes(settings.uiScale)?settings.uiScale:'normal',onChange:v=>{settings.uiScale=v;persistSettings();try{window.parent.CRPGFrameFit?.();}catch{}label();}});
-  const label=()=>{const m=Object.fromEntries(NAMES.map(([v])=>[v,measure(v)])),pct=x=>Math.round(x.s*100);
-   for(const b of select.children){const name=NAMES.find(n=>n[0]===b.dataset.value)[1];b.textContent=m[b.dataset.value]?name+' · '+pct(m[b.dataset.value])+'%':name;}
-   const cur=m[select.value];if(!cur){hint.textContent='';return;}
-   let t='지금 창에서는 '+pct(cur)+'% 크기로 보입니다.';
-   if(m.large&&m.normal&&pct(m.large)===pct(m.normal))t+=' 창이 작아 「크게」로 더 키울 수 없습니다. 창을 넓히거나 글자 크기를 올려 보세요.';
-   else if(m.small&&m.normal&&pct(m.small)===pct(m.normal))t+=' 창이 아주 커서 「작게」로 더 줄일 수 없습니다.';
-   hint.textContent=t;};
-  label();row.append(copy,select);
-  const font=[...p.querySelectorAll('.settings-row')].find(r=>/글자 크기/.test(r.textContent));
-  if(font)font.after(row);else p.prepend(row);
+ // 0.16.29 화면 배율 (computer frame only): the fixed 1280×720 game drawn at 100/125/150%, read by the frame host in
+ // index.html. It never changes what is on the screen, only how big all of it is.
+ let zooms=null;try{zooms=window.parent!==window?window.parent.CRPGFrameZooms:null;}catch{}
+ if(document.documentElement.classList.contains('crpg-stage-pc')&&Array.isArray(zooms)){
+  const row=mk('div','settings-row shell-ui-scale'),copy=mk('div','copy');copy.append(mk('p','','화면 배율'));
+  const value=zooms.some(([v])=>v===settings.uiScale)?settings.uiScale:'100';
+  const select=choiceTiles({label:'화면 배율',options:zooms.map(([value,label])=>({value,label})),value,onChange:v=>{settings.uiScale=v;persistSettings();try{window.parent.CRPGFrameFit?.();}catch{}}});
+  row.append(copy,select);p.prepend(row);
  }
 }catch{}try{
  // The sound credits say where the sounds come from, and the gallery follows the sound section.

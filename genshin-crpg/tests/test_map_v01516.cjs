@@ -112,7 +112,8 @@ check('screen: circles for all places, faded when out of reach, no numbers, name
  assert(nav.includes("const hoverable=!!window.matchMedia?.('(hover: hover)').matches;")&&nav.includes("if(window.matchMedia?.('(hover: hover)').matches){b.addEventListener('pointerenter',highlight);"),'hover only where a pointer hovers');
  assert(nav.includes("if(best&&shown)taken.push(best);else{t.classList.add('quiet');")&&css.includes('.terrain-label.quiet{display:none}'),'a name never covers another name');
  assert(nav.includes("['far','한 번에는 못 가는 곳'],['faded','아직 막힌 곳']")&&!/\.terrain-key\{[^}]*display:none/.test(css),'the key under the map says what faded means');
- assert(!/번호/.test(nav.match(/지도 보는 법[^\n]*/)[0]),'the help text no longer talks about numbers');
+ // 0.16.29 고정 화면: the help paragraph under the map is gone (the key says it); it never talked about numbers.
+ assert(!nav.includes('지도 보는 법')&&!/번호/.test(nav.match(/terrain-key-item[^\n]*/)[0]),'no help text, and the key does not talk about numbers');
  return {};
 });
 

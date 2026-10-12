@@ -19,13 +19,15 @@ const phone=()=>(media('(pointer: coarse)')&&media('(hover: none)'))||/Android|i
 const standalone=()=>media('(display-mode: fullscreen)')||media('(display-mode: standalone)')||navigator.standalone===true;
 const ios=()=>/iPad|iPhone|iPod/.test(ua())||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 const inApp=()=>/KAKAOTALK|Discord|Instagram|FBAN|FBAV|Line\/|NAVER\(inapp|everytimeApp|Twitter/i.test(ua());
-const fullscreenOk=()=>!!(document.fullscreenEnabled&&document.documentElement.requestFullscreen)&&!media('(display-mode: fullscreen)');
-const isFull=()=>!!document.fullscreenElement;
+// 0.16.29: inside the fixed game frame (index.html) full screen belongs to the page around it, so the frame keeps its size.
+const outer=()=>{try{return window.top!==window.self&&window.top.document?window.top.document:document;}catch{return document;}};
+const fullscreenOk=()=>!!(outer().fullscreenEnabled&&outer().documentElement.requestFullscreen)&&!media('(display-mode: fullscreen)');
+const isFull=()=>!!outer().fullscreenElement;
 I.phone=phone;I.standalone=standalone;I.fullscreenOk=fullscreenOk;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();I.prompt=e;});
 window.addEventListener('appinstalled',()=>{I.prompt=null;I.installed=true;try{render();}catch{}});
 async function toggleFull(){
- try{if(isFull())await document.exitFullscreen();else await document.documentElement.requestFullscreen({navigationUI:'hide'});}
+ try{const d=outer();if(isFull())await d.exitFullscreen();else await d.documentElement.requestFullscreen({navigationUI:'hide'});}
  catch{note('이 브라우저에서는 전체 화면을 켤 수 없습니다. 홈 화면에 추가해 보세요.');}
 }
 function note(text){try{if(typeof say==='function')say(text);}catch{}}
@@ -62,7 +64,7 @@ S?.menuHooks?.push((box,{close})=>{
  const b=mk('button','pm-foot-button pm-fullscreen');b.type='button';b.append(S.icon?S.icon('FULLSCREEN'):mk('span'),mk('span','',isFull()?'전체 화면 끄기':'전체 화면'));
  b.onclick=async()=>{close();await toggleFull();};foot.append(b);
 });
-document.addEventListener('fullscreenchange',()=>{for(const b of document.querySelectorAll('.pm-fullscreen span:last-child'))b.textContent=isFull()?'전체 화면 끄기':'전체 화면';});
+outer().addEventListener('fullscreenchange',()=>{for(const b of document.querySelectorAll('.pm-fullscreen span:last-child'))b.textContent=isFull()?'전체 화면 끄기':'전체 화면';});
 const prior=render;
 render=function(...args){const out=prior.apply(this,args);try{decorateTitle();}catch{}return out;};
 // The first title screen can be drawn before this file loads (the save store opens while later scripts still load),

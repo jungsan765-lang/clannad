@@ -8,8 +8,9 @@ if(typeof render!=='function')return;
 // Where · what it is called for remembering its page.
 const SPOTS=[
  ['.shell-col-side:has(>.formation-choice),.shell-col-side:has(>.shell-presets)',()=>'party-side'],
- ['.shell-page-quest .quest-list:has(.task-board)',el=>'task-board|'+(el.querySelector('.task-scope.active b')?.textContent||'daily')],
- ['.bag-layout>.bag-detail',el=>'bag-detail|'+(el.querySelector('h2')?.textContent||'')]
+ // 0.16.29: every tab of 임무 (not only 일일·주간) turns pages instead of scrolling; each tab keeps its own page.
+ ['.shell-page-quest .quest-list',el=>'quest|'+(document.querySelector('.journal-tabs [aria-pressed="true"]')?.textContent?.trim()||'')+'|'+(el.querySelector('.task-scope.active b')?.textContent||'')]
+ // 0.16.29: the bag's item card is one card now (app_screen_v01629.js fits it); its list of items turns pages instead.
 ];
 function pageAll(){const page=window.CRPGMainScreen?.pagePane;if(!page)return;
  for(const [sel,key] of SPOTS)for(const el of document.querySelectorAll(sel)){if(!el.offsetParent)continue;el.classList.add('pageable');page(el,key(el));}}

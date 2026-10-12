@@ -1,0 +1,492 @@
+/* 0.16.29 고정 화면 (user: 「그냥 화면을 완전히 고정시켜버려 … 휴대폰도 동일」, 「휴대폰에 여전히 짤리는 구간이 있다, 전부 찾아내서 …
+   앞으로 더 추가시켜도 짤리지 않게 구조를 확실히 지정하자」).
+   The game has two screens of one size each (index.html): html.stage-pc is 1280×720 (a computer or a tablet), html.stage-phone
+   is 760×352 (an installed phone). Every rule here is written for exactly that size, so what tests/test_screen_fit_v01629.mjs
+   sees is what every player sees; a screen that grows a scroll bar, a cut word or an "…" fails that test.
+   Loaded last; the older responsive rules stay underneath for pages opened outside the frame at other sizes. */
+
+/* A piece another page holds stays out of sight whatever its own display rule says (a hidden row inside a card kept its
+   flex and pushed the page past its bottom). */
+body.teyvat [data-paged][hidden]{display:none!important}
+/* Pages are numbered buttons (user: 「◀▶이거 다 없애버려. 차라리 다른 버튼으로 두던가」): one press to any page. */
+body.teyvat .pane-pager{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;margin:auto 0 0;padding:4px 0 0}
+body.teyvat :where(#root,#modal) .pane-pager>button.pane-page{width:30px;height:30px;min-width:0;min-height:0;margin:0;padding:0!important;border-radius:50%;font-size:.8rem;font-weight:700;line-height:1;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(211,188,142,.3);color:var(--t-cream,#ece5d8);box-shadow:none}
+body.teyvat :where(#root,#modal) .pane-pager>button.pane-page::before{display:none!important}
+body.teyvat :where(#root,#modal) .pane-pager>button.pane-page.on{background:var(--t-cream,#ece5d8);color:#2b3140;border-color:var(--t-gold-hi,#f3dfae);box-shadow:0 0 10px rgba(243,223,174,.35)}
+html.stage-phone body.teyvat :where(#root,#modal) .pane-pager>button.pane-page{width:24px;height:24px;font-size:.62rem}
+/* a facility's bar on the phone: 밖으로 나가기 is the way out (메인 화면으로 does the same there), tab names on one line */
+html.stage-phone body.teyvat .shell-page-tools:has(>.shell-leave)>.shell-back{display:none}
+html.stage-phone body.teyvat .shell-page-head :is(.shell-worktabs,.shell-subtabs) button{white-space:nowrap}
+html.stage-phone body.teyvat .shell-page-head .shell-page-words h1{white-space:nowrap;font-size:.86rem}
+/* the preset window shows its own title once */
+body.teyvat .preset-window>.shell-presets>h2{display:none}
+html.stage-phone body.teyvat .pane-pager{gap:4px;padding:2px 0 0}
+body.teyvat .roster-pager.pane-pager{margin:6px 0 0;flex-wrap:nowrap;gap:4px}
+body.teyvat .pane-page-gap{font-size:.7rem;color:var(--t-muted);padding:0 1px}
+html.stage-phone body.teyvat .roster-pager.pane-pager{gap:2px}
+html.stage-phone body.teyvat :where(#root) .roster-pager>button.pane-page{width:20px;height:20px;font-size:.54rem}
+/* A facility tile is one button: the cover button is exactly the tile. */
+body.teyvat :where(#root) .shell-place-tile>button{top:0;right:0;bottom:0;left:0;width:auto;height:auto;min-width:0!important;min-height:0!important;max-height:none;padding:0!important}
+body.teyvat :where(#root) .shell-place-tile>button::before{display:none!important}
+
+/* ---------- 메인 화면 · 컴퓨터 ---------- */
+html.stage-pc body.teyvat .panel.shell-loc{grid-template-columns:360px minmax(0,1fr)}
+html.stage-pc body.teyvat .shell-loc-side>.shell-tabbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+html.stage-pc body.teyvat .shell-loc-side>.shell-tabbar>.shell-tab{min-width:0;padding:6px 4px;justify-content:center;white-space:nowrap}
+/* the place's name, its kind and the wait button share the top rows; the main quest is its name and one line */
+html.stage-pc body.teyvat .shell-loc-left{gap:8px}
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:8px;row-gap:4px;margin:0}
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>h1{grid-column:1;grid-row:1;margin:0;word-break:keep-all}
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>.area-level{grid-column:1/-1;grid-row:2;justify-self:start;margin:0}
+html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>.wait-controls{grid-column:2;grid-row:1;margin:0;padding:0;border:0;background:none}
+html.stage-pc body.teyvat :where(#root) .shell-loc-left .wait-controls.compact button{min-height:32px;padding:4px 14px;font-size:.8rem;white-space:nowrap}
+html.stage-pc body.teyvat .shell-loc-left .main-objective{padding:10px 14px;margin:0}
+html.stage-pc body.teyvat .shell-loc-left .main-objective>h2{display:none}
+html.stage-pc body.teyvat .shell-loc-side .shell-pane>h2{display:none}
+html.stage-pc body.teyvat .shell-loc-side .shell-pane>*{margin:0 0 8px}
+html.stage-pc body.teyvat .shell-loc-side .location-places{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+html.stage-pc body.teyvat .shell-loc-side .place-entry.shell-place-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:70px;min-height:0;margin:0;padding:4px;border-radius:12px;text-align:center}
+html.stage-pc body.teyvat .shell-loc-side .place-entry.shell-place-tile .place-entry-icon{width:32px;height:32px;margin:0;padding:0;flex:0 0 auto;background:none;border:0}
+html.stage-pc body.teyvat .shell-loc-side .place-entry.shell-place-tile .place-entry-copy{display:block;width:100%;min-width:0;padding:0}
+html.stage-pc body.teyvat .shell-loc-side .place-entry.shell-place-tile .place-entry-copy>:not(.place-entry-short){display:none}
+html.stage-pc body.teyvat .shell-loc-side .place-entry.shell-place-tile .place-entry-copy>small.place-entry-short{display:block;font-size:.7rem;line-height:1.2;word-break:keep-all;color:inherit}
+/* the map: its buttons float on it, the bar for a chosen place floats over its bottom, one row of marks under it */
+html.stage-pc body.teyvat .shell-loc-main>#journey-map{overflow:hidden}
+html.stage-pc body.teyvat .shell-loc-main>#journey-map>.terrain-layout{min-height:0}
+html.stage-pc body.teyvat .shell-loc-main .terrain-header{padding:0 0 8px;flex-wrap:nowrap}
+html.stage-pc body.teyvat .shell-loc-main .terrain-shortcuts{display:flex;flex-wrap:nowrap;gap:6px}
+html.stage-pc body.teyvat .shell-loc-main .terrain-shortcuts button{min-height:32px;padding:4px 12px;font-size:.78rem;white-space:nowrap}
+html.stage-pc body.teyvat .shell-loc-main .terrain-layout{grid-template-columns:minmax(0,1fr) 250px;gap:12px}
+html.stage-pc body.teyvat .terrain-frame{position:relative;flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+html.stage-pc body.teyvat .terrain-frame>.terrain-viewport{flex:1 1 auto;min-height:0}
+html.stage-pc body.teyvat .terrain-frame>.terrain-controls{position:absolute;left:8px;top:8px;z-index:4;display:flex;gap:4px;margin:0;padding:4px;border-radius:12px;background:rgba(8,10,18,.72)}
+html.stage-pc body.teyvat .terrain-frame>.terrain-controls button{min-height:30px;padding:2px 10px;font-size:.76rem}
+html.stage-pc body.teyvat .terrain-frame>.terrain-controls .terrain-zoom button{width:32px;padding:0}
+html.stage-pc body.teyvat .terrain-frame>.terrain-travel-dock{position:absolute;left:8px;right:8px;bottom:8px;z-index:5;margin:0;flex-wrap:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+html.stage-pc body.teyvat .terrain-frame>.terrain-travel-dock .terrain-route-chain{display:none}
+html.stage-pc body.teyvat .shell-loc-main .terrain-key{flex:0 0 auto;flex-wrap:nowrap;gap:4px 10px;margin:2px 0 0;font-size:.66rem;white-space:nowrap}
+html.stage-pc body.teyvat .shell-loc-main .terrain-destinations{overflow:hidden;display:flex;flex-direction:column;gap:6px}
+html.stage-pc body.teyvat .shell-loc-main .terrain-destinations>h3{flex:0 0 auto;margin:0}
+html.stage-pc body.teyvat .shell-loc-main .terrain-destination-list{display:flex;flex-direction:column;gap:6px}
+html.stage-pc body.teyvat .shell-loc-main .terrain-destination{margin:0;padding:8px 10px;min-height:0}
+html.stage-pc body.teyvat .shell-loc-main .terrain-destination .terrain-card-copy small{line-height:1.3}
+
+/* ---------- 메인 화면 · 휴대폰: 「어디로 갈까」 없이 지도와 넓은 왼쪽 칸 ---------- */
+/* (user: 「어디로 갈까 부분 휴대폰에서는 과감하게 지우고, 왼쪽을 늘려도 될 것 같다. 나도 평소엔 지도를 이용해서 이동하는 편이라」) */
+html.stage-phone body.teyvat .panel.shell-loc{grid-template-columns:290px minmax(0,1fr);gap:6px}
+html.stage-phone body.teyvat .shell-loc-main .terrain-layout{display:flex!important;flex-direction:column;margin-top:4px}
+html.stage-phone body.teyvat .shell-loc-main .terrain-destinations{display:none}
+html.stage-phone body.teyvat .shell-loc-main>#journey-map{overflow:hidden}
+html.stage-phone body.teyvat .shell-loc-main .terrain-map-column{flex:1 1 auto;min-height:0}
+html.stage-phone body.teyvat .terrain-frame{position:relative;flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+html.stage-phone body.teyvat .terrain-frame>.terrain-viewport{flex:1 1 auto;min-height:0}
+html.stage-phone body.teyvat .terrain-frame>.terrain-controls{position:absolute;left:4px;bottom:4px;top:auto;z-index:4;display:flex;flex-wrap:nowrap;gap:3px;margin:0;padding:3px;border-radius:10px;background:rgba(8,10,18,.72);overflow:visible}
+html.stage-phone body.teyvat .terrain-frame>.terrain-controls button{min-height:26px;padding:1px 8px;font-size:.66rem}
+html.stage-phone body.teyvat .terrain-frame>.terrain-controls .terrain-zoom button{width:26px;padding:0}
+html.stage-phone body.teyvat .terrain-frame>.terrain-travel-dock{position:absolute;left:4px;right:4px;bottom:4px;z-index:5;margin:0;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+html.stage-phone body.teyvat .shell-loc-main .terrain-key{display:none}
+html.stage-phone body.teyvat .shell-loc-main .terrain-header h2{font-size:.78rem;white-space:normal;overflow:visible;text-overflow:clip;word-break:keep-all}
+html.stage-phone body.teyvat .shell-loc-main .terrain-shortcuts button{min-height:26px;padding:1px 9px;font-size:.64rem;white-space:nowrap}
+/* the wider left column: the same pieces, letters a size up from the old 8px */
+html.stage-phone body.teyvat .shell-loc-side>.shell-tabbar{grid-template-columns:repeat(3,minmax(0,1fr))}
+html.stage-phone body.teyvat .shell-loc-side>.shell-tabbar>.shell-tab{flex-direction:row;gap:4px;min-height:28px;font-size:.62rem}
+html.stage-phone body.teyvat .shell-loc-side .location-places{grid-template-columns:repeat(4,minmax(0,1fr))}
+html.stage-phone body.teyvat .shell-loc-side .place-entry.shell-place-tile{height:50px}
+html.stage-phone body.teyvat .shell-loc-side .place-entry.shell-place-tile .place-entry-copy>small.place-entry-short{font-size:.56rem}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head>h1{font-size:.92rem}
+html.stage-phone body.teyvat .shell-loc-left>.shell-loc-head>.area-level{font-size:.6rem}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .wait-controls.compact button{min-height:24px;font-size:.62rem}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .main-objective button{font-size:.7rem;min-height:28px}
+/* the main quest card: its name over its line, never side by side in narrow columns */
+html.stage-phone body.teyvat .shell-loc-left .main-objective{flex-direction:column;align-items:stretch;gap:2px;padding:4px 7px}
+html.stage-phone body.teyvat .shell-loc-left .main-objective>:is(h3,p,small){margin:0;font-size:.66rem;line-height:1.3;word-break:keep-all}
+html.stage-phone body.teyvat .shell-loc-left .main-objective>h3{font-size:.74rem}
+
+/* ---------- 가방: 작은 칸이 쪽으로 넘어가고, 설명은 한 장 ---------- */
+/* (user: 「<>버튼 너무 남발하는거같은데 이것도 사실 좀 불편해」): only the list of items turns pages; the card of the chosen
+   item is always one card, its picture beside its name, and steps its letters down a little when it is long (fitBox). */
+body.teyvat .bag-cols .bag-grid{overflow:hidden;align-content:start;grid-auto-rows:max-content}
+body.teyvat .bag-cols .bag-grid>.pane-pager{grid-column:1/-1;margin:2px 0 0}
+body.teyvat .bag-cols .bag-detail{overflow:hidden;max-height:none;display:grid;grid-template-columns:var(--hero,72px) minmax(0,1fr);align-content:start;column-gap:10px}
+body.teyvat .bag-cols .bag-detail>*{grid-column:1/-1;min-width:0}
+body.teyvat .bag-cols .bag-detail>.shell-item-hero{grid-column:1;grid-row:1/span 3;align-self:start;width:var(--hero,72px);height:var(--hero,72px);min-height:0;aspect-ratio:auto;margin:0;overflow:hidden;display:flex;justify-content:center;align-items:center;border-radius:12px}
+body.teyvat .bag-cols .bag-detail>.shell-item-hero>:is(img.item-icon,.item-glyph){width:86%!important;height:86%!important;max-width:none;padding:0;object-fit:contain}
+body.teyvat .bag-cols .bag-detail>.shell-item-hero>.shell-item-stars{position:absolute;left:4px;bottom:2px;font-size:.6rem}
+body.teyvat .bag-cols .bag-detail>.shell-item-hero~:is(small,h2,p):nth-child(-n+4){grid-column:2;margin:0;align-self:center}
+body.teyvat .bag-cols .bag-detail>.item-effect{margin:6px 0 0}
+html.stage-pc body.teyvat .bag-cols .bag-layout{grid-template-columns:minmax(0,1fr) 330px;gap:12px}
+html.stage-pc body.teyvat .bag-cols .bag-grid{grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
+html.stage-pc body.teyvat .bag-cols .bag-detail{padding:12px 14px;font-size:.84rem;line-height:1.5;row-gap:4px}
+html.stage-pc body.teyvat .bag-detail h2{font-size:1.1rem;margin:0}
+html.stage-pc body.teyvat .bag-cols .bag-item>:is(img.item-icon,.item-glyph){height:64px;width:100%;object-fit:contain;padding:6px;box-sizing:border-box}
+html.stage-pc body.teyvat .bag-cols .bag-item .item-name{font-size:.68rem;line-height:1.2;padding:3px 4px 4px;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;word-break:keep-all}
+html.stage-phone body.teyvat .bag-cols .bag-layout{grid-template-columns:minmax(0,1fr) 230px;gap:6px}
+html.stage-phone body.teyvat .bag-cols .bag-grid{grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;padding:2px}
+html.stage-phone body.teyvat .bag-cols .bag-detail{--hero:52px;padding:6px 8px;font-size:.66rem;line-height:1.35;column-gap:7px;row-gap:2px}
+html.stage-phone body.teyvat .bag-detail h2{font-size:.8rem}
+html.stage-phone body.teyvat .bag-cols .bag-item>:is(img.item-icon,.item-glyph){height:40px;width:100%;object-fit:contain;padding:3px;box-sizing:border-box}
+html.stage-phone body.teyvat .bag-cols .bag-item .item-name{font-size:.5rem;line-height:1.15;padding:1px 2px 2px}
+html.stage-phone body.teyvat .bag-cols .bag-item .item-count{font-size:.5rem}
+/* a box that fits by stepping everything in it down (app_screen_v01629.js fitBox); still too long, it keeps its main lines
+   and the rest opens with 「자세히」 */
+body.teyvat .fit-box>*{zoom:var(--fit,1)}
+body.teyvat .bag-detail.fit-brief>:is(.item-detail-fields,p:not(.muted):not(.item-effect):not(.choice-note)){display:none}
+body.teyvat .market-detail.fit-brief>:is(.item-detail-fields,p:not([class]),.market-compare-label,.market-comparison,.item-uses,.item-use-list){display:none}
+body.teyvat .shell-forge-scroll.fit-brief .cook-card :is(p:not([class]),.cook-sources,.cook-desc,hr){display:none}
+body.teyvat :where(#root) .shell-forge-scroll>button.fit-more{align-self:flex-start;justify-self:start;width:auto;min-width:0;min-height:24px;padding:1px 12px;font-size:.62rem;margin:3px 0 0;border-radius:8px}
+html.stage-phone body.teyvat :where(#root) .shell-forge-foot .cook-foot button{min-width:72px;white-space:nowrap}
+body.teyvat :is(.shell-place-tabs,.shell-shop-tabs)>.shell-panes>.shell-pane:not([hidden]){height:100%;min-height:0;overflow:hidden}
+body.teyvat :is(.shell-place-tabs,.shell-shop-tabs){display:flex;flex-direction:column;min-height:0}
+body.teyvat :is(.shell-place-tabs,.shell-shop-tabs)>.shell-panes{flex:1 1 auto;min-height:0;overflow:hidden!important}
+body.teyvat .shell-shop-tabs>.shell-panes>.shell-pane:not([hidden])>.shell-col-main{height:100%}
+html.stage-phone body.teyvat .traveler-resonance :is(h2,h3){font-size:.86rem}
+html.stage-phone body.teyvat .traveler-resonance p{font-size:.68rem;line-height:1.5}
+/* 구매 · 판매 and the Mora held stay on one row */
+body.teyvat .market-tabs{overflow:visible!important;flex-wrap:nowrap;min-width:0}
+html.stage-phone body.teyvat :where(#root) .market-tabs>button{min-width:0;min-height:24px;padding:1px 12px;font-size:.6rem}
+html.stage-phone body.teyvat .market-tabs>.shop-balance{font-size:.6rem;white-space:nowrap}
+body.teyvat :where(#root) .market-detail>button.fit-more{justify-self:start;min-height:24px;padding:1px 12px;font-size:.66rem;margin:2px 0;border-radius:8px}
+body.teyvat :where(#root) .bag-detail>button.fit-more{justify-self:start;min-height:26px;padding:2px 12px;font-size:.7rem;margin:4px 0}
+/* the whole card in its window: picture, name and words on the left, every field on the right */
+body.teyvat .fit-more-card{display:grid;grid-template-columns:64px minmax(0,1fr) minmax(0,1.25fr);column-gap:14px;row-gap:4px;align-content:start;font-size:.82rem;line-height:1.5}
+body.teyvat .fit-more-card>*{grid-column:1/3;min-width:0;margin:0}
+body.teyvat .fit-more-card>.shell-item-hero{grid-column:1;grid-row:1/span 3;position:relative;width:64px;height:64px;min-height:0;aspect-ratio:auto;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+body.teyvat .fit-more-card>.shell-item-hero>:is(img.item-icon,.item-glyph){width:86%!important;height:86%!important;object-fit:contain;padding:0}
+body.teyvat .fit-more-card>.shell-item-hero~:is(small,h2,p):nth-child(-n+4){grid-column:2}
+body.teyvat .fit-more-card>.item-detail-fields{grid-column:3;grid-row:1/span 30;align-self:start;display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 12px}
+body.teyvat .fit-more-card .item-detail-fields :is(dt,dd){margin:0;font-size:inherit;line-height:1.45}
+body.teyvat .fit-more-card .item-detail-fields dt{color:var(--t-gold);word-break:keep-all}
+html.stage-phone body.teyvat .fit-more-card{grid-template-columns:48px minmax(0,1fr) minmax(0,1.35fr);column-gap:10px;font-size:.64rem;line-height:1.35}
+html.stage-phone body.teyvat .fit-more-card>.shell-item-hero{width:48px;height:48px}
+body.teyvat .fit-more-card :is(p,small,dd,dt,span:not(.shell-item-stars)){font-size:inherit}
+body.teyvat .fit-more-card>.shell-item-hero>.shell-item-stars{position:absolute;left:3px;bottom:1px;font-size:.5rem;letter-spacing:-1px;white-space:nowrap}
+body.teyvat .bag-cols .bag-detail>.shell-item-hero>.shell-item-stars{letter-spacing:-1px;white-space:nowrap}
+html.stage-phone body.teyvat .bag-cols .bag-detail>.shell-item-hero>.shell-item-stars{font-size:.46rem}
+html.stage-phone body.teyvat .fit-more-card h2{font-size:.8rem}
+
+/* ---------- 창 (dialog#modal): 화면 안에 다 들어가고, 닫기는 오른쪽 위 ✕ 하나 ---------- */
+/* (user: 「닫기 창 찾기도 힘들어」, 「강화 성공했을때 확인이랑 닫기가 두개 다 있으면 뭘 눌러야되냐?」) */
+body.teyvat dialog#modal[open]{display:flex;flex-direction:column;max-height:calc(100dvh - 16px);overflow:hidden}
+body.teyvat dialog#modal>#modal-body{flex:1 1 auto;min-height:0;overflow:hidden}
+body.teyvat dialog#modal>#modal-body>h1:first-child{padding-right:44px}
+body.teyvat dialog#modal>button#modal-close.modal-x{position:absolute;top:8px;right:8px;z-index:2;width:34px;height:34px;min-width:0;min-height:0;margin:0;padding:0;border-radius:50%;display:grid;place-items:center;font-size:1rem;line-height:1}
+html.stage-phone body.teyvat dialog#modal>button#modal-close.modal-x{top:5px;right:5px;width:28px;height:28px;font-size:.85rem}
+html.stage-phone body.teyvat dialog#modal>#modal-body>h1:first-child{padding-right:36px}
+
+/* ---------- 화면 머리: 설명 문단 없이 이름과 버튼만 (user: 글로 때우지 않는다) ---------- */
+body.teyvat .shell-page-head .shell-page-intro{display:none}
+
+/* ---------- 캐릭터 · 컴퓨터: 휴대폰처럼 장비 네 칸은 왼쪽에 2×2, 탭은 오른쪽 ---------- */
+html.stage-pc body.teyvat .gear-cols .gear-member:not([hidden]){display:grid;grid-template-columns:196px minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);grid-template-areas:"head head" "slots tabs" "slots pane";gap:8px 14px}
+html.stage-pc body.teyvat .gear-cols .gear-member>.gear-member-head{grid-area:head;margin:0}
+html.stage-pc body.teyvat .gear-cols .gear-member>.gear-slots{grid-area:slots;display:grid;grid-template-columns:repeat(2,92px);grid-auto-rows:auto;gap:8px;align-content:start;margin:0}
+html.stage-pc body.teyvat .gear-cols .gear-slots>.gear-cell{width:92px;height:auto;min-width:0;min-height:100px;padding:6px 4px}
+html.stage-pc body.teyvat .gear-cols .gear-member>.gear-tabs{grid-area:tabs;margin:0}
+html.stage-pc body.teyvat .gear-cols .gear-member>.gear-pane{grid-area:pane;min-width:0;min-height:0}
+html.stage-pc body.teyvat .gear-cols .gear-member .gear-bench-note{display:none}
+html.stage-pc body.teyvat .gear-cols .gear-member-head .gear-member-copy{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:2px 14px}
+html.stage-pc body.teyvat .gear-cols .gear-member-head .gear-member-copy>h2{grid-column:1;grid-row:1/span 3;margin:0}
+html.stage-pc body.teyvat .gear-cols .gear-member-head .gear-member-copy>:not(h2){grid-column:2;margin:0}
+/* the roster: a grid of faces with their names under them, like the original game's character list */
+body.teyvat .gear-cols .shell-col-roster{display:flex;flex-direction:column;overflow:hidden}
+body.teyvat .gear-cols .shell-col-roster>.shell-roster{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;align-content:start;flex:0 0 auto}
+body.teyvat :where(#root) .gear-cols .shell-roster>button.shell-roster-item{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;min-width:0;min-height:0;margin:0;padding:5px 2px 4px;border-radius:12px;text-align:center;font-size:.68rem;line-height:1.15}
+body.teyvat .gear-cols .shell-roster-item>.shell-roster-face{width:44px;height:44px;flex:0 0 auto;margin:0}
+body.teyvat .gear-cols .shell-roster-item>span:not(.el-icon):not(.shell-roster-bench){margin:0!important;font-size:inherit}
+body.teyvat .gear-cols .shell-roster-item>.shell-roster-bench{position:absolute;top:3px;right:3px;margin:0;padding:0 4px;font-size:.5rem;line-height:1.5;border-radius:999px}
+body.teyvat .gear-cols .shell-roster-item>.shell-roster-element{position:absolute;left:4px;top:4px;width:15px;height:15px}
+html.stage-phone body.teyvat .gear-cols .shell-col-roster>.shell-roster{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+html.stage-phone body.teyvat :where(#root) .gear-cols .shell-roster>button.shell-roster-item{padding:3px 1px;font-size:.54rem;gap:1px;border-radius:9px}
+html.stage-phone body.teyvat .gear-cols .shell-roster-item>.shell-roster-face{width:30px;height:30px}
+html.stage-phone body.teyvat .gear-cols .shell-roster-item>.shell-roster-bench{font-size:.42rem;top:1px;right:1px}
+html.stage-phone body.teyvat .gear-cols .shell-roster-item>.shell-roster-element{width:11px;height:11px;left:2px;top:2px}
+/* the roster: whole names (no 「다이…」) */
+body.teyvat .shell-roster-item>span:not(.el-icon):not(.shell-roster-bench){white-space:normal;overflow:visible;text-overflow:clip;word-break:keep-all;min-width:0}
+
+/* ---------- 편성: 진형은 이름 칩 다섯, 프리셋은 작은 칩 3×2, 동료 카드는 한 장에 ---------- */
+/* (user: 「<> 버튼을 편성 진형에 넣을 필요는 없을 것 같아 … 센스있게좀 해줘」, 「보낸 프리셋 사진같은거 전부 예쁘게 정렬되게끔」) */
+body.teyvat .party-cols .shell-col-side>:is(h2,.shell-line-help,p.muted){display:none}
+body.teyvat .party-cols .shell-line-help{display:none}
+body.teyvat .party-cols .shell-presets-help{display:none}
+body.teyvat .shell-presets .shell-preset-chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+body.teyvat .shell-presets .shell-preset-chip{min-width:0;min-height:0;margin:0;padding:6px 8px;text-align:left;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:0 6px}
+body.teyvat .shell-presets .shell-preset-chip>small{grid-row:1/span 2}
+body.teyvat .shell-presets .shell-preset-chip>strong{white-space:normal;overflow:visible;text-overflow:clip;word-break:keep-all;min-width:0}
+body.teyvat .shell-preset-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+body.teyvat :where(#root) .shell-preset-actions>button{flex:none;width:100%;min-width:0;margin:0;padding-left:12px!important;padding-right:12px!important;white-space:normal;word-break:keep-all;line-height:1.25}
+body.teyvat :where(#root) .shell-preset-actions>button::before{display:none!important}
+body.teyvat .formation-choice>h2{margin:0 0 6px}
+body.teyvat .formation-options.formation-chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+body.teyvat :where(#root) .formation-chips>button.formation-option{position:relative;display:flex;align-items:center;justify-content:center;gap:4px;min-width:0;min-height:34px;margin:0;padding:4px 2px;text-align:center}
+body.teyvat .formation-chips .formation-option>strong{font-size:.8rem;white-space:nowrap}
+body.teyvat .formation-chips .formation-option.selected{background:var(--t-cream,#ece5d8);color:#2b3140;border-color:var(--t-gold-hi,#f3dfae)}
+body.teyvat .formation-chips .formation-option:disabled.selected{opacity:1}
+body.teyvat .formation-dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto;background:rgba(236,229,216,.25)}
+body.teyvat .formation-dot.on{background:#7be3a8;box-shadow:0 0 6px rgba(123,227,168,.8)}
+body.teyvat .formation-detail{display:grid;gap:2px;margin:8px 0 0;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(211,188,142,.2)}
+body.teyvat .formation-detail>strong{font-size:.86rem}
+body.teyvat .formation-detail>.formation-effect{font-size:.78rem}
+body.teyvat .formation-detail>.formation-synergy{font-size:.72rem;color:var(--t-muted)}
+body.teyvat .formation-detail>.formation-synergy.on{color:#8ff0b8}
+/* a card's place: pressed, then another card's place, the two trade places; on a phone wide ◀ ▶ beside it trade with
+   the neighbour (the computer screen drags instead) */
+body.teyvat .formation-slot>.shell-line-head{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;align-items:stretch}
+html.stage-phone body.teyvat .formation-slot>.shell-line-head{grid-template-columns:34px minmax(0,1fr) 34px;gap:3px}
+html.stage-pc body.teyvat .formation-slot .shell-line-move{display:none}
+body.teyvat :where(#root) .formation-slot button.shell-line-move{width:auto;min-width:0;height:30px;min-height:30px;margin:0;padding:0;border-radius:9px;font-size:.8rem}
+body.teyvat :where(#root) .formation-slot button.shell-line-place{min-width:0;min-height:30px;margin:0;padding:2px 6px;border-radius:9px;font-size:.78rem;font-weight:700;color:var(--t-gold);background:rgba(255,255,255,.05);border:1px solid rgba(211,188,142,.3);white-space:normal;word-break:keep-all;line-height:1.2}
+body.teyvat :where(#root) .formation-slot button.shell-line-place.back{color:#9fd3ff}
+body.teyvat .formation-slot.swap-from{box-shadow:0 0 0 2px var(--t-gold-hi,#f3dfae),0 0 18px rgba(243,223,174,.35)}
+body.teyvat :where(#root) .formation-slot.swap-from button.shell-line-place{background:var(--t-cream,#ece5d8);color:#2b3140}
+body.teyvat :where(#root) .formation-slot.swap-to button.shell-line-place{border-color:#7be3a8;color:#8ff0b8;animation:swapHint 1.2s ease-in-out infinite}
+@keyframes swapHint{50%{box-shadow:0 0 0 2px rgba(123,227,168,.55)}}
+html.stage-phone body.teyvat :where(#root) .formation-slot button.shell-line-place{min-height:30px;font-size:.58rem;padding:1px 3px}
+/* a companion card: place, picture, name, one row of role chips, one row of two small buttons */
+body.teyvat .formation-slot .slot-bonus{display:block;text-align:center;font-size:.66rem;color:var(--t-gold);line-height:1.25}
+/* (user: 「이 동글동글한게 왜 이렇게 보기 별로인거같지?」): the five roles are one bar cut into five, with thin lines between and
+   only the chosen part filled, not five round pills side by side; the 진형 chips are drawn the same way. */
+body.teyvat .formation-slot .role-choice,body.teyvat .formation-options.formation-chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;padding:0;border:1px solid rgba(211,188,142,.38);border-radius:8px;overflow:hidden;background:rgba(10,13,21,.45)}
+body.teyvat :where(#root) .formation-slot .role-choice>.choice-tile,body.teyvat :where(#root) .formation-chips>button.formation-option{min-width:0;min-height:28px;margin:0;padding:2px 0;border:0;border-left:1px solid rgba(211,188,142,.22);border-radius:0;background:transparent;box-shadow:none;color:var(--t-cream,#ece5d8);font-size:.7rem;font-weight:600;justify-content:center;letter-spacing:0}
+body.teyvat :where(#root) .formation-slot .role-choice>.choice-tile:first-child,body.teyvat :where(#root) .formation-chips>button.formation-option:first-child{border-left:0}
+body.teyvat :where(#root) .formation-slot .role-choice>.choice-tile.selected,body.teyvat :where(#root) .formation-chips>button.formation-option.selected{background:linear-gradient(180deg,#f3e7c9,#e3d3ad);color:#2b3140;font-weight:700}
+body.teyvat :where(#root) .formation-slot .role-choice>.choice-tile:hover:not(.selected):not(:disabled),body.teyvat :where(#root) .formation-chips>button.formation-option:hover:not(.selected):not(:disabled){background:rgba(236,229,216,.1)}
+body.teyvat :where(#root) .formation-slot .role-choice>.choice-tile::before,body.teyvat :where(#root) .formation-chips>button.formation-option::before{display:none!important}
+body.teyvat .formation-slot .role-effect{display:none}
+body.teyvat .formation-slot .formation-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+body.teyvat .formation-slot .formation-controls>:is(.role-choice,.skill-rhythm,.choice-note){grid-column:1/-1}
+body.teyvat :where(#root) .formation-slot .formation-controls>button{min-width:0;min-height:28px;margin:0;padding:2px 6px;font-size:.72rem;border-radius:8px}
+html.stage-phone body.teyvat .formation-slot .slot-bonus{font-size:.52rem}
+html.stage-phone body.teyvat .formation-slot .skill-rhythm{display:none}
+html.stage-phone body.teyvat :where(#root) .formation-slot .role-choice>.choice-tile{min-height:20px;font-size:.5rem;padding:1px 0}
+html.stage-phone body.teyvat .formation-slot .role-choice{border-radius:6px}
+html.stage-phone body.teyvat :where(#root) .formation-slot .formation-controls>button{min-height:22px;font-size:.56rem;padding:1px 3px}
+/* the phone card is the face: big, the buttons that change it are in the window the face opens */
+html.stage-phone body.teyvat .formation-slot .party-portrait{display:block;width:100%!important;height:122px!important;max-width:none;object-fit:cover;object-position:50% 18%;border-radius:10px;margin:0 auto}
+html.stage-phone body.teyvat .formation-slot .member-select{display:flex;flex-direction:column;align-items:stretch;gap:2px;min-height:0;padding:0;margin:0;background:none;border:0}
+html.stage-phone body.teyvat .formation-slot .member-select>small,html.stage-phone body.teyvat .formation-slot .slot-bonus{display:none}
+html.stage-phone body.teyvat .formation-slot .member-select>strong{font-size:.72rem;text-align:center}
+html.stage-phone body.teyvat .formation-slot .formation-controls>button{display:none}
+html.stage-phone body.teyvat .formation-slot{gap:3px;padding:4px}
+/* ---------- 편성 (party-styled): 네 장의 큰 그림, 이름은 그림 위, 역할 버튼 하나, 진형·프리셋은 창 ---------- */
+body.teyvat .party-cols.party-styled{display:flex!important;flex-direction:column}
+body.teyvat .party-cols.party-styled>.shell-col-side{display:none!important}
+body.teyvat .party-cols.party-styled>.shell-col-main{flex:1 1 auto;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+body.teyvat .party-cols.party-styled .formation-grid{flex:1 1 auto;min-height:0;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:minmax(0,1fr);gap:14px;margin:0!important;padding:0;overflow:visible}
+body.teyvat .party-cols.party-styled .formation-slot{min-height:0;min-width:0;display:flex;flex-direction:column;gap:8px;padding:8px;border-radius:18px;background:linear-gradient(180deg,rgba(236,229,216,.09),rgba(236,229,216,.02));border:1px solid rgba(211,188,142,.28);box-shadow:0 10px 26px rgba(0,0,0,.35)}
+body.teyvat .party-cols.party-styled .formation-slot>:not(.member-select){flex:0 0 auto}
+body.teyvat .party-cols.party-styled .formation-slot>.formation-controls{display:none}
+body.teyvat .party-cols.party-styled .formation-slot .slot-bonus{display:none}
+body.teyvat :where(#root) .party-cols.party-styled .formation-slot>button.member-select{position:relative;flex:1 1 auto;min-height:0;display:block;width:100%;margin:0;padding:0;border:0;border-radius:14px;overflow:hidden;background:#151a26}
+body.teyvat .party-cols.party-styled .member-select>.party-portrait{position:absolute;inset:0;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;aspect-ratio:auto;object-fit:cover;object-position:50% 14%;border-radius:0;margin:0}
+body.teyvat .party-cols.party-styled .member-select>.party-portrait.portrait-placeholder{display:grid;place-items:center;font-size:3rem;color:var(--t-gold);background:radial-gradient(circle at 50% 38%,rgba(243,223,174,.18),rgba(21,26,38,1) 65%)}
+body.teyvat .party-cols.party-styled .member-select>.slot-plate{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:6px;padding:26px 10px 9px;background:linear-gradient(180deg,transparent,rgba(8,10,16,.88) 55%);color:#fff;text-align:left}
+body.teyvat .party-cols.party-styled .slot-plate>.slot-element{width:22px;height:22px;flex:0 0 auto}
+body.teyvat .party-cols.party-styled .slot-plate>strong{flex:1 1 auto;min-width:0;font-size:1rem;line-height:1.2;word-break:keep-all;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+body.teyvat .party-cols.party-styled .slot-plate>small{flex:0 0 auto;font-size:.74rem;color:var(--t-gold-hi,#f3dfae)}
+body.teyvat .party-cols.party-styled .member-select>.slot-worn{position:absolute;top:8px;right:8px;margin:0;padding:1px 8px;border-radius:999px;background:rgba(8,10,16,.7);color:#e9dfc6;font-size:.66rem}
+body.teyvat :where(#root) .party-cols.party-styled button.slot-role{display:flex;align-items:baseline;justify-content:center;gap:6px;width:100%;min-width:0;min-height:34px;margin:0;padding:4px 8px;border-radius:12px}
+body.teyvat .party-cols.party-styled .slot-role>small{font-size:.68rem;color:var(--t-muted)}
+body.teyvat .party-cols.party-styled .slot-role>strong{font-size:.86rem}
+body.teyvat :where(#root) .party-cols.party-styled .formation-slot>button.member-add{flex:1 1 auto;min-height:0;width:100%;margin:0;border-radius:14px}
+body.teyvat :where(#root) .shell-page-tools>button.party-formation-open,body.teyvat :where(#root) .shell-page-tools>button.party-preset-open{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+html.stage-phone body.teyvat .party-cols.party-styled .formation-grid{gap:6px}
+html.stage-phone body.teyvat .party-cols.party-styled .formation-slot{gap:4px;padding:4px;border-radius:12px}
+html.stage-phone body.teyvat :where(#root) .party-cols.party-styled .formation-slot>button.member-select{border-radius:10px}
+html.stage-phone body.teyvat .party-cols.party-styled .member-select>.slot-plate{gap:4px;padding:16px 6px 5px}
+html.stage-phone body.teyvat .party-cols.party-styled .slot-plate>.slot-element{width:15px;height:15px}
+html.stage-phone body.teyvat .party-cols.party-styled .slot-plate>strong{font-size:.74rem}
+html.stage-phone body.teyvat .party-cols.party-styled .slot-plate>small{font-size:.56rem}
+html.stage-phone body.teyvat .party-cols.party-styled .member-select>.slot-worn{top:4px;right:4px;font-size:.5rem;padding:0 5px}
+html.stage-phone body.teyvat :where(#root) .party-cols.party-styled button.slot-role{min-height:26px;padding:2px 4px;border-radius:9px}
+html.stage-phone body.teyvat .party-cols.party-styled .slot-role>small{font-size:.52rem}
+html.stage-phone body.teyvat .party-cols.party-styled .slot-role>strong{font-size:.66rem}
+/* the companion picker: the window takes the whole height and its list turns pages (no scroll) */
+body.teyvat dialog#modal[open]:has(.member-picker){height:calc(100dvh - 16px);width:min(1180px,calc(100vw - 24px))}
+body.teyvat dialog#modal>#modal-body:has(>.member-picker){display:flex;flex-direction:column}
+body.teyvat #modal-body>.member-picker{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:6px}
+body.teyvat #modal-body>.member-picker>p.muted{margin:0}
+body.teyvat #modal-body .member-pick-grid{flex:1 1 auto;min-height:0;max-height:none!important;overflow:hidden!important;align-content:start;grid-auto-rows:max-content}
+body.teyvat #modal-body .member-pick-grid>.pane-pager{grid-column:1/-1}
+html.stage-phone body.teyvat #modal-body .member-pick-grid{grid-template-columns:repeat(9,minmax(0,1fr));gap:4px}
+html.stage-phone body.teyvat #modal-body>.member-picker>p.muted{font-size:.6rem}
+html.stage-phone body.teyvat :where(#modal) .member-pick-grid>button.member-pick{min-width:0;min-height:0;margin:0;padding:3px 2px;gap:1px;border-radius:9px}
+html.stage-phone body.teyvat .member-pick-grid .member-pick-face{width:40px;height:40px}
+html.stage-phone body.teyvat .member-pick-grid .member-pick>strong{font-size:.56rem;line-height:1.15;word-break:keep-all}
+html.stage-phone body.teyvat .member-pick-grid .member-pick-meta{font-size:.46rem}
+html.stage-phone body.teyvat .member-pick-grid .member-pick-stars{font-size:.42rem;letter-spacing:-1px}
+html.stage-phone body.teyvat .member-pick-grid .member-pick-state{font-size:.44rem;line-height:1.1}
+html.stage-phone body.teyvat .member-pick-actions{margin:0 0 2px;gap:4px}
+html.stage-phone body.teyvat :where(#root,#modal) .member-pick-actions>button{min-height:24px;padding:1px 10px;font-size:.6rem}
+/* 「동료 획득 방법·조건 보기」 belongs to the old recruiting (companions come from wishes now) */
+body.teyvat .shell-page-tools .recruitment-link{display:none}
+/* the choosing windows (역할 · 진형): big options, one press */
+body.teyvat .pick-window{display:grid;gap:10px}
+body.teyvat .pick-window-note{margin:0;font-size:.8rem;color:var(--t-muted)}
+body.teyvat .pick-window-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+body.teyvat :where(#modal) button.pick-window-option{display:grid;gap:3px;align-content:start;min-width:0;min-height:0;margin:0;padding:10px 12px;text-align:left;border-radius:14px;white-space:normal}
+body.teyvat .pick-window-option>strong{font-size:.92rem}
+body.teyvat .pick-window-option>span{font-size:.8rem;line-height:1.4}
+body.teyvat .pick-window-option>small{font-size:.72rem;color:var(--t-muted);line-height:1.35}
+body.teyvat .pick-window-option.synergy>small{color:#8ff0b8}
+body.teyvat :where(#modal) button.pick-window-option.selected{background:var(--t-cream,#ece5d8);color:#2b3140;border-color:var(--t-gold-hi,#f3dfae);opacity:1}
+body.teyvat :where(#modal) button.pick-window-option.selected>small{color:#3c5a48}
+html.stage-phone body.teyvat .pick-window{gap:6px}
+html.stage-phone body.teyvat .pick-window-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+html.stage-phone body.teyvat :where(#modal) button.pick-window-option{padding:6px 8px;border-radius:10px}
+html.stage-phone body.teyvat .pick-window-option>strong{font-size:.72rem}
+html.stage-phone body.teyvat .pick-window-option>span{font-size:.62rem}
+html.stage-phone body.teyvat .pick-window-option>small{font-size:.56rem}
+html.stage-phone body.teyvat .pick-window-note{font-size:.62rem}
+/* the phone's side column: 진형 or 프리셋 by two tabs */
+body.teyvat .party-cols .shell-col-side>.side-off{display:none!important}
+body.teyvat .party-cols .shell-col-side>.side-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:0 0 4px}
+body.teyvat :where(#root) .party-cols .side-tabs>button{min-width:0;min-height:26px;margin:0;padding:2px 6px;font-size:.66rem;border-radius:9px}
+body.teyvat :where(#root) .party-cols .side-tabs>button.on{background:var(--t-cream,#ece5d8);color:#2b3140;border-color:var(--t-gold-hi,#f3dfae)}
+body.teyvat .member-pick-actions{display:flex;gap:6px;margin:0 0 8px}
+body.teyvat :where(#root) .member-pick-actions>button{min-height:30px;padding:3px 14px;font-size:.78rem}
+html.stage-phone body.teyvat .formation-chips .formation-option>strong{font-size:.6rem}
+html.stage-phone body.teyvat :where(#root) .formation-chips>button.formation-option{min-height:26px;padding:2px 1px;gap:2px}
+html.stage-phone body.teyvat .formation-dot{width:5px;height:5px}
+html.stage-phone body.teyvat .formation-detail{margin:5px 0 0;padding:4px 6px;border-radius:9px}
+html.stage-phone body.teyvat .formation-detail>strong{font-size:.66rem}
+html.stage-phone body.teyvat .formation-detail>.formation-effect{font-size:.6rem}
+html.stage-phone body.teyvat .formation-detail>.formation-synergy{font-size:.56rem}
+html.stage-phone body.teyvat .shell-presets .shell-preset-chips{gap:3px}
+html.stage-phone body.teyvat .shell-presets .shell-preset-chip{padding:3px 5px;font-size:.58rem}
+html.stage-phone body.teyvat .shell-preset-actions{gap:3px}
+html.stage-phone body.teyvat :where(#root) .shell-preset-actions>button{min-height:24px;font-size:.58rem;padding:1px 6px!important}
+
+/* ---------- 상점: 작은 상품 칸이 쪽으로 넘어가고, 고른 상품 카드에 − 수량 + 최대와 구매 하나 ---------- */
+body.teyvat .shell-col-main:has(>.market-layout),body.teyvat .shell-pane:has(>.market-layout){display:flex;flex-direction:column;overflow:hidden;min-height:0}
+body.teyvat :is(.shell-col-main,.shell-pane)>.market-layout{flex:1 1 auto;min-height:0;display:grid;grid-template-rows:minmax(0,1fr);align-items:stretch}
+body.teyvat .shell-place-tabs>.shell-panes{overflow:hidden!important;min-height:0}
+/* the kitchen and the forge's lists: small tiles with whole names, turning pages; the chosen recipe's card fits */
+body.teyvat .shell-forge-list{overflow:hidden!important}
+body.teyvat .shell-forge-list>.pane-pager{grid-column:1/-1}
+body.teyvat .shell-forge-tile-name{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;word-break:keep-all}
+body.teyvat .shell-forge-scroll{overflow:hidden!important}
+html.stage-pc body.teyvat .shell-forge-list{grid-template-columns:repeat(9,minmax(0,1fr));gap:8px}
+html.stage-pc body.teyvat .shell-forge-tile-name{font-size:.64rem;padding:3px 3px 4px}
+html.stage-phone body.teyvat .shell-forge-list{grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+html.stage-phone body.teyvat .shell-forge-tile-name{font-size:.56rem;padding:2px 3px 3px;line-height:1.15}
+html.stage-phone body.teyvat .shell-forge-tile-stars{font-size:.46rem;bottom:1px}
+/* on the phone a recipe is a short row: its picture, then its whole name (three rows of five a page) */
+html.stage-phone body.teyvat .shell-forge-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+html.stage-phone body.teyvat :where(#root) .shell-forge-list>button.shell-forge-tile{flex-direction:row;align-items:center;gap:5px;min-height:30px;padding:2px 6px 2px 2px;border-radius:8px;text-align:left}
+html.stage-phone body.teyvat .shell-forge-list .shell-forge-tile-art{flex:0 0 28px;width:28px;height:28px;aspect-ratio:1;border-radius:6px}
+html.stage-phone body.teyvat .shell-forge-list .shell-forge-tile-art :is(img,.item-glyph){width:24px!important;height:24px!important;max-width:none;font-size:.9rem}
+html.stage-phone body.teyvat .shell-forge-list .shell-forge-tile-stars{display:none}
+html.stage-phone body.teyvat .shell-forge-list .shell-forge-tile-badge{position:static!important;flex:0 0 auto;margin:0 0 0 auto;padding:0 4px;font-size:.48rem;line-height:1.5;transform:none}
+html.stage-phone body.teyvat .shell-forge-list .shell-forge-tile-name{flex:1 1 auto;min-width:0;padding:0;font-size:.6rem;line-height:1.2}
+/* the chosen recipe's card: its picture row holds 「자세히」, its foot is the time and one button on one line */
+body.teyvat .shell-forge-hero{position:relative}
+body.teyvat :where(#root) .shell-forge-hero>button.fit-more{margin:0 0 0 auto;align-self:center;flex:0 0 auto;width:auto;min-width:0;min-height:24px;padding:1px 10px;font-size:.62rem;border-radius:8px}
+html.stage-phone body.teyvat .shell-forge.dishes{grid-template-columns:minmax(0,1fr) 300px!important;gap:8px}
+/* the phone kitchen: its filters on one row, its counts off the bar, the cook button beside the time */
+html.stage-phone body.teyvat .shell-page-head:has(.shell-workbar){flex-wrap:nowrap}
+html.stage-phone body.teyvat .shell-workbar .cook-stats{display:none}
+html.stage-phone body.teyvat .shell-workarea:has(>.cook-tabs){display:grid!important;grid-template-columns:auto auto minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr);gap:4px 6px;align-items:center}
+html.stage-phone body.teyvat .shell-workarea>.cook-tabs{grid-column:1;grid-row:1;flex-wrap:nowrap;gap:3px;margin:0}
+html.stage-phone body.teyvat .shell-workarea>.cook-effects{grid-column:2;grid-row:1;flex-wrap:nowrap;gap:3px;margin:0}
+html.stage-phone body.teyvat .shell-workarea>.cook-ready{grid-column:4;grid-row:1;margin:0;font-size:.54rem}
+html.stage-phone body.teyvat .shell-workarea>.shell-forge{grid-column:1/5!important;grid-row:2;min-height:0;justify-self:stretch!important;width:auto!important;max-width:none!important}
+html.stage-phone body.teyvat :where(#root) .shell-workarea>:is(.cook-tabs,.cook-effects)>button{min-width:0;min-height:22px;padding:1px 4px;font-size:.5rem;border-radius:7px;white-space:nowrap;letter-spacing:-.02em}
+html.stage-phone body.teyvat .shell-workarea>:is(.cook-tabs,.cook-effects){overflow:visible!important;gap:2px!important;min-width:0}
+html.stage-phone body.teyvat .shell-workarea>.cook-ready{font-size:.5rem;gap:3px}
+html.stage-phone body.teyvat .shell-forge-foot{padding:3px 6px}
+html.stage-phone body.teyvat .shell-forge-foot .cook-foot{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+html.stage-phone body.teyvat .shell-forge-foot .cook-foot>*{margin:0;font-size:.58rem}
+html.stage-phone body.teyvat :where(#root) .shell-forge-foot .cook-foot button{min-height:26px;padding:1px 12px;font-size:.62rem;flex:1 1 auto}
+body.teyvat .market-filter~p.muted,body.teyvat .market-filter>p.muted{display:none}
+body.teyvat .market-filter{display:flex;flex-wrap:wrap;align-items:center;gap:5px;overflow:hidden;flex:0 0 auto}
+body.teyvat :where(#root) .market-filter>button{min-width:0;min-height:28px;margin:0;padding:2px 10px;font-size:.74rem;border-radius:8px}
+body.teyvat .market-filter>label{display:flex;align-items:center;gap:5px;margin:0 6px 0 0;font-size:.74rem}
+body.teyvat .market-layout>.market-grid{overflow:hidden!important;min-height:0;max-height:none;display:grid;grid-auto-rows:max-content;align-content:start}
+body.teyvat .market-layout>.market-grid>.pane-pager{grid-column:1/-1}
+body.teyvat :where(#root) .market-grid>button.market-item{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;min-width:0;min-height:0!important;height:auto!important;aspect-ratio:auto!important;margin:0;text-align:center}
+body.teyvat .market-grid>.market-item>:is(img.item-icon,.item-glyph){object-fit:contain;flex:0 0 auto}
+body.teyvat .market-grid>.market-item>strong{white-space:normal;overflow:visible;text-overflow:clip;word-break:keep-all;line-height:1.2}
+body.teyvat .market-grid>.market-item>small.market-restriction{display:none}
+body.teyvat .market-layout>.market-detail{overflow:hidden!important;min-height:0;max-height:none;display:grid;grid-template-columns:var(--hero,52px) minmax(0,1fr);column-gap:10px;row-gap:3px;align-content:start}
+body.teyvat .market-layout>.market-detail>*{grid-column:1/-1;margin:0;min-width:0}
+body.teyvat .market-layout>.market-detail>:nth-child(1){grid-column:2;grid-row:1}
+body.teyvat .market-layout>.market-detail>:nth-child(2){grid-column:2;grid-row:2}
+body.teyvat .market-layout>.market-detail>:nth-child(3):is(img,.item-glyph){grid-column:1;grid-row:1/span 3;width:var(--hero,52px)!important;height:var(--hero,52px)!important;object-fit:contain;align-self:start}
+body.teyvat .market-layout>.market-detail>:nth-child(4).tier-badge{grid-column:2;grid-row:3}
+body.teyvat .market-detail .market-controls{display:grid;gap:6px;margin-top:6px}
+body.teyvat .qty-stepper{display:grid;grid-template-columns:34px minmax(0,1fr) 34px auto;gap:4px;align-items:center}
+body.teyvat :where(#root) .qty-stepper>button{min-width:0;min-height:32px;margin:0;padding:0 8px;border-radius:8px;font-size:.9rem;font-weight:700}
+body.teyvat :where(#root) .qty-stepper>button::before{display:none!important}
+body.teyvat .qty-stepper>.qty-num{text-align:center;font-size:.95rem}
+body.teyvat .qty-total{font-size:.82rem;color:var(--t-gold-hi,#f3dfae);text-align:right}
+body.teyvat :where(#root) .market-controls>button.qty-go{width:100%;min-width:0;margin:0}
+body.teyvat .qty-why:empty{display:none}
+html.stage-pc body.teyvat :is(.shell-col-main,.shell-pane)>.market-layout{grid-template-columns:minmax(0,1fr) 300px;gap:12px}
+html.stage-pc body.teyvat .market-layout>.market-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+html.stage-pc body.teyvat :where(#root) .market-grid>button.market-item{padding:8px 4px 6px;border-radius:12px}
+html.stage-pc body.teyvat .market-grid>.market-item>:is(img.item-icon,.item-glyph){width:44px;height:44px}
+html.stage-pc body.teyvat .market-grid>.market-item>strong{font-size:.76rem}
+html.stage-pc body.teyvat .market-grid>.market-item>span{font-size:.72rem}
+html.stage-pc body.teyvat .market-layout>.market-detail{padding:12px 14px;font-size:.82rem;line-height:1.45}
+html.stage-pc body.teyvat .market-detail h2{font-size:1.05rem}
+html.stage-phone body.teyvat :is(.shell-col-main,.shell-pane)>.market-layout{grid-template-columns:minmax(0,1fr) 220px;gap:6px}
+html.stage-phone body.teyvat .market-layout>.market-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:0}
+html.stage-phone body.teyvat :where(#root) .market-grid>button.market-item{padding:3px 2px;border-radius:9px;gap:1px}
+html.stage-phone body.teyvat .market-grid>.market-item>:is(img.item-icon,.item-glyph){width:28px;height:28px}
+html.stage-phone body.teyvat .market-grid>.market-item>strong{font-size:.54rem}
+html.stage-phone body.teyvat .market-grid>.market-item>span{font-size:.5rem}
+html.stage-phone body.teyvat .market-layout>.market-detail{--hero:40px;padding:6px 8px;font-size:.62rem;line-height:1.35;column-gap:7px;row-gap:1px}
+html.stage-phone body.teyvat .market-detail h2{font-size:.78rem}
+html.stage-phone body.teyvat :where(#root) .market-filter>button{min-height:22px;padding:1px 7px;font-size:.58rem}
+html.stage-phone body.teyvat .market-filter>label{font-size:.58rem}
+html.stage-phone body.teyvat .qty-stepper{grid-template-columns:26px minmax(0,1fr) 26px auto;gap:3px}
+html.stage-phone body.teyvat :where(#root) .qty-stepper>button{min-height:24px;font-size:.7rem;padding:0 5px}
+html.stage-phone body.teyvat .qty-stepper>.qty-num{font-size:.7rem}
+html.stage-phone body.teyvat .qty-total{font-size:.62rem}
+html.stage-phone body.teyvat :where(#root) .market-controls>button.qty-go{min-height:26px;font-size:.66rem}
+html.stage-phone body.teyvat .market-detail .market-controls{gap:3px;margin-top:3px}
+
+/* ---------- 전투 ---------- */
+/* 전투 정보 floats over the screen instead of keeping an empty column; the enemies stand in one row up to six */
+html.stage-pc body.teyvat .panel.combat-panel.with-info{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "order" "duo" "log"}
+html.stage-pc body.teyvat .panel.combat-panel.with-info>.shell-battle-info{position:absolute;top:0;right:0;z-index:6;width:min(360px,90%);align-items:flex-end}
+html.stage-pc body.teyvat .combat-panel .shell-enemies:is([data-count="1"],[data-count="2"],[data-count="3"],[data-count="4"],[data-count="5"],[data-count="6"]){grid-template-columns:repeat(var(--count,3),minmax(0,190px));justify-content:center;align-content:center;--enemy-h:150px}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-count="1"]{--count:1}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-count="2"]{--count:2}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-count="3"]{--count:3}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-count="4"]{--count:4}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-count="5"]{--count:5;--enemy-h:140px}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-count="6"]{--count:6;--enemy-h:126px}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-rows="2"]:not([data-count="5"]):not([data-count="6"]){--enemy-h:84px;align-content:start}
+/* before the first turn the bar is the start button and the speed, without the paragraph about turn order */
+body.teyvat .battle-command>p{display:none}
+/* the phone's command row: whose turn (no face), four actions with a small ⓘ on their corner, a narrower run button */
+html.stage-phone body.teyvat .battle-cards{overflow:visible!important;flex-wrap:nowrap;gap:5px;flex:1 1 auto;min-width:0}
+html.stage-phone body.teyvat .battle-cards .battle-card-choice{position:relative;flex:1 1 0;min-width:0}
+html.stage-phone body.teyvat .battle-cards button[data-card-id] small{display:none}
+html.stage-phone body.teyvat :where(#root) .battle-cards button[data-card-id]{width:100%;min-width:0;padding:2px 6px 2px 2px;gap:3px}
+html.stage-phone body.teyvat :where(#root) .battle-cards .battle-card-choice>button:not([data-card-id]){position:absolute;top:-5px;right:-4px;z-index:2;width:16px;height:16px;min-width:0;min-height:0;padding:0;font-size:.5rem;border-radius:50%}
+html.stage-phone body.teyvat .battle-turn-banner .battle-turn-face{display:none}
+html.stage-phone body.teyvat .battle-turn-banner{flex:0 0 auto;max-width:96px;padding:2px 8px}
+html.stage-phone body.teyvat .battle-turn-banner .battle-turn-copy{font-size:.62rem;line-height:1.2}
+html.stage-phone body.teyvat .battle-execute{flex:0 0 118px}
+html.stage-phone body.teyvat :where(#root) .battle-execute>button{width:118px;min-width:0;padding-left:30px!important;font-size:.78rem}
+body.teyvat .combat-panel .combatant-copy strong:has(>.shell-level){overflow:visible}
+body.teyvat .battle-command .battle-turn strong,body.teyvat .battle-command strong,body.teyvat .battle-turn-copy :is(strong,b,span){white-space:normal!important;text-overflow:clip!important;overflow:visible!important;word-break:keep-all}
+
+/* ---------- 모험가 핸드북: 탭마다 쪽 번호 (스크롤 없음) ---------- */
+.hb-body{overflow:hidden!important;display:flex;flex-direction:column}
+.hb-body>*{flex:0 0 auto}
+.hb-body>.pane-pager{margin-top:auto}
+.hb-body .pane-pager>button.pane-page{width:30px!important;height:30px!important;min-width:0!important;min-height:0!important;padding:0!important;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:700}
+.hb-body .pane-pager>button.pane-page.on{background:#39404f;color:#f4ecdc}
+html.stage-phone .hb-body .pane-pager>button.pane-page{width:24px!important;height:24px!important;font-size:.62rem}
+
+/* ---------- 지도: 이름 글씨도 누르면 고르고, 레벨 높은 곳은 빨갛게 ---------- */
+body.teyvat .terrain-label.pressable{pointer-events:auto;cursor:pointer}
+body.teyvat .terrain-label.danger,body.teyvat .terrain-label.danger .terrain-label-name{color:#ff8a7a}
+body.teyvat .terrain-label.danger{border-color:rgba(255,110,96,.65);box-shadow:0 0 0 1px rgba(255,110,96,.25)}
+body.teyvat .terrain-node.danger:not(.current){box-shadow:0 0 0 2px rgba(255,96,80,.85),0 0 10px rgba(255,96,80,.45)}
+body.teyvat .terrain-destination.danger strong{color:#ff9c8c}
+body.teyvat .terrain-destination.danger .terrain-card-state{color:#ff9c8c;border-color:rgba(255,110,96,.55)}
+body.teyvat .terrain-key-item.danger::before{background:#ff6a5a;box-shadow:0 0 0 2px rgba(255,110,96,.4)}

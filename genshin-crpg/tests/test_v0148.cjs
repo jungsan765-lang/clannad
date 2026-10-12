@@ -38,14 +38,14 @@ check('hidden oculi: no banner or card gives them away; they glint only inside �
  return {hidden:hidden.map(p=>p.id)};
 });
 
-check('PC frame: the page follows the window at the chosen 화면 크기, within 1280x720 to 1600/size high and about 2:1',()=>{
+// 0.16.29 replaced the window-following frame with a fixed one (user: 「화면을 완전히 고정시켜버려」).
+check('PC frame: one fixed page size (1280x720 on a computer or tablet, 760x352 on an installed phone), 화면 배율 only zooms',()=>{
  const html=src('index.html'),shell=src('app_shell.js');
- assert(html.includes("SIZES[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||1")&&html.includes('SIZES={small:.85,large:1.2}'),'reads the setting');
- // 0.14.10: the height limit moves with the chosen size (it was a fixed 1200, so 작게 did nothing on large monitors).
- assert(html.includes('Math.max(720,Math.min(1600/k,H/k))')&&html.includes('Math.max(1280,Math.min(W/k,mh*1.92))'),'limits');
+ assert(html.includes('var SW=phone?760:1280,SH=phone?352:720;'),'the two page sizes');
+ assert(html.includes("ZOOM={'125':1.25,'150':1.5}")&&html.includes("JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale"),'reads the zoom setting');
  assert(html.includes('window.CRPGFrameFit='),'the setting refits at once');
- assert(shell.includes("document.documentElement.classList.contains('crpg-framed')")&&shell.includes("mk('p','','화면 크기')"),'the 화면 크기 row only inside the frame');
- assert(shell.includes('/성인 모드|글자 크기|화면 크기|인물 일러스트/'),'it sits under 표시 설정');
+ assert(shell.includes("classList.contains('crpg-stage-pc')")&&shell.includes("mk('p','','화면 배율')"),'the 화면 배율 row only inside the computer frame');
+ assert(shell.includes('/성인 모드|화면 배율|인물 일러스트/'),'it sits under 표시 설정');
  return {};
 });
 

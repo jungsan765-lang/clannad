@@ -11,7 +11,7 @@ if(typeof partyScreen!=='function')return;
 const mk=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined&&text!==null)e.textContent=String(text);return e;};
 const $=(sel,root=document)=>root.querySelector(sel),$$=(sel,root=document)=>[...root.querySelectorAll(sel)];
 const LINE=['1 · 선두 · 전열','2 · 전열 · 치명타 확률 +5%','3 · 후열 · 최대 HP +5%','4 · 후미 · 받는 최종 피해 −20%'];
-const UI={preset:null,naming:false};
+const UI={preset:null,naming:false,swapFrom:null};
 // The old battle-line list: its job is done by the cards themselves now.
 formationLine=function(){};
 function nameOf(id){try{return ownerName(id);}catch{return id;}}
@@ -21,7 +21,7 @@ function presetBar(p,{compact=false}={}){
  const chips=mk('div','shell-preset-chips');
  for(const x of list){
   const b=mk('button','shell-preset-chip'+(x.empty?' empty':'')+(UI.preset===x.slot?' active':''));b.type='button';b.setAttribute('aria-pressed',String(UI.preset===x.slot));
-  b.append(mk('small','',String(x.slot)),mk('strong','',x.empty?'비어 있음':x.name));
+  b.append(mk('small','',String(x.slot)),mk('strong','',x.empty?'빈 칸':x.name));
   if(!x.empty){const faces=mk('span','shell-preset-faces');for(const id of x.members){try{faces.append(actorPortrait(id,'shell-preset-face'));}catch{faces.append(mk('span','shell-preset-face',nameOf(id).slice(0,1)));}}b.append(faces);}
   b.onclick=()=>{UI.preset=UI.preset===x.slot?null:x.slot;UI.naming=false;render();};chips.append(b);
  }
@@ -49,15 +49,29 @@ function battleLine(p){
  cards.forEach((c,i)=>{const n=i+1,m=game.s.party.find(x=>x.slot==='PARTY_'+n&&x.active);c.dataset.partySlot=String(n);if(m)c.dataset.owner=m.source;});
  const members=cards.filter(c=>c.dataset.owner).sort((a,b)=>order.indexOf(a.dataset.owner)-order.indexOf(b.dataset.owner)),empty=cards.filter(c=>!c.dataset.owner);
  grid.replaceChildren(...members,...empty);grid.classList.add('shell-battle-line');
- members.forEach((c,i)=>{const label=$('.slot-label',c);if(label){label.textContent=LINE[i]||String(i+1);label.classList.add(i<2?'front':'back');}});
+ // 0.16.29: the card's label is its place (「2 · 전열」); the place's bonus is a second small line, so a long bonus never
+ // wraps the label onto two lines and pushes the card's buttons past its bottom.
+ members.forEach((c,i)=>{const label=$('.slot-label',c);if(label){const parts=String(LINE[i]||String(i+1)).split(' · ');label.textContent=parts.slice(0,2).join(' · ');label.title=LINE[i]||'';label.classList.add(i<2?'front':'back');if(parts[2]&&!/^(전열|후열)$/.test(parts[2])){const bonus=mk('small','slot-bonus',parts.slice(2).join(' · '));(c.querySelector('.member-select')||label).after(bonus);}}});
  const locked=game.actionReason('FORMATION_SET',{order});
- const help=mk('p','muted shell-line-help',locked?'지금은 전투 대열을 바꿀 수 없습니다 · '+locked:'◀ ▶를 누르면 옆 동료와 자리를 바꿉니다(PC에서는 카드를 꾹 눌러 다른 카드 위로 끌어도 됩니다). 1·2번은 전열, 3·4번은 후열입니다. 근접 적은 전열을, 저격·기습형 적은 후열을 주로 노립니다.');grid.before(help);
- // ◀ ▶: trade places with the neighbour in battle order
- const swap=(a,b)=>{const x=order.indexOf(members[a].dataset.owner),y=order.indexOf(members[b].dataset.owner);if(x<0||y<0)return;const next=order.slice();[next[x],next[y]]=[next[y],next[x]];act('FORMATION_SET',{order:next});};
- members.forEach((c,i)=>{
-  const label=$('.slot-label',c),head=mk('div','shell-line-head'),move=(text,to,name)=>{const b=mk('button','shell-line-move',text);b.type='button';b.setAttribute('aria-label',name);const why=locked||(to<0||to>=members.length?(to<0?'이미 맨 앞입니다.':'이미 맨 뒤입니다.'):'');if(why||busy){b.disabled=true;if(why)withReason(b,why);}b.onclick=e=>{e.stopPropagation();swap(i,to);};return b;};
-  head.append(move('◀',i-1,'앞 자리와 바꾸기'));if(label)head.append(label);head.append(move('▶',i+1,'뒷 자리와 바꾸기'));c.prepend(head);
+ const help=mk('p','muted shell-line-help',locked?'지금은 전투 대열을 바꿀 수 없습니다 · '+locked:'자리 이름을 누른 뒤 바꿀 동료의 자리 이름을 누르면 두 동료가 자리를 바꿉니다. 1·2번은 전열, 3·4번은 후열입니다.');grid.before(help);
+ // 0.16.29 (user: 「◀▶이거 다 없애버려. 차라리 다른 버튼으로 두던가 … 센스있는거 없어?」): no arrows. Press a card's place
+ // (「2 · 전열」), then the place of the companion to trade with: the two trade places at once, at any distance. Pressing the
+ // first place again lets it go. A mouse can still drag a card onto another.
+ const swapWith=(from,to)=>{const x=order.indexOf(from),y=order.indexOf(to);if(x<0||y<0||x===y)return;const next=order.slice();[next[x],next[y]]=[next[y],next[x]];UI.swapFrom=null;act('FORMATION_SET',{order:next});};
+ if(!members.some(c=>c.dataset.owner===UI.swapFrom))UI.swapFrom=null;
+ // While one place is held, its button says so and every other place says it can take it.
+ const mark=()=>{for(const c of members){const from=c.dataset.owner===UI.swapFrom,to=!!UI.swapFrom&&!from;c.classList.toggle('swap-from',from);c.classList.toggle('swap-to',to);const b=$('.shell-line-place',c);if(!b)continue;b.setAttribute('aria-pressed',String(from));b.textContent=from?'바꿀 자리 고르기':to?'여기와 바꾸기':b.dataset.place;}};
+ members.forEach(c=>{
+  const label=$('.slot-label',c),head=mk('div','shell-line-head'),place=mk('button','shell-line-place'+(label?.classList.contains('back')?' back':' front'));place.type='button';
+  place.textContent=place.dataset.place=label?.textContent||'';place.title=(label?.title||place.textContent)+' · 눌러서 다른 동료와 자리 바꾸기';place.setAttribute('aria-label',place.textContent+' · 자리 바꾸기');
+  if(locked||busy||members.length<2){place.disabled=true;if(locked)withReason(place,locked);}
+  place.onclick=e=>{e.stopPropagation();const me=c.dataset.owner;if(!UI.swapFrom||UI.swapFrom===me){UI.swapFrom=UI.swapFrom===me?null:me;window.CRPGSound?.play?.('tab');mark();return;}swapWith(UI.swapFrom,me);};
+  // On a phone (user: 「폰은 편성도 ◀ ▶ 버튼을 좀 넓게 해서 누르기 편하게 편성을 바꿀 수 있게 해도 좋을듯?」) wide ◀ ▶ beside the
+  // place trade with the neighbour in one press; the computer screen hides them (screen_v01629.css).
+  const i=members.indexOf(c),move=(text,to,name)=>{const b=mk('button','shell-line-move',text);b.type='button';b.setAttribute('aria-label',name);const why=locked||(to<0||to>=members.length?(to<0?'이미 맨 앞입니다.':'이미 맨 뒤입니다.'):'');if(why||busy){b.disabled=true;if(why)withReason(b,why);}b.onclick=e=>{e.stopPropagation();swapWith(c.dataset.owner,members[to].dataset.owner);};return b;};
+  label?.remove();head.append(move('◀',i-1,'앞 자리와 바꾸기'),place,move('▶',i+1,'뒷 자리와 바꾸기'));c.prepend(head);
  });
+ mark();
  if(locked||members.length<2)return;
  for(const card of members){
   card.classList.add('shell-draggable');
@@ -65,7 +79,7 @@ function battleLine(p){
   card.addEventListener('dragstart',e=>e.preventDefault());for(const img of $$('img',card))img.draggable=false;
   card.addEventListener('pointerdown',e=>{
    // a finger scrolls (◀ ▶ move the cards); a mouse or pen may drag
-   if(e.pointerType==='touch'||e.button!==0||busy||e.target.closest('select,input,.formation-controls button,.shell-line-move'))return;
+   if(e.pointerType==='touch'||e.button!==0||busy||e.target.closest('select,input,.formation-controls button,.shell-line-place'))return;
    const start={x:e.clientX,y:e.clientY};let dragging=false,target=null;
    const hold=setTimeout(()=>{dragging=true;card.classList.add('dragging');try{card.setPointerCapture(e.pointerId);}catch{}window.CRPGSound?.play?.('tab');},220);
    const move=ev=>{

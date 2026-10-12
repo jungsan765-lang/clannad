@@ -104,7 +104,7 @@ check('who gets which picture: elements of characters and fighters, weapon kinds
 
 check('the screens use them: battle cards and skill buttons, the 캐릭터 screen, 편성, the floating 부착',()=>{
  const shell=src('app_shell.js');
- assert(shell.includes("const own=typeof CRPGIcons!=='undefined'?CRPGIcons.ofActor(a):null;if(own&&name&&!$('.own-element',name))name.prepend(CRPGIcons.element(own,'own-element'));"),'each fighter\'s element before its name');
+ assert(shell.includes("const own=typeof CRPGIcons!=='undefined'?CRPGIcons.ofActor(a):null,ownPic=own&&name&&!$('.own-element',name)?CRPGIcons.element(own,'own-element'):null;if(ownPic)name.prepend(ownPic);"),'each fighter\'s element before its name (0.16.29: only a real picture, never 「null」)');
  assert(shell.includes("badge=mk('span','shell-aura-badge aura-'+aura,pic?'부착':AURA_LABEL[aura]+' 부착');if(pic)badge.prepend(pic);"),'the aura badge: symbol + 부착');
  assert(shell.includes("pic=slot&&owner&&typeof CRPGIcons!=='undefined'?CRPGIcons.talent(owner,slot,'shell-card-glyph'):null;"),'skill buttons wear the talent pictures');
  assert(shell.includes("CRPGIcons.element(CRPGIcons.ofCharacter(c.dataset.owner),'shell-roster-element')"),'the character list');

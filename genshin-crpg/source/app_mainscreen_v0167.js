@@ -59,8 +59,11 @@ function pagePane(pane,key){
  for(const n of pane.querySelectorAll('[data-paged]')){n.hidden=false;delete n.dataset.paged;}
  const over=()=>pane.scrollHeight>pane.clientHeight+1;
  if(!pane.clientHeight||!over())return;
- const pager=mk('div','pane-pager'),prev=mk('button','pane-page','◀'),next=mk('button','pane-page','▶'),no=mk('span','pane-page-no');prev.type=next.type='button';prev.setAttribute('aria-label','이전');next.setAttribute('aria-label','다음');
- pager.append(prev,no,next);pane.append(pager);pane.classList.add('paged');
+ // 0.16.29 (user: 「◀▶이거 다 없애버려. 차라리 다른 버튼으로 두던가 … 센스있는거 없어?」): the pages are numbered buttons, one
+ // press to any page (like KanColle's lists); the wheel and a sideways swipe over the box turn them too.
+ const pager=mk('div','pane-pager');pager.setAttribute('role','tablist');pager.setAttribute('aria-label','쪽');
+ {const probe=mk('button','pane-page','1');probe.type='button';pager.append(probe);}// the row's height, for the room left above it
+ pane.append(pager);pane.classList.add('paged');
  const cs=getComputedStyle(pane),room=pane.clientHeight-(parseFloat(cs.paddingTop)||0)-(parseFloat(cs.paddingBottom)||0)-pager.getBoundingClientRect().height-(parseFloat(cs.rowGap)||0);
  const list=pieces(pane,room,[],[],[]),own=new Set(),take=(on,p)=>{for(const x of [...p.nodes,...p.wrap,...p.lead])on.add(x);return on;};
  for(const p of list)take(own,p);
@@ -72,12 +75,27 @@ function pagePane(pane,key){
  if(page.length)pages.push(on);
  if(pages.length<2){put(own);pager.remove();pane.classList.remove('paged');return;}
  let at=Math.min(pageOf[key]||0,pages.length-1);
- const draw=()=>{put(pages[at]);no.textContent=(at+1)+' / '+pages.length;prev.disabled=at<=0;next.disabled=at>=pages.length-1;pageOf[key]=at;};
- prev.onclick=()=>{at=Math.max(0,at-1);sfx('tab');draw();};next.onclick=()=>{at=Math.min(pages.length-1,at+1);sfx('tab');draw();};draw();
+ const draw=()=>{put(pages[at]);pageButtons(pager,pages.length,at,go);pageOf[key]=at;};
+ const go=i=>{i=Math.max(0,Math.min(pages.length-1,i));if(i===at)return;at=i;sfx('tab');draw();};
+ pane._turn=d=>go(at+d);draw();
 }
+// The numbered buttons of `count` pages with `at` shown: every number while they fit one short row, else the first, the
+// last and the three around the shown page with 「…」 between (like KanColle's lists).
+function pageButtons(pager,count,at,go){
+ const show=count<=7?[...Array(count).keys()]:[...new Set([0,at-1,at,at+1,count-1].filter(i=>i>=0&&i<count))].sort((a,b)=>a-b);
+ const out=[];let last=-1;
+ for(const i of show){if(i-last>1)out.push(mk('span','pane-page-gap','…'));const b=mk('button','pane-page'+(i===at?' on':''),String(i+1));b.type='button';b.setAttribute('role','tab');b.setAttribute('aria-label',(i+1)+'쪽');b.setAttribute('aria-selected',String(i===at));b.onclick=()=>go(i);out.push(b);last=i;}
+ pager.replaceChildren(...out);
+}
+// The wheel over a paged box, or a sideways swipe on it, turns its pages (the box itself never scrolls).
+document.addEventListener('wheel',e=>{const box=e.target?.closest?.('.paged');if(!box?._turn||e.target.closest('.terrain-viewport,dialog .terrain-viewport'))return;if(Math.abs(e.deltaY)<8&&Math.abs(e.deltaX)<8)return;const now=Date.now();if(now-(box._wheelAt||0)<260)return;box._wheelAt=now;box._turn((e.deltaY||e.deltaX)>0?1:-1);},{passive:true});
+document.addEventListener('pointerdown',e=>{const box=e.target?.closest?.('.paged');if(!box?._turn||e.pointerType==='mouse')return;const x=e.clientX,y=e.clientY;
+ const up=ev=>{removeEventListener('pointerup',up);const dx=ev.clientX-x,dy=ev.clientY-y;if(Math.abs(dx)>44&&Math.abs(dx)>Math.abs(dy)*1.5)box._turn(dx<0?1:-1);};addEventListener('pointerup',up);},{passive:true});
 function paginate(left){
  const side=left.querySelector('.shell-loc-side'),pane=side?.querySelector('.shell-pane:not([hidden])');if(!pane)return;
- const tab=side.querySelector('.shell-tab.active,.shell-tab[aria-selected="true"]')?.textContent?.trim()||'';
+ // 0.16.29 (user: 「뭘 누를 때마다 맨 위로 올라가는것도 개불편해」): the page is remembered under the tab itself, not its words
+ // (the words carry a count and 비경·지맥 / 지맥·보스 swap, so a new key went back to page 1 after every press).
+ const t=side.querySelector('.shell-tab.active,.shell-tab[aria-selected="true"]'),tab=t?.dataset.tab||t?.textContent?.trim()||'';
  pagePane(pane,(game?.s?.global?.CURRENT_MAP_ID||'')+'|'+tab);
 }
 function arrange(){const left=document.querySelector('.shell-loc-left');if(!left)return;compact(left);requestAnimationFrame(()=>paginate(left));}
@@ -88,6 +106,6 @@ document.addEventListener('click',e=>{if(e.target?.closest?.('.shell-loc-side .s
 // A folded list opened or closed in the column (리월의 지맥의 꽃 …): the same, so what it shows is paged too.
 document.addEventListener('toggle',e=>{if(e.target?.closest?.('.shell-loc-side .shell-pane')){const left=document.querySelector('.shell-loc-left');if(left)paginate(left);}},true);
 let resizeTimer=0;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{const left=document.querySelector('.shell-loc-left');if(left)paginate(left);},120);});
-window.CRPGMainScreen={arrange,paginate,pagePane};
+window.CRPGMainScreen={arrange,paginate,pagePane,pageButtons};
 })();
 

@@ -16,6 +16,10 @@ const ELEMENT_OF=id=>(/\[(불|물|얼음|번개|바람|바위|풀)\]/.exec(Strin
 function pickCompanion(n,current){
   const box=el('div','member-picker'),grid=el('div','member-pick-grid'),close=()=>document.getElementById('modal').close();
   box.append(el('p','muted',current?withJosa(ownerName(current),'과','와')+' 바꿀 동료를 고르세요. 편성에서 빠져도 장비는 각자 그대로 갖고 있습니다.':'이 칸에 넣을 동료를 고르세요.'));
+  // 0.16.29 (user: 「캐릭터 얼굴이 존나 안보이잖아」): the phone card is the face; this companion's 장비 변경 and 편성 해제 are here.
+  if(current){const row=el('div','member-pick-actions'),gearWhy=game.actionReason('MENU',{screen:'STATUS'});
+   const gear=button('장비 변경',()=>{close();window.CRPGShell?.focusGear?.(current);act('MENU',{screen:'STATUS'});},busy||!!gearWhy);if(gearWhy)gear.title=gearWhy;
+   const off=button('편성 해제',()=>{close();act('PARTY_REMOVE',{slot:n});},busy||!!game.actionReason('PARTY_REMOVE',{slot:n}));row.append(gear,off);box.append(row);}
   const list=game.ownedActors().filter(x=>x.id!=='PLAYER_CUSTOM'&&x.id!==current)
    .sort((a,b)=>Number(a.active)-Number(b.active)||(game.premiumRarity?.(b.id)||4)-(game.premiumRarity?.(a.id)||4)||Number(b.level)-Number(a.level)||a.name.localeCompare(b.name,'ko'));
   for(const x of list){
@@ -53,15 +57,21 @@ function formationLine(p){
 const roleLabel=t=>window.CRPGRuntime?.formationConfig?.roles?.[t]?.label||t;
 function formationChoice(p){
   const v=game.formationView?.();if(!v)return;
-  const box=el('section','card formation-choice');box.append(el('h2','','진형'),el('p','muted formation-help','파티 전체의 진형입니다. 동료 역할이 진형과 맞으면 시너지가 붙습니다.'));
-  const grid=el('div','formation-options');
+  // 0.16.29 (user: 「<> 버튼을 편성 진형에 넣을 필요는 없을 것 같아. 그건 좀 바꿀 필요가 있어보여. 센스있게좀 해줘」): the five
+  // formations are five name chips in one row, each with a dot that lights when the party's roles meet its synergy;
+  // only the chosen one's effect and synergy show under them, so the panel never needs pages.
+  const box=el('section','card formation-choice');box.append(el('h2','','진형'));
+  const grid=el('div','formation-options formation-chips');
   for(const f of v.formations){
     const why=game.actionReason('FORMATION_SET',{formation:f.id}),b=button('',()=>act('FORMATION_SET',{formation:f.id}),busy||f.selected||!!why);
-    b.className='formation-option'+(f.selected?' selected':'');b.setAttribute('aria-pressed',String(f.selected));if(why)b.title=why;
-    b.append(el('strong','',f.name+(f.selected?' ✓':'')),el('span','formation-effect',f.text),el('small','formation-synergy'+(f.synergyActive?' on':''),(f.synergyActive?'발동 · ':'')+f.synergy.text));b.title=f.motto;
-    grid.append(b);
+    b.className='formation-option'+(f.selected?' selected':'')+(f.synergyActive?' synergy':'');b.setAttribute('aria-pressed',String(f.selected));
+    b.title=f.name+' · '+f.text+' · '+(f.synergyActive?'시너지 발동 · ':'시너지 · ')+f.synergy.text+(why?' · '+why:'');
+    const dot=el('span','formation-dot'+(f.synergyActive?' on':''));dot.setAttribute('aria-hidden','true');
+    b.append(el('strong','',String(f.name).replace(/\s*진형$/,'')),dot);grid.append(b);
   }
-  box.append(grid);p.append(box);
+  const cur=v.formations.find(f=>f.selected)||v.formations[0],detail=el('div','formation-detail');
+  if(cur)detail.append(el('strong','',cur.name+' ✓'),el('span','formation-effect',cur.text),el('small','formation-synergy'+(cur.synergyActive?' on':''),(cur.synergyActive?'시너지 발동 · ':'시너지 조건 · ')+cur.synergy.text));
+  box.append(grid,detail);p.append(box);
 }
 function partyScreen(p){
   p.append(el('div','eyebrow','PARTY'),el('h1','','편성'),el('p','muted','함께 싸울 동료와 진형, 전투 대열, 동료 역할을 정합니다. 동료 칸을 누르면 그림을 보며 바꿀 수 있고, 편성에서 빠져도 동료의 장비는 그대로 남습니다.'));
@@ -75,16 +85,18 @@ function partyScreen(p){
     c.append(el('small','slot-label',n===1?'주인공':'동료 칸 '+(n-1)));
     // The protagonist's picture opens the character screen; a companion's opens the picker (장비 변경 is its own button).
     if(id){const worn=game.s.inventory.filter(i=>i.equip&&i.equipped&&i.owner===id).length,swap=n>1,who=button('',swap?()=>pickCompanion(n,id):()=>{window.CRPGShell?.focusGear?.(id);act('MENU',{screen:'STATUS'});},swap&&(busy||!!reason));who.className='member-select'+(swap?' swappable':'');if(swap&&reason)who.title=reason;
-     who.setAttribute('aria-label',ownerName(id)+(swap?' · 다른 동료로 바꾸기':' 장비 보기'));who.append(actorPortrait(id,'party-portrait'),el('strong','',ownerName(id)),el('small','muted',swap?'눌러서 동료 바꾸기 · 장비 '+worn+'개':'장비 '+worn+'개'));c.append(who);}
+     who.setAttribute('aria-label',ownerName(id)+(swap?' · 다른 동료로 바꾸기':' 장비 보기'));who.append(actorPortrait(id,'party-portrait'),el('strong','',ownerName(id)),el('small','muted','장비 '+worn+'개'));if(swap)who.title='눌러서 다른 동료로 바꾸기';c.append(who);}
     else{const add=button('',()=>pickCompanion(n,null),busy||!!reason);add.className='empty-slot member-add';if(reason)add.title=reason;add.setAttribute('aria-label','동료 칸 '+(n-1)+' · 동료 넣기');add.append(el('span','member-add-plus','+'),el('strong','','동료 넣기'));c.append(add);}
     if(n>1){
       const controls=el('div','formation-controls');
       if(id){
         // 0.15.25: the roles are buttons to press (no drop-down in the game, AGENTS.md).
-        controls.append(choiceTiles({label:ownerName(id)+' 역할',className:'role-choice',options:game.partyTactics().map(t=>({value:t,label:roleLabel(t)})),value:member.tactic,onChange:v=>act('PARTY_TACTIC',{slot:n,tactic:v})}));
+        // 0.16.29: five short chips in one row (균형·공격·생존·지원·연계); what each does rides on its title.
+        const roleText=t=>window.CRPGRuntime?.formationConfig?.roles?.[t]?.text||'';
+        controls.append(choiceTiles({label:ownerName(id)+' 역할',className:'role-choice',options:game.partyTactics().map(t=>({value:t,label:String(roleLabel(t)).replace(/\s*담당$/,''),title:roleLabel(t)+(roleText(t)?' · '+roleText(t):'')})),value:member.tactic,onChange:v=>act('PARTY_TACTIC',{slot:n,tactic:v})}));
         const effect=window.CRPGRuntime?.formationConfig?.roles?.[member.tactic||'균형']?.text;if(effect)controls.append(el('small','role-effect',effect));
         // v0.14.4: how often this companion's E/Q come back, and the awakening chance with the exclusive weapon.
-        const rhythm=game.skillRhythm?.(id);if(rhythm){const ch=game.resonanceChance?.(id)||0;controls.append(el('small','skill-rhythm','원소전투 스킬 '+rhythm.e+'차례 · 원소폭발 '+rhythm.q+'차례마다'+(ch?' · 공명 각성 '+Math.round(ch*100)+'%':'')));}
+        const rhythm=game.skillRhythm?.(id);if(rhythm){const ch=game.resonanceChance?.(id)||0;const line=el('small','skill-rhythm','E '+rhythm.e+'차례 · Q '+rhythm.q+'차례마다'+(ch?' · 공명 '+Math.round(ch*100)+'%':''));line.title='원소전투 스킬 '+rhythm.e+'차례 · 원소폭발 '+rhythm.q+'차례마다'+(ch?' · 공명 각성 '+Math.round(ch*100)+'%':'');controls.append(line);}
         // 0.15.17 (user: 장비 변경 above 편성 해제): opens the character screen on this member.
         const gearWhy=game.actionReason('MENU',{screen:'STATUS'}),gear=button('장비 변경',()=>{window.CRPGShell?.focusGear?.(id);act('MENU',{screen:'STATUS'});},busy||!!gearWhy);if(gearWhy)gear.title=gearWhy;gear.classList.add('party-gear');controls.append(gear);
         controls.append(button('편성 해제',()=>confirmPartyRemoval(id,()=>act('PARTY_REMOVE',{slot:n})),busy||!!game.actionReason('PARTY_REMOVE',{slot:n})));

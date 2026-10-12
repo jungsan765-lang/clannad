@@ -66,15 +66,18 @@ function pageRoster(){
  const col=list.parentElement,items=[...list.children].filter(n=>n.classList.contains('shell-roster-item'));
  col.querySelector(':scope>.roster-pager')?.remove();list.classList.remove('paged');for(const it of items)it.hidden=false;
  if(items.length<2)return;
- const gap=parseFloat(getComputedStyle(list).rowGap)||6,h=items[0].getBoundingClientRect().height+gap,room=col.clientHeight-12;
- if(!h||items.length*h<=room)return;
- const per=Math.max(2,Math.floor((room-40)/h)),pages=Math.ceil(items.length/per),active=Math.max(0,items.findIndex(i=>i.classList.contains('active')));
+ // 0.16.29: the roster may be a grid of faces (screen_v01629.css): a page holds its rows times its columns.
+ const cs=getComputedStyle(list),gap=parseFloat(cs.rowGap)||6,h=Math.max(...items.map(i=>i.getBoundingClientRect().height))+gap,room=col.clientHeight-12;
+ const cols=cs.display==='grid'?Math.max(1,cs.gridTemplateColumns.split(' ').filter(Boolean).length):1;
+ if(!h||Math.ceil(items.length/cols)*h<=room)return;
+ const per=Math.max(2,Math.floor((room-44)/h)*cols),pages=Math.ceil(items.length/per),active=Math.max(0,items.findIndex(i=>i.classList.contains('active')));
  if(page===null||page>=pages||Math.floor(active/per)!==page&&!pageRoster.keep)page=Math.floor(active/per);pageRoster.keep=false;
- const pager=mk('div','roster-pager'),up=mk('button','roster-page','▲'),down=mk('button','roster-page','▼'),label=mk('span','roster-page-no');
- up.type=down.type='button';up.setAttribute('aria-label','이전 캐릭터들');down.setAttribute('aria-label','다음 캐릭터들');
- const draw=()=>{items.forEach((it,k)=>{it.hidden=Math.floor(k/per)!==page;});label.textContent=(page+1)+' / '+pages;up.disabled=page<=0;down.disabled=page>=pages-1;};
- up.onclick=()=>{page=Math.max(0,page-1);pageRoster.keep=true;sfx('tab');draw();};down.onclick=()=>{page=Math.min(pages-1,page+1);pageRoster.keep=true;sfx('tab');draw();};
- pager.append(up,label,down);list.classList.add('paged');col.append(pager);draw();
+ // 0.16.29 (user: 「◀▶이거 다 없애버려. 차라리 다른 버튼으로 두던가」): numbered buttons, one press to any page; the wheel and a
+ // swipe over the list turn it too.
+ const pager=mk('div','roster-pager pane-pager');
+ const draw=()=>{items.forEach((it,k)=>{it.hidden=Math.floor(k/per)!==page;});window.CRPGMainScreen?.pageButtons?.(pager,pages,page,go);};
+ const go=i=>{i=Math.max(0,Math.min(pages-1,i));if(i===page)return;page=i;pageRoster.keep=true;sfx('tab');draw();};
+ list._turn=d=>go(page+d);list.classList.add('paged');col.append(pager);draw();
 }
 addEventListener('resize',()=>{if(document.body.dataset.shellScreen==='STATUS')pageRoster();});
 
