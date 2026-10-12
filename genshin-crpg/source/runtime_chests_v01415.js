@@ -9,10 +9,16 @@
 (function(root){
 'use strict';
 const api=root.CRPGRuntime,P=api.Runtime.prototype,fail=(c,m)=>{throw new api.RuleError(c,m);};
-const old=Object.fromEntries(['actionReason','apply','validateSave','newGame'].map(k=>[k,P[k]]));
-const TIER={COMMON:{name:'평범한 보물상자',icon:'common'},EXQUISITE:{name:'정교한 보물상자',icon:'exquisite'},LUXURIOUS:{name:'화려한 보물상자',icon:'luxurious'}};
+const old=Object.fromEntries(['actionReason','apply','validateSave','newGame','startBattle','finishBattle','fieldBattlePolicy'].map(k=>[k,P[k]]));
+// 0.16.33: the 진귀한 보물상자 (HoYoLAB map's official name) sits between 정교한 and 화려한, as in the game.
+const TIER={COMMON:{name:'평범한 보물상자',icon:'common'},EXQUISITE:{name:'정교한 보물상자',icon:'exquisite'},PRECIOUS:{name:'진귀한 보물상자',icon:'precious'},LUXURIOUS:{name:'화려한 보물상자',icon:'luxurious'}};
 const GAME={SPOT:'틀린 그림 찾기',SWAP:'그림 맞추기',SLIDE:'밀어서 그림 맞추기',SUDOKU:'스도쿠',LIGHTS:'석판 밝히기'};
-const HOW={SCENERY:'풍경',SCENERY_NIGHT:'밤 풍경',MENU:'페이몬 메뉴',MAP:'지도',SETTINGS:'설정',WISH:'기원',HANDBOOK:'모험가 핸드북',BAG:'가방',STATUS:'캐릭터 화면'};
+const HOW={SCENERY:'풍경',SCENERY_NIGHT:'밤 풍경',MENU:'페이몬 메뉴',MAP:'지도',SETTINGS:'설정',WISH:'기원',HANDBOOK:'모험가 핸드북',BAG:'가방',STATUS:'캐릭터 화면',
+ CHALLENGE:'도전',TOTEM:'원소 비석',SCENERY_DAWN:'새벽 풍경',SCENERY_NOON:'한낮 풍경',SCENERY_DUSK:'노을 풍경'};
+// The hours a time chest shows in the scenery (the world's clock; 「1시간 대기」 brings them).
+const TIMES={SCENERY_DAWN:[5,8,'새벽(5시~8시)'],SCENERY_NOON:[11,14,'한낮(11시~14시)'],SCENERY_DUSK:[17,19,'노을(17시~19시)']};
+const ELEMENT_NAME={PYRO:'불',HYDRO:'물',ANEMO:'바람',ELECTRO:'번개',CRYO:'얼음',GEO:'바위',DENDRO:'풀'};
+const CH_ORIGIN='CHEST:';
 // Puzzle sizes: Mond is the gentle region, Liyue the harder one.
 const LEVEL={MOND:{SPOT:3,SWAP:3,SUDOKU:4,LIGHTS:3},LIYUE:{SPOT:5,SLIDE:3,SUDOKU:6,LIGHTS:4}};
 const M_ITEMS=[{MAT_CHAR_EXP_ADVENTURER:1},{ORE_WHITE_IRON:2},{ORE_CRYSTAL:1}],L_ITEMS=[{MAT_CHAR_EXP_ADVENTURER:2},{ORE_CRYSTAL:2},{MAT_CHAR_EXP_HERO:1}];
@@ -42,8 +48,38 @@ const LIYUE_HIDDEN=[
  hidden('LIYUE','MAP_LY_DETAIL_NANTIANMEN','BAG','LUXURIOUS',40),
  hidden('LIYUE','MAP_LY_DETAIL_DUNYU','STATUS','LUXURIOUS',40),
  hidden('LIYUE','MAP_LY_DETAIL_TIANQIU','SCENERY_NIGHT','LUXURIOUS',40)];
+// 0.16.33 (TODO 4-7, user: 「4장 하면서 이거 다 개선해」): 24 more chests in each region, about twice as many, and more 원석
+// (Mond 580→1,210, Liyue 690→1,435). Three new kinds, all found in the place's scenery (V) and never named on any list:
+//  - 도전 상자: a fight against the place's monsters; won within its rounds, the chest appears there to be opened.
+//  - 원소 비석 상자: stones of elements; each is lit by a party member of that element, so the party has to be brought.
+//  - 때를 맞춘 상자: seen only at dawn, at noon or at dusk (the night ones already existed).
+// Rounds: about what a level-matched 4★ party with the place's gear needs (fights of tests/test_chests_v01633.cjs).
+const challenge=(region,map,rounds,primogem,mora,items)=>({region,map,game:null,tier:'PRECIOUS',how:'CHALLENGE',kind:'CHALLENGE',rounds,reward:{primogem,mora,items}});
+const totem=(region,map,elements,primogem,mora,items)=>({region,map,game:null,tier:'PRECIOUS',how:'TOTEM',kind:'TOTEM',totem:elements,reward:{primogem,mora,items}});
+const timed=(region,map,how,tier,primogem,mora,items)=>({region,map,game:null,tier,how,kind:'TIME',reward:{primogem,mora,items}});
+const MOND_NEW=[
+ ...[['MAP_MOND_PLAINS',3],['MAP_MOND_FOREST',3],['MAP_MOND_WINDRISE',4],['MAP_V141_STORMBEARER_PASS',7],['MAP_MOND_WOLVENDOM',7],['MAP_CRPG_SWORD_CEMETERY',6],['MAP_CRPG_ENTOMBED_OUTSKIRTS',6],['MAP_CRPG_LAIR_WEST_RUINS',5]]
+  .map(([map,rounds],i)=>challenge('MOND',map,rounds,25,1500,M_ITEMS[i%3])),
+ ...[['MAP_CRPG_WHISPER_HUNT',['PYRO','CRYO']],['MAP_CRPG_STORMBEARER_MOUNTAINS',['ELECTRO','PYRO']],['MAP_CRPG_STORMBEARER_POINT',['CRYO','ELECTRO','PYRO']],['MAP_CRPG_DADAUPA_GORGE',['PYRO','HYDRO']],
+   ['MAP_V141_THOUSAND_RAVINE',['CRYO','GEO']],['MAP_CRPG_BRIGHTCROWN_CANYON',['ELECTRO','CRYO','HYDRO']],['MAP_CRPG_WYRMREST_VALLEY',['PYRO','CRYO','GEO']],['MAP_CRPG_LAIR_EAST_RUINS',['ANEMO','ELECTRO','PYRO']]]
+  .map(([map,elements],i)=>totem('MOND',map,elements,30,1800,M_ITEMS[(i+1)%3])),
+ timed('MOND','MAP_MOND_CITY','SCENERY_DAWN','EXQUISITE',20,1200,M_ITEMS[0]),timed('MOND','MAP_MOND_SPRINGVALE','SCENERY_NOON','COMMON',15,1000,M_ITEMS[1]),
+ timed('MOND','MAP_MOND_DAWN_WINERY','SCENERY_DUSK','LUXURIOUS',40,2500,{MAT_CHAR_EXP_HERO:1}),timed('MOND','MAP_CRPG_FALCON_COAST','SCENERY_DAWN','EXQUISITE',20,1200,M_ITEMS[2]),
+ timed('MOND','MAP_CRPG_STARFELL_LAKE','SCENERY_DUSK','EXQUISITE',20,1200,M_ITEMS[0]),timed('MOND','MAP_V141_MUSK_REEF','SCENERY_NOON','PRECIOUS',30,1800,M_ITEMS[1]),
+ timed('MOND','MAP_CRPG_DAWN_BANK','SCENERY_DAWN','COMMON',15,1000,M_ITEMS[2]),timed('MOND','MAP_MOND_TEMPLE_LION','SCENERY_DUSK','PRECIOUS',30,1800,M_ITEMS[0])];
+const LIYUE_NEW=[
+ ...[['MAP_LIYUE_PLAINS',4],['MAP_LY_DETAIL_DIHUA',4],['MAP_LY_DETAIL_GUILI',5],['MAP_LY_DETAIL_YAOGUANG',5],['MAP_LY_DETAIL_HULAO',5],['MAP_LY_DETAIL_LINGJU',6],['MAP_LY_DETAIL_CHASM_GATE',7],['MAP_V141_GUYUN_WRECK',5]]
+  .map(([map,rounds],i)=>challenge('LIYUE',map,rounds,30,2500,L_ITEMS[i%3])),
+ ...[['MAP_LY_DETAIL_MINGYUN',['GEO','ELECTRO']],['MAP_LY_DETAIL_LUHUA',['HYDRO','GEO','CRYO']],['MAP_LY_DETAIL_TIANHENG',['GEO','PYRO','HYDRO']],['MAP_LIYUE_JUEYUN',['ANEMO','GEO','CRYO']],
+   ['MAP_LY_DETAIL_AOCANG',['CRYO','HYDRO','ELECTRO','GEO']],['MAP_LY_DETAIL_HUAGUANG',['PYRO','ELECTRO','GEO','HYDRO']],['MAP_LY_DETAIL_CHASM_RIM',['GEO','PYRO','CRYO','ELECTRO']],['MAP_V141_GUYUN_CHANNEL',['HYDRO','ANEMO','GEO','PYRO']]]
+  .map(([map,elements],i)=>totem('LIYUE',map,elements,35,3000,L_ITEMS[(i+1)%3])),
+ timed('LIYUE','MAP_LY_DETAIL_WHARF','SCENERY_DAWN','EXQUISITE',25,2000,L_ITEMS[0]),timed('LIYUE','MAP_LY_DETAIL_CHIHU','SCENERY_DUSK','PRECIOUS',30,2500,L_ITEMS[1]),
+ timed('LIYUE','MAP_LIYUE_QINGCE','SCENERY_NOON','EXQUISITE',25,2000,L_ITEMS[2]),timed('LIYUE','MAP_LY_DETAIL_QINGCE_FIELDS','SCENERY_DUSK','LUXURIOUS',40,4000,{MAT_CHAR_EXP_HERO:2}),
+ timed('LIYUE','MAP_LY_DETAIL_SHIMEN','SCENERY_DAWN','COMMON',20,1500,L_ITEMS[0]),timed('LIYUE','MAP_LY_DETAIL_WANGSHU','SCENERY_NOON','PRECIOUS',30,2500,L_ITEMS[1]),
+ timed('LIYUE','MAP_LY_DETAIL_NORTH_GATE','SCENERY_DAWN','EXQUISITE',25,2000,L_ITEMS[2]),timed('LIYUE','MAP_CRPG_LIYUE_BANK','SCENERY_DUSK','PRECIOUS',30,2500,L_ITEMS[0])];
 const CHESTS=[...MOND_PUZZLES.map((c,i)=>({...c,id:'CHEST_M'+String(i+1).padStart(2,'0')})),...MOND_HIDDEN.map((c,i)=>({...c,id:'CHEST_M'+String(i+19)})),
- ...LIYUE_PUZZLES.map((c,i)=>({...c,id:'CHEST_L'+String(i+1).padStart(2,'0')})),...LIYUE_HIDDEN.map((c,i)=>({...c,id:'CHEST_L'+String(i+19)}))];
+ ...LIYUE_PUZZLES.map((c,i)=>({...c,id:'CHEST_L'+String(i+1).padStart(2,'0')})),...LIYUE_HIDDEN.map((c,i)=>({...c,id:'CHEST_L'+String(i+19)})),
+ ...MOND_NEW.map((c,i)=>({...c,id:'CHEST_M'+String(i+25)})),...LIYUE_NEW.map((c,i)=>({...c,id:'CHEST_L'+String(i+25)}))];
 const BY_ID=new Map(CHESTS.map(c=>[c.id,c]));
 // ---------- deterministic randomness ----------
 function hash(str){let h=2166136261;for(const ch of String(str)){h^=ch.codePointAt(0);h=Math.imul(h,16777619);}return h>>>0;}
@@ -124,41 +160,107 @@ P.chestReason=function(id){
  if(this.s.lifeJob||this.s.worldJob)return '하고 있는 일을 마친 뒤 열 수 있습니다.';
  if(this.s.global.CURRENT_MAP_ID!==c.map)return '이 보물상자가 있는 곳에 가야 열 수 있습니다.';
  if((c.how==='SCENERY_NIGHT'||c.night)&&!this.chestNight())return '밤(19시~5시)에만 보이는 보물상자입니다.';
+ if(TIMES[c.how]&&!this.chestHourOk(c))return TIMES[c.how][2]+'에만 보이는 보물상자입니다.';
  return '';
 };
+// 0.16.33: the world's hour against a time chest's window.
+P.chestHourOk=function(c){const t=TIMES[c?.how];if(!t)return true;const h=Number(String(this.s.global.WORLD_TIME||'12:00').split(':')[0]);return h>=t[0]&&h<t[1];};
+// A challenge won within its rounds leaves its chest standing there (until it is opened).
+P.chestWon=function(id){return !!this.s.chests?.won?.[id];};
+// Who of the party can light a stone: each active member and their element (the traveller's chosen one; the 이세계인 has none).
+P.chestPartyElements=function(){
+ const out=[];for(const slot of this.s.party||[]){if(!slot?.active||!slot.source)continue;const id=slot.source;
+  let element=null;if(slot.type==='PLAYER'){if(this.s.global.STORY_ROUTE_ID==='ROUTE_TRAVELER')element=this.travelerElement?.()||'ANEMO';}
+  else{const tag=String(this.tables['07_CHAR_DB']?.get(id)?.[3]||'').match(/\[(불|물|얼음|번개|바람|바위|풀)\]/)?.[1];element=Object.keys(ELEMENT_NAME).find(k=>ELEMENT_NAME[k]===tag)||null;}
+  out.push({id,element});}
+ return out;
+};
+// Why the stones cannot all be lit with this party ('' = they can).
+P.chestTotemReason=function(c){const have=new Set(this.chestPartyElements().map(m=>m.element).filter(Boolean));const lack=[...new Set(c.totem.filter(e=>!have.has(e)))];return lack.length?'파티에 '+lack.map(e=>ELEMENT_NAME[e]).join('·')+' 원소 동료가 있어야 비석을 밝힐 수 있습니다.':'';};
 const rewardText=(r,c)=>{const parts=['원석 '+c.reward.primogem+'개',c.reward.mora.toLocaleString('ko-KR')+' 모라'];for(const [id,n] of Object.entries(c.reward.items))parts.push((r.tables['14_ITEM_DB'].get(id)?.[1]||id)+' '+n+'개');return parts.join(' · ');};
+// The scenery (V) shows the place's own chests: the old two kinds and, since 0.16.33, the challenge device, the stones and the time chests.
+const SCENE_HOWS=new Set(['SCENERY','SCENERY_NIGHT','CHALLENGE','TOTEM','SCENERY_DAWN','SCENERY_NOON','SCENERY_DUSK']);
 P.chestView=function(c){
- const pos=c.how==='SCENERY'||c.how==='SCENERY_NIGHT'?place(c):null;
- return {id:c.id,region:c.region,map:c.map,mapName:this.tables['32_MAP_DB'].get(c.map)?.[2]||c.map,tier:c.tier,tierName:TIER[c.tier].name,icon:TIER[c.tier].icon,
-  game:c.game,gameName:c.game?GAME[c.game]:'',how:c.how,howName:HOW[c.how],hidden:!c.game,night:c.how==='SCENERY_NIGHT'||!!c.night,spot:c.spot||null,pos,
+ const pos=SCENE_HOWS.has(c.how)?place(c):null;
+ const v={id:c.id,region:c.region,map:c.map,mapName:this.tables['32_MAP_DB'].get(c.map)?.[2]||c.map,tier:c.tier,tierName:TIER[c.tier].name,icon:TIER[c.tier].icon,
+  game:c.game,gameName:c.game?GAME[c.game]:'',how:c.how,howName:HOW[c.how],hidden:!c.game&&!c.kind,night:c.how==='SCENERY_NIGHT'||!!c.night,spot:c.spot||null,pos,kind:c.kind||null,
   reward:{primogem:c.reward.primogem,mora:c.reward.mora,items:{...c.reward.items},text:rewardText(this,c)},opened:this.chestOpened(c.id),reason:this.chestReason(c.id)};
+ if(c.kind==='CHALLENGE'){v.rounds=c.rounds;v.won=this.chestWon(c.id);}
+ if(c.kind==='TOTEM'){v.totem=c.totem.map(e=>({element:e,name:ELEMENT_NAME[e]}));v.party=this.chestPartyElements();v.totemReason=this.chestTotemReason(c);}
+ if(TIMES[c.how])v.timeName=TIMES[c.how][2];
+ return v;
 };
 // The chests a screen should show right now: here, unopened, and visible at this hour.
-P.chestsHere=function(how){return CHESTS.filter(c=>c.map===this.s.global.CURRENT_MAP_ID&&(!how||c.how===how||how==='SCENERY'&&c.how==='SCENERY_NIGHT')&&!this.chestOpened(c.id)&&!this.chestReason(c.id)).map(c=>this.chestView(c));};
+P.chestsHere=function(how){return CHESTS.filter(c=>c.map===this.s.global.CURRENT_MAP_ID&&(!how||c.how===how||how==='SCENERY'&&SCENE_HOWS.has(c.how))&&!this.chestOpened(c.id)&&!this.chestReason(c.id)).map(c=>this.chestView(c));};
 // The handbook's treasure page: how many chests each region holds and how many are found, never where.
 P.chestJournal=function(){
  return ['MOND','LIYUE'].map(region=>{
   const list=CHESTS.filter(c=>c.region===region),open=list.filter(c=>this.chestOpened(c.id)),count=f=>({found:open.filter(f).length,total:list.filter(f).length});
   return {region,name:region==='MOND'?'몬드':'리월',found:open.length,total:list.length,primogem:list.reduce((n,c)=>n+c.reward.primogem,0),gained:open.reduce((n,c)=>n+c.reward.primogem,0),
-   puzzles:count(c=>!!c.game),hidden:count(c=>!c.game),tiers:Object.keys(TIER).map(t=>({tier:t,name:TIER[t].name,icon:TIER[t].icon,...count(c=>c.tier===t)})).filter(t=>t.total)};});
+   puzzles:count(c=>!!c.game),hidden:count(c=>!c.game&&!c.kind),challenge:count(c=>c.kind==='CHALLENGE'),totem:count(c=>c.kind==='TOTEM'),time:count(c=>c.kind==='TIME'),
+   tiers:Object.keys(TIER).map(t=>({tier:t,name:TIER[t].name,icon:TIER[t].icon,...count(c=>c.tier===t)})).filter(t=>t.total)};});
+};
+// A challenge chest not yet won starts its fight: one of the place's own groups, picked by the chest (the same each time).
+P.chestChallengeStart=function(c){
+ const m=this.tables['32_MAP_DB'].get(c.map);let rows=[];try{rows=this.encounterPoolRows?.(m)||[];}catch{}
+ if(!rows.length)fail('CHEST','이곳에는 도전할 상대가 없습니다.');
+ const group=rows[hash(c.id+'|group')%rows.length][5];
+ this._chestChallenge={id:c.id,rounds:c.rounds};try{this.startBattle(group,CH_ORIGIN+c.id);}finally{this._chestChallenge=null;}
+ if(!this.s.runtime?.chestChallenge)fail('CHEST','도전을 시작하지 못했습니다.');
+ return {chest:c.id,challenge:true,outcome:'BATTLE',rounds:c.rounds};
 };
 P.chestOpen=function(id,answer){
  const why=this.chestReason(id);if(why)fail('CHEST',why);const c=BY_ID.get(id);
+ if(c.kind==='CHALLENGE'&&!this.chestWon(id))return this.chestChallengeStart(c);
+ if(c.kind==='TOTEM'){
+  // `answer` names who lit each stone, in the stones' order: someone in the party now, of that stone's element.
+  const party=this.chestPartyElements();
+  if(!Array.isArray(answer)||answer.length!==c.totem.length||!answer.every((who,i)=>party.some(m=>m.id===who&&m.element===c.totem[i])))fail('CHEST',this.chestTotemReason(c)||'비석이 아직 모두 밝혀지지 않았습니다.');
+ }
  if(c.game&&!CHECK[c.game](this.chestPuzzle(id),answer))fail('CHEST','퍼즐이 아직 풀리지 않았습니다.');
  const g=this.s.global,w=c.reward;g.PRIMOGEM=(Number(g.PRIMOGEM)||0)+w.primogem;g.MORA=(Number(g.MORA)||0)+w.mora;
  for(const [item,n] of Object.entries(w.items))this.giveItem(item,n);
- this.chestState().opened[id]={day:Number(g.WORLD_DAY)||1};
+ const st=this.chestState();st.opened[id]={day:Number(g.WORLD_DAY)||1};
+ if(st.won?.[id]){delete st.won[id];if(!Object.keys(st.won).length)delete st.won;}
  const list=CHESTS.filter(x=>x.region===c.region);
  return {chest:id,tier:c.tier,tierName:TIER[c.tier].name,icon:TIER[c.tier].icon,primogem:w.primogem,mora:w.mora,items:{...w.items},found:list.filter(x=>this.chestOpened(x.id)).length,total:list.length,region:c.region};
 };
 P.actionReason=function(type,a={}){if(type==='CHEST_OPEN')return this.chestReason(a.chest);return old.actionReason.call(this,type,a);};
 P.apply=function(a){if(a.type==='CHEST_OPEN')return this.chestOpen(String(a.chest||''),a.answer);return old.apply.call(this,a);};
+// ---------- 0.16.33 the challenge fight ----------
+// Counted like the place's own fights for the party-size balance (as the regional events' fights are).
+P.fieldBattlePolicy=function(groupRow,origin,allies,members){return old.fieldBattlePolicy.call(this,groupRow,String(origin).startsWith(CH_ORIGIN)?'RANDOM':origin,allies,members);};
+P.startBattle=function(group,origin='EXPLICIT',...rest){
+ const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime,e=this._chestChallenge;
+ if(!b||b===before||!e||!String(origin).startsWith(CH_ORIGIN))return out;
+ b.chestChallenge={version:1,chest:e.id,rounds:e.rounds};
+ b.log.push({card:'CHEST_CHALLENGE',cardName:'도전',text:'도전 · '+e.rounds+'라운드 안에 모두 쓰러뜨리세요!',round:b.round});
+ if(b.encounter){b.encounter.label='도전 · '+e.rounds+'라운드 안에';b.encounter.text=e.rounds+'라운드 안에 모두 쓰러뜨리면 보물상자가 나타납니다. 늦게 이기거나 지면 상자는 나오지 않고, 다시 도전할 수 있습니다.';}
+ return out;
+};
+// Won within the rounds: the chest stands there, ready to be opened. Too slow or lost: try again.
+P.finishBattle=function(victory){
+ const b=this.s.runtime,e=b?.chestChallenge?{...b.chestChallenge}:null,round=Number(b?.round)||0,result=old.finishBattle.call(this,victory);
+ if(!e||!result||typeof result!=='object')return result;
+ const c=BY_ID.get(e.chest),won=!!victory&&round<=e.rounds&&!!c&&!this.chestOpened(e.chest);
+ if(won){const st=this.chestState();st.won??={};st.won[e.chest]={day:Number(this.s.global.WORLD_DAY)||1,rounds:round};}
+ const info={chest:e.chest,limit:e.rounds,rounds:round,victory:!!victory,won,tier:c?.tier||null,tierName:c?TIER[c.tier].name:'',icon:c?TIER[c.tier].icon:'common'};
+ const key=result.battleId||result.id,add=x=>{if(x&&typeof x==='object')x.chestChallenge={...info};};
+ add(result);if(this.s.combatReceipts?.[key]&&this.s.combatReceipts[key]!==result)add(this.s.combatReceipts[key]);
+ let settled=null;try{settled=JSON.parse(this.s.global.LAST_BATTLE_RESULT_JSON||'null');}catch{}
+ if(settled&&(settled.battleId||settled.id)===key){add(settled);this.s.global.LAST_BATTLE_RESULT_JSON=JSON.stringify(settled);}
+ return result;
+};
 P.validateSave=function(s){
  const out=old.validateSave.call(this,s),c=out.chests;
  if(c!==undefined){
   if(!c||typeof c!=='object'||c.version!==1||!c.opened||typeof c.opened!=='object'||Array.isArray(c.opened))fail('CHEST_SAVE','보물상자 기록이 손상되었습니다.');
   for(const [id,v] of Object.entries(c.opened))if(!BY_ID.has(id)||!v||!Number.isInteger(v.day)||v.day<1)fail('CHEST_SAVE','보물상자 기록이 손상되었습니다.');
+  if(c.won!==undefined){if(!c.won||typeof c.won!=='object'||Array.isArray(c.won))fail('CHEST_SAVE','보물상자 기록이 손상되었습니다.');
+   for(const [id,v] of Object.entries(c.won))if(BY_ID.get(id)?.kind!=='CHALLENGE'||c.opened[id]||!v||!Number.isInteger(v.day)||v.day<1||!Number.isInteger(v.rounds)||v.rounds<0)fail('CHEST_SAVE','보물상자 기록이 손상되었습니다.');}
  }
+ const r=out.runtime?.chestChallenge;
+ if(r!==undefined&&(!r||r.version!==1||BY_ID.get(r.chest)?.kind!=='CHALLENGE'||!Number.isInteger(r.rounds)||r.rounds<1))fail('CHEST_SAVE','보물상자 도전 기록이 손상되었습니다.');
  return out;
 };
 })(globalThis);

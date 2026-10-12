@@ -30,12 +30,12 @@ function compact(left){
 // filled by the real layout, piece by piece: the pane's cards in order; a card taller than the room broken into its own
 // rows (its heading riding along on each of its pages); a grid of facilities broken into rows of tiles. A domain's gate,
 // a button or a line of words is one piece and is never split (the stylesheet makes the gate fit).
-const WHOLE='.domain-gate,.task-mini,.region-event,.ley-line-item,.shell-place-tile,button,a,label,svg,img,canvas,video,input,textarea,p,h1,h2,h3,h4,h5,summary,li';
+const WHOLE='.domain-gate,.task-mini,.region-event,.ley-line-item,.shell-place-tile,.ch-journal-fact,.ch-journal-tier,button,a,label,svg,img,canvas,video,input,textarea,p,h1,h2,h3,h4,h5,summary,li';
 function breakable(k){
  if(k.matches(WHOLE)||!k.children.length||[...k.childNodes].some(n=>n.nodeType===3&&n.textContent.trim()))return false;
  return [...k.children].every(c=>getComputedStyle(c).display!=='inline');
 }
-const CARD='.card,article,.journal-card,.region-event,.discovery-card,.task-mini,.domain-gate';let eager=false;// the handbook's lists fill each page row by row
+const CARD='.card,article,.journal-card,.region-event,.discovery-card,.task-mini,.domain-gate,.ch-journal-fact,.ch-journal-tier,.ch-journal';let eager=false;// the handbook's lists fill each page row by row
 const isHead=h=>!!h&&(h.tagName==='SUMMARY'||/^H\d$/.test(h.tagName)||/(^|[\s_-])[a-z]*head\b/.test(h.className||''));
 // Children side by side (a grid's row: a label and its value, tiles) stay together on one page.
 function rowsOf(kids){const rows=[];let top=null;for(const c of kids){const t=Math.round(c.getBoundingClientRect().top);if(rows.length&&Math.abs(t-top)<=2)rows[rows.length-1].push(c);else{rows.push([c]);top=t;}}return rows;}
@@ -72,10 +72,21 @@ function pagePane(pane,key){
  for(const p of list)take(own,p);
  // Shows exactly one page's pieces, with the cards around them and their headings.
  const put=on=>{for(const x of own){const v=on.has(x);if(x.hidden===v)x.hidden=!v;if(v)delete x.dataset.paged;else x.dataset.paged='1';}};
- const pages=[];let page=[],on=new Set();
- for(const p of list){const next=take(new Set(on),p);put(next);
-  if(page.length&&over()){pages.push(on);page=[p];on=take(new Set(),p);}else{page.push(p);on=next;}}
- if(page.length)pages.push(on);
+ // 0.16.33: a whole card that does not fit the room left waits for the next page, and a later whole card that fits fills
+ // the room instead (a page stood a third empty over a tall event card). Rows of a card split across pages keep their order.
+ // Only in a column of stacked cards: in a grid or a row the pieces are places in one flow, and moving one moves the rest.
+ const stacked=/^(block|flow-root)$/.test(cs.display)||/flex/.test(cs.display)&&cs.flexDirection.startsWith('column');
+ const queue=list.slice(),pages=[];
+ while(queue.length){
+  let on=new Set(),placed=0,missed=false;
+  for(let i=0;i<queue.length;){
+   const p=queue[i];if(missed&&p.wrap.length){i++;continue;}
+   const next=take(new Set(on),p);put(next);
+   if(placed&&over()){put(on);if(p.wrap.length||!stacked)break;missed=true;i++;continue;}
+   on=next;placed++;queue.splice(i,1);
+  }
+  pages.push(on);
+ }
  if(pages.length<2){put(own);pager.remove();pane.classList.remove('paged');return;}
  let at=Math.min(pageOf[key]||0,pages.length-1);
  const draw=()=>{put(pages[at]);pageButtons(pager,pages.length,at,go);pageOf[key]=at;};

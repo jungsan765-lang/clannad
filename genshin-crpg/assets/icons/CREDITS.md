@@ -207,6 +207,14 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 
 원본 위치: https://genshin-impact.fandom.com/wiki/File:Item_Common_Chest.png (나머지 둘도 같은 형식의 파일 페이지).
 
+0.16.33 `chest_precious.webp` (진귀한 보물상자): 위키에는 같은 형식의 그림이 없어(`Item_Precious_Chest.png`는 다른 이벤트 상자로 넘어간다) HoYoLAB 공식 티바트 지도의 「진귀한 보물상자」 표시 그림을 받았다. 이름도 그 지도의 공식 한국어 이름이다. 투명 배경을 잘라 다른 셋과 같은 240×240 WebP(q90)로 맞췄다.
+
+| 파일 | 원작 그림 | 원본 SHA-256 |
+|---|---|---|
+| `chest_precious.webp` | HoYoLAB 지도 표시 「진귀한 보물상자」 (label 45) | `45bff044…63824d1b` |
+
+원본 위치: https://act-webstatic.hoyoverse.com/map_manage/20240726/1556afa613e0cb0e8c8f93222ad504da_4646723101390558864.png (`sg-public-api-static.hoyolab.com/common/map_user/ys_obc/v1/map/label/tree?map_id=2&lang=ko-kr`의 id 45).
+
 # v0.15.1 운명의 별 아이콘
 
 `item-icons.json`의 `STELLA_FORTUNA_4`·`STELLA_FORTUNA_5` 2개. 원신 위키(Genshin Impact Wiki) 파일 페이지의 원작 그림(Stella Fortuna, 4성·5성)을 받아 256px 이내 WebP(q90)로 바꿨다. 기원 결과·교환소·운명의 자리 화면에서 쓴다.

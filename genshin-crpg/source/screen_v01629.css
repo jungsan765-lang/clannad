@@ -957,3 +957,75 @@ html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>.area-level{flex:0 0 a
 html.stage-pc body.teyvat .shell-loc-left>.shell-loc-head>.wait-controls{margin-left:auto}
 /* the place's name is already the column's title; the empty-facilities line says nothing a missing tab would not */
 html.stage-pc body.teyvat .shell-loc-left :is(p.map-breadcrumb,p.no-places){display:none}
+/* 0.16.33 보물상자: the challenge device and the element stones in the scenery, their windows, a challenge's result. */
+.scenery-chest.device{display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle,rgba(30,40,60,.85) 0 52%,rgba(30,40,60,0) 70%);animation:chestBob 2.8s ease-in-out infinite}
+.scenery-chest.device .scenery-device-icon{width:46%;height:46%;color:#f3dfae;filter:drop-shadow(0 0 6px rgba(255,214,120,.8))}
+.scenery-chest.device .scenery-device-note{position:absolute;left:50%;top:100%;margin-top:1px;padding:1px 8px;border-radius:9px;transform:translateX(-50%);background:rgba(16,24,38,.9);color:#f3dfae;font:700 11px/16px system-ui,sans-serif;font-style:normal;white-space:nowrap;pointer-events:none}
+.scenery-chest.totem{background:none;border-radius:12px}
+.scenery-chest.totem::before{background:radial-gradient(circle,rgba(170,230,255,.45),transparent 62%)}
+.scenery-totems{display:flex;gap:2px;align-items:flex-end;justify-content:center;width:100%;height:100%}
+.scenery-totems .scenery-totem{width:30%;aspect-ratio:1/1.5;object-fit:contain;padding:3px 2px;border-radius:40% 40% 6px 6px;background:linear-gradient(180deg,#5d6170,#2f323c);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.scenery-totems .scenery-totem.text{display:grid;place-items:center;color:#f3dfae;font:700 11px/1 system-ui,sans-serif}
+.ch-challenge{display:flex;align-items:center;gap:16px;margin:4px 0 10px}
+.ch-challenge-rounds{display:flex;flex-direction:column;align-items:center;justify-content:center;width:96px;height:96px;flex:0 0 96px;border-radius:50%;border:2px solid #f3dfae;background:radial-gradient(circle,rgba(243,223,174,.18),rgba(0,0,0,.2));color:#f3dfae}
+.ch-challenge-rounds>strong{font-size:2.2rem;line-height:1}
+.ch-challenge-rounds>small{font-size:.7rem}
+.ch-challenge-goal{display:flex;align-items:center;gap:10px;min-width:0}
+.ch-challenge-goal>img{width:64px;height:64px;object-fit:contain;flex:0 0 64px}
+.ch-challenge-goal>p{margin:0;font-size:.82rem;line-height:1.45}
+.ch-totems{display:grid;grid-template-columns:repeat(var(--n),minmax(0,88px));gap:12px;justify-content:center;margin:2px auto 8px}
+.ch-totems .totem{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;height:112px;padding:8px 6px;border-radius:44% 44% 10px 10px;border:1px solid rgba(255,255,255,.2);background:linear-gradient(180deg,#4b4f5c,#262932);color:#d8dbe4;cursor:pointer}
+.ch-totems .totem .totem-icon{width:42px;height:42px;object-fit:contain;opacity:.35;filter:grayscale(.8)}
+.ch-totems .totem .totem-name{font-size:.72rem}
+.ch-totems .totem.picked{outline:2px solid #f3dfae;outline-offset:2px}
+.ch-totems .totem.lit{border-color:#f3dfae;box-shadow:0 0 18px rgba(255,226,150,.65),inset 0 0 22px rgba(255,226,150,.35)}
+.ch-totems .totem.lit .totem-icon{opacity:1;filter:drop-shadow(0 0 8px rgba(255,236,170,.9))}
+.ch-totems .totem .totem-face{position:absolute;top:8px;width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid #f3dfae}
+.ch-totems .totem.shake{animation:totemShake .35s}
+.ch-totems .totem.pulse{animation:totemPulse .6s}
+@keyframes totemShake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes totemPulse{50%{transform:scale(1.06)}}
+.ch-totem-party{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.ch-totem-party .totem-member{position:relative;width:56px;height:56px;padding:0;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.25);overflow:visible;cursor:pointer}
+.ch-totem-party .totem-member-face{width:100%;height:100%;border-radius:12px;object-fit:cover;object-position:top}
+.ch-totem-party .totem-member-el{position:absolute;right:-6px;bottom:-6px;width:24px;height:24px;object-fit:contain;filter:drop-shadow(0 0 2px #000)}
+.ch-totem-party .totem-member.none{opacity:.45}
+.reward-preview .chest-challenge-result,.chest-challenge-result{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;margin:0;border-radius:10px;border:1px solid rgba(211,188,142,.35);background:rgba(0,0,0,.25);color:#e8e2d2;text-align:left;font:inherit;min-height:0;vertical-align:middle}
+button.chest-challenge-result{cursor:pointer;border-color:#f3dfae;box-shadow:0 0 12px rgba(255,226,150,.45)}
+:where(#root) button.chest-challenge-result::before{display:none!important}
+.chest-challenge-result .ch-result-chest{width:34px;height:34px;object-fit:contain;flex:0 0 34px}
+.chest-challenge-result:not(.won) .ch-result-chest{filter:grayscale(1) brightness(.6)}
+.chest-challenge-result .ch-result-copy{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.chest-challenge-result .ch-result-copy>strong{font-size:.82rem;color:#f3dfae}
+.chest-challenge-result .ch-result-copy>small{font-size:.68rem;color:#c9c2b2}
+/* in the row of what the fight brought it is one more cream tile, like the Mora and the drops */
+body.teyvat .shell-result-body .reward-preview>.chest-challenge-result{display:inline-flex;padding:4px 12px 4px 6px;background:var(--t-cream);color:var(--t-ink);border:2px solid transparent}
+body.teyvat .shell-result-body .reward-preview>button.chest-challenge-result{border-color:#e0b85a;box-shadow:0 0 14px rgba(255,214,120,.7),0 6px 18px rgba(0,0,0,.35)}
+body.teyvat .shell-result-body .reward-preview>.chest-challenge-result .ch-result-copy>strong{color:var(--t-ink)}
+body.teyvat .shell-result-body .reward-preview>.chest-challenge-result .ch-result-copy>small{color:#6b5b44;font-weight:600}
+body.teyvat .shell-result-body .reward-preview>.chest-challenge-result:not(.won){opacity:.85}html.stage-phone body.teyvat .chest-challenge-result{padding:2px 8px 2px 2px;gap:5px}
+html.stage-phone body.teyvat .chest-challenge-result .ch-result-chest{width:26px;height:26px;flex-basis:26px}
+html.stage-phone body.teyvat .chest-challenge-result .ch-result-copy>strong{font-size:.64rem}
+html.stage-phone body.teyvat .shell-result-body .reward-preview>.chest-challenge-result .ch-result-copy>small{display:none}html.stage-phone body.teyvat .ch-challenge-rounds{width:64px;height:64px;flex-basis:64px}
+html.stage-phone body.teyvat .ch-challenge-rounds>strong{font-size:1.5rem}
+html.stage-phone body.teyvat .ch-challenge-goal>img{width:44px;height:44px;flex-basis:44px}
+html.stage-phone body.teyvat .ch-challenge-goal>p{font-size:.64rem}
+html.stage-phone body.teyvat .ch-totems{gap:8px;margin:2px auto 6px;grid-template-columns:repeat(var(--n),minmax(0,64px))}
+html.stage-phone body.teyvat .ch-totems .totem{height:70px;padding:4px}
+html.stage-phone body.teyvat .ch-totems .totem .totem-icon{width:24px;height:24px}
+html.stage-phone body.teyvat .ch-totems .totem .totem-face{width:24px;height:24px;top:5px}
+html.stage-phone body.teyvat .ch-totem-party .totem-member{width:40px;height:40px}
+html.stage-phone body.teyvat .ch-totem-party .totem-member-el{width:18px;height:18px}
+/* 0.16.33 handbook 보물: six counts in one row and square tier tiles (no round pills side by side); a region fits one page on a phone. */
+body.teyvat .ch-journal-tiers .ch-journal-tier{border-radius:8px}
+body.teyvat .ch-journal-facts{grid-template-columns:repeat(6,minmax(0,1fr))}
+html.stage-phone body.teyvat .ch-journal{padding:6px 10px}
+html.stage-phone body.teyvat .ch-journal>h3{font-size:.8rem;margin:0 0 3px}
+html.stage-phone body.teyvat .ch-journal-bar{height:5px;margin:0 0 5px}
+html.stage-phone body.teyvat .ch-journal-facts{gap:4px;margin-bottom:5px}
+html.stage-phone body.teyvat .ch-journal-fact{padding:3px 6px;border-radius:6px}
+html.stage-phone body.teyvat .ch-journal-fact>small{font-size:.48rem;white-space:nowrap}
+html.stage-phone body.teyvat .ch-journal-fact>strong{font-size:.7rem}
+html.stage-phone body.teyvat .ch-journal-tiers{gap:4px;flex-wrap:nowrap}
+html.stage-phone body.teyvat .ch-journal-tiers .ch-journal-tier{padding:2px 6px 2px 2px;gap:3px;font-size:.52rem;white-space:nowrap}
+html.stage-phone body.teyvat .ch-journal-tiers .ch-journal-tier>img{width:18px;height:18px}

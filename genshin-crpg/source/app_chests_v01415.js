@@ -31,7 +31,8 @@ function overlay(chest){
  // 0.15.2: a regional event's device shows a glyph instead of a chest (C.play).
  if(chest.glyph)head.append(SHELL.icon(chest.glyph,'shell-icon ch-head-icon ch-head-glyph'),mk('div','ch-head-copy'));
  else{head.append(mk('img','ch-head-icon'),mk('div','ch-head-copy'));head.firstChild.src=chestImg(chest.icon);head.firstChild.alt='';}
- head.lastChild.append(mk('strong','',chest.tierName+(chest.game?' · '+chest.gameName:'')),mk('small','',chest.mapName+(chest.hidden?' · 숨은 보물':'')));
+ const kindName={CHALLENGE:' · 도전',TOTEM:' · 원소 비석'}[chest.kind]||'';
+ head.lastChild.append(mk('strong','',chest.tierName+(chest.game?' · '+chest.gameName:kindName)),mk('small','',chest.mapName+(chest.hidden?' · 숨은 보물':chest.timeName?' · '+chest.timeName:'')));
  const x=mk('button','ch-close');x.type='button';x.setAttribute('aria-label','닫기');x.append(SHELL.icon('CLOSE','shell-icon'));x.onclick=close;head.append(x);
  const body=mk('div','ch-body');box.append(head,body);wrap.append(box);
  wrap.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close();}});
@@ -84,12 +85,56 @@ function start(chest){
  const body=overlay(chest);
  // 0.16 (user: 「(손님)님이 상자의 암호를 풀어냈다 이런식으로 적어두고 먹게」): a chest someone in the room unsealed opens at once.
  if(chest.unsealed){reveal(chest,undefined,body);body.querySelector('.ch-open')?.before(mk('p','ch-note by-friend',chest.unsealed.by+' 님이 '+(chest.game?'상자의 암호를 풀어냈다':'이 상자를 찾아냈다')));return;}
+ // 0.16.33 kinds: a challenge fight, the element stones, the chests of an hour.
+ if(chest.kind==='CHALLENGE'&&!chest.won){challengeIntro(chest,body);return;}
+ if(chest.kind==='CHALLENGE'){note(body,'도전을 이겨 낸 자리에 보물상자가 나타났습니다.');reveal(chest,undefined,body);return;}
+ if(chest.kind==='TOTEM'){totemGame(chest,body,answer=>solved(chest,answer,body));return;}
+ if(chest.kind==='TIME'){note(body,chest.timeName+'에만 모습을 드러내는 보물상자입니다.');reveal(chest,undefined,body);return;}
  if(!chest.game){note(body,chest.how==='SCENERY'?'풍경 속에 놓여 있던 보물상자입니다.':'아무도 모르는 곳에 숨겨져 있던 보물상자입니다.');reveal(chest,undefined,body);return;}
  const p=game.chestPuzzle(chest.id);if(!p){close();return;}
  const play=C.games[p.game];if(!play){note(body,'이 퍼즐을 표시하지 못했습니다. 게임을 새로 고친 뒤 다시 열어 주세요.','warn');return;}
  play(p,body,answer=>solved(chest,answer,body));
 }
 C.start=start;
+// 도전: the rounds, the goal, one button; the fight follows on the battle screen.
+function challengeIntro(chest,body){
+ const box=mk('div','ch-challenge'),n=mk('div','ch-challenge-rounds');n.append(mk('strong','',chest.rounds),mk('small','','라운드 안에'));
+ const goal=mk('div','ch-challenge-goal');const pic=mk('img','ch-challenge-chest');pic.src=chestImg(chest.icon);pic.alt='';goal.append(pic,mk('p','','이곳의 적을 모두 쓰러뜨리면 '+chest.tierName+'가 나타납니다. 늦게 이기거나 지면 다시 도전할 수 있습니다.'));
+ box.append(n,goal);body.append(box);
+ const go=btn('도전 시작',async()=>{
+  if(go.disabled)return;go.disabled=true;let r;try{r=await act('CHEST_OPEN',{chest:chest.id});}catch(e){r={ok:false,error:e};}
+  if(r?.ok===false||!game.s.runtime){go.disabled=false;note(body,r?.error?.message||lastResult?.error?.message||'도전을 시작할 수 없습니다.','warn');SND('error');return;}
+  close();
+ },'primary ch-open');
+ body.append(go);setTimeout(()=>go.focus({preventScroll:true}),300);
+}
+// 원소 비석: press a stone, then a party member of its element; every stone lit unseals the chest. The answer names who lit each.
+const EL_NAME={PYRO:'불',HYDRO:'물',ANEMO:'바람',ELECTRO:'번개',CRYO:'얼음',GEO:'바위',DENDRO:'풀'};
+function elementIcon(key,cls){const p=MAN().uiAssets?.elements?.[String(key||'').toLowerCase()]?.path;if(p){const i=mk('img',cls);i.src=p;i.alt='';i.draggable=false;return i;}return mk('span',cls+' text',EL_NAME[key]||'');}
+function totemGame(chest,body,done){
+ const n=chest.totem.length,lit=Array(n).fill(null);let pick=0;
+ note(body,'비석을 고르고, 같은 원소의 동료를 누르면 비석이 밝아집니다.');
+ if(chest.totemReason)note(body,chest.totemReason,'warn');
+ const stones=mk('div','ch-game ch-totems'),party=mk('div','ch-totem-party');stones.style.setProperty('--n',n);body.append(stones,party);
+ const draw=()=>{
+  stones.replaceChildren();chest.totem.forEach((t,i)=>{const b=mk('button','totem el-'+t.element.toLowerCase()+(lit[i]?' lit':'')+(i===pick&&!lit[i]?' picked':''));b.type='button';b.setAttribute('aria-label',t.name+' 비석'+(lit[i]?' · 밝혀짐':''));
+   b.append(elementIcon(t.element,'totem-icon'),mk('small','totem-name',t.name));
+   if(lit[i]&&typeof actorPortrait==='function')b.append(actorPortrait(lit[i],'totem-face'));
+   b.onclick=()=>{if(stones.classList.contains('solved'))return;lit[i]=null;pick=i;SND('puzzle_step');draw();};stones.append(b);});
+  party.replaceChildren();
+  for(const m of chest.party){const b=mk('button','totem-member'+(m.element?'':' none'));b.type='button';
+   if(typeof actorPortrait==='function')b.append(actorPortrait(m.id,'totem-member-face'));if(m.element)b.append(elementIcon(m.element,'totem-member-el'));
+   b.setAttribute('aria-label',(typeof ownerName==='function'?ownerName(m.id):m.id)+(m.element?' · '+EL_NAME[m.element]:' · 원소 없음'));
+   b.onclick=()=>{
+    if(stones.classList.contains('solved'))return;const t=chest.totem[pick];if(!t)return;
+    if(m.element!==t.element){SND('error');const s=stones.children[pick];s?.classList.remove('shake');void s?.offsetWidth;s?.classList.add('shake');return;}
+    lit[pick]=m.id;SND('puzzle_light');const at=pick,next=lit.findIndex(x=>!x);if(next>=0)pick=next;draw();stones.children[at]?.classList.add('pulse');
+    if(lit.every(Boolean)){stones.classList.add('solved');done(lit.slice());}
+   };
+   party.append(b);}
+ };
+ draw();
+}
 C.startSolo=function(chest){C.solo=true;try{start(chest);}finally{C.solo=false;}return C.node?.querySelector('.ch-body')||null;};
 // 0.15.2: the regional events play the same games in the same window (app_events_v0152.js). spec: {title, sub, region,
 // glyph | icon, puzzle, solvedText, done(answer, body)}; done settles the event and draws what it paid.
@@ -256,10 +301,14 @@ function sudokuLesson(n,br,bc){
 // 풍경 보기 (V): puzzle chests and the first hidden ones stand there plainly; night chests only shimmer.
 SHELL.sceneryHooks.push((stage,{close:closeView})=>{
  if(!ready())return;
- for(const c of game.chestsHere('SCENERY')){if(c.how!=='SCENERY'&&c.how!=='SCENERY_NIGHT')continue;
-  const b=mk('button','scenery-chest tier-'+c.icon+(c.how==='SCENERY_NIGHT'&&!c.unsealed?' night':'')+(c.unsealed?' unsealed':''));b.type='button';b.style.left=c.pos.x+'%';b.style.top=c.pos.y+'%';
-  b.setAttribute('aria-label',c.unsealed?c.unsealed.by+' 님이 암호를 풀어낸 '+c.tierName+' 열기':c.how==='SCENERY_NIGHT'?'어둠 속에서 무언가 일렁인다':c.tierName+' 살펴보기');
-  if(c.how!=='SCENERY_NIGHT'||c.unsealed){const i=mk('img','');i.src=chestImg(c.icon);i.alt='';i.draggable=false;b.append(i);}
+ for(const c of game.chestsHere('SCENERY')){if(!c.pos)continue;
+  // 0.16.33: a challenge not yet won is a device of crossed swords; the stones show their elements; the rest are chests.
+  const device=c.kind==='CHALLENGE'&&!c.won?'challenge':c.kind==='TOTEM'?'totem':'';
+  const b=mk('button','scenery-chest tier-'+c.icon+(c.how==='SCENERY_NIGHT'&&!c.unsealed?' night':'')+(c.unsealed?' unsealed':'')+(device?' device '+device:''));b.type='button';b.style.left=c.pos.x+'%';b.style.top=c.pos.y+'%';
+  b.setAttribute('aria-label',c.unsealed?c.unsealed.by+' 님이 암호를 풀어낸 '+c.tierName+' 열기':device==='challenge'?'도전 장치 살펴보기':device==='totem'?'원소 비석 살펴보기':c.how==='SCENERY_NIGHT'?'어둠 속에서 무언가 일렁인다':c.tierName+' 살펴보기');
+  if(device==='challenge')b.append(SHELL.icon('SWORDS','shell-icon scenery-device-icon'),mk('em','scenery-device-note','도전'));
+  else if(device==='totem'){const row=mk('span','scenery-totems');for(const t of c.totem)row.append(elementIcon(t.element,'scenery-totem'));b.append(row);}
+  else if(c.how!=='SCENERY_NIGHT'||c.unsealed){const i=mk('img','');i.src=chestImg(c.icon);i.alt='';i.draggable=false;b.append(i);}
   // 0.16: the name of whoever in the room unsealed it, on the chest.
   if(c.unsealed)b.append(mk('em','scenery-chest-note',c.unsealed.by+' 님이 '+(c.game?'암호를 풀어냈다':'찾아냈다')));
   b.onclick=e=>{e.stopPropagation();closeView();setTimeout(()=>start(c),120);};stage.append(b);}
@@ -291,6 +340,7 @@ C.journal=function(host){
   const facts=mk('div','ch-journal-facts');
   const fact=(label,value)=>{const f=mk('div','ch-journal-fact');f.append(mk('small','',label),mk('strong','',value));return f;};
   facts.append(fact('얻은 원석',r.gained+' / '+r.primogem),fact('퍼즐 상자',r.puzzles.found+' / '+r.puzzles.total),fact('숨은 보물',r.hidden.found+' / '+r.hidden.total));
+  for(const [k,label] of [['challenge','도전 상자'],['totem','원소 비석'],['time','때를 맞춘 상자']])if(r[k]?.total)facts.append(fact(label,r[k].found+' / '+r[k].total));
   s.append(facts);
   const tiers=mk('div','ch-journal-tiers');
   for(const t of r.tiers){const d=mk('div','ch-journal-tier'+(t.found===t.total?' done':''));const icon=mk('img','');icon.src=chestImg(t.icon);icon.alt='';d.append(icon,mk('span','',t.name),mk('b','',t.found+' / '+t.total));tiers.append(d);}
@@ -299,4 +349,20 @@ C.journal=function(host){
   host.append(s);
  }
 };
+// ---------- 0.16.33 a challenge fight's result ----------
+// On the result screen, one more tile in the row of what the fight brought: won in time, the chest, pressed to open it;
+// too slow or lost, the rounds it took against the limit.
+if(typeof reward==='function'){const priorReward=reward;reward=function(p,...args){
+ const out=priorReward(p,...args);
+ try{
+  const r=JSON.parse(game.s.global.LAST_BATTLE_RESULT_JSON||'{}'),e=r.chestChallenge;if(!e)return out;
+  const view=e.won?game.chestsHere('CHALLENGE').find(x=>x.id===e.chest):null;
+  const tile=mk(view?'button':'div','chest-challenge-result'+(e.won?' won':''));if(view){tile.type='button';tile.onclick=()=>start(view);}
+  const pic=mk('img','ch-result-chest');pic.src=chestImg(e.icon||'precious');pic.alt='';
+  const copy=mk('span','ch-result-copy');copy.append(mk('strong','',e.won?'도전 성공 · '+e.rounds+'라운드':'도전 실패'),mk('small','',e.won?(view?'눌러서 상자 열기':e.tierName):e.victory?e.rounds+'라운드 · '+e.limit+'라운드 안에 이겨야 합니다':'다시 도전할 수 있습니다'));
+  tile.append(pic,copy);tile.setAttribute('aria-label','도전 · '+copy.textContent);
+  const row=p.querySelector('.reward-preview');if(row)row.append(tile);else p.append(tile);
+ }catch{}
+ return out;
+};}
 })();

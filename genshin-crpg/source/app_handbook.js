@@ -131,7 +131,7 @@ function companions(box){
  s.append(grid);box.append(s);
 }
 // 0.14.15 보물: how many treasure chests each region holds and how many are found, never where (app_chests_v01415.js).
-function treasure(box){const host=mk('div','hb-treasure');box.append(mk('p','hb-note','몬드와 리월 곳곳에 보물상자가 있습니다. 가는 곳마다 풍경 보기(V)로 둘러보세요. 퍼즐이 걸린 상자는 풀어야 열리고, 어떤 상자는 아주 꼼꼼히 찾아야 보입니다.'),host);window.CRPGChests?.journal(host);}
+function treasure(box){const host=mk('div','hb-treasure');box.append(mk('p','hb-note','가는 곳마다 풍경 보기(V)로 둘러보세요. 상자는 시간·원소·도전에 따라 모습을 드러냅니다.'),host);window.CRPGChests?.journal(host);}
 // 0.15.2 업적 (app_achievements_v0152.js)
 function achievements(box){if(window.CRPGAchievements?.journal)window.CRPGAchievements.journal(box);else box.append(mk('p','hb-note','업적을 표시하지 못했습니다.'));}
 const DRAW={journey,bosses,ley,abyss,companions,treasure,achievements};

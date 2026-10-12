@@ -30,13 +30,13 @@ function build(rt){
  add('BROKE','ADVENTURE','빈털터리','주인공 Lv.5 이상일 때 모라를 모두 쓰기',1,f=>f.level>=5&&f.mora===0?1:0,1,true);
  // 몬드 · 리월
  for(const [cat,region,R] of [['MOND','몬드',{visit:['바람이 머무는 곳','몬드 산책','몬드의 지도 그리기','몬드 구석구석'],eye:['바람의 눈동자','바람 모으기','바람 신의 흔적','모든 바람의 눈동자'],eyes:[1,4,8,12],
-  offer:['바람 신상에 바치다','더 깊은 공양','바람의 축복'],chest:['몬드의 첫 보물','보물 냄새','몬드의 보물 사냥꾼','몬드의 보물 전부'],hidden:'바람이 감춘 보물',boss:'몬드의 강적 토벌'}],
+  offer:['바람 신상에 바치다','더 깊은 공양','바람의 축복'],chest:['몬드의 첫 보물','보물 냄새','몬드의 보물 사냥꾼','바람이 지킨 보물','몬드의 보물 전부'],hidden:'바람이 감춘 보물',boss:'몬드의 강적 토벌'}],
   ['LIYUE','리월',{visit:['바위가 지키는 땅','리월 나들이','리월의 지도 그리기','리월 구석구석'],eye:['바위의 눈동자','바위 모으기','바위 신의 흔적','모든 바위의 눈동자'],eyes:[1,4,8,16],
-  offer:['바위 신상에 바치다','더 깊은 공양','바위의 축복'],chest:['리월의 첫 보물','반짝이는 모라 냄새','천암의 보물 사냥꾼','리월의 보물 전부'],hidden:'바위가 감춘 보물',boss:'리월의 강적 토벌'}]]){
+  offer:['바위 신상에 바치다','더 깊은 공양','바위의 축복'],chest:['리월의 첫 보물','반짝이는 모라 냄새','천암의 보물 사냥꾼','바위가 지킨 보물','리월의 보물 전부'],hidden:'바위가 감춘 보물',boss:'리월의 강적 토벌'}]]){
   const r=cat;series(r+'_VISIT',cat,[[5,R.visit[0],1],[10,R.visit[1],1],[20,R.visit[2],2],[30,R.visit[3],3]],n=>region+'에서 서로 다른 장소 '+n+'곳 가 보기',f=>f.visitedBy[region]||0);
   series(r+'_EYE',cat,R.eyes.map((n,i)=>[n,R.eye[i],i<2?1:i===2?2:3]),n=>(cat==='MOND'?'바람':'바위')+'의 신의 눈동자 '+n+'개 찾기',f=>cat==='MOND'?f.anemo:f.geo);
   series(r+'_OFFER',cat,[[1,R.offer[0],1],[2,R.offer[1],2],[3,R.offer[2],3]],n=>(cat==='MOND'?'바람':'바위')+'의 신상에 '+n+'단계까지 공양하기',f=>cat==='MOND'?f.anemoTiers:f.geoTiers);
-  series(r+'_CHEST',cat,[[1,R.chest[0],1],[6,R.chest[1],1],[12,R.chest[2],2],[24,R.chest[3],3]],n=>region+' 보물상자 '+n+'개 열기',f=>f.chestsBy[cat]||0);
+  /* 0.16.33: 48 chests in each region (the 24th keeps its id with a new name) */series(r+'_CHEST',cat,[[1,R.chest[0],1],[6,R.chest[1],1],[12,R.chest[2],2],[24,R.chest[3],2],[48,R.chest[4],3]],n=>region+' 보물상자 '+n+'개 열기',f=>f.chestsBy[cat]||0);
   add(r+'_HIDDEN',cat,R.hidden,region+'의 숨은 보물 6개 모두 찾기',6,f=>f.hiddenBy[cat]||0,3);
   const bosses=Object.entries(api.fieldBosses?.bosses||{}).filter(([,d])=>d.region===region).map(([id])=>id);
   if(bosses.length)add(r+'_BOSSES',cat,R.boss,region+'의 필드 보스 '+bosses.length+'종 모두 토벌하기',bosses.length,f=>bosses.filter(id=>(f.fieldWins[id]||0)>0).length,2);
@@ -106,13 +106,17 @@ function build(rt){
  series('LIST','SOCIAL',[[1,'가게 개업',1],[10,'번창하는 상점',1]],n=>'내 상점에 물건 '+n+'번 올리기',f=>f.social.listed||0);
  series('DEAL','SOCIAL',[[1,'첫 거래',1],[10,'거래의 달인',2]],n=>'직접 거래 '+n+'번 하기',f=>f.social.deals||0);
  // 보물
- series('CHEST','TREASURE',[[1,'첫 보물상자',1],[12,'보물상자 열두 개',1],[24,'보물 사냥꾼',2],[48,'티바트의 보물 전부',3]],n=>'보물상자 '+n+'개 열기',f=>f.chests);
+ series('CHEST','TREASURE',[[1,'첫 보물상자',1],[12,'보물상자 열두 개',1],[24,'보물 사냥꾼',2],[48,'보물 사냥의 달인',2],[96,'티바트의 보물 전부',3]],n=>'보물상자 '+n+'개 열기',f=>f.chests);
  // Puzzles (chests and regional events; 0.15.2 has 28 kinds).
  const GAMES=api.chestRules?.games||{},kinds=Object.keys(GAMES).length;
  series('PUZZLE','TREASURE',[[1,'첫 수수께끼',1],[10,'퍼즐 애호가',1],[50,'수수께끼 사냥꾼',2],[150,'퍼즐의 현자',3]],n=>'퍼즐 '+n+'개 풀기',f=>f.puzzleTotal);
  series('PUZZLE_KINDS','TREASURE',[[5,'다양한 수수께끼',1],[15,'퍼즐 박사',2],[kinds,'모든 퍼즐을 풀다',3]],n=>'서로 다른 퍼즐 '+n+'종류 풀기',f=>f.puzzleKinds);
  for(const [g,n] of Object.entries(GAMES))add('PUZZLE_'+g,'TREASURE',n+' 해결','「'+n+'」 퍼즐 풀기',1,f=>f.puzzles[g]||0,1);
  series('HIDDEN','TREASURE',[[1,'숨은 보물',1],[6,'숨은 보물 사냥꾼',2],[12,'모든 숨은 보물',3]],n=>'숨은 보물 '+n+'개 찾기',f=>f.hidden);
+ // 0.16.33: the new kinds of chest, 16 of each in all (counts only; where they are is never said).
+ series('CHEST_CHALLENGE','TREASURE',[[1,'도전 성공',1],[8,'도전의 연속',2],[16,'모든 도전을 넘어서',3]],n=>'도전 상자 '+n+'개 열기',f=>f.chestKinds.CHALLENGE||0);
+ series('CHEST_TOTEM','TREASURE',[[1,'비석에 불을 밝히다',1],[8,'원소의 길잡이',2],[16,'모든 비석을 밝히다',3]],n=>'원소 비석 상자 '+n+'개 열기',f=>f.chestKinds.TOTEM||0);
+ series('CHEST_TIME','TREASURE',[[1,'때를 맞추다',1],[8,'하루를 읽는 자',2],[16,'모든 때를 맞추다',3]],n=>'때를 맞춘 상자 '+n+'개 열기',f=>f.chestKinds.TIME||0);
  return defs;
 }
 P.achievementDefs=function(){return this._achDefs??=build(this);};
@@ -121,8 +125,8 @@ P.achievementFacts=function(){
  const s=this.s,g=s.global,f={level:num(g.PLAYER_LEVEL_STATE)||1,mora:num(g.MORA),turn:num(g.TURN)};
  const maps=this.tables['32_MAP_DB'],visited=Object.keys(s.exploration?.visitedMaps||{});f.visited=visited.length;f.visitedBy={};for(const id of visited){const reg=maps.get(id)?.[1];if(reg)f.visitedBy[reg]=(f.visitedBy[reg]||0)+1;}
  f.anemo=Object.keys(s.exploration?.oculi||{}).length;f.anemoTiers=(s.exploration?.tiers||[]).length;f.geo=Object.keys(s.geoOculi?.receipts||{}).length;f.geoTiers=(s.geoOculi?.tiers||[]).length;f.trails=Object.keys(s.geoTrail?.claims||{}).length;
- const chestInfo=new Map((api.chestRules?.chests||[]).map(c=>[c.id,c])),opened=Object.keys(s.chests?.opened||{});f.chests=opened.length;f.chestsBy={};f.hiddenBy={};f.hidden=0;f.games={};
- for(const id of opened){const c=chestInfo.get(id);if(!c)continue;f.chestsBy[c.region]=(f.chestsBy[c.region]||0)+1;if(c.game)f.games[c.game]=(f.games[c.game]||0)+1;else{f.hidden++;f.hiddenBy[c.region]=(f.hiddenBy[c.region]||0)+1;}}
+ const chestInfo=new Map((api.chestRules?.chests||[]).map(c=>[c.id,c])),opened=Object.keys(s.chests?.opened||{});f.chests=opened.length;f.chestsBy={};f.hiddenBy={};f.hidden=0;f.games={};f.chestKinds={};
+ for(const id of opened){const c=chestInfo.get(id);if(!c)continue;f.chestsBy[c.region]=(f.chestsBy[c.region]||0)+1;if(c.game)f.games[c.game]=(f.games[c.game]||0)+1;else if(c.kind)f.chestKinds[c.kind]=(f.chestKinds[c.kind]||0)+1;else{f.hidden++;f.hiddenBy[c.region]=(f.hiddenBy[c.region]||0)+1;}}
  const elig=json(g.COMPANION_ELIGIBILITY_JSON);f.joined=new Set(Object.entries(elig).filter(([,v])=>v?.state==='JOINED').map(([k])=>k));f.joined5=[...f.joined].filter(id=>(this.rarityOf?.(id)||4)>=5).length;
  f.hearts1=0;f.hearts5=0;f.affections=0;for(const r of Object.values(s.relations||{})){const score=num(r?.BOND_SCORE??num(r?.heart)*20);if(score>=20)f.hearts1++;if(score>=100)f.hearts5++;f.affections+=Object.values(r?.events||{}).filter(v=>v==='COMPLETE').length;}
  try{const route=g.STORY_ROUTE_ID;f.legends=[...this.storyIndex().legends.values()].filter(d=>d.ROUTE_SCOPE===route&&this.storyDone(d.id)).length;}catch{f.legends=0;}

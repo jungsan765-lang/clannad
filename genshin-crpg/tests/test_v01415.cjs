@@ -12,19 +12,20 @@ const {solve}=require('./puzzle_solvers.cjs');
 const refused=(fn,pattern)=>{try{fn();}catch(e){if(pattern)assert.match(e.message,pattern);return true;}return false;};
 const plain=x=>JSON.parse(JSON.stringify(x)); // values made inside the game's VM context have other prototypes
 
+// 0.16.33 added 24 chests of new kinds to each region (tests/test_chests_v01633.cjs); these checks keep to the first 48.
 check('chests: 24 in each region (18 puzzles, 6 hidden) and 1,270 Primogems in all — Mond 580, Liyue 690',()=>{
- const by=r=>rules.chests.filter(x=>x.region===r);
+ const by=r=>rules.chests.filter(x=>x.region===r&&!x.kind);
  for(const r of ['MOND','LIYUE']){assert.equal(by(r).length,24,r);assert.equal(by(r).filter(x=>x.game).length,18,r+' puzzles');assert.equal(by(r).filter(x=>!x.game).length,6,r+' hidden');}
  const sum=r=>by(r).reduce((n,x)=>n+x.reward.primogem,0);
  assert.equal(sum('MOND'),580);assert.equal(sum('LIYUE'),690);
  assert(rules.chests.every(x=>x.reward.primogem<=40),'no chest pays more than 40 (Primogems are paced for the 2.0 raid)');
- assert.equal(new Set(rules.chests.map(x=>x.id)).size,48);
+ assert.equal(new Set(rules.chests.filter(x=>!x.kind).map(x=>x.id)).size,48);
  return {mond:sum('MOND'),liyue:sum('LIYUE')};
 });
 
 check('chests: each opens once with the right answer, at its place; wrong answers, other places and daytime night chests are refused',()=>{
  let opened=0,primogems=0;const games={};
- for(const x of rules.chests){
+ for(const x of rules.chests.filter(x=>!x.kind)){
   const elsewhere=world(x.map==='MAP_MOND_CITY'?'MAP_MOND_PLAINS':'MAP_MOND_CITY');
   assert(refused(()=>elsewhere.action('CHEST_OPEN',{chest:x.id,answer:[]}),/있는 곳에 가야/),x.id+' only at its place');
   const g=world(x.map);
@@ -57,7 +58,7 @@ check('chests: a puzzle stays the same for one journey and differs between journ
 
 check('chests: the handbook says how many there are and how many are found, never where',()=>{
  const g=world();const j=g.chestJournal();
- assert.deepEqual(plain(j.map(r=>[r.name,r.total,r.puzzles.total,r.hidden.total])),[['몬드',24,18,6],['리월',24,18,6]]);
+ assert.deepEqual(plain(j.map(r=>[r.name,r.total,r.puzzles.total,r.hidden.total])),[['몬드',48,18,6],['리월',48,18,6]]);
  const text=JSON.stringify(j);
  for(const x of rules.chests){const name=g.tables['32_MAP_DB'].get(x.map)?.[2];assert(!text.includes(x.map),'no map ids');if(name)assert(!text.includes(name),'no place names: '+name);}
  assert(!/rumou?r|소문/.test(text),'no rumours');
