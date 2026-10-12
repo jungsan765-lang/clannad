@@ -145,6 +145,14 @@ try{
   await view('settings',`__go('SYSTEM')`);
   await view('guild',`(async()=>{await __go('LOCATION');const k=game.placeEntries().find(e=>['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(e.entity));if(k)await act('PLACE_ENTER',{place:k.id});})()`);
   for(const tab of await labels('.shell-place-tabs .shell-tab'))await view('guild-'+tab,`__tap('.shell-place-tabs .shell-tab',${JSON.stringify(tab)})`);
+  // 0.16.34: the desk after the practice commission is reported — commissions taken, their rows with chips, one open card.
+  {const r=new R(DB,JSON.parse(fixture.read().state));if(r.s.runtime)r.action('COMBAT_FORFEIT',{reason:'TEST'});const root='Q_TASK_LEARN_01';
+   const k=r.placeCatalog().find(e=>e.entity==='NPC_MOND_KATHERYNE');try{if(!r.s.placeVisit)r.action('PLACE_ENTER',{place:k.id,mode:'TALK'});if(!r.s.quests[root]?.claimed){if(!r.s.quests[root]?.guildAccepted)r.action('COMMISSION_ACCEPT',{quest:root});r.action('CLAIM_QUEST',{quest:root});}}catch(e){console.error('guild root',e.message);}
+   r.tutorialState().done.guildTasks=true;
+   for(const q of r.commissionEntries().filter(q=>!q.accepted&&q.row[0]!==root&&/^Q_TASK_/.test(q.row[0])&&!r.questUnlockReason(q.row[0])).slice(0,2))try{r.action('COMMISSION_ACCEPT',{quest:q.row[0]});}catch(e){console.error('guild accept',e.message);}
+   fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+   for(const tab of await labels('.shell-place-tabs .shell-tab'))await view('guild-open-'+tab,`__tap('.shell-place-tabs .shell-tab',${JSON.stringify(tab)})`);
+   await view('guild-card',`(async()=>{const t=[...document.querySelectorAll('.shell-place-tabs .shell-tab')].find(b=>/의뢰/.test(b.textContent));t?.click();await new Promise(r=>setTimeout(r,200));document.querySelector('.cm-row.s-going')?.click();await new Promise(r=>setTimeout(r,200));document.querySelector('#modal[open] .commission-abandon-ask')?.click();})()`);}
   await page.evaluate(async()=>{if(game.s.placeVisit&&!game.actionReason('PLACE_LEAVE',{}))await act('PLACE_LEAVE',{});});await idle();
   // Every facility of the town, with each of its tabs (shop, forge, kitchen, inn, …).
   for(const place of await page.evaluate(()=>game.placeEntries().map(e=>({id:e.id,name:String(e.name||e.id)})))){

@@ -1029,3 +1029,34 @@ html.stage-phone body.teyvat .ch-journal-fact>strong{font-size:.7rem}
 html.stage-phone body.teyvat .ch-journal-tiers{gap:4px;flex-wrap:nowrap}
 html.stage-phone body.teyvat .ch-journal-tiers .ch-journal-tier{padding:2px 6px 2px 2px;gap:3px;font-size:.52rem;white-space:nowrap}
 html.stage-phone body.teyvat .ch-journal-tiers .ch-journal-tier>img{width:18px;height:18px}
+/* 0.16.34 의뢰: the conditions as chips under a commission's name; who asks and why on its card. */
+body.teyvat .cm-chips{display:flex;flex-wrap:wrap;gap:3px 4px;margin-top:2px;min-width:0}
+body.teyvat .cm-chip{display:inline-flex;align-items:center;gap:3px;padding:1px 6px 1px 3px;border-radius:5px;background:rgba(255,255,255,.07);border:1px solid rgba(211,188,142,.22);font-size:.66rem;line-height:1.35;color:#e8e2d2;white-space:nowrap}
+body.teyvat .cm-chip>b{font-weight:600}
+body.teyvat .cm-chip.k-req>b{color:#f3dfae}
+body.teyvat .cm-chip.k-goal>b{color:#fff}
+body.teyvat .cm-chip.k-member{padding:1px}
+body.teyvat .cm-chip .cm-chip-icon{width:16px;height:16px;object-fit:contain;display:inline-grid;place-items:center}
+body.teyvat .cm-chip .cm-chip-icon img{width:14px;height:14px;object-fit:contain}
+body.teyvat .cm-chip .cm-chip-face{width:18px;height:18px;border-radius:50%;object-fit:cover;object-position:top}
+body.teyvat .cm-chip .cm-chip-glyph{width:11px;height:11px;opacity:.8}
+body.teyvat .cm-chip.more{color:#c9c2b2}
+body.teyvat .commission-card>.cm-chips{margin:2px 0 6px}
+body.teyvat .commission-request{margin:2px 0 6px;font-size:.86rem;line-height:1.45}
+body.teyvat .commission-request>strong{color:#c08a2c;margin-right:4px}
+html.stage-phone body.teyvat .cm-chip{font-size:.52rem;padding:0 4px 0 2px;gap:2px}
+html.stage-phone body.teyvat .cm-chip .cm-chip-icon{width:12px;height:12px}
+html.stage-phone body.teyvat .cm-chip .cm-chip-icon img{width:11px;height:11px}
+html.stage-phone body.teyvat .cm-chip .cm-chip-face{width:14px;height:14px}
+html.stage-phone body.teyvat .cm-chip .cm-chip-glyph{width:9px;height:9px}
+html.stage-phone body.teyvat .commission-request{font-size:.64rem;margin:1px 0 4px}
+/* 0.16.34 의뢰 포기: a small quiet button at the card's end; pressed, the warning and the two choices. */
+body.teyvat :where(#modal) .commission-card>.commission-abandon-ask{align-self:flex-start;min-height:28px;padding:2px 12px;font-size:.74rem;background:transparent;border:1px solid rgba(220,120,110,.5);color:#e7a39b;box-shadow:none}
+body.teyvat .commission-abandon{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:4px}
+body.teyvat .commission-abandon{flex-wrap:nowrap}
+body.teyvat .commission-abandon>.choice-note{flex:1 1 auto;margin:0;min-width:0}
+body.teyvat :where(#modal) .commission-abandon>button{flex:0 0 auto;min-height:28px;padding:2px 12px;font-size:.74rem}
+body.teyvat :where(#modal) .commission-abandon>button[data-action="COMMISSION_ABANDON"]{border:1px solid rgba(220,120,110,.7);color:#f0b2aa;background:rgba(120,30,30,.35)}
+html.stage-phone body.teyvat .commission-abandon>.choice-note{font-size:.56rem}
+html.stage-phone body.teyvat :where(#modal) .commission-abandon>button{min-height:22px;font-size:.58rem;padding:1px 9px}
+html.stage-phone body.teyvat :where(#modal) .commission-card>.commission-abandon-ask{min-height:22px;font-size:.6rem;padding:1px 10px}

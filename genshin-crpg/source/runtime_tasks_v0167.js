@@ -241,12 +241,38 @@ function objectiveOf(rt,id){return rt.s.quests[id]?.taskObjective?.definition||C
 // 0.16.30 (user: 「영입임무 이런거랑 … 다 지우면 될거야」): companions come from wishes only, and two lessons still spoke of being
 // introduced to one. Only the words shown change; the accepted objective stays exactly as stored.
 const WORDS_V01630={Q_TASK_LEARN_17:{name:'동료의 개인 이야기',description:'기원에서 만난 동료의 개인 이야기를 끝까지 마치세요. 이미 마친 개인 이야기도 인정합니다.'},Q_TASK_LEARN_18:{name:'호감도 이야기',description:'동료와 함께 싸워 호감도를 쌓고 열린 호감도 이야기 하나를 끝까지 마치세요. 이미 마친 기록도 인정합니다.'}};
+// 0.16.34 (TODO 5-2): who asks and why (runtime_commission_stories.js taskWordsV01634), and the conditions as chips — the
+// count, the place, the foe or the goods, the level, the elements, the companions — read from the objective itself.
+const ELEMENT_KO={PYRO:'불',HYDRO:'물',ANEMO:'바람',ELECTRO:'번개',CRYO:'얼음',GEO:'바위',DENDRO:'풀'};
+const UNIT={win:'승',ley:'승',domain:'승',boss:'번 토벌',abyss:'승',gather:'개',mine:'개',fish:'개',hunt:'개',cook:'번',forge:'개',meal:'번',sleep:'번',process:'번',enhance:'번',artifactEnhance:'번',encounter:'번',life:'번',bonus:'번'};
+function taskChips(rt,t){
+ const f=t.filter||{},p=f.party||{},out=[],name=(table,id)=>rt.tables[table]?.get(id)?.[1]||'';
+ const foe=id=>{const n=name('09_MONSTER_DB',id);return n.includes('·')?n.split('·').pop():n;};
+ if(t.goal&&t.kind!=='delivery'&&!t.learning)out.push({kind:'goal',icon:t.kind,text:t.goal+(UNIT[t.kind]||'번')});
+ if(f.maps?.length&&f.maps.length<=2)for(const m of f.maps)out.push({kind:'map',id:m,text:rt.tables['32_MAP_DB']?.get(m)?.[2]||m});
+ for(const e of (f.enemies||[]).slice(0,2))out.push({kind:'enemy',id:e,text:foe(e)});
+ for(const r of f.resources||[])out.push({kind:'item',id:r,text:name('14_ITEM_DB',r)});
+ for(const id of f.recipes||[]){const row=rt.tables['17_RECIPE_DB']?.get(id),item=row?.[3];if(item)out.push({kind:'item',id:item,text:name('14_ITEM_DB',item)||name('16_EQUIP_DB',item)});}
+ for(const [id,n] of Object.entries(t.delivery?.items||{}))out.push({kind:'item',id,text:name('14_ITEM_DB',id)+' ×'+n});
+ for(const [id,n] of Object.entries(t.delivery?.equipment||{}))out.push({kind:'equip',id,text:name('16_EQUIP_DB',id)+' ×'+n});
+ if(f.leyTypes?.length)out.push({kind:'ley',id:f.leyTypes[0],text:f.leyTypes[0]==='WEALTH'?'부의 꽃':'계시의 꽃'});
+ if(f.domainTypes?.length)out.push({kind:'domain',id:f.domainTypes[0],text:{TALENT:'특성 비경',ASCENSION:'돌파 비경',EXP:'경험치 비경'}[f.domainTypes[0]]||'비경'});
+ if(f.minStage)out.push({kind:'level',text:'Lv.'+f.minStage+(f.minStage<60?' 이상':'')});
+ if(f.stages?.length)out.push({kind:'abyss',text:f.stages.join('·')+'층'});
+ if(p.mono)out.push({kind:'element',id:p.mono,text:ELEMENT_KO[p.mono]+' 4인'});
+ for(const [e,n] of Object.entries(p.elementCounts||{}))out.push({kind:'element',id:e,text:ELEMENT_KO[e]+' '+n});
+ for(const e of p.elements||[])out.push({kind:'element',id:e,text:ELEMENT_KO[e]});
+ for(const id of p.companions||[])out.push({kind:'member',id,text:name('07_CHAR_DB',id)});
+ if(p.companionRarity&&!p.companions?.length)out.push({kind:'rarity',text:'4★ 동료 셋'});
+ else if(p.full&&!p.companions?.length&&!p.elements?.length&&!p.mono&&!p.elementCounts)out.push({kind:'party',text:'4인'});
+ return out;
+}
 P.taskPresentation=function(t){
- const words={...(catalog.displayWordingsV01613?.[t.id]||{}),...(WORDS_V01630[t.id]||{})},name=words.name||t.name;
+ const words={...(catalog.displayWordingsV01613?.[t.id]||{}),...(WORDS_V01630[t.id]||{})},told=api.taskWordsV01634?.[t.id],name=told?.[0]||words.name||t.name;
  let description=words.description||t.description||t.name;
  if(t.id===ROOT_TASK)description=CHAIN_BY[ROOT_TASK].description;
  else if(!t.learning&&t.kind!=='delivery')description=description.replace(' (수락 이후의 성공한 행동만 집계)','')+' · 수락 후 집계, 캐서린에게 보고';
- return {name,category:words.category||'길드 의뢰',description};
+ return {name,category:words.category||'길드 의뢰',description,requester:told?.[1]||null,story:told?.[2]||null,chips:taskChips(this,t)};
 };
 P.questUnlockReason=function(id){
  const accepted=this.commissionAccepted(id),t=objectiveOf(this,id);
@@ -341,4 +367,41 @@ api.tasksV0168={daily:copy(DAILY_POOL),weekly:copy(WEEKLY_POOL),chains:copy(CHAI
 api.tasksV0169={daily:copy(DAILY_POOL),weekly:copy(WEEKLY_POOL),chains:copy(CHAINS),weeklyBonus:copy(WEEKLY_BONUS),acceptCap:ACCEPT_CAP,weeklyCount:WEEKLY_COUNT,rewardAt,elementalChoices};
 api.tasksV01611={daily:copy(DAILY_POOL),weekly:copy(WEEKLY_POOL),chains:copy(CHAINS),weeklyBonus:copy(WEEKLY_BONUS),acceptCap:ACCEPT_CAP,weeklyCount:WEEKLY_COUNT,dailyCount:DAILY_COUNT,rewardAt,elementalChoices,branches:copy(BRANCHES),snapshotV0169:copy(snapshot169),rootId:ROOT_TASK};
 api.tasksV01612={...api.tasksV01611,snapshotV01611:copy(snapshot171),revision:REVISION};
+// ---------- 0.16.34 의뢰 포기 (TODO 5-3) ----------
+// A commission taken can be given back: its progress goes and it can be taken again. What was paid to start a step (the
+// Liyue commissions' goods) is not returned, and the card says so before. The practice commission is only reported.
+P.commissionAbandonReason=function(id){
+ if(!this.isCommission?.(id))return '포기할 수 있는 의뢰가 아닙니다.';
+ const q=this.s.quests[id];if(!q?.guildAccepted||q.claimed)return '받아 둔 의뢰만 포기할 수 있습니다.';
+ if(id===ROOT_TASK)return '의뢰 접수 연습은 캐서린에게 보고하면 끝납니다.';
+ if(this.s.runtime||this.s.battlePreparation||this.playPhase?.()!=='FREE')return '이야기나 전투를 마친 뒤 포기할 수 있습니다.';
+ if(this.s.worldJob||this.s.lifeJob)return '하고 있는 일을 마친 뒤 포기할 수 있습니다.';
+ return '';
+};
+P.commissionAbandonLoss=function(id){const q=this.s.quests[id],cost=json(this.tables['22_QUEST_DB'].get(id)?.[10]).conditions?.items_cost;return q?.localLiyueRequirementPaid&&cost&&Object.keys(cost).length?copy(cost):null;};
+P.abandonCommission=function(id){const why=this.commissionAbandonReason(id);if(why)fail('COMMISSION_ABANDON',why);const lost=this.commissionAbandonLoss(id);delete this.s.quests[id];return {abandoned:true,quest:id,lost};};
+// ---------- 0.16.34 캐서린의 안내 (TODO 5-1) ----------
+// The first time at her desk Catherine teaches the round of a commission: take the practice one, report it; once it is
+// reported a last line points at the day's and the week's tasks (TUTORIAL_GUIDE {seen:'guildTasks'} ends it). Players who
+// reported it long ago see only that last line, once.
+const tutor=Object.fromEntries(['tutorialDirective','actionReason','apply'].map(k=>[k,P[k]]));
+P.tutorialDirective=function(){
+ const base=tutor.tutorialDirective.call(this);if(base)return base;
+ if(this.s.runtime||this.playPhase?.()!=='FREE'||!this.atGuild?.())return null;
+ const d=this.tutorialState().done;if(d.guildTasks)return null;
+ const q=this.s.quests[ROOT_TASK];
+ if(!q?.guildAccepted&&!q?.claimed)return {id:'guildAccept',title:'의뢰를 수락하세요',text:'「의뢰 접수 연습」의 수락을 누르세요.',quest:ROOT_TASK,guild:true};
+ if(!q.claimed)return {id:'guildReport',title:'의뢰를 보고하세요',text:'해낸 의뢰는 캐서린에게 보고해 보상을 받습니다.',quest:ROOT_TASK,guild:true};
+ return {id:'guildTasks',title:'일일·주간 임무',text:'매일·매주 할 일은 이 탭에 있습니다. 다 채우면 「모두 달성」 보상을 받습니다.',guild:true};
+};
+P.actionReason=function(type,a={}){
+ if(type==='TUTORIAL_GUIDE'&&a.seen!==undefined)return a.seen==='guildTasks'?'':'안내를 확인해 주세요.';
+ if(type==='COMMISSION_ABANDON')return this.commissionAbandonReason(String(a.quest||''));
+ return tutor.actionReason.call(this,type,a);
+};
+P.apply=function(a){
+ if(a?.type==='TUTORIAL_GUIDE'&&a.seen!==undefined){const why=this.actionReason(a.type,a);if(why)fail('TUTORIAL',why);this.tutorialState().done.guildTasks=true;return {seen:a.seen};}
+ if(a?.type==='COMMISSION_ABANDON')return this.abandonCommission(String(a.quest||''));
+ return tutor.apply.call(this,a);
+};
 })(globalThis);

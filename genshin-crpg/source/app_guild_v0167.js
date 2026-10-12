@@ -29,7 +29,20 @@ function rewards(rw={}){
  if(rw.equipment_choice?.length){const forge=rw.equipment_choice.every(id=>game?.weaponBlueprintId?.(id));chip(picture('assets/icons/facility/UI_Icon_Intee_Blacksmith.png','cm-reward-icon'),'선택',(forge?'단조 도면':'장비')+' 1개 선택');}
  return box;
 }
-// The whole card in the information window; whatever it does closes the window first.
+// A commission's conditions: the count, the place, the foe or goods (their pictures), the level, the elements, the companions.
+function chips(list,level,max=99){
+ const box=mk('span','cm-chips'),icon=c=>{
+  if(c.kind==='element')return window.CRPGIcons?.element?.(c.id,'cm-chip-icon')||null;
+  if(c.kind==='member')return typeof actorPortrait==='function'?actorPortrait(c.id,'cm-chip-face'):null;
+  if(c.kind==='item'||c.kind==='equip')return picture(MAN().itemIcons?.icons?.[c.id]?.path,'cm-chip-icon');
+  if(c.kind==='map')return S?.icon?.('PIN','shell-icon cm-chip-glyph')||null;
+  if(c.kind==='goal'&&['win','boss','abyss','domain','ley'].includes(c.icon))return S?.icon?.('SWORDS','shell-icon cm-chip-glyph')||null;
+  return null;};
+ const all=[...(level?[{kind:'req',text:'Lv.'+level}]:[]),...list],shown=all.slice(0,max);
+ for(const c of shown){const chip=mk('span','cm-chip k-'+c.kind),pic=icon(c);if(pic)chip.append(pic);if(c.kind!=='member')chip.append(mk('b','',c.text));chip.title=c.text;box.append(chip);}
+ if(all.length>shown.length)box.append(mk('span','cm-chip more','+'+(all.length-shown.length)));
+ return box;
+}// The whole card in the information window; whatever it does closes the window first.
 function openCard(card,title){
  if(typeof showModal!=='function')return;
  if(!card.dataset.cmWired){card.dataset.cmWired='1';card.addEventListener('click',e=>{if(e.target?.closest?.('button[data-action]'))document.getElementById('modal')?.close?.();},true);}
@@ -39,7 +52,9 @@ function row(card,q,guild){
  const st=stateOf(q),[label,cls]=STATE[st],li=mk('article','cm-row '+cls);li.dataset.quest=q.row[0];li.tabIndex=0;li.setAttribute('role','button');
  const title=q.row[1]||'',level=(card.querySelector('.quest-level')?.textContent||'').match(/\d+/)?.[0],where=q.definition?.map_id&&typeof mapName==='function'?mapName(q.definition.map_id):'';
  li.setAttribute('aria-label',label+' · '+title+' · 자세히');
- const copy=mk('span','cm-copy');copy.append(mk('strong','',title),mk('small','',[level?'Lv.'+level:'',where].filter(Boolean).join(' · ')));
+ const copy=mk('span','cm-copy');copy.append(mk('strong','',title));
+ // 0.16.34 (TODO 5-2): the conditions as small chips — pictures and numbers — instead of a line of words.
+ if(q.taskDisplay?.chips?.length)copy.append(chips(q.taskDisplay.chips,level,4));else copy.append(mk('small','',[level?'Lv.'+level:'',where].filter(Boolean).join(' · ')));
  li.append(mk('span','cm-state',label),copy,rewards(q.reward));
  // One small button for what comes next; several choices open the card.
  const acts=[...card.querySelectorAll('button[data-action]')].filter(b=>!/^OBJECTIVE_/.test(b.dataset.action));let main=null,many=false;
@@ -71,5 +86,5 @@ function pagePlace(){const pane=document.querySelector('.shell-place-tabs .shell
 const priorRender=render;render=function(){priorRender();try{if(document.querySelector('.shell-place-tabs'))requestAnimationFrame(pagePlace);}catch(e){console.error('[guild pages]',e);}};
 document.addEventListener('click',e=>{if(e.target?.closest?.('.shell-place-tabs .shell-tab'))requestAnimationFrame(pagePlace);});
 let resizeTimer=0;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(pagePlace,140);});
-window.CRPGGuildRows={row,rewards,pagePlace};
+window.CRPGGuildRows={row,rewards,pagePlace,chips};
 })();

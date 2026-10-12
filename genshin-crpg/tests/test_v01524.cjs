@@ -125,7 +125,8 @@ await check('the tutorial speaks: Amber (Paimon for the traveller’s first step
  const at=tut.indexOf('const TUTORIAL_LINES=')+'const TUTORIAL_LINES='.length;let depth=0,end=at;for(;end<tut.length;end++){if(tut[end]==='{')depth++;else if(tut[end]==='}'&&!--depth)break;}
  const lines=vm.runInNewContext('('+tut.slice(at,end+1)+')');
  const said=[...tut.matchAll(/say:'([\w.]+)'/g)].map(m=>m[1]).concat(['life']);
- for(const k of said)assert(lines.AMBER[k],'Amber has a line for '+k);
+ // 0.16.34: Catherine speaks at her desk (the guild.* lines); everything else is Amber's.
+ for(const k of said)assert(k.startsWith('guild.')?lines.KATHERYNE?.[k]:lines.AMBER[k],(k.startsWith('guild.')?'Catherine':'Amber')+' has a line for '+k);
  for(const k of ['move.map','move.pick','move.go','move.tab','storyTravel','arrival'])assert(lines.PAIMON[k],'Paimon has a line for '+k);
  assert(/traveller&&\['move','storyTravel','arrival'\]\.includes\(step\.id\)&&!game\.tutorialState\(\)\.done\.arrival\?'PAIMON':'AMBER'/.test(tut),'Paimon until the traveller reaches the plains, then Amber');
  const pos=fnBody(tut,'tutorialPosition');

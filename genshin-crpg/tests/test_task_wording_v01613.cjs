@@ -62,12 +62,14 @@ check('historical goal content is shown from the accepted definition rather than
  assert.equal(JSON.stringify(old),before);
 });
 
-check('all 288 generated commissions have purpose labels without fabricated story content',()=>{
+check('all 288 generated commissions have purpose labels (and, since 0.16.34, who asks and why)',()=>{
  const r=unlock(fresh()),categories=new Set();
  for(const task of C.chains){const display=r.taskPresentation(task);categories.add(display.category);assert(!/레벨링/.test(display.name));assert(display.description);assert.equal(r.tables['22_QUEST_DB'].get(task.id)[1],display.name);}
  assert.deepEqual([...categories].sort(),['모험 길잡이','물자 의뢰','생활 의뢰','전투 의뢰'].sort());
  const delivery=C.chains.find(t=>t.id==='Q_TASK_GEAR_DELIVERY_01'),display=r.taskPresentation(delivery);
- assert.equal(display.name,delivery.name);assert.equal(display.description,delivery.description);
+ // 0.16.34 (user's 10-12 list, TODO 5-2: 「누가 왜 부탁하는지 한 줄 사연을 붙인다」): a title and who asks replace the bare label; the
+ // objective's own description stays word for word.
+ assert.equal(display.name,c.CRPGRuntime.taskWordsV01634[delivery.id][0]);assert.equal(display.description,delivery.description);assert(display.requester&&display.story);
  const original=r.tables['22_QUEST_DB'].get('Q_MOND_EXP_PLAINS_CART').slice(),regular=r.commissionEntries().find(q=>q.row[0]===original[0]);
  assert(regular);assert.deepEqual(copy(regular.row),copy(original));assert.equal(regular.taskDisplay,undefined);
 });

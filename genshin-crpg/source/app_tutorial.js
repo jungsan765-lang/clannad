@@ -16,8 +16,17 @@ function tutorialNav(screen){return tutorialFind('[data-screen="'+screen+'"]:not
 // her); on the traveller route she first appears on the plains, so the very first move out of the forest is Paimon's.
 // Lines follow tools/editorial/personal_k/VOICE_BIBLE.md (Amber: bright 반말, 「좋아!」「가자!」 sparingly; Paimon: 반말,
 // 「~라구」 at most once). A key the table lacks falls back to the step's own title and text.
-const TUTORIAL_SPEAKERS={AMBER:{name:'엠버',avatar:'MOND_AMBER'},PAIMON:{name:'페이몬',avatar:'PAIMON'}};
+const TUTORIAL_SPEAKERS={AMBER:{name:'엠버',avatar:'MOND_AMBER'},PAIMON:{name:'페이몬',avatar:'PAIMON'},KATHERYNE:{name:'캐서린',avatar:null}};
 const TUTORIAL_LINES={
+ // 0.16.34 (TODO 5-1): Catherine at her desk, in her polite guild voice.
+ KATHERYNE:{
+  'guild.accept':'별과 심연을 향해! 처음 오셨군요. 먼저 「의뢰 접수 연습」을 수락해 보세요.',
+  'guild.tab':'의뢰는 이 탭에 있어요. 눌러 보세요.',
+  'guild.report':'해낸 의뢰는 저에게 보고해 주세요. 이 의뢰는 벌써 끝났으니 「보고」를 누르시면 돼요.',
+  'guild.open':'이 창에서 고르시면 돼요.',
+  'guild.tasks':'이제 일일·주간 임무가 열렸어요. 매일·매주 할 일을 채우고 「모두 달성」 보상도 저에게서 받아 가세요!',
+  'modal.close':'이 창은 닫고, 이어서 해 볼까요?'
+ },
  PAIMON:{
   'move.map':'여행자, 이 숲부터 빠져나가자! 지도를 열어 봐.',
   'move.pick':'저기 빛나는 곳 보여? {place}! 눌러 보라구.',
@@ -68,6 +77,7 @@ const TUTORIAL_LINES={
  }
 };
 function tutorialSpeaker(step){
+ if(step.guild)return 'KATHERYNE';
  const traveller=game?.s?.global?.STORY_ROUTE_ID==='ROUTE_TRAVELER';
  return traveller&&['move','storyTravel','arrival'].includes(step.id)&&!game.tutorialState().done.arrival?'PAIMON':'AMBER';
 }
@@ -76,6 +86,8 @@ function tutorialLine(speaker,say,step){
  return line.replace('{place}',step.destination&&typeof mapName==='function'?mapName(step.destination):'목적지').replace('몬드성야','몬드성이야');
 }
 function tutorialAvatar(speaker){
+ // Catherine's face is the guild's own portrait on her desk's screen.
+ if(speaker==='KATHERYNE'){const src=document.querySelector('.shell-place-figure.portrait img')?.src;if(src){const img=el('img','tutorial-avatar katheryne');img.src=src;img.alt='';img.draggable=false;return img;}}
  const rec=(typeof MANIFEST!=='undefined'?MANIFEST:{}).uiAssets?.avatars?.[TUTORIAL_SPEAKERS[speaker].avatar];
  if(rec?.path){const img=el('img','tutorial-avatar');img.src=rec.path;img.alt='';img.draggable=false;return img;}
  return el('span','tutorial-avatar fallback','✦');
@@ -136,8 +148,26 @@ function tutorialBattleTarget(step){
  }
  return {...step,target:tutorialAction('COMBAT'),title:'선택한 행동을 실행하세요',text:cardId==='PLAYER_BASIC_GUARD'?'실행을 누르면 방어하고 차례를 마칩니다.':'실행을 누르면 선택한 대상에게 행동합니다. 동료와 적의 차례는 자동으로 이어집니다.',say:kind&&kind+'.run'};
 }
-function tutorialControl(step){
+// 0.16.34: Catherine's lesson at her desk (runtime_tasks_v0167.js): the practice commission's own button in its row (or in its
+// card when it is open), the tab its row is under, and last the day's and the week's tab, which ends the lesson when pressed.
+function tutorialGuildTarget(step){
+ const modal=document.querySelector('#modal[open]');
+ if(step.id==='guildTasks'){
+  if(modal)return {...step,target:tutorialFind('#modal-close'),say:'modal.close'};
+  const tab=tutorialFind('.shell-place-tabs .shell-tab[data-tab="tasks"]');if(!tab)return null;
+  if(!tab.tutorialGuildSeen){tab.tutorialGuildSeen=true;tab.addEventListener('click',()=>{if(activeTutorial?.id==='guildTasks')act('TUTORIAL_GUIDE',{seen:'guildTasks'});},{capture:true});}
+  return {...step,target:tab,say:'guild.tasks'};
+ }
+ const type=step.id==='guildAccept'?'COMMISSION_ACCEPT':'CLAIM_QUEST',say=step.id==='guildAccept'?'guild.accept':'guild.report';
+ if(modal){const own=tutorialAction(type,p=>p.quest===step.quest);return own?{...step,target:own,say:'guild.open'}:{...step,target:tutorialFind('#modal-close'),say:'modal.close'};}
+ const row=[...document.querySelectorAll('.cm-row[data-quest="'+step.quest+'"]')].find(n=>!n.closest('[hidden]'))||document.querySelector('.cm-row[data-quest="'+step.quest+'"]');
+ if(!row)return null;
+ if(row.closest('.shell-pane[hidden]'))return {...step,target:tutorialTabFor(row),say:'guild.tab'};
+ const go=row.querySelector('.cm-go[data-action="'+type+'"]:not(:disabled)');
+ return {...step,target:go||row,say};
+}function tutorialControl(step){
  if(step.battle)return tutorialBattleTarget(step);
+ if(step.guild)return tutorialGuildTarget(step);
  const modal=document.querySelector('#modal[open]');
  const self=step.owner==='PLAYER_CUSTOM'||(!step.owner&&step.id==='equip');
  if(modal){const body=modal.querySelector('#modal-body')||modal;
@@ -189,6 +219,6 @@ for(const type of ['pointerdown','click','change','keydown'])document.addEventLi
 },true);
 window.addEventListener('resize',tutorialPosition,{passive:true});window.visualViewport?.addEventListener('resize',tutorialPosition,{passive:true});document.addEventListener('scroll',tutorialPosition,{capture:true,passive:true});
 new MutationObserver(records=>{if(records.some(r=>!r.target.closest?.('#tutorial-spotlight')&&[...r.addedNodes,...r.removedNodes].some(n=>n.nodeType===1&&n.id!=='tutorial-spotlight'))||records.some(r=>r.type==='attributes'&&!r.target.closest?.('#tutorial-spotlight')))scheduleTutorial();}).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','open','aria-selected']});
-function openGameHelp(){const box=el('div','game-help');box.append(el('p','','첫 이동과 이야기 속 전투에서 필요한 편성·장비·전투 조작을 안내합니다. 밝게 표시된 곳을 직접 조작하면 다음 단계로 이어집니다. 채집·채광·사냥은 처음 이용할 때 조작을 배웁니다.'));if(game)box.append(button('여행 실습 이어가기',()=>{document.getElementById('modal').close();openTutorial();},false,true));for(const [title,text]of [['성장','최대 Lv. 60. Lv. 10·20·30·40·50·55에서 캐릭터를 돌파합니다. 몬드의 적은 Lv. 1~30, 리월은 Lv. 30~60이며 지역과 비경 단계에 고정됩니다.'],['동료','캐릭터는 기원으로 만납니다. 개인 이야기를 처음 마치면 경험치 책 5개와 만남의 인연 2개, 호감도 10을 받습니다. 대기 동료는 전투 경험치 25%를 받고 책도 쓸 수 있습니다.'],['호감도','개인 이야기와 함께한 승리로 호감도가 오릅니다. 호감도 이야기를 1편 마칠 때마다 공격·방어가 1%씩, 5편이면 5% 오릅니다.'],['비경','몬드성과 리월항에서 경험치·돌파·특성·장비 비경에 바로 입장합니다. 한국 시간 하루 첫 3승 재료·추가 모라가 2배이며 그 뒤에도 기본 보상으로 반복할 수 있습니다.']])box.append(el('h2','',title),el('p','',text));showModal('여행 안내',box);}
+function openGameHelp(){const box=el('div','game-help');box.append(el('p','','첫 이동과 이야기 속 전투에서 필요한 편성·장비·전투 조작을 안내합니다. 밝게 표시된 곳을 직접 조작하면 다음 단계로 이어집니다. 채집·채광·사냥은 처음 이용할 때 조작을 배웁니다.'));if(game)box.append(button('여행 실습 이어가기',()=>{document.getElementById('modal').close();openTutorial();},false,true));for(const [title,text]of [['성장','최대 Lv. 60. Lv. 10·20·30·40·50·55에서 캐릭터를 돌파합니다. 몬드의 적은 Lv. 1~30, 리월은 Lv. 30~60이며 지역과 비경 단계에 고정됩니다.'],['동료','캐릭터는 기원으로 만납니다. 개인 이야기를 처음 마치면 경험치 책 5개와 만남의 인연 2개, 호감도 10을 받습니다. 대기 동료는 전투 경험치 25%를 받고 책도 쓸 수 있습니다.'],['호감도','개인 이야기와 함께한 승리로 호감도가 오릅니다. 호감도 이야기를 1편 마칠 때마다 공격·방어가 1%씩, 5편이면 5% 오릅니다.'],['비경','몬드성과 리월항에서 경험치·돌파·특성·장비 비경에 바로 입장합니다. 한국 시간 하루 첫 3승 재료·추가 모라가 2배이며 그 뒤에도 기본 보상으로 반복할 수 있습니다.'],['의뢰·임무','캐서린에게 의뢰를 받고(수락) 직접 해낸 뒤 보고하면 보상을 받습니다. 동시에 5개까지 받을 수 있고, 의뢰 창에서 포기할 수도 있습니다. 일일·주간 임무는 받지 않아도 저절로 세며, 다 채우면 캐서린에게서 「모두 달성」 보상을 받습니다.']])box.append(el('h2','',title),el('p','',text));showModal('여행 안내',box);}
 const tutorialQuick=updateQuick;updateQuick=function(){tutorialQuick();document.getElementById('quick-actions').append(button('도움말',openGameHelp,busy));};
 const tutorialRender=render;render=function(){tutorialRender();renderTutorial();};

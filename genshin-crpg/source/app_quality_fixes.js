@@ -122,9 +122,13 @@ commissionCard=function(parent,q,guild=false){
   const r=q.row,d=q.definition,state=q.state;
   c.append(
     el('small','',state?.claimed?'완료':q.accepted?'진행 중':'미수락'),
-    el('h3','',r[1]),
-    el('p','',r[5]||d.text)
+    el('h3','',r[1])
   );
+  // 0.16.34 (TODO 5-2): who asks and why, then the conditions as chips; the words of the objective follow.
+  const td=q.taskDisplay;
+  if(td?.story){const ask=el('p','commission-request');ask.append(el('strong','',td.requester||'캐서린'),document.createTextNode(' '+td.story));c.append(ask);}
+  if(td?.chips?.length&&window.CRPGGuildRows?.chips)c.append(window.CRPGGuildRows.chips(td.chips,null));
+  c.append(el('p','',r[5]||d.text));
   travelGuide(c,d.map_id);
   rewardPreview(c,q.reward);
 
@@ -150,6 +154,16 @@ commissionCard=function(parent,q,guild=false){
     if(game.s.global.CURRENT_MAP_ID===d.map_id){
       c.append(actionButton('메인 화면에서 현장 진행',game.s.placeVisit?'PLACE_LEAVE':'MENU',game.s.placeVisit?{}:{screen:'LOCATION'},true));
     }
+  }
+  // 0.16.34 (TODO 5-3): a commission taken can be given back; one press asks, the second gives it back (what was paid to start
+  // a step is named, since it is not returned).
+  if(q.accepted&&!state?.claimed&&game.commissionAbandonReason&&!game.commissionAbandonReason(r[0])){
+    const lost=game.commissionAbandonLoss?.(r[0]),ask=button('의뢰 포기',()=>{
+      const box=el('div','commission-abandon');
+      box.append(el('p','choice-note','포기하면 진행한 만큼이 사라집니다. 다시 받을 수 있습니다.'+(lost?' 이미 낸 '+Object.entries(lost).map(([id,n])=>safeName('14_ITEM_DB',id)+' '+n+'개').join(', ')+'는 돌려받지 못합니다.':'')),actionButton('포기하기','COMMISSION_ABANDON',{quest:r[0]}),button('취소',()=>box.replaceWith(ask),false,false));
+      ask.replaceWith(box);
+    },false,false);
+    ask.classList.add('commission-abandon-ask');c.append(ask);
   }
   parent.append(c);
 };

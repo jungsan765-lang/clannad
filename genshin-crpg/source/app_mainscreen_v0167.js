@@ -30,7 +30,7 @@ function compact(left){
 // filled by the real layout, piece by piece: the pane's cards in order; a card taller than the room broken into its own
 // rows (its heading riding along on each of its pages); a grid of facilities broken into rows of tiles. A domain's gate,
 // a button or a line of words is one piece and is never split (the stylesheet makes the gate fit).
-const WHOLE='.domain-gate,.task-mini,.region-event,.ley-line-item,.shell-place-tile,.ch-journal-fact,.ch-journal-tier,button,a,label,svg,img,canvas,video,input,textarea,p,h1,h2,h3,h4,h5,summary,li';
+const WHOLE='.domain-gate,.task-mini,.region-event,.ley-line-item,.shell-place-tile,button,a,label,svg,img,canvas,video,input,textarea,p,h1,h2,h3,h4,h5,summary,li,.ch-journal-fact,.ch-journal-tier';
 function breakable(k){
  if(k.matches(WHOLE)||!k.children.length||[...k.childNodes].some(n=>n.nodeType===3&&n.textContent.trim()))return false;
  return [...k.children].every(c=>getComputedStyle(c).display!=='inline');

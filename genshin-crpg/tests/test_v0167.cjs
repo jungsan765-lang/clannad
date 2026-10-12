@@ -107,7 +107,8 @@ check('의뢰 한 줄: state, name, place, reward pictures, one small button; th
 check('메인 화면: no scrolling — pages filled by the real layout, tall cards paged by their rows, nothing cut',()=>{
  const m=src('app_mainscreen_v0167.js'),land=src('landscape_v01524.css'),css=src('shell.css'),growth=src('app_growth_v01522.js'),nav=src('app_navigation.js');
  assert(m.includes("const WHOLE='.domain-gate,.task-mini,.region-event,.ley-line-item,.shell-place-tile,button"),'a domain gate, a button or a line is never split');
- assert(m.includes('const over=()=>pane.scrollHeight>pane.clientHeight+1;')&&m.includes('if(page.length&&over()){pages.push(on);'),'measured, not guessed');
+ // 0.16.33: a page that has room left takes a later whole card (stacked columns only); still measured piece by piece.
+ assert(m.includes('const over=()=>pane.scrollHeight>pane.clientHeight+1;')&&m.includes('if(placed&&over()){put(on);'),'measured, not guessed');
  assert(m.includes("document.addEventListener('toggle'"),'a folded list opened is paged again');
  assert(css.includes('body.teyvat .shell-loc-side .shell-pane>*{margin:0;flex-shrink:0}'),'cards keep their height');
  assert(land.includes('grid-template-areas:"head head go" "double double double" "stages stages stages" "elements elements elements" "foes rewards rewards"'),'the gate fits the narrow column');
