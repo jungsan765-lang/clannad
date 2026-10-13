@@ -60,8 +60,10 @@ check('domain gate: the kind by the name, levels as stage buttons with their loc
 
 check('sideways phone battle: enemy pictures shrink to the room above the commands, a full party tightens, the version button stays out of the way',()=>{
  const layout=src('app_battle_layout_v01522.js'),land=src('landscape_v01524.css');
- assert(layout.includes('function fitFighters(){')&&layout.includes(" fitFighters();\n}")&&layout.includes("addEventListener('resize',()=>{try{fitFighters();fitPlayback();}catch{}});"),'fitted after every draw and on resize');
- assert(layout.indexOf("for(const k of ['tight','tighter'])")<layout.indexOf("enemies.style.setProperty('--enemy-h'"),'the party first, then the pictures');
+ // 0.16.41: the same fitting on every screen, with the effect lines watched while a round plays (test_phone_stage_v01641.cjs)
+ assert(layout.includes('function fitFighters(){')&&layout.includes(" fitFighters();watchChips(p);\n}")&&layout.includes("addEventListener('resize',()=>{try{fitFighters();fitPlayback();}catch{}});"),'fitted after every draw and on resize');
+ assert(layout.includes('roomForParty(allies,floor);roomForEnemies(enemies,floor);'),'the party first, then the pictures');
+ assert(layout.includes("allies.classList.add('tight');")&&layout.includes("allies.classList.add('tighter');")&&layout.includes("enemies.style.setProperty('--enemy-h',h+'px');"));
  assert(/\.shell-allies\.tight\{/.test(land)&&/\.shell-allies\.tighter \.combatant-copy \.stat\{display:none\}/.test(land));
  assert(land.includes('body.teyvat.battle-screen #game-version{display:none}'));
  return {};
