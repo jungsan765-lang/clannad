@@ -45,7 +45,11 @@ const GameVersion={
     },()=>finish(false));
    });if(!active)throw Error('새 버전을 준비 중입니다. 잠시 후 다시 적용해 주세요.');}
    if(reg&&navigator.serviceWorker.controller&&this.changed()&&await this.workerVersion(navigator.serviceWorker.controller)!==this.latest.packVersion)throw Error('최신 버전의 준비가 확인되지 않았습니다. 잠시 후 다시 적용하거나 게임 탭을 모두 닫고 다시 열어 주세요.');
-   const target=new URL(location.href);target.searchParams.set('release',this.latest?.packVersion||MANIFEST.contentVersion);location.replace(target.href);
+   // 0.16.41 (the user's phone kept 0.16.40's 760×352 screen after updating): inside the fixed frame (index.html) only this
+   // inner page was reloaded, so the frame around it — which sets the screen's size — stayed the old release. The page
+   // the player opened is reloaded instead, and it frames the new release afresh.
+   let page=location;try{if(window.top&&window.top!==window&&window.top.location.origin===location.origin)page=window.top.location;}catch{}
+   const target=new URL(page.href);target.searchParams.set('release',this.latest?.packVersion||MANIFEST.contentVersion);page.replace(target.href);
   }catch(e){const message='업데이트하지 못했습니다. '+e.message;say(message);const box=document.querySelector('.version-details');if(box){let status=box.querySelector('.update-status');if(!status){status=el('p','update-status requirement-unmet');status.setAttribute('role','alert');box.append(status);}status.textContent=message;}}finally{busy=false;this.updating=false;render();}
  }
 };

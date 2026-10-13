@@ -16,7 +16,10 @@ function compact(left){
  // Facilities: what each is, without the region, under its picture (the full name stays on the tile and its button).
  for(const tile of left.querySelectorAll('.shell-place-tile')){if(tile.querySelector('.place-entry-short'))continue;
   const kind=(tile.querySelector('.place-entry-kind')?.textContent||'').replace(REGION,'').trim(),name=tile.querySelector('h3')?.textContent?.trim()||'';
-  tile.querySelector('.place-entry-copy')?.append(mk('small','place-entry-short',tile.classList.contains('place-entry-guild')?'캐서린':kind||name));}
+  // 0.16.41 (user: 「리월항 시설쪽에 이야기 소개라고 적혀있는거 건물 이름으로 바꿔줘」): a place where companions' stories are heard
+  // shows its building's name (만민당, 불복려 …), not the kind 「이야기·소개」 every such place shares.
+  const building=name.replace(REGION,'').split(' · ')[0].trim();
+  tile.querySelector('.place-entry-copy')?.append(mk('small','place-entry-short',tile.classList.contains('place-entry-guild')?'캐서린':/이야기|소개/.test(kind)&&building?building:kind||name));}
  // Waiting: one small button on the place's name row; how likely a fight is rides on its title.
  const wait=left.querySelector(':scope>.wait-controls'),head=left.querySelector(':scope>.shell-loc-head');
  if(wait&&!wait.classList.contains('compact')){wait.classList.add('compact');const note=wait.querySelector(':scope>small'),b=wait.querySelector('button');if(note&&b){b.title=note.textContent.trim();note.hidden=true;}

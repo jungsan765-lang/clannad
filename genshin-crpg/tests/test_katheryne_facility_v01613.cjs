@@ -43,7 +43,8 @@ for(const [map,guild]of [['MAP_MOND_CITY','EVT_SCHEDULE_NPC_MOND_KATHERYNE'],['M
  });
  check(map+' 작은 시설 칸에도 캐서린 이름을 표시하고 중복하지 않는다',()=>{
   const p=screen(map),guild=p.grid.children[0];assert.equal(guild.querySelector('.place-entry-short').textContent,'캐서린');assert(guild.querySelector('.place-entry-kind').textContent.includes('의뢰 접수'));
-  for(const tile of p.grid.children.slice(1)){const expected=tile.querySelector('.place-entry-kind').textContent.replace(/^(몬드|리월)\s*·\s*/,'').trim();assert.equal(tile.querySelector('.place-entry-short').textContent,expected);}
+  // 0.16.41: a place where stories are heard (이야기·소개) shows its building's name instead
+  for(const tile of p.grid.children.slice(1)){const kind=tile.querySelector('.place-entry-kind').textContent.replace(/^(몬드|리월)\s*·\s*/,'').trim(),name=(tile.querySelector('h3')?.textContent||'').replace(/^(몬드|리월)\s*·\s*/,'').split(' · ')[0].trim();const expected=/이야기|소개/.test(kind)&&name?name:kind;assert.equal(tile.querySelector('.place-entry-short').textContent,expected);}
   p.context.CRPGMainScreen.arrange();assert.equal(guild.querySelectorAll('.place-entry-short').length,1);
  });
 }

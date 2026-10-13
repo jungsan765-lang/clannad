@@ -80,16 +80,19 @@ function catchGame(v){
  if(game.actionReason('OCULUS_RESONANCE',{point:v.point})){window.CRPGShell?.toast?.(game.actionReason('OCULUS_RESONANCE',{point:v.point}));return;}
  const box=el('div','resonance-game'),field=el('div','resonance-field'),orb=el('button','resonance-orb'),dots=el('div','resonance-dots'),bar=el('div','resonance-time'),fill=el('i');
  orb.type='button';orb.setAttribute('aria-label','눈동자 잡기');orb.append(resonanceIcon(v.item));bar.append(fill);
- const NEED=3,TIME=10000;let hits=0,over=false,start=performance.now(),move=0;
+ // 0.16.41 (user: 「눈동자 시스템 좋긴 한데 리월은 좀 더 난이도 있게 해주고」): in Liyue the oculus hides among the rocks — a smaller
+ // light, five touches in the same ten seconds, and it jumps away sooner (0.65 s instead of 0.9 s). Mondstadt stays as it was.
+ const hard=document.body.dataset.region==='liyue'||/^MAP_(LY|LIYUE)/.test(String(game?.s?.global?.CURRENT_MAP_ID||''));
+ const NEED=hard?5:3,TIME=10000,JUMP=hard?650:900;let hits=0,over=false,start=performance.now(),move=0;if(hard)box.classList.add('hard');
  const drawDots=()=>{dots.replaceChildren(...Array.from({length:NEED},(_,i)=>el('span',i<hits?'on':'')));};
- const place=()=>{const w=field.clientWidth-54,h=field.clientHeight-54;orb.style.left=Math.max(0,Math.random()*w)+'px';orb.style.top=Math.max(0,Math.random()*h)+'px';};
+ const place=()=>{const size=orb.offsetWidth||54,w=field.clientWidth-size,h=field.clientHeight-size;orb.style.left=Math.max(0,Math.random()*w)+'px';orb.style.top=Math.max(0,Math.random()*h)+'px';};
  const end=async win=>{if(over)return;over=true;clearInterval(move);
   if(!win){box.classList.add('missed');box.querySelector('.resonance-note').textContent='눈동자가 바람에 흩어졌다 · 다시 해 보세요';const again=button('다시',()=>{document.getElementById('modal')?.close();catchGame(game.resonanceView?.()||v);},false,true);box.append(again);try{window.CRPGSound?.play('error');}catch{}return;}
   try{window.CRPGSound?.play('chest_reward');}catch{}document.getElementById('modal')?.close();await act('OCULUS_RESONANCE',{point:v.point});};
  orb.onclick=()=>{if(over)return;hits++;drawDots();try{window.CRPGSound?.play('tab');}catch{}if(hits>=NEED){end(true);return;}place();};
- field.append(orb);box.append(el('p','resonance-note',v.title||'눈동자가 바람을 타고 떠다닌다'),field,dots,bar);drawDots();
+ field.append(orb);box.append(el('p','resonance-note',v.title||(hard?'눈동자가 바위 틈을 옮겨 다니며 숨는다':'눈동자가 바람을 타고 떠다닌다')),field,dots,bar);drawDots();
  showModal('신의 눈동자 · 공명',box);requestAnimationFrame(place);
- move=setInterval(()=>{if(over)return;const t=performance.now()-start;fill.style.width=Math.max(0,100-t/TIME*100)+'%';if(t>=TIME){end(false);return;}if(Math.floor(t/900)!==Math.floor((t-60)/900))place();},60);
+ move=setInterval(()=>{if(over)return;const t=performance.now()-start;fill.style.width=Math.max(0,100-t/TIME*100)+'%';if(t>=TIME){end(false);return;}if(Math.floor(t/JUMP)!==Math.floor((t-60)/JUMP))place();},60);
  document.getElementById('modal')?.addEventListener('close',()=>{if(!over){over=true;clearInterval(move);}},{once:true});
  try{window.CRPGSound?.play('chest_appear');}catch{}
 }

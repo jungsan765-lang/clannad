@@ -265,7 +265,11 @@ try{
     await page.evaluate(()=>{try{localStorage.removeItem('crpg-track-v1');if(typeof NavigationUI!=='undefined')NavigationUI.choose(null);render();}catch{}});}
    // 0.16.41 (user's picture: 리월항 구역 안내 cut at the bottom of 시설, no page to turn to): Liyue Harbor with each tab.
    {const x=playerState();try{x.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_LIYUE_HARBOR'});}catch(e){console.error('liyue harbor',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
-    for(const tab of await labels('.shell-loc-side .shell-tab'))await view('liyue-harbor-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);}
+    for(const tab of await labels('.shell-loc-side .shell-tab'))await view('liyue-harbor-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);
+    // 0.16.41 (user: 「이야기 소개라고 적혀있는거 건물 이름으로」): every other district of the harbour, its 시설 tab
+    const districts=(x.liyueCityDirectory?.()||[]).map(d=>d.map).filter(m=>m&&m!=='MAP_LIYUE_HARBOR');
+    for(const [i,map] of districts.entries()){const y=playerState();try{y.action('OPERATOR_DEBUG',{op:'travel',map});}catch(e){console.error('liyue district',map,e.message);continue;}fixture.seed(y.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+     await view('liyue-district'+(i+1)+'-places',`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab','places')||__tap('.shell-loc-side .shell-tab');})()`);}}
   }
   // 0.16.32: an early journey as players see it (the 검증 account as it starts: a forest road, the story's next place,
   // a region event, level-ups after a fight), not only the finished town.

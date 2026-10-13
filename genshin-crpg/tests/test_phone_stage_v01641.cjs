@@ -44,4 +44,16 @@ check('no bar under the map with nothing chosen; the check catches anything show
  assert(css.includes('html.stage-pc body.teyvat .qm-copy>small{white-space:nowrap'));
 });
 
+check('an update reloads the page the player opened, and a frame from an older release is redrawn once',()=>{
+ const v=src('app_version.js');assert(v.includes('page=window.top.location')&&v.includes('page.replace(target.href);'));
+ const html=src('index.html');assert(html.includes('window.CRPGFrameRev=2;'));assert(html.includes("window.parent.CRPGFrameRev!==2&&!sessionStorage.getItem('crpg-frame-heal')"));
+});
+
+check('a place where stories are heard shows its building\'s name; Liyue\'s oculus is harder to catch',()=>{
+ const m=src('app_mainscreen_v0167.js');assert(m.includes("/이야기|소개/.test(kind)&&building?building:kind||name"));
+ const j=src('app_journey.js');assert(j.includes('const NEED=hard?5:3,TIME=10000,JUMP=hard?650:900;'));assert(j.includes("Math.floor(t/JUMP)"));
+ assert(css.includes('.resonance-game.hard .resonance-orb{width:40px;height:40px'));
+ assert(src('tests/test_screen_fit_v01629.mjs').includes("view('liyue-district'+(i+1)+'-places'"));
+});
+
 console.log(JSON.stringify({ok:!process.exitCode,passed}));

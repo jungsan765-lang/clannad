@@ -1683,4 +1683,6 @@ html.stage-pc body.teyvat .combat-panel .shell-allies.tighter .combatant-copy .s
 html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;row-gap:3px;align-items:center}
 html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>*{grid-column:1/-1;margin-top:0;margin-bottom:0}
 html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>strong{grid-column:1;grid-row:1;min-width:0}
-html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>.stat{grid-column:2;grid-row:1;justify-self:end;margin-right:24px;white-space:nowrap}
+html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>.stat{grid-column:2;grid-row:1;justify-self:end;margin-right:24px;white-space:nowrap}/* 0.16.41: Liyue's oculus is smaller and slips between the rocks faster (app_journey.js catchGame) */
+body.teyvat :where(#modal) .resonance-game.hard .resonance-orb{width:40px;height:40px;transition:left .22s ease-out,top .22s ease-out;background:radial-gradient(circle,rgba(255,226,150,.3),rgba(0,0,0,0) 70%)}
+body.teyvat .resonance-game.hard .resonance-orb .resonance-icon{width:32px;height:32px;filter:drop-shadow(0 0 8px rgba(255,220,140,.85))}

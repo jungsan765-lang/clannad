@@ -30,6 +30,9 @@
    de.classList.add('crpg-framed');var st=q.get('stage');if(st==='phone'||st==='pc')de.classList.add('crpg-stage-'+st);
    // How the app was opened and which way the phone is held belong to the window the player holds, not to this fixed frame.
    try{var top=window.top,own=window.matchMedia.bind(window),theirs=top.matchMedia.bind(top);window.matchMedia=function(s){return /display-mode|orientation/.test(String(s))?theirs(s):own(s);};}catch(e){}
+   // 0.16.41: a frame drawn by an older release (an update that reloaded only this page kept the phone at 760×352) is
+   // reloaded once, so it frames this release at its own size.
+   try{if(window.parent.CRPGFrameHost&&window.parent.CRPGFrameRev!==2&&!sessionStorage.getItem('crpg-frame-heal')){sessionStorage.setItem('crpg-frame-heal','1');window.parent.location.reload();}}catch(e){}
    return;
   }
   if(q.get('frame')==='0'||navigator.webdriver)return;
@@ -45,6 +48,7 @@
   var SW=desk?1600:1280,SH=desk?900:720;
   q.set('frame','inner');q.set('stage','pc');if(phone)q.set('display','app');
   var src=location.pathname+'?'+q.toString()+location.hash;
+  window.CRPGFrameRev=2;// 0.16.41: phones framed at 1280×720 (read by the page inside)
   window.CRPGFrameHost=function(){
    var d=document,f=d.getElementById('crpg-frame'),safe=d.getElementById('crpg-safe');if(!f)return;
    f.src=src;f.style.width=SW+'px';f.style.height=SH+'px';
