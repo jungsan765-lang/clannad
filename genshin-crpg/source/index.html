@@ -13,8 +13,8 @@
    so nothing in it ever moves, wraps or changes size with the window:
     - a computer: 1600×900 (0.16.40; 설정 → 화면 배율 75/100/125/150%, 125% = its own size). A smaller window gets scroll bars around the game,
       like KanColle; a larger one shows it in the middle. The browser's own zoom (Ctrl +/−) still works.
-    - an installed phone (or ?display=app): 760×352, enlarged once to fill the screen inside its safe area. The keyboard
-      never shrinks it: the game only slides up so the box being typed in stays above the keyboard.
+    - an installed phone (or ?display=app): 1280×720 like a tablet (0.16.41; 760×352 before), reduced once to fit the screen
+      inside its safe area. The keyboard never shrinks it: the game only slides up so the box being typed in stays above it.
     - a tablet: 1280×720, enlarged or reduced once to fill the screen.
    Inside the frame the page sees an ordinary window of that size, so media queries, units, dialogs and clicks work as on
    any page. A phone browser that is not installed keeps the plain page (the install guide), and so do automated browsers
@@ -40,8 +40,10 @@
   // 0.16.40 (user: 「이전엔 완전 PC 느낌이 났는데 왜이렇게 글씨들도 존나 크고 … 여전히 휴대폰으로 하는 느낌」): a computer lays the game
   // out on a 1600×900 page — the letters at a computer's own size with the room around them — instead of 1280×720 drawn
   // 25% larger (every letter and button grew with it, like a phone). A tablet keeps 1280×720.
-  var SW=phone?760:desk?1600:1280,SH=phone?352:desk?900:720;
-  q.set('frame','inner');q.set('stage',phone?'phone':'pc');if(phone)q.set('display','app');
+  // 0.16.41 (user: 「휴대폰도 크기에 맞춰서 가두던가... 칸코레도 그렇게 하고 있잖아」): a phone shows the tablet's 1280×720 page
+  // reduced to fit, like KanColle — the same screens as a computer, no separate small-screen layout to cut cards.
+  var SW=desk?1600:1280,SH=desk?900:720;
+  q.set('frame','inner');q.set('stage','pc');if(phone)q.set('display','app');
   var src=location.pathname+'?'+q.toString()+location.hash;
   window.CRPGFrameHost=function(){
    var d=document,f=d.getElementById('crpg-frame'),safe=d.getElementById('crpg-safe');if(!f)return;
@@ -53,7 +55,8 @@
    // The choices keep their sizes on the screen (125% = 1600×900, the size for a full-HD monitor; 150% = 1920×1080 for QHD);
    // the 1600×900 page is drawn at 125%/125 of its size. With nothing chosen: 125%, or exactly what fits a smaller window.
    var ZOOM={'75':.6,'100':.8,'125':1,'150':1.2};
-   window.CRPGFrameZooms=[['75','75%'],['100','100%'],['125','125%'],['150','150%']];
+   // Only a computer chooses: a phone or a tablet always fills its screen.
+   if(desk)window.CRPGFrameZooms=[['75','75%'],['100','100%'],['125','125%'],['150','150%']];
    var auto=function(){return Math.max(.6,Math.min(1,innerWidth/SW,innerHeight/SH));};
    window.CRPGFrameDefaultZoom=function(){var z=auto();return z>=1?'125':z>=.8?'100':'75';};
    var chosen=function(){try{return ZOOM[JSON.parse(localStorage.getItem('crpg-preferences-v3')||'{}').uiScale]||auto();}catch(e){return auto();}};

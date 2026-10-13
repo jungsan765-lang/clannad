@@ -9,7 +9,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 subprocess.run([sys.executable, 'tools/build_server.py'], cwd=ROOT, check=True)
 TESTS = [
     'tests/test_runtime_capacity_v01628.cjs',
-    'tests/test_resonance_v01632.cjs', 'tests/test_chests_v01633.cjs', 'tests/test_guild_v01634.cjs', 'tests/test_bosses_v01635.cjs', 'tests/test_convenience_v01636.cjs', 'tests/test_screen_check_v01638.cjs', 'tests/test_pc_design_v01639.cjs', 'tests/test_screen_safety_v01640.cjs', 'tests/test_server_capacity_v01628.mjs',
+    'tests/test_resonance_v01632.cjs', 'tests/test_chests_v01633.cjs', 'tests/test_guild_v01634.cjs', 'tests/test_bosses_v01635.cjs', 'tests/test_convenience_v01636.cjs', 'tests/test_screen_check_v01638.cjs', 'tests/test_pc_design_v01639.cjs', 'tests/test_screen_safety_v01640.cjs', 'tests/test_phone_stage_v01641.cjs', 'tests/test_server_capacity_v01628.mjs',
     'tests/test_enemy_balance_v01627.cjs',
     'tests/test_field_preparation_v01627.cjs',
     'tests/test_abyss_fixes_v01626.cjs',

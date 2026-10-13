@@ -355,7 +355,7 @@ function layoutLocation(content,p){
  p.classList.add('shell-loc');p.replaceChildren();
  const mapId=game.s.global.CURRENT_MAP_ID,hub=game.tables['32_MAP_DB']?.get(mapId)?.[12]==='Y';
  const places=groups.get('places'),activity=groups.get('activity'),info=groups.get('info');
- const placeCount=places.reduce((n,x)=>n+(x.matches('.location-places')?x.children.length:x.matches('h1,h2,h3,h4,p')?0:1),0);/* 0.16.32: the heading is not a facility (Mond city showed 10 for 9) */
+ const placeCount=places.reduce((n,x)=>n+(x.matches('.location-places')?x.children.length:x.matches('h1,h2,h3,h4,p,.liyue-city-directory')?0:1),0);/* 0.16.32: the heading is not a facility (Mond city showed 10 for 9); 0.16.41: nor is a Liyue district's card */
  // Facilities become small tiles (icon and name) and the whole tile enters, so a town fits without scrolling.
  for(const box of places)for(const entry of $$('.place-entry',box)){const btns=$$(':scope > button',entry);if(btns.length!==1)continue;
   const name=$('h3',entry)?.textContent.trim()||'',b=btns[0];entry.classList.add('shell-place-tile');entry.classList.toggle('locked',b.disabled&&!!$('.choice-note',entry));b.setAttribute('aria-label',(name?name+' · ':'')+b.textContent.trim());

@@ -29,7 +29,8 @@ check('호감도 turns pages with short cards; the screens fixed in the check',(
  for(const s of ['.relations-body .relationship-card>.relationship-photo','.gear-pane-stats .gear-stats{grid-template-columns:repeat(2,auto minmax(0,1fr))',
   'html.stage-phone body.teyvat .pm-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}','.oculus-offer>.reward-preview{margin:0;min-width:0;display:flex'])assert(css.includes(s),s);
  const fit=src('tests/test_screen_fit_v01629.mjs');
- assert(fit.includes("{name:'phone748',width:748,height:360},{name:'pc1440',width:1440,height:900}"),'the extra sizes');
+ // 0.16.41: a phone shows the 1280×720 page; the extra sizes are that page with a mouse and the old small page.
+ assert(fit.includes("{name:'tablet',width:1280,height:720},{name:'phone760',width:760,height:352}"),'the extra sizes');
  assert(fit.includes("const CLOCK_SHIFT=Date.parse('2026-10-07T12:00:00+09:00')-Date.now();"),'the run starts on a Wednesday noon');
  assert(fit.includes("'spills '"),'values spilling out of their cells are caught');
 });

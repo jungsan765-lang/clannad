@@ -42,18 +42,19 @@
  drawLocation=function(p,v){
   priorLocation(p,v);if(game.s.runtime||game.s.placeVisit||game.needsRecovery?.())return;
   const directory=game.liyueCityDirectory?.()||[];if(!directory.some(d=>d.here))return;
-  const card=el('section','card liyue-city-directory');card.id='liyue-city-directory';
-  card.append(el('small','eyebrow','누구를 찾아가 무엇을 할까'),el('h2','','리월항 구역 안내'),el('p','muted','시설을 모든 구역에 두지 않고 구역마다 역할을 나눴습니다. 「소개」 표시가 있는 곳에서 동료의 부탁을 듣습니다.'));
+  // 0.16.41 (user's picture: the one long card ran past the bottom of 시설 with no page to turn to): one small card for
+  // each district — its name and role, its places (「소개」 in gold), and the way there — so the column's pages split
+  // between them. The paragraphs that said the same as the places are gone.
+  const cards=[];
   for(const d of directory){
-   const row=el('div','liyue-district'+(d.here?' here':''));row.dataset.districtMap=d.map;
-   row.append(el('strong','',d.name+' · '+d.role),el('p','muted',d.text));
+   const card=el('section','card liyue-city-directory liyue-district'+(d.here?' here':''));card.dataset.districtMap=d.map;if(!cards.length)card.id='liyue-city-directory';
+   const head=el('div','liyue-district-head');head.append(el('strong','',d.name),el('small','',d.role));
+   if(d.here)head.append(el('small','requirement-met','지금 있는 구역'));
+   else{const edge=firstTravelEdge(d.map);if(edge){const b=actionButton('이동 · '+edge[5]+'분','MOVE',{edge:edge[0]});b.title=mapName(edge[2])+' 방향으로 이동';b.setAttribute('aria-label',d.name+' · '+b.title);head.append(b);}}
    const chips=el('div','liyue-district-places');
-   for(const place of d.places){const label=[place.role,place.introduction?'소개':''].filter(Boolean).join(' · ');chips.append(el('span','liyue-place-chip'+(place.introduction?' intro':''),place.name+(label?' · '+label:'')));}
-   row.append(chips);
-   if(d.here)row.append(el('small','requirement-met','지금 있는 구역'));
-   else{const edge=firstTravelEdge(d.map);if(edge)row.append(actionButton(mapName(edge[2])+' 방향으로 이동','MOVE',{edge:edge[0]}));}
-   card.append(row);
+   for(const place of d.places){const label=[place.role,place.introduction?'소개':''].filter(Boolean).join(' · ');const chip=el('span','liyue-place-chip'+(place.introduction?' intro':''),place.name);if(label)chip.append(el('small','',label));chips.append(chip);}
+   card.append(head,chips);cards.push(card);
   }
-  const places=p.querySelector('.location-places');if(places)places.after(card);else p.append(card);
+  const places=p.querySelector('.location-places');if(places)places.after(...cards);else p.append(...cards);
  };
 })();

@@ -147,9 +147,13 @@ function guard(){queued=0;for(const [sel,fix] of BOXES)for(const box of document
 const SAFE='#root :is(.shell-pane:not([hidden]),.shell-page-body,.shell-region,.shell-col-side,.shell-col-main,.relations-body),dialog#modal[open]>#modal-body';
 function safety(){
  for(const box of document.querySelectorAll(SAFE)){
-  if(!box.clientHeight||box.scrollHeight<=box.clientHeight+1||box.querySelector('.pane-pager,.roster-pager'))continue;
+  if(!box.clientHeight||box.scrollHeight<=box.clientHeight+1)continue;
   if(box.closest('.combat-panel,.terrain-navigation,.cp-battle,.ch-overlay,.handbook'))continue;
   const cs=getComputedStyle(box);if(!/hidden|clip/.test(cs.overflowY))continue;
+  // 0.16.41 (user's picture: 리월항 구역 안내's page ran past the bottom of 시설): a box that turns its own pages but whose
+  // page still runs over (one piece taller than the page) steps its letters down until the page fits.
+  if(box.querySelector(':scope>.pane-pager')){(window.CRPGScreenSafety??=[]).push((document.body.dataset.shellScreen||'')+' page of '+box.className.split(' ').slice(0,3).join('.')+' '+(box.scrollHeight-box.clientHeight)+'px');box.classList.add('fit-box');zoomDown(box);continue;}
+  if(box.querySelector('.pane-pager,.roster-pager'))continue;
   const stacked=/^(block|flow-root)$/.test(cs.display)||/flex/.test(cs.display)&&cs.flexDirection.startsWith('column');
   (window.CRPGScreenSafety??=[]).push((document.body.dataset.shellScreen||'')+' '+box.className.split(' ').slice(0,3).join('.')+' '+(box.scrollHeight-box.clientHeight)+'px');
   if(stacked)try{window.CRPGMainScreen?.pagePane?.(box,'safety|'+(document.body.dataset.shellScreen||'')+'|'+box.className);}catch(e){console.error('[screen safety]',e);}

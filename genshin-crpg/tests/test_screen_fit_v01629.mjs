@@ -1,6 +1,6 @@
 // 0.16.29 고정 화면 (user: 「그냥 화면을 완전히 고정시켜버려 … 휴대폰도 동일」, 「휴대폰에 여전히 짤리는 구간이 있다, 전부 찾아내서
-// … 앞으로 더 추가시켜도 짤리지 않게 구조를 확실히 지정하자」). The game page has exactly two sizes (index.html): 1280x720 on a
-// computer or tablet and 760x352 on an installed phone, so this test opens every screen at exactly those sizes and fails on
+// … 앞으로 더 추가시켜도 짤리지 않게 구조를 확실히 지정하자」). The game page has exactly two sizes (index.html): 1600x900 on a
+// computer and 1280x720 on a tablet or an installed phone (0.16.41), so this test opens every screen at those sizes and fails on
 // anything a player could not read whole: text or a control cut off by its box or the screen, a box that scrolls, a
 // sideways-scrolling page, text ended with "…". Anything added later that does not fit fails here (npm run
 // test:browser; in CI it reports, see the end). Screenshots go to evidence/screen-fit. FIT_SIZE=pc|phone and
@@ -27,10 +27,11 @@ await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.
 const CLOCK_SHIFT=Date.parse('2026-10-07T12:00:00+09:00')-Date.now();
 {const RealDate=Date;class ShiftedDate extends RealDate{constructor(...a){if(a.length)super(...a);else super(RealDate.now()+CLOCK_SHIFT);}static now(){return RealDate.now()+CLOCK_SHIFT;}}globalThis.Date=ShiftedDate;}
 const fixture=onlineFixture();await fixture.start();const INITIAL=fixture.read().state;// the new account as it starts (0.16.32 early views)
-const ONLY=(process.env.FIT_ONLY||'').split(',').filter(Boolean),SIZES=[// 0.16.40: a computer's page is 1600×900; a tablet's stays 1280×720
- {name:'pc',width:1600,height:900},{name:'phone',width:760,height:352},{name:'tablet',width:1280,height:720},
- // 0.16.36 (TODO 8): the other sizes the user plays at, on demand (FIT_EXTRA=1): a phone of 748×360 and a 1440×900 monitor.
- ...(process.env.FIT_EXTRA?[{name:'phone748',width:748,height:360},{name:'pc1440',width:1440,height:900}]:[])].filter(s=>!process.env.FIT_SIZE||process.env.FIT_SIZE===s.name);
+const ONLY=(process.env.FIT_ONLY||'').split(',').filter(Boolean),SIZES=[// 0.16.40: a computer's page is 1600×900
+ // 0.16.41: a phone or a tablet shows the 1280×720 page (a phone reduces it to fit), looked at with touch.
+ {name:'pc',width:1600,height:900},{name:'phone',width:1280,height:720},
+ // On demand (FIT_EXTRA=1): the 1280×720 page with a mouse, and the old small phone page (the install guide still uses it).
+ ...(process.env.FIT_EXTRA?[{name:'tablet',width:1280,height:720},{name:'phone760',width:760,height:352}]:[])].filter(s=>!process.env.FIT_SIZE||process.env.FIT_SIZE===s.name);
 // A player well into the game: every companion, a full party, Mora, in Mondstadt.
 function playerState(){
  const r=new R(DB,JSON.parse(fixture.read().state));if(r.s.runtime)r.action('COMBAT_FORFEIT',{reason:'TEST'});r.serverAdmin=true;
@@ -55,6 +56,8 @@ const SCAN=()=>{
  const shown=e=>{if(!e.isConnected||e.closest(SKIP))return false;const fold=e.closest('details:not([open])');if(fold&&fold!==e&&!e.closest('summary'))return false;const s=getComputedStyle(e);if(s.display==='none'||s.visibility==='hidden'||Number(s.opacity)<0.05)return false;const r=e.getBoundingClientRect();return r.width>1&&r.height>1;};
  const clips=e=>{const s=getComputedStyle(e);return s.overflowX!=='visible'||s.overflowY!=='visible';};
  const all=[...document.querySelectorAll('body *')].filter(shown),scrollers=new Set();
+ // 0.16.41: a style that shows what the game hid (an empty dark bar stayed over the bottom of every map).
+ for(const e of all)if(e.hidden&&!e.matches('dialog,details'))out.push('hidden but shown '+name(e));
  const se=document.scrollingElement;if(se.scrollWidth>W+1||se.scrollHeight>H+1)out.push('page scrolls '+se.scrollWidth+'x'+se.scrollHeight);
  for(const e of all){const s=getComputedStyle(e);
   const sy=/auto|scroll/.test(s.overflowY)&&e.scrollHeight>e.clientHeight+2,sx=/auto|scroll/.test(s.overflowX)&&e.scrollWidth>e.clientWidth+2;
@@ -80,6 +83,9 @@ const SCAN=()=>{
  // words squeezed into a column a letter or two wide, and a paged box whose page leaves more than a third of its room empty.
  for(const e of reading){if(cutOnes.includes(e))continue;const t=[...e.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim();if(t.length<4)continue;
   const s=getComputedStyle(e),fs=parseFloat(s.fontSize)||12,r=e.getBoundingClientRect();if(r.width<fs*2.6&&r.height>fs*3.2)out.push('squeezed '+name(e)+' «'+text(e)+'»');}
+ // 0.16.41: a short 「15,234 / 15,234」 broken over two lines (빠른 식사 after a fight).
+ for(const e of reading){if(cutOnes.includes(e))continue;const t=[...e.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim();if(t.length>26||!/^\D{0,8}[\d,.]+\s*\/\s*[\d,.]+\D{0,4}$/.test(t))continue;
+  const rg=document.createRange();rg.selectNodeContents(e);const ys=[...rg.getClientRects()].filter(r=>r.width>0).map(r=>r.top);if(ys.length>1&&Math.max(...ys)-Math.min(...ys)>6)out.push('number broken '+name(e)+' «'+text(e)+'»');}
  // 0.16.37 (TODO 8): a value wider than its cell that runs under the next label (the 능력치 tab showed 「1,219.2력」).
  for(const e of document.querySelectorAll('dd,td')){if(!shown(e)||getComputedStyle(e).overflowX!=='visible')continue;if(e.scrollWidth>e.clientWidth+2)out.push('spills '+name(e)+' «'+text(e)+'» '+(e.scrollWidth-e.clientWidth)+'px');}
  const top=document.querySelector('.ch-overlay')||document.querySelector('.shell-scenery')||document.querySelector('dialog[open]')||document.querySelector('.handbook');// what a window covers is not looked at
@@ -199,6 +205,14 @@ try{
    const r=playerState();r.startBattle('EG_MOND_HILI_PATROL','RANDOM');fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    await view('battle-start',`Promise.resolve()`);
    await view('battle',`(async()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='전투 시작');b?.click();})()`);
+   // 0.16.41 (user: 「전투하면서 버프량이 많아지거나 버프 이름이 길어지면 파티가 위아래로 너무 길어져서 상태도 안보이고」): every fighter
+   // carrying nine effects, the longest names first.
+   // … and four everyday ones with short names (「버프가 한개만 있으면 그건 좀」: more than one shows).
+   {const base=fixture.read().state;const T=new R(DB,JSON.parse(base)).tables['13_STATUS_EFFECT_DB'],all=[...T.keys()].filter(id=>!/FORMATION|ROLE/.test(id)),len=id=>String(T.get(id)?.[1]||'').length;
+    for(const [label,ids] of [['battle-buffs',[...all].sort((a,b)=>len(b)-len(a)).slice(0,9)],['battle-buffs-short',[...all].sort((a,b)=>len(a)-len(b)).slice(0,4)]]){
+     const x=new R(DB,JSON.parse(base));if(!x.s.runtime)break;for(const a of x.s.runtime.actors)a.statuses=[...(a.statuses||[]),...ids.map(id=>({id,rounds:2}))];fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+     await view(label,`Promise.resolve()`);}
+    {const x=new R(DB,JSON.parse(base));fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();}}
    const end=new R(DB,JSON.parse(fixture.read().state));end.serverAdmin=true;try{end.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch{}fixture.seed(end.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    await view('reward',`Promise.resolve()`);
   }
@@ -249,6 +263,9 @@ try{
     await view('liyue-map',liyueMap);
     await view('liyue-areas',`(async()=>{await __go('LOCATION');document.querySelector('.liyue-area-open')?.click();await new Promise(r=>setTimeout(r,300));})()`);
     await page.evaluate(()=>{try{localStorage.removeItem('crpg-track-v1');if(typeof NavigationUI!=='undefined')NavigationUI.choose(null);render();}catch{}});}
+   // 0.16.41 (user's picture: 리월항 구역 안내 cut at the bottom of 시설, no page to turn to): Liyue Harbor with each tab.
+   {const x=playerState();try{x.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_LIYUE_HARBOR'});}catch(e){console.error('liyue harbor',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+    for(const tab of await labels('.shell-loc-side .shell-tab'))await view('liyue-harbor-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);}
   }
   // 0.16.32: an early journey as players see it (the 검증 account as it starts: a forest road, the story's next place,
   // a region event, level-ups after a fight), not only the finished town.

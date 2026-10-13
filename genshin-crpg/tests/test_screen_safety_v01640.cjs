@@ -7,9 +7,10 @@ let passed=0;const check=(name,fn)=>{try{fn();passed++;console.log('PASS '+name)
 const css=src('screen_v01629.css');
 
 check('a computer draws a 1600×900 page; the zoom choices keep their sizes on the screen',()=>{
- const html=src('index.html');assert(html.includes('var SW=phone?760:desk?1600:1280,SH=phone?352:desk?900:720;'));
+ // 0.16.41: a phone shows the tablet's 1280×720 page (test_phone_stage_v01641.cjs).
+ const html=src('index.html');assert(html.includes('var SW=desk?1600:1280,SH=desk?900:720;'));
  assert(html.includes("var ZOOM={'75':.6,'100':.8,'125':1,'150':1.2};"));
- const fit=src('tests/test_screen_fit_v01629.mjs');assert(fit.includes("{name:'pc',width:1600,height:900},{name:'phone',width:760,height:352},{name:'tablet',width:1280,height:720}"));
+ const fit=src('tests/test_screen_fit_v01629.mjs');assert(fit.includes("{name:'pc',width:1600,height:900},{name:'phone',width:1280,height:720}"));
 });
 
 check('the safety net pages or fits any fixed box that still runs over, after the screens\' own pagers, and the check notices',()=>{
@@ -26,7 +27,7 @@ check('a life activity\'s saving moment is a small loading box; the map\'s chip 
  assert(css.includes('body.teyvat .life-work-status.pending-activity{position:fixed!important;left:50%;top:50%'));assert(css.includes('animation:pendingShow .2s ease .35s forwards'));
  const c=src('app_character_v0167.js');assert(c.includes("const head=document.querySelector('.shell-loc-main .terrain-frame,.terrain-frame');"));
  assert(css.includes('body.teyvat .terrain-frame>.track-chip{position:absolute;top:8px;right:8px'));
- assert(css.includes('body.teyvat .terrain-frame>.terrain-travel-dock{display:flex!important;align-items:center;flex-wrap:nowrap!important'));
+ assert(css.includes('body.teyvat .terrain-frame>.terrain-travel-dock:not([hidden]){display:flex!important;align-items:center;flex-wrap:nowrap!important'));// 0.16.41: only with a place chosen
  assert(css.includes('@container locmain (max-width: 980px)'));
  assert(src('app_screen_v01629.js').includes("['dialog#modal[open] .liyue-area-browser',"));
 });

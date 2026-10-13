@@ -31,9 +31,11 @@ function compact(left){
 // rows (its heading riding along on each of its pages); a grid of facilities broken into rows of tiles. A domain's gate,
 // a button or a line of words is one piece and is never split (the stylesheet makes the gate fit).
 const WHOLE='.domain-gate,.task-mini,.region-event,.ley-line-item,.shell-place-tile,button,a,label,svg,img,canvas,video,input,textarea,p,h1,h2,h3,h4,h5,summary,li,.ch-journal-fact,.ch-journal-tier';
-function breakable(k){
+// 0.16.41: a piece taller than a whole page is broken into its rows even when some of its parts are inline (a small
+// heading line): rowsOf keeps the parts of one line together, and left whole it ran past the page's bottom.
+function breakable(k,tall=false){
  if(k.matches(WHOLE)||!k.children.length||[...k.childNodes].some(n=>n.nodeType===3&&n.textContent.trim()))return false;
- return [...k.children].every(c=>getComputedStyle(c).display!=='inline');
+ return tall||[...k.children].every(c=>getComputedStyle(c).display!=='inline');
 }
 const CARD='.card,article,.journal-card,.region-event,.discovery-card,.task-mini,.domain-gate,.ch-journal-fact,.ch-journal-tier,.ch-journal';let eager=false;// the handbook's lists fill each page row by row
 const isHead=h=>!!h&&(h.tagName==='SUMMARY'||/^H\d$/.test(h.tagName)||/(^|[\s_-])[a-z]*head\b/.test(h.className||''));
@@ -49,7 +51,8 @@ function pieces(node,room,out,wrap,lead){
    for(let i=0;i<tiles.length;i+=cols)out.push({nodes:tiles.slice(i,i+cols),wrap:[...wrap,k],lead});continue;}
   // 0.16.32 (user: 「자리는 많은데 굳이 … 버튼으로 두개씩만 보여주는건데?」): a list (not a card) is cut into its rows even when it is shorter
   // than a page, so the rows that fit fill the room left on this page instead of the whole list moving to the next.
-  if(row.length===1&&(k.getBoundingClientRect().height>room||eager&&k.children.length>1&&!k.matches(CARD))&&breakable(k)&&!(k.tagName==='DETAILS'&&!k.open)){
+  const tall=k.getBoundingClientRect().height>room;
+  if(row.length===1&&(tall||eager&&k.children.length>1&&!k.matches(CARD))&&breakable(k,tall)&&!(k.tagName==='DETAILS'&&!k.open)){
    const head=isHead(k.firstElementChild)?k.firstElementChild:null;
    for(const p of pieces(k,room-(head?head.getBoundingClientRect().height:0),[],[...wrap,k],head?[...lead,head]:lead))if(!(p.nodes.length===1&&p.nodes[0]===head))out.push(p);
    continue;}

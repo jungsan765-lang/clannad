@@ -1513,7 +1513,8 @@ html.stage-phone body.teyvat .life-work-status.pending-activity>strong{font-size
 /* 0.16.40 (user's picture of the Liyue map: the bar for a chosen place covered a third of the map, see-through over the
    places' names): the bar is one dark line over the map's bottom — the place's name and what it is, then the way there
    and its time, the travel button and 목적지 해제 at the right. */
-body.teyvat .terrain-frame>.terrain-travel-dock{display:flex!important;align-items:center;flex-wrap:nowrap!important;gap:10px;padding:6px 8px 6px 12px!important;border-radius:9px;background:rgba(9,12,20,.94)!important;border:1px solid rgba(211,188,142,.35);max-height:none!important;overflow:visible!important}
+body.teyvat .terrain-frame>.terrain-travel-dock[hidden]{display:none!important}/* 0.16.41: with nothing chosen there is no bar */
+body.teyvat .terrain-frame>.terrain-travel-dock:not([hidden]){display:flex!important;align-items:center;flex-wrap:nowrap!important;gap:10px;padding:6px 8px 6px 12px!important;border-radius:9px;background:rgba(9,12,20,.94)!important;border:1px solid rgba(211,188,142,.35);max-height:none!important;overflow:visible!important}
 body.teyvat[data-region=liyue] .terrain-frame>.terrain-travel-dock{background:rgba(22,14,8,.95)!important}
 body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection{display:flex!important;flex-wrap:wrap;align-items:baseline;column-gap:10px;row-gap:0;flex:1 1 auto;min-width:0;margin:0;padding:0;background:none;border:0;white-space:normal!important;overflow:visible!important}
 body.teyvat .terrain-frame>.terrain-travel-dock>.terrain-selection>small:first-child{display:none!important}
@@ -1633,3 +1634,53 @@ body.teyvat .shell-page-tools>.recovery-float.in-head{position:static!important;
 html.stage-phone body.teyvat .shell-page-tools>.recovery-float.in-head>span{display:none}
 html.stage-phone body.teyvat .shell-page-tools>.recovery-float.in-head{padding:1px 2px 1px 6px;gap:4px;margin-right:4px}
 html.stage-phone body.teyvat :where(#root) .shell-page-tools>.recovery-float.in-head>button{min-height:22px;font-size:.56rem;padding:1px 8px}
+/* 0.16.41 (user: 「전투하면서 버프량이 많아지거나 버프 이름이 길어지면 파티가 위아래로 너무 길어져서 상태도 안보이고 그래」, 「버프가 한개만
+   있으면 그건 좀」): a card's effects take two lines at most — what fits, then 「+N」 (app_battle_layout_v01522.js fitChips);
+   the lines list them all when pressed. */
+body.teyvat .combat-panel .combatant-copy{min-width:0}
+body.teyvat .combat-panel .combatant-copy>.status-chips,body.teyvat .combat-panel .combatant-copy>.status-chips:hover{flex-wrap:wrap!important;gap:3px 3px;overflow:visible!important;-webkit-mask:none!important;mask:none!important;width:100%;max-width:100%;min-width:0}
+body.teyvat .combat-panel .combatant-copy>.status-chips>.st-chip{flex:0 0 auto;max-width:none}
+body.teyvat .combat-panel .combatant-copy>.status-chips>.st-chip[hidden]{display:none!important}
+body.teyvat .combat-panel .combatant-copy>.status-chips>.st-chip.st-more{color:#ece5d8;border-color:rgba(236,229,216,.42);background:rgba(20,24,34,.9)}/* 0.16.41 (user's picture: 리월항 구역 안내 ran past the bottom of 시설): one small card per district — name, role and the way
+   there on one line, its places under it (「소개」 places in gold) — so the column's pages split between the cards. */
+body.teyvat .shell-loc-left .liyue-city-directory.liyue-district{margin:0;padding:8px 10px 9px 12px;border:1px solid rgba(196,171,117,.22);border-left:3px solid #c4ab75;border-radius:7px;display:grid;gap:6px}
+body.teyvat .shell-loc-left .liyue-district.here{border-left-color:#e8cf95;background:rgba(232,207,149,.06)}
+body.teyvat .shell-loc-left .liyue-district-head{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;min-width:0}
+body.teyvat .shell-loc-left .liyue-district-head>strong{font-size:.86rem;line-height:1.25;white-space:nowrap}
+body.teyvat .shell-loc-left .liyue-district.here .liyue-district-head>strong{color:#e8cf95}
+body.teyvat .shell-loc-left .liyue-district-head>small{font-size:.68rem;color:#b9b1a0;white-space:nowrap}
+body.teyvat .shell-loc-left .liyue-district-head>:is(button,.requirement-met){margin:0 0 0 auto;flex:0 0 auto}
+body.teyvat :where(#root) .shell-loc-left .liyue-district-head>button{min-height:26px;padding:2px 12px;font-size:.72rem;white-space:nowrap}
+body.teyvat .shell-loc-left .liyue-district-places{margin:0;gap:4px}
+body.teyvat .shell-loc-left .liyue-place-chip{display:inline-flex;align-items:baseline;gap:5px;padding:2px 8px;border-radius:5px;font-size:.72rem;line-height:1.35}
+body.teyvat .shell-loc-left .liyue-place-chip>small{font-size:.6rem;color:#a9a294}
+body.teyvat .shell-loc-left .liyue-place-chip.intro{border-color:#c9ad6c;color:#f0dcae}
+body.teyvat .shell-loc-left .liyue-place-chip.intro>small{color:#d8c08a}
+html.stage-phone body.teyvat .shell-loc-left .liyue-city-directory.liyue-district{padding:5px 7px 6px 9px;gap:4px}
+html.stage-phone body.teyvat .shell-loc-left .liyue-district-head>strong{font-size:.68rem}
+html.stage-phone body.teyvat .shell-loc-left .liyue-district-head>small{font-size:.54rem}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .liyue-district-head>button{min-height:22px;padding:1px 9px;font-size:.58rem}
+html.stage-phone body.teyvat .shell-loc-left .liyue-place-chip{font-size:.58rem;padding:1px 6px}
+html.stage-phone body.teyvat .shell-loc-left .liyue-place-chip>small{font-size:.5rem}/* 0.16.41: a companion's 「15,234 / 15,234」 under 빠른 식사 broke over two lines; one line, a size smaller. */
+html.stage-pc body.teyvat .qm-copy>small{white-space:nowrap;font-size:.64rem;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+html.stage-pc body.teyvat .qm-face{width:34px;height:34px;flex-basis:34px}
+html.stage-pc body.teyvat :where(#root) .qm-person{padding:4px 6px 4px 4px;gap:5px}/* 0.16.41: one to four enemies get bigger pictures with the room the screen has (a lone boss stood 140px tall in an empty
+   board); fitFighters still shrinks them if anything would run past the board. */
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-count="1"]{grid-template-columns:minmax(0,300px);--enemy-h:min(260px,calc(100vh - 480px))}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-count="2"]{grid-template-columns:repeat(2,minmax(0,270px));--enemy-h:min(230px,calc(100vh - 490px))}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-count="3"]{grid-template-columns:repeat(3,minmax(0,240px));--enemy-h:min(200px,calc(100vh - 500px))}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-count="4"]{grid-template-columns:repeat(4,minmax(0,215px));--enemy-h:min(180px,calc(100vh - 510px))}
+/* 설정 · 계정·저장: the buttons stood glued together under a wide paragraph; now spaced tiles under a short muted note */
+body.teyvat .shell-pane[data-tab="s0:계정·저장"]{display:flex;flex-wrap:wrap;align-content:flex-start;gap:10px}
+body.teyvat .shell-pane[data-tab="s0:계정·저장"]>:not(button){flex:0 0 100%}
+body.teyvat .shell-pane[data-tab="s0:계정·저장"]>p{margin:0 0 4px;padding-right:20%;box-sizing:border-box;font-size:.78rem;line-height:1.6;color:#b9b1a0}
+body.teyvat :where(#root) .shell-pane[data-tab="s0:계정·저장"]>button{margin:0;min-width:150px}/* 0.16.41: a party that still runs past the board (fitFighters) — the role tag goes and the rows tighten */
+html.stage-pc body.teyvat .combat-panel .shell-allies.tight{gap:4px}
+html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-row{padding-top:3px;padding-bottom:3px}
+html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy .battle-position{display:none}
+html.stage-pc body.teyvat .combat-panel .shell-allies.tighter>h2{display:none}
+html.stage-pc body.teyvat .combat-panel .shell-allies.tighter .combatant-copy .stat{font-size:.6rem;line-height:1.15}/* … and its HP numbers move up beside the name, so two lines of effects still fit (the phone's 1280×720 page) */
+html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;row-gap:3px;align-items:center}
+html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>*{grid-column:1/-1;margin-top:0;margin-bottom:0}
+html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>strong{grid-column:1;grid-row:1;min-width:0}
+html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>.stat{grid-column:2;grid-row:1;justify-self:end;margin-right:24px;white-space:nowrap}
