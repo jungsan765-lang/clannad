@@ -1733,4 +1733,9 @@ body.teyvat .combat-panel .compact-battle-stage.fixed-board>.shell-battle-feed>p
 body.teyvat .combat-panel .compact-battle-stage.fixed-board>.shell-battle-feed>p:not(:last-child){display:none}/* … and two lines of effects under each enemy are kept from the first round, so effects that come and go never resize it */
 html.stage-pc body.teyvat .combat-panel .shell-enemies .combatant-copy{position:relative;padding-bottom:43px!important}
 html.stage-pc body.teyvat .combat-panel .shell-enemies[data-chip-lines="1"] .combatant-copy{padding-bottom:22px!important}
-html.stage-pc body.teyvat .combat-panel .shell-enemies .combatant-copy>.status-chips{position:absolute!important;left:0;right:0;bottom:0;margin:0!important}
+html.stage-pc body.teyvat .combat-panel .shell-enemies .combatant-copy>.status-chips{position:absolute!important;left:0;right:0;bottom:0;margin:0!important}/* 0.16.45 (user: 「이미 읽은 이야기 부분까지 1,2,3번으로 나누는건 좀; 거긴 그냥 휠로 올리고 내려도 돼」): 읽은 이야기 is one list
+   scrolled with the wheel or a swipe — the one place that scrolls on purpose (tests/test_screen_fit_v01629.mjs allows it). */
+body.teyvat #modal-body>.history-scroll{flex:1 1 auto;min-height:0;max-height:calc(100vh - 230px);overflow-y:auto;zoom:1!important;overscroll-behavior:contain;padding-right:8px;display:grid;gap:8px;align-content:start;scrollbar-width:thin;scrollbar-color:rgba(211,188,142,.45) transparent}
+body.teyvat #modal-body>.history-scroll>.history-entry{margin:0;padding:6px 10px;border-left:2px solid rgba(211,188,142,.35)}
+body.teyvat #modal-body>.history-scroll>.history-entry>strong{font-size:.76rem;color:#f3dfae}
+body.teyvat #modal-body>.history-scroll>.history-entry>p{margin:2px 0 0;font-size:.82rem;line-height:1.6}body.teyvat #modal-body>.history-scroll{outline:none;width:auto;max-width:min(680px,72vw)}

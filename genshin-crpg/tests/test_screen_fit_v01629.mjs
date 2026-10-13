@@ -65,6 +65,8 @@ const SCAN=()=>{
   // A box that scrolls is one fault; what it hides below or beside it is not counted again.
   // the scenery (V) is a panorama panned sideways on purpose
   if(sx&&!sy&&e.matches('.scenery-pan'))continue;
+  // 0.16.45: 읽은 이야기 scrolls on purpose (user: 「거긴 그냥 휠로 올리고 내려도 돼」)
+  if(sy&&!sx&&e.matches('.history-scroll')){scrollers.add(e);continue;}
   if((sy||sx)&&![...scrollers].some(x=>x.contains(e))){scrollers.add(e);out.push('scrolls '+name(e)+' '+(sy?e.clientHeight+'/'+e.scrollHeight:e.clientWidth+'/'+e.scrollWidth+' wide'));}
   if(s.textOverflow==='ellipsis'&&e.scrollWidth>e.clientWidth+1)out.push('… '+name(e)+' «'+text(e)+'»');
   const clamp=s.webkitLineClamp||s.getPropertyValue('-webkit-line-clamp');if(clamp&&clamp!=='none'&&e.scrollHeight>e.clientHeight+1)out.push('… lines '+name(e)+' «'+text(e)+'»');}
@@ -259,6 +261,8 @@ try{
    if(lost){for(const id of ['PLAYER_CUSTOM',...Object.keys(lost.s.chars||{})])try{if(id==='PLAYER_CUSTOM')lost.s.global.PLAYER_HP_CURRENT=lost.s.global.PLAYER_HP_MAX;else if(lost.s.chars[id])lost.s.chars[id].hp=lost.character(id).maxHp;}catch{}delete lost.s.defeatPenalty;fixture.seed(lost.s);await page.evaluate(()=>CRPGOnline.sync());await idle();await view('fieldboss-lost',`Promise.resolve()`);}}
    const s=playerState();fixture.seed(s.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    await view('story-page',`(async()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());await __go('STORY');})()`);
+   // 0.16.45: 읽은 이야기 with fifty lines — one list that scrolls, never pages
+   await view('story-history',`(async()=>{await __go('STORY');for(let i=0;i<50;i++)sceneHistory.push({category:'GENERAL',speaker:i%2?'엠버':'이야기',text:'읽은 이야기 '+(i+1)+'번째 줄. 성문 앞에서 바람이 불었다.'});displayHistory();await new Promise(r=>setTimeout(r,300));if(!document.querySelector('#modal-body>.history-scroll'))throw Error('no scroll list');if(document.querySelector('#modal-body .pane-pager'))throw Error('paged');})()`);
    await view('shop-bulk',`(async()=>{await __go('LOCATION');const k=game.placeCatalog().find(e=>e.merchant==='MRC_MOND_RESTAURANT');if(k&&!game.s.placeVisit)await act('PLACE_ENTER',{place:k.id,mode:'SHOP'});await new Promise(r=>setTimeout(r,300));if(typeof showPurchaseQuantity==='function')showPurchaseQuantity('STK_MOND_SARA_EGG');})()`);
   }
   // 0.16.40 (user: 「저렇게 되는것들은 도대체 언제 고칠거냐? 그냥 전체적으로 체크해야되는거 아니야?」 with pictures of screens this

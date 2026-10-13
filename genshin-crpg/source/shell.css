@@ -39,6 +39,9 @@ body.teyvat[data-mode=battle] .world-backdrop{filter:brightness(.62) saturate(1.
 html:has(>body.teyvat){overflow:hidden}
 /* 0.16.4: the page reaches under a phone's camera hole (viewport-fit=cover); what shows there is the game's dark, not white. */
 html:has(>body.teyvat){background-color:#070a12}
+/* 0.16.45 (user: 「이전엔 스토리 하면서 맵사진이 보였던거같은데 뭐지?」): with the page's dark on <html>, the body's own dark was painted
+   over the place's picture (.world-backdrop, z-index -2) on every screen since 0.16.4. The body is clear; the picture shows. */
+html:has(>body.teyvat)>body.teyvat{background:transparent}
 body.teyvat #root{height:100%;overflow:hidden}
 body.teyvat #root>main{max-width:none;margin:0;height:100%;display:block;padding:calc(var(--hud-h) + 8px) 18px 14px;box-sizing:border-box}
 body.teyvat .content.shell-content{height:100%;min-height:0;display:flex;flex-direction:column;gap:10px;position:relative}

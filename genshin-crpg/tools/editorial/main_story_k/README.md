@@ -114,3 +114,7 @@ QA_LEAVES=TRV_A,TRV_B node tests/test_liyue_rework_flow.cjs            # 여행�
 - 여행자 루트 전투 그룹: 몬드 1장 `EG_MOND_SLIME_SMALL`, 리월 1장 `EG_LIYUE_HILI_ROCK`, 리월 2장 `EG_TREASURE_PATROL`. 고정 전투(`TRV_M02_*`, `TRV_LY3_A_COMBAT`, `TRV_LY4_FATUI_COMBAT`/`OSIAL_COMBAT`)는 `@keep`.
 
 읽기용 원고 전문 내보내기: `node tools/editorial/export_main_story_k_reader.cjs out.md --doc mond|liyue|liyue_unknown|traveler` (사용자 검수용 마크다운. `liyue`는 K1·K2, `liyue_unknown`은 AA·AB·B 갈래, `traveler`는 여행자 루트 몬드 1~2장·리월 1~4장).
+
+## 스토리 작업대 (0.16.45)
+
+사용자가 직접 스토리를 읽고 고치는 곳: https://claude.ai/artifact/2pKp3oqfozGeJaad5X4Lqu. 데이터는 `node tools/editorial/export_story_workbench.cjs out.json`(설치된 47개 메인 체인을 진행 순서대로, 장소 이동·전투·선택지·조건 포함)이며 작업대에 `story.json`으로 올린다. 사용자가 고친 내용은 작업대 저장소의 `edits` 모음(문서 하나 = 한 줄: `line`·`chain`·`text`·`who`·`note`·`removed`·`adds`, 장 메모는 `line`이 `#체인`)에 있다. 읽어서 이 원고에 넣고(`>` 줄·새 줄·`@drop`), 컴파일 뒤 플레이 검사(`tests/test_story_player_walk_v01645.cjs`, 리월은 `tests/test_liyue_rework_flow.cjs`)를 돌린다. 원고를 고친 뒤에는 다시 내보내 작업대를 갱신한다.

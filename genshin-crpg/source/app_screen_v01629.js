@@ -149,6 +149,8 @@ function safety(){
  for(const box of document.querySelectorAll(SAFE)){
   if(!box.clientHeight||box.scrollHeight<=box.clientHeight+1)continue;
   if(box.closest('.combat-panel,.terrain-navigation,.cp-battle,.ch-overlay,.handbook'))continue;
+  // 0.16.45: 읽은 이야기 is one list scrolled with the wheel (the user asked for it), never paged
+  if(box.querySelector(':scope>.history-scroll'))continue;
   const cs=getComputedStyle(box);if(!/hidden|clip/.test(cs.overflowY))continue;
   // 0.16.41 (user's picture: 리월항 구역 안내's page ran past the bottom of 시설): a box that turns its own pages but whose
   // page still runs over (one piece taller than the page) steps its letters down until the page fits.
