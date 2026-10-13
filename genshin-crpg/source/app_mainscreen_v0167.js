@@ -56,7 +56,9 @@ function pieces(node,room,out,wrap,lead){
   // than a page, so the rows that fit fill the room left on this page instead of the whole list moving to the next.
   const tall=k.getBoundingClientRect().height>room;
   if(row.length===1&&(tall||eager&&k.children.length>1&&!k.matches(CARD))&&breakable(k,tall)&&!(k.tagName==='DETAILS'&&!k.open)){
-   const head=isHead(k.firstElementChild)?k.firstElementChild:null;
+   // 0.16.42 (user: 「이어져있지도 않고」 — a field commission's scene stood alone on its page): a card split across pages
+   // carries its title on every page, also when a small label line comes before the title.
+   const kids3=[...k.children].slice(0,3),head=isHead(k.firstElementChild)?k.firstElementChild:k.matches(CARD)?kids3.find(c=>/^H[2-4]$/.test(c.tagName))||null:null;
    for(const p of pieces(k,room-(head?head.getBoundingClientRect().height:0),[],[...wrap,k],head?[...lead,head]:lead))if(!(p.nodes.length===1&&p.nodes[0]===head))out.push(p);
    continue;}
   out.push({nodes:row,wrap,lead});

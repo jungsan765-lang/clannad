@@ -83,6 +83,14 @@ const SCAN=()=>{
  // words squeezed into a column a letter or two wide, and a paged box whose page leaves more than a third of its room empty.
  for(const e of reading){if(cutOnes.includes(e))continue;const t=[...e.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim();if(t.length<4)continue;
   const s=getComputedStyle(e),fs=parseFloat(s.fontSize)||12,r=e.getBoundingClientRect();if(r.width<fs*2.6&&r.height>fs*3.2)out.push('squeezed '+name(e)+' «'+text(e)+'»');}
+ // 0.16.42 (user: 「글도 밀리고」 — 💬 drawn over the first letters of a choice): a mark drawn beside a control's words
+ // (::before / ::after placed on it) that reaches into the words.
+ for(const b of document.querySelectorAll('button,a,label,summary')){if(!shown(b)||!b.textContent.trim())continue;const bs=getComputedStyle(b);
+  for(const [pseudo,side] of [['::before','Left'],['::after','Right']]){const s=getComputedStyle(b,pseudo);if(s.display==='none'||s.position!=='absolute'||/^(none|normal|""|'')$/.test(s.content))continue;
+   const at=parseFloat(side==='Left'?s.left:s.right),w=parseFloat(s.width);if(!Number.isFinite(at)||!Number.isFinite(w)||w>=b.clientWidth*.5)continue;
+   if(at+w>parseFloat(bs['padding'+side])+1)out.push('mark over words '+name(b)+' «'+text(b)+'» '+pseudo);}}
+ // 0.16.42 (user: 「이어져있지도 않고」): a card split across pages that shows a part without its own title.
+ for(const card of document.querySelectorAll('.paged .card,.paged article')){if(!shown(card))continue;const h=[...card.children].find(c=>/^H[2-4]$/.test(c.tagName));if(h&&h.hidden&&[...card.children].some(c=>c!==h&&!c.hidden&&c.getClientRects().length))out.push('card part without its title '+name(card)+' «'+text(h)+'»');}
  // 0.16.41: a short 「15,234 / 15,234」 broken over two lines (빠른 식사 after a fight).
  for(const e of reading){if(cutOnes.includes(e))continue;const t=[...e.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim();if(t.length>26||!/^\D{0,8}[\d,.]+\s*\/\s*[\d,.]+\D{0,4}$/.test(t))continue;
   const rg=document.createRange();rg.selectNodeContents(e);const ys=[...rg.getClientRects()].filter(r=>r.width>0).map(r=>r.top);if(ys.length>1&&Math.max(...ys)-Math.min(...ys)>6)out.push('number broken '+name(e)+' «'+text(e)+'»');}
@@ -247,7 +255,7 @@ try{
   // 0.16.40 (user: 「저렇게 되는것들은 도대체 언제 고칠거냐? 그냥 전체적으로 체크해야되는거 아니야?」 with pictures of screens this
   // check never opened): a commission being done where the party stands, 호감도 with every card opened, and a Liyue field map
   // with a pinned material, a far destination chosen and the window of Liyue's areas.
-  if(!ONLY.length||ONLY.some(o=>/^(field-commission|relations-open|liyue)/.test(o))){
+  if(!ONLY.length||ONLY.some(o=>/^(field-|relations-open|liyue)/.test(o))){
    await page.evaluate(()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());document.querySelector('.pm-close,.shell-menu-close')?.click();}).catch(()=>{});
    {const x=playerState();const k=x.placeCatalog().find(e=>e.entity==='NPC_MOND_KATHERYNE');try{x.action('PLACE_ENTER',{place:k.id,mode:'TALK'});}catch{}
     try{x.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});x.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});}catch{}
@@ -256,6 +264,21 @@ try{
     try{if(x.s.placeVisit)x.action('PLACE_LEAVE',{});}catch{}
     if(target){try{x.action('OPERATOR_DEBUG',{op:'travel',map:target});}catch(e){console.error('field commission',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
      await view('field-commission',`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab','todo');})()`);}else console.error('field commission: none to take');}
+   // 0.16.42 (user's pictures: a field commission's scene stood alone on page 3, its choices' first letters under 💬): a
+   // commission with a scene, one wrong answer made, its card, the scene's window and the record's window.
+   {const x=playerState();const k=x.placeCatalog().find(e=>e.entity==='NPC_MOND_KATHERYNE');try{x.action('PLACE_ENTER',{place:k.id,mode:'TALK'});}catch{}
+    try{x.action('COMMISSION_ACCEPT',{quest:'Q_TASK_LEARN_01'});x.action('CLAIM_QUEST',{quest:'Q_TASK_LEARN_01'});}catch{}
+    // the cart on the plains (tests/test_quality_fixes_v01335.cjs): its first step's second answer is a mistake
+    // the fixture account holds five commissions already (the most at once): give them up first
+    for(const q of x.commissionEntries().filter(q=>q.accepted&&!q.state?.claimed&&q.row[0]!=='Q_MOND_EXP_PLAINS_CART'))try{x.action('COMMISSION_ABANDON',{quest:q.row[0]});}catch{}
+    let id='Q_MOND_EXP_PLAINS_CART',map='MAP_MOND_PLAINS';try{if(!x.s.quests[id])x.action('COMMISSION_ACCEPT',{quest:id});}catch(e){console.error('field scene',e.message);id=null;}
+    try{if(x.s.placeVisit)x.action('PLACE_LEAVE',{});}catch{}
+    if(id){try{x.action('OPERATOR_DEBUG',{op:'travel',map});x.action('COMMISSION_PUZZLE',{quest:id,answer:1,step:0});}catch(e){console.error('field scene',e.message);}
+     fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+     const todo=`await __go('LOCATION');__tap('.shell-loc-side .shell-tab','todo');await new Promise(r=>setTimeout(r,300));`;
+     await view('field-scene',`(async()=>{${todo}})()`);
+     await view('field-scene-window',`(async()=>{${todo}const b=[...document.querySelectorAll('.scene-open')].find(b=>b.offsetParent)||document.querySelector('.scene-open');if(!b)throw Error('no scene button');b.click();})()`);
+     await view('field-scene-log',`(async()=>{${todo}document.querySelector('.scene-log-open')?.click();})()`);}else console.error('field scene: none to take');}
    {const x=playerState();fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
     await view('relations-open',`(async()=>{await __go('RELATIONS');[...document.querySelectorAll('.relationship-toggles button')].find(b=>/펼치기/.test(b.textContent))?.click();await new Promise(r=>setTimeout(r,400));})()`);}
    {const x=playerState();try{x.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_LY_DETAIL_DIHUA'});}catch(e){console.error('liyue map',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();

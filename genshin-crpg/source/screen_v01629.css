@@ -1685,4 +1685,24 @@ html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>*{gr
 html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>strong{grid-column:1;grid-row:1;min-width:0}
 html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>.stat{grid-column:2;grid-row:1;justify-self:end;margin-right:24px;white-space:nowrap}/* 0.16.41: Liyue's oculus is smaller and slips between the rocks faster (app_journey.js catchGame) */
 body.teyvat :where(#modal) .resonance-game.hard .resonance-orb{width:40px;height:40px;transition:left .22s ease-out,top .22s ease-out;background:radial-gradient(circle,rgba(255,226,150,.3),rgba(0,0,0,0) 70%)}
-body.teyvat .resonance-game.hard .resonance-orb .resonance-icon{width:32px;height:32px;filter:drop-shadow(0 0 8px rgba(255,220,140,.85))}
+body.teyvat .resonance-game.hard .resonance-orb .resonance-icon{width:32px;height:32px;filter:drop-shadow(0 0 8px rgba(255,220,140,.85))}/* 0.16.42 (user: 「이 현장의뢰 이거 ㅅㅂ 이어져있지도 않고 글도 밀리고」): a field commission's card in the column is short — its
+   reward chips small, the steps as small square chips, one 「현장 살피기」 button that opens the scene in a window, and the
+   choices with their 💬 / ⚔ mark beside the words (it was drawn over the first letters). */
+body.teyvat .shell-loc-left .field-commission-card>.reward-preview{display:flex;flex-wrap:wrap;gap:4px}
+body.teyvat .shell-loc-left .field-commission-card>.reward-preview>span{display:inline-flex;align-items:center;gap:4px;min-height:0;padding:2px 8px;border-radius:5px;font-size:.7rem;line-height:1.35}
+body.teyvat .shell-loc-left .field-commission-card>.reward-preview .reward-cur{width:15px;height:15px}
+body.teyvat .shell-loc-left .field-scene-card .scene-steps{margin:2px 0 0;gap:4px}
+body.teyvat .shell-loc-left .field-scene-card .scene-steps li{border-radius:5px;padding:1px 8px;font-size:.68rem}
+body.teyvat .shell-loc-left .field-scene-card .scene-goal{margin:0;font-size:.68rem}
+body.teyvat .field-scene-card .scene-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:2px}
+body.teyvat :where(#root) .shell-loc-left .field-scene-card .scene-actions>button.scene-open{display:inline-flex;align-items:baseline;gap:8px;min-height:30px;padding:3px 14px 3px 30px}
+body.teyvat .field-scene-card .scene-open>small{font-size:.68rem;opacity:.85;font-weight:600}
+body.teyvat :where(#modal) .scene-step-window{margin:0;max-width:640px}
+body.teyvat :where(#modal) .scene-step-window .story{font-size:.86rem;line-height:1.65}
+body.teyvat :where(#modal,#root) .scene-options .scene-option{display:flex;align-items:flex-start;gap:8px;padding:8px 14px!important;text-align:left}
+body.teyvat :where(#modal,#root) .scene-options .scene-option::before{content:none!important;display:none!important}
+body.teyvat .scene-options .scene-option>.scene-option-mark{flex:0 0 auto;font-size:.9rem;line-height:1.5}
+body.teyvat :where(#modal) .scene-log-window{margin:0;border:0;padding:0;max-width:640px}
+html.stage-phone body.teyvat .shell-loc-left .field-commission-card>.reward-preview>span{font-size:.56rem;padding:1px 6px}
+html.stage-phone body.teyvat .shell-loc-left .field-scene-card .scene-steps li{font-size:.54rem;padding:0 6px}
+html.stage-phone body.teyvat .shell-loc-left .field-scene-card .scene-goal{font-size:.54rem}
