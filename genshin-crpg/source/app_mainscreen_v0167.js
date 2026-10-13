@@ -26,8 +26,29 @@ function compact(left){
   // 「1시간 기다리기」 says the same in fewer letters beside the place's name.
   if(b&&/^1시간 기다리기$/.test(b.textContent.trim())){b.setAttribute('aria-label',b.textContent.trim());b.textContent='1시간 대기';}
   if(head){head.classList.add('with-wait');head.append(wait);}}
+ bossCards(left);
  // The main quest: what it is rides on its button's title (the narrow column shows the button alone).
  const quest=left.querySelector('.main-objective button');if(quest&&!quest.title)quest.title='메인 임무 · '+quest.textContent.trim();
+}
+// 0.16.43 (user: 「이거도 왜 도전 버튼은 뒤에 있노...」 — 타르탈리아's card showed two paragraphs on page 1 and its challenge on
+// page 2): a boss's card in the column puts its challenge buttons (this week's 변이 one too) right under its name; the long
+// paragraphs before them open from 「자세히」 in a window, and a reason under a locked button is said once.
+const BOSS_CARDS='.material-challenge,.liyue-artifact-farm,.field-boss-card,.field-boss-entry,.boss-entry';
+function bossCards(left){
+ for(const card of left.querySelectorAll(BOSS_CARDS)){
+  if(card.dataset.arranged)continue;
+  const head=card.querySelector(':scope>h2,:scope>h3'),kids=[...card.children],first=kids.findIndex(n=>n.tagName==='BUTTON');if(!head||first<0)continue;
+  const long=kids.slice(0,first).filter(n=>n!==head&&n.matches('p:not(.choice-note):not(.material-challenge-reward),small.muted')&&n.textContent.trim().length>40);
+  card.dataset.arranged='1';
+  // At the boss's own place its card comes first in the tab (it stood after 지맥의 꽃, two pages in).
+  const pane=card.parentElement;if(pane?.matches?.('.shell-pane')&&pane.firstElementChild!==card)pane.prepend(card);
+  const row=mk('div','boss-actions');row.append(...card.querySelectorAll(':scope>button'));
+  const mutButton=card.querySelector(':scope>.mut-panel>button');if(mutButton)row.append(mutButton);
+  if(long.length){const more=mk('button','boss-more','자세히');more.type='button';const title=head.textContent.trim(),copies=long.map(n=>n.cloneNode(true));
+   more.onclick=()=>{const box=mk('div','boss-more-card');box.append(...copies.map(n=>n.cloneNode(true)));if(typeof showModal==='function')showModal(title,box);};row.append(more);for(const n of long)n.remove();}
+  head.after(row);
+  const said=new Set();let at=row;for(const n of [...card.querySelectorAll('.choice-note')]){const t=n.textContent.trim();if(said.has(t)){n.remove();continue;}said.add(t);at.after(n);at=n;}
+ }
 }
 // A pane with more than its room shows one page at a time (user: 「짤렸어.」 — nothing on a page may be cut). Pages are
 // filled by the real layout, piece by piece: the pane's cards in order; a card taller than the room broken into its own

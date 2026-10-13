@@ -42,6 +42,7 @@ function playerState(){
  for(const [id,n] of [['ORE_IRON',60],['ORE_WHITE_IRON',40],['ORE_CRYSTAL',30]]){const i=r.s.inventory.find(x=>x.item===id&&!x.equip);if(i)i.quantity+=n;else r.s.inventory.push({slot:'ITEM_'+id,item:id,quantity:n,owner:'공용'});}
  const done=r.tutorialState?.().done;if(done)for(const k of ['combatAttack','combatGuard','combatSkill','combatBurst'])done[k]=true;
  r.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_MOND_CITY'});
+ delete r.s.fieldBossWindow;// 0.16.43: every view may fight a field boss (three wins in 12 hours were used up by earlier views)
  return r;
 }
 // Runs in the page: everything on screen that a player could not read whole.
@@ -245,6 +246,14 @@ try{
    const FB=globalThis.CRPGRuntime?.fieldBosses,boss='FB_ANEMO_HYPOSTASIS';
    const field=FB&&fight(x=>{x.action('OPERATOR_DEBUG',{op:'travel',map:FB.bosses[boss].map});const route=FB.route(boss);x.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});x.action('BOSS_ROUTE',{route,entry:'DIRECT'});},'field boss result');
    if(field){fixture.seed(field.s);await page.evaluate(()=>CRPGOnline.sync());await idle();await view('fieldboss-result',`Promise.resolve()`);}
+   // 0.16.43 (user: 「전투 할때도 위에 뭔가 생기고 그러면 … 핸드폰쪽에서 자꾸 몬스터가 찌그러지거나」): a field boss fight going on (its
+   // gimmick bar over the board), started and after a round; and this week's 변이 of the same boss.
+   for(const [label,mutation] of [['fieldboss-battle',false],['fieldboss-battle-mutation',true]]){if(!FB)break;const x=playerState();x.serverAdmin=true;
+    try{x.action('OPERATOR_DEBUG',{op:'travel',map:FB.bosses[boss].map});const route=FB.route(boss);x.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});x.action('BOSS_ROUTE',{route,entry:'DIRECT',...(mutation?{mutation:true}:{})});}catch(e){console.error(label,e.message);continue;}
+    if(!x.s.runtime)continue;fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+    await view(label,`(async()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='전투 시작');b?.click();})()`);
+    await view(label+'-round2',`(async()=>{const b=document.querySelector('.battle-cards button[data-card-id]:not([disabled])');b?.click();await new Promise(r=>setTimeout(r,200));[...document.querySelectorAll('.battle-command button')].find(x=>/실행/.test(x.textContent)&&!x.disabled)?.click();})()`);
+    const done=new R(DB,JSON.parse(fixture.read().state));done.serverAdmin=true;try{done.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch{}fixture.seed(done.s);await page.evaluate(()=>CRPGOnline.sync());await idle();}
    // a lost field boss: its retry is this 「다시 도전」, and 메인 화면으로 leaves the route
    const lost=FB&&(()=>{const x=playerState();x.serverAdmin=true;try{x.action('OPERATOR_DEBUG',{op:'travel',map:FB.bosses[boss].map});const route=FB.route(boss);x.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});x.action('BOSS_ROUTE',{route,entry:'DIRECT'});x.action('COMBAT_FORFEIT',{reason:'TEST'});}catch(e){console.error('field boss lost',e.message);}return x.s.bossRouteProgress?.phase==='RETRY'?x:null;})();
    if(lost){for(const id of ['PLAYER_CUSTOM',...Object.keys(lost.s.chars||{})])try{if(id==='PLAYER_CUSTOM')lost.s.global.PLAYER_HP_CURRENT=lost.s.global.PLAYER_HP_MAX;else if(lost.s.chars[id])lost.s.chars[id].hp=lost.character(id).maxHp;}catch{}delete lost.s.defeatPenalty;fixture.seed(lost.s);await page.evaluate(()=>CRPGOnline.sync());await idle();await view('fieldboss-lost',`Promise.resolve()`);}}
@@ -294,6 +303,15 @@ try{
     for(const [i,map] of districts.entries()){const y=playerState();try{y.action('OPERATOR_DEBUG',{op:'travel',map});}catch(e){console.error('liyue district',map,e.message);continue;}fixture.seed(y.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
      await view('liyue-district'+(i+1)+'-places',`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab','places')||__tap('.shell-loc-side .shell-tab');})()`);}}
   }
+  // 0.16.43 (user: 「이거도 왜 도전 버튼은 뒤에 있노...」 — 타르탈리아's card at 황금옥): every boss's place, each tab of the column:
+  // the two Liyue farms, the daily bosses and the field bosses.
+  if(!ONLY.length||ONLY.some(o=>o.startsWith('boss-place'))){
+   await page.evaluate(()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());document.querySelector('.pm-close,.shell-menu-close')?.click();}).catch(()=>{});
+   const api=globalThis.CRPGRuntime||{},maps=[...new Set(['MAP_LIYUE_GOLDEN_HOUSE','MAP_AZHDAHA_DOMAIN',...Object.values(api.enhancementConfig?.bosses||{}).map(b=>b.map),...Object.values(api.fieldBosses?.bosses||{}).map(b=>b.map)].filter(Boolean))];
+   for(const map of maps){const x=playerState();try{x.action('OPERATOR_DEBUG',{op:'travel',map});}catch(e){console.error('boss place',map,e.message);continue;}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+    const short=map.replace(/^MAP_/,'').toLowerCase();
+    for(const tab of await labels('.shell-loc-side .shell-tab'))await view('boss-place-'+short+'-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);}
+   const back=playerState();fixture.seed(back.s);await page.evaluate(()=>CRPGOnline.sync());await idle();}
   // 0.16.32: an early journey as players see it (the 검증 account as it starts: a forest road, the story's next place,
   // a region event, level-ups after a fight), not only the finished town.
   if(!ONLY.length||ONLY.some(o=>o.startsWith('early'))){

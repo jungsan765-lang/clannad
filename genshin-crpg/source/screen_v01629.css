@@ -1705,4 +1705,32 @@ body.teyvat .scene-options .scene-option>.scene-option-mark{flex:0 0 auto;font-s
 body.teyvat :where(#modal) .scene-log-window{margin:0;border:0;padding:0;max-width:640px}
 html.stage-phone body.teyvat .shell-loc-left .field-commission-card>.reward-preview>span{font-size:.56rem;padding:1px 6px}
 html.stage-phone body.teyvat .shell-loc-left .field-scene-card .scene-steps li{font-size:.54rem;padding:0 6px}
-html.stage-phone body.teyvat .shell-loc-left .field-scene-card .scene-goal{font-size:.54rem}
+html.stage-phone body.teyvat .shell-loc-left .field-scene-card .scene-goal{font-size:.54rem}/* 0.16.43 (user: 「이거도 왜 도전 버튼은 뒤에 있노...」): a boss's card — its challenge buttons right under its name, 「자세히」 beside them */
+body.teyvat .shell-loc-left .boss-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:4px 0 2px}
+body.teyvat :where(#root) .shell-loc-left .boss-actions>button{margin:0;width:auto;min-height:30px;padding:3px 14px;font-size:.76rem}
+body.teyvat :where(#root) .shell-loc-left .boss-actions>button.primary{padding-left:30px}
+body.teyvat .shell-loc-left .boss-actions+.choice-note,body.teyvat .shell-loc-left .boss-actions~.choice-note{margin:0;font-size:.7rem}
+body.teyvat .shell-loc-left :is(.material-challenge,.liyue-artifact-farm) .mut-panel{margin-top:6px;padding:8px 10px}
+body.teyvat .shell-loc-left :is(.material-challenge,.liyue-artifact-farm)>.material-challenge-reward{font-size:.72rem;margin:2px 0}
+body.teyvat :where(#modal) .boss-more-card{display:grid;gap:8px;max-width:620px}
+body.teyvat :where(#modal) .boss-more-card>*{margin:0;font-size:.84rem;line-height:1.6}
+html.stage-phone body.teyvat :where(#root) .shell-loc-left .boss-actions>button{min-height:22px;padding:1px 9px;font-size:.58rem}body.teyvat .shell-loc-left :is(.material-challenge,.liyue-artifact-farm)>.eyebrow{font-size:.62rem;letter-spacing:0;line-height:1.35;font-family:inherit}
+body.teyvat .shell-loc-left .mut-panel .mut-mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px;margin:4px 0}
+body.teyvat .shell-loc-left .mut-panel .mut-mod{padding:4px 8px;font-size:.66rem;line-height:1.35}
+body.teyvat .shell-loc-left .mut-panel .mut-mod>strong{font-size:.72rem}
+body.teyvat .shell-loc-left .mut-panel .mut-bonus{margin:2px 0 0;font-size:.68rem}body.teyvat .shell-loc-left .mut-panel{padding:6px 8px}
+body.teyvat .shell-loc-left .mut-panel .mut-head{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px}
+body.teyvat .shell-loc-left .mut-panel .mut-head>h3{margin:0;font-size:.8rem}
+body.teyvat .shell-loc-left .mut-panel .mut-head>.mut-time{margin-left:auto;font-size:.6rem}
+body.teyvat .shell-loc-left .mut-panel .mut-mod{padding:3px 6px;font-size:.6rem;line-height:1.3}
+body.teyvat .shell-loc-left .mut-panel .mut-mod>strong{font-size:.66rem}/* 0.16.43 (user: 「전투 할때도 위에 뭔가 생기고 그러면 … 몬스터가 찌그러지거나 … 전체적으로 고정이 될만한 디자인」, 「아래쪽에 로그 나오는거 …
+   전투에 녹아들게」): the board keeps one size for the whole fight — the summon strips float over its top-left and the last
+   action is a small caption over its bottom-left; neither takes room from the fighters (app_battle_layout_v01522.js). */
+body.teyvat .combat-panel .compact-battle-stage.fixed-board{position:relative}
+body.teyvat .combat-panel .compact-battle-stage.fixed-board>.battle-summons{position:absolute!important;top:2px;left:6px;z-index:5;margin:0!important;max-width:calc(100% - 340px);display:flex;flex-wrap:wrap;gap:4px 10px;pointer-events:auto}
+body.teyvat .combat-panel .compact-battle-stage.fixed-board>.shell-battle-feed{position:absolute;left:8px;bottom:4px;z-index:4;display:flex!important;max-width:calc(100% - 340px);margin:0;padding:3px 10px;border-radius:6px;background:rgba(8,10,16,.72);border:1px solid rgba(211,188,142,.18);font-size:.72rem;pointer-events:none}
+body.teyvat .combat-panel .compact-battle-stage.fixed-board>.shell-battle-feed>p{white-space:normal;overflow:visible;text-overflow:clip}
+body.teyvat .combat-panel .compact-battle-stage.fixed-board>.shell-battle-feed>p:not(:last-child){display:none}/* … and two lines of effects under each enemy are kept from the first round, so effects that come and go never resize it */
+html.stage-pc body.teyvat .combat-panel .shell-enemies .combatant-copy{position:relative;padding-bottom:43px!important}
+html.stage-pc body.teyvat .combat-panel .shell-enemies[data-chip-lines="1"] .combatant-copy{padding-bottom:22px!important}
+html.stage-pc body.teyvat .combat-panel .shell-enemies .combatant-copy>.status-chips{position:absolute!important;left:0;right:0;bottom:0;margin:0!important}

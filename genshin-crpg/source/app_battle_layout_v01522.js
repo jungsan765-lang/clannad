@@ -41,6 +41,12 @@ function layout(){
  const line=objectiveLine(b);if(line&&head){const title=head.querySelector('h1');if(title)title.after(line);else head.append(line);}
  const details=p.querySelector('.battle-details');if(details&&head){details.hidden=true;const rec=button('기록',()=>{const box=details.querySelector('.log').cloneNode(true);showModal('전투 기록',box);});rec.className='battle-head-button';rec.title='전투 기록 '+b.log.length+'건';head.append(rec);}
  const info=p.querySelector('.shell-battle-info');if(info&&head){info.hidden=true;const n=info.querySelector('.shell-battle-info-body')?.childElementCount||0;const more=button('전투 정보'+(n?' '+n:''),()=>{const box=info.querySelector('.shell-battle-info-body').cloneNode(true);showModal('전투 정보',box);});more.className='battle-head-button';head.append(more);}
+ // 0.16.43 (user: 「전투 할때도 위에 뭔가 생기고 그러면 … 핸드폰쪽에서 자꾸 몬스터가 찌그러지거나 그러는데 전체적으로 고정이 될만한
+ // 디자인으로 하자. 아래쪽에 로그 나오는거 … 전투에 녹아들게 하던가」): nothing that comes and goes during a fight takes room from the
+ // fighters. The summon strips float over the top of the board, and the last action is a caption over its bottom (the
+ // record stays under 「기록」); the board keeps one size from the first round to the last.
+ const stage=p.querySelector('.compact-battle-stage');
+ if(stage){stage.classList.add('fixed-board');const feed=p.querySelector('.combat-duo>.shell-battle-feed');if(feed)stage.append(feed);}
  fitFighters();watchChips(p);
 }
 // 0.16.41 (user: 「전투하면서 버프량이 많아지거나 버프 이름이 길어지면 파티가 위아래로 너무 길어져서 상태도 안보이고 그래」, then
@@ -66,7 +72,7 @@ let chipWatch=null,chipFrame=0;
 function watchChips(p){
  chipWatch?.disconnect();
  // Only ever tightens while a round plays (loosening would make the cards jump under the blows).
- const fit=()=>{chipFrame=0;if(!p.isConnected)return;fitChips(p);const floor=floorOf(p);roomForParty(p.querySelector('.shell-allies'),floor);roomForEnemies(p.querySelector('.shell-enemies'),floor);chipWatch?.takeRecords();};
+ const fit=()=>{chipFrame=0;if(!p.isConnected)return;fitChips(p);const floor=floorOf(p);ceiling=ceilingOf(p);roomForParty(p.querySelector('.shell-allies'),floor);roomForEnemies(p.querySelector('.shell-enemies'),floor);chipWatch?.takeRecords();};
  chipWatch=new MutationObserver(list=>{if(!chipFrame&&list.some(m=>m.target.classList?.contains('status-chips')||[...m.addedNodes].some(n=>n.nodeType===1&&(n.matches('.status-chips,.combatant-row')||n.querySelector('.status-chips')))))chipFrame=requestAnimationFrame(fit);});
  chipWatch.observe(p,{childList:true,subtree:true});
 }
@@ -80,10 +86,16 @@ function floorOf(p){
  // 0.16.41: on every screen (the pictures of one to four enemies grew with the room, so the room is measured everywhere):
  // the floor is the commands or the board's own bottom, whichever is higher.
  const c=p.querySelector('.combat-duo>.battle-command')?.getBoundingClientRect(),board=p.querySelector('.compact-battle-stage')?.getBoundingClientRect();
- return Math.min(c&&c.height?c.top:p.getBoundingClientRect().bottom,board&&board.height?board.bottom:Infinity)-4;
+ // the caption of the last action floats over the board's bottom: its room is kept from the first round, shown or not
+ return Math.min(c&&c.height?c.top:p.getBoundingClientRect().bottom,board&&board.height?board.bottom-CAPTION:Infinity)-4;
 }
+// The summon strips float over the board's top: their room is kept from the first round too, so a summon that comes or
+// goes never resizes the enemies (「몬스터가 찌그러지거나」).
+const CAPTION=30,STRIP=42;
+function ceilingOf(p){const board=p.querySelector('.compact-battle-stage')?.getBoundingClientRect();return board&&board.height?board.top+STRIP:-Infinity;}
 const partyOver=(allies,floor)=>{const last=allies?.querySelector(':scope>.combatant-row:last-of-type');return !!last&&last.getBoundingClientRect().bottom>floor;};
-const enemiesOver=(enemies,floor)=>{const cards=[...(enemies?.querySelectorAll(':scope>.combatant-row')||[])];return !!cards.length&&Math.max(...cards.map(r=>r.getBoundingClientRect().bottom))>floor;};
+let ceiling=-Infinity;
+const enemiesOver=(enemies,floor)=>{const cards=[...(enemies?.querySelectorAll(':scope>.combatant-row')||[])];return !!cards.length&&(Math.max(...cards.map(r=>r.getBoundingClientRect().bottom))>floor||Math.min(...cards.map(r=>r.getBoundingClientRect().top))<ceiling);};
 // The party first: its column sets the height of the row the enemy cards are centred in. Its rows tighten (the 「1번 · 전열」
 // tag goes before any effect does), then its effects go back to one line, then the rows tighten once more.
 function roomForParty(allies,floor){
@@ -103,13 +115,13 @@ function roomForEnemies(enemies,floor){
 function fitFighters(){
  const p=document.querySelector('.combat-panel');if(!p)return;const enemies=p.querySelector('.shell-enemies'),allies=p.querySelector('.shell-allies');
  enemies?.style.removeProperty('--enemy-h');allies?.classList.remove('tight','tighter');if(allies)delete allies.dataset.chipLines;if(enemies)delete enemies.dataset.chipLines;
- fitChips(p);const floor=floorOf(p);
+ fitChips(p);const floor=floorOf(p);ceiling=ceilingOf(p);
  roomForParty(allies,floor);roomForEnemies(enemies,floor);
 }
 // Shrink the pictures by what still runs past the floor (centred cards move as they shrink, so measure again).
 function shrinkEnemies(enemies,floor,least=0){
  const cards=[...(enemies?.querySelectorAll(':scope>.combatant-row')||[])],pic=cards[0]?.querySelector('.combat-portrait');
- if(pic){const lines=Number(enemies.dataset.rows)||1;for(let i=0;i<6;i++){const over=Math.max(...cards.map(r=>r.getBoundingClientRect().bottom))-floor;if(over<=0)break;const h=Math.max(lines>1?24:36,least,pic.offsetHeight-Math.ceil(over/lines)-1);if(h>=pic.offsetHeight)break;enemies.style.setProperty('--enemy-h',h+'px');}}
+ if(pic){const lines=Number(enemies.dataset.rows)||1;for(let i=0;i<6;i++){const rs=cards.map(r=>r.getBoundingClientRect()),over=Math.max(Math.max(...rs.map(r=>r.bottom))-floor,(ceiling-Math.min(...rs.map(r=>r.top)))*2);if(over<=0)break;const h=Math.max(lines>1?24:36,least,pic.offsetHeight-Math.ceil(over/lines)-1);if(h>=pic.offsetHeight)break;enemies.style.setProperty('--enemy-h',h+'px');}}
 }
 const previousRender=render;render=function(){previousRender();renderTutorial();layout();};
 // 0.15.25 (the GitHub check tests/test_online_browser.mjs 「playback controls occupy the reserved command area」 failed
