@@ -299,7 +299,7 @@ try{
    {const x=playerState();try{x.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_LIYUE_HARBOR'});}catch(e){console.error('liyue harbor',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
     for(const tab of await labels('.shell-loc-side .shell-tab'))await view('liyue-harbor-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);
     // 0.16.41 (user: 「이야기 소개라고 적혀있는거 건물 이름으로」): every other district of the harbour, its 시설 tab
-    const districts=(x.liyueCityDirectory?.()||[]).map(d=>d.map).filter(m=>m&&m!=='MAP_LIYUE_HARBOR');
+    const districts=(x.liyueCityDirectory?.()||[]).map(d=>d.map).filter(m=>m&&m!=='MAP_LIYUE_HARBOR').slice(0,process.env.CI?2:99);// CI: two (the verify job's 20 minutes)
     for(const [i,map] of districts.entries()){const y=playerState();try{y.action('OPERATOR_DEBUG',{op:'travel',map});}catch(e){console.error('liyue district',map,e.message);continue;}fixture.seed(y.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
      await view('liyue-district'+(i+1)+'-places',`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab','places')||__tap('.shell-loc-side .shell-tab');})()`);}}
   }
@@ -307,10 +307,11 @@ try{
   // the two Liyue farms, the daily bosses and the field bosses.
   if(!ONLY.length||ONLY.some(o=>o.startsWith('boss-place'))){
    await page.evaluate(()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());document.querySelector('.pm-close,.shell-menu-close')?.click();}).catch(()=>{});
-   const api=globalThis.CRPGRuntime||{},maps=[...new Set(['MAP_LIYUE_GOLDEN_HOUSE','MAP_AZHDAHA_DOMAIN',...Object.values(api.enhancementConfig?.bosses||{}).map(b=>b.map),...Object.values(api.fieldBosses?.bosses||{}).map(b=>b.map)].filter(Boolean))];
+   const api=globalThis.CRPGRuntime||{},maps=[...new Set(['MAP_LIYUE_GOLDEN_HOUSE','MAP_AZHDAHA_DOMAIN',...Object.values(api.enhancementConfig?.bosses||{}).map(b=>b.map),...Object.values(api.fieldBosses?.bosses||{}).map(b=>b.map)].filter(Boolean))].slice(0,process.env.CI?4:99);
+   // 0.16.44: in CI (the verify job has 20 minutes, run #332 ran over) the two Liyue farms and two more places, their boss tab only
    for(const map of maps){const x=playerState();try{x.action('OPERATOR_DEBUG',{op:'travel',map});}catch(e){console.error('boss place',map,e.message);continue;}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
     const short=map.replace(/^MAP_/,'').toLowerCase();
-    for(const tab of await labels('.shell-loc-side .shell-tab'))await view('boss-place-'+short+'-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);}
+    for(const tab of (await labels('.shell-loc-side .shell-tab')).filter(t=>!process.env.CI||t==='activity'))await view('boss-place-'+short+'-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);}
    const back=playerState();fixture.seed(back.s);await page.evaluate(()=>CRPGOnline.sync());await idle();}
   // 0.16.32: an early journey as players see it (the 검증 account as it starts: a forest road, the story's next place,
   // a region event, level-ups after a fight), not only the finished town.
