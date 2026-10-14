@@ -127,12 +127,12 @@ check('타르탈리아 · 야타용왕: their daily challenge brings 「극악�
 });
 
 check('the page plays the four minigames with keys, a phone pad and touch, and sends the result with the same COMBAT action',()=>{
- const js=src('source/app_fb_minigames_v01646.js');
+ const js=src('source/app_bossgames_v01646.js');
  for(const id of Object.values(CTL.cards))assert(js.includes("'"+id+"'"),id);
  for(const k of ['ANEMO_DODGE','ANDRIUS_DODGE','CRYO_CHASE','DVALIN_SNIPE','TARTAGLIA_DODGE','AZHDAHA_DODGE'])assert(js.includes(k+':'),k);
  assert(js.includes('act=async function(type,params={})')&&js.includes('{...params,mini:result}'));assert(js.includes("KeyW:'U'")&&js.includes("ArrowUp:'U'"));assert(js.includes('fb-mini-pad'));assert(js.includes("addEventListener('keydown',keydown,true)"));
  assert(!/<select|::after|::before/.test(js),'no drop-downs or pseudo-element text');
- assert(src('source/index.html').includes('<script src="app_fb_minigames_v01646.js"></script>'));assert(src('tools/build.py').includes("'app_fb_minigames_v01646.js'"));
+ assert(src('source/index.html').includes('<script src="app_bossgames_v01646.js"></script>'));assert(src('tools/build.py').includes("'app_bossgames_v01646.js'"));
  assert(src('tools/verify_release.py').includes("'tests/test_fb_control_v01646.cjs'"));
  const fit=src('tests/test_screen_fit_v01629.mjs');for(const k of ['fb-mini-anemo','fb-mini-andrius','fb-mini-cryo','fb-mini-dvalin','fb-mini-tartaglia','fb-mini-azhdaha'])assert(fit.includes("['"+k+"',"),k);assert(fit.includes("view('fb-mini-anemo-play'"));
 });
