@@ -36,7 +36,7 @@ const G=(label,text,counter)=>({label,text,counter});
 const BOSSES={
  FB_ANEMO_HYPOSTASIS:{kind:'ANEMO',name:'무상의 바람',map:'MAP_V141_STORMBEARER_PASS',region:'몬드',level:5,hp:2300,atk:120,def:70,spd:64,element:'바람',immune:['바람'],range:'중거리',material:'MAT_FB_HURRICANE_SEED',
   summary:'바람이 뭉친 정육면체. 떠올라 전열을 내려찍고 후열을 끌어당기며, 쓰러지면 핵을 드러내고 다시 조립하려 한다.',
-  gimmicks:{GUST:G('돌풍 탄환','무작위 동료 3회 바람 피해','바람 외 원소 공격 · 회복'),PULL:G('흡인 회오리','예고 후 후열을 끌어당겨 피해 · 다음 행동 지연','경직 저항·중장 장비'),RISE:G('상승 기류','떠오른 동안 원거리·대공·공중 접근만 닿음, 다음 차례 전열 내려찍기','활·법구, 공중 접근 장비, 보호막'),REVIVE:G('재조립','쓰러지면 핵이 2라운드 동안 드러남 · 핵을 부수지 못하면 HP 40%로 부활','약점 공략·집중 공격'),IMMUNE:G('바람 면역','바람 원소 피해를 받지 않음','다른 원소·물리')}},
+  gimmicks:{GUST:G('돌풍 탄환','무작위 동료 3회 바람 피해','바람 외 원소 공격 · 회복'),PULL:G('흡인 회오리','예고 후 후열을 끌어당겨 피해 · 다음 행동 지연','경직 저항·중장 장비'),RISE:G('상승 기류','떠오른 동안 원거리·대공·공중 접근만 닿음, 다음 차례 전열 내려찍기','활·법구, 공중 접근 장비, 보호막'),REVIVE:G('재조립','쓰러지면 핵이 2라운드 동안 드러남 · 핵을 부수지 못하면 HP 40%로 부활','약점 공략·집중 공격'),BARRAGE:G('바람 탄막','예고 후 전원에게 바람 탄막 · 맞은 수만큼 전원 피해 · 탄막 속 바람 원소는 원소폭발 충전','주인공 「바람 탄막 피하기」'),SHUT:G('닫힌 핵','탄막을 모으거나 떠 있는 동안 핵이 닫혀 피해를 받지 않음 · 공격을 마치면 핵 노출(받는 피해 +50%)','핵이 드러났을 때 몰아치기 · 닫히면 방어'),IMMUNE:G('바람 면역','바람 원소 피해를 받지 않음','다른 원소·물리')}},
  FB_ELECTRO_HYPOSTASIS:{kind:'ELECTRO',name:'무상의 뇌전',map:'MAP_D163_ELECTRO_HYPOSTASIS',region:'몬드',level:6,hp:2500,atk:130,def:75,spd:64,element:'번개',immune:['번개'],range:'중거리',material:'MAT_FB_LIGHTNING_PRISM',
   summary:'번개 원소의 정육면체. 후열에 낙뢰를 떨어뜨리고, 프리즘을 불러 자신을 보호하며, 쓰러지면 프리즘으로 부활하려 한다.',
   gimmicks:{SPIKES:G('뇌광 가시','무작위 동료 2명 번개 피해','절연·번개 내성'),HAMMER:G('뇌전 망치','선두에 강한 단타','중장 장비·보호막'),STORM:G('낙뢰 지대','예고 후 후열에 낙뢰 지형 2라운드','절연 장비 · 후열 배치 조정'),PRISM:G('뇌광 프리즘','HP 50% 이하에서 프리즘 2개 · 프리즘이 있으면 본체 피해 절반','광역 공격·프리즘 먼저 파괴'),REVIVE:G('프리즘 부활','쓰러지면 프리즘 3개 · 3라운드 안에 모두 부수지 못하면 HP 40%로 부활','광역 공격·집중 공격'),IMMUNE:G('번개 면역','번개 원소 피해를 받지 않음','다른 원소·물리')}},
@@ -45,7 +45,7 @@ const BOSSES={
   gimmicks:{SHELL:G('서리 결정막','HP 30% 보호막 · 불 피해 3배, 그 밖의 피해는 약하게 들어감 · 깨지면 행동 불능과 핵 노출 · 3라운드 뒤 재생','불 원소 동료·보호막 파괴 장비'),WHIP:G('얼음 덩굴 채찍','전열 전원 얼음 피해','방한·얼음 내성'),SPREAD:G('냉기 확산','전열에 냉기 지형(감속) 2라운드','방한 장비(50 이상이면 감속 무시)'),ORBS:G('빙구 회전','예고 후 무작위 3회 · 빙결 확률','행동 방해 저항·방한'),ENRAGE:G('광폭','HP 30% 이하에서 한 차례에 한 번 더 행동','결정막이 깨진 틈에 몰아치기')}},
  FB_CRYO_HYPOSTASIS:{kind:'CRYO_HYPO',name:'무상의 얼음',map:'MAP_D163_CRYO_HYPOSTASIS',region:'몬드',level:8,hp:2800,atk:145,def:85,spd:64,element:'얼음',immune:['얼음'],range:'중거리',material:'MAT_FB_CRYSTALLINE_BLOOM',
   summary:'얼음 원소의 정육면체. 한 줄을 꿰뚫는 창으로 얼리고, 쓰러지면 냉기의 핵이 되어 여러 번 맞아야 부서진다.',
-  gimmicks:{LANCE:G('빙결 창','HP가 더 많은 줄(전열·후열)을 꿰뚫음 · 빙결 확률','행동 방해 저항 · 대열 분산'),BLAST:G('한기 방출','예고 후 전원 피해 + 냉기 지형 2라운드','방한 장비'),WALL:G('얼음 가시 방벽','얼음 보호막(불에 약함)','불 원소·보호막 파괴'),REVIVE:G('냉기 핵','쓰러지면 2라운드 동안 핵 · 서로 다른 공격 4번을 맞히지 못하면 HP 50%로 부활','여러 번 때리는 공격·파티 4인'),IMMUNE:G('얼음 면역','얼음 원소 피해를 받지 않음','다른 원소·물리')}},
+  gimmicks:{LANCE:G('빙결 창','HP가 더 많은 줄(전열·후열)을 꿰뚫음 · 빙결 확률','행동 방해 저항 · 대열 분산'),BLAST:G('한기 방출','예고 후 전원 피해 + 냉기 지형 2라운드','방한 장비'),WALL:G('얼음 가시 방벽','얼음 보호막(불에 약함)','불 원소·보호막 파괴'),REVIVE:G('냉기 핵','쓰러지면 2라운드 동안 핵 · 서로 다른 공격 4번을 맞히지 못하면 HP 50%로 부활','여러 번 때리는 공격·파티 4인'),CHASE:G('도망치는 핵','냉기 핵이 전장을 달아나며 순간이동 · 쫓아가 직접 부술 수 있음','주인공 「냉기 핵 쫓기」'),IMMUNE:G('얼음 면역','얼음 원소 피해를 받지 않음','다른 원소·물리')}},
  FB_GEO_HYPOSTASIS:{kind:'GEO_HYPO',name:'무상의 바위',map:'MAP_D163_GEO_HYPOSTASIS',region:'리월',level:5,hp:2400,atk:125,def:85,spd:58,element:'바위',immune:['바위'],range:'중거리',material:'MAT_FB_BASALT_PILLAR',
   summary:'바위 원소의 정육면체. 바위를 떨어뜨리고 땅을 솟구치게 하며, 현암 기둥으로 자신을 회복한다. 쓰러지면 기둥에 기대어 부활하려 한다.',
   gimmicks:{ROCKFALL:G('바위 낙하','무작위 2명에게 강한 단타','중장 장비'),UPHEAVAL:G('지면 융기','예고 후 전열 피해 · 행동 지연','경직 저항·중장'),PILLARS:G('현암 기둥','HP 60% 이하에서 기둥 3개 · 기둥마다 라운드 끝 본체 회복','파쇄·양손검·바위 원소(기둥 피해 2배)'),REVIVE:G('기둥 부활','쓰러지면 기둥이 다시 서고 3라운드 안에 모두 부수지 못하면 HP 40%로 부활','파쇄 장비·광역 공격'),IMMUNE:G('바위 면역','바위 원소 피해를 받지 않음','다른 원소·물리')}},
@@ -96,8 +96,8 @@ const TUNE={hp:1.5,atk:2.4,actions:2};
 const TUNE_BY={FB_ANEMO_HYPOSTASIS:{atk:3.8,hp:1.8},FB_ELECTRO_HYPOSTASIS:{hp:1.1,atk:2.5},FB_CRYO_REGISVINE:{atk:4,hp:1.6},FB_CRYO_HYPOSTASIS:{hp:.9,atk:1.9},FB_GEO_HYPOSTASIS:{hp:1.3,atk:2.4},FB_PYRO_REGISVINE:{hp:1.2},FB_OCEANID:{atk:2.8},FB_PRIMO_GEOVISHAP:{atk:2.5},FB_RUIN_SERPENT:{hp:1.6,atk:4}};
 const tuned=(d,key)=>Math.round(d[key]*((TUNE_BY[d.id]||{})[key]??TUNE[key])*grown(d.level,key));
 // Two-day bosses: extra mechanics only in voluntary challenges (never in the story fights).
-const TWIN={BOSS_ANDRIUS:{name:'안드리우스',gimmicks:{FROST_FIELD:G('혹한의 영역','3라운드마다 라운드 끝 전원 냉기 지형(감속) 2라운드','방한 장비'),HUNT_MARK:G('사냥 표식','공격력이 가장 높은 동료에게 표식 · 표식 대상에게 주는 단일 피해 +30%','은밀 장비(20 이상이면 표식을 피함)·옆 칸 엄호')}},
- BOSS_DVALIN:{name:'드발린',gimmicks:{CORROSIVE_BREATH:G('부식의 숨결','3라운드마다 라운드 끝 전열 부식 지형 2라운드(방어력 −15%)','해독 장비'),STORM_WING:G('폭풍 날개','짝수 라운드 끝 선두를 밀어 다음 행동 지연','중장·경직 저항 장비')}}};
+const TWIN={BOSS_ANDRIUS:{name:'안드리우스',gimmicks:{FROST_FIELD:G('혹한의 영역','3라운드마다 라운드 끝 전원 냉기 지형(감속) 2라운드','방한 장비'),HUNT_MARK:G('사냥 표식','공격력이 가장 높은 동료에게 표식 · 표식 대상에게 주는 단일 피해 +30%','은밀 장비(20 이상이면 표식을 피함)·옆 칸 엄호'),DASH:G('얼음 발톱 질주','3라운드마다 라운드 끝 전장을 휘젓는 질주 · 맞은 수만큼 전원 얼음 피해','주인공 「질주 피하기」 · 모두 피하면 빈틈')}},
+ BOSS_DVALIN:{name:'드발린',gimmicks:{CORROSIVE_BREATH:G('부식의 숨결','3라운드마다 라운드 끝 전열 부식 지형 2라운드(방어력 −15%)','해독 장비'),STORM_WING:G('폭풍 날개','짝수 라운드 끝 선두를 밀어 다음 행동 지연','중장·경직 저항 장비'),CRYSTALS:G('부식 결정','3라운드마다 몸의 부식 결정이 빛남 · 2개를 깨면 받는 피해 증가, 3개를 깨면 추락','주인공 「부식 결정 저격」')}}};
 
 // ---- installation ------------------------------------------------------------------------------------------
 const old=Object.fromEntries(['installMarketContent','supportsLiyueBoss','placeBossReason','startBattle','aiTurn','damage','applyDamage','combatDamageMultiplier','hasElementImmunity','newRound','roundEnd','combatActionsPerTurn','finishBattle','validateSave','combatCards','enemyIntel'].map(k=>[k,P[k]]));
@@ -437,6 +437,197 @@ P.validateSave=function(s){
  if(b?.twinBoss&&(b.twinBoss.version!==1||!TWIN[b.twinBoss.boss]))fail('FIELD_BOSS_SAVE','보스 기믹 기록이 올바르지 않습니다.');
  return out;
 };
+// ---- 0.16.46 조작하는 보스 (user, 2026-10-15) ---------------------------------------------------------------------
+// 「무상의 바람은 좀 컨트롤적인 요소를 추가해서 wasd로 움직이는 언더테일 느낌으로 공격을 피하면서 바람원소 먹는 그런거. 맞을때마다
+// 전체데미지 받고」, 「무상의 바람은 핵 노출 때만 공격이 되는게 정석 아닌가?」, 「무상의 뇌전은 핵 노출할때 자동으로 소환체를 공격하던데,
+// 그러지 말고 주인공쪽만 공격하도록 하자」, 「무상의 얼음 … 고증에 맞춰서 미니게임같은거 꽤 난이도 있게」, 「일일보스도 마찬가지」.
+// Only fights opened from now on (controlRevision 1: a field boss's own route, or a daily boss challenge) use these rules;
+// a fight saved before keeps the rules it started with. Each minigame is the protagonist's one action (a system card):
+// the page plays it and sends what happened with the COMBAT action (`mini`), which the rules clamp and apply here.
+//  - 무상의 바람: its core is shut while it gathers the barrage or floats (원작: 무상 계열은 핵이 드러날 때만 피해를 받는다).
+//    「바람 탄막」 is telegraphed; the protagonist's 「바람 탄막 피하기」 is a dodge game — every hit is damage to the whole
+//    party, and every wind orb taken in it is an element particle (원소폭발 충전). The core opens by itself once it has attacked.
+//  - 무상의 뇌전: the three prisms of its revival are broken by the protagonist's own blows, never by companions on their own:
+//    one non-Electro blow breaks one prism (원작: 번개 외 공격으로 프리즘 파괴), and 함께하는 일격 carries on to the next prism.
+//  - 무상의 얼음: its fleeing core (원작: 쓰러지면 냉기 핵이 도망치며 부활을 노린다) can be chased — 「냉기 핵 쫓기」.
+//  - 드발린: every third round its corrupted crystals glow (원작: 몸의 부식 결정을 쏘아 떨어뜨린다) — 「부식 결정 저격」.
+//  - 안드리우스: 「얼음 발톱 질주」 sweeps the field (원작: 2페이즈 질주) — the same dodge game, 「질주 피하기」.
+//  - 타르탈리아: 「극악기·진멸」 (원작: 마왕 무장의 물 칼날·번개 창) and 야타용왕: 「지맥 충격파」 (원작: 땅을 구르는 충격파와 운석) at the end of
+//    every third round of their daily challenge — 「진멸 피하기」, 「충격파 넘기」.
+// (user, 2026-10-15: 「고증만 살리고 스펙 난이도는 신경쓰지 말어봐」 — the numbers here are placeholders for the balance pass.)
+const MINI={DODGE:'SYS_FB_WIND_DODGE',CHASE:'SYS_FB_CRYO_CHASE',SNIPE:'SYS_FB_DVALIN_SNIPE',DASH:'SYS_FB_ANDRIUS_DODGE',TIDE:'SYS_FB_TARTAGLIA_DODGE',QUAKE:'SYS_FB_AZHDAHA_DODGE'};
+const MINI_RULES={ANEMO:{maxHits:6,defaultHits:4,orbs:5,k:.25,seconds:10},ANDRIUS:{maxHits:6,defaultHits:4,k:.13,seconds:9},CRYO:{max:3,seconds:8},DVALIN:{crystals:3,shots:6,seconds:8},TARTAGLIA:{maxHits:6,defaultHits:4,k:.13,seconds:9},AZHDAHA:{maxHits:6,defaultHits:4,k:.13,seconds:9}};
+const LIYUE_DAILY={
+ BOSS_TARTAGLIA:{origin:'MATERIAL_CHALLENGE:LIYUE_TARTAGLIA_FARM',kind:'TARTAGLIA_DODGE',card:MINI.TIDE,rules:'TARTAGLIA',label:'극악기·진멸',name:'진멸 피하기',ready:'물 칼날과 번개 창을 겨눈다',element:a=>(a.liyuePhase||1)===2?'번개':'물'},
+ BOSS_AZHDAHA:{origin:'MATERIAL_CHALLENGE:LIYUE_AZHDAHA_FARM',kind:'AZHDAHA_DODGE',card:MINI.QUAKE,rules:'AZHDAHA',label:'지맥 충격파',name:'충격파 넘기',ready:'앞발을 높이 든다',element:a=>ko(a.azhdaha?.current&&a.azhdaha.current!=='GEO'?a.azhdaha.current:'GEO')}};
+const dailyCtl=b=>b?.dailyDodge?.controlRevision===1&&!!LIYUE_DAILY[b.dailyDodge.boss]&&b.origin===LIYUE_DAILY[b.dailyDodge.boss].origin;
+const ANEMO_ROTATION=['GUST','BARRAGE','PULL','RISE'];
+// The control rules belong to the fight they were opened with: the same route fight (behavior 5, pressure 1) or daily challenge.
+const ctl=b=>b?.fieldBoss?.controlRevision===1&&b.fieldBoss.behaviorRevision===5&&b.fieldBoss.pressureRevision===1;
+const twinCtl=b=>b?.twinBoss?.controlRevision===1&&String(b.origin).startsWith('MATERIAL_CHALLENGE:');
+const fbBoss=b=>b?.actors?.find(a=>a.fb&&a.source===b.fieldBoss?.boss);
+const playerActor=b=>b?.actors?.find(a=>a.side==='ALLY'&&a.control==='PLAYER');
+const playerCanAct=(r,b)=>{const p=playerActor(b);return !!p&&p.hp>0&&!(r.combatActionLocked?r.combatActionLocked(p):st(p,'STATUS_FREEZE'));};
+const miniSeed=(r,b,tag)=>hash(String(r.s.global.SAVE_ID)+'|'+b.id+'|'+tag+'|'+b.round)%1000000;
+const clampInt=(v,lo,hi)=>Math.max(lo,Math.min(hi,Math.round(Number(v)||0)));
+const ctlOld=Object.fromEntries(['startBattle','fieldBossTurn','fieldBossBarrierReason','fbUntouchable','aiTurn','combatCards','executeCombatSystem','apply','combatDamageMultiplier','fbStartRevival','twinBossRound','fieldBossView','validateSave','combatAction','applyDamage','hasAirAccess','autoUntilPlayer','newRound','roundEnd'].map(k=>[k,P[k]]));
+P.startBattle=function(...args){
+ const before=this.s.runtime,result=ctlOld.startBattle.apply(this,args),b=this.s.runtime;if(!b||b===before)return result;
+ if(b.fieldBoss&&b.fieldBoss.pressureRevision===1&&b.fieldBoss.behaviorRevision===5&&!b.fieldBoss.controlRevision)b.fieldBoss.controlRevision=1;// an Anemo core starts shut (coreOpen unset) and opens after its first attack
+ if(b.twinBoss&&String(b.origin).startsWith('MATERIAL_CHALLENGE:')&&!b.twinBoss.controlRevision)b.twinBoss.controlRevision=1;
+ const liyue=Object.keys(LIYUE_DAILY).find(id=>LIYUE_DAILY[id].origin===b.origin&&b.actors.some(a=>a.side==='ENEMY'&&a.source===id));
+ if(liyue&&!b.dailyDodge)b.dailyDodge={controlRevision:1,boss:liyue,dodge:null,exposedUntil:0,seq:0};
+ return result;
+};
+// ---- 무상의 바람: the shut core, the barrage and its dodge ----
+P.fieldBossTurn=function(a,...rest){const b=this.s.runtime;if(!ctl(b)||a?.fb?.kind!=='ANEMO')return ctlOld.fieldBossTurn.call(this,a,...rest);
+ const f=a.fb,d=BOSSES[a.source],turn=b.round+':'+(a.turns||0);
+ if(f.endTurn===turn)return;f.acts++;
+ if(f.stunned){f.stunned=false;f.endTurn=turn;this.fbLog(a,'STUNNED','무방비',a.name+'이(가) 무방비 상태라 움직이지 못한다.');return;}
+ if(f.revival){f.endTurn=turn;this.fbLog(a,'REVIVING','부활 준비',a.name+'이(가) 다시 일어서려 한다.');this.fbMove(a,'PULL');return;}
+ if(f.next){const move=f.next,dodge=b.fieldBoss.dodge;
+  // The barrage waits (once) until the protagonist has had a turn to brace for it.
+  if(move==='BARRAGE'&&dodge&&!dodge.result&&!dodge.playerActed&&!dodge.held&&playerCanAct(this,b)){dodge.held=true;f.endTurn=turn;f.coreOpen=false;this.fbLog(a,'BARRAGE_GATHER','바람 모으기',a.name+'이(가) 탄막에 쓸 바람을 더 모은다 · 핵이 닫혀 있다');return;}
+  f.next=null;b.fieldBoss.telegraph=null;if(move==='BARRAGE')this.fbBarrage(a);else this.fbMove(a,move);f.coreOpen=true;return;}
+ const move=ANEMO_ROTATION[(f.rot=(f.rot||0))%ANEMO_ROTATION.length];f.rot++;
+ if(move==='RISE'){a.airborne=true;f.coreOpen=false;this.fieldBossSeen(b,'RISE');this.fieldBossSeen(b,'SHUT');f.next='SLAM';b.fieldBoss.telegraph={move:'RISE',label:'상승 기류',text:'떠올라 있는 동안 핵이 닫힘 · 다음 차례 전열 내려찍기',counter:d.gimmicks.RISE.counter};this.fbLog(a,'RISE','상승 기류',a.name+'이(가) 높이 떠올랐다 · 핵이 닫혔다 · 다음 차례에 전열을 내려찍는다');f.endTurn=turn;return;}
+ if(move==='BARRAGE'){const g=d.gimmicks.BARRAGE;f.next='BARRAGE';f.coreOpen=false;this.fieldBossSeen(b,'BARRAGE');this.fieldBossSeen(b,'SHUT');
+  b.fieldBoss.dodge={kind:'ANEMO',id:(b.fieldBoss.dodgeSeq=(b.fieldBoss.dodgeSeq||0)+1),seed:miniSeed(this,b,'BARRAGE'),round:b.round,result:null,playerActed:false};
+  b.fieldBoss.telegraph={move:'BARRAGE',label:g.label,text:g.text,counter:g.counter};
+  this.fbLog(a,'BARRAGE_READY',g.label+' 준비',a.name+'이(가) 바람을 모아 탄막을 준비한다 · 핵이 닫혔다 · 대응: '+g.counter);f.endTurn=turn;return;}
+ if(TELEGRAPHED.has(move)){this.fbTelegraph(a,move);f.endTurn=turn;return;}
+ this.fbMove(a,move);f.coreOpen=true;
+};
+P.fbBarrage=function(a){
+ const b=this.s.runtime,R=MINI_RULES.ANEMO,dodge=b.fieldBoss.dodge,res=dodge?.result,hits=res?res.hits:R.defaultHits,orbs=res?res.orbs:0;
+ b.fieldBoss.dodge=null;this.fieldBossSeen(b,'BARRAGE');
+ this.fbLog(a,'BARRAGE','바람 탄막',res?'바람 탄막 · '+hits+'발 적중 · 바람 원소 '+orbs+'개':'바람 탄막 · 피하지 못해 '+hits+'발 적중');
+ if(hits>0)for(const t of rowOf(b,'ALL'))this.fbHit(a,t,R.k*hits,'바람',{move:'BARRAGE',aoe:true});
+ if(orbs>0)this.fbChargeBursts(orbs);
+};
+// Wind orbs taken in the dodge are 원소 입자: each one takes a turn off the longest 원소폭발 wait in the party.
+P.fbChargeBursts=function(n){const b=this.s.runtime,party=b.actors.filter(x=>x.side==='ALLY'&&x.hp>0),done=[];
+ for(let i=0;i<n;i++){let best=null;for(const x of party)for(const [id,cd] of Object.entries(x.cooldowns||{}))if(/_Q$/.test(id)&&cd>0&&(!best||cd>best.cd))best={x,id,cd};if(!best)break;best.x.cooldowns[best.id]--;done.push(best.x.name);}
+ const names=[...new Set(done)];b.log.push({text:'바람 원소 '+n+'개 · 원소폭발 충전'+(names.length?' · '+names.join('·')+' 재사용 −'+done.length+'차례':' (이미 모두 준비됨)'),round:b.round,fieldBoss:true});};
+P.fbCoreShut=function(t){const b=this.s.runtime,f=t?.fb;return !!(ctl(b)&&f?.kind==='ANEMO'&&t.hp>0&&!f.revival&&!f.coreOpen&&!(f.exposedUntil>=b.round));};
+P.fieldBossBarrierReason=function(a,t,element,range){
+ const b=this.s.runtime;
+ if(ctl(b)&&a?.side==='ALLY'&&t){
+  if(this.fbCoreShut(t))return '핵이 닫혀 있다 · 무상의 바람이 공격을 마친 뒤나 핵이 드러났을 때만 피해가 들어간다.';
+  const owner=t.fbSummon?.kind==='FB_SUMMON_PRISM'&&b.actors.find(x=>x.id===t.fbSummon.owner);
+  if(owner?.fb?.revival){if(!this._fbPlayerLed)return '부활을 지키는 프리즘은 주인공이 직접 노려야 부술 수 있다 · 주인공의 공격이나 함께하는 일격으로.';return ko(element)==='번개'?'번개는 프리즘에 흡수된다 · 다른 원소나 물리 공격으로.':'';}
+ }
+ return ctlOld.fieldBossBarrierReason.call(this,a,t,element,range);
+};
+P.fbUntouchable=function(t){return ctlOld.fbUntouchable.call(this,t)||this.fbCoreShut(t);};
+P.aiTurn=function(a,targets,...rest){
+ const b=this.s.runtime;
+ if(a?.side==='ALLY'&&ctl(b)&&Array.isArray(targets)&&!a.charging){
+  // Companions leave the revival prisms to the protagonist, and wait out a shut core instead of striking it.
+  const left=targets.filter(t=>!(t.fbSummon?.kind==='FB_SUMMON_PRISM'&&b.actors.find(x=>x.id===t.fbSummon.owner)?.fb?.revival)&&!this.fbCoreShut(t)&&!ctlOld.fbUntouchable.call(this,t));
+  if(!left.length&&targets.some(t=>t.side==='ENEMY')){a.guard=true;b.log.push({actor:a.name,actorId:a.id,guard:true,reason:this.fbCoreShut(fbBoss(b))?'핵이 닫혀 방어 태세':'주인공이 프리즘을 노리는 동안 방어 태세',round:b.round});return;}
+  if(left.length)targets=left;
+ }
+ if(twinCtl(b)&&a?.side==='ENEMY'&&a.source===b.twinBoss.boss&&b.twinBoss.stun>0){b.twinBoss.stun--;b.log.push({actor:a.name,actorId:a.id,card:'TWIN_DOWNED',cardName:'추락',text:a.name+'이(가) 땅에 떨어져 몸을 일으키는 중이다',round:b.round});return;}
+ return ctlOld.aiTurn.call(this,a,targets,...rest);
+};
+// The protagonist's own action (and the companions joining 함께하는 일격) is 「player-led」; the turns that follow it are not.
+const revivalPrism=(b,t)=>t?.fbSummon?.kind==='FB_SUMMON_PRISM'&&t.hp>0&&!!b.actors.find(x=>x.id===t.fbSummon.owner)?.fb?.revival;
+P.applyDamage=function(a,t,n,details={}){const b=this.s.runtime;
+ if(ctl(b)&&a?.side==='ALLY'&&this._fbPlayerLed&&revivalPrism(b,t)&&Math.round(Number(n)||0)>0&&ko(details.element)!=='번개'){const had=t.hp,out=ctlOld.applyDamage.call(this,a,t,Math.max(n,t.hp+(t.shields||[]).reduce((m,x)=>m+Math.max(0,x.value),0)),details);if(had>0&&t.hp<=0)b.log.push({actor:a.name,actorId:a.id,target:t.name,targetId:t.id,text:t.name+' 파괴 · 남은 프리즘 '+b.actors.filter(x=>revivalPrism(b,x)).length,round:b.round});return out;}
+ return ctlOld.applyDamage.call(this,a,t,n,details);};
+P.hasAirAccess=function(a,t,range){const b=this.s.runtime;if(ctl(b)&&this._fbPlayerLed&&a?.side==='ALLY'&&t?.fb?.revival?.guarded&&b.actors.some(x=>revivalPrism(b,x)))return false;return ctlOld.hasAirAccess.call(this,a,t,range);};
+// ---- 무상의 얼음: the fleeing core ----
+P.fbStartRevival=function(t){const out=ctlOld.fbStartRevival.call(this,t),b=this.s.runtime;if(ctl(b)&&t.fb?.revival&&t.fb.kind==='CRYO_HYPO'){const r=t.fb.revival;r.chaseId=(b.fieldBoss.chaseSeq=(b.fieldBoss.chaseSeq||0)+1);r.chaseSeed=miniSeed(this,b,'CHASE');this.fieldBossSeen(b,'CHASE');}return out;};
+// ---- the minigame cards ----
+P.fbMiniCards=function(a){
+ // Shared (co-op) fights carry only card/target/branch to the server, so the minigames stay out of them.
+ const b=this.s.runtime,out=[];if(!b||!a||a.control!=='PLAYER'||b.coop)return out;
+ const base=b.interlude?'현재 대화를 마쳐 주세요.':b.subduedPending?'마지막 행동을 선택해 주세요.':a.hp<=0?'전투불능 상태입니다.':this.combatActionLocked?.(a)?'행동 불가 상태입니다.':'';
+ const self=[{id:a.id,name:a.name,hp:a.hp,maxHp:a.maxHp}];
+ if(ctl(b)){const boss=fbBoss(b),R=MINI_RULES;
+  const dodge=b.fieldBoss.dodge;if(dodge?.kind==='ANEMO'&&boss?.hp>0)out.push({id:MINI.DODGE,name:'바람 탄막 피하기',system:true,mini:{kind:'ANEMO_DODGE',id:dodge.id,seed:dodge.seed,seconds:R.ANEMO.seconds,maxHits:R.ANEMO.maxHits,orbs:R.ANEMO.orbs,done:!!dodge.result},cooldown:0,reason:base||(dodge.result?'이미 탄막을 피했습니다 · 결과 '+dodge.result.hits+'발 · 바람 '+dodge.result.orbs+'개':''),targets:self,description:'무상의 바람이 모으는 탄막을 미리 피합니다(주인공 1행동). WASD·방향키(휴대폰은 화면의 방향 버튼이나 끌기)로 움직여 탄환을 피하고 바람 원소를 모으세요. 맞은 수만큼 탄막이 날아올 때 파티 전원이 피해를 입고, 피하지 않으면 '+R.ANEMO.defaultHits+'발을 맞습니다. 모은 바람 원소 하나마다 파티에서 가장 오래 남은 원소폭발 재사용이 1차례 줄어듭니다(최대 '+R.ANEMO.orbs+'개). 핵은 무상의 바람이 공격을 마치면 열립니다.'});
+  const r=boss?.fb?.revival;if(boss?.fb.kind==='CRYO_HYPO'&&r&&boss.hp>0)out.push({id:MINI.CHASE,name:'냉기 핵 쫓기',system:true,mini:{kind:'CRYO_CHASE',id:r.chaseId,seed:r.chaseSeed,seconds:R.CRYO.seconds,need:Math.max(0,r.need-(r.hits||0)),hits:r.hits||0},cooldown:0,reason:base,targets:[{id:boss.id,name:boss.name,hp:boss.hp,maxHp:boss.maxHp}],description:'도망치는 냉기 핵을 쫓아 직접 부숩니다(주인공 1행동). 핵은 가까이 가면 달아나고 순간이동합니다. 눌러서(휴대폰은 터치) 맞히고, 얼음 가시를 누르면 잠시 손이 얼어붙습니다. 맞힌 수만큼 핵에 금이 갑니다 · 남은 '+Math.max(0,r.need-(r.hits||0))+'번.'});
+ }
+ if(twinCtl(b)){const t=b.twinBoss,boss=b.actors.find(x=>x.source===t.boss&&x.hp>0),R=MINI_RULES;
+  if(t.crystals&&boss)out.push({id:MINI.SNIPE,name:'부식 결정 저격',system:true,mini:{kind:'DVALIN_SNIPE',id:t.crystals.id,seed:t.crystals.seed,seconds:R.DVALIN.seconds,crystals:R.DVALIN.crystals,shots:R.DVALIN.shots,done:!!t.crystals.result},cooldown:0,reason:base||(t.crystals.result?'이미 결정을 노렸습니다':''),targets:[{id:boss.id,name:boss.name,hp:boss.hp,maxHp:boss.maxHp}],description:'드발린의 몸에서 빛나는 부식 결정을 노려 쏩니다(주인공 1행동). 탄은 '+R.DVALIN.shots+'발, 폭풍이 불 때 쏜 탄은 빗나갑니다. 결정 2개를 맞히면 받는 피해가 늘고, 3개를 모두 맞히면 드발린이 땅에 떨어져 한 차례 움직이지 못합니다.'});
+  if(t.dodge&&boss)out.push({id:MINI.DASH,name:'질주 피하기',system:true,mini:{kind:'ANDRIUS_DODGE',id:t.dodge.id,seed:t.dodge.seed,seconds:R.ANDRIUS.seconds,maxHits:R.ANDRIUS.maxHits,orbs:0,done:!!t.dodge.result},cooldown:0,reason:base||(t.dodge.result?'이미 질주를 피했습니다 · '+t.dodge.result.hits+'발':''),targets:self,description:'이번 라운드 끝 안드리우스의 「얼음 발톱 질주」를 미리 피합니다(주인공 1행동). 표시된 길로 늑대가 달려들고 얼음 발톱이 떨어집니다. 맞은 수만큼 파티 전원이 피해를 입고, 피하지 않으면 '+R.ANDRIUS.defaultHits+'발을 맞습니다. 한 발도 맞지 않으면 빗나간 안드리우스가 한 라운드 빈틈을 보입니다.'});
+ }
+ if(dailyCtl(b)){const d=b.dailyDodge,L=LIYUE_DAILY[d.boss],R=MINI_RULES[L.rules],boss=b.actors.find(x=>x.source===d.boss&&x.hp>0);
+  if(d.dodge&&boss)out.push({id:L.card,name:L.name,system:true,mini:{kind:L.kind,id:d.dodge.id,seed:d.dodge.seed,seconds:R.seconds,maxHits:R.maxHits,orbs:0,done:!!d.dodge.result},cooldown:0,reason:base||(d.dodge.result?'이미 피할 준비를 했습니다 · '+d.dodge.result.hits+'발':''),targets:self,
+   description:'이번 라운드 끝 '+boss.name+'의 「'+L.label+'」을(를) 미리 피합니다(주인공 1행동). '+(d.boss==='BOSS_AZHDAHA'?'퍼져 오는 충격파의 틈으로 빠져나가고 그림자가 진 곳에 떨어지는 운석을 피하세요.':'날아오는 물 칼날과 빛나는 줄로 내리꽂히는 번개 창을 피하세요.')+' 맞은 수만큼 파티 전원이 피해를 입고, 피하지 않으면 '+R.defaultHits+'발을 맞습니다. 한 발도 맞지 않으면 한 라운드 빈틈을 보입니다.'});
+ }
+ return out;
+};
+P.combatCards=function(owner,...rest){const cards=ctlOld.combatCards.call(this,owner,...rest),b=this.s.runtime;if(!b||!Array.isArray(cards)||!(ctl(b)||twinCtl(b)||dailyCtl(b)))return cards;
+ const a=this.combatActor(owner||'PLAYER_CUSTOM');const mini=this.fbMiniCards(a);return mini.length?[...cards,...mini]:cards;};
+P.apply=function(a){if(a?.type!=='COMBAT'||!a.mini)return ctlOld.apply.call(this,a);const prior=this._fbMini;this._fbMini=a.mini;try{return ctlOld.apply.call(this,a);}finally{this._fbMini=prior;}};
+P.combatAction=function(card,...rest){const b=this.s.runtime;
+ // Any action the protagonist takes after the barrage is announced counts as the turn it had to brace.
+ if(ctl(b)&&b.fieldBoss.dodge&&b.phase==='WAIT_PLAYER')b.fieldBoss.dodge.playerActed=true;
+ if(!ctl(b))return ctlOld.combatAction.call(this,card,...rest);
+ const prior=this._fbPlayerLed;this._fbPlayerLed=true;try{return ctlOld.combatAction.call(this,card,...rest);}finally{this._fbPlayerLed=prior;}};
+P.autoUntilPlayer=function(...args){if(!this._fbPlayerLed)return ctlOld.autoUntilPlayer.apply(this,args);this._fbPlayerLed=false;try{return ctlOld.autoUntilPlayer.apply(this,args);}finally{this._fbPlayerLed=true;}};
+P.executeCombatSystem=function(a,id,target){
+ if(!Object.values(MINI).includes(id))return ctlOld.executeCombatSystem.call(this,a,id,target);
+ const b=this.s.runtime,entry=this.fbMiniCards(a).find(c=>c.id===id);if(!entry||entry.reason)fail('FB_MINI',entry?.reason||'지금은 쓸 수 없는 행동입니다.');
+ const m=this._fbMini&&typeof this._fbMini==='object'?this._fbMini:{},same=m.kind===entry.mini.kind&&Number(m.id)===entry.mini.id;
+ const log=(card,text)=>b.log.push({actor:a.name,actorId:a.id,card,cardName:entry.name,round:b.round,actionSequence:b.actionSequence,text,sourceKind:'BOSS_ARENA',fbMini:entry.mini.kind});
+ if(id===MINI.DODGE||id===MINI.DASH){const R=id===MINI.DODGE?MINI_RULES.ANEMO:MINI_RULES.ANDRIUS,hits=same?clampInt(m.hits,0,R.maxHits):R.defaultHits,orbs=id===MINI.DODGE&&same?clampInt(m.orbs,0,R.orbs):0;
+  const dodge=id===MINI.DODGE?b.fieldBoss.dodge:b.twinBoss.dodge;dodge.result={hits,orbs};
+  log(id,(id===MINI.DODGE?'탄막 속으로 · ':'질주를 피할 준비 · ')+hits+'발 맞음'+(id===MINI.DODGE?' · 바람 원소 '+orbs+'개':''));
+  // The barrage the protagonist ran through is the one the boss gathered: it lands now and the core opens.
+  if(id===MINI.DODGE){const boss=fbBoss(b);if(boss?.fb.next==='BARRAGE'){boss.fb.next=null;b.fieldBoss.telegraph=null;this.fbBarrage(boss);boss.fb.coreOpen=true;}}
+  return;}
+ if(id===MINI.CHASE){const boss=fbBoss(b),hits=same?clampInt(m.hits,0,MINI_RULES.CRYO.max):0;
+  log(id,hits?'도망치는 냉기 핵을 '+hits+'번 붙잡았다':'냉기 핵을 놓쳤다');for(let i=0;i<hits&&boss.fb.revival;i++)this.fbHitCryoCore(boss);return;}
+ if(id===MINI.SNIPE){const t=b.twinBoss,boss=b.actors.find(x=>x.source===t.boss&&x.hp>0),hits=same?clampInt(m.hits,0,MINI_RULES.DVALIN.crystals):0;t.crystals.result={hits};
+  log(id,hits?'부식 결정 '+hits+'개 명중':'결정을 맞히지 못했다');
+  if(hits>=2){t.exposedUntil=b.round+1;b.log.push({target:boss.name,targetId:boss.id,text:boss.name+' · 부식 결정이 깨져 받는 피해 증가 (다음 라운드까지)',round:b.round});}
+  if(hits>=MINI_RULES.DVALIN.crystals){t.downUntil=b.round+1;t.stun=1;if(t.wasAirborne===undefined)t.wasAirborne=!!boss.airborne;boss.airborne=false;b.log.push({actor:boss.name,actorId:boss.id,card:'TWIN_DOWNED',cardName:'추락',text:boss.name+'이(가) 결정이 깨져 땅으로 떨어졌다 · 한 차례 행동 불능 · 근접 공격도 닿는다',round:b.round});}
+  return;}
+ if(id===MINI.TIDE||id===MINI.QUAKE){const d=b.dailyDodge,R=MINI_RULES[LIYUE_DAILY[d.boss].rules],hits=same?clampInt(m.hits,0,R.maxHits):R.defaultHits;d.dodge.result={hits};log(id,'피할 준비 · '+hits+'발 맞음');return;}
+};
+P.combatDamageMultiplier=function(a,t,e,o={}){let n=ctlOld.combatDamageMultiplier.call(this,a,t,e,o);const b=this.s.runtime;
+ // An open Anemo core is the exposed core (+50%, as every 핵 노출), not stacked on a 핵 노출 that is already running.
+ if(ctl(b)&&a?.side==='ALLY'&&t?.fb?.kind==='ANEMO'&&t.fb.coreOpen&&!t.fb.revival&&!(t.fb.exposedUntil>=b.round))n*=1.5;if(twinCtl(b)&&t?.source===b.twinBoss.boss&&b.twinBoss.exposedUntil>=b.round&&a?.side==='ALLY')n*=1.5;if(dailyCtl(b)&&t?.source===b.dailyDodge.boss&&b.dailyDodge.exposedUntil>=b.round&&a?.side==='ALLY')n*=1.5;return n;};
+// ---- 타르탈리아 · 야타용왕 (Liyue daily challenges) ----
+P.newRound=function(...args){const b=this.s.runtime;
+ if(dailyCtl(b)&&b.opening?.state!=='PENDING'&&b.round%3===2){const d=b.dailyDodge,L=LIYUE_DAILY[d.boss],boss=b.actors.find(a=>a.source===d.boss&&a.hp>0);
+  if(boss&&!d.dodge){d.dodge={id:(d.seq=(d.seq||0)+1),seed:miniSeed(this,b,L.kind),round:b.round,result:null};b.log.push({actor:boss.name,actorId:boss.id,card:'DAILY_DODGE_READY',cardName:L.label+' 준비',text:boss.name+'이(가) '+L.ready+' · 이번 라운드 끝 「'+L.label+'」 · 「'+L.name+'」',round:b.round});}}
+ return ctlOld.newRound.apply(this,args);};
+P.roundEnd=function(...args){const b=this.s.runtime;
+ if(dailyCtl(b)&&b.dailyDodge.dodge&&b.dailyDodge.dodge.round===b.round){const d=b.dailyDodge,L=LIYUE_DAILY[d.boss],R=MINI_RULES[L.rules],res=d.dodge.result,hits=res?res.hits:R.defaultHits,boss=b.actors.find(a=>a.source===d.boss&&a.hp>0);d.dodge=null;
+  if(boss&&b.actors.some(a=>a.side==='ALLY'&&a.hp>0)){b.log.push({actor:boss.name,actorId:boss.id,card:'DAILY_DODGE',cardName:L.label,text:boss.name+'의 '+L.label+' · '+hits+'발 적중',round:b.round});
+   if(hits>0){const el=L.element(boss);for(const x of rowOf(b,'ALL'))this.damage(boss,x,R.k*hits,el,{range:'전장',card:'DAILY_DODGE',aoe:true});}
+   else{d.exposedUntil=b.round+1;b.log.push({target:boss.name,targetId:boss.id,text:L.label+'을(를) 모두 피했다 · '+boss.name+' 빈틈 (다음 라운드 받는 피해 증가)',round:b.round});}}}
+ return ctlOld.roundEnd.apply(this,args);};
+// ---- 드발린 · 안드리우스 (daily bosses) ----
+P.twinBossRound=function(b,end){
+ const out=ctlOld.twinBossRound.call(this,b,end);if(!twinCtl(b))return out;const t=b.twinBoss,boss=b.actors.find(a=>a.source===t.boss&&a.hp>0);if(!boss)return out;const g=TWIN[t.boss].gimmicks;
+ if(!end){
+  if(t.downUntil&&b.round>t.downUntil){t.downUntil=0;if(t.wasAirborne)boss.airborne=true;delete t.wasAirborne;b.log.push({actor:boss.name,actorId:boss.id,text:boss.name+'이(가) 다시 날아올랐다',round:b.round});}
+  if(t.boss==='BOSS_DVALIN'&&b.round%3===0){t.crystals={id:(t.miniSeq=(t.miniSeq||0)+1),seed:miniSeed(this,b,'SNIPE'),round:b.round,result:null};if(!t.seen.includes('CRYSTALS'))t.seen.push('CRYSTALS');b.log.push({actor:boss.name,actorId:boss.id,card:'TWIN_CRYSTALS',cardName:g.CRYSTALS.label,text:boss.name+'의 몸에서 부식 결정이 빛난다 · 이번 라운드에 「부식 결정 저격」',round:b.round});}
+  if(t.boss==='BOSS_ANDRIUS'&&b.round%3===2){t.dodge={id:(t.miniSeq=(t.miniSeq||0)+1),seed:miniSeed(this,b,'DASH'),round:b.round,result:null};if(!t.seen.includes('DASH'))t.seen.push('DASH');b.log.push({actor:boss.name,actorId:boss.id,card:'TWIN_DASH_READY',cardName:g.DASH.label+' 준비',text:boss.name+'이(가) 몸을 낮춘다 · 이번 라운드 끝에 전장을 휘젓는 질주 · 「질주 피하기」',round:b.round});}
+  return out;}
+ if(t.crystals&&t.crystals.round===b.round)t.crystals=null;
+ if(t.dodge&&t.dodge.round===b.round){const R=MINI_RULES.ANDRIUS,res=t.dodge.result,hits=res?res.hits:R.defaultHits;t.dodge=null;
+  b.log.push({actor:boss.name,actorId:boss.id,card:'TWIN_DASH',cardName:g.DASH.label,text:boss.name+'의 얼음 발톱 질주 · '+hits+'발 적중',round:b.round});
+  if(hits>0)for(const x of rowOf(b,'ALL'))this.damage(boss,x,R.k*hits,'얼음',{range:'전장',card:'TWIN_DASH',aoe:true});
+  else{t.exposedUntil=b.round+1;b.log.push({target:boss.name,targetId:boss.id,text:'질주가 모두 빗나갔다 · '+boss.name+' 빈틈 (다음 라운드 받는 피해 증가)',round:b.round});}}
+ return out;
+};
+P.fieldBossView=function(){const v=ctlOld.fieldBossView.call(this),b=this.s.runtime;if(!v)return v;
+ if(ctl(b)){const boss=fbBoss(b);if(boss?.fb.kind==='ANEMO'&&!boss.fb.revival)v.state.unshift(this.fbCoreShut(boss)?'핵 닫힘 · 공격이 통하지 않음':'핵 노출 · 받는 피해 +50% · 다음 준비 동작까지');const dg=b.fieldBoss.dodge;if(dg)v.state.unshift(dg.result?'바람 탄막 · 피하기 '+dg.result.hits+'발 · 바람 '+dg.result.orbs+'개':'바람 탄막이 온다 · 「바람 탄막 피하기」');v.control=1;}
+ if(twinCtl(b)){const t=b.twinBoss;v.state=v.state||[];if(t.crystals)v.state.unshift('부식 결정이 빛난다 · 「부식 결정 저격」');if(t.dodge)v.state.unshift(t.dodge.result?'질주 피하기 '+t.dodge.result.hits+'발':'얼음 발톱 질주가 온다 · 「질주 피하기」');if(t.downUntil)v.state.unshift('추락 · 근접 공격도 닿음');v.control=1;}
+ return v;};
+P.validateSave=function(s){const out=ctlOld.validateSave.call(this,s)||s,b=out?.runtime;
+ const bad=()=>fail('FIELD_BOSS_SAVE','보스 조작 전투 기록이 올바르지 않습니다.'),plainResult=(r,max)=>r===null||(r&&typeof r==='object'&&Number.isInteger(r.hits)&&r.hits>=0&&r.hits<=max&&(r.orbs===undefined||Number.isInteger(r.orbs)&&r.orbs>=0&&r.orbs<=MINI_RULES.ANEMO.orbs));
+ if(b?.fieldBoss?.controlRevision!==undefined){const f=b.fieldBoss;if(f.controlRevision!==1)bad();if(f.dodge&&(f.dodge.kind!=='ANEMO'||!Number.isSafeInteger(f.dodge.id)||!plainResult(f.dodge.result,MINI_RULES.ANEMO.maxHits)))bad();}
+ if(b?.twinBoss?.controlRevision!==undefined){const t=b.twinBoss;if(t.controlRevision!==1)bad();if(t.dodge&&(!Number.isSafeInteger(t.dodge.id)||!plainResult(t.dodge.result,MINI_RULES.ANDRIUS.maxHits)))bad();if(t.crystals&&(!Number.isSafeInteger(t.crystals.id)||!(t.crystals.result===null||Number.isInteger(t.crystals.result?.hits)&&t.crystals.result.hits>=0&&t.crystals.result.hits<=MINI_RULES.DVALIN.crystals)))bad();if(t.stun!==undefined&&!(Number.isInteger(t.stun)&&t.stun>=0&&t.stun<=1))bad();}
+ if(b?.dailyDodge!==undefined){const d=b.dailyDodge;if(!d||d.controlRevision!==1||!LIYUE_DAILY[d.boss]||!Number.isSafeInteger(d.exposedUntil))bad();if(d.dodge&&(!Number.isSafeInteger(d.dodge.id)||!Number.isSafeInteger(d.dodge.round)||!plainResult(d.dodge.result,MINI_RULES[LIYUE_DAILY[d.boss].rules].maxHits)))bad();}
+ return out;};
+api.fieldBossControl={version:1,cards:copy(MINI),rules:copy(MINI_RULES),anemoRotation:ANEMO_ROTATION.slice(),liyueDaily:Object.fromEntries(Object.entries(LIYUE_DAILY).map(([id,L])=>[id,{origin:L.origin,kind:L.kind,card:L.card,label:L.label,name:L.name}]))};
 P.fieldBossVersion=1;
 api.fieldBosses={version:1,behaviorRevision:5,pressureRevision:1,shieldPressure:copy(FIELD_SHIELD_PRESSURE_V01627),attackPressure:copy(FIELD_ATTACK_PRESSURE_V01627),mimicHp:copy(MIMIC_HP_V01627),levels:copy(LEVELS),levelGrowth:copy(LEVEL_GROWTH),cooldownMinutes:COOLDOWN,materials:copy(MATERIALS),bosses:copy(BOSSES),summons:copy(SUMMONS),twin:copy(TWIN),route:ROUTE,group:GROUP};
 })(globalThis);

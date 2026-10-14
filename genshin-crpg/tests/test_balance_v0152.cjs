@@ -46,7 +46,7 @@ const boss=(r,id)=>r.s.runtime.actors.find(a=>a.side==='ENEMY'&&a.source===id);
 const ENTER={
  story:(group)=>r=>r.startBattle(group,'EXPLICIT'),
  farm:(kind)=>r=>{if(kind==='TARTAGLIA'){r.s.flags.FLAG_TRV_LY_TARTAGLIA_WON=true;Object.assign(r.s.global,{CURRENT_MAP_ID:'MAP_LIYUE_GOLDEN_HOUSE',SCREEN_MODE:'LOCATION'});}else{r.s.flags[r.row('35_BOSS_ROUTE_DB','BRT_AZHDAHA')[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:'MAP_AZHDAHA_DOMAIN',SCREEN_MODE:'LOCATION'});}r.action('LIYUE_ARTIFACT_CHALLENGE',{kind});},
- rematch:(id)=>r=>{const c0=api.enhancementConfig.bosses[id];r.s.flags[r.row('35_BOSS_ROUTE_DB',c0.route)[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});r.action('MOND_MATERIAL_CHALLENGE',{boss:id});}
+ rematch:(id)=>r=>{const c0=api.enhancementConfig.bosses[id];r.s.flags[r.row('35_BOSS_ROUTE_DB',c0.route)[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});r.action('MOND_MATERIAL_CHALLENGE',{boss:id});/* 0.16.46: these 0.16.27 balance fixtures measure the daily fights without the 조작 minigames (질주 피하기·부식 결정 저격); the user put the balance pass after them (2026-10-15 「밸런스는 나중에 또 조절할거니까」). tests/test_fb_control_v01646.cjs checks the new rules. */if(r.s.runtime?.twinBoss)delete r.s.runtime.twinBoss.controlRevision;}
 };
 function runs(profile,enter,seeds=[717,9031,4242]){return seeds.map(seed=>{const r=party(profile);r.s.global.PRNG_STATE=seed;enter(r);return fight(r,{manual:profile.manual,counterplay:profile.prepared});});}
 const wins=list=>list.filter(x=>x.victory);
