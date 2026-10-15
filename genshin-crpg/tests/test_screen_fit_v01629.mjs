@@ -139,7 +139,7 @@ try{
    for(let k=0;k<await pagers.count();k++){const pager=pagers.nth(k);if(!(await pager.isVisible()))continue;const nums=pager.locator('button'),n=Math.min(12,await nums.count());
     for(let i=1;i<n;i++){await nums.nth(i).click();await page.waitForTimeout(80);add((await page.evaluate(SCAN)).map(x=>'page '+(i+1)+': '+x));if(process.env.FIT_PAGES)await page.screenshot({path:resolve(evidence,size.name+'-'+label.replace(/[^\w가-힣·-]+/g,'_')+'-p'+(i+1)+'.png')});}
     if(n>1&&await nums.nth(0).isVisible())await nums.nth(0).click();}};
-  const view=async(label,code)=>{if(ONLY.length&&!ONLY.some(o=>label.startsWith(o)))return;try{await page.evaluate(code);await idle();await look(label);}catch(e){found[label]=['ERROR '+String(e.message).slice(0,160)];}
+  const view=async(label,code)=>{if(ONLY.length&&!ONLY.some(o=>label.startsWith(o)))return;if(process.env.FIT_TIMES)console.log('FIT_TIME',size.name,label,Math.round(performance.now()));try{await page.evaluate(code);await idle();await look(label);}catch(e){found[label]=['ERROR '+String(e.message).slice(0,160)];}
    // Close whatever the view opened: windows, the handbook, the menu.
    await page.evaluate(()=>{for(const d of document.querySelectorAll('dialog[open]'))d.close();try{window.CRPGHandbook?.close?.();window.CRPGChests?.close?.();window.CRPGShell?.toggleScenery?.(false);}catch{}if(window.CRPGShell?.menu)document.querySelector('.pm-close,.shell-menu-close')?.click();});await page.waitForTimeout(200);};
   const labels=sel=>page.evaluate(sel=>[...document.querySelectorAll(sel)].filter(x=>x.offsetParent).map(t=>t.dataset.tab||t.textContent.trim()),sel);
@@ -266,9 +266,11 @@ try{
    await view('shop-bulk',`(async()=>{await __go('LOCATION');const k=game.placeCatalog().find(e=>e.merchant==='MRC_MOND_RESTAURANT');if(k&&!game.s.placeVisit)await act('PLACE_ENTER',{place:k.id,mode:'SHOP'});await new Promise(r=>setTimeout(r,300));if(typeof showPurchaseQuantity==='function')showPurchaseQuantity('STK_MOND_SARA_EGG');})()`);
   }
   // 0.16.46: the boss minigames' windows (조작 보스) — the four games before they start, and the wind dodge while it plays.
-  if(!ONLY.length||ONLY.some(o=>o.startsWith('fb-mini'))){
+  // CI (run #336 was cancelled at 20:09 of the verify job's 20 minutes; these views were ~94 s of it locally): the computer page
+  // only, the real fight and the running core; the six windows and the phone page are checked in local runs.
+  if((!ONLY.length||ONLY.some(o=>o.startsWith('fb-mini')))&&!(process.env.CI&&size.name!=='pc')){
    const s=playerState();fixture.seed(s.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
-   for(const [label,kind,extra] of [['fb-mini-anemo','ANEMO_DODGE',{orbs:5,maxHits:6}],['fb-mini-andrius','ANDRIUS_DODGE',{maxHits:6,orbs:0}],['fb-mini-cryo','CRYO_CHASE',{need:4}],['fb-mini-dvalin','DVALIN_SNIPE',{crystals:3,shots:6}],['fb-mini-tartaglia','TARTAGLIA_DODGE',{maxHits:6,orbs:0}],['fb-mini-azhdaha','AZHDAHA_DODGE',{maxHits:6,orbs:0}]])
+   if(!process.env.CI)for(const [label,kind,extra] of [['fb-mini-anemo','ANEMO_DODGE',{orbs:5,maxHits:6}],['fb-mini-andrius','ANDRIUS_DODGE',{maxHits:6,orbs:0}],['fb-mini-cryo','CRYO_CHASE',{need:4}],['fb-mini-dvalin','DVALIN_SNIPE',{crystals:3,shots:6}],['fb-mini-tartaglia','TARTAGLIA_DODGE',{maxHits:6,orbs:0}],['fb-mini-azhdaha','AZHDAHA_DODGE',{maxHits:6,orbs:0}]])
     await view(label,`(async()=>{CRPGFieldBossMinigames.open({mini:{kind:'${kind}',id:1,seed:42,seconds:9,...${JSON.stringify(extra)}}});await new Promise(r=>setTimeout(r,200));if(!document.querySelector('.fb-mini canvas'))throw Error('no minigame');})()`);
    // CI: the two games in play are left to local runs (the verify job's 20 minutes); the real fight below still plays one.
    if(!process.env.CI)await view('fb-mini-azhdaha-play',`(async()=>{CRPGFieldBossMinigames.open({mini:{kind:'AZHDAHA_DODGE',id:1,seed:42,seconds:9,orbs:0,maxHits:6}});await new Promise(r=>setTimeout(r,150));[...document.querySelectorAll('.fb-mini button')].find(b=>b.textContent==='시작').click();await new Promise(r=>setTimeout(r,4600));})()`);
@@ -288,7 +290,8 @@ try{
     }catch(e){console.error('fb-mini-battle',e.message);}
     // (user: 「무상의 얼음은 일단 진행하면서 버그가 없나 한번 체크해줘. 전에는 UI가 밀리는 현상이 있었던거같은데」): its fight as it starts,
     // after its ice wall, and while its core runs (the chase card in the row).
-    for(const stage of ['start','wall','core']){const y=playerState();y.serverAdmin=true;delete y.s.defeatPenalty;
+    // CI: the core stage only (the verify job's 20 minutes).
+    for(const stage of (process.env.CI?['core']:['start','wall','core']).filter(st=>!ONLY.length||ONLY.some(o=>('fb-mini-cryo-'+st).startsWith(o)||o.startsWith('fb-mini-cryo-'+st)))){const y=playerState();y.serverAdmin=true;delete y.s.defeatPenalty;
      try{y.action('OPERATOR_DEBUG',{op:'travel',map:FBX.bosses.FB_CRYO_HYPOSTASIS.map});const route=FBX.route('FB_CRYO_HYPOSTASIS');y.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});y.action('BOSS_ROUTE',{route,entry:'DIRECT'});if(y.s.runtime?.opening?.state==='PENDING')y.action('COMBAT_BEGIN');
       const b=y.s.runtime,boss=b.actors.find(a=>a.source==='FB_CRYO_HYPOSTASIS'),me=b.actors.find(a=>a.source==='PLAYER_CUSTOM');
       if(stage==='wall'){boss.fb.rot=3;boss.fb.endTurn=null;boss.turns=(boss.turns||0)+1;y.fieldBossTurn(boss);boss.fb.rot=1;boss.fb.endTurn=null;boss.turns++;y.fieldBossTurn(boss);}

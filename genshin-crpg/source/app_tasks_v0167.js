@@ -50,7 +50,9 @@ function board(parent){
  for(const [key,label,ends] of [['daily','일일',v.dayEndsAt],['weekly','주간',v.weekEndsAt]]){const list=key==='daily'?[...v.daily,v.bonus]:weeklyRows(v),ready=list.filter(x=>x.done&&!x.claimed).length;
   const b=button('',()=>{scope=key;render();});b.className='task-scope'+(scope===key?' active':'');b.setAttribute('aria-pressed',String(scope===key));b.append(mk('b','',label),mk('small','','새로 · '+left(ends)));if(ready)b.append(mk('span','task-dot',String(ready)));tabs.append(b);}
  head.append(tabs);if(v.here>1)head.append(actionButton('모두 받기 · '+v.here,'TASK_CLAIM',{task:'ALL'},true));sec.append(head);
- const list=mk('ul','task-list'),items=scope==='daily'?[...v.daily,v.bonus]:weeklyRows(v);for(const x of items)list.append(row(x));sec.append(list);
+ const list=mk('ul','task-list'),items=scope==='daily'?[...v.daily,v.bonus]:weeklyRows(v);for(const x of items)list.append(row(x));
+ {const later=hiddenCount(v,scope);if(later>0){const li=mk('li','task-later-row task-later');const copy=mk('span','task-copy');copy.append(mk('strong','','임무 '+later+'개 더 · 앞 임무 보상을 받으면 하나씩 열림'));li.append(mk('span','task-kind k-later','다음'),copy);list.append(li);}}
+ sec.append(list);
  parent.append(sec);return sec;
 }
 // The day's four on the main screen's 「할 일」: one line each.
@@ -62,9 +64,17 @@ function mini(parent){
  try{const wk=weeklyRows(v),wd=wk.filter(x=>x.claimed||x.done).length;if(wk.length){const w=mk('span','task-mini-chip','주간 '+wd+'/'+wk.length);w.title='이번 주 임무 '+wd+' / '+wk.length;head.append(w);}
   const ready=(game.commissionEntries?.()||[]).filter(q=>q.accepted&&!q.state?.claimed&&q.state?.node==='READY_TO_CLAIM').length;if(ready){const c=mk('span','task-mini-chip ready','보고 '+ready);c.title='캐서린에게 보고할 의뢰 '+ready+'개';head.append(c);}}catch{}
  const more=button('임무판',()=>{showBoard=true;scope='daily';act('MENU',{screen:'QUEST'});});more.className='task-mini-open';head.append(more);sec.append(head);
- const list=mk('ul','task-mini-list');for(const x of [...v.daily,v.bonus]){const li=mk('li','task-mini-row '+(x.claimed?'claimed':x.lock?'locked':x.done?'ready':'progress'));const [label,cls]=KIND[x.icon]||['',''];li.title=x.name;li.append(mk('span','task-kind '+cls,label),mk('span','task-mini-name',x.short||x.name),mk('b','task-count',x.claimed?'받음':x.lock?x.lock:x.progress+'/'+x.goal));
+ // 0.16.47 (user: 「임무 이쪽도 어떤 임무인지 정확히 나오질 않아서 모르겠다」, with 「5승」「생활 3회」「모두 달성 1/8」): each row says the
+ // whole task (「전투 5번 이기기」, 「채집·채광·사냥·낚시 3번」), and a last row counts the day's tasks that open later.
+ const list=mk('ul','task-mini-list');for(const x of [...v.daily,v.bonus]){const li=mk('li','task-mini-row '+(x.claimed?'claimed':x.lock?'locked':x.done?'ready':'progress'));const [label,cls]=KIND[x.icon]||['',''];li.title=x.name;li.append(mk('span','task-kind '+cls,label),mk('span','task-mini-name',x.name),mk('b','task-count',x.claimed?'받음':x.lock?x.lock:x.progress+'/'+x.goal));
   if(x.done&&!x.claimed){const b=claimButton(x);if(!x.here)b.textContent='보고';li.append(b);}list.append(li);}
+ const later=hiddenCount(v,'daily');if(later>0){const li=mk('li','task-mini-row locked task-later');li.append(mk('span','task-kind k-later','다음'),mk('span','task-mini-name','임무 '+later+'개 더 · 앞 임무 보상을 받으면 열림'));list.append(li);}
  sec.append(list);parent.append(sec);
+}
+// The tasks of the day (or week) that are not shown yet: the board opens them one after another as rewards are taken.
+function hiddenCount(v,scope){
+ const shown=scope==='daily'?v.daily:v.weekly,all=scope==='daily'?v.dailyTotal:v.weeklyTotal,bonus=scope==='daily'?v.bonus:v.weeklyBonus;
+ if(!Number.isFinite(all)||!bonus)return 0;const claimed=Math.max(0,bonus.progress-shown.filter(x=>x.done).length);return Math.max(0,all-shown.length-claimed);
 }
 // 임무: the board is the first tab.
 if(typeof quests==='function'){const prior=quests;quests=function(p){

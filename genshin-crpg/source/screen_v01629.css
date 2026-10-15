@@ -1738,4 +1738,7 @@ html.stage-pc body.teyvat .combat-panel .shell-enemies .combatant-copy>.status-c
 body.teyvat #modal-body>.history-scroll{flex:1 1 auto;min-height:0;max-height:calc(100vh - 230px);overflow-y:auto;zoom:1!important;overscroll-behavior:contain;padding-right:8px;display:grid;gap:8px;align-content:start;scrollbar-width:thin;scrollbar-color:rgba(211,188,142,.45) transparent}
 body.teyvat #modal-body>.history-scroll>.history-entry{margin:0;padding:6px 10px;border-left:2px solid rgba(211,188,142,.35)}
 body.teyvat #modal-body>.history-scroll>.history-entry>strong{font-size:.76rem;color:#f3dfae}
-body.teyvat #modal-body>.history-scroll>.history-entry>p{margin:2px 0 0;font-size:.82rem;line-height:1.6}body.teyvat #modal-body>.history-scroll{outline:none;width:auto;max-width:min(680px,72vw)}
+body.teyvat #modal-body>.history-scroll>.history-entry>p{margin:2px 0 0;font-size:.82rem;line-height:1.6}body.teyvat #modal-body>.history-scroll{outline:none;width:auto;max-width:min(680px,72vw)}/* 0.16.47: the day's (week's) tasks that open later — one muted row at the end of the list */
+.task-kind.k-later{background:#4a5560;color:#e6ecef}
+.task-later .task-mini-name,.task-later .task-copy strong{color:var(--muted,#9fb0b8);font-weight:600}
+.task-later-row{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px;padding:7px 10px;border-radius:12px;border:1px dashed var(--t-line);opacity:.8}

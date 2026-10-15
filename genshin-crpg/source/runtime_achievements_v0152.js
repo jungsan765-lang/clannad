@@ -7,7 +7,8 @@
 (function(root){'use strict';
 const api=root.CRPGRuntime,P=api?.Runtime?.prototype;if(!P||P.achievementsV0152)return;P.achievementsV0152=true;
 const fail=(c,m)=>{throw new api.RuleError(c,m);},copy=x=>JSON.parse(JSON.stringify(x));
-const REWARD={1:5,2:10,3:20},num=x=>Number(x)||0,json=(x,f={})=>{try{return JSON.parse(x||'')||f;}catch{return f;}};
+// 0.16.47 (user: 「상자나 업적으로 얻는 원석 수치를 3배정도로 늘리자」): 5/10/20 → 15/30/60 원석 by tier.
+const REWARD={1:15,2:30,3:60},num=x=>Number(x)||0,json=(x,f={})=>{try{return JSON.parse(x||'')||f;}catch{return f;}};
 const fmt=n=>Number(n).toLocaleString('ko-KR');
 const jong=s=>{const c=String(s).charCodeAt(String(s).length-1)-0xAC00;return c>=0&&c<=11171&&c%28!==0;};
 const wa=s=>s+(jong(s)?'과':'와'),ga=s=>s+(jong(s)?'이':'가'),eul=s=>s+(jong(s)?'을':'를');

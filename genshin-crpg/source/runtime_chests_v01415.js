@@ -80,6 +80,9 @@ const LIYUE_NEW=[
 const CHESTS=[...MOND_PUZZLES.map((c,i)=>({...c,id:'CHEST_M'+String(i+1).padStart(2,'0')})),...MOND_HIDDEN.map((c,i)=>({...c,id:'CHEST_M'+String(i+19)})),
  ...LIYUE_PUZZLES.map((c,i)=>({...c,id:'CHEST_L'+String(i+1).padStart(2,'0')})),...LIYUE_HIDDEN.map((c,i)=>({...c,id:'CHEST_L'+String(i+19)})),
  ...MOND_NEW.map((c,i)=>({...c,id:'CHEST_M'+String(i+25)})),...LIYUE_NEW.map((c,i)=>({...c,id:'CHEST_L'+String(i+25)}))];
+// 0.16.47 (user: 「상자나 업적으로 얻는 원석 수치를 3배정도로 늘리자. 어차피 현질도 못하는 게임이니까」): every chest pays three times its
+// 원석 (몬드 1,210 → 3,630, 리월 1,435 → 4,305). Chests opened before keep what they paid.
+const PRIMOGEM_X=3;for(const c of CHESTS)c.reward={...c.reward,primogem:c.reward.primogem*PRIMOGEM_X};
 const BY_ID=new Map(CHESTS.map(c=>[c.id,c]));
 // ---------- deterministic randomness ----------
 function hash(str){let h=2166136261;for(const ch of String(str)){h^=ch.codePointAt(0);h=Math.imul(h,16777619);}return h>>>0;}

@@ -14,13 +14,13 @@ const fight=r=>{for(let n=0;n<900&&r.s.runtime;n++){const b=r.s.runtime;if(b.ope
 const fresh4=map=>{const g=fresh(map);g.serverAdmin=true;g.action('OPERATOR_DEBUG',{op:'recruit',char:'ALL'});return g;};
 const party=(g,ids)=>ids.forEach((char,i)=>g.action('PARTY',{slot:i+2,char}));
 
-check('96 chests, 48 in each region; 2,645 원석 (Mond 1,210, Liyue 1,435); 8 of each new kind per region',()=>{
+check('96 chests, 48 in each region; 7,935 원석 (Mond 3,630, Liyue 4,305; ×3 since 0.16.47); 8 of each new kind per region',()=>{
  assert.equal(rules.chests.length,96);assert.equal(new Set(rules.chests.map(x=>x.id)).size,96);
  const by=r=>rules.chests.filter(x=>x.region===r),sum=r=>by(r).reduce((n,x)=>n+x.reward.primogem,0);
- assert.equal(sum('MOND'),1210);assert.equal(sum('LIYUE'),1435);
+ assert.equal(sum('MOND'),3630);assert.equal(sum('LIYUE'),4305);// 0.16.47: three times the 원석 (1,210 / 1,435 before)
  for(const r of ['MOND','LIYUE']){assert.equal(by(r).length,48);for(const k of ['CHALLENGE','TOTEM','TIME'])assert.equal(by(r).filter(x=>x.kind===k).length,8,r+' '+k);}
  assert.equal(rules.tiers.PRECIOUS.name,'진귀한 보물상자');assert.deepEqual(Object.keys(rules.tiers),['COMMON','EXQUISITE','PRECIOUS','LUXURIOUS']);
- assert(rules.chests.every(x=>x.reward.primogem<=40));
+ assert(rules.chests.every(x=>x.reward.primogem<=120));
  const g=fresh();
  for(const x of rules.chests.filter(x=>x.kind)){assert(g.tables['32_MAP_DB'].has(x.map),x.id+' '+x.map);
   if(x.kind==='CHALLENGE')assert((g.encounterPoolRows(g.tables['32_MAP_DB'].get(x.map))||[]).length>0,x.id+' has monsters to fight');}

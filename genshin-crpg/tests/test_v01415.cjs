@@ -13,12 +13,12 @@ const refused=(fn,pattern)=>{try{fn();}catch(e){if(pattern)assert.match(e.messag
 const plain=x=>JSON.parse(JSON.stringify(x)); // values made inside the game's VM context have other prototypes
 
 // 0.16.33 added 24 chests of new kinds to each region (tests/test_chests_v01633.cjs); these checks keep to the first 48.
-check('chests: 24 in each region (18 puzzles, 6 hidden) and 1,270 Primogems in all — Mond 580, Liyue 690',()=>{
+check('chests: 24 in each region (18 puzzles, 6 hidden) and 3,810 Primogems in all — Mond 1,740, Liyue 2,070 (×3 since 0.16.47)',()=>{
  const by=r=>rules.chests.filter(x=>x.region===r&&!x.kind);
  for(const r of ['MOND','LIYUE']){assert.equal(by(r).length,24,r);assert.equal(by(r).filter(x=>x.game).length,18,r+' puzzles');assert.equal(by(r).filter(x=>!x.game).length,6,r+' hidden');}
  const sum=r=>by(r).reduce((n,x)=>n+x.reward.primogem,0);
- assert.equal(sum('MOND'),580);assert.equal(sum('LIYUE'),690);
- assert(rules.chests.every(x=>x.reward.primogem<=40),'no chest pays more than 40 (Primogems are paced for the 2.0 raid)');
+ assert.equal(sum('MOND'),1740);assert.equal(sum('LIYUE'),2070);// 0.16.47: 580 / 690 ×3
+ assert(rules.chests.every(x=>x.reward.primogem<=120),'no chest pays more than 120 (40 ×3 since 0.16.47)');
  assert.equal(new Set(rules.chests.filter(x=>!x.kind).map(x=>x.id)).size,48);
  return {mond:sum('MOND'),liyue:sum('LIYUE')};
 });
@@ -38,7 +38,7 @@ check('chests: each opens once with the right answer, at its place; wrong answer
   assert(g.chestOpened(x.id));assert(refused(()=>g.action('CHEST_OPEN',{chest:x.id,answer}),/이미 연/),x.id+' only once');
   opened++;primogems+=x.reward.primogem;
  }
- assert.equal(opened,48);assert.equal(primogems,1270);
+ assert.equal(opened,48);assert.equal(primogems,3810);
  return {opened,games};
 });
 

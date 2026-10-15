@@ -94,9 +94,9 @@ check('공동 토벌전: closed unless an event is open; then Lv.10 to sortie, t
  const s=JSON.parse(r.serialize());s.raid.sorties=4;assert(refused(()=>new api.Runtime(r.db,s,true),/공동 토벌전 기록/));
  return {hits:res.raid.hits,rounds:res.rounds};
 });
-check('achievements: about three hundred in eighteen groups; finished ones pay 5/10/20 원석 once; counters follow cooking, puzzles and wishes',()=>{
+check('achievements: about three hundred in eighteen groups; finished ones pay 15/30/60 원석 once (5/10/20 ×3 since 0.16.47); counters follow cooking, puzzles and wishes',()=>{
  const r=fixture(12,TEAM,8),v=r.achievementView();assert(v.total>=300,'count '+v.total);assert.equal(v.cats.length,18);assert.equal(new Set(v.list.map(x=>x.id)).size,v.total);
- assert(v.list.every(x=>[5,10,20].includes(x.reward)));assert(v.list.some(x=>x.hidden),'some are hidden until done');
+ assert(v.list.every(x=>[15,30,60].includes(x.reward)));assert(v.list.some(x=>x.hidden),'some are hidden until done');
  const ready=v.list.filter(x=>x.done&&!x.claimed),sum=ready.reduce((n,x)=>n+x.reward,0),before=Number(r.s.global.PRIMOGEM)||0;
  const out=r.action('ACHIEVEMENT_CLAIM',{achievement:'ALL'}).result;assert.equal(out.claimed.length,ready.length);assert.equal((Number(r.s.global.PRIMOGEM)||0)-before,sum);
  assert.match(r.actionReason('ACHIEVEMENT_CLAIM',{achievement:'ALL'}),/받을 업적 보상이 없습니다/);
