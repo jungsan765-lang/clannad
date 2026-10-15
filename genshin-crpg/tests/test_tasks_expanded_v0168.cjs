@@ -95,12 +95,16 @@ check('native DOMAIN_START preserves selected difficulty and type for filtered o
 });
 
 check('native ley routes distinguish blossom type and chosen tier, and field bosses match their real ID',()=>{
+ // 0.16.48: a blossom pays once each half day (Korean 0:00 / 12:00). Start at Monday 01:00 so the second 계시의 꽃 (12:00) is the
+ // same day; the clock goes back to where the hourly version left it.
+ const t0=c.Date.now();advance(Date.UTC(2026,9,4,16)-t0);try{
  const r=fresh();level(r,30);accept(r,'Q_TASK_REVELATION_01');leave(r);legacyDaily(r,['D_WIN','D_V168_REVELATION15','D_DOMAIN','D_LIFE']);unlockRecurring(r,'daily','D_V168_REVELATION15');
  function blossom(kind,tier){leave(r);const site=r.leyLineStatus().blossoms.find(x=>x.region==='몬드'&&x.kind===kind);assert(site);r.s.global.CURRENT_MAP_ID=site.map;r.action('PLACE_ENTER',{place:'BOSS:'+site.route,mode:'BOSS'});r.action('BOSS_ROUTE',{route:site.route,entry:'DIRECT',tier});assert.equal(r.s.runtime.leyLine.kind,kind);for(const a of r.s.runtime.actors)if(a.side==='ENEMY')a.hp=0;r.finishBattle(true);}
  blossom('WEALTH',2);assert.equal(r.s.quests.Q_TASK_REVELATION_01.taskObjective.progress,0);assert.equal(r.taskView().daily.find(t=>t.id==='D_V168_REVELATION15').progress,0);
  blossom('REVELATION',1);assert.equal(r.s.quests.Q_TASK_REVELATION_01.taskObjective.progress,1);assert.equal(r.taskView().daily.find(t=>t.id==='D_V168_REVELATION15').progress,0);
- advance(3600000);blossom('REVELATION',2);assert.equal(r.taskView().daily.find(t=>t.id==='D_V168_REVELATION15').progress,1);
+ advance(12*3600000);blossom('REVELATION',2);assert.equal(r.taskView().daily.find(t=>t.id==='D_V168_REVELATION15').progress,1);
  accept(r,'Q_TASK_MOND_BOSSES_01');leave(r);const api=c.CRPGRuntime,route=api.fieldBosses.route('FB_ANEMO_HYPOSTASIS');r.s.global.CURRENT_MAP_ID=api.fieldBosses.bosses.FB_ANEMO_HYPOSTASIS.map;r.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT'});assert.equal(r.s.runtime.fieldBoss.boss,'FB_ANEMO_HYPOSTASIS');for(const a of r.s.runtime.actors)if(a.side==='ENEMY')a.hp=0;r.finishBattle(true);assert.equal(r.s.quests.Q_TASK_MOND_BOSSES_01.taskObjective.progress,1);
+ }finally{advance(t0+3600000-c.Date.now());}
 });
 
 check('native Abyss room victories count their actual floor and all three rooms precede reporting',()=>{

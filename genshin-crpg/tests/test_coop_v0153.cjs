@@ -179,9 +179,13 @@ check('field bosses count against the guest\'s own 12-hour limit; without a win 
  const ok=g.coopApplyReward({battle:'B-1',char:PLAYER,xp:300,mora:500,loot:{ORE_IRON:1},fieldBoss:{boss:'FB_CRYO_REGISVINE'}});assert.equal(ok.fieldBoss.counted,true);assert.equal(g.s.fieldBossWindow.wins,3);assert.equal(ok.mora,500);
  const mora=g.s.global.MORA,none=g.coopApplyReward({battle:'B-2',char:PLAYER,xp:300,mora:500,loot:{ORE_IRON:1},fieldBoss:{boss:'FB_CRYO_REGISVINE'}});
  assert.equal(none.xp,300);assert.equal(none.mora,0);assert.deepEqual(plain(none.items),{});assert.equal(g.s.global.MORA,mora);assert.match(none.notes.join(' '),/12시간마다 3번까지라 이번에는 경험치만/);assert.equal(g.s.fieldBossWindow.wins,3);
- // Ley lines: a blossom pays each adventurer once an hour.
+ // Ley lines: a blossom pays each adventurer once a half day (0.16.48; a record kept by the hour before still counts for its hour).
  const hour=Math.floor(T0/3600000);g.s.leyLine={version:1,WEALTH:hour};const before=g.s.global.MORA;
  const ley=g.coopApplyReward({battle:'B-3',char:PLAYER,xp:10,mora:2400,loot:{},leyLine:{kind:'WEALTH',hour,claimed:true,mora:2200,books:null}});assert.equal(ley.mora,200);assert.equal(g.s.global.MORA-before,200);assert.match(ley.notes[0],/이미 받아/);
+ const L=c.CRPGRuntime.leyLines,win=L.windowOf(T0);delete g.s.leyLine;const first=g.coopApplyReward({battle:'B-4',char:PLAYER,xp:10,mora:4400,loot:{},leyLine:{kind:'WEALTH',hour,window:win,claimed:true,mora:4200,books:null}});
+ assert.equal(first.mora,4400);assert.equal(g.s.leyLine.version,2);assert.equal(g.s.leyLine.WEALTH,win);
+ const again=g.coopApplyReward({battle:'B-5',char:PLAYER,xp:10,mora:4400,loot:{},leyLine:{kind:'WEALTH',hour:hour+3,window:win,claimed:true,mora:4200,books:null}});assert.equal(again.mora,200,'the same half day pays once');
+ const next=g.coopApplyReward({battle:'B-6',char:PLAYER,xp:10,mora:4400,loot:{},leyLine:{kind:'WEALTH',hour:hour+12,window:win+1,claimed:true,mora:4200,books:null}});assert.equal(next.mora,4400,'the next half day pays again');
 });
 
 check('a guest protagonist uses its own route\'s skills next to the host\'s protagonist',()=>{

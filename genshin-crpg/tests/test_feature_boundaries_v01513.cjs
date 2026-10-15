@@ -146,17 +146,19 @@ check('regional combat: restored defeats allow recovery and retry, while a fight
  return {defeatRecovery:true,retry:true,expiredFightSettled:false};
 });
 
-check('hourly challenge: entry gates, restored defeat, old-hour victory and next-hour availability stay separate',()=>{
- let r=world(),hour=Math.floor(BASE/3600000),site=api.leyLines.sitesAt(hour).find(x=>x.region==='몬드'&&x.kind==='REVELATION'),route=api.leyLines.route(site.kind,site.map);
+// 0.16.48 (user: 「0시에 계시의 꽃 부의 꽃 1번씩 돌 수 있고, 12시에 계시의 꽃 부의 꽃 1번씩 돌 수 있고」): the blossoms keep a half day, not an hour.
+check('half-day challenge: entry gates, restored defeat, old-window victory and next-window availability stay separate',()=>{
+ const L=api.leyLines,KST=9*3600000;
+ let r=world(),win=L.windowOf(BASE),site=L.sitesAtWindow(win).find(x=>x.region==='몬드'&&x.kind==='REVELATION'),route=L.route(site.kind,site.map);
  r.s.global.CURRENT_MAP_ID=site.map;rejected(r,'PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'},/Lv/);
- r.serverAdmin=true;r.action('OPERATOR_DEBUG',{op:'level',value:10});r.actionStartedAt=hour*3600000+3599999;
+ r.serverAdmin=true;r.action('OPERATOR_DEBUG',{op:'level',value:10});r.actionStartedAt=(win+1)*L.halfDayMs-KST-1;
  enter(r,'BOSS:'+route,'BOSS');rejected(r,'BOSS_ROUTE',{route,entry:'DIRECT',tier:5},/Lv/);r.action('BOSS_ROUTE',{route,entry:'DIRECT',tier:2});r=reload(r);
  const before=r.itemCount('MAT_CHAR_EXP_HERO');r.actionStartedAt++;const result=settleOpening(r,true);
- assert(result.leyLine.claimed);assert.equal(r.itemCount('MAT_CHAR_EXP_HERO')-before,18);assert.equal(r.s.leyLine.REVELATION,hour);assert.equal(r.leyLineClaimed('REVELATION'),false);
+ assert(result.leyLine.claimed);assert.equal(r.itemCount('MAT_CHAR_EXP_HERO')-before,36);assert.equal(r.s.leyLine.version,2);assert.equal(r.s.leyLine.REVELATION,win);assert.equal(r.leyLineClaimed('REVELATION'),false);
  r=reload(r);assert.equal(r.leyLineClaimed('REVELATION'),false);site=r.leyLineStatus().blossoms.find(x=>x.region==='몬드'&&x.kind==='REVELATION');r.s.global.CURRENT_MAP_ID=site.map;r.s.placeVisit=null;
  assert.equal(r.placeBossReason(site.route,'DIRECT'),'');enter(r,'BOSS:'+site.route,'BOSS');r.action('BOSS_ROUTE',{route:site.route,entry:'DIRECT',tier:2});r=reload(r);settleOpening(r,false);
- assert.equal(r.s.leyLine.REVELATION,hour,'a defeat never claims the next window');r=reload(r);advance(60001);r.action('RECOVER');r.s.global.CURRENT_MAP_ID=site.map;assert.equal(r.placeBossReason(site.route,'DIRECT'),'');
- return {oldHourClaimed:hour,currentHour:hour+1,defeatConsumed:false};
+ assert.equal(r.s.leyLine.REVELATION,win,'a defeat never claims the next window');r=reload(r);advance(60001);r.action('RECOVER');r.s.global.CURRENT_MAP_ID=site.map;assert.equal(r.placeBossReason(site.route,'DIRECT'),'');
+ return {oldWindowClaimed:win,currentWindow:win+1,defeatConsumed:false};
 });
 
 check('field boss: a restored fight crossing the 12-hour reset counts the completion window once and defeat consumes no victory',()=>{

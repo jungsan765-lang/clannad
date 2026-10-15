@@ -326,7 +326,7 @@ P.finishBattle=function(victory){
  if(b.coop.benched?.length){const back=b.coop.benched.filter(a=>!a.coop&&!b.actors.some(x=>x.id===a.id));b.actors=[...b.actors.filter(a=>a.side==='ALLY'),...back,...b.actors.filter(a=>a.side!=='ALLY')];b.coop.benched=[];}
  for(const a of b.actors.filter(x=>x.coop&&!x.coop.left))if(!this.coopPresent(a.coop.owner))this.coopDepart(a);
  b.coop.turn=null;
- const info={version:VERSION,room:b.coop.room,origin:String(b.origin||''),fieldBoss:b.fieldBoss?{boss:b.fieldBoss.boss}:null,leyLine:b.leyLine?{kind:b.leyLine.kind,hour:b.leyLine.hour}:null,regionEvent:!!b.regionEvent,
+ const info={version:VERSION,room:b.coop.room,origin:String(b.origin||''),fieldBoss:b.fieldBoss?{boss:b.fieldBoss.boss}:null,leyLine:b.leyLine?{kind:b.leyLine.kind,hour:b.leyLine.hour,...(Number.isSafeInteger(b.leyLine.window)?{window:b.leyLine.window}:{})}:null,regionEvent:!!b.regionEvent,
   guests:b.actors.filter(a=>a.coop).map(a=>({owner:a.coop.owner,ownerName:a.coop.ownerName,char:a.coop.char,name:a.name,level:a.level,left:!!a.coop.left,hp:Math.max(0,Math.round(a.hp)),maxHp:Math.round(a.maxHp)}))};
  const result=old.finishBattle.call(this,victory);if(!result||typeof result!=='object')return result;
  info.victory=!!victory;info.xp=Math.max(0,Math.floor(Number(result.xp)||0));info.mora=Math.max(0,Math.round(Number(result.mora)||0));info.loot={};
@@ -405,10 +405,12 @@ P.coopApplyReward=function(rw={}){
   else{const w=this.fieldBossWindow(),cur=this.s.fieldBossWindow;this.s.fieldBossWindow={window:w,wins:(cur?.window===w?cur.wins:0)+1};out.fieldBoss={counted:true,left:d.left-1};}}
  let mora=Math.max(0,Math.floor(Number(rw.mora)||0));const items={};
  for(const [id,n] of Object.entries(rw.loot||{})){const q=Math.floor(Number(n));if(q>0&&q<10000&&this.tables['14_ITEM_DB']?.has(id))items[id]=q;}
- // A ley line blossom pays each adventurer once an hour (their own record), like the host's.
+ // A ley line blossom pays each adventurer once a half day (0.16.48; their own record), like the host's.
  const ley=rw.leyLine;
  if(full&&ley?.claimed&&LEY_KINDS[ley.kind]&&Number.isSafeInteger(ley.hour)){
-  if(this.s.leyLine?.[ley.kind]===ley.hour){mora=Math.max(0,mora-(Number(ley.mora)||0));for(const [id,n] of Object.entries(ley.books||{}))if(items[id]){items[id]-=Number(n)||0;if(items[id]<=0)delete items[id];}notes.push('이번 시간의 '+LEY_KINDS[ley.kind]+' 보상은 이미 받아 전투 보상만 더했습니다.');}
+  const win=Number.isSafeInteger(ley.window)?ley.window:api.leyLines?.windowOf?api.leyLines.windowOf(ley.hour*3600000):null,had=(this.s.leyLine?.version===1&&this.s.leyLine[ley.kind]===ley.hour)||(win!==null&&!!this.leyLineClaimed?.(ley.kind,win));
+  if(had){mora=Math.max(0,mora-(Number(ley.mora)||0));for(const [id,n] of Object.entries(ley.books||{}))if(items[id]){items[id]-=Number(n)||0;if(items[id]<=0)delete items[id];}notes.push('이번 차례의 '+LEY_KINDS[ley.kind]+' 보상은 이미 받아 전투 보상만 더했습니다.');}
+  else if(win!==null){const prior=this.s.leyLine?.version===2?this.s.leyLine:{version:2};this.s.leyLine={...prior,version:2,[ley.kind]:win};}
   else (this.s.leyLine??={version:1})[ley.kind]=ley.hour;
  }
  if(full){if(mora){this.s.global.MORA=(Number(this.s.global.MORA)||0)+mora;out.mora=mora;}for(const [id,n] of Object.entries(items)){this.giveItem(id,n);out.items[id]=n;}}

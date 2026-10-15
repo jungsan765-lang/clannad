@@ -16,7 +16,8 @@ check('all 12 current EXP payouts strictly increase while legacy EXP and materia
  assert.deepEqual(cp(G.domainMaterialXp),OLD_MATERIAL);assert.deepEqual(cp(G.legacyTrialXp),OLD_EXP);
  assert.deepEqual(cp(G.legacyDomainXp),{5:200,10:450,20:1100,30:1800,40:2500,50:4500,60:8000});
  assert.deepEqual(cp(api.leyLines.bookXp),{MAT_CHAR_EXP_WANDERER:50,MAT_CHAR_EXP_ADVENTURER:250,MAT_CHAR_EXP_HERO:1000});
- assert.equal(api.leyLines.tiers[4].books.MAT_CHAR_EXP_HERO,180);assert.equal(api.leyLines.tiers[4].directXp,400);
+ // 0.16.48 (user: 「지맥도 효율 좀 늘리고 하루에 두번만」): two blossoms a day at twice the payout (180 → 360 books, 400 → 800 XP).
+ assert.equal(api.leyLines.tiers[4].books.MAT_CHAR_EXP_HERO,360);assert.equal(api.leyLines.tiers[4].directXp,800);
  assert.deepEqual(cp(G.caps),[10,20,30,40,50,55,60]);assert.equal(G.xpNext(60),0);
  for(let l=1;l<59;l++)assert(G.xpNext(l+1)>G.xpNext(l));
 });

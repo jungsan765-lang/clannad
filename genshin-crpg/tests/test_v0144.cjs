@@ -39,23 +39,26 @@ check('field bosses: all together pay out three times in every 12 real hours (KS
  return {limit:api.fieldBossLimits.dailyLimit,hours:api.fieldBossLimits.windowHours};
 });
 
-check('ley line blossoms: two per region each real hour, steps opened by level, one payout per kind and hour',()=>{
+// 0.16.48: the blossoms keep a half day (Korean 0:00 / 12:00) and pay twice the old amount (step 2: 18 → 36 books).
+check('ley line blossoms: two per region each half day, steps opened by level, one payout per kind and half day',()=>{
  const L=api.leyLines;
  for(let h=500000;h<500048;h++){const s=L.sitesAt(h);assert.equal(s.length,4);for(const region of ['몬드','리월']){const x=s.filter(b=>b.region===region);assert.deepEqual(plain(x.map(b=>b.kind).sort()),['REVELATION','WEALTH']);assert.notEqual(x[0].map,x[1].map);}}
  assert.deepEqual(plain(L.sitesAt(424242)),plain(L.sitesAt(424242)),'the same hour gives the same places');
+ assert.deepEqual(plain(L.sitesAt(424242)),plain(L.sitesAtWindow(L.windowOf(424242*L.hourMs))),'an hour gives the places of its half day');
  assert.deepEqual(plain(L.tiers.map(t=>t.level)),[6,15,30,45,60]);
  let h=500000;while(!L.sitesAt(h).some(b=>b.kind==='REVELATION'&&b.map==='MAP_MOND_PLAINS'))h++;
  const r=fixture(12,TEAM,8),id=L.route('REVELATION','MAP_MOND_PLAINS');r.actionStartedAt=h*L.hourMs+60000;Object.assign(r.s.global,{CURRENT_MAP_ID:'MAP_MOND_PLAINS',SCREEN_MODE:'LOCATION'});
- const ley=r.placeEntries().filter(e=>String(e.route||'').startsWith('BRT_LEY_'));assert.deepEqual(plain(ley.map(e=>e.route)),[id],'only this hour\'s blossom is listed');
+ const ley=r.placeEntries().filter(e=>String(e.route||'').startsWith('BRT_LEY_'));assert.deepEqual(plain(ley.map(e=>e.route)),[id],'only this half day\'s blossom is listed');
  assert.equal(r.leyLineTopTier(),2);assert.match(r.actionReason('BOSS_ROUTE',{route:id,entry:'DIRECT',tier:4}),/Lv\. 40/);
  const other=L.route('WEALTH','MAP_MOND_PLAINS');if(!L.sitesAt(h).some(b=>b.route===other))assert.match(r.placeBossReason(other,'DIRECT'),/옮겨 갔습니다/);
  r.action('PLACE_ENTER',{place:'BOSS:'+id,mode:'BOSS'});r.action('BOSS_ROUTE',{route:id,entry:'DIRECT',tier:2});
  let b=r.s.runtime;assert.equal(b.leyLine.tier,2);assert(b.actors.filter(a=>a.side==='ENEMY').every(a=>a.level===15),'enemies at the step level');assert.equal(r.s.bossRouteProgress.leyTier,2,'a retry fights the same step');
  const hero=r.itemCount('MAT_CHAR_EXP_HERO'),adv=r.itemCount('MAT_CHAR_EXP_ADVENTURER');for(const a of b.actors.filter(x=>x.side==='ENEMY'))a.hp=0;r.finishBattle(true);
- assert.equal(r.itemCount('MAT_CHAR_EXP_HERO'),hero+18);assert.equal(r.itemCount('MAT_CHAR_EXP_ADVENTURER'),adv);assert(r.leyLineClaimed('REVELATION'));
+ assert.equal(r.itemCount('MAT_CHAR_EXP_HERO'),hero+36);assert.equal(r.itemCount('MAT_CHAR_EXP_ADVENTURER'),adv);assert(r.leyLineClaimed('REVELATION'));
  assert.match(r.placeBossReason(id,'DIRECT'),/이미 받았습니다/);
- r.actionStartedAt+=L.hourMs;assert.equal(r.leyLineClaimed('REVELATION'),false,'a new hour, a new blossom');
- const bad=JSON.parse(r.serialize());bad.leyLine={version:1,REVELATION:-1};assert.throws(()=>new api.Runtime(require(path.join(root,'content/db.json')),bad),/지맥의 꽃/);
+ r.actionStartedAt+=L.hourMs;if(L.windowOf(r.actionStartedAt)===L.windowOf(r.actionStartedAt-L.hourMs))assert(r.leyLineClaimed('REVELATION'),'the next hour of the same half day is still taken');
+ r.actionStartedAt+=L.halfDayMs;assert.equal(r.leyLineClaimed('REVELATION'),false,'a new half day, a new blossom');
+ const bad=JSON.parse(r.serialize());bad.leyLine={version:2,REVELATION:-1};assert.throws(()=>new api.Runtime(require(path.join(root,'content/db.json')),bad),/지맥의 꽃/);
  return {hour:h,route:id};
 });
 

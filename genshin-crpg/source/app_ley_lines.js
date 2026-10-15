@@ -2,6 +2,7 @@
  * screen, and the rematch notes of the two-day bosses. View-only; every action is the normal MOVE/PLACE_ENTER/BOSS_ROUTE.
  * Load after app_field_bosses.js and app_navigation.js. */
 (function(){'use strict';
+const leyLeft=(st)=>{const m=Math.max(1,Number(st?.minutesLeft)||1),h=Math.floor(m/60);return (st?.nextAt||'다음 꽃')+'까지 '+(h?h+'시간'+(m%60?' '+m%60+'분':''):m+'분');};
 const L=globalThis.CRPGRuntime?.leyLines;if(!L)return;
 function rewardIcon(id,cls){const p=typeof MANIFEST!=='undefined'&&MANIFEST.itemIcons?.icons?.[id]?.path;if(!p)return el('span',cls+' mark','✦');const i=el('img',cls);i.src=p;i.alt='';i.draggable=false;return i;}
 // A step's reward as pictures with counts (the names stay in the tooltip).
@@ -12,15 +13,16 @@ const priorLocation=drawLocation;
 drawLocation=function(p,v){
  priorLocation(p,v);if(game.s.runtime||game.s.placeVisit||game.needsRecovery?.())return;
  const st=game.leyLineStatus?.();if(!st)return;
+ // 0.16.48: blossoms stay half a day (0시·12시).
  const box=el('section','card ley-line-card');box.setAttribute('aria-label','지맥의 꽃');
- const head=el('div','ley-line-head');head.append(el('h2','','지맥의 꽃'),el('span','ley-line-timer','정각까지 '+st.minutesLeft+'분'));box.append(head);
+ const head=el('div','ley-line-head');head.append(el('h2','','지맥의 꽃'),el('span','ley-line-timer',leyLeft(st)));box.append(head);
  // 0.14.13: below the level the card says so plainly, with the level now, instead of a grey line.
- if(!st.unlocked){box.append(el('p','ley-line-locked','⚠ 아직 도전할 수 없습니다 · 주인공 Lv. '+st.minLevel+'부터 (지금 Lv. '+(Number(game.s.global.PLAYER_LEVEL_STATE)||1)+')'),el('p','muted','매시 정각마다 몬드·리월 곳곳에 핍니다. 레벨을 올린 뒤 다시 찾아오세요.'));}
+ if(!st.unlocked){box.append(el('p','ley-line-locked','⚠ 아직 도전할 수 없습니다 · 주인공 Lv. '+st.minLevel+'부터 (지금 Lv. '+(Number(game.s.global.PLAYER_LEVEL_STATE)||1)+')'),el('p','muted','하루 두 번(0시·12시) 몬드·리월 곳곳에 핍니다. 레벨을 올린 뒤 다시 찾아오세요.'));}
  else{
   // 0.15.25: no paragraph (the old one also said the enemies follow the party's level; they are fixed by region and step).
-  box.append(el('small','muted ley-line-help','꽃마다 한 시간에 한 번 · 정각에 자리를 옮김'));
+  box.append(el('small','muted ley-line-help','꽃마다 0시·12시에 한 번씩 · 그때 자리를 옮김'));
   const item=b=>{const li=el('li','ley-line-item '+b.kind.toLowerCase()+(b.claimed?' claimed':'')+(b.here?' here':''));
-   const copy=el('span','ley-line-copy');copy.append(el('strong','',b.name),el('small','',b.region+' · '+b.mapName+(b.claimed?' · 이번 시간 받음':'')));li.append(rewardIcon(b.kind==='REVELATION'?'MAT_CHAR_EXP_HERO':'CUR_MORA','ley-line-icon'),copy);
+   const copy=el('span','ley-line-copy');copy.append(el('strong','',b.name),el('small','',b.region+' · '+b.mapName+(b.claimed?' · 이번 차례 받음':'')));li.append(rewardIcon(b.kind==='REVELATION'?'MAT_CHAR_EXP_HERO':'CUR_MORA','ley-line-icon'),copy);
    if(b.here)li.append(el('span','ley-line-here',b.claimed?'받음':'이 구역'));
    else if(!b.claimed)li.append(button('길 안내',()=>guide(b.map)));
    return li;};
@@ -42,7 +44,7 @@ boss=function(p,...args){
  const single=[...p.querySelectorAll('button')].find(b=>b.textContent==='보스에게 도전'),note=single?.nextElementSibling?.classList.contains('choice-note')?single.nextElementSibling:null;
  const box=el('section','ley-line-info');box.setAttribute('aria-label','지맥의 꽃 단계');
  box.append(el('h2','',info.name+' · 단계 선택'));
- box.append(el('p',info.claimed?'ley-line-claimed':'muted',info.claimed?'이번 시간의 보상은 이미 받았습니다 · 정각까지 '+info.minutesLeft+'분':'이번 시간 남은 '+info.minutesLeft+'분 안에 한 번 받을 수 있습니다 · 전투 경험치·모라는 별도'));
+ box.append(el('p',info.claimed?'ley-line-claimed':'muted',info.claimed?'이번 차례의 보상은 이미 받았습니다 · '+leyLeft(info):leyLeft(info)+' 한 번 받을 수 있습니다 · 전투 경험치·모라는 별도'));
  const list=el('div','ley-line-tiers');
  for(const t of info.tiers){
   const row=el('div','ley-line-tier'+(t.recommended?' recommended':'')+(t.reason?' locked':'')),copy=el('span','ley-line-copy');

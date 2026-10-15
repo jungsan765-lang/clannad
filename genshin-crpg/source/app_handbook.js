@@ -4,6 +4,7 @@
  * the same NavigationUI.choose the ley line card uses) and buttons that open existing screens through the menu. */
 (function(){
 'use strict';
+const leyLeft=(st)=>{const m=Math.max(1,Number(st?.minutesLeft)||1),h=Math.floor(m/60);return (st?.nextAt||'다음 꽃')+'까지 '+(h?h+'시간'+(m%60?' '+m%60+'분':''):m+'분');};
 const H=window.CRPGHandbook={tab:'journey',node:null,isOpen(){return !!H.node;},open,close,refresh};
 const mk=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined&&text!==null)e.textContent=String(text);return e;};
 const fmt=n=>Math.round(Number(n)||0).toLocaleString('ko-KR');
@@ -51,7 +52,7 @@ function journey(box){
  // Today's limits at a glance.
  const today=section('오늘의 기록','게임 내 하루와 현실 시간을 따로 셉니다.');const list=mk('div','hb-grid');
  try{const d=game.fieldBossDaily?.();if(d)list.append(stat('필드 보스 토벌',d.wins+' / '+d.limit,d.left?'이번 12시간 동안 '+d.left+'번 더 토벌할 수 있습니다 · '+(d.resetAt||'')+' 초기화':'한국 시간 '+(d.resetAt||'0시·12시')+'에 다시 토벌할 수 있습니다.',d.left?'':'spent'));}catch{}
- try{const st=game.leyLineStatus?.();if(st)list.append(stat('지맥의 꽃',st.unlocked?st.blossoms.filter(b=>b.claimed).length+' / '+st.blossoms.length:'Lv. '+st.minLevel+'부터',st.unlocked?'정각까지 '+st.minutesLeft+'분 · 꽃마다 한 시간에 한 번 받습니다.':'주인공 레벨이 오르면 매시 정각에 핍니다.'));}catch{}
+ try{const st=game.leyLineStatus?.();if(st)list.append(stat('지맥의 꽃',st.unlocked?st.blossoms.filter(b=>b.claimed).length+' / '+st.blossoms.length:'Lv. '+st.minLevel+'부터',st.unlocked?leyLeft(st)+' · 꽃마다 0시·12시에 한 번씩 받습니다.':'주인공 레벨이 오르면 하루 두 번(0시·12시) 핍니다.'));}catch{}
  try{const cfg=CRPGRuntime.enhancementConfig,ids=Object.keys(cfg?.bosses||{});if(ids.length){const used=game.bossDailyUsed?.()?1:0;list.append(stat('일일 보스',used+' / 1 도전','어느 보스든 합쳐 현실 시간으로 하루에 한 번 · 한국 시간 0시에 초기화',used?'spent':''));}}catch{}
  today.append(list);box.append(today);
 }
@@ -86,8 +87,8 @@ function bosses(box){
 function ley(box){
  let st=null;try{st=game.leyLineStatus?.();}catch{}
  const L=CRPGRuntime.leyLines;
- const s=section('이번 시간의 지맥의 꽃',st?(st.unlocked?'매시 정각에 자리를 옮깁니다 · 정각까지 '+st.minutesLeft+'분':'주인공 Lv. '+st.minLevel+'부터 핍니다.'):'지맥의 꽃 정보를 불러오지 못했습니다.');
- if(st?.unlocked){for(const b of st.blossoms){const r=row('hb-ley '+String(b.kind||'').toLowerCase(),b.name,[b.region+' · '+b.mapName,b.claimed?'이번 시간 보상 받음':'보상을 받을 수 있습니다'],b.claimed?null:guideButton(b.map));r.querySelector('.hb-copy strong').after(chip(b.kind==='REVELATION'?'경험치 책':'모라',b.kind==='REVELATION'?'blue':'gold'));s.append(r);}}
+ const s=section('이번 차례의 지맥의 꽃',st?(st.unlocked?'0시·12시에 자리를 옮깁니다 · '+leyLeft(st):'주인공 Lv. '+st.minLevel+'부터 핍니다.'):'지맥의 꽃 정보를 불러오지 못했습니다.');
+ if(st?.unlocked){for(const b of st.blossoms){const r=row('hb-ley '+String(b.kind||'').toLowerCase(),b.name,[b.region+' · '+b.mapName,b.claimed?'이번 차례 보상 받음':'보상을 받을 수 있습니다'],b.claimed?null:guideButton(b.map));r.querySelector('.hb-copy strong').after(chip(b.kind==='REVELATION'?'경험치 책':'모라',b.kind==='REVELATION'?'blue':'gold'));s.append(r);}}
  box.append(s);
  if(L?.tiers){const t=section('단계','높은 단계일수록 적이 강하고 보상이 큽니다. 단계마다 도전할 수 있는 주인공 레벨이 정해져 있습니다.');const table=mk('table','hb-table');const head=mk('tr');for(const h of ['단계','적 레벨','도전 조건','계시의 꽃','부의 꽃'])head.append(mk('th','',h));table.append(head);
   const lv=Number(game.s.global.PLAYER_LEVEL_STATE)||1;

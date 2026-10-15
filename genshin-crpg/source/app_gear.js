@@ -148,7 +148,7 @@ recoveryCard=function(parent){
  const penalty=game.s.defeatPenalty,c=el('section','card recovery-card');c.append(el('h2','','전투불능'));
  if(penalty)c.append(el('p','defeat-penalty','전투에서 패배해 모라를 '+fmt(penalty.mora)+' 잃었습니다.'));
  countdown(c,'정신을 차리는 중입니다. 다시 움직일 수 있을 때까지');
- c.append(el('p','','회복하면 파티의 HP가 복구되고 1시간이 지납니다.'),actionButton('회복하고 다시 출발','RECOVER',{},true));
+ c.append(el('p','',game.fatigueVersion?'회복하면 안전한 마을에서 HP 30%로 일어나고 1시간이 지납니다.':'회복하면 파티의 HP가 복구되고 1시간이 지납니다.'),actionButton('회복하고 다시 출발','RECOVER',{},true));
  // 0.16.35 (user: 빈공간): who is down and how much each has left, under the card.
  const box=partyHP();if(box)c.append(box);
  parent.append(c);
@@ -156,7 +156,7 @@ recoveryCard=function(parent){
 // The party's faces with their HP bars (the KO card and the inn show who is hurt and how much).
 function partyHP(){
  try{const box=el('div','recovery-party');for(const slot of game.s.party.filter(x=>x.active&&x.source)){const id=slot.source,mine=id==='PLAYER_CUSTOM',hp=Math.max(0,Number(mine?game.s.global.PLAYER_HP_CURRENT:game.s.chars[id]?.hp)||0),max=Math.max(1,Number(mine?game.s.global.PLAYER_HP_MAX:game.character(id).maxHp)||1);
-  const row=el('div','recovery-member'+(hp<=0?' down':''));if(typeof actorPortrait==='function')row.append(actorPortrait(id,'recovery-face'));const copy=el('div','recovery-copy'),bar=el('span','recovery-bar');bar.style.setProperty('--p',(hp/max*100).toFixed(1)+'%');copy.append(el('strong','',typeof ownerName==='function'?ownerName(id):id),bar,el('small','',hp<=0?'전투불능':hp.toLocaleString()+' / '+max.toLocaleString()));row.append(copy);box.append(row);}return box.children.length?box:null;}catch{return null;}
+  const row=el('div','recovery-member'+(hp<=0?' down':''));if(typeof actorPortrait==='function')row.append(actorPortrait(id,'recovery-face'));const copy=el('div','recovery-copy'),bar=el('span','recovery-bar');bar.style.setProperty('--p',(hp/max*100).toFixed(1)+'%');const tired=window.CRPGFatigueBadge?.(id);copy.append(el('strong','',typeof ownerName==='function'?ownerName(id):id),bar,el('small','',hp<=0?'전투불능':hp.toLocaleString()+' / '+max.toLocaleString()));if(tired)copy.append(tired);row.append(copy);box.append(row);}return box.children.length?box:null;}catch{return null;}
 }
 window.CRPGPartyHP=partyHP;
 const gearReward=reward;
@@ -185,8 +185,11 @@ function quickMeals(p){
   b.title=safeName('14_ITEM_DB',d.id)+' · HP +'+fmt(d.heal);try{b.append(itemGlyph(presenter().itemDetail({item:d.id,quantity:game.itemCount(d.id)})));}catch{}b.append(el('b','qm-count','×'+fmt(game.itemCount(d.id))));if(typeof foodEffectMark==='function'){const m=foodEffectMark(d.id);if(m)b.append(m);}foods.append(b);}
  for(const {id,a} of owners){const why=mealReason(id,quickDish),b=button('',()=>act('USE_ITEM',{item:quickDish,quantity:1,owner:id}),busy||!!why);b.className='qm-person';if(why)b.title=why;
   b.append(actorPortrait(id,'qm-face'));const copy=el('span','qm-copy'),name=el('small','qm-name',ownerName(id));
-  if(!why){let gain=0;try{gain=Math.min(game.foodHealingAmount(game.foodSpec(quickDish).heal,id),a.maxHp-a.hp);}catch{}if(gain>0)name.append(el('b','qm-gain','+'+fmt(gain)));}
-  copy.append(name,hpBar(a),el('small','qm-num',fmt(a.hp)+' / '+fmt(a.maxHp)));b.append(copy);people.append(b);}
+  // 0.16.48: a dish heals up to the max HP its 피로 clearing leaves (the 피로 badge says what is left).
+  let gain=0,cap=a.maxHp,clear=0;try{const c=game.fatigueMealCap?.(id,quickDish);if(c){cap=c.cap;clear=c.clear;}}catch{}
+  const tired=window.CRPGFatigueBadge?.(id,why?0:clear);
+  if(!why){try{gain=Math.min(game.foodHealingAmount(game.foodSpec(quickDish).heal,id),cap-a.hp);}catch{}if(gain>0)name.append(el('b','qm-gain','+'+fmt(gain)));}
+  copy.append(name,hpBar(a),el('small','qm-num',fmt(a.hp)+' / '+fmt(a.maxHp)));if(tired)copy.append(tired);b.append(copy);people.append(b);}
  box.append(foods,people);p.append(box);
 }
 const mealReward=reward;reward=function(p){mealReward(p);try{quickMeals(p);}catch(e){console.error('[quick meal]',e);}};

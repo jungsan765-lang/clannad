@@ -243,6 +243,16 @@ try{
    const fight=(setup,label)=>{const x=playerState();x.serverAdmin=true;try{setup(x);}catch(e){console.error(label,e.message);}if(!x.s.runtime)return null;try{x.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch(e){console.error(label,e.message);}return x;};
    const domain=fight(x=>{for(const m of x.tables['32_MAP_DB'].keys()){if(!/^MAP_D163_/.test(m))continue;try{x.action('OPERATOR_DEBUG',{op:'travel',map:m});}catch{continue;}const d=x.growthDomainEntries?.().find(e=>!e.reason);if(d){x.action('DOMAIN_START',{domain:d.id,element:d.elements?.[0]||d.element||undefined});break;}}},'domain result');
    if(domain){fixture.seed(domain.s);await page.evaluate(()=>CRPGOnline.sync());await idle();await view('domain-result',`Promise.resolve()`);}
+   // 0.16.48 비경 피로: a tired party in a domain fight (the 「피로 N」 chip, on the computer only in CI) and its result (the 피로 strip,
+   // the quick meal with a 피로 badge on each face and 「피로 3→1」 for the picked dish).
+   {const x=playerState();x.serverAdmin=true;let started=false;
+    try{const ids=x.s.party.filter(p=>p.active).map(p=>p.source);x.s.fatigue={version:1,stacks:Object.fromEntries(ids.map((id,i)=>[id,[3,1,2,4][i%4]]))};
+     let n=0;for(const [id,row] of x.tables['14_ITEM_DB']){let spec=null;try{spec=x.foodSpec(id,{});}catch{}if(spec?.heal&&['일반','고급','희귀'].includes(row[3])&&n<4){x.giveItem(id,2);n++;}}
+     for(const m of x.tables['32_MAP_DB'].keys()){if(!/^MAP_D163_/.test(m))continue;try{x.action('OPERATOR_DEBUG',{op:'travel',map:m});}catch{continue;}const d=x.growthDomainEntries?.().find(e=>!e.reason);if(d){x.action('DOMAIN_START',{domain:d.id,element:d.elements?.[0]||d.element||undefined});started=!!x.s.runtime;break;}}}catch(e){console.error('fatigue',e.message);}
+    if(started){fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+     if(!(process.env.CI&&size.name!=='pc'))await view('domain-fatigue-battle',`(async()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='전투 시작');b?.click();})()`);
+     const won=new R(DB,JSON.parse(fixture.read().state));won.serverAdmin=true;try{won.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch(e){console.error('fatigue end',e.message);}fixture.seed(won.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+     await view('domain-fatigue-result',`Promise.resolve()`);}}
    // 0.16.39 (user: 「비경도 지금 버튼 아래 없어서 지맥이 가려져」): the map of a domain, with each tab of the left column.
    {const x=playerState();x.serverAdmin=true;try{x.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_D163_VALLEY_OF_REMEMBRANCE'});}catch(e){console.error('domain map',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
     await page.evaluate(()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());document.querySelector('.pm-close,.shell-menu-close')?.click();}).catch(()=>{});

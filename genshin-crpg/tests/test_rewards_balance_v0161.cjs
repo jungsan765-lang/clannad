@@ -66,18 +66,19 @@ check('the same level-selected ley difficulties and payouts exist in both region
 });
 function ley(r,kind,tier){const map=r.s.global.CURRENT_MAP_ID;let hour=r.leyLineHour();while(!api.leyLines.sitesAt(hour).some(s=>s.map===map&&s.kind===kind))hour++;
  const at=hour*3600000+60000;advance(Math.max(0,at-c.Date.now()));r.actionStartedAt=at;const route=api.leyLines.route(kind,map);r.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});r.action('BOSS_ROUTE',{route,entry:'DIRECT',tier});return {hour,route};}
+// 0.16.48: a claim is kept per half day (s.leyLine version 2 holds the window) and new fights pay twice (360 books, 80,000 Mora, 800 XP).
 check('ley settlement uses its low direct-XP plan, books/Mora dominate, and claims cannot be repeated',()=>{
  for(const kind of ['REVELATION','WEALTH']){
   let r=ready('MAP_MOND_PLAINS');const {hour,route}=ley(r,kind,5),expected=cp(r.s.runtime.mondBalance.rewards);
   assert.equal(r.s.runtime.leyLine.level,60);assert.deepEqual(cp(r.mondRewardPlan(r.s.runtime)),expected);r=new R(db,cp(r.s));r.actionStartedAt=hour*3600000+60000;
-  const x=settle(r);assert.equal(x.xp,expected.xp);assert.equal(r.s.leyLine[kind],hour);
-  assert.equal(x.xp,400);assert.equal(expected.mora,0);
-  if(kind==='REVELATION'){assert.equal(x.loot.MAT_CHAR_EXP_HERO,180);assert(180000>4*24000);assert.equal(x.mora,0);}
-  else {assert.equal(x.mora,40000);assert.equal(x.loot.MAT_CHAR_EXP_HERO||0,0);}
+  const x=settle(r);assert.equal(x.xp,expected.xp);assert.equal(r.s.leyLine.version,2);assert.equal(r.s.leyLine[kind],api.leyLines.windowOf(hour*3600000));
+  assert.equal(x.xp,800);assert.equal(expected.mora,0);
+  if(kind==='REVELATION'){assert.equal(x.loot.MAT_CHAR_EXP_HERO,360);assert(360000>4*24000);assert.equal(x.mora,0);}
+  else {assert.equal(x.mora,80000);assert.equal(x.loot.MAT_CHAR_EXP_HERO||0,0);}
   assert(r.placeBossReason(route,r.placeEntries().find(e=>e.route===route)));const state=r.serialize();r.finishBattle(true);assert.equal(r.serialize(),state);
  }
 });
-check('old in-flight ley battles retain old regional level and book reward, then new entries use v2',()=>{
+check('old in-flight ley battles retain old regional level and book reward, then new entries use v3',()=>{
  let r=ready('MAP_MOND_PLAINS');const {hour}=ley(r,'REVELATION',5),s=cp(r.s);s.runtime.leyLine.version=1;s.runtime.leyLine.level=28;
  for(const a of s.runtime.actors.filter(a=>a.side==='ENEMY'))a.level=28;
  r=new R(db,s);r.actionStartedAt=hour*3600000+60000;assert.equal(settle(r).loot.MAT_CHAR_EXP_HERO,10);
