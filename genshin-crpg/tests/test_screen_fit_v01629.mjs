@@ -204,6 +204,8 @@ try{
    await page.evaluate(async()=>{if(game.s.placeVisit&&!game.actionReason('PLACE_LEAVE',{}))await act('PLACE_LEAVE',{});});await idle();}
   // The handbook's tabs, the map, the menu and the letters.
   for(const tab of ['journey','bosses','ley','abyss','companions','treasure','achievements'])await view('handbook-'+tab,`(async()=>{await __go('LOCATION');window.CRPGHandbook?.open?.(${JSON.stringify(tab)});})()`);
+  // 0.16.47 고유명사 사전: the old spellings left in code and rules (「나선비경」 …) never reach the screen (app_glossary_v01647.js).
+  await view('glossary-abyss',`(async()=>{await __go('LOCATION');window.CRPGHandbook?.open?.('abyss');await new Promise(r=>setTimeout(r,300));const t=document.body.innerText+' '+[...document.querySelectorAll('[title],[aria-label]')].map(e=>(e.title||'')+' '+(e.getAttribute('aria-label')||'')).join(' ');for(const w of Object.keys(window.CRPGGlossary?.display||{}))if(t.includes(w))throw Error('old spelling on screen: '+w);if(!t.includes('나선 비경'))throw Error('no 나선 비경');})()`);
   await view('map-window',`(async()=>{await __go('LOCATION');[...document.querySelectorAll('.hud-tools button')].find(b=>/^지도/.test(b.title||b.getAttribute('aria-label')||''))?.click();})()`);
   await view('menu',`(async()=>{await __go('LOCATION');document.querySelector('.hud-menu-button')?.click();})()`);
   await view('mail',`(async()=>{await __go('LOCATION');[...document.querySelectorAll('.hud-tools button')].find(b=>/우편/.test(b.title||b.getAttribute('aria-label')||''))?.click();})()`);

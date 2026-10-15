@@ -1,7 +1,7 @@
 # chain TRV_M01
 # entry TRV_M01_E001
 # pre -
-// 여행자 루트 몬드 1장. 원신의 여행자(아이테르/루미네)와 페이몬. 일곱 신상에 공명한 직후의 숲길에서 시작해
+// 여행자 루트 몬드 1장. 원신의 여행자(아이테르/루미네)와 페이몬. 일곱신상에 공명한 직후의 숲길에서 시작해
 // 드발린과 벤티 → 엠버 → 몬드성 → 케이아 → 진·리사 → 도서관으로 이어진다.
 // 효과가 붙은 선택(G_AVATAR·G_APPROACH·G_DRAGON·G_CRYSTAL·G_AMBER_INFO·G_ESCORT·G_CITY·G_KAEYA·G_JEAN_EVIDENCE·G_SIBLING·G_LISA)과
 // E002·Z003만 유지하고 본문은 전부 새로 썼다.

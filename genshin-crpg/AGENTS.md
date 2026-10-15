@@ -1,3 +1,9 @@
+# 고유명사는 사전대로 (2026-10-15)
+
+게임에 들어가는 고유명사(지명·단체·인물·아이템·몬스터·시스템 이름)는 고유명사 사전 [tools/editorial/glossary_ko.json](tools/editorial/glossary_ko.json)의 공식 한국어를 쓴다. 읽기용 표는 [docs/GLOSSARY_KO.md](docs/GLOSSARY_KO.md)다. 사전에 없으면 공식 자료(Yatta 공식 게임 문자열, HoYoLAB 지도, HoYoWiki 한국어)로 확인하고 사전에 넣은 뒤 쓴다. 기억이나 추측으로 쓰지 않는다. 예: 「티바트」가 공식이고 「테이바트」는 틀린 표기다(사용자 지적). 사전을 고친 뒤에는 `node tools/editorial/build_glossary.cjs`를 실행한다. `tests/test_glossary_v01647.cjs`가 틀린 표기와 공식과 다른 이름을 막는다.
+
+---
+
 # 다음 작업 · 0.16.29 할 일 목록 (2026-10-12, Claude 담당)
 
 사용자 요청 목록은 [docs/TODO_0.16.29_KO.md](docs/TODO_0.16.29_KO.md)에 있다. 화면, 지도, 장비, 전투 연출, 동료 잔재, 보스, 상자, 신의 눈동자 항목은 **Claude가 한다. ChatGPT는 손대지 않는다.** 사용자 답(2026-10-12): 「챗지피티 이제 대량작업 불가능해. 니가 다 해」. 일일·주간 임무와 캐서린 의뢰 문구도 이제 Claude가 한다.
