@@ -43,7 +43,7 @@ check('chests and achievements pay three times the 원석',()=>{
 check('CI keeps the boss minigame screens to the computer page (the verify job\'s 20 minutes)',()=>{
  const fit=src('tests/test_screen_fit_v01629.mjs');
  assert(fit.includes("&&!(process.env.CI&&size.name!=='pc')"));assert(fit.includes("if(!process.env.CI)for(const [label,kind,extra] of [['fb-mini-anemo'"));
- assert(fit.includes("if(process.env.FIT_TIMES)console.log('FIT_TIME',size.name,label,Math.round(performance.now()));"));
+ assert(fit.includes("if(!(process.env.CI&&label==='fieldboss-battle-mutation'))await view(label+'-round2',"));assert(fit.includes("if(process.env.FIT_TIMES)console.log('FIT_TIME',size.name,label,Math.round(performance.now()));"));
 });
 
 console.log(JSON.stringify({ok:!process.exitCode,passed}));
