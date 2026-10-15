@@ -1,4 +1,4 @@
-/* 0.14.7 테이바트 UI. Loaded after style.css. Everything is scoped to body.teyvat, which app_shell.js sets while
+/* 0.14.7 티바트(Teyvat) UI. Loaded after style.css. Everything is scoped to body.teyvat, which app_shell.js sets while
    a journey is open, so the title screen keeps its own look. Night-sky glass, cream (#ece5d8) controls with dark
    ink, gold (#d3bc8e) trim, and an accent that follows the region (app_motion.js sets body[data-region]). */
 body.teyvat{

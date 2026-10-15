@@ -1,6 +1,6 @@
 'use strict';
 // 0.16.47 (user, 2026-10-15): 「휴대폰 할때 시작부터 화면이 좀 확 줌인 된 채로 시작되는 버그」, 「게임 이름이 왜 몬드와 리월의 여정임?
-// 나중에 이나즈마 안함?」, 「임무 이쪽도 어떤 임무인지 정확히 나오질 않아서 모르겠다」, 「상자나 업적으로 얻는 원석 수치를 3배정도로 늘리자」,
+// 나중에 이나즈마 안함?」 → 「테이바트가 한국 공식 이름이 아닐텐데..」 (공식: 티바트) → 부제 없이 「원신 CRPG」, 「임무 이쪽도 어떤 임무인지 정확히 나오질 않아서 모르겠다」, 「상자나 업적으로 얻는 원석 수치를 3배정도로 늘리자」,
 // and the verify job's 20 minutes (run #336 passed every step and was cancelled at 20:09).
 const assert=require('node:assert/strict'),fs=require('fs'),path=require('path');
 const root=path.resolve(__dirname,'..'),src=f=>fs.readFileSync(path.join(root,f.includes('/')?f:'source/'+f),'utf8');
@@ -15,10 +15,10 @@ check('a phone fits the game to what it shows: the visual viewport, a fixed fram
  assert(h.includes("[150,500,1200,2500].forEach(function(t){setTimeout(window.CRPGFrameFit,t);})"));
 });
 
-check('the game is 「테이바트의 여정」, not only Mondstadt and Liyue',()=>{
- for(const f of ['index.html','manifest.webmanifest'])assert(!src(f).includes('몬드와 리월의 여정'),f);
- assert(src('index.html').includes('<title>원신 CRPG · 테이바트의 여정</title>'));assert(src('index.html').includes('<span class="chapter-label">테이바트의 여정'));
- assert.equal(JSON.parse(src('manifest.webmanifest')).name,'원신 CRPG · 테이바트의 여정');
+check('the game is 「원신 CRPG」 with no region in its name (user: 「테이바트의 여정이 뭔데」 → 부제 없이)',()=>{
+ for(const f of ['index.html','manifest.webmanifest'])for(const old of ['몬드와 리월의 여정','테이바트의 여정'])assert(!src(f).includes(old),f+' '+old);
+ assert(src('index.html').includes('<title>원신 CRPG</title>'));assert(!src('index.html').includes('class="chapter-label"'));
+ assert.equal(JSON.parse(src('manifest.webmanifest')).name,'원신 CRPG');
 });
 
 check('the main screen\'s tasks say the whole task, and count the ones that open later',()=>{

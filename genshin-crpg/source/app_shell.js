@@ -1,4 +1,4 @@
-/* 0.14.7 테이바트 UI: a Genshin-style frame around the existing screens.
+/* 0.14.7 티바트(Teyvat) UI: a Genshin-style frame around the existing screens.
  * - The sidebar becomes a top HUD (place, time, level, HP, Mora, play phase) with an icon menu; phones get the
  *   same icons in a bottom dock. PC hotkeys follow the original game: Esc menu, F1 handbook, J quests, L party,
  *   C characters, B bag, O bonds, M map, T story. In the story, Space/Enter continue and 1-9 pick a choice.

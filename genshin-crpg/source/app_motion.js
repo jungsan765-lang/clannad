@@ -1,4 +1,4 @@
-/* 0.14.7 테이바트 UI motion: the screen answers the pointer. Cards and tiles tilt toward the cursor with a moving
+/* 0.14.7 티바트(Teyvat) UI motion: the screen answers the pointer. Cards and tiles tilt toward the cursor with a moving
  * light, the accent colour follows the region (Mond wind, Liyue rock, Dragonspine ice, the Chasm and the Abyss),
  * and slow light motes drift behind menus. Pure presentation: no game state, saves or actions. Turned off by
  * the 움직임 줄이기 setting or the system's reduced-motion preference. Load after app_shell.js. */
