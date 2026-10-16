@@ -165,6 +165,14 @@ try{
   await view('party-picker',`(async()=>{await __go('PARTY');document.querySelectorAll('.formation-slot .member-select')[1]?.click();})()`);
   await view('bag',`__go('INVENTORY')`);
   for(const i of [0,1,2,3,4])await view('bag-item'+i,`(async()=>{await __go('INVENTORY');const it=[...document.querySelectorAll('.bag-grid > *')][${i}];(it?.matches('button')?it:it?.querySelector('button')||it)?.click();})()`);
+  // 0.16.54 (user's picture: 「클라나드」「다이루크」 one letter a line in a dish's 「누구에게」 buttons): a dish's buttons keep each
+  // name on one line beside its HP bar, and the buttons of a row are the same width.
+  await view('bag-food-targets',`(async()=>{await __go('INVENTORY');const w=ms=>new Promise(r=>setTimeout(r,ms));let ok=false;
+   const food=[...document.querySelectorAll('button')].find(b=>/^음식\\s*\\d/.test(b.textContent.trim()));if(food){food.click();await w(150);}
+   for(const it of [...document.querySelectorAll('.bag-grid .bag-item')]){it.click();await w(120);const btns=[...document.querySelectorAll('.item-use-targets button.item-use-target')];if(btns.length<2||!document.querySelector('.item-use-targets .qm-hp'))continue;ok=true;
+    for(const b of btns){const n=b.querySelector('.item-use-name');if(!n)throw Error('no name span');const lh=parseFloat(getComputedStyle(n).lineHeight)||16;if(n.getBoundingClientRect().height>lh*1.6)throw Error('name wraps: '+n.textContent);}
+    const rows={};for(const b of btns){const r=b.getBoundingClientRect();(rows[Math.round(r.top)]??=[]).push(r.width);}for(const ws of Object.values(rows))if(ws.length>1&&Math.max(...ws)-Math.min(...ws)>4)throw Error('uneven buttons '+ws.join(','));break;}
+   if(!ok)throw Error('no dish with its buttons');})()`);
   await view('bag-more',`(async()=>{await __go('INVENTORY');const it=[...document.querySelectorAll('.bag-grid .bag-item')].find(b=>/\\+\\d/.test(b.textContent));it?.click();await new Promise(r=>setTimeout(r,200));document.querySelector('.bag-detail .fit-more')?.click();})()`);
   await view('character',`__go('STATUS')`);
   await page.evaluate(`__go('STATUS')`);

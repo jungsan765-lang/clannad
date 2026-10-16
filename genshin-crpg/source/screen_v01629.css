@@ -705,6 +705,11 @@ body.teyvat .qm-hp{display:block;height:6px;border-radius:3px;background:rgba(25
 body.teyvat .qm-hp>i{display:block;height:100%;background:linear-gradient(90deg,#6fd36a,#a8e86b)}
 body.teyvat .qm-hp.low>i{background:linear-gradient(90deg,#e0573f,#f08a5d)}
 body.teyvat .item-use-target>.qm-hp{width:100%;margin-top:2px}
+/* 0.16.54: the bag's 「누구에게」 buttons — the name and its HP bar stacked beside the face, two buttons a row, the same size. */
+body.teyvat :where(#root,#modal) button.item-use-target{flex:1 1 calc(50% - 6px);min-width:0;justify-content:flex-start}
+body.teyvat .item-use-copy{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1 1 auto}
+body.teyvat .item-use-name{white-space:nowrap;line-height:1.15;text-align:left}
+body.teyvat .item-use-copy>.qm-hp{width:100%}
 html.stage-phone body.teyvat .quick-meal{max-width:none;margin:4px auto 0;padding:4px 8px;gap:6px;grid-template-columns:auto auto auto;justify-content:center}
 html.stage-phone body.teyvat .quick-meal>.qm-title{grid-row:auto;font-size:.66rem}
 html.stage-phone body.teyvat .qm-foods,html.stage-phone body.teyvat .qm-people{flex-wrap:nowrap;gap:4px}
