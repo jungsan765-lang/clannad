@@ -45,6 +45,24 @@ check('field fights, bosses, ley lines, the abyss, raids, co-op and the story ar
 // 0.16.49 (user: 「쉬운 재료 갖다가 요리 두개 양산해서 쓰면 60레벨로 그냥 다 해먹을 수 있을거 아니야?」 → 「레벨에 맞는 요리만」): a dish clears
 // 피로 only when its rare ingredients are enough for the eater's level.
 const byName=(r,name)=>{for(const [id,row] of r.tables['14_ITEM_DB'])if(row[1]===name)return id;throw Error('no dish '+name);};
+// The fixed rare list in runtime_reading.js must match the game's data: one try at the best reachable place (from 몬드성 along
+// open paths) gives 1 or more → 0, at least ½ → 1, fewer → 2; a shop under 200 Mora → 0, only 200+ → 2; the easiest way counts.
+check('the fixed rare-ingredient list matches the gathering pools and the shops',()=>{
+ const r=domain(),t=r.tables,reach=new Set(['MAP_MOND_CITY']),edges=[...t['47_MAP_EDGE_DB'].values()].filter(e=>e[8]==='Y'&&e[11]==='ACTIVE');
+ for(let grew=true;grew;){grew=false;for(const e of edges)if(reach.has(e[1])&&!reach.has(e[2])&&t['32_MAP_DB'].has(e[2])){reach.add(e[2]);grew=true;}}
+ const field={},shop={};
+ for(const map of reach)for(const kind of ['GATHER','HUNT','FISH']){let pool=[];try{pool=r.lifePool(kind,map)||[];}catch{}const total=pool.reduce((n,p)=>n+(Number(p.weight)||0),0);if(!total)continue;for(const p of pool)field[p.item]=Math.max(field[p.item]||0,p.weight/total*((p.min||1)+(p.max||p.min||1))/2);}
+ for(const row of t['19_SHOP_STOCK_DB'].values()){if(row[2]!=='ITEM'||row[8]==='SYSTEM_DISABLED')continue;const price=Number(row[5]);if(Number.isFinite(price))shop[row[3]]=Math.min(shop[row[3]]??Infinity,price);}
+ const score=id=>{const w=[];if(field[id])w.push(field[id]>=1?0:field[id]>=.5?1:2);if(shop[id]!==undefined)w.push(shop[id]<200?0:2);return w.length?Math.min(...w):0;};
+ // Every ingredient of every recovery dish's recipe (and of what processes into them).
+ const made={};for(const row of t['17_RECIPE_DB'].values())if(row[2]==='ITEM'&&row[3])(made[row[3]]??=[]).push(row);
+ const used=new Set(),walk=(id,d)=>{for(const row of (made[id]||[]).filter(x=>d===0?x[1]==='요리':x[1]!=='요리'))for(let i=0;i<5;i++){const x=row[5+i*2];if(x&&!used.has(x)){used.add(x);if(d<3)walk(x,d+1);}}};
+ for(const id of t['14_ITEM_DB'].keys()){let spec=null;try{spec=r.foodSpec(id,{});}catch{}if(spec?.heal)walk(id,0);}
+ const fixed=F.rareIngredients,wrong=[...used].filter(id=>score(id)!==(fixed[id]||0)&&!(made[id]||[]).some(x=>x[1]!=='요리'));
+ assert.deepEqual(wrong.map(id=>id+' data '+score(id)+' list '+(fixed[id]||0)),[]);
+ for(const [id,n] of Object.entries(fixed))assert.equal(r.ingredientRarity(id),n,id);
+});
+
 check('a recovery dish clears 피로 only when its ingredients are rare enough for the eater\'s level',()=>{
  const r=domain();const dishes=[...r.tables['14_ITEM_DB'].keys()].filter(id=>{try{return !!r.foodSpec(id,{}).heal;}catch{return false;}});assert(dishes.length>=40);
  // Easy ingredients add nothing: 34 dishes score 0; 사과·일몰 열매·죽순·연꽃받침·절운고추 score 1 a piece, 송이버섯·금어초·솔방울 2.

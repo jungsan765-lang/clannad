@@ -12,9 +12,10 @@ battleStatusList=function(a,...rest){const list=priorList(a,...rest);try{const n
 // One small badge under a member's HP (the quick meal and the KO/inn party rows use it).
 // With a dish picked (the quick meal), it also says what the dish leaves: 「피로 2→0」.
 window.CRPGFatigueBadge=function(id,clear=0){const n=Number(game?.fatigueStacks?.(id))||0;if(!n)return null;const left=Math.max(0,n-(Number(clear)||0)),b=el('b','fatigue-badge'+(left<n?' easing':''),'피로 '+n+(left<n?'→'+left:''));b.title='비경 피로 '+n+' · 비경 안에서 공격력·방어력 −'+cut(n)+'%'+(left<n?' · 이 요리를 먹으면 피로 '+left:'');return b;};
-// A recovery dish's text in the bag and the shops says how much 피로 it clears for the protagonist's level (nothing when the
-// dish is too easy for that level).
-const withClear=d=>{try{const n=d&&!d.equip&&game?.foodFatigueClear?.(d.id);if(n>0&&d.effect&&!/피로 −/.test(d.effect))d.effect+=' · 피로 −'+n;}catch{}return d;};
+// A recovery dish's text in the bag and the shops says what it clears of 비경 피로 in each level band
+// (「비경 피로 Lv20까지 −4 · Lv40까지 −3 · Lv41~ −3」).
+const bandsText=b=>'비경 피로 '+b.map(x=>(x.upTo>=60?'Lv'+x.from+'~':'Lv'+x.upTo+'까지')+' '+(x.clear?'−'+x.clear:'없음')).join(' · ');
+const withClear=d=>{try{const b=d&&!d.equip&&game?.foodFatigueBands?.(d.id);if(b&&d.effect&&!/비경 피로/.test(d.effect))d.effect+=' · '+bandsText(b);}catch{}return d;};
 const IP=window.CRPGInventoryPresenter;
 if(IP?.create&&!IP.fatigueV01648){const make=IP.create;IP.create=function(...a){const p=make.apply(this,a);
  if(typeof p?.itemDetail==='function'){const one=p.itemDetail;p.itemDetail=function(...b){return withClear(one.apply(this,b));};}

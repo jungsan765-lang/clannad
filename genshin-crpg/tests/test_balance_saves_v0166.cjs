@@ -73,7 +73,10 @@ check('genuine 0.16.26 prepared Lv27 counter party retains three native wins and
   const started=JSON.parse(old.serialize()),again=new R(db,cp(started));assert.deepEqual(JSON.parse(again.serialize()),started);
   historicalFixture.observe(old);currentFixture.observe(again);
   const before=policy(old),after=policy(again);assert.equal(before.victory,true);assert.equal(before.rounds,anchor[3]);assert(before.rounds<=30);assert.deepEqual(cp(after),cp(before));
-  assert.deepEqual(JSON.parse(again.serialize()),JSON.parse(old.serialize()),'all actual final actors, receipt, PRNG and complete save retain genuine old rules');
+  // 0.16.49 (user: 「비경에 참가 캐릭터 말고도 다른 캐릭터들도 경험치를 받는 버그」) removed the 25% battle experience of owned characters
+  // outside the fight for every settlement; the genuine 0.16.26 engine still pays it, so only that experience is left out here.
+  const withoutBench=save=>{const s=cp(save),party=new Set((s.party||[]).filter(p=>p.active).map(p=>p.source));for(const [id,c] of Object.entries(s.chars||{}))if(!party.has(id)){delete c.xp;delete c.level;}if(s.lastGrowth)for(const id of Object.keys(s.lastGrowth))if(id!=='PLAYER_CUSTOM'&&!party.has(id))delete s.lastGrowth[id];return s;};
+  assert.deepEqual(withoutBench(JSON.parse(again.serialize())),withoutBench(JSON.parse(old.serialize())),'all actual final actors, receipt, PRNG and complete save retain genuine old rules (but the bench experience)');
  }
 });
 check('current gradual Lv27 budget has two native scripted wins and one loss, with exact saved continuation and payouts',()=>{

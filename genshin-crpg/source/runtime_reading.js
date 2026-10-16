@@ -37,32 +37,29 @@ P.previewStoryRead=function(node,type='STORY_NEXT',params={node}){
 const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.fatigueVersion)return;
 const fail=(c,m)=>{throw new api.RuleError(c,m);},copy=x=>JSON.parse(JSON.stringify(x));
 const PLAYER='PLAYER_CUSTOM',PER=.15,MAX=4,RECOVER_HP=.3,REVISION=2;
-// A dish's rarity: each raw ingredient of its recipe (a processed one counts as what it is made from) scores by the easiest
-// way to get it — 0 when a shop sells it for under 200 Mora or one try at the best reachable place gives 1 or more; 1 when one
-// try gives at least ½ (사과, 일몰 열매, 죽순, 연꽃받침, 절운고추); 2 when it gives fewer (송이버섯, 금어초, 솔방울) or only a 200+ Mora
-// shop has it. Easy ingredients add nothing, however many a dish needs.
+// A dish's rarity: each ingredient of its recipe (a processed one counts as what it is made from) scores by how hard it is
+// to get — 0 for anything a shop sells under 200 Mora or one try at a reachable place gives 1 or more of; 1 when one try gives
+// at least ½ (사과, 일몰 열매, 죽순, 연꽃받침, 절운고추 …); 2 when it gives fewer (송이버섯, 금어초, 솔방울 …). Easy ingredients add
+// nothing, however many a dish needs. The list is fixed here so the server and every screen agree; tests/test_fatigue_v01648.cjs
+// recomputes it from the gathering pools and the shops and fails when they drift apart.
 // The eater's level asks for a rarity: Lv20 or lower 0, Lv21–40 1, Lv41 and up 2. A dish under that clears nothing; one at it
 // clears 1, and every 2 more clear 1 more (up to 4). A dish with no recipe (only sold) scores by its grade.
-const GRADE_RARITY={'일반':0,'고급':1,'희귀':2,'전설':4},NEED=[[20,0],[40,1],[Infinity,2]],RARE_PRICE=200;
+const RARE={ING_APPLE:1,ING_SUNSETTIA:1,ING_LOTUS_HEAD:1,ING_BAMBOO_SHOOT:1,MAT_LIYUE_JUEYUN_CHILI:1,MAT_LIYUE_GLAZE_LILY:1,MAT_LIYUE_STARCONCH:1,
+ ING_MATSUTAKE:2,ING_SNAPDRAGON:2,ING_PINECONE:2,ING_JAM:2,ING_CALLA_LILY:2,ING_LAMP_GRASS:2,MAT_LIYUE_NOCTILUCOUS_JADE:2};
+const GRADE_RARITY={'일반':0,'고급':1,'희귀':2,'전설':4},NEED=[[20,0],[40,1],[Infinity,2]];
 const needFor=level=>NEED.find(([top])=>(Number(level)||1)<=top)[1];
 const tableCache=new WeakMap();
-function rarityTable(rt){
- const key=rt.tables['17_RECIPE_DB'];let c=tableCache.get(key);if(c)return c;
- // Places the map can reach (from 몬드성 along open paths): a region not in the game yet does not make a food common.
- const reach=new Set(['MAP_MOND_CITY']),edges=[...rt.tables['47_MAP_EDGE_DB'].values()].filter(e=>e[8]==='Y'&&e[11]==='ACTIVE');
- for(let grew=true;grew;){grew=false;for(const e of edges)if(reach.has(e[1])&&!reach.has(e[2])&&rt.tables['32_MAP_DB'].has(e[2])){reach.add(e[2]);grew=true;}}
- const field={},shop={};
- for(const map of reach)for(const kind of ['GATHER','HUNT','FISH']){let pool=[];try{pool=rt.lifePool(kind,map)||[];}catch{}const total=pool.reduce((n,p)=>n+(Number(p.weight)||0),0);if(!total)continue;
-  for(const p of pool){const y=(Number(p.weight)||0)/total*((Number(p.min)||1)+(Number(p.max)||Number(p.min)||1))/2;field[p.item]=Math.max(field[p.item]||0,y);}}
- for(const row of rt.tables['19_SHOP_STOCK_DB'].values()){if(row[2]!=='ITEM'||row[8]==='SYSTEM_DISABLED')continue;const price=Number(row[5]);if(Number.isFinite(price))shop[row[3]]=Math.min(shop[row[3]]??Infinity,price);}
- const made={};for(const row of rt.tables['17_RECIPE_DB'].values())if(row[2]==='ITEM'&&row[3])(made[row[3]]??=[]).push(row);
- c={field,shop,made,dish:{}};tableCache.set(key,c);return c;
+// Ingredients come from 48_RECIPE_INGREDIENT_DB, the table the cooking itself uses (recipeCost); the columns of 17_RECIPE_DB
+// are not filled the same way on every screen.
+function recipeTable(rt){
+ const key=rt.tables['48_RECIPE_INGREDIENT_DB'];let c=tableCache.get(key);if(c)return c;
+ const made={},parts={};for(const row of rt.tables['17_RECIPE_DB'].values())if(row[2]==='ITEM'&&row[3])(made[row[3]]??=[]).push(row);
+ for(const i of [...key.values()].sort((a,b)=>a[2]-b[2]))if(i[3]&&Number(i[4])>0)(parts[i[1]]??=[]).push([i[3],Number(i[4])]);
+ c={made,parts,dish:{}};tableCache.set(key,c);return c;
 }
-const unitRarity=(t,id)=>{const r=[];if(t.field[id])r.push(t.field[id]>=1?0:t.field[id]>=.5?1:2);if(t.shop[id]!==undefined)r.push(t.shop[id]<RARE_PRICE?0:2);return r.length?Math.min(...r):null;};
-const parts=row=>{const out=[];for(let i=0;i<5;i++){const id=row[5+i*2],n=Number(row[6+i*2]);if(id&&n>0)out.push([id,n]);}return out;};
 function rarityOf(t,id,n,depth){
- const r=unitRarity(t,id);if(r!==null)return n*r;
- const proc=(t.made[id]||[]).find(x=>x[1]!=='요리');if(proc&&depth<4){const per=Number(proc[4])||1;return parts(proc).reduce((s,[i,q])=>s+rarityOf(t,i,q*n/per,depth+1),0);}
+ if(RARE[id]!==undefined)return n*RARE[id];
+ const proc=(t.made[id]||[]).find(x=>x[1]!=='요리');if(proc&&depth<4){const per=Number(proc[4])||1;return (t.parts[proc[0]]||[]).reduce((s,[i,q])=>s+rarityOf(t,i,q*n/per,depth+1),0);}
  return 0;
 }
 const old=Object.fromEntries(['startBattle','finishBattle','meal','buy','recoverParty','validateSave'].map(k=>[k,P[k]]));
@@ -93,8 +90,11 @@ P.finishBattle=function(victory,...rest){
  if(out&&typeof out==='object'){out.fatigue=info;const key=out.battleId||out.id;if(key&&this.s.combatReceipts?.[key])this.s.combatReceipts[key].fatigue=copy(info);try{const last=JSON.parse(this.s.global.LAST_BATTLE_RESULT_JSON||'null');if(last&&(last.battleId||last.id)===key){last.fatigue=copy(info);this.s.global.LAST_BATTLE_RESULT_JSON=JSON.stringify(last);}}catch{}}
  return out;
 };
-P.foodRarity=function(item){const t=rarityTable(this);if(item in t.dish)return t.dish[item];const rec=(t.made[item]||[]).find(r=>r[1]==='요리');return t.dish[item]=rec?parts(rec).reduce((s,[i,q])=>s+rarityOf(t,i,q,0),0):(GRADE_RARITY[this.tables['14_ITEM_DB']?.get(item)?.[3]]??0);};
+P.foodRarity=function(item){const t=recipeTable(this);if(item in t.dish)return t.dish[item];const rec=(t.made[item]||[]).find(r=>r[1]==='요리');return t.dish[item]=rec?(t.parts[rec[0]]||[]).reduce((s,[i,q])=>s+rarityOf(t,i,q,0),0):(GRADE_RARITY[this.tables['14_ITEM_DB']?.get(item)?.[3]]??0);};
 P.foodFatigueNeed=function(owner=PLAYER){return needFor(levelOf(this,owner));};
+// For the screens: how rare one ingredient is (0 · 1 · 2), and what a dish clears in each level band.
+P.ingredientRarity=function(id){return rarityOf(recipeTable(this),id,1,0);};
+P.foodFatigueBands=function(item){let spec=null;try{spec=this.foodSpec(item,{});}catch{}if(!spec?.heal)return null;const r=this.foodRarity(item);return NEED.map(([top,need],i)=>({from:i?NEED[i-1][0]+1:1,upTo:Number.isFinite(top)?top:60,need,clear:r<need?0:Math.min(MAX,1+Math.floor((r-need)/2))}));};
 P.foodFatigueClear=function(item,owner=PLAYER){let spec=null;try{spec=this.foodSpec(item,{});}catch{}if(!spec?.heal)return 0;const r=this.foodRarity(item),need=this.foodFatigueNeed(owner);return r<need?0:Math.min(MAX,1+Math.floor((r-need)/2));};
 // A recovery dish eases 피로 when it is hard enough for the eater's level. A tired eater at full HP may still eat such a dish
 // (the meal rule refuses full HP): the HP is lowered by 1 for the check and the dish fills it again.
@@ -125,5 +125,5 @@ P.validateSave=function(s){
  return out;
 };
 P.fatigueVersion=REVISION;
-api.fatigueV01648={version:REVISION,perStack:PER,max:MAX,stats:['atk','def'],need:NEED.map(([top,n])=>({upToLevel:Number.isFinite(top)?top:60,rarity:n})),rarePrice:RARE_PRICE,gradeRarity:copy(GRADE_RARITY),recoverHp:RECOVER_HP};
+api.fatigueV01648={version:REVISION,perStack:PER,max:MAX,stats:['atk','def'],need:NEED.map(([top,n])=>({upToLevel:Number.isFinite(top)?top:60,rarity:n})),rareIngredients:copy(RARE),gradeRarity:copy(GRADE_RARITY),recoverHp:RECOVER_HP};
 })(globalThis);

@@ -1764,3 +1764,17 @@ html.stage-phone body.teyvat .fatigue-head>small{font-size:.5rem}
 html.stage-phone body.teyvat .fatigue-face{width:24px;height:24px;flex-basis:24px}
 html.stage-phone body.teyvat .fatigue-copy>small{font-size:.5rem}
 html.stage-phone body.teyvat .fatigue-copy>b{font-size:.56rem}
+/* 0.16.49 요리의 비경 피로: a row of level bands on a recovery dish (the protagonist's band lit), 「드묾」 on rare ingredients */
+body.teyvat .cook-fatigue{display:flex;align-items:center;flex-wrap:wrap;gap:4px 6px;margin:4px 0}
+body.teyvat .cook-fatigue-label{font-size:.72rem;font-weight:700;color:#ffd3c2;margin-right:2px}
+body.teyvat .cook-fatigue-band{display:inline-flex;align-items:baseline;gap:4px;padding:1px 7px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.22)}
+body.teyvat .cook-fatigue-band>small{font-size:.62rem;color:var(--t-muted,#a9b0bd)}
+body.teyvat .cook-fatigue-band>b{font-size:.74rem;color:#9be38f}
+body.teyvat .cook-fatigue-band.none>b{color:#8a8f99;font-weight:600}
+body.teyvat .cook-fatigue-band.now{border-color:rgba(243,223,174,.8);background:rgba(243,223,174,.14)}
+body.teyvat .cook-chip-rare{margin-left:4px;padding:0 4px;border-radius:5px;background:rgba(150,90,200,.35);color:#ecd7ff;font-size:.56rem;line-height:1.4;white-space:nowrap}
+body.teyvat .cook-fatigue-note{margin:2px 0 0;font-size:.72rem;color:#ffd3c2;word-break:keep-all}
+html.stage-phone body.teyvat .cook-fatigue-label{font-size:.6rem}
+html.stage-phone body.teyvat .cook-fatigue-band>small{font-size:.52rem}
+html.stage-phone body.teyvat .cook-fatigue-band>b{font-size:.62rem}
+html.stage-phone body.teyvat .cook-fatigue-note{font-size:.58rem}
