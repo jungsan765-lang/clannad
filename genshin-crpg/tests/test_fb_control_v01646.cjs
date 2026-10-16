@@ -10,7 +10,7 @@ const PLAYER='PLAYER_CUSTOM';
 const S=r=>r.s.runtime,bossOf=(r,id)=>S(r).actors.find(a=>a.source===id),meOf=r=>S(r).actors.find(a=>a.source===PLAYER);
 function field(id,team=['MOND_AMBER','MOND_NOELLE','MOND_BARBARA'],route='ROUTE_ISEKAI'){
  const r=H.setup(env,{level:FB.levels[id],route,team,seed:717,map:FB.bosses[id].map,enhance:3,talent:4});
- r.action('PLACE_ENTER',{place:'BOSS:'+FB.route(id),mode:'BOSS'});r.action('BOSS_ROUTE',{route:FB.route(id),entry:'DIRECT'});
+ r.action('PLACE_ENTER',{place:'BOSS:'+FB.route(id),mode:'BOSS'});r.action('BOSS_ROUTE',{route:FB.route(id),entry:'DIRECT'});/* 0.16.57: the shut core of 무상의 뇌전·바위·얼음 is checked in tests/test_boss_core_v01657.cjs; these read the fight without it */delete S(r).fieldBoss.coreRevision;
  r.die=()=>50;r.random=()=>.5;if(S(r).opening?.state==='PENDING')r.action('COMBAT_BEGIN');
  return{r,b:S(r),boss:bossOf(r,id),me:meOf(r)};
 }
@@ -135,7 +135,7 @@ check('the page plays the four minigames with keys, a phone pad and touch, and s
  const js=src('source/app_bossgames_v01646.js');
  for(const id of Object.values(CTL.cards))assert(js.includes("'"+id+"'"),id);
  for(const k of ['ANEMO_DODGE','ANDRIUS_DODGE','CRYO_CHASE','DVALIN_SNIPE','TARTAGLIA_DODGE','AZHDAHA_DODGE'])assert(js.includes(k+':'),k);
- assert(js.includes('act=async function(type,params={})')&&js.includes('{...params,mini:result}'));assert(js.includes("KeyW:'U'")&&js.includes("ArrowUp:'U'"));assert(js.includes('fb-mini-pad'));assert(js.includes("addEventListener('keydown',keydown,true)"));
+ assert(js.includes('act=async function(type,params={})')&&js.includes('{...params,mini:result}'));assert(js.includes("KeyW:'U'")&&js.includes("ArrowUp:'U'"));assert(js.includes('fb-mini-stick'));assert(js.includes("addEventListener('keydown',keydown,true)"));
  assert(!/<select|::after|::before/.test(js),'no drop-downs or pseudo-element text');
  assert(src('source/index.html').includes('<script src="app_bossgames_v01646.js"></script>'));assert(src('tools/build.py').includes("'app_bossgames_v01646.js'"));
  assert(src('tools/verify_release.py').includes("'tests/test_fb_control_v01646.cjs'"));

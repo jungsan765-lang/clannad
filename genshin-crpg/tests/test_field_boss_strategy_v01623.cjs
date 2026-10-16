@@ -84,7 +84,7 @@ for(const revision of [4,'old5',5])check('geo_pillar_spec_initial_growth_and_sav
  const expected=revision===5?{hp:.07/1.1,def:75,maxHp:3648,grownDef:1360}:revision==='old5'?{hp:.07,def:75,maxHp:4013,grownDef:907}:{hp:.1,def:150,maxHp:5732,grownDef:1813};
  const spec=f.r.fieldBossSummonSpec(f.b,'FB_SUMMON_PILLAR');assert.equal(spec.hp,expected.hp);assert.equal(spec.def,expected.def);/* 0.16.53 long fight: boss HP ×bossLength.hp, the pillars keep their size */assert.equal(f.boss.maxHp,57324*(f.b.bossLength?.hp||1));
  assert.equal(f.b.fieldBoss.pressureRevision,revision===5?1:undefined);assert.equal(f.b.enemyBalanceRevision,revision===5?1:undefined);
- const pillars=summons(f);assert.equal(pillars.length,3);for(const p of pillars){assert.equal(p.maxHp,expected.maxHp);assert.equal(p.atk,0);assert.equal(p.def,expected.grownDef);assert.equal(p.growthScaled,true);}
+ const pillars=summons(f);assert.equal(pillars.length,3);for(const p of pillars){/* 0.16.57: 무상의 바위's long fight is HP ×2, which rounds its boss-sized pillars a point differently */assert(Math.abs(p.maxHp-expected.maxHp)<=1,'pillar '+p.maxHp+' vs '+expected.maxHp);assert.equal(p.atk,0);assert.equal(p.def,expected.grownDef);assert.equal(p.growthScaled,true);}
  const saved=JSON.parse(f.r.serialize()),loaded=new R(db,cp(saved));assert.deepEqual(cp(loaded.s.runtime),cp(saved.runtime));assert.equal(loaded.fieldBossSummonSpec(loaded.s.runtime,'FB_SUMMON_PILLAR').hp,spec.hp);assert.equal(loaded.fieldBossSummonSpec(loaded.s.runtime,'FB_SUMMON_PILLAR').def,spec.def);
  return{revision,isolatedPastMechanics:revision!==5,ownerHp:f.boss.maxHp,expected,spec:cp(spec),pillars:pillars.map(p=>({hp:p.maxHp,def:p.def})),saveUnchanged:true};
 });

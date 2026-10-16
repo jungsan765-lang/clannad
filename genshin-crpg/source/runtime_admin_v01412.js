@@ -90,6 +90,9 @@ P.adminApply=function(op={}){
   case 'battle_end':{this.adminViaOperator({op:'battle_end',win:op.win===true});return '진행 중인 전투를 '+(op.win===true?'승리':'패배')+'로 끝냄';}
   case 'abyss_unlock':{const value=whole(op.value,1,12,'층');this.adminViaOperator({op:'abyss_unlock',value});return '나선비경 '+(value-1)+'층까지 정복 처리';}
   case 'field_boss_reset':delete this.s.fieldBossWindow;return '필드 보스 처치 횟수 초기화';
+  // 0.16.57 (user: 「운영자도구에 필드보스 횟수 초기화 말고도 일일보스 초기화도 좀 넣어줘. 테스트하려면 필요해」): today's daily boss challenge
+  // (안드리우스·드발린·타르탈리아·야타용왕, one for all of them a day) opens again.
+  case 'daily_boss_reset':{delete this.s.bossRealAdmissions;const cd=this.s.liyueArtifactFarm?.cooldowns;if(cd)for(const k of Object.keys(cd))cd[k]=0;return '일일 보스 도전 기록 초기화';}
   case 'weekly_reset':delete this.s.premiumWeekly;return '주간 교환 한도 초기화';
   case 'wish_pity':{
    const banner=op.banner==='STANDARD'?'STANDARD':op.banner==='EVENT'?'EVENT':null;if(!banner)fail('기원을 골라 주세요.');

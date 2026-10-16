@@ -186,7 +186,10 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.bossLengthVersion)return
 // 0.16.55 (user: 「적 공격력도 전체적으로 잘 체크해봐」): at the boss's own level the 4★ parties ended 무상의 뇌전 74–88% and 유적의 뱀 75–85% whole;
 // 무상의 뇌전 ×0.55 and 유적의 뱀 ×0.75 leave them 61–78% and 45–65%, every one of five saves still a win. The others stay: a little more and
 // the healer stops keeping up, so the same parties lose outright (×0.5–0.6 already beat 무상의 바람·무상의 얼음·무상의 바위·얼음 나무 in some saves).
-const LENGTH={hp:3,atk:.45},BY_BOSS={FB_ELECTRO_HYPOSTASIS:{atk:.55},FB_RUIN_SERPENT:{hp:4,atk:.75},FB_PRIMO_GEOVISHAP:{hp:4},FB_OCEANID:{hp:1,forms:20},BOSS_ANDRIUS:{atk:.35},LIYUE_TARTAGLIA_FARM:{atk:.34},LIYUE_AZHDAHA_FARM:{atk:.75}},TERRAIN_EVERY=6,RAGE_EVERY=2;
+// 0.16.57 (user: 「무상의 뇌전같은 다른 무상 애들은 왜 핵 닫히는게 없노?」): 무상의 뇌전·바위 now keep their core shut while they wind up
+// (runtime_field_bosses.js fieldBossCore), so their fights spend about a third of their rounds unable to hurt them: HP ×2 instead of ×3
+// keeps them as long as before. 무상의 얼음 keeps ×3 — its 20% ice wall became the shell over the core, which shortened it enough.
+const LENGTH={hp:3,atk:.45},BY_BOSS={FB_ELECTRO_HYPOSTASIS:{hp:2,atk:.55},FB_GEO_HYPOSTASIS:{hp:2},FB_RUIN_SERPENT:{hp:4,atk:.75},FB_PRIMO_GEOVISHAP:{hp:4},FB_OCEANID:{hp:1,forms:20},BOSS_ANDRIUS:{atk:.35},LIYUE_TARTAGLIA_FARM:{atk:.34},LIYUE_AZHDAHA_FARM:{atk:.75}},TERRAIN_EVERY=6,RAGE_EVERY=2;
 const old=Object.fromEntries(['startBattle','validateSave','fbSummon','fbStartRevival','fbRevivalExpired','shield','addHazard','prepareAndriusRound','enemyIntel'].map(k=>[k,P[k]]));
 // Only the boss's own repeat fight (the field boss's route, the daily challenge), the same scope as its challenge profile.
 const isBossFight=b=>!!b&&!b.coopStory&&!b.storyConfig&&!b.abyss&&!b.raid&&(!!b.fieldBoss||String(b.origin||'').startsWith('MATERIAL_CHALLENGE:'));
@@ -255,4 +258,26 @@ if(api.adminBalance?.catalog){const catalog=api.adminBalance.catalog;api.adminBa
 };}
 P.bossLengthVersion=1;
 api.bossLengthV01653={version:1,hp:LENGTH.hp,atk:LENGTH.atk,byBoss:JSON.parse(JSON.stringify(BY_BOSS)),terrainEvery:TERRAIN_EVERY,rageEvery:RAGE_EVERY};
+})(globalThis);
+// 0.16.57 (user: 「전초부터 도전은 근데 뭐야? 일부러 둔거야?」, 「안드리우스는 체력이 왜이렇게 낮지? 일부러 이렇게 한거?」; asked, answered
+// 「없애고 일일 보스만」): the first upload's boss routes for 안드리우스 and 야타용왕 — a boss without the daily boss's strength (안드리우스
+// 11,482 HP against 60,282) and an optional 전초전, sharing the one daily boss a day — are gone. Their arenas hold the daily boss alone, as
+// in the original. With no route to win first, the daily boss now also opens with the story: 안드리우스 when 몬드 본편 is done, 야타용왕
+// with 리월 본편 3장 (a past route win still opens it). A route fight already going ends as it began; a half-done route is put away.
+(function(root){
+'use strict';
+const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.retiredBossRoutesV01657)return;
+const RETIRED=new Set(['BRT_ANDRIUS','BRT_AZHDAHA']),old=Object.fromEntries(['placeCatalog','placeBossReason','materialChallengeReason','liyueArtifactUnlocked','liyueArtifactFarmReason','validateSave'].map(k=>[k,P[k]]));
+if(old.placeCatalog)P.placeCatalog=function(...a){return old.placeCatalog.apply(this,a).filter(e=>!(e.kind==='BOSS'&&RETIRED.has(e.route)));};
+if(old.placeBossReason)P.placeBossReason=function(id,...a){if(RETIRED.has(id))return '이 도전은 「일일 보스 · 토벌」로 바뀌었습니다.';return old.placeBossReason.call(this,id,...a);};
+if(old.materialChallengeReason)P.materialChallengeReason=function(boss,...a){const why=old.materialChallengeReason.call(this,boss,...a);if(boss==='BOSS_ANDRIUS'&&why==='본편 또는 현장 도전에서 이 보스를 먼저 클리어해야 합니다.')return this.growthStoryGate?.(2)?.ready?'':'몬드 본편을 마치면 열립니다.';return why;};
+if(old.liyueArtifactUnlocked)P.liyueArtifactUnlocked=function(kind,...a){return old.liyueArtifactUnlocked.call(this,kind,...a)||kind==='AZHDAHA'&&!!this.growthStoryGate?.(5)?.ready;};
+if(old.liyueArtifactFarmReason)P.liyueArtifactFarmReason=function(kind,...a){const why=old.liyueArtifactFarmReason.call(this,kind,...a);return why==='야타용왕을 먼저 클리어해야 합니다.'?'리월 본편 3장을 마치면 열립니다.':why;};
+P.validateSave=function(s,...a){
+ if(s&&!s.runtime){if(RETIRED.has(s.bossRouteProgress?.route))delete s.bossRouteProgress;const g=s.global||{};if(RETIRED.has(g.ACTIVE_BOSS_ROUTE_ID)){g.ACTIVE_BOSS_ROUTE_ID='';g.BOSS_ROUTE_STEP=0;}
+  const v=s.placeVisit;if(v&&typeof v.place==='string'&&v.place.startsWith('BOSS:')&&RETIRED.has(v.place.slice(5))){s.placeVisit=null;if(g.SCREEN_MODE==='BOSS_INTRO')g.SCREEN_MODE='LOCATION';}}
+ return old.validateSave.call(this,s,...a);
+};
+P.retiredBossRoutesV01657=true;
+api.retiredBossRoutesV01657=[...RETIRED];
 })(globalThis);

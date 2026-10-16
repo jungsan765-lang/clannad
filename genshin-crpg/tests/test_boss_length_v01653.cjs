@@ -21,7 +21,7 @@ const boss=r=>S(r).actors.find(a=>a.side==='ENEMY'&&(a.fb||a.grade==='보스')&&
 
 check('a new field boss fight: boss HP ×3 and ATK ×0.45 (0.16.54: 유적의 뱀·고대 바위 용 도마뱀 HP ×4, 물의 정령 20 forms; 0.16.55: 뇌전 ATK ×0.55, 유적의 뱀 ×0.75); summons, defence and draws as before',()=>{
  assert.deepEqual(plain({hp:L.hp,atk:L.atk,terrainEvery:L.terrainEvery}),{hp:3,atk:.45,terrainEvery:6});
- for(const id of ['FB_ANEMO_HYPOSTASIS','FB_CRYO_HYPOSTASIS','FB_RUIN_SERPENT','FB_OCEANID','FB_ELECTRO_HYPOSTASIS']){const a=field(env,id),b=field(before,id),x=boss(a),y=boss(b),k=id==='FB_RUIN_SERPENT'?4:id==='FB_OCEANID'?1:3,m={FB_RUIN_SERPENT:.75,FB_ELECTRO_HYPOSTASIS:.55}[id]||.45;
+ /* 0.16.57 (user: 「무상의 뇌전같은 다른 무상 애들은 왜 핵 닫히는게 없노?」): 무상의 뇌전·바위 keep their core shut a third of the time now, so HP ×2 */for(const id of ['FB_ANEMO_HYPOSTASIS','FB_CRYO_HYPOSTASIS','FB_RUIN_SERPENT','FB_OCEANID','FB_ELECTRO_HYPOSTASIS','FB_GEO_HYPOSTASIS']){const a=field(env,id),b=field(before,id),x=boss(a),y=boss(b),k=id==='FB_RUIN_SERPENT'?4:id==='FB_OCEANID'?1:['FB_ELECTRO_HYPOSTASIS','FB_GEO_HYPOSTASIS'].includes(id)?2:3,m={FB_RUIN_SERPENT:.75,FB_ELECTRO_HYPOSTASIS:.55}[id]||.45;
   assert.deepEqual(plain(S(a).bossLength),id==='FB_OCEANID'?{version:1,hp:1,atk:.45,forms:20}:{version:1,hp:k,atk:m},id);
   assert.equal(x.maxHp,Math.max(1,Math.round(y.maxHp*k)),id+' HP');assert.equal(x.atk,Math.max(1,Math.round(y.atk*m)),id+' ATK');assert.equal(x.def,y.def,id+' DEF');
   assert.equal(a.s.global.PRNG_STATE,b.s.global.PRNG_STATE,id);}
@@ -34,7 +34,7 @@ check('what is measured against the boss\'s max HP keeps its old size: its own s
  // 무상의 바람's core (a fight saved before 0.16.54's 「바람 원소 모으기」): 18% of the old max HP
  const w=field(env,'FB_ANEMO_HYPOSTASIS'),y=boss(w);delete S(w).fieldBoss.anemoOrbs;w.fbStartRevival(y);assert.equal(y.fb.revival.core,Math.round(Math.round(y.maxHp*.18)/3));
  // 현암 기둥 (a tenth of the boss)
- const g=field(env,'FB_GEO_HYPOSTASIS'),z=boss(g),p=g.fbSummon(S(g),z,'FB_SUMMON_PILLAR'),gb=field(before,'FB_GEO_HYPOSTASIS'),pb=gb.fbSummon(S(gb),boss(gb),'FB_SUMMON_PILLAR');assert.equal(p.maxHp,Math.max(1,Math.round(pb.maxHp*Math.round(boss(gb).maxHp*3)/(boss(gb).maxHp*3))));assert(Math.abs(p.maxHp-pb.maxHp)<=1,'pillar '+p.maxHp+' vs '+pb.maxHp);
+ const g=field(env,'FB_GEO_HYPOSTASIS'),z=boss(g),p=g.fbSummon(S(g),z,'FB_SUMMON_PILLAR'),gb=field(before,'FB_GEO_HYPOSTASIS'),pb=gb.fbSummon(S(gb),boss(gb),'FB_SUMMON_PILLAR');assert.equal(p.maxHp,Math.max(1,Math.round(pb.maxHp*Math.round(boss(gb).maxHp*2)/(boss(gb).maxHp*2))));assert(Math.abs(p.maxHp-pb.maxHp)<=1,'pillar '+p.maxHp+' vs '+pb.maxHp);
  // a failed revival: 40% of the old max HP
  w.fbRevivalExpired(S(w),y);assert.equal(y.hp,Math.round(Math.round(y.maxHp*.4)/3));
  // 0.16.54: the orbs revival comes back with its share of the old max HP too (5% + 7% for each orb missed)

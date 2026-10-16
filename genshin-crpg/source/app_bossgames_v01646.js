@@ -12,13 +12,13 @@ const SND=n=>{try{window.CRPGSound?.play?.(n);}catch{}};
 const touchDevice=()=>matchMedia('(hover:none)').matches||navigator.maxTouchPoints>0;
 const KIND={
  SERPENT_SNIPE:{title:'약점 저격',chips:m=>[touchDevice()?'약점을 눌러 쏘기':'약점을 클릭해 쏘기','탄 '+m.shots+'발','모래가 솟는 동안은 숨음','약점 '+m.points+'곳 · 둘이면 갑주가 열림'],color:'#f2d36b',move:false},
- FROST_FRUIT:{title:'서리 열매 치기',chips:m=>[touchDevice()?'열매를 눌러 날리기':'열매를 클릭해 날리기','안쪽 얼음 조각에 막히면 깨짐','한기 파동이 지나가면 손이 얼어붙음','보호막에 '+m.need+'번 · 열매 '+m.shots+'개'],color:'#a8e4ff',move:false},
- ANEMO_ORBS:{title:'바람 원소 모으기',chips:m=>[touchDevice()?'방향 버튼 · 끌기로 이동':'WASD · 방향키로 이동','바람 원소 '+m.orbs+'개 모으기 · 보스는 무적','기류를 타면 빠름 · 흐름대로 밀림','탄환·본체에 닿으면 파티 전원 피해','못 주운 원소는 보스가 흡수'],color:'#74e0c6',move:true},
- ANEMO_DODGE:{title:'바람 탄막 피하기',chips:m=>[touchDevice()?'방향 버튼 · 끌기로 이동':'WASD · 방향키로 이동','탄환에 맞으면 파티 전원 피해','바람 원소 '+m.orbs+'개 · 원소폭발 충전'],color:'#74e0c6',move:true},
+ FROST_FRUIT:{title:'서리 열매 치기',chips:m=>[touchDevice()?'화면 어디든 끌어서 움직이기':'WASD · 방향키로 움직이기','빛나는 열매를 밟아 줍기',touchDevice()?'오른쪽 「던지기」로 던지기':'클릭 · 스페이스로 던지기','조준선이 파랄 때 던지면 틈으로 들어감','발밑이 빛나면 비키기','보호막에 '+m.need+'번 · 던지기 '+m.shots+'번'],color:'#a8e4ff',move:true,fire:true},
+ ANEMO_ORBS:{title:'바람 원소 모으기',chips:m=>[touchDevice()?'화면 어디든 끌어서 이동':'WASD · 방향키로 이동','바람 원소 '+m.orbs+'개 모으기 · 보스는 무적','기류를 타면 빠름 · 흐름대로 밀림','탄환·본체에 닿으면 파티 전원 피해','못 주운 원소는 보스가 흡수'],color:'#74e0c6',move:true},
+ ANEMO_DODGE:{title:'바람 탄막 피하기',chips:m=>[touchDevice()?'화면 어디든 끌어서 이동':'WASD · 방향키로 이동','탄환에 맞으면 파티 전원 피해','바람 원소 '+m.orbs+'개 · 원소폭발 충전'],color:'#74e0c6',move:true},
  // 0.16.54: 타르탈리아's attack follows his phase (m.phase 1 물 화살비 · 2 뇌전 창 · 3 극악기·진멸; none: a fight saved before).
- TARTAGLIA_DODGE:{title:m=>m.phase===1?'물 화살비 피하기':m.phase===2?'뇌전 창 피하기':'진멸 피하기',chips:m=>[touchDevice()?'방향 버튼 · 끌기로 이동':'WASD · 방향키로 이동',m.phase===1?'쏟아지는 물 화살 · 겨눈 물 화살':m.phase===2?'빛나는 줄의 번개 창 · 번개 돌진':'물 칼날 · 빛나는 줄의 번개 창','한 발도 안 맞으면 빈틈'],color:'#7fd4ff',move:true},
- AZHDAHA_DODGE:{title:'충격파 넘기',chips:()=>[touchDevice()?'방향 버튼 · 끌기로 이동':'WASD · 방향키로 이동','충격파의 틈으로 빠져나가기','그림자 진 곳에 운석','한 발도 안 맞으면 빈틈'],color:'#f0c46a',move:true},
- ANDRIUS_DODGE:{title:'질주 피하기',chips:()=>[touchDevice()?'방향 버튼 · 끌기로 이동':'WASD · 방향키로 이동','빛나는 길로 늑대가 달려든다','한 발도 안 맞으면 빈틈'],color:'#9fd8ef',move:true},
+ TARTAGLIA_DODGE:{title:m=>m.phase===1?'물 화살비 피하기':m.phase===2?'뇌전 창 피하기':'진멸 피하기',chips:m=>[touchDevice()?'화면 어디든 끌어서 이동':'WASD · 방향키로 이동',m.phase===1?'쏟아지는 물 화살 · 겨눈 물 화살':m.phase===2?'빛나는 줄의 번개 창 · 번개 돌진':'물 칼날 · 빛나는 줄의 번개 창','한 발도 안 맞으면 빈틈'],color:'#7fd4ff',move:true},
+ AZHDAHA_DODGE:{title:'충격파 넘기',chips:()=>[touchDevice()?'화면 어디든 끌어서 이동':'WASD · 방향키로 이동','충격파의 틈으로 빠져나가기','그림자 진 곳에 운석','한 발도 안 맞으면 빈틈'],color:'#f0c46a',move:true},
+ ANDRIUS_DODGE:{title:'질주 피하기',chips:()=>[touchDevice()?'화면 어디든 끌어서 이동':'WASD · 방향키로 이동','빛나는 길로 늑대가 달려든다','한 발도 안 맞으면 빈틈'],color:'#9fd8ef',move:true},
  CRYO_CHASE:{title:'냉기 핵 쫓기',chips:m=>[touchDevice()?'핵을 눌러 맞히기':'핵을 클릭해 맞히기','가까이 가면 달아나고 순간이동','얼음 가시를 누르면 잠시 얼어붙음','부서질 때까지 '+m.need+'번'],color:'#a8e4ff',move:false},
  DVALIN_SNIPE:{title:'부식 결정 저격',chips:m=>[touchDevice()?'결정을 눌러 쏘기':'결정을 클릭해 쏘기','탄 '+m.shots+'발','폭풍이 불 때 쏘면 빗나감','결정 '+m.crystals+'개'],color:'#c58cff',move:false}};
 let running=null;
@@ -29,8 +29,10 @@ const css=`.fb-mini{position:fixed;inset:0;z-index:9000;display:flex;align-items
 .fb-mini-head span{padding:3px 9px;border-radius:6px;background:rgba(227,195,138,.12);border:1px solid rgba(227,195,138,.25);font-size:.85rem;color:#e8dcc3;white-space:nowrap}
 .fb-mini-play{display:flex;gap:14px;align-items:center;justify-content:center}.fb-mini canvas{display:block;width:${W}px;height:${H}px;border-radius:10px;background:#071015;touch-action:none;cursor:crosshair}
 .fb-mini-hud{display:flex;gap:12px;align-items:center;font-size:.95rem;color:#e8dcc3}.fb-mini-hud b{color:#fff}.fb-mini-time{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}.fb-mini-time i{display:block;height:100%;width:100%;background:var(--fb-mini,#74e0c6);transform-origin:left}
-.fb-mini-pad{display:grid;grid-template-columns:repeat(3,58px);grid-template-rows:repeat(3,58px);gap:6px}.fb-mini-pad button{width:58px;height:58px;padding:0;border-radius:12px;font-size:1.4rem;touch-action:none;user-select:none}
-.fb-mini-pad button:nth-child(1){grid-column:2;grid-row:1}.fb-mini-pad button:nth-child(2){grid-column:1;grid-row:2}.fb-mini-pad button:nth-child(3){grid-column:3;grid-row:2}.fb-mini-pad button:nth-child(4){grid-column:2;grid-row:3}
+.fb-mini.touch{touch-action:none}.fb-mini.touch .fb-mini-box{width:1256px;height:704px;box-sizing:border-box;padding:8px 12px;gap:6px;border-radius:12px}.fb-mini.touch .fb-mini-head{max-width:none;gap:6px}.fb-mini.touch .fb-mini-head span{font-size:.8rem;padding:2px 8px}
+.fb-mini.touch .fb-mini-play{flex:1 1 auto;min-height:0;gap:16px}.fb-mini.touch canvas{width:auto;height:100%;max-height:568px;aspect-ratio:/}
+.fb-mini-side{display:flex;align-items:center;justify-content:center;width:250px;align-self:stretch}body .fb-mini .fb-mini-side button.fb-mini-fire{display:flex!important;align-items:center!important;justify-content:center!important;text-align:center;width:230px;height:230px;padding:0;border-radius:24px;font-size:2.1rem;font-weight:800;letter-spacing:.08em;color:#08202b;background:linear-gradient(#e6f8ff,#8fd6f5);border:3px solid #fff;box-shadow:0 0 30px rgba(168,228,255,.55);touch-action:none;user-select:none}body .fb-mini .fb-mini-side button.fb-mini-fire.hit{transform:scale(.94);filter:brightness(1.15)}
+.fb-mini-stick{position:absolute;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:50%;border:3px solid rgba(255,255,255,.45);background:rgba(255,255,255,.07);display:none;pointer-events:none;z-index:3}.fb-mini-stick.on{display:block}.fb-mini-stick i{position:absolute;left:36px;top:36px;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 14px rgba(255,255,255,.4)}
 .fb-mini-actions{display:flex;gap:10px;justify-content:center}.fb-mini-actions button{min-width:150px;justify-content:center;text-align:center}
 .battle-card-choice button.fb-mini-card{border-color:#74e0c6;box-shadow:0 0 0 1px rgba(116,224,198,.5),0 0 14px rgba(116,224,198,.35)}`;
 const style=document.createElement('style');style.textContent=css;document.head.append(style);
@@ -43,21 +45,28 @@ function open(card,done){
  const play=el('div','fb-mini-play'),canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;play.append(canvas);
  const hud=el('div','fb-mini-hud'),time=el('div','fb-mini-time'),bar=document.createElement('i');time.append(bar);const score=el('span','');hud.append(score,time);
  const actions=el('div','fb-mini-actions'),start=button('시작',()=>begin(),false,true),back=button('돌아가기',()=>close(null));actions.append(start,back);
- let pad=null;if(k.move&&touchDevice()){pad=el('div','fb-mini-pad');for(const [label,dx,dy] of [['▲',0,-1],['◀',-1,0],['▶',1,0],['▼',0,1]]){const b=button(label,()=>{});b.setAttribute('aria-label',{'▲':'위','◀':'왼쪽','▶':'오른쪽','▼':'아래'}[label]);
-   const on=e=>{e.preventDefault();if(dx)input.pad[0]=dx;if(dy)input.pad[1]=dy;},off=e=>{e.preventDefault();if(dx&&input.pad[0]===dx)input.pad[0]=0;if(dy&&input.pad[1]===dy)input.pad[1]=0;};
-   b.addEventListener('pointerdown',on);b.addEventListener('pointerup',off);b.addEventListener('pointerleave',off);b.addEventListener('pointercancel',off);pad.append(b);}play.append(pad);}
- box.append(head,play,hud,actions);wrap.append(box);document.body.append(wrap);
+ // 0.16.57 (user: 「휴대폰으로 하면 저게 되겠냐? 그냥 졸라 크게 해서 화살표는 전체화면으로 움직이게 하는게 좋지 않겠어?」, 「위치좀 잘 해봐」):
+ // on a phone the window fills the screen; a finger put down anywhere (not on a button) becomes a stick — drag to move — and a game that
+ // throws has a big 「던지기」 beside the picture. The small four-arrow pad is gone.
+ const touch=touchDevice(),stickMode=k.move&&touch;if(touch)wrap.classList.add('touch');let stick=null,knob=null;
+ if(stickMode){stick=el('div','fb-mini-stick');knob=el('i','');stick.append(knob);stick.setAttribute('aria-hidden','true');
+  if(k.fire){const side=el('div','fb-mini-side'),f=button('던지기',()=>{});f.className='fb-mini-fire';f.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();input.fire=(input.fire||0)+1;f.classList.add('hit');setTimeout(()=>f.classList.remove('hit'),120);});side.append(f);play.append(side);}}
+ box.append(head,play,hud,actions);wrap.append(box);if(stick)wrap.append(stick);document.body.append(wrap);
  const ctx=canvas.getContext('2d'),input={keys:new Set(),pad:[0,0],point:null,down:false,taps:[]};
  const g=GAMES[m.kind](m,rng(m.seed));let phase='INTRO',t0=0,last=0,elapsed=0,raf=0,count=3,finished=null;
  const pos=e=>{const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height};};
- canvas.addEventListener('pointerdown',e=>{e.preventDefault();input.point=pos(e);input.down=true;if(phase==='PLAY')input.taps.push(input.point);});
+ canvas.addEventListener('pointerdown',e=>{if(stickMode)return;e.preventDefault();input.point=pos(e);input.down=true;if(phase==='PLAY')input.taps.push(input.point);});
+ if(stickMode){let pid=null,origin=null;const R=64,local=e=>{const r=wrap.getBoundingClientRect();return{x:(e.clientX-r.left)*wrap.offsetWidth/(r.width||1),y:(e.clientY-r.top)*wrap.offsetHeight/(r.height||1)};};
+  wrap.addEventListener('pointerdown',e=>{if(e.target.closest('button')||pid!==null)return;e.preventDefault();pid=e.pointerId;origin=local(e);stick.style.left=origin.x+'px';stick.style.top=origin.y+'px';knob.style.transform='';stick.classList.add('on');input.pad=[0,0];});
+  wrap.addEventListener('pointermove',e=>{if(e.pointerId!==pid)return;e.preventDefault();const p=local(e),dx=p.x-origin.x,dy=p.y-origin.y,n=Math.hypot(dx,dy),c=n>R?R/n:1;knob.style.transform='translate('+(dx*c).toFixed(1)+'px,'+(dy*c).toFixed(1)+'px)';input.pad=n<10?[0,0]:[dx/n,dy/n];});
+  const end=e=>{if(e.pointerId!==pid)return;pid=null;origin=null;input.pad=[0,0];stick.classList.remove('on');};wrap.addEventListener('pointerup',end);wrap.addEventListener('pointercancel',end);}
  canvas.addEventListener('pointermove',e=>{input.point=pos(e);});
  const up=()=>{input.down=false;};canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);canvas.addEventListener('pointerleave',()=>{input.down=false;if(!touchDevice())input.point=null;});
  const KEYS={ArrowUp:'U',KeyW:'U',ArrowDown:'D',KeyS:'D',ArrowLeft:'L',KeyA:'L',ArrowRight:'R',KeyD:'R'};
- const keydown=e=>{if(!running)return;e.stopPropagation();if(KEYS[e.code]){e.preventDefault();input.keys.add(KEYS[e.code]);}else if(phase==='INTRO'&&(e.code==='Enter'||e.code==='Space')){e.preventDefault();begin();}else if(phase==='INTRO'&&e.code==='Escape'){e.preventDefault();close(null);}else e.preventDefault();};
+ const keydown=e=>{if(!running)return;e.stopPropagation();if(KEYS[e.code]){e.preventDefault();input.keys.add(KEYS[e.code]);}else if(phase==='INTRO'&&(e.code==='Enter'||e.code==='Space')){e.preventDefault();begin();}else if(phase==='PLAY'&&k.fire&&['Space','Enter','KeyJ'].includes(e.code)){e.preventDefault();if(!e.repeat)input.fire=(input.fire||0)+1;}else if(phase==='INTRO'&&e.code==='Escape'){e.preventDefault();close(null);}else e.preventDefault();};
  const keyup=e=>{if(!running)return;e.stopPropagation();if(KEYS[e.code])input.keys.delete(KEYS[e.code]);};
  window.addEventListener('keydown',keydown,true);window.addEventListener('keyup',keyup,true);
- running={kind:m.kind,close:()=>close(null)};
+ running={kind:m.kind,close:()=>close(null),battle:window.CRPGLiveBattleId?.()||null};
  function begin(){if(phase!=='INTRO')return;phase='COUNT';SND('click');actions.remove();t0=performance.now();last=t0;raf=requestAnimationFrame(frame);}
  function close(result){cancelAnimationFrame(raf);window.removeEventListener('keydown',keydown,true);window.removeEventListener('keyup',keyup,true);wrap.remove();running=null;done(result);}
  function frame(now){
@@ -183,44 +192,68 @@ const GAMES={
    summary:()=>hits>=points?'약점을 모두 부쉈다':hits?'약점 '+hits+'곳 명중':'모두 빗나감',
    result:()=>({hits})};
  },
- // 0.16.54 무상의 얼음 · 서리 열매 치기 (user: 「다른 보스들 공략들도 이상한거 있으면 제대로 바꿔. 공략이랑 비슷한 느낌을 주되, 아이디어는
- // 참신한 것으로」, 「미니게임은 난이도가 꽤 되어야」). 원작: it hides in a thick ice shield; Frostfruits around it, struck, fly into the
- // shield and crack it. Here the fruits circle on two rings; a click sends one straight at the shield, and the ice shards circling
- // close in shatter it if they are in the way; a cold pulse from the shield freezes the hand while it passes.
+ // 0.16.57 (user: 「무상의 얼음은... 어케하는건지 잘 모르겟네.. 다 좋은데 미니게임이 뭔가 애매하다잉..? 뭔가 컨트롤 하는 느낌이 잘 안든달까」):
+ // the fruits are now picked up and thrown by one's own hand. 원작: the shielded 무상의 얼음 drops Frostfruits; the player carries one to it
+ // and hits the shield with it. Here one walks (WASD · 방향키, or the pad), steps on a fruit to pick it up, and throws it (click · 스페이스 ·
+ // 던지기) straight at the core. The ice shards circling the core break a fruit that meets them: the aim line turns blue when the way is
+ // clear at that moment. Frost spikes rise where one stands — step off the glow or freeze for a moment.
  FROST_FRUIT(m,r){
-  const C={x:W/2,y:H/2},SH=46,RING=82,need=Math.max(1,m.need|0),fruits=[],flying=[],cracks=[],marks=[];let shots=Math.max(1,m.shots|0),hits=0,frozen=0,waveAt=1.8+r()*.6,wave=null,flash=0;
-  const shards=[0,1,2,3,4].map(i=>({a:i*TAU/5+r()*.3,w:.74}));let spin=(r()<.5?-1:1)*1.9;
-  for(let i=0;i<(m.fruits|0||6);i++){const outer=i%2;fruits.push({a:r()*TAU,rad:outer?178:136,spd:(outer?-1:1)*(.55+r()*.35),alive:true});}
-  const pos=o=>({x:C.x+Math.cos(o.a)*o.rad*1.35,y:C.y+Math.sin(o.a)*o.rad*.82});
-  const blocked=ang=>shards.some(q=>{let d=Math.abs(((ang-q.a)%TAU+TAU)%TAU);if(d>Math.PI)d=TAU-d;return d<q.w/2;});
+  const C={x:W/2,y:H/2+6},SH=38,RING=76,KEEP=RING+18,need=Math.max(1,m.need|0),P={x:W/2,y:H-58},ground=[],flying=[],spikes=[],cracks=[];
+  let throws=Math.max(1,m.shots|0),stock=Math.max(throws,m.fruits|0||6),carry=false,hits=0,frozen=0,flash=0,spikeAt=1.1,dropAt=0,lastFire=0,shake=0;
+  const shards=[0,1,2,3].map(i=>({a:i*TAU/4+r()*.3,w:.92}));let spin=(r()<.5?-1:1)*1.7;const FLY=430;
+  const ell=(a,rad)=>({x:C.x+Math.cos(a)*rad*1.45,y:C.y+Math.sin(a)*rad*.86}),norm=(x,y)=>Math.hypot((x-C.x)/1.45,(y-C.y)/.86);
+  const blocked=(ang,ahead=0)=>shards.some(q=>angGap(ang,q.a+spin*(ahead>0&&lastT>6?1.3:1)*ahead)<q.w/2);let lastT=0;
+  // where the shards will be when a fruit thrown from here reaches them: the aim line shows that, not the shards of this instant
+  const flight=()=>Math.max(0,(norm(P.x,P.y)-RING-6)/FLY);
+  // fruits drop on the ground away from the core and from the player, two at most at a time
+  const drop=()=>{if(stock<=0||ground.length>=2)return;let p,k=0;do{p=ell(r()*TAU,118+r()*72);}while((Math.hypot(p.x-P.x,p.y-P.y)<90||ground.some(g=>Math.hypot(g.x-p.x,g.y-p.y)<80))&&++k<40);
+   p.x=Math.max(ARENA.x+24,Math.min(ARENA.x+ARENA.w-24,p.x));p.y=Math.max(ARENA.y+24,Math.min(ARENA.y+ARENA.h-24,p.y));ground.push({...p,life:0});stock--;};
+  drop();drop();
+  const angTo=()=>Math.atan2((P.y-C.y)/.86,(P.x-C.x)/1.45);
+  const fire=()=>{if(!carry||frozen||throws<=0)return;carry=false;throws--;const a=angTo();flying.push({a,rad:norm(P.x,P.y),checked:false});SND('click');if(!ground.length)dropAt=.5;};
   return{
    update(dt,t,inp){
-    frozen=Math.max(0,frozen-dt);flash=Math.max(0,flash-dt);spin*=t>5?1.0006:1;for(const q of shards)q.a+=spin*(t>5?1.35:1)*dt;
-    for(const o of fruits)if(o.alive)o.a+=o.spd*dt;
-    waveAt-=dt;if(waveAt<=0&&!wave){wave={R:SH,life:0};waveAt=2.1+r()*.7;}
-    if(wave){wave.life+=dt;wave.R+=260*dt;const p=inp.point;if(p&&!frozen&&Math.abs(Math.hypot((p.x-C.x)/1.35,(p.y-C.y)/.82)-wave.R/1.1)<14){frozen=.8;SND('error');}if(wave.R>260)wave=null;}
-    for(const tap of inp.taps){marks.push({...tap,life:0});if(frozen||shots<=0)continue;
-     const o=fruits.find(o=>o.alive&&Math.hypot(pos(o).x-tap.x,pos(o).y-tap.y)<20);if(!o)continue;o.alive=false;shots--;const p=pos(o);flying.push({a:o.a,x:p.x,y:p.y,rad:o.rad,checked:false});SND('click');}
-    for(let i=flying.length-1;i>=0;i--){const q=flying[i];q.rad-=430*dt;const p={x:C.x+Math.cos(q.a)*q.rad*1.35,y:C.y+Math.sin(q.a)*q.rad*.82};q.x=p.x;q.y=p.y;
-     if(!q.checked&&q.rad<=RING){q.checked=true;if(blocked(q.a)){flying.splice(i,1);cracks.push({x:q.x,y:q.y,life:0,miss:true});SND('error');continue;}}
-     if(q.rad<=SH){flying.splice(i,1);hits++;flash=.25;cracks.push({x:q.x,y:q.y,life:0,miss:false});SND('puzzle_light');}}
-    for(const list of [cracks,marks])for(let i=list.length-1;i>=0;i--){list[i].life+=dt;if(list[i].life>.6)list.splice(i,1);}
+    lastT=t;frozen=Math.max(0,frozen-dt);flash=Math.max(0,flash-dt);shake=Math.max(0,shake-dt);const fast=t>6?1.3:1;for(const q of shards)q.a+=spin*fast*dt;
+    // walking (not while frozen); the core's cold keeps one out of the shard ring
+    let dx=(inp.keys.has('R')?1:0)-(inp.keys.has('L')?1:0)+inp.pad[0],dy=(inp.keys.has('D')?1:0)-(inp.keys.has('U')?1:0)+inp.pad[1];
+    if(!frozen&&(dx||dy)){const n=Math.hypot(dx,dy);P.x+=dx/n*215*dt;P.y+=dy/n*215*dt;}
+    P.x=Math.max(ARENA.x+10,Math.min(ARENA.x+ARENA.w-10,P.x));P.y=Math.max(ARENA.y+10,Math.min(ARENA.y+ARENA.h-10,P.y));
+    const d=norm(P.x,P.y);if(d<KEEP){const a=angTo(),q=ell(a,KEEP);P.x=q.x;P.y=q.y;}
+    // picking up and throwing (a click, a tap, 스페이스 or 던지기)
+    if(!carry&&!frozen)for(let i=ground.length-1;i>=0;i--)if(Math.hypot(ground[i].x-P.x,ground[i].y-P.y)<20){ground.splice(i,1);carry=true;SND('puzzle_step');dropAt=1.1;break;}
+    if((inp.fire||inp.taps.length)&&t-lastFire>.15){lastFire=t;fire();}inp.fire=0;
+    for(const g of ground)g.life+=dt;if(dropAt>0){dropAt-=dt;if(dropAt<=0)drop();}if(ground.length<1&&!carry&&dropAt<=0)drop();
+    for(let i=flying.length-1;i>=0;i--){const q=flying[i];q.rad-=FLY*dt;const p=ell(q.a,q.rad);q.x=p.x;q.y=p.y;
+     if(!q.checked&&q.rad<=RING+6){q.checked=true;if(blocked(q.a)){flying.splice(i,1);cracks.push({x:p.x,y:p.y,life:0,miss:true});SND('error');continue;}}
+     if(q.rad<=SH){flying.splice(i,1);hits++;flash=.3;shake=.15;cracks.push({x:p.x,y:p.y,life:0,miss:false});SND('puzzle_light');}}
+    // frost spikes: a glow where one stands, rising .8 s later (two at a time after six seconds)
+    spikeAt-=dt;if(spikeAt<=0){spikeAt=(t>6?1.0:1.3)+r()*.3;spikes.push({x:P.x,y:P.y,life:0,up:false});if(t>6){const a=r()*TAU;spikes.push({x:Math.max(ARENA.x+30,Math.min(ARENA.x+ARENA.w-30,P.x+Math.cos(a)*70)),y:Math.max(ARENA.y+30,Math.min(ARENA.y+ARENA.h-30,P.y+Math.sin(a)*50)),life:0,up:false});}}
+    for(let i=spikes.length-1;i>=0;i--){const s=spikes[i];s.life+=dt;if(!s.up&&s.life>=.8){s.up=true;if(!frozen&&Math.hypot(P.x-s.x,P.y-s.y)<34){frozen=1;shake=.2;SND('error');}}if(s.life>1.2)spikes.splice(i,1);}
+    for(let i=cracks.length-1;i>=0;i--){cracks[i].life+=dt;if(cracks[i].life>.6)cracks.splice(i,1);}
    },
-   over:()=>hits>=need||(shots<=0&&!flying.length),
-   draw(ctx,t){ctx.fillStyle='#08131a';ctx.fillRect(0,0,W,H);for(let i=0;i<22;i++){ctx.fillStyle='rgba(168,228,255,.06)';ctx.fillRect((i*97+t*14)%W,(i*53)%H,2,2);}
-    ctx.save();ctx.translate(C.x,C.y);ctx.scale(1.35,.82);
-    ctx.strokeStyle='rgba(168,228,255,.12)';ctx.lineWidth=1;for(const rad of [136,178,RING]){ctx.beginPath();ctx.arc(0,0,rad,0,TAU);ctx.stroke();}
-    if(wave){ctx.strokeStyle='rgba(200,240,255,'+Math.max(0,.7-wave.life*.5)+')';ctx.lineWidth=6;ctx.beginPath();ctx.arc(0,0,wave.R/1.1,0,TAU);ctx.stroke();}
-    for(const q of shards){ctx.strokeStyle='#e6f7ff';ctx.shadowColor='#a8e4ff';ctx.shadowBlur=10;ctx.lineWidth=9;ctx.beginPath();ctx.arc(0,0,RING,q.a-q.w/2,q.a+q.w/2);ctx.stroke();ctx.shadowBlur=0;}
-    const cracked=hits/need;ctx.fillStyle='rgba(168,228,255,'+(.35-cracked*.2)+')';ctx.beginPath();ctx.arc(0,0,SH,0,TAU);ctx.fill();ctx.strokeStyle=flash?'#fff':'#cdefff';ctx.lineWidth=3;ctx.stroke();ctx.restore();
-    ctx.save();ctx.translate(C.x,C.y);ctx.rotate(t*.8);ctx.strokeStyle='#bfe9ff';ctx.lineWidth=2;ctx.strokeRect(-14,-14,28,28);ctx.restore();
-    for(let k=0;k<hits;k++){ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=2;ctx.beginPath();const a=k*2.1+.5;ctx.moveTo(C.x,C.y);ctx.lineTo(C.x+Math.cos(a)*SH*1.3,C.y+Math.sin(a)*SH*.8);ctx.stroke();}
-    for(const o of fruits)if(o.alive){const p=pos(o);glow(ctx,p.x,p.y,22,'rgba(150,220,255,.55)');ctx.fillStyle='#e9f8ff';ctx.beginPath();ctx.arc(p.x,p.y,10,0,TAU);ctx.fill();ctx.fillStyle='#7ccfff';ctx.beginPath();ctx.arc(p.x-3,p.y-3,4,0,TAU);ctx.fill();}
-    for(const q of flying){glow(ctx,q.x,q.y,18,'rgba(200,240,255,.8)');dot(ctx,q.x,q.y,8,'#ffffff');}
+   over:()=>hits>=need||(throws<=0&&!flying.length)||(!carry&&!flying.length&&!ground.length&&stock<=0),
+   draw(ctx,t,phase){ctx.save();if(shake)ctx.translate((Math.random()-.5)*6,(Math.random()-.5)*6);arena(ctx,'#a8e4ff');for(let i=0;i<26;i++){ctx.fillStyle='rgba(168,228,255,.06)';ctx.fillRect((i*97+t*14)%W,(i*53)%H,2,2);}
+    // spikes on the ground: a filling glow, then white spikes
+    for(const s of spikes){if(!s.up){const k=s.life/.8;ctx.strokeStyle='rgba(168,228,255,.8)';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(s.x,s.y,34,22,0,0,TAU);ctx.stroke();ctx.fillStyle='rgba(168,228,255,'+(.12+k*.3)+')';ctx.beginPath();ctx.ellipse(s.x,s.y,34*k,22*k,0,0,TAU);ctx.fill();}
+     else{const a=1-(s.life-.8)/.4;ctx.fillStyle='rgba(235,250,255,'+Math.max(0,a)+')';for(let k=0;k<5;k++){const x=s.x-20+k*10;ctx.beginPath();ctx.moveTo(x-5,s.y+8);ctx.lineTo(x,s.y-22-(k%2)*8);ctx.lineTo(x+5,s.y+8);ctx.fill();}}}
+    // the core in its shell, cracked by each hit, and the circling shards
+    ctx.save();ctx.translate(C.x,C.y);ctx.scale(1.45,.86);ctx.strokeStyle='rgba(168,228,255,.14)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(0,0,RING,0,TAU);ctx.stroke();
+    for(const q of shards){ctx.strokeStyle='#e6f7ff';ctx.shadowColor='#a8e4ff';ctx.shadowBlur=12;ctx.lineWidth=10;ctx.beginPath();ctx.arc(0,0,RING,q.a-q.w/2,q.a+q.w/2);ctx.stroke();ctx.shadowBlur=0;}
+    ctx.fillStyle='rgba(168,228,255,'+(.38-hits/need*.22)+')';ctx.beginPath();ctx.arc(0,0,SH,0,TAU);ctx.fill();ctx.strokeStyle=flash?'#fff':'#cdefff';ctx.lineWidth=3;ctx.stroke();ctx.restore();
+    ctx.save();ctx.translate(C.x,C.y);ctx.rotate(t*.8);ctx.strokeStyle='#bfe9ff';ctx.lineWidth=2;ctx.strokeRect(-13,-13,26,26);ctx.restore();
+    for(let k=0;k<hits;k++){ctx.strokeStyle='rgba(255,255,255,.85)';ctx.lineWidth=2;ctx.beginPath();const a=k*2.1+.5;ctx.moveTo(C.x,C.y);ctx.lineTo(C.x+Math.cos(a)*SH*1.45,C.y+Math.sin(a)*SH*.86);ctx.stroke();}
+    // fruits on the ground
+    for(const g of ground){const b=Math.sin(g.life*5)*2;glow(ctx,g.x,g.y+b,22,'rgba(150,220,255,.6)');dot(ctx,g.x,g.y+b,9,'#e9f8ff');dot(ctx,g.x-3,g.y+b-3,3.5,'#7ccfff');}
+    // the aim line while a fruit is held: blue where the way is clear now, red where a shard is in the way
+    if(carry&&phase==='PLAY'){const a=angTo(),clear=!blocked(a,flight()),edge=ell(a,SH);ctx.save();ctx.setLineDash([8,7]);ctx.strokeStyle=clear?'rgba(120,220,255,.95)':'rgba(255,120,120,.9)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(P.x,P.y);ctx.lineTo(edge.x,edge.y);ctx.stroke();ctx.restore();}
+    for(const q of flying){glow(ctx,q.x,q.y,18,'rgba(200,240,255,.85)');dot(ctx,q.x,q.y,8,'#ffffff');}
     for(const c of cracks)glow(ctx,c.x,c.y,16+c.life*50,c.miss?'rgba(255,150,150,.8)':'rgba(255,255,255,.9)',1-c.life*1.6);
-    for(const k of marks){ctx.strokeStyle='rgba(255,255,255,'+(1-k.life*1.6)+')';ctx.lineWidth=2;ctx.beginPath();ctx.arc(k.x,k.y,10+k.life*30,0,TAU);ctx.stroke();}
-    if(frozen){ctx.fillStyle='rgba(168,228,255,'+(.18+frozen*.2)+')';ctx.fillRect(0,0,W,H);ctx.fillStyle='#fff';ctx.font='bold 28px sans-serif';ctx.textAlign='center';ctx.fillText('얼어붙었다',W/2,40);}},
-   hud:()=>'보호막 '+hits+'/'+need+' · 남은 열매 '+shots,
+    // the player, the fruit in hand above
+    ctx.fillStyle='rgba(0,0,0,.35)';ctx.beginPath();ctx.ellipse(P.x,P.y+12,13,5,0,0,TAU);ctx.fill();glow(ctx,P.x,P.y,26,frozen?'rgba(168,228,255,.6)':'rgba(255,224,138,.35)');ctx.save();ctx.translate(P.x,P.y);ctx.scale(1.7,1.7);heart(ctx,0,0,false);ctx.restore();if(carry){glow(ctx,P.x,P.y-24,15,'rgba(150,220,255,.75)');dot(ctx,P.x,P.y-24,7,'#e9f8ff');}
+    if(frozen){ctx.fillStyle='rgba(168,228,255,'+(.15+frozen*.2)+')';ctx.fillRect(0,0,W,H);ctx.fillStyle='#fff';ctx.font='bold 26px sans-serif';ctx.textAlign='center';ctx.fillText('얼어붙었다',W/2,46);}
+    else if(phase==='PLAY'&&t<2.5){ctx.fillStyle='rgba(255,255,255,'+(1-t/2.5)+')';ctx.font='bold 18px sans-serif';ctx.textAlign='center';ctx.fillText(carry?'핵 쪽으로 던지기':'빛나는 서리 열매를 주우세요',W/2,46);}
+    ctx.restore();},
+   hud:()=>'보호막 '+hits+'/'+need+' · 남은 던지기 '+throws+(carry?' · 열매 들고 있음':''),
    summary:()=>hits>=need?'얼음 보호막이 깨졌다':hits?'서리 열매 '+hits+'번 맞힘':'모두 막혔다',
    result:()=>({hits:Math.min(hits,need)})};
  },
@@ -351,6 +384,8 @@ function bossTags(a){
  // boss record comes from the fight itself.
  const b=game?.s?.runtime,out=[];if(!b||!a||a.side!=='ENEMY'||a.hp<=0)return out;const real=a.fb?a:(b.actors||[]).find(x=>x.id===a.id)||a,f=real.fb,fbx=b.fieldBoss,ctl=fbx?.controlRevision===1&&fbx.behaviorRevision===5&&fbx.pressureRevision===1;
  if(f&&fbx){
+  // 0.16.57: 무상의 뇌전·바위·얼음 keep a shut core too (runtime fieldBossCore); their chips say it the same way.
+  if(['ELECTRO','GEO_HYPO','CRYO_HYPO'].includes(f.kind)&&!f.revival&&fbx.coreRevision===1&&ctl&&b.bossPass===1)out.push(game.fbCoreShut?.(real)?{id:'FB_CORE_SHUT',name:'핵 닫힘',kind:'hold',rounds:null,text:'큰 공격을 준비하는 동안이나 첫 공격 전에는 핵이 닫혀 공격이 통하지 않습니다. 공격을 마치면 핵이 드러납니다.'}:{id:'FB_CORE_OPEN',name:'핵 노출',kind:'debuff',rounds:null,text:'공격을 마친 핵이 드러났습니다 · 다음 준비 동작까지 공격이 통합니다.'});
   if(f.kind==='ANEMO'&&!f.revival&&ctl)out.push(game.fbCoreShut?.(real)?{id:'FB_CORE_SHUT',name:'핵 닫힘',kind:'hold',rounds:null,text:'탄막을 모으거나 떠 있는 동안 핵이 닫혀 공격이 통하지 않습니다. 공격을 마치면 핵이 드러납니다.'}:{id:'FB_CORE_OPEN',name:'핵 노출',kind:'debuff',rounds:null,text:'공격을 마친 핵이 드러났습니다 · 받는 피해 +50% · 다음 준비 동작까지.'});
   const r=f.revival;
   if(b.bossPass===1){
@@ -377,5 +412,5 @@ function bossTags(a){
 }
 const priorList=battleStatusList;
 battleStatusList=function(a,...rest){const list=priorList(a,...rest);try{const tags=bossTags(a);if(tags.length)list.unshift(...tags);}catch{}return list;};
-window.CRPGFieldBossMinigames={version:1,cards:[...CARDS],open:(card,done)=>{running?.close();open(card,done||(()=>{}));},close:()=>running?.close(),get running(){return running?.kind||null;}};
+window.CRPGFieldBossMinigames={version:1,cards:[...CARDS],open:(card,done)=>{running?.close();open(card,done||(()=>{}));},close:()=>running?.close(),get running(){return running?.kind||null;},get battle(){return running?.battle||null;}};
 })();

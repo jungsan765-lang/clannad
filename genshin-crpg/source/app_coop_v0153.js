@@ -561,7 +561,7 @@ function fightCommand(v,chosen){
 }
 function fightPanel(v,r){
  if(v.turn?.mine&&v.cards?.length){if(!v.cards.some(c=>c.id===C.card&&!c.reason))C.card=v.cards.find(c=>!c.reason)?.id||'';}
- const chosen=v.turn?.mine?v.cards.find(c=>c.id===C.card):null;if(chosen&&!chosen.targets?.some(t=>t.id===C.target))C.target=chosen.targets?.[0]?.id||'';
+ const chosen=v.turn?.mine?v.cards.find(c=>c.id===C.card):null;if(chosen&&!chosen.targets?.some(t=>t.id===C.target))C.target=window.CRPGDefaultTarget?.(chosen,v.state?.runtime?.actors)||chosen.targets?.[0]?.id||'';
  if(chosen?.branches?.length&&!chosen.branches.includes(C.branch))C.branch=chosen.branches[0];
  const targets=new Set((chosen?.targets||[]).map(t=>t.id)),p=mk('section','panel combat-panel coop-combat');
  const head=mk('div','battle-heading');head.append(mk('span','eyebrow',v.opening?'전투 시작 전':'ROUND '+v.round),mk('h1','',v.title||v.encounter||'함께 싸우는 전투'));if(v.owner&&!v.owner.host)head.append(mk('span','cp-head-host',v.owner.name+' 님의 전투'));else if(r?.host?.name)head.append(mk('span','cp-head-host','방장 '+r.host.name));

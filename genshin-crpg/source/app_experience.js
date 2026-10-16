@@ -413,13 +413,15 @@ function battleStatusChips(a){
 // effects, the formation tag, a card's effect, an enemy's info, a boss minigame — belongs to that battle. Once the battle is over (or another one
 // began) and its last moves have played, the window closes instead of showing effects that are already gone.
 function liveBattleId(){const coop=window.CRPGCoop;if(coop?.battle?.state&&!coop.ended)return 'coop:'+(coop.battle.state.runtime?.id||'live');return game?.s?.runtime?.id||null;}
+window.CRPGLiveBattleId=liveBattleId;
 function markBattleWindow(box){const id=liveBattleId();if(id)box.dataset.battleWindow=id;return box;}
 function closeEndedBattleWindows(){
   if(window.ActorPlayback?.active||(typeof GameEffects!=='undefined'&&GameEffects.active))return;
   const id=liveBattleId(),modal=document.getElementById('modal'),mark=modal?.open&&modal.querySelector('[data-battle-window]');
   if(mark&&mark.dataset.battleWindow!==id)modal.close();
   const intel=document.getElementById('enemy-intel-dialog');if(intel?.open&&typeof EnemyIntel!=='undefined'&&EnemyIntel.battleId&&EnemyIntel.battleId!==game?.s?.runtime?.id)intel.close();
-  if(!id&&window.CRPGFieldBossMinigames?.running)window.CRPGFieldBossMinigames.close();
+  // a boss minigame closes with the battle it was opened in (one opened outside a battle, as the screen check does, stays)
+  const mg=window.CRPGFieldBossMinigames;if(mg?.running&&mg.battle&&mg.battle!==id)mg.close();
 }
 if(typeof setInterval==='function')setInterval(()=>{try{closeEndedBattleWindows();}catch{}},400);
 // Inspection follows the actor currently visible in playback. The runtime may already contain the end of the round.
@@ -440,6 +442,10 @@ function battleStatusDetails(a,list){
   }
 }
 // The formation tag at the top says what it does (on the pointer, and in a window when pressed).
+// 0.16.57 (user: 「기본적으로 뇌광 프리즘을 유저가 '타겟'으로 두는 연습을 시키는거라서 평시에는 보스 공격하는 타겟으로 두게 해야지」): until
+// a target is picked, an attack aims at the boss; a prism, a pillar or any other summon is picked by hand (co-op does the same).
+function defaultTarget(card,actors){const list=card?.targets||[],of=id=>(actors||[]).find(a=>a.id===id);return (list.find(t=>{const a=of(t.id);return a?.side==='ENEMY'&&!a.fbSummon&&(a.fb||a.grade==='보스');})||list.find(t=>{const a=of(t.id);return a&&!a.fbSummon;})||list[0])?.id||null;}
+window.CRPGDefaultTarget=defaultTarget;
 function battleFormationTag(b){
   const fm=b.formationV1&&window.CRPGRuntime?.formationConfig?.formations?.[b.formationV1.id];if(!fm)return null;
   const on=!!b.formationV1.synergy,text=fm.text+' · '+(on?'시너지 발동 · ':'시너지 조건 · ')+fm.synergy.text+(on?'':' (지금은 꺼짐)');
@@ -521,7 +527,7 @@ function combatCardEffect(card,b){
 combat=function(p){
   const b=game.s.runtime,opening=game.combatOpening?.(),cards=opening?[]:(game.combatCards?.()||[]);
   if(!cards.some(c=>c.id===selectedCard&&!c.reason))selectedCard=cards.find(c=>!c.reason)?.id||cards[0]?.id;
-  const chosen=cards.find(c=>c.id===selectedCard);if(!chosen?.targets?.some(x=>x.id===selectedTarget))selectedTarget=chosen?.targets?.[0]?.id||null;
+  const chosen=cards.find(c=>c.id===selectedCard);if(!chosen?.targets?.some(x=>x.id===selectedTarget))selectedTarget=defaultTarget(chosen,b?.actors);
   p.classList.add('combat-panel');const head=el('div','battle-heading');head.append(el('span','eyebrow',opening?'전투 시작 전':'ROUND '+b.round),el('h1','',safeName('33_ENCOUNTER_GROUP_DB',b.group)));
   const fm=battleFormationTag(b);if(fm)head.append(fm);p.append(head);
   if(opening?.encounter){const e=opening.encounter,card=el('section','encounter-intro');card.setAttribute('aria-label','전투에 들어온 이유');card.append(el('small','eyebrow',e.label+' · '+mapName(e.map)),el('p','encounter-reason',displayText(e.text)));const foes=b.actors.filter(a=>a.side==='ENEMY'),preview=el('div','encounter-opponents');for(const name of [...new Set(foes.map(a=>a.name))]){const group=foes.filter(a=>a.name===name);preview.append(el('span','',name+' × '+group.length));}card.append(preview);p.append(card);}

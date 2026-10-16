@@ -28,14 +28,15 @@ check('Tartaglia after the story: the Golden House opens both ways on either rou
  return out;
 });
 
-check('야타용왕 도전 구역: a road from 남천문 both ways, the boss route can be started there',()=>{
+check('야타용왕 도전 구역: a road from 남천문 both ways; the daily boss is fought there',()=>{
  const g=fresh('MAP_LY_DETAIL_NANTIANMEN','ROUTE_ISEKAI');g.s.flags.FLAG_ACCESS_REGION_LIYUE=true;
  const go=g.navigationRoute('MAP_AZHDAHA_DOMAIN');assert(go,'reachable');assert.deepEqual(JSON.parse(JSON.stringify(go.maps)),['MAP_LY_DETAIL_NANTIANMEN','MAP_AZHDAHA_DOMAIN']);
  g.move(go.edges[0][0]);assert.equal(g.s.global.CURRENT_MAP_ID,'MAP_AZHDAHA_DOMAIN');
- assert((g.placeEntries?.()||[]).some(p=>p.route==='BRT_AZHDAHA'),'the boss challenge is listed at the domain');
- assert.equal(g.placeBossReason('BRT_AZHDAHA','DIRECT'),'','and can be started');
+ // 0.16.57 (user: 「전초부터 도전은 근데 뭐야?」 → 「없애고 일일 보스만」): the old route is gone; 야타용왕 is the daily boss here
+ assert(!(g.placeEntries?.()||[]).some(p=>p.route==='BRT_AZHDAHA'),'no old route at the domain');
+ assert.match(g.placeBossReason('BRT_AZHDAHA','DIRECT'),/일일 보스/);
  const home=g.navigationRoute('MAP_LY_DETAIL_NANTIANMEN');assert(home&&home.edges.length===1,'and the way back');
- assert.match(g.liyueArtifactFarmReason('AZHDAHA'),/야타용왕을 먼저 클리어해야 합니다/,'the crystal rematch still waits for the first win');
+ assert.match(g.liyueArtifactFarmReason('AZHDAHA'),/리월 본편 3장을 마치면 열립니다/,'the daily boss waits for the story');
  return {minutes:Number(go.edges[0][5])};
 });
 
