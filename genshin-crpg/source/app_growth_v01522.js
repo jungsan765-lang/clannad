@@ -29,19 +29,21 @@ function elementPicture(key,cls){return picture(key&&MANIFEST.uiAssets?.elements
 function rewardPicture(id,element){const own=picture(MANIFEST.itemIcons?.icons?.[id]?.path,'domain-reward-icon');if(own)return own;
  // Growth materials without their own picture yet: the element for a gem, the game's material-category icon otherwise.
  if(id.startsWith('GROWTH_GEM_'))return elementPicture(ELEMENTS.find(e=>e[0]===element)?.[2],'domain-reward-icon');return picture(MANIFEST.itemIcons?.categories?.CATEGORY_MATERIAL?.path,'domain-reward-icon')||el('span','domain-reward-icon mark','✦');}
+// 0.16.56: the original's gems and books (runtime_growth_v01522.js) — a talent domain gives the book kind picked here, any day.
+const G=()=>window.CRPGRuntime?.growthV01522||{};
 function trialPicture(kind,region){
- if(kind==='TALENT')return picture(MANIFEST.itemIcons?.icons?.[region==='리월'?'GROWTH_TALENT_LIYUE':'GROWTH_TALENT_MOND']?.path,'domain-trial-icon')||el('span','domain-trial-icon exp','특성');
- if(kind==='ASCENSION')return picture(MANIFEST.itemIcons?.icons?.GROWTH_GEM_NEUTRAL?.path,'domain-trial-icon')||el('span','domain-trial-icon exp','돌파');
+ if(kind==='TALENT')return picture(MANIFEST.itemIcons?.icons?.[region==='리월'?'GROWTH_BOOK_PROSPERITY_3':'GROWTH_BOOK_FREEDOM_3']?.path||MANIFEST.itemIcons?.icons?.[region==='리월'?'GROWTH_TALENT_LIYUE':'GROWTH_TALENT_MOND']?.path,'domain-trial-icon')||el('span','domain-trial-icon exp','특성');
+ if(kind==='ASCENSION')return picture(MANIFEST.itemIcons?.icons?.GROWTH_GEM_NEUTRAL_4?.path||MANIFEST.itemIcons?.icons?.GROWTH_GEM_NEUTRAL?.path,'domain-trial-icon')||el('span','domain-trial-icon exp','돌파');
  return el('span','domain-trial-icon exp','EXP');
 }
 function domainGate(entries){
  const first=entries[0],key=first.key,last=game.s.lastGrowthDomain,lastHere=!!last&&entries.some(x=>x.id===last.domain);
  // The level last played here, else the highest one already open.
- const open=entries.filter(x=>!x.reason),pick=picks[key]??={id:lastHere?last.domain:(open[open.length-1]||first).id,element:lastHere&&last.element||'NEUTRAL'};
+ const open=entries.filter(x=>!x.reason),pick=picks[key]??={id:lastHere?last.domain:(open[open.length-1]||first).id,element:lastHere&&last.element||'NEUTRAL',book:lastHere&&last.book||first.books?.[0]};
  const d=entries.find(x=>x.id===pick.id)||first,element=d.kind==='ASCENSION'?pick.element:'NEUTRAL',redraw=()=>card.replaceWith(domainGate(entries));
  const card=el('section','card growth-domains domain-gate');card.dataset.domain=key;card.dataset.kind=d.kind;
  const levels=first.levels||[first.level],range=levels.length>1?levels[0]+'–'+levels[levels.length-1]:levels[0];
- const rw=game.growthDomainRewards(d,element),head=el('div','domain-gate-head'),title=el('div','domain-gate-name');title.append(el('h2','',first.name),el('small','',KIND[first.kind]+' 비경 · Lv.'+range));head.append(trialPicture(first.kind,first.region),title);card.append(head);
+ const book=d.books?.includes(pick.book)?pick.book:d.books?.[0],rw=game.growthDomainRewards(book?{...d,book}:d,element),head=el('div','domain-gate-head'),title=el('div','domain-gate-name');title.append(el('h2','',first.name),el('small','',KIND[first.kind]+' 비경 · Lv.'+range));head.append(trialPicture(first.kind,first.region),title);card.append(head);
  // 0.16.7: a short form of the same line for the narrow column of a sideways phone.
  if(rw.doubles){const long=rw.remaining?'오늘 첫 3번 승리는 재료 2배 · 남은 '+rw.remaining+'번':'오늘 재료 2배는 다 썼습니다 · 0시에 다시 3번',line=el('p','domain-gate-double'+(rw.remaining?'':' spent'));line.title=long;line.append(el('span','dg-long',long),el('span','dg-short',rw.remaining?'재료 2배 · 남은 '+rw.remaining+'번':'2배 끝 · 0시에 다시 3번'));card.append(line);}
  if(entries.length>1){const tiers=el('div','domain-stages');tiers.setAttribute('role','radiogroup');tiers.setAttribute('aria-label',first.name+' 단계');
@@ -53,13 +55,17 @@ function domainGate(entries){
   // The protagonist's own material has no element: its diamond picture stands for it.
   for(const [id,label,icon]of ELEMENTS){const b=button('',()=>{pick.element=id;redraw();});b.className='domain-element'+(id===element?' selected':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(id===element));b.setAttribute('aria-label',label+(id==='NEUTRAL'?' 돌파 재료':' 원소 돌파 재료'));b.title=b.getAttribute('aria-label');b.append(icon?elementPicture(icon,'domain-element-icon'):picture(MANIFEST.itemIcons?.icons?.GROWTH_GEM_NEUTRAL?.path,'domain-element-icon')||elementPicture(null,'domain-element-icon'));row.append(b);}
   card.append(row);}
+ // The three book kinds of the region, each with the companions who train with it (in its title).
+ if(d.kind==='TALENT'&&d.books?.length){const row=el('div','domain-elements domain-books');row.setAttribute('role','radiogroup');row.setAttribute('aria-label','특성 책 종류');const users=k=>Object.entries(G().bookOf||{}).filter(([id,kind])=>kind===k&&game.premiumOwns?.(id)).map(([id])=>game.row('07_CHAR_DB',id)?.[1]||id);
+  for(const k of d.books){const word=G().bookKinds?.[k]?.[0]||k,who=users(k),b=button('',()=>{pick.book=k;redraw();});b.className='domain-element domain-book'+(k===book?' selected':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(k===book));b.setAttribute('aria-label','「'+word+'」 책'+(who.length?' · '+who.join(', '):''));b.title=b.getAttribute('aria-label');b.append(picture(MANIFEST.itemIcons?.icons?.['GROWTH_BOOK_'+k+'_2']?.path,'domain-element-icon')||el('span','domain-element-icon mark','✦'),el('b','','「'+word+'」'));row.append(b);}
+  card.append(row);}
  const foes=el('div','domain-foes');foes.setAttribute('aria-label','나오는 적');
  for(const f of game.growthDomainFoes(d,element)){const box=el('span','domain-foe');box.title=f.name+' ×'+f.n;box.append(picture(enemyPortraitFor(f.id),'domain-foe-face')||el('span','domain-foe-face blank',f.name.slice(0,1)),el('b','','×'+f.n));foes.append(box);}
  const rewards=el('div','domain-rewards');rewards.setAttribute('aria-label','보상');
  for(const [id,n]of Object.entries(rw.items)){const chip=el('span','domain-reward');chip.title=name(id)+' ×'+n;chip.append(rewardPicture(id,element),el('b','','×'+n));rewards.append(chip);}
  // Experience goes to every fighter; no domain pays Mora (0.16.2).
  if(rw.xp){const xp=el('span','domain-reward xp'+(d.kind==='EXP'?' main':''));xp.title='경험치 '+fmt(rw.xp)+' · 함께 싸운 캐릭터마다';xp.append(el('span','domain-reward-icon exp','EXP'),el('b','',fmt(rw.xp)));rewards.append(xp);}
- const go=actionButton('도전','DOMAIN_START',{domain:d.id,element},true);go.classList.add('domain-go');
+ const go=actionButton('도전','DOMAIN_START',{domain:d.id,element,...(book?{book}:{})},true);go.classList.add('domain-go');
  const body=el('div','domain-gate-body');body.append(foes,rewards,go);card.append(body);return card;
 }
 window.domainGate=domainGate;
@@ -74,7 +80,7 @@ const priorLocation=drawLocation;drawLocation=function(p,...a){priorLocation(p,.
 function retryFor(r){
  const o=String(r.origin||''),prog=game.s.bossRouteProgress;
  if(o.startsWith('DOMAIN:')){const last=game.s.lastGrowthDomain;if(!last||o!=='DOMAIN:'+last.domain||!game.growthDomainEntries().some(x=>x.id===last.domain))return null;
-  const params={domain:last.domain,element:last.element};return {why:game.actionReason('DOMAIN_START',params),run:()=>act('DOMAIN_START',params)};}
+  const params={domain:last.domain,element:last.element,...(last.book?{book:last.book}:{})};return {why:game.actionReason('DOMAIN_START',params),run:()=>act('DOMAIN_START',params)};}
  if(o.startsWith('MATERIAL_CHALLENGE:')){const key=o.slice('MATERIAL_CHALLENGE:'.length);let why='';try{why=key.startsWith('BOSS_')?game.bossAdmission?.(key)?.reason:game.liyueArtifactFarmReason?.(key.replace(/^LIYUE_/,'').replace(/_FARM$/,''));}catch{}
   return {why:why||'',daily:true,run:null};}
  if(o.startsWith('BOSS:')&&prog?.route===o.slice(5)&&/^BRT_(FB_|LEY_)/.test(prog.route)){

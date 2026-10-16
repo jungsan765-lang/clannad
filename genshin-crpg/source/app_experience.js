@@ -102,8 +102,25 @@ crafting=function(p){
     if(recipe.kind==='SYNTH'&&!blocked){try{const cost=game.recipeCost(r,1),can=Math.min(10,...Object.entries(cost.items).map(([id,n])=>Math.floor(game.itemCount(id)/n)),cost.mora?Math.floor(game.s.global.MORA/cost.mora):10);if(can>1)c.append(actionButton(can+'개 한 번에','CRAFT',{recipe:r[0],quantity:can}));}catch{}}
     grid.append(c);
   }
+  // the old materials come first: what is in the bag to change, before the recipes
+  if(['ALL','SYNTH'].includes(craftView.tab)&&!craftView.ready)grid.prepend(...exchangeCards(entry));
   if(!grid.children.length)grid.append(el('p','muted',recipes.length?'조건에 맞는 제작법이 없습니다. 분류나 필터를 바꿔 보세요.':'이 시설에서 사용할 제작법이 없습니다.'));p.append(grid);
 };
+// 0.16.56 (asked: 「합성대에서 바꾸기」): at an alchemy bench, each old gem or book in the bag is one card that turns it into the original's
+// tiers worth for worth (runtime growthExchangeQuote); an old book picks one of its region's three kinds first.
+const exchangeBook={};
+function exchangeCards(entry){
+  if(!game.growthExchangeQuote||!game.placeHasFacility?.(entry,'연금대'))return [];
+  const old=window.CRPGRuntime?.growthV01522?.oldGrowthItems||[],kinds=window.CRPGRuntime?.growthV01522?.bookKinds||{};
+  return old.filter(id=>game.itemCount(id)>0).map(id=>{
+    const q=game.growthExchangeQuote(id,exchangeBook[id]),c=el('section','card exchange-card'),output=el('div','craft-output');c.dataset.recipeId='EXCHANGE:'+id;
+    output.append(itemGlyph(itemPresenter.itemDetail({item:id,quantity:q.have})),el('h3','',safeName('14_ITEM_DB',id)+' 바꾸기'));c.append(output,el('p','muted','가진 수 '+q.have.toLocaleString()+'개 → 원작 재료'));
+    if(q.kinds.length){const row=el('div','exchange-kinds');row.setAttribute('role','radiogroup');row.setAttribute('aria-label','바꿀 책 종류');
+      for(const k of q.kinds){const b=button('「'+(kinds[k]?.[0]||k)+'」',()=>{exchangeBook[id]=k;render();});b.className='exchange-kind'+(k===q.kind?' selected':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(k===q.kind));row.append(b);}c.append(row);}
+    for(const [item,n]of Object.entries(q.items))c.append(el('small','material-cost',safeName('14_ITEM_DB',item)+' '+n+'개'));
+    if(!Object.keys(q.items).length)c.append(el('p','choice-note','바꿀 만큼 모이지 않았습니다.'));
+    const go=actionButton('새 재료로 바꾸기','GROWTH_EXCHANGE',{item:id,...(q.kind?{book:q.kind}:{})});go.disabled=go.disabled||!!q.reason||!Object.keys(q.items).length;if(q.reason)c.append(el('p','choice-note',q.reason));c.append(go);return c;});
+}
 boss=function(p){
   const entry=placeHeader(p,'BOSS');if(!entry)return;
   if(['AWAIT_NEXT','RETRY'].includes(game.s.bossRouteProgress?.phase)){bossProgressControls(p);return;}

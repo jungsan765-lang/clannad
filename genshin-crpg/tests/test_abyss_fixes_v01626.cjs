@@ -72,7 +72,10 @@ check('four_declared_runtime_changes_preserve_configuration_numbers',()=>{
  assert.equal(legacyGrowth.domainXp[60],10000);assert.equal(currentGrowth.expRewardVersion,1);
  // 0.16.51 (user: 「저레벨부터 고레벨까지 전체적으로 훑어보고 적당한 선을 지정하고 그게 이 보상에 맞는 수준이 맞는지까지」): the Lv35–55 EXP stages pay more.
  assert.deepEqual(currentGrowth.domainXp,{...legacyGrowth.domainXp,35:7000,40:8500,45:10500,50:11000,55:14000,60:24000});
- assert.equal(currentGrowth.talentRewardVersion,4);assert.equal(legacyGrowth.talentRewardVersion,3);
+ // 0.16.56 (user: 「돌파재료같은거 … 원작 고증 살려서 추가하고 … 비경 보상에 넣자」): new runs pay the original's tiered gems and books
+ // (reward version 5); the version-4 tables stay exported for fights saved before.
+ assert.equal(currentGrowth.talentRewardVersion,5);assert.equal(currentGrowth.previousTalentRewardVersion,4);assert.equal(legacyGrowth.talentRewardVersion,3);
+ assert.equal(currentGrowth.ascensionRewardVersion,5);assert.equal(currentGrowth.previousAscensionRewardVersion,legacyGrowth.ascensionRewardVersion);
  assert.deepEqual(currentGrowth.previousDomainTalentBooks,legacyGrowth.domainTalentBooks);
  assert.deepEqual(currentGrowth.domainTalentBooks,{...legacyGrowth.domainTalentBooks,LIYUE:{...legacyGrowth.domainTalentBooks.LIYUE,35:5,40:9,45:12,50:25,55:38,60:90}});
  assert.deepEqual(currentGrowth.legacyDomainTalentBooks[3],legacyGrowth.domainTalentBooks);
@@ -80,8 +83,8 @@ check('four_declared_runtime_changes_preserve_configuration_numbers',()=>{
  delete currentGrowth.legacyDomainTalentBooks[3];
  // Only the separately tested 0.16.27 enemy policy and challenge anchors
  // replace their old exported values. All growth costs/gates/rewards stay exact.
- for(const key of ['bossChallengeProfiles','previousBossChallengeProfiles','enemyBalanceRevision','enemyBalance','enemyBalanceWeight','ordinaryAttackMultipliers','previousDomainXp','expRewardVersion','domainXp','domainTalentBooks','previousDomainTalentBooks','talentRewardVersion'])delete currentGrowth[key];
- delete legacyGrowth.bossChallengeProfiles;delete legacyGrowth.domainXp;delete legacyGrowth.domainTalentBooks;delete legacyGrowth.talentRewardVersion;assert.deepEqual(currentGrowth,legacyGrowth);
+ for(const key of ['bossChallengeProfiles','previousBossChallengeProfiles','enemyBalanceRevision','enemyBalance','enemyBalanceWeight','ordinaryAttackMultipliers','previousDomainXp','expRewardVersion','domainXp','domainTalentBooks','previousDomainTalentBooks','talentRewardVersion','ascensionRewardVersion','previousAscensionRewardVersion','previousTalentRewardVersion','gemTiers','gemCosts','gemDrops','bookKinds','bookTiers','bookOf','bookCosts','bookDrops','oldGrowthItems','exchangeWorth'])delete currentGrowth[key];
+ delete legacyGrowth.bossChallengeProfiles;delete legacyGrowth.domainXp;delete legacyGrowth.domainTalentBooks;delete legacyGrowth.talentRewardVersion;delete legacyGrowth.ascensionRewardVersion;assert.deepEqual(currentGrowth,legacyGrowth);
  return {floorNumbersGearAndCharacterRequirementsPreserved:true,unrelatedGrowthConfigurationPreserved:true,previousBossChallengeProfilesPreserved:true,playFixesUnchanged:true};
 });
 for(const chamber of [1,2])check('new_chamber_'+chamber+'_actual_pc_ko_stops_run',()=>{

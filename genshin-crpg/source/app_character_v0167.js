@@ -96,6 +96,8 @@ function materialSource(id){
  if(/^GROWTH_GEM_/.test(id))return domain(s=>s.kind==='ASCENSION');
  if(id==='GROWTH_TALENT_MOND')return domain(s=>s.kind==='TALENT'&&s.region==='몬드');
  if(id==='GROWTH_TALENT_LIYUE')return domain(s=>s.kind==='TALENT'&&s.region==='리월');
+ // 0.16.56: the original's books come from their region's talent domain (any of the three kinds, picked at its gate).
+ {const kind=String(id).match(/^GROWTH_BOOK_([A-Z]+)_\d$/)?.[1],region=kind&&window.CRPGRuntime?.growthV01522?.bookKinds?.[kind]?.[1];if(region)return domain(s=>s.kind==='TALENT'&&s.region===(region==='LIYUE'?'리월':'몬드'));}
  const boss=(game.fieldBossCatalog?.()||[]).find(b=>b.material===id);if(boss)return {label:'필드 보스 · '+boss.name,map:boss.map,kind:'boss'};
  if(/^MAT_CHAR_EXP_/.test(id))return {label:'계시의 꽃 (지맥)',map:null,kind:'ley'};
  if(id==='MORA')return {label:'부의 꽃 (지맥) · 전투',map:null,kind:'ley'};

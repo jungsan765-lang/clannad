@@ -48,7 +48,11 @@ check('domains stand on their own places (official names), one kind each, every 
   r.s.global.SCREEN_MODE='LOCATION';assert.deepEqual([...r.growthDomainEntries().map(x=>x.id)],[...d.levels].map(l=>key+':'+l));
   r.action('DOMAIN_START',{domain:key+':'+level,element});const foes=r.s.runtime.actors.filter(a=>a.side==='ENEMY');assert(foes.length>=2&&foes.length<=8);assert(foes.every(a=>a.level===level),key+' fights at Lv.'+level);
   const rw=r.growthDomainRewards(r.s.runtime.growthDomain,element);assert.equal(rw.mora,0);assert(!Object.keys(rw.items).some(id=>/^ORE_|^MAT_CHAR_EXP_/.test(id)),'no ore, no books');assert.equal(d.kind==='EXP',!Object.keys(rw.items).length);
-  if(d.kind==='TALENT')assert(rw.items[d.region==='몬드'?'GROWTH_TALENT_MOND':'GROWTH_TALENT_LIYUE']>0,'talent books of the domain\'s region');
+  // 0.16.56 (user: 「돌파재료같은거 … 원작 고증 살려서 … 비경 보상에 넣자」): the original's tiered books of the domain's region (the kind picked
+  // at the gate, else the region's first) and the original's tiered gems of the element picked.
+  const G=api.growthV01522,books=Object.keys(G.bookKinds).filter(k=>G.bookKinds[k][1]===(d.region==='몬드'?'MOND':'LIYUE')),pays=Object.entries(rw.items);
+  if(d.kind==='TALENT')assert(pays.length&&pays.every(([id,n])=>n>0&&id.startsWith('GROWTH_BOOK_'+books[0]+'_')),'talent books of the domain\'s region');
+  if(d.kind==='ASCENSION')assert(pays.length&&pays.every(([id,n])=>n>0&&id.startsWith('GROWTH_GEM_'+element+'_')),'gems of the element picked');
   seen.add(foes.map(a=>a.source).sort().join(','));new R(db,cp(r.s));}
  assert(seen.size>=12,'the domains have their own lineups');
  const ley=api.leyLines.regionalTiers('몬드');assert(ley.every(t=>t.books.MAT_CHAR_EXP_HERO>0),'계시의 꽃 still pays experience books');
@@ -58,7 +62,8 @@ check('domains stand on their own places (official names), one kind each, every 
 check('no drop-down list in the game: the domain gate, the battle commands and a safety net that turns any <select> into buttons',()=>{
  const growth=src('app_growth_v01522.js'),exp=src('app_experience.js'),choice=src('app_choice_v01525.js'),html=src('index.html'),build=fs.readFileSync(path.join(root,'tools/build.py'),'utf8');
  assert(!/el\('select'\)|new Option|showModal\('성장 비경/.test(growth),'the domain window and its lists are gone');
- assert(growth.includes("const go=actionButton('도전','DOMAIN_START',{domain:d.id,element},true)")&&growth.includes("b.className='domain-stage'")&&growth.includes("b.className='domain-element'"),'trials and elements are pictures to press');
+ // 0.16.56: the talent domain's book kinds are pictures to press too, sent with the start.
+ assert(growth.includes("const go=actionButton('도전','DOMAIN_START',{domain:d.id,element,...(book?{book}:{})},true)")&&growth.includes("b.className='domain-stage'")&&growth.includes("b.className='domain-element'")&&growth.includes("b.className='domain-element domain-book'"),'trials, elements and book kinds are pictures to press');
  assert(!growth.includes('편성·육성 후 도전')&&!growth.includes('편성·프리셋 바꾸기'),'no party step');
  assert(!/el\('select'\)/.test(exp),'battle: target on the cards, skill ways as buttons');assert(exp.includes("c.tabIndex=0;c.setAttribute('role','button')"));
  assert(choice.includes("box.className='choice-tiles'")&&choice.includes("sel.dispatchEvent(new Event('change',{bubbles:true}))"));
@@ -82,6 +87,11 @@ check('a picture for every growth material (official icons the user approved), t
   const e=icons[id];assert(e&&e.assetId===asset&&e.matchType==='crpg_visual_mapping'&&e.source==='https://enka.network/ui/UI_ItemIcon_'+asset+'.png',id);
   const file=path.join(root,e.path);assert(fs.existsSync(file),e.path);assert.equal(require('crypto').createHash('sha256').update(fs.readFileSync(file)).digest('hex'),e.sha256,id);}
  assert(fs.readFileSync(path.join(root,'assets/icons/CREDITS.md'),'utf8').includes('# v0.15.25 성장 재료 아이콘'));
+ // 0.16.56: the original's tiered gems and books (approved download, 2026-10-16) each have the original picture of the same name.
+ const G=api.growthV01522,g=fresh();for(const id of [...Object.keys(G.gemTiers).flatMap(e=>[1,2,3,4].map(t=>G.gemItem(e,t))),...Object.keys(G.bookKinds).flatMap(k=>[1,2,3].map(t=>G.bookItem(k,t)))]){
+  const e=icons[id];assert(e&&e.matchType==='exact_name'&&/^https:\/\//.test(e.source)&&e.name===g.row('14_ITEM_DB',id)?.[1],id);
+  const file=path.join(root,e.path);assert(fs.existsSync(file),e.path);assert.equal(require('crypto').createHash('sha256').update(fs.readFileSync(file)).digest('hex'),e.sha256,id);}
+ assert(fs.readFileSync(path.join(root,'assets/icons/CREDITS.md'),'utf8').includes('## 0.16.56 돌파 보석·특성 책'));
  const growth=src('app_growth_v01522.js');assert(!growth.includes("'書'"),'no placeholder character');assert(growth.includes("function costTile("),'costs as pictures');
  const ley=src('app_ley_lines.js');assert(!ley.includes('적은 파티 레벨에 맞춰 강해집니다'),'the old line was also wrong: the steps are fixed');assert(ley.includes("rewardIcon(b.kind==='REVELATION'?'MAT_CHAR_EXP_HERO':'CUR_MORA'"));
 });

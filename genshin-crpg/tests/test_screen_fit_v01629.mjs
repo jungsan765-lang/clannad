@@ -67,6 +67,8 @@ const SCAN=()=>{
   if(sx&&!sy&&e.matches('.scenery-pan'))continue;
   // 0.16.45: 읽은 이야기 scrolls on purpose (user: 「거긴 그냥 휠로 올리고 내려도 돼」)
   if(sy&&!sx&&e.matches('.history-scroll')){scrollers.add(e);continue;}
+  // 0.16.56: a shop's goods and the forge's and kitchen's recipes, and the chosen one's card (user: 「상점은... 이정도면 휠로 내릴 수 있어도 될 것 같은데?」)
+  if(sy&&!sx&&e.matches('.market-layout>.market-grid,.market-layout>.market-detail,.shell-forge-list,.shell-forge-scroll')){scrollers.add(e);continue;}
   if((sy||sx)&&![...scrollers].some(x=>x.contains(e))){scrollers.add(e);out.push('scrolls '+name(e)+' '+(sy?e.clientHeight+'/'+e.scrollHeight:e.clientWidth+'/'+e.scrollWidth+' wide'));}
   if(s.textOverflow==='ellipsis'&&e.scrollWidth>e.clientWidth+1)out.push('… '+name(e)+' «'+text(e)+'»');
   const clamp=s.webkitLineClamp||s.getPropertyValue('-webkit-line-clamp');if(clamp&&clamp!=='none'&&e.scrollHeight>e.clientHeight+1)out.push('… lines '+name(e)+' «'+text(e)+'»');}
@@ -183,6 +185,11 @@ try{
   // 0.16.31: the forge's enhance tab (who wears each piece in red) and its window with the one 「강화」 button.
   const forgeAt='(async()=>{if(game.s.placeVisit)await act(\'PLACE_LEAVE\',{});await __go(\'LOCATION\');const w=game.placeEntries().find(e=>/대장간/.test((e.name||\'\')+(e.facility||\'\')));if(w)await act(\'PLACE_ENTER\',{place:w.id});await new Promise(r=>setTimeout(r,250));[...document.querySelectorAll(\'.shell-worktabs button\')].find(b=>/강화/.test(b.textContent))?.click();await new Promise(r=>setTimeout(r,250));';
   await view('forge-enhance',forgeAt+'})()');
+  // 0.16.56: the forge's 제작 list scrolls with the wheel, and so does the chosen recipe's card.
+  if(!process.env.CI)await view('forge-craft',forgeAt.replace('/강화/','/제작/')+`document.querySelector('.shell-forge-list .shell-forge-tile')?.click();await new Promise(r=>setTimeout(r,250));})()`);
+  if(!process.env.CI&&(!ONLY.length||ONLY.some(o=>'forge-craft'.startsWith(o)||o.startsWith('forge-craft')))){const at=await page.evaluate(()=>{const l=document.querySelector('.shell-forge-list');if(!l||l.scrollHeight<=l.clientHeight+2)return null;const r=l.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2];});
+   if(at){await page.mouse.move(at[0],at[1]);await page.mouse.wheel(0,400);await page.waitForTimeout(300);const top=await page.evaluate(()=>document.querySelector('.shell-forge-list')?.scrollTop||0);if(!(top>0))(found['forge-craft']??=[]).push('the wheel did not move the recipe list');}
+   await page.evaluate(()=>{for(const d of document.querySelectorAll('dialog[open]'))d.close();});}
   await view('forge-confirm',forgeAt+'for(let i=0;i<20&&!document.getElementById(\'modal\')?.open;i++){[...document.querySelectorAll(\'.shell-forge-foot button\')].find(x=>/강화|돌파/.test(x.textContent)&&!x.disabled)?.click();await new Promise(r=>setTimeout(r,150));}})()');
   await view('forge-result',forgeAt+'for(let i=0;i<20&&!document.getElementById(\'modal\')?.open;i++){[...document.querySelectorAll(\'.shell-forge-foot button\')].find(x=>/강화|돌파/.test(x.textContent)&&!x.disabled)?.click();await new Promise(r=>setTimeout(r,150));}document.querySelector(\'#modal .enhance-go\')?.click();for(let i=0;i<80&&!document.querySelector(\'#modal[open] .enhance-banner\');i++)await new Promise(r=>setTimeout(r,150));})()');
   // 0.16.39 (user: 「특성은 왜 안고쳐? … 세로로 길어서 아래로 내리지도 못하겠고」): the talent and ascension windows, never opened before.
@@ -275,6 +282,17 @@ try{
    {const x=playerState();x.serverAdmin=true;try{x.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_D163_VALLEY_OF_REMEMBRANCE'});}catch(e){console.error('domain map',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
     await page.evaluate(()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());document.querySelector('.pm-close,.shell-menu-close')?.click();}).catch(()=>{});
     await view('domain-map',`__go('LOCATION')`);for(const tab of await labels('.shell-loc-side .shell-tab'))await view('domain-map-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);}
+   // 0.16.56 (user: 「돌파재료같은거 … 원작 고증 살려서」): a talent domain's gate with its three book kinds, and an alchemy bench where
+   // the old gems and books turn into the original's (its 재료 합성 list as well).
+   if(!process.env.CI&&(!ONLY.length||ONLY.some(o=>o.startsWith('domain-talent')||o.startsWith('alchemy')))){
+    {const x=playerState();x.serverAdmin=true;try{x.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_D163_FORSAKEN_RIFT'});}catch(e){console.error('talent domain',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+     await page.evaluate(()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());}).catch(()=>{});
+     for(const tab of await labels('.shell-loc-side .shell-tab'))await view('domain-talent-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);}
+    {const x=playerState();x.serverAdmin=true;try{x.giveItem('GROWTH_GEM_PYRO',900);x.giveItem('GROWTH_TALENT_MOND',60);x.action('PLACE_ENTER',{place:'EVT_SCHEDULE_MRC_ALCHEMY_COMMON',mode:'CRAFT'});}catch(e){console.error('alchemy',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+     await view('alchemy-exchange',`(async()=>{document.querySelector('.shell-forge-tile[data-pick^="EXCHANGE:GROWTH_TALENT"]')?.click();await new Promise(r=>setTimeout(r,250));if(!document.querySelector('.shell-forge-tile[data-pick^="EXCHANGE:"]'))throw Error('no exchange card');})()`);
+     await view('alchemy-synth',`(async()=>{[...document.querySelectorAll('.craft-tabs button')].find(b=>/재료 합성/.test(b.textContent))?.click();await new Promise(r=>setTimeout(r,250));})()`);
+     const left=await page.evaluate(()=>[...document.querySelectorAll('.shell-forge-tile')].length);if(!left)found['alchemy-synth']=['no recipes at the alchemy bench'];
+     await page.evaluate(async()=>{if(game.s.placeVisit)await act('PLACE_LEAVE',{});}).catch(()=>{});}}
    const FB=globalThis.CRPGRuntime?.fieldBosses,boss='FB_ANEMO_HYPOSTASIS';
    const field=FB&&fight(x=>{x.action('OPERATOR_DEBUG',{op:'travel',map:FB.bosses[boss].map});const route=FB.route(boss);x.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});x.action('BOSS_ROUTE',{route,entry:'DIRECT'});},'field boss result');
    if(field){fixture.seed(field.s);await page.evaluate(()=>CRPGOnline.sync());await idle();await view('fieldboss-result',`Promise.resolve()`);}

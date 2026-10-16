@@ -12,7 +12,9 @@ function destinations(){const box=document.querySelector('.shell-loc-main .terra
 const ZOOMS=[1,.93,.87,.81];
 const over=box=>box.scrollHeight>box.clientHeight+1;
 function zoomDown(box){let i=0;box.style.setProperty('--fit','1');while(over(box)&&i<ZOOMS.length-1){i++;box.style.setProperty('--fit',String(ZOOMS[i]));}}
-function fitBox(box){if(!box?.isConnected||!box.clientHeight)return;box.classList.add('fit-box');box.classList.remove('fit-brief');for(const old of box.querySelectorAll(':scope>.fit-more,:scope>.shell-forge-hero>.fit-more'))old.remove();// 0.16.31: the one beside a forge card's name was left behind, so it showed twice.
+// 0.16.56: the shop's, forge's and kitchen's chosen card scrolls with the wheel instead (screen_v01629.css): whole letters, no 「자세히」.
+const WHEEL='.market-layout>.market-detail,.shell-forge-scroll';
+function fitBox(box){if(!box?.isConnected||!box.clientHeight)return;if(box.matches(WHEEL)){box.classList.remove('fit-box','fit-brief');box.style.removeProperty('--fit');for(const old of box.querySelectorAll(':scope>.fit-more,:scope>.shell-forge-hero>.fit-more'))old.remove();return;}box.classList.add('fit-box');box.classList.remove('fit-brief');for(const old of box.querySelectorAll(':scope>.fit-more,:scope>.shell-forge-hero>.fit-more'))old.remove();// 0.16.31: the one beside a forge card's name was left behind, so it showed twice.
  zoomDown(box);if(!over(box)||!box.matches('.bag-detail,.market-detail,.shell-forge-scroll'))return;
  const title=box.querySelector(':scope>h2,:scope h3')?.textContent||'자세히';
  const more=document.createElement('button');more.type='button';more.className='fit-more';more.textContent='자세히';
@@ -26,13 +28,14 @@ function fitBox(box){if(!box?.isConnected||!box.clientHeight)return;box.classLis
 // The bag: its items turn pages (the page stays while an item is chosen), its card fits.
 function bag(){const grid=document.querySelector('.bag-cols .bag-grid');if(grid){const k=(typeof bagCategory!=='undefined'?bagCategory:'')+'|'+(typeof bagTrade!=='undefined'?bagTrade:'')+'|'+(typeof bagSort!=='undefined'?bagSort:'');window.CRPGMainScreen?.pagePane?.(grid,'bag|'+k);}
  fitBox(document.querySelector('.bag-cols .bag-detail'));}
-// The shop: its goods turn pages (each tab and kind its own), the chosen good's card fits.
-function market(){const grid=document.querySelector('.market-layout>.market-grid');if(grid)window.CRPGMainScreen?.pagePane?.(grid,'market|'+(typeof marketPlace!=='undefined'?marketPlace:'')+'|'+(typeof marketMode!=='undefined'?marketMode:'')+'|'+(typeof marketCategory!=='undefined'?marketCategory:''));
+// The shop: the chosen good's card fits.
+// 0.16.56 (user: 「상점은... 이정도면 휠로 내릴 수 있어도 될 것 같은데?」): the shop's goods are one list scrolled with the wheel or a
+// finger (screen_v01629.css), not pages; so are the forge's and the kitchen's recipes below.
+function market(){
  fitBox(document.querySelector('.market-layout>.market-detail'));}
 function forge(){
  // On the phone a recipe is a short row: its 「레시피」 mark moves out of the small picture to the row's end.
  if(stage()==='phone')for(const b of document.querySelectorAll('.shell-forge-list .shell-forge-tile-art>.shell-forge-tile-badge'))b.closest('.shell-forge-tile')?.append(b);
- for(const list of document.querySelectorAll('.shell-forge-list')){const key='forge|'+(document.querySelector('.shell-page-head h1')?.textContent||'')+'|'+[...document.querySelectorAll('.selected,[aria-pressed="true"]')].filter(b=>!list.contains(b)).map(b=>b.textContent.trim()).join(',');window.CRPGMainScreen?.pagePane?.(list,key);}
  for(const b of document.querySelectorAll('.shell-forge-scroll'))fitBox(b);}
 if(typeof itemDetailView==='function'){const priorDetail=itemDetailView;itemDetailView=function(box,d){priorDetail(box,d);try{requestAnimationFrame(()=>fitBox(box));}catch{}};}
 // ---------- 편성 (user: 「캐릭터 얼굴이 존나 안보이잖아」, 「좀 센스있게 안되나.. 보기 좋아보이진 않는데..」) ----------

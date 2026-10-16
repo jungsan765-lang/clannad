@@ -16,7 +16,12 @@ for(const [,file]of fs.readFileSync(path.join(root,'source/index.html'),'utf8').
 const OldR=oldContext.CRPGRuntime.Runtime,G=c.CRPGRuntime.growthV01522,copy=x=>JSON.parse(JSON.stringify(x));
 const OWNER_CASES=[['PLAYER_CUSTOM',1,'NEUTRAL'],['MOND_AMBER',1,'PYRO'],['MOND_DILUC',2,'PYRO'],['LIYUE_XIANGLING',1,'PYRO'],['LIYUE_ZHONGLI',2,'GEO']];
 // Fixed approved design; the archived 0.16.13 module below remains byte-identical.
-const CURRENT_PHASE_GEMS=Object.fromEntries(['NEUTRAL','PYRO','HYDRO','ANEMO','ELECTRO','CRYO','GEO','DENDRO'].map(element=>[element,[3,6,94,765,5136,135000]]));
+// The 0.16.22 single-gem phase table, still exported for history.
+const LEGACY_PHASE_GEMS=Object.fromEntries(['NEUTRAL','PYRO','HYDRO','ANEMO','ELECTRO','CRYO','GEO','DENDRO'].map(element=>[element,[3,6,94,765,5136,135000]]));
+// 0.16.56 (user: 「재료 양이 너무 많으니까 정신 없어서 … 돌파재료같은거 … 원작 고증 살려서 추가하고 제작에 넣거나 비경 보상에 넣자」): each phase
+// asks [tier, count] of the owner's element gem (the original's counts ×2; 5★ twice that), counted 1/3/9/27 in the lowest tier. The old
+// gems are no longer asked for; an alchemy bench exchanges them.
+const PHASE_GEMS=[[1,2],[2,6],[2,12],[3,6],[3,12],[4,12]],GEM_UNITS=[0,1,3,9,27],LAST_GEMS=PHASE_GEMS[5][1];
 let checks=0;
 function check(name,fn){fn();checks++;console.log('PASS '+name);}
 function phase(r,owner,n){if(owner==='PLAYER_CUSTOM'){r.s.global.PLAYER_LEVEL_STATE=G.caps[n];r.s.global.PLAYER_XP_STATE=0;}else{r.s.chars[owner].level=G.caps[n];r.s.chars[owner].xp=0;}r.s.ascensions[owner]=n;r.recalculate();if(owner==='PLAYER_CUSTOM')r.s.global.PLAYER_HP_CURRENT=r.s.global.PLAYER_HP_MAX;else r.s.chars[owner].hp=r.character(owner).maxHp;}
@@ -26,27 +31,31 @@ function ready(r,cost,gemQty){r.s.inventory=[];r.s.global.MORA=cost.mora+123;for
 function unchangedFailure(r,a){const before=r.serialize();assert.throws(()=>r.transact(a));assert.equal(r.serialize(),before,'rejection changes no wallet, inventory, stat, phase or receipt');}
 function oldSerialized(r){return r.serialize();}
 
-check('native costs apply fixed common-stage gem demands while preserving all other resource and stat rules',()=>{
- assert.deepEqual(copy(G.ascensionGemCosts),CURRENT_PHASE_GEMS);
- for(const[owner,mult,element]of OWNER_CASES){const old=oldFixture(owner),current=new R(db,copy(old.s));let gems=0;
-  for(let n=0;n<6;n++){phase(old,owner,n);phase(current,owner,n);const before=old.ascensionInfo(owner),after=current.ascensionInfo(owner),key='GROWTH_GEM_'+element;
-   const expected=copy(before.cost);expected.items[key]=CURRENT_PHASE_GEMS[element][n]*mult;
+check('native costs apply the original tiered gem demands while preserving all other resource and stat rules',()=>{
+ assert.deepEqual(copy(G.ascensionGemCosts),LEGACY_PHASE_GEMS);assert.deepEqual(copy(G.gemCosts),PHASE_GEMS);
+ for(const[owner,mult,element]of OWNER_CASES){const old=oldFixture(owner),current=new R(db,copy(old.s));let units=0;
+  for(let n=0;n<6;n++){phase(old,owner,n);phase(current,owner,n);const before=old.ascensionInfo(owner),after=current.ascensionInfo(owner),key='GROWTH_GEM_'+element,[tier,count]=PHASE_GEMS[n],gem=G.gemItem(element,tier);
+   const expected=copy(before.cost);delete expected.items[key];expected.items[gem]=count*mult;
    assert.equal(before.cost.items[key],[3,6,12,40,80,300][n]*mult);assert.deepEqual(copy(after.cost),expected);
    assert.deepEqual(copy(current.growth(owner)),copy(old.growth(owner)));assert.deepEqual(copy(owner==='PLAYER_CUSTOM'?current.player():current.character(owner)),copy(owner==='PLAYER_CUSTOM'?old.player():old.character(owner)));
-   assert.equal(after.gate.label,before.gate.label);assert.equal(after.nextCap,before.nextCap);gems+=after.cost.items[key];
-  }assert.equal(gems,CURRENT_PHASE_GEMS[element].reduce((a,b)=>a+b,0)*mult);
+   assert.equal(after.gate.label,before.gate.label);assert.equal(after.nextCap,before.nextCap);units+=after.cost.items[gem]*GEM_UNITS[tier];
+  }
+  // 0.16.56: a full ascension is 542 lowest-tier units (5★ 1084); was 141004 (282008) old gems.
+  assert.equal(units,542*mult);
  }
 });
 
-check('genuine old pending saves and old uncommitted intents use current common-stage preview and cannot substitute an old quoted price',()=>{
- for(const[owner,mult,element]of OWNER_CASES){const old=oldFixture(owner),oldCost=old.ascensionInfo(owner).cost,key='GROWTH_GEM_'+element,a=intent(old,owner);ready(old,oldCost,CURRENT_PHASE_GEMS[element][5]*mult-1);const saved=oldSerialized(old);let r=new R(db,JSON.parse(saved));
-  assert.equal(r.serialize(),saved,'loading itself neither collects a price increase nor edits progress');const d=r.ascensionInfo(owner);assert.equal(d.cost.items[key],CURRENT_PHASE_GEMS[element][5]*mult);assert(d.reason.includes('돌파 재료'));assert(r.actionReason('CHAR_ASCEND',{owner}).includes('돌파 재료'));unchangedFailure(r,a);
-  unchangedFailure(r,{...a,price:300*mult,cost:oldCost});r=new R(db,copy(r.s));assert.equal(r.ascensionInfo(owner).cost.items[key],CURRENT_PHASE_GEMS[element][5]*mult);r.giveItem(key,1);assert.equal(r.ascensionInfo(owner).reason,'');assert.equal(r.actionReason('CHAR_ASCEND',{owner}),'');const receipt=r.transact(a);assert(receipt.ok);assert.equal(r.itemCount(key),0);assert.equal(r.growth(owner).phase,6);assert.equal(r.s.global.MORA,123);
+check('genuine old pending saves and old uncommitted intents use the current tiered-gem preview and cannot substitute an old quoted price or old gems',()=>{
+ // 0.16.56: the old save holds its full old quote (300, 5★ 600 old gems); the last phase now asks 12 (24) tier-4 gems and the old gems
+ // neither count nor get spent (an alchemy bench exchanges them).
+ for(const[owner,mult,element]of OWNER_CASES){const old=oldFixture(owner),oldCost=old.ascensionInfo(owner).cost,key='GROWTH_GEM_'+element,gem=G.gemItem(element,4),need=LAST_GEMS*mult,a=intent(old,owner);ready(old,oldCost,oldCost.items[key]);const saved=oldSerialized(old);let r=new R(db,JSON.parse(saved));
+  assert.equal(r.serialize(),saved,'loading itself neither collects a price increase nor edits progress');r.giveItem(gem,need-1);const d=r.ascensionInfo(owner);assert.equal(d.cost.items[gem],need);assert(!(key in d.cost.items));assert(d.reason.includes('돌파 재료'));assert(r.actionReason('CHAR_ASCEND',{owner}).includes('돌파 재료'));unchangedFailure(r,a);
+  unchangedFailure(r,{...a,price:300*mult,cost:oldCost});r=new R(db,copy(r.s));assert.equal(r.ascensionInfo(owner).cost.items[gem],need);r.giveItem(gem,1);assert.equal(r.ascensionInfo(owner).reason,'');assert.equal(r.actionReason('CHAR_ASCEND',{owner}),'');const receipt=r.transact(a);assert(receipt.ok);assert.equal(r.itemCount(gem),0);assert.equal(r.itemCount(key),300*mult);assert.equal(r.growth(owner).phase,6);assert.equal(r.s.global.MORA,123);
  }
 });
 
 check('current ascension with surplus inventory spends exactly once including restore and rejects an older committed intent after a new action',()=>{
- for(const[owner,mult,element]of [['MOND_AMBER',1,'PYRO'],['MOND_DILUC',2,'PYRO']]){let r=new R(db,JSON.parse(oldSerialized(oldFixture(owner))));const d=r.ascensionInfo(owner),key='GROWTH_GEM_'+element;ready(r,d.cost,(CURRENT_PHASE_GEMS[element][5]+200)*mult);const a=intent(r,owner),receipt=r.transact(a),saved=r.serialize();assert.equal(r.itemCount(key),200*mult);assert.equal(r.s.global.MORA,123);assert.equal(r.growth(owner).cap,60);assert.equal(r.s.chars[owner].hp,r.character(owner).maxHp);
+ for(const[owner,mult,element]of [['MOND_AMBER',1,'PYRO'],['MOND_DILUC',2,'PYRO']]){let r=new R(db,JSON.parse(oldSerialized(oldFixture(owner))));const d=r.ascensionInfo(owner),key=G.gemItem(element,4);assert.equal(d.cost.items[key],LAST_GEMS*mult);ready(r,d.cost,(LAST_GEMS+200)*mult);const a=intent(r,owner),receipt=r.transact(a),saved=r.serialize();assert.equal(r.itemCount(key),200*mult);assert.equal(r.s.global.MORA,123);assert.equal(r.growth(owner).cap,60);assert.equal(r.s.chars[owner].hp,r.character(owner).maxHp);
   assert.deepEqual(copy(r.transact(a)),copy(receipt));assert.equal(r.serialize(),saved);r=new R(db,JSON.parse(saved));assert.deepEqual(copy(r.transact(a)),copy(receipt));assert.equal(r.serialize(),saved);r.action('MENU',{screen:'LOCATION'});const after=r.serialize();assert.throws(()=>r.transact(a),/화면이 갱신/);assert.equal(r.serialize(),after);assert.equal(r.itemCount(key),200*mult);
  }
 });
@@ -64,19 +73,22 @@ check('genuine 0.16.13 in-flight high domains keep marker-one payouts and share 
 });
 
 check('genuine old pending talent intents use the new book quantity and reject an older quoted quantity atomically',()=>{
- for(const[owner,book,need]of [['MOND_AMBER','GROWTH_TALENT_MOND',12],['LIYUE_XIANGLING','GROWTH_TALENT_LIYUE',30]]){
-  const old=oldFixture(owner,6);old.s.talents[owner]={na:3,e:1,q:1};const quoted=old.talentUpgradeInfo(owner,'na').cost;assert.equal(quoted.items[book],owner.startsWith('LIYUE_')?12:6);ready(old,quoted);old.s.inventory.find(x=>x.item===book).quantity=need-1;
-  const g=old.s.global,a={id:g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1),revision:g.SAVE_REVISION,type:'TALENT_UPGRADE',owner,kind:'na'},saved=oldSerialized(old);let r=new R(db,JSON.parse(saved));assert.equal(r.serialize(),saved);
-  assert.equal(r.talentUpgradeInfo(owner,'na').cost.items[book],need);unchangedFailure(r,a);unchangedFailure(r,{...a,price:quoted.items[book],cost:quoted});r.giveItem(book,1);const receipt=r.transact(a);assert(receipt.ok);assert.equal(r.talentLevels(owner).base.na,4);assert.equal(r.itemCount(book),0);assert.equal(r.s.global.MORA,123);
+ // 0.16.56: the step 3→4 now asks 4 인도 (tier 2) of the character's own kind (Amber 자유, Xiangling 근면) in both regions; was 12/30
+ // region books. The old save holds its full old quote (6/12), which neither counts nor gets spent.
+ for(const[owner,book,kind,need]of [['MOND_AMBER','GROWTH_TALENT_MOND','FREEDOM',4],['LIYUE_XIANGLING','GROWTH_TALENT_LIYUE','DILIGENCE',4]]){
+  const old=oldFixture(owner,6);old.s.talents[owner]={na:3,e:1,q:1};const quoted=old.talentUpgradeInfo(owner,'na').cost,item=G.bookItem(kind,2);assert.equal(quoted.items[book],owner.startsWith('LIYUE_')?12:6);ready(old,quoted);
+  const g=old.s.global,a={id:g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1),revision:g.SAVE_REVISION,type:'TALENT_UPGRADE',owner,kind:'na'},saved=oldSerialized(old);let r=new R(db,JSON.parse(saved));assert.equal(r.serialize(),saved);r.giveItem(item,need-1);
+  const cost=r.talentUpgradeInfo(owner,'na').cost;assert.equal(cost.items[item],need);assert(!(book in cost.items));unchangedFailure(r,a);unchangedFailure(r,{...a,price:quoted.items[book],cost:quoted});r.giveItem(item,1);const receipt=r.transact(a);assert(receipt.ok);assert.equal(r.talentLevels(owner).base.na,4);assert.equal(r.itemCount(item),0);assert.equal(r.itemCount(book),quoted.items[book]);assert.equal(r.s.global.MORA,123);
   const settled=r.serialize();assert.deepEqual(copy(r.transact(a)),copy(receipt));assert.equal(r.serialize(),settled);r=new R(db,JSON.parse(settled));assert.deepEqual(copy(r.transact(a)),copy(receipt));assert.equal(r.serialize(),settled);
  }
 });
 
 check('genuine old paid talent upgrades retain trained levels, inventory, wallet and archived receipts without retroactive debt',()=>{
- for(const[owner,book,oldNeed,nextNeed]of [['MOND_AMBER','GROWTH_TALENT_MOND',6,32],['LIYUE_XIANGLING','GROWTH_TALENT_LIYUE',12,80]]){
+ // 0.16.56: the next step 4→5 asks 6 인도 of the character's own kind; was 32/80 region books.
+ for(const[owner,book,oldNeed,next,nextNeed]of [['MOND_AMBER','GROWTH_TALENT_MOND',6,G.bookItem('FREEDOM',2),6],['LIYUE_XIANGLING','GROWTH_TALENT_LIYUE',12,G.bookItem('DILIGENCE',2),6]]){
   const old=oldFixture(owner,6);old.s.talents[owner]={na:3,e:1,q:1};const cost=old.talentUpgradeInfo(owner,'na').cost;assert.equal(cost.items[book],oldNeed);ready(old,cost);old.giveItem(book,17);
   const g=old.s.global,a={id:g.SAVE_ID+':'+(g.LAST_COMMITTED_ACTION_SEQ+1),revision:g.SAVE_REVISION,type:'TALENT_UPGRADE',owner,kind:'na'},receipt=old.transact(a),saved=oldSerialized(old);let r=new R(db,JSON.parse(saved));
-  assert.equal(r.serialize(),saved);assert.equal(r.talentLevels(owner).base.na,4);assert.equal(r.itemCount(book),17);assert.equal(r.s.global.MORA,123);assert.equal(r.talentUpgradeInfo(owner,'na').cost.items[book],nextNeed);assert.deepEqual(copy(r.transact(a)),copy(receipt));assert.equal(r.serialize(),saved);r=new R(db,JSON.parse(saved));assert.deepEqual(copy(r.transact(a)),copy(receipt));assert.equal(r.serialize(),saved);
+  assert.equal(r.serialize(),saved);assert.equal(r.talentLevels(owner).base.na,4);assert.equal(r.itemCount(book),17);assert.equal(r.s.global.MORA,123);assert.equal(r.talentUpgradeInfo(owner,'na').cost.items[next],nextNeed);assert(!(book in r.talentUpgradeInfo(owner,'na').cost.items));assert.deepEqual(copy(r.transact(a)),copy(receipt));assert.equal(r.serialize(),saved);r=new R(db,JSON.parse(saved));assert.deepEqual(copy(r.transact(a)),copy(receipt));assert.equal(r.serialize(),saved);
  }
 });
 
@@ -87,10 +99,13 @@ check('genuine old talent fights keep their marker-zero 12-book promise and thei
 });
 
 check('growth boundaries and domain reward versions still reject tampering; native gems have no trade, shop or synthesis bypass',()=>{
+ // 0.16.56: the new tiered gems are made only 3-for-1 from the tier below at an alchemy bench (worth for worth); tier 1 only drops.
  const old=oldFixture('MOND_AMBER'),saved=JSON.parse(oldSerialized(old));
  const changes=[s=>s.ascensions.MOND_AMBER=7,s=>s.ascensions.MOND_AMBER=-1,s=>s.ascensions.MOND_AMBER=4,s=>s.chars.MOND_AMBER.level=61,s=>s.chars.MOND_AMBER.xp=1];
  for(const mutate of changes){const invalid=copy(saved);mutate(invalid);assert.throws(()=>new R(db,invalid));}
- const r=new R(db,saved);for(const element of ['NEUTRAL','PYRO','HYDRO','ANEMO','ELECTRO','CRYO','GEO','DENDRO']){const id='GROWTH_GEM_'+element;assert.equal(r.tradeRule(id).ok,false);assert(!r.rows('19_SHOP_STOCK_DB').some(row=>row[3]===id));assert(!r.rows('17_RECIPE_DB').some(row=>row[3]===id));}
- old.s.global.CURRENT_MAP_ID='MAP_D163_LIANSHAN_FORMULA';old.s.global.SCREEN_MODE='LOCATION';old.action('DOMAIN_START',{domain:'LIANSHAN_FORMULA:55',element:'PYRO'});const battle=JSON.parse(oldSerialized(old));for(const marker of [-1,5,'4',null]){const invalid=copy(battle);invalid.runtime.growthDomain.ascensionRewardVersion=marker;assert.throws(()=>new R(db,invalid),/돌파 비경 보상 저장값/);}
+ const r=new R(db,saved);for(const element of ['NEUTRAL','PYRO','HYDRO','ANEMO','ELECTRO','CRYO','GEO','DENDRO']){const id='GROWTH_GEM_'+element;assert.equal(r.tradeRule(id).ok,false);assert(!r.rows('19_SHOP_STOCK_DB').some(row=>row[3]===id));assert(!r.rows('17_RECIPE_DB').some(row=>row[3]===id));
+  for(let tier=1;tier<=4;tier++){const gem=G.gemItem(element,tier),made=r.rows('17_RECIPE_DB').filter(row=>row[3]===gem);assert.equal(r.tradeRule(gem).ok,false);assert(!r.rows('19_SHOP_STOCK_DB').some(row=>row[3]===gem));
+   if(tier===1)assert.equal(made.length,0);else{assert.equal(made.length,1);assert.deepEqual([made[0][1],made[0][4],made[0][5],made[0][6],made[0][16],made[0][17]],['재료 합성',1,G.gemItem(element,tier-1),3,'연금대','연금대']);assert.deepEqual(r.rows('48_RECIPE_INGREDIENT_DB').filter(x=>x[1]===made[0][0]).map(x=>[x[3],x[4]]),[[G.gemItem(element,tier-1),3]]);}}}
+ old.s.global.CURRENT_MAP_ID='MAP_D163_LIANSHAN_FORMULA';old.s.global.SCREEN_MODE='LOCATION';old.action('DOMAIN_START',{domain:'LIANSHAN_FORMULA:55',element:'PYRO'});const battle=JSON.parse(oldSerialized(old));for(const marker of [-1,6,'4','5',null]){const invalid=copy(battle);invalid.runtime.growthDomain.ascensionRewardVersion=marker;assert.throws(()=>new R(db,invalid),/돌파 비경 보상 저장값/);}
 });
 console.log(JSON.stringify({checks,ok:true,archiveVersion:'0.16.13',archiveSourceSha256:ARCHIVE.sha256,scope:'native costs, old VM save migration and receipts; domain settlement fixtures do not claim measured combat duration'}));

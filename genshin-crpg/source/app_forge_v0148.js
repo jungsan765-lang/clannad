@@ -30,7 +30,8 @@ function heroBox(rank,glyph,kind,name){
 function recipeHero(card,recipe){
  const r=game.tables['17_RECIPE_DB']?.get(recipe),equip=r?.[2]==='EQUIP',out=r?.[3],rank=rankOf(out);
  const glyph=card.querySelector('.craft-output .item-icon, .craft-output .item-glyph, .craft-output img'),name=card.querySelector('.craft-output h3')?.textContent||'';
- const kind=equip?String(game.tables['16_EQUIP_DB']?.get(out)?.[2]||'장비')+' · '+(window.CRPGInventoryPresenter?.TIER_LABELS?.[rank]||''):(game.tables['14_ITEM_DB']?.get(out)?.[2]||'아이템');
+ // 0.16.56: an old gem or book's exchange card (app_experience.js exchangeCards) reads as what it is.
+ const kind=String(recipe).startsWith('EXCHANGE:')?'옛 재료 → 원작 재료':equip?String(game.tables['16_EQUIP_DB']?.get(out)?.[2]||'장비')+' · '+(window.CRPGInventoryPresenter?.TIER_LABELS?.[rank]||''):(game.tables['14_ITEM_DB']?.get(out)?.[2]||'아이템');
  const info=mk('div','shell-forge-info');
  if(equip){
   const e=game.tables['16_EQUIP_DB']?.get(out);

@@ -296,3 +296,9 @@ CSS `damage-font.css`를 스타일에 추가하고 피해 숫자에 `font-family
 # v0.16.32 이세계인 주인공 얼굴
 
 `faces/isekai.webp`(256×256, 얼굴), `faces/isekai_full.webp`(512×512, 전신): 사용자가 보내 준 실루엣 그림(2026-10-12)을 잘라 옅은 배경에 짙은 색으로 다시 칠했다. 여행자가 아직 모습을 고르기 전에도 이 그림을 쓴다.
+
+## 0.16.56 돌파 보석·특성 책
+
+- 사용자 승인(2026-10-16) 후 받은 원작 아이콘 40개: 원소 보석 8종의 조각·덩이·원석(`UI_ItemIcon_1041x2`~`x4`, 24개)과 특성 책 6종(「자유」·「투쟁」·「시문」·「번영」·「근면」·「황금」)의 가르침·인도·철학 중 없던 16개(`UI_ItemIcon_1043xx`).
+- 출처: https://github.com/ylyking/GenshinTextures-full (`Texture2D/UI/ItemIcon/`). 256px 투명 PNG를 WebP로 줄였다. 원본·최적화 SHA-256은 `content/item-icons.json`과 `content/item-icon-sources.json`에 있다.
+- 이름은 Yatta 공식 한국어 게임 문자열(https://gi.yatta.moe/api/v2/kr/material)과 대조했다. 가루와 가르침(1단계)은 0.15.25에 받은 같은 그림을 쓴다.

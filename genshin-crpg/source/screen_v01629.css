@@ -1813,3 +1813,19 @@ body.teyvat .battle-summon.summon-arrive{animation:summon-arrive .45s ease-out b
 .cons-6 .cons-ember{animation-duration:2.6s}
 @keyframes cons-ember{0%{opacity:0;bottom:3%;transform:translateX(0) scale(.7)}15%{opacity:1}60%{transform:translateX(3px) scale(1)}100%{opacity:0;bottom:78%;transform:translateX(-2px) scale(.3)}}
 @media (prefers-reduced-motion:reduce){.cons-frame[data-cons-tier=five] .cons-skin,.cons-frame[data-cons-tier=five] .cons-skin::before,.cons-frame[data-cons-tier=five] .cons-tag,.cons-ember{animation:none}.cons-ember{display:none}}
+/* 0.16.56 (user: 「상점은... 이정도면 휠로 내릴 수 있어도 될 것 같은데?」): a shop's goods and the forge's and kitchen's recipes are one list
+   scrolled with the wheel or a finger instead of numbered pages, and the chosen thing's card scrolls the same way (whole letters, no 「자세히」). */
+body.teyvat .market-layout>:is(.market-grid,.market-detail),body.teyvat :is(.shell-forge-list,.shell-forge-scroll){overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(227,195,138,.6) rgba(255,255,255,.04)}
+body.teyvat .market-layout>:is(.market-grid,.market-detail)::-webkit-scrollbar,body.teyvat :is(.shell-forge-list,.shell-forge-scroll)::-webkit-scrollbar{width:7px}
+body.teyvat .market-layout>:is(.market-grid,.market-detail)::-webkit-scrollbar-thumb,body.teyvat :is(.shell-forge-list,.shell-forge-scroll)::-webkit-scrollbar-thumb{border-radius:4px;background:rgba(227,195,138,.6)}
+body.teyvat .shell-forge-list,body.teyvat .market-layout>.market-grid{padding-right:4px}
+/* 0.16.56: a talent domain's three book kinds — the book and its name side by side, one row */
+html body.teyvat :where(#root) .domain-gate .domain-books{display:flex;flex-wrap:nowrap;gap:4px}
+html body.teyvat :where(#root) .domain-gate .domain-books>button.domain-element.domain-book{flex:1 1 0;width:auto;min-width:0;height:30px;min-height:30px;padding:0 6px;border-radius:8px;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:4px}
+html body.teyvat .domain-gate .domain-books .domain-element-icon{width:20px;height:20px;flex:0 0 auto}
+html body.teyvat .domain-gate .domain-books>button.domain-book>b{font-size:.72rem;line-height:1;white-space:nowrap;font-weight:700}
+html.stage-phone body.teyvat .domain-gate .domain-books>button.domain-book>b{font-size:.62rem}
+/* the old materials' exchange at the alchemy bench: the three book kinds as a row of buttons */
+body.teyvat .exchange-kinds{display:flex;gap:6px;margin:6px 0}
+body.teyvat :where(#root) .exchange-kinds>button.exchange-kind{flex:1 1 0;min-height:32px;padding:2px 8px}
+body.teyvat :where(#root) .exchange-kinds>button.exchange-kind.selected{border-color:var(--t-gold-hi);box-shadow:0 0 0 2px rgba(243,223,174,.45);background:rgba(236,229,216,.18)}

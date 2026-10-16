@@ -41,9 +41,18 @@ check('rewards: the Lv35–55 EXP stages and the Lv35–55 Liyue talent stages p
  assert.deepEqual(plain(G.domainTalentBooks.LIYUE),{30:3,35:5,40:9,45:12,50:25,55:38,60:90});assert.deepEqual(plain(G.domainTalentBooks.MOND),{5:1,10:2,15:10,20:20,25:32});
  assert.equal(G.domainAscensionGems.NEUTRAL[60],5400);
  const r=start(env,'ZHOU_FORMULA:35',35,'story4');assert.equal(r.mondRewardPlan(S(r)).xp,7000);
- const t=H.setup(env,{level:45,team:[],map:G.domains.TAISHAN_MANSION.map});const e=t.growthDomainEntries().find(x=>x.id==='TAISHAN_MANSION:45');assert.equal(t.growthDomainRewards(e,'NEUTRAL').items.GROWTH_TALENT_LIYUE,12);
- // Every higher stage still pays more per run than every lower one of its kind.
- for(const table of [G.domainXp,G.domainTalentBooks.LIYUE]){const v=Object.entries(table).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);for(let i=1;i<v.length;i++)assert(v[i]>v[i-1]);}
+ const t=H.setup(env,{level:45,team:[],map:G.domains.TAISHAN_MANSION.map});const e=t.growthDomainEntries().find(x=>x.id==='TAISHAN_MANSION:45');
+ // 0.16.56 (user: 「돌파재료같은거 … 원작 고증 살려서 … 비경 보상에 넣자」): a new run pays the original's tiered books of the kind picked (the region's
+ // first, 「번영」, when none is) and gems by tier; the 0.16.51 tables above still pay a fight begun before (reward version 4).
+ assert.equal(e.talentRewardVersion,5);assert.deepEqual(plain(e.books),['PROSPERITY','DILIGENCE','GOLD']);
+ assert.deepEqual(plain(t.growthDomainRewards(e,'NEUTRAL').items),{GROWTH_BOOK_PROSPERITY_1:1,GROWTH_BOOK_PROSPERITY_2:1});assert.deepEqual(plain(t.growthDomainRewards({...e,book:'GOLD'},'NEUTRAL').items),{GROWTH_BOOK_GOLD_1:1,GROWTH_BOOK_GOLD_2:1});
+ assert.deepEqual(plain(t.growthDomainRewards({...e,talentRewardVersion:4},'NEUTRAL').items),{GROWTH_TALENT_LIYUE:12},'an old saved fight keeps the 0.16.51 pay');
+ assert.deepEqual(plain(G.bookDrops),{MOND:{5:{1:1},10:{1:2},15:{1:3,2:1},20:{1:2,2:3},25:{1:1,2:3,3:1}},LIYUE:{30:{1:1},35:{1:2},40:{1:3},45:{1:1,2:1},50:{1:1,2:2},55:{1:2,2:3},60:{2:2,3:2}}});
+ assert.deepEqual(plain(G.gemDrops),{5:{1:1},10:{1:2},15:{1:3},20:{1:1,2:1},25:{1:2,2:1},30:{1:2,2:1},35:{1:1,2:2},40:{1:2,2:2},45:{3:1},50:{1:1,2:1,3:1},55:{1:1,2:1,3:2},60:{4:1}});
+ // Every higher stage still pays more per run than every lower one of its kind (the new books counted in the lowest tier: 1, 3, 9).
+ const worth=table=>Object.fromEntries(Object.entries(table).map(([l,d])=>[l,Object.entries(d).reduce((a,[t,n])=>a+n*3**(t-1),0)]));
+ assert.deepEqual(worth(G.bookDrops.LIYUE),{30:1,35:2,40:3,45:4,50:7,55:11,60:24});assert.deepEqual(worth(G.bookDrops.MOND),{5:1,10:2,15:6,20:11,25:19});
+ for(const table of [G.domainXp,G.domainTalentBooks.LIYUE,worth(G.bookDrops.LIYUE),worth(G.bookDrops.MOND)]){const v=Object.entries(table).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);for(let i=1;i<v.length;i++)assert(v[i]>v[i-1]);}
 });
 
 console.log(passed+' passed');

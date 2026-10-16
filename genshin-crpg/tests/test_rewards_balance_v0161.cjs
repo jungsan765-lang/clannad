@@ -10,12 +10,15 @@ function settle(r){for(const a of r.s.runtime.actors.filter(a=>a.side==='ENEMY')
 // Current EXP has its own increasing table; the earlier material XP table is retained independently. No Mora.
 // 0.16.27 Lv60 EXP is 24,000; previously started 0.16.26 fights retain 10,000.
 // 0.16.3: the three kinds stand at different places (태산부 · 천둥 연산 밀궁 · 암중협곡 at Lv60).
+// 0.16.56 (user: 「재료 양이 너무 많으니까 정신 없어서 그.. 돌파재료같은거 있잖아? 그런건 원작 고증 살려서 추가하고 제작에 넣거나 비경 보상에 넣자」): Lv60 태산부
+// pays two 인도 and two 철학 of the region's first book (was 90 old books), Lv60 천둥 연산 밀궁 one 원석 of the element.
 check('Lv60 material domains retain their XP and EXP domains pay their current XP, no Mora or books',()=>{
  for(const [map,id,element,xp]of [['MAP_D163_TAISHAN_MANSION','TAISHAN_MANSION:60','NEUTRAL',1600],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','NEUTRAL',1600],['MAP_D163_LIANSHAN_FORMULA','LIANSHAN_FORMULA:60','PYRO',1600],['MAP_CHASM_DEEP','LOST_VALLEY:60','NEUTRAL',24000]]){
   const r=ready(map);r.action('DOMAIN_START',{domain:id,element});const x=settle(r);
   assert.equal(x.xp,xp,id);assert.equal(x.mora,0,id);for(const book of Object.keys(api.leyLines.bookXp))assert.equal(x.loot[book]||0,0);
   if(id.startsWith('LOST_VALLEY'))assert.equal(Object.keys(x.domain.items).length,0);
-  if(id.startsWith('TAISHAN_MANSION'))assert.equal(x.domain.items.GROWTH_TALENT_LIYUE,90);
+  if(id.startsWith('TAISHAN_MANSION'))assert.deepEqual(cp(x.domain.items),{GROWTH_BOOK_PROSPERITY_2:2,GROWTH_BOOK_PROSPERITY_3:2});
+  if(id.startsWith('LIANSHAN_FORMULA'))assert.deepEqual(cp(x.domain.items),{['GROWTH_GEM_'+element+'_4']:1});
   const state=r.serialize();r.finishBattle(true);assert.equal(r.serialize(),state,'duplicate settlement cannot pay');
  }
 });
@@ -35,6 +38,8 @@ check('genuine 0.16.26 in-flight EXP10000 and talent80 settlements survive pendi
   assert.equal(loaded.s.global.PRNG_STATE,saved.global.PRNG_STATE);
   const prior=settle(old),current=settle(loaded);assert.equal(current.xp,xp);assert.equal(current.mora,0);
   assert.equal(current.domain.items.GROWTH_TALENT_LIYUE||0,books);
+  // 0.16.56: a fight saved before the tiered books keeps its old item and never pays the new ones.
+  assert(!Object.keys(current.domain.items).some(id=>id.startsWith('GROWTH_BOOK_')||/^GROWTH_GEM_.*_[1-4]$/.test(id)));
   for(const book of Object.keys(api.leyLines.bookXp))assert.equal(current.loot[book]||0,0);
   assert.deepEqual(cp(current),cp(prior),'original settlement remains exact '+id+':'+boundary);
   assert.deepEqual(JSON.parse(loaded.serialize()),JSON.parse(old.serialize()),'settled historical save remains exact');
@@ -43,7 +48,7 @@ check('genuine 0.16.26 in-flight EXP10000 and talent80 settlements survive pendi
 });
 check('daily first-three bonus doubles materials only; the experience domain neither doubles nor uses one of the three',()=>{
  const r=ready('MAP_D163_FORSAKEN_RIFT');delete r.s.domainDaily;r.action('DOMAIN_START',{domain:'FORSAKEN_RIFT:5'});const x=settle(r);
- assert.equal(x.xp,40);assert.equal(x.mora,0);assert.equal(x.domain.items.GROWTH_TALENT_MOND,2);assert.equal(r.s.domainDaily.wins,1);
+ assert.equal(x.xp,40);assert.equal(x.mora,0);assert.deepEqual(cp(x.domain.items),{GROWTH_BOOK_FREEDOM_1:2});assert.equal(r.s.domainDaily.wins,1);
  r.s.global.SCREEN_MODE='LOCATION';r.s.global.CURRENT_MAP_ID='MAP_D163_MIDSUMMER_COURTYARD';r.action('DOMAIN_START',{domain:'MIDSUMMER_COURTYARD:5'});const y=settle(r);
  assert.equal(y.xp,200);assert.equal(y.mora,0);assert.equal(Object.keys(y.domain.items).length,0);assert.equal(y.domain.bonus,false);assert.equal(r.s.domainDaily.wins,1);
 });
