@@ -288,26 +288,29 @@ try{
   // only, the real fight and the running core; the six windows and the phone page are checked in local runs.
   if((!ONLY.length||ONLY.some(o=>o.startsWith('fb-mini')))&&!(process.env.CI&&size.name!=='pc')){
    const s=playerState();fixture.seed(s.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
-   if(!process.env.CI)for(const [label,kind,extra] of [['fb-mini-anemo','ANEMO_DODGE',{orbs:5,maxHits:6}],['fb-mini-andrius','ANDRIUS_DODGE',{maxHits:6,orbs:0}],['fb-mini-cryo','CRYO_CHASE',{need:4}],['fb-mini-dvalin','DVALIN_SNIPE',{crystals:3,shots:6}],['fb-mini-tartaglia','TARTAGLIA_DODGE',{maxHits:6,orbs:0}],['fb-mini-azhdaha','AZHDAHA_DODGE',{maxHits:6,orbs:0}]])
+   if(!process.env.CI)for(const [label,kind,extra] of [['fb-mini-anemo','ANEMO_DODGE',{orbs:5,maxHits:6}],['fb-mini-andrius','ANDRIUS_DODGE',{maxHits:6,orbs:0}],['fb-mini-cryo','CRYO_CHASE',{need:4}],['fb-mini-dvalin','DVALIN_SNIPE',{crystals:3,shots:6}],['fb-mini-tartaglia','TARTAGLIA_DODGE',{maxHits:6,orbs:0}],['fb-mini-azhdaha','AZHDAHA_DODGE',{maxHits:6,orbs:0}],
+    // 0.16.54 boss pass: 바람 원소 모으기 · 서리 열매 치기 · 약점 저격 · 타르탈리아 1페이즈
+    ['fb-mini-anemo-orbs','ANEMO_ORBS',{orbs:5,maxHits:6,seconds:10}],['fb-mini-frost','FROST_FRUIT',{need:3,fruits:6,shots:4}],['fb-mini-serpent','SERPENT_SNIPE',{points:4,shots:6,seconds:8}],['fb-mini-tartaglia-1','TARTAGLIA_DODGE',{maxHits:6,orbs:0,phase:1}]])
     await view(label,`(async()=>{CRPGFieldBossMinigames.open({mini:{kind:'${kind}',id:1,seed:42,seconds:9,...${JSON.stringify(extra)}}});await new Promise(r=>setTimeout(r,200));if(!document.querySelector('.fb-mini canvas'))throw Error('no minigame');})()`);
    // CI: the two games in play are left to local runs (the verify job's 20 minutes); the real fight below still plays one.
    if(!process.env.CI)await view('fb-mini-azhdaha-play',`(async()=>{CRPGFieldBossMinigames.open({mini:{kind:'AZHDAHA_DODGE',id:1,seed:42,seconds:9,orbs:0,maxHits:6}});await new Promise(r=>setTimeout(r,150));[...document.querySelectorAll('.fb-mini button')].find(b=>b.textContent==='시작').click();await new Promise(r=>setTimeout(r,4600));})()`);
-   if(!process.env.CI)await view('fb-mini-anemo-play',`(async()=>{CRPGFieldBossMinigames.open({mini:{kind:'ANEMO_DODGE',id:1,seed:42,seconds:9,orbs:5,maxHits:6}});await new Promise(r=>setTimeout(r,150));[...document.querySelectorAll('.fb-mini button')].find(b=>b.textContent==='시작').click();await new Promise(r=>setTimeout(r,4200));})()`);
+   if(!process.env.CI)await view('fb-mini-anemo-play',`(async()=>{CRPGFieldBossMinigames.open({mini:{kind:'ANEMO_ORBS',id:1,seed:42,seconds:10,orbs:5,maxHits:6}});await new Promise(r=>setTimeout(r,150));[...document.querySelectorAll('.fb-mini button')].find(b=>b.textContent==='시작').click();await new Promise(r=>setTimeout(r,4200));})()`);
    await page.evaluate(()=>CRPGFieldBossMinigames.close()).catch(()=>{});
-   // and played from a real 무상의 바람 fight: its card, the start button, the window, the keys, the barrage landing in the fight
+   // and played from a real 무상의 바람 fight (0.16.54: at HP 1, 「바람 원소 모으기」): its card, the start button, the window, the keys,
+   // and the orbs it took landing in the fight
    const FBX=globalThis.CRPGRuntime?.fieldBosses;if(FBX){const x=playerState();x.serverAdmin=true;delete x.s.defeatPenalty;
     try{x.action('OPERATOR_DEBUG',{op:'travel',map:FBX.bosses.FB_ANEMO_HYPOSTASIS.map});const route=FBX.route('FB_ANEMO_HYPOSTASIS');x.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});x.action('BOSS_ROUTE',{route,entry:'DIRECT'});if(x.s.runtime?.opening?.state==='PENDING')x.action('COMBAT_BEGIN');
-     const b=x.s.runtime,boss=b.actors.find(a=>a.source==='FB_ANEMO_HYPOSTASIS');boss.fb.next='BARRAGE';boss.airborne=false;b.fieldBoss.dodge={kind:'ANEMO',id:99,seed:7,round:b.round,result:null,playerActed:false};b.fieldBoss.telegraph={move:'BARRAGE',label:'바람 탄막',text:'',counter:''};
+     const b=x.s.runtime,boss=b.actors.find(a=>a.source==='FB_ANEMO_HYPOSTASIS'),me=b.actors.find(a=>a.source==='PLAYER_CUSTOM');boss.airborne=false;boss.fb.coreOpen=true;x.applyDamage(me,boss,boss.hp+5,{element:'물리'});if(!boss.fb.revival?.orbs)throw Error('no orbs revival');
      fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
-     await view('fb-mini-battle',`(async()=>{const w=ms=>new Promise(r=>setTimeout(r,ms));const card=document.querySelector('button[data-card-id="SYS_FB_WIND_DODGE"]');if(!card)throw Error('no dodge card');if(!card.classList.contains('fb-mini-card'))throw Error('card not marked');if(![...document.querySelectorAll('.shell-enemies .st-chip')].some(c=>/핵 닫힘/.test(c.textContent)))throw Error('no shut-core chip');card.click();await w(300);
+     await view('fb-mini-battle',`(async()=>{const w=ms=>new Promise(r=>setTimeout(r,ms));const card=document.querySelector('button[data-card-id="SYS_FB_WIND_ORBS"]');if(!card)throw Error('no orbs card');if(!card.classList.contains('fb-mini-card'))throw Error('card not marked');if(![...document.querySelectorAll('.shell-enemies .st-chip')].some(c=>c.textContent.includes('바람 원소 0/5')))throw Error('no orbs chip');card.click();await w(300);
       const run=[...document.querySelectorAll('.battle-execute button')].find(b=>/시작/.test(b.textContent));if(!run)throw Error('no start button');run.click();await w(300);if(!document.querySelector('.fb-mini'))throw Error('no window');
       [...document.querySelectorAll('.fb-mini button')].find(b=>b.textContent==='시작').click();const key=(c,type)=>window.dispatchEvent(new KeyboardEvent(type,{code:c,bubbles:true}));
       for(let i=0;i<26;i++){const c=['KeyA','KeyW','KeyD','KeyS'][i%4];key(c,'keydown');await w(480);key(c,'keyup');}
-      for(let i=0;i<40&&document.querySelector('.fb-mini');i++)await w(250);if(document.querySelector('.fb-mini'))throw Error('window stayed');for(let i=0;i<40&&!/바람 탄막 ·/.test(JSON.stringify(game.s.runtime?.log||game.s.global.LAST_BATTLE_RESULT_JSON));i++)await w(250);
-      const landed=(game.s.runtime?.log||[]).filter(l=>l.card==='FB_BARRAGE'&&/발 적중 · 바람 원소 [0-9]개/.test(l.text||''));if(!landed.length)throw Error('barrage not in the fight log · '+(game.s.runtime?.log||[]).filter(l=>/탄막/.test(l.cardName||'')).map(l=>l.text).join(' / '));})()`);
+      for(let i=0;i<40&&document.querySelector('.fb-mini');i++)await w(250);if(document.querySelector('.fb-mini'))throw Error('window stayed');for(let i=0;i<40&&!/바람 원소 [0-9]개를 빼앗았다/.test(JSON.stringify(game.s.runtime?.log||game.s.global.LAST_BATTLE_RESULT_JSON));i++)await w(250);
+      const landed=(game.s.runtime?.log||[]).filter(l=>l.fbMini==='ANEMO_ORBS'&&/바람 원소 [0-9]개를 빼앗았다/.test(l.text||''));if(!landed.length&&game.s.runtime)throw Error('orbs not in the fight log · '+(game.s.runtime?.log||[]).filter(l=>l.fbMini).map(l=>l.text).join(' / '));})()`);
     }catch(e){console.error('fb-mini-battle',e.message);}
     // (user: 「무상의 얼음은 일단 진행하면서 버그가 없나 한번 체크해줘. 전에는 UI가 밀리는 현상이 있었던거같은데」): its fight as it starts,
-    // after its ice wall, and while its core runs (the chase card in the row).
+    // after its ice wall, and while it hides in its ice shield (0.16.54: the 「서리 열매 치기」 card in the row).
     // CI: the core stage only (the verify job's 20 minutes).
     for(const stage of (process.env.CI?['core']:['start','wall','core']).filter(st=>!ONLY.length||ONLY.some(o=>('fb-mini-cryo-'+st).startsWith(o)||o.startsWith('fb-mini-cryo-'+st)))){const y=playerState();y.serverAdmin=true;delete y.s.defeatPenalty;
      try{y.action('OPERATOR_DEBUG',{op:'travel',map:FBX.bosses.FB_CRYO_HYPOSTASIS.map});const route=FBX.route('FB_CRYO_HYPOSTASIS');y.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});y.action('BOSS_ROUTE',{route,entry:'DIRECT'});if(y.s.runtime?.opening?.state==='PENDING')y.action('COMBAT_BEGIN');
@@ -315,7 +318,7 @@ try{
       if(stage==='wall'){boss.fb.rot=3;boss.fb.endTurn=null;boss.turns=(boss.turns||0)+1;y.fieldBossTurn(boss);boss.fb.rot=1;boss.fb.endTurn=null;boss.turns++;y.fieldBossTurn(boss);}
       if(stage==='core'){boss.hp=1;y.applyDamage(me,boss,50,{element:'물리'});}
       fixture.seed(y.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
-      await view('fb-mini-cryo-'+stage,stage==='core'?`(async()=>{if(!document.querySelector('button[data-card-id="SYS_FB_CRYO_CHASE"]'))throw Error('no chase card');if(![...document.querySelectorAll('.shell-enemies .st-chip')].some(c=>c.textContent.includes('냉기 핵 0/4')))throw Error('no core chip');})()`:`Promise.resolve()`);
+      await view('fb-mini-cryo-'+stage,stage==='core'?`(async()=>{if(!document.querySelector('button[data-card-id="SYS_FB_FROST_FRUIT"]'))throw Error('no fruit card');if(![...document.querySelectorAll('.shell-enemies .st-chip')].some(c=>c.textContent.includes('얼음 보호막 0/3')))throw Error('no shield chip');})()`:`Promise.resolve()`);
      }catch(e){console.error('fb-mini-cryo-'+stage,e.message);}}}
   }
   // 0.16.40 (user: 「저렇게 되는것들은 도대체 언제 고칠거냐? 그냥 전체적으로 체크해야되는거 아니야?」 with pictures of screens this

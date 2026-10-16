@@ -177,12 +177,13 @@ api.domainTuneV01651={version:1,stages:JSON.parse(JSON.stringify(TUNE))};
 'use strict';
 const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.bossLengthVersion)return;
 // Boss HP ×3, boss ATK and the ground it spoils ×0.45: about as hard as before, three times as long (measured: the same 4★
-// parties win and lose). 유적 뱀 was already the longest, so ×2.
+// parties win and lose). 유적 뱀 was already the longest, so ×2; 0.16.54's boss pass took away its armour's and 고대 바위 용
+// 도마뱀's scales' wall against every blow (they only take some off now), and the fights got short again: both ×4.
 // 물의 정령 falls when its forms are beaten, not by HP: 8 → 20 forms.
 // The daily bosses were measured the same way (docs/data/balance_v01627/daily/final_cases.json): the same share of those
 // parties wins with 안드리우스 ×0.35, 타르탈리아 ×0.34 (its third phase hits hardest and now lasts three times as long) and 야타용왕 ×0.75 (its big hits
 // were what beat a party, not the length).
-const LENGTH={hp:3,atk:.45},BY_BOSS={FB_RUIN_SERPENT:{hp:2},FB_OCEANID:{hp:1,forms:20},BOSS_ANDRIUS:{atk:.35},LIYUE_TARTAGLIA_FARM:{atk:.34},LIYUE_AZHDAHA_FARM:{atk:.75}},TERRAIN_EVERY=6,RAGE_EVERY=2;
+const LENGTH={hp:3,atk:.45},BY_BOSS={FB_RUIN_SERPENT:{hp:4},FB_PRIMO_GEOVISHAP:{hp:4},FB_OCEANID:{hp:1,forms:20},BOSS_ANDRIUS:{atk:.35},LIYUE_TARTAGLIA_FARM:{atk:.34},LIYUE_AZHDAHA_FARM:{atk:.75}},TERRAIN_EVERY=6,RAGE_EVERY=2;
 const old=Object.fromEntries(['startBattle','validateSave','fbSummon','fbStartRevival','fbRevivalExpired','shield','addHazard','prepareAndriusRound','enemyIntel'].map(k=>[k,P[k]]));
 // Only the boss's own repeat fight (the field boss's route, the daily challenge), the same scope as its challenge profile.
 const isBossFight=b=>!!b&&!b.coopStory&&!b.storyConfig&&!b.abyss&&!b.raid&&(!!b.fieldBoss||String(b.origin||'').startsWith('MATERIAL_CHALLENGE:'));

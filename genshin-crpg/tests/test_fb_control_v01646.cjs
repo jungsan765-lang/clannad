@@ -22,6 +22,11 @@ function daily(id,team=['MOND_AMBER','MOND_NOELLE','MOND_BARBARA']){
  return{r,b:S(r)};
 }
 const mini=(r,id)=>r.combatCards().find(c=>c.id===id);
+// 0.16.54: a new 무상의 바람 fight has no barrage dodge (its revival is 「바람 원소 모으기」, tests/test_anemo_orbs_v01654.cjs);
+// the barrage checks run as a fight saved before it.
+const preOrbs=f=>{delete f.b.fieldBoss.anemoOrbs;return f;};
+// The rest of the 0.16.54 boss pass (tests/test_boss_pass_v01654.cjs): these 0.16.46 checks run as a fight saved before it.
+const prePass=f=>{delete f.b.bossPass;return f;};
 const texts=(b,from=0)=>b.log.slice(from).map(l=>l.text||'').join('\n');
 const guardUntil=(r,cond,limit=8)=>{for(let i=0;i<limit&&S(r)&&!cond();i++)r.action('COMBAT',{card:'PLAYER_BASIC_GUARD'});return cond();};
 
@@ -32,7 +37,7 @@ check('only a newly opened route fight or daily challenge plays by the 조작 ru
  const old=field('FB_ANEMO_HYPOSTASIS');delete old.b.fieldBoss.controlRevision;assert.equal(old.r.fbCoreShut(old.boss),false);old.b.fieldBoss.dodge={kind:'ANEMO',id:1,seed:1,round:1,result:null,playerActed:false};assert.equal(old.r.fbMiniCards(old.me).length,0);
  // 0.16.53: a shared co-op fight offers them too — the host's protagonist as at home (guests: tests/test_boss_length_v01653.cjs).
  const co=field('FB_ANEMO_HYPOSTASIS');co.b.fieldBoss.dodge={kind:'ANEMO',id:1,seed:1,round:co.b.round,result:null,playerActed:false};assert.equal(co.r.fbMiniCards(co.me).length,1);co.b.coop={};assert.equal(co.r.fbMiniCards(co.me).length,1);
- assert.deepEqual(Object.keys(CTL.cards).sort(),['CHASE','DASH','DODGE','QUAKE','SNIPE','TIDE']);
+ assert.deepEqual(Object.keys(CTL.cards).sort(),['CHASE','DASH','DODGE','FRUIT','ORBS','QUAKE','SERPENT','SNIPE','TIDE']);
 });
 
 check('무상의 바람: the core is shut while it gathers or floats and is the exposed core (+50%) once it has attacked',()=>{
@@ -49,7 +54,7 @@ check('무상의 바람: the core is shut while it gathers or floats and is the 
 });
 
 check('바람 탄막: the dodge lands the barrage at once — every hit is whole-party damage, every wind orb charges a burst, the core is not exposed by it',()=>{
- const {r}=field('FB_ANEMO_HYPOSTASIS');assert.equal(S(r).phase,'WAIT_PLAYER');
+ const {r}=preOrbs(field('FB_ANEMO_HYPOSTASIS'));assert.equal(S(r).phase,'WAIT_PLAYER');
  const b=S(r),boss=bossOf(r,'FB_ANEMO_HYPOSTASIS'),me=meOf(r);boss.airborne=false;
  boss.fb.rot=1;boss.fb.next=null;boss.fb.endTurn=null;boss.turns=(boss.turns||0)+1;r.fieldBossTurn(boss);
  assert.equal(boss.fb.next,'BARRAGE');assert.equal(b.fieldBoss.telegraph.move,'BARRAGE');assert.equal(r.fbCoreShut(boss),true);const dodge=b.fieldBoss.dodge;assert(Number.isSafeInteger(dodge.id)&&Number.isSafeInteger(dodge.seed));
@@ -62,13 +67,13 @@ check('바람 탄막: the dodge lands the barrage at once — every hit is whole
 });
 
 check('바람 탄막 without the dodge: it waits once for the protagonist, then four hits; results are clamped',()=>{
- const {r,b,boss}=field('FB_ANEMO_HYPOSTASIS');boss.airborne=false;
+ const {r,b,boss}=preOrbs(field('FB_ANEMO_HYPOSTASIS'));boss.airborne=false;
  b.fieldBoss.dodge={kind:'ANEMO',id:7,seed:3,round:b.round,result:null,playerActed:false};boss.fb.next='BARRAGE';boss.fb.endTurn=null;boss.turns=(boss.turns||0)+1;
  r.fieldBossTurn(boss);assert.equal(boss.fb.next,'BARRAGE','waits for the protagonist');assert.equal(b.fieldBoss.dodge.held,true);
  boss.fb.endTurn=null;boss.turns++;const at=b.log.length;r.fieldBossTurn(boss);assert.equal(boss.fb.next,null,'only once');assert.match(texts(b,at),/피하지 못해 4발 적중/);
  // Results are clamped to the rule's maximum, and a result for another barrage counts as not dodged.
  for(const [mid,hits,orbs,want] of [[4,99,99,'바람 탄막 · '+CTL.rules.ANEMO.maxHits+'발 적중 · 바람 원소 '+CTL.rules.ANEMO.orbs+'개'],[5,0,5,'바람 탄막 · 4발 적중 · 바람 원소 0개']]){
-  const f=field('FB_ANEMO_HYPOSTASIS');f.b.fieldBoss.dodge={kind:'ANEMO',id:4,seed:3,round:f.b.round,result:null,playerActed:false};f.boss.fb.next='BARRAGE';
+  const f=preOrbs(field('FB_ANEMO_HYPOSTASIS'));f.b.fieldBoss.dodge={kind:'ANEMO',id:4,seed:3,round:f.b.round,result:null,playerActed:false};f.boss.fb.next='BARRAGE';
   f.r._fbMini={kind:'ANEMO_DODGE',id:mid,hits,orbs};try{f.r.executeCombatSystem(f.me,CTL.cards.DODGE,f.me.id);}finally{f.r._fbMini=null;}assert(texts(f.b).includes(want),want);}
  // A tampered save is refused.
  const v=field('FB_ANEMO_HYPOSTASIS');v.b.fieldBoss.dodge={kind:'ANEMO',id:1,seed:1,round:1,result:{hits:99,orbs:1},playerActed:true};assert.throws(()=>v.r.validateSave(v.r.s),/보스 조작 전투 기록/);
@@ -92,7 +97,7 @@ check('무상의 뇌전: only the protagonist breaks the revival prisms — one 
 });
 
 check('무상의 얼음: the fleeing core can be chased by the protagonist (at most three hits per chase)',()=>{
- const {r}=field('FB_CRYO_HYPOSTASIS',['MOND_BARBARA','MOND_KAEYA','MOND_LISA']);const boss=()=>bossOf(r,'FB_CRYO_HYPOSTASIS');
+ const {r}=prePass(field('FB_CRYO_HYPOSTASIS',['MOND_BARBARA','MOND_KAEYA','MOND_LISA']));const boss=()=>bossOf(r,'FB_CRYO_HYPOSTASIS');
  boss().hp=1;r.applyDamage(meOf(r),boss(),50,{element:'물리'});const rv=boss().fb.revival;assert(rv&&Number.isSafeInteger(rv.chaseId)&&Number.isSafeInteger(rv.chaseSeed));
  const card=mini(r,CTL.cards.CHASE);assert(card&&!card.reason);assert.equal(card.mini.kind,'CRYO_CHASE');assert.equal(card.mini.need,rv.need-(rv.hits||0));
  const at=S(r).log.length;r.action('COMBAT',{card:card.id,target:boss().id,mini:{kind:'CRYO_CHASE',id:card.mini.id,hits:9}});
@@ -117,7 +122,7 @@ check('안드리우스: the 얼음 발톱 질주 at the end of every third round
 
 check('타르탈리아 · 야타용왕: their daily challenge brings 「극악기·진멸」 / 「지맥 충격파」 at the end of every third round',()=>{
  for(const id of ['BOSS_TARTAGLIA','BOSS_AZHDAHA']){const L=CTL.liyueDaily[id];
-  const run=hits=>{const {r}=daily(id,['MOND_AMBER','MOND_NOELLE','MOND_BARBARA']);assert.equal(S(r).dailyDodge.controlRevision,1);assert(guardUntil(r,()=>!!S(r)?.dailyDodge?.dodge),L.label+' by round 2');assert.equal(S(r).round%3,2);
+  const run=hits=>{const {r}=prePass(daily(id,['MOND_AMBER','MOND_NOELLE','MOND_BARBARA']));assert.equal(S(r).dailyDodge.controlRevision,1);assert(guardUntil(r,()=>!!S(r)?.dailyDodge?.dodge),L.label+' by round 2');assert.equal(S(r).round%3,2);
    const card=mini(r,L.card);assert(card&&!card.reason,L.name);assert.equal(card.mini.kind,L.kind);const at=S(r).log.length;
    if(hits===null)r.action('COMBAT',{card:'PLAYER_BASIC_GUARD'});else r.action('COMBAT',{card:card.id,target:card.targets[0].id,mini:{kind:L.kind,id:card.mini.id,hits}});
    guardUntil(r,()=>!S(r)||S(r).log.slice(at).some(l=>l.card==='DAILY_DODGE'||/모두 피했다/.test(l.text||'')),3);return S(r)?S(r).log.slice(at).map(l=>l.text||'').join(' / '):'';};

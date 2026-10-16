@@ -38,7 +38,8 @@ function geoCounterplay(r,seed,{historical=false}={}){
   const battle=r.s.runtime,me=battle.actors.find(a=>a.source==='PLAYER_CUSTOM'),cards=r.combatCards().filter(x=>!x.reason),foes=battle.actors.filter(a=>a.side==='ENEMY'&&a.hp>0),pillars=foes.filter(a=>a.fbSummon?.kind==='FB_SUMMON_PILLAR');let card,target;
   if(pillars.length){
    const ordinary=battle.actors.find(a=>a.source==='MOND_BENNETT');
-   if(ordinary&&r.fieldBossBarrierReason(ordinary,pillars[0],'물리','근접'))ordinaryPillarGate=true;
+   // 0.16.54 boss pass: ordinary non-Geo attacks only chip the pillars (×0.4); before it they were barred.
+   if(ordinary&&(r.fieldBossBarrierReason(ordinary,pillars[0],'물리','근접')||battle.bossPass===1&&r.combatDamageMultiplier(ordinary,pillars[0],'물리',{})<.5*r.combatDamageMultiplier(ordinary,pillars[0],'바위',{})))ordinaryPillarGate=true;
    card=cards.find(x=>x.id==='PLAYER_BASIC_ATTACK');target=card&&pillars.filter(a=>card.targets.some(t=>t.id===a.id)).sort((a,b)=>a.hp-b.hp)[0];if(target)pillarInputs++;
   }
   if(!card||!target){
@@ -50,7 +51,7 @@ function geoCounterplay(r,seed,{historical=false}={}){
  }
  assert.equal(r.s.runtime,null,'public Geo counterplay settles within the input budget');
  const result=JSON.parse(r.s.global.LAST_BATTLE_RESULT_JSON);
- assert(pillarInputs>0,'the protagonist really targeted pillars');assert(ordinaryPillarGate,'ordinary non-Geo attacks remain barred from pillars');
+ assert(pillarInputs>0,'the protagonist really targeted pillars');assert(ordinaryPillarGate,'ordinary non-Geo attacks remain barred from (0.16.54: only chip) the pillars');
  assert(final.log.some(x=>x.card==='FB_REVIVE_FAILED'),'the final victory actually interrupts revival');
  assert(final.actors.filter(a=>a.side==='ALLY').every(a=>a.hp>0),'this prepared reference wins without relying on exit revival');
  return {stats,result,counterplay:{publicEntry:true,pillarInputs,ordinaryPillarGate,revivalInterrupted:true}};

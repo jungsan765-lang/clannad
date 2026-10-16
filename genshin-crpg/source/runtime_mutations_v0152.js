@@ -17,7 +17,7 @@ const KEYS={CRYO_VINE:['불'],PYRO_VINE:['물','얼음'],ELECTRO:['불','얼음'
 const FB=api.fieldBosses.bosses;
 const BOSSES={
  ...Object.fromEntries(Object.entries(FB).map(([id,d])=>[id,{name:d.name,kind:'FIELD',region:d.region,body:d.kind==='OCEANID'?'FORMS':'BODY',summons:['ELECTRO','GEO_HYPO','OCEANID'].includes(d.kind),shell:['CRYO_VINE','PYRO_VINE'].includes(d.kind),immune:d.immune.slice(),keys:KEYS[d.kind]||[],items:{[d.material]:1}}])),
- BOSS_ANDRIUS:{name:'안드리우스',kind:'DAILY',region:'몬드',body:'BODY',immune:[],keys:[],items:{MAT_CHAR_EXP_HERO:1}},
+ BOSS_ANDRIUS:{name:'안드리우스',kind:'DAILY',region:'몬드',body:'BODY',immune:['얼음','바람'],keys:[],items:{MAT_CHAR_EXP_HERO:1}},
  BOSS_DVALIN:{name:'드발린',kind:'DAILY',region:'몬드',body:'BODY',immune:[],keys:[],items:{MAT_CHAR_EXP_HERO:1}},
  LIYUE_TARTAGLIA_FARM:{name:'타르탈리아',kind:'DAILY',region:'리월',body:'BODY',immune:[],keys:[],items:{MAT_CHAR_EXP_HERO:1}},
  LIYUE_AZHDAHA_FARM:{name:'야타용왕',kind:'DAILY',region:'리월',body:'BODY',immune:[],keys:[],items:{MAT_AZHDAHA_ARTIFACT_CRYSTAL:1}}

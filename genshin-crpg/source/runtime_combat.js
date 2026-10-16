@@ -177,7 +177,7 @@ P.executeCard=function(a,c,target,branch){const b=this.s.runtime,allies=b.actors
  case'MOND_JEAN_E':many(1.2,'ANEMO',3);break;
  case'MOND_JEAN_Q':healAll('atk',this.combatHealingBudget().jeanQRatio,this.combatHealingBudget().jeanQFlat);many(.7,'ANEMO',4);this.addField('DANDELION',a,2,{healTargetCount:1,healTicks:0,healMaxTicks:partyHealBudget.jeanFieldTicks});break;
  case'ECARD_DVALIN_BREATH':for(const t of ts.slice(0,3))if(damage(t,1.25,'ANEMO'))t.nextScorePenalty=Math.max(8,t.nextScorePenalty||0);break;
- case'ECARD_DVALIN_DIVE':many(1.6,'ANEMO',2);a.airborne=true;break;
+ case'ECARD_DVALIN_DIVE':many(1.6,'ANEMO',2);if(!(this.s.runtime?.twinBoss?.downUntil>=this.s.runtime?.round))a.airborne=true;break;
  case'ECARD_ABYSS_PYRO_RING':multi([.4,.4],'PYRO',2);break;
  case'ECARD_CICIN_ELECTRO_SUMMON':a.cicinCount=2;break;
  case'ECARD_CICIN_ELECTRO_BURST':many(.7,'ELECTRO',2);break;
