@@ -70,10 +70,11 @@ check('four_declared_runtime_changes_preserve_configuration_numbers',()=>{
  assert.deepEqual(currentGrowth.previousBossChallengeProfiles,legacyGrowth.bossChallengeProfiles);
  assert.deepEqual(currentGrowth.previousDomainXp,legacyGrowth.domainXp);
  assert.equal(legacyGrowth.domainXp[60],10000);assert.equal(currentGrowth.expRewardVersion,1);
- assert.deepEqual(currentGrowth.domainXp,{...legacyGrowth.domainXp,60:24000});
+ // 0.16.51 (user: 「저레벨부터 고레벨까지 전체적으로 훑어보고 적당한 선을 지정하고 그게 이 보상에 맞는 수준이 맞는지까지」): the Lv35–55 EXP stages pay more.
+ assert.deepEqual(currentGrowth.domainXp,{...legacyGrowth.domainXp,35:7000,40:8500,45:10500,50:11000,55:14000,60:24000});
  assert.equal(currentGrowth.talentRewardVersion,4);assert.equal(legacyGrowth.talentRewardVersion,3);
  assert.deepEqual(currentGrowth.previousDomainTalentBooks,legacyGrowth.domainTalentBooks);
- assert.deepEqual(currentGrowth.domainTalentBooks,{...legacyGrowth.domainTalentBooks,LIYUE:{...legacyGrowth.domainTalentBooks.LIYUE,60:90}});
+ assert.deepEqual(currentGrowth.domainTalentBooks,{...legacyGrowth.domainTalentBooks,LIYUE:{...legacyGrowth.domainTalentBooks.LIYUE,35:5,40:9,45:12,50:25,55:38,60:90}});
  assert.deepEqual(currentGrowth.legacyDomainTalentBooks[3],legacyGrowth.domainTalentBooks);
  assert.deepEqual(currentGrowth.ordinaryAttackMultipliers,[[20,1],[30,1.15],[40,2.21],[50,2.76],[60,3.2]]);
  delete currentGrowth.legacyDomainTalentBooks[3];

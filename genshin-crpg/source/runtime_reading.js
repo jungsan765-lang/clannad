@@ -127,3 +127,31 @@ P.validateSave=function(s){
 P.fatigueVersion=REVISION;
 api.fatigueV01648={version:REVISION,perStack:PER,max:MAX,stats:['atk','def'],need:NEED.map(([top,n])=>({upToLevel:Number.isFinite(top)?top:60,rarity:n})),rareIngredients:copy(RARE),gradeRarity:copy(GRADE_RARITY),recoverHp:RECOVER_HP};
 })(globalThis);
+/* 0.16.51 비경 단계 난이도 (user, 2026-10-16: 「비경 도는것에 대해 좀 밸런스를 맞춰보는게 좋아보여. 저레벨부터 고레벨까지 전체적으로
+ * 훑어보고 적당한 선을 지정하고 그게 이 보상에 맞는 수준이 맞는지까지」). The line, measured at the stage's own level with the
+ * usual growth (crafted weapons +0/+3/+6/+9, talents at 65% of the cap), full HP and no 피로: every 4★ party wins, a run costs a
+ * 4★ party 15–45% HP on average and a 5★ party 5–30%. Lv5 stages are the first steps and stay gentle. The stages outside the
+ * line get their enemies' HP and ATK scaled at the start of a new fight (a fight already saved keeps its enemies); the
+ * measurements and the reasons are in docs/PATCH_0.16.51_KO.md. */
+(function(root){
+'use strict';
+const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.domainTuneVersion)return;
+const TUNE={
+ // too easy (a run cost the 4★ parties under 12%)
+ 'VALLEY_OF_REMEMBRANCE:15':[1.5,2.0],'RIDGE_WATCH:30':[1.6,1.9],
+ 'LIANSHAN_FORMULA:30':[2.0,2.5],'LIANSHAN_FORMULA:35':[2.2,3.2],'LIANSHAN_FORMULA:40':[2.0,2.7],'LIANSHAN_FORMULA:45':[1.5,1.8],'LIANSHAN_FORMULA:50':[1.4,1.7],
+ 'TAISHAN_MANSION:30':[1.8,2.2],'TAISHAN_MANSION:35':[2.0,2.5],
+ // too hard (4★ parties lost)
+ 'FORSAKEN_RIFT:20':[0.75,0.6],'FORSAKEN_RIFT:25':[0.8,0.7],'PEAK_OF_VINDAGNYR:20':[0.8,0.7],'TAISHAN_MANSION:60':[0.9,0.85],'LOST_VALLEY:60':[0.75,0.6]
+};
+const old=P.startBattle;
+P.startBattle=function(group,origin,...rest){
+ const before=this.s.runtime,out=old.call(this,group,origin,...rest),b=this.s.runtime;
+ const t=b&&b!==before&&b.growthDomain&&!b.coop&&!b.storyConfig?TUNE[b.growthDomain.id]:null;if(!t)return out;
+ const [hp,atk]=t;
+ for(const a of b.actors.filter(x=>x.side==='ENEMY')){a.maxHp=Math.max(1,Math.round(a.maxHp*hp));a.hp=a.maxHp;a.atk=Math.max(1,Math.round(a.atk*atk));for(const s of a.shields||[])if(Number.isFinite(s.value)){s.value=Math.round(s.value*hp);if(Number.isFinite(s.initialValue))s.initialValue=Math.round(s.initialValue*hp);}}
+ return out;
+};
+P.domainTuneVersion=1;
+api.domainTuneV01651={version:1,stages:JSON.parse(JSON.stringify(TUNE))};
+})(globalThis);

@@ -193,7 +193,11 @@ const GEM_STAGE={5:1,10:2,15:2,20:3,25:4,30:1,35:2,40:2,45:3,50:3,55:4,60:4};
 // Talent/ascension XP is an independent immutable table, so EXP tuning cannot change material rewards.
 const EXP_XP_V3={5:200,10:450,15:450,20:1100,25:1100,30:1800,35:1800,40:2500,45:2500,50:4500,55:4500,60:8000};
 const LEGACY_EXP_XP_V01626={5:200,10:450,15:1000,20:1100,25:1250,30:1500,35:1800,40:2100,45:4500,50:5400,55:8000,60:10000};
-const EXP_XP={...LEGACY_EXP_XP_V01626,60:24000};
+// 0.16.51 (user: 「저레벨부터 고레벨까지 전체적으로 훑어보고 적당한 선을 지정하고 그게 이 보상에 맞는 수준이 맞는지까지」): the XP needed
+// jumps fivefold at Lv30 but the Lv35–55 stages paid only 20% more, so five levels there took 4.5–6 hours of EXP domains
+// against 1.3 hours for Lv55→60. Now five levels from domains alone take about 1.5 h at Lv30–40, 2 h at Lv40–50 and 2.5 h
+// at Lv50–55 (measured run times with a rest every three runs). Lv60 stays at 24,000 (0.16.27).
+const EXP_XP={...LEGACY_EXP_XP_V01626,35:7000,40:8500,45:10500,50:11000,55:14000,60:24000};
 const MATERIAL_XP={5:40,10:90,15:90,20:220,25:220,30:360,35:360,40:500,45:500,50:900,55:900,60:1600};
 // 0.16.13: late ascension enemies take longer than the lower-stage farm. Increase only their gems,
 // retaining the early drops, all XP/talent rewards and existing 441/882 total ascension requirements.
@@ -214,7 +218,10 @@ const LEGACY_ASCENSION_GEMS_V01621=Object.fromEntries(Object.values(GEMS).map(([
 const ASCENSION_GEMS_V01622=Object.fromEntries(Object.values(GEMS).map(([element])=>[element,{5:1,10:2,15:3,20:10,25:32,30:47,35:105,40:153,45:318,50:642,55:1932,60:5400}]));
 const ASCENSION_GEM_COSTS_V01622=Object.fromEntries(Object.entries(ASCENSION_GEMS_V01622).map(([element,pay])=>[element,[3,6,2*pay[30],5*pay[40],8*pay[50],25*pay[60]]]));
 const TALENT_BOOKS_V01622={MOND:{5:1,10:2,15:10,20:20,25:32},LIYUE:{30:3,35:4,40:7,45:9,50:19,55:28,60:80}};
-const TALENT_BOOKS_V01627={...TALENT_BOOKS_V01622,LIYUE:{...TALENT_BOOKS_V01622.LIYUE,60:90}};
+// 0.16.51: a talent step of a Liyue character took 29–60 minutes at the Lv30–54 stages and 11 at Lv60. The Lv35–55 stages pay
+// more, as much as the 0.16.22 recorded combats allow while every higher stage still pays at least 5% more per minute than
+// every lower one for the strongest parties (tests/test_material_efficiency_v01622.cjs). Lv60 keeps 90.
+const TALENT_BOOKS_V01627={...TALENT_BOOKS_V01622,LIYUE:{...TALENT_BOOKS_V01622.LIYUE,35:5,40:9,45:12,50:25,55:38,60:90}};
 const LEGACY_MATERIAL_QUANTITIES=Object.fromEntries(Object.keys(MATERIAL_XP).map(level=>[level,Math.ceil(Number(level)/5)]));
 const isTrialV3=d=>!!d&&!!SITES_V3[d.key]&&TRIALS_V3.includes(d.kind)&&d.id===d.key+':'+d.kind;
 function trialFoesV3(d,element){const s=SITES_V3[d.key];return d.kind==='ASCENSION'?gemFoes(s.region,element,GEM_STAGE[s.level]):s.foes;}
