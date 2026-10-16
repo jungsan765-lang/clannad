@@ -42,7 +42,7 @@
  };
  if(old.enemyIntel)P.enemyIntel=function(id){const info=old.enemyIntel.call(this,id),a=this.combatActor(id),b=this.s.runtime;if(!info||!b?.mondBossBalance||!PROFILES[a?.source])return info;
   const p=PROFILES[a.source];info.cues=[...(info.cues||[]),{kind:'warning',text:'권장 4인 · Lv.'+p.recommended+' · 전원 장비 착용',detail:'권장치이며 입장·승리 보장 조건이 아닙니다. 보스는 파티의 레벨·강화도에 맞춰 자동 상승하지 않습니다.'}];
-  if(a.source==='BOSS_DVALIN')info.cues.push({kind:'warning',text:'남은 지형 '+b.terrain+' / 4 · 8라운드 종료 시 전멸',detail:b.mondBossBalance.rematchNoWindRevision===1?'일일 보스에는 바람길이 없습니다. 원거리·대공 기술이나 부유 효과로 공격하세요.':b.mondBossBalance.windRoute?'바람길 확보됨 · 근접·중거리도 공격 가능, 최종 피해 −15%':'상승 기류를 1행동으로 사용하면 아군 전체가 공중 목표에 접근할 수 있습니다.'});return info;
+  if(a.source==='BOSS_DVALIN')info.cues.push({kind:'warning',text:'남은 지형 '+b.terrain+' / 4 · '+(Number(b.terrainEvery)||2)+'라운드마다 1씩 무너짐 · '+(Number(b.terrainEvery)||2)*4+'라운드 종료 시 전멸',detail:b.mondBossBalance.rematchNoWindRevision===1?'일일 보스에는 바람길이 없습니다. 원거리·대공 기술이나 부유 효과로 공격하세요.':b.mondBossBalance.windRoute?'바람길 확보됨 · 근접·중거리도 공격 가능, 최종 피해 −15%':'상승 기류를 1행동으로 사용하면 아군 전체가 공중 목표에 접근할 수 있습니다.'});return info;
  };
  P.validateSave=function(s){old.validateSave.call(this,s);const b=s.runtime,m=b?.mondBossBalance;if(!m)return s;
   if(m.version!==VERSION||typeof m.windRoute!=='boolean'||!Array.isArray(m.bosses)||!m.bosses.length||m.bosses.some(id=>!PROFILES[id]||!b.actors.some(a=>a.side==='ENEMY'&&a.source===id)))throw new api.RuleError('BOSS_BALANCE_SAVE','보스 전투 규칙 저장이 올바르지 않습니다.');

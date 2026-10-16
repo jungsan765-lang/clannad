@@ -194,7 +194,9 @@ function startPair(spec,state){
  if(expected){
   for(const [runtime,literals]of [[b,expected],[old,priorGrowthStats[spec.id]]]){
    const enemies=runtime.actors.filter(a=>a.side==='ENEMY');assert.deepEqual(cp(enemies.map(a=>a.id).sort()),Object.keys(literals).sort());
-   for(const a of enemies){assert.equal(a.hp,a.maxHp);assert.deepEqual([a.level,a.maxHp,a.atk,a.def],literals[a.id]);}
+   // 0.16.53: a boss's own new repeat fight is a long fight (bossLength): its HP ×hp and ATK ×atk on these literals.
+   const k=runtime.bossLength,len=([level,hp,atk,def],a)=>k&&!a.fbSummon&&(a.fb||a.grade==='보스')?[level,k.hp===1?hp:Math.max(1,Math.round(hp*k.hp)),k.atk===1?atk:Math.max(1,Math.round(atk*k.atk)),def]:[level,hp,atk,def];
+   for(const a of enemies){assert.equal(a.hp,a.maxHp);assert.deepEqual([a.level,a.maxHp,a.atk,a.def],len(literals[a.id],a));}
   }
   const withoutBudgets=actors=>cp(actors).map(a=>{if(a.side==='ENEMY'){for(const key of ['hp','maxHp','atk','def'])delete a[key];}return a;});
   assert.deepEqual(withoutBudgets(b.actors),withoutBudgets(old.actors));

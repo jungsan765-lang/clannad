@@ -30,8 +30,8 @@ check('only a newly opened route fight or daily challenge plays by the 조작 ru
  const d=daily('BOSS_DVALIN');assert.equal(d.b.twinBoss.controlRevision,1);assert(String(d.b.origin).startsWith('MATERIAL_CHALLENGE:'));
  // A fight saved by 0.16.45 has no controlRevision: its core is never shut and no minigame is offered.
  const old=field('FB_ANEMO_HYPOSTASIS');delete old.b.fieldBoss.controlRevision;assert.equal(old.r.fbCoreShut(old.boss),false);old.b.fieldBoss.dodge={kind:'ANEMO',id:1,seed:1,round:1,result:null,playerActed:false};assert.equal(old.r.fbMiniCards(old.me).length,0);
- // Shared co-op fights carry only card/target/branch to the server, so no minigame there either.
- const co=field('FB_ANEMO_HYPOSTASIS');co.b.fieldBoss.dodge={kind:'ANEMO',id:1,seed:1,round:co.b.round,result:null,playerActed:false};assert.equal(co.r.fbMiniCards(co.me).length,1);co.b.coop={};assert.equal(co.r.fbMiniCards(co.me).length,0);
+ // 0.16.53: a shared co-op fight offers them too — the host's protagonist as at home (guests: tests/test_boss_length_v01653.cjs).
+ const co=field('FB_ANEMO_HYPOSTASIS');co.b.fieldBoss.dodge={kind:'ANEMO',id:1,seed:1,round:co.b.round,result:null,playerActed:false};assert.equal(co.r.fbMiniCards(co.me).length,1);co.b.coop={};assert.equal(co.r.fbMiniCards(co.me).length,1);
  assert.deepEqual(Object.keys(CTL.cards).sort(),['CHASE','DASH','DODGE','QUAKE','SNIPE','TIDE']);
 });
 

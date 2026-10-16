@@ -500,6 +500,8 @@ export const coopMethods={
   if(rid!==null&&(typeof rid!=='string'||!RID.test(rid)))throw err(400,'행동 요청 번호가 올바르지 않습니다. 다시 시도해 주세요.','REQUEST_ID');
   const params={room:room.id,card:String(b?.card||'').slice(0,64)};
   if(b?.target!==undefined&&b?.target!==null&&b?.target!=='')params.target=String(b.target).slice(0,64);if(b?.branch)params.branch=String(b.branch).slice(0,24);
+  // 0.16.53: a boss minigame's result (kind, id and what was hit); the rules clamp the numbers and match the kind and id.
+  if(b?.mini&&typeof b.mini==='object'&&!Array.isArray(b.mini)){const n=v=>Number.isSafeInteger(v)&&v>=0&&v<=1000000?v:0;params.mini={kind:String(b.mini.kind||'').slice(0,24),id:n(b.mini.id),hits:n(b.mini.hits),orbs:n(b.mini.orbs)};}
   // Older clients send only a request ID. New clients also bind a first delivery to the turn they displayed, so a
   // delayed command that has never reached the server cannot consume a later turn even with a fresh request ID.
   let expected=null;

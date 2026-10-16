@@ -279,7 +279,7 @@ C.say=text=>say(text);C.roomLog=()=>room()?.log||[];C.inRoom=()=>!!room();
 // chests as this window.
 C.api={follow,joinFight,openChest,claim:claimChest,fightWhy,farFrom,goTo,stepWhy,suggest,myPos:()=>myPos(room()||{}),wantSync:()=>wantSync(),msg:()=>C.msg,
  // 0.16: the battle screen of a fight one is in that is someone else's (app_coop_world_v0160.js) acts through these.
- command:p=>{C.card=String(p?.card||'');C.target=p?.target?String(p.target):'';C.branch=p?.branch?String(p.branch):'';return command();},
+ command:p=>{C.card=String(p?.card||'');C.target=p?.target?String(p.target):'';C.branch=p?.branch?String(p.branch):'';C.mini=p?.mini&&typeof p.mini==='object'?p.mini:null;return command();},
  minimize:()=>minimize(),leave:()=>leave(),board:()=>C.fxBoard||C.battle,
  openBattle:()=>{C.minimized=false;openBattle();},
  step:async map=>{const out=await call('/coop/move',{map});if(!out)return null;if(out.room)C.status={...C.status,room:out.room};if(out.encounter)wantSync();draw();return out;}};
@@ -361,7 +361,7 @@ function setBattle(view){
  // The last blows of a fight that ended are playing: the window keeps that fight until they are done.
  if(!view&&C.holdBattle)return;
  const before=C.battle;C.battle=view;C.battleAt=Date.now();if(view)C.lastTitle=view.title||view.encounter||'';
- if(view&&(!before||before.battle!==view.battle)){C.ended=null;C.rewards=null;C.card='';C.target='';C.branch='';C.autoAsked='';if(!C.minimized)openBattle();}
+ if(view&&(!before||before.battle!==view.battle)){C.ended=null;C.rewards=null;C.card='';C.target='';C.branch='';C.mini=null;C.autoAsked='';if(!C.minimized)openBattle();}
  if(view?.owner)C.lastOwner=view.owner;
  // The last view of a fight is kept for its end (its final blows come with the result).
  if(view)C.lastFight=view;
@@ -551,7 +551,7 @@ function fightCommand(v,chosen){
   const owner=slot==='na'?v.me?.source:(game?.tables?.['08_SKILL_CARD_DB']?.get(c.id)?.[2]||v.me?.source),pic=slot&&owner&&typeof CRPGIcons!=='undefined'?CRPGIcons.talent(owner,slot,'shell-card-glyph'):null;
   if(pic)b.append(pic);else{const g=mk('span','shell-card-glyph');g.setAttribute('aria-hidden','true');g.append(SHELL.icon(c.id==='PLAYER_BASIC_ATTACK'?'SWORD':c.id==='PLAYER_BASIC_GUARD'?'SHIELD':'DIAMOND','shell-icon'));b.append(g);}
   b.append(mk('strong','',c.name),mk('small','',c.reason||(c.cooldown?'재사용 '+c.cooldown+'차례':'사용 가능')));
-  if(c.reason){b.disabled=true;b.title=c.reason;b.dataset.reason=c.reason;}else{b.onclick=()=>{C.card=c.id;C.branch='';drawBattle();};if(c.description)b.title=c.description;}
+  if(c.reason){b.disabled=true;b.title=c.reason;b.dataset.reason=c.reason;}else{b.onclick=()=>{C.card=c.id;C.branch='';C.mini=null;drawBattle();};if(c.description)b.title=c.description;}
   wrap.append(b);cards.append(wrap);}
  s.append(cards);
  const go=mk('div','battle-execute');
@@ -603,9 +603,11 @@ function drawBattle(){
 }let pendingCommand=null;
 async function command(){
  if(C.busy||C.fxPlaying||typeof GameEffects!=='undefined'&&GameEffects.active||!C.battle?.turn?.mine)return;const session=O.sessionStamp();C.busy=true;C.msg='';drawBattle();
- const payload={card:C.card,target:C.target||undefined,branch:C.branch||undefined,battle:C.battle.battle,turn:{actor:C.battle.turn.actor,deadline:C.battle.turn.deadline,round:C.battle.round}},intent=JSON.stringify(payload);
+ // 0.16.53 (user: 「이제 필드보스랑 일일보스 다인모드 미니게임 가능하게 하고」): a boss minigame card opens its minigame first and sends what happened with the command.
+ const chosen=(C.battle.cards||[]).find(c=>c.id===C.card);if(chosen?.mini&&!C.mini&&window.CRPGFieldBossMinigames){C.busy=false;drawBattle();window.CRPGFieldBossMinigames.open(chosen,result=>{if(result){C.mini=result;command();}});return;}
+ const payload={card:C.card,target:C.target||undefined,branch:C.branch||undefined,mini:C.mini||undefined,battle:C.battle.battle,turn:{actor:C.battle.turn.actor,deadline:C.battle.turn.deadline,round:C.battle.round}},intent=JSON.stringify(payload);
  if(pendingCommand?.intent!==intent)pendingCommand={intent,payload:{...payload,requestId:'coop-'+crypto.randomUUID()}};
- try{const out=await O.request('/coop/act',pendingCommand.payload);pendingCommand=null;if(out&&'battle' in out)setBattle(out.battle);SND('click');}
+ try{const out=await O.request('/coop/act',pendingCommand.payload);pendingCommand=null;C.mini=null;if(out&&'battle' in out)setBattle(out.battle);SND('click');}
  catch(e){if(!O.sameSession(session))return;if(e.code==='SESSION_CHANGED'||e.outcome==='REJECTED'||e.status&&e.status<500)pendingCommand=null;C.msg=e.message;SND('error');load();}
  finally{if(O.sameSession(session)){C.busy=false;drawBattle();}}
 }

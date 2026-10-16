@@ -167,3 +167,88 @@ P.startBattle=function(group,origin,...rest){
 P.domainTuneVersion=1;
 api.domainTuneV01651={version:1,stages:JSON.parse(JSON.stringify(TUNE))};
 })(globalThis);
+/* 0.16.53 보스 장기전 (user, 2026-10-16: 「필드보스 일일보스는 좀 라운드를 길게 끌게 하자. HP같은걸 10배로 늘리거나 해서. 드발린은...
+ * 땅 무너지는 속도를 늦추거나」). A field boss or daily boss fight started from now has its boss HP multiplied and its boss
+ * ATK lowered, so the fight lasts several times as many rounds (and brings the 조작 minigames that many more times) while the
+ * damage a party takes over the whole fight stays about where it was. 드발린's ground falls one step every TERRAIN_EVERY rounds
+ * instead of every 2 (the fight's own terrainEvery). Summons, the story fights and fights already saved are as they were.
+ * The measurements are in docs/PATCH_0.16.53_KO.md. */
+(function(root){
+'use strict';
+const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.bossLengthVersion)return;
+// Boss HP ×3, boss ATK and the ground it spoils ×0.45: about as hard as before, three times as long (measured: the same 4★
+// parties win and lose). 유적 뱀 was already the longest, so ×2.
+// 물의 정령 falls when its forms are beaten, not by HP: 8 → 20 forms.
+// The daily bosses were measured the same way (docs/data/balance_v01627/daily/final_cases.json): the same share of those
+// parties wins with 안드리우스 ×0.35, 타르탈리아 ×0.34 (its third phase hits hardest and now lasts three times as long) and 야타용왕 ×0.75 (its big hits
+// were what beat a party, not the length).
+const LENGTH={hp:3,atk:.45},BY_BOSS={FB_RUIN_SERPENT:{hp:2},FB_OCEANID:{hp:1,forms:20},BOSS_ANDRIUS:{atk:.35},LIYUE_TARTAGLIA_FARM:{atk:.34},LIYUE_AZHDAHA_FARM:{atk:.75}},TERRAIN_EVERY=6,RAGE_EVERY=2;
+const old=Object.fromEntries(['startBattle','validateSave','fbSummon','fbStartRevival','fbRevivalExpired','shield','addHazard','prepareAndriusRound','enemyIntel'].map(k=>[k,P[k]]));
+// Only the boss's own repeat fight (the field boss's route, the daily challenge), the same scope as its challenge profile.
+const isBossFight=b=>!!b&&!b.coopStory&&!b.storyConfig&&!b.abyss&&!b.raid&&(!!b.fieldBoss||String(b.origin||'').startsWith('MATERIAL_CHALLENGE:'));
+const ownFight=(a,b)=>{const o=api.growthV01522?.bossChallengeOrigin?.(a.source);return !!o&&o===b.origin;};
+P.startBattle=function(group,origin,...rest){
+ const before=this.s.runtime,out=old.startBattle.call(this,group,origin,...rest),b=this.s.runtime;
+ if(!b||b===before||!isBossFight(b)||b.bossLength)return out;
+ const bosses=b.actors.filter(x=>x.side==='ENEMY'&&!x.fbSummon&&(x.grade==='보스'||x.fb)&&ownFight(x,b));if(!bosses.length)return out;
+ const key=b.fieldBoss?.boss||String(b.origin).slice('MATERIAL_CHALLENGE:'.length),k={...LENGTH,...(BY_BOSS[key]||{})};
+ // A number the operator set exactly (admin.html 밸런스) is the fight's number: that part is not lengthened (×1).
+ const set=a=>api.adminBalance?.profileOf?.(this)?.config?.enemies?.[a.source]||{};
+ if(bosses.some(a=>set(a).hp!==undefined))k.hp=1;if(bosses.some(a=>set(a).atk!==undefined))k.atk=1;
+ b.bossLength={version:1,hp:k.hp,atk:k.atk};
+ for(const a of bosses){if(k.hp!==1){a.maxHp=Math.max(1,Math.round(a.maxHp*k.hp));a.hp=a.maxHp;}if(k.atk!==1)a.atk=Math.max(1,Math.round(a.atk*k.atk));}
+ // What the boss brought in at the start (물의 정령's first forms) hits from its lowered ATK, as what comes later does.
+ if(k.atk!==1)for(const s of b.actors.filter(x=>x.side==='ENEMY'&&x.fbSummon&&x.atk>0)){const owner=b.actors.find(o=>o.id===s.fbSummon.owner);let spec=null;try{spec=owner?.fb?this.fieldBossSummonSpec(b,s.source):null;}catch{}if(spec&&Number.isFinite(spec.atk))s.atk=Math.round(owner.atk*spec.atk);}
+ if(k.forms&&b.fieldBoss&&b.fieldBoss.target>0){b.fieldBoss.target=k.forms;b.bossLength.forms=k.forms;}
+ if(b.terrain!==null&&b.terrain!==undefined&&b.actors.some(a=>a.source==='BOSS_DVALIN'))b.terrainEvery=TERRAIN_EVERY;
+ if(b.actors.some(a=>a.source==='BOSS_ANDRIUS'))b.rageEvery=RAGE_EVERY;
+ // The opening's turn order was drawn with the old HP: draw it again.
+ if(out&&Array.isArray(out.order)&&this.combatOrderView)out.order=this.combatOrderView();
+ return out;
+};
+// 안드리우스's rage (ATK ×1.10 every round from round 2, no cap) is the fight's clock: run over twice as many rounds it wiped
+// the parties that used to win. In a long fight it builds every RAGE_EVERY rounds instead.
+if(old.prepareAndriusRound)P.prepareAndriusRound=function(...args){
+ const b=this.s.runtime,every=b?.rageEvery;if(!every)return old.prepareAndriusRound.apply(this,args);
+ const seen=(b.actors||[]).filter(a=>a.source==='BOSS_ANDRIUS'&&a.andrius).map(a=>[a,a.andrius.lastRageRound,a.andrius.rageStacks,a.atk]);
+ const out=old.prepareAndriusRound.apply(this,args);
+ for(const [a,last,stacks,atk] of seen){if(a.andrius.rageStacks===stacks)continue;let n=0;for(let r=last+1;r<=a.andrius.lastRageRound;r++)if(r>=2&&r%every===0)n++;a.atk=atk*Math.pow(1.10,n);a.andrius.rageStacks=stacks+n;}
+ return out;
+};
+if(old.enemyIntel)P.enemyIntel=function(id,...rest){
+ const info=old.enemyIntel.call(this,id,...rest),every=this.s.runtime?.rageEvery,a=info&&every?this.combatActor?.(id):null;if(a?.source!=='BOSS_ANDRIUS')return info;
+ const c=(info.cards||[]).find(x=>x.id==='ECARD_ANDRIUS_PASSIVE');
+ if(c){c.coefficient=String(c.coefficient||'').replace('매 라운드',every+'라운드마다');c.description=String(c.description||'').replace('2라운드 시작부터 매 라운드 시작마다',every+'라운드마다');}
+ info.cues=[...(info.cues||[]),{kind:'warning',text:'분노 '+(a.andrius?.rageStacks||0)+' · '+every+'라운드마다 공격력 ×1.10',detail:'상한 없음'}];
+ return info;
+};
+// What the fight measures against the boss's max HP stays the size it was: a summon sized by the boss (현암 기둥, 프리즘) and
+// 무상의 바람's floating core (18% of max HP to break in 2 rounds). Scaling them too made the core unbreakable, so the boss
+// revived at 40% again and again.
+P.fbSummon=function(b,boss,id,...rest){const a=old.fbSummon.call(this,b,boss,id,...rest),k=b?.bossLength?.hp;if(a&&k&&k!==1){let spec=null;try{spec=this.fieldBossSummonSpec(b,id);}catch{}if(spec&&spec.hp<=1){a.maxHp=Math.max(1,Math.round(a.maxHp/k));a.hp=Math.min(a.hp,a.maxHp);}}return a;};
+P.fbStartRevival=function(t,...rest){const out=old.fbStartRevival.call(this,t,...rest),k=this.s.runtime?.bossLength?.hp,r=t?.fb?.revival;if(k&&k!==1&&r&&Number.isFinite(r.core))r.core=Math.max(1,Math.round(r.core/k));return out;};
+// A boss's own shields (얼음 장벽, 꽃잎 껍질 …) are a share of its max HP: they keep their old size, or the larger HP made them
+// too thick to break before they came back.
+P.shield=function(t,amount,...rest){const k=this.s.runtime?.bossLength?.hp;if(k&&k!==1&&t?.side==='ENEMY'&&!t.fbSummon&&(t.grade==='보스'||t.fb)&&Number.isFinite(amount)){amount=amount/k;const o=rest[2];if(o&&typeof o==='object'&&Number.isFinite(o.initialValue))rest[2]={...o,initialValue:Math.round(o.initialValue/k)};}return old.shield.call(this,t,amount,...rest);};
+// The ground a boss or its summons spoil (냉기 지형, 침수 …) hits a share of each fighter's max HP every round, not the boss's ATK:
+// it is lowered like the boss's ATK, or the three times longer fight wore a party down by the ground alone.
+P.addHazard=function(h,...rest){const b=this.s.runtime,k=b?.bossLength?.atk;if(k&&k!==1&&h&&typeof h==='object'){const src=(b.actors||[]).find(a=>a.id===h.source);if(src?.side==='ENEMY')h={...h,power:(Number(h.power)||.06)*k};}return old.addHazard.call(this,h,...rest);};
+// A failed revival gives back what it gave before (40% or 50% of the original max HP), not that share of the larger one.
+P.fbRevivalExpired=function(b,boss,...rest){const before=boss?.maxHp,out=old.fbRevivalExpired.call(this,b,boss,...rest),k=b?.bossLength?.hp;if(k&&k!==1&&boss&&boss.hp>0&&boss.maxHp===before)boss.hp=Math.max(1,Math.round(boss.hp/k));return out;};
+P.validateSave=function(s){
+ const out=old.validateSave.call(this,s)||s,b=out.runtime;
+ if(b?.bossLength!==undefined&&!(b.bossLength&&b.bossLength.version===1&&Number.isFinite(b.bossLength.hp)&&b.bossLength.hp>=1&&b.bossLength.hp<=20&&Number.isFinite(b.bossLength.atk)&&b.bossLength.atk>0&&b.bossLength.atk<=1))throw new api.RuleError('BOSS_LENGTH_SAVE','보스 전투 기록이 올바르지 않습니다.');
+ if(b?.terrainEvery!==undefined&&!(Number.isInteger(b.terrainEvery)&&b.terrainEvery>=2&&b.terrainEvery<=20))throw new api.RuleError('BOSS_LENGTH_SAVE','드발린 지형 기록이 올바르지 않습니다.');
+ if(b?.rageEvery!==undefined&&!(Number.isInteger(b.rageEvery)&&b.rageEvery>=1&&b.rageEvery<=10&&b.bossLength))throw new api.RuleError('BOSS_LENGTH_SAVE','안드리우스 분노 기록이 올바르지 않습니다.');
+ return out;
+};
+// The operator's balance list (admin.html) shows a boss's numbers before this layer: it says what a new repeat fight multiplies.
+if(api.adminBalance?.catalog){const catalog=api.adminBalance.catalog;api.adminBalance.catalog=function(r,...rest){
+ const out=catalog.call(this,r,...rest);
+ for(const e of out?.enemies||[]){const o=api.growthV01522?.bossChallengeOrigin?.(e.id);if(!o)continue;const k={...LENGTH,...(BY_BOSS[api.fieldBosses?.bosses?.[e.id]?e.id:o.slice('MATERIAL_CHALLENGE:'.length)]||{})};
+  e.baselineHint=String(e.baselineHint||'')+' 새 반복 전투는 장기전이라 여기에 HP ×'+k.hp+' · 공격력 ×'+k.atk+'을 곱합니다(HP·공격력을 직접 넣으면 그 값 그대로).';}
+ return out;
+};}
+P.bossLengthVersion=1;
+api.bossLengthV01653={version:1,hp:LENGTH.hp,atk:LENGTH.atk,byBoss:JSON.parse(JSON.stringify(BY_BOSS)),terrainEvery:TERRAIN_EVERY,rageEvery:RAGE_EVERY};
+})(globalThis);

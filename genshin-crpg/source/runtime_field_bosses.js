@@ -541,8 +541,9 @@ P.hasAirAccess=function(a,t,range){const b=this.s.runtime;if(ctl(b)&&this._fbPla
 P.fbStartRevival=function(t){const out=ctlOld.fbStartRevival.call(this,t),b=this.s.runtime;if(ctl(b)&&t.fb?.revival&&t.fb.kind==='CRYO_HYPO'){const r=t.fb.revival;r.chaseId=(b.fieldBoss.chaseSeq=(b.fieldBoss.chaseSeq||0)+1);r.chaseSeed=miniSeed(this,b,'CHASE');this.fieldBossSeen(b,'CHASE');}return out;};
 // ---- the minigame cards ----
 P.fbMiniCards=function(a){
- // Shared (co-op) fights carry only card/target/branch to the server, so the minigames stay out of them.
- const b=this.s.runtime,out=[];if(!b||!a||a.control!=='PLAYER'||b.coop)return out;
+ // 0.16.53 (user: 「이제 필드보스랑 일일보스 다인모드 미니게임 가능하게 하고」): in a shared fight the host's protagonist plays them as at home, and a guest's own fighter on its turn plays
+ // them too (the result rides its COOP_COMBAT command). A guest fighter the game's AI is playing gets none.
+ const b=this.s.runtime,out=[],guestTurn=!!(b?.coop&&a?.coop&&a.control==='GUEST'&&b.coop.turn?.actor===a.id);if(!b||!a||!(a.control==='PLAYER'&&!a.coop||guestTurn))return out;
  const base=b.interlude?'현재 대화를 마쳐 주세요.':b.subduedPending?'마지막 행동을 선택해 주세요.':a.hp<=0?'전투불능 상태입니다.':this.combatActionLocked?.(a)?'행동 불가 상태입니다.':'';
  const self=[{id:a.id,name:a.name,hp:a.hp,maxHp:a.maxHp}];
  if(ctl(b)){const boss=fbBoss(b),R=MINI_RULES;

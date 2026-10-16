@@ -104,7 +104,8 @@ function fightFacade(real){
  const f=Object.create(real),owner=v.owner&&!v.owner.host?v.owner.name+' 님':'방장';
  Object.assign(f,{s,coopWorldView:true,coopFight:v,
   // One's own fighter's skills on one's own turn (the rules work them out from the fight as the server does).
-  combatCards(){if(!mine())return [];try{return (proto.combatCards.call(this,me.id)||[]).filter(c=>!c.system);}catch{return [];}},
+  // 0.16.53: the boss minigame cards too (app_bossgames_v01646.js opens them; the result goes with the command).
+  combatCards(){if(!mine())return [];try{return (proto.combatCards.call(this,me.id)||[]).filter(c=>!c.system||c.mini);}catch{return [];}},
   combatFleeReason:()=>'함께 싸우는 전투에서는 도망칠 수 없습니다.',protagonistCombatView:()=>null,needsRecovery:()=>false,
   actionReason(type,a={}){
    if(type==='MENU')return real.actionReason(type,a);

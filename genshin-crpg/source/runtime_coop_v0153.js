@@ -271,7 +271,8 @@ P.coopBasicCards=function(a,own=[]){
 P.combatCards=function(owner='PLAYER_CUSTOM'){
  const cards=old.combatCards.call(this,owner),b=this.s.runtime;if(!b?.coop||!Array.isArray(cards))return cards;
  const a=this.combatActor(owner);if(!a)return cards;
- if(a.coop){const own=cards.filter(c=>!c.system);return a.source===PLAYER?own:[...this.coopBasicCards(a,own),...own];}
+ // 0.16.53 (user: 「이제 필드보스랑 일일보스 다인모드 미니게임 가능하게 하고」): a guest's own fighter also gets the boss minigame cards on its turn.
+ if(a.coop){const own=cards.filter(c=>!c.system||c.mini);return a.source===PLAYER?own:[...this.coopBasicCards(a,own),...own];}
  const t=b.coop.turn;if(t&&t.actor!==a.id){const why=waitReason(this,t);return cards.map(c=>c.reason?c:{...c,reason:why});}
  return cards;
 };
@@ -284,10 +285,15 @@ P.coopCombat=function(p={}){
  const caller=this.coopContext?.caller;if(!caller||caller!==a.coop.owner)fail('COOP_TURN','지금은 '+a.coop.ownerName+' 님의 차례입니다.');
  if(a.control!=='GUEST')fail('COOP_TURN',a.name+'은(는) 지금 스스로 싸우고 있습니다.');
  const card=String(p.card||''),entry=this.combatCards(a.id).find(x=>x.id===card);
- if(!entry||entry.system)fail('CARD','쓸 수 없는 행동입니다.');if(entry.reason)fail('CARD',entry.reason);
+ if(!entry||entry.system&&!entry.mini)fail('CARD','쓸 수 없는 행동입니다.');if(entry.reason)fail('CARD',entry.reason);
  let target=p.target===undefined||p.target===null||p.target===''?null:String(p.target);
  if(entry.targets?.length){if(target&&!entry.targets.some(t=>t.id===target))fail('TARGET','현재 카드에 맞는 대상을 선택해 주세요.');if(!target)target=entry.targets[0].id;}
  let branch=p.branch===undefined||p.branch===null?'':String(p.branch);if(entry.branches?.length){if(!branch)branch=entry.branches[0];if(!entry.branches.includes(branch))fail('BRANCH','스킬 방식을 다시 골라 주세요.');}else branch='';
+ // A boss minigame card: its result (the minigame the guest played) settles as the solo COMBAT action's would.
+ if(entry.mini){const logStart=b.log.length;const prior=this._fbMini;this._fbMini=p.mini&&typeof p.mini==='object'?p.mini:null;try{this.executeCombatSystem(a,card,target);}finally{this._fbMini=prior;}b.coop.turn=null;
+  b.lastManualAction={id:this.s.global.SAVE_ID+':'+(this.s.global.LAST_COMMITTED_ACTION_SEQ+1),card,actor:a.id,round:b.round};
+  if(!b.subduedPending)b.cursor++;b.actionSequence++;b.phase='RESOLVING';this.autoUntilPlayer();
+  return {battle:b.id,actor:a.id,card,events:b.log.length-logStart,finished:!this.s.runtime};}
  const def=this.actorCards(a).find(x=>x.id===card)||this.coopBasicDef(a,card);if(!def)fail('CARD','쓸 수 없는 행동입니다.');
  const logStart=b.log.length;b.coop.turn=null;
  this.executeCard(a,def,target,branch||undefined);
@@ -369,7 +375,7 @@ P.coopBattleView=function(pid){
   aura:a.aura||null,statuses:(a.statuses||[]).filter(live).map(statusName).filter(Boolean).slice(0,4),
   ...(a.side==='ALLY'?{host:!a.coop,guest:a.coop?{pid:a.coop.owner,name:a.coop.ownerName,left:!!a.coop.left,mine:a.coop.owner===pid}:null,protagonist:a.source===PLAYER}:{grade:a.grade||'',airborne:!!a.airborne})});
  let cards=[];
- if(mine&&t&&t.actor===mine.id&&mine.control==='GUEST')cards=this.combatCards(mine.id).filter(c=>!c.system).map(c=>({id:c.id,name:c.name,reason:c.reason||'',cooldown:c.cooldown||0,
+ if(mine&&t&&t.actor===mine.id&&mine.control==='GUEST')cards=this.combatCards(mine.id).filter(c=>!c.system||c.mini).map(c=>({id:c.id,name:c.name,reason:c.reason||'',cooldown:c.cooldown||0,...(c.mini?{system:true,mini:JSON.parse(JSON.stringify(c.mini))}:{}),
   targets:(c.targets||[]).map(x=>({id:x.id,name:x.name,hp:Math.max(0,Math.round(x.hp)),maxHp:Math.max(1,Math.round(x.maxHp))})),branches:(c.branches||[]).slice(),key:c.key||'',description:text(c.description,220)}));
  const turnName=t?b.actors.find(a=>a.id===t.actor)?.name||'':'';
  return {version:VERSION,battle:b.id,room:b.coop.room,round:b.round,opening:b.opening?.state==='PENDING',title:this.tables['33_ENCOUNTER_GROUP_DB']?.get(b.group)?.[1]||'',encounter:b.encounter?.label||'',

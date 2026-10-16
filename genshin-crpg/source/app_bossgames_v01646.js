@@ -194,7 +194,8 @@ const priorAct=act;
 act=async function(type,params={}){
  if(type==='COMBAT'&&CARDS.has(params?.card)&&!params.mini){
   if(running||busy||window.ActorPlayback?.active)return;
-  const card=game?.combatCards?.().find(c=>c.id===params.card);
+  // 0.16.53: on someone else's shared fight the screen is drawn from that fight (CRPGCoopWorld.fight), not from game.
+  const W=window.CRPGCoopWorld,view=W?.fightShown&&W.fight?W.fight:game,card=view?.combatCards?.().find(c=>c.id===params.card);
   if(card?.mini&&!card.reason)return new Promise(resolve=>open(card,result=>{resolve(result?priorAct.call(this,type,{...params,mini:result}):undefined);}));
  }
  return priorAct.call(this,type,params);
@@ -208,9 +209,12 @@ combat=function(p,...rest){priorCombat(p,...rest);
 // The boss's state as the first chips on its card (they were only inside the folded 「전투 정보」): a shut or exposed Anemo core,
 // a running core or revival, Dvalin's glowing crystals and fall, Andrius's coming dash and its opening.
 function bossTags(a){
- const b=game?.s?.runtime,out=[];if(!b||!a||a.side!=='ENEMY'||a.hp<=0)return out;const f=a.fb,fbx=b.fieldBoss,ctl=fbx?.controlRevision===1&&fbx.behaviorRevision===5&&fbx.pressureRevision===1;
+ // 0.16.53 (user: 「핵 닫힘, 핵 노출 디버프가 갑자기 사라지는건 버그야?」): during a turn's playback the chips are drawn from the
+ // playback's copy of the fighter, which has no boss record (fb), so the core chips vanished until the turn ended. The
+ // boss record comes from the fight itself.
+ const b=game?.s?.runtime,out=[];if(!b||!a||a.side!=='ENEMY'||a.hp<=0)return out;const real=a.fb?a:(b.actors||[]).find(x=>x.id===a.id)||a,f=real.fb,fbx=b.fieldBoss,ctl=fbx?.controlRevision===1&&fbx.behaviorRevision===5&&fbx.pressureRevision===1;
  if(f&&fbx){
-  if(f.kind==='ANEMO'&&!f.revival&&ctl)out.push(game.fbCoreShut?.(a)?{id:'FB_CORE_SHUT',name:'핵 닫힘',kind:'hold',rounds:null,text:'탄막을 모으거나 떠 있는 동안 핵이 닫혀 공격이 통하지 않습니다. 공격을 마치면 핵이 드러납니다.'}:{id:'FB_CORE_OPEN',name:'핵 노출',kind:'debuff',rounds:null,text:'공격을 마친 핵이 드러났습니다 · 받는 피해 +50% · 다음 준비 동작까지.'});
+  if(f.kind==='ANEMO'&&!f.revival&&ctl)out.push(game.fbCoreShut?.(real)?{id:'FB_CORE_SHUT',name:'핵 닫힘',kind:'hold',rounds:null,text:'탄막을 모으거나 떠 있는 동안 핵이 닫혀 공격이 통하지 않습니다. 공격을 마치면 핵이 드러납니다.'}:{id:'FB_CORE_OPEN',name:'핵 노출',kind:'debuff',rounds:null,text:'공격을 마친 핵이 드러났습니다 · 받는 피해 +50% · 다음 준비 동작까지.'});
   const r=f.revival;
   if(r&&f.kind==='CRYO_HYPO')out.push({id:'FB_CRYO_CORE',name:'냉기 핵 '+(r.hits||0)+'/'+r.need,kind:'hold',rounds:r.rounds,text:'도망치는 냉기 핵 · '+(r.hits||0)+'/'+r.need+'번 적중 · 불 공격·파쇄 장비 또는 주인공의 「냉기 핵 쫓기」.'});
   else if(r&&f.kind==='ANEMO')out.push({id:'FB_ANEMO_CORE',name:'남은 핵 '+r.core,kind:'debuff',rounds:r.rounds,text:'떠오른 핵 · 원거리·대공 공격으로 '+r.core+'만큼 더 부수면 쓰러집니다.'});
