@@ -96,6 +96,8 @@ function talentCurve(id,kind,lv){
 // ---- 운명의 자리 chart ----
 const SPOTS=[[10,74],[25,36],[42,66],[58,28],[75,60],[90,22]];
 function consIcon(id,n){const key=game.constellationKey?.(id),rec=MAN().uiAssets?.constellations?.[key]?.[n-1];if(!rec)return mk('span','cons-glyph','✦');const i=mk('img','cons-icon');i.src=rec.path;i.alt='';i.draggable=false;return i;}
+// 0.16.55 (user: 「캐릭터 5성 돌파는 좀 더 멋있게 하자. 붉은색같은걸로 해서」 → 「지금 황금 테두리 씌워져있는거」): a 5★ wears a crimson 운명의 자리 frame.
+const fiveStar=id=>{try{return id!=='PLAYER_CUSTOM'&&(game.premiumRarity?.(id)||4)>=5;}catch{return false;}};
 function premiumCard(id){
  const sec=mk('section','shell-premium-member');sec.dataset.owner=id;
  const t=game.talentLevels(id),info=game.constellationInfo?.(id),cards=game.talentCards?.(id)||{},curve=P()?.talent?.CURVE||[];
@@ -132,10 +134,11 @@ function frame(card,id){
  if(!card||!id||!game.constellationLevel)return;const lv=game.constellationLevel(id);
  card.classList.remove('cons-frame','cons-1','cons-2','cons-3','cons-4','cons-5','cons-6');card.querySelector(':scope > .cons-skin')?.remove();
  if(!lv)return;const el=EL[elementOf(id)]||'none';
- card.classList.add('cons-frame','cons-'+lv);card.dataset.consEl=el;
+ card.classList.add('cons-frame','cons-'+lv);card.dataset.consEl=el;if(fiveStar(id))card.dataset.consTier='five';else delete card.dataset.consTier;
  const skin=mk('div','cons-skin');skin.setAttribute('aria-hidden','true');
  if(lv>=3)for(const c of ['tl','tr','bl','br'])skin.append(mk('i','cons-corner '+c));
  if(lv>=6){const shine=mk('i','cons-shine');skin.append(shine);for(let k=0;k<6;k++){const s=mk('i','cons-spark s'+k);skin.append(s);}}
+ if(lv>=5&&fiveStar(id))for(let k=0;k<8;k++)skin.append(mk('i','cons-ember e'+k));
  const badges=mk('div','cons-badges');badges.append(mk('span','cons-tag','C'+lv));for(let n=1;n<=lv;n++){const b=mk('span','cons-badge');b.append(consIcon(id,n));badges.append(b);}
  skin.append(badges);card.append(skin);
 }

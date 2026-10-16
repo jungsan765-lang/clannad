@@ -183,7 +183,10 @@ const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.bossLengthVersion)return
 // The daily bosses were measured the same way (docs/data/balance_v01627/daily/final_cases.json): the same share of those
 // parties wins with 안드리우스 ×0.35, 타르탈리아 ×0.34 (its third phase hits hardest and now lasts three times as long) and 야타용왕 ×0.75 (its big hits
 // were what beat a party, not the length).
-const LENGTH={hp:3,atk:.45},BY_BOSS={FB_RUIN_SERPENT:{hp:4},FB_PRIMO_GEOVISHAP:{hp:4},FB_OCEANID:{hp:1,forms:20},BOSS_ANDRIUS:{atk:.35},LIYUE_TARTAGLIA_FARM:{atk:.34},LIYUE_AZHDAHA_FARM:{atk:.75}},TERRAIN_EVERY=6,RAGE_EVERY=2;
+// 0.16.55 (user: 「적 공격력도 전체적으로 잘 체크해봐」): at the boss's own level the 4★ parties ended 무상의 뇌전 74–88% and 유적의 뱀 75–85% whole;
+// 무상의 뇌전 ×0.55 and 유적의 뱀 ×0.75 leave them 61–78% and 45–65%, every one of five saves still a win. The others stay: a little more and
+// the healer stops keeping up, so the same parties lose outright (×0.5–0.6 already beat 무상의 바람·무상의 얼음·무상의 바위·얼음 나무 in some saves).
+const LENGTH={hp:3,atk:.45},BY_BOSS={FB_ELECTRO_HYPOSTASIS:{atk:.55},FB_RUIN_SERPENT:{hp:4,atk:.75},FB_PRIMO_GEOVISHAP:{hp:4},FB_OCEANID:{hp:1,forms:20},BOSS_ANDRIUS:{atk:.35},LIYUE_TARTAGLIA_FARM:{atk:.34},LIYUE_AZHDAHA_FARM:{atk:.75}},TERRAIN_EVERY=6,RAGE_EVERY=2;
 const old=Object.fromEntries(['startBattle','validateSave','fbSummon','fbStartRevival','fbRevivalExpired','shield','addHazard','prepareAndriusRound','enemyIntel'].map(k=>[k,P[k]]));
 // Only the boss's own repeat fight (the field boss's route, the daily challenge), the same scope as its challenge profile.
 const isBossFight=b=>!!b&&!b.coopStory&&!b.storyConfig&&!b.abyss&&!b.raid&&(!!b.fieldBoss||String(b.origin||'').startsWith('MATERIAL_CHALLENGE:'));

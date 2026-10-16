@@ -177,6 +177,9 @@ try{
   await view('character',`__go('STATUS')`);
   await page.evaluate(`__go('STATUS')`);
   for(const tab of await labels('.gear-member:not([hidden]) .gear-tab'))await view('character-'+tab,`(async()=>{await __go('STATUS');__tap('.gear-member:not([hidden]) .gear-tab',${JSON.stringify(tab)});})()`);
+  // 0.16.55 (user: 「캐릭터 5성 돌파는 좀 더 멋있게 하자. 붉은색같은걸로 해서」 → 「지금 황금 테두리 씌워져있는거」): a 5★'s 운명의 자리 frame in crimson
+  // (C6/C3/C1/C5 on the 5★s, a 4★ at C6 in gold beside them) on the party screen and the character screen.
+  if(!process.env.CI)for(const at of ['PARTY','STATUS'])await view('cons-frame-'+at.toLowerCase(),`(async()=>{await __go('${at}');const party=game.s.party.filter(p=>p.active&&p.source&&p.source!=='PLAYER_CUSTOM').map(p=>p.source),five=party.filter(id=>game.premiumRarity?.(id)>=5),four=party.filter(id=>!(game.premiumRarity?.(id)>=5));if(!five.length)throw Error('no 5★ in the party');const lv=[6,3,1,5];game.s.constellations={...(game.s.constellations||{})};five.forEach((id,k)=>game.s.constellations[id]=lv[k%4]);four.forEach(id=>game.s.constellations[id]=6);render();await new Promise(r=>setTimeout(r,300));if('${at}'==='STATUS'){const nm=game.premiumCharName?.(five[0])||'';[...document.querySelectorAll('.gear-cols .shell-roster-item')].find(b=>b.textContent.trim()===nm)?.click();await new Promise(r=>setTimeout(r,300));}if(!document.querySelector('.cons-frame[data-cons-tier=five]'))throw Error('no crimson frame');})()`);
   // 0.16.31: the forge's enhance tab (who wears each piece in red) and its window with the one 「강화」 button.
   const forgeAt='(async()=>{if(game.s.placeVisit)await act(\'PLACE_LEAVE\',{});await __go(\'LOCATION\');const w=game.placeEntries().find(e=>/대장간/.test((e.name||\'\')+(e.facility||\'\')));if(w)await act(\'PLACE_ENTER\',{place:w.id});await new Promise(r=>setTimeout(r,250));[...document.querySelectorAll(\'.shell-worktabs button\')].find(b=>/강화/.test(b.textContent))?.click();await new Promise(r=>setTimeout(r,250));';
   await view('forge-enhance',forgeAt+'})()');
@@ -237,7 +240,11 @@ try{
      const x=new R(DB,JSON.parse(base));if(!x.s.runtime)break;for(const a of x.s.runtime.actors)a.statuses=[...(a.statuses||[]),...ids.map(id=>({id,rounds:2}))];fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
      await view(label,`Promise.resolve()`);}
     {const x=new R(DB,JSON.parse(base));fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();}}
+   // 0.16.55 (user: 「디버프창도 전투 끝나고나서 상태가 바뀌어야지; 이런거 있으면 싹 다 정리해」): a fighter's effects window left open
+   // closes once the battle is over and its last moves have played.
+   await page.evaluate(()=>{const a=game.s.runtime?.actors?.find(x=>x.side==='ALLY');if(a)battleStatusDetails(a,battleStatusList(a));});
    const end=new R(DB,JSON.parse(fixture.read().state));end.serverAdmin=true;try{end.action('OPERATOR_DEBUG',{op:'battle_end',win:true});}catch{}fixture.seed(end.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
+   {const left=await page.evaluate(async()=>{for(let i=0;i<20&&document.querySelector('#modal[open] [data-battle-window]');i++)await new Promise(r=>setTimeout(r,150));return !!document.querySelector('#modal[open] [data-battle-window]');});if(left)found['battle-window-closes']=['the effects window stayed open after the battle ended'];}
    await view('reward',`Promise.resolve()`);
   }
   // 0.16.35: a daily boss fight (the board glows in the boss's element; the keys beside the buttons) and the shop's multi-buy.

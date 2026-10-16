@@ -19,11 +19,11 @@ function daily(e,id){const spec={BOSS_DVALIN:{level:28,map:'MAP_STORMTERROR_LAIR
  r.action('MOND_MATERIAL_CHALLENGE',{boss:id});r.die=()=>50;r.random=()=>.5;if(S(r).opening?.state==='PENDING')r.action('COMBAT_BEGIN');return r;}
 const boss=r=>S(r).actors.find(a=>a.side==='ENEMY'&&(a.fb||a.grade==='보스')&&!a.fbSummon);
 
-check('a new field boss fight: boss HP ×3 and ATK ×0.45 (0.16.54: 유적의 뱀·고대 바위 용 도마뱀 HP ×4, 물의 정령 20 forms); summons, defence and draws as before',()=>{
+check('a new field boss fight: boss HP ×3 and ATK ×0.45 (0.16.54: 유적의 뱀·고대 바위 용 도마뱀 HP ×4, 물의 정령 20 forms; 0.16.55: 뇌전 ATK ×0.55, 유적의 뱀 ×0.75); summons, defence and draws as before',()=>{
  assert.deepEqual(plain({hp:L.hp,atk:L.atk,terrainEvery:L.terrainEvery}),{hp:3,atk:.45,terrainEvery:6});
- for(const id of ['FB_ANEMO_HYPOSTASIS','FB_CRYO_HYPOSTASIS','FB_RUIN_SERPENT','FB_OCEANID']){const a=field(env,id),b=field(before,id),x=boss(a),y=boss(b),k=id==='FB_RUIN_SERPENT'?4:id==='FB_OCEANID'?1:3;
-  assert.deepEqual(plain(S(a).bossLength),id==='FB_OCEANID'?{version:1,hp:1,atk:.45,forms:20}:{version:1,hp:k,atk:.45},id);
-  assert.equal(x.maxHp,Math.max(1,Math.round(y.maxHp*k)),id+' HP');assert.equal(x.atk,Math.max(1,Math.round(y.atk*.45)),id+' ATK');assert.equal(x.def,y.def,id+' DEF');
+ for(const id of ['FB_ANEMO_HYPOSTASIS','FB_CRYO_HYPOSTASIS','FB_RUIN_SERPENT','FB_OCEANID','FB_ELECTRO_HYPOSTASIS']){const a=field(env,id),b=field(before,id),x=boss(a),y=boss(b),k=id==='FB_RUIN_SERPENT'?4:id==='FB_OCEANID'?1:3,m={FB_RUIN_SERPENT:.75,FB_ELECTRO_HYPOSTASIS:.55}[id]||.45;
+  assert.deepEqual(plain(S(a).bossLength),id==='FB_OCEANID'?{version:1,hp:1,atk:.45,forms:20}:{version:1,hp:k,atk:m},id);
+  assert.equal(x.maxHp,Math.max(1,Math.round(y.maxHp*k)),id+' HP');assert.equal(x.atk,Math.max(1,Math.round(y.atk*m)),id+' ATK');assert.equal(x.def,y.def,id+' DEF');
   assert.equal(a.s.global.PRNG_STATE,b.s.global.PRNG_STATE,id);}
  assert.equal(S(field(env,'FB_OCEANID')).fieldBoss.target,20);assert.equal(S(field(before,'FB_OCEANID')).fieldBoss.target,8);
 });

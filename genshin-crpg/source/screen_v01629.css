@@ -1786,3 +1786,30 @@ html.stage-phone body.teyvat .cook-fatigue-note{font-size:.58rem}
 /* 0.16.52 a summon made during the turn's playback joins its lane with a short arrival */
 body.teyvat .battle-summon.summon-arrive{animation:summon-arrive .45s ease-out both}
 @keyframes summon-arrive{from{opacity:0;transform:translateY(-6px) scale(.92)}to{opacity:1;transform:none}}
+/* 0.16.55 (user: 「캐릭터 5성 돌파는 좀 더 멋있게 하자. 붉은색같은걸로 해서」 → 「지금 황금 테두리 씌워져있는거」): a 5★'s 운명의 자리 frame
+   is crimson instead of gold — a flowing crimson line from C1, rose corners from C3, embers rising from C5, a burning frame at C6. */
+.cons-frame[data-cons-tier=five]{--cf-a:#ffe2d6;--cf-b:#ec3a4a;--cf-c:#5e0814;--cf-el:#ff4d5a}
+.cons-frame[data-cons-tier=five] .cons-skin::before{background:linear-gradient(135deg,#ffe2d6,#ff6b6b 14%,#d01c32 30%,#5e0814 50%,#d01c32 70%,#ffb08a 86%,#ffe2d6);background-size:240% 240%;animation:cons-flow 7s linear infinite}
+.cons-frame[data-cons-tier=five].cons-6 .cons-skin::before{animation-duration:3.2s}
+.cons-frame[data-cons-tier=five] .cons-skin{box-shadow:0 0 8px rgba(236,58,74,.38)}
+.cons-frame[data-cons-tier=five].cons-3 .cons-skin,.cons-frame[data-cons-tier=five].cons-4 .cons-skin{box-shadow:0 0 13px rgba(236,58,74,.52)}
+.cons-frame[data-cons-tier=five] .cons-skin::after{border-color:rgba(255,150,140,.48)}
+.cons-frame[data-cons-tier=five].cons-5 .cons-skin{box-shadow:0 0 18px rgba(236,58,74,.78),inset 0 0 24px rgba(200,30,50,.32)}
+.cons-frame[data-cons-tier=five].cons-6 .cons-skin{box-shadow:0 0 26px rgba(240,56,70,.9),0 0 2px #ffe2d6,inset 0 0 30px rgba(210,36,56,.4);animation:cons-five-aura 2.4s ease-in-out infinite}
+@keyframes cons-five-aura{50%{box-shadow:0 0 42px rgba(255,64,78,1),0 0 3px #fff0ea,inset 0 0 40px rgba(226,44,64,.5)}}
+.cons-frame[data-cons-tier=five] .cons-corner{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffe2d6'/%3E%3Cstop offset='.55' stop-color='%23ff5a5f'/%3E%3Cstop offset='1' stop-color='%23a3122a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M3 29V11C3 6.6 6.6 3 11 3h18' fill='none' stroke='url(%23g)' stroke-width='2.4'/%3E%3Cpath d='M8.5 25V13.5c0-2.8 2.2-5 5-5H25' fill='none' stroke='url(%23g)' stroke-width='1.2' opacity='.85'/%3E%3Cpath d='M1.5 1.5l7 2.6-4.4 4.4z' fill='url(%23g)'/%3E%3Ccircle cx='13.5' cy='13.5' r='2.2' fill='url(%23g)'/%3E%3C/svg%3E");filter:drop-shadow(0 0 3px rgba(255,80,90,.75))}
+.cons-frame[data-cons-tier=five].cons-6 .cons-corner{filter:drop-shadow(0 0 5px rgba(255,90,90,.95))}
+.cons-frame[data-cons-tier=five] .cons-shine::before{background:linear-gradient(100deg,transparent,rgba(255,196,186,0) 20%,rgba(255,196,186,.32) 50%,rgba(255,196,186,0) 80%,transparent)}
+.cons-frame[data-cons-tier=five] .cons-spark{background:radial-gradient(circle,#fff 0 18%,transparent 20%),conic-gradient(from 45deg,transparent 0 10%,#ffb4a8 12% 13%,transparent 15% 35%,#ffb4a8 37% 38%,transparent 40% 60%,#ffb4a8 62% 63%,transparent 65% 85%,#ffb4a8 87% 88%,transparent 90%)}
+.cons-frame[data-cons-tier=five] .cons-badges{background:rgba(26,6,10,.94);box-shadow:0 0 0 1px rgba(255,120,110,.62),0 0 9px rgba(236,58,74,.5),0 2px 6px rgba(0,0,0,.45)}
+.cons-frame[data-cons-tier=five] .cons-badge{background:radial-gradient(circle,#6a1622,#16060a);border-color:#ff6b6b}
+.cons-frame[data-cons-tier=five] .cons-badge .cons-icon{filter:drop-shadow(0 0 2px rgba(255,170,160,.95))}
+.cons-frame[data-cons-tier=five] .cons-badge .cons-glyph{color:#ffd0c6}
+.cons-frame[data-cons-tier=five] .cons-tag{background:linear-gradient(#ff8a80,#b8142a);color:#fff;text-shadow:0 1px 1px rgba(70,0,10,.8)}
+.cons-frame[data-cons-tier=five].cons-6 .cons-tag{background:linear-gradient(110deg,#c8182e,#ff6a6a 35%,#ffb0a0 50%,#ff6a6a 65%,#c8182e);background-size:220% 100%;animation:cons-flow 3.2s linear infinite}
+.cons-ember{position:absolute;bottom:3%;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle,#fff3e8,#ff5a4a 55%,transparent 72%);opacity:0;animation:cons-ember 3.6s ease-in infinite}
+.cons-ember.e0{left:3%}.cons-ember.e1{left:7%;animation-delay:.9s}.cons-ember.e2{left:4%;animation-delay:1.8s}.cons-ember.e3{left:9%;animation-delay:2.7s}
+.cons-ember.e4{right:3%;animation-delay:.45s}.cons-ember.e5{right:7%;animation-delay:1.35s}.cons-ember.e6{right:4%;animation-delay:2.25s}.cons-ember.e7{right:9%;animation-delay:3.15s}
+.cons-6 .cons-ember{animation-duration:2.6s}
+@keyframes cons-ember{0%{opacity:0;bottom:3%;transform:translateX(0) scale(.7)}15%{opacity:1}60%{transform:translateX(3px) scale(1)}100%{opacity:0;bottom:78%;transform:translateX(-2px) scale(.3)}}
+@media (prefers-reduced-motion:reduce){.cons-frame[data-cons-tier=five] .cons-skin,.cons-frame[data-cons-tier=five] .cons-skin::before,.cons-frame[data-cons-tier=five] .cons-tag,.cons-ember{animation:none}.cons-ember{display:none}}

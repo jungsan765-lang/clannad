@@ -392,6 +392,19 @@ function battleStatusChips(a){
   const row=button('',()=>battleStatusDetails(a,row._statusList));row._statusList=list;row.className='status-chips';row.dataset.battleInspection='status';row.setAttribute('aria-label',a.name+'의 효과 '+list.length+'개 · '+list.map(x=>x.name).join(', ')+' · 눌러서 자세히 보기');
   for(const x of list)row.append(statusChip(x));return row;
 }
+// 0.16.55 (user: 「디버프창도 전투 끝나고나서 상태가 바뀌어야지; 이런거 있으면 싹 다 정리해」): a window opened to look at a battle — a fighter's
+// effects, the formation tag, a card's effect, an enemy's info, a boss minigame — belongs to that battle. Once the battle is over (or another one
+// began) and its last moves have played, the window closes instead of showing effects that are already gone.
+function liveBattleId(){const coop=window.CRPGCoop;if(coop?.battle?.state&&!coop.ended)return 'coop:'+(coop.battle.state.runtime?.id||'live');return game?.s?.runtime?.id||null;}
+function markBattleWindow(box){const id=liveBattleId();if(id)box.dataset.battleWindow=id;return box;}
+function closeEndedBattleWindows(){
+  if(window.ActorPlayback?.active||(typeof GameEffects!=='undefined'&&GameEffects.active))return;
+  const id=liveBattleId(),modal=document.getElementById('modal'),mark=modal?.open&&modal.querySelector('[data-battle-window]');
+  if(mark&&mark.dataset.battleWindow!==id)modal.close();
+  const intel=document.getElementById('enemy-intel-dialog');if(intel?.open&&typeof EnemyIntel!=='undefined'&&EnemyIntel.battleId&&EnemyIntel.battleId!==game?.s?.runtime?.id)intel.close();
+  if(!id&&window.CRPGFieldBossMinigames?.running)window.CRPGFieldBossMinigames.close();
+}
+if(typeof setInterval==='function')setInterval(()=>{try{closeEndedBattleWindows();}catch{}},400);
 // Inspection follows the actor currently visible in playback. The runtime may already contain the end of the round.
 let battleStatusUnsubscribe=null;
 function battleStatusDetails(a,list){
@@ -403,7 +416,7 @@ function battleStatusDetails(a,list){
     if(!current.length)box.append(el('p','muted','현재 적용된 효과가 없습니다.'));
     for(const x of current){const row=el('div','status-detail');row.append(statusChip(x),el('p','',(x.text||'설명이 없는 효과입니다.')+(x.rounds!==null?' · '+x.rounds+'라운드 남음':' · 전투 내내')));box.append(row);}
   };
-  update();showModal(a.name+' · 효과',box);
+  markBattleWindow(box);update();showModal(a.name+' · 효과',box);
   if(window.ActorPlayback?.subscribe){
     battleStatusUnsubscribe=window.ActorPlayback.subscribe(()=>{if(!dialog?.open||!box.isConnected){battleStatusUnsubscribe?.();battleStatusUnsubscribe=null;return;}update();});
     dialog?.addEventListener('close',()=>{battleStatusUnsubscribe?.();battleStatusUnsubscribe=null;},{once:true});
@@ -413,7 +426,7 @@ function battleStatusDetails(a,list){
 function battleFormationTag(b){
   const fm=b.formationV1&&window.CRPGRuntime?.formationConfig?.formations?.[b.formationV1.id];if(!fm)return null;
   const on=!!b.formationV1.synergy,text=fm.text+' · '+(on?'시너지 발동 · ':'시너지 조건 · ')+fm.synergy.text+(on?'':' (지금은 꺼짐)');
-  const tag=button('진형 · '+fm.name+(on?' · 시너지 발동':''),()=>{const box=el('div','status-details');box.append(el('p','','편성에서 고른 진형입니다. 이 전투에서 파티 전원에게 적용됩니다.'),el('p','',text));showModal('진형 · '+fm.name,box);});
+  const tag=button('진형 · '+fm.name+(on?' · 시너지 발동':''),()=>{const box=el('div','status-details');box.append(el('p','','편성에서 고른 진형입니다. 이 전투에서 파티 전원에게 적용됩니다.'),el('p','',text));markBattleWindow(box);showModal('진형 · '+fm.name,box);});
   tag.dataset.battleInspection='effect';tag.className='battle-formation'+(on?' synergy':'');tag.title=text;tag.setAttribute('aria-label','진형 · '+fm.name+' · '+text);return tag;
 }
 function battleActorRow(a,chosen,index){
@@ -486,7 +499,7 @@ function combatCardEffect(card,b){
     if(card.id==='PLAYER_ISEKAI_E'){const t=v.exposeTargets?.find(x=>x.id===selectedTarget);if(t)box.append(el('p','skill-preview',t.name+' · 공격력×'+(v.exposeCoefficient||1.5)+' 피해 · '+(v.exposeRounds||2)+'라운드 동안 파티에게 받는 피해 +'+t.pct+'%'));else{const w=v.windowTargets?.find(x=>x.id===selectedTarget);if(w)box.append(el('p','skill-preview',w.reason||w.name+' · 현재 선택 시 최대 HP −'+w.amount+' · 다음 자기 차례까지'));}}
     if(card.id==='PLAYER_ISEKAI_Q'){box.append(el('p','skill-preview','현재 합동 공격 추가 배율 +'+v.bonusPct+'% · 행동 가능한 동료가 각자의 원소로 함께 공격합니다.'));if(v.members?.length)box.append(el('p','muted',v.members.map(a=>a.name+(a.reason?' · 불참('+a.reason+')':' · 참가')).join(' / ')));}
   }
-  showModal('효과 · '+(card.name||'행동'),box);
+  markBattleWindow(box);showModal('효과 · '+(card.name||'행동'),box);
 }
 combat=function(p){
   const b=game.s.runtime,opening=game.combatOpening?.(),cards=opening?[]:(game.combatCards?.()||[]);
