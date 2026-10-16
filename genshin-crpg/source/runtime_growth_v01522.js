@@ -408,9 +408,11 @@ P.growthDomainGroup=function(d,element='NEUTRAL'){
 };
 P.startGrowthDomain=function(a){const d=this.growthDomainEntries().find(x=>x.id===a.domain),element=d?.kind==='ASCENSION'?a.element||'NEUTRAL':'NEUTRAL';if(!d||d.reason)fail('DOMAIN',d?.reason||'이곳의 비경 입구를 이용해 주세요.');if(!Object.values(GEMS).some(x=>x[0]===element))fail('DOMAIN','원소 재료를 골라 주세요.');const {reason,levels,lock,...entry}=d;this._growthDomain={...entry,version:4,element,day:dayOf(now(this)),map:this.s.global.CURRENT_MAP_ID};try{return this.startBattle(this.growthDomainGroup(d,element),'DOMAIN:'+d.id);}finally{delete this._growthDomain;}};
 P.growthEliteEntry=function(){const map=this.s.global.CURRENT_MAP_ID,group=ELITES[map];return group?{map,group,level:Number(this.row('32_MAP_DB',map)[6]),reason:this.s.eliteClaims?.[map]===dayOf(now(this))?'오늘의 토벌을 마쳤습니다. 한국 시간 자정에 다시 나타납니다.':''}:null;};
-P.finishBattle=function(win){const b=this.s.runtime,active=new Set(b?.actors.filter(a=>a.side==='ALLY').map(a=>a.source)),out=old.finishBattle.call(this,win);if(!b||!out)return out;const recorded=JSON.parse(this.s.global.LAST_BATTLE_RESULT_JSON||'{}');if((recorded.battleId||recorded.id)===b.id)Object.assign(out,recorded);
+P.finishBattle=function(win){const b=this.s.runtime,out=old.finishBattle.call(this,win);if(!b||!out)return out;const recorded=JSON.parse(this.s.global.LAST_BATTLE_RESULT_JSON||'{}');if((recorded.battleId||recorded.id)===b.id)Object.assign(out,recorded);
  if(b.growthDomain)this.s.lastGrowthDomain={domain:b.growthDomain.id,element:b.growthDomain.element,map:b.growthDomain.map};
- if(win&&!b.storyConfig?.noRewards){for(const owner of this.premiumFighters())if(!active.has(owner))this.addXp(owner,Math.floor((out.xp||0)*.25));if(b.growthElite)(this.s.eliteClaims??={})[b.growthElite.map]=dayOf(now(this));
+ // 0.16.48 (user: 「비경에 참가 캐릭터 말고도 다른 캐릭터들도 경험치를 받는 버그」): only the characters who fought get battle
+ // experience. The 25% every owned character outside the fight used to get (0.15.22) is gone; they grow with books.
+ if(win&&!b.storyConfig?.noRewards){if(b.growthElite)(this.s.eliteClaims??={})[b.growthElite.map]=dayOf(now(this));
  if(b.growthDomain){const d=b.growthDomain,reward=this.growthDomainRewards(d,d.element),day=dayOf(now(this));for(const [id,n]of Object.entries(reward.items)){this.giveItem(id,n);out.loot[id]=(out.loot[id]||0)+n;}this.s.global.MORA+=reward.mora;out.mora=(out.mora||0)+reward.mora;out.domain={id:d.id,level:d.level,bonus:reward.bonus,items:reward.items};
   // 0.16.2: an experience run never uses up the first three (doubled) material wins of the day.
   const counts=!((isDomain(d)||isTrialV3(d))&&d.kind==='EXP');if(counts)this.s.domainDaily={day,wins:(this.s.domainDaily?.day===day?this.s.domainDaily.wins:0)+1};}}

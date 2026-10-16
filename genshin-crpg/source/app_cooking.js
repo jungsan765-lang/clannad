@@ -60,7 +60,9 @@ function dishInfo(x){
 }
 function effectLine(d){
   if(d.tab==='PROCESS')return d.item[2]==='낚시 도구'?'낚시에 쓰는 미끼':'다른 요리에 쓰는 재료';
-  if(d.heal&&!d.status)return 'HP '+game.foodHealingAmount(d.heal)+' 회복 · 주인공 기준';
+  // 0.16.48: a recovery dish also clears 비경 피로 by how hard its ingredients are to get.
+  let clear=0;try{clear=d.heal?game.foodFatigueClear?.(d.item[0])||0:0;}catch{}
+  if(d.heal&&!d.status)return 'HP '+game.foodHealingAmount(d.heal)+' 회복'+(clear?' · 피로 −'+clear:'')+' · 주인공 기준';
   const text=String(d.item[7]||'').replace(/^지정 캐릭터\s*/,'');
   return (d.heal?'HP '+game.foodHealingAmount(d.heal)+' 회복 · 주인공 기준 · ':'')+text;
 }

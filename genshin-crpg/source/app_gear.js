@@ -169,14 +169,17 @@ reward=function(p){
 // the healing dishes in the bag and the party's HP under the buttons. Press a dish, then whom it is for; each face says how much
 // HP that dish gives it. The result screen stays.
 let quickDish=null;
-function mealReason(owner,dish){let a=null;try{a=game.economyOwner(owner);}catch{return '';}if(!a)return '';if(a.hp<=0)return '전투불능 대상은 일반 음식을 먹을 수 없습니다.';if(a.lastMeal===dish)return '직전에 먹은 회복 음식과 다른 음식을 골라 주세요.';if(a.hp>=a.maxHp&&!(a.statuses||[]).some(s=>s.id==='STATUS_BOND_OF_LIFE'))return '이미 HP가 가득 찬 대상입니다.';return game.actionReason('USE_ITEM',{item:dish,quantity:1,owner})||'';}
+function mealReason(owner,dish){let a=null;try{a=game.economyOwner(owner);}catch{return '';}if(!a)return '';if(a.hp<=0)return '전투불능 대상은 일반 음식을 먹을 수 없습니다.';if(a.lastMeal===dish)return '직전에 먹은 회복 음식과 다른 음식을 골라 주세요.';if(a.hp>=a.maxHp&&!(a.statuses||[]).some(s=>s.id==='STATUS_BOND_OF_LIFE')&&!(game.fatigueMealCap?.(owner,dish)?.clear>0))return '이미 HP가 가득 찬 대상입니다.';return game.actionReason('USE_ITEM',{item:dish,quantity:1,owner})||'';}
 function hpBar(a){const bar=el('span','qm-hp'),fill=el('i');fill.style.width=Math.max(0,Math.min(100,a.maxHp?a.hp/a.maxHp*100:0))+'%';if(a.hp<a.maxHp*.35)bar.classList.add('low');bar.append(fill);return bar;}
 function quickMeals(p){
  if(!game||game.s.runtime||game.actionReason('USE_ITEM'))return;
  const owners=game.s.party.filter(x=>x.active).map(x=>{let a=null;try{a=game.economyOwner(x.source);}catch{}return a&&{id:x.source,a};}).filter(Boolean);
- const hurt=owners.find(x=>x.a.hp>0&&x.a.hp<x.a.maxHp);if(!hurt)return;
+ // 0.16.49: someone tired (비경 피로) also opens the strip, at full HP too.
+ const wounded=owners.find(x=>x.a.hp>0&&x.a.hp<x.a.maxHp),hurt=wounded||owners.find(x=>x.a.hp>0&&game.fatigueStacks?.(x.id)>0);if(!hurt)return;
  const seen=new Set(),dishes=[];
  for(const i of game.s.inventory){if(!i.item||seen.has(i.item)||!(game.itemCount(i.item)>0))continue;seen.add(i.item);let spec=null;try{spec=game.foodSpec(i.item);}catch{}if(spec?.heal)dishes.push({id:i.item,heal:game.foodHealingAmount(spec.heal,hurt.id)});}
+ // With nobody hurt, only the dishes that ease someone's 피로 are worth showing.
+ if(!wounded){for(let k=dishes.length-1;k>=0;k--)if(!owners.some(o=>game.fatigueMealCap?.(o.id,dishes[k].id)?.clear>0))dishes.splice(k,1);}
  if(!dishes.length)return;dishes.sort((x,y)=>y.heal-x.heal);const shown=dishes.slice(0,6);
  if(!shown.some(d=>d.id===quickDish))quickDish=shown[0].id;
  const box=el('section','quick-meal'),foods=el('div','qm-foods'),people=el('div','qm-people');box.setAttribute('aria-label','빠른 식사');
@@ -185,8 +188,8 @@ function quickMeals(p){
   b.title=safeName('14_ITEM_DB',d.id)+' · HP +'+fmt(d.heal);try{b.append(itemGlyph(presenter().itemDetail({item:d.id,quantity:game.itemCount(d.id)})));}catch{}b.append(el('b','qm-count','×'+fmt(game.itemCount(d.id))));if(typeof foodEffectMark==='function'){const m=foodEffectMark(d.id);if(m)b.append(m);}foods.append(b);}
  for(const {id,a} of owners){const why=mealReason(id,quickDish),b=button('',()=>act('USE_ITEM',{item:quickDish,quantity:1,owner:id}),busy||!!why);b.className='qm-person';if(why)b.title=why;
   b.append(actorPortrait(id,'qm-face'));const copy=el('span','qm-copy'),name=el('small','qm-name',ownerName(id));
-  // 0.16.48: a dish heals up to the max HP its 피로 clearing leaves (the 피로 badge says what is left).
-  let gain=0,cap=a.maxHp,clear=0;try{const c=game.fatigueMealCap?.(id,quickDish);if(c){cap=c.cap;clear=c.clear;}}catch{}
+  // 0.16.48: the 피로 badge says what the picked dish leaves (「피로 3→1」); 0.16.49: only a dish hard enough for the eater's level clears any.
+  let gain=0,cap=a.maxHp,clear=0;try{const c=game.fatigueMealCap?.(id,quickDish);if(c){clear=c.clear;if(Number.isFinite(c.cap))cap=c.cap;}}catch{}
   const tired=window.CRPGFatigueBadge?.(id,why?0:clear);
   if(!why){try{gain=Math.min(game.foodHealingAmount(game.foodSpec(quickDish).heal,id),cap-a.hp);}catch{}if(gain>0)name.append(el('b','qm-gain','+'+fmt(gain)));}
   copy.append(name,hpBar(a),el('small','qm-num',fmt(a.hp)+' / '+fmt(a.maxHp)));if(tired)copy.append(tired);b.append(copy);people.append(b);}

@@ -21,7 +21,8 @@ check('all 12 current EXP payouts strictly increase while legacy EXP and materia
  assert.deepEqual(cp(G.caps),[10,20,30,40,50,55,60]);assert.equal(G.xpNext(60),0);
  for(let l=1;l<59;l++)assert(G.xpNext(l+1)>G.xpNext(l));
 });
-check('all 12 EXP stages use identical preview, native plan, payout, bench share, receipts and reload XP',()=>{
+// 0.16.48 (user: 「비경에 참가 캐릭터 말고도 다른 캐릭터들도 경험치를 받는 버그」): an owned character outside the fight gets nothing.
+check('all 12 EXP stages use identical preview, native plan, payout, no bench share, receipts and reload XP',()=>{
  for(const [key,spec]of Object.entries(G.domains).filter(([,d])=>d.kind==='EXP'))for(const level of spec.levels){
   const r=ready(spec.map),entry=r.growthDomainEntries().find(x=>x.id===key+':'+level),expected=G.domainXp[level],benchBefore=r.growth('MOND_BARBARA').xp;
   const preview=r.growthDomainRewards(entry),daily=cp(r.s.domainDaily),mora=r.s.global.MORA;
@@ -29,7 +30,7 @@ check('all 12 EXP stages use identical preview, native plan, payout, bench share
   r.action('DOMAIN_START',{domain:entry.id});assert.equal(r.mondRewardPlan(r.s.runtime).xp,expected);
   const x=complete(r,expected);assert.equal(x.mora,0);assert.deepEqual(cp(x.domain.items),{});assert.deepEqual(cp(r.s.domainDaily),daily);assert.equal(r.s.global.MORA,mora);
   for(const owner of [PLAYER,...REFERENCE_TEAM])assert.equal(r.growth(owner).xp,expected);
-  assert.equal(r.growth('MOND_BARBARA').xp,benchBefore+Math.floor(expected*.25));
+  assert.equal(r.growth('MOND_BARBARA').xp,benchBefore,'the bench gets no experience');
   const restored=new R(db,cp(r.s));for(const owner of [PLAYER,...REFERENCE_TEAM,'MOND_BARBARA'])assert.deepEqual(cp(restored.growth(owner)),cp(r.growth(owner)));
   const before=cp(r.s);assert.equal(r.finishBattle(true),undefined);assert.deepEqual(cp(r.s),before);
  }

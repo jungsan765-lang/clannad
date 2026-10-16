@@ -230,7 +230,7 @@ try{
    await view('reward',`Promise.resolve()`);
   }
   // 0.16.35: a daily boss fight (the board glows in the boss's element; the keys beside the buttons) and the shop's multi-buy.
-  if(!ONLY.length||ONLY.some(o=>o.startsWith('daily-boss')||o.startsWith('shop-bulk')||o.startsWith('story-page')||o.startsWith('domain')||o.startsWith('fieldboss'))){
+  if(!ONLY.length||ONLY.some(o=>o.startsWith('daily-boss')||o.startsWith('shop-bulk')||o.startsWith('cooking')||o.startsWith('story-page')||o.startsWith('domain')||o.startsWith('fieldboss'))){
    const r=playerState();r.serverAdmin=true;const api=globalThis.CRPGRuntime,c0=api?.enhancementConfig?.bosses?.BOSS_ANDRIUS;
    if(c0){try{const row=r.row('35_BOSS_ROUTE_DB',c0.route);r.s.flags[row[13]]=true;Object.assign(r.s.global,{CURRENT_MAP_ID:c0.map,SCREEN_MODE:'LOCATION'});r.s.bossRealAdmissions={};r.action('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_ANDRIUS'});}catch(e){console.error('daily boss',e.message);}
     if(r.s.runtime){fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
@@ -247,7 +247,7 @@ try{
    // the quick meal with a 피로 badge on each face and 「피로 3→1」 for the picked dish).
    {const x=playerState();x.serverAdmin=true;let started=false;
     try{const ids=x.s.party.filter(p=>p.active).map(p=>p.source);x.s.fatigue={version:1,stacks:Object.fromEntries(ids.map((id,i)=>[id,[3,1,2,4][i%4]]))};
-     let n=0;for(const [id,row] of x.tables['14_ITEM_DB']){let spec=null;try{spec=x.foodSpec(id,{});}catch{}if(spec?.heal&&['일반','고급','희귀'].includes(row[3])&&n<4){x.giveItem(id,2);n++;}}
+     for(const [id,row] of x.tables['14_ITEM_DB'])if(['몬드 감자전','채식 전복','버섯고기말이','티바트 달걀 프라이'].includes(row[1]))x.giveItem(id,2);
      for(const m of x.tables['32_MAP_DB'].keys()){if(!/^MAP_D163_/.test(m))continue;try{x.action('OPERATOR_DEBUG',{op:'travel',map:m});}catch{continue;}const d=x.growthDomainEntries?.().find(e=>!e.reason);if(d){x.action('DOMAIN_START',{domain:d.id,element:d.elements?.[0]||d.element||undefined});started=!!x.s.runtime;break;}}}catch(e){console.error('fatigue',e.message);}
     if(started){fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
      if(!(process.env.CI&&size.name!=='pc'))await view('domain-fatigue-battle',`(async()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='전투 시작');b?.click();})()`);
@@ -277,6 +277,8 @@ try{
    // 0.16.45: 읽은 이야기 with fifty lines — one list that scrolls, never pages
    await view('story-history',`(async()=>{await __go('STORY');for(let i=0;i<50;i++)sceneHistory.push({category:'GENERAL',speaker:i%2?'엠버':'이야기',text:'읽은 이야기 '+(i+1)+'번째 줄. 성문 앞에서 바람이 불었다.'});displayHistory();await new Promise(r=>setTimeout(r,300));if(!document.querySelector('#modal-body>.history-scroll'))throw Error('no scroll list');if(document.querySelector('#modal-body .pane-pager'))throw Error('paged');})()`);
    await view('shop-bulk',`(async()=>{await __go('LOCATION');const k=game.placeCatalog().find(e=>e.merchant==='MRC_MOND_RESTAURANT');if(k&&!game.s.placeVisit)await act('PLACE_ENTER',{place:k.id,mode:'SHOP'});await new Promise(r=>setTimeout(r,300));if(typeof showPurchaseQuantity==='function')showPurchaseQuantity('STK_MOND_SARA_EGG');})()`);
+   // 0.16.48: the cooking hall's 회복 dishes say how much 비경 피로 each clears (「HP N 회복 · 피로 −N」).
+   await view('cooking',`(async()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());if(game.s.placeVisit)await act('PLACE_LEAVE',{});await __go('LOCATION');const k=game.placeCatalog().find(e=>e.id==='EVT_SCHEDULE_SERVICE_MOND_COOK');if(!k)throw Error('no cooking hall');await act('PLACE_ENTER',{place:k.id,mode:'CRAFT'});await new Promise(r=>setTimeout(r,300));const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='회복');b?.click();await new Promise(r=>setTimeout(r,250));if(!/피로 −[1-4]/.test(document.body.innerText))throw Error('no 피로 on the cooking cards');})()`);
   }
   // 0.16.46: the boss minigames' windows (조작 보스) — the four games before they start, and the wind dodge while it plays.
   // CI (run #336 was cancelled at 20:09 of the verify job's 20 minutes; these views were ~94 s of it locally): the computer page
