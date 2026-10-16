@@ -1778,3 +1778,6 @@ html.stage-phone body.teyvat .cook-fatigue-label{font-size:.6rem}
 html.stage-phone body.teyvat .cook-fatigue-band>small{font-size:.52rem}
 html.stage-phone body.teyvat .cook-fatigue-band>b{font-size:.62rem}
 html.stage-phone body.teyvat .cook-fatigue-note{font-size:.58rem}
+/* 0.16.52 a summon made during the turn's playback joins its lane with a short arrival */
+body.teyvat .battle-summon.summon-arrive{animation:summon-arrive .45s ease-out both}
+@keyframes summon-arrive{from{opacity:0;transform:translateY(-6px) scale(.92)}to{opacity:1;transform:none}}

@@ -218,6 +218,9 @@ try{
    const r=playerState();r.startBattle('EG_MOND_HILI_PATROL','RANDOM');fixture.seed(r.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
    await view('battle-start',`Promise.resolve()`);
    await view('battle',`(async()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='전투 시작');b?.click();})()`);
+   // 0.16.52 (user: 「토끼백작같은것들도 전투중에 생성되지 않고, 그 턴 종료시에 등장하는 버그」): a summon made during the turn joins its
+   // lane at the frame where it is cast, while the screen still shows the turn before.
+   await view('battle-summon-arrive',`(async()=>{const b=game.s.runtime;if(!b)throw Error('no battle');const me=b.actors.find(a=>a.side==='ALLY');b.fields=[...(b.fields||[]),{kind:'BUNNY',actor:me.id,side:'ALLY',hp:500,maxHp:500,def:10,tauntChance:30,explodeAt:b.round+1,name:'토끼 백작',asset:'summon_baron_bunny.webp'}];try{GameEffects.showAction({actorId:me.id,actorName:me.name,cardId:'MOND_AMBER_E',cardName:'폭탄 인형',round:b.round,events:[],targets:[]});}catch{}await new Promise(r=>setTimeout(r,600));if(!document.querySelector('.battle-summon[data-summon-id="SUMMON:BUNNY:'+me.id+'"]'))throw Error('the summon did not join its lane');})()`);
    // 0.16.41 (user: 「전투하면서 버프량이 많아지거나 버프 이름이 길어지면 파티가 위아래로 너무 길어져서 상태도 안보이고」): every fighter
    // carrying nine effects, the longest names first.
    // … and four everyday ones with short names (「버프가 한개만 있으면 그건 좀」: more than one shows).

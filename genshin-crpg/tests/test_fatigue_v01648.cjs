@@ -110,6 +110,29 @@ check('a defeat outside the story no longer heals for free: the party stands up 
  assert.equal(r.s.global.SCREEN_MODE,'LOCATION');assert(r.row('32_MAP_DB',r.s.global.CURRENT_MAP_ID)[12]==='Y','a safe town');
 });
 
+// 0.16.52 (user: 「비경 피로도 시간 지나면 줄어들 수 있게 하자」): 1 eases every 30 minutes of real time (the server's action clock).
+check('피로 eases by itself: 1 every 30 minutes, counting on from the last 1 that eased',()=>{
+ const T=Date.parse('2026-10-14T12:00:00+09:00'),M=60000,r=domain();r.actionStartedAt=T;for(let i=0;i<3;i++){enter(r);win(r);}
+ assert.equal(F.easeMinutes,30);assert.equal(r.fatigueStacks(PLAYER),3);assert.equal(r.fatigueNextEase(PLAYER),30);
+ r.actionStartedAt=T+29*M;assert.equal(r.fatigueStacks(PLAYER),3);assert.equal(r.fatigueNextEase(PLAYER),1);
+ r.actionStartedAt=T+30*M;assert.equal(r.fatigueStacks(PLAYER),2,'30 minutes: one less');
+ // Another domain fight 10 minutes later adds 1, and the clock keeps counting from where it was (not from the new fight).
+ r.actionStartedAt=T+40*M;enter(r);win(r);assert.equal(r.fatigueStacks(PLAYER),3);r.actionStartedAt=T+60*M;assert.equal(r.fatigueStacks(PLAYER),2);
+ // The record is brought up to date after an action, and two hours clear it all.
+ r.actionStartedAt=T+60*M;r.action('MENU',{screen:'STATUS'});assert.equal(r.s.fatigue.version,2);assert.equal(r.s.fatigue.stacks[PLAYER],2);assert.equal(r.s.fatigue.at[PLAYER],T+60*M);
+ r.actionStartedAt=T+180*M;assert.equal(r.fatigueStacks(PLAYER),0);r.action('MENU',{screen:'STATUS'});assert.equal(r.s.fatigue.stacks[PLAYER],undefined);assert.equal(r.s.fatigue.at[PLAYER],undefined);
+ // A domain fight started while tired uses what is left then.
+ const q=domain();q.actionStartedAt=T;enter(q);win(q);enter(q);win(q);q.actionStartedAt=T+30*M;const me=enter(q).actors.find(a=>a.source===PLAYER);assert.equal(me.fatigue,1);
+});
+check('a save from before keeps its 피로 and starts the 30-minute clock at its next action',()=>{
+ const T=Date.parse('2026-10-14T12:00:00+09:00'),M=60000,r=domain();r.actionStartedAt=T;enter(r);win(r);enter(r);win(r);
+ const old=JSON.parse(r.serialize());old.fatigue={version:1,stacks:{[PLAYER]:2}};const x=new api.Runtime(env.db,old);x.actionStartedAt=T+5*60*M;
+ assert.equal(x.fatigueStacks(PLAYER),2,'no time counted before the clock starts');x.action('MENU',{screen:'STATUS'});assert.equal(x.s.fatigue.version,2);assert.equal(x.s.fatigue.at[PLAYER],T+5*60*M);
+ x.actionStartedAt=T+5*60*M+30*M;assert.equal(x.fatigueStacks(PLAYER),1);
+ const bad=JSON.parse(r.serialize());bad.fatigue={version:2,stacks:{[PLAYER]:2},at:{[PLAYER]:-1}};assert.throws(()=>new api.Runtime(env.db,bad),/비경 피로/);
+ const bad2=JSON.parse(r.serialize());bad2.fatigue={version:2,stacks:{},at:{[PLAYER]:T}};assert.throws(()=>new api.Runtime(env.db,bad2),/비경 피로/);
+});
+
 check('the save rejects a broken 피로 record',()=>{
  const r=domain();enter(r);win(r);const bad=JSON.parse(r.serialize());bad.fatigue={version:1,stacks:{[PLAYER]:5}};
  assert.throws(()=>new api.Runtime(env.db,bad),/비경 피로/);const bad2=JSON.parse(r.serialize());bad2.fatigue={version:1,stacks:{NOBODY:1}};assert.throws(()=>new api.Runtime(env.db,bad2),/비경 피로/);
@@ -146,7 +169,7 @@ check('지맥의 꽃: a fight entered under the hourly rule keeps its payout; th
 
 check('the screens show 피로: a battle chip, a domain result strip, badges on the quick meal and the KO/inn rows',()=>{
  const ui=src('source/app_fatigue_v01648.js'),gear=src('source/app_gear.js'),html=src('source/index.html');
- assert.match(ui,/battleStatusList=function/);assert.match(ui,/fatigue-strip/);assert.match(gear,/CRPGFatigueBadge\?\.\(id,why\?0:clear\)/);assert.match(gear,/fatigueMealCap/);assert.match(gear,/HP 30%로 일어나고/);
+ assert.match(ui,/battleStatusList=function/);assert.match(ui,/분마다 1씩/);assert.match(ui,/fatigue-strip/);assert.match(gear,/CRPGFatigueBadge\?\.\(id,why\?0:clear\)/);assert.match(gear,/fatigueMealCap/);assert.match(gear,/HP 30%로 일어나고/);
  // The rules sit at the end of the last engine file (runtime_reading.js), so the engine file list stays the same.
  assert(!/runtime_fatigue/.test(html));const engine=[...html.matchAll(/<script src="(runtime[^"]*\.js)"/g)].map(x=>x[1]);assert.equal(engine.at(-1),'runtime_reading.js');assert.match(src('source/runtime_reading.js'),/P\.fatigueVersion=REVISION/);
  assert(html.indexOf('app_fatigue_v01648.js')>html.indexOf('app_gear.js'));assert.match(src('tools/build.py'),/'app_fatigue_v01648\.js'/);

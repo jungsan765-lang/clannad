@@ -6,12 +6,15 @@
 if(typeof battleStatusList!=='function'||typeof reward!=='function')return;
 const PER=()=>Number(window.CRPGRuntime?.fatigueV01648?.perStack)||.15;
 const cut=n=>Math.round(PER()*n*100);
+// 0.16.52: 피로 also eases by itself (1 every 30 minutes).
+const EASE=()=>Number(window.CRPGRuntime?.fatigueV01648?.easeMinutes)||30;
+const nextEase=id=>{const m=game?.fatigueNextEase?.(id);return m?' · '+m+'분 뒤 1 풀림':'';};
 // The battle chip: name 「피로 N」, the detail says what it does and what clears it.
 const priorList=battleStatusList;
-battleStatusList=function(a,...rest){const list=priorList(a,...rest);try{const n=Number(a?.fatigue)||0;if(n>0)list.unshift({id:'FATIGUE',name:'피로 '+n,kind:'debuff',text:'비경 피로 · 비경 안에서 공격력·방어력 −'+cut(n)+'% · 여관에서 쉬거나 레벨에 맞는 회복 요리를 먹으면 풀립니다',rounds:null});}catch{}return list;};
+battleStatusList=function(a,...rest){const list=priorList(a,...rest);try{const n=Number(a?.fatigue)||0;if(n>0)list.unshift({id:'FATIGUE',name:'피로 '+n,kind:'debuff',text:'비경 피로 · 비경 안에서 공격력·방어력 −'+cut(n)+'% · '+EASE()+'분마다 1씩 저절로 풀리고, 여관에서 쉬거나 레벨에 맞는 회복 요리를 먹으면 풀립니다',rounds:null});}catch{}return list;};
 // One small badge under a member's HP (the quick meal and the KO/inn party rows use it).
 // With a dish picked (the quick meal), it also says what the dish leaves: 「피로 2→0」.
-window.CRPGFatigueBadge=function(id,clear=0){const n=Number(game?.fatigueStacks?.(id))||0;if(!n)return null;const left=Math.max(0,n-(Number(clear)||0)),b=el('b','fatigue-badge'+(left<n?' easing':''),'피로 '+n+(left<n?'→'+left:''));b.title='비경 피로 '+n+' · 비경 안에서 공격력·방어력 −'+cut(n)+'%'+(left<n?' · 이 요리를 먹으면 피로 '+left:'');return b;};
+window.CRPGFatigueBadge=function(id,clear=0){const n=Number(game?.fatigueStacks?.(id))||0;if(!n)return null;const left=Math.max(0,n-(Number(clear)||0)),b=el('b','fatigue-badge'+(left<n?' easing':''),'피로 '+n+(left<n?'→'+left:''));b.title='비경 피로 '+n+' · 비경 안에서 공격력·방어력 −'+cut(n)+'%'+nextEase(id)+(left<n?' · 이 요리를 먹으면 피로 '+left:'');return b;};
 // A recovery dish's text in the bag and the shops says what it clears of 비경 피로 in each level band
 // (「비경 피로 Lv20까지 −4 · Lv40까지 −3 · Lv41~ −3」).
 const bandsText=b=>'비경 피로 '+b.map(x=>(x.upTo>=60?'Lv'+x.from+'~':'Lv'+x.upTo+'까지')+' '+(x.clear?'−'+x.clear:'없음')).join(' · ');
@@ -26,7 +29,7 @@ const priorReward=reward;
 reward=function(p,...rest){priorReward(p,...rest);
  try{const r=parseUI(game.s.global.LAST_BATTLE_RESULT_JSON),f=r?.fatigue;if(!f||!f.stacks||!Object.keys(f.stacks).length||p.querySelector('.fatigue-strip'))return;
   const box=el('section','fatigue-strip');box.setAttribute('aria-label','비경 피로');
-  const head=el('div','fatigue-head');head.append(el('strong','','비경 피로'),el('small','','1마다 비경 안 공격력·방어력 −'+cut(1)+'% · 여관·회복 요리로 풀림'));box.append(head);
+  const head=el('div','fatigue-head');head.append(el('strong','','비경 피로'),el('small','','1마다 비경 공격력·방어력 −'+cut(1)+'% · '+EASE()+'분마다 1 풀림'));box.append(head);
   const row=el('div','fatigue-people');
   for(const [id,n] of Object.entries(f.stacks)){const m=el('span','fatigue-member'+(n>=(Number(f.max)||4)?' full':''));if(typeof actorPortrait==='function')m.append(actorPortrait(id,'fatigue-face'));
    const copy=el('span','fatigue-copy');copy.append(el('small','',typeof ownerName==='function'?ownerName(id):id),el('b','','피로 '+n+(f.added?.includes(id)?' (+1)':'')));m.append(copy);row.append(m);}
