@@ -105,6 +105,7 @@
 - 보스 숫자를 그대로 적어 둔 기존 검사는 장기전 배율을 반영해 바꿨다. 옛 저장 전투와 다른 경로의 전투는 예전 숫자 그대로 확인한다:
   - `tests/test_enemy_balance_v01627.cjs`, `tests/test_boss_difficulty_scope_v01624.cjs`, `tests/test_abyss_fixes_v01626.cjs`
   - `tests/test_field_boss_strategy_v01623.cjs`, `tools/test_field_boss_strategy_v01622.cjs`, `tools/test_field_bosses.cjs`
+  - `tools/test_boss_boundaries_v01619.cjs`, `tools/test_admin_balance_runtime_v01623.cjs`
   - `tests/test_fb_control_v01646.cjs`: 다인 전투에서 방장에게 미니게임이 나온다.
 - 점검 도구:
   - `tools/audit_field_balance_v01627.cjs`, `tools/audit_daily_v01625.cjs`가 장기전 배율을 알고 보스 능력치를 확인한다.
