@@ -109,6 +109,15 @@ check('충격파 넘기 is fair: every ring\'s gap opens into the box, near wher
    for(const b of g.state().bullets){if(!b.ring||seen.has(b))continue;seen.add(b);rings++;const x=b.cx+Math.cos(b.gap)*100,y=b.cy+Math.sin(b.gap)*100;assert(x>A.x&&x<A.x+A.w&&y>A.y&&y<A.y+A.h,'gap out of the box: seed '+seed+' at '+Math.round(x)+','+Math.round(y));}}}
  assert(rings>100,'rings '+rings);
  assert.match(code,/const SCENE=\{ANEMO:\['assets\/enemy_fb_anemo_hypostasis\.webp'/);assert.match(code,/pic\('assets\/icons\/ui\/UI_Buff_Element_Wind\.webp'\)/);assert.match(code,/const hero=\(ctx,x,y,blink/);
- for(const f of ['enemy_fb_anemo_hypostasis','enemy_fb_cryo_hypostasis','enemy_fb_ruin_serpent','bg_mondstadt_stormterror_lair_01','bg_mond_wolf_challenge_crpg_edit_01','bg_place_golden_house','bg_arena_azhdaha_preview'])assert(fs.existsSync(path.join(ROOT,'assets',f+'.webp')),f);
+ for(const f of ['enemy_fb_anemo_hypostasis','enemy_fb_cryo_hypostasis','enemy_fb_ruin_serpent','enemy_18','enemy_20','enemy_21','riwal_trtra_7','riwal_trtra_3'])assert(fs.existsSync(path.join(ROOT,'assets',f+'.webp')),f);
+});
+check('every minigame says what just happened; a wind element is taken where it is drawn; 드발린 is its own picture with smaller crystals',()=>{
+ // 0.16.58 (user: 「냉기 핵은 핵 적중 된거 어떻게 알아?」, 「드발린 너무 쉽고, 드발린 동그라미 … 혐오감」, 「바람 원소 먹는게 뭔가 보이는것보다 더 제대로 먹어야되네?」)
+ const code=src('source/app_bossgames_v01646.js');
+ assert.match(code,/function fxKit\(\)/);assert.equal((code.match(/Math\.hypot\(P\.x-o\.x,P\.y-o\.y\)<26/g)||[]).length,2,'both wind-element games take an element within 26 px');
+ assert.match(code,/F\.pop\(C\.x,C\.y-36,last\?'핵 파괴!':'적중! '\+hits\+'\/'\+max/);assert.match(code,/F\.pop\(tap\.x,tap\.y-16,'빗나감'/);
+ assert.match(code,/pic\('assets\/enemy_18\.webp'\)/);assert.match(code,/SPOTS=\[\[\.45,\.33\],\[\.39,\.55\],\[\.565,\.645\],\[\.2,\.25\],\[\.82,\.17\]\],R=12;/);assert.doesNotMatch(code,/ctx\.ellipse\(0,0,120,30,0,0,TAU\)/,'no drawn oval dragon');
+ for(const st of ['arrow','bolt','rush','wolf','claw','splash','meteor','shard'])assert(code.includes("style:'"+st+"'"),st);
+ assert.match(code,/약점 파괴! '\+hits\+'\/'\+points/);assert.match(code,/결정 파괴! '\+hits\+'\/'\+crystals\.length/);
 });
 console.log(JSON.stringify({passed,ok:!process.exitCode}));

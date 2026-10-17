@@ -67,7 +67,7 @@ GameEffects.showAction=function(frame,...args){try{const i=frames.indexOf(frame)
 /* 0.16.58 (user: 「과부하인가 초전도인가 그거도 뭔가 하나씩 하나씩 터지는 문제가 있던거같은데 그냥 다~~ 체크해봐」): the playback's beats
  * (CRPGPresentation.actionFrames) join a turn's log lines while they share the fighter, the card and the kind of source. What a blow
  * sets off broke that, so one blow played in several beats, a target at a time:
- * - a field's tick (클레 · 케이아 · 수크로스 · 감우 · 향릉 · 신학 · 리사's 장미 · 오즈) and the reaction it causes — 과부하 A, tick B, 과부하 B…;
+ * - a field's tick (클레 · 케이아 · 설탕 · 감우 · 향릉 · 신학 · 리사's 장미 · 오즈) and the reaction it causes — 과부하 A, tick B, 과부하 B…;
  * - the debuff a reaction leaves (초전도's 물리 내성 감소) credited to the foe it lands on, a beat 「적 · 효과」 between the hits;
  * - a silent change (a status running out, a cooldown) between a hit and its reaction (디오나 · 신학 · 달리아 · 미카 · 타르탈리아 freezes,
  *   벤티's 원소폭발);
