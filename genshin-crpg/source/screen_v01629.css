@@ -1829,3 +1829,10 @@ html.stage-phone body.teyvat .domain-gate .domain-books>button.domain-book>b{fon
 body.teyvat .exchange-kinds{display:flex;gap:6px;margin:6px 0}
 body.teyvat :where(#root) .exchange-kinds>button.exchange-kind{flex:1 1 0;min-height:32px;padding:2px 8px}
 body.teyvat :where(#root) .exchange-kinds>button.exchange-kind.selected{border-color:var(--t-gold-hi);box-shadow:0 0 0 2px rgba(243,223,174,.45);background:rgba(236,229,216,.18)}
+
+/* 0.16.59: on a party card the element mark sits small on the face's top corner, not over the first letters of the name or the effects */
+body.teyvat .combat-panel .shell-allies .combatant-row>.shell-aura-badge{top:3px;bottom:auto;left:3px;padding:1px 5px 1px;font-size:.58rem;line-height:1.25}
+body.teyvat .combat-panel .shell-allies .combatant-row>.shell-aura-badge .el-icon{width:14px;height:14px;margin:-1px 3px 0 -4px}
+
+/* 0.16.59: a used-up potion or bandage is a note, not a buff */
+.st-chip.note{color:#dcd6ca;border-color:rgba(220,214,202,.42);background:rgba(52,52,58,.62)}

@@ -550,7 +550,7 @@ function fightCommand(v,chosen){
  for(const c of v.cards){const slot=SLOT(c.id),wrap=mk('div','battle-card-choice'+(slot==='q'?' shell-burst':'')),b=mk('button',(c.id===C.card?'selected':'')+(slot==='e'||slot==='q'?' skill-'+slot:''));b.type='button';b.dataset.cardId=c.id;
   const owner=slot==='na'?v.me?.source:(game?.tables?.['08_SKILL_CARD_DB']?.get(c.id)?.[2]||v.me?.source),pic=slot&&owner&&typeof CRPGIcons!=='undefined'?CRPGIcons.talent(owner,slot,'shell-card-glyph'):null;
   if(pic)b.append(pic);else{const g=mk('span','shell-card-glyph');g.setAttribute('aria-hidden','true');g.append(SHELL.icon(c.id==='PLAYER_BASIC_ATTACK'?'SWORD':c.id==='PLAYER_BASIC_GUARD'?'SHIELD':'DIAMOND','shell-icon'));b.append(g);}
-  b.append(mk('strong','',c.name),mk('small','',c.reason||(c.cooldown?'재사용 '+c.cooldown+'차례':'사용 가능')));
+  b.append(mk('strong','',c.name),mk('small','',(window.CRPGShortReason?.(c.reason)??c.reason)||(c.cooldown?'재사용 '+c.cooldown+'차례':'사용 가능')));if(c.reason)b.title=c.reason;
   if(c.reason){b.disabled=true;b.title=c.reason;b.dataset.reason=c.reason;}else{b.onclick=()=>{C.card=c.id;C.branch='';C.mini=null;drawBattle();};if(c.description)b.title=c.description;}
   wrap.append(b);cards.append(wrap);}
  s.append(cards);

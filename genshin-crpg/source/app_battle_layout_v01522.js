@@ -96,13 +96,15 @@ function ceilingOf(p){const board=p.querySelector('.compact-battle-stage')?.getB
 const partyOver=(allies,floor)=>{const last=allies?.querySelector(':scope>.combatant-row:last-of-type');return !!last&&last.getBoundingClientRect().bottom>floor;};
 let ceiling=-Infinity;
 const enemiesOver=(enemies,floor)=>{const cards=[...(enemies?.querySelectorAll(':scope>.combatant-row')||[])];return !!cards.length&&(Math.max(...cards.map(r=>r.getBoundingClientRect().bottom))>floor||Math.min(...cards.map(r=>r.getBoundingClientRect().top))<ceiling);};
-// The party first: its column sets the height of the row the enemy cards are centred in. Its rows tighten (the 「1번 · 전열」
-// tag goes before any effect does), then its effects go back to one line, then the rows tighten once more.
+// The party first: its column sets the height of the row the enemy cards are centred in.
+// 0.16.59 (user's picture: 「무상의 얼음 상대하는데 이렇게 상태창이 작아지는 이유는 또 뭐지?」 — every card frozen and slowed, the whole party
+// squeezed into the tight rows): its effects go back to one line first (the rest behind +N), and only a party still past the
+// floor tightens its rows (the 「1번 · 전열」 tag goes, the HP moves up beside the name), then once more.
 function roomForParty(allies,floor){
  if(!partyOver(allies,floor))return;
- allies.classList.add('tight');if(!partyOver(allies,floor))return;
  if(allies.dataset.chipLines!=='1'){allies.dataset.chipLines='1';fitChips(allies);}
- if(partyOver(allies,floor))allies.classList.add('tighter');
+ if(!partyOver(allies,floor))return;
+ allies.classList.add('tight');if(partyOver(allies,floor))allies.classList.add('tighter');
 }
 // The enemies: their pictures give up a quarter first, then their effects go back to one line, then the pictures shrink on.
 function roomForEnemies(enemies,floor){
@@ -115,6 +117,9 @@ function roomForEnemies(enemies,floor){
 function fitFighters(){
  const p=document.querySelector('.combat-panel');if(!p)return;const enemies=p.querySelector('.shell-enemies'),allies=p.querySelector('.shell-allies');
  enemies?.style.removeProperty('--enemy-h');allies?.classList.remove('tight','tighter');if(allies)delete allies.dataset.chipLines;if(enemies)delete enemies.dataset.chipLines;
+ // 0.16.59: on the 1280×720 page (phones) four party cards run past the floor as soon as one effect shows, so the cards were
+ // normal in one fight and squeezed in the next; there the party keeps the tight rows from the start.
+ if(allies&&document.documentElement.clientHeight<=760&&allies.querySelectorAll(':scope>.combatant-row').length>=4)allies.classList.add('tight');
  fitChips(p);const floor=floorOf(p);ceiling=ceilingOf(p);
  roomForParty(allies,floor);roomForEnemies(enemies,floor);
 }

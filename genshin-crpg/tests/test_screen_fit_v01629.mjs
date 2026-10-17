@@ -352,7 +352,10 @@ try{
      try{y.action('OPERATOR_DEBUG',{op:'travel',map:FBX.bosses.FB_CRYO_HYPOSTASIS.map});const route=FBX.route('FB_CRYO_HYPOSTASIS');y.action('PLACE_ENTER',{place:'BOSS:'+route,mode:'BOSS'});y.action('BOSS_ROUTE',{route,entry:'DIRECT'});if(y.s.runtime?.opening?.state==='PENDING')y.action('COMBAT_BEGIN');
       const b=y.s.runtime,boss=b.actors.find(a=>a.source==='FB_CRYO_HYPOSTASIS'),me=b.actors.find(a=>a.source==='PLAYER_CUSTOM');
       if(stage==='wall'){boss.fb.rot=3;boss.fb.endTurn=null;boss.turns=(boss.turns||0)+1;y.fieldBossTurn(boss);boss.fb.rot=1;boss.fb.endTurn=null;boss.turns++;y.fieldBossTurn(boss);}
-      if(stage==='core'){/* 0.16.57: the core shows once it has struck (a shut core takes no blow) */boss.fb.coreOpen=true;boss.hp=1;y.applyDamage(me,boss,50,{element:'물리'});}
+      if(stage==='core'){/* 0.16.57: the core shows once it has struck (a shut core takes no blow) */boss.fb.coreOpen=true;boss.hp=1;y.applyDamage(me,boss,50,{element:'물리'});
+       // 0.16.59 (user's picture: 「무상의 얼음 상대하는데 이렇게 상태창이 작아지는 이유는 또 뭐지?」): every ally slowed, frozen and wet with
+       // ice, as 무상의 얼음 leaves them — the party's cards keep their size.
+       for(const a of b.actors.filter(x=>x.side==='ALLY')){a.aura='얼음';y.addCombatStatus(a,'STATUS_SLOW',1);y.addCombatStatus(a,'STATUS_FREEZE',1);}}
       fixture.seed(y.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
       await view('fb-mini-cryo-'+stage,stage==='core'?`(async()=>{if(!document.querySelector('button[data-card-id="SYS_FB_FROST_FRUIT"]'))throw Error('no fruit card');if(![...document.querySelectorAll('.shell-enemies .st-chip')].some(c=>c.textContent.includes('얼음 보호막 0/3')))throw Error('no shield chip');})()`:`Promise.resolve()`);
      }catch(e){console.error('fb-mini-cryo-'+stage,e.message);}}}

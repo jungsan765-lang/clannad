@@ -807,6 +807,36 @@ P.fieldBossBarrierReason=function(a,t,...rest){const b=this.s.runtime;if(a?.side
 P.fieldBossView=function(){const v=coreOld.fieldBossView.call(this),b=this.s.runtime;if(!v||b?.fieldBoss?.coreRevision!==1)return v;const boss=fbBoss(b);if(boss&&coreHypo(b,boss.fb)&&!boss.fb.revival){v.state=v.state||[];v.state.unshift(this.fbCoreShut(boss)?'핵 닫힘 · 공격을 마칠 때까지 피해가 들어가지 않음':'핵 노출 · 다음 준비 동작까지');}return v;};
 P.validateSave=function(s){const out=coreOld.validateSave.call(this,s)||s,b=out?.runtime;if((b?.actors||[]).some(x=>x.fb?.coreShutRound!==undefined&&!Number.isSafeInteger(x.fb.coreShutRound)||x.fb?.wallShut!==undefined&&x.fb.wallShut!==true))fail('FIELD_BOSS_SAVE','보스 핵 기록이 올바르지 않습니다.');if(b?.fieldBoss?.coreRevision!==undefined&&(b.fieldBoss.coreRevision!==1||!CORE_KINDS.has(BOSSES[b.fieldBoss.boss]?.kind)))fail('FIELD_BOSS_SAVE','보스 핵 기록이 올바르지 않습니다.');return out;};
 api.fieldBossCore={version:1,kinds:[...CORE_KINDS]};
+// 0.16.59 (user: 「보스가 죽고 프리즘이 나오는 즉시 함께하는 일격을 프리즘에 그냥 써버리네?」): the hero's 함께하는 일격 that fells a
+// hypostasis went straight on into the guards its revival raises — the next companions picked the new prisms (the boss being the one
+// target they had) and an overload's splash broke one — so the revival was over before it began. A guard raised during a card (or an
+// AI turn) cannot be hurt by the rest of that card (「막 생겨났다」), and once the boss falls the companions still to strike in the
+// 함께하는 일격 stop.
+const reviveOld=Object.fromEntries(['fbSummon','fieldBossBarrierReason','protagonistJointMembers','protagonistMemberReason','fbChipView'].map(k=>[k,P[k]]));
+// a guard raised inside one card (or AI turn) remembers that card (this._actId, set at the end of runtime_reading.js)
+P.fbSummon=function(b,boss,id,extra={}){const a=reviveOld.fbSummon.call(this,b,boss,id,extra);if(a?.fbSummon&&b?.bossPass===1&&this._actId)a.fbSummon.bornAct=this._actId;return a;};
+P.fieldBossBarrierReason=function(a,t,...rest){const own=reviveOld.fieldBossBarrierReason.call(this,a,t,...rest);if(own)return own;const b=this.s.runtime,s=t?.fbSummon;if(a?.side==='ALLY'&&s?.bornAct&&s.bornAct===this._actId&&b?.actors.find(x=>x.id===s.owner)?.fb?.revival)return '막 생겨났다 · '+t.name+'은(는) 다음 차례부터 부술 수 있다.';return own;};
+const fallen=(r,b)=>new Set((b?.actors||[]).filter(x=>x.fb&&x.fb.revival).map(x=>x.id));
+P.protagonistJointMembers=function(...args){const b=this.s.runtime;if(b?.fieldBoss)this._jointStart={round:b.round,seq:b.actionSequence||0,fallen:fallen(this,b)};return reviveOld.protagonistJointMembers.apply(this,args);};
+P.protagonistMemberReason=function(m,...args){const own=reviveOld.protagonistMemberReason.call(this,m,...args);if(own)return own;const b=this.s.runtime,j=this._jointStart;
+ if(j&&b?.fieldBoss&&j.round===b.round&&j.seq===(b.actionSequence||0)&&[...fallen(this,b)].some(id=>!j.fallen.has(id)))return '보스가 쓰러짐';return own;};
+// 0.16.59 (user: 「여전히 핵 노출쪽 디버프가 나오는 타이밍이 너무 이상해」, 「핵이 닫혔는데도 데미지가 들어가네」): the boss's chips (핵 닫힘 /
+// 핵 노출, 부활, 갑주, 비늘, 꽃봉오리, 빈틈 …) were drawn from the turn's end during the whole playback, so the core read 「닫힘」 while the
+// blows that landed before it shut played. Whenever a boss's chip state changes, the log line written at that moment carries it
+// (fbChips, a small view per boss); the playback switches the chips on the beat of that line. Looks only; nothing reads it back.
+P.fbChipView=function(b=this.s.runtime){if(!b)return null;const out={},fbx=b.fieldBoss,d=b.dailyDodge,t=b.twinBoss;
+ for(const a of b.actors||[]){const f=a.fb,daily=d&&a.source===d.boss&&d.controlRevision===1,twin=t&&a.source===t.boss&&t.controlRevision===1;if(!f&&!daily&&!twin)continue;const r=f?.revival;
+  out[a.id]={round:b.round,pass:b.bossPass===1,ctl:!!(fbx&&fbx.controlRevision===1&&fbx.behaviorRevision===5&&fbx.pressureRevision===1),core:fbx?.coreRevision===1,shut:!!(f&&this.fbCoreShut?.(a)),
+   fb:f?{kind:f.kind,revival:r?{rounds:r.rounds??null,hits:r.hits||0,need:r.need??null,fruit:r.fruit?{melted:!!r.fruit.melted}:null,orbs:r.orbs?{got:r.orbs.got||0,total:r.orbs.total||0}:null,core:r.core??null}:null,armorOpened:!!f.armorOpened,exposedUntil:f.exposedUntil??null,corolla:!!f.corolla,corollaDue:f.corollaDue??null}:null,
+   shell:(a.shields||[]).some(x=>x.source==='FB_SHELL'&&x.value>0),
+   daily:daily?{dodge:!!d.dodge,exposedUntil:d.exposedUntil??null}:null,twin:twin?{crystals:!!t.crystals,downUntil:t.downUntil??null,dodge:!!t.dodge,exposedUntil:t.exposedUntil??null}:null};}
+ return Object.keys(out).length?out:null;};
+const chipSeen=new WeakMap(),chipFight=b=>b&&(b.bossPass===1||b.dailyDodge?.controlRevision===1||b.twinBoss?.controlRevision===1);
+function markChips(r){const b=r.s.runtime;if(!chipFight(b)||!Array.isArray(b.log)||!b.log.length)return;let seen=chipSeen.get(b.log);
+ if(!seen){seen={key:null};for(let i=b.log.length-1,k=0;i>=0&&k<5000;i--,k++){const e=b.log[i];if(e&&e.fbChips){seen.key=JSON.stringify(e.fbChips);break;}}chipSeen.set(b.log,seen);}
+ const view=r.fbChipView(b),key=JSON.stringify(view);if(!view||key===seen.key)return;seen.key=key;const e=b.log[b.log.length-1];if(e&&typeof e==='object')e.fbChips=view;}
+for(const m of ['executeCard','aiTurn','executeCombatSystem','combatAction','damage','applyDamage','applyCombatAura','heal','addCombatStatus','newRound','roundEnd','tickFields','fieldBossTurn','fbMove','fbStartRevival','autoUntilPlayer'])if(typeof P[m]==='function'){const old=P[m];P[m]=function(...args){try{return old.apply(this,args);}finally{try{markChips(this);}catch{}}};}
+api.fieldBossChips={version:1};
 P.fieldBossVersion=1;
 api.fieldBosses={version:1,behaviorRevision:5,pressureRevision:1,shieldPressure:copy(FIELD_SHIELD_PRESSURE_V01627),attackPressure:copy(FIELD_ATTACK_PRESSURE_V01627),mimicHp:copy(MIMIC_HP_V01627),levels:copy(LEVELS),levelGrowth:copy(LEVEL_GROWTH),cooldownMinutes:COOLDOWN,materials:copy(MATERIALS),bosses:copy(BOSSES),summons:copy(SUMMONS),twin:copy(TWIN),route:ROUTE,group:GROUP};
 })(globalThis);

@@ -23,8 +23,9 @@ check('a fighter\'s effects take two lines at most: what fits, then +N; the line
  for(const x of ['const CHIP_LINES=2;','function fitChips(','return lines>most;','st-chip st-more',"more.textContent='+'+(chips.length-shown)","more.textContent='효과 '+chips.length",'fitFighters();watchChips(p);',"allies.dataset.chipLines='1'","Number(row.closest('[data-chip-lines]')?.dataset.chipLines)||CHIP_LINES",'chipWatch?.takeRecords()'])assert(b.includes(x),x);
  assert(css.includes('body.teyvat .combat-panel .combatant-copy>.status-chips,body.teyvat .combat-panel .combatant-copy>.status-chips:hover{flex-wrap:wrap!important;gap:3px 3px;overflow:visible!important'));
  const fit=src('tests/test_screen_fit_v01629.mjs');assert(fit.includes("['battle-buffs',")&&fit.includes("['battle-buffs-short',"));
- // the party's rows tighten (its role tag goes, its HP beside the name) before its effects go back to one line
- assert(b.includes("allies.classList.add('tight');if(!partyOver(allies,floor))return;"));
+ // 0.16.59 (user: 「무상의 얼음 상대하는데 이렇게 상태창이 작아지는 이유는 또 뭐지?」): the party's effects go back to one line before its
+ // rows tighten (its role tag goes, its HP beside the name), so a card keeps its size while it can
+ assert(b.includes("if(allies.dataset.chipLines!=='1'){allies.dataset.chipLines='1';fitChips(allies);}\n if(!partyOver(allies,floor))return;\n allies.classList.add('tight');"));
  assert(css.includes('html.stage-pc body.teyvat .combat-panel .shell-allies.tight .combatant-copy>.stat{grid-column:2;grid-row:1'));
 });
 

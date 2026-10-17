@@ -335,6 +335,10 @@ slotsUI=async function(container){
   }catch(e){container.append(el('p','',e.message));}
 };
 
+// 0.16.59 (screen check, an ally frozen on the phone page): a skill button says why it is locked in a few words — 「빙결 상태로 행동할 수
+// 없습니다.」 ran past the button — and the whole sentence stays on the button's title.
+function shortReason(text){const t=String(text||'');let m;if((m=t.match(/^(.+?) 상태로 행동할 수 없습니다.?$/)))return m[1]+' · 행동 불가';if(t==='전투불능 상태입니다.')return '전투불능';if((m=t.match(/^(.+?)입니다.$/))&&m[1].length<=8)return m[1];return t;}
+window.CRPGShortReason=shortReason;
 function combatDisplayName(b,a){const same=b.actors.filter(x=>x.name===a.name&&x.side===a.side);return a.name+(same.length>1?' '+(same.indexOf(a)+1):'');}
 function battleOrder(p,b){
   const order=el('ol','battle-order compact-order');order.setAttribute('aria-label','이번 라운드 행동 순서');
@@ -387,22 +391,72 @@ function statusModsText(s){
   if(Number(s?.supportOut)&&s.supportOut!==1)out.push('치유·보호막 효과 +'+Math.round((s.supportOut-1)*100)+'%');
   return out.join(' · ');
 }
+// 0.16.59 (user: 「그거 말고도 다른 디버프나 버프들도 좀 체크해봐 진짜 전체적으로 다 뭐가 뭔지 모르겠어」): a chip says what it does in the
+// player's words, with the fight's own numbers (a burn's tick, a debuff's %, 베넷's field), never a table's authoring note (「카드가 정의」).
+// A harmful effect on a boss is red, not the violet of a hold; a used-up potion or bandage is a grey note. The corner counts down every
+// round: a status made this round shows the rounds it will be on, this one too (it first counts down at the end of the next round).
+// Stacks show as ×N, and the same effect from three cards (각청's 염정) is one chip.
+Object.assign(STATUS_KIND,{BOSS_CONTROL:'debuff',LIYUE_BOSS_PETRIFY:'debuff',STATUS_ELECTROCHARGED:'debuff',STATUS_COMBAT_POTION_LOCK:'note',STATUS_RECENTLY_BANDAGED:'note'});
+const STATUS_RENAME={LIYUE_BOSS_PETRIFY:'석화 둔화'};
+function liveBattleState(){try{return game?.s?.runtime||window.CRPGCoop?.battle?.state?.runtime||null;}catch{return null;}}
+function shownRound(){let r=NaN;try{r=Number(document.querySelector('.combat-panel .battle-order')?.dataset.round);}catch{}return Number.isFinite(r)&&r>0?r:Number(liveBattleState()?.round)||null;}
+const tickText=(s,word)=>{const n=Math.round(Number(s.reactionTick??s.tickDamage)||0);return '라운드가 끝날 때마다 '+word+' 피해'+(n>0?' '+n:'');};
+function encouragementText(s){
+  const f=(liveBattleState()?.fields||[]).find(x=>x.kind==='ENCOURAGEMENT'&&(x.id===s.fieldId||x.actor===s.actor)),atk=f?Math.round(Number(f.attack||0)*(f.c1?.6:.4)):0,heal=f?Math.round(Number(f.sourceMaxHp||0)*.06):0;
+  const up=atk?'공격력 +'+atk:'공격력 증가',mend=heal?'HP '+heal+' 회복':'HP 회복';
+  return (f?.c1?up+' · HP 70% 이하면 라운드 끝에 '+mend:'HP 70% 초과: '+up+' · 70% 이하: 라운드 끝에 '+mend)+' · 불 원소 부착';
+}
+const STATUS_PLAIN={
+  STATUS_BURN:s=>tickText(s,'불')+' · 물이 닿으면 꺼집니다',
+  STATUS_ELECTROCHARGED:s=>tickText(s,'번개')+' · 가까이 있는 젖은 적에게 옮겨붙습니다',
+  STATUS_DEF_DOWN:s=>'방어력 −'+(Number(s.value)||15)+'%',
+  STATUS_SLOW:s=>'속도 −'+(Math.abs(Number(s.value??-10))||10)+' · 다음 라운드 순서부터',
+  BOSS_CONTROL:()=>'보스는 얼거나 굳는 대신 둔해집니다 · 속도 −20 · 주는 피해 −10%',
+  LIYUE_BOSS_PETRIFY:()=>'보스는 돌이 되는 대신 굳어집니다 · 다음 행동이 늦어지고 그 행동의 피해 −10%',
+  STATUS_FREEZE:()=>'얼어서 차례를 한 번 쉽니다 · 풀린 뒤 두 차례는 다시 얼지 않습니다 · 바위 원소나 강한 공격에 깨집니다(쇄빙)',
+  LIYUE_PETRIFY:()=>'돌이 되어 행동할 수 없습니다 · 풀린 뒤 두 차례는 다시 굳지 않습니다',
+  STATUS_STUN:()=>'기절해 차례를 한 번 쉽니다',
+  STATUS_ISEKAI_EXPOSED:s=>'우리 파티에게 받는 피해 +'+(Number(s.pct)||30)+'%',
+  STATUS_COMBAT_POTION_LOCK:()=>'이번 전투에서는 회복 물약을 다시 쓸 수 없습니다',
+  STATUS_RECENTLY_BANDAGED:()=>'이번 전투에서는 응급 붕대·여행자 응급치료 세트를 다시 받을 수 없습니다',
+  STATUS_WET:()=>'젖음 · 얼음이 닿으면 빙결, 번개가 닿으면 감전, 불이 닿으면 증발 · 혼자서는 피해 없음',
+  STATUS_TAUNT:()=>'도발한 쪽을 먼저 노립니다',
+  STATUS_BLEED:()=>'응급 붕대나 응급치료 세트로 한 겹씩 치료할 수 있습니다',
+  ENCOURAGEMENT_TAG:encouragementText,
+  CONS_BENNETT_1:s=>'1번째 운명의 자리 · '+(statusModsText(s)||'공격력 +20%')+' · 격려의 영역 공격력 증가가 HP와 관계없이 붙습니다'
+};
+const STATUS_WORD_FIX=[[/\bMAX_HP\b/g,'최대 HP'],[/\bATK\b/g,'공격력'],[/\bDEF\b/g,'방어력'],[/\bSPD\b/g,'속도'],[/다음 전투 동안/g,'이번 전투 동안'],[/\bBOND_VALUE\b/g,'계약 수치']];
+// a table's note in the player's words: sentences about how cards define it are left out
+function plainStatusText(text){
+  let t=String(text||'');for(const [re,to] of STATUS_WORD_FIX)t=t.replace(re,to);
+  return t.replace(/([.。])(\s+|$)/g,'$1\n').split('\n').filter(x=>x&&!/카드가 정의|카드가 결정|카드가 지정|카드\/환경|부여 카드|환경 카드|카드 수치|카드가 다른 수치|ACTION_SCORE|소급 적용|구체 보정/.test(x)).join(' ').trim();
+}
+function statusUntil(s,a){const n=Number(s.untilTurn)-(Number(a?.turns)||0);return Number.isFinite(n)&&n>=1?(n===1?'다음 자기 차례까지':'자기 차례가 '+n+'번 올 때까지'):null;}
 function battleStatusList(a){
   const list=[];if(a.airborne)list.push({id:'AIRBORNE',name:'공중',kind:'hold',text:'공중에 떠 있어 공중을 노릴 수 있는 공격만 닿습니다.',rounds:null});
+  const round=shownRound();
   for(const s of a.statuses||[]){
     if(s.id==='FORMATION'||Number.isFinite(s.rounds)&&s.rounds<=0)continue;
     if(s.id==='ROLE'){const R=window.CRPGRuntime?.formationConfig?.roles?.[s.role];if(R)list.push({id:'ROLE',name:R.label,kind:'role',text:R.text,rounds:null});continue;}
-    const db=game.tables['13_STATUS_EFFECT_DB']?.get(s.id),catalog=globalThis.CRPGRuntime?.statusCatalog?.[s.id],type=String(db?.[2]||''),name=catalog?.name||db?.[1]||s.name||'알 수 없는 효과';
+    const db=game.tables['13_STATUS_EFFECT_DB']?.get(s.id),catalog=globalThis.CRPGRuntime?.statusCatalog?.[s.id],type=String(db?.[2]||''),name=STATUS_RENAME[s.id]||catalog?.name||db?.[1]||s.name||'알 수 없는 효과';
     const kind=STATUS_KIND[s.id]||(/원소/.test(type)?'element':/제어/.test(type)?'hold':STATUS_DEBUFF.has(s.id)||/디버프|지속 피해|저하/.test(type)?'debuff':'buff');
-    list.push({id:s.id,name,kind,text:game.combatHealingStatusText?.(s)||catalog?.text||[db?.[3]||'',statusModsText(s)].filter(Boolean).join(' · '),rounds:Number.isFinite(s.rounds)?s.rounds:null,element:STATUS_ELEMENT[s.id]||null});
+    let text=game.combatHealingStatusText?.(s)||'';try{if(!text&&STATUS_PLAIN[s.id])text=STATUS_PLAIN[s.id](s,a)||'';}catch{}
+    if(!text)text=catalog?.text||[plainStatusText(db?.[3]),statusModsText(s)].filter(Boolean).join(' · ');
+    const made=Number.isFinite(s.rounds)&&Number.isFinite(s.createdRound)&&round!==null&&s.createdRound===round,stacks=Number(s.stacks)>1?Math.floor(Number(s.stacks)):0;
+    list.push({id:s.id,name:name+(stacks?' ×'+stacks:''),kind,text,rounds:Number.isFinite(s.rounds)?s.rounds+(made?1:0):null,thisRound:made,until:Number.isFinite(s.rounds)?null:statusUntil(s,a),element:STATUS_ELEMENT[s.id]||null});
   }
-  return list;
+  // the same effect from several cards: one chip, ×N, the soonest to end
+  const out=[];for(const x of list){const same=x.text&&x.name!=='알 수 없는 효과'?out.find(y=>y.id!==x.id&&y.base===x.name&&y.kind===x.kind&&y.text===x.text):null;
+    if(same){same.count++;same.name=x.name+' ×'+same.count;if(x.rounds!==null&&(same.rounds===null||x.rounds<same.rounds)){same.rounds=x.rounds;same.thisRound=x.thisRound;}continue;}out.push({...x,base:x.name,count:1});}
+  for(const x of out){delete x.base;delete x.count;}
+  return out;
 }
+function statusLeft(x){return x.rounds!==null&&x.rounds!==undefined?' · '+x.rounds+'라운드 남음'+(x.thisRound?'(이번 라운드 포함)':''):x.until?' · '+x.until:'';}
 function statusChip(x){
   const chip=el('span','st-chip '+x.kind),pic=x.element&&typeof CRPGIcons!=='undefined'?CRPGIcons.element(x.element):null;chip.dataset.id=x.id;
   if(pic){pic.removeAttribute('role');pic.removeAttribute('aria-label');pic.removeAttribute('title');chip.append(pic);}
   chip.append(el('span','',x.name));if(x.rounds!==null)chip.append(el('b','',String(x.rounds)));
-  chip.title=x.name+(x.text?' · '+x.text:'')+(x.rounds!==null?' · '+x.rounds+'라운드 남음':'');return chip;
+  chip.title=x.name+(x.text?' · '+x.text:'')+statusLeft(x);return chip;
 }
 function battleStatusChips(a){
   const list=battleStatusList(a);if(!list.length)return null;
@@ -433,7 +487,7 @@ function battleStatusDetails(a,list){
     const playback=window.ActorPlayback,shown=playback?.currentActor?.(a.id),actor=shown||(!playback?.active&&game.s.runtime?.actors?.find(x=>x.id===a.id))||a;
     const current=shown||Array.isArray(actor.statuses)?battleStatusList(actor):(list||[]);box.replaceChildren();
     if(!current.length)box.append(el('p','muted','현재 적용된 효과가 없습니다.'));
-    for(const x of current){const row=el('div','status-detail');row.append(statusChip(x),el('p','',(x.text||'설명이 없는 효과입니다.')+(x.rounds!==null?' · '+x.rounds+'라운드 남음':' · 전투 내내')));box.append(row);}
+    for(const x of current){const row=el('div','status-detail');row.append(statusChip(x),el('p','',(x.text||'설명이 없는 효과입니다.')+(statusLeft(x)||' · 전투 내내')));box.append(row);}
   };
   markBattleWindow(box);update();showModal(a.name+' · 효과',box);
   if(window.ActorPlayback?.subscribe){
@@ -444,6 +498,7 @@ function battleStatusDetails(a,list){
 // The formation tag at the top says what it does (on the pointer, and in a window when pressed).
 // 0.16.57 (user: 「기본적으로 뇌광 프리즘을 유저가 '타겟'으로 두는 연습을 시키는거라서 평시에는 보스 공격하는 타겟으로 두게 해야지」): until
 // a target is picked, an attack aims at the boss; a prism, a pillar or any other summon is picked by hand (co-op does the same).
+let selectedTargetPicked=false,selectedTargetTurn='';
 function defaultTarget(card,actors){const list=card?.targets||[],of=id=>(actors||[]).find(a=>a.id===id);return (list.find(t=>{const a=of(t.id);return a?.side==='ENEMY'&&!a.fbSummon&&(a.fb||a.grade==='보스');})||list.find(t=>{const a=of(t.id);return a&&!a.fbSummon;})||list[0])?.id||null;}
 window.CRPGDefaultTarget=defaultTarget;
 function battleFormationTag(b){
@@ -462,7 +517,7 @@ function battleActorRow(a,chosen,index){
   if(chosen?.targets?.some(t=>t.id===a.id)){
     // 0.15.18 (user: 적 누르면 타겟): a press anywhere on the card chooses it. 0.15.20 (user: 「선택됨 저걸 없애고 정보를
     // 넣어야지」): so the card has no 선택/선택됨 button; the gold frame marks the target and 「정보」 stands in its place.
-    c.classList.add('targetable');c.addEventListener('click',e=>{if(busy||window.ActorPlayback?.active||e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;render();});
+    c.classList.add('targetable');c.addEventListener('click',e=>{if(busy||window.ActorPlayback?.active||e.target.closest('button,a,select,input,summary,details')||selectedTarget===a.id)return;selectedTarget=a.id;selectedTargetPicked=true;render();});
     // 0.15.25 (user: 「v 눌러서 고르는거 그거 아예 쓰지 말라」): the card is the only way to choose — no list under the skills — so
     // a keyboard reaches it too (Tab, then Enter or Space).
     c.tabIndex=0;c.setAttribute('role','button');c.setAttribute('aria-pressed',String(selectedTarget===a.id));c.setAttribute('aria-label',(a.name||'대상')+(index?' '+index:'')+' 대상으로 고르기');
@@ -527,7 +582,11 @@ function combatCardEffect(card,b){
 combat=function(p){
   const b=game.s.runtime,opening=game.combatOpening?.(),cards=opening?[]:(game.combatCards?.()||[]);
   if(!cards.some(c=>c.id===selectedCard&&!c.reason))selectedCard=cards.find(c=>!c.reason)?.id||cards[0]?.id;
-  const chosen=cards.find(c=>c.id===selectedCard);if(!chosen?.targets?.some(x=>x.id===selectedTarget))selectedTarget=defaultTarget(chosen,b?.actors);
+  const chosen=cards.find(c=>c.id===selectedCard);// 0.16.59 (user: 「여전히 기본적으로 공격 대상이 프리즘으로 가있는데다」): a target stayed picked from turn to turn, so once a prism had been
+  // the target (the boss behind its revival) it stayed on the prism. Each turn starts on the boss; a prism is the target only when it is
+  // picked in that turn.
+  const turnKey=(b?.id||'')+':'+(b?.round||0)+':'+(b?.cursor||0)+':'+(game.combatActor?.()?.id||'');if(selectedTargetTurn!==turnKey){selectedTargetTurn=turnKey;selectedTargetPicked=false;}
+  if(!selectedTargetPicked||!chosen?.targets?.some(x=>x.id===selectedTarget)){selectedTarget=defaultTarget(chosen,b?.actors);selectedTargetPicked=false;}
   p.classList.add('combat-panel');const head=el('div','battle-heading');head.append(el('span','eyebrow',opening?'전투 시작 전':'ROUND '+b.round),el('h1','',safeName('33_ENCOUNTER_GROUP_DB',b.group)));
   const fm=battleFormationTag(b);if(fm)head.append(fm);p.append(head);
   if(opening?.encounter){const e=opening.encounter,card=el('section','encounter-intro');card.setAttribute('aria-label','전투에 들어온 이유');card.append(el('small','eyebrow',e.label+' · '+mapName(e.map)),el('p','encounter-reason',displayText(e.text)));const foes=b.actors.filter(a=>a.side==='ENEMY'),preview=el('div','encounter-opponents');for(const name of [...new Set(foes.map(a=>a.name))]){const group=foes.filter(a=>a.name===name);preview.append(el('span','',name+' × '+group.length));}card.append(preview);p.append(card);}
@@ -536,7 +595,7 @@ combat=function(p){
   if(!opening){const turn=battleTurnBanner(b);if(turn)controls.append(turn);}
   if(opening){controls.append(el('h2','','준비되면 전투를 시작하세요'),el('p','','아직 누구도 공격하지 않았습니다. 시작하면 위 순서대로 행동합니다. 주인공의 차례에는 행동 → 대상 → 실행을 선택하세요.'),actionButton('전투 시작','COMBAT_BEGIN',{battle:b.id},true));}
   else{
-    const buttons=el('div','battle-cards');for(const card of cards){const slot=el('div','battle-card-choice'),btn=button('',()=>{if(busy||window.ActorPlayback?.active)return;selectedCard=card.id;selectedBranch=card.branches?.[0]||'';render();},!!card.reason||busy);btn.dataset.cardId=card.id;btn.classList.toggle('selected',selectedCard===card.id);btn.append(el('strong','',card.name),el('small','',card.reason||(card.cooldown?'재사용 '+card.cooldown+'차례':'사용 가능')));const effect=button('효과',()=>combatCardEffect(card,b));effect.dataset.battleInspection='effect';effect.className='battle-effect-button';effect.setAttribute('aria-label',(card.name||'행동')+' 효과 보기');slot.append(btn,effect);buttons.append(slot);}controls.append(buttons);
+    const buttons=el('div','battle-cards');for(const card of cards){const slot=el('div','battle-card-choice'),btn=button('',()=>{if(busy||window.ActorPlayback?.active)return;selectedCard=card.id;selectedBranch=card.branches?.[0]||'';render();},!!card.reason||busy);btn.dataset.cardId=card.id;btn.classList.toggle('selected',selectedCard===card.id);btn.append(el('strong','',card.name),el('small','',shortReason(card.reason)||(card.cooldown?'재사용 '+card.cooldown+'차례':'사용 가능')));if(card.reason)btn.title=card.reason;const effect=button('효과',()=>combatCardEffect(card,b));effect.dataset.battleInspection='effect';effect.className='battle-effect-button';effect.setAttribute('aria-label',(card.name||'행동')+' 효과 보기');slot.append(btn,effect);buttons.append(slot);}controls.append(buttons);
     // 0.15.25 (user: 「v 눌러서 고르는거 그거 아예 쓰지 말라」): the way to use a skill is two or three buttons side by side; the
     // target is chosen on the fighters' cards (the list under the skills is gone).
     const execute=el('div','battle-execute');if(chosen?.branches?.length){if(!chosen.branches.includes(selectedBranch))selectedBranch=chosen.branches[0];const seg=el('div','battle-branches');seg.setAttribute('role','radiogroup');seg.setAttribute('aria-label','스킬 방식');

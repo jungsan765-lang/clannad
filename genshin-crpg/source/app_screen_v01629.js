@@ -181,3 +181,20 @@ render=function(...args){const out=prior.apply(this,args);
  try{requestAnimationFrame(()=>{destinations();bag();market();forge();});soon();}catch(e){console.error('[screen]',e);}return out;};
 window.CRPGScreen={stage,destinations,guard,fitBox,bag};
 })();
+
+// 0.16.59 (user: 「업뎃할때 이 문구, 업뎃 해야된다거나 그런 말로 바꿀 수 없나?」): the notice for an action whose save was not confirmed
+// (app_online.js 「이전 행동의 저장 확인이 필요합니다 …」) says what happened in plain words. When a new version is out — the usual cause
+// while an update goes in — it says so and offers 「업데이트」; the old button stays, as 「다시 확인」. Nothing about the retry changes.
+(function(){'use strict';
+if(typeof render!=='function')return;let asked=false;
+function plain(){
+ const box=document.querySelector('#root>.pending-action-notice');if(!box||box.dataset.plain)return;box.dataset.plain='1';
+ const p=box.querySelector(':scope>p'),retry=box.querySelector(':scope>button'),version=typeof GameVersion!=='undefined'?GameVersion:null;
+ if(retry)retry.textContent='다시 확인';
+ if(version?.changed?.()){if(p)p.textContent='새 버전이 나왔습니다 · 업데이트하면 마지막 행동을 이어서 확인합니다. 보상은 한 번만 받습니다.';
+  const up=button('업데이트',()=>version.apply(),false,true);box.insertBefore(up,retry||null);return;}
+ if(p)p.textContent='마지막 행동이 저장됐는지 아직 확인하지 못했습니다 · 다시 확인해도 보상은 한 번만 받습니다.';
+ if(!asked&&version?.check){asked=true;Promise.resolve(version.check()).then(()=>{if(version.changed?.())render();}).catch(()=>{});}
+}
+const prior=render;render=function(...args){const out=prior.apply(this,args);try{plain();}catch(e){console.warn('[pending notice]',e);}return out;};
+})();

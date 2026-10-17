@@ -281,3 +281,14 @@ P.validateSave=function(s,...a){
 P.retiredBossRoutesV01657=true;
 api.retiredBossRoutesV01657=[...RETIRED];
 })(globalThis);
+
+// 0.16.59: one card, one AI turn or one system action at a time carries an id (this._actId; nested calls keep the outer one). It is
+// set here, after every other runtime file, so it wraps the joint attack of runtime_combat_v0148.js too. runtime_field_bosses.js
+// gives a revival guard raised inside a card that card's id, and keeps the rest of the card off it (「막 생겨났다」).
+(function(root){
+'use strict';
+const api=root.CRPGRuntime,P=api.Runtime.prototype;if(P.actIdV01659)return;
+let depth=0;
+for(const m of ['executeCard','aiTurn','executeCombatSystem'])if(typeof P[m]==='function'){const old=P[m];P[m]=function(...args){const b=this.s.runtime;if(!depth++)this._actId=b?(b.round+':'+(b.actionSequence||0)+':'+(b.log?.length||0)+':'+(this._actSerial=(this._actSerial||0)+1)):null;try{return old.apply(this,args);}finally{if(!--depth)this._actId=null;}};}
+P.actIdV01659=true;
+})(globalThis);

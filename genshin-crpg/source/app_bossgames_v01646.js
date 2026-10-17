@@ -544,16 +544,26 @@ function bossTags(a){
  // 0.16.53 (user: 「핵 닫힘, 핵 노출 디버프가 갑자기 사라지는건 버그야?」): during a turn's playback the chips are drawn from the
  // playback's copy of the fighter, which has no boss record (fb), so the core chips vanished until the turn ended. The
  // boss record comes from the fight itself.
- const b=game?.s?.runtime,out=[];if(!b||!a||a.side!=='ENEMY'||a.hp<=0)return out;const real=a.fb?a:(b.actors||[]).find(x=>x.id===a.id)||a,f=real.fb,fbx=b.fieldBoss,ctl=fbx?.controlRevision===1&&fbx.behaviorRevision===5&&fbx.pressureRevision===1;
- if(f&&fbx){
+ // 0.16.59 (user: 「여전히 핵 노출쪽 디버프가 나오는 타이밍이 너무 이상해」, 「핵이 닫혔는데도 데미지가 들어가네」): but the fight itself is
+ // the turn's end, so the core read 「닫힘」 while the blows that landed before it shut played. During a playback the chips come from
+ // the boss as it stood at that beat (fbView: taken before the action, and carried by the log line where it changed — runtime
+ // fbChipView); otherwise from the fight.
+ const b=game?.s?.runtime,out=[];if(!b||!a||a.side!=='ENEMY'||a.hp<=0)return out;
+ const view=window.ActorPlayback?.active&&a.fbView?a.fbView:null;let st;
+ if(view)st={f:view.fb,round:view.round,pass:view.pass,ctl:view.ctl,core:view.core,shut:view.shut,shell:view.shell,daily:view.daily,twin:view.twin,fight:!!view.fb};
+ else{const real=a.fb?a:(b.actors||[]).find(x=>x.id===a.id)||a,f=real.fb,fbx=b.fieldBoss,d=b.dailyDodge,t=b.twinBoss;
+  st={f,round:b.round,pass:b.bossPass===1,ctl:!!(fbx&&fbx.controlRevision===1&&fbx.behaviorRevision===5&&fbx.pressureRevision===1),core:fbx?.coreRevision===1,shut:!!(f&&game.fbCoreShut?.(real)),shell:(real.shields||[]).some(x=>x.source==='FB_SHELL'&&x.value>0),
+   daily:d&&a.source===d.boss&&d.controlRevision===1?{dodge:!!d.dodge,exposedUntil:d.exposedUntil}:null,twin:t&&a.source===t.boss&&t.controlRevision===1?{crystals:!!t.crystals,downUntil:t.downUntil,dodge:!!t.dodge,exposedUntil:t.exposedUntil}:null,fight:!!(f&&fbx)};}
+ const f=st.f,ctl=st.ctl;
+ if(f&&st.fight){
   // 0.16.57: 무상의 뇌전·바위·얼음 keep a shut core too (runtime fieldBossCore); their chips say it the same way.
-  if(['ELECTRO','GEO_HYPO','CRYO_HYPO'].includes(f.kind)&&!f.revival&&fbx.coreRevision===1&&ctl&&b.bossPass===1)out.push(game.fbCoreShut?.(real)?{id:'FB_CORE_SHUT',name:'핵 닫힘',kind:'hold',rounds:null,text:'큰 공격을 준비하는 동안이나 첫 공격 전에는 핵이 닫혀 공격이 통하지 않습니다. 공격을 마치면 핵이 드러납니다.'}:{id:'FB_CORE_OPEN',name:'핵 노출',kind:'debuff',rounds:null,text:'공격을 마친 핵이 드러났습니다 · 다음 준비 동작까지 공격이 통합니다.'});
-  if(f.kind==='ANEMO'&&!f.revival&&ctl)out.push(game.fbCoreShut?.(real)?{id:'FB_CORE_SHUT',name:'핵 닫힘',kind:'hold',rounds:null,text:'탄막을 모으거나 떠 있는 동안 핵이 닫혀 공격이 통하지 않습니다. 공격을 마치면 핵이 드러납니다.'}:{id:'FB_CORE_OPEN',name:'핵 노출',kind:'debuff',rounds:null,text:'공격을 마친 핵이 드러났습니다 · 받는 피해 +50% · 다음 준비 동작까지.'});
+  if(['ELECTRO','GEO_HYPO','CRYO_HYPO'].includes(f.kind)&&!f.revival&&st.core&&ctl&&st.pass)out.push(st.shut?{id:'FB_CORE_SHUT',name:'핵 닫힘',kind:'hold',rounds:null,text:'큰 공격을 준비하는 동안이나 첫 공격 전에는 핵이 닫혀 공격이 통하지 않습니다. 공격을 마치면 핵이 드러납니다.'}:{id:'FB_CORE_OPEN',name:'핵 노출',kind:'debuff',rounds:null,text:'공격을 마친 핵이 드러났습니다 · 다음 준비 동작까지 공격이 통합니다.'});
+  if(f.kind==='ANEMO'&&!f.revival&&ctl)out.push(st.shut?{id:'FB_CORE_SHUT',name:'핵 닫힘',kind:'hold',rounds:null,text:'탄막을 모으거나 떠 있는 동안 핵이 닫혀 공격이 통하지 않습니다. 공격을 마치면 핵이 드러납니다.'}:{id:'FB_CORE_OPEN',name:'핵 노출',kind:'debuff',rounds:null,text:'공격을 마친 핵이 드러났습니다 · 받는 피해 +50% · 다음 준비 동작까지.'});
   const r=f.revival;
-  if(b.bossPass===1){
+  if(st.pass){
    if(f.kind==='SERPENT')out.push(f.armorOpened?{id:'FB_ARMOR_OPEN',name:'갑주 열림',kind:'debuff',rounds:null,text:'유적 갑주가 열렸습니다 · 다음 잠행까지 피해가 그대로 들어갑니다.'}:{id:'FB_ARMOR_SHUT',name:'갑주 닫힘',kind:'hold',rounds:null,text:'물리 피해 70%·원소 피해 40% 감소 · 돌진 뒤 머리가 드러나면 파쇄·약점 공략 장비나 주인공의 「약점 저격」.'});
-   if(f.kind==='PRIMO'&&!(f.exposedUntil>=b.round))out.push({id:'FB_SCALES',name:'단단한 비늘',kind:'hold',rounds:null,text:'받는 피해 30% 감소 · 보호막으로 원암 분사를 반사하면 비늘이 깎이고 쓰러집니다.'});
-   if((f.kind==='CRYO_VINE'||f.kind==='PYRO_VINE')&&f.corolla&&(real.shields||[]).some(x=>x.source==='FB_SHELL'&&x.value>0))out.push({id:'FB_COROLLA',name:'꽃봉오리 '+Math.max(0,(f.corollaDue||0)-b.round),kind:'hold',rounds:null,text:'다시 자란 꽃봉오리 결정막 · '+Math.max(0,(f.corollaDue||0)-b.round)+'라운드 안에 깨지 못하면 전원에게 '+(f.kind==='CRYO_VINE'?'얼음비':'불꽃 폭탄')+'.'});
+   if(f.kind==='PRIMO'&&!(f.exposedUntil>=st.round))out.push({id:'FB_SCALES',name:'단단한 비늘',kind:'hold',rounds:null,text:'받는 피해 30% 감소 · 보호막으로 원암 분사를 반사하면 비늘이 깎이고 쓰러집니다.'});
+   if((f.kind==='CRYO_VINE'||f.kind==='PYRO_VINE')&&f.corolla&&st.shell)out.push({id:'FB_COROLLA',name:'꽃봉오리 '+Math.max(0,(f.corollaDue||0)-st.round),kind:'hold',rounds:null,text:'다시 자란 꽃봉오리 결정막 · '+Math.max(0,(f.corollaDue||0)-st.round)+'라운드 안에 깨지 못하면 전원에게 '+(f.kind==='CRYO_VINE'?'얼음비':'불꽃 폭탄')+'.'});
   }
   if(r?.fruit&&f.kind==='CRYO_HYPO')out.push({id:'FB_CRYO_SHIELD',name:'얼음 보호막 '+(r.hits||0)+'/'+r.need,kind:'hold',rounds:r.rounds,text:'두꺼운 얼음 보호막 · 서리 열매 '+(r.hits||0)+'/'+r.need+'번 · 주인공의 「서리 열매 치기」'+(r.fruit.melted?' · 불로 녹음':' · 불로 먼저 녹이면 한 번 덜 맞혀도 됩니다')+'.'});
   else if(r&&f.kind==='CRYO_HYPO')out.push({id:'FB_CRYO_CORE',name:'냉기 핵 '+(r.hits||0)+'/'+r.need,kind:'hold',rounds:r.rounds,text:'도망치는 냉기 핵 · '+(r.hits||0)+'/'+r.need+'번 적중 · 불 공격·파쇄 장비 또는 주인공의 「냉기 핵 쫓기」.'});
@@ -561,17 +571,36 @@ function bossTags(a){
   else if(r&&f.kind==='ANEMO')out.push({id:'FB_ANEMO_CORE',name:'남은 핵 '+r.core,kind:'debuff',rounds:r.rounds,text:'떠오른 핵 · 원거리·대공 공격으로 '+r.core+'만큼 더 부수면 쓰러집니다.'});
   else if(r)out.push({id:'FB_REVIVAL',name:f.kind==='ELECTRO'?'프리즘 부활':'기둥 부활',kind:'hold',rounds:r.rounds,text:f.kind==='ELECTRO'&&ctl?'주인공의 공격(함께하는 일격 포함)으로 프리즘을 모두 부숴야 합니다 · 번개는 흡수됩니다.':'부활을 지키는 소환물을 모두 부숴야 합니다.'});
  }
- const d=b.dailyDodge;if(d&&a.source===d.boss&&d.controlRevision===1){const L=window.CRPGRuntime?.fieldBossControl?.liyueDaily?.[d.boss];
+ const d=st.daily;if(d){const L=window.CRPGRuntime?.fieldBossControl?.liyueDaily?.[a.source];
   if(d.dodge)out.push({id:'DAILY_DODGE',name:(L?.label||'큰 공격')+' 준비',kind:'hold',rounds:null,text:'이번 라운드 끝 '+(L?.label||'큰 공격')+' · 주인공의 「'+(L?.name||'피하기')+'」.'});
-  if(d.exposedUntil>=b.round)out.push({id:'DAILY_OPEN',name:'빈틈',kind:'debuff',rounds:null,text:'받는 피해 +50%.'});}
- const t=b.twinBoss;if(t&&a.source===t.boss&&t.controlRevision===1){
+  if(d.exposedUntil>=st.round)out.push({id:'DAILY_OPEN',name:'빈틈',kind:'debuff',rounds:null,text:'받는 피해 +50%.'});}
+ const t=st.twin;if(t){
   if(t.crystals)out.push({id:'TWIN_CRYSTALS',name:'부식 결정',kind:'debuff',rounds:null,text:'몸의 부식 결정이 빛납니다 · 이번 라운드 주인공의 「부식 결정 저격」.'});
-  if(t.downUntil>=b.round)out.push({id:'TWIN_DOWNED',name:'추락',kind:'hold',rounds:null,text:'결정이 깨져 땅에 떨어졌습니다 · 근접 공격도 닿습니다.'});
-  if(t.exposedUntil>=b.round)out.push({id:'TWIN_OPEN',name:'빈틈',kind:'debuff',rounds:null,text:'받는 피해 +50%.'});
+  if(t.downUntil>=st.round)out.push({id:'TWIN_DOWNED',name:'추락',kind:'hold',rounds:null,text:'결정이 깨져 땅에 떨어졌습니다 · 근접 공격도 닿습니다.'});
+  if(t.exposedUntil>=st.round)out.push({id:'TWIN_OPEN',name:'빈틈',kind:'debuff',rounds:null,text:'받는 피해 +50%.'});
   if(t.dodge)out.push({id:'TWIN_DASH',name:'질주 준비',kind:'hold',rounds:null,text:'이번 라운드 끝 얼음 발톱 질주 · 주인공의 「질주 피하기」.'});
  }
  return out;
 }
+// 0.16.59: the boss as it stood before the action (the start of the playback), and the log lines where its chips changed put into
+// the playback as silent changes, so they switch on that beat.
+(function(){const PR=window.CRPGPresentation;if(!PR?.delta||!PR?.snapshot)return;
+ const views=s=>{try{return typeof game!=='undefined'&&game&&game.s===s&&typeof game.fbChipView==='function'?game.fbChipView(s.runtime):null;}catch{return null;}};
+ const priorSnap=PR.snapshot;PR.snapshot=function(s,...rest){const out=priorSnap.call(this,s,...rest);try{const v=views(s);if(v&&Array.isArray(out?.actors))for(const x of out.actors)if(x&&v[x.id])x.fbView=v[x.id];}catch{}return out;};
+ const priorDelta=PR.delta;PR.delta=function(before,s,...rest){const events=priorDelta.call(this,before,s,...rest);
+  try{if(!Array.isArray(events)||!events.length||!before||before.saveId!==s?.global?.SAVE_ID)return events;
+   let result={};try{result=JSON.parse(s.global.LAST_BATTLE_RESULT_JSON||'{}')||{};}catch{}
+   const b=s.runtime,id=b?.id||result.battleId,logs=b?.log||s.lastCombatLog||[],start=before.battleId===id?before.count:0,marks=[];
+   for(let i=start;i<logs.length;i++)if(logs[i]&&logs[i].fbChips)marks.push(i);if(!marks.length)return events;
+   // an event's key is SAVE_ID:battle:index:actionId (the action id has colons of its own): the index follows the battle
+   const head=s.global.SAVE_ID+':'+id+':',at=ev=>{const key=String(ev?.key||'');if(!key.startsWith(head))return Infinity;const n=parseInt(key.slice(head.length),10);return Number.isFinite(n)?n:Infinity;},out=[];let k=0;
+   const synth=(i,prev)=>{const e=logs[i];return {key:s.global.SAVE_ID+':'+id+':'+i+':chips:'+s.global.LAST_COMMITTED_ACTION_ID,kind:'state',silent:true,label:'효과 변화',cue:null,
+    round:Number.isInteger(e.round)?e.round:prev?.round,action:Number.isInteger(e.actionSequence)?e.actionSequence:prev?.action,actorId:prev?.actorId||null,targetId:null,
+    presentationActorsAfter:Object.entries(e.fbChips).map(([who,v])=>({id:who,fbView:v}))};};
+   for(const ev of events){const pos=at(ev),last=[...out].reverse().find(x=>Number.isInteger(x?.round));while(k<marks.length&&marks[k]<pos){out.push(synth(marks[k],last));k++;}out.push(ev);while(k<marks.length&&marks[k]===pos){out.push(synth(marks[k],ev));k++;}}
+   while(k<marks.length){out.push(synth(marks[k],[...out].reverse().find(x=>Number.isInteger(x?.round))));k++;}
+   return out;}catch(e){console.warn('[boss chips]',e);return events;}};
+})();
 const priorList=battleStatusList;
 battleStatusList=function(a,...rest){const list=priorList(a,...rest);try{const tags=bossTags(a);if(tags.length)list.unshift(...tags);}catch{}return list;};
 window.CRPGFieldBossMinigames={version:1,cards:[...CARDS],open:(card,done)=>{running?.close();open(card,done||(()=>{}));},close:()=>running?.close(),get running(){return running?.kind||null;},get battle(){return running?.battle||null;}};

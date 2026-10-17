@@ -143,7 +143,8 @@ check('buffs and debuffs are chips with what they do; the formation is the battl
  assert.equal(list[5].text,'공격력 +20% · 치명타 확률 +5%p','a buff\'s numbers are spelled out');assert.equal(list[1].text,'공격력 +6% · 받는 피해 +6%');
  // Harmful statuses the table does not type must not look like buffs (docs/STATUS_EFFECTS_KO.md).
  const kinds=plain(vm.runInContext("battleStatusList({statuses:['LIFTED','BOSS_CONTROL','LIYUE_PETRIFY','QUICKEN','RIPTIDE','HAZARD_CORRODED','CONS_VENTI_6','CHILI_BUFF'].map(id=>({id,rounds:1}))}).map(x=>x.kind)",ctx));
- assert.deepEqual(kinds,['hold','hold','hold','element','debuff','debuff','debuff','buff']);
+ // 0.16.59: 행동 둔화 (a boss slowed instead of held) is a harmful effect, red like the other debuffs
+ assert.deepEqual(kinds,['hold','debuff','hold','element','debuff','debuff','debuff','buff']);
  assert(exp.includes("const row=button('',()=>battleStatusDetails(a,row._statusList));row._statusList=list;row.className='status-chips';"),'a press lists them');
  assert(exp.includes('const fm=battleFormationTag(b);if(fm)head.append(fm);')&&exp.includes("box.append(el('p','','편성에서 고른 진형입니다. 이 전투에서 파티 전원에게 적용됩니다.'),el('p','',text));"),'the formation explains itself');
  for(const k of ['buff','debuff','hold','element','role'])assert(css.includes('.st-chip.'+k+'{'),k);

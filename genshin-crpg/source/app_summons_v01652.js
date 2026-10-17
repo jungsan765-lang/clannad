@@ -81,7 +81,8 @@ const P=window.CRPGPresentation;if(!P?.actionFrames)return;
 const periodic=e=>/^(FIELD|OBJECT|REACTION_DOT)$/.test(e?.sourceKind||''),summonId=id=>String(id||'').startsWith('SUMMON:'),ownerOf=id=>summonId(id)?String(id).split(':').slice(2).join(':'):null;
 const plain=e=>e&&typeof e==='object'&&Number.isInteger(e.round)&&Number.isInteger(e.action)&&!['victory','defeat','line'].includes(e.kind);
 const direct=e=>!e.sourceKind||e.sourceKind==='JOINT_ATTACK'||e.sourceKind==='BOSS_ARENA';
-const merge=(a,b,later)=>{const out=(a||[]).map(x=>({...x}));for(const y of b||[]){const x=out.find(z=>z.id===y.id);if(!x){out.push({...y});continue;}for(const k of Object.keys(y))if(k!=='id'&&(later||!Object.hasOwn(x,k)))x[k]=y[k];}return out;};
+// a state carries, per field, the place in the log it was taken at (_seqs, set by stamp below): merging keeps each field's own place
+const merge=(a,b,later)=>{const out=(a||[]).map(x=>({...x}));for(const y of b||[]){const x=out.find(z=>z.id===y.id);if(!x){out.push({...y});continue;}const seqs={...(x._seqs||{})};for(const k of Object.keys(y))if(k!=='id'&&k!=='_seqs'&&(later||!Object.hasOwn(x,k))){x[k]=y[k];if(y._seqs&&Object.hasOwn(y._seqs,k))seqs[k]=y._seqs[k];}if(x._seqs||y._seqs)x._seqs=seqs;}return out;};
 const hpOf=u=>{const s=new Set();for(const e of u.events)if(e.targetId&&(Number.isFinite(e.hpAfter)||e.kind==='heal'||e.kind==='damage'))s.add(e.targetId);return s;};
 function tidy(events){
  const out=[],list=(events||[]).map(e=>e&&typeof e==='object'?{...e}:e);let i=0;
@@ -100,7 +101,7 @@ function tidy(events){
   for(const e of block){
    const last=units[units.length-1];
    if(e.kind==='state'&&e.silent){const after=e.presentationActorsAfter?[...e.presentationActorsAfter]:[];
-    if(e.targetId&&Number.isFinite(e.hpAfter)&&!after.some(a=>a.id===e.targetId&&Object.hasOwn(a,'hp')))after.push({id:e.targetId,hp:e.hpAfter});
+    if(e.targetId&&Number.isFinite(e.hpAfter)&&!after.some(a=>a.id===e.targetId&&Object.hasOwn(a,'hp')))after.push(Number.isFinite(e._seq)?{id:e.targetId,hp:e.hpAfter,_seqs:{hp:e._seq}}:{id:e.targetId,hp:e.hpAfter});
     if(!last){held=held?{...held,presentationActorsBefore:merge(held.presentationActorsBefore,e.presentationActorsBefore,false),presentationActorsAfter:merge(held.presentationActorsAfter,after,true)}:{...e,presentationActorsAfter:after};continue;}
     const p=last.events[last.events.length-1];p.presentationActorsBefore=merge(p.presentationActorsBefore,e.presentationActorsBefore,false);p.presentationActorsAfter=merge(p.presentationActorsAfter,after,true);
     // the card's own line often comes last (바바라's 원소폭발 heals first): its card names the whole turn
@@ -127,7 +128,43 @@ function tidy(events){
  }
  return out;
 }
+/* 0.16.59 (user: 「다른 디버프나 버프들도 좀 체크해봐 진짜 전체적으로 다 뭐가 뭔지 모르겠어」): a fighter's chips during a playback come from the
+ * states the beats carry (presentationActorsAfter), applied in the page's own order: a beat's single-hit targets at once, a multi-hit
+ * target hit by hit, the lines with no target last (app_av.js showAction). A follow-up played after its blow, a status joined to the blow
+ * that set it off, or a target listed before another carried an older state of a fighter than one already shown, and the older one won:
+ * a buff the caster had just got (노엘 · 알베도 · 벤티 · 한운's 운명의 자리, 기술 계수) dropped until the turn's end. Each state remembers
+ * where in the log it was taken, and in the order the page applies them a field older than the one already shown is left out. A line
+ * between two hits of a multi-hit target is never applied by the page; it plays with the last hit instead. */
+const HIT=e=>['damage','guard'].includes(e?.kind)&&(Number(e.amount)>0||Number(e.absorbed)>0);
+const stamp=events=>(events||[]).map((e,i)=>{if(!e||typeof e!=='object')return e;const out={...e,_seq:i};
+ if(Array.isArray(e.presentationActorsAfter))out.presentationActorsAfter=e.presentationActorsAfter.map(a=>{if(!a||typeof a!=='object')return a;const s={};for(const k of Object.keys(a))if(k!=='id'&&k!=='_seqs')s[k]=i;return {...a,_seqs:s};});return out;});
+function fresh(frames){
+ const latest=new Map(),rec=id=>{let r=latest.get(id);if(!r)latest.set(id,r={});return r;};
+ const keep=e=>{if(!e||typeof e!=='object')return;const s0=e._seq,id=e.targetId;let after=Array.isArray(e.presentationActorsAfter)?e.presentationActorsAfter:null;
+  if(after)after=after.map(a=>{if(!a?.id)return a;const x={id:a.id},r=rec(a.id);for(const k of Object.keys(a)){if(k==='id'||k==='_seqs')continue;const s=a._seqs&&Object.hasOwn(a._seqs,k)?a._seqs[k]:s0;
+   if(Number.isFinite(s)&&Number.isFinite(r[k])&&r[k]>s)continue;x[k]=a[k];if(Number.isFinite(s))r[k]=s;}return x;});
+  // a status the page puts straight onto the one it landed on (the line has no state of that fighter)
+  if(id&&e.statusApplied&&!(after||[]).some(a=>a?.id===id)&&Number.isFinite(s0)){const r=rec(id);if(Number.isFinite(r.statuses)&&r.statuses>s0)after=[...(after||[]),{id}];else r.statuses=s0;}
+  if(after)e.presentationActorsAfter=after;};
+ for(const f of frames||[]){
+  if(f?.kind!=='action'||!Array.isArray(f.targets)||!Array.isArray(f.events)){keep(f);continue;}
+  const now=[],later=[];let n=0,timers=false;
+  for(const t of f.targets){let evs=Array.isArray(t.events)?t.events:[];const hits=evs.filter(HIT);
+   if(hits.length>1){const last=hits[hits.length-1],skipped=evs.filter((x,i)=>i<evs.indexOf(last)&&!HIT(x));
+    if(skipped.length){const rest=evs.filter(x=>!skipped.includes(x)),at=rest.indexOf(last)+1;t.events=evs=[...rest.slice(0,at),...skipped,...rest.slice(at)];}
+    timers=true;hits.forEach((h,k)=>{later.push({e:h,d:k*32,n:n++});if(h===last)for(const x of evs.slice(evs.indexOf(last)+1))later.push({e:x,d:k*32,n:n++});});}
+   else now.push(...evs);}
+  for(const x of f.events.filter(e=>!e?.targetId))if(timers)later.push({e:x,d:Math.max(0,((f.attemptCount||1)-1)*32),n:n++});else now.push(x);
+  later.sort((a,b)=>a.d-b.d||a.n-b.n);for(const x of now)keep(x);for(const x of later)keep(x.e);
+ }
+ const strip=list=>{if(Array.isArray(list))for(const a of list)if(a&&typeof a==='object')delete a._seqs;};
+ const clean=e=>{if(!e||typeof e!=='object')return;delete e._seq;strip(e.presentationActorsAfter);strip(e.presentationActorsBefore);};
+ for(const f of frames||[]){clean(f);for(const e of f?.events||[])clean(e);for(const t of f?.targets||[])for(const e of t.events||[])clean(e);}
+ return frames;
+}
 const prior=P.actionFrames;
-P.actionFrames=function(events,...rest){let list=events;try{list=tidy(events);}catch(e){console.warn('[beats]',e);list=events;}return prior.call(this,list,...rest);};
+P.actionFrames=function(events,...rest){let list=events,stamped=false;try{list=tidy(stamp(events));stamped=true;}catch(e){console.warn('[beats]',e);list=events;}
+ const frames=prior.call(this,list,...rest);if(!stamped)return frames;try{return fresh(frames);}catch(e){console.warn('[beats]',e);return frames;}};
+P.freshBeats=fresh;
 P.tidyBeats=tidy;
 })();

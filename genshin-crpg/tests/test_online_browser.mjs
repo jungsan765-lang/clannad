@@ -103,9 +103,9 @@ try{
  fixture.seed(free().s);await start();
  const lostRevision=fixture.read().revision;drops=2;
  await page.evaluate(()=>act('WAIT',{minutes:10}));await idle();
- assert(await page.getByRole('button',{name:'진행 확인 다시 시도',exact:true}).isVisible());
+ assert(await page.getByRole('button',{name:'다시 확인',exact:true}).isVisible());
  assert.equal(fixture.read().revision,lostRevision+1);assert(await page.evaluate(()=>!!CRPGOnline.pending));
- await page.getByRole('button',{name:'진행 확인 다시 시도',exact:true}).click();await idle();await same('lost response recovery');
+ await page.getByRole('button',{name:'다시 확인',exact:true}).click();await idle();await same('lost response recovery');
  assert.equal(fixture.read().revision,lostRevision+1);assert.equal(new Set(calls.filter(c=>c.type==='WAIT').map(c=>c.requestId)).size,1);results.push({lostResponseExactlyOnce:true});
  const relations=free();relations.markContact('PROFILE_MOND_AMBER');fixture.seed(relations.s);await start();
  await page.locator('[data-screen="RELATIONS"]').click();await idle();
