@@ -45,7 +45,8 @@ if(process.argv[2]==='--server'){
    return {tokens,version:engine.ENGINE_VERSION,engineVersion:engine.ENGINE_FINGERPRINT,combat:{type:'COMBAT',params:{card:card.id,target:card.targets[0]?.id}}};
   },
   reset(){histogram.reset();builds=0;buildMs=0;cpu=process.cpuUsage();started=performance.now();return {};},
-  stats(){const c=process.cpuUsage(cpu),elapsed=performance.now()-started;global.gc?.();return {elapsedMs:elapsed,cpuMs:(c.user+c.system)/1000,cpuShare:(c.user+c.system)/1000/elapsed,builds,buildMs:Math.round(buildMs),cacheEntries:app.store.cache.size,...memory(),eventLoopP95Ms:histogram.percentile(95)/1e6,eventLoopP99Ms:histogram.percentile(99)/1e6,eventLoopMaxMs:histogram.max/1e6};},
+  // disk: what each played action leaves behind (its receipt row; saves are rewritten in place)
+  stats(){const c=process.cpuUsage(cpu),elapsed=performance.now()-started;global.gc?.();const db=app.store.db,receipts=db.prepare('SELECT count(*) n,coalesce(sum(length(result)+length(request_id)+length(intent_hash)+length(account_id)),0) bytes FROM receipts').get(),pages=db.prepare('PRAGMA page_count').get().page_count*db.prepare('PRAGMA page_size').get().page_size;return {receipts:Number(receipts.n),receiptBytes:Number(receipts.bytes),dbBytes:pages,elapsedMs:elapsed,cpuMs:(c.user+c.system)/1000,cpuShare:(c.user+c.system)/1000/elapsed,builds,buildMs:Math.round(buildMs),cacheEntries:app.store.cache.size,...memory(),eventLoopP95Ms:histogram.percentile(95)/1e6,eventLoopP99Ms:histogram.percentile(99)/1e6,eventLoopMaxMs:histogram.max/1e6};},
   async shutdown(){histogram.disable();await app.store.coopSettled?.();await app.close();return {};}
  };
  process.on('message',async m=>{try{const result=await methods[m.op](m.body||{});process.send({id:m.id,result},()=>{if(m.op==='shutdown')process.disconnect();});}catch(e){process.send({id:m.id,error:e.stack});}});
@@ -79,7 +80,7 @@ if(process.argv[2]==='--server'){
      const pause=-Math.log(1-Math.random())*think*1000;await wait(Math.min(pause,think*4000));}};
    await Promise.all(Array.from({length:count},(_,i)=>player(i)));
    const wall=(performance.now()-t0)/1000,st=await call('stats');lat.sort((a,b)=>a-b);const q=p=>lat.length?Math.round(lat[Math.min(lat.length-1,Math.floor(lat.length*p))]):null;
-   const row={players:count,thinkSeconds:think,seconds:Math.round(wall),cache,actions:lat.length,perSecond:+(lat.length/wall).toFixed(1),p50:q(.5),p95:q(.95),p99:q(.99),max:q(.9999),errors,kinds,server:{cpuShare:+st.cpuShare.toFixed(2),builds:st.builds,buildMs:st.buildMs,cacheEntries:st.cacheEntries,rssMiB:st.rssMiB,peakRssMiB:st.peakRssMiB,heapMiB:st.heapMiB,eventLoopP99Ms:Math.round(st.eventLoopP99Ms),eventLoopMaxMs:Math.round(st.eventLoopMaxMs)}};
+   const row={players:count,thinkSeconds:think,seconds:Math.round(wall),cache,actions:lat.length,perSecond:+(lat.length/wall).toFixed(1),p50:q(.5),p95:q(.95),p99:q(.99),max:q(.9999),errors,kinds,server:{cpuShare:+st.cpuShare.toFixed(2),builds:st.builds,buildMs:st.buildMs,cacheEntries:st.cacheEntries,rssMiB:st.rssMiB,peakRssMiB:st.peakRssMiB,heapMiB:st.heapMiB,eventLoopP99Ms:Math.round(st.eventLoopP99Ms),eventLoopMaxMs:Math.round(st.eventLoopMaxMs),receipts:st.receipts,receiptBytesPerAction:st.receipts?Math.round(st.receiptBytes/st.receipts):0,dbMiB:+(st.dbBytes/1048576).toFixed(1)}};
    console.log(JSON.stringify(row));results.push(row);
   }finally{for(const x of streams){try{x.req.destroy();}catch{}}try{await call('shutdown');}catch{}agent.destroy();try{rmSync(dir,{recursive:true,force:true});}catch{}}
  }

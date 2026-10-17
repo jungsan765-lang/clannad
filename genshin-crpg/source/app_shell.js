@@ -392,7 +392,35 @@ function layoutStory(content,p){
  // 자동 재생: reads on by itself like the original's auto button; it always stops at a choice.
  const bar=$('.story-toolbar',p);if(bar){const auto=mk('button','shell-auto'+(S.auto?' on':''));auto.type='button';auto.setAttribute('aria-pressed',String(!!S.auto));auto.append(icon('CLOCK'),mk('span','',S.auto?'자동 재생 중':'자동 재생'));auto.title='대사를 일정한 간격으로 넘깁니다. 선택지에서는 멈춥니다.';auto.onclick=e=>{e.stopPropagation();S.auto=!S.auto;try{localStorage.setItem('crpg-shell-auto',S.auto?'1':'0');}catch{}render();};bar.append(auto);}
  scheduleAuto(p,choices.length);
+ storyStage();
  void copy;
+}
+// 0.16.62 이야기 연출 (user, 2026-10-18: 「스토리 진행하면서 연출도 좀 넣는걸 시도해봐도 되고」): the look of the story, never its words.
+// A quest opens with its title card (once per journey on this device), a new place shows its name, a new scene dips into dark.
+// Nothing here takes a tap: the cards lie over the screen without catching it, and leave by themselves.
+function storyStage(){
+ // only the story itself (and a story break inside a fight) — a talk with someone is not a scene of the story
+ let n=null;try{if(game?.s?.global?.SCREEN_MODE==='STORY'||game?.s?.runtime?.interlude)n=game.storyNode?.();}catch{}
+ if(!Array.isArray(n)||!n[4])return;
+ const was=S.storyStage,quest=String(n[1]||''),scene=quest+':'+String(n[3]||''),map=String(n[8]||''),node=String(n[0])+':'+String(n[4]);
+ S.storyStage={quest,scene,map,node};if(was?.node===node)return;
+ const still=matchMedia?.('(prefers-reduced-motion: reduce)')?.matches,mapName=id=>{try{return String(game.tables['32_MAP_DB']?.get(id)?.[2]||'');}catch{return '';}};
+ const show=(cls,parts,ms)=>{document.querySelectorAll('.'+cls).forEach(x=>x.remove());const box=mk('div','story-stage '+cls);box.setAttribute('aria-hidden','true');box.append(...parts);box.style.setProperty('--stage-ms',ms+'ms');document.body.append(box);setTimeout(()=>box.remove(),ms+100);};
+ // the quest's title card: 「알베도 전설 임무 · 종이 위에 남지 않는 색」 → a small line over a large one
+ let carded=false;const row=quest?game.tables['22_QUEST_DB']?.get(quest):null;
+ if(row&&quest!==was?.quest){
+  const save=String(game.s?.global?.SAVE_ID||''),key='crpg-story-cards-v1';let seen={};try{seen=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch{}
+  const list=Array.isArray(seen[save])?seen[save]:[];
+  if(!list.includes(quest)){
+   const name=String(row[1]||''),cut=name.indexOf(' · '),label=cut>0?name.slice(0,cut):(String(row[2]||'')+(/^Q_(TRV|ISK)_/.test(quest)?' · 메인 임무':'')),title=cut>0?name.slice(cut+3):name;
+   if(title){show('story-card',[mk('span','story-card-label',label),mk('strong','story-card-title',title),...(mapName(map)?[mk('span','story-card-place',mapName(map))]:[])],3000);carded=true;}
+   try{list.push(quest);seen[save]=list.slice(-200);const saves=Object.keys(seen);if(saves.length>8)delete seen[saves[0]];localStorage.setItem(key,JSON.stringify(seen));}catch{}
+  }
+ }
+ // a new place: its name, as the original shows an area's name on arrival
+ if(!carded&&map&&map!==was?.map&&mapName(map))show('story-place',[mk('strong','',mapName(map))],2400);
+ // a new scene in the same telling: a short dip into dark
+ if(!still&&was&&scene!==was.scene)show('story-dip',[],700);
 }
 function scheduleAuto(p,hasChoices){
  clearTimeout(S.autoTimer);if(!S.auto||hasChoices)return;const b=continueButton(p);if(!b||!/계속 읽기/.test(b.textContent))return;

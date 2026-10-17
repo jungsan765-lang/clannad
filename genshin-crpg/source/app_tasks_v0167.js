@@ -67,7 +67,10 @@ function mini(parent){
  // 0.16.47 (user: 「임무 이쪽도 어떤 임무인지 정확히 나오질 않아서 모르겠다」, with 「5승」「생활 3회」「모두 달성 1/8」): each row says the
  // whole task (「전투 5번 이기기」, 「채집·채광·사냥·낚시 3번」), and a last row counts the day's tasks that open later.
  const list=mk('ul','task-mini-list');for(const x of [...v.daily,v.bonus]){const li=mk('li','task-mini-row '+(x.claimed?'claimed':x.lock?'locked':x.done?'ready':'progress'));const [label,cls]=KIND[x.icon]||['',''];li.title=x.name;li.append(mk('span','task-kind '+cls,label),mk('span','task-mini-name',x.name),mk('b','task-count',x.claimed?'받음':x.lock?x.lock:x.progress+'/'+x.goal));
-  if(x.done&&!x.claimed){const b=claimButton(x);if(!x.here)b.textContent='보고';li.append(b);}list.append(li);}
+  if(x.done&&!x.claimed){const b=claimButton(x);if(!x.here)b.textContent='보고';li.append(b);}
+  // 0.16.62 (초보 점검: the whole guild waits on this one report, and nothing outside the guild pointed there): the locked row takes you to Catherine.
+  else if(x.lock==='의뢰 접수 연습을 보고한 뒤'&&!game.s.runtime){const desk=(game.placeEntries?.()||[]).find(e=>['NPC_MOND_KATHERYNE','NPC_LIYUE_KATHERYNE'].includes(e.entity)),b=button(desk?'캐서린':'길 안내',()=>{if(desk)return act('PLACE_ENTER',{place:desk.id});if(typeof NavigationUI!=='undefined')NavigationUI.choose('MAP_MOND_CITY');window.CRPGShell?.openMap?.();window.CRPGShell?.toast?.('길 안내 · 몬드성의 캐서린');});b.className='task-mini-go';li.classList.add('task-go');b.title='모험가 길드의 캐서린에게 의뢰 접수 연습을 보고하면 오늘의 임무와 의뢰가 열립니다.';li.append(b);}
+  list.append(li);}
  const later=hiddenCount(v,'daily');if(later>0){const li=mk('li','task-mini-row locked task-later');li.append(mk('span','task-kind k-later','다음'),mk('span','task-mini-name','임무 '+later+'개 더 · 앞 임무 보상을 받으면 열림'));list.append(li);}
  sec.append(list);parent.append(sec);
 }

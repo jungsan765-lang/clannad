@@ -51,7 +51,9 @@ check('안드리우스·야타용왕: the old route (보스에게 도전 / 전�
  assert.throws(()=>r.action('PLACE_ENTER',{place:'BOSS:BRT_ANDRIUS',mode:'BOSS'}));
  const gate=r.growthStoryGate(2).ready;assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),gate?'':'몬드 본편을 마치면 열립니다.');
  r.s.flags.FLAG_BOSS_ANDRIUS_CLEAR=true;assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'','a past route win still opens it');delete r.s.flags.FLAG_BOSS_ANDRIUS_CLEAR;
- r.growthStoryGate=p=>({ready:p===2||p===5,label:''});assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'','몬드 본편 완료');assert.equal(r.liyueArtifactUnlocked('AZHDAHA'),true,'리월 본편 3장');
+ r.growthStoryGate=p=>({ready:p===2||p===5,label:''});assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'','몬드 본편 완료');
+ // 0.16.62: the story opens it, but not below the daily boss's level (a Lv10 party lost and spent the day's try)
+ r.s.global.PLAYER_LEVEL_STATE=10;assert.equal(r.materialChallengeReason('BOSS_ANDRIUS'),'일일 보스 토벌은 권장 Lv. 25 전투입니다. 주인공 Lv. 22부터 도전할 수 있습니다.');assert.match(r.actionReason('MOND_MATERIAL_CHALLENGE',{boss:'BOSS_ANDRIUS'}),/주인공 Lv\. 22부터/);r.s.global.PLAYER_LEVEL_STATE=30;assert.equal(r.liyueArtifactUnlocked('AZHDAHA'),true,'리월 본편 3장');
  r.growthStoryGate=()=>({ready:false,label:''});assert.equal(r.liyueArtifactUnlocked('AZHDAHA'),false);r.s.global.CURRENT_MAP_ID='MAP_AZHDAHA_DOMAIN';assert.equal(r.liyueArtifactFarmReason('AZHDAHA'),'리월 본편 3장을 마치면 열립니다.');
  // a half-done route is put away on load; one going on finishes as it began
  const s=plain(JSON.parse(r.serialize()));s.bossRouteProgress={route:'BRT_ANDRIUS',step:1,phase:'AWAIT_NEXT',entry:'GAUNTLET',placeEntrySchema:1,mutation:false};s.global.ACTIVE_BOSS_ROUTE_ID='BRT_ANDRIUS';s.global.BOSS_ROUTE_STEP=1;

@@ -1890,3 +1890,24 @@ body .chat-window>.chat-channels>button.chat-channel:first-child{border-left:0}
 body .chat-window>.chat-channels>button.chat-channel>b{font-size:.8rem}
 body .chat-window>.chat-channels>button.chat-channel>small{font-size:.62rem;opacity:.8}
 body .chat-window>.chat-channels>button.chat-channel.on{background:#ece5d8;color:#3b4255}
+/* 0.16.62 이야기 연출 (app_shell.js storyStage): a quest's title card, a new place's name, a short dip into dark between scenes.
+   They lie over the screen without catching a tap and leave by themselves (--stage-ms). */
+body .story-stage{position:fixed;inset:0;z-index:50;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:storyStage var(--stage-ms,2400ms) ease both}
+body .story-stage.story-dip{z-index:40;background:#05070c;animation-name:storyDip}
+body .story-stage.story-card{gap:10px;background:radial-gradient(ellipse 62% 30% at 50% 50%,rgba(8,10,18,.82),rgba(8,10,18,.5) 55%,transparent 80%)}
+body .story-card>.story-card-label{font:600 18px/1.2 var(--font-display);letter-spacing:.24em;color:#d3bc8e;display:flex;align-items:center;gap:14px}
+body .story-card>.story-card-label::before,body .story-card>.story-card-label::after{content:'';width:64px;height:1px;background:linear-gradient(90deg,transparent,#d3bc8e)}
+body .story-card>.story-card-label::after{background:linear-gradient(270deg,transparent,#d3bc8e)}
+body .story-card>.story-card-title{font:700 46px/1.25 var(--font-display);color:#f4ecdc;text-shadow:0 2px 18px rgba(0,0,0,.75);text-align:center;max-width:80%}
+body .story-card>.story-card-place{font:500 16px/1.2 var(--font-display);color:rgba(236,229,216,.78);letter-spacing:.12em}
+body .story-stage.story-place{justify-content:flex-start;padding-top:150px}
+body .story-place>strong{font:700 32px/1.2 var(--font-display);color:#f4ecdc;letter-spacing:.14em;text-shadow:0 2px 14px rgba(0,0,0,.8);display:flex;align-items:center;gap:18px;padding:8px 28px;background:linear-gradient(90deg,transparent,rgba(8,10,18,.55) 25%,rgba(8,10,18,.55) 75%,transparent)}
+body .story-place>strong::before,body .story-place>strong::after{content:'';width:8px;height:8px;transform:rotate(45deg);border:1px solid #d3bc8e}
+@keyframes storyStage{0%{opacity:0;transform:translateY(8px)}16%{opacity:1;transform:none}78%{opacity:1}100%{opacity:0}}
+@keyframes storyDip{0%{opacity:0}35%{opacity:.55}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){body .story-stage{animation-name:storyStageStill}@keyframes storyStageStill{0%,100%{opacity:0}10%,85%{opacity:1}}}
+@media (max-height:680px){html.stage-pc body .story-card>.story-card-title{font-size:38px}html.stage-pc body .story-stage.story-place{padding-top:110px}html.stage-pc body .story-place>strong{font-size:28px}}
+/* 0.16.62 할 일: the row locked behind 의뢰 접수 연습 has a bright 「캐서린」 / 「길 안내」 button; only its words stay dim */
+body.teyvat :where(#root) .task-mini-row.locked.task-go{opacity:1}
+body.teyvat :where(#root) .task-mini-row.task-go>:not(button){opacity:.62}
+body.teyvat :where(#root) .task-mini-row button.task-mini-go{flex:none;min-height:22px;margin:0;padding:0 8px;font-size:.62rem}

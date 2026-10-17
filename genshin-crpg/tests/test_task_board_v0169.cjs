@@ -68,4 +68,17 @@ check('메인 일일 완료 숫자는 새 갈래가 열려도 고정된 전체 �
  for(let n=0;n<box.dailyIds.length+1;n++){const frontier=p.r.taskView().daily;if(!frontier.length)break;for(const row of frontier){const live=p.r.tasksBox(true);live.dailyProgress[row.id]=live.dailyDefinitions[row.id].goal;p.r.action('TASK_CLAIM',{task:row.id});}}
  assert(p.r.taskView().bonus.done);assert.equal(number(),total+' / '+total);
 });
+// 0.16.62 (초보 점검): until 의뢰 접수 연습 is reported every task waits on it, so the locked row is a way to Catherine.
+check('보고 전에는 잠긴 줄에서 캐서린에게 간다',()=>{
+ const r=fresh();Object.assign(r.s.global,{CURRENT_STORY_NODE_ID:'END',STORY_CURSOR_NODE_ID:'END',PENDING_CHOICE_GROUP_ID:'',SCREEN_MODE:'LOCATION',CURRENT_MAP_ID:'MAP_MOND_PLAINS',WORLD_TIME:'12:00'});delete r.s.storyJourney;delete r.s.storyBreak;
+ const calls=[],guided=[],context={console,document:{body:new Node('body'),createElement:t=>new Node(t),querySelector:()=>null,querySelectorAll:()=>[],addEventListener:()=>{}},game:r,Date,setTimeout:()=>0,clearTimeout:()=>{},
+  button:(label,fn)=>{const b=new Node('button');b.textContent=label;b.onclick=fn;return b;},actionButton:(label)=>{const b=new Node('button');b.textContent=label;return b;},act:(type,params)=>calls.push({type,params}),safeName:(_t,id)=>id,currencyIcon:()=>new Node('img'),
+  render:()=>{},requestAnimationFrame:fn=>fn(),getComputedStyle:()=>({display:'block',gridTemplateColumns:'1fr',paddingTop:'0',paddingBottom:'0',rowGap:'0'}),addEventListener(){},NavigationUI:{choose:map=>guided.push(map)},CRPGShell:{openMap:()=>{},toast:()=>{}}};
+ context.window=context;vm.createContext(context);for(const f of ['app_mainscreen_v0167.js','app_tasks_v0167.js'])vm.runInContext(source(f),context,{filename:f});
+ const go=()=>{const host=new Node('section');context.CRPGTaskBoard.mini(host);return host.querySelector('.task-mini-go');};
+ assert.equal(r.taskView().bonus.lock,'의뢰 접수 연습을 보고한 뒤');
+ let b=go();assert(b,'a button on the locked row');assert.equal(b.textContent,'길 안내');b.onclick();assert.deepEqual(guided,['MAP_MOND_CITY']);
+ r.s.global.CURRENT_MAP_ID='MAP_MOND_CITY';const desk=r.placeEntries().find(e=>e.entity==='NPC_MOND_KATHERYNE');assert(desk,'Catherine is at her desk at noon');
+ b=go();assert.equal(b.textContent,'캐서린');b.onclick();assert.deepEqual(JSON.parse(JSON.stringify(calls.at(-1))),{type:'PLACE_ENTER',params:{place:desk.id}});
+});
 console.log(JSON.stringify({ok:!process.exitCode,checks:passed,scope:'real board/module bindings + deterministic layout; browser media sizing excluded'}));
