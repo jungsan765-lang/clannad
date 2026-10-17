@@ -1836,3 +1836,9 @@ body.teyvat .combat-panel .shell-allies .combatant-row>.shell-aura-badge .el-ico
 
 /* 0.16.59: a used-up potion or bandage is a note, not a buff */
 .st-chip.note{color:#dcd6ca;border-color:rgba(220,214,202,.42);background:rgba(52,52,58,.62)}
+/* 0.16.59 (user: 「삐져나왔다」): the widest gate (잊혀진 협곡 Lv.25: four foes, three books, EXP) put 「도전」 47px past the card.
+   When the row does not fit, 「도전」 goes under it, still on the right. */
+html.stage-pc body.teyvat .shell-loc-left .domain-gate-body{flex-wrap:wrap;row-gap:8px}
+/* 0.16.59: a shut level's condition (「몬드 본편 2장」) ran into the next level's tab; the tab stays dim and the condition shows in the
+   line above when that level is picked (domain-gate-lock), as the narrow column already does. */
+html.stage-pc body.teyvat .shell-loc-left .domain-stage small{display:none}

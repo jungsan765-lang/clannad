@@ -292,3 +292,46 @@ let depth=0;
 for(const m of ['executeCard','aiTurn','executeCombatSystem'])if(typeof P[m]==='function'){const old=P[m];P[m]=function(...args){const b=this.s.runtime;if(!depth++)this._actId=b?(b.round+':'+(b.actionSequence||0)+':'+(b.log?.length||0)+':'+(this._actSerial=(this._actSerial||0)+1)):null;try{return old.apply(this,args);}finally{if(!--depth)this._actId=null;}};}
 P.actIdV01659=true;
 })(globalThis);
+
+/* 0.16.59 (user, 2026-10-17: 「저번에 원석 3배라고 했던거, 다른부분에서는 오르지 않았더라. 신의 눈동자같은거말이야 그것도 충분히 캘 수
+ * 있게 하자」): 0.16.47 tripled the Primogems of chests and achievements only; an oculus paid nothing when found and 150 in all at the
+ * offerings. Now a found oculus pays like a plain chest of its region (몬드 60 · 리월 75), and every offering pays three times its
+ * 0.14.15 amount (몬드 30 · 60 · 90, 리월 60 · 90 · 120: runtime_offerings_v01415.js still pays the first third, this pays the rest).
+ * Oculi found and offerings made before this version are paid once when the save is loaded. Ledger s.oculusPrimogems
+ * {version:1, found:{MOND,LIYUE} (oculi paid for), offer:{tier: extra paid}}; it exists only once something was paid. */
+(function(root){
+'use strict';
+const api=root.CRPGRuntime,P=api?.Runtime?.prototype;if(!P||P.oculusPrimogemsV01659)return;
+const fail=(c,m)=>{throw new api.RuleError(c,m);};
+const FIND={MOND:60,LIYUE:75},OFFER={TIER_1:30,TIER_2:60,TIER_FINAL:90,GEO_TIER_1:60,GEO_TIER_2:90,GEO_TIER_FINAL:120},BASE=api.offeringPrimogems||{};
+const extra=id=>Math.max(0,(OFFER[id]||0)-(Number(BASE[id])||0)),int=n=>Number.isInteger(n)&&n>=0;
+const found=s=>({MOND:Object.keys(s?.exploration?.oculi||{}).length,LIYUE:Object.keys(s?.geoOculi?.receipts||{}).length});
+const offered=s=>[...(s?.exploration?.tiers||[]),...(s?.geoOculi?.tiers||[])].map(t=>t?.id).filter(id=>Object.hasOwn(OFFER,id));
+function settle(s){
+ if(!s?.global)return {found:0,offer:0};const have=found(s),tiers=offered(s),L=s.oculusPrimogems;
+ if(!['MOND','LIYUE'].some(k=>have[k]>(L?.found?.[k]||0))&&!tiers.some(id=>extra(id)>(L?.offer?.[id]||0)))return {found:0,offer:0};
+ const led=s.oculusPrimogems??={version:1,found:{MOND:0,LIYUE:0},offer:{}};let f=0,o=0;
+ for(const k of ['MOND','LIYUE']){const n=have[k]-(led.found[k]||0);if(n>0){f+=n*FIND[k];led.found[k]=have[k];}}
+ for(const id of tiers){const n=extra(id)-(led.offer[id]||0);if(n>0){o+=n;led.offer[id]=extra(id);}}
+ if(f+o)s.global.PRIMOGEM=(Number(s.global.PRIMOGEM)||0)+f+o;return {found:f,offer:o};
+}
+const old={apply:P.apply,validateSave:P.validateSave,oculusExchangeEntry:P.oculusExchangeEntry,geoExchangeEntry:P.geoExchangeEntry};
+P.apply=function(a,...rest){
+ const out=old.apply.call(this,a,...rest),paid=settle(this.s);
+ if(out&&typeof out==='object'&&paid.found+paid.offer){if(paid.found)out.oculusPrimogem=(out.oculusPrimogem||0)+paid.found;
+  if(paid.offer){out.primogem=(Number(out.primogem)||0)+paid.offer;if(out.reward&&typeof out.reward==='object')out.reward={...out.reward,primogem:(Number(out.reward.primogem)||0)+paid.offer};}}
+ return out;
+};
+P.validateSave=function(s,...rest){
+ const out=old.validateSave.call(this,s,...rest),L=out?.oculusPrimogems;
+ if(L!==undefined){const have=found(out),tiers=new Set(offered(out));
+  if(!L||typeof L!=='object'||Array.isArray(L)||L.version!==1||!L.found||!L.offer||typeof L.offer!=='object'||Array.isArray(L.offer)
+   ||['MOND','LIYUE'].some(k=>!int(L.found[k])||L.found[k]>have[k])||Object.entries(L.offer).some(([id,n])=>!tiers.has(id)||!int(n)||n>extra(id)))fail('OCULUS_PRIMOGEM_SAVE','신의 눈동자 원석 기록이 손상되었습니다.');}
+ settle(out);return out;
+};
+const withPrimo=e=>e&&Object.hasOwn(OFFER,e.id)?{...e,reward:{...e.reward,primogem:OFFER[e.id]}}:e;
+if(old.oculusExchangeEntry)P.oculusExchangeEntry=function(...a){return withPrimo(old.oculusExchangeEntry.apply(this,a));};
+if(old.geoExchangeEntry)P.geoExchangeEntry=function(...a){return withPrimo(old.geoExchangeEntry.apply(this,a));};
+api.oculusPrimogems={version:1,find:{...FIND},offer:{...OFFER}};
+P.oculusPrimogemsV01659=true;
+})(globalThis);

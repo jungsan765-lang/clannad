@@ -287,7 +287,11 @@ try{
    if(!process.env.CI&&(!ONLY.length||ONLY.some(o=>o.startsWith('domain-talent')||o.startsWith('alchemy')))){
     {const x=playerState();x.serverAdmin=true;try{x.action('OPERATOR_DEBUG',{op:'travel',map:'MAP_D163_FORSAKEN_RIFT'});}catch(e){console.error('talent domain',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
      await page.evaluate(()=>{document.querySelectorAll('dialog[open]').forEach(d=>d.close());}).catch(()=>{});
-     for(const tab of await labels('.shell-loc-side .shell-tab'))await view('domain-talent-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);}
+     for(const tab of await labels('.shell-loc-side .shell-tab'))await view('domain-talent-'+tab,`(async()=>{await __go('LOCATION');__tap('.shell-loc-side .shell-tab',${JSON.stringify(tab)});})()`);
+     // 0.16.59 (user: 「삐져나왔다」): the widest gate of all — 잊혀진 협곡 Lv.25, four foes, three books and EXP beside 「도전」.
+     const tabs=await labels('.shell-loc-side .shell-tab');
+     await view('domain-talent-widest',`(async()=>{await __go('LOCATION');for(const t of ${JSON.stringify(tabs)}){if(document.querySelector('.domain-gate .domain-stage'))break;__tap('.shell-loc-side .shell-tab',t);await new Promise(r=>setTimeout(r,120));}
+      const b=[...document.querySelectorAll('.domain-gate .domain-stage')].pop();if(!b)throw Error('no stage');b.click();await new Promise(r=>setTimeout(r,200));if(document.querySelectorAll('.domain-gate .domain-foe').length<4)throw Error('not the widest gate');})()`);}
     {const x=playerState();x.serverAdmin=true;try{x.giveItem('GROWTH_GEM_PYRO',900);x.giveItem('GROWTH_TALENT_MOND',60);x.action('PLACE_ENTER',{place:'EVT_SCHEDULE_MRC_ALCHEMY_COMMON',mode:'CRAFT'});}catch(e){console.error('alchemy',e.message);}fixture.seed(x.s);await page.evaluate(()=>CRPGOnline.sync());await idle();
      await view('alchemy-exchange',`(async()=>{document.querySelector('.shell-forge-tile[data-pick^="EXCHANGE:GROWTH_TALENT"]')?.click();await new Promise(r=>setTimeout(r,250));if(!document.querySelector('.shell-forge-tile[data-pick^="EXCHANGE:"]'))throw Error('no exchange card');})()`);
      await view('alchemy-synth',`(async()=>{[...document.querySelectorAll('.craft-tabs button')].find(b=>/재료 합성/.test(b.textContent))?.click();await new Promise(r=>setTimeout(r,250));})()`);

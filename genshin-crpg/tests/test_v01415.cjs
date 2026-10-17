@@ -84,9 +84,11 @@ check('offerings: each oculus tier pays a few Primogems (150 in all), and earlie
  assert.equal(Object.values(api.offeringPrimogems).reduce((a,b)=>a+b,0),150);
  const g=world('MAP_MOND_WINDRISE');g.s.global.LAST_COMMITTED_ACTION_SEQ=Math.max(1,g.s.global.LAST_COMMITTED_ACTION_SEQ);
  const e=g.ensureExplorationState();for(const p of c.CRPGWorldContent.oculi.slice(0,4)){e.visitedMaps[p.map]=true;e.oculi[p.id]={map:p.map,day:1,action:g.s.global.SAVE_ID+':1'};g.giveItem('KEY_CRPG_ANEMOCULUS',1);}
- assert.equal(g.oculusExchangeEntry().reward.primogem,10,'the offering card shows it');
+ // 0.16.59: an offering pays three times this (runtime_reading.js pays the rest), and the four oculi put in the save above pay
+ // 60 each as found oculi do now (tests/test_oculus_primogems_v01659.cjs)
+ assert.equal(g.oculusExchangeEntry().reward.primogem,30,'the offering card shows it');
  const before=Number(g.s.global.PRIMOGEM)||0,out=g.action('OCULUS_OFFER',{tier:'TIER_1'});
- assert.equal((Number(g.s.global.PRIMOGEM)||0)-before,10);assert.equal(out.result.primogem,10);
+ assert.equal((Number(g.s.global.PRIMOGEM)||0)-before,30+4*60);assert.equal(out.result.primogem,30);
  const R=g.constructor,s=JSON.parse(g.serialize());delete s.offeringPrimogems;s.global.PRIMOGEM=5;
  const loaded=new R(g.db,s,true);assert.equal(loaded.s.global.PRIMOGEM,15,'paid once for the offering made before this version');
  assert.equal(new R(g.db,JSON.parse(loaded.serialize()),true).s.global.PRIMOGEM,15,'and never twice');

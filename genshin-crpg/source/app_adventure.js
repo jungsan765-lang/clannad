@@ -193,13 +193,14 @@ function adventureGrowthSnapshot(){const result=growthSnapshot();for(const owner
 function adventureSnapshot(){return {map:game.s.global.CURRENT_MAP_ID,place:game.s.placeVisit?.place,inventory:JSON.parse(JSON.stringify(game.s.inventory)),mora:game.s.global.MORA,primogem:Number(game.s.global.PRIMOGEM)||0,level:game.growth(),growth:adventureGrowthSnapshot(),relations:Object.fromEntries(Object.entries(game.s.relations).map(([id,r])=>[id,r.BOND_SCORE??r.heart*20])),completed:Object.keys(game.s.quests).filter(id=>game.s.quests[id].claimed),battle:game.s.runtime?.id,joined:joinedCompanions()};}
 function joinedCompanions(){try{return Object.entries(JSON.parse(game.s.global.COMPANION_ELIGIBILITY_JSON||'{}')).filter(([,e])=>e?.state==='JOINED').map(([id])=>id);}catch{return [];}}
 function receivedLoot(before,type){
+ // 0.16.59: an oculus found at the end of a puzzle job (WORLD_WORK_*) shows what it brought too — it pays Primogems now (runtime_reading.js).
  // 0.16 (user: 「뽑기에서 뽑았을 때 이 화면이 먼저 나오는 문제」): a wish shows what it brought on the wish screen itself (the
  // falling star, each result, the list), so the reward window never opens over it — not even for a companion who joined.
  if(type==='WISH')return null;
  // 0.16.2: leaving a resource scene empty-handed spent nothing; the scene already showed it (app_life_v0162.js).
  if(type==='LIFE_FINISH'&&lastResult?.result?.empty)return null;
  const joins=before.joined?joinedCompanions().filter(id=>!before.joined.includes(id)):[];
- if(!joins.length&&!['USE_ITEM','CRAFT','BUY','OCULUS_COLLECT','OCULUS_RESONANCE','OCULUS_OFFER','GEO_OCULUS_OFFER','GEO_TRAIL_CLAIM','CLAIM_QUEST','LIFE_FINISH','STORY_NEXT','STORY_CHOICE','COMBAT','COMBAT_BEGIN'].includes(type))return null;
+ if(!joins.length&&!['USE_ITEM','CRAFT','BUY','OCULUS_COLLECT','OCULUS_RESONANCE','OCULUS_OFFER','GEO_OCULUS_OFFER','GEO_TRAIL_CLAIM','CLAIM_QUEST','LIFE_FINISH','STORY_NEXT','STORY_CHOICE','COMBAT','COMBAT_BEGIN'].includes(type)&&!(['WORLD_WORK_START','WORLD_WORK_FINISH'].includes(type)&&lastResult?.result?.point&&lastResult.result.items))return null;
  const entries=[],prior=new Map(before.inventory.filter(i=>i.item).map(i=>[i.item+'|'+(i.variant||''),0]));for(const i of before.inventory)if(i.item){const key=i.item+'|'+(i.variant||'');prior.set(key,(prior.get(key)||0)+i.quantity);}
  const now=new Map();for(const i of game.s.inventory)if(i.item){const key=i.item+'|'+(i.variant||'');const x=now.get(key)||{instance:i,quantity:0};x.quantity+=i.quantity;now.set(key,x);}
  for(const [key,x]of now){const quantity=x.quantity-(prior.get(key)||0);if(quantity>0)entries.push(itemPresenter.itemDetail(x.instance,{quantity}));}
