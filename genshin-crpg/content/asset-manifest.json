@@ -14531,6 +14531,30 @@
       "role": "ENEMY_ILLUSTRATION",
       "max_display_width_px": 1024,
       "source": "사용자 제공 그림 (2026-10-05 대화) · 필드 보스 전투 그림"
+    },
+    "ASSET_ENEMY_TARTAGLIA_FOUL_LEGACY": {
+      "asset_id": "ASSET_ENEMY_TARTAGLIA_FOUL_LEGACY",
+      "owner_id": "enemy_tartaglia_foul_legacy",
+      "file_name": "enemy_tartaglia_foul_legacy.png",
+      "src": "assets/enemy_tartaglia_foul_legacy.png",
+      "local_path": "assets/enemy_tartaglia_foul_legacy.webp",
+      "category": "ENEMY",
+      "content_rating": "GENERAL",
+      "variant": "",
+      "width": 1344,
+      "height": 896,
+      "bytes": 215074,
+      "sha256": "db89065e594f17e75b92a69ce7b5d51a547eba17e5cff65cdb32341d766f15d7",
+      "mime_type": "image/webp",
+      "has_alpha_channel": false,
+      "fit": "contain",
+      "allow_upscale": false,
+      "face_crop": false,
+      "label_outside_art": true,
+      "source_image_modified": false,
+      "role": "ENEMY_ILLUSTRATION",
+      "max_display_width_px": 1024,
+      "source": "사용자 제공 그림 (2026-10-17 대화) · 타르탈리아 마왕 무장(미니게임 배경)"
     }
   },
   "owners": {
@@ -15191,6 +15215,9 @@
     ],
     "enemy_fb_ruin_serpent": [
       "ASSET_ENEMY_FB_RUIN_SERPENT"
+    ],
+    "enemy_tartaglia_foul_legacy": [
+      "ASSET_ENEMY_TARTAGLIA_FOUL_LEGACY"
     ]
   },
   "profiles": {
@@ -18155,7 +18182,7 @@
     "file_count": 79,
     "bytes": 154070565,
     "portraits": 25,
-    "enemies": 39,
+    "enemies": 40,
     "backgrounds": 15,
     "mapped_mond_references": 11,
     "mond_name_action_fallbacks": 7,
