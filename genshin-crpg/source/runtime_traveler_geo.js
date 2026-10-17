@@ -88,7 +88,8 @@ P.travelerResonanceView=function(){
 P.actionReason=function(type,a={}){
  const reason=old.actionReason.call(this,type,a);if(reason||type!=='TRAVELER_RESONATE')return reason;
  const g=this.s.global,element=a.element;
- if(!STATUE[element])return '공명할 원소를 선택해 주세요.';
+ // 0.16.62 (오류 찾기): only the table's own elements — 「constructor」 answered and the next line failed without a game reason
+ if(!(typeof element==='string'&&Object.prototype.hasOwnProperty.call(STATUE,element)))return '공명할 원소를 선택해 주세요.';
  if(g.STORY_ROUTE_ID!==TRAVELER)return '일곱신상은 이세계인의 손길에 반응하지 않습니다.';
  if(!this.protagonistUnlocked())return '먼저 바람 신상과의 공명을 되찾아야 합니다.';
  if(this.s.runtime||this.s.battlePreparation||g.STORY_MENU_POLICY==='SAVE_LOAD_ONLY')return '진행 중인 장면을 먼저 마쳐 주세요.';

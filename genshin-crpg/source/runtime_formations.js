@@ -23,7 +23,10 @@ const DEFAULT='DOUBLE_LINE',ENEMY_HP=1.1,ENEMY_ATK=1.08;
 api.formationConfig={formations:cp(FORMATIONS),roles:cp(ROLES),defaultFormation:DEFAULT,enemyHp:ENEMY_HP,enemyAtk:ENEMY_ATK};
 function merge(...parts){const out={};for(const m of parts.filter(Boolean))for(const [k,v]of Object.entries(m)){const o=out[k]||(out[k]={pct:0,flat:0});o.pct+=v.pct||0;o.flat+=v.flat||0;}return out;}
 const roleOf=(r,id)=>id==='PLAYER_CUSTOM'?null:(r.s.party.find(p=>p.active&&p.source===id)?.tactic||'균형');
-P.partyFormation=function(){return FORMATIONS[this.s?.partyFormation]?this.s.partyFormation:DEFAULT;};
+// 0.16.62 (오류 찾기): a formation is one of the table's own names — 「constructor」·「toString」 are names every object answers to, and
+// a save holding one broke every battle start.
+const known=id=>typeof id==='string'&&Object.prototype.hasOwnProperty.call(FORMATIONS,id);
+P.partyFormation=function(){return known(this.s?.partyFormation)?this.s.partyFormation:DEFAULT;};
 P.formationRoles=function(){return this.s.party.filter(p=>p.active&&p.type==='CHAR').map(p=>p.tactic||'균형');};
 P.formationView=function(){
  const id=this.partyFormation(),roles=this.formationRoles();
@@ -70,18 +73,19 @@ P.shield=function(a,value,source,rounds,extra={}){
  return old.shield.call(this,a,value,source,rounds,extra);
 };
 P.actionReason=function(type,a={}){
- if(type==='FORMATION_SET'&&a.formation!==undefined&&a.order===undefined){if(this.s.runtime)return '전투 중에는 진형을 바꿀 수 없습니다.';return FORMATIONS[a.formation]?'':'진형을 선택해 주세요.';}
+ if(type==='FORMATION_SET'&&a.formation!==undefined&&a.order===undefined){if(this.s.runtime)return '전투 중에는 진형을 바꿀 수 없습니다.';return known(a.formation)?'':'진형을 선택해 주세요.';}
  return old.actionReason.call(this,type,a);
 };
 P.apply=function(a){
- if(a.type==='FORMATION_SET'&&a.formation!==undefined&&a.order===undefined){if(!FORMATIONS[a.formation])fail('FORMATION','진형을 선택해 주세요.');this.s.partyFormation=a.formation;return {formation:a.formation,name:FORMATIONS[a.formation].name};}
+ if(a.type==='FORMATION_SET'&&a.formation!==undefined&&a.order===undefined){if(!known(a.formation))fail('FORMATION','진형을 선택해 주세요.');this.s.partyFormation=a.formation;return {formation:a.formation,name:FORMATIONS[a.formation].name};}
  return old.apply.call(this,a);
 };
 P.newGame=function(...args){const out=old.newGame.apply(this,args);if(this.s&&!this.s.partyFormation)this.s.partyFormation=DEFAULT;return out;};
 P.validateSave=function(s){
  const out=old.validateSave.call(this,s)||s;
- if(out.partyFormation!==undefined&&!FORMATIONS[out.partyFormation])fail('FORMATION_SAVE','진형 기록이 올바르지 않습니다.');
- const f=out.runtime?.formationV1;if(f&&(!FORMATIONS[f.id]||typeof f.synergy!=='boolean'))fail('FORMATION_SAVE','전투 진형 기록이 올바르지 않습니다.');
+ // a save that took such a name before 0.16.62 goes back to the usual formation instead of failing to open
+ if(out.partyFormation!==undefined&&!known(out.partyFormation)){if(typeof out.partyFormation==='string'&&out.partyFormation in FORMATIONS)delete out.partyFormation;else fail('FORMATION_SAVE','진형 기록이 올바르지 않습니다.');}
+const f=out.runtime?.formationV1;if(f&&(!known(f.id)||typeof f.synergy!=='boolean'))fail('FORMATION_SAVE','전투 진형 기록이 올바르지 않습니다.');
  return out;
 };
 })(globalThis);
