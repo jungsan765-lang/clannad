@@ -111,6 +111,33 @@ check('충격파 넘기 is fair: every ring\'s gap opens into the box, near wher
  assert.match(code,/const SCENE=\{ANEMO:\['assets\/enemy_fb_anemo_hypostasis\.webp'/);assert.match(code,/pic\('assets\/icons\/ui\/UI_Buff_Element_Wind\.webp'\)/);assert.match(code,/const hero=\(ctx,x,y,blink/);
  for(const f of ['enemy_fb_anemo_hypostasis','enemy_fb_cryo_hypostasis','enemy_fb_ruin_serpent','enemy_18','enemy_20','enemy_21','riwal_trtra_7','riwal_trtra_3'])assert(fs.existsSync(path.join(ROOT,'assets',f+'.webp')),f);
 });
+check('a careful dodger is rarely hit in 충격파 넘기, and one who goes for the wind elements takes most of them',()=>{
+ // 0.16.58 (user: 「무상의 바람 난이도가 좀 심한데.. 조금만 더 낮춰주고, 야타용왕은 여전히 억까 수준이 좀 있긴 하네」): a bot that looks
+ // 0.3 s ahead every 0.12 s and steps the safest of nine ways (and towards the nearest element, when there are elements)
+ let code=src('source/app_bossgames_v01646.js');code=code.replace('window.CRPGFieldBossMinigames={version:1,','window.__GAMES=GAMES;window.CRPGFieldBossMinigames={version:1,');
+ code=code.replace('  over:()=>false,','  state:()=>({bullets,P,orbs}),over:()=>false,').replace('   over:()=>!orbs.length,','   state:()=>({bullets,P,orbs,C}),over:()=>!orbs.length,');
+ const el=()=>({append(){},setAttribute(){},style:{setProperty(){}},dataset:{},addEventListener(){},classList:{add(){}}});
+ const ctx={document:{createElement:el,head:{append(){}},body:{append(){}},hidden:false},matchMedia:()=>({matches:false}),navigator:{maxTouchPoints:0},act:()=>{},combat:()=>{},battleStatusList:()=>[],game:null,busy:false,performance:{now:()=>0},requestAnimationFrame:()=>0,cancelAnimationFrame(){},console};ctx.window=ctx;vm.createContext(ctx);vm.runInContext(code,ctx);
+ const rng=seed=>{let a=(Number(seed)>>>0)||1;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};};
+ const gapOf=(a,b)=>{let d=Math.abs(a-b)%(Math.PI*2);return d>Math.PI?Math.PI*2-d:d;},A={x:24,y:24,w:592,h:352};
+ const clear=(q,bs,tau,core)=>{let best=1e9;for(const b of bs){const life=b.life+tau;if(b.delay&&life<b.delay-.05)continue;
+  if(b.ring){const R=b.r0+b.speed*Math.max(0,life-(b.delay||0)),d=Math.hypot(q.x-b.cx,q.y-b.cy);if(gapOf(Math.atan2(q.y-b.cy,q.x-b.cx),b.gap)<b.gapW/2-.08)continue;best=Math.min(best,Math.abs(d-R)-(b.thick/2+5));continue;}
+  const live=!(b.delay&&b.life<b.delay),dt=live?tau:Math.max(0,tau-(b.delay-b.life)),x=b.x+(b.vx||0)*dt,y=b.y+(b.vy||0)*dt;
+  best=Math.min(best,b.rect?Math.max(Math.abs(q.x-x)-(b.w/2+5),Math.abs(q.y-y)-(b.h/2+5)):Math.hypot(q.x-x,q.y-y)-(b.r+5));}
+  return core?Math.min(best,Math.hypot(q.x-core.x,q.y-core.y)-31):best;};
+ const play=(kind,mini,seed,goalW)=>{const g=ctx.__GAMES[kind]({...mini,seed},rng(seed)),inp={keys:new Set(),pad:[0,0],point:null,down:false,taps:[]},dirs=[[0,0]];for(let k=0;k<8;k++)dirs.push([Math.cos(k*Math.PI/4),Math.sin(k*Math.PI/4)]);let next=0;
+  for(let t=0;t<mini.seconds;t+=1/60){if(g.over())break;const st=g.state();
+   if(t>=next){next=t+.12;const sp=kind==='ANEMO_ORBS'?180:235,goal=st.orbs?.length?st.orbs.slice().sort((a,b)=>Math.hypot(a.x-st.P.x,a.y-st.P.y)-Math.hypot(b.x-st.P.x,b.y-st.P.y))[0]:null;let best=null;
+    for(const d of dirs){let worst=1e9;for(const tau of [.1,.2,.3]){const q={x:Math.max(A.x+8,Math.min(A.x+A.w-8,st.P.x+d[0]*sp*tau)),y:Math.max(A.y+8,Math.min(A.y+A.h-8,st.P.y+d[1]*sp*tau))};worst=Math.min(worst,clear(q,st.bullets,tau+.06,st.C));}
+     let score=Math.min(worst,40);if(goal)score-=Math.hypot(goal.x-st.P.x-d[0]*30,goal.y-st.P.y-d[1]*30)*goalW;score-=Math.max(0,60-Math.min(st.P.x+d[0]*20-A.x,A.x+A.w-st.P.x-d[0]*20,st.P.y+d[1]*20-A.y,A.y+A.h-st.P.y-d[1]*20))*.15;
+     if(!best||score>best.score)best={d,score};}inp.pad=best.d;}
+   g.update(1/60,t,inp);}return g.result();};
+ let hits=0,worst=0,clean=0;for(let s=1;s<=30;s++){const r=play('AZHDAHA_DODGE',{maxHits:6,orbs:0,seconds:9},s*7919,0);hits+=r.hits;worst=Math.max(worst,r.hits);if(!r.hits)clean++;}
+ let orbs=0,orbHits=0;for(let s=1;s<=30;s++){const r=play('ANEMO_ORBS',{orbs:5,maxHits:6,seconds:10},s*7919,.4);orbs+=r.orbs;orbHits+=r.hits;}
+ console.log(JSON.stringify({azhdaha:{avgHits:+(hits/30).toFixed(2),worst,clean},windElements:{avgOrbs:+(orbs/30).toFixed(2),avgHits:+(orbHits/30).toFixed(2)}}));
+ assert(hits/30<=1.2,'충격파 avg hits '+hits/30);assert(worst<=3,'충격파 worst '+worst);assert(clean>=8,'충격파 clean '+clean);
+ assert(orbs/30>=3.5,'wind elements '+orbs/30);assert(orbHits/30<=.8,'wind hits '+orbHits/30);
+});
 check('every minigame says what just happened; a wind element is taken where it is drawn; 드발린 is its own picture with smaller crystals',()=>{
  // 0.16.58 (user: 「냉기 핵은 핵 적중 된거 어떻게 알아?」, 「드발린 너무 쉽고, 드발린 동그라미 … 혐오감」, 「바람 원소 먹는게 뭔가 보이는것보다 더 제대로 먹어야되네?」)
  const code=src('source/app_bossgames_v01646.js');
